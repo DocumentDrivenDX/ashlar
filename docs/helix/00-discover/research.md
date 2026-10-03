@@ -1,4 +1,64 @@
-# Initial prior-art research
+# Current framing research and scope disposition
+
+Updated 2026-10-03. Owner direction now selects a domain-independent, open-source
+property-graph toolkit, UMF integration,
+and Databricks gold Delta. Earlier statements below that these were unselected
+are historical bootstrap context. No Databricks execution or performance tests
+were performed in this framing pass.
+
+## Query path to evaluate
+
+| Candidate | Evidence | Proposed evaluation and limits |
+| --- | --- | --- |
+| Fixed-depth SQL joins | Relational baseline; feasibility to prove on selected target | First test lookup, one-hop filters, and two-hop TypeA–TypeB–TypeC joins over the same schema. No new language required. |
+| GraphFrames motif queries | [Official motif guide](https://graphframes.io/04-user-guide/04-motif-finding.html), read 2026-10-03 | Documented structural patterns use vertex/edge DataFrames. Compare identity and multiplicity with SQL; pin library, Spark and Databricks compatibility before selection. Compute library, not store. |
+| Recursive SQL | [Databricks AWS CTE reference](https://docs.databricks.com/aws/en/sql/language-manual/sql-ref-syntax-qry-select-cte), read 2026-10-03 | Documentation places recursion at Runtime 17.0+; default depth 100 and result limit 1,000,000. Runtime 17.2+ documents LIMIT ALL. Optional bounded experiment; limits and execution still need verification on the selected target. |
+| GraphAr | Existing [resource note](resources/graphar.md) | Secondary export/layout candidate. Do not replace owner-selected gold Delta merely to adopt another format. |
+
+Recommendation for the design experiment, not a recorded final architecture:
+compare shared node/edge tables, typed tables, and a hybrid using identical
+logical examples and query answers. Begin with ordinary joins. Try GraphFrames
+only as a consumer of that representation; record a rejection if setup or
+semantics make it unsuitable. Separate fixed-depth queries from graph algorithms.
+
+Use a small correctness fixture first, then a reproducible workload with reported
+node/edge counts, property widths, high-degree hubs, isolated nodes, selective
+starts, and update churn. Select larger scale steps and latency/cost budgets with
+the owner; never imply billion-node support from a small proof.
+
+## UMF and enforcement evidence
+
+[UMF revision evidence](resources/umf.md) identifies existing logical/physical
+separation and stable relationship binding. Inspect the pinned core and binding
+contracts before defining the graph extension. Full Delta table generation is
+not established by the inspected upstream evidence.
+
+[Databricks constraints](resources/databricks-constraints.md), rechecked against
+[official AWS documentation](https://docs.databricks.com/aws/en/tables/constraints)
+on 2026-10-03, distinguishes enforced NOT NULL/CHECK from informational keys.
+The schema package must cover uniqueness and endpoint validation explicitly.
+
+## Scope disposition of the owner brief
+
+| Brief topic | Ashlar disposition | Re-entry condition |
+| --- | --- | --- |
+| Property graph, UMF, gold Delta | First milestone, FR-1–FR-3 | Current scope |
+| Identity, typed properties, edge provenance/version, governance declarations | Preserve and define necessary schema semantics | Exact policies in design Contracts; real-data governance review before adoption |
+| UMF vocabulary cleanup, forks, actions, compensation | Related upstream work; no core rewrite here | Proven graph-profile gap and separately scoped upstream change |
+| Truss/Postgres/Lakebase, hybrid JSONB, audit feed | External transactional context; no inherited engine or ADR | A concrete producer contract and requested integration |
+| Hot-to-gold freshness | Open operational requirement | Measured publication mechanism and budget; Lakebase alone proves no gold visibility |
+| Generated GraphQL, action tools, MCP, admin walker | Deferred consumers | Stable schema/query contracts and explicit scope expansion |
+| Fabric GQL / Neo4j | Deferred projections | Stable gold profile and a real consumer requirement |
+| RDF/OWL/SHACL/Turtle | Interchange context only | Separately requested projection; never implicit graph runtime |
+| General graph algorithms, sagas, kinetics/writeback | Deferred | Validated schema/query milestone plus explicit owner request |
+
+The brief's product claims about Lakebase extensions, Fabric preview state,
+TableSpec production results, and test counts are owner-supplied context, not
+verified Ashlar compatibility evidence. No such dependency is selected here.
+
+---
+
+# Historical bootstrap research (superseded where noted below)
 
 Desk research completed 2026-10-03 before drafting the vision. No platform,
 performance, compatibility, or customer validation was performed.

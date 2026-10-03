@@ -19,79 +19,72 @@ ddx:
 
 ## Mission Statement
 
-Ashlar gives data platform engineers a common structure for graph nodes on
-Databricks so independently produced datasets can be understood and reused.
+Ashlar is an open-source toolkit that helps data platform engineers define and
+use property-graph ontologies on data warehouses through UMF, trustworthy
+table schemas, and explainable queries.
 
 ## Positioning
 
-For data platform engineers sharing graph-shaped datasets between ingestion
-pipelines and analytics on Databricks, Ashlar is a shared graph data contract.
-Its proposed benefit over independently specified vertex and edge tables is
-agreement on what a node means across producers and consumers. This audience
-and benefit are hypotheses, pending a first-user example.
+For data platform teams building ontologies across domains,
+Ashlar is an open-source toolkit for defining and using ontologies on a data warehouse. It replaces repeated
+handwritten structural mappings with a reusable metadata contract. The owner
+selected Databricks and integration with DocumentDrivenDX's UMF, a metamodel
+and schema interchange fabric. The first user team remains to be identified.
 
 ## Vision
 
-Engineers can combine graph data from different producers with explicit,
-reviewable agreements about identity, properties, and compatibility. Consumers
-can tell which assumptions hold before relying on a dataset.
+Engineers describe typed entities and relationships once, preserve their meaning
+across warehouse representations, and query connections with known limits.
+Both nodes and edges carry properties; source lineage remains inspectable.
 
-**North Star**: Two independent producers supply data to one agreed consumer
-using the same versioned contract without producer-specific structural remapping.
+**North Star**: Two independent producers and one analytics consumer share a
+versioned ontology without producer-specific structural remapping in the consumer.
 
 ## User Experience
 
-In an illustrative future session, a platform engineer brings customer and
-account datasets from two pipelines. The engineer describes how each source
-maps to the agreed node contract and checks the result. A consumer receives
-consistent records; conflicts and unsupported mappings remain visible for review.
-The engineer can identify which contract revision each producer used. This is a
-proposed experience, not implemented functionality or an approved feature list.
+A platform engineer describes synthetic TypeA, TypeB, and TypeC node types
+and their property-bearing relationships. The engineer reviews the warehouse representation,
+sees which constraints require external checks, and queries nodes
+reachable through a fixed two-hop pattern. An isolated node remains discoverable. A missing
+endpoint or unsupported mapping is visible before the data is trusted.
 
 ## Target Market
 
 | Attribute | Description |
 | --- | --- |
-| Who | Databricks platform teams maintaining at least two graph-data producers and one shared analytics consumer; first team still to identify. |
-| Pain | Repeated negotiation of identity and structure across independently defined datasets; assumption A2 in the discovery input. |
-| Current Solution | Individually specified tables, potentially exposed through GraphFrames vertex/edge DataFrames. |
-| Why They Switch | A repeatable contract could reduce integration rework; interviews and a pilot must establish the benefit. |
+| Who | Data platform engineers and ontology analytics engineers across domains; Databricks is the first target. |
+| Pain | Identity, relationship, and property conventions diverge across source systems. |
+| Current Solution | Handwritten table mappings and query-specific joins; prevalence is an unvalidated hypothesis. |
+| Why They Switch | Reuse a reviewed ontology contract and see its preservation and enforcement limits. |
 
 ## Key Value Propositions
 
 | Value Proposition | Customer Benefit |
 | --- | --- |
-| Shared structural meaning | Consumers can reuse data without relearning each producer's conventions. |
-| Explicit compatibility boundaries | Engineers can see unsupported mappings before trusting combined data. |
-| Reviewable evolution | Producers and consumers can agree on changes before adoption. |
+| Shared logical definitions | Teams reuse the same entity and relationship meaning. |
+| Explicit projection limits | Consumers distinguish retained meaning from approximations and omissions. |
+| Queryable warehouse ontology | Analytics follows connections using a supported, evidenced path. |
 
 ## Success Definition
 
-These are proposed strategic measures for the first 12 months after a pilot
-begins. The owner must confirm targets during framing; no baseline exists yet.
+Proposed strategic measures for the first 12 months after a pilot starts:
 
 | Metric | Target |
 | --- | --- |
-| Independent adoption | Two producers and one consumer pass the same agreed contract checks, verified by a reproducible pilot. |
-| Reuse | Zero producer-specific structural remapping inside that consumer, verified by reviewing its integration code. |
-| Meaning preservation | Zero unexplained value loss across the pilot's agreed mapping corpus, verified by input/output comparisons. |
+| Adoption | Two independent producers and one consumer pass a shared conformance corpus. |
+| Reuse | Zero producer-specific structural remapping in the pilot consumer, assessed by integration review. |
+| Preservation | Zero unexplained semantic losses in the agreed mapping corpus. |
 
 ## Why Now
 
-The owner has identified a need to standardize graph nodes on Databricks before
-choosing a structure. The [initial research](research.md) identifies GraphFrames,
-a Spark graph-processing library, and Apache GraphAr, a graph file format, as
-existing candidates to reuse. Databricks documents an enforcement boundary that
-framing must account for. These are reasons to investigate a shared contract now;
-market urgency and customer demand remain unvalidated.
+The owner's 2026-10-03 direction establishes Ashlar as a general-purpose,
+open-source property-graph toolkit and prioritizes warehouse schemas and queries.
+Framing this boundary now prevents transactional-engine and agent-interface
+work from obscuring the foundational schema decisions. Customer validation and
+billion-node feasibility remain open.
 
 ## Review Checklist
 
-- [x] Mission names the user, problem, and proposed approach.
-- [x] Positioning identifies the current alternative and proposed benefit.
-- [x] Vision describes an end state and a measurable north star.
-- [x] A concrete scenario, target users, and switching hypothesis are recorded.
-- [x] Proposed metrics name outcomes, measurement methods, and a time horizon.
-- [x] Why Now distinguishes owner direction from research and assumptions.
-- [x] Requirements and technical choices remain for downstream artifacts.
-- [ ] Owner approval and first-user validation are pending.
+- [x] Direction, audience, concrete scenario, and measurable outcomes are stated.
+- [x] Detailed requirements and physical choices are delegated downstream.
+- [ ] Owner approval and first-user validation remain pending.

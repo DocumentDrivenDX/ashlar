@@ -1,51 +1,58 @@
 # Discovery input
 
-Captured 2026-10-03 from the owner's naming and bootstrap discussion.
+Updated 2026-10-03. The owner selected Ashlar and authorized the repository and
+HELIX bootstrap. The current request and supplied build brief supersede the
+initial uncertainty about UMF, edges, graph model, and gold storage.
 
 ## Confirmed direction
 
-- Intent: “design a standard structure for graph nodes on databricks.”
-- Name: Ashlar, selected by the owner after two naming research rounds.
-- Destination: DocumentDrivenDX/ashlar; bootstrap with HELIX.
-- The broader description “a standard graph data model for Databricks” is the
-  working tagline. Whether the first release standardizes edges is still open.
+- Ashlar is an open-source, domain-independent toolkit to build and use
+  property-graph ontologies on data warehouses. Databricks is the first target.
+- Integrate with UMF to define node types; preserve its existing semantics.
+- Use a labeled property graph: typed nodes and typed edges, both with properties.
+- Databricks gold Delta tables are the official ontology for reads and analytics.
+- First milestone: well-supported table schemas and a path to graph queries,
+  potentially using existing Databricks-compatible tools.
+- Domain types are user-defined. Workloads may include high-change imported
+  relationships, curated types maintained elsewhere, and many isolated nodes.
+- A couple of billion nodes is a workload aspiration, not demonstrated capacity.
+
+## Authority and source handling
+
+The narrower accompanying request governs Ashlar's first milestone. The
+[generalized build brief](build-brief.md) retains the technical starting context, not
+as an approved architecture or an implementation instruction for every project.
+Its external product/version assertions require independent verification.
+
+The brief's proposed entity/property vocabulary is a consumer-language request,
+not authorization to rename or redefine UMF core. Reuse UMF concepts and physical
+bindings; put graph-only meaning in a versioned Ashlar extension when necessary.
+The brief's whole-ecosystem sequence does not make Truss a prerequisite for
+Ashlar's synthetic schema and query proof.
 
 ## Naming rationale
 
-Ashlar evokes precisely shaped stones that fit together. It fits the structural
-metaphor of truss while retaining its own project identity. The owner chose it
-with existing software-name overlap disclosed. Package, domain, and trademark
-availability have not been cleared; do not publish a package based on the repo name.
+Ashlar evokes precisely shaped stones that fit together. The owner selected it
+with existing name overlap disclosed. Package, domain, and trademark availability
+have not been cleared; naming does not authorize publication.
 
-## Assumptions to validate
+## Open-source direction
 
-- A1: Initial users are data platform engineers maintaining graph-shaped datasets
-  on Databricks for more than one producer or consumer. No first user is identified.
-- A2: A reusable contract reduces repeated mapping work compared with individually
-  defined tables. No customer interviews or measured baseline establish this yet.
-- A3: GraphFrames is a useful candidate consumer and GraphAr a useful candidate
-  format. Neither integration is selected or tested.
-- A4: Identity, properties, and evolution need shared rules; their actual semantics
-  must come from a real use case during framing.
+Ashlar will be open source. License selection and release/distribution details
+remain open; no license has been selected or publication performed by this pass.
+Domain definitions belong to consumer-authored UMF models, not built-in industry
+schemas. Synthetic TypeA/TypeB/TypeC examples demonstrate structural behavior.
 
-## Proposed scope boundaries
+## Assumptions and unresolved choices
 
-For the initial framing discussion, keep a new graph database engine, query
-language, graph visualization application, and automated entity resolution out
-of scope. These are proposed non-goals, not owner-approved product requirements.
-Databricks is the stated foundation; portability to other platforms is undecided.
+- First producer and consumer teams remain unidentified; synthetic domain-neutral examples
+  are proposed design fixtures, not approved production datasets.
+- Global identity, source-key reconciliation, tenant scope, edge multiplicity,
+  temporal semantics, and deletion behavior need recorded design decisions.
+- UMF revision and supported subset, Databricks cloud/runtime/compute/catalog,
+  performance budgets, retention, and enforcement policies remain open.
+- Runtime language is undecided. Truss's Postgres and TypeScript choices do not
+  govern Ashlar. Related tools are integration candidates, not inherited code.
 
-## Open questions
-
-1. Who are the first producer and consumer, and what concrete graph do they share?
-2. Does the first standard include edges, labels/types, and edge properties?
-3. What defines node identity across sources, tenants, and time?
-4. Is Ashlar a logical model, physical storage convention, validation library, or
-   a combination? Which existing format or model should it adopt?
-5. Should it consume UMF, and how does that divide responsibility with tablespec?
-6. Which Databricks cloud, runtime, catalog, and table format must be supported?
-7. Which rules need write-time enforcement versus validation and reporting?
-8. What history, provenance, deletion, access control, and schema evolution do
-   actual users need? Is any sensitive data involved?
-9. Which implementation language, distribution package name, and license fit
-   the agreed deliverable? None has been selected.
+See the [PRD](../01-frame/prd.md) for scope, ownership of open questions, and
+acceptance targets. All derived artifacts remain drafts.
