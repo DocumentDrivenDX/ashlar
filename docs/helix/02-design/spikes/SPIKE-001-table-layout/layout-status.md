@@ -163,3 +163,5 @@ complete field comparisons 91/729s on unchanged serverless 2X-Small compute.
 No cancellation, throughput/publication, singleton or billion-scale admission
 follows. Local GraphFrames 24M integration passes separately; UC feature/read
 compatibility remains separate.
+
+Native higher-entropy singleton evidence: [r88](out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json), 150 uncached full-carrier reads against the 20M-edge / 33.95 GB baseline. One file per read; four-client engine/caller p95 156/455 ms. See [scope and cohort qualifications](entropy-scale-status.md).

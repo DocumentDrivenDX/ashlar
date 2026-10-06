@@ -1,0 +1,114 @@
+{
+  "state": "completed; exact query IDs and final uncached metrics audited",
+  "table": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "version": 0,
+  "first_touch": {
+    "count": 50,
+    "caller_p95_ms": 866.0639159999998,
+    "result_cache_hits": 0,
+    "execution_time_ms": {
+      "p95": 619,
+      "median": 508.5,
+      "min": 90,
+      "max": 741
+    },
+    "compilation_time_ms": {
+      "p95": 153,
+      "median": 130.5,
+      "min": 122,
+      "max": 203
+    },
+    "read_files_count": {
+      "p95": 1,
+      "median": 1.0,
+      "min": 1,
+      "max": 1
+    },
+    "read_bytes": {
+      "p95": 84433383,
+      "median": 68741538.0,
+      "min": 37114578,
+      "max": 100180041
+    },
+    "read_remote_bytes": {
+      "p95": 83540494,
+      "median": 64346027.0,
+      "min": 0,
+      "max": 99169404
+    },
+    "remote_read_count": 44
+  },
+  "repeat": {
+    "count": 50,
+    "caller_p95_ms": 397.49545800000163,
+    "result_cache_hits": 0,
+    "execution_time_ms": {
+      "p95": 124,
+      "median": 97.5,
+      "min": 89,
+      "max": 216
+    },
+    "compilation_time_ms": {
+      "p95": 156,
+      "median": 130.5,
+      "min": 120,
+      "max": 264
+    },
+    "read_files_count": {
+      "p95": 1,
+      "median": 1.0,
+      "min": 1,
+      "max": 1
+    },
+    "read_bytes": {
+      "p95": 84433429,
+      "median": 68741567.0,
+      "min": 37114584,
+      "max": 100180151
+    },
+    "read_remote_bytes": {
+      "p95": 101,
+      "median": 0.0,
+      "min": 0,
+      "max": 195424
+    },
+    "remote_read_count": 4
+  },
+  "four_clients": {
+    "count": 50,
+    "caller_p95_ms": 454.63183300000054,
+    "result_cache_hits": 0,
+    "execution_time_ms": {
+      "p95": 156,
+      "median": 113.0,
+      "min": 88,
+      "max": 169
+    },
+    "compilation_time_ms": {
+      "p95": 180,
+      "median": 143.5,
+      "min": 120,
+      "max": 183
+    },
+    "read_files_count": {
+      "p95": 1,
+      "median": 1.0,
+      "min": 1,
+      "max": 1
+    },
+    "read_bytes": {
+      "p95": 84433429,
+      "median": 68741565.0,
+      "min": 37114584,
+      "max": 100180151
+    },
+    "read_remote_bytes": {
+      "p95": 0,
+      "median": 0.0,
+      "min": 0,
+      "max": 0
+    },
+    "remote_read_count": 0
+  },
+  "scope": "20M synthetic edges / 33.95 GB; full carriers returned; no controlled cold or billion-scale admission"
+}

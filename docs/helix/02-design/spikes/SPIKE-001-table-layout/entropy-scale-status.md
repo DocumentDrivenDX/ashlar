@@ -128,3 +128,28 @@ reads, recoverable fenced publisher authority and other engines remain open.
 No data expires and no budget is silently revised by these experiments. This
 iteration materially raises physical bytes and tests a real graph engine, while
 preserving the full objective and the fixed Unity Catalog architecture.
+
+## Native full-carrier singleton measurements
+
+[r88 audited results](out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json)
+pin edge_current version 0: 20M edges / 33.95 GB in 512 files. All 150
+full-carrier reads return the expected native source/type/id; exact full-field
+baseline parity is established separately by r86. Four persistent driver 4.3.0
+sessions disable result caching; all exact query IDs have final history metrics
+and zero result-cache hits. Each read touches exactly one file.
+
+| Cohort (50 reads each) | Engine p95 | Caller p95 | Reads with remote bytes |
+| --- | ---: | ---: | ---: |
+| First touch | 619 ms | 866 ms | 44 |
+| Repeated same keys | 124 ms | 397 ms | 4 |
+| Four clients, repeated keys | 156 ms | 455 ms | 0 |
+
+File bytes read have p95 84.43 MB. The configured 64 MiB target is not a
+maximum. Four-client fully local reads miss provisional 100 ms engine / 250 ms
+caller comparisons; repeated reads include four small remote reads and are
+not an entirely warm cohort. First touch is not a controlled cold-data test.
+These measurements tune the owner-selected Unity Catalog Delta architecture.
+They do not admit 1B/5B scale or demonstrate sustained publication freshness.
+Next material work is a large incremental publication slice including raw
+input, property journal, tombstones and the validated publication manifest,
+followed by skew/file-count and steady/burst workload evidence.
