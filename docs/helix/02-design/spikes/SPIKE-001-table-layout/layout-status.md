@@ -145,3 +145,12 @@ on both systems. The corrected native version-2 serial/four-reader p95 is
 Earlier cached REST controls and invalid update semantics are explicitly scoped
 out of performance/profile claims. Full publication and billion-scale admission
 remain unproved; the goal stays active.
+
+
+[Higher-entropy iteration](entropy-scale-status.md) passes 40.77GB local current
+carriers at 4M/20M, including exact full-field and synthetic Truss storage-profile
+checks. GraphFrames 0.12.3 executes the existing version-pinned adapter at that
+scale and counts 100M two-hop paths. Native nodes pass; native edge full validation
+is still active. Paired native bindings retain exact int64 values but do not close
+latency budgets. Explicit same-handle cancellation now bounds long REST phases;
+lagged shared billing quantities are recorded without invented experiment cost.

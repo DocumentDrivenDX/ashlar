@@ -1,0 +1,62 @@
+{
+  "state": "passed",
+  "checks": [
+    {
+      "terminal": "SUCCEEDED",
+      "cancel_after": 0,
+      "requests": [
+        [
+          "POST",
+          "/api/2.0/sql/statements"
+        ],
+        [
+          "POST",
+          "/api/2.0/sql/statements/known-handle/cancel"
+        ],
+        [
+          "GET",
+          "/api/2.0/sql/statements/known-handle"
+        ]
+      ],
+      "single_submit": true,
+      "same_handle_observed": true
+    },
+    {
+      "terminal": "CANCELED",
+      "cancel_after": 0,
+      "requests": [
+        [
+          "POST",
+          "/api/2.0/sql/statements"
+        ],
+        [
+          "POST",
+          "/api/2.0/sql/statements/known-handle/cancel"
+        ],
+        [
+          "GET",
+          "/api/2.0/sql/statements/known-handle"
+        ]
+      ],
+      "single_submit": true,
+      "same_handle_observed": true
+    },
+    {
+      "terminal": "SUCCEEDED",
+      "cancel_after": null,
+      "requests": [
+        [
+          "POST",
+          "/api/2.0/sql/statements"
+        ],
+        [
+          "GET",
+          "/api/2.0/sql/statements/known-handle"
+        ]
+      ],
+      "single_submit": true,
+      "same_handle_observed": true
+    }
+  ],
+  "scope": "Mock API transition controls, not proof of server rollback or no committed side effects"
+}

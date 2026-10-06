@@ -204,3 +204,6 @@ Latest traversal evidence: [fused admission probe](02-design/spikes/native-fused
 
 
 **Large-test iteration:** [Local/native 24M-carrier comparison](02-design/spikes/SPIKE-001-table-layout/scale-comparison.md) is complete. Native DVs avoid OSS whole-table update copying; corrected property-ID maps pass exact parity. Warm version-2 singleton budgets still fail (serial 218ms engine/525ms caller; four-reader 247ms/570ms). No billion-scale or full publication admission is claimed.
+
+
+**Higher-entropy iteration:** [40.77GB local / GraphFrames evidence](02-design/spikes/SPIKE-001-table-layout/entropy-scale-status.md) passes 4M nodes/20M edges and 100M GraphFrames paths, with the known Truss shared-ID/unique-pair storage rules represented. Native larger-payload full validation remains active. The full performance/publication/billion-scale goal remains open.

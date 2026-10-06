@@ -1,0 +1,84 @@
+{
+  "state": "passed paired full-carrier equality; final uncached metrics audited",
+  "pairs": 50,
+  "edge_version": 2,
+  "changes": "Client computes qualified ordered-tuple hash; compares literal predicates against static native named-parameter SQL text; no varying SQL comment",
+  "driver": "4.3.0",
+  "scope": "Existing r85 version2 20M compressed-carrier table; observed zero/positive remote-I/O cohorts, not a controlled full warm or cold workload, higher-entropy/billion-scale/publication admission",
+  "docs": "https://docs.databricks.com/aws/en/dev-tools/python-sql-connector",
+  "metrics": {
+    "literal": {
+      "caller_p95_ms": 1349.9530419999992,
+      "execution_time_ms": {
+        "p95": 1038,
+        "median": 198.0
+      },
+      "compilation_time_ms": {
+        "p95": 225,
+        "median": 145.5
+      },
+      "read_files_count": {
+        "p95": 2,
+        "median": 2.0
+      },
+      "read_bytes": {
+        "p95": 157330741,
+        "median": 138614962.0
+      },
+      "read_remote_bytes": {
+        "p95": 125071312,
+        "median": 0.0
+      }
+    },
+    "parameter": {
+      "caller_p95_ms": 1303.7804169999986,
+      "execution_time_ms": {
+        "p95": 994,
+        "median": 203.5
+      },
+      "compilation_time_ms": {
+        "p95": 290,
+        "median": 147.5
+      },
+      "read_files_count": {
+        "p95": 2,
+        "median": 2.0
+      },
+      "read_bytes": {
+        "p95": 157330626,
+        "median": 138615331.0
+      },
+      "read_remote_bytes": {
+        "p95": 125020976,
+        "median": 0.0
+      }
+    }
+  },
+  "int64_binding_evidence": "boundaries/statements.jsonl",
+  "cohorts": {
+    "literal": {
+      "zero-remote-bytes": {
+        "n": 39,
+        "caller_p95_ms": 590.176042000003,
+        "engine_p95_ms": 235
+      },
+      "positive-remote-bytes": {
+        "n": 11,
+        "caller_p95_ms": 5832.729584000001,
+        "engine_p95_ms": 2591
+      }
+    },
+    "parameter": {
+      "zero-remote-bytes": {
+        "n": 36,
+        "caller_p95_ms": 665.8859170000006,
+        "engine_p95_ms": 239
+      },
+      "positive-remote-bytes": {
+        "n": 14,
+        "caller_p95_ms": 1390.629583999999,
+        "engine_p95_ms": 1074
+      }
+    }
+  }
+}

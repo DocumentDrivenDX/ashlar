@@ -542,3 +542,13 @@ qualification. Corrected native version-2 reads have 50 final uncached serial an
 substantially lower than OSS copying. No source/raw/history/publication protocol,
 Truss producer legality, external reader, cold-data or billion-scale qualification
 follows. The observed FULL maintenance invocation made no data/version change.
+
+
+[Higher-entropy 24M-element iteration](../spikes/SPIKE-001-table-layout/entropy-scale-status.md)
+passes local full-field parity, typed closure, shared-allocation/disjoint ranges
+and unique relationship endpoint pairs on 40.77GB. The same existing GraphFrames
+adapter executes 4M vertices/20M edges and 100M two-hop paths with complete
+version-0 release bindings. This strengthens local mapping/algorithm evidence,
+not direct UC feature or actual Truss producer qualification. Native higher-entropy
+validation is still in flight; generation alone cannot qualify it. Raw/history,
+publication freshness, fenced recovery, other engines and 1B/5B remain open.

@@ -1,0 +1,57 @@
+{
+  "state": "passed 4M/20M GraphFrames counts, closure, identities and 100M path multiplicity",
+  "root": "/tmp/ashlar-graphframes-scale-lp73n_z9",
+  "spark": "3.5.3",
+  "delta": "3.2.1",
+  "graphframes": "0.12.3",
+  "source_versions": {
+    "objects": 0,
+    "edges": 0
+  },
+  "phases": [
+    {
+      "label": "version-pinned-adapter-validation",
+      "seconds": 24.666220916988095,
+      "result": {
+        "spark_catalog.ashlar_entropy_graph.node_union": 0,
+        "spark_catalog.ashlar_entropy_graph.edge_union": 0
+      }
+    },
+    {
+      "label": "vertex-count",
+      "seconds": 0.2872480420046486,
+      "result": 4000000
+    },
+    {
+      "label": "edge-count",
+      "seconds": 0.15025354200042784,
+      "result": 20000000
+    },
+    {
+      "label": "out-degree-distribution",
+      "seconds": 4.672718249988975,
+      "result": [
+        {
+          "outDegree": 5,
+          "count": 4000000
+        }
+      ]
+    },
+    {
+      "label": "in-degree-distribution",
+      "seconds": 4.03505204198882,
+      "result": [
+        {
+          "inDegree": 5,
+          "count": 4000000
+        }
+      ]
+    },
+    {
+      "label": "two-hop-path-multiplicity",
+      "seconds": 26.110861374996603,
+      "result": 100000000
+    }
+  ],
+  "scope": "Local immutable projection releases of validated 4M/20M carriers; no direct UC protocol, real producer, graph-engine latency or billion-scale admission"
+}

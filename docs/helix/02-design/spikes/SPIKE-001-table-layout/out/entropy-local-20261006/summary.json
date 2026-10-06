@@ -1,0 +1,87 @@
+{
+  "state": "passed full-row parity and storage-profile constraints",
+  "root": "/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-entropy-r86-n_nqff_b",
+  "spark": "3.5.3",
+  "delta": "3.2.1",
+  "resources": {
+    "driver_gib": 32,
+    "workers": 8,
+    "disk_free_tib_before": 3.3
+  },
+  "phases": [
+    {
+      "label": "calibration-100k",
+      "seconds": 4.521788000012748,
+      "result": null
+    },
+    {
+      "label": "write-object",
+      "seconds": 50.17068791700876,
+      "result": null
+    },
+    {
+      "label": "full-parity-object",
+      "seconds": 73.35002858401276,
+      "result": 0
+    },
+    {
+      "label": "write-edge",
+      "seconds": 305.47040699998615,
+      "result": null
+    },
+    {
+      "label": "full-parity-edge",
+      "seconds": 639.0534388750093,
+      "result": 0
+    },
+    {
+      "label": "endpoint-source",
+      "seconds": 11.758235542016337,
+      "result": 0
+    },
+    {
+      "label": "endpoint-target",
+      "seconds": 8.34421954199206,
+      "result": 0
+    },
+    {
+      "label": "duplicate-relationship-endpoints",
+      "seconds": 5.881577958003618,
+      "result": 0
+    },
+    {
+      "label": "shared-allocation-overlap",
+      "seconds": 7.8826514579996,
+      "result": 0
+    }
+  ],
+  "profile": "synthetic Truss-shaped shared allocation/unique endpoint pairs, not real producer/feed qualification",
+  "scope": "0.3 current-carrier columns and entropy/file-count sensitivity; source/history/publication still absent",
+  "calibration": {
+    "rows": 100000,
+    "parquet_bytes": 169139785,
+    "bytes_per_row": 1691.39785,
+    "width": {
+      "props_bytes": 3127.4018,
+      "min_props": 2,
+      "max_props": 8275
+    },
+    "estimated_24m_current_bytes": 40593548400.0,
+    "additional_retention_shuffle_factor": 4,
+    "expected_disk_bound_bytes": 162374193600.0
+  },
+  "object": {
+    "rows": 4000000,
+    "files": 1024,
+    "bytes": 6775253234,
+    "version": 0,
+    "path": "/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-entropy-r86-n_nqff_b/object_current"
+  },
+  "edge": {
+    "rows": 20000000,
+    "files": 1024,
+    "bytes": 33994990620,
+    "version": 0,
+    "path": "/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-entropy-r86-n_nqff_b/edge_current"
+  }
+}

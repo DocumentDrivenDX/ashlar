@@ -1,0 +1,8 @@
+{
+  "phases_seconds": {
+    "node-release": 18.5998797089851,
+    "edge-release": 83.45679349999409
+  },
+  "state": "Both immutable releases written before terminal result-logging failure",
+  "recovery": "Subsequent process registers existing locations and reads version 0; no repeated saveAsTable"
+}

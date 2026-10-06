@@ -1,0 +1,9 @@
+{
+  "state": "passed",
+  "checks": {
+    "equal_rows": 0,
+    "one_byte_level_lexical_change": 1,
+    "one_missing_expected_row": 1
+  },
+  "scope": "Checker syntax and exact-string/missing-row controls, not large-data admission"
+}
