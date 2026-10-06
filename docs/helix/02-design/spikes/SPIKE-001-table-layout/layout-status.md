@@ -75,3 +75,6 @@ Local [read-plan locator checks](out/publication-locator-check.json) now verify 
 
 
 [r81](out/native/ashlar_varied_fidelity_20261006_r81/summary.json) strengthens 0.3 storage fidelity with exhaustive 64-object/192-edge/256-raw-record parity across eight property shapes using bound transport. Native typed identity/hash/reference/endpoint checks pass. Three private tables at version 1; no graph publication, property history, producer or performance/scale admission claim.
+
+
+The proposed [durable receipt table](sql/publication-receipt-candidate.sql) now has an explicit intent/complete envelope contract in CONTRACT-003. It binds retained input, source boundaries, predecessor, authority context and validated actual output versions. This is a separate unexecuted receipt profile; 0.3 DDL and prior recovery fixture evidence retain their original scope.

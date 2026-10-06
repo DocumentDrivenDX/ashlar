@@ -28,7 +28,8 @@
     "out/varied-corpus/objects.json": "fbe813bf1b5e1806e67f8652ce6e7abb296e0fa7174d7b6efbea2b20698cb949",
     "out/varied-corpus/edges.json": "07ba417c3d4aa2ecea1fff92156593f371298ae3c51d4ffa88b54192107118b2",
     "out/varied-corpus/source_records.json": "3a86b6ef0a110c59f3da24e9e4fc7412795f3613167d65e7db7a7321146bb838",
-    "native_varied_fidelity_r81.py": "32ac8318837b49dc60ea45b3a63d7e63343250b98f363db2f856db2c050aa9d6"
+    "native_varied_fidelity_r81.py": "32ac8318837b49dc60ea45b3a63d7e63343250b98f363db2f856db2c050aa9d6",
+    "sql/publication-receipt-candidate.sql": "21988a1291baa65d2426e1d4aa0d992ab097d02d11e1396871692fe5677e15a3"
   },
   "evidence": {
     "ddl": {

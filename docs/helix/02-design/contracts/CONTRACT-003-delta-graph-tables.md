@@ -425,3 +425,58 @@ and does not automatically invoke whole-plan validation.
 
 
 [r81 varied native fidelity](../spikes/SPIKE-001-table-layout/out/native/ashlar_varied_fidelity_20261006_r81/summary.json) loads the declared-shape corpus into three private tables with the 0.3 object, edge and raw-record definitions using bound STRING parameters and explicit native casts. Exhaustive all-column comparisons pass for 64 objects, 192 edges and 256 raw records at actual version 1. BIGINT transport strings include signed extremes; timestamp columns compare instants while JSON time tokens remain exact text. Eight property shapes, variable opaque lengths, Unicode/escaping, decimal/exponent/negative-zero tokens and nested retained content survive. Native SQL hash derivation matches all local canonical hashes, raw references/cursors/digests resolve, and both typed endpoint directions close. These complete synthetic envelopes avoid r74's omitted structural fields; no native source reconstruction, journal history, transaction completeness, publication recovery or graph-engine/scale claim follows.
+
+
+### Proposed durable receipt surface
+
+The separate [publication-receipt candidate DDL](../spikes/SPIKE-001-table-layout/sql/publication-receipt-candidate.sql)
+proposes ashlar-publication-receipt/0.1. It does not revise the executed 0.3 table
+set. Its logical key is `(stream,apply_batch_id,phase)` with phase `intent` or
+`complete`; the publisher MUST enforce uniqueness and phase semantics. Records
+are immutable. Record both phases as append-only evidence, rather than replacing
+an incomplete record and losing the recovery intent.
+
+The exact UTF-8 receipt_json is the binding envelope; receipt_digest is its
+lower-case SHA-256. It MUST contain the fields below. profile_version, stream,
+apply_batch_id and phase MUST agree with their table columns. recorded_at is
+operational metadata outside replay identity. Native source IDs, cursor components
+and worker generations retain qualified text representations within their original
+boundary/authority envelopes. Do not narrow them to the old BIGINT fence column.
+
+| Envelope field | Intent | Complete | Validation |
+| --- | --- | --- | --- |
+| profile_version, stream, apply_batch_id, phase | Required | Required | Exact supported profile and table-column agreement |
+| predecessor_publication_id | Required, nullable only for explicit bootstrap | Same as intent | Predecessor descriptor must exist unless a separately qualified bootstrap boundary authorizes its absence |
+| authority_context | Required | Required | Complete selected authority context, including generation/registration where applicable; stored context is not trusted proof |
+| source_boundaries | Required | Same exact boundaries as intent | Versioned complete boundary records for every input feed/epoch; a highest tuple alone is insufficient |
+| input_table_versions | Required | Same as intent | Qualified retained stage/raw table names and actual committed versions, with complete input membership and byte-digest definition |
+| input_digest | Required | Same as intent | Digest of the qualified retained input representation; profile must define membership, ordering and encoding before use |
+| output_table_versions | Absent | Required | Every consumed canonical/history/raw/derived table at actual validated versions, including reused unchanged versions |
+| validation_report | Absent | Required | Checks and declared projection coverage, exact input/output binding, source-profile and validator version; no unsupported capability promoted |
+
+A complete record MUST bind to the existing intent and its original input,
+predecessor and authority context. The recovery protocol MUST independently verify
+whether the authority remains valid; it cannot reuse an expired registration just
+because the bytes match. Receipt uniqueness, stale-writer refusal and atomic
+manifest installation remain protocol obligations outside this ordinary DDL.
+
+An identical key retry MUST preserve the original record after comparing exact
+receipt bytes and their digest. A byte-different envelope at the same key is
+RECEIPT_CONFLICT even if its JSON objects appear semantically equivalent; retain
+producer input and stop publication. This profile deliberately makes byte encoding
+part of replay identity. A caller needing reordered equivalent JSON must reuse
+original retained bytes or select a different explicitly qualified profile.
+
+Recovery from intent alone inspects actual output commits and repairs missing
+work without guessing a vector. Recovery from a complete receipt revalidates its
+input/output binding and installs one immutable manifest. A manifest reference
+must identify the complete receipt by stream, batch, digest and actual receipt
+version in its validation report; a mutable latest lookup cannot establish custody.
+Lost acknowledgement returns the same manifest and never appends new source
+history. The source's trusted downstream-application proof remains independently
+required where its worker profile demands it.
+
+This proposed envelope addresses the missing receipt bindings identified by r78
+and r79. Those tests use earlier isolated fixture bindings; they do not execute
+this table, complete-source membership validator or native receipt/manifest
+installation. No expiry or production authority mechanism is selected.
