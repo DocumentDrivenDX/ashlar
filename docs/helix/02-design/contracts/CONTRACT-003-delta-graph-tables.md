@@ -512,3 +512,11 @@ inspected 2026-10-06; no engine session or import was run.
 
 
 [r84 hash encoding differential](../spikes/SPIKE-001-table-layout/out/native/ashlar_hash_encoding_20261006_r84/summary.json) verifies exact ordered JSON text and SHA256 parity between Python and native SQL for 64 node/edge tuples: eight ASCII source cases including quotes, backslashes, newline/tab/NUL/DEL and SQL-looking text, with zero, values above 2^53 and signed-int64 extremes. Python uses ensure_ascii=False; default ASCII escaping of DEL changes the bytes and must not be substituted. Encoding numeric IDs as JSON strings also changes the hash. This qualifies the tested representative encoder cases, not every possible implementation or identity source. Full native tuple predicates remain mandatory even with a correct hash.
+
+
+Merged Truss draft layout0.2 at d3dcdde specifies shared object/edge ID allocation
+and unique relationship/source/target edges. See the [source-profile qualification](../spikes/SPIKE-001-table-layout/truss-feed-mapping-candidate.md#merged-upstream-layout-profile-qualification).
+A source adapter claiming that profile must preserve its allocation/multiplicity
+rules; generic repeated-ID/parallel-edge fixtures demonstrate Ashlar carrier
+capacity only. Incompatible producer duplicates must be refused, never collapsed.
+The newer complete-feed worker draft remains separately unqualified.

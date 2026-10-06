@@ -1,0 +1,23 @@
+{
+  "state": "source-specification-reviewed",
+  "commit": "d3dcddeec888cae4336b18af43a31fd19b93cf79",
+  "repository": "https://github.com/DocumentDrivenDX/truss",
+  "contracts": {
+    "CONTRACT-001-storage-layout.md": {
+      "sha256": "aef4a866d857102b733d97c3da3d1bdaf84a7d98481c8ab8e70a5d72e47adada",
+      "url": "https://github.com/DocumentDrivenDX/truss/blob/d3dcddeec888cae4336b18af43a31fd19b93cf79/docs/helix/02-design/contracts/CONTRACT-001-storage-layout.md"
+    },
+    "CONTRACT-002-journal.md": {
+      "sha256": "fa8e0f9975e13413e110b1ea3a8a4718e9793aeb3b2e170cdd1d13acf1b155d4",
+      "url": "https://github.com/DocumentDrivenDX/truss/blob/d3dcddeec888cae4336b18af43a31fd19b93cf79/docs/helix/02-design/contracts/CONTRACT-002-journal.md"
+    }
+  },
+  "status": "Merged draft layout0.2; no producer support claim",
+  "findings": [
+    "Object/edge IDs share id_seq; producer-global allocation guarantee differs from generic typed repeated-ID fixtures",
+    "Merged edge index is unique by relationship/source/target; generic parallel edge fixture is not valid producer multiplicity evidence",
+    "Journal cursor remains exact (xid,seq) strictly below snapshot xmin; sequence alone is not commit order",
+    "Merged root contains docs but no src/packages/runtime package; complete-feed CONTRACT-006 is not in the inspected main contract inventory"
+  ],
+  "scope": "Read-only upstream main inspection at exact commit; does not supersede newer complete-feed working draft or prove runtime implementation."
+}

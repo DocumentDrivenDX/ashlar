@@ -88,3 +88,29 @@ complete original boundary/cursor bytes in source_record and publication progres
 No scalar source_position is generated and no numeric JSON decoding is used for
 cursor components. Wire decoding and duplicate JSON member refusal remain caller
 responsibilities.
+
+
+## Merged upstream layout profile qualification
+
+Truss main at [d3dcdde](https://github.com/DocumentDrivenDX/truss/commit/d3dcddeec888cae4336b18af43a31fd19b93cf79)
+now includes merged draft layout 0.2 contracts, separately pinned in the
+[upstream source receipt](out/truss-upstream-spec-20261006.json). CONTRACT-001
+specifies shared id_seq allocation for objects and edges and a unique
+relationship/source/target edge index. An adapter claiming that producer profile
+must preserve its allocated IDs and enforce its endpoint-pair multiplicity;
+receiving parallel edges cannot be handled by dropping or merging their IDs.
+Refuse incompatible input explicitly. The generic Ashlar physical edge key remains
+source/relationship/independent-edge-ID and retains typed endpoints.
+
+Ashlar's repeated IDs across types and parallel-edge fixtures exercise its generic
+carrier and mapping capability. They are not legal sample source states for this
+merged Truss profile. Global allocation is a producer guarantee, not inferred from
+three rows or adopted as a universal Ashlar key rule. Other explicitly qualified
+sources may have different allocation and multiplicity policies; native tuples
+must still be preserved without renumbering or silently collapsing relationships.
+
+The merged journal still orders exact (xid,seq) below snapshot xmin. It does not
+contain the inspected newer working draft's complete-feed CONTRACT-006 or establish
+its worker authority/membership protocol. Keep the two specification levels
+separate. Root inventory contains documentation and no src/packages/runtime
+package; native producer integration remains unavailable from this scoped review.

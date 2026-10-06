@@ -9,7 +9,7 @@
     "adapters/graphframes.py": "8f2182546cd47bff3af3e445a21338f00eacb263f0ae71fc0ed5c84d83bbeb73",
     "adapters/release-r66/mapping-plan.json": "dc3dd64cb8e8177ceb46348abbd92424adb8d5b281994a3bd4a9167ca9dda82c",
     "sql/delta-layout-v03.sql": "b105eff8831318e28135b553df6c2e652f4773cc8fbe924090af12c086a1c70d",
-    "truss-feed-mapping-candidate.md": "fae5825776d83afe638be6822b1c363a1304da420af48996811bc8ca641e0368",
+    "truss-feed-mapping-candidate.md": "4cea53f9b19570680589dad04a8a5eff9d677c136993d3c43b3856dd973f5c07",
     "out/truss-working-draft-evidence.json": "05aa09eed493d4a7e982b9db9b00b771964ac967f042cab26afeb445661cdf0e",
     "adapters/native-read.ts": "7e1dc09a4746e94252e2276c6f43c65bf382f79c70dc1282694d4da524070afa",
     "out/layout-package-audit.json": "538d7f1a97dbd0b9880ede81cc97db06e3ae73c875ec9da9b315113de8137ca1",
@@ -33,7 +33,8 @@
     "native_receipt_r82.py": "dc9ad537dafe0d6c706d821fabe7f630a0fcdc1d0093d9836d2f125e39331142",
     "native_release_protocol_r83.py": "79f47696f5c690c49a79d7e9f7c03ba2822e72f556c7b81556fdc4f65e2c6cb2",
     "native_hash_encoding_r84.py": "5b7c52fc6239fc347773dbff39fd7c23dfd88d6838137cada534935e64da0ee5",
-    "out/goal-completion-audit-20261006.json": "6b28ebc464c4f962ba5971cdbddf15a450084023cace9db40b2afbac4fbbcb28"
+    "out/goal-completion-audit-20261006.json": "6b28ebc464c4f962ba5971cdbddf15a450084023cace9db40b2afbac4fbbcb28",
+    "out/truss-upstream-spec-20261006.json": "3215fbb9a3a3491de2fd87fa580c7bda59492a05f6941c20b338134fc968e796"
   },
   "evidence": {
     "ddl": {

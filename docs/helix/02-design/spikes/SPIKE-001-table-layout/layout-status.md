@@ -90,3 +90,6 @@ The proposed [durable receipt table](sql/publication-receipt-candidate.sql) now 
 
 
 [Full-scope completion audit](out/goal-completion-audit-20261006.json) reviews 22 requirement groups against pinned evidence. Completion remains unproved: native layout/carrier primitives have scoped evidence, while real-source recovery/authority, actual engines, combined sustained/burst performance and billion-scale capacity remain open. Owner keeps UC Delta fixed and larger runs deferred. Next prioritize existing source/runtime integration; an optional endpoint/configuration question is pending. Additional isolated fixtures cannot close those qualifications.
+
+
+Merged Truss main at d3dcdde has been inspected and hash-pinned. Its draft layout specifies shared ID allocation and unique relationship/source/target edges; generic repeated-ID/parallel fixtures are now explicitly distinguished from legal native producer state. Current merged contracts do not supply complete-feed worker implementation or engine/runtime access. No compute was used.
