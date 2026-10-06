@@ -1,0 +1,6 @@
+{
+  "state": "failed",
+  "terminal_statement": "retained-edge-stage",
+  "reason": "SELECT star REPLACE rejected by native parser before stage creation; initial edge/adjacency copies and old manifest exist, no edge mutation",
+  "recovery": "Resume must verify exact three-table inventory and version-zero copies before creating explicit-column stage."
+}

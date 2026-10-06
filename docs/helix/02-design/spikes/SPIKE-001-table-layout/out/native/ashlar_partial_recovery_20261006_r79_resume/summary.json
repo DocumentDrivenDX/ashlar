@@ -1,0 +1,45 @@
+{
+  "state": "passed",
+  "intent": {
+    "profile": "serialized-edge-forward-recovery-spike/1",
+    "batch": "r79",
+    "previous_publication": "old",
+    "stage": {
+      "table": "client_dev.ashlar_layout_v03_20261006_r73.partial_stage_r79",
+      "version": 0,
+      "ordered_row_json_sha256": "ff580f637201078c505932bffcc9570c0720ba8902a3f65925b12de073175ace"
+    },
+    "old_vector": {
+      "client_dev.ashlar_layout_v03_20261006_r73.object_current": 7,
+      "client_dev.ashlar_layout_v03_20261006_r73.partial_adjacency_r79": 0,
+      "client_dev.ashlar_layout_v03_20261006_r73.partial_edges_r79": 0
+    },
+    "coverage": "edges and forward adjacency only; no degree or reverse-read support",
+    "source_boundary": "synthetic endpoint change; no source-feed interpretation"
+  },
+  "versions": {
+    "edges": 1,
+    "forward_adjacency": 1
+  },
+  "tables": {
+    "edge": "client_dev.ashlar_layout_v03_20261006_r73.partial_edges_r79",
+    "adjacency": "client_dev.ashlar_layout_v03_20261006_r73.partial_adjacency_r79",
+    "stage": "client_dev.ashlar_layout_v03_20261006_r73.partial_stage_r79",
+    "binding": "client_dev.ashlar_layout_v03_20261006_r73.partial_binding_r79",
+    "manifest": "client_dev.ashlar_layout_v03_20261006_r73.partial_manifest_r79"
+  },
+  "rows": 3,
+  "checks": [
+    "full-row intended edge change only",
+    "unrepaired projection produces two EXCEPT ALL differences",
+    "old publication retained through partial commit",
+    "fresh-client projection repair and exact unchanged-field parity",
+    "target endpoint closure in pinned objects",
+    "durable complete vector before publication",
+    "no canonical edge reapply",
+    "old snapshots unchanged after recovery"
+  ],
+  "elapsed_seconds": 30.57810401916504,
+  "cost": "Three rows per edge/adjacency/stage table, one binding and two manifests on existing authorized warehouse; billing dollars unavailable; no large scan/new compute.",
+  "scope": "Intentional statement-boundary interruption and fresh client; serialized writer only. Synthetic endpoint change does not implement source event/version semantics. No degree/reverse coverage, journal/raw update, real Truss feed, acknowledgement, concurrency fencing, ambiguous submission recovery, whole-graph atomicity, latency or scale claim."
+}
