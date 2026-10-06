@@ -328,3 +328,46 @@ The [portable native singleton builder](../spikes/SPIKE-001-table-layout/adapter
 
 
 [r76 native adjacency evidence](../spikes/SPIKE-001-table-layout/out/native/ashlar_native_adjacency_builder_20261006_r76/summary.json) verifies bounded parameterized forward/reverse keyset reads at the published structural versions, preserving parallel edge identity and self-loops. Continuation ordering is `(rel_type_id,edge_id)` within a fixed source/type/id endpoint, direction and publication. Cursor context custody remains caller-service work, not a property of the SQL builder.
+
+
+### Publication recovery requirements for the 0.3 layout
+
+These are proposed protocol requirements; the executed 0.3 DDL remains unchanged.
+A publication profile MUST identify its writer authority and the mechanism that
+prevents stale owners from committing. A fence row read before a separate write
+is insufficient. Until that mechanism has evidence, the implementation profile
+is restricted to one externally serialized publisher with no automatic takeover.
+
+A durable application receipt MUST bind the batch ID to exact staged content,
+source profile and complete input boundary, previous publication, and validated
+output table-version vector. The existing apply_receipt columns do not contain
+that complete binding. A future schema revision or qualified supplemental record
+is required; sequence and payload_digest alone MUST NOT imply publication success.
+Digest encoding and canonical comparison are profile-versioned requirements.
+
+| Durable state observed after interruption | Required recovery outcome |
+| --- | --- |
+| Raw capture only; no output receipt or manifest | Resume validation from the retained complete input; source progress remains at the prior publication |
+| Some output commits; no complete output receipt | Keep the prior manifest visible; inspect actual commits and retained stage before repair; never assume a timeout means rollback |
+| Complete validated output receipt; no manifest | Revalidate authority, predecessor and exact versions, then publish the same batch once; do not reapply its producer events |
+| Manifest exists; acknowledgement absent | Verify manifest/receipt/input binding, return the same publication and retry acknowledgement only |
+| Existing batch ID with different input, predecessor or output vector | Refuse conflict and retain evidence; no replacement manifest |
+| Missing pinned version, expired input evidence or uncertain writer authority | Block recovery and source acknowledgement; require reconciliation |
+
+Readers MUST resolve a single immutable manifest and consume only its recorded
+versions. Internal latest-state writes are not a consumer publication. Every
+publication ID MUST identify one immutable descriptor; duplicate descriptors
+must be rejected or verified byte/semantic equivalent under the selected profile.
+The ordinary manifest DDL provides no uniqueness enforcement. A source adapter
+MUST acknowledge only its qualified complete boundary after durable publication
+and required trusted downstream proof; an Ashlar receipt cannot manufacture the
+Truss worker profile's host-observed authority.
+
+Retention MUST protect every version referenced by an active publication or
+registered reader and the raw input/receipt evidence needed for replay. No safe
+expiry horizon has been selected. Maintenance creates a new version and may be
+published only after preservation validation; it does not silently update an
+existing descriptor. These rules require interruption, lost-acknowledgement and
+stale-owner tests before runtime support is claimed. Existing r72/r74 tests cover
+single-table refusal and prepublication reference detection respectively; neither
+executes this recovery protocol.
