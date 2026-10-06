@@ -1,13 +1,13 @@
 """Run the authorized local scale phase; retained data lives under /tmp.
 Requires Java17/Python3.11/pyspark3.5.3/delta-spark3.2.1.
 """
-import json,time,pathlib,statistics,concurrent.futures
+import json,time,pathlib,tempfile,concurrent.futures
 from pyspark.sql import SparkSession
 from delta import configure_spark_with_delta_pip
 from scale_workload import select,NODES,EDGES,UPDATES
 B=pathlib.Path(__file__).resolve().parent
 O=B/'out/local-scale-20261006';O.mkdir(parents=True,exist_ok=True)
-root=pathlib.Path('/tmp/ashlar-scale-20261006-v3');root.mkdir(exist_ok=False)
+root=pathlib.Path(tempfile.mkdtemp(prefix='ashlar-scale-'))
 builder=SparkSession.builder.master('local[8]').appName('Ashlar 24M current carriers').config('spark.driver.memory','32g').config('spark.sql.shuffle.partitions','256').config('spark.sql.warehouse.dir',str(root/'warehouse')).config('spark.jars.ivy','/tmp/ashlar-scale-ivy').config('spark.sql.extensions','io.delta.sql.DeltaSparkSessionExtension').config('spark.sql.catalog.spark_catalog','org.apache.spark.sql.delta.catalog.DeltaCatalog').config('spark.databricks.delta.snapshotPartitions','8').config('spark.databricks.delta.properties.defaults.dataSkippingStatsColumns','lookup_hash,source_system,type_id,rel_type_id,id').config('spark.sql.parquet.compression.codec','zstd')
 spark=configure_spark_with_delta_pip(builder).getOrCreate();spark.sparkContext.setLogLevel('ERROR')
 report={'state':'running','spark':spark.version,'delta':'3.2.1','root':str(root),'resources':{'driver_gib':32,'workers':8},'nodes':NODES,'edges':EDGES,'phases':[],'scope':'Synthetic full 0.3 current carriers only; no source/journal/publication/adjacency or billion-scale admission. Range-sorted hash files in OSS Delta; not native liquid clustering.'}

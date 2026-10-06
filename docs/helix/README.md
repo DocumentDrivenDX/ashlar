@@ -36,7 +36,7 @@ not verified. Its proposed identity and producer guarantees remain proposals.
 [proposed ADR-001](02-design/adr/ADR-001-delta-canonical-and-serving-layout.md),
 [SPIKE-001](02-design/spikes/SPIKE-001-table-layout.md). Local DuckDB screening
 passes parity at 300k nodes/900k edges. [Native evidence](02-design/spikes/native-layout-evidence.md)
-records successful DDL and parity through 3M nodes/9M edges on dbw-aidev-cus; graph engines remain
+records successful DDL and parity through 3M nodes/9M edges on dbw-aidev-cus; GraphFrames has scoped local execution; PuppyGraph and Fabric remain
 unexecuted. Singleton lookup is native Databricks, independent of Fabric. The
 owner selected 1B nodes with more edges; Fabric mappings are bounded projections.
 
@@ -201,3 +201,6 @@ remains 2.57s. Fusing admission into a relational query is the next comparison;
 logical/physical work and production-scale admission remain separate.
 
 Latest traversal evidence: [fused admission probe](02-design/spikes/native-fused-guard-evidence.md) passes the bounded 2-second caller screen (regular p95 1.53s), retaining explicit hub refusal and fixed snapshots. The table-layout goal remains active; next prioritize scattered-update ingest and derived degree/adjacency publication, with singleton latency and billion-scale admission still open.
+
+
+**Large-test iteration:** [Local/native 24M-carrier comparison](02-design/spikes/SPIKE-001-table-layout/scale-comparison.md) is complete. Native DVs avoid OSS whole-table update copying; corrected property-ID maps pass exact parity. Warm version-2 singleton budgets still fail (serial 218ms engine/525ms caller; four-reader 247ms/570ms). No billion-scale or full publication admission is claimed.

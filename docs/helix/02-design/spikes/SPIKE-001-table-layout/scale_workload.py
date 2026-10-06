@@ -17,7 +17,7 @@ def select(kind, count, updated=False):
       ELSE concat('{"105":"',sha2(cast(id AS STRING),256),
         repeat(sha2(concat('payload:',cast(id AS STRING)),256),cast(2+pmod(id,30) AS INT)),
         '","106":',cast(pmod(id,100) AS STRING),'}') END"""
-    if updated: props="concat('{\"107\":true,\"previous\":',"+props+",'}')"
+    if updated: props="concat('{\"107\":true',CASE WHEN ("+props+")='{}' THEN '}' ELSE concat(',',substring(("+props+"),2)) END)"
     keys=f"cast(pmod(id,32)+1 AS BIGINT) {typ}"
     src=f"(pmod(id*17,{NODES//10})*10+pmod(id-1,10)+1)"
     dst=f"(pmod(id*31+11,{NODES//10})*10+pmod(id-1,10)+1)"

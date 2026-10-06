@@ -266,3 +266,18 @@ Identity clustering may prune singleton reads while dispersed updates still
 visit many files. Larger experiments should measure this distinction and metadata
 planning cost instead of inferring ingest scalability from small selective reads.
 No billion-scale runtime admission or history expiry follows from this model.
+
+
+## Authorized 24M-carrier local/native comparison
+
+[Scale comparison](../spikes/SPIKE-001-table-layout/scale-comparison.md) measures
+4M objects / 20M edges and 200k scattered updates. Native DVs avoid the OSS
+100x output-row amplification (zero unchanged copies versus 19.8M). Retain that
+capability in the native candidate; consumer compatibility belongs to the
+separately qualified release. A FULL optimization changed no files/version, so
+maintenance effectiveness must be observed rather than promised. Corrected
+property-map version-2 uncached reads fail provisional warm budgets: serial
+218ms engine/525ms caller, four-client 247ms/570ms. Architecture remains UC Delta.
+The complete current-carrier column surface and endpoint closure are measured;
+real source/history/publication, realistic entropy and billion-scale admission
+remain open. CTAS here does not prove production constraint enforcement.

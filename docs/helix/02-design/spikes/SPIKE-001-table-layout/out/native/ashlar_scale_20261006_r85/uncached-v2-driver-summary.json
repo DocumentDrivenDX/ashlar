@@ -1,0 +1,13 @@
+{
+  "state": "read correctness passed; final cache/engine metrics require history audit",
+  "read_counts": {
+    "serial": 50,
+    "four_clients": 50
+  },
+  "edge_version": 2,
+  "driver": "databricks-sql-connector/4.3.0",
+  "session_configuration": {
+    "use_cached_result": "false"
+  },
+  "scope": "warm data after validation/update; not cold/publication/ingest admission"
+}

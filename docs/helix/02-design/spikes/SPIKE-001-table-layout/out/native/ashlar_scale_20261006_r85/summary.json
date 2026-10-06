@@ -1,0 +1,1634 @@
+{
+  "state": "passed correctness; performance measured",
+  "nodes": 4000000,
+  "edges": 20000000,
+  "schema": "client_dev.ashlar_scale_20261006_r85",
+  "phases": [
+    {
+      "label": "create-object",
+      "seconds": 23.852923292,
+      "result": []
+    },
+    {
+      "label": "optimize-object",
+      "seconds": 6.252938582999999,
+      "result": [
+        [
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/c34fe91d-eaf2-43b9-9187-58846dd03cac",
+          "{\"recompressionCodec\":null,\"partitionsOptimized\":\"0\",\"numTableColumnsWithStats\":\"17\",\"skippedArchivedFiles\":\"0\",\"clusteringStats\":null,\"totalFilesSkipped\":\"0\",\"totalClusterParallelism\":\"8\",\"numFilesSkippedToReduceWriteAmplification\":\"0\",\"totalScheduledTasks\":\"0\",\"endTimeMs\":\"1791321092524\",\"startTimeMs\":\"1791321089044\",\"filesAdded\":{\"totalSize\":\"0\",\"avg\":\"0.0\",\"min\":null,\"totalFiles\":\"0\",\"max\":null},\"numBatches\":\"0\",\"numBins\":\"0\",\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":\"0\",\"numDeletionVectorRowsRemoved\":\"0\"},\"filesRemoved\":{\"totalSize\":\"0\",\"avg\":\"0.0\",\"min\":null,\"totalFiles\":\"0\",\"max\":null},\"totalTaskExecutionTimeMs\":\"0\",\"zOrderStats\":null,\"preserveInsertionOrder\":\"false\",\"totalConsideredFiles\":\"4\",\"numBytesSkippedToReduceWriteAmplification\":\"0\",\"clusteringMetrics\":{\"numFilesSkippedAfterExpansion\":\"0\",\"coordinatorEventMetrics\":null,\"totalLogicalSizeOfDataToRewriteInBytes\":\"0\",\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":\"0\",\"numCompactionTasksPlannedUndoneDueToPO\":\"0\",\"compressionRatioFromSampling\":\"-1.0\",\"numLeafNodesCompacted\":\"0\",\"nodeMinNumFilesToCompact\":\"4\",\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":\"0\",\"pipelinedAssemblerMetrics\":null,\"compressionRatioSamplingTimeMs\":\"0\",\"predicates\":null,\"isPOTriggered\":\"false\",\"numSamplingJobs\":\"0\",\"clusterThresholdStrategy\":\"log\",\"compactionType\":null,\"sizeOfTableInBytesBeforeLazyClustering\":\"378561211\",\"numFilesClassifiedToLeafNodes\":\"0\",\"timeMetrics\":{\"metadataCreationTimeMs\":\"0\",\"totalGetFilesForNodeCallsTimeMs\":\"0\",\"optimizerTimeMs\":\"154\",\"classifierTimeMs\":\"176\",\"totalSamplingTimeMs\":\"0\",\"metadataLoadTimeMs\":\"700\",\"parentIndexBuildTimeMs\":\"0\"},\"approxClusteringQuality\":\"0.7452646682132367\",\"numClusteringTasksNotPlannedDueToPO\":\"0\",\"numThreadsForClassifier\":null,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":\"0\",\"splitStrategy\":null,\"maxOptimizeBatchesInParallel\":\"2\",\"compressionRatioChosen\":\"-1.0\",\"maxIterations\":\"5\",\"numLeafNodesExpanded\":\"0\",\"numIntermediateNodesCompactedUndoneDueToPO\":\"0\",\"numIdealFilesWithTrimmedStringMaxValue\":\"0\",\"numCompactionTasksPlanned\":\"0\",\"numFilesClassifiedToIntermediateNodes\":\"0\",\"numNullValuesEncounteredForTransforms\":\"0\",\"numLeafNodesClustered\":\"0\",\"compressionRatioNumSamples\":\"0\",\"numSmallFilesSkippedAfterExpansion\":\"0\",\"compressionRatioStalenessReason\":\"n/a\",\"minFileSize\":\"16777216\",\"pipelinedTotalBatchWaitTimeMs\":\"0\",\"numLeafNodesCompactedUndoneDueToPO\":\"0\",\"numIdealFiles\":\"0\",\"currentIteration\":\"1\",\"numClusteringTasksPlanned\":\"0\",\"numGetFilesForNodeCalls\":\"0\",\"approxClusteringCoverage\":\"1.0\",\"isNewMetadataCreated\":\"false\",\"compressionRatioTriggeredScaling\":\"false\",\"numIntermediateNodesCompacted\":\"0\",\"pipelinedPostFirstBatchWaitTimeMs\":\"0\",\"numFilesSkippedByPredicates\":\"0\",\"withPredicates\":\"false\",\"isFull\":\"false\",\"totalLogicalSizeOfDataToCompactInBytes\":\"0\",\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":\"0\",\"totalSizeOfDataToRewriteInBytes\":\"0\",\"compressionRatioFromPersistedEntry\":\"false\",\"numDowncastDimensions\":null,\"totalSizeOfDataToCompactInBytes\":\"0\",\"numIntermediateNodesClustered\":\"0\",\"maxFileSize\":\"67108864\",\"compressionRatioSource\":\"n/a\",\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":\"0\",\"clusteringStrategy\":\"sizeAware\",\"pipelinedTotalPlanningTimeMs\":\"0\",\"numOptimizeBatchesPlanned\":\"0\",\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":\"0\",\"numFilesSkippedWithoutStats\":\"0\",\"isPipelinedOptimizer\":\"false\",\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":\"0\",\"sizeOfFilesClassifiedToLeafNodesInBytes\":\"0\",\"pipelinedOptimizerStatus\":null,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":\"0\",\"approxClusteringQualityPerColumn\":[\"0.7452646682132367\"],\"numAddedFilesWithSameMinMaxOnClusteringColumns\":null,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":\"0\",\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":\"0\"},\"numTableColumns\":\"17\",\"numFilesSortedWithinFiles\":\"0\",\"numFilesAdded\":\"0\",\"numFilesRemoved\":\"0\",\"fileAgeHistogram\":null,\"autoCompactParallelismStats\":null}"
+        ],
+        [
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/c34fe91d-eaf2-43b9-9187-58846dd03cac",
+          "{\"recompressionCodec\":null,\"partitionsOptimized\":\"0\",\"numTableColumnsWithStats\":\"17\",\"skippedArchivedFiles\":\"0\",\"clusteringStats\":null,\"totalFilesSkipped\":\"0\",\"totalClusterParallelism\":\"8\",\"numFilesSkippedToReduceWriteAmplification\":\"0\",\"totalScheduledTasks\":\"0\",\"endTimeMs\":\"1791321093554\",\"startTimeMs\":\"1791321092569\",\"filesAdded\":{\"totalSize\":\"0\",\"avg\":\"0.0\",\"min\":null,\"totalFiles\":\"0\",\"max\":null},\"numBatches\":\"0\",\"numBins\":\"0\",\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":\"0\",\"numDeletionVectorRowsRemoved\":\"0\"},\"filesRemoved\":{\"totalSize\":\"0\",\"avg\":\"0.0\",\"min\":null,\"totalFiles\":\"0\",\"max\":null},\"totalTaskExecutionTimeMs\":\"0\",\"zOrderStats\":null,\"preserveInsertionOrder\":\"true\",\"totalConsideredFiles\":\"4\",\"numBytesSkippedToReduceWriteAmplification\":\"0\",\"clusteringMetrics\":{\"numFilesSkippedAfterExpansion\":\"0\",\"coordinatorEventMetrics\":null,\"totalLogicalSizeOfDataToRewriteInBytes\":\"0\",\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":\"0\",\"numCompactionTasksPlannedUndoneDueToPO\":\"0\",\"compressionRatioFromSampling\":\"-1.0\",\"numLeafNodesCompacted\":\"0\",\"nodeMinNumFilesToCompact\":\"0\",\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":\"0\",\"pipelinedAssemblerMetrics\":null,\"compressionRatioSamplingTimeMs\":\"0\",\"predicates\":null,\"isPOTriggered\":\"false\",\"numSamplingJobs\":\"0\",\"clusterThresholdStrategy\":null,\"compactionType\":\"post-optimize-compaction\",\"sizeOfTableInBytesBeforeLazyClustering\":\"378561211\",\"numFilesClassifiedToLeafNodes\":\"0\",\"timeMetrics\":{\"metadataCreationTimeMs\":\"0\",\"totalGetFilesForNodeCallsTimeMs\":\"0\",\"optimizerTimeMs\":\"0\",\"classifierTimeMs\":\"0\",\"totalSamplingTimeMs\":\"0\",\"metadataLoadTimeMs\":\"124\",\"parentIndexBuildTimeMs\":\"0\"},\"approxClusteringQuality\":\"0.7452646682132367\",\"numClusteringTasksNotPlannedDueToPO\":\"0\",\"numThreadsForClassifier\":null,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":\"0\",\"splitStrategy\":null,\"maxOptimizeBatchesInParallel\":\"15\",\"compressionRatioChosen\":\"-1.0\",\"maxIterations\":\"1\",\"numLeafNodesExpanded\":\"0\",\"numIntermediateNodesCompactedUndoneDueToPO\":\"0\",\"numIdealFilesWithTrimmedStringMaxValue\":\"0\",\"numCompactionTasksPlanned\":\"0\",\"numFilesClassifiedToIntermediateNodes\":\"0\",\"numNullValuesEncounteredForTransforms\":\"0\",\"numLeafNodesClustered\":\"0\",\"compressionRatioNumSamples\":\"0\",\"numSmallFilesSkippedAfterExpansion\":\"0\",\"compressionRatioStalenessReason\":\"n/a\",\"minFileSize\":\"33554432\",\"pipelinedTotalBatchWaitTimeMs\":\"0\",\"numLeafNodesCompactedUndoneDueToPO\":\"0\",\"numIdealFiles\":\"0\",\"currentIteration\":\"1\",\"numClusteringTasksPlanned\":\"0\",\"numGetFilesForNodeCalls\":\"0\",\"approxClusteringCoverage\":\"1.0\",\"isNewMetadataCreated\":\"false\",\"compressionRatioTriggeredScaling\":\"false\",\"numIntermediateNodesCompacted\":\"0\",\"pipelinedPostFirstBatchWaitTimeMs\":\"0\",\"numFilesSkippedByPredicates\":\"0\",\"withPredicates\":\"false\",\"isFull\":\"false\",\"totalLogicalSizeOfDataToCompactInBytes\":\"0\",\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":\"0\",\"totalSizeOfDataToRewriteInBytes\":\"0\",\"compressionRatioFromPersistedEntry\":\"false\",\"numDowncastDimensions\":null,\"totalSizeOfDataToCompactInBytes\":\"0\",\"numIntermediateNodesClustered\":\"0\",\"maxFileSize\":\"67108864\",\"compressionRatioSource\":\"n/a\",\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":\"0\",\"clusteringStrategy\":null,\"pipelinedTotalPlanningTimeMs\":\"0\",\"numOptimizeBatchesPlanned\":\"0\",\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":\"0\",\"numFilesSkippedWithoutStats\":\"0\",\"isPipelinedOptimizer\":\"false\",\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":\"0\",\"sizeOfFilesClassifiedToLeafNodesInBytes\":\"0\",\"pipelinedOptimizerStatus\":null,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":\"0\",\"approxClusteringQualityPerColumn\":[\"0.7452646682132367\"],\"numAddedFilesWithSameMinMaxOnClusteringColumns\":null,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":\"0\",\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":\"0\"},\"numTableColumns\":\"17\",\"numFilesSortedWithinFiles\":\"0\",\"numFilesAdded\":\"0\",\"numFilesRemoved\":\"0\",\"fileAgeHistogram\":null,\"autoCompactParallelismStats\":null}"
+        ]
+      ]
+    },
+    {
+      "label": "exact-full-parity-object",
+      "seconds": 13.229202041,
+      "result": [
+        [
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "detail-object",
+      "seconds": 1.2326832080000045,
+      "result": [
+        [
+          "delta",
+          "a0189502-424a-4030-afbf-af38c81432d0",
+          "client_dev.ashlar_scale_20261006_r85.object_current",
+          null,
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/c34fe91d-eaf2-43b9-9187-58846dd03cac",
+          "2026-10-06T21:11:06.014Z",
+          "2026-10-06T21:11:27.000Z",
+          "[]",
+          "[\"lookup_hash\"]",
+          "4",
+          "378561211",
+          "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,type_id,id\",\"io.unitycatalog.tableId\":\"c34fe91d-eaf2-43b9-9187-58846dd03cac\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-1cc3f521-1f00-4852-ba11-55c37521310e\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-c884d435-a304-4cbd-965b-6a183af314f4\"}",
+          "3",
+          "7",
+          "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+          "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+          "false"
+        ]
+      ]
+    },
+    {
+      "label": "version-object",
+      "seconds": 2.356907332999995,
+      "result": [
+        [
+          "0",
+          "2026-10-06T21:11:27.000Z",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "CREATE TABLE AS SELECT",
+          "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"databricks.delta.expressionStats.selectedColumns\\\":\\\"upper(lookup_hash),lower(lookup_hash)\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"delta.dataSkippingStatsColumns\\\":\\\"lookup_hash,source_system,type_id,id\\\",\\\"io.unitycatalog.tableId\\\":\\\"c34fe91d-eaf2-43b9-9187-58846dd03cac\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-c884d435-a304-4cbd-965b-6a183af314f4\\\",\\\"delta.targetFileSize\\\":\\\"67108864\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-1cc3f521-1f00-4852-ba11-55c37521310e\\\"}\",\"statsOnLoad\":\"true\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+          null,
+          null,
+          "01f1c1ca-7095-189c-b917-3f1614c593cc",
+          null,
+          null,
+          "WriteSerializable",
+          "true",
+          "{\"numFiles\":\"4\",\"numOutputRows\":\"4000000\",\"numOutputBytes\":\"378561211\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "create-edge",
+      "seconds": 55.512458290999994,
+      "result": []
+    },
+    {
+      "label": "optimize-edge",
+      "seconds": 3.797501583000013,
+      "result": [
+        [
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/effd686d-585f-4cd7-a8be-0cd999994fa8",
+          "{\"recompressionCodec\":null,\"partitionsOptimized\":\"0\",\"numTableColumnsWithStats\":\"20\",\"skippedArchivedFiles\":\"0\",\"clusteringStats\":null,\"totalFilesSkipped\":\"0\",\"totalClusterParallelism\":\"8\",\"numFilesSkippedToReduceWriteAmplification\":\"0\",\"totalScheduledTasks\":\"0\",\"endTimeMs\":\"1791321169002\",\"startTimeMs\":\"1791321167403\",\"filesAdded\":{\"totalSize\":\"0\",\"avg\":\"0.0\",\"min\":null,\"totalFiles\":\"0\",\"max\":null},\"numBatches\":\"0\",\"numBins\":\"0\",\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":\"0\",\"numDeletionVectorRowsRemoved\":\"0\"},\"filesRemoved\":{\"totalSize\":\"0\",\"avg\":\"0.0\",\"min\":null,\"totalFiles\":\"0\",\"max\":null},\"totalTaskExecutionTimeMs\":\"0\",\"zOrderStats\":null,\"preserveInsertionOrder\":\"false\",\"totalConsideredFiles\":\"17\",\"numBytesSkippedToReduceWriteAmplification\":\"0\",\"clusteringMetrics\":{\"numFilesSkippedAfterExpansion\":\"0\",\"coordinatorEventMetrics\":null,\"totalLogicalSizeOfDataToRewriteInBytes\":\"0\",\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":\"0\",\"numCompactionTasksPlannedUndoneDueToPO\":\"0\",\"compressionRatioFromSampling\":\"-1.0\",\"numLeafNodesCompacted\":\"0\",\"nodeMinNumFilesToCompact\":\"4\",\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":\"0\",\"pipelinedAssemblerMetrics\":null,\"compressionRatioSamplingTimeMs\":\"0\",\"predicates\":null,\"isPOTriggered\":\"false\",\"numSamplingJobs\":\"0\",\"clusterThresholdStrategy\":\"log\",\"compactionType\":null,\"sizeOfTableInBytesBeforeLazyClustering\":\"2024478320\",\"numFilesClassifiedToLeafNodes\":\"0\",\"timeMetrics\":{\"metadataCreationTimeMs\":\"0\",\"totalGetFilesForNodeCallsTimeMs\":\"0\",\"optimizerTimeMs\":\"16\",\"classifierTimeMs\":\"76\",\"totalSamplingTimeMs\":\"0\",\"metadataLoadTimeMs\":\"157\",\"parentIndexBuildTimeMs\":\"0\"},\"approxClusteringQuality\":\"0.937884938480472\",\"numClusteringTasksNotPlannedDueToPO\":\"0\",\"numThreadsForClassifier\":null,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":\"0\",\"splitStrategy\":null,\"maxOptimizeBatchesInParallel\":\"2\",\"compressionRatioChosen\":\"-1.0\",\"maxIterations\":\"5\",\"numLeafNodesExpanded\":\"0\",\"numIntermediateNodesCompactedUndoneDueToPO\":\"0\",\"numIdealFilesWithTrimmedStringMaxValue\":\"0\",\"numCompactionTasksPlanned\":\"0\",\"numFilesClassifiedToIntermediateNodes\":\"0\",\"numNullValuesEncounteredForTransforms\":\"0\",\"numLeafNodesClustered\":\"0\",\"compressionRatioNumSamples\":\"0\",\"numSmallFilesSkippedAfterExpansion\":\"0\",\"compressionRatioStalenessReason\":\"n/a\",\"minFileSize\":\"16777216\",\"pipelinedTotalBatchWaitTimeMs\":\"0\",\"numLeafNodesCompactedUndoneDueToPO\":\"0\",\"numIdealFiles\":\"0\",\"currentIteration\":\"1\",\"numClusteringTasksPlanned\":\"0\",\"numGetFilesForNodeCalls\":\"0\",\"approxClusteringCoverage\":\"1.0\",\"isNewMetadataCreated\":\"false\",\"compressionRatioTriggeredScaling\":\"false\",\"numIntermediateNodesCompacted\":\"0\",\"pipelinedPostFirstBatchWaitTimeMs\":\"0\",\"numFilesSkippedByPredicates\":\"0\",\"withPredicates\":\"false\",\"isFull\":\"false\",\"totalLogicalSizeOfDataToCompactInBytes\":\"0\",\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":\"0\",\"totalSizeOfDataToRewriteInBytes\":\"0\",\"compressionRatioFromPersistedEntry\":\"false\",\"numDowncastDimensions\":null,\"totalSizeOfDataToCompactInBytes\":\"0\",\"numIntermediateNodesClustered\":\"0\",\"maxFileSize\":\"67108864\",\"compressionRatioSource\":\"n/a\",\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":\"0\",\"clusteringStrategy\":\"sizeAware\",\"pipelinedTotalPlanningTimeMs\":\"0\",\"numOptimizeBatchesPlanned\":\"0\",\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":\"0\",\"numFilesSkippedWithoutStats\":\"0\",\"isPipelinedOptimizer\":\"false\",\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":\"0\",\"sizeOfFilesClassifiedToLeafNodesInBytes\":\"0\",\"pipelinedOptimizerStatus\":null,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":\"0\",\"approxClusteringQualityPerColumn\":[\"0.937884938480472\"],\"numAddedFilesWithSameMinMaxOnClusteringColumns\":null,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":\"0\",\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":\"0\"},\"numTableColumns\":\"20\",\"numFilesSortedWithinFiles\":\"0\",\"numFilesAdded\":\"0\",\"numFilesRemoved\":\"0\",\"fileAgeHistogram\":null,\"autoCompactParallelismStats\":null}"
+        ],
+        [
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/effd686d-585f-4cd7-a8be-0cd999994fa8",
+          "{\"recompressionCodec\":null,\"partitionsOptimized\":\"0\",\"numTableColumnsWithStats\":\"20\",\"skippedArchivedFiles\":\"0\",\"clusteringStats\":null,\"totalFilesSkipped\":\"0\",\"totalClusterParallelism\":\"8\",\"numFilesSkippedToReduceWriteAmplification\":\"0\",\"totalScheduledTasks\":\"0\",\"endTimeMs\":\"1791321169808\",\"startTimeMs\":\"1791321169025\",\"filesAdded\":{\"totalSize\":\"0\",\"avg\":\"0.0\",\"min\":null,\"totalFiles\":\"0\",\"max\":null},\"numBatches\":\"0\",\"numBins\":\"0\",\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":\"0\",\"numDeletionVectorRowsRemoved\":\"0\"},\"filesRemoved\":{\"totalSize\":\"0\",\"avg\":\"0.0\",\"min\":null,\"totalFiles\":\"0\",\"max\":null},\"totalTaskExecutionTimeMs\":\"0\",\"zOrderStats\":null,\"preserveInsertionOrder\":\"true\",\"totalConsideredFiles\":\"17\",\"numBytesSkippedToReduceWriteAmplification\":\"0\",\"clusteringMetrics\":{\"numFilesSkippedAfterExpansion\":\"0\",\"coordinatorEventMetrics\":null,\"totalLogicalSizeOfDataToRewriteInBytes\":\"0\",\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":\"0\",\"numCompactionTasksPlannedUndoneDueToPO\":\"0\",\"compressionRatioFromSampling\":\"-1.0\",\"numLeafNodesCompacted\":\"0\",\"nodeMinNumFilesToCompact\":\"0\",\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":\"0\",\"pipelinedAssemblerMetrics\":null,\"compressionRatioSamplingTimeMs\":\"0\",\"predicates\":null,\"isPOTriggered\":\"false\",\"numSamplingJobs\":\"0\",\"clusterThresholdStrategy\":null,\"compactionType\":\"post-optimize-compaction\",\"sizeOfTableInBytesBeforeLazyClustering\":\"2024478320\",\"numFilesClassifiedToLeafNodes\":\"0\",\"timeMetrics\":{\"metadataCreationTimeMs\":\"0\",\"totalGetFilesForNodeCallsTimeMs\":\"0\",\"optimizerTimeMs\":\"0\",\"classifierTimeMs\":\"0\",\"totalSamplingTimeMs\":\"0\",\"metadataLoadTimeMs\":\"120\",\"parentIndexBuildTimeMs\":\"0\"},\"approxClusteringQuality\":\"0.937884938480472\",\"numClusteringTasksNotPlannedDueToPO\":\"0\",\"numThreadsForClassifier\":null,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":\"0\",\"splitStrategy\":null,\"maxOptimizeBatchesInParallel\":\"15\",\"compressionRatioChosen\":\"-1.0\",\"maxIterations\":\"1\",\"numLeafNodesExpanded\":\"0\",\"numIntermediateNodesCompactedUndoneDueToPO\":\"0\",\"numIdealFilesWithTrimmedStringMaxValue\":\"0\",\"numCompactionTasksPlanned\":\"0\",\"numFilesClassifiedToIntermediateNodes\":\"0\",\"numNullValuesEncounteredForTransforms\":\"0\",\"numLeafNodesClustered\":\"0\",\"compressionRatioNumSamples\":\"0\",\"numSmallFilesSkippedAfterExpansion\":\"0\",\"compressionRatioStalenessReason\":\"n/a\",\"minFileSize\":\"33554432\",\"pipelinedTotalBatchWaitTimeMs\":\"0\",\"numLeafNodesCompactedUndoneDueToPO\":\"0\",\"numIdealFiles\":\"0\",\"currentIteration\":\"1\",\"numClusteringTasksPlanned\":\"0\",\"numGetFilesForNodeCalls\":\"0\",\"approxClusteringCoverage\":\"1.0\",\"isNewMetadataCreated\":\"false\",\"compressionRatioTriggeredScaling\":\"false\",\"numIntermediateNodesCompacted\":\"0\",\"pipelinedPostFirstBatchWaitTimeMs\":\"0\",\"numFilesSkippedByPredicates\":\"0\",\"withPredicates\":\"false\",\"isFull\":\"false\",\"totalLogicalSizeOfDataToCompactInBytes\":\"0\",\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":\"0\",\"totalSizeOfDataToRewriteInBytes\":\"0\",\"compressionRatioFromPersistedEntry\":\"false\",\"numDowncastDimensions\":null,\"totalSizeOfDataToCompactInBytes\":\"0\",\"numIntermediateNodesClustered\":\"0\",\"maxFileSize\":\"67108864\",\"compressionRatioSource\":\"n/a\",\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":\"0\",\"clusteringStrategy\":null,\"pipelinedTotalPlanningTimeMs\":\"0\",\"numOptimizeBatchesPlanned\":\"0\",\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":\"0\",\"numFilesSkippedWithoutStats\":\"0\",\"isPipelinedOptimizer\":\"false\",\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":\"0\",\"sizeOfFilesClassifiedToLeafNodesInBytes\":\"0\",\"pipelinedOptimizerStatus\":null,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":\"0\",\"approxClusteringQualityPerColumn\":[\"0.937884938480472\"],\"numAddedFilesWithSameMinMaxOnClusteringColumns\":null,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":\"0\",\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":\"0\"},\"numTableColumns\":\"20\",\"numFilesSortedWithinFiles\":\"0\",\"numFilesAdded\":\"0\",\"numFilesRemoved\":\"0\",\"fileAgeHistogram\":null,\"autoCompactParallelismStats\":null}"
+        ]
+      ]
+    },
+    {
+      "label": "exact-full-parity-edge",
+      "seconds": 65.649126125,
+      "result": [
+        [
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "detail-edge",
+      "seconds": 0.7585091249999891,
+      "result": [
+        [
+          "delta",
+          "5a17591a-edd1-4e40-8193-af2f47f06491",
+          "client_dev.ashlar_scale_20261006_r85.edge_current",
+          null,
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/effd686d-585f-4cd7-a8be-0cd999994fa8",
+          "2026-10-06T21:11:52.050Z",
+          "2026-10-06T21:12:45.000Z",
+          "[]",
+          "[\"lookup_hash\"]",
+          "17",
+          "2024478320",
+          "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id\",\"io.unitycatalog.tableId\":\"effd686d-585f-4cd7-a8be-0cd999994fa8\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-854172ad-fce6-4add-afbe-af183b4f626b\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-88802cc4-ef47-4498-954f-9652c5898a0f\"}",
+          "3",
+          "7",
+          "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+          "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+          "false"
+        ]
+      ]
+    },
+    {
+      "label": "version-edge",
+      "seconds": 1.4620603329999824,
+      "result": [
+        [
+          "0",
+          "2026-10-06T21:12:45.000Z",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "CREATE TABLE AS SELECT",
+          "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"databricks.delta.expressionStats.selectedColumns\\\":\\\"upper(lookup_hash),lower(lookup_hash)\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"delta.dataSkippingStatsColumns\\\":\\\"lookup_hash,source_system,rel_type_id,id\\\",\\\"io.unitycatalog.tableId\\\":\\\"effd686d-585f-4cd7-a8be-0cd999994fa8\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-88802cc4-ef47-4498-954f-9652c5898a0f\\\",\\\"delta.targetFileSize\\\":\\\"67108864\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-854172ad-fce6-4add-afbe-af183b4f626b\\\"}\",\"statsOnLoad\":\"true\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+          null,
+          null,
+          "01f1c1ca-8c8f-1232-ba4e-1683725b1a24",
+          null,
+          null,
+          "WriteSerializable",
+          "true",
+          "{\"numFiles\":\"17\",\"numOutputRows\":\"20000000\",\"numOutputBytes\":\"2024478320\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "stage-updates",
+      "seconds": 3.7197527079999873,
+      "result": []
+    },
+    {
+      "label": "merge-scattered-edges",
+      "seconds": 12.22274329199999,
+      "result": [
+        [
+          "200000",
+          "200000",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "changed-row-count",
+      "seconds": 1.249048958000003,
+      "result": [
+        [
+          "200000"
+        ]
+      ]
+    },
+    {
+      "label": "old-snapshot",
+      "seconds": 1.1014284999999973,
+      "result": [
+        [
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "updated-full-parity",
+      "seconds": 3.948660167000014,
+      "result": [
+        [
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "merge-history",
+      "seconds": 1.1018405410000014,
+      "result": [
+        [
+          "1",
+          "2026-10-06T21:14:14.000Z",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "MERGE",
+          "{\"predicate\":\"[\\\"(((lookup_hash#20181 = lookup_hash#20221) AND (source_system#20165 = source_system#20205)) AND ((rel_type_id#20166L = rel_type_id#20206L) AND (id#20167L = id#20207L)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}",
+          null,
+          null,
+          "01f1c1ca-db34-1d84-824a-506a803c36a5",
+          null,
+          "0",
+          "WriteSerializable",
+          "false",
+          "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetFilesAdded\":\"1\",\"numTargetBytesAdded\":\"20197944\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"17\",\"numTargetRowsMatchedUpdated\":\"200000\",\"executionTimeMs\":\"10500\",\"materializeSourceTimeMs\":\"7\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"5418\",\"numTargetRowsUpdated\":\"200000\",\"numOutputRows\":\"200000\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"0\",\"numSourceRows\":\"200000\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"4994\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-0",
+      "seconds": 1.326080707999978,
+      "result": [
+        [
+          "pilot",
+          "2",
+          "1",
+          "12",
+          "171",
+          "6",
+          "421",
+          "synthetic-r1",
+          "1",
+          "{\"107\":true,\"previous\":{\"101\":null}}",
+          "{\"unknown\":{\"ordinal\":1,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "7f70388e7f7c54e4c17513bc25341038d02b0902b6be87087116416781bcc20b",
+          "update",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"1\"}",
+          "edge:1"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-1",
+      "seconds": 0.8813429580000047,
+      "result": [
+        [
+          "pilot",
+          "9",
+          "15485864",
+          "21",
+          "596884",
+          "3",
+          "617954",
+          "synthetic-r1",
+          "0",
+          "{}",
+          "{\"unknown\":{\"ordinal\":15485864,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "0864bf1ecdcf660b8b8e5d1e4c5e9d60731a19d5bdba32344112c5f3dae728e4",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"15485864\"}",
+          "edge:15485864"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-2",
+      "seconds": 0.8500437499999975,
+      "result": [
+        [
+          "pilot",
+          "16",
+          "10971727",
+          "30",
+          "1193597",
+          "32",
+          "1235487",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"25773a908077f4c52373256be567fdbf8946daa98b6e7212508f4e16c342f289b0bdc98a78182740972c90bb9f755352e66174abc61a87ed72d709221e90a6e5b0bdc98a78182740972c90bb9f755352e66174abc61a87ed72d709221e90a6e5b0bdc98a78182740972c90bb9f755352e66174abc61a87ed72d709221e90a6e5b0bdc98a78182740972c90bb9f755352e66174abc61a87ed72d709221e90a6e5b0bdc98a78182740972c90bb9f755352e66174abc61a87ed72d709221e90a6e5b0bdc98a78182740972c90bb9f755352e66174abc61a87ed72d709221e90a6e5b0bdc98a78182740972c90bb9f755352e66174abc61a87ed72d709221e90a6e5b0bdc98a78182740972c90bb9f755352e66174abc61a87ed72d709221e90a6e5b0bdc98a78182740972c90bb9f755352e66174abc61a87ed72d709221e90a6e5\",\"106\":27}",
+          "{\"unknown\":{\"ordinal\":10971727,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "32f6a3c8a3ff71d4131eec68e94535920b5cbef66c0f100f490ea70b917c3b36",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"10971727\"}",
+          "edge:10971727"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-3",
+      "seconds": 0.9523845420000043,
+      "result": [
+        [
+          "other",
+          "23",
+          "6457590",
+          "7",
+          "1790310",
+          "29",
+          "1853020",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"8441ed336558d074c2d2abb9481dbad72d5e45a207a7342afa18d8a5b8912e7a217de638bee887850b86dac7af620cf01ec57c037dd177c1a7d72a537f3df9c3217de638bee887850b86dac7af620cf01ec57c037dd177c1a7d72a537f3df9c3\",\"106\":90}",
+          "{\"unknown\":{\"ordinal\":6457590,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "8efe9fde21d52d8f8aaff5c3ee99a018ce326839bd9921b518703194e2caa916",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"6457590\"}",
+          "edge:6457590"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-4",
+      "seconds": 0.9359087079999995,
+      "result": [
+        [
+          "pilot",
+          "30",
+          "1943453",
+          "6",
+          "2387013",
+          "16",
+          "2470543",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"45a219e4c7f6b87bb47808f49de74f857ea5fd01ea989da4ce844575cf2272fb85a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf085a5d88456fbecf8f9e4155742bc7a0515c5f681f87bd5a7dbd7c9d63493cbf0\",\"106\":53}",
+          "{\"unknown\":{\"ordinal\":1943453,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "c9919173fadd76e39130992585a4889770aff38cc4c33b7ab4283f2719ae0b0c",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"1943453\"}",
+          "edge:1943453"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-5",
+      "seconds": 1.2767920840000215,
+      "result": [
+        [
+          "pilot",
+          "5",
+          "17429316",
+          "15",
+          "2983726",
+          "13",
+          "3088076",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"ccf19c631ee76866cab94c727ddddae86ce0b37fd662df9b6df8f3bca6b3a9a6d5d66c43720e756b961bd92baad0cc92482640a625ddff2ebe7dfefbeb08df50d5d66c43720e756b961bd92baad0cc92482640a625ddff2ebe7dfefbeb08df50d5d66c43720e756b961bd92baad0cc92482640a625ddff2ebe7dfefbeb08df50d5d66c43720e756b961bd92baad0cc92482640a625ddff2ebe7dfefbeb08df50d5d66c43720e756b961bd92baad0cc92482640a625ddff2ebe7dfefbeb08df50d5d66c43720e756b961bd92baad0cc92482640a625ddff2ebe7dfefbeb08df50d5d66c43720e756b961bd92baad0cc92482640a625ddff2ebe7dfefbeb08df50d5d66c43720e756b961bd92baad0cc92482640a625ddff2ebe7dfefbeb08df50\",\"106\":16}",
+          "{\"unknown\":{\"ordinal\":17429316,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "30c4ce024a27dc9d4f6cb3bf15a04f927deb99250a82d7cc1e26ed2837acd6e5",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"17429316\"}",
+          "edge:17429316"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-6",
+      "seconds": 0.7575356250000027,
+      "result": [
+        [
+          "pilot",
+          "12",
+          "12915179",
+          "24",
+          "3580439",
+          "10",
+          "3705609",
+          "synthetic-r1",
+          "0",
+          "{\"104\":\"2026-10-06T09:30:00.123456789-04:00\"}",
+          "{\"unknown\":{\"ordinal\":12915179,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "f5dcc2df4462f2519be3126f1d7c6545ad50200c0b47930959169a22a8cc9e59",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"12915179\"}",
+          "edge:12915179"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-7",
+      "seconds": 1.0966589589999955,
+      "result": [
+        [
+          "pilot",
+          "19",
+          "8401042",
+          "23",
+          "177142",
+          "29",
+          "323132",
+          "synthetic-r1",
+          "0",
+          "{\"102\":9007199254740993,\"103\":1.2300000000000000001}",
+          "{\"unknown\":{\"ordinal\":8401042,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "ba0204ded4f207abf40aed5951b3ff2d84d3e3992785f16a47c7a2c2629cecec",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"8401042\"}",
+          "edge:8401042"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-8",
+      "seconds": 0.7176973329999896,
+      "result": [
+        [
+          "pilot",
+          "26",
+          "3886905",
+          "32",
+          "773855",
+          "26",
+          "940665",
+          "synthetic-r1",
+          "0",
+          "{\"101\":null}",
+          "{\"unknown\":{\"ordinal\":3886905,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "f71e6cc45a51862d45b1774aeecc5e8914071edd4278104644ef99d65fc24c1e",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"3886905\"}",
+          "edge:3886905"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-9",
+      "seconds": 0.7048328750000223,
+      "result": [
+        [
+          "pilot",
+          "1",
+          "19372768",
+          "9",
+          "1370568",
+          "23",
+          "1558198",
+          "synthetic-r1",
+          "0",
+          "{}",
+          "{\"unknown\":{\"ordinal\":19372768,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "11207fcd8bd82da174561aecf87941c6c219d1311bf91d12be62c8b38cdeedc6",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"19372768\"}",
+          "edge:19372768"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-10",
+      "seconds": 1.2642142920000197,
+      "result": [
+        [
+          "pilot",
+          "8",
+          "14858631",
+          "8",
+          "1967271",
+          "10",
+          "2175721",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"ceb6281266508bb9ab3b5abbc166794f8b8f96d77c6f693dc1c059919105f9cf2a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a72a5a26ed0ef7bbd5c3207e1a3aefbd005058715ba31e364764b77416932984a7\",\"106\":31}",
+          "{\"unknown\":{\"ordinal\":14858631,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "15c6ab92ae52bb9bdb91bc66768aa02e85a30acb5bb2a46b3a090152bf0a3076",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"14858631\"}",
+          "edge:14858631"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-11",
+      "seconds": 0.7825989579999941,
+      "result": [
+        [
+          "pilot",
+          "15",
+          "10344494",
+          "17",
+          "2563984",
+          "7",
+          "2793254",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"2d91f80fd404f752ec705906632db2220d60123e28d2dee356b657fe27a660f9025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44025467e6b078c6bdd38fa0b73956132e40ac4031fc782eddc4065f2d89039f44\",\"106\":94}",
+          "{\"unknown\":{\"ordinal\":10344494,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "d74050c16bb8107efb4583c682e742f78c97f0a85ac9e395a335996bfba7a2c7",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"10344494\"}",
+          "edge:10344494"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-12",
+      "seconds": 0.779447250000004,
+      "result": [
+        [
+          "pilot",
+          "22",
+          "5830357",
+          "26",
+          "3160697",
+          "4",
+          "3410787",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"caf76adaed4e17d3abce40930d622a853b95ab6007d1117f980e6fdfc08e7d9d7dfd51aa24fbceb9b901709c0b1b34367cae3ad162c6d3bf669553a75dd4f9ea7dfd51aa24fbceb9b901709c0b1b34367cae3ad162c6d3bf669553a75dd4f9ea7dfd51aa24fbceb9b901709c0b1b34367cae3ad162c6d3bf669553a75dd4f9ea7dfd51aa24fbceb9b901709c0b1b34367cae3ad162c6d3bf669553a75dd4f9ea7dfd51aa24fbceb9b901709c0b1b34367cae3ad162c6d3bf669553a75dd4f9ea7dfd51aa24fbceb9b901709c0b1b34367cae3ad162c6d3bf669553a75dd4f9ea7dfd51aa24fbceb9b901709c0b1b34367cae3ad162c6d3bf669553a75dd4f9ea7dfd51aa24fbceb9b901709c0b1b34367cae3ad162c6d3bf669553a75dd4f9ea7dfd51aa24fbceb9b901709c0b1b34367cae3ad162c6d3bf669553a75dd4f9ea\",\"106\":57}",
+          "{\"unknown\":{\"ordinal\":5830357,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "4f1fbf57e747bae0fd4db8e8c14e96721eaa338768cab214d8e6c87b9a64da42",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"5830357\"}",
+          "edge:5830357"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-13",
+      "seconds": 0.8639904160000071,
+      "result": [
+        [
+          "other",
+          "29",
+          "1316220",
+          "3",
+          "3757410",
+          "1",
+          "28320",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"0575a53fdea4cc650dc141c0a7bc46fc025e56832b3878b7f697485b2e9b0a8dad937119fa8e2c450f9dd8a7625a245d63ba2430431a5ce3e4092a5db244d0c5ad937119fa8e2c450f9dd8a7625a245d63ba2430431a5ce3e4092a5db244d0c5\",\"106\":20}",
+          "{\"unknown\":{\"ordinal\":1316220,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "d129ba4d843edd16264ea4d4a9472f112d0a134eaa4632abf0b2c2defbe3045e",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"1316220\"}",
+          "edge:1316220"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-14",
+      "seconds": 0.8390436669999985,
+      "result": [
+        [
+          "pilot",
+          "4",
+          "16802083",
+          "2",
+          "354113",
+          "20",
+          "645843",
+          "synthetic-r1",
+          "0",
+          "{\"104\":\"2026-10-06T09:30:00.123456789-04:00\"}",
+          "{\"unknown\":{\"ordinal\":16802083,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "260e0a5b62e61665942a91829e2a27b9e143467acb892892d6a0fbf39892e7a7",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"16802083\"}",
+          "edge:16802083"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-15",
+      "seconds": 0.8452339170000016,
+      "result": [
+        [
+          "pilot",
+          "11",
+          "12287946",
+          "11",
+          "950826",
+          "17",
+          "1263376",
+          "synthetic-r1",
+          "0",
+          "{\"102\":9007199254740993,\"103\":1.2300000000000000001}",
+          "{\"unknown\":{\"ordinal\":12287946,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "6df4690fcf806dec14e181eb362981583742eb59f956713fdbf575ebafd03bda",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"12287946\"}",
+          "edge:12287946"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-16",
+      "seconds": 0.7636630840000009,
+      "result": [
+        [
+          "pilot",
+          "18",
+          "7773809",
+          "20",
+          "1547539",
+          "14",
+          "1880909",
+          "synthetic-r1",
+          "0",
+          "{\"101\":null}",
+          "{\"unknown\":{\"ordinal\":7773809,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "29565d1e9d5641138a867207ed2e87f826c91fb948dd6f55d9b5414455c1bc0e",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"7773809\"}",
+          "edge:7773809"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-17",
+      "seconds": 0.8202972919999922,
+      "result": [
+        [
+          "pilot",
+          "25",
+          "3259672",
+          "19",
+          "2144242",
+          "1",
+          "2498432",
+          "synthetic-r1",
+          "0",
+          "{}",
+          "{\"unknown\":{\"ordinal\":3259672,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "8b4cd4fd600df0ea8705b3ebea606f46b24a885295fc14837942ff5b06a26dd1",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"3259672\"}",
+          "edge:3259672"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-18",
+      "seconds": 0.8860937909999791,
+      "result": [
+        [
+          "pilot",
+          "32",
+          "18745535",
+          "28",
+          "2740955",
+          "30",
+          "3115965",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"d8c1c1232c39f8efb280864d8ba412bf1f318458fbe9f4608e5d6b77f65b878c7d7ca9b19cf4df4c29eb759493b5f2617b1e44f9fdc5fa97de22ee9ca7cd44547d7ca9b19cf4df4c29eb759493b5f2617b1e44f9fdc5fa97de22ee9ca7cd44547d7ca9b19cf4df4c29eb759493b5f2617b1e44f9fdc5fa97de22ee9ca7cd44547d7ca9b19cf4df4c29eb759493b5f2617b1e44f9fdc5fa97de22ee9ca7cd44547d7ca9b19cf4df4c29eb759493b5f2617b1e44f9fdc5fa97de22ee9ca7cd44547d7ca9b19cf4df4c29eb759493b5f2617b1e44f9fdc5fa97de22ee9ca7cd44547d7ca9b19cf4df4c29eb759493b5f2617b1e44f9fdc5fa97de22ee9ca7cd4454\",\"106\":35}",
+          "{\"unknown\":{\"ordinal\":18745535,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "92e3ce69458fc6e44f56b724edab2fe7d688d9b3dc863ee35cd063bfd43ba22c",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"18745535\"}",
+          "edge:18745535"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-19",
+      "seconds": 0.8802316249999933,
+      "result": [
+        [
+          "pilot",
+          "7",
+          "14231398",
+          "5",
+          "3337668",
+          "27",
+          "3733498",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"bb7360f2e9350a530ba4d7fd1889211e3f58df1505e541683aeafa3752ae4d0c6c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b1146c4eeae3c9de6cc3b92efa81071ba09934a790633e3ea4148cf1e0a935d1b114\",\"106\":98}",
+          "{\"unknown\":{\"ordinal\":14231398,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "6aef8726a677d7cd715d44fc713371121d3d2668ad174c681e5a79c5ce25a420",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"14231398\"}",
+          "edge:14231398"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-20",
+      "seconds": 0.7807326670000236,
+      "result": [
+        [
+          "pilot",
+          "14",
+          "9717261",
+          "4",
+          "3934371",
+          "14",
+          "351021",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"f270698ef861194b0614bc84aff02f956f58338ca66223a3652cb167088dbccadedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4dedb1ee4d99ed78634a62cd66a3243e13dc481f107d346448ef60543cc8dd3a4\",\"106\":61}",
+          "{\"unknown\":{\"ordinal\":9717261,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "90a7bf31d1806b17ed0bbdc89bbd76605409a713381969f8dc9ce101dc783f33",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"9717261\"}",
+          "edge:9717261"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-21",
+      "seconds": 0.8178924590000065,
+      "result": [
+        [
+          "pilot",
+          "21",
+          "5203124",
+          "13",
+          "531084",
+          "11",
+          "968554",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"bca69991e7edcf6cebd8b4a7cb97b275b0f7bbfbeae20bffd849ec9d8609440ffa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22fa85851c95a4ad44117d8458834daac8bcf435182f1ceaa9bf72852d26012f22\",\"106\":24}",
+          "{\"unknown\":{\"ordinal\":5203124,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "abfd092e26ce05a92f8cb9413f532288a5de1b727ea40162eef01d82821821a3",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"5203124\"}",
+          "edge:5203124"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-22",
+      "seconds": 0.8238927499999988,
+      "result": [
+        [
+          "pilot",
+          "28",
+          "688987",
+          "22",
+          "1127797",
+          "8",
+          "1586087",
+          "synthetic-r1",
+          "0",
+          "{\"104\":\"2026-10-06T09:30:00.123456789-04:00\"}",
+          "{\"unknown\":{\"ordinal\":688987,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "e979a91c90eeeb0ac1e9ee188d5d31a67c16c74d0e2019ca66f1f826bb040f13",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"688987\"}",
+          "edge:688987"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-23",
+      "seconds": 0.7614698750000173,
+      "result": [
+        [
+          "other",
+          "3",
+          "16174850",
+          "31",
+          "1724510",
+          "5",
+          "2203620",
+          "synthetic-r1",
+          "0",
+          "{\"102\":9007199254740993,\"103\":1.2300000000000000001}",
+          "{\"unknown\":{\"ordinal\":16174850,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "00a8a125f651bd24ac1e9829a29dfb57e7fd239fc729b63f96fed0dd65fb26f0",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"16174850\"}",
+          "edge:16174850"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-24",
+      "seconds": 0.7829117920000215,
+      "result": [
+        [
+          "pilot",
+          "10",
+          "11660713",
+          "30",
+          "2321213",
+          "24",
+          "2821143",
+          "synthetic-r1",
+          "0",
+          "{\"101\":null}",
+          "{\"unknown\":{\"ordinal\":11660713,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "684acd194d85b0bc6a60e3c0b9244d4f3824283be00238db8f3a0f24c244e99c",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"11660713\"}",
+          "edge:11660713"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-25",
+      "seconds": 0.8582384169999955,
+      "result": [
+        [
+          "pilot",
+          "17",
+          "7146576",
+          "7",
+          "2917926",
+          "21",
+          "3438676",
+          "synthetic-r1",
+          "0",
+          "{}",
+          "{\"unknown\":{\"ordinal\":7146576,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "8c571568bf5cd7f1e9b67b215ff8d847871c34e8fa76193e0dc25fec5aeba3a6",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"7146576\"}",
+          "edge:7146576"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-26",
+      "seconds": 0.8315186670000116,
+      "result": [
+        [
+          "pilot",
+          "24",
+          "2632439",
+          "16",
+          "3514639",
+          "18",
+          "56209",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"d8eb3b54aa2d70ea846f0d0eb5b833a36932e23b4fd632753a8bce4ff71118c44fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb74fd10e4acb0bbe33dd33eeeed585cb57a5747f7fc095b31d39564aef4f127fb7\",\"106\":39}",
+          "{\"unknown\":{\"ordinal\":2632439,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "5c76d6dd0ce1b9caaa4025b72a132d60afdff5d38cfc3711fdf8582629b72689",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"2632439\"}",
+          "edge:2632439"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-27",
+      "seconds": 0.8380894160000025,
+      "result": [
+        [
+          "pilot",
+          "31",
+          "18118302",
+          "15",
+          "111342",
+          "5",
+          "673732",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"0ba89c856e68c3ee9ca3fa1c77f92aa3b96043064153a5d1db86003202de08d9fa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ecfa379715218ef8bea9464aafb4663a85eb960c784c219711620f177442b002ec\",\"106\":2}",
+          "{\"unknown\":{\"ordinal\":18118302,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "9caa1636cd7bf3e37c2e3c35e2dfa190a2c446ce95cefa0dfe505e906edcb5e3",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"18118302\"}",
+          "edge:18118302"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-28",
+      "seconds": 0.887558083000016,
+      "result": [
+        [
+          "pilot",
+          "6",
+          "13604165",
+          "24",
+          "708055",
+          "2",
+          "1291265",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"f789b9dfed56dd04e939061900d79672997cdb8059e2afc705c35af14692394d1633482bd126019ef858464a2010e560b3e349e823134eba7d1a14febce72e431633482bd126019ef858464a2010e560b3e349e823134eba7d1a14febce72e431633482bd126019ef858464a2010e560b3e349e823134eba7d1a14febce72e431633482bd126019ef858464a2010e560b3e349e823134eba7d1a14febce72e431633482bd126019ef858464a2010e560b3e349e823134eba7d1a14febce72e431633482bd126019ef858464a2010e560b3e349e823134eba7d1a14febce72e431633482bd126019ef858464a2010e560b3e349e823134eba7d1a14febce72e43\",\"106\":65}",
+          "{\"unknown\":{\"ordinal\":13604165,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "6e83ff6fc372d521ab005c3333f87ce7ac3d2d7156b380a7096ddf67d08e5aca",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"13604165\"}",
+          "edge:13604165"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-29",
+      "seconds": 0.7935240829999941,
+      "result": [
+        [
+          "pilot",
+          "13",
+          "9090028",
+          "1",
+          "1304768",
+          "31",
+          "1908798",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"289e44b5255225184f82745fd0839bb19b37e78219069a32a152dcd62f36a363165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7165e122072a2cd63dee660265d8dcdcde74d33c2d73bbd98a39dc4f061421bd7\",\"106\":28}",
+          "{\"unknown\":{\"ordinal\":9090028,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "00cccac85a2ef0f1185b2e30f28098f89b8ffd99421b77e3543eb7c6e04ad405",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"9090028\"}",
+          "edge:9090028"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-30",
+      "seconds": 0.926162459000011,
+      "result": [
+        [
+          "pilot",
+          "20",
+          "4575891",
+          "32",
+          "1901471",
+          "18",
+          "2526321",
+          "synthetic-r1",
+          "0",
+          "{\"104\":\"2026-10-06T09:30:00.123456789-04:00\"}",
+          "{\"unknown\":{\"ordinal\":4575891,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "9c882988b312e6d4fc07515f28a7454af580decf2c7da3589e032104562c6eb2",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"4575891\"}",
+          "edge:4575891"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-31",
+      "seconds": 0.903952333999996,
+      "result": [
+        [
+          "pilot",
+          "27",
+          "61754",
+          "9",
+          "2498184",
+          "15",
+          "3143854",
+          "synthetic-r1",
+          "0",
+          "{\"102\":9007199254740993,\"103\":1.2300000000000000001}",
+          "{\"unknown\":{\"ordinal\":61754,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "1abf5c3ec1ecd0172c8ef78281f8f6591418383e2bb1a28482ffccae739df9c5",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"61754\"}",
+          "edge:61754"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-32",
+      "seconds": 0.7853667499999801,
+      "result": [
+        [
+          "pilot",
+          "2",
+          "15547617",
+          "18",
+          "3094897",
+          "12",
+          "3761387",
+          "synthetic-r1",
+          "0",
+          "{\"101\":null}",
+          "{\"unknown\":{\"ordinal\":15547617,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "644a4b7b22b67f2c0a4b441fd6b6ca417eb6d829bf63f2317d563162f4fdd2a6",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"15547617\"}",
+          "edge:15547617"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-33",
+      "seconds": 0.8736265829999752,
+      "result": [
+        [
+          "other",
+          "9",
+          "11033480",
+          "27",
+          "3691610",
+          "9",
+          "378920",
+          "synthetic-r1",
+          "0",
+          "{}",
+          "{\"unknown\":{\"ordinal\":11033480,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "c64a2a9ebf5ae7a2647292e20eb74d93968718466c69bfae14aee90b94edc739",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"11033480\"}",
+          "edge:11033480"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-34",
+      "seconds": 0.8178261660000032,
+      "result": [
+        [
+          "pilot",
+          "16",
+          "6519343",
+          "26",
+          "288313",
+          "28",
+          "996443",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"258e6844aad09eb8b94be7fba2fa78b6fce46dc99b2aab244a81237641e4d3124ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce794ae6de03012472271c6ac93a55233ff37d7b107415fbbee456fe20d0c675ce79\",\"106\":43}",
+          "{\"unknown\":{\"ordinal\":6519343,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "f6b8c9b68c3e31a482581c2e5152ac4901cfb8d38c271639626ae9dd58e597a6",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"6519343\"}",
+          "edge:6519343"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-35",
+      "seconds": 1.013146541999987,
+      "result": [
+        [
+          "pilot",
+          "23",
+          "2005206",
+          "3",
+          "885026",
+          "25",
+          "1613976",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"98352407c1b356fac9c455470f8f438e9207bd6d9d0ab2f3bedd3c720e49196d647b94d275b105c00b2176cffeb0073f7d591a8cf4c14d6a04444170f0ae05fe647b94d275b105c00b2176cffeb0073f7d591a8cf4c14d6a04444170f0ae05fe647b94d275b105c00b2176cffeb0073f7d591a8cf4c14d6a04444170f0ae05fe647b94d275b105c00b2176cffeb0073f7d591a8cf4c14d6a04444170f0ae05fe647b94d275b105c00b2176cffeb0073f7d591a8cf4c14d6a04444170f0ae05fe647b94d275b105c00b2176cffeb0073f7d591a8cf4c14d6a04444170f0ae05fe647b94d275b105c00b2176cffeb0073f7d591a8cf4c14d6a04444170f0ae05fe647b94d275b105c00b2176cffeb0073f7d591a8cf4c14d6a04444170f0ae05fe\",\"106\":6}",
+          "{\"unknown\":{\"ordinal\":2005206,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "b8b5553e0489ad26476c6274d79fdb4af930498d8008295553dacb8c9a783fd9",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"2005206\"}",
+          "edge:2005206"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-36",
+      "seconds": 0.79243516599999,
+      "result": [
+        [
+          "pilot",
+          "30",
+          "17491069",
+          "12",
+          "1481739",
+          "22",
+          "2231509",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"74ad90214c1aa408b831728e6e62fdecf7414464f41b52b749106f2fc19ca82098faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b98faa3de11d1ce0db98ef762784614b9d20a7df7271e6b64f24815fbb8a5ce2b\",\"106\":69}",
+          "{\"unknown\":{\"ordinal\":17491069,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "70e08d510e783003d8385f00c3911c4a8bdbda47b746887e8729359ccfbb9d51",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"17491069\"}",
+          "edge:17491069"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-37",
+      "seconds": 0.8755310409999879,
+      "result": [
+        [
+          "pilot",
+          "5",
+          "12976932",
+          "11",
+          "2078442",
+          "9",
+          "2849032",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"6ecb0a54c30c9d7ca464f5ecdd0f81311a4ca7a6d156ccd1778484b5bb9d5c5c1af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb821af94e1845992c7e1ae33ceae480cee4c69be02bb9b4305d23a865b0814bbb82\",\"106\":32}",
+          "{\"unknown\":{\"ordinal\":12976932,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "829c9e6f47a845a80e4f44470ca5cbcc64e4879549cd1d1115493da89f7fca97",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"12976932\"}",
+          "edge:12976932"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-38",
+      "seconds": 0.7632935000000032,
+      "result": [
+        [
+          "pilot",
+          "12",
+          "8462795",
+          "20",
+          "2675155",
+          "6",
+          "3466565",
+          "synthetic-r1",
+          "0",
+          "{\"104\":\"2026-10-06T09:30:00.123456789-04:00\"}",
+          "{\"unknown\":{\"ordinal\":8462795,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "32c6c4832eda3a478b5ab4bd3bbb6457ecc63b7251d3a544d6bf16c98f40cbe5",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"8462795\"}",
+          "edge:8462795"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-39",
+      "seconds": 0.7469243749999919,
+      "result": [
+        [
+          "pilot",
+          "19",
+          "3948658",
+          "29",
+          "3271868",
+          "3",
+          "84098",
+          "synthetic-r1",
+          "0",
+          "{\"102\":9007199254740993,\"103\":1.2300000000000000001}",
+          "{\"unknown\":{\"ordinal\":3948658,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "31502c4ed4d223e904e5e5f59fc7665bb6f554ba6e5ca1e2c3490b7e82745047",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"3948658\"}",
+          "edge:3948658"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-40",
+      "seconds": 0.7675385409999933,
+      "result": [
+        [
+          "pilot",
+          "26",
+          "19434521",
+          "28",
+          "3868571",
+          "22",
+          "701621",
+          "synthetic-r1",
+          "0",
+          "{\"101\":null}",
+          "{\"unknown\":{\"ordinal\":19434521,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "890ab1e02e53abca6d2d4d7d5974102ea604b22f9b56168301ad5f88f112a61f",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"19434521\"}",
+          "edge:19434521"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-41",
+      "seconds": 0.9138344160000145,
+      "result": [
+        [
+          "pilot",
+          "1",
+          "14920384",
+          "5",
+          "465284",
+          "19",
+          "1319154",
+          "synthetic-r1",
+          "0",
+          "{}",
+          "{\"unknown\":{\"ordinal\":14920384,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "e22b39485d9de3134041bcceed3658e07275bbf0b9739edc7f4f04b93edc813e",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"14920384\"}",
+          "edge:14920384"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-42",
+      "seconds": 0.7317475410000043,
+      "result": [
+        [
+          "pilot",
+          "8",
+          "10406247",
+          "14",
+          "1061997",
+          "16",
+          "1936687",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"7e92a9bd9aeeff7f8de8c88f98c6ff847d335c956bd4ef779d856d4a44a95053b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815b0d6e0a8f30ca9851e3fed53cb7555feb1ba0a386e938f9054ba20ee12a1b815\",\"106\":47}",
+          "{\"unknown\":{\"ordinal\":10406247,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "6878979977f17eae04693283703b1e6c574cf1f28491ee8930c4fec235ea0357",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"10406247\"}",
+          "edge:10406247"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-43",
+      "seconds": 0.8539042909999921,
+      "result": [
+        [
+          "other",
+          "15",
+          "5892110",
+          "23",
+          "1658710",
+          "13",
+          "2554220",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"d028097d2aa169959018df6cf4942b2c2f969dfe9dde29ed86b90094fd8c5b047880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc9087880394f4353b6ec1a4f553a3e5783442291ffb45f642f45ecdd569b499cc908\",\"106\":10}",
+          "{\"unknown\":{\"ordinal\":5892110,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "dbc3e938505a3279e1e2104c82ac0a0cb492d4a24cd58cc3556229934048af5f",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"5892110\"}",
+          "edge:5892110"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-44",
+      "seconds": 0.7516962910000018,
+      "result": [
+        [
+          "pilot",
+          "22",
+          "1377973",
+          "22",
+          "2255413",
+          "32",
+          "3171743",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"9e9b00cea35b1211df3808082a77752489e8d53cbf7f6abade6b02642341ad77fb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84ffb980b8c0669fc2637a8e011c417a08a1e835eed84968f716ef3544222b9c84f\",\"106\":73}",
+          "{\"unknown\":{\"ordinal\":1377973,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "2fe742dacbe146faf97c0d7068434408d3b008cf3678aa5a827ceedf684ef09f",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"1377973\"}",
+          "edge:1377973"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-45",
+      "seconds": 0.8586552499999982,
+      "result": [
+        [
+          "pilot",
+          "29",
+          "16863836",
+          "31",
+          "2852126",
+          "29",
+          "3789276",
+          "synthetic-r1",
+          "0",
+          "{\"105\":\"1141c222dad2479386c763a809e8d54295b87fc3eca3befc74129ea3f8e1f5d2345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a345a5b6a27c646f9ef7b9cdad99b03f33973a13aa2296cfd90d699a7cb867f3a\",\"106\":36}",
+          "{\"unknown\":{\"ordinal\":16863836,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "7cc3324f9e1e450ddff327e873f941f817c76e7b041d9f2e02c2fd984e54eade",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"16863836\"}",
+          "edge:16863836"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-46",
+      "seconds": 0.8574996660000238,
+      "result": [
+        [
+          "pilot",
+          "4",
+          "12349699",
+          "8",
+          "3448839",
+          "26",
+          "406809",
+          "synthetic-r1",
+          "0",
+          "{\"104\":\"2026-10-06T09:30:00.123456789-04:00\"}",
+          "{\"unknown\":{\"ordinal\":12349699,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "768334dd3c9f062f3347c948b0580579b5528c94c159fe6cf9051046b5061f6a",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"12349699\"}",
+          "edge:12349699"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-47",
+      "seconds": 0.7323480830000051,
+      "result": [
+        [
+          "pilot",
+          "11",
+          "7835562",
+          "7",
+          "45542",
+          "13",
+          "1024332",
+          "synthetic-r1",
+          "0",
+          "{\"102\":9007199254740993,\"103\":1.2300000000000000001}",
+          "{\"unknown\":{\"ordinal\":7835562,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "fa3263a3166e20c9655c1aee66091659e81761a6937c78b7976c1ae018ac8d15",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"7835562\"}",
+          "edge:7835562"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-48",
+      "seconds": 0.7463922089999926,
+      "result": [
+        [
+          "pilot",
+          "18",
+          "3321425",
+          "16",
+          "642255",
+          "10",
+          "1641865",
+          "synthetic-r1",
+          "0",
+          "{\"101\":null}",
+          "{\"unknown\":{\"ordinal\":3321425,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "fcb5b1949c2467472c1c99be79b56bee9e2ab26b7711d32ef07ac4199390517a",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"3321425\"}",
+          "edge:3321425"
+        ]
+      ]
+    },
+    {
+      "label": "singleton-49",
+      "seconds": 0.8234942920000208,
+      "result": [
+        [
+          "pilot",
+          "25",
+          "18807288",
+          "25",
+          "1238968",
+          "7",
+          "2259398",
+          "synthetic-r1",
+          "0",
+          "{}",
+          "{\"unknown\":{\"ordinal\":18807288,\"nested\":[null,true,\"opaque\"]}}",
+          null,
+          "synthetic",
+          "scale-1",
+          null,
+          "2026-10-06T00:00:00.000Z",
+          "dd835970495d61978f0034434525b58d5296b627db16af2a15a197669681289f",
+          "baseline",
+          "{\"xid\":\"9007199254740993\",\"seq\":\"18807288\"}",
+          "edge:18807288"
+        ]
+      ]
+    }
+  ],
+  "scope": "Synthetic full 0.3 current carriers only; no source/journal/publication/adjacency or billion-scale admission. Native liquid clustering,64MiB target. No billion-scale admission.",
+  "compute": "existing data-gateway 2X-Small single cluster; billing dollars unavailable",
+  "old_edge_version": 0,
+  "elapsed_seconds": 246.27038097381592
+}

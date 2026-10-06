@@ -1,0 +1,14 @@
+{
+  "state": "passed",
+  "checks": [
+    "all 20M source and target tuples close over pinned 4M node snapshot",
+    "post-MERGE file/DV inventory",
+    "actual endpoint cardinality",
+    "50 pinned singleton result checks with four independent SDK clients; result-cache hits observed, not file-read performance evidence"
+  ],
+  "versions": {
+    "objects": 0,
+    "edges": 1
+  },
+  "qualification": "Separate REST SET statement does not persist session caching configuration. Replaced performance control with persistent SQL-driver sessions."
+}

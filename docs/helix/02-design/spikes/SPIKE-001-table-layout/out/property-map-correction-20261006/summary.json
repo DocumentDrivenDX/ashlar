@@ -1,0 +1,20 @@
+{
+  "local": {
+    "state": "passed",
+    "merge_seconds": 24.524880125012714,
+    "exact_corrected_rows": 200000,
+    "all_property_keys_decimal_ids": true,
+    "edges": 20000000,
+    "delta_version": 2
+  },
+  "scope": "Synthetic property 107 added; existing producer-key properties retained verbatim. No real source event/journal/ordering claim.",
+  "native": {
+    "state": "passed",
+    "merge_seconds": 5.447810291,
+    "delta_version": 2,
+    "exact_corrected_rows": 200000,
+    "all_property_keys_decimal_ids": true,
+    "edges": 20000000
+  },
+  "initial_update_qualification": "Previous non-ID key wrapper is invalid as an Ashlar property-map fixture; its results qualify carrier/file behavior only. All pre-correction singleton timings refer to that prior version."
+}

@@ -531,3 +531,14 @@ This is local Delta integration evidence, not native Unity Catalog protocol
 qualification, a legal Truss parallel-edge fixture, or performance/scale evidence.
 The canonical UC architecture and independently qualified serving-release design
 remain unchanged.
+
+
+[24M-carrier physical comparison](../spikes/SPIKE-001-table-layout/scale-comparison.md)
+passes full-field native/local parity on 4M objects/20M edges, native typed
+endpoint closure and a separately corrected 200k property-ID-map update. Initial
+update-wrapper semantics were invalid and are explicitly excluded from profile
+qualification. Corrected native version-2 reads have 50 final uncached serial and
+50 four-client records. Warm latency budgets fail; native DV amplification is
+substantially lower than OSS copying. No source/raw/history/publication protocol,
+Truss producer legality, external reader, cold-data or billion-scale qualification
+follows. The observed FULL maintenance invocation made no data/version change.

@@ -134,3 +134,14 @@ blocks compress heavily: about 98 object/103 edge stored bytes per carrier.
 Do not extrapolate those widths into realistic consumer or billion-scale cost.
 History/raw publication and structural projection amplification remain separate
 requirements. Generic parallel pairs are not a legal Truss producer-profile claim.
+
+
+The owner-authorized [large local/native comparison](scale-comparison.md) is
+complete at 4M nodes/20M edges. Native DVs avoid copying unchanged rows; a measured
+FULL maintenance invocation is a no-op. A synthetic non-ID property wrapper was
+found and corrected, with exact 200k-row parity and full numeric-ID-map validation
+on both systems. The corrected native version-2 serial/four-reader p95 is
+218/247ms engine and 525/570ms caller, with final uncached metrics for all reads.
+Earlier cached REST controls and invalid update semantics are explicitly scoped
+out of performance/profile claims. Full publication and billion-scale admission
+remain unproved; the goal stays active.

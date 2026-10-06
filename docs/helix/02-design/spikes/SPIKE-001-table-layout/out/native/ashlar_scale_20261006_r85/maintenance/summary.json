@@ -1,0 +1,6 @@
+{
+  "state": "full-row parity and 50 read checks passed; metrics require final-history audit",
+  "old_version": 1,
+  "new_version": 1,
+  "scope": "One full 20M-edge maintenance comparison, not an adopted per-batch policy or sustained ingest evidence"
+}

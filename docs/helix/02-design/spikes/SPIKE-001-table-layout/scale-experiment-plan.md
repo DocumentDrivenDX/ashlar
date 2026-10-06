@@ -1,12 +1,12 @@
 # Scale experiment — owner authorized local then Databricks
 
-Governed by CONTRACT-003/ADR-001 and the owner's instruction to limit time, money and effort. The earlier native 10M-edge experiments establish bounded pruning/preservation, not 1B-node/5B-edge capacity. The current warehouse is available; no Spark/graph runtime was found in the recorded inventory. No additional resources or scale writes have been started.
+Governed by CONTRACT-003/ADR-001 and the owner's instruction to limit time, money and effort. The earlier native 10M-edge experiments establish bounded pruning/preservation, not 1B-node/5B-edge capacity. The current warehouse is available; no Spark/graph runtime was found in the recorded inventory. The superseding owner authorization and executed results are recorded below.
 
 ## Questions the next experiment must answer
 
 Measure file/metadata growth, native hash/full-key pruning and maintained ingest cost on the actual 0.3 carrier shape, including cursor/origin references. Keep client/server/compile/engine timing separate. Retain exact fields, source history and actual-version publication. A capacity run cannot pass by dropping raw history or structural coverage to make current-table reads fast.
 
-## Resource admission before submission
+## Initial resource-admission proposal (superseded for the current authorized phase)
 
 Require an explicit owner spending/time limit and effective account metering/pricing for the existing warehouse. The quoted rate for a separate optional warehouse is not evidence of this shared warehouse's incremental bill. Capture current compute settings, baseline storage/file sizes and concurrent-use state. Do not resize/stop shared compute. Exclude the billion-row run until measured throughput and complete temporary-storage/cost estimates justify it.
 
@@ -128,3 +128,13 @@ concurrency. Local caller timing includes Spark query/collection after hash
 preparation; it is not remote-client latency. Native measurements retain SDK
 statement IDs and server history. Larger graph growth must follow actual
 throughput, bytes and failed/passed limits rather than assuming billion admission.
+
+
+## Executed phase
+
+The [24M-carrier comparison](scale-comparison.md) now records completed local
+and native runs, corrected property-ID-map fidelity, final uncached version-2
+read metrics, DV amplification and a no-op FULL maintenance result. Native
+latency misses the comparison budgets; the phase does not admit full source
+publication or billion scale. See its explicit entropy, graph-distribution,
+constraint and billing limits before selecting further growth.
