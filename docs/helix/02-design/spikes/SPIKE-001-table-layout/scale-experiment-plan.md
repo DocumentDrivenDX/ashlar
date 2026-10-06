@@ -36,3 +36,31 @@ Use the historical performance targets for comparison only under the owner's fix
 ## Owner disposition
 
 On 2026-10-06 the owner selected small tests and continued design work, with commit/push after each iteration. This resolves the pending resource question without authorizing the proposed 20M-row phase or new compute. Keep the plan prepared for future scale qualification; continue implementation-ready table/protocol/mapping design and small correctness tests.
+
+
+## Payload variety qualification
+
+[r80](out/native/ashlar_payload_sample_20261006_r80/summary.json) reads 256 rows
+from the existing edge version 5 with one unordered LIMIT query. All 256 property
+texts differ, but every bag has exactly key 201 and exactly 2,058 UTF-8 bytes;
+retained content is the same 28-byte text in all rows. The sample includes two
+source authorities and two relationship types. Local gzip preserves about 56.94%
+of joined property bytes and 1.10% of joined retained bytes. These are sample
+observations, not Parquet/Zstd compression or a representative full-table audit.
+LIMIT bounds returned rows, not independently measured physical scanning.
+
+A future qualified workload must distinguish byte variety from semantic shape
+variety. Declare the distribution of property counts/IDs, variable text lengths,
+missing versus explicit null, integers above 2^53, exact decimal/time tokens,
+nested retained content, revisions and source cursor width. Include structured
+repeated values alongside distinct opaque text, and report proportions and seed.
+Also vary source/type skew, endpoint degree skew and updated-key locality rather
+than assuming uniform records represent a real consumer. Preserve every exact
+carrier and native source origin under the selected profile. Character frequency
+or distinct whole-bag count alone does not qualify this workload.
+
+Before any larger write, generate and inspect a small corpus for these declared
+shapes and measure its actual bytes. Resource estimates must separately account
+for current carriers, raw input, property-event fanout, structural projections,
+retained Delta versions and releases. The owner's small-test disposition still
+excludes the prepared 20M phase; this observation creates no scale authorization.

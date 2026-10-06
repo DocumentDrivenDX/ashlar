@@ -1,0 +1,56 @@
+{
+  "state": "observed",
+  "table": "client_dev.ashlar_lc64_20261005_r42.edge_current",
+  "version": 5,
+  "rows": 256,
+  "sources": {
+    "pilot:0": 174,
+    "pilot:1": 82
+  },
+  "relationship_types": {
+    "7": 179,
+    "8": 77
+  },
+  "payload_metrics": {
+    "props_json": {
+      "distinct_exact_texts": 256,
+      "min_utf8_bytes": 2058,
+      "max_utf8_bytes": 2058,
+      "mean_utf8_bytes": 2058.0,
+      "sample_joined_utf8_bytes": 527103,
+      "sample_gzip_bytes": 300142,
+      "gzip_fraction": 0.5694181213159477,
+      "byte_frequency_entropy_bits": 4.028899776403597,
+      "distinct_top_level_keysets": 1,
+      "top_level_key_occurrences": {
+        "201": 256
+      },
+      "joined_sample_sha256": "900b033cb3dbb7db2d6c12de9f40cd5ec85179681184adb06989dc3c72a1ef74"
+    },
+    "retained_json": {
+      "distinct_exact_texts": 1,
+      "min_utf8_bytes": 28,
+      "max_utf8_bytes": 28,
+      "mean_utf8_bytes": 28.0,
+      "sample_joined_utf8_bytes": 7423,
+      "sample_gzip_bytes": 82,
+      "gzip_fraction": 0.011046746598410347,
+      "byte_frequency_entropy_bits": 3.465912843937899,
+      "distinct_top_level_keysets": 1,
+      "top_level_key_occurrences": {
+        "future": 256
+      },
+      "joined_sample_sha256": "b1f342444e145f15351f06c8b45d23694bdf5337ffe30ff133c9ec62fc7ca43b"
+    }
+  },
+  "elapsed_seconds": 2.0795629024505615,
+  "sampling": "Pinned SELECT LIMIT 256 with no ORDER BY; convenience sample, not random/stratified or full-fixture entropy audit. LIMIT bounds result rows, not an independently proven physical scan budget.",
+  "compression_scope": "Local gzip of joined exact UTF-8 bags; not Parquet/Zstd or native stored bytes. Byte entropy is a marginal frequency statistic, not information entropy of independently generated records.",
+  "cost": "One read on existing authorized warehouse; no writes or new compute; billing dollars and physical scan cost unavailable.",
+  "limits": [
+    "historical experimental carrier profile; not full 0.3 cursor/raw/journal shape",
+    "sample distribution cannot represent whole fixture or real sources",
+    "no compression/file-count/billion-scale extrapolation",
+    "no singleton/ingest/performance admission"
+  ]
+}

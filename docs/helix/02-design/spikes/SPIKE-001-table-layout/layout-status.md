@@ -66,3 +66,6 @@ Local [read-plan locator checks](out/publication-locator-check.json) now verify 
 
 
 [Exact source cursor checks](out/source-cursor-check.json) pass six ordering pairs and sixteen refusals, including values above 2^53, unsigned-range xid text, strict watermark equality and namespace mismatch. These are local synthetic range checks, not real Truss checkpoint or transaction-completeness evidence. No native schema or compute was changed.
+
+
+[r80 bounded payload observation](out/native/ashlar_payload_sample_20261006_r80/summary.json) finds distinct 2,058-byte single-property bags but uniform 28-byte retained content in 256 version-pinned rows. Byte variety and schema variety are now separate requirements in the prepared workload plan. The convenience sample and local gzip ratios do not establish native compression, full-fixture entropy or billion-scale capacity. One read, no writes/new compute.
