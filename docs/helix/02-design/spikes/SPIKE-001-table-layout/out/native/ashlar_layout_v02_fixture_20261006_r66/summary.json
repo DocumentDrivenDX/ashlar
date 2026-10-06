@@ -1,0 +1,15 @@
+{
+  "state": "passed",
+  "versions": {
+    "client_dev.ashlar_layout_v02_20261006_r65.object_current": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.edge_current": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.property_journal": 2,
+    "client_dev.ashlar_layout_v02_20261006_r65.tombstone": 0,
+    "client_dev.ashlar_layout_v02_20261006_r65.adjacency_forward": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.adjacency_reverse": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.degree_summary": 1
+  },
+  "nodes": 3,
+  "edges": 3,
+  "scope": "small synthetic whole-entity lifecycle evidence; exact JSON text, typed repeated IDs,parallel edges,self-loop,isolate,hash checks,degree coverage,6 unique origins,ordinary immutable manifest/pinned read surviving later unmanifested write; no cross-table atomicity,producer adapter,recovery race,performance,scale or external-engine execution claim"
+}

@@ -1,0 +1,50 @@
+{
+  "rest-plain": {
+    "n": 25,
+    "caller_p50_ms": 638.7598329999981,
+    "caller_p95_ms": 888.995167000001,
+    "engine_p50_ms": 194,
+    "engine_p95_ms": 378,
+    "compile_p50_ms": 136,
+    "compile_p95_ms": 199,
+    "server_p95_ms": 612,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  },
+  "rest-uuid": {
+    "n": 25,
+    "caller_p50_ms": 592.6114160000004,
+    "caller_p95_ms": 772.4804579999986,
+    "engine_p50_ms": 195,
+    "engine_p95_ms": 262,
+    "compile_p50_ms": 95,
+    "compile_p95_ms": 106,
+    "server_p95_ms": 397,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  },
+  "driver-plain": {
+    "n": 25,
+    "caller_p50_ms": 282.42270800000034,
+    "caller_p95_ms": 303.1032080000031,
+    "engine_p50_ms": 79,
+    "engine_p95_ms": 86,
+    "compile_p50_ms": 89,
+    "compile_p95_ms": 97,
+    "server_p95_ms": 190,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  },
+  "driver-uuid": {
+    "n": 25,
+    "caller_p50_ms": 287.73837500000354,
+    "caller_p95_ms": 341.5371669999985,
+    "engine_p50_ms": 80,
+    "engine_p95_ms": 83,
+    "compile_p50_ms": 91,
+    "compile_p95_ms": 111,
+    "server_p95_ms": 208,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  }
+}

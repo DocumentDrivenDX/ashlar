@@ -1,0 +1,11 @@
+{
+  "state": "completed",
+  "versions": {
+    "client_dev.ashlar_scale_20261005_i1.object_current": 2,
+    "client_dev.ashlar_edge_ingest_20261005_l1.edge_current": 2,
+    "client_dev.ashlar_edge_ingest_20261005_l1.adjacency": 0,
+    "client_dev.ashlar_edge_ingest_20261005_l1.property_journal": 1
+  },
+  "shape": "regular five-edge degree; two parallel edges preserved; 25 ordered edge-ID path pairs",
+  "scope": "fixed graph-vector native SQL parity/performance; no hubs, budget rejection, external engines, concurrent writes or billion-scale admission"
+}

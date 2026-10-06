@@ -1,0 +1,17 @@
+{
+  "state": "passed",
+  "race": [
+    {
+      "state": "conflict",
+      "wall_s": 4.294886112213135
+    },
+    {
+      "state": "success",
+      "wall_s": 3.7412681579589844
+    }
+  ],
+  "descriptor_rows": 1,
+  "sequential_repeat_manifest_version_unchanged": true,
+  "stale_rejected": true,
+  "scope": "private CM manifest guarded with conditional fence write; one duplicate-recovery race; fixed validated receipt; graph transaction not integrated; no lease/network-loss/scale guarantee"
+}

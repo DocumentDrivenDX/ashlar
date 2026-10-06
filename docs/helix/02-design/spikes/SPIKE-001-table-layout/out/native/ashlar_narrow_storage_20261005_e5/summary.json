@@ -1,0 +1,26 @@
+{
+  "e4-objects": {
+    "numFiles": 13,
+    "sizeInBytes": 702159097
+  },
+  "e4-serving": {
+    "numFiles": 13,
+    "sizeInBytes": 719508891
+  },
+  "e4-journal": {
+    "numFiles": 17,
+    "sizeInBytes": 1260884346
+  },
+  "e5-objects": {
+    "numFiles": 13,
+    "sizeInBytes": 747992163
+  },
+  "e5-serving": {
+    "numFiles": 13,
+    "sizeInBytes": 8010565
+  },
+  "e5-journal": {
+    "numFiles": 17,
+    "sizeInBytes": 1260873496
+  }
+}

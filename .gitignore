@@ -5,3 +5,8 @@
 *.pem
 .venv/
 node_modules/
+
+# Local spike runtime caches and replaceable statement breadcrumbs
+__pycache__/
+*.py[cod]
+/docs/helix/02-design/spikes/**/out/**/live-statement.json

@@ -1,0 +1,38 @@
+{
+  "state": "passed",
+  "controls": [
+    {
+      "root": 200001,
+      "logical_work": 120003,
+      "refused": true,
+      "path_count": null
+    },
+    {
+      "root": 1,
+      "logical_work": 24,
+      "refused": false,
+      "path_count": 20
+    },
+    {
+      "root": 12345,
+      "logical_work": 30,
+      "refused": false,
+      "path_count": 25
+    },
+    {
+      "root": 999999,
+      "logical_work": 0,
+      "refused": false,
+      "path_count": 0
+    }
+  ],
+  "versions": {
+    "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 4,
+    "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+    "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+    "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 2,
+    "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+    "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+  },
+  "scope": "application preflight refusal; no path query for hub; no physical scan cap, combined latency or concurrency admission"
+}

@@ -1,0 +1,20 @@
+[
+  [
+    "16",
+    "2026-10-06T02:32:00",
+    "3755468182769617",
+    "erik.labianca@synaptiq.ai",
+    "TRANSACTION",
+    "{\"intermediateOperationParameters\":\"[{\"operationName\":\"DELETE\",\"operationParameters\":{\"predicate\":\"[\\\"exists#795799 [source_system#796633 && rel_type_id#796634L && id#796635L]\\\"]\"}},{\"operationName\":\"WRITE\",\"operationParameters\":{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":true,\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}}]\"}",
+    null,
+    null,
+    "01f1c12e-0669-17d0-8bc5-706e96f3072f",
+    null,
+    "15",
+    "WriteSerializable",
+    "False",
+    "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"DELETE\",\"operationMetrics\":{\"numRemovedFiles\":\"0\",\"numRemovedBytes\":\"0\",\"numCopiedRows\":\"0\",\"numDeletionVectorsAdded\":\"208\",\"executionTimeMs\":\"1852\",\"numDeletionVectorsUpdated\":\"208\",\"numAddedFiles\":\"0\",\"numDeletionVectorsRemoved\":\"208\",\"numAddedChangeFiles\":\"0\",\"numDeletedRows\":\"300000\",\"scanTimeMs\":\"1247\",\"numAddedBytes\":\"0\",\"rewriteTimeMs\":\"605\"}},{\"operationName\":\"WRITE\",\"operationMetrics\":{\"numFiles\":\"21\",\"numOutputRows\":\"300000\",\"numOutputBytes\":\"329788744\"}}]\",\"txnId\":\"a7c1365f-6ce8-4b0f-b279-54ff735c61e1\"}",
+    null,
+    "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+  ]
+]

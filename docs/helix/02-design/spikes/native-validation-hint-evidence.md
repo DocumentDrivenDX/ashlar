@@ -1,0 +1,9 @@
+# Matched broadcast validation comparison
+
+2026-10-05; SPIKE-001 read-only native experiment, unchanged dbw-aidev-cus warehouse.
+
+Sixteen post-change checks reuse the exact recorded predicates and expected result (200k rows, zero mismatches) at four pinned published edge snapshots. Eight original queries and eight queries adding only BROADCAST(s) alternate ordering across two rounds. All results are identical. Caller median original **8,340ms**, range **7,802–17,672ms**; hinted **2,268ms**, range **1,995–2,546ms**. The first original call includes a cold observation. Ordering alternation reduces but does not eliminate cache/environment confounding. This is eight observations per variant, not an ingest population percentile or proof of exclusive causal attribution; final runtime plans and complete engine metrics are not asserted.
+
+Harness `SPIKE-001-table-layout/native_validation_hint_compare.py`; exact queries, own IDs/results and terminal caller summary under `out/native/ashlar_validation_hint_20261005_r15/`. No table changes occurred. The hint preserves every compared field/count and stays in the experiment; guards are not removed. It supports testing the hint in the integrated publication clock. Even subtracting roughly six seconds from the failed 200k/20s pipeline would not admit the rate; batching must also be tested.
+
+Prepared follow-up `native_fenced_300k.py`: three disjoint 300k/30s batches, uniform tuple hashes across ten domains, native IDs above prior deletions, stage full-carrier priors at version 10, property history and fence/descriptor work counted. Previous source-progress entries are retained. No result is admitted until this run and full preservation verifier complete. Caller singleton, sustained/burst and billion-scale gates remain open. Goal active; UMF deferred.

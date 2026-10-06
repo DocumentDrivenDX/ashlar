@@ -1,0 +1,160 @@
+{
+  "total_memory_allocated": 4194304,
+  "total_bytes_written": 0,
+  "total_bytes_read": 0,
+  "system_peak_temp_dir_size": 0,
+  "system_peak_buffer_memory": 71229440,
+  "rows_returned": 1,
+  "result_set_size": 8,
+  "latency": 0.002110584,
+  "blocked_thread_time": 0.0,
+  "commit_local_storage_latency": 0.0,
+  "wal_replay_entry_count": 0,
+  "extra_info": {},
+  "query_name": "SELECT count(*) AS n FROM edges e JOIN edges f ON e.target_id=f.source_id AND e.target_type=f.source_type WHERE e.rel_type_id=1 AND e.source_id=1 AND e.source_type=1 AND f.rel_type_id=2;",
+  "checkpoint_latency": 0.0,
+  "waiting_to_attach_latency": 0.0,
+  "cpu_time": 0.0009442930000000003,
+  "cumulative_rows_scanned": 170000,
+  "attach_replay_wal_latency": 0.0,
+  "write_to_wal_latency": 0.0,
+  "cumulative_cardinality": 140025,
+  "attach_load_storage_latency": 0.0,
+  "children": [
+    {
+      "system_peak_temp_dir_size": 0,
+      "system_peak_buffer_memory": 0,
+      "result_set_size": 8,
+      "operator_type": "UNGROUPED_AGGREGATE",
+      "operator_timing": 2.123e-06,
+      "operator_rows_scanned": 0,
+      "operator_name": "UNGROUPED_AGGREGATE",
+      "extra_info": {
+        "Aggregates": "count_star()"
+      },
+      "cpu_time": 0.0009424600000000003,
+      "cumulative_rows_scanned": 170000,
+      "operator_cardinality": 1,
+      "cumulative_cardinality": 140025,
+      "children": [
+        {
+          "system_peak_temp_dir_size": 0,
+          "system_peak_buffer_memory": 0,
+          "result_set_size": 1280512,
+          "operator_type": "HASH_JOIN",
+          "operator_timing": 0.0006825880000000002,
+          "operator_rows_scanned": 0,
+          "operator_name": "HASH_JOIN",
+          "extra_info": {
+            "Join Type": "INNER",
+            "Conditions": [
+              "source_id = target_id",
+              "source_type = target_type"
+            ],
+            "Estimated Cardinality": "42"
+          },
+          "cpu_time": 0.0009403370000000003,
+          "cumulative_rows_scanned": 170000,
+          "operator_cardinality": 40016,
+          "cumulative_cardinality": 140024,
+          "children": [
+            {
+              "system_peak_temp_dir_size": 0,
+              "system_peak_buffer_memory": 0,
+              "result_set_size": 640000,
+              "operator_type": "FILTER",
+              "operator_timing": 2.6539999999999997e-05,
+              "operator_rows_scanned": 0,
+              "operator_name": "FILTER",
+              "extra_info": {
+                "Expression": "(source_type >= 2)",
+                "Estimated Cardinality": "45000"
+              },
+              "cpu_time": 0.000143497,
+              "cumulative_rows_scanned": 80000,
+              "operator_cardinality": 40000,
+              "cumulative_cardinality": 80000,
+              "children": [
+                {
+                  "system_peak_temp_dir_size": 0,
+                  "system_peak_buffer_memory": 0,
+                  "result_set_size": 640000,
+                  "operator_type": "TABLE_SCAN",
+                  "operator_timing": 0.000116957,
+                  "operator_rows_scanned": 80000,
+                  "operator_name": "SEQ_SCAN",
+                  "extra_info": {
+                    "Table": "bench.main.edges",
+                    "Type": "Sequential Scan",
+                    "Projections": [
+                      "source_id",
+                      "source_type"
+                    ],
+                    "Filters": "rel_type_id=2",
+                    "Estimated Cardinality": "45000",
+                    "Dynamic Filters": [
+                      "optional: source_id>=1 AND optional: source_id<=10000",
+                      "source_type=2"
+                    ]
+                  },
+                  "cpu_time": 0.000116957,
+                  "cumulative_rows_scanned": 80000,
+                  "operator_cardinality": 40000,
+                  "cumulative_cardinality": 40000,
+                  "children": []
+                }
+              ]
+            },
+            {
+              "system_peak_temp_dir_size": 0,
+              "system_peak_buffer_memory": 0,
+              "result_set_size": 160064,
+              "operator_type": "FILTER",
+              "operator_timing": 8.792e-06,
+              "operator_rows_scanned": 0,
+              "operator_name": "FILTER",
+              "extra_info": {
+                "Expression": "(target_type <= 2)",
+                "Estimated Cardinality": "15"
+              },
+              "cpu_time": 0.00011425200000000002,
+              "cumulative_rows_scanned": 90000,
+              "operator_cardinality": 10004,
+              "cumulative_cardinality": 20008,
+              "children": [
+                {
+                  "system_peak_temp_dir_size": 0,
+                  "system_peak_buffer_memory": 0,
+                  "result_set_size": 160064,
+                  "operator_type": "TABLE_SCAN",
+                  "operator_timing": 0.00010546000000000001,
+                  "operator_rows_scanned": 90000,
+                  "operator_name": "SEQ_SCAN",
+                  "extra_info": {
+                    "Table": "bench.main.edges",
+                    "Type": "Sequential Scan",
+                    "Projections": [
+                      "target_id",
+                      "target_type"
+                    ],
+                    "Filters": [
+                      "rel_type_id=1",
+                      "source_id=1",
+                      "source_type=1"
+                    ],
+                    "Estimated Cardinality": "15"
+                  },
+                  "cpu_time": 0.00010546000000000001,
+                  "cumulative_rows_scanned": 90000,
+                  "operator_cardinality": 10004,
+                  "cumulative_cardinality": 10004,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

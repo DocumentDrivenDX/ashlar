@@ -1,0 +1,8 @@
+{
+  "state": "completed",
+  "versions": {
+    "lc": 19,
+    "partition": 1
+  },
+  "scope": "identical 51 keys/17-field projection, three alternating rounds, exact prior independently-checked carrier equality, explicit bucket/hash plus native predicates; no ingest or full-scale admission"
+}

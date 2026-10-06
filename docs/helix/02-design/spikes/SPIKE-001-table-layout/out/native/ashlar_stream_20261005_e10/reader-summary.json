@@ -1,0 +1,12 @@
+{
+  "state": "completed",
+  "clients": 2,
+  "period_s": 0.5,
+  "counts": [
+    286,
+    286
+  ],
+  "snapshot_version": 1,
+  "exact_carrier_checks": "all returned rows match captured seed snapshot",
+  "scope": "pinned old snapshot during publication; not latest-manifest reads or production concurrency"
+}

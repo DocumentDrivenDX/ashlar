@@ -1,0 +1,17 @@
+{
+  "state": "completed",
+  "before_version": 2,
+  "versions": {
+    "object_current": 3,
+    "property_journal": 1
+  },
+  "processing_s": 37.23736906051636,
+  "oldest_freshness_s": 57.24288201332092,
+  "newest_freshness_s": 37.24288201332092,
+  "old_vector_reads": [
+    106,
+    112
+  ],
+  "preservation": "all changed canonical/journal rows; 9.8M untouched all 14 fields; 10M typed identities; 200k unique journal origins; all old-vector reader carriers exact",
+  "scope": "one 200k/20s multi-domain fixture batch; two paced readers; no sustained or billion-scale/production feed/recovery admission"
+}

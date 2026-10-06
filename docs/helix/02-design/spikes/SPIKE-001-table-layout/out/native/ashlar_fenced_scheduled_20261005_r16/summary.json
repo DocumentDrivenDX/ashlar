@@ -1,0 +1,48 @@
+{
+  "state": "completed",
+  "batches": [
+    {
+      "batch": 1,
+      "queue_s": 0.010052919387817383,
+      "processing_s": 34.66495203971863,
+      "oldest_freshness_s": 64.67500495910645,
+      "versions": {
+        "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 11,
+        "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+        "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+        "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 9,
+        "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+        "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+      }
+    },
+    {
+      "batch": 2,
+      "queue_s": 4.675738096237183,
+      "processing_s": 30.663716077804565,
+      "oldest_freshness_s": 65.33945417404175,
+      "versions": {
+        "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 12,
+        "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+        "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+        "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 10,
+        "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+        "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+      }
+    },
+    {
+      "batch": 3,
+      "queue_s": 5.3399457931518555,
+      "processing_s": 33.22961115837097,
+      "oldest_freshness_s": 68.56955695152283,
+      "versions": {
+        "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 13,
+        "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+        "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+        "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 11,
+        "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+        "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+      }
+    }
+  ],
+  "scope": "four prebuilt disjoint batches; no concurrent readers or stage/source capture clock; journal payload/full untouched verification remains separate"
+}

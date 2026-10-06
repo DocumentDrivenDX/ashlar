@@ -1,0 +1,10 @@
+{
+  "state": "passed",
+  "schema": "client_dev.ashlar_spike_20261005_7f2b2e",
+  "ddl_tables": 7,
+  "exact_stored_json_text": true,
+  "fixed_version_read_after_current_update": true,
+  "duplicates_not_database_enforced_but_detected": true,
+  "scope": "native DDL/string-preservation/version-pinning probes; not full publisher, source adapter or graph-engine conformance",
+  "statement_count": 16
+}

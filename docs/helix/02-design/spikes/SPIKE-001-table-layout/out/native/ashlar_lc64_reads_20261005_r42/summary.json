@@ -1,0 +1,86 @@
+{
+  "detail": {
+    "n": 2,
+    "caller_p50_ms": 294.56283400000416,
+    "caller_p95_ms": 431.75908299999577,
+    "engine_p50_ms": 140,
+    "engine_p95_ms": 200,
+    "compile_p50_ms": 48,
+    "compile_p95_ms": 48,
+    "server_p95_ms": 258,
+    "result_cache_hits": 0,
+    "read_files_median": 0
+  },
+  "lc16-prime": {
+    "n": 50,
+    "caller_p50_ms": 328.87999999999806,
+    "caller_p95_ms": 389.8337500000011,
+    "engine_p50_ms": 73,
+    "engine_p95_ms": 114,
+    "compile_p50_ms": 149,
+    "compile_p95_ms": 161,
+    "server_p95_ms": 293,
+    "result_cache_hits": 0,
+    "read_files_median": 4
+  },
+  "lc64-prime": {
+    "n": 50,
+    "caller_p50_ms": 733.7891669999976,
+    "caller_p95_ms": 921.2477500000062,
+    "engine_p50_ms": 486,
+    "engine_p95_ms": 666,
+    "compile_p50_ms": 142,
+    "compile_p95_ms": 159,
+    "server_p95_ms": 814,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  },
+  "lc64-repeat": {
+    "n": 50,
+    "caller_p50_ms": 329.9980410000103,
+    "caller_p95_ms": 381.03829099999587,
+    "engine_p50_ms": 82,
+    "engine_p95_ms": 95,
+    "compile_p50_ms": 146,
+    "compile_p95_ms": 159,
+    "server_p95_ms": 281,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  },
+  "lc16-repeat": {
+    "n": 50,
+    "caller_p50_ms": 329.92475000000354,
+    "caller_p95_ms": 520.0342919999912,
+    "engine_p50_ms": 72,
+    "engine_p95_ms": 82,
+    "compile_p50_ms": 153,
+    "compile_p95_ms": 342,
+    "server_p95_ms": 424,
+    "result_cache_hits": 0,
+    "read_files_median": 4
+  },
+  "lc16-repeat2": {
+    "n": 50,
+    "caller_p50_ms": 328.8599999999917,
+    "caller_p95_ms": 366.96508300002506,
+    "engine_p50_ms": 71,
+    "engine_p95_ms": 74,
+    "compile_p50_ms": 151,
+    "compile_p95_ms": 174,
+    "server_p95_ms": 261,
+    "result_cache_hits": 0,
+    "read_files_median": 4
+  },
+  "lc64-repeat2": {
+    "n": 50,
+    "caller_p50_ms": 331.0032079999985,
+    "caller_p95_ms": 357.142959000015,
+    "engine_p50_ms": 80,
+    "engine_p95_ms": 86,
+    "compile_p50_ms": 144,
+    "compile_p95_ms": 177,
+    "server_p95_ms": 262,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "workspace": "dbw-aidev-cus",
+  "warehouse": "2439e1f2e37ac563",
+  "catalog": "client_dev",
+  "schema": "ashlar_spike_20261005_9586d0",
+  "rows_per_type": 1000000,
+  "repeats": 20,
+  "start_ms": 1791232975202,
+  "notes": [
+    "CLI/REST wall timing includes client process/auth/network; query history separates engine/compile/queue",
+    "uuid() in read results prevents result-cache reuse; metrics verify this",
+    "No warehouse configuration changed; disk cache not cleared; no cold claim"
+  ],
+  "end_ms": 1791233337557,
+  "state": "completed",
+  "statement_count": 298,
+  "history_count": 298,
+  "measured_queries": 240
+}

@@ -1,0 +1,20 @@
+{
+  "state": "passed",
+  "resolved": {
+    "edge_current": 14,
+    "property_journal": 15
+  },
+  "versions": {
+    "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 14,
+    "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+    "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+    "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 15,
+    "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+    "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+  },
+  "untouched_full17": 9719981,
+  "journal_exact": 300000,
+  "publication": "r17-1-resolved",
+  "data_replays": 0,
+  "scope": "bounded single-writer recovery with complete history and no subsequent logical writes; manual pending-publication barrier, not production enforcement or original rate admission"
+}

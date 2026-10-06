@@ -1,0 +1,11 @@
+{
+  "state": "passed",
+  "source_version": 19,
+  "candidate": "client_dev.ashlar_partition_zorder_20261005_r29.edge_current",
+  "version": 1,
+  "copy_wall_s": 41.766027041,
+  "zorder_wall_s": 52.831215375,
+  "rows": 10019981,
+  "buckets": 4,
+  "scope": "complete 17-field copy, exact derived bucket, unique native keys; new table row tracking lineage, no performance/ingest/full-scale admission"
+}

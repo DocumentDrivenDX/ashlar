@@ -1,0 +1,7 @@
+{
+  "state": "completed",
+  "edges": 1000000,
+  "endpoint_nodes": 200000,
+  "parallel_endpoint_pairs": 200000,
+  "scope": "one source/type/relationship; full canonical edge fields, exact copy parity, typed endpoint resolution, warm/mixed lookup and outgoing controls; no edge ingest or billion-scale admission"
+}

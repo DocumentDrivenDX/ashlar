@@ -1,0 +1,15 @@
+{
+  "state": "passed",
+  "versions": {
+    "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 6,
+    "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+    "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+    "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 4,
+    "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+    "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+  },
+  "data_s": 6.701140880584717,
+  "through_descriptor_s": 12.54564881324768,
+  "stale_data_rejected": true,
+  "scope": "single synthetic property event; same fence written at both phases; unchanged pinned old carrier during gap; no repeated rate, concurrent revocation, TTL or network-loss proof"
+}

@@ -1,0 +1,10 @@
+{
+  "vertices": 5,
+  "edges": 5,
+  "two_hop_paths": 4,
+  "two_hop_distinct_targets": 2,
+  "isolated_A0_retained": true,
+  "identity_collisions": 0,
+  "missing_endpoints": 0,
+  "scope": "Python shape checks only; not external engine execution"
+}

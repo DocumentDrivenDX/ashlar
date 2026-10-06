@@ -1,0 +1,7 @@
+{
+  "passed": [
+    "clean",
+    "preexisting-marker",
+    "marker-outside-stage"
+  ]
+}

@@ -1,0 +1,42 @@
+[
+  {
+    "batch": 1,
+    "processing_s": 30.610769987106323,
+    "atomic-batch": 18.760767082999998,
+    "version-edge_current": 0.5248025000000069,
+    "version-property_journal": 0.4004534580000012,
+    "changed-check": 7.359949790999991,
+    "journal-check": 0.6194390839999926,
+    "publish": 2.9400725830000027
+  },
+  {
+    "batch": 2,
+    "processing_s": 33.064192056655884,
+    "atomic-batch": 19.59478712500001,
+    "version-edge_current": 0.5337748749999918,
+    "version-property_journal": 0.3958377919999947,
+    "changed-check": 8.82956641700001,
+    "journal-check": 0.7528293339999976,
+    "publish": 2.9505368749999974
+  },
+  {
+    "batch": 3,
+    "processing_s": 33.4980309009552,
+    "atomic-batch": 19.896149042000005,
+    "version-edge_current": 1.0389221249999991,
+    "version-property_journal": 0.40308429200001683,
+    "changed-check": 8.249475916999984,
+    "journal-check": 0.6737371669999845,
+    "publish": 3.2296125409999945
+  },
+  {
+    "batch": 4,
+    "processing_s": 33.64083385467529,
+    "atomic-batch": 20.092733083000013,
+    "version-edge_current": 0.5239728749999983,
+    "version-property_journal": 0.3999045420000016,
+    "changed-check": 8.648431625,
+    "journal-check": 0.713074999999975,
+    "publish": 3.256648584000004
+  }
+]

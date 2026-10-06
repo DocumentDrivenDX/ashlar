@@ -1,0 +1,28 @@
+{
+  "state": "passed",
+  "table": "client_dev.ashlar_lc64_20261005_r42.edge_current",
+  "version": 5,
+  "num_files": 136,
+  "size_bytes": 6182560646,
+  "mean_active_file_bytes": 45460004.75,
+  "detail": {
+    "format": "delta",
+    "id": "28c8a586-791f-45a7-ab2e-c53f0c925152",
+    "name": "client_dev.ashlar_lc64_20261005_r42.edge_current",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/8d7c685c-94eb-4842-84ce-1eb0bf2a3edc",
+    "createdAt": "2026-10-06T03:45:22.779Z",
+    "lastModified": "2026-10-06T04:31:05.000Z",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"lookup_hash\"]",
+    "numFiles": "136",
+    "sizeInBytes": "6182560646",
+    "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id\",\"io.unitycatalog.tableId\":\"8d7c685c-94eb-4842-84ce-1eb0bf2a3edc\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-31aa142d-6660-4fd6-88f3-1eab8fc728f4\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-1784c7bb-578a-4988-b460-b13dc4f56a2b\",\"delta.enableInCommitTimestamps\":\"true\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"catalogManaged\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"inCommitTimestamp\",\"invariants\",\"rowTracking\",\"v2Checkpoint\",\"vacuumProtocolCheck\"]",
+    "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+    "clusterByAuto": "false"
+  },
+  "scope": "Read-only stable latest-version metadata inventory on existing bounded edge fixture. No row-count scan, entropy qualification, full 0.3 width, bill or billion-node extrapolation claim."
+}

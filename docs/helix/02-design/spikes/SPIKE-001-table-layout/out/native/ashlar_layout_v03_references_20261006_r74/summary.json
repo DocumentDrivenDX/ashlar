@@ -1,0 +1,30 @@
+{
+  "state": "passed",
+  "versions": {
+    "client_dev.ashlar_layout_v03_20261006_r73.object_current": 7,
+    "client_dev.ashlar_layout_v03_20261006_r73.edge_current": 1,
+    "client_dev.ashlar_layout_v03_20261006_r73.property_journal": 1,
+    "client_dev.ashlar_layout_v03_20261006_r73.tombstone": 1,
+    "client_dev.ashlar_layout_v03_20261006_r73.source_record": 3,
+    "client_dev.ashlar_layout_v03_20261006_r73.adjacency_forward": 1,
+    "client_dev.ashlar_layout_v03_20261006_r73.adjacency_reverse": 1,
+    "client_dev.ashlar_layout_v03_20261006_r73.degree_summary": 1
+  },
+  "progress": {
+    "v03-fixture": {
+      "epoch": "e",
+      "cursor": {
+        "xid": "1042",
+        "seq": "7"
+      },
+      "source_profile": "synthetic-full-carrier/1"
+    }
+  },
+  "raw_records": 7,
+  "reference_controls": [
+    "missing raw record",
+    "mismatched cursor",
+    "cross-epoch reference"
+  ],
+  "scope": "Synthetic complete 0.3 publication reference coverage across objects,edges,journal,tombstones,raw source and structural projections. Actual invalid current-row mutations detected before manifest; no transaction rollback or real producer/fencing/recovery/performance/scale/engine claim."
+}

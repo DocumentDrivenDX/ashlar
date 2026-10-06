@@ -1,0 +1,30 @@
+[
+  {
+    "batch": 2,
+    "queue_s": 0.010030984878540039,
+    "processing_s": 45.56775879859924,
+    "oldest_freshness_s": 75.57778978347778,
+    "versions": {
+      "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 15,
+      "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+      "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+      "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 16,
+      "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+      "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+    }
+  },
+  {
+    "batch": 3,
+    "queue_s": 15.57859992980957,
+    "processing_s": 42.241546869277954,
+    "oldest_freshness_s": 87.82014679908752,
+    "versions": {
+      "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 16,
+      "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+      "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+      "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 17,
+      "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+      "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+    }
+  }
+]

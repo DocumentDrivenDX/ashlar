@@ -1,0 +1,7 @@
+{
+  "state": "completed",
+  "before_version": 19,
+  "after_version": 22,
+  "maintenance_wall_s": 69.05239391326904,
+  "scope": "one incremental OPTIMIZE followed by identical key/projection lookup control; exact equality for 51 returned carriers against version 19; no exhaustive full-table maintenance preservation, continuous policy or billion-scale claim"
+}

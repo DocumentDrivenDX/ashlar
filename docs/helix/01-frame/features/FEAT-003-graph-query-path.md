@@ -59,6 +59,24 @@ Single capability: bounded relationship queries and their feasibility evidence.
   isolated fraction, property width, selectivity, compute/version, query plan,
   elapsed time and cost where available. Extrapolation must be marked as such.
 
+- **QUERY-06:** Identity lookup, filtered lists, one-hop and fixed-depth traversal,
+  counts grouped by a property or related entity property, and changes-since reads
+  must declare work/result bounds. List continuation and truncation must be
+  observable; a partial count must never be presented as an exact complete count.
+- **QUERY-07:** Every read must identify its publication boundary and per-source
+  progress. A caller requiring a minimum source position must receive a result
+  meeting it or an explicit not-yet-satisfied outcome under a bounded wait policy.
+  Multi-feed progress must not be collapsed into an invented scalar position.
+- **QUERY-08:** Reads on behalf of an end user must preserve the authorization
+  context through the selected enforcement boundary. Empty authorized results,
+  authorization refusals and unavailable execution must be distinguished when
+  policy permits; refusal detail must not leak protected entity existence.
+  Unsupported user delegation must be reported, never replaced silently with
+  broader service permissions.
+- **QUERY-09:** Counts and traversal must respect the same effective row/column
+  policy as lookup. Cached or continued results must preserve the declared
+  publication and authorization boundary or explicitly require a restart.
+
 ### Non-Functional Requirements
 
 - 100% query result identity and multiplicity agreement on the selected corpus.
@@ -89,15 +107,34 @@ GraphFrames is a Spark compute library, not a store. A fixed two-hop join is
 in scope; arbitrary multi-hop algorithms are deferred. Query result surface and
 adapter mappings belong in a subsequent Contract after PRD Q4–Q5 are resolved.
 
+## Consumer input and open decisions
+
+[Consumer input](../../00-discover/hot-store-publication-input.md) P4–P6 motivates
+QUERY-06–QUERY-09. Exact cursor format, query syntax and response/error surfaces
+belong in a read Contract. PRD Q11 must select count semantics, pagination order,
+minimum-position timeout and authorization disclosure rules. Unity Catalog
+(Databricks’ data governance service) is a candidate enforcement boundary;
+end-user delegation and effective policy require version-specific execution
+proof. “Interactive” and “a few seconds” are workload aspirations, not SLAs.
+
+## Native lookup and scale direction
+
+The owner selected 1B nodes with more edges and requested low-latency singleton
+lookup directly on Databricks. SPIKE-001 records provisional performance gates
+and table-layout candidates. Fabric is an optional bounded graph projection;
+it must not be required by the native singleton path.
+
 ## Dependencies
 
-FEAT-002, PRD FR-3, and [query research](../../00-discover/research.md).
+FEAT-002, FEAT-004 for incremental progress, PRD FR-3, and [query research](../../00-discover/research.md).
 GraphFrames is an evaluation candidate, not a selected mandatory dependency.
 
 ## Out of Scope
 
-New query language/compiler, general path algorithms, GraphQL, MCP, Fabric,
-Neo4j, and cross-store live query federation.
+New query language/compiler, general path algorithms, GraphQL, MCP, production
+graph projection deployments, and cross-store live query federation. PuppyGraph,
+GraphFrames and bounded Fabric table-mapping experiments are in scope under the
+owner’s 2026-10-05 direction. Native singleton queries remain on Databricks.
 
 ## Review Checklist
 

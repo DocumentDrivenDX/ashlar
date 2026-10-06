@@ -1,0 +1,7 @@
+{
+  "state": "failed",
+  "table": "client_dev.ashlar_layout_v02_20261006_r65.source_record_r70",
+  "records_written": 5,
+  "failure": "Exact payload comparison failed: ordinary SQL string literal removed JSON backslashes from nested reservation key text. Not conformant; no publication.",
+  "recovery": "No retries of committed writes. New r71 table uses decode(unhex(UTF8 hex), UTF-8)."
+}

@@ -1,0 +1,117 @@
+{
+  "total_memory_allocated": 4194304,
+  "total_bytes_written": 0,
+  "total_bytes_read": 0,
+  "system_peak_temp_dir_size": 0,
+  "system_peak_buffer_memory": 201121792,
+  "rows_returned": 1,
+  "result_set_size": 8,
+  "latency": 0.003900417,
+  "blocked_thread_time": 0.0,
+  "commit_local_storage_latency": 0.0,
+  "wal_replay_entry_count": 0,
+  "extra_info": {},
+  "query_name": "SELECT count(*) AS n FROM edge_ab e JOIN edge_bc f ON e.target_id=f.source_id AND e.target_type=f.source_type WHERE e.rel_type_id=1 AND e.source_id=1 AND e.source_type=1 AND f.rel_type_id=2;",
+  "checkpoint_latency": 0.0,
+  "waiting_to_attach_latency": 0.0,
+  "cpu_time": 0.0058345609999999985,
+  "cumulative_rows_scanned": 522880,
+  "attach_replay_wal_latency": 0.0,
+  "write_to_wal_latency": 0.0,
+  "cumulative_cardinality": 900021,
+  "attach_load_storage_latency": 0.0,
+  "children": [
+    {
+      "system_peak_temp_dir_size": 0,
+      "system_peak_buffer_memory": 0,
+      "result_set_size": 8,
+      "operator_type": "UNGROUPED_AGGREGATE",
+      "operator_timing": 1.0253000000000005e-05,
+      "operator_rows_scanned": 0,
+      "operator_name": "UNGROUPED_AGGREGATE",
+      "extra_info": {
+        "Aggregates": "count_star()"
+      },
+      "cpu_time": 0.005823601999999999,
+      "cumulative_rows_scanned": 522880,
+      "operator_cardinality": 1,
+      "cumulative_cardinality": 900021,
+      "children": [
+        {
+          "system_peak_temp_dir_size": 0,
+          "system_peak_buffer_memory": 0,
+          "result_set_size": 12800512,
+          "operator_type": "HASH_JOIN",
+          "operator_timing": 0.005372479999999999,
+          "operator_rows_scanned": 0,
+          "operator_name": "HASH_JOIN",
+          "extra_info": {
+            "Join Type": "INNER",
+            "Conditions": [
+              "source_id = target_id",
+              "source_type = target_type"
+            ],
+            "Estimated Cardinality": "14"
+          },
+          "cpu_time": 0.005813348999999999,
+          "cumulative_rows_scanned": 522880,
+          "operator_cardinality": 400016,
+          "cumulative_cardinality": 900020,
+          "children": [
+            {
+              "system_peak_temp_dir_size": 0,
+              "system_peak_buffer_memory": 0,
+              "result_set_size": 6400000,
+              "operator_type": "TABLE_SCAN",
+              "operator_timing": 0.00024349700000000004,
+              "operator_rows_scanned": 400000,
+              "operator_name": "SEQ_SCAN",
+              "extra_info": {
+                "Table": "bench.main.edge_bc",
+                "Type": "Sequential Scan",
+                "Projections": [
+                  "source_id",
+                  "source_type"
+                ],
+                "Estimated Cardinality": "80000",
+                "Dynamic Filters": [
+                  "optional: source_id>=1 AND optional: source_id<=100000",
+                  "source_type=2"
+                ]
+              },
+              "cpu_time": 0.00024349700000000004,
+              "cumulative_rows_scanned": 400000,
+              "operator_cardinality": 400000,
+              "cumulative_cardinality": 400000,
+              "children": []
+            },
+            {
+              "system_peak_temp_dir_size": 0,
+              "system_peak_buffer_memory": 0,
+              "result_set_size": 1600064,
+              "operator_type": "TABLE_SCAN",
+              "operator_timing": 0.000197372,
+              "operator_rows_scanned": 122880,
+              "operator_name": "SEQ_SCAN",
+              "extra_info": {
+                "Table": "bench.main.edge_ab",
+                "Type": "Sequential Scan",
+                "Projections": [
+                  "target_id",
+                  "target_type"
+                ],
+                "Filters": "source_id=1",
+                "Estimated Cardinality": "19"
+              },
+              "cpu_time": 0.000197372,
+              "cumulative_rows_scanned": 122880,
+              "operator_cardinality": 100004,
+              "cumulative_cardinality": 100004,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

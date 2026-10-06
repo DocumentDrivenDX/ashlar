@@ -1,0 +1,114 @@
+[
+  {
+    "variant": "plain",
+    "round": 0,
+    "batch": 1,
+    "wall_ms": 17671.934917000002,
+    "statement_id": "01f1c12a-69ee-1741-9a1e-bc103ab9fef2"
+  },
+  {
+    "variant": "broadcast",
+    "round": 0,
+    "batch": 1,
+    "wall_ms": 2259.6908340000005,
+    "statement_id": "01f1c12a-7489-1dca-a07e-5861383786b4"
+  },
+  {
+    "variant": "broadcast",
+    "round": 0,
+    "batch": 2,
+    "wall_ms": 2199.198541999998,
+    "statement_id": "01f1c12a-75cf-1c8e-96f7-9c162271eff1"
+  },
+  {
+    "variant": "plain",
+    "round": 0,
+    "batch": 2,
+    "wall_ms": 8154.056291,
+    "statement_id": "01f1c12a-7720-1447-930e-0c1bda36075d"
+  },
+  {
+    "variant": "plain",
+    "round": 0,
+    "batch": 3,
+    "wall_ms": 8930.683125000001,
+    "statement_id": "01f1c12a-7c0f-19bb-9cc7-4d4008e3054d"
+  },
+  {
+    "variant": "broadcast",
+    "round": 0,
+    "batch": 3,
+    "wall_ms": 2276.751666999999,
+    "statement_id": "01f1c12a-8163-10b8-9b3c-f45637f0f3d6"
+  },
+  {
+    "variant": "broadcast",
+    "round": 0,
+    "batch": 4,
+    "wall_ms": 1995.429125000001,
+    "statement_id": "01f1c12a-82aa-1e12-a473-4d354801655f"
+  },
+  {
+    "variant": "plain",
+    "round": 0,
+    "batch": 4,
+    "wall_ms": 8370.324125000003,
+    "statement_id": "01f1c12a-83da-1e73-8705-f4b67133ef3a"
+  },
+  {
+    "variant": "broadcast",
+    "round": 1,
+    "batch": 1,
+    "wall_ms": 2546.111582999998,
+    "statement_id": "01f1c12a-88ea-1f44-92fd-c438145a3b8c"
+  },
+  {
+    "variant": "plain",
+    "round": 1,
+    "batch": 1,
+    "wall_ms": 7801.819416999997,
+    "statement_id": "01f1c12a-8a5d-1f48-9023-c7e073980b08"
+  },
+  {
+    "variant": "plain",
+    "round": 1,
+    "batch": 2,
+    "wall_ms": 8218.882459,
+    "statement_id": "01f1c12a-8f17-15e9-9684-d112416413d3"
+  },
+  {
+    "variant": "broadcast",
+    "round": 1,
+    "batch": 2,
+    "wall_ms": 2543.928957999995,
+    "statement_id": "01f1c12a-93ff-1184-bb46-afa8be7ccec8"
+  },
+  {
+    "variant": "broadcast",
+    "round": 1,
+    "batch": 3,
+    "wall_ms": 2153.263500000008,
+    "statement_id": "01f1c12a-9570-12f7-a3f9-0eb449c1091e"
+  },
+  {
+    "variant": "plain",
+    "round": 1,
+    "batch": 3,
+    "wall_ms": 8310.065249999994,
+    "statement_id": "01f1c12a-96b8-1299-aab0-782111cdb80e"
+  },
+  {
+    "variant": "plain",
+    "round": 1,
+    "batch": 4,
+    "wall_ms": 8559.402832999993,
+    "statement_id": "01f1c12a-9bc1-16cf-9796-e30046ce9b16"
+  },
+  {
+    "variant": "broadcast",
+    "round": 1,
+    "batch": 4,
+    "wall_ms": 2323.3543329999975,
+    "statement_id": "01f1c12a-a0d9-1b49-bbde-7de7272d75af"
+  }
+]

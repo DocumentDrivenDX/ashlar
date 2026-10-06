@@ -1,0 +1,42 @@
+{
+  "state": "passed",
+  "publication": "r66:publication1",
+  "canonical_versions": {
+    "client_dev.ashlar_layout_v02_20261006_r65.object_current": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.edge_current": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.property_journal": 2,
+    "client_dev.ashlar_layout_v02_20261006_r65.tombstone": 0,
+    "client_dev.ashlar_layout_v02_20261006_r65.adjacency_forward": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.adjacency_reverse": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.degree_summary": 1
+  },
+  "projection_versions": {
+    "client_dev.ashlar_layout_v02_20261006_r65.release_r66_node_1": 0,
+    "client_dev.ashlar_layout_v02_20261006_r65.release_r66_node_2": 0,
+    "client_dev.ashlar_layout_v02_20261006_r65.release_r66_edge_7_1_2": 0,
+    "client_dev.ashlar_layout_v02_20261006_r65.release_r66_edge_7_1_1": 0
+  },
+  "tables": {
+    "client_dev.ashlar_layout_v02_20261006_r65.release_r66_node_1": {
+      "rows": 2,
+      "exact_export_fields": "passed",
+      "version": 0
+    },
+    "client_dev.ashlar_layout_v02_20261006_r65.release_r66_node_2": {
+      "rows": 1,
+      "exact_export_fields": "passed",
+      "version": 0
+    },
+    "client_dev.ashlar_layout_v02_20261006_r65.release_r66_edge_7_1_2": {
+      "rows": 2,
+      "exact_export_fields": "passed",
+      "version": 0
+    },
+    "client_dev.ashlar_layout_v02_20261006_r65.release_r66_edge_7_1_1": {
+      "rows": 1,
+      "exact_export_fields": "passed",
+      "version": 0
+    }
+  },
+  "scope": "Four small native Delta release projections; exhaustive exact export-field comparison. No immutable ACL enforcement, atomic engine activation, external-engine execution, performance or scale claim."
+}

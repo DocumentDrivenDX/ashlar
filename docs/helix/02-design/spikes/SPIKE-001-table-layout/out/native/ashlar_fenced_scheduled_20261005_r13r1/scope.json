@@ -1,0 +1,9 @@
+{
+  "state": "running",
+  "batches": 4,
+  "entities_per_batch": 200000,
+  "arrival_interval_s": 20,
+  "stages": "prebuilt outside clock",
+  "readers": 0,
+  "start_epoch": 1791251911.0135639
+}

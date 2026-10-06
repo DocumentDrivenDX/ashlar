@@ -1,0 +1,11 @@
+# Fused relational traversal admission evidence
+
+2026-10-05; experimental SPIKE-001 evidence, not layout approval.
+
+Run `SPIKE-001-table-layout/out/native/ashlar_fused_guard_20261005_m3` used the existing data-gateway 2X-Small warehouse, persistent SQL driver, disabled result cache, and fixed snapshots: object_current i1 version 2, adjacency m1 version 0, degree m1 version 0. Twenty-one rounds of regular, hub, isolate, and missing-node controls passed; the first round is excluded from latency summaries. Admission combines existence, root degree, and multiplicity-preserving expansion estimation in one relational query. Only admitted nonempty roots issue the second traversal query.
+
+Measured caller p95, including admission and any traversal: regular **1,526.93 ms**, hub refusal **885.49 ms**, isolate **651.31 ms**, missing node **672.56 ms**. Each admitted regular root returned 25 distinct ordered edge-ID pairs with estimated work 30. Every hub refused at estimated work 120,006 without issuing a path query. All assertions passed. The regular latency meets the provisional 2-second traversal target on this bounded fixture; it does not establish singleton latency or billion-scale performance. Unlike the earlier scripting probe, this run uses a relational admission plan followed by one admitted path query; the runs are sequential and are not a paired causal comparison.
+
+The budget remains an experimental **logical** metric: first-edge count plus second-edge expansion count, preserving parallel-edge multiplicity. It is not a physical rows-scanned cap. Admission itself may scan adjacency even for refused roots. Degree is a static snapshot, not a maintained publication capability; one source, type, and relationship are tested. No concurrent-ingest, external-engine, recovery, or full-scale admission is claimed. Raw SQL, statement IDs, responses, and history are retained in the run directory; caller timings use results.json and do not depend on completeness of asynchronous query-history metrics.
+
+Next: prioritize scattered updates across the 10M canonical fixture and degree/adjacency publication semantics before claiming the layout meets ingest and scale gates. The overall goal remains active.

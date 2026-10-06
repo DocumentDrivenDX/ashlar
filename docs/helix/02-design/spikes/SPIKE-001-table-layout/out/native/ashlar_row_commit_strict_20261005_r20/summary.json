@@ -1,0 +1,8 @@
+{
+  "state": "passed",
+  "versions": {
+    "edge_current": 14,
+    "property_journal": 15
+  },
+  "scope": "strict complete row-commit counts on selected existing snapshots; no maintenance-after-commit or barrier proof"
+}

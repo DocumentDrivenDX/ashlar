@@ -1,0 +1,17 @@
+{
+  "state": "maintenance",
+  "maintenance": [
+    {
+      "layout": "partition",
+      "before": 2,
+      "after": 3,
+      "wall_s": 59.145227708
+    },
+    {
+      "layout": "lc",
+      "before": 20,
+      "after": 21,
+      "wall_s": 16.25654441600001
+    }
+  ]
+}

@@ -16,7 +16,7 @@ ddx:
 # US-002: Validate a schema package
 
 **Feature**: [FEAT-002](../features/FEAT-002-databricks-schema-package.md)
-**Feature Requirements**: SCHEMA-01–SCHEMA-07
+**Feature Requirements**: SCHEMA-01–SCHEMA-09
 **PRD Requirements**: FR-2
 **Priority**: P0
 **Status**: Draft
@@ -49,6 +49,9 @@ exact interface and schema surfaces belong in the forthcoming design Contracts.
 - [ ] **US-002-AC4** — Given an interrupted multi-table update, when I request a valid published snapshot, then the incomplete revision is withheld or explicitly reported inconsistent.
 - [ ] **US-002-AC5** — Given informational key declarations and governance tags, when I inspect the package, then they are distinguished from validated or enforced rules with evidence.
 
+- [ ] **US-002-AC6** — Given a Truss-shaped fixture, its canonical and graph-serving representations preserve source IDs, property missing/null distinctions, exact values, typed endpoints, independent edge identities and retained content, or explicitly refuse/report an unsupported projection.
+- [ ] **US-002-AC7** — Given the selected native Delta layout, singleton lookup runs without Fabric and meets the reviewed cold/warm budgets on the pinned target; graph adapter mappings preserve isolated nodes and parallel paths with explicit target limits.
+
 ## Edge Cases
 
 Late endpoint, replay, deletion, and parallel-edge cases need explicit decisions in the Contract. A valid isolated node must never fail endpoint checks merely because it has no edges.
@@ -65,7 +68,7 @@ Late endpoint, replay, deletion, and parallel-edge cases need explicit decisions
 
 ## Dependencies
 
-FEAT-002; PRD FR-2; SCHEMA-01–SCHEMA-07. Depends on US-001. Schema/publication Contract awaits PRD Q2–Q4 and Q7. Live connectors and transactional engines are excluded.
+FEAT-002; PRD FR-2; SCHEMA-01–SCHEMA-09. Depends on US-001. Schema/publication Contract awaits PRD Q2–Q4 and Q7. Live connectors and transactional engines are excluded.
 
 ## Out of Scope
 

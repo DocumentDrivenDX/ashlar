@@ -1,0 +1,9 @@
+# Concurrent reads after recovered publication
+
+2026-10-05; SPIKE-001 bounded native experiment on unchanged dbw-aidev-cus warehouse. Two persistent SQL clients read the same changed hub edge, one pinned to old canonical version 4 and the other to recovered version 5. Every SELECT projects all 17 columns and uses the pruning hash plus exact native tuple predicates. Each client primes independently, then performs 51 paced reads at at most two calls/s. All 102 carriers remain exact, preserving the respective old/new bags and typed endpoints.
+
+Excluding repetition zero yields 50 measured calls per client. Old-version reader engine p95 **78ms**, caller **525.0ms**, exactly one file; recovered reader engine **82ms**, caller **373.3ms**, exactly two files. Both have zero remote-read samples and zero result-cache hits. Cached engine passes 100ms; caller fails 250ms for both. No inference about causal overhead from the difference between clients, broad key distributions, simultaneous publication, cold data or billion-node scale is made. Only one changed identity is repeatedly read, so this is a favorable bounded cache workload.
+
+Harness `SPIKE-001-table-layout/native_recovered_concurrent_reads.py`; terminal exact-carrier and reader summaries, all own statement IDs and refreshed metrics under `out/native/ashlar_recovered_concurrent_reads_20261005_r9/`. The first history response lacked some metrics; a later same-ID refresh completed all required fields without rerunning any reads. Original history remains in reader-0. All 106 recorded statements completed.
+
+Native hash pruning survives the bounded structural/property sequence, but caller latency remains a failing gate even with favorable warm full-row reads. Next publisher/recovery fencing, repeated ingest/maintenance and an evidence-based latency decision requiring in-region/isolation resource bounds. Full 1B-node scale and external-engine execution remain open. Goal active; UMF deferred.

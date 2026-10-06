@@ -1,0 +1,10 @@
+{
+  "state": "completed",
+  "nodes": 10000000,
+  "edges": 0,
+  "schema": "client_dev.ashlar_scale_20261005_i1",
+  "payload_pool": "fixed 1M source reused 10x; not independent high-entropy per node",
+  "scope": "actual canonical schema warm lookup and full stored-carrier equality; no billion-node/edge/concurrent/ingest admission",
+  "statement_timeout_s": 180,
+  "preparation_bound_s": 900
+}

@@ -1,0 +1,17 @@
+{
+  "state": "creating",
+  "tables": [
+    "object_current",
+    "edge_current",
+    "property_journal",
+    "tombstone",
+    "publication_manifest",
+    "node_type_a",
+    "edge_ab",
+    "adjacency_forward",
+    "adjacency_reverse",
+    "degree_summary",
+    "publisher_fence",
+    "apply_receipt"
+  ]
+}

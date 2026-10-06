@@ -1,0 +1,41 @@
+{
+  "records": [
+    [
+      "fixture-raw/1",
+      "change",
+      "{\"xid\":\"18446744073709551614\",\"seq\":\"1\"}",
+      "{\"entity_kind\":\"o\",\"entity_id\":\"1\",\"entity_type\":\"1\",\"ver\":\"2\",\"op\":\"update\",\"prop_id\":\"101\",\"old_present\":true,\"old_value\":null,\"new_present\":true,\"new_value\":9007199254740993,\"rev\":\"3\",\"origin\":{\"db_role\":\"app_w\",\"x-host\":{\"decimal\":1.2300e+04}},\"xid\":\"18446744073709551614\",\"seq\":\"7\"}",
+      "34a99967b8236efcb69c6207411aa36fe0ea31d2ca54c0e8562b2a46094a017e"
+    ],
+    [
+      "fixture-raw/2",
+      "revision",
+      "{\"xid\":\"18446744073709551614\",\"seq\":\"2\"}",
+      "{\"rev\":\"3\",\"documents\":[{\"document_base64\":\"eyJ4IjoxfQo=\",\"content_sha256\":\"bb157861a164e35cdde9d726b0af9ce2765a8f530c35d9e45732b94ee65e9557\",\"umf_version\":\"uninterpreted-fixture\"}],\"origin\":{\"actor\":\"fixture\"}}",
+      "3429ab3c44abfde5851bd43347e36128efb3746590a48d218b9df3a3cb09b0dc"
+    ],
+    [
+      "fixture-raw/3",
+      "source",
+      "{\"xid\":\"18446744073709551614\",\"seq\":\"3\"}",
+      "{\"entity_kind\":\"o\",\"entity_id\":\"1\",\"load_id\":\"load-1\",\"source\":{\"author\":\"fixture\",\"x-future\":[null,\"x\"]}}",
+      "0b850057877e60d0176c9a130867730ee83e14058b1fbee10303ceddea62420e"
+    ],
+    [
+      "fixture-raw/4",
+      "reservation",
+      "{\"xid\":\"18446744073709551614\",\"seq\":\"4\"}",
+      "{\"entity_kind\":\"o\",\"entity_type\":\"1\",\"key_num\":\"2\",\"key_text\":\"[\\\"a\\\",\\\"b\\\"]\",\"entity_id\":\"1\",\"ver\":\"3\"}",
+      "995980ef1ae60827cd1c426e869f97d5a2219732bbe3075be589daf38d02a43a"
+    ],
+    [
+      "fixture-raw/5",
+      "x-future",
+      "{\"xid\":\"18446744073709551614\",\"seq\":\"5\"}",
+      "{\"unknown\":{\"null\":null,\"decimal\":0.00000000000000000001,\"timestamp\":\"2026-10-06T12:00:00+05:30\"}}",
+      "1b9c6cbda008fd8d32a3c3263b84c8414653c7bfb3fb9ae48454a22007853567"
+    ]
+  ],
+  "encoding": "synthetic raw envelope v1; UTF-8 exact transport JSON; decimal-string cursors; explicit presence flags; revision bytes base64",
+  "delivery_ids": "synthetic fixture IDs, native derivation undefined"
+}

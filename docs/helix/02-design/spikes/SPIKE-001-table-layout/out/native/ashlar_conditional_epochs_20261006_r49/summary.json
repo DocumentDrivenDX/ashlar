@@ -1,0 +1,7 @@
+{
+  "state": "passed",
+  "cases": [
+    "clean"
+  ],
+  "scope": "current-epoch conditional MERGE accepts prior-epoch marker outside stage and prior journal row sharing feed/position/native key; full epoch selector preserves old history exactly; tiny fixture, no performance or producer guarantee"
+}

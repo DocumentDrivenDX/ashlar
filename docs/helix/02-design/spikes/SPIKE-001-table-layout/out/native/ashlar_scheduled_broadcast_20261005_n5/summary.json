@@ -1,0 +1,72 @@
+{
+  "state": "completed",
+  "before_version": 12,
+  "batches": [
+    {
+      "position": 8,
+      "entities": 250000,
+      "versions": {
+        "object_current": 16,
+        "property_journal": 8
+      },
+      "ready_epoch": 1791247426.3001869,
+      "start_epoch": 1791247426.3047192,
+      "end_epoch": 1791247461.7739499,
+      "queue_delay_s": 0.004532337188720703,
+      "staging_completed_epoch": 1791247430.689825,
+      "processing_s": 35.46923065185547,
+      "oldest_freshness_s": 60.47376298904419,
+      "newest_freshness_s": 35.47376298904419
+    },
+    {
+      "position": 9,
+      "entities": 250000,
+      "versions": {
+        "object_current": 17,
+        "property_journal": 9
+      },
+      "ready_epoch": 1791247451.3001869,
+      "start_epoch": 1791247461.7748559,
+      "end_epoch": 1791247489.435637,
+      "queue_delay_s": 10.474668979644775,
+      "staging_completed_epoch": 1791247458.276053,
+      "processing_s": 27.660781145095825,
+      "oldest_freshness_s": 63.1354501247406,
+      "newest_freshness_s": 38.1354501247406
+    },
+    {
+      "position": 10,
+      "entities": 250000,
+      "versions": {
+        "object_current": 18,
+        "property_journal": 10
+      },
+      "ready_epoch": 1791247476.3001869,
+      "start_epoch": 1791247489.436484,
+      "end_epoch": 1791247516.947086,
+      "queue_delay_s": 13.136297225952148,
+      "staging_completed_epoch": 1791247482.954645,
+      "processing_s": 27.51060199737549,
+      "oldest_freshness_s": 65.64689922332764,
+      "newest_freshness_s": 40.64689922332764
+    },
+    {
+      "position": 11,
+      "entities": 250000,
+      "versions": {
+        "object_current": 19,
+        "property_journal": 11
+      },
+      "ready_epoch": 1791247501.3001869,
+      "start_epoch": 1791247516.9480588,
+      "end_epoch": 1791247542.163127,
+      "queue_delay_s": 15.647871971130371,
+      "staging_completed_epoch": 1791247507.8212428,
+      "processing_s": 25.215068101882935,
+      "oldest_freshness_s": 65.8629400730133,
+      "newest_freshness_s": 40.862940073013306
+    }
+  ],
+  "preservation": "all four fixed-vector changed/journal guards; final 9M untouched rows all 13 fields; 10M distinct canonical keys; 1M distinct journal events",
+  "scope": "four 250k batches/25s; 100-second modeled 10k/s; no concurrent readers, burst, native feed, replay/recovery or billion-scale admission"
+}

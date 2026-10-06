@@ -1,0 +1,13 @@
+{
+  "enable_serverless_compute": true,
+  "enabled_warehouse_types": [
+    {
+      "warehouse_type": "CLASSIC",
+      "enabled": true
+    },
+    {
+      "warehouse_type": "PRO",
+      "enabled": true
+    }
+  ]
+}

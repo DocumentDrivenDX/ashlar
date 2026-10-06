@@ -1,0 +1,758 @@
+[
+  {
+    "shape": "regular",
+    "rep": 0,
+    "root": 1,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 2067.314333
+  },
+  {
+    "shape": "hub",
+    "rep": 0,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 1082.4170419999994
+  },
+  {
+    "shape": "isolate",
+    "rep": 0,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 899.5603330000001
+  },
+  {
+    "shape": "missing",
+    "rep": 0,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 671.3737499999999
+  },
+  {
+    "shape": "regular",
+    "rep": 1,
+    "root": 7920,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1482.7118750000006
+  },
+  {
+    "shape": "hub",
+    "rep": 1,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 822.3637089999993
+  },
+  {
+    "shape": "isolate",
+    "rep": 1,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 635.8555409999998
+  },
+  {
+    "shape": "missing",
+    "rep": 1,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 635.9803750000008
+  },
+  {
+    "shape": "regular",
+    "rep": 2,
+    "root": 15839,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1422.0044579999999
+  },
+  {
+    "shape": "hub",
+    "rep": 2,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 831.4573749999994
+  },
+  {
+    "shape": "isolate",
+    "rep": 2,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 630.0578330000004
+  },
+  {
+    "shape": "missing",
+    "rep": 2,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 610.7779999999998
+  },
+  {
+    "shape": "regular",
+    "rep": 3,
+    "root": 23758,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1469.7401669999995
+  },
+  {
+    "shape": "hub",
+    "rep": 3,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 824.5506669999987
+  },
+  {
+    "shape": "isolate",
+    "rep": 3,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 605.2610000000022
+  },
+  {
+    "shape": "missing",
+    "rep": 3,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 626.0470829999996
+  },
+  {
+    "shape": "regular",
+    "rep": 4,
+    "root": 31677,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1455.2887080000012
+  },
+  {
+    "shape": "hub",
+    "rep": 4,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 817.9593750000009
+  },
+  {
+    "shape": "isolate",
+    "rep": 4,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 625.6773749999986
+  },
+  {
+    "shape": "missing",
+    "rep": 4,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 661.9261250000009
+  },
+  {
+    "shape": "regular",
+    "rep": 5,
+    "root": 39596,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1605.3374160000012
+  },
+  {
+    "shape": "hub",
+    "rep": 5,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 853.8000409999995
+  },
+  {
+    "shape": "isolate",
+    "rep": 5,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 655.5733329999996
+  },
+  {
+    "shape": "missing",
+    "rep": 5,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 599.7975840000009
+  },
+  {
+    "shape": "regular",
+    "rep": 6,
+    "root": 47515,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1476.5000420000015
+  },
+  {
+    "shape": "hub",
+    "rep": 6,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 827.9351669999996
+  },
+  {
+    "shape": "isolate",
+    "rep": 6,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 619.3047500000013
+  },
+  {
+    "shape": "missing",
+    "rep": 6,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 672.5587500000004
+  },
+  {
+    "shape": "regular",
+    "rep": 7,
+    "root": 55434,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1445.2687920000003
+  },
+  {
+    "shape": "hub",
+    "rep": 7,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 840.6242920000011
+  },
+  {
+    "shape": "isolate",
+    "rep": 7,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 651.3114169999988
+  },
+  {
+    "shape": "missing",
+    "rep": 7,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 604.2307920000028
+  },
+  {
+    "shape": "regular",
+    "rep": 8,
+    "root": 63353,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1526.9345409999958
+  },
+  {
+    "shape": "hub",
+    "rep": 8,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 861.7842909999993
+  },
+  {
+    "shape": "isolate",
+    "rep": 8,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 600.0385839999965
+  },
+  {
+    "shape": "missing",
+    "rep": 8,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 620.3384590000028
+  },
+  {
+    "shape": "regular",
+    "rep": 9,
+    "root": 71272,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1463.8702089999995
+  },
+  {
+    "shape": "hub",
+    "rep": 9,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 853.2781659999955
+  },
+  {
+    "shape": "isolate",
+    "rep": 9,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 621.2330829999999
+  },
+  {
+    "shape": "missing",
+    "rep": 9,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 641.0136249999994
+  },
+  {
+    "shape": "regular",
+    "rep": 10,
+    "root": 79191,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1503.1885420000037
+  },
+  {
+    "shape": "hub",
+    "rep": 10,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 816.3805419999974
+  },
+  {
+    "shape": "isolate",
+    "rep": 10,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 609.7113749999962
+  },
+  {
+    "shape": "missing",
+    "rep": 10,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 616.7884159999985
+  },
+  {
+    "shape": "regular",
+    "rep": 11,
+    "root": 87110,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1495.4527499999983
+  },
+  {
+    "shape": "hub",
+    "rep": 11,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 809.2212079999968
+  },
+  {
+    "shape": "isolate",
+    "rep": 11,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 611.3441669999986
+  },
+  {
+    "shape": "missing",
+    "rep": 11,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 752.6700840000018
+  },
+  {
+    "shape": "regular",
+    "rep": 12,
+    "root": 95029,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1516.5258750000064
+  },
+  {
+    "shape": "hub",
+    "rep": 12,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 838.0962089999997
+  },
+  {
+    "shape": "isolate",
+    "rep": 12,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 628.7120000000002
+  },
+  {
+    "shape": "missing",
+    "rep": 12,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 671.3925419999996
+  },
+  {
+    "shape": "regular",
+    "rep": 13,
+    "root": 102948,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1503.528375000002
+  },
+  {
+    "shape": "hub",
+    "rep": 13,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 841.9510420000051
+  },
+  {
+    "shape": "isolate",
+    "rep": 13,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 596.5276669999967
+  },
+  {
+    "shape": "missing",
+    "rep": 13,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 639.6254579999976
+  },
+  {
+    "shape": "regular",
+    "rep": 14,
+    "root": 110867,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1438.842292000004
+  },
+  {
+    "shape": "hub",
+    "rep": 14,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 878.9268749999976
+  },
+  {
+    "shape": "isolate",
+    "rep": 14,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 616.3792080000051
+  },
+  {
+    "shape": "missing",
+    "rep": 14,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 607.7544170000024
+  },
+  {
+    "shape": "regular",
+    "rep": 15,
+    "root": 118786,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1421.0277500000004
+  },
+  {
+    "shape": "hub",
+    "rep": 15,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 847.7664169999955
+  },
+  {
+    "shape": "isolate",
+    "rep": 15,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 583.434957999998
+  },
+  {
+    "shape": "missing",
+    "rep": 15,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 587.136790999999
+  },
+  {
+    "shape": "regular",
+    "rep": 16,
+    "root": 126705,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1418.5788749999942
+  },
+  {
+    "shape": "hub",
+    "rep": 16,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 861.7402090000041
+  },
+  {
+    "shape": "isolate",
+    "rep": 16,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 618.2716249999985
+  },
+  {
+    "shape": "missing",
+    "rep": 16,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 600.7557499999905
+  },
+  {
+    "shape": "regular",
+    "rep": 17,
+    "root": 134624,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1493.4152920000088
+  },
+  {
+    "shape": "hub",
+    "rep": 17,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 840.8947920000003
+  },
+  {
+    "shape": "isolate",
+    "rep": 17,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 616.6850420000003
+  },
+  {
+    "shape": "missing",
+    "rep": 17,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 668.5527919999998
+  },
+  {
+    "shape": "regular",
+    "rep": 18,
+    "root": 142543,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1463.339542
+  },
+  {
+    "shape": "hub",
+    "rep": 18,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 1063.4402499999992
+  },
+  {
+    "shape": "isolate",
+    "rep": 18,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 602.8302920000073
+  },
+  {
+    "shape": "missing",
+    "rep": 18,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 596.3812079999968
+  },
+  {
+    "shape": "regular",
+    "rep": 19,
+    "root": 150462,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1421.672166999997
+  },
+  {
+    "shape": "hub",
+    "rep": 19,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 885.4936670000058
+  },
+  {
+    "shape": "isolate",
+    "rep": 19,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 626.0713749999951
+  },
+  {
+    "shape": "missing",
+    "rep": 19,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 640.8697920000037
+  },
+  {
+    "shape": "regular",
+    "rep": 20,
+    "root": 158381,
+    "status": "OK",
+    "work": 30,
+    "paths": 25,
+    "wall_ms": 1468.692791999999
+  },
+  {
+    "shape": "hub",
+    "rep": 20,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "work": 120006,
+    "paths": 0,
+    "wall_ms": 842.3185829999937
+  },
+  {
+    "shape": "isolate",
+    "rep": 20,
+    "root": 9999999,
+    "status": "OK",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 604.1613330000075
+  },
+  {
+    "shape": "missing",
+    "rep": 20,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "work": 0,
+    "paths": 0,
+    "wall_ms": 608.3692500000097
+  }
+]

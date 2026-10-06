@@ -1,0 +1,9 @@
+{
+  "state": "passed",
+  "projected_edge_count": 10019981,
+  "removed_target_degree_contributions": 3,
+  "projected_hub_logical_work": 120003,
+  "budget": 100000,
+  "admission": "refuse before path fetch",
+  "scope": "projected arithmetic only, no published structure or physical scan cap"
+}

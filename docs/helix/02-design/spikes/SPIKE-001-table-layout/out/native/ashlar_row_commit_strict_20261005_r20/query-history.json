@@ -1,0 +1,60 @@
+[
+  {
+    "query_id": "01f1c12d-2831-1000-b784-6e520d90ac45",
+    "status": "FINISHED",
+    "query_text": "/* ashlar ashlar_row_commit_strict_20261005_r20 strict-row-commit-property_journal */ SELECT count(*),count(_metadata.row_commit_version),min(_metadata.row_commit_version),max(_metadata.row_commit_version),count(DISTINCT _metadata.row_commit_version) FROM client_dev.ashlar_composite_edges_20261005_q1.property_journal VERSION AS OF 15 WHERE source_feed='fixture-fused300k' AND source_epoch='e' AND source_position=1",
+    "query_start_time_ms": 1791253511719,
+    "query_end_time_ms": 1791253512109,
+    "user_id": 3755468182769617,
+    "user_name": "erik.labianca@synaptiq.ai",
+    "user_display_name": "Erik LaBianca",
+    "endpoint_id": "2439e1f2e37ac563",
+    "lookup_key": "CiQwMWYxYzEyZC0yODMxLTEwMDAtYjc4NC02ZTUyMGQ5MGFjNDUQp/yd+JA0GhAyNDM5ZTFmMmUzN2FjNTYzINGf/5fB8tUG",
+    "metrics": {
+      "total_time_ms": 390
+    },
+    "executed_as_user_id": 3755468182769617,
+    "executed_as_user_name": "erik.labianca@synaptiq.ai",
+    "executed_as_user_display_name": "Erik LaBianca",
+    "session_id": "01f1c12d-277f-1d5c-81b8-a2c094297ab5",
+    "is_final": false,
+    "channel_used": {},
+    "warehouse_id": "2439e1f2e37ac563",
+    "duration": 390,
+    "canSubscribeToLiveQuery": false,
+    "client_application": "Databricks SQL Connector for Python",
+    "query_source": {},
+    "is_cancelable": false,
+    "last_updated_at_ms": 1791253512109,
+    "workspace_id": 7405607548213398
+  },
+  {
+    "query_id": "01f1c12d-27d6-1322-9040-b4e0e0cfc154",
+    "status": "FINISHED",
+    "query_text": "/* ashlar ashlar_row_commit_strict_20261005_r20 strict-row-commit-edge_current */ SELECT count(*),count(_metadata.row_commit_version),min(_metadata.row_commit_version),max(_metadata.row_commit_version),count(DISTINCT _metadata.row_commit_version) FROM client_dev.ashlar_composite_edges_20261005_q1.edge_current VERSION AS OF 14 WHERE source_feed='fixture-fused300k' AND source_epoch='e' AND source_position=1",
+    "query_start_time_ms": 1791253511124,
+    "query_end_time_ms": 1791253511647,
+    "user_id": 3755468182769617,
+    "user_name": "erik.labianca@synaptiq.ai",
+    "user_display_name": "Erik LaBianca",
+    "endpoint_id": "2439e1f2e37ac563",
+    "lookup_key": "CiQwMWYxYzEyZC0yN2Q2LTEzMjItOTA0MC1iNGUwZTBjZmMxNTQQ1Ped+JA0GhAyNDM5ZTFmMmUzN2FjNTYzINGf/5fB8tUG",
+    "metrics": {
+      "total_time_ms": 523
+    },
+    "executed_as_user_id": 3755468182769617,
+    "executed_as_user_name": "erik.labianca@synaptiq.ai",
+    "executed_as_user_display_name": "Erik LaBianca",
+    "session_id": "01f1c12d-277f-1d5c-81b8-a2c094297ab5",
+    "is_final": false,
+    "channel_used": {},
+    "warehouse_id": "2439e1f2e37ac563",
+    "duration": 523,
+    "canSubscribeToLiveQuery": false,
+    "client_application": "Databricks SQL Connector for Python",
+    "query_source": {},
+    "is_cancelable": false,
+    "last_updated_at_ms": 1791253511647,
+    "workspace_id": 7405607548213398
+  }
+]

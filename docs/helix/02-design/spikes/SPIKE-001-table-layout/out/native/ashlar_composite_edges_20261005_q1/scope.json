@@ -1,0 +1,12 @@
+{
+  "state": "completed",
+  "node_version": 3,
+  "edge_version": 2,
+  "adjacency_version": 0,
+  "nodes": 10000000,
+  "edges": 10000000,
+  "domains": 10,
+  "distinct_native_edge_ids": 1000000,
+  "parallel_endpoint_pairs": 2000000,
+  "scope": "static synthetic cloned domain fixture; full exact edge carriers, native independent IDs, typed endpoint resolution and narrow adjacency; no native relationship-catalog restriction, mutation/recovery/external-engine or billion-scale admission"
+}

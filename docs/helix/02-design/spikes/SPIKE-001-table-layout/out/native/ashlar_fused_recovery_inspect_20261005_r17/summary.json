@@ -1,0 +1,8 @@
+{
+  "state": "committed-batch-verified",
+  "edge_version": 14,
+  "journal_version": 15,
+  "receipt_journal_version": 12,
+  "descriptor_published": false,
+  "scope": "exact first-batch shared post/journal expression; no full untouched proof or successful publication"
+}

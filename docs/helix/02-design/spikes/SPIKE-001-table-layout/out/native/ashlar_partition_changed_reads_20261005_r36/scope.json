@@ -1,0 +1,24 @@
+{
+  "state": "completed",
+  "versions": {
+    "lc": {
+      "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+      "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+      "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+      "client_dev.ashlar_composite_20261005_p1r1.object_current": 3,
+      "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 20,
+      "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 18
+    },
+    "partition": {
+      "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+      "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+      "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+      "client_dev.ashlar_composite_20261005_p1r1.object_current": 3,
+      "client_dev.ashlar_partition_zorder_20261005_r29.edge_current": 2,
+      "client_dev.ashlar_partition_zorder_20261005_r29.property_journal": 1
+    }
+  },
+  "changed_keys": 51,
+  "native_domains": 10,
+  "scope": "all keys updated in r32; identical alternating full 17-field reads; independent changed property/hash and prior carrier, publication timestamp non-null then repeat equality; no maintenance/concurrent reads/full-scale admission"
+}

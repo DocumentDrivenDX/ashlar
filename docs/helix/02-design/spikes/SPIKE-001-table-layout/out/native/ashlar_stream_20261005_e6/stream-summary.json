@@ -1,0 +1,108 @@
+{
+  "state": "completed",
+  "batches": [
+    {
+      "batch": 1,
+      "entities": 100000,
+      "ready_epoch": 1791241158.741405,
+      "start_epoch": 1791241158.751466,
+      "end_epoch": 1791241182.855358,
+      "queue_delay_s": 0.010061025619506836,
+      "processing_s": 24.103891849517822,
+      "staging_completed_epoch": 1791241163.8837929,
+      "oldest_freshness_s": 34.11395287513733,
+      "newest_freshness_s": 24.11395287513733,
+      "versions": {
+        "objects": 1,
+        "serving": 1,
+        "journal": 1
+      }
+    },
+    {
+      "batch": 2,
+      "entities": 100000,
+      "ready_epoch": 1791241168.741405,
+      "start_epoch": 1791241182.8564448,
+      "end_epoch": 1791241201.1705248,
+      "queue_delay_s": 14.115039825439453,
+      "processing_s": 18.314079999923706,
+      "staging_completed_epoch": 1791241174.729436,
+      "oldest_freshness_s": 42.42911982536316,
+      "newest_freshness_s": 32.42911982536316,
+      "versions": {
+        "objects": 2,
+        "serving": 2,
+        "journal": 2
+      }
+    },
+    {
+      "batch": 3,
+      "entities": 100000,
+      "ready_epoch": 1791241178.741405,
+      "start_epoch": 1791241201.1714072,
+      "end_epoch": 1791241220.381442,
+      "queue_delay_s": 22.430002212524414,
+      "processing_s": 19.21003484725952,
+      "staging_completed_epoch": 1791241184.45562,
+      "oldest_freshness_s": 51.640037059783936,
+      "newest_freshness_s": 41.640037059783936,
+      "versions": {
+        "objects": 3,
+        "serving": 3,
+        "journal": 3
+      }
+    },
+    {
+      "batch": 4,
+      "entities": 100000,
+      "ready_epoch": 1791241188.741405,
+      "start_epoch": 1791241220.382335,
+      "end_epoch": 1791241237.955724,
+      "queue_delay_s": 31.64092993736267,
+      "processing_s": 17.573389053344727,
+      "staging_completed_epoch": 1791241193.41631,
+      "oldest_freshness_s": 59.2143189907074,
+      "newest_freshness_s": 49.2143189907074,
+      "versions": {
+        "objects": 4,
+        "serving": 4,
+        "journal": 4
+      }
+    },
+    {
+      "batch": 5,
+      "entities": 100000,
+      "ready_epoch": 1791241198.741405,
+      "start_epoch": 1791241237.956825,
+      "end_epoch": 1791241256.568664,
+      "queue_delay_s": 39.21542000770569,
+      "processing_s": 18.611839056015015,
+      "staging_completed_epoch": 1791241204.323835,
+      "oldest_freshness_s": 67.8272590637207,
+      "newest_freshness_s": 57.8272590637207,
+      "versions": {
+        "objects": 5,
+        "serving": 5,
+        "journal": 5
+      }
+    },
+    {
+      "batch": 6,
+      "entities": 100000,
+      "ready_epoch": 1791241208.741405,
+      "start_epoch": 1791241256.56976,
+      "end_epoch": 1791241275.003808,
+      "queue_delay_s": 47.82835507392883,
+      "processing_s": 18.43404793739319,
+      "staging_completed_epoch": 1791241214.5829508,
+      "oldest_freshness_s": 76.26240301132202,
+      "newest_freshness_s": 66.26240301132202,
+      "versions": {
+        "objects": 6,
+        "serving": 6,
+        "journal": 6
+      }
+    }
+  ],
+  "scope": "six synthetic scheduled 100k object batches at 10s intervals; prebuilt producer generation excluded; staging overlaps serial publication via one independent driver session; staging/queue/inside-transaction validation included; duplicate outside validation removed; driver atomic apply includes journal/canonical/narrow scalar serving/receipt and validation; full exact bags and unknown retained content retrieved from canonical pinned versions; post-run hydration checks excluded from publication clock; manifest follows version discovery; no live producer, edges, replay/deletes, reader load or recovery; not long-run p95 admission"
+}

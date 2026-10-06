@@ -1,0 +1,30 @@
+{
+  "state": "passed",
+  "pages": [
+    {
+      "direction": "out",
+      "edges": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "direction": "out",
+      "edges": [
+        "3"
+      ]
+    },
+    {
+      "direction": "in",
+      "edges": [
+        "1",
+        "2"
+      ]
+    },
+    {
+      "direction": "out",
+      "edges": []
+    }
+  ],
+  "scope": "Four bounded manifest-pinned generated adjacency reads: two forward pages preserving parallel edges/self-loop, reverse typed endpoint and isolate. No service cursor custody, concurrent latest reads, performance/scale or producer/engine claim."
+}

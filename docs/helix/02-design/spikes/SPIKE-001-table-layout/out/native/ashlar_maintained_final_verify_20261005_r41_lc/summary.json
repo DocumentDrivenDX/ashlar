@@ -1,0 +1,13 @@
+{
+  "state": "passed",
+  "layout": "lc",
+  "versions": {
+    "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+    "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+    "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+    "client_dev.ashlar_composite_20261005_p1r1.object_current": 3,
+    "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 26,
+    "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 20
+  },
+  "scope": "9,419,981 untouched canonical rows, 600k changed/journal records at own and final vectors, typed identities, 3,120,023 inherited journal multiset, full descriptors/receipts and cleared barrier; no performance admission"
+}

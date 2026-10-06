@@ -1,0 +1,674 @@
+[
+  {
+    "shape": "regular",
+    "rep": 0,
+    "root": 1,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 3370.246959
+  },
+  {
+    "shape": "hub",
+    "rep": 0,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1964.982749999999
+  },
+  {
+    "shape": "isolate",
+    "rep": 0,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1802.6533330000002
+  },
+  {
+    "shape": "missing",
+    "rep": 0,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 762.5247500000007
+  },
+  {
+    "shape": "regular",
+    "rep": 1,
+    "root": 7920,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2442.160875000001
+  },
+  {
+    "shape": "hub",
+    "rep": 1,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1883.5980000000027
+  },
+  {
+    "shape": "isolate",
+    "rep": 1,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1742.6645
+  },
+  {
+    "shape": "missing",
+    "rep": 1,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 781.691207999998
+  },
+  {
+    "shape": "regular",
+    "rep": 2,
+    "root": 15839,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2479.4126250000018
+  },
+  {
+    "shape": "hub",
+    "rep": 2,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1822.520707999999
+  },
+  {
+    "shape": "isolate",
+    "rep": 2,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1775.633374999998
+  },
+  {
+    "shape": "missing",
+    "rep": 2,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 767.462708
+  },
+  {
+    "shape": "regular",
+    "rep": 3,
+    "root": 23758,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2537.515750000001
+  },
+  {
+    "shape": "hub",
+    "rep": 3,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1847.6916250000031
+  },
+  {
+    "shape": "isolate",
+    "rep": 3,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1729.0723330000048
+  },
+  {
+    "shape": "missing",
+    "rep": 3,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 746.942874999995
+  },
+  {
+    "shape": "regular",
+    "rep": 4,
+    "root": 31677,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2404.2814999999964
+  },
+  {
+    "shape": "hub",
+    "rep": 4,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1940.0786670000016
+  },
+  {
+    "shape": "isolate",
+    "rep": 4,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1777.767124999997
+  },
+  {
+    "shape": "missing",
+    "rep": 4,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 711.0914169999987
+  },
+  {
+    "shape": "regular",
+    "rep": 5,
+    "root": 39596,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2477.762040999998
+  },
+  {
+    "shape": "hub",
+    "rep": 5,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1801.15275
+  },
+  {
+    "shape": "isolate",
+    "rep": 5,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1677.076833000001
+  },
+  {
+    "shape": "missing",
+    "rep": 5,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 731.831249999999
+  },
+  {
+    "shape": "regular",
+    "rep": 6,
+    "root": 47515,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2566.4309160000016
+  },
+  {
+    "shape": "hub",
+    "rep": 6,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1764.275333999997
+  },
+  {
+    "shape": "isolate",
+    "rep": 6,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1671.125792000005
+  },
+  {
+    "shape": "missing",
+    "rep": 6,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 726.7250830000052
+  },
+  {
+    "shape": "regular",
+    "rep": 7,
+    "root": 55434,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2788.7629579999993
+  },
+  {
+    "shape": "hub",
+    "rep": 7,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1827.2919590000001
+  },
+  {
+    "shape": "isolate",
+    "rep": 7,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1601.3114590000014
+  },
+  {
+    "shape": "missing",
+    "rep": 7,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 713.1293329999977
+  },
+  {
+    "shape": "regular",
+    "rep": 8,
+    "root": 63353,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2328.7895419999954
+  },
+  {
+    "shape": "hub",
+    "rep": 8,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1730.012207999991
+  },
+  {
+    "shape": "isolate",
+    "rep": 8,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1626.3527090000025
+  },
+  {
+    "shape": "missing",
+    "rep": 8,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 876.123665999998
+  },
+  {
+    "shape": "regular",
+    "rep": 9,
+    "root": 71272,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2525.9926250000008
+  },
+  {
+    "shape": "hub",
+    "rep": 9,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1766.8417089999907
+  },
+  {
+    "shape": "isolate",
+    "rep": 9,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1623.4063749999877
+  },
+  {
+    "shape": "missing",
+    "rep": 9,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 923.1175839999963
+  },
+  {
+    "shape": "regular",
+    "rep": 10,
+    "root": 79191,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2363.548499999993
+  },
+  {
+    "shape": "hub",
+    "rep": 10,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1798.698833000003
+  },
+  {
+    "shape": "isolate",
+    "rep": 10,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1704.73166699999
+  },
+  {
+    "shape": "missing",
+    "rep": 10,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 703.5449579999948
+  },
+  {
+    "shape": "regular",
+    "rep": 11,
+    "root": 87110,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2372.1961669999982
+  },
+  {
+    "shape": "hub",
+    "rep": 11,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1786.3550410000073
+  },
+  {
+    "shape": "isolate",
+    "rep": 11,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1614.8189999999972
+  },
+  {
+    "shape": "missing",
+    "rep": 11,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 750.8742499999954
+  },
+  {
+    "shape": "regular",
+    "rep": 12,
+    "root": 95029,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2415.4777910000007
+  },
+  {
+    "shape": "hub",
+    "rep": 12,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1819.9849589999958
+  },
+  {
+    "shape": "isolate",
+    "rep": 12,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1703.7228749999967
+  },
+  {
+    "shape": "missing",
+    "rep": 12,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 770.0691670000026
+  },
+  {
+    "shape": "regular",
+    "rep": 13,
+    "root": 102948,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2420.380417000004
+  },
+  {
+    "shape": "hub",
+    "rep": 13,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1818.5233330000017
+  },
+  {
+    "shape": "isolate",
+    "rep": 13,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1628.768375000007
+  },
+  {
+    "shape": "missing",
+    "rep": 13,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 710.8033749999976
+  },
+  {
+    "shape": "regular",
+    "rep": 14,
+    "root": 110867,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2329.0193340000087
+  },
+  {
+    "shape": "hub",
+    "rep": 14,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1769.429333000005
+  },
+  {
+    "shape": "isolate",
+    "rep": 14,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1842.6854159999948
+  },
+  {
+    "shape": "missing",
+    "rep": 14,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 783.9594169999913
+  },
+  {
+    "shape": "regular",
+    "rep": 15,
+    "root": 118786,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2461.377749999997
+  },
+  {
+    "shape": "hub",
+    "rep": 15,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1772.1378749999985
+  },
+  {
+    "shape": "isolate",
+    "rep": 15,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1649.980499999998
+  },
+  {
+    "shape": "missing",
+    "rep": 15,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 691.2802500000055
+  },
+  {
+    "shape": "regular",
+    "rep": 16,
+    "root": 126705,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2368.3333329999955
+  },
+  {
+    "shape": "hub",
+    "rep": 16,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1785.5562499999992
+  },
+  {
+    "shape": "isolate",
+    "rep": 16,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1674.2744169999924
+  },
+  {
+    "shape": "missing",
+    "rep": 16,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 710.4041249999966
+  },
+  {
+    "shape": "regular",
+    "rep": 17,
+    "root": 134624,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2394.095500000006
+  },
+  {
+    "shape": "hub",
+    "rep": 17,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1728.284375000001
+  },
+  {
+    "shape": "isolate",
+    "rep": 17,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1567.5061669999905
+  },
+  {
+    "shape": "missing",
+    "rep": 17,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 650.6355420000034
+  },
+  {
+    "shape": "regular",
+    "rep": 18,
+    "root": 142543,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2283.2874160000074
+  },
+  {
+    "shape": "hub",
+    "rep": 18,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1776.1366249999924
+  },
+  {
+    "shape": "isolate",
+    "rep": 18,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1648.2331249999902
+  },
+  {
+    "shape": "missing",
+    "rep": 18,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 720.6783330000235
+  },
+  {
+    "shape": "regular",
+    "rep": 19,
+    "root": 150462,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2416.0420419999864
+  },
+  {
+    "shape": "hub",
+    "rep": 19,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1771.806416000004
+  },
+  {
+    "shape": "isolate",
+    "rep": 19,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1592.2753749999856
+  },
+  {
+    "shape": "missing",
+    "rep": 19,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 687.8633329999957
+  },
+  {
+    "shape": "regular",
+    "rep": 20,
+    "root": 158381,
+    "status": "OK",
+    "path_rows": 25,
+    "wall_ms": 2307.6202499999854
+  },
+  {
+    "shape": "hub",
+    "rep": 20,
+    "root": 200001,
+    "status": "QUERY_BUDGET_EXCEEDED",
+    "path_rows": 0,
+    "wall_ms": 1813.3301669999753
+  },
+  {
+    "shape": "isolate",
+    "rep": 20,
+    "root": 9999999,
+    "status": "OK",
+    "path_rows": 0,
+    "wall_ms": 1644.0954580000096
+  },
+  {
+    "shape": "missing",
+    "rep": 20,
+    "root": 20000001,
+    "status": "NOT_FOUND",
+    "path_rows": 0,
+    "wall_ms": 800.1387079999915
+  }
+]

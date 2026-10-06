@@ -1,0 +1,23 @@
+{
+  "state": "passed",
+  "cases": [
+    "clean",
+    "stale-props",
+    "stale-retained",
+    "stale-endpoint",
+    "stale-version",
+    "stale-origin",
+    "stale-null-order",
+    "wrong-hash",
+    "missing-target",
+    "duplicate-stage",
+    "duplicate-target",
+    "preexisting-marker",
+    "marker-outside-stage",
+    "duplicate-ordinal",
+    "bad-journal-old",
+    "missing-journal",
+    "forced-failure"
+  ],
+  "scope": "tiny full-17-field native conditional MERGE; clean exact updates and retained row ids; rejected faults preserve four table versions/content; exclusive marker, post carrier and origin guards; no graph publication, scale or performance admission"
+}

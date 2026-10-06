@@ -1,0 +1,8 @@
+{
+  "state": "passed",
+  "changed_journal_full": 600000,
+  "untouched_full17": 9419981,
+  "accepted_descriptors": 2,
+  "pending_cleared": true,
+  "scope": "final full preservation/readback; no original-r17-clock repair or concurrent-reader/scale admission"
+}

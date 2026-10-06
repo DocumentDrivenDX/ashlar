@@ -1,0 +1,16 @@
+{
+  "state": "unavailable-no-benchmark",
+  "workspace": "dbw-aidev-cus",
+  "preview_filter_Lakehouse": "Only Lakehouse Replay and a federation description match; no Real-Time preview",
+  "preview_filter_Real": "Only MLflow monitoring description matches; no Real-Time preview",
+  "creation_form": "New Serverless SQL warehouse;2X-Small4DBU/hour; advanced options tags/current-preview channel; no Real-Time type",
+  "existing_warehouses": [
+    "data-gateway"
+  ],
+  "form_cancelled": true,
+  "new_compute": 0,
+  "settings_changed": false,
+  "benchmark_queries": 0,
+  "new_test_spend": 0,
+  "owner_direction": "Unity Catalog Delta is architectural commitment; latency measurements guide tuning/capacity and do not gate architecture; avoid further RT provisioning effort"
+}

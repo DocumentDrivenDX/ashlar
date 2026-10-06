@@ -1,0 +1,11 @@
+{
+  "state": "prepared",
+  "edge_version": 3,
+  "adjacency_version": 0,
+  "node_version": 3,
+  "degree_version": 0,
+  "insert_count": 20001,
+  "delete_count": 20,
+  "hub_logical_work_before_deletion": 120006,
+  "scope": "synthetic lifecycle stages and degree baseline only; no publication or rate admission"
+}

@@ -1,0 +1,99 @@
+{
+  "format": "ashlar-layout-spike-package/1",
+  "status": "draft candidate; not a production support profile",
+  "canonical_profile": "ashlar-delta/0.3 proposed; native DDL executed",
+  "supplemental_source_profile": "source_record incorporated into proposed 0.3; real producer profile unqualified",
+  "files": {
+    "sql/delta-layout-v02.sql": "1e378ff080ae1e25cefd2365d9ed473e22bdd47e2d49ecbde65a0c8313c52f1b",
+    "sql/source-record-candidate.sql": "7f9140b5fd754e16e23e0e9ee7c3b83afc94d1839776e3ef5605d999ccc1a76a",
+    "adapters/graphframes.py": "8f2182546cd47bff3af3e445a21338f00eacb263f0ae71fc0ed5c84d83bbeb73",
+    "adapters/release-r66/mapping-plan.json": "dc3dd64cb8e8177ceb46348abbd92424adb8d5b281994a3bd4a9167ca9dda82c",
+    "sql/delta-layout-v03.sql": "b105eff8831318e28135b553df6c2e652f4773cc8fbe924090af12c086a1c70d",
+    "truss-feed-mapping-candidate.md": "6dcb71440f0c458b25065059a0ca258d483faf17a1414d30b393ba36d6a9a8c5",
+    "out/truss-working-draft-evidence.json": "05aa09eed493d4a7e982b9db9b00b771964ac967f042cab26afeb445661cdf0e",
+    "adapters/native-read.ts": "7e1dc09a4746e94252e2276c6f43c65bf382f79c70dc1282694d4da524070afa",
+    "out/layout-package-audit.json": "538d7f1a97dbd0b9880ede81cc97db06e3ae73c875ec9da9b315113de8137ca1",
+    "out/native/ashlar_layout_v02_ddl_20261006_r65/statements.jsonl": "bb300d5f395c96492ee47c57b6bd64802a30e1c97c710dc9f8abfd2374a5c7a5",
+    "out/native/ashlar_layout_v02_ddl_20261006_r65_resume/statements.jsonl": "3fe94257d8b104e109d515c7331d6f4ce74ff3b3ccdffea834f5d8fd9d249d30"
+  },
+  "evidence": {
+    "ddl": {
+      "path": "out/native/ashlar_layout_v02_ddl_20261006_r65_resume/summary.json",
+      "scope": "12 proposed0.2 CREATE statements and DESCRIBE native execution; empty private tables only; no key enforcement, publication, preservation, performance,scale or external-reader claim",
+      "sha256": "0fc02bd490c4df843533dee5e3f2d77eccc780cbb19572c9f972487f9cedf787"
+    },
+    "publication": {
+      "path": "out/native/ashlar_layout_v02_fixture_20261006_r66/summary.json",
+      "scope": "small synthetic whole-entity lifecycle evidence; exact JSON text, typed repeated IDs,parallel edges,self-loop,isolate,hash checks,degree coverage,6 unique origins,ordinary immutable manifest/pinned read surviving later unmanifested write; no cross-table atomicity,producer adapter,recovery race,performance,scale or external-engine execution claim",
+      "sha256": "ecc05dcb9bc86f936e261e968ebd2d5a86cd507faf3e23b0ac602209eb776b94"
+    },
+    "export": {
+      "path": "out/native/ashlar_layout_v02_export_20261006_r67/summary.json",
+      "scope": "Native Delta reads and Python export conformance only; external engines unexecuted.",
+      "sha256": "801215a4e9b5303130211ea3c421121a7ae291d0e89771bfde64612ea2d7d507"
+    },
+    "release": {
+      "path": "out/native/ashlar_layout_v02_release_20261006_r68/summary.json",
+      "scope": "Four small native Delta release projections; exhaustive exact export-field comparison. No immutable ACL enforcement, atomic engine activation, external-engine execution, performance or scale claim.",
+      "sha256": "33ebad848531faace60b810b60e363f86aadd5bf7e24050028867c2beba065ec"
+    },
+    "property_tokens": {
+      "path": "out/native/ashlar_property_journal_v02_20261006_r69/summary.json",
+      "scope": "Synthetic property journal storage preserves absence/null, integer above 2^53, exponent/decimal token and timezone text. entity_version=5 is a fixture boundary marker, not inferred native property ordering. No state reconstruction, producer feed, atomic publisher or retention policy claim.",
+      "sha256": "dfec9e812f88ad8e061d90369a0707296127bb24fe70b2938db93ef6ad4d0c86"
+    },
+    "raw_source": {
+      "path": "out/native/ashlar_source_record_20261006_r71_resume/summary.json",
+      "scope": "Synthetic raw-envelope exact storage and SHA256 checks for change/revision/source/reservation/unknown kind, unsigned-range cursor text, unknown origin, exact JSON values and base64 revision bytes. Read-only replay/conflict classification only. No atomic append/refusal, native transport, safe-watermark ordering, producer or UMF interpretation claim.",
+      "sha256": "e45551a7cbcca6a165f10f323fb0e45b8be95ca8887b2cf6d3e05c7fa73e67c5"
+    },
+    "raw_replay": {
+      "path": "out/native/ashlar_source_record_replay_20261006_r72/summary.json",
+      "scope": "One ordinary Delta MERGE atomic replay/refusal on valid unique staged keys. No concurrent key uniqueness, publisher fencing, cross-table atomicity, source-native delivery-ID derivation or full producer conformance.",
+      "sha256": "532dd6f713e96ad6166db8b276722ee8ebb8ae7cf2fa46599aacb04e375a8f07"
+    },
+    "ddl_v03": {
+      "path": "out/native/ashlar_layout_v03_ddl_20261006_r73_resume/summary.json",
+      "scope": "Thirteen native CREATEs and new cursor/reference column checks; empty private tables. No reference enforcement, producer transport, publication, performance, scale or engine support claim.",
+      "sha256": "0e68ed74bbf4a230ab1c443f9d9b33291889aea74182305bd280d938eebe49eb"
+    },
+    "references_v03": {
+      "path": "out/native/ashlar_layout_v03_references_20261006_r74/summary.json",
+      "scope": "Synthetic complete 0.3 publication reference coverage across objects,edges,journal,tombstones,raw source and structural projections. Actual invalid current-row mutations detected before manifest; no transaction rollback or real producer/fencing/recovery/performance/scale/engine claim.",
+      "sha256": "f43e98fd30f56f43d6ca3305a9d47e045aa9100d34e9fed7f2916a5d8990bd03"
+    },
+    "native_singleton_builder": {
+      "path": "out/native/ashlar_native_read_builder_20261006_r75/summary.json",
+      "scope": "Four generated manifest-pinned singleton queries with exact SQL identity predicates and named SDK string parameters; typed repeated IDs, edge identity, exact bags and hostile-looking source parameter. No latency, scale, backend authorization or full producer-support claim.",
+      "sha256": "17ac481c90303d76d60f2f63ec8199952f4030235ef53c04327942f654f815b0"
+    },
+    "native_adjacency_builder": {
+      "path": "out/native/ashlar_native_adjacency_builder_20261006_r76/summary.json",
+      "scope": "Four bounded manifest-pinned generated adjacency reads: two forward pages preserving parallel edges/self-loop, reverse typed endpoint and isolate. No service cursor custody, concurrent latest reads, performance/scale or producer/engine claim.",
+      "sha256": "34ab0905117d50f6251bc6d165edddfe1c45c4805631b827cbb054c14a06cd51"
+    }
+  },
+  "design_choices": {
+    "storage": "Unity Catalog managed Delta",
+    "canonical_identity": "native source/type/id tuples; hash is derived pruning metadata",
+    "current_clustering": "lookup_hash; 64MiB initial target, zstd; not universally optimal",
+    "native_lookup": "manifest-pinned version, hash predicate and full native identity predicate",
+    "optional_structure": "separate forward/reverse typed adjacency and degree coverage",
+    "producer_history": "exact JSON STRING tokens and explicit presence flags",
+    "feed_retention": "supplemental raw envelope including unknown records and tuple cursor strings",
+    "engine_mapping": "publication-bound typed release projections; exact raw bags or explicit residuals",
+    "umf": "binding deferred"
+  },
+  "unproved": [
+    "0.3 real producer extraction/reconstruction, cursor grammar validation and crash recovery",
+    "real Truss transport and bootstrap/cursor profile",
+    "concurrent publisher fencing and cross-table recovery",
+    "enforced immutable releases and engine activation",
+    "PuppyGraph, GraphFrames and Microsoft Fabric Graph runtime execution",
+    "history retention and source consumer registration",
+    "1B-node/5B-edge runtime capacity",
+    "historical provisional caller latency/freshness budgets remain unmet; owner treats measurements as tuning metrics",
+    "Newer complete-feed transaction/seed/coverage boundaries and trusted proof/registration/generation protocol"
+  ],
+  "executed_baseline": "ashlar-delta/0.2"
+}

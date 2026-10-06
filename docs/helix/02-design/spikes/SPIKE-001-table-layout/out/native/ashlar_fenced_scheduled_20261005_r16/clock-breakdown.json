@@ -1,0 +1,26 @@
+[
+  {
+    "atomic-batch": 22.978,
+    "version-edge_current": 0.969,
+    "version-property_journal": 0.412,
+    "changed-check": 6.645,
+    "journal-check": 0.729,
+    "publish": 2.924
+  },
+  {
+    "atomic-batch": 23.006,
+    "version-edge_current": 0.555,
+    "version-property_journal": 0.405,
+    "changed-check": 3.121,
+    "journal-check": 0.567,
+    "publish": 3.004
+  },
+  {
+    "atomic-batch": 22.972,
+    "version-edge_current": 1.011,
+    "version-property_journal": 0.406,
+    "changed-check": 4.623,
+    "journal-check": 0.8,
+    "publish": 3.413
+  }
+]

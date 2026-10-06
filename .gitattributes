@@ -1,0 +1,3 @@
+
+# Preserve exact native query-plan output, including engine whitespace.
+docs/helix/02-design/spikes/**/out/**/*.txt -whitespace

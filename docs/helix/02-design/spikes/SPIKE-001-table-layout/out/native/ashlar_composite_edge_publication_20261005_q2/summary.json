@@ -1,0 +1,23 @@
+{
+  "state": "completed",
+  "before_version": 2,
+  "versions": {
+    "edge_current": 3,
+    "property_journal": 1
+  },
+  "graph_versions": {
+    "client_dev.ashlar_composite_20261005_p1r1.object_current": 3,
+    "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 3,
+    "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 0,
+    "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 1
+  },
+  "processing_s": 33.654131174087524,
+  "oldest_freshness_s": 53.6641640663147,
+  "newest_freshness_s": 33.6641640663147,
+  "old_vector_reads": [
+    106,
+    107
+  ],
+  "preservation": "all changed canonical/journal rows; 9.8M untouched all 17 fields; 10M typed edge identities; 200k unique journal origins; all old-vector reader carriers exact",
+  "scope": "one 200k/20s multi-domain fixture batch; two paced readers; no sustained or billion-scale/production feed/recovery admission"
+}

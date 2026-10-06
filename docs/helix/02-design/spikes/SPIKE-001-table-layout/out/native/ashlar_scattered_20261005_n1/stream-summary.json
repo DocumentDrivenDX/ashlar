@@ -1,0 +1,22 @@
+{
+  "state": "completed",
+  "batches": [
+    {
+      "batch": 1,
+      "entities": 200000,
+      "ready_epoch": 1791245925.658304,
+      "start_epoch": 1791245925.663008,
+      "end_epoch": 1791246016.616152,
+      "queue_delay_s": 0.004703998565673828,
+      "processing_s": 90.95314407348633,
+      "staging_completed_epoch": 1791245929.6835551,
+      "oldest_freshness_s": 110.957848072052,
+      "newest_freshness_s": 90.957848072052,
+      "versions": {
+        "object_current": 6,
+        "property_journal": 1
+      }
+    }
+  ],
+  "scope": "one synthetic 200k-change batch with 20s accumulation at provisional 10k/s; IDs scattered across full 10M-node canonical table; exact journal and full carriers validated; producer construction excluded, staging/inside checks/version discovery/manifest included; no sustained p95, concurrent readers, replay/recovery, native producer or billion-scale claim"
+}

@@ -1,0 +1,10 @@
+{
+  "state": "passed",
+  "publication": "r66:publication1",
+  "vertices": 3,
+  "edges": 3,
+  "parallel_edges": 2,
+  "self_loops": 1,
+  "isolates": 1,
+  "scope": "Native Delta reads and Python export conformance only; external engines unexecuted."
+}

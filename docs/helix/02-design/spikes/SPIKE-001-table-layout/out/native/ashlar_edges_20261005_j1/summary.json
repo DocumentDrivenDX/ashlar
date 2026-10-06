@@ -1,0 +1,62 @@
+{
+  "edge_endpoint-lookup": {
+    "n": 30,
+    "caller_p50_ms": 290.66500000000417,
+    "caller_p95_ms": 351.2732919999948,
+    "engine_p50_ms": 82,
+    "engine_p95_ms": 93,
+    "compile_p50_ms": 99,
+    "compile_p95_ms": 110,
+    "server_p95_ms": 214,
+    "result_cache_hits": 0,
+    "read_files_median": 9
+  },
+  "edge_endpoint-outgoing": {
+    "n": 30,
+    "caller_p50_ms": 299.1538330000054,
+    "caller_p95_ms": 472.9587909999964,
+    "engine_p50_ms": 82,
+    "engine_p95_ms": 193,
+    "compile_p50_ms": 107,
+    "compile_p95_ms": 116,
+    "server_p95_ms": 307,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  },
+  "edge_identity-lookup": {
+    "n": 30,
+    "caller_p50_ms": 280.1945840000002,
+    "caller_p95_ms": 353.1571660000026,
+    "engine_p50_ms": 71,
+    "engine_p95_ms": 79,
+    "compile_p50_ms": 102,
+    "compile_p95_ms": 175,
+    "server_p95_ms": 257,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  },
+  "edge_identity-outgoing": {
+    "n": 30,
+    "caller_p50_ms": 406.2606250000016,
+    "caller_p95_ms": 434.6426659999878,
+    "engine_p50_ms": 191,
+    "engine_p95_ms": 204,
+    "compile_p50_ms": 107,
+    "compile_p95_ms": 125,
+    "server_p95_ms": 328,
+    "result_cache_hits": 0,
+    "read_files_median": 0
+  },
+  "adjacency-outgoing": {
+    "n": 30,
+    "caller_p50_ms": 308.86187500000517,
+    "caller_p95_ms": 326.0024579999907,
+    "engine_p50_ms": 94,
+    "engine_p95_ms": 102,
+    "compile_p50_ms": 105,
+    "compile_p95_ms": 116,
+    "server_p95_ms": 226,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  }
+}

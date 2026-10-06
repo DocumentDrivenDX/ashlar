@@ -1,0 +1,13 @@
+# Fenced graph-data and descriptor phases
+
+2026-10-05; SPIKE-001 bounded synthetic native test on unchanged dbw-aidev-cus warehouse.
+
+The same private catalog-managed fence row guards both phases: epoch/owner validation followed by an actual conditional sequence write inside each transaction. A stale epoch-one publisher is rejected before graph mutation; canonical/journal versions remain unchanged and its receipt is absent. Active replacement epoch two commits one hub-edge property update, its exact property journal and durable version/progress/revision receipt atomically. This closes the earlier gap where only descriptor recovery was guarded.
+
+The data transaction takes **6.701s** caller time. Checks and guarded descriptor publication take total **12.546s** from data submission. These are single-event samples with checks included, not ingest rate/percentile or marginal fence overhead. There is no accumulation modeled. New canonical version **6**, journal **4**, unchanged adjacency **2**, degree **1**, tombstones **1**, nodes **3**.
+
+Before publishing r12-1 into the experimental CM manifest, the harness confirms its descriptor is absent, the old canonical version 5 full carrier is still exact, and the new pinned carrier contains the intended property and entity version. Native identity, typed endpoints, schema revision, retained bag, order, epoch and pruning hash remain exact for the touched row. The property journal's old/new scalar tokens match. Complete descriptor vector/progress/revisions readback matches the receipt. No exhaustive untouched-row check is performed in this single-row experiment.
+
+Harness `SPIKE-001-table-layout/native_fenced_graph.py`; terminal summary, own native statements and metrics under `out/native/ashlar_fenced_graph_20261005_r12/`. Graph-data and descriptor transactions remain separate; immutable pinned readers are required. Concurrent revocation between phases, reownership of an unpublished receipt, leases/privileges, unknown responses and repeated contention remain untested. Receipt planned versions still rely on exclusive synthetic data writer and actual-version validation; production version allocation is unresolved. Existing normative ordinary manifest does not inherit the experimental CM guard.
+
+Next incorporate the proven conditional-write mechanism into repeated multi-domain batches, counting data checks and guarded publication in the clock and measuring concurrent reads. Avoid further singleton safety tests as substitutes for sustained/scale performance evidence. Caller latency, sustained/burst throughput, maintenance, 1B-node/5B-edge scale and external engine execution remain open. Goal active; UMF deferred.

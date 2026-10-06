@@ -1,0 +1,7 @@
+{
+  "state": "passed",
+  "table": "client_dev.ashlar_layout_v02_20261006_r65.property_journal_r69",
+  "version": 1,
+  "events": 5,
+  "scope": "Synthetic property journal storage preserves absence/null, integer above 2^53, exponent/decimal token and timezone text. entity_version=5 is a fixture boundary marker, not inferred native property ordering. No state reconstruction, producer feed, atomic publisher or retention policy claim."
+}

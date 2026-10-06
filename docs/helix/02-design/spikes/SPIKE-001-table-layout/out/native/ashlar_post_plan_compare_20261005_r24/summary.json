@@ -1,0 +1,30 @@
+{
+  "state": "passed",
+  "checks": [
+    {
+      "variant": "both",
+      "round": 0,
+      "wall_ms": 6621.917709,
+      "statement_id": "01f1c12e-83c4-1519-807d-c8e7ff0e516d"
+    },
+    {
+      "variant": "stage_only",
+      "round": 0,
+      "wall_ms": 11016.271208999999,
+      "statement_id": "01f1c12e-87c7-17f2-9e22-85c043812f19"
+    },
+    {
+      "variant": "stage_only",
+      "round": 1,
+      "wall_ms": 8185.872584000002,
+      "statement_id": "01f1c12e-8e5a-116d-a21d-ffb4232df3ae"
+    },
+    {
+      "variant": "both",
+      "round": 1,
+      "wall_ms": 5086.727874999998,
+      "statement_id": "01f1c12e-9343-1dcb-a5e2-eeca0a9e9758"
+    }
+  ],
+  "scope": "four matched cached pinned post checks; initial plans only; no uncommitted transaction or integrated throughput admission"
+}

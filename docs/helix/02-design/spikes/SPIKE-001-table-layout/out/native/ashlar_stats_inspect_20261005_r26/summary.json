@@ -1,0 +1,4 @@
+{
+  "state": "passed",
+  "scope": "read-only catalog statistics and initial plans, no execution timing or changed graph rows"
+}

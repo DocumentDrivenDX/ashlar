@@ -1,0 +1,46 @@
+{
+  "schema": "client_dev.ashlar_ingest_20261005_a1",
+  "state": "completed",
+  "batches": [
+    {
+      "batch": 1,
+      "entities": 10000,
+      "publication_wall_ms": 19989.378791,
+      "effective_entities_per_s": 500.26567131252676,
+      "versions": {
+        "objects": 1,
+        "serving": 1,
+        "journal": 1
+      },
+      "includes": "merge, journal, projection, version discovery, changed-set validation, manifest; stage construction excluded"
+    },
+    {
+      "batch": 2,
+      "entities": 100000,
+      "publication_wall_ms": 21842.005917000002,
+      "effective_entities_per_s": 4578.334077007475,
+      "versions": {
+        "objects": 2,
+        "serving": 2,
+        "journal": 2
+      },
+      "includes": "merge, journal, projection, version discovery, changed-set validation, manifest; stage construction excluded"
+    },
+    {
+      "batch": 3,
+      "entities": 600000,
+      "publication_wall_ms": 33155.013959,
+      "effective_entities_per_s": 18096.810357008722,
+      "versions": {
+        "objects": 3,
+        "serving": 3,
+        "journal": 3
+      },
+      "includes": "merge, journal, projection, version discovery, changed-set validation, manifest; stage construction excluded"
+    }
+  ],
+  "statement_count": 66,
+  "history_count": 66,
+  "scope": "serial batch screening; no sustained arrival, concurrent clients or p95 freshness claim",
+  "correctness": "INVALID: journal string values were extracted without JSON quoting. Timing only; excluded as conformance evidence. Corrected harness rerun a2."
+}

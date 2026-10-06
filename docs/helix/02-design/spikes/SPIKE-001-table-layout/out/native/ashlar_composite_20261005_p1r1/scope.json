@@ -1,0 +1,11 @@
+{
+  "state": "completed",
+  "object_version": 2,
+  "nodes": 10000000,
+  "sources": 5,
+  "types_per_source": 2,
+  "distinct_native_ids": 1000000,
+  "physical_key": "SHA256 of fixed-order exact source/type/id JSON; native tuple remains identity and mandatory lookup filter",
+  "preservation": "all 10M derived hashes and typed identities; all 10M property/retained/logical-key/schema carriers against fixed source; seven signed64/text derivation controls and forced-collision filtering",
+  "scope": "synthetic fixed snapshot only; no mutation/ingest/concurrent read/billion-scale or external-engine admission"
+}

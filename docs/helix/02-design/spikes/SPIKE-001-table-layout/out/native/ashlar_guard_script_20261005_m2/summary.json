@@ -1,0 +1,50 @@
+{
+  "regular": {
+    "n": 20,
+    "caller_p50_ms": 2415.4777910000007,
+    "caller_p95_ms": 2566.4309160000016,
+    "engine_p50_ms": 2284,
+    "engine_p95_ms": 2437,
+    "compile_p50_ms": 22,
+    "compile_p95_ms": 29,
+    "server_p95_ms": 2466,
+    "result_cache_hits": 0,
+    "read_files_median": 5
+  },
+  "hub": {
+    "n": 20,
+    "caller_p50_ms": 1786.3550410000073,
+    "caller_p95_ms": 1883.5980000000027,
+    "engine_p50_ms": 1664,
+    "engine_p95_ms": 1752,
+    "compile_p50_ms": 22,
+    "compile_p95_ms": 28,
+    "server_p95_ms": 1784,
+    "result_cache_hits": 0,
+    "read_files_median": 4
+  },
+  "isolate": {
+    "n": 20,
+    "caller_p50_ms": 1649.980499999998,
+    "caller_p95_ms": 1777.767124999997,
+    "engine_p50_ms": 1523,
+    "engine_p95_ms": 1647,
+    "compile_p50_ms": 22,
+    "compile_p95_ms": 25,
+    "server_p95_ms": 1678,
+    "result_cache_hits": 0,
+    "read_files_median": 2
+  },
+  "missing": {
+    "n": 20,
+    "caller_p50_ms": 726.7250830000052,
+    "caller_p95_ms": 876.123665999998,
+    "engine_p50_ms": 596,
+    "engine_p95_ms": 748,
+    "compile_p50_ms": 21,
+    "compile_p95_ms": 26,
+    "server_p95_ms": 777,
+    "result_cache_hits": 0,
+    "read_files_median": 0
+  }
+}

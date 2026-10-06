@@ -1,0 +1,72 @@
+{
+  "total_memory_allocated": 0,
+  "total_bytes_written": 0,
+  "total_bytes_read": 0,
+  "system_peak_temp_dir_size": 0,
+  "system_peak_buffer_memory": 71229440,
+  "rows_returned": 100,
+  "result_set_size": 1600,
+  "latency": 0.000644834,
+  "blocked_thread_time": 0.0,
+  "commit_local_storage_latency": 0.0,
+  "wal_replay_entry_count": 0,
+  "extra_info": {},
+  "query_name": "SELECT id,target_id FROM promoted_edges WHERE rel_type_id=1 AND source_id=1 ORDER BY id LIMIT 100;",
+  "checkpoint_latency": 0.0,
+  "waiting_to_attach_latency": 0.0,
+  "cpu_time": 0.00015820800000000001,
+  "cumulative_rows_scanned": 90000,
+  "attach_replay_wal_latency": 0.0,
+  "write_to_wal_latency": 0.0,
+  "cumulative_cardinality": 10104,
+  "attach_load_storage_latency": 0.0,
+  "children": [
+    {
+      "system_peak_temp_dir_size": 0,
+      "system_peak_buffer_memory": 0,
+      "result_set_size": 1600,
+      "operator_type": "TOP_N",
+      "operator_timing": 3.7334e-05,
+      "operator_rows_scanned": 0,
+      "operator_name": "TOP_N",
+      "extra_info": {
+        "Top": "100",
+        "Order By": "bench.main.promoted_edges.id ASC"
+      },
+      "cpu_time": 0.000156958,
+      "cumulative_rows_scanned": 90000,
+      "operator_cardinality": 100,
+      "cumulative_cardinality": 10104,
+      "children": [
+        {
+          "system_peak_temp_dir_size": 0,
+          "system_peak_buffer_memory": 0,
+          "result_set_size": 160064,
+          "operator_type": "TABLE_SCAN",
+          "operator_timing": 0.000119624,
+          "operator_rows_scanned": 90000,
+          "operator_name": "SEQ_SCAN",
+          "extra_info": {
+            "Table": "bench.main.promoted_edges",
+            "Type": "Sequential Scan",
+            "Projections": [
+              "id",
+              "target_id"
+            ],
+            "Filters": [
+              "rel_type_id=1",
+              "source_id=1",
+              "optional: Dynamic Filter (id)"
+            ],
+            "Estimated Cardinality": "17"
+          },
+          "cpu_time": 0.000119624,
+          "cumulative_rows_scanned": 90000,
+          "operator_cardinality": 10004,
+          "cumulative_cardinality": 10004,
+          "children": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "state": "passed",
+  "first_published_version": 2,
+  "next_batch_blocked_before_publication": true,
+  "fault_rolls_back_descriptor_and_clear": true,
+  "next_allowed_after_release": true,
+  "scope": "private cooperative publisher protocol; one sequential restart/fault/next-batch test; next synthetic batch intentionally pending; no permissions/fencing race/network-loss/full-graph integration proof"
+}

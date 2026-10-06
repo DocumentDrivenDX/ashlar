@@ -1,0 +1,23 @@
+{
+  "state": "passed",
+  "before": {
+    "edge_current": 4,
+    "adjacency": 2,
+    "out_degree_r1": 1,
+    "property_journal": 2,
+    "tombstone_r3": 1,
+    "receipt": 2,
+    "publication_manifest": 3
+  },
+  "after": {
+    "edge_current": 4,
+    "adjacency": 2,
+    "out_degree_r1": 1,
+    "property_journal": 2,
+    "tombstone_r3": 1,
+    "receipt": 2,
+    "publication_manifest": 3
+  },
+  "injected_failure_s": 5.2013020515441895,
+  "scope": "explicit SIGNAL after six participating table writes; manifest outside transaction; unchanged Delta versions and affected contents; not lost-response/cancellation recovery"
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "kind": "node",
+    "table": "object_current",
+    "sourceSystem": "pilot",
+    "typeId": "1",
+    "id": "1",
+    "expectedRows": 1,
+    "sql": "SELECT * FROM `client_dev`.`ashlar_layout_v03_20261006_r73`.`object_current` VERSION AS OF 7 WHERE lookup_hash = sha2(to_json(named_struct('source_system', :source, 'type_id', CAST(:type AS BIGINT), 'id', CAST(:id AS BIGINT))), 256) AND source_system = :source AND type_id = CAST(:type AS BIGINT) AND id = CAST(:id AS BIGINT)",
+    "parameters": {
+      "source": "pilot",
+      "type": "1",
+      "id": "1"
+    }
+  },
+  {
+    "kind": "node",
+    "table": "object_current",
+    "sourceSystem": "pilot",
+    "typeId": "2",
+    "id": "1",
+    "expectedRows": 1,
+    "sql": "SELECT * FROM `client_dev`.`ashlar_layout_v03_20261006_r73`.`object_current` VERSION AS OF 7 WHERE lookup_hash = sha2(to_json(named_struct('source_system', :source, 'type_id', CAST(:type AS BIGINT), 'id', CAST(:id AS BIGINT))), 256) AND source_system = :source AND type_id = CAST(:type AS BIGINT) AND id = CAST(:id AS BIGINT)",
+    "parameters": {
+      "source": "pilot",
+      "type": "2",
+      "id": "1"
+    }
+  },
+  {
+    "kind": "edge",
+    "table": "edge_current",
+    "sourceSystem": "pilot",
+    "typeId": "7",
+    "id": "1",
+    "expectedRows": 1,
+    "sql": "SELECT * FROM `client_dev`.`ashlar_layout_v03_20261006_r73`.`edge_current` VERSION AS OF 1 WHERE lookup_hash = sha2(to_json(named_struct('source_system', :source, 'rel_type_id', CAST(:type AS BIGINT), 'id', CAST(:id AS BIGINT))), 256) AND source_system = :source AND rel_type_id = CAST(:type AS BIGINT) AND id = CAST(:id AS BIGINT)",
+    "parameters": {
+      "source": "pilot",
+      "type": "7",
+      "id": "1"
+    }
+  },
+  {
+    "kind": "node",
+    "table": "object_current",
+    "sourceSystem": "pilot'; SELECT 1 --",
+    "typeId": "1",
+    "id": "1",
+    "expectedRows": 0,
+    "sql": "SELECT * FROM `client_dev`.`ashlar_layout_v03_20261006_r73`.`object_current` VERSION AS OF 7 WHERE lookup_hash = sha2(to_json(named_struct('source_system', :source, 'type_id', CAST(:type AS BIGINT), 'id', CAST(:id AS BIGINT))), 256) AND source_system = :source AND type_id = CAST(:type AS BIGINT) AND id = CAST(:id AS BIGINT)",
+    "parameters": {
+      "source": "pilot'; SELECT 1 --",
+      "type": "1",
+      "id": "1"
+    }
+  }
+]

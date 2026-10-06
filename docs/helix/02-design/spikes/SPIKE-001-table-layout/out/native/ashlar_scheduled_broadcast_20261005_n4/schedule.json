@@ -1,0 +1,12 @@
+{
+  "start_epoch": 1791247033.1914072,
+  "interval_s": 30,
+  "batch_entities": 300000,
+  "batches": 4,
+  "modeled_entities_s": 10000,
+  "before_version": 8,
+  "producer_generation": "excluded",
+  "staging": "one independent driver, overlaps serial publisher",
+  "identity_schedule": "four disjoint modular 300k sets spanning full 10M-node range",
+  "scope": "bounded two-minute schedule, not sustained or population p95 admission"
+}

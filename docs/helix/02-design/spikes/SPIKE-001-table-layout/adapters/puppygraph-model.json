@@ -1,0 +1,183 @@
+{
+  "node": [
+    {
+      "label": "TypeA",
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "enabled": true,
+          "catalog": "ashlar_export",
+          "schema": "spike",
+          "table": "node_type_a"
+        }
+      },
+      "id": [
+        {
+          "name": "node_key",
+          "type": "STRING"
+        }
+      ],
+      "attribute": [
+        {
+          "name": "group_value",
+          "type": "STRING"
+        },
+        {
+          "name": "group_present",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "label": "TypeB",
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "enabled": true,
+          "catalog": "ashlar_export",
+          "schema": "spike",
+          "table": "node_type_b"
+        }
+      },
+      "id": [
+        {
+          "name": "node_key",
+          "type": "STRING"
+        }
+      ],
+      "attribute": [
+        {
+          "name": "group_value",
+          "type": "STRING"
+        },
+        {
+          "name": "group_present",
+          "type": "BOOLEAN"
+        }
+      ]
+    },
+    {
+      "label": "TypeC",
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "enabled": true,
+          "catalog": "ashlar_export",
+          "schema": "spike",
+          "table": "node_type_c"
+        }
+      },
+      "id": [
+        {
+          "name": "node_key",
+          "type": "STRING"
+        }
+      ],
+      "attribute": [
+        {
+          "name": "group_value",
+          "type": "STRING"
+        },
+        {
+          "name": "group_present",
+          "type": "BOOLEAN"
+        }
+      ]
+    }
+  ],
+  "edge": [
+    {
+      "label": "AB",
+      "fromNodeLabel": "TypeA",
+      "toNodeLabel": "TypeB",
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "enabled": true,
+          "catalog": "ashlar_export",
+          "schema": "spike",
+          "table": "edge_ab"
+        }
+      },
+      "id": [
+        {
+          "name": "edge_key",
+          "type": "STRING"
+        }
+      ],
+      "fromKey": [
+        {
+          "name": "src",
+          "type": "STRING"
+        }
+      ],
+      "toKey": [
+        {
+          "name": "dst",
+          "type": "STRING"
+        }
+      ],
+      "attribute": []
+    },
+    {
+      "label": "BC",
+      "fromNodeLabel": "TypeB",
+      "toNodeLabel": "TypeC",
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "enabled": true,
+          "catalog": "ashlar_export",
+          "schema": "spike",
+          "table": "edge_bc"
+        }
+      },
+      "id": [
+        {
+          "name": "edge_key",
+          "type": "STRING"
+        }
+      ],
+      "fromKey": [
+        {
+          "name": "src",
+          "type": "STRING"
+        }
+      ],
+      "toKey": [
+        {
+          "name": "dst",
+          "type": "STRING"
+        }
+      ],
+      "attribute": []
+    },
+    {
+      "label": "BA",
+      "fromNodeLabel": "TypeB",
+      "toNodeLabel": "TypeA",
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "enabled": true,
+          "catalog": "ashlar_export",
+          "schema": "spike",
+          "table": "edge_ba"
+        }
+      },
+      "id": [
+        {
+          "name": "edge_key",
+          "type": "STRING"
+        }
+      ],
+      "fromKey": [
+        {
+          "name": "src",
+          "type": "STRING"
+        }
+      ],
+      "toKey": [
+        {
+          "name": "dst",
+          "type": "STRING"
+        }
+      ],
+      "attribute": []
+    }
+  ]
+}

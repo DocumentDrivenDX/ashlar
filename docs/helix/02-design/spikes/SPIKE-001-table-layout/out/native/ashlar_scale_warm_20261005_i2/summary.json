@@ -1,0 +1,38 @@
+{
+  "prime": {
+    "n": 50,
+    "caller_p50_ms": 339.265417,
+    "caller_p95_ms": 386.8247920000005,
+    "engine_p50_ms": 95,
+    "engine_p95_ms": 115,
+    "compile_p50_ms": 126,
+    "compile_p95_ms": 141,
+    "server_p95_ms": 271,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  },
+  "repeat": {
+    "n": 50,
+    "caller_p50_ms": 302.7455420000002,
+    "caller_p95_ms": 336.6818750000036,
+    "engine_p50_ms": 82,
+    "engine_p95_ms": 93,
+    "compile_p50_ms": 110,
+    "compile_p95_ms": 128,
+    "server_p95_ms": 228,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  },
+  "repeat2": {
+    "n": 50,
+    "caller_p50_ms": 307.4952919999987,
+    "caller_p95_ms": 331.00216599999754,
+    "engine_p50_ms": 83,
+    "engine_p95_ms": 94,
+    "compile_p50_ms": 112,
+    "compile_p95_ms": 121,
+    "server_p95_ms": 221,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  }
+}

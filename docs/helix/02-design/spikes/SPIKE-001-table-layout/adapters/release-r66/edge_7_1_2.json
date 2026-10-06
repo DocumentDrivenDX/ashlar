@@ -1,0 +1,32 @@
+[
+  {
+    "source_system": "pilot",
+    "rel_type_id": "7",
+    "id": "E5:pilot:7:1",
+    "source_type": "1",
+    "source_id": "1",
+    "target_type": "2",
+    "target_id": "1",
+    "props_json": "{}",
+    "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+    "edge_key": "E5:pilot:7:1",
+    "src": "N5:pilot:1:1",
+    "dst": "N5:pilot:2:1",
+    "native_id": "1"
+  },
+  {
+    "source_system": "pilot",
+    "rel_type_id": "7",
+    "id": "E5:pilot:7:2",
+    "source_type": "1",
+    "source_id": "1",
+    "target_type": "2",
+    "target_id": "1",
+    "props_json": "{}",
+    "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+    "edge_key": "E5:pilot:7:2",
+    "src": "N5:pilot:1:1",
+    "dst": "N5:pilot:2:1",
+    "native_id": "2"
+  }
+]

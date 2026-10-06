@@ -1,0 +1,11 @@
+{
+  "state": "prepared-not-executed",
+  "queries": 51,
+  "expected_fields": 17,
+  "snapshot": 5,
+  "request_sha256": "c5deacb2b24ad3385d1324e49f27131cbaefbeb37935e61b0d9bf1e8d6b18846",
+  "eligibility": "unverified: browser sign-in required",
+  "resource_bound": "pending",
+  "sdk_rt_type": "not present in installed SDK",
+  "connector_kernel_option": "not present in installed connector"
+}

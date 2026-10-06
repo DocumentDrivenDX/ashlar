@@ -1,0 +1,22 @@
+{
+  "checked_at": "2026-10-06",
+  "observations": {
+    "databricks_clusters_list": [],
+    "local_running_container_images": [
+      "postgres:17.9"
+    ],
+    "local_running_container_names": [
+      "weft-b005-pg17"
+    ],
+    "spike_python_pyspark": false,
+    "spike_python_graphframes": false,
+    "truss_scoped_implementation_inventory": "No src/, packages/, root package.json in inspected draft worktree; design-audit wire checks only"
+  },
+  "limits": [
+    "Local PostgreSQL container belongs to another project and was not inspected or changed.",
+    "No Spark cluster or local graph-engine container appears in these inventories.",
+    "Fabric tenant/capacity/deployment availability was not inspected; no absence claim.",
+    "No dependencies downloaded and no new compute provisioned.",
+    "Existing Databricks warehouse remains available for bounded SQL primitives; broader runtime/scale qualification is still open."
+  ]
+}

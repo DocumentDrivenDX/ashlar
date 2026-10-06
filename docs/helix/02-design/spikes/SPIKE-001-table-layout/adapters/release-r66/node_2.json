@@ -1,0 +1,12 @@
+[
+  {
+    "source_system": "pilot",
+    "type_id": "2",
+    "id": "N5:pilot:2:1",
+    "logical_key_json": "[\"logical\",2,1]",
+    "props_json": "{\"101\":null,\"102\":9007199254740993,\"103\":\"verbatim\"}",
+    "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+    "node_key": "N5:pilot:2:1",
+    "native_id": "1"
+  }
+]

@@ -1,0 +1,9 @@
+{
+  "state": "passed",
+  "versions": [
+    3,
+    5
+  ],
+  "rows": 10019981,
+  "scope": "exhaustive exact18-field and hidden row-id/commit-version parity, full outer native identity join, unique typed keys at both snapshots; maintenance correctness, not ingest/scale admission"
+}

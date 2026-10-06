@@ -1,0 +1,28 @@
+{
+  "state": "observed",
+  "tables": {
+    "edge_current": {
+      "rows": [
+        [
+          "300000",
+          "14",
+          "14",
+          "1"
+        ]
+      ],
+      "wall_ms": 579.0413340000002
+    },
+    "property_journal": {
+      "rows": [
+        [
+          "300000",
+          "15",
+          "15",
+          "1"
+        ]
+      ],
+      "wall_ms": 471.76487499999985
+    }
+  },
+  "scope": "read-only existing snapshots; no feature enabled or protocol change; selected native transaction only"
+}

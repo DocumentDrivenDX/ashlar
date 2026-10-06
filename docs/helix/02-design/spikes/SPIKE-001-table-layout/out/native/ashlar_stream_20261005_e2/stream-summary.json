@@ -1,0 +1,102 @@
+{
+  "state": "completed",
+  "batches": [
+    {
+      "batch": 1,
+      "entities": 100000,
+      "ready_epoch": 1791235691.814215,
+      "start_epoch": 1791235691.819251,
+      "end_epoch": 1791235710.126826,
+      "queue_delay_s": 0.005036115646362305,
+      "processing_s": 18.3075749874115,
+      "oldest_freshness_s": 28.31261110305786,
+      "newest_freshness_s": 18.31261110305786,
+      "versions": {
+        "objects": 1,
+        "serving": 1,
+        "journal": 1
+      }
+    },
+    {
+      "batch": 2,
+      "entities": 100000,
+      "ready_epoch": 1791235701.814215,
+      "start_epoch": 1791235710.1344562,
+      "end_epoch": 1791235729.653704,
+      "queue_delay_s": 8.320241212844849,
+      "processing_s": 19.51924777030945,
+      "oldest_freshness_s": 37.8394889831543,
+      "newest_freshness_s": 27.839488983154297,
+      "versions": {
+        "objects": 2,
+        "serving": 2,
+        "journal": 2
+      }
+    },
+    {
+      "batch": 3,
+      "entities": 100000,
+      "ready_epoch": 1791235711.814215,
+      "start_epoch": 1791235729.654141,
+      "end_epoch": 1791235748.9601789,
+      "queue_delay_s": 17.83992600440979,
+      "processing_s": 19.30603790283203,
+      "oldest_freshness_s": 47.14596390724182,
+      "newest_freshness_s": 37.14596390724182,
+      "versions": {
+        "objects": 3,
+        "serving": 3,
+        "journal": 3
+      }
+    },
+    {
+      "batch": 4,
+      "entities": 100000,
+      "ready_epoch": 1791235721.814215,
+      "start_epoch": 1791235748.960795,
+      "end_epoch": 1791235766.890132,
+      "queue_delay_s": 27.14657998085022,
+      "processing_s": 17.92933702468872,
+      "oldest_freshness_s": 55.07591700553894,
+      "newest_freshness_s": 45.07591700553894,
+      "versions": {
+        "objects": 4,
+        "serving": 4,
+        "journal": 4
+      }
+    },
+    {
+      "batch": 5,
+      "entities": 100000,
+      "ready_epoch": 1791235731.814215,
+      "start_epoch": 1791235766.890502,
+      "end_epoch": 1791235785.2421498,
+      "queue_delay_s": 35.076287031173706,
+      "processing_s": 18.35164785385132,
+      "oldest_freshness_s": 63.427934885025024,
+      "newest_freshness_s": 53.427934885025024,
+      "versions": {
+        "objects": 5,
+        "serving": 5,
+        "journal": 5
+      }
+    },
+    {
+      "batch": 6,
+      "entities": 100000,
+      "ready_epoch": 1791235741.814215,
+      "start_epoch": 1791235785.243059,
+      "end_epoch": 1791235805.475851,
+      "queue_delay_s": 43.42884397506714,
+      "processing_s": 20.232792139053345,
+      "oldest_freshness_s": 73.66163611412048,
+      "newest_freshness_s": 63.66163611412048,
+      "versions": {
+        "objects": 6,
+        "serving": 6,
+        "journal": 6
+      }
+    }
+  ],
+  "scope": "six synthetic scheduled 100k object batches at 10s intervals; staging/queue/validation included; parallel independent writes plus explicit target-range predicates; no live producer, edge changes, replay/delete or concurrent readers; not long-run p95 admission"
+}

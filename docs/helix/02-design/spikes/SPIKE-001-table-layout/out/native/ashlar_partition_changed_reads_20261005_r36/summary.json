@@ -1,0 +1,74 @@
+{
+  "partition-prime": {
+    "n": 50,
+    "caller_p50_ms": 347.08499999999987,
+    "caller_p95_ms": 439.1572920000009,
+    "engine_p50_ms": 85,
+    "engine_p95_ms": 136,
+    "compile_p50_ms": 154,
+    "compile_p95_ms": 196,
+    "server_p95_ms": 324,
+    "result_cache_hits": 0,
+    "read_files_median": 2
+  },
+  "lc-prime": {
+    "n": 50,
+    "caller_p50_ms": 358.3023330000046,
+    "caller_p95_ms": 431.90087500000016,
+    "engine_p50_ms": 85,
+    "engine_p95_ms": 157,
+    "compile_p50_ms": 155,
+    "compile_p95_ms": 171,
+    "server_p95_ms": 330,
+    "result_cache_hits": 0,
+    "read_files_median": 3
+  },
+  "lc-repeat": {
+    "n": 50,
+    "caller_p50_ms": 348.60133299999774,
+    "caller_p95_ms": 397.79258300000464,
+    "engine_p50_ms": 83,
+    "engine_p95_ms": 102,
+    "compile_p50_ms": 161,
+    "compile_p95_ms": 216,
+    "server_p95_ms": 296,
+    "result_cache_hits": 0,
+    "read_files_median": 3
+  },
+  "partition-repeat": {
+    "n": 50,
+    "caller_p50_ms": 350.9170829999988,
+    "caller_p95_ms": 374.86537499999883,
+    "engine_p50_ms": 80,
+    "engine_p95_ms": 102,
+    "compile_p50_ms": 159,
+    "compile_p95_ms": 173,
+    "server_p95_ms": 277,
+    "result_cache_hits": 0,
+    "read_files_median": 2
+  },
+  "partition-repeat2": {
+    "n": 50,
+    "caller_p50_ms": 336.5310420000043,
+    "caller_p95_ms": 414.8912499999966,
+    "engine_p50_ms": 76,
+    "engine_p95_ms": 113,
+    "compile_p50_ms": 152,
+    "compile_p95_ms": 207,
+    "server_p95_ms": 310,
+    "result_cache_hits": 0,
+    "read_files_median": 2
+  },
+  "lc-repeat2": {
+    "n": 50,
+    "caller_p50_ms": 342.3912499999915,
+    "caller_p95_ms": 411.5060000000028,
+    "engine_p50_ms": 72,
+    "engine_p95_ms": 103,
+    "compile_p50_ms": 155,
+    "compile_p95_ms": 214,
+    "server_p95_ms": 308,
+    "result_cache_hits": 0,
+    "read_files_median": 3
+  }
+}

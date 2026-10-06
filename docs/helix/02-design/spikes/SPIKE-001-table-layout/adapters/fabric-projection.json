@@ -1,0 +1,98 @@
+{
+  "format": "ashlar-mapping-plan/0.1",
+  "target": "Microsoft Fabric Graph",
+  "not_vendor_api_payload": true,
+  "publication": "graph1",
+  "source": "immutable scalar OneLake tables",
+  "nodes": [
+    {
+      "label": "TypeA",
+      "table": "node_type_a",
+      "key": [
+        "node_key"
+      ],
+      "properties": [
+        "group_value",
+        "group_present"
+      ]
+    },
+    {
+      "label": "TypeB",
+      "table": "node_type_b",
+      "key": [
+        "node_key"
+      ],
+      "properties": [
+        "group_value",
+        "group_present"
+      ]
+    },
+    {
+      "label": "TypeC",
+      "table": "node_type_c",
+      "key": [
+        "node_key"
+      ],
+      "properties": [
+        "group_value",
+        "group_present"
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "label": "AB",
+      "table": "edge_ab",
+      "key": [
+        "edge_key"
+      ],
+      "sourceLabel": "TypeA",
+      "sourceKey": [
+        "src"
+      ],
+      "targetLabel": "TypeB",
+      "targetKey": [
+        "dst"
+      ]
+    },
+    {
+      "label": "BC",
+      "table": "edge_bc",
+      "key": [
+        "edge_key"
+      ],
+      "sourceLabel": "TypeB",
+      "sourceKey": [
+        "src"
+      ],
+      "targetLabel": "TypeC",
+      "targetKey": [
+        "dst"
+      ]
+    },
+    {
+      "label": "BA",
+      "table": "edge_ba",
+      "key": [
+        "edge_key"
+      ],
+      "sourceLabel": "TypeB",
+      "sourceKey": [
+        "src"
+      ],
+      "targetLabel": "TypeA",
+      "targetKey": [
+        "dst"
+      ]
+    }
+  ],
+  "residuals": [
+    "unselected properties",
+    "exact property bags",
+    "retained unknown data",
+    "history",
+    "native constraint enforcement"
+  ],
+  "scaleGate": "bounded nodes+edges; full 1B nodes plus more edges exceeds documented approximate 2B elements",
+  "status": "unexecuted"
+}

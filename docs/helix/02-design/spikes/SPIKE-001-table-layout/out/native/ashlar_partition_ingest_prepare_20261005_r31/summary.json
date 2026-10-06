@@ -1,0 +1,9 @@
+{
+  "state": "passed",
+  "journal_copy_wall_s": 19.785075208000002,
+  "stage_wall_s": 16.525242750000004,
+  "stage": "client_dev.ashlar_partition_zorder_20261005_r29.stage_r31",
+  "changed_rows": 300000,
+  "journal_rows": 2820023,
+  "scope": "common exact 17-field prior stage and inherited full journal multiset parity; setup outside future arrival clock; no ingest performance claim"
+}

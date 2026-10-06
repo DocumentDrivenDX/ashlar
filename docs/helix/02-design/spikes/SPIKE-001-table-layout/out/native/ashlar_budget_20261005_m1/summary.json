@@ -1,0 +1,31 @@
+{
+  "state": "completed",
+  "adjacency_version": 0,
+  "degree_version": 0,
+  "budget": 100000,
+  "budget_metric": "first-edge count plus multiplicity-preserving second-edge expansions, not physical rows scanned",
+  "results": [
+    {
+      "root": 1,
+      "status": "OK",
+      "estimated_candidate_expansions": 30,
+      "path_count": 25,
+      "wall_ms": 2138.7234579999995
+    },
+    {
+      "root": 200001,
+      "status": "QUERY_BUDGET_EXCEEDED",
+      "estimated_candidate_expansions": 120006,
+      "path_count": 0,
+      "wall_ms": 1222.5373329999982
+    },
+    {
+      "root": 9999999,
+      "status": "OK",
+      "estimated_candidate_expansions": 0,
+      "path_count": 0,
+      "wall_ms": 1171.1427499999977
+    }
+  ],
+  "scope": "single source/type/relationship; static pinned degree; client orchestration; no physical scan cap, maintained degree publication, engine integration, p95 or billion-scale admission"
+}

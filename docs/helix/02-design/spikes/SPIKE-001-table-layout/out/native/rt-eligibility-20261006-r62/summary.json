@@ -1,0 +1,14 @@
+{
+  "state": "access-blocked-before-provisioning",
+  "authorization": "User explicitly approved proposed Beta enablement and one smallest dedicated warehouse test at most15min, quoted estimated cost<=100USD; keep data-gateway unchanged",
+  "workspace_capability_check": {
+    "method": "GET",
+    "path": "/api/2.0/sql/config/warehouses",
+    "result": "PermissionDenied: authenticated identity not authorized"
+  },
+  "native_browser_access": "Computer Use permissions not granted after retry",
+  "created_warehouses": 0,
+  "preview_changes": 0,
+  "quote": "unverified",
+  "next_dependency": "authenticated workspace-admin preview/cost inspection; Computer Use permissions or administrator enablement"
+}

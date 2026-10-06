@@ -60,8 +60,12 @@ Proposed milestone acceptance targets; none is an observed result.
 | Invalid-data detection | 100% authored integrity counterexamples detected | No checks | Negative corpus | Each validation revision |
 
 Latency, freshness, throughput, and cost budgets must be selected with the pilot
-owner before performance acceptance. A couple of billion nodes is a capacity
-aspiration, not an SLA or an initial benchmark claim.
+owner before performance acceptance. The owner selected a 1B-node planning target with more edges on 2026-10-05 and
+asked for fast singleton lookup directly on Databricks. Provisional experiment
+budgets are recorded in SPIKE-001: warm native engine p95 100 ms and caller p95
+250 ms for singleton lookup, with cold-data caller p95 1 s on running compute.
+They are design targets pending native evidence and hardware/cost review.
+The planning graph uses 5B edges as an explicit assumption, not measured input.
 
 ### Open-source scope
 
@@ -76,7 +80,7 @@ release; this draft does not select a license or claim public availability.
 
 Transactional engines, Postgres/Lakebase deployment, Truss/Axon convergence,
 UMF core cleanup, action execution, compensation/sagas, generated GraphQL,
-MCP, admin UI, Fabric/Neo4j projections, RDF/SPARQL/OWL runtime, graph algorithms,
+MCP, admin UI, production Fabric/Neo4j projection deployment, RDF/SPARQL/OWL runtime, graph algorithms,
 and automated entity resolution are deferred. Exact future boundaries and
 re-entry conditions are recorded in the scope disposition in `research.md`
 under Discover. A full ontology product is not required to prove the schemas.
@@ -101,13 +105,14 @@ owners must be named before production adoption.
 | Future operational systems | User-defined entities and relationships | Owner to identify | High change rate in brief; unmeasured | Unknown |
 | Future curated source | User-defined curated types and relationships | Transactional owner to identify | Unknown | Unknown |
 
-Only the synthetic source is in the initial proof. Existing systems remain the
+Only the synthetic source is in the initial proof. A replayable synthetic change feed
+represents the potential consumer’s hot-store publication scenario. Existing systems remain the
 write owners. Ashlar must describe incremental publication, replay, deletion,
 and visibility semantics without implementing a transactional engine.
 
 ## Requirements
 
-P0 consists of FR-1 through FR-3 below. No P1/P2 product surfaces are required
+P0 consists of FR-1 through FR-4 below. No P1/P2 product surfaces are required
 for this milestone. Optional query tools may be rejected after evaluation;
 the supported query path itself is mandatory.
 
@@ -134,8 +139,32 @@ the supported query path itself is mandatory.
 - **FR-3 (P0)** — Analytics engineers must have a reproducible query path over
   the selected schema for node lookup, filtered one-hop traversal, and a fixed
   two-hop pattern, with explicit direction, multiplicity, consistency, and
-  supported-target limits. Evaluate existing tools before adding a compiler.
+  supported-target limits. The potential-consumer workload also requires bounded
+  filtered lists, counts, changes-since reads, publication progress and explicit
+  access/failure outcomes. Evaluate existing tools before adding a compiler.
   Governed by FEAT-003 and US-003.
+
+### Subsystem: Incremental gold publication
+
+- **FR-4 (P0)** — Platform engineers must specify reproducible publication from
+  an external replayable feed, including version ordering, deletion, revision
+  barriers, retained history, and observable publication progress. Consumers
+  must be able to assess whether a result includes their required source
+  position. Governed by FEAT-004 and US-004.
+
+### Consumer input and specification boundary
+
+The [potential-consumer input](../00-discover/hot-store-publication-input.md)
+(P1–P7) informs this draft. Its merge records discovery evidence, not approval
+of every proposed identity or enforcement rule. Ashlar publication and read
+behavior can be specified using opaque logical identities, revisions and source
+positions while UMF (DocumentDrivenDX’s metamodel and schema interchange fabric)
+evolves. Exact UMF constructs, extension vocabulary, serialized feed formats,
+physical columns, and platform mechanisms remain downstream decisions.
+
+P2’s single-edge triple is a candidate producer profile. It does not establish a
+universal Ashlar identity rule or permit loss of distinguishable parallel edges.
+Producer enforcement requires evidence and validation at the publication boundary.
 
 ### Data Quality Requirements
 
@@ -156,7 +185,21 @@ and data-quality expectations; no executable enforcement is claimed here.
 | --- | --- | --- |
 | FR-1 | TypeA A1, TypeB B1, TypeA A0 isolated, directed A1→B1 edge with source and confidence; unsupported authored rule | All identities, types, values and unsupported meaning remain accounted for; source-only recovery distinguished from target recovery |
 | FR-2 | Create and load that model; inject duplicate A1, missing B9 endpoint, null identity, and a breaking property type change | Valid fixture accepted; each invalid case identified; breaking change requires explicit migration; keys not represented as enforced without evidence |
+| FR-4 | Publish create, update, duplicate replay, older update, delete, interrupted publication and unsupported revision | Replaying yields the same state; old records do not overwrite or resurrect; progress advances only through complete supported publication; history and gaps are explicit |
 | FR-3 | A1→B1→C1 and A1→B1→C2, unrelated A2→B2→C3, isolated A0 | Two-hop target-node query yields C1 and C2 only; A0 remains directly queryable; parallel-edge and cyclic variants have declared results |
+
+## Physical design direction
+
+Owner direction (2026-10-05): keep tables as close as practical to Truss while
+providing straightforward mappings to PuppyGraph, GraphFrames and Microsoft
+Fabric Graph. Native Databricks singleton reads must work independently of Fabric,
+using measured partitioning/Z-order or liquid-clustering settings. Mapping
+experiments are in scope; full production graph deployments remain deferred.
+
+The full 1B-node graph and a bounded external projection are separate support
+claims. Fabric’s current approximate 2B total-elements limit cannot establish
+support for 1B nodes plus more edges. Source meaning and omitted cross-scope
+relationships must be accounted for in every projection.
 
 ## Technical Context
 
@@ -190,7 +233,7 @@ from selecting a hot database. Retention and audit duration remain open.
 | High-degree nodes cause query explosion | Medium | High | Test selective starts, skew, edge multiplicity, property width and result limits |
 | Cross-table publication yields mixed revisions | Medium | High | Design an explicit publication/read policy and test interrupted updates |
 | Visibility/provenance metadata mistaken for protection | Medium | High | Preserve metadata; require policy enforcement evidence before real data |
-| Broad brief diverts work into engine/UI | High | High | Only three capabilities in this milestone; reopen deferred scope explicitly |
+| Broad brief diverts work into engine/UI | High | High | Only four capabilities in this milestone; reopen deferred scope explicitly |
 
 ## Open Questions
 
@@ -205,17 +248,29 @@ from selecting a hot database. Retention and audit duration remain open.
 | Q8 | Which open-source license and distribution model? | Project owner | Public release and licensing terms |
 | Q7 | Which typed/shared/hybrid layout best meets this workload? | Technical lead after evidence | Physical-design ADR |
 
+## Consumer decisions remaining open
+
+| ID | Question | Decision owner | Blocks |
+| --- | --- | --- | --- |
+| Q9 | Feed ordering, transaction boundaries, version scope, conflict policy and resumable cursor guarantees? | Producer and Ashlar leads | Publication Contract |
+| Q10 | History window, tombstone lifetime and bootstrap reconciliation after feed expiry? | Data owner | History and recovery design |
+| Q11 | Which bounded lists/counts, authorization disclosure policy and minimum-position wait policy? | Pilot consumer and governance owners | Consumer read Contract |
+
+Q2 retains identity scope and parallel-edge decisions; Q3 retains history and
+publication decisions. Consumer proposals inform those questions without closing
+them. Q1 blocks UMF binding, not model-independent behavior specifications.
+
 ## Success Criteria
 
-The milestone is complete when FR-1–FR-3 have traceable contracts, recorded
+The milestone is complete when FR-1–FR-4 have traceable contracts, recorded
 design decisions, reproducible schema/query evidence and reviewed limits.
 Every support statement names platform/runtime, model/format revision, subset,
 and evidence. A draft spec or local simulation alone cannot satisfy that gate.
 
 ## Review Checklist
 
-- [x] Three scoped capabilities, acceptance sketches, and upstream traceability.
+- [x] Four scoped capabilities, acceptance sketches, and upstream traceability.
 - [x] Open decisions have owners and consequences; no fabricated benchmarks.
 - [ ] Target versions, schema contracts, and design decisions finalized.
-- [ ] US-001–US-003 acceptance criteria exercised by cited tests.
+- [ ] US-001–US-004 acceptance criteria exercised by cited tests.
 - [ ] Owner review/approval.

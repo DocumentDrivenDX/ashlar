@@ -1,0 +1,10 @@
+{
+  "schema": "client_dev.ashlar_atomic_20261005_g1",
+  "scope": "two tiny synthetic tables; not publisher, performance or external-reader conformance",
+  "objects_features": "[\"appendOnly\",\"catalogManaged\",\"deletionVectors\",\"domainMetadata\",\"inCommitTimestamp\",\"invariants\",\"rowTracking\",\"v2Checkpoint\",\"vacuumProtocolCheck\"]",
+  "journal_features": "[\"appendOnly\",\"catalogManaged\",\"deletionVectors\",\"domainMetadata\",\"inCommitTimestamp\",\"invariants\",\"rowTracking\",\"v2Checkpoint\",\"vacuumProtocolCheck\"]",
+  "state": "passed",
+  "intentional_multi_table_rollback": true,
+  "multi_table_commit": true,
+  "exact_stored_carriers": true
+}

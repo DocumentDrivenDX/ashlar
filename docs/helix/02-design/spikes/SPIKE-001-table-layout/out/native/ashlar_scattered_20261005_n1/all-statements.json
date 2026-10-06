@@ -1,0 +1,1000 @@
+[
+  {
+    "label": "schema",
+    "sql": "CREATE SCHEMA client_dev.ashlar_scattered_20261005_n1 COMMENT 'Ashlar synthetic scheduled publication stream'",
+    "statement_id": "01f1c11b-12b1-1231-8cec-4b6e3c2c6aff",
+    "start_epoch": 1791245744.6691892,
+    "wall_ms": 371.94120799999996,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "environment",
+    "sql": "SELECT current_version()",
+    "statement_id": "01f1c11b-12ea-1395-b550-6538467e00ec",
+    "start_epoch": 1791245745.04259,
+    "wall_ms": 182.98804099999978,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "{\"dbr_version\":null,\"dbsql_version\":\"2026.38\",\"u_build_hash\":\"5ed5dc28fe86dc0a5d08df504d6d5e89c8a4dcda\",\"r_build_hash\":\"722a1a33c2aa93f3d608cfe18bded36448192445\"}"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "current_version()"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "statement-cap",
+    "sql": "SET STATEMENT_TIMEOUT=180",
+    "statement_id": "01f1c11b-1307-1f9b-8812-78a3ed536aff",
+    "start_epoch": 1791245745.226478,
+    "wall_ms": 192.40079200000082,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "STATEMENT_TIMEOUT",
+            "180"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "key"
+            },
+            {
+              "name": "value"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "ddl-object_current",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.object_current (\n  source_system STRING NOT NULL, type_id BIGINT NOT NULL, id BIGINT NOT NULL,\n  logical_key_json STRING NOT NULL, schema_revision STRING NOT NULL,\n  entity_version BIGINT NOT NULL, props_json STRING NOT NULL,\n  retained_json STRING NOT NULL, root_id BIGINT,\n  source_feed STRING NOT NULL, source_epoch STRING NOT NULL,\n  source_position BIGINT NOT NULL, published_at TIMESTAMP NOT NULL\n) USING DELTA CLUSTER BY (source_system, type_id, id)\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='source_system,type_id,id','delta.feature.catalogManaged'='supported','delta.targetFileSize'='16777216');",
+    "statement_id": "01f1c11b-1325-1645-92ee-61138dddff97",
+    "start_epoch": 1791245745.4204621,
+    "wall_ms": 1354.6410410000008,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "ddl-property_journal",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.property_journal (\n  source_system STRING NOT NULL, entity_kind STRING NOT NULL,\n  type_id BIGINT NOT NULL, id BIGINT NOT NULL, property_id BIGINT,\n  entity_version BIGINT NOT NULL, operation STRING NOT NULL,\n  old_present BOOLEAN NOT NULL, old_json STRING,\n  new_present BOOLEAN NOT NULL, new_json STRING,\n  schema_revision STRING NOT NULL, source_feed STRING NOT NULL,\n  source_epoch STRING NOT NULL, source_position BIGINT NOT NULL,\n  event_ordinal BIGINT NOT NULL, source_time_text STRING,\n  published_at TIMESTAMP NOT NULL\n) USING DELTA CLUSTER BY (source_feed, source_position, id)\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='source_feed,source_epoch,source_position,id','delta.feature.catalogManaged'='supported','delta.targetFileSize'='134217728');",
+    "statement_id": "01f1c11b-13f3-1850-89ad-ec677cb21ec1",
+    "start_epoch": 1791245746.776118,
+    "wall_ms": 1046.9755000000002,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "ddl-publication_manifest",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.publication_manifest (\n  publication_id STRING NOT NULL, profile_version STRING NOT NULL,\n  table_versions_json STRING NOT NULL, source_progress_json STRING NOT NULL,\n  schema_revisions_json STRING NOT NULL, validation_report_json STRING NOT NULL,\n  recorded_at TIMESTAMP NOT NULL\n) USING DELTA",
+    "statement_id": "01f1c11b-1493-173e-bcb2-5bdba6bac5b1",
+    "start_epoch": 1791245747.823825,
+    "wall_ms": 1165.0219589999988,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "seed-objects",
+    "sql": "INSERT INTO client_dev.ashlar_scattered_20261005_n1.object_current SELECT * FROM client_dev.ashlar_scale_20261005_i1.object_current VERSION AS OF 2",
+    "statement_id": "01f1c11b-1545-1294-9afb-3d297eaf1463",
+    "start_epoch": 1791245748.989735,
+    "wall_ms": 64791.22075000001,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "10000000",
+            "10000000"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "seed-optimize",
+    "sql": "OPTIMIZE client_dev.ashlar_scattered_20261005_n1.object_current FULL",
+    "statement_id": "01f1c11b-3bf6-184a-8500-934e0d1d07e2",
+    "start_epoch": 1791245813.781334,
+    "wall_ms": 77803.235958,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/04ec3f3e-f9be-4876-a654-7f35e1514bd0",
+            "{\"numFilesAdded\":406,\"numFilesRemoved\":370,\"filesAdded\":{\"min\":268772,\"max\":25108045,\"avg\":1.5161935613300493E7,\"totalFiles\":406,\"totalSize\":6155745859},\"filesRemoved\":{\"min\":367197,\"max\":27898127,\"avg\":1.6631484291891892E7,\"totalFiles\":370,\"totalSize\":6153649188},\"partitionsOptimized\":0,\"zOrderStats\":null,\"clusteringStats\":null,\"numBins\":0,\"numBatches\":1,\"totalConsideredFiles\":384,\"totalFilesSkipped\":0,\"preserveInsertionOrder\":false,\"numFilesSkippedToReduceWriteAmplification\":0,\"numBytesSkippedToReduceWriteAmplification\":0,\"startTimeMs\":1791245814876,\"endTimeMs\":1791245878842,\"totalClusterParallelism\":8,\"totalScheduledTasks\":1,\"autoCompactParallelismStats\":null,\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":0,\"numDeletionVectorRowsRemoved\":0},\"recompressionCodec\":null,\"numTableColumns\":13,\"numTableColumnsWithStats\":13,\"totalTaskExecutionTimeMs\":264960,\"skippedArchivedFiles\":0,\"clusteringMetrics\":{\"sizeOfTableInBytesBeforeLazyClustering\":6430486283,\"isNewMetadataCreated\":true,\"isPOTriggered\":false,\"isFull\":true,\"approxClusteringQuality\":0.9967713476666227,\"approxClusteringQualityPerColumn\":[0.0,0.0,0.9967713476666227],\"approxClusteringCoverage\":0.9569633074334699,\"compactionType\":null,\"numFilesSkippedWithoutStats\":0,\"numFilesClassifiedToIntermediateNodes\":0,\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"numFilesClassifiedToLeafNodes\":384,\"sizeOfFilesClassifiedToLeafNodesInBytes\":6430486283,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":6430486283,\"numThreadsForClassifier\":null,\"clusterThresholdStrategy\":\"log\",\"minFileSize\":16777216,\"maxFileSize\":16777216,\"nodeMinNumFilesToCompact\":1,\"numNullValuesEncounteredForTransforms\":0,\"numIdealFiles\":0,\"numIdealFilesWithTrimmedStringMaxValue\":0,\"numAddedFilesWithSameMinMaxOnClusteringColumns\":[406,406,0],\"numClusteringTasksPlanned\":1,\"numClusteringTasksNotPlannedDueToPO\":0,\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":0,\"numCompactionTasksPlanned\":0,\"numCompactionTasksPlannedUndoneDueToPO\":0,\"numOptimizeBatchesPlanned\":1,\"numLeafNodesExpanded\":1,\"numLeafNodesClustered\":1,\"numGetFilesForNodeCalls\":1,\"numSamplingJobs\":2,\"numLeafNodesCompacted\":0,\"numLeafNodesCompactedUndoneDueToPO\":0,\"numIntermediateNodesCompacted\":0,\"numIntermediateNodesCompactedUndoneDueToPO\":0,\"totalSizeOfDataToCompactInBytes\":0,\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"totalLogicalSizeOfDataToCompactInBytes\":0,\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"numIntermediateNodesClustered\":0,\"numFilesSkippedAfterExpansion\":14,\"numSmallFilesSkippedAfterExpansion\":0,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":276837095,\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":276837095,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfDataToRewriteInBytes\":6153649188,\"totalLogicalSizeOfDataToRewriteInBytes\":6153649188,\"timeMetrics\":{\"classifierTimeMs\":181,\"optimizerTimeMs\":6078,\"metadataLoadTimeMs\":0,\"totalGetFilesForNodeCallsTimeMs\":403,\"totalSamplingTimeMs\":4908,\"parentIndexBuildTimeMs\":0,\"metadataCreationTimeMs\":9825},\"maxOptimizeBatchesInParallel\":2,\"currentIteration\":1,\"maxIterations\":5,\"clusteringStrategy\":\"sizeAware\",\"splitStrategy\":\"hierarchicalSplitStrategy\",\"numDowncastDimensions\":null,\"withPredicates\":false,\"numFilesSkippedByPredicates\":0,\"predicates\":null,\"isPipelinedOptimizer\":false,\"pipelinedTotalPlanningTimeMs\":0,\"pipelinedTotalBatchWaitTimeMs\":0,\"pipelinedPostFirstBatchWaitTimeMs\":0,\"coordinatorEventMetrics\":null,\"pipelinedOptimizerStatus\":null,\"pipelinedAssemblerMetrics\":null,\"compressionRatioFromSampling\":-1.0,\"compressionRatioSource\":\"n/a\",\"compressionRatioNumSamples\":0,\"compressionRatioSamplingTimeMs\":0,\"compressionRatioTriggeredScaling\":false,\"compressionRatioFromPersistedEntry\":false,\"compressionRatioChosen\":-1.0,\"compressionRatioStalenessReason\":\"n/a\"},\"fileAgeHistogram\":null,\"numFilesSortedWithinFiles\":0}"
+          ],
+          [
+            "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/04ec3f3e-f9be-4876-a654-7f35e1514bd0",
+            "{\"numFilesAdded\":1,\"numFilesRemoved\":2,\"filesAdded\":{\"min\":526779,\"max\":526779,\"avg\":526779.0,\"totalFiles\":1,\"totalSize\":526779},\"filesRemoved\":{\"min\":268772,\"max\":269449,\"avg\":269110.5,\"totalFiles\":2,\"totalSize\":538221},\"partitionsOptimized\":0,\"zOrderStats\":null,\"clusteringStats\":null,\"numBins\":0,\"numBatches\":1,\"totalConsideredFiles\":420,\"totalFilesSkipped\":0,\"preserveInsertionOrder\":false,\"numFilesSkippedToReduceWriteAmplification\":0,\"numBytesSkippedToReduceWriteAmplification\":0,\"startTimeMs\":1791245878887,\"endTimeMs\":1791245884237,\"totalClusterParallelism\":8,\"totalScheduledTasks\":1,\"autoCompactParallelismStats\":null,\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":0,\"numDeletionVectorRowsRemoved\":0},\"recompressionCodec\":null,\"numTableColumns\":13,\"numTableColumnsWithStats\":13,\"totalTaskExecutionTimeMs\":247,\"skippedArchivedFiles\":0,\"clusteringMetrics\":{\"sizeOfTableInBytesBeforeLazyClustering\":6432582954,\"isNewMetadataCreated\":false,\"isPOTriggered\":false,\"isFull\":true,\"approxClusteringQuality\":0.9967713361153218,\"approxClusteringQualityPerColumn\":[0.0,0.0,0.9967713361153218],\"approxClusteringCoverage\":0.9569632308815287,\"compactionType\":null,\"numFilesSkippedWithoutStats\":0,\"numFilesClassifiedToIntermediateNodes\":0,\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"numFilesClassifiedToLeafNodes\":14,\"sizeOfFilesClassifiedToLeafNodesInBytes\":276837095,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":276837095,\"numThreadsForClassifier\":null,\"clusterThresholdStrategy\":\"log\",\"minFileSize\":16777216,\"maxFileSize\":16777216,\"nodeMinNumFilesToCompact\":1,\"numNullValuesEncounteredForTransforms\":0,\"numIdealFiles\":0,\"numIdealFilesWithTrimmedStringMaxValue\":0,\"numAddedFilesWithSameMinMaxOnClusteringColumns\":[1,1,0],\"numClusteringTasksPlanned\":0,\"numClusteringTasksNotPlannedDueToPO\":0,\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":0,\"numCompactionTasksPlanned\":1,\"numCompactionTasksPlannedUndoneDueToPO\":0,\"numOptimizeBatchesPlanned\":1,\"numLeafNodesExpanded\":0,\"numLeafNodesClustered\":0,\"numGetFilesForNodeCalls\":1,\"numSamplingJobs\":0,\"numLeafNodesCompacted\":29,\"numLeafNodesCompactedUndoneDueToPO\":0,\"numIntermediateNodesCompacted\":0,\"numIntermediateNodesCompactedUndoneDueToPO\":0,\"totalSizeOfDataToCompactInBytes\":538221,\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"totalLogicalSizeOfDataToCompactInBytes\":538221,\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"numIntermediateNodesClustered\":0,\"numFilesSkippedAfterExpansion\":0,\"numSmallFilesSkippedAfterExpansion\":0,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfDataToRewriteInBytes\":538221,\"totalLogicalSizeOfDataToRewriteInBytes\":538221,\"timeMetrics\":{\"classifierTimeMs\":105,\"optimizerTimeMs\":2335,\"metadataLoadTimeMs\":115,\"totalGetFilesForNodeCallsTimeMs\":2255,\"totalSamplingTimeMs\":0,\"parentIndexBuildTimeMs\":0,\"metadataCreationTimeMs\":0},\"maxOptimizeBatchesInParallel\":2,\"currentIteration\":2,\"maxIterations\":5,\"clusteringStrategy\":\"sizeAware\",\"splitStrategy\":null,\"numDowncastDimensions\":null,\"withPredicates\":false,\"numFilesSkippedByPredicates\":0,\"predicates\":null,\"isPipelinedOptimizer\":false,\"pipelinedTotalPlanningTimeMs\":0,\"pipelinedTotalBatchWaitTimeMs\":0,\"pipelinedPostFirstBatchWaitTimeMs\":0,\"coordinatorEventMetrics\":null,\"pipelinedOptimizerStatus\":null,\"pipelinedAssemblerMetrics\":null,\"compressionRatioFromSampling\":-1.0,\"compressionRatioSource\":\"n/a\",\"compressionRatioNumSamples\":0,\"compressionRatioSamplingTimeMs\":0,\"compressionRatioTriggeredScaling\":false,\"compressionRatioFromPersistedEntry\":false,\"compressionRatioChosen\":-1.0,\"compressionRatioStalenessReason\":\"n/a\"},\"fileAgeHistogram\":null,\"numFilesSortedWithinFiles\":0}"
+          ],
+          [
+            "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/04ec3f3e-f9be-4876-a654-7f35e1514bd0",
+            "{\"numFilesAdded\":0,\"numFilesRemoved\":0,\"filesAdded\":{\"min\":null,\"max\":null,\"avg\":0.0,\"totalFiles\":0,\"totalSize\":0},\"filesRemoved\":{\"min\":null,\"max\":null,\"avg\":0.0,\"totalFiles\":0,\"totalSize\":0},\"partitionsOptimized\":0,\"zOrderStats\":null,\"clusteringStats\":null,\"numBins\":0,\"numBatches\":0,\"totalConsideredFiles\":419,\"totalFilesSkipped\":0,\"preserveInsertionOrder\":false,\"numFilesSkippedToReduceWriteAmplification\":0,\"numBytesSkippedToReduceWriteAmplification\":0,\"startTimeMs\":1791245884286,\"endTimeMs\":1791245888498,\"totalClusterParallelism\":8,\"totalScheduledTasks\":0,\"autoCompactParallelismStats\":null,\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":0,\"numDeletionVectorRowsRemoved\":0},\"recompressionCodec\":null,\"numTableColumns\":13,\"numTableColumnsWithStats\":13,\"totalTaskExecutionTimeMs\":0,\"skippedArchivedFiles\":0,\"clusteringMetrics\":{\"sizeOfTableInBytesBeforeLazyClustering\":6432571512,\"isNewMetadataCreated\":false,\"isPOTriggered\":false,\"isFull\":true,\"approxClusteringQuality\":0.9967713361153218,\"approxClusteringQualityPerColumn\":[0.0,0.0,0.9967713361153218],\"approxClusteringCoverage\":0.9569632308815287,\"compactionType\":null,\"numFilesSkippedWithoutStats\":0,\"numFilesClassifiedToIntermediateNodes\":0,\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"numFilesClassifiedToLeafNodes\":14,\"sizeOfFilesClassifiedToLeafNodesInBytes\":276837095,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":276837095,\"numThreadsForClassifier\":null,\"clusterThresholdStrategy\":\"log\",\"minFileSize\":16777216,\"maxFileSize\":16777216,\"nodeMinNumFilesToCompact\":1,\"numNullValuesEncounteredForTransforms\":0,\"numIdealFiles\":0,\"numIdealFilesWithTrimmedStringMaxValue\":0,\"numAddedFilesWithSameMinMaxOnClusteringColumns\":null,\"numClusteringTasksPlanned\":0,\"numClusteringTasksNotPlannedDueToPO\":0,\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":0,\"numCompactionTasksPlanned\":0,\"numCompactionTasksPlannedUndoneDueToPO\":0,\"numOptimizeBatchesPlanned\":0,\"numLeafNodesExpanded\":0,\"numLeafNodesClustered\":0,\"numGetFilesForNodeCalls\":1,\"numSamplingJobs\":0,\"numLeafNodesCompacted\":28,\"numLeafNodesCompactedUndoneDueToPO\":0,\"numIntermediateNodesCompacted\":0,\"numIntermediateNodesCompactedUndoneDueToPO\":0,\"totalSizeOfDataToCompactInBytes\":0,\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"totalLogicalSizeOfDataToCompactInBytes\":0,\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"numIntermediateNodesClustered\":0,\"numFilesSkippedAfterExpansion\":0,\"numSmallFilesSkippedAfterExpansion\":0,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfDataToRewriteInBytes\":0,\"totalLogicalSizeOfDataToRewriteInBytes\":0,\"timeMetrics\":{\"classifierTimeMs\":109,\"optimizerTimeMs\":2217,\"metadataLoadTimeMs\":117,\"totalGetFilesForNodeCallsTimeMs\":2145,\"totalSamplingTimeMs\":0,\"parentIndexBuildTimeMs\":0,\"metadataCreationTimeMs\":0},\"maxOptimizeBatchesInParallel\":2,\"currentIteration\":3,\"maxIterations\":5,\"clusteringStrategy\":\"sizeAware\",\"splitStrategy\":null,\"numDowncastDimensions\":null,\"withPredicates\":false,\"numFilesSkippedByPredicates\":0,\"predicates\":null,\"isPipelinedOptimizer\":false,\"pipelinedTotalPlanningTimeMs\":0,\"pipelinedTotalBatchWaitTimeMs\":0,\"pipelinedPostFirstBatchWaitTimeMs\":0,\"coordinatorEventMetrics\":null,\"pipelinedOptimizerStatus\":null,\"pipelinedAssemblerMetrics\":null,\"compressionRatioFromSampling\":-1.0,\"compressionRatioSource\":\"n/a\",\"compressionRatioNumSamples\":0,\"compressionRatioSamplingTimeMs\":0,\"compressionRatioTriggeredScaling\":false,\"compressionRatioFromPersistedEntry\":false,\"compressionRatioChosen\":-1.0,\"compressionRatioStalenessReason\":\"n/a\"},\"fileAgeHistogram\":null,\"numFilesSortedWithinFiles\":0}"
+          ],
+          [
+            "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/04ec3f3e-f9be-4876-a654-7f35e1514bd0",
+            "{\"numFilesAdded\":0,\"numFilesRemoved\":0,\"filesAdded\":{\"min\":null,\"max\":null,\"avg\":0.0,\"totalFiles\":0,\"totalSize\":0},\"filesRemoved\":{\"min\":null,\"max\":null,\"avg\":0.0,\"totalFiles\":0,\"totalSize\":0},\"partitionsOptimized\":0,\"zOrderStats\":null,\"clusteringStats\":null,\"numBins\":0,\"numBatches\":0,\"totalConsideredFiles\":419,\"totalFilesSkipped\":14,\"preserveInsertionOrder\":true,\"numFilesSkippedToReduceWriteAmplification\":0,\"numBytesSkippedToReduceWriteAmplification\":0,\"startTimeMs\":1791245888548,\"endTimeMs\":1791245890479,\"totalClusterParallelism\":8,\"totalScheduledTasks\":0,\"autoCompactParallelismStats\":null,\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":0,\"numDeletionVectorRowsRemoved\":0},\"recompressionCodec\":null,\"numTableColumns\":13,\"numTableColumnsWithStats\":13,\"totalTaskExecutionTimeMs\":0,\"skippedArchivedFiles\":0,\"clusteringMetrics\":{\"sizeOfTableInBytesBeforeLazyClustering\":6432571512,\"isNewMetadataCreated\":false,\"isPOTriggered\":false,\"isFull\":false,\"approxClusteringQuality\":0.9967713361153218,\"approxClusteringQualityPerColumn\":[0.0,0.0,0.9967713361153218],\"approxClusteringCoverage\":0.9569632308815287,\"compactionType\":\"post-optimize-compaction\",\"numFilesSkippedWithoutStats\":0,\"numFilesClassifiedToIntermediateNodes\":0,\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"numFilesClassifiedToLeafNodes\":0,\"sizeOfFilesClassifiedToLeafNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":0,\"numThreadsForClassifier\":null,\"clusterThresholdStrategy\":null,\"minFileSize\":8388608,\"maxFileSize\":16777216,\"nodeMinNumFilesToCompact\":0,\"numNullValuesEncounteredForTransforms\":0,\"numIdealFiles\":0,\"numIdealFilesWithTrimmedStringMaxValue\":0,\"numAddedFilesWithSameMinMaxOnClusteringColumns\":null,\"numClusteringTasksPlanned\":0,\"numClusteringTasksNotPlannedDueToPO\":0,\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":0,\"numCompactionTasksPlanned\":0,\"numCompactionTasksPlannedUndoneDueToPO\":0,\"numOptimizeBatchesPlanned\":0,\"numLeafNodesExpanded\":0,\"numLeafNodesClustered\":0,\"numGetFilesForNodeCalls\":0,\"numSamplingJobs\":0,\"numLeafNodesCompacted\":0,\"numLeafNodesCompactedUndoneDueToPO\":0,\"numIntermediateNodesCompacted\":0,\"numIntermediateNodesCompactedUndoneDueToPO\":0,\"totalSizeOfDataToCompactInBytes\":0,\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"totalLogicalSizeOfDataToCompactInBytes\":0,\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"numIntermediateNodesClustered\":0,\"numFilesSkippedAfterExpansion\":0,\"numSmallFilesSkippedAfterExpansion\":0,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfDataToRewriteInBytes\":0,\"totalLogicalSizeOfDataToRewriteInBytes\":0,\"timeMetrics\":{\"classifierTimeMs\":0,\"optimizerTimeMs\":0,\"metadataLoadTimeMs\":115,\"totalGetFilesForNodeCallsTimeMs\":0,\"totalSamplingTimeMs\":0,\"parentIndexBuildTimeMs\":0,\"metadataCreationTimeMs\":0},\"maxOptimizeBatchesInParallel\":15,\"currentIteration\":1,\"maxIterations\":1,\"clusteringStrategy\":null,\"splitStrategy\":null,\"numDowncastDimensions\":null,\"withPredicates\":false,\"numFilesSkippedByPredicates\":0,\"predicates\":null,\"isPipelinedOptimizer\":false,\"pipelinedTotalPlanningTimeMs\":0,\"pipelinedTotalBatchWaitTimeMs\":0,\"pipelinedPostFirstBatchWaitTimeMs\":0,\"coordinatorEventMetrics\":null,\"pipelinedOptimizerStatus\":null,\"pipelinedAssemblerMetrics\":null,\"compressionRatioFromSampling\":-1.0,\"compressionRatioSource\":\"n/a\",\"compressionRatioNumSamples\":0,\"compressionRatioSamplingTimeMs\":0,\"compressionRatioTriggeredScaling\":false,\"compressionRatioFromPersistedEntry\":false,\"compressionRatioChosen\":-1.0,\"compressionRatioStalenessReason\":\"n/a\"},\"fileAgeHistogram\":null,\"numFilesSortedWithinFiles\":0}"
+          ],
+          [
+            "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/04ec3f3e-f9be-4876-a654-7f35e1514bd0",
+            "{\"numFilesAdded\":0,\"numFilesRemoved\":0,\"filesAdded\":{\"min\":null,\"max\":null,\"avg\":0.0,\"totalFiles\":0,\"totalSize\":0},\"filesRemoved\":{\"min\":null,\"max\":null,\"avg\":0.0,\"totalFiles\":0,\"totalSize\":0},\"partitionsOptimized\":0,\"zOrderStats\":null,\"clusteringStats\":null,\"numBins\":0,\"numBatches\":0,\"totalConsideredFiles\":419,\"totalFilesSkipped\":0,\"preserveInsertionOrder\":true,\"numFilesSkippedToReduceWriteAmplification\":0,\"numBytesSkippedToReduceWriteAmplification\":0,\"startTimeMs\":1791245890525,\"endTimeMs\":1791245890907,\"totalClusterParallelism\":8,\"totalScheduledTasks\":0,\"autoCompactParallelismStats\":null,\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":0,\"numDeletionVectorRowsRemoved\":0},\"recompressionCodec\":\"ZSTD\",\"numTableColumns\":13,\"numTableColumnsWithStats\":13,\"totalTaskExecutionTimeMs\":0,\"skippedArchivedFiles\":0,\"clusteringMetrics\":null,\"fileAgeHistogram\":null,\"numFilesSortedWithinFiles\":0}"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "path"
+            },
+            {
+              "name": "metrics"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "seed-detail",
+    "sql": "DESCRIBE DETAIL client_dev.ashlar_scattered_20261005_n1.object_current",
+    "statement_id": "01f1c11b-6a55-1dee-af94-165b88af436c",
+    "start_epoch": 1791245891.5855649,
+    "wall_ms": 520.5765829999791,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "delta",
+            "d94414dd-605c-4a37-9bbe-1db7aec189fd",
+            "client_dev.ashlar_scattered_20261005_n1.object_current",
+            null,
+            "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/04ec3f3e-f9be-4876-a654-7f35e1514bd0",
+            "2026-10-06T00:15:46.074000",
+            "2026-10-06T00:18:04",
+            "[]",
+            "[\"source_system\",\"type_id\",\"id\"]",
+            "419",
+            "6432571512",
+            "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"source_system,type_id,id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableInCommitTimestamps\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-99fecfce-2d6f-4c28-9fe6-b623efa36db1\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-b9d13672-903a-40a9-b24b-619e083a8c5f\",\"delta.targetFileSize\":\"16777216\",\"io.unitycatalog.tableId\":\"04ec3f3e-f9be-4876-a654-7f35e1514bd0\"}",
+            "3",
+            "7",
+            "[\"appendOnly\",\"catalogManaged\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"inCommitTimestamp\",\"invariants\",\"rowTracking\",\"v2Checkpoint\",\"vacuumProtocolCheck\"]",
+            "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+            "False"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "format"
+            },
+            {
+              "name": "id"
+            },
+            {
+              "name": "name"
+            },
+            {
+              "name": "description"
+            },
+            {
+              "name": "location"
+            },
+            {
+              "name": "createdAt"
+            },
+            {
+              "name": "lastModified"
+            },
+            {
+              "name": "partitionColumns"
+            },
+            {
+              "name": "clusteringColumns"
+            },
+            {
+              "name": "numFiles"
+            },
+            {
+              "name": "sizeInBytes"
+            },
+            {
+              "name": "properties"
+            },
+            {
+              "name": "minReaderVersion"
+            },
+            {
+              "name": "minWriterVersion"
+            },
+            {
+              "name": "tableFeatures"
+            },
+            {
+              "name": "statistics"
+            },
+            {
+              "name": "clusterByAuto"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "receipt",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.receipt (batch BIGINT,applied_at TIMESTAMP) USING DELTA TBLPROPERTIES ('delta.feature.catalogManaged'='supported')",
+    "statement_id": "01f1c11b-6a93-19a1-a574-f41fc810426b",
+    "start_epoch": 1791245892.1074271,
+    "wall_ms": 1170.718375000007,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "producer-1",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.producer_1 USING DELTA AS SELECT *,to_json(named_struct('101',concat('g',cast(id%100 AS STRING)),'102',id%1000,'103',concat(sha2(concat(cast(id AS STRING),':stream:1:0'),256),sha2(concat(cast(id AS STRING),':stream:1:1'),256),sha2(concat(cast(id AS STRING),':stream:1:2'),256),sha2(concat(cast(id AS STRING),':stream:1:3'),256),sha2(concat(cast(id AS STRING),':stream:1:4'),256),sha2(concat(cast(id AS STRING),':stream:1:5'),256),sha2(concat(cast(id AS STRING),':stream:1:6'),256),sha2(concat(cast(id AS STRING),':stream:1:7'),256),sha2(concat(cast(id AS STRING),':stream:1:8'),256),sha2(concat(cast(id AS STRING),':stream:1:9'),256),sha2(concat(cast(id AS STRING),':stream:1:10'),256),sha2(concat(cast(id AS STRING),':stream:1:11'),256),sha2(concat(cast(id AS STRING),':stream:1:12'),256),sha2(concat(cast(id AS STRING),':stream:1:13'),256),sha2(concat(cast(id AS STRING),':stream:1:14'),256),sha2(concat(cast(id AS STRING),':stream:1:15'),256),sha2(concat(cast(id AS STRING),':stream:1:16'),256),sha2(concat(cast(id AS STRING),':stream:1:17'),256),sha2(concat(cast(id AS STRING),':stream:1:18'),256),sha2(concat(cast(id AS STRING),':stream:1:19'),256),sha2(concat(cast(id AS STRING),':stream:1:20'),256),sha2(concat(cast(id AS STRING),':stream:1:21'),256),sha2(concat(cast(id AS STRING),':stream:1:22'),256),sha2(concat(cast(id AS STRING),':stream:1:23'),256),sha2(concat(cast(id AS STRING),':stream:1:24'),256),sha2(concat(cast(id AS STRING),':stream:1:25'),256),sha2(concat(cast(id AS STRING),':stream:1:26'),256),sha2(concat(cast(id AS STRING),':stream:1:27'),256),sha2(concat(cast(id AS STRING),':stream:1:28'),256),sha2(concat(cast(id AS STRING),':stream:1:29'),256),sha2(concat(cast(id AS STRING),':stream:1:30'),256),sha2(concat(cast(id AS STRING),':stream:1:31'),256)))) new_props FROM (SELECT id,props_json,retained_json,entity_version FROM client_dev.ashlar_scattered_20261005_n1.object_current WHERE pmod((id-1)*104729,10000000)<200000)",
+    "statement_id": "01f1c11b-6b45-1cd1-87dd-3feb8279cbbc",
+    "start_epoch": 1791245893.2791622,
+    "wall_ms": 11572.69820799999,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "atomic-apply-1",
+    "sql": "BEGIN ATOMIC\n IF (SELECT count(*) FROM client_dev.ashlar_scattered_20261005_n1.stage_1 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current o ON s.id=o.id WHERE o.source_system='pilot' AND o.type_id=1 AND (o.props_json IS DISTINCT FROM s.props_json OR o.retained_json IS DISTINCT FROM s.retained_json OR o.entity_version<>s.entity_version))<>0 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar prior canonical mismatch'; END IF;\n MERGE INTO client_dev.ashlar_scattered_20261005_n1.object_current t USING client_dev.ashlar_scattered_20261005_n1.stage_1 s ON t.id=s.id AND t.source_system='pilot' AND t.type_id=1 WHEN MATCHED THEN UPDATE SET t.props_json=s.new_props,t.entity_version=1,t.source_position=1,t.published_at=current_timestamp();\n INSERT INTO client_dev.ashlar_scattered_20261005_n1.property_journal SELECT 'pilot','object',1,id,103,1,'update',true,substring(to_json(array(get_json_object(props_json,'$.103'))),2,length(to_json(array(get_json_object(props_json,'$.103'))))-2),true,substring(to_json(array(get_json_object(new_props,'$.103'))),2,length(to_json(array(get_json_object(new_props,'$.103'))))-2),'r1','S','e',1,id,'synthetic-batch:1',current_timestamp() FROM client_dev.ashlar_scattered_20261005_n1.stage_1;\n IF (SELECT count(*) FROM client_dev.ashlar_scattered_20261005_n1.stage_1 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current o ON s.id=o.id WHERE o.source_system='pilot' AND o.type_id=1)<>200000 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar changed cardinality'; END IF;\n IF (SELECT count(*) FROM client_dev.ashlar_scattered_20261005_n1.stage_1 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current o ON s.id=o.id WHERE o.source_system='pilot' AND o.type_id=1 AND (o.props_json<>s.new_props OR o.retained_json<>s.retained_json OR o.entity_version<>1))<>0 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar carrier mismatch'; END IF;\n IF (SELECT count(*) FROM client_dev.ashlar_scattered_20261005_n1.property_journal WHERE source_position=1)<>200000 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar journal count'; END IF;\n IF (SELECT count(*) FROM client_dev.ashlar_scattered_20261005_n1.property_journal j JOIN client_dev.ashlar_scattered_20261005_n1.stage_1 s ON j.id=s.id WHERE j.source_position=1 AND (from_json(concat('[',j.old_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.props_json,'$.103') OR from_json(concat('[',j.new_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.new_props,'$.103')))<>0 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar journal value'; END IF;\n INSERT INTO client_dev.ashlar_scattered_20261005_n1.receipt VALUES (1,current_timestamp()); END",
+    "statement_id": "01f1c11b-810b-1c07-9758-865d196fa3f2",
+    "start_epoch": 1791245929.683591,
+    "wall_ms": 84621.656708,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "version-object_current-1",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_scattered_20261005_n1.object_current LIMIT 1",
+    "statement_id": "01f1c11b-b37d-1580-aaf3-e04dbf12db53",
+    "start_epoch": 1791246014.306205,
+    "wall_ms": 976.1852500000145,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "6",
+            "2026-10-06T00:20:13.472000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((id#412713L = id#412724L) AND (source_system#412711 = pilot)) AND (type_id#412712L = 1))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11b-810b-1c07-9758-865d196fa3f2",
+            null,
+            "5",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"200000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"200000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"4740\",\"numTargetFilesAdded\":\"8\",\"numTargetBytesAdded\":\"214418424\",\"executionTimeMs\":\"6749\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"2000\",\"numOutputRows\":\"200000\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"200000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"91cfb608-0627-4a9c-90a5-7edd42054a9f\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "version-property_journal-1",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_scattered_20261005_n1.property_journal LIMIT 1",
+    "statement_id": "01f1c11b-b3fe-17cf-80d3-572d584788a8",
+    "start_epoch": 1791246015.283701,
+    "wall_ms": 384.6798749999607,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1",
+            "2026-10-06T00:20:13.472000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"WRITE\",\"operationParameters\":{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_feed\\\",\\\"source_position\\\",\\\"id\\\"]\",\"statsOnLoad\":true,\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}}]\"}",
+            null,
+            null,
+            "01f1c11b-810b-1c07-9758-865d196fa3f2",
+            null,
+            "0",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"WRITE\",\"operationMetrics\":{\"numFiles\":\"1\",\"numOutputRows\":\"200000\",\"numOutputBytes\":\"336871198\"}}]\",\"txnId\":\"91cfb608-0627-4a9c-90a5-7edd42054a9f\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "publish-1",
+    "sql": "INSERT INTO client_dev.ashlar_scattered_20261005_n1.publication_manifest VALUES ('batch-1','ashlar-delta/0.1-spike','{\"object_current\":6,\"property_journal\":1}', '{\"S\":{\"epoch\":\"e\",\"position\":1}}','{\"pilot\":\"r1\"}','{\"transaction_checks\":\"passed\",\"changed_objects\":200000}',current_timestamp())",
+    "statement_id": "01f1c11b-b439-14b5-8f93-b69cb2a0a0ae",
+    "start_epoch": 1791246015.669438,
+    "wall_ms": 945.6510410000192,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1",
+            "1"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "hydrate-parity-1",
+    "sql": "SELECT count(*),count_if(o.props_json IS DISTINCT FROM s.new_props OR o.retained_json IS DISTINCT FROM s.retained_json OR get_json_object(o.props_json,'$.101') IS DISTINCT FROM get_json_object(s.new_props,'$.101') OR cast(get_json_object(o.props_json,'$.102') AS BIGINT) IS DISTINCT FROM cast(get_json_object(s.new_props,'$.102') AS BIGINT) OR o.entity_version<>1 OR o.source_position<>1 OR o.source_system<>'pilot' OR o.type_id<>1 OR o.logical_key_json<>to_json(array(o.id)) OR o.schema_revision<>'r1' OR o.source_feed<>'S' OR o.source_epoch<>'e') FROM client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 6 o JOIN client_dev.ashlar_scattered_20261005_n1.stage_1 s ON s.id=o.id",
+    "statement_id": "01f1c11b-b4ca-1344-abfa-73fe184e6b00",
+    "start_epoch": 1791246016.6171541,
+    "wall_ms": 30991.117250000003,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "200000",
+            "0"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "count(1)"
+            },
+            {
+              "name": "count_if((((((NOT (props_json <=> new_props)) OR (NOT (retained_json <=> retained_json))) OR (NOT (get_json_object(props_json, $.101) <=> get_json_object(new_props, $.101)))) OR (((NOT (CAST(get_json_object(props_json, $.102) AS BIGINT) <=> CAST(get_json_object(new_props, $.102) AS BIGINT))) OR (NOT (entity_version = 1))) OR (NOT (source_position = 1)))) OR ((((NOT (source_system = pilot)) OR (NOT (type_id = 1))) OR (NOT (logical_key_json = to_json(array(id))))) OR (((NOT (schema_revision = r1)) OR (NOT (source_feed = S))) OR (NOT (source_epoch = e))))))"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "changed-key",
+    "sql": "SELECT min(id) FROM client_dev.ashlar_scattered_20261005_n1.stage_1",
+    "statement_id": "01f1c11b-c755-1701-9120-1ee63fa779b3",
+    "start_epoch": 1791246047.609099,
+    "wall_ms": 413.07599999998956,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "min(id)"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "hydrate-singleton-1",
+    "sql": "SELECT id,props_json,retained_json FROM client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 6 WHERE id=1",
+    "statement_id": "01f1c11b-c782-1336-840c-bbd6cc3eaf3e",
+    "start_epoch": 1791246048.0231738,
+    "wall_ms": 338.00316600002134,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1",
+            "{\"101\":\"g1\",\"102\":1,\"103\":\"e0547a88aad7037b21af923a49f935fdb859a785c83c36f0927218b1e4da4d2e3d14333defc724d2133f6d75b24a96b00d1b84e8beeb1c65aac491ef985c2665d008ce394b75d959c827839942ad21b132ee39f9d530dae38a388ef39be2a993c5ed3bf1f9da8a6b62263aa0142578a5728a278c2fd1e32547f024201e0d69e03c6af86e0569722f0a59809dad82a88ea78f206a2284bf8cb53f36198c05dc3944255db202dd283ac7c85a0daa273a977d001c2c0bb0ed51fb675ae1462b3350a4588ca6237bf96a90ca0d7b6c670427b2e7d8c907ce67e9f0b4a8a7d94817044def1b338ae6f58d23dcb1689a2ec19539e9f24d44a4d41bdae20c863b9729609e3fe786a914ea344032b58ffa2af189e3c0219b1350edea8c9a854bd83ccfbc6f9787cffd8745c62cbaa40bd8b834a89d8276ff1daae018e002f812cce12ea76a1a4ee749d5f2aebd159735baa54b523c816d6b5128e652a93c6a48e71bf7e08d4f5c4374e6181d6eb04828a597258dbabd5c8c7df0e9c4977065a2c94b8b53bef9c5a045f32a7848b9b027c8fa700eba08acf3ad0178038d93f9cc7fb8a781d5954c1a2c705e2dd53abaef8b17fd5ad7fa7a142cd1e5ecc00c720f0b2038bdf684835a396a1f49125d25db29bd6560e8191b3d460b43698931ac5aba561149865b47d7732de273c6269d03d2d50964255c20b3277a2fb09c668fc184acc50ee62f43fa6c19b740d04fdf285eee9da333821519b6aa20458e6594152a3547ab8ea8dfbb7db399a2f54c427626de306c5e25f28b9488a35584e903af79d242d4b76742de2073931629ab7d0d03013915e3a0bb7826a67082f1e2b3c720906ff7775e404e115cc629dfe59eb6d6a7ca74f97dc3fe962a4e088de61943011b9fbe083999b4aaf58952b931ee7668be23b86e7af456c10aa32459e241ca471e8d0a5d559b2d31451319aae003dc641c3ab0dec09259020f89276a1a1c679b0dc65396343e6d12acc2c9e07be0979186dc0280b096111d4c60564c705b50690b51747abfad143392c83c4525a8ae9974c1b56d8946e302f10ac159502a1092d7502c92ad57fc5871b2968b3b2121fd825e72f7bcd166fa694ab1882f64d8ef3f24604600b8ac0fed6b6792e2484b07f0581f90e11d5f4e74d058afc4ad8cc050e7a71ef0546f945420ab93b59523c009ecb3f5a054b0d71288f32a5e1aba774d52d9162a29f06bbdf5b5dedc3fe7048b88f0eff84495297a42b3fc63ccc9c9dfc530654ab555c2392832a62be8c0c6e232b503f4a210cff0a9300d60ebb56379b90eea300655cdba5b16bff7d370b727cb790723433bc7987b4998253f85be75b4544fc48e1348d235a2719984fbe571f6b58aed2178dae174224b7e5526bf75f59159a8515ae87e522628c1625b12f0c6308cfe8ddc6903a411405f5f96ae540686\"}",
+            "{\"future\":{\"preserve\":true}}"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "id"
+            },
+            {
+              "name": "props_json"
+            },
+            {
+              "name": "retained_json"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "scalar-projection-1",
+    "sql": "SELECT concat('N5:pilot:1:',cast(id AS STRING)) node_key,'pilot' source_system,cast(1 AS BIGINT) type_id,id,get_json_object(props_json,'$.101') group_label,cast(get_json_object(props_json,'$.102') AS BIGINT) counter,entity_version FROM client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 6 WHERE id=1",
+    "statement_id": "01f1c11b-c7b5-16ae-8649-61d2c1d7b71a",
+    "start_epoch": 1791246048.362306,
+    "wall_ms": 333.73479200002976,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "N5:pilot:1:1",
+            "pilot",
+            "1",
+            "1",
+            "g1",
+            "1",
+            "1"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "node_key"
+            },
+            {
+              "name": "source_system"
+            },
+            {
+              "name": "type_id"
+            },
+            {
+              "name": "id"
+            },
+            {
+              "name": "group_label"
+            },
+            {
+              "name": "counter"
+            },
+            {
+              "name": "entity_version"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "hydrate-source-1",
+    "sql": "SELECT id,new_props,retained_json FROM client_dev.ashlar_scattered_20261005_n1.stage_1 WHERE id=1",
+    "statement_id": "01f1c11b-c7e9-125a-a04b-a947f4c194c1",
+    "start_epoch": 1791246048.69765,
+    "wall_ms": 262.7259170000116,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1",
+            "{\"101\":\"g1\",\"102\":1,\"103\":\"e0547a88aad7037b21af923a49f935fdb859a785c83c36f0927218b1e4da4d2e3d14333defc724d2133f6d75b24a96b00d1b84e8beeb1c65aac491ef985c2665d008ce394b75d959c827839942ad21b132ee39f9d530dae38a388ef39be2a993c5ed3bf1f9da8a6b62263aa0142578a5728a278c2fd1e32547f024201e0d69e03c6af86e0569722f0a59809dad82a88ea78f206a2284bf8cb53f36198c05dc3944255db202dd283ac7c85a0daa273a977d001c2c0bb0ed51fb675ae1462b3350a4588ca6237bf96a90ca0d7b6c670427b2e7d8c907ce67e9f0b4a8a7d94817044def1b338ae6f58d23dcb1689a2ec19539e9f24d44a4d41bdae20c863b9729609e3fe786a914ea344032b58ffa2af189e3c0219b1350edea8c9a854bd83ccfbc6f9787cffd8745c62cbaa40bd8b834a89d8276ff1daae018e002f812cce12ea76a1a4ee749d5f2aebd159735baa54b523c816d6b5128e652a93c6a48e71bf7e08d4f5c4374e6181d6eb04828a597258dbabd5c8c7df0e9c4977065a2c94b8b53bef9c5a045f32a7848b9b027c8fa700eba08acf3ad0178038d93f9cc7fb8a781d5954c1a2c705e2dd53abaef8b17fd5ad7fa7a142cd1e5ecc00c720f0b2038bdf684835a396a1f49125d25db29bd6560e8191b3d460b43698931ac5aba561149865b47d7732de273c6269d03d2d50964255c20b3277a2fb09c668fc184acc50ee62f43fa6c19b740d04fdf285eee9da333821519b6aa20458e6594152a3547ab8ea8dfbb7db399a2f54c427626de306c5e25f28b9488a35584e903af79d242d4b76742de2073931629ab7d0d03013915e3a0bb7826a67082f1e2b3c720906ff7775e404e115cc629dfe59eb6d6a7ca74f97dc3fe962a4e088de61943011b9fbe083999b4aaf58952b931ee7668be23b86e7af456c10aa32459e241ca471e8d0a5d559b2d31451319aae003dc641c3ab0dec09259020f89276a1a1c679b0dc65396343e6d12acc2c9e07be0979186dc0280b096111d4c60564c705b50690b51747abfad143392c83c4525a8ae9974c1b56d8946e302f10ac159502a1092d7502c92ad57fc5871b2968b3b2121fd825e72f7bcd166fa694ab1882f64d8ef3f24604600b8ac0fed6b6792e2484b07f0581f90e11d5f4e74d058afc4ad8cc050e7a71ef0546f945420ab93b59523c009ecb3f5a054b0d71288f32a5e1aba774d52d9162a29f06bbdf5b5dedc3fe7048b88f0eff84495297a42b3fc63ccc9c9dfc530654ab555c2392832a62be8c0c6e232b503f4a210cff0a9300d60ebb56379b90eea300655cdba5b16bff7d370b727cb790723433bc7987b4998253f85be75b4544fc48e1348d235a2719984fbe571f6b58aed2178dae174224b7e5526bf75f59159a8515ae87e522628c1625b12f0c6308cfe8ddc6903a411405f5f96ae540686\"}",
+            "{\"future\":{\"preserve\":true}}"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "id"
+            },
+            {
+              "name": "new_props"
+            },
+            {
+              "name": "retained_json"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "manifest-check",
+    "sql": "SELECT count(*) FROM client_dev.ashlar_scattered_20261005_n1.publication_manifest",
+    "statement_id": "01f1c11b-c810-1ecf-8921-b5a71dfa08c5",
+    "start_epoch": 1791246048.9615371,
+    "wall_ms": 279.25504200004525,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "count(1)"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "objects-detail",
+    "sql": "DESCRIBE DETAIL client_dev.ashlar_scattered_20261005_n1.object_current",
+    "statement_id": "01f1c11b-c83b-1e17-aea5-32708800c659",
+    "start_epoch": 1791246049.241951,
+    "wall_ms": 352.85791600000493,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "delta",
+            "d94414dd-605c-4a37-9bbe-1db7aec189fd",
+            "client_dev.ashlar_scattered_20261005_n1.object_current",
+            null,
+            "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/04ec3f3e-f9be-4876-a654-7f35e1514bd0",
+            "2026-10-06T00:15:46.074000",
+            "2026-10-06T00:20:14",
+            "[]",
+            "[\"source_system\",\"type_id\",\"id\"]",
+            "427",
+            "6646989936",
+            "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"source_system,type_id,id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableInCommitTimestamps\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-99fecfce-2d6f-4c28-9fe6-b623efa36db1\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-b9d13672-903a-40a9-b24b-619e083a8c5f\",\"delta.targetFileSize\":\"16777216\",\"io.unitycatalog.tableId\":\"04ec3f3e-f9be-4876-a654-7f35e1514bd0\"}",
+            "3",
+            "7",
+            "[\"appendOnly\",\"catalogManaged\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"inCommitTimestamp\",\"invariants\",\"rowTracking\",\"v2Checkpoint\",\"vacuumProtocolCheck\"]",
+            "{\"numDeletionVectors\":419,\"numRowsDeletedByDeletionVectors\":200000}",
+            "False"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "format"
+            },
+            {
+              "name": "id"
+            },
+            {
+              "name": "name"
+            },
+            {
+              "name": "description"
+            },
+            {
+              "name": "location"
+            },
+            {
+              "name": "createdAt"
+            },
+            {
+              "name": "lastModified"
+            },
+            {
+              "name": "partitionColumns"
+            },
+            {
+              "name": "clusteringColumns"
+            },
+            {
+              "name": "numFiles"
+            },
+            {
+              "name": "sizeInBytes"
+            },
+            {
+              "name": "properties"
+            },
+            {
+              "name": "minReaderVersion"
+            },
+            {
+              "name": "minWriterVersion"
+            },
+            {
+              "name": "tableFeatures"
+            },
+            {
+              "name": "statistics"
+            },
+            {
+              "name": "clusterByAuto"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "statement-cap",
+    "sql": "SET STATEMENT_TIMEOUT=180",
+    "statement_id": "01f1c11b-728e-180d-bc89-964239106db9",
+    "start_epoch": 1791245905.492904,
+    "wall_ms": 164.79904200002693,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "STATEMENT_TIMEOUT",
+            "180"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "key"
+            },
+            {
+              "name": "value"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "stage-1",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.stage_1 USING DELTA AS SELECT * FROM client_dev.ashlar_scattered_20261005_n1.producer_1",
+    "statement_id": "01f1c11b-7e93-1da6-9db4-8925bc5357b9",
+    "start_epoch": 1791245925.661827,
+    "wall_ms": 4021.380874999977,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  }
+]

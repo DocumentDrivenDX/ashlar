@@ -1,0 +1,309 @@
+{
+  "total_memory_allocated": 2097152,
+  "total_bytes_written": 0,
+  "total_bytes_read": 0,
+  "system_peak_temp_dir_size": 0,
+  "system_peak_buffer_memory": 71229440,
+  "rows_returned": 9,
+  "result_set_size": 216,
+  "latency": 0.001992584,
+  "blocked_thread_time": 0.0,
+  "commit_local_storage_latency": 0.0,
+  "wal_replay_entry_count": 0,
+  "extra_info": {},
+  "query_name": "SELECT e.id AS first_edge,f.id AS second_edge,f.target_id FROM promoted_edges e JOIN promoted_edges f ON e.target_id=f.source_id AND e.target_type=f.source_type JOIN promoted_objects b ON b.id=e.target_id AND b.type_id=e.target_type WHERE e.rel_type_id=1 AND e.source_id=123 AND e.source_type=1 AND f.rel_type_id=2 AND e.score>=0.1 AND f.score>=0.1 AND b.rank_value>100 ORDER BY first_edge,second_edge;",
+  "checkpoint_latency": 0.0,
+  "waiting_to_attach_latency": 0.0,
+  "cpu_time": 0.000613832,
+  "cumulative_rows_scanned": 210000,
+  "attach_replay_wal_latency": 0.0,
+  "write_to_wal_latency": 0.0,
+  "cumulative_cardinality": 78,
+  "attach_load_storage_latency": 0.0,
+  "children": [
+    {
+      "system_peak_temp_dir_size": 0,
+      "system_peak_buffer_memory": 0,
+      "result_set_size": 216,
+      "operator_type": "PROJECTION",
+      "operator_timing": 5.42e-07,
+      "operator_rows_scanned": 0,
+      "operator_name": "PROJECTION",
+      "extra_info": {
+        "Projections": [
+          "__internal_decompress_integral_bigint(#0, 4)",
+          "__internal_decompress_integral_bigint(#1, 4)",
+          "__internal_decompress_integral_bigint(#2, 1)"
+        ],
+        "Estimated Cardinality": "15"
+      },
+      "cpu_time": 0.0006123740000000001,
+      "cumulative_rows_scanned": 210000,
+      "operator_cardinality": 9,
+      "cumulative_cardinality": 78,
+      "children": [
+        {
+          "system_peak_temp_dir_size": 0,
+          "system_peak_buffer_memory": 0,
+          "result_set_size": 90,
+          "operator_type": "ORDER_BY",
+          "operator_timing": 1.625e-05,
+          "operator_rows_scanned": 0,
+          "operator_name": "ORDER_BY",
+          "extra_info": {
+            "Order By": [
+              "e.id ASC",
+              "f.id ASC"
+            ]
+          },
+          "cpu_time": 0.0006118320000000001,
+          "cumulative_rows_scanned": 210000,
+          "operator_cardinality": 9,
+          "cumulative_cardinality": 69,
+          "children": [
+            {
+              "system_peak_temp_dir_size": 0,
+              "system_peak_buffer_memory": 0,
+              "result_set_size": 90,
+              "operator_type": "PROJECTION",
+              "operator_timing": 1.208e-06,
+              "operator_rows_scanned": 0,
+              "operator_name": "PROJECTION",
+              "extra_info": {
+                "Projections": [
+                  "__internal_compress_integral_uinteger(#0, 4)",
+                  "__internal_compress_integral_uinteger(#1, 4)",
+                  "__internal_compress_integral_usmallint(#2, 1)"
+                ],
+                "Estimated Cardinality": "15"
+              },
+              "cpu_time": 0.0005955820000000001,
+              "cumulative_rows_scanned": 210000,
+              "operator_cardinality": 9,
+              "cumulative_cardinality": 60,
+              "children": [
+                {
+                  "system_peak_temp_dir_size": 0,
+                  "system_peak_buffer_memory": 0,
+                  "result_set_size": 216,
+                  "operator_type": "PROJECTION",
+                  "operator_timing": 8.3e-08,
+                  "operator_rows_scanned": 0,
+                  "operator_name": "PROJECTION",
+                  "extra_info": {
+                    "Projections": [
+                      "first_edge",
+                      "second_edge",
+                      "target_id"
+                    ],
+                    "Estimated Cardinality": "15"
+                  },
+                  "cpu_time": 0.000594374,
+                  "cumulative_rows_scanned": 210000,
+                  "operator_cardinality": 9,
+                  "cumulative_cardinality": 51,
+                  "children": [
+                    {
+                      "system_peak_temp_dir_size": 0,
+                      "system_peak_buffer_memory": 0,
+                      "result_set_size": 216,
+                      "operator_type": "HASH_JOIN",
+                      "operator_timing": 2.6374000000000002e-05,
+                      "operator_rows_scanned": 0,
+                      "operator_name": "HASH_JOIN",
+                      "extra_info": {
+                        "Join Type": "INNER",
+                        "Conditions": [
+                          "source_id = target_id",
+                          "source_type = target_type"
+                        ],
+                        "Estimated Cardinality": "15"
+                      },
+                      "cpu_time": 0.000594291,
+                      "cumulative_rows_scanned": 210000,
+                      "operator_cardinality": 9,
+                      "cumulative_cardinality": 42,
+                      "children": [
+                        {
+                          "system_peak_temp_dir_size": 0,
+                          "system_peak_buffer_memory": 0,
+                          "result_set_size": 288,
+                          "operator_type": "FILTER",
+                          "operator_timing": 8.5e-06,
+                          "operator_rows_scanned": 0,
+                          "operator_name": "FILTER",
+                          "extra_info": {
+                            "Expression": "(source_type >= 2)",
+                            "Estimated Cardinality": "45000"
+                          },
+                          "cpu_time": 0.000276166,
+                          "cumulative_rows_scanned": 90000,
+                          "operator_cardinality": 9,
+                          "cumulative_cardinality": 18,
+                          "children": [
+                            {
+                              "system_peak_temp_dir_size": 0,
+                              "system_peak_buffer_memory": 0,
+                              "result_set_size": 288,
+                              "operator_type": "TABLE_SCAN",
+                              "operator_timing": 0.000267666,
+                              "operator_rows_scanned": 90000,
+                              "operator_name": "SEQ_SCAN",
+                              "extra_info": {
+                                "Table": "bench.main.promoted_edges",
+                                "Type": "Sequential Scan",
+                                "Projections": [
+                                  "source_id",
+                                  "source_type",
+                                  "id",
+                                  "target_id"
+                                ],
+                                "Filters": [
+                                  "rel_type_id=2",
+                                  "score>=0.1"
+                                ],
+                                "Estimated Cardinality": "45000",
+                                "Dynamic Filters": [
+                                  "optional: source_id>=124 AND optional: source_id<=126",
+                                  "source_type=2"
+                                ]
+                              },
+                              "cpu_time": 0.000267666,
+                              "cumulative_rows_scanned": 90000,
+                              "operator_cardinality": 9,
+                              "cumulative_cardinality": 9,
+                              "children": []
+                            }
+                          ]
+                        },
+                        {
+                          "system_peak_temp_dir_size": 0,
+                          "system_peak_buffer_memory": 0,
+                          "result_set_size": 120,
+                          "operator_type": "HASH_JOIN",
+                          "operator_timing": 8.600000000000002e-05,
+                          "operator_rows_scanned": 0,
+                          "operator_name": "HASH_JOIN",
+                          "extra_info": {
+                            "Join Type": "INNER",
+                            "Conditions": [
+                              "id = target_id",
+                              "type_id = target_type"
+                            ],
+                            "Estimated Cardinality": "5"
+                          },
+                          "cpu_time": 0.00029175100000000003,
+                          "cumulative_rows_scanned": 120000,
+                          "operator_cardinality": 3,
+                          "cumulative_cardinality": 15,
+                          "children": [
+                            {
+                              "system_peak_temp_dir_size": 0,
+                              "system_peak_buffer_memory": 0,
+                              "result_set_size": 48,
+                              "operator_type": "FILTER",
+                              "operator_timing": 2.126e-06,
+                              "operator_rows_scanned": 0,
+                              "operator_name": "FILTER",
+                              "extra_info": {
+                                "Expression": "(type_id BETWEEN 2 AND 2)",
+                                "Estimated Cardinality": "6000"
+                              },
+                              "cpu_time": 5.4125999999999996e-05,
+                              "cumulative_rows_scanned": 30000,
+                              "operator_cardinality": 3,
+                              "cumulative_cardinality": 6,
+                              "children": [
+                                {
+                                  "system_peak_temp_dir_size": 0,
+                                  "system_peak_buffer_memory": 0,
+                                  "result_set_size": 48,
+                                  "operator_type": "TABLE_SCAN",
+                                  "operator_timing": 5.2e-05,
+                                  "operator_rows_scanned": 30000,
+                                  "operator_name": "SEQ_SCAN",
+                                  "extra_info": {
+                                    "Table": "bench.main.promoted_objects",
+                                    "Type": "Sequential Scan",
+                                    "Projections": [
+                                      "id",
+                                      "type_id"
+                                    ],
+                                    "Filters": "rank_value>100",
+                                    "Estimated Cardinality": "6000",
+                                    "Dynamic Filters": [
+                                      "optional: id>=124 AND optional: id<=126",
+                                      "type_id=2"
+                                    ]
+                                  },
+                                  "cpu_time": 5.2e-05,
+                                  "cumulative_rows_scanned": 30000,
+                                  "operator_cardinality": 3,
+                                  "cumulative_cardinality": 3,
+                                  "children": []
+                                }
+                              ]
+                            },
+                            {
+                              "system_peak_temp_dir_size": 0,
+                              "system_peak_buffer_memory": 0,
+                              "result_set_size": 72,
+                              "operator_type": "FILTER",
+                              "operator_timing": 3.083e-06,
+                              "operator_rows_scanned": 0,
+                              "operator_name": "FILTER",
+                              "extra_info": {
+                                "Expression": "((target_type <= 2) AND (target_type <= 2))",
+                                "Estimated Cardinality": "17"
+                              },
+                              "cpu_time": 0.00015162499999999999,
+                              "cumulative_rows_scanned": 90000,
+                              "operator_cardinality": 3,
+                              "cumulative_cardinality": 6,
+                              "children": [
+                                {
+                                  "system_peak_temp_dir_size": 0,
+                                  "system_peak_buffer_memory": 0,
+                                  "result_set_size": 72,
+                                  "operator_type": "TABLE_SCAN",
+                                  "operator_timing": 0.000148542,
+                                  "operator_rows_scanned": 90000,
+                                  "operator_name": "SEQ_SCAN",
+                                  "extra_info": {
+                                    "Table": "bench.main.promoted_edges",
+                                    "Type": "Sequential Scan",
+                                    "Projections": [
+                                      "target_id",
+                                      "target_type",
+                                      "id"
+                                    ],
+                                    "Filters": [
+                                      "rel_type_id=1",
+                                      "source_id=123",
+                                      "source_type=1",
+                                      "score>=0.1"
+                                    ],
+                                    "Estimated Cardinality": "17"
+                                  },
+                                  "cpu_time": 0.000148542,
+                                  "cumulative_rows_scanned": 90000,
+                                  "operator_cardinality": 3,
+                                  "cumulative_cardinality": 3,
+                                  "children": []
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

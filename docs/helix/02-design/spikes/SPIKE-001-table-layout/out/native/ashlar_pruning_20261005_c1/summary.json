@@ -1,0 +1,43 @@
+{
+  "state": "completed",
+  "schema": "client_dev.ashlar_pruning_20261005_c1",
+  "rows": 1000000,
+  "groups": {
+    "liquid_16m": {
+      "samples": 25,
+      "target_file_bytes": 16777216,
+      "wall_p95_ms": 696.3277919999911,
+      "engine_p95_ms": 278,
+      "server_total_p95_ms": 421,
+      "read_files_median": 1,
+      "pruned_files_median": 31,
+      "read_bytes_median": 24771840,
+      "io_cache_percent_median": 100.0,
+      "result_cache_hits": 0
+    },
+    "liquid_128m": {
+      "samples": 25,
+      "target_file_bytes": 134217728,
+      "wall_p95_ms": 843.5070000000024,
+      "engine_p95_ms": 276,
+      "server_total_p95_ms": 495,
+      "read_files_median": 1,
+      "pruned_files_median": 3,
+      "read_bytes_median": 204234846,
+      "io_cache_percent_median": 100.0,
+      "result_cache_hits": 0
+    },
+    "bucket64_z": {
+      "samples": 25,
+      "target_file_bytes": 134217728,
+      "wall_p95_ms": 710.3151249999939,
+      "engine_p95_ms": 303,
+      "server_total_p95_ms": 445,
+      "read_files_median": 1,
+      "pruned_files_median": 63,
+      "read_bytes_median": 10520506,
+      "io_cache_percent_median": 99.0,
+      "result_cache_hits": 0
+    }
+  }
+}

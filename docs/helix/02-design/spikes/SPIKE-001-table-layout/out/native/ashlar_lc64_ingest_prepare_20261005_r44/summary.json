@@ -1,0 +1,12 @@
+{
+  "state": "passed",
+  "journal_rows": 3720023,
+  "stage_rows": 300000,
+  "journal_copy_wall_s": 23.638298958,
+  "stage_wall_s": 17.863785792,
+  "source_edge_version": 26,
+  "source_journal_version": 20,
+  "candidate_edge_version": 0,
+  "candidate_journal_version": 0,
+  "scope": "exact inherited multiset and complete common prior carriers; setup outside future clock; independent new 2KB payloads in ten domains; no ingest performance admission"
+}

@@ -74,6 +74,15 @@ keys do not close those gaps.
 - **SCHEMA-07:** Governance and source/value/edge version metadata must remain
   traceable; unimplemented access controls and retention must be explicit.
 
+- **SCHEMA-08:** Canonical tables must preserve Truss-compatible catalog IDs,
+  object/edge identity, typed endpoints, property maps, retained unknown content
+  and property-level history. Warehouse optimizations must be explicit projections
+  or recorded storage choices, not changes to logical identity or source meaning.
+- **SCHEMA-09:** The package must provide native Databricks singleton lookup
+  independent of Fabric, and scalar table mappings for PuppyGraph, GraphFrames
+  and bounded Microsoft Fabric Graph projections. Each mapping must identify
+  target restrictions, omitted meaning and native execution evidence.
+
 ### Non-Functional Requirements
 
 - 100% of accepted DDL and valid fixtures must execute on one pinned target.

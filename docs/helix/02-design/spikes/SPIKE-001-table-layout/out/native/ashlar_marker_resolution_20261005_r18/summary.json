@@ -1,0 +1,20 @@
+{
+  "state": "passed",
+  "base": {
+    "marker_current_r18": 1,
+    "marker_journal_r18": 1
+  },
+  "committed": {
+    "marker_current_r18": 3,
+    "marker_journal_r18": 4
+  },
+  "resolved": {
+    "marker_current_r18": 3,
+    "marker_journal_r18": 4
+  },
+  "latest": {
+    "marker_current_r18": 4,
+    "marker_journal_r18": 5
+  },
+  "scope": "small durable-content-marker prototype, deterministic metadata-only commits; no later logical writes, retention/history must be complete; not full-scale resolver or general monotonic current-state guarantee"
+}

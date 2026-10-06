@@ -1,0 +1,68 @@
+{
+  "total_memory_allocated": 0,
+  "total_bytes_written": 0,
+  "total_bytes_read": 0,
+  "system_peak_temp_dir_size": 0,
+  "system_peak_buffer_memory": 201121792,
+  "rows_returned": 100,
+  "result_set_size": 800,
+  "latency": 0.0020045,
+  "blocked_thread_time": 0.0,
+  "commit_local_storage_latency": 0.0,
+  "wal_replay_entry_count": 0,
+  "extra_info": {},
+  "query_name": "SELECT id FROM node_a WHERE type_id=1 AND group_value='g42' ORDER BY id LIMIT 100;",
+  "checkpoint_latency": 0.0,
+  "waiting_to_attach_latency": 0.0,
+  "cpu_time": 0.000261875,
+  "cumulative_rows_scanned": 100000,
+  "attach_replay_wal_latency": 0.0,
+  "write_to_wal_latency": 0.0,
+  "cumulative_cardinality": 1100,
+  "attach_load_storage_latency": 0.0,
+  "children": [
+    {
+      "system_peak_temp_dir_size": 0,
+      "system_peak_buffer_memory": 0,
+      "result_set_size": 800,
+      "operator_type": "TOP_N",
+      "operator_timing": 1.8415999999999984e-05,
+      "operator_rows_scanned": 0,
+      "operator_name": "TOP_N",
+      "extra_info": {
+        "Top": "100",
+        "Order By": "bench.main.node_a.id ASC"
+      },
+      "cpu_time": 0.000260917,
+      "cumulative_rows_scanned": 100000,
+      "operator_cardinality": 100,
+      "cumulative_cardinality": 1100,
+      "children": [
+        {
+          "system_peak_temp_dir_size": 0,
+          "system_peak_buffer_memory": 0,
+          "result_set_size": 8000,
+          "operator_type": "TABLE_SCAN",
+          "operator_timing": 0.000242501,
+          "operator_rows_scanned": 100000,
+          "operator_name": "SEQ_SCAN",
+          "extra_info": {
+            "Table": "bench.main.node_a",
+            "Type": "Sequential Scan",
+            "Projections": "id",
+            "Filters": [
+              "group_value='g42'",
+              "optional: Dynamic Filter (id)"
+            ],
+            "Estimated Cardinality": "1087"
+          },
+          "cpu_time": 0.000242501,
+          "cumulative_rows_scanned": 100000,
+          "operator_cardinality": 1000,
+          "cumulative_cardinality": 1000,
+          "children": []
+        }
+      ]
+    }
+  ]
+}

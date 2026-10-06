@@ -1,0 +1,59 @@
+{
+  "scope": "Arithmetic sensitivity only. Stored sizes are assumed after encoding/compression, not extrapolated from repeated synthetic payloads. No runtime, throughput, bill or admission claim. One journal event per changed entity is an assumption; property fanout scales history. Excludes retained versions, tombstones, degree tables, compaction overlap and engine release copies.",
+  "scenarios": [
+    {
+      "nodes": 1000000000,
+      "edges": 2000000000,
+      "assumed_mean_stored_carrier_bytes": 512,
+      "canonical_bytes": 1536000000000,
+      "two_adjacency_copies_bytes": 384000000000,
+      "canonical_files_at_64MiB": 22889,
+      "journal_30d_bytes_at_10k_events_per_second_1KiB": 26542080000000
+    },
+    {
+      "nodes": 1000000000,
+      "edges": 2000000000,
+      "assumed_mean_stored_carrier_bytes": 2048,
+      "canonical_bytes": 6144000000000,
+      "two_adjacency_copies_bytes": 384000000000,
+      "canonical_files_at_64MiB": 91553,
+      "journal_30d_bytes_at_10k_events_per_second_1KiB": 26542080000000
+    },
+    {
+      "nodes": 1000000000,
+      "edges": 5000000000,
+      "assumed_mean_stored_carrier_bytes": 512,
+      "canonical_bytes": 3072000000000,
+      "two_adjacency_copies_bytes": 960000000000,
+      "canonical_files_at_64MiB": 45777,
+      "journal_30d_bytes_at_10k_events_per_second_1KiB": 26542080000000
+    },
+    {
+      "nodes": 1000000000,
+      "edges": 5000000000,
+      "assumed_mean_stored_carrier_bytes": 2048,
+      "canonical_bytes": 12288000000000,
+      "two_adjacency_copies_bytes": 960000000000,
+      "canonical_files_at_64MiB": 183106,
+      "journal_30d_bytes_at_10k_events_per_second_1KiB": 26542080000000
+    },
+    {
+      "nodes": 1000000000,
+      "edges": 10000000000,
+      "assumed_mean_stored_carrier_bytes": 512,
+      "canonical_bytes": 5632000000000,
+      "two_adjacency_copies_bytes": 1920000000000,
+      "canonical_files_at_64MiB": 83924,
+      "journal_30d_bytes_at_10k_events_per_second_1KiB": 26542080000000
+    },
+    {
+      "nodes": 1000000000,
+      "edges": 10000000000,
+      "assumed_mean_stored_carrier_bytes": 2048,
+      "canonical_bytes": 22528000000000,
+      "two_adjacency_copies_bytes": 1920000000000,
+      "canonical_files_at_64MiB": 335694,
+      "journal_30d_bytes_at_10k_events_per_second_1KiB": 26542080000000
+    }
+  ]
+}

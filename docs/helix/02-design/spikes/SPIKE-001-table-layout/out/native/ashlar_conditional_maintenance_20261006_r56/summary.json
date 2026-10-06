@@ -1,0 +1,38 @@
+{
+  "lc64-prime": {
+    "n": 50,
+    "caller_p50_ms": 419.0572499999945,
+    "caller_p95_ms": 777.4712080000015,
+    "engine_p50_ms": 163,
+    "engine_p95_ms": 511,
+    "compile_p50_ms": 155,
+    "compile_p95_ms": 179,
+    "server_p95_ms": 687,
+    "result_cache_hits": 0,
+    "read_files_median": 2
+  },
+  "lc64-repeat": {
+    "n": 50,
+    "caller_p50_ms": 335.93979100000126,
+    "caller_p95_ms": 382.47554199999456,
+    "engine_p50_ms": 78,
+    "engine_p95_ms": 85,
+    "compile_p50_ms": 155,
+    "compile_p95_ms": 169,
+    "server_p95_ms": 271,
+    "result_cache_hits": 0,
+    "read_files_median": 2
+  },
+  "lc64-repeat2": {
+    "n": 50,
+    "caller_p50_ms": 339.75625000000775,
+    "caller_p95_ms": 420.8911670000077,
+    "engine_p50_ms": 78,
+    "engine_p95_ms": 93,
+    "compile_p50_ms": 157,
+    "compile_p95_ms": 243,
+    "server_p95_ms": 328,
+    "result_cache_hits": 0,
+    "read_files_median": 2
+  }
+}

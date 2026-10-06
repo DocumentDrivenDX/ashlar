@@ -1,0 +1,22 @@
+{
+  "state": "completed",
+  "versions": {
+    "partition": 3,
+    "lc": 21
+  },
+  "maintenance": [
+    {
+      "layout": "partition",
+      "before": 2,
+      "after": 3,
+      "wall_s": 59.145227708
+    },
+    {
+      "layout": "lc",
+      "before": 20,
+      "after": 21,
+      "wall_s": 16.25654441600001
+    }
+  ],
+  "scope": "one Z-order and one incremental LC maintenance, reverse prior apply order; same 51 changed keys/full 17-field projection exact equality; new versions not published, exhaustive hidden-metadata parity separate; no continuous policy, rate, scale or external-reader admission"
+}

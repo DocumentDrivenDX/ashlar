@@ -1,0 +1,47 @@
+{
+  "all_reads": {
+    "n": 211,
+    "caller_p95_ms": 458.3856669999875,
+    "engine_p95_ms": 123,
+    "remote_read_samples": 11,
+    "result_cache_hits": 0,
+    "file_range": [
+      1,
+      1
+    ]
+  },
+  "atomic_call_overlap": {
+    "n": 100,
+    "caller_p95_ms": 450.0174580000049,
+    "engine_p95_ms": 134,
+    "remote_read_samples": 11,
+    "result_cache_hits": 0,
+    "file_range": [
+      1,
+      1
+    ]
+  },
+  "overlap_no_remote": {
+    "n": 89,
+    "caller_p95_ms": 445.63808300000574,
+    "engine_p95_ms": 123,
+    "remote_read_samples": 0,
+    "result_cache_hits": 0,
+    "file_range": [
+      1,
+      1
+    ]
+  },
+  "outside_overlap": {
+    "n": 111,
+    "caller_p95_ms": 458.3856669999875,
+    "engine_p95_ms": 99,
+    "remote_read_samples": 0,
+    "result_cache_hits": 0,
+    "file_range": [
+      1,
+      1
+    ]
+  },
+  "qualification": "Rep zero excluded per reader; caller-interval overlap, not exact internal atomic execution or causal attribution; one synthetic publication, not population p95"
+}

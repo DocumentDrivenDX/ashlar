@@ -1,0 +1,24 @@
+{
+  "source": "local Truss worktree with uncommitted changes; draft specifications, not implementation approval",
+  "worktree": "/private/tmp/claude-501/truss-spec-wt",
+  "base_commit": "6d87fce",
+  "files": {
+    "docs/helix/02-design/contracts/CONTRACT-006-change-feed.md": {
+      "sha256": "abfc7c2f3160c01fe4e4756fd8be0a732180570a0f68863919f7b94b4fd41645",
+      "bytes": 176541
+    },
+    "docs/helix/02-design/contracts/feed-transaction-v0.2.schema.json": {
+      "sha256": "e5399a14f2a366ee3591b2a159b21717cb432e762fb5e46fa267ffe380873d7a",
+      "bytes": 5993
+    },
+    "docs/helix/02-design/contracts/feed-committed-application-v0.1.schema.json": {
+      "sha256": "1009fbb1d43b771dfe34d9d0ab49b994ba8cb4035fc9284a48ee9f4c8c7b3acc",
+      "bytes": 8364
+    },
+    "docs/helix/04-build/evidence/design-audit/feed-application-evidence.json": {
+      "sha256": "0ffdd4fbea098251d80a0ead07a7e65603ca8556f9fce700bfa1b461ba5f329d",
+      "bytes": 146
+    }
+  },
+  "implementation_inventory": "No src/, packages/, or root package.json returned by scoped file inventory. Design-audit checks exist; their shape receipts do not prove a native feed implementation."
+}

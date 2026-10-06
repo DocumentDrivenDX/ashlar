@@ -1,0 +1,9 @@
+{
+  "state": "passed",
+  "target": "client_dev.ashlar_layout_v02_20261006_r65.source_record_r71",
+  "target_version": 2,
+  "rows": 5,
+  "identical_replay": "full field parity",
+  "conflicting_replay": "terminal failure; complete target parity; new row absent",
+  "scope": "One ordinary Delta MERGE atomic replay/refusal on valid unique staged keys. No concurrent key uniqueness, publisher fencing, cross-table atomicity, source-native delivery-ID derivation or full producer conformance."
+}

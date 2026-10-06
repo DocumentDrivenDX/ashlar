@@ -1,0 +1,10 @@
+{
+  "state": "passed",
+  "acquisition_results": [
+    "terminal-rejection",
+    "success"
+  ],
+  "winner": "p1",
+  "stale_rejected": true,
+  "scope": "one two-session race and explicit revocation; private fence tables only; no graph/manifest integration, TTL, network-loss or repeated contention admission"
+}

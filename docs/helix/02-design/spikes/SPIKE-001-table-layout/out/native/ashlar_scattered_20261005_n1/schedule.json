@@ -1,0 +1,12 @@
+{
+  "start_epoch": 1791245905.658304,
+  "interval_s": 20,
+  "batch_entities": 200000,
+  "batches": 1,
+  "modeled_entities_s": 10000,
+  "oldest_arrival": "t0+(batch-1)*20",
+  "ready": "t0+batch*20",
+  "identity_schedule": "200k distinct IDs selected by bijective modular permutation across all 10M nodes",
+  "producer_generation": "prebuilt before schedule; staging remains timed",
+  "compute": "existing serverless Photon 2X-Small; no config changes"
+}

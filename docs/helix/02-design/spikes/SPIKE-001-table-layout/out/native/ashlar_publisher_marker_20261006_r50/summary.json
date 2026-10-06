@@ -1,0 +1,9 @@
+{
+  "state": "passed",
+  "cases": [
+    "clean",
+    "preexisting-marker",
+    "marker-outside-stage"
+  ],
+  "scope": "separate publisher apply_batch_id on canonical/journal; identical producer feed/epoch/position on unrelated old rows is preserved and does not block new batch; current marker reuse rejects staged/outside row with four-table rollback; tiny fixture, no producer guarantee or performance admission"
+}

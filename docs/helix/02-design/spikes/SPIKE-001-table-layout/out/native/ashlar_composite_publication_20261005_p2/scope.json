@@ -1,0 +1,11 @@
+{
+  "state": "running",
+  "before_version": 2,
+  "readers": 2,
+  "max_qps_per_reader": 2,
+  "entities": 200000,
+  "accumulation_s": 20,
+  "producer_generation": "excluded",
+  "reader_priming": "50 changed identities outside clock",
+  "origin": "fixture-multi/e/1; event ordinal domain*1M+native ID; no native Truss feed claim"
+}

@@ -1,0 +1,19 @@
+{
+  "state": "passed",
+  "controls": [
+    "clean",
+    "missing-canonical",
+    "duplicate-canonical",
+    "wrong-bag",
+    "wrong-endpoint",
+    "lost-retained",
+    "wrong-hash",
+    "wrong-version",
+    "missing-journal",
+    "duplicate-journal",
+    "wrong-old-value",
+    "wrong-presence",
+    "wrong-source-time"
+  ],
+  "scope": "exact shared predicate, 13 virtual native cases; no table changes"
+}

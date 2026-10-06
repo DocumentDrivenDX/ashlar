@@ -16,7 +16,7 @@ ddx:
 # US-003: Query a typed graph
 
 **Feature**: [FEAT-003](../features/FEAT-003-graph-query-path.md)
-**Feature Requirements**: QUERY-01–QUERY-05
+**Feature Requirements**: QUERY-01–QUERY-09
 **PRD Requirements**: FR-3
 **Priority**: P0
 **Status**: Draft
@@ -49,6 +49,12 @@ exact interface and schema surfaces belong in the forthcoming design Contracts.
 - [ ] **US-003-AC4** — Given an added B1→A1 cycle, when I run the fixed two-hop pattern, then no paths beyond the specified depth are returned.
 - [ ] **US-003-AC5** — Given a candidate query execution path, when I review its feasibility evidence, then the result comparison and workload/environment limits are explicit.
 
+- [ ] **US-003-AC6** — Given a filtered list larger than its result cap, continuation or truncation is explicit; bounded grouped counts match the authorized fixture oracle or report incomplete computation.
+- [ ] **US-003-AC7** — Given gold behind a caller’s required source position, the read reports the unmet requirement under its bounded wait policy; after publication catches up, the result identifies satisfying progress.
+- [ ] **US-003-AC8** — Given permitted-empty, denied and unavailable synthetic executions, the read distinguishes the outcomes permitted by the disclosure policy; unsupported delegation cannot execute with broader service permissions.
+- [ ] **US-003-AC9** — Given a user restricted from a fixture row or property, lookup, list, traversal and counts all follow the declared effective policy; continuation across changed publication or authorization preserves its boundary or requires an explicit restart.
+- [ ] **US-003-AC10** — Given retained changes after a source position, changes-since results match the shared corpus with explicit bounds and progress; an expired position reports the retention gap.
+
 ## Edge Cases
 
 Absent starting node: empty result. A cap or failed execution must be reported as incomplete, never as a complete graph answer.
@@ -63,9 +69,14 @@ Absent starting node: empty result. A cap or failed execution must be reported a
 | Case 4 | US-003-AC4 | an added B1→A1 cycle | I run the fixed two-hop pattern | no paths beyond the specified depth are returned |
 | Case 5 | US-003-AC5 | a candidate query execution path | I review its feasibility evidence | the result comparison and workload/environment limits are explicit |
 
+Additional scenarios AC6–AC10 use the shared consumer/publication corpus. They
+must specify exact authorized results, progress, caps and refusal outcomes as
+fixture data before execution. AC3 remains a preservation test: a single-edge
+producer profile may reject parallel edges explicitly, but must not collapse them.
+
 ## Dependencies
 
-FEAT-003; PRD FR-3; QUERY-01–QUERY-05. Depends on US-002. Query Contract and target evidence await PRD Q4–Q5. General graph algorithms and new compilers are excluded.
+FEAT-003; PRD FR-3; QUERY-01–QUERY-09. Depends on US-002. Query Contract and target evidence await PRD Q4–Q5. General graph algorithms and new compilers are excluded.
 
 ## Out of Scope
 

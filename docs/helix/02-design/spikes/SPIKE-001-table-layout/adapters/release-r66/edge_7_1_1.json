@@ -1,0 +1,17 @@
+[
+  {
+    "source_system": "pilot",
+    "rel_type_id": "7",
+    "id": "E5:pilot:7:3",
+    "source_type": "1",
+    "source_id": "1",
+    "target_type": "1",
+    "target_id": "1",
+    "props_json": "{}",
+    "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+    "edge_key": "E5:pilot:7:3",
+    "src": "N5:pilot:1:1",
+    "dst": "N5:pilot:1:1",
+    "native_id": "3"
+  }
+]

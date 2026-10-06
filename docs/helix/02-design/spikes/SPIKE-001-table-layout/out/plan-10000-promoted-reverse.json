@@ -1,0 +1,115 @@
+{
+  "total_memory_allocated": 524288,
+  "total_bytes_written": 0,
+  "total_bytes_read": 0,
+  "system_peak_temp_dir_size": 0,
+  "system_peak_buffer_memory": 71229440,
+  "rows_returned": 404,
+  "result_set_size": 6464,
+  "latency": 0.000790209,
+  "blocked_thread_time": 0.0,
+  "commit_local_storage_latency": 0.0,
+  "wal_replay_entry_count": 0,
+  "extra_info": {},
+  "query_name": "SELECT id,source_id FROM promoted_edges WHERE rel_type_id=1 AND target_type=2 AND target_id=1 ORDER BY id;",
+  "checkpoint_latency": 0.0,
+  "waiting_to_attach_latency": 0.0,
+  "cpu_time": 0.00020649799999999997,
+  "cumulative_rows_scanned": 90000,
+  "attach_replay_wal_latency": 0.0,
+  "write_to_wal_latency": 0.0,
+  "cumulative_cardinality": 1616,
+  "attach_load_storage_latency": 0.0,
+  "children": [
+    {
+      "system_peak_temp_dir_size": 0,
+      "system_peak_buffer_memory": 0,
+      "result_set_size": 6464,
+      "operator_type": "PROJECTION",
+      "operator_timing": 6.67e-07,
+      "operator_rows_scanned": 0,
+      "operator_name": "PROJECTION",
+      "extra_info": {
+        "Projections": [
+          "__internal_decompress_integral_bigint(#0, 4)",
+          "__internal_decompress_integral_bigint(#1, 1)"
+        ],
+        "Estimated Cardinality": "12"
+      },
+      "cpu_time": 0.00020495699999999997,
+      "cumulative_rows_scanned": 90000,
+      "operator_cardinality": 404,
+      "cumulative_cardinality": 1616,
+      "children": [
+        {
+          "system_peak_temp_dir_size": 0,
+          "system_peak_buffer_memory": 0,
+          "result_set_size": 2424,
+          "operator_type": "ORDER_BY",
+          "operator_timing": 2.2624000000000002e-05,
+          "operator_rows_scanned": 0,
+          "operator_name": "ORDER_BY",
+          "extra_info": {
+            "Order By": "bench.main.promoted_edges.id ASC"
+          },
+          "cpu_time": 0.00020428999999999996,
+          "cumulative_rows_scanned": 90000,
+          "operator_cardinality": 404,
+          "cumulative_cardinality": 1212,
+          "children": [
+            {
+              "system_peak_temp_dir_size": 0,
+              "system_peak_buffer_memory": 0,
+              "result_set_size": 2424,
+              "operator_type": "PROJECTION",
+              "operator_timing": 7.0399999999999995e-06,
+              "operator_rows_scanned": 0,
+              "operator_name": "PROJECTION",
+              "extra_info": {
+                "Projections": [
+                  "__internal_compress_integral_uinteger(#0, 4)",
+                  "__internal_compress_integral_usmallint(#1, 1)"
+                ],
+                "Estimated Cardinality": "12"
+              },
+              "cpu_time": 0.00018166599999999995,
+              "cumulative_rows_scanned": 90000,
+              "operator_cardinality": 404,
+              "cumulative_cardinality": 808,
+              "children": [
+                {
+                  "system_peak_temp_dir_size": 0,
+                  "system_peak_buffer_memory": 0,
+                  "result_set_size": 6464,
+                  "operator_type": "TABLE_SCAN",
+                  "operator_timing": 0.00017462599999999996,
+                  "operator_rows_scanned": 90000,
+                  "operator_name": "SEQ_SCAN",
+                  "extra_info": {
+                    "Table": "bench.main.promoted_edges",
+                    "Type": "Sequential Scan",
+                    "Projections": [
+                      "id",
+                      "source_id"
+                    ],
+                    "Filters": [
+                      "rel_type_id=1",
+                      "target_type=2",
+                      "target_id=1"
+                    ],
+                    "Estimated Cardinality": "12"
+                  },
+                  "cpu_time": 0.00017462599999999996,
+                  "cumulative_rows_scanned": 90000,
+                  "operator_cardinality": 404,
+                  "cumulative_cardinality": 404,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

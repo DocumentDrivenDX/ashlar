@@ -1,0 +1,13 @@
+# Receipt-based descriptor recovery
+
+2026-10-05; SPIKE-001 synthetic exclusive-writer experiment on unchanged dbw-aidev-cus warehouse.
+
+One bounded property update changes hub edge pilot:0/7/1000001 property 201 from hub-fixture to recovered-fixture, preserving native tuple identity, endpoints, schema revision, retained carrier, nullable order and pruning hash. A catalog-managed receipt commits in the same atomic transaction as canonical and exact property journal writes. It records a complete planned table vector and source progress/revisions. The planned next versions are valid only under the fixture's exclusive-writer assumption; actual history is subsequently validated against them. This is not a production version-reservation mechanism or fence.
+
+The publisher deliberately closes its session after confirmed data commit and before descriptor publication. An independent session reads the durable receipt, validates every table's actual version against the recorded vector, checks the pinned changed/old carriers and exact property journal values, then publishes r8-1. A second recovery pass finds exactly one complete descriptor, validates it, and performs no data replay or duplicate descriptor insertion. Canonical remains version **5**, property journal **3**, adjacency **2**, degree **1**, tombstones **1**, nodes **3**. No structural table changes were needed for the property-only event. Unchanged field checks cover the touched carrier; this run does not exhaustively reverify all untouched rows.
+
+The first attempt failed SQL analysis because to_json requires a supported complex value, not a scalar string. Original evidence remains under `out/native/ashlar_receipt_recovery_20261005_r8/`. The repaired harness uses array encoding with bracket removal, verifies unchanged graph versions and an empty receipt, and passes under `out/native/ashlar_receipt_recovery_20261005_r8r1/`. Recovery statements and checks are retained in its recovery subdirectory. Harness: `native_receipt_recovery.py`.
+
+This proves the deliberate post-commit, pre-descriptor session-restart case for one exclusive writer and sequential recovery attempts. It does not inject an unknown commit response, network loss, concurrent recovery, lock expiry, stale publisher, source ordering conflicts or descriptor/data atomicity. The read-then-insert recovery guard alone is unsafe with concurrent publishers. Production fencing and duplicate prevention remain unresolved; no broad crash-recovery claim is made.
+
+Next concurrent pinned read measurement and publisher/recovery fencing controls; full-scale, sustained/burst ingest and caller latency admission remain open. Goal active; UMF binding deferred.

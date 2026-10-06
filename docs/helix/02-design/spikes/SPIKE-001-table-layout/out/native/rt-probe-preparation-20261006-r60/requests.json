@@ -1,0 +1,1649 @@
+{
+  "state": "prepared-not-executed",
+  "target_warehouse_id": null,
+  "snapshot": 5,
+  "source_run": "ashlar_hash_candidate_reads_20261006_r58",
+  "queries": [
+    {
+      "sample": 0,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='ec9e95b7e35213a99489bbdeb9bc024d2f2812d1577a3c111550983621516d32'  AND source_system='pilot:0' AND rel_type_id=7 AND id=330001",
+      "expected_rows": [
+        [
+          "pilot:0",
+          "7",
+          "330001",
+          "1",
+          "170001",
+          "1",
+          "170018",
+          "r1",
+          "11",
+          "{\"201\":\"49b347114daaa8fb8734b67c7a476f40b3d08a04a371161cc35f8b3d1e248bcdab8bb280607975cdbdc53ef91911fbbd2b35ada312f50b9acf6711a338d4b3863751aa5cd6bf08baf654dc50f495ce962a08658d1b5600a626da3ab259aa43e76f1819452cbeed063ae2f07040e1e3ecc9bf31df3a025f792cddc03204fd31a110ec4d8b4e358fa105304956e4e4812eba929ccb2fbb6d05f29285fc2e01a500f3aebb38ff68ef084155a92dddfe2cf7963a7ef19dd9aa5a8e91d87c344454982b74737c49af65cfb3eac5f53632c4559cc76c84dd943bf83d68ad1c96b892a2789d815c2656402e1b0f3013389c06a5c5db162857c6cada0b120ccddf7d30170f38f6139708affb40a6614e61cd662b0d8da5c1b6bbb3906769b591a2de78c3b8fd0492506571ca1e7deea23d1fa338dc9e9839190a06cbc11ec43098391823ade6c9d985f85c40f4e804585ac09244ec91fd86d2ad1dcd38cb3447325605ebe045f9037e73bea973c625445d7fbbd9c44d53cd27343de40efb3a9bbb0c863fb28be06f737514aa47269c43c38ca5ed1e042bd620f57fb9318780a3213d60ecbd2658515a19a875e06c8950e45fbd27dec88dd9f6a5d481b547e8eafc91b162e3c741f10010159cc6bfce13ae8b56bb2dfaf53f56a26ae548ef64619fa7bf649466549613839789ec0b5f178e2d70c2ee7e9928dc62624e766c217a2c12c4be6c0c3abffc9927334b0607a35a6b74597161c47876a06d297c753915ba7900aea421d485abc4089f7979b592fe94376310e5d32a8eb2fe19a3a6184c6f7e782ff1c4805a28b09293583331562b8316d1df9e5ba1fd3259599999d9315a9971ad96cb7a5020fe3a0ccc6c4c345da8462db694bed654f11b2f796a62b1816dd638c1b3012df2999ae27bd38ba554c3a7adf45a820028a65a59fadaf5d526f854c7d15b27aac482f73007f94877df3ac47d5426a96716bb4cea8764c2b753b1096756d1bc590c2aee1921b1e59811dd490d1d3319a9388eb7f9e351221532ceab2c4140f11482840c36fa35ca1b68e57d658214d5f51194e4ef7ce957c38f47acb4000f0999b141c3e742982e8e0e38052bf162b978f4e4bd968e3fb7a79b4504cd875ac5810609461e529e8d4b2fca88cead7c7e535073ea3a82da2bc3221c27b9e9ae210959b3c3e2a48f3a33806976659c3971f4e3da5a739dc7a26281a262d3b0bddd5cef20f4ac78170b3effee3fed70ded8f29d441241ebaea658af7727ec691ce52c5af3388bca2e717eef3317f0642ff3777bcb16893f8b141a8d65739056a739ed795b49b0957dbd78cc06102d90b4421386c645547219e8614503b1e69e5e7f429730a131960ca971343686d815dcefb51d3103e139df7e7587d5a14d1c5be6fe42bb97c47239a8c5791130bed12c9f3c1346c148c555e6ed72d5a1b5\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "ec9e95b7e35213a99489bbdeb9bc024d2f2812d1577a3c111550983621516d32"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 1,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='0cbfcb9d235a9820a30a19120bee4217efeb23212b122bfe6ee28e328b127f6e'  AND source_system='pilot:0' AND rel_type_id=8 AND id=337920",
+      "expected_rows": [
+        [
+          "pilot:0",
+          "8",
+          "337920",
+          "2",
+          "118952",
+          "2",
+          "118969",
+          "r1",
+          "11",
+          "{\"201\":\"8d563e35a0e388a9907ae82a6607bfb0589849ed943b58b26aeb616b1aa5bd60bd96cfcb4598f65d1834821d74824358d0191cafcef74e27019409259980b685d88959b27eaa12537aea4e599e8b6a0f8e4827a3b7b71aa5e157999a7444256bed964be1b42013c6d5ccb0d5a380e9ff7332b0a0e0500cb80b3d2b9db13f6b785871c1102dd45916c825ccd0b61d2bc87935f9508bdc3585617a8df5b263a822befc20c55418e7cbee6b9de1655f0698d9f5078a44008435284baa59404d89490c0b252117ba48cd282c6e6c2a6c950307eff463e0eba15820414193d78fff4f4c5cb9191094a6641abeeb55ad494c68b22082515d4df0b3a401a068fd65a8ddbf039ae11e24cfdeb81a50f7a8bc71794aa825f6812a2d2f7a22302715ac1498bd503a2eb45323e6c42e4d4adb79652f39c6d1b4261a435e88c9229cc75fa11e17478c54cffbc5da3953c797f068ecfe8d70ec9713d80801441b2c8b77b1120b8768531c2270eebfe0c9b5f90ec1a00643f428397a4939f57062cb1aeec016579bbec19ddde899aa790b2bf92bff46300dd5f3f1eb4879cf990558273bf4891b6bba0a96ed3c9cf29318bea4b99f17c6a524d812bee96523451bec857ae69b80f866b2e6b072a2acaf8b32ff230389cd33b11f2b7f6442c08262bbc6fc28eeaf93726dfd1e2c6f254b43bd5afbd38ca6b73f5a0bee339c9a4e99bd14f8f46cc141ced1b6b0d5347765a3239960a3264419ac58e61a2a9514beec3d8ade6d4b74de524ff6488a8fc24ac3d2edea5ae26f209c0584c208e942054ef13d79035ef13332bdf425d188ba8f37f07c50e34c582aedc174da1b5f452fffad970f293f7b809122eb0e97763d6a1093ab45706dfd21a8fc2059aa993acb52c3f45cee7357bb0d450eab670d65ef984c5aec9d617ddd33287f7aadc6854060ba157cb9d95eb9ba10f5a3ba357688f7c03f8ab7bcca9534d69b004f3ce2be602ce761def435dec25fea67ec8cdb561b1fe2057788271b67dcee469d72a861efbcb4dba217304d39d2fd3e10cfae4470a3a437df6e3afa2d326f49b75e8fd6bbb0eb143f24a5bd212a53d8ac0fee09562ca3992886817845dc612039a63df2627f98717a16c203514892ae71172bb39f6a71535d8255cabab585b2b57e9ea310f875128dd3ec59700fdbc00e926235cb302e86ba1b2c0e679378a7ff16858897bef2d71c3ec8cc6fe6911e2280f6d2ff00666e379a4140d4a5b0bda5a58c95255c8f591975b7803956c1d2a7f7c5dc4d7c5f48e370c5bb28afd64549cb216bb71a625c11b17b63b86b73097b47244efe70efea3063f310d3dd22f40d0d1a0e31a8fd5c414fbb86ebca87812b897ded0a36f105ce410e68538f75f4dd69cb80567efa01ddb8e9ff265f0c4ebca7f830cd36e1580531be0d1b5f308b1ea7ca2a2b095d42a73ec3\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "0cbfcb9d235a9820a30a19120bee4217efeb23212b122bfe6ee28e328b127f6e"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 2,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='3592d23fa432cbd565ff1a7307dcaad042e1a8cab4871b9fe176011d4e666640'  AND source_system='pilot:1' AND rel_type_id=7 AND id=345839",
+      "expected_rows": [
+        [
+          "pilot:1",
+          "7",
+          "345839",
+          "1",
+          "67903",
+          "1",
+          "67920",
+          "r1",
+          "11",
+          "{\"201\":\"ddc6c3cc6b5107d5e0e439b61f892020a4508b146ad63ca4ac90c9c642eb2590b0746560c7829d0c8e77702f76a52d269c81cffd6683e13b9357360ee3985ecbd25923946789b21bae38169fb4ba46d2f988a6a2c35a0407633abcec30de4c616e96d7e4cc3935bf100cea4da621be015383ea98914969ab4fa2ded3d066a4e61b3a2e823663618fc79f93a55ceccc040d4d73369ed4d4af6cc2d2078f444c91fdf58c6ffd508f9684ccd67dfedf4913910366e9893a18628b4e89dd430aa581b05240829a180208e8399035c226cc7c0a9a1b33dc68fe6bbadf08774a93fd7a4361de8cb67b5d737c8f6d0d5cab344c333cad79335c7d1ccc5300c82237457b0d2975ec4c82256a4b3ef1976c702bf486d9a06139f6cf7494b7f9d815410806a29cbe9aa01992525f7fd1826ad022ebf820e230092baaffa8f1c625ffdf666f9725d9967fb8daa7165c3f5c6ec4ad2b0dfc27809a83c673564d2e740e7b55c9d51c01a6cf9936f52a8ebaf5bef22962769b21419d857310020d7b5bb419b87eea72664445116e1e0a87171acdc281359c100857579e347ca5a717311622657be78d184418248859f03662ccf0a071bf52691995950ce9607b5d2b5a94e5af1cc81f607e901579c871504b5db6b65f689540e865ae8777ec819fbe43d2bec4b638bcd2ae750e841f4637fdd6fad831c4b0198fad71b89e83ff0b15e0d6ce3e36540cf01921a2f1e9d6f1bb818446d267a778bf17f04c996882ff59539561fcf65e0155ee633af428213fe8b7f4f216cdfa5de112a56a5aea0cdb65a0e8bef9ef05392c2ec6b35086be24b287021b3aadd21481744dd141ca1b2214cdb5e58b6ac9c57c8ec8ab3c392a71f6828498132c9c081e7bac3e5b32ffee19d5cdad004fea0a2c099e6f9cc13405a0c507cbc785545de4eeed338f017af40e6cbe58f17baed3cceb5e7c61eb4582c3b4aaf37d42daf4e666ec4d29a6dc7975f1703738707f44ef66c14ed4fff8997e2e231c56cb85306c014a671d6cda53b493f280952b0ef7d4218bc557926f220e6d0679c58f533842c141ce89c2e1b5283109006bc192152e0f8d9b1523303c3fa7b91b49e3413033dc56eab5aa4e1aa77ed070ea09e9c6080aebbd3d09e045389dcf7e3cb82999277807a4a8f2870757d14a07dbcce4bd70958d43fd1f996b7e519c413ce47d86d704cdb74a6acb58e518a5f4a81a8574d2696f84e699ffb6a8d4da4532416dbc6784610f689d2a4ba6e80ec39615c434ac2a97de8f229bd0aa06ea68fa7c543fb0db166591aeb64991c014530300085f8bc8b372e2fa60fe6ac4fa359781577b2db67a01e9baab27966e771a969c9d680eac0a59f52a08d197954a69a402e6c6a6c4de91a4befb61f4e1e884f797cda8d89268c65940fe4756b0bafc42eea19b6bd52f0521707a76a2c79d88ec11\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "3592d23fa432cbd565ff1a7307dcaad042e1a8cab4871b9fe176011d4e666640"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 3,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='6a0951e5a67c3c34e0df37ba948a6a79108c1d4920e76a8c98fc8940f79cab3f'  AND source_system='pilot:1' AND rel_type_id=8 AND id=353758",
+      "expected_rows": [
+        [
+          "pilot:1",
+          "8",
+          "353758",
+          "2",
+          "16854",
+          "2",
+          "16871",
+          "r1",
+          "11",
+          "{\"201\":\"29dc8fe7979c7b372ba6dffaa15a7d29c8f27a03cc3fa55fe9c5758953369431e8aeadf846a40a79ca7c5f8a3df383a78c4d93e28f30141ce11d8dcc29b38caee396b6bc9e2e2116724757e7940e4e7a7e37442a4bbd07a6ecc62cd7d0f8f19794e4e680fd219e097c543f6e5c2266d5b09d9fba94bdf314007873c20b2bd154e44536cb5fd5ebc0944136732fbbe0fa7a5a357e4f15344e18279d70c818e95959baafce3e3caea26b8c1b67d5f89799c4c95e9c8e299dd3ec5a6df6dfde8ad1a106f1cbccb47be1a108b465b4d09637da01159636cc85c3a5268375af91887f32611d49adc9d67eeb6096edddb3b31b27f0e19674da7731e265a19db9ecd8efc6188be89447e0fe13178bec27081180c7470bcbca9e917cff109c03aa46d4c8380d85219943beb3e6dc83027dc44572326dfe64acee0747c72fb160b3207b6af43ebd85d8f528effaacb439e0c32d28beeaa1068d3d16ed52ab6fc0e0a97f84ed3bf1e032d93f35245c696fc2eecfde0364915d0e941958c4c60e25c7284b0345e121ba0c33d26f8fc8814fc37b8a18bc2444eb73b0b40a3c9ed649dcda6f3888be5191e61c431a537743a8ec00fccd8c2d5d54a96c6cbaae23e9b0cc76f747edb50e25c58e398d7db4c3bfe5127cca31bebc7f5e79df92a5a0d2567b491a2b5a47ac267581480da7fc0d48154e90df0c13c56be6eb23af36e58fda9a0aedf2d19f5406166b8dd2afb4200827eb2793d8ee0e0fd0e01df7aa5e0afa9f5612d85bbccc14ce4f34437c4646dc69d6328e53b9f88ab2cfa13fab6cf144afac4f618db88bde97801ae758aa12bcf1c27136818884fa61da1b7f23a83d37cbe16c9cf175f57e00a099176355d3d85f25eb78e396287ed8b945220de9a4845888c6ae86dd2924c2a89f9cea918b0f129da45babad279bc87c43ce22b585159471659fb4bab8182e1045aa71dde2bc1657a21da2f6162a12b3601fca98bc484e8b3e8593c6f8619777be4e709c0a45c427b57b2fdb8b1e8f225f70cb5470a532997621a1fb26d60f60656f2cf854583bd367ac66b04c055b3ac1b3d17955d60c99eab0cae35540b66c6d5f09b0e4dff0276fe76b11ce500d7a71bfc9550bceb3eedb030c854eb275aa70d6f10d680cd81c1ef978f34b8ba079faf0261267d5e2b8e6c03ddac7c45e9ee6a6c35901cd77e9076dd8a53b6fb89cc728ae30cc406b683e1e4f3f55233f3e17b21dabf4f8ab148595620bb513bd1160892960d41a701e8f470e627d60f56a8b8d375bf3cd4340a2717a9e921f369a34ff397379297e804ee5bb2383aa657a1716bccf1ece6c29e434bb0b39a442a89fa5f121dda4b5c161dd232be2d0ffae77a378bd1184f6902b20004696893e2f33721f4c196ce1666e30a63fc902f8d518e0e7d482dc11a108578a746c95bbc7070584399132f565dea6\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "6a0951e5a67c3c34e0df37ba948a6a79108c1d4920e76a8c98fc8940f79cab3f"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 4,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='9af3be7180b49f3f2820a00a22f3190907a9402f08acdfb78083ced3d3adfabc'  AND source_system='pilot:2' AND rel_type_id=7 AND id=331677",
+      "expected_rows": [
+        [
+          "pilot:2",
+          "7",
+          "331677",
+          "1",
+          "95805",
+          "1",
+          "95822",
+          "r1",
+          "11",
+          "{\"201\":\"eabdc948c6428e9e1940e8017f3068727bb4af2469e25d466500c11c92463e8aaa89484c0d48ca030fca37a33a31c48cad4a21af46e4f8fd6faa1ae80ff5680ac458c0e408e617332c373e2b274ca2e94a355f12d25587e47950f276d7f9f404d16d327340db04ae84c1420b1cefd202c054889913e526d43e3dd929f5c35b570bd8e08f1a71b4895e8ad7b36ecdaab2293f7a8760ac62a844b19f3f4949157604966b4482feed86d70dc354033e12870084860df618f322503dd1dbb344977ab84758aa795044d83b2afa05b69f5d7076a8fc336d16777f49760f268b12e236232ee98d535f7365c3029aca00f26e391ffc74382a39485952d7898221fed4b5f2fc954914c1ae4ef56a091b474dde01a7567aba6720d712771f1d76d7b73d21129de10eca563db79a6941ca0492f055a515ce4099b35463a24f622e70d0d29c91517da949f947bc90b05cc4c0bb9ef666aa3a2fda9eb7817015128a3beeeb9c752b2be0bc91a3f99a06122235ccb31baa29897c790d382f737e08b4a2b0a98f5d123ec25f5ca4db1d85e03e9f6ff6642ca156f6dccc39d73cb4f2a8590719b246b2a947464b25694733b7f13abb4098efe4b739b5cad09f2333746f7d98ceaee6f80a265c83513a59a2a8a29850d0120a3a2b474ac7c4569ae214f2ac290ab496c61f57d136a64fbb7592f5ce1a56fb3e8c3b3803eebf6dabc09da2e3f281a9a4dc26d91e624e0f4e01488c8096d04a34acfb340f81f5cc72f6488fc84652b36dd34880f5dbb8d83d0933aa89abbc3b4c4b30df87b6a7fed5b95b29d39312b4094cec755968025b0a95e1c177e772d71b3d4777058a64bb0f602df5ef5b0892f3bd31717f38ad8bdef7d0b9c48fed12485bca088655b169b53c7bf46c533e3933e2434880a95e3419caa2405899ac57d10a99cdcd3b8dfbe07f3ea86bc41e655bb0c8b6cb758daa4207d840c350bfb762d59c3ca86e88a8ca431dfd7948317caee40a26556c58a6b1080dda7495bb2468f1c8f084e06cdea90b193754577b19a52f70bd10f307c7b7fd4637b655f8e7116d91f56199a14e464d5b1451d44f6625f809204046609ccfede8d58126037f8ab06c52021b7ca9865f80fd4c1572d7bd9875952a3ebfaa926fb264dfd5a331d3cf5f44510a5e90dc0d12ea14253549c18608c37cdd815ed970cd0874e064bbcea4c46bb795cd5d2737e4dfc219cbbdfbaab63264f2753404575a28f3ee85c86df4672106fe05c36ab6ff74e7b59587144efd846bc566d4d1d53f4df1010634c3c93e1df2ec3ca4f876d9ecf572dca49de287299f8d6b3042108047e2a49a033043388b6751bc7ab7a41a2bf2ebdcb69bef73bc399f308e4a74d247846c35a0176db6a2db8769a1011587ed47092386904756f2c26d0be8cb90595d67feca1bd4df9afbd745e902ccfc13f685e90e9a\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "9af3be7180b49f3f2820a00a22f3190907a9402f08acdfb78083ced3d3adfabc"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 5,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='82452e6ea29e56ade0d2b48f45cd93db6842dd1dbdd84338a857e93bbaef7b56'  AND source_system='pilot:2' AND rel_type_id=8 AND id=339596",
+      "expected_rows": [
+        [
+          "pilot:2",
+          "8",
+          "339596",
+          "2",
+          "44756",
+          "2",
+          "44773",
+          "r1",
+          "11",
+          "{\"201\":\"56e44fd4954fd06872da165bf1dfdb810de8cf561178b864ba8972f6bf628f15c42b9a7baede4c44ec79ede936a2010d2fffb5807577ad3808f9b4aad66032c88235b601bc7c931566cec7d20a30a424b508d0f0958adb1f7b2d4e9759a387fcbf117ff4e3cd0a72dcda9240ebbe596f669d360faeef1956baad07a8bd92f5d06be7f9ed67d99633b618120f346dca79edf8d7572401ee00f19d81ccb2f303299b111c40c1665a9f509ef2b4504648ab4e8c569e0063a6b3860dbfb88a3b45e0bc85e277aa1e657faf1318606ef75e94b7dd7530fbb19ff8ce9f7ce3998c4e163e7e05fe442ed7ea1be44746806de9330f67aea40b6b34f848647250e53af320bd74414978643ab602f55e7b3071a82d9e82846a67a9482055aec12cf5866f73874745522da5a78a9ca494ede317799dd83ca11258231cc00eb69719992bd19ba7db74992149d2d342e9aa016025f6b19b9f54f90d76d6e297893185d829b2d96ac76fe5b33bd48d517a9faa12c465edee4ae87a79e746ead4ea4324be445e51547bc039c1fecc5619cb656dbefb6f3da989cccddbc940f924cd000354c7a16b23fa4b41f1e274c5cf42246394d7fea7aff7c4bb032027b212533669958cf1231b340478f2c0d9b200fde195f950dd7ec1df3d8baaa318d10744c6d90e8439a98813e789e8d6e4b92db15388a80e0501308d4936c2910042e7320e32f9ea780599befa81a4b1b1292617ea324f4a471c57f4f3491cc3a8e7ffc4dca15906f161d04c0c3c443a8857efa0ea9db02a4ed1484d2ef955f489486718d87e85b217ad286e71151cf9932fd13a8427139b79bc581fd691e242739b90c573cd032d817eca426a7dfd23842f035cebcc8ad8c1816bde39779054991c8b36d7aa04a6bea3f6bb22e8eeb29da6f6cd872923804c7833a215b9054862ca84418a4f0c61f637b9fd2039c06d4340d957179d68adf3c350635eed0bbe8092a737d5f8ec39335f647964fe93794073fe2453691e4315b9629c8992ba85627334b572f9709ce5fdeff535e2da35dafd0388ee215b1e9f7f93dd6f246bf9ddbc2dc4efea29823ebbf3cc3816c46e8e59b32ae50a7637e9be0a5d546e938363ab40cc5a3a0b851424b3a1a392ee1a071307814007e7064b1cfd02f08fcfec37ac46eb7ac95b76dad1ebf45d60f474f925349c81062671d4c99668119a39ae255d338a4cd1105a3894561431f51fdd3fac098219e7d5b7f272682569ea0b607d725e584c5466738da646251e9318734b303602f0b2ea6792c9a68c9596433071c8a23bd3af5cdc3d05c824a89388030786b6685bea3dbe37ae34c789b7337c270aee11c7c430530ee8dc5fad8d604dee28bca3585273d29ef951ce99253b4335b103b60c83d9a31ec13928488ce92e6b311e2150c78c14bc8a9f1e6eae5b800e440fbe5d5bcb5459d6\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "82452e6ea29e56ade0d2b48f45cd93db6842dd1dbdd84338a857e93bbaef7b56"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 6,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='53215d3924e27088e867ac1b9c96cd7948cf803702f8b0c2dd7ef20e8a4b8cc4'  AND source_system='pilot:3' AND rel_type_id=7 AND id=347515",
+      "expected_rows": [
+        [
+          "pilot:3",
+          "7",
+          "347515",
+          "1",
+          "193707",
+          "1",
+          "193724",
+          "r1",
+          "11",
+          "{\"201\":\"c6b5026684761265dc8de2c053e342ca1354ccb8ac4b9b69f47099ec3dec631b8111c32568aaea147e074518fc6ff8b6af99b3767e5d0e5ff4f96a2f412cdd1870e9f4631577736803f64a6f2dcf4932b78f04eaf0add017b0026cae8f38ca434eab72e7d665f034af25ff800c75219145bc55a8e159319b6fa3ab73edb6f55b13d1fe60a4723344e990e0e5c77820d174459229584aba73587c36fe65f4b28eca378656182fdaa4d9402e91a41348714440e29a6344ea02db2f9b91f3a28269e816f52d9a6f8f32f3a14a427eba0d85b66749193469687bc0dfd94883d936055feae8d84a92488a147d479506186e0e39c29adcb4337dc4cb3172511aabd5b31fd69a57db2f71d5ee47f8122b8d5ae2bc77aa79860e364b8ed122a2edeaf85970c17486bf7852de7e348df36e1c4d26d4b834388882c188170440bc76484947a7a74c398fd89ed3985310c1788534b70bf9abd86c7fc15f255e423557d63c3454c64691853abd02e0a9b48ebd19cedc41f12211845ba6b8dcb89adcf515529dda84246956a36438ab1dc4852c7dae74e53480ea2463ded95c282be202b1416977cc06136a6f6e9761c82a7598970ebde96de809141660da165a647d257a204608f975556051fa727488e7ebd4002cb65f0d8e7c30144286555e34e48eaba3617d7497f8fca7c1ef59d1ea109d9b60447fac93efd80d2fd3152ad49434fee8e4495756ff4f99fd5246b193c09a83c218d138fed15886ee064aaf33f11c4de2c1f9bf1ea5236646db12f793d1687e10b27c1ca5439d1b1fecd7134b12870cf743a0fd66af5a8a25bd45c169a67f4a54cb0c85f8374a07f5addb595d60d2f5619c92a36f1cf86ca47eb28381c0c64dfbb3f2bb675f8bdad5235ff0f4f2be54aa613815f2963675a3189971c64b910d7fada66f0756bb737d630c77a10347869b8d7712949b43c443b64613f6cca255ecde596d598c3b1298cab456002bf6c56c24b1b5161333c4df954d47496fe0f47793f7c5e7bab842a6d75940946b080d74d153f833e0eb0a9dc6b841b45c31998588b561d37620bb1c0bc07d9b73376df1b161566846adfe98e1490f5af5c05ee7e42467c3249fbb1ea9c740d4ba4a64ed6e979e928cff49f09d169883fc1bd9aa77aa868f0efbeef7109583321ed39fa65ed62046d8eb3504621a939f1efc771025fcc98c970bf1417e24e13b8851ca4fc5533303756eb3f1dad713c181a2745170b50fd33688d1dcacadcaabdb56d24d9e155b05d1e3b12b5b52e833019b1b2d662b090a9ca2d6969f9b6079fe3b64cb0c3e3fcec407e81dd77c03d5b0d3bf2cd57024ed2b02b93d37c72a0d952ddc76ef0cb0247ecc68afd2a5d12c18dc2a7e37078643ee8461a3f88f603bcd7e24b2952e8c744913bb4556be94f5c5f1bc5dbf398ac03f3ddb37806f710b33229f5bff\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "53215d3924e27088e867ac1b9c96cd7948cf803702f8b0c2dd7ef20e8a4b8cc4"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 7,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='7f38407a2a35d2a3d08de98fdbf9615e67bfde261b0be856a2987cf053a375cc'  AND source_system='pilot:3' AND rel_type_id=8 AND id=355434",
+      "expected_rows": [
+        [
+          "pilot:3",
+          "8",
+          "355434",
+          "2",
+          "142658",
+          "2",
+          "142675",
+          "r1",
+          "11",
+          "{\"201\":\"dc04793cb96ab97079d8eb1edf1efca75dce5287c67130160ab8a36df1011d5e9e9bbe6bb7ce94a42cbf5acdfc58d214ba4f586f0525f37081f95f1af1801421b7dc2f7c788104ead677ea9259a5573a14fcc1c59ca8344720aca61539b9f87c0fc5fe71999e35423bb085942eb86a2f9b75e3f36b9f6277966cedbde95c0356a52673b32fad00ff53a20acf2144e104ec99fb45a5012c71c798117db981d55e4d8ada75f22bcb4be80d4bd5d3030961dbe7f54939b1eb0c276bc2c5a2abfd3f474b87735137cc80db0e7d9ecc64f0daec6366aaf15e2a618a7c4d40138f775d08b6fea34529fe9cdb51320d97bf8cb4e580e6eeb0edee4d5bbd39f1429e97dfe3fb1affd46d6ad39eb7b42aa8ff9ae94b9f69ea8c027b95e0ffebddd5588e12a3139d14ddbba0be56b9cbc83003a6c65ca906324ae402fa3c069c2c1900071ae2a994b6f55b620ea40a8aed40318d5c78f5a9b2b85201d0613769ab5fb5cd4d7df37dd59fd7907811cfc897456dbf193b71d413e15d972a3f54dbf426f4233ae9fed9207227695c0332f21726c2edd99024c0ddcebcebeb838d911d6fddc4fdd59a3b44bb8a19f95846d30003194378229579bef0c3e3b1a4e15be3cf1f7c5cabe70be514d59a7a3116f978ee6de5391ed4f1d472351da4cecba4c0a87ac4e0b5846828419162c4cfe659304e716a89a86e5f5345f970e0fe10bd2dc6a73d0ecba601c49fa44efea123c1593ee812071a12f4167d1962a73b11afad78f0809b28d1c0ebb001ef0a0614ad1cb30c2f24e7649e18fbf0c743d773173e32b78b3de8547e01675bbc7f87d42bc42c6f26bd2422708eee724f0678b6d3d24eb0ffd2061cb4d431de9f27cc3b29808adc00cadb15db147b3c3d02167de4fc416ac42df5955fe340ff26af50411da3239819fb71bb1487f95849d2022e3c976e4bc65fe13372fcf9d14617a1916c4177ef79f161dc43f3fd1d3528e4801e6312fb12b05d7b244cdbe7e007affd875bbad6030477b9d7aecb5139c1e6b733e9b4de833db85e763f3cfc0891f64f57ffa185a837e7023da4d923bed7cbfb2437dec4cb7cc73b90fabf379025770b7f6b57dcf071fcadb3cee1c45ff4bbca54edb2115708d0b5aea5b322d9431f19860679a41c0c39de5563b8ac0136a1ff0574aadb9612ef34e6905bfde0079cc06ec745b329fc4079871fd8d1bd1be1d65d3fda88ca004c0c47d3abc1e56ec6062d826c1fdeca554a0266b721659e51c51fa3c80777352a4c3aae72b69d9f9147542eb51929b3a928267da153fb3742b09f1e4ebaf639b6c0533890f83e61491cb0570450f72d9eefcb8fce72807f49f87b160bc9402ddd676e59458735f7cad0915fc6c36e414c9b2c3a215d6f19c510ed958ff73ad5af788d8a4aa10dd7218e137e67648917fb701ae72c1cc7ad9770fdbbc66400ff\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "7f38407a2a35d2a3d08de98fdbf9615e67bfde261b0be856a2987cf053a375cc"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 8,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='32a1e9b56a842bb1f32f66a9e5372e985c0ffbc76288178a20cf1e1930089ed0'  AND source_system='pilot:4' AND rel_type_id=7 AND id=333353",
+      "expected_rows": [
+        [
+          "pilot:4",
+          "7",
+          "333353",
+          "1",
+          "21609",
+          "1",
+          "21626",
+          "r1",
+          "11",
+          "{\"201\":\"e2b361c39c3b833500c4b5504620c2eb1665d893d3ccb996496e0129c02e8f177c549cbc73cbef25b2ce72bae50dbe6cb505d279f37ee2c6d7868bf02e18548d4def2b4cf21345ae1371c3d15e922794284455a156cfef0429a77ced1789961114c9969eb7aa455a182cca5c0586b43704706a5a869c28a5aae69f823dbf8e03ad0b0fab6579712cd52645c0b75cfdfa9f42f2fe44b43f40799dc5edf1d6a885567cf299fef703985a5de779af552e5832ed77539acfddd1bbaa38a6601a6c4ae7aece33ceeb3c0560d2926030d533836dcadf06c48c6675ab7bc6d4fe92d8fe4904a1bdac78c5a2b66655f7d0ad5eb792a12312fdb1a1da1e000ac73ee591379b48b7b417093ed91b4c4abe1a22c04e8766dd587cd9fd96d682390683dd9fc496717b67518f221ca149669695ac82843403b179635184a06e743dbd8cd55976492a285608f7bd0e47e64c935757b8eedd39f17e6760b2620757e5cdf2e4ae8a8fd7a535f7d19ea72a0b9698e623a5989d16764d9c3222f9f38998ed0fe125342bea7d615fadece63cb1061a57e768f9b7785802e072637aa97036ca6501951d4d276c4f8cab12b9499c3c3fd221f2e2d61a38592a65f287b40c9ce48f439d969bdcccc648a75fe33969fd2e414e8611809d53a907491a7cdcae60c2a7d1d4557a86ef553dd6caecb431f611f6cc82c89ec3e0056adaa22abc4bc31120c7875dfb54f2e73a452d06eacb2ebe9bf9c1f85ced68195702a805b613e361ebabeeda29f364a29769ea53dc35145e9209a6d90d5292a41a48b3afbce173fe40823c6eaed0fc2c93cfd9e1609508751fb12825b9d5826c61c892a3c82c4387fdae57a3bd43d3166ddfb8ce9889ac713f4253847d39073ae900f3e7baa1a0572180f71562b68669abd396cb01db127f87d8231646cc27f32e3552c949c46d992844a2e84205c1380c6b87857ee6f290872f814f8075e1eb2b6c471e13a0224206c430c2b144afb944d20ccfa0f688f4de9c5353a792d1ec90a6a324b2f6a0c7bff1ead551ebf4743289742992d65156bb802c87e26c1429e39fc5094847ea68e27fae1409d54b2bf6a765d891665e1b9e453a555fbe0516014688e6e08e5dc9010c7747ec8fb45e2d062e2209e1546454c90005efd031bcca400708e2f712175cff0d6b00aa79d2b22b6cc6998f785696efcf902a39b8a9bd4d72f8d540d28cf5c3751a01bfb6d757c48edfc80d8051d8d6e9c72bdcdc1a0c985e5747691783550a9f00bee1608c6a7e755d006be1cea5d5e7f88bac789727103f974f686a0bfd0cead95bfbfeee302a7f0915d87439b9191d939e19c356248af02eac62cbba61bab1f38669392ad9ed49e8999bfe095b6b9af9eec323e70680cfb1bb2619027b2ecca9c0921f67c98a87ab20fff2dd6d9097c8f58e32c9d8244a36a4b296582921552e\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "32a1e9b56a842bb1f32f66a9e5372e985c0ffbc76288178a20cf1e1930089ed0"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 9,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='73b5cf8f060c575c1e1d9227fba55b6c85b947710ad3495cce16d1e8d5ef5609'  AND source_system='pilot:4' AND rel_type_id=8 AND id=341272",
+      "expected_rows": [
+        [
+          "pilot:4",
+          "8",
+          "341272",
+          "2",
+          "170560",
+          "2",
+          "170577",
+          "r1",
+          "11",
+          "{\"201\":\"0cfc9e8f6e31c2bf49249f1d90f787e1f299c52934ffc8e80c45cba970d3f05fbda5ef954e5719c95830fec5a885bddbb49557d08f181b97c61f7feda698f2f436e7ff467586eefe4a3b0c4f40f8a4a601a5b9cf5d3fb888da6f7eee482abcd10f69cfd35700de033cb338eb73eba637baff1134f9f8a9fc4cf5f91e3fba66e67c79eaf1dc4acfd0570878d1f4389a3daa42c580facd5ab1abf477cbce2f4494e79e856085212b302f7429308c1c9fd827600c78f26e5d8cfec60b7d812747ee65eb375546c723e260966f953d1cba7bdc73eca5c46dc099cdbc06de651ad02b8b8f5b23541d3f77674bff8542929a08749602a086ebbd8cf805b807aeff0a2239da83a097f8a621e4c3c3e1f893f40bc4d11b8da7a0fd6342cdfdfd48b4953ab1c4736ec115613ad490d240ed449284888fc24aa61247cd20623bbf3ace4a320b5a34f2bba792ea77c9a8a551f6476377b250c402120994a2d09e53c2b20d3531335d4073066cb20dfb80addfb198f90ef54742f45dd318794fae0e3fbce2f3c6cfd76bc94b9a1862b7393f6358ac5851b5ea1877475e1a3dbf892edfc5a691ff0b88aae238b8b68f14dbe5e79c1b0b24abf1f8ac9ba3f7f056b5af195ed1833b691db2ed8333f24e26b005d28554c8aa0cff57663f6f02bb77f37c220a8d630be5cee191628febefde8240317d4c54abf4388dc8cfcc3738308dc89bfd9601c76a008210e39d74a09dfff88af26fa8978b43068f7e45eed9755d8f2b9b20160e995acc8e844ee16aafd5bb9f55792d7218f50a836775342f15851c898855363acf1a3f6db08dd2f06922bf69894259ef178bc4853ae20bf146670de461aa2ec556dca179caa136f83baf5229e0cfd68deaf9334af08e05817dc540fe7a2f02e9d4abbb7222d6299f1816d5dd6d66c1d7b6ac0bb4583c52f89cd81e62cea726e79903423954d323b6f733dc792a439b79ec08a91169154000be606de825714e97efedf25ab0a80775c53b78c3e535cd111198189e7f09c471d055a35e77888c14244b2f49146b76b5d0be025920ea8ed1d6eaa0740521f609e66cdf6de3bd0f636499dbac3c3a3f9ae179d375885177e9fd974e8056a325d20b49a116504ba55dcfd8cf1ea3018de3acca32ccbf9504bf6d6b5f31dfb2c5dee0c6fd4382ec859bdf2bb689267475985513f27da95e96c5244283fb41edef21f1b488a14f0f8e84d5459f8163ff524db83e66ebaac0b5023ffca0185b02b363c95174410fdf4dc61ebe06f829a8a1b564975bd30fc722ce93db6af864d6f1d9fd1caa3f7b404f702e3c9951699226267aed8abb5d3225fd3df88e6927e3cff5a319d0268794a2bccfeffd41034a6b970dc054e831d347a8101833bff1f7c16290934187dab4b786b9fc8ebaa86d5b549f6202c4e252576d8dbd5083363ef13f5d8646a995b945\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "73b5cf8f060c575c1e1d9227fba55b6c85b947710ad3495cce16d1e8d5ef5609"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 10,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='26d8fb711d4c155651931e667d49ca1037e9b079b37b7b0390683ed14ddfac08'  AND source_system='pilot:0' AND rel_type_id=7 AND id=349191",
+      "expected_rows": [
+        [
+          "pilot:0",
+          "7",
+          "349191",
+          "1",
+          "119511",
+          "1",
+          "119528",
+          "r1",
+          "11",
+          "{\"201\":\"1893075ab787d4bcee2fce0c0fb28515e9b8b93e0fd728ef486ff95fa59626f785da49f7c9a3670e374d1705771d7fcdc657a4079aba58d091fc3f776b361dde28be3522d63627f4de5dad563b35fc5fb87d5c1750273e9f17bac789eb4caac6ec51fa2bca50e70a0b49a7f6160ff22f4b9396651a59558a2f3ecba24d791fd03173c8742aa2d61d94f9d8556dd817193045c2ccd01ffac6d332b98fdda20731f1698cebe0a758ef5e1605324cd5ca7a02ad247eb0d3273a84ffb547458545a45ebb00f1aa6bd2d9748a220b7e298c97f7fffb7899f041eae90ccf245405f24a008916312529804550599dc964d6826a84c45be53a3305b719b820eacf748f8b61b0025294241c29b7929c0bbfb408ee30108d3670202db6f2530b2d7666f9a2ae93e4a86f41cd9b541bbe9ed8fb62ed135fa8fa429ee3aa7f8f0a0f53a81e349f0d4156542ee08fbf950f15d1fdd8d8f40558dc333793d7c4a4c887fd71adf1613b311ce782f9639bc8a1a9dff8a49b49b8eba892bf4153ff1511e5d08106d1b3825f32c9e246f20b44a58ee5be25e40bb85b27b320e13779872f587827cdf348c93c9f5fe0cd1e1539ed44e8de31d84d4117b1424fb8784dff29ab677ee0d26c777a3b7965258d2e06342ed9565d7033d9cd163b0de6c2cb567e6fe4c03927b68a9c9f4d94f5f8f45eff95ed7aabc8c85b4038bcbf09644198cca4f8dca6b1a605abf4c8c99f5d2a70aaaae2053c1e72f65443d2717f0f00c46b430153c815f2f1c098876a5049dcd514c52c07ce95f351fd70c5e26b6d304db0b1c9173612376471e546fda3e2c23bd303e660d9bd328e84ab17e01604a8551774b09fb4221d49561633629cafedb85fcb9a655722a4f7e951fe19a630d7e1e8bb62cf23ce20618df172e0aade39de2f54e37fda1799379f49a0874a3ea7c451bfb8e7eacecd573b24bd12564b5b19f519e2146c34a57f37f47c8fd778449d664ab43c8c107f3708226ae3faae62c892bd33ccd0d82ad713498fee6650515e955ed695f3ee59cb498e78726c933beca99f2e026fc1b9cf406c3033c5d6b0e3506ebd32c011b0590b41de41ade22f96db205eb61aff5cde9eeeb9f3856c2f024ecd95306d78c095a70e3d92fb77ac066386102debaadd30e313aa1999ef5848909e73739400ae0caecbfa65c7c9e5442a59bc4cc2ca0d3f7f61f97c1fc47b78bf3a05131dc862bec1e5b56655e499917bd4de9da3698c38f9b8586c3176ad6030dd19366f0f121d5f8b5f53ad6d3a0df4dcc3423a6583ec1239653365bc7da5ba65f4b646bf2b2b52261e3fd2f2a802174488609ef19551d5b19d12d05aba39a9302b6c5e62b49f35454f02961d9a454f31a3d5b8f9a338d57784d25c679edb8bd5701562fe26f2e6bf02de15b89bb8a2fc58e63ae290f82e654bbc12f899f1a1899fbdef9e\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "26d8fb711d4c155651931e667d49ca1037e9b079b37b7b0390683ed14ddfac08"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 11,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='b0da8cef5b5d76beeb7ec563939d7d650431c8820ea2754376a8e3d959798a9c'  AND source_system='pilot:0' AND rel_type_id=8 AND id=357110",
+      "expected_rows": [
+        [
+          "pilot:0",
+          "8",
+          "357110",
+          "2",
+          "68462",
+          "2",
+          "68479",
+          "r1",
+          "11",
+          "{\"201\":\"d401f0a914d8ea9a67ad025af3ad981ab988b20504e5d83ef24e1f3cc4426574babe4ab2732f0b579604a5ddffd4d378b75c96e8c005231a092e22d79c19aeab8588052870799490f9cdbe5fd92bdde529dc86456ae6b18a44635ed81a89187cba2852ab46cb1686c0e7c8753f0585ea9c0a0e9e708290e8bf549ca6a7c1e658b9e152a810b35687e25087236e03ad96ad4e054fdc2301486bcc9c29e5cfbd6824af5cf09c0875502eb3e50838bfff2541e27bf71c4882f7c0f4ce8eb4f7180bf22900a53f60663b7b89e1958d4e36a506de9d4104e2da449cfd3c76ec40ebd12664607738fa92c04d514ffbe67b01d4d8778ac48e1a3010ce3cb6155dd0109574eb468f372bd274fc98348084cf5039619d4a63c80bc16d89dda9748c4496ca3a8b581d3a526dd0f90cb5c7cc1df3627f9d234c5427194c7e84776334de864793774b09b58e64c233ceab7b6ed7291c0b4afba6592c64a1274ec7d26a46df499dc600360ede22a8124a1d14c73879323a8647da5db84d0ce9b52460043313dd5fe66d393d1869a89bf7ad751ba2ad8c7d471fef82d429551ba45e4afae7d34974c5cc628fca4e47f70c700d48c16301cc06d873a75dbcca82026fe5cc10d411ba901fb1d9a6226c3a94968ea8639dab3b5f66e51966f3f851f26be7daf623b5dde73d30e9d30af88a1e56a581402f8a433bfac4c0e4f77864cb5fda91d7a3a6060ccf8c0a68d1261374219b844922aee041661a9e4d73dbea2c9179f814018efe863aac2f985ee9c980e701232e8ecc27001b0b77472ebe85d2130e1b7926aa00132237087dfd07e0a0297404f0860cc4858f07327096ea0366f96a39e8c6be223d572ccb4ca5ff9f26402da9a04f9ce46cf3f731df11cdfa840adcfbf4588a27ea227c677258777ee85f37c33108fb80ae11f02fdf785b8c6af0699c24da02d58ff6dd6797010da07e6cf37e6f8f2bc72f89060a1d25695d2752d33be2886797f433b74788585fe2eede4477b226407c839ed1c67da5515d12f4e53d14069929f6e2d4d3a1b0e9c22e28f1b485081b5fed5b1f6ce68cad46b9b6ac2a39f3d8f4e928ae9f896fadd898e2f4560e2ac325c48a22d37e945e4e855b345242c4257ad9aa921860bd51047ae97af8e1c0296c35e58bb4ccf0e0be2b595820956083a28425f25bca4016b4e3d1d41da0006b85930bbb51ec458d7a6d2943eca0b19a7d6e6ccedc0b4bf5c6019f82be388053ecb4a7981e85caf25d05ceb19d13a8f716ae99caa037ca1954b86178157c7dedecb8354bf9cf3f77525d2534c7e939fb2160cb6926d37dabfe9807fa10871f5c5f7532c129b5ef0789c14d872db015e9ef714136a28701ab171b8790bd1bcb5e1b7336747b362788ce4877c80ed423987c380914dd6eb2948c54b7484ead2209ef7c6b147cbf7360ead2d3fb1a1808d8\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "b0da8cef5b5d76beeb7ec563939d7d650431c8820ea2754376a8e3d959798a9c"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 12,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='05172041486ccf252a56462914381fe4863043d3f6765901a3173454a24642b5'  AND source_system='pilot:1' AND rel_type_id=7 AND id=335029",
+      "expected_rows": [
+        [
+          "pilot:1",
+          "7",
+          "335029",
+          "1",
+          "147413",
+          "1",
+          "147430",
+          "r1",
+          "11",
+          "{\"201\":\"b05fbd70d04c43aa71d5490112a278d238f87154e909e23d5fc11208bde147ad147dba616148c20f209c615c62cca2b8f31ab820e06a93bf9cdfb94f2af47a6968328dd4374392f358fa9142d991def5833cb0ccab247d037fe3a15789a9c2e78e3817c615c4242458c37eba9ae2843a5959788deb0b275296c8572b40624ebbdeb21ca5a703b22b8ad9be51338a86e12b80c021693367c1b2d6715ca8914f72d90ff1bade1742ce36b442d7128fe4ed799bbc0941b3615d8eb410b8bf1582167a265ecd63985d4158cd61fe3beae59a8960e3f1000296a343f9fa555a21f726b4f4a846f4622002c18b9cedb36bd85e4362e1e618923bbfedb93a840599ce244e87e75a9c49edda4618a306de7fda5f3a4b0cbe4a842ec0b8ac889b43a7950b69f9501c9d1e9d5aab453992f50b53f2f2ef142c36f94343b5bce742c22e141da39716f2c1b3968cc9e2ff25161cd4ab88638ab0e84eb7ac146fbd739d3c1537988bd2d6dc469f36dd449a849b752386be031e7599456ae9ce398a6cee098d49309d0662c4c9e8113fbdd4785e9889ad45e7a20f8e0e5281d26bff3e343e5469265c60d4781ab7a2d3af5da3505c2231fc4fea16677f9ff3a8db36e047c67b1e0e4f86aaa67cd5803492fb46befefb7294f08052d4532e31969770363426ca1ab165b654a27be7d43752a492d9e98b7b3c0b4e94a2dc06116790f35359de4f86420e2c01076d377240bbb6dcbda79f8ef4a95cc0ad709aa651c304866aab13573cb265b0be8f81bc41785636973a69a51379c4ed346137f23e0a72fd0bfb073965fc7c5b3480018933154cebf086a87049f31de3f7a27378f992b151915dd2e3d5c2fea58f92ceed34eb0f2d57be06c458e50849790b6ea32e537f92ccbe3c2f31a78dbe3e7280ca79894742efd1d4b75f8a58a8a9ea53fc77afd3593534ae6b0be1f62fcdd01b7c0f95c2cd9a283ccb09c23a117a45a3925180692b143a69690887e46ff0f136654ae72346e6bbf59833dae7a4e2b1941622ff56c2fae1e1ac951674424f39a6112079be10491bc6330143b19689917779acd1853e396960a79ce33f3181409a4bcad32418829f03681922dba22d470b88ef21b0780f953184125383d987bd71cac0aa4e1c142ad9bbeaebd27ebad6f24cfcadbeb353399fd5252f132e006726eae47e100eeaa6da67dda73f663305532fe3a11ad19be6af3ea99c5c31edf7634d0edea130d904e3fee89ae9e250ff1cd71633b450a3519baed1f50ace02ca7c433303839209456f1b07e342145d75eca9e9cccf20f83ac0dee1441b78563a68a10c10afdc84caa0e52a6ef68bd8b47e959cf09f880d0dca67162283860645b53caf5ff810b938f1095519e02e1d475a8d33c6ccf922a1a9952e3c41e2a030886604652d1bcc23ec4591bdab506d35ee92b0c795111c14afe8\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "05172041486ccf252a56462914381fe4863043d3f6765901a3173454a24642b5"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 13,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='663bd7e21806443d1b0376227629f3cdf74d54b3d1427104beb3c6a241e2e2b1'  AND source_system='pilot:1' AND rel_type_id=8 AND id=342948",
+      "expected_rows": [
+        [
+          "pilot:1",
+          "8",
+          "342948",
+          "2",
+          "96364",
+          "2",
+          "96381",
+          "r1",
+          "11",
+          "{\"201\":\"60f90badb9e9b7a1bd413fb36c016283ed7fcfecc1b5a9681abca679c14fffe6b86675f47a232dbd7f53430fad1e3a50e443c87b5aa7436e3c9cc0bae7827a4450c3975d97df49d7dfdb934b594d4449720f36f16aed7be2123e425b5bab7d1ac91612c3d0a612495e14872264c8630f3615c3538b0e549d149bc8e610223249354aa8f1d0e512f6587e6bdb915239227fa769dfaf20379efb08df8c2610086c0e9dc27164d4bad77f659e5f73d6c5587cfe6f8c07137997d37ab2e4e120bbee9a2c372c79cf082dd8763fd1db5450296c19537b9764732b30b078b2074b5c4e0ed4329885d8a4725a486677c4a6c6272069fef115d979e1f9a8c7063409e478e9bdedf994506e528b74be2f4eda590eca8f42a72c634d805a9958879aef110a9117c03d408e046c7b5504645d05d8216b306ef84f72790f2e967821556afec8851b7fda9475d6bf3f5f9396eed43c210a3b9d4704b66346c6adc5b0771eca939cd37b05867a9d9a818863391e8be1ec7949852e658eff5727a45507f465c7eee40c5517dfb26d8d2308af2a112e9a5f86547e291eaafc8550c7e31846e4eabd0b2b62ffff31f0894c6d6cad2cafd931b2068754c05835589999f542c17dfb9b2391a2e66389c0c84b77d2560c5709ec2a7005c6cd72080d3e70a87c1f3baad62be84463bccef780e455b67995cb7372f0e583ac5443f7cd9bb141210e9ce79d78744a4c37d4b8915bf13c254fae9f289d912023712172bec38e80fa5d31c9348ed145b2732c0f49e03a0bbe9b294750b3d8a4b7332823842ef9100418d4340908c8d2df8289eb8dcc71cdcff103e74fb574475e7a004273566106ef9143f288080b189ad4a19b442fb591adf95c4c4b64be33f12559c88b5eb66c49341d2410e6849b4ce9f5a05db5c05b10e2fc59de5d947b3aedc3a675828c552064ef6c26ab0d2aedab4becd5c3e25087578871b111d43125fe60d074ef4712b532a7e92e1c08702e9e82a044c0e2e1664d2aedec1ec9a337667196320b8050fce257b7814028cb13f6e13b13ffe0571496b9d6daf31a3e7031566879ba80029e933c19fe241503395b4f127b4e23bce765262a14648b8f63e8e291e57d11c04e5734148bf658ee214e5a394c744c0fdb208d8e315c3bd5adde80a7f61d9b0ed671b548a4a8453ff8eb9921051784236da80899e41f41a3390b14d227d4cf41bb41ceb410ff3008479791d3bea5b0145516f78b3e67df0b681f8fec7686876fe65d26bf2ba10690271bbf782dd7974bedee206b82eb5fabdccefccb5118daaef21dbd8e23fdf50233f651d9c7ae456818955557e23b30459e89eee95f7fd5cd2a58f84e3740d037eee09ef9021520590bf72fed5814d0406bd4225ca3bc3086e19f972c4d9bf5a668d3aeff42dd82be4c9a625afc9e3533db28ec86dafe4f16c366c10e58\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "663bd7e21806443d1b0376227629f3cdf74d54b3d1427104beb3c6a241e2e2b1"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 14,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='4beded8b7af00c2cd6a16edbd747dccf60702b919c032ce1dd87cb051ccb9960'  AND source_system='pilot:2' AND rel_type_id=7 AND id=350867",
+      "expected_rows": [
+        [
+          "pilot:2",
+          "7",
+          "350867",
+          "1",
+          "45315",
+          "1",
+          "45332",
+          "r1",
+          "11",
+          "{\"201\":\"91f9cb6b03a32179690d6ea2bd11e69479b2865e52747378f5c7dc27e0af73f197577b42901764fc32e61f79c30e055eae7cace723679916bc5660de03d9ad27b955c33ab96a4ab9a6a738b1a822810125090cf320143eb017ba076f27e7d53913ca600a397e1ca59363460e452281e43d35fd187612a54b872bdbed14bc3376e5de721ffdd76f7beb267e4dffe0e094a928e2c9ec1db2edb373d291360fa9e5fee06d7b580948f5d7dd72e2a7273730c2eb02b098d321754a7f70782cc5d6a77a1addfe0dab66e7710b1852aaa83df913860390f79808a42cd27fd3c6a790d5099eb1776b1be600504d1f627d3cc7ffb0fdafa4161892d3201ee988b6b8e5ac246386c7ef5cf1bd72fbfceb36a42089cfa2fdf153b074d1d13eafb64643c71c9d700c513a45bcf729a619f0110d024bda2930f1eb2623f36d642d3dcac4fd06d77ac913f9e203b89a62c0d1e14ae772384e9d9e765183695ec828e26390ecb10f93e3e2d0506d47c8535ca0456091b6218d6025ca0a0e92890f714b419b18b0ef935cc1f6fc921370ce13811b8507f94ee37d984d536329e3927be5836a701a98f8847f2c1f5113223a92cc66dddf13fc05f00dc21049b51cad1f970ca913005298eebc9b7635acfa9b04e1a83c0bb35f68418baa94334c44e4e97da10feccc29631c35ec41a691f3d92d2682fea43796b2c5e1e13106e12ef753daf433b09b42f4c5bc46e391a94cc5b57531d6cd4527bdb9c207536cbc6737b630d6b16a1fcb2b4d92f5285d086e2c1c10eff9b1fc32ff9f9b07581a820ff6d032287973cab2fada062ade8f9bdb6bdcb4971b060b2bdf7cd79bd8be108f40bae6a58b12ae9fc980e3f4f0907653df4853ba224bcf082f42382aaec80beec260f3ff688b9aceb8041a9f883516cbe3fdcc99d43e3247d3d6fd603b7587dc29509f9083911bfa7639e51f563879a5f49d1d722fc177d8688900251afe60441ab9aa3f02c6fb8c8fb9f7b4958fb2479d9d013c9ac486ae390b7e12fbf37da2b99d663118649ab6ef4806f2b6b9af8dc5efb306bf07a6656788c90330ce8eff0cab2b8a3d42d67cef112ee8be48a866122a6039e507794ca68a5b0f86ed55b05aa4adb91daa75848743c83c5590d887dff78202989675c38edcab696711898cccd1f40b109999a3a57d3c2133433fa70d7dbae9e358761ffa9cb5337e7cbb392bdce289f0db8e01ad710a1ffc9579c40824e3e42416f411ec2b665843efcda7b09f61d36ed2809c1cbbd53b751e951e69db8a00ef8bbe5cd8dee26bc8c17aeca14b69e4e66e9a75bae75a9bb25274161fc48c7be84e462c3857b225638606525d15ed9b2a0d9796b5b54258f4cfce5e0c12ffa437cde3032bcd6b214e09aee88d17acdf1b7491b303e53e79105994a556ed40ec54d01d2c4ffdcf29f5f5e52daa0bf63db77219\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "4beded8b7af00c2cd6a16edbd747dccf60702b919c032ce1dd87cb051ccb9960"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 15,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='15405de2bff89831efedec78ea88dc932f2c7d35a928499fa091b38f21ec6760'  AND source_system='pilot:2' AND rel_type_id=8 AND id=358786",
+      "expected_rows": [
+        [
+          "pilot:2",
+          "8",
+          "358786",
+          "2",
+          "194266",
+          "2",
+          "194283",
+          "r1",
+          "11",
+          "{\"201\":\"15a25914d3da6f8d36ed2e603b9789c26eb55fae25f5d79c03c5d3328e72d3fefb504a2d19a0a5fd30b5da3138c2dcd0debbbb4c2fb31b05fff37e2c962c2b1d700dd513a258a2cb365aadba7908b6eb29c57f6409d56ec7b429d58323dd52b54d1a57794de5546a17ffe342af7613dad3b57ac41330ac000e135ab83e7821af61142761ef9c5a7f80cc2b5ab162f822772232fdbd6e36fc7a6173c347e4c0eb0cd331484e7d1ed7496fb90a3050a097ee62d504f4534921745ba231c999b2201fa7f9efb058aebac148c47df50655115db50faf524a05bbed56e1954e84fa99983b69bcafb7d7785fec75b5970b8c8cd86d6440181e47f48eabbab8580ed4a89cdcdd7f12054a74ed31e07d2e5535a9533365b4e3d64a703eb465d958e295ca4f772ca5e457939b17ff5075f88ed986b0541ca887c808ab0e52b0b036262532440dc2260dc17af6ce6420bf40d9ee43364d4ce8fe3c3a6fcfe73b0c92e7eb3b03409e80e482ea558f9aa53433524af76c6b46f9b6788b59c5797c5cd65f49a52d6a48bc301f9b9a77905ed5df4872727bc641c5282d0aead8c40a53e6b4306e1e4813b4db573b0b98b55fe06cd8b52b28c018b2ac561a8767a0357393bb0e184cf2f07fa44de21386fab342ec967afe10953d4927fe924e8698bd474d0fc478500b83c8e0be6f0f43e9e45eb981285eaf3ec1824ef9402a3202fb564cc52d602e21cbe3c71880441f78b373d351b068f309b584ce8c4e4f8817a036c978b96e7a983f6e3741f8e2024ae188fd6aa79defafe96b8d62068917658efc82bbb3d91e909bc3d8cf2c2ecf4c9f67b14ab485ab2f01eaf87e074dea99f17b238956ffc337003dfa56c3ef909c215903d8f95e26b2a265f57d1b23ba2a72cf58bd8d25a8fac67171970cdbf4bef79c35cdb59c00d619c7eda9b893aec2140800d84ca8e7e250acc9ba2c925ed8c9c1fb35ac997b48315a74b4d2a70027fdd25bf207e20360d9fb411dd1a5fccfa9136e07d285c28676af24b0b9588fc0adb9315801de130512b46c984beafddd46523b3ba497913b8aac60dc78079807fef7ef09b7d3905a1f488012afa64d3387c838f8a794516f26876180e5baef93bb7f84a26521089b217d33eb6a76d8eaa896fd46f78e273c90eb923f3596bac25871dfb137ec0157d90629d604c0d8b6887bee4569e74d629b1938c49a6203459969e8c522913afb675ef7ac81b83ca7fea9fd995a4e1f7284575220b43890f52ffab927d783ecad7f2a181c47588220629e523b5e0e4d292ec25b81a04859c271d9a31aad5980b76860bf9eec65802d66b0820fa67ba83e52e84a2bc6a69201f8ea07d65791885a5794986392cace6b9cb2df00eb03498e9332967532b8354dfb1362f6842e9e502da336289fdb806c9856c70fe84a35dfab34b04560c328d32bbfa62ae239\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "15405de2bff89831efedec78ea88dc932f2c7d35a928499fa091b38f21ec6760"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 16,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='b6211d625137d7f044f40278df11b74abc60239a5518785315930c6628766541'  AND source_system='pilot:3' AND rel_type_id=7 AND id=336705",
+      "expected_rows": [
+        [
+          "pilot:3",
+          "7",
+          "336705",
+          "1",
+          "73217",
+          "1",
+          "73234",
+          "r1",
+          "11",
+          "{\"201\":\"fa07d251193e377e17e1b3e7ff09d73f9b50c5399c029890e54f0e1793d69632fcd773c5355b6f1f85e73b9e22695616524478c207396a0110d0b652c516bf81f7cb760db0e41af26f00c717f3910fd8dae62b1f4ea72afaaa31a8e4425bf0104ef2fda8a62c2607813d61f3732cbee627b9c8513735826cdc4fe517b52a391e68d4b7a71572f982bf8e28d260f57c88318b5c3e3ba9e41163ed1446383e7d11b6ee64af68112d68ebd32caf80c7fc8ed6e6d0a7d525b1129bcd2a217338c12cb01919e587bf7b4e1ff92eb1fb570e6302016bba19bc9fce374227590552bcb6598e11dbf3d56ed04022234ce5d13dc0d733ff53b776eb05d9285196e6972315f7cf9c014fd1f7254be71bc1523197f8b379b9075192139f99c34bf594f34580a21e07212cd76eff58887bf61f2f9874e4af6655128d626a42bc5e35226949269d1ccf8aea207006e2de3398bddc1adc2340715db1936b526053fd2dd4de9847930c0ec75f54cb175f20c99d502a7ad98a59ac3e8108865a154b76fc1652c5e3146c68fd58de8dd3311fb15cd8f8ca0a10f0c788d0a267525e59fbb2d26eab8bcde9a8cb1831b1da509fb3d74527474378abdb29b0633d7692074d100184b858c308a58b876ea4261d5ba2d2bf493dc80f1429071dc60c5ea2e2f55555b13505feb519c8aa99eb625bb9aea069aab88cfad4470c63eceea8b91750beb36c51df18db67fdae0c3a184820bfe2b05ca503ca20be6539e3dc07b607c8d3254cbc27827d1024a6fe565cf05775fd0486f8cc5316dc3618f186c204ed29e87c6133f89db1fe36be239baa5254f3ed1ee9d018dc1a9480db003ef03435eb612a9f918605e57d16ad27c1be54a79143d8de8a918adc846c5fa9cf25d6de21cf33e7f008ce2e4790ab644d24f0b7d7831c93da2ef8125a64d90fc58fd81695f1617a2802cb5081d82fdda3ded5c242c5442a3e0ed94e39182b837757a1fa84801e528806789ba2c9220075e860190e1a821ccdf00e6c26de4b6d8eef17307029848afe6fa39a0d1a3607d2f568a6d720e0900d1203e4c21aebe6c7ae617c8f6096126d2c85d2b29a87e4cf3a5fb4981a0a76911e58f215f383db9a62130714ea8c05b70fa8d748ec2684eacccd02dd6c1e3bbf584e89824498d3f382057609b5d0afd4a968c7277eb3b9cdff4fa985e69dfa8125402e0896e5ff29acbaf37bab671ce75f6fd2803c030bfaa68ad124abc525950c68b22b6684bee639ffb36af09daca5e8518930f1b6e0b3bf6c389d10a01c13051bcbd882dfc47eb7280574984099ed3a9e88657893e04a23c286ce903f2bda640e63f6d235886b2741121acad4f54d236f22f97a13f0b1214feb24f763c62694d126841f017494e664f64447cfca19855280ced18011505698931d2393c0d53efbaa16f707fc8a08c169175d597ea981\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "b6211d625137d7f044f40278df11b74abc60239a5518785315930c6628766541"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 17,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='9922ea448895a8dd499f6c06e4a1ddfcc95112dc93eb386345fb455333654cf4'  AND source_system='pilot:3' AND rel_type_id=8 AND id=344624",
+      "expected_rows": [
+        [
+          "pilot:3",
+          "8",
+          "344624",
+          "2",
+          "22168",
+          "2",
+          "22185",
+          "r1",
+          "11",
+          "{\"201\":\"f5ef3a1a57c161326832396c3ecb747d16acac2af54bffb7ef21636912111b9c0835d77d1d9e703d5824aa0f987b75071b1288828c81a60fe8960e6ae99ceb8ead6cfba2c92adb0d06a8f0ae33137fb5fecda03976e317888dbcc4510633121304b025eb4207e622909005143d54ec899c75c6b455ec41fbbf225e90d4c3651dd945f7d23702cf3a01a6dfe3c39e97e2bea6b48c16770ae957dfde0bdd406d9b475a05c06a1bb4c5d6f845746d16e0fbe7a5988c3bbbf5e7c0081f84ea84fa5b57bdcebacfbe877fdd60b7e9e03a956fb6fe36272300d8f8a534481f144f44580a273f814e46b9e749e637c0f7b116fdccac4840334b9b98c74f7b9424a9a420e131047aa7262ecd4ea0ad401efe9edd4ea74c27601d27a9dd5cb86568d916384885ec78e3c01c8d5e8fc0662f5d4914e9a8d983fc312e51b8b7233db0be916836ed697fc1e1ed87bee762989c8c182d4fb66e7c49d449eff5021324b619a6ff750e5f97adb95ef9044170621ee2674605c2e1cebe5ef5fca6909a386fee33050895672a68c5ab7b125346f0b3c9ebae54fa826512cdd44a1574fd2cef40dcbdd26ce7ec4bb73a697709d4d57c8b011819e6e8f301c97cb4e58f892335380d9de22b2a830badfd344809f0de0be41d5480976498248378015a4ba2978e4be99a0c68a12278d74a3e41095e97e5cf7a73c7895c7fc7551b31d72080d22b1893205072854d286fe8494cbf36d7c605750ab34dd4dbd13dac8f5b3f3fb2611e84a342a7c523ff31e234627bd86759494156322c2ad84c3fcc384bf35ac65e635c0f8b08f7bf67cbfad1f535dec960518d0496aa7d8d978d2164add28742b5a3ce275fb83401c246ba8be073b261d0c7d678bf2762bce29a472fab96e775950eeae37ca3f010de174ff78ccf5f560464cfe46be79f7f021a3ceacb242c4b8bd7143d286e079cc87f1ff5e93c8884a82e5b6ad8e2edbdcdbf806814cc8dc8f28f8d4278bc02722c67e88a59237d59e9f6a546b1099ba91e2cdf12e0e68b8ab4f04f7aaf2e82bcbf90133df4d98e18e8d7b0eec045abec9ebf59792e7b12ee1d2df905ccaebd300dded77b84955ecc4679a69af21735cc650335f2e42e1f21e5cb24a4aef6e8c20baf0c00f266602523c3c83e09038749e15892b327276c8733f597b230126f97f75202f28168a69ae6b538ed4be181e12a971f9b22d36d2053b9340005ca6cf6d843a2d16c790e6fb9d5f2b0e6a28eff22db2a61789a8bd830102338118f2b065a7de2924347e52183e0299bddca7a7ed084801839b6837c716fb643ca855637d31082b3badff55688ebe1e69ed880256d54b8057d0f0cee575fa06938c298955a9732c4c1584f23a24ba6d4c34c33d6e46f6bafedaccd0befaa60c047ad616fa89919dec58dbb1b66b88fbc11f52573f9bf2730286197344434caa2\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "9922ea448895a8dd499f6c06e4a1ddfcc95112dc93eb386345fb455333654cf4"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 18,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='fc04ebe73724645ccd0a4b0741117cade27d50644047da29574a53def806e738'  AND source_system='pilot:4' AND rel_type_id=7 AND id=352543",
+      "expected_rows": [
+        [
+          "pilot:4",
+          "7",
+          "352543",
+          "1",
+          "171119",
+          "1",
+          "171136",
+          "r1",
+          "11",
+          "{\"201\":\"ee598b6a199dbc309eb66ae275221857ee0f9692fa4b029f94b95dbbe3643baeb0e3890c76ff6ac7bba28d6763f779781653c868f0df7f32113ef2e015e7991450b954056bad089957f29a3a45a36f69334d91788c03477567ca52490fc59e58f8db2b7bba309b953f9f88cfda22bc5223b10bbe063d8edacd58ba36197bae1ab1681bbe65da770a5f110112ab8199be892afbda8b23af973fa26486e7c0f0c8ce169e447d2698ed137d8c66bb520717960be618da0afd187adad2dd353c5c1dc85640ef8b4b3f2b114dc4c4ec53f08348014b12d2c2fd186b62b955762a86ec4f99d9c13aa92a51eb1da281f17e881f4616aba634341ad748a3e8c0e38e741fcd95957c40d896ed5001af855e64afb19259b1df96c86b38ef590008c652c3eab952c7226fb230281442887987f4baf07a10084d87158f0033c88edd6f031cc42f27912e97c7b0fef23f66e381b2808b89a707ad278c1f16b89a9debc154b984a8ef990ac4a08b9882c6863efd0edd47f6ba4882499514b9ba150a92a5129763d470131dc876d32546c9c76cd01a0731ed43acb954ef41636996ffbb44fc279b9f763776e2a9f550f12e30a6b33f4a73a7e938701bb5d73398ea9a642d87f297889ac7acb9e6e4542581cd8447b3694778f931c3d3ca19c1cb16b3d2a3ab1cd18d6ff6d593eaf595a54d352bef8336221f90fdf607aa927b7ef81adba3420f81d34bf22111c5489b500fe7641a994126df74b8e8b1c87723ed42f499f96bbf9f17417a9d96038ca6a6debaa6d3ee97fe2b84b55f1f6a8ac92487564445d337b4c70820e0bfb2916903814e013902168a68de67c78318cd24f89adeabf756c97309dbecd42d8b59c041edac39b1eee3b3ef7ffe4accc431982fcb3a1dd2f8bc1df64766fc8fd4a3ea0d34a11cf0625e26197529413b2337c591f0dedbd19f211cb3bd180137aad335ae430de4bd8bd855d6c300ac36549891b4d796e4d230bfa757ef065cee537d74434bb53299cf2acf2b1c0e97a79e4885a6a72ba215679690d7668ffb8b5920ba720c34a419fd412e5597eba94c91f63eb90be039d34c46dbb9ef56dc9a4a2e72c8066cf9674d79b684d5c02767f2942f38d9fe10fcd262dba9f7eb230412177c1673d50cc0a86727e4619ff8be015637465bea0301bca1ef4834cfd69b4d3b92a5675d810f013c5e74c5c4fba898370181852c410af854ca29dd6b95814a07a8ef7f1e0499465586620c0dec37b42a2c2f81f043a5de39a01ed30595c958c7d01622322168e865805f7122745a675f7a1c5e8bf8c6b0c82f5bc3e5da8b508114ec2b47d5fc7cdd999753e9bd0dc3fc2d80c13b25fa3035a36652996c0f35a2ee51ead309a3549f46ff8d0f7b5ff08fd65e01563d601eb07517d0c9d4c031113f8539015eccf1085217415e14ca9aa6cb5cbfc99260e96bb1\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "fc04ebe73724645ccd0a4b0741117cade27d50644047da29574a53def806e738"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 19,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='817d5904d619bb95319e801f663abbcfbe654c14ad8292b2c807b902b0b95b56'  AND source_system='pilot:4' AND rel_type_id=8 AND id=330462",
+      "expected_rows": [
+        [
+          "pilot:4",
+          "8",
+          "330462",
+          "2",
+          "50070",
+          "2",
+          "50087",
+          "r1",
+          "11",
+          "{\"201\":\"533c36105366032a23ac1dcc2b3ac86dad66e32fa006ed1c0840cc58d1ceea1c728c1fd6c5045389b184ff691d3b986bbecc3f806b787f6f6eff7b41771026f7a3059879d46f8991a5cc5f421746a1593fb98497553da40001449f26dea174dcfbbff7b6ba7aab5e4cc445e3f5da20ec28daf21aaea833565b363f5436a2ce226a6a404d4c20045f692558f408c9b2a9bb2eed5824309d2a717373b138d5c2dcf7048ba920d1d79eb7e5ff2fb77698b11086d1e4d00f194a7653e7ca66e2ae6554ba823950274092ad7122e048f4ba61ed3ab45672e41d69c8a0e026c670081ecb15a9f440d265debc94961c711f694d40f428bc291400e339efa1202cee0846630aa10d6270ba6022cf6528f1c3ddeb00f80e8f49389ebc760235feb4d28a35832e692253352fb56dc512b0a1cd0067c903d91901f87963adbcc73be10819d4e666a1171ec23cb9ba083dba360da0b9e75a78d4a52c5d16a468cead94733fa532ac55bebbb8fa13bff2a54114852e9f3c13d6a06f49e5da6f8e67a7c5cb8f2a9c262255aef5d8d1611684fd5772dd8b194641f8213177fb0087240fb087e87ee54468bbba9c6c41c30e8bdaa4dee611a9d65048836ea5594f9781d5593bc77ff08487e6c373bfcbaf4dd90dc14bcff968904dee00296f1f8e055eef2a0f713477e8316d7274f15ccf07fab40c86ba23ea92351208e4c70924c86fda4822eb9e08f71cbdbb4f06c7d3b26068e8481e8cf209f646770a3164c1e04ce60842e042c17e2644dd6128855847a8e0e90ed8872dd7164a651086a06f3c43706faacf3c3b72c4c727ce4ff097c8ed915e23d4ca7c57d9eac1e298a888cfab1abebb1cc2d7620cd4098babe815f219f2cd67ba232ebc20ca7e8c2c03bb3bd13492f17cb023a098865d7a66bdfffb0d3191bb8a08c629c64016a54d86c78155dfee1273d317da227bc5c7ac778f8d5f046697d6d61edf564f6f4d676ef04b038c13b28c909284f110d53ed93de86b507016c004929bccdaa45de9e1b5c95bb21f8665df2d148c4d1a4a3ae0612821c52976c8e09a1ffee19a2eff6e8a90951142902d83746af6ef69d31f134445ea3f70e7018a552adef17c3778c7a215d4ee97a94ee1e8cf0b55f8ec56bbe5f1e564d70a48668fad93bead79981bdaae2a83ac892e9b8963d2629656585eb9623d0f2bffd6cac4c236bb2faeb0046bc2698d5f6b0035073b413aa4ebc50c0bfea63c42e85d5a41689020c44b551543c9c1650dc9a2c847c47bc0f4e1bee4106221d76160604fb62ab660ceee7ede6158fbf3e647c8cc99cd53ebe241df2aa42d0c9f4e7479004be4985cae8d9f15d45e0ed4fa53c627605796690fe11881cfd6fea6810fab100ee992082d759a5c34a9ed25c3f35197f141beb4c7e208bcb0e88c47455de4b51a1fc09acd575c6fa617fa0bc6cc3be72b\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "817d5904d619bb95319e801f663abbcfbe654c14ad8292b2c807b902b0b95b56"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 20,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='d883580a986d6a362a682b93ba25918d4225797ba1511a2e5db897b80364b268'  AND source_system='pilot:0' AND rel_type_id=7 AND id=338381",
+      "expected_rows": [
+        [
+          "pilot:0",
+          "7",
+          "338381",
+          "1",
+          "199021",
+          "1",
+          "199038",
+          "r1",
+          "11",
+          "{\"201\":\"5a5c070aac444b81cbbce7db3219bd6e0608041bbb98e6676e0a72a0df694305028a32423a6450328fbe253a053ffa380665325a2cf2e303d5062264e0b0bd1006cef7e9032f2ec7d922b9acfe88251f2788961b0db9c0ad1d1a7cce4464aeb0e310be47d5dcd7963f44d905bd13068bd58ebcee1df0e8931455a4774dc645115b1720b2799b72204900c3c4c527e20c00c041301646feeea7ed5e95588eb35e876320eb2dcf044b131d72b1b41a4ceec0fd2340190f36d113de9f159c28ed836dbf73ebc2dd243689dd2af88d61d3640bce57e6229269fe5a8bdf1a503fcac773369f4a3bca433c9570c07dec5db0837772142d6a8e1ee3b53918ba052663dee8d41c4e231f8fe364348f8cfb2e05eea50ed5e7371863b763e155f618987e66d6f723cbd7194396d875ce7b2a600086ff7af7447b59dc19dbace8e81e3d456b66767b1dd68eeb9cf7a00f61f39940b50c9e27a7ed0c91b6c6486b390c0da63b043e7601513924e46501b965d38ab8bddd4dc79c2be2d8d0f751bed2cb7cae10d09bc4a8d829c70c38795baac595624e32df5fafc40692fe78cfc8e2f397145c35124314164318a4f29a07336c476bad5ed47e426028530a622831c69130cf48c96735c240d159c921a26cd6cb6815586cb0a3604d83c53a2448213a0978763cdda98e0796045b2738d91462cad882e474dc6f265e4d828e82b55ea43b8a9343c02531c034b6e53e85d42e24e82f102c3de9d2352afd82a2d19d45ac809432a67f04d07bdbe41ef678fe5a97719e2697baa1c261c6d78259a83b660a0bdf8d39200adcb5f4a10761b5c9479d6f1bf747f2d63ed572775d52c1885b57ef1f40bb5e234d030aac6e796b1a1a4ff980b69e8f9f499049451da3c359e677e9270abb0f1cc7e6c071f1a592c22372621fbf25e264ac1383f3073bb0585999bda2db81771768602d0f03050000d6f84289c9334a619fd049f67d2cc72860b5f92d77f82fb8f4c4ab0921d349f2c3e02012e1fb0d02d632d65e4b117bb99ea16691ef4d2af6a2c3291a23854226420857f47b32e64abdbbb94bf23840e6104f7149686b4b599b358f7205fc6283cf9a4b3e7f3cfb86f738cc25b7f0b3bf220a2a76e34574f676e9882c1184c6a392046df9068993e3579ac9e28fe3ac0e3277a8eab9ad97e86b2fddc1de8dae7508c6ada9b5e3d28b73b62bb228f153847dbcad95b612b120443c25b4fcf5932f3c78a122728f52a5f1dde276ac6cf9a53a5b522a1c98902c351d90ca6c18edfde01be9440f0d509a17acdd58c144cac3b30a24d024b3caa839febb632e98c8106a682a2a8ec04008dac524f14abcccf47c4fb11a5ccd919d07f150bb9014515b755cb5ea721a6d63f0b9382d53bb922ba49ce3750923eefe0c5bec5e1a21ef4df9b135096794880831bca7a5d6d1675278ffbd6640fb\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "d883580a986d6a362a682b93ba25918d4225797ba1511a2e5db897b80364b268"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 21,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='93a9dcbcba6927fd5b25b8f615d664a6073a0b0fef1991939e26369075bfdfd3'  AND source_system='pilot:0' AND rel_type_id=8 AND id=346300",
+      "expected_rows": [
+        [
+          "pilot:0",
+          "8",
+          "346300",
+          "2",
+          "147972",
+          "2",
+          "147989",
+          "r1",
+          "11",
+          "{\"201\":\"b833700368d6f7a20baccd469a43a217c1aee3ba27e213a745c4b3aabc1cd62c4018ce3bb1e4093dedb84648daa3be70af03fdc8d4e0f2adb41d5d07a9805d7dbac31c87dc6b9d1d3e950817746b7844c63d168ce799da65c6e228fba3c33d7d4f86ef271b9d8446898713c37a8f077b078bc479271b18e89f95ccf02224b6f5484dd709cd70b23648d549cd777b0c79876811d511ae0c6cac7fcea92dbd415cb295108c0f7d8a5ce62967b7f3e2db6060fe47109062d12c3745b492788a7e994018fdd65f315453459226431e1ad417cb022df555744d29eedc16a02ae6d88bd75c20158548048600726c18220652b3b595fb27d7b5f9150186052b73cee3804e48e1a04f452ddd23d2cf6dbe1d9e372923743f457621d07b76299db221761557727afb07b8781a19e95ace308b147eaa0d7cbe1b45b25be4a5411200b8aaba4c742628c48f822eec1f5e330ba3e20b9a4f3d6a421d8b27a4f04cc77ce046031012af56b148811927bcd19d804cf76e2db012010e90a69e7c55db2a0dabbb1f125a5a5c8423ea8314d4e8ed43ad7de47069bb98c784ac83dba2684d858de4891ed446d0a722377998eb01e8aabbc6ebb5989003f105f746945aeccebe6dbbcb159511b8b36e64a3fe993d473a56b6ec402e61cca6214902d95380fee08f6faa23701941d12eb3f91c1111decc47b716c67574e4fa1e2bd71d81e61ac4d9987836de412f5415b0a498f65f86bc30aaa0764ac3642c9abfa970a0dfa302786d1523cc4252e95fcb8003bd7d0f89024eb19223cd7f723671d9e5c01e8914c13f0acfe3007271c4d1da490fcaef8770874b3fea5dd0b0569790299712e5d4165a7cca644573b24c3718511fd666fc249f4b1d2bb4e166015ef9cb728ed365e1fb98d375f950f8ca8e720ce3a5d6190300fa33c7aa8a2607046127a30325fdb63f604df6b439a227f200304dcddee8ca0ea30582dbc6d7e43358970dc704e813c90b9ad37099689db47c89084cf71fbd2a31e48d03db1f0285505cc87e448f50613c09a677199d0e3872a7240747f55e881c2cce81e778b8ed30b5c7e931d120b0857c70fcd670670174752ecc14a69b0ec7b0e1743a961cd46a1cfd10cd5615c519fff1f52ca1531b4ef94a70d50df80ab0afea721fb5f64ab2d880548cf1c38527e75bebd3bd87e2ce19b8276e7aa9521fb337e998a6ea3ed2df851410271f2e1065856b7c9e7627becada08b67dd8d797a46f62cbad06ff262b5e7aec0c991a2d2e9d98b33a0b8c4ec2d91467f0b43d3f408944f496d0177f3f807d3bec0e93f3f099fc1691402df3f351460bc7f88036ce4d8043eca5edd3f7f9d01c1eb9112c0a5d9b8fbcd17e899e97c229314917e9b2520d1ba053830ce38be96b959e0f0052e0aa28a92c2777fa48aedd453e8cc613b8aa6f461e423b543110165aec52b9\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "93a9dcbcba6927fd5b25b8f615d664a6073a0b0fef1991939e26369075bfdfd3"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 22,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='722bf99c13831fe3cd6ea66ff5d9cfeb3d0546ae3a98a00f15655b0e9aa4246c'  AND source_system='pilot:1' AND rel_type_id=7 AND id=354219",
+      "expected_rows": [
+        [
+          "pilot:1",
+          "7",
+          "354219",
+          "1",
+          "96923",
+          "1",
+          "96940",
+          "r1",
+          "11",
+          "{\"201\":\"a41d1c3663f443ce1124b025c5cb1ea605adb4f0e059fe31270e9da899da49c2dc4b5d77233a59ce36567fdb5c93f469fdd8dee60ecb92d369241510dd4b7879ce5fa000a187600393d76668972d7e28c4598e7cda19c9223c3c7d9cc2effd9a5e0362a9f57df63d50491a61354caa7e48e3c6714dad9f0363d9a315b70a8d07b1acb959978a2fc798498af022345b668dd027a3e5e5ada45d70212ab86a4b0acd8fd4d9bdc1d84174802e5350889291e33e7a6264931000202d8a04c1724c4195489810373151034c6974c84c0da2bb3caee6de4d69f518f77dd0d17af2c81ffe7da844f935ed80c292d11c5ab1e92f7d81f0e5f295ca6fc6a9777693a4f6860bef5cc7ff3d809564177af51401cfa76bc9f1cf05d6f9caca9a003b9ba60c9c7fbec6a6777e014f1b2bdeb888231d10ad1228598b8809876914e79f0fb85e2de58c0cfd56725d8d3d1e71d5beb71bb7e685dd73a3d1ee50ad46d3e651a5cde74d483ef081bcbd12ce37494eacbfc750bc45a091c362ccea691e64cd9e6058ebddb80e3425fab943dc790c4263a7b631b6656ed839faadcc1bdb554761048b75e783c4deccfd16bdeab11a216d2d02125babbd8d46beedb6ff1197fa56830c871db7e0d7a18faf5c495ec44a0a5906fea3bd021225ca16cda5325dc7d874aa20a40677d1cad39cc59aa73c770dc5dc2de64b83e4583c7cfce14ab1e478a887a70cb975aa35fc33dd656ef314cff6c1923d398d57314c0a907b23960535dd64147e0bb7716c26e889ee5f78e3881093fcdaed5601178788454c9d0e507429ac1de8bd8a8a9270ba6d922360883c371e81ff8e1cf0d71d6f6c4f9c0c7bdd1c5874b6ba67cd1aa7d1a18fda861aaf9e6349d9c26c1d04914ca6257b24dcbd10977fa16dbb405739caf60ff99e0cb995e7f6173db226738fbc20915621f3276902327302720c4d5ab5ade94ef3d71a2515055ae2b42fa60118fb1d05d31f8bbce1c80a975750d9384570c56cd17aa8a95433a394d64c8f1c98816387ca49ce005183cab20d23d68718a5747197ca513ba6628ca5fca6717aa7aa6177b2f4aefbc64148ca7cb31820cef255e1d9b522e7a2814b5600b4cd5c785a1e606bf26ad41a2baf5350234e83c06e31627b7a8fcbaaa3e325d3bc0a134e5480eef2779be54caaaffaf739784f26324c0c45ef7d40bf17708c9fe1b82ac1d0f41656811ba288f73037a75ee7a464090ce514c2184dcdf3e044e432d8b988a51e1504101453b5d4f3aed51e7af81b26e4119db2b0975fa21839a41e8b4fd23d5cd8c8ae3eda9d2e46d550e600d9deed2d5eefa97d6c8aa1c48f35b4e48fd0bb415dcf6b6f0d7aa948e3d65b714c85e4f89103f498e695aeaba81bd156ab8580808e6a170c885b2cb4a0a4bb4603179a43375e5b5bdf5562c76401f76e51491b236866285187c779\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "722bf99c13831fe3cd6ea66ff5d9cfeb3d0546ae3a98a00f15655b0e9aa4246c"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 23,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='63ab60d3a2ce537ca0b4c4bd888972c80799d2112df3f86c1277ed92db887571'  AND source_system='pilot:1' AND rel_type_id=8 AND id=332138",
+      "expected_rows": [
+        [
+          "pilot:1",
+          "8",
+          "332138",
+          "2",
+          "175874",
+          "2",
+          "175891",
+          "r1",
+          "11",
+          "{\"201\":\"c8724e38c642eb218a23944512fd97ca5b1a3a6ef878e214b6c5c58caf6d94d6a3e289582196327de1467b2cc69832bf20f2d1cfdaee87bd89616dcaf2a60d50f737a5f9c3750b78ca4fd5625961d51027bbca0668e26dc79c9033c05522cfe1b1a820261c3e350146296ffca8d06bc766e98dd2fc873ee7b47538ee5fb726b5fbab4c5aa0409df2fa697b6182a01b192472b32eecf2b617c599dc17f8ba2d9fb3d3d5bbcf8f976ccdf82255ccfbe1a00dd69e956ed770654975311fe416db778000f9a7cad372c9809ab0f7f8d29fb5ef6ba37b5940dac52ec489dda33713623b8e47bef893353b52b78054f586cc0af35f5bc28cf4b84208635a07d409e0d49192cfddb1d577e128338d6526203caffbc49213c0708fba0e8f9d8e10d4d9fda95935b5cf9b40341d090b2ff402e001e62bf36fb9ad368e4c27c6b3cf6b10147f29b71bb5ef01d6a190ce3a470ee562942f4b34e2c6838b6460be470373ba942ca0ddb8c519e7137df7802bc815d53e0a605a10be71fefc1af025e0fa955652932437b61e9d9fc7e8c372ecd0e41d91c40ab08f93f350e00f50781576a66e114909841e22965b9c702001cd0fee5d6319f750b0ba083720307e21aea6ac6133046200476e274061da377f4f6167abcd4d7d6c1278b88ad4c96785971db06b9f6e7cd375383e332a739c5e8df82b082a4c13fcc63bb4694ab89ad37b2acb29078e998f8b65fb1ec7c94ea404bf881b83c2f9285e320757a135b7e6cc7f390fcb8129b51701eca99166c1ef1d70851424a8e97b7d484e3d87d53abb5cb58d879fd68406a7787ad876a92db05ed1cea78e5935cf52b7e446de0f908c76c9062613b76840e7865168abc14e254466f42f518b792aeca5f3264480de078528309b6379347b94cff0438e54edf416768771db4422cfb07355300fe11b261e0752af98c44c7ed7500604f520109864d175619a994b246c281093438afd4b106ce3b21106b950d9ff02721341ef3167da555fee44dd555237d51f2ab609a4a683f6e0fa24fde49ed74283d8f5e46e2ec19e7471229c069c31f36d107d087a2eb02897b1e5ec3e8557d6d9b0396ccadaccab29dbb5f83d7ba7a01fdb9f8f79788ae5ff50f1f9881ef23eab6eac3d6bb59253d907eaacd46fdd0194555342bf84029016eaffe4b5263fd565e0266d0fff9de4a3fa075e76a1095db484043b9cc2687dad7d326dca72a8a8d2726e3debbe9f678950e5682059ca77c2db6ce2bc23be309e491dd0f4e74ede87a8e5f6190a67cc75444d23c2e1a01807cfe2156af80d12e7880b05a92c58d4ef7717b7b3b9e7c96a11e4da1574327d9a0182d02526c12be9f5b30834225d64bebf3a7475625697f2df0588800db8749755b5c29d689072e703887066b4f6f84a2f2d66110cd23fb794462dcdd3145dfc9d62c1de237267d6bd\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "63ab60d3a2ce537ca0b4c4bd888972c80799d2112df3f86c1277ed92db887571"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 24,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='52d7ad056cbbb31c8f6e434c98120a5483dc5522f96a78deaa203782cf0ff7c1'  AND source_system='pilot:2' AND rel_type_id=7 AND id=340057",
+      "expected_rows": [
+        [
+          "pilot:2",
+          "7",
+          "340057",
+          "1",
+          "124825",
+          "1",
+          "124842",
+          "r1",
+          "11",
+          "{\"201\":\"45c93c00ff296d0bb7d29d329a21c216c35a6ac623e8f6ba7266620cec47abb5e41ead1f585655546af84bc0bdc9650955fdd2be77ebaa522a4857bdcd9127e26bf0aa92309b2c605e071b66e1a77b46854083ae38331d16496ad54c1285bdb29cea20a053cebb07c740835b65fe7170967e5e5b54b5dc4d41cac61190e1f300dbf3eb1b3e8e8c3b699cc7f35f78099275fd446cc1b96da20df9badbd15b31e0d72b9729acac68ab30f0efe384d621d4ec66e610892c04569e0b6c6eb3d8428a53ea1f04dbd8d40244e8cc9351b44998470e35b54e75e327d3c2a7d1c4cc2f46cec4e87bc1c5717c60aebf69b6b270348d811ddcecb38658eeb46fa26653367e9105812c6211b45f2b2e6a5dae2d8fe70e9560d8cc238692c05db12109cab8edc9c81968eac80e39d02c630db2416f489cce398ca59c24d294ec71fb3bba8eb0dac157ac83afa7dbc96122df731e2e41aaf2e74b460679f6e39c591b95e70635efc68edb0f25ebf2c17b899bdaaae53bd14d6a301f0a5648fcc31c49c2ca1662762ef4f010848f19517fcf05b81f7abf20fd0c88d3e38af444f1702adb819f9d50314d264bc3db04a78f851e9f9936620b26d2a482d5374f09b8e2e906e61da18a41bbe1496af419bd638ca7ccf965a323951b0d56bf2ecac51b066ff43ddd2714af0fcbba44a754e27f4e7ff236fb0c17255e6cf636fc3983f66881a8d9992cdbd84e95c70b27e175d39a5b671a22d0a8a14a3b7569c5d14ac68d3f2c08d53db33e16692e11e0c50b4d8788de9caa53e82036fe63434167a09851c267f6ef1ab91707e7fac5d6f18cdf4ec75943b5a297502d905f118fff7681de5e4d0b8ab962ffadbe0c240455ae7e8ffdeeb4e21abbcc326dcda345c2bf50e41ea2ce9b0317ca57dd97240d81e3f5f91e7b1832f01bc056f4207c99a191ba7349811c8102092e310f50758f3a1d51a1556568f41c7a2659fadc3ffb2aaec2e7143c18757e194e6c8cebcdc9682ff073d7c79343bea2fee65bf2c7099400b3be5c64c661d9a57f456390b7eef030763b9851dcfcc7308a3892f442bbfcf745e954850dde128fe681480b4e1731905f70401a1f430d336b2ea771cbc3e66f17a867676c80afc6416d22453be378980289b8b1f60d862e7808f01b5807a712cc665245c46f26e7f33049aec3ed402c25c810763ef0924215add94d8def4265e0bd9cdd538a77b145ff55d75945b00742d8198702e80ebce86c17ac43efe5ef2cb31773b69749734a084a72d67d36d46bdf613bfb836c4fcd31182af0010f38b29cc7958957a7fb93acba09608a4c8d8bd8f73ceea541af0e467eac113a4f71aeeeea639af6e6dbd74bbae8cc0c4156b2c3e110444b9ee84f5d8b3988cab73d514ab5e172fcef96cd64068e2ec6ed4c625ed843f21dece7c923afd7c0ad112d3e9d0c4e5c2f3c\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "52d7ad056cbbb31c8f6e434c98120a5483dc5522f96a78deaa203782cf0ff7c1"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 25,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='94713f8be26a8610b98a37c220260689c8ff584fb962ac0402a89e3767e0048c'  AND source_system='pilot:2' AND rel_type_id=8 AND id=347976",
+      "expected_rows": [
+        [
+          "pilot:2",
+          "8",
+          "347976",
+          "2",
+          "73776",
+          "2",
+          "73793",
+          "r1",
+          "11",
+          "{\"201\":\"4650fbe7210ffb8953ab16552982f16f88a2f4686c9799a1735a2cf1b1e677c11f3cc3dbb6a3ef1aec433a665cea724b08c27bd28474d2b2837ac41fd078476bab190478b1fd3e31ecd68ae0cca569f80f1b5f0def1e61cb24a4a720c43e9fc7b9f7056fcdd589f3953ff7e394dab267165a92ead2271b25dec6e028301b120e7ef325096338c052b43af3ba190b210b2561b1b6ef497b461b93d0e17f5102e1a4daf96a27b6510984b7c3cf30bbb97f5c11903d6c67d97c74614c239e65434f599fbeb04ef1ce63a8f5a8d19e32e53c17ef029ed7b0f1ccd3462b0cc3d6f5016946b58d344bcc585d924389a0333f43fbedec38023f40064e0f68dc076b0f5d754cddf06176c19829061184f33f32df2a4eb7d4db22c7a84222fe16248f0324105d32835e605ebfe87080abf734cc967daf105dd356ea6f6db18e6f00fcc4f7577e42bcba69eddd87e9dd3cdb109b16d2e3c6f1ef5ae05acc4a06d1215ccfaeb99261b421e0ddcc117b878d265b98b5458805cad8aec43913a5d1448f97a4424305b49e222957ead7e9d5ad3cb4c8ee0a8444025a11cabbe18ec7c23923787809adcf795f28aed4984709b6a9f692e118b90ab7b6df20c664de08de8ec31660dbf181adb5d94e0b58b92163b0305e5584395b3c930640193f547d2b25138242f34246f6f176bed1f288ead3fc15534429fea1335fb513487331798c935c2642c5e83c4a09fba79f02dda79fc03fff817c3970d9ba7632bcbd2d77b0b91f0f23ac4bc611f25272fff0fe6b190317cdc1495342eb4a85443288ade9a9ab7c3514ed14ac2e2c9cc4dc9b2f1e73994474ed203fec4e06bffd877311a5f38600ec1f7c8d263eadc42bf0e6b92cd9a228dc6a8d4cf72da8119c3cc7e5ed8c0442629fde9d806df9082ca71f9f162539622c4c2d1c614195bcc098247474228785a2a5df2c212a823e6f343e24dcf6dfcc28b1effda69a96f41c4c5a2c26789813df390562fd8d75dd7a4f2ee565f81f20cbc8299cac8680793659ba79ab7a2256e81cc4edf2705ab3736233fe9845176a4f04f6ec25b5f8bb77139167c9f138b61eaa64a249b27149f9b54f1bc048319fbcf5c7cb70e09366887487b262df3fe90b756155a746e4f7ce8501edb12e3cb36f21632172dfe24be895b99a72edc62c004846bd316e0c0de1caf46b1911b07732602dbcdc376ce856e2cb81f740b9a76a5df95d2beb35e0312ff1fee7423e677b4dabebd665c2d75f7dfbf3134f6453347798aa903573b2e83a2b267d90c0998f183875b2ba0f86936e4694ece609f2db1e370a04dbbd787cf4459332468b3bef3f3d6a4b2bbc980f68ac0535d2d48ce7dc6871357d6f3041498bb2e2d84f9f1f147455a17c519b291f8534b5cc9d5623956ebe397531a80c2170ef8621d2c60deab269b4dd7690c8057dcfa06062b4c3ce\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "94713f8be26a8610b98a37c220260689c8ff584fb962ac0402a89e3767e0048c"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 26,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='e2a2eb3ec093de6dd3903ac5945a7deb92e4406c10f877d02cc478f5b23be597'  AND source_system='pilot:3' AND rel_type_id=7 AND id=355895",
+      "expected_rows": [
+        [
+          "pilot:3",
+          "7",
+          "355895",
+          "1",
+          "22727",
+          "1",
+          "22744",
+          "r1",
+          "11",
+          "{\"201\":\"4d3a8d1d3b21086e96c4ea694056930e870a6d1fa712cfb7c0de7401b25e960b97cb7080fabde10b0a23db2c37d1253f64846c56c662ad40cb6e177e93c87e53527f04d380049d924197bd74e0f57f3b59592cfd7e0c9812d8a38112b8e3360b1725a3596d9d86f607b9fe72175cdef90cef6e88bb404eba686b82e9d6f97843f30904747e9a8cb05cdade2cde9a71897c0722c42d45d2676714d9b2abb795da4c7278d67aa2155d82dc8aa21ed9d6fe2c22e0db8e1ca09722335330a2172845d2b0dd1d578e59961c16a11b0da166abfa128808ebf66a06c4f4d3ce3c1ac0317dbf3d3de1c07c5d5595d59bc27d4664081c718d6d6fe048067a52ed0f2a6f474e6d727f4c04cab407efc62f7cf12cb28e3c3593ee7e59c28f474f3747d13c07cf20638a36052bcbcafda1d9a76c91a8cfdc2f82204e03c94d71cef4918f916307153ea7d6c023eab6b4e6faaca41285ce895fab4b667033bb501974f15595d2028ec5092773f5981697065f8b720ab6dfa06f74386435646c8107993cd5cefcb9801bbe0c14e55f3aab01a0b5959fbf5b44e74b24f94d39f1a01875a8b1f5d31d0448444a3e35d93f6e76ad807c37e205008c086f6792b9d2c01ab3a3d5bc75c926a3016cd081c45ccb2669a0f65e714f5c0873d559937268dc01b989aebf1b1b1d8d9c7d2030ecbb988e5bddf12c23d0ab4ea61eddfcc522595e6beb0a7645ccdbd67ed492d4bb4c09bd2ec3428a36887aadbc2f3bd5e4bf4e291a821e0635baae32ffbf029fea4260291b05e13fcdc6b0b07806acb000961415594aafd47ef0f462eb7f612e179886e7a92771ef5cc8aac9efe8ed3fcdfd8687d4a0746d24c71027ca951517531bb17d7798b6b9ca373ea87d9ea4dca7afbcf322f5c215d30038d1713b580554bc04611219bb4c7b1d3a62006049ba90459f08759a96edc8f1f8b872801cd6b973e310948eb69808a1cabf2273226d155aa817c04a79a1c0a0cf0fc9c3b0b3bdc390f3daade7be17ea4bfb619b96efbc27e540d2ea52b6d243217f537fa3bf897b36ad4194ead8a258dcdf5c277c12e816b2e7285ba29d106bb30227696898327984230f32dec3dbf8bc9e933ef9cec8e03ef7c2b62401b081afffb087abec8e52b7ff1327a0e917d1fcd36b5c7db9fbacb08918d6ba1012b9aeb056267cc61e6868f3b795777c78f3050091c76c2204f1be6b1be3cdfdbcd478b2c95577f818aa12d8d204c5631555377b0fb4e53b0b3797e5b40408513c229ee1028a4407fb0e0a24fcaef5863959f27222b6e09eb13cf507a33e528418839570fecc4b49c1a3e0dd12746fbc0f022ec94c20de258ebc483fbe2ba4f4e96ea5e9c48c823f85b91ce4a28803f3f6c323dd6d7934c8286f8d9f258867e393a9b100b13615a73ca2101b8f78a2726741021a8d3bd9405ba63128b12d6e4ade\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "e2a2eb3ec093de6dd3903ac5945a7deb92e4406c10f877d02cc478f5b23be597"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 27,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='404af576ced720108ba3e60ea945751ada103182451984fb9ffd4fd97f8d9256'  AND source_system='pilot:3' AND rel_type_id=8 AND id=333814",
+      "expected_rows": [
+        [
+          "pilot:3",
+          "8",
+          "333814",
+          "2",
+          "101678",
+          "2",
+          "101695",
+          "r1",
+          "11",
+          "{\"201\":\"1a81302c50e29e127373a89be97515fb868a5ed3040de36c84b75575f85bac4814528a609455da99474b70f5a370a41954b740cc4bb70d74106e9222cae46a3aeb67441dde31046c3bca4829fa72f01ca4412d496881173abdc3e021b89aba92f3ad0e4b9a740842a18f567488636ee8f0395eea2ce905e83301c5f2e4889c415cc5e9a39722c201c5cafef67a560b8e18a11cdca3859146cfbaf9c92b001903f7153eeb464fad9428ca2dedf607edd028e5a851231fb6cd9b24682b378460fe019483ec9b27b8a8290ee13dbc2cd208c29c217e9efd3688a77f1e537adbf3369a24068ae5309700e9cf7b6ee0db11ea8499dcde7fed32567c97f5d55471d36059d1222031cdeec87a3f0e2558a3aa915aaa3ea7c77ddecae733b913c0d9d6d6768d286ff6a787b0da28d2058a404555732bbc72c3261c97862d3936d0c97680cbb9c12bf486abb4e970a09630abe7c2b62a1084cd417ef34d9162069f6f2428c5a23f69d081e26002346d0f5172574b7671f62460fed35bff50c0f94a809547e7e9438b346ad325ec0f8a3b1668f735ab9908a68573e0aa7f5b0e00ca3f02ef83e7fac907f01ec22d0772ddfa843ec11b229e8c26d7b0b65180d150d7cc6728e84ef614c305da67f6fbbaf3b6e4fcaf0fbd58cb558bf39b9d6a2b02f767c4939c8020a06a787bbb46448bf03a0e34e22b0d7b7a14cb778dfd567e4c9e8a75dce17e235c5f3bfc9dc1a52e2f7b1c8a58cb60d1570d2f8b9b7910de190f89eeda691f072ba012f744cd9a3b7fd448f9e0205fce0fa8eec9f1420a939728e41bb6e87fc9d891d8eaf5211082e13be60a12dda5e69c1055e9e3854dbb50b944573c52c4d2169182a5a87bfa156a077cbd27a208b36738e87e2a166cd400b824f56481d3ef6129849fbf8ca23d49dcceb73db73a7cfe80f43e4c46db14dfbd9ef7dbcd8a2a7aa9e92a67a54e61d7faa29d7a3363115fe9c93171dd4ad20bf4bed3db1b157c4ca3038b6259054f7df43b68fb3b9e6a3bbe64e5a5f703bddbfd3b971966bb5a09145bbf83c216ada562f7b0430c6721b168694e9f713e41a26b56b8ff473e3dc6b1cbf0798ec3bcc2ae4081d2cfd8a76e03bcc71e5eac4ac97b535ab656b251ac6acf04440f6dfe9873db41c184b61fef9d79b08c0dd7412719ceddf03023c2b26de5a4acf292fabb9789236a86127be4457d3e4641b00c3c54287dcb195f71b5b3aed1c4bb04ed7eba6505774f203ea029bd5e1b49688d416729f926ed972a1a6ae69da1efa270140bb54fd9d59654df1b1e580850bac8d7ac45f4e2d0936e7eca6c626328126adb398a5abd1032717947bd1921ccb8b1708d1a2debd4580e78781b5ba558a0335d68a63baf2aaa6a84585552d43217062cc17fc62332bd321bada2fe134c0b06d3e9e6c82da4901b118b4672ac389104966079c75e\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "404af576ced720108ba3e60ea945751ada103182451984fb9ffd4fd97f8d9256"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 28,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='7db1a95015be55dce0b1af8c81587eaf8bd73e3e14d3cafe0c17323b60606c8f'  AND source_system='pilot:4' AND rel_type_id=7 AND id=341733",
+      "expected_rows": [
+        [
+          "pilot:4",
+          "7",
+          "341733",
+          "1",
+          "50629",
+          "1",
+          "50646",
+          "r1",
+          "11",
+          "{\"201\":\"f824f1085136d6e37c1254beeb2a4adb73747c9ef9df18befe7858b2b4dea8cb07abc51412640090548786316ff68ba212b44c9a981c3db25f5dcfdfec6d5cc7a5f41934ed677fc3bfebcb2be654a77375fdcdd2c08370cf28256bc377dd931b62c5a60be3733672ef1980eb8b157402ed66fefeee86aaf8a22b2e4648037045e8d34f06cf7e71843a197ca9fc9407f47708cb4ae89203979d00c448108bca12c9df6957c42b8d4aeb906c32f8e365787d7351df5be0caa92de554d865e34322655b077a3c526f7b206c9d7fb700792970c85611ed40d615d5af7ad7ab9ac742d65a71bd377cc8d9f6d7d48bead965360ae1bfcfe7d990c5988e44c66dbb3354055b9dd4da69615d1eff8081f34ffe7e6793f083a4af74f8be303f44da44d86fdc6502a3833a9c5318b311f813d33549e485e3327ffff7430f5725a5ec5c00ea82044800b2ec64179ee338af6be7d5dac7746cc5a23f0baaa2ec6965e11a2c047798ebcd3ae927655bd18fa4f853a2753bab806ab92c71732f3b1ef9eaf3d3ef528c9656e3b45a42a0f5942401b36f2fa7f8d4b5c4db3f34803ec4202268c65b519e35721e52fc0ab4eb53cb73f26c835a404c54a8e3843ceeb9b98e88e2a61c30ecce0b7d50147442d6912bfbad329dadcbb3259f5f37acea8022dce1091d456b701535b5f7561fcd85b9f19163513018318b356c0b24c37609f62483e8a1909b1d53b3836847297fdc5cccc45aa6cee1da8aefdc4a90e78c03891c361c3a0ba470470eb92c213a873bb522663936f0f030447f14da70424fbfe4930ad957d31214d70c196b20323a1d3185a71535085da28c90b90ec144c9bd0e11778a477f880bfe44560a5b251fe317204c0bc10101cc9b0a1a0810dfce3fe1b4b86c7061066ce3bb04517269acc5d78e24c85e5bf21b2965d08b5757d606c8b40cfca91ecaae357188ede3f57e0c6896fe57ea34578229451c08169322fc69078d65ad592f6c6f1b7112a9434f9984233925c1ed54bf7058560ccbc1a17ea307b16a9da63c15b1f6a823cc294a7e33f44e793c7ae0275dd655292aded799fde921c2dd31e2139618ebb5e6df1e7f9095ab53f3efd32042a0bd963afd0047f8699da30cb2322d63b1096ae767d127057869988849f98ef7ae9c1278871762dd64bd48de177db8fb5cf23f13758acdd8e4d47da0d5f65072a0247b383a79aa0a42014893c10c4b62cc0132bec42586ec7040aadda7913abd577e69856d524bc89882330ba7b2ca2dd383617b898c035d2727c0aaf18da95a59e2d242e5a246a0515b48f6e3c11ca114d01998109ba604296a36716a5a7acfc774f97cf144289f41168f8969358aef248bb62c12e0901ab8bb232b1e87e4fa8b9453a108956d76feacede4f215c909e887a94c1582a9680e45a256a5afc716594578af525370dc911fe2c939\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "7db1a95015be55dce0b1af8c81587eaf8bd73e3e14d3cafe0c17323b60606c8f"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 29,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='c968665543d9e873848676fa1e35a65af8298cc081ba2758883fe5c95e29989c'  AND source_system='pilot:4' AND rel_type_id=8 AND id=349652",
+      "expected_rows": [
+        [
+          "pilot:4",
+          "8",
+          "349652",
+          "2",
+          "199580",
+          "2",
+          "199597",
+          "r1",
+          "11",
+          "{\"201\":\"8ae7697da9e17a28538ac4d063f7542505065f4928a65c394db9f3d237056a669ef65ab54bed9d1711f2227148c48770d1e50175fe22183d7d8eeb4c1114e2468aebba7530d0321b8a5d898d0be463c54312e29e53dd8ef63aad8efc82e12244c5dfa03a1372f071328ff35eea556bb630ae5b1f57478f4096ed1841b0585472d2deaa82274e995a979a89a221e1d508eda9527f0adc9fbae4ad393dad049dd655da3535df66370e86ef25b807fb3cfb2ab30e4e7e317d25aa68d93a97e7e32a7eb87629b28123b3294eedcd3b78be92a178be01a9c4c6619e191fbba8c389cc18f76ced9216971cf19857a137f1d86980475d19c4df230b636b99c92b9665634e824ccda1591aa4b492cf8eb1840ca97adea13a1fa957d9b49d25e89c286a711c5765617a02edc9036e8dd6f2e70ceeb11696965878460376bf6903fdc061e4894084f1485537c2eef656fcfa3e32a64e9e0a6166d81b0d6a54711e62d0788a7220b249411377d0a11a7ba2743da1ab3cc26d90ee692fe63741dc16900d2ce4d898fc7ed0f1c5880c71d6b40d6a7837673569dab79e4052f57e71e568977455d4ae87ea6730d4a1fb9eb20702036eecb532eed160a7fee5a4f83cda4022781e9b7d8feb46341c1b6b954bfb912156f82ffd3ab084c06cb2183668481a389bf03c374f6d359f2ba17cf08b188ba74a0ba9ceaff734cc6b424781525a4a3243342f3bf7e5847952f4c3b4d59a4da4d0cebe4263650c10bb076507fdf0f064363252e1ceb5113ffc278fc4807789c7b82e1719b94ddd6f0c6a8f8f611c7374262777e0315876620a7d3126277470a780c509bf40384e5c3bb300d4c2882ffce4ee208bfed52b53d14ffa6a1f806ddeb5590db83a0c3f99de98f0cca7efc4bb1887b70c8d8139776be1173e54b59147a4df06ea2b729ca2f649827ac35dea15baa1560118c9ea3d704248d89ec731db9672c291c97bb26c947962669cb10e1b39998699f5c15e99f882db5a5a33c4bd4181c08ef11818b019ef7cc27bbde033530f91f6e2ab987e8df1e4598d0c354f1c4b7ef26d38fdb8e0d35e12bb2a71e9f67f6fe3bb766da0870ab49b3afed59a8a38cc4452e3a43e691151cc80e6501dc05e5c5a05edf0b01a65645a6c8faf3ea295e2f273cca384b61d13e4bc7431195b4f40ebb4a88a3f00a2712147ba8fab7d1e2e0aa97727e2213de30901d3ad9cf7b2cc046211895daa86b7ee9c838180f7057d6546c3bb1d3c74cfc8e7bcf169ceb6779803f50cfb1dc972e69f0b305f156ac1cff09d0949257526eda48cc5e0c94a5e958572cbc470d031b97cd2a57e44f0cae8048a005a965ad47c21df19643ff44b89c8a6c10b533e61ed15cb869e2e95feb92ac3ec833d56e61abd11b4fd8c695acc76e3e04f5fbffe54b44eec69378a3eb88bc2cf04a4863dd9efff5d510b02\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "c968665543d9e873848676fa1e35a65af8298cc081ba2758883fe5c95e29989c"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 30,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='c07c7178222d4735012cf4d35c937b2d5790d735123d3088163acec08c1bba1e'  AND source_system='pilot:0' AND rel_type_id=7 AND id=357571",
+      "expected_rows": [
+        [
+          "pilot:0",
+          "7",
+          "357571",
+          "1",
+          "148531",
+          "1",
+          "148548",
+          "r1",
+          "11",
+          "{\"201\":\"e60998848dac587ce4e54a7ae70f8a47bc3749dfc6de72b2bc2331d41b47f8d6572fd4550eeb20198f7165f86afea1b556f34c5d12a35aa04c2350232f147649cadb5ce9bbda2db8733eeab3dba1502100d83d034c040163c6525efe90e4774f285dfd7ed7ba3f43dfb8a3cc2fd9324dcf3c7f9cf0d51f4ace44cf6ce48aac2a391f3015de280c2143a9a628f07f15d4b850ef5e7a15cba804a6a7202da29bfe27e5253ceb1e508e0a48a859ef49325dc00769935c3d1b483143a0f2b617361fae5226b5468f1d4b2fcb97714935de5d98ae11bcda50d77b1a511ff3c46a519ec5374edba75474d73adf4fb82d7c155c684407b54ea53b60e29aec279db3a86f5bbb83b5664d8d3532952f2a15807680e1d7ed1956ff61914c4e71596b2c4179b3351a5f757b08b666a5abd7e45083a8acd7b4e94759204b3f3eb838d3c44f933bdb633417438799842d92bf2b33f545e532981dc21ab1f83f63b1aaf517f99278575984034aaa20b4906180d7a8b56712d7282a050c91171183afa445102cced87fb4d2d5d60b41179c0f04f8623f59f8973ab05168534f70f720926c0ccf6f691782d58ba3c4a1fe8a32d39be4d91682c1fb03b149cd440cf6c14d404c537ebdb6bdf695a47d96207d7dfbf9adfce4c06137be9c78a43adafe8cf4af05ba3ffeba66965b541cc67ad7685728910a9495f82f76a0ea1aee67069a1f9cf025a32a145b0f7d50617918bbe202e6075d98e9b502c9a42439177e80fae48ffcb70ec916af956ab25e44d7ee415a02e3e471ec038fcf0059ff4ce885f3ceef6c7fac4e923be115662ce47933ac75843888ad5115a8341b4bcb8cd168a2e2927ce6dec220038ba95f5023f91fc2d4bd23818487608e49df4f8ed26e91b6c8cf5a4eba76d2ff4e214f68b86c74da0f70c7f4f8a75e012fd6bf2ed12819d2f1a86c25294dd266e060e1a9b0dd15ac3b1d6a306f836c57d434ce2b4b705190d1a23c9dae7fab9e6e98ee45d0bd686cda2c5174efb6eb04c1efcd542d1b6b2ba680dce48d4053fcc9d00e7857eb7a5bd3171a19aa86c0af2add78ff7522ec01516da9fb487d2a65cc2dab6da2af35c301381cfe12bb9d7b4657c368f7e037ebfa32264061ea09dca8e1aac9e5f8d16d44aee61331e5979ac3a443ccf0737d9e74dd34ee552f1ec87bc0813e816b2710085e2fd1b791adf728bea75e5b1dbaa1489487a1fe48dd60c1ba0564b54df20777970e25882c2bf7c0d319d0d45e7ca19e15726ca63b5c673f63db9621741d9fe2982fa164834400f74740b5c8926bb225a861ad8941fd19707074610ba418280765e487bc61bde871e8c19d8073c808a655f4fe40db066accc46e012c79bc4f61304c8a6144f8a5a9da1ccf0df378b19ede87d3f4eaafc3235635e6e1452ec9f231f856bc82f5cc062637b18062de7428c7526cc4\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "c07c7178222d4735012cf4d35c937b2d5790d735123d3088163acec08c1bba1e"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 31,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='93f627f3c35e0848c123b798852bbfa6fd2de00b51bf6a3c5840fedb0ea1a22c'  AND source_system='pilot:0' AND rel_type_id=8 AND id=335490",
+      "expected_rows": [
+        [
+          "pilot:0",
+          "8",
+          "335490",
+          "2",
+          "27482",
+          "2",
+          "27499",
+          "r1",
+          "11",
+          "{\"201\":\"366ca145530d9ee60702de09fb70c274421958d64492ccbba695e328e05e394ac9382e5a195ea2929663806bf14fa0741c01c4e56b7f7ad0307e95f9ba75b0ab27ffd9c36c42c4933ea07f2e840a92ce517680d5c1edabd6904f6e0870c792e1c7dbec262ee3c40816b124881dff6c508f9fb845e3cae238c64871f788470ad0ee931d245c38aa1a9b2ec3475c3823c3d2de0d44dd08d9ddbc6b515364a1b2e158726b95ea432431d5745b15cdfd5dbfa2cd488f98cff519c8d128b3fbbbd2b72b3b3083ae0a067f593d0770e4483baa22a66d022986c12a5462aa935c39999df1cd83e270336db1f6166db331efab3785f4a54dd606346eb02ce17b06cd8d51b95a426eddd9cdde62bd383291bd798334843ec195a3c580ac66e3369e140cca43e4a7e04bee1adb928f205107a90d57a8d1e4814b726c3fe505fba0cb25fcfbf4f133f683faf0e1b322401b0188fdc03ed054cb56078d156550b10ba9950b8ddf17e648345073ee5736346e50b29dd15ba7a13e5a45eb7a8dec571cafd0cbff4a47e6063005f7be0bf3e873ccdfec500e45466e216da07c52feb9a5aa04c68bf88cd19a4844fb0c4ae647bc2d4f1702cffb738645056d397feb4f7ee7584f17c639ce4d4268198c35ab88eca877e1ff892a49892594aa6ea4c45d467b241fdc45f6caec67ed68f164a3c8ec1bfe85fc148fe61a461c0867ebee3c456897d889888e8f704ddb3c404daebe7b279dddd770a21e50dd3cf8026399ef4c8758bc8af4cb6d04c624fb5847d92807e13b186656cc576d974006bcd5cb21ef4662064813f82f9593efd8a723b8b5e2ccdb0234e96e59606439cdcffd512e4ae7aa59c965da8623ea2c60949ec2a0e09c64a175e709a93e24aa3f20a26da4a32cf578f214dd32a9ec5071f8999a11079d4578077b1656fed76bdca73c23607f7bad1346624c058d2976ddb7d17cf3258c5899d1bf07de7cbeecf9edf6287ac4095ebc7ab4f20373564996aed34d1d789aa8c3aeabb32d54eb67af1c030304bbbe41c1f2c250d5e353ce6465a85c7c72bd96230edb97502b489cb396ff1f870905efe48bab260609881149e6cfbede794bc87b69d13c9999e39521fc72edabae1bb5bc8d26a2195ee816d50bf1d03ea58985d41743049129c4cc574138f0da6dc883ba13524d2da37c5d42632510631b2b635655882348c6dfdf4c1bdbd90909f3266c9afcf3679b10097cb196f63c9f8a37608207abc63b252d1e6f5b1014265a4cd93706a29a8e3e01f544368dd7996473266a74073f6c95bf29993ba322ce9e12911da0f9f748799b83f9afc283969c2f340a313eeb76f3ca08fed3021246f825ada90df06b284d378f22b25379d2c7e89834000b28bf67d92d7764edec0dcf2197b46bdeee709058c27217acf6f788486edb0eb620d701919e63c16008f01dccef3f\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "93f627f3c35e0848c123b798852bbfa6fd2de00b51bf6a3c5840fedb0ea1a22c"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 32,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='9d4210dd7ca3ecac7bf29cfffac735c3b44bbfbcecb758e4dd09530725359036'  AND source_system='pilot:1' AND rel_type_id=7 AND id=343409",
+      "expected_rows": [
+        [
+          "pilot:1",
+          "7",
+          "343409",
+          "1",
+          "176433",
+          "1",
+          "176450",
+          "r1",
+          "11",
+          "{\"201\":\"8d957ca6e21d0886c3cdd46d6eb694225eba0b9d1a2252b3a3ed9a4f00e5b4e31f725ebe34fb18a952e3fe725a1812abf5ea98e8ba5216804b886135a1a1647a0d961dec9fb21a5f324811a8964f79fef1ea45997307d6359a9befd7d9d8a1fc80d9bd35a110eec3b5b6778958574012d55717b98342e14d916148c1217c63e8051c36c581a106be585ca01321569d88b98eee3279ba6e37faa4533e45a3d02f5b6d0efbb3cbd628011326ae2b90112197f23777e133e46666c67151cfabce1090d008357f1210323e3e4bc79c7b369ff153ccab843c492945329bbef87828a264d0f62ab4d5a42539003d1fb5e5fcd1ca7d7d934f817bade1e57204d920f6a33e4d19ffa89b2131ab7159b1d8558b161ecded5a760d472c97a5866363b8b047655da2c5c72eda0aafc4b93bee1b2191b46a616ecb48503d6d8469d4dec94678fa1c36f7a274d060479c3d5136f68b91f9c64b6518881eab1e7bf5c5541dc457c8f638ca6052eafb4bc3455083bb0d23fc88235e60f74931a6744130fea2537a7e9e28805ff37a2a6986177406c3978594bccea03419a1b11d5da530b7ee72d9955081136cf40607de113217da777bd1633f557840501f729b0045b706f4bdb22eddea5771278b99cb2f2b027a700e83523e60526af99baa67a14f00e2e0e19fbda9d49b5e0e1c11f9a5282163d119fcf6a07350be57bb24fd307e82ea1c36afb1bc470217352865fcb50eee9507c0393aeca6387e792a9da49b4fd8c31412a626628e32f34f9e4c2f67b01e16529ce3bd26773a39934d25a932a7b01712f702393d79466d605c31daca8740350aa6378cba64a90f3bc7055fa09d21ca1b630384aceba762b1d8609767b2cdd72fb5441854016ae17d4ff202800bcd5522c2c211a684ebca5559bf7baccb69aaa9f10365d7c7842e76ecc2e05688da66c83c0f95e64812a45a0215c4de99444ea815967d532961a08c7d20592d2c5a60250ad124f067e1a3a01dc79a852092bc9eef959bde1baec4d49cda96999bd780d0939cedaaebf2d32b6405211100de0b17e75eadd2f236b70f79d44dc595134d0747f08713f85ffea0e25eb78afc64b35f003f5528d68eb4b35f8ee7c0eb153b59047a5939a6c5f062e4d8e2c4f350da4b53c076ae16c24ccf9c7597e48c4e6657ff0f624d4bd93eed5abdf349a72fb60d6ee5f88e952b1feb4f39812521fb6e5d7fa794bc37b3e9281d5b41a8921e9430cb07e51fec7a8ebbcf707917fb78f05aebe8011ff08507519091d2665b56a25973ff11595931797f094d812a642ad1514b9868b9ba5b31df33fcd8b1e401575af54cf69b83efa2cb844f083533e5c8d7356a9cf806246cc6e1224dde9a6e61e42dddd7e4f5c7b898ad8d6822d68e8cb6c443c9e4fe8a07b5b8aa482321369df98042685d142956f3d1121033563f14d67cb3\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "9d4210dd7ca3ecac7bf29cfffac735c3b44bbfbcecb758e4dd09530725359036"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 33,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='f60b7bf8483a7167997bc2503278867f057b3bdb692037103d43ccc0e98fbe72'  AND source_system='pilot:1' AND rel_type_id=8 AND id=351328",
+      "expected_rows": [
+        [
+          "pilot:1",
+          "8",
+          "351328",
+          "2",
+          "125384",
+          "2",
+          "125401",
+          "r1",
+          "11",
+          "{\"201\":\"16e2a21763f4bb9417f4dc7052a6e3367ae9e060b575a8ce69000d29a9be4b3879c6be5b689cf011094cf8bf52f93715ccab1b78c3abc9e6e37875e17958aebb84e919afaf7fbdaf290d2f0f1f0e501320c1a6b88f2c7fbaffae2fb3adcd4a65f76e90b73a21ff85bf2cf81d695db367b5955ef03d6fa635d4a6737dd41f9145ddb0dfe342dd75dd17581b05c87e8211bfee2f9efef94f3aac9ba8c0e82814786df7870b498e4c03863f606be1ca1cfc52b3e8cadcd11fc95f3dc4325ef3a926caf69e04c86052921838ca7aa379ce74568d396284f79867fae9fb865270a5e178af7607237406ac8754a8733347fa9b00975cbcca37a60ec704cf1da9c1f3f3925fcd4d2c478b0b8e5d5ca054cc77390229af6357bd3dccf5b84f7e02eef67497cf2a98a5f41aa89db8ea1ddad26b4ad1d0b589bae362e5de87386ab202be97bd2ea065c3082cae751efa75b57f6e6ca334e03e65f2233ad0d542388c56138254e63430ecde3d252d06735173526d5396689a8e462ab484b7cdc2a624341fb86722bf88836f1fc7160f88237f742d2ecc55ab9e356a292bb0b00b9c9973dcb33766b50a50891e3931e87012d763d74cf7515c65ae0cc4d3af99dfa39da1e4d8540448b417a4b886312ea54290adf1d2acaf78f2200dc0ec78be8f811ae7cc953ff004d1e38b9802ed219a85eace6bc4875f2041da98c2b36dec08b9a8756aa46a4d51921e6cbb67aaa6b5cbc58cd33e15768979bfcab4f61c6bf2e1134fdd23a046fb78953bac71ec46ad4ae4bcccd420bd8d2834e372d9c700c660857f306724bf88b6e8051bfd289513d56686ecceb9e6300697e61b1249552b7ae37a08c533174f4fcc238515ed6f98c168c8af68a5b8fe6504f8f0532750e8bf8b95ef274f721f448b26b51c2d09cad6e6ca61ecdc1c5bcdcafd03270f67ee41a9265a9f4337d2e691bcd15707ac359b49e62ad666755a8210721b4a3f14735721be720564ad50a76bcdbb9fce3b120b2950b83d22672ad7d14178171be63003af502616e4f495c17b00b3e3573fabfa01cacf1c996312cc908fdecfc73ac4d3298b5613f751d10560f62b004c8c2cccc77293c866042dc10ee0cb1237cfa7c894c36a67d43506657f6306cd88402f12cea369379cc093aab3f7ad2d0f22e876face04a5453e54b7c216a265192e940711a0100c336a4a95ad1bdf7ad317b0875b0dc4160787315c760c71469fa2b620315e8b2892810acc8dd3c66ce391151d9f6b4b7dc12a8be384bc91a0eead9f14b90e3d9644f6577843f24737a20389c520653e3e5bb8337c7f70e804f0728e141275ac5c95a8f2082cac830c275f2e786089877ed297123d57222f5ff9b48b7aa2577019b936f4f528c72a36149e377eeb72c81d61e4b9c29ba94917f4fafc5bec2d7fb72be6875c2727db389fd57e4d7bfc1580\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "f60b7bf8483a7167997bc2503278867f057b3bdb692037103d43ccc0e98fbe72"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 34,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='114a5050c3f5594458f4398b59b508a08c06c834a2ca0b7ae6ae82751e9b2f3e'  AND source_system='pilot:2' AND rel_type_id=7 AND id=359247",
+      "expected_rows": [
+        [
+          "pilot:2",
+          "7",
+          "359247",
+          "1",
+          "74335",
+          "1",
+          "74352",
+          "r1",
+          "11",
+          "{\"201\":\"df7bd70575006e3050c14e39e0011a4e60f7ef8c89aba4bead5284c9c9a4c2b51ffeb3ac8ae65ec7d780e1021a353f64792cd5982f17f1856e71de0d0df5be8dfd64082793e77f5ac36b0d7c86ec3549a19fa47bb713d98511e31607fb25602fa6b43749974fcc02299ee22487daab95ee0d3d019f971a81868235d8d0ab330b5bf966d39e2f6e641e870c4c40ac63cbf432034a11ba72e3eabfac29c2025594294d12d974b6184d1b8f4a5f32075d5b271dc5705ab19ff4400608b30e844d88171f70da715a5b81570cd836e434bac5e58fe727adaf6757d8c48ec67660ab715be729ffaea50764a610695bb09cb85309e78be8138d987fd1c2b69dd4983e46b318dd931f96be243a4ad08d8af08aac3a0f3944769faa4ff1276b086c6e8fc2131bf9a894945abde163a47ec3bc7a74d758c879b62fffbaa7ada7686dacf8b6faac4955c0fd5f1c5ffd752cba1b54679629e0094da02a28eb33887e25d4fca2ba851e7b4b6fb06946c99701b661a9712a59d4b1155da7738dabf39ce3495c6a25a0d76badcb4a1a3a689721cc559b1fbed5ec6daac2a7232cd00e7b55f74c419183e0ed579a6b252f92828c7e7dc80f52d4cfa1d696f0181605792a9fade977df626d1ce97fbeb252eed7e4e39ef9ec6f8acb9e3b44a3ff73117fd6ff6484fc8d18b97b5e0838ac07fa648c84403841eb793e5b8b5d54d7138ff9802b3d0830b7ea24f5692a1ad97828c082ea2b0a9b2453e9f4d0340cffa4b0cb9d3d1cc39bb57c891e5072c422473805b60e006208c743f0df602d3427f555daab5b2429dfa314b598e4615b5d31609501233bb7840f1cd3ac7b5ae97f94e372a1dc3a3427251768c102a12365351e89152a00e605497f2efea0b2c0154fc20ca10a387acfccc372d3bfb6ee13dcac3fa81fbf53523d489e56b1c11022029c3d3276cff992e6988d4666776314990c7e0e0fbed031de427a57baade75e57fcc0eddfeac047f688c767f22e27e2af4025f85b52145083fae9dd681f426badb52776cea913cfe438f4afc9b19225110820f472b6a56bcbde2b6103ac932fe1fac474ee73be9af7b88484ae440f6efa1ac4114d7842f1764755d5bb4fb1db5ae7390fceb69b5cf6fba811dca2fa8cbdd12c86c5491ba88745c39c124032b42daa0c21df170305f3792fa504cce62f63efbaf06513ce0e00903338b5b928fa1218f808ab08ff940c322b265a88ac7511ce8ae4cd24d9752fc274c2fb684746d08d63a34799c8e219934c28a6cd918994755995163b7bb72cf357d75d86a130cc8a5cd4ecf81b8c88a38629b3e0d3c168b4025f7d5c83f2ffa18ce4053009a9f7d793ea6b97286968048ae1355c5763079b22fc6c970276de5639716a1a8797d307086b5c17ee5e1060932a5f724be3f05886f94a3366ac322c50df2dfcdc491fd00cef0f4cd7fa\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "114a5050c3f5594458f4398b59b508a08c06c834a2ca0b7ae6ae82751e9b2f3e"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 35,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='b8536d9033552f2d15ceed45b05788904611f60d4130cf88b9afdbda166c698b'  AND source_system='pilot:2' AND rel_type_id=8 AND id=337166",
+      "expected_rows": [
+        [
+          "pilot:2",
+          "8",
+          "337166",
+          "2",
+          "153286",
+          "2",
+          "153303",
+          "r1",
+          "11",
+          "{\"201\":\"c9a258b49a429ced0c26a484c5cbcdc2b2d6d3ad5a3266480a085a6c0e713e24cb4db0f5a6ae96d51f2ab613382552da024b97480f00ed51df97c246ef108d12f1a257dd699d736f43fe18c1b95593f50313fa20e4a96d3c56603163e6833b3c924788f2e53d7e435920ddb5f477c39597ae2511f50b268e69edad4af048c9fa0a9e1635bb396ded10d24eba47906aca71e9b4567f2b20f9d0f9bcf34b02f205df653cdd89a71090d3dffb9e59435f4ac9a084136fd71ded33d090dd183c25d0ece3ccb5f17b48b684ba4abfd5e5646b28127ee9acfebf1d0f1a1edec38efa21004e0dba6077de305cc395661b0dada49ec9753de91893e19862f0225d8678c5e5b61a3a72c2af2d865de3105b2e40e6d0941e33290882ccecd6708d995a84e6bdcd45b7a8fb3d064ae1bcd5af6a664feca9b27907dfc566abca039e57d9d0dcbdc451ae0b2ea09806dd1e9740260f5f06a26a17f994340ccc288d3b3ea3c2f97ecfcb3f0e4b091389238996bfe7df987173fd221e01c8db50693b93ca6f61301513252b6688694fbf4fe8ad281732badcc7ab7ab398fb9f47e2245556dfe478c5c52c87498f56feb1cb3ab7e2f636a13a59c0867e52d1c6b84ffdf5837a235e4088591495e8077fdd60864c991f8cbe4900fbda3a8a60b8fdf84c530af8144b4214f19a2d7d079e0fed860c996ab02f124eb03628cd511b74816700fcf2499d6e44030c4dd2c108a83bb6428729601166da58b326d8274aa86ebb2bc3c7a7866d4d3eafacfc4404a4f4c60ae30812e8ce7a3294857f03c4f49db7d3cdd64e6e942a0e2f88261a17ba512165436a6ae78db459ecd2bee0dd8bc179f52306db2100661a94a6c4782a828fcb5e1dae6b338ce7aa711b2bfde155fa1e2c3915684bc955a4a705d5c208cba5075b0a5d0cdda44db6d47d39a21efc8297d71141d0a9a0eb4ca4ac77358e667120aa209a947e43217c6b0016f821c841f58c0e415fa0ba4057ac23e31293e8fcfdd2657368d6e335b16719894fc15d0c72ce980cd07b6290b5ac98365782e2025265caed6e86029cb81621c8c186dcabc1876652d9e1ac2c65cc3826f6fe2fe75ea19b337fa84b4c47ec0ae359b6faa04729de3f9521f7e423af0c3bb7df9f471d1e6d981601b3506c3a183619032c66a822077bdf713183dde460cfae999cad504f649f700855807e652388fb64b0653dec5a3f39f73e7d3d24f0db27a44474f2765a00f4abfaf38c394dda0ad31975b968f7860ad0f79d3f11c3f2ff8479ca8715e80648fe51d8aefde7b76009a5bb616f26d2a1eebcb58c19bc3e623e385d37834b4d28a58524c1c365dd77076a5b31e3df24de862bd45ff724d703d34565d95582976d4c26fe535da720caa8eb818a7074623eaf4da4ab8b6f9bf0d4f1505073bdbfba149c8fe7baa70fcae91d3386d316167e92\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "b8536d9033552f2d15ceed45b05788904611f60d4130cf88b9afdbda166c698b"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 36,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='efb0cb5017e3cd17f5becd8f7e9e5a00bd8eab3a9e18353f5be471cceefea10f'  AND source_system='pilot:3' AND rel_type_id=7 AND id=345085",
+      "expected_rows": [
+        [
+          "pilot:3",
+          "7",
+          "345085",
+          "1",
+          "102237",
+          "1",
+          "102254",
+          "r1",
+          "11",
+          "{\"201\":\"433a6a968a489b54425121211b1f289c9ad672395ecef3242c63fb2074683cc4904b3905221c1fad7e8194fcb1541689bfb715746511574629a7d33f2c3b657cc83d1beeb47461af05b49b39e9a4780042b3428e26ae88420b9c72341635981cc915d549e3c741d4ad9044c60d72bea39de6ba2dc75f7550be0fee7ff16a5caa222f9c86ea5eecbe36f972053497c47a55919ff7fdcc01a879746e0a80ba13a3946087d76a12dac05c6d97ae24b3a525c7e4d1041e847134bcfb197a039b785500a837fb3e561ab61c1e9db3956d82c4bc27f8a2cd9cb62a941653b29b0ba6b3162c8e2ff216731bb94cafb2feafd4cc7d3d1ed94fba85ce00d834734f343a4207017fb513f1fd0d68ce7e346ea03874f8dcb309b9dba98fba6453821ab753e11c4defd00f17d22f51afbd695f07b536a36a94513e56680ab0e80991640f45b4c69007711dd52c3b15eea798faad1c31857762ff48296dd7b33be8ed53dbad0ae53dde488cecf5572379aa093967e758072a491f8876042cd40bc480d2862bd4f902ffdfd38e338a72f1b7709a478a6c37a4c0767b316954e2852a3d83b93108a6906e196243201e43433ec593c945b4e88e9ac808a7db502befcc3ca844063dcb3e7442b55133ced532424300e3b8bed907615371864bb1c655bec9c6cdb493dabab9158543131954c6cf2e4a55ac7b66b79ae85a69a835a75a9855057a91223c6a0be90e0b73f8d33727ec8c19da8a49ef1335a853fffda30618ffd92f91c7e4493b4f152c8e1417731d075c2c748f660c7fd2719f503f4d7428599cb05f7691a07b54d7f24fa1317756244f5c138cb56d4d7b889008b965a73b0958333cc27d18434e2021c82bd80f5b3caf93c06f8165d8759df941ac4acd1a0a7da5732708260de3b199e8193dba4038561858ab25f3c94e1d7edcceba1e50c417c2c403ccf57bd79b88299ec6d0851a0e59c1fa0a77e29a9747ff5df760ec5fbdbb9b3a64bca16f4aa053f1b5bfef68f6b40160b9e0ed117a4510e59f04b6b3fd990795cffb6aae5a66c28fb182ba1292163f2de75c69df9920f17a5b1fb5ec734bf809709f17479b9d1aa66d2f896605226bf0172fcb84fdb9bc84076b8e9c2294b39e6cf130b9e41e2c14c2d2b191293d222a9fbe39de2f548c95006a902be5a986d66887e33061e4cc4422212bf11ada753e9614f67081c0c45b4774470898b51a5411f77009227a3c0110bf12cf5a95067f88e69fca6cef24b34b11d0f1341f65818bafbf51a4b28934c3dd94f3ef25b9888abf275e3f972de14d12d955b210a5c06903edc932e54f143744bf9f823c6f06e32981fed4c830769d04b519c8f1a04b5c06728917ee8750d398a354c0428d597f26f7aeeda7ca2b611865f3e021e5725f9dac8ead4861f0659fa81d0ba21b08e04b3e0d7fa20b97fd255264aa2315cb\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "efb0cb5017e3cd17f5becd8f7e9e5a00bd8eab3a9e18353f5be471cceefea10f"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 37,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='63c913dbbe904edf07b9efd80df31dcf91083300d102d83280e87936dd8d276f'  AND source_system='pilot:3' AND rel_type_id=8 AND id=353004",
+      "expected_rows": [
+        [
+          "pilot:3",
+          "8",
+          "353004",
+          "2",
+          "51188",
+          "2",
+          "51205",
+          "r1",
+          "11",
+          "{\"201\":\"d5fd4772b22865194d2ea3a3966117ee5ae4fa4bf486264469f327a793395a5ed82c9ad5c24c6dc7558f97d9a59a86794e1441ab6cba2d5522b0a257b78086254a48ca0d32d340199640456429b58618c148ed4ad1dd12d5459c0ad0767d6818a4bc09fc2224a10a62b7db565d1c1157e11965a195c1ce1665b2a2438f00ae7f9ac9a49178001be6b2283985589f13ae4f7543cd0d60594b5c33cb3830d28a34701790819eed43827ac4198a060c86d691353da57297f1e33a4a154145733732a271d18d67a23067c27d514e4308fd6941fbfd88692c040718674e2615f00a1c593906592f261c39fc0a8c8fbb5fe462a89cf84b736df4c6518035dfadf4fac8b97d4a5b6581c09981c4ce19a98a953dfe54bb6d3c9ccd42a7892fd0b88fdac8c9927f75bdb0bd3e04595029be5b9b7c32cb1e4a62f0459a61806e32d4c6a2f66d15a6889e62aee16a9a4bfd4fd471c554ac6812a72e025563069c1dcacf91ec1f057bc7b5cb97021791d966b51c781b9dd3f4958b96c78e256af1b92daa28b176c731252331734e58c1820f6d84f6f93b6c4fd53dad1a23bbf7ea2d7bdb5b8bd86c8fa641e745ba3b02487213833a3fa5c17439f2ab7e6afd907574a81c653dc9ab88689c980a8a6dd3ec069d6d0cbd4ef1a7629efedc5f66820d20e5e1299e8017995cd9b82017ff06d78859d459fb93006088ae989ed838b41be9cd2fdde110de81d2068a03228873d7f4baf2a98a10286c50e407bcdaa87694b5c9808c0dddcce83386b5db6d3497248c82573ee2169bc2515537a93508e2e278835e8ee095cdb64d116fea4c8627a1ccf120a8d4910cbf583add6c0a9469f296d9e74a625134279cf1d5666d3b497916fabf4a0311b0219d42ec7774a0197e372815188ff5011197214e730785ad78c65f35cd0891eee06f125e92d1fb07430262cb13f6598da49f20ae8fae584c92e2cb4fc1d6ddaa8d858ca2a01444b3e5ca9cac54d033e4ffb603594f970a67b0ca61d56a551932fd9a049688d524dd9437beb0f3cdaecf40abf50d9d112fdfda92a0b3616192cd9c326746d6e8af797dc666bce45c75e4b264665f196200b9bab832d7eb59044d3d4c1fe4f2e7e49417751908c7b10e3516672c498d0d20d094840a6e7bd33d5b9fc61f7d6d055bfe407fafa5542e099a864968bb72fa4c87093fe694bfdf60c07be8fb577f07718a524fe319a85ebb500e0b18e0d575042d87a9a01221301fdbc8aaffd88c0f70a2ee30fbfd86464a4380cc2dfe753a99888b72506207abf68fdde574e450e533c6a638613267a67fdff5a6770ccb34353e166086ab40bb7dd6500e6d4fd805cfedb7f514c95480d2b64a3730d381287299a3dca56e69fc448c4b5f0d3f014286ddafe00a70d64392aa5ef0f9cd45247cf2c9c3f11192856fa1f4b6707e354a2d630e3168af3060\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "63c913dbbe904edf07b9efd80df31dcf91083300d102d83280e87936dd8d276f"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 38,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='034fc4699dd725df8a3cd9c8d8abb927cc0f1d7aba3893c6fbdfca83f8e2318b'  AND source_system='pilot:4' AND rel_type_id=7 AND id=330923",
+      "expected_rows": [
+        [
+          "pilot:4",
+          "7",
+          "330923",
+          "1",
+          "130139",
+          "1",
+          "130156",
+          "r1",
+          "11",
+          "{\"201\":\"0a8807e2519dfbabeb68b26a51c8d01bbdfa1e5d6e8fceb8a392b6d62f44784cf0cb6d4579d181002b2c69158ba60c9b7590d764dcb4428fa6c5acf8cb197132e638c2459041ec57f56a9ea5d4ce0bb886e0304f2cac96491b9b104141887ce340172567672d73f81ad2115cb1f5c55c47e7e7072370479cb98df9d0ede588e88171535a46d50db2235fb2f983d914a3a7e645c44d165542ef3600fead2f563bdf5b7ba77a472657292bd2c365a592eb8d5dd5113b04f233146f8c40af3c3af30cd09dfb3fa21355bb0bad9317b7bb062f6f62438ac93b0fd2284e6e682f49c71592afa52fedfb6a5b6837432ab1db572c9e0ea4a57a182ced4e8349b5d8bd7494b431df9f4454001519e9087d96cd22edf00795e2b27c3f903cb24547864074c90e1c4e167ab970191c24c4c2b79680e6e060b371d8ec27c87ed063d7c7825aaa3b9578b62cf2b3cf53ad5423eca6a3fc37c615219a866fc6964a28b78088902cf8f9bc04fdd65b1da6730ff1e39fd2ea94060e28ec04b2599e83fed6c11c19b708e29db4637ebddcd59d6ffdb2cc59f113361bfbfb7301da54932c7091c1285fd45387eca58f7a2916f99a84424e7768ff9707d8bede7301b365ec1531c666077f60e357627a1387e063d6b6ac5a34e80cf97c47635319e9d25235281bf7ca60dcb66258267227bc53afa4df283c7d2d954698eda618d67f68155841be9428aafa6131c205c87eee94e8f4fdbcc59a17ffa2b0a199eb3f0f4db16d2546ae26140affb0a5c98b44fc4559bf58cad5b17830e9f41de83e5b9934fbf53c17b913885d54ad21a04d2753ce65357358be0496c53e187837d2a1bbb09b0e76389786832d076136ff6a73850b3aa3626c8677e217e1d0349e3baf01c73bb0e7daaf27203528f5c1fe31f9dbfdf00b355f00da52c7a498895b7067af3278c78f1b4e8bcacf7b9a7abf1968c0c27827930e00a49b4e735dfc27670a9e9a204089e0274b039f651c32bf00d5bb709f5e7e8b09a3f6b465b23129b2da9cd2e8202de4029b1d881abd406d6776e2aabd035f2f4d9ebb64a213ce1c36721ed3f791b9e9b8d7f2b2ac3247ac9ffb03ecf77ecc3e4cdc510c837fcf6b4fb13a108447554bd2e59ee812e6f853f6c7f4b8dfaa02d51ef79d99b6206341719ce29bdfe4c576fa8769c5a6cbd199f1d21ed4c94ebbc175008acca2975094d8c8f6d9c9073c56fd5363642ce1ea36a6b0c3b0b6c7883f1647c91ec72f71e8204e974e5a0b8ebce74977e6c60c29c3f9115cd3639a1ce1f2bc8db5e51f5737b13d1c63c7aba0f47a56f4ae242340cbc6ca084f7ff8aa3b94fdcf215916a67f3ce29af7e1b6e2fa196e8c03701598f16147a82bea2038b2b50b0de1a763978e59d2c3f5c176aa02ee3602637275f9fb62121d94a8226f07f1893fc8f71c8ff1810ab59d05a4b951ab60\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "034fc4699dd725df8a3cd9c8d8abb927cc0f1d7aba3893c6fbdfca83f8e2318b"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 39,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='9b23984117157bdebeddddc645b7900697dadc89c24e3acd7d28638860fe6d15'  AND source_system='pilot:4' AND rel_type_id=8 AND id=338842",
+      "expected_rows": [
+        [
+          "pilot:4",
+          "8",
+          "338842",
+          "2",
+          "79090",
+          "2",
+          "79107",
+          "r1",
+          "11",
+          "{\"201\":\"a52d5961310d5c79c9ae191e409efb5d4e5ab4ecc8a1a592a35c10cf2780c117081b0f190bf53fbfbd8580b4a03fcdecf32cec8d1c097ee6a9c38ccad48165dd5c3df127f50c3ecf5cdd8331539ef90218265fb357c3cd13c7e1f2389cea77465f20068dca79ad1f50e6a40b709d0351a5a7241f334f584e33da98bc261344b8187188f918def57b956eb318e29c6e40e39b6182d121b0bac14aaa52c6255fe004ade9db7b9b8e4d265d8a8ec1f1da663867410aafb4297c2448baf6bf40994e4ad74d182668b78836b2430e897321e8ffa93e70d841a02d0a1dd45a2b6e7f3a0e10ce1cc78b6447c67ac4a61fb2b8d007e26053f61fc0f5b765c9e3d0dcef122263f2dab563ec5f7ddbed2a7eb39cff7e26a4508c80b47849cfa6abf85734f7b423ce28523604e0e6f2d49f4efecc738345b383c277b270e02eb46aa606e4a146fa30ab2b796207390cf479ca25f581e1af99d8ba37445e0c2524d25c2d3fbb04433d0c70fcfe5bb44fc009bd1a7b4c1df60a6022fc8f567312856771f42fe831326d04c6e79a2a2cdf0956e09922bfae7f58456eb7cc7a602250205ae3a95bb140ddf05fd06d3bfd1b987b22eadb4e6034b3bba7d95c79f5a7c23ccc04dcc2b233e6ce1a31076ffade340631aa0aa4aabe8069a81d5462df9ac3242a33af7f403d3f5ee0d97caecfc8eb76564369e1b8afb32601e0c07c6b5514d829aa956d8013479a7490d28b15b44e3538f12dc241728c189c2e41e29267081b9f4dab4e17e4b61bb5ca711ed51394a20ec9d3b3c060b4ba66d62d94c9c7a3a1ffa473cee39c965b33692bd51f134b2303fc6b05030dc06723820716d398343af8e3e3f45893052017edf0f42ebce245b5a56ed225b4ea7e01f61fcaf29edc1f260a9f6e05602d52166fb5c3e5f8fcb96d99968c8eeb29fcb387a0e8bcf4ab9f9102811181377bdb482529b640dc8e0c1ebc4a6767f04489eb93611c9b4eb1297e26fce350f384deaff58b15133d5fbbf3d4e8c85b3c42a0fb156d88bcf4af88b8d5a2a1d55084f093a3f02eb714eedb40c8aadf26d7815214bfe3eee4d68b4bde8e8f8cb11a33064b121a691db4b2ad26d17d1f097c9026cbdc8f575a139f259534297d1d5bc6cec2041f7ae7ec0c9b1e94b2ddc50a1277a0b952197ee9c4d074a317ef038aae8f0b37e72d648246cb3ea76cbd4efe0adf87b79938fa52bb82e9c31ec85753fc56aa5c3ea59e524b478ba160080ac4c18a16d84c98abfbfbd5a0e58ce547ac2d554c6d8a4ddfa1bc8b8b0d6ae30e7bf03eb139713c595c2339dff006545931d4c24b0e0e4a5d0e57a417b35946a277134a8afc754b5f5b4b03f194d004be0a54f41fe83ff5b9f59ac4c074eccb10a3526ba9aa99674242df838c13a13a2c072dc6ab6da0397b95520827058981562158f6526e025f432c391ac0afc5dc\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "9b23984117157bdebeddddc645b7900697dadc89c24e3acd7d28638860fe6d15"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 40,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='599915fde3b38cfd436fed9b5e9c411c3863d53688808a0ee0f578e70b0db2f5'  AND source_system='pilot:0' AND rel_type_id=7 AND id=346761",
+      "expected_rows": [
+        [
+          "pilot:0",
+          "7",
+          "346761",
+          "1",
+          "28041",
+          "1",
+          "28058",
+          "r1",
+          "11",
+          "{\"201\":\"57b62f2df1a83862a65a2ab616b24372ba1f67a10e8bc35549cd94dbbfb1e95ba15953a4ed6e844c27c11d1bef07877910006410108a4637d74f4fa57313816da5b4effa6a53892e30d122a37c270509a67955f04cc193579740871eb9dea536cace65742c4622194e918a1951d49dd2c8ac9938f69605ce5de4c30a9aa998bf3e03e762b1116575919b3aa4e65e8b527655e796823532927ebe8433bb1889f5cee89aa020a5702503c021d85ab6dbf381a37acdd24a28bd4af22f8dd9d22387403b89365eab209cf11aef5f8a2c11b38eff2f4cd04152a1bf2b629a61560eea12bb70eafd267a48fb58ab4238b5674be847b2caf6db62e4436b616808d64452cba9d9150ccbc527efc3a06ad6a973201c04af059afd4317373887b9560f0d03d5f46f8e721660c309e882bfa1d4f3b420fa618b707fc72d6b620e950d689bac2214ab98e1022c00373456b9d2d32e5a193ff746f26f5c046d9ddac45230c8096bfbcd81bb687829e4f47b54320545dcc246ef3a9ec8c0dd291eadf7803f522edc5dcd1b0c2d05f465504d15e34c08880b27f78899436f2e51efc38728a8e362fda6478a52b26f83cddfe053e64c01b6798a68be939c782ced466c78590ec71784e2793e9e9d3c1ef4702bfca9db4be6424eafd7a7ffebe08369225832095207f4e29895cfb166d1f27be1fa0fb1f24bb082bf58c6617adc24872a28fed761b9afcb115cec63674537a431e18b5ab38a550950cf58c092f860e0024f112871ca9d3be96e4b23e1fde874ad7c357bc0d9d022f9b8462c369152c17eafa5e924506d27e0c45e329be85f32c761d357397a9b00e4c893634334895f41a64d57ef24a56cd49dba04d93d94798b1deeb1a513ab92ca709dcffc6ac8f6cde659c730b3551c2d4f3ffa80a5341ffc5299db86f687b2b7f2b623749d60e8b1b1d0c896ca6c8870d030721292154da8bd5c942c974efcdef6c2421ddfd2043492d44549476d2a701826580d95cdba0197287d37c03d01444c6c68d3b29d4f7549a47a7d1ef9d441cfce8c749c80b285586a72ecee296cc9914ae0a29d8424d75cb7e7dadece418c66804abba2c8042c17934a8ba5641fce403c1ee4c12b7a10a46efb5624645560172f407b4722a00da7dbc7a69d6444557121d0e23ef3db35ae8d71094074ebea4d6f797a828ed5dcf980a2ab8c984d2201fdbb2d7bceb6c77fe2e069d5d4c73767adc700f5f9dceb01474c511cf75800482c4538daaed64293b20423c581b23638ba7a4f6940c34f882def0488b9aff1e381c15d05aacf8d9ea966d48a047ccfd1163052918e344cdbee15598e5de1ed5ec67c3c5013371c76cef6af55d84ec5ac5a8fcd5519a2a9c8769c2756ccb3d736f7e0b3fd04f234426b99a14ac4e4b5111fbaf7859e665609ec5eb63c2d50aeb0d3e05d5c16e0948bc0956992\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "599915fde3b38cfd436fed9b5e9c411c3863d53688808a0ee0f578e70b0db2f5"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 41,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='6a339300a4e47a357604b976c85abb93246b143eb02c4e76efbad706c4901094'  AND source_system='pilot:0' AND rel_type_id=8 AND id=354680",
+      "expected_rows": [
+        [
+          "pilot:0",
+          "8",
+          "354680",
+          "2",
+          "176992",
+          "2",
+          "177009",
+          "r1",
+          "11",
+          "{\"201\":\"b88174f98331730cf962c19b9925d11008faecd1d8199689abfab9d26fa26d31bffc84ba9c8f64dd854b443ea5c3437f71bb4fdd2b80cd478ec8baf7ec4943437c3f363675aacf3e41c335245a178a5291eb9771e4f71609273abc2a7fee72076aac4f7b315ead660d9e386fdb2269f30d6ea62184eb17a4b0ef091282902b5aa4c036d55404106701d57d045cf99793e76e6626a5f4c7b92a18cf137b3c082e4e9aa2510ca2aae8dd98693b2076a7357cb8653e466df65adb166cd83949f2eaf69583b9c6454704d4c8eef4f5ac5beab91a85b96a8a55bca93650a5217f9c814294286c451a525f61b124b6210d18e5025838df10dcc607c48a92b888e0dc2b127b66c1e03b7c727b76d4e5ce27cf6bea77a7bd58bb5b59ae475c03590b74b3c4dc5a5bf79cbd0df9d660692932a4c580fc3e125d64685e97ad4bf52d5fa0cf99561e806e96ed0fc2afa88cc2cba30096bbb647dc3a9b708aaefc6898740c6f25dcd90ddd141ab218d05acf5ee6742b6e42541cb95d7dbe4a359536f44feb204ccbbf74b0ece295d90d333a30ea0e0f9b49e29f7a13bfe7dc2bfd755b38e1b6f5ec22be376476bcf705adb0cda32c3f503f0654a46faad777a1c908d794952457229ed5f611e0fd34bca688dd37cf6e91f1e02b1e0fea557af0c4d8c1b87ddf013effcb3b0c6fcf9a0f62880a2e48b349d55173f876f3a7d09f1f70774e6942d74e38ad7108d71de4e4b61440dd613b29d36586e2cacde4506da61605c294f928d91cc410b71f1ec279bfcedef85068fbdbe5ca4dc2edc8c199aa3544018ac70a588b94619d7db65fe665615ee45f85fe7ef95486f7472d1182899218f0775116d3ca8149f58fc0e9d38af68007ec3c014411aa87a66d86f1c93432869654bbe7b2ac36bac9009739972428ed8f8feea53486f1ee46de5aea25bcfe9e8a798007ad0c787fb80b3ee65f51d5c61285c10cca4b2dc461ca6d35285dfb3aa7e994a2e47c24a6132ea0886815dd5c8a43aa74d9c363d93d148fc9733f1692da27b1a805d45c04a60ba09eb96c4a441babc896ce7fc84cf26c27312f0c35daeaf0a41b776b75dfd4d184ebfe8e119e4d00f7855271c170221b59154e771ced384a65f47c78bd802dba8e6cf184ff32b107c0eb2aca6580cb19eaa86021207171a9bec5d82b2a446afae258cbe4cdebe4a2052a7cdc50d9bbbb68f4c15af33396dcdd5fe8c46b837ae9f6f80d1fa05e71fdc9cc5f23be9fe85bc9af813a910bfe5a0da7f028128a9dedfed268a36aeccbe678f1e4c8287a2a3e7d29df47ce318ccb51d837ca2deffe775989724393d06afd419379800e096834bb1e1ffbd9de0a61c41aca6186ea16812e7253dc5f0a707bc9c1869fbd2270b33fb8fa5c8ca899a5db33160ea7fb0c8d9414a9ab66499c9956273f130dadbbc18e1fa301d2ce0bb75f\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "6a339300a4e47a357604b976c85abb93246b143eb02c4e76efbad706c4901094"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 42,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='167960b7c78eb28651e32b30d5bde00ca03783649bcc255ddf6e0ab03bfe05b0'  AND source_system='pilot:1' AND rel_type_id=7 AND id=332599",
+      "expected_rows": [
+        [
+          "pilot:1",
+          "7",
+          "332599",
+          "1",
+          "55943",
+          "1",
+          "55960",
+          "r1",
+          "11",
+          "{\"201\":\"c23b509c86bcff1361cde8bb9c8f8b122ea787bf27cab48fdf397741b32d3269220684611ce84f2c3349a7a92647706a135453b9f27a002b9addc5713133ea930bcbae89f4412619f616a3620118552b9f9804908c6a934bb490bac66e396bcc8bd64a9431381517cb11772a595ef31fa9dda9f994f8962b13c02c4d3ee9991f0f5a3421ea0e2a581696742b8d40f022f278437c9e5457b343a16efd0c819c9ce96cca7778d1c163245967ea0afae0db3a05b2e2092f1bdb1c9658be9940e68ba7f59c7bc76b12304403474bd301830ed91c090bbc4bf9d937c85da999619832f1bffc56baa7651deb541a2e0cf70c7e282818110c995d1c74f28a5fcd33c7c81a84150e7d88855897d20cc7f4a05d0ef677912fe6feabdd71c5e4e5e3c598a81ca303ac4cf6b9c7bbc26e7ffbe21a1ce61c15c0a081646ce45e52ad1ca75c1f234f16e805b9880664e9bfcb3029218bc8aaf3f286364ce54e8ed569180e275547d19453bfc1d9bc94563d5814fc8027719e49d14d47d4e0e90384b8a2409117ce93c45f212db2bb58bcb3a62765bc71fc0393454c486e5773e084a9f32f969e4d347a5782797692b9300a0555b235953903f21fc81c031835ee42b6dfbee67218848e52896dc5060e1a42cb8cc87f27e4ec62cff3b0dbc8c20e675d81119dccc0ed0f37594dd115df896186344b671bb05f5b0e3d0946c35e4fcad861cf80a35865c5c1a3a7352cff5291d70632b63f8c54932ea29b0e79d0a3864f5204f006fd41c3a2d5eb5b94097160a607f313df884ba8b284e1367d22d0123eb9b07d7d66154cfd79e9b9cbc8e0452c4d132d689f40e60284f71a80935744ccbf48ac901047d36e9d818e06413a1e406fe21b41278f652d3892ffb92b52e18be8d906033d5ccac70a3e0e055e6f9e7bc89669920e77cd074ae8bec721b6a316d5627f885ba214121618871ee7c42ca8f016f1dc61118c3e763203d91cd9051162a456de9ef82af3ace8bfe5c689d1d3965cb93809bac45f366c13a5c1590273c46a36426dc65e5f77c74f52fb6761fd6515c7f007f22314a860e8396bb865103bff328a059b408c6a61bc18769ded75facad08682b8bee9d4395f9af73dbb56b0463f863329be6371fe74b63e39617edc03bb2f8434a24affe8fbe1fe6e22c03ebdc7769e6e36eea322416b45ac0d9f77f96993989c9eb2964804f15fb8fe3e3caa76bc0e7d5a291fb7dcf461bc63d2910c217d5f347b2385583cd9254c396e0b9b5cee6728fb88353bd1c44ef8905b33b3f7863c1946d5442954e3d1c3f5a4afaba9bf2dbe1d2dcef7897eed505a108125ce9904e3afc0403400ffea344e1e18b6589fe96531345c5d926850eb978accc1fb0b2eca41dc1e3ad099026bc201296b92543714eb20775f2d29b200e5811d9e5d9aad733cf254f60fcf0df34b310cc144c4\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "167960b7c78eb28651e32b30d5bde00ca03783649bcc255ddf6e0ab03bfe05b0"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 43,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='b0dd1127b1bce90d23eece8fa523646e8569aa255dd5d6a3ce9f534d97677a49'  AND source_system='pilot:1' AND rel_type_id=8 AND id=340518",
+      "expected_rows": [
+        [
+          "pilot:1",
+          "8",
+          "340518",
+          "2",
+          "4894",
+          "2",
+          "4911",
+          "r1",
+          "11",
+          "{\"201\":\"af886d5cafd5a3d570d94bd23c9a6bb5dddba61fec70a7b5b3553a741c350b80dca9fe555fad0ebf555f53cf563b4291d22c2b8786ab4ba1fd0ebc14f4bc4d2e39d4db7eccbd7c07b409abe7a6e4a2ebbb5f4425fc94db878e06c35a983426e2cc20b38164208a5798249f812e75bd747c0acc1458c917fb76b31decd24ca58f3722e08d6b29b8cd4c4b257000dea0e54eb61532a7dc3e9b91eb5f9b20435670eedc88ecc6cf57a0bb2c7c4f08b7eeb1802a2abf58a0b2d486cd769a343fee1d8ebd68dec1bc063c8d5e39c59251d6e6c98552dc0cbbfa6770c633ed433172d7ecef3ac9bfeffe992ec918bca249e2e93968145feafd1949546f1356a94aaa3f3f964e6baae3ef4b7207741a9bb89ac3eabca0c97a698e66fe81fc73fd30c92d6af3aa1e779b9973157e189e56f09f2a2dc1976a2e853c08d8357c260c23a50bc05f6c6041d7017776303356a063d046e92cfd208f3355625c76fdce2157fdf0613f2952050b92cfaba12c6ad44afba912b641867007d71978c4f022cee041e68ecbe6c6e31bb0454a5f47fdb77dad1ed680e7d9fb6adf2e6d3d230b039e65c87be95fb9c9a3f33548d108f694da952f06ed15c14f9db28a73b2fbd5aed8de61b572193cbfc3c1e619747951bbc7f96cbdd67620a3057530ae7520f497c8cbd170bf572cba7c2283237699516a3ffd54246e38df6796e4d26a2180cf63eee4f30ee6ee27fa154bcd675aecda91daaae017936eeb9e6e22213635cc601e372153425b71f9577863965b7ff731d5f1970f2ba08ba418b6860c3b793dfde763126fc2526074fdcb42a41aba88539c72fb2483d330983952bfbd38ecedbfae94d97ae9261970b8d7e0205b27bb1f3b60f8186d01957df1123e5baadbd09589db2e64badb71912fe47d84723b973b29fec01dc8107be0430b6d85f06669d6230f8fd14b66b2618af4090fff59541b0aa66af33dc1e0ec12a9eb1ca20b945cecd4d90eef3d42a19d58cec5fd8bc604fce2b87eb5dfae0f7ff185ad90c6fba5ea58e862762948b3227733883423a0c8cb35b48980f1175cc1ee9b3ab0e5e7161b5d8abdbed29bc524a6c654268130bd29d2ee1c7d4e5f4f4f67b88a2f1bd04d0e0d639c06e23071c100fcedb96492d7258704f562810cd5a4b86502b6f91a70f24b82a2495c53fe4df9ed5636cb45a7dbca0e7a6e2cc3980608732dd471a14639b4685285fc51079bd9921d58dc39dfa86230ca85479e256a29c14c010b80425b1e4317e77d20812416eefae6ac0162c929fc2cbd81c0c53b9f113a766ffe4dafbcad9d89b1d883ce6c87628397ce436d6cbbdd3d44449d4e72aedb94213495b99c687940c043a5a6c975d1ed98d38cee91e73de4bb71c83b99210d6a564a861d9a7f49a4a5c9ca1d13074e4bab7cdacf1a587a6521074f2fe8fe94a36afa770ece0d10\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "b0dd1127b1bce90d23eece8fa523646e8569aa255dd5d6a3ce9f534d97677a49"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 44,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='0d692cb4a378752738381a389bba5d50e36a677ae22faf95238ef81350ef9b04'  AND source_system='pilot:2' AND rel_type_id=7 AND id=348437",
+      "expected_rows": [
+        [
+          "pilot:2",
+          "7",
+          "348437",
+          "1",
+          "153845",
+          "1",
+          "153862",
+          "r1",
+          "11",
+          "{\"201\":\"09a503482b59b95a9efce955f3bf20a450a001419774b4f8ef4acd07c889343360dc24b3e58f56df8b6779b449166c39628e282ffd8b2f282b5df5dc3d254da7de0282ce576cf54a8b7394e79e56e025750a5d9fbe30b8934fdb5547f54a5c25c6c0a0f170e32e950f2d4ebdabe1cb2e9831a302d92477f19ecfdfca98a4795b70dac975ba2fecbc14c3cbf4532d2c81422384b43ec28ceb90dd7a7f72f5d3aecdfcb5481c2149309206624afb79bbfae70e8f181c5633fd6b97c7fb0bb7737ff2d765fbdae4d0dec9da68bd89ee144b9430f56348487b2efdbd41fa8ce1a5d71ffd61d176042ad576c02a39244e33c640cacf524677974642f232974cc3de1e1acb8e78e5f1b3364bc21be70dd7e89d93540601c9fbad89578e25bf50eabee21620a749adc00b9bebe00f3f7a985b5e5254d07b9e90fb38d055d10fca99dc5eb9369f1e12d7adee189d55f43edabd6ef3e547282e9595f1d822a3760bb96a9d1481258ff0605489a08cd3e4d93b66b655478da41349cb8b9d404c7053f7d333f886e97d0397edcd66b327ef6a6c1aad921fe9cc8c308c6f404bf02ce4f6c2a81de3900336ddf2a716da7a9f4ec118f8e51f2117fad6ec9095db9931a86c0455107f2f2ddb58164f1d32704141b4f39c74c066bf4c545fc377b29b02c17a5674c7c810a48a099007e6ba9f00a7d571e15ba5badb045192e548e0d5b619d5952b7cc987b0dbc988e18c40630a2a62ba0e2a5bbf2428fd26a76564e64fe7c2a28d9eedcbf582cf032877090d58fa4a7e78dd9f70ea260d3e7eabc108f512d0794a3922dff663b1b336444e732196669ddc00ed9f2df459c4abd776ebb43cf1f573ac903b2c05a7bb56438c1f6a5c95ea0eef02ca4569aeaea2f17c28bbbb796f1685a9491f53abaae16a47d0e159c7b77de3bd3086f38e78ce6708b4ffddf6244074225aba985da56c90e4ebfdcdcf0cc0f262e2979a46558585716ce312f0917b864b31e7cbf622d3ce1528ecdb8daa897b9380e4cfdefa3b32649a7eacd7e1976600595a1999eab54b451dab80aa27d0811c0af43777bf06d9078209ff0fa41ea977d3d993a1e17a6cdcfd86c4a1b85af74ce3c7d36e3b19fdb97ff7d8b8ae71026733c1513dd6359a14ac8f0102939de3ed5710eed2d1035b42ed10058f062c14868d41ffcd2ed47dcfd48743bc3d02d5ddcae63bf940772ae043df7fe28d9464b1531db87c3d0171980ce70219176e19f5e367a430965b3241db02cfe84d9cce13f86b69f896266ac56171df90e0f0247404f6c098ef57c67e30b4b66ecfa1e1109333af38437e5ecb745a8d4bf3c84d0032edd47db497f4b5d804073c32aa507284901546080f678023a6c9734ebf483c382d923b2a1ac8120475197b5538a98c4b21d970ab9c97603960a61707f63c869d963fe255be8e3e89c8508b187c\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "0d692cb4a378752738381a389bba5d50e36a677ae22faf95238ef81350ef9b04"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 45,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='059a8800d8167f69e32c29ca51d541e80ebd2963dd29be1e846f54cfe8d140a5'  AND source_system='pilot:2' AND rel_type_id=8 AND id=356356",
+      "expected_rows": [
+        [
+          "pilot:2",
+          "8",
+          "356356",
+          "2",
+          "102796",
+          "2",
+          "102813",
+          "r1",
+          "11",
+          "{\"201\":\"a1b2e183850e52cfdd36ea5467a705d00932b79774551f1f86a61a513c64c52befaee38c739efb4c2f5119e347d42619d8cd77464b9eab6718ec66b02b2fc3443358417f72e770f4e9f3dff0d2d4e00920fe4f623f766f3a0f5f6434b55f4d1b0923ec5fd29e396df5e22db6a9c497698ef36965e5b9cae5f4878464f6fce51b436a81200ab49a5458195eff45248d7b65f4c91a9273fdc3cc25657b01fd1c8f4389c75cfe83335db51da97edf24c75e1ee18752a4b7112754e2129cbdb563eecbe1e3ddc7e9fc616a82c4bf5146a4f7a3fe9c5798781f4928d696048345ccd5574086ecc6bd16d6901267a21d0a00f92e17f515a99a18a6bcac37a69331c30975359cd04e1855ca735cd9fe38e88bc81580bdff5d9a556299854fb2a6a7f16b926b400daca7c816ba6baab6ede75317ae186eaf8755a6bbce24146950acf4704b38e583f85ff84ae700c60305650a46b2379799281cdafd7556b72d7bf99401b7551203565d11a4ff87721e843a03390489588de924ca0410c930e5645dfd573ee7a71836418e488dbcf723590a8546108a3a77d09efca6bcd0d563e95c62b6788b703ed56b1243ad92cd59c65d8e24b16d913750032f5d2b3875f2cf2519ff998ea5c0c185dee9367be80ebd065b09cea735f4b35700ebde38e5ab76c8aadc58b09b21994d72fca7d65e8492e3e1582ea8dba329e54bd8c729cec5f1d06d4cda90a8087dab4771f18d5704ea639d3a542edf79ed21b2bc46dcffab3446cdcb3430b0026ff43417bd1fd0356195750bdadbd001f54a924551300086365ceefbdd20ea3ff9b5501e93188f45b9c7bc49864bbd757c9f380809dca86c5326e6ae33ccc585e4ecaf30ad795015cdd44a56e97e84eef6a326f5cd0caf454860e9b491ee1e53d8146cf8d99ab0e996e98377d866fcee2b23d84f91a028cbeb516e1ef9f0aa7ce8eb3cd5c3e13a98d820f85781389123a457665b5bd4127d338460254d4d4d9a73f19cc468cc5767eb72025e67f7e0963fe4d48dea95bbf0f0a23501e2f3990ec5ac6eabb9939b0e8ea580691c37756244e6aa74c3b1ea55a1cf66c536ff76553b413b2216ec12c5afb451608e57c414cc539e0c460eb62fc5b945ab43671f023e2db51b1dc171eae14be5c1a07d10e0b7278408973160de804fbc65a1b0dd5079fc70e10c9730223a3533b27ffa4a01862d65422fb5650ed5fbe9b9bf2a6f88890483d9684f69f2169dc114e75d78e4de39014e2531f3a5026a08cac712c1cd26c828fe94dfe58fa68aa96ef768c4336573b5f58e081daf08401e9fb3e97d855ff95771b18aeefa9e784b6f6e1dd6b78333f06320fca432ad434dac20afb2f1483a0430b06df0ae118aec3ed76eb07bfc96718131fad3c65cd9028aa5c41e825a9e73ce284603182de9789dcad12df984483446ab7a129676873496\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "059a8800d8167f69e32c29ca51d541e80ebd2963dd29be1e846f54cfe8d140a5"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 46,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='3479d7e99e6f0cd7da4ed8be1b175465d1054308a96ec69e8986dc87eb13d290'  AND source_system='pilot:3' AND rel_type_id=7 AND id=334275",
+      "expected_rows": [
+        [
+          "pilot:3",
+          "7",
+          "334275",
+          "1",
+          "181747",
+          "1",
+          "181764",
+          "r1",
+          "11",
+          "{\"201\":\"5311854dfddf6a63c32faa60798406c3ec5a0a301169469751d70c710e7c4080dc00b4aedb25d7258b04640c11b52605a5dcd162cd80cb63055400b0063ae595e2190e9de1ca0619adfce1333291d415f40c8061071f729e448781377ef3a697c816bb21631ccba306e9e3a3ba9cfc1c2abb22d498d3d9d2f9001a2c2b36afca47bb8861de4e647da9ab4bf6f6fa3c0820ca9c9075445b8e7f0185b973e377ff860c4b873b403c328bd282661f0c618b9822c99c95b204a41ed11753e75173eb5b4a83f0e7d408ec70e31b08cf5fb2aea1463f0601814eba036bcee07addfe5a000c32de6db52ecb424345c0793b5ce56deec6c99a67dc2564ac93ad4a34e14990af66d79a9ccbaf129c703709749f0ad494ed9a88963579c850aa37feb4bb360cdfbdbc68930279db56aafe9a1893f9da6611a064cdb428aad8659ba626cdc3e8a489ed31b3a38f33da258fd120c58198e77ff1756c747e4c57e5434a264039fc31bdbe164d0fe9eae47f656872ab132610656d0304f06841221e880e315c7f52dac5a74b69310d3632e7b70fe4affc7221af4d7debd053c17ae8712c35797d2c9bdf4a1cf4ce2687777c651ebf198a28f709393902eaa6d0e3deeb1587e72c063b7a82e7c4c0749a6c734cebabeac1daa2b5c3cb9b4a7b3acfd734e75297470f0fa38bc27e2c41f561235a3fd0d75a5e622ded6268f3cac9979398a77ff372613e55176beb2e8c8ec21a74fae0ffd575fd4c681efb87504c8dd7f1c074676c2c4812f06882886bfce612d1dc4bc77a7da298c0d5ed9b8256fae7057a3b55dd40829cb1a129b91acf5ad0d81b294cfdf99724e03fa7153a466496ae203539e120d7cf88044bc976b8e775ca357a8747629480b1a3020570bc3ac0f31e63f7613cc9a6c29d41e092836318a4b85ed1f6f9e0feced58a3d83f91635782cb4c3e1dd8c260b3ac41b99daba1d1047067bd897ea1d257da00f5f90b77545f40afd213dc0331fe9fe7d444c1c73bdda5f299f1f103137e462bf63f0bf1faacc08944de3483096d3729637d1264e848c26863e95f8417b96d65771cbbe9d289d25dd39782710621b053106d97001765e4bea767851ca50a1b58a810dd141793b1b4c24605acef6d359a672ef3d7ee0f482a3aa63a837ac6b5005f3b265b3feb46c1d8fc1c93552343f33dad49c948e806e0e85072e3f0943a8e47d10f2ebe670d4454237f2ae79068c92ba37c2718c40cd4c8688bfea3cecbebad651114be1b77a51f25b5a157ebef70291ab88520b151f2927da33f7a6fc2edf3c3737b43c0de385d651943411414709e7830d41341a09f8cea743b0d305bd3e637270c1ecae4d8bf71436f983d7b43e5a311b7dd1e2b07190da28ce2bdc2607ae94fe855b14055f4b158261f52200139bba7899ec66c81eb3dcec819f0f90a369fa6692e3269d2fa3\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "3479d7e99e6f0cd7da4ed8be1b175465d1054308a96ec69e8986dc87eb13d290"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 47,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='aa4c537dbc6984510a72e8a030f1317936ac642145f47ed0213d2d7a3570c784'  AND source_system='pilot:3' AND rel_type_id=8 AND id=342194",
+      "expected_rows": [
+        [
+          "pilot:3",
+          "8",
+          "342194",
+          "2",
+          "130698",
+          "2",
+          "130715",
+          "r1",
+          "11",
+          "{\"201\":\"31d05093e508d883fac947750cdffab18faf5f4a52a1bc5a7679ae6c9afe882210dfb49918bced88fb56e6cb418e1b86e683b7d5d6450a6d5f96a6b087edf0ae40e02b221184a2a74f7016aa0cbe521db5b823106d6a6ca5a39df2a333314e10acb27e00782bcd02cb9461096afc68efbce74c5e8e9c10356246db4fb61aee49a29cedd41d3788fa208c814de381935dd16ce1581ce9a2fb66a64b1ac6e9a5499029337f1d8bcafbb81705efe62194cfcf90508cd9847a5536c3179885f9876d095993c55ae14ac5794009b86720b38556f19f407fc70cee61a6112927051851491673858a2330820725b72007287144745dbe749b184e660b4a50af46ed539ec1bcfb0b04b03bb9bc5b8830ef17a583b63541b075186b284629fed0bdc9286d1a65129334e5869c8554452a8ceb3c72643ffd215c1080ce733e7b7bd3ded9130a37520a622fc41a069332911e169a821ccf5e4ab4f59eefa5927d3adff2539d20947ef8e1973f78b7b0ec2a32dcec37ede88047ebd997efd6d37539db4637493e5db9f546fb96bae266700625189109a34978340de04b52a807b21f7f7d6db9314ec5b7fa0fe8088d8c9dcf8caaf6b1b31ce7223774febe0bc5dc565cac1e8155caf935801d5d6423ac201de29d7685b291e8e97dd0bb7bd1ae8df46d0c3752ac164e70e5e0f3b5a517f43af8674287d9d3098b12b4ed02b589f73f15312371305a25b8c88c8f67eefd48501dc48c1ff7b2242718dd944022ae1d62f1c0964ceacfbbf7cf2026f03793f8e969c1fc41ded0fc8332a0862e384893f0d2edf01bcd690fffff7b50ca49cab04716a8acf37244ec54bfeef6a437c36dd15784cde36323556e7cfb588c3bc8ea7d8e959cede7146014ba1ba3752735c024678f57df0032c29cf3a1cb8e82dcaf8fc75341c6dbd86fb6323c38e2c9b3e0818f555443e580f51ff49008cdad5f9ff2af32c48b731450d1f1ae351e58da5ed18ae6f02a393d84713a41160267c38762d0e8d69a61b9f0e9ca738186ae9731f69c6f64c406efd5e210e1be47a1d0d3544aa41f8ce09cc22ca1f4aade94e91407bdfbd2d6aa13649a7b166b04c32502791981a60095cf1821404576d8c0e596a8cd595eaa71370fc399c95020c51952574de8c1e0056dd81a8a94bce364e498df096fd16343a43872f90be94fbc7a8498ac34ec195265f72f32a347974cd61615af0bf5ce452c784d2cea438272c4ce40551367f6255fea08457b3e21a9991d8a7badd47bde3e59cee7430718f4502875116454123eb9822eda6f8ac6439165a2c2fe8c8cf74dfbab8a2f7ffe93f86358b7c58c1d55a38a7527ed0b926acb2597fc27f4d55a071d0d3216a47910d2dbb6109df1cd7e26becd9b8208625fbc657ea1f003a16edfb4f5a971bbbae5813bad460c4fb3895acd7c379663670cd95a2b86dafb24\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "aa4c537dbc6984510a72e8a030f1317936ac642145f47ed0213d2d7a3570c784"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 48,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='4fa85744f04d456d46d9358b42abbab13b191a1b57e31ac3981f9ff75c43d04e'  AND source_system='pilot:4' AND rel_type_id=7 AND id=350113",
+      "expected_rows": [
+        [
+          "pilot:4",
+          "7",
+          "350113",
+          "1",
+          "79649",
+          "1",
+          "79666",
+          "r1",
+          "11",
+          "{\"201\":\"49582d8604be9fe84a8b871ebc346c10f67dc8a141563add4935727689e218b8729c41d2e1308942ae4bdc4a644a148304b45bd9e66d17770652e0e5e8b449b785826a709c51951cb405aca917eba35169f75931ddf4b68b4caa2b339a149d0853e698eeaf9016393d93d89b7276881f5e494ee4ce29b985ce16f7edc4bcfe20e6b71ad924833c2a21c2398277008b60956f1bb313db4f8a1f10f860ee6f012b373d8b6ed652893ea17457726c48145fd45212926fe615f552a6fe94c5e31b7da7f8323ffe8632d2d01e90f35f8bb0c721925b06e7d0d9b8e15699890517d71daf48b3818ec8ccc94c2db544de940ba2db2b77b5638607a9f3ab62ee127dd6a878edb1afb67567a72af70a8f51ed5877636cbfc8fb02ccfee492444799ecd7528e51c44e8506876131d7108172a2d7cb164a646255e3930b1c4a668d9d270566f445371da2f4a62960fe41e28c87613208dcd71323b01818592bdbb4c9f97fa679763471d79c6bd0d1fb59c89fcaca63f37a43d1451e51a01f78db213d9afacd19b22a7ed53499fc0f50fdfe609403150520bc6691e499b0ec21a4b570aebfbe0050eb722917df8964ccb70e843741b3b00079d7472bc1397ffdc6c7bfa6efc8b2980fc25086a1e2d61ff378d69dfb01ee6ccaed0de70949308d4d043aa1d8d61b178cca67d9c28a30f2e6f540613548997294307912db64f81dd64692da868123d096d8d79204e0823b45e19ddb75be7d556d35b5ab3008be66f0285208f6493c510dbb7ea5d32b9908a34ae858b1dbcb25c88f564d44964910faf6cc5ce4c7fc4ef31f502455899f845c6299f916c050edf72a80de864c3c28984d024bb16fd60b73fb2f9316f07aa7cbe6e91b673ce7dbfed04a33dace67cbf6c7180d8c05bb23647e740ae14b41ddbf28c228bdf9d4ff3f1bd0f1b994beb8b4bf204a0a426686afbd92425dc6bb578ead7162f00157a8f9aedcd8aa9da636c74f360372dbab0554d4944a125ed5e0f3e1792fcdbdcbf26b627f373a2a7a92f82282f19aa4171eefb544fe651c6836aa54ef53016cc08260bcd89e3be516e4196d54d711f9da9974245ed149acb6d6262fda5aff4e7d3c2886fa860a9e90c37f9c96f713220f874199b944ce7f27cf9f0b4a8c176676e642d3313768448fee93e178a697347f4e416fa4ce7bf165dd82e867ba2cd5351fae32bfd0877fc175c542926cff4cd941749fceedd63d60cd6e7ef528e3a6326ad685e9c4a2bcf74100e36fecbf55df721194e1ab74e86f3acb9f0528cd7542d4137a7be244c8bf88410e28e6c00bdae334d7ddb607fd7d7dfcc80e13eb887ad5d786e60d6fdef07a787141003f765a3c701b26b8a33f3272afe109afd450ac2b50cedd7a3d1a500ca72d395a73fe538a4cd871c954b3e8d9ff132ff4cfa844878497c31b246b2925c7c799796247\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "4fa85744f04d456d46d9358b42abbab13b191a1b57e31ac3981f9ff75c43d04e"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 49,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='84962004789b2f1a163fb44f28ce4e4ec7e894b91c98f85473c00973fbf2fdcb'  AND source_system='pilot:4' AND rel_type_id=8 AND id=358032",
+      "expected_rows": [
+        [
+          "pilot:4",
+          "8",
+          "358032",
+          "2",
+          "28600",
+          "2",
+          "28617",
+          "r1",
+          "11",
+          "{\"201\":\"cfa81646ea18f389df9f2086c2e33418d7bb5010e646242abeeff714095c5a43de2bef0bd7883fef7c3221af115331ed494ba0baca52ab44af58650ab286d0bc2eb9460196c4c14b4b18011b8f17f1058113bb0a026b6e70c37ababc6466dfc3c701a53d01f9beb331a5162a4082cfb84e9a3acdb53899a13c12d30872535d7d695c9b2c1c087edf1db4d780ffc9da64cde8f3de80f1627fce98aa153a1ba4929cd8bb2cdaef5b02559be3631a2087abcb1afbe230c15d676d0f939999f6152b4a20f47bc5e249b21aff46d22f32454f3e779f3a947527246ea470156dc7d6f24fec4781d236ef71f13dc1bf6e8f6329bc1d6d74c30fa9f2c760ced52ee3fd066248006985e6b5ee263aa441172fd0c5b5a5668ac5957d3294f5b0b024319de1ff915d9e2b95f63c830240ad49bf653abb5fe77debe9e7c7abaa97cb09c8a4d49c395ab0d38d85ebc95bbfc0e6ed50a06c50515587365de720fce6d6216027bd61cfd038514063e0fc0a4ce8e005b9c1d445242ed54ae6d8568b9fc587745725fcdf9415f9c138126c9f2bdd3e4480d4beb467381e9309fcca9113413f1efd1b9db9675734ed857feab7dd57fd6f3f31546779d05755f29ef330e7366b8f3e8fc0090f6bcdff61ee71809f7946035d7210e9411a8c65ab4d2ef7953f76e0c281c471edc7a969467b34ce6f9c5d36d4bdf0347944ed3406bcfec9e2e668cea0085275d18b529b6bff6b82b8660bd31750e02e3aa466aad254e9d210c8cecaf934de8949e554178441d75124173e8017a753129169822dffcc0948c98825907d691c816b7599d40a0544ee93789a6b9c860ffecd9b95b9b83835672c95058af947fee6e4beb35e06078633505e812b356df6f74d9b5872933303814b12f9ef6b25f625c4ab1233b39af950e0ee814334e45e708e79d58239bb21f27d6757a8f1c9f13e2f2562771a8719bcd63ff5f18603b4695f58e37930589f31ace622b9ec90e8fe650231a5dd8f28306a7df06c5cb2888f54e3ec9035bd3d809080c7645c1d767c0356afde68fc90dfbbe88c3b523e1a0d799745e94e703e798c7a01bc5e4dfd761174e2c1b0a4107b78c13f94695e3a6490166289dd242e46db9992e0d045c05a79ecf531854e8423d803085bd273950ad24e41459714f62f285136fb71fef819f66f77d608ce6f2238b924c6d2194c422f0f76fac225abfbc7d01f12994cf6cf5c2855f060ea994a23df9b7090534ff05b9eb7d102ffe4ec54a8d5406f1521516ca0ea82914518c2de333867c403fa02e0bd1cdd0f4d0e35993e1be347981bc5e440c8e02b28433f9a42fd448dc50f0acf42b155a5316b3240f982d630ca1bdf62dd8977b74b8c6cc1a2b639ef98a997e4a93a738d321e94a788a7ae0b662ef20caffef13dd805acd7e9cffa450e613d82b88dede4731ee3dd093bddee5c\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "84962004789b2f1a163fb44f28ce4e4ec7e894b91c98f85473c00973fbf2fdcb"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    },
+    {
+      "sample": 50,
+      "statement": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash FROM client_dev.ashlar_lc64_20261005_r42.edge_current VERSION AS OF 5 WHERE lookup_hash='60aee92c833d1f3bf3cdc49d417985f390125e96339cdafade16430a46358cb2'  AND source_system='pilot:0' AND rel_type_id=7 AND id=335951",
+      "expected_rows": [
+        [
+          "pilot:0",
+          "7",
+          "335951",
+          "1",
+          "107551",
+          "1",
+          "107568",
+          "r1",
+          "11",
+          "{\"201\":\"f15ce5ed8c82dc4f06b09566639ab4e2b14d91c6869ae82220ec92835470483f3aeb142598b5192911f07b1bf5e97cb663776b660bb80299aa06cfee77641102285a576fe485e2ff9770d7bc4ad98f8a3ddffa58d08fb2ea0a1868c9782394d7f1752b24717334b1185eff29c1c4fd859dc9c990741fe44bace71939e3fdad2b31887b40b45011004db5aea6886b1915fb6c786998a084e3a6a91a2b7d6ccfa2e57464c0b59469edb5151f50a931cad6560df0bd65da34a6386edd5204d225ea91586a43e94c9f267abbf82106401bb0b0fe9e8310a8685773af5c5b5da21186dfafe78043cbbc565f5f5d5629c1bf51b9d987059e87399b67455a29d5d6bec234ccf8e98f9b66e55bd5184770908fcdac4a99e42e45672a2bb20f155f8678dcd40f5204211667f804474251cb2489e8f3e53032156478b6737f0d42023c6071f3bff29a4133b8681fdcd1b82d783c6f44b9cdf244f195cb1913e7b2805b1b32db88f94b51d80c17fc1d33771b074e82620e69527fbfb09d9b325d5eef09faf0e04b27310f9410a2d6194e2f88dee4baacaedcbf4dc4b5097ee9b4bf55313bdd2b48047252e6d42a5a9a2f1e8e1d2e3360bfc583db68f07763580681bda47d1eed07abc0d4cd9b99ebdc40bda28df00be941fd0f95994ca6d43a3e8b84ccbe07324279e2ee06fc4ce4f424f9ae86176d7c2092a9780a90b416b471f5bfc64cdf2c64dea1ce6e68729f1f4606d4bf1ba2090eddec25fe0b13fa3df0c9eefeaca29aff27f7589221afb489db76a82213a3a093838be4bd386500eb7fdd7cf615ab43aa8eb20d17b27c8a26cc25cf6aa20a660eb241c93e8098d8bd6e9f6c16e87041ffb26720ef12b97b90f4f339a57e38464e6ca24c714ed11b4c5ddde72c52d519a80e1f57d117b47d016bcc22f97a6a62a7ce7046b89f8d9c75fe08f0698be903d02f37e522233fe1c60412a49ddaf54ad27d82b260786aa57f68bc5858d5e0f89a7b8a8d13484086cd5e8ce895b79266525c411b59b9bcacf6cbc4c646ffe36715c78e31430face859019536f3aa444d4753fa5b650f5e9e51705cc44600595960827a7863e151c85a8ec9e5f577f9159afc87803b0c353bcd149020e51b3f3aa738520ceda0a5a10cc33ae58e8e4b864f4e61db1ce1f889d9e08261de90da2271caaa13bc89a662b8a4c0348df1f78daeaf05d51ea0711cdb77939207970901fd6daa43864fa6b2b099fcf8ebb893c09d09ea5c18f2dbf9bb22ff631866376e36566380db5d22292b3861431b03b5d1f3384e010d709e55098f7dce00055904155b1a54896df0c38ce8e4f735303f1751131fde0d517c650dced5bf6ca1e51864ee2f1ac5fe4c92ad6772746fe558a93ddf42cc5ad400d6474ecfce5aa4e81b34a85856517141852e4da801da94a7aa4108fb98798585a750871d24078774\"}",
+          "{\"future\":{\"preserve\":true}}",
+          null,
+          "fixture-conditional",
+          "e",
+          "1",
+          "2026-10-06T04:23:13.212196",
+          "60aee92c833d1f3bf3cdc49d417985f390125e96339cdafade16430a46358cb2"
+        ]
+      ],
+      "request_options": {
+        "wait_timeout": "10s",
+        "on_wait_timeout": "CONTINUE",
+        "disposition": "INLINE",
+        "format": "JSON_ARRAY",
+        "row_limit": 2
+      }
+    }
+  ],
+  "requirements": [
+    "Verify workspace eligibility and resource/cost authorization before compute creation",
+    "Use exact native-key predicates and full17-field records",
+    "Require supported pinned snapshot; no latest-snapshot substitution",
+    "Refuse truncated/multiple/missing rows; compare every field exactly",
+    "Require complete own-query metrics and result-cache controls; missing cache telemetry is unproved",
+    "Run three alternating-order phases; exclude rep0 only from timing",
+    "Record wall/server/compile/engine/remote/files and quote bounds; no billion-scale inference"
+  ]
+}

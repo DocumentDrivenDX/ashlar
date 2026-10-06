@@ -1,0 +1,7 @@
+{
+  "state": "passed",
+  "table": "client_dev.ashlar_layout_v02_20261006_r65.source_record_r71",
+  "version": 1,
+  "records": 5,
+  "scope": "Synthetic raw-envelope exact storage and SHA256 checks for change/revision/source/reservation/unknown kind, unsigned-range cursor text, unknown origin, exact JSON values and base64 revision bytes. Read-only replay/conflict classification only. No atomic append/refusal, native transport, safe-watermark ordering, producer or UMF interpretation claim."
+}

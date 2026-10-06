@@ -1,0 +1,19 @@
+{
+  "state": "completed",
+  "batches": [
+    {
+      "layout": "lc64",
+      "processing_s": 31.968443155288696,
+      "oldest_freshness_single_30s_window_s": 61.968443155288696,
+      "versions": {
+        "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+        "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+        "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+        "client_dev.ashlar_composite_20261005_p1r1.object_current": 3,
+        "client_dev.ashlar_lc64_20261005_r42.edge_current": 3,
+        "client_dev.ashlar_lc64_20261005_r42.property_journal": 3
+      }
+    }
+  ],
+  "scope": "one LC64 conditional 300k batch, source 30s window assumption, prebuilt stage/no readers; full conditional prior/post/journal guards; experimental publisher-ID columns and resolved vectors; not sustained rate or exhaustive untouched verification"
+}

@@ -1,0 +1,9 @@
+# Row tracking through physical reclustering
+
+2026-10-05; SPIKE-001 bounded native experiment on unchanged existing dbw-aidev-cus warehouse. One new private 10k-row table enables row tracking/catalog management, clusters by native id, then performs an UPDATE on id one. These protocol features are scoped to the synthetic table, not a normative compatibility approval or global setting.
+
+The table changes clustering to payload and runs OPTIMIZE FULL. Native operation metrics confirm **2 removed / 1 added files**, proving a physical rewrite occurred. Before snapshot **1**, after snapshot **4**. Full outer comparison of all **10,000 rows** reports zero mismatches in id, batch, payload, hidden row_id or row_commit_version. The updated row's commit version remains the data-update version after the later physical rewrite. Native identity is still id; hidden row IDs remain runtime metadata only.
+
+Harness `SPIKE-001-table-layout/native_row_tracking_maintenance.py`; raw DDL/UPDATE/cluster/OPTIMIZE results, actual history metrics, full parity and terminal summary under `out/native/ashlar_tracked_maintenance_20261005_r21/`. This validates the selected UPDATE/reclustering case, not every operation, large-table maintenance, deletion lineage, restore/clone or external engine protocol support. Previously tested real property batch row metadata and this physical rewrite jointly support an integrated resolver trial; they do not establish freshness or recovery overhead at scale.
+
+Next enforce atomic pending-batch state with fence/receipt/descriptor operations so a later logical write cannot erase unresolved current-row markers. Test competing next batches, session restart, stale ownership and clear-on-publication in private fixtures, then count resolution/barrier work in repeated integrated ingestion. Graph source semantics, 1B-node scale and caller performance remain open. Goal active; UMF deferred.

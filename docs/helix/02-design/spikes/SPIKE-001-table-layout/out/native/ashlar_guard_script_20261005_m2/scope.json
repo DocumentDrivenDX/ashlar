@@ -1,0 +1,8 @@
+{
+  "state": "completed",
+  "adjacency_version": 0,
+  "degree_version": 0,
+  "node_version": 2,
+  "budget_metric": "first-edge count plus multiplicity-preserving second-edge expansions; not physical rows scanned",
+  "scope": "single source/type/relationship; static degree snapshot; native SQL scripting guard, no maintained degree publication/physical scan cap/external/billion-scale admission"
+}

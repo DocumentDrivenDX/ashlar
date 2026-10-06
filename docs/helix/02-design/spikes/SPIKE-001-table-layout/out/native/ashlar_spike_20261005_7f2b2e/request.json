@@ -1,0 +1,1 @@
+{"warehouse_id": "2439e1f2e37ac563", "statement": "/* ashlar ashlar_spike_20261005_7f2b2e history-edge_ab_reverse_l */ DESCRIBE HISTORY client_dev.ashlar_spike_20261005_7f2b2e.edge_ab_reverse_l LIMIT 3", "wait_timeout": "10s", "on_wait_timeout": "CONTINUE", "disposition": "INLINE", "format": "JSON_ARRAY", "row_limit": 1000}

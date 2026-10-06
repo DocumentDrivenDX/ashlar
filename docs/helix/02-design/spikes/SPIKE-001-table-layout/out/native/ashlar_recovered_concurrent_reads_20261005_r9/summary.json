@@ -1,0 +1,13 @@
+{
+  "state": "passed",
+  "reads": [
+    51,
+    51
+  ],
+  "versions": [
+    4,
+    5
+  ],
+  "projection": "all 17 columns",
+  "scope": "two paced clients, one changed identity, no simultaneous writer or broad key distribution"
+}

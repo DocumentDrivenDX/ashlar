@@ -1,0 +1,1 @@
+{"warehouse_id": "2439e1f2e37ac563", "statement": "SELECT id,props_json,uuid() FROM client_dev.ashlar_ingest_20261005_a2.serving VERSION AS OF 0 WHERE id=718424", "wait_timeout": "10s", "on_wait_timeout": "CONTINUE", "disposition": "INLINE", "format": "JSON_ARRAY", "row_limit": 10}

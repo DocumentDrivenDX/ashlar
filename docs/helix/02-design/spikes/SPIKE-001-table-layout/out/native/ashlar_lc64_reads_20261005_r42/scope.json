@@ -1,0 +1,7 @@
+{
+  "state": "completed",
+  "source_version": 26,
+  "candidate_version": 0,
+  "copy_wall_s": 52.160586709,
+  "scope": "same full 17 fields/entropy/51 updated native keys, alternating 16/64 target reads, new copy read before exhaustive parity; actual remote bytes govern first-touch claims; new row-tracking lineage; no ingest/scale/publication admission"
+}

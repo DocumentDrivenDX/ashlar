@@ -1,0 +1,6 @@
+{
+  "state": "completed",
+  "scope": "read-only same-key repeated control; exact returned-carrier equality; inspect remote bytes before claiming warm",
+  "nodes": 10000000,
+  "edges": 0
+}

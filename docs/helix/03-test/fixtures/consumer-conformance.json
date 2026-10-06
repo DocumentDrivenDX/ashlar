@@ -1,0 +1,3534 @@
+{
+  "profile": "ashlar-synthetic/0.1",
+  "contracts": [
+    "CONTRACT-001",
+    "CONTRACT-002"
+  ],
+  "status": "draft-unexecuted",
+  "supportedRevisions": [
+    "r1"
+  ],
+  "publications": {
+    "graph": {
+      "id": "graph1",
+      "recordedAt": "2026-10-05T12:00:00Z",
+      "progress": [
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 2
+        }
+      ],
+      "current": [
+        {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A0"
+          },
+          "version": 1,
+          "value": {
+            "properties": {
+              "group": "alpha"
+            }
+          }
+        },
+        {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          },
+          "version": 1,
+          "value": {
+            "properties": {
+              "group": "alpha"
+            }
+          }
+        },
+        {
+          "identity": {
+            "kind": "node",
+            "type": "TypeB",
+            "key": "B1"
+          },
+          "version": 1,
+          "value": {
+            "properties": {
+              "group": "bridge"
+            }
+          }
+        },
+        {
+          "identity": {
+            "kind": "node",
+            "type": "TypeC",
+            "key": "C1"
+          },
+          "version": 1,
+          "value": {
+            "properties": {
+              "group": "x"
+            }
+          }
+        },
+        {
+          "identity": {
+            "kind": "node",
+            "type": "TypeC",
+            "key": "C2"
+          },
+          "version": 1,
+          "value": {
+            "properties": {
+              "group": "y"
+            }
+          }
+        },
+        {
+          "identity": {
+            "kind": "edge",
+            "type": "AB",
+            "key": "E1"
+          },
+          "version": 1,
+          "value": {
+            "source": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "target": {
+              "kind": "node",
+              "type": "TypeB",
+              "key": "B1"
+            },
+            "properties": {}
+          }
+        },
+        {
+          "identity": {
+            "kind": "edge",
+            "type": "AB",
+            "key": "E2"
+          },
+          "version": 1,
+          "value": {
+            "source": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "target": {
+              "kind": "node",
+              "type": "TypeB",
+              "key": "B1"
+            },
+            "properties": {}
+          }
+        },
+        {
+          "identity": {
+            "kind": "edge",
+            "type": "BC",
+            "key": "E3"
+          },
+          "version": 1,
+          "value": {
+            "source": {
+              "kind": "node",
+              "type": "TypeB",
+              "key": "B1"
+            },
+            "target": {
+              "kind": "node",
+              "type": "TypeC",
+              "key": "C1"
+            },
+            "properties": {}
+          }
+        },
+        {
+          "identity": {
+            "kind": "edge",
+            "type": "BC",
+            "key": "E4"
+          },
+          "version": 1,
+          "value": {
+            "source": {
+              "kind": "node",
+              "type": "TypeB",
+              "key": "B1"
+            },
+            "target": {
+              "kind": "node",
+              "type": "TypeC",
+              "key": "C2"
+            },
+            "properties": {}
+          }
+        },
+        {
+          "identity": {
+            "kind": "edge",
+            "type": "BA",
+            "key": "E5"
+          },
+          "version": 1,
+          "value": {
+            "source": {
+              "kind": "node",
+              "type": "TypeB",
+              "key": "B1"
+            },
+            "target": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "properties": {}
+          }
+        }
+      ],
+      "history": [],
+      "tombstones": []
+    },
+    "history": {
+      "id": "pub3",
+      "recordedAt": "2026-10-05T12:00:00Z",
+      "progress": [
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 3
+        }
+      ],
+      "current": [],
+      "history": [
+        {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          },
+          "version": 1,
+          "op": "replace",
+          "value": {
+            "properties": {
+              "label": "old"
+            }
+          },
+          "feed": "S",
+          "epoch": "e",
+          "position": 1
+        },
+        {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          },
+          "version": 2,
+          "op": "replace",
+          "value": {
+            "properties": {
+              "label": "new"
+            }
+          },
+          "feed": "S",
+          "epoch": "e",
+          "position": 2
+        },
+        {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          },
+          "version": 3,
+          "op": "delete",
+          "feed": "S",
+          "epoch": "e",
+          "position": 3
+        }
+      ],
+      "tombstones": [
+        {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          },
+          "version": 3
+        }
+      ]
+    }
+  },
+  "publicationCases": [
+    {
+      "id": "PUB-replay",
+      "covers": [
+        "US-004-AC1"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 0
+          }
+        ],
+        "current": [],
+        "history": [],
+        "tombstones": []
+      },
+      "actions": [
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 1,
+          "previous": 0,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 2,
+          "previous": 1,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 1,
+          "previous": 0,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              }
+            }
+          ]
+        },
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 2,
+          "previous": 1,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 2
+            }
+          ],
+          "current": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              }
+            }
+          ],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            },
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 2
+            }
+          ],
+          "tombstones": []
+        },
+        "status": "duplicate"
+      }
+    },
+    {
+      "id": "PUB-stale",
+      "covers": [
+        "US-004-AC2"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "current": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 2,
+            "value": {
+              "properties": {
+                "label": "new"
+              }
+            }
+          }
+        ],
+        "history": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          },
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 2,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "new"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "tombstones": []
+      },
+      "actions": [
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 3,
+          "previous": 2,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 3
+            }
+          ],
+          "current": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              }
+            }
+          ],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            },
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 2
+            }
+          ],
+          "tombstones": []
+        },
+        "status": "accepted"
+      }
+    },
+    {
+      "id": "PUB-version-conflict",
+      "covers": [
+        "US-004-AC2"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "current": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 2,
+            "value": {
+              "properties": {
+                "label": "new"
+              }
+            }
+          }
+        ],
+        "history": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          },
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 2,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "new"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "tombstones": []
+      },
+      "actions": [
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 3,
+          "previous": 2,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "conflict"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 2
+            }
+          ],
+          "current": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              }
+            }
+          ],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            },
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 2
+            }
+          ],
+          "tombstones": []
+        },
+        "status": "blocked",
+        "code": "VERSION_CONFLICT"
+      }
+    },
+    {
+      "id": "PUB-delete-replay",
+      "covers": [
+        "US-004-AC3"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "current": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 2,
+            "value": {
+              "properties": {
+                "label": "new"
+              }
+            }
+          }
+        ],
+        "history": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          },
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 2,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "new"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "tombstones": []
+      },
+      "actions": [
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 3,
+          "previous": 2,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 3,
+              "op": "delete"
+            }
+          ]
+        },
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 4,
+          "previous": 3,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 4
+            }
+          ],
+          "current": [],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            },
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 2
+            },
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 3,
+              "op": "delete",
+              "feed": "S",
+              "epoch": "e",
+              "position": 3
+            }
+          ],
+          "tombstones": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 3
+            }
+          ]
+        },
+        "status": "accepted"
+      }
+    },
+    {
+      "id": "PUB-bootstrap-stale",
+      "covers": [
+        "US-004-AC3"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 3
+          }
+        ],
+        "current": [],
+        "history": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          },
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 2,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "new"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          },
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 3,
+            "op": "delete",
+            "feed": "S",
+            "epoch": "e",
+            "position": 3
+          }
+        ],
+        "tombstones": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 3
+          }
+        ]
+      },
+      "actions": [
+        {
+          "operation": "bootstrap",
+          "state": {
+            "progress": [
+              {
+                "feed": "S",
+                "epoch": "e",
+                "position": 1
+              }
+            ],
+            "current": [
+              {
+                "identity": {
+                  "kind": "node",
+                  "type": "TypeA",
+                  "key": "A1"
+                },
+                "version": 1,
+                "value": {
+                  "properties": {
+                    "label": "old"
+                  }
+                }
+              }
+            ],
+            "history": [
+              {
+                "identity": {
+                  "kind": "node",
+                  "type": "TypeA",
+                  "key": "A1"
+                },
+                "version": 1,
+                "op": "replace",
+                "value": {
+                  "properties": {
+                    "label": "old"
+                  }
+                },
+                "feed": "S",
+                "epoch": "e",
+                "position": 1
+              }
+            ],
+            "tombstones": []
+          }
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 3
+            }
+          ],
+          "current": [],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            },
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 2
+            },
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 3,
+              "op": "delete",
+              "feed": "S",
+              "epoch": "e",
+              "position": 3
+            }
+          ],
+          "tombstones": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 3
+            }
+          ]
+        },
+        "status": "blocked",
+        "code": "RECOVERY_REQUIRED"
+      }
+    },
+    {
+      "id": "PUB-recreation",
+      "covers": [
+        "US-004-AC3"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 3
+          }
+        ],
+        "current": [],
+        "history": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          },
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 2,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "new"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          },
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 3,
+            "op": "delete",
+            "feed": "S",
+            "epoch": "e",
+            "position": 3
+          }
+        ],
+        "tombstones": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 3
+          }
+        ]
+      },
+      "actions": [
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 4,
+          "previous": 3,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 4,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "again"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 3
+            }
+          ],
+          "current": [],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            },
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 2
+            },
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 3,
+              "op": "delete",
+              "feed": "S",
+              "epoch": "e",
+              "position": 3
+            }
+          ],
+          "tombstones": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 3
+            }
+          ]
+        },
+        "status": "blocked",
+        "code": "RECREATION_UNDECIDED"
+      }
+    },
+    {
+      "id": "PUB-revision",
+      "covers": [
+        "US-004-AC4"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "current": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            }
+          }
+        ],
+        "history": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "tombstones": []
+      },
+      "actions": [
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 2,
+          "previous": 1,
+          "revision": "r2",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            }
+          ],
+          "current": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              }
+            }
+          ],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            }
+          ],
+          "tombstones": []
+        },
+        "status": "blocked",
+        "code": "REVISION_UNSUPPORTED"
+      }
+    },
+    {
+      "id": "PUB-interruption",
+      "covers": [
+        "US-004-AC5"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "current": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            }
+          }
+        ],
+        "history": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "tombstones": []
+      },
+      "actions": [
+        {
+          "operation": "applyWithFailure",
+          "batch": {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2,
+            "previous": 1,
+            "revision": "r1",
+            "changes": [
+              {
+                "identity": {
+                  "kind": "node",
+                  "type": "TypeA",
+                  "key": "A1"
+                },
+                "version": 2,
+                "op": "replace",
+                "value": {
+                  "properties": {
+                    "label": "new"
+                  }
+                }
+              }
+            ]
+          },
+          "failAt": "beforeCommit"
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            }
+          ],
+          "current": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              }
+            }
+          ],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            }
+          ],
+          "tombstones": []
+        },
+        "status": "blocked",
+        "code": "PUBLICATION_INTERRUPTED"
+      }
+    },
+    {
+      "id": "PUB-recovery",
+      "covers": [
+        "US-004-AC5"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "current": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            }
+          }
+        ],
+        "history": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "tombstones": []
+      },
+      "actions": [
+        {
+          "operation": "applyWithFailure",
+          "batch": {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2,
+            "previous": 1,
+            "revision": "r1",
+            "changes": [
+              {
+                "identity": {
+                  "kind": "node",
+                  "type": "TypeA",
+                  "key": "A1"
+                },
+                "version": 2,
+                "op": "replace",
+                "value": {
+                  "properties": {
+                    "label": "new"
+                  }
+                }
+              }
+            ]
+          },
+          "failAt": "beforeCommit"
+        },
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 2,
+          "previous": 1,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 2
+            }
+          ],
+          "current": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              }
+            }
+          ],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            },
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 2
+            }
+          ],
+          "tombstones": []
+        },
+        "status": "accepted"
+      }
+    },
+    {
+      "id": "PUB-endpoint",
+      "covers": [
+        "US-004-AC7"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "current": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            }
+          }
+        ],
+        "history": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "tombstones": []
+      },
+      "actions": [
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 2,
+          "previous": 1,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "edge",
+                "type": "AB",
+                "key": "E1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "source": {
+                  "kind": "node",
+                  "type": "TypeA",
+                  "key": "A1"
+                },
+                "target": {
+                  "kind": "node",
+                  "type": "TypeB",
+                  "key": "B1"
+                },
+                "properties": {}
+              }
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            }
+          ],
+          "current": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              }
+            }
+          ],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            }
+          ],
+          "tombstones": []
+        },
+        "status": "blocked",
+        "code": "ENDPOINT_INVALID"
+      }
+    },
+    {
+      "id": "PUB-gap",
+      "covers": [
+        "US-004-AC7"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "current": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            }
+          }
+        ],
+        "history": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "tombstones": []
+      },
+      "actions": [
+        {
+          "feed": "S",
+          "epoch": "e",
+          "position": 3,
+          "previous": 2,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            }
+          ],
+          "current": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              }
+            }
+          ],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            }
+          ],
+          "tombstones": []
+        },
+        "status": "blocked",
+        "code": "FEED_GAP"
+      }
+    },
+    {
+      "id": "PUB-authority",
+      "covers": [
+        "US-004-AC7"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "current": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            }
+          }
+        ],
+        "history": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "tombstones": []
+      },
+      "actions": [
+        {
+          "feed": "T",
+          "epoch": "e",
+          "position": 1,
+          "previous": 0,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 2,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "new"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            }
+          ],
+          "current": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              }
+            }
+          ],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            }
+          ],
+          "tombstones": []
+        },
+        "status": "blocked",
+        "code": "SOURCE_CONFLICT"
+      }
+    },
+    {
+      "id": "PUB-independent-feeds",
+      "covers": [
+        "US-004-AC8"
+      ],
+      "initial": {
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "current": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            }
+          }
+        ],
+        "history": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "old"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 1
+          }
+        ],
+        "tombstones": []
+      },
+      "actions": [
+        {
+          "feed": "T",
+          "epoch": "e",
+          "position": 1,
+          "previous": 0,
+          "revision": "r1",
+          "changes": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeB",
+                "key": "B1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              }
+            }
+          ]
+        }
+      ],
+      "expected": {
+        "state": {
+          "progress": [
+            {
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            },
+            {
+              "feed": "T",
+              "epoch": "e",
+              "position": 1
+            }
+          ],
+          "current": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              }
+            },
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeB",
+                "key": "B1"
+              },
+              "version": 1,
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              }
+            }
+          ],
+          "history": [
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "S",
+              "epoch": "e",
+              "position": 1
+            },
+            {
+              "identity": {
+                "kind": "node",
+                "type": "TypeB",
+                "key": "B1"
+              },
+              "version": 1,
+              "op": "replace",
+              "value": {
+                "properties": {
+                  "label": "old"
+                }
+              },
+              "feed": "T",
+              "epoch": "e",
+              "position": 1
+            }
+          ],
+          "tombstones": []
+        },
+        "status": "accepted"
+      }
+    }
+  ],
+  "readCases": [
+    {
+      "id": "READ-two-hop",
+      "covers": [
+        "US-003-AC1"
+      ],
+      "publication": "graph",
+      "setup": {},
+      "request": {
+        "operation": "traverse",
+        "args": {
+          "start": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          },
+          "steps": [
+            {
+              "edgeType": "AB",
+              "direction": "out"
+            },
+            {
+              "edgeType": "BC",
+              "direction": "out"
+            }
+          ],
+          "mode": "nodes"
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [
+          {
+            "kind": "node",
+            "type": "TypeC",
+            "key": "C1"
+          },
+          {
+            "kind": "node",
+            "type": "TypeC",
+            "key": "C2"
+          }
+        ],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-isolated",
+      "covers": [
+        "US-003-AC2"
+      ],
+      "publication": "graph",
+      "setup": {},
+      "request": {
+        "operation": "lookup",
+        "args": {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A0"
+          }
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A0"
+            },
+            "version": 1,
+            "value": {
+              "properties": {
+                "group": "alpha"
+              }
+            }
+          }
+        ],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-isolated-out",
+      "covers": [
+        "US-003-AC2"
+      ],
+      "publication": "graph",
+      "setup": {},
+      "request": {
+        "operation": "traverse",
+        "args": {
+          "start": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A0"
+          },
+          "steps": [
+            {
+              "edgeType": "AB",
+              "direction": "out"
+            }
+          ],
+          "mode": "nodes"
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-parallel",
+      "covers": [
+        "US-003-AC3"
+      ],
+      "publication": "graph",
+      "setup": {},
+      "request": {
+        "operation": "traverse",
+        "args": {
+          "start": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          },
+          "steps": [
+            {
+              "edgeType": "AB",
+              "direction": "out"
+            },
+            {
+              "edgeType": "BC",
+              "direction": "out"
+            }
+          ],
+          "mode": "paths"
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [
+          {
+            "nodes": [
+              {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              {
+                "kind": "node",
+                "type": "TypeB",
+                "key": "B1"
+              },
+              {
+                "kind": "node",
+                "type": "TypeC",
+                "key": "C1"
+              }
+            ],
+            "edges": [
+              {
+                "kind": "edge",
+                "type": "AB",
+                "key": "E1"
+              },
+              {
+                "kind": "edge",
+                "type": "BC",
+                "key": "E3"
+              }
+            ]
+          },
+          {
+            "nodes": [
+              {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              {
+                "kind": "node",
+                "type": "TypeB",
+                "key": "B1"
+              },
+              {
+                "kind": "node",
+                "type": "TypeC",
+                "key": "C2"
+              }
+            ],
+            "edges": [
+              {
+                "kind": "edge",
+                "type": "AB",
+                "key": "E1"
+              },
+              {
+                "kind": "edge",
+                "type": "BC",
+                "key": "E4"
+              }
+            ]
+          },
+          {
+            "nodes": [
+              {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              {
+                "kind": "node",
+                "type": "TypeB",
+                "key": "B1"
+              },
+              {
+                "kind": "node",
+                "type": "TypeC",
+                "key": "C1"
+              }
+            ],
+            "edges": [
+              {
+                "kind": "edge",
+                "type": "AB",
+                "key": "E2"
+              },
+              {
+                "kind": "edge",
+                "type": "BC",
+                "key": "E3"
+              }
+            ]
+          },
+          {
+            "nodes": [
+              {
+                "kind": "node",
+                "type": "TypeA",
+                "key": "A1"
+              },
+              {
+                "kind": "node",
+                "type": "TypeB",
+                "key": "B1"
+              },
+              {
+                "kind": "node",
+                "type": "TypeC",
+                "key": "C2"
+              }
+            ],
+            "edges": [
+              {
+                "kind": "edge",
+                "type": "AB",
+                "key": "E2"
+              },
+              {
+                "kind": "edge",
+                "type": "BC",
+                "key": "E4"
+              }
+            ]
+          }
+        ],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-cycle",
+      "covers": [
+        "US-003-AC4"
+      ],
+      "publication": "graph",
+      "setup": {},
+      "request": {
+        "operation": "traverse",
+        "args": {
+          "start": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          },
+          "steps": [
+            {
+              "edgeType": "AB",
+              "direction": "out"
+            },
+            {
+              "edgeType": "BA",
+              "direction": "out"
+            }
+          ],
+          "mode": "nodes"
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [
+          {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          }
+        ],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-list-cap",
+      "covers": [
+        "US-003-AC6"
+      ],
+      "publication": "graph",
+      "setup": {
+        "continuationSupported": false
+      },
+      "request": {
+        "operation": "list",
+        "args": {
+          "type": "TypeA",
+          "equals": {}
+        },
+        "limit": 1,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "incomplete",
+        "rows": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A0"
+            },
+            "version": 1,
+            "value": {
+              "properties": {
+                "group": "alpha"
+              }
+            }
+          }
+        ],
+        "complete": false,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1",
+        "code": "RESULT_LIMIT"
+      }
+    },
+    {
+      "id": "READ-count",
+      "covers": [
+        "US-003-AC6"
+      ],
+      "publication": "graph",
+      "setup": {},
+      "request": {
+        "operation": "count",
+        "args": {
+          "type": "TypeA",
+          "groupProperty": "group"
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [
+          {
+            "group": "alpha",
+            "count": 2
+          }
+        ],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-related-count",
+      "covers": [
+        "US-003-AC6"
+      ],
+      "publication": "graph",
+      "setup": {},
+      "request": {
+        "operation": "count",
+        "args": {
+          "type": "TypeA",
+          "groupProperty": "group",
+          "related": {
+            "edgeType": "AB",
+            "direction": "out",
+            "groupProperty": "group"
+          }
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [
+          {
+            "group": "bridge",
+            "count": 1
+          }
+        ],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-work-cap",
+      "covers": [
+        "US-003-AC6"
+      ],
+      "publication": "graph",
+      "setup": {},
+      "request": {
+        "operation": "count",
+        "args": {
+          "type": "TypeA",
+          "groupProperty": "group"
+        },
+        "limit": 100,
+        "workLimit": 1,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "incomplete",
+        "rows": [],
+        "complete": false,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1",
+        "code": "WORK_LIMIT"
+      }
+    },
+    {
+      "id": "READ-behind",
+      "covers": [
+        "US-003-AC7"
+      ],
+      "publication": "graph",
+      "setup": {},
+      "request": {
+        "operation": "lookup",
+        "args": {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          }
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 3
+          }
+        ],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "not_ready",
+        "rows": [],
+        "complete": false,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1",
+        "code": "PROGRESS_BEHIND"
+      }
+    },
+    {
+      "id": "READ-satisfied",
+      "covers": [
+        "US-003-AC7"
+      ],
+      "publication": "graph",
+      "setup": {},
+      "request": {
+        "operation": "lookup",
+        "args": {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          }
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 1,
+            "value": {
+              "properties": {
+                "group": "alpha"
+              }
+            }
+          }
+        ],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-empty",
+      "covers": [
+        "US-003-AC8"
+      ],
+      "publication": "graph",
+      "setup": {},
+      "request": {
+        "operation": "lookup",
+        "args": {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "absent"
+          }
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-denied",
+      "covers": [
+        "US-003-AC8"
+      ],
+      "publication": "graph",
+      "setup": {
+        "operationAllowed": false
+      },
+      "request": {
+        "operation": "lookup",
+        "args": {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          }
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "denied",
+        "rows": [],
+        "complete": false,
+        "progress": [],
+        "code": "NOT_PERMITTED"
+      }
+    },
+    {
+      "id": "READ-outage",
+      "covers": [
+        "US-003-AC8"
+      ],
+      "publication": "graph",
+      "setup": {
+        "storeAvailable": false
+      },
+      "request": {
+        "operation": "lookup",
+        "args": {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          }
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "unavailable",
+        "rows": [],
+        "complete": false,
+        "progress": [],
+        "code": "STORE_UNAVAILABLE"
+      }
+    },
+    {
+      "id": "READ-delegation",
+      "covers": [
+        "US-003-AC8"
+      ],
+      "publication": "graph",
+      "setup": {
+        "delegationSupported": false
+      },
+      "request": {
+        "operation": "lookup",
+        "args": {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          }
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "unsupported",
+        "rows": [],
+        "complete": false,
+        "progress": [],
+        "code": "DELEGATION_UNSUPPORTED"
+      }
+    },
+    {
+      "id": "READ-policy-lookup",
+      "covers": [
+        "US-003-AC9"
+      ],
+      "publication": "graph",
+      "setup": {
+        "hiddenIdentities": [
+          {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          }
+        ]
+      },
+      "request": {
+        "operation": "lookup",
+        "args": {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          }
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-policy-list",
+      "covers": [
+        "US-003-AC9"
+      ],
+      "publication": "graph",
+      "setup": {
+        "hiddenIdentities": [
+          {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          }
+        ]
+      },
+      "request": {
+        "operation": "list",
+        "args": {
+          "type": "TypeA",
+          "equals": {}
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A0"
+            },
+            "version": 1,
+            "value": {
+              "properties": {
+                "group": "alpha"
+              }
+            }
+          }
+        ],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-policy-traverse",
+      "covers": [
+        "US-003-AC9"
+      ],
+      "publication": "graph",
+      "setup": {
+        "hiddenIdentities": [
+          {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          }
+        ]
+      },
+      "request": {
+        "operation": "traverse",
+        "args": {
+          "start": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          },
+          "steps": [
+            {
+              "edgeType": "AB",
+              "direction": "out"
+            },
+            {
+              "edgeType": "BC",
+              "direction": "out"
+            }
+          ],
+          "mode": "nodes"
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-policy-count",
+      "covers": [
+        "US-003-AC9"
+      ],
+      "publication": "graph",
+      "setup": {
+        "hiddenIdentities": [
+          {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          }
+        ]
+      },
+      "request": {
+        "operation": "count",
+        "args": {
+          "type": "TypeA",
+          "groupProperty": "group"
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [
+          {
+            "group": "alpha",
+            "count": 1
+          }
+        ],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1"
+      }
+    },
+    {
+      "id": "READ-policy-property",
+      "covers": [
+        "US-003-AC9"
+      ],
+      "publication": "graph",
+      "setup": {
+        "hiddenProperties": [
+          "group"
+        ]
+      },
+      "request": {
+        "operation": "list",
+        "args": {
+          "type": "TypeA",
+          "equals": {
+            "group": "alpha"
+          }
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "denied",
+        "rows": [],
+        "complete": false,
+        "progress": [],
+        "code": "NOT_PERMITTED"
+      }
+    },
+    {
+      "id": "READ-cursor-policy",
+      "covers": [
+        "US-003-AC9"
+      ],
+      "publication": "graph",
+      "setup": {
+        "cursorContext": {
+          "publication": "graph1",
+          "principal": "reader",
+          "policyRevision": "old-policy"
+        }
+      },
+      "request": {
+        "operation": "list",
+        "args": {
+          "type": "TypeA",
+          "equals": {}
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        },
+        "cursor": "fixture-cursor"
+      },
+      "expected": {
+        "status": "recovery_required",
+        "rows": [],
+        "complete": false,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "publication": "graph1",
+        "code": "CURSOR_INVALID"
+      }
+    },
+    {
+      "id": "READ-history",
+      "covers": [
+        "US-004-AC6"
+      ],
+      "publication": "history",
+      "setup": {},
+      "request": {
+        "operation": "history",
+        "args": {
+          "identity": {
+            "kind": "node",
+            "type": "TypeA",
+            "key": "A1"
+          },
+          "version": 2
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 2,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "new"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          }
+        ],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 3
+          }
+        ],
+        "publication": "pub3"
+      }
+    },
+    {
+      "id": "READ-changes",
+      "covers": [
+        "US-003-AC10",
+        "US-004-AC6"
+      ],
+      "publication": "history",
+      "setup": {},
+      "request": {
+        "operation": "changes",
+        "args": {
+          "feed": "S",
+          "epoch": "e",
+          "after": 1
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "ok",
+        "rows": [
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 2,
+            "op": "replace",
+            "value": {
+              "properties": {
+                "label": "new"
+              }
+            },
+            "feed": "S",
+            "epoch": "e",
+            "position": 2
+          },
+          {
+            "identity": {
+              "kind": "node",
+              "type": "TypeA",
+              "key": "A1"
+            },
+            "version": 3,
+            "op": "delete",
+            "feed": "S",
+            "epoch": "e",
+            "position": 3
+          }
+        ],
+        "complete": true,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 3
+          }
+        ],
+        "publication": "pub3"
+      }
+    },
+    {
+      "id": "READ-expired",
+      "covers": [
+        "US-003-AC10",
+        "US-004-AC6"
+      ],
+      "publication": "history",
+      "setup": {
+        "earliestAfter": 1
+      },
+      "request": {
+        "operation": "changes",
+        "args": {
+          "feed": "S",
+          "epoch": "e",
+          "after": 0
+        },
+        "limit": 100,
+        "workLimit": 1000,
+        "waitMs": 0,
+        "minimumProgress": [],
+        "context": {
+          "principal": "reader",
+          "policyRevision": "policy1"
+        }
+      },
+      "expected": {
+        "status": "recovery_required",
+        "rows": [],
+        "complete": false,
+        "progress": [
+          {
+            "feed": "S",
+            "epoch": "e",
+            "position": 3
+          }
+        ],
+        "publication": "pub3",
+        "code": "HISTORY_EXPIRED"
+      }
+    }
+  ]
+}

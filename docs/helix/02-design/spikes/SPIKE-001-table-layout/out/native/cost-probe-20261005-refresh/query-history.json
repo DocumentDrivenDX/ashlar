@@ -1,0 +1,40 @@
+[
+  {
+    "query_id": "01f1c112-553e-1901-b31f-adbca65357bd",
+    "status": "FINISHED",
+    "query_text": "SELECT sku_name,usage_unit,sum(usage_quantity),min(usage_start_time),max(usage_end_time) FROM system.billing.usage WHERE workspace_id='7405607548213398' AND usage_metadata.warehouse_id='2439e1f2e37ac563' AND usage_start_time>=TIMESTAMP '2026-10-05 20:00:00' AND usage_start_time<TIMESTAMP '2026-10-06 00:00:00' GROUP BY sku_name,usage_unit",
+    "query_start_time_ms": 1791241990897,
+    "query_end_time_ms": 1791241994980,
+    "user_id": 3755468182769617,
+    "user_name": "erik.labianca@synaptiq.ai",
+    "user_display_name": "Erik LaBianca",
+    "endpoint_id": "2439e1f2e37ac563",
+    "lookup_key": "CiQwMWYxYzExMi01NTNlLTE5MDEtYjMxZi1hZGJjYTY1MzU3YmQQ8eXe8pA0GhAyNDM5ZTFmMmUzN2FjNTYzINGf/5fB8tUG",
+    "metrics": {
+      "total_time_ms": 4083,
+      "compilation_time_ms": 1308,
+      "query_compilation_start_timestamp": 1791241990987,
+      "queue_end_time_ms": 1791241990948,
+      "task_progress": {}
+    },
+    "executed_as_user_id": 3755468182769617,
+    "executed_as_user_name": "erik.labianca@synaptiq.ai",
+    "executed_as_user_display_name": "Erik LaBianca",
+    "session_id": "01f1c112-5537-1a95-bd1b-b9b78b75b2ff",
+    "is_final": false,
+    "channel_used": {
+      "name": "CHANNEL_NAME_CURRENT",
+      "dbsql_version": "2026.38"
+    },
+    "plans_state": "EMPTY",
+    "statement_type": "SELECT",
+    "warehouse_id": "2439e1f2e37ac563",
+    "duration": 4083,
+    "canSubscribeToLiveQuery": true,
+    "client_application": "Databricks CLI",
+    "query_source": {},
+    "is_cancelable": false,
+    "last_updated_at_ms": 1791241994981,
+    "workspace_id": 7405607548213398
+  }
+]

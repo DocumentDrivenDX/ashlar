@@ -1,0 +1,9 @@
+{
+  "state": "passed",
+  "before": 1,
+  "after": 4,
+  "removed_files": 2,
+  "added_files": 1,
+  "exact_rows": 10000,
+  "scope": "forced reclustering of private tracked table; selected UPDATE lineage; no large-scale, deletes/restore/clones or integrated throughput proof"
+}

@@ -1,0 +1,20 @@
+[
+  [
+    "17",
+    "2026-10-06T02:32:00",
+    "3755468182769617",
+    "erik.labianca@synaptiq.ai",
+    "TRANSACTION",
+    "{\"intermediateOperationParameters\":\"[{\"operationName\":\"WRITE\",\"operationParameters\":{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_feed\\\",\\\"source_position\\\",\\\"id\\\"]\",\"statsOnLoad\":true,\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"fast-path clustering triggered\"}}]\"}",
+    null,
+    null,
+    "01f1c12e-0669-17d0-8bc5-706e96f3072f",
+    null,
+    "16",
+    "WriteSerializable",
+    "False",
+    "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"WRITE\",\"operationMetrics\":{\"numFiles\":\"3\",\"numOutputRows\":\"300000\",\"numOutputBytes\":\"418539992\"}}]\",\"txnId\":\"a7c1365f-6ce8-4b0f-b279-54ff735c61e1\"}",
+    null,
+    "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+  ]
+]

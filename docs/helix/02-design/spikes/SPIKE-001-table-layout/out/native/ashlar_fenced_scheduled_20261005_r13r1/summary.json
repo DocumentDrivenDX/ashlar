@@ -1,0 +1,62 @@
+{
+  "state": "completed",
+  "batches": [
+    {
+      "batch": 1,
+      "queue_s": 0.010048151016235352,
+      "processing_s": 30.610769987106323,
+      "oldest_freshness_s": 50.62081813812256,
+      "versions": {
+        "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 7,
+        "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+        "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+        "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 5,
+        "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+        "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+      }
+    },
+    {
+      "batch": 2,
+      "queue_s": 10.621623992919922,
+      "processing_s": 33.064192056655884,
+      "oldest_freshness_s": 63.685816049575806,
+      "versions": {
+        "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 8,
+        "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+        "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+        "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 6,
+        "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+        "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+      }
+    },
+    {
+      "batch": 3,
+      "queue_s": 23.68658709526062,
+      "processing_s": 33.4980309009552,
+      "oldest_freshness_s": 77.18461799621582,
+      "versions": {
+        "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 9,
+        "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+        "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+        "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 7,
+        "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+        "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+      }
+    },
+    {
+      "batch": 4,
+      "queue_s": 37.18553423881531,
+      "processing_s": 33.64083385467529,
+      "oldest_freshness_s": 90.8263680934906,
+      "versions": {
+        "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 10,
+        "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+        "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+        "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 8,
+        "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+        "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+      }
+    }
+  ],
+  "scope": "four prebuilt disjoint batches; no concurrent readers or stage/source capture clock; journal payload/full untouched verification remains separate"
+}

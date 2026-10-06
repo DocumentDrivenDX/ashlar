@@ -1,0 +1,22 @@
+{
+  "state": "completed",
+  "batches": [
+    {
+      "batch": 1,
+      "entities": 1000000,
+      "ready_epoch": 1791243604.6349518,
+      "start_epoch": 1791243604.644993,
+      "end_epoch": 1791243665.273109,
+      "queue_delay_s": 0.010041236877441406,
+      "processing_s": 60.62811589241028,
+      "staging_completed_epoch": 1791243615.8924758,
+      "oldest_freshness_s": 70.63815712928772,
+      "newest_freshness_s": 60.63815712928772,
+      "versions": {
+        "object_current": 2,
+        "property_journal": 1
+      }
+    }
+  ],
+  "scope": "one synthetic scheduled 1M-object batch at 10s accumulation (provisional 100k/s burst for 10s; no sustained or owner-approved burst claim); prebuilt producer generation excluded; staging overlaps serial publication via one independent driver session; staging/queue/inside-transaction validation included; duplicate outside validation removed; driver atomic apply includes journal/canonical/receipt (scalar serving is a version-pinned SELECT, no physical copy) and validation; full exact bags and unknown retained content retrieved from canonical pinned versions; post-run hydration checks excluded from publication clock; manifest follows version discovery; no live producer, edges, replay/deletes, reader load or recovery; not long-run p95 admission"
+}

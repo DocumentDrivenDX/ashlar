@@ -1,0 +1,21 @@
+{
+  "passed": [
+    "clean",
+    "stale-props",
+    "stale-retained",
+    "stale-endpoint",
+    "stale-version",
+    "stale-origin",
+    "stale-null-order",
+    "wrong-hash",
+    "missing-target",
+    "duplicate-stage",
+    "duplicate-target",
+    "preexisting-marker",
+    "marker-outside-stage",
+    "duplicate-ordinal",
+    "bad-journal-old",
+    "missing-journal",
+    "forced-failure"
+  ]
+}

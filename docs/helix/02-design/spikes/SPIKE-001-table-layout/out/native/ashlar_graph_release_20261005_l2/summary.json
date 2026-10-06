@@ -1,0 +1,19 @@
+{
+  "state": "completed",
+  "versions": {
+    "client_dev.ashlar_scale_20261005_i1.object_current": 2,
+    "client_dev.ashlar_edge_ingest_20261005_l1.edge_current": 2,
+    "client_dev.ashlar_edge_ingest_20261005_l1.adjacency": 0,
+    "client_dev.ashlar_edge_ingest_20261005_l1.property_journal": 1
+  },
+  "validation": {
+    "nodes": 10000000,
+    "edges": 1000000,
+    "parallel_pairs": 200000,
+    "isolates": 9800000,
+    "typed_endpoint_mismatches": 0,
+    "adjacency_mismatches": 0,
+    "external_engines": "unexecuted"
+  },
+  "scope": "synthetic snapshot descriptor across fixed existing tables; no source transaction/recovery/policy/external-engine/scale/freshness admission"
+}

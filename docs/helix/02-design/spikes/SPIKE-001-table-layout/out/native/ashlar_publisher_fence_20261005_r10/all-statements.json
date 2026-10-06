@@ -1,0 +1,653 @@
+[
+  {
+    "label": "fence-ddl",
+    "sql": "CREATE TABLE client_dev.ashlar_composite_edges_20261005_q1.fence_r10 (stream STRING,epoch BIGINT,owner STRING) USING DELTA TBLPROPERTIES ('delta.feature.catalogManaged'='supported')",
+    "statement_id": "01f1c128-9730-17dd-8192-413d0837f71e",
+    "start_epoch": 1791251550.419924,
+    "wall_ms": 1336.1905410000002,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "fence-seed",
+    "sql": "INSERT INTO client_dev.ashlar_composite_edges_20261005_q1.fence_r10 VALUES ('graph',0,'none')",
+    "statement_id": "01f1c128-97fe-10c4-abe1-bc8370f649ac",
+    "start_epoch": 1791251551.757545,
+    "wall_ms": 943.5035840000002,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1",
+            "1"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "receipt-ddl",
+    "sql": "CREATE TABLE client_dev.ashlar_composite_edges_20261005_q1.fence_receipt_r10 (owner STRING,epoch BIGINT) USING DELTA TBLPROPERTIES ('delta.feature.catalogManaged'='supported')",
+    "statement_id": "01f1c128-988c-1c5e-8458-020ef2fc6afc",
+    "start_epoch": 1791251552.7020328,
+    "wall_ms": 1110.5744580000003,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "winner",
+    "sql": "SELECT epoch,owner FROM client_dev.ashlar_composite_edges_20261005_q1.fence_r10 WHERE stream='graph'",
+    "statement_id": "01f1c128-9c75-1c4f-a92e-7ff75357b427",
+    "start_epoch": 1791251559.2595682,
+    "wall_ms": 341.67962499999936,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1",
+            "p1"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "epoch"
+            },
+            {
+              "name": "owner"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "one-receipt",
+    "sql": "SELECT owner,epoch FROM client_dev.ashlar_composite_edges_20261005_q1.fence_receipt_r10",
+    "statement_id": "01f1c128-9caa-10ab-b38f-1510713817d8",
+    "start_epoch": 1791251559.602345,
+    "wall_ms": 242.43870899999996,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "p1",
+            "1"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "owner"
+            },
+            {
+              "name": "epoch"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "revoke",
+    "sql": "UPDATE client_dev.ashlar_composite_edges_20261005_q1.fence_r10 SET epoch=2,owner='replacement' WHERE stream='graph' AND epoch=1",
+    "statement_id": "01f1c128-9ccf-1e07-9b5e-0c390a5a91cf",
+    "start_epoch": 1791251559.845933,
+    "wall_ms": 1522.9309170000001,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "before-fence_r10",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_composite_edges_20261005_q1.fence_r10 LIMIT 1",
+    "statement_id": "01f1c128-9db7-1d87-b0ea-61648709f949",
+    "start_epoch": 1791251561.3700569,
+    "wall_ms": 864.822083,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "3",
+            "2026-10-06T01:52:40.988000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "UPDATE",
+            "{\"predicate\":\"[\"((stream#687379 = graph) AND (epoch#687380L = 1))\"]\"}",
+            null,
+            null,
+            "01f1c128-9ccf-1e07-9b5e-0c390a5a91cf",
+            null,
+            "2",
+            "WriteSerializable",
+            "False",
+            "{\"executionTimeMs\":\"948\",\"numAddedBytes\":\"2138\",\"numAddedChangeFiles\":\"0\",\"numAddedFiles\":\"1\",\"numCopiedRows\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"numDeletionVectorsUpdated\":\"0\",\"numRemovedBytes\":\"2098\",\"numRemovedFiles\":\"1\",\"numUpdatedRows\":\"1\",\"rewriteTimeMs\":\"596\",\"scanTimeMs\":\"351\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "before-fence_receipt_r10",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_composite_edges_20261005_q1.fence_receipt_r10 LIMIT 1",
+    "statement_id": "01f1c128-9e3b-108a-ba23-30b3f2a6a96f",
+    "start_epoch": 1791251562.236156,
+    "wall_ms": 401.01504199999914,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1",
+            "2026-10-06T01:52:37.963000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"WRITE\",\"operationParameters\":{\"mode\":\"Append\",\"statsOnLoad\":true,\"partitionBy\":\"[]\"}}]\"}",
+            null,
+            null,
+            "01f1c128-9a22-1448-8c2c-9bc895a8d970",
+            null,
+            "0",
+            "WriteSerializable",
+            "True",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"WRITE\",\"operationMetrics\":{\"numFiles\":\"1\",\"numOutputRows\":\"1\",\"numOutputBytes\":\"1144\"}}]\",\"txnId\":\"ad10e43c-66c1-4e53-a22c-555f5d6f708b\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "stale-holder",
+    "sql": "BEGIN ATOMIC\n IF (SELECT count(*) FROM client_dev.ashlar_composite_edges_20261005_q1.fence_r10 WHERE stream='graph' AND epoch=1 AND owner='p1')<>1 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='stale fence'; END IF;\n UPDATE client_dev.ashlar_composite_edges_20261005_q1.fence_r10 SET owner='p1' WHERE stream='graph';\n INSERT INTO client_dev.ashlar_composite_edges_20261005_q1.fence_receipt_r10 VALUES ('stale',1); END",
+    "statement_id": "01f1c128-9e79-11b6-8007-b40c351ddcb0",
+    "start_epoch": 1791251562.638293,
+    "wall_ms": 625.0519999999984,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "FAILED",
+        "error": {
+          "class": "ServerOperationError",
+          "message": "[USER_RAISED_EXCEPTION] stale fence SQLSTATE: 45000"
+        }
+      }
+    }
+  },
+  {
+    "label": "after-fence_r10",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_composite_edges_20261005_q1.fence_r10 LIMIT 1",
+    "statement_id": "01f1c128-9ed8-1c6b-b481-b8e7cd2f0835",
+    "start_epoch": 1791251563.264016,
+    "wall_ms": 373.3255839999998,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "3",
+            "2026-10-06T01:52:40.988000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "UPDATE",
+            "{\"predicate\":\"[\"((stream#687379 = graph) AND (epoch#687380L = 1))\"]\"}",
+            null,
+            null,
+            "01f1c128-9ccf-1e07-9b5e-0c390a5a91cf",
+            null,
+            "2",
+            "WriteSerializable",
+            "False",
+            "{\"executionTimeMs\":\"948\",\"numAddedBytes\":\"2138\",\"numAddedChangeFiles\":\"0\",\"numAddedFiles\":\"1\",\"numCopiedRows\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"numDeletionVectorsUpdated\":\"0\",\"numRemovedBytes\":\"2098\",\"numRemovedFiles\":\"1\",\"numUpdatedRows\":\"1\",\"rewriteTimeMs\":\"596\",\"scanTimeMs\":\"351\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "after-fence_receipt_r10",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_composite_edges_20261005_q1.fence_receipt_r10 LIMIT 1",
+    "statement_id": "01f1c128-9f11-1fd6-bfbf-1a0b5c1fd059",
+    "start_epoch": 1791251563.638437,
+    "wall_ms": 375.773208,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1",
+            "2026-10-06T01:52:37.963000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"WRITE\",\"operationParameters\":{\"mode\":\"Append\",\"statsOnLoad\":true,\"partitionBy\":\"[]\"}}]\"}",
+            null,
+            null,
+            "01f1c128-9a22-1448-8c2c-9bc895a8d970",
+            null,
+            "0",
+            "WriteSerializable",
+            "True",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"WRITE\",\"operationMetrics\":{\"numFiles\":\"1\",\"numOutputRows\":\"1\",\"numOutputBytes\":\"1144\"}}]\",\"txnId\":\"ad10e43c-66c1-4e53-a22c-555f5d6f708b\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "initial-snapshot",
+    "sql": "SELECT epoch FROM client_dev.ashlar_composite_edges_20261005_q1.fence_r10 WHERE stream='graph'",
+    "statement_id": "01f1c128-99f0-1d91-8540-dadd279e7d14",
+    "start_epoch": 1791251555.032474,
+    "wall_ms": 324.99104099999965,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "0"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "epoch"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "acquire",
+    "sql": "BEGIN ATOMIC\n UPDATE client_dev.ashlar_composite_edges_20261005_q1.fence_r10 SET epoch=1,owner='p0' WHERE stream='graph' AND epoch=0;\n IF (SELECT count(*) FROM client_dev.ashlar_composite_edges_20261005_q1.fence_r10 WHERE stream='graph' AND epoch=1 AND owner='p0')<>1 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='fence acquisition lost'; END IF;\n INSERT INTO client_dev.ashlar_composite_edges_20261005_q1.fence_receipt_r10 VALUES ('p0',1); END",
+    "statement_id": "01f1c128-9a23-12aa-8891-9dbe6be27955",
+    "start_epoch": 1791251555.3587892,
+    "wall_ms": 3899.5162499999997,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "FAILED",
+        "error": {
+          "class": "ServerOperationError",
+          "message": "[DELTA_CONCURRENT_APPEND.ROW_LEVEL_CHANGES] Transaction conflict detected. A concurrent TRANSACTION added data to table client_dev.ashlar_composite_edges_20261005_q1.fence_r10 committed at version 2. The concurrent operation modified the same rows that this transaction attempted to modify. Retry the operation. Refer to https://docs.microsoft.com/azure/databricks/delta/concurrency-control for more information."
+        }
+      }
+    }
+  },
+  {
+    "label": "initial-snapshot",
+    "sql": "SELECT epoch FROM client_dev.ashlar_composite_edges_20261005_q1.fence_r10 WHERE stream='graph'",
+    "statement_id": "01f1c128-99f0-168e-a5e2-2d3b9c6e60ec",
+    "start_epoch": 1791251555.0332391,
+    "wall_ms": 291.1452499999996,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "0"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "epoch"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "acquire",
+    "sql": "BEGIN ATOMIC\n UPDATE client_dev.ashlar_composite_edges_20261005_q1.fence_r10 SET epoch=1,owner='p1' WHERE stream='graph' AND epoch=0;\n IF (SELECT count(*) FROM client_dev.ashlar_composite_edges_20261005_q1.fence_r10 WHERE stream='graph' AND epoch=1 AND owner='p1')<>1 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='fence acquisition lost'; END IF;\n INSERT INTO client_dev.ashlar_composite_edges_20261005_q1.fence_receipt_r10 VALUES ('p1',1); END",
+    "statement_id": "01f1c128-9a22-1448-8c2c-9bc895a8d970",
+    "start_epoch": 1791251555.359377,
+    "wall_ms": 3018.4877920000004,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  }
+]

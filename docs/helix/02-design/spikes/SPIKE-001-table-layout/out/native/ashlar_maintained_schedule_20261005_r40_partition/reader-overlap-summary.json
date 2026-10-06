@@ -1,0 +1,12 @@
+{
+  "state": "completed",
+  "n": 168,
+  "writer_start_epoch": 1791257570.0310342,
+  "writer_end_epoch": 1791257761.6819088,
+  "caller_p95_ms": 951.9447499999956,
+  "engine_p95_ms": 307,
+  "compile_p95_ms": 644,
+  "result_cache_hits": 0,
+  "remote_query_count": 60,
+  "scope": "read calls whose actual time interval overlaps first atomic-data start through final publication end; excludes priming and initial arrival wait; fixed old vector, exact 17-field equality"
+}

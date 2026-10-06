@@ -1,0 +1,17 @@
+{
+  "state": "completed",
+  "entities": 200000,
+  "accumulation_s": 20,
+  "modeled_entities_s": 10000,
+  "start_epoch": 1791243879.461656,
+  "ready_epoch": 1791243899.461656,
+  "processing_s": 25.367249011993408,
+  "oldest_freshness_s": 45.37431597709656,
+  "newest_freshness_s": 25.374315977096558,
+  "versions": {
+    "adjacency": 0,
+    "edge_current": 2,
+    "property_journal": 1
+  },
+  "scope": "single synthetic edge property batch; no endpoint mutation, adjacency maintenance, steady stream, concurrent readers, replay/deletes, recovery or billion-edge admission"
+}

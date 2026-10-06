@@ -1,0 +1,9 @@
+{
+  "state": "completed",
+  "versions": {
+    "before": 16,
+    "after": 19
+  },
+  "maintenance_wall_s": 54.977036583,
+  "scope": "51 keys in ten native domains, three phases each before/after; full 17 carrier fields plus hidden row identity/commit version parity; independently computed property201; one incremental OPTIMIZE; no exhaustive preservation, continuous policy, cold-cache or scale admission"
+}

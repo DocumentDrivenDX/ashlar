@@ -1,0 +1,7 @@
+{
+  "connector": "4.3.0",
+  "sdk": "0.102.0",
+  "cache_setting": false,
+  "samples_per_shape": 25,
+  "state": "reads completed; asynchronous metrics need completeness check"
+}

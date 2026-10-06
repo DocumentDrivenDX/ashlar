@@ -1,0 +1,36 @@
+{
+  "state": "completed",
+  "layout": "lc",
+  "batches": [
+    {
+      "batch": 1,
+      "queue_s": 0.010037899017333984,
+      "processing_s": 74.32420897483826,
+      "oldest_freshness_s": 104.33424687385559,
+      "versions": {
+        "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+        "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+        "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+        "client_dev.ashlar_composite_20261005_p1r1.object_current": 3,
+        "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 23,
+        "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 19
+      }
+    },
+    {
+      "batch": 2,
+      "queue_s": 44.33470892906189,
+      "processing_s": 75.51899290084839,
+      "oldest_freshness_s": 149.85370182991028,
+      "versions": {
+        "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+        "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+        "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+        "client_dev.ashlar_composite_20261005_p1r1.object_current": 3,
+        "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 26,
+        "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 20
+      }
+    }
+  ],
+  "reader_calls": 199,
+  "scope": "two 30s arrivals, prebuilt stages, maintenance and changed-row validation inside freshness clock; old-vector full-carrier reader concurrently; exhaustive untouched/history/descriptor follow-up separate, no sustained admission"
+}

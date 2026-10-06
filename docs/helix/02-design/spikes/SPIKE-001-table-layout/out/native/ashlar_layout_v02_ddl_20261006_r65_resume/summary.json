@@ -1,0 +1,19 @@
+{
+  "state": "passed",
+  "schema": "client_dev.ashlar_layout_v02_20261006_r65",
+  "tables": [
+    "object_current",
+    "edge_current",
+    "property_journal",
+    "tombstone",
+    "publication_manifest",
+    "node_type_a",
+    "edge_ab",
+    "adjacency_forward",
+    "adjacency_reverse",
+    "degree_summary",
+    "publisher_fence",
+    "apply_receipt"
+  ],
+  "scope": "12 proposed0.2 CREATE statements and DESCRIBE native execution; empty private tables only; no key enforcement, publication, preservation, performance,scale or external-reader claim"
+}

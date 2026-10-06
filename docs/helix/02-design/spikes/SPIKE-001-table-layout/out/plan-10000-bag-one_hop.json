@@ -1,0 +1,115 @@
+{
+  "total_memory_allocated": 524288,
+  "total_bytes_written": 0,
+  "total_bytes_read": 0,
+  "system_peak_temp_dir_size": 0,
+  "system_peak_buffer_memory": 71229440,
+  "rows_returned": 4,
+  "result_set_size": 64,
+  "latency": 0.0010565,
+  "blocked_thread_time": 0.0,
+  "commit_local_storage_latency": 0.0,
+  "wal_replay_entry_count": 0,
+  "extra_info": {},
+  "query_name": "SELECT id,target_id FROM edges WHERE rel_type_id=1 AND source_type=1 AND source_id=123 ORDER BY id;",
+  "checkpoint_latency": 0.0,
+  "waiting_to_attach_latency": 0.0,
+  "cpu_time": 0.000184959,
+  "cumulative_rows_scanned": 80000,
+  "attach_replay_wal_latency": 0.0,
+  "write_to_wal_latency": 0.0,
+  "cumulative_cardinality": 16,
+  "attach_load_storage_latency": 0.0,
+  "children": [
+    {
+      "system_peak_temp_dir_size": 0,
+      "system_peak_buffer_memory": 0,
+      "result_set_size": 64,
+      "operator_type": "PROJECTION",
+      "operator_timing": 1.042e-06,
+      "operator_rows_scanned": 0,
+      "operator_name": "PROJECTION",
+      "extra_info": {
+        "Projections": [
+          "__internal_decompress_integral_bigint(#0, 4)",
+          "__internal_decompress_integral_bigint(#1, 1)"
+        ],
+        "Estimated Cardinality": "15"
+      },
+      "cpu_time": 0.000182167,
+      "cumulative_rows_scanned": 80000,
+      "operator_cardinality": 4,
+      "cumulative_cardinality": 16,
+      "children": [
+        {
+          "system_peak_temp_dir_size": 0,
+          "system_peak_buffer_memory": 0,
+          "result_set_size": 24,
+          "operator_type": "ORDER_BY",
+          "operator_timing": 1.7667e-05,
+          "operator_rows_scanned": 0,
+          "operator_name": "ORDER_BY",
+          "extra_info": {
+            "Order By": "bench.main.edges.id ASC"
+          },
+          "cpu_time": 0.000181125,
+          "cumulative_rows_scanned": 80000,
+          "operator_cardinality": 4,
+          "cumulative_cardinality": 12,
+          "children": [
+            {
+              "system_peak_temp_dir_size": 0,
+              "system_peak_buffer_memory": 0,
+              "result_set_size": 24,
+              "operator_type": "PROJECTION",
+              "operator_timing": 1.208e-06,
+              "operator_rows_scanned": 0,
+              "operator_name": "PROJECTION",
+              "extra_info": {
+                "Projections": [
+                  "__internal_compress_integral_uinteger(#0, 4)",
+                  "__internal_compress_integral_usmallint(#1, 1)"
+                ],
+                "Estimated Cardinality": "15"
+              },
+              "cpu_time": 0.000163458,
+              "cumulative_rows_scanned": 80000,
+              "operator_cardinality": 4,
+              "cumulative_cardinality": 8,
+              "children": [
+                {
+                  "system_peak_temp_dir_size": 0,
+                  "system_peak_buffer_memory": 0,
+                  "result_set_size": 64,
+                  "operator_type": "TABLE_SCAN",
+                  "operator_timing": 0.00016225000000000001,
+                  "operator_rows_scanned": 80000,
+                  "operator_name": "SEQ_SCAN",
+                  "extra_info": {
+                    "Table": "bench.main.edges",
+                    "Type": "Sequential Scan",
+                    "Projections": [
+                      "id",
+                      "target_id"
+                    ],
+                    "Filters": [
+                      "rel_type_id=1",
+                      "source_type=1",
+                      "source_id=123"
+                    ],
+                    "Estimated Cardinality": "15"
+                  },
+                  "cpu_time": 0.00016225000000000001,
+                  "cumulative_rows_scanned": 80000,
+                  "operator_cardinality": 4,
+                  "cumulative_cardinality": 4,
+                  "children": []
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

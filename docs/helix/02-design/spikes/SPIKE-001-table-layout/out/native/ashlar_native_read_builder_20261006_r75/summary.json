@@ -1,0 +1,30 @@
+{
+  "state": "passed",
+  "queries": [
+    {
+      "kind": "node",
+      "type": "1",
+      "id": "1",
+      "rows": 1
+    },
+    {
+      "kind": "node",
+      "type": "2",
+      "id": "1",
+      "rows": 1
+    },
+    {
+      "kind": "edge",
+      "type": "7",
+      "id": "1",
+      "rows": 1
+    },
+    {
+      "kind": "node",
+      "type": "1",
+      "id": "1",
+      "rows": 0
+    }
+  ],
+  "scope": "Four generated manifest-pinned singleton queries with exact SQL identity predicates and named SDK string parameters; typed repeated IDs, edge identity, exact bags and hostile-looking source parameter. No latency, scale, backend authorization or full producer-support claim."
+}

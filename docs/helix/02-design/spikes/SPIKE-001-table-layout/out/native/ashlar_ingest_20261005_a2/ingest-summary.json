@@ -1,0 +1,45 @@
+{
+  "schema": "client_dev.ashlar_ingest_20261005_a2",
+  "state": "completed",
+  "batches": [
+    {
+      "batch": 1,
+      "entities": 10000,
+      "publication_wall_ms": 20274.390207999997,
+      "effective_entities_per_s": 493.2330835801975,
+      "versions": {
+        "objects": 1,
+        "serving": 1,
+        "journal": 1
+      },
+      "includes": "merge, journal, projection, version discovery, changed-set validation, manifest; stage construction excluded"
+    },
+    {
+      "batch": 2,
+      "entities": 100000,
+      "publication_wall_ms": 25604.685874999996,
+      "effective_entities_per_s": 3905.535123070516,
+      "versions": {
+        "objects": 2,
+        "serving": 2,
+        "journal": 2
+      },
+      "includes": "merge, journal, projection, version discovery, changed-set validation, manifest; stage construction excluded"
+    },
+    {
+      "batch": 3,
+      "entities": 600000,
+      "publication_wall_ms": 40577.595625,
+      "effective_entities_per_s": 14786.484777090584,
+      "versions": {
+        "objects": 3,
+        "serving": 3,
+        "journal": 3
+      },
+      "includes": "merge, journal, projection, version discovery, changed-set validation, manifest; stage construction excluded"
+    }
+  ],
+  "statement_count": 69,
+  "history_count": 69,
+  "scope": "serial batch screening; no sustained arrival, concurrent clients or p95 freshness claim"
+}

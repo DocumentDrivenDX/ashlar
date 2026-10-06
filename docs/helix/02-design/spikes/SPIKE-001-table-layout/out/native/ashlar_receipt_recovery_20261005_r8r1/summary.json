@@ -1,0 +1,15 @@
+{
+  "state": "passed",
+  "versions": {
+    "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 5,
+    "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+    "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+    "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 3,
+    "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+    "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+  },
+  "recovery_attempts": 2,
+  "data_replays": 0,
+  "descriptor_rows": 1,
+  "scope": "one synthetic property update; deliberate post-commit session restart; exclusive writer only; no network loss/fencing/concurrent recovery guarantee"
+}

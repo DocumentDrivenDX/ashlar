@@ -1,0 +1,86 @@
+-- Proposed Delta DDL; all seven CREATEs executed in the isolated native probe.
+-- Production layout remains unapproved. See native-layout-evidence.md.
+-- Candidate L: liquid clustering. Do not combine with PARTITIONED BY or ZORDER.
+CREATE TABLE object_current (
+  source_system STRING NOT NULL, type_id BIGINT NOT NULL, id BIGINT NOT NULL,
+  logical_key_json STRING NOT NULL, schema_revision STRING NOT NULL,
+  entity_version BIGINT NOT NULL, props_json STRING NOT NULL,
+  retained_json STRING NOT NULL, root_id BIGINT,
+  source_feed STRING NOT NULL, source_epoch STRING NOT NULL,
+  source_position BIGINT NOT NULL, published_at TIMESTAMP NOT NULL
+) USING DELTA CLUSTER BY (source_system, type_id, id)
+TBLPROPERTIES ('delta.dataSkippingStatsColumns'='source_system,type_id,id');
+
+CREATE TABLE edge_current (
+  source_system STRING NOT NULL, rel_type_id BIGINT NOT NULL, id BIGINT NOT NULL,
+  source_type BIGINT NOT NULL, source_id BIGINT NOT NULL,
+  target_type BIGINT NOT NULL, target_id BIGINT NOT NULL,
+  schema_revision STRING NOT NULL, entity_version BIGINT NOT NULL,
+  props_json STRING NOT NULL, retained_json STRING NOT NULL, order_key STRING,
+  source_feed STRING NOT NULL, source_epoch STRING NOT NULL,
+  source_position BIGINT NOT NULL, published_at TIMESTAMP NOT NULL
+) USING DELTA CLUSTER BY (rel_type_id, source_id, target_id)
+TBLPROPERTIES ('delta.dataSkippingStatsColumns'='source_system,rel_type_id,source_type,source_id,target_type,target_id,id');
+
+CREATE TABLE property_journal (
+  source_system STRING NOT NULL, entity_kind STRING NOT NULL,
+  type_id BIGINT NOT NULL, id BIGINT NOT NULL, property_id BIGINT,
+  entity_version BIGINT NOT NULL, operation STRING NOT NULL,
+  old_present BOOLEAN NOT NULL, old_json STRING,
+  new_present BOOLEAN NOT NULL, new_json STRING,
+  schema_revision STRING NOT NULL, source_feed STRING NOT NULL,
+  source_epoch STRING NOT NULL, source_position BIGINT NOT NULL,
+  event_ordinal BIGINT NOT NULL, source_time_text STRING,
+  published_at TIMESTAMP NOT NULL
+) USING DELTA CLUSTER BY (source_feed, source_position, id)
+TBLPROPERTIES ('delta.dataSkippingStatsColumns'='source_feed,source_epoch,source_position,id');
+
+CREATE TABLE tombstone (
+  source_system STRING NOT NULL, entity_kind STRING NOT NULL,
+  type_id BIGINT NOT NULL, id BIGINT NOT NULL, entity_version BIGINT NOT NULL,
+  source_feed STRING NOT NULL, source_epoch STRING NOT NULL,
+  source_position BIGINT NOT NULL
+) USING DELTA CLUSTER BY (source_system, type_id, id);
+
+-- One row is the complete publication descriptor. Updated by a single publisher
+-- only after table-version validation; never infer multi-table commit atomicity.
+CREATE TABLE publication_manifest (
+  publication_id STRING NOT NULL, profile_version STRING NOT NULL,
+  table_versions_json STRING NOT NULL, source_progress_json STRING NOT NULL,
+  schema_revisions_json STRING NOT NULL, validation_report_json STRING NOT NULL,
+  recorded_at TIMESTAMP NOT NULL
+) USING DELTA;
+
+-- Example hot typed read projection: rebuildable, not a second source of truth.
+CREATE TABLE node_type_a (
+  node_key STRING NOT NULL, source_system STRING NOT NULL,
+  type_id BIGINT NOT NULL, id BIGINT NOT NULL,
+  group_value STRING, group_present BOOLEAN NOT NULL,
+  rank_value BIGINT, rank_present BOOLEAN NOT NULL,
+  props_json STRING NOT NULL, retained_json STRING NOT NULL
+) USING DELTA CLUSTER BY (id, group_value)
+TBLPROPERTIES ('delta.dataSkippingStatsColumns'='node_key,source_system,id,group_value,rank_value');
+
+CREATE TABLE edge_ab (
+  edge_key STRING NOT NULL, source_system STRING NOT NULL,
+  rel_type_id BIGINT NOT NULL, id BIGINT NOT NULL,
+  src STRING NOT NULL, dst STRING NOT NULL,
+  source_id BIGINT NOT NULL, target_id BIGINT NOT NULL,
+  score DOUBLE, score_present BOOLEAN NOT NULL,
+  props_json STRING NOT NULL, retained_json STRING NOT NULL
+) USING DELTA CLUSTER BY (source_id, target_id)
+TBLPROPERTIES ('delta.dataSkippingStatsColumns'='edge_key,src,dst,source_id,target_id,score');
+
+-- Native singleton read: use the manifest's fixed table version (literal supplied
+-- by validated execution adapter), exact source/type/id; no Fabric dependency.
+-- SELECT * FROM object_current VERSION AS OF 42
+-- WHERE source_system='truss-pilot' AND type_id=1 AND id=123;
+
+-- Candidate Z is a DIFFERENT table; type partition only when each partition is
+-- sufficiently large. Sparse types remain shared, not one tiny partition each.
+-- CREATE TABLE object_current_z (...) USING DELTA PARTITIONED BY (type_id);
+-- OPTIMIZE object_current_z ZORDER BY (source_system, id);
+-- CREATE TABLE edge_current_z (...) USING DELTA PARTITIONED BY (rel_type_id);
+-- OPTIMIZE edge_current_z ZORDER BY (source_id, target_id);
+-- Separate experiment: source-clustered narrow forward adjacency and
+-- target-clustered reverse adjacency, carrying edge identity (never dedup pairs).

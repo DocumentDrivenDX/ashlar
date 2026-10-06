@@ -1,0 +1,80 @@
+{
+  "format": "ashlar-mapping-plan/0.2",
+  "not_vendor_api_payload": true,
+  "publication": "r66:publication1",
+  "canonical_versions": {
+    "client_dev.ashlar_layout_v02_20261006_r65.object_current": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.edge_current": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.property_journal": 2,
+    "client_dev.ashlar_layout_v02_20261006_r65.tombstone": 0,
+    "client_dev.ashlar_layout_v02_20261006_r65.adjacency_forward": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.adjacency_reverse": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.degree_summary": 1
+  },
+  "source_sha256": "f498338661ea892b36eaae5517af72f82ee860b396b0da72899c059d278c2524",
+  "tables": {
+    "node_1": {
+      "file": "node_1.json",
+      "sha256": "3b3cdbf5141a572a59012aa815d591c1f4b5151e6a7378a938b9ada47fd930f0",
+      "rows": 2,
+      "kind": "node",
+      "label": "Type1"
+    },
+    "node_2": {
+      "file": "node_2.json",
+      "sha256": "68daa4e653854695f842febf707ebce8c91b766f4d14372fb1552915cb6279f6",
+      "rows": 1,
+      "kind": "node",
+      "label": "Type2"
+    },
+    "edge_7_1_2": {
+      "file": "edge_7_1_2.json",
+      "sha256": "c597cd391840a9a35ae0b26f770fb0a5db2f01043041c7ccf31b647204fe9be0",
+      "rows": 2,
+      "kind": "edge",
+      "label": "Rel7_1_2",
+      "sourceLabel": "Type1",
+      "targetLabel": "Type2"
+    },
+    "edge_7_1_1": {
+      "file": "edge_7_1_1.json",
+      "sha256": "05c433ef7ecb904df2d93c38273bd92ea041f89949377f48fb95f7eac3d41f3f",
+      "rows": 1,
+      "kind": "edge",
+      "label": "Rel7_1_1",
+      "sourceLabel": "Type1",
+      "targetLabel": "Type1"
+    }
+  },
+  "targets": {
+    "GraphFrames": {
+      "vertices": "union all node tables; id=node_key",
+      "edges": "union all edge tables; src,dst,edge_id=edge_key"
+    },
+    "PuppyGraph": {
+      "nodes": "one label per node type; key node_key",
+      "edges": "one label per (relationship,source type,target type); key edge_key; retain rel_type_id for cross-label queries",
+      "source": "immutable release Delta tables; Databricks connection/version profile separately qualified"
+    },
+    "Microsoft Fabric Graph": {
+      "nodes": "one node type per node table; key node_key",
+      "edges": "one edge type per endpoint type combination; src/dst foreign keys; edge_key explicit property; uniqueness validated by publisher",
+      "source": "immutable OneLake scalar Delta copies, independently verified",
+      "provisional_release_budget_elements": 100000000,
+      "budget_basis": "Conservative planning assumption below documented 500M instability guidance; not proved capacity.",
+      "string_bytes_limit": 65534
+    }
+  },
+  "residuals": [
+    "History, tombstones, degree summaries and coordination records remain in pinned canonical tables.",
+    "No selected property scalar conversion: exact JSON text retained."
+  ],
+  "state": "local release shape verified; Delta materialization and all engine execution pending",
+  "checked_at": "2026-10-06",
+  "sources": [
+    "https://docs.puppygraph.com/modeling/",
+    "https://docs.puppygraph.com/connecting/connecting-to-delta-lake/",
+    "https://learn.microsoft.com/fabric/graph/limitations",
+    "https://learn.microsoft.com/en-us/fabric/graph/monitor-graph-performance"
+  ]
+}

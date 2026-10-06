@@ -1,0 +1,38 @@
+{
+  "all": {
+    "n": 570,
+    "caller_p95_ms": 570.0271669999779,
+    "engine_p95_ms": 202,
+    "compile_p95_ms": 281,
+    "result_cache_hits": 0,
+    "remote_requests": 53
+  },
+  "atomic_overlap": {
+    "n": 427,
+    "caller_p95_ms": 611.5601249999969,
+    "engine_p95_ms": 253,
+    "compile_p95_ms": 286,
+    "result_cache_hits": 0,
+    "remote_requests": 51
+  },
+  "outside_atomic": {
+    "n": 143,
+    "caller_p95_ms": 469.0317499999992,
+    "engine_p95_ms": 107,
+    "compile_p95_ms": 259,
+    "result_cache_hits": 0,
+    "remote_requests": 2
+  },
+  "atomic_no_remote": {
+    "n": 376,
+    "engine_p95_ms": 151,
+    "caller_p95_ms": 552.2476250000068,
+    "result_cache_hits": 0
+  },
+  "atomic_remote": {
+    "n": 51,
+    "engine_p95_ms": 480,
+    "caller_p95_ms": 838.0494999999968,
+    "result_cache_hits": 0
+  }
+}

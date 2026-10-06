@@ -1,0 +1,26 @@
+{
+  "prime": {
+    "n": 50,
+    "caller_p50_ms": 409.2696250000003,
+    "caller_p95_ms": 554.4665420000001,
+    "engine_p50_ms": 132,
+    "engine_p95_ms": 301,
+    "compile_p50_ms": 152,
+    "compile_p95_ms": 196,
+    "server_p95_ms": 462,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  },
+  "read": {
+    "n": 204,
+    "caller_p50_ms": 523.8964590000137,
+    "caller_p95_ms": 940.9053749999998,
+    "engine_p50_ms": 76,
+    "engine_p95_ms": 298,
+    "compile_p50_ms": 307,
+    "compile_p95_ms": 638,
+    "server_p95_ms": 845,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  }
+}

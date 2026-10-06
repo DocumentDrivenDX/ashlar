@@ -1,0 +1,16 @@
+{
+  "state": "completed",
+  "versions": {
+    "client_dev.ashlar_composite_edges_20261005_q1.edge_current": 4,
+    "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+    "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+    "client_dev.ashlar_composite_edges_20261005_q1.property_journal": 2,
+    "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+    "client_dev.ashlar_composite_20261005_p1r1.object_current": 3
+  },
+  "atomic_apply_s": 15.047919273376465,
+  "through_descriptor_s": 55.196683168411255,
+  "edge_count": 10019981,
+  "hub_logical_work": 120003,
+  "scope": "one synthetic structural batch; no throughput or physical scan admission"
+}

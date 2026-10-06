@@ -1,0 +1,22 @@
+{
+  "state": "passed",
+  "stages": [
+    {
+      "batch": 1,
+      "table": "client_dev.ashlar_partition_zorder_20261005_r29.stage_r39_1",
+      "lo": 240001,
+      "hi": 270000,
+      "prepare_wall_s": 17.290435584
+    },
+    {
+      "batch": 2,
+      "table": "client_dev.ashlar_partition_zorder_20261005_r29.stage_r39_2",
+      "lo": 270001,
+      "hi": 300000,
+      "prepare_wall_s": 15.180405708999999
+    }
+  ],
+  "rows_per_batch": 300000,
+  "planned_interval_s": 30,
+  "scope": "two disjoint common full-carrier stages from LC21; preparation outside future clock, unique native keys and ordinals, independently checked 2KB payloads per domain; no ingest admission"
+}

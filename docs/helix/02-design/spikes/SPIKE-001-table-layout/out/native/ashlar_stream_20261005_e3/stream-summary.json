@@ -1,0 +1,103 @@
+{
+  "state": "stopped_backlog_bound",
+  "batches": [
+    {
+      "batch": 1,
+      "entities": 100000,
+      "ready_epoch": 1791237257.286077,
+      "start_epoch": 1791237257.291112,
+      "end_epoch": 1791237292.27297,
+      "queue_delay_s": 0.005034923553466797,
+      "processing_s": 34.981858015060425,
+      "oldest_freshness_s": 44.98689293861389,
+      "newest_freshness_s": 34.98689293861389,
+      "versions": {
+        "objects": 1,
+        "serving": 1,
+        "journal": 1
+      }
+    },
+    {
+      "batch": 2,
+      "entities": 100000,
+      "ready_epoch": 1791237267.286077,
+      "start_epoch": 1791237292.2735019,
+      "end_epoch": 1791237322.158765,
+      "queue_delay_s": 24.987424850463867,
+      "processing_s": 29.885263204574585,
+      "oldest_freshness_s": 64.87268805503845,
+      "newest_freshness_s": 54.87268805503845,
+      "versions": {
+        "objects": 2,
+        "serving": 2,
+        "journal": 2
+      }
+    },
+    {
+      "batch": 3,
+      "entities": 100000,
+      "ready_epoch": 1791237277.286077,
+      "start_epoch": 1791237322.159584,
+      "end_epoch": 1791237350.947503,
+      "queue_delay_s": 44.873507022857666,
+      "processing_s": 28.78791904449463,
+      "oldest_freshness_s": 83.6614260673523,
+      "newest_freshness_s": 73.6614260673523,
+      "versions": {
+        "objects": 3,
+        "serving": 3,
+        "journal": 3
+      }
+    },
+    {
+      "batch": 4,
+      "entities": 100000,
+      "ready_epoch": 1791237287.286077,
+      "start_epoch": 1791237350.9483871,
+      "end_epoch": 1791237375.7174542,
+      "queue_delay_s": 63.6623101234436,
+      "processing_s": 24.76906704902649,
+      "oldest_freshness_s": 98.43137717247009,
+      "newest_freshness_s": 88.43137717247009,
+      "versions": {
+        "objects": 4,
+        "serving": 4,
+        "journal": 4
+      }
+    },
+    {
+      "batch": 5,
+      "entities": 100000,
+      "ready_epoch": 1791237297.286077,
+      "start_epoch": 1791237375.7184289,
+      "end_epoch": 1791237402.50829,
+      "queue_delay_s": 78.43235182762146,
+      "processing_s": 26.78986120223999,
+      "oldest_freshness_s": 115.22221302986145,
+      "newest_freshness_s": 105.22221302986145,
+      "versions": {
+        "objects": 5,
+        "serving": 5,
+        "journal": 5
+      }
+    },
+    {
+      "batch": 6,
+      "entities": 100000,
+      "ready_epoch": 1791237307.286077,
+      "start_epoch": 1791237402.508716,
+      "end_epoch": 1791237428.628743,
+      "queue_delay_s": 95.2226390838623,
+      "processing_s": 26.12002682685852,
+      "oldest_freshness_s": 131.34266591072083,
+      "newest_freshness_s": 121.34266591072083,
+      "versions": {
+        "objects": 6,
+        "serving": 6,
+        "journal": 6
+      }
+    }
+  ],
+  "stop_reason": "after publishing batch 6, newest modeled arrival freshness exceeded 120s; no further work submitted",
+  "scope": "six scheduled 100k object batches; driver native atomic apply with in-transaction and repeated post-commit validation; staging/hash generation included; not full publisher or steady-state admission"
+}

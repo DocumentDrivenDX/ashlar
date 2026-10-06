@@ -1,0 +1,9 @@
+{
+  "start_epoch": 1791246340.5401652,
+  "ready_epoch": 1791246360.5401652,
+  "entities": 200000,
+  "accumulation_s": 20,
+  "modeled_entities_s": 10000,
+  "before_version": 6,
+  "scope": "one disjoint scattered batch on the already updated 10M n1 fixture; sequential comparison, not clean paired randomization"
+}

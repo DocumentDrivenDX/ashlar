@@ -1,0 +1,33 @@
+{
+  "state": "published",
+  "completed": [
+    {
+      "batch": 1,
+      "queue_s": 0.003203868865966797,
+      "processing_s": 101.80252003669739,
+      "oldest_freshness_s": 131.80572390556335,
+      "versions": {
+        "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+        "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+        "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+        "client_dev.ashlar_composite_20261005_p1r1.object_current": 3,
+        "client_dev.ashlar_partition_zorder_20261005_r29.edge_current": 5,
+        "client_dev.ashlar_partition_zorder_20261005_r29.property_journal": 2
+      }
+    },
+    {
+      "batch": 2,
+      "queue_s": 71.80649495124817,
+      "processing_s": 89.85008096694946,
+      "oldest_freshness_s": 191.65657591819763,
+      "versions": {
+        "client_dev.ashlar_composite_edges_20261005_q1.adjacency": 2,
+        "client_dev.ashlar_composite_edges_20261005_q1.out_degree_r1": 1,
+        "client_dev.ashlar_composite_edges_20261005_q1.tombstone_r3": 1,
+        "client_dev.ashlar_composite_20261005_p1r1.object_current": 3,
+        "client_dev.ashlar_partition_zorder_20261005_r29.edge_current": 7,
+        "client_dev.ashlar_partition_zorder_20261005_r29.property_journal": 3
+      }
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "state": "completed",
+  "candidate_version": 3,
+  "scope": "51 deliberately updated identities across ten domains; independent payload and all unchanged17-field carriers checked against prior version1; three repeated phases; no result cache; exhaustive scans already warmed data; no cold/concurrent/scale admission"
+}

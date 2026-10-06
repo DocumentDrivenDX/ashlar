@@ -1,0 +1,26 @@
+{
+  "literal": {
+    "n": 50,
+    "caller_p50_ms": 262.0149999999981,
+    "caller_p95_ms": 279.24929200000116,
+    "engine_p50_ms": 72,
+    "engine_p95_ms": 80,
+    "compile_p50_ms": 84,
+    "compile_p95_ms": 89,
+    "server_p95_ms": 180,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  },
+  "parameter": {
+    "n": 50,
+    "caller_p50_ms": 261.9994999999982,
+    "caller_p95_ms": 286.06899999999945,
+    "engine_p50_ms": 71,
+    "engine_p95_ms": 76,
+    "compile_p50_ms": 84,
+    "compile_p95_ms": 103,
+    "server_p95_ms": 186,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  }
+}

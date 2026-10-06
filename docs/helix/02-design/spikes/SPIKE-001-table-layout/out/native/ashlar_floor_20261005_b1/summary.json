@@ -1,0 +1,53 @@
+{
+  "schema": "client_dev.ashlar_floor_20261005_b1",
+  "sdk": "0.102.0",
+  "requests": "2.32.5",
+  "samples": 25,
+  "state": "completed",
+  "groups": {
+    "no_table": {
+      "n": 25,
+      "wall_p50_ms": 508.24720899999676,
+      "wall_p95_ms": 826.2023750000012,
+      "execution_p95_ms": 311,
+      "compile_p95_ms": 34,
+      "server_total_p95_ms": 393,
+      "result_cache_hits": 0,
+      "read_files_median": 0,
+      "pruned_files_median": 0
+    },
+    "tiny": {
+      "n": 25,
+      "wall_p50_ms": 606.4463749999902,
+      "wall_p95_ms": 873.835917000001,
+      "execution_p95_ms": 453,
+      "compile_p95_ms": 133,
+      "server_total_p95_ms": 587,
+      "result_cache_hits": 0,
+      "read_files_median": 1,
+      "pruned_files_median": 0
+    },
+    "typed_repetitive": {
+      "n": 25,
+      "wall_p50_ms": 640.229583,
+      "wall_p95_ms": 785.9228749999971,
+      "execution_p95_ms": 322,
+      "compile_p95_ms": 136,
+      "server_total_p95_ms": 500,
+      "result_cache_hits": 0,
+      "read_files_median": 1,
+      "pruned_files_median": 0
+    },
+    "typed_varied_pinned": {
+      "n": 25,
+      "wall_p50_ms": 688.3052090000064,
+      "wall_p95_ms": 907.7546670000025,
+      "execution_p95_ms": 391,
+      "compile_p95_ms": 178,
+      "server_total_p95_ms": 588,
+      "result_cache_hits": 0,
+      "read_files_median": 3,
+      "pruned_files_median": 1
+    }
+  }
+}

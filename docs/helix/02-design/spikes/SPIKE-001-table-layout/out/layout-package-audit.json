@@ -1,0 +1,35 @@
+{
+  "state": "passed",
+  "scope": "Local package digest and underlying SQL terminal-state audit only; not overall architecture or runtime acceptance.",
+  "v02_ddl_provenance": {
+    "successful_creates": [
+      "object_current",
+      "edge_current",
+      "property_journal",
+      "tombstone",
+      "publication_manifest",
+      "node_type_a",
+      "edge_ab",
+      "adjacency_forward",
+      "adjacency_reverse",
+      "degree_summary",
+      "publisher_fence",
+      "apply_receipt"
+    ],
+    "logs": {
+      "out/native/ashlar_layout_v02_ddl_20261006_r65/statements.jsonl": "bb300d5f395c96492ee47c57b6bd64802a30e1c97c710dc9f8abfd2374a5c7a5",
+      "out/native/ashlar_layout_v02_ddl_20261006_r65_resume/statements.jsonl": "3fe94257d8b104e109d515c7331d6f4ce74ff3b3ccdffea834f5d8fd9d249d30"
+    }
+  },
+  "expected_native_failures": [
+    "r65 initial degree CHECK rejection, superseded by successful corrected CREATE",
+    "r72 conflicting replay deliberately fails SOURCE_RECORD_CONFLICT"
+  ],
+  "unproved": [
+    "full consumer corpus execution",
+    "real native producer/worker conformance",
+    "external graph runtime execution",
+    "billion-node capacity",
+    "historical latency/freshness targets"
+  ]
+}

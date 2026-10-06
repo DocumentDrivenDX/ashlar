@@ -1,0 +1,13 @@
+# Structural lifecycle fixture and degree preparation
+
+2026-10-05; SPIKE-001 native experiment. Synthetic stages only; no structural release has been published.
+
+On the unchanged dbw-aidev-cus data-gateway warehouse, `native_structural_prepare.py` verifies canonical edge version 3 and adjacency version 0, then builds a separate catalog-managed degree baseline from the complete pinned adjacency. Exactly 2M typed source groups represent all 10M edges, each with out-degree five. Independent edge identities, including parallel endpoints, count individually.
+
+The deletion stage contains 20 existing edge identities in pilot:0/relationship 7. Each has exactly one retained parallel counterpart. The insertion stage contains 20,001 independent new identities, IDs 1,000,001..1,020,001 in the same domain, from existing typed node 200,001 to typed nodes 1..20,001. IDs are disjoint from canonical identities and every source/target resolves against fixed node version 3. Exact property and retained bags, nullable order and a separately derived pruning hash are carried. Source feed fixture-edge-structure is synthetic; real Truss lifecycle semantics and catalog restrictions are not inferred.
+
+The proposed new graph has **10,019,981 edges**. Before deletion adjustment, hub logical two-hop work is 120,006 (first-hop edge count plus target outgoing degrees). Three deleted edges reduce degrees of targets inside the hub target range; the independent Python endpoint formula and native SQL projected degree calculation agree on **120,003**. This exceeds the provisional 100k logical-work budget and should refuse path fetch. No publication, actual admission query latency, maintained degree parity or physical scan cap is established by projected arithmetic.
+
+Raw preparation: `SPIKE-001-table-layout/out/native/ashlar_structural_prepare_20261005_r1/`; projected SQL/results and independent expected value: `out/native/ashlar_structural_projected_20261005_r2/`. All submitted statements completed. Canonical edge and adjacency snapshots remain unchanged. The new degree table and lifecycle stages are private experimental fixtures.
+
+Next implement one atomic structural application across canonical edges, adjacency, exact affected degree groups, lifecycle journal, tombstones and receipt, followed by validated pinned descriptor publication. Test full carrier preservation, parallel-edge effects, endpoint integrity, maintained degree parity, old snapshot stability and hub refusal. Define lifecycle journal values explicitly as whole-entity synthetic carriers with null property ID; do not claim they implement the native source feed. Ingest/latency/full-scale gates and resource bounds remain as recorded in SPIKE-001. The goal remains active.

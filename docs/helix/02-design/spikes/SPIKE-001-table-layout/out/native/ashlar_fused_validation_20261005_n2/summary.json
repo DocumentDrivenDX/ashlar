@@ -1,0 +1,13 @@
+{
+  "state": "completed",
+  "entities": 200000,
+  "before_version": 6,
+  "versions": {
+    "object_current": 7,
+    "property_journal": 2
+  },
+  "processing_s": 73.44934296607971,
+  "oldest_freshness_s": 93.45938467979431,
+  "newest_freshness_s": 73.45938467979431,
+  "preservation": "200k changed exact; 9.8M unchanged all 13 fields; 10M canonical keys; 200k unique journal events"
+}

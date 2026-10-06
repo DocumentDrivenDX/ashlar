@@ -1,0 +1,50 @@
+{
+  "total_memory_allocated": 0,
+  "total_bytes_written": 0,
+  "total_bytes_read": 0,
+  "system_peak_temp_dir_size": 0,
+  "system_peak_buffer_memory": 71229440,
+  "rows_returned": 1,
+  "result_set_size": 40,
+  "latency": 0.000490834,
+  "blocked_thread_time": 0.0,
+  "commit_local_storage_latency": 0.0,
+  "wal_replay_entry_count": 0,
+  "extra_info": {},
+  "query_name": "SELECT id,props,retained FROM node_a WHERE type_id=1 AND id=123;",
+  "checkpoint_latency": 0.0,
+  "waiting_to_attach_latency": 0.0,
+  "cpu_time": 8.8917e-05,
+  "cumulative_rows_scanned": 10000,
+  "attach_replay_wal_latency": 0.0,
+  "write_to_wal_latency": 0.0,
+  "cumulative_cardinality": 1,
+  "attach_load_storage_latency": 0.0,
+  "children": [
+    {
+      "system_peak_temp_dir_size": 0,
+      "system_peak_buffer_memory": 0,
+      "result_set_size": 40,
+      "operator_type": "TABLE_SCAN",
+      "operator_timing": 8.6667e-05,
+      "operator_rows_scanned": 10000,
+      "operator_name": "SEQ_SCAN",
+      "extra_info": {
+        "Table": "bench.main.node_a",
+        "Type": "Sequential Scan",
+        "Projections": [
+          "id",
+          "props",
+          "retained"
+        ],
+        "Filters": "id=123",
+        "Estimated Cardinality": "1"
+      },
+      "cpu_time": 8.6667e-05,
+      "cumulative_rows_scanned": 10000,
+      "operator_cardinality": 1,
+      "cumulative_cardinality": 1,
+      "children": []
+    }
+  ]
+}

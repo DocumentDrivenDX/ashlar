@@ -1,0 +1,1 @@
+{"warehouse_id": "2439e1f2e37ac563", "statement": "SELECT count(*) FROM (SELECT source_system,type_id,id FROM client_dev.ashlar_spike_20261005_7f2b2e.invalid_object_fixture GROUP BY source_system,type_id,id HAVING count(*)>1)", "wait_timeout": "10s", "on_wait_timeout": "CONTINUE", "disposition": "INLINE", "format": "JSON_ARRAY", "row_limit": 1000}

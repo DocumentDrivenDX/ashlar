@@ -1,0 +1,36 @@
+{
+  "state": "passed",
+  "checks": [
+    {
+      "phase": "before",
+      "rep": 0,
+      "wall_ms": 4096.023375
+    },
+    {
+      "phase": "before",
+      "rep": 1,
+      "wall_ms": 4470.583667
+    },
+    {
+      "phase": "after",
+      "rep": 0,
+      "wall_ms": 4249.734875000002
+    },
+    {
+      "phase": "after",
+      "rep": 1,
+      "wall_ms": 4043.392708999999
+    }
+  ],
+  "maintenance": [
+    {
+      "label": "analyze-edge_current",
+      "wall_ms": 1609.504041000001
+    },
+    {
+      "label": "analyze-property_journal",
+      "wall_ms": 1033.399083000001
+    }
+  ],
+  "scope": "two checks per phase, pinned same snapshots; targeted catalog optimizer statistics, not Delta skipping stats; no integrated rate admission"
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "direction": "out",
+    "table": "adjacency_forward",
+    "sourceSystem": "pilot",
+    "typeId": "1",
+    "id": "1",
+    "expectedEdges": [
+      "1",
+      "2"
+    ],
+    "sql": "SELECT * FROM `client_dev`.`ashlar_layout_v03_20261006_r73`.`adjacency_forward` VERSION AS OF 1 WHERE source_system = :source AND source_type = CAST(:type AS BIGINT) AND source_id = CAST(:id AS BIGINT) ORDER BY rel_type_id, edge_id LIMIT 2",
+    "parameters": {
+      "source": "pilot",
+      "type": "1",
+      "id": "1"
+    }
+  },
+  {
+    "direction": "out",
+    "table": "adjacency_forward",
+    "sourceSystem": "pilot",
+    "typeId": "1",
+    "id": "1",
+    "expectedEdges": [
+      "3"
+    ],
+    "after": {
+      "relTypeId": "7",
+      "edgeId": "2"
+    },
+    "sql": "SELECT * FROM `client_dev`.`ashlar_layout_v03_20261006_r73`.`adjacency_forward` VERSION AS OF 1 WHERE source_system = :source AND source_type = CAST(:type AS BIGINT) AND source_id = CAST(:id AS BIGINT) AND (rel_type_id > CAST(:afterType AS BIGINT) OR (rel_type_id = CAST(:afterType AS BIGINT) AND edge_id > CAST(:afterEdge AS BIGINT))) ORDER BY rel_type_id, edge_id LIMIT 2",
+    "parameters": {
+      "source": "pilot",
+      "type": "1",
+      "id": "1",
+      "afterType": "7",
+      "afterEdge": "2"
+    }
+  },
+  {
+    "direction": "in",
+    "table": "adjacency_reverse",
+    "sourceSystem": "pilot",
+    "typeId": "2",
+    "id": "1",
+    "expectedEdges": [
+      "1",
+      "2"
+    ],
+    "sql": "SELECT * FROM `client_dev`.`ashlar_layout_v03_20261006_r73`.`adjacency_reverse` VERSION AS OF 1 WHERE source_system = :source AND target_type = CAST(:type AS BIGINT) AND target_id = CAST(:id AS BIGINT) ORDER BY rel_type_id, edge_id LIMIT 2",
+    "parameters": {
+      "source": "pilot",
+      "type": "2",
+      "id": "1"
+    }
+  },
+  {
+    "direction": "out",
+    "table": "adjacency_forward",
+    "sourceSystem": "pilot",
+    "typeId": "1",
+    "id": "-1",
+    "expectedEdges": [],
+    "sql": "SELECT * FROM `client_dev`.`ashlar_layout_v03_20261006_r73`.`adjacency_forward` VERSION AS OF 1 WHERE source_system = :source AND source_type = CAST(:type AS BIGINT) AND source_id = CAST(:id AS BIGINT) ORDER BY rel_type_id, edge_id LIMIT 2",
+    "parameters": {
+      "source": "pilot",
+      "type": "1",
+      "id": "-1"
+    }
+  }
+]

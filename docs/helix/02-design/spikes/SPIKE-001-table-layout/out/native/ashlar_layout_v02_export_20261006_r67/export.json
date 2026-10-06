@@ -1,0 +1,91 @@
+{
+  "publication": "r66:publication1",
+  "profile": "ashlar-delta/0.2",
+  "versions": {
+    "client_dev.ashlar_layout_v02_20261006_r65.object_current": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.edge_current": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.property_journal": 2,
+    "client_dev.ashlar_layout_v02_20261006_r65.tombstone": 0,
+    "client_dev.ashlar_layout_v02_20261006_r65.adjacency_forward": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.adjacency_reverse": 1,
+    "client_dev.ashlar_layout_v02_20261006_r65.degree_summary": 1
+  },
+  "vertices": [
+    {
+      "source_system": "pilot",
+      "type_id": "1",
+      "id": "1",
+      "logical_key_json": "[\"logical\",1,1]",
+      "props_json": "{\"101\":null,\"102\":9007199254740993,\"103\":\"verbatim\"}",
+      "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+      "node_key": "N5:pilot:1:1"
+    },
+    {
+      "source_system": "pilot",
+      "type_id": "2",
+      "id": "1",
+      "logical_key_json": "[\"logical\",2,1]",
+      "props_json": "{\"101\":null,\"102\":9007199254740993,\"103\":\"verbatim\"}",
+      "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+      "node_key": "N5:pilot:2:1"
+    },
+    {
+      "source_system": "pilot",
+      "type_id": "1",
+      "id": "-1",
+      "logical_key_json": "[\"logical\",1,-1]",
+      "props_json": "{\"101\":null,\"102\":9007199254740993,\"103\":\"verbatim\"}",
+      "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+      "node_key": "N5:pilot:1:-1"
+    }
+  ],
+  "edges": [
+    {
+      "source_system": "pilot",
+      "rel_type_id": "7",
+      "id": "1",
+      "source_type": "1",
+      "source_id": "1",
+      "target_type": "2",
+      "target_id": "1",
+      "props_json": "{}",
+      "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+      "edge_key": "E5:pilot:7:1",
+      "src": "N5:pilot:1:1",
+      "dst": "N5:pilot:2:1"
+    },
+    {
+      "source_system": "pilot",
+      "rel_type_id": "7",
+      "id": "2",
+      "source_type": "1",
+      "source_id": "1",
+      "target_type": "2",
+      "target_id": "1",
+      "props_json": "{}",
+      "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+      "edge_key": "E5:pilot:7:2",
+      "src": "N5:pilot:1:1",
+      "dst": "N5:pilot:2:1"
+    },
+    {
+      "source_system": "pilot",
+      "rel_type_id": "7",
+      "id": "3",
+      "source_type": "1",
+      "source_id": "1",
+      "target_type": "1",
+      "target_id": "1",
+      "props_json": "{}",
+      "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+      "edge_key": "E5:pilot:7:3",
+      "src": "N5:pilot:1:1",
+      "dst": "N5:pilot:1:1"
+    }
+  ],
+  "residuals": [
+    "History, tombstones, degree summaries and coordination records remain in pinned canonical tables.",
+    "No selected property scalar conversion: exact JSON text retained."
+  ],
+  "scope": "Native Delta reads and Python export conformance only; external engines unexecuted."
+}

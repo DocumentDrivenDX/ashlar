@@ -1,0 +1,7 @@
+{
+  "state": "passed",
+  "untouched_full17": 9119981,
+  "journal_exact": 900000,
+  "descriptors": 3,
+  "scope": "final untouched parity plus every journal value; changed canonical checks at each publication in timed harness"
+}

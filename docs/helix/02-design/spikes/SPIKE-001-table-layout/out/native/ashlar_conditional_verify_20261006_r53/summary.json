@@ -1,0 +1,4 @@
+{
+  "state": "passed",
+  "scope": "300k changed/journal per layout, 9,719,981 untouched full carriers per layout, total unique typed keys, actual descriptor vectors and cleared barriers; complete inherited journal multiset and all hidden row identities preserved; sustained/maintenance performance separate"
+}

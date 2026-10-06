@@ -1,0 +1,2208 @@
+[
+  {
+    "label": "statement-cap",
+    "sql": "SET STATEMENT_TIMEOUT=180",
+    "statement_id": "01f1c11d-fab3-1c7e-8775-fe61ee9366c3",
+    "start_epoch": 1791246992.909651,
+    "wall_ms": 170.44791600000008,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "STATEMENT_TIMEOUT",
+            "180"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "key"
+            },
+            {
+              "name": "value"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "environment",
+    "sql": "SELECT current_version()",
+    "statement_id": "01f1c11d-face-16f0-992b-cb37c7ecda84",
+    "start_epoch": 1791246993.0816169,
+    "wall_ms": 204.831875,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "{\"dbr_version\":null,\"dbsql_version\":\"2026.38\",\"u_build_hash\":\"5ed5dc28fe86dc0a5d08df504d6d5e89c8a4dcda\",\"r_build_hash\":\"722a1a33c2aa93f3d608cfe18bded36448192445\"}"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "current_version()"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "before-version",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_scattered_20261005_n1.object_current LIMIT 1",
+    "statement_id": "01f1c11d-faed-188d-80c5-fd60df779419",
+    "start_epoch": 1791246993.2874691,
+    "wall_ms": 831.8692909999999,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "8",
+            "2026-10-06T00:32:44.065000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((source_system#429267 = source_system#429280) AND (type_id#429268L = type_id#429281L)) AND (id#429269L = id#429282L))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11d-6730-16fa-b6e0-153061068120",
+            null,
+            "7",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"200000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"200000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"2821\",\"numTargetFilesAdded\":\"8\",\"numTargetBytesAdded\":\"214309059\",\"executionTimeMs\":\"4455\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"419\",\"scanTimeMs\":\"1626\",\"numOutputRows\":\"200000\",\"numTargetDeletionVectorsRemoved\":\"419\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"200000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"f6ca0178-78ea-441c-b360-c16bbce33f5f\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "before-detail",
+    "sql": "DESCRIBE DETAIL client_dev.ashlar_scattered_20261005_n1.object_current",
+    "statement_id": "01f1c11d-fb6e-160f-897a-bedaab193ff6",
+    "start_epoch": 1791246994.122553,
+    "wall_ms": 358.3495829999999,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "delta",
+            "d94414dd-605c-4a37-9bbe-1db7aec189fd",
+            "client_dev.ashlar_scattered_20261005_n1.object_current",
+            null,
+            "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/04ec3f3e-f9be-4876-a654-7f35e1514bd0",
+            "2026-10-06T00:15:46.074000",
+            "2026-10-06T00:32:44",
+            "[]",
+            "[\"source_system\",\"type_id\",\"id\"]",
+            "443",
+            "7075602680",
+            "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"source_system,type_id,id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableInCommitTimestamps\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-99fecfce-2d6f-4c28-9fe6-b623efa36db1\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-b9d13672-903a-40a9-b24b-619e083a8c5f\",\"delta.targetFileSize\":\"16777216\",\"io.unitycatalog.tableId\":\"04ec3f3e-f9be-4876-a654-7f35e1514bd0\"}",
+            "3",
+            "7",
+            "[\"appendOnly\",\"catalogManaged\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"inCommitTimestamp\",\"invariants\",\"rowTracking\",\"v2Checkpoint\",\"vacuumProtocolCheck\"]",
+            "{\"numDeletionVectors\":419,\"numRowsDeletedByDeletionVectors\":600000}",
+            "False"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "format"
+            },
+            {
+              "name": "id"
+            },
+            {
+              "name": "name"
+            },
+            {
+              "name": "description"
+            },
+            {
+              "name": "location"
+            },
+            {
+              "name": "createdAt"
+            },
+            {
+              "name": "lastModified"
+            },
+            {
+              "name": "partitionColumns"
+            },
+            {
+              "name": "clusteringColumns"
+            },
+            {
+              "name": "numFiles"
+            },
+            {
+              "name": "sizeInBytes"
+            },
+            {
+              "name": "properties"
+            },
+            {
+              "name": "minReaderVersion"
+            },
+            {
+              "name": "minWriterVersion"
+            },
+            {
+              "name": "tableFeatures"
+            },
+            {
+              "name": "statistics"
+            },
+            {
+              "name": "clusterByAuto"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "producer-4",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.producer_n4_4 USING DELTA AS SELECT *,to_json(named_struct('101',concat('g',cast(id%100 AS STRING)),'102',id%1000,'103',concat(sha2(concat(cast(id AS STRING),':scheduled:4:0'),256),sha2(concat(cast(id AS STRING),':scheduled:4:1'),256),sha2(concat(cast(id AS STRING),':scheduled:4:2'),256),sha2(concat(cast(id AS STRING),':scheduled:4:3'),256),sha2(concat(cast(id AS STRING),':scheduled:4:4'),256),sha2(concat(cast(id AS STRING),':scheduled:4:5'),256),sha2(concat(cast(id AS STRING),':scheduled:4:6'),256),sha2(concat(cast(id AS STRING),':scheduled:4:7'),256),sha2(concat(cast(id AS STRING),':scheduled:4:8'),256),sha2(concat(cast(id AS STRING),':scheduled:4:9'),256),sha2(concat(cast(id AS STRING),':scheduled:4:10'),256),sha2(concat(cast(id AS STRING),':scheduled:4:11'),256),sha2(concat(cast(id AS STRING),':scheduled:4:12'),256),sha2(concat(cast(id AS STRING),':scheduled:4:13'),256),sha2(concat(cast(id AS STRING),':scheduled:4:14'),256),sha2(concat(cast(id AS STRING),':scheduled:4:15'),256),sha2(concat(cast(id AS STRING),':scheduled:4:16'),256),sha2(concat(cast(id AS STRING),':scheduled:4:17'),256),sha2(concat(cast(id AS STRING),':scheduled:4:18'),256),sha2(concat(cast(id AS STRING),':scheduled:4:19'),256),sha2(concat(cast(id AS STRING),':scheduled:4:20'),256),sha2(concat(cast(id AS STRING),':scheduled:4:21'),256),sha2(concat(cast(id AS STRING),':scheduled:4:22'),256),sha2(concat(cast(id AS STRING),':scheduled:4:23'),256),sha2(concat(cast(id AS STRING),':scheduled:4:24'),256),sha2(concat(cast(id AS STRING),':scheduled:4:25'),256),sha2(concat(cast(id AS STRING),':scheduled:4:26'),256),sha2(concat(cast(id AS STRING),':scheduled:4:27'),256),sha2(concat(cast(id AS STRING),':scheduled:4:28'),256),sha2(concat(cast(id AS STRING),':scheduled:4:29'),256),sha2(concat(cast(id AS STRING),':scheduled:4:30'),256),sha2(concat(cast(id AS STRING),':scheduled:4:31'),256)))) new_props FROM client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 8 WHERE pmod((id-1)*104729,10000000)>=600000 AND pmod((id-1)*104729,10000000)<900000",
+    "statement_id": "01f1c11d-fba4-1441-9eff-77e62e8e2cbf",
+    "start_epoch": 1791246994.482977,
+    "wall_ms": 10064.107916,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "producer-keys-4",
+    "sql": "SELECT count(*),count(DISTINCT id),count(DISTINCT floor((id-1)/100000)) FROM client_dev.ashlar_scattered_20261005_n1.producer_n4_4",
+    "statement_id": "01f1c11e-01bd-1492-a441-7a676a12a98a",
+    "start_epoch": 1791247004.5484438,
+    "wall_ms": 758.5512090000002,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "300000",
+            "300000",
+            "100"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "count(1)"
+            },
+            {
+              "name": "count(DISTINCT id)"
+            },
+            {
+              "name": "count(DISTINCT FLOOR(((id - 1) / 100000)))"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "producer-5",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.producer_n4_5 USING DELTA AS SELECT *,to_json(named_struct('101',concat('g',cast(id%100 AS STRING)),'102',id%1000,'103',concat(sha2(concat(cast(id AS STRING),':scheduled:5:0'),256),sha2(concat(cast(id AS STRING),':scheduled:5:1'),256),sha2(concat(cast(id AS STRING),':scheduled:5:2'),256),sha2(concat(cast(id AS STRING),':scheduled:5:3'),256),sha2(concat(cast(id AS STRING),':scheduled:5:4'),256),sha2(concat(cast(id AS STRING),':scheduled:5:5'),256),sha2(concat(cast(id AS STRING),':scheduled:5:6'),256),sha2(concat(cast(id AS STRING),':scheduled:5:7'),256),sha2(concat(cast(id AS STRING),':scheduled:5:8'),256),sha2(concat(cast(id AS STRING),':scheduled:5:9'),256),sha2(concat(cast(id AS STRING),':scheduled:5:10'),256),sha2(concat(cast(id AS STRING),':scheduled:5:11'),256),sha2(concat(cast(id AS STRING),':scheduled:5:12'),256),sha2(concat(cast(id AS STRING),':scheduled:5:13'),256),sha2(concat(cast(id AS STRING),':scheduled:5:14'),256),sha2(concat(cast(id AS STRING),':scheduled:5:15'),256),sha2(concat(cast(id AS STRING),':scheduled:5:16'),256),sha2(concat(cast(id AS STRING),':scheduled:5:17'),256),sha2(concat(cast(id AS STRING),':scheduled:5:18'),256),sha2(concat(cast(id AS STRING),':scheduled:5:19'),256),sha2(concat(cast(id AS STRING),':scheduled:5:20'),256),sha2(concat(cast(id AS STRING),':scheduled:5:21'),256),sha2(concat(cast(id AS STRING),':scheduled:5:22'),256),sha2(concat(cast(id AS STRING),':scheduled:5:23'),256),sha2(concat(cast(id AS STRING),':scheduled:5:24'),256),sha2(concat(cast(id AS STRING),':scheduled:5:25'),256),sha2(concat(cast(id AS STRING),':scheduled:5:26'),256),sha2(concat(cast(id AS STRING),':scheduled:5:27'),256),sha2(concat(cast(id AS STRING),':scheduled:5:28'),256),sha2(concat(cast(id AS STRING),':scheduled:5:29'),256),sha2(concat(cast(id AS STRING),':scheduled:5:30'),256),sha2(concat(cast(id AS STRING),':scheduled:5:31'),256)))) new_props FROM client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 8 WHERE pmod((id-1)*104729,10000000)>=900000 AND pmod((id-1)*104729,10000000)<1200000",
+    "statement_id": "01f1c11e-0218-179d-9cab-f31d16948374",
+    "start_epoch": 1791247005.307939,
+    "wall_ms": 8376.220542000001,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "producer-keys-5",
+    "sql": "SELECT count(*),count(DISTINCT id),count(DISTINCT floor((id-1)/100000)) FROM client_dev.ashlar_scattered_20261005_n1.producer_n4_5",
+    "statement_id": "01f1c11e-0729-16c8-a6ff-b3b89f385063",
+    "start_epoch": 1791247013.684978,
+    "wall_ms": 704.6498339999978,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "300000",
+            "300000",
+            "100"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "count(1)"
+            },
+            {
+              "name": "count(DISTINCT id)"
+            },
+            {
+              "name": "count(DISTINCT FLOOR(((id - 1) / 100000)))"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "producer-6",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.producer_n4_6 USING DELTA AS SELECT *,to_json(named_struct('101',concat('g',cast(id%100 AS STRING)),'102',id%1000,'103',concat(sha2(concat(cast(id AS STRING),':scheduled:6:0'),256),sha2(concat(cast(id AS STRING),':scheduled:6:1'),256),sha2(concat(cast(id AS STRING),':scheduled:6:2'),256),sha2(concat(cast(id AS STRING),':scheduled:6:3'),256),sha2(concat(cast(id AS STRING),':scheduled:6:4'),256),sha2(concat(cast(id AS STRING),':scheduled:6:5'),256),sha2(concat(cast(id AS STRING),':scheduled:6:6'),256),sha2(concat(cast(id AS STRING),':scheduled:6:7'),256),sha2(concat(cast(id AS STRING),':scheduled:6:8'),256),sha2(concat(cast(id AS STRING),':scheduled:6:9'),256),sha2(concat(cast(id AS STRING),':scheduled:6:10'),256),sha2(concat(cast(id AS STRING),':scheduled:6:11'),256),sha2(concat(cast(id AS STRING),':scheduled:6:12'),256),sha2(concat(cast(id AS STRING),':scheduled:6:13'),256),sha2(concat(cast(id AS STRING),':scheduled:6:14'),256),sha2(concat(cast(id AS STRING),':scheduled:6:15'),256),sha2(concat(cast(id AS STRING),':scheduled:6:16'),256),sha2(concat(cast(id AS STRING),':scheduled:6:17'),256),sha2(concat(cast(id AS STRING),':scheduled:6:18'),256),sha2(concat(cast(id AS STRING),':scheduled:6:19'),256),sha2(concat(cast(id AS STRING),':scheduled:6:20'),256),sha2(concat(cast(id AS STRING),':scheduled:6:21'),256),sha2(concat(cast(id AS STRING),':scheduled:6:22'),256),sha2(concat(cast(id AS STRING),':scheduled:6:23'),256),sha2(concat(cast(id AS STRING),':scheduled:6:24'),256),sha2(concat(cast(id AS STRING),':scheduled:6:25'),256),sha2(concat(cast(id AS STRING),':scheduled:6:26'),256),sha2(concat(cast(id AS STRING),':scheduled:6:27'),256),sha2(concat(cast(id AS STRING),':scheduled:6:28'),256),sha2(concat(cast(id AS STRING),':scheduled:6:29'),256),sha2(concat(cast(id AS STRING),':scheduled:6:30'),256),sha2(concat(cast(id AS STRING),':scheduled:6:31'),256)))) new_props FROM client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 8 WHERE pmod((id-1)*104729,10000000)>=1200000 AND pmod((id-1)*104729,10000000)<1500000",
+    "statement_id": "01f1c11e-0783-1139-8712-085682f12bff",
+    "start_epoch": 1791247014.390893,
+    "wall_ms": 8087.654041000001,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "producer-keys-6",
+    "sql": "SELECT count(*),count(DISTINCT id),count(DISTINCT floor((id-1)/100000)) FROM client_dev.ashlar_scattered_20261005_n1.producer_n4_6",
+    "statement_id": "01f1c11e-0c67-15d4-ac41-44e21382fcff",
+    "start_epoch": 1791247022.479784,
+    "wall_ms": 695.5280839999994,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "300000",
+            "300000",
+            "100"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "count(1)"
+            },
+            {
+              "name": "count(DISTINCT id)"
+            },
+            {
+              "name": "count(DISTINCT FLOOR(((id - 1) / 100000)))"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "producer-7",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.producer_n4_7 USING DELTA AS SELECT *,to_json(named_struct('101',concat('g',cast(id%100 AS STRING)),'102',id%1000,'103',concat(sha2(concat(cast(id AS STRING),':scheduled:7:0'),256),sha2(concat(cast(id AS STRING),':scheduled:7:1'),256),sha2(concat(cast(id AS STRING),':scheduled:7:2'),256),sha2(concat(cast(id AS STRING),':scheduled:7:3'),256),sha2(concat(cast(id AS STRING),':scheduled:7:4'),256),sha2(concat(cast(id AS STRING),':scheduled:7:5'),256),sha2(concat(cast(id AS STRING),':scheduled:7:6'),256),sha2(concat(cast(id AS STRING),':scheduled:7:7'),256),sha2(concat(cast(id AS STRING),':scheduled:7:8'),256),sha2(concat(cast(id AS STRING),':scheduled:7:9'),256),sha2(concat(cast(id AS STRING),':scheduled:7:10'),256),sha2(concat(cast(id AS STRING),':scheduled:7:11'),256),sha2(concat(cast(id AS STRING),':scheduled:7:12'),256),sha2(concat(cast(id AS STRING),':scheduled:7:13'),256),sha2(concat(cast(id AS STRING),':scheduled:7:14'),256),sha2(concat(cast(id AS STRING),':scheduled:7:15'),256),sha2(concat(cast(id AS STRING),':scheduled:7:16'),256),sha2(concat(cast(id AS STRING),':scheduled:7:17'),256),sha2(concat(cast(id AS STRING),':scheduled:7:18'),256),sha2(concat(cast(id AS STRING),':scheduled:7:19'),256),sha2(concat(cast(id AS STRING),':scheduled:7:20'),256),sha2(concat(cast(id AS STRING),':scheduled:7:21'),256),sha2(concat(cast(id AS STRING),':scheduled:7:22'),256),sha2(concat(cast(id AS STRING),':scheduled:7:23'),256),sha2(concat(cast(id AS STRING),':scheduled:7:24'),256),sha2(concat(cast(id AS STRING),':scheduled:7:25'),256),sha2(concat(cast(id AS STRING),':scheduled:7:26'),256),sha2(concat(cast(id AS STRING),':scheduled:7:27'),256),sha2(concat(cast(id AS STRING),':scheduled:7:28'),256),sha2(concat(cast(id AS STRING),':scheduled:7:29'),256),sha2(concat(cast(id AS STRING),':scheduled:7:30'),256),sha2(concat(cast(id AS STRING),':scheduled:7:31'),256)))) new_props FROM client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 8 WHERE pmod((id-1)*104729,10000000)>=1500000 AND pmod((id-1)*104729,10000000)<1800000",
+    "statement_id": "01f1c11e-0cbf-134e-9892-4d91d3890b33",
+    "start_epoch": 1791247023.1761742,
+    "wall_ms": 8150.249666000001,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "producer-keys-7",
+    "sql": "SELECT count(*),count(DISTINCT id),count(DISTINCT floor((id-1)/100000)) FROM client_dev.ashlar_scattered_20261005_n1.producer_n4_7",
+    "statement_id": "01f1c11e-11b0-1afe-92a5-ce3eda4f230e",
+    "start_epoch": 1791247031.327822,
+    "wall_ms": 815.5838750000015,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "300000",
+            "300000",
+            "100"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "count(1)"
+            },
+            {
+              "name": "count(DISTINCT id)"
+            },
+            {
+              "name": "count(DISTINCT FLOOR(((id - 1) / 100000)))"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "atomic-apply-4",
+    "sql": "BEGIN ATOMIC\n IF (SELECT /*+ BROADCAST(s) */ count(*)<>300000 OR count(DISTINCT struct(s.source_system,s.type_id,s.id))<>300000 OR count_if(o.source_system IS DISTINCT FROM s.source_system OR o.type_id IS DISTINCT FROM s.type_id OR o.id IS DISTINCT FROM s.id OR o.logical_key_json IS DISTINCT FROM s.logical_key_json OR o.schema_revision IS DISTINCT FROM s.schema_revision OR o.entity_version IS DISTINCT FROM s.entity_version OR o.props_json IS DISTINCT FROM s.props_json OR o.retained_json IS DISTINCT FROM s.retained_json OR o.root_id IS DISTINCT FROM s.root_id OR o.source_feed IS DISTINCT FROM s.source_feed OR o.source_epoch IS DISTINCT FROM s.source_epoch OR o.source_position IS DISTINCT FROM s.source_position OR o.published_at IS DISTINCT FROM s.published_at)<>0 FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_4 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current o ON s.source_system=o.source_system AND s.type_id=o.type_id AND s.id=o.id) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar fused prior mismatch/cardinality'; END IF;\n MERGE INTO client_dev.ashlar_scattered_20261005_n1.object_current t USING client_dev.ashlar_scattered_20261005_n1.stage_n4_4 s ON t.source_system=s.source_system AND t.type_id=s.type_id AND t.id=s.id WHEN MATCHED THEN UPDATE SET t.props_json=s.new_props,t.entity_version=4,t.source_position=4,t.published_at=current_timestamp();\n INSERT INTO client_dev.ashlar_scattered_20261005_n1.property_journal SELECT 'pilot','object',1,id,103,4,'update',true,substring(to_json(array(get_json_object(props_json,'$.103'))),2,length(to_json(array(get_json_object(props_json,'$.103'))))-2),true,substring(to_json(array(get_json_object(new_props,'$.103'))),2,length(to_json(array(get_json_object(new_props,'$.103'))))-2),'r1','S','e',4,id,'synthetic-batch:4',current_timestamp() FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_4;\n IF (SELECT /*+ BROADCAST(s,j) */ count(*)<>300000 OR count(DISTINCT struct(s.source_system,s.type_id,s.id))<>300000 OR count_if(o.source_system IS DISTINCT FROM s.source_system OR o.type_id IS DISTINCT FROM s.type_id OR o.id IS DISTINCT FROM s.id OR o.logical_key_json IS DISTINCT FROM s.logical_key_json OR o.schema_revision IS DISTINCT FROM s.schema_revision OR o.retained_json IS DISTINCT FROM s.retained_json OR o.root_id IS DISTINCT FROM s.root_id OR o.source_feed IS DISTINCT FROM s.source_feed OR o.source_epoch IS DISTINCT FROM s.source_epoch OR o.props_json IS DISTINCT FROM s.new_props OR o.entity_version IS DISTINCT FROM 4 OR o.source_position IS DISTINCT FROM 4 OR o.published_at IS NULL OR j.id IS NULL OR j.property_id IS DISTINCT FROM 103 OR j.entity_version IS DISTINCT FROM 4 OR j.operation IS DISTINCT FROM 'update' OR j.old_present IS DISTINCT FROM true OR j.new_present IS DISTINCT FROM true OR j.schema_revision IS DISTINCT FROM 'r1' OR j.event_ordinal IS DISTINCT FROM s.id OR j.source_time_text IS DISTINCT FROM 'synthetic-batch:4' OR from_json(concat('[',j.old_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.props_json,'$.103') OR from_json(concat('[',j.new_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.new_props,'$.103'))<>0 FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_4 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current o ON s.source_system=o.source_system AND s.type_id=o.type_id AND s.id=o.id LEFT JOIN client_dev.ashlar_scattered_20261005_n1.property_journal j ON j.source_system=s.source_system AND j.entity_kind='object' AND j.type_id=s.type_id AND j.id=s.id AND j.source_feed='S' AND j.source_epoch='e' AND j.source_position=4) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar fused canonical/journal mismatch/cardinality'; END IF;\n IF (SELECT count(*) FROM client_dev.ashlar_scattered_20261005_n1.property_journal WHERE source_feed='S' AND source_epoch='e' AND source_position=4)<>300000 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar journal extra/missing event'; END IF;\n INSERT INTO client_dev.ashlar_scattered_20261005_n1.receipt VALUES (4,current_timestamp());\n END",
+    "statement_id": "01f1c11e-279a-1161-b7ad-d554da352d89",
+    "start_epoch": 1791247068.231649,
+    "wall_ms": 22041.707166999997,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "version-object_current-4",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_scattered_20261005_n1.object_current LIMIT 1",
+    "statement_id": "01f1c11e-34d1-18f3-a0f3-d801b0135af5",
+    "start_epoch": 1791247090.2742279,
+    "wall_ms": 943.1502919999986,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "9",
+            "2026-10-06T00:38:09.411000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((source_system#437563 = source_system#437590) AND (type_id#437564L = type_id#437591L)) AND (id#437565L = id#437592L))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11e-279a-1161-b7ad-d554da352d89",
+            null,
+            "8",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"300000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"300000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"3795\",\"numTargetFilesAdded\":\"16\",\"numTargetBytesAdded\":\"321407656\",\"executionTimeMs\":\"5291\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"419\",\"scanTimeMs\":\"1485\",\"numOutputRows\":\"300000\",\"numTargetDeletionVectorsRemoved\":\"419\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"300000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"c4261a21-fb33-41ac-a5ab-4dbb792f9d75\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "version-property_journal-4",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_scattered_20261005_n1.property_journal LIMIT 1",
+    "statement_id": "01f1c11e-354c-1bca-a559-bd55f3a91cd8",
+    "start_epoch": 1791247091.218271,
+    "wall_ms": 397.0919579999901,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "4",
+            "2026-10-06T00:38:09.411000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"WRITE\",\"operationParameters\":{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_feed\\\",\\\"source_position\\\",\\\"id\\\"]\",\"statsOnLoad\":false,\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}}]\"}",
+            null,
+            null,
+            "01f1c11e-279a-1161-b7ad-d554da352d89",
+            null,
+            "3",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"WRITE\",\"operationMetrics\":{\"numFiles\":\"3\",\"numOutputRows\":\"300000\",\"numOutputBytes\":\"505448375\"}}]\",\"txnId\":\"c4261a21-fb33-41ac-a5ab-4dbb792f9d75\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "publish-4",
+    "sql": "INSERT INTO client_dev.ashlar_scattered_20261005_n1.publication_manifest VALUES ('batch-4-scheduled-broadcast','ashlar-delta/0.1-spike','{\"object_current\":9,\"property_journal\":4}','{\"S\":{\"epoch\":\"e\",\"position\":4}}','{\"pilot\":\"r1\"}','{\"transaction_checks\":\"passed\",\"changed_objects\":300000}',current_timestamp())",
+    "statement_id": "01f1c11e-3589-1727-be24-688e91786369",
+    "start_epoch": 1791247091.6162822,
+    "wall_ms": 871.7071659999931,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1",
+            "1"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "atomic-apply-5",
+    "sql": "BEGIN ATOMIC\n IF (SELECT /*+ BROADCAST(s) */ count(*)<>300000 OR count(DISTINCT struct(s.source_system,s.type_id,s.id))<>300000 OR count_if(o.source_system IS DISTINCT FROM s.source_system OR o.type_id IS DISTINCT FROM s.type_id OR o.id IS DISTINCT FROM s.id OR o.logical_key_json IS DISTINCT FROM s.logical_key_json OR o.schema_revision IS DISTINCT FROM s.schema_revision OR o.entity_version IS DISTINCT FROM s.entity_version OR o.props_json IS DISTINCT FROM s.props_json OR o.retained_json IS DISTINCT FROM s.retained_json OR o.root_id IS DISTINCT FROM s.root_id OR o.source_feed IS DISTINCT FROM s.source_feed OR o.source_epoch IS DISTINCT FROM s.source_epoch OR o.source_position IS DISTINCT FROM s.source_position OR o.published_at IS DISTINCT FROM s.published_at)<>0 FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_5 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current o ON s.source_system=o.source_system AND s.type_id=o.type_id AND s.id=o.id) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar fused prior mismatch/cardinality'; END IF;\n MERGE INTO client_dev.ashlar_scattered_20261005_n1.object_current t USING client_dev.ashlar_scattered_20261005_n1.stage_n4_5 s ON t.source_system=s.source_system AND t.type_id=s.type_id AND t.id=s.id WHEN MATCHED THEN UPDATE SET t.props_json=s.new_props,t.entity_version=5,t.source_position=5,t.published_at=current_timestamp();\n INSERT INTO client_dev.ashlar_scattered_20261005_n1.property_journal SELECT 'pilot','object',1,id,103,5,'update',true,substring(to_json(array(get_json_object(props_json,'$.103'))),2,length(to_json(array(get_json_object(props_json,'$.103'))))-2),true,substring(to_json(array(get_json_object(new_props,'$.103'))),2,length(to_json(array(get_json_object(new_props,'$.103'))))-2),'r1','S','e',5,id,'synthetic-batch:5',current_timestamp() FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_5;\n IF (SELECT /*+ BROADCAST(s,j) */ count(*)<>300000 OR count(DISTINCT struct(s.source_system,s.type_id,s.id))<>300000 OR count_if(o.source_system IS DISTINCT FROM s.source_system OR o.type_id IS DISTINCT FROM s.type_id OR o.id IS DISTINCT FROM s.id OR o.logical_key_json IS DISTINCT FROM s.logical_key_json OR o.schema_revision IS DISTINCT FROM s.schema_revision OR o.retained_json IS DISTINCT FROM s.retained_json OR o.root_id IS DISTINCT FROM s.root_id OR o.source_feed IS DISTINCT FROM s.source_feed OR o.source_epoch IS DISTINCT FROM s.source_epoch OR o.props_json IS DISTINCT FROM s.new_props OR o.entity_version IS DISTINCT FROM 5 OR o.source_position IS DISTINCT FROM 5 OR o.published_at IS NULL OR j.id IS NULL OR j.property_id IS DISTINCT FROM 103 OR j.entity_version IS DISTINCT FROM 5 OR j.operation IS DISTINCT FROM 'update' OR j.old_present IS DISTINCT FROM true OR j.new_present IS DISTINCT FROM true OR j.schema_revision IS DISTINCT FROM 'r1' OR j.event_ordinal IS DISTINCT FROM s.id OR j.source_time_text IS DISTINCT FROM 'synthetic-batch:5' OR from_json(concat('[',j.old_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.props_json,'$.103') OR from_json(concat('[',j.new_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.new_props,'$.103'))<>0 FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_5 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current o ON s.source_system=o.source_system AND s.type_id=o.type_id AND s.id=o.id LEFT JOIN client_dev.ashlar_scattered_20261005_n1.property_journal j ON j.source_system=s.source_system AND j.entity_kind='object' AND j.type_id=s.type_id AND j.id=s.id AND j.source_feed='S' AND j.source_epoch='e' AND j.source_position=5) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar fused canonical/journal mismatch/cardinality'; END IF;\n IF (SELECT count(*) FROM client_dev.ashlar_scattered_20261005_n1.property_journal WHERE source_feed='S' AND source_epoch='e' AND source_position=5)<>300000 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar journal extra/missing event'; END IF;\n INSERT INTO client_dev.ashlar_scattered_20261005_n1.receipt VALUES (5,current_timestamp());\n END",
+    "statement_id": "01f1c11e-396a-1b48-ba4f-b13309044e35",
+    "start_epoch": 1791247098.121126,
+    "wall_ms": 23470.679999999986,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "version-object_current-5",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_scattered_20261005_n1.object_current LIMIT 1",
+    "statement_id": "01f1c11e-477a-1298-a9fa-270e66141b5c",
+    "start_epoch": 1791247121.59309,
+    "wall_ms": 549.8685419999845,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "10",
+            "2026-10-06T00:38:40.798000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((source_system#441204 = source_system#441217) AND (type_id#441205L = type_id#441218L)) AND (id#441206L = id#441219L))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11e-396a-1b48-ba4f-b13309044e35",
+            null,
+            "9",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"300000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"300000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"3776\",\"numTargetFilesAdded\":\"16\",\"numTargetBytesAdded\":\"321403224\",\"executionTimeMs\":\"5215\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"419\",\"scanTimeMs\":\"1430\",\"numOutputRows\":\"300000\",\"numTargetDeletionVectorsRemoved\":\"419\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"300000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"f874e482-d8c8-4ef6-a065-312a827fdae7\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "version-property_journal-5",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_scattered_20261005_n1.property_journal LIMIT 1",
+    "statement_id": "01f1c11e-47bb-12ac-9122-67e66a57db6b",
+    "start_epoch": 1791247122.144162,
+    "wall_ms": 383.5263750000024,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "5",
+            "2026-10-06T00:38:40.798000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"WRITE\",\"operationParameters\":{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_feed\\\",\\\"source_position\\\",\\\"id\\\"]\",\"statsOnLoad\":false,\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}}]\"}",
+            null,
+            null,
+            "01f1c11e-396a-1b48-ba4f-b13309044e35",
+            null,
+            "4",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"WRITE\",\"operationMetrics\":{\"numFiles\":\"3\",\"numOutputRows\":\"300000\",\"numOutputBytes\":\"505396232\"}}]\",\"txnId\":\"f874e482-d8c8-4ef6-a065-312a827fdae7\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "publish-5",
+    "sql": "INSERT INTO client_dev.ashlar_scattered_20261005_n1.publication_manifest VALUES ('batch-5-scheduled-broadcast','ashlar-delta/0.1-spike','{\"object_current\":10,\"property_journal\":5}','{\"S\":{\"epoch\":\"e\",\"position\":5}}','{\"pilot\":\"r1\"}','{\"transaction_checks\":\"passed\",\"changed_objects\":300000}',current_timestamp())",
+    "statement_id": "01f1c11e-47f6-1a30-ac56-7baed0f57f62",
+    "start_epoch": 1791247122.528399,
+    "wall_ms": 898.0396249999956,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1",
+            "1"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "atomic-apply-6",
+    "sql": "BEGIN ATOMIC\n IF (SELECT /*+ BROADCAST(s) */ count(*)<>300000 OR count(DISTINCT struct(s.source_system,s.type_id,s.id))<>300000 OR count_if(o.source_system IS DISTINCT FROM s.source_system OR o.type_id IS DISTINCT FROM s.type_id OR o.id IS DISTINCT FROM s.id OR o.logical_key_json IS DISTINCT FROM s.logical_key_json OR o.schema_revision IS DISTINCT FROM s.schema_revision OR o.entity_version IS DISTINCT FROM s.entity_version OR o.props_json IS DISTINCT FROM s.props_json OR o.retained_json IS DISTINCT FROM s.retained_json OR o.root_id IS DISTINCT FROM s.root_id OR o.source_feed IS DISTINCT FROM s.source_feed OR o.source_epoch IS DISTINCT FROM s.source_epoch OR o.source_position IS DISTINCT FROM s.source_position OR o.published_at IS DISTINCT FROM s.published_at)<>0 FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_6 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current o ON s.source_system=o.source_system AND s.type_id=o.type_id AND s.id=o.id) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar fused prior mismatch/cardinality'; END IF;\n MERGE INTO client_dev.ashlar_scattered_20261005_n1.object_current t USING client_dev.ashlar_scattered_20261005_n1.stage_n4_6 s ON t.source_system=s.source_system AND t.type_id=s.type_id AND t.id=s.id WHEN MATCHED THEN UPDATE SET t.props_json=s.new_props,t.entity_version=6,t.source_position=6,t.published_at=current_timestamp();\n INSERT INTO client_dev.ashlar_scattered_20261005_n1.property_journal SELECT 'pilot','object',1,id,103,6,'update',true,substring(to_json(array(get_json_object(props_json,'$.103'))),2,length(to_json(array(get_json_object(props_json,'$.103'))))-2),true,substring(to_json(array(get_json_object(new_props,'$.103'))),2,length(to_json(array(get_json_object(new_props,'$.103'))))-2),'r1','S','e',6,id,'synthetic-batch:6',current_timestamp() FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_6;\n IF (SELECT /*+ BROADCAST(s,j) */ count(*)<>300000 OR count(DISTINCT struct(s.source_system,s.type_id,s.id))<>300000 OR count_if(o.source_system IS DISTINCT FROM s.source_system OR o.type_id IS DISTINCT FROM s.type_id OR o.id IS DISTINCT FROM s.id OR o.logical_key_json IS DISTINCT FROM s.logical_key_json OR o.schema_revision IS DISTINCT FROM s.schema_revision OR o.retained_json IS DISTINCT FROM s.retained_json OR o.root_id IS DISTINCT FROM s.root_id OR o.source_feed IS DISTINCT FROM s.source_feed OR o.source_epoch IS DISTINCT FROM s.source_epoch OR o.props_json IS DISTINCT FROM s.new_props OR o.entity_version IS DISTINCT FROM 6 OR o.source_position IS DISTINCT FROM 6 OR o.published_at IS NULL OR j.id IS NULL OR j.property_id IS DISTINCT FROM 103 OR j.entity_version IS DISTINCT FROM 6 OR j.operation IS DISTINCT FROM 'update' OR j.old_present IS DISTINCT FROM true OR j.new_present IS DISTINCT FROM true OR j.schema_revision IS DISTINCT FROM 'r1' OR j.event_ordinal IS DISTINCT FROM s.id OR j.source_time_text IS DISTINCT FROM 'synthetic-batch:6' OR from_json(concat('[',j.old_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.props_json,'$.103') OR from_json(concat('[',j.new_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.new_props,'$.103'))<>0 FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_6 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current o ON s.source_system=o.source_system AND s.type_id=o.type_id AND s.id=o.id LEFT JOIN client_dev.ashlar_scattered_20261005_n1.property_journal j ON j.source_system=s.source_system AND j.entity_kind='object' AND j.type_id=s.type_id AND j.id=s.id AND j.source_feed='S' AND j.source_epoch='e' AND j.source_position=6) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar fused canonical/journal mismatch/cardinality'; END IF;\n IF (SELECT count(*) FROM client_dev.ashlar_scattered_20261005_n1.property_journal WHERE source_feed='S' AND source_epoch='e' AND source_position=6)<>300000 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar journal extra/missing event'; END IF;\n INSERT INTO client_dev.ashlar_scattered_20261005_n1.receipt VALUES (6,current_timestamp());\n END",
+    "statement_id": "01f1c11e-4b55-164d-88d7-30533c7b4267",
+    "start_epoch": 1791247128.183476,
+    "wall_ms": 22310.787916999998,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "version-object_current-6",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_scattered_20261005_n1.object_current LIMIT 1",
+    "statement_id": "01f1c11e-58b6-1f6a-ac7f-f18eb3d7d66e",
+    "start_epoch": 1791247150.495425,
+    "wall_ms": 557.3612920000244,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "11",
+            "2026-10-06T00:39:09.699000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((source_system#444831 = source_system#444844) AND (type_id#444832L = type_id#444845L)) AND (id#444833L = id#444846L))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11e-4b55-164d-88d7-30533c7b4267",
+            null,
+            "10",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"300000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"300000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"3587\",\"numTargetFilesAdded\":\"16\",\"numTargetBytesAdded\":\"321431604\",\"executionTimeMs\":\"5023\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"419\",\"scanTimeMs\":\"1429\",\"numOutputRows\":\"300000\",\"numTargetDeletionVectorsRemoved\":\"419\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"300000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"329ace01-dcbf-4e6f-8b92-6c5d73e70533\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "version-property_journal-6",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_scattered_20261005_n1.property_journal LIMIT 1",
+    "statement_id": "01f1c11e-58f7-1a8c-a0fa-b9ba29e46a04",
+    "start_epoch": 1791247151.053793,
+    "wall_ms": 448.3669169999871,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "6",
+            "2026-10-06T00:39:09.699000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"WRITE\",\"operationParameters\":{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_feed\\\",\\\"source_position\\\",\\\"id\\\"]\",\"statsOnLoad\":false,\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}}]\"}",
+            null,
+            null,
+            "01f1c11e-4b55-164d-88d7-30533c7b4267",
+            null,
+            "5",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"WRITE\",\"operationMetrics\":{\"numFiles\":\"3\",\"numOutputRows\":\"300000\",\"numOutputBytes\":\"505423493\"}}]\",\"txnId\":\"329ace01-dcbf-4e6f-8b92-6c5d73e70533\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "publish-6",
+    "sql": "INSERT INTO client_dev.ashlar_scattered_20261005_n1.publication_manifest VALUES ('batch-6-scheduled-broadcast','ashlar-delta/0.1-spike','{\"object_current\":11,\"property_journal\":6}','{\"S\":{\"epoch\":\"e\",\"position\":6}}','{\"pilot\":\"r1\"}','{\"transaction_checks\":\"passed\",\"changed_objects\":300000}',current_timestamp())",
+    "statement_id": "01f1c11e-593c-1677-9389-00610db3b2b8",
+    "start_epoch": 1791247151.503019,
+    "wall_ms": 904.8788750000085,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1",
+            "1"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "atomic-apply-7",
+    "sql": "BEGIN ATOMIC\n IF (SELECT /*+ BROADCAST(s) */ count(*)<>300000 OR count(DISTINCT struct(s.source_system,s.type_id,s.id))<>300000 OR count_if(o.source_system IS DISTINCT FROM s.source_system OR o.type_id IS DISTINCT FROM s.type_id OR o.id IS DISTINCT FROM s.id OR o.logical_key_json IS DISTINCT FROM s.logical_key_json OR o.schema_revision IS DISTINCT FROM s.schema_revision OR o.entity_version IS DISTINCT FROM s.entity_version OR o.props_json IS DISTINCT FROM s.props_json OR o.retained_json IS DISTINCT FROM s.retained_json OR o.root_id IS DISTINCT FROM s.root_id OR o.source_feed IS DISTINCT FROM s.source_feed OR o.source_epoch IS DISTINCT FROM s.source_epoch OR o.source_position IS DISTINCT FROM s.source_position OR o.published_at IS DISTINCT FROM s.published_at)<>0 FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_7 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current o ON s.source_system=o.source_system AND s.type_id=o.type_id AND s.id=o.id) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar fused prior mismatch/cardinality'; END IF;\n MERGE INTO client_dev.ashlar_scattered_20261005_n1.object_current t USING client_dev.ashlar_scattered_20261005_n1.stage_n4_7 s ON t.source_system=s.source_system AND t.type_id=s.type_id AND t.id=s.id WHEN MATCHED THEN UPDATE SET t.props_json=s.new_props,t.entity_version=7,t.source_position=7,t.published_at=current_timestamp();\n INSERT INTO client_dev.ashlar_scattered_20261005_n1.property_journal SELECT 'pilot','object',1,id,103,7,'update',true,substring(to_json(array(get_json_object(props_json,'$.103'))),2,length(to_json(array(get_json_object(props_json,'$.103'))))-2),true,substring(to_json(array(get_json_object(new_props,'$.103'))),2,length(to_json(array(get_json_object(new_props,'$.103'))))-2),'r1','S','e',7,id,'synthetic-batch:7',current_timestamp() FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_7;\n IF (SELECT /*+ BROADCAST(s,j) */ count(*)<>300000 OR count(DISTINCT struct(s.source_system,s.type_id,s.id))<>300000 OR count_if(o.source_system IS DISTINCT FROM s.source_system OR o.type_id IS DISTINCT FROM s.type_id OR o.id IS DISTINCT FROM s.id OR o.logical_key_json IS DISTINCT FROM s.logical_key_json OR o.schema_revision IS DISTINCT FROM s.schema_revision OR o.retained_json IS DISTINCT FROM s.retained_json OR o.root_id IS DISTINCT FROM s.root_id OR o.source_feed IS DISTINCT FROM s.source_feed OR o.source_epoch IS DISTINCT FROM s.source_epoch OR o.props_json IS DISTINCT FROM s.new_props OR o.entity_version IS DISTINCT FROM 7 OR o.source_position IS DISTINCT FROM 7 OR o.published_at IS NULL OR j.id IS NULL OR j.property_id IS DISTINCT FROM 103 OR j.entity_version IS DISTINCT FROM 7 OR j.operation IS DISTINCT FROM 'update' OR j.old_present IS DISTINCT FROM true OR j.new_present IS DISTINCT FROM true OR j.schema_revision IS DISTINCT FROM 'r1' OR j.event_ordinal IS DISTINCT FROM s.id OR j.source_time_text IS DISTINCT FROM 'synthetic-batch:7' OR from_json(concat('[',j.old_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.props_json,'$.103') OR from_json(concat('[',j.new_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.new_props,'$.103'))<>0 FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_7 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current o ON s.source_system=o.source_system AND s.type_id=o.type_id AND s.id=o.id LEFT JOIN client_dev.ashlar_scattered_20261005_n1.property_journal j ON j.source_system=s.source_system AND j.entity_kind='object' AND j.type_id=s.type_id AND j.id=s.id AND j.source_feed='S' AND j.source_epoch='e' AND j.source_position=7) THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar fused canonical/journal mismatch/cardinality'; END IF;\n IF (SELECT count(*) FROM client_dev.ashlar_scattered_20261005_n1.property_journal WHERE source_feed='S' AND source_epoch='e' AND source_position=7)<>300000 THEN SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT='ashlar journal extra/missing event'; END IF;\n INSERT INTO client_dev.ashlar_scattered_20261005_n1.receipt VALUES (7,current_timestamp());\n END",
+    "statement_id": "01f1c11e-5d7c-1b66-8bd7-eb61610623ad",
+    "start_epoch": 1791247158.643376,
+    "wall_ms": 24468.138415999987,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "Result"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "version-object_current-7",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_scattered_20261005_n1.object_current LIMIT 1",
+    "statement_id": "01f1c11e-6c27-1e2d-978b-1e7be2895a97",
+    "start_epoch": 1791247183.112687,
+    "wall_ms": 545.765375000002,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "12",
+            "2026-10-06T00:39:42.124000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((source_system#448464 = source_system#448477) AND (type_id#448465L = type_id#448478L)) AND (id#448466L = id#448479L))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11e-5d7c-1b66-8bd7-eb61610623ad",
+            null,
+            "11",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"300000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"300000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"4788\",\"numTargetFilesAdded\":\"16\",\"numTargetBytesAdded\":\"321415146\",\"executionTimeMs\":\"6780\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"419\",\"scanTimeMs\":\"1982\",\"numOutputRows\":\"300000\",\"numTargetDeletionVectorsRemoved\":\"419\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"300000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"031c1b61-850a-4c33-867e-26736b84e086\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "version-property_journal-7",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_scattered_20261005_n1.property_journal LIMIT 1",
+    "statement_id": "01f1c11e-6c66-1490-8669-8e988c6f6e25",
+    "start_epoch": 1791247183.659335,
+    "wall_ms": 408.2151249999981,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "7",
+            "2026-10-06T00:39:42.124000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"WRITE\",\"operationParameters\":{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_feed\\\",\\\"source_position\\\",\\\"id\\\"]\",\"statsOnLoad\":false,\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}}]\"}",
+            null,
+            null,
+            "01f1c11e-5d7c-1b66-8bd7-eb61610623ad",
+            null,
+            "6",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"WRITE\",\"operationMetrics\":{\"numFiles\":\"3\",\"numOutputRows\":\"300000\",\"numOutputBytes\":\"505424477\"}}]\",\"txnId\":\"031c1b61-850a-4c33-867e-26736b84e086\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "publish-7",
+    "sql": "INSERT INTO client_dev.ashlar_scattered_20261005_n1.publication_manifest VALUES ('batch-7-scheduled-broadcast','ashlar-delta/0.1-spike','{\"object_current\":12,\"property_journal\":7}','{\"S\":{\"epoch\":\"e\",\"position\":7}}','{\"pilot\":\"r1\"}','{\"transaction_checks\":\"passed\",\"changed_objects\":300000}',current_timestamp())",
+    "statement_id": "01f1c11e-6ca4-1c70-98e9-9c60d489bb3b",
+    "start_epoch": 1791247184.068522,
+    "wall_ms": 866.1336249999749,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1",
+            "1"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "statement-cap",
+    "sql": "SET STATEMENT_TIMEOUT=180",
+    "statement_id": "01f1c11e-1292-1706-ba17-a1fcaf94f39b",
+    "start_epoch": 1791247032.951872,
+    "wall_ms": 238.03891700000435,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "STATEMENT_TIMEOUT",
+            "180"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "key"
+            },
+            {
+              "name": "value"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "stage-4",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.stage_n4_4 USING DELTA AS SELECT * FROM client_dev.ashlar_scattered_20261005_n1.producer_n4_4",
+    "statement_id": "01f1c11e-2499-1036-bdbc-cd74bbac5864",
+    "start_epoch": 1791247063.197576,
+    "wall_ms": 5032.7789170000015,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "stage-5",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.stage_n4_5 USING DELTA AS SELECT * FROM client_dev.ashlar_scattered_20261005_n1.producer_n4_5",
+    "statement_id": "01f1c11e-367b-1001-8eab-dc4defe49526",
+    "start_epoch": 1791247093.1931038,
+    "wall_ms": 4926.849374999989,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "stage-6",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.stage_n4_6 USING DELTA AS SELECT * FROM client_dev.ashlar_scattered_20261005_n1.producer_n4_6",
+    "statement_id": "01f1c11e-485c-1a8d-a2c4-4c4325dc3cc5",
+    "start_epoch": 1791247123.201534,
+    "wall_ms": 4980.77216599998,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "stage-7",
+    "sql": "CREATE TABLE client_dev.ashlar_scattered_20261005_n1.stage_n4_7 USING DELTA AS SELECT * FROM client_dev.ashlar_scattered_20261005_n1.producer_n4_7",
+    "statement_id": "01f1c11e-5a3e-1659-ac0a-985ae42960bb",
+    "start_epoch": 1791247153.2014542,
+    "wall_ms": 5440.814582999991,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": []
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "num_affected_rows"
+            },
+            {
+              "name": "num_inserted_rows"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "fixed-vector-validation-4",
+    "sql": "SELECT /*+ BROADCAST(s,j) */ count(*)<>300000 OR count(DISTINCT struct(s.source_system,s.type_id,s.id))<>300000 OR count_if(o.source_system IS DISTINCT FROM s.source_system OR o.type_id IS DISTINCT FROM s.type_id OR o.id IS DISTINCT FROM s.id OR o.logical_key_json IS DISTINCT FROM s.logical_key_json OR o.schema_revision IS DISTINCT FROM s.schema_revision OR o.retained_json IS DISTINCT FROM s.retained_json OR o.root_id IS DISTINCT FROM s.root_id OR o.source_feed IS DISTINCT FROM s.source_feed OR o.source_epoch IS DISTINCT FROM s.source_epoch OR o.props_json IS DISTINCT FROM s.new_props OR o.entity_version IS DISTINCT FROM 4 OR o.source_position IS DISTINCT FROM 4 OR o.published_at IS NULL OR j.id IS NULL OR j.property_id IS DISTINCT FROM 103 OR j.entity_version IS DISTINCT FROM 4 OR j.operation IS DISTINCT FROM 'update' OR j.old_present IS DISTINCT FROM true OR j.new_present IS DISTINCT FROM true OR j.schema_revision IS DISTINCT FROM 'r1' OR j.event_ordinal IS DISTINCT FROM s.id OR j.source_time_text IS DISTINCT FROM 'synthetic-batch:4' OR from_json(concat('[',j.old_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.props_json,'$.103') OR from_json(concat('[',j.new_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.new_props,'$.103'))<>0 FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_4 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 9 o ON s.source_system=o.source_system AND s.type_id=o.type_id AND s.id=o.id LEFT JOIN client_dev.ashlar_scattered_20261005_n1.property_journal VERSION AS OF 4 j ON j.source_system=s.source_system AND j.entity_kind='object' AND j.type_id=s.type_id AND j.id=s.id AND j.source_feed='S' AND j.source_epoch='e' AND j.source_position=4",
+    "statement_id": "01f1c11e-6d4b-176a-b6d1-9b10a9b2ffa6",
+    "start_epoch": 1791247185.165756,
+    "wall_ms": 7363.278958999985,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "False"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "(((NOT (count(1) = 300000)) OR (NOT (count(DISTINCT struct(source_system, type_id, id)) = 300000))) OR (NOT (count_if(((((((NOT (source_system <=> source_system)) OR (NOT (type_id <=> type_id))) OR (NOT (id <=> id))) OR (((NOT (logical_key_json <=> logical_key_json)) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (retained_json <=> retained_json)))) OR ((((NOT (root_id <=> root_id)) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))) OR (((NOT (props_json <=> new_props)) OR (NOT (entity_version <=> 4))) OR (NOT (source_position <=> 4))))) OR (((((published_at IS NULL) OR (id IS NULL)) OR (NOT (property_id <=> 103))) OR (((NOT (entity_version <=> 4)) OR (NOT (operation <=> update))) OR (NOT (old_present <=> true)))) OR ((((NOT (new_present <=> true)) OR (NOT (schema_revision <=> r1))) OR (NOT (event_ordinal <=> id))) OR (((NOT (source_time_text <=> synthetic-batch:4)) OR (NOT (from_json(concat([, old_json, ]))[0] <=> get_json_object(props_json, $.103)))) OR (NOT (from_json(concat([, new_json, ]))[0] <=> get_json_object(new_props, $.103)))))))) = 0)))"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "fixed-vector-validation-5",
+    "sql": "SELECT /*+ BROADCAST(s,j) */ count(*)<>300000 OR count(DISTINCT struct(s.source_system,s.type_id,s.id))<>300000 OR count_if(o.source_system IS DISTINCT FROM s.source_system OR o.type_id IS DISTINCT FROM s.type_id OR o.id IS DISTINCT FROM s.id OR o.logical_key_json IS DISTINCT FROM s.logical_key_json OR o.schema_revision IS DISTINCT FROM s.schema_revision OR o.retained_json IS DISTINCT FROM s.retained_json OR o.root_id IS DISTINCT FROM s.root_id OR o.source_feed IS DISTINCT FROM s.source_feed OR o.source_epoch IS DISTINCT FROM s.source_epoch OR o.props_json IS DISTINCT FROM s.new_props OR o.entity_version IS DISTINCT FROM 5 OR o.source_position IS DISTINCT FROM 5 OR o.published_at IS NULL OR j.id IS NULL OR j.property_id IS DISTINCT FROM 103 OR j.entity_version IS DISTINCT FROM 5 OR j.operation IS DISTINCT FROM 'update' OR j.old_present IS DISTINCT FROM true OR j.new_present IS DISTINCT FROM true OR j.schema_revision IS DISTINCT FROM 'r1' OR j.event_ordinal IS DISTINCT FROM s.id OR j.source_time_text IS DISTINCT FROM 'synthetic-batch:5' OR from_json(concat('[',j.old_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.props_json,'$.103') OR from_json(concat('[',j.new_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.new_props,'$.103'))<>0 FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_5 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 10 o ON s.source_system=o.source_system AND s.type_id=o.type_id AND s.id=o.id LEFT JOIN client_dev.ashlar_scattered_20261005_n1.property_journal VERSION AS OF 5 j ON j.source_system=s.source_system AND j.entity_kind='object' AND j.type_id=s.type_id AND j.id=s.id AND j.source_feed='S' AND j.source_epoch='e' AND j.source_position=5",
+    "statement_id": "01f1c11e-71c3-1a71-aea6-3f4f82c61082",
+    "start_epoch": 1791247192.530418,
+    "wall_ms": 7322.429666999995,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "False"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "(((NOT (count(1) = 300000)) OR (NOT (count(DISTINCT struct(source_system, type_id, id)) = 300000))) OR (NOT (count_if(((((((NOT (source_system <=> source_system)) OR (NOT (type_id <=> type_id))) OR (NOT (id <=> id))) OR (((NOT (logical_key_json <=> logical_key_json)) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (retained_json <=> retained_json)))) OR ((((NOT (root_id <=> root_id)) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))) OR (((NOT (props_json <=> new_props)) OR (NOT (entity_version <=> 5))) OR (NOT (source_position <=> 5))))) OR (((((published_at IS NULL) OR (id IS NULL)) OR (NOT (property_id <=> 103))) OR (((NOT (entity_version <=> 5)) OR (NOT (operation <=> update))) OR (NOT (old_present <=> true)))) OR ((((NOT (new_present <=> true)) OR (NOT (schema_revision <=> r1))) OR (NOT (event_ordinal <=> id))) OR (((NOT (source_time_text <=> synthetic-batch:5)) OR (NOT (from_json(concat([, old_json, ]))[0] <=> get_json_object(props_json, $.103)))) OR (NOT (from_json(concat([, new_json, ]))[0] <=> get_json_object(new_props, $.103)))))))) = 0)))"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "fixed-vector-validation-6",
+    "sql": "SELECT /*+ BROADCAST(s,j) */ count(*)<>300000 OR count(DISTINCT struct(s.source_system,s.type_id,s.id))<>300000 OR count_if(o.source_system IS DISTINCT FROM s.source_system OR o.type_id IS DISTINCT FROM s.type_id OR o.id IS DISTINCT FROM s.id OR o.logical_key_json IS DISTINCT FROM s.logical_key_json OR o.schema_revision IS DISTINCT FROM s.schema_revision OR o.retained_json IS DISTINCT FROM s.retained_json OR o.root_id IS DISTINCT FROM s.root_id OR o.source_feed IS DISTINCT FROM s.source_feed OR o.source_epoch IS DISTINCT FROM s.source_epoch OR o.props_json IS DISTINCT FROM s.new_props OR o.entity_version IS DISTINCT FROM 6 OR o.source_position IS DISTINCT FROM 6 OR o.published_at IS NULL OR j.id IS NULL OR j.property_id IS DISTINCT FROM 103 OR j.entity_version IS DISTINCT FROM 6 OR j.operation IS DISTINCT FROM 'update' OR j.old_present IS DISTINCT FROM true OR j.new_present IS DISTINCT FROM true OR j.schema_revision IS DISTINCT FROM 'r1' OR j.event_ordinal IS DISTINCT FROM s.id OR j.source_time_text IS DISTINCT FROM 'synthetic-batch:6' OR from_json(concat('[',j.old_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.props_json,'$.103') OR from_json(concat('[',j.new_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.new_props,'$.103'))<>0 FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_6 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 11 o ON s.source_system=o.source_system AND s.type_id=o.type_id AND s.id=o.id LEFT JOIN client_dev.ashlar_scattered_20261005_n1.property_journal VERSION AS OF 6 j ON j.source_system=s.source_system AND j.entity_kind='object' AND j.type_id=s.type_id AND j.id=s.id AND j.source_feed='S' AND j.source_epoch='e' AND j.source_position=6",
+    "statement_id": "01f1c11e-7620-12ad-a64b-22757d9a14a0",
+    "start_epoch": 1791247199.854093,
+    "wall_ms": 6932.755374999999,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "False"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "(((NOT (count(1) = 300000)) OR (NOT (count(DISTINCT struct(source_system, type_id, id)) = 300000))) OR (NOT (count_if(((((((NOT (source_system <=> source_system)) OR (NOT (type_id <=> type_id))) OR (NOT (id <=> id))) OR (((NOT (logical_key_json <=> logical_key_json)) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (retained_json <=> retained_json)))) OR ((((NOT (root_id <=> root_id)) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))) OR (((NOT (props_json <=> new_props)) OR (NOT (entity_version <=> 6))) OR (NOT (source_position <=> 6))))) OR (((((published_at IS NULL) OR (id IS NULL)) OR (NOT (property_id <=> 103))) OR (((NOT (entity_version <=> 6)) OR (NOT (operation <=> update))) OR (NOT (old_present <=> true)))) OR ((((NOT (new_present <=> true)) OR (NOT (schema_revision <=> r1))) OR (NOT (event_ordinal <=> id))) OR (((NOT (source_time_text <=> synthetic-batch:6)) OR (NOT (from_json(concat([, old_json, ]))[0] <=> get_json_object(props_json, $.103)))) OR (NOT (from_json(concat([, new_json, ]))[0] <=> get_json_object(new_props, $.103)))))))) = 0)))"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "fixed-vector-validation-7",
+    "sql": "SELECT /*+ BROADCAST(s,j) */ count(*)<>300000 OR count(DISTINCT struct(s.source_system,s.type_id,s.id))<>300000 OR count_if(o.source_system IS DISTINCT FROM s.source_system OR o.type_id IS DISTINCT FROM s.type_id OR o.id IS DISTINCT FROM s.id OR o.logical_key_json IS DISTINCT FROM s.logical_key_json OR o.schema_revision IS DISTINCT FROM s.schema_revision OR o.retained_json IS DISTINCT FROM s.retained_json OR o.root_id IS DISTINCT FROM s.root_id OR o.source_feed IS DISTINCT FROM s.source_feed OR o.source_epoch IS DISTINCT FROM s.source_epoch OR o.props_json IS DISTINCT FROM s.new_props OR o.entity_version IS DISTINCT FROM 7 OR o.source_position IS DISTINCT FROM 7 OR o.published_at IS NULL OR j.id IS NULL OR j.property_id IS DISTINCT FROM 103 OR j.entity_version IS DISTINCT FROM 7 OR j.operation IS DISTINCT FROM 'update' OR j.old_present IS DISTINCT FROM true OR j.new_present IS DISTINCT FROM true OR j.schema_revision IS DISTINCT FROM 'r1' OR j.event_ordinal IS DISTINCT FROM s.id OR j.source_time_text IS DISTINCT FROM 'synthetic-batch:7' OR from_json(concat('[',j.old_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.props_json,'$.103') OR from_json(concat('[',j.new_json,']'),'ARRAY<STRING>')[0] IS DISTINCT FROM get_json_object(s.new_props,'$.103'))<>0 FROM client_dev.ashlar_scattered_20261005_n1.stage_n4_7 s JOIN client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 12 o ON s.source_system=o.source_system AND s.type_id=o.type_id AND s.id=o.id LEFT JOIN client_dev.ashlar_scattered_20261005_n1.property_journal VERSION AS OF 7 j ON j.source_system=s.source_system AND j.entity_kind='object' AND j.type_id=s.type_id AND j.id=s.id AND j.source_feed='S' AND j.source_epoch='e' AND j.source_position=7",
+    "statement_id": "01f1c11e-7a45-1d93-b666-c09ba81d9a32",
+    "start_epoch": 1791247206.7881029,
+    "wall_ms": 5599.896874999985,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "False"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "(((NOT (count(1) = 300000)) OR (NOT (count(DISTINCT struct(source_system, type_id, id)) = 300000))) OR (NOT (count_if(((((((NOT (source_system <=> source_system)) OR (NOT (type_id <=> type_id))) OR (NOT (id <=> id))) OR (((NOT (logical_key_json <=> logical_key_json)) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (retained_json <=> retained_json)))) OR ((((NOT (root_id <=> root_id)) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))) OR (((NOT (props_json <=> new_props)) OR (NOT (entity_version <=> 7))) OR (NOT (source_position <=> 7))))) OR (((((published_at IS NULL) OR (id IS NULL)) OR (NOT (property_id <=> 103))) OR (((NOT (entity_version <=> 7)) OR (NOT (operation <=> update))) OR (NOT (old_present <=> true)))) OR ((((NOT (new_present <=> true)) OR (NOT (schema_revision <=> r1))) OR (NOT (event_ordinal <=> id))) OR (((NOT (source_time_text <=> synthetic-batch:7)) OR (NOT (from_json(concat([, old_json, ]))[0] <=> get_json_object(props_json, $.103)))) OR (NOT (from_json(concat([, new_json, ]))[0] <=> get_json_object(new_props, $.103)))))))) = 0)))"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "final-untouched-all-carriers",
+    "sql": "SELECT count(*),count_if(o.source_system IS DISTINCT FROM n.source_system OR o.type_id IS DISTINCT FROM n.type_id OR o.id IS DISTINCT FROM n.id OR o.logical_key_json IS DISTINCT FROM n.logical_key_json OR o.schema_revision IS DISTINCT FROM n.schema_revision OR o.entity_version IS DISTINCT FROM n.entity_version OR o.props_json IS DISTINCT FROM n.props_json OR o.retained_json IS DISTINCT FROM n.retained_json OR o.root_id IS DISTINCT FROM n.root_id OR o.source_feed IS DISTINCT FROM n.source_feed OR o.source_epoch IS DISTINCT FROM n.source_epoch OR o.source_position IS DISTINCT FROM n.source_position OR o.published_at IS DISTINCT FROM n.published_at) FROM client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 12 o JOIN client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 8 n ON o.source_system=n.source_system AND o.type_id=n.type_id AND o.id=n.id WHERE pmod((o.id-1)*104729,10000000)<600000 OR pmod((o.id-1)*104729,10000000)>=1800000",
+    "statement_id": "01f1c11e-7d98-11dd-b091-1fa49b70038b",
+    "start_epoch": 1791247212.3892548,
+    "wall_ms": 64038.45891700004,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "8800000",
+            "0"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "count(1)"
+            },
+            {
+              "name": "count_if((((((NOT (source_system <=> source_system)) OR (NOT (type_id <=> type_id))) OR ((NOT (id <=> id)) OR (NOT (logical_key_json <=> logical_key_json)))) OR (((NOT (schema_revision <=> schema_revision)) OR (NOT (entity_version <=> entity_version))) OR (NOT (props_json <=> props_json)))) OR ((((NOT (retained_json <=> retained_json)) OR (NOT (root_id <=> root_id))) OR (NOT (source_feed <=> source_feed))) OR (((NOT (source_epoch <=> source_epoch)) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at))))))"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "final-canonical-identities",
+    "sql": "SELECT count(*),count(DISTINCT struct(source_system,type_id,id)) FROM client_dev.ashlar_scattered_20261005_n1.object_current VERSION AS OF 12",
+    "statement_id": "01f1c11e-a3c5-18e6-a89b-7aa7fc60315d",
+    "start_epoch": 1791247276.428554,
+    "wall_ms": 1895.8535419999976,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "10000000",
+            "10000000"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "count(1)"
+            },
+            {
+              "name": "count(DISTINCT struct(source_system, type_id, id))"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "all-journal-event-keys",
+    "sql": "SELECT count(*),count(DISTINCT struct(source_feed,source_epoch,source_position,event_ordinal)) FROM client_dev.ashlar_scattered_20261005_n1.property_journal VERSION AS OF 7 WHERE source_feed='S' AND source_epoch='e' AND source_position BETWEEN 4 AND 7",
+    "statement_id": "01f1c11e-a4d3-1818-a043-b7977b0179d7",
+    "start_epoch": 1791247278.325753,
+    "wall_ms": 624.9526670000023,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "1200000",
+            "1200000"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "count(1)"
+            },
+            {
+              "name": "count(DISTINCT struct(source_feed, source_epoch, source_position, event_ordinal))"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "mutation-history",
+    "sql": "DESCRIBE HISTORY client_dev.ashlar_scattered_20261005_n1.object_current",
+    "statement_id": "01f1c11e-a533-17b7-9dce-bf795a343d7d",
+    "start_epoch": 1791247278.951694,
+    "wall_ms": 1237.1487499999603,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "12",
+            "2026-10-06T00:39:42.124000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((source_system#448464 = source_system#448477) AND (type_id#448465L = type_id#448478L)) AND (id#448466L = id#448479L))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11e-5d7c-1b66-8bd7-eb61610623ad",
+            null,
+            "11",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"300000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"300000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"4788\",\"numTargetFilesAdded\":\"16\",\"numTargetBytesAdded\":\"321415146\",\"executionTimeMs\":\"6780\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"419\",\"scanTimeMs\":\"1982\",\"numOutputRows\":\"300000\",\"numTargetDeletionVectorsRemoved\":\"419\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"300000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"031c1b61-850a-4c33-867e-26736b84e086\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ],
+          [
+            "11",
+            "2026-10-06T00:39:09.699000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((source_system#444831 = source_system#444844) AND (type_id#444832L = type_id#444845L)) AND (id#444833L = id#444846L))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11e-4b55-164d-88d7-30533c7b4267",
+            null,
+            "10",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"300000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"300000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"3587\",\"numTargetFilesAdded\":\"16\",\"numTargetBytesAdded\":\"321431604\",\"executionTimeMs\":\"5023\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"419\",\"scanTimeMs\":\"1429\",\"numOutputRows\":\"300000\",\"numTargetDeletionVectorsRemoved\":\"419\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"300000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"329ace01-dcbf-4e6f-8b92-6c5d73e70533\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ],
+          [
+            "10",
+            "2026-10-06T00:38:40.798000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((source_system#441204 = source_system#441217) AND (type_id#441205L = type_id#441218L)) AND (id#441206L = id#441219L))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11e-396a-1b48-ba4f-b13309044e35",
+            null,
+            "9",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"300000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"300000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"3776\",\"numTargetFilesAdded\":\"16\",\"numTargetBytesAdded\":\"321403224\",\"executionTimeMs\":\"5215\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"419\",\"scanTimeMs\":\"1430\",\"numOutputRows\":\"300000\",\"numTargetDeletionVectorsRemoved\":\"419\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"300000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"f874e482-d8c8-4ef6-a065-312a827fdae7\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ],
+          [
+            "9",
+            "2026-10-06T00:38:09.411000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((source_system#437563 = source_system#437590) AND (type_id#437564L = type_id#437591L)) AND (id#437565L = id#437592L))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11e-279a-1161-b7ad-d554da352d89",
+            null,
+            "8",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"300000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"300000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"3795\",\"numTargetFilesAdded\":\"16\",\"numTargetBytesAdded\":\"321407656\",\"executionTimeMs\":\"5291\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"419\",\"scanTimeMs\":\"1485\",\"numOutputRows\":\"300000\",\"numTargetDeletionVectorsRemoved\":\"419\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"300000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"c4261a21-fb33-41ac-a5ab-4dbb792f9d75\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ],
+          [
+            "8",
+            "2026-10-06T00:32:44.065000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((source_system#429267 = source_system#429280) AND (type_id#429268L = type_id#429281L)) AND (id#429269L = id#429282L))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11d-6730-16fa-b6e0-153061068120",
+            null,
+            "7",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"200000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"200000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"2821\",\"numTargetFilesAdded\":\"8\",\"numTargetBytesAdded\":\"214309059\",\"executionTimeMs\":\"4455\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"419\",\"scanTimeMs\":\"1626\",\"numOutputRows\":\"200000\",\"numTargetDeletionVectorsRemoved\":\"419\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"200000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"f6ca0178-78ea-441c-b360-c16bbce33f5f\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ],
+          [
+            "7",
+            "2026-10-06T00:27:11.247000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((source_system#418756 = source_system#418783) AND (type_id#418757L = type_id#418784L)) AND (id#418758L = id#418785L))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11c-8433-1200-9744-b59a5e34e056",
+            null,
+            "6",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"200000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"200000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"3225\",\"numTargetFilesAdded\":\"8\",\"numTargetBytesAdded\":\"214303685\",\"executionTimeMs\":\"5030\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"419\",\"scanTimeMs\":\"1793\",\"numOutputRows\":\"200000\",\"numTargetDeletionVectorsRemoved\":\"419\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"200000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"14b32df6-f31a-4e72-ae44-b9f3ebb23b17\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ],
+          [
+            "6",
+            "2026-10-06T00:20:13.472000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "TRANSACTION",
+            "{\"intermediateOperationParameters\":\"[{\"operationName\":\"MERGE\",\"operationParameters\":{\"predicate\":\"[\\\"(((id#412713L = id#412724L) AND (source_system#412711 = pilot)) AND (type_id#412712L = 1))\\\"]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":false,\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}}]\"}",
+            null,
+            null,
+            "01f1c11b-810b-1c07-9758-865d196fa3f2",
+            null,
+            "5",
+            "WriteSerializable",
+            "False",
+            "{\"intermediateOperationMetrics\":\"[{\"operationName\":\"MERGE\",\"operationMetrics\":{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"419\",\"numTargetRowsMatchedUpdated\":\"200000\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsUpdated\":\"200000\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"4740\",\"numTargetFilesAdded\":\"8\",\"numTargetBytesAdded\":\"214418424\",\"executionTimeMs\":\"6749\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"2000\",\"numOutputRows\":\"200000\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numSourceRows\":\"200000\",\"numTargetFilesRemoved\":\"0\"}}]\",\"txnId\":\"91cfb608-0627-4a9c-90a5-7edd42054a9f\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ],
+          [
+            "5",
+            "2026-10-06T00:18:04.010000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "OPTIMIZE",
+            "{\"auto\":\"false\",\"batchId\":\"0\",\"clusterBy\":\"[\"source_system\",\"type_id\",\"id\"]\",\"isFull\":\"true\",\"predicate\":\"[]\",\"zOrderBy\":\"[]\"}",
+            null,
+            null,
+            "01f1c11b-3bf6-184a-8500-934e0d1d07e2",
+            null,
+            "4",
+            "SnapshotIsolation",
+            "False",
+            "{\"maxFileSize\":\"526779\",\"minFileSize\":\"526779\",\"numAddedBytes\":\"526779\",\"numAddedFiles\":\"1\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedBytes\":\"538221\",\"numRemovedFiles\":\"2\",\"p25FileSize\":\"526779\",\"p50FileSize\":\"526779\",\"p75FileSize\":\"526779\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ],
+          [
+            "4",
+            "2026-10-06T00:17:58.165000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "OPTIMIZE",
+            "{\"auto\":\"false\",\"batchId\":\"0\",\"clusterBy\":\"[\"source_system\",\"type_id\",\"id\"]\",\"isFull\":\"true\",\"predicate\":\"[]\",\"zOrderBy\":\"[]\"}",
+            null,
+            null,
+            "01f1c11b-3bf6-184a-8500-934e0d1d07e2",
+            null,
+            "1",
+            "SnapshotIsolation",
+            "False",
+            "{\"conflictDetectionTimeMs\":\"42\",\"maxFileSize\":\"25108045\",\"minFileSize\":\"268772\",\"numAddedBytes\":\"6155745859\",\"numAddedFiles\":\"406\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedBytes\":\"6153649188\",\"numRemovedFiles\":\"370\",\"p25FileSize\":\"11477490\",\"p50FileSize\":\"18109372\",\"p75FileSize\":\"20270708\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ],
+          [
+            "3",
+            "2026-10-06T00:17:05.855000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "OPTIMIZE",
+            "{\"auto\":\"false\",\"batchId\":\"-1\",\"clusterBy\":\"[\"source_system\",\"type_id\",\"id\"]\",\"isFull\":\"true\",\"predicate\":\"[]\",\"zOrderBy\":\"[]\"}",
+            null,
+            null,
+            "01f1c11b-3bf6-184a-8500-934e0d1d07e2",
+            null,
+            "1",
+            "SnapshotIsolation",
+            "True",
+            "{\"conflictDetectionTimeMs\":\"33\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ],
+          [
+            "2",
+            "2026-10-06T00:17:05.285000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "OPTIMIZE",
+            "{\"auto\":\"false\",\"batchId\":\"-1\",\"clusterBy\":\"[\"source_system\",\"type_id\",\"id\"]\",\"isFull\":\"true\",\"predicate\":\"[]\",\"zOrderBy\":\"[]\"}",
+            null,
+            null,
+            "01f1c11b-3bf6-184a-8500-934e0d1d07e2",
+            null,
+            "1",
+            "WriteSerializable",
+            "True",
+            "{}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ],
+          [
+            "1",
+            "2026-10-06T00:16:52.331000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "WRITE",
+            "{\"clusterBy\":\"[\"source_system\",\"type_id\",\"id\"]\",\"clusteringOnWriteStatus\":\"kdtree triggered\",\"mode\":\"Append\",\"partitionBy\":\"[]\",\"statsOnLoad\":\"true\"}",
+            null,
+            null,
+            "01f1c11b-1545-1294-9afb-3d297eaf1463",
+            null,
+            "0",
+            "WriteSerializable",
+            "True",
+            "{\"numFiles\":\"384\",\"numOutputBytes\":\"6430486283\",\"numOutputRows\":\"10000000\"}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ],
+          [
+            "0",
+            "2026-10-06T00:15:46.318000",
+            "3755468182769617",
+            "erik.labianca@synaptiq.ai",
+            "CREATE TABLE",
+            "{\"clusterBy\":\"[\"source_system\",\"type_id\",\"id\"]\",\"description\":null,\"isManaged\":\"true\",\"partitionBy\":\"[]\",\"properties\":\"{\"delta.parquet.compression.codec\":\"zstd\",\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"databricks.internal.autoUpgrades.delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.dataSkippingStatsColumns\":\"source_system,type_id,id\",\"io.unitycatalog.tableId\":\"04ec3f3e-f9be-4876-a654-7f35e1514bd0\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-b9d13672-903a-40a9-b24b-619e083a8c5f\",\"delta.targetFileSize\":\"16777216\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-99fecfce-2d6f-4c28-9fe6-b623efa36db1\"}\",\"statsOnLoad\":\"false\"}",
+            null,
+            null,
+            "01f1c11b-1325-1645-92ee-61138dddff97",
+            null,
+            null,
+            "WriteSerializable",
+            "True",
+            "{}",
+            null,
+            "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "version"
+            },
+            {
+              "name": "timestamp"
+            },
+            {
+              "name": "userId"
+            },
+            {
+              "name": "userName"
+            },
+            {
+              "name": "operation"
+            },
+            {
+              "name": "operationParameters"
+            },
+            {
+              "name": "job"
+            },
+            {
+              "name": "notebook"
+            },
+            {
+              "name": "queryHistoryStatementId"
+            },
+            {
+              "name": "clusterId"
+            },
+            {
+              "name": "readVersion"
+            },
+            {
+              "name": "isolationLevel"
+            },
+            {
+              "name": "isBlindAppend"
+            },
+            {
+              "name": "operationMetrics"
+            },
+            {
+              "name": "userMetadata"
+            },
+            {
+              "name": "engineInfo"
+            }
+          ]
+        }
+      }
+    }
+  },
+  {
+    "label": "after-detail",
+    "sql": "DESCRIBE DETAIL client_dev.ashlar_scattered_20261005_n1.object_current",
+    "statement_id": "01f1c11e-a5ef-1c84-9cf1-f8f7b208a1b5",
+    "start_epoch": 1791247280.189972,
+    "wall_ms": 375.40716600000223,
+    "transport": "sql-driver",
+    "response": {
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "result": {
+        "data_array": [
+          [
+            "delta",
+            "d94414dd-605c-4a37-9bbe-1db7aec189fd",
+            "client_dev.ashlar_scattered_20261005_n1.object_current",
+            null,
+            "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/04ec3f3e-f9be-4876-a654-7f35e1514bd0",
+            "2026-10-06T00:15:46.074000",
+            "2026-10-06T00:39:42",
+            "[]",
+            "[\"source_system\",\"type_id\",\"id\"]",
+            "507",
+            "8361260310",
+            "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"source_system,type_id,id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableInCommitTimestamps\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-99fecfce-2d6f-4c28-9fe6-b623efa36db1\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-b9d13672-903a-40a9-b24b-619e083a8c5f\",\"delta.targetFileSize\":\"16777216\",\"io.unitycatalog.tableId\":\"04ec3f3e-f9be-4876-a654-7f35e1514bd0\"}",
+            "3",
+            "7",
+            "[\"appendOnly\",\"catalogManaged\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"inCommitTimestamp\",\"invariants\",\"rowTracking\",\"v2Checkpoint\",\"vacuumProtocolCheck\"]",
+            "{\"numDeletionVectors\":419,\"numRowsDeletedByDeletionVectors\":1800000}",
+            "False"
+          ]
+        ]
+      },
+      "manifest": {
+        "schema": {
+          "columns": [
+            {
+              "name": "format"
+            },
+            {
+              "name": "id"
+            },
+            {
+              "name": "name"
+            },
+            {
+              "name": "description"
+            },
+            {
+              "name": "location"
+            },
+            {
+              "name": "createdAt"
+            },
+            {
+              "name": "lastModified"
+            },
+            {
+              "name": "partitionColumns"
+            },
+            {
+              "name": "clusteringColumns"
+            },
+            {
+              "name": "numFiles"
+            },
+            {
+              "name": "sizeInBytes"
+            },
+            {
+              "name": "properties"
+            },
+            {
+              "name": "minReaderVersion"
+            },
+            {
+              "name": "minWriterVersion"
+            },
+            {
+              "name": "tableFeatures"
+            },
+            {
+              "name": "statistics"
+            },
+            {
+              "name": "clusterByAuto"
+            }
+          ]
+        }
+      }
+    }
+  }
+]

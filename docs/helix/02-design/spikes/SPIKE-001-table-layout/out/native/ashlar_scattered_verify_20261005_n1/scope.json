@@ -1,0 +1,9 @@
+{
+  "state": "completed",
+  "object_version": 6,
+  "changed_entities": 200000,
+  "unchanged_entities": 9800000,
+  "identity_bins_100k": 100,
+  "full_unchanged_column_count": 13,
+  "limitations": "single synthetic batch; no concurrency, native source feed, sustained p95 or billion-scale admission"
+}

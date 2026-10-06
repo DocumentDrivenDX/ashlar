@@ -1,0 +1,190 @@
+{
+  "publication": "graph1",
+  "vertices": [
+    {
+      "source_system": "pilot",
+      "id": 0,
+      "logical_identity": {
+        "kind": "node",
+        "type": "TypeA",
+        "key": "A0"
+      },
+      "props_json": "{\"group\":\"alpha\"}",
+      "retained_json": "{}",
+      "node_key": "N5:pilot:1:0",
+      "type_id": 1,
+      "group_value": "alpha",
+      "group_present": true
+    },
+    {
+      "source_system": "pilot",
+      "id": 1,
+      "logical_identity": {
+        "kind": "node",
+        "type": "TypeA",
+        "key": "A1"
+      },
+      "props_json": "{\"group\":\"alpha\"}",
+      "retained_json": "{}",
+      "node_key": "N5:pilot:1:1",
+      "type_id": 1,
+      "group_value": "alpha",
+      "group_present": true
+    },
+    {
+      "source_system": "pilot",
+      "id": 1,
+      "logical_identity": {
+        "kind": "node",
+        "type": "TypeB",
+        "key": "B1"
+      },
+      "props_json": "{\"group\":\"bridge\"}",
+      "retained_json": "{}",
+      "node_key": "N5:pilot:2:1",
+      "type_id": 2,
+      "group_value": "bridge",
+      "group_present": true
+    },
+    {
+      "source_system": "pilot",
+      "id": 1,
+      "logical_identity": {
+        "kind": "node",
+        "type": "TypeC",
+        "key": "C1"
+      },
+      "props_json": "{\"group\":\"x\"}",
+      "retained_json": "{}",
+      "node_key": "N5:pilot:3:1",
+      "type_id": 3,
+      "group_value": "x",
+      "group_present": true
+    },
+    {
+      "source_system": "pilot",
+      "id": 2,
+      "logical_identity": {
+        "kind": "node",
+        "type": "TypeC",
+        "key": "C2"
+      },
+      "props_json": "{\"group\":\"y\"}",
+      "retained_json": "{}",
+      "node_key": "N5:pilot:3:2",
+      "type_id": 3,
+      "group_value": "y",
+      "group_present": true
+    }
+  ],
+  "edges": [
+    {
+      "source_system": "pilot",
+      "id": 1,
+      "logical_identity": {
+        "kind": "edge",
+        "type": "AB",
+        "key": "E1"
+      },
+      "props_json": "{}",
+      "retained_json": "{}",
+      "edge_key": "E5:pilot:7:1",
+      "rel_type_id": 7,
+      "src": "N5:pilot:1:1",
+      "dst": "N5:pilot:2:1",
+      "score": null,
+      "score_present": false
+    },
+    {
+      "source_system": "pilot",
+      "id": 2,
+      "logical_identity": {
+        "kind": "edge",
+        "type": "AB",
+        "key": "E2"
+      },
+      "props_json": "{}",
+      "retained_json": "{}",
+      "edge_key": "E5:pilot:7:2",
+      "rel_type_id": 7,
+      "src": "N5:pilot:1:1",
+      "dst": "N5:pilot:2:1",
+      "score": null,
+      "score_present": false
+    },
+    {
+      "source_system": "pilot",
+      "id": 3,
+      "logical_identity": {
+        "kind": "edge",
+        "type": "BC",
+        "key": "E3"
+      },
+      "props_json": "{}",
+      "retained_json": "{}",
+      "edge_key": "E5:pilot:8:3",
+      "rel_type_id": 8,
+      "src": "N5:pilot:2:1",
+      "dst": "N5:pilot:3:1",
+      "score": null,
+      "score_present": false
+    },
+    {
+      "source_system": "pilot",
+      "id": 4,
+      "logical_identity": {
+        "kind": "edge",
+        "type": "BC",
+        "key": "E4"
+      },
+      "props_json": "{}",
+      "retained_json": "{}",
+      "edge_key": "E5:pilot:8:4",
+      "rel_type_id": 8,
+      "src": "N5:pilot:2:1",
+      "dst": "N5:pilot:3:2",
+      "score": null,
+      "score_present": false
+    },
+    {
+      "source_system": "pilot",
+      "id": 5,
+      "logical_identity": {
+        "kind": "edge",
+        "type": "BA",
+        "key": "E5"
+      },
+      "props_json": "{}",
+      "retained_json": "{}",
+      "edge_key": "E5:pilot:9:5",
+      "rel_type_id": 9,
+      "src": "N5:pilot:2:1",
+      "dst": "N5:pilot:1:1",
+      "score": null,
+      "score_present": false
+    }
+  ],
+  "expected_two_hop_paths": [
+    [
+      "E5:pilot:7:1",
+      "E5:pilot:8:3",
+      "N5:pilot:3:1"
+    ],
+    [
+      "E5:pilot:7:1",
+      "E5:pilot:8:4",
+      "N5:pilot:3:2"
+    ],
+    [
+      "E5:pilot:7:2",
+      "E5:pilot:8:3",
+      "N5:pilot:3:1"
+    ],
+    [
+      "E5:pilot:7:2",
+      "E5:pilot:8:4",
+      "N5:pilot:3:2"
+    ]
+  ],
+  "status": "shape-checked; external engines unexecuted"
+}

@@ -1,0 +1,64 @@
+== Physical Plan ==
+AdaptiveSparkPlan (10)
++- == Initial Plan ==
+   PhotonResultStage (9)
+   +- PhotonColumnarToRow (8)
+      +- PhotonAgg (7)
+         +- PhotonShuffleExchangeSource (6)
+            +- PhotonShuffleMapStage (5)
+               +- PhotonShuffleExchangeSink (4)
+                  +- PhotonAgg (3)
+                     +- PhotonProject (2)
+                        +- PhotonScan parquet client_dev.ashlar_scattered_20261005_n1.property_journal (1)
+
+
+(1) PhotonScan parquet client_dev.ashlar_scattered_20261005_n1.property_journal
+Output [3]: [source_feed#424910, source_epoch#424911, source_position#424912L]
+DictionaryFilters: [(source_feed#424910 = S), (source_epoch#424911 = e), (source_position#424912L = 2)]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/e51ce8fe-14d6-475a-beaf-c1dd46320b1c]
+ReadSchema: struct<source_feed:string,source_epoch:string,source_position:bigint>
+RequiredDataFilters: [(source_position#424912L = 2), (source_feed#424910 = S), (source_epoch#424911 = e)]
+
+(2) PhotonProject
+Input [3]: [source_feed#424910, source_epoch#424911, source_position#424912L]
+
+(3) PhotonAgg
+Input: []
+Arguments: [partial_count(1) AS count#424935L], [count#424934L], [count#424935L], false
+
+(4) PhotonShuffleExchangeSink
+Input [1]: [count#424935L]
+Arguments: SinglePartition
+
+(5) PhotonShuffleMapStage
+Input [1]: [count#424935L]
+Arguments: ENSURE_REQUIREMENTS, [id=#444344]
+
+(6) PhotonShuffleExchangeSource
+Input [1]: [count#424935L]
+Arguments: false
+
+(7) PhotonAgg
+Input [1]: [count#424935L]
+Arguments: [finalmerge_count(merge count#424935L) AS count(1)#424918L], [count(1)#424918L], [count(1)#424918L AS count(1)#424919L], true
+
+(8) PhotonColumnarToRow
+Input [1]: [count(1)#424919L]
+
+(9) PhotonResultStage
+Input [1]: [count(1)#424919L]
+
+(10) AdaptiveSparkPlan
+Output [1]: [count(1)#424919L]
+Arguments: isFinalPlan=false
+
+
+== Photon Explanation ==
+The query is fully supported by Photon.
+== Optimizer Statistics (table names per statistics state) ==
+  missing = property_journal
+  partial = 
+  full    = 
+Corrective actions: consider running the following command on all tables with missing or partial statistics
+  ANALYZE TABLE <table-name> COMPUTE STATISTICS FOR ALL COLUMNS
+

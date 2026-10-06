@@ -1,0 +1,5 @@
+{
+  "state": "passed",
+  "inherited_rows_per_layout": 2820023,
+  "scope": "two-direction EXCEPT ALL exact inherited journal multiset; complete vector/progress/revisions/report/profile/timestamp descriptors and durable receipts; not performance, permissions or external-source semantic admission"
+}

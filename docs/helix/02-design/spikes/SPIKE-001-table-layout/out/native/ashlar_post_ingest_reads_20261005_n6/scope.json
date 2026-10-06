@@ -1,0 +1,8 @@
+{
+  "state": "completed",
+  "object_version": 19,
+  "nodes": 10000000,
+  "changed_keys": 16,
+  "unchanged_keys": 35,
+  "scope": "fixed snapshot after writes; exact repeated carrier equality and changed fixture ordering; inspect remote/cache metrics for warm classification; no concurrent-write or billion-scale claim"
+}

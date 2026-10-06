@@ -1,0 +1,8 @@
+{
+  "state": "passed",
+  "stage_rows": 300000,
+  "stage_wall_s": 17.3183875,
+  "source_edge_version": 1,
+  "source_journal_version": 1,
+  "scope": "disjoint IDs330001..360000; complete17-field prior carrier; unique typed keys and ordinals; independently checked2KB payloads in ten domains; setup outside timing; canonical/journal unchanged"
+}

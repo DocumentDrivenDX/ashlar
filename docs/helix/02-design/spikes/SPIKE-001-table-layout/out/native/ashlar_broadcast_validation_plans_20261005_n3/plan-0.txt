@@ -1,0 +1,111 @@
+== Physical Plan ==
+AdaptiveSparkPlan (19)
++- == Initial Plan ==
+   PhotonResultStage (18)
+   +- PhotonColumnarToRow (17)
+      +- PhotonAgg (16)
+         +- PhotonShuffleExchangeSource (15)
+            +- PhotonShuffleMapStage (14)
+               +- PhotonShuffleExchangeSink (13)
+                  +- PhotonAgg (12)
+                     +- PhotonGroupingAgg (11)
+                        +- PhotonShuffleExchangeSource (10)
+                           +- PhotonShuffleMapStage (9)
+                              +- PhotonShuffleExchangeSink (8)
+                                 +- PhotonGroupingAgg (7)
+                                    +- PhotonBroadcastHashJoin Inner (6)
+                                       :- PhotonShuffleExchangeSource (4)
+                                       :  +- PhotonShuffleMapStage (3)
+                                       :     +- PhotonShuffleExchangeSink (2)
+                                       :        +- PhotonScan parquet client_dev.ashlar_scattered_20261005_n1.stage_n3 (1)
+                                       +- PhotonScan parquet client_dev.ashlar_scattered_20261005_n1.object_current (5)
+
+
+(1) PhotonScan parquet client_dev.ashlar_scattered_20261005_n1.stage_n3
+Output [13]: [source_system#432359, type_id#432360L, id#432361L, logical_key_json#432362, schema_revision#432363, entity_version#432364L, props_json#432365, retained_json#432366, root_id#432367L, source_feed#432368, source_epoch#432369, source_position#432370L, published_at#432371]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/94caae6d-ec31-4395-a211-5a70a9d5765a]
+ReadSchema: struct<source_system:string,type_id:bigint,id:bigint,logical_key_json:string,schema_revision:string,entity_version:bigint,props_json:string,retained_json:string,root_id:bigint,source_feed:string,source_epoch:string,source_position:bigint,published_at:timestamp>
+RequiredDataFilters: [isnotnull(type_id#432360L), isnotnull(id#432361L), isnotnull(source_system#432359)]
+
+(2) PhotonShuffleExchangeSink
+Input [13]: [source_system#432359, type_id#432360L, id#432361L, logical_key_json#432362, schema_revision#432363, entity_version#432364L, props_json#432365, retained_json#432366, root_id#432367L, source_feed#432368, source_epoch#432369, source_position#432370L, published_at#432371]
+Arguments: SinglePartition
+
+(3) PhotonShuffleMapStage
+Input [13]: [source_system#432359, type_id#432360L, id#432361L, logical_key_json#432362, schema_revision#432363, entity_version#432364L, props_json#432365, retained_json#432366, root_id#432367L, source_feed#432368, source_epoch#432369, source_position#432370L, published_at#432371]
+Arguments: EXECUTOR_BROADCAST, [id=#453748]
+
+(4) PhotonShuffleExchangeSource
+Input [13]: [source_system#432359, type_id#432360L, id#432361L, logical_key_json#432362, schema_revision#432363, entity_version#432364L, props_json#432365, retained_json#432366, root_id#432367L, source_feed#432368, source_epoch#432369, source_position#432370L, published_at#432371]
+Arguments: false
+
+(5) PhotonScan parquet client_dev.ashlar_scattered_20261005_n1.object_current
+Output [13]: [source_system#432346, type_id#432347L, id#432348L, logical_key_json#432349, schema_revision#432350, entity_version#432351L, props_json#432352, retained_json#432353, root_id#432354L, source_feed#432355, source_epoch#432356, source_position#432357L, published_at#432358]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/04ec3f3e-f9be-4876-a654-7f35e1514bd0]
+OptionalDataFilters: [hashedrelationcontains(source_system#432346, type_id#432347L, id#432348L)]
+ReadSchema: struct<source_system:string,type_id:bigint,id:bigint,logical_key_json:string,schema_revision:string,entity_version:bigint,props_json:string,retained_json:string,root_id:bigint,source_feed:string,source_epoch:string,source_position:bigint,published_at:timestamp>
+
+(6) PhotonBroadcastHashJoin
+Left keys [3]: [source_system#432359, type_id#432360L, id#432361L]
+Right keys [3]: [source_system#432346, type_id#432347L, id#432348L]
+Join type: Inner
+Join condition: None
+
+(7) PhotonGroupingAgg
+Input [26]: [source_system#432359, type_id#432360L, id#432361L, logical_key_json#432362, schema_revision#432363, entity_version#432364L, props_json#432365, retained_json#432366, root_id#432367L, source_feed#432368, source_epoch#432369, source_position#432370L, published_at#432371, source_system#432346, type_id#432347L, id#432348L, logical_key_json#432349, schema_revision#432350, entity_version#432351L, props_json#432352, retained_json#432353, root_id#432354L, source_feed#432355, source_epoch#432356, source_position#432357L, published_at#432358]
+Arguments: [struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L) AS struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L)#432425], [partial_count(1) AS count#432420L, partial_count(if ((((((((((((((type_id#432347L <=> type_id#432360L) AND (id#432348L <=> id#432361L)) AND (entity_version#432351L <=> entity_version#432364L)) AND (root_id#432354L <=> root_id#432367L)) AND (source_position#432357L <=> source_position#432370L)) AND (published_at#432358 <=> published_at#432371)) AND (source_system#432346 <=> source_system#432359)) AND (logical_key_json#432349 <=> logical_key_json#432362)) AND (schema_revision#432350 <=> schema_revision#432363)) AND (props_json#432352 <=> props_json#432365)) AND (retained_json#432353 <=> retained_json#432366)) AND (source_feed#432355 <=> source_feed#432368)) AND (source_epoch#432356 <=> source_epoch#432369))) null else ((((((((((((NOT (type_id#432347L <=> type_id#432360L) OR NOT (id#432348L <=> id#432361L)) OR NOT (entity_version#432351L <=> entity_version#432364L)) OR NOT (root_id#432354L <=> root_id#432367L)) OR NOT (source_position#432357L <=> source_position#432370L)) OR NOT (published_at#432358 <=> published_at#432371)) OR NOT (source_system#432346 <=> source_system#432359)) OR NOT (logical_key_json#432349 <=> logical_key_json#432362)) OR NOT (schema_revision#432350 <=> schema_revision#432363)) OR NOT (props_json#432352 <=> props_json#432365)) OR NOT (retained_json#432353 <=> retained_json#432366)) OR NOT (source_feed#432355 <=> source_feed#432368)) OR NOT (source_epoch#432356 <=> source_epoch#432369))) AS count#432424L], [count(1)#432420L, count((IF((((((((((((((type_id <=> type_id) AND (id <=> id)) AND (entity_version <=> entity_version)) AND (root_id <=> root_id)) AND (source_position <=> source_position)) AND (published_at <=> published_at)) AND (source_system <=> source_system)) AND (logical_key_json <=> logical_key_json)) AND (schema_revision <=> schema_revision)) AND (props_json <=> props_json)) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND (source_epoch <=> source_epoch)), NULL, (((((((((((((NOT (type_id <=> type_id)) OR (NOT (id <=> id))) OR (NOT (entity_version <=> entity_version))) OR (NOT (root_id <=> root_id))) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at))) OR (NOT (source_system <=> source_system))) OR (NOT (logical_key_json <=> logical_key_json))) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (props_json <=> props_json))) OR (NOT (retained_json <=> retained_json))) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))))))#432424L], [struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L)#432425, count#432420L, count#432424L], false
+
+(8) PhotonShuffleExchangeSink
+Input [3]: [struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L)#432425, count#432420L, count#432424L]
+Arguments: hashpartitioning(struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L)#432425, 16)
+
+(9) PhotonShuffleMapStage
+Input [3]: [struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L)#432425, count#432420L, count#432424L]
+Arguments: ENSURE_REQUIREMENTS, [id=#453758]
+
+(10) PhotonShuffleExchangeSource
+Input [3]: [struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L)#432425, count#432420L, count#432424L]
+Arguments: false
+
+(11) PhotonGroupingAgg
+Input [3]: [struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L)#432425, count#432420L, count#432424L]
+Arguments: [struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L)#432425], [merge_count(merge count#432420L) AS count#432420L, merge_count(merge count#432424L) AS count#432424L], [count(1)#432420L, count((IF((((((((((((((type_id <=> type_id) AND (id <=> id)) AND (entity_version <=> entity_version)) AND (root_id <=> root_id)) AND (source_position <=> source_position)) AND (published_at <=> published_at)) AND (source_system <=> source_system)) AND (logical_key_json <=> logical_key_json)) AND (schema_revision <=> schema_revision)) AND (props_json <=> props_json)) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND (source_epoch <=> source_epoch)), NULL, (((((((((((((NOT (type_id <=> type_id)) OR (NOT (id <=> id))) OR (NOT (entity_version <=> entity_version))) OR (NOT (root_id <=> root_id))) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at))) OR (NOT (source_system <=> source_system))) OR (NOT (logical_key_json <=> logical_key_json))) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (props_json <=> props_json))) OR (NOT (retained_json <=> retained_json))) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))))))#432424L], [struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L)#432425, count#432420L, count#432424L], true
+
+(12) PhotonAgg
+Input [3]: [struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L)#432425, count#432420L, count#432424L]
+Arguments: [merge_count(merge count#432420L) AS count#432420L, merge_count(merge count#432424L) AS count#432424L, partial_count(distinct struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L)#432425) AS count#432427L], [count(1)#432420L, count((IF((((((((((((((type_id <=> type_id) AND (id <=> id)) AND (entity_version <=> entity_version)) AND (root_id <=> root_id)) AND (source_position <=> source_position)) AND (published_at <=> published_at)) AND (source_system <=> source_system)) AND (logical_key_json <=> logical_key_json)) AND (schema_revision <=> schema_revision)) AND (props_json <=> props_json)) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND (source_epoch <=> source_epoch)), NULL, (((((((((((((NOT (type_id <=> type_id)) OR (NOT (id <=> id))) OR (NOT (entity_version <=> entity_version))) OR (NOT (root_id <=> root_id))) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at))) OR (NOT (source_system <=> source_system))) OR (NOT (logical_key_json <=> logical_key_json))) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (props_json <=> props_json))) OR (NOT (retained_json <=> retained_json))) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))))))#432424L, count(struct(source_system, type_id, id))#432378L], [count#432420L, count#432424L, count#432427L], false
+
+(13) PhotonShuffleExchangeSink
+Input [3]: [count#432420L, count#432424L, count#432427L]
+Arguments: SinglePartition
+
+(14) PhotonShuffleMapStage
+Input [3]: [count#432420L, count#432424L, count#432427L]
+Arguments: ENSURE_REQUIREMENTS, [id=#453766]
+
+(15) PhotonShuffleExchangeSource
+Input [3]: [count#432420L, count#432424L, count#432427L]
+Arguments: false
+
+(16) PhotonAgg
+Input [3]: [count#432420L, count#432424L, count#432427L]
+Arguments: [finalmerge_count(merge count#432420L) AS count(1)#432377L, finalmerge_count(merge count#432424L) AS count((IF((((((((((((((type_id <=> type_id) AND (id <=> id)) AND (entity_version <=> entity_version)) AND (root_id <=> root_id)) AND (source_position <=> source_position)) AND (published_at <=> published_at)) AND (source_system <=> source_system)) AND (logical_key_json <=> logical_key_json)) AND (schema_revision <=> schema_revision)) AND (props_json <=> props_json)) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND (source_epoch <=> source_epoch)), NULL, (((((((((((((NOT (type_id <=> type_id)) OR (NOT (id <=> id))) OR (NOT (entity_version <=> entity_version))) OR (NOT (root_id <=> root_id))) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at))) OR (NOT (source_system <=> source_system))) OR (NOT (logical_key_json <=> logical_key_json))) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (props_json <=> props_json))) OR (NOT (retained_json <=> retained_json))) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))))))#432379L, finalmerge_count(distinct merge count#432427L) AS count(struct(source_system, source_system#432359, type_id, type_id#432360L, id, id#432361L))#432378L], [count(1)#432377L, count((IF((((((((((((((type_id <=> type_id) AND (id <=> id)) AND (entity_version <=> entity_version)) AND (root_id <=> root_id)) AND (source_position <=> source_position)) AND (published_at <=> published_at)) AND (source_system <=> source_system)) AND (logical_key_json <=> logical_key_json)) AND (schema_revision <=> schema_revision)) AND (props_json <=> props_json)) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND (source_epoch <=> source_epoch)), NULL, (((((((((((((NOT (type_id <=> type_id)) OR (NOT (id <=> id))) OR (NOT (entity_version <=> entity_version))) OR (NOT (root_id <=> root_id))) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at))) OR (NOT (source_system <=> source_system))) OR (NOT (logical_key_json <=> logical_key_json))) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (props_json <=> props_json))) OR (NOT (retained_json <=> retained_json))) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))))))#432379L, count(struct(source_system, type_id, id))#432378L], [((NOT (count(1)#432377L = 200000) OR NOT (count(struct(source_system, type_id, id))#432378L = 200000)) OR NOT (count((IF((((((((((((((type_id <=> type_id) AND (id <=> id)) AND (entity_version <=> entity_version)) AND (root_id <=> root_id)) AND (source_position <=> source_position)) AND (published_at <=> published_at)) AND (source_system <=> source_system)) AND (logical_key_json <=> logical_key_json)) AND (schema_revision <=> schema_revision)) AND (props_json <=> props_json)) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND (source_epoch <=> source_epoch)), NULL, (((((((((((((NOT (type_id <=> type_id)) OR (NOT (id <=> id))) OR (NOT (entity_version <=> entity_version))) OR (NOT (root_id <=> root_id))) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at))) OR (NOT (source_system <=> source_system))) OR (NOT (logical_key_json <=> logical_key_json))) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (props_json <=> props_json))) OR (NOT (retained_json <=> retained_json))) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))))))#432379L = 0)) AS (((NOT (count(1) = 200000)) OR (NOT (count(DISTINCT struct(source_system, type_id, id)) = 200000))) OR (NOT (count_if((((((NOT (source_system <=> source_system)) OR (NOT (type_id <=> type_id))) OR ((NOT (id <=> id)) OR (NOT (logical_key_json <=> logical_key_json)))) OR (((NOT (schema_revision <=> schema_revision)) OR (NOT (entity_version <=> entity_version))) OR (NOT (props_json <=> props_json)))) OR ((((NOT (retained_json <=> retained_json)) OR (NOT (root_id <=> root_id))) OR (NOT (source_feed <=> source_feed))) OR (((NOT (source_epoch <=> source_epoch)) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at)))))) = 0)))#432380], true
+
+(17) PhotonColumnarToRow
+Input [1]: [(((NOT (count(1) = 200000)) OR (NOT (count(DISTINCT struct(source_system, type_id, id)) = 200000))) OR (NOT (count_if((((((NOT (source_system <=> source_system)) OR (NOT (type_id <=> type_id))) OR ((NOT (id <=> id)) OR (NOT (logical_key_json <=> logical_key_json)))) OR (((NOT (schema_revision <=> schema_revision)) OR (NOT (entity_version <=> entity_version))) OR (NOT (props_json <=> props_json)))) OR ((((NOT (retained_json <=> retained_json)) OR (NOT (root_id <=> root_id))) OR (NOT (source_feed <=> source_feed))) OR (((NOT (source_epoch <=> source_epoch)) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at)))))) = 0)))#432380]
+
+(18) PhotonResultStage
+Input [1]: [(((NOT (count(1) = 200000)) OR (NOT (count(DISTINCT struct(source_system, type_id, id)) = 200000))) OR (NOT (count_if((((((NOT (source_system <=> source_system)) OR (NOT (type_id <=> type_id))) OR ((NOT (id <=> id)) OR (NOT (logical_key_json <=> logical_key_json)))) OR (((NOT (schema_revision <=> schema_revision)) OR (NOT (entity_version <=> entity_version))) OR (NOT (props_json <=> props_json)))) OR ((((NOT (retained_json <=> retained_json)) OR (NOT (root_id <=> root_id))) OR (NOT (source_feed <=> source_feed))) OR (((NOT (source_epoch <=> source_epoch)) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at)))))) = 0)))#432380]
+
+(19) AdaptiveSparkPlan
+Output [1]: [(((NOT (count(1) = 200000)) OR (NOT (count(DISTINCT struct(source_system, type_id, id)) = 200000))) OR (NOT (count_if((((((NOT (source_system <=> source_system)) OR (NOT (type_id <=> type_id))) OR ((NOT (id <=> id)) OR (NOT (logical_key_json <=> logical_key_json)))) OR (((NOT (schema_revision <=> schema_revision)) OR (NOT (entity_version <=> entity_version))) OR (NOT (props_json <=> props_json)))) OR ((((NOT (retained_json <=> retained_json)) OR (NOT (root_id <=> root_id))) OR (NOT (source_feed <=> source_feed))) OR (((NOT (source_epoch <=> source_epoch)) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at)))))) = 0)))#432380]
+Arguments: isFinalPlan=false
+
+
+== Photon Explanation ==
+The query is fully supported by Photon.
+== Optimizer Statistics (table names per statistics state) ==
+  missing = 
+  partial = 
+  full    = object_current, stage_n3
+

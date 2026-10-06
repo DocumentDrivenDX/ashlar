@@ -1,0 +1,11 @@
+# Publisher fence primitive
+
+2026-10-05; SPIKE-001 bounded native concurrency test, unchanged dbw-aidev-cus warehouse.
+
+Two independent SQL sessions both observe epoch zero in a private catalog-managed fence table, synchronize at a client barrier, and attempt the same conditional epoch acquisition in BEGIN ATOMIC. Each transaction writes the fence row, validates its owner, and inserts an owner/epoch receipt. Exactly one succeeds (p1). The other returns terminal DELTA_CONCURRENT_APPEND.ROW_LEVEL_CHANGES because the same fence row changed. Exactly one winning receipt exists. No automatic retry is performed; a loser must reacquire against authoritative state rather than replay its original epoch.
+
+Explicit revocation raises epoch to two and changes the owner. The prior holder's guarded transaction SIGNALs stale fence before its writes. Both fence and receipt versions remain unchanged, confirming no stale receipt or fence change committed.
+
+This is one two-session race plus one stale-epoch control. It validates an experimental conditional-write primitive, not an integrated publisher fence. Graph mutations, recovered receipts and the ordinary manifest are not guarded by it yet. A read-only fence check is insufficient against concurrent revocation: the publishing transaction must also conditionally write the fence row so conflicting writers serialize. Manifest publication needs a separately integrated transactional guard or equivalent external fence; existing read-then-insert recovery is still unsafe concurrently. Lease TTL, clock behavior, network-loss recovery, privilege enforcement, repeated contention and throughput overhead remain untested. No production fencing guarantee is claimed.
+
+Harness `SPIKE-001-table-layout/native_publisher_fence.py`; raw statements, terminal errors, owner/receipt results, unchanged-version checks and summary under `out/native/ashlar_publisher_fence_20261005_r10/`. No canonical graph data was changed. Next integrate conditional fence writes with recovery descriptor publication in private fixtures, including stale and duplicate contenders, then quantify the added ingest overhead. Layout performance, full scale and external engine gates remain open. Goal active; UMF deferred.

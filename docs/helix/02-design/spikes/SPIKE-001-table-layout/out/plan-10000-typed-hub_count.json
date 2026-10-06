@@ -1,0 +1,117 @@
+{
+  "total_memory_allocated": 4194304,
+  "total_bytes_written": 0,
+  "total_bytes_read": 0,
+  "system_peak_temp_dir_size": 0,
+  "system_peak_buffer_memory": 71229440,
+  "rows_returned": 1,
+  "result_set_size": 8,
+  "latency": 0.001169459,
+  "blocked_thread_time": 0.0,
+  "commit_local_storage_latency": 0.0,
+  "wal_replay_entry_count": 0,
+  "extra_info": {},
+  "query_name": "SELECT count(*) AS n FROM edge_ab e JOIN edge_bc f ON e.target_id=f.source_id AND e.target_type=f.source_type WHERE e.rel_type_id=1 AND e.source_id=1 AND e.source_type=1 AND f.rel_type_id=2;",
+  "checkpoint_latency": 0.0,
+  "waiting_to_attach_latency": 0.0,
+  "cpu_time": 0.000579662,
+  "cumulative_rows_scanned": 90000,
+  "attach_replay_wal_latency": 0.0,
+  "write_to_wal_latency": 0.0,
+  "cumulative_cardinality": 90021,
+  "attach_load_storage_latency": 0.0,
+  "children": [
+    {
+      "system_peak_temp_dir_size": 0,
+      "system_peak_buffer_memory": 0,
+      "result_set_size": 8,
+      "operator_type": "UNGROUPED_AGGREGATE",
+      "operator_timing": 1.1259999999999999e-06,
+      "operator_rows_scanned": 0,
+      "operator_name": "UNGROUPED_AGGREGATE",
+      "extra_info": {
+        "Aggregates": "count_star()"
+      },
+      "cpu_time": 0.000578746,
+      "cumulative_rows_scanned": 90000,
+      "operator_cardinality": 1,
+      "cumulative_cardinality": 90021,
+      "children": [
+        {
+          "system_peak_temp_dir_size": 0,
+          "system_peak_buffer_memory": 0,
+          "result_set_size": 1280512,
+          "operator_type": "HASH_JOIN",
+          "operator_timing": 0.000489831,
+          "operator_rows_scanned": 0,
+          "operator_name": "HASH_JOIN",
+          "extra_info": {
+            "Join Type": "INNER",
+            "Conditions": [
+              "source_id = target_id",
+              "source_type = target_type"
+            ],
+            "Estimated Cardinality": "13"
+          },
+          "cpu_time": 0.00057762,
+          "cumulative_rows_scanned": 90000,
+          "operator_cardinality": 40016,
+          "cumulative_cardinality": 90020,
+          "children": [
+            {
+              "system_peak_temp_dir_size": 0,
+              "system_peak_buffer_memory": 0,
+              "result_set_size": 640000,
+              "operator_type": "TABLE_SCAN",
+              "operator_timing": 1.6081e-05,
+              "operator_rows_scanned": 40000,
+              "operator_name": "SEQ_SCAN",
+              "extra_info": {
+                "Table": "bench.main.edge_bc",
+                "Type": "Sequential Scan",
+                "Projections": [
+                  "source_id",
+                  "source_type"
+                ],
+                "Estimated Cardinality": "8000",
+                "Dynamic Filters": [
+                  "optional: source_id>=1 AND optional: source_id<=10000",
+                  "source_type=2"
+                ]
+              },
+              "cpu_time": 1.6081e-05,
+              "cumulative_rows_scanned": 40000,
+              "operator_cardinality": 40000,
+              "cumulative_cardinality": 40000,
+              "children": []
+            },
+            {
+              "system_peak_temp_dir_size": 0,
+              "system_peak_buffer_memory": 0,
+              "result_set_size": 160064,
+              "operator_type": "TABLE_SCAN",
+              "operator_timing": 7.1708e-05,
+              "operator_rows_scanned": 50000,
+              "operator_name": "SEQ_SCAN",
+              "extra_info": {
+                "Table": "bench.main.edge_ab",
+                "Type": "Sequential Scan",
+                "Projections": [
+                  "target_id",
+                  "target_type"
+                ],
+                "Filters": "source_id=1",
+                "Estimated Cardinality": "20"
+              },
+              "cpu_time": 7.1708e-05,
+              "cumulative_rows_scanned": 50000,
+              "operator_cardinality": 10004,
+              "cumulative_cardinality": 10004,
+              "children": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "lookup": {
+    "n": 50,
+    "caller_p50_ms": 331.10966600000324,
+    "caller_p95_ms": 522.2092919999568,
+    "engine_p50_ms": 96,
+    "engine_p95_ms": 295,
+    "compile_p50_ms": 121,
+    "compile_p95_ms": 147,
+    "server_p95_ms": 420,
+    "result_cache_hits": 0,
+    "read_files_median": 1
+  }
+}

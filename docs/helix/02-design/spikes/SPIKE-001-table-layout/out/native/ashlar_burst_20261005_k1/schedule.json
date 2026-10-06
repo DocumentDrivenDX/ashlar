@@ -1,0 +1,12 @@
+{
+  "start_epoch": 1791243594.6349518,
+  "interval_s": 10,
+  "batch_entities": 1000000,
+  "batches": 1,
+  "modeled_entities_s": 100000,
+  "oldest_arrival": "t0+(batch-1)*10",
+  "ready": "t0+batch*10",
+  "identity_schedule": "three 200k ranges repeated twice; producer old values chained from prior batch",
+  "producer_generation": "prebuilt before schedule; staging remains timed",
+  "compute": "existing serverless Photon 2X-Small; no config changes"
+}

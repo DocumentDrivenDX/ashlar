@@ -1,0 +1,15 @@
+{
+  "state": "completed",
+  "versions": {
+    "lc64": 5
+  },
+  "maintenance": [
+    {
+      "layout": "lc64",
+      "before": 3,
+      "after": 5,
+      "wall_s": 33.992885625
+    }
+  ],
+  "scope": "one incremental LC64 maintenance on conditional-update snapshot3; same51 conditional changed keys/full17-field projection exact equality; new versions not published, exhaustive hidden-metadata parity separate; no continuous policy, rate, scale or external-reader admission"
+}

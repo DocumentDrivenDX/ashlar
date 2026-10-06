@@ -1,0 +1,5 @@
+{
+  "state": "completed",
+  "edge_version": 10,
+  "scope": "same 51-domain-key shape; exact typed endpoints and independently computed old/new property201 carrier; fixed published snapshot; no extra optimize or concurrent write/full-scale admission"
+}

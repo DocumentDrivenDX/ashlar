@@ -1,0 +1,49 @@
+{
+  "warehouses": [
+    {
+      "id": "2439e1f2e37ac563",
+      "name": "data-gateway",
+      "size": "XXSMALL",
+      "cluster_size": "2X-Small",
+      "min_num_clusters": 1,
+      "max_num_clusters": 1,
+      "auto_stop_mins": 10,
+      "auto_resume": true,
+      "creator_name": "c9b93fc0-61bc-4abb-87b7-f73ae93a5591",
+      "creator_id": 142873382623580,
+      "tags": {
+        "custom_tags": [
+          {
+            "key": "epic",
+            "value": "synaptiq-infra-f29ccdb1"
+          },
+          {
+            "key": "managed_by",
+            "value": "opentofu"
+          },
+          {
+            "key": "module",
+            "value": "azure/landing-zones/databricks-client/workspace"
+          }
+        ]
+      },
+      "spot_instance_policy": "COST_OPTIMIZED",
+      "enable_photon": true,
+      "enable_serverless_compute": true,
+      "warehouse_type": "PRO",
+      "num_clusters": 1,
+      "state": "RUNNING",
+      "jdbc_url": "jdbc:spark://adb-7405607548213398.18.azuredatabricks.net:443/default;transportMode=http;ssl=1;AuthMech=3;httpPath=/sql/1.0/warehouses/2439e1f2e37ac563;",
+      "odbc_params": {
+        "hostname": "adb-7405607548213398.18.azuredatabricks.net",
+        "path": "/sql/1.0/warehouses/2439e1f2e37ac563",
+        "protocol": "https",
+        "port": 443
+      },
+      "health": {
+        "status": "HEALTHY",
+        "details": "Warehouse health details are not visible to users with the CAN_USE permission on the warehouse"
+      }
+    }
+  ]
+}
