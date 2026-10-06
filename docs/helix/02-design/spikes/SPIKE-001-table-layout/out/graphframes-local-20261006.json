@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "scope": "Local Delta rematerialization of checksum-pinned native export; not direct Unity Catalog protocol interoperability or scale admission",
+  "spark": "3.5.3",
+  "delta": "3.2.1",
+  "graphframes": "0.12.3",
+  "vertices": 3,
+  "edges": 3,
+  "two_hop_paths": 3,
+  "parallel_edges": 2,
+  "self_loops": 1,
+  "isolates": 1,
+  "exact_carrier_roundtrip": true,
+  "unpublished_append_excluded": true,
+  "release_versions": {
+    "spark_catalog.ashlar_small.node_1": 0,
+    "spark_catalog.ashlar_small.node_2": 0,
+    "spark_catalog.ashlar_small.edge_7_1_2": 0,
+    "spark_catalog.ashlar_small.edge_7_1_1": 0
+  }
+}

@@ -520,3 +520,14 @@ A source adapter claiming that profile must preserve its allocation/multiplicity
 rules; generic repeated-ID/parallel-edge fixtures demonstrate Ashlar carrier
 capacity only. Incompatible producer duplicates must be refused, never collapsed.
 The newer complete-feed worker draft remains separately unqualified.
+
+
+[Local GraphFrames integration](../spikes/SPIKE-001-table-layout/out/graphframes-local-20261006.json)
+executes the version-pinned v0.2 mapping with Spark 3.5.3, Delta Lake 3.2.1 and
+GraphFrames 0.12.3. Exact carriers, isolated vertices, parallel-edge multiplicity,
+self-loops, two-hop motifs and exclusion of an unpublished append pass on three
+vertices/three edges rematerialized from the checksum-pinned native export.
+This is local Delta integration evidence, not native Unity Catalog protocol
+qualification, a legal Truss parallel-edge fixture, or performance/scale evidence.
+The canonical UC architecture and independently qualified serving-release design
+remain unchanged.

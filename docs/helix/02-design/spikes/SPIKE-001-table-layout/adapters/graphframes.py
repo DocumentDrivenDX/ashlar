@@ -1,4 +1,4 @@
-# Proposed mapping, not an executed Spark/GraphFrames integration.
+# Proposed mappings. create_v02_release_graph has scoped local runtime evidence.
 def create_graph(spark, node_tables, edge_tables, table_versions):
     """Projection tables and versions must come from one release manifest.
 
@@ -37,7 +37,9 @@ def create_graph(spark, node_tables, edge_tables, table_versions):
 
 
 def create_v02_release_graph(spark, node_tables, edge_tables, table_versions):
-    """Proposed r68-compatible mapping; requires GraphFrames execution evidence."""
+    """r68-compatible mapping; locally executed with Spark 3.5.3 / GraphFrames 0.12.3.
+
+    Native Unity Catalog reader-feature interoperability remains unqualified."""
     from functools import reduce
     from graphframes import GraphFrame
 

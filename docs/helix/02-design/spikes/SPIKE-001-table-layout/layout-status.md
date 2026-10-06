@@ -93,3 +93,24 @@ The proposed [durable receipt table](sql/publication-receipt-candidate.sql) now 
 
 
 Merged Truss main at d3dcdde has been inspected and hash-pinned. Its draft layout specifies shared ID allocation and unique relationship/source/target edges; generic repeated-ID/parallel fixtures are now explicitly distinguished from legal native producer state. Current merged contracts do not supply complete-feed worker implementation or engine/runtime access. No compute was used.
+
+
+[Local GraphFrames execution](out/graphframes-local-20261006.json) passes Spark 3.5.3,
+Delta Lake 3.2.1 and GraphFrames 0.12.3 on six checksum-pinned exported rows,
+rematerialized as four local Delta tables. The existing v0.2 adapter preserves
+three vertices, three edges, two parallel edges, one self-loop, one isolate,
+three two-hop paths and exact JSON carriers. An unpublished append is excluded
+by VERSION AS OF 0. This closes the local runtime/mapping question; it does not
+qualify direct UC access, native deletion-vector/v2-checkpoint interoperability,
+Truss producer legality, performance or billion-scale capacity. No remote
+compute was started. The optional runtime endpoint question is no longer a
+blocker for this integration.
+
+Reproduce with Python 3.11, Java 17 and an isolated environment containing
+pyspark==3.5.3, delta-spark==3.2.1, graphframes-py==0.12.3,
+typing-extensions==4.16.0 and numpy==2.4.6. Set JAVA_HOME to Java 17,
+PYSPARK_PYTHON to that environment's Python and SPARK_LOCAL_IP=127.0.0.1;
+run `python graphframes_local.py`. Maven dependencies are resolved on first run.
+Tables and JVM dependency cache are created in a fresh temporary directory.
+The evidence file is regenerated. Startup and tiny-graph execution are not
+singleton latency measurements.

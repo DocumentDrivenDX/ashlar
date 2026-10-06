@@ -6,7 +6,7 @@
   "files": {
     "sql/delta-layout-v02.sql": "1e378ff080ae1e25cefd2365d9ed473e22bdd47e2d49ecbde65a0c8313c52f1b",
     "sql/source-record-candidate.sql": "7f9140b5fd754e16e23e0e9ee7c3b83afc94d1839776e3ef5605d999ccc1a76a",
-    "adapters/graphframes.py": "8f2182546cd47bff3af3e445a21338f00eacb263f0ae71fc0ed5c84d83bbeb73",
+    "adapters/graphframes.py": "21b5a0d465becf83d4ddc06c48c1b6d58cf1e7cd35f97e31c32f5aa4557e0205",
     "adapters/release-r66/mapping-plan.json": "dc3dd64cb8e8177ceb46348abbd92424adb8d5b281994a3bd4a9167ca9dda82c",
     "sql/delta-layout-v03.sql": "b105eff8831318e28135b553df6c2e652f4773cc8fbe924090af12c086a1c70d",
     "truss-feed-mapping-candidate.md": "4cea53f9b19570680589dad04a8a5eff9d677c136993d3c43b3856dd973f5c07",
@@ -34,7 +34,9 @@
     "native_release_protocol_r83.py": "79f47696f5c690c49a79d7e9f7c03ba2822e72f556c7b81556fdc4f65e2c6cb2",
     "native_hash_encoding_r84.py": "5b7c52fc6239fc347773dbff39fd7c23dfd88d6838137cada534935e64da0ee5",
     "out/goal-completion-audit-20261006.json": "6b28ebc464c4f962ba5971cdbddf15a450084023cace9db40b2afbac4fbbcb28",
-    "out/truss-upstream-spec-20261006.json": "3215fbb9a3a3491de2fd87fa580c7bda59492a05f6941c20b338134fc968e796"
+    "out/truss-upstream-spec-20261006.json": "3215fbb9a3a3491de2fd87fa580c7bda59492a05f6941c20b338134fc968e796",
+    "graphframes_local.py": "6393806dca8ee4424b578d2a5e083c77ce5f145db111b07dc35706604890f81a",
+    "out/graphframes-local-20261006.json": "b0010a41a820b46308f401c0046411b10bb3096a6150aaf8fdd363ad1ad5e5aa"
   },
   "evidence": {
     "ddl": {
