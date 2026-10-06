@@ -1,0 +1,51 @@
+{
+  "state": "local-corpus-validated",
+  "format": "synthetic-complete-carrier/1",
+  "generation": "Deterministic SHA256 opaque text; no random state. Shape cycles eight categories equally; length cycles 32/128/512/2048 for opaque-bearing categories. IDs and BIGINT transport fields are decimal strings.",
+  "shape_counts": {
+    "0": 32,
+    "1": 32,
+    "2": 32,
+    "3": 32,
+    "4": 32,
+    "5": 32,
+    "6": 32,
+    "7": 32
+  },
+  "files": {
+    "objects": {
+      "path": "objects.json",
+      "rows": 64,
+      "bytes": 70991,
+      "sha256": "fbe813bf1b5e1806e67f8652ce6e7abb296e0fa7174d7b6efbea2b20698cb949"
+    },
+    "edges": {
+      "path": "edges.json",
+      "rows": 192,
+      "bytes": 218943,
+      "sha256": "07ba417c3d4aa2ecea1fff92156593f371298ae3c51d4ffa88b54192107118b2"
+    },
+    "source_records": {
+      "path": "source_records.json",
+      "rows": 256,
+      "bytes": 469085,
+      "sha256": "3a86b6ef0a110c59f3da24e9e4fc7412795f3613167d65e7db7a7321146bb838"
+    }
+  },
+  "graph": {
+    "nodes": 64,
+    "edges": 192,
+    "isolated_nodes": 16,
+    "self_loop_edges": 12,
+    "parallel_endpoint_groups": 8
+  },
+  "preservation": [
+    "empty versus explicit null bags",
+    "integer above 2^53 and signed-int64 endpoints",
+    "decimal exponent and negative-zero token text",
+    "timezone text, escaping and Unicode",
+    "nested unknown retained content",
+    "raw envelope contains every canonical field with matching exact bag strings and digest"
+  ],
+  "scope": "Local complete synthetic carrier shape only. No real Truss wire/native source reconstruction, property journal events, source transaction completeness, native SQL hash differential, storage compression, scale or graph-engine compatibility evidence. Distribution is declared for stress coverage, not inferred from a real consumer."
+}

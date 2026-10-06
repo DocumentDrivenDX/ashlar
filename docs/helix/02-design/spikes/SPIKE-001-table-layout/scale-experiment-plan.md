@@ -64,3 +64,29 @@ shapes and measure its actual bytes. Resource estimates must separately account
 for current carriers, raw input, property-event fanout, structural projections,
 retained Delta versions and releases. The owner's small-test disposition still
 excludes the prepared 20M phase; this observation creates no scale authorization.
+
+
+## Small declared-shape corpus
+
+[varied-corpus](out/varied-corpus/summary.json) supplies 64 objects, 192 edges and
+256 complete synthetic raw envelopes, generated deterministically without compute.
+Eight property shapes occur 32 times each: empty, explicit null, exact large
+integers, decimal/exponent tokens, timezone text, escaped/Unicode variable text,
+wide repeated categories and nested values. Opaque-bearing shapes vary text length;
+retained nested content varies by carrier. Native tuple IDs repeat across source
+and type, and signed-int64 extremes remain decimal strings in transport. Typed
+endpoint closure, independent parallel edges, self-loops and isolates are checked.
+
+Every raw envelope includes every canonical fixture field with matching exact
+props_json/retained_json and a checked UTF-8 payload digest. This closes the earlier
+synthetic fixture's missing-structural-field issue for this local corpus only.
+The corpus matches 0.3 object/edge column names, but is not native Truss wire or
+transaction history. Property journal events, revision prerequisites, seed/coverage
+boundaries and real source authority are still absent. Synthetic source xid text
+exceeds signed BIGINT; no scalar checkpoint is generated.
+
+The next small native fidelity slice may load these declared carriers into private
+0.3 tables and compare exact raw strings, endpoints, hash computation and source
+references. It should use byte-preserving transport and actual versions. Its
+result would remain correctness evidence; do not infer compression, throughput or
+billion-scale capacity from fewer than a thousand synthetic records.
