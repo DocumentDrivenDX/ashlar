@@ -1,0 +1,38 @@
+[
+  {
+    "query_id": "01f1c1e0-3898-1018-bcfb-3b85048c7020",
+    "status": "FINISHED",
+    "query_text": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.edge_current LIMIT 7",
+    "query_start_time_ms": 1791330419157,
+    "query_end_time_ms": 1791330420591,
+    "user_id": 3755468182769617,
+    "user_name": "erik.labianca@synaptiq.ai",
+    "user_display_name": "Erik LaBianca",
+    "endpoint_id": "2439e1f2e37ac563",
+    "lookup_key": "CiQwMWYxYzFlMC0zODk4LTEwMTgtYmNmYi0zYjg1MDQ4YzcwMjAQ1YP0nJE0GhAyNDM5ZTFmMmUzN2FjNTYzINGf/5fB8tUG",
+    "metrics": {
+      "total_time_ms": 1434,
+      "query_compilation_start_timestamp": 1791330419300,
+      "queue_end_time_ms": 1791330419237,
+      "task_progress": {}
+    },
+    "executed_as_user_id": 3755468182769617,
+    "executed_as_user_name": "erik.labianca@synaptiq.ai",
+    "executed_as_user_display_name": "Erik LaBianca",
+    "session_id": "01f1c1e0-388f-1f8c-9a5a-437e31f398f2",
+    "is_final": false,
+    "channel_used": {
+      "name": "CHANNEL_NAME_CURRENT",
+      "dbsql_version": "2026.38"
+    },
+    "plans_state": "EMPTY",
+    "warehouse_id": "2439e1f2e37ac563",
+    "duration": 1434,
+    "canSubscribeToLiveQuery": true,
+    "client_application": "Databricks CLI",
+    "query_source": {},
+    "is_cancelable": false,
+    "last_updated_at_ms": 1791330420592,
+    "workspace_id": 7405607548213398
+  }
+]

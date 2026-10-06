@@ -1,5 +1,41 @@
 # Higher-entropy scale and GraphFrames iteration
 
+## Finite scheduled publication follow-up
+
+[Audited r96 schedule](out/native/ashlar_scheduled_publication_20261006_r96/version-aware-preflight/audited-summary.json)
+completes three causal updates of the same 100k-member opaque hot set against
+the existing 20M-edge native table. All 20 affected carrier fields, lexical
+property patches, full raw bytes/digests/origins, independent UTC-microsecond
+timestamp instants, journal multiset equality and global identity counts pass.
+All exact statement metrics are final and uncached. Manifests bind actual
+current versions 7/8/9, raw versions 5/6/7 and journal versions 5/6/7.
+
+| Batch | Modeled input window | Queue wait | Processing | Complete input to verified manifest |
+| --- | --- | ---: | ---: | ---: |
+| r96-b1 | 0–10 s, 10k changes/s | 0.005 s | 83.80 s | 83.81 s |
+| r96-b2 | 10–20 s, 10k changes/s | 74.95 s | 77.56 s | 152.51 s |
+| r96-b3 | 20–21 s, 100k changes/s | 152.63 s | 80.48 s | 233.11 s |
+
+Uniformly modeled per-record arrival freshness over 300k changes is p50 157.51 s,
+p95 233.96 s and maximum 234.11 s. These are a finite modeled distribution,
+not measured producer arrivals or sustained-rate admission. The controller
+actually gates complete, pre-staged immutable batches at the window ends;
+input generation/extraction/network cost is excluded. No concurrent reader load,
+real writer fence, producer completeness or acknowledgement is exercised.
+The serialized path on unchanged 2X-Small compute accumulates backlog and misses
+the provisional 60 s freshness comparison even under this favorable scope.
+Unity Catalog Delta remains selected; optimize publisher work and measure
+resource/batch choices rather than treat this result as an architecture veto.
+
+Before admission, recorded background OPTIMIZE commits advanced current 3→6
+and raw/journal 2→4. Two read-only preflights stopped before writes; their records
+are retained. The corrected harness checks maintenance lineage and captures
+actual versions. Service-account identity does not establish the scheduling
+mechanism. Current MERGEs each update exactly 100k rows with zero unchanged rows
+copied, inserts or deletes; maintenance, file retention and wide journal bytes
+remain part of physical accounting. No attributable dollar cost or billion-scale
+claim follows.
+
 The earlier 24M-carrier test compressed current rows to about 100 bytes. This
 iteration retains 4M objects / 20M edges and eight semantic property shapes, but
 uses 64–128 distinct SHA-derived blocks in opaque values. Repeated-block

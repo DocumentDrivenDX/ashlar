@@ -128,3 +128,18 @@ values only. Escaped/pretty lexical forms are rejected, not silently decoded
 into a narrower source claim. A general native property-event adapter still
 requires the actual producer token semantics, full input completeness and
 writer/acknowledgement authority.
+
+## Maintenance and publication version binding
+
+Native background maintenance advanced current version 3 to 6, and raw/journal
+version 2 to 4, before the r96 schedule. Recorded commits are OPTIMIZE operations;
+the service-account identity alone does not establish the maintenance scheduler.
+The current-table maintenance includes compaction and deletion-vector cleanup.
+An assumed next version number would bind an incorrect publication vector.
+
+Capture the actual predecessor and post-write versions, verify intervening
+lineage, and bind immutable versions in the manifest. The synthetic serialized
+harness allows only recorded OPTIMIZE operations alongside its one expected
+MERGE and checks exact affected outputs. That is a test guard, not an exclusive
+writer fence or proof that real concurrent business writers are safe. Raw and
+journal origins remain exact and independently checked at their captured versions.
