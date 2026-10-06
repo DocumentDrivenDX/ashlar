@@ -552,3 +552,12 @@ version-0 release bindings. This strengthens local mapping/algorithm evidence,
 not direct UC feature or actual Truss producer qualification. Native higher-entropy
 validation is still in flight; generation alone cannot qualify it. Raw/history,
 publication freshness, fenced recovery, other engines and 1B/5B remain open.
+
+
+The [native higher-entropy audit](../spikes/SPIKE-001-table-layout/out/native/ashlar_entropy_20261006_r86/audited-summary.json)
+now completes at 40.71GB / 576 files and 4M objects/20M edges. Unique-ID cardinality
+plus full byte-exact field comparison and missing/extra-row checks pass, as do
+typed closure, disjoint shared-allocation ranges and unique endpoint pairs.
+Both current versions are 0. This proves the generated storage surface, not
+actual Truss source/catalog authority, production NOT NULL enforcement, full
+publication, native singleton at this width or billion-scale operation.

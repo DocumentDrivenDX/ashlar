@@ -1,0 +1,64 @@
+{
+  "state": "passed native 4M/20M higher-entropy parity and storage-profile checks",
+  "tables": {
+    "object": {
+      "files": 64,
+      "bytes": 6764430923,
+      "reader": 3,
+      "writer": 7,
+      "features": [
+        "appendOnly",
+        "clustering",
+        "deletionVectors",
+        "domainMetadata",
+        "invariants",
+        "rowTracking",
+        "v2Checkpoint"
+      ]
+    },
+    "edge": {
+      "files": 512,
+      "bytes": 33947307001,
+      "reader": 3,
+      "writer": 7,
+      "features": [
+        "appendOnly",
+        "clustering",
+        "deletionVectors",
+        "domainMetadata",
+        "invariants",
+        "rowTracking",
+        "v2Checkpoint"
+      ]
+    }
+  },
+  "source_versions": {
+    "object": 0,
+    "edge": 0
+  },
+  "timings": {
+    "create-object": {
+      "caller_ms": 91072.26408400001,
+      "engine_ms": 90458
+    },
+    "full-parity-object": {
+      "caller_ms": 90579.13420800002,
+      "engine_ms": 89914
+    },
+    "create-edge": {
+      "caller_ms": 652848.883709,
+      "engine_ms": 652276
+    },
+    "full-parity-edge": {
+      "caller_ms": 729444.770875,
+      "engine_ms": 728340
+    }
+  },
+  "cancel_requests": 0,
+  "limits": [
+    "CTAS column surface, not production constraint/producer qualification",
+    "No ingest/source/raw/journal/publication or latency admission in this run",
+    "No billion-scale or other external-engine admission",
+    "Billing lag and shared usage prevent exact experiment cost"
+  ]
+}

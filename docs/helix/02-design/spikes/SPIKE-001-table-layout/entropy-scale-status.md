@@ -58,13 +58,23 @@ PuppyGraph, Fabric, degree-skewed graph workloads, full source publication or
 
 ## Native higher-entropy phase
 
-`entropy_native.py` runs the same dataset on existing 2X-Small single-cluster
-serverless `data-gateway`, with no resize/new compute. Its 4M-object write and
-full comparison pass; the 20M-edge write completed in 652.85s. Final native
-edge validation and profile checks are still pending at this recording.
-The [native result](out/native/ashlar_entropy_20261006_r86/summary.json) is the
-authoritative evolving phase record. Do not treat completed generation as
-preservation or scale admission until that result is terminal and audited.
+`entropy_native.py` completes the same dataset on existing 2X-Small single-cluster
+serverless `data-gateway`, without resize/new compute. [Audited native results](out/native/ashlar_entropy_20261006_r86/audited-summary.json)
+pass exact all-field comparisons and typed endpoint/shared-allocation/unique-pair
+checks. Both final table versions are 0; no cancellation was requested.
+
+| Native table | Files | Bytes | Write caller | Full comparison caller |
+| --- | ---: | ---: | ---: | ---: |
+| object_current | 64 | 6,764,430,923 | 91.08 s | 90.58 s |
+| edge_current | 512 | 33,947,307,001 | 652.85 s | 729.45 s |
+
+Total active current bytes are 40,711,737,924. Final history gives write engine
+90.458s/652.276s and full-comparison engine 89.914s/728.340s. Node mean files are
+about 105.69MB and edge mean 66.30MB; the 64MiB target is not a hard maximum.
+Reader3/writer7 includes clustering, deletionVectors, rowTracking and v2Checkpoint.
+The 576-file native result is a substantial metadata step beyond the 21-file
+compressed baseline, but not the tens-of-thousands-of-files billion case.
+No latency/steady-publication result is inferred from these static writes.
 
 Native parity first proves exact count and unique native-ID cardinality, then
 performs one full outer expected-row comparison over every carrier field. Text

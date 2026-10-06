@@ -1,0 +1,12 @@
+{
+  "state": "available shared-warehouse daily metering",
+  "rows": [
+    [
+      "DBU",
+      "28.926474995794444442",
+      "2026-10-06T00:00:00.000Z",
+      "2026-10-06T18:00:00.000Z"
+    ]
+  ],
+  "scope": "Warehouse-day quantities, not experiment-attributed charges or currency. Empty rows mean unavailable/lagged, not zero cost."
+}

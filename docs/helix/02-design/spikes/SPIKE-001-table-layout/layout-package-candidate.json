@@ -94,7 +94,7 @@
     "graphframes_scale.py": "165f5d89ef23e26eaae8a688fa4fc1811515ac2f633d800273c47466ca218e7a",
     "parameterized_reads.py": "c52b62fc1ed9c21c7df9ce65bcce6f45bc9b0eac3ad10e4d4fbf7dacf0ea1528",
     "cancel_controls.py": "136be2fba80a126197e9a1c2a91796a33935724e24f2ec775b611d39a1ea2d51",
-    "entropy-scale-status.md": "2abcf10e8acd00cfe4c49d25cf14ca4f46a3c65635407b454aba5a927b9b423d",
+    "entropy-scale-status.md": "686c291365fcb84a1c3a10d1623501205ce6f714142268fd2dd2f22fc506d6b2",
     "out/entropy-local-20261006/summary.json": "12359f89adabb3e41771cdf4570902a6626d74e03e3cae7d2c3e2f8bfefb344e",
     "out/graphframes-scale-20261006/summary.json": "608ef7aaf0b1cb89668ada1f69213c050874f4851f2acef97a65e63ac1fe53ab",
     "out/graphframes-scale-20261006/materialization.json": "83ee2e37d60c9df1bb088ff239e63640bd0835a555ea085c8a3863b71791f691",
@@ -104,7 +104,14 @@
     "out/native/ashlar_parameter_reads_20261006_r87/boundaries/statements.jsonl": "51286204cdf39b1c80cee793a70e7ed3b14d53144921fa75943f9b4daca5694a",
     "out/native/ashlar_parameter_reads_20261006_r87/query-history.json": "f5250c5e5dda0527885b90e77114271abc629dff1bd1e5e5536c63e075e924e4",
     "out/native/ashlar_parameter_reads_20261006_r87/statements.jsonl": "d6ce2216c66dadb9cbcdedad2573e4e58b4d068b87f5f2261a2d41c9712e6366",
-    "out/native/ashlar_parameter_reads_20261006_r87/summary.json": "6ba3ae7c7e45a0de1d272bd7aa1bdaae88b15413eb6a9853584701b0c3039a0d"
+    "out/native/ashlar_parameter_reads_20261006_r87/summary.json": "6ba3ae7c7e45a0de1d272bd7aa1bdaae88b15413eb6a9853584701b0c3039a0d",
+    "out/native/ashlar_entropy_20261006_r86/audited-summary.json": "749f954da93858f1a9300dad74e69876bde1bebb723189fe31d2cc8cf3278c5a",
+    "out/native/ashlar_entropy_20261006_r86/billing/statements.jsonl": "7febe9abe282019eb086f16bbef2842f68408d72966440ad3c9fd6bca77c5a0c",
+    "out/native/ashlar_entropy_20261006_r86/billing/summary.json": "8ecfe8c0326efb700ff11969210a4564bdc1812092bd0374845456e3e218b14f",
+    "out/native/ashlar_entropy_20261006_r86/compute.json": "73327831bd5c1937df0bb4efbd526638db5c9b26cc471936132050cc7fd950d5",
+    "out/native/ashlar_entropy_20261006_r86/query-history.json": "b58ed4379c586cb3ccf665fb41190cefc6f271b2cf418cfed190ce98eeb480c9",
+    "out/native/ashlar_entropy_20261006_r86/statements.jsonl": "74372545c3a0665afa2b4337b4cb3071e301679da0e10cf0c2529a1bec64283b",
+    "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c"
   },
   "evidence": {
     "ddl": {

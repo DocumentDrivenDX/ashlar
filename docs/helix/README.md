@@ -207,3 +207,6 @@ Latest traversal evidence: [fused admission probe](02-design/spikes/native-fused
 
 
 **Higher-entropy iteration:** [40.77GB local / GraphFrames evidence](02-design/spikes/SPIKE-001-table-layout/entropy-scale-status.md) passes 4M nodes/20M edges and 100M GraphFrames paths, with the known Truss shared-ID/unique-pair storage rules represented. Native larger-payload full validation remains active. The full performance/publication/billion-scale goal remains open.
+
+
+**Native higher-entropy completion:** [Audited 40.71GB / 576-file native result](02-design/spikes/SPIKE-001-table-layout/out/native/ashlar_entropy_20261006_r86/audited-summary.json) passes full 4M-node/20M-edge carrier and synthetic Truss storage-rule checks. It extends preservation/file-count evidence; publication/performance and 1B/5B remain unqualified.

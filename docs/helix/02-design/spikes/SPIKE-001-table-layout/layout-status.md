@@ -154,3 +154,12 @@ scale and counts 100M two-hop paths. Native nodes pass; native edge full validat
 is still active. Paired native bindings retain exact int64 values but do not close
 latency budgets. Explicit same-handle cancellation now bounds long REST phases;
 lagged shared billing quantities are recorded without invented experiment cost.
+
+
+Higher-entropy native phase is now terminal and [audited](out/native/ashlar_entropy_20261006_r86/audited-summary.json):
+40.71GB / 576 files, all 24M current carriers exact, both version0, typed endpoint
+closure and known Truss allocation/pair rules checked. Writes take 91/653s and
+complete field comparisons 91/729s on unchanged serverless 2X-Small compute.
+No cancellation, throughput/publication, singleton or billion-scale admission
+follows. Local GraphFrames 24M integration passes separately; UC feature/read
+compatibility remains separate.
