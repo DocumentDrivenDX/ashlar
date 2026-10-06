@@ -238,3 +238,31 @@ full-scale admission follows from the current estimates. Tuple-native sources
 leave source_position null; the existing journal clustering consequently has an
 unused component for that profile. Delivery-ID/source-cursor clustering needs a
 separate workload comparison before changing the executed DDL.
+
+
+## Billion-scale file and history sensitivity
+
+[Capacity sensitivity 0.3](../spikes/SPIKE-001-table-layout/out/capacity-planning-v03.json)
+separately rounds estimated files for each physical table. At 1B objects/5B edges,
+assumed compressed current carriers of 512–2,048 bytes, 96-byte adjacency rows,
+two adjacency copies and a full 64MiB mean file imply 60,083–197,412 active files
+for those four tables. Half-full files or a 16MiB target increase that inventory.
+This excludes Delta logs/checkpoints, old pinned versions, history and releases;
+the target property does not guarantee the assumed mean size.
+
+At continuous 10k changed entities/s for 30 days, assuming one 1KiB compressed
+raw envelope per entity and 1/4/10 separate 1KiB property events per entity gives
+53.084/132.710/291.963 decimal TB for journal plus raw capture. The corresponding
+estimated full-64MiB file counts are 791,016/1,977,540/4,350,587. Real feed records,
+revision documents and retained versions can add more. These assumptions are not
+observed compression, an adopted retention horizon or a spending authorization.
+Journal fanout and source record cardinality must come from the qualified feed.
+
+The model also shows a scattered-update sensitivity: 300k independently uniform
+edge changes touch an expected 99.96%/86.00% of baseline edge file groups in the
+512/2,048-byte full-64MiB scenarios. This is a mathematical occupancy estimate;
+it says nothing about deletion-vector cost or how many files Delta rewrites.
+Identity clustering may prune singleton reads while dispersed updates still
+visit many files. Larger experiments should measure this distinction and metadata
+planning cost instead of inferring ingest scalability from small selective reads.
+No billion-scale runtime admission or history expiry follows from this model.

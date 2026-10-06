@@ -18,7 +18,9 @@
     "native_recovery_r78.py": "60b405b052135a0f291c11ee8c02ac2e36c8afb6e06633af8fb2e729cd3262d6",
     "native_partial_recovery_r79.py": "ad0a40f809700ed1bcb3bbd1947df7b25854fac275940670374b157148582857",
     "adapters/publication-locator.ts": "174d5c80e13a888948762fa15b5c35890b98ee87d91a580f1ae372506b972724",
-    "adapters/publication-locator-check.ts": "70155c0a13a228d17ccf173a1d3d73267d0541bae28ed006bb93bf4414c4779b"
+    "adapters/publication-locator-check.ts": "70155c0a13a228d17ccf173a1d3d73267d0541bae28ed006bb93bf4414c4779b",
+    "capacity_v03.py": "8561f8f74dd5fb9b92db30a8d81488509843555a6671c1973fa3dc8924ca1de8",
+    "out/capacity-planning-v03.json": "6b29a9c76c21b09b696cc7b70aa7078de41b9ff4395fa1e1f4f104f44f20f696"
   },
   "evidence": {
     "ddl": {
