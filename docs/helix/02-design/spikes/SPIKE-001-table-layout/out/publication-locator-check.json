@@ -1,0 +1,11 @@
+{
+  "state": "passed",
+  "refusals": 13,
+  "checks": [
+    "admitted locator immune to later input mutation",
+    "generated SQL retains admitted pin",
+    "all vector entries checked",
+    "required read-plan tables checked"
+  ],
+  "scope": "Local decoded-locator validation only; no descriptor authentication, duplicate JSON member decoding, projection semantics, native execution, policy or performance claim"
+}

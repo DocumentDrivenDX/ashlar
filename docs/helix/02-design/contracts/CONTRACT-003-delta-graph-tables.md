@@ -401,3 +401,24 @@ unavailable; it MUST NOT silently become an empty adjacency or zero degree resul
 
 
 [r79 partial-output recovery evidence](../spikes/SPIKE-001-table-layout/out/native/ashlar_partial_recovery_20261006_r79_resume/summary.json) passes a three-edge endpoint change under a serialized synthetic publisher. An edge-only commit leaves forward adjacency mismatched (two symmetric EXCEPT ALL differences); the old descriptor and both pinned snapshots remain unchanged. A fresh client reads durable intent, repairs adjacency, validates exact carrier/structural parity and target closure, records actual output versions and publishes them without reapplying canonical edges. All untouched fields and independent edge identities survive. The initial stage CREATE was terminally rejected for unsupported SELECT-star REPLACE syntax; explicit-column recovery verified the three existing tables and version-zero copies before proceeding. Both logs are retained. This fixture excludes property journal/raw-feed updates, reverse/degree coverage, source event/version interpretation, concurrent fencing and production source acknowledgement; it does not prove the complete graph publisher.
+
+
+### Read-plan locator validation
+
+Before issuing a multi-table read, the executor MUST require a committed version
+for every table that the selected plan consumes, including hydration and structural
+validation dependencies. It MUST reject malformed versions and identifiers, retain
+one publication identity, and protect admitted versions from later caller mutation.
+Unused optional projections need not exist, but their absence cannot become zero
+results for a plan that requires them. The plan inventory is an executor input;
+complete inventory selection and publication authority require separate validation.
+
+The [publication locator spike](../spikes/SPIKE-001-table-layout/adapters/publication-locator.ts)
+checks an already decoded locator and creates a frozen defensive copy. Local checks
+exercise thirteen refusals, missing consumed tables, invalid unconsumed entries,
+inherited versions, caller mutation and preservation of the generated singleton
+pin. Browser-target bundling passes; real browser execution is untested. The caller
+must reject duplicate JSON descriptor members during decoding and establish trusted
+descriptor custody, semantic projection validity and policy. This helper proves
+none of those properties; the native-read builder also remains usable independently
+and does not automatically invoke whole-plan validation.

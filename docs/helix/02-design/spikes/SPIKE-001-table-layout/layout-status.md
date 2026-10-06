@@ -57,3 +57,6 @@ ADR-001 now separates six durable graph/feed roles, three optional structural pr
 
 
 [r79 partial-output recovery](out/native/ashlar_partial_recovery_20261006_r79_resume/summary.json) now passes edge/forward-adjacency repair and old-publication preservation on three edges. Canonical output is not reapplied. A terminal stage parser failure and the inventory/version-checked resume are retained. Next connect these recovery primitives to a qualified complete source boundary and the full consumed table vector; reverse/degree/history/source updates and writer authority remain unqualified.
+
+
+Local [read-plan locator checks](out/publication-locator-check.json) now verify complete requested table inventory, every version entry, defensive snapshot copying and exact SQL pin retention. Thirteen malformed cases are refused. Query-builder regression checks and browser-target bundling pass; native SQL and browser execution were not repeated. Descriptor authority, decoding duplicate members and complete plan dependency discovery remain caller responsibilities.

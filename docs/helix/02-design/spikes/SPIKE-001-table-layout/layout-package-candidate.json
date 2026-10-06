@@ -16,7 +16,9 @@
     "out/native/ashlar_layout_v02_ddl_20261006_r65/statements.jsonl": "bb300d5f395c96492ee47c57b6bd64802a30e1c97c710dc9f8abfd2374a5c7a5",
     "out/native/ashlar_layout_v02_ddl_20261006_r65_resume/statements.jsonl": "3fe94257d8b104e109d515c7331d6f4ce74ff3b3ccdffea834f5d8fd9d249d30",
     "native_recovery_r78.py": "60b405b052135a0f291c11ee8c02ac2e36c8afb6e06633af8fb2e729cd3262d6",
-    "native_partial_recovery_r79.py": "ad0a40f809700ed1bcb3bbd1947df7b25854fac275940670374b157148582857"
+    "native_partial_recovery_r79.py": "ad0a40f809700ed1bcb3bbd1947df7b25854fac275940670374b157148582857",
+    "adapters/publication-locator.ts": "174d5c80e13a888948762fa15b5c35890b98ee87d91a580f1ae372506b972724",
+    "adapters/publication-locator-check.ts": "70155c0a13a228d17ccf173a1d3d73267d0541bae28ed006bb93bf4414c4779b"
   },
   "evidence": {
     "ddl": {
@@ -83,6 +85,11 @@
       "path": "out/native/ashlar_partial_recovery_20261006_r79_resume/summary.json",
       "sha256": "a519c5ae9f0d7dac48c932915f9feac34940e2558d586b866a39d59f91957d6e",
       "scope": "Intentional statement-boundary interruption and fresh client; serialized writer only. Synthetic endpoint change does not implement source event/version semantics. No degree/reverse coverage, journal/raw update, real Truss feed, acknowledgement, concurrency fencing, ambiguous submission recovery, whole-graph atomicity, latency or scale claim."
+    },
+    "publication_locator": {
+      "path": "out/publication-locator-check.json",
+      "sha256": "3d5cf3240a7715da595f9224ffcc4d5092a4326c3571f3103fb7433ab2fcad57",
+      "scope": "Local decoded-locator validation only; no descriptor authentication, duplicate JSON member decoding, projection semantics, native execution, policy or performance claim"
     }
   },
   "design_choices": {
