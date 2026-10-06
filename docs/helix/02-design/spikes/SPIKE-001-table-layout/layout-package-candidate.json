@@ -32,7 +32,8 @@
     "sql/publication-receipt-candidate.sql": "21988a1291baa65d2426e1d4aa0d992ab097d02d11e1396871692fe5677e15a3",
     "native_receipt_r82.py": "dc9ad537dafe0d6c706d821fabe7f630a0fcdc1d0093d9836d2f125e39331142",
     "native_release_protocol_r83.py": "79f47696f5c690c49a79d7e9f7c03ba2822e72f556c7b81556fdc4f65e2c6cb2",
-    "native_hash_encoding_r84.py": "5b7c52fc6239fc347773dbff39fd7c23dfd88d6838137cada534935e64da0ee5"
+    "native_hash_encoding_r84.py": "5b7c52fc6239fc347773dbff39fd7c23dfd88d6838137cada534935e64da0ee5",
+    "out/goal-completion-audit-20261006.json": "6b28ebc464c4f962ba5971cdbddf15a450084023cace9db40b2afbac4fbbcb28"
   },
   "evidence": {
     "ddl": {

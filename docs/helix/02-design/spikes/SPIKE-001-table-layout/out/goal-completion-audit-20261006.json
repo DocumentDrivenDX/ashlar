@@ -1,0 +1,193 @@
+{
+  "format": "ashlar-goal-completion-audit/1",
+  "date": "2026-10-06",
+  "previous_goal_turn": "progress: native hash differential evidence committed/pushed",
+  "complete": false,
+  "owner_policy": "UC Delta is fixed architecture; speed is a measured tuning metric, not an architecture veto. Keep tests small and commit/push each iteration.",
+  "requirements": [
+    {
+      "id": "storage-layout",
+      "requirement": "Native UC Delta 0.3 physical table surface",
+      "status": "scoped evidence",
+      "evidence": "out/native/ashlar_layout_v03_ddl_20261006_r73_resume/summary.json",
+      "sha256": "0e68ed74bbf4a230ab1c443f9d9b33291889aea74182305bd280d938eebe49eb",
+      "qualification": "13-table empty DDL; draft schema, not production qualification"
+    },
+    {
+      "id": "identity-values",
+      "requirement": "Truss-compatible identities, exact property/retained values and typed endpoints",
+      "status": "scoped evidence",
+      "evidence": "out/native/ashlar_varied_fidelity_20261006_r81/summary.json",
+      "sha256": "dd8f2b2884aa38e6b45a81b1364b9f7116a8215cb1bf9ca73bc5f984ac519084",
+      "qualification": "512 synthetic rows; native producer qualification absent"
+    },
+    {
+      "id": "property-history",
+      "requirement": "Property-level history preserves missing/null and exact values",
+      "status": "scoped evidence",
+      "evidence": "out/native/ashlar_property_journal_v02_20261006_r69/summary.json",
+      "sha256": "dfec9e812f88ad8e061d90369a0707296127bb24fe70b2938db93ef6ad4d0c86",
+      "qualification": "Five token events; real feed ordering/reconstruction absent"
+    },
+    {
+      "id": "raw-feed",
+      "requirement": "Complete raw content and native tuple cursor retention",
+      "status": "scoped evidence",
+      "evidence": "out/varied-corpus/summary.json",
+      "sha256": "15b14a5d4837f4c05eefdb6161bd42c5c39fe4f0a3e6e475cf8525d94f537dd2",
+      "qualification": "Complete synthetic carriers; not real Truss wire, manifests or side-record membership"
+    },
+    {
+      "id": "native-singleton",
+      "requirement": "Native pinned singleton without Fabric",
+      "status": "scoped evidence",
+      "evidence": "out/native/ashlar_native_read_builder_20261006_r75/summary.json",
+      "sha256": "17ac481c90303d76d60f2f63ec8199952f4030235ef53c04327942f654f815b0",
+      "qualification": "Four queries; broader scale/performance not established"
+    },
+    {
+      "id": "hash-encoding",
+      "requirement": "Exact native/non-SQL derived identity hash",
+      "status": "scoped evidence",
+      "evidence": "out/native/ashlar_hash_encoding_20261006_r84/summary.json",
+      "sha256": "a4c78f84e0b85b3a48de90660351e15c0e134da3fca546105d50a9c19815953d",
+      "qualification": "64 representative ASCII/int64 cases, not exhaustive encoder support"
+    },
+    {
+      "id": "warm-latency",
+      "requirement": "Warm engine p95 <=100ms and caller p95 <=250ms",
+      "status": "contradicted historical combined gate",
+      "evidence": "out/native/ashlar_hash_candidate_reads_20261006_r58/summary.json",
+      "sha256": "39223b95a18fc0b10d77a8ddb1a4752e29e9318b2d1b76c7c882b4ac7c055a74",
+      "qualification": "Final exact 50 reads: engine82ms, caller368.043ms; historical schema at 10M edges"
+    },
+    {
+      "id": "cold-latency",
+      "requirement": "Cold-data caller p95 <=1s on running compute",
+      "status": "scoped evidence only",
+      "evidence": "out/native/ashlar_conditional_maintenance_20261006_r56/summary.json",
+      "sha256": "f47edc99bd27ad3b20252f59d35f4c28eb263d865c6f158bc843e89050846837",
+      "qualification": "Bounded remote-qualified phase; neither true general cold/scale SLA nor combined workload admission"
+    },
+    {
+      "id": "ingest-freshness",
+      "requirement": "Sustained 10k changed entities/s with freshness p95 <=60s",
+      "status": "unproved",
+      "evidence": "out/native/ashlar_conditional_apply_20261006_r52/summary.json",
+      "sha256": "4bcca2656dd13dc90e0b73dc221bdbdc2dfa36bb6b20de6cbbd6b561ca22970e",
+      "qualification": "One300k prebuilt stage;61.968s oldest under assumed30s window, not measured sustained p95"
+    },
+    {
+      "id": "burst",
+      "requirement": "100k changed entities/s burst with explicit arrival/freshness budget",
+      "status": "unproved",
+      "evidence": "../native-burst-evidence.md",
+      "sha256": "8d003174cb414190a96bf6b09d5237aed0b1085d1ac7099caf160605c3eab5cc",
+      "qualification": "Historical burst fails; no qualified current-profile combined run"
+    },
+    {
+      "id": "concurrency",
+      "requirement": "Incremental ingest/publication with overlapping readers",
+      "status": "unproved",
+      "evidence": "../native-maintained-schedule-evidence.md",
+      "sha256": "d2937c6efc3de24a1f8f888e775643e42222cfbf36fdbcdef9eedf08223583f6",
+      "qualification": "Historical combined screens fail; idle singleton evidence cannot substitute"
+    },
+    {
+      "id": "file-scale",
+      "requirement": "Realistic file counts and metadata at 1B nodes/5B edges",
+      "status": "unproved",
+      "evidence": "out/capacity-planning-v03.json",
+      "sha256": "6b29a9c76c21b09b696cc7b70aa7078de41b9ff4395fa1e1f4f104f44f20f696",
+      "qualification": "Arithmetic assumptions only; actual baseline136files/6.18GB is10M historical edge fixture"
+    },
+    {
+      "id": "entropy",
+      "requirement": "Representative entropy, width and update locality",
+      "status": "unproved",
+      "evidence": "out/native/ashlar_payload_sample_20261006_r80/summary.json",
+      "sha256": "0b021098d73636588d205357eb9fbc6025d029e7ac0820197b99e656f2299670",
+      "qualification": "Convenience256-row observation; declared varied corpus is coverage, not real workload distribution"
+    },
+    {
+      "id": "physical-tuning",
+      "requirement": "Clustering/partition/Z-order and counted maintenance",
+      "status": "scoped evidence",
+      "evidence": "../native-partition-maintenance-evidence.md",
+      "sha256": "95cf18c0e3c0e7270ac8a7fb43820cee9551473f5c440ce6b62b37cd855d6563",
+      "qualification": "Historical native comparisons; no universal winner or billion-scale policy"
+    },
+    {
+      "id": "client-overhead",
+      "requirement": "Persistent-client/compiler/engine/caller costs",
+      "status": "scoped evidence",
+      "evidence": "out/native/ashlar_hash_candidate_reads_20261006_r58/summary.json",
+      "sha256": "39223b95a18fc0b10d77a8ddb1a4752e29e9318b2d1b76c7c882b4ac7c055a74",
+      "qualification": "Measured bounded paths; current-profile production transport budget unproved"
+    },
+    {
+      "id": "recovery",
+      "requirement": "Complete raw/current/history/derived publication and recovery",
+      "status": "unproved",
+      "evidence": "out/native/ashlar_partial_recovery_20261006_r79_resume/summary.json",
+      "sha256": "a519c5ae9f0d7dac48c932915f9feac34940e2558d586b866a39d59f91957d6e",
+      "qualification": "Three-edge serialized repair; full consumed vector and real source authority absent"
+    },
+    {
+      "id": "receipt-fencing",
+      "requirement": "Durable receipt, replay, authority and stale-writer prevention",
+      "status": "unproved",
+      "evidence": "out/native/ashlar_receipt_20261006_r82/summary.json",
+      "sha256": "0cad81c19dbfe5408a1eba3a7a5b09f7f11d7761c79085334b4d4abac359c3f9",
+      "qualification": "Two-record carrier only; phase linkage/authority/membership/concurrent uniqueness absent"
+    },
+    {
+      "id": "puppygraph",
+      "requirement": "Actual PuppyGraph mapping and exact Delta protocol support",
+      "status": "unproved",
+      "evidence": "out/native/ashlar_release_protocol_20261006_r83/summary.json",
+      "sha256": "49a91b49069e14269def24f5d5e85ea4cdcdfababcfed0fefa9c9679449327bb",
+      "qualification": "Reader3/writer7 features observed; no engine connection/import"
+    },
+    {
+      "id": "graphframes",
+      "requirement": "Actual Spark/GraphFrames pinned mapping",
+      "status": "unproved",
+      "evidence": "adapters/graphframes.py",
+      "sha256": "8f2182546cd47bff3af3e445a21338f00eacb263f0ae71fc0ed5c84d83bbeb73",
+      "qualification": "Syntax checks and shape only; no Spark/GraphFrames execution"
+    },
+    {
+      "id": "fabric",
+      "requirement": "Bounded Microsoft Fabric Graph projection and refresh",
+      "status": "unproved",
+      "evidence": "adapters/release-r66/mapping-plan.json",
+      "sha256": "dc3dd64cb8e8177ceb46348abbd92424adb8d5b281994a3bd4a9167ca9dda82c",
+      "qualification": "No OneLake/Fabric runtime execution; full1B/5Bexcluded from target mapping"
+    },
+    {
+      "id": "cost-retention",
+      "requirement": "Qualified cost/resource bounds and retained history",
+      "status": "unproved",
+      "evidence": "scale-experiment-plan.md",
+      "sha256": "63fcbf47c06ccc4173ad2ba189e14f64faa7c1a4444b4d7ad6cfda7d2044a5c9",
+      "qualification": "Owner selected small tests; larger20M phase deferred; bills/expiry unavailable"
+    },
+    {
+      "id": "umf",
+      "requirement": "Keep UMF binding deferred",
+      "status": "preserved boundary",
+      "evidence": "layout-status.md",
+      "sha256": "d1046e0894aeeb270786b553c820f1a59a04a5ad887e9a92b9cead7e7f853834",
+      "qualification": "No UMF vocabulary binding selected"
+    }
+  ],
+  "remaining_integration_inputs": [
+    "Qualified real source extraction/complete-boundary/authority implementation",
+    "Existing graph-engine or Spark runtime and connection profile for actual qualification",
+    "Justified metering/resource bounds before larger scale growth"
+  ],
+  "current_source_inventory": "Two local Truss worktrees remain at522edce/6d87fce; scoped src/packages/rootpackage.json search in spec worktree returns none. This is not a claim that no implementation exists elsewhere.",
+  "pending_optional_question": "Existing PuppyGraph or Spark/GraphFrames endpoint/configuration for next small integration check.",
+  "next_action": "Prioritize actual source/runtime integration over additional isolated passing fixtures. Retain full goal as incomplete; no billion-scale or strict combined-gate admission."
+}
