@@ -483,3 +483,29 @@ installation. No expiry or production authority mechanism is selected.
 
 
 [r82 receipt carrier evidence](../spikes/SPIKE-001-table-layout/out/native/ashlar_receipt_20261006_r82/summary.json) now executes the proposed seven-column DDL in an isolated native table. Two fixture intent/complete records preserve all fields, exact envelope/digest and unsigned-range text. Identical replay leaves them unchanged; a byte-different valid-digest complete record produces terminal RECEIPT_CONFLICT with complete target parity. Both phases are appended together for storage testing, not a staged publication protocol. Input digest/completeness claims are explicit fixture placeholders. Native source membership, phase linkage, authority, concurrent uniqueness and receipt-bound manifest installation remain unproved. The original candidate DDL remains preserved with its pre-execution comment; this evidence supersedes that historical execution status only within the stated carrier scope.
+
+
+### Engine release protocol qualification
+
+[r83 read-only release inventory](../spikes/SPIKE-001-table-layout/out/native/ashlar_release_protocol_20261006_r83/summary.json) verifies all four r68 typed release tables remain at version 0. Each advertises minReaderVersion 3, minWriterVersion 7 and features appendOnly, deletionVectors, invariants and v2Checkpoint. Scalar columns and unclustered DDL therefore do not imply a lowest-protocol export. Feature metadata alone does not prove immutable access or successful external ingestion.
+
+A release adapter MUST record the actual Delta protocol/features, reader/runtime
+version, catalog/storage access route and publication binding. It MUST establish
+that the selected reader consumes the exact release before promoting support. A
+failed or unsupported feature negotiation blocks that engine's activation while
+native canonical reads remain available. If a separate compatible materialization
+is required, select and verify its protocol after creation, compare every field
+and identity, and bind its own actual versions; no canonical downgrade is implied.
+Feature removal, storage export and access provisioning are separate actions.
+
+The [PuppyGraph Delta connection documentation](https://docs.puppygraph.com/connecting/connecting-to-delta-lake/)
+requires access to both metastore and storage and describes Unity Catalog/Azure
+credential vending configuration. The inspected page does not supply a complete
+reader-feature support matrix for these releases; connector version/runtime tests
+remain necessary. [Fabric Graph limitations](https://learn.microsoft.com/en-us/fabric/graph/limitations)
+identify OneLake/Mirrored Database sources, scalar ingestion types and unsupported
+nested map/struct types; this does not qualify these Azure Unity Catalog release
+locations as Fabric input. Fabric requires the separately scoped OneLake release.
+GraphFrames qualification likewise requires the selected Spark Delta reader and
+actual pinned DataFrames, beyond the syntax-checked adapter. Source documents were
+inspected 2026-10-06; no engine session or import was run.

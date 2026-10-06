@@ -81,3 +81,6 @@ The proposed [durable receipt table](sql/publication-receipt-candidate.sql) now 
 
 
 [r82 receipt carrier](out/native/ashlar_receipt_20261006_r82/summary.json) passes native DDL, exact two-record replay and atomic byte-conflict refusal. This extends receipt storage evidence, not complete intent/phase/authority validation or a production publisher. Two target and two stage records only.
+
+
+[r83 release protocol inventory](out/native/ashlar_release_protocol_20261006_r83/summary.json) finds reader3/writer7 with deletionVectors/v2Checkpoint on every unchanged r68 release. CONTRACT-003 now requires actual reader-feature/access/publication qualification; simple scalar release shape alone does not establish engine support. Twelve metadata reads, no writes or feature changes.

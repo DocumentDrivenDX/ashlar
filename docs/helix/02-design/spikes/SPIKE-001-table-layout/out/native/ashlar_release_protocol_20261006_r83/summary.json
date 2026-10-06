@@ -1,0 +1,109 @@
+{
+  "state": "observed",
+  "publication": "r66:publication1",
+  "tables": {
+    "client_dev.ashlar_layout_v02_20261006_r65.release_r66_node_1": {
+      "version": 0,
+      "min_reader_version": 3,
+      "min_writer_version": 7,
+      "features": [
+        "appendOnly",
+        "deletionVectors",
+        "invariants",
+        "v2Checkpoint"
+      ],
+      "properties": {
+        "delta.parquet.compression.codec": "zstd",
+        "delta.parquet.format.version.afe.internal": "2.12.0",
+        "delta.enableDeletionVectors": "true",
+        "delta.checkpoint.writeStatsAsStruct": "true",
+        "delta.parquet.format.version": "2.12.0",
+        "delta.checkpointPolicy": "v2",
+        "delta.checkpoint.writeStatsAsJson": "false",
+        "io.unitycatalog.tableId": "aba0ae5e-e264-4e13-8ee8-c30961e29d7e"
+      },
+      "partition_columns": [],
+      "clustering_columns": [],
+      "files": 1,
+      "stored_bytes": 2981
+    },
+    "client_dev.ashlar_layout_v02_20261006_r65.release_r66_node_2": {
+      "version": 0,
+      "min_reader_version": 3,
+      "min_writer_version": 7,
+      "features": [
+        "appendOnly",
+        "deletionVectors",
+        "invariants",
+        "v2Checkpoint"
+      ],
+      "properties": {
+        "delta.parquet.compression.codec": "zstd",
+        "delta.parquet.format.version.afe.internal": "2.12.0",
+        "delta.enableDeletionVectors": "true",
+        "delta.checkpoint.writeStatsAsStruct": "true",
+        "delta.parquet.format.version": "2.12.0",
+        "delta.checkpointPolicy": "v2",
+        "delta.checkpoint.writeStatsAsJson": "false",
+        "io.unitycatalog.tableId": "06abab9c-beef-4f8b-aaba-f5b0d1aa0c12"
+      },
+      "partition_columns": [],
+      "clustering_columns": [],
+      "files": 1,
+      "stored_bytes": 2853
+    },
+    "client_dev.ashlar_layout_v02_20261006_r65.release_r66_edge_7_1_2": {
+      "version": 0,
+      "min_reader_version": 3,
+      "min_writer_version": 7,
+      "features": [
+        "appendOnly",
+        "deletionVectors",
+        "invariants",
+        "v2Checkpoint"
+      ],
+      "properties": {
+        "delta.parquet.compression.codec": "zstd",
+        "delta.parquet.format.version.afe.internal": "2.12.0",
+        "delta.enableDeletionVectors": "true",
+        "delta.checkpoint.writeStatsAsStruct": "true",
+        "delta.parquet.format.version": "2.12.0",
+        "delta.checkpointPolicy": "v2",
+        "delta.checkpoint.writeStatsAsJson": "false",
+        "io.unitycatalog.tableId": "e789b885-faaa-4126-af7b-c68808b850be"
+      },
+      "partition_columns": [],
+      "clustering_columns": [],
+      "files": 1,
+      "stored_bytes": 3701
+    },
+    "client_dev.ashlar_layout_v02_20261006_r65.release_r66_edge_7_1_1": {
+      "version": 0,
+      "min_reader_version": 3,
+      "min_writer_version": 7,
+      "features": [
+        "appendOnly",
+        "deletionVectors",
+        "invariants",
+        "v2Checkpoint"
+      ],
+      "properties": {
+        "delta.parquet.compression.codec": "zstd",
+        "delta.parquet.format.version.afe.internal": "2.12.0",
+        "delta.enableDeletionVectors": "true",
+        "delta.checkpoint.writeStatsAsStruct": "true",
+        "delta.parquet.format.version": "2.12.0",
+        "delta.checkpointPolicy": "v2",
+        "delta.checkpoint.writeStatsAsJson": "false",
+        "io.unitycatalog.tableId": "dd837577-9494-4262-bed8-5f0ae3bdbaa6"
+      },
+      "partition_columns": [],
+      "clustering_columns": [],
+      "files": 1,
+      "stored_bytes": 3534
+    }
+  },
+  "elapsed_seconds": 10.959717035293579,
+  "scope": "Read-only unchanged latest-version protocol metadata for four existing tiny release tables. Metadata is not a connector negotiation or successful graph import. No file rewrite, feature disabling, export provisioning, ACL enforcement, performance or scale claim.",
+  "cost": "Twelve metadata reads on existing authorized warehouse; no writes/new compute; billing dollars unavailable."
+}
