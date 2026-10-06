@@ -1,0 +1,9 @@
+{
+  "state": "passed exact affected-row checks and lexical negative control",
+  "rows": 200000,
+  "canonical_version": 1,
+  "baseline_version": 0,
+  "stage_version": 0,
+  "checks": "All20 affected carrier fields; exact old-property patch; narrow native keys before wide baseline join; byte-different valid JSON stage rejected",
+  "scope": "Stored synthetic batch validation experiment; does not replace exhaustive r89 evidence or qualify source completeness, concurrency authority, baseline origins, acknowledgement or arrival-to-publication latency"
+}

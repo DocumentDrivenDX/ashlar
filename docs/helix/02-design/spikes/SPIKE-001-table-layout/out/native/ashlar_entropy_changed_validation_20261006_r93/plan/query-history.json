@@ -1,0 +1,40 @@
+[
+  {
+    "query_id": "01f1c1d9-8faa-1be1-8888-3aa3278c529c",
+    "status": "FINISHED",
+    "query_text": "EXPLAIN FORMATTED SELECT count(*) FROM (SELECT /*+ BROADCAST(k) */ b.source_system,b.rel_type_id,b.id,b.props_json FROM\n client_dev.ashlar_entropy_20261006_r86.edge_current VERSION AS OF 0 b JOIN (SELECT source_system,rel_type_id,id FROM client_dev.ashlar_entropy_20261006_r86.publication_stage_r89 VERSION AS OF 0) k ON b.source_system=k.source_system AND b.rel_type_id=k.rel_type_id AND b.id=k.id) b\n FULL OUTER JOIN (SELECT * FROM client_dev.ashlar_entropy_20261006_r86.publication_stage_r89 VERSION AS OF 0) s ON b.source_system=s.source_system AND b.rel_type_id=s.rel_type_id AND b.id=s.id\n WHERE b.id IS NULL OR s.id IS NULL OR\n NOT (hex(encode(s.props_json,'UTF-8')) <=> hex(encode(concat('{\"107\":true',CASE WHEN b.props_json='{}' THEN '}' ELSE concat(',',substring(b.props_json,2)) END),'UTF-8')))\n OR coalesce(array_contains(json_object_keys(b.props_json),'107'),true)",
+    "query_start_time_ms": 1791327558764,
+    "query_end_time_ms": 1791327559699,
+    "user_id": 3755468182769617,
+    "user_name": "erik.labianca@synaptiq.ai",
+    "user_display_name": "Erik LaBianca",
+    "endpoint_id": "2439e1f2e37ac563",
+    "lookup_key": "CiQwMWYxYzFkOS04ZmFhLTFiZTEtODg4OC0zYWEzMjc4YzUyOWMQ7LjFm5E0GhAyNDM5ZTFmMmUzN2FjNTYzINGf/5fB8tUG",
+    "metrics": {
+      "total_time_ms": 935,
+      "compilation_time_ms": 23,
+      "query_compilation_start_timestamp": 1791327558858,
+      "queue_end_time_ms": 1791327558823,
+      "task_progress": {}
+    },
+    "executed_as_user_id": 3755468182769617,
+    "executed_as_user_name": "erik.labianca@synaptiq.ai",
+    "executed_as_user_display_name": "Erik LaBianca",
+    "session_id": "01f1c1d9-8fa5-1b56-b9a5-97d5b19714b9",
+    "is_final": false,
+    "channel_used": {
+      "name": "CHANNEL_NAME_CURRENT",
+      "dbsql_version": "2026.38"
+    },
+    "plans_state": "EMPTY",
+    "statement_type": "EXPLAIN",
+    "warehouse_id": "2439e1f2e37ac563",
+    "duration": 935,
+    "canSubscribeToLiveQuery": true,
+    "client_application": "Databricks CLI",
+    "query_source": {},
+    "is_cancelable": false,
+    "last_updated_at_ms": 1791327559699,
+    "workspace_id": 7405607548213398
+  }
+]

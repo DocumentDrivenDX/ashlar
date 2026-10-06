@@ -1,0 +1,146 @@
+== Physical Plan ==
+AdaptiveSparkPlan (25)
++- == Initial Plan ==
+   PhotonResultStage (24)
+   +- PhotonColumnarToRow (23)
+      +- PhotonAgg (22)
+         +- PhotonShuffleExchangeSource (21)
+            +- PhotonShuffleMapStage (20)
+               +- PhotonShuffleExchangeSink (19)
+                  +- PhotonAgg (18)
+                     +- PhotonProject (17)
+                        +- PhotonFilter (16)
+                           +- PhotonShuffledHashJoin FullOuter (15)
+                              :- PhotonShuffleExchangeSource (10)
+                              :  +- PhotonShuffleMapStage (9)
+                              :     +- PhotonShuffleExchangeSink (8)
+                              :        +- PhotonProject (7)
+                              :           +- PhotonBroadcastHashJoin Inner (6)
+                              :              :- PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.edge_current (1)
+                              :              +- PhotonShuffleExchangeSource (5)
+                              :                 +- PhotonShuffleMapStage (4)
+                              :                    +- PhotonShuffleExchangeSink (3)
+                              :                       +- PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.publication_stage_r89 (2)
+                              +- PhotonShuffleExchangeSource (14)
+                                 +- PhotonShuffleMapStage (13)
+                                    +- PhotonShuffleExchangeSink (12)
+                                       +- PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.publication_stage_r89 (11)
+
+
+(1) PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.edge_current
+Output [4]: [source_system#116104, rel_type_id#116105L, id#116106L, props_json#116113]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/2e967674-7a29-4a73-91b1-aa789a4a5ae3]
+OptionalDataFilters: [hashedrelationcontains(source_system#116104, rel_type_id#116105L, id#116106L)]
+ReadSchema: struct<source_system:string,rel_type_id:bigint,id:bigint,props_json:string>
+RequiredDataFilters: [isnotnull(rel_type_id#116105L), isnotnull(id#116106L), isnotnull(source_system#116104)]
+
+(2) PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.publication_stage_r89
+Output [3]: [source_system#116126, rel_type_id#116127L, id#116128L]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/03ef4cf2-34fa-4b8b-92ba-b711b9708cba]
+ReadSchema: struct<source_system:string,rel_type_id:bigint,id:bigint>
+RequiredDataFilters: [isnotnull(rel_type_id#116127L), isnotnull(id#116128L), isnotnull(source_system#116126)]
+
+(3) PhotonShuffleExchangeSink
+Input [3]: [source_system#116126, rel_type_id#116127L, id#116128L]
+Arguments: SinglePartition
+
+(4) PhotonShuffleMapStage
+Input [3]: [source_system#116126, rel_type_id#116127L, id#116128L]
+Arguments: EXECUTOR_BROADCAST, [id=#36666]
+
+(5) PhotonShuffleExchangeSource
+Input [3]: [source_system#116126, rel_type_id#116127L, id#116128L]
+Arguments: false
+
+(6) PhotonBroadcastHashJoin
+Left keys [3]: [source_system#116104, rel_type_id#116105L, id#116106L]
+Right keys [3]: [source_system#116126, rel_type_id#116127L, id#116128L]
+Join type: Inner
+Join condition: None
+
+(7) PhotonProject
+Input [7]: [source_system#116104, rel_type_id#116105L, id#116106L, props_json#116113, source_system#116126, rel_type_id#116127L, id#116128L]
+Arguments: [source_system#116104, rel_type_id#116105L, id#116106L, props_json#116113]
+
+(8) PhotonShuffleExchangeSink
+Input [4]: [source_system#116104, rel_type_id#116105L, id#116106L, props_json#116113]
+Arguments: hashpartitioning(source_system#116104, rel_type_id#116105L, id#116106L, 16)
+
+(9) PhotonShuffleMapStage
+Input [4]: [source_system#116104, rel_type_id#116105L, id#116106L, props_json#116113]
+Arguments: ENSURE_REQUIREMENTS, [id=#36676]
+
+(10) PhotonShuffleExchangeSource
+Input [4]: [source_system#116104, rel_type_id#116105L, id#116106L, props_json#116113]
+Arguments: false
+
+(11) PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.publication_stage_r89
+Output [4]: [source_system#116148, rel_type_id#116149L, id#116150L, props_json#116157]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/03ef4cf2-34fa-4b8b-92ba-b711b9708cba]
+ReadSchema: struct<source_system:string,rel_type_id:bigint,id:bigint,props_json:string>
+
+(12) PhotonShuffleExchangeSink
+Input [4]: [source_system#116148, rel_type_id#116149L, id#116150L, props_json#116157]
+Arguments: hashpartitioning(source_system#116148, rel_type_id#116149L, id#116150L, 16)
+
+(13) PhotonShuffleMapStage
+Input [4]: [source_system#116148, rel_type_id#116149L, id#116150L, props_json#116157]
+Arguments: ENSURE_REQUIREMENTS, [id=#36681]
+
+(14) PhotonShuffleExchangeSource
+Input [4]: [source_system#116148, rel_type_id#116149L, id#116150L, props_json#116157]
+Arguments: false
+
+(15) PhotonShuffledHashJoin
+Left keys [3]: [source_system#116104, rel_type_id#116105L, id#116106L]
+Right keys [3]: [source_system#116148, rel_type_id#116149L, id#116150L]
+Join type: FullOuter
+Join condition: None
+
+(16) PhotonFilter
+Input [8]: [source_system#116104, rel_type_id#116105L, id#116106L, props_json#116113, source_system#116148, rel_type_id#116149L, id#116150L, props_json#116157]
+Arguments: (((isnull(id#116106L) OR isnull(id#116150L)) OR NOT (hex(static_invoke(Encode.encode(props_json#116157, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(concat({"107":true, CASE WHEN (props_json#116113 = {}) THEN } ELSE concat(,, substring(props_json#116113, 2, 2147483647)) END), UTF-8, true, true))))) OR coalesce(array_contains(static_invoke(JsonExpressionUtils.jsonObjectKeys(props_json#116113, com.databricks.sql.catalyst.json.UTF8JacksonFactory@54e4b664)), 107), true))
+
+(17) PhotonProject
+Input [8]: [source_system#116104, rel_type_id#116105L, id#116106L, props_json#116113, source_system#116148, rel_type_id#116149L, id#116150L, props_json#116157]
+
+(18) PhotonAgg
+Input: []
+Arguments: [partial_count(1) AS count#116235L], [count#116234L], [count#116235L], false
+
+(19) PhotonShuffleExchangeSink
+Input [1]: [count#116235L]
+Arguments: SinglePartition
+
+(20) PhotonShuffleMapStage
+Input [1]: [count#116235L]
+Arguments: ENSURE_REQUIREMENTS, [id=#36693]
+
+(21) PhotonShuffleExchangeSource
+Input [1]: [count#116235L]
+Arguments: false
+
+(22) PhotonAgg
+Input [1]: [count#116235L]
+Arguments: [finalmerge_count(merge count#116235L) AS count(1)#116170L], [count(1)#116170L], [count(1)#116170L AS count(1)#116171L], true
+
+(23) PhotonColumnarToRow
+Input [1]: [count(1)#116171L]
+
+(24) PhotonResultStage
+Input [1]: [count(1)#116171L]
+
+(25) AdaptiveSparkPlan
+Output [1]: [count(1)#116171L]
+Arguments: isFinalPlan=false
+
+
+== Photon Explanation ==
+The query is fully supported by Photon.
+== Optimizer Statistics (table names per statistics state) ==
+  missing = edge_current, publication_stage_r89, publication_stage_r89
+  partial = 
+  full    = 
+Corrective actions: consider running the following command on all tables with missing or partial statistics
+  ANALYZE TABLE <table-name> COMPUTE STATISTICS FOR ALL COLUMNS
+

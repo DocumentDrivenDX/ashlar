@@ -7,10 +7,10 @@ from driver_sql import DriverClient
 
 B = Path(__file__).resolve().parent
 parser = argparse.ArgumentParser()
-parser.add_argument('--version', type=int, choices=(0, 1), default=0)
+parser.add_argument('--version', type=int, choices=(0, 1, 2), default=0)
 args = parser.parse_args()
 version = args.version
-O = B / ('out/native/ashlar_entropy_reads_20261006_r88' if version == 0 else 'out/native/ashlar_entropy_post_reads_20261006_r90')
+O = B / {0: 'out/native/ashlar_entropy_reads_20261006_r88', 1: 'out/native/ashlar_entropy_post_reads_20261006_r90', 2: 'out/native/ashlar_entropy_maintained_reads_20261006_r92'}[version]
 assert not (O / 'summary.json').exists(), 'Completed run exists; audit it instead of repeating measurements'
 F = 'client_dev.ashlar_entropy_20261006_r86.edge_current'
 clients = [DriverClient(O / f'client-{i}') for i in range(4)]
@@ -27,7 +27,7 @@ def read(client, j, label):
     rows = client.sql(label + str(j), f"SELECT * FROM {F} VERSION AS OF {version} WHERE lookup_hash=sha2(to_json(named_struct('source_system','{source}','rel_type_id',cast({typ} AS BIGINT),'id',cast({key} AS BIGINT))),256) AND source_system='{source}' AND rel_type_id={typ} AND id={key}")
     assert len(rows) == 1 and rows[0][2] == str(key)
     assert rows[0][0] == source and rows[0][1] == str(typ)
-    updated = version == 1 and ((ordinal - 1) * pow(104729, -1, 20000000)) % 20000000 < 200000
+    updated = version > 0 and ((ordinal - 1) * pow(104729, -1, 20000000)) % 20000000 < 200000
     assert rows[0][8] == ('1' if updated else '0')
     if updated:
         assert rows[0][9].startswith('{"107":true')
@@ -41,14 +41,14 @@ try:
             read(clients[i], j, 'four-client-')
     with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
         list(pool.map(worker, range(4)))
-    if version == 1:
+    if version > 0:
         for j in range(50):
             read(clients[0], j, 'changed-row-')
     for client in clients:
         client.history()
     (O / 'summary.json').write_text(json.dumps({
         'state': 'singleton identity/version checks passed; metrics require history audit',
-        'table': F, 'version': version, 'counts': {'first_touch': 50, 'repeat': 50, 'four_clients': 50, 'changed_rows': 50 if version == 1 else 0},
+        'table': F, 'version': version, 'counts': {'first_touch': 50, 'repeat': 50, 'four_clients': 50, 'changed_rows': 50 if version > 0 else 0},
         'result_cache': False, 'scope': 'synthetic 20M-edge baseline; first touch is not controlled cold data'
     }, indent=2) + '\n')
 finally:

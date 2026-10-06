@@ -111,7 +111,7 @@ assert phase('full-output-parity', f'''SELECT count(*) FROM {E} VERSION AS OF {e
  WHERE a.id IS NULL OR b.id IS NULL OR ''' + ' OR '.join(tests)) == [['0']]
 assert phase('updated-property-preservation', f'''SELECT count(*) FROM {S} VERSION AS OF 0 s JOIN {E} VERSION AS OF 0 b ON s.id=b.id
  WHERE NOT (hex(encode(s.props_json,'UTF-8')) <=> hex(encode(concat('{{"107":true',CASE WHEN b.props_json='{{}}' THEN '}}' ELSE concat(',',substring(b.props_json,2)) END),'UTF-8')))
- OR get_json_object(b.props_json,'$.107') IS NOT NULL''') == [['0']]
+ OR coalesce(array_contains(json_object_keys(b.props_json),'107'),true)''') == [['0']]
 vector = {N: 0, E: ev}
 for name in ('source_record', 'property_journal', 'tombstone'):
     vector[tables[name]] = version(tables[name], 'version-' + name)

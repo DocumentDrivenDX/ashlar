@@ -74,3 +74,32 @@ single 200k batch is neither p95 nor evidence of 10k/s sustained or 100k/s burst
 capacity. Include raw, journal, stage, retained versions and maintenance in the
 capacity model. Bound further scale from measured bytes and throughput rather
 than compressed low-entropy carriers or arithmetic alone.
+
+## Measured maintenance and validator findings
+
+[r91](out/native/ashlar_entropy_maintenance_20261006_r91/audited-summary.json)
+rewrites only the 333 MB update layer in about 13 s, preserving every canonical
+field over 20M rows. [r92](out/native/ashlar_entropy_maintained_reads_20261006_r92/audited-summary.json)
+reduces point-read files from 17 to 2. Candidate maintenance triggers should measure
+unclustered update overlap, read amplification, queued bytes and retained-storage
+cost. These findings favor evaluating routine incremental clustering before a
+full-table cleanup, but do not establish a universal threshold or per-batch policy.
+
+Maintenance creates a new Delta version. Held publication descriptors remain
+immutable and keep their old versions. To serve the maintained layout, install
+a new validated descriptor with the new canonical version, preserved source
+progress and explicit logical-parity evidence. Reuse unchanged journal/raw/
+structural projection versions only within their existing admitted coverage.
+Retention still protects old descriptors. r92 tests version 2 directly; it does
+not install that new descriptor or advance producer acknowledgement.
+
+[r93](out/native/ashlar_entropy_changed_validation_20261006_r93/audited-summary.json)
+proves exact affected-row parity and lexical property preservation with a narrow
+native-key broadcast before the wide baseline join. It measures 9 s and 29 s for
+those checks on the retained 200k-row batch, respectively. Explicit null differs
+from absence; malformed JSON and a changed lexical token are detected. This
+validates the query pattern within the fixture, not a complete operational proof.
+A new batch must include actual staging, raw/history append, apply, validation
+and manifest latency. Test large old/new journal tokens as well as the existing
+common boolean addition; keep source authority and incomplete baseline origins
+explicit.

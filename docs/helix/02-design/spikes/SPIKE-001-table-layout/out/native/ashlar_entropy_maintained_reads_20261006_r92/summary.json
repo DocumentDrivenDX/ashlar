@@ -1,0 +1,13 @@
+{
+  "state": "singleton identity/version checks passed; metrics require history audit",
+  "table": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "version": 2,
+  "counts": {
+    "first_touch": 50,
+    "repeat": 50,
+    "four_clients": 50,
+    "changed_rows": 50
+  },
+  "result_cache": false,
+  "scope": "synthetic 20M-edge baseline; first touch is not controlled cold data"
+}

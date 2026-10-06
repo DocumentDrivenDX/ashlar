@@ -7,9 +7,9 @@ from pathlib import Path
 from persistent_sql import Client
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--version', type=int, choices=(0, 1), default=0)
+parser.add_argument('--version', type=int, choices=(0, 1, 2), default=0)
 version = parser.parse_args().version
-O = Path(__file__).resolve().parent / ('out/native/ashlar_entropy_reads_20261006_r88' if version == 0 else 'out/native/ashlar_entropy_post_reads_20261006_r90')
+O = Path(__file__).resolve().parent / {0: 'out/native/ashlar_entropy_reads_20261006_r88', 1: 'out/native/ashlar_entropy_post_reads_20261006_r90', 2: 'out/native/ashlar_entropy_maintained_reads_20261006_r92'}[version]
 pairs = []
 for i in range(4):
     folder = O / f'client-{i}'
@@ -40,8 +40,10 @@ result = {'state': 'completed; exact query IDs and final uncached metrics audite
           'first_touch': summarize('first-touch-'), 'repeat': summarize('repeat-'),
           'four_clients': summarize('four-client-'),
           'scope': '20M synthetic edges / 33.95 GB; full carriers returned; no controlled cold or billion-scale admission'}
-if version == 1:
+if version > 0:
     result['changed_rows'] = summarize('changed-row-')
     result['scope'] = '20M-edge synthetic table after 200k property updates; mixed fixed-key and explicit changed-row cohorts; full carriers returned; no controlled cold or billion-scale admission'
+if version == 2:
+    result['scope'] += '; routine OPTIMIZE version2 is not installed in a new publication descriptor'
 (O / 'audited-summary.json').write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps(result, indent=2))

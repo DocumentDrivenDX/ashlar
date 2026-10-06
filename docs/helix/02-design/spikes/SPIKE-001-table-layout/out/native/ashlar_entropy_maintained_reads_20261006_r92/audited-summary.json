@@ -1,0 +1,150 @@
+{
+  "state": "completed; exact query IDs and final uncached metrics audited",
+  "table": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "version": 2,
+  "first_touch": {
+    "count": 50,
+    "caller_p95_ms": 465.14291599999956,
+    "result_cache_hits": 0,
+    "execution_time_ms": {
+      "p95": 169,
+      "median": 118.0,
+      "min": 94,
+      "max": 628
+    },
+    "compilation_time_ms": {
+      "p95": 133,
+      "median": 120.0,
+      "min": 114,
+      "max": 187
+    },
+    "read_files_count": {
+      "p95": 2,
+      "median": 2.0,
+      "min": 2,
+      "max": 2
+    },
+    "read_bytes": {
+      "p95": 156857591,
+      "median": 74261899.5,
+      "min": 40036016,
+      "max": 165637521
+    },
+    "read_remote_bytes": {
+      "p95": 1681180,
+      "median": 0.0,
+      "min": 0,
+      "max": 79937777
+    },
+    "remote_read_count": 4
+  },
+  "repeat": {
+    "count": 50,
+    "caller_p95_ms": 334.59225000000004,
+    "result_cache_hits": 0,
+    "execution_time_ms": {
+      "p95": 103,
+      "median": 90.5,
+      "min": 76,
+      "max": 117
+    },
+    "compilation_time_ms": {
+      "p95": 127,
+      "median": 118.5,
+      "min": 112,
+      "max": 135
+    },
+    "read_files_count": {
+      "p95": 2,
+      "median": 2.0,
+      "min": 2,
+      "max": 2
+    },
+    "read_bytes": {
+      "p95": 156857591,
+      "median": 74261899.5,
+      "min": 40036016,
+      "max": 165637521
+    },
+    "read_remote_bytes": {
+      "p95": 0,
+      "median": 0.0,
+      "min": 0,
+      "max": 0
+    },
+    "remote_read_count": 0
+  },
+  "four_clients": {
+    "count": 50,
+    "caller_p95_ms": 463.0433339999982,
+    "result_cache_hits": 0,
+    "execution_time_ms": {
+      "p95": 161,
+      "median": 116.5,
+      "min": 83,
+      "max": 203
+    },
+    "compilation_time_ms": {
+      "p95": 177,
+      "median": 139.0,
+      "min": 115,
+      "max": 215
+    },
+    "read_files_count": {
+      "p95": 2,
+      "median": 2.0,
+      "min": 2,
+      "max": 2
+    },
+    "read_bytes": {
+      "p95": 156857591,
+      "median": 74261899.5,
+      "min": 40036016,
+      "max": 165637521
+    },
+    "read_remote_bytes": {
+      "p95": 0,
+      "median": 0.0,
+      "min": 0,
+      "max": 0
+    },
+    "remote_read_count": 0
+  },
+  "scope": "20M-edge synthetic table after 200k property updates; mixed fixed-key and explicit changed-row cohorts; full carriers returned; no controlled cold or billion-scale admission; routine OPTIMIZE version2 is not installed in a new publication descriptor",
+  "changed_rows": {
+    "count": 50,
+    "caller_p95_ms": 667.695541999997,
+    "result_cache_hits": 0,
+    "execution_time_ms": {
+      "p95": 437,
+      "median": 86.0,
+      "min": 72,
+      "max": 482
+    },
+    "compilation_time_ms": {
+      "p95": 126,
+      "median": 118.0,
+      "min": 109,
+      "max": 127
+    },
+    "read_files_count": {
+      "p95": 2,
+      "median": 2.0,
+      "min": 2,
+      "max": 2
+    },
+    "read_bytes": {
+      "p95": 175582431,
+      "median": 107310038.5,
+      "min": 82769530,
+      "max": 179946382
+    },
+    "read_remote_bytes": {
+      "p95": 80919236,
+      "median": 0.0,
+      "min": 0,
+      "max": 83263797
+    },
+    "remote_read_count": 3
+  }
+}

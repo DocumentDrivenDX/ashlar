@@ -119,6 +119,15 @@ Reconsider projection inventory and maintenance policy when their costs grow.
 
 ## Concern Impact
 
+The large higher-entropy update now has [routine maintenance evidence](../spikes/SPIKE-001-table-layout/out/native/ashlar_entropy_maintenance_20261006_r91/audited-summary.json):
+13 seconds rewrites only the 333MB update layer, retains baseline deletion
+vectors, and passes exact parity across all 20M edges. [Maintained reads](../spikes/SPIKE-001-table-layout/out/native/ashlar_entropy_maintained_reads_20261006_r92/audited-summary.json)
+prune two files instead of seventeen. This supports evaluating routine
+incremental clustering before full cleanup, with overlap/read-amplification
+and retained-storage measurements; it does not establish a universal threshold
+or per-batch policy. Existing descriptors retain their old versions. A consumer
+needs a new validated descriptor to benefit from the maintained snapshot.
+
 The [incremental publication validation candidate](../spikes/SPIKE-001-table-layout/incremental-publication-design.md)
 proposes validated immutable predecessors plus complete authoritative change sets
 for routine batches, with exhaustive bootstrap/periodic audits. It does not make

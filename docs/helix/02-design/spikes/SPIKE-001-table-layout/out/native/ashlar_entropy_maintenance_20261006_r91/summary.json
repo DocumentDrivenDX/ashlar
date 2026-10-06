@@ -1,0 +1,7 @@
+{
+  "state": "completed routine maintenance",
+  "old_version": 1,
+  "new_version": 2,
+  "preservation": "All 20M rows / all 20 fields compared; exact UTF-8 text; zero mismatches",
+  "scope": "Single routine OPTIMIZE on existing 2X-Small warehouse; no per-batch policy, production publication or sustained ingest claim. Manifest r89 remains pinned to version1."
+}

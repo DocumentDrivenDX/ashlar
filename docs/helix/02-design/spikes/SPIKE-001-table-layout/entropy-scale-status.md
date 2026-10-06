@@ -89,7 +89,7 @@ local check's two expensive expected-data shuffles without weakening field scope
 
 [Paired read evidence](out/native/ashlar_parameter_reads_20261006_r87/summary.json)
 compares 50 literal-hash reads with 50 fixed-SQL native named-parameter reads on
-the existing r85 version2 table. All 50 paired full-carrier results agree; all
+the existing r85 version 2 table. All 50 paired full-carrier results agree; all
 query metrics are final and result caching is off. Native binding preserves
 signed-int64 extremes and an exact value above 2^53. Driver 4.3.0 uses the
 [documented native parameter support](https://docs.databricks.com/aws/en/dev-tools/python-sql-connector).
@@ -221,3 +221,53 @@ version meets both provisional warm comparisons. First touch is not controlled
 cold data; serial changed rows are not a concurrent workload. Next test targeted
 clustering maintenance and its cost, then qualify incremental batch validation
 and scheduled arrivals. Keep file-count/skew and 1B/5B admission open.
+
+## Routine maintenance and affected-row validation
+
+[r91 maintenance](out/native/ashlar_entropy_maintenance_20261006_r91/audited-summary.json)
+commits edge version 2 in 12.75 s caller time. Routine OPTIMIZE replaces 16 update
+files/332,461,375bytes with 4 files/332,650,126bytes; it removes no deletion
+vectors and leaves the 512 baseline files in place. Active current storage is
+34,279,957,127bytes in 516 files. Removed files remain retained for version 1;
+maintenance adds 333 MB of retained physical files, not just the 189 KB active-byte
+difference. Exact all-field/full-membership comparison over 20M rows passes with
+zero mismatches (326.26s audit). No phase hits the cancellation bound.
+
+[r92 maintained reads](out/native/ashlar_entropy_maintained_reads_20261006_r92/audited-summary.json)
+passes 200 full-carrier identity/version checks with uncached final metrics.
+The same mixed-key and explicit updated-key cohorts are used; this is version 2
+physical evidence. Existing manifest r89 remains pinned to version 1 and does
+not automatically benefit from maintenance.
+
+| Cohort (50 each) | Engine p95 | Caller p95 | Files p95 | Bytes p95 | Remote reads |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| First touch | 169ms | 465ms | 2 | 156.9MB | 4 |
+| Same keys repeated | 103ms | 335ms | 2 | 156.9MB | 0 |
+| Four clients | 161ms | 463ms | 2 | 156.9MB | 0 |
+| Explicit changed rows | 437ms | 668ms | 2 | 175.6MB | 3 |
+
+Pruning improves from 17 files to 2 and four-client p95 from 248/522 ms to 161/463 ms
+engine/caller. Provisional warm comparisons remain unsatisfied. Explicit changed
+rows include 3 remote reads and cannot be called a fully warm cohort; first touch
+is not controlled cold data. Retained deletion vectors are not automatically a
+reason to rewrite all baseline files. One observed 13-second operation does not
+establish a per-batch maintenance policy or billion-scale metadata cost.
+
+[r93 affected-row validation](out/native/ashlar_entropy_changed_validation_20261006_r93/audited-summary.json)
+compares all 20 canonical fields for 200k retained intended/current rows in 8.98 s,
+with exact UTF-8 text equality and missing/extra membership detection. A broadcast
+of narrow native source/relationship/id keys filters baseline rows before the
+wide property join; exact prior-property preservation takes 28.64 s versus 247.26 s
+in r89. The [physical plan](out/native/ashlar_entropy_changed_validation_20261006_r93/plan/physical-plan.txt)
+shows a PhotonBroadcastHashJoin on those three keys, followed by the affected
+wide-row join. Negative controls reject explicit null as absence and malformed
+JSON; a byte-different valid JSON stage token produces exactly one mismatch.
+All final query metrics are uncached.
+
+This times checks on a stored synthetic batch, not new arrivals, sustained ingest
+or publication freshness. It supplements the exhaustive audit and does not
+qualify source completeness, predecessor origins, acknowledgement or concurrent
+writer authority. Next measure an actual batch with affected-row checks, including
+large old/new property tokens in the journal: r89's common boolean 107 event
+strongly understates that history-width case. File-count/skew, sustained/burst
+load, external readers and 1B/5B admission remain open.
