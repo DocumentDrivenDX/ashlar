@@ -2,7 +2,7 @@
 
 **Owner direction (2026-10-06):** Unity Catalog Delta is the architectural commitment. Latency measurements inform tuning and capacity; they do not gate this choice. The brief Real-Time availability check found no workspace preview or creation option, so no warehouse was provisioned. Prior benchmark failures remain evidence, not an architecture veto. Next prioritize final table design and consumer mappings.
 
-**Iteration policy (2026-10-06):** Keep tests small and continue design work. Commit and push each completed iteration. Larger scale experiments remain deferred; their previously pending spending/time question is resolved by the owner's selection of bounded testing. Billion-node/runtime admission is still unproved.
+**Iteration policy (2026-10-06):** The owner now explicitly requests a large local test followed by Databricks. The active phase is 4M nodes / 20M edges / 200k scattered updates. Commit and push each completed iteration. Billion-node/runtime admission remains unproved.
 
 **State (2026-10-05):** Focused HELIX framing drafts exist. Owner direction is a
 open-source, domain-independent property-graph toolkit integrating UMF, with
@@ -44,7 +44,7 @@ owner selected 1B nodes with more edges; Fabric mappings are bounded projections
 liquid clustering includes ingest cost. Exhaustive maintenance parity passes
 all 10,019,981 edge rows, complete fields, hidden metadata and unique typed keys.
 
-**Next action:** Prioritize actual source/runtime integration using the [full-scope audit](02-design/spikes/SPIKE-001-table-layout/out/goal-completion-audit-20261006.json), [layout status](02-design/spikes/SPIKE-001-table-layout/layout-status.md) and [candidate package](02-design/spikes/SPIKE-001-table-layout/layout-package-candidate.json). Native 0.3 varied-carrier and exact hash evidence now pass, as do scoped serialized recovery/receipt controls. Real Truss complete-boundary/authority implementation, full publication protocol and actual graph-engine execution remain unqualified. An existing PuppyGraph or Spark/GraphFrames endpoint/configuration is requested for the next small integration check. Larger scale expansion stays deferred; avoid more isolated correctness or latency-only fixtures as substitutes for these qualifications.
+**Next action:** Prioritize actual source/runtime integration using the [full-scope audit](02-design/spikes/SPIKE-001-table-layout/out/goal-completion-audit-20261006.json), [layout status](02-design/spikes/SPIKE-001-table-layout/layout-status.md) and [candidate package](02-design/spikes/SPIKE-001-table-layout/layout-package-candidate.json). Native 0.3 varied-carrier and exact hash evidence now pass, as do scoped serialized recovery/receipt controls. Real Truss complete-boundary/authority implementation, full publication protocol and actual graph-engine execution remain unqualified. Local Spark 3.5.3 / Delta 3.2.1 / GraphFrames 0.12.3 integration now passes the scoped pinned-release checks. PuppyGraph/Fabric and direct UC reader-feature interoperability remain unqualified. The authorized larger local/Databricks physical comparison is described in the [scale plan](02-design/spikes/SPIKE-001-table-layout/scale-experiment-plan.md).
 
 **Historical spike status (superseded as a work plan):** The maintenance-inclusive comparisons below now fail.
 Final verification passes on both layouts, including 9,419,981 untouched carriers,

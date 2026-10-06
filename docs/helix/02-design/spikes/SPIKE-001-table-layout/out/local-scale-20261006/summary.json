@@ -1,0 +1,217 @@
+{
+  "state": "passed correctness; performance measured",
+  "spark": "3.5.3",
+  "delta": "3.2.1",
+  "root": "/tmp/ashlar-scale-20261006-v3",
+  "resources": {
+    "driver_gib": 32,
+    "workers": 8
+  },
+  "nodes": 4000000,
+  "edges": 20000000,
+  "phases": [
+    {
+      "label": "write-object",
+      "seconds": 9.583352291985648,
+      "result": null
+    },
+    {
+      "label": "exact-full-parity-object",
+      "seconds": 12.671761207981035,
+      "result": {
+        "mismatches": 0,
+        "files": 256,
+        "bytes": 391857089,
+        "version": 0
+      }
+    },
+    {
+      "label": "write-edge",
+      "seconds": 24.8128240420192,
+      "result": null
+    },
+    {
+      "label": "exact-full-parity-edge",
+      "seconds": 56.0362067920214,
+      "result": {
+        "mismatches": 0,
+        "files": 256,
+        "bytes": 2058134273,
+        "version": 0
+      }
+    },
+    {
+      "label": "stage-updates",
+      "seconds": 0.4033989589952398,
+      "result": null
+    },
+    {
+      "label": "merge-scattered-edges",
+      "seconds": 18.373570916999597,
+      "result": "completed"
+    },
+    {
+      "label": "update-and-old-snapshot-integrity",
+      "seconds": 6.883599041000707,
+      "result": {
+        "exact_updated_rows": 200000,
+        "old_snapshot_unchanged": true,
+        "history": [
+          {
+            "version": 1,
+            "operation": "MERGE",
+            "operationMetrics": {
+              "numOutputRows": "20000000",
+              "numTargetBytesAdded": "2074615472",
+              "numTargetRowsInserted": "0",
+              "numTargetFilesAdded": "86",
+              "numTargetRowsMatchedDeleted": "0",
+              "numTargetFilesRemoved": "256",
+              "numTargetRowsMatchedUpdated": "200000",
+              "executionTimeMs": "18193",
+              "numTargetDeletionVectorsUpdated": "0",
+              "numTargetRowsCopied": "19800000",
+              "rewriteTimeMs": "15887",
+              "numTargetRowsUpdated": "200000",
+              "numTargetDeletionVectorsRemoved": "0",
+              "numTargetRowsDeleted": "0",
+              "scanTimeMs": "2302",
+              "numSourceRows": "200000",
+              "numTargetDeletionVectorsAdded": "0",
+              "numTargetChangeFilesAdded": "0",
+              "numTargetRowsNotMatchedBySourceUpdated": "0",
+              "numTargetRowsNotMatchedBySourceDeleted": "0",
+              "numTargetBytesRemoved": "2058134273"
+            }
+          },
+          {
+            "version": 0,
+            "operation": "CREATE TABLE AS SELECT",
+            "operationMetrics": {
+              "numOutputRows": "20000000",
+              "numOutputBytes": "2058134273",
+              "numFiles": "256"
+            }
+          }
+        ]
+      }
+    },
+    {
+      "label": "singleton-50",
+      "seconds": 13.387820459000068,
+      "result": [
+        142.36062500276603,
+        256.5381250169594,
+        251.72458399902098,
+        309.493000007933,
+        267.4270409916062,
+        246.185666997917,
+        269.53312498517334,
+        304.13799997768365,
+        281.05158399557695,
+        269.87391599686816,
+        281.6967919934541,
+        235.61470801359974,
+        267.67495900276117,
+        284.7112499875948,
+        310.3245410020463,
+        300.9252500196453,
+        276.82087500579655,
+        262.9837919957936,
+        280.20275000017136,
+        256.46383297862485,
+        270.3369999944698,
+        258.52104197838344,
+        270.0091250007972,
+        234.1475419816561,
+        233.859083004063,
+        259.89929199567996,
+        237.43187499349006,
+        227.034041978186,
+        257.0217500033323,
+        223.685833014315,
+        242.86866700276732,
+        287.6537909905892,
+        273.11362500768155,
+        267.2059999895282,
+        259.589875000529,
+        277.01745901140384,
+        263.1278329936322,
+        281.0930839914363,
+        221.911500004353,
+        277.66204200452194,
+        251.00912500056438,
+        273.07512500556186,
+        235.42158299824223,
+        268.45887501258403,
+        220.91112501220778,
+        247.9140829818789,
+        266.70954198925756,
+        182.74945800658315,
+        189.4419169984758,
+        277.61587500572205
+      ]
+    },
+    {
+      "label": "singleton-4-clients-50",
+      "seconds": 9.474825750017771,
+      "result": [
+        432.8314999875147,
+        282.5834169925656,
+        585.9493330062833,
+        462.59220800129697,
+        631.7917080014013,
+        494.036165997386,
+        336.46737498929724,
+        771.4382499980275,
+        311.6745839943178,
+        480.1275420177262,
+        631.4109999802895,
+        712.5770409766119,
+        492.65050000394695,
+        293.30408401438035,
+        667.2629580134526,
+        783.4454999829177,
+        363.85470800451003,
+        746.4748749916907,
+        551.221625006292,
+        865.3335829731077,
+        721.0672500077635,
+        514.1004580073059,
+        333.23991697398014,
+        782.2067500092089,
+        556.9262909993995,
+        427.4243749969173,
+        594.956082990393,
+        520.4259169986472,
+        445.2293340000324,
+        548.5847090021707,
+        560.0012920040172,
+        571.4836250117514,
+        573.734666017117,
+        660.7562499993946,
+        640.2250000101048,
+        683.0206659797113,
+        643.701749999309,
+        679.2779169918504,
+        602.5485830032267,
+        618.2532499951776,
+        596.3104999973439,
+        632.8583750000689,
+        618.2150419917889,
+        629.786083009094,
+        576.0385419998784,
+        625.4861250054091,
+        628.9210830000229,
+        693.1321249867324,
+        647.6408750168048,
+        426.5092500136234
+      ]
+    }
+  ],
+  "scope": "Synthetic full 0.3 current carriers only; no source/journal/publication/adjacency or billion-scale admission. Range-sorted hash files in OSS Delta; not native liquid clustering.",
+  "caller_p95_ms": {
+    "serial": 304.13799997768365,
+    "concurrent": 782.2067500092089
+  }
+}

@@ -1,4 +1,4 @@
-# Next bounded scale experiment — prepared, not authorized to expand
+# Scale experiment — owner authorized local then Databricks
 
 Governed by CONTRACT-003/ADR-001 and the owner's instruction to limit time, money and effort. The earlier native 10M-edge experiments establish bounded pruning/preservation, not 1B-node/5B-edge capacity. The current warehouse is available; no Spark/graph runtime was found in the recorded inventory. No additional resources or scale writes have been started.
 
@@ -90,3 +90,41 @@ The next small native fidelity slice may load these declared carriers into priva
 references. It should use byte-preserving transport and actual versions. Its
 result would remain correctness evidence; do not infer compression, throughput or
 billion-scale capacity from fewer than a thousand synthetic records.
+
+
+## Superseding owner authorization (2026-10-06)
+
+The owner explicitly requested a large scale test on this machine followed by
+one on Databricks. The earlier small-test restriction no longer excludes this
+phase. Start at 4M nodes / 20M edges / 200k scattered edge updates, using the
+same deterministic full 0.3 current-carrier generator. Local resources: 128GiB
+machine memory, 18 logical CPUs, 3.3TiB free disk; cap Spark at local[8] and
+32GiB driver memory. Retain recoverable temporary data. Databricks uses the
+existing running 2X-Small warehouse with one cluster; no resize/new compute.
+Native statements have a 900-second server timeout. Exact billing remains
+unavailable; report elapsed execution and stored bytes without invented dollars.
+
+The local run range-distributes and sorts by lookup_hash into 256 partitions.
+OSS Delta 3.2.1 rejects the Databricks targetFileSize/compression table properties;
+use Parquet Zstd writer compression locally and record actual files. The native
+run uses liquid clustering and the candidate 64MiB target. These implementations
+share logical carriers and workload but are not identical physical mechanisms.
+Two initial local attempts failed during table-option analysis before data writes;
+no performance result can be drawn from those attempts.
+
+Eight payload shapes include empty/null bags, exact large integers/decimals,
+timezone text and distinct SHA-derived variable strings. Repeated digest blocks
+are intentionally compressible and not fully independent random bytes. Type and
+source identity vary; endpoints are deterministic and match the node type/source
+profile. Every current carrier includes exact cursor and raw delivery references.
+References are synthetic; source_record, journal, tombstones, adjacency, degree,
+publication protocol and source arrival schedule are excluded in this physical
+sensitivity phase. It does not qualify full ingest/publication freshness.
+
+Measure initial writes, complete bidirectional full-field parity, file/byte
+inventory, stage generation, scattered MERGE, exact updated-field parity, old
+Delta snapshot stability, 50 dispersed singleton reads and local four-reader
+concurrency. Local caller timing includes Spark query/collection after hash
+preparation; it is not remote-client latency. Native measurements retain SDK
+statement IDs and server history. Larger graph growth must follow actual
+throughput, bytes and failed/passed limits rather than assuming billion admission.

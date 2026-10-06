@@ -114,3 +114,23 @@ run `python graphframes_local.py`. Maven dependencies are resolved on first run.
 Tables and JVM dependency cache are created in a fresh temporary directory.
 The evidence file is regenerated. Startup and tiny-graph execution are not
 singleton latency measurements.
+
+
+[Local 24M-carrier scale run](out/local-scale-20261006/summary.json) completes
+4M objects and 20M edges with full-field multiset parity, then 200k scattered
+edge updates with exact update parity and unchanged old-version state. Initial
+writes take 9.58s/24.81s and use 256 files per table: 391,857,089 object bytes
+and 2,058,134,273 edge bytes. The MERGE takes 18.37s and rewrites all 20M edges,
+copying 19.8M unchanged rows and replacing 256 files with 86. This OSS Delta
+3.2.1 run uses hash-range-sorted Parquet Zstd, no deletion vectors/native liquid
+clustering, so rewrite amplification is not a Databricks conclusion. Serial
+50-read local caller p95 is 304.14ms; four-reader p95 is 782.21ms, after hash
+preparation and with warm OS data. There is no cold or engine-only claim.
+
+The same 4M/20M/200k generator is now submitted on existing Databricks compute
+with native liquid clustering. The owner explicitly authorized this larger
+local-then-native comparison. Payloads have semantic variety but repeated digest
+blocks compress heavily: about 98 object/103 edge stored bytes per carrier.
+Do not extrapolate those widths into realistic consumer or billion-scale cost.
+History/raw publication and structural projection amplification remain separate
+requirements. Generic parallel pairs are not a legal Truss producer-profile claim.

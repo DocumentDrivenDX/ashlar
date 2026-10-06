@@ -36,7 +36,12 @@
     "out/goal-completion-audit-20261006.json": "6b28ebc464c4f962ba5971cdbddf15a450084023cace9db40b2afbac4fbbcb28",
     "out/truss-upstream-spec-20261006.json": "3215fbb9a3a3491de2fd87fa580c7bda59492a05f6941c20b338134fc968e796",
     "graphframes_local.py": "6393806dca8ee4424b578d2a5e083c77ce5f145db111b07dc35706604890f81a",
-    "out/graphframes-local-20261006.json": "b0010a41a820b46308f401c0046411b10bb3096a6150aaf8fdd363ad1ad5e5aa"
+    "out/graphframes-local-20261006.json": "b0010a41a820b46308f401c0046411b10bb3096a6150aaf8fdd363ad1ad5e5aa",
+    "scale_workload.py": "df26a9eab300190970c288131df492d2cecba75bb1bf27bd59c2088a04e6a787",
+    "scale_local.py": "fd0f43981f92cc9ede3c6859231607daf11aac0690eaa49db94cb49cc08a79fd",
+    "scale_native.py": "fcac84f79c043846147fe95e11c2e63e22b699709e2734beb1baf5f6a153cda7",
+    "persistent_sql.py": "1ed8f9cd65b73f6668061d55739baff677ec42d55f1b7bdb82dcb2aa354c251e",
+    "out/local-scale-20261006/summary.json": "243ad3829d134a3d8d676fbeae20c1bfd74a29fcef569a253c102348cf74c2bc"
   },
   "evidence": {
     "ddl": {

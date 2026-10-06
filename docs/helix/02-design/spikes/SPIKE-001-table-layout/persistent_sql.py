@@ -7,15 +7,16 @@ from urllib.parse import urlencode
 from databricks.sdk import WorkspaceClient
 WAREHOUSE='2439e1f2e37ac563'
 class Client:
- def __init__(self,out):
+ def __init__(self,out,observation_timeout=180):
   self.out=Path(out);self.out.mkdir(parents=True,exist_ok=True)
+  self.observation_timeout=observation_timeout
   self.w=WorkspaceClient(profile='aidev-cus');self.records=[]
  def sql(self,label,statement,parameters=None):
   start=time.perf_counter();started=time.time()
   body={'warehouse_id':WAREHOUSE,'statement':statement,'wait_timeout':'10s','on_wait_timeout':'CONTINUE','disposition':'INLINE','format':'JSON_ARRAY','row_limit':1000}
   if parameters is not None:body['parameters']=parameters
   r=self.w.api_client.do('POST','/api/2.0/sql/statements',body=body)
-  sid=r['statement_id'];deadline=time.monotonic()+180
+  sid=r['statement_id'];deadline=time.monotonic()+self.observation_timeout
   (self.out/'live-statement.json').write_text(json.dumps({'label':label,'statement_id':sid,'statement':statement})+'\n')
   while r['status']['state'] in ('PENDING','RUNNING'):
    if time.monotonic()>deadline:raise RuntimeError('Observation deadline; inspect existing handle '+sid)
