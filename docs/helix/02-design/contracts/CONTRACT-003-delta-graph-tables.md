@@ -374,3 +374,27 @@ executes this recovery protocol.
 
 
 [r78 serialized recovery evidence](../spikes/SPIKE-001-table-layout/out/native/ashlar_serialized_recovery_20261006_r78/summary.json) passes a three-object native Delta test with an isolated supplemental receipt binding. One row changes exact property text; independent full-row comparison preserves every other field and both untouched rows. After intentional interruption following output commit and durable binding, a fresh client reads that binding and publishes the recorded output version without reapplying data. Repeated publication simulates lost acknowledgement and preserves both descriptors and the output version; old pinned rows remain unchanged. This is one-table serialized recovery with a synthetic retained stage, not a native producer acknowledgement, concurrent fence, ambiguous submission recovery, graph-wide publication or production receipt implementation. The executed 0.3 DDL is unchanged.
+
+
+### Projection invalidation and unchanged version reuse
+
+A publication MUST validate derived rows against its canonical structural state.
+A property-only canonical change MAY reuse previously published adjacency and
+degree versions when endpoint, independent-edge identity and declared coverage
+are unchanged. A structural_version is a projection revision; it MUST NOT be
+compared to an unrelated canonical property entity_version as proof of freshness.
+The validation report MUST identify which projections changed, which versions
+were reused, and their direction/relationship coverage.
+
+| Accepted change | Required invalidation |
+| --- | --- |
+| Property/retained content only | Canonical carrier and applicable typed property projections; structural projections may remain unchanged |
+| Edge create/delete or endpoint/type change | Affected forward/reverse adjacency and degree counts within declared coverage; typed edge release when included |
+| Node create/delete | Included typed node projection; incident-edge closure checked in final state; node deletion cannot leave surviving edges |
+| Revision changes scalar mapping or type inclusion | Affected typed projection rebuilt or explicitly unavailable until validated; canonical/source meaning remains preserved |
+
+Only the selected source profile can decide whether an operation is interpretable
+and which native events it creates. This matrix does not define Truss retain,
+rebind, transform or recreation semantics. Unknown structural effects MUST block
+publication rather than justify reuse. Missing coverage MUST be reported as
+unavailable; it MUST NOT silently become an empty adjacency or zero degree result.

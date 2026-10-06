@@ -59,11 +59,12 @@ workloads where smaller reads matter. Change these settings without changing the
 logical contract. Do not schedule full cleanup after every batch: measured
 maintenance costs require an independently tuned policy.
 
-The existing candidate DDL still represents the earlier native-key clustering
-baseline. Its next revision must explicitly version the derived hash profile and
-add adjacency/degree DDL rather than imply those experimental columns already
-belong to the normative schema. Native DDL, exact preservation and publisher
-checks qualify that revision; speed remains a reported metric.
+The proposed ashlar-delta/0.3 DDL now includes derived identity hashes, optional
+adjacency/degree tables, raw source records and direct cursor references. All 13
+table CREATEs have scoped native evidence. The 0.2 and 0.1 DDL remain historical
+baselines; production source, recovery and graph-engine qualification are open.
+The 13-table spike inventory is a reference surface, not a requirement to deploy
+all projection examples or rewrite every table for every source batch.
 
 ## Alternatives
 
@@ -171,10 +172,10 @@ publication mechanism; small idle read results cannot close this gate.
 
 ## Delivery sequence after the spike
 
-1. Revise CONTRACT-003 and its versioned DDL together: generic current tables,
-   exact property journal, tombstones and immutable manifest; identity hash as
-   derived metadata; narrow typed adjacency and degree summaries as optional
-   projections. Keep publisher receipts/fences separate from producer origins.
+1. Qualify the proposed CONTRACT-003/0.3 surface against the real source profile.
+   The versioned DDL and tiny native fixtures exist; complete extraction,
+   interpretation and recovery are still pending. Keep publisher receipts/fences
+   separate from producer origins.
 2. Implement one bounded publisher/read path with exact carrier validation,
    actual committed version resolution, durable recovery and pinned snapshots.
    Use the proven controls as evidence, not a claim that real Truss feed ordering
@@ -194,3 +195,46 @@ publication mechanism; small idle read results cannot close this gate.
 The Truss draft feed/journal contracts at `spec/change-feed-and-groups`, `6d87fce`, carry origin metadata, revision documents, provenance and reservations in addition to property events. The 0.2 Delta journal is insufficient as the sole replication record. Propose a supplemental exact source-record carrier (CONTRACT-003), separately versioned before adoption, preserving complete transport envelopes and native tuple cursors. Current tables stay canonical serving state; raw feed retention preserves uninterpreted input and does not imply that every operation can be applied. Unknown operations that affect current-state interpretation stop publication rather than being silently skipped. UMF binding remains deferred.
 
 Raw-record idempotence is keyed by a qualified feed/epoch/delivery ID, with byte-exact cursor/kind/payload/revision conflict detection. A single-table Delta MERGE is a candidate append/refusal operation, not a concurrency-safe unique constraint. A serialized/fenced writer or independently proved protocol is required before production replay safety; cross-table current/history/manifest publication remains its own protocol. Source checkpoints advance only after the relevant publication is durable.
+
+
+## Deployment inventory and write amplification
+
+The logical graph uses six durable table roles: object_current, edge_current,
+property_journal, source_record, tombstone and publication_manifest. source_record
+is required for the proposed native feed profile's complete envelope retention;
+legacy fixtures have separately scoped semantics. Journal and raw capture preserve
+different information and neither substitutes for the other. Empty tombstone or
+journal tables still participate when the chosen publication/read profile uses them.
+
+Three structural tables are optional: adjacency_forward, adjacency_reverse and
+degree_summary. Select direction and relationship coverage from actual workloads;
+a missing projection is an unsupported query capability, not evidence of zero
+edges. The two node_type_a/edge_ab tables are illustrative typed projections.
+Deploy versioned per-engine releases only for the selected graph subset and cast
+profile. External releases may refresh less often than native publications, but
+must expose the publication they actually represent.
+
+publisher_fence and apply_receipt are two coordination examples. A recoverable
+publisher needs durable authority and application evidence even when its selected
+mechanism stores them elsewhere. The 0.3 receipt lacks complete predecessor/output
+bindings; r78 uses an isolated supplemental record and does not qualify that DDL
+as a complete recovery protocol. Initial experiments remain serialized with no
+automatic writer takeover.
+
+Rewrite only tables whose data changed. Every consumed table still appears in the
+publication vector. A property-only update writes its canonical
+carrier, accepted journal events and raw input; it need not rewrite unchanged
+adjacency or degree rows. Endpoint or lifecycle changes require structural updates
+and endpoint validation at the final source boundary. Typed projections change
+only when their selected content or schema changes. A manifest may reuse an
+unchanged table's prior committed version after validation; versions across tables
+need not have equal numbers or commit times.
+
+This limits avoidable copying at the 1B-node/5B-edge planning scale while retaining
+complete canonical and source evidence. It does not reduce the required history or
+prove throughput. Raw feed, journal fanout, old pinned versions, reverse adjacency
+and engine release copies must all enter capacity estimates. No expiry/VACUUM or
+full-scale admission follows from the current estimates. Tuple-native sources
+leave source_position null; the existing journal clustering consequently has an
+unused component for that profile. Delivery-ID/source-cursor clustering needs a
+separate workload comparison before changing the executed DDL.
