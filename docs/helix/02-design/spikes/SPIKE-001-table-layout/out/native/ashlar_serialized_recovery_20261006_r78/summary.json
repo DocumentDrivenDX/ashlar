@@ -1,0 +1,40 @@
+{
+  "state": "passed",
+  "profile": "serialized-object-recovery-spike/1",
+  "tables": {
+    "stage": "client_dev.ashlar_layout_v03_20261006_r73.recovery_stage_r78",
+    "output": "client_dev.ashlar_layout_v03_20261006_r73.recovery_objects_r78",
+    "binding": "client_dev.ashlar_layout_v03_20261006_r73.recovery_binding_r78",
+    "manifest": "client_dev.ashlar_layout_v03_20261006_r73.recovery_manifest_r78"
+  },
+  "versions": {
+    "stage": 1,
+    "output": 1
+  },
+  "rows": 3,
+  "binding": {
+    "profile": "serialized-object-recovery-spike/1",
+    "batch": "r78",
+    "previous_publication": "old",
+    "stage": {
+      "table": "client_dev.ashlar_layout_v03_20261006_r73.recovery_stage_r78",
+      "version": 1,
+      "row_count": 3,
+      "ordered_row_json_sha256": "f15569cf17ab2add6a5b53dfb99023143246477019e01023a46b2f2974b7d227"
+    },
+    "output_versions": {
+      "client_dev.ashlar_layout_v03_20261006_r73.recovery_objects_r78": 1
+    },
+    "source_boundary": "synthetic stage only; no native producer cursor"
+  },
+  "checks": [
+    "old pinned rows survive unpublished output commit",
+    "new client resolves retained stage and committed output from durable binding",
+    "publication retry after simulated lost acknowledgement retains exact descriptors",
+    "no output reapply/version advance",
+    "old and recovered readers retain exact full-row parity"
+  ],
+  "elapsed_seconds": 28.92955493927002,
+  "cost": "Existing authorized warehouse only; three object rows in stage/output plus one binding and two manifests; billing dollars unavailable. No large scans or new compute.",
+  "scope": "Injected interruption is an intentional stop between SQL statements plus a fresh client; no process kill, ambiguous write outcome, real source acknowledgement, concurrent writer/fencing, graph-wide atomicity, production receipt schema, latency/ingest/scale admission or Truss trusted proof claim."
+}

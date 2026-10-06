@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "rows": 3,
+  "changed_rows": 1,
+  "comparison": "Expected rows authored by altering only props_json and apply_batch_id in baseline; all other fields and two other rows preserved exactly."
+}

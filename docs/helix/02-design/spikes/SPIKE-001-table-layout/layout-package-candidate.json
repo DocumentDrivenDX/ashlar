@@ -14,7 +14,8 @@
     "adapters/native-read.ts": "7e1dc09a4746e94252e2276c6f43c65bf382f79c70dc1282694d4da524070afa",
     "out/layout-package-audit.json": "538d7f1a97dbd0b9880ede81cc97db06e3ae73c875ec9da9b315113de8137ca1",
     "out/native/ashlar_layout_v02_ddl_20261006_r65/statements.jsonl": "bb300d5f395c96492ee47c57b6bd64802a30e1c97c710dc9f8abfd2374a5c7a5",
-    "out/native/ashlar_layout_v02_ddl_20261006_r65_resume/statements.jsonl": "3fe94257d8b104e109d515c7331d6f4ce74ff3b3ccdffea834f5d8fd9d249d30"
+    "out/native/ashlar_layout_v02_ddl_20261006_r65_resume/statements.jsonl": "3fe94257d8b104e109d515c7331d6f4ce74ff3b3ccdffea834f5d8fd9d249d30",
+    "native_recovery_r78.py": "60b405b052135a0f291c11ee8c02ac2e36c8afb6e06633af8fb2e729cd3262d6"
   },
   "evidence": {
     "ddl": {
@@ -71,6 +72,11 @@
       "path": "out/native/ashlar_native_adjacency_builder_20261006_r76/summary.json",
       "scope": "Four bounded manifest-pinned generated adjacency reads: two forward pages preserving parallel edges/self-loop, reverse typed endpoint and isolate. No service cursor custody, concurrent latest reads, performance/scale or producer/engine claim.",
       "sha256": "34ab0905117d50f6251bc6d165edddfe1c45c4805631b827cbb054c14a06cd51"
+    },
+    "serialized_recovery": {
+      "path": "out/native/ashlar_serialized_recovery_20261006_r78/summary.json",
+      "sha256": "a790be93c95e25ef925ebcc274f7d772dc1d5b6570961317e117d9a6d687135c",
+      "scope": "Injected interruption is an intentional stop between SQL statements plus a fresh client; no process kill, ambiguous write outcome, real source acknowledgement, concurrent writer/fencing, graph-wide atomicity, production receipt schema, latency/ingest/scale admission or Truss trusted proof claim."
     }
   },
   "design_choices": {

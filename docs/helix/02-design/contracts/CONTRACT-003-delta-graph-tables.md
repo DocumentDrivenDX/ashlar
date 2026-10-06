@@ -371,3 +371,6 @@ existing descriptor. These rules require interruption, lost-acknowledgement and
 stale-owner tests before runtime support is claimed. Existing r72/r74 tests cover
 single-table refusal and prepublication reference detection respectively; neither
 executes this recovery protocol.
+
+
+[r78 serialized recovery evidence](../spikes/SPIKE-001-table-layout/out/native/ashlar_serialized_recovery_20261006_r78/summary.json) passes a three-object native Delta test with an isolated supplemental receipt binding. One row changes exact property text; independent full-row comparison preserves every other field and both untouched rows. After intentional interruption following output commit and durable binding, a fresh client reads that binding and publishes the recorded output version without reapplying data. Repeated publication simulates lost acknowledgement and preserves both descriptors and the output version; old pinned rows remain unchanged. This is one-table serialized recovery with a synthetic retained stage, not a native producer acknowledgement, concurrent fence, ambiguous submission recovery, graph-wide publication or production receipt implementation. The executed 0.3 DDL is unchanged.
