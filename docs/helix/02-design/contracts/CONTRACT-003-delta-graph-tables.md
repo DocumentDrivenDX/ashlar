@@ -480,3 +480,6 @@ This proposed envelope addresses the missing receipt bindings identified by r78
 and r79. Those tests use earlier isolated fixture bindings; they do not execute
 this table, complete-source membership validator or native receipt/manifest
 installation. No expiry or production authority mechanism is selected.
+
+
+[r82 receipt carrier evidence](../spikes/SPIKE-001-table-layout/out/native/ashlar_receipt_20261006_r82/summary.json) now executes the proposed seven-column DDL in an isolated native table. Two fixture intent/complete records preserve all fields, exact envelope/digest and unsigned-range text. Identical replay leaves them unchanged; a byte-different valid-digest complete record produces terminal RECEIPT_CONFLICT with complete target parity. Both phases are appended together for storage testing, not a staged publication protocol. Input digest/completeness claims are explicit fixture placeholders. Native source membership, phase linkage, authority, concurrent uniqueness and receipt-bound manifest installation remain unproved. The original candidate DDL remains preserved with its pre-execution comment; this evidence supersedes that historical execution status only within the stated carrier scope.

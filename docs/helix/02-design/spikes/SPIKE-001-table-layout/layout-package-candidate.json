@@ -29,7 +29,8 @@
     "out/varied-corpus/edges.json": "07ba417c3d4aa2ecea1fff92156593f371298ae3c51d4ffa88b54192107118b2",
     "out/varied-corpus/source_records.json": "3a86b6ef0a110c59f3da24e9e4fc7412795f3613167d65e7db7a7321146bb838",
     "native_varied_fidelity_r81.py": "32ac8318837b49dc60ea45b3a63d7e63343250b98f363db2f856db2c050aa9d6",
-    "sql/publication-receipt-candidate.sql": "21988a1291baa65d2426e1d4aa0d992ab097d02d11e1396871692fe5677e15a3"
+    "sql/publication-receipt-candidate.sql": "21988a1291baa65d2426e1d4aa0d992ab097d02d11e1396871692fe5677e15a3",
+    "native_receipt_r82.py": "dc9ad537dafe0d6c706d821fabe7f630a0fcdc1d0093d9836d2f125e39331142"
   },
   "evidence": {
     "ddl": {
@@ -121,6 +122,11 @@
       "path": "out/native/ashlar_varied_fidelity_20261006_r81/summary.json",
       "sha256": "dd8f2b2884aa38e6b45a81b1364b9f7116a8215cb1bf9ca73bc5f984ac519084",
       "scope": "Synthetic complete-carrier storage only, using three isolated tables with 0.3 field/physical definitions. No property journal events, producer reconstruction/completeness, manifest/recovery/fencing, projection/engine execution, latency/ingest or billion-scale admission."
+    },
+    "receipt_carrier": {
+      "path": "out/native/ashlar_receipt_20261006_r82/summary.json",
+      "sha256": "0cad81c19dbfe5408a1eba3a7a5b09f7f11d7761c79085334b4d4abac359c3f9",
+      "scope": "Serialized single-table receipt carrier and replay/refusal only. Input digest and boundary validation are synthetic placeholders. No source membership/authority, phase-link validation, stale-owner prevention, concurrent uniqueness, native manifest installation, performance or scale claim."
     }
   },
   "design_choices": {

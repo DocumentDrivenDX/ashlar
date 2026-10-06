@@ -1,0 +1,16 @@
+{
+  "state": "passed",
+  "table": "client_dev.ashlar_layout_v03_20261006_r73.publication_receipt_r82",
+  "version": 2,
+  "records": 2,
+  "checks": [
+    "candidate seven-column native DDL",
+    "exact intent/complete payload and unsigned integer text",
+    "unique fixture keys and native digest checks",
+    "identical retry preserves all fields",
+    "byte-different valid-digest retry fails with complete target parity"
+  ],
+  "elapsed_seconds": 17.65429925918579,
+  "cost": "Two receipt and two stage rows on existing authorized warehouse; no new compute; billing dollars unavailable.",
+  "scope": "Serialized single-table receipt carrier and replay/refusal only. Input digest and boundary validation are synthetic placeholders. No source membership/authority, phase-link validation, stale-owner prevention, concurrent uniqueness, native manifest installation, performance or scale claim."
+}
