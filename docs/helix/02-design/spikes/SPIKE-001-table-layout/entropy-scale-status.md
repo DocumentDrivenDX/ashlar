@@ -153,3 +153,71 @@ They do not admit 1B/5B scale or demonstrate sustained publication freshness.
 Next material work is a large incremental publication slice including raw
 input, property journal, tombstones and the validated publication manifest,
 followed by skew/file-count and steady/burst workload evidence.
+
+## Large incremental publication and post-update reads
+
+[r89 audited publication](out/native/ashlar_entropy_publication_20261006_r89/audited-summary.json)
+adds property 107=true to 200,000 scattered edges. The immutable stage changes
+only property text, entity version, explicit new origin/batch references and
+publish time. All 20M current rows pass exact per-field comparison against the
+baseline plus intended changes, including UTF-8 lexical comparison of string
+carriers. A separate 200k comparison proves old property 107 absent and preserves
+every prior property token. Both checks pass with zero mismatches.
+
+The declared synthetic complete-edge wire retains all 20 canonical fields, with
+JSON carrier text stored as strings. 200k raw envelopes/digests/reference tuples
+and 200k exact journal rows pass; property history represents absent-to-true with
+old_present=false, old_json=NULL, new_present=true, new_json='true'. There are no
+deletions and the tombstone table is empty. The descriptor reads back exactly
+with actual versions: objects 0, edges 1, raw 1, journal 1, tombstones 0. Changed-row
+origins qualify; **baseline raw origins remain unavailable and unqualified**.
+No production source checkpoint, acknowledgement, receipt/fence authority or
+full graph-origin support follows from this manifest. Endpoints remain unchanged;
+this phase deploys no adjacency/degree or typed property projections.
+
+| Phase | Caller time |
+| --- | ---: |
+| Immutable stage | 5.67 s |
+| Raw capture | 6.78 s |
+| Journal append | 2.77 s |
+| Canonical MERGE | 61.37 s |
+| Exhaustive 20M-row output audit | 642.29 s |
+| 200k prior-property lexical check | 247.26 s |
+| Manifest installation | 2.36 s |
+
+Arrival to verified manifest is **988.04 s**, including staging, checks, version
+inventory and readback. This is one audit-heavy batch, not p95 or sustained/burst
+admission. No audit time is subtracted to declare freshness satisfied. The
+[incremental validation design candidate](incremental-publication-design.md)
+requires qualified source completeness, writer authority and predecessor coverage
+before replacing exhaustive checks in an operational path.
+
+MERGE engine operation time is 59.726 s: 9.617 s scanning and 50.045 s rewriting.
+It updates 200k, inserts/deletes 0, copies 0 unchanged rows, removes 0 baseline files,
+adds 16 files / 332,461,375bytes and 512 deletion vectors. Active edge storage is
+34,279,768,376bytes in 528 files. The additional active current/raw/journal/stage/
+manifest total is 1,018,536,638bytes; it excludes logs, sidecars, retained old files
+and later maintenance. Compute remains existing single-cluster 2X-Small serverless
+PRO; shared billing dollars remain unqualified. Every statement is terminal,
+metrics are final, and none reached the cancellation bound or hit result cache.
+
+[r90 audited post-update reads](out/native/ashlar_entropy_post_reads_20261006_r90/audited-summary.json)
+passes 200 identity/version checks with session result caching disabled and final
+metrics for every exact query ID. The first three cohorts repeat r88's keys.
+The fourth explicitly selects 50 updated rows and checks version 1/property 107.
+No maintenance precedes these reads.
+
+| Cohort (50 each) | Engine p95 | Caller p95 | Files p95 | Bytes p95 | Remote-read count |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| First touch at version 1 | 231 ms | 475 ms | 17 | 415.0 MB | 3 |
+| Same keys repeated | 114 ms | 402 ms | 17 | 419.5 MB | 0 |
+| Four clients | 248 ms | 522 ms | 17 | 419.5 MB | 0 |
+| Explicit changed rows | 103 ms | 343 ms | 17 | 421.0 MB | 0 |
+
+Baseline four-client reads touched one file (84.4 MB p95), with engine/caller p95
+156/455 ms. The updated fixed-key workload touches up to 17 files and about five
+times the bytes; its four-client engine/caller p95 grows to 248/522 ms. Neither
+version meets both provisional warm comparisons. First touch is not controlled
+cold data; serial changed rows are not a concurrent workload. Next test targeted
+clustering maintenance and its cost, then qualify incremental batch validation
+and scheduled arrivals. Keep file-count/skew and 1B/5B admission open.

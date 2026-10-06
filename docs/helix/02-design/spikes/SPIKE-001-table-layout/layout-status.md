@@ -165,3 +165,5 @@ follows. Local GraphFrames 24M integration passes separately; UC feature/read
 compatibility remains separate.
 
 Native higher-entropy singleton evidence: [r88](out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json), 150 uncached full-carrier reads against the 20M-edge / 33.95 GB baseline. One file per read; four-client engine/caller p95 156/455 ms. See [scope and cohort qualifications](entropy-scale-status.md).
+
+Large incremental publication: [r89](out/native/ashlar_entropy_publication_20261006_r89/audited-summary.json) validates a 200k scattered-property slice, full 20M-row canonical parity, changed raw origins and exact journal. Its synthetic manifest explicitly leaves baseline origins unqualified. [r90](out/native/ashlar_entropy_post_reads_20261006_r90/audited-summary.json) shows post-update four-client p95 248/522 ms and 17 files/read versus baseline 1. See [incremental validation design](incremental-publication-design.md) and [measurement scope](entropy-scale-status.md).

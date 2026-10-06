@@ -119,6 +119,15 @@ Reconsider projection inventory and maintenance policy when their costs grow.
 
 ## Concern Impact
 
+The [incremental publication validation candidate](../spikes/SPIKE-001-table-layout/incremental-publication-design.md)
+proposes validated immutable predecessors plus complete authoritative change sets
+for routine batches, with exhaustive bootstrap/periodic audits. It does not make
+a full-graph comparison a per-batch requirement at 1B/5B scale. Replacing an
+exhaustive check requires independent proof of source completeness, writer
+authority, affected-row preservation and projection coverage. The synthetic
+large baseline lacks retained raw origins, so changed-row origin evidence cannot
+promote it to a fully qualified production publication.
+
 Preservation requires exact bags, retained content and projection residuals.
 Enforcement remains explicit: Delta semantic keys/relationships are publisher
 checks. Scope stays on storage/query proof; UMF authoring and production resource

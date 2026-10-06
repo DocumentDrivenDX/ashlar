@@ -1,11 +1,15 @@
 """Audit final history for the r88 full-carrier singleton experiment."""
+import argparse
 import json
 import math
 import statistics
 from pathlib import Path
 from persistent_sql import Client
 
-O = Path(__file__).resolve().parent / 'out/native/ashlar_entropy_reads_20261006_r88'
+parser = argparse.ArgumentParser()
+parser.add_argument('--version', type=int, choices=(0, 1), default=0)
+version = parser.parse_args().version
+O = Path(__file__).resolve().parent / ('out/native/ashlar_entropy_reads_20261006_r88' if version == 0 else 'out/native/ashlar_entropy_post_reads_20261006_r90')
 pairs = []
 for i in range(4):
     folder = O / f'client-{i}'
@@ -32,9 +36,12 @@ def summarize(prefix):
     return result
 
 result = {'state': 'completed; exact query IDs and final uncached metrics audited',
-          'table': 'client_dev.ashlar_entropy_20261006_r86.edge_current', 'version': 0,
+          'table': 'client_dev.ashlar_entropy_20261006_r86.edge_current', 'version': version,
           'first_touch': summarize('first-touch-'), 'repeat': summarize('repeat-'),
           'four_clients': summarize('four-client-'),
           'scope': '20M synthetic edges / 33.95 GB; full carriers returned; no controlled cold or billion-scale admission'}
+if version == 1:
+    result['changed_rows'] = summarize('changed-row-')
+    result['scope'] = '20M-edge synthetic table after 200k property updates; mixed fixed-key and explicit changed-row cohorts; full carriers returned; no controlled cold or billion-scale admission'
 (O / 'audited-summary.json').write_text(json.dumps(result, indent=2) + '\n')
 print(json.dumps(result, indent=2))
