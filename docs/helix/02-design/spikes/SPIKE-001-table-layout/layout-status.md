@@ -63,3 +63,6 @@ Local [read-plan locator checks](out/publication-locator-check.json) now verify 
 
 
 [Capacity sensitivity 0.3](out/capacity-planning-v03.json) adds per-table file rounding, 16/64MiB targets, half/full mean fill, 0/1/2 adjacency copies, raw retention and property-event fanout. It also records uniform scattered-update occupancy independently of actual Delta rewrite cost. All values are arithmetic assumptions; larger compute remains deferred and no scale admission is inferred.
+
+
+[Exact source cursor checks](out/source-cursor-check.json) pass six ordering pairs and sixteen refusals, including values above 2^53, unsigned-range xid text, strict watermark equality and namespace mismatch. These are local synthetic range checks, not real Truss checkpoint or transaction-completeness evidence. No native schema or compute was changed.

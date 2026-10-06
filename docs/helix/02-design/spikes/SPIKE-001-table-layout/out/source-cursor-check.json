@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "ordered_pairs": 6,
+  "refusals": 16,
+  "scope": "Synthetic declared range exact tuple arithmetic, frozen copy and strict xid eligibility only. No real Truss range qualification, transaction membership, trusted watermark, seed/coverage boundary, acknowledgement or source progress claim."
+}

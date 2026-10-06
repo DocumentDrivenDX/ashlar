@@ -67,3 +67,24 @@ Acknowledgement requires host-established proof-verifier custody and independent
 Compatibility disposition: 0.3's generic exact source_record and cursor/reference columns can retain these additional draft record bytes. The current publication/fence/receipt protocol is unqualified for the newer complete-feed worker profile. Source progress JSON may preserve the exact versioned boundary and context but does not make them trusted. Signed BIGINT fence epochs also require an explicit range qualification when binding exact textual worker generations; refuse unsupported values instead of narrowing. Full canonical structural extraction, bootstrap activation, permissions and source completeness remain separate evidence requirements.
 
 Next implement a qualified complete-feed publisher only against an actual producer/worker runtime and selected Delta transaction/recovery profile. No producer runtime was found in the scoped source inventory; existing Truss application evidence checks only JSON wire shape. Until then, the available safe work is versioned mapping/protocol design and scoped native Delta primitives, with no end-to-end source-support claim.
+
+
+## Exact cursor arithmetic spike
+
+[source-cursor.ts](adapters/source-cursor.ts) validates canonical decimal strings
+against explicitly supplied profile ranges and compares `(xid,seq)` numerically
+with exact integers. It rejects cross-feed/epoch comparisons, namespace-mismatched
+watermarks and watermark equality. The returned cursor is a frozen defensive copy.
+Six ordering pairs and sixteen refusal controls pass under a synthetic unsigned
+64-bit xid/signed 64-bit seq range; this range is a fixture choice, not native Truss
+qualification. Browser-target bundling passes; browser execution is untested.
+
+This helper intentionally exposes only validation, ordering and strict xid
+eligibility. It supplies no checkpoint advancement API. Eligible journal tuples
+cannot establish complete transaction membership, side-record coverage, seed
+activation, trusted watermark origin or the newer worker profile's downstream
+proof. A production adapter must qualify these independently and retain the
+complete original boundary/cursor bytes in source_record and publication progress.
+No scalar source_position is generated and no numeric JSON decoding is used for
+cursor components. Wire decoding and duplicate JSON member refusal remain caller
+responsibilities.

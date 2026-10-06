@@ -9,7 +9,7 @@
     "adapters/graphframes.py": "8f2182546cd47bff3af3e445a21338f00eacb263f0ae71fc0ed5c84d83bbeb73",
     "adapters/release-r66/mapping-plan.json": "dc3dd64cb8e8177ceb46348abbd92424adb8d5b281994a3bd4a9167ca9dda82c",
     "sql/delta-layout-v03.sql": "b105eff8831318e28135b553df6c2e652f4773cc8fbe924090af12c086a1c70d",
-    "truss-feed-mapping-candidate.md": "6dcb71440f0c458b25065059a0ca258d483faf17a1414d30b393ba36d6a9a8c5",
+    "truss-feed-mapping-candidate.md": "fae5825776d83afe638be6822b1c363a1304da420af48996811bc8ca641e0368",
     "out/truss-working-draft-evidence.json": "05aa09eed493d4a7e982b9db9b00b771964ac967f042cab26afeb445661cdf0e",
     "adapters/native-read.ts": "7e1dc09a4746e94252e2276c6f43c65bf382f79c70dc1282694d4da524070afa",
     "out/layout-package-audit.json": "538d7f1a97dbd0b9880ede81cc97db06e3ae73c875ec9da9b315113de8137ca1",
@@ -20,7 +20,9 @@
     "adapters/publication-locator.ts": "174d5c80e13a888948762fa15b5c35890b98ee87d91a580f1ae372506b972724",
     "adapters/publication-locator-check.ts": "70155c0a13a228d17ccf173a1d3d73267d0541bae28ed006bb93bf4414c4779b",
     "capacity_v03.py": "8561f8f74dd5fb9b92db30a8d81488509843555a6671c1973fa3dc8924ca1de8",
-    "out/capacity-planning-v03.json": "6b29a9c76c21b09b696cc7b70aa7078de41b9ff4395fa1e1f4f104f44f20f696"
+    "out/capacity-planning-v03.json": "6b29a9c76c21b09b696cc7b70aa7078de41b9ff4395fa1e1f4f104f44f20f696",
+    "adapters/source-cursor.ts": "e2eff09cb0694328beea0b7851fe1a675d12fc24dec68ee695df084d6eb33f06",
+    "adapters/source-cursor-check.ts": "4c5e78c41dc48e1b14957e58694d08f30393198965d12b71d38be7dbeea0369e"
   },
   "evidence": {
     "ddl": {
@@ -92,6 +94,11 @@
       "path": "out/publication-locator-check.json",
       "sha256": "3d5cf3240a7715da595f9224ffcc4d5092a4326c3571f3103fb7433ab2fcad57",
       "scope": "Local decoded-locator validation only; no descriptor authentication, duplicate JSON member decoding, projection semantics, native execution, policy or performance claim"
+    },
+    "source_cursor_arithmetic": {
+      "path": "out/source-cursor-check.json",
+      "sha256": "86a9f53877cf2f0b23ca3fd041da2fcdf1511e9c98a7f8e844b96c05701d456f",
+      "scope": "Synthetic declared range exact tuple arithmetic, frozen copy and strict xid eligibility only. No real Truss range qualification, transaction membership, trusted watermark, seed/coverage boundary, acknowledgement or source progress claim."
     }
   },
   "design_choices": {
