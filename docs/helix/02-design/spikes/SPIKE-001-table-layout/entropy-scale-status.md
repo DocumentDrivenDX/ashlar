@@ -164,7 +164,7 @@ baseline plus intended changes, including UTF-8 lexical comparison of string
 carriers. A separate 200k comparison proves old property 107 absent and preserves
 every prior property token. Both checks pass with zero mismatches.
 
-The declared synthetic complete-edge wire retains all 20 canonical fields, with
+The declared synthetic complete-edge wire contains all 20 field names, with
 JSON carrier text stored as strings. 200k raw envelopes/digests/reference tuples
 and 200k exact journal rows pass; property history represents absent-to-true with
 old_present=false, old_json=NULL, new_present=true, new_json='true'. There are no
@@ -271,3 +271,72 @@ writer authority. Next measure an actual batch with affected-row checks, includi
 large old/new property tokens in the journal: r89's common boolean 107 event
 strongly understates that history-width case. File-count/skew, sustained/burst
 load, external readers and 1B/5B admission remain open.
+
+## Large old/new journal publication and serializer qualification
+
+[r94 measured slice](out/native/ashlar_entropy_wide_journal_20261006_r94/audited-summary.json)
+changes property 105 on 100,000 existing opaque-value edges. The qualified compact
+ASCII-hex fixture has quoted old/new tokens 4,162–8,258bytes, mean 6,209.93bytes.
+Native keys, endpoints, retained data and every other property token remain
+unchanged; exact intended patch and all 20 affected output fields pass. Raw
+reference/digest checks and 100k complete journal row comparisons pass. Global
+current cardinality/distinct IDs remain 20M, with 100k entity-version 2 rows.
+This is an already updated hot set, not uniformly scattered new keys.
+
+| Phase | Caller time |
+| --- | ---: |
+| Stage construction, including new value generation | 14.38s |
+| Independent intended carrier patch | 7.09s |
+| Raw capture | 7.35s |
+| Large-token journal append | 6.66s |
+| Raw reference/body comparison | 7.30s |
+| Exact journal comparison | 6.77s |
+| Canonical MERGE | 9.19s |
+| Exact affected output comparison | 5.58s |
+| Manifest installation | 1.28s |
+
+Arrival to verified descriptor is 78.26 s, including generation, staging, input/
+output checks, counts, actual-version inventory and readback. One batch misses
+the 60 s comparison; it is not p95, 10k/s sustained or 100k/s burst admission. No
+construction/validation time is subtracted. MERGE operation time is 8.110 s,
+updates 100k, copies/inserts/deletes 0, adds 16 files/327,001,551bytes and 4 deletion
+vectors. Earlier scattered 200k updates added 512 vectors and took 61.37 s caller.
+That comparison has different membership/value changes and establishes a
+distribution sensitivity, not an isolated throughput scaling law.
+
+Incremental physical files total 2,285,219,689bytes: stage 663,687,208, new current
+327,001,551, raw 655,463,391 and journal 639,067,539. Logs, sidecars, descriptor
+and older retained files are excluded. The large-token journal adds about 639 MB,
+compared with 2.54 MB for the earlier 200k common boolean events. History width
+and retention belong in admission budgets; sparse boolean events do not qualify
+large-value change costs. No new/resized compute is used; shared dollars remain
+unqualified. New synthetic descriptor r94 pins objects 0/current 3/raw 2/journal 2/
+tombstones 0 and retains r89. Baseline raw origins and real writer/source authority
+remain unqualified. There are no structural/projection changes.
+
+**Wire precision correction:** an independent timestamp oracle found that the
+default serializer truncates derived published_at to milliseconds. All 100k r94
+raw envelopes lose 870 µs versus their stage value; all 200k r89 envelopes lose 307 µs.
+The prior expected-payload comparison used the same encoder and masked this
+loss. Full native Delta carrier/journal timestamps remain intact, as do property,
+retained and cursor text. Historical raw payloads/descriptors are retained and
+MUST NOT substantiate complete all-field wire reconstruction. This supersedes
+earlier complete-envelope wording within that field/codec scope.
+
+[Corrected encoder oracle](out/native/ashlar_wire_timestamp_20261006_r95/summary.json)
+passes independent instant equality on all 100k retained stage rows, plus
+sub-millisecond/pre-epoch controls and exact large-integer/decimal bag text.
+[wire_json.py](wire_json.py) specifies UTC and six fractional digits. Future
+harnesses use it and independently compare wire/stage timestamp instants; this
+is a read-only correction proof, not repaired historical inputs or a new batch
+freshness result. The old payloads are not rewritten under their original IDs.
+
+[Post-publication token qualification](out/native/ashlar_entropy_wide_journal_20261006_r94/token-qualification/summary.json)
+proves every old JSON token appears byte-for-byte in its prior carrier and every
+new token differs. Escaped/pretty source syntax is explicitly outside this
+compact ASCII fixture; negative controls detect it rather than normalize it.
+The first VALUES negative query was terminally rejected for computed literals;
+SELECT UNION ALL correction passes, with the failed read retained. No generic
+native-source token extraction or full producer reconstruction follows. Next
+measure repeated scheduled publications under the corrected encoder and full
+raw/history cost, then qualify file-count/skew and larger resource bounds.

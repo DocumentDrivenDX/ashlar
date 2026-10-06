@@ -1,0 +1,11 @@
+{
+  "rows": 100000,
+  "timestamp_instant_mismatches_min_max_microseconds": [
+    [
+      "100000",
+      "870",
+      "870"
+    ]
+  ],
+  "scope": "Independent derived published_at wire qualification; native property/time-text strings untouched"
+}

@@ -103,3 +103,28 @@ A new batch must include actual staging, raw/history append, apply, validation
 and manifest latency. Test large old/new journal tokens as well as the existing
 common boolean addition; keep source authority and incomplete baseline origins
 explicit.
+
+## Actual large-token batch and independent serialization oracle
+
+[r94](out/native/ashlar_entropy_wide_journal_20261006_r94/audited-summary.json)
+publishes 100k present-to-present large-token changes with affected-row checks
+in 78 s on the existing compute. It adds 639 MB journal data versus 2.54 MB for the
+earlier 200k boolean events. Membership is an existing hot set, which touches
+four old update files; this does not qualify graph-wide scattered batches or
+sustained/burst rates. Keep input width, affected file count and retention explicit
+when choosing batch size, maintenance and resource bounds.
+
+Comparing captured payload with the same serialization expression is insufficient.
+The independent r95 oracle detects millisecond truncation of derived published_at
+in r89/r94 wire while native Delta values remain exact. A source encoding profile
+MUST name its timestamp representation and independently verify roundtrip instants
+and token text, including nonzero sub-millisecond cases. The corrected synthetic
+wire uses explicit UTC microseconds; old raw input is immutable and remains
+qualified as lossy in that metadata field. Never overwrite a delivered payload
+under its original origin ID to make a reconstruction test pass.
+
+The large-token patcher is qualified for known compact, unescaped ASCII-hex
+values only. Escaped/pretty lexical forms are rejected, not silently decoded
+into a narrower source claim. A general native property-event adapter still
+requires the actual producer token semantics, full input completeness and
+writer/acknowledgement authority.

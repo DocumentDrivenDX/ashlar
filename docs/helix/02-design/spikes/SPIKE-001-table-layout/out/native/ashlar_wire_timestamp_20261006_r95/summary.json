@@ -1,0 +1,19 @@
+{
+  "state": "passed explicit UTC microsecond encoder and independent oracles; legacy loss qualified",
+  "corrected_r94_rows": 100000,
+  "corrected_mismatch_min_max_microseconds": [
+    [
+      "0",
+      "0",
+      "0"
+    ]
+  ],
+  "legacy_r89_mismatch_min_max_microseconds": [
+    [
+      "200000",
+      "307",
+      "307"
+    ]
+  ],
+  "scope": "Read-only corrected encoding over retained stage; old raw payloads and descriptors unmodified. Default encoder loss concerns derived published_at, not property/retained/native cursor strings or Delta carrier/journal timestamps. Not native producer reconstruction."
+}

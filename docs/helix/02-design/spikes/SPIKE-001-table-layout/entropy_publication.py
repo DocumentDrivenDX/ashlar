@@ -8,6 +8,7 @@ import re
 import time
 from pathlib import Path
 from persistent_sql import Client
+from wire_json import encode as wire_encode
 from scale_workload import select
 
 B = Path(__file__).resolve().parent
@@ -66,8 +67,8 @@ phase('immutable-stage', f'CREATE TABLE {S} USING DELTA AS SELECT {projection} F
 assert version(S, 'stage-version') == 0
 assert phase('stage-cardinality', f'SELECT count(*),count(DISTINCT id),count(DISTINCT source_delivery_id) FROM {S} VERSION AS OF 0') == [['200000'] * 3]
 # The synthetic wire uses strings for exact JSON carriers; it is not native Truss.
-payload = 'to_json(named_struct(' + ','.join("'" + col + "'," + col for col in cols) + '),map(\'ignoreNullFields\',\'false\'))'
-qualified_payload = 'to_json(named_struct(' + ','.join("'" + col + "',s." + col for col in cols) + '),map(\'ignoreNullFields\',\'false\'))'
+payload = wire_encode('named_struct(' + ','.join("'" + col + "'," + col for col in cols) + ')')
+qualified_payload = wire_encode('named_struct(' + ','.join("'" + col + "',s." + col for col in cols) + ')')
 phase('retain-raw-input', f'''INSERT INTO {tables['source_record']}
  SELECT source_feed,source_epoch,source_delivery_id,'synthetic-complete-edge',source_cursor_json,
  payload,sha2(payload,256),schema_revision,current_timestamp(),apply_batch_id
@@ -82,6 +83,7 @@ assert phase('raw-reference-integrity', f'''SELECT count(*) FROM {S} VERSION AS 
  LEFT JOIN {tables['source_record']} r ON s.source_feed=r.source_feed AND s.source_epoch=r.source_epoch AND s.source_delivery_id=r.delivery_id
  WHERE r.delivery_id IS NULL OR NOT (s.source_cursor_json <=> r.source_cursor_json)
  OR NOT (r.payload_digest <=> sha2(r.payload_json,256))
+ OR NOT (s.published_at <=> cast(get_json_object(r.payload_json,'$.published_at') AS TIMESTAMP))
  OR NOT (hex(encode(r.payload_json,'UTF-8')) <=> hex(encode({qualified_payload},'UTF-8')))''') == [['0']]
 assert phase('journal-parity', f'''SELECT count(*) FROM (
  (SELECT source_system,'edge' entity_kind,rel_type_id type_id,id,cast(107 AS BIGINT) property_id,
@@ -120,7 +122,7 @@ assert phase('empty-tombstones', f"SELECT count(*) FROM {tables['tombstone']}") 
 progress = {'profile': 'synthetic-complete-stage/1', 'epoch': 'entropy-publication-r89',
             'stage_table': S, 'stage_version': 0, 'members': 200000,
             'cursor': 'scattered per-row tuple cursors; no producer checkpoint or acknowledgement'}
-validation = {'changed_rows': 200000, 'full_current_rows_compared': 20000000,
+validation = {'wire_encoder':'synthetic-full-carrier/2 UTC microseconds; independent timestamp check required','changed_rows': 200000, 'full_current_rows_compared': 20000000,
               'changed_origin_references': 'passed', 'baseline_origin_references': 'unqualified; raw input unavailable',
               'journal': 'one absent-to-true property107 event per changed edge',
               'structure': 'all endpoint fields unchanged from validated baseline',
