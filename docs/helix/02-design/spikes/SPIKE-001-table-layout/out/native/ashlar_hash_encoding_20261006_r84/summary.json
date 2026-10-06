@@ -1,0 +1,33 @@
+{
+  "state": "passed",
+  "cases": 64,
+  "source_cases": [
+    "plain",
+    "quote",
+    "backslash",
+    "newline",
+    "tab",
+    "NUL",
+    "DEL",
+    "SQL-looking text"
+  ],
+  "ids": [
+    "0",
+    "9007199254740993",
+    "9223372036854775807",
+    "-9223372036854775808"
+  ],
+  "entity_kinds": [
+    "node",
+    "edge"
+  ],
+  "encoding": "UTF-8 compact JSON, ordered named members, numeric signed-int64 tokens; Python ensure_ascii=False preserves DEL as native JSON does.",
+  "checks": [
+    "exact JSON text parity",
+    "SHA256 parity",
+    "BIGINT values above 2^53 and signed extremes preserved"
+  ],
+  "elapsed_seconds": 1.3748798370361328,
+  "cost": "One 64-row constant-input native SELECT on existing authorized warehouse; no table scans/writes or new compute; billing dollars unavailable.",
+  "scope": "Representative Python/native SQL hash differential on declared ASCII source/int64 profile, not exhaustive encoder qualification, authority, membership, source feed, native singleton performance or scale admission."
+}

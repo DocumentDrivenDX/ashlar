@@ -84,3 +84,6 @@ The proposed [durable receipt table](sql/publication-receipt-candidate.sql) now 
 
 
 [r83 release protocol inventory](out/native/ashlar_release_protocol_20261006_r83/summary.json) finds reader3/writer7 with deletionVectors/v2Checkpoint on every unchanged r68 release. CONTRACT-003 now requires actual reader-feature/access/publication qualification; simple scalar release shape alone does not establish engine support. Twelve metadata reads, no writes or feature changes.
+
+
+[r84 representative encoding](out/native/ashlar_hash_encoding_20261006_r84/summary.json) proves native SQL/Python JSON text and hash parity on 64 ASCII/int64 edge cases. It records the DEL escaping pitfall for Python defaults; no scans, writes or performance benchmark was run.
