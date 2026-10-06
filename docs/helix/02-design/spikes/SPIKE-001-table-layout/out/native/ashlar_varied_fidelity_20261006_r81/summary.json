@@ -1,0 +1,29 @@
+{
+  "state": "passed",
+  "tables": {
+    "object_current": "client_dev.ashlar_layout_v03_20261006_r73.varied_object_current_r81",
+    "edge_current": "client_dev.ashlar_layout_v03_20261006_r73.varied_edge_current_r81",
+    "source_record": "client_dev.ashlar_layout_v03_20261006_r73.varied_source_record_r81"
+  },
+  "versions": {
+    "object_current": 1,
+    "edge_current": 1,
+    "source_record": 1
+  },
+  "rows": {
+    "objects": 64,
+    "edges": 192,
+    "source_records": 256
+  },
+  "corpus_summary_sha256": "15b14a5d4837f4c05eefdb6161bd42c5c39fe4f0a3e6e475cf8525d94f537dd2",
+  "checks": [
+    "exhaustive all-column parity at actual pinned versions; timestamps compared by instant",
+    "exact raw/property/retained UTF-8 text including escapes Unicode and numeric tokens",
+    "independent native typed keys and SQL hash differential",
+    "feed/epoch/delivery references with matching cursors and raw digest",
+    "both typed endpoint directions resolve"
+  ],
+  "elapsed_seconds": 21.945003032684326,
+  "cost": "Existing authorized warehouse; 512 total small input rows across three private tables, bound STRING parameters; no larger scale/new compute; billing dollars unavailable.",
+  "scope": "Synthetic complete-carrier storage only, using three isolated tables with 0.3 field/physical definitions. No property journal events, producer reconstruction/completeness, manifest/recovery/fencing, projection/engine execution, latency/ingest or billion-scale admission."
+}

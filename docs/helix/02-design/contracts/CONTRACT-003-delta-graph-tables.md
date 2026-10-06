@@ -422,3 +422,6 @@ must reject duplicate JSON descriptor members during decoding and establish trus
 descriptor custody, semantic projection validity and policy. This helper proves
 none of those properties; the native-read builder also remains usable independently
 and does not automatically invoke whole-plan validation.
+
+
+[r81 varied native fidelity](../spikes/SPIKE-001-table-layout/out/native/ashlar_varied_fidelity_20261006_r81/summary.json) loads the declared-shape corpus into three private tables with the 0.3 object, edge and raw-record definitions using bound STRING parameters and explicit native casts. Exhaustive all-column comparisons pass for 64 objects, 192 edges and 256 raw records at actual version 1. BIGINT transport strings include signed extremes; timestamp columns compare instants while JSON time tokens remain exact text. Eight property shapes, variable opaque lengths, Unicode/escaping, decimal/exponent/negative-zero tokens and nested retained content survive. Native SQL hash derivation matches all local canonical hashes, raw references/cursors/digests resolve, and both typed endpoint directions close. These complete synthetic envelopes avoid r74's omitted structural fields; no native source reconstruction, journal history, transaction completeness, publication recovery or graph-engine/scale claim follows.

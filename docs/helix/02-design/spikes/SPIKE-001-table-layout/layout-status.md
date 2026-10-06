@@ -72,3 +72,6 @@ Local [read-plan locator checks](out/publication-locator-check.json) now verify 
 
 
 [Varied local corpus](out/varied-corpus/summary.json) now provides 64 nodes/192 edges, eight declared property shapes and 256 complete synthetic raw envelopes. Canonical columns match 0.3 DDL and exact raw-to-carrier parity/typed closure checks pass locally. Native ingestion, producer transaction history and engine execution remain untested; no compute was used.
+
+
+[r81](out/native/ashlar_varied_fidelity_20261006_r81/summary.json) strengthens 0.3 storage fidelity with exhaustive 64-object/192-edge/256-raw-record parity across eight property shapes using bound transport. Native typed identity/hash/reference/endpoint checks pass. Three private tables at version 1; no graph publication, property history, producer or performance/scale admission claim.

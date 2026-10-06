@@ -27,7 +27,8 @@
     "varied_corpus.py": "08c2675da4e1c7f3aa6aa1707658fc1e7606945e66ffd52a0856520162cfaa63",
     "out/varied-corpus/objects.json": "fbe813bf1b5e1806e67f8652ce6e7abb296e0fa7174d7b6efbea2b20698cb949",
     "out/varied-corpus/edges.json": "07ba417c3d4aa2ecea1fff92156593f371298ae3c51d4ffa88b54192107118b2",
-    "out/varied-corpus/source_records.json": "3a86b6ef0a110c59f3da24e9e4fc7412795f3613167d65e7db7a7321146bb838"
+    "out/varied-corpus/source_records.json": "3a86b6ef0a110c59f3da24e9e4fc7412795f3613167d65e7db7a7321146bb838",
+    "native_varied_fidelity_r81.py": "32ac8318837b49dc60ea45b3a63d7e63343250b98f363db2f856db2c050aa9d6"
   },
   "evidence": {
     "ddl": {
@@ -114,6 +115,11 @@
       "path": "out/varied-corpus/summary.json",
       "sha256": "15b14a5d4837f4c05eefdb6161bd42c5c39fe4f0a3e6e475cf8525d94f537dd2",
       "scope": "Local complete synthetic carrier shape only. No real Truss wire/native source reconstruction, property journal events, source transaction completeness, native SQL hash differential, storage compression, scale or graph-engine compatibility evidence. Distribution is declared for stress coverage, not inferred from a real consumer."
+    },
+    "varied_native_fidelity": {
+      "path": "out/native/ashlar_varied_fidelity_20261006_r81/summary.json",
+      "sha256": "dd8f2b2884aa38e6b45a81b1364b9f7116a8215cb1bf9ca73bc5f984ac519084",
+      "scope": "Synthetic complete-carrier storage only, using three isolated tables with 0.3 field/physical definitions. No property journal events, producer reconstruction/completeness, manifest/recovery/fencing, projection/engine execution, latency/ingest or billion-scale admission."
     }
   },
   "design_choices": {
