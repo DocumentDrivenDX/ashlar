@@ -812,3 +812,7 @@ Next pursue a bounded transport/compilation comparison using the same published 
 ### Role isolation integration
 
 The [r373 isolation design](role-write-isolation-design-r373.md) proposes stable canonical UUIDs under a single admitted writer lane. Mandatory per-batch clones are not admitted by measured preparation costs. Authority tokens guard descriptors only; takeover also requires demonstrated prior-worker termination and terminal owned native handles. Unexplained role commits refuse successor publication. The real worker fence remains unqualified; no performance or production profile is approved.
+
+### Complete LC publication reference
+
+The [r376–r377 bridge](lc-full-vector-disposition-r377.md) qualifies complete39.98M20-field equivalence to the previously published experimental range32 state. A private reference now bindsN6/LC5/R2/J2/A3/T2 without advancing source progress. Retain this independent full-sweep cost separately from subsequent incremental publisher clocks; production writer ownership and integrated freshness remain unqualified.
