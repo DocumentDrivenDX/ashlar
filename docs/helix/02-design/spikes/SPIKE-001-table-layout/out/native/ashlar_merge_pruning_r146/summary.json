@@ -1,0 +1,64 @@
+{
+  "state": "Both actual MERGEs and full-carrier/identity/untouched custody checks passed; final query metrics pending",
+  "results": {
+    "control": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.edge_merge_control_r146",
+      "old_version": 0,
+      "new_version": 1,
+      "merge_metrics": {
+        "executionTimeMs": "3291",
+        "materializeSourceTimeMs": "1",
+        "numOutputRows": "100000",
+        "numSourceRows": "100000",
+        "numTargetBytesAdded": "326514458",
+        "numTargetBytesRemoved": "327002104",
+        "numTargetChangeFilesAdded": "0",
+        "numTargetDeletionVectorsAdded": "0",
+        "numTargetDeletionVectorsRemoved": "0",
+        "numTargetDeletionVectorsUpdated": "0",
+        "numTargetFilesAdded": "6",
+        "numTargetFilesRemoved": "16",
+        "numTargetRowsCopied": "0",
+        "numTargetRowsDeleted": "0",
+        "numTargetRowsInserted": "0",
+        "numTargetRowsMatchedDeleted": "0",
+        "numTargetRowsMatchedUpdated": "100000",
+        "numTargetRowsNotMatchedBySourceDeleted": "0",
+        "numTargetRowsNotMatchedBySourceUpdated": "0",
+        "numTargetRowsUpdated": "100000",
+        "rewriteTimeMs": "2037",
+        "scanTimeMs": "1229"
+      }
+    },
+    "candidate": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.edge_merge_candidate_r146",
+      "old_version": 0,
+      "new_version": 1,
+      "merge_metrics": {
+        "executionTimeMs": "5870",
+        "materializeSourceTimeMs": "1697",
+        "numOutputRows": "100000",
+        "numSourceRows": "100000",
+        "numTargetBytesAdded": "326768182",
+        "numTargetBytesRemoved": "327002104",
+        "numTargetChangeFilesAdded": "0",
+        "numTargetDeletionVectorsAdded": "0",
+        "numTargetDeletionVectorsRemoved": "0",
+        "numTargetDeletionVectorsUpdated": "0",
+        "numTargetFilesAdded": "16",
+        "numTargetFilesRemoved": "16",
+        "numTargetRowsCopied": "0",
+        "numTargetRowsDeleted": "0",
+        "numTargetRowsInserted": "0",
+        "numTargetRowsMatchedDeleted": "0",
+        "numTargetRowsMatchedUpdated": "100000",
+        "numTargetRowsNotMatchedBySourceDeleted": "0",
+        "numTargetRowsNotMatchedBySourceUpdated": "0",
+        "numTargetRowsUpdated": "100000",
+        "rewriteTimeMs": "2660",
+        "scanTimeMs": "1488"
+      }
+    }
+  },
+  "qualification": "One sequential pair, synthetic property105 hot set. Both inherit E22 skipping statistics and use ON eligibility. Candidate adds only a16-way hash-range source repartition hint; no guarantee that optimizer retains it or writer preserves source ordering. No insert clauses. Full affected20-field values exact; unchanged19.9M row custody relies on stable schema and immutable Delta files. Canonical E23 and publication untouched. No publication p95 or production mixed-revision claim."
+}

@@ -592,3 +592,34 @@ therefore verifies acceptance/configuration and exact reads, not all timeout pat
 No table writes/new compute/publication; canonical E23/R17/J19/r139-b1 unchanged.
 Next use bounded correlated reads for post-MERGE distribution experiments. Keep
 native singleton, publication/rate, concurrency, cold-data and1B/5B gates open.
+
+
+Post-MERGE source-distribution control: [r146 final audit](out/native/ashlar_merge_pruning_r146/audited-summary.json)
+compares two original E22 clones, same100k stage r139 and inherited eligibility
+statistics/ON predicates. Candidate adds REPARTITION_BY_RANGE(16,lookup_hash) to
+the source SELECT only; no assertion that the writer preserves source ordering.
+Both native MERGEs pass exact20-field affected values,100k updates/zero insert,
+delete,copied rows,20M global identity and19.9M untouched immutable row custody.
+No canonical or publication write. Custody assumes stable schema/immutable files.
+
+Control MERGE caller4.021s/engine3.568s; hinted6.680s/6.127s. Actual changed-data
+file groups6 versus16 (100k live rows each). Min/max hash spans: control0.490–
+0.99996 of256-bit hash space, candidate0.99901–0.99996; this is measured range
+coverage, not proof of internal sort ordering or hint preservation. All candidate
+ranges remain nearly full-space and overlap, so source hint does not deliver the
+intended selective file ranges in this experiment. Do not promote it to owned
+publisher templates.
+
+Two separately bounded correlated read children each pass30 exact pinned carriers
+within60s process limits. Control p95 engine109ms/caller386.69ms,8 files; candidate
+105ms/390.18ms,18 files, no remote reads, final result-uncached. Both gates missed;
+one sequential pair cannot establish timing causality or general read distributions.
+Full exact output validation3.542/3.453s and untouched custody13.024/13.083s are
+separate diagnostic costs, not publication measurements. No source/burst/sustained
+rate or billion-scale admission. [Cleanup](out/native/ashlar_merge_pruning_r146/cleanup/summary.json)
+checks recorded latest MERGE statement identity/version and drops only both owned
+clones. Canonical E23/R17/J19/r139-b1 unchanged; platform retention/no VACUUM.
+Next compare physical key/maintenance choices with explicit ingest/read tradeoffs;
+source partition hints alone did not solve post-MERGE file overlap. Retain the
+chosen UC Delta architecture and current agreed gates; all full-goal obligations
+remain open.
