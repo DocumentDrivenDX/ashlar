@@ -1390,7 +1390,8 @@
     "normalized_apply_sql_r276.py": "30cf7087873cdeb2aabca3797ea2948159e7f10fb58e86174d6d5505febb2d79",
     "large-mixed-publication-audit-plan.md": "dda409cb44849b3c1039346b6025fead2437e3b92b3566c754272011b423f7e0",
     "mixed_changed_oracle_r277.py": "839ba673defd4cc60d5c784fec19a6892f45ec7565d23b5b090326ca76296113",
-    "out/mixed-changed-oracle-r277.json": "4712aded2d062b63886365066927e0dec8e22633619f585d589a4e31cd5781f1"
+    "out/mixed-changed-oracle-r277.json": "4712aded2d062b63886365066927e0dec8e22633619f585d589a4e31cd5781f1",
+    "growth_receipt_audit_r278.py": "603369174d69539d81864744ff43aa4915c52cd79a1037330b21aac689f4ebf7"
   },
   "evidence": {
     "ddl": {
