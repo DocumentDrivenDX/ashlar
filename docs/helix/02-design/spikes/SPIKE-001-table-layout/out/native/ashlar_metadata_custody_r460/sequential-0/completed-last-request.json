@@ -1,0 +1,1 @@
+{"label": "schema-input-current_replacement", "sql": "DESCRIBE TABLE client_dev.ashlar_entropy_20261006_r86.normalized_current_replacement_r433", "parameters": null, "correlation": "/* ashlar sequential-0 schema-input-current_replacement */", "started_epoch": 1791404518.405354, "state": "returned", "query_id": "01f1c28c-bf37-1af7-bfd0-4acbd671de02"}

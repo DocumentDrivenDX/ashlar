@@ -1,0 +1,19 @@
+{
+  "state": "Stopped; inspect durable handles without replay",
+  "source_sha256": "84afbc64d22377ea4edb8aa1a6a1ec3b50d81365fa4dd13c5c41105ab0d5e6b4",
+  "phases": {},
+  "bounds": {
+    "read_bytes": 10000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 180
+  },
+  "qualification": "UUID/schema/properties/head custody checks only; do not fence writers or establish atomic cross-role snapshot.",
+  "error": "('base-object_current', 'properties')",
+  "terminal_disposition": "All4native statements terminal; driver metadata map ordering caused local assertion, no table change",
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "state": "Both stopped/corrected native receipts and custody comparison audited",
+  "reports": [
+    {
+      "revision": 458,
+      "statements": 4,
+      "costs": {
+        "read_bytes": 0,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "source_sha256": "5642008bf1c64487432d305ea958e9b7608cf8660a1c087b04a848cde0ad4cef"
+    },
+    {
+      "revision": 460,
+      "statements": 65,
+      "costs": {
+        "read_bytes": 0,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "source_sha256": "c7dddc1d7163901902329db6472619e9da7da160ffd17c1ffd19def8b9545555"
+    }
+  ]
+}

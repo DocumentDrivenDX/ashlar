@@ -1,0 +1,1 @@
+{"label": "schema-base-object_current", "sql": "DESCRIBE TABLE client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236", "parameters": null, "correlation": "/* ashlar sequential-0 schema-base-object_current */", "started_epoch": 1791404464.565367, "state": "returned", "query_id": "01f1c28c-9f21-1262-aa48-dba64ec1c9c2"}
