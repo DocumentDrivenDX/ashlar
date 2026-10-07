@@ -1,0 +1,2263 @@
+{
+  "state": "Complete2M-node prefix and all raw/history fields verified",
+  "planned_graph": {
+    "nodes": 8000000,
+    "edges": 40000000
+  },
+  "slice": {
+    "start": 1000000,
+    "end": 2000000
+  },
+  "tables": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "version": 4,
+      "rows": 2000000
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_source_record_r236",
+      "id": "7ab4ec7d-7a78-4e5e-a6b3-061b64bae1f5",
+      "version": 4,
+      "rows": 2000000
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_property_journal_r236",
+      "id": "e0a3e354-96b3-4e31-b773-e8c928fc2fca",
+      "version": 4,
+      "rows": 8000000
+    }
+  },
+  "versions": {
+    "object_current": 4,
+    "source_record": 4,
+    "property_journal": 4
+  },
+  "checks": {
+    "prior-object_current": {
+      "rows": 1000000,
+      "ranges": 10,
+      "version": 3,
+      "all_field_digests": [
+        [
+          "0",
+          "100000",
+          "d4090621e9c1c29373fbb716366c027a7b56003dd914c870e91168b1393453c3"
+        ],
+        [
+          "1",
+          "100000",
+          "1a7180e278b3d2b9176e95c7e74416e5baf9e43c6cdafc62a1aba7b818e6801a"
+        ],
+        [
+          "2",
+          "100000",
+          "3d3cc2fedba3cf238040d0eb61baa9c031772b06c7c7863428b07f4c13e42ee0"
+        ],
+        [
+          "3",
+          "100000",
+          "89b128fa452310e5f7eb0899f620d67b8b605ebc580e892fdfc120b9f1956be8"
+        ],
+        [
+          "4",
+          "100000",
+          "e340c3379c9379423ecfba5596a989f5749d2df9a68e6b76f20c1a847128034b"
+        ],
+        [
+          "5",
+          "100000",
+          "2c00aa89bf0c05a618a48cdb8cb061fdefa3af3701568f64676a7f53beccc8b9"
+        ],
+        [
+          "6",
+          "100000",
+          "405ad115009fae35ad30836395defd00db8b14f56cbfb1dfcc6a35afc206ef00"
+        ],
+        [
+          "7",
+          "100000",
+          "934bc5d4caf0f1398b85a0e7503cc33824881bf425114cc95b5d00080745835f"
+        ],
+        [
+          "8",
+          "100000",
+          "43d31e91e7c852ab4e1235913efcb8a1ad8c68735ad01db804d67422dce2ce45"
+        ],
+        [
+          "9",
+          "100000",
+          "7631c32ba38d07f12421d8c913fc8426739315fad08d839db80fc9f6ca17af6f"
+        ]
+      ],
+      "invalid_bucket_absent": true
+    },
+    "prior-source_record": {
+      "rows": 1000000,
+      "ranges": 10,
+      "version": 3,
+      "all_field_digests": [
+        [
+          "0",
+          "100000",
+          "599c2187b44f4569cbe27274e8491cad1c34f77ea4608fd878b9fe11fb03ea6e"
+        ],
+        [
+          "1",
+          "100000",
+          "339f2f049260e4710f0fe5c7c49bbd33d520bf39e90d66a704c0c096566200ec"
+        ],
+        [
+          "2",
+          "100000",
+          "f723751c23e9b048d1e783dbc4150dfbfcf2c91695bf8c32a8fa340e2bc1fe97"
+        ],
+        [
+          "3",
+          "100000",
+          "a2a481b450f14b629faca16b7e754c4fd9684c9664172e1cd397aa11c96e3d0a"
+        ],
+        [
+          "4",
+          "100000",
+          "6a007b72aa800b02df52a75635ff0fad8da6624adb5c66bc8cdeb6b974cea028"
+        ],
+        [
+          "5",
+          "100000",
+          "8136bc7a67bb67a5eb92b505c658a61ae56e750072d222186d8ccb2bc449e893"
+        ],
+        [
+          "6",
+          "100000",
+          "eb55e65a457ea5693444a7ada2a34e886433ddeff757caa718e8784a74aef5ac"
+        ],
+        [
+          "7",
+          "100000",
+          "bea7e0718b7f9c45aed28899a18291d0d4f9ce419b2da1a254f35a0b2796b825"
+        ],
+        [
+          "8",
+          "100000",
+          "5069f2ea9569462f66ccf6ce84b8d1a46601fc76843451f04a77e76d296a1992"
+        ],
+        [
+          "9",
+          "100000",
+          "0b010beca72adee1b901bee5b4b5d9b2b8321e411a7982acaeac394c80fcecbb"
+        ]
+      ],
+      "invalid_bucket_absent": true
+    },
+    "prior-property_journal": {
+      "rows": 4000000,
+      "ranges": 10,
+      "version": 3,
+      "all_field_digests": [
+        [
+          "0",
+          "400000",
+          "0654cc939d721c7183f37121815e36b9dec0bb6d795498e7b48a77c9a44f0cae"
+        ],
+        [
+          "1",
+          "400000",
+          "3baa7e248a24db8884d66cffce0405f0e400b860e7f16e344d381776e52d8138"
+        ],
+        [
+          "2",
+          "400000",
+          "df4f1806708e81a98422f9b8bb19e3a5b630eb79a4c5e806e9e5616a846a992f"
+        ],
+        [
+          "3",
+          "400000",
+          "e0167c352328b204c9f80c5250d932233b4217a67498a55ac0e6a3909a888201"
+        ],
+        [
+          "4",
+          "400000",
+          "cad38e41386273e19867f145190f06e16a0a7d8cef0d588eb25192551a7c907e"
+        ],
+        [
+          "5",
+          "400000",
+          "28eb9a59007839f71c717146a3df2ea488ab5b9be3d01de3f8b470071ffd36d8"
+        ],
+        [
+          "6",
+          "400000",
+          "f012d56f45ecc81f48cb82aa5e6700d10678b9ab839b211514202c3ea1d62016"
+        ],
+        [
+          "7",
+          "400000",
+          "cfe50ab7f70b80defd1b0541f483f9338a3e0f7d84480e84893ac30eb15e5395"
+        ],
+        [
+          "8",
+          "400000",
+          "b64d6466228cba6fb13a42b42e6a438c976bb9b7db1093f207f9a28c5fe2e37c"
+        ],
+        [
+          "9",
+          "400000",
+          "452edd4ee808bdeabf1cae474d0e87b21068a71c2d529920e4e67fd71a823003"
+        ]
+      ],
+      "invalid_bucket_absent": true
+    },
+    "complete-object_current": {
+      "rows": 2000000,
+      "ranges": 20,
+      "version": 4,
+      "all_field_digests": [
+        [
+          "0",
+          "100000",
+          "d4090621e9c1c29373fbb716366c027a7b56003dd914c870e91168b1393453c3"
+        ],
+        [
+          "1",
+          "100000",
+          "1a7180e278b3d2b9176e95c7e74416e5baf9e43c6cdafc62a1aba7b818e6801a"
+        ],
+        [
+          "2",
+          "100000",
+          "3d3cc2fedba3cf238040d0eb61baa9c031772b06c7c7863428b07f4c13e42ee0"
+        ],
+        [
+          "3",
+          "100000",
+          "89b128fa452310e5f7eb0899f620d67b8b605ebc580e892fdfc120b9f1956be8"
+        ],
+        [
+          "4",
+          "100000",
+          "e340c3379c9379423ecfba5596a989f5749d2df9a68e6b76f20c1a847128034b"
+        ],
+        [
+          "5",
+          "100000",
+          "2c00aa89bf0c05a618a48cdb8cb061fdefa3af3701568f64676a7f53beccc8b9"
+        ],
+        [
+          "6",
+          "100000",
+          "405ad115009fae35ad30836395defd00db8b14f56cbfb1dfcc6a35afc206ef00"
+        ],
+        [
+          "7",
+          "100000",
+          "934bc5d4caf0f1398b85a0e7503cc33824881bf425114cc95b5d00080745835f"
+        ],
+        [
+          "8",
+          "100000",
+          "43d31e91e7c852ab4e1235913efcb8a1ad8c68735ad01db804d67422dce2ce45"
+        ],
+        [
+          "9",
+          "100000",
+          "7631c32ba38d07f12421d8c913fc8426739315fad08d839db80fc9f6ca17af6f"
+        ],
+        [
+          "10",
+          "100000",
+          "26fe72e42172c1cba2201e5172b2e9d44153bb71c5d0307178863eb2b3d3986b"
+        ],
+        [
+          "11",
+          "100000",
+          "3114cb64a33fae6793b0b699ee62a2357c31166628838abe71685a5a734c1067"
+        ],
+        [
+          "12",
+          "100000",
+          "7dc93c77fb642828da0d1b16b654cb913476f6dc488cf593c8d19039ee3da596"
+        ],
+        [
+          "13",
+          "100000",
+          "c83d534892e7cb4d25b45e85076bc98c2838a150af9643a857d254a007d14aa6"
+        ],
+        [
+          "14",
+          "100000",
+          "918b10e05b1c33ac0f22d8803f91f4fd0d5e80f81c5a4730bc87e6db41a16211"
+        ],
+        [
+          "15",
+          "100000",
+          "493cad54d7d52e93147faff30b00162cb4151de1541cb06144f42d58d6b862e7"
+        ],
+        [
+          "16",
+          "100000",
+          "9f93db6ef64939712430341053498149a2e522e0b6082b30aebd9fb255bae294"
+        ],
+        [
+          "17",
+          "100000",
+          "bebdb28be048cbc020f8f4f584cf90c46aa75e715edf924e10acf2d0c8ca8b8f"
+        ],
+        [
+          "18",
+          "100000",
+          "ba0b568eac543e4d31382e7360bf8547bd8af57ef6d94a0930d1a62456cd0140"
+        ],
+        [
+          "19",
+          "100000",
+          "5ca7911e0a2b5e0fec0168389785c31aab5562ad0bc531d49edcaf62a8bfd0bf"
+        ]
+      ],
+      "invalid_bucket_absent": true
+    },
+    "complete-source_record": {
+      "rows": 2000000,
+      "ranges": 20,
+      "version": 4,
+      "all_field_digests": [
+        [
+          "0",
+          "100000",
+          "599c2187b44f4569cbe27274e8491cad1c34f77ea4608fd878b9fe11fb03ea6e"
+        ],
+        [
+          "1",
+          "100000",
+          "339f2f049260e4710f0fe5c7c49bbd33d520bf39e90d66a704c0c096566200ec"
+        ],
+        [
+          "2",
+          "100000",
+          "f723751c23e9b048d1e783dbc4150dfbfcf2c91695bf8c32a8fa340e2bc1fe97"
+        ],
+        [
+          "3",
+          "100000",
+          "a2a481b450f14b629faca16b7e754c4fd9684c9664172e1cd397aa11c96e3d0a"
+        ],
+        [
+          "4",
+          "100000",
+          "6a007b72aa800b02df52a75635ff0fad8da6624adb5c66bc8cdeb6b974cea028"
+        ],
+        [
+          "5",
+          "100000",
+          "8136bc7a67bb67a5eb92b505c658a61ae56e750072d222186d8ccb2bc449e893"
+        ],
+        [
+          "6",
+          "100000",
+          "eb55e65a457ea5693444a7ada2a34e886433ddeff757caa718e8784a74aef5ac"
+        ],
+        [
+          "7",
+          "100000",
+          "bea7e0718b7f9c45aed28899a18291d0d4f9ce419b2da1a254f35a0b2796b825"
+        ],
+        [
+          "8",
+          "100000",
+          "5069f2ea9569462f66ccf6ce84b8d1a46601fc76843451f04a77e76d296a1992"
+        ],
+        [
+          "9",
+          "100000",
+          "0b010beca72adee1b901bee5b4b5d9b2b8321e411a7982acaeac394c80fcecbb"
+        ],
+        [
+          "10",
+          "100000",
+          "bdf98266b3b964a746ea82ea6ac972bfb7c05b16cfb125cf7c51d39b414c716f"
+        ],
+        [
+          "11",
+          "100000",
+          "9eda261348f6676186708727f44c52e69eee56226aab6298a0e4df835e36ddd6"
+        ],
+        [
+          "12",
+          "100000",
+          "e2f518d2778ef4c1d2215542774d5e6ec4335cce6f5ba91e9b1c1b8d84c1d18f"
+        ],
+        [
+          "13",
+          "100000",
+          "96632a9a07e74f0a10ac60cd2d7685d3d59cba8d217c8dad2c2e9912b0667d7c"
+        ],
+        [
+          "14",
+          "100000",
+          "5afcdb40dd2b3b160779c5df36caaeab01dec19bab1a56116a5584786bbc09f3"
+        ],
+        [
+          "15",
+          "100000",
+          "d5b2c4ae4ec8b2885bd3b5c8d97a36020777d5cd10f8c015655e155ffc5b2f49"
+        ],
+        [
+          "16",
+          "100000",
+          "5fe680a8d871b85e0a050f7d5dd7cd2df61f48c3345b7c5b0bf4c2f3dc26fab0"
+        ],
+        [
+          "17",
+          "100000",
+          "ef661eeb842ea71377244a61db01d4d81b81975653b1564ee554154841650bc5"
+        ],
+        [
+          "18",
+          "100000",
+          "dcbcc150c1221b65699eb838e3653c24d15abe1632ceeb2f32b358f02ca6fb94"
+        ],
+        [
+          "19",
+          "100000",
+          "12c89fae3fb21e6acb3c113398bc599c65c3be51962056cc8444ff3e2f40027e"
+        ]
+      ],
+      "invalid_bucket_absent": true
+    },
+    "complete-property_journal": {
+      "rows": 8000000,
+      "ranges": 20,
+      "version": 4,
+      "all_field_digests": [
+        [
+          "0",
+          "400000",
+          "0654cc939d721c7183f37121815e36b9dec0bb6d795498e7b48a77c9a44f0cae"
+        ],
+        [
+          "1",
+          "400000",
+          "3baa7e248a24db8884d66cffce0405f0e400b860e7f16e344d381776e52d8138"
+        ],
+        [
+          "2",
+          "400000",
+          "df4f1806708e81a98422f9b8bb19e3a5b630eb79a4c5e806e9e5616a846a992f"
+        ],
+        [
+          "3",
+          "400000",
+          "e0167c352328b204c9f80c5250d932233b4217a67498a55ac0e6a3909a888201"
+        ],
+        [
+          "4",
+          "400000",
+          "cad38e41386273e19867f145190f06e16a0a7d8cef0d588eb25192551a7c907e"
+        ],
+        [
+          "5",
+          "400000",
+          "28eb9a59007839f71c717146a3df2ea488ab5b9be3d01de3f8b470071ffd36d8"
+        ],
+        [
+          "6",
+          "400000",
+          "f012d56f45ecc81f48cb82aa5e6700d10678b9ab839b211514202c3ea1d62016"
+        ],
+        [
+          "7",
+          "400000",
+          "cfe50ab7f70b80defd1b0541f483f9338a3e0f7d84480e84893ac30eb15e5395"
+        ],
+        [
+          "8",
+          "400000",
+          "b64d6466228cba6fb13a42b42e6a438c976bb9b7db1093f207f9a28c5fe2e37c"
+        ],
+        [
+          "9",
+          "400000",
+          "452edd4ee808bdeabf1cae474d0e87b21068a71c2d529920e4e67fd71a823003"
+        ],
+        [
+          "10",
+          "400000",
+          "492198786dc16535690e99a3bd2e52d79749a04871509eca1925fd8683160290"
+        ],
+        [
+          "11",
+          "400000",
+          "033b6d09d7f693d3173cda7dd1b908e401ba6346c16e3f06f5f398ae09f72752"
+        ],
+        [
+          "12",
+          "400000",
+          "27a811b63227a16809858779858974e2f9e3c3c08294c02ab069a696aecc0661"
+        ],
+        [
+          "13",
+          "400000",
+          "964b337eada2613f019b30ad8bd8aa065e4d94ab29e6a66232c8ae9e5d3d7d19"
+        ],
+        [
+          "14",
+          "400000",
+          "2f9be77617c77ad16be62fbecf96330ff92617692f380261c651d6f8d5621d1f"
+        ],
+        [
+          "15",
+          "400000",
+          "79fef64226c8d341ab5b2302c9241d1ffa0ecdafaa882f5edbd995588d75d522"
+        ],
+        [
+          "16",
+          "400000",
+          "32c9c905a3bdc412cf1e950a71a6c475d8388e62ff9035cdcfd3c8338ea15b32"
+        ],
+        [
+          "17",
+          "400000",
+          "f0e2c9fdc9cded9d66d082ceae7a2d36021e1f1ba7f034c9124553471d37c750"
+        ],
+        [
+          "18",
+          "400000",
+          "0c84ffd9d29b0e42e6906709ee9f2b2522ef7fc91dadc09b55ba50f2f6bf83d5"
+        ],
+        [
+          "19",
+          "400000",
+          "7d3bc9cb59b66eec6dbecd89f462f1394baad008cdb869482d2e3dbe1abfd625"
+        ]
+      ],
+      "invalid_bucket_absent": true
+    }
+  },
+  "bounds": {
+    "read_bytes": 20000000000,
+    "write_bytes": 5000000000,
+    "statement_s": 180,
+    "slice_wall_s": 900
+  },
+  "oracle": [
+    {
+      "start": 0,
+      "end": 100000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "d4090621e9c1c29373fbb716366c027a7b56003dd914c870e91168b1393453c3"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "599c2187b44f4569cbe27274e8491cad1c34f77ea4608fd878b9fe11fb03ea6e"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "0654cc939d721c7183f37121815e36b9dec0bb6d795498e7b48a77c9a44f0cae"
+        }
+      }
+    },
+    {
+      "start": 100000,
+      "end": 200000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "1a7180e278b3d2b9176e95c7e74416e5baf9e43c6cdafc62a1aba7b818e6801a"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "339f2f049260e4710f0fe5c7c49bbd33d520bf39e90d66a704c0c096566200ec"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "3baa7e248a24db8884d66cffce0405f0e400b860e7f16e344d381776e52d8138"
+        }
+      }
+    },
+    {
+      "start": 200000,
+      "end": 300000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "3d3cc2fedba3cf238040d0eb61baa9c031772b06c7c7863428b07f4c13e42ee0"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "f723751c23e9b048d1e783dbc4150dfbfcf2c91695bf8c32a8fa340e2bc1fe97"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "df4f1806708e81a98422f9b8bb19e3a5b630eb79a4c5e806e9e5616a846a992f"
+        }
+      }
+    },
+    {
+      "start": 300000,
+      "end": 400000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "89b128fa452310e5f7eb0899f620d67b8b605ebc580e892fdfc120b9f1956be8"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "a2a481b450f14b629faca16b7e754c4fd9684c9664172e1cd397aa11c96e3d0a"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "e0167c352328b204c9f80c5250d932233b4217a67498a55ac0e6a3909a888201"
+        }
+      }
+    },
+    {
+      "start": 400000,
+      "end": 500000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "e340c3379c9379423ecfba5596a989f5749d2df9a68e6b76f20c1a847128034b"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "6a007b72aa800b02df52a75635ff0fad8da6624adb5c66bc8cdeb6b974cea028"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "cad38e41386273e19867f145190f06e16a0a7d8cef0d588eb25192551a7c907e"
+        }
+      }
+    },
+    {
+      "start": 500000,
+      "end": 600000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "2c00aa89bf0c05a618a48cdb8cb061fdefa3af3701568f64676a7f53beccc8b9"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "8136bc7a67bb67a5eb92b505c658a61ae56e750072d222186d8ccb2bc449e893"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "28eb9a59007839f71c717146a3df2ea488ab5b9be3d01de3f8b470071ffd36d8"
+        }
+      }
+    },
+    {
+      "start": 600000,
+      "end": 700000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "405ad115009fae35ad30836395defd00db8b14f56cbfb1dfcc6a35afc206ef00"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "eb55e65a457ea5693444a7ada2a34e886433ddeff757caa718e8784a74aef5ac"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "f012d56f45ecc81f48cb82aa5e6700d10678b9ab839b211514202c3ea1d62016"
+        }
+      }
+    },
+    {
+      "start": 700000,
+      "end": 800000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "934bc5d4caf0f1398b85a0e7503cc33824881bf425114cc95b5d00080745835f"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "bea7e0718b7f9c45aed28899a18291d0d4f9ce419b2da1a254f35a0b2796b825"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "cfe50ab7f70b80defd1b0541f483f9338a3e0f7d84480e84893ac30eb15e5395"
+        }
+      }
+    },
+    {
+      "start": 800000,
+      "end": 900000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "43d31e91e7c852ab4e1235913efcb8a1ad8c68735ad01db804d67422dce2ce45"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "5069f2ea9569462f66ccf6ce84b8d1a46601fc76843451f04a77e76d296a1992"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "b64d6466228cba6fb13a42b42e6a438c976bb9b7db1093f207f9a28c5fe2e37c"
+        }
+      }
+    },
+    {
+      "start": 900000,
+      "end": 1000000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "7631c32ba38d07f12421d8c913fc8426739315fad08d839db80fc9f6ca17af6f"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "0b010beca72adee1b901bee5b4b5d9b2b8321e411a7982acaeac394c80fcecbb"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "452edd4ee808bdeabf1cae474d0e87b21068a71c2d529920e4e67fd71a823003"
+        }
+      }
+    },
+    {
+      "start": 1000000,
+      "end": 1100000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "26fe72e42172c1cba2201e5172b2e9d44153bb71c5d0307178863eb2b3d3986b"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "bdf98266b3b964a746ea82ea6ac972bfb7c05b16cfb125cf7c51d39b414c716f"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "492198786dc16535690e99a3bd2e52d79749a04871509eca1925fd8683160290"
+        }
+      }
+    },
+    {
+      "start": 1100000,
+      "end": 1200000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "3114cb64a33fae6793b0b699ee62a2357c31166628838abe71685a5a734c1067"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "9eda261348f6676186708727f44c52e69eee56226aab6298a0e4df835e36ddd6"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "033b6d09d7f693d3173cda7dd1b908e401ba6346c16e3f06f5f398ae09f72752"
+        }
+      }
+    },
+    {
+      "start": 1200000,
+      "end": 1300000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "7dc93c77fb642828da0d1b16b654cb913476f6dc488cf593c8d19039ee3da596"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "e2f518d2778ef4c1d2215542774d5e6ec4335cce6f5ba91e9b1c1b8d84c1d18f"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "27a811b63227a16809858779858974e2f9e3c3c08294c02ab069a696aecc0661"
+        }
+      }
+    },
+    {
+      "start": 1300000,
+      "end": 1400000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "c83d534892e7cb4d25b45e85076bc98c2838a150af9643a857d254a007d14aa6"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "96632a9a07e74f0a10ac60cd2d7685d3d59cba8d217c8dad2c2e9912b0667d7c"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "964b337eada2613f019b30ad8bd8aa065e4d94ab29e6a66232c8ae9e5d3d7d19"
+        }
+      }
+    },
+    {
+      "start": 1400000,
+      "end": 1500000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "918b10e05b1c33ac0f22d8803f91f4fd0d5e80f81c5a4730bc87e6db41a16211"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "5afcdb40dd2b3b160779c5df36caaeab01dec19bab1a56116a5584786bbc09f3"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "2f9be77617c77ad16be62fbecf96330ff92617692f380261c651d6f8d5621d1f"
+        }
+      }
+    },
+    {
+      "start": 1500000,
+      "end": 1600000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "493cad54d7d52e93147faff30b00162cb4151de1541cb06144f42d58d6b862e7"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "d5b2c4ae4ec8b2885bd3b5c8d97a36020777d5cd10f8c015655e155ffc5b2f49"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "79fef64226c8d341ab5b2302c9241d1ffa0ecdafaa882f5edbd995588d75d522"
+        }
+      }
+    },
+    {
+      "start": 1600000,
+      "end": 1700000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "9f93db6ef64939712430341053498149a2e522e0b6082b30aebd9fb255bae294"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "5fe680a8d871b85e0a050f7d5dd7cd2df61f48c3345b7c5b0bf4c2f3dc26fab0"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "32c9c905a3bdc412cf1e950a71a6c475d8388e62ff9035cdcfd3c8338ea15b32"
+        }
+      }
+    },
+    {
+      "start": 1700000,
+      "end": 1800000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "bebdb28be048cbc020f8f4f584cf90c46aa75e715edf924e10acf2d0c8ca8b8f"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "ef661eeb842ea71377244a61db01d4d81b81975653b1564ee554154841650bc5"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "f0e2c9fdc9cded9d66d082ceae7a2d36021e1f1ba7f034c9124553471d37c750"
+        }
+      }
+    },
+    {
+      "start": 1800000,
+      "end": 1900000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "ba0b568eac543e4d31382e7360bf8547bd8af57ef6d94a0930d1a62456cd0140"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "dcbcc150c1221b65699eb838e3653c24d15abe1632ceeb2f32b358f02ca6fb94"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "0c84ffd9d29b0e42e6906709ee9f2b2522ef7fc91dadc09b55ba50f2f6bf83d5"
+        }
+      }
+    },
+    {
+      "start": 1900000,
+      "end": 2000000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "5ca7911e0a2b5e0fec0168389785c31aab5562ad0bc531d49edcaf62a8bfd0bf"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "12c89fae3fb21e6acb3c113398bc599c65c3be51962056cc8444ff3e2f40027e"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "7d3bc9cb59b66eec6dbecd89f462f1394baad008cdb869482d2e3dbe1abfd625"
+        }
+      }
+    }
+  ],
+  "oracle_s": 157.70333779199999,
+  "costs": {
+    "read_bytes": 6250204179,
+    "write_remote_bytes": 2343387082,
+    "spill_to_disk_bytes": 0
+  },
+  "commits": {
+    "object_current": {
+      "version": "4",
+      "timestamp": "2026-10-07T08:21:45.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c228-1af2-17a8-af4b-345d7bb43736",
+      "clusterId": null,
+      "readVersion": "3",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"16\",\"numOutputRows\":\"1000000\",\"numOutputBytes\":\"795611314\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    },
+    "source_record": {
+      "version": "4",
+      "timestamp": "2026-10-07T08:22:15.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c228-2c6e-1851-a80b-28e8c92283d1",
+      "clusterId": null,
+      "readVersion": "3",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"16\",\"numOutputRows\":\"1000000\",\"numOutputBytes\":\"817003216\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    },
+    "property_journal": {
+      "version": "4",
+      "timestamp": "2026-10-07T08:22:47.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c228-3f94-1ca4-8e89-f9a64208f2b9",
+      "clusterId": null,
+      "readVersion": "3",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"16\",\"numOutputRows\":\"4000000\",\"numOutputBytes\":\"730772552\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    }
+  },
+  "active_details": {
+    "object_current": {
+      "format": "delta",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "name": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/6911f0c1-ff51-4c31-9fb3-fd021341c7f9",
+      "createdAt": "2026-10-07T07:33:41.623Z",
+      "lastModified": "2026-10-07T08:21:45.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"lookup_hash\"]",
+      "numFiles": "25",
+      "sizeInBytes": "1592881570",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"6911f0c1-ff51-4c31-9fb3-fd021341c7f9\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-91f5ac17-af2a-44cc-9dad-4a6247ec5fc5\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-d8ae258d-f982-4f0e-9c56-3b1aacb0086f\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    },
+    "source_record": {
+      "format": "delta",
+      "id": "7ab4ec7d-7a78-4e5e-a6b3-061b64bae1f5",
+      "name": "client_dev.ashlar_entropy_20261006_r86.growth_source_record_r236",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/6989678a-78b5-4d00-89ca-ed4da05fe71f",
+      "createdAt": "2026-10-07T07:34:10.353Z",
+      "lastModified": "2026-10-07T08:22:15.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"delivery_id\"]",
+      "numFiles": "25",
+      "sizeInBytes": "1639872192",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(delivery_id),lower(delivery_id)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"6989678a-78b5-4d00-89ca-ed4da05fe71f\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-ca88cc03-2f70-402d-abeb-3cae6bec81a9\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-5680420d-181c-4a63-b6a3-6ef0492fde43\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    },
+    "property_journal": {
+      "format": "delta",
+      "id": "e0a3e354-96b3-4e31-b773-e8c928fc2fca",
+      "name": "client_dev.ashlar_entropy_20261006_r86.growth_property_journal_r236",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/568da0d5-71c9-470e-9721-1e76667912ca",
+      "createdAt": "2026-10-07T07:34:36.835Z",
+      "lastModified": "2026-10-07T08:22:47.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"source_delivery_id\"]",
+      "numFiles": "25",
+      "sizeInBytes": "1463206152",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_delivery_id),lower(source_delivery_id)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"568da0d5-71c9-470e-9721-1e76667912ca\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-86418cb5-b52c-4177-965f-b9bc394c8780\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-ac25b832-2983-407b-8fe5-e26692c6e9c0\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    }
+  },
+  "initial_table_details": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "version": 3,
+      "rows": 1000000
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_source_record_r236",
+      "id": "7ab4ec7d-7a78-4e5e-a6b3-061b64bae1f5",
+      "version": 3,
+      "rows": 1000000
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_property_journal_r236",
+      "id": "e0a3e354-96b3-4e31-b773-e8c928fc2fca",
+      "version": 3,
+      "rows": 4000000
+    }
+  },
+  "slice_wall_s": 288.93448179200004,
+  "qualification": "1M append with prior1M and final2M complete grouped100k-range independent digests; all rows assigned including invalid membership and current-ID uniqueness. No edges, graph manifest, real source authority, sustained ingestion, controlled cold/read target or billion-scale admission.",
+  "cache_audit": {
+    "cached_queries": [
+      {
+        "label": "prior-grouped-object_current",
+        "statement_id": "01f1c228-0d3d-1f4f-a9c7-46d6e22213a7"
+      },
+      {
+        "label": "prior-grouped-source_record",
+        "statement_id": "01f1c228-12f3-1000-9589-3d0b616b3fce"
+      },
+      {
+        "label": "prior-grouped-property_journal",
+        "statement_id": "01f1c228-1858-1401-8b64-cb5cef230eb3"
+      }
+    ],
+    "qualification": "Pinned prior-prefix cache reuse valid for correctness; no fresh-scan/throughput claim."
+  },
+  "complete_group_metrics": {
+    "complete-grouped-object_current": {
+      "caller_ms": 10598.797375000004,
+      "total_time_ms": 10168,
+      "read_bytes": 1599627967,
+      "rows_produced_count": 20,
+      "compilation_time_ms": 226,
+      "execution_time_ms": 9905,
+      "read_remote_bytes": 799709605,
+      "write_remote_bytes": 0,
+      "read_cache_bytes": 799918362,
+      "spill_to_disk_bytes": 0,
+      "task_total_time_ms": 61197,
+      "read_files_count": 25,
+      "read_partitions_count": 0,
+      "photon_total_time_ms": 61006,
+      "rows_read_count": 2000000,
+      "result_fetch_time_ms": 137,
+      "network_sent_bytes": 0,
+      "result_from_cache": false,
+      "pruned_bytes": 0,
+      "pruned_files_count": 0,
+      "query_compilation_start_timestamp": 1791361310805,
+      "metadata_time_ms": 0,
+      "query_execution_time_ms": 10131,
+      "bytes_read_from_cache_percentage": 50.0,
+      "write_remote_rows": 0,
+      "write_remote_files": 0,
+      "queue_end_time_ms": 1791361310775,
+      "read_files_bytes": 1592881570,
+      "rows_scanned": 2000000,
+      "cloud_storage_retry_duration_ms": 0,
+      "task_progress": {
+        "planned_task_count": 28,
+        "completed_task_count": 28,
+        "completed_partition_count": 28,
+        "pending_task_count": 0,
+        "failed_task_count": 0
+      }
+    },
+    "complete-grouped-source_record": {
+      "caller_ms": 12882.803042000007,
+      "total_time_ms": 12576,
+      "read_bytes": 1646527375,
+      "rows_produced_count": 20,
+      "compilation_time_ms": 225,
+      "execution_time_ms": 12315,
+      "read_remote_bytes": 821097944,
+      "write_remote_bytes": 0,
+      "read_cache_bytes": 825429431,
+      "spill_to_disk_bytes": 0,
+      "task_total_time_ms": 79863,
+      "read_files_count": 25,
+      "read_partitions_count": 0,
+      "photon_total_time_ms": 79670,
+      "rows_read_count": 2000000,
+      "result_fetch_time_ms": 40,
+      "network_sent_bytes": 0,
+      "result_from_cache": false,
+      "pruned_bytes": 0,
+      "pruned_files_count": 0,
+      "query_compilation_start_timestamp": 1791361340510,
+      "metadata_time_ms": 0,
+      "query_execution_time_ms": 12540,
+      "bytes_read_from_cache_percentage": 50.0,
+      "write_remote_rows": 0,
+      "write_remote_files": 0,
+      "queue_end_time_ms": 1791361340480,
+      "read_files_bytes": 1639872192,
+      "rows_scanned": 2000000,
+      "cloud_storage_retry_duration_ms": 0,
+      "task_progress": {
+        "planned_task_count": 28,
+        "completed_task_count": 28,
+        "completed_partition_count": 28,
+        "pending_task_count": 0,
+        "failed_task_count": 0
+      }
+    },
+    "complete-grouped-property_journal": {
+      "caller_ms": 14306.383916999948,
+      "total_time_ms": 13994,
+      "read_bytes": 1469152081,
+      "rows_produced_count": 20,
+      "compilation_time_ms": 246,
+      "execution_time_ms": 13716,
+      "read_remote_bytes": 733953147,
+      "write_remote_bytes": 0,
+      "read_cache_bytes": 735198934,
+      "spill_to_disk_bytes": 0,
+      "task_total_time_ms": 89366,
+      "read_files_count": 25,
+      "read_partitions_count": 0,
+      "photon_total_time_ms": 89184,
+      "rows_read_count": 8000000,
+      "result_fetch_time_ms": 32,
+      "network_sent_bytes": 0,
+      "result_from_cache": false,
+      "pruned_bytes": 0,
+      "pruned_files_count": 0,
+      "query_compilation_start_timestamp": 1791361372842,
+      "metadata_time_ms": 0,
+      "query_execution_time_ms": 13962,
+      "bytes_read_from_cache_percentage": 50.0,
+      "write_remote_rows": 0,
+      "write_remote_files": 0,
+      "queue_end_time_ms": 1791361372812,
+      "read_files_bytes": 1463206152,
+      "rows_scanned": 8000000,
+      "cloud_storage_retry_duration_ms": 0,
+      "task_progress": {
+        "planned_task_count": 27,
+        "completed_task_count": 27,
+        "completed_partition_count": 27,
+        "pending_task_count": 0,
+        "failed_task_count": 0
+      }
+    }
+  }
+}
