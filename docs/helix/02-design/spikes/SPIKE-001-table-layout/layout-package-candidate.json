@@ -825,7 +825,7 @@
     "bucket_wide_updates_r160.py": "96e16a87085bd8f7ad732d0b7e7cd57548cfd5a4ef90b0a921e3c4d0f9e7448b",
     "bucket_wide_updates_audit_r160.py": "6588c3f9c833d80538b1d5507cf16cb338c1aa1db7672c7cd2062e22bff822d9",
     "bucket_wide_updates_cleanup_r160.py": "83f6dd7ef539ccca1d5e087cfbb1f389fe15677cef1886fffea2075f109cc484",
-    "bucket-scale-plan.md": "e9e586023a1889a3e05b8d418823be576557aa827723f8bb9382b37040b39ee6",
+    "bucket-scale-plan.md": "359fefa449ba0807e03083cf2f2f9ec525c51aee8558b683b048c9ebab6a2c5a",
     "out/native/ashlar_bucket_screen_r160/summary.json": "fb8926571ee0bd49245dacf8937608f1e1813a0c159f629f50c6da695b5d2e9d",
     "out/native/ashlar_bucket_screen_r160/statements.jsonl": "45d6cfbeb5eee799db0a2a4326be038510d5d4e9e081dca00d222308446022a9",
     "out/native/ashlar_bucket_screen_r160/query-history.json": "5c1e78f4217fc7374939fcd76a2c56846205b87a0f2eb4a94b040bca9586700a",
@@ -852,7 +852,20 @@
     "out/native/ashlar_bucket_screen_r161/inspection/inflight-request.json": "3fbadb431f977c1ccb1fda42394e8d1c939a6e644a46c2844219e174673006f7",
     "out/native/ashlar_bucket_screen_r161/cleanup/statements.jsonl": "4c4a240f28ed96578f4fd810aba8ec299db00fe839325b37660fae340636b9d6",
     "out/native/ashlar_bucket_screen_r161/cleanup/query-history.json": "6301db550a582c25ffc8b41179c8fd0120b025ab16cb39ff1cdc3064a0978c95",
-    "out/native/ashlar_bucket_screen_r161/cleanup/inflight-request.json": "0df876f58cc4e7b57334c31c2edac8c4ae501fb4630d25d9c9b8a3071e3b299c"
+    "out/native/ashlar_bucket_screen_r161/cleanup/inflight-request.json": "0df876f58cc4e7b57334c31c2edac8c4ae501fb4630d25d9c9b8a3071e3b299c",
+    "bucket_chunk_probe_r162.py": "e80e2665e519af0fee764e9bf6bb00f34e0fde47e5433b49b176eac8606a1643",
+    "bucket_chunk_probe_r163.py": "abc9ffee54c8560ad2da60def2d22b4dab29ce7ec49da59853b4b0a7bfde9b4c",
+    "bucket_chunk_audit_r163.py": "bca0e7222dd656d6b03f66f2e82461b8bd833f770ad37276db80e3e2bef125d0",
+    "out/native/ashlar_bucket_chunk_r162/summary.json": "4a4165e95d4e83a65e15eaa302e7c685fab9f3c9efc82bc2e8be915451ca3af3",
+    "out/native/ashlar_bucket_chunk_r162/statements.jsonl": "dfccf7b0b6ae1b1650ec3f2bc1a00cd5d9d7c4465097a36e342768342a7cd4d2",
+    "out/native/ashlar_bucket_chunk_r162/query-history.json": "afd9e2c2ed67ec7c6b883efbc8a1f2051ca8cb6baf075c17fe270b619ecf6b8c",
+    "out/native/ashlar_bucket_chunk_r162/audited-summary.json": "db5dfdc1bdac310af62046f28a7b670db26d47876916d58ab7b36cd71717e5f5",
+    "out/native/ashlar_bucket_chunk_r162/inflight-request.json": "2369459eb7dc7780f745d265100f9d7923b9a8c082c14b380858e6aaae586d13",
+    "out/native/ashlar_bucket_chunk_r163/summary.json": "e5fa82522a10622a29a6c6598a6072544a35eacae51331c7beb460433709e16b",
+    "out/native/ashlar_bucket_chunk_r163/statements.jsonl": "6672a5aee93c64852b52292fdeae84259cca653ed3b7d3f75275ab40b81d5208",
+    "out/native/ashlar_bucket_chunk_r163/query-history.json": "2942303c4c068a562802da33ecdb84d583a78c5285185b0216b232ad4a9bbeb3",
+    "out/native/ashlar_bucket_chunk_r163/audited-summary.json": "de9c8241d874aaeb7c08d38c819c63aba23437e57210c2af9ab261707e9a87a5",
+    "out/native/ashlar_bucket_chunk_r163/inflight-request.json": "c2720dd7f34fa6ff22730c712126eb3e357b5ce2535cd8865d259bbc72dbfd6d"
   },
   "evidence": {
     "ddl": {

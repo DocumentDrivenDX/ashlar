@@ -1,0 +1,1 @@
+{"label": "slice-3", "sql": "SELECT count(*) FROM client_dev.ashlar_entropy_20261006_r86.edge_current VERSION AS OF 23 WHERE lookup_hash>='c' AND lookup_hash<'g'", "parameters": null, "correlation": "/* ashlar ashlar_bucket_chunk_r163 slice-3 */", "started_epoch": 1791347067.285147, "state": "returned", "query_id": "01f1c206-fbae-11ef-b86e-c2da51c22506"}

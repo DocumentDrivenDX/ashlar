@@ -1,0 +1,54 @@
+{
+  "source": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "version": 23,
+  "ranges": [
+    [
+      4000001,
+      8000001
+    ],
+    [
+      8000001,
+      12000001
+    ],
+    [
+      12000001,
+      16000001
+    ],
+    [
+      16000001,
+      20000001
+    ],
+    [
+      20000001,
+      24000001
+    ]
+  ],
+  "counts": [
+    [
+      "4000000",
+      "4000001",
+      "8000000"
+    ],
+    [
+      "4000000",
+      "8000001",
+      "12000000"
+    ],
+    [
+      "4000000",
+      "12000001",
+      "16000000"
+    ],
+    [
+      "4000000",
+      "16000001",
+      "20000000"
+    ],
+    [
+      "4000000",
+      "20000001",
+      "24000000"
+    ]
+  ],
+  "qualification": "Read-only source ranges; no copy, pruning, preservation, latency or ingest admission inferred; final metrics still require audit."
+}
