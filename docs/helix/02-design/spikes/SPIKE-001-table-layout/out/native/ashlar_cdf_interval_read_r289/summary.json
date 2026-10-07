@@ -1,0 +1,87 @@
+{
+  "state": "Every native CDF image matches independent complete-field oracle",
+  "source_sha256": {
+    "publisher": "a13ccb15c9c42845b125e5ebc18133afc6ce1714a06273f1cad2d1bb4b3dec7f",
+    "oracle": "187924fbae792495ae627b16001eb1dcc3bfb9063ca58d76ab5b9d0e1377a380"
+  },
+  "checks": {
+    "edge_current": {
+      "table": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.mixed_edge_current_r281",
+        "id": "f9dca3a9-3037-48f6-bab6-0c458f6808cd",
+        "version": 1
+      },
+      "rows": 190000,
+      "groups": [
+        [
+          "delete",
+          "10000",
+          "1",
+          "1",
+          "01413c799bdb6c1c45c5753099cbe5b1860935a053280d9150293131e981d7ae"
+        ],
+        [
+          "update_postimage",
+          "90000",
+          "1",
+          "1",
+          "a16432914189e4e9dced4b64a6ba2f8406b03de142a1c01b476833f07f577a35"
+        ],
+        [
+          "update_preimage",
+          "90000",
+          "1",
+          "1",
+          "c6f56d9278af062a9dd7451b2e5d54a9f103cd973311bdaee0da6a50b81af4cb"
+        ]
+      ],
+      "all_fields": "Complete expected pre/post/delete multisets; no additional classes/versions/rows"
+    },
+    "adjacency_forward": {
+      "table": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r281",
+        "id": "5c1978d4-0a9f-442e-9db5-e61f0521cfef",
+        "version": 1
+      },
+      "rows": 190000,
+      "groups": [
+        [
+          "delete",
+          "10000",
+          "1",
+          "1",
+          "aedf75ba586a48f687d701799f2bb15c394554fe497025f5f7b11c91fe26d52f"
+        ],
+        [
+          "update_postimage",
+          "90000",
+          "1",
+          "1",
+          "52e15c25e14a33157e91e49b138964eec24146d87533dfa1ea3ef5b40dc5f2cd"
+        ],
+        [
+          "update_preimage",
+          "90000",
+          "1",
+          "1",
+          "eec21fbd38cf3a1594f3347bae3074f6d101925146fbe80b718d0b5a04e83735"
+        ]
+      ],
+      "all_fields": "Complete expected pre/post/delete multisets; no additional classes/versions/rows"
+    }
+  },
+  "bounds": {
+    "read_bytes": 100000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 20000000000,
+    "wall_s": 600,
+    "statement_s": 180
+  },
+  "costs": {
+    "read_bytes": 438720811,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 95.651603583,
+  "qualification": "Two owned post-clone version1 MERGE intervals only, Runtime/SQL channel retained in final history. Automatic row-tracking CDF, no legacy enablement or schema/retention mutation. Read-only full190k-image field digests per role match independently qualified full-sweep publication. Not permanent semantic history, real source/writer fencing, complete incremental publisher, latency/SLO or billion admission."
+}

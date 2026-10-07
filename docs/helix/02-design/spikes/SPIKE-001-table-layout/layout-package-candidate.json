@@ -1438,7 +1438,11 @@
     "out/native/ashlar_maintained_edge_r287/statements.jsonl": "af5f2608f60f9bc07f41eba5b1da3e3938e39201ec3c3488aff7a668e94046ba",
     "out/native/ashlar_maintained_edge_r287/inspection/query-history.json": "0fc81f74cb0324c2492db1b53944fa05907790fed57fd261657fdc58a8c1b007",
     "out/native/ashlar_maintained_edge_r287/inspection/statements.jsonl": "fc293976c98554806918149db6ac9759d957127d8aa293dbc99a8b938e59cd1f",
-    "out/native/ashlar_maintained_edge_r287/shared-history.json": "b408502328a260edb70ab51e2c0c7b84a31f50b265001a31a5952af709b91a68"
+    "out/native/ashlar_maintained_edge_r287/shared-history.json": "b408502328a260edb70ab51e2c0c7b84a31f50b265001a31a5952af709b91a68",
+    "out/native/ashlar_cdf_interval_read_r289/summary.json": "a1e17e30958e1e1d4ec83647d25f7608d823c4f292ab154cd64e4f7cd8748ce2",
+    "out/native/ashlar_cdf_interval_read_r289/audited-summary.json": "f44c312a9ade8ea49173006d66fa219a126d3ace8079c4e50035d0f422e4b79c",
+    "out/native/ashlar_cdf_interval_read_r289/statements.jsonl": "9fb5691a439fc02f4068b5ef8ffcb9c443393c5199bd8be7c77b198b39e6e028",
+    "out/native/ashlar_cdf_interval_read_r289/shared-history.json": "ff47f80a0c5d96d14de2b1a3be7c876c4e87d2e500a51dd0dd9907ac7a706c4e"
   },
   "evidence": {
     "ddl": {
