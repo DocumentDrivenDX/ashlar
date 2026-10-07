@@ -34,7 +34,7 @@ Record exact schema, table UUIDs/versions/protocol/features, file counts/bytes,
 actual maintenance rewrite/no-op, bucket/hash invariants, global IDs and complete
 20M structural tuple parity. Inspect100k complete changed carriers after update
 and unchanged physical-row custody within each owned layout. Initial wide-copy
-parity across all20M strings is a separate unresolved obligation: exact sampled
+parity across all20M strings was a separate obligation, now resolved for E23/owned4 by r167–r169: exact sampled
 carriers/structural parity/copy SQL alone must not be advertised as exhaustive
 wide-copy proof. Design a bounded follow-up only after timing and cost evidence
 justify it; the goal cannot complete while that proof is missing.
@@ -79,3 +79,14 @@ Full20M count and global distinct-ID cardinality pass; all derived buckets match
 Two controller defects are preserved: r164 compared a nested result row to a flat expected list after a successful first append; r165 lacked the columns local and stopped before submitting another append. r166 checked the owned UUID, native version1 and exact expected count before appending only the remaining three ranges. No successful write was replayed. This is commit-inspection evidence for the owned experiment, not durable real-producer recovery/fencing admission.
 
 The complete20-column SELECT plus derived bucket has now been executed at20M scale, but full20-field byte-exact parity is still required. No ZORDER, update comparison, singleton measurement, cold/service/rate or1B/5B admission follows. Keep this owned version for the next bounded exact-value validation and matched physical comparison; cleanup requires the same UUID and latest-version checks. Evidence: `out/native/ashlar_bucket_build_r166/audited-summary.json`, with r164/r165 failures and same-ID histories alongside it.
+
+
+## r167–r169: full20M exact copy preservation proved
+
+[Audited parity](out/native/ashlar_bucket_parity_r169/audited-summary.json) proves all20 logical edge fields across the complete20M-row owned bucket copy at version4 equal canonical E23. All11 text columns use null-safe UTF8 binary equality, including property/retained JSON and raw cursor text; numeric and timestamp columns use native typed equality. Four disjoint hash ranges cover4,999,762/5,003,588/4,999,471/4,997,179 edges with zero mismatches. Both snapshots independently have20M nonnull globally unique IDs. The first range uses a full outer join; the remaining inner joins require the exact expected joined count, which together with uniqueness proves exhaustive one-to-one membership, while all logical identity components are still compared. This is direct field equality, not sampled or digest-only parity.
+
+The four comparisons take95.086/95.119/90.552/90.434 caller seconds. Total validation/recovery/audit reads89.987GB, remote writes0 and spill0 remain within the100GB read admission bound. All native IDs are terminal FINISHED with finalized uncached metrics. One unchanged and25 changed native constant controls pass, including NFC/NFD byte differences, JSON whitespace, retained/cursor integers above2^53, null and a timestamp1us change; two additional membership/duplicate counterexamples show why table counts alone are insufficient.
+
+The r167/r168 controllers stopped after successful results while waiting for the last query's metric-final flag; no successful comparison was replayed. Installed connector source shows fetchall retains the active result until the next execute or cursor close. Explicit public cursor close/new cursor on the same session in r169 allowed final metrics to be inspected before further admission. Native result_fetch telemetry was5,875/61,659ms on the retained-result runs and302/303ms with explicit closure. This supports the lifecycle explanation but is not randomized causal isolation or caller fetch latency, and gives no singleton-SLO improvement claim. Preserve the stopped summaries and same-ID recovery evidence.
+
+This resolves the initial full-wide-copy obligation specifically for owned UUID99831c85-f437-4e6f-8b8b-eaec9ab300d2/version4 and E23. The candidate is retained for the next physical comparison; r139-b1 publication is unchanged. It does not prove a later maintenance/update version, alter canonical DDL/constraints, select64 as a1B/5B bucket count, or admit source authority/fencing, external engines, cold reads or sustained freshness. Next: bound and run partition-local ZORDER, then matched update/singleton comparisons. UMF binding and existing graph-engine limits remain unchanged.

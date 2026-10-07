@@ -374,3 +374,8 @@ range-batch mechanism, exceptionally low entropy, different control column count
 CTAS constraints, unbound synthetic structural revision and noisy caller timings
 limit the evidence. Automatic maintenance, scattered updates, reverse access
 and real source/publication authority still require qualification.
+
+
+### Full20M optional bucket-copy preservation evidence
+
+[r167–r169 audited parity](../spikes/SPIKE-001-table-layout/out/native/ashlar_bucket_parity_r169/audited-summary.json) proves all20 logical fields of canonical E23 equal all20M rows in the owned64-bucket table at version4. Every text field uses UTF8 binary equality; null-safe typed comparison covers the other fields. Global nonnull uniqueness and exact disjoint joined counts establish complete membership, with25 native changed-value refusals and two membership/duplicate counterexamples. This closes the initial copy's wide-value obligation for that fixed snapshot. It does not replace canonical hash liquid clustering, qualify the CTAS constraint surface as canonical DDL, select a billion-scale bucket count, prove later maintenance/update preservation, or improve any measured singleton/ingest gate. The owned copy remains unpublished and retained for the next bounded physical comparison; Truss-compatible logical identities and maps remain unchanged, with UMF deferred.

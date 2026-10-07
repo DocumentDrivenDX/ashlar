@@ -1,0 +1,10 @@
+{
+  "installed_client_source": "/tmp/ashlar-db-client/lib/python3.9/site-packages/databricks/sql/client.py",
+  "sha256": "2e4c85ad5b8b98d6ca6b7ad38ef1076bb0f62fde6716e88c8ff8ce5d2728a339",
+  "observations": {
+    "Cursor.execute": "calls _close_and_clear_active_result_set before new execute (line1354)",
+    "Cursor.fetchall": "delegates fetch without explicit cursor/result close (line1614)",
+    "Cursor.close": "closes active result set (line1723)"
+  },
+  "qualification": "Installed-source lifecycle observation; likely explanation for pending metric flags is an inference until native cursor-close evidence. No vendor code copied; timing/result_fetch telemetry is not causal proof."
+}

@@ -1,0 +1,226 @@
+{
+  "source": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "source_version": 23,
+  "table": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r164",
+  "id": "99831c85-f437-4e6f-8b8b-eaec9ab300d2",
+  "version": 4,
+  "ranges": [
+    {
+      "range": [
+        "0",
+        "4"
+      ],
+      "rows": "4999762",
+      "mismatches": 0,
+      "query_id": "01f1c208-45f8-16df-b0b7-baea674fbec1"
+    },
+    {
+      "range": [
+        "4",
+        "8"
+      ],
+      "rows": "5003588",
+      "mismatches": 0,
+      "query_id": "01f1c208-d80a-1848-a3e9-fc4203b96ad4"
+    },
+    {
+      "range": [
+        "8",
+        "c"
+      ],
+      "rows": "4999471",
+      "mismatches": 0,
+      "query_id": "01f1c209-b2be-14c8-906e-d87cacb7dda6"
+    },
+    {
+      "range": [
+        "c",
+        "g"
+      ],
+      "rows": "4997179",
+      "mismatches": 0,
+      "query_id": "01f1c209-e927-1a19-a777-43cc1cd9e6e2"
+    }
+  ],
+  "state": "Full20M20-field exact copy parity passed at E23/owned4",
+  "costs": {
+    "read_bytes": 89986893714,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "publication_vector": {
+    "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120": 1,
+    "client_dev.ashlar_entropy_20261006_r86.edge_current": 23,
+    "client_dev.ashlar_entropy_20261006_r86.object_current": 0,
+    "client_dev.ashlar_entropy_20261006_r86.property_journal_r89": 19,
+    "client_dev.ashlar_entropy_20261006_r86.source_record_r89": 17,
+    "client_dev.ashlar_entropy_20261006_r86.tombstone_r89": 0
+  },
+  "range_metrics": {
+    "exact-0": {
+      "caller_ms": 95085.58158299999,
+      "metrics": {
+        "total_time_ms": 94791,
+        "read_bytes": 33673089121,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 379,
+        "execution_time_ms": 94405,
+        "read_remote_bytes": 32180894022,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 1492195099,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 727724,
+        "read_files_count": 564,
+        "read_partitions_count": 128,
+        "photon_total_time_ms": 725895,
+        "rows_read_count": 10309358,
+        "result_fetch_time_ms": 5875,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 100651797824,
+        "pruned_files_count": 1556,
+        "query_compilation_start_timestamp": 1791347621484,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 94784,
+        "bytes_read_from_cache_percentage": 6.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791347621471,
+        "read_files_bytes": 34223151542,
+        "rows_scanned": 10465130,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 358,
+          "completed_task_count": 263,
+          "completed_partition_count": 263,
+          "pending_task_count": 95,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "exact-1": {
+      "caller_ms": 95118.769708,
+      "metrics": {
+        "total_time_ms": 94833,
+        "read_bytes": 18175257870,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 350,
+        "execution_time_ms": 94477,
+        "read_remote_bytes": 16321851940,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 1853405930,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 714111,
+        "read_files_count": 413,
+        "read_partitions_count": 128,
+        "photon_total_time_ms": 711616,
+        "rows_read_count": 10478850,
+        "result_fetch_time_ms": 61659,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 75069620625,
+        "pruned_files_count": 1175,
+        "query_compilation_start_timestamp": 1791347866548,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 94827,
+        "bytes_read_from_cache_percentage": 8.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791347866536,
+        "read_files_bytes": 25524867744,
+        "rows_scanned": 10694171,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 422,
+          "completed_task_count": 344,
+          "completed_partition_count": 344,
+          "pending_task_count": 78,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "exact-2": {
+      "caller_ms": 90552.421708,
+      "metrics": {
+        "total_time_ms": 90268,
+        "read_bytes": 18137338711,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 343,
+        "execution_time_ms": 89917,
+        "read_remote_bytes": 16312404582,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 1824934129,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 683565,
+        "read_files_count": 407,
+        "read_partitions_count": 128,
+        "photon_total_time_ms": 681230,
+        "rows_read_count": 10471403,
+        "result_fetch_time_ms": 302,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 75128508475,
+        "pruned_files_count": 1181,
+        "query_compilation_start_timestamp": 1791348233472,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 90260,
+        "bytes_read_from_cache_percentage": 8.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791348233459,
+        "read_files_bytes": 25465979894,
+        "rows_scanned": 10665517,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 423,
+          "completed_task_count": 345,
+          "completed_partition_count": 345,
+          "pending_task_count": 78,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "exact-3": {
+      "caller_ms": 90433.53908399999,
+      "metrics": {
+        "total_time_ms": 90052,
+        "read_bytes": 17473185144,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 396,
+        "execution_time_ms": 89647,
+        "read_remote_bytes": 14904386939,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 2568798205,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 666109,
+        "read_files_count": 408,
+        "read_partitions_count": 128,
+        "photon_total_time_ms": 661828,
+        "rows_read_count": 10113011,
+        "result_fetch_time_ms": 303,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 75196005744,
+        "pruned_files_count": 1180,
+        "query_compilation_start_timestamp": 1791348324776,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 90043,
+        "bytes_read_from_cache_percentage": 11.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791348324748,
+        "read_files_bytes": 25398482625,
+        "rows_scanned": 10250526,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 418,
+          "completed_task_count": 335,
+          "completed_partition_count": 335,
+          "pending_task_count": 83,
+          "failed_task_count": 0
+        }
+      }
+    }
+  },
+  "qualification": "All20 fields compared null-safely; all11 text fields UTF8 binary equality; typed numerical/timestamp values native equality. Four disjoint hash ranges cover20M; both20M global nonnull unique IDs proved. First quarter full outer; remaining quarters inner joins with exact expected joined counts. Fixture-wide nonnull unique IDs on both20M snapshots plus joined-count coverage prove one-to-one complete membership; all identity columns compared. r167/r168 first two quarters not replayed; exhausted cursor explicitly closed before native history polling in r169; same-ID metrics finalized after history lag. Unique IDs justify the one-to-one join; not generic uniqueness enforcement. Derived bucket invariant independently passed r166. No ZORDER, update/read comparison, generic producer authority, publication-rate, cold or billion admission."
+}

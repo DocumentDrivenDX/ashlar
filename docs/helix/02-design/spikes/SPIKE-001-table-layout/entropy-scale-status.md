@@ -1,5 +1,15 @@
 # Higher-entropy scale and GraphFrames iteration
 
+## r167–r169: full20M exact copy preservation proved
+
+[Audited parity](out/native/ashlar_bucket_parity_r169/audited-summary.json) proves all20 logical edge fields across the complete20M-row owned bucket copy at version4 equal canonical E23. All11 text columns use null-safe UTF8 binary equality, including property/retained JSON and raw cursor text; numeric and timestamp columns use native typed equality. Four disjoint hash ranges cover4,999,762/5,003,588/4,999,471/4,997,179 edges with zero mismatches. Both snapshots independently have20M nonnull globally unique IDs. The first range uses a full outer join; the remaining inner joins require the exact expected joined count, which together with uniqueness proves exhaustive one-to-one membership, while all logical identity components are still compared. This is direct field equality, not sampled or digest-only parity.
+
+The four comparisons take95.086/95.119/90.552/90.434 caller seconds. Total validation/recovery/audit reads89.987GB, remote writes0 and spill0 remain within the100GB read admission bound. All native IDs are terminal FINISHED with finalized uncached metrics. One unchanged and25 changed native constant controls pass, including NFC/NFD byte differences, JSON whitespace, retained/cursor integers above2^53, null and a timestamp1us change; two additional membership/duplicate counterexamples show why table counts alone are insufficient.
+
+The r167/r168 controllers stopped after successful results while waiting for the last query's metric-final flag; no successful comparison was replayed. Installed connector source shows fetchall retains the active result until the next execute or cursor close. Explicit public cursor close/new cursor on the same session in r169 allowed final metrics to be inspected before further admission. Native result_fetch telemetry was5,875/61,659ms on the retained-result runs and302/303ms with explicit closure. This supports the lifecycle explanation but is not randomized causal isolation or caller fetch latency, and gives no singleton-SLO improvement claim. Preserve the stopped summaries and same-ID recovery evidence.
+
+This resolves the initial full-wide-copy obligation specifically for owned UUID99831c85-f437-4e6f-8b8b-eaec9ab300d2/version4 and E23. The candidate is retained for the next physical comparison; r139-b1 publication is unchanged. It does not prove a later maintenance/update version, alter canonical DDL/constraints, select64 as a1B/5B bucket count, or admit source authority/fencing, external engines, cold reads or sustained freshness. Next: bound and run partition-local ZORDER, then matched update/singleton comparisons. UMF binding and existing graph-engine limits remain unchanged.
+
 ## Maintained snapshot under publication load
 
 [Audited r103](out/native/ashlar_maintained_contention_20261007_r103/audited-summary.json)
