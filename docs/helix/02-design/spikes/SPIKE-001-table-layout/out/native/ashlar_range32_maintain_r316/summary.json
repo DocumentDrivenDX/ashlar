@@ -1,0 +1,3298 @@
+{
+  "state": "Full39.99M range32 current candidate preserves all20carrier fields",
+  "source_sha256": "8e91e799ffd69a7d73189b4f42fa948546bb84b8c86ecd5d795ec6d484bc9a8a",
+  "table": "client_dev.ashlar_entropy_20261006_r86.edge_range32_r313",
+  "uuid": "7c76c985-b802-41b6-97e8-a76a809e2a01",
+  "version": 52,
+  "commits": [
+    {
+      "version": "0",
+      "timestamp": "2026-10-07T14:10:31.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "CREATE TABLE AS SELECT",
+      "operationParameters": "{\"partitionBy\":\"[\\\"lookup_partition\\\"]\",\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\":\\\"v2\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"f573d04a-2c9f-4da2-a905-1d6fb626cfeb\\\",\\\"delta.targetFileSize\\\":\\\"67108864\\\"}\",\"statsOnLoad\":\"true\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c258-da53-1b45-a1d9-edec46719684",
+      "clusterId": null,
+      "readVersion": null,
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"0\",\"numOutputRows\":\"0\",\"numOutputBytes\":\"0\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "1",
+      "timestamp": "2026-10-07T14:10:48.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c258-dfcf-1e54-ab95-d92126e336e3",
+      "clusterId": null,
+      "readVersion": "0",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999500\",\"numOutputBytes\":\"1595612182\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "2",
+      "timestamp": "2026-10-07T14:14:15.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c259-5b83-1895-96e1-cdd1019904ce",
+      "clusterId": null,
+      "readVersion": "1",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999499\",\"numOutputBytes\":\"1595582952\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "3",
+      "timestamp": "2026-10-07T14:14:57.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c259-73e8-13be-bb32-860503477827",
+      "clusterId": null,
+      "readVersion": "2",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999500\",\"numOutputBytes\":\"1596047407\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "4",
+      "timestamp": "2026-10-07T14:15:36.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c259-8bca-13dd-bd92-e43bb626200b",
+      "clusterId": null,
+      "readVersion": "3",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999500\",\"numOutputBytes\":\"1596186442\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "5",
+      "timestamp": "2026-10-07T14:16:11.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c259-a0d1-1cd0-9def-a2070920c881",
+      "clusterId": null,
+      "readVersion": "4",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999499\",\"numOutputBytes\":\"1596893598\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "6",
+      "timestamp": "2026-10-07T14:16:44.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c259-b49e-1d01-8357-698e6fedd7c9",
+      "clusterId": null,
+      "readVersion": "5",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999500\",\"numOutputBytes\":\"1596800590\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "7",
+      "timestamp": "2026-10-07T14:17:19.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c259-c90a-186c-9f43-753634d5c431",
+      "clusterId": null,
+      "readVersion": "6",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999501\",\"numOutputBytes\":\"1596568885\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "8",
+      "timestamp": "2026-10-07T14:18:00.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c259-e143-1cbe-8698-3728078025bf",
+      "clusterId": null,
+      "readVersion": "7",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999499\",\"numOutputBytes\":\"1596764239\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "9",
+      "timestamp": "2026-10-07T14:18:35.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c259-f5f9-173e-94fc-65cf77fef0ee",
+      "clusterId": null,
+      "readVersion": "8",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999499\",\"numOutputBytes\":\"1596677421\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "10",
+      "timestamp": "2026-10-07T14:19:11.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25a-0c40-108e-b222-670fbeeef87b",
+      "clusterId": null,
+      "readVersion": "9",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999499\",\"numOutputBytes\":\"1596751218\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "11",
+      "timestamp": "2026-10-07T14:19:50.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25a-22a5-1612-bfad-b22fc1b503ad",
+      "clusterId": null,
+      "readVersion": "10",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999499\",\"numOutputBytes\":\"1596737385\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "12",
+      "timestamp": "2026-10-07T14:20:23.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25a-36c5-1bde-9291-1d717e71bf48",
+      "clusterId": null,
+      "readVersion": "11",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999501\",\"numOutputBytes\":\"1596755394\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "13",
+      "timestamp": "2026-10-07T14:20:59.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25a-4c56-1f82-8f91-2d79fcea1ca5",
+      "clusterId": null,
+      "readVersion": "12",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999500\",\"numOutputBytes\":\"1596081078\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "14",
+      "timestamp": "2026-10-07T14:21:36.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25a-624c-1b70-b696-5ea962fa40bc",
+      "clusterId": null,
+      "readVersion": "13",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999500\",\"numOutputBytes\":\"1596081867\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "15",
+      "timestamp": "2026-10-07T14:22:11.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25a-7706-1646-a852-282a23de44bc",
+      "clusterId": null,
+      "readVersion": "14",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999499\",\"numOutputBytes\":\"1596227019\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "16",
+      "timestamp": "2026-10-07T14:22:40.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25a-8924-1be7-97be-5e834edf2ede",
+      "clusterId": null,
+      "readVersion": "15",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999500\",\"numOutputBytes\":\"1596127409\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "17",
+      "timestamp": "2026-10-07T14:23:20.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25a-a02f-144f-b637-614e9838fafa",
+      "clusterId": null,
+      "readVersion": "16",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999501\",\"numOutputBytes\":\"1596130667\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "18",
+      "timestamp": "2026-10-07T14:23:54.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25a-b4a2-1930-b405-80b39a85b4d4",
+      "clusterId": null,
+      "readVersion": "17",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999502\",\"numOutputBytes\":\"1595965399\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "19",
+      "timestamp": "2026-10-07T14:24:28.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25a-c925-1435-80ae-19d64ec4319b",
+      "clusterId": null,
+      "readVersion": "18",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999502\",\"numOutputBytes\":\"1596096510\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "20",
+      "timestamp": "2026-10-07T14:25:03.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25a-ddd6-1334-9d16-af0f81aa66b4",
+      "clusterId": null,
+      "readVersion": "19",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"32\",\"numOutputRows\":\"1999500\",\"numOutputBytes\":\"1596047324\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "21",
+      "timestamp": "2026-10-07T14:26:56.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 0)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-205d-1bfd-9d5e-4d7ee2206ae7",
+      "clusterId": null,
+      "readVersion": "20",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"995441454\",\"p25FileSize\":\"67682084\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"65840249\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"78811297\",\"p75FileSize\":\"74748534\",\"p50FileSize\":\"70226200\",\"numAddedBytes\":\"996148793\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "22",
+      "timestamp": "2026-10-07T14:27:12.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 1)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-2a30-1746-805b-7b310bed1166",
+      "clusterId": null,
+      "readVersion": "21",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"1001477428\",\"p25FileSize\":\"68915165\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"66463015\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"77239110\",\"p75FileSize\":\"74978095\",\"p50FileSize\":\"70477743\",\"numAddedBytes\":\"1002125647\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "23",
+      "timestamp": "2026-10-07T14:27:29.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 2)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-33a5-1d8d-b122-945c33b8387c",
+      "clusterId": null,
+      "readVersion": "22",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"996883154\",\"p25FileSize\":\"69845346\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"66285050\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"78162565\",\"p75FileSize\":\"73151715\",\"p50FileSize\":\"71928731\",\"numAddedBytes\":\"998017027\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "24",
+      "timestamp": "2026-10-07T14:27:44.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 3)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-3dda-12fd-98f1-283fa9462032",
+      "clusterId": null,
+      "readVersion": "23",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"996034108\",\"p25FileSize\":\"68681856\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"63480875\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"79964144\",\"p75FileSize\":\"73289174\",\"p50FileSize\":\"72034286\",\"numAddedBytes\":\"997238518\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "25",
+      "timestamp": "2026-10-07T14:28:00.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 4)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-46fc-1653-8229-78fcdba33bb4",
+      "clusterId": null,
+      "readVersion": "24",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"996824326\",\"p25FileSize\":\"68406661\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"64629649\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"75173609\",\"p75FileSize\":\"74113081\",\"p50FileSize\":\"73000606\",\"numAddedBytes\":\"998068268\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "26",
+      "timestamp": "2026-10-07T14:28:15.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 5)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-502b-162a-8094-fb466b5a0c29",
+      "clusterId": null,
+      "readVersion": "25",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"996599471\",\"p25FileSize\":\"68282384\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"62607157\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"78357191\",\"p75FileSize\":\"73320952\",\"p50FileSize\":\"72350301\",\"numAddedBytes\":\"997748847\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "27",
+      "timestamp": "2026-10-07T14:28:32.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 6)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-5947-1dc6-9e6b-6d1e5652806e",
+      "clusterId": null,
+      "readVersion": "26",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"995224879\",\"p25FileSize\":\"68731247\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"64137503\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"78850253\",\"p75FileSize\":\"73076694\",\"p50FileSize\":\"72300522\",\"numAddedBytes\":\"996424928\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "28",
+      "timestamp": "2026-10-07T14:28:48.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 7)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-63e9-17a1-8a3b-821dc31a110b",
+      "clusterId": null,
+      "readVersion": "27",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"998468686\",\"p25FileSize\":\"69367653\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"60450476\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"77233101\",\"p75FileSize\":\"73263087\",\"p50FileSize\":\"72515307\",\"numAddedBytes\":\"999668694\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "29",
+      "timestamp": "2026-10-07T14:29:04.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 8)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-6d10-12d4-bceb-3a6129a695fb",
+      "clusterId": null,
+      "readVersion": "28",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"997737648\",\"p25FileSize\":\"69514510\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"61345586\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"76992585\",\"p75FileSize\":\"74389094\",\"p50FileSize\":\"73279273\",\"numAddedBytes\":\"998950784\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "30",
+      "timestamp": "2026-10-07T14:29:19.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 9)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-7657-1f28-a122-da71999f833a",
+      "clusterId": null,
+      "readVersion": "29",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"997430067\",\"p25FileSize\":\"68121864\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"64000426\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"78598536\",\"p75FileSize\":\"74728649\",\"p50FileSize\":\"71081275\",\"numAddedBytes\":\"998606264\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "31",
+      "timestamp": "2026-10-07T14:29:36.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 10)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-7f94-11cc-9683-cdde71ee1bf1",
+      "clusterId": null,
+      "readVersion": "30",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"997388704\",\"p25FileSize\":\"69836020\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"66099460\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"76614075\",\"p75FileSize\":\"74276744\",\"p50FileSize\":\"70965797\",\"numAddedBytes\":\"998631748\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "32",
+      "timestamp": "2026-10-07T14:29:53.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 11)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-8963-1f9a-8ad6-8fccd9314b83",
+      "clusterId": null,
+      "readVersion": "31",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"998385630\",\"p25FileSize\":\"69952512\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"67473995\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"78259987\",\"p75FileSize\":\"73401048\",\"p50FileSize\":\"70617205\",\"numAddedBytes\":\"999408817\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "33",
+      "timestamp": "2026-10-07T14:30:09.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 12)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-938e-18ef-ae66-07e842f52a7a",
+      "clusterId": null,
+      "readVersion": "32",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"1000085935\",\"p25FileSize\":\"70096788\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"63076972\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"81118114\",\"p75FileSize\":\"74503573\",\"p50FileSize\":\"71690387\",\"numAddedBytes\":\"1001149982\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "34",
+      "timestamp": "2026-10-07T14:30:25.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 13)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-9d1d-1258-bb41-3d79d4b54ab9",
+      "clusterId": null,
+      "readVersion": "33",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"996033378\",\"p25FileSize\":\"69644666\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"66621908\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"75777423\",\"p75FileSize\":\"73728814\",\"p50FileSize\":\"70855616\",\"numAddedBytes\":\"997205073\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "35",
+      "timestamp": "2026-10-07T14:30:40.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 14)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-a68b-1890-87cf-681a1e1df440",
+      "clusterId": null,
+      "readVersion": "34",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"997234361\",\"p25FileSize\":\"66677592\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"64915723\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"80377825\",\"p75FileSize\":\"75874517\",\"p50FileSize\":\"71121923\",\"numAddedBytes\":\"998385859\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "36",
+      "timestamp": "2026-10-07T14:30:55.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 15)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-ae5e-1a42-8a72-311c6a132d8c",
+      "clusterId": null,
+      "readVersion": "35",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"997519565\",\"p25FileSize\":\"69482372\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"62484890\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"78103506\",\"p75FileSize\":\"75486721\",\"p50FileSize\":\"71035075\",\"numAddedBytes\":\"998766434\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "37",
+      "timestamp": "2026-10-07T14:31:13.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 16)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-b9d4-170a-8587-93a65fc0b17f",
+      "clusterId": null,
+      "readVersion": "36",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"996430132\",\"p25FileSize\":\"69900397\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"60894410\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"76248149\",\"p75FileSize\":\"74087669\",\"p50FileSize\":\"72827995\",\"numAddedBytes\":\"997520061\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "38",
+      "timestamp": "2026-10-07T14:31:31.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 17)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-c398-1110-be46-6ea639ea55d1",
+      "clusterId": null,
+      "readVersion": "37",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"998627595\",\"p25FileSize\":\"68091139\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"64911979\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"79775055\",\"p75FileSize\":\"74721391\",\"p50FileSize\":\"71155161\",\"numAddedBytes\":\"999857529\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "39",
+      "timestamp": "2026-10-07T14:31:47.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 18)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-ce6f-1fb3-8662-de25fc29ce97",
+      "clusterId": null,
+      "readVersion": "38",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"995783467\",\"p25FileSize\":\"69090769\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"65591503\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"78258400\",\"p75FileSize\":\"73080318\",\"p50FileSize\":\"70772581\",\"numAddedBytes\":\"996902208\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "40",
+      "timestamp": "2026-10-07T14:32:03.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 19)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-d7b9-18df-b567-d100ba4d78cd",
+      "clusterId": null,
+      "readVersion": "39",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"998025125\",\"p25FileSize\":\"69669010\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"62717604\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"76568232\",\"p75FileSize\":\"73983355\",\"p50FileSize\":\"71591156\",\"numAddedBytes\":\"999241137\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "41",
+      "timestamp": "2026-10-07T14:32:19.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 20)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-e127-148c-b54c-820f496883e7",
+      "clusterId": null,
+      "readVersion": "40",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"997716190\",\"p25FileSize\":\"66709431\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"64973432\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"79221151\",\"p75FileSize\":\"73429236\",\"p50FileSize\":\"72674472\",\"numAddedBytes\":\"998894858\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "42",
+      "timestamp": "2026-10-07T14:32:35.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 21)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-eaf3-1e65-ba08-2c09d3e03885",
+      "clusterId": null,
+      "readVersion": "41",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"997805993\",\"p25FileSize\":\"67821331\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"64169172\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"80375794\",\"p75FileSize\":\"75801371\",\"p50FileSize\":\"70348962\",\"numAddedBytes\":\"998982006\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "43",
+      "timestamp": "2026-10-07T14:32:51.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 22)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-f486-1044-b3ae-52c6b85facd7",
+      "clusterId": null,
+      "readVersion": "42",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"996979326\",\"p25FileSize\":\"68969835\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"66425887\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"76240537\",\"p75FileSize\":\"74046238\",\"p50FileSize\":\"72039617\",\"numAddedBytes\":\"998099873\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "44",
+      "timestamp": "2026-10-07T14:33:09.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 23)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25b-fdcb-15f8-ad74-1bec8933fdf4",
+      "clusterId": null,
+      "readVersion": "43",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"998720356\",\"p25FileSize\":\"69905265\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"66125244\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"77397904\",\"p75FileSize\":\"72842168\",\"p50FileSize\":\"72035448\",\"numAddedBytes\":\"999938832\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "45",
+      "timestamp": "2026-10-07T14:33:25.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 24)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25c-08a4-1306-bd9d-01ba262b44e6",
+      "clusterId": null,
+      "readVersion": "44",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"997664221\",\"p25FileSize\":\"68624528\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"67237939\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"76119918\",\"p75FileSize\":\"73690410\",\"p50FileSize\":\"71292755\",\"numAddedBytes\":\"998764424\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "46",
+      "timestamp": "2026-10-07T14:33:42.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 25)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25c-12c1-1bb8-9d4e-e83535621dd7",
+      "clusterId": null,
+      "readVersion": "45",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"1000107008\",\"p25FileSize\":\"69933155\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"64637041\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"77457229\",\"p75FileSize\":\"73474084\",\"p50FileSize\":\"72118644\",\"numAddedBytes\":\"1001256330\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "47",
+      "timestamp": "2026-10-07T14:33:58.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 26)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25c-1c75-10b5-87ad-257afac9dbe3",
+      "clusterId": null,
+      "readVersion": "46",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"997552282\",\"p25FileSize\":\"69889104\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"61848822\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"78114683\",\"p75FileSize\":\"73953635\",\"p50FileSize\":\"71642995\",\"numAddedBytes\":\"998703772\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "48",
+      "timestamp": "2026-10-07T14:34:14.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 27)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25c-25c5-19b0-9b7b-c79034b6abc5",
+      "clusterId": null,
+      "readVersion": "47",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"997859941\",\"p25FileSize\":\"67529088\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"62856413\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"81365277\",\"p75FileSize\":\"73581029\",\"p50FileSize\":\"71678929\",\"numAddedBytes\":\"999018850\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "49",
+      "timestamp": "2026-10-07T14:34:30.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 28)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25c-2f68-129c-a5c2-c3cc1a77a0b6",
+      "clusterId": null,
+      "readVersion": "48",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"998818547\",\"p25FileSize\":\"67947533\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"66438312\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"76596243\",\"p75FileSize\":\"74504802\",\"p50FileSize\":\"73220278\",\"numAddedBytes\":\"999844459\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "50",
+      "timestamp": "2026-10-07T14:34:47.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 29)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25c-38f4-180f-aaf6-2a43e1d3ee4f",
+      "clusterId": null,
+      "readVersion": "49",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"999474673\",\"p25FileSize\":\"68964609\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"65712774\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"76905658\",\"p75FileSize\":\"74669194\",\"p50FileSize\":\"71494645\",\"numAddedBytes\":\"1000571081\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "51",
+      "timestamp": "2026-10-07T14:35:04.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 30)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25c-4335-1e88-8b3a-627fae251773",
+      "clusterId": null,
+      "readVersion": "50",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"998342209\",\"p25FileSize\":\"65940040\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"60288152\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"82536759\",\"p75FileSize\":\"75552089\",\"p50FileSize\":\"73133763\",\"numAddedBytes\":\"999439404\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "52",
+      "timestamp": "2026-10-07T14:35:20.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[\\\"('lookup_partition = 31)\\\"]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[\\\"lookup_hash\\\"]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c25c-4d56-193a-b1f0-441531c1ce3d",
+      "clusterId": null,
+      "readVersion": "51",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"20\",\"numRemovedBytes\":\"997459127\",\"p25FileSize\":\"68814443\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"64474974\",\"numAddedFiles\":\"14\",\"maxFileSize\":\"77456175\",\"p75FileSize\":\"73606500\",\"p50FileSize\":\"72262155\",\"numAddedBytes\":\"998585640\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    }
+  ],
+  "stages": [
+    {
+      "partition": 0,
+      "statement_id": "01f1c25b-205d-1bfd-9d5e-4d7ee2206ae7",
+      "versions": [
+        21
+      ],
+      "caller_ms": 10503.705625
+    },
+    {
+      "partition": 1,
+      "statement_id": "01f1c25b-2a30-1746-805b-7b310bed1166",
+      "versions": [
+        22
+      ],
+      "caller_ms": 9670.145083000001
+    },
+    {
+      "partition": 2,
+      "statement_id": "01f1c25b-33a5-1d8d-b122-945c33b8387c",
+      "versions": [
+        23
+      ],
+      "caller_ms": 11162.686749999999
+    },
+    {
+      "partition": 3,
+      "statement_id": "01f1c25b-3dda-12fd-98f1-283fa9462032",
+      "versions": [
+        24
+      ],
+      "caller_ms": 9492.688041999998
+    },
+    {
+      "partition": 4,
+      "statement_id": "01f1c25b-46fc-1653-8229-78fcdba33bb4",
+      "versions": [
+        25
+      ],
+      "caller_ms": 9374.839375000007
+    },
+    {
+      "partition": 5,
+      "statement_id": "01f1c25b-502b-162a-8094-fb466b5a0c29",
+      "versions": [
+        26
+      ],
+      "caller_ms": 9407.41995900001
+    },
+    {
+      "partition": 6,
+      "statement_id": "01f1c25b-5947-1dc6-9e6b-6d1e5652806e",
+      "versions": [
+        27
+      ],
+      "caller_ms": 10556.454000000002
+    },
+    {
+      "partition": 7,
+      "statement_id": "01f1c25b-63e9-17a1-8a3b-821dc31a110b",
+      "versions": [
+        28
+      ],
+      "caller_ms": 9491.483332999991
+    },
+    {
+      "partition": 8,
+      "statement_id": "01f1c25b-6d10-12d4-bceb-3a6129a695fb",
+      "versions": [
+        29
+      ],
+      "caller_ms": 9892.192207999982
+    },
+    {
+      "partition": 9,
+      "statement_id": "01f1c25b-7657-1f28-a122-da71999f833a",
+      "versions": [
+        30
+      ],
+      "caller_ms": 9470.554666999988
+    },
+    {
+      "partition": 10,
+      "statement_id": "01f1c25b-7f94-11cc-9683-cdde71ee1bf1",
+      "versions": [
+        31
+      ],
+      "caller_ms": 10664.189459
+    },
+    {
+      "partition": 11,
+      "statement_id": "01f1c25b-8963-1f9a-8ad6-8fccd9314b83",
+      "versions": [
+        32
+      ],
+      "caller_ms": 11342.146291999996
+    },
+    {
+      "partition": 12,
+      "statement_id": "01f1c25b-938e-18ef-ae66-07e842f52a7a",
+      "versions": [
+        33
+      ],
+      "caller_ms": 9926.355957999987
+    },
+    {
+      "partition": 13,
+      "statement_id": "01f1c25b-9d1d-1258-bb41-3d79d4b54ab9",
+      "versions": [
+        34
+      ],
+      "caller_ms": 9931.210375000006
+    },
+    {
+      "partition": 14,
+      "statement_id": "01f1c25b-a68b-1890-87cf-681a1e1df440",
+      "versions": [
+        35
+      ],
+      "caller_ms": 9722.033917000004
+    },
+    {
+      "partition": 15,
+      "statement_id": "01f1c25b-ae5e-1a42-8a72-311c6a132d8c",
+      "versions": [
+        36
+      ],
+      "caller_ms": 13293.428124999991
+    },
+    {
+      "partition": 16,
+      "statement_id": "01f1c25b-b9d4-170a-8587-93a65fc0b17f",
+      "versions": [
+        37
+      ],
+      "caller_ms": 10603.111167000008
+    },
+    {
+      "partition": 17,
+      "statement_id": "01f1c25b-c398-1110-be46-6ea639ea55d1",
+      "versions": [
+        38
+      ],
+      "caller_ms": 11898.451416
+    },
+    {
+      "partition": 18,
+      "statement_id": "01f1c25b-ce6f-1fb3-8662-de25fc29ce97",
+      "versions": [
+        39
+      ],
+      "caller_ms": 9934.527417000027
+    },
+    {
+      "partition": 19,
+      "statement_id": "01f1c25b-d7b9-18df-b567-d100ba4d78cd",
+      "versions": [
+        40
+      ],
+      "caller_ms": 9950.23249999997
+    },
+    {
+      "partition": 20,
+      "statement_id": "01f1c25b-e127-148c-b54c-820f496883e7",
+      "versions": [
+        41
+      ],
+      "caller_ms": 10587.125500000013
+    },
+    {
+      "partition": 21,
+      "statement_id": "01f1c25b-eaf3-1e65-ba08-2c09d3e03885",
+      "versions": [
+        42
+      ],
+      "caller_ms": 10059.200125000018
+    },
+    {
+      "partition": 22,
+      "statement_id": "01f1c25b-f486-1044-b3ae-52c6b85facd7",
+      "versions": [
+        43
+      ],
+      "caller_ms": 9625.267041999961
+    },
+    {
+      "partition": 23,
+      "statement_id": "01f1c25b-fdcb-15f8-ad74-1bec8933fdf4",
+      "versions": [
+        44
+      ],
+      "caller_ms": 12179.325957999992
+    },
+    {
+      "partition": 24,
+      "statement_id": "01f1c25c-08a4-1306-bd9d-01ba262b44e6",
+      "versions": [
+        45
+      ],
+      "caller_ms": 10620.792499999992
+    },
+    {
+      "partition": 25,
+      "statement_id": "01f1c25c-12c1-1bb8-9d4e-e83535621dd7",
+      "versions": [
+        46
+      ],
+      "caller_ms": 9966.65712500004
+    },
+    {
+      "partition": 26,
+      "statement_id": "01f1c25c-1c75-10b5-87ad-257afac9dbe3",
+      "versions": [
+        47
+      ],
+      "caller_ms": 9089.744332999999
+    },
+    {
+      "partition": 27,
+      "statement_id": "01f1c25c-25c5-19b0-9b7b-c79034b6abc5",
+      "versions": [
+        48
+      ],
+      "caller_ms": 9893.012041999953
+    },
+    {
+      "partition": 28,
+      "statement_id": "01f1c25c-2f68-129c-a5c2-c3cc1a77a0b6",
+      "versions": [
+        49
+      ],
+      "caller_ms": 9936.310083000024
+    },
+    {
+      "partition": 29,
+      "statement_id": "01f1c25c-38f4-180f-aaf6-2a43e1d3ee4f",
+      "versions": [
+        50
+      ],
+      "caller_ms": 10598.516500000016
+    },
+    {
+      "partition": 30,
+      "statement_id": "01f1c25c-4335-1e88-8b3a-627fae251773",
+      "versions": [
+        51
+      ],
+      "caller_ms": 10682.707124999979
+    },
+    {
+      "partition": 31,
+      "statement_id": "01f1c25c-4d56-193a-b1f0-441531c1ce3d",
+      "versions": [
+        52
+      ],
+      "caller_ms": 9472.396457999934
+    }
+  ],
+  "bounds": {
+    "read_bytes": 250000000000,
+    "write_remote_bytes": 40000000000,
+    "spill_to_disk_bytes": 5000000000,
+    "wall_s": 1800,
+    "statement_cancel_after_s": 90,
+    "combined_phase_wall_s": 2400,
+    "aggregate_attempt_read_bytes": 600000000000,
+    "aggregate_attempt_write_bytes": 120000000000
+  },
+  "prior_phase_wall_s": 939.576105417,
+  "prior_attempt_costs": {
+    "read_bytes": 192021816347,
+    "write_remote_bytes": 51308656868,
+    "spill_to_disk_bytes": 0
+  },
+  "initial_detail": {
+    "format": "delta",
+    "id": "7c76c985-b802-41b6-97e8-a76a809e2a01",
+    "name": "client_dev.ashlar_entropy_20261006_r86.edge_range32_r313",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/f573d04a-2c9f-4da2-a905-1d6fb626cfeb",
+    "createdAt": "2026-10-07T14:10:30.849Z",
+    "lastModified": "2026-10-07T14:25:03.000Z",
+    "partitionColumns": "[\"lookup_partition\"]",
+    "clusteringColumns": "[]",
+    "numFiles": "640",
+    "sizeInBytes": "31926134986",
+    "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"f573d04a-2c9f-4da2-a905-1d6fb626cfeb\",\"delta.targetFileSize\":\"67108864\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+    "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+    "clusterByAuto": "false"
+  },
+  "costs": {
+    "read_bytes": 131161619164,
+    "write_remote_bytes": 31962166147,
+    "spill_to_disk_bytes": 0
+  },
+  "groups": [
+    [
+      "0",
+      "99975",
+      "a1455a31c35b3347cff6f007a7b2eb489cd31326d38567ba1faab90db44d4ec8"
+    ],
+    [
+      "1",
+      "99975",
+      "85b1f43c6e1d2917e087737020268808a28ff484e39d2e425fe7e267668ef891"
+    ],
+    [
+      "2",
+      "99976",
+      "9d4209ed6170899e00f7aacc4eadb8ae7f3cb82429a38dd0cfd19535a5707e62"
+    ],
+    [
+      "3",
+      "99975",
+      "7e80ba8a91512d6ab8763ae98793f4e87341e8dc11b0894d64a5305167e41435"
+    ],
+    [
+      "4",
+      "99975",
+      "074e264145adb8f30aca32b7d112760932bf581fd4f2a499573e689d7d8abadc"
+    ],
+    [
+      "5",
+      "99975",
+      "210f87e4a2a47676ed35ef7757ad307661dda8646820701fd2672376e4771e1f"
+    ],
+    [
+      "6",
+      "99974",
+      "01eae72dd303726901af3a5e14ed3e14a2dd832bc19ab68ad5866b72cf99f39e"
+    ],
+    [
+      "7",
+      "99976",
+      "fead5e1b8543f99987eb27c0e7bf92ab9ee6bfad60e00095600c2fae70578067"
+    ],
+    [
+      "8",
+      "99974",
+      "a65e96e0520e0d5dd036e13fd9743f889c7a7d3b0a63f9cb86c38b5066fb9d5c"
+    ],
+    [
+      "9",
+      "99975",
+      "a8b4009b5d608482ed8d9ea3b4bbda971bc51d56af16078b0203ad003b946d0d"
+    ],
+    [
+      "10",
+      "99975",
+      "865ad39b9dfdcfeabbc42f97eb158d87e94906082451a703f92ea94c80362453"
+    ],
+    [
+      "11",
+      "99975",
+      "c86244bf6b19e6a15ca008d3b1d8ad656ae97dfd8afd059c60f9b3282e4567fb"
+    ],
+    [
+      "12",
+      "99975",
+      "93241376c3937adc01096d906a3f1d76ccd08431a77ffe7e725e71812888577a"
+    ],
+    [
+      "13",
+      "99976",
+      "12b95e49fc544fa8b512bebc04ed3ec250ed282757ab7966004fa278210b2f4c"
+    ],
+    [
+      "14",
+      "99974",
+      "85b92a9eb1c601cd9257cf9552c2e5cfdeb08b4117a9942ce577aceb233eb091"
+    ],
+    [
+      "15",
+      "99975",
+      "4a898f28c6131d1d28320f62e9331f0e5259f2380c80135bf046b690f59792b4"
+    ],
+    [
+      "16",
+      "99975",
+      "7c71ad5c8df21e11c625116362e5f790083250c588de17dd12f1c4178c09d8b8"
+    ],
+    [
+      "17",
+      "99975",
+      "4add63b62e5ecc038f4e4dab9284f1eb8f8eddcc300547f435ded3bca2e65761"
+    ],
+    [
+      "18",
+      "99974",
+      "c571e7684fdf5eba1c35f53fa6e30f28af087be4e686e1d306f482ff063a72ec"
+    ],
+    [
+      "19",
+      "99976",
+      "a3b1ab7bef829cd1cd4a5b056cb412054fd2e357e4951c6a6ff688228dc3af3e"
+    ],
+    [
+      "20",
+      "99974",
+      "074234232cee8da90433bf229940cc183ef244acb9f0d1b152d46b12bd4454d6"
+    ],
+    [
+      "21",
+      "99975",
+      "27a8db2b3ebf6a62b19a5f3bee66e22657c37a17f4a8e6eb82fdd39f43b07563"
+    ],
+    [
+      "22",
+      "99976",
+      "67dd870d99b6e2d19e9e5ef450408f86ae42ed8c708908cab274a3a58ae32e04"
+    ],
+    [
+      "23",
+      "99975",
+      "4e55abd1222fcf56d53a5f4672b81f2242f4e294a5719a509a5e6b890c541fb2"
+    ],
+    [
+      "24",
+      "99975",
+      "d9ae1dff7961ba02a8082ac85933551e74109e41a028d204feec36b45dc8994a"
+    ],
+    [
+      "25",
+      "99975",
+      "a6688293d24a857653aaf66cd1dba9aea8a5966b3045006f202ab657fa681b21"
+    ],
+    [
+      "26",
+      "99975",
+      "b607272be8af7a51bb7f9c4c0623b1b02bd5b5564e688335ff371f82b0d1df2b"
+    ],
+    [
+      "27",
+      "99975",
+      "6956687b65bb0593b85ea921e937f512696290ca85393f0ad849fe30043ce344"
+    ],
+    [
+      "28",
+      "99975",
+      "075e6d8194e15e9a98fed331a9180324fee9071f44d1693f3699ed2177835716"
+    ],
+    [
+      "29",
+      "99975",
+      "ee3dc6b610fa9faa81d7d0088f1b5b583bc83ab4e97dfa85d84ec1163d843927"
+    ],
+    [
+      "30",
+      "99975",
+      "06b6c11d107220fc350c44065cd72625295b68aec28fefba6d8f3ff0d437be8c"
+    ],
+    [
+      "31",
+      "99974",
+      "d9396fcc1b002d9ccb4631c0e5dbf7d630ebdb327570d3cd83225e176fbcfa25"
+    ],
+    [
+      "32",
+      "99976",
+      "7668655aec9aa35e846d6c9d8aa84659aac32f986d18d1ed71ccd6356d1c31e4"
+    ],
+    [
+      "33",
+      "99975",
+      "32e3e1eaecfe29e43210b6a64e59549725b4ec88f0a560587f169bfa9ad88544"
+    ],
+    [
+      "34",
+      "99975",
+      "e47f29fd16f1afad3ea40a9037c3446ab2587807d55ec82595711d03d0fd0493"
+    ],
+    [
+      "35",
+      "99975",
+      "17358e70e3c0721c75f04c74052beeb044c356509eaf287aea7452e0a1f4333b"
+    ],
+    [
+      "36",
+      "99975",
+      "67d469689c5f56ec867c4b6e52dc8eb053e17d5ea22663fcc9f79d581fb77908"
+    ],
+    [
+      "37",
+      "99974",
+      "6794ab3839071af6d6f9bd98901bf461d3c0c84e17e94000e2611705e808e5b2"
+    ],
+    [
+      "38",
+      "99976",
+      "85dcf33f6d522929f19808f549c701556d146099f90f2778a852811afd8f0164"
+    ],
+    [
+      "39",
+      "99974",
+      "7c23dad4f9ccebd1813d339ead8da463ea5c36c082d782c7668d426b84d106e5"
+    ],
+    [
+      "40",
+      "99975",
+      "dbd0543d9e171e34cdaf0f423c9864fcaf905f690687e06ec4b56d606380eb42"
+    ],
+    [
+      "41",
+      "99975",
+      "20c5a3fb9aa2bf3708c0b76b09ddec91d19132d1832ea000106cf2ac20b8668a"
+    ],
+    [
+      "42",
+      "99975",
+      "41f54ff925a9bb0d48a58ea052b9260feb620f0f9165c9daa737a05910e3cb26"
+    ],
+    [
+      "43",
+      "99975",
+      "1ffa2d9180e79063f4893f614eec1cb3e857b9f3994c3af65476e999a9a0d425"
+    ],
+    [
+      "44",
+      "99976",
+      "bbc22fc4dbbd63f204da11d56f5e6cfb9d446d180ee4b33bd25e3b668dab951c"
+    ],
+    [
+      "45",
+      "99975",
+      "a9c64a3f23ec20127761bde43f342d5c1e39454f1076831feda6c4552f1182b1"
+    ],
+    [
+      "46",
+      "99974",
+      "db24da29ac14a3d1561d79a674ab6008d5848b195ede3f1def4b6bae8c7fd351"
+    ],
+    [
+      "47",
+      "99976",
+      "07bd956020e158dd3dbc090ad3771edee514d1ad067c08ef7aed4e258edf44fd"
+    ],
+    [
+      "48",
+      "99974",
+      "9e4e9f2117a8530cdcd247ad205b252590c6c083d88abd17e837a5c9dbb40d59"
+    ],
+    [
+      "49",
+      "99975",
+      "041cd94b8955abe49c4d6b129ea625e285c502783258eb32a01fe94e2c76ca95"
+    ],
+    [
+      "50",
+      "99975",
+      "d0f029cd470ee2f3cd4177c7ad4c00dc4a67813039444d281adcaee820f0aa03"
+    ],
+    [
+      "51",
+      "99975",
+      "70deadce86a98d11ac6cb533690238d57fc70774d29b76e6bbd0018ca80b1785"
+    ],
+    [
+      "52",
+      "99975",
+      "bf41dd19ed21e28beaf72839a536c3927416fa62e85fc4ffadaf15e08f977be5"
+    ],
+    [
+      "53",
+      "99975",
+      "f5b6aa99fa01e468e71039d215287661a3a069a7eff1770a7606e9550c7dc4e9"
+    ],
+    [
+      "54",
+      "99976",
+      "f193f380a16ef49b2a9505479fa65ade6afe73043cb26903b10f8d9bed5c07c8"
+    ],
+    [
+      "55",
+      "99975",
+      "e1a8d09282df425e6be0562615bcdfbc6f2bed22e96b386a68b7b58ae3e50f46"
+    ],
+    [
+      "56",
+      "99974",
+      "41922db7b9f55beb7930d0f766e6e84d0598f9ed88de56b7d25d77f8f3972c8d"
+    ],
+    [
+      "57",
+      "99976",
+      "e1ecdf23da5547c99d49ef6a850ec6025af6d7eb61b07d60ed3b2141c4165ef2"
+    ],
+    [
+      "58",
+      "99974",
+      "0342ce00405944a33f9489856b23355c84c4a0b425ea1181e29d42335236909c"
+    ],
+    [
+      "59",
+      "99975",
+      "fae42f389673644bdcc3b2cabfc691876bc5ed4311d2d0660d6375a290cf7a5a"
+    ],
+    [
+      "60",
+      "99975",
+      "0b45b95862bbf53132f4f6fe85a3cf363fe01c3e7887e367eca8984c00b79270"
+    ],
+    [
+      "61",
+      "99975",
+      "ac022f96304f5b83998ce4eb8bec96f2827ade44488ac9fa067a942c55714ac2"
+    ],
+    [
+      "62",
+      "99974",
+      "3a975fed0c4500a1489330984065497e006cc311919ceb5e9792ce886e46e3ad"
+    ],
+    [
+      "63",
+      "99976",
+      "99cfed522457359378933a58b20ad28e3c2d78d07679e996cb4060440a89b34f"
+    ],
+    [
+      "64",
+      "99975",
+      "435e27e75ab188ad202336a147be63e4822c76109e63b3e83d087e2b46348670"
+    ],
+    [
+      "65",
+      "99975",
+      "fdb0020fa379eb9e9ef4edf7a0fb4f8a49ea18b5e8cb2cf21186d1d366aac4dd"
+    ],
+    [
+      "66",
+      "99976",
+      "9189a9aee44f47e2168ab05930b06a7d9ff78740c99d41edcf2c555b959f4270"
+    ],
+    [
+      "67",
+      "99974",
+      "873eaebaf0249efd1b8313aec6cdc0e748fbac5bbd53395e9a60a79f2d79c885"
+    ],
+    [
+      "68",
+      "99975",
+      "496a6ea1bc8dd9724f896f04848616fcce30002a8d30760b5369f775f67a0da9"
+    ],
+    [
+      "69",
+      "99975",
+      "07898339f6592abe9d2ff00b2c88e703191581336e98eb10a0202e329148d829"
+    ],
+    [
+      "70",
+      "99975",
+      "355805df829049d56438909612a11eb77242b687a2c81b6540f7eab40aa92d6d"
+    ],
+    [
+      "71",
+      "99974",
+      "70a5115a06704f92ed92bdce7bb1bb73daf97a5df07e22fecde7b900250bd4ba"
+    ],
+    [
+      "72",
+      "99976",
+      "ca3f28ac75183bceb69450b4aadb8138ad623410c720bef0287a717917124739"
+    ],
+    [
+      "73",
+      "99975",
+      "cc787712baa4eeaceef0b66741dfae31db878316b54abc2d57ddff099a975496"
+    ],
+    [
+      "74",
+      "99974",
+      "fca518ed0455ce6c29b682f7567ab5c69c28b9c29ca7031c4b8436d00a38a80b"
+    ],
+    [
+      "75",
+      "99976",
+      "7f218e3fe6e59a02bd0ece08d61cccf238a498c8d9210da1f9e277b825890645"
+    ],
+    [
+      "76",
+      "99976",
+      "5e7982c28e4600017ac0b543642d4a19687fb459034e193ec5a1dbc9e525fc4b"
+    ],
+    [
+      "77",
+      "99974",
+      "2239303cf970da7b4723cf07fdd7c8736e4cbab9105cfad2bbc58af7fb8d9e4f"
+    ],
+    [
+      "78",
+      "99975",
+      "a4bc4fa4767c70e4d45e4795acacf0901e38185bd09794b50231daac233f04e2"
+    ],
+    [
+      "79",
+      "99975",
+      "2c8dd0ec75a7e40b5624e0836bbc74f79cf2f04143f74cf158ae5239063f80f7"
+    ],
+    [
+      "80",
+      "99975",
+      "60d5dbb338e7ba46057494c45e75abbede52f1c48b0f5fbff5e7b5070442f103"
+    ],
+    [
+      "81",
+      "99974",
+      "08282f9b5d2a21ba5c9c12c10a0525ff292ae8a5f03151d80d9e035bf1c707c0"
+    ],
+    [
+      "82",
+      "99976",
+      "a0833b4d79e557ce37a4924c5390cac48bab45851c1a35ba67f6905b260e68d5"
+    ],
+    [
+      "83",
+      "99974",
+      "3103ca790bcbbdea2ae29deb5302bfb366187d5643bf1fc8ad9831ba2aced67b"
+    ],
+    [
+      "84",
+      "99975",
+      "2e6fb7533884f1676166cea525af3fb7cde1d26d62fb32ff64fec5b6a1977560"
+    ],
+    [
+      "85",
+      "99976",
+      "2f28450872bc02ca4e4cc271662bdc68db3b761791a58b176cd041686289ee08"
+    ],
+    [
+      "86",
+      "99976",
+      "f33372b3f6864502d382f260f9e03cc48bfbe5a3b5a3cf408cba687912bf3ef3"
+    ],
+    [
+      "87",
+      "99974",
+      "2dfa140857492a51155c00e71f64c8d26df40dad29569a36d86c665b222900ac"
+    ],
+    [
+      "88",
+      "99975",
+      "75ac39c41354983671a0819f9bebf57aa2f2df1d5a499c4c08891ad6b830dbcf"
+    ],
+    [
+      "89",
+      "99976",
+      "96d57c077450c0d919ca554fa5c257698d2f90763e7f4268fa36c94f8514000b"
+    ],
+    [
+      "90",
+      "99973",
+      "0262521a7d7a9eb900015230b4d696428a0c177538dc9fbf6a1a12b5c1876dca"
+    ],
+    [
+      "91",
+      "99976",
+      "89eeb48fa89cdbea6231cbed4619f6837e3a028c77a80914df50e72cfec9213d"
+    ],
+    [
+      "92",
+      "99975",
+      "3c41258cdd6d118e25d1d3d3f1cef9765f98562da9abfad61b320059c7f76685"
+    ],
+    [
+      "93",
+      "99974",
+      "ce0dc55c35d7c1213b16c0f6d5e3ecb7de73873c9a757ce48a53e7f440d6a7eb"
+    ],
+    [
+      "94",
+      "99975",
+      "cd052f8b3c8194240a540edd6c6a72fc31347d34ee8c4697f2893ce196bda331"
+    ],
+    [
+      "95",
+      "99976",
+      "b8cfac05b5f9a6c2decea2cacd109dbaf1fd7edc202e12143f7879802f1fa765"
+    ],
+    [
+      "96",
+      "99974",
+      "20acc1c42030f64f2454255350141d313655a3457a0bd151e6fe770c42294142"
+    ],
+    [
+      "97",
+      "99976",
+      "360b11202e85ab5713093a27210d2cc09468358b98d26a813206feacaba39c13"
+    ],
+    [
+      "98",
+      "99975",
+      "3946df1206d2fc84c6c43f21ae079fd9d76ea69d372e0efa2ebaf6305f38fd93"
+    ],
+    [
+      "99",
+      "99974",
+      "69c12db9ce40b48899b206d7f54a8996c029ff9e1babc2d4ef282ec6a0fadfcb"
+    ],
+    [
+      "100",
+      "99975",
+      "ad185c26ac966df8fc90ae16127b645653766c3e12d96268aeaa1eea198253fd"
+    ],
+    [
+      "101",
+      "99976",
+      "4153c6e240c0312fbca2ee2b95fc8094553024229a2a12b42a9fd794b4134308"
+    ],
+    [
+      "102",
+      "99975",
+      "5db6388cf34040e5e4a20acb3cd623c4179e96b27983209d2ac7cb0e06aea2d4"
+    ],
+    [
+      "103",
+      "99974",
+      "c2c675611c150245baa40ee58a977c3f32ce355506cfdd299851f46454f0413e"
+    ],
+    [
+      "104",
+      "99975",
+      "7d682e0584415d38f32381c1df4f32d06fbb9bf3089145d0a7a9537102ccfcbb"
+    ],
+    [
+      "105",
+      "99976",
+      "d8fd7522e4ec802bf250b5d5de7f231fb7526b85638e35e0c440fe0af2dba491"
+    ],
+    [
+      "106",
+      "99974",
+      "03db5663e1bee3863067a572e9f6956766837df668f0910f390fe789d8f5a4f8"
+    ],
+    [
+      "107",
+      "99976",
+      "7b888a765d0646e6abc7dbd35673839e935de09aed998f53ffe9a7c957ceb01e"
+    ],
+    [
+      "108",
+      "99976",
+      "0899981d8657452de0be1f2e621056053f1d488803c71836777bf5f9ddf28800"
+    ],
+    [
+      "109",
+      "99973",
+      "632d8a71640409cdb52c526b35d96ac51068d2cb32f0d04abcd4c62905c78393"
+    ],
+    [
+      "110",
+      "99976",
+      "4f1ab898b377cdc457c250eb90f00af9da9745b0c4bdc41fe056fd8599e4d0ef"
+    ],
+    [
+      "111",
+      "99975",
+      "2aa452bd5c4c4b1c7d032d070d7727a76ae8fbf490f394e269d287dc3209f212"
+    ],
+    [
+      "112",
+      "99974",
+      "e455234bb908816831e6bf968753ed1b5f00d25acaa775bc340c41b700000042"
+    ],
+    [
+      "113",
+      "99975",
+      "3fb2879698b72770489eec18a91ad325f9e60f0df230451476cd4747e9eeccec"
+    ],
+    [
+      "114",
+      "99976",
+      "9867c75e8f6cc8648e233b355ec85fc8552c70bbe209dd60c79960833b2a2a18"
+    ],
+    [
+      "115",
+      "99974",
+      "b4647f87ee6baa583824ff31508848dd912464f33f0edc578fb1beb037f8091c"
+    ],
+    [
+      "116",
+      "99975",
+      "fcb7628049fc44c687fe2d57967554bf2b2e89fb30a827d44f6038e83f74ee28"
+    ],
+    [
+      "117",
+      "99976",
+      "1cddf257133830f228636cfc4ccbafd1945cf42773ba9439840f25ef4959a050"
+    ],
+    [
+      "118",
+      "99975",
+      "3caee9f5328ef212715b712bbec120e60e87dccfff153f4091e095d1a44bb8e0"
+    ],
+    [
+      "119",
+      "99974",
+      "79779370fcfc2faadc8c87bf34f37638fe2f3f92fae9c95edc10d3984c15a319"
+    ],
+    [
+      "120",
+      "99976",
+      "7abd32068b16e290553d1f56304ed2e40f0db28b266e9c8dc6ca524474160105"
+    ],
+    [
+      "121",
+      "99974",
+      "0e097cb2339cb2abe818d8113319a4fce748e533dd1bed5a14ee37f0559ab688"
+    ],
+    [
+      "122",
+      "99975",
+      "a94b0718ec082a331e1f8bd0311652cce9a57121f54f1aac339e37d89b9f56f5"
+    ],
+    [
+      "123",
+      "99975",
+      "f069e9cb3085272ac0aa97b61b22a28db21f66d980c3ab20efdce38529befb5d"
+    ],
+    [
+      "124",
+      "99975",
+      "52f0eaf1aa57c071fdc55a5e5e48dea299caf2089cec274e0f0d908c9c99585b"
+    ],
+    [
+      "125",
+      "99974",
+      "460ddcec55d15bb33f6a1a7064006bcff34a15a9cbcaff7b9b97f1eaa2a04ee2"
+    ],
+    [
+      "126",
+      "99976",
+      "d43aa5a90a3f9366065e880382d0c714af1706c2a91cfc782679eb417e5e1037"
+    ],
+    [
+      "127",
+      "99976",
+      "0c081d48e19151abb8af0bde7130ec542296acc49e559505d02d3c3c74c4f613"
+    ],
+    [
+      "128",
+      "99975",
+      "eba2b7045797e072926ef08164ee98972001fc5511917a2d690de9f4db0b28a0"
+    ],
+    [
+      "129",
+      "99975",
+      "accc95549bcca9b91d52f26bb24214f5bf4c056ec738aa9376e2b5f9ebaeb1fa"
+    ],
+    [
+      "130",
+      "99975",
+      "90171cac48b738fd0f070ddfc9bd167142de7174787d69dbcf745016aa05ae57"
+    ],
+    [
+      "131",
+      "99975",
+      "9dd469cf946bee6b7f589da3654cc6366d1ed5b055372234eaa41ad418e691c5"
+    ],
+    [
+      "132",
+      "99974",
+      "5b5101767c8b46d93b928008c4cf995dab86ffefaf0e77a260d4a28f71629e16"
+    ],
+    [
+      "133",
+      "99976",
+      "c0ef1883a552535be0d9f079c51e97ce6e138c3017943c9755c474c16d571058"
+    ],
+    [
+      "134",
+      "99974",
+      "c2cc8351aad2b9b215d6470ef764b77975e43f80533b25220ca50450ad6b618d"
+    ],
+    [
+      "135",
+      "99975",
+      "f989c0a6175624dff09b46631e6af7f446734ed8c9a5931a640a0f247502a800"
+    ],
+    [
+      "136",
+      "99975",
+      "470c03c2050be621504299f559090bd13eda028c0ade6f6ae0757fe48213f0d4"
+    ],
+    [
+      "137",
+      "99975",
+      "a933a43c8f6d15a755ac050c7dc7d6e37064b2f205ac362c91d55943cf68bc76"
+    ],
+    [
+      "138",
+      "99975",
+      "60fd73a91196490ab5bb371e3bb9142772203d832d01f4e1325b818d9e386b40"
+    ],
+    [
+      "139",
+      "99976",
+      "a4532b9e99a9eda856556f1c4c1a173538f58ca39659dff5398548c6af89bc23"
+    ],
+    [
+      "140",
+      "99974",
+      "071ca9da6c49c40854dd78975e481fa9ef0da0e2f51fac9f4bc35a9946d74767"
+    ],
+    [
+      "141",
+      "99975",
+      "0c6da601901e17e8aca4db9cc9be21a561131888fb284ba8f30cbb01249c51d8"
+    ],
+    [
+      "142",
+      "99975",
+      "aa91c8144b114b889e356dbe97b37692376383b56ff15d6daac7d399940393ae"
+    ],
+    [
+      "143",
+      "99975",
+      "2c769e25efb4706e52a72959446ed1d88a867813307feef5080ec8d918359693"
+    ],
+    [
+      "144",
+      "99974",
+      "627ea0cbc14127a7664e94caab00cf27ad05b0822de2dfd9ab0717a78982c48d"
+    ],
+    [
+      "145",
+      "99976",
+      "1f333f00deb598a3d93385c516013489f40ca97d819969ec5918a7853e657e83"
+    ],
+    [
+      "146",
+      "99974",
+      "341628dfbe26deeb4bac63a796a362c86f8b17a9d3433c538f6640812260d222"
+    ],
+    [
+      "147",
+      "99975",
+      "5337cbb758cf589b912ba56080526d94fdda75adacda656d32e60669f37afe03"
+    ],
+    [
+      "148",
+      "99976",
+      "c87c6951922c4937c3151f53d3bef7cacddf725df46d0d1f8c56bb87c8f78aa1"
+    ],
+    [
+      "149",
+      "99975",
+      "b5c698852ca658347ed3b306f4b352d726847c022adffba04426200e41238a07"
+    ],
+    [
+      "150",
+      "99975",
+      "b0833d021963fcabb564be33ff287972680f8e9a5aac8fb659ecd9c0389377fb"
+    ],
+    [
+      "151",
+      "99975",
+      "05720d0b5c63105f1bda621e1247fde437a81413a99f72d860d2965a8fda2220"
+    ],
+    [
+      "152",
+      "99975",
+      "4c9fc159d1d1f140ddf136cec28d857e05d05b33241d023e79fa7e5e0b9028c1"
+    ],
+    [
+      "153",
+      "99975",
+      "44f98e017ddd9d4cfe1fc0a0fcb85e2a20a93e104ae19f8566a6198af02ffe44"
+    ],
+    [
+      "154",
+      "99975",
+      "ebcdfe0095360495836515f35567b06843ef54cfa8a5ab19ff0138050178ae58"
+    ],
+    [
+      "155",
+      "99975",
+      "b82fbd7425cddbc0feb6619f82352c9559d7d803dd91e496ad3a383af3ac4edc"
+    ],
+    [
+      "156",
+      "99975",
+      "b24a5af10d30a8a39ec1d5a8c8c666edaa5f23ec69e2a2d41c8d70efa45a6fb7"
+    ],
+    [
+      "157",
+      "99974",
+      "79b8c79df42311ec30dce190cc97f6c675171bc6441171670e18fd6bfd9b09a0"
+    ],
+    [
+      "158",
+      "99976",
+      "b7d7df8192b162f27ca173b7745f8ff17d0d74c82415a20656ff3f995e4915da"
+    ],
+    [
+      "159",
+      "99975",
+      "e7ea8270d66031d9adfe4f81b98e1e8333f209b7b065cbd324f97308d13cbe2b"
+    ],
+    [
+      "160",
+      "99975",
+      "75f855447f28655dacfd756b79f9d107a5a48a81771cf10db22ff78dd5171fa7"
+    ],
+    [
+      "161",
+      "99975",
+      "cc9cf0840b53fd2102579f38939b3f780fb53e8baf3ae7ce055b5bb1b26423b0"
+    ],
+    [
+      "162",
+      "99975",
+      "662e339de3d6bce88d52d43bb0401f2f6891e6d08c5896dc975358a2dd791e26"
+    ],
+    [
+      "163",
+      "99974",
+      "1d782ee7431a285856af39106e584bc10050043aff36b988d45f6373104256e0"
+    ],
+    [
+      "164",
+      "99976",
+      "bb242d9d82534a2340a8c57b76477da4fafbe840f4836081d8922191afe7a6ab"
+    ],
+    [
+      "165",
+      "99974",
+      "c837dd049841a9c38b27e3276f49928bb4f4b57179e0121882b9468a71c39251"
+    ],
+    [
+      "166",
+      "99975",
+      "599cdf4d59d2111db981e042987c4f52cff924864fba66177ece399ea1ac39ee"
+    ],
+    [
+      "167",
+      "99975",
+      "f561c1fc2af49cffb1104fcc270c18828efab0baca4f3355cadca99c646356f1"
+    ],
+    [
+      "168",
+      "99975",
+      "60c99be450c6893edcedd62716c4629b3d12cc801452df16187ab48169a810e2"
+    ],
+    [
+      "169",
+      "99975",
+      "e4a37937f1513e928d8a35e1902f3f19d6c01b6217513067dbddf63d6267558d"
+    ],
+    [
+      "170",
+      "99976",
+      "b573c9c53046c9312240ad810b2420d4f871d98804e1cce9b3a33f6ac402932e"
+    ],
+    [
+      "171",
+      "99974",
+      "ae38eb7aeeb63ad18df19f05b332d79842181a5a3386663a8e3ded3969a8c745"
+    ],
+    [
+      "172",
+      "99975",
+      "937709fed87a5a0333caef4838627546fbb93cd7c8fc033aca5b7c462e4d51a0"
+    ],
+    [
+      "173",
+      "99975",
+      "dfe7fca36e6f95d456e43016380437765a4e3b6293c8cabbe20a0e1e81431715"
+    ],
+    [
+      "174",
+      "99975",
+      "167751ce985ff416e3686e57e4ec2bbe13585dadad1d8dfa6345f8918a3083ff"
+    ],
+    [
+      "175",
+      "99975",
+      "79fc876a20c5c360f10900301539676ed07506b45165e7ad558cc331bad7e27a"
+    ],
+    [
+      "176",
+      "99975",
+      "5b27bde11166497230e96a18fa6b3d71efc4fe33542bb8e5bd7b72b53bb32a8e"
+    ],
+    [
+      "177",
+      "99975",
+      "ed9ed9a73bcd86b3f39246fe0ae8b0b35aac6db58bfd6e26e5edb9dde10d3342"
+    ],
+    [
+      "178",
+      "99975",
+      "2976315e93c8eb970a3db030c00e18c9cac44e1d441eeeb8d14a202ac0f9598e"
+    ],
+    [
+      "179",
+      "99975",
+      "0bc5b337021e79ccd9ad12b40892a21617220922b303014adfe3739b6db28291"
+    ],
+    [
+      "180",
+      "99976",
+      "1643c718f0b5b3656ba8031d88c61c008416d010fe44ea574c46db0d5b071848"
+    ],
+    [
+      "181",
+      "99975",
+      "b7120bccbeac217b0b77337dd357911d87aaad1c341c1c30e23793b15efaa29d"
+    ],
+    [
+      "182",
+      "99974",
+      "4c71b96780c44450e1c712a8c0bd2415e6f05f556350e3533000d054c09d3592"
+    ],
+    [
+      "183",
+      "99976",
+      "032df678e3c0f33039e8c7bdf192f4938b5661e72a67efd66d4f10099e049622"
+    ],
+    [
+      "184",
+      "99974",
+      "423bcc96f8fce98beaf3c26dd512589dd97091550e31d3624b9360e50c598b0e"
+    ],
+    [
+      "185",
+      "99975",
+      "f65fea754abb298bce653c95a4dbd2eadeffdceaf6d6fdbccf3c2e649118fd61"
+    ],
+    [
+      "186",
+      "99975",
+      "b7befa0d6f725e252dcb00d700df8de63284cd243ed495ca5a3c82c393e1f2b1"
+    ],
+    [
+      "187",
+      "99975",
+      "05b9eb738ffdf9dbe5d74247935084b10849abb76329083e508f310e75853b92"
+    ],
+    [
+      "188",
+      "99974",
+      "828fdf2d728d266b5814a0c0b1f508baa93993dca43626f727e1897faf6ca609"
+    ],
+    [
+      "189",
+      "99976",
+      "22e6c3a6e0bb8403b29203fdebc8ca77c815627a70b0dcec9071d302ce420fbb"
+    ],
+    [
+      "190",
+      "99975",
+      "b6c29ceeaa37d322ff0331a03bb6840d7e72868f96d4dd4a39e2f40edf73a66a"
+    ],
+    [
+      "191",
+      "99975",
+      "9f7edd6ccda3d7a3c621480496ff9c4157643012b0c144755a4a74d9da3bdd6e"
+    ],
+    [
+      "192",
+      "99975",
+      "9ccb1193c9d396c62f4c7f62f818e50e46197440226424c8e5a381354d8cc724"
+    ],
+    [
+      "193",
+      "99975",
+      "ede552b23f60546e4fe4f6b3e2a9acdbffaa76690d27a16d92d43921ec079b6d"
+    ],
+    [
+      "194",
+      "99974",
+      "bd186f53d3d0f91f408e922b862c0ba13fcbdafcd5897c1abb63022f087077a4"
+    ],
+    [
+      "195",
+      "99976",
+      "9c5f11ca5ebf5c5ada3fc3c9809a8f427fbbcaf55e97298426e0c9d4f26d8050"
+    ],
+    [
+      "196",
+      "99974",
+      "833d304a0b32e18971a795ddb6b1c1dca75a134dc0a81a16228334b4c271f5c8"
+    ],
+    [
+      "197",
+      "99975",
+      "2f7ed57462cd0d8baab0234cb96eaefac0b593efa8b7e6a86771c503a9ea8a8a"
+    ],
+    [
+      "198",
+      "99975",
+      "6f2a41d9c628890b967ed50613884c8cbb3ad48ddabb75d0a2354d31a8bbe230"
+    ],
+    [
+      "199",
+      "99975",
+      "01c6c984eea1da9d1df6a5c010b0b7c49d90926c3c73c55b6dc2ed3eb58652ef"
+    ],
+    [
+      "200",
+      "99975",
+      "d2a3a150112b3db4fdde44cf539096d408042fa2d2b94942eb6d587d1af5f23a"
+    ],
+    [
+      "201",
+      "99976",
+      "1ed7b9ec43608d26f0752198fc754164bbf076a2e5b841b836fd9f5b0824cf52"
+    ],
+    [
+      "202",
+      "99976",
+      "5e8dcca17e13981e35ad2c37dd005f5108b4872ca9802404f24c59936104644a"
+    ],
+    [
+      "203",
+      "99974",
+      "32888589e3a37815b7321e7f61e6799941c4ff74c95b07c19d2c7423ecb7ce5b"
+    ],
+    [
+      "204",
+      "99975",
+      "f1bf0603d4c88f12803a555296b3ed6544f0fd0a4e9b05da3882bfa4b6ffa152"
+    ],
+    [
+      "205",
+      "99975",
+      "bbf74bd02214ce106112d7a9d052058f24b89c654969f0a89e55c01299842e88"
+    ],
+    [
+      "206",
+      "99975",
+      "699a44751fb2a4d044b17499786f87ce44088a48c81c53e125766a1334829144"
+    ],
+    [
+      "207",
+      "99974",
+      "c82681d29497932d772d37b72b017178d2a827e034900613df28da3314ffb075"
+    ],
+    [
+      "208",
+      "99976",
+      "8ca437583c95539ba6400050d759c59b25b7e41fed571b8ffdbd8a57fc24fd99"
+    ],
+    [
+      "209",
+      "99974",
+      "4dba1996a86acf4599efe0c51d83c56f6ecdb9b9cb4f2af366514197c3492ed1"
+    ],
+    [
+      "210",
+      "99975",
+      "cfe50c4f6517e86aa337de6ddf75c7db17c894fa37208bee2bb6c48bd109208e"
+    ],
+    [
+      "211",
+      "99976",
+      "23063009a145c347ce0db2b55db24e8a70a884919591f84bd5c93307a994ba69"
+    ],
+    [
+      "212",
+      "99975",
+      "1d47173735a1efd343b6336ca83538ebab779547feebf17c535236e7e05671de"
+    ],
+    [
+      "213",
+      "99974",
+      "41e8564c24e3aacc4e1d31e7c2fd5749ac18d75ae9a5bcb8e0b8ac8f69e56263"
+    ],
+    [
+      "214",
+      "99976",
+      "d3e3c1ef5a978ca952c037e1724619ea7b27ec572f58b6704501c3cfbec5e176"
+    ],
+    [
+      "215",
+      "99975",
+      "3affd6e54068a2d9fe64af7b7226df436fa14f78216f88346617dcc2e016b9e9"
+    ],
+    [
+      "216",
+      "99974",
+      "5f19c46ab75c7dc13ce77326745d24575c932665dea7db238bbd4ec3811b5051"
+    ],
+    [
+      "217",
+      "99975",
+      "01d3b2df97abe1cef93131fd3b7c020d7e943e35e95c1b1997466c74e12db0e9"
+    ],
+    [
+      "218",
+      "99976",
+      "ee6fc2717fd442b5b54edd2069d6a52efd3e85bef053d0ee40e0325522296060"
+    ],
+    [
+      "219",
+      "99973",
+      "7415e19019efb3f59769323d03e04498be409009f6d8433fd1331508341a1b18"
+    ],
+    [
+      "220",
+      "99976",
+      "ed007b1c3cd2a8716ccad6d9cb6c482488c13fb7ac74a7d771c2d7e292c5b965"
+    ],
+    [
+      "221",
+      "99976",
+      "4a0364e1b5c7255b7fa63f1815dd072a3c3dd7de7794ce7816db6dff1cc975ad"
+    ],
+    [
+      "222",
+      "99974",
+      "75f2eadc72cbf2a5d8a17448a4be8235ff6f6142c01559e72043619fc324f927"
+    ],
+    [
+      "223",
+      "99976",
+      "01d78a5854c0922799862197fd8447a66eb4736171b5ae1a68c96b267a390200"
+    ],
+    [
+      "224",
+      "99975",
+      "344f72efc4ef50bb053e41719ebe12972864451915679b73935a91d77e38e9f1"
+    ],
+    [
+      "225",
+      "99974",
+      "815ea2ea698617b6e9f1b29aebaaf20979769d1aa315efca17d987d90b1ac661"
+    ],
+    [
+      "226",
+      "99975",
+      "ae7f756187d731a431c688ca79c3f9fe8db9bd5cc5ea44671823b2ec2d00c7b2"
+    ],
+    [
+      "227",
+      "99976",
+      "fe16ec1f1cb944b30b1008a4dac750ead79dd26124ea5486332b8bc2cf326072"
+    ],
+    [
+      "228",
+      "99975",
+      "78f871a066af8aca0e90e322541f10cde4b961d2f8c8b95d97a9a600a406416f"
+    ],
+    [
+      "229",
+      "99974",
+      "66b53a1d489470c824d9f31850b2b3fbd2c9b5db6e6d192fed37f4b23b6a49f1"
+    ],
+    [
+      "230",
+      "99975",
+      "9f6ba66840da76138d2abc978ccf107d759ec9248508f85ba2758619ad49dd6e"
+    ],
+    [
+      "231",
+      "99976",
+      "eecdf5581945ee6570b40fc4d8a18fa8550beeef098c35faf104c666a9589825"
+    ],
+    [
+      "232",
+      "99974",
+      "ec6e08f1f596b7ba8e21136cf9ea82fb13b4dce190c51b60b631d0bfc6460faf"
+    ],
+    [
+      "233",
+      "99976",
+      "892d771bc2e751429a802ae145e363880b0236067e57af026a663e0fde68992c"
+    ],
+    [
+      "234",
+      "99975",
+      "48cd5e48dea9daceba968960ac17d8d5d6bdd01e0212b1aa1fd23785abb4786e"
+    ],
+    [
+      "235",
+      "99974",
+      "4a0dfd77d0006ce148b5608a82bb0eaaa1607234e3c0bd4911ff0b1c599981b5"
+    ],
+    [
+      "236",
+      "99975",
+      "dcc5029b5f58c54a16703d13fb838f8798e4a11df6afa31537b432632b9fd942"
+    ],
+    [
+      "237",
+      "99976",
+      "ab38b9d056eae48129acd11def41519da8977f6db1ae76723fe43518a5f2413f"
+    ],
+    [
+      "238",
+      "99973",
+      "0ca1f710fe2ad5b8964a1b8c9ddef735bef9c643502be959c25f11efd658fcad"
+    ],
+    [
+      "239",
+      "99976",
+      "85de0579c032d8308fbef4c739f898b921c976716db2c49920f52a834feb7d62"
+    ],
+    [
+      "240",
+      "99975",
+      "8592e5be9cc97cd512752e75285d76024d60b24c473b6ba86424651b270cda73"
+    ],
+    [
+      "241",
+      "99974",
+      "07fe240d1c296494cdf05a7a92eb0515d28ddd6972ac8d6915388671b03644d2"
+    ],
+    [
+      "242",
+      "99976",
+      "db089df4a25d67087ec1c8aff7ba300d3d3c1d3f0cc1aabcbcf9aa8d2f913ce9"
+    ],
+    [
+      "243",
+      "99976",
+      "e77c424a954214c2283e674f87f36fdd92c55ba7b25b63d103c0d5c694270fe3"
+    ],
+    [
+      "244",
+      "99975",
+      "d325448fdcbe632035a0ed15fb5caaa0c3f042d560d87f8741d345c8c2f01036"
+    ],
+    [
+      "245",
+      "99974",
+      "3e6a29115efc227e2257bc299c76c8fd03dafff388fe134aba6eafd3f0533a76"
+    ],
+    [
+      "246",
+      "99976",
+      "b90daf10998b80a5a5833c71420caf9411f0c411b0ef4769623e01f5787a68c5"
+    ],
+    [
+      "247",
+      "99974",
+      "6cbf1a7418aa4d123175dce2558179d4002e0cac34a0bbae10162bbcaede5aef"
+    ],
+    [
+      "248",
+      "99975",
+      "a11a5d5f9d66e46849fbd18f09fe8ecb2fdeb4152d3779ec5fed5d24f14622f3"
+    ],
+    [
+      "249",
+      "99975",
+      "6e485b7d5281eda29b519056b6cf2ab4fc2dad68898bcbec62e0244ccc10ada5"
+    ],
+    [
+      "250",
+      "99975",
+      "07d2a476a4ece2530c0e71911315f2ccea7911e05e3528d763dc01d21778fd46"
+    ],
+    [
+      "251",
+      "99974",
+      "e8cb561c9db198b316956dfdd86f6d86bd8a63f483c8ddc06cfad580e2ca810b"
+    ],
+    [
+      "252",
+      "99976",
+      "b3b79a49f290cb068e42e9b81d08e0a42d31da419eb0c677381b3e4dd96cf5ac"
+    ],
+    [
+      "253",
+      "99976",
+      "824e0883b34dd32a69ee0a7985302a0edbc38af2c976b88b3bae38186b56a1d6"
+    ],
+    [
+      "254",
+      "99974",
+      "8b50527f90ee294febc839a4302b0ae9101f0330159793de67117a9555beda3b"
+    ],
+    [
+      "255",
+      "99975",
+      "cfefc6e9230818ddb73b55509d93d98f622540f1c5302f4bd6959e7fa8c411cd"
+    ],
+    [
+      "256",
+      "99976",
+      "2c31637bcba0fe05c746fba9ad151e394b34f320eb03e70974c2c3754b08e4e0"
+    ],
+    [
+      "257",
+      "99974",
+      "3b99fc676c6c249e9e0b63c3a4f210b392d85c875fe313d9058913809ad57e23"
+    ],
+    [
+      "258",
+      "99975",
+      "01ab946a333257ae7a09dbbc5e7e7eda288a28f8529579c2d2c8678a71a839b7"
+    ],
+    [
+      "259",
+      "99975",
+      "bff2c6368eb0daa708dcc0079ec5529da37d58728317f2c92a956ab151ad2e0b"
+    ],
+    [
+      "260",
+      "99975",
+      "056da72aeca48d8bcbcf27e398db5b58b0d5136629b98a47582e4d8b6079e1e7"
+    ],
+    [
+      "261",
+      "99974",
+      "9525da2bcf64dc7a81e5825d9a6ab0e4b1262925810fd4bcedd6a0730c64ca5f"
+    ],
+    [
+      "262",
+      "99976",
+      "9d1de5e6efb1db2efab3e2d1538769ee03974d00452d9dd6127c04120e4660ce"
+    ],
+    [
+      "263",
+      "99975",
+      "123061a9b34ddcd972978452713eee2e5437d60dd0a331133da74eac05556619"
+    ],
+    [
+      "264",
+      "99975",
+      "30d4041d77fa5d344897e61a4febd45af6aeb403ff1835487ae5b628b3c4d404"
+    ],
+    [
+      "265",
+      "99976",
+      "fa87e97329b0e354363dc0cf98d3ee5f6fdffb75c64a562fc60e0b6802ddc2ff"
+    ],
+    [
+      "266",
+      "99974",
+      "acf78b4871acfd1d7e1831951648661d2179c363b664a0349ad8f65d5352eb49"
+    ],
+    [
+      "267",
+      "99975",
+      "65628044b3853ac6dceee15c2e3eae760c48b3ba163223bb1cf50b5c26726158"
+    ],
+    [
+      "268",
+      "99975",
+      "524dc1a47496a3a4c0d0ec7dac251994e54c1fd97e10a9e3ba6e44a132c5cdfd"
+    ],
+    [
+      "269",
+      "99975",
+      "caa0b491d6b929c785743216b626b278b64ef1cbbf8dbf6b2fb9fb2407d937bf"
+    ],
+    [
+      "270",
+      "99974",
+      "3f203e8335fe5c48560b2461fcc76690eacc84cd3b0510331890ca0425e1b4b2"
+    ],
+    [
+      "271",
+      "99976",
+      "a874c2214d249848ca2aea51a05af403d6fa8b58d6804dde5a84ff81c8790dda"
+    ],
+    [
+      "272",
+      "99974",
+      "bbca473c1a998054f46137670dd375d04becf366c24663a789638f9e94026ff5"
+    ],
+    [
+      "273",
+      "99975",
+      "d87b4d7f405de7f15e129987a29a9200a66a96a6f2a763e78a9dea697b77cc93"
+    ],
+    [
+      "274",
+      "99976",
+      "9d54d63954adaefa3504f0bae025bddc6de5402bb13025682abb73f1563b9c02"
+    ],
+    [
+      "275",
+      "99975",
+      "1e59391353d4fc49e5178fcf3f2244666547bd2674442bdfe0942d86775c11a2"
+    ],
+    [
+      "276",
+      "99975",
+      "f96a44f2f976b21ada2a787155f681e919cfc7fb151d140c298e0526a1a03551"
+    ],
+    [
+      "277",
+      "99975",
+      "9961f8bb3956f59d29f15d2a9323644ea40874bb743844d7eb092627da88a177"
+    ],
+    [
+      "278",
+      "99975",
+      "5d0b1943c05cfb585118d0a1a85b4f1ec5a4ba7d26663d7fab14560eaf3f19a2"
+    ],
+    [
+      "279",
+      "99975",
+      "5555016a3ddfb17823fe459c74f7b55adef79efdc95fb44ab5372c95328724a8"
+    ],
+    [
+      "280",
+      "99974",
+      "c20f91748b43fc1e0eab1cfc6d9abb3a5ce3cfc46f59e2a32afe0333ae33e072"
+    ],
+    [
+      "281",
+      "99976",
+      "4e7b851b8667a9cb118302f8db90e5a4dc1473c1064ea96e2ef9595a5ed0e456"
+    ],
+    [
+      "282",
+      "99974",
+      "d81dbf6f80d2b37ecf2ff8df56712964a47b32971aa2b7643364f46f7d5b14b1"
+    ],
+    [
+      "283",
+      "99975",
+      "6f79a42f75ffeb4bcc3b8c223f24f8bd66de5ecc9cf0b793e3d96bbf2c5da0bc"
+    ],
+    [
+      "284",
+      "99976",
+      "08079b78a01a435c838b43fbb500598d4d912faa3b267749063f732ef7cd34c3"
+    ],
+    [
+      "285",
+      "99975",
+      "81db101c1f2ac6bf65f436d3b82d93dd65dd05516a93b737b10761e83a3050d1"
+    ],
+    [
+      "286",
+      "99975",
+      "5c4878f22c94415beb32eee2d494d9af1f90df656781c1f91474d541413786a3"
+    ],
+    [
+      "287",
+      "99975",
+      "72e1cfd30b8876a786fe03006d04688c52129c670347a7db8e9c5f317edf1b9c"
+    ],
+    [
+      "288",
+      "99975",
+      "b262d131ad8319f35706b248411945321544fce6c483936af64e7cb7a1c300fb"
+    ],
+    [
+      "289",
+      "99974",
+      "36a7011b81b6f3cf4409e1d6cc612ef5616a9509f942ff768c73f561ce5de269"
+    ],
+    [
+      "290",
+      "99976",
+      "ef87329e11b09981c8523a6201084410842235e4dda276a2b65cb447941adb61"
+    ],
+    [
+      "291",
+      "99974",
+      "e7339e5fa470837dc8bb828a46d14c019c577c821d2121af1dd891fbd069f55d"
+    ],
+    [
+      "292",
+      "99975",
+      "680c6ea23ace842b55f6b34901b50f0b6caaf64625de1b760f4442cc6c86a5a0"
+    ],
+    [
+      "293",
+      "99975",
+      "ba8b01b83f38ea47294acebef2df886c727538ad11a21235df0cb4a8b6d67e35"
+    ],
+    [
+      "294",
+      "99975",
+      "ea1a80ace40521d89d698a15779d0c6148b7284dd3fd3daf28464526097cbae3"
+    ],
+    [
+      "295",
+      "99975",
+      "4a48018531cfbefad8cab7decbe4a6f76dc0f48db117d8186553c50ced4892fb"
+    ],
+    [
+      "296",
+      "99976",
+      "1dda4ee4aefe3e2f9b805d3ac056255532a4c1d700b6f132ce73da9c6a33be03"
+    ],
+    [
+      "297",
+      "99974",
+      "ab848a0cb7fd1c01601436fedb9fc697462c0db1bddb64fa90e441fd1d137060"
+    ],
+    [
+      "298",
+      "99975",
+      "494e23588940d73fe1473067204cd74874f00519c526b78213817dcb2d3788c4"
+    ],
+    [
+      "299",
+      "99975",
+      "a20214d0c0f6ece31cd9214aaf11b9ffcb73907bb2d83377c8a0cd4fcce98080"
+    ],
+    [
+      "300",
+      "99975",
+      "a38da338df874fe773442da9e81ceaaa98fc20bdf88076e1d4d9262af8582370"
+    ],
+    [
+      "301",
+      "99975",
+      "a5616d43d9363bcea30641789c19d3a4321971839c3c61b454f130f88b471831"
+    ],
+    [
+      "302",
+      "99975",
+      "bb54f106eda315b920bfa1503bb6bd2f99e22b823b22949119e6c141983628aa"
+    ],
+    [
+      "303",
+      "99975",
+      "c4dc64247c84e7ecaffe511d1198324c6c9badd6e00147db6d44012604f4e616"
+    ],
+    [
+      "304",
+      "99975",
+      "a0d57ad90bb56509f9928a9b73a1f099a84b6aae440202d58a5eaa5e9bacaff5"
+    ],
+    [
+      "305",
+      "99975",
+      "fe1bb5832f8c7519014cee5a4f139ad9419b21afaeb7ec19cf0d97a42a5a3df8"
+    ],
+    [
+      "306",
+      "99976",
+      "d4663da3578bfb232166cfe4178e35ab298c5f52f0b080077d37946fb5379a58"
+    ],
+    [
+      "307",
+      "99975",
+      "5e8fbeab834b60db51a44580fbeece69bed695c1189074bdc3370b6da4ac4211"
+    ],
+    [
+      "308",
+      "99974",
+      "d49dd1cf8213656168345caa0be2084f7d61f6e61d572e36b683a439a8f9afd3"
+    ],
+    [
+      "309",
+      "99976",
+      "f9650c5d1795c5d269c18d4fc8329e70a6e563d7e484fec346397584bc10b9c1"
+    ],
+    [
+      "310",
+      "99974",
+      "72721e1ce7d687d93ec7a8b5d3b5d59df31549b48f4cb74a86c47491bbd3c83f"
+    ],
+    [
+      "311",
+      "99975",
+      "782ba57f7159e21a52a9d6516df77fb3dd1187c394a0a646f5e0cc68e13a1730"
+    ],
+    [
+      "312",
+      "99975",
+      "fdb5e4aa2d240bbb03360d7ffe173c793a3bf9ce7750fee12a70de880289de32"
+    ],
+    [
+      "313",
+      "99975",
+      "b8bc647c934c32d8b242f325d7ab04ec3269223e1914d44d7b27437924698f81"
+    ],
+    [
+      "314",
+      "99974",
+      "5cad83ede2ef9cae693d1a7ecbe583935dfdced5764163c25894e376def1bbd8"
+    ],
+    [
+      "315",
+      "99976",
+      "7b3178162cdb15151ecc1d65ea52777d61205fb8097933e3e1f66ffde64d0c2e"
+    ],
+    [
+      "316",
+      "99975",
+      "191c7b600c4fa191db11eaed0ec90cb0ac309b2330641b90c9bc430d06e348b0"
+    ],
+    [
+      "317",
+      "99975",
+      "877f67ecab45c8596e71541342540ca0112a6d770770130ea1b01c1142b20626"
+    ],
+    [
+      "318",
+      "99975",
+      "10a6ac874ae6a17824653a94920790f1ba12c28307fbc2414a3d660beff3a4de"
+    ],
+    [
+      "319",
+      "99975",
+      "6f540d8a9458e069e3156d6cac70759b1c2f25971030ba565b51c29cad91c17f"
+    ],
+    [
+      "320",
+      "99974",
+      "bb4a424157dfc7c28a8477e936550cea152b3770e2231f937ada1aac9c2321da"
+    ],
+    [
+      "321",
+      "99976",
+      "a00a78057d8aa90ff077c5b7536f843e1974280be273e2be04b3908b21b80203"
+    ],
+    [
+      "322",
+      "99974",
+      "118a461e1cfde96e0a1dd91f4122c77498e35f6ba2af077380db8be1b019777b"
+    ],
+    [
+      "323",
+      "99975",
+      "8c48ca9e1883b0a1be8bfc77193b1737756e7c18092fec6172cd067184b8f4bd"
+    ],
+    [
+      "324",
+      "99975",
+      "84f57e81f4696be26dfa1d7e043427aa056084e3f041bccb84692ad6d5bcd42c"
+    ],
+    [
+      "325",
+      "99975",
+      "8bf382a3ba385837fca46a4c406e508e6acaf364195eb8094b474735a529a35a"
+    ],
+    [
+      "326",
+      "99976",
+      "c37b08ebd376d7e9dc2b2cdc41375d5a00a0ea64f4279248e94e9bb603531781"
+    ],
+    [
+      "327",
+      "99975",
+      "205eb2f5844e28ef7ea7353cd6a5364c6098b6d7c8356659895f7d5323f81eb2"
+    ],
+    [
+      "328",
+      "99976",
+      "cf0c2422b27bf606cada4b1cf0a2ebd6e87fda23c1382f6e3f2f08eeffc3fad4"
+    ],
+    [
+      "329",
+      "99975",
+      "4963a7741bdece09ad5b1aa14851e3e7a3cdf57f6e1d283c2e1be567fb99e00d"
+    ],
+    [
+      "330",
+      "99975",
+      "ecbe9bf12ca9a39fff4442ede8a567911ffde289b42980b302095c83cbab2746"
+    ],
+    [
+      "331",
+      "99975",
+      "d7772e4f2e3e130e56c21136d8a74fdf2233e2dd5624f9e730f801e5358c9530"
+    ],
+    [
+      "332",
+      "99975",
+      "18a93e34d34c6e31f381c48b6a3635615e9ca6f4b1f80321158ed7483b8a754a"
+    ],
+    [
+      "333",
+      "99974",
+      "0a0d018d18e75cf95a31233d768fd96b6921d3097080595b9560cfaf1add16eb"
+    ],
+    [
+      "334",
+      "99976",
+      "388da22fc9bda21f78175375fbc8b1a8f17320a7e3d13c9b3d597760566caa3b"
+    ],
+    [
+      "335",
+      "99974",
+      "2261c8ada389d5b373460da8867a53604b88b34e9a25a29413ed7560f9a55081"
+    ],
+    [
+      "336",
+      "99975",
+      "35db0d1d3ae302c7103646c24f7b2a6397a47fd25af5f015a94899bdda07d38b"
+    ],
+    [
+      "337",
+      "99976",
+      "ac5403310f6456a7432e706775ef6669fe4a13278df2c5859526c5cf070dbafd"
+    ],
+    [
+      "338",
+      "99975",
+      "f968ee1e3cef0523ba6f38948b38fae6683a7cec575c67ac49d443025f783c67"
+    ],
+    [
+      "339",
+      "99975",
+      "33810cd2207f54bb9c2ecf12600032b3eaed891a4f82bfcd5aaf99d221d5aba9"
+    ],
+    [
+      "340",
+      "99976",
+      "8afb37f930d19f6fd874082e8a2c1581787e2bb6b126ce6cdb6ccfbd1d8ab2df"
+    ],
+    [
+      "341",
+      "99974",
+      "7fe044a10cf3b677cfdbddf8198cd3793ad92c25b725674d1f23f157f4512cd7"
+    ],
+    [
+      "342",
+      "99975",
+      "f04688c7464eda4c8a00767a7bcf0f6be90f9cd701ba4d5837214259630f3d02"
+    ],
+    [
+      "343",
+      "99975",
+      "acb3637153f68ac65ae955f95e137c1d86cb137be91ee3c8cbe2052182f8d85b"
+    ],
+    [
+      "344",
+      "99976",
+      "3b407201a1e48c72d6ce833007cc66dce77d1a0575f9d5ae81cb150e1b6f2508"
+    ],
+    [
+      "345",
+      "99973",
+      "1d2338a732068bd6dd469b3c0081cd10ae2a5f9bdc16d17d7bf68a336169277d"
+    ],
+    [
+      "346",
+      "99976",
+      "0c32932c7e5ca7bd9b6b71349f6b7afe04a592ee8abf311369728bc6a7889acf"
+    ],
+    [
+      "347",
+      "99976",
+      "72420b9c3243a93e5291b8618b252815c9954a93beaba2b6fe47c762ec84eaab"
+    ],
+    [
+      "348",
+      "99974",
+      "b13cf094d80f27fa8b1097d2368d62dab83cd80dba6253f4e23be5ec13230a69"
+    ],
+    [
+      "349",
+      "99976",
+      "3c0014ac9412658014e0af1a58df6cb7ebe62933cccd9eb07cea2bb0ad359728"
+    ],
+    [
+      "350",
+      "99976",
+      "c6319609227c9ec5c488c24ae59fe8a58ab22bff115ebf382266e4afbb75c930"
+    ],
+    [
+      "351",
+      "99974",
+      "4fe7a60c8daac7dffa32afc2eaa1f0d209cabc2096c177bf3e2a1551f94425b4"
+    ],
+    [
+      "352",
+      "99975",
+      "4cc03fa34a08a1717f6f97359f410ce146d8ecf0d1e439d4958506e1a388f8fe"
+    ],
+    [
+      "353",
+      "99976",
+      "f3bb7c3108322c1aaa5559b4b584c3cd4c5de126a40793c17f04665bc27dfe6f"
+    ],
+    [
+      "354",
+      "99974",
+      "cfc39ccf9721a525159808c595b85e9a0db9e17686ddada34c0de9a9f3947d85"
+    ],
+    [
+      "355",
+      "99975",
+      "93bdc03ada74d1d29209388d05995d1afdcca0611dfd74645c524c9fba57520e"
+    ],
+    [
+      "356",
+      "99975",
+      "83278a9a5b7f1e88506c6210bba35cc7f04ae3544a567ca2cde98d25e04f26d7"
+    ],
+    [
+      "357",
+      "99976",
+      "ff8c9d0d17067ef3301fd98e217475cacf5fb4a6620367c059653ed228b14143"
+    ],
+    [
+      "358",
+      "99974",
+      "11f6244800d9ed6e93d338f79bd743c73cf1fa50f314dbfbfd4484505f5d58ed"
+    ],
+    [
+      "359",
+      "99976",
+      "43b973329825d44ce07d929d5bf07b4edfe3355226871180dacb29d52ca3d501"
+    ],
+    [
+      "360",
+      "99976",
+      "3c31fe90a9a1895a0741d46457ef06cf3cab0f62c61035ff132333b1fb5e59b7"
+    ],
+    [
+      "361",
+      "99974",
+      "6284e066d4433f0e4b0b5f549edc54ae34937fe61d7b54327432138728acaef4"
+    ],
+    [
+      "362",
+      "99975",
+      "776a6ddedcbe00b699fa60a045cc1b3e0a163c36ab44302b9104e57f37a9ee97"
+    ],
+    [
+      "363",
+      "99976",
+      "02e64f74c4d83813441e5452592de89375cd12e02a57ec9bbe3093075e15c2f4"
+    ],
+    [
+      "364",
+      "99973",
+      "45dd5d14e2878b4daba574bcc66279502186155af25e6e6e98068d43ca82282c"
+    ],
+    [
+      "365",
+      "99976",
+      "4bdfe106d69d26d568b75c0e5cd0a07de20ba6e33fee86785c5fbb268142a2cf"
+    ],
+    [
+      "366",
+      "99975",
+      "26b6d650f4cbd88fbe359c612822e6883239ca4ec5f15dfe0fb7521442fdb612"
+    ],
+    [
+      "367",
+      "99974",
+      "c061d3d2735209b5e33efd0585da86bcc17c07eb6e279abb3fd5052c278dba22"
+    ],
+    [
+      "368",
+      "99976",
+      "e0248a5569d9d10144c21c45e2ba406fde32a3913e6aaaaea70bda075a453c8d"
+    ],
+    [
+      "369",
+      "99976",
+      "3385a4d57331af9a4c16cf4a211349e9b86d61604cdefc64c61796c44ffbae5c"
+    ],
+    [
+      "370",
+      "99974",
+      "20730954bdf0a8116728e656aba07db773c7ca5445d65d2e2abb61a8383296fd"
+    ],
+    [
+      "371",
+      "99976",
+      "53ffb40d607112916b0c1faa39c5f6e4bac4673d5bc3321c2ee3809fcc0c9a3e"
+    ],
+    [
+      "372",
+      "99975",
+      "4ceb4454cec8beeca47164e3c1d9596f05acc8700ee04f10a8be8a6bdf5f176d"
+    ],
+    [
+      "373",
+      "99975",
+      "6ecb207b649d40bb29e1e3e4ed18f86691e42a254a704c68556f2de44d562834"
+    ],
+    [
+      "374",
+      "99974",
+      "6f6a38fecaf9bb35d64bffce7e1fdcc8185c843ec163c82842d48992c2361881"
+    ],
+    [
+      "375",
+      "99976",
+      "dce43f783c2aacd6324b96212c02a681f3618a33e9e5cc539b87fcefe39b0b14"
+    ],
+    [
+      "376",
+      "99975",
+      "7df65d54315e2aebf3b90429f36364a16954bd55cb92e5eb318bf807e40c2ff8"
+    ],
+    [
+      "377",
+      "99974",
+      "c12a22ff85307b3502cc4177b481d20f6afaf3c8c26a084a3b076d04113dcf07"
+    ],
+    [
+      "378",
+      "99976",
+      "4242adbe6a83c9ff6b41ddc119d07c27bfa4ad918087232e09bb8b7f1aedd885"
+    ],
+    [
+      "379",
+      "99976",
+      "61023d06ac9c8665e44c648cffc1516a7cb61d2618bef0021f9f54fc19a6d763"
+    ],
+    [
+      "380",
+      "99974",
+      "8436e8da75d9e5f4e3e43d59985c0b70be9e3e0590afa4d7dad993b133596a88"
+    ],
+    [
+      "381",
+      "99976",
+      "c5cd7a6d3f925ebf25be57603ad1045be9414fb10b9283264fcd7b8144841c7c"
+    ],
+    [
+      "382",
+      "99976",
+      "401fd3775b0cb0a69bb7cc072e5c7384299673c7793dd057755c73b58117cd50"
+    ],
+    [
+      "383",
+      "99973",
+      "054054c245aed92e751b167630e2ff19e3e0f7b10926d86ef5ea7106c2fac779"
+    ],
+    [
+      "384",
+      "99976",
+      "01d0413fbbaf58a2a86cedcce50e431ab6a1e293c07f4fcfddc5726eb30c9188"
+    ],
+    [
+      "385",
+      "99975",
+      "0d048479dd8f222f6a95b2f2d9766ffa17c766e2ffa77faa37e9852a600516b9"
+    ],
+    [
+      "386",
+      "99975",
+      "a5dd5c11480714aa3c68232aad93204f968be7edab8b8f8266262db0be3b2e18"
+    ],
+    [
+      "387",
+      "99974",
+      "5e1717a60fe83fd18d5d8036a40006f6165bd76f727355956c033e3a45d0fb89"
+    ],
+    [
+      "388",
+      "99976",
+      "70d43bb2787c0c94ba2ab753cfe3669f3f9b7ad02547901cd1412d084a0183ad"
+    ],
+    [
+      "389",
+      "99975",
+      "55ef7287feb33be995ee86edad0b6dc3a2c652335c817d4cb19f531587acab8c"
+    ],
+    [
+      "390",
+      "99975",
+      "80364732bab98e64fe36fbbc0c2bbb850f0e39fa6de7728ea04021415ba54d9d"
+    ],
+    [
+      "391",
+      "99976",
+      "1735e06303bdb79f867734f33089592a149a21fdd56c7984ed2a4bd77eb7fb81"
+    ],
+    [
+      "392",
+      "99975",
+      "0793652950966e3b6c75b08473471de0d21808c728ddf8d613d3c73e187c60b4"
+    ],
+    [
+      "393",
+      "99974",
+      "43fd80d974ccb4f4fbdad7990f4d670718c704314c62eddd63bb4d4186c02389"
+    ],
+    [
+      "394",
+      "99976",
+      "d77c9b510c505404bed5314de12bc917e2ea03d6bcf6ca62a08cd4f1a5c5f858"
+    ],
+    [
+      "395",
+      "99974",
+      "1259497196751a8bb7a05323f43635e5947c41a1798e2b32080bf80ef044ce74"
+    ],
+    [
+      "396",
+      "99975",
+      "0d025d8a3858c87145c8812793a7a0235684983b0150eda955e7076fb4f894aa"
+    ],
+    [
+      "397",
+      "99975",
+      "440ed3127d456a6c85627bc44e76a27f4611c7e79cea945ea6687dbe782699f1"
+    ],
+    [
+      "398",
+      "99975",
+      "81e0a0ee42caf810463ead8e7adc82bd0609442f6dbda2413b129e83eec1c123"
+    ],
+    [
+      "399",
+      "99975",
+      "be2b889d19c87d601e795dfdb092a5e7735bfb3b25f9ddab0cb11f9202aabdac"
+    ]
+  ],
+  "coverage": [
+    [
+      "39990000",
+      "39990000",
+      "0"
+    ]
+  ],
+  "global_integrity": "Unique typed native edge identities, exact partitions, known deletions absent and both typed endpoints closed",
+  "final_detail": {
+    "format": "delta",
+    "id": "7c76c985-b802-41b6-97e8-a76a809e2a01",
+    "name": "client_dev.ashlar_entropy_20261006_r86.edge_range32_r313",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/f573d04a-2c9f-4da2-a905-1d6fb626cfeb",
+    "createdAt": "2026-10-07T14:10:30.849Z",
+    "lastModified": "2026-10-07T14:35:20.000Z",
+    "partitionColumns": "[\"lookup_partition\"]",
+    "clusteringColumns": "[]",
+    "numFiles": "448",
+    "sizeInBytes": "31962166147",
+    "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"f573d04a-2c9f-4da2-a905-1d6fb626cfeb\",\"delta.targetFileSize\":\"67108864\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+    "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+    "clusterByAuto": "false"
+  },
+  "wall_s": 881.618234458,
+  "combined_phase_wall_s": 1821.194339958,
+  "aggregate_attempt_costs": {
+    "read_bytes": 323183435511,
+    "write_remote_bytes": 83270823015,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "All32partition ZORDER stages and whole400group20-field carrier equality to qualified full parent; final unique native identity, exact partition mapping, deleted absence and typed endpoint closure pass underSHA256collision resistance. All actual commits including multi-commit operations accounted bySID; private controlled writer custody only. Direct graph feature admission, native singleton/cold/concurrency, subsequent ingest/freshness and billion admission remain unproved. No ACK, cleanup, production pointer or compute resize."
+}
