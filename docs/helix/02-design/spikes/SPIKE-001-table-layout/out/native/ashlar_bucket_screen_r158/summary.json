@@ -1,0 +1,313 @@
+{
+  "state": "Both100k full-carrier layouts exact and60 lookups passed; final native metrics pending",
+  "owned": {
+    "lc": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.bucket_lc_r158",
+      "id": "651aa386-c7bf-4607-ac2e-a95976d6c596",
+      "version": 0,
+      "detail": {
+        "format": "delta",
+        "id": "651aa386-c7bf-4607-ac2e-a95976d6c596",
+        "name": "client_dev.ashlar_entropy_20261006_r86.bucket_lc_r158",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/d764a1c2-f192-44fb-bc1c-8dbb446e8215",
+        "createdAt": "2026-10-07T04:03:36.424000",
+        "lastModified": "2026-10-07T04:03:45",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"lookup_hash\"]",
+        "numFiles": "4",
+        "sizeInBytes": "335574195",
+        "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-68c5f3ad-3d0d-4fd9-9c47-318fcfd08ad2\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-439a8cc9-8178-45e4-9f3b-e2331937f964\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"d764a1c2-f192-44fb-bc1c-8dbb446e8215\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+        "clusterByAuto": "False"
+      }
+    },
+    "part": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r158",
+      "id": "efbe9208-565a-4b38-8ada-3a6228138284",
+      "version": 0,
+      "detail": {
+        "format": "delta",
+        "id": "efbe9208-565a-4b38-8ada-3a6228138284",
+        "name": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r158",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/b7ba109e-5e16-4f1a-be96-8d077e07c33a",
+        "createdAt": "2026-10-07T04:03:47.532000",
+        "lastModified": "2026-10-07T04:03:52",
+        "partitionColumns": "[\"lookup_bucket\"]",
+        "clusteringColumns": "[]",
+        "numFiles": "64",
+        "sizeInBytes": "336285763",
+        "properties": "{\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"b7ba109e-5e16-4f1a-be96-8d077e07c33a\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+        "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+        "clusterByAuto": "False"
+      }
+    }
+  },
+  "distribution": [
+    [
+      "0",
+      "1553"
+    ],
+    [
+      "1",
+      "1628"
+    ],
+    [
+      "2",
+      "1567"
+    ],
+    [
+      "3",
+      "1582"
+    ],
+    [
+      "4",
+      "1605"
+    ],
+    [
+      "5",
+      "1613"
+    ],
+    [
+      "6",
+      "1477"
+    ],
+    [
+      "7",
+      "1559"
+    ],
+    [
+      "8",
+      "1555"
+    ],
+    [
+      "9",
+      "1562"
+    ],
+    [
+      "10",
+      "1609"
+    ],
+    [
+      "11",
+      "1593"
+    ],
+    [
+      "12",
+      "1539"
+    ],
+    [
+      "13",
+      "1575"
+    ],
+    [
+      "14",
+      "1653"
+    ],
+    [
+      "15",
+      "1564"
+    ],
+    [
+      "16",
+      "1571"
+    ],
+    [
+      "17",
+      "1527"
+    ],
+    [
+      "18",
+      "1582"
+    ],
+    [
+      "19",
+      "1569"
+    ],
+    [
+      "20",
+      "1579"
+    ],
+    [
+      "21",
+      "1561"
+    ],
+    [
+      "22",
+      "1545"
+    ],
+    [
+      "23",
+      "1632"
+    ],
+    [
+      "24",
+      "1516"
+    ],
+    [
+      "25",
+      "1513"
+    ],
+    [
+      "26",
+      "1600"
+    ],
+    [
+      "27",
+      "1620"
+    ],
+    [
+      "28",
+      "1525"
+    ],
+    [
+      "29",
+      "1555"
+    ],
+    [
+      "30",
+      "1577"
+    ],
+    [
+      "31",
+      "1568"
+    ],
+    [
+      "32",
+      "1627"
+    ],
+    [
+      "33",
+      "1572"
+    ],
+    [
+      "34",
+      "1616"
+    ],
+    [
+      "35",
+      "1547"
+    ],
+    [
+      "36",
+      "1620"
+    ],
+    [
+      "37",
+      "1596"
+    ],
+    [
+      "38",
+      "1502"
+    ],
+    [
+      "39",
+      "1474"
+    ],
+    [
+      "40",
+      "1606"
+    ],
+    [
+      "41",
+      "1557"
+    ],
+    [
+      "42",
+      "1587"
+    ],
+    [
+      "43",
+      "1571"
+    ],
+    [
+      "44",
+      "1560"
+    ],
+    [
+      "45",
+      "1523"
+    ],
+    [
+      "46",
+      "1570"
+    ],
+    [
+      "47",
+      "1577"
+    ],
+    [
+      "48",
+      "1539"
+    ],
+    [
+      "49",
+      "1544"
+    ],
+    [
+      "50",
+      "1534"
+    ],
+    [
+      "51",
+      "1522"
+    ],
+    [
+      "52",
+      "1519"
+    ],
+    [
+      "53",
+      "1523"
+    ],
+    [
+      "54",
+      "1525"
+    ],
+    [
+      "55",
+      "1543"
+    ],
+    [
+      "56",
+      "1535"
+    ],
+    [
+      "57",
+      "1589"
+    ],
+    [
+      "58",
+      "1531"
+    ],
+    [
+      "59",
+      "1536"
+    ],
+    [
+      "60",
+      "1505"
+    ],
+    [
+      "61",
+      "1543"
+    ],
+    [
+      "62",
+      "1568"
+    ],
+    [
+      "63",
+      "1565"
+    ]
+  ],
+  "bucket_derivation": "unsigned first60 SHA256 bits modulo64; signed64 conversion is safe below2^60",
+  "qualification": "100k r139 hot-set pilot only; no20M full layout, incremental MERGE, graph-engine, cold/service/scale admission. Partition count64 is a bounded comparison, not a billion-scale choice. Full native tuple remains identity; derived bucket is metadata."
+}

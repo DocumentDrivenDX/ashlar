@@ -2041,3 +2041,51 @@ point-read costs separately, preserve source proofs and reject bucket/hash drift
 Advance to the existing20M corpus only after the pilot and a justified byte/time
 bound; avoid another unbounded whole-graph wire-digest query. UC Delta remains
 selected and the full agreed performance/correctness goal stays active.
+
+
+### r158 native64-bucket physical layout pilot
+
+[Native audit](out/native/ashlar_bucket_screen_r158/audited-summary.json) copies
+100k complete immutable stage r139 v0 carriers into hash-LC and64-bucket partition
+alternatives, same Zstd/64MiB configured target/identity+eligibility statistics.
+Partition metadata is first60 SHA256 bits modulo64 (safe signed64 conversion),
+not logical identity. Every point lookup still filters full hash and native
+source/relationship/id tuple. The [experimental DDL](sql/bucket64-layout-candidate.sql)
+records the shape; selected canonical DDL remains hash-clustered.
+
+Full20-field UTF8-normalized carrier equality,100k unique IDs, bucket/hash drift,
+64 bucket membership and lowercase64-hex shape pass. Native boundary vectors
+zero/max60-bit/leading-prefix values match Python modulo. Bucket populations
+1,474–1,653. Both OPTIMIZE LC and partition ZORDER commands are no-ops with zero
+rewritten bytes; both remain v0. This pilot establishes directory pruning, not
+actual Z-order/file-resizing effectiveness. CTAS LC11.146 s versus partition6.814 s;
+no claim that isolated copy timings predict producer ingest or maintenance.
+
+Thirty alternating exact full-carrier lookups per layout: LC p95engine120ms/
+caller394.16ms, partition93ms/381.61ms. Both read1file; p95bytes92.655MB versus
+5.606MB; remote0/result-uncached. Data were warmed by full equality scans, so these
+are not cold-data admission. Partition passes the engine screen only; both caller
+gates fail. Actual LC4files335.574MB versus partition64files336.286MB. Configured
+64MiB target did not constrain actual copy file sizes or make OPTIMIZE rewrite.
+
+Both reader3/writer7 but feature bundles differ: LC clustering/domainMetadata/
+rowTracking plus common DV/v2Checkpoint; partition lacks rowTracking in this
+pilot. This is an explicit whole-layout comparison, not causal isolation of
+partitioning alone or external-reader compatibility. Match feature settings in
+future ingestion controls. Extra physical bucket also requires a bucket-aware
+apply source/assignment policy; historical20-column UPDATE SET * helpers must
+not silently target this21-column table without adaptation and drift checks.
+
+All pilot/control phases6.733GB reads/0.672GB remote writes, not billing. Existing
+warehouse2439e1f2e37ac563, statements90 s/bucket controls15 s, bounded connector
+correlation/retries. [Cleanup](out/native/ashlar_bucket_screen_r158/cleanup/summary.json)
+UUID/version-checks and drops both owned tables; canonical E23/R17/J19/r139-b1
+unchanged; no new compute, resize or VACUUM. No full20M/billion, incremental MERGE,
+publisher freshness, reader concurrency or graph-engine admission.
+
+Next validate a bucket-aware update template and matching native feature settings
+on the100k fixture before full20M copy. Preserve all carrier/origin/projection
+proofs; then bound larger copy/maintenance/parity bytes and statement/controller
+costs explicitly.64 is a pilot bucket count, not a chosen1B/5B partition strategy.
+The smaller point-read bytes justify continuing this physical comparison, while
+hash-LC remains the canonical candidate and all full-goal obligations stay open.
