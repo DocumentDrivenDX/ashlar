@@ -1,0 +1,1 @@
+{"label": "publication", "sql": "SELECT table_versions_json FROM client_dev.ashlar_entropy_20261006_r86.publication_manifest_r89 WHERE publication_id='r139-b1'", "parameters": null, "correlation": "/* ashlar ashlar_lc_range_update_r187 publication */", "started_epoch": 1791352066.480363, "state": "returned", "query_id": "01f1c212-9f6d-194d-8b30-229369bd3870"}
