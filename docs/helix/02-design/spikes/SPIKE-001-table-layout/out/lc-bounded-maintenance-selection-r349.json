@@ -1,0 +1,102 @@
+{
+  "format": "ashlar-lc-bounded-maintenance-selection/1",
+  "source": "out/native/ashlar_lc_second_points_r339/audited-summary.json",
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "base": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_edge_current_r250",
+      "id": "653b3b49-1423-4892-be10-19c28a6b9ecf",
+      "version": 8,
+      "rows": 40000000
+    },
+    "clone_version": 0,
+    "cdf_enable_version": 1,
+    "first_version": 2,
+    "apply_caller_s": 39.79200829199999,
+    "version": 3
+  },
+  "ranges": [
+    {
+      "range": 0,
+      "overlapping_live_files": 49,
+      "overlapping_live_file_bytes": 2338256957
+    },
+    {
+      "range": 1,
+      "overlapping_live_files": 53,
+      "overlapping_live_file_bytes": 2698042225
+    },
+    {
+      "range": 2,
+      "overlapping_live_files": 48,
+      "overlapping_live_file_bytes": 2706094400
+    },
+    {
+      "range": 3,
+      "overlapping_live_files": 50,
+      "overlapping_live_file_bytes": 2657187181
+    },
+    {
+      "range": 4,
+      "overlapping_live_files": 52,
+      "overlapping_live_file_bytes": 2903231185
+    },
+    {
+      "range": 5,
+      "overlapping_live_files": 52,
+      "overlapping_live_file_bytes": 2597650255
+    },
+    {
+      "range": 6,
+      "overlapping_live_files": 53,
+      "overlapping_live_file_bytes": 2402850233
+    },
+    {
+      "range": 7,
+      "overlapping_live_files": 56,
+      "overlapping_live_file_bytes": 2853253610
+    },
+    {
+      "range": 8,
+      "overlapping_live_files": 47,
+      "overlapping_live_file_bytes": 2637399866
+    },
+    {
+      "range": 9,
+      "overlapping_live_files": 50,
+      "overlapping_live_file_bytes": 2920939211
+    },
+    {
+      "range": 10,
+      "overlapping_live_files": 49,
+      "overlapping_live_file_bytes": 2516261640
+    },
+    {
+      "range": 11,
+      "overlapping_live_files": 46,
+      "overlapping_live_file_bytes": 2674562475
+    },
+    {
+      "range": 12,
+      "overlapping_live_files": 41,
+      "overlapping_live_file_bytes": 2648176049
+    },
+    {
+      "range": 13,
+      "overlapping_live_files": 52,
+      "overlapping_live_file_bytes": 2949175794
+    },
+    {
+      "range": 14,
+      "overlapping_live_files": 52,
+      "overlapping_live_file_bytes": 2530973997
+    },
+    {
+      "range": 15,
+      "overlapping_live_files": 52,
+      "overlapping_live_file_bytes": 2531999652
+    }
+  ],
+  "qualification": "Complete live-file extrema at pinnedversion3. Overlap is candidate upper coverage, not stored Delta eligibility statistics, actual scan/rewrites or optimizer admission. No new SQL/maintenance executed."
+}

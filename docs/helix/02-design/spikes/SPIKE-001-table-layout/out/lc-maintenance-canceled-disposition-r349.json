@@ -1,0 +1,17 @@
+{
+  "state": "Canceled whole maintenance attempts are terminal and head remains3; complete baseline verified",
+  "complete_baseline_rows": 39980000,
+  "complete_baseline_fields": 20,
+  "complete_baseline_groups": 400,
+  "all_attempt_costs": {
+    "read_bytes": 286831953420,
+    "write_remote_bytes": 25252007837,
+    "spill_to_disk_bytes": 0
+  },
+  "bounds": {
+    "combined_read_bytes": 500000000000,
+    "combined_write_bytes": 80000000000,
+    "combined_spill_bytes": 5000000000
+  },
+  "qualification": "Cancellation plus actual no-OPTIMIZE head history, not successful maintenance or physical orphan inventory.25.25GB reported attempted writes are charged even though no Delta commit. No cleanup/retry, graph/production pointer/ACK, singleton improvement or billion admission."
+}

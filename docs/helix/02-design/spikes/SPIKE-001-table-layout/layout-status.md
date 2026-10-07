@@ -4,7 +4,11 @@ This is a spike evidence index governed by CONTRACT-003 and proposed ADR-001, no
 
 The proposed 0.3 schema now adds source_record and direct source cursor/origin references; complete 0.3 native DDL execution passes; synthetic reference validation now passes; real producer and recovery remain pending. Existing 0.2 evidence remains scoped to its original schema. The owner selected Unity Catalog Delta. Current-state tables use native typed identities and exact property/retained JSON text; derived identity hashes provide lookup pruning without replacing full identity checks. Liquid clustering with a 64MiB target is the initial tuning candidate. Optional forward/reverse adjacency and degree tables support structural queries without duplicating full bags. Every consumed table is bound to an actual-version publication vector. Typed engine releases are separate rebuildable projections. UMF bindings remain deferred.
 
-## Latest measured read/ingest tradeoff
+## Current40M-edge physical comparison
+
+The [second-batch comparison](second-layout-comparison-r340.md) retains liquid clustering as the proposed baseline: same100k mutation39.8s/219MB versus range3260.1s/2.49GB; warmed second-pass engine101/caller435ms still misses targets. [Full range32 publication](range32-second-publication-disposition-r336.md) passes scoped history/global/manifest checks but takes243.8s including failed-query recovery. [Ordinary LC maintenance](lc-maintenance-disposition-r349.md) fails to complete inside90s and300s guards, with unchanged head3 and286.83GB reads/25.25GB attempted writes charged across validation and canceled work. No postmaintenance improvement is claimed. Next qualify independently bounded range maintenance and preserve every carrier field before new read measurements. These results do not admit sustained service, actual source fencing, native graph feature interoperability or1B/5B.
+
+## Earlier20M-edge measured read/ingest tradeoff
 
 At pinned20M-edge private publications, serial-current output has6 narrow hot files and matched20-key warm engine p9595/96ms across two passes, but caller349/340ms misses250ms. Overlap output has16 broad hot files and engine129/101ms, caller416/411ms. Modeled record-age p95 is72s serial/69s overlap; both miss60s. These scoped experiments do not qualify sustained10k/s,100k/s recovery or1B/5B. Physical-head Predictive Optimization does not change the manifest; readers verify and read exact published versions. See r201–r203 below for costs and limits.
 
