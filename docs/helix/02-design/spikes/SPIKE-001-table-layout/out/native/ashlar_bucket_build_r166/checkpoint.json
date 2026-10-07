@@ -1,0 +1,74 @@
+{
+  "table": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r164",
+  "source": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "source_version": 23,
+  "chunks": [
+    {
+      "range": [
+        "0",
+        "4"
+      ],
+      "expected_count": "4999762",
+      "version": 1,
+      "append_query_id": "01f1c207-3e7d-15f9-a0a5-f4dad137c5fe",
+      "recovery": "Native successful append and immutable count inspected; controller nested-row assertion failed after commit; no replay"
+    },
+    {
+      "range": [
+        "4",
+        "8"
+      ],
+      "expected_count": "5003588",
+      "version": 2,
+      "append_query_id": "01f1c207-8274-1c3b-81c0-d1f26c6364c8"
+    },
+    {
+      "range": [
+        "8",
+        "c"
+      ],
+      "expected_count": "4999471",
+      "version": 3,
+      "append_query_id": "01f1c207-a4e6-19b8-ad43-157e4a62d9f3"
+    },
+    {
+      "range": [
+        "c",
+        "g"
+      ],
+      "expected_count": "4997179",
+      "version": 4,
+      "append_query_id": "01f1c207-c911-1498-a907-81155816bb9a"
+    }
+  ],
+  "state": "Full20M disjoint copy committed; global IDs and bucket invariant pass; full-carrier parity pending",
+  "id": "99831c85-f437-4e6f-8b8b-eaec9ab300d2",
+  "detail": {
+    "format": "delta",
+    "id": "99831c85-f437-4e6f-8b8b-eaec9ab300d2",
+    "name": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r164",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/23a0b8d5-2bbd-4d1e-a7de-45f6bc595bb3",
+    "createdAt": "2026-10-07T04:26:13.965000",
+    "lastModified": "2026-10-07T04:31:08",
+    "partitionColumns": "[\"lookup_bucket\"]",
+    "clusteringColumns": "[]",
+    "numFiles": "528",
+    "sizeInBytes": "33157013686",
+    "properties": "{\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-dc215623-91fd-4e02-af20-0e91586edbf8\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-a876e5da-5463-4abc-9d80-18ac9afd48d1\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"23a0b8d5-2bbd-4d1e-a7de-45f6bc595bb3\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+    "clusterByAuto": "False"
+  },
+  "version": 4,
+  "costs": {
+    "read_bytes": 28838678495,
+    "write_remote_bytes": 24867943582
+  },
+  "combined_costs": {
+    "read_bytes": 38198718318,
+    "write_remote_bytes": 33157013686
+  }
+}

@@ -1,0 +1,1 @@
+{"label": "count-0", "sql": "SELECT count(*) FROM client_dev.ashlar_entropy_20261006_r86.bucket_part_r164 VERSION AS OF 1 WHERE lookup_hash>='0' AND lookup_hash<'4'", "parameters": null, "correlation": "/* ashlar ashlar_bucket_build_r164 count-0 */", "started_epoch": 1791347230.413972, "state": "returned", "query_id": "01f1c207-5ce9-166d-8af4-5c9993781721"}

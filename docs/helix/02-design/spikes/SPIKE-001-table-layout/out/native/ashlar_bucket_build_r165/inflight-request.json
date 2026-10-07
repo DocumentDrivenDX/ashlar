@@ -1,0 +1,1 @@
+{"label": "resume-total", "sql": "SELECT count(*) FROM client_dev.ashlar_entropy_20261006_r86.bucket_part_r164 VERSION AS OF 1", "parameters": null, "correlation": "/* ashlar ashlar_bucket_build_r165 resume-total */", "started_epoch": 1791347264.377434, "state": "returned", "query_id": "01f1c207-7128-100b-a83e-1d497b77a538"}
