@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "27a10f2094fbf85419db5fea82944f7af64b0b34c3047e8466e25bd1fa893e41",
+    "layout-status.md": "fedef57ef8d3121afab832a251d09baed7ae764e16930011780c702b2e31e647",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -634,7 +634,7 @@
     "out/native/ashlar_key_screen_r147/cleanup/query-history.json": "fe0e570b932a51ca4e4e37b8f3dad3afd568e0880c2961903b4f9f5994d9b3cd",
     "publication_capacity_r148.py": "dd7cb463dbf717f32e588f015d220a019cdbf89a9d786631bbd2fc582c172868",
     "out/publication-capacity-r148.json": "21c44559110882fbedf3429d1e36914b66b83a49121e4a158653a80913657a9a",
-    "publication-maintenance-policy.md": "b47a7d63f6d62b671262639f5a6c21fdf2397a5ae63936506e74c667c5c0419f",
+    "publication-maintenance-policy.md": "ce744a1e1d1f9722e7d11093cbd4254162a57cd1d850e4c57b14083a3da0a7ae",
     "publication_queue_r149.py": "2ca7cf831edc4f76a0dafab38053296215cbf7fc21d53cb8d8a0e6e3f015249b",
     "publication_queue_audit_r149.py": "419543cda37477a423941c552c1c800fe5d12d6dc5cb117968fd900e8abba7ad",
     "publication_queue_cleanup_r149.py": "44afc1f19f40731c9407ca51fcc74fe065bd3b88a68bac4e65114e6ce8a4f874",
@@ -1761,7 +1761,10 @@
     "out/native/ashlar_authority_generation_r371/lane-0/statements.jsonl": "bcc0eea4f40ff3f2096709a1fdc852884cd1b54214325ee657693a659ec4eb1f",
     "out/native/ashlar_authority_generation_r371/lane-0/completed-last-request.json": "011a48077fe2eeb3a4568a11a1ace41e9758104dc40db5dfe2155c2b6163f422",
     "out/native/ashlar_authority_generation_r371/lane-1/statements.jsonl": "b93d76848125acdd20b052643b8a67291338fa6764acecea4dd3862700f041a5",
-    "out/native/ashlar_authority_generation_r371/lane-1/completed-last-request.json": "cd124c3e15950634fb4b40c75d2946c08eb7893ead6a54324410df6b5de5b3bc"
+    "out/native/ashlar_authority_generation_r371/lane-1/completed-last-request.json": "cd124c3e15950634fb4b40c75d2946c08eb7893ead6a54324410df6b5de5b3bc",
+    "role_isolation_cost_r373.py": "f565f8e86ede2d4db99c93d58513290039b7b9da5a13fe73df9484aab4d7a747",
+    "out/role-isolation-cost-r373.json": "f31e1f153f827fdd496fba6ffea1484c67ba27ee27d00101e03c31081da7a186",
+    "role-write-isolation-design-r373.md": "bab80cfd41a415a2e941cbd6b71ddf7c8072a8175646db11d1653766aec1d416"
   },
   "evidence": {
     "ddl": {

@@ -808,3 +808,7 @@ Observed processing64.647s gives modeled record-age p9574.150s, missing60s and w
 Publication plus custody16.008GB reported reads/1.622GB writes, output-shape4.786MB reads/0 writes/0 spill, fits30GB/3GB and2GB shape bounds. All native IDs succeed/finalize; no duplicate mutation, new compute, resize or altered semantic checks. Evidence: `out/native/ashlar_history_collector_r206/summary.json`, `out/native/ashlar_queue_shared_history_r207/audited-summary.json`, `out/native/ashlar_publication_shape_r209/summary.json`.
 
 Next pursue a bounded transport/compilation comparison using the same published snapshot and exact full-field oracle before another complete publisher. Preserve original250ms caller/60s freshness and1B/5B goals; no counterfactual or narrow warm cohort admits service, controlled cold, sustained10k/s/100k/s recovery or production source fencing. UC Delta/hash LC remain selected/proposed, graph-engine support remains scoped, and UMF binding deferred.
+
+### Role isolation integration
+
+The [r373 isolation design](role-write-isolation-design-r373.md) proposes stable canonical UUIDs under a single admitted writer lane. Mandatory per-batch clones are not admitted by measured preparation costs. Authority tokens guard descriptors only; takeover also requires demonstrated prior-worker termination and terminal owned native handles. Unexplained role commits refuse successor publication. The real worker fence remains unqualified; no performance or production profile is approved.

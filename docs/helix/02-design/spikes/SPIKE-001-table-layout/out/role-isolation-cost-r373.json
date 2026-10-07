@@ -1,0 +1,167 @@
+{
+  "format": "ashlar-role-isolation-cost-attribution/1",
+  "source_sha256": {
+    "out/native/ashlar_incremental_publish_r332/audited-summary.json": "8e657dc2798c668f6d6e83f860f76d29a39387b4114bd2a11a7012d0f8983174",
+    "out/capacity-observed-r268.json": "094314e2ea3b24b2b2b13fb4af32c012e1da956679ed6de39b92662e8de1e9df"
+  },
+  "four_clones": {
+    "statements": [
+      {
+        "label": "clone-edge_current",
+        "statement_id": "01f1c261-509a-18bf-b1bd-8121eebe7f9c",
+        "caller_s": 4.784033917,
+        "engine_ms": 3988
+      },
+      {
+        "label": "clone-source_record",
+        "statement_id": "01f1c261-576c-1576-8153-241d0e2d9652",
+        "caller_s": 6.384659040999999,
+        "engine_ms": 5783
+      },
+      {
+        "label": "clone-property_journal",
+        "statement_id": "01f1c261-5ee4-19d2-8f17-65095de5ee17",
+        "caller_s": 6.031768165999999,
+        "engine_ms": 5413
+      },
+      {
+        "label": "clone-adjacency_forward",
+        "statement_id": "01f1c261-6668-1ebe-b8ab-68c0169dbbbb",
+        "caller_s": 5.183067416999997,
+        "engine_ms": 4490
+      }
+    ],
+    "serial_caller_sum_s": 22.383528540999997,
+    "costs": {
+      "read_bytes": 36923,
+      "write_remote_bytes": 0,
+      "spill_to_disk_bytes": 0
+    }
+  },
+  "settings": {
+    "statements": [
+      {
+        "label": "disable-edge_current",
+        "statement_id": "01f1c261-54af-17da-934d-93928868bd30",
+        "caller_s": 0.5954487499999992,
+        "engine_ms": 238
+      },
+      {
+        "label": "disable-source_record",
+        "statement_id": "01f1c261-5c38-1927-9383-e65c115417c5",
+        "caller_s": 0.5952035420000003,
+        "engine_ms": 237
+      },
+      {
+        "label": "disable-property_journal",
+        "statement_id": "01f1c261-63a5-11d6-b890-0b9787a43019",
+        "caller_s": 0.6450320000000005,
+        "engine_ms": 291
+      },
+      {
+        "label": "disable-adjacency_forward",
+        "statement_id": "01f1c261-6a85-11e6-a7ba-0f975d325dbe",
+        "caller_s": 0.6917909170000058,
+        "engine_ms": 321
+      },
+      {
+        "label": "enable-cdf-edge_current",
+        "statement_id": "01f1c261-6d37-1e41-9d1a-07fd27c0ddc6",
+        "caller_s": 1.0445494590000024,
+        "engine_ms": 658
+      },
+      {
+        "label": "enable-cdf-adjacency_forward",
+        "statement_id": "01f1c261-6ed3-13e3-b821-074f27d63039",
+        "caller_s": 1.927949415999997,
+        "engine_ms": 1545
+      },
+      {
+        "label": "disable-tombstone",
+        "statement_id": "01f1c261-7384-1996-8c60-51b996bdc186",
+        "caller_s": 0.6399231249999957,
+        "engine_ms": 279
+      }
+    ],
+    "serial_caller_sum_s": 6.139897209000001,
+    "costs": {
+      "read_bytes": 20378,
+      "write_remote_bytes": 0,
+      "spill_to_disk_bytes": 0
+    }
+  },
+  "fixture_first_batch_replay": {
+    "statements": [
+      {
+        "label": "prepare-first-source_record",
+        "statement_id": "01f1c261-75d8-1e12-b159-aaf4889a9236",
+        "caller_s": 5.075638583,
+        "engine_ms": 4353
+      },
+      {
+        "label": "prepare-first-property_journal",
+        "statement_id": "01f1c261-7b9c-1577-b819-7224db6c07f7",
+        "caller_s": 4.043179292000005,
+        "engine_ms": 3276
+      },
+      {
+        "label": "prepare-first-tombstone",
+        "statement_id": "01f1c261-8083-1e6a-bbb5-a70c28d48667",
+        "caller_s": 1.8697901670000052,
+        "engine_ms": 1212
+      },
+      {
+        "label": "prepare-first-forward",
+        "statement_id": "01f1c261-8419-1475-91ea-85cbca6293c8",
+        "caller_s": 7.328703708000006,
+        "engine_ms": 6571
+      }
+    ],
+    "serial_caller_sum_s": 18.317311750000016,
+    "costs": {
+      "read_bytes": 945931723,
+      "write_remote_bytes": 283709386,
+      "spill_to_disk_bytes": 0
+    }
+  },
+  "empty_tombstone_manifest_creation": {
+    "statements": [
+      {
+        "label": "create-tombstone",
+        "statement_id": "01f1c261-7101-1ab4-89f6-14279873dc60",
+        "caller_s": 2.431164249999995,
+        "engine_ms": 1915
+      },
+      {
+        "label": "create-manifest",
+        "statement_id": "01f1c261-8912-1229-b172-8ffbaadb6a6b",
+        "caller_s": 1.3970943749999947,
+        "engine_ms": 1041
+      }
+    ],
+    "serial_caller_sum_s": 3.8282586249999895,
+    "costs": {
+      "read_bytes": 0,
+      "write_remote_bytes": 0,
+      "spill_to_disk_bytes": 0
+    }
+  },
+  "full_preparation_s": 110.835300375,
+  "full_processing_s": 243.79980001712036,
+  "whole_run_s": 354.6351012671204,
+  "whole_run_costs": {
+    "read_bytes": 40171703797,
+    "write_remote_bytes": 3059935771,
+    "spill_to_disk_bytes": 0
+  },
+  "arrival_window_for100k_at10k_s": 10,
+  "clone_only_serial_service_sensitivity_entities_per_s": 4467.570866533827,
+  "planning_scale": {
+    "nodes": 1000000000,
+    "edges": 5000000000,
+    "active_bytes_arithmetic": 14168799062375,
+    "ideal64MiB_file_arithmetic": 211134,
+    "journal_rows_assumed": 24000000000
+  },
+  "qualification": "One measured serialized fixture. Clone sum excludes metadata validation/settings/history/first-batch reconstruction, not a counterfactual production latency or clone-per-batch requirement. No new workload or concurrency measurement. Service division repeats one sample, not sustained capacity. Capacity remains original r268 arithmetic, excludes retained/duplicate attempts, metadata and real costs; no clone speed/file count extrapolation to1B/5B."
+}
