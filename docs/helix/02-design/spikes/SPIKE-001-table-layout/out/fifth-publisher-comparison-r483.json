@@ -1,0 +1,41 @@
+{
+  "state": "Fifth integrated publication preservation/custody passes;60s target missed",
+  "previous": {
+    "preflight_s": 31.991376749999997,
+    "mutation_s": 105.330210542,
+    "processing_s": 231.609415333,
+    "costs": {
+      "read_bytes": 39239069244,
+      "write_remote_bytes": 503253619,
+      "spill_to_disk_bytes": 0
+    }
+  },
+  "fifth": {
+    "preflight_s": 16.936998042,
+    "mutation_s": 115.019793958,
+    "processing_s": 233.212558917,
+    "costs": {
+      "read_bytes": 39819415468,
+      "write_remote_bytes": 503296278,
+      "spill_to_disk_bytes": 0
+    }
+  },
+  "selected_vector": {
+    "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236": 6,
+    "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337": 8,
+    "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332": 5,
+    "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332": 5,
+    "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332": 6,
+    "client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332": 5
+  },
+  "native_final_statements": 91,
+  "cached_labels": [
+    "pinned-node-count",
+    "input-digest-source_record",
+    "input-digest-property_journal",
+    "input-digest-tombstone",
+    "input-digest-current_replacement",
+    "final-count-object_current"
+  ],
+  "qualification": "Different fresh scattered batches and storage/cache conditions. Preflight overlaps only metadata, not canonical role writes. Cached immutable input digests retain uncached full-input r478 evidence. No causal total-speed claim, source-arrival/p95/steady-burst/cold/concurrency or1B/5B admission."
+}
