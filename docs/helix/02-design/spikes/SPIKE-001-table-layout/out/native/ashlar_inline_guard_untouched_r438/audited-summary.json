@@ -1,0 +1,64 @@
+{
+  "state": "Guard preserves exact unmatched target and old pin;5updates/1delete pass",
+  "table": "client_dev.ashlar_entropy_20261006_r86.inline_guard_untouched_r438",
+  "before_digest": "d8ef956198502148e0a940107999aab177caa407eb0b79a827b31790edf4f9aa",
+  "after_digest": "6952ba8531a7fb1593c24cc96057a61a17230047d4a4f74e0ee16537de64a6d9",
+  "code_sha256": {
+    "inline_guard_untouched_r438.py": "2babdd2661804db911e6c4460059dc242e75d312af6e322074fb9b5ec7990497",
+    "inline_guard_sql_r421.py": "1a289c498457f483822f65ec1edce28bd9128a32de4c4d331de97807e22e86ba"
+  },
+  "merge_statement_id": "01f1c285-7889-1b77-9476-72aec3e1ff4e",
+  "history": [
+    [
+      "1",
+      "2026-10-07T19:30:00.000Z",
+      "3755468182769617",
+      "erik.labianca@synaptiq.ai",
+      "MERGE",
+      "{\"predicate\":\"[\\\"(((lookup_hash#22930 = lookup_hash#22511) AND (source_system#22911 = source_system#22492)) AND ((rel_type_id#22912L = rel_type_id#22493L) AND (id#22913L = id#22494L)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"predicate\\\":\\\"CASE WHEN ((((((hex(static_invoke(Encode.encode(source_system#22911, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_system#22492, UTF-8, true, true)))) AND (rel_type_id#22912L <=> rel_type_id#22493L)) AND (id#22913L <=> id#22494L)) AND (((source_type#22914L <=> source_type#22495L) AND (source_id#22915L <=> source_id#22496L)) AND (target_type#22916L <=> target_type#22497L))) AND ((((target_id#22917L <=> target_id#22498L) AND (hex(static_invoke(Encode.encode(order_key#22918, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(order_key#22499, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(schema_revision#22919, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(schema_revision#22500, UTF-8, true, true))))) AND ((entity_version#22920L <=> entity_version#22501L) AND (hex(static_invoke(Encode.encode(props_json#22921, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(props_json#22502, UTF-8, true, true))))))) AND (((((hex(static_invoke(Encode.encode(retained_json#22922, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(retained_json#22503, UTF-8, true, true)))) AND (hex(static_invoke(Encode.encode(source_feed#22923, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_feed#22504, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(source_epoch#22924, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_epoch#22505, UTF-8, true, true))))) AND (((source_position#22925L <=> source_position#22506L) AND (published_at#22926 <=> published_at#22507)) AND (hex(static_invoke(Encode.encode(apply_batch_id#22927, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(apply_batch_id#22508, UTF-8, true, true)))))) AND ((((hex(static_invoke(Encode.encode(source_cursor_json#22928, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_cursor_json#22509, UTF-8, true, true)))) AND (hex(static_invoke(Encode.encode(source_delivery_id#22929, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_delivery_id#22510, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(lookup_hash#22930, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(lookup_hash#22511, UTF-8, true, true))))) AND (isnotnull(entity_version#22501L) AND (is_delete#22555 OR ((after_entity_version#22544L = (entity_version#22501L + 1)) AND (((after_source_system#22535 <=> source_system#22492) AND (after_rel_type_id#22536L <=> rel_type_id#22493L)) AND ((after_id#22537L <=> id#22494L) AND (after_lookup_hash#22554 <=> lookup_hash#22511))))))))) THEN is_delete#22555 ELSE cast(raise_error(USER_RAISED_EXCEPTION, map(keys: [errorMessage], values: [ASHLAR_INLINE_PREDECESSOR_MISMATCH]), NullType) as boolean) END\\\",\\\"actionType\\\":\\\"delete\\\"},{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[{\\\"actionType\\\":\\\"insert\\\"}]\",\"clusteringOnWriteStatus\":null}",
+      null,
+      null,
+      "01f1c285-7889-1b77-9476-72aec3e1ff4e",
+      null,
+      "0",
+      "WriteSerializable",
+      "false",
+      "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"1\",\"numTargetFilesAdded\":\"5\",\"numTargetBytesAdded\":\"64453\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"1\",\"numTargetRowsMatchedUpdated\":\"5\",\"executionTimeMs\":\"5597\",\"materializeSourceTimeMs\":\"1241\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"1\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"2210\",\"numTargetRowsUpdated\":\"5\",\"numOutputRows\":\"5\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"0\",\"numSourceRows\":\"6\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"2072\"}",
+      null,
+      "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    ],
+    [
+      "0",
+      "2026-10-07T19:29:50.000Z",
+      "3755468182769617",
+      "erik.labianca@synaptiq.ai",
+      "CREATE TABLE AS SELECT",
+      "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"databricks.delta.expressionStats.selectedColumns\\\":\\\"upper(lookup_hash),lower(lookup_hash)\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"784df0ce-1b32-4130-93f8-5e684c08138b\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-83e03582-1b4d-4e5c-be3c-5c4eaa51799b\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-54dedcdc-647e-4b0e-9fee-111748da9a62\\\"}\",\"statsOnLoad\":\"true\",\"clusteringOnWriteStatus\":\"Reason for skipping: rowInsertionCountMismatch\"}",
+      null,
+      null,
+      "01f1c285-74f0-1e23-9720-416c7895a953",
+      null,
+      null,
+      "WriteSerializable",
+      "true",
+      "{\"numFiles\":\"1\",\"numOutputRows\":\"7\",\"numOutputBytes\":\"17230\"}",
+      null,
+      "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    ]
+  ],
+  "costs": {
+    "read_bytes": 133531,
+    "write_remote_bytes": 98913,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 21.837082084,
+  "audit": {
+    "native_final_statements": 7,
+    "source_sha256": {
+      "summary.json": "d7dcb2a9fc53be1c44fb83322b197609e1196dd41f1c8edc4d3b2839ec81a1ff",
+      "statements.jsonl": "11c06184bf0fbbad60f990433e28475cc2c5be4be253542caf1c18b8fd68b8d5",
+      "query-history.json": "8d9e02e14f79c55ed9d310d2d42aedeeed962b6f6b47ac50af0f4ef4d18321d7"
+    },
+    "qualification": "Seven-row unmatched-target preservation control, not full current-map or freshness evidence."
+  }
+}
