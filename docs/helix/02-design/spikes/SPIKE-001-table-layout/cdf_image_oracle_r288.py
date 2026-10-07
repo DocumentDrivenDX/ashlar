@@ -1,0 +1,21 @@
+"""Independent full-field expectations for one synthetic native change interval."""
+import json,hashlib,time,collections
+from pathlib import Path
+from mixed_changes_r228 import Changes,verify
+from mixed_change_queries_r230 import row_hash
+B=Path(__file__).resolve().parent
+
+def main():
+ start=time.monotonic();c=Changes(8000000,40000000,100000);hashes=collections.defaultdict(list);fields={}
+ for i in range(c.count):
+  x=c.change(i);assert verify(x);adj=dict(c.w.roles('edge',x['ordinal']))['adjacency_forward']
+  for role,keys in [('edge_current',list(x['before'])),('adjacency_forward',list(adj))]:
+   fields.setdefault(role,keys)
+   before={k:x['before'][k] for k in keys};kind='delete' if x['after'] is None else 'update_preimage';hashes[(role,kind)].append(row_hash(before,keys))
+   if x['after'] is not None:hashes[(role,'update_postimage')].append(row_hash({k:x['after'][k] for k in keys},keys))
+ a={'format':'ashlar-cdf-image-oracle/1','state':'Independent complete190k-image multisets for each mutable role','roles':{},'source_sha256':{n:hashlib.sha256((B/n).read_bytes()).hexdigest() for n in ['cdf_image_oracle_r288.py','mixed_changes_r228.py','scale_mixed_r219.py','mixed_change_queries_r230.py']},'qualification':'Local exact190k rows per role:90k preimages90k postimages10k deletion preimages, no inserts. Every native field included; SHA256 collision resistance assumed. Not native CDF compatibility, complete inherited custody, permanent history or freshness evidence.'}
+ for role in fields:
+  a['roles'][role]={'fields':fields[role],'total_rows':190000,'images':{kind:{'rows':len(hashes[(role,kind)]),'digest':hashlib.sha256(''.join(sorted(hashes[(role,kind)])).encode()).hexdigest()} for kind in ['update_preimage','update_postimage','delete']}}
+  assert {k:v['rows'] for k,v in a['roles'][role]['images'].items()}=={'update_preimage':90000,'update_postimage':90000,'delete':10000}
+ a['wall_s']=time.monotonic()-start;(B/'out/cdf-image-oracle-r288.json').write_text(json.dumps(a,indent=2)+'\n');print(a['state'],a['wall_s'])
+if __name__=='__main__':main()
