@@ -1,0 +1,25 @@
+{
+  "state": "Extracted collector native complete-content cohort/exact SQL/final costs and nine local fail-closed controls pass",
+  "native_final_statements": 12,
+  "complete_checks": 4,
+  "cohort_wall_s": 10.8303585,
+  "setup_s": 3.9293935,
+  "wall_s": 19.071029167,
+  "costs": {
+    "read_bytes": 1213787131,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "controls": [
+    "worker failure after other successful roles",
+    "missing native handle",
+    "unknown outcome",
+    "null coerced to string",
+    "token spelling changed",
+    "duplicate result row",
+    "client sharing",
+    "missing role",
+    "duplicate check label"
+  ],
+  "qualification": "Private read-only component only; caller still owns immutable version/UUID custody, terminal history, closing checks and fencing. No partial acceptance or new publication/source ACK; no freshness/billion admission."
+}

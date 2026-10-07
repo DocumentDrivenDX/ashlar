@@ -1,0 +1,109 @@
+{
+  "state": "Twelve exact-content uncached checks/native SQL/final costs pass across20 statement handles",
+  "phases": [
+    {
+      "phase": "serial-before",
+      "wall_s": 32.388372042,
+      "caller_sum_s": 32.37748475,
+      "engine_sum_s": 28.08,
+      "read_bytes": 1316371500,
+      "remote_read_bytes": 559229099
+    },
+    {
+      "phase": "concurrent",
+      "wall_s": 11.034659500000004,
+      "caller_sum_s": 36.662678707999994,
+      "engine_sum_s": 33.238,
+      "read_bytes": 1213775400,
+      "remote_read_bytes": 920875
+    },
+    {
+      "phase": "serial-after",
+      "wall_s": 27.10951150000001,
+      "caller_sum_s": 27.096896375000014,
+      "engine_sum_s": 24.332,
+      "read_bytes": 1213787131,
+      "remote_read_bytes": 0
+    }
+  ],
+  "late_history_enrichment": [
+    {
+      "phase": "serial-before",
+      "label": "cdf-source_record",
+      "field": "result_fetch_time_ms",
+      "earlier": "absent despite is_final",
+      "later": 21845,
+      "qualification": "Added after cursor closure; not a caller fetch-duration measurement or added engine cost."
+    },
+    {
+      "phase": "serial-before",
+      "label": "cdf-property_journal",
+      "field": "result_fetch_time_ms",
+      "earlier": "absent despite is_final",
+      "later": 14045,
+      "qualification": "Added after cursor closure; not a caller fetch-duration measurement or added engine cost."
+    },
+    {
+      "phase": "serial-before",
+      "label": "cdf-edge_current",
+      "field": "result_fetch_time_ms",
+      "earlier": "absent despite is_final",
+      "later": 9230,
+      "qualification": "Added after cursor closure; not a caller fetch-duration measurement or added engine cost."
+    },
+    {
+      "phase": "serial-before",
+      "label": "typed-endpoints",
+      "field": "result_fetch_time_ms",
+      "earlier": "absent despite is_final",
+      "later": 3444,
+      "qualification": "Added after cursor closure; not a caller fetch-duration measurement or added engine cost."
+    },
+    {
+      "phase": "concurrent",
+      "label": "typed-endpoints",
+      "field": "result_fetch_time_ms",
+      "earlier": "absent despite is_final",
+      "later": 10686,
+      "qualification": "Added after cursor closure; not a caller fetch-duration measurement or added engine cost."
+    },
+    {
+      "phase": "serial-after",
+      "label": "cdf-source_record",
+      "field": "result_fetch_time_ms",
+      "earlier": "absent despite is_final",
+      "later": 18112,
+      "qualification": "Added after cursor closure; not a caller fetch-duration measurement or added engine cost."
+    },
+    {
+      "phase": "serial-after",
+      "label": "typed-endpoints",
+      "field": "result_fetch_time_ms",
+      "earlier": "absent despite is_final",
+      "later": 4476,
+      "qualification": "Added after cursor closure; not a caller fetch-duration measurement or added engine cost."
+    }
+  ],
+  "costs": {
+    "read_bytes": 3743934031,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 99.605608084,
+  "setup_s": 8.094613292,
+  "warehouse": {
+    "id": "2439e1f2e37ac563",
+    "name": "data-gateway",
+    "state": "RUNNING",
+    "cluster_size": "2X-Small",
+    "min_num_clusters": 1,
+    "max_num_clusters": 1,
+    "enable_serverless_compute": true,
+    "auto_stop_mins": 10,
+    "warehouse_type": "PRO",
+    "observed_epoch": 1791408843.9714649
+  },
+  "concurrent_reduction_vs_serial_before": 0.6593018171555309,
+  "concurrent_reduction_vs_serial_after": 0.592959854698968,
+  "qualification": "Fixed serial/concurrent/serial order and shared compute/storage cache; component comparison only, no new publication or60s/10k/s admission. Do not sum parallel callers/engines as cohort wall."
+}

@@ -1,0 +1,20 @@
+{
+  "state": "Complete cohort accepted; nine meaningful failure/corruption controls refuse without partial acceptance",
+  "controls": [
+    "worker failure after other successful roles",
+    "missing native handle",
+    "unknown outcome",
+    "null coerced to string",
+    "token spelling changed",
+    "duplicate result row",
+    "client sharing",
+    "missing role",
+    "duplicate check label"
+  ],
+  "code_sha256": {
+    "publisher_content_r503.py": "1c40392af1317e0f5965a21dec97abf0f4725875ec9cb0ccc62400537861ac4d",
+    "content_controls_r504.py": "e8e5d91c847d27da5867025c40e63784049515da1bdca8a085cc723022c1a420"
+  },
+  "wall_s": 0.003036457999999999,
+  "qualification": "Local collector controls only; no native finality, version custody, fencing or source support proof."
+}
