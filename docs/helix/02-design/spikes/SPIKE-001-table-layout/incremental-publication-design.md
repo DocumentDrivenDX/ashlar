@@ -143,3 +143,37 @@ harness allows only recorded OPTIMIZE operations alongside its one expected
 MERGE and checks exact affected outputs. That is a test guard, not an exclusive
 writer fence or proof that real concurrent business writers are safe. Raw and
 journal origins remain exact and independently checked at their captured versions.
+
+## Raw validation query tuning
+
+[r97 persistent uncached comparison](out/native/ashlar_raw_validation_20261007_r97/persistent-uncached/audited-summary.json)
+tests the same 100k-member immutable r96-b3 input/raw version7. Combining payload
+parity and membership into one full-outer aggregate is not a measured latency
+win: separate caller totals are 5.67/6.24 s versus combined 5.78/6.16 s; combined
+engine time is higher in both pairs. Membership reads only about 7.54 MB of narrow
+columns, so eliminating that scan saves little beside the wide payload check.
+The full-outer candidate detects extra/missing origins; cardinality detects a
+duplicate even when payload mismatch count is zero. Valid, missing, duplicate,
+extra-origin and independently timestamp-corrupted controls behave as expected.
+The fixture gate uses globally distinct native IDs; a general multi-source gate
+must count complete semantic tuples rather than assume globally distinct IDs.
+This experiment does not cover every outer-envelope metadata column or establish
+a production source adapter. An earlier REST repeat returned cached results;
+those timings are explicitly excluded and retained as a transport qualification.
+
+[r98 batch predicate comparison](out/native/ashlar_raw_batch_filter_20261007_r98/audited-summary.json)
+isolates a raw apply_batch_id restriction with identical immutable snapshots and
+the same payload/cursor/digest/independent timestamp checks. All exact final query
+metrics are uncached; all data reads are from the warm data cache. Caller times
+are unfiltered/filtered 15.14/5.18 s and 6.49/4.81 s in alternating pairs. Read
+bytes, including input, are 3.64/4.03 GB unfiltered versus 1.33 GB filtered.
+Files/rows scanned vary across unfiltered executions; this is a bounded query
+measurement, not a universal speedup or a cold-read benchmark.
+
+Use the batch boundary to scope expensive raw payload validation after proving
+membership and preserving global origin uniqueness under qualified writer
+authority. A batch filter alone cannot discover a conflicting origin stored
+under another batch, and this synthetic history does not qualify that authority.
+Keep exact membership checks, predecessor coverage and bootstrap/periodic global
+audits. Apply the predicate in the next real synthetic publication timing;
+do not subtract this isolated saving from r96 and claim a new freshness result.

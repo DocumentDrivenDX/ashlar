@@ -1,0 +1,62 @@
+{
+  "state": "completed read-only combined raw validation; paired metrics pending audit",
+  "baseline_batch": {
+    "batch": "r96-b3",
+    "rows": 100000,
+    "nominal_arrival_rate": 100000,
+    "first_arrival_offset_s": 20,
+    "complete_input_ready_offset_s": 21,
+    "publisher_start_offset_s": 173.630137959,
+    "queue_wait_s": 152.630137959,
+    "source_clock": "uniform modeled per-record arrivals within controller window; complete pre-staged input released at window end",
+    "source_stage": "client_dev.ashlar_entropy_20261006_r86.schedule_r96_3",
+    "stage_version": 0,
+    "old_current_version": 8,
+    "commits": [
+      {
+        "version": "9",
+        "timestamp": "2026-10-06T23:54:45.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "MERGE",
+        "operationParameters": "{\"predicate\":\"[\\\"(((lookup_hash#32622 = lookup_hash#32642) AND (source_system#32606 = source_system#32626)) AND ((rel_type_id#32607L = rel_type_id#32627L) AND (id#32608L = id#32628L)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"predicate\\\":\\\"((entity_version#32614L = 4) AND (apply_batch_id#32623 = r96-b2))\\\",\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c1e1-4a7a-17b6-838a-08a31dbe7519",
+        "clusterId": null,
+        "readVersion": "8",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "false",
+        "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetFilesAdded\":\"16\",\"numTargetBytesAdded\":\"326998900\",\"numTargetBytesRemoved\":\"326999718\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"executionTimeMs\":\"6550\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"3312\",\"numTargetRowsUpdated\":\"100000\",\"numOutputRows\":\"100000\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"0\",\"numSourceRows\":\"100000\",\"numTargetFilesRemoved\":\"16\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"3214\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+      }
+    ],
+    "verified_manifest_offset_s": 254.11220045899998,
+    "processing_s": 80.48206249999998,
+    "complete_input_to_manifest_s": 233.11220045899998,
+    "oldest_modeled_record_freshness_s": 234.11220045899998,
+    "versions": {
+      "client_dev.ashlar_entropy_20261006_r86.edge_current": 9,
+      "client_dev.ashlar_entropy_20261006_r86.object_current": 0,
+      "client_dev.ashlar_entropy_20261006_r86.source_record_r89": 7,
+      "client_dev.ashlar_entropy_20261006_r86.property_journal_r89": 7,
+      "client_dev.ashlar_entropy_20261006_r86.tombstone_r89": 0
+    },
+    "complete_batches_waiting_at_finish": 0
+  },
+  "pairs": [
+    {
+      "order": "separate-first",
+      "separate_caller_ms": 5669.058666999998,
+      "combined_caller_ms": 5778.638999999998
+    },
+    {
+      "order": "combined-first",
+      "combined_caller_ms": 6162.061583,
+      "separate_caller_ms": 6237.038501000001
+    }
+  ],
+  "scope": "Two alternating pairs over the same 100k hot-set batch, existing 2X-Small compute. No new publication, throughput distribution or sustained-rate admission.",
+  "invariant": "Combined gate requires joined rows, distinct input IDs and distinct raw delivery IDs all equal declared 100k membership, and mismatch count zero. Duplicate control has zero mismatches but fails cardinality."
+}

@@ -1,0 +1,17 @@
+{
+  "state": "completed paired raw batch predicate; final metrics pending",
+  "pairs": [
+    {
+      "order": "unfiltered-first",
+      "unfiltered_caller_ms": 15138.060875000001,
+      "filtered_caller_ms": 5178.5888749999995
+    },
+    {
+      "order": "filtered-first",
+      "filtered_caller_ms": 4813.932375,
+      "unfiltered_caller_ms": 6486.015541999997
+    }
+  ],
+  "scope": "Identical immutable r96-b3 input and raw version7, same payload/cursor/digest/timestamp parity predicate, persistent uncached connection; batch restriction is the only query difference. No new publication.",
+  "qualification": "Filtering requires an admitted complete batch boundary and preserved global origin uniqueness; no proof of those real producer/writer authorities. Separate membership checks remain required."
+}

@@ -1,5 +1,21 @@
 # Higher-entropy scale and GraphFrames iteration
 
+## Validation tuning after the scheduled run
+
+[r97](out/native/ashlar_raw_validation_20261007_r97/persistent-uncached/audited-summary.json)
+shows no useful latency benefit from combining raw payload parity and membership:
+separate caller totals 5.67/6.24 s, combined 5.78/6.16 s, with higher combined
+engine time in both pairs. Exact negative controls pass. Cached REST repeats
+are retained and excluded; the comparison uses a persistent session with caching
+disabled and final exact-query metrics.
+
+[r98](out/native/ashlar_raw_batch_filter_20261007_r98/audited-summary.json)
+isolates the batch predicate. Unfiltered/filtered caller timings are 15.14/5.18 s
+and 6.49/4.81 s; read bytes decrease from 3.64–4.03 GB to 1.33 GB. All reads are
+uncached query executions over warm data. No new publication or freshness claim
+follows. [Design implications and authority prerequisites](incremental-publication-design.md)
+retain complete batch membership and global origin uniqueness requirements.
+
 ## Finite scheduled publication follow-up
 
 [Audited r96 schedule](out/native/ashlar_scheduled_publication_20261006_r96/version-aware-preflight/audited-summary.json)
