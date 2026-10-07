@@ -1,0 +1,31 @@
+{
+  "format": "ashlar-revised-scale-reserves/1",
+  "source_sha256": {
+    "out/revised-reserves-r256.json": "50e009ce704ea270c8d0d3739f77da31c38477adcba14ed47d112ead7ce87b77",
+    "out/native/ashlar_maintained_edge_r287/cancel-audit.json": "25486cd955f4137aa1415bb9dcb2be2e3f80f92d4bbb7983f0d2b04663353362"
+  },
+  "planned_graph": {
+    "nodes": 8000000,
+    "edges": 40000000
+  },
+  "owner_final_scale": {
+    "nodes": 1000000000,
+    "edges": 5000000000
+  },
+  "prior_proposal_ceiling": 280000000000,
+  "revised_proposal_ceiling": 280000000000,
+  "components": {
+    "bootstrap_same_width_1_5x": 173521215820.3125,
+    "four_100k_change_batches_1_5x": 2120433691.40625,
+    "four_100k_input_stages_1_5x": 1070501953.125,
+    "additional_retained_file_overlap_assumed": 60000000000,
+    "one_failed_phase_work_assumed": 20000000000,
+    "logs_checkpoints_DVs_controls_and_background_margin_assumed": 10000000000,
+    "experimental_legacy_cdf_overlap_assumed": 2000000000
+  },
+  "reported_canceled_run_written_bytes": 12509175476,
+  "canceled_write_1_5x_sensitivity": 18763763214.0,
+  "qualification": "Supersedes failed-work8GB assumption after canceled OPTIMIZE run reports12.509GB writes with no OPTIMIZE commit.20GB allowance covers1.5x reported writes;2GB separate experimental legacy-CDF allowance added. SQL written bytes are not an orphan/retained physical inventory; cleanup state, temporary objects, prior partial outputs, logs and retained versions remain uncertain.280GB intermediate proposal retained with reduced unallocated margin, not verified disk usage or1B/5B admission. No cleanup/VACUUM/retention/compute changes. Legacy-CDF per-run50GB read/2GB write/5GB spill/900s guard remains separate.",
+  "estimated_components": 268712151464.84375,
+  "unallocated_margin": 11287848535.15625
+}

@@ -1443,7 +1443,8 @@
     "out/native/ashlar_cdf_interval_read_r289/audited-summary.json": "f44c312a9ade8ea49173006d66fa219a126d3ace8079c4e50035d0f422e4b79c",
     "out/native/ashlar_cdf_interval_read_r289/statements.jsonl": "9fb5691a439fc02f4068b5ef8ffcb9c443393c5199bd8be7c77b198b39e6e028",
     "out/native/ashlar_cdf_interval_read_r289/shared-history.json": "ff47f80a0c5d96d14de2b1a3be7c876c4e87d2e500a51dd0dd9907ac7a706c4e",
-    "legacy_cdf_compare_r290.py": "00215c241a7c641099fd6c7e2ee6924bd7628ac9ae2359743bf4e72dd1d60cc1"
+    "legacy_cdf_compare_r290.py": "00215c241a7c641099fd6c7e2ee6924bd7628ac9ae2359743bf4e72dd1d60cc1",
+    "out/revised-reserves-r291.json": "1951996f02316a1939b0e3ca3caa4e693448809f8e438132897563a6b0e9ba62"
   },
   "evidence": {
     "ddl": {
