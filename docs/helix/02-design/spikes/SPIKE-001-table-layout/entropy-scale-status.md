@@ -20,6 +20,16 @@ After ZORDER, bucket8 initial/repeated all-cohort caller p95 is783.702/416.783ms
 
 Input4 has full20M20-field parity. Output8 has20M global IDs/bucket integrity and120 exact after-maintenance point reads, but its exhaustive wide-value preservation obligation remains open. The candidate is retained unpublished at the same UUID for matched100k high-entropy updates and bounded full-wide final-state validation. Canonical r139-b1 pins remain unchanged; no DDL choice, source authority, graph-engine activation, sustained/burst publication or1B/5B admission changes.
 
+## r176/r177: full20M wide update shows material bucket write amplification
+
+[Audited updates](out/native/ashlar_bucket_update_r176/audited-summary.json) apply the same100k stage of same-length high-entropy property105 replacements to an owned shallow LC clone of E23 and the maintained full20M bucket8. Both complete intended/output20-field checks pass, including UTF8 text, exact retained/cursor data and typed endpoints. Both final snapshots have20M globally unique IDs; each native MERGE updates exactly100k with0 inserted/deleted. Stage length drift is0 and canonical r139-b1 still pins E23 and its original vector. LC clone is retained at1, bucket at9 and stage at0, unpublished.
+
+LC MERGE takes4.110s and adds326,515,247 bytes, removes16 hot files/adds6 and copies0 unchanged rows. Bucket MERGE takes37.018s and adds5,253,739,757 bytes, copies2,987,212 unchanged rows, removes67 files/adds69 and creates381 deletion vectors. Its output contains3,087,212 rows. This is measured mixed DV/copy behavior despite DV being enabled, not a guarantee of changed-row-only writes or an attributed runtime mechanism. File histories and consolidation differ, so these are operational layout results, not an isolated causal bucket-count experiment.
+
+Validation/staging remain separate costs: the bucket pre-apply complete-carrier check alone takes40.728s and reports33.807GB reads. The total completed run/audit reports77.071GB reads,6.244GB writes and0 spill, exceeding the75GB/4GB admission plan after the bucket update/checks. The local guard stopped before any point-read phase; every submitted native query succeeded and finalized, and no write was replayed. The cap was not an in-flight physical IO limit. Preserve the stopped checkpoint and read-only native-ID/UUID/version audit rather than relabel it a passing budget run.
+
+This strengthens the case for retaining canonical hash liquid clustering while the bucket alternative remains experimental. Do not infer publisher freshness or sustained10k/s from either MERGE: no raw/history/manifest cycle ran. Next validate LC19.9M immutable custody and the complete final bucket values against E23 plus stage0. Whole19.9M physical-row custody cannot hold for bucket9 because nearly3M unchanged rows were physically copied; it needs exhaustive value-level proof, also covering the preceding ZORDER. Caller/cold/scale/source/fencing/engine limits remain open; UMF is deferred.
+
 ## Maintained snapshot under publication load
 
 [Audited r103](out/native/ashlar_maintained_contention_20261007_r103/audited-summary.json)
