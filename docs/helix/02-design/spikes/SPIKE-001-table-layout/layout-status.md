@@ -649,3 +649,23 @@ schema and the 64 MiB reference target remain unchanged. The revised complete
 13-table DDL has not been re-executed. Next resolve the publication maintenance
 policy and service-side reader deployment using the existing large fixture;
 retain UC Delta as selected architecture and keep ingest/read metrics explicit.
+
+
+### r148 publication capacity and maintenance policy
+
+The [reproducible model](out/publication-capacity-r148.json) derives a serialized
+capacity sensitivity of 1,889 changed entities/s from the one r133 100k publication
+(52.947 s processing). Holding this sample constant at modeled 10k/s arrivals
+increases queue wait by 42.947 s per batch; uniform first-batch record-age p95 is
+62.447 s. No sustained throughput, actual arrivals or service p95 is established.
+A first 100k/s burst batch appears under 60 s in this model but subsequent queue
+growth invalidates burst admission. Separate maintenance adds cost rather than
+closing this capacity gap; its warmed reads still miss the agreed targets.
+
+The [draft maintenance policy](publication-maintenance-policy.md) preserves pinned
+publication vectors, distinguishes cleanup from source progress and requires
+qualification before a maintenance-only manifest can be exposed. ADR-001 links
+the policy and qualifies revised-DDL execution scope. Next run a bounded three-batch
+queue diagnostic on isolated outputs, targeting publisher service before more
+clustering screens. This iteration runs arithmetic locally and performs no native
+write or compute provisioning. Full goal remains active and unproven.

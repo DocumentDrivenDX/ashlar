@@ -61,7 +61,9 @@ maintenance costs require an independently tuned policy.
 
 The proposed ashlar-delta/0.3 DDL now includes derived identity hashes, optional
 adjacency/degree tables, raw source records and direct cursor references. All 13
-table CREATEs have scoped native evidence. The 0.2 and 0.1 DDL remain historical
+table CREATEs have scoped native structural evidence. Later edge-statistics tuning
+is evidenced on existing native tables; the revised complete DDL has not been
+re-executed as a package. The 0.2 and 0.1 DDL remain historical
 baselines; production source, recovery and graph-engine qualification are open.
 The 13-table spike inventory is a reference surface, not a requirement to deploy
 all projection examples or rewrite every table for every source batch.
@@ -72,6 +74,11 @@ and reduces paired validation file reads from 100 to 26. It does not materially
 reduce measured bytes or latency. Keep statistics backfill cost and actual pinned
 versions explicit; old manifests do not gain the new snapshot automatically.
 This physical tuning does not change the logical journal or qualify freshness.
+
+The [publication and maintenance policy candidate](../spikes/SPIKE-001-table-layout/publication-maintenance-policy.md)
+separates physical cleanup from logical progress and records the measured publisher
+capacity gap. Its maintenance-manifest mode and queue experiment remain unqualified;
+existing immutable publication vectors must not be repointed.
 
 ## Alternatives
 
