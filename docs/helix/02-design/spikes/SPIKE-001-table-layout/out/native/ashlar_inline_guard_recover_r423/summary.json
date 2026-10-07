@@ -1,0 +1,54 @@
+{
+  "state": "Original valid timestamp commit1 and preserved pins0/1 audited read-only",
+  "source_sha256": {
+    "summary.json": "fc3e251928c0669b84e8d1923468c043a7aaffbd8b5830ed50e07d771344ada5",
+    "statements.jsonl": "dbc70dbd53fac1fba9cfbcc54988cbabc5b384bcf2b80af87ff292da38ef9174"
+  },
+  "reason": "Timestamp negative used the identical2026-10-07T00:00:00Z baseline value; native valid MERGE committed. No guard weakness demonstrated. No write replay or table reset.",
+  "history": [
+    {
+      "version": "1",
+      "timestamp": "2026-10-07T19:00:31.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "MERGE",
+      "operationParameters": "{\"predicate\":\"[\\\"(((lookup_hash#140306 = lookup_hash#139887) AND (source_system#140287 = source_system#139868)) AND ((rel_type_id#140288L = rel_type_id#139869L) AND (id#140289L = id#139870L)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"predicate\\\":\\\"CASE WHEN ((((((hex(static_invoke(Encode.encode(source_system#140287, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_system#139868, UTF-8, true, true)))) AND (rel_type_id#140288L <=> rel_type_id#139869L)) AND (id#140289L <=> id#139870L)) AND (((source_type#140290L <=> source_type#139871L) AND (source_id#140291L <=> source_id#139872L)) AND (target_type#140292L <=> target_type#139873L))) AND ((((target_id#140293L <=> target_id#139874L) AND (hex(static_invoke(Encode.encode(order_key#140294, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(order_key#139875, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(schema_revision#140295, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(schema_revision#139876, UTF-8, true, true))))) AND ((entity_version#140296L <=> entity_version#139877L) AND (hex(static_invoke(Encode.encode(props_json#140297, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(props_json#139878, UTF-8, true, true))))))) AND (((((hex(static_invoke(Encode.encode(retained_json#140298, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(retained_json#139879, UTF-8, true, true)))) AND (hex(static_invoke(Encode.encode(source_feed#140299, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_feed#139880, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(source_epoch#140300, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_epoch#139881, UTF-8, true, true))))) AND (((source_position#140301L <=> source_position#139882L) AND (published_at#140302 <=> published_at#139883)) AND (hex(static_invoke(Encode.encode(apply_batch_id#140303, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(apply_batch_id#139884, UTF-8, true, true)))))) AND ((((hex(static_invoke(Encode.encode(source_cursor_json#140304, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_cursor_json#139885, UTF-8, true, true)))) AND (hex(static_invoke(Encode.encode(source_delivery_id#140305, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_delivery_id#139886, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(lookup_hash#140306, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(lookup_hash#139887, UTF-8, true, true))))) AND (isnotnull(entity_version#139877L) AND (is_delete#139931 OR ((after_entity_version#139920L = (entity_version#139877L + 1)) AND (((after_source_system#139911 <=> source_system#139868) AND (after_rel_type_id#139912L <=> rel_type_id#139869L)) AND ((after_id#139913L <=> id#139870L) AND (after_lookup_hash#139930 <=> lookup_hash#139887))))))))) THEN is_delete#139931 ELSE cast(raise_error(USER_RAISED_EXCEPTION, map(keys: [errorMessage], values: [ASHLAR_INLINE_PREDECESSOR_MISMATCH]), NullType) as boolean) END\\\",\\\"actionType\\\":\\\"delete\\\"},{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[{\\\"actionType\\\":\\\"insert\\\"}]\",\"clusteringOnWriteStatus\":null}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c281-5c8f-11b3-8eeb-5751dd9ba467",
+      "clusterId": null,
+      "readVersion": "0",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"1\",\"numTargetFilesAdded\":\"1\",\"numTargetBytesAdded\":\"16282\",\"numTargetBytesRemoved\":\"17030\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetRowsMatchedUpdated\":\"5\",\"executionTimeMs\":\"2813\",\"materializeSourceTimeMs\":\"498\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"1\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"696\",\"numTargetRowsUpdated\":\"5\",\"numOutputRows\":\"5\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"1\",\"numSourceRows\":\"6\",\"numTargetFilesRemoved\":\"1\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"1587\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "0",
+      "timestamp": "2026-10-07T18:59:07.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "CREATE TABLE AS SELECT",
+      "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableChangeDataFeed\\\":\\\"true\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"databricks.delta.expressionStats.selectedColumns\\\":\\\"upper(lookup_hash),lower(lookup_hash)\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"a516843a-1db0-4ef8-866e-30c37615d4fa\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-5d0ab370-773d-48da-9c0b-1b028ff82e7b\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-3137a7b0-f750-478f-9fe4-7c650615c608\\\"}\",\"statsOnLoad\":\"true\",\"clusteringOnWriteStatus\":\"Reason for skipping: rowInsertionCountMismatch\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c281-2a33-1e4c-9174-7a77beb3db51",
+      "clusterId": null,
+      "readVersion": null,
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"6\",\"numOutputBytes\":\"17030\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    }
+  ],
+  "costs": {
+    "read_bytes": 339931,
+    "write_remote_bytes": 73929,
+    "spill_to_disk_bytes": 0
+  },
+  "native_original_statements": 51,
+  "native_recovery_statements": 3,
+  "wall_s": 5.705438750000001
+}

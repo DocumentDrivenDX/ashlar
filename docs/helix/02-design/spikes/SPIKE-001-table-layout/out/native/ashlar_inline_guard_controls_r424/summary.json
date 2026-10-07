@@ -1,0 +1,390 @@
+{
+  "state": "Stopped; inspect same native handles and actual private history; no write replay",
+  "table": "client_dev.ashlar_entropy_20261006_r86.inline_guard_controls_r424",
+  "indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    19
+  ],
+  "fields": [
+    "source_system",
+    "rel_type_id",
+    "id",
+    "source_type",
+    "source_id",
+    "target_type",
+    "target_id",
+    "order_key",
+    "schema_revision",
+    "entity_version",
+    "props_json",
+    "retained_json",
+    "source_feed",
+    "source_epoch",
+    "source_position",
+    "published_at",
+    "apply_batch_id",
+    "source_cursor_json",
+    "source_delivery_id",
+    "lookup_hash"
+  ],
+  "before_digest": "92015e86ef1aa60f7ca6a363e4fda2a134efad29443f32ce63dd102c8b6262d2",
+  "after_digest": "a7437e0d84aeae91bf2fbad7ff0d1eca0b7d4cf5e81730fbb72bfee718db6b9d",
+  "controls": [
+    {
+      "label": "mismatch-source_system",
+      "statement_id": "01f1c281-93d6-1a84-acc3-2248de508a7d",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-rel_type_id",
+      "statement_id": "01f1c281-969e-17c4-a407-77e0a4875dfb",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-id",
+      "statement_id": "01f1c281-9960-1b5a-b739-2ea5fbf7ae06",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-source_type",
+      "statement_id": "01f1c281-9c18-162e-b037-6143f63d971d",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-source_id",
+      "statement_id": "01f1c281-9eaa-1e99-9a9d-034536a6ff9d",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-target_type",
+      "statement_id": "01f1c281-a155-1fca-87c1-df8c7e8a85a8",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-target_id",
+      "statement_id": "01f1c281-a3d3-1605-b125-e2b3a78e011d",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-order_key",
+      "statement_id": "01f1c281-a66b-16fa-a9e8-51a7b05d7ce2",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-schema_revision",
+      "statement_id": "01f1c281-a8de-1596-ab46-26d073e5009f",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-entity_version",
+      "statement_id": "01f1c281-ab6c-118b-a2df-962564be6566",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-props_json",
+      "statement_id": "01f1c281-add6-1fdf-8eb5-a024611774aa",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-retained_json",
+      "statement_id": "01f1c281-b056-15f0-b988-edf25d032b06",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-source_feed",
+      "statement_id": "01f1c281-b2d5-1c3f-a12d-ad46ba41fb57",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-source_epoch",
+      "statement_id": "01f1c281-b589-1767-84af-9b13007911d4",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-source_position",
+      "statement_id": "01f1c281-b7f8-1b54-9047-1a9d0efb94ba",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-published_at",
+      "statement_id": "01f1c281-bae0-11ac-8eb9-cee5017f6391",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-apply_batch_id",
+      "statement_id": "01f1c281-bd77-15fe-880e-57fcfc38ebec",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-source_cursor_json",
+      "statement_id": "01f1c281-c072-140e-88ef-469b116f078f",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-source_delivery_id",
+      "statement_id": "01f1c281-c2f5-1c59-93a9-cfa04181f30e",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "mismatch-lookup_hash",
+      "statement_id": "01f1c281-c579-11f8-83d2-9c38307f2d3d",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    },
+    {
+      "label": "deletion-before-mismatch",
+      "statement_id": "01f1c281-c87e-1285-ba04-d6fdb8a7abe4",
+      "expected_codes": [
+        "ASHLAR_INLINE_PREDECESSOR_MISMATCH",
+        "ASHLAR_INLINE_MISSING_PREDECESSOR"
+      ],
+      "native_error": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[USER_RAISED_EXCEPTION] ASHLAR_INLINE_PREDECESSOR_MISMATCH SQLSTATE: P0001"
+        },
+        "sql_state": "P0001"
+      }
+    }
+  ],
+  "bounds": {
+    "wall_s": 300,
+    "read_bytes": 100000000,
+    "write_remote_bytes": 10000000,
+    "spill_to_disk_bytes": 0
+  },
+  "code_sha256": {
+    "inline_guard_controls_r424.py": "7ab3b3d5be8820850ee356ccda5e0c0223b1eef8b1577e7e4038894b0ac23ea8",
+    "inline_guard_sql_r421.py": "1a289c498457f483822f65ec1edce28bd9128a32de4c4d331de97807e22e86ba",
+    "third_changes_r378.py": "ed1fc462e7d4d68da6576c8c3de71ea03c0f8e2e2be87107fbc855b7b647e1c9",
+    "normalized_input_sql_r264.py": "643d21dafc88ea8411d064c2a6d030b4abb91342374e9a902ce2d71e14925bc9"
+  },
+  "qualification": "Synthetic update/delete-only inline full predecessor guard. Qualified unique normalized input and a private serialized writer required. No current-row insertion, replay/resurrection, production fence, real source ACK or freshness admission.",
+  "create_statement_id": "01f1c281-8fc1-1dfe-9172-d021620bf486",
+  "table_id": "c0ace847-f65e-4506-b4ce-7744f7643dca",
+  "error": ""
+}

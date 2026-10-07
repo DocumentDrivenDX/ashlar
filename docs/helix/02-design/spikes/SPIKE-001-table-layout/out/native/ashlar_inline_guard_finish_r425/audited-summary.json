@@ -1,0 +1,38 @@
+{
+  "state": "Inline full20field guards,26atomic refusals, clean CDF and all stopped costs independently audited",
+  "controls": 26,
+  "native_final_statements": 143,
+  "costs": {
+    "read_bytes": 867192,
+    "write_remote_bytes": 147858,
+    "spill_to_disk_bytes": 0
+  },
+  "table": "client_dev.ashlar_entropy_20261006_r86.inline_guard_controls_r424",
+  "code_sha256": {
+    "inline_guard_sql_r421.py": "1a289c498457f483822f65ec1edce28bd9128a32de4c4d331de97807e22e86ba",
+    "inline_guard_audit_r426.py": "7927a33e58352f05837f2f4d7911ac57b1fa7231498046e2c91c65442d55ec87"
+  },
+  "source_sha256": {
+    "ashlar_inline_guard_controls_r422": {
+      "summary.json": "fc3e251928c0669b84e8d1923468c043a7aaffbd8b5830ed50e07d771344ada5",
+      "statements.jsonl": "dbc70dbd53fac1fba9cfbcc54988cbabc5b384bcf2b80af87ff292da38ef9174",
+      "query-history.json": "991129ee525048e27da210f4828e7a50a12d9bed26a18798c36ac66c7e4b8222"
+    },
+    "ashlar_inline_guard_recover_r423": {
+      "summary.json": "f5a54662f119b8a48a98780423056b0899377bac0fa61f3f965df0a946cffda8",
+      "statements.jsonl": "ece3433d3f7636d55e74f75b6ee176d2d92e70ad75941645b4c20987d3cf4d49",
+      "query-history.json": "49733d0f2d6c956f2675087aeca5fdf934e7fa40fc2a736846b05853db9eface"
+    },
+    "ashlar_inline_guard_controls_r424": {
+      "summary.json": "ae5cdcfb01a7da9451690c9228f663b94a0c2225d7fb5245ca4b507f5c7da934",
+      "statements.jsonl": "492698fb295096eb34707e531dce814382ab2c2dfbd64c4b97d8f02ccccb0bdb",
+      "query-history.json": "5fd7402b0ce9502d87c052f9a8a5181ceef7375ec1029f7a9841936dcc12dc28"
+    },
+    "ashlar_inline_guard_finish_r425": {
+      "summary.json": "8531e9a06f73301e46801ecc39cad68f7bfee7d2923c7dfa34d2e26a857153c1",
+      "statements.jsonl": "6675440a20808aab1daf3599cd7bcdb3765cad797668daef4e98a56fd43d27c9",
+      "query-history.json": "f704b535b8da8987d0f7fcb0b80435005be1d4f29d2fc5eb51e39fdd7c856769"
+    }
+  },
+  "qualification": "Tiny synthetic update/delete-only guard evidence, not full ingest/freshness, current insertion/idempotent replay, source authority or production writer fencing."
+}
