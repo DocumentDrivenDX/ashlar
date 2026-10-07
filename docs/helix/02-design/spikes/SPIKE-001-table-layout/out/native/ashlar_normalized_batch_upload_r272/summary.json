@@ -1,0 +1,631 @@
+{
+  "state": "All100k source-role parts roundtrip byte-exactly in owned UC volume",
+  "source_summary_sha256": "338879c3e19ba49b9377f78299f06ebcdfe11a617ad18f046b442d2a267b16a5",
+  "volume_summary_sha256": "1e2d5d825e73f88bd7d79e509119b1878fb0f53020da1a63895f37f05d7d13c1",
+  "volume_full_name": "client_dev.ashlar_entropy_20261006_r86.ashlar_inputs_r265",
+  "volume_id": "a517e6ec-98a5-4e8a-8978-75f71eee2c31",
+  "roles": {
+    "source_record": {
+      "rows": 100000,
+      "bytes": 524891313,
+      "fields": [
+        "source_feed",
+        "source_epoch",
+        "delivery_id",
+        "record_kind",
+        "source_cursor_json",
+        "payload_json",
+        "payload_digest",
+        "schema_revision",
+        "received_at",
+        "apply_batch_id"
+      ],
+      "all_known_field_digest": "0a4f3b18b7423737d0f98b24e190693784d307af52a8347fbb6e16b277a5e4a5",
+      "original_input_multiset_digest": "3387ffc5308652f2300f2c1b09cff48635c3d1086222f669ab79d7fbe3485d95",
+      "parts": [
+        {
+          "name": "source_record-part0000.jsonl",
+          "bytes": 33550625,
+          "rows": 6396,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "52ac151f4511a083cdb91579fa4f02c1c3b2899ac71b3234540be8d59f9015df",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0000.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33550625,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:10:45 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0001.jsonl",
+          "bytes": 33552041,
+          "rows": 6395,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "f1076812f347e5192e06717d1417e703625a822dde4ad7c41d2153431fed32b0",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0001.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33552041,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:10:52 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0002.jsonl",
+          "bytes": 33547043,
+          "rows": 6391,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "d38eb2cb4d2734a7dca3e25a9aea45429ea51922f6ee750acee4ae29c2da4863",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0002.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33547043,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:11:00 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0003.jsonl",
+          "bytes": 33549585,
+          "rows": 6391,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "4b12c37ccb3b98278f8676dcd70347694de063c25092ea88976dc68d63f2931d",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0003.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33549585,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:11:08 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0004.jsonl",
+          "bytes": 33550104,
+          "rows": 6391,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "fbb3796bf8fd5b3be3d442cda639c9e517033025e85df653b981845ae7773e97",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0004.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33550104,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:11:15 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0005.jsonl",
+          "bytes": 33545239,
+          "rows": 6391,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "a7e799a17a4b263338f60ca7a8cc7d8749414e76191964d773c9fac3af43fddf",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0005.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33545239,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:11:23 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0006.jsonl",
+          "bytes": 33552021,
+          "rows": 6391,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "305af3e2bd5c87fe1fe68f52c8bf32fae549ac1ff17438c9dad3272063f2bf54",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0006.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33552021,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:11:31 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0007.jsonl",
+          "bytes": 33549279,
+          "rows": 6391,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "8d7a6ee4447c0dcc9841e22d62d968ab1f1813bff69e72a1343ba0d85b30a22b",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0007.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33549279,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:11:39 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0008.jsonl",
+          "bytes": 33549547,
+          "rows": 6391,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "e3a606dba51dc956f1c1a346e29acbb66b4dd1d903df3b707326c02cfd8b1913",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0008.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33549547,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:11:47 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0009.jsonl",
+          "bytes": 33553002,
+          "rows": 6392,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "9cd8d67e59f8e9c510d7c0a8bdf3961a830c8dad49a6a0427a505f606ff5df27",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0009.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33553002,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:11:55 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0010.jsonl",
+          "bytes": 33554401,
+          "rows": 6393,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "1501b92a3c5e0e31ad3420660f278fa43a050dd92269698e250371c29cb90f45",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0010.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33554401,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:12:04 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0011.jsonl",
+          "bytes": 33553352,
+          "rows": 6392,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "1e76abb0166035a0bf4656d7bf0f150e2bb424c1b6d87020c81d5753f3df7060",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0011.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33553352,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:12:12 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0012.jsonl",
+          "bytes": 33553399,
+          "rows": 6391,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "7aa0ab2fb00cbf54172da5ccf0dbbdcdb1dc2897c04a421e895e478f0ccbb4fe",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0012.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33553399,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:12:20 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0013.jsonl",
+          "bytes": 33552045,
+          "rows": 6392,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "f33f26eb479699221028e92e706ccba873e1eccb06d5c57478779fed1bb6423a",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0013.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33552045,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:12:27 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0014.jsonl",
+          "bytes": 33552753,
+          "rows": 6392,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "72c8aaf0982cccbc0590706cde3d89cc4c5f15ba666127998a7d470f9ebbe695",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0014.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33552753,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:12:34 GMT"
+          }
+        },
+        {
+          "name": "source_record-part0015.jsonl",
+          "bytes": 21626877,
+          "rows": 4120,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "118251f7af53004574925f0ebe382ada8a0b3b5df71fffd2a7610c9714c19a4f",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/batch100k-r272-source_record-part0015.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 21626877,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:12:41 GMT"
+          }
+        }
+      ]
+    },
+    "property_journal": {
+      "rows": 216667,
+      "bytes": 370975065,
+      "fields": [
+        "source_system",
+        "entity_kind",
+        "type_id",
+        "id",
+        "entity_version",
+        "schema_revision",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "source_time_text",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "property_id",
+        "operation",
+        "old_present",
+        "old_json",
+        "new_present",
+        "new_json",
+        "event_ordinal"
+      ],
+      "all_known_field_digest": "0ef99b4cd8d408d2e3a281aa2b908f12c6bc9fbf06b6c85626cac739e7fdbdc4",
+      "original_input_multiset_digest": "f34412a0dc9a728fd6ad759a395405049ff5b735d1e73acc7bb418411a7c6e29",
+      "parts": [
+        {
+          "name": "property_journal-part0000.jsonl",
+          "bytes": 33546031,
+          "rows": 19604,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "e6146433694329073fc01b5a9d79465aa64b7735d3298513a03af88799fab475",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/batch100k-r272-property_journal-part0000.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33546031,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:12:47 GMT"
+          }
+        },
+        {
+          "name": "property_journal-part0001.jsonl",
+          "bytes": 33548600,
+          "rows": 19599,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "babe5c9826c023d74499e16b9e93e3064e3f60e8a35752f0c23d7aa7880b542e",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/batch100k-r272-property_journal-part0001.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33548600,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:12:56 GMT"
+          }
+        },
+        {
+          "name": "property_journal-part0002.jsonl",
+          "bytes": 33553899,
+          "rows": 19587,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "d6b87529eaee182ce17da558759934a224591c22484cba3e2b0184ece91cbcad",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/batch100k-r272-property_journal-part0002.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33553899,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:13:04 GMT"
+          }
+        },
+        {
+          "name": "property_journal-part0003.jsonl",
+          "bytes": 33554089,
+          "rows": 19603,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "8db6c4f0e9cfefefae1d816bffbeb2a7bdebdf596d57ea5adb2d2a852ee4202c",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/batch100k-r272-property_journal-part0003.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33554089,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:13:12 GMT"
+          }
+        },
+        {
+          "name": "property_journal-part0004.jsonl",
+          "bytes": 33551886,
+          "rows": 19587,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "389896eb23de77b1f5913af15571968feadd9447841de592d81714ae25e01ff6",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/batch100k-r272-property_journal-part0004.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33551886,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:13:20 GMT"
+          }
+        },
+        {
+          "name": "property_journal-part0005.jsonl",
+          "bytes": 33552492,
+          "rows": 19601,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "a135abf8cf737270b4472b533e94fcba9548f0ca4174653844af1aa8912b42f3",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/batch100k-r272-property_journal-part0005.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33552492,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:13:41 GMT"
+          }
+        },
+        {
+          "name": "property_journal-part0006.jsonl",
+          "bytes": 33552985,
+          "rows": 19594,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "3377181665949b273f555aab6b551ff180f64753afaa58d260227326b42da60b",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/batch100k-r272-property_journal-part0006.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33552985,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:14:08 GMT"
+          }
+        },
+        {
+          "name": "property_journal-part0007.jsonl",
+          "bytes": 33553935,
+          "rows": 19595,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "03c43801901ed1232e1433b4c7113adcbb7d357c37e10e3525ea9d917f93b27f",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/batch100k-r272-property_journal-part0007.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33553935,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:14:34 GMT"
+          }
+        },
+        {
+          "name": "property_journal-part0008.jsonl",
+          "bytes": 33545910,
+          "rows": 19595,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "6cbdf44ca7ed15c304059a83d3644bcc7517b44bb4b9d73e032033f99daf658d",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/batch100k-r272-property_journal-part0008.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33545910,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:14:59 GMT"
+          }
+        },
+        {
+          "name": "property_journal-part0009.jsonl",
+          "bytes": 33549755,
+          "rows": 19592,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "e48051fbd6a00228892517901f529b90fec6f3224a6329eb9df41f57952255cd",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/batch100k-r272-property_journal-part0009.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33549755,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:15:29 GMT"
+          }
+        },
+        {
+          "name": "property_journal-part0010.jsonl",
+          "bytes": 33552679,
+          "rows": 19593,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "e1e907cc14685086061d5ecd55f0960cdae6534940f7175785a50481a6d94556",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/batch100k-r272-property_journal-part0010.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33552679,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:15:39 GMT"
+          }
+        },
+        {
+          "name": "property_journal-part0011.jsonl",
+          "bytes": 1912804,
+          "rows": 1117,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "7cc671f45d123ede6ef0b64a8d8cc854722e2c0bf1b816518a906ed9b525416b",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/batch100k-r272-property_journal-part0011.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 1912804,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:15:45 GMT"
+          }
+        }
+      ]
+    },
+    "tombstone": {
+      "rows": 10000,
+      "bytes": 3125606,
+      "fields": [
+        "source_system",
+        "entity_kind",
+        "type_id",
+        "id",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "source_cursor_json",
+        "source_delivery_id",
+        "entity_version"
+      ],
+      "all_known_field_digest": "613fa14ab9c5865005a7bbc2638e860aafbdc81efcae43623c9efaa5ada367c8",
+      "original_input_multiset_digest": "a0229ba515f10f0492a25539707ad3d9a3bb4c430a5abf0f19535bbfd9c56779",
+      "parts": [
+        {
+          "name": "tombstone-part0000.jsonl",
+          "bytes": 3125606,
+          "rows": 10000,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "1a788309f320809ba4baa72fb2c66be00c4c9cda8e52e86dcb900b9aaff3b4ef",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/tombstone/batch100k-r272-tombstone-part0000.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 3125606,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:15:46 GMT"
+          }
+        }
+      ]
+    },
+    "current_replacement": {
+      "rows": 90000,
+      "bytes": 200627908,
+      "fields": [
+        "source_system",
+        "rel_type_id",
+        "id",
+        "source_type",
+        "source_id",
+        "target_type",
+        "target_id",
+        "order_key",
+        "schema_revision",
+        "entity_version",
+        "props_json",
+        "retained_json",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "lookup_hash"
+      ],
+      "all_known_field_digest": "a16432914189e4e9dced4b64a6ba2f8406b03de142a1c01b476833f07f577a35",
+      "original_input_multiset_digest": "2adf4d77b812ce0b5842b3e215b377f15ee398aa624a3eb67fc08ed9ed8c39a6",
+      "parts": [
+        {
+          "name": "current_replacement-part0000.jsonl",
+          "bytes": 33552605,
+          "rows": 15055,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "41375d688ed4cc0806829c5539a996623778802846fcc2301ac5d6b1821536a4",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/current_replacement/batch100k-r272-current_replacement-part0000.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33552605,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:15:52 GMT"
+          }
+        },
+        {
+          "name": "current_replacement-part0001.jsonl",
+          "bytes": 33553383,
+          "rows": 15053,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "71b5247450c06e0386de4afb263fb6d7bac90e88c19089ac569c983a7d41d4a9",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/current_replacement/batch100k-r272-current_replacement-part0001.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33553383,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:16:01 GMT"
+          }
+        },
+        {
+          "name": "current_replacement-part0002.jsonl",
+          "bytes": 33554359,
+          "rows": 15048,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "8d03c9702047f29d5c3dac835d1453d6052ef5d8ebdf7c8b43c84c5ef66cd16f",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/current_replacement/batch100k-r272-current_replacement-part0002.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33554359,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:16:09 GMT"
+          }
+        },
+        {
+          "name": "current_replacement-part0003.jsonl",
+          "bytes": 33549955,
+          "rows": 15053,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "101a828db7e7c19381da7ec77f58882c18997d6e810af9c16ec63128c3574e64",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/current_replacement/batch100k-r272-current_replacement-part0003.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33549955,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:16:18 GMT"
+          }
+        },
+        {
+          "name": "current_replacement-part0004.jsonl",
+          "bytes": 33553479,
+          "rows": 15048,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "6a544480d283f527cc4a0e17db392c0b1f28f3398b77acfa60978998185ae6fe",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/current_replacement/batch100k-r272-current_replacement-part0004.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 33553479,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:16:26 GMT"
+          }
+        },
+        {
+          "name": "current_replacement-part0005.jsonl",
+          "bytes": 32864127,
+          "rows": 14743,
+          "state": "Uploaded/retained input bytes independently match source SHA",
+          "file_sha256": "8ee0f75ac101ff9c4d23dadabefbdb859929a28177aa74acb141d55d35d14d57",
+          "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/current_replacement/batch100k-r272-current_replacement-part0005.jsonl",
+          "observation": "Authoritative NotFound",
+          "remote_metadata": {
+            "content-length": 32864127,
+            "content-type": "application/octet-stream",
+            "last-modified": "Wed, 07 Oct 2026 11:16:34 GMT"
+          }
+        }
+      ]
+    }
+  },
+  "bounds": {
+    "source_bytes": 1200000000,
+    "part_bytes": 33554432,
+    "wall_s": 900
+  },
+  "uploaded_bytes": 1099619892,
+  "download_verified_bytes": 1099619892,
+  "volume_observed": {
+    "catalog_name": "client_dev",
+    "comment": "Ashlar r265 synthetic exact-input transport fixture; no production data",
+    "created_at": 1791369417660,
+    "created_by": "erik.labianca@synaptiq.ai",
+    "full_name": "client_dev.ashlar_entropy_20261006_r86.ashlar_inputs_r265",
+    "metastore_id": "d0c158ef-7505-4643-880e-6652dbfa2329",
+    "name": "ashlar_inputs_r265",
+    "owner": "erik.labianca@synaptiq.ai",
+    "schema_name": "ashlar_entropy_20261006_r86",
+    "storage_location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/volumes/a517e6ec-98a5-4e8a-8978-75f71eee2c31",
+    "updated_at": 1791369417660,
+    "updated_by": "erik.labianca@synaptiq.ai",
+    "volume_id": "a517e6ec-98a5-4e8a-8978-75f71eee2c31",
+    "volume_type": "MANAGED"
+  },
+  "elapsed_s": 357.212259959,
+  "wall_s": 357.214790834,
+  "source_sha256": {
+    "normalized_batch_upload_r272.py": "aa2c649fcffc7951bd4763e651aeae1e965f35ecb6e487bcc108090bdb1c61c0",
+    "normalized_input_sql_r264.py": "643d21dafc88ea8411d064c2a6d030b4abb91342374e9a902ce2d71e14925bc9",
+    "normalized_batch_files_r271.py": "f60aaa2ce966f896a7f17fdc58cf2a5d685da0e040de24e52819e8573615b463"
+  },
+  "qualification": "Actual1.10GB/35-part upload/download transport, no SQL table stage/apply/manifest or freshness claim. Source hashes checked before upload; exact volume UUID and every remote file length/full SHA verified. Same volume, no recreation or overwrite. API bytes not SQL counters;900s phase admission guard is not hard network deadline or price cap. UC files remain mutable; future input-stage field/count validation and immutable Delta version pinning required. Planned40M base still not native-qualified."
+}

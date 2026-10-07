@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "2820900bf8dcd94352d14a4770c1aff596a22079df4ec67611efd9b41c856b4b",
+    "scale-experiment-plan.md": "5042ffe3244aab0c99dbb890fd63f0a42e7e1333064ed1c2306624affc4c46f8",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1377,7 +1377,9 @@
     "out/next-growth-budget-r269.json": "bf25cd4b84b386fd64d573f9753bf5e64a1a3476923e2c69400a077751c8d934",
     "normalized_batch_files_r271.py": "f60aaa2ce966f896a7f17fdc58cf2a5d685da0e040de24e52819e8573615b463",
     "normalized_batch_upload_r272.py": "aa2c649fcffc7951bd4763e651aeae1e965f35ecb6e487bcc108090bdb1c61c0",
-    "out/ashlar_normalized_batch_files_r271/summary.json": "338879c3e19ba49b9377f78299f06ebcdfe11a617ad18f046b442d2a267b16a5"
+    "out/ashlar_normalized_batch_files_r271/summary.json": "338879c3e19ba49b9377f78299f06ebcdfe11a617ad18f046b442d2a267b16a5",
+    "out/native/ashlar_normalized_batch_upload_r272/summary.json": "de4b41c9f464198d9250e790c7a076a2cfd9c1e88ccde34d98cf85c779f5f675",
+    "out/native/ashlar_normalized_batch_upload_r272/audited-summary.json": "a1a82104ecf5249c34f7981d12fb82cbe704f2a62461b4bb2b69f5d7124636da"
   },
   "evidence": {
     "ddl": {
