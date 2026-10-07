@@ -227,3 +227,8 @@ passes19.9M immutable row custody and complete inherited raw/journal equality.
 Wide unchanged-payload parity timed out; post-check costs exclude freshness.
 The pending r107 execution preflight needs the new predecessor; no extra compute
 was provisioned. Provisional performance and1B/5B admission remain unmet.
+
+Validation scheduling: [r122 audit](out/native/ashlar_validation_lanes_r122/audited-summary.json)
+passes8 identical raw/journal checks; parallel spans10.0–10.2s versus serial
+query sums11.1–14.1s, with higher summed concurrent query time. Read-only replay
+supports a bounded scheduling candidate, not publication p95 admission.

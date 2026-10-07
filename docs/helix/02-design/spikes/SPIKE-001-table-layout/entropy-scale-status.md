@@ -1044,3 +1044,28 @@ and forward adjacency1 in r121-b1. The pending r107 isolation runner's old
 E16/R12/J14 maintenance-only preflight is now stale and must be adapted to this
 new predecessor before live execution. Its historical passing preflight and
 controller unit evidence remain preserved; no isolated warehouse was provisioned.
+
+## Exact validation lane scheduling (r122)
+
+[Final audit](out/native/ashlar_validation_lanes_r122/audited-summary.json) passes
+eight identical pinned100k raw/journal validation checks from r121 in two
+balanced serial/parallel rounds. Separate worker-owned connections use existing
+compute; no writes, source changes or publisher activation occur. All measured
+queries are final uncached. Raw checks retain exact payload bytes, digest, origin
+and UTC instant; journal checks retain full-row EXCEPT ALL.
+
+Serial query caller sums are14.141/11.055s; parallel query interval spans
+10.163/10.003s, with actual overlaps9.645/8.777s. Parallel individual caller sums
+are19.808/18.781s: contention increases total query time while modestly reducing
+the critical interval. Whole-lane walls19.074/14.208s serial versus11.817/11.530s
+parallel include connection setup/close and history retrieval; do not count all
+of that difference as a publication saving with pre-established clients.
+Two rounds are descriptive, not p95 or a stable causal estimate.
+
+This supports a bounded publisher scheduling candidate, not a freshness pass.
+The replay excludes simultaneous append/MERGE, real producer arrivals and
+cold/concurrent singleton workloads. Existing compute only; summed query time
+is not attributable DBU/dollar billing. Next measure publication with independent
+validation lanes, retaining durable raw capture before apply, final descriptor
+after every required check, and explicit partial-commit recovery constraints.
+Do not remove integrity checks to manufacture a passing60second result.

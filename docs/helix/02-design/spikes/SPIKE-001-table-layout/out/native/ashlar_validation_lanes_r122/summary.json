@@ -1,0 +1,74 @@
+{
+  "state": "8 exact read-only validation checks passed; final metrics pending",
+  "results": [
+    {
+      "mode": "serial",
+      "round": 0,
+      "whole_lane_wall_s": 19.074174665999998,
+      "lanes": [
+        {
+          "role": "raw",
+          "validation_s": 7.722086042,
+          "statement_id": "01f1c1f1-9472-1f66-aec5-8388b8aacc5b"
+        },
+        {
+          "role": "journal",
+          "validation_s": 6.420448,
+          "statement_id": "01f1c1f1-9a53-1457-a7be-be4b2dc7055b"
+        }
+      ]
+    },
+    {
+      "mode": "parallel",
+      "round": 0,
+      "whole_lane_wall_s": 11.817007500000003,
+      "lanes": [
+        {
+          "role": "raw",
+          "validation_s": 9.970982249999999,
+          "statement_id": "01f1c1f1-9f44-10e6-89c1-90935e594195"
+        },
+        {
+          "role": "journal",
+          "validation_s": 9.839065667,
+          "statement_id": "01f1c1f1-9f25-104a-ad60-39b377421fcf"
+        }
+      ]
+    },
+    {
+      "mode": "parallel",
+      "round": 1,
+      "whole_lane_wall_s": 11.529893625,
+      "lanes": [
+        {
+          "role": "raw",
+          "validation_s": 8.778842000000004,
+          "statement_id": "01f1c1f1-a63a-1108-b496-7404c17bcc4e"
+        },
+        {
+          "role": "journal",
+          "validation_s": 10.004630375000005,
+          "statement_id": "01f1c1f1-a630-1127-9783-ef2657e621e2"
+        }
+      ]
+    },
+    {
+      "mode": "serial",
+      "round": 1,
+      "whole_lane_wall_s": 14.207741917,
+      "lanes": [
+        {
+          "role": "raw",
+          "validation_s": 4.804060958999997,
+          "statement_id": "01f1c1f1-ad15-1a24-a6b5-4d7ed6a876d5"
+        },
+        {
+          "role": "journal",
+          "validation_s": 6.253057249999998,
+          "statement_id": "01f1c1f1-b0d5-10e1-a7f2-cb3662d835f6"
+        }
+      ]
+    }
+  ],
+  "qualification": "Two balanced rounds, identical pinned100k raw/journal checks from r121; separate worker-owned clients. Whole wall includes connection setup/close and history retrieval; query execution intervals are needed for publication-path comparison. No writes or whole-publication p95 claim."
+}
