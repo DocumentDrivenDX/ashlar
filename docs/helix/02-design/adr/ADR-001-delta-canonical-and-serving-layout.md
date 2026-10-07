@@ -128,6 +128,37 @@ keeps full changed-image and inherited snapshot proof requirements explicit;
 native CDF qualification is separate from source semantic history and publisher
 freshness. Unity Catalog Delta remains selected independent of benchmark misses.
 
+## Current measured qualification and consequence
+
+The [fifth complete synthetic publication](../spikes/SPIKE-001-table-layout/fifth-integrated-publication-disposition-r483.md)
+passes full preservation and custody at8Mnodes/39.95Mlive edges after five
+disjoint100k batches. Retain unpartitioned identity hash liquid clustering,
+exact tuple predicates, separate raw/journal/tombstone roles and publication
+pins. Keep concurrent metadata checking as a publisher candidate; it preserves
+checks and lowers preflight, but does not fence writers or qualify production.
+
+Do not promote64range scheduling: the full100k read-only sweep costs129.676s/
+83.651GB versus prior full-parent39.279s/33.261GB. Typed mutation caching removes
+an initial-plan parser fallback but has no demonstrated total speed advantage.
+Neither experiment justifies new canonical partition directories or a changed
+logical model. Their complete scoped receipts remain available in SPIKE-001.
+
+Latest complete publication233.213s/currentMERGE69.027s and repeated singleton
+131msengine/481mscaller leave provisional freshness and warm budgets unmet.
+The next step must change a material ingest/maintenance/capacity variable;
+metadata-only tuning and another equivalent batch cannot establish the goal.
+The reviewed Small capacity comparison remains unexecuted pending approval to
+change shared settings and billing. No budget or support target is relaxed.
+
+E8has606live files/32.318GB. Conditional5Bedge-only extrapolation gives~75,845
+files/4.04TB, excluding nodes/history/raw/retention and other roles. Uniform
+600kchange/60s simulation touches~99.96%of projected files; it is a planning
+warning about scattered updates, not native5B throughput or a hardware lower
+bound. [Capacity details](../spikes/SPIKE-001-table-layout/throughput-envelope-disposition-r489.md)
+keep assumptions explicit. Full scale, controlled cold/concurrent caller,
+sustained/burst ingestion, producer authority and external graph profiles remain
+separate unproved obligations. Unity Catalog Delta stays selected; UMF deferred.
+
 ## Alternatives
 
 | Option | Benefits | Costs | Evaluation |
