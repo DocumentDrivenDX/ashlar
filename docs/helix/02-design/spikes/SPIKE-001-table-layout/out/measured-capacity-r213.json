@@ -1,0 +1,341 @@
+{
+  "format": "ashlar-measured-capacity-sensitivity/1",
+  "source_sha256": {
+    "out/native/ashlar_bucket_update_r176/audited-summary.json": "13f5248b8d15002f7108875fe84f56ac61085b4f8121b5a18f2dc4640a5e0471",
+    "out/native/ashlar_queue_serial_r197/audited-summary.json": "bc68644a927af43988d2c4a4594ae6ca84fc5913222c4106924f50d407bc62da",
+    "out/native/ashlar_queue_shared_history_r207/audited-summary.json": "124881d8ac0708780b4bd909bc97906d37ab4871e29e7ac693285909d04cc0e5"
+  },
+  "update_sample_rows": 100000,
+  "update_profiles": {
+    "part": {
+      "native_written_bytes_per_changed_entity": 52537.39757,
+      "native_read_bytes_per_changed_entity": 70813.3904,
+      "observed_caller_s": 37.017723417
+    },
+    "lc": {
+      "native_written_bytes_per_changed_entity": 3265.15247,
+      "native_read_bytes_per_changed_entity": 3616.99497,
+      "observed_caller_s": 4.109585332999998
+    }
+  },
+  "partition_to_lc_write_ratio": 16.090335153629134,
+  "publisher_100k_reported_bytes": {
+    "read_bytes": 15563796575,
+    "write_remote_bytes": 1621664902
+  },
+  "fixed_service_queue_scenarios": [
+    {
+      "source": "publisher",
+      "arrival_rate": 10000,
+      "observed_single_service_s": 62.468134667000015,
+      "fixed_service_implied_rows_per_s": 1600.8161686445699,
+      "service_to_fill_ratio": 6.246813466700002,
+      "minimum_ideal_parallel_lanes": 7,
+      "batches": [
+        {
+          "batch": 1,
+          "wait_s": 0.0,
+          "modeled_record_age_p95_s": 71.96813466700002
+        },
+        {
+          "batch": 2,
+          "wait_s": 52.468134667000015,
+          "modeled_record_age_p95_s": 124.43626933400003
+        },
+        {
+          "batch": 3,
+          "wait_s": 104.93626933400003,
+          "modeled_record_age_p95_s": 176.90440400100005
+        },
+        {
+          "batch": 4,
+          "wait_s": 157.40440400100005,
+          "modeled_record_age_p95_s": 229.37253866800006
+        },
+        {
+          "batch": 5,
+          "wait_s": 209.87253866800006,
+          "modeled_record_age_p95_s": 281.8406733350001
+        },
+        {
+          "batch": 6,
+          "wait_s": 262.3406733350001,
+          "modeled_record_age_p95_s": 334.3088080020001
+        },
+        {
+          "batch": 7,
+          "wait_s": 314.8088080020001,
+          "modeled_record_age_p95_s": 386.7769426690001
+        },
+        {
+          "batch": 8,
+          "wait_s": 367.2769426690001,
+          "modeled_record_age_p95_s": 439.2450773360001
+        },
+        {
+          "batch": 9,
+          "wait_s": 419.7450773360001,
+          "modeled_record_age_p95_s": 491.7132120030001
+        },
+        {
+          "batch": 10,
+          "wait_s": 472.2132120030001,
+          "modeled_record_age_p95_s": 544.18134667
+        },
+        {
+          "batch": 11,
+          "wait_s": 524.68134667,
+          "modeled_record_age_p95_s": 596.649481337
+        },
+        {
+          "batch": 12,
+          "wait_s": 577.149481337,
+          "modeled_record_age_p95_s": 649.117616004
+        }
+      ]
+    },
+    {
+      "source": "publisher",
+      "arrival_rate": 100000,
+      "observed_single_service_s": 62.468134667000015,
+      "fixed_service_implied_rows_per_s": 1600.8161686445699,
+      "service_to_fill_ratio": 62.468134667000015,
+      "minimum_ideal_parallel_lanes": 63,
+      "batches": [
+        {
+          "batch": 1,
+          "wait_s": 0.0,
+          "modeled_record_age_p95_s": 63.41813466700002
+        },
+        {
+          "batch": 2,
+          "wait_s": 61.468134667000015,
+          "modeled_record_age_p95_s": 124.88626933400003
+        },
+        {
+          "batch": 3,
+          "wait_s": 122.93626933400003,
+          "modeled_record_age_p95_s": 186.35440400100003
+        },
+        {
+          "batch": 4,
+          "wait_s": 184.40440400100005,
+          "modeled_record_age_p95_s": 247.82253866800005
+        },
+        {
+          "batch": 5,
+          "wait_s": 245.87253866800006,
+          "modeled_record_age_p95_s": 309.29067333500006
+        },
+        {
+          "batch": 6,
+          "wait_s": 307.3406733350001,
+          "modeled_record_age_p95_s": 370.7588080020001
+        },
+        {
+          "batch": 7,
+          "wait_s": 368.8088080020001,
+          "modeled_record_age_p95_s": 432.2269426690001
+        },
+        {
+          "batch": 8,
+          "wait_s": 430.2769426690001,
+          "modeled_record_age_p95_s": 493.6950773360001
+        },
+        {
+          "batch": 9,
+          "wait_s": 491.7450773360001,
+          "modeled_record_age_p95_s": 555.1632120030001
+        },
+        {
+          "batch": 10,
+          "wait_s": 553.2132120030001,
+          "modeled_record_age_p95_s": 616.6313466700001
+        },
+        {
+          "batch": 11,
+          "wait_s": 614.68134667,
+          "modeled_record_age_p95_s": 678.099481337
+        },
+        {
+          "batch": 12,
+          "wait_s": 676.149481337,
+          "modeled_record_age_p95_s": 739.567616004
+        }
+      ]
+    },
+    {
+      "source": "publisher_shared",
+      "arrival_rate": 10000,
+      "observed_single_service_s": 64.64699341700002,
+      "fixed_service_implied_rows_per_s": 1546.8623475643851,
+      "service_to_fill_ratio": 6.464699341700002,
+      "minimum_ideal_parallel_lanes": 7,
+      "batches": [
+        {
+          "batch": 1,
+          "wait_s": 0.0,
+          "modeled_record_age_p95_s": 74.14699341700002
+        },
+        {
+          "batch": 2,
+          "wait_s": 54.64699341700002,
+          "modeled_record_age_p95_s": 128.79398683400004
+        },
+        {
+          "batch": 3,
+          "wait_s": 109.29398683400004,
+          "modeled_record_age_p95_s": 183.44098025100004
+        },
+        {
+          "batch": 4,
+          "wait_s": 163.94098025100004,
+          "modeled_record_age_p95_s": 238.08797366800007
+        },
+        {
+          "batch": 5,
+          "wait_s": 218.58797366800007,
+          "modeled_record_age_p95_s": 292.7349670850001
+        },
+        {
+          "batch": 6,
+          "wait_s": 273.2349670850001,
+          "modeled_record_age_p95_s": 347.38196050200014
+        },
+        {
+          "batch": 7,
+          "wait_s": 327.88196050200014,
+          "modeled_record_age_p95_s": 402.0289539190002
+        },
+        {
+          "batch": 8,
+          "wait_s": 382.5289539190002,
+          "modeled_record_age_p95_s": 456.67594733600015
+        },
+        {
+          "batch": 9,
+          "wait_s": 437.17594733600015,
+          "modeled_record_age_p95_s": 511.3229407530001
+        },
+        {
+          "batch": 10,
+          "wait_s": 491.8229407530001,
+          "modeled_record_age_p95_s": 565.9699341700001
+        },
+        {
+          "batch": 11,
+          "wait_s": 546.4699341700001,
+          "modeled_record_age_p95_s": 620.6169275870001
+        },
+        {
+          "batch": 12,
+          "wait_s": 601.1169275870001,
+          "modeled_record_age_p95_s": 675.263921004
+        }
+      ]
+    },
+    {
+      "source": "publisher_shared",
+      "arrival_rate": 100000,
+      "observed_single_service_s": 64.64699341700002,
+      "fixed_service_implied_rows_per_s": 1546.8623475643851,
+      "service_to_fill_ratio": 64.64699341700002,
+      "minimum_ideal_parallel_lanes": 65,
+      "batches": [
+        {
+          "batch": 1,
+          "wait_s": 0.0,
+          "modeled_record_age_p95_s": 65.59699341700002
+        },
+        {
+          "batch": 2,
+          "wait_s": 63.64699341700002,
+          "modeled_record_age_p95_s": 129.24398683400003
+        },
+        {
+          "batch": 3,
+          "wait_s": 127.29398683400004,
+          "modeled_record_age_p95_s": 192.89098025100003
+        },
+        {
+          "batch": 4,
+          "wait_s": 190.94098025100004,
+          "modeled_record_age_p95_s": 256.53797366800006
+        },
+        {
+          "batch": 5,
+          "wait_s": 254.58797366800007,
+          "modeled_record_age_p95_s": 320.1849670850001
+        },
+        {
+          "batch": 6,
+          "wait_s": 318.2349670850001,
+          "modeled_record_age_p95_s": 383.83196050200013
+        },
+        {
+          "batch": 7,
+          "wait_s": 381.88196050200014,
+          "modeled_record_age_p95_s": 447.47895391900016
+        },
+        {
+          "batch": 8,
+          "wait_s": 445.5289539190002,
+          "modeled_record_age_p95_s": 511.12594733600014
+        },
+        {
+          "batch": 9,
+          "wait_s": 509.17594733600015,
+          "modeled_record_age_p95_s": 574.7729407530002
+        },
+        {
+          "batch": 10,
+          "wait_s": 572.8229407530001,
+          "modeled_record_age_p95_s": 638.4199341700001
+        },
+        {
+          "batch": 11,
+          "wait_s": 636.4699341700001,
+          "modeled_record_age_p95_s": 702.0669275870001
+        },
+        {
+          "batch": 12,
+          "wait_s": 700.1169275870001,
+          "modeled_record_age_p95_s": 765.7139210040001
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Not a sustained arrival/queue experiment; service held constant from single samples.",
+    "Ideal parallel lane count is arithmetic lower bound, not safe concurrent writers or resource recommendation. Shared warehouse/manifest conflicts, validation, source transactions and skew prevent linear scaling assumptions.",
+    "Update sample is a previously hot100k set with differing maintenance histories; fresh uniformly scattered updates may touch many more base files.",
+    "Reported reads exclude unreported physical I/O; billing, retained-version storage and source staging are additional.",
+    "No edge-byte width transferred to nodes and no billion-node/runtime admission."
+  ],
+  "next_stage": {
+    "nodes": 8000000,
+    "edges": 40000000,
+    "status": "proposed; bounds must be enforced before admission",
+    "build": {
+      "edge_slice_rows": 1000000,
+      "per_statement_wall_s": 180,
+      "estimated_edge_current_bytes_range": [
+        60000000000,
+        100000000000
+      ],
+      "total_new_committed_bytes_stop": 140000000000,
+      "reported_read_bytes_stop": 400000000000,
+      "cumulative_wall_s_stop": 3600
+    },
+    "requirements": [
+      "Re-inventory existing compute, free local disk and metering; do not resize/provision.",
+      "Full0.3 schema, distinct variable payload/property/retained corpus, typed endpoint and identity checks; include all source/history/manifest roles and account their bytes separately.",
+      "Before each chunk reserve remaining build+validation+update bytes; stop if observed projected total exceeds cap. Caps include failed native work where reported.",
+      "Validate every generated row through bounded range-wise exact oracle comparisons, unique IDs and typed endpoint joins; do not use samples as full preservation proof.",
+      "Fresh scattered updates and repeated hot-key updates are separate workload cells; include raw/current/journal exact barrier and source-arrival clocks.",
+      "Measure singleton/concurrent reads with cache/remote and all compiler/caller phases; controlled cold requires independently justified cache-state protocol.",
+      "Use persisted handles and terminal native histories; no unknown-write retries. Retain evidence and temporary data; no VACUUM.",
+      "Do not admit1B/5B from this stage or omit unresolved billing/retention costs."
+    ]
+  }
+}
