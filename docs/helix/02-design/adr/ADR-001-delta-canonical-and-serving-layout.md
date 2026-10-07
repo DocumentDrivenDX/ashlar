@@ -434,9 +434,10 @@ The complete mixed bootstrap and2,048-edge update/delete publication now have
 independent all-row preservation/identity/endpoint evidence. Journal
 source-delivery clustering in this small experiment is a candidate for origins
 with null scalar position, not approval to replace the full DDL's position
-profile. Tombstone0.3 resolves accepted deletion version through qualified
-lifecycle/source evidence; no direct version column or real resurrection/fencing
-proof is claimed. Insert column binding and descriptor revision validation are
+profile. Tombstone0.3 declares direct entity_version BIGINT NOT NULL and resolves accepted
+deletion meaning through qualified lifecycle/source evidence. The r73 native DDL
+created that column; the small r232 CTAS sample omitted it and does not qualify
+the full schema. Real resurrection/fencing proof is not claimed. Insert column binding and descriptor revision validation are
 required implementation safeguards exposed by the retained failure/repair.
 
 Original mixed descriptor processing35.473s omitted schema metadata; corrected
@@ -451,3 +452,48 @@ read/ingest gates. UMF deferred and external-engine limits unchanged.
 Evidence: [role cost calculator](../spikes/SPIKE-001-table-layout/out/mixed-role-costs-r235.json),
 [full native apply](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_apply_r232/summary.json),
 [corrected descriptor](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_descriptor_r234/summary.json).
+
+
+### Observed complete-role growth, singleton limits and final-scale capacity r248–r268
+
+The same hash-liquid-clustered staging family now preserves8M nodes/24M edges
+with independent full-field/count/identity/typed-endpoint proof, including32M
+raw records and128M bootstrap journal events. Exact qualified vector N6/E4/R13/
+J15/A6 is not interchangeable with physical heads. Runtime19.9/SQL2026.39;15
+prior-prefix results were cached, expanded-role verification uncached. This is
+synthetic bootstrap evidence; staging CTAS lacks some complete production DDL
+constraints and the64MiB target, so it does not qualify the complete profile.
+
+Native repeated singleton cohorts preserve all17 node/20 edge fields:8M-node
+caller/engine p95567/113ms,16M-edge404/114ms. Both miss provisional250/100ms,
+with p95 one file touched and zero remote reads. These small warmed cohorts do
+not qualify cold/service/concurrency tails. UC Delta remains selected; measured
+limits guide tuning. Keep the exact identity predicates and complete props/
+retained values; no external engine is required for these native reads.
+
+[Source-bound capacity arithmetic](../spikes/SPIKE-001-table-layout/out/capacity-observed-r268.json)
+projects the original1B-node/5B-edge synthetic shape to14.17TB active tables,
+about246938 linearly emitted files, or211134 idealized64MiB files. A1.5×size
+sensitivity is21.25TB. This is not load/performance admission: actual file
+planning, real property density/entropy, history retention, logs, retained
+versions, candidate copies, tombstones, serving copies and spill are additional
+or unmeasured. Node and edge raw/history components are modeled separately to
+avoid extrapolating the smaller graph’s node/edge mix.
+
+The100k-change local oracle yields90k updates/10k deletes with exact token/
+retained-content replay and typed endpoints. Normalized uncompressed role inputs
+are1.10GB per batch: about110MB/s at10k changes/s,1.10GB/s at100k changes/s.
+These are payload arithmetic, not measured compressed native ingest capacity.
+Small UC file byte roundtrips and native TEXT/typed-field conformance pass;
+100k native staging/apply/publication remains unproved. Volume overwrite=false
+is a client policy, not source immutability: verified Delta input versions must
+be pinned before apply. No weaker publication-validation clock is substituted
+for the full stated barrier. UMF deferred; PuppyGraph/GraphFrames/bounded Fabric
+mapping limits unchanged.
+
+Evidence: [24M growth audit](../spikes/SPIKE-001-table-layout/out/native/ashlar_scale_edges_r261/audited-summary.json),
+[node points](../spikes/SPIKE-001-table-layout/out/native/ashlar_growth_pruning_r258/audited-summary.json),
+[edge points](../spikes/SPIKE-001-table-layout/out/native/ashlar_growth_pruning_r259/audited-summary.json),
+[100k local changes](../spikes/SPIKE-001-table-layout/out/mixed-batch-oracle-r262.json),
+[native file reader](../spikes/SPIKE-001-table-layout/out/native/ashlar_input_volume_read_r267/audited-summary.json),
+and [original native tombstone DDL](../spikes/SPIKE-001-table-layout/out/native/ashlar_layout_v03_ddl_20261006_r73_resume/statements.jsonl).

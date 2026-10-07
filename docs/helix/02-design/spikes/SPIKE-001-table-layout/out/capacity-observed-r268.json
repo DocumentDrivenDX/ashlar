@@ -1,0 +1,156 @@
+{
+  "format": "ashlar-observed-capacity-arithmetic/1",
+  "source_sha256": {
+    "out/native/ashlar_scale_growth_r248/audited-summary.json": "fd5a6e60ce758f8de254c971740c932d9450c95ad6c80d4efbaa1faa611d3f54",
+    "out/native/ashlar_scale_edges_r257/audited-summary.json": "0dcfb502af0a32ef7e5ec28e528b393b30f97d4ae528ea50d91217f4570ebc07",
+    "out/native/ashlar_growth_pruning_r258/audited-summary.json": "368dccbe419a3f5fbe84fe43531c412fac0efe04e8a276740099fc81c1b242c7",
+    "out/native/ashlar_growth_pruning_r259/audited-summary.json": "873fb5064d7154baeeaeb37f9b8c6efc8a8896341ffd22a40c8681e383ec8a44",
+    "out/mixed-batch-oracle-r262.json": "833cc12e07230f384119bf54eb93645c9b22278e630febe5f1f10772cc28e10c"
+  },
+  "final_owner_target": {
+    "nodes": 1000000000,
+    "edges": 5000000000
+  },
+  "roles": {
+    "object_current": {
+      "components": [
+        {
+          "component": "node",
+          "observed_bytes": 6372089284,
+          "observed_files": 121,
+          "observed_entities": 8000000,
+          "target_entities": 1000000000,
+          "scaled_bytes": 796511160500,
+          "linear_emitted_files": 15125
+        }
+      ],
+      "scaled_bytes": 796511160500,
+      "linear_emitted_files": 15125,
+      "theoretical_files_at64MiB": 11869
+    },
+    "edge_current": {
+      "components": [
+        {
+          "component": "edge",
+          "observed_bytes": 12806876372,
+          "observed_files": 226,
+          "observed_entities": 16000000,
+          "target_entities": 5000000000,
+          "scaled_bytes": 4002148866250,
+          "linear_emitted_files": 70625
+        }
+      ],
+      "scaled_bytes": 4002148866250,
+      "linear_emitted_files": 70625,
+      "theoretical_files_at64MiB": 59637
+    },
+    "source_record": {
+      "components": [
+        {
+          "component": "node-only bootstrap",
+          "observed_bytes": 6541821227,
+          "observed_files": 121,
+          "observed_entities": 8000000,
+          "target_entities": 1000000000,
+          "scaled_bytes": 817727653375,
+          "linear_emitted_files": 15125
+        },
+        {
+          "component": "edge8M append",
+          "observed_bytes": 6594386493,
+          "observed_files": 105,
+          "observed_entities": 8000000,
+          "target_entities": 5000000000,
+          "scaled_bytes": 4121491558125,
+          "linear_emitted_files": 65625
+        }
+      ],
+      "scaled_bytes": 4939219211500,
+      "linear_emitted_files": 80750,
+      "theoretical_files_at64MiB": 73601
+    },
+    "property_journal": {
+      "components": [
+        {
+          "component": "node-only bootstrap",
+          "observed_bytes": 5849008733,
+          "observed_files": 121,
+          "observed_entities": 8000000,
+          "target_entities": 1000000000,
+          "scaled_bytes": 731126091625,
+          "linear_emitted_files": 15125
+        },
+        {
+          "component": "edge8M append",
+          "observed_bytes": 5848185251,
+          "observed_files": 103,
+          "observed_entities": 8000000,
+          "target_entities": 5000000000,
+          "scaled_bytes": 3655115781875,
+          "linear_emitted_files": 64375
+        }
+      ],
+      "scaled_bytes": 4386241873500,
+      "linear_emitted_files": 79500,
+      "theoretical_files_at64MiB": 65361
+    },
+    "adjacency_forward": {
+      "components": [
+        {
+          "component": "edge",
+          "observed_bytes": 142969442,
+          "observed_files": 3,
+          "observed_entities": 16000000,
+          "target_entities": 5000000000,
+          "scaled_bytes": 44677950625,
+          "linear_emitted_files": 938
+        }
+      ],
+      "scaled_bytes": 44677950625,
+      "linear_emitted_files": 938,
+      "theoretical_files_at64MiB": 666
+    }
+  },
+  "totals": {
+    "scaled_active_bytes": 14168799062375,
+    "linear_emitted_files": 246938,
+    "theoretical_files_at64MiB": 211134,
+    "active_1_5x_size_sensitivity": 21253198593563
+  },
+  "bootstrap_journal_rows_assumed": 24000000000,
+  "change_input_roles": {
+    "source_record": {
+      "batch_rows": 100000,
+      "batch_jsonl_bytes": 524891313,
+      "bytes_per_changed_entity": "5248.91313",
+      "jsonl_bytes_per_s_at10k_changes": 52489131,
+      "jsonl_bytes_per_s_at100k_changes": 524891313
+    },
+    "property_journal": {
+      "batch_rows": 216667,
+      "batch_jsonl_bytes": 370975065,
+      "bytes_per_changed_entity": "3709.75065",
+      "jsonl_bytes_per_s_at10k_changes": 37097506,
+      "jsonl_bytes_per_s_at100k_changes": 370975065
+    },
+    "tombstone": {
+      "batch_rows": 10000,
+      "batch_jsonl_bytes": 3125606,
+      "bytes_per_changed_entity": "31.25606",
+      "jsonl_bytes_per_s_at10k_changes": 312560,
+      "jsonl_bytes_per_s_at100k_changes": 3125606
+    },
+    "current_replacement": {
+      "batch_rows": 90000,
+      "batch_jsonl_bytes": 200627908,
+      "bytes_per_changed_entity": "2006.27908",
+      "jsonl_bytes_per_s_at10k_changes": 20062790,
+      "jsonl_bytes_per_s_at100k_changes": 200627908
+    }
+  },
+  "normalized_input_bytes_per_s": {
+    "10k_changes": 109961989,
+    "100k_changes": 1099619892
+  },
+  "qualification": "Arithmetic only, not billion load admission/performance proof. Node/edge current use pinned live sizes; mixed raw/history use separately observed node-only bootstrap and edge append output to avoid assuming current node/edge mix equals final mix. Assumes same synthetic entropy/property density/4 bootstrap events per entity; larger ID widths, distributions, Delta protocol/statistics/metadata, real history rates and compaction may change ratios. Linear emitted file count differs from idealized64MiB quotient; actual CTAS omitted64MiB target. Excludes tombstones, source/input staging, retained removed files, logs/checkpoints/DVs, failed files, future change-history retention, duplicate candidates, serving-engine/projection copies, peak spill, compute and monetary price. Sequential physical observations are not atomic retained inventory. Input rates are exact uncompressed local role JSONL arithmetic, not measured native compressed/storage/network throughput or sustained10k/s/100k/s capability. UC Delta selected; UMF deferred and external mapping scope unchanged."
+}

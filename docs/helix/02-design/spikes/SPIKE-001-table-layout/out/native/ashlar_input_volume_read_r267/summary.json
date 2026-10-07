@@ -1,0 +1,55 @@
+{
+  "state": "Native TEXT file framing and all exact normalized role fields verified",
+  "volume_full_name": "client_dev.ashlar_entropy_20261006_r86.ashlar_inputs_r265",
+  "volume_id": "a517e6ec-98a5-4e8a-8978-75f71eee2c31",
+  "source_summary_sha256": "1e2d5d825e73f88bd7d79e509119b1878fb0f53020da1a63895f37f05d7d13c1",
+  "checks": {
+    "source_record": {
+      "rows": 16,
+      "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/source_record/sample.jsonl",
+      "source_file_sha256": "fb426888ca0d1e6d91049c2206dafbaab714da714f8423e5f096add77f03b662",
+      "original_input_digest": "307bfbeb8fb3063d299002b6556b0d4479cbf83d20478cbd0a55921c4ad6bbbf",
+      "all_known_field_digest": "3c8235453d2701c1d5bc0b276ba9851e1652e2e7d794f8647c2955a4c37d5519"
+    },
+    "property_journal": {
+      "rows": 35,
+      "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/property_journal/sample.jsonl",
+      "source_file_sha256": "0ece40439056e1ac99f365b2da5129361d0d157ad59e0b4af46f2eb0c4389475",
+      "original_input_digest": "0add285a5ced2d0151517e9df44d5d50455037845c9a695d8e697e7f89813725",
+      "all_known_field_digest": "84ea4faa1de5797469a32532958590dc5f81fc165b67172a4717f66c9db8ce6e"
+    },
+    "tombstone": {
+      "rows": 2,
+      "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/tombstone/sample.jsonl",
+      "source_file_sha256": "180fa70d6288ee04593ea2e70887af344b6d8ee1b4f3b90e9a54c724e57e29ae",
+      "original_input_digest": "c255c57820bcac1dc7290ce6276013cfaacc1b53265312c27ce00aeebed06a05",
+      "all_known_field_digest": "54dec7fee92dbf227af232d16dcd5cb9f8a22efe4917305e2f1859778bed2a5d"
+    },
+    "current_replacement": {
+      "rows": 14,
+      "path": "/Volumes/client_dev/ashlar_entropy_20261006_r86/ashlar_inputs_r265/current_replacement/sample.jsonl",
+      "source_file_sha256": "bd479fa596f20b848f50e720fb1cc53057e04a182aca072e17de726e69a20c80",
+      "original_input_digest": "9d2348f792277518cf01af7c928594c19395966a882cf60c755493e59551db8e",
+      "all_known_field_digest": "833146be2c3ad9475483799b942926a3a515492d27010bd912658fa02b27c52e"
+    }
+  },
+  "bounds": {
+    "read_bytes": 10000000,
+    "write_bytes": 0,
+    "spill_bytes": 0
+  },
+  "costs": {
+    "read_bytes": 172421,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "sql_channels": [
+    "{\"dbsql_version\": \"2026.39\", \"name\": \"CHANNEL_NAME_CURRENT\"}"
+  ],
+  "source_sha256": {
+    "normalized_volume_read_r267.py": "17e0a05f6b7162b80f51a19051b3d04bb92ae36f1710f646d27c9a7314b3f61b",
+    "normalized_input_sql_r264.py": "643d21dafc88ea8411d064c2a6d030b4abb91342374e9a902ce2d71e14925bc9",
+    "mixed_change_queries_r230.py": "7c49d418861c5b2694f8461cc1a25858663d9b6eb7d813139e4d14455cf90540"
+  },
+  "qualification": "Four small controlled UC files: original input-line multisets and every known typed field match independent local expectations. Includes unknown input content and canonical deletion version. Files are mutable UC objects; client overwrite false is not an immutability/fencing guarantee. Future100k stage must verify hashes/counts and pin immutable Delta input versions before publication use. No actual100k upload/stage/apply, production required-field/duplicate-key validation, source ACK or freshness claim. No data-table/volume/compute mutation."
+}
