@@ -450,3 +450,33 @@ replay is faster than direct computed capture, but the net materialization cost
 must be measured rather than moved outside the clock. Preserve exact carriers,
 history and origin checks. All native singleton/freshness/rate/concurrency and
 1B/5B admission gates remain open.
+
+
+Materialized-write publication: [r139 final audit](out/native/ashlar_isolation_r139/audited-summary.json)
+publishes100k synthetic property changes using immutable raw/journal CTAS inputs,
+with materialization counted inside the publication clock. Descriptor r139-b1
+pins E23/N0/R17/J19/T0/forward1. Initial eligibility statistics reused; prepared
+source stage7.319s and full20M structural baseline6.969s before that clock remain
+recorded separately. Exact20-field affected carriers, lexical patch, raw bytes/
+digests/origins/UTC instant, property journal/global IDs and owned structural
+reuse proof pass before publication; independent full20M parity passes6.235s
+after publication, outside the clock. Canonical raw/journal clustering retained.
+
+Materialization pair10.123s plus append8.351s =18.474s versus r133 direct pair
+23.997s, but validation16.124s versus10.905s erases the phase saving. Complete
+ready-input interval53.452s versus52.952s; oldest modeled arrival63.452s, still
+above60s. One batch/nonmatched runtime variability does not establish a causal
+regression, p95, sustained10k/s or100k/s burst. Do not promote this materialization
+candidate based on faster append alone; it adds intermediate storage/I/O without
+an observed complete-clock benefit. Keep direct pruned publication as the current
+execution candidate, retaining this experiment for reproduction.
+
+Thirty exact full20-field fresh reads: p95 engine156ms/caller410.65ms,15 files;
+five queries have remote reads. This is a mixed-cache post-publication sample,
+not a wholly warm or controlled cold-data distribution. Targets remain unmet or
+unproven; no billion-scale admission. [Cleanup](out/native/ashlar_isolation_r139/write-input-cleanup/summary.json)
+drops two owned100k intermediates after confirming version0, membership and
+absence from the published version vector. Retention applies; no VACUUM/immediate
+physical reclamation claim. Next address scattered post-MERGE files for native
+singleton reads and investigate bounded physical maintenance/input layout rather
+than repeatedly adding capture stages. Preserve property history and exact values.

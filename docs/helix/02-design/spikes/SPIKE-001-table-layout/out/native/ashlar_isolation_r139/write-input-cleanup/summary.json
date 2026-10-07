@@ -1,0 +1,48 @@
+{
+  "state": "Two owned audited100k intermediates dropped after durable canonical publication",
+  "tables": [
+    "client_dev.ashlar_entropy_20261006_r86.write_raw_r139",
+    "client_dev.ashlar_entropy_20261006_r86.write_journal_r139"
+  ],
+  "details_before_drop": {
+    "raw": {
+      "format": "delta",
+      "id": "f7b5b7cc-623a-4ea6-9b84-17ec85d8f7d3",
+      "name": "client_dev.ashlar_entropy_20261006_r86.write_raw_r139",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/eb336434-a4d8-4c56-836f-a0109f63fda8",
+      "createdAt": "2026-10-07T02:45:16.929000",
+      "lastModified": "2026-10-07T02:45:25",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[]",
+      "numFiles": "8",
+      "sizeInBytes": "673352066",
+      "properties": "{\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.enableDeletionVectors\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"io.unitycatalog.tableId\":\"eb336434-a4d8-4c56-836f-a0109f63fda8\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+      "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+      "clusterByAuto": "False"
+    },
+    "journal": {
+      "format": "delta",
+      "id": "143c7f3b-cc67-4da8-a8d0-d6282425e172",
+      "name": "client_dev.ashlar_entropy_20261006_r86.write_journal_r139",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/66006a08-eb2b-4ce0-b853-ad03252a9394",
+      "createdAt": "2026-10-07T02:45:16.883000",
+      "lastModified": "2026-10-07T02:45:23",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[]",
+      "numFiles": "4",
+      "sizeInBytes": "657652030",
+      "properties": "{\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.enableDeletionVectors\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"io.unitycatalog.tableId\":\"66006a08-eb2b-4ce0-b853-ad03252a9394\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+      "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+      "clusterByAuto": "False"
+    }
+  },
+  "qualification": "Platform retention applies; no immediate physical storage reclamation or VACUUM claim."
+}
