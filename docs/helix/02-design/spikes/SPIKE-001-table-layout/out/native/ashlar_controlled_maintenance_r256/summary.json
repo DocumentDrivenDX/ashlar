@@ -1,0 +1,53 @@
+{
+  "state": "All five owned staging tables confirm DISABLE; restore inheritance SQL retained",
+  "roles": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "uuid": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "prior": "ENABLE (inherited from METASTORE metastore_centralus)",
+      "confirmed": "DISABLE",
+      "pinned_data_version": 6
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_source_record_r236",
+      "uuid": "7ab4ec7d-7a78-4e5e-a6b3-061b64bae1f5",
+      "prior": "ENABLE (inherited from METASTORE metastore_centralus)",
+      "confirmed": "DISABLE",
+      "pinned_data_version": 11
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_property_journal_r236",
+      "uuid": "e0a3e354-96b3-4e31-b773-e8c928fc2fca",
+      "prior": "ENABLE (inherited from METASTORE metastore_centralus)",
+      "confirmed": "DISABLE",
+      "pinned_data_version": 13
+    },
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_edge_current_r250",
+      "uuid": "653b3b49-1423-4892-be10-19c28a6b9ecf",
+      "prior": "ENABLE (inherited from METASTORE metastore_centralus)",
+      "confirmed": "DISABLE",
+      "pinned_data_version": 2
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_adjacency_forward_r250",
+      "uuid": "a2ea9c1b-c0ac-407c-a9d3-66ac91ffcaec",
+      "prior": "ENABLE (inherited from METASTORE metastore_centralus)",
+      "confirmed": "DISABLE",
+      "pinned_data_version": 4
+    }
+  },
+  "restore_sql": [
+    "ALTER TABLE client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236 INHERIT PREDICTIVE OPTIMIZATION",
+    "ALTER TABLE client_dev.ashlar_entropy_20261006_r86.growth_source_record_r236 INHERIT PREDICTIVE OPTIMIZATION",
+    "ALTER TABLE client_dev.ashlar_entropy_20261006_r86.growth_property_journal_r236 INHERIT PREDICTIVE OPTIMIZATION",
+    "ALTER TABLE client_dev.ashlar_entropy_20261006_r86.growth_edge_current_r250 INHERIT PREDICTIVE OPTIMIZATION",
+    "ALTER TABLE client_dev.ashlar_entropy_20261006_r86.growth_adjacency_forward_r250 INHERIT PREDICTIVE OPTIMIZATION"
+  ],
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "Experimental maintenance profile only, same UUIDs/pinned data versions. Metadata status does not prove queued jobs canceled; recheck heads before next admission. No OPTIMIZE/VACUUM/expiry, data-row or compute configuration change. Production maintenance choice remains unqualified."
+}

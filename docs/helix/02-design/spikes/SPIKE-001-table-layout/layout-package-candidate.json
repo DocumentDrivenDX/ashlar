@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "2c845ce9ad5a4cb4e400d115c8d6986dab5ea20f111f5dc7a417abcc1228badc",
+    "scale-experiment-plan.md": "3fd3a1acae1355f34f15a5543ef7081d6a96aba0835254426786436b83ba6b5a",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1311,7 +1311,16 @@
     "storage_history_r255.py": "98d9050655b20223bf6ca0ae0f92554b6ba4fc97cd58e10ad1a49db7583346a6",
     "out/native/ashlar_storage_history_r255/shared-history.json": "2ca655c067e62c83bd20324d6a24854b29160af27fc1770f0f119fb2709bc33f",
     "out/native/ashlar_storage_history_r255/statements.jsonl": "4e000f7ba97d9988501837ededbfce8a44d7633c0971b8e8f71f550c2cb95a13",
-    "out/native/ashlar_storage_history_r255/summary.json": "a9cd14e5aa6f59412ca6d2abc85eb4a57c64b829353331804047ddd1ca7bd4df"
+    "out/native/ashlar_storage_history_r255/summary.json": "a9cd14e5aa6f59412ca6d2abc85eb4a57c64b829353331804047ddd1ca7bd4df",
+    "maintenance_profile_r256.py": "e43d6b92dd508a86fc48178db736f4a3c580dd7b0bbd046ff220d6f1f830a391",
+    "controlled_maintenance_r256.py": "e94d56485dc131f90e2a2912b83c291b563e86c344a0631958f1e4acca836575",
+    "revised_reserves_r256.py": "72ae98b9560290dfa01abfe461e95c72aa1081ae23063c5e1cc543f03a81f507",
+    "out/revised-reserves-r256.json": "50e009ce704ea270c8d0d3739f77da31c38477adcba14ed47d112ead7ce87b77",
+    "out/native/ashlar_maintenance_profile_r256/statements.jsonl": "5d55b6f8f6cf9a88e1f2089084545c4cd92cdf6e9ac7ee1eb8dc230077b1bfc0",
+    "out/native/ashlar_maintenance_profile_r256/summary.json": "7f1c297e1ad3a57665664c4cbf364f732bdcb377e8b7a208621be142597a3cc0",
+    "out/native/ashlar_controlled_maintenance_r256/shared-history.json": "42729b078efdcdd2ebb3bf9f9ff1e9eaf0915b5b99a59153198dbf95a98121f4",
+    "out/native/ashlar_controlled_maintenance_r256/statements.jsonl": "49a5a592f11c01293e39ca85426b692283926e2aed73de903cc66bb9e3275a62",
+    "out/native/ashlar_controlled_maintenance_r256/summary.json": "da6b465cc3bd3aeee8358bacdcb84869fb00c70d432fffa684bba8fc5c6670c6"
   },
   "evidence": {
     "ddl": {

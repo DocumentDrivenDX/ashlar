@@ -1,0 +1,45 @@
+{
+  "format": "ashlar-revised-scale-reserves/1",
+  "source_sha256": {
+    "out/scale-reserves-r237.json": "a08cbc8e147a4be159e2058f0f0d5331c76e2163b425f2d96a7a42c9c5cd0afc",
+    "out/native/ashlar_storage_history_r255/summary.json": "a9cd14e5aa6f59412ca6d2abc85eb4a57c64b829353331804047ddd1ca7bd4df",
+    "out/native/ashlar_scale_edges_r252/audited-summary.json": "cff733e37346c2218a25164d7668f3a627799bb548b03bdf5639a1ca090fbc20",
+    "out/native/ashlar_controlled_maintenance_r256/summary.json": "da6b465cc3bd3aeee8358bacdcb84869fb00c70d432fffa684bba8fc5c6670c6"
+  },
+  "planned_graph": {
+    "nodes": 8000000,
+    "edges": 40000000
+  },
+  "owner_final_scale": {
+    "nodes": 1000000000,
+    "edges": 5000000000
+  },
+  "prior_proposal_ceiling": 220000000000,
+  "revised_proposal_ceiling": 280000000000,
+  "components": {
+    "bootstrap_same_width_1_5x": 173521215820.3125,
+    "four_100k_change_batches_1_5x": 2120433691.40625,
+    "four_100k_input_stages_1_5x": 1070501953.125,
+    "additional_retained_file_overlap_assumed": 60000000000,
+    "one_failed_phase_work_assumed": 8000000000,
+    "logs_checkpoints_DVs_controls_and_background_margin_assumed": 10000000000
+  },
+  "estimated_components": 254712151464.84375,
+  "unallocated_margin": 25287848535.15625,
+  "known_reported_removed_byte_proxy": 20207501114,
+  "additional_overlap_allowance_after_proxy": 39792498886,
+  "next_edge_range": [
+    8000000,
+    16000000
+  ],
+  "next_iteration": {
+    "write_ceiling": 40000000000,
+    "read_ceiling": 260000000000,
+    "phase_reserve": 10000000000,
+    "wall_s": 1800,
+    "statement_cancel_s": 180,
+    "same_width_write_arithmetic": 18898529614,
+    "write_1_5x_sensitivity": 28347794421.0
+  },
+  "qualification": "60GB overlap assumption explicitly includes known20.21GB removed-byte proxy plus39.79GB additional allowance; missing historical metrics, queued work, logs/failed files and monetary price not measured.280GB proposal replaces220GB, not bulk/full-scale authorization or verified physical inventory. Staging-only predictive optimization disabled and inheritance restore retained; does not establish queued-job cancellation. Next16M run must recheck UUID/status/heads and complete all blocks/field/count/endpoint proofs with final cost/time reserve checks."
+}
