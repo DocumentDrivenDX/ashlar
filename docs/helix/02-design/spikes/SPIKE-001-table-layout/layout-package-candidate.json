@@ -2450,7 +2450,22 @@
     "out/native/ashlar_sixth_publisher_preflight_r536/summary.json": "3c357092c3b1f3968a2ac7b64aefb5a2be94e915acc15fdc770f4cf377407f81",
     "out/native/ashlar_sixth_publisher_preflight_r536/shared-history.json": "0567fbf9e725ea45ab482dd0004af0e128799226b102591008366fcb087b536e",
     "out/native/ashlar_sixth_publisher_preflight_r536/statements.jsonl": "5ad623553bfe919f5bed7b49bdedfd24746b706b24984d4469c5f90007a4db9f",
-    "out/native/ashlar_sixth_publisher_preflight_r536/completed-last-statement.json": "e9c85d24ea13f50f25d33069a59b6f8ded14e5ce67a7522e6164dd662a139bb8"
+    "out/native/ashlar_sixth_publisher_preflight_r536/completed-last-statement.json": "e9c85d24ea13f50f25d33069a59b6f8ded14e5ce67a7522e6164dd662a139bb8",
+    "sixth_guard_publish_audit_r541.py": "e35c2f8d7b9ffe3305235788797a0bb2b986f1810c2640df290b09b14ea71e32",
+    "sixth-publication-disposition-r542.md": "465f39e604bd7565770356c68ec5a74b8e7734484d6a712efce6728a2e5c6f22",
+    "out/native/ashlar_sixth_guard_publish_r537/summary.json": "192a38ad6cc49bd7dac2a53254c7bba5b011836727a9c4ebc750e8c8d1931ab0",
+    "out/native/ashlar_sixth_guard_publish_r537/shared-history.json": "e172eba110ef36232e92143de83b21f671a9f30456e62c69a2d2e3e021e22dce",
+    "out/native/ashlar_sixth_guard_publish_r537/statements.jsonl": "e50e7766345202ea96b20fefb91f60522f4be86e958144bbe9465872889e3c97",
+    "out/native/ashlar_sixth_guard_publish_r537/audited-summary.json": "2b889dcd36e7a303792bf18556dbabbbd8787329e859668d38951cfe8d15ea0b",
+    "out/native/ashlar_sixth_guard_publish_r537/completed-last-statement.json": "e6d189fe405c04e4c4d518a1db228470d9b42b6492ac616c05a7b3c38319a9f9",
+    "out/native/ashlar_sixth_guard_publish_r537/metadata-worker-1/statements.jsonl": "8d9e2309049eb6082d5676bb4c805bb81426062226468e32bc58ca4179fe4f7d",
+    "out/native/ashlar_sixth_guard_publish_r537/metadata-worker-1/completed-last-request.json": "d757bc901ae5b20c535b915eb39c789280c876be546942830e320f48a380f6c8",
+    "out/native/ashlar_sixth_guard_publish_r537/metadata-worker-0/statements.jsonl": "4ead83344c9a256711cdce768e4229ede117b82527f06ad93a2af682c0dee9ed",
+    "out/native/ashlar_sixth_guard_publish_r537/metadata-worker-0/completed-last-request.json": "fb0032185c7a40bc5bc61a810b5985606a68d151b9d0d2254479586877413ce7",
+    "out/native/ashlar_sixth_guard_publish_r537/metadata-worker-2/statements.jsonl": "58cb95ddf78dd7a863e7a470d56b960e85c8ccf259ac763dada8592b2207bef8",
+    "out/native/ashlar_sixth_guard_publish_r537/metadata-worker-2/completed-last-request.json": "236b3c17ff4b255473b2f710c03c47e0a4089e89db190c4bab2277470af736eb",
+    "out/native/ashlar_sixth_guard_publish_r537/metadata-worker-3/statements.jsonl": "2455daec9108c0dc58d2a73061dc18c06f137107069649db806b6bfbaac04595",
+    "out/native/ashlar_sixth_guard_publish_r537/metadata-worker-3/completed-last-request.json": "6696ae47ba3dc8048f7a93a55dd05caa673676aeb7df93e4d7f54fab15cb9220"
   },
   "evidence": {
     "ddl": {
