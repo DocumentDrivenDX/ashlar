@@ -1069,3 +1069,37 @@ is not attributable DBU/dollar billing. Next measure publication with independen
 validation lanes, retaining durable raw capture before apply, final descriptor
 after every required check, and explicit partial-commit recovery constraints.
 Do not remove integrity checks to manufacture a passing60second result.
+
+## Publication with parallel exact validation (r123)
+
+[Final audit](out/native/ashlar_isolation_r123/audited-summary.json) records one
+actual100k property publication after r121-b1. Raw/journal appends remain durable
+before validation/apply; both exact validation lanes finish before canonical
+MERGE. Full affected20-field parity, exact raw wire/digest/origin/UTC instant,
+full property journal, global identities and complete20M structural adjacency
+parity pass before descriptor r123-b1. Its actual vector is E18/N0/R14/J16/T0/
+forward r120 v1; no adjacency rebuild or maintenance occurs.
+
+Ready-input→verified-descriptor62.943s, modeled oldest freshness72.943s under
+the same10second uniform admission window. Preparing actual input outside this
+clock takes17.352s. Parallel append wall23.612s and validation pair10.612s;
+canonical apply7.152s and structural-reuse oracle6.476s. All required publisher
+checks are retained. This single sample is1.671s below r121's ready-input time;
+changed data and workload noise prevent a strict causal improvement claim. It
+still misses60seconds and does not establish sustained10k/s,100k/s burst or
+publication p95. The repeated modeled clock is not a real producer arrival trace.
+
+Thirty full20-field singleton checks after publication are final uncached with
+no remote bytes; p95 engine102ms/caller351.76ms, files15. Both warm targets
+remain missed. No concurrent reader load or additional compute. This run does
+not repeat r121's expensive inherited-history/untouched-carrier post-audit; its
+validation scope is explicitly affected full carriers, captured/journal slices,
+identity counts, lineage and complete structural projection.
+
+Keep parallel validation as a measured candidate, not a sufficient throughput
+solution. Further work should focus on validator dependency boundaries and
+changed-set structural proof, with exact source/predecessor/apply guards and
+independent exhaustive qualification. Baseline source authority, concurrent
+fencing, acknowledgement, external graph activation and1B/5Badmission remain
+unqualified. Existing shared-warehouse timing does not attribute dollar costs.
+The pending isolated-reader runner must use the new E18/R14/J16 predecessor.

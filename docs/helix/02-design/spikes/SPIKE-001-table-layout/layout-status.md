@@ -232,3 +232,9 @@ Validation scheduling: [r122 audit](out/native/ashlar_validation_lanes_r122/audi
 passes8 identical raw/journal checks; parallel spans10.0–10.2s versus serial
 query sums11.1–14.1s, with higher summed concurrent query time. Read-only replay
 supports a bounded scheduling candidate, not publication p95 admission.
+
+Parallel publication: [r123 audit](out/native/ashlar_isolation_r123/audited-summary.json)
+passes100k affected20-field carriers, raw/journal and20M structural parity before
+E18/N0/R14/J16/T0/forward1 publication. Ready-input62.943s, modeled oldest72.943s;
+fresh singleton p95 engine102/caller351.76ms. All provisional targets remain
+missed; validation scheduling alone is insufficient.
