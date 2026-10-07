@@ -1,0 +1,10 @@
+{
+  "state": "Four audited owned scratch tables dropped; canonical tables unchanged",
+  "tables": [
+    "client_dev.ashlar_entropy_20261006_r86.append_raw_clustered_r134",
+    "client_dev.ashlar_entropy_20261006_r86.append_journal_clustered_r134",
+    "client_dev.ashlar_entropy_20261006_r86.append_raw_unclustered_r134",
+    "client_dev.ashlar_entropy_20261006_r86.append_journal_unclustered_r134"
+  ],
+  "qualification": "UC managed-table drop is subject to platform retention; no immediate physical storage reclamation claim and no VACUUM."
+}

@@ -1347,3 +1347,30 @@ qualification follows from this experiment. UC Delta remains chosen architecture
 Next investigate measured raw/journal append cost and throughput; shrinking an
 admission batch alone would not prove sustained10k/s when service time exceeds
 its arrival window. Preserve exact record and property-history requirements.
+
+
+Stored-carrier append isolation: [r134 native audit](out/native/ashlar_append_layout_r134/audited-summary.json)
+replays the same100k captured r133 raw and journal rows from immutable R16/J18 into
+four scratch tables, both Zstd. Raw3-key/journal4-key liquid-clustered parallel
+pair8.791s versus unclustered4.665s. Raw caller8.790→4.663s, journal7.859→3.943s;
+engine8.333→4.381s and7.350→3.510s respectively. Same source-read bytes in each
+comparison: raw685.206MB/79 files, journal641.312MB/5 files. No spill, all measured
+queries final and result-uncached. Clustered outputs6 files each versus8 each
+unclustered. Total four-output bytes2,589,507,841; no resource resize/new compute.
+
+Complete symmetric UTF8-byte-normalized comparisons pass for every raw/journal
+field and both layouts,100k rows each. Exact-check caller costs19.618/17.462s
+clustered and19.935/17.154s unclustered, separate from append intervals. Only one
+sequential pair per layout; empty scratch tables are not the growing production
+history layout. Already-serialized input excludes source serialization. The
+observed8.791s clustered replay versus23.997s r133 capture pair motivates isolating
+encoding/input-layout work, not assigning the entire difference to serialization.
+Do not infer steady throughput, publication p95, or billions of history rows.
+
+[Cleanup evidence](out/native/ashlar_append_layout_r134/cleanup/summary.json)
+records identity-checked drops of all four owned scratch tables. UC retention
+still applies; no immediate storage reclamation/VACUUM claim. Canonical E22,
+R16/J18 and descriptor r133-b1 remain unchanged. Next measure exact serialization
+cost separately and test deferred clustering against history-read pruning and
+maintenance costs before changing canonical raw/journal layout. Native singleton,
+publication freshness/rate, concurrency and1B/5B admission gates remain open.
