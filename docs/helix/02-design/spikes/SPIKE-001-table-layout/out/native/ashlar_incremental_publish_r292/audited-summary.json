@@ -550,7 +550,7 @@
       "statements.jsonl": "bb34ac11b5f1030a530cc747d7537276abe6c3429ef6612fd0b4068733a7f54b",
       "shared-history.json": "aff136271f7fee16fad26aa08fd2b8fa546742fc591fc2d58bdd613da2377c30"
     },
-    "audit_script_sha256": "1f439ec064ee7b1f82d422d7a70a39bd888085837404af97881a74eb79cfb2af",
+    "audit_script_sha256": "20216dd40eedbbd5e0dba02de0a2b689ea60cf41d194904256a59ff67a5134fe",
     "final_statements": 79,
     "uncached_cdf_queries": 4,
     "qualification": "One synthetic90k-update/10k-delete batch over8M/40M; immutable exact descriptor vector with actual revision map and canonical recorded_at. Full changed-image and added-row digests assume SHA256 collision resistance and preserve multiplicity; immutable qualified baseline custody replaces repeated inherited-row scans in this controlled fixture. Full r281 sweep remains independent qualification; this run still includes final global identity/deletion/endpoints. Not a general unknown-writer or concurrent-fencing proof. No real producer fencing/ACK, complete canonical CTAS constraints, retained-storage inventory, sustained10k/s or100k/s burst, caller/cold/concurrency or billion admission. Latency misses tune owner-selected UC Delta architecture, not architecture veto."

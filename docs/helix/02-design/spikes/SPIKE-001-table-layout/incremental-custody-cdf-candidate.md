@@ -117,3 +117,17 @@ successive-batch/queue behavior. A single fast
 sample, commit metrics, or preserved final state alone does not admit10k/s or
 100k/s bursts. Production writer fencing and authorization remain separate open
 requirements; this controlled fixture is not their substitute.
+
+## Offline certificate refusal evidence (r294)
+
+The unmodified r292 native receipts pass the reusable offline verifier. Fourteen
+corrupted receipt controls are refused: missing/duplicate images, wrong image
+class/version/digest, missing raw append, unexpected journal class, tombstone
+digest drift, unknown commit SID, custody version gap, table UUID drift, wrong
+descriptor vector, nonterminal native history and cached CDF. See
+`out/incremental-refusal-r294.json` and `incremental_refusal_r294.py`. These are
+local certificate controls, not native fault injection or production fencing.
+Schema changes, expired CDF and interrupted multi-role publication still require
+runtime qualification. The next performance experiment should isolate scattered
+MERGE file fanout; adding workers without a matched comparison is not justified
+by the current receipts.

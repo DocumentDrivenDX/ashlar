@@ -3,8 +3,8 @@ import hashlib,json
 from pathlib import Path
 B=Path(__file__).resolve().parent
 
-def main():
- p=B/'out/native/ashlar_incremental_publish_r292';a=json.loads((p/'summary.json').read_text());assert a['state']=='Private100k incremental publication passes complete change-image custody checks'
+def main(evidence_path=None, write=True):
+ p=evidence_path or B/'out/native/ashlar_incremental_publish_r292';a=json.loads((p/'summary.json').read_text());assert a['state']=='Private100k incremental publication passes complete change-image custody checks'
  records=[json.loads(x) for x in (p/'statements.jsonl').read_text().splitlines()];h=json.loads((p/'shared-history.json').read_text());native={q['query_id']:q for q in h['queries']};sid={r['statement_id']:r for r in records}
  assert len(sid)==len(records)==len(native) and h['require_final'] and not h['missing_ids']
  for r in records:
@@ -30,5 +30,7 @@ def main():
   for x in rows:assert x['queryHistoryStatementId']==events[int(x['version'])]['statement_id'] and x['queryHistoryStatementId'] in sid
  d=result('descriptor-readback')[0];assert d[0]=='incremental-r292';assert json.loads(d[2])==a['publication_vector']=={t['table']:t['version'] for t in a['tables'].values()};assert json.loads(d[4])==a['schema_revisions']=={'synthetic-scale-mixed':'synthetic-mixed/1'} and json.loads(d[5])==a['checks'];assert json.loads(d[3])['inputs']==inputs['tables'] and json.loads(d[3])['real_source_ack'] is False
  cdf=[r for r in records if r['label'].startswith('cdf-')];assert len(cdf)==4 and all(not native[r['statement_id']]['metrics'].get('result_from_cache') for r in cdf)
- a['audit']={'source_sha256':{n:hashlib.sha256((p/n).read_bytes()).hexdigest() for n in ['summary.json','statements.jsonl','shared-history.json']},'audit_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'final_statements':len(records),'uncached_cdf_queries':4,'qualification':a['qualification']};(p/'audited-summary.json').write_text(json.dumps(a,indent=2)+'\n');print(a['processing_s'])
+ a['audit']={'source_sha256':{n:hashlib.sha256((p/n).read_bytes()).hexdigest() for n in ['summary.json','statements.jsonl','shared-history.json']},'audit_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'final_statements':len(records),'uncached_cdf_queries':4,'qualification':a['qualification']}
+ if write:(p/'audited-summary.json').write_text(json.dumps(a,indent=2)+'\n');print(a['processing_s'])
+ return a
 if __name__=='__main__':main()

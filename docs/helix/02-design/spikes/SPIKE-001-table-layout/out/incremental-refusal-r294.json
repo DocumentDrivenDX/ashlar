@@ -1,0 +1,69 @@
+{
+  "format": "ashlar-incremental-receipt-refusal/1",
+  "state": "Unmodified native certificate accepted;14 corrupted receipt controls refused",
+  "source_sha256": {
+    "summary.json": "29785870ed4ebb3f1fdc5a679c5a36452643cdc5153b820cb234205b55fd8710",
+    "statements.jsonl": "bb34ac11b5f1030a530cc747d7537276abe6c3429ef6612fd0b4068733a7f54b",
+    "shared-history.json": "aff136271f7fee16fad26aa08fd2b8fa546742fc591fc2d58bdd613da2377c30"
+  },
+  "audit_script_sha256": "20216dd40eedbbd5e0dba02de0a2b689ea60cf41d194904256a59ff67a5134fe",
+  "controls": [
+    {
+      "case": "missing-image",
+      "result": "refused"
+    },
+    {
+      "case": "duplicate-image",
+      "result": "refused"
+    },
+    {
+      "case": "wrong-image-class",
+      "result": "refused"
+    },
+    {
+      "case": "wrong-commit-version",
+      "result": "refused"
+    },
+    {
+      "case": "changed-exact-content-digest",
+      "result": "refused"
+    },
+    {
+      "case": "missing-raw-append",
+      "result": "refused"
+    },
+    {
+      "case": "unexpected-journal-class",
+      "result": "refused"
+    },
+    {
+      "case": "wrong-tombstone-digest",
+      "result": "refused"
+    },
+    {
+      "case": "unknown-commit-statement",
+      "result": "refused"
+    },
+    {
+      "case": "missing-custody-version",
+      "result": "refused"
+    },
+    {
+      "case": "changed-table-uuid",
+      "result": "refused"
+    },
+    {
+      "case": "wrong-descriptor-vector",
+      "result": "refused"
+    },
+    {
+      "case": "nonterminal-native-query",
+      "result": "refused"
+    },
+    {
+      "case": "cached-cdf",
+      "result": "refused"
+    }
+  ],
+  "qualification": "Offline receipt-certificate verifier controls only. No native fault injection, concurrency fence, expired-CDF runtime, schema-change proof, or rollback/ACK execution. Digest drift control exercises certificate comparison, not a new native carrier hash computation."
+}
