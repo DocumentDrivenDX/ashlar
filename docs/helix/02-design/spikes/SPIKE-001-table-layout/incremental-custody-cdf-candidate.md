@@ -31,6 +31,36 @@ only that table UUID's own mutation interval, never transplant source versions.
 The independent r288 oracle expects per role90k update preimages,90k postimages
 and10k deletion preimages, all known fields, no inserts or additional events.
 
+## Executed image comparisons
+
+Both mechanisms now have scoped native complete-image evidence onSQL2026.39 /
+Runtime19.9, for the same8M/40M synthetic baseline and100k changes. Each role
+returns exactly90k update preimages,90k postimages and10k deletion preimages;
+every known field, version and event class matches the independent r288 oracle.
+
+| Mode | Edge mutation caller | Edge image-read caller | Forward mutation caller | Forward image-read caller | Qualified scope |
+| --- | ---: | ---: | ---: | ---: | --- |
+| Automatic row-tracking CDF | r281 mutation recorded separately | 86.920s | r281 mutation recorded separately | 3.390s | Existing full-sweep-qualified private version1 intervals, read only |
+| Explicit write-time CDF | 42.146s | 5.398s | 5.948s | 1.676s | Fresh non-clone baseline clones, configuration1/MERGE2; exact images only |
+
+[Automatic evidence](out/native/ashlar_cdf_interval_read_r289/audited-summary.json)
+reads438.721MB in95.652s whole run. Edge engine81.303s/1831 read files shows that
+low bytes do not imply low latency. [Write-time evidence](out/native/ashlar_legacy_cdf_compare_r290/audited-summary.json)
+reads35.091GB and writes222.818MB with zero spill in104.576s including setup.
+The edge mutation alone reads34.427GB/writes219.601MB. This trades read-time image
+retrieval for write-time preimage capture. Native legacy image-query read bytes
+report0 despite one read file; do not infer zero I/O. Separate runs and caches
+prevent isolated causal attribution. Neither mode is a passing whole-publisher,
+sustained throughput, cold/concurrent or billion-scale result.
+
+The bounded r292 publisher candidate enables write-time CDF for mutable current
+and forward roles only, uses complete append CDF intervals for raw/journal,
+checks full small tombstones, and refuses every unexplained commit through its
+selected role versions. It inherits a fully qualified immutable baseline and
+predecessor/input evidence. Final global counts/identity/deletion/endpoint checks
+remain in this iteration. Complete descriptor verification and end-to-end clock
+are still required; legacy CDF is not selected as a universal production feature.
+
 ## Acceptance proof for an owned synthetic publisher
 
 1. Inherit an independently qualified immutable baseline vector, table UUIDs,
@@ -72,9 +102,10 @@ interval and interrupted partial roles. Each must retain the previous complete
 publication and original input; no source ACK. Reconcile duplicate/stale ordering
 under CONTRACT-001 before extending beyond this distinct version1-to2 batch.
 
-Native read-only CDF comparison is the next experiment. Then compare a private
-incremental certificate with the already qualified full sweep, measure the entire
-new critical path, and run bounded successive-batch/queue tests. A single fast
+Native read-only and write-time CDF image comparisons are complete in the scoped
+fixtures above. Next compare a private incremental publisher certificate with
+the qualified full sweep, measure its entire critical path, and run bounded
+successive-batch/queue tests. A single fast
 sample, commit metrics, or preserved final state alone does not admit10k/s or
 100k/s bursts. Production writer fencing and authorization remain separate open
 requirements; this controlled fixture is not their substitute.
