@@ -130,34 +130,60 @@ freshness. Unity Catalog Delta remains selected independent of benchmark misses.
 
 ## Current measured qualification and consequence
 
-The [fifth complete synthetic publication](../spikes/SPIKE-001-table-layout/fifth-integrated-publication-disposition-r483.md)
-passes full preservation and custody at8Mnodes/39.95Mlive edges after five
-disjoint100k batches. Retain unpartitioned identity hash liquid clustering,
-exact tuple predicates, separate raw/journal/tombstone roles and publication
-pins. Keep concurrent metadata checking as a publisher candidate; it preserves
-checks and lowers preflight, but does not fence writers or qualify production.
+The [sixth complete synthetic publication](../spikes/SPIKE-001-table-layout/sixth-publication-disposition-r542.md)
+preserves8M nodes/39.94M live edges after six disjoint100k batches. Its exact
+vector is N6/E9/R6/J6/A7/T6; node physical head8 remains distinct from selected6.
+Retain generic exact carriers, unpartitioned identity-hash liquid clustering,
+full tuple predicates and independent raw/journal/tombstone evidence. CTAS
+fixture success does not qualify every canonical DDL constraint or real source.
 
-Do not promote64range scheduling: the full100k read-only sweep costs129.676s/
-83.651GB versus prior full-parent39.279s/33.261GB. Typed mutation caching removes
-an initial-plan parser fallback but has no demonstrated total speed advantage.
-Neither experiment justifies new canonical partition directories or a changed
-logical model. Their complete scoped receipts remain available in SPIKE-001.
+**File policy:** Keep64MiB as the initial target. The [256MiB pilot](../spikes/SPIKE-001-table-layout/file256-disposition-r573.md)
+preserves all2,498,646 complete carriers and reduces32 files to16; it does not
+produce uniformly256MiB files. Matched full-field guarded ingest measures engine
+7.232s at64 versus5.553s at256 with nearly equal read bytes. The [changed-key read
+comparison](../spikes/SPIKE-001-table-layout/file-target-post-disposition-r583.md)
+then measures94ms engine/398ms caller repeat p95 at64 versus111ms/421ms at256,
+with95.32% more read bytes at256. Prior256 maintenance adds21.108s engine and
+1.504GB writes. Do not promote256 from a single faster MERGE or unchanged-key
+cohort. Fixed order/cache/compiled versions prevent causal claims; retain the
+candidate for separately justified workloads rather than repeat it unchanged.
+The generated-column2.5M fixture also has distinct interoperability obligations.
 
-Latest complete publication233.213s/currentMERGE69.027s and repeated singleton
-131msengine/481mscaller leave provisional freshness and warm budgets unmet.
-The next step must change a material ingest/maintenance/capacity variable;
-metadata-only tuning and another equivalent batch cannot establish the goal.
-The reviewed Small capacity comparison remains unexecuted pending approval to
-change shared settings and billing. No budget or support target is relaxed.
+**Publisher component:** Commit-bound concurrent closing now has offline refusal
+and [native execution evidence](../spikes/SPIKE-001-table-layout/commit-closing-native-disposition-r558.md).
+Four owned clients preserve all ten UUID/schema/protocol/profile/head checks and
+actual SQL statement IDs. Two complete cohorts take4.52s/3.02s. Integrate these
+checks while retaining independent closed commit intervals, full content checks,
+manifest readback and final resource telemetry; observations do not fence writers.
+No new full publisher or clock improvement follows from component timings.
+The non-SQL-writer commit identity and production authority mechanisms remain open.
 
-E8has606live files/32.318GB. Conditional5Bedge-only extrapolation gives~75,845
-files/4.04TB, excluding nodes/history/raw/retention and other roles. Uniform
-600kchange/60s simulation touches~99.96%of projected files; it is a planning
-warning about scattered updates, not native5B throughput or a hardware lower
-bound. [Capacity details](../spikes/SPIKE-001-table-layout/throughput-envelope-disposition-r489.md)
-keep assumptions explicit. Full scale, controlled cold/concurrent caller,
-sustained/burst ingestion, producer authority and external graph profiles remain
-separate unproved obligations. Unity Catalog Delta stays selected; UMF deferred.
+**Performance and capacity:** Full ready-input publication221.826s/current MERGE
+64.677s and E9 changed-key repeat p95engine102ms/caller407ms leave original60s
+freshness and100/250ms warm targets unmet. Exact source-only full-carrier digest
+validation takes5.49s caller/4.76s engine in one cached observation, but this is
+not a causal decomposition of MERGE. Command-only EXPLAIN does not expose its
+internal executed plan. A source broadcast hint in the preserved side of a
+left join leaves its initial plan unchanged; do not drop missing-key protection
+or claim that hint improves the guarded mutation.
+
+Keep64-range scheduling rejected by its full100k129.676s/83.651GB result versus
+prior39.279s/33.261GB; one pruned range does not overturn the whole-batch cost.
+Typed mutation caching has no demonstrated total speed advantage. Further work
+must change a material variable or complete the publisher integration with a
+bounded clock, not repeat an equivalent batch and infer admission. A shared
+compute resize remains pending explicit approval; no settings change or budget
+relaxation is implied by this ADR.
+
+Conditional5B-edge file/storage and scattered-change coverage arithmetic in the
+[throughput envelope](../spikes/SPIKE-001-table-layout/throughput-envelope-disposition-r489.md)
+is not native5B throughput or a hardware lower bound. Complete capacity must
+also account for nodes/raw/journal/tombstones/projections/staging/retained versions
+and failed work. Controlled cold/concurrent caller, sustained10k/s,100k/s burst,
+real producer authority, production fencing, full1B/5B load and external graph
+reader profiles remain separate unproved obligations. Fabric stays a bounded
+projection within the recorded2B-element limit; canonical6B planning scale is
+not a Fabric claim. UC Delta stays selected and UMF binding deferred.
 
 ## Alternatives
 

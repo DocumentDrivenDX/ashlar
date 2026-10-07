@@ -1,0 +1,25 @@
+{
+  "state": "Governing design evidence refreshed without identity/status/wire changes",
+  "artifacts": [
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+      "frontmatter_unchanged": true,
+      "current_section_links_verified": 7,
+      "sha256": "6a70216d0931eb86769c34afa3b3f814a8a9493900f35282ea7bd8a9dc7e590a"
+    },
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "frontmatter_unchanged": true,
+      "current_section_links_verified": 5,
+      "sha256": "8c396cd4e5581c3a558080cd087c6de4ae025eaabb06c67f66ef62c261cdb3aa"
+    }
+  ],
+  "source_sha256": {
+    "out/native/ashlar_sixth_guard_publish_r537/audited-summary.json": "2b889dcd36e7a303792bf18556dbabbbd8787329e859668d38951cfe8d15ea0b",
+    "out/file-target-merge-audit-r579.json": "068e387f5087ae1730710c69ae167b78e20c3bb315893011db1d50a5fd4996b7",
+    "out/file-target-post-audit-r582.json": "a3151ec1d616820239ba457ccb1b14de29b52ab6f875b9e59f1f808d5b77c2e0",
+    "out/commit-closing-native-audit-r557.json": "c52d8b3c89a15f49a6eaa56d805ed5fe6d1efc2d6d8a41f5d7a8b35e25a21600",
+    "out/native/ashlar_sixth_post_reads_r543/audited-summary.json": "b6ed34f987271fb9f1857e53c2cfa4e5cdb892eeb15663d4ea40c342a6a3b37d"
+  },
+  "qualification": "Documentation reconciliation only; no new DDL, native execution, production acceptance or relaxed goal target. 64MiB remains initial physical default candidate; scalar/current/raw/history semantics and UMF deferral retained."
+}

@@ -1363,8 +1363,8 @@
     "out/native/ashlar_input_volume_resume_r266/summary.json": "1e2d5d825e73f88bd7d79e509119b1878fb0f53020da1a63895f37f05d7d13c1",
     "capacity_observed_r268.py": "aa4504fa25e8403df49d8610ced3d31ae08cf6c37b73a2644fd58095327317b4",
     "out/capacity-observed-r268.json": "094314e2ea3b24b2b2b13fb4af32c012e1da956679ed6de39b92662e8de1e9df",
-    "../../adr/ADR-001-delta-canonical-and-serving-layout.md": "d5d79c9257f7fd5da2c01bbd11afdfb7c201a8e259d9092c36d473a10b8d8513",
-    "../../contracts/CONTRACT-003-delta-graph-tables.md": "c3749bf65d5319070a1aee5477a9797e87ec7ba4fdd0408e3ced90056cebcd78",
+    "../../adr/ADR-001-delta-canonical-and-serving-layout.md": "8c396cd4e5581c3a558080cd087c6de4ae025eaabb06c67f66ef62c261cdb3aa",
+    "../../contracts/CONTRACT-003-delta-graph-tables.md": "6a70216d0931eb86769c34afa3b3f814a8a9493900f35282ea7bd8a9dc7e590a",
     "out/native/ashlar_scale_edges_r261/summary.json": "1d3a9b028d95fca1c07420b27265d1a940efc873fa568e36fdd7100bc1b82899",
     "out/native/ashlar_scale_edges_r261/shared-history.json": "7b17e657cc32d95c335728d01295b650bb0ce782641e7664c068ba58ddf2ff7d",
     "out/native/ashlar_scale_edges_r261/statements.jsonl": "8f7562a5a308cb97c845d2a0383fcb7e67172e5b3059cedc6f4d9f5b7840fc42",
@@ -2594,7 +2594,8 @@
     "out/native/file_target_post_reads_r581/summary.json": "79ed8cebaded0fd148c21b594a5aeba9dffdb28697c4da3c9c160865bc46b66b",
     "out/native/file_target_post_reads_r581/shared-history.json": "549ae053e5192b6f9f0f3556901372fd4cee35b38f7c44eda45ff2e1e15c309f",
     "out/native/file_target_post_reads_r581/statements.jsonl": "1f974e4667d596ad00b837c89fb08ce2e38af79b6849e6702832f0e873600f68",
-    "out/native/file_target_post_reads_r581/completed-last-request.json": "94881c8957bb15c0ba1074c3d6809b094fe1e8269b83252be646a3af0043cf44"
+    "out/native/file_target_post_reads_r581/completed-last-request.json": "94881c8957bb15c0ba1074c3d6809b094fe1e8269b83252be646a3af0043cf44",
+    "out/design-evidence-reconciliation-r584.json": "6098518fc6d157026ce1fd5647ced620877a16c606b588a429451f60b6a0419f"
   },
   "evidence": {
     "ddl": {

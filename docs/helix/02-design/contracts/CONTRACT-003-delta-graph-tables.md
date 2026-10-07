@@ -50,31 +50,61 @@ settings are experiment candidates, not approved compatibility claims. UMF
 binding and source catalog schemas remain deferred. Truss's catalog IDs and
 source-local object/edge IDs are retained without renumbering.
 
-## Current qualification summary (non-normative, through r489)
+## Current qualification summary (non-normative, through r583)
 
-The latest [complete fifth publication](../spikes/SPIKE-001-table-layout/fifth-integrated-publication-disposition-r483.md)
-selects N6/E8/R5/J5/A6/T5 for the named private tables in its immutable vector.
-These labels are role-local versions, not a global revision. Known node physical
-head8 is distinct from selected node6. Synthetic bootstrap plus five disjoint
-100k batches preserves exact current carriers, original raw/unknown content,
-property-level history, typed endpoints and tombstones. Production source
-binding, full canonical DDL constraints and cross-role writer fencing remain
-unqualified; the concurrent metadata component detects mismatches but is not a
-writer fence. This evidence does not approve the draft contract.
+The latest [complete sixth publication](../spikes/SPIKE-001-table-layout/sixth-publication-disposition-r542.md)
+selects N6/E9/R6/J6/A7/T6 for the named private tables in its immutable vector.
+These labels are role-local versions, not a global revision. Node physical head8
+is distinct from selected node6. The synthetic bootstrap and six disjoint100k
+batches preserve exact current carriers, raw/unknown content, property-level
+history, typed endpoints and tombstones. Final selected current is8M nodes/
+39.94M live edges. Production source authority, canonical constraint enforcement
+and cross-role writer fencing remain unqualified. This does not approve the draft.
 
-Latest ready-input processing233.213s misses provisional60s; repeated current
-singleton cohort p95engine131ms/caller481ms misses100/250ms. These results are
-scoped measurements, not service p95 or sustained/burst evidence. The owner’s
-Unity Catalog Delta architecture choice and the performance targets remain
-unchanged. Controlled cold/concurrent service and actual1B/5B admission remain
-open. [File geometry](../spikes/SPIKE-001-table-layout/file-overlap-disposition-r488.md)
+Retain unpartitioned identity-hash liquid clustering and the64MiB initial file
+target as the physical default candidate, with exact full native key predicates.
+The [matched full-guard pilot](../spikes/SPIKE-001-table-layout/file-target-merge-disposition-r580.md)
+and [post-ingest reads](../spikes/SPIKE-001-table-layout/file-target-post-disposition-r583.md)
+do not justify promoting256MiB: on a2.5M-row slice it reduces file count32 to16
+and lowers one MERGE engine observation7.232s to5.553s, but adds21.108s maintenance
+engine/1.504GB writes and nearly doubles changed-key read bytes. Changed-key
+repeat p95 is64:94ms engine/398ms caller versus256:111ms/421ms. All complete
+carriers/CDF/typed keys pass. These small ordered cached cohorts cannot establish
+a universal file-size winner or transfer their timing to the40M-edge graph.
+Actual emitted files, deletion vectors and maintenance cost remain measured
+policy inputs; targetFileSize is not a maximum or promised file geometry.
+
+Latest complete ready-input processing221.826s and current MERGE64.677s remain
+above the provisional60s freshness budget even before source preparation or
+arrival is accounted for. This is not a measured producer-arrival p95. The [sixth changed-key cohort](../spikes/SPIKE-001-table-layout/sixth-read-closing-disposition-r552.md)
+reports repeat p95engine102ms/caller407ms at E9, missing100/250ms. These are scoped
+measurements, not service p95, producer-arrival or sustained/burst evidence.
+Controlled cold/concurrent service and actual1B-node/5B-edge admission remain
+open. Unity Catalog Delta remains selected independently of those misses.
+
+The [commit-bound concurrent closing module](../spikes/SPIKE-001-table-layout/commit-closing-native-disposition-r558.md)
+checks all ten base/input UUIDs, full schemas, protocol/features, physical profiles
+and actual SQL commit IDs on four owned persistent clients. Native complete
+cohorts take4.52s/3.02s. This qualifies a publisher component: it does not establish
+a new whole-publication clock or a production fence. Independent closed commit
+interval checks, content validation, exact manifest readback and retained-version
+rules remain required. A metadata observation cannot prevent another writer
+from committing afterward. Non-SQL-writer commit identity needs its own profile.
+
+[File geometry](../spikes/SPIKE-001-table-layout/file-overlap-disposition-r488.md)
 and [throughput envelope](../spikes/SPIKE-001-table-layout/throughput-envelope-disposition-r489.md)
-are conditional capacity models, not executed billion-scale qualification.
+remain conditional capacity models, not executed billion-scale qualification.
+Account for nodes, current edges, independent raw/journal/tombstone roles,
+projections, staged inputs, logs, retained snapshots and failed work; edge-only
+storage or cached singleton bytes are not complete scale/capacity admission.
 
-Graph-tool support transfers only from its own pinned evidence: a successful
-canonical Delta publication does not qualify PuppyGraph/GraphFrames direct UC
-access or full6B-element Fabric support. Existing bounded profiles and deferred
-UMF binding remain unchanged. Older evidence below retains its original scope.
+Graph-tool claims remain scoped: local GraphFrames0.12.3/Spark3.5.3/Delta3.2.1
+execution does not prove direct UC reader3/writer7 support; the local PuppyGraph
+1.13 mapping does not prove canonical UC feature or billion-scale support.
+Fabric uses bounded projections within its recorded2B-element limit, not the
+full6B-element planning graph. Exact canonical values, typed identities and
+explicit projection residuals remain mandatory. UMF binding stays deferred.
+Older evidence below retains its historical versions and original scope.
 
 ## Consolidated physical candidate after complete mixed bootstrap and changes
 
@@ -84,7 +114,7 @@ they do not approve a production source profile or reopen the architecture.
 
 | Role | Physical candidate | Qualified limit |
 | --- | --- | --- |
-| object_current / edge_current | Shared generic BIGINT identities, exact STRING bags/retained content, typed endpoints; unpartitioned hash liquid clustering and explicit hash+full-key predicates | Complete8M-node/40M-edge synthetic bootstrap and five disjoint100k change publications; latest selected current8M/39.95M. CTAS spike constraints are separately scoped. Full scattered-range subdivision is rejected by r457 cost evidence; singleton/cold/service/billion gates remain open. |
+| object_current / edge_current | Shared generic BIGINT identities, exact STRING bags/retained content, typed endpoints; unpartitioned hash liquid clustering and explicit hash+full-key predicates | Complete8M-node/40M-edge synthetic bootstrap and six disjoint100k change publications; latest selected current8M/39.94M. CTAS spike constraints are separately scoped. Full scattered-range subdivision is rejected by r457 cost evidence; singleton/cold/service/billion gates remain open. |
 | source_record | Independent exact envelope/digest and string cursor; feed/epoch/delivery identity with origin-oriented LC and statistics | Every mixed bootstrap/change origin retained. Raw storage is additional to current, not replaceable by parsed current fields. |
 | property_journal | Independent exact old/new tokens, presence flags and direct origin/event ordinal | Full DDL's position-oriented clustering remains proposed. Mixed experiment uses source-delivery LC; nullable scalar position and real producer access pattern require a separately measured origin-layout decision. Do not silently replace source meaning. |
 | tombstone | Typed deletion identity, direct entity_version and source origin, with lifecycle version cross-checked against qualified journal/source evidence | Current0.3 DDL declares entity_version BIGINT NOT NULL; r73 native CREATE succeeded. Small r232 CTAS tombstone sample omitted this field and does not qualify the complete canonical schema. Latest-deletion/version fencing and resurrection prevention still require a source-profile proof; a tombstone row alone does not establish them. No TTL. |
