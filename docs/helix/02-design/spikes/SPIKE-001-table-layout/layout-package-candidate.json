@@ -1457,7 +1457,11 @@
     "out/native/ashlar_incremental_publish_r292/statements.jsonl": "bb34ac11b5f1030a530cc747d7537276abe6c3429ef6612fd0b4068733a7f54b",
     "out/native/ashlar_incremental_publish_r292/audited-summary.json": "f48a582f1721806905dfacde635c14740c5a4f3530f16ab4cb2c70dae142107a",
     "incremental_refusal_r294.py": "7d75349a197de0f9851eb81af8f61d16b7fc5bf5b61ffcb13152ad2a5544398f",
-    "out/incremental-refusal-r294.json": "21e0adc9cd04a2a6509e6bba1a8c1d5d725c81b7f2f23a47b9ee8937281c87b7"
+    "out/incremental-refusal-r294.json": "21e0adc9cd04a2a6509e6bba1a8c1d5d725c81b7f2f23a47b9ee8937281c87b7",
+    "merge_plan_r295.py": "16a7e29f2523997c3c40942f358751c7923da0991174f15ae099df5930b74ed4",
+    "out/native/ashlar_merge_plan_r295/summary.json": "eeb3f00b4d7a3d156b26c9d49d096aa2e2351323ecdac2d8a953195b754c065a",
+    "out/native/ashlar_merge_plan_r295/statements.jsonl": "e27c71753946e7d348b919d9530dd146bbb5b08dfbf63846d722ab7314e0ecbb",
+    "out/native/ashlar_merge_plan_r295/query-history.json": "bc51aabba45f3294f9796e0cb510de6f74e79fcfe2313933fa0085705f5d483b"
   },
   "evidence": {
     "ddl": {
