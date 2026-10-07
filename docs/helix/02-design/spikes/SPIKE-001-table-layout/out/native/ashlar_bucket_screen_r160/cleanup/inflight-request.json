@@ -1,0 +1,1 @@
+{"label": "part-drop", "sql": "DROP TABLE client_dev.ashlar_entropy_20261006_r86.bucket_part_r160", "parameters": null, "correlation": "/* ashlar cleanup part-drop */", "started_epoch": 1791346514.957168, "state": "returned", "query_id": "01f1c205-b277-1f06-b968-cd6edf6b7604"}

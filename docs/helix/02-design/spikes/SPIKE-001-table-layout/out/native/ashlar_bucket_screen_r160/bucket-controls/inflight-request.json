@@ -1,0 +1,1 @@
+{"label": "stage-version", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.bucket_stage_r160 LIMIT 1", "parameters": null, "correlation": "/* ashlar bucket-controls stage-version */", "started_epoch": 1791346501.7219021, "state": "returned", "query_id": "01f1c205-aa94-1b3c-9759-deb4d79f406f"}

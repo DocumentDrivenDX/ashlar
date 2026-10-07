@@ -2141,3 +2141,39 @@ same rowTracking/eligibility/bucket checks before a full20M copy. Observe actual
 canonical head/lineage and source snapshot rather than hard-coding unchanged
 physical head; keep explicit published versions.64 buckets remain experimental,
 not the chosen1B/5B layout. All full-goal obligations remain open.
+
+
+### r160 same-length wide bucket updates
+
+[Native audit](out/native/ashlar_bucket_screen_r160/audited-summary.json) repeats
+100k full-carrier LC/64-bucket updates with high-entropy property105 replacements
+matching every old length; native length-drift count0. Both rowTracking-enabled
+layouts receive the same immutable input. Initial copies, full intended/output
+20 fields/UTF8 and global unique membership pass; bucket/hash/shape/boundary
+checks pass. This removes the compact-value caveat from r159 while retaining an
+isolated hot-set scope, not a20M corpus or producer publication/rate claim.
+
+MERGE caller LC3.585 s/partition6.609 s. Thirty alternating exact lookup p95:
+LCengine105ms/caller355.15ms,6files/326.928MB; partition81ms/350.51ms,
+1file/5.471MB. Remote0/result-uncached, data warmed by exact output validation.
+Both caller gates fail. Partition passes this engine screen only. One sequential
+MERGE pair cannot establish causal/general write performance or service p95.
+Different inherent LC/partition features remain explicit despite matching
+rowTracking/DV/compression/statistics. No OPTIMIZE/Z-order in this pass.
+
+Post-update LC6files326.711MB versus partition64files327.464MB. Copy callers
+10.857/6.040 s are setup costs. All pilot/control phases18.475GB reads/1.990GB
+remote writes, not billing or distinct storage footprint. Existing warehouse
+2439e1f2e37ac563; statements90 s/controls15 s, bounded durable submissions.
+All saved native query metrics final. Head is observed independently of the
+manifest; r139-b1 still pinsE23, source stage139 v0 stays immutable. No canonical
+mutation, compute change or VACUUM. [Cleanup](out/native/ashlar_bucket_screen_r160/cleanup/summary.json)
+UUID/version-checks and drops both layouts plus stage.
+
+The [20M comparison plan](bucket-scale-plan.md) now states row/write/read/time
+bounds and explicit initial wide-copy proof limits. Next execute that physical
+comparison on the existing20M fixture within those bounds. It measures file
+counts, lookup/ingest tradeoffs and maintenance, not billion admission; full20M
+wide-copy parity remains separate if only scoped checks pass. No chosen64-bucket
+production layout or successful full performance gate is inferred. Hash-LC stays
+canonical candidate; UC Delta stays selected and the full goal remains active.
