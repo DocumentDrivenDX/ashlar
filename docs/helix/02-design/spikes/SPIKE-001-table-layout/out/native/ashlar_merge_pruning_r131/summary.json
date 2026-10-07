@@ -1,0 +1,64 @@
+{
+  "state": "Both actual MERGEs and full-carrier/identity/untouched custody checks passed; final query metrics pending",
+  "results": {
+    "control": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.edge_merge_control_r131",
+      "old_version": 0,
+      "new_version": 1,
+      "merge_metrics": {
+        "executionTimeMs": "6515",
+        "materializeSourceTimeMs": "1",
+        "numOutputRows": "100000",
+        "numSourceRows": "100000",
+        "numTargetBytesAdded": "326675224",
+        "numTargetBytesRemoved": "326998042",
+        "numTargetChangeFilesAdded": "0",
+        "numTargetDeletionVectorsAdded": "0",
+        "numTargetDeletionVectorsRemoved": "0",
+        "numTargetDeletionVectorsUpdated": "0",
+        "numTargetFilesAdded": "16",
+        "numTargetFilesRemoved": "16",
+        "numTargetRowsCopied": "0",
+        "numTargetRowsDeleted": "0",
+        "numTargetRowsInserted": "0",
+        "numTargetRowsMatchedDeleted": "0",
+        "numTargetRowsMatchedUpdated": "100000",
+        "numTargetRowsNotMatchedBySourceDeleted": "0",
+        "numTargetRowsNotMatchedBySourceUpdated": "0",
+        "numTargetRowsUpdated": "100000",
+        "rewriteTimeMs": "3511",
+        "scanTimeMs": "2982"
+      }
+    },
+    "candidate": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.edge_merge_candidate_r131",
+      "old_version": 2,
+      "new_version": 3,
+      "merge_metrics": {
+        "executionTimeMs": "3888",
+        "materializeSourceTimeMs": "1",
+        "numOutputRows": "100000",
+        "numSourceRows": "100000",
+        "numTargetBytesAdded": "326675224",
+        "numTargetBytesRemoved": "326998042",
+        "numTargetChangeFilesAdded": "0",
+        "numTargetDeletionVectorsAdded": "0",
+        "numTargetDeletionVectorsRemoved": "0",
+        "numTargetDeletionVectorsUpdated": "0",
+        "numTargetFilesAdded": "16",
+        "numTargetFilesRemoved": "16",
+        "numTargetRowsCopied": "0",
+        "numTargetRowsDeleted": "0",
+        "numTargetRowsInserted": "0",
+        "numTargetRowsMatchedDeleted": "0",
+        "numTargetRowsMatchedUpdated": "100000",
+        "numTargetRowsNotMatchedBySourceDeleted": "0",
+        "numTargetRowsNotMatchedBySourceUpdated": "0",
+        "numTargetRowsUpdated": "100000",
+        "rewriteTimeMs": "2647",
+        "scanTimeMs": "1216"
+      }
+    }
+  },
+  "qualification": "One sequential pair, synthetic property105 hot set. Candidate changes both skipping statistics and placement of prior-version/batch eligibility predicates. No insert clauses. Full affected20-field values exact; unchanged19.9M row custody relies on stable schema and immutable Delta files. Canonical E19 and publication untouched. No publication p95 or production mixed-revision claim."
+}

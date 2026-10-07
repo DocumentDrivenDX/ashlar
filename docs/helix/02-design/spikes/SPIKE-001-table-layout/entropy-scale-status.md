@@ -1273,3 +1273,28 @@ before changing the owned publisher templates or canonical settings. This SELECT
 screen does not qualify actual MERGE latency, mixed-revision production admission,
 publication p95, singleton SLOs or billion-scale performance. UC Delta remains the
 architecture; performance measurements inform tuning, not an architecture veto.
+
+
+Actual update-only MERGE pruning: [r131 audit](out/native/ashlar_merge_pruning_r131/audited-summary.json)
+compares two original canonical E18 shallow clones using the same100k r128 stage.
+Control retains eligibility in WHEN MATCHED; candidate adds prior-version/batch
+statistics and moves eligibility into ON, with no INSERT clause. Total query
+reads554→38 files,2.023GB→358.444MB; engine6.814→4.184s and caller7.461→4.575s.
+The candidate's one-time statistics recomputation costs22.267s caller/1.351GB read,
+separate from MERGE. Counts include stage reads, not exclusively target files.
+All measured queries are final and result-uncached; candidate MERGE remote reads
+1249B, control0; no spill. This is one sequential pair, changing both statistics
+and predicate placement, not a factorial attribution or p95 estimate.
+
+Both MERGEs update exactly100k rows with zero insert/delete/copied rows. Exact
+20-field stage/output comparison passes; global20M IDs and100k new-version rows
+pass. All19.9M untouched logical keys/filepaths/row indices are identical under
+stable schema and Delta immutable-file assumptions; no fresh wide untouched
+payload comparison. Canonical E19/publication remain unchanged. Intended checks
+still read7.512GB in both paths, so pruning does not eliminate validation costs.
+
+Next: qualify mixed eligible/ineligible/unmatched input semantics on a bounded
+native control before adapting owned templates and the integrated publisher.
+Account separately for initial statistics maintenance and ongoing write stats.
+No production admission, publication p95, read SLO or billion-scale qualification
+is established by this pair. Performance targets remain open.
