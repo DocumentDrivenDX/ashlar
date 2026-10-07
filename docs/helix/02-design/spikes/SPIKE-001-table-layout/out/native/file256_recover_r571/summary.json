@@ -1,0 +1,530 @@
+{
+  "state": "Completed private256MiB maintenance recovered with full21field parity and exact schema/typed uniqueness",
+  "source": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493",
+    "version": 1,
+    "id": "4ceb8c24-2c17-452e-acc6-3d27a3c37bb0"
+  },
+  "table": "client_dev.ashlar_entropy_20261006_r86.file256_pilot_r569",
+  "source_sha256": "c268812794916a33fc9d0846ef8723d23d0674779a0a49c1d62dfef0d675923e",
+  "code_sha256": "7712ae4cc43061cbfd056757b6f29ac2b06dee7a7131ce4c8e8df86bbd0eb242",
+  "bounds": {
+    "read_bytes": 20000000000,
+    "write_remote_bytes": 3000000000,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 240
+  },
+  "qualification": "Private1/16 parent hash slice, about2.5M full20field carriers plus generated fingerprint. Clone preserves schema/features; generated-column interoperability is unqualified. Maintenance counted separately; no publisher, ACK or1B/5B admission.",
+  "source_current_detail": {
+    "format": "delta",
+    "id": "4ceb8c24-2c17-452e-acc6-3d27a3c37bb0",
+    "name": "client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/7790f507-af46-413d-b65e-6a44864799a4",
+    "createdAt": "2026-10-07T21:15:29.098Z",
+    "lastModified": "2026-10-07T21:23:21.000Z",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"lookup_hash\"]",
+    "numFiles": "33",
+    "sizeInBytes": "2090136635",
+    "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.enableChangeDataFeed\":\"true\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"7790f507-af46-413d-b65e-6a44864799a4\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-2625a611-e1f8-4637-bdc7-e2bf5dd308a9\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-91049a3c-e81a-4aed-912f-9837922eb977\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"changeDataFeed\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"generatedColumns\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numRowsDeletedByDeletionVectors\":\"6227\",\"numDeletionVectors\":\"32\"}",
+    "clusterByAuto": "false"
+  },
+  "clone_statement_id": "01f1c2a7-506b-13e3-be3c-f0056e8521b1",
+  "clone_history": [
+    {
+      "version": "0",
+      "timestamp": "2026-10-07T23:32:10.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "CLONE",
+      "operationParameters": "{\"source\":\"client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493\",\"sourceVersion\":\"1\",\"isShallow\":\"true\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c2a7-506b-13e3-be3c-f0056e8521b1",
+      "clusterId": null,
+      "readVersion": "-1",
+      "isolationLevel": "Serializable",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"removedFilesSize\":\"0\",\"numRemovedFiles\":\"0\",\"sourceTableSize\":\"2085376387\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"copiedFilesSize\":\"0\",\"sourceNumOfFiles\":\"32\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    }
+  ],
+  "before": {
+    "format": "delta",
+    "id": "b3ee80b3-fba4-4080-856d-d1f936a5b72e",
+    "name": "client_dev.ashlar_entropy_20261006_r86.file256_pilot_r569",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/b10d1efa-2ece-425e-88ab-cf242102560f",
+    "createdAt": "2026-10-07T21:15:29.098Z",
+    "lastModified": "2026-10-07T23:32:10.000Z",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"lookup_hash\"]",
+    "numFiles": "32",
+    "sizeInBytes": "2085376387",
+    "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"b10d1efa-2ece-425e-88ab-cf242102560f\",\"delta.targetFileSize\":\"268435456\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-b1db98c6-434d-49fc-8277-70b49fbb62f1\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-28f533cb-cae7-43b1-bad9-63b7844656a3\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"generatedColumns\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+    "clusterByAuto": "false"
+  },
+  "id": "b3ee80b3-fba4-4080-856d-d1f936a5b72e",
+  "schema_before": [
+    {
+      "col_name": "source_system",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "rel_type_id",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "id",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "source_type",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "source_id",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "target_type",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "target_id",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "order_key",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "schema_revision",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "entity_version",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "props_json",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "retained_json",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "source_feed",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "source_epoch",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "source_position",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "published_at",
+      "data_type": "timestamp",
+      "comment": null
+    },
+    {
+      "col_name": "apply_batch_id",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "source_cursor_json",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "source_delivery_id",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "lookup_hash",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "carrier_fingerprint",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "# Clustering Information",
+      "data_type": "",
+      "comment": ""
+    },
+    {
+      "col_name": "# col_name",
+      "data_type": "data_type",
+      "comment": "comment"
+    },
+    {
+      "col_name": "lookup_hash",
+      "data_type": "string",
+      "comment": null
+    }
+  ],
+  "costs": {
+    "read_bytes": 13987350776,
+    "write_remote_bytes": 1503890537,
+    "spill_to_disk_bytes": 0
+  },
+  "optimize_result": [
+    {
+      "path": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/b10d1efa-2ece-425e-88ab-cf242102560f",
+      "metrics": "{\"recompressionCodec\":null,\"partitionsOptimized\":\"0\",\"numTableColumnsWithStats\":\"21\",\"skippedArchivedFiles\":\"0\",\"clusteringStats\":null,\"totalFilesSkipped\":\"0\",\"totalClusterParallelism\":\"8\",\"numFilesSkippedToReduceWriteAmplification\":\"0\",\"totalScheduledTasks\":\"0\",\"endTimeMs\":\"1791415945686\",\"startTimeMs\":\"1791415939585\",\"filesAdded\":{\"totalSize\":\"0\",\"avg\":\"0.0\",\"min\":null,\"totalFiles\":\"0\",\"max\":null},\"numBatches\":\"0\",\"numBins\":\"0\",\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":\"0\",\"numDeletionVectorRowsRemoved\":\"0\"},\"filesRemoved\":{\"totalSize\":\"0\",\"avg\":\"0.0\",\"min\":null,\"totalFiles\":\"0\",\"max\":null},\"totalTaskExecutionTimeMs\":\"0\",\"zOrderStats\":null,\"preserveInsertionOrder\":\"false\",\"totalConsideredFiles\":\"32\",\"numBytesSkippedToReduceWriteAmplification\":\"0\",\"clusteringMetrics\":{\"numFilesSkippedAfterExpansion\":\"0\",\"coordinatorEventMetrics\":{\"totalCreateTaskTimeMs\":\"0\",\"totalGetFilesPermitWaitTimeMs\":\"0\",\"numPermitsDenied\":\"0\",\"permitTimeoutFiredAtMs\":\"0\",\"peakInFlightPlanningBytes\":\"0\",\"numEventLogBatchesFlushed\":\"1\",\"permitTimeoutFired\":\"false\",\"numPermitsGranted\":\"0\",\"totalCreateTaskPermitWaitTimeMs\":\"0\",\"totalGetFilesTimeMs\":\"0\",\"numCapacityGatedRequests\":\"0\",\"peakBufferedTaskBytes\":\"0\",\"totalEventsProcessed\":\"1\"},\"totalLogicalSizeOfDataToRewriteInBytes\":\"0\",\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":\"434508745\",\"numCompactionTasksPlannedUndoneDueToPO\":\"0\",\"compressionRatioFromSampling\":\"-1.0\",\"numLeafNodesCompacted\":\"0\",\"nodeMinNumFilesToCompact\":\"8\",\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":\"0\",\"pipelinedAssemblerMetrics\":{\"totalTasksInBatches\":\"0\",\"numBatchesEmitted\":\"0\",\"minBatchBytes\":\"0\",\"maxBatchBytes\":\"0\",\"minTasksPerBatch\":\"0\",\"numLargeTaskBatches\":\"0\",\"maxTasksPerBatch\":\"0\"},\"compressionRatioSamplingTimeMs\":\"0\",\"predicates\":null,\"isPOTriggered\":\"false\",\"numSamplingJobs\":\"0\",\"clusterThresholdStrategy\":\"log\",\"compactionType\":null,\"sizeOfTableInBytesBeforeLazyClustering\":\"2085376387\",\"numFilesClassifiedToLeafNodes\":\"25\",\"timeMetrics\":{\"metadataCreationTimeMs\":\"3457\",\"totalGetFilesForNodeCallsTimeMs\":\"0\",\"optimizerTimeMs\":\"4\",\"classifierTimeMs\":\"183\",\"totalSamplingTimeMs\":\"0\",\"metadataLoadTimeMs\":\"0\",\"parentIndexBuildTimeMs\":\"0\"},\"approxClusteringQuality\":null,\"numClusteringTasksNotPlannedDueToPO\":\"0\",\"numThreadsForClassifier\":null,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":\"0\",\"splitStrategy\":\"defaultSplitStrategy\",\"maxOptimizeBatchesInParallel\":\"2\",\"compressionRatioChosen\":\"-1.0\",\"maxIterations\":\"5\",\"numLeafNodesExpanded\":\"0\",\"numIntermediateNodesCompactedUndoneDueToPO\":\"0\",\"numIdealFilesWithTrimmedStringMaxValue\":\"0\",\"numCompactionTasksPlanned\":\"0\",\"numFilesClassifiedToIntermediateNodes\":\"7\",\"numNullValuesEncounteredForTransforms\":\"0\",\"numLeafNodesClustered\":\"0\",\"compressionRatioNumSamples\":\"0\",\"numSmallFilesSkippedAfterExpansion\":\"0\",\"compressionRatioStalenessReason\":\"n/a\",\"minFileSize\":\"16777216\",\"pipelinedTotalBatchWaitTimeMs\":\"7\",\"numLeafNodesCompactedUndoneDueToPO\":\"0\",\"numIdealFiles\":\"0\",\"currentIteration\":\"1\",\"numClusteringTasksPlanned\":\"0\",\"numGetFilesForNodeCalls\":\"0\",\"approxClusteringCoverage\":null,\"isNewMetadataCreated\":\"true\",\"compressionRatioTriggeredScaling\":\"false\",\"numIntermediateNodesCompacted\":\"0\",\"pipelinedPostFirstBatchWaitTimeMs\":\"0\",\"numFilesSkippedByPredicates\":\"0\",\"withPredicates\":\"false\",\"isFull\":\"true\",\"totalLogicalSizeOfDataToCompactInBytes\":\"0\",\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":\"0\",\"totalSizeOfDataToRewriteInBytes\":\"0\",\"compressionRatioFromPersistedEntry\":\"false\",\"numDowncastDimensions\":null,\"totalSizeOfDataToCompactInBytes\":\"0\",\"numIntermediateNodesClustered\":\"0\",\"maxFileSize\":\"268435456\",\"compressionRatioSource\":\"n/a\",\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":\"0\",\"clusteringStrategy\":\"sizeAware\",\"pipelinedTotalPlanningTimeMs\":\"11\",\"numOptimizeBatchesPlanned\":\"0\",\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":\"0\",\"numFilesSkippedWithoutStats\":\"0\",\"isPipelinedOptimizer\":\"true\",\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":\"434508745\",\"sizeOfFilesClassifiedToLeafNodesInBytes\":\"1650867642\",\"pipelinedOptimizerStatus\":\"success\",\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":\"0\",\"approxClusteringQualityPerColumn\":null,\"numAddedFilesWithSameMinMaxOnClusteringColumns\":null,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":\"1650867642\",\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":\"0\"},\"numTableColumns\":\"21\",\"numFilesSortedWithinFiles\":\"0\",\"numFilesAdded\":\"0\",\"numFilesRemoved\":\"0\",\"fileAgeHistogram\":null,\"autoCompactParallelismStats\":null}"
+    },
+    {
+      "path": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/b10d1efa-2ece-425e-88ab-cf242102560f",
+      "metrics": "{\"recompressionCodec\":null,\"partitionsOptimized\":\"0\",\"numTableColumnsWithStats\":\"21\",\"skippedArchivedFiles\":\"0\",\"clusteringStats\":null,\"totalFilesSkipped\":\"1\",\"totalClusterParallelism\":\"8\",\"numFilesSkippedToReduceWriteAmplification\":\"0\",\"totalScheduledTasks\":\"7\",\"endTimeMs\":\"1791415959992\",\"startTimeMs\":\"1791415945721\",\"filesAdded\":{\"totalSize\":\"1503890537\",\"avg\":\"2.148415052857143E8\",\"min\":\"183195680\",\"totalFiles\":\"7\",\"max\":\"263733961\"},\"numBatches\":\"1\",\"numBins\":\"0\",\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":\"0\",\"numDeletionVectorRowsRemoved\":\"0\"},\"filesRemoved\":{\"totalSize\":\"1503957185\",\"avg\":\"6.538944282608695E7\",\"min\":\"49173422\",\"totalFiles\":\"23\",\"max\":\"84277230\"},\"totalTaskExecutionTimeMs\":\"69548\",\"zOrderStats\":null,\"preserveInsertionOrder\":\"true\",\"totalConsideredFiles\":\"32\",\"numBytesSkippedToReduceWriteAmplification\":\"0\",\"clusteringMetrics\":{\"numFilesSkippedAfterExpansion\":\"0\",\"coordinatorEventMetrics\":null,\"totalLogicalSizeOfDataToRewriteInBytes\":\"1503957185\",\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":\"434508745\",\"numCompactionTasksPlannedUndoneDueToPO\":\"0\",\"compressionRatioFromSampling\":\"-1.0\",\"numLeafNodesCompacted\":\"0\",\"nodeMinNumFilesToCompact\":\"0\",\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":\"0\",\"pipelinedAssemblerMetrics\":null,\"compressionRatioSamplingTimeMs\":\"0\",\"predicates\":null,\"isPOTriggered\":\"false\",\"numSamplingJobs\":\"0\",\"clusterThresholdStrategy\":null,\"compactionType\":\"post-optimize-compaction\",\"sizeOfTableInBytesBeforeLazyClustering\":\"2085376387\",\"numFilesClassifiedToLeafNodes\":\"24\",\"timeMetrics\":{\"metadataCreationTimeMs\":\"0\",\"totalGetFilesForNodeCallsTimeMs\":\"0\",\"optimizerTimeMs\":\"0\",\"classifierTimeMs\":\"0\",\"totalSamplingTimeMs\":\"0\",\"metadataLoadTimeMs\":\"128\",\"parentIndexBuildTimeMs\":\"0\"},\"approxClusteringQuality\":\"0.8548442289344487\",\"numClusteringTasksNotPlannedDueToPO\":\"0\",\"numThreadsForClassifier\":null,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":\"0\",\"splitStrategy\":null,\"maxOptimizeBatchesInParallel\":\"15\",\"compressionRatioChosen\":\"-1.0\",\"maxIterations\":\"1\",\"numLeafNodesExpanded\":\"0\",\"numIntermediateNodesCompactedUndoneDueToPO\":\"0\",\"numIdealFilesWithTrimmedStringMaxValue\":\"0\",\"numCompactionTasksPlanned\":\"7\",\"numFilesClassifiedToIntermediateNodes\":\"7\",\"numNullValuesEncounteredForTransforms\":\"0\",\"numLeafNodesClustered\":\"0\",\"compressionRatioNumSamples\":\"0\",\"numSmallFilesSkippedAfterExpansion\":\"0\",\"compressionRatioStalenessReason\":\"n/a\",\"minFileSize\":\"134217728\",\"pipelinedTotalBatchWaitTimeMs\":\"0\",\"numLeafNodesCompactedUndoneDueToPO\":\"0\",\"numIdealFiles\":\"0\",\"currentIteration\":\"1\",\"numClusteringTasksPlanned\":\"0\",\"numGetFilesForNodeCalls\":\"0\",\"approxClusteringCoverage\":\"0.7211832894048552\",\"isNewMetadataCreated\":\"false\",\"compressionRatioTriggeredScaling\":\"false\",\"numIntermediateNodesCompacted\":\"0\",\"pipelinedPostFirstBatchWaitTimeMs\":\"0\",\"numFilesSkippedByPredicates\":\"0\",\"withPredicates\":\"false\",\"isFull\":\"false\",\"totalLogicalSizeOfDataToCompactInBytes\":\"1503957185\",\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":\"0\",\"totalSizeOfDataToRewriteInBytes\":\"1503957185\",\"compressionRatioFromPersistedEntry\":\"false\",\"numDowncastDimensions\":null,\"totalSizeOfDataToCompactInBytes\":\"1503957185\",\"numIntermediateNodesClustered\":\"0\",\"maxFileSize\":\"268435456\",\"compressionRatioSource\":\"n/a\",\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":\"0\",\"clusteringStrategy\":null,\"pipelinedTotalPlanningTimeMs\":\"0\",\"numOptimizeBatchesPlanned\":\"1\",\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":\"0\",\"numFilesSkippedWithoutStats\":\"0\",\"isPipelinedOptimizer\":\"false\",\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":\"434508745\",\"sizeOfFilesClassifiedToLeafNodesInBytes\":\"1575187357\",\"pipelinedOptimizerStatus\":null,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":\"0\",\"approxClusteringQualityPerColumn\":[\"0.8548442289344487\"],\"numAddedFilesWithSameMinMaxOnClusteringColumns\":[\"0\"],\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":\"1575187357\",\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":\"0\"},\"numTableColumns\":\"21\",\"numFilesSortedWithinFiles\":\"0\",\"numFilesAdded\":\"7\",\"numFilesRemoved\":\"23\",\"fileAgeHistogram\":null,\"autoCompactParallelismStats\":null}"
+    },
+    {
+      "path": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/b10d1efa-2ece-425e-88ab-cf242102560f",
+      "metrics": "{\"recompressionCodec\":\"ZSTD\",\"partitionsOptimized\":\"0\",\"numTableColumnsWithStats\":\"21\",\"skippedArchivedFiles\":\"0\",\"clusteringStats\":null,\"totalFilesSkipped\":\"0\",\"totalClusterParallelism\":\"8\",\"numFilesSkippedToReduceWriteAmplification\":\"0\",\"totalScheduledTasks\":\"0\",\"endTimeMs\":\"1791415960272\",\"startTimeMs\":\"1791415960013\",\"filesAdded\":{\"totalSize\":\"0\",\"avg\":\"0.0\",\"min\":null,\"totalFiles\":\"0\",\"max\":null},\"numBatches\":\"0\",\"numBins\":\"0\",\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":\"0\",\"numDeletionVectorRowsRemoved\":\"0\"},\"filesRemoved\":{\"totalSize\":\"0\",\"avg\":\"0.0\",\"min\":null,\"totalFiles\":\"0\",\"max\":null},\"totalTaskExecutionTimeMs\":\"0\",\"zOrderStats\":null,\"preserveInsertionOrder\":\"true\",\"totalConsideredFiles\":\"16\",\"numBytesSkippedToReduceWriteAmplification\":\"0\",\"clusteringMetrics\":null,\"numTableColumns\":\"21\",\"numFilesSortedWithinFiles\":\"0\",\"numFilesAdded\":\"0\",\"numFilesRemoved\":\"0\",\"fileAgeHistogram\":null,\"autoCompactParallelismStats\":null}"
+    }
+  ],
+  "optimize_statement_id": "01f1c2a7-5655-166e-b321-17d9ede9307e",
+  "history": [
+    {
+      "version": "2",
+      "timestamp": "2026-10-07T23:32:39.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c2a7-5655-166e-b321-17d9ede9307e",
+      "clusterId": null,
+      "readVersion": "1",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"23\",\"numRemovedBytes\":\"1503957185\",\"p25FileSize\":\"184693408\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"183195680\",\"numAddedFiles\":\"7\",\"maxFileSize\":\"263733961\",\"p75FileSize\":\"232978534\",\"p50FileSize\":\"205587857\",\"numAddedBytes\":\"1503890537\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "1",
+      "timestamp": "2026-10-07T23:32:24.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[]\",\"auto\":\"false\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"isFull\":\"true\",\"zOrderBy\":\"[]\",\"batchId\":\"-1\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c2a7-5655-166e-b321-17d9ede9307e",
+      "clusterId": null,
+      "readVersion": "0",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "true",
+      "operationMetrics": "{}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "0",
+      "timestamp": "2026-10-07T23:32:10.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "CLONE",
+      "operationParameters": "{\"source\":\"client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493\",\"sourceVersion\":\"1\",\"isShallow\":\"true\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c2a7-506b-13e3-be3c-f0056e8521b1",
+      "clusterId": null,
+      "readVersion": "-1",
+      "isolationLevel": "Serializable",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"removedFilesSize\":\"0\",\"numRemovedFiles\":\"0\",\"sourceTableSize\":\"2085376387\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"copiedFilesSize\":\"0\",\"sourceNumOfFiles\":\"32\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    }
+  ],
+  "after_version": 2,
+  "error": "can only concatenate tuple (not \"list\") to tuple",
+  "stopped_source_sha256": "81c8ed1249ed4389c958d3fc2b25bd6244b783dd26b2e5a6882cd26263de1a95",
+  "recovery_code_sha256": "1c10b3e94225ca99c0798168438c3039c1fc2d456c4151197ac8b79998223a2b",
+  "parity": [
+    [
+      "0"
+    ]
+  ],
+  "counts": [
+    [
+      "2498646",
+      "2498646"
+    ]
+  ],
+  "after": {
+    "format": "delta",
+    "id": "b3ee80b3-fba4-4080-856d-d1f936a5b72e",
+    "name": "client_dev.ashlar_entropy_20261006_r86.file256_pilot_r569",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/b10d1efa-2ece-425e-88ab-cf242102560f",
+    "createdAt": "2026-10-07T21:15:29.098Z",
+    "lastModified": "2026-10-07T23:32:39.000Z",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"lookup_hash\"]",
+    "numFiles": "16",
+    "sizeInBytes": "2085309739",
+    "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"b10d1efa-2ece-425e-88ab-cf242102560f\",\"delta.targetFileSize\":\"268435456\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-b1db98c6-434d-49fc-8277-70b49fbb62f1\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-28f533cb-cae7-43b1-bad9-63b7844656a3\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"generatedColumns\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+    "clusterByAuto": "false"
+  },
+  "schema_after": [
+    {
+      "col_name": "source_system",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "rel_type_id",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "id",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "source_type",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "source_id",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "target_type",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "target_id",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "order_key",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "schema_revision",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "entity_version",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "props_json",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "retained_json",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "source_feed",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "source_epoch",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "source_position",
+      "data_type": "bigint",
+      "comment": null
+    },
+    {
+      "col_name": "published_at",
+      "data_type": "timestamp",
+      "comment": null
+    },
+    {
+      "col_name": "apply_batch_id",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "source_cursor_json",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "source_delivery_id",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "lookup_hash",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "carrier_fingerprint",
+      "data_type": "string",
+      "comment": null
+    },
+    {
+      "col_name": "# Clustering Information",
+      "data_type": "",
+      "comment": ""
+    },
+    {
+      "col_name": "# col_name",
+      "data_type": "data_type",
+      "comment": "comment"
+    },
+    {
+      "col_name": "lookup_hash",
+      "data_type": "string",
+      "comment": null
+    }
+  ],
+  "closing_history": [
+    {
+      "version": "2",
+      "timestamp": "2026-10-07T23:32:39.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[]\",\"batchId\":\"0\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c2a7-5655-166e-b321-17d9ede9307e",
+      "clusterId": null,
+      "readVersion": "1",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"numRemovedFiles\":\"23\",\"numRemovedBytes\":\"1503957185\",\"p25FileSize\":\"184693408\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"183195680\",\"numAddedFiles\":\"7\",\"maxFileSize\":\"263733961\",\"p75FileSize\":\"232978534\",\"p50FileSize\":\"205587857\",\"numAddedBytes\":\"1503890537\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "1",
+      "timestamp": "2026-10-07T23:32:24.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"predicate\":\"[]\",\"auto\":\"false\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"isFull\":\"true\",\"zOrderBy\":\"[]\",\"batchId\":\"-1\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c2a7-5655-166e-b321-17d9ede9307e",
+      "clusterId": null,
+      "readVersion": "0",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "true",
+      "operationMetrics": "{}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "0",
+      "timestamp": "2026-10-07T23:32:10.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "CLONE",
+      "operationParameters": "{\"source\":\"client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493\",\"sourceVersion\":\"1\",\"isShallow\":\"true\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c2a7-506b-13e3-be3c-f0056e8521b1",
+      "clusterId": null,
+      "readVersion": "-1",
+      "isolationLevel": "Serializable",
+      "isBlindAppend": "false",
+      "operationMetrics": "{\"removedFilesSize\":\"0\",\"numRemovedFiles\":\"0\",\"sourceTableSize\":\"2085376387\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"copiedFilesSize\":\"0\",\"sourceNumOfFiles\":\"32\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    }
+  ],
+  "recovery_s": 46.064651667,
+  "original_stopped_wall_s": 36.720542167000005,
+  "whole_wall_s": null,
+  "optimize_metrics": {
+    "total_time_ms": 21606,
+    "read_bytes": 3591697331,
+    "rows_produced_count": 3,
+    "compilation_time_ms": 465,
+    "execution_time_ms": 21108,
+    "read_remote_bytes": 185641739,
+    "write_remote_bytes": 1503890537,
+    "read_cache_bytes": 3406055592,
+    "spill_to_disk_bytes": 0,
+    "task_total_time_ms": 87526,
+    "read_files_count": 91,
+    "read_partitions_count": 2,
+    "photon_total_time_ms": 83908,
+    "rows_read_count": 7189257,
+    "result_fetch_time_ms": 34,
+    "network_sent_bytes": 0,
+    "result_from_cache": false,
+    "pruned_bytes": 3846330632,
+    "pruned_files_count": 62,
+    "query_compilation_start_timestamp": 1791415938965,
+    "metadata_time_ms": 1619,
+    "query_execution_time_ms": 21573,
+    "bytes_read_from_cache_percentage": 93.0,
+    "write_remote_rows": 1801343,
+    "write_remote_files": 7,
+    "queue_end_time_ms": 1791415938934,
+    "read_files_bytes": 5999192249,
+    "conflict_resolution_time_ms": 0,
+    "rows_scanned": 7189031,
+    "cloud_storage_retry_duration_ms": 0,
+    "task_progress": {
+      "planned_task_count": 102,
+      "completed_task_count": 102,
+      "completed_partition_count": 102,
+      "pending_task_count": 0,
+      "failed_task_count": 0
+    }
+  }
+}

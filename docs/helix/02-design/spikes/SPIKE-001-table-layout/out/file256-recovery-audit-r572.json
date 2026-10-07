@@ -1,0 +1,76 @@
+{
+  "state": "Complete larger-file fixture native history, full21field parity, schema and costs verified",
+  "statements": 13,
+  "table": "client_dev.ashlar_entropy_20261006_r86.file256_pilot_r569",
+  "id": "b3ee80b3-fba4-4080-856d-d1f936a5b72e",
+  "source": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493",
+    "version": 1,
+    "id": "4ceb8c24-2c17-452e-acc6-3d27a3c37bb0"
+  },
+  "after_version": 2,
+  "geometry": {
+    "before": {
+      "numFiles": "32",
+      "sizeInBytes": "2085376387"
+    },
+    "after": {
+      "numFiles": "16",
+      "sizeInBytes": "2085309739"
+    }
+  },
+  "counts": [
+    [
+      "2498646",
+      "2498646"
+    ]
+  ],
+  "optimize_metrics": {
+    "total_time_ms": 21606,
+    "read_bytes": 3591697331,
+    "rows_produced_count": 3,
+    "compilation_time_ms": 465,
+    "execution_time_ms": 21108,
+    "read_remote_bytes": 185641739,
+    "write_remote_bytes": 1503890537,
+    "read_cache_bytes": 3406055592,
+    "spill_to_disk_bytes": 0,
+    "task_total_time_ms": 87526,
+    "read_files_count": 91,
+    "read_partitions_count": 2,
+    "photon_total_time_ms": 83908,
+    "rows_read_count": 7189257,
+    "result_fetch_time_ms": 34,
+    "network_sent_bytes": 0,
+    "result_from_cache": false,
+    "pruned_bytes": 3846330632,
+    "pruned_files_count": 62,
+    "query_compilation_start_timestamp": 1791415938965,
+    "metadata_time_ms": 1619,
+    "query_execution_time_ms": 21573,
+    "bytes_read_from_cache_percentage": 93.0,
+    "write_remote_rows": 1801343,
+    "write_remote_files": 7,
+    "queue_end_time_ms": 1791415938934,
+    "read_files_bytes": 5999192249,
+    "conflict_resolution_time_ms": 0,
+    "rows_scanned": 7189031,
+    "cloud_storage_retry_duration_ms": 0,
+    "task_progress": {
+      "planned_task_count": 102,
+      "completed_task_count": 102,
+      "completed_partition_count": 102,
+      "pending_task_count": 0,
+      "failed_task_count": 0
+    }
+  },
+  "costs": {
+    "read_bytes": 13987350776,
+    "write_remote_bytes": 1503890537,
+    "spill_to_disk_bytes": 0
+  },
+  "original_stopped_wall_s": 36.720542167000005,
+  "recovery_s": 46.064651667,
+  "whole_wall_s": null,
+  "qualification": "Private1/16 parent hash slice, about2.5M full20field carriers plus generated fingerprint. Clone preserves schema/features; generated-column interoperability is unqualified. Maintenance counted separately; no publisher, ACK or1B/5B admission."
+}

@@ -2549,7 +2549,22 @@
     "out/native/target_join_probe_r565/plan-default.txt": "eb9bac8c16e1f17b24b4c7ed180cd4ed1e8d7cc43c10a73e4d046d89c7006423",
     "out/native/target_join_probe_r565/statements.jsonl": "9448db87d16d8846d5300ae0bc15978d7256dbdad02e0ded157d00cea0592885",
     "out/native/target_join_probe_r565/plan-broadcast.txt": "079f5753303d784512a72a261b83b899cef0c6a0369c3024ceac30869619522e",
-    "out/native/target_join_probe_r565/completed-last-request.json": "52d9912d346dcd2083e8c56772833350b8eed6ad83cb5d6760c14d5ba6c368c4"
+    "out/native/target_join_probe_r565/completed-last-request.json": "52d9912d346dcd2083e8c56772833350b8eed6ad83cb5d6760c14d5ba6c368c4",
+    "file256_pilot_r568.py": "ec0383aa2231024103b0951906dd2daf99c936bb2cd9d495aad911ab23683a18",
+    "file256_pilot_r569.py": "7712ae4cc43061cbfd056757b6f29ac2b06dee7a7131ce4c8e8df86bbd0eb242",
+    "file256_recover_r571.py": "1c10b3e94225ca99c0798168438c3039c1fc2d456c4151197ac8b79998223a2b",
+    "file256_recovery_audit_r572.py": "7e6726efc5c0c5f64ccfcb4fdc9c8541cd799de47726fd94cb75e648e9f25de7",
+    "file256-disposition-r573.md": "0d0485f04d976fb857862cc0a5929431bab067371ef02b7bd349bb1e5a0550bf",
+    "out/file256-pre-native-stop-r568.json": "e01a8bf4291909e9f6bc8f8191c72d83366cfe24893c475927707471b33bb9c2",
+    "out/file256-recovery-audit-r572.json": "01466b0ca9f0e70ee8f1332e151ee7e006d407ee24e9de82e794e6549e6e61a7",
+    "out/native/file256_pilot_r569/summary.json": "81c8ed1249ed4389c958d3fc2b25bd6244b783dd26b2e5a6882cd26263de1a95",
+    "out/native/file256_pilot_r569/shared-history.json": "cfb9c47297833bb3dac3f6d4938af2914740e3ee7180306f227f6666f346fe33",
+    "out/native/file256_pilot_r569/statements.jsonl": "f529c235b7f97b5fbe6c5ca40edd942b57394d5d03d2c1e50bb3be36773e26d9",
+    "out/native/file256_pilot_r569/live-statement.json": "7ccc74c2a0b47e375cb407f38513be4d3993f55016736d3b2d55648cbc74652b",
+    "out/native/file256_recover_r571/summary.json": "f405cd94d0cdc632a8907f7d98b18e21cb66fde9b95ebcc8ff651f8c3219e441",
+    "out/native/file256_recover_r571/combined-history.json": "0a60a37c3631eacff6442f64cde7d5be7411e36afa1c705d1cf83c76f4e6fd3a",
+    "out/native/file256_recover_r571/statements.jsonl": "6ca0424ef1390f7cdff123c004d2e7ce6c88dcfbfd74ccf7f61eece45a5e7a07",
+    "out/native/file256_recover_r571/completed-last-statement.json": "a0249c1911ecd7f38ab9f9ea21136398bd848c8c416300b2cda44de901c56ae3"
   },
   "evidence": {
     "ddl": {

@@ -1,0 +1,8 @@
+{
+  "state": "Stopped before native submission; source copy version assumption failed",
+  "actual_copy_version": 1,
+  "assumed_version": 2,
+  "runner_sha256": "ec0383aa2231024103b0951906dd2daf99c936bb2cd9d495aad911ab23683a18",
+  "native_statements": 0,
+  "qualification": "Client output directory empty; no native SQL or table created. New runner uses receipt-selected copy version1."
+}
