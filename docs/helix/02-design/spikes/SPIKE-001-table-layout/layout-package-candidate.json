@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "2ed8a905e1496aa144e61dcccf38c311c8adbf8ca939ca30f528c9f85eaa5d23",
+    "scale-experiment-plan.md": "52f5b395a33b0519518483103eaab1d80219c925c311ba0c1883f84b11a4b560",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1214,7 +1214,13 @@
     "out/native/ashlar_mixed_descriptor_r234/shared-history.json": "7745c6bca2ae5e4b401061f426a1ff0ff0ed84750b1ac0fdfeeb691ceb89d4df",
     "out/native/ashlar_mixed_descriptor_r234/statements.jsonl": "87026d86b636d60ac901ead92a24c931389fa156a64ad7718baac368656f2682",
     "mixed_role_costs_r235.py": "b87d200fc0bf5729a08f34705eb0c3ff9b42211ef37a07eee558ff7d48573f04",
-    "out/mixed-role-costs-r235.json": "63112a2d618609ee6cc7a6d355c7409689e4e07d51fcde428f41486609fb808e"
+    "out/mixed-role-costs-r235.json": "63112a2d618609ee6cc7a6d355c7409689e4e07d51fcde428f41486609fb808e",
+    "scale_slice_r236.py": "cf6d937f8802e7b9f7adfea63c574499d83eddf47b366b544a054c8cfd0e0f5d",
+    "scale_reserves_r237.py": "72a6386f8ea6925b0363b003749239b71ce7ce053e759f9c75d95f7a0cd94bd7",
+    "out/scale-reserves-r237.json": "a08cbc8e147a4be159e2058f0f0d5331c76e2163b425f2d96a7a42c9c5cd0afc",
+    "out/native/ashlar_scale_slice_r236/summary.json": "dd652fc2202ad33f5b1e87e13ca0068060a094b77a7e32ed2af7ef295bb3ab27",
+    "out/native/ashlar_scale_slice_r236/shared-history.json": "008385030016ebd1a887254ecdf63ec84fbfe770a2e072b24076fe65250378fa",
+    "out/native/ashlar_scale_slice_r236/statements.jsonl": "4514b5249b5686805d33b351157082f5e5afd44d227740b5f66de0f0c4b65c5b"
   },
   "evidence": {
     "ddl": {

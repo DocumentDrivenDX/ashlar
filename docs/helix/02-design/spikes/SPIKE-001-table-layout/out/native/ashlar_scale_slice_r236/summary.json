@@ -1,0 +1,88 @@
+{
+  "state": "First200k-node complete-role growth slice passes every independent row digest",
+  "planned_graph": {
+    "nodes": 8000000,
+    "edges": 40000000
+  },
+  "slice": {
+    "kind": "node",
+    "start": 0,
+    "end": 200000
+  },
+  "tables": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "version": 0,
+      "rows": 200000,
+      "bytes": 162101976,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_source_record_r236",
+      "id": "7ab4ec7d-7a78-4e5e-a6b3-061b64bae1f5",
+      "version": 0,
+      "rows": 200000,
+      "bytes": 169389362,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_property_journal_r236",
+      "id": "e0a3e354-96b3-4e31-b773-e8c928fc2fca",
+      "version": 0,
+      "rows": 800000,
+      "bytes": 147910472,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    }
+  },
+  "checks": {
+    "object_current": {
+      "rows": 200000,
+      "independent_all_field_digest": "41a8fa4df4b57f8a9714d6dae2b396332c8a820e1a88aa8ce8541f4b81381182"
+    },
+    "source_record": {
+      "rows": 200000,
+      "independent_all_field_digest": "0659879d88e15fbe6860ef126b12dd44dbd4d24f01138fa137e04d086e20349a"
+    },
+    "property_journal": {
+      "rows": 800000,
+      "independent_all_field_digest": "6effbf5884de3790f7fdc7dd932c9120d98e6974f28dba6a9fba267fc91f89da"
+    }
+  },
+  "bounds": {
+    "write_bytes": 2000000000,
+    "read_bytes": 10000000000,
+    "statement_s": 180,
+    "slice_wall_s": 900
+  },
+  "oracle_preparation_s": 15.52873975,
+  "runtime": [
+    [
+      "{\"dbr_version\":null,\"dbsql_version\":\"2026.38\",\"u_build_hash\":\"5ed5dc28fe86dc0a5d08df504d6d5e89c8a4dcda\",\"r_build_hash\":\"722a1a33c2aa93f3d608cfe18bded36448192445\"}",
+      "Etc/UTC"
+    ]
+  ],
+  "compute": {
+    "id": "2439e1f2e37ac563",
+    "name": "data-gateway",
+    "state": "State.RUNNING",
+    "cluster_size": "2X-Small",
+    "min_num_clusters": "1",
+    "max_num_clusters": "1",
+    "enable_serverless_compute": "True"
+  },
+  "costs": {
+    "read_bytes": 482508865,
+    "write_remote_bytes": 479401810,
+    "spill_to_disk_bytes": 0
+  },
+  "active_bytes": 479401810,
+  "slice_wall_s": 109.277835125,
+  "qualification": "200k of8M planned nodes, source/raw and800k bootstrap events complete for slice only. No edges/full graph or manifest publication yet. All-row field digest under SHA256 collision assumptions. One bounded slice does not admit8M/40M,1B/5B or sustained/cold/caller gates. Existing warehouse unchanged; reported storage counters not full price/retained-storage bill."
+}
