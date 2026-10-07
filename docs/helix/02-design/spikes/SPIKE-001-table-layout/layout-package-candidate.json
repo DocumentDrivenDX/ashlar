@@ -1538,7 +1538,10 @@
     "out/native/ashlar_range32_grow_r314/statements.jsonl": "28807a13845c9b7e27c689593cf44e32f83ad2d98385d49c40a700377eca8f43",
     "out/native/ashlar_range32_grow_r314/audited-summary.json": "8e91e799ffd69a7d73189b4f42fa948546bb84b8c86ecd5d795ec6d484bc9a8a",
     "second_changes_r318.py": "c78faff2841b8862cf353936ffef0a53092c6cf321721e3de66b582e254f47b0",
-    "out/second-batch-oracle-r318.json": "3f39b9ab90192543996f1a2e995c108c25b7bc00fe5e2b3a17230cd1910f3d5e"
+    "out/second-batch-oracle-r318.json": "3f39b9ab90192543996f1a2e995c108c25b7bc00fe5e2b3a17230cd1910f3d5e",
+    "second_batch_files_r319.py": "d4889dc0d0040bee71a7ed642523ecbaa93e60179d16190725de61db5bfe1abf",
+    "out/ashlar_second_batch_files_r319/summary.json": "d6a2fcbce8c60c4bad593b9b5e62f67806df20a4e22ba120c79ef628296c09ba",
+    "out/ashlar_second_batch_files_r319/audited-summary.json": "636461dddcbd90f432e91fe5a4fc7e548ffcd3a9ce30445d02cf9dcd558b02df"
   },
   "evidence": {
     "ddl": {
