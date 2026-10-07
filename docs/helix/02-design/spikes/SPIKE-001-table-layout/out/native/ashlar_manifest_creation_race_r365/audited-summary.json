@@ -1,0 +1,258 @@
+{
+  "state": "Both bounded creation races terminal; inspect observed uniqueness outcomes",
+  "source_sha256": "6ca3eff9ebbd1089f7b6aa1e000189c4a7f1a83fc6b9d223771dd5fb3cb88a56",
+  "parent": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.maintenance_manifest_r360",
+    "uuid": "3c7f6392-053e-492d-9e0f-b1b201e7ad23",
+    "version": 3
+  },
+  "pairs": [
+    {
+      "kind": "identical",
+      "table": "client_dev.ashlar_entropy_20261006_r86.manifest_race_identical_r365",
+      "uuid": "de1ca1d1-618a-4b01-80e5-85a5b715b1e2",
+      "before_history": [
+        {
+          "version": "0",
+          "timestamp": "2026-10-07T16:23:23",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "CLONE",
+          "operationParameters": "{\"isShallow\":\"true\",\"source\":\"client_dev.ashlar_entropy_20261006_r86.maintenance_manifest_r360\",\"sourceVersion\":\"3\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c26b-69c5-13eb-9a89-b0aa388604e5",
+          "clusterId": null,
+          "readVersion": "-1",
+          "isolationLevel": "Serializable",
+          "isBlindAppend": "False",
+          "operationMetrics": "{\"copiedFilesSize\":\"0\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedFiles\":\"0\",\"removedFilesSize\":\"0\",\"sourceNumOfFiles\":\"2\",\"sourceTableSize\":\"9320\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "workers": [
+        {
+          "lane": "lane-identical-0",
+          "state": "FAILED",
+          "caller_s": 3.7920299580000005,
+          "parameters": {
+            "id": "r365-race",
+            "text": "{\"fixture\":\"r365\",\"owner\":0}",
+            "digest": "c093d5a850d4e52ed463f56325a66cb684a11f349acf24950b7c525af9218f39"
+          },
+          "statement_id": "01f1c26b-6da9-1747-8df9-64fae8f3ab93",
+          "error": {
+            "class": "ServerOperationError",
+            "message": "[DELTA_CONCURRENT_APPEND.ROW_LEVEL_CHANGES] Transaction conflict detected. A concurrent MERGE added data to table client_dev.ashlar_entropy_20261006_r86.manifest_race_identical_r365 committed at version 1. The concurrent operation modified the same rows that this transaction attempted to modify. Retry the operation. Refer to https://docs.microsoft.com/azure/databricks/delta/concurrency-control for more information."
+          }
+        },
+        {
+          "lane": "lane-identical-1",
+          "state": "SUCCEEDED",
+          "caller_s": 2.6200782500000006,
+          "parameters": {
+            "id": "r365-race",
+            "text": "{\"fixture\":\"r365\",\"owner\":0}",
+            "digest": "c093d5a850d4e52ed463f56325a66cb684a11f349acf24950b7c525af9218f39"
+          },
+          "statement_id": "01f1c26b-6da9-1e9e-ac76-4835e5a7ed68"
+        }
+      ],
+      "rows": [
+        [
+          "r360-maintenance",
+          "{\"id\":\"r360-maintenance\",\"kind\":\"maintenance\",\"maintenance_statement_id\":\"01f1c266-b11d-1cdd-b502-20f8a44e7e99\",\"parent\":\"r360-parent\",\"preservation_receipt_sha256\":\"b7857b4b2bc5a90725d5d75b7f8098a5bf21153d682b95c5981c5c5f7d92c527\",\"progress\":{\"synthetic-fixture\":\"second-batch-complete\"},\"revisions\":{\"schema\":\"ashlar-delta/0.3-reference-only\"},\"scope\":\"two-role test, not a complete source/history publication\",\"vector\":{\"edge\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337\",\"uuid\":\"2d2672c4-8618-4b10-af9c-477d2c1fcc80\",\"version\":5},\"object\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236\",\"uuid\":\"ea6b0cbe-28fc-426c-a52b-15844ef14e91\",\"version\":6}}}",
+          "5463dcbbff80a6c18f4cf159b09e5a4df00f8adcb3833978eba0e5e09d851b15"
+        ],
+        [
+          "r360-parent",
+          "{\"id\":\"r360-parent\",\"kind\":\"reference-parent\",\"parent\":null,\"progress\":{\"synthetic-fixture\":\"second-batch-complete\"},\"revisions\":{\"schema\":\"ashlar-delta/0.3-reference-only\"},\"scope\":\"two-role test, not a complete source/history publication\",\"vector\":{\"edge\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337\",\"uuid\":\"2d2672c4-8618-4b10-af9c-477d2c1fcc80\",\"version\":3},\"object\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236\",\"uuid\":\"ea6b0cbe-28fc-426c-a52b-15844ef14e91\",\"version\":6}}}",
+          "54331a5142db434a8429b79e62b157b02577e5a2f428bdfa0ae7953b36868bd3"
+        ],
+        [
+          "r365-race",
+          "{\"fixture\":\"r365\",\"owner\":0}",
+          "c093d5a850d4e52ed463f56325a66cb684a11f349acf24950b7c525af9218f39"
+        ]
+      ],
+      "after_history": [
+        {
+          "version": "1",
+          "timestamp": "2026-10-07T16:23:30",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "MERGE",
+          "operationParameters": "{\"clusterBy\":\"[]\",\"matchedPredicates\":\"[{\"predicate\":\"(NOT (descriptor_json#100943 = descriptor_json#100929) OR NOT (descriptor_sha256#100944 = descriptor_sha256#100930))\",\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[{\"actionType\":\"insert\"}]\",\"predicate\":\"[\"(publication_id#100942 = publication_id#100928)\"]\",\"statsOnLoad\":\"false\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c26b-6da9-1e9e-ac76-4835e5a7ed68",
+          "clusterId": null,
+          "readVersion": "0",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "False",
+          "operationMetrics": "{\"executionTimeMs\":\"1800\",\"materializeSourceTimeMs\":\"5\",\"numOutputRows\":\"1\",\"numSourceRows\":\"1\",\"numTargetBytesAdded\":\"1870\",\"numTargetBytesRemoved\":\"0\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"1\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"1\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"0\",\"rewriteTimeMs\":\"1318\",\"scanTimeMs\":\"453\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        },
+        {
+          "version": "0",
+          "timestamp": "2026-10-07T16:23:23",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "CLONE",
+          "operationParameters": "{\"isShallow\":\"true\",\"source\":\"client_dev.ashlar_entropy_20261006_r86.maintenance_manifest_r360\",\"sourceVersion\":\"3\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c26b-69c5-13eb-9a89-b0aa388604e5",
+          "clusterId": null,
+          "readVersion": "-1",
+          "isolationLevel": "Serializable",
+          "isBlindAppend": "False",
+          "operationMetrics": "{\"copiedFilesSize\":\"0\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedFiles\":\"0\",\"removedFilesSize\":\"0\",\"sourceNumOfFiles\":\"2\",\"sourceTableSize\":\"9320\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "race_row_count": 1,
+      "distinct_race_descriptors": 1,
+      "native_statement_overlap_ms": 2469,
+      "qualification": "Native statement windows include planning/queue; overlap does not prove simultaneous absent reads or general conflict behavior."
+    },
+    {
+      "kind": "conflicting",
+      "table": "client_dev.ashlar_entropy_20261006_r86.manifest_race_conflicting_r365",
+      "uuid": "d286daba-5e5a-4fa8-98b5-4c1769de2699",
+      "before_history": [
+        {
+          "version": "0",
+          "timestamp": "2026-10-07T16:23:33",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "CLONE",
+          "operationParameters": "{\"isShallow\":\"true\",\"source\":\"client_dev.ashlar_entropy_20261006_r86.maintenance_manifest_r360\",\"sourceVersion\":\"3\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c26b-7080-1307-a56a-32280d5fc84d",
+          "clusterId": null,
+          "readVersion": "-1",
+          "isolationLevel": "Serializable",
+          "isBlindAppend": "False",
+          "operationMetrics": "{\"copiedFilesSize\":\"0\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedFiles\":\"0\",\"removedFilesSize\":\"0\",\"sourceNumOfFiles\":\"2\",\"sourceTableSize\":\"9320\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "workers": [
+        {
+          "lane": "lane-conflicting-0",
+          "state": "SUCCEEDED",
+          "caller_s": 2.424043459,
+          "parameters": {
+            "id": "r365-race",
+            "text": "{\"fixture\":\"r365\",\"owner\":0}",
+            "digest": "c093d5a850d4e52ed463f56325a66cb684a11f349acf24950b7c525af9218f39"
+          },
+          "statement_id": "01f1c26b-7343-1b78-a698-3e51b2bce869"
+        },
+        {
+          "lane": "lane-conflicting-1",
+          "state": "FAILED",
+          "caller_s": 3.1178392499999994,
+          "parameters": {
+            "id": "r365-race",
+            "text": "{\"fixture\":\"r365\",\"owner\":1}",
+            "digest": "ec5332e7c48084eb3542d56c9990221751002ac414fd7ab39344dc2eff0cb54d"
+          },
+          "statement_id": "01f1c26b-7345-193c-9414-aed9bf44937a",
+          "error": {
+            "class": "ServerOperationError",
+            "message": "[DELTA_CONCURRENT_APPEND.ROW_LEVEL_CHANGES] Transaction conflict detected. A concurrent MERGE added data to table client_dev.ashlar_entropy_20261006_r86.manifest_race_conflicting_r365 committed at version 1. The concurrent operation modified the same rows that this transaction attempted to modify. Retry the operation. Refer to https://docs.microsoft.com/azure/databricks/delta/concurrency-control for more information."
+          }
+        }
+      ],
+      "rows": [
+        [
+          "r360-maintenance",
+          "{\"id\":\"r360-maintenance\",\"kind\":\"maintenance\",\"maintenance_statement_id\":\"01f1c266-b11d-1cdd-b502-20f8a44e7e99\",\"parent\":\"r360-parent\",\"preservation_receipt_sha256\":\"b7857b4b2bc5a90725d5d75b7f8098a5bf21153d682b95c5981c5c5f7d92c527\",\"progress\":{\"synthetic-fixture\":\"second-batch-complete\"},\"revisions\":{\"schema\":\"ashlar-delta/0.3-reference-only\"},\"scope\":\"two-role test, not a complete source/history publication\",\"vector\":{\"edge\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337\",\"uuid\":\"2d2672c4-8618-4b10-af9c-477d2c1fcc80\",\"version\":5},\"object\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236\",\"uuid\":\"ea6b0cbe-28fc-426c-a52b-15844ef14e91\",\"version\":6}}}",
+          "5463dcbbff80a6c18f4cf159b09e5a4df00f8adcb3833978eba0e5e09d851b15"
+        ],
+        [
+          "r360-parent",
+          "{\"id\":\"r360-parent\",\"kind\":\"reference-parent\",\"parent\":null,\"progress\":{\"synthetic-fixture\":\"second-batch-complete\"},\"revisions\":{\"schema\":\"ashlar-delta/0.3-reference-only\"},\"scope\":\"two-role test, not a complete source/history publication\",\"vector\":{\"edge\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337\",\"uuid\":\"2d2672c4-8618-4b10-af9c-477d2c1fcc80\",\"version\":3},\"object\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236\",\"uuid\":\"ea6b0cbe-28fc-426c-a52b-15844ef14e91\",\"version\":6}}}",
+          "54331a5142db434a8429b79e62b157b02577e5a2f428bdfa0ae7953b36868bd3"
+        ],
+        [
+          "r365-race",
+          "{\"fixture\":\"r365\",\"owner\":0}",
+          "c093d5a850d4e52ed463f56325a66cb684a11f349acf24950b7c525af9218f39"
+        ]
+      ],
+      "after_history": [
+        {
+          "version": "1",
+          "timestamp": "2026-10-07T16:23:39",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "MERGE",
+          "operationParameters": "{\"clusterBy\":\"[]\",\"matchedPredicates\":\"[{\"predicate\":\"(NOT (descriptor_json#102782 = descriptor_json#102769) OR NOT (descriptor_sha256#102784 = descriptor_sha256#102770))\",\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[{\"actionType\":\"insert\"}]\",\"predicate\":\"[\"(publication_id#102780 = publication_id#102768)\"]\",\"statsOnLoad\":\"false\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c26b-7343-1b78-a698-3e51b2bce869",
+          "clusterId": null,
+          "readVersion": "0",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "False",
+          "operationMetrics": "{\"executionTimeMs\":\"1605\",\"materializeSourceTimeMs\":\"7\",\"numOutputRows\":\"1\",\"numSourceRows\":\"1\",\"numTargetBytesAdded\":\"1870\",\"numTargetBytesRemoved\":\"0\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"1\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"1\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"0\",\"rewriteTimeMs\":\"1188\",\"scanTimeMs\":\"385\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        },
+        {
+          "version": "0",
+          "timestamp": "2026-10-07T16:23:33",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "CLONE",
+          "operationParameters": "{\"isShallow\":\"true\",\"source\":\"client_dev.ashlar_entropy_20261006_r86.maintenance_manifest_r360\",\"sourceVersion\":\"3\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c26b-7080-1307-a56a-32280d5fc84d",
+          "clusterId": null,
+          "readVersion": "-1",
+          "isolationLevel": "Serializable",
+          "isBlindAppend": "False",
+          "operationMetrics": "{\"copiedFilesSize\":\"0\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedFiles\":\"0\",\"removedFilesSize\":\"0\",\"sourceNumOfFiles\":\"2\",\"sourceTableSize\":\"9320\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "race_row_count": 1,
+      "distinct_race_descriptors": 1,
+      "native_statement_overlap_ms": 2282,
+      "qualification": "Native statement windows include planning/queue; overlap does not prove simultaneous absent reads or general conflict behavior."
+    }
+  ],
+  "bounds": {
+    "read_bytes": 20000000,
+    "write_remote_bytes": 20000000,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 300
+  },
+  "costs": {
+    "read_bytes": 56600,
+    "write_remote_bytes": 7482,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 24.343448,
+  "qualification": "Two serially staged pairs, two simultaneous local clients per pair, private three-column clones. No production writer authority, full-role graph publication, fresh-ID global uniqueness proof or scale admission.",
+  "audit": {
+    "native_final_statements": 18,
+    "observed_pairs": 2,
+    "source_sha256": {
+      "summary.json": "6ff7265b0b17d194ab2ffe3faf8478da57ba1f86c6d1976c027e59dbda19394f",
+      "all-statements.json": "27b8818201578c682ca62c5876148f5f38941473ce570e93d035e4eb51807d2b",
+      "query-history.json": "e39995587ed4e6d4c3af6ae429bf938076319e11f6c4727aaa2cf220b82bda35"
+    },
+    "qualification": "Two serially staged pairs, two simultaneous local clients per pair, private three-column clones. No production writer authority, full-role graph publication, fresh-ID global uniqueness proof or scale admission."
+  }
+}

@@ -16,6 +16,8 @@ The [second-batch comparison](second-layout-comparison-r340.md) retains liquid c
 
 [Native descriptor guard r363–r364](manifest-atomic-disposition-r364.md) now passes exact replay and two whole-MERGE rollback controls, including a novel sentinel insert. Both native failures leave head1 and both descriptors unchanged. This closes serialized conflicting existing-ID refusal inside the statement; simultaneous absent-ID uniqueness and cross-role writer authority remain unqualified. Next test concurrent absent-ID creation on an owned reference before selecting a fencing mechanism.
 
+[Native absent-ID races/recovery r365–r368](manifest-race-disposition-r368.md) observe one winner and one terminal Delta conflict in each of two overlapping pairs. Explicit recovery accepts identical replay and refuses conflicting content; complete descriptors/custody remain exact.31native-final statements across both phases report107KBreads/7.5KBwrites/0spill. This qualifies the recorded reference conflict path, not generic uniqueness or cross-role fencing. Next integrate full-role publication vectors and explicit authority ownership with this bounded recovery path.
+
 ## Earlier20M-edge measured read/ingest tradeoff
 
 At pinned20M-edge private publications, serial-current output has6 narrow hot files and matched20-key warm engine p9595/96ms across two passes, but caller349/340ms misses250ms. Overlap output has16 broad hot files and engine129/101ms, caller416/411ms. Modeled record-age p95 is72s serial/69s overlap; both miss60s. These scoped experiments do not qualify sustained10k/s,100k/s recovery or1B/5B. Physical-head Predictive Optimization does not change the manifest; readers verify and read exact published versions. See r201–r203 below for costs and limits.
