@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "36892ba03dc987cfb60cd5cffb2da0b31a6f9d453b32c8b3fe99582291959283",
+    "scale-experiment-plan.md": "a83f44d4f274cbe08132b82f6b81cef484252d34869804be769e3d130ba54682",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1271,7 +1271,12 @@
     "out/native/ashlar_scale_growth_r247/executed-range-verification.py": "ae11b72c9b63efaa5b84f8030d5848e168a4f87b8d2db250e59fa571a43d77c3",
     "out/native/ashlar_scale_growth_r247/shared-history.json": "535f1e347cef8fef8c95521c23386e4b0506e6613514d74de47deb986683eb79",
     "out/native/ashlar_scale_growth_r247/statements.jsonl": "d78057d14bdb2a3f4a6186e0ae8e7429f60e0c9ca79bbf0ccaab528b85225fd8",
-    "out/native/ashlar_scale_growth_r247/summary.json": "a6452b46463cb3f149d186c8d939658f71c19f8295546e67c29f072c348b3a8c"
+    "out/native/ashlar_scale_growth_r247/summary.json": "a6452b46463cb3f149d186c8d939658f71c19f8295546e67c29f072c348b3a8c",
+    "scale_growth_r248.py": "887aa1ce964bde76abcfad709fe7893107073149c65df1127cded6e8f9ceec86",
+    "out/native/ashlar_scale_growth_r248/audited-summary.json": "fd5a6e60ce758f8de254c971740c932d9450c95ad6c80d4efbaa1faa611d3f54",
+    "out/native/ashlar_scale_growth_r248/shared-history.json": "4a0103fa06361f5f08c9b76a747e1de46e46bbd79af327283470d7a725f91690",
+    "out/native/ashlar_scale_growth_r248/statements.jsonl": "3c4c62c357cb9c545ea4a1f1dfefcbc1ec599e7a76bce2685a33e7f4b60ac5ed",
+    "out/native/ashlar_scale_growth_r248/summary.json": "309782337c2be462c015ca9b41a84d65288e83802a9fdfe09bf567f60204d608"
   },
   "evidence": {
     "ddl": {
