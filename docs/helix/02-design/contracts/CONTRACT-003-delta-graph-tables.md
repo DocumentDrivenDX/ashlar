@@ -576,3 +576,29 @@ publication, native singleton at this width or billion-scale operation.
 [r94 large-token slice](../spikes/SPIKE-001-table-layout/out/native/ashlar_entropy_wide_journal_20261006_r94/audited-summary.json) preserves 100k intended native carriers and exact property 105 old/new journal tokens (about 6.2 KB each), with 639 MB incremental journal bytes. Verified synthetic publication takes 78 s; this is hot-set evidence, not scheduled-rate or graph-wide scattered admission. Baseline raw origins and real source/writer authority remain unqualified.
 
 [r95 independent wire oracle](../spikes/SPIKE-001-table-layout/out/native/ashlar_wire_timestamp_20261006_r95/summary.json) supersedes complete-wire wording for r89/r94: default synthetic to_json truncates derived published_at by 307/870 µs respectively. Native Delta carrier/journal timestamps and property/retained/cursor strings remain exact. Payload comparison against the same encoder masked the loss. Historical payloads remain unchanged and do not prove full all-field reconstruction. The explicit UTC-microsecond encoder passes 100k independent instant roundtrips and sub-millisecond/pre-epoch controls; future publication fixtures gate that independent equality. Compact ASCII token qualification does not extend to arbitrary escaped/pretty native tokens.
+
+### PuppyGraph runtime identity and activation requirements
+
+[PuppyGraph 1.13.0 local evidence](../spikes/SPIKE-001-table-layout/out/puppygraph-local-r105.json)
+qualifies the four typed carrier mappings through DuckDB and Bolt, with exact
+scalar parity and isolate/self-loop/parallel multiplicity controls. It does not
+qualify direct UC Delta protocols, scale, latency or atomic release activation.
+Graph identity columns were not exposed as ordinary properties in the initial
+model. An adapter MUST retain independently queryable identity carriers (the
+executed model uses `carrier_id` and `carrier_key`) and compare them against
+the release source. Carrier equality alone MUST NOT replace graph endpoint and
+identity checks. No JSON-number parsing or floating-point identity conversion
+is permitted. These aliases belong to the serving adapter, not canonical tables.
+
+An in-place catalog/model change was rejected by the actual engine; a clean
+disposable engine accepted the corrected model. A production adapter MUST
+qualify its activation and rollback mechanism rather than infer atomic switching
+from successful schema upload. Readers MUST remain bound to one validated release
+while its successor is built and checked. Retained releases and any dual-engine
+overlap enter capacity estimates; expiry requires proof that no reader pins them.
+
+[The direct UC prerequisite probe](../spikes/SPIKE-001-table-layout/out/puppygraph-uc-prerequisite.json)
+rejects READ credential vending because external data access is disabled on the
+current metastore. External runtime access requires separately authorized access
+configuration and reader authentication; native Databricks singleton queries
+continue to use canonical Delta without that dependency.

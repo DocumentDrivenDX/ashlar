@@ -306,3 +306,29 @@ property-map version-2 uncached reads fail provisional warm budgets: serial
 The complete current-carrier column surface and endpoint closure are measured;
 real source/history/publication, realistic entropy and billion-scale admission
 remain open. CTAS here does not prove production constraint enforcement.
+
+## Subsequent scale and consumer findings
+
+The higher-entropy iteration measures about 41 GB for 4M nodes / 20M edges both
+locally and natively, with full-field preservation and typed closure. Native
+100k large-token publication and singleton overlap are now evidenced; their
+strict provisional budgets remain unsatisfied.
+[r103](../spikes/SPIKE-001-table-layout/out/native/ashlar_maintained_contention_20261007_r103/audited-summary.json)
+keeps the reader at three files at p95 after maintenance, yet publication overlap
+increases caller p95 to about 1.10 s; quiet new-publication reads are about 374 ms.
+Its finite pre-staged batch takes about 64 s after complete input readiness,
+excluding source preparation. This does not admit sustained 10k/s or burst rates.
+Further layout pruning alone is insufficient evidence for shared-compute latency.
+The next performance comparison should isolate reader and publisher resources
+or measure a declared larger compute profile, with explicit cost bounds and the
+same exact-carrier workload; no resource change is implied by this document.
+
+Actual PuppyGraph 1.13.0 mapping passes locally via an immutable DuckDB carrier
+fixture. It requires ordinary-property aliases for identity carriers. Those
+aliases are serving-only and leave canonical Truss-like tables unchanged.
+Its observed rejection of an in-place model/catalog change means release
+activation must be independently qualified. Direct UC access currently fails
+the metastore external-access prerequisite. Keep canonical DV/row-tracking
+features; neither a DuckDB success nor a permission failure establishes Delta
+feature compatibility. GraphFrames already executes the 24M-element local
+release; bounded Fabric and direct UC graph-engine tests remain open.
