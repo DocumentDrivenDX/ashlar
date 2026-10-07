@@ -1509,7 +1509,10 @@
     "out/native/ashlar_concurrent_points_r307/statements.jsonl": "8c527c70d76a48dccafbc7d780280dab07a4968a667fb76a017a2332ecb557d1",
     "out/native/ashlar_concurrent_points_r307/audited-summary.json": "94b41c75eced1bee6c764a9fa6157c676db9c5c4faa028e741b489182a6d374a",
     "out/native/ashlar_concurrent_points_r307/reader-1/statements.jsonl": "44f3edc57fa91f7e11f282c732a77287d0d4719b4cd850b750cd341dabf337e9",
-    "out/native/ashlar_concurrent_points_r307/reader-0/statements.jsonl": "1424a8f364ab0360b164174bb65e18e6e33c2a780171931f41344af43aa7caa5"
+    "out/native/ashlar_concurrent_points_r307/reader-0/statements.jsonl": "1424a8f364ab0360b164174bb65e18e6e33c2a780171931f41344af43aa7caa5",
+    "sql/range32-candidate-r308.sql": "41ad2c2e2bdc8e93f2d35223d9b8f6671f7f7e302e02c2de6917a172111dd03e",
+    "out/range32-comparison-budget-r308.json": "cdfbaac9fe151c9d1e4233a166435cd675b220a9f25fee993bea7f167d57d6b6",
+    "range32-comparison-design-r308.md": "2c9912d643a38567d90f301ea69ef4c200b13cfe431b2d9c7c99a708f0eb4568"
   },
   "evidence": {
     "ddl": {

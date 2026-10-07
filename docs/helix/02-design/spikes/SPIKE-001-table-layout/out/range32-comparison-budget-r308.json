@@ -1,0 +1,36 @@
+{
+  "format": "ashlar-full-range-partition-comparison/1",
+  "state": "Prepared full39.99M physical comparator; unexecuted",
+  "source_sha256": "8a71556e50073d92c5446ae0a2135aa9c5e2e57f4b23eaf334879a1faa283e27",
+  "parent_table": "client_dev.ashlar_entropy_20261006_r86.maintained_edge_r287",
+  "parent_version": 4,
+  "parent_uuid": "780781cb-9c42-434b-857c-dcddc663e735",
+  "parent_rows": 39990000,
+  "parent_active_bytes": 32033277918,
+  "candidate_table": "client_dev.ashlar_entropy_20261006_r86.edge_range32_r308",
+  "partition_expression": "CAST(floor(CAST(conv(substr(lookup_hash,1,2),16,10) AS BIGINT)/8) AS INT)",
+  "partitions": 32,
+  "file_target_bytes": 67108864,
+  "expected_average_partition_bytes_arithmetic": 1001039934.9375,
+  "bounds": {
+    "read_bytes": 400000000000,
+    "write_remote_bytes": 80000000000,
+    "spill_to_disk_bytes": 10000000000,
+    "whole_wall_s": 2400,
+    "statement_cancel_after_s": 180,
+    "observation_s": 200
+  },
+  "cost_basis": "Full independent CTAS plus one complete partitioned ZORDER pass:2x32.033GBwrite=64.067GB;1.2xheadroom76.88GBunder80GB. Before/after/exact carrier group audits plusbuild/maintenance:12x32.033GBread=384.399GBunder400GB. Stage maintenance one partition at a time (~1GBaverage); refuse continuation if measured per-stage cost exhausts reserve. Native guards are reported counters/observation, not hard billing or peak-temp ceilings.",
+  "storage_sensitivity": "Independent candidate32.033GB plus removed candidate32.033GB plus1.5x8GBfailed-work sensitivity=76.067GB additional physical overlap before logs/spill. Existing reserved-storage model is not physical retained inventory. Record this experiment separately; do not claim it fits unallocated11.3GB of r291280GB proposal. No physical capacity admission, automatic cleanup or pricing claim.",
+  "required_checks": [
+    "Recheck parent UUID/version and immutable full-carrier digests; CTAS must cover39.99M all20fields.",
+    "Actual candidate protocol/schema/table features and partition type recorded; no reader compatibility inferred.",
+    "All32partitions covered; no sparse-type/high-cardinality dynamic shards. Preservehashidentitypredicatesandderivepartitionexactly.",
+    "Whole-group count and full20-field digest equality against parent after CTAS and all maintenance; extra lookup_partition must match hash expression on every row.",
+    "Final unique native tuple/deleted absence/typed endpoint integrity inherited only with exact immutable reference evidence; recheck native before admission.",
+    "Record each actual CREATE/OPTIMIZE SID and ALL associatedcommitversions, includingzero-file commits; refuse unknownwrite outcomes or outsidewriters.",
+    "Same full64point cohort then2reader32point cohort, unchanged full-carrier reads; representative controlledcoldremainsseparate.",
+    "Follow with new distinct mixedbatch and fullpublicationclock/rawjournalpreservation. Noingestclaimfromreadonlycandidate."
+  ],
+  "qualification": "Fixed32rangehashpartitionplusZORDER is an experimental physical comparator, not a revised normative CONTRACT-003. Fullgraphscope retained. Parentedgeonly; node/raw/journal/tombstone roles remain pinned/inherited. Billion admission, cold/concurrencyservice tails, ingestfreshness, realTrusssource anddirectgraphreaders remainunproved."
+}
