@@ -1431,7 +1431,13 @@
     "cdf_image_oracle_r288.py": "b4ac45d835b8f7dba5a739144d2195f230096c38393fdda6890a147f3cd46153",
     "out/cdf-image-oracle-r288.json": "187924fbae792495ae627b16001eb1dcc3bfb9063ca58d76ab5b9d0e1377a380",
     "incremental-custody-cdf-candidate.md": "1b87acd7ace87b6d466bd348be7cdf4809994b8e20437be5ae9574a124bf4a72",
-    "cdf_interval_read_r289.py": "854f44e2eb3ac7bc0c88dc2372c62078687c2521249c94ba43e90fa2cdfb6210"
+    "cdf_interval_read_r289.py": "854f44e2eb3ac7bc0c88dc2372c62078687c2521249c94ba43e90fa2cdfb6210",
+    "out/native/ashlar_maintained_edge_r287/summary.json": "d79344f73a16cf837bd673f151a4d4d0e35bc7991454e1832286eb4632c59e2d",
+    "out/native/ashlar_maintained_edge_r287/audited-summary.json": "9f012ad2f693ad2cb8de2782a7b0386fa3ef2233ac82ff06a9e9842d0ff597f7",
+    "out/native/ashlar_maintained_edge_r287/cancel-audit.json": "25486cd955f4137aa1415bb9dcb2be2e3f80f92d4bbb7983f0d2b04663353362",
+    "out/native/ashlar_maintained_edge_r287/statements.jsonl": "af5f2608f60f9bc07f41eba5b1da3e3938e39201ec3c3488aff7a668e94046ba",
+    "out/native/ashlar_maintained_edge_r287/inspection/query-history.json": "0fc81f74cb0324c2492db1b53944fa05907790fed57fd261657fdc58a8c1b007",
+    "out/native/ashlar_maintained_edge_r287/inspection/statements.jsonl": "fc293976c98554806918149db6ac9759d957127d8aa293dbc99a8b938e59cd1f"
   },
   "evidence": {
     "ddl": {
