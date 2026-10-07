@@ -1,0 +1,60 @@
+{
+  "format": "ashlar-role-accounting-sensitivity/1",
+  "source_sha256": {
+    "out/native/ashlar_entropy_20261006_r86/audited-summary.json": "749f954da93858f1a9300dad74e69876bde1bebb723189fe31d2cc8cf3278c5a",
+    "out/native/ashlar_entropy_publication_20261006_r89/audited-summary.json": "92fca928fef9af2e6a320cb7bd15873ca58dbfbed2b5cfc12722397c1ba4b5ae",
+    "scale_workload.py": "72b78041ce0112744f41e7d18030561f7bc60b73738b2450eb40b21ef22a6f55",
+    "entropy_publication.py": "ecb6c2e709348c9023b513cfb0516bb03221f2fb5f56b812450ff7665c3ed155"
+  },
+  "roles": {
+    "object_current": {
+      "sample_rows": 4000000,
+      "sample_bytes": 6764430923,
+      "sample_files": 64,
+      "compressed_bytes_per_row": 1691.10773075,
+      "double_scale_same_width_bytes": 13528861846,
+      "double_scale_same_fill_files": 128
+    },
+    "edge_current": {
+      "sample_rows": 20000000,
+      "sample_bytes": 33947307001,
+      "sample_files": 512,
+      "compressed_bytes_per_row": 1697.36535005,
+      "double_scale_same_width_bytes": 67894614002,
+      "double_scale_same_fill_files": 1024
+    },
+    "source_record": {
+      "sample_rows": 200000,
+      "sample_bytes": 345841288,
+      "compressed_bytes_per_event": 1729.20644,
+      "one_day_at_10k_entity_changes_per_s_same_event_width_bytes": 1494034364159.9998
+    },
+    "property_journal": {
+      "sample_rows": 200000,
+      "sample_bytes": 2536787,
+      "compressed_bytes_per_event": 12.683935,
+      "one_day_at_10k_entity_changes_per_s_same_event_width_bytes": 10958919840.0
+    }
+  },
+  "8m_40m_current_only_bytes": 81423475848,
+  "proposed140gb_cap_remaining_before_other_roles_bytes": 58576524152,
+  "first_touch": {
+    "changed_rows": 200000,
+    "native_merge_execution_ms": 59726,
+    "caller_ms": 61366.63262499999,
+    "baseline_files": 512,
+    "deletion_vectors_added": 512,
+    "updated_id_formula": "pmod(id*104729,20000000)+1 for generator ordinal0..199999",
+    "qualification": "Distinct deterministic scattered IDs, not random draws. First property107 insertion differs from later property105 replacement and source shape; timing ratio is not causal proof."
+  },
+  "admission": "Not admitted: complete-role source/history bootstrap, semantic corpus, retention and integrity I/O estimates remain unproved. Current81.423GB arithmetic is not full graph storage.",
+  "required_unknowns": [
+    "Full initial raw source for every node/edge, including source framing and byte distribution. Historical baseline origins unavailable.",
+    "Property-event fanout per entity and exact before/after token widths. Boolean107 event12.684 bytes compressed is not arbitrary value history.",
+    "Append retention horizon, checkpoints/log/DVs, failed uncommitted work and shared baseline shallow-clone dependencies.",
+    "Forward/reverse projection selections, tombstone/churn distribution and temporary staging overlap.",
+    "Complete range-wise exact integrity costs and endpoint checks at8M/40M; cached full scans are not a cost guarantee.",
+    "Actual marginal billing and storage pricing; compute inventory alone cannot price experiment."
+  ],
+  "design_implication": "Retain independently priced current/raw/property-journal/manifest roles and publication pins. Do not coalesce or truncate retained source/history to satisfy a current-table cap. Choose retention with consumer recovery/ack requirements; no expiry or VACUUM decision in this sensitivity."
+}

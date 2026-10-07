@@ -1137,9 +1137,11 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "9e72c70d82df8f5d2dbc8b2c82aa1a2e72cdb4a88a084440ccbd3031be1de00d",
+    "scale-experiment-plan.md": "d095127a0421a09a154ee734cdd0d5b7bc632ab4182c43b88beb50db85d90e11",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
-    "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34"
+    "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
+    "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
+    "out/role-accounting-r214.json": "239104e504b434fe692a929e18c1b44e89d79716c9115a40708bfcc79376c812"
   },
   "evidence": {
     "ddl": {
