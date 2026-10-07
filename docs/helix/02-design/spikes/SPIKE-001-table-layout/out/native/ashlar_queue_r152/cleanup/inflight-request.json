@@ -1,0 +1,1 @@
+{"label": "drop-4", "sql": "DROP TABLE client_dev.ashlar_entropy_20261006_r86.schedule_r152_1", "parameters": null, "correlation": "/* ashlar cleanup drop-4 */", "started_epoch": 1791344512.302644, "state": "returned", "query_id": "01f1c201-08c9-1f5c-aae2-c77e59fb6a0d"}

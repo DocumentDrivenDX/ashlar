@@ -1780,3 +1780,50 @@ one isolated publisher comparison. Preserve multi-origin fallback and real sourc
 semantics; never assume all future batches share one epoch. This is the first
 useful raw-validation pruning change in this sequence, but no agreed full gate is
 admitted. UC Delta remains selected and the full goal remains active.
+
+
+### r152 owned origin guard and integrated publication
+
+The owned [raw validation helper](raw_validation_queries.py) consumes the exact
+successful immutable stage0 origin query and requires one nonempty feed/epoch,
+exact expected count and a native query ID. [Guard evidence](out/raw-validation-guard-check.json)
+matches the executed r151 SQL after equivalent literal spelling and rejects11
+adversarial query/version/result/count/null/multi-origin/different-stage cases.
+The helper is inside a trusted controller; its records/dataclass are not an
+untrusted authentication boundary or generic producer fencing. Unsupported
+origin grouping is refused by this scoped helper; retain the prior unbounded-by-
+origin exact validation as an explicit multi-origin fallback in future integration.
+
+[Integrated native audit](out/native/ashlar_queue_r152/audited-summary.json) runs
+one100k synthetic property publication on isolated E23/R17/J19 shallow clones,
+existing warehouse2439e1f2e37ac563/runtime19.8.x-aarch64-photon-scala2.13.
+Modeled10k/s release window is10 s; no actual source/rate or simultaneous readers.
+Origin proof costs0.337 s inside the clock. Processing50.378 s, complete-input
+queue wait0.00027 s, modeled record-age p95 59.878 s and oldest age60.378 s.
+The first r149 batch took50.139 s: this single sequential comparison does not
+show an end-to-end gain or establish a service/freshness p95 distribution.
+A one-batch modeled near-pass cannot admit sustained10k/s or100k/s bursts.
+
+Raw exact validation caller13.652 s/engine13.111,5files/1.474GB; journal symmetric
+validation17.749/16.999 s,10files/2.885GB, keeps the parallel validation critical
+path at17.753 s. MERGE4.182/3.775 s,40files/359.516MB. Reduced raw file scans do
+not solve the journal validation cost. Exact20 affected fields/token patch,
+raw origin/digest/UTF8/UTC instant and exact property journal pass, alongside20M
+unique IDs and owned structural-reuse proof. Independent full20M structural
+oracle and19.9M untouched physical custody pass after the clock under stable
+schema/immutable-file assumptions. No fresh wide-payload equality claim for all
+untouched rows, real producer completeness/fencing/ACK or billion admission.
+
+Preparation/publication/final audit totals44.998GB recorded reads/2.285GB remote
+writes, not billing or distinct storage footprint. Controller admits SQL for at
+most600 s; per-statement180 s/socket/retry bounds remain explicit. Final history
+IDs are all final. [Cleanup](out/native/ashlar_queue_r152/cleanup/summary.json)
+UUID/version-checks and removes all five owned tables; canonical E23/R17/J19 and
+r139-b1 remain unchanged. No new compute or VACUUM.
+
+Keep guarded origin bounds as a scoped pruning option, with no claimed throughput
+improvement. Next compare a single-pass exact journal comparison against the
+symmetric EXCEPT query, preserving all columns, UTF8 equality, missing/null flags,
+row multiplicity and membership refusals. Measure its own duplicate-key checks;
+no digest substitution or moved validation clock. UC Delta remains selected and
+all full-goal sustained/read/concurrent/cold/billion gates remain open.

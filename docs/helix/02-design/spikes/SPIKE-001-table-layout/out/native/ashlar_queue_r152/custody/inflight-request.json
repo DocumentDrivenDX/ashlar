@@ -1,0 +1,1 @@
+{"label": "version-4", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.schedule_r152_1 LIMIT 1", "parameters": null, "correlation": "/* ashlar custody version-4 */", "started_epoch": 1791344483.210738, "state": "returned", "query_id": "01f1c200-f773-1355-a390-396d554c336e"}

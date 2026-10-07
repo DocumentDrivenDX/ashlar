@@ -1,0 +1,17 @@
+{
+  "native_positive": "Builder matches executed r151 exact bounded SQL after equivalent batch literal spelling",
+  "refused": [
+    "wrong-query",
+    "wrong-version",
+    "failed",
+    "missing-id",
+    "null-feed",
+    "empty-epoch",
+    "two-origins",
+    "wrong-count",
+    "noncanonical-count",
+    "numeric-feed",
+    "different-stage"
+  ],
+  "qualification": "Owned trusted controller provenance guards; not adversarial record authentication, generic SQL interpretation or real producer fencing"
+}

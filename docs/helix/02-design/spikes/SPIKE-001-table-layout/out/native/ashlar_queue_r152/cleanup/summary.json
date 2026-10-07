@@ -1,0 +1,11 @@
+{
+  "state": "All five owned r152 tables UUID/version checked and dropped",
+  "tables": [
+    "client_dev.ashlar_entropy_20261006_r86.edge_queue_r152",
+    "client_dev.ashlar_entropy_20261006_r86.raw_queue_r152",
+    "client_dev.ashlar_entropy_20261006_r86.journal_queue_r152",
+    "client_dev.ashlar_entropy_20261006_r86.manifest_queue_r152",
+    "client_dev.ashlar_entropy_20261006_r86.schedule_r152_1"
+  ],
+  "qualification": "Canonical E23/R17/J19/r139-b1 unchanged; no VACUUM, physical retention follows platform policy"
+}
