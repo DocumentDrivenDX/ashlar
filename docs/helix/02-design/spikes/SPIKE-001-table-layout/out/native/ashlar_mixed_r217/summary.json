@@ -1,0 +1,52 @@
+{
+  "state": "All four native roles match every expected field exactly",
+  "tables": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_object_current_r217",
+      "id": "4e166130-419c-465f-97ee-63d422074cc0",
+      "version": 0,
+      "rows": 64,
+      "files": 1,
+      "bytes": 17715,
+      "reader": "3",
+      "writer": "7"
+    },
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_edge_current_r217",
+      "id": "4b37b804-6787-4d36-af1b-f7b815829775",
+      "version": 0,
+      "rows": 192,
+      "files": 1,
+      "bytes": 38464,
+      "reader": "3",
+      "writer": "7"
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r217",
+      "id": "edd1933b-a406-46ad-9298-682c5e156bcc",
+      "version": 0,
+      "rows": 512,
+      "files": 1,
+      "bytes": 79055,
+      "reader": "3",
+      "writer": "7"
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r217",
+      "id": "217b2f61-65a7-45d9-b0e8-8bbf339bfec0",
+      "version": 0,
+      "rows": 2496,
+      "files": 3,
+      "bytes": 80211,
+      "reader": "3",
+      "writer": "7"
+    }
+  },
+  "scope": "Private synthetic current-v2/raw-v1-v2/journal roles; no manifest publication or production producer claim",
+  "costs": {
+    "read_bytes": 215445,
+    "write_remote_bytes": 421300,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "Small CTAS synthetic evidence, no NOT NULL/unique constraints or full DDL package qualification. Current-v2 only; raw/journal include bootstrap and update. Timestamp display normalized to native string; does not expand timestamp-token semantics. Lexical bags, old/new tokens, flags, signed BIGINT identities, retained/raw envelopes and cursor strings exact. Native byte/file widths include tiny-table overhead and cannot extrapolate to scale."
+}

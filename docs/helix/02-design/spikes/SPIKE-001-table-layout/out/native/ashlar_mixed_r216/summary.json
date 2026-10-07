@@ -1,0 +1,6 @@
+{
+  "state": "Stopped; inspect existing native handles, no write retry",
+  "tables": {},
+  "scope": "Private synthetic current-v2/raw-v1-v2/journal roles; no manifest publication or production producer claim",
+  "error": "{\"state\": \"FAILED\", \"error\": {\"class\": \"ServerOperationError\", \"message\": \"[INVALID_INLINE_TABLE.CANNOT_EVALUATE_EXPRESSION_IN_INLINE_TABLE] Invalid inline table. Cannot evaluate the expression \\\"decode(unhex(70696c6f742d61), UTF-8)\\\" in inline table definition. SQLSTATE: 42000; line 1 pos 1024\"}}"
+}

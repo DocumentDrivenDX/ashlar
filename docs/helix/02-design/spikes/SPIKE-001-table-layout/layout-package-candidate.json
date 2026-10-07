@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "4deb37b78e332e052bd239909f75c64017463be4a0e33e6749e7fac626871bb7",
+    "scale-experiment-plan.md": "12af78a59b06ce55a2707d742589bfe5894ae4474e227f8a34f3956d1af0fee2",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1146,7 +1146,18 @@
     "out/mixed-history-r215/summary.json": "dc125c014751ad8bf45c5e8e67c4a3269481cf3ae65c7163caba8fa6342d9d01",
     "out/mixed-history-r215/source_records.jsonl": "ad81e43bada3ab1dc8cfdffe77daecb49a70fb22352f18d08ae4d265303d46c1",
     "out/mixed-history-r215/property_journal.jsonl": "778db9580e19e9909821c9659e2148052b8cb0903d9531c94db6333cc678c38b",
-    "out/mixed-history-r215/carriers.jsonl": "258cd4a9eea153275b469f417199143309aa18a6850ffa6ab5067d0b96143f93"
+    "out/mixed-history-r215/carriers.jsonl": "258cd4a9eea153275b469f417199143309aa18a6850ffa6ab5067d0b96143f93",
+    "mixed_native_r216.py": "a8b030150b6a40d7346966d58fe5b53864d7f6b4a51f79e90b6a236c32f0bf87",
+    "mixed_failure_audit_r216.py": "d19d50f64f8cbde0e8efefc62aafb29c3d85db1ba39c0d3378d43e73e7a7a0ab",
+    "mixed_native_r217.py": "50a884c56d491e244fcf15a752568fadd831e536238a46f0931757efa49a5790",
+    "out/native/ashlar_mixed_r216/failed-native-history.json": "ff6e8a0dc8ae1f667e993e570fc71ceecca20037f7eaf6b50fa315f8038d3288",
+    "out/native/ashlar_mixed_r216/summary.json": "ae576b1693bf338c5065a108cda5e6f08b0bb1154d95cb368100c041b733f466",
+    "out/native/ashlar_mixed_r216/failure-audit.json": "47524ba525da12370b9e5aad109c2e128676b450e1dd8f4452293ca4181df80f",
+    "out/native/ashlar_mixed_r216/statements.jsonl": "ae99f5b2f87b61167c0d60e63ce022c5433358283c2538fa225ec396c93936bd",
+    "out/native/ashlar_mixed_r216/audit/statements.jsonl": "4b5db2f0749b65d16e29aaf71a1f2ac49ba58da87eb104eb85218994424df907",
+    "out/native/ashlar_mixed_r217/summary.json": "a565efa9579674a67d70aefae3f938ef798105c23f3a89550b0463e51e8730eb",
+    "out/native/ashlar_mixed_r217/shared-history.json": "12330c5e2b1e0958cec6494122f8bc7cc681e099ca35c2125ec5f783ab055401",
+    "out/native/ashlar_mixed_r217/statements.jsonl": "5419e46c797d647a0d03b31305515f7ab4fc2b80139c03251e401415dfd8778f"
   },
   "evidence": {
     "ddl": {

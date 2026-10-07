@@ -1,0 +1,1 @@
+{"label": "absence", "sql": "SHOW TABLES IN client_dev.ashlar_entropy_20261006_r86 LIKE 'mixed_object_current_r216'", "parameters": null, "correlation": "/* ashlar audit absence */", "started_epoch": 1791356185.210957, "state": "returned", "query_id": "01f1c21c-3663-16c6-ac69-edbc0c095b12"}
