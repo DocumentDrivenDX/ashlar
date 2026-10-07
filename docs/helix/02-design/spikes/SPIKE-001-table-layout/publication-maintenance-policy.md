@@ -350,3 +350,50 @@ fencing from this experiment. Count all checks, history collection and manifest
 confirmation in publication time. Keep the isolated100k/current20M bound and
 existing compute; this addresses elapsed service without weakening validation.
 The full goal and all sustained/read/concurrent/cold/billion gates remain open.
+
+
+### r155 independent write overlap: bounded candidate, modest improvement
+
+[Native audit](out/native/ashlar_queue_r155/audited-summary.json) runs one100k
+property publication over isolated E23/R17/J19 shallow clones on existing
+warehouse2439e1f2e37ac563/runtime19.8.x-aarch64-photon-scala2.13. Current MERGE,
+raw append and journal append run through three separate client lanes; logical
+publisher remains serialized. Exact pre-apply intent precedes all writes, and
+all existing raw/history/current/identity/structural checks precede the manifest.
+No native multi-table transaction, real feed fencing or recovery admission.
+
+Processing48.761 s, modeled10 s input window, oldest record58.763 s and uniform
+record-age p95 58.263 s. The prior r152 serial-apply publication took50.378 s;
+this is one sequential comparison with different cache/load conditions and an
+extra observer, not a causal win or measured freshness/service p95 distribution.
+At100k batches, holding this sample constant still implies only about2,051
+changed entities/s; sustained10k/s and100k/s burst requirements remain unproved.
+Do not substitute first-batch latency for queue/rate admission.
+
+Overlapped write barrier15.161 s: raw15.156, journal11.690 and MERGE7.826 s caller.
+Prior serial-apply MERGE4.182 s: overlap also slows individual operations. Exact
+raw/journal validation barrier17.541 s remains dominant; the saved clock time is
+modest. Full20 affected fields/UTF8 exact values/raw digest and origin/native
+cursor/property journal/20M IDs and owned structural proof pass. Independent
+full20M structural parity and19.9M unchanged physical custody pass after the
+publication clock under stable schema/immutable-file assumptions.
+
+A [read-only observer](out/native/ashlar_queue_r155/observer/summary.json) completes
+before manifest submission and sees manifest count0,100k applied current rows and
+100k rows retained at old pinned version0. This proves one unpublished physical
+window and old snapshot retention, not full consumer concurrency or a failed-
+lane recovery protocol. The final audit includes an explicit scope correction to
+its inherited no-concurrent-reader wording; actual observer IDs/costs are retained.
+All saved native IDs are final. Total preparation/publication/observer/final audit
+48.941GB recorded reads/2.286GB remote writes, not distinct storage or billing.
+Controller600 s admission deadline/per-statement180 s and connector submission
+bounds remain explicit; no new compute/resize or whole-graph payload digest.
+
+[Cleanup](out/native/ashlar_queue_r155/cleanup/summary.json) UUID/version-checks and
+drops all five owned tables; canonical E23/R17/J19/r139-b1 remains unchanged.
+Keep write overlap as an experimental option, not an admitted publisher default.
+Next prove failed-lane manifest refusal on a much smaller isolated fixture, then
+consider overlap of independent validation lanes without weakening any checks.
+Do not repeat the20M custody scan for a tiny protocol control. Resource/rate,
+singleton, cold/concurrent reads, external-runtime and1B/5B obligations stay open;
+UC Delta architecture remains selected.

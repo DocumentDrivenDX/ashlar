@@ -1,0 +1,4 @@
+{
+  "state": "Unpublished100k current rows observed while manifest absent; old pinned100k rows retained",
+  "qualification": "Single read-only observation, not complete consumer concurrency or failure recovery proof"
+}
