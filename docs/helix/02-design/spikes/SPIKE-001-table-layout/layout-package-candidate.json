@@ -1407,7 +1407,8 @@
     "out/native/ashlar_normalized_predecessor_r279/statements.jsonl": "c65a3057f91d082583d848f46a823c915d8c5f5acd1e2a8ca71c35c58cb1e40b",
     "out/native/ashlar_normalized_predecessor_r279/shared-history.json": "f7ca93a4130251bd7a5ad908480208db84d54b7c062e1f91d0d749f057ead90e",
     "mixed_publish_r281.py": "369628790f0d853c61f2c8e5c3512365371b32d215eb276821eb1a679eab26e7",
-    "out/mixed-publisher-budget-r281.json": "cd8fe9b3e82bf1dba563732764f3c5d0f454289ad29bd729dfa0a0af43ce69e0"
+    "out/mixed-publisher-budget-r281.json": "cd8fe9b3e82bf1dba563732764f3c5d0f454289ad29bd729dfa0a0af43ce69e0",
+    "growth_pruning_r282.py": "111416bdb4f3bfd5bdb1c21c1f4cd0feb53fa74a071976d6a95c5f84e12c5675"
   },
   "evidence": {
     "ddl": {
