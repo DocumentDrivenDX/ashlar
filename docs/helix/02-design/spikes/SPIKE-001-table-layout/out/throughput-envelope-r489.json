@@ -1,0 +1,59 @@
+{
+  "state": "Conditional1B/5Bsteady-burst throughput envelope calculated and simulated",
+  "sources": {
+    "geometry": "out/file-overlap-model-r488.json",
+    "publication": "out/native/ashlar_fifth_guard_publish_r481/audited-summary.json",
+    "input": "out/native/ashlar_fifth_delta_stage_r477/audited-summary.json",
+    "files": "out/ashlar_fifth_batch_files_r471/audited-summary.json"
+  },
+  "source_sha256": {
+    "geometry": "a8a2361e543105f20b008c046952e84ba043c7f710306b22f02606bd1fd020d7",
+    "publication": "0af2414f68ab168a75e8317ab59ce0e413fc2926a77416ee05f9bc6d5c91831a",
+    "input": "f6dff9e0ae5c0dfde5a664103d1add7cf0cdfd63fefc01fe87f33ac9d0767982",
+    "files": "894962518fa08fcd8fd96f6c3efa26cb1a7c49326c9b62a959fa4006e9d8cdba"
+  },
+  "observed100k_serial_ready_input_changes_per_second": 428.79337401203105,
+  "steady10k_rate_to_observed_serial_ratio": 23.321255891699998,
+  "observed_current_reported_read_GB_per_caller_second": 0.511119707074818,
+  "conditional_5B_current_physical_TB": 4.044835556821027,
+  "cases": [
+    {
+      "changes_per_second": 1000,
+      "changes_per_60s": 60000,
+      "optimistic_uniform_disjoint_files": 75845,
+      "analytic_touched_fraction": 0.5466506690604959,
+      "deterministic_simulated_touched_files": 41532,
+      "simulated_touched_fraction": 0.5475904805854045,
+      "conditional_full_file_GB_per_second_for_60s": 36.85186772293162,
+      "source_JSONL_GB_per_second": 0.01100634167,
+      "normalized_stage_write_GB_per_second": 0.0073402079,
+      "canonical_role_write_GB_per_second": 0.0050329627800000006
+    },
+    {
+      "changes_per_second": 10000,
+      "changes_per_60s": 600000,
+      "optimistic_uniform_disjoint_files": 75845,
+      "analytic_touched_fraction": 0.9996332840570664,
+      "deterministic_simulated_touched_files": 75813,
+      "simulated_touched_fraction": 0.9995780868877315,
+      "conditional_full_file_GB_per_second_for_60s": 67.38920418559658,
+      "source_JSONL_GB_per_second": 0.1100634167,
+      "normalized_stage_write_GB_per_second": 0.073402079,
+      "canonical_role_write_GB_per_second": 0.0503296278
+    },
+    {
+      "changes_per_second": 100000,
+      "changes_per_60s": 6000000,
+      "optimistic_uniform_disjoint_files": 75845,
+      "analytic_touched_fraction": 1.0,
+      "deterministic_simulated_touched_files": 75845,
+      "simulated_touched_fraction": 1.0,
+      "conditional_full_file_GB_per_second_for_60s": 67.4139259470171,
+      "source_JSONL_GB_per_second": 1.100634167,
+      "normalized_stage_write_GB_per_second": 0.73402079,
+      "canonical_role_write_GB_per_second": 0.503296278
+    }
+  ],
+  "simulation_wall_s": 1.904415416,
+  "qualification": "Local arithmetic/virtual file-bin simulation only, not actual5Bdata or engine capacity. Uniform disjoint equal-size files are an optimistic ideal distinct from observed overlapping/live-vs-statistics intervals. Conditional full-file bytes are not projected-column/remote bytes or a lower bound. Linear row mix/entropy and input/write ratios assumed; nodes/history/retention/validation/maintenance/queue/source accumulation and query startup excluded. Observed single-batch rate is not measured sustained throughput or parallel publisher capacity."
+}
