@@ -1421,7 +1421,8 @@
     "out/native/ashlar_growth_pruning_r282/statements.jsonl": "cd5d4e3014909bc46b1016049de7a4bba78f2cd5cca45af3cbf86f8356d29c7d",
     "out/native/ashlar_growth_pruning_r282/shared-history.json": "84eb1adb678410ea0c2bed377f7e8cfc55b300b16a533645295de95955862699",
     "maintained_edge_r285.py": "2af4ce3120b31b65fab0b78e3741e596fad40891d3bd937d482a9277ea22daee",
-    "out/maintenance-budget-r285.json": "bed88cb5295ffc0fea4528e510928563bc64f6abfd51541a39eabc128969a7e1"
+    "out/maintenance-budget-r285.json": "bed88cb5295ffc0fea4528e510928563bc64f6abfd51541a39eabc128969a7e1",
+    "growth_pruning_r286.py": "258caaf94e6bf5e3a8d7a85977303e82e2886add54a2f57f13490786183e4c0b"
   },
   "evidence": {
     "ddl": {
