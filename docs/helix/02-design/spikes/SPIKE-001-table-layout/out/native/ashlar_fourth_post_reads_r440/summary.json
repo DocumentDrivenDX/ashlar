@@ -1,0 +1,285 @@
+{
+  "state": "All32matched newly changed full-carrier direct reads pass",
+  "source_sha256": "84afbc64d22377ea4edb8aa1a6a1ec3b50d81365fa4dd13c5c41105ab0d5e6b4",
+  "old": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 6
+  },
+  "new": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 7
+  },
+  "indices": [
+    0,
+    1,
+    10,
+    11,
+    31,
+    39,
+    77,
+    99
+  ],
+  "reads": [
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 0,
+      "statement_id": "01f1c287-6ed9-1d08-a176-3566146c9157"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 0,
+      "statement_id": "01f1c287-6f68-1bd9-9fc2-2d70f7a2cfec"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 1,
+      "statement_id": "01f1c287-6fb3-111b-bb0a-7a80297443cd"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 1,
+      "statement_id": "01f1c287-7012-1c98-ac6a-6e5c07d0fd16"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 10,
+      "statement_id": "01f1c287-709b-1119-8da3-f8fb20e45b74"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 10,
+      "statement_id": "01f1c287-70fa-13f0-81b7-e422f3deda41"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 11,
+      "statement_id": "01f1c287-7137-1b53-b90d-a84bc70f67a9"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 11,
+      "statement_id": "01f1c287-7178-1f07-b44c-e8b7efa45916"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 31,
+      "statement_id": "01f1c287-71dd-182a-9443-e95460aa7984"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 31,
+      "statement_id": "01f1c287-7242-161b-b293-ed8e771265db"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 39,
+      "statement_id": "01f1c287-7293-1954-8569-29d5a2ba88fd"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 39,
+      "statement_id": "01f1c287-72f7-1e09-9c21-bbaf38e40ff5"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 77,
+      "statement_id": "01f1c287-735d-1f6f-bb95-87091b05d1cd"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 77,
+      "statement_id": "01f1c287-73b9-1454-87f9-9e4ad4c8daac"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 99,
+      "statement_id": "01f1c287-73f1-1465-b4e3-024d3c82956a"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 99,
+      "statement_id": "01f1c287-7425-17a8-b988-74062f8093f7"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 0,
+      "statement_id": "01f1c287-76ff-1f61-b2e8-58b910a2cf67"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 0,
+      "statement_id": "01f1c287-7735-1ac4-a54b-51dd6d93a6b4"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 1,
+      "statement_id": "01f1c287-7787-110b-9109-326d52dde435"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 1,
+      "statement_id": "01f1c287-77d5-12da-a57f-00de92ac33ea"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 10,
+      "statement_id": "01f1c287-780f-128b-8d53-bbe8b26db21a"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 10,
+      "statement_id": "01f1c287-7844-1763-83a3-b9653b7d2bb9"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 11,
+      "statement_id": "01f1c287-7896-12f0-9adb-6ca64e0c7e15"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 11,
+      "statement_id": "01f1c287-78e6-1279-bf8b-7774e3a499a9"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 31,
+      "statement_id": "01f1c287-791e-165d-9199-d96c2332a0a9"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 31,
+      "statement_id": "01f1c287-7957-11e3-ad10-4ab3f134605e"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 39,
+      "statement_id": "01f1c287-79a7-1103-b21a-be017deee5d8"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 39,
+      "statement_id": "01f1c287-79f4-15c5-bd04-c789fa9a944a"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 77,
+      "statement_id": "01f1c287-7a36-1062-92cc-df21e9813c93"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 77,
+      "statement_id": "01f1c287-7a93-12ac-b39a-8a4defb287ad"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 99,
+      "statement_id": "01f1c287-7ae9-1c04-ace4-6bd08f4b2789"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 99,
+      "statement_id": "01f1c287-7b41-1077-b7a0-5117a4c5cdfb"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 20000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 180
+  },
+  "code_sha256": {
+    "fourth_post_reads_r440.py": "771e779074732c3e81d5726d9ff3df248d5c654b664c0dca7c21c1f9893afcaf",
+    "fourth_changes_r427.py": "2edcdbf9d7aa7b48116be62a890ed134800f691be67394da0189f199061a0827"
+  },
+  "qualification": "Eight new fourth-batch identities with two deletions/six updates, matched before/after pinned direct reads. Tiny serial cohort after publication validation; not cold-data, concurrency, freshness or billion admission.",
+  "queries": {
+    "before": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 6 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)",
+    "after": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 7 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)"
+  },
+  "costs": {
+    "read_bytes": 2457477442,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "per_family": {
+    "before": {
+      "queries": 16,
+      "caller_p95_ms": 929.4240000000009,
+      "engine_p95_ms": 373,
+      "compile_p95_ms": 478,
+      "remote_queries": 8
+    },
+    "after": {
+      "queries": 16,
+      "caller_p95_ms": 664.5400839999986,
+      "engine_p95_ms": 368,
+      "compile_p95_ms": 281,
+      "remote_queries": 6
+    }
+  },
+  "per_family_phase": {
+    "before-0": {
+      "queries": 8,
+      "caller_p95_ms": 929.4240000000009,
+      "engine_p95_ms": 373,
+      "compile_p95_ms": 478,
+      "remote_queries": 6
+    },
+    "before-1": {
+      "queries": 8,
+      "caller_p95_ms": 569.5396250000009,
+      "engine_p95_ms": 141,
+      "compile_p95_ms": 325,
+      "remote_queries": 2
+    },
+    "after-0": {
+      "queries": 8,
+      "caller_p95_ms": 664.5400839999986,
+      "engine_p95_ms": 368,
+      "compile_p95_ms": 281,
+      "remote_queries": 3
+    },
+    "after-1": {
+      "queries": 8,
+      "caller_p95_ms": 603.6007499999982,
+      "engine_p95_ms": 336,
+      "compile_p95_ms": 172,
+      "remote_queries": 3
+    }
+  },
+  "wall_s": 37.236350042000005
+}
