@@ -229,3 +229,15 @@ p95 is 15 for the unmaintained update snapshots. Resource policy must include
 concurrent reads, update-file pruning and maintenance cost. Earlier idle/static
 benchmarks cannot establish loaded singleton latency. This finite hot-set test
 does not qualify a general read population, sustained ingest or billion scale.
+
+[r102 maintenance](out/native/ashlar_maintenance_reads_20261007_r102/audited-summary.json)
+rewrites only the 327 MB update-file set in 16.88 s and preserves the 100k
+affected full carriers plus global identity counts. Paired maintained-snapshot
+reads prune to three files versus published-snapshot13's fifteen. Quiet 30-key
+engine p95 remains 116–122 ms; paired caller samples improve to 358–420 ms but
+do not qualify the provisional targets or loaded-reader behavior. Account for
+maintenance and retained old files independently; do not require it per batch
+without a rate/resource policy. One OPTIMIZE statement emits a rewrite commit
+and a no-op commit (14/15). Capture the actual final version. Existing manifests
+remain pinned13 until a separately validated descriptor binds a maintained
+snapshot; maintenance must not silently redirect publication readers.

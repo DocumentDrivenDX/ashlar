@@ -1,0 +1,144 @@
+{
+  "state": "audited maintenance and exact paired reads; all queries final and uncached",
+  "old_version": 13,
+  "published_version": 13,
+  "new_version": 15,
+  "scope": "One routine OPTIMIZE, global identity counts and all20 affected100k carriers against immutable intended stage. Not a fresh all-field comparison of all20M rows. Same30 large-token keys, no concurrent publisher. Original manifest remains pinned13; no maintained descriptor installed.",
+  "physical_metrics": [
+    {
+      "conflictDetectionTimeMs": "58",
+      "numAddedBytes": "0",
+      "numAddedFiles": "0",
+      "numDeletionVectorsRemoved": "0",
+      "numRemovedBytes": "0",
+      "numRemovedFiles": "0"
+    },
+    {
+      "maxFileSize": "83813710",
+      "minFileSize": "78829559",
+      "numAddedBytes": "326814770",
+      "numAddedFiles": "4",
+      "numDeletionVectorsRemoved": "0",
+      "numRemovedBytes": "326996710",
+      "numRemovedFiles": "16",
+      "p25FileSize": "81440858",
+      "p50FileSize": "82730643",
+      "p75FileSize": "83813710"
+    }
+  ],
+  "groups": {
+    "before": {
+      "n": 30,
+      "caller_p95_ms": 377.7600840000002,
+      "engine_p95_ms": 115,
+      "file_reads_p95": 15,
+      "remote_read_queries": 0
+    },
+    "pair-0-new": {
+      "n": 30,
+      "caller_p95_ms": 420.3519579999977,
+      "engine_p95_ms": 122,
+      "file_reads_p95": 3,
+      "remote_read_queries": 0
+    },
+    "pair-0-published": {
+      "n": 30,
+      "caller_p95_ms": 496.3657500000025,
+      "engine_p95_ms": 114,
+      "file_reads_p95": 15,
+      "remote_read_queries": 0
+    },
+    "pair-1-published": {
+      "n": 30,
+      "caller_p95_ms": 485.15495800000963,
+      "engine_p95_ms": 108,
+      "file_reads_p95": 15,
+      "remote_read_queries": 0
+    },
+    "pair-1-new": {
+      "n": 30,
+      "caller_p95_ms": 358.4772909999998,
+      "engine_p95_ms": 116,
+      "file_reads_p95": 3,
+      "remote_read_queries": 0
+    }
+  },
+  "commits": [
+    {
+      "version": "15",
+      "timestamp": "2026-10-07T00:30:30",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"auto\":\"false\",\"batchId\":\"1\",\"clusterBy\":\"[\"lookup_hash\"]\",\"isFull\":\"false\",\"predicate\":\"[]\",\"zOrderBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c1e6-4693-1031-a530-12350d1f9a85",
+      "clusterId": null,
+      "readVersion": "13",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "True",
+      "operationMetrics": "{\"conflictDetectionTimeMs\":\"58\",\"numAddedBytes\":\"0\",\"numAddedFiles\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedBytes\":\"0\",\"numRemovedFiles\":\"0\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "14",
+      "timestamp": "2026-10-07T00:30:29",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"auto\":\"false\",\"batchId\":\"0\",\"clusterBy\":\"[\"lookup_hash\"]\",\"isFull\":\"false\",\"predicate\":\"[]\",\"zOrderBy\":\"[]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c1e6-4693-1031-a530-12350d1f9a85",
+      "clusterId": null,
+      "readVersion": "13",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "False",
+      "operationMetrics": "{\"maxFileSize\":\"83813710\",\"minFileSize\":\"78829559\",\"numAddedBytes\":\"326814770\",\"numAddedFiles\":\"4\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedBytes\":\"326996710\",\"numRemovedFiles\":\"16\",\"p25FileSize\":\"81440858\",\"p50FileSize\":\"82730643\",\"p75FileSize\":\"83813710\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    }
+  ],
+  "maintenance_caller_ms": 16880.832292,
+  "maintenance_metrics": {
+    "total_time_ms": 16306,
+    "read_bytes": 658488211,
+    "rows_produced_count": 3,
+    "compilation_time_ms": 872,
+    "execution_time_ms": 15427,
+    "read_remote_bytes": 78238,
+    "write_remote_bytes": 326814770,
+    "read_cache_bytes": 658409973,
+    "spill_to_disk_bytes": 0,
+    "task_total_time_ms": 10939,
+    "read_files_count": 35,
+    "read_partitions_count": 3,
+    "photon_total_time_ms": 7701,
+    "rows_read_count": 219824,
+    "result_fetch_time_ms": 618,
+    "network_sent_bytes": 0,
+    "result_from_cache": false,
+    "pruned_bytes": 67906922500,
+    "pruned_files_count": 1032,
+    "query_compilation_start_timestamp": 1791333019610,
+    "metadata_time_ms": 2821,
+    "query_execution_time_ms": 16299,
+    "bytes_read_from_cache_percentage": 99.0,
+    "write_remote_rows": 100000,
+    "write_remote_files": 4,
+    "queue_end_time_ms": 1791333019595,
+    "read_files_bytes": 654110775,
+    "conflict_resolution_time_ms": 174,
+    "rows_scanned": 203072,
+    "cloud_storage_retry_duration_ms": 0,
+    "task_progress": {
+      "planned_task_count": 94,
+      "completed_task_count": 94,
+      "completed_partition_count": 94,
+      "pending_task_count": 0,
+      "failed_task_count": 0
+    }
+  }
+}

@@ -1,5 +1,40 @@
 # Higher-entropy scale and GraphFrames iteration
 
+## Updated-key maintenance comparison
+
+[Audited r102](out/native/ashlar_maintenance_reads_20261007_r102/audited-summary.json)
+executes one routine OPTIMIZE in 16.88 s after r101. The same statement ID owns
+both commits: version14 replaces 16 update files / 326,996,710 bytes with four
+files / 326,814,770 bytes; version15 records zero files/bytes changed and 58 ms
+conflict detection. No deletion vectors are removed. Post-operation version15
+is captured rather than assuming one commit per statement. Older removed files
+remain in retention accounting; this is not a net storage-saving claim.
+
+Global 20M-row identity/distinct-ID counts and the 100k entity-version9 count
+pass. All 20 fields of every affected 100k carrier match immutable intended
+stage0 with exact UTF-8 text. This is not a fresh all-field comparison of all
+20M rows. All 150 singleton reads over the same 30 large-token keys pass exact
+full-carrier expectations, with final uncached metrics and no remote reads.
+
+| Alternating pair | Snapshot | Engine p95 | Caller p95 | File-read p95 |
+| --- | --- | ---: | ---: | ---: |
+| 1 | published13 | 114 ms | 496 ms | 15 |
+| 1 | maintained15 | 122 ms | 420 ms | 3 |
+| 2 | published13 | 108 ms | 485 ms | 15 |
+| 2 | maintained15 | 116 ms | 358 ms | 3 |
+
+Before maintenance, the same 30-key cohort measures 115/378 ms engine/caller
+p95 and 15 file reads. The maintained snapshot improves pruning and paired
+caller samples, but engine p95 is slightly higher in both pairs. Small quiet
+hot-set cohorts do not establish a general latency gain, loaded-read SLA or
+billion-scale qualification. The 100/250 ms provisional warm comparisons remain
+unmet. No concurrent publisher is active in this experiment.
+
+The existing r101 manifest remains pinned13, so it does not gain maintained
+snapshot15 automatically. No new descriptor is installed. Maintenance adds
+17 s and retained rewrite bytes to resource planning; this result does not
+justify mandatory cleanup after every batch or close publication freshness.
+
 ## Parallel appends and singleton contention
 
 [Audited r101](out/native/ashlar_parallel_publication_20261007_r101/audited-summary.json)

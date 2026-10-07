@@ -1,0 +1,7 @@
+{
+  "state": "completed maintenance and exact paired reads",
+  "old_version": 13,
+  "published_version": 13,
+  "new_version": 15,
+  "scope": "One routine OPTIMIZE, global identity counts and all20 affected100k carriers against immutable intended stage. Not a fresh all-field comparison of all20M rows. Same30 large-token keys, no concurrent publisher. Original manifest remains pinned13; no maintained descriptor installed."
+}
