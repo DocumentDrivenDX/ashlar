@@ -615,3 +615,17 @@ existing literal-query path on identical keys and pinned versions, with result
 cache disabled and exact all-field checks. Separate compilation, execution and
 caller durations. This may reduce compilation overhead but is not presumed to
 fix execution contention or admit the provisional 250 ms caller target.
+
+## r106 stable-query comparison
+
+[Final native audit](out/native/ashlar_parameterized_reads_r106/audited-summary.json)
+passes 120 exact all20-field reads at published edge version16. Two balanced
+rounds compare the same 30 keys on one persistent connection, without comments
+for either mode. All final queries are uncached and read no remote bytes.
+Literal/parameterized p95 respectively: caller367.30/379.23ms, execution106/112ms,
+compilation147/155ms, server total256/266ms; both touch15files at p95.
+Parameterized SQL has one text versus30literal texts. It provides no measured
+latency improvement here, so retain it for safe query construction without
+claiming plan-cache gains. Quiet hot-set results do not qualify contention, cold
+data, sustained ingest or billion-scale admission. No writes or compute changes.
+The next performance comparison should isolate compute resources.
