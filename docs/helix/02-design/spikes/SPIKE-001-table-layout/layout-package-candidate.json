@@ -1474,7 +1474,16 @@
     "scoped_preflight_r299.py": "317661cfdb16cd042993655b13d15e177c5edd488aff9b8dbd3e3b29ade72dcc",
     "scoped_maintenance_r300.py": "3aa69f9e298c8f6c93de1fbd6bc89e5e368cb5057d2edd716c0ea61726398791",
     "scoped_resume_r302.py": "62fdb2c64dc15f85c3507b8d7d11570e9b6e5b35251bdfd6847822aa52552567",
-    "scoped_pruning_r301.py": "0508172d4b2f71fa06599c5c2f62fe7094fdf062cb1f9fdc4082f28bfdc26c42"
+    "scoped_pruning_r301.py": "0508172d4b2f71fa06599c5c2f62fe7094fdf062cb1f9fdc4082f28bfdc26c42",
+    "scoped_audit_r303.py": "2823f93ea9f3b24c636628f63cb19912e308dde0c0dda6b34d9754cdf113e93a",
+    "out/native/ashlar_scoped_maintenance_r300/summary.json": "087d391b6ac1e99721f27689f8ee3f052ab55db05b8ef463b0dd897f63d37992",
+    "out/native/ashlar_scoped_maintenance_r300/shared-history.json": "ee3d4e820f08567a8b88abc0d1916861b051b203f6f9a8ffccb06505d0493e2d",
+    "out/native/ashlar_scoped_maintenance_r300/stopped-summary.json": "02e2a07b384c085545797ccd5509ea4da82c0f20911d90caf0e53db3c9bb4d26",
+    "out/native/ashlar_scoped_maintenance_r300/statements.jsonl": "4bc6ece440456be1a2bd89ffa89c30ae20fbc057e1e6140fb5747d0956dfffb8",
+    "out/native/ashlar_scoped_maintenance_r300/audited-summary.json": "8a71556e50073d92c5446ae0a2135aa9c5e2e57f4b23eaf334879a1faa283e27",
+    "out/native/ashlar_scoped_maintenance_preflight_r299/summary.json": "6d49b5646500f90ca43a7e86bc5845c9038fd5ac27ff9f974bdc40c0e92d3235",
+    "out/native/ashlar_scoped_maintenance_preflight_r299/statements.jsonl": "57c68017eca2f8ef2efb34c77aecd7cb2b953b45d47ff60092b913236b148cf3",
+    "out/native/ashlar_scoped_maintenance_preflight_r299/query-history.json": "324952ae7e207378c760b71798ec3d357b66762500af830f4cf5b7266614c2b1"
   },
   "evidence": {
     "ddl": {
