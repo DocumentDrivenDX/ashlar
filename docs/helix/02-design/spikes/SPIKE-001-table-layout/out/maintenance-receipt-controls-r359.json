@@ -1,0 +1,78 @@
+{
+  "format": "ashlar-maintenance-receipt-controls/1",
+  "source": "out/native/ashlar_lc_prefix_maintain_r350/audited-summary.json",
+  "source_sha256": "b7857b4b2bc5a90725d5d75b7f8098a5bf21153d682b95c5981c5c5f7d92c527",
+  "positive": {
+    "eligibility": "controlled fixture receipt only",
+    "versions": [
+      4,
+      5
+    ],
+    "selected_version": 5,
+    "logical_progress": "must remain unchanged; not present in this receipt",
+    "production_manifest": "refused: no real fencing, schema revision or active-pin registry evidence"
+  },
+  "negative_controls": [
+    {
+      "control": "replaced table UUID",
+      "result": "refused",
+      "reason": "table UUID"
+    },
+    {
+      "control": "intervening MERGE",
+      "result": "refused",
+      "reason": "owned maintenance custody"
+    },
+    {
+      "control": "unknown OPTIMIZE writer",
+      "result": "refused",
+      "reason": "owned maintenance custody"
+    },
+    {
+      "control": "missing zero-file commit",
+      "result": "refused",
+      "reason": "complete ordered commit interval"
+    },
+    {
+      "control": "duplicate commit",
+      "result": "refused",
+      "reason": "complete ordered commit interval"
+    },
+    {
+      "control": "reversed ledger",
+      "result": "refused",
+      "reason": "complete ordered commit interval"
+    },
+    {
+      "control": "different base read version",
+      "result": "refused",
+      "reason": "owned maintenance custody"
+    },
+    {
+      "control": "changed carrier token digest",
+      "result": "refused",
+      "reason": "full carrier digest preservation"
+    },
+    {
+      "control": "missing group on both sides",
+      "result": "refused",
+      "reason": "complete group coverage"
+    },
+    {
+      "control": "duplicated group on both sides",
+      "result": "refused",
+      "reason": "complete group coverage"
+    },
+    {
+      "control": "reader protocol drift",
+      "result": "refused",
+      "reason": "physical profile changed: minReaderVersion"
+    },
+    {
+      "control": "read budget exceeded",
+      "result": "refused",
+      "reason": "resource budget"
+    }
+  ],
+  "scope": "Local alterations of saved native evidence; no native fault injection, schema proof, publication, scheduler or writer-fence implementation."
+}
