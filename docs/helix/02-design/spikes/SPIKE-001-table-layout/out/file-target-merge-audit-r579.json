@@ -1,0 +1,121 @@
+{
+  "state": "All38 native statements including one exact nested-clone refusal and both full-guard mutations verified",
+  "merges": {
+    "file64": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.file64_merge_r577",
+      "id": "e8cd627c-566c-4b18-8a3f-8ce97ac4a334",
+      "baseline_version": 0,
+      "after_version": 1,
+      "before_files": "32",
+      "after_files": "33",
+      "caller_ms": 7866.9585000000025,
+      "metrics": {
+        "total_time_ms": 7607,
+        "read_bytes": 2354373885,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 325,
+        "execution_time_ms": 7232,
+        "read_remote_bytes": 29934245,
+        "write_remote_bytes": 14419345,
+        "read_cache_bytes": 2324439640,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 12271,
+        "read_files_count": 67,
+        "read_partitions_count": 1,
+        "photon_total_time_ms": 9172,
+        "rows_read_count": 2386650,
+        "result_fetch_time_ms": 41,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791416398883,
+        "metadata_time_ms": 5486,
+        "query_execution_time_ms": 7557,
+        "bytes_read_from_cache_percentage": 98.0,
+        "write_remote_rows": 17445,
+        "write_remote_files": 2,
+        "queue_end_time_ms": 1791416398853,
+        "read_files_bytes": 4485571898,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 5197324,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 96,
+          "completed_task_count": 96,
+          "completed_partition_count": 96,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "file256": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.file256_pilot_r569",
+      "id": "b3ee80b3-fba4-4080-856d-d1f936a5b72e",
+      "baseline_version": 3,
+      "after_version": 4,
+      "before_files": "16",
+      "after_files": "17",
+      "caller_ms": 6211.697083000005,
+      "metrics": {
+        "total_time_ms": 5903,
+        "read_bytes": 2349345344,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 317,
+        "execution_time_ms": 5553,
+        "read_remote_bytes": 27571,
+        "write_remote_bytes": 14419345,
+        "read_cache_bytes": 2349317773,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 7949,
+        "read_files_count": 34,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 7079,
+        "rows_read_count": 2419282,
+        "result_fetch_time_ms": 114,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791416435130,
+        "metadata_time_ms": 4186,
+        "query_execution_time_ms": 5870,
+        "bytes_read_from_cache_percentage": 99.0,
+        "write_remote_rows": 17445,
+        "write_remote_files": 2,
+        "queue_end_time_ms": 1791416435100,
+        "read_files_bytes": 4485387508,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 5197292,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 85,
+          "completed_task_count": 85,
+          "completed_partition_count": 85,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    }
+  },
+  "costs": {
+    "read_bytes": 17321117479,
+    "write_remote_bytes": 28838690,
+    "spill_to_disk_bytes": 0
+  },
+  "resume_wall_s": 108.85498170800001,
+  "cached_immutable_preflight": [
+    {
+      "label": "source-counts",
+      "run": "file_target_merge_r577",
+      "statement_id": "01f1c2a8-24eb-132c-bcd6-755e28dd90e0"
+    },
+    {
+      "label": "source-counts",
+      "run": "file_target_merge_resume_r578",
+      "statement_id": "01f1c2a8-58f0-1256-91c7-42be30786157"
+    }
+  ],
+  "whole_uninterrupted_clock": null,
+  "qualification": "Private matched2.5M full-carrier fixtures, same6227 fourth-input changes and atomic full20field guards, one MERGE per layout. Different maintenance/file geometry/cache/order; no causal p95, full multi-role publication, production fence or1B/5B admission. Prior larger-file maintenance remains charged separately. Original clone attempt stopped; resume clock is separate. Existing private larger fixture gains CDF3 and mutation4; older0/2 pins retained. Full21field/CDF parity inherits independently qualified original reference. No new source UUID custody or production fence claim."
+}

@@ -1,0 +1,268 @@
+{
+  "state": "Stopped; inspect same handles and exact fixture heads; no write replay",
+  "sources": {
+    "reference": "out/native/scaled_fingerprint_merge_r497/summary.json",
+    "source": "out/native/scaled_fingerprint_r493/summary.json",
+    "larger": "out/native/file256_recover_r571/summary.json"
+  },
+  "source_sha256": {
+    "reference": "87289546ae834084774440131b139b290f5f6a6fd7170fdd02a88626b2023c87",
+    "source": "c268812794916a33fc9d0846ef8723d23d0674779a0a49c1d62dfef0d675923e",
+    "larger": "f405cd94d0cdc632a8907f7d98b18e21cb66fde9b95ebcc8ff651f8c3219e441"
+  },
+  "code_sha256": {
+    "file_target_merge_r577.py": "36026c8b89ca752d237040ab86aaaa760a89a3b712fa95f93ea7496467724b78",
+    "inline_guard_sql_r421.py": "1a289c498457f483822f65ec1edce28bd9128a32de4c4d331de97807e22e86ba"
+  },
+  "source_relation": "SELECT * FROM client_dev.ashlar_entropy_20261006_r86.prepared_current_mutation_r445 VERSION AS OF 0 WHERE lookup_hash<'1000000000000000000000000000000000000000000000000000000000000000'",
+  "fixtures": {
+    "file64": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.file64_merge_r577",
+      "clone_source": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493",
+        "version": 2
+      },
+      "target_bytes": 67108864,
+      "clone_result": [
+        {
+          "source_table_size": "2085376387",
+          "source_num_of_files": "32",
+          "num_of_synced_transactions": null,
+          "num_removed_files": "0",
+          "num_copied_files": "0",
+          "removed_files_size": "0",
+          "copied_files_size": "0"
+        }
+      ],
+      "clone_statement_id": "01f1c2a8-26b2-1695-a286-617e1a14af64",
+      "before": {
+        "format": "delta",
+        "id": "e8cd627c-566c-4b18-8a3f-8ce97ac4a334",
+        "name": "client_dev.ashlar_entropy_20261006_r86.file64_merge_r577",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3f0ecfb8-11ac-40df-834e-8be318a26e7b",
+        "createdAt": "2026-10-07T21:15:29.098Z",
+        "lastModified": "2026-10-07T23:38:09.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"lookup_hash\"]",
+        "numFiles": "32",
+        "sizeInBytes": "2085376387",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.enableChangeDataFeed\":\"true\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"3f0ecfb8-11ac-40df-834e-8be318a26e7b\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-2282123e-22d9-4aff-95e8-c3be89014320\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-7fa9df82-71b4-4922-9b6c-9101e559b635\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"changeDataFeed\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"generatedColumns\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      },
+      "id": "e8cd627c-566c-4b18-8a3f-8ce97ac4a334",
+      "schema": [
+        {
+          "col_name": "source_system",
+          "data_type": "string",
+          "comment": null
+        },
+        {
+          "col_name": "rel_type_id",
+          "data_type": "bigint",
+          "comment": null
+        },
+        {
+          "col_name": "id",
+          "data_type": "bigint",
+          "comment": null
+        },
+        {
+          "col_name": "source_type",
+          "data_type": "bigint",
+          "comment": null
+        },
+        {
+          "col_name": "source_id",
+          "data_type": "bigint",
+          "comment": null
+        },
+        {
+          "col_name": "target_type",
+          "data_type": "bigint",
+          "comment": null
+        },
+        {
+          "col_name": "target_id",
+          "data_type": "bigint",
+          "comment": null
+        },
+        {
+          "col_name": "order_key",
+          "data_type": "string",
+          "comment": null
+        },
+        {
+          "col_name": "schema_revision",
+          "data_type": "string",
+          "comment": null
+        },
+        {
+          "col_name": "entity_version",
+          "data_type": "bigint",
+          "comment": null
+        },
+        {
+          "col_name": "props_json",
+          "data_type": "string",
+          "comment": null
+        },
+        {
+          "col_name": "retained_json",
+          "data_type": "string",
+          "comment": null
+        },
+        {
+          "col_name": "source_feed",
+          "data_type": "string",
+          "comment": null
+        },
+        {
+          "col_name": "source_epoch",
+          "data_type": "string",
+          "comment": null
+        },
+        {
+          "col_name": "source_position",
+          "data_type": "bigint",
+          "comment": null
+        },
+        {
+          "col_name": "published_at",
+          "data_type": "timestamp",
+          "comment": null
+        },
+        {
+          "col_name": "apply_batch_id",
+          "data_type": "string",
+          "comment": null
+        },
+        {
+          "col_name": "source_cursor_json",
+          "data_type": "string",
+          "comment": null
+        },
+        {
+          "col_name": "source_delivery_id",
+          "data_type": "string",
+          "comment": null
+        },
+        {
+          "col_name": "lookup_hash",
+          "data_type": "string",
+          "comment": null
+        },
+        {
+          "col_name": "carrier_fingerprint",
+          "data_type": "string",
+          "comment": null
+        },
+        {
+          "col_name": "# Clustering Information",
+          "data_type": "",
+          "comment": ""
+        },
+        {
+          "col_name": "# col_name",
+          "data_type": "data_type",
+          "comment": "comment"
+        },
+        {
+          "col_name": "lookup_hash",
+          "data_type": "string",
+          "comment": null
+        }
+      ],
+      "initial_history": [
+        {
+          "version": "0",
+          "timestamp": "2026-10-07T23:38:09.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "CLONE",
+          "operationParameters": "{\"source\":\"client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493\",\"sourceVersion\":\"2\",\"isShallow\":\"true\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2a8-26b2-1695-a286-617e1a14af64",
+          "clusterId": null,
+          "readVersion": "-1",
+          "isolationLevel": "Serializable",
+          "isBlindAppend": "false",
+          "operationMetrics": "{\"removedFilesSize\":\"0\",\"numRemovedFiles\":\"0\",\"sourceTableSize\":\"2085376387\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"copiedFilesSize\":\"0\",\"sourceNumOfFiles\":\"32\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ]
+    },
+    "file256": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.file256_merge_r577",
+      "clone_source": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.file256_pilot_r569",
+        "version": 2
+      },
+      "target_bytes": 268435456
+    }
+  },
+  "bounds": {
+    "read_bytes": 30000000000,
+    "write_remote_bytes": 1000000000,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 300
+  },
+  "qualification": "Private matched2.5M full-carrier fixtures, same6227 fourth-input changes and atomic full20field guards, one MERGE per layout. Different maintenance/file geometry/cache/order; no causal p95, full multi-role publication, production fence or1B/5B admission. Prior larger-file maintenance remains charged separately.",
+  "reference_head": {
+    "version": "3",
+    "timestamp": "2026-10-07T21:23:21.000Z",
+    "userId": "3755468182769617",
+    "userName": "erik.labianca@synaptiq.ai",
+    "operation": "MERGE",
+    "operationParameters": "{\"predicate\":\"[\\\"(((lookup_hash#27022 = lookup_hash#27043) AND (source_system#27003 = source_system#27024)) AND ((rel_type_id#27004L = rel_type_id#27025L) AND (id#27005L = id#27026L)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"predicate\\\":\\\"CASE WHEN (((carrier_fingerprint#27023 <=> sha2(cast(concat(ashlar-carrier-fingerprint/1;, CASE WHEN isnull(source_system#27024) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(source_system#27024, UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(source_system#27024, UTF-8, true, true))), ;) END, CASE WHEN isnull(rel_type_id#27025L) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(cast(rel_type_id#27025L as string), UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(cast(rel_type_id#27025L as string), UTF-8, true, true))), ;) END, CASE WHEN isnull(id#27026L) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(cast(id#27026L as string), UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(cast(id#27026L as string), UTF-8, true, true))), ;) END, CASE WHEN isnull(source_type#27027L) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(cast(source_type#27027L as string), UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(cast(source_type#27027L as string), UTF-8, true, true))), ;) END, CASE WHEN isnull(source_id#27028L) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(cast(source_id#27028L as string), UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(cast(source_id#27028L as string), UTF-8, true, true))), ;) END, CASE WHEN isnull(target_type#27029L) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(cast(target_type#27029L as string), UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(cast(target_type#27029L as string), UTF-8, true, true))), ;) END, CASE WHEN isnull(target_id#27030L) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(cast(target_id#27030L as string), UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(cast(target_id#27030L as string), UTF-8, true, true))), ;) END, CASE WHEN isnull(order_key#27031) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(order_key#27031, UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(order_key#27031, UTF-8, true, true))), ;) END, CASE WHEN isnull(schema_revision#27032) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(schema_revision#27032, UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(schema_revision#27032, UTF-8, true, true))), ;) END, CASE WHEN isnull(entity_version#27033L) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(cast(entity_version#27033L as string), UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(cast(entity_version#27033L as string), UTF-8, true, true))), ;) END, CASE WHEN isnull(props_json#27034) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(props_json#27034, UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(props_json#27034, UTF-8, true, true))), ;) END, CASE WHEN isnull(retained_json#27035) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(retained_json#27035, UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(retained_json#27035, UTF-8, true, true))), ;) END, CASE WHEN isnull(source_feed#27036) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(source_feed#27036, UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(source_feed#27036, UTF-8, true, true))), ;) END, CASE WHEN isnull(source_epoch#27037) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(source_epoch#27037, UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(source_epoch#27037, UTF-8, true, true))), ;) END, CASE WHEN isnull(source_position#27038L) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(cast(source_position#27038L as string), UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(cast(source_position#27038L as string), UTF-8, true, true))), ;) END, CASE WHEN isnull(published_at#27039) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(cast(unix_micros(published_at#27039) as string), UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(cast(unix_micros(published_at#27039) as string), UTF-8, true, true))), ;) END, CASE WHEN isnull(apply_batch_id#27040) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(apply_batch_id#27040, UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(apply_batch_id#27040, UTF-8, true, true))), ;) END, CASE WHEN isnull(source_cursor_json#27041) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(source_cursor_json#27041, UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(source_cursor_json#27041, UTF-8, true, true))), ;) END, CASE WHEN isnull(source_delivery_id#27042) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(source_delivery_id#27042, UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(source_delivery_id#27042, UTF-8, true, true))), ;) END, CASE WHEN isnull(lookup_hash#27043) THEN N; ELSE concat(V, cast(length(static_invoke(Encode.encode(lookup_hash#27043, UTF-8, true, true))) as string), :, hex(static_invoke(Encode.encode(lookup_hash#27043, UTF-8, true, true))), ;) END) as binary), 256)) AND isnotnull(entity_version#27033L)) AND (is_delete#27064 OR ((after_entity_version#27053L = (entity_version#27033L + 1)) AND (((after_source_system#27044 <=> source_system#27024) AND (after_rel_type_id#27045L <=> rel_type_id#27025L)) AND ((after_id#27046L <=> id#27026L) AND (after_lookup_hash#27063 <=> lookup_hash#27043)))))) THEN is_delete#27064 ELSE cast(raise_error(USER_RAISED_EXCEPTION, map(keys: [errorMessage], values: [ASHLAR_FINGERPRINT_PREDECESSOR_MISMATCH]), NullType) as boolean) END\\\",\\\"actionType\\\":\\\"delete\\\"},{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[{\\\"actionType\\\":\\\"insert\\\"}]\",\"clusteringOnWriteStatus\":null}",
+    "job": null,
+    "notebook": null,
+    "queryHistoryStatementId": "01f1c295-4e58-18a9-abdd-3ba9e6e89640",
+    "clusterId": null,
+    "readVersion": "2",
+    "isolationLevel": "WriteSerializable",
+    "isBlindAppend": "false",
+    "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"618\",\"numTargetFilesAdded\":\"1\",\"numTargetBytesAdded\":\"4760248\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"32\",\"numTargetRowsMatchedUpdated\":\"5609\",\"executionTimeMs\":\"5917\",\"materializeSourceTimeMs\":\"1\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"618\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"1597\",\"numTargetRowsUpdated\":\"5609\",\"numOutputRows\":\"5609\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"1\",\"numSourceRows\":\"6227\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"4289\"}",
+    "userMetadata": null,
+    "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+  },
+  "larger_source_head": {
+    "version": "2",
+    "timestamp": "2026-10-07T23:32:39.000Z",
+    "userId": "3755468182769617",
+    "userName": "erik.labianca@synaptiq.ai",
+    "operation": "OPTIMIZE",
+    "operationParameters": "{\"predicate\":\"[]\",\"auto\":\"false\",\"clusterBy\":\"[]\",\"zOrderBy\":\"[]\",\"batchId\":\"0\"}",
+    "job": null,
+    "notebook": null,
+    "queryHistoryStatementId": "01f1c2a7-5655-166e-b321-17d9ede9307e",
+    "clusterId": null,
+    "readVersion": "1",
+    "isolationLevel": "SnapshotIsolation",
+    "isBlindAppend": "false",
+    "operationMetrics": "{\"numRemovedFiles\":\"23\",\"numRemovedBytes\":\"1503957185\",\"p25FileSize\":\"184693408\",\"numDeletionVectorsRemoved\":\"0\",\"minFileSize\":\"183195680\",\"numAddedFiles\":\"7\",\"maxFileSize\":\"263733961\",\"p75FileSize\":\"232978534\",\"p50FileSize\":\"205587857\",\"numAddedBytes\":\"1503890537\"}",
+    "userMetadata": null,
+    "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+  },
+  "source_counts": [
+    [
+      "6227",
+      "6227",
+      "618",
+      "5609"
+    ]
+  ],
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 15.694512291,
+  "error": "{\"state\": \"FAILED\", \"error\": {\"error_code\": \"BAD_REQUEST\", \"message\": \"[CANNOT_SHALLOW_CLONE_NESTED] Cannot shallow-clone a table client_dev.ashlar_entropy_20261006_r86.file256_pilot_r569 that is already a shallow clone. SQLSTATE: 0AKUC\"}, \"sql_state\": \"0AKUC\"}"
+}

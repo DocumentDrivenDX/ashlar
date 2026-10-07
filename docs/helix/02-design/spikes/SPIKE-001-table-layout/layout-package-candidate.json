@@ -2572,7 +2572,21 @@
     "out/native/file256_reads_r574/summary.json": "edd84e11eb987d0f78591355e9d1973b916c7f9d3067994528ad189a9136385e",
     "out/native/file256_reads_r574/shared-history.json": "04b377f7cb296111c0de87e3c8b7f888329f29d02448792393b2fedccfafbe8f",
     "out/native/file256_reads_r574/statements.jsonl": "a8a15455404485c56423bf79f0ade3fe2aa66078701b7429b3413d89f71eb5ae",
-    "out/native/file256_reads_r574/completed-last-request.json": "a9498fada078995c03329deb9440b6542df03b2afea58b132c5379e177fc2ed0"
+    "out/native/file256_reads_r574/completed-last-request.json": "a9498fada078995c03329deb9440b6542df03b2afea58b132c5379e177fc2ed0",
+    "file_target_merge_r577.py": "36026c8b89ca752d237040ab86aaaa760a89a3b712fa95f93ea7496467724b78",
+    "file_target_merge_resume_r578.py": "4730f941709c9977e64615a015e4f779562bc8defabaf5622edd4b1c8e8ad54f",
+    "file_target_merge_audit_r579.py": "fc7787490dd2718b91df15c150a2422ca91258a9858d8e16d5b52e1356576257",
+    "file-target-merge-disposition-r580.md": "38e410718d82bea69d3c0ff5449721155195c64f45df1d99dceeb6a3f76e1889",
+    "out/file-target-merge-audit-r579.json": "068e387f5087ae1730710c69ae167b78e20c3bb315893011db1d50a5fd4996b7",
+    "out/native/file_target_merge_r577/summary.json": "6741c435b39370511b9a44f87d0bfee7faf105595854e0dd647b5c012a39ce41",
+    "out/native/file_target_merge_r577/shared-history.json": "a26117ebe0314a67fcb885c7a09c93bd85bb69cb44bed4702fd6500fd4b1ade7",
+    "out/native/file_target_merge_r577/statements.jsonl": "4cdced4544eeba56ff922c417c04a698cf0198446a42db25bf5246814d33357d",
+    "out/native/file_target_merge_r577/completed-failed-clone-r579.json": "37b42c999888160697de7e931c391f9f95891f9ceffcdd3832e8271ef14c47b2",
+    "out/native/file_target_merge_resume_r578/summary.json": "46226602edbd2c9dbbf056df9f98d654eccf18573264e4481c93f18aa21ba069",
+    "out/native/file_target_merge_resume_r578/combined-history.json": "15621cb0e07d36ed1e3c01e469688ae361cb66c845ff7cf1635ffa884588f704",
+    "out/native/file_target_merge_resume_r578/statements.jsonl": "da9e49472e52f905d90748dc10239a08b4d3418b146e528ac5179868a2862c96",
+    "out/native/file_target_merge_resume_r578/query-history.json": "20781c5e7bd608b0587898107ea5ca1ff266f9a922a91d3bcc3aa243ac744780",
+    "out/native/file_target_merge_resume_r578/completed-last-statement.json": "a68ba651014c8a41a32d591808b70ba9b7e58cf8e024af4cbde0ff0472272030"
   },
   "evidence": {
     "ddl": {

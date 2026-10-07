@@ -1,0 +1,1 @@
+{"label": "clone-file256", "statement_id": "01f1c2a8-2bce-14af-8459-b8cf69c49073", "statement": "CREATE TABLE client_dev.ashlar_entropy_20261006_r86.file256_merge_r577 SHALLOW CLONE client_dev.ashlar_entropy_20261006_r86.file256_pilot_r569 VERSION AS OF 2 TBLPROPERTIES ('delta.targetFileSize'='268435456','delta.enableChangeDataFeed'='true')"}
