@@ -149,3 +149,10 @@ The wide proof consumed177.558GB reads, exceeding its140GB admission budget; rem
 The separate LC custody check passes for all19.9M unchanged native identities, immutable file paths and row positions across owned clone0/MERGE1, with20M unique IDs and4.273GB reads, zero writes/spill. Combined with the r177 exact100k changed-carrier checks and closed two-version lineage, this establishes preservation for this LC update; it is not a fresh20M wide payload scan. Evidence: `out/native/ashlar_bucket_lc_custody_r179/summary.json`.
 
 Canonical hash liquid clustering remains the physical proposal; bucket64 remains experimental because measured update write amplification is material. UC Delta remains selected. No new canonical publication, producer authority, sustained ingest, cold/service latency or1B/5B admission is established. Next: a small matched post-update singleton comparison on these retained versions, then consolidate the ingest/maintenance design using the observed write amplification; do not repeat the wide oracle.
+
+
+### r181–r182: post-update singleton comparison
+
+All60 complete-carrier lookups pass against immutable stage0,30 identical SHA-ranked updated keys per layout, alternating query order and disabling result caching. LC clone1 p95 is179ms engine/433.354ms caller,8files/403.803MB; bucket9 is228ms/487.591ms,2files/160.850MB. Remote reads occur in1/30 LC and9/30 bucket queries; this is neither a controlled cold test nor a fully warm cohort. Both observed distributions miss the provisional100ms engine/250ms caller targets. Different physical histories and sequential samples preclude a causal partition claim. Fewer bucket files did not imply lower observed latency.
+
+All native query IDs are successful and final. The worker's post-query cost assertion stopped after15.753GB reads against15GB; zero writes/spill. The audit reconstructs completed comparisons without replay and preserves the cost failure. No new canonical publication, sustained-rate, production source authority or billion-scale admission. Evidence: `out/native/ashlar_bucket_post_update_reads_r181/audited-summary.json`.

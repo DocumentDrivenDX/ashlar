@@ -615,3 +615,18 @@ counts, lookup/ingest tradeoffs and maintenance, not billion admission; full20M
 wide-copy parity remains separate if only scoped checks pass. No chosen64-bucket
 production layout or successful full performance gate is inferred. Hash-LC stays
 canonical candidate; UC Delta stays selected and the full goal remains active.
+
+
+### r181–r182: post-update singleton comparison
+
+All60 complete-carrier lookups pass against immutable stage0,30 identical SHA-ranked updated keys per layout, alternating query order and disabling result caching. LC clone1 p95 is179ms engine/433.354ms caller,8files/403.803MB; bucket9 is228ms/487.591ms,2files/160.850MB. Remote reads occur in1/30 LC and9/30 bucket queries; this is neither a controlled cold test nor a fully warm cohort. Both observed distributions miss the provisional100ms engine/250ms caller targets. Different physical histories and sequential samples preclude a causal partition claim. Fewer bucket files did not imply lower observed latency.
+
+All native query IDs are successful and final. The worker's post-query cost assertion stopped after15.753GB reads against15GB; zero writes/spill. The audit reconstructs completed comparisons without replay and preserves the cost failure. No new canonical publication, sustained-rate, production source authority or billion-scale admission. Evidence: `out/native/ashlar_bucket_post_update_reads_r181/audited-summary.json`.
+
+#### Design consequence: budget maintenance separately from publication
+
+Keep canonical current tables clustered by lookup_hash with full native identity predicates. The experimental64-bucket derivative is not a default serving table: r176 wrote5.254GB versus LC326.515MB for the same100k replacements (about16.1 times), while this post-update sample did not improve latency. Budget derivative refresh, copied rows and ZORDER as separate work; a delta commit alone does not establish freshness or sustained throughput.
+
+Proposed maintenance controller inputs are observed candidate-file count/bytes per singleton, DV/copy metrics, queue age and last successful maintenance version. Admit one serialized maintenance task outside publication only when measured read degradation and an explicit byte/time allowance justify it. Do not mandate full OPTIMIZE after each batch. Record physical maintenance lineage independently of logical publication; advertise a new reader snapshot only after the existing publication validation/barrier rules succeed. Thresholds and intervals remain unknown until repeatable workload evidence, rather than fixed production constants inferred from this fixture.
+
+Future experiment admissions must estimate oracle reads plus per-key candidate bytes, check cumulative metrics between small query batches, and stop before another batch exceeds the remaining allowance. The old end-of-phase assertion was not an in-flight spending cap. No wide preservation scan should be repeated merely for a read test; retain the proved version pins. Next measure bounded concurrent singleton reads and caller overhead, then revisit pipeline queueing with the maintenance budget explicit.

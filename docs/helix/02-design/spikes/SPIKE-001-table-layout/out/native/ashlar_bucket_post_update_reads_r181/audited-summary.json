@@ -1,0 +1,26 @@
+{
+  "state": "60 exact post-update reads passed; post-query read budget failed",
+  "reads": {
+    "lc": {
+      "caller_p95_ms": 433.3542090000009,
+      "execution_time_ms_p95": 179,
+      "read_files_count_p95": 8,
+      "read_bytes_p95": 403803321,
+      "remote_queries": 1
+    },
+    "part": {
+      "caller_p95_ms": 487.591124999998,
+      "execution_time_ms_p95": 228,
+      "read_files_count_p95": 2,
+      "read_bytes_p95": 160849868,
+      "remote_queries": 9
+    }
+  },
+  "costs": {
+    "read_bytes": 15752724111,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "budget_bytes": 15000000000,
+  "qualification": "30 updated SHA-ranked identities, pinned LC1/bucket9, result cache false; operational comparison with differing histories, not causal isolation or controlled cold. Original worker failed before summary on its post-query cost check; results reconstructed without rerun. No latency/rate/billion admission."
+}
