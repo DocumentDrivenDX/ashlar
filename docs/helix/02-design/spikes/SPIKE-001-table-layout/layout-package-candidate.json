@@ -1515,7 +1515,7 @@
     "range32-comparison-design-r308.md": "2c9912d643a38567d90f301ea69ef4c200b13cfe431b2d9c7c99a708f0eb4568",
     "range32_build_r309.py": "17a58609168cf1e4bd33b28136371c99673e26df903c4d16fc8de6aa0b98e7e3",
     "range32_cancel_inspection_r312.py": "5e1afb7e5a0acfe556fca00ad1103d1a49f8976ef67134d97bb5b371349f9d0d",
-    "range32_pruning_r310.py": "762e6dab8f3f14e97592a8587caaa33b574a560d0ff1d010201f4453419e1cbd",
+    "range32_pruning_r310.py": "e2a915a9d7473da04e1ffaaccaf4ce555ff9f4eb4981efc222de95419827fb23",
     "range32_concurrent_r311.py": "52eab68aa2a01425cb1369ef62841407f05e041a10b9283a40741c63229377a4",
     "range32-cancel-disposition-r312.md": "22a94a57809d7697cfc900c6f831646e6269a9cf7fa2dff456fc3cd8d39afbeb",
     "out/native/ashlar_range32_build_r309/summary.json": "eb54dd01709dfac17b61da88d8cb84b4927ab6e3bf807ec778cec10b3ff0e262",
@@ -1531,7 +1531,12 @@
     "range32_grow_r314.py": "5e048dd94d95a676d1b234baaa7cc5b0901b21897a9ea053c7f4e74da84865ef",
     "range32_grow_audit_r315.py": "7ff762c7725078e493fa9c2e049b4a96ddbf4904e96f0adcc1e39a23cb2fff03",
     "range32_maintain_r316.py": "8de15aa519a3fde654d62e0cdfc6eb811dbdd11404c4990961444ed231b7dbf0",
-    "out/range32-maintenance-budget-r316.json": "101f487c55850f5355dcf07627c761e80cd6e8dc578e02758f9dac7ab95fe2f7"
+    "out/range32-maintenance-budget-r316.json": "101f487c55850f5355dcf07627c761e80cd6e8dc578e02758f9dac7ab95fe2f7",
+    "range32_maintenance_audit_r317.py": "b5f5b3afbdf1173b515b7a9469791968e6afc8a395c1d656dca1455d9079c985",
+    "out/native/ashlar_range32_grow_r314/summary.json": "0ec273b193384361e43ca9dfcad80e400d0c9bfb0b9e64cecee2b956e71f94c8",
+    "out/native/ashlar_range32_grow_r314/shared-history.json": "daca852092d417fa065556d37af9f0b8deca978c95a296e8bae86800ed5cf9c4",
+    "out/native/ashlar_range32_grow_r314/statements.jsonl": "28807a13845c9b7e27c689593cf44e32f83ad2d98385d49c40a700377eca8f43",
+    "out/native/ashlar_range32_grow_r314/audited-summary.json": "8e91e799ffd69a7d73189b4f42fa948546bb84b8c86ecd5d795ec6d484bc9a8a"
   },
   "evidence": {
     "ddl": {

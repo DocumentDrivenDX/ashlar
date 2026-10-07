@@ -5,7 +5,7 @@ from bounded_reads_r145 import BoundedReads
 from scale_mixed_r219 import Workload
 from mixed_changes_r228 import Changes
 from publication_history import collect_history,HistoryPending
-B=Path(__file__).resolve().parent;O=B/'out/native/ashlar_range32_pruning_r310';assert not O.exists();s=json.loads((B/'out/native/ashlar_range32_build_r309/audited-summary.json').read_text());assert s['state']=='Full39.99M range32 current candidate preserves all20carrier fields';t={'table':s['table'],'version':s['version'],'id':s['uuid']};c=BoundedReads(O);a={'state':'running','table':t,'reads':[]}
+B=Path(__file__).resolve().parent;O=B/'out/native/ashlar_range32_pruning_r310';assert not O.exists();s=json.loads((B/'out/native/ashlar_range32_maintain_r316/audited-summary.json').read_text());assert s['state']=='Full39.99M range32 current candidate preserves all20carrier fields';t={'table':s['table'],'version':s['version'],'id':s['uuid']};c=BoundedReads(O);a={'state':'running','table':t,'reads':[]}
 def save():(O/'summary.json').write_text(json.dumps(a,indent=2)+'\n')
 def metrics(reserve=0):
  c.cursor.close();c.cursor=c.connection.cursor()
