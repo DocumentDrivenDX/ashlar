@@ -185,3 +185,7 @@ Parallel publisher/read contention: [r101](out/native/ashlar_parallel_publicatio
 Updated-key maintenance: [r102](out/native/ashlar_maintenance_reads_20261007_r102/audited-summary.json) replaces 16 update files with four in 16.88 s, preserving all 100k affected carriers and global identity counts. One statement emits commits 14/15. Paired file-read p95 drops 15→3; maintained engine/caller p95 is 122/420 and 116/358 ms, still outside provisional warm targets. All 150 exact reads are uncached with zero remote reads. Existing manifest version13 remains unchanged; no maintained descriptor or freshness admission follows.
 
 Maintained-candidate contention: [r103](out/native/ashlar_maintained_contention_20261007_r103/audited-summary.json) publishes 100k changes in 63.94 s and passes all 248 exact candidate/new-release reads. Candidate version15 retains file-read p95 three, but loaded caller p95 is 1,096 ms (784 ms without remote reads). New publication version16 again reads 15 files at p95. Maintenance does not close shared-resource latency. The next priority is actual engine/catalog and producer integration plus justified scale/resource bounds; further isolated hot-set repetitions are not the default next step.
+
+Singleton transport evidence: [r114 final audit](out/native/ashlar_singleton_rpc_r114/audited-summary.json)
+qualifies30 exact warm reads, p95 engine111ms/caller385.05ms, one RPC/read and
+less than1ms p95 outside RPC. No polling-delay fix or billion-scale claim follows.

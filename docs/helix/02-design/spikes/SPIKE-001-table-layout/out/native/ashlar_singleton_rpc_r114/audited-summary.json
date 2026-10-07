@@ -1,0 +1,368 @@
+{
+  "state": "30 exact full-field singleton reads audited; all final uncached",
+  "backend_class": "ThriftDatabricksClient",
+  "package_metadata_version": "4.3.0",
+  "source_fingerprints": {
+    "client.py": {
+      "sha256": "2e4c85ad5b8b98d6ca6b7ad38ef1076bb0f62fde6716e88c8ff8ce5d2728a339",
+      "matches_installed_record": true
+    },
+    "backend/thrift_backend.py": {
+      "sha256": "02cf7d7da81bfca8e1c0f4e78efe45691d4a2bf50bd6200e7983eddcfe34e7d7",
+      "matches_installed_record": true
+    },
+    "backend/sea/backend.py": {
+      "sha256": "d6027048b8e308a8e3a580dc741d56eb8ba938d0fd335c604dc3b9bd055fc17f",
+      "matches_installed_record": true
+    },
+    "session.py": {
+      "sha256": "473ed8f247efdc7109aa7648ead64ab8648a3d9ae714b788b7c2b042401b157f",
+      "matches_installed_record": true
+    }
+  },
+  "queries": [
+    {
+      "statement_id": "01f1c1ed-0594-15f6-87a9-1a43ad1d83af",
+      "label": "rpc-0",
+      "caller_ms": 379.8493330000001,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 379.2030829999997
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-05ce-1f1f-8a0c-e814561ce8ac",
+      "label": "rpc-1",
+      "caller_ms": 346.31999999999994,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 345.707
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0603-17df-a456-a111fe195438",
+      "label": "rpc-2",
+      "caller_ms": 385.05237499999987,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 384.5832499999999
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-063e-1c46-aea2-a233a3af53f1",
+      "label": "rpc-3",
+      "caller_ms": 360.93125000000015,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 360.47720800000025
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0675-19e7-80f9-ef4583bdfd05",
+      "label": "rpc-4",
+      "caller_ms": 367.6318329999999,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 367.2003749999999
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-06ae-15db-bc04-2cb7a6a67ccc",
+      "label": "rpc-5",
+      "caller_ms": 368.2219590000004,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 367.71824999999933
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-06e6-1b84-a711-d0e35ea6e51a",
+      "label": "rpc-6",
+      "caller_ms": 365.1135830000003,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 364.6256249999995
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-071e-14af-8a4f-3d29faaadc07",
+      "label": "rpc-7",
+      "caller_ms": 354.69287499999956,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 354.32070899999957
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0754-13bc-99d2-3fb1b9feabe4",
+      "label": "rpc-8",
+      "caller_ms": 413.97799999999927,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 413.7253749999994
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0793-17fa-8d30-3c13defa7e7d",
+      "label": "rpc-9",
+      "caller_ms": 363.47724999999986,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 362.9237500000002
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-07cc-1c53-ac85-567d81a7adbc",
+      "label": "rpc-10",
+      "caller_ms": 343.6179999999993,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 343.18995799999993
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0800-1c12-bc8d-a64a794770c5",
+      "label": "rpc-11",
+      "caller_ms": 344.0090419999997,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 343.4691670000003
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0834-1453-84ad-deeaf562faca",
+      "label": "rpc-12",
+      "caller_ms": 349.8398749999998,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 349.34591699999993
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0869-1a7e-8eaf-9557015fd254",
+      "label": "rpc-13",
+      "caller_ms": 349.4925420000001,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 349.16916600000025
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-089e-1a9a-b930-acf1b3c0cfd4",
+      "label": "rpc-14",
+      "caller_ms": 336.942541,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 336.6260419999998
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-08d2-1da8-b9f6-b860f43b615c",
+      "label": "rpc-15",
+      "caller_ms": 363.3289160000004,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 362.79387500000036
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-090b-1170-ba58-611d8c25ce59",
+      "label": "rpc-16",
+      "caller_ms": 327.57379099999895,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 327.10058300000003
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-093d-1410-a2cc-e6e7cb10191d",
+      "label": "rpc-17",
+      "caller_ms": 367.430584000001,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 367.0506669999991
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0975-130a-95cf-2b2cf5c1068d",
+      "label": "rpc-18",
+      "caller_ms": 333.74787500000025,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 333.37158299999993
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-09a8-136e-9f34-9f70df27389b",
+      "label": "rpc-19",
+      "caller_ms": 349.8562090000004,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 349.5111659999992
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-09dd-1771-9e52-9560ae085e36",
+      "label": "rpc-20",
+      "caller_ms": 364.7718330000007,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 364.2111250000006
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0a15-1318-9af6-bf196c4be75e",
+      "label": "rpc-21",
+      "caller_ms": 350.10879200000034,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 349.6250000000014
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0a4a-189c-8362-eb0d51994f95",
+      "label": "rpc-22",
+      "caller_ms": 349.901375,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 349.43929199999957
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0a7f-1d55-b4c0-d1574cc2625e",
+      "label": "rpc-23",
+      "caller_ms": 328.39654100000007,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 328.1059580000001
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0ab2-162d-9a1b-d2a5df2b7461",
+      "label": "rpc-24",
+      "caller_ms": 333.9349580000004,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 333.68958299999997
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0ae5-1c1d-a71e-0ee85c6153fc",
+      "label": "rpc-25",
+      "caller_ms": 350.2483749999996,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 349.75608300000084
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0b1b-10ca-85a0-e0fe5888f7dd",
+      "label": "rpc-26",
+      "caller_ms": 349.34825000000023,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 348.87791700000116
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0b50-1cdb-a780-db4197c55748",
+      "label": "rpc-27",
+      "caller_ms": 331.41962500000056,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 330.9649579999991
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0b82-177b-847f-88388ca44328",
+      "label": "rpc-28",
+      "caller_ms": 362.90962500000035,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 362.36820799999947
+        }
+      ]
+    },
+    {
+      "statement_id": "01f1c1ed-0bba-1f75-bb0f-694174154af1",
+      "label": "rpc-29",
+      "caller_ms": 348.32987500000104,
+      "rpc": [
+        {
+          "method": "ExecuteStatement",
+          "wall_ms": 347.77300000000014
+        }
+      ]
+    }
+  ],
+  "qualification": "Method-only instance instrumentation; no credentials or RPC arguments retained. Same fixed warm30-key cohort, no publisher. Current source fingerprint does not retroactively identify historical connector source.",
+  "measurement": {
+    "caller_p95_ms": 385.05237499999987,
+    "engine_p95_ms": 111,
+    "compile_p95_ms": 162,
+    "total_server_p95_ms": 280,
+    "rpc_method_counts": {
+      "ExecuteStatement": 30
+    },
+    "caller_outside_rpc_p95_ms": 0.6129999999999427,
+    "file_reads_p95": 15,
+    "remote_queries": 0
+  }
+}

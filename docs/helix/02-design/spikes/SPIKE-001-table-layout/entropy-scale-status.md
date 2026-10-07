@@ -768,3 +768,28 @@ planning its writer/maintenance policy. Explicit batches here establish the
 bounds; neither automatic clustering nor arbitrary scattered updates have been
 shown to preserve them. Do not prescribe20relationships/file, disable compaction
 universally, or infer reverse/ingest/billion-scale performance from this fixture.
+
+## Singleton RPC boundary measurement (r114)
+
+[Final audit](out/native/ashlar_singleton_rpc_r114/audited-summary.json)
+passes30 exact full20-field E16 singleton reads against the independent r103
+oracle, using one persistent connection on the existing warehouse. All final
+histories are uncached, with15files at p95 and no remote reads. Warm p95 is
+111ms engine,162ms compilation,280ms total server and385.05ms caller.
+Component percentiles must not be added. This quiet sample does not establish
+cold, concurrent or billion-scale performance, and exceeds provisional budgets.
+
+Instance-scoped, method-only instrumentation records exactly30 ExecuteStatement
+RPCs, with no status polling or fetch RPCs during measured reads. Per-query
+caller time minus its measured RPC time has p95 0.613ms. This sample therefore
+provides no evidence for fixing a client polling delay; network/server RPC time
+requires separate attribution. No RPC arguments or credentials were recorded.
+Current Thrift backend source fingerprints match installed RECORD entries;
+package metadata reports4.3.0. These fingerprints qualify this run only and do
+not retroactively identify historical connector source or prove upstream release
+identity. Keep UC Delta architecture selected and singleton tuning empirical.
+
+Next physical-layout qualification should exercise relationship-range adjacency
+statistics under scattered updates and OPTIMIZE, retaining the proposed cursor
+order and independent full-row oracles. The4M-node/20M-edge local and native
+large-data evidence remains the tested scale;1B/5B admission is still open.
