@@ -1,0 +1,43 @@
+{
+  "format": "ashlar-next-growth-budget/1",
+  "source_sha256": {
+    "out/native/ashlar_scale_edges_r261/audited-summary.json": "d5bd11de21cb1598abacff4e927bd2f8ed6786eb8bd656cd9c8e1381389b6529",
+    "out/native/ashlar_scale_edges_r257/audited-summary.json": "0dcfb502af0a32ef7e5ec28e528b393b30f97d4ae528ea50d91217f4570ebc07"
+  },
+  "prior_prefix_edges": 24000000,
+  "next_prefix_edges": 32000000,
+  "new_edges": 8000000,
+  "edge_generation_chunks": [
+    [
+      24000000,
+      28000000
+    ],
+    [
+      28000000,
+      32000000
+    ]
+  ],
+  "planned_intermediate": {
+    "nodes": 8000000,
+    "edges": 40000000
+  },
+  "final_owner_scale": {
+    "nodes": 1000000000,
+    "edges": 5000000000
+  },
+  "bounds": {
+    "read_bytes": 420000000000,
+    "write_bytes": 40000000000,
+    "spill_bytes": 30000000000,
+    "phase_reserve": 10000000000,
+    "wall_s": 2700,
+    "statement_cancel_s": 180
+  },
+  "sensitivity": {
+    "read": 378456354561.25,
+    "write": 28351586410.5,
+    "spill": 18171708942.0,
+    "wall": 2520.8164434375003
+  },
+  "qualification": "Read estimate uses uncached r257 and prior+new prefix ratio56M/24M with1.25x headroom, not r261 cached prior zero.45min replaces40min guard. Same8M append uses1.5x measured write/spill sensitivity; splitting into two4M edge-generation commits is an experiment, not promised spill reduction. Controller guards not guaranteed hard deadlines/peak temp/billing limits. No resize/new compute/source ACK or full40M/billion admission."
+}
