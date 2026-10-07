@@ -1,0 +1,61 @@
+{
+  "format": "ashlar-changed-role-oracle/1",
+  "state": "All90k surviving current and forward rows independently qualified",
+  "base": {
+    "nodes": 8000000,
+    "edges": 40000000
+  },
+  "selected": 100000,
+  "deletes": 10000,
+  "final_current_rows": 39990000,
+  "roles": {
+    "edge_current": {
+      "rows": 90000,
+      "fields": [
+        "source_system",
+        "rel_type_id",
+        "id",
+        "source_type",
+        "source_id",
+        "target_type",
+        "target_id",
+        "order_key",
+        "schema_revision",
+        "entity_version",
+        "props_json",
+        "retained_json",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "lookup_hash"
+      ],
+      "digest": "a16432914189e4e9dced4b64a6ba2f8406b03de142a1c01b476833f07f577a35"
+    },
+    "adjacency_forward": {
+      "rows": 90000,
+      "fields": [
+        "source_system",
+        "rel_type_id",
+        "id",
+        "source_type",
+        "source_id",
+        "target_type",
+        "target_id",
+        "entity_version"
+      ],
+      "digest": "52e15c25e14a33157e91e49b138964eec24146d87533dfa1ea3ef5b40dc5f2cd"
+    }
+  },
+  "source_sha256": {
+    "mixed_changed_oracle_r277.py": "839ba673defd4cc60d5c784fec19a6892f45ec7565d23b5b090326ca76296113",
+    "mixed_changes_r228.py": "2ab1d0c677cf7acff58e923bf3199a89a912fa712731769ca5a100e5ce9599fa",
+    "scale_mixed_r219.py": "d39c6a01fbcd65b9302c52c71cc9d44a3a7fa56e47ddce84aa087ce6dc3a317d",
+    "mixed_change_queries_r230.py": "7c49d418861c5b2694f8461cc1a25858663d9b6eb7d813139e4d14455cf90540"
+  },
+  "wall_s": 13.289908833,
+  "qualification": "Independent full changed-role digests only; baseline unchanged rows must pass both directions of native EXCEPT ALL and deleted identities must be absent. No full native graph/publication/freshness claim; SHA256 collision resistance assumed."
+}

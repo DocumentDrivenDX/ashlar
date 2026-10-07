@@ -1388,7 +1388,9 @@
     "out/next-growth-budget-r273.json": "5c16216fa74d6ea8469a47cd762531b6d3519cef5978e475b567e364d8eb50e3",
     "normalized_delta_stage_r275.py": "4db85256775f9da56cbb802e6c49979c8bad59c5985e3a0ee32f5b52a3155705",
     "normalized_apply_sql_r276.py": "30cf7087873cdeb2aabca3797ea2948159e7f10fb58e86174d6d5505febb2d79",
-    "large-mixed-publication-audit-plan.md": "dda409cb44849b3c1039346b6025fead2437e3b92b3566c754272011b423f7e0"
+    "large-mixed-publication-audit-plan.md": "dda409cb44849b3c1039346b6025fead2437e3b92b3566c754272011b423f7e0",
+    "mixed_changed_oracle_r277.py": "839ba673defd4cc60d5c784fec19a6892f45ec7565d23b5b090326ca76296113",
+    "out/mixed-changed-oracle-r277.json": "4712aded2d062b63886365066927e0dec8e22633619f585d589a4e31cd5781f1"
   },
   "evidence": {
     "ddl": {
