@@ -1103,3 +1103,41 @@ independent exhaustive qualification. Baseline source authority, concurrent
 fencing, acknowledgement, external graph activation and1B/5Badmission remain
 unqualified. Existing shared-warehouse timing does not attribute dollar costs.
 The pending isolated-reader runner must use the new E18/R14/J16 predecessor.
+
+## Changed-set structural differential and guard (r124/r125)
+
+[Corrected final audit](out/native/ashlar_changed_structure_r125/audited-summary.json)
+passes six exact100k structural comparisons between fixed trusted stage0, E17
+predecessor and E18 output. Nine read-only corruptions are rejected: each of the
+seven structural fields, deletion and duplicate insertion. Membership comes from
+the immutable original stage, not mutated candidate rows. All final histories
+are uncached. Stage checks3.352–3.530s and output checks5.499–5.837s do not show
+a large timing gain over r123's6.476s full20M structural scan. Do not add a
+redundant3.5second precheck and describe it as a saving.
+
+[Initial failed control](out/native/ashlar_changed_structure_r124/failure.json)
+is retained: the duplicate UNION ALL operand was incorrectly grouped with
+EXCEPT ALL. r125 explicitly wraps candidate relations and gets exactly one
+difference for insertion/deletion controls. Native queries in r124 succeeded,
+but the harness assertion failed; r124 is not a qualified validator.
+
+A separately tested finite lineage gate passes the recorded r123 MERGE and
+rejects altered query ID/read version/operation/version, source/update counts,
+inserts/deletes/copied rows and duplicate commits. It requires continuous
+versions, exactly one known MERGE, original predecessor readVersion, exact
+member count, and no unsupported mutations. Actual query history matches the
+recorded owned apply text; its SHA256 is recorded. Connector-rendered operation
+parameters are not valid JSON, so the guard does NOT guess escaping or claim
+general predicate/source analysis.
+
+The changed-set differential alone cannot detect outside-membership mutations.
+Replacing full-graph validation requires a qualified immutable adjacency baseline,
+fixed complete source membership, exact owned source/apply SQL, complete lineage
+and metrics, no concurrent publisher gap, and both before/after structural proofs.
+Unknowns fail closed. Existing20-field intended/output checks already contain
+structural columns: investigate composing those proofs with these guards rather
+than introducing redundant scans. No publisher substitution or activation was
+run here; production source authority/fencing and1B/5Badmission remain open.
+Two local unit tests include actual evidence and ten rejection subcases; all
+pass. All native tests are read-only on existing compute; no attributable dollar
+billing or whole-publication freshness claim follows.

@@ -1,0 +1,19 @@
+{
+  "state": "6 exact100k structural differentials passed;9 deliberate corruptions rejected; final metrics pending",
+  "old_version": 17,
+  "new_version": 18,
+  "trusted_stage": "client_dev.ashlar_entropy_20261006_r86.schedule_r123_1",
+  "trusted_stage_version": 0,
+  "corruptions": {
+    "source_system": 2,
+    "rel_type_id": 2,
+    "id": 2,
+    "source_type": 2,
+    "source_id": 2,
+    "target_type": 2,
+    "target_id": 2,
+    "deletion": 1,
+    "duplicate": 1
+  },
+  "qualification": "Fixed original membership independently used for predecessor/output selection; source stage immutable and trusted for this finite synthetic test. Separate finite lineage guard available; source membership/owned SQL and outside-membership mutations remain separate obligations, unknown source effects, concurrent fencing, outside-membership mutations, adjacency baseline binding or full publication replacement qualified."
+}

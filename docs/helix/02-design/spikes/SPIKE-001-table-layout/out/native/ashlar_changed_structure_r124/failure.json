@@ -1,0 +1,10 @@
+{
+  "state": "terminal harness assertion failure; SQL queries succeeded",
+  "control": "duplicate-row operand grouped incorrectly in EXCEPT ALL/UNION ALL expression",
+  "observed_count": [
+    [
+      "2"
+    ]
+  ],
+  "recovery": "r125 wraps candidate operand in SELECT * FROM (...) and repeats bounded controls; r124 is not a qualified validator."
+}

@@ -238,3 +238,9 @@ passes100k affected20-field carriers, raw/journal and20M structural parity befor
 E18/N0/R14/J16/T0/forward1 publication. Ready-input62.943s, modeled oldest72.943s;
 fresh singleton p95 engine102/caller351.76ms. All provisional targets remain
 missed; validation scheduling alone is insufficient.
+
+Changed-set validation: [r125 audit](out/native/ashlar_changed_structure_r125/audited-summary.json)
+passes6 exact100k structural differentials and rejects9 corruptions. Output
+checks5.5–5.8s offer only modest gain over6.5s full scan. Finite recorded-lineage
+guard tests pass; outside-membership/source/owned-SQL/baseline obligations block
+a general publication replacement. Failed r124 grouping control is retained.
