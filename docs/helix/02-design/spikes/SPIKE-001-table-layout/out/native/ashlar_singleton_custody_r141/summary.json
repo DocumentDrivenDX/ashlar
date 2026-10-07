@@ -1,0 +1,11 @@
+{
+  "state": "Exact100k rewritten carriers, full19.9M untouched immutable row custody and20M global identities passed",
+  "table": "client_dev.ashlar_entropy_20261006_r86.edge_optimize_r140",
+  "source": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "source_version": 23,
+  "versions": {
+    "before": 0,
+    "after": 2
+  },
+  "qualification": "All20 rewritten fields compared with UTF8 byte normalization. Unchanged keys/filepaths/row indices prove custody under stable schema and immutable Delta-file semantics, not fresh wide payload equality. Original full20M digest query timed out180s and remains failed evidence. No canonical publication change."
+}

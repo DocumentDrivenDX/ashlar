@@ -1,0 +1,9 @@
+{
+  "state": "Thirty exact post-maintenance warm-repeat reads final uncached",
+  "caller_p95_ms": 363.0992499999994,
+  "engine_p95_ms": 101,
+  "files_p95": 3,
+  "bytes_p95": 163868639,
+  "remote_queries": 0,
+  "qualification": "Same30 SHA-ranked affected keys and optimized clone2 after full rewritten-row verification warmed files. Single finite repeat, no publication/concurrency/controlled-cold or billion admission."
+}

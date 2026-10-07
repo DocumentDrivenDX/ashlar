@@ -480,3 +480,36 @@ absence from the published version vector. Retention applies; no VACUUM/immediat
 physical reclamation claim. Next address scattered post-MERGE files for native
 singleton reads and investigate bounded physical maintenance/input layout rather
 than repeatedly adding capture stages. Preserve property history and exact values.
+
+
+Incremental singleton maintenance: [r140 final audit](out/native/ashlar_singleton_optimize_r140/audited-summary.json)
+uses an isolated original E23 shallow clone (before0/after2). One OPTIMIZE command
+creates a rewrite and a no-op OPTIMIZE commit; retain both in r141 delta history.
+It removes16 files/326.999747MB and adds4/326.482281MB, total532→520 files;
+caller13.340s/engine11.741s,658.854MB read. No FULL rewrite, source E23 unchanged.
+Thirty SHA-ranked affected full20-field reads before: engine p95124ms/caller
+422.70ms,18 files/414.852MB, remote0. Immediately after:574ms/832.02ms,3 files/
+160.379MB, five remote queries. This mixed-cache result cannot establish a warm
+latency benefit or controlled cold-data admission.
+
+Full20M keyed SHA256 wire comparison times out180s after96.497GB read, and remains
+failed evidence. It is not retried or counted as passing preservation. [r141
+proof](out/native/ashlar_singleton_custody_r141/summary.json) instead passes exact
+UTF8-normalized equality for all100k rewritten20-field carriers and19.9M untouched
+key/filepath/row-index custody, plus20M globally unique IDs. Custody relies on
+stable schema and immutable Delta-file semantics, not fresh wide-payload equality.
+Bounded diagnostics must not imply the failed full digest passed.
+
+[Warm repeat r142](out/native/ashlar_singleton_warm_r142/audited-summary.json)
+checks the same30 exact keys after rewritten-carrier verification warmed files:
+p95 engine101ms/caller363.10ms,3 files/163.869MB, remote0, final result-uncached.
+Both agreed warm gates still missed; this is one finite repeat, no general
+concurrency or billion admission. Maintenance improves file/byte pruning but
+adds13.340s work and initially introduces cold rewritten files; no integrated
+publication freshness claim. Treat it as a tuning candidate, not an admitted
+operational schedule. Next isolate query compile/client overhead and assess
+post-MERGE write distribution before adding maintenance to every publication.
+[Cleanup](out/native/ashlar_singleton_optimize_r140/cleanup/summary.json) drops
+only the identity-verified owned clone; source/publication r139-b1 remains pinned
+E23/N0/R17/J19/T0/forward1. Platform retention applies; no VACUUM claim. All full
+goal performance/scale requirements remain open.

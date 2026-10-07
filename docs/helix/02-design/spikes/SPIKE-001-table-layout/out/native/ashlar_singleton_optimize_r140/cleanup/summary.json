@@ -1,0 +1,5 @@
+{
+  "state": "Audited owned shallow clone dropped; published source unchanged",
+  "table": "client_dev.ashlar_entropy_20261006_r86.edge_optimize_r140",
+  "qualification": "No VACUUM. Managed storage retention applies; no immediate physical reclamation claim."
+}
