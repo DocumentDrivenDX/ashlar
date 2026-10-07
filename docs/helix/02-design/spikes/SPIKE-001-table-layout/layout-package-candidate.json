@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "4fd397b10ecd8df9390e6489f7775366d21dd992ea754492a01c4754e07a6c25",
+    "scale-experiment-plan.md": "394f54932e5749f3292f2cc72574bf3717fb5590991c598e1e46bc313b545bfb",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1297,7 +1297,12 @@
     "native_mixed_pruning_r253.py": "7ac4f3072ee29ef52f50b58cb452d6f414f1c80378db88d693b1e45c4bf384c3",
     "out/native/ashlar_mixed_pruning_r253/shared-history.json": "db8411fc56056901c203bbebfa14ba761179ac2d3924aa690bed090390380a18",
     "out/native/ashlar_mixed_pruning_r253/statements.jsonl": "84b0dc4a513d11adf602f6317db7be71d954a5008b0bed3fd29318365727d8b1",
-    "out/native/ashlar_mixed_pruning_r253/summary.json": "38e4a5c904c9b8cb3b71c918faaf1fb536278b2166265abe6e050b528b505d88"
+    "out/native/ashlar_mixed_pruning_r253/summary.json": "38e4a5c904c9b8cb3b71c918faaf1fb536278b2166265abe6e050b528b505d88",
+    "scale_edges_r252.py": "e4cb1f55d45110ae1a3d0912f4359b98884bd91414be459dcda6adc8ff52810d",
+    "out/native/ashlar_scale_edges_r252/audited-summary.json": "cff733e37346c2218a25164d7668f3a627799bb548b03bdf5639a1ca090fbc20",
+    "out/native/ashlar_scale_edges_r252/shared-history.json": "dd1429e5430d630f7fd0d2f0cfdf9d58319388b48cb9b3c6589d2bd6c2eedcd4",
+    "out/native/ashlar_scale_edges_r252/statements.jsonl": "bbdfd2b6d94cc1e818c0d7eae717bd0738f3450227a15560f3dcd1e9c7d35d41",
+    "out/native/ashlar_scale_edges_r252/summary.json": "71d57efbaf59414e4b45e85b770cadc80c14018cc4cbefc270fdafbc8ae2a297"
   },
   "evidence": {
     "ddl": {
