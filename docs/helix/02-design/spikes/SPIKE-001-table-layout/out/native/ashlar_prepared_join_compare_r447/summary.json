@@ -1,0 +1,122 @@
+{
+  "state": "Both100k full-before/42field source matches pass in immutable read-only pair",
+  "prepared_source_sha256": "c5ecea9ab3361408602d503d751dd34b49a7cc3e0a17ee3035bb6673d5371790",
+  "base": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 6
+  },
+  "reads": {
+    "prepared": {
+      "statement_id": "01f1c28a-ab2c-1e48-9f4d-00b809e10d17",
+      "caller_s": 39.279199083,
+      "result": [
+        [
+          "100000",
+          "0",
+          "c9f3a5c36b61cc5bd2ed3dd2a782a1f70fa5f5cee748af58d210de5e6bab1ed4"
+        ]
+      ],
+      "metrics": {
+        "total_time_ms": 38221,
+        "read_bytes": 33261314850,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 1459,
+        "execution_time_ms": 36684,
+        "read_remote_bytes": 10420733779,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 22840581071,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 180144,
+        "read_files_count": 1205,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 178939,
+        "rows_read_count": 40198792,
+        "result_fetch_time_ms": 45,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791403625959,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 38143,
+        "bytes_read_from_cache_percentage": 64.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791403625918,
+        "read_files_bytes": 64503604419,
+        "rows_scanned": 40485585,
+        "cloud_storage_retry_duration_ms": 10039,
+        "task_progress": {
+          "planned_task_count": 694,
+          "completed_task_count": 370,
+          "completed_partition_count": 370,
+          "pending_task_count": 324,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "legacy": {
+      "statement_id": "01f1c28a-c25e-1821-9b31-ffd08184a62a",
+      "caller_s": 39.565670083,
+      "result": [
+        [
+          "100000",
+          "0",
+          "c9f3a5c36b61cc5bd2ed3dd2a782a1f70fa5f5cee748af58d210de5e6bab1ed4"
+        ]
+      ],
+      "metrics": {
+        "total_time_ms": 38991,
+        "read_bytes": 33541596372,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 1157,
+        "execution_time_ms": 37797,
+        "read_remote_bytes": 5401468178,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 28140128194,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 221000,
+        "read_files_count": 1828,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 191596,
+        "rows_read_count": 40643377,
+        "result_fetch_time_ms": 44,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791403664824,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 38954,
+        "bytes_read_from_cache_percentage": 81.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791403664785,
+        "read_files_bytes": 96986798065,
+        "rows_scanned": 40933227,
+        "cloud_storage_retry_duration_ms": 10116,
+        "task_progress": {
+          "planned_task_count": 1039,
+          "completed_task_count": 393,
+          "completed_partition_count": 393,
+          "pending_task_count": 646,
+          "failed_task_count": 0
+        }
+      }
+    }
+  },
+  "bounds": {
+    "read_bytes": 80000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 5000000000,
+    "wall_s": 300
+  },
+  "qualification": "One prepared-first/legacy-second read-only pair at E6+fourth input0. Full20field before comparisons and full42field source digest. Fixed order/cache differences prevent causal speed claims; no MERGE or publication is executed.",
+  "costs": {
+    "read_bytes": 66802911222,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 81.015721417
+}

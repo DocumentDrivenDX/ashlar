@@ -1,0 +1,26 @@
+{
+  "state": "Offline terminal receipts, exact SQL, complete42field digest bindings and costs pass",
+  "audits": [
+    {
+      "directory": "ashlar_prepared_mutation_r445",
+      "native_final_statements": 10,
+      "costs": {
+        "read_bytes": 398113157,
+        "write_remote_bytes": 157384015,
+        "spill_to_disk_bytes": 0
+      }
+    },
+    {
+      "directory": "ashlar_prepared_join_compare_r447",
+      "native_final_statements": 2,
+      "costs": {
+        "read_bytes": 66802911222,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      }
+    }
+  ],
+  "prepared_source_sha256": "c5ecea9ab3361408602d503d751dd34b49a7cc3e0a17ee3035bb6673d5371790",
+  "comparison_source_sha256": "2b3c435a5d9f4aba3bd6b894428a2785a2dc7738ecae3fecf8089ae77082b095",
+  "qualification": "Checks retained native receipts; independent generated source oracle belongs to r445. Initial plans are not MERGE runtime evidence; fixed-order pair is not causal."
+}
