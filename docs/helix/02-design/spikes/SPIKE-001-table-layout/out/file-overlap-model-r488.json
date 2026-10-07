@@ -1,0 +1,23 @@
+{
+  "state": "Native interval receipts audited; conditional overlap/edge-scale model computed",
+  "source_sha256": "0bba039b1d3352192a295d1724253f9134cf4edf861737058cb017cf93138089",
+  "live_rows": 39950000,
+  "files": 606,
+  "physical_file_bytes": 32318236099,
+  "wide_domain_files": 6,
+  "wide_domain_file_bytes": 217690053,
+  "sum_live_hash_domain_spans": 15.355646148054097,
+  "sampled_point_interval_coverage": {
+    "samples": 100,
+    "min": 4,
+    "median": 16.0,
+    "max": 16
+  },
+  "fifth100k_touched_intervals": 606,
+  "fifth100k_touched_physical_bytes": 32318236099,
+  "conditional_5B_edge_projection": {
+    "files": 75844.80600750938,
+    "physical_current_file_bytes": 4044835556821.0264
+  },
+  "qualification": "Exact E8 live intervals/physical file sizes, not persisted Delta statistics or exact query-pruning proof. Deleted-row statistics may be wider. Point100sample coarse and biased to existing changed identities, not service distribution. Linear5Bedge model assumes identical row mix/entropy/file geometry and excludes nodes/journal/raw/retention/log/adjacency/maintenance/concurrency; actual billion-scale untested."
+}
