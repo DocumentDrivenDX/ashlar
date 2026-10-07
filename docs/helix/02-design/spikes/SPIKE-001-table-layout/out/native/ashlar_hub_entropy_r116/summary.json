@@ -1,0 +1,50 @@
+{
+  "state": "20M parity, identities, typed closure and36 exact full-shape pages passed; final metrics pending",
+  "table": "client_dev.ashlar_entropy_20261006_r86.adjacency_entropy_r116",
+  "versions": {
+    "built": 8,
+    "optimized": 11
+  },
+  "details": {
+    "built": {
+      "format": "delta",
+      "id": "a1977bc1-bd44-49ee-8029-0ecd802d652b",
+      "name": "client_dev.ashlar_entropy_20261006_r86.adjacency_entropy_r116",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/80a141ab-1afc-4995-a2ea-b1a2e1e260f6",
+      "createdAt": "2026-10-07T01:26:19.922000",
+      "lastModified": "2026-10-07T01:26:55",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"source_system\",\"source_type\",\"source_id\",\"rel_type_id\"]",
+      "numFiles": "8",
+      "sizeInBytes": "137620838",
+      "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.autoOptimize.autoCompact\":\"false\",\"delta.autoOptimize.optimizeWrite\":\"false\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"source_system,source_type,source_id,rel_type_id,target_type,target_id,edge_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-e4fdfa93-a8bc-4d5e-9ed8-21f3b2ba149a\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-4f44bfee-d89a-4da0-b0f7-8e3632c109b4\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"80a141ab-1afc-4995-a2ea-b1a2e1e260f6\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+      "clusterByAuto": "False"
+    },
+    "optimized": {
+      "format": "delta",
+      "id": "a1977bc1-bd44-49ee-8029-0ecd802d652b",
+      "name": "client_dev.ashlar_entropy_20261006_r86.adjacency_entropy_r116",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/80a141ab-1afc-4995-a2ea-b1a2e1e260f6",
+      "createdAt": "2026-10-07T01:26:19.922000",
+      "lastModified": "2026-10-07T01:27:27",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"source_system\",\"source_type\",\"source_id\",\"rel_type_id\"]",
+      "numFiles": "3",
+      "sizeInBytes": "137425359",
+      "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.autoOptimize.autoCompact\":\"false\",\"delta.autoOptimize.optimizeWrite\":\"false\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"source_system,source_type,source_id,rel_type_id,target_type,target_id,edge_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-e4fdfa93-a8bc-4d5e-9ed8-21f3b2ba149a\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-4f44bfee-d89a-4da0-b0f7-8e3632c109b4\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"80a141ab-1afc-4995-a2ea-b1a2e1e260f6\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+      "clusterByAuto": "False"
+    }
+  },
+  "fixture": "Affine bijection on4M destinations, hash-distributed32 relationship buckets per hop,90/10 source hubs, random hash write order within20-relationship append ranges;8 appends. Valid target types/source custody derived from destination identity.",
+  "qualification": "Higher entropy than periodic r113, not a production distribution. Full projection oracle uses native hash semantics; no independent Python hash oracle, real producer/publication, reverse access or billion-scale admission."
+}

@@ -828,3 +828,40 @@ that fewer files necessarily improve adjacency latency. Its extremely periodic
 low-entropy input cannot justify capacity, physical bucket counts, reverse access
 or1B/5Badmission. Next test adjacency with realistic endpoint/relationship entropy
 and bounded skew before making maintenance thresholds normative.
+
+## Higher-entropy adjacency screen (r116)
+
+[Final audit](out/native/ashlar_hub_entropy_r116/audited-summary.json) passes
+20M full eight-column parity, unique edge IDs, unique typed relationship-endpoint
+pairs, native N0 typed closure, and36 exact relationship-first pages. Destination
+IDs use an affine bijection on4M IDs (coprime multiplier104729); target type and
+source custody follow valid native node identities. Hash-distributed32relationship
+buckets per hop and random hash write order break the previous periodic encoding.
+Eight20-relationship appends are a controlled intervention, not a universal policy.
+Projection oracles use the native hash semantics; no independent Python hash
+oracle or actual producer distribution is claimed.
+
+Built v8 has8files/137620838bytes, compared with r113's97968bytes for its different
+periodic graph. This is observed higher entropy, not an isolated compression
+causality estimate. OPTIMIZE leaves v11 with3files/137425359bytes. Contract-order
+page reads change8/4/1→3/3/1files and byte maxima139690725/69947979/17337453→
+138186734/138186734/51367696. Reported query read bytes differ from table physical
+bytes and must not be treated as identical storage metrics. All histories are
+final uncached and report no remote bytes.
+
+Three-sample caller maxima span371–439ms built and409–493ms optimized; engine
+99–165ms and140–223ms. These descriptive samples do not establish p95, concurrency
+or cold-data SLOs. Eight actual appends total34.091s caller, create2.053s and
+OPTIMIZE11.312s, excluding preservation/closure/oracle checks; no ingest freshness
+claim follows. [Delta lineage](out/native/ashlar_hub_entropy_r116/delta-history.json)
+retains all exact versions and maintenance metrics. Existing compute only;
+shared warehouse dollars remain unattributed.
+
+This reinforces the need to tune adjacency file size separately from canonical
+wide-row singleton storage. A next bounded comparison should use the same exact
+fixture with smaller target files and preserved contract clustering, accounting
+for actual bytes scanned, update amplification and maintenance costs. Retain the
+logical eight-column shape and relationship-first cursor; do not prescribe
+artificial20-relationship buckets or infer automatic range maintenance. The two
+hubs remain an extreme skew screen, not representative production degrees,
+reverse access, publication custody or1B/5Badmission.

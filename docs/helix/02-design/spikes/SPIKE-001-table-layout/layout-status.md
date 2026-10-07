@@ -194,3 +194,8 @@ Adjacency maintenance: [r115 final audit](out/native/ashlar_hub_maintenance_r115
 passes20M-row parity through100117scattered moves and OPTIMIZE. Page files change
 8/4/1→9/5/2→1/1/1 while optimized bytes become2.16MB at every cursor. Do not
 choose maintenance from file counts alone; production entropy remains untested.
+
+Higher-entropy adjacency: [r116 final audit](out/native/ashlar_hub_entropy_r116/audited-summary.json)
+passes20M exact rows, typed closure, unique keys and36 pages. Built8files/138MB
+become3files/137MB after OPTIMIZE; deep-page bytes17MB→51MB with higher observed
+latency. Compare smaller adjacency target files before choosing maintenance.
