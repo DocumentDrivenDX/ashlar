@@ -1,0 +1,38 @@
+{
+  "state": "1000 corrupt raw records refused; current/journal exact, old manifest unchanged and pinned rows retained",
+  "owned_identity": {
+    "client_dev.ashlar_entropy_20261006_r86.edge_failure_r156": {
+      "id": "103ff537-ff32-4fd7-83cf-15a65f0b76ad",
+      "version": 1
+    },
+    "client_dev.ashlar_entropy_20261006_r86.raw_failure_r156": {
+      "id": "dba7b79b-d8a6-49c3-95c7-923451c0709a",
+      "version": 1
+    },
+    "client_dev.ashlar_entropy_20261006_r86.journal_failure_r156": {
+      "id": "2b7c8b99-6889-4766-9648-ca49f1025985",
+      "version": 1
+    },
+    "client_dev.ashlar_entropy_20261006_r86.manifest_failure_r156": {
+      "id": "14e2a4fc-092c-4258-adde-354f5095fe97",
+      "version": 1
+    },
+    "client_dev.ashlar_entropy_20261006_r86.stage_failure_r156": {
+      "id": "73636f5e-40f4-4deb-9723-2f0484a2b8a6",
+      "version": 0
+    }
+  },
+  "old_vector": {
+    "client_dev.ashlar_entropy_20261006_r86.edge_failure_r156": 0,
+    "client_dev.ashlar_entropy_20261006_r86.raw_failure_r156": 0,
+    "client_dev.ashlar_entropy_20261006_r86.journal_failure_r156": 0,
+    "client_dev.ashlar_entropy_20261006_r86.object_current": 0
+  },
+  "unpublished_versions": {
+    "client_dev.ashlar_entropy_20261006_r86.edge_failure_r156": 1,
+    "client_dev.ashlar_entropy_20261006_r86.raw_failure_r156": 1,
+    "client_dev.ashlar_entropy_20261006_r86.journal_failure_r156": 1
+  },
+  "refused_rows": 1000,
+  "qualification": "Synthetic1000-edge property slice; validation failure after successful independent writes, not process crash, transport ambiguity or durable recovery/fencing admission. Source record digest is self-consistent but exact bytes differ, so publication is refused. Unpublished versions retained for inspection then owned cleanup; no mutation retry."
+}

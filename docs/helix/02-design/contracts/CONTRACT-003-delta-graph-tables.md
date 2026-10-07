@@ -128,6 +128,17 @@ Unmanifested newer table writes MUST remain invisible to boundary reads.
 Retention MUST protect every referenced version; expired versions return
 RECOVERY_REQUIRED. No cross-table atomicity claim follows from independent MERGEs.
 
+Independent physical write lanes may leave committed versions before manifest
+validation. A validation refusal MUST retain the previous manifest and MUST NOT
+advance source progress; unmanifested versions require explicit state inspection
+before recovery, not blind mutation replay. The
+[r156 failed-lane control](../spikes/SPIKE-001-table-layout/out/native/ashlar_failure_r156/audited-summary.json)
+rejects 1,000 raw payloads with self-consistent digests but changed exact bytes,
+while current/history writes succeed. No new manifest is submitted, and the old
+manifest plus all 1,000 old carriers remain exact. This bounded synthetic slice
+qualifies validation refusal after successful writes only; process-crash recovery,
+transport ambiguity, durable receipts and real producer fencing remain open.
+
 Native lookup filters object_current by source_system, type_id and id at the
 manifest's fixed version. Clustering/data skipping is the candidate optimization;
 uniqueness and referential integrity require publication checks. Ordinary NOT NULL

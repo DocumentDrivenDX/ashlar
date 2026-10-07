@@ -1,0 +1,11 @@
+{
+  "state": "Five owned failed-lane tables UUID/version checked and dropped",
+  "tables": [
+    "client_dev.ashlar_entropy_20261006_r86.edge_failure_r156",
+    "client_dev.ashlar_entropy_20261006_r86.raw_failure_r156",
+    "client_dev.ashlar_entropy_20261006_r86.journal_failure_r156",
+    "client_dev.ashlar_entropy_20261006_r86.manifest_failure_r156",
+    "client_dev.ashlar_entropy_20261006_r86.stage_failure_r156"
+  ],
+  "qualification": "Recorded unpublished versions inspected then dropped; no recovery/retry or VACUUM claim. Canonical E23/R17/J19/r139-b1 unchanged."
+}

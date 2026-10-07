@@ -1959,3 +1959,39 @@ consider overlap of independent validation lanes without weakening any checks.
 Do not repeat the20M custody scan for a tiny protocol control. Resource/rate,
 singleton, cold/concurrent reads, external-runtime and1B/5B obligations stay open;
 UC Delta architecture remains selected.
+
+
+### r156 failed raw-lane publication refusal
+
+[Final native audit](out/native/ashlar_failure_r156/audited-summary.json) uses a
+1,000-edge property slice with isolated current/raw/journal/manifest/stage tables,
+existing warehouse2439e1f2e37ac563. Three separate clients complete native MERGE,
+raw append and journal append. Raw records deliberately append one whitespace byte
+to each full wire payload and store the matching SHA256 of that corrupt value.
+JSON parsing and digest consistency alone therefore cannot establish exact source
+bytes. Exact origin-bounded raw validation reports all1,000 mismatches.
+
+Current20-field output and property journal equality pass. Controller validation
+refuses the new manifest before any submission; saved records contain no
+publish-new statement. The complete old manifest remains byte-for-byte equal,
+and all1,000 old pinned carriers match immutable stage r139 v0 with UTF8-normalized
+strings. New physical rows stay unmanifested. CONTRACT-003 now links this evidence
+and explicitly distinguishes validation refusal from crash/ambiguous transport,
+durable receipt, recovery and producer-fence qualification.
+
+This is a protocol control, not a performance screen, full graph or endpoint-
+closure/billion admission. Existing preserved typed endpoints/current carriers
+are used; no20M structural/custody scan is repeated. Source subset extraction and
+old snapshot verification still read original large files: recorded reads18.007GB,
+remote writes26.948MB across preparation/control/audit, not billing or distinct
+storage footprint. Initial local syntax correction preceded all SQL; native
+mutations were not replayed. Statements60 s, final old-snapshot check30 s,
+connector socket/retry and durable correlation retained; all native IDs final.
+
+Unpublished versions were recorded/inspected, then [cleanup](out/native/ashlar_failure_r156/cleanup/summary.json)
+UUID/version-checks and drops all five owned tables. This is cleanup, not durable
+recovery. Canonical E23/R17/J19/r139-b1 stays unchanged; no new compute or VACUUM.
+Next test overlap of exact current/output validation with raw/journal validation
+on the existing100k fixture, keeping all publication checks and costs inside the
+barrier. Full throughput/singleton/cold/concurrent/external-runtime/1B/5B targets
+remain open, and UC Delta architecture remains selected.

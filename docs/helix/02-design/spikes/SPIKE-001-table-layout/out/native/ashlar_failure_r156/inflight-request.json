@@ -1,0 +1,1 @@
+{"label": "version-4", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.stage_failure_r156 LIMIT 1", "parameters": null, "correlation": "/* ashlar ashlar_failure_r156 version-4 */", "started_epoch": 1791345305.1250088, "state": "returned", "query_id": "01f1c202-e159-1ef9-9b43-854daae5cb37"}
