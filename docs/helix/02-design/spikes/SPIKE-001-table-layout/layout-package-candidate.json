@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "ee38d8f07c4c44d092d30a0904d5657896ee5445f97e0f0e508ca8639ab8af15",
+    "scale-experiment-plan.md": "3ab5ab1265d937dc81d42aa242c6e5ea7bb891301e2314321669064398313e58",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1287,7 +1287,12 @@
     "scale_edges_r250.py": "be27dc469d4156695a921c6008f6737d4de75885104b5405bb87bbdbfa562053",
     "out/native/ashlar_scale_edges_r250/shared-history.json": "5ffb1d0d78b0fd47e0d50ce3d283e1cb0bba9fee7e3757e4d02d8d21ef3f5b4a",
     "out/native/ashlar_scale_edges_r250/statements.jsonl": "5163933da1969f52cc1f1a2b3b896cc20a97585ad5a700426ad162e8a700576e",
-    "out/native/ashlar_scale_edges_r250/summary.json": "4ce8d8280da3d7d5b13304349c23e5eaef8b663388b0308e668ae8ccffbbdee2"
+    "out/native/ashlar_scale_edges_r250/summary.json": "4ce8d8280da3d7d5b13304349c23e5eaef8b663388b0308e668ae8ccffbbdee2",
+    "scale_edges_r251.py": "176d2b47032a55110da61aa12de46aeb82bc7fef5052eeb665a9670380832131",
+    "out/native/ashlar_scale_edges_r251/audited-summary.json": "7fff105c3e4e1c0afca7e0df860b55c28d5d2c25636df52e63e9b33209769971",
+    "out/native/ashlar_scale_edges_r251/shared-history.json": "7059d57117db7ea1051fb2ccc9e47fa1ccbced33c69e782617eb94e90d5e3a24",
+    "out/native/ashlar_scale_edges_r251/statements.jsonl": "9fa55143ff999a5d417f972b23ffe553016dfb03d5d8bab961ff46c883d1c63c",
+    "out/native/ashlar_scale_edges_r251/summary.json": "ccaba3d493ee4bfd7963867b9ce9115739a93d6fbfc5c8b38a1896621bfbc922"
   },
   "evidence": {
     "ddl": {
