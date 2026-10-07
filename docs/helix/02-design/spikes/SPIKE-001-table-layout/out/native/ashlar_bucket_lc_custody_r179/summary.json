@@ -1,0 +1,54 @@
+{
+  "table": "client_dev.ashlar_entropy_20261006_r86.bucket_lc_r176",
+  "id": "08f85a27-bd8c-4dfd-ae3a-d2c051f02d6e",
+  "before_version": 0,
+  "version": 1,
+  "stage": "client_dev.ashlar_entropy_20261006_r86.bucket_stage_r176",
+  "stage_id": "b61699fd-65a9-4645-9e54-c7af591a6c33",
+  "stage_version": 0,
+  "costs": {
+    "read_bytes": 4272712425,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "history": [
+    {
+      "version": "1",
+      "timestamp": "2026-10-07T05:15:28",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "MERGE",
+      "operationParameters": "{\"clusterBy\":\"[\"lookup_hash\"]\",\"clusteringOnWriteStatus\":null,\"matchedPredicates\":\"[{\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"predicate\":\"[\"((((lookup_hash#663466 = lookup_hash#663486) AND (source_system#663450 = source_system#663470)) AND (rel_type_id#663451L = rel_type_id#663471L)) AND (((id#663452L = id#663472L) AND (entity_version#663458L = 15)) AND (apply_batch_id#663467 = r139-b1)))\"]\",\"statsOnLoad\":\"false\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c20e-1a2e-1108-b673-c68469fbe8c8",
+      "clusterId": null,
+      "readVersion": "0",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "False",
+      "operationMetrics": "{\"executionTimeMs\":\"3478\",\"materializeSourceTimeMs\":\"1\",\"numOutputRows\":\"100000\",\"numSourceRows\":\"100000\",\"numTargetBytesAdded\":\"326515247\",\"numTargetBytesRemoved\":\"326999747\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"6\",\"numTargetFilesRemoved\":\"16\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"100000\",\"rewriteTimeMs\":\"2043\",\"scanTimeMs\":\"1412\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "0",
+      "timestamp": "2026-10-07T05:14:52",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "CLONE",
+      "operationParameters": "{\"isShallow\":\"true\",\"source\":\"client_dev.ashlar_entropy_20261006_r86.edge_current\",\"sourceVersion\":\"23\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c20e-052f-118b-a318-69566f168879",
+      "clusterId": null,
+      "readVersion": "-1",
+      "isolationLevel": "Serializable",
+      "isBlindAppend": "False",
+      "operationMetrics": "{\"copiedFilesSize\":\"0\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"512\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedFiles\":\"0\",\"removedFilesSize\":\"0\",\"sourceNumOfFiles\":\"532\",\"sourceTableSize\":\"34280460997\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    }
+  ],
+  "state": "LC full19.9M unchanged physical custody and20M unique IDs passed;100k exact outputs audited r177",
+  "qualification": "Every unchanged full native identity/filepath/row_index is equal under immutable Delta files, stable schema and closed owned clone0/MERGE1 lineage. Combines with r176 exact20-field changed outputs; not a fresh all20M wide payload scan. No equivalent physical custody claim for bucket copied rows; final wide bucket proof is separate. No publisher, source authority, cold/latency or1B/5B admission."
+}

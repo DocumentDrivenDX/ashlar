@@ -1,0 +1,1 @@
+{"label": "identities", "sql": "SELECT count(*),count(DISTINCT id) FROM client_dev.ashlar_entropy_20261006_r86.bucket_lc_r176 VERSION AS OF 1", "parameters": null, "correlation": "/* ashlar ashlar_bucket_lc_custody_r179 identities */", "started_epoch": 1791351404.5199869, "state": "returned", "query_id": "01f1c211-14f1-1e6f-a4e3-578900a7b73c"}

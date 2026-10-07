@@ -1,0 +1,63 @@
+{
+  "table": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r164",
+  "id": "99831c85-f437-4e6f-8b8b-eaec9ab300d2",
+  "version": 9,
+  "source": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "source_version": 23,
+  "stage": "client_dev.ashlar_entropy_20261006_r86.bucket_stage_r176",
+  "stage_id": "b61699fd-65a9-4645-9e54-c7af591a6c33",
+  "stage_version": 0,
+  "ranges": [
+    {
+      "range": [
+        "0",
+        "4"
+      ],
+      "rows": "4999762",
+      "mismatches": 0,
+      "query_id": "01f1c20f-b04e-1b5e-a489-d88485ee061e"
+    },
+    {
+      "range": [
+        "4",
+        "8"
+      ],
+      "rows": "5003588",
+      "mismatches": 0,
+      "query_id": "01f1c20f-ea7d-1108-a903-ff8514509414"
+    },
+    {
+      "range": [
+        "8",
+        "c"
+      ],
+      "rows": "4999471",
+      "mismatches": 0,
+      "query_id": "01f1c210-278d-1b5f-95ad-67358dfd6f28"
+    },
+    {
+      "range": [
+        "c",
+        "g"
+      ],
+      "rows": "4997179",
+      "mismatches": 0,
+      "query_id": "01f1c210-6553-165f-b8d7-613d71e8f803"
+    }
+  ],
+  "state": "Stopped; inspect same native IDs; remaining ranges unproved",
+  "costs": {
+    "read_bytes": 177557596584,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "publication_vector": {
+    "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120": 1,
+    "client_dev.ashlar_entropy_20261006_r86.edge_current": 23,
+    "client_dev.ashlar_entropy_20261006_r86.object_current": 0,
+    "client_dev.ashlar_entropy_20261006_r86.property_journal_r89": 19,
+    "client_dev.ashlar_entropy_20261006_r86.source_record_r89": 17,
+    "client_dev.ashlar_entropy_20261006_r86.tombstone_r89": 0
+  },
+  "error": "Stop further admission: read-only proof budget exceeded"
+}

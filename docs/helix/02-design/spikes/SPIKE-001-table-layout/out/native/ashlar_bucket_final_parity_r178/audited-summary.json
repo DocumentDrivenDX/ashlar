@@ -1,0 +1,253 @@
+{
+  "table": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r164",
+  "id": "99831c85-f437-4e6f-8b8b-eaec9ab300d2",
+  "version": 9,
+  "source": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "source_version": 23,
+  "stage": "client_dev.ashlar_entropy_20261006_r86.bucket_stage_r176",
+  "stage_id": "b61699fd-65a9-4645-9e54-c7af591a6c33",
+  "stage_version": 0,
+  "ranges": [
+    {
+      "range": [
+        "0",
+        "4"
+      ],
+      "rows": "4999762",
+      "mismatches": 0,
+      "query_id": "01f1c20f-b04e-1b5e-a489-d88485ee061e"
+    },
+    {
+      "range": [
+        "4",
+        "8"
+      ],
+      "rows": "5003588",
+      "mismatches": 0,
+      "query_id": "01f1c20f-ea7d-1108-a903-ff8514509414"
+    },
+    {
+      "range": [
+        "8",
+        "c"
+      ],
+      "rows": "4999471",
+      "mismatches": 0,
+      "query_id": "01f1c210-278d-1b5f-95ad-67358dfd6f28"
+    },
+    {
+      "range": [
+        "c",
+        "g"
+      ],
+      "rows": "4997179",
+      "mismatches": 0,
+      "query_id": "01f1c210-6553-165f-b8d7-613d71e8f803"
+    }
+  ],
+  "state": "All four final 20M exact-value ranges passed; cost admission failed",
+  "costs": {
+    "read_bytes": 177557596584,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "publication_vector": {
+    "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120": 1,
+    "client_dev.ashlar_entropy_20261006_r86.edge_current": 23,
+    "client_dev.ashlar_entropy_20261006_r86.object_current": 0,
+    "client_dev.ashlar_entropy_20261006_r86.property_journal_r89": 19,
+    "client_dev.ashlar_entropy_20261006_r86.source_record_r89": 17,
+    "client_dev.ashlar_entropy_20261006_r86.tombstone_r89": 0
+  },
+  "error": "Stop further admission: read-only proof budget exceeded",
+  "original_state": "Stopped; inspect same native IDs; remaining ranges unproved",
+  "read_budget_bytes": 140000000000,
+  "read_budget_pass": false,
+  "range_metrics": [
+    {
+      "range": [
+        "0",
+        "4"
+      ],
+      "query_id": "01f1c20f-b04e-1b5e-a489-d88485ee061e",
+      "caller_ms": 96821.072625,
+      "metrics": {
+        "total_time_ms": 96549,
+        "read_bytes": 33616546812,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 391,
+        "execution_time_ms": 96150,
+        "read_remote_bytes": 28142514894,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 5474031918,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 744164,
+        "read_files_count": 584,
+        "read_partitions_count": 128,
+        "photon_total_time_ms": 741878,
+        "rows_read_count": 10468177,
+        "result_fetch_time_ms": 289,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 98308171136,
+        "pruned_files_count": 1404,
+        "query_compilation_start_timestamp": 1791350806369,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 96541,
+        "bytes_read_from_cache_percentage": 22.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791350806357,
+        "read_files_bytes": 39113834693,
+        "rows_scanned": 11526290,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 545,
+          "completed_task_count": 318,
+          "completed_partition_count": 318,
+          "pending_task_count": 220,
+          "failed_task_count": 0
+        }
+      }
+    },
+    {
+      "range": [
+        "4",
+        "8"
+      ],
+      "query_id": "01f1c20f-ea7d-1108-a903-ff8514509414",
+      "caller_ms": 101485.07974999999,
+      "metrics": {
+        "total_time_ms": 101192,
+        "read_bytes": 50642394660,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 518,
+        "execution_time_ms": 100665,
+        "read_remote_bytes": 41245902502,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 9396492158,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 771217,
+        "read_files_count": 1238,
+        "read_partitions_count": 192,
+        "photon_total_time_ms": 768786,
+        "rows_read_count": 10585179,
+        "result_fetch_time_ms": 296,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 119856419907,
+        "pruned_files_count": 1740,
+        "query_compilation_start_timestamp": 1791350903992,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 101183,
+        "bytes_read_from_cache_percentage": 25.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791350903965,
+        "read_files_bytes": 85944669253,
+        "rows_scanned": 17815793,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 1154,
+          "completed_task_count": 462,
+          "completed_partition_count": 462,
+          "pending_task_count": 692,
+          "failed_task_count": 0
+        }
+      }
+    },
+    {
+      "range": [
+        "8",
+        "c"
+      ],
+      "query_id": "01f1c210-278d-1b5f-95ad-67358dfd6f28",
+      "caller_ms": 102941.49125,
+      "metrics": {
+        "total_time_ms": 102661,
+        "read_bytes": 50304939690,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 452,
+        "execution_time_ms": 102194,
+        "read_remote_bytes": 40127071269,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 10177868421,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 783022,
+        "read_files_count": 814,
+        "read_partitions_count": 128,
+        "photon_total_time_ms": 780429,
+        "rows_read_count": 10567175,
+        "result_fetch_time_ms": 303,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 79495142936,
+        "pruned_files_count": 1174,
+        "query_compilation_start_timestamp": 1791351006447,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 102646,
+        "bytes_read_from_cache_percentage": 28.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791351006421,
+        "read_files_bytes": 57926862893,
+        "rows_scanned": 17929680,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 792,
+          "completed_task_count": 454,
+          "completed_partition_count": 454,
+          "pending_task_count": 338,
+          "failed_task_count": 0
+        }
+      }
+    },
+    {
+      "range": [
+        "c",
+        "g"
+      ],
+      "query_id": "01f1c210-6553-165f-b8d7-613d71e8f803",
+      "caller_ms": 98523.35295900003,
+      "metrics": {
+        "total_time_ms": 98220,
+        "read_bytes": 41502978335,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 448,
+        "execution_time_ms": 97763,
+        "read_remote_bytes": 34054636448,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 7448341887,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 739636,
+        "read_files_count": 688,
+        "read_partitions_count": 128,
+        "photon_total_time_ms": 737087,
+        "rows_read_count": 10240246,
+        "result_fetch_time_ms": 299,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 89047024112,
+        "pruned_files_count": 1300,
+        "query_compilation_start_timestamp": 1791351110090,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 98211,
+        "bytes_read_from_cache_percentage": 25.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791351110057,
+        "read_files_bytes": 48374981717,
+        "rows_scanned": 14479840,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 642,
+          "completed_task_count": 360,
+          "completed_partition_count": 360,
+          "pending_task_count": 282,
+          "failed_task_count": 0
+        }
+      }
+    }
+  ],
+  "qualification": "Persisted successful, final native query IDs establish all 20M logical rows across all 20 fields using the r178 uniqueness and expected-set checks. The original generic remaining-ranges wording is incorrect after four successful ranges and is preserved unchanged. The post-query cost guard failed; it was not an in-flight spending cap. No rerun, publication, latency, sustained ingest or billion-scale admission."
+}
