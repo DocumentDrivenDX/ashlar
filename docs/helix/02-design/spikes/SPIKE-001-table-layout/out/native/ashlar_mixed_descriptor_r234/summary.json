@@ -1,0 +1,20 @@
+{
+  "state": "Corrected schema-revision descriptor exactly verified",
+  "original_processing_s": 35.47316587500001,
+  "qualification": "Original r232 descriptor has empty schema map; original timing not transferred to corrected descriptor. New private descriptor pins identical data, correction only; no data mutation, new compute or producer/throughput admission.",
+  "corrected_elapsed_host_wall_s": 134.90719723701477,
+  "clock_qualification": "Elapsed host wall clock since original ready-input start; includes original post-publication diagnostics, intervening audit and metadata correction. Assumes no host clock jump; not original monotonic service clock, causal metadata-only overhead or service p95.",
+  "costs": {
+    "read_bytes": 5080141,
+    "write_remote_bytes": 8899,
+    "spill_to_disk_bytes": 0
+  },
+  "values": [
+    "mixed-r234",
+    "ashlar-delta/0.3-synthetic-mixed",
+    "{\"client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r232\":1,\"client_dev.ashlar_entropy_20261006_r86.mixed_edge_current_r232\":1,\"client_dev.ashlar_entropy_20261006_r86.mixed_object_current_r226\":0,\"client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r232\":1,\"client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r232\":1,\"client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r232\":1}",
+    "{\"members\": 2048, \"profile\": \"synthetic-mixed-change/1\", \"real_source_ack\": false, \"stage\": \"client_dev.ashlar_entropy_20261006_r86.mixed_change_input_r229\", \"version\": 8}",
+    "{\"synthetic-scale-mixed\":\"synthetic-mixed/1\"}",
+    "{\"adjacency_forward\": {\"all_field_multiset_digest\": \"e6b9e4b6514d9fca794a7ad9c6963535616e4db45e206b6d9373fc73f90898ff\", \"rows\": 20275}, \"edge_current\": {\"all_field_multiset_digest\": \"857455b03c19dad428b99c2ad451f677f3e9a0423d0dabdddb03884da13b9138\", \"rows\": 20275}, \"object_current\": {\"all_field_multiset_digest\": \"fac75309d695e302560fe85442b9ba1e88a835319a2e0023f6cf8a93fd5af0e6\", \"rows\": 4096}, \"property_journal\": {\"all_field_multiset_digest\": \"373dded61bebad54b55aa4cfcda8d1236660dddfd2c7623d3c1056885902baaa\", \"rows\": 102741}, \"source_record\": {\"all_field_multiset_digest\": \"433f59e2eeff136ed7c52dccbfead4045b670614f62b34da8160d4d34e187df9\", \"rows\": 26624}, \"tombstone\": {\"all_field_multiset_digest\": \"7f16e93cf45507e5786d75d19310a7ca24682d38f0afd080d6f928a281720fe4\", \"rows\": 205}}"
+  ]
+}

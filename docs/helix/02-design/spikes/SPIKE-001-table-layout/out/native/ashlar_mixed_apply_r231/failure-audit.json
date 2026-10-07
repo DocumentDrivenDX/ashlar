@@ -1,0 +1,13 @@
+{
+  "failed_query_id": "01f1c21f-8b5d-13b7-beff-9af64f4523fa",
+  "native_state": "FAILED",
+  "heads": {
+    "edge_current": 0,
+    "source_record": 1,
+    "property_journal": 0,
+    "adjacency_forward": 0,
+    "tombstone": 0
+  },
+  "manifest_rows": 0,
+  "qualification": "Raw append committed; failed journal/current0/adjacency0/tombstone0 and empty private manifest. Do not replay on these targets."
+}

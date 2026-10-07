@@ -1,0 +1,77 @@
+{
+  "state": "Stopped; inspect exact handles, no mutation replay or manifest advance",
+  "tables": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_object_current_r226",
+      "id": "bcccd436-7ec0-4cde-b24b-64e96ee7a34b",
+      "version": 0,
+      "rows": 4096,
+      "bytes": 3313356,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_edge_current_r231",
+      "id": "586e05ea-d21d-4cb5-aa72-128096879223"
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r231",
+      "id": "49d470a3-339c-4eef-acc6-a38b522704ec"
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r231",
+      "id": "151eaf98-b6c8-4014-8f0d-7157774b021d"
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r231",
+      "id": "cec5ae6f-9fa1-4d78-8bb5-4e81f850f35c"
+    },
+    "tombstone": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r231",
+      "id": "bb176f3e-7a4b-4de5-a2c7-0f648b4bb71b"
+    }
+  },
+  "versions": {
+    "object_current": 0,
+    "edge_current": 0,
+    "source_record": 1,
+    "property_journal": 0,
+    "adjacency_forward": 0,
+    "tombstone": 0
+  },
+  "checks": {},
+  "stage": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.mixed_change_input_r229",
+    "id": "e625ee90-7283-4569-80bd-4efbce44e553",
+    "version": 8
+  },
+  "clock": "Processing starts after clones/input preflight, includes all writes/checks/final metrics and descriptor readback; excludes earlier source staging and modeled arrivals",
+  "costs": {
+    "read_bytes": 8341462,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "processing_start_epoch": 1791357612.470366,
+  "commits": {
+    "source_record": {
+      "version": "1",
+      "timestamp": "2026-10-07T07:20:13.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"false\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"fast-path clustering triggered\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c21f-891e-14d0-a13c-f0ad366e6853",
+      "clusterId": null,
+      "readVersion": "0",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"2048\",\"numOutputBytes\":\"3100598\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    }
+  },
+  "error": "{\"state\": \"FAILED\", \"error\": {\"error_code\": \"BAD_REQUEST\", \"message\": \"[CAST_INVALID_INPUT] The value 'synthetic-mixed/1' of the type \\\"STRING\\\" cannot be cast to \\\"BIGINT\\\" because it is malformed. Correct the value as per the syntax, or change its target type. Use `try_cast` to tolerate malformed input and return NULL instead. SQLSTATE: 22018\"}, \"sql_state\": \"22018\"}"
+}

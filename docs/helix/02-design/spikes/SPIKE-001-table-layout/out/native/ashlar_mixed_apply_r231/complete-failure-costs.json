@@ -1,0 +1,10 @@
+{
+  "queries": 35,
+  "costs": {
+    "read_bytes": 12021315,
+    "write_remote_bytes": 3100598,
+    "spill_to_disk_bytes": 0
+  },
+  "failed_query_id": "01f1c21f-8b5d-13b7-beff-9af64f4523fa",
+  "qualification": "Includes original failed publisher and read-only post-failure status/table audit; all final native IDs, no SQL replay. Reported counters not full retained physical storage/billing."
+}
