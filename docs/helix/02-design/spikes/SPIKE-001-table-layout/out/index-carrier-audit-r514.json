@@ -1,0 +1,18 @@
+{
+  "state": "Receipt SQL, terminal outcomes, final costs, code hash and complete parity/CDF results verified",
+  "statements": 31,
+  "negative_controls": [
+    "carrier-mutation-refusal",
+    "index-token-refusal"
+  ],
+  "costs": {
+    "read_bytes": 7418380218,
+    "write_remote_bytes": 202873091,
+    "spill_to_disk_bytes": 0
+  },
+  "mutation_read_bytes": 641205464,
+  "mutation_write_bytes": 5996898,
+  "mutation_engine_ms": 9637,
+  "mutation_caller_s": 14.230440167000012,
+  "qualification": "Private2.5M-row projection and6227 fourth-input changes. Immutable full20 carriers/generated hash plus11-field index, full tuple/lifecycle/origin preserved. No canonical/default/consumer/publication/fencing or billion admission."
+}

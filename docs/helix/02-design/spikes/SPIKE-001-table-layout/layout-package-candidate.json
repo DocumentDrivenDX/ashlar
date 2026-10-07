@@ -2353,7 +2353,16 @@
     "out/native/validation_stage_native_r510/validation_r510_worker0/statements.jsonl": "ea0e44d8014eb4f6746ebf7243c75ddb6a07c96a90518e2542b8d5400a23dc95",
     "out/native/validation_stage_native_r510/validation_r510_worker0/completed-last-request.json": "73f595f0f737fa55105b51dbd158d7a17b92411bfc95a1e48b43081f3a435267",
     "out/native/validation_stage_native_r510/validation_r510_worker1/statements.jsonl": "0d6f426f58505c3d73eda30cdc570f1ce41135135d4f9fcc453aa8327128c896",
-    "out/native/validation_stage_native_r510/validation_r510_worker1/completed-last-request.json": "ceb209daf53897e38fef5a8f27ab51d9d729c2ec85b6e95a48c4799edd3cdbb4"
+    "out/native/validation_stage_native_r510/validation_r510_worker1/completed-last-request.json": "ceb209daf53897e38fef5a8f27ab51d9d729c2ec85b6e95a48c4799edd3cdbb4",
+    "index_carrier_spike_r513.py": "399191e16d5c540baa6eef2b64fc4b4a8490f7d06859afe2dde5fa8187acc235",
+    "audit_index_carrier_r514.py": "39fcf7c776b47a002972e769f364f7fdc291c2d96cd9c371f73492711963d64c",
+    "index-carrier-disposition-r514.md": "d36c37d16dfed53f4c77b8e7cf111e1627b5d812a56914079d81f0c543aee1ba",
+    "out/index-carrier-audit-r514.json": "e4e4bb93f40ba561a361f5477d130f16241d52b63f210463311722b5a1533839",
+    "out/validation-metric-observation-r512.json": "542fd1e129c6b771f942d1e07e92412892d3c426840639ee9cd614701e5d6517",
+    "out/native/index_carrier_spike_r513/summary.json": "a67eade6466dba70c52b0fd3c43b29ab8cc08426fe6b54a064d8e2e53df3098c",
+    "out/native/index_carrier_spike_r513/statements.jsonl": "4ff0a3c187b6f288689a40552046cf6486ac6903fea9732cc26181eec3d63441",
+    "out/native/index_carrier_spike_r513/query-history.json": "f3b37368bf9306562d616424c11dbe527f04c0145583e051cf3ad01f54dd3634",
+    "out/native/index_carrier_spike_r513/completed-last-statement.json": "c29b9e1ffc679f7303c0fe95e178095a8fe9efa3aa8c9142dad8ae08e0528be1"
   },
   "evidence": {
     "ddl": {
