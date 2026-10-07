@@ -1,0 +1,521 @@
+{
+  "state": "Six native plans and48matched full-carrier qualified-pair reads pass",
+  "sources": {
+    "audit": "out/overlay100k-evidence-audit-r406.json",
+    "points": "out/native/ashlar_overlay_points_r405/summary.json",
+    "validation": "out/native/ashlar_overlay_validate_r404/summary.json"
+  },
+  "source_sha256": {
+    "audit": "00479f8b5a30f06f9b6b5eca918d253397f82f3c27492568ffe231eb05bec453",
+    "points": "4a5ec4002c0afc7ea9d74e7dc90fa5fc7b26bcc7034d91017d30dbf1d0548c6b",
+    "validation": "1d79e974f95454847431aa7eef70d5e1b52ec20e7e66a577329edf821ea830d0"
+  },
+  "code_sha256": {
+    "overlay_qualified_sql_r408.py": "393a54f5456178e2feb2e2b6dcdc66c0be8dc05e5aa15cd61b933ae1e2385b5b",
+    "overlay_carrier_sql_r403.py": "984d2c33cd0d3ed46aabfc5f52a07833840d170cb80ae0c6d981ac7089bb5a06",
+    "overlay_plan_points_r409.py": "db4c8c857aa3342beb1905b99ac830dd5f8d44dfa8b736730456fd59df5f7654"
+  },
+  "base": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 5
+  },
+  "overlay": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400",
+    "id": "fccb6a2f-182f-4745-82ee-73d08cd23ef2",
+    "version": 1,
+    "create_statement_id": "01f1c276-b6dc-1603-aa8f-f6080f8267ec"
+  },
+  "reference": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 6
+  },
+  "cohort_indices": [
+    0,
+    4,
+    16,
+    17,
+    32,
+    36,
+    37,
+    47
+  ],
+  "reads": [
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "statement_id": "01f1c278-f5d7-1d86-a1be-fd40c23153fd"
+    },
+    {
+      "family": "guarded",
+      "phase": 0,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "statement_id": "01f1c278-f60e-1f03-a2c2-6d6ddf9a755e"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "statement_id": "01f1c278-f682-1fd8-87c3-dbf728d11f97"
+    },
+    {
+      "family": "guarded",
+      "phase": 0,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "statement_id": "01f1c278-f6e8-1e70-a6aa-2e2b93c3be01"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "statement_id": "01f1c278-f764-1e7b-8b55-0eeb83801862"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "statement_id": "01f1c278-f7cb-1e36-984d-fb4d6f78a3c3"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "statement_id": "01f1c278-f803-15ea-ade1-92f3c5dc7012"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "statement_id": "01f1c278-f862-10c9-8524-c7aa2a364942"
+    },
+    {
+      "family": "guarded",
+      "phase": 0,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "statement_id": "01f1c278-f89c-19f4-b43e-f0f006da9dac"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "statement_id": "01f1c278-f918-17ce-b68f-81feb3bf4b45"
+    },
+    {
+      "family": "guarded",
+      "phase": 0,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "statement_id": "01f1c278-f950-140c-a8ba-a6a6c53a8ca0"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "statement_id": "01f1c278-f9d1-1919-bbbe-130c2f4af6e9"
+    },
+    {
+      "family": "guarded",
+      "phase": 0,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "statement_id": "01f1c278-fa3b-18e1-813d-5c5576c2aef8"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "statement_id": "01f1c278-fabc-1175-83ee-a90544594f42"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "statement_id": "01f1c278-fb27-1838-b4bc-70fa9ae2555f"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "statement_id": "01f1c278-fb5c-187d-9466-94c4ce166236"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "statement_id": "01f1c278-fbd2-1425-ad9c-a48afcfe0bee"
+    },
+    {
+      "family": "guarded",
+      "phase": 0,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "statement_id": "01f1c278-fc0b-1762-ab9f-19a82c314bc0"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "statement_id": "01f1c278-fc87-16e5-95ed-a6bec7bb88b2"
+    },
+    {
+      "family": "guarded",
+      "phase": 0,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "statement_id": "01f1c278-fcc2-16e3-b7c3-a141985084d0"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "statement_id": "01f1c278-fd63-1d4b-92de-66dcb087e770"
+    },
+    {
+      "family": "guarded",
+      "phase": 0,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "statement_id": "01f1c278-fdd0-1aeb-b1d6-2dcbfcd6064b"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "statement_id": "01f1c278-fe4b-11e9-b633-e6132126cae8"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "statement_id": "01f1c278-feb7-109a-bc37-0eded2b409bf"
+    },
+    {
+      "family": "guarded",
+      "phase": 1,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "statement_id": "01f1c279-010f-1740-941d-935c30b5c6f6"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "statement_id": "01f1c279-0186-1119-b015-66eae08d89ac"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "statement_id": "01f1c279-01e2-128e-9628-79b858ba35d4"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "statement_id": "01f1c279-021b-185f-950e-86a2d2b51e2d"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "statement_id": "01f1c279-0283-1742-996e-ce02daf68c83"
+    },
+    {
+      "family": "guarded",
+      "phase": 1,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "statement_id": "01f1c279-02bf-11ae-8a0d-7c8c4431e814"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "statement_id": "01f1c279-0344-1b69-9e63-7d344aa8051a"
+    },
+    {
+      "family": "guarded",
+      "phase": 1,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "statement_id": "01f1c279-037e-1189-9dae-9c7760b6997c"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "statement_id": "01f1c279-03f9-1f9e-8c01-d8cfa9c49773"
+    },
+    {
+      "family": "guarded",
+      "phase": 1,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "statement_id": "01f1c279-0463-17cd-bfcd-13db852a3f1b"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "statement_id": "01f1c279-04da-17f6-b00a-f0e526113692"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "statement_id": "01f1c279-053b-1688-b227-12795b016719"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "statement_id": "01f1c279-0571-1da2-9086-e09e83107c57"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "statement_id": "01f1c279-05d0-1a60-a081-961a352405d1"
+    },
+    {
+      "family": "guarded",
+      "phase": 1,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "statement_id": "01f1c279-0603-1ad5-87d3-6c3780629434"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "statement_id": "01f1c279-0685-11c0-853f-10ce595eb053"
+    },
+    {
+      "family": "guarded",
+      "phase": 1,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "statement_id": "01f1c279-06bb-1d9d-a2c9-460a2b32d2e8"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "statement_id": "01f1c279-0737-1ebc-bbad-b5b6f52171c3"
+    },
+    {
+      "family": "guarded",
+      "phase": 1,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "statement_id": "01f1c279-079d-134b-9dc8-ea8b93870967"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "statement_id": "01f1c279-0822-12fc-bb7c-33daa6e453e7"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "statement_id": "01f1c279-0895-1d91-a583-6aa90236a3fc"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "statement_id": "01f1c279-08d0-128d-ad14-ad1d618c098c"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "statement_id": "01f1c279-0937-1308-8e6f-a323d7046584"
+    },
+    {
+      "family": "guarded",
+      "phase": 1,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "statement_id": "01f1c279-0971-1f6c-b96f-a9ad364f0cd8"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 10000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 180
+  },
+  "qualification": "Private E5+overlay1 complete digest/key/lineage proof required before omitting per-read conflict hash. All overlay versions2, every affected E5 predecessor1, complete tuple uniqueness and preserved fields independently qualified. Exact duplicates can only be identical accepted carriers. This is not arbitrary-input read safety, real publisher admission/fencing or support for unresolved conflicting versions. Small ordered cohort, not service/cold/concurrent/compaction/billion admission.",
+  "queries": {
+    "direct": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 6 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)",
+    "guarded": "SELECT winner.source_system AS source_system,winner.rel_type_id AS rel_type_id,winner.id AS id,winner.source_type AS source_type,winner.source_id AS source_id,winner.target_type AS target_type,winner.target_id AS target_id,winner.order_key AS order_key,winner.schema_revision AS schema_revision,winner.entity_version AS entity_version,winner.props_json AS props_json,winner.retained_json AS retained_json,winner.source_feed AS source_feed,winner.source_epoch AS source_epoch,winner.source_position AS source_position,CAST(winner.published_at AS STRING) AS published_at,winner.apply_batch_id AS apply_batch_id,winner.source_cursor_json AS source_cursor_json,winner.source_delivery_id AS source_delivery_id,winner.lookup_hash AS lookup_hash FROM (SELECT CASE WHEN max(variants)>1 THEN raise_error('ASHLAR_OVERLAY_VERSION_CONFLICT') ELSE max_by(carrier,entity_version) END AS winner FROM (SELECT entity_version,count(DISTINCT sha2(concat(CASE WHEN source_system IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_system AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_system AS STRING),'UTF-8')),';') END,CASE WHEN rel_type_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(rel_type_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(rel_type_id AS STRING),'UTF-8')),';') END,CASE WHEN id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(id AS STRING),'UTF-8')),';') END,CASE WHEN source_type IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_type AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_type AS STRING),'UTF-8')),';') END,CASE WHEN source_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_id AS STRING),'UTF-8')),';') END,CASE WHEN target_type IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(target_type AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(target_type AS STRING),'UTF-8')),';') END,CASE WHEN target_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(target_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(target_id AS STRING),'UTF-8')),';') END,CASE WHEN order_key IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(order_key AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(order_key AS STRING),'UTF-8')),';') END,CASE WHEN schema_revision IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(schema_revision AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(schema_revision AS STRING),'UTF-8')),';') END,CASE WHEN entity_version IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(entity_version AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(entity_version AS STRING),'UTF-8')),';') END,CASE WHEN props_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(props_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(props_json AS STRING),'UTF-8')),';') END,CASE WHEN retained_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(retained_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(retained_json AS STRING),'UTF-8')),';') END,CASE WHEN source_feed IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_feed AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_feed AS STRING),'UTF-8')),';') END,CASE WHEN source_epoch IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_epoch AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_epoch AS STRING),'UTF-8')),';') END,CASE WHEN source_position IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_position AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_position AS STRING),'UTF-8')),';') END,CASE WHEN published_at IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(published_at AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(published_at AS STRING),'UTF-8')),';') END,CASE WHEN apply_batch_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(apply_batch_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(apply_batch_id AS STRING),'UTF-8')),';') END,CASE WHEN source_cursor_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_cursor_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_cursor_json AS STRING),'UTF-8')),';') END,CASE WHEN source_delivery_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_delivery_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_delivery_id AS STRING),'UTF-8')),';') END,CASE WHEN lookup_hash IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(lookup_hash AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(lookup_hash AS STRING),'UTF-8')),';') END,CASE WHEN is_deleted IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(is_deleted AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(is_deleted AS STRING),'UTF-8')),';') END),256)) AS variants,first(named_struct('source_system',source_system,'rel_type_id',rel_type_id,'id',id,'source_type',source_type,'source_id',source_id,'target_type',target_type,'target_id',target_id,'order_key',order_key,'schema_revision',schema_revision,'entity_version',entity_version,'props_json',props_json,'retained_json',retained_json,'source_feed',source_feed,'source_epoch',source_epoch,'source_position',source_position,'published_at',published_at,'apply_batch_id',apply_batch_id,'source_cursor_json',source_cursor_json,'source_delivery_id',source_delivery_id,'lookup_hash',lookup_hash,'is_deleted',is_deleted)) AS carrier FROM (SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash,false AS is_deleted FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 5 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT) UNION ALL SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash,is_deleted FROM client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400 VERSION AS OF 1 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)) GROUP BY entity_version)) WHERE winner IS NOT NULL AND NOT winner.is_deleted",
+    "qualified": "SELECT winner.source_system AS source_system,winner.rel_type_id AS rel_type_id,winner.id AS id,winner.source_type AS source_type,winner.source_id AS source_id,winner.target_type AS target_type,winner.target_id AS target_id,winner.order_key AS order_key,winner.schema_revision AS schema_revision,winner.entity_version AS entity_version,winner.props_json AS props_json,winner.retained_json AS retained_json,winner.source_feed AS source_feed,winner.source_epoch AS source_epoch,winner.source_position AS source_position,CAST(winner.published_at AS STRING) AS published_at,winner.apply_batch_id AS apply_batch_id,winner.source_cursor_json AS source_cursor_json,winner.source_delivery_id AS source_delivery_id,winner.lookup_hash AS lookup_hash FROM (SELECT max_by(named_struct('source_system',source_system,'rel_type_id',rel_type_id,'id',id,'source_type',source_type,'source_id',source_id,'target_type',target_type,'target_id',target_id,'order_key',order_key,'schema_revision',schema_revision,'entity_version',entity_version,'props_json',props_json,'retained_json',retained_json,'source_feed',source_feed,'source_epoch',source_epoch,'source_position',source_position,'published_at',published_at,'apply_batch_id',apply_batch_id,'source_cursor_json',source_cursor_json,'source_delivery_id',source_delivery_id,'lookup_hash',lookup_hash,'is_deleted',is_deleted),entity_version) AS winner FROM (SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash,false AS is_deleted FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 5 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT) UNION ALL SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash,is_deleted FROM client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400 VERSION AS OF 1 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT))) WHERE winner IS NOT NULL AND NOT winner.is_deleted"
+  },
+  "costs": {
+    "read_bytes": 8057034092,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "per_family": {
+    "direct": {
+      "queries": 16,
+      "caller_p95_ms": 436.137875,
+      "engine_p95_ms": 95,
+      "compile_p95_ms": 183,
+      "remote_queries": 0
+    },
+    "guarded": {
+      "queries": 16,
+      "caller_p95_ms": 1058.862125000001,
+      "engine_p95_ms": 305,
+      "compile_p95_ms": 635,
+      "remote_queries": 0
+    },
+    "qualified": {
+      "queries": 16,
+      "caller_p95_ms": 768.340582999997,
+      "engine_p95_ms": 226,
+      "compile_p95_ms": 467,
+      "remote_queries": 0
+    }
+  },
+  "per_family_phase": {
+    "direct-0": {
+      "queries": 8,
+      "caller_p95_ms": 392.6035839999997,
+      "engine_p95_ms": 89,
+      "compile_p95_ms": 183,
+      "remote_queries": 0
+    },
+    "direct-1": {
+      "queries": 8,
+      "caller_p95_ms": 436.137875,
+      "engine_p95_ms": 95,
+      "compile_p95_ms": 177,
+      "remote_queries": 0
+    },
+    "guarded-0": {
+      "queries": 8,
+      "caller_p95_ms": 1058.862125000001,
+      "engine_p95_ms": 290,
+      "compile_p95_ms": 635,
+      "remote_queries": 0
+    },
+    "guarded-1": {
+      "queries": 8,
+      "caller_p95_ms": 874.4357500000035,
+      "engine_p95_ms": 305,
+      "compile_p95_ms": 455,
+      "remote_queries": 0
+    },
+    "qualified-0": {
+      "queries": 8,
+      "caller_p95_ms": 768.340582999997,
+      "engine_p95_ms": 202,
+      "compile_p95_ms": 467,
+      "remote_queries": 0
+    },
+    "qualified-1": {
+      "queries": 8,
+      "caller_p95_ms": 754.8905000000019,
+      "engine_p95_ms": 226,
+      "compile_p95_ms": 441,
+      "remote_queries": 0
+    }
+  },
+  "wall_s": 51.815757958,
+  "audit": {
+    "native_final_statements": 60,
+    "uncached_full_carrier_reads": 48,
+    "native_plan_summary": {
+      "plan-direct-16": {
+        "sha256": "ef126eaeb9d63f11aa2361d790f7ca1dac2f892036d824330220595baa952c1f",
+        "bytes": 3977,
+        "photon_fully_supported": true,
+        "shuffle_sink_operators": 0,
+        "aggregate_operators": 0
+      },
+      "plan-direct-36": {
+        "sha256": "33c79d5738539a94a1466ad76fa9890182b8f8a54e7e85f127bd81315f11b52e",
+        "bytes": 3977,
+        "photon_fully_supported": true,
+        "shuffle_sink_operators": 0,
+        "aggregate_operators": 0
+      },
+      "plan-guarded-16": {
+        "sha256": "68a31a03329e52cf2c3e3d8096bcb771681f57a89bf47045ceacd1327d7a4b65",
+        "bytes": 114645,
+        "photon_fully_supported": true,
+        "shuffle_sink_operators": 3,
+        "aggregate_operators": 6
+      },
+      "plan-guarded-36": {
+        "sha256": "ed2477649d358bb8a414448bf879be578b0304a5311bb7706e7821a47868b160",
+        "bytes": 114645,
+        "photon_fully_supported": true,
+        "shuffle_sink_operators": 3,
+        "aggregate_operators": 6
+      },
+      "plan-qualified-16": {
+        "sha256": "96b23b85e48d588b88f128bb33b6b02a37f56e3c26331b0f9feadcaec99f2145",
+        "bytes": 11533,
+        "photon_fully_supported": true,
+        "shuffle_sink_operators": 1,
+        "aggregate_operators": 2
+      },
+      "plan-qualified-36": {
+        "sha256": "2d61133b611834f9981f593ac8c5e82686faf15c6826ddf985b8789d63cab1d8",
+        "bytes": 11533,
+        "photon_fully_supported": true,
+        "shuffle_sink_operators": 1,
+        "aggregate_operators": 2
+      }
+    },
+    "source_sha256": {
+      "summary.json": "066e7574de72faf9666386e48765caeb7128984299628c95e942f9a57ffe83f4",
+      "statements.jsonl": "23cceac45c42f9da15f6ad3142648cafff7ab821b13bf06d32fa7f5c50a46bb8",
+      "shared-history.json": "d451364fc13fae4d651fa81aae99660c4b9fa9b59c6cb935ec5f97ffa4c56fd1"
+    },
+    "qualification": "Private E5+overlay1 complete digest/key/lineage proof required before omitting per-read conflict hash. All overlay versions2, every affected E5 predecessor1, complete tuple uniqueness and preserved fields independently qualified. Exact duplicates can only be identical accepted carriers. This is not arbitrary-input read safety, real publisher admission/fencing or support for unresolved conflicting versions. Small ordered cohort, not service/cold/concurrent/compaction/billion admission."
+  }
+}

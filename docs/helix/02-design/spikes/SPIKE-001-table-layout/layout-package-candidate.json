@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "b297212a254dc1a37682b28567176b3768db265efe225de8a90ffa529f17842b",
+    "layout-status.md": "47187cbae28cc64de818d8861fe3c2400a2b8c94644730746de0536677fbf794",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -1884,7 +1884,22 @@
     "out/native/ashlar_overlay_points_r405/summary.json": "4a5ec4002c0afc7ea9d74e7dc90fa5fc7b26bcc7034d91017d30dbf1d0548c6b",
     "out/native/ashlar_overlay_points_r405/shared-history.json": "86ac5221f06554be845c717822da3963877c4de97ad476fffd273d1a997cb96f",
     "out/native/ashlar_overlay_points_r405/statements.jsonl": "b3be3bb59adc688f43865475fc9248af0a179ea2e3d566083aea243e6eb5ebfa",
-    "out/native/ashlar_overlay_points_r405/completed-last-request.json": "d29cade7698516cb0a0e3e3807b6bec147d11862a1994d692f8b940315372ad7"
+    "out/native/ashlar_overlay_points_r405/completed-last-request.json": "d29cade7698516cb0a0e3e3807b6bec147d11862a1994d692f8b940315372ad7",
+    "overlay_qualified_sql_r408.py": "393a54f5456178e2feb2e2b6dcdc66c0be8dc05e5aa15cd61b933ae1e2385b5b",
+    "overlay_plan_points_r409.py": "db4c8c857aa3342beb1905b99ac830dd5f8d44dfa8b736730456fd59df5f7654",
+    "overlay_plan_audit_r410.py": "cb97ce23d0645f8c99a50c5e1534099b74389b751027e81d752921358d51f516",
+    "overlay-plan-disposition-r410.md": "e1ee56e4bb728bdbe86c32ee3e0cf9b2fa28355df4c5096075f9110b2eb41bcb",
+    "out/native/ashlar_overlay_plan_points_r409/plan-direct-36.txt": "33c79d5738539a94a1466ad76fa9890182b8f8a54e7e85f127bd81315f11b52e",
+    "out/native/ashlar_overlay_plan_points_r409/summary.json": "066e7574de72faf9666386e48765caeb7128984299628c95e942f9a57ffe83f4",
+    "out/native/ashlar_overlay_plan_points_r409/shared-history.json": "d451364fc13fae4d651fa81aae99660c4b9fa9b59c6cb935ec5f97ffa4c56fd1",
+    "out/native/ashlar_overlay_plan_points_r409/plan-qualified-36.txt": "2d61133b611834f9981f593ac8c5e82686faf15c6826ddf985b8789d63cab1d8",
+    "out/native/ashlar_overlay_plan_points_r409/statements.jsonl": "23cceac45c42f9da15f6ad3142648cafff7ab821b13bf06d32fa7f5c50a46bb8",
+    "out/native/ashlar_overlay_plan_points_r409/plan-guarded-16.txt": "68a31a03329e52cf2c3e3d8096bcb771681f57a89bf47045ceacd1327d7a4b65",
+    "out/native/ashlar_overlay_plan_points_r409/plan-qualified-16.txt": "96b23b85e48d588b88f128bb33b6b02a37f56e3c26331b0f9feadcaec99f2145",
+    "out/native/ashlar_overlay_plan_points_r409/plan-guarded-36.txt": "ed2477649d358bb8a414448bf879be578b0304a5311bb7706e7821a47868b160",
+    "out/native/ashlar_overlay_plan_points_r409/completed-last-request.json": "1050e467c830c4d6f6dcdc2fc04eda2d8f86af16ce793fab537f4b7ee79af62d",
+    "out/native/ashlar_overlay_plan_points_r409/audited-summary.json": "d6b72187adf7dd76e5e5086aa74468c3f8ac18a0c08abee55172c3642afe0604",
+    "out/native/ashlar_overlay_plan_points_r409/plan-direct-16.txt": "ef126eaeb9d63f11aa2361d790f7ca1dac2f892036d824330220595baa952c1f"
   },
   "evidence": {
     "ddl": {

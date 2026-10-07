@@ -1471,3 +1471,6 @@ Small native accepted-overlay controls pass update/delete/replay/typed-key/missi
 
 
 [100k overlay/native read evidence](overlay100k-disposition-r407.md) now passes complete accepted-carrier/key integrity and192full-carrier comparisons. Isolated append8.023s; guarded overlay repeat caller1215.5ms/engine624ms vsdirect442.1ms/112ms. Canceled wide comparison and all costs retained; overlay not admitted. Next small query-plan/winner-shape comparison before file tuning/compaction. Full publication, steady/burst/cold/concurrency and1B/5B goals remain open.
+
+
+[Overlay query-plan experiment](overlay-plan-disposition-r410.md): full Photon support, guarded3shuffles vsqualified winner1;48exact uncached full-carrier reads pass. Qualified caller768.3ms/engine226ms remains failed; direct tiny-subset engine95ms is not broad admission. Next small qualified override/fallback query-plan test before compaction. Canonical LC remains selected candidate and full goal remains open.

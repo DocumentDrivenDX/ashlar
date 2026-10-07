@@ -1,0 +1,87 @@
+== Physical Plan ==
+AdaptiveSparkPlan (14)
++- == Initial Plan ==
+   PhotonResultStage (13)
+   +- PhotonColumnarToRow (12)
+      +- PhotonProject (11)
+         +- PhotonFilter (10)
+            +- PhotonAgg (9)
+               +- PhotonShuffleExchangeSource (8)
+                  +- PhotonShuffleMapStage (7)
+                     +- PhotonShuffleExchangeSink (6)
+                        +- PhotonAgg (5)
+                           +- PhotonUnion (4)
+                              :- PhotonProject (2)
+                              :  +- PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 (1)
+                              +- PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400 (3)
+
+
+(1) PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337
+Output [20]: [source_system#69708, rel_type_id#69709L, id#69710L, source_type#69711L, source_id#69712L, target_type#69713L, target_id#69714L, order_key#69715, schema_revision#69716, entity_version#69717L, props_json#69718, retained_json#69719, source_feed#69720, source_epoch#69721, source_position#69722L, published_at#69723, apply_batch_id#69724, source_cursor_json#69725, source_delivery_id#69726, lookup_hash#69727]
+DictionaryFilters: [(rel_type_id#69709L = 9), (id#69710L = 33904730), (source_system#69708 = pilot-a), (lookup_hash#69727 = 5275fe61528b8def756486abfdbfd3bb2bdb73cab7303f7680d1b444a3c03a17)]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/bf8f09a9-05ea-40ea-ba01-4935dae517ca]
+ReadSchema: struct<source_system:string,rel_type_id:bigint,id:bigint,source_type:bigint,source_id:bigint,target_type:bigint,target_id:bigint,order_key:string,schema_revision:string,entity_version:bigint,props_json:string,retained_json:string,source_feed:string,source_epoch:string,source_position:bigint,published_at:timestamp,apply_batch_id:string,source_cursor_json:string,source_delivery_id:string,lookup_hash:string>
+RequiredDataFilters: [isnotnull(rel_type_id#69709L), isnotnull(id#69710L), isnotnull(lookup_hash#69727), isnotnull(source_system#69708), (rel_type_id#69709L = 9), (id#69710L = 33904730), (lookup_hash#69727 = 5275fe61528b8def756486abfdbfd3bb2bdb73cab7303f7680d1b444a3c03a17), (source_system#69708 = pilot-a)]
+
+(2) PhotonProject
+Input [20]: [source_system#69708, rel_type_id#69709L, id#69710L, source_type#69711L, source_id#69712L, target_type#69713L, target_id#69714L, order_key#69715, schema_revision#69716, entity_version#69717L, props_json#69718, retained_json#69719, source_feed#69720, source_epoch#69721, source_position#69722L, published_at#69723, apply_batch_id#69724, source_cursor_json#69725, source_delivery_id#69726, lookup_hash#69727]
+Arguments: [source_system#69708, rel_type_id#69709L, id#69710L, source_type#69711L, source_id#69712L, target_type#69713L, target_id#69714L, order_key#69715, schema_revision#69716, entity_version#69717L, props_json#69718, retained_json#69719, source_feed#69720, source_epoch#69721, source_position#69722L, published_at#69723, apply_batch_id#69724, source_cursor_json#69725, source_delivery_id#69726, lookup_hash#69727, false AS is_deleted#69638]
+
+(3) PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400
+Output [21]: [source_system#69730, rel_type_id#69731L, id#69732L, source_type#69733L, source_id#69734L, target_type#69735L, target_id#69736L, order_key#69737, schema_revision#69738, entity_version#69739L, props_json#69740, retained_json#69741, source_feed#69742, source_epoch#69743, source_position#69744L, published_at#69745, apply_batch_id#69746, source_cursor_json#69747, source_delivery_id#69748, lookup_hash#69749, is_deleted#69750]
+DictionaryFilters: [(id#69732L = 33904730), (source_system#69730 = pilot-a), (lookup_hash#69749 = 5275fe61528b8def756486abfdbfd3bb2bdb73cab7303f7680d1b444a3c03a17), (rel_type_id#69731L = 9)]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3f961e43-b3a9-4947-ad77-4fd155051223]
+ReadSchema: struct<source_system:string,rel_type_id:bigint,id:bigint,source_type:bigint,source_id:bigint,target_type:bigint,target_id:bigint,order_key:string,schema_revision:string,entity_version:bigint,props_json:string,retained_json:string,source_feed:string,source_epoch:string,source_position:bigint,published_at:timestamp,apply_batch_id:string,source_cursor_json:string,source_delivery_id:string,lookup_hash:string,is_deleted:boolean>
+RequiredDataFilters: [isnotnull(rel_type_id#69731L), isnotnull(id#69732L), isnotnull(lookup_hash#69749), isnotnull(source_system#69730), (rel_type_id#69731L = 9), (id#69732L = 33904730), (lookup_hash#69749 = 5275fe61528b8def756486abfdbfd3bb2bdb73cab7303f7680d1b444a3c03a17), (source_system#69730 = pilot-a)]
+
+(4) PhotonUnion
+Arguments: Generic
+
+(5) PhotonAgg
+Input [21]: [source_system#69708, rel_type_id#69709L, id#69710L, source_type#69711L, source_id#69712L, target_type#69713L, target_id#69714L, order_key#69715, schema_revision#69716, entity_version#69717L, props_json#69718, retained_json#69719, source_feed#69720, source_epoch#69721, source_position#69722L, published_at#69723, apply_batch_id#69724, source_cursor_json#69725, source_delivery_id#69726, lookup_hash#69727, is_deleted#69638]
+Arguments: [partial_max_by(named_struct(source_system, source_system#69708, rel_type_id, rel_type_id#69709L, id, id#69710L, source_type, source_type#69711L, source_id, source_id#69712L, target_type, target_type#69713L, target_id, target_id#69714L, order_key, order_key#69715, schema_revision, schema_revision#69716, entity_version, entity_version#69717L, props_json, props_json#69718, retained_json, retained_json#69719, source_feed, ... 17 more fields), entity_version#69717L) AS (valueWithExtremumOrdering#69838, extremumOrdering#69839L)], [valueWithExtremumOrdering#69836, extremumOrdering#69837L], [valueWithExtremumOrdering#69838, extremumOrdering#69839L], false
+
+(6) PhotonShuffleExchangeSink
+Input [2]: [valueWithExtremumOrdering#69838, extremumOrdering#69839L]
+Arguments: SinglePartition
+
+(7) PhotonShuffleMapStage
+Input [2]: [valueWithExtremumOrdering#69838, extremumOrdering#69839L]
+Arguments: ENSURE_REQUIREMENTS, [id=#61193]
+
+(8) PhotonShuffleExchangeSource
+Input [2]: [valueWithExtremumOrdering#69838, extremumOrdering#69839L]
+Arguments: false
+
+(9) PhotonAgg
+Input [2]: [valueWithExtremumOrdering#69838, extremumOrdering#69839L]
+Arguments: [finalmerge_max_by(merge valueWithExtremumOrdering#69838, extremumOrdering#69839L) AS max_by(named_struct(source_system, source_system, rel_type_id, rel_type_id, id, id, source_type, source_type, source_id, source_id, target_type, target_type, target_id, target_id, order_key, order_key, schema_revision, schema_revision, entity_version, entity_version, props_json, props_json, retained_json, retained_json, source_feed, source_feed, source_epoch, source_epoch, source_position, source_position, published_at, published_at, apply_batch_id, apply_batch_id, source_cursor_json, source_cursor_json, source_delivery_id, source_delivery_id, lookup_hash, lookup_hash, is_deleted, is_deleted), entity_version)#69753], [max_by(named_struct(source_system, source_system, rel_type_id, rel_type_id, id, id, source_type, source_type, source_id, source_id, target_type, target_type, target_id, target_id, order_key, order_key, schema_revision, schema_revision, entity_version, entity_version, props_json, props_json, retained_json, retained_json, source_feed, source_feed, source_epoch, source_epoch, source_position, source_position, published_at, published_at, apply_batch_id, apply_batch_id, source_cursor_json, source_cursor_json, source_delivery_id, source_delivery_id, lookup_hash, lookup_hash, is_deleted, is_deleted), entity_version)#69753], [max_by(named_struct(source_system, source_system, rel_type_id, rel_type_id, id, id, source_type, source_type, source_id, source_id, target_type, target_type, target_id, target_id, order_key, order_key, schema_revision, schema_revision, entity_version, entity_version, props_json, props_json, retained_json, retained_json, source_feed, source_feed, source_epoch, source_epoch, source_position, source_position, published_at, published_at, apply_batch_id, apply_batch_id, source_cursor_json, source_cursor_json, source_delivery_id, source_delivery_id, lookup_hash, lookup_hash, is_deleted, is_deleted), entity_version)#69753 AS winner#69639], true
+
+(10) PhotonFilter
+Input [1]: [winner#69639]
+Arguments: (isnotnull(winner#69639.is_deleted) AND (isnotnull(winner#69639) AND NOT winner#69639.is_deleted))
+
+(11) PhotonProject
+Input [1]: [winner#69639]
+Arguments: [winner#69639.source_system AS source_system#69640, winner#69639.rel_type_id AS rel_type_id#69641L, winner#69639.id AS id#69642L, winner#69639.source_type AS source_type#69643L, winner#69639.source_id AS source_id#69644L, winner#69639.target_type AS target_type#69645L, winner#69639.target_id AS target_id#69646L, winner#69639.order_key AS order_key#69647, winner#69639.schema_revision AS schema_revision#69648, winner#69639.entity_version AS entity_version#69649L, winner#69639.props_json AS props_json#69650, winner#69639.retained_json AS retained_json#69651, winner#69639.source_feed AS source_feed#69652, winner#69639.source_epoch AS source_epoch#69653, winner#69639.source_position AS source_position#69654L, cast(winner#69639.published_at as string) AS published_at#69655, winner#69639.apply_batch_id AS apply_batch_id#69656, winner#69639.source_cursor_json AS source_cursor_json#69657, winner#69639.source_delivery_id AS source_delivery_id#69658, winner#69639.lookup_hash AS lookup_hash#69659]
+
+(12) PhotonColumnarToRow
+Input [20]: [source_system#69640, rel_type_id#69641L, id#69642L, source_type#69643L, source_id#69644L, target_type#69645L, target_id#69646L, order_key#69647, schema_revision#69648, entity_version#69649L, props_json#69650, retained_json#69651, source_feed#69652, source_epoch#69653, source_position#69654L, published_at#69655, apply_batch_id#69656, source_cursor_json#69657, source_delivery_id#69658, lookup_hash#69659]
+
+(13) PhotonResultStage
+Input [20]: [source_system#69640, rel_type_id#69641L, id#69642L, source_type#69643L, source_id#69644L, target_type#69645L, target_id#69646L, order_key#69647, schema_revision#69648, entity_version#69649L, props_json#69650, retained_json#69651, source_feed#69652, source_epoch#69653, source_position#69654L, published_at#69655, apply_batch_id#69656, source_cursor_json#69657, source_delivery_id#69658, lookup_hash#69659]
+
+(14) AdaptiveSparkPlan
+Output [20]: [source_system#69640, rel_type_id#69641L, id#69642L, source_type#69643L, source_id#69644L, target_type#69645L, target_id#69646L, order_key#69647, schema_revision#69648, entity_version#69649L, props_json#69650, retained_json#69651, source_feed#69652, source_epoch#69653, source_position#69654L, published_at#69655, apply_batch_id#69656, source_cursor_json#69657, source_delivery_id#69658, lookup_hash#69659]
+Arguments: isFinalPlan=false
+
+
+== Photon Explanation ==
+The query is fully supported by Photon.
+== Optimizer Statistics (table names per statistics state) ==
+  missing = accepted_edge_overlay_r400, lc_second_edge_current_r337
+  partial = 
+  full    = 
+Corrective actions: consider running the following command on all tables with missing or partial statistics
+  ANALYZE TABLE <table-name> COMPUTE STATISTICS FOR ALL COLUMNS
+
