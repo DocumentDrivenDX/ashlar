@@ -676,3 +676,26 @@ pruning. Next compare explicit edge-ID clustering/order under a hub that spans
 multiple files, with write/maintenance costs recorded. Preserve canonical
 identity clustering and keep any adjacency change rebuildable and publication
 pinned. These results do not qualify ingest, external engines or1B/5B.
+
+## Paired edge-ID clustering attempt (r110)
+
+[Native exact audit](out/native/ashlar_hub_ordering_r110/audited-summary.json)
+passes full independent20M-row parity for two identical all-hub graphs, typed
+closure, unique edge IDs and unique relationship/typed-endpoint pairs, plus48
+exact shallow/midpoint/deep/empty-end page queries. Degrees are18M/2M.
+
+The intended multi-file case was NOT achieved: endpoint-only clustering produces
+one41.2MBfile, endpoint-plus-edge-ID produces one77.3MBfile despite a64MiB
+target setting. Actual output, not configured target bytes or row count, determines
+qualification. Highly repeated endpoint/relation columns compressed unusually
+well. All final queries are uncached, with zero remote bytes. Nonempty pages
+read41.5MB versus77.9MB at every cursor; observed three-sample engine maxima
+are291–328ms versus329–354ms. Adding edge ID shows no measured benefit here.
+Both layouts skip all files for a cursor beyond the global maximum.
+
+Liquid clustering across four columns does not imply a lexicographic source/edge
+sort. This result does not settle within-hub multi-file pruning; the next fixture
+must verify that a hub physically occupies multiple files before running that
+comparison, using declared entropy or controlled writer layout and recording
+additional bytes/cost. Canonical tables, selected UC architecture and provisional
+SLOs remain unchanged; no billion-scale or ingestion admission follows.

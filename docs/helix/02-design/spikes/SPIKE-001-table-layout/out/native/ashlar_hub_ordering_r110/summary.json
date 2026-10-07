@@ -1,0 +1,56 @@
+{
+  "state": "paired 20M hub tables and 48 exact page checks passed; history audit pending",
+  "tables": {
+    "endpoint": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r110_endpoint",
+    "ordered": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r110_ordered"
+  },
+  "versions": {
+    "endpoint": 0,
+    "ordered": 0
+  },
+  "degrees": {
+    "pilot32": 18000000,
+    "other160": 2000000
+  },
+  "details": {
+    "endpoint": {
+      "format": "delta",
+      "id": "7b052e95-3cd3-4f49-9a54-297ff889ca25",
+      "name": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r110_endpoint",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/c566aa49-9bb6-4e29-8167-969bcf2af504",
+      "createdAt": "2026-10-07T01:06:18.431000",
+      "lastModified": "2026-10-07T01:06:30",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"source_system\",\"source_type\",\"source_id\"]",
+      "numFiles": "1",
+      "sizeInBytes": "41211137",
+      "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-57f763cd-b447-4b4f-ac6b-9f4fec4d59e4\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-895675f8-e7d9-445d-8f1b-d79604b31fe2\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"c566aa49-9bb6-4e29-8167-969bcf2af504\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+      "clusterByAuto": "False"
+    },
+    "ordered": {
+      "format": "delta",
+      "id": "92a5d3f2-3997-4cb2-8fce-b6064900b156",
+      "name": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r110_ordered",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/7d4b9d4d-18de-435f-b412-50c7dd739a0d",
+      "createdAt": "2026-10-07T01:06:38.385000",
+      "lastModified": "2026-10-07T01:06:50",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"source_system\",\"source_type\",\"source_id\",\"edge_id\"]",
+      "numFiles": "1",
+      "sizeInBytes": "77275185",
+      "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-8e249c7c-32b7-4d33-9e22-0cd6ea7b2164\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-508d8e1a-5962-4ba1-803f-8c7d8c4aa97a\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"7d4b9d4d-18de-435f-b412-50c7dd739a0d\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+      "clusterByAuto": "False"
+    }
+  },
+  "qualification": "Identical seven-column synthetic all-hub graph. Full independent projection parity both tables; typed closure/global edge IDs/unique relation-endpoint pairs. Not canonical graph, publication/ingest or billion-scale admission. Three repetitions per query are descriptive samples."
+}

@@ -94,7 +94,7 @@
     "graphframes_scale.py": "165f5d89ef23e26eaae8a688fa4fc1811515ac2f633d800273c47466ca218e7a",
     "parameterized_reads.py": "c52b62fc1ed9c21c7df9ce65bcce6f45bc9b0eac3ad10e4d4fbf7dacf0ea1528",
     "cancel_controls.py": "136be2fba80a126197e9a1c2a91796a33935724e24f2ec775b611d39a1ea2d51",
-    "entropy-scale-status.md": "ca0d8d22826a5a4a1cf2ce46d7ca582c09bcf90d01937ed782c5be1a39ee019e",
+    "entropy-scale-status.md": "e3f03f09acff90553ea4308fc29d2c0756e85e225c2b0391a161fd34f8d6f835",
     "out/entropy-local-20261006/summary.json": "12359f89adabb3e41771cdf4570902a6626d74e03e3cae7d2c3e2f8bfefb344e",
     "out/graphframes-scale-20261006/summary.json": "608ef7aaf0b1cb89668ada1f69213c050874f4851f2acef97a65e63ac1fe53ab",
     "out/graphframes-scale-20261006/materialization.json": "83ee2e37d60c9df1bb088ff239e63640bd0835a555ea085c8a3863b71791f691",
@@ -301,7 +301,13 @@
     "out/native/ashlar_hub_deep_pages_r109/summary.json": "d5a704c4655d94a5c6a810317fbcdd7a935c4cf9e9a40775feccb5400a26c2f8",
     "out/native/ashlar_hub_deep_pages_r109/statements.jsonl": "164a1454d5babe2b949d73ee1d12b6f57588facc0ca2f0ccaf48a9b2093143ac",
     "out/native/ashlar_hub_deep_pages_r109/query-history.json": "bca09ba6767768f5de832d1c53f2e60cc9405118f88d5b4810db02b2e80985a1",
-    "out/native/ashlar_hub_deep_pages_r109/audited-summary.json": "6f72e6edb567c6e43342ab9342121fa67ddb0ee974adafa560d98ab50f81ffd1"
+    "out/native/ashlar_hub_deep_pages_r109/audited-summary.json": "6f72e6edb567c6e43342ab9342121fa67ddb0ee974adafa560d98ab50f81ffd1",
+    "hub_ordering_r110.py": "610368bc5b3dd41684c916f7705518f9913f2cff9b3cce943f914f820f58631c",
+    "hub_ordering_audit.py": "44a7c534759824c3bf2c6e9bd06b5b4f2064c5905fc85305ffa47f98bd7bd978",
+    "out/native/ashlar_hub_ordering_r110/summary.json": "33334492983284afef8ed26596bae07ab8cecf46c5af46bec6b1ae6f6d709f6b",
+    "out/native/ashlar_hub_ordering_r110/statements.jsonl": "b3485a7a25ea1dbe6cb04c70fcb2e0e75b9e8c69da30a95468b866175d6fbb5c",
+    "out/native/ashlar_hub_ordering_r110/query-history.json": "f6d698e0e7928a29b9b9c76bd7890430230afe881899cabbf5febafd7547760e",
+    "out/native/ashlar_hub_ordering_r110/audited-summary.json": "0d94b9d3e49c27648159cd145cee7693ca686b90378730ba7efdd4f79ac04790"
   },
   "evidence": {
     "ddl": {
