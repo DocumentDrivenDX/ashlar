@@ -23,21 +23,27 @@ Tombstones include entity_version; manifest uses canonical recorded_at.
 
 Do not regenerate the entire40M local graph to qualify one100k batch. The
 already verified baseline supplies the unchanged-row reference. Audit the final
-current and adjacency snapshots with both directions of EXCEPT ALL over every
-known field for rows outside the selected identities. Compare changed surviving
+current and adjacency snapshots against the pinned baseline outside the selected
+identities using all-field row SHA multisets in four exhaustive100k-width group
+blocks. Both snapshots must match every group count and sorted-hash digest.
+Bounded grouped hashes avoid shuffling the complete wide carriers while preserving
+row multiplicity under the explicit SHA256 collision-resistance assumption. Compare changed surviving
 current/adjacency rows against independent local complete-field digests; prove
 all10k deleted identities absent and no unexpected selected rows. Counts must be
 39,990,000 for each role; final typed endpoint closure and identity uniqueness
 must cover the whole graph. Exact string fields preserve decimal lexemes,
 explicit nulls, retained content and unknown extension content.
 
-For raw and journal, prove every baseline row remains with its multiplicity and
-compare the complete added-row multisets against independent input digests.
+For raw and journal, prove every bootstrap row remains with its multiplicity
+using the independently qualified baseline480group field digests, then compare
+the complete added-row multisets against independent input digests.
 Use the synthetic unique delivery and batch scope only after proving the scopes
 are disjoint from the baseline. Expected raw total48,100,000 and journal
 192,216,667. Tombstones total10,000 with every known field verified. Digest
-comparisons assume SHA256 collision resistance; native unchanged-row comparisons
-must retain multiplicity rather than collapse duplicates with ordinary EXCEPT.
+comparisons assume SHA256 collision resistance; grouped unchanged-row comparisons
+must retain multiplicity and cover every expected group. Full final counts and
+bootstrap/new scope counts must account for every row, including invalid or
+unexpected scope members. Prepared SQL is not native qualification.
 
 Bind each mutation's actual statement ID to its Delta history version; retain
 all partial receipts. Publish no descriptor until every role, input origin,
