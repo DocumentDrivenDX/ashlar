@@ -1,0 +1,31 @@
+{
+  "results": [
+    {
+      "iteration": "r490",
+      "statements": 2,
+      "final": true,
+      "state": "stopped",
+      "metrics": {
+        "read_bytes": 0,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "wall_s": 13.010708750000001,
+      "result_sha256": "e03a69650a61e0ddb5b0ae0158eb6764d5abbfcfdae2b1c39809241b3e3131b6"
+    },
+    {
+      "iteration": "r491",
+      "statements": 12,
+      "final": true,
+      "state": "capability passed; no performance or canonical admission",
+      "metrics": {
+        "read_bytes": 81324,
+        "write_remote_bytes": 72267,
+        "spill_to_disk_bytes": 0
+      },
+      "wall_s": 29.121008333000002,
+      "result_sha256": "90fb7448109023f9c05c7ae2586722f64dd115a33cc04582d576c09f56039903"
+    }
+  ],
+  "qualification": "Tiny enforcement capability only; original driver write_bytes metric invalid; audited native write_remote_bytes authoritative."
+}

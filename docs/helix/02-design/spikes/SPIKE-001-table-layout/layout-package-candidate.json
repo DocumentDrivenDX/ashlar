@@ -2238,7 +2238,17 @@
     "out/native/ashlar_current_file_ranges_r487/completed-last-statement.json": "222fe6cb8adf528c2a5a6c1ca27d7b9b18158f4c481ec4ce16320142e9f07fed",
     "throughput_envelope_r489.py": "01d64878cc94253df2e9a07f5532a12b406128aa666730370dfd37c51655b00a",
     "out/throughput-envelope-r489.json": "a6f04a9517580cd77b7b259e2b819397bd37aa790710c97c5c1d1f5a1ca54bd9",
-    "throughput-envelope-disposition-r489.md": "d113f43220fa938dfef242107702b366c3f8a84631aefb5a542df6d39f9cf94c"
+    "throughput-envelope-disposition-r489.md": "d113f43220fa938dfef242107702b366c3f8a84631aefb5a542df6d39f9cf94c",
+    "generated_fingerprint_r490.py": "301da2bb471fa1992132e525bfa5054eec1125379c98c89073c94d8f4622b479",
+    "generated_fingerprint_r491.py": "d08f75d020e8aa4a3a5fbb3f7cb1d830ac8e155622a53f6d8a60c1a1e118e57b",
+    "fingerprint-disposition-r492.md": "5766e5a8d1e2539829b573030bcb221d7601383c90f0b29d350e3379ffd1f0da",
+    "out/generated-fingerprint-audit-r492.json": "c52a16668195e0c859b5916fbc7a46432cfb4f888cf345af38257d092be40ea5",
+    "out/native/generated_fingerprint_r490/result.json": "e03a69650a61e0ddb5b0ae0158eb6764d5abbfcfdae2b1c39809241b3e3131b6",
+    "out/native/generated_fingerprint_r490/statements.jsonl": "928f6a34d4a17e7a4bd18d5d637dbe2d5fb24f4323dc11828b23f1494bd42573",
+    "out/native/generated_fingerprint_r490/query-history.json": "7b1379b7444e485377fdb908c8847bffff4893fe95578b11ce838034ec2e77f4",
+    "out/native/generated_fingerprint_r491/result.json": "90fb7448109023f9c05c7ae2586722f64dd115a33cc04582d576c09f56039903",
+    "out/native/generated_fingerprint_r491/statements.jsonl": "f1cef937557b7f901ce70ca999bac128bcf52b457b8cd19ead4b9eb277720c23",
+    "out/native/generated_fingerprint_r491/query-history.json": "7d50dfd7ebb63b1ed0aeb1728a91db386771c66ed8cd318b7580a106ab0218e8"
   },
   "evidence": {
     "ddl": {

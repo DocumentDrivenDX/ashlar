@@ -1,0 +1,36 @@
+{
+  "table": "client_dev.ashlar_entropy_20261006_r86.generated_fingerprint_r490",
+  "profile": "ashlar-carrier-fingerprint/1;",
+  "fields": [
+    "source_system",
+    "rel_type_id",
+    "id",
+    "source_type",
+    "source_id",
+    "target_type",
+    "target_id",
+    "order_key",
+    "schema_revision",
+    "entity_version",
+    "props_json",
+    "retained_json",
+    "source_feed",
+    "source_epoch",
+    "source_position",
+    "published_at",
+    "apply_batch_id",
+    "source_cursor_json",
+    "source_delivery_id",
+    "lookup_hash"
+  ],
+  "source_sha256": "301da2bb471fa1992132e525bfa5054eec1125379c98c89073c94d8f4622b479",
+  "controls": [],
+  "state": "stopped",
+  "error": "{\"state\": \"FAILED\", \"error\": {\"error_code\": \"BAD_REQUEST\", \"message\": \"[INVALID_INLINE_TABLE.CANNOT_EVALUATE_EXPRESSION_IN_INLINE_TABLE] Invalid inline table. Cannot evaluate the expression \\\"decode(unhex(70696c6f742d61), UTF-8)\\\" in inline table definition. SQLSTATE: 42000; line 1 pos 346\"}, \"sql_state\": \"42000\"}",
+  "metrics": {
+    "read_bytes": 0,
+    "write_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 13.010708750000001
+}

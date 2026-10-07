@@ -1,0 +1,70 @@
+{
+  "table": "client_dev.ashlar_entropy_20261006_r86.generated_fingerprint_r491",
+  "profile": "ashlar-carrier-fingerprint/1;",
+  "fields": [
+    "source_system",
+    "rel_type_id",
+    "id",
+    "source_type",
+    "source_id",
+    "target_type",
+    "target_id",
+    "order_key",
+    "schema_revision",
+    "entity_version",
+    "props_json",
+    "retained_json",
+    "source_feed",
+    "source_epoch",
+    "source_position",
+    "published_at",
+    "apply_batch_id",
+    "source_cursor_json",
+    "source_delivery_id",
+    "lookup_hash"
+  ],
+  "source_sha256": "d08f75d020e8aa4a3a5fbb3f7cb1d830ac8e155622a53f6d8a60c1a1e118e57b",
+  "controls": [
+    {
+      "field": "props_json",
+      "automatic_change": true
+    },
+    {
+      "field": "retained_json",
+      "automatic_change": true
+    },
+    {
+      "field": "source_cursor_json",
+      "automatic_change": true
+    }
+  ],
+  "stale_explicit_refused": true,
+  "detail": [
+    [
+      "delta",
+      "f47c3de6-e29e-40ca-811d-0e3b1c744bc0",
+      "client_dev.ashlar_entropy_20261006_r86.generated_fingerprint_r491",
+      null,
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/c1839488-927a-4ceb-a9b5-ca3d0e678c1b",
+      "2026-10-07T21:12:18.182Z",
+      "2026-10-07T21:12:38.000Z",
+      "[]",
+      "[]",
+      "1",
+      "7398",
+      "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.enableChangeDataFeed\":\"true\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"c1839488-927a-4ceb-a9b5-ca3d0e678c1b\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-95204ac4-3278-4597-866b-9c4360940de6\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-2d1f36a8-9347-4fed-972e-d616c9f0f5b0\"}",
+      "3",
+      "7",
+      "[\"appendOnly\",\"changeDataFeed\",\"deletionVectors\",\"domainMetadata\",\"generatedColumns\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "false"
+    ]
+  ],
+  "state": "capability passed; no performance or canonical admission",
+  "metrics": {
+    "read_bytes": 81324,
+    "write_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 29.121008333000002
+}
