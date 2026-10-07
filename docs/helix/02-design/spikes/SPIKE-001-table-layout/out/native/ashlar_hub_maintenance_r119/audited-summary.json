@@ -1,0 +1,392 @@
+{
+  "state": "Full20M parity, independent edge identity, unique pairs, typed target closure and54 exact pages audited; all page histories final uncached",
+  "table": "client_dev.ashlar_entropy_20261006_r86.adjacency_maintenance_r119",
+  "source_table": "client_dev.ashlar_entropy_20261006_r86.adjacency_entropy_r116",
+  "source_version": 8,
+  "versions": {
+    "baseline": 1,
+    "updated": 2,
+    "optimized": 10
+  },
+  "changed_edges": 100117,
+  "hub_files": {
+    "baseline": [
+      [
+        "other",
+        "8"
+      ],
+      [
+        "pilot",
+        "8"
+      ]
+    ],
+    "updated": [
+      [
+        "other",
+        "11"
+      ],
+      [
+        "pilot",
+        "11"
+      ]
+    ],
+    "optimized": [
+      [
+        "other",
+        "1"
+      ],
+      [
+        "pilot",
+        "8"
+      ]
+    ]
+  },
+  "qualification": "20M higher-entropy synthetic edges; isolated16MiB clone, hash-scattered valid destination+10 modulo4M moves, source preserved, disjoint new relationship labels+1000. Full unique pairs and typed target closure at each phase. Oracle projects pinned original, independent of mutated clone. No canonical publication, producer ingest, reverse layout, high-entropy capacity or billion admission. OPTIMIZE FULL; no source producer authority or catalog binding.",
+  "writes": {
+    "clone": {
+      "caller_ms": 3791.6509169999995,
+      "metrics": {
+        "total_time_ms": 3689,
+        "read_bytes": 0,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 537,
+        "execution_time_ms": 3139,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 0,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 408,
+        "read_files_count": 0,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 41,
+        "rows_read_count": 64,
+        "result_fetch_time_ms": 2,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791336757981,
+        "metadata_time_ms": 1677,
+        "query_execution_time_ms": 3676,
+        "bytes_read_from_cache_percentage": 0.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791336757969,
+        "task_progress": {
+          "planned_task_count": 24,
+          "completed_task_count": 24,
+          "completed_partition_count": 24,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      },
+      "result": [
+        [
+          "137620838",
+          "8",
+          null,
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    "update": {
+      "caller_ms": 2655.6147909999977,
+      "metrics": {
+        "total_time_ms": 2548,
+        "read_bytes": 201880945,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 145,
+        "execution_time_ms": 2395,
+        "read_remote_bytes": 202987,
+        "write_remote_bytes": 856723,
+        "read_cache_bytes": 201677958,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 3984,
+        "read_files_count": 16,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 1399,
+        "rows_read_count": 20100117,
+        "result_fetch_time_ms": 2,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791336783450,
+        "metadata_time_ms": 1676,
+        "query_execution_time_ms": 2540,
+        "bytes_read_from_cache_percentage": 99.0,
+        "write_remote_rows": 100117,
+        "write_remote_files": 3,
+        "queue_end_time_ms": 1791336783437,
+        "read_files_bytes": 275241676,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 40000000,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 28,
+          "completed_task_count": 28,
+          "completed_partition_count": 28,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      },
+      "result": [
+        [
+          "100117"
+        ]
+      ]
+    },
+    "optimize": {
+      "caller_ms": 29290.616334,
+      "metrics": {
+        "total_time_ms": 28713,
+        "read_bytes": 319691230,
+        "rows_produced_count": 6,
+        "compilation_time_ms": 798,
+        "execution_time_ms": 27909,
+        "read_remote_bytes": 133566303,
+        "write_remote_bytes": 277967587,
+        "read_cache_bytes": 186124927,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 77564,
+        "read_files_count": 66,
+        "read_partitions_count": 5,
+        "photon_total_time_ms": 70755,
+        "rows_read_count": 134100523,
+        "result_fetch_time_ms": 586,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 42655701,
+        "pruned_files_count": 3,
+        "query_compilation_start_timestamp": 1791336808133,
+        "metadata_time_ms": 2384,
+        "query_execution_time_ms": 28707,
+        "bytes_read_from_cache_percentage": 57.0,
+        "write_remote_rows": 38100117,
+        "write_remote_files": 16,
+        "queue_end_time_ms": 1791336808120,
+        "read_files_bytes": 948199589,
+        "conflict_resolution_time_ms": 573,
+        "rows_scanned": 134500669,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 366,
+          "completed_task_count": 366,
+          "completed_partition_count": 366,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      },
+      "result": [
+        [
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3afe5acc-386a-4632-88b1-4fa3fa71b1dc",
+          "{\"numFilesAdded\":1,\"numFilesRemoved\":3,\"filesAdded\":{\"min\":843962,\"max\":843962,\"avg\":843962.0,\"totalFiles\":1,\"totalSize\":843962},\"filesRemoved\":{\"min\":213605,\"max\":324697,\"avg\":285574.3333333333,\"totalFiles\":3,\"totalSize\":856723},\"partitionsOptimized\":0,\"zOrderStats\":null,\"clusteringStats\":null,\"numBins\":0,\"numBatches\":1,\"totalConsideredFiles\":11,\"totalFilesSkipped\":0,\"preserveInsertionOrder\":false,\"numFilesSkippedToReduceWriteAmplification\":0,\"numBytesSkippedToReduceWriteAmplification\":0,\"startTimeMs\":1791336809135,\"endTimeMs\":1791336814383,\"totalClusterParallelism\":8,\"totalScheduledTasks\":1,\"autoCompactParallelismStats\":null,\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":0,\"numDeletionVectorRowsRemoved\":0},\"recompressionCodec\":null,\"numTableColumns\":8,\"numTableColumnsWithStats\":8,\"totalTaskExecutionTimeMs\":290,\"skippedArchivedFiles\":0,\"clusteringMetrics\":{\"sizeOfTableInBytesBeforeLazyClustering\":138477561,\"isNewMetadataCreated\":true,\"isPOTriggered\":false,\"isFull\":true,\"approxClusteringQuality\":1.1102230246251565E-16,\"approxClusteringQualityPerColumn\":[0.0,0.0,0.0,0.0],\"approxClusteringCoverage\":0.006095137536760245,\"compactionType\":null,\"numFilesSkippedWithoutStats\":0,\"numFilesClassifiedToIntermediateNodes\":11,\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":138477561,\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":137788627,\"numFilesClassifiedToLeafNodes\":0,\"sizeOfFilesClassifiedToLeafNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":0,\"numThreadsForClassifier\":null,\"clusterThresholdStrategy\":\"log\",\"minFileSize\":16777216,\"maxFileSize\":16777216,\"nodeMinNumFilesToCompact\":1,\"numNullValuesEncounteredForTransforms\":0,\"numIdealFiles\":0,\"numIdealFilesWithTrimmedStringMaxValue\":0,\"numAddedFilesWithSameMinMaxOnClusteringColumns\":[0,1,0,0],\"numClusteringTasksPlanned\":0,\"numClusteringTasksNotPlannedDueToPO\":0,\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":0,\"numCompactionTasksPlanned\":1,\"numCompactionTasksPlannedUndoneDueToPO\":0,\"numOptimizeBatchesPlanned\":1,\"numLeafNodesExpanded\":0,\"numLeafNodesClustered\":0,\"numGetFilesForNodeCalls\":1,\"numSamplingJobs\":0,\"numLeafNodesCompacted\":0,\"numLeafNodesCompactedUndoneDueToPO\":0,\"numIntermediateNodesCompacted\":1,\"numIntermediateNodesCompactedUndoneDueToPO\":0,\"totalSizeOfDataToCompactInBytes\":856723,\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"totalLogicalSizeOfDataToCompactInBytes\":856723,\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"numIntermediateNodesClustered\":0,\"numFilesSkippedAfterExpansion\":0,\"numSmallFilesSkippedAfterExpansion\":0,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfDataToRewriteInBytes\":856723,\"totalLogicalSizeOfDataToRewriteInBytes\":856723,\"timeMetrics\":{\"classifierTimeMs\":66,\"optimizerTimeMs\":232,\"metadataLoadTimeMs\":0,\"totalGetFilesForNodeCallsTimeMs\":212,\"totalSamplingTimeMs\":0,\"parentIndexBuildTimeMs\":0,\"metadataCreationTimeMs\":1437},\"maxOptimizeBatchesInParallel\":2,\"currentIteration\":1,\"maxIterations\":5,\"clusteringStrategy\":\"sizeAware\",\"splitStrategy\":\"hierarchicalSplitStrategy\",\"numDowncastDimensions\":null,\"withPredicates\":false,\"numFilesSkippedByPredicates\":0,\"predicates\":null,\"isPipelinedOptimizer\":true,\"pipelinedTotalPlanningTimeMs\":1423,\"pipelinedTotalBatchWaitTimeMs\":229,\"pipelinedPostFirstBatchWaitTimeMs\":0,\"coordinatorEventMetrics\":{\"numPermitsGranted\":1,\"numPermitsDenied\":0,\"numCapacityGatedRequests\":0,\"peakBufferedTaskBytes\":856723,\"peakInFlightPlanningBytes\":0,\"totalEventsProcessed\":7,\"numEventLogBatchesFlushed\":2,\"totalGetFilesPermitWaitTimeMs\":0,\"totalCreateTaskPermitWaitTimeMs\":0,\"totalGetFilesTimeMs\":212,\"totalCreateTaskTimeMs\":0,\"permitTimeoutFired\":false,\"permitTimeoutFiredAtMs\":0},\"pipelinedOptimizerStatus\":\"success\",\"pipelinedAssemblerMetrics\":{\"numBatchesEmitted\":1,\"numLargeTaskBatches\":0,\"minTasksPerBatch\":1,\"maxTasksPerBatch\":1,\"totalTasksInBatches\":1,\"minBatchBytes\":856723,\"maxBatchBytes\":856723},\"compressionRatioFromSampling\":-1.0,\"compressionRatioSource\":\"n/a\",\"compressionRatioNumSamples\":0,\"compressionRatioSamplingTimeMs\":0,\"compressionRatioTriggeredScaling\":false,\"compressionRatioFromPersistedEntry\":false,\"compressionRatioChosen\":-1.0,\"compressionRatioStalenessReason\":\"n/a\"},\"fileAgeHistogram\":null,\"numFilesSortedWithinFiles\":0}"
+        ],
+        [
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3afe5acc-386a-4632-88b1-4fa3fa71b1dc",
+          "{\"numFilesAdded\":7,\"numFilesRemoved\":9,\"filesAdded\":{\"min\":14218567,\"max\":21874620,\"avg\":2.076458957142857E7,\"totalFiles\":7,\"totalSize\":145352127},\"filesRemoved\":{\"min\":843962,\"max\":17427283,\"avg\":1.5384977777777778E7,\"totalFiles\":9,\"totalSize\":138464800},\"partitionsOptimized\":0,\"zOrderStats\":null,\"clusteringStats\":null,\"numBins\":0,\"numBatches\":1,\"totalConsideredFiles\":9,\"totalFilesSkipped\":0,\"preserveInsertionOrder\":false,\"numFilesSkippedToReduceWriteAmplification\":0,\"numBytesSkippedToReduceWriteAmplification\":0,\"startTimeMs\":1791336814406,\"endTimeMs\":1791336823119,\"totalClusterParallelism\":8,\"totalScheduledTasks\":1,\"autoCompactParallelismStats\":null,\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":8,\"numDeletionVectorRowsRemoved\":100117},\"recompressionCodec\":null,\"numTableColumns\":8,\"numTableColumnsWithStats\":8,\"totalTaskExecutionTimeMs\":30096,\"skippedArchivedFiles\":0,\"clusteringMetrics\":{\"sizeOfTableInBytesBeforeLazyClustering\":138464800,\"isNewMetadataCreated\":false,\"isPOTriggered\":false,\"isFull\":true,\"approxClusteringQuality\":0.17650495153548706,\"approxClusteringQualityPerColumn\":[0.17650495153548718,0.0,0.14762344913656622,0.0],\"approxClusteringCoverage\":1.0,\"compactionType\":null,\"numFilesSkippedWithoutStats\":0,\"numFilesClassifiedToIntermediateNodes\":8,\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":137620838,\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":136931904,\"numFilesClassifiedToLeafNodes\":0,\"sizeOfFilesClassifiedToLeafNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":0,\"numThreadsForClassifier\":null,\"clusterThresholdStrategy\":\"log\",\"minFileSize\":16777216,\"maxFileSize\":16777216,\"nodeMinNumFilesToCompact\":1,\"numNullValuesEncounteredForTransforms\":0,\"numIdealFiles\":0,\"numIdealFilesWithTrimmedStringMaxValue\":0,\"numAddedFilesWithSameMinMaxOnClusteringColumns\":[7,7,7,0],\"numClusteringTasksPlanned\":1,\"numClusteringTasksNotPlannedDueToPO\":0,\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":0,\"numCompactionTasksPlanned\":0,\"numCompactionTasksPlannedUndoneDueToPO\":0,\"numOptimizeBatchesPlanned\":1,\"numLeafNodesExpanded\":0,\"numLeafNodesClustered\":0,\"numGetFilesForNodeCalls\":1,\"numSamplingJobs\":1,\"numLeafNodesCompacted\":0,\"numLeafNodesCompactedUndoneDueToPO\":0,\"numIntermediateNodesCompacted\":0,\"numIntermediateNodesCompactedUndoneDueToPO\":0,\"totalSizeOfDataToCompactInBytes\":0,\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"totalLogicalSizeOfDataToCompactInBytes\":0,\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"numIntermediateNodesClustered\":1,\"numFilesSkippedAfterExpansion\":0,\"numSmallFilesSkippedAfterExpansion\":0,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfDataToRewriteInBytes\":138464800,\"totalLogicalSizeOfDataToRewriteInBytes\":137775866,\"timeMetrics\":{\"classifierTimeMs\":59,\"optimizerTimeMs\":405,\"metadataLoadTimeMs\":127,\"totalGetFilesForNodeCallsTimeMs\":115,\"totalSamplingTimeMs\":234,\"parentIndexBuildTimeMs\":0,\"metadataCreationTimeMs\":0},\"maxOptimizeBatchesInParallel\":2,\"currentIteration\":2,\"maxIterations\":5,\"clusteringStrategy\":\"sizeAware\",\"splitStrategy\":null,\"numDowncastDimensions\":null,\"withPredicates\":false,\"numFilesSkippedByPredicates\":0,\"predicates\":null,\"isPipelinedOptimizer\":true,\"pipelinedTotalPlanningTimeMs\":6571,\"pipelinedTotalBatchWaitTimeMs\":403,\"pipelinedPostFirstBatchWaitTimeMs\":0,\"coordinatorEventMetrics\":{\"numPermitsGranted\":2,\"numPermitsDenied\":0,\"numCapacityGatedRequests\":0,\"peakBufferedTaskBytes\":138464800,\"peakInFlightPlanningBytes\":138464800,\"totalEventsProcessed\":8,\"numEventLogBatchesFlushed\":2,\"totalGetFilesPermitWaitTimeMs\":0,\"totalCreateTaskPermitWaitTimeMs\":0,\"totalGetFilesTimeMs\":115,\"totalCreateTaskTimeMs\":266,\"permitTimeoutFired\":false,\"permitTimeoutFiredAtMs\":0},\"pipelinedOptimizerStatus\":\"success\",\"pipelinedAssemblerMetrics\":{\"numBatchesEmitted\":1,\"numLargeTaskBatches\":0,\"minTasksPerBatch\":1,\"maxTasksPerBatch\":1,\"totalTasksInBatches\":1,\"minBatchBytes\":138464800,\"maxBatchBytes\":138464800},\"compressionRatioFromSampling\":-1.0,\"compressionRatioSource\":\"n/a\",\"compressionRatioNumSamples\":0,\"compressionRatioSamplingTimeMs\":0,\"compressionRatioTriggeredScaling\":false,\"compressionRatioFromPersistedEntry\":false,\"compressionRatioChosen\":-1.0,\"compressionRatioStalenessReason\":\"n/a\"},\"fileAgeHistogram\":null,\"numFilesSortedWithinFiles\":0}"
+        ],
+        [
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3afe5acc-386a-4632-88b1-4fa3fa71b1dc",
+          "{\"numFilesAdded\":8,\"numFilesRemoved\":6,\"filesAdded\":{\"min\":11673384,\"max\":21840945,\"avg\":1.647143725E7,\"totalFiles\":8,\"totalSize\":131771498},\"filesRemoved\":{\"min\":21837189,\"max\":21874620,\"avg\":2.1855593333333332E7,\"totalFiles\":6,\"totalSize\":131133560},\"partitionsOptimized\":0,\"zOrderStats\":null,\"clusteringStats\":null,\"numBins\":0,\"numBatches\":1,\"totalConsideredFiles\":7,\"totalFilesSkipped\":0,\"preserveInsertionOrder\":false,\"numFilesSkippedToReduceWriteAmplification\":0,\"numBytesSkippedToReduceWriteAmplification\":0,\"startTimeMs\":1791336823191,\"endTimeMs\":1791336834140,\"totalClusterParallelism\":8,\"totalScheduledTasks\":1,\"autoCompactParallelismStats\":null,\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":0,\"numDeletionVectorRowsRemoved\":0},\"recompressionCodec\":null,\"numTableColumns\":8,\"numTableColumnsWithStats\":8,\"totalTaskExecutionTimeMs\":27998,\"skippedArchivedFiles\":0,\"clusteringMetrics\":{\"sizeOfTableInBytesBeforeLazyClustering\":145352127,\"isNewMetadataCreated\":false,\"isPOTriggered\":false,\"isFull\":true,\"approxClusteringQuality\":0.8543793872640344,\"approxClusteringQualityPerColumn\":[0.17581693456072234,0.0,0.14715322983900347,0.751934817704515],\"approxClusteringCoverage\":1.0,\"compactionType\":null,\"numFilesSkippedWithoutStats\":0,\"numFilesClassifiedToIntermediateNodes\":0,\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"numFilesClassifiedToLeafNodes\":0,\"sizeOfFilesClassifiedToLeafNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":0,\"numThreadsForClassifier\":null,\"clusterThresholdStrategy\":\"log\",\"minFileSize\":16777216,\"maxFileSize\":16777216,\"nodeMinNumFilesToCompact\":1,\"numNullValuesEncounteredForTransforms\":0,\"numIdealFiles\":0,\"numIdealFilesWithTrimmedStringMaxValue\":0,\"numAddedFilesWithSameMinMaxOnClusteringColumns\":[8,8,8,0],\"numClusteringTasksPlanned\":1,\"numClusteringTasksNotPlannedDueToPO\":0,\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":0,\"numCompactionTasksPlanned\":0,\"numCompactionTasksPlannedUndoneDueToPO\":0,\"numOptimizeBatchesPlanned\":1,\"numLeafNodesExpanded\":1,\"numLeafNodesClustered\":1,\"numGetFilesForNodeCalls\":1,\"numSamplingJobs\":2,\"numLeafNodesCompacted\":0,\"numLeafNodesCompactedUndoneDueToPO\":0,\"numIntermediateNodesCompacted\":0,\"numIntermediateNodesCompactedUndoneDueToPO\":0,\"totalSizeOfDataToCompactInBytes\":0,\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"totalLogicalSizeOfDataToCompactInBytes\":0,\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"numIntermediateNodesClustered\":0,\"numFilesSkippedAfterExpansion\":0,\"numSmallFilesSkippedAfterExpansion\":0,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfDataToRewriteInBytes\":131133560,\"totalLogicalSizeOfDataToRewriteInBytes\":131133560,\"timeMetrics\":{\"classifierTimeMs\":152,\"optimizerTimeMs\":1451,\"metadataLoadTimeMs\":117,\"totalGetFilesForNodeCallsTimeMs\":600,\"totalSamplingTimeMs\":649,\"parentIndexBuildTimeMs\":0,\"metadataCreationTimeMs\":0},\"maxOptimizeBatchesInParallel\":2,\"currentIteration\":3,\"maxIterations\":5,\"clusteringStrategy\":\"sizeAware\",\"splitStrategy\":null,\"numDowncastDimensions\":null,\"withPredicates\":false,\"numFilesSkippedByPredicates\":0,\"predicates\":null,\"isPipelinedOptimizer\":true,\"pipelinedTotalPlanningTimeMs\":7448,\"pipelinedTotalBatchWaitTimeMs\":1450,\"pipelinedPostFirstBatchWaitTimeMs\":0,\"coordinatorEventMetrics\":{\"numPermitsGranted\":2,\"numPermitsDenied\":0,\"numCapacityGatedRequests\":0,\"peakBufferedTaskBytes\":131133560,\"peakInFlightPlanningBytes\":131133560,\"totalEventsProcessed\":8,\"numEventLogBatchesFlushed\":2,\"totalGetFilesPermitWaitTimeMs\":1,\"totalCreateTaskPermitWaitTimeMs\":0,\"totalGetFilesTimeMs\":600,\"totalCreateTaskTimeMs\":232,\"permitTimeoutFired\":false,\"permitTimeoutFiredAtMs\":0},\"pipelinedOptimizerStatus\":\"success\",\"pipelinedAssemblerMetrics\":{\"numBatchesEmitted\":1,\"numLargeTaskBatches\":0,\"minTasksPerBatch\":1,\"maxTasksPerBatch\":1,\"totalTasksInBatches\":1,\"minBatchBytes\":131133560,\"maxBatchBytes\":131133560},\"compressionRatioFromSampling\":-1.0,\"compressionRatioSource\":\"n/a\",\"compressionRatioNumSamples\":0,\"compressionRatioSamplingTimeMs\":0,\"compressionRatioTriggeredScaling\":false,\"compressionRatioFromPersistedEntry\":false,\"compressionRatioChosen\":-1.0,\"compressionRatioStalenessReason\":\"n/a\"},\"fileAgeHistogram\":null,\"numFilesSortedWithinFiles\":0}"
+        ],
+        [
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3afe5acc-386a-4632-88b1-4fa3fa71b1dc",
+          "{\"numFilesAdded\":0,\"numFilesRemoved\":0,\"filesAdded\":{\"min\":null,\"max\":null,\"avg\":0.0,\"totalFiles\":0,\"totalSize\":0},\"filesRemoved\":{\"min\":null,\"max\":null,\"avg\":0.0,\"totalFiles\":0,\"totalSize\":0},\"partitionsOptimized\":0,\"zOrderStats\":null,\"clusteringStats\":null,\"numBins\":0,\"numBatches\":0,\"totalConsideredFiles\":9,\"totalFilesSkipped\":0,\"preserveInsertionOrder\":false,\"numFilesSkippedToReduceWriteAmplification\":0,\"numBytesSkippedToReduceWriteAmplification\":0,\"startTimeMs\":1791336834207,\"endTimeMs\":1791336835690,\"totalClusterParallelism\":8,\"totalScheduledTasks\":0,\"autoCompactParallelismStats\":null,\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":0,\"numDeletionVectorRowsRemoved\":0},\"recompressionCodec\":null,\"numTableColumns\":8,\"numTableColumnsWithStats\":8,\"totalTaskExecutionTimeMs\":0,\"skippedArchivedFiles\":0,\"clusteringMetrics\":{\"sizeOfTableInBytesBeforeLazyClustering\":145990065,\"isNewMetadataCreated\":false,\"isPOTriggered\":false,\"isFull\":true,\"approxClusteringQuality\":0.8543793872640344,\"approxClusteringQualityPerColumn\":[0.17581693456072234,0.0,0.14715322983900347,0.751934817704515],\"approxClusteringCoverage\":1.0,\"compactionType\":null,\"numFilesSkippedWithoutStats\":0,\"numFilesClassifiedToIntermediateNodes\":0,\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"numFilesClassifiedToLeafNodes\":0,\"sizeOfFilesClassifiedToLeafNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":0,\"numThreadsForClassifier\":null,\"clusterThresholdStrategy\":\"log\",\"minFileSize\":16777216,\"maxFileSize\":16777216,\"nodeMinNumFilesToCompact\":1,\"numNullValuesEncounteredForTransforms\":0,\"numIdealFiles\":0,\"numIdealFilesWithTrimmedStringMaxValue\":0,\"numAddedFilesWithSameMinMaxOnClusteringColumns\":null,\"numClusteringTasksPlanned\":0,\"numClusteringTasksNotPlannedDueToPO\":0,\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":0,\"numCompactionTasksPlanned\":0,\"numCompactionTasksPlannedUndoneDueToPO\":0,\"numOptimizeBatchesPlanned\":0,\"numLeafNodesExpanded\":0,\"numLeafNodesClustered\":0,\"numGetFilesForNodeCalls\":1,\"numSamplingJobs\":0,\"numLeafNodesCompacted\":2,\"numLeafNodesCompactedUndoneDueToPO\":0,\"numIntermediateNodesCompacted\":0,\"numIntermediateNodesCompactedUndoneDueToPO\":0,\"totalSizeOfDataToCompactInBytes\":0,\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"totalLogicalSizeOfDataToCompactInBytes\":0,\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"numIntermediateNodesClustered\":0,\"numFilesSkippedAfterExpansion\":0,\"numSmallFilesSkippedAfterExpansion\":0,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfDataToRewriteInBytes\":0,\"totalLogicalSizeOfDataToRewriteInBytes\":0,\"timeMetrics\":{\"classifierTimeMs\":59,\"optimizerTimeMs\":6,\"metadataLoadTimeMs\":128,\"totalGetFilesForNodeCallsTimeMs\":139,\"totalSamplingTimeMs\":0,\"parentIndexBuildTimeMs\":0,\"metadataCreationTimeMs\":0},\"maxOptimizeBatchesInParallel\":2,\"currentIteration\":4,\"maxIterations\":5,\"clusteringStrategy\":\"sizeAware\",\"splitStrategy\":null,\"numDowncastDimensions\":null,\"withPredicates\":false,\"numFilesSkippedByPredicates\":0,\"predicates\":null,\"isPipelinedOptimizer\":true,\"pipelinedTotalPlanningTimeMs\":165,\"pipelinedTotalBatchWaitTimeMs\":160,\"pipelinedPostFirstBatchWaitTimeMs\":0,\"coordinatorEventMetrics\":{\"numPermitsGranted\":1,\"numPermitsDenied\":0,\"numCapacityGatedRequests\":0,\"peakBufferedTaskBytes\":0,\"peakInFlightPlanningBytes\":0,\"totalEventsProcessed\":3,\"numEventLogBatchesFlushed\":1,\"totalGetFilesPermitWaitTimeMs\":1,\"totalCreateTaskPermitWaitTimeMs\":0,\"totalGetFilesTimeMs\":139,\"totalCreateTaskTimeMs\":0,\"permitTimeoutFired\":false,\"permitTimeoutFiredAtMs\":0},\"pipelinedOptimizerStatus\":\"success\",\"pipelinedAssemblerMetrics\":{\"numBatchesEmitted\":0,\"numLargeTaskBatches\":0,\"minTasksPerBatch\":0,\"maxTasksPerBatch\":0,\"totalTasksInBatches\":0,\"minBatchBytes\":0,\"maxBatchBytes\":0},\"compressionRatioFromSampling\":-1.0,\"compressionRatioSource\":\"n/a\",\"compressionRatioNumSamples\":0,\"compressionRatioSamplingTimeMs\":0,\"compressionRatioTriggeredScaling\":false,\"compressionRatioFromPersistedEntry\":false,\"compressionRatioChosen\":-1.0,\"compressionRatioStalenessReason\":\"n/a\"},\"fileAgeHistogram\":null,\"numFilesSortedWithinFiles\":0}"
+        ],
+        [
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3afe5acc-386a-4632-88b1-4fa3fa71b1dc",
+          "{\"numFilesAdded\":0,\"numFilesRemoved\":0,\"filesAdded\":{\"min\":null,\"max\":null,\"avg\":0.0,\"totalFiles\":0,\"totalSize\":0},\"filesRemoved\":{\"min\":null,\"max\":null,\"avg\":0.0,\"totalFiles\":0,\"totalSize\":0},\"partitionsOptimized\":0,\"zOrderStats\":null,\"clusteringStats\":null,\"numBins\":0,\"numBatches\":0,\"totalConsideredFiles\":9,\"totalFilesSkipped\":0,\"preserveInsertionOrder\":true,\"numFilesSkippedToReduceWriteAmplification\":0,\"numBytesSkippedToReduceWriteAmplification\":0,\"startTimeMs\":1791336835718,\"endTimeMs\":1791336836381,\"totalClusterParallelism\":8,\"totalScheduledTasks\":0,\"autoCompactParallelismStats\":null,\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":0,\"numDeletionVectorRowsRemoved\":0},\"recompressionCodec\":null,\"numTableColumns\":8,\"numTableColumnsWithStats\":8,\"totalTaskExecutionTimeMs\":0,\"skippedArchivedFiles\":0,\"clusteringMetrics\":{\"sizeOfTableInBytesBeforeLazyClustering\":145990065,\"isNewMetadataCreated\":false,\"isPOTriggered\":false,\"isFull\":false,\"approxClusteringQuality\":0.8543793872640344,\"approxClusteringQualityPerColumn\":[0.17581693456072234,0.0,0.14715322983900347,0.751934817704515],\"approxClusteringCoverage\":1.0,\"compactionType\":\"post-optimize-compaction\",\"numFilesSkippedWithoutStats\":0,\"numFilesClassifiedToIntermediateNodes\":0,\"sizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToIntermediateNodesInBytes\":0,\"numFilesClassifiedToLeafNodes\":0,\"sizeOfFilesClassifiedToLeafNodesInBytes\":0,\"logicalSizeOfFilesClassifiedToLeafNodesInBytes\":0,\"numThreadsForClassifier\":null,\"clusterThresholdStrategy\":null,\"minFileSize\":8388608,\"maxFileSize\":16777216,\"nodeMinNumFilesToCompact\":0,\"numNullValuesEncounteredForTransforms\":0,\"numIdealFiles\":0,\"numIdealFilesWithTrimmedStringMaxValue\":0,\"numAddedFilesWithSameMinMaxOnClusteringColumns\":null,\"numClusteringTasksPlanned\":0,\"numClusteringTasksNotPlannedDueToPO\":0,\"totalSizeOfDataToClusterInBytesNotPlannedDueToPO\":0,\"numCompactionTasksPlanned\":0,\"numCompactionTasksPlannedUndoneDueToPO\":0,\"numOptimizeBatchesPlanned\":0,\"numLeafNodesExpanded\":0,\"numLeafNodesClustered\":0,\"numGetFilesForNodeCalls\":0,\"numSamplingJobs\":0,\"numLeafNodesCompacted\":0,\"numLeafNodesCompactedUndoneDueToPO\":0,\"numIntermediateNodesCompacted\":0,\"numIntermediateNodesCompactedUndoneDueToPO\":0,\"totalSizeOfDataToCompactInBytes\":0,\"totalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"totalLogicalSizeOfDataToCompactInBytes\":0,\"totalLogicalSizeOfDataToCompactInBytesUndoneDueToPO\":0,\"numIntermediateNodesClustered\":0,\"numFilesSkippedAfterExpansion\":0,\"numSmallFilesSkippedAfterExpansion\":0,\"totalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfFilesSkippedAfterExpansionInBytes\":0,\"totalLogicalSizeOfSmallFilesSkippedAfterExpansionInBytes\":0,\"totalSizeOfDataToRewriteInBytes\":0,\"totalLogicalSizeOfDataToRewriteInBytes\":0,\"timeMetrics\":{\"classifierTimeMs\":0,\"optimizerTimeMs\":0,\"metadataLoadTimeMs\":101,\"totalGetFilesForNodeCallsTimeMs\":0,\"totalSamplingTimeMs\":0,\"parentIndexBuildTimeMs\":0,\"metadataCreationTimeMs\":0},\"maxOptimizeBatchesInParallel\":15,\"currentIteration\":1,\"maxIterations\":1,\"clusteringStrategy\":null,\"splitStrategy\":null,\"numDowncastDimensions\":null,\"withPredicates\":false,\"numFilesSkippedByPredicates\":0,\"predicates\":null,\"isPipelinedOptimizer\":false,\"pipelinedTotalPlanningTimeMs\":0,\"pipelinedTotalBatchWaitTimeMs\":0,\"pipelinedPostFirstBatchWaitTimeMs\":0,\"coordinatorEventMetrics\":null,\"pipelinedOptimizerStatus\":null,\"pipelinedAssemblerMetrics\":null,\"compressionRatioFromSampling\":-1.0,\"compressionRatioSource\":\"n/a\",\"compressionRatioNumSamples\":0,\"compressionRatioSamplingTimeMs\":0,\"compressionRatioTriggeredScaling\":false,\"compressionRatioFromPersistedEntry\":false,\"compressionRatioChosen\":-1.0,\"compressionRatioStalenessReason\":\"n/a\"},\"fileAgeHistogram\":null,\"numFilesSortedWithinFiles\":0}"
+        ],
+        [
+          "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3afe5acc-386a-4632-88b1-4fa3fa71b1dc",
+          "{\"numFilesAdded\":0,\"numFilesRemoved\":0,\"filesAdded\":{\"min\":null,\"max\":null,\"avg\":0.0,\"totalFiles\":0,\"totalSize\":0},\"filesRemoved\":{\"min\":null,\"max\":null,\"avg\":0.0,\"totalFiles\":0,\"totalSize\":0},\"partitionsOptimized\":0,\"zOrderStats\":null,\"clusteringStats\":null,\"numBins\":0,\"numBatches\":0,\"totalConsideredFiles\":9,\"totalFilesSkipped\":0,\"preserveInsertionOrder\":true,\"numFilesSkippedToReduceWriteAmplification\":0,\"numBytesSkippedToReduceWriteAmplification\":0,\"startTimeMs\":1791336836402,\"endTimeMs\":1791336836700,\"totalClusterParallelism\":8,\"totalScheduledTasks\":0,\"autoCompactParallelismStats\":null,\"deletionVectorStats\":{\"numDeletionVectorsRemoved\":0,\"numDeletionVectorRowsRemoved\":0},\"recompressionCodec\":\"ZSTD\",\"numTableColumns\":8,\"numTableColumnsWithStats\":8,\"totalTaskExecutionTimeMs\":0,\"skippedArchivedFiles\":0,\"clusteringMetrics\":null,\"fileAgeHistogram\":null,\"numFilesSortedWithinFiles\":0}"
+        ]
+      ]
+    }
+  },
+  "pages": {
+    "page-baseline-pilot-9005": {
+      "n": 3,
+      "max": {
+        "caller_ms": 449.97195899999906,
+        "engine_ms": 181,
+        "files": 8,
+        "bytes": 139690725,
+        "remote_bytes": 0
+      }
+    },
+    "page-baseline-pilot-9085": {
+      "n": 3,
+      "max": {
+        "caller_ms": 409.2768749999998,
+        "engine_ms": 142,
+        "files": 4,
+        "bytes": 69947979,
+        "remote_bytes": 0
+      }
+    },
+    "page-baseline-pilot-9155": {
+      "n": 3,
+      "max": {
+        "caller_ms": 360.9360420000023,
+        "engine_ms": 106,
+        "files": 1,
+        "bytes": 17337453,
+        "remote_bytes": 0
+      }
+    },
+    "page-baseline-other-9005": {
+      "n": 3,
+      "max": {
+        "caller_ms": 402.64812500000244,
+        "engine_ms": 150,
+        "files": 8,
+        "bytes": 139690725,
+        "remote_bytes": 0
+      }
+    },
+    "page-baseline-other-9085": {
+      "n": 3,
+      "max": {
+        "caller_ms": 427.2647499999991,
+        "engine_ms": 131,
+        "files": 4,
+        "bytes": 69947979,
+        "remote_bytes": 0
+      }
+    },
+    "page-baseline-other-9155": {
+      "n": 3,
+      "max": {
+        "caller_ms": 366.6335420000024,
+        "engine_ms": 97,
+        "files": 1,
+        "bytes": 17337453,
+        "remote_bytes": 0
+      }
+    },
+    "page-updated-pilot-9005": {
+      "n": 3,
+      "max": {
+        "caller_ms": 482.19870799999853,
+        "engine_ms": 187,
+        "files": 11,
+        "bytes": 142171344,
+        "remote_bytes": 0
+      }
+    },
+    "page-updated-pilot-9085": {
+      "n": 3,
+      "max": {
+        "caller_ms": 420.276666999996,
+        "engine_ms": 145,
+        "files": 7,
+        "bytes": 71616650,
+        "remote_bytes": 0
+      }
+    },
+    "page-updated-pilot-9155": {
+      "n": 3,
+      "max": {
+        "caller_ms": 427.16695899999735,
+        "engine_ms": 145,
+        "files": 4,
+        "bytes": 18397163,
+        "remote_bytes": 0
+      }
+    },
+    "page-updated-other-9005": {
+      "n": 3,
+      "max": {
+        "caller_ms": 417.53354200000103,
+        "engine_ms": 150,
+        "files": 11,
+        "bytes": 142171344,
+        "remote_bytes": 0
+      }
+    },
+    "page-updated-other-9085": {
+      "n": 3,
+      "max": {
+        "caller_ms": 417.50404199999736,
+        "engine_ms": 145,
+        "files": 7,
+        "bytes": 71616650,
+        "remote_bytes": 0
+      }
+    },
+    "page-updated-other-9155": {
+      "n": 3,
+      "max": {
+        "caller_ms": 411.4584579999985,
+        "engine_ms": 133,
+        "files": 4,
+        "bytes": 18397163,
+        "remote_bytes": 0
+      }
+    },
+    "page-optimized-pilot-9005": {
+      "n": 3,
+      "max": {
+        "caller_ms": 425.73520799999187,
+        "engine_ms": 156,
+        "files": 8,
+        "bytes": 121163312,
+        "remote_bytes": 0
+      }
+    },
+    "page-optimized-pilot-9085": {
+      "n": 3,
+      "max": {
+        "caller_ms": 413.75133300000755,
+        "engine_ms": 133,
+        "files": 5,
+        "bytes": 62011781,
+        "remote_bytes": 0
+      }
+    },
+    "page-optimized-pilot-9155": {
+      "n": 3,
+      "max": {
+        "caller_ms": 390.37449999999296,
+        "engine_ms": 113,
+        "files": 1,
+        "bytes": 19280345,
+        "remote_bytes": 0
+      }
+    },
+    "page-optimized-other-9005": {
+      "n": 3,
+      "max": {
+        "caller_ms": 385.6563750000106,
+        "engine_ms": 108,
+        "files": 1,
+        "bytes": 13434301,
+        "remote_bytes": 0
+      }
+    },
+    "page-optimized-other-9085": {
+      "n": 3,
+      "max": {
+        "caller_ms": 434.06720799998766,
+        "engine_ms": 99,
+        "files": 1,
+        "bytes": 13434301,
+        "remote_bytes": 0
+      }
+    },
+    "page-optimized-other-9155": {
+      "n": 3,
+      "max": {
+        "caller_ms": 387.9582909999897,
+        "engine_ms": 93,
+        "files": 1,
+        "bytes": 13434301,
+        "remote_bytes": 0
+      }
+    }
+  }
+}

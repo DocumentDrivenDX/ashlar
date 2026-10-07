@@ -1,0 +1,6 @@
+{
+  "state": "terminal server rejection before any update",
+  "reason": "CANNOT_SHALLOW_CLONE_NESTED",
+  "query_id": "01f1c1ee-ec95-1f66-9f29-a2818f2fc03b",
+  "recovery": "New r119 table clones original r116 v8, then applies16MiB property; original failed attempt retained."
+}

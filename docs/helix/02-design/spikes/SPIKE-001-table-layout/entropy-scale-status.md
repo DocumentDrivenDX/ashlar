@@ -898,3 +898,54 @@ this exact higher-entropy graph before selecting a default. Retain all identity,
 endpoint and relationship-first cursor semantics. Do not change reverse defaults,
 add forced relationship partition directories, or infer production ingestion,
 cold/concurrent latency or1B/5Badmission.
+
+## Typed-closure correction to r115 (r118 follow-up)
+
+[Correction evidence](out/native/ashlar_hub_closure_r118/correction.json) records
+100117 dangling targets in r115 v4 against native N0. Moving source custody
+without moving the destination left the selected edges outside the node source
+profile. The r115 full-row parity and cursor measurements remain historical
+physical observations, but its changed graph FAILS typed closure and cannot
+qualify graph-preserving structural maintenance. The missing post-change closure
+check was a harness gap. Check closure and unique relationship/endpoint pairs at
+every changed and maintained snapshot; matching an intended projection alone is
+insufficient.
+
+The first corrected attempt r118 failed before updates with native
+CANNOT_SHALLOW_CLONE_NESTED. Preserve its [terminal rejection](out/native/ashlar_hub_maintenance_r118/failure.json);
+continue using original r116 v8 as the clone source in r119. No failed write was
+blindly retried.
+
+## Valid scattered endpoint changes on16MiB candidate (r119)
+
+[Final audit](out/native/ashlar_hub_maintenance_r119/audited-summary.json) passes
+full20M eight-column parity, unique edge IDs and relationship/endpoint pairs,
+typed target closure and54 exact cursor pages at baseline v1, updated v2 and
+maintained v10. Clone source is r116 v8;16MiB target is explicitly applied.
+100117 hash-selected destinations advance10 IDs modulo4M, preserving source
+custody and resolving valid target types. Changed relationships use disjoint
+synthetic labels+1000 and structural_version2. This catalog-free fixture does not
+qualify real producer relationship authority or source schema evolution.
+
+For the large pilot hub, page file counts8/4/1→11/7/4→8/5/1 and byte maxima
+139690725/69947979/17337453→142171344/71616650/18397163→
+121163312/62011781/19280345. The smaller other hub ends in one file, reporting
+13434301 read bytes at all tested cursors. Per-hub file counts must not be summed
+when files are shared. Unlike r117's no-op16MiB maintenance, this run performs
+actual reclustering; [exact lineage](out/native/ashlar_hub_maintenance_r119/delta-history.json)
+retains every commit from the single explicit OPTIMIZE FULL operation.
+
+All54 pages are final uncached and report no remote bytes. Three-sample caller
+maxima span361–450ms baseline,411–482ms updated and386–434ms maintained;
+engine97–181ms,133–187ms and93–156ms. They are descriptive, not p95 admission.
+Actual update caller cost2.656s, FULL maintenance29.291s, clone3.792s; these
+exclude source capture/journal/publication and correctness queries. No added
+compute was provisioned; shared-warehouse dollars remain unattributed.
+
+Retain16MiB as the forward-adjacency candidate: it preserves useful deep-page
+pruning through this bounded valid-change/maintenance test, without proving all
+original append boundaries survive. Separate maintenance from every publication
+batch;29seconds is material against the60second freshness comparison. Next
+connect its incremental maintenance cost to the complete publication path before
+promoting physical defaults. Reverse layout, production degree distribution,
+real source custody, external-engine activation and1B/5Badmission remain open.

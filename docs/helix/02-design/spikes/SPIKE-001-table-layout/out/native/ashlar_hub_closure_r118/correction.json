@@ -1,0 +1,9 @@
+{
+  "state": "Prior r115 altered graph fails typed target closure",
+  "table": "client_dev.ashlar_entropy_20261006_r86.adjacency_maintenance_r115",
+  "version": 4,
+  "node_version": 0,
+  "dangling_targets": 100117,
+  "query_id": "01f1c1ee-da14-1d49-9c96-54789b039462",
+  "disposition": "Preserve original measurements; exclude from graph-integrity qualification. Full-row parity is insufficient without post-change endpoint closure."
+}

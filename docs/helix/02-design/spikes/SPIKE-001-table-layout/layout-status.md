@@ -204,3 +204,10 @@ Adjacency file target: [r117 final audit](out/native/ashlar_hub_filesize_r117/au
 compares16/64MiB on identical20M rows with full parity and36 exact pages.16MiB
 retains8files (no rewrite),64MiB coalesces into3; deep reads17MB versus51MB.
 Carry16MiB as a forward-adjacency candidate pending scattered-update maintenance.
+
+Correction: [r115 closure failure](out/native/ashlar_hub_closure_r118/correction.json)
+finds100117dangling targets; its changed graph does not qualify graph integrity.
+[Corrected r119 audit](out/native/ashlar_hub_maintenance_r119/audited-summary.json)
+passes all20M rows, unique pairs, typed target closure and54 pages.16MiB FULL
+maintenance retains19MB large-hub deep reads, costing29.291s; publication
+freshness remains unqualified.
