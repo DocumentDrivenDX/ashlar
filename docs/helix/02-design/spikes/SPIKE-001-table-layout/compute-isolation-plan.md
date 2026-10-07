@@ -95,3 +95,14 @@ the same IDs were refreshed and all are now final, without query resubmission.
 Eight reader/controller guard tests and runner syntax checks pass. Full publisher
 writes and dual-compute performance remain unexecuted pending resource approval.
 This preflight is not source-authority, performance or billion-scale admission.
+
+
+### r183–r184: two-client point reads and caller controls
+
+Two independent persistent clients execute ten synchronized pairs of exact20-field LC1 reads using20 distinct updated identities and ten SELECT1 control pairs. Owned UUID/version is revalidated; expected values come from the already recorded independent immutable stage, avoiding another oracle scan. Result caching is disabled. Native query-start/execution-end windows overlap for all10 point and all10 control pairs; this does not prove simultaneous task execution or saturation. Polling outside timed calls adds idle gaps, so this is a burst-pair experiment, not steady load.
+
+Point p95: engine197ms, caller443.288ms, compilation162ms,8files/403.803MB; remote reads0/20. SELECT1 p95: engine25ms, compilation26ms, caller149.983ms. Caller-minus-native-total residual p95 is124.784ms for points and97.532ms for controls; these are per-query differences, not subtraction of unrelated percentiles or a pure network measurement. Both point gates remain failed. Capacity-wait duration is absent from native histories; original summary incorrectly defaulted it to zero, and the separate audit explicitly records unknown while preserving the original evidence.
+
+All native IDs succeeded and finalized. Total7.700GB reads/0 writes/0 spill fits10GB; the controller reserves1GB before each next pair and checks cumulative final telemetry between pairs. The reserve is an estimate, not an in-flight spending cap. No canonical publication, maintenance, resize or new compute occurred. Evidence: `out/native/ashlar_lc_concurrent_r183/audited-summary.json`.
+
+Design implication: retain canonical hash LC, but do not advertise the provisional warm SLO as achieved. Candidate-file amplification persists for updated rows even with no remote reads. Caller/server residual and compilation consume significant budget; an in-region application measurement and reduced candidate bytes are separate qualification work. Native task saturation and capacity queueing remain unmeasured. Next investigate whether publication hot-file shape can reduce singleton amplification without adding mandatory full-table maintenance to every batch; measure that change together with raw/journal/current publication timing, not MERGE throughput alone.

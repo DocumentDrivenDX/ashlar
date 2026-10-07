@@ -1,0 +1,66 @@
+{
+  "table": "client_dev.ashlar_entropy_20261006_r86.bucket_lc_r176",
+  "id": "08f85a27-bd8c-4dfd-ae3a-d2c051f02d6e",
+  "version": 1,
+  "concurrency": 2,
+  "rounds": 10,
+  "reads": {
+    "point": {
+      "caller_p95_ms": 443.2884170000016,
+      "execution_time_ms_p95": 197,
+      "compilation_time_ms_p95": 162,
+      "waiting_at_capacity_duration_ms_p95": null,
+      "read_bytes_p95": 403803321,
+      "read_files_count_p95": 8,
+      "remote_queries": 0,
+      "caller_minus_server_p95_ms": 124.78387500000014,
+      "queue_metric_qualification": "Capacity duration is absent from all native histories; original summary defaulted missing values to zero. Audit replaces that unsupported zero with unknown.",
+      "native_statement_overlap_ms": [
+        300,
+        258,
+        274,
+        253,
+        349,
+        287,
+        263,
+        272,
+        321,
+        270
+      ],
+      "overlapping_pairs": 10,
+      "overlap_qualification": "Native query-start to execution-end windows overlap; this does not prove simultaneous task execution or warehouse saturation."
+    },
+    "floor": {
+      "caller_p95_ms": 149.98316600000015,
+      "execution_time_ms_p95": 25,
+      "compilation_time_ms_p95": 26,
+      "waiting_at_capacity_duration_ms_p95": null,
+      "read_bytes_p95": 0,
+      "read_files_count_p95": 0,
+      "remote_queries": 0,
+      "caller_minus_server_p95_ms": 97.53179199999843,
+      "queue_metric_qualification": "Capacity duration is absent from all native histories; original summary defaulted missing values to zero. Audit replaces that unsupported zero with unknown.",
+      "native_statement_overlap_ms": [
+        64,
+        51,
+        53,
+        45,
+        68,
+        48,
+        53,
+        46,
+        49,
+        49
+      ],
+      "overlapping_pairs": 10,
+      "overlap_qualification": "Native query-start to execution-end windows overlap; this does not prove simultaneous task execution or warehouse saturation."
+    }
+  },
+  "costs": {
+    "read_bytes": 7700329720,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "Two independent persistent SQL clients on existing warehouse,20 distinct updated stage identities,all20 fields exact. Synchronized pairs; telemetry polling outside timed reads introduces idle gaps. SELECT1 pairs measure caller/server residual, not network alone. Prior scans may warm files; not controlled cold or steady saturation, not sustained publication or billion admission.",
+  "state": "Twenty concurrent exact point reads and twenty SELECT1 controls passed within budget"
+}
