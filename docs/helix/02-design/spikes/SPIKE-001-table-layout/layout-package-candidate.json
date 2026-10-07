@@ -2362,7 +2362,20 @@
     "out/native/index_carrier_spike_r513/summary.json": "a67eade6466dba70c52b0fd3c43b29ab8cc08426fe6b54a064d8e2e53df3098c",
     "out/native/index_carrier_spike_r513/statements.jsonl": "4ff0a3c187b6f288689a40552046cf6486ac6903fea9732cc26181eec3d63441",
     "out/native/index_carrier_spike_r513/query-history.json": "f3b37368bf9306562d616424c11dbe527f04c0145583e051cf3ad01f54dd3634",
-    "out/native/index_carrier_spike_r513/completed-last-statement.json": "c29b9e1ffc679f7303c0fe95e178095a8fe9efa3aa8c9142dad8ae08e0528be1"
+    "out/native/index_carrier_spike_r513/completed-last-statement.json": "c29b9e1ffc679f7303c0fe95e178095a8fe9efa3aa8c9142dad8ae08e0528be1",
+    "index_carrier_reads_r515.py": "28e21a6a2feab8c34408748a0142083537d0190627b707ef4559a6dacb17bdb6",
+    "index_carrier_reads_r517.py": "d4268bc853cefb2496485a93044bdb59596cc8b3a07ebb36164f8565952711b8",
+    "audit_index_carrier_reads_r518.py": "60098f0af281e62787f9d64384b83dd773f8d225d2416b2aa2827f9810201316",
+    "index-carrier-read-disposition-r518.md": "51847695c625a85553ce65d75a9a57d06e9729eb83b434f66eb0db8a7397a9c0",
+    "out/index-carrier-read-audit-r518.json": "3f30b8fbc1b16a5d7adbee51ba49aa6bb2c578d49e26af9be7f598778e1b049c",
+    "out/native/index_carrier_reads_r515/summary.json": "5f4a6ce26ac26cb33436ccf96bb27facbd9e7c582ce60b6bc1b5e2cfad69d41b",
+    "out/native/index_carrier_reads_r515/shared-history.json": "69c277eedb26d7a94ab36333586a82e3cfa438c826c8ef82cedf1d88b47b3362",
+    "out/native/index_carrier_reads_r515/statements.jsonl": "44b4b5a38ad4fdfaa907300764be04d352ad22879ead8095bca80d69d28387ac",
+    "out/native/index_carrier_reads_r515/completed-last-request.json": "d2fe931efbcf9f4cff367ad441f71fb2fe3669929ab92f07237011dbf449732d",
+    "out/native/index_carrier_reads_r517/summary.json": "daabaa33168b7c5e4abd2b0013f612a8543287462d4c711cc70beb742bc6e703",
+    "out/native/index_carrier_reads_r517/shared-history.json": "2f21ecec4287ee7d9e94d93b36c6fb218c8055e2447004dc8bcff64a93beb136",
+    "out/native/index_carrier_reads_r517/statements.jsonl": "c45257e652bb392aba4d9fbedecf1c3387345a1067b86eb796686b38f097f763",
+    "out/native/index_carrier_reads_r517/completed-last-request.json": "8a3cb6ea3e6a9147f9623524efc7e7f8ed944207a78f532de68366d1303fec35"
   },
   "evidence": {
     "ddl": {

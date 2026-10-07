@@ -1,0 +1,96 @@
+{
+  "state": "Both paired cohorts preserve all20 fields/deletion absence, exact SQL/final metrics and unchanged three-table custody",
+  "trials": [
+    {
+      "run": "r515",
+      "groups": {
+        "wide-0": {
+          "queries": 8,
+          "caller_p95_ms": 431.3787919999985,
+          "engine_p95_ms": 95,
+          "compile_p95_ms": 222,
+          "read_bytes": 515962992,
+          "remote_queries": 0
+        },
+        "wide-1": {
+          "queries": 8,
+          "caller_p95_ms": 452.7975840000025,
+          "engine_p95_ms": 158,
+          "compile_p95_ms": 188,
+          "read_bytes": 515962992,
+          "remote_queries": 0
+        },
+        "join-0": {
+          "queries": 8,
+          "caller_p95_ms": 961.2359579999996,
+          "engine_p95_ms": 466,
+          "compile_p95_ms": 410,
+          "read_bytes": 2016141568,
+          "remote_queries": 0
+        },
+        "join-1": {
+          "queries": 8,
+          "caller_p95_ms": 948.8236669999992,
+          "engine_p95_ms": 488,
+          "compile_p95_ms": 351,
+          "read_bytes": 2016141568,
+          "remote_queries": 0
+        }
+      },
+      "costs": {
+        "read_bytes": 5068698389,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "wall_s": 41.357953208,
+      "statements": 47,
+      "qualification": "Eight selected changed identities, two passes, pinned 2.5M-row private fixture. Result cache disabled; storage cache and fixed warm history remain. No cold-data, concurrent, publication or billion admission."
+    },
+    {
+      "run": "r517",
+      "groups": {
+        "wide-0": {
+          "queries": 8,
+          "caller_p95_ms": 355.17591700000037,
+          "engine_p95_ms": 90,
+          "compile_p95_ms": 160,
+          "read_bytes": 515962992,
+          "remote_queries": 0
+        },
+        "wide-1": {
+          "queries": 8,
+          "caller_p95_ms": 362.9103330000021,
+          "engine_p95_ms": 90,
+          "compile_p95_ms": 154,
+          "read_bytes": 515962992,
+          "remote_queries": 0
+        },
+        "join-0": {
+          "queries": 8,
+          "caller_p95_ms": 1467.424167,
+          "engine_p95_ms": 1086,
+          "compile_p95_ms": 413,
+          "read_bytes": 2016141568,
+          "remote_queries": 0
+        },
+        "join-1": {
+          "queries": 8,
+          "caller_p95_ms": 858.8905419999975,
+          "engine_p95_ms": 468,
+          "compile_p95_ms": 286,
+          "read_bytes": 2016141568,
+          "remote_queries": 0
+        }
+      },
+      "costs": {
+        "read_bytes": 5068698389,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "wall_s": 34.899017208000004,
+      "statements": 47,
+      "qualification": "Explicit full-key predicates on BOTH index and carrier; eight selected changed identities, two passes, pinned 2.5M-row private fixture. Result cache disabled; storage cache and fixed warm history remain. No cold-data, concurrent, publication or billion admission."
+    }
+  ],
+  "qualification": "Small warm serial cohorts, nearest-rank sample p95; no production p95, cold-data, full publication or scale admission."
+}

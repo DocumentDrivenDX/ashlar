@@ -1,0 +1,1 @@
+{"label": "after-wide-head", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493 LIMIT 1", "parameters": null, "correlation": "/* ashlar index_carrier_reads_r515 after-wide-head */", "started_epoch": 1791411761.3339698, "state": "returned", "query_id": "01f1c29d-9c56-1156-8f83-b00da9e928db"}
