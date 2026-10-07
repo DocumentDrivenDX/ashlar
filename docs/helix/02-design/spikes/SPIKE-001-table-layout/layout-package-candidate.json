@@ -2530,7 +2530,16 @@
     "out/native/current_merge_plans_r559/full_guard.txt": "01f05ab7a031679eb1381553eed79821b83c9fe2fd62003495573d7bffc37fdb",
     "out/native/current_merge_plans_r559/statements.jsonl": "b01ca3cf3e698f75f491d44abbc61aeb92db54730435c10c32739124b08ae5d8",
     "out/native/current_merge_plans_r559/completed-last-request.json": "92880e15066f0710246959703adc17c9b89de2c07e7a7f9e481e215a4d466ac0",
-    "out/native/current_merge_plans_r559/historical_simple.txt": "3db6deb50f7efa137ef7d9aebbbdb525ba65bc0820e44c938c20665d2f8b99b8"
+    "out/native/current_merge_plans_r559/historical_simple.txt": "3db6deb50f7efa137ef7d9aebbbdb525ba65bc0820e44c938c20665d2f8b99b8",
+    "mutation_source_probe_r562.py": "98f3716860e4ece5f6891d2a4e904b42481d7edabe9cb3c1461b1075277a86f9",
+    "mutation_source_recover_r563.py": "43cd26ad7750be26024c70de3504e0aae2ad43aa5e8218bc9e1ffcab14c96da3",
+    "out/mutation-source-recovery-r563.json": "e6ec4c2f8c190c78c2d846a3c7c2c6b68eb726f908d8fcef07d42c51deb0bd50",
+    "mutation-source-disposition-r564.md": "16d74f542f2341c173ad231b0694f4a3f4266b871aa6cfea44bdda69b5e45467",
+    "out/native/mutation_source_probe_r562/recovered-history-r563.json": "b5849432a8f62c009dc69548dfac9a7433383fb8d6807c887d27ccb9699f7998",
+    "out/native/mutation_source_probe_r562/summary.json": "c9b91eacf6d6e23f9efd2706311aa3238383382f0d1b829b71004d29a021a406",
+    "out/native/mutation_source_probe_r562/completed-last-request-r563.json": "26d7e30c2168bff5122514acf39d25bd4813e9c6680f8a09d5d25b9f4ed2b308",
+    "out/native/mutation_source_probe_r562/statements.jsonl": "6cfbc9f621a1a95bc97a282121edd8c277cded963e900643acb6ea15d246f184",
+    "out/native/mutation_source_probe_r562/source-plan.txt": "0fd11412bffd73e826c00a1312be19ffb28056d677bbb3d10a763bbc1976c656"
   },
   "evidence": {
     "ddl": {

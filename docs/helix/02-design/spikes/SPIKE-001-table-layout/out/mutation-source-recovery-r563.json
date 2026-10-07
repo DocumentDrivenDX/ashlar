@@ -1,0 +1,68 @@
+{
+  "state": "First complete mutation source probe passes all carrier digests; harness Boolean casing stop recovered without replay",
+  "runner_sha256": "98f3716860e4ece5f6891d2a4e904b42481d7edabe9cb3c1461b1075277a86f9",
+  "native_statements": 4,
+  "first_statement_id": "01f1c2a6-b178-1741-b7f4-6e96f114df32",
+  "first_caller_ms": 5485.970875,
+  "first_metrics": {
+    "total_time_ms": 5147,
+    "read_bytes": 233106753,
+    "rows_produced_count": 2,
+    "compilation_time_ms": 378,
+    "execution_time_ms": 4761,
+    "read_remote_bytes": 0,
+    "write_remote_bytes": 0,
+    "read_cache_bytes": 233106753,
+    "spill_to_disk_bytes": 0,
+    "task_total_time_ms": 24312,
+    "read_files_count": 22,
+    "read_partitions_count": 0,
+    "photon_total_time_ms": 1596,
+    "rows_read_count": 190000,
+    "result_fetch_time_ms": 363,
+    "network_sent_bytes": 0,
+    "result_from_cache": false,
+    "pruned_bytes": 0,
+    "pruned_files_count": 0,
+    "query_compilation_start_timestamp": 1791415662328,
+    "metadata_time_ms": 0,
+    "query_execution_time_ms": 5139,
+    "bytes_read_from_cache_percentage": 100.0,
+    "write_remote_rows": 0,
+    "write_remote_files": 0,
+    "queue_end_time_ms": 1791415662310,
+    "read_files_bytes": 467470582,
+    "rows_scanned": 190000,
+    "task_progress": {
+      "planned_task_count": 34,
+      "completed_task_count": 34,
+      "completed_partition_count": 34,
+      "pending_task_count": 0,
+      "failed_task_count": 0
+    }
+  },
+  "result": [
+    [
+      "False",
+      "90000",
+      "90000",
+      "17350ff53a6c835fc2b8c0609597218921fb8c31ff8a2adb55f2a9f5e76cc91b",
+      "55f9acb4ebef5b116b1e52eb392a4793a842567dd6cbd9e796717eec3557174f"
+    ],
+    [
+      "True",
+      "10000",
+      "10000",
+      "bb57cb3861313c7dd739540be5ef1ee978ce936e55f62e1397deeec34ae2fed8",
+      "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    ]
+  ],
+  "costs": {
+    "read_bytes": 233106753,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "original_stopped_wall_s": null,
+  "recovery_s": 0.791204,
+  "qualification": "One full20field before/after aggregate over immutable sixth normalized source inputs; no target scan or mutation. Hash/group/sort validation adds work. No repeat ran, no warm p95 or naked materialization clock. Driver Boolean rendering False/True exactly qualified; original failed assertion retained."
+}
