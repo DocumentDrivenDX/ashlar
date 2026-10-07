@@ -113,6 +113,21 @@ The [r284 sensitivity](../spikes/SPIKE-001-table-layout/out/publication-capacity
 shows even apply-only service exceeds the10s modeled arrival interval at10k/s.
 No sustained throughput, service p95, cold/concurrent singleton or billion admission.
 
+The [r282 post-ingest native singleton cohort](../spikes/SPIKE-001-table-layout/out/native/ashlar_growth_pruning_r282/audited-summary.json)
+passes64 exact full-carrier/absence queries on the39.99M-edge published snapshot.
+This deliberately stratified warm cohort has4deleted/12updated/16unchanged keys,
+repeated twice. Combined engine p95 is119ms/caller430.197ms, compilation177ms,
+read189.352MB/12files; both warm latency targets miss. No remote data reads were
+reported. Separate pass caller p95 values430.197/503.759ms show the small sample
+is not robust service-tail evidence.614livefiles total32.038GB, including11files
+with hash spans above99% of the domain. Scattered changes, deletion vectors and
+wide-span emitted files motivate a separately bounded maintenance comparison,
+not a claim that cleanup will meet caller latency. No controlled cold or concurrent
+service result follows from the warmed scan. The [incremental-custody candidate](../spikes/SPIKE-001-table-layout/incremental-custody-cdf-candidate.md)
+keeps full changed-image and inherited snapshot proof requirements explicit;
+native CDF qualification is separate from source semantic history and publisher
+freshness. Unity Catalog Delta remains selected independent of benchmark misses.
+
 ## Alternatives
 
 | Option | Benefits | Costs | Evaluation |
