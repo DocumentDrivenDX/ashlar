@@ -1,0 +1,503 @@
+{
+  "state": "All6 disjoint100k-node ranges and complete-role membership verified",
+  "tables": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "version": 2,
+      "rows": 600000
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_source_record_r236",
+      "id": "7ab4ec7d-7a78-4e5e-a6b3-061b64bae1f5",
+      "version": 2,
+      "rows": 600000
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_property_journal_r236",
+      "id": "e0a3e354-96b3-4e31-b773-e8c928fc2fca",
+      "version": 2,
+      "rows": 2400000
+    }
+  },
+  "chunks": [
+    {
+      "start": 0,
+      "end": 100000,
+      "state": "All role fields verified"
+    },
+    {
+      "start": 100000,
+      "end": 200000,
+      "state": "All role fields verified"
+    },
+    {
+      "start": 200000,
+      "end": 300000,
+      "state": "All role fields verified"
+    },
+    {
+      "start": 300000,
+      "end": 400000,
+      "state": "All role fields verified"
+    },
+    {
+      "start": 400000,
+      "end": 500000,
+      "state": "All role fields verified"
+    },
+    {
+      "start": 500000,
+      "end": 600000,
+      "state": "All role fields verified"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 20000000000,
+    "write_bytes": 0,
+    "statement_s": 180,
+    "wall_s": 900
+  },
+  "oracle": [
+    {
+      "start": 0,
+      "end": 100000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "d4090621e9c1c29373fbb716366c027a7b56003dd914c870e91168b1393453c3"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "599c2187b44f4569cbe27274e8491cad1c34f77ea4608fd878b9fe11fb03ea6e"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "0654cc939d721c7183f37121815e36b9dec0bb6d795498e7b48a77c9a44f0cae"
+        }
+      }
+    },
+    {
+      "start": 100000,
+      "end": 200000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "1a7180e278b3d2b9176e95c7e74416e5baf9e43c6cdafc62a1aba7b818e6801a"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "339f2f049260e4710f0fe5c7c49bbd33d520bf39e90d66a704c0c096566200ec"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "3baa7e248a24db8884d66cffce0405f0e400b860e7f16e344d381776e52d8138"
+        }
+      }
+    },
+    {
+      "start": 200000,
+      "end": 300000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "3d3cc2fedba3cf238040d0eb61baa9c031772b06c7c7863428b07f4c13e42ee0"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "f723751c23e9b048d1e783dbc4150dfbfcf2c91695bf8c32a8fa340e2bc1fe97"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "df4f1806708e81a98422f9b8bb19e3a5b630eb79a4c5e806e9e5616a846a992f"
+        }
+      }
+    },
+    {
+      "start": 300000,
+      "end": 400000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "89b128fa452310e5f7eb0899f620d67b8b605ebc580e892fdfc120b9f1956be8"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "a2a481b450f14b629faca16b7e754c4fd9684c9664172e1cd397aa11c96e3d0a"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "e0167c352328b204c9f80c5250d932233b4217a67498a55ac0e6a3909a888201"
+        }
+      }
+    },
+    {
+      "start": 400000,
+      "end": 500000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "e340c3379c9379423ecfba5596a989f5749d2df9a68e6b76f20c1a847128034b"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "6a007b72aa800b02df52a75635ff0fad8da6624adb5c66bc8cdeb6b974cea028"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "cad38e41386273e19867f145190f06e16a0a7d8cef0d588eb25192551a7c907e"
+        }
+      }
+    },
+    {
+      "start": 500000,
+      "end": 600000,
+      "roles": {
+        "object_current": {
+          "fields": [
+            "source_system",
+            "type_id",
+            "id",
+            "logical_key_json",
+            "root_id",
+            "schema_revision",
+            "entity_version",
+            "props_json",
+            "retained_json",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id",
+            "lookup_hash"
+          ],
+          "rows": 100000,
+          "digest": "2c00aa89bf0c05a618a48cdb8cb061fdefa3af3701568f64676a7f53beccc8b9"
+        },
+        "source_record": {
+          "fields": [
+            "source_feed",
+            "source_epoch",
+            "delivery_id",
+            "record_kind",
+            "source_cursor_json",
+            "payload_json",
+            "payload_digest",
+            "schema_revision",
+            "received_at",
+            "apply_batch_id"
+          ],
+          "rows": 100000,
+          "digest": "8136bc7a67bb67a5eb92b505c658a61ae56e750072d222186d8ccb2bc449e893"
+        },
+        "property_journal": {
+          "fields": [
+            "source_system",
+            "entity_kind",
+            "type_id",
+            "id",
+            "property_id",
+            "entity_version",
+            "operation",
+            "old_present",
+            "old_json",
+            "new_present",
+            "new_json",
+            "schema_revision",
+            "source_feed",
+            "source_epoch",
+            "source_position",
+            "event_ordinal",
+            "source_time_text",
+            "published_at",
+            "apply_batch_id",
+            "source_cursor_json",
+            "source_delivery_id"
+          ],
+          "rows": 400000,
+          "digest": "28eb9a59007839f71c717146a3df2ea488ab5b9be3d01de3f8b470071ffd36d8"
+        }
+      }
+    }
+  ],
+  "oracle_s": 47.445831416000004,
+  "costs": {
+    "read_bytes": 3915318643,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 142.67677750000001,
+  "qualification": "Independent100k-entity range hash arrays; maximum400k journal hashes for this fixture. Full counts plus exact disjoint range cardinality/digest prove no excluded malformed/out-of-range role rows under SHA256 assumption. Each native aggregation and oracle array bounded, but scans may repeat and concurrent worker memory is not measured. No scale/performance/publication gate inferred."
+}

@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "2f6a7600878c073493acc5176bcd2b32a6ad2dc00779504ee048931782f4fd45",
+    "scale-experiment-plan.md": "936f46aeabafda0bf341618d4dc7ec96ff51bcf66cc0627a6e3ccaf89f4ea402",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1243,7 +1243,12 @@
     "out/native/ashlar_scale_growth_r242/audited-summary.json": "37fd5dd7da86e0ec1d8fc78f046112da869c3e2f6cd8a67a1c3ad060e99cccd5",
     "out/native/ashlar_scale_growth_r242/shared-history.json": "f541af3b636b18dbea69e33e4aa18af19e7e76bab7a6c01ec86188cc4b930802",
     "out/native/ashlar_scale_growth_r242/statements.jsonl": "1ac68ed49d394f9447cebe08443aa5575b49512033bf7c97c370d4d6322fba33",
-    "out/native/ashlar_scale_growth_r242/summary.json": "570e764dcc59e835fc804ae368184ff612abc8423904d6093e25fcd196b2c5a5"
+    "out/native/ashlar_scale_growth_r242/summary.json": "570e764dcc59e835fc804ae368184ff612abc8423904d6093e25fcd196b2c5a5",
+    "range_verification_r243.py": "77934f02a9ade7d804cd6a3a447750df3f72faf0460f692b9fb127e2fb907212",
+    "native_ranges_r243.py": "24db87e82957886b7756d8887bd5c3c4db3ad2c320d9d32f592c0e394e896475",
+    "out/native/ashlar_range_verification_r243/shared-history.json": "5489275790452ac2fb2de9146d10ccc25d55cb693aacd8a0a095f9b2c6912e5a",
+    "out/native/ashlar_range_verification_r243/statements.jsonl": "c57e09d67c852353dac5b56c3cb4460526c8bb5d7230b300abfd4c8a8433d460",
+    "out/native/ashlar_range_verification_r243/summary.json": "6bcc12306c590c3bb430ada5a48ef52e7f49265471ccb96a112ccb74f9639f37"
   },
   "evidence": {
     "ddl": {
