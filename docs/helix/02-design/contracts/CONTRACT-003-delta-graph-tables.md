@@ -84,6 +84,20 @@ profiles, not real Truss semantics or producer authority. Evidence:
 [apply](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_apply_r232/summary.json),
 [corrected descriptor](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_descriptor_r234/summary.json).
 
+The complete intermediate synthetic graph now has scoped native evidence:
+8M nodes,40M edges,48M raw records,192M bootstrap property events and40M forward
+adjacency rows. The [r274 audit](../spikes/SPIKE-001-table-layout/out/native/ashlar_scale_edges_r274/audited-summary.json) checks every known field in bounded groups,
+unique edge identities and both typed endpoint tuples. Qualified Delta versions
+are object6/edge8/raw15/journal17/forward8, bound to native UUIDs and statement
+receipts. The final8M-edge iteration took1914.135s including667.863s local oracle
+preparation, read187.721GB and wrote18.896GB with zero reported spill. Sequential
+active metadata totals113.297GB across2087files; it is not a retained physical
+inventory. Two4M generation commits are an experimental scheduling choice, not
+an isolated causal performance comparison. Growth CTAS tables omit some full
+canonical constraints and do not establish the proposed64MiB target, real Truss
+producer authority, publication freshness, singleton/cold/concurrency targets
+or1B-node/5B-edge admission. The100k-change input/publisher test remains separate.
+
 Complete role accounting, including exact history duplication, is required for
 scale admission. The mixed8M/40M bootstrap sensitivity is115.681GB; the140GB
 proposal excludes unresolved staging, changes, retained versions, failed work
