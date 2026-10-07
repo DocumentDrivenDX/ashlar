@@ -1,0 +1,128 @@
+{
+  "state": "Full100k predecessor and prepared mutation-source checks pass",
+  "source_sha256": {
+    "inputs": "c4c891ce59128942a1e256b4edf74d5542d750955ed8fd98d080658f5d745830",
+    "base": "eb9e9c4fc6d12d8012c523f45f516db9e3ca7aea45ed40b719b8d342a1d6a46a"
+  },
+  "pins": {
+    "raw": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.normalized_source_record_r324",
+      "id": "09360289-3758-4d92-8de9-23244bdf1c0f",
+      "version": 0,
+      "statement_id": "01f1c25f-4ff9-141f-b622-dc51e9380e02",
+      "history": {
+        "version": "0",
+        "timestamp": "2026-10-07T14:57:19.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "CREATE TABLE AS SELECT",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\":\\\"v2\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"dfa5f6a1-560c-47a7-a019-2eab1e4dbcfe\\\"}\",\"statsOnLoad\":\"true\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c25f-4ff9-141f-b622-dc51e9380e02",
+        "clusterId": null,
+        "readVersion": null,
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"16\",\"numOutputRows\":\"100000\",\"numOutputBytes\":\"316795188\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      },
+      "detail": {
+        "format": "delta",
+        "id": "09360289-3758-4d92-8de9-23244bdf1c0f",
+        "name": "client_dev.ashlar_entropy_20261006_r86.normalized_source_record_r324",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/dfa5f6a1-560c-47a7-a019-2eab1e4dbcfe",
+        "createdAt": "2026-10-07T14:57:01.596Z",
+        "lastModified": "2026-10-07T14:57:19.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[]",
+        "numFiles": "16",
+        "sizeInBytes": "316795188",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"dfa5f6a1-560c-47a7-a019-2eab1e4dbcfe\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      }
+    },
+    "current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.normalized_current_replacement_r324",
+      "id": "186b3889-648b-4059-93d0-1eeb91e6c86d",
+      "version": 0,
+      "statement_id": "01f1c25f-83f9-1d2d-8876-edc804d4de1e",
+      "history": {
+        "version": "0",
+        "timestamp": "2026-10-07T14:58:16.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "CREATE TABLE AS SELECT",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\":\\\"v2\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"07593bf4-37e5-4e58-ab9d-00ed18c089b6\\\"}\",\"statsOnLoad\":\"true\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c25f-83f9-1d2d-8876-edc804d4de1e",
+        "clusterId": null,
+        "readVersion": null,
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"6\",\"numOutputRows\":\"90000\",\"numOutputBytes\":\"150585097\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      },
+      "detail": {
+        "format": "delta",
+        "id": "186b3889-648b-4059-93d0-1eeb91e6c86d",
+        "name": "client_dev.ashlar_entropy_20261006_r86.normalized_current_replacement_r324",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/07593bf4-37e5-4e58-ab9d-00ed18c089b6",
+        "createdAt": "2026-10-07T14:58:13.537Z",
+        "lastModified": "2026-10-07T14:58:16.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[]",
+        "numFiles": "6",
+        "sizeInBytes": "150585097",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"07593bf4-37e5-4e58-ab9d-00ed18c089b6\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      }
+    },
+    "edge": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.edge_range32_r313",
+      "id": "7c76c985-b802-41b6-97e8-a76a809e2a01",
+      "version": 52
+    }
+  },
+  "bounds": {
+    "read_bytes": 150000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 20000000000,
+    "wall_s": 600,
+    "statement_s": 180
+  },
+  "checks": {
+    "predecessors": "All20 exact fields match100k qualified baseline edges",
+    "mutation_partition": "Unique100k source;10k deletions90k version2 updates with preserved identity and version1 bootstrap predecessor"
+  },
+  "costs": {
+    "read_bytes": 33287019755,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 62.881493709,
+  "qualification": "Read-only pinned synthetic input/baseline qualification. No publisher mutation, concurrent fencing, source ACK, manifest or latency/SLO admission; uses previously qualified complete input digests and baseline.",
+  "audit": {
+    "final_statements": 5,
+    "qualified_checks_uncached": true,
+    "source_sha256": {
+      "summary.json": "1a6390f2c079baf3220a3464d71c604a9f7c0d79027781f498fc3c5fbb17e8d9",
+      "statements.jsonl": "3d343976f3d98ba3ce762e8df5b7e10b015e43908d0af0af6d4be61e25b84020",
+      "shared-history.json": "0229ce1d4f64c11e73b2a416131522eb657e5db219ef1177ecbc33476cf7cff6"
+    },
+    "qualification": "Read-only full100k exact predecessor comparison and prepared mutation partition; no mutation, fencing or publication claim."
+  }
+}
