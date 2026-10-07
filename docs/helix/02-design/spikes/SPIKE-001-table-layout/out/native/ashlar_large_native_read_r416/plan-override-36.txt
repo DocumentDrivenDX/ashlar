@@ -1,0 +1,100 @@
+== Physical Plan ==
+AdaptiveSparkPlan (9)
++- == Initial Plan ==
+   PhotonResultStage (8)
+   +- PhotonColumnarToRow (7)
+      +- PhotonUnion (6)
+         :- PhotonProject (2)
+         :  +- PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400 (1)
+         +- PhotonProject (5)
+            +- PhotonFilter (4)
+               +- PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 (3)
+
+
+(1) PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400
+Output [21]: [source_system#20034, rel_type_id#20035L, id#20036L, source_type#20037L, source_id#20038L, target_type#20039L, target_id#20040L, order_key#20041, schema_revision#20042, entity_version#20043L, props_json#20044, retained_json#20045, source_feed#20046, source_epoch#20047, source_position#20048L, published_at#20049, apply_batch_id#20050, source_cursor_json#20051, source_delivery_id#20052, lookup_hash#20053, is_deleted#20054]
+DictionaryFilters: [(source_system#20034 = pilot-a), (lookup_hash#20053 = 5275fe61528b8def756486abfdbfd3bb2bdb73cab7303f7680d1b444a3c03a17), NOT is_deleted#20054, (id#20036L = 33904730), (rel_type_id#20035L = 9)]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3f961e43-b3a9-4947-ad77-4fd155051223]
+ReadSchema: struct<source_system:string,rel_type_id:bigint,id:bigint,source_type:bigint,source_id:bigint,target_type:bigint,target_id:bigint,order_key:string,schema_revision:string,entity_version:bigint,props_json:string,retained_json:string,source_feed:string,source_epoch:string,source_position:bigint,published_at:timestamp,apply_batch_id:string,source_cursor_json:string,source_delivery_id:string,lookup_hash:string,is_deleted:boolean>
+RequiredDataFilters: [isnotnull(is_deleted#20054), NOT is_deleted#20054, isnotnull(rel_type_id#20035L), isnotnull(id#20036L), isnotnull(lookup_hash#20053), isnotnull(source_system#20034), (rel_type_id#20035L = 9), (id#20036L = 33904730), (lookup_hash#20053 = 5275fe61528b8def756486abfdbfd3bb2bdb73cab7303f7680d1b444a3c03a17), (source_system#20034 = pilot-a)]
+
+(2) PhotonProject
+Input [21]: [source_system#20034, rel_type_id#20035L, id#20036L, source_type#20037L, source_id#20038L, target_type#20039L, target_id#20040L, order_key#20041, schema_revision#20042, entity_version#20043L, props_json#20044, retained_json#20045, source_feed#20046, source_epoch#20047, source_position#20048L, published_at#20049, apply_batch_id#20050, source_cursor_json#20051, source_delivery_id#20052, lookup_hash#20053, is_deleted#20054]
+Arguments: [source_system#20034, rel_type_id#20035L, id#20036L, source_type#20037L, source_id#20038L, target_type#20039L, target_id#20040L, order_key#20041, schema_revision#20042, entity_version#20043L, props_json#20044, retained_json#20045, source_feed#20046, source_epoch#20047, source_position#20048L, cast(published_at#20049 as string) AS published_at#19983, apply_batch_id#20050, source_cursor_json#20051, source_delivery_id#20052, lookup_hash#20053]
+
+(3) PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337
+Output [20]: [source_system#20057, rel_type_id#20058L, id#20059L, source_type#20060L, source_id#20061L, target_type#20062L, target_id#20063L, order_key#20064, schema_revision#20065, entity_version#20066L, props_json#20067, retained_json#20068, source_feed#20069, source_epoch#20070, source_position#20071L, published_at#20072, apply_batch_id#20073, source_cursor_json#20074, source_delivery_id#20075, lookup_hash#20076]
+DictionaryFilters: [(source_system#20057 = pilot-a), (lookup_hash#20076 = 5275fe61528b8def756486abfdbfd3bb2bdb73cab7303f7680d1b444a3c03a17), (rel_type_id#20058L = 9), (id#20059L = 33904730)]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/bf8f09a9-05ea-40ea-ba01-4935dae517ca]
+ReadSchema: struct<source_system:string,rel_type_id:bigint,id:bigint,source_type:bigint,source_id:bigint,target_type:bigint,target_id:bigint,order_key:string,schema_revision:string,entity_version:bigint,props_json:string,retained_json:string,source_feed:string,source_epoch:string,source_position:bigint,published_at:timestamp,apply_batch_id:string,source_cursor_json:string,source_delivery_id:string,lookup_hash:string>
+RequiredDataFilters: [isnotnull(rel_type_id#20058L), isnotnull(id#20059L), isnotnull(lookup_hash#20076), isnotnull(source_system#20057), (rel_type_id#20058L = 9), (id#20059L = 33904730), (lookup_hash#20076 = 5275fe61528b8def756486abfdbfd3bb2bdb73cab7303f7680d1b444a3c03a17), (source_system#20057 = pilot-a)]
+
+(4) PhotonFilter
+Input [20]: [source_system#20057, rel_type_id#20058L, id#20059L, source_type#20060L, source_id#20061L, target_type#20062L, target_id#20063L, order_key#20064, schema_revision#20065, entity_version#20066L, props_json#20067, retained_json#20068, source_feed#20069, source_epoch#20070, source_position#20071L, published_at#20072, apply_batch_id#20073, source_cursor_json#20074, source_delivery_id#20075, lookup_hash#20076]
+Arguments: isnull(Subquery subquery#19985, [id=#8247])
+
+(5) PhotonProject
+Input [20]: [source_system#20057, rel_type_id#20058L, id#20059L, source_type#20060L, source_id#20061L, target_type#20062L, target_id#20063L, order_key#20064, schema_revision#20065, entity_version#20066L, props_json#20067, retained_json#20068, source_feed#20069, source_epoch#20070, source_position#20071L, published_at#20072, apply_batch_id#20073, source_cursor_json#20074, source_delivery_id#20075, lookup_hash#20076]
+Arguments: [source_system#20057, rel_type_id#20058L, id#20059L, source_type#20060L, source_id#20061L, target_type#20062L, target_id#20063L, order_key#20064, schema_revision#20065, entity_version#20066L, props_json#20067, retained_json#20068, source_feed#20069, source_epoch#20070, source_position#20071L, cast(published_at#20072 as string) AS published_at#19984, apply_batch_id#20073, source_cursor_json#20074, source_delivery_id#20075, lookup_hash#20076]
+
+(6) PhotonUnion
+Arguments: Generic
+
+(7) PhotonColumnarToRow
+Input [20]: [source_system#20034, rel_type_id#20035L, id#20036L, source_type#20037L, source_id#20038L, target_type#20039L, target_id#20040L, order_key#20041, schema_revision#20042, entity_version#20043L, props_json#20044, retained_json#20045, source_feed#20046, source_epoch#20047, source_position#20048L, published_at#19983, apply_batch_id#20050, source_cursor_json#20051, source_delivery_id#20052, lookup_hash#20053]
+
+(8) PhotonResultStage
+Input [20]: [source_system#20034, rel_type_id#20035L, id#20036L, source_type#20037L, source_id#20038L, target_type#20039L, target_id#20040L, order_key#20041, schema_revision#20042, entity_version#20043L, props_json#20044, retained_json#20045, source_feed#20046, source_epoch#20047, source_position#20048L, published_at#19983, apply_batch_id#20050, source_cursor_json#20051, source_delivery_id#20052, lookup_hash#20053]
+
+(9) AdaptiveSparkPlan
+Output [20]: [source_system#20034, rel_type_id#20035L, id#20036L, source_type#20037L, source_id#20038L, target_type#20039L, target_id#20040L, order_key#20041, schema_revision#20042, entity_version#20043L, props_json#20044, retained_json#20045, source_feed#20046, source_epoch#20047, source_position#20048L, published_at#19983, apply_batch_id#20050, source_cursor_json#20051, source_delivery_id#20052, lookup_hash#20053]
+Arguments: isFinalPlan=false
+
+===== Subqueries =====
+
+Subquery:1 Hosting operator id = 4 Hosting Expression = Subquery subquery#19985, [id=#8247]
+AdaptiveSparkPlan (15)
++- == Initial Plan ==
+   CollectLimit (14)
+   +- PhotonResultStage (13)
+      +- PhotonColumnarToRow (12)
+         +- PhotonProject (11)
+            +- PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400 (10)
+
+
+(10) PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400
+Output [4]: [source_system#20123, rel_type_id#20124L, id#20125L, lookup_hash#20142]
+DictionaryFilters: [(source_system#20123 = pilot-a), (rel_type_id#20124L = 9), (id#20125L = 33904730), (lookup_hash#20142 = 5275fe61528b8def756486abfdbfd3bb2bdb73cab7303f7680d1b444a3c03a17)]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3f961e43-b3a9-4947-ad77-4fd155051223]
+ReadSchema: struct<source_system:string,rel_type_id:bigint,id:bigint,lookup_hash:string>
+RequiredDataFilters: [isnotnull(rel_type_id#20124L), isnotnull(id#20125L), isnotnull(lookup_hash#20142), isnotnull(source_system#20123), (rel_type_id#20124L = 9), (id#20125L = 33904730), (lookup_hash#20142 = 5275fe61528b8def756486abfdbfd3bb2bdb73cab7303f7680d1b444a3c03a17), (source_system#20123 = pilot-a)]
+
+(11) PhotonProject
+Input [4]: [source_system#20123, rel_type_id#20124L, id#20125L, lookup_hash#20142]
+Arguments: [1 AS col#20122]
+
+(12) PhotonColumnarToRow
+Input [1]: [col#20122]
+
+(13) PhotonResultStage
+Input [1]: [col#20122]
+
+(14) CollectLimit
+Input [1]: [col#20122]
+Arguments: 1
+
+(15) AdaptiveSparkPlan
+Output [1]: [col#20122]
+Arguments: isFinalPlan=false
+
+
+
+== Photon Explanation ==
+The query is fully supported by Photon.
+== Optimizer Statistics (table names per statistics state) ==
+  missing = accepted_edge_overlay_r400, lc_second_edge_current_r337
+  partial = 
+  full    = 
+Corrective actions: consider running the following command on all tables with missing or partial statistics
+  ANALYZE TABLE <table-name> COMPUTE STATISTICS FOR ALL COLUMNS
+
