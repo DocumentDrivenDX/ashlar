@@ -1,0 +1,967 @@
+{
+  "state": "Integrated private fourth100k guarded publication passes full change custody",
+  "processing_start_epoch": 1791401580.533887,
+  "sources": {
+    "untouched": "out/native/ashlar_inline_guard_untouched_r438/audited-summary.json",
+    "guard": "out/native/ashlar_inline_guard_finish_r425/audited-summary.json",
+    "vector": "out/native/ashlar_third_lc_publish_r391/audited-summary.json",
+    "inputs": "out/native/ashlar_fourth_delta_stage_r433/audited-summary.json",
+    "cdf": "out/fourth-cdf-image-oracle-r430.json",
+    "tomb": "out/fourth-canonical-tomb-r430.json",
+    "budget": "out/fourth-guarded-publisher-budget-r435.json",
+    "eligibility": "out/native/ashlar_fourth_publisher_preflight_r436/summary.json"
+  },
+  "source_sha256": {
+    "untouched": "8a7221804522bac116514d9b11ba9326fba1568ddc8a7ed05125050119695110",
+    "guard": "23a0ef40b62f1a286a91e2de7639449969ae1d11db3ec2e65d7290b28c96f025",
+    "vector": "a103a114fa1f0855da6d388ed3da60124c0044229dd7dc5431fa5ea5a2826c90",
+    "inputs": "fae3f10f9f494a511a685e97d9ddbd0cdcbbdfa6b3c4d063f7f911feeed1ed7b",
+    "cdf": "915cbd22ae110ecc94c02924b6d180b549fcc5985c1ef1eebc26522269282e7b",
+    "tomb": "663f7baa502dade23696bfb007ae7bfcaaf48334e6a49f51ded1e310643fe5a2",
+    "budget": "2af38da18a0698359192256c5d6e71e476bb2720a352bef034a1736f1504a791",
+    "eligibility": "86e0e96326f37d504e27ab5c0c66737b0ddfab351a0e509ac8e2e9a462a20400"
+  },
+  "base": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "version": 6,
+      "rows": 8000000
+    },
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+      "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+      "version": 6
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332",
+      "id": "dc895abb-e861-4f5c-ac9b-c4f06d5e9b8a",
+      "version": 3
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332",
+      "id": "8954e4b8-0255-4d24-adf7-508ded56b61c",
+      "version": 3
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332",
+      "id": "4fc3692a-32b2-455a-b9a2-2a1e5f9eb792",
+      "version": 4
+    },
+    "tombstone": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332",
+      "id": "c6db7de7-4b17-4837-83de-8667cd69e892",
+      "version": 3
+    }
+  },
+  "tables": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "version": 6,
+      "rows": 8000000
+    },
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+      "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+      "version": 7
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332",
+      "id": "dc895abb-e861-4f5c-ac9b-c4f06d5e9b8a",
+      "version": 4
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332",
+      "id": "8954e4b8-0255-4d24-adf7-508ded56b61c",
+      "version": 4
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332",
+      "id": "4fc3692a-32b2-455a-b9a2-2a1e5f9eb792",
+      "version": 5
+    },
+    "tombstone": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332",
+      "id": "c6db7de7-4b17-4837-83de-8667cd69e892",
+      "version": 4
+    }
+  },
+  "inputs": {
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.normalized_source_record_r433",
+      "id": "eb761cda-5b53-4956-a19d-8830a173fe7b",
+      "version": 0,
+      "statement_id": "01f1c285-17ea-1d7b-a728-de7414a2297b",
+      "history": {
+        "version": "0",
+        "timestamp": "2026-10-07T19:27:38.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "CREATE TABLE AS SELECT",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\":\\\"v2\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"d555c402-86af-4690-bb4e-9cf412ef6040\\\"}\",\"statsOnLoad\":\"true\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c285-17ea-1d7b-a728-de7414a2297b",
+        "clusterId": null,
+        "readVersion": null,
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"16\",\"numOutputRows\":\"100000\",\"numOutputBytes\":\"316872044\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      },
+      "detail": {
+        "format": "delta",
+        "id": "eb761cda-5b53-4956-a19d-8830a173fe7b",
+        "name": "client_dev.ashlar_entropy_20261006_r86.normalized_source_record_r433",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/d555c402-86af-4690-bb4e-9cf412ef6040",
+        "createdAt": "2026-10-07T19:27:22.883Z",
+        "lastModified": "2026-10-07T19:27:38.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[]",
+        "numFiles": "16",
+        "sizeInBytes": "316872044",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"d555c402-86af-4690-bb4e-9cf412ef6040\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      }
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.normalized_property_journal_r433",
+      "id": "df00c3e1-1619-4d7c-a41b-3ba23e0cc581",
+      "version": 0,
+      "statement_id": "01f1c285-33b9-1b19-b7d2-d12dafcbf950",
+      "history": {
+        "version": "0",
+        "timestamp": "2026-10-07T19:28:06.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "CREATE TABLE AS SELECT",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\":\\\"v2\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"824e4291-e310-4a64-ba51-37b0c1ebccde\\\"}\",\"statsOnLoad\":\"true\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c285-33b9-1b19-b7d2-d12dafcbf950",
+        "clusterId": null,
+        "readVersion": null,
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"12\",\"numOutputRows\":\"216667\",\"numOutputBytes\":\"266342228\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      },
+      "detail": {
+        "format": "delta",
+        "id": "df00c3e1-1619-4d7c-a41b-3ba23e0cc581",
+        "name": "client_dev.ashlar_entropy_20261006_r86.normalized_property_journal_r433",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/824e4291-e310-4a64-ba51-37b0c1ebccde",
+        "createdAt": "2026-10-07T19:28:00.852Z",
+        "lastModified": "2026-10-07T19:28:06.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[]",
+        "numFiles": "12",
+        "sizeInBytes": "266342228",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"824e4291-e310-4a64-ba51-37b0c1ebccde\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      }
+    },
+    "tombstone": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.normalized_tombstone_r433",
+      "id": "0eaaf599-50fe-45e9-a634-eee00e84f515",
+      "version": 0,
+      "statement_id": "01f1c285-3f78-1ba4-a441-2d25f61efb2b",
+      "history": {
+        "version": "0",
+        "timestamp": "2026-10-07T19:28:19.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "CREATE TABLE AS SELECT",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\":\\\"v2\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"523dccae-487e-445b-9562-668896fc55a3\\\"}\",\"statsOnLoad\":\"true\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c285-3f78-1ba4-a441-2d25f61efb2b",
+        "clusterId": null,
+        "readVersion": null,
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"10000\",\"numOutputBytes\":\"193778\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      },
+      "detail": {
+        "format": "delta",
+        "id": "0eaaf599-50fe-45e9-a634-eee00e84f515",
+        "name": "client_dev.ashlar_entropy_20261006_r86.normalized_tombstone_r433",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/523dccae-487e-445b-9562-668896fc55a3",
+        "createdAt": "2026-10-07T19:28:18.558Z",
+        "lastModified": "2026-10-07T19:28:19.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[]",
+        "numFiles": "1",
+        "sizeInBytes": "193778",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"523dccae-487e-445b-9562-668896fc55a3\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      }
+    },
+    "current_replacement": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.normalized_current_replacement_r433",
+      "id": "7605a77c-96fb-4b49-a50f-ca2985d6e312",
+      "version": 0,
+      "statement_id": "01f1c285-4638-1b7e-a0f7-95558c8228d5",
+      "history": {
+        "version": "0",
+        "timestamp": "2026-10-07T19:28:33.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "CREATE TABLE AS SELECT",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\":\\\"v2\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"685a1e9b-fdec-4a46-b37e-f20b575eb454\\\"}\",\"statsOnLoad\":\"true\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c285-4638-1b7e-a0f7-95558c8228d5",
+        "clusterId": null,
+        "readVersion": null,
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"6\",\"numOutputRows\":\"90000\",\"numOutputBytes\":\"150595415\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      },
+      "detail": {
+        "format": "delta",
+        "id": "7605a77c-96fb-4b49-a50f-ca2985d6e312",
+        "name": "client_dev.ashlar_entropy_20261006_r86.normalized_current_replacement_r433",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/685a1e9b-fdec-4a46-b37e-f20b575eb454",
+        "createdAt": "2026-10-07T19:28:30.675Z",
+        "lastModified": "2026-10-07T19:28:33.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[]",
+        "numFiles": "6",
+        "sizeInBytes": "150595415",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"685a1e9b-fdec-4a46-b37e-f20b575eb454\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      }
+    }
+  },
+  "code_sha256": {
+    "fourth_guard_publish_r437.py": "910d123152cbda183d0d97490533cfbd7ebaa60d69b1cbd52d820f28d8dd1a0c",
+    "inline_guard_sql_r421.py": "1a289c498457f483822f65ec1edce28bd9128a32de4c4d331de97807e22e86ba",
+    "normalized_apply_sql_r276.py": "30cf7087873cdeb2aabca3797ea2948159e7f10fb58e86174d6d5505febb2d79"
+  },
+  "checks": {
+    "predecessors": "Complete20field predecessor guard is executed atomically inside current MERGE, qualified by r426 refusal/CDF evidence; prepared100k unique mutation partition passes before writes",
+    "edge_current": {
+      "rows": 190000,
+      "fields": [
+        "source_system",
+        "rel_type_id",
+        "id",
+        "source_type",
+        "source_id",
+        "target_type",
+        "target_id",
+        "order_key",
+        "schema_revision",
+        "entity_version",
+        "props_json",
+        "retained_json",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "lookup_hash"
+      ],
+      "groups": [
+        [
+          "delete",
+          "10000",
+          "7",
+          "7",
+          "6b177aed4c4c1e0afeb053d64df3722b2281e4a1831fa6608575d7c702577e67"
+        ],
+        [
+          "update_postimage",
+          "90000",
+          "7",
+          "7",
+          "b1f56802b75d2f569f2de1f6f06cc797cd5270605eeef24a114cdba7e55cd538"
+        ],
+        [
+          "update_preimage",
+          "90000",
+          "7",
+          "7",
+          "24b10d09749dbc7df4354d336c6119745b96b9f6e4e1f85ae01276b6a905d63e"
+        ]
+      ]
+    },
+    "adjacency_forward": {
+      "rows": 190000,
+      "fields": [
+        "source_system",
+        "rel_type_id",
+        "id",
+        "source_type",
+        "source_id",
+        "target_type",
+        "target_id",
+        "entity_version"
+      ],
+      "groups": [
+        [
+          "delete",
+          "10000",
+          "5",
+          "5",
+          "e3501fa842148b13108ec018cc1ada6e4cf80492d858da7747658f4ec00033cc"
+        ],
+        [
+          "update_postimage",
+          "90000",
+          "5",
+          "5",
+          "800fe61cb664944270b3d6f9bdb40fbd0d447b3c990ca4c0aace280e9825708e"
+        ],
+        [
+          "update_preimage",
+          "90000",
+          "5",
+          "5",
+          "96400b7c2258c43a592b3d088e3a4e9bad98ddfed750b5e7d2fbb5ca2d47c310"
+        ]
+      ]
+    },
+    "source_record": {
+      "rows": 100000,
+      "fields": [
+        "source_feed",
+        "source_epoch",
+        "delivery_id",
+        "record_kind",
+        "source_cursor_json",
+        "payload_json",
+        "payload_digest",
+        "schema_revision",
+        "received_at",
+        "apply_batch_id"
+      ],
+      "groups": [
+        [
+          "insert",
+          "100000",
+          "4",
+          "4",
+          "fb676be463a8ef6490a0c0f24bc5915f6b19bec552dfdb7b9857cd934b9f6a5c"
+        ]
+      ]
+    },
+    "property_journal": {
+      "rows": 216667,
+      "fields": [
+        "source_system",
+        "entity_kind",
+        "type_id",
+        "id",
+        "entity_version",
+        "schema_revision",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "source_time_text",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "property_id",
+        "operation",
+        "old_present",
+        "old_json",
+        "new_present",
+        "new_json",
+        "event_ordinal"
+      ],
+      "groups": [
+        [
+          "insert",
+          "216667",
+          "4",
+          "4",
+          "7525ec47ba51fc45222daa388f81fe784fe1e8a4bd7cd4cfe06259f70cb91554"
+        ]
+      ]
+    },
+    "tombstone": {
+      "rows": 10000,
+      "fields": [
+        "source_system",
+        "entity_kind",
+        "type_id",
+        "id",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "source_cursor_json",
+        "source_delivery_id",
+        "entity_version"
+      ],
+      "digest": "0eccc3c6b644dd691a7103415eab07babc4f74be064528f0632c1bacccad1783",
+      "source_sha256": {
+        "fourth_cdf_oracle_r430.py": "cf9045517fdd641bc9f78171d0528d9a3e7872ad85a929271fb2c4b634398abc",
+        "fourth_changes_r427.py": "2edcdbf9d7aa7b48116be62a890ed134800f691be67394da0189f199061a0827",
+        "mixed_changes_r228.py": "2ab1d0c677cf7acff58e923bf3199a89a912fa712731769ca5a100e5ce9599fa",
+        "scale_mixed_r219.py": "d39c6a01fbcd65b9302c52c71cc9d44a3a7fa56e47ddce84aa087ce6dc3a317d",
+        "mixed_change_queries_r230.py": "7c49d418861c5b2694f8461cc1a25858663d9b6eb7d813139e4d14455cf90540"
+      },
+      "qualification": "Independent complete canonical10field tombstone oracle; input-only apply_batch_id remains preserved separately in original input_json."
+    },
+    "global_integrity": "Full counts/unique typed edge keys/all40k deletions absent/typed closure",
+    "custody-before-publication": {
+      "edge_current": [
+        {
+          "version": "7",
+          "timestamp": "2026-10-07T19:35:04.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "MERGE",
+          "operationParameters": "{\"predicate\":\"[\\\"(((lookup_hash#33362 = lookup_hash#33268) AND (source_system#33343 = source_system#33249)) AND ((rel_type_id#33344L = rel_type_id#33250L) AND (id#33345L = id#33251L)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"predicate\\\":\\\"CASE WHEN ((((((hex(static_invoke(Encode.encode(source_system#33343, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_system#33249, UTF-8, true, true)))) AND (rel_type_id#33344L <=> rel_type_id#33250L)) AND (id#33345L <=> id#33251L)) AND (((source_type#33346L <=> source_type#33252L) AND (source_id#33347L <=> source_id#33253L)) AND (target_type#33348L <=> target_type#33254L))) AND ((((target_id#33349L <=> target_id#33255L) AND (hex(static_invoke(Encode.encode(order_key#33350, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(order_key#33256, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(schema_revision#33351, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(schema_revision#33257, UTF-8, true, true))))) AND ((entity_version#33352L <=> entity_version#33258L) AND (hex(static_invoke(Encode.encode(props_json#33353, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(props_json#33259, UTF-8, true, true))))))) AND (((((hex(static_invoke(Encode.encode(retained_json#33354, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(retained_json#33260, UTF-8, true, true)))) AND (hex(static_invoke(Encode.encode(source_feed#33355, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_feed#33261, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(source_epoch#33356, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_epoch#33262, UTF-8, true, true))))) AND (((source_position#33357L <=> source_position#33263L) AND (published_at#33358 <=> published_at#33264)) AND (hex(static_invoke(Encode.encode(apply_batch_id#33359, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(apply_batch_id#33265, UTF-8, true, true)))))) AND ((((hex(static_invoke(Encode.encode(source_cursor_json#33360, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_cursor_json#33266, UTF-8, true, true)))) AND (hex(static_invoke(Encode.encode(source_delivery_id#33361, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_delivery_id#33267, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(lookup_hash#33362, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(lookup_hash#33268, UTF-8, true, true))))) AND (isnotnull(entity_version#33258L) AND (is_delete#33290 OR ((after_entity_version#33279L = (entity_version#33258L + 1)) AND (((after_source_system#33270 <=> source_system#33249) AND (after_rel_type_id#33271L <=> rel_type_id#33250L)) AND ((after_id#33272L <=> id#33251L) AND (after_lookup_hash#33289 <=> lookup_hash#33268))))))))) THEN is_delete#33290 ELSE cast(raise_error(USER_RAISED_EXCEPTION, map(keys: [errorMessage], values: [ASHLAR_INLINE_PREDECESSOR_MISMATCH]), NullType) as boolean) END\\\",\\\"actionType\\\":\\\"delete\\\"},{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[{\\\"actionType\\\":\\\"insert\\\"}]\",\"clusteringOnWriteStatus\":null}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c286-0ed1-14e1-8857-39a7752bf20b",
+          "clusterId": null,
+          "readVersion": "6",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "false",
+          "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"10000\",\"numTargetFilesAdded\":\"2\",\"numTargetBytesAdded\":\"72548822\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"597\",\"numTargetRowsMatchedUpdated\":\"90000\",\"executionTimeMs\":\"57786\",\"materializeSourceTimeMs\":\"2617\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"10000\",\"numTargetDeletionVectorsUpdated\":\"597\",\"scanTimeMs\":\"6318\",\"numTargetRowsUpdated\":\"90000\",\"numOutputRows\":\"90000\",\"numTargetDeletionVectorsRemoved\":\"597\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"2\",\"numSourceRows\":\"100000\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"48814\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "source_record": [
+        {
+          "version": "4",
+          "timestamp": "2026-10-07T19:33:45.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "WRITE",
+          "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"false\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"fast-path clustering triggered\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c286-007f-166e-8de9-f04ddc9e7e6c",
+          "clusterId": null,
+          "readVersion": "3",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"100000\",\"numOutputBytes\":\"151529233\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "property_journal": [
+        {
+          "version": "4",
+          "timestamp": "2026-10-07T19:33:53.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "WRITE",
+          "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"false\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"fast-path clustering triggered\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c286-05c5-1e56-a464-2942fef93119",
+          "clusterId": null,
+          "readVersion": "3",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"216667\",\"numOutputBytes\":\"128854520\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "adjacency_forward": [
+        {
+          "version": "5",
+          "timestamp": "2026-10-07T19:35:15.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "MERGE",
+          "operationParameters": "{\"predicate\":\"[\\\"(((source_system#35179 = source_system#35097) AND (rel_type_id#35180L = rel_type_id#35098L)) AND ((id#35181L = id#35099L) AND (entity_version#35186L = 1)))\\\"]\",\"clusterBy\":\"[\\\"source_id\\\"]\",\"matchedPredicates\":\"[{\\\"predicate\\\":\\\"is_delete#35138: boolean\\\",\\\"actionType\\\":\\\"delete\\\"},{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c286-3547-14c0-ad09-a84d5f0a0df7",
+          "clusterId": null,
+          "readVersion": "4",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "false",
+          "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"10000\",\"numTargetFilesAdded\":\"1\",\"numTargetBytesAdded\":\"990628\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"6\",\"numTargetRowsMatchedUpdated\":\"90000\",\"executionTimeMs\":\"5250\",\"materializeSourceTimeMs\":\"1207\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"10000\",\"numTargetDeletionVectorsUpdated\":\"6\",\"scanTimeMs\":\"1693\",\"numTargetRowsUpdated\":\"90000\",\"numOutputRows\":\"90000\",\"numTargetDeletionVectorsRemoved\":\"6\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"1\",\"numSourceRows\":\"100000\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"2321\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "tombstone": [
+        {
+          "version": "4",
+          "timestamp": "2026-10-07T19:34:00.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "WRITE",
+          "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c286-0b09-193c-834a-10c79d7db9e3",
+          "clusterId": null,
+          "readVersion": "3",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"10000\",\"numOutputBytes\":\"46883\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ]
+    },
+    "custody-after-readback": {
+      "edge_current": [
+        {
+          "version": "7",
+          "timestamp": "2026-10-07T19:35:04.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "MERGE",
+          "operationParameters": "{\"predicate\":\"[\\\"(((lookup_hash#33362 = lookup_hash#33268) AND (source_system#33343 = source_system#33249)) AND ((rel_type_id#33344L = rel_type_id#33250L) AND (id#33345L = id#33251L)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"predicate\\\":\\\"CASE WHEN ((((((hex(static_invoke(Encode.encode(source_system#33343, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_system#33249, UTF-8, true, true)))) AND (rel_type_id#33344L <=> rel_type_id#33250L)) AND (id#33345L <=> id#33251L)) AND (((source_type#33346L <=> source_type#33252L) AND (source_id#33347L <=> source_id#33253L)) AND (target_type#33348L <=> target_type#33254L))) AND ((((target_id#33349L <=> target_id#33255L) AND (hex(static_invoke(Encode.encode(order_key#33350, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(order_key#33256, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(schema_revision#33351, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(schema_revision#33257, UTF-8, true, true))))) AND ((entity_version#33352L <=> entity_version#33258L) AND (hex(static_invoke(Encode.encode(props_json#33353, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(props_json#33259, UTF-8, true, true))))))) AND (((((hex(static_invoke(Encode.encode(retained_json#33354, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(retained_json#33260, UTF-8, true, true)))) AND (hex(static_invoke(Encode.encode(source_feed#33355, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_feed#33261, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(source_epoch#33356, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_epoch#33262, UTF-8, true, true))))) AND (((source_position#33357L <=> source_position#33263L) AND (published_at#33358 <=> published_at#33264)) AND (hex(static_invoke(Encode.encode(apply_batch_id#33359, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(apply_batch_id#33265, UTF-8, true, true)))))) AND ((((hex(static_invoke(Encode.encode(source_cursor_json#33360, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_cursor_json#33266, UTF-8, true, true)))) AND (hex(static_invoke(Encode.encode(source_delivery_id#33361, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_delivery_id#33267, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(lookup_hash#33362, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(lookup_hash#33268, UTF-8, true, true))))) AND (isnotnull(entity_version#33258L) AND (is_delete#33290 OR ((after_entity_version#33279L = (entity_version#33258L + 1)) AND (((after_source_system#33270 <=> source_system#33249) AND (after_rel_type_id#33271L <=> rel_type_id#33250L)) AND ((after_id#33272L <=> id#33251L) AND (after_lookup_hash#33289 <=> lookup_hash#33268))))))))) THEN is_delete#33290 ELSE cast(raise_error(USER_RAISED_EXCEPTION, map(keys: [errorMessage], values: [ASHLAR_INLINE_PREDECESSOR_MISMATCH]), NullType) as boolean) END\\\",\\\"actionType\\\":\\\"delete\\\"},{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[{\\\"actionType\\\":\\\"insert\\\"}]\",\"clusteringOnWriteStatus\":null}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c286-0ed1-14e1-8857-39a7752bf20b",
+          "clusterId": null,
+          "readVersion": "6",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "false",
+          "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"10000\",\"numTargetFilesAdded\":\"2\",\"numTargetBytesAdded\":\"72548822\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"597\",\"numTargetRowsMatchedUpdated\":\"90000\",\"executionTimeMs\":\"57786\",\"materializeSourceTimeMs\":\"2617\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"10000\",\"numTargetDeletionVectorsUpdated\":\"597\",\"scanTimeMs\":\"6318\",\"numTargetRowsUpdated\":\"90000\",\"numOutputRows\":\"90000\",\"numTargetDeletionVectorsRemoved\":\"597\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"2\",\"numSourceRows\":\"100000\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"48814\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "source_record": [
+        {
+          "version": "4",
+          "timestamp": "2026-10-07T19:33:45.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "WRITE",
+          "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"false\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"fast-path clustering triggered\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c286-007f-166e-8de9-f04ddc9e7e6c",
+          "clusterId": null,
+          "readVersion": "3",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"100000\",\"numOutputBytes\":\"151529233\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "property_journal": [
+        {
+          "version": "4",
+          "timestamp": "2026-10-07T19:33:53.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "WRITE",
+          "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"false\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"fast-path clustering triggered\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c286-05c5-1e56-a464-2942fef93119",
+          "clusterId": null,
+          "readVersion": "3",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"216667\",\"numOutputBytes\":\"128854520\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "adjacency_forward": [
+        {
+          "version": "5",
+          "timestamp": "2026-10-07T19:35:15.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "MERGE",
+          "operationParameters": "{\"predicate\":\"[\\\"(((source_system#35179 = source_system#35097) AND (rel_type_id#35180L = rel_type_id#35098L)) AND ((id#35181L = id#35099L) AND (entity_version#35186L = 1)))\\\"]\",\"clusterBy\":\"[\\\"source_id\\\"]\",\"matchedPredicates\":\"[{\\\"predicate\\\":\\\"is_delete#35138: boolean\\\",\\\"actionType\\\":\\\"delete\\\"},{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c286-3547-14c0-ad09-a84d5f0a0df7",
+          "clusterId": null,
+          "readVersion": "4",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "false",
+          "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"10000\",\"numTargetFilesAdded\":\"1\",\"numTargetBytesAdded\":\"990628\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"6\",\"numTargetRowsMatchedUpdated\":\"90000\",\"executionTimeMs\":\"5250\",\"materializeSourceTimeMs\":\"1207\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"10000\",\"numTargetDeletionVectorsUpdated\":\"6\",\"scanTimeMs\":\"1693\",\"numTargetRowsUpdated\":\"90000\",\"numOutputRows\":\"90000\",\"numTargetDeletionVectorsRemoved\":\"6\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"1\",\"numSourceRows\":\"100000\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"2321\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "tombstone": [
+        {
+          "version": "4",
+          "timestamp": "2026-10-07T19:34:00.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "WRITE",
+          "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c286-0b09-193c-834a-10c79d7db9e3",
+          "clusterId": null,
+          "readVersion": "3",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"10000\",\"numOutputBytes\":\"46883\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ]
+    }
+  },
+  "commit_events": [
+    {
+      "role": "source_record",
+      "statement_id": "01f1c286-007f-166e-8de9-f04ddc9e7e6c",
+      "history": {
+        "version": "4",
+        "timestamp": "2026-10-07T19:33:45.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"false\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"fast-path clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c286-007f-166e-8de9-f04ddc9e7e6c",
+        "clusterId": null,
+        "readVersion": "3",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"100000\",\"numOutputBytes\":\"151529233\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "statement_id": "01f1c286-05c5-1e56-a464-2942fef93119",
+      "history": {
+        "version": "4",
+        "timestamp": "2026-10-07T19:33:53.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"false\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"fast-path clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c286-05c5-1e56-a464-2942fef93119",
+        "clusterId": null,
+        "readVersion": "3",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"216667\",\"numOutputBytes\":\"128854520\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "tombstone",
+      "statement_id": "01f1c286-0b09-193c-834a-10c79d7db9e3",
+      "history": {
+        "version": "4",
+        "timestamp": "2026-10-07T19:34:00.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"false\",\"partitionBy\":\"[]\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c286-0b09-193c-834a-10c79d7db9e3",
+        "clusterId": null,
+        "readVersion": "3",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"10000\",\"numOutputBytes\":\"46883\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "edge_current",
+      "statement_id": "01f1c286-0ed1-14e1-8857-39a7752bf20b",
+      "history": {
+        "version": "7",
+        "timestamp": "2026-10-07T19:35:04.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "MERGE",
+        "operationParameters": "{\"predicate\":\"[\\\"(((lookup_hash#33362 = lookup_hash#33268) AND (source_system#33343 = source_system#33249)) AND ((rel_type_id#33344L = rel_type_id#33250L) AND (id#33345L = id#33251L)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"predicate\\\":\\\"CASE WHEN ((((((hex(static_invoke(Encode.encode(source_system#33343, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_system#33249, UTF-8, true, true)))) AND (rel_type_id#33344L <=> rel_type_id#33250L)) AND (id#33345L <=> id#33251L)) AND (((source_type#33346L <=> source_type#33252L) AND (source_id#33347L <=> source_id#33253L)) AND (target_type#33348L <=> target_type#33254L))) AND ((((target_id#33349L <=> target_id#33255L) AND (hex(static_invoke(Encode.encode(order_key#33350, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(order_key#33256, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(schema_revision#33351, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(schema_revision#33257, UTF-8, true, true))))) AND ((entity_version#33352L <=> entity_version#33258L) AND (hex(static_invoke(Encode.encode(props_json#33353, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(props_json#33259, UTF-8, true, true))))))) AND (((((hex(static_invoke(Encode.encode(retained_json#33354, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(retained_json#33260, UTF-8, true, true)))) AND (hex(static_invoke(Encode.encode(source_feed#33355, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_feed#33261, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(source_epoch#33356, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_epoch#33262, UTF-8, true, true))))) AND (((source_position#33357L <=> source_position#33263L) AND (published_at#33358 <=> published_at#33264)) AND (hex(static_invoke(Encode.encode(apply_batch_id#33359, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(apply_batch_id#33265, UTF-8, true, true)))))) AND ((((hex(static_invoke(Encode.encode(source_cursor_json#33360, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_cursor_json#33266, UTF-8, true, true)))) AND (hex(static_invoke(Encode.encode(source_delivery_id#33361, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_delivery_id#33267, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(lookup_hash#33362, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(lookup_hash#33268, UTF-8, true, true))))) AND (isnotnull(entity_version#33258L) AND (is_delete#33290 OR ((after_entity_version#33279L = (entity_version#33258L + 1)) AND (((after_source_system#33270 <=> source_system#33249) AND (after_rel_type_id#33271L <=> rel_type_id#33250L)) AND ((after_id#33272L <=> id#33251L) AND (after_lookup_hash#33289 <=> lookup_hash#33268))))))))) THEN is_delete#33290 ELSE cast(raise_error(USER_RAISED_EXCEPTION, map(keys: [errorMessage], values: [ASHLAR_INLINE_PREDECESSOR_MISMATCH]), NullType) as boolean) END\\\",\\\"actionType\\\":\\\"delete\\\"},{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[{\\\"actionType\\\":\\\"insert\\\"}]\",\"clusteringOnWriteStatus\":null}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c286-0ed1-14e1-8857-39a7752bf20b",
+        "clusterId": null,
+        "readVersion": "6",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "false",
+        "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"10000\",\"numTargetFilesAdded\":\"2\",\"numTargetBytesAdded\":\"72548822\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"597\",\"numTargetRowsMatchedUpdated\":\"90000\",\"executionTimeMs\":\"57786\",\"materializeSourceTimeMs\":\"2617\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"10000\",\"numTargetDeletionVectorsUpdated\":\"597\",\"scanTimeMs\":\"6318\",\"numTargetRowsUpdated\":\"90000\",\"numOutputRows\":\"90000\",\"numTargetDeletionVectorsRemoved\":\"597\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"2\",\"numSourceRows\":\"100000\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"48814\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "adjacency_forward",
+      "statement_id": "01f1c286-3547-14c0-ad09-a84d5f0a0df7",
+      "history": {
+        "version": "5",
+        "timestamp": "2026-10-07T19:35:15.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "MERGE",
+        "operationParameters": "{\"predicate\":\"[\\\"(((source_system#35179 = source_system#35097) AND (rel_type_id#35180L = rel_type_id#35098L)) AND ((id#35181L = id#35099L) AND (entity_version#35186L = 1)))\\\"]\",\"clusterBy\":\"[\\\"source_id\\\"]\",\"matchedPredicates\":\"[{\\\"predicate\\\":\\\"is_delete#35138: boolean\\\",\\\"actionType\\\":\\\"delete\\\"},{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c286-3547-14c0-ad09-a84d5f0a0df7",
+        "clusterId": null,
+        "readVersion": "4",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "false",
+        "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"10000\",\"numTargetFilesAdded\":\"1\",\"numTargetBytesAdded\":\"990628\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"6\",\"numTargetRowsMatchedUpdated\":\"90000\",\"executionTimeMs\":\"5250\",\"materializeSourceTimeMs\":\"1207\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"10000\",\"numTargetDeletionVectorsUpdated\":\"6\",\"scanTimeMs\":\"1693\",\"numTargetRowsUpdated\":\"90000\",\"numOutputRows\":\"90000\",\"numTargetDeletionVectorsRemoved\":\"6\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"1\",\"numSourceRows\":\"100000\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"2321\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    }
+  ],
+  "bounds": {
+    "read_bytes": 180000000000,
+    "write_remote_bytes": 10000000000,
+    "spill_to_disk_bytes": 5000000000,
+    "wall_s": 900,
+    "statement_cancel_after_s": 120
+  },
+  "clock": "Ready-input start precedes native preflight, inline-guard mutation, validation, custody, manifest setup/publication/readback and final telemetry. Local generation/transfer/native staging/eligibility are separately charged preparation, not source arrival evidence.",
+  "costs": {
+    "read_bytes": 39239069244,
+    "write_remote_bytes": 503253619,
+    "spill_to_disk_bytes": 0
+  },
+  "preflight_s": 31.991376749999997,
+  "mutation_s": 105.330210542,
+  "manifest": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.fourth_guard_manifest_r437",
+    "create_statement_id": "01f1c286-64f0-1457-8e9e-16d1d2c17a82",
+    "detail": {
+      "format": "delta",
+      "id": "b319b5c1-4709-401c-ac0a-d973709543c4",
+      "name": "client_dev.ashlar_entropy_20261006_r86.fourth_guard_manifest_r437",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/44a0a5a3-26b0-4b4a-a0ef-b13e0f175ff7",
+      "createdAt": "2026-10-07T19:36:30.589Z",
+      "lastModified": "2026-10-07T19:36:31.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[]",
+      "numFiles": "0",
+      "sizeInBytes": "0",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"44a0a5a3-26b0-4b4a-a0ef-b13e0f175ff7\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-c898db01-8270-4728-a34c-a0f7a2f87e6f\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-c64c8372-b7f4-4ddc-ae1b-d857cfdcf89b\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    },
+    "history": [
+      {
+        "version": "1",
+        "timestamp": "2026-10-07T19:36:36.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"true\",\"partitionBy\":\"[]\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c286-6855-1b8e-bbbc-062c58b19f59",
+        "clusterId": null,
+        "readVersion": "0",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"1\",\"numOutputBytes\":\"25782\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      },
+      {
+        "version": "0",
+        "timestamp": "2026-10-07T19:36:31.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "CREATE TABLE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\":\\\"v2\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"44a0a5a3-26b0-4b4a-a0ef-b13e0f175ff7\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-c898db01-8270-4728-a34c-a0f7a2f87e6f\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-c64c8372-b7f4-4ddc-ae1b-d857cfdcf89b\\\"}\",\"statsOnLoad\":\"false\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c286-64f0-1457-8e9e-16d1d2c17a82",
+        "clusterId": null,
+        "readVersion": null,
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    ]
+  },
+  "publish_statement_id": "01f1c286-6855-1b8e-bbbc-062c58b19f59",
+  "descriptor_values": [
+    "incremental-fourth-guard-r437",
+    "ashlar-delta/0.3-synthetic-mixed",
+    "{\"client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236\":6,\"client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337\":7,\"client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332\":5,\"client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332\":4,\"client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332\":4,\"client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332\":4}",
+    "{\"batch_id\": \"mixed-change/4\", \"inputs\": {\"current_replacement\": {\"detail\": {\"clusterByAuto\": \"false\", \"clusteringColumns\": \"[]\", \"createdAt\": \"2026-10-07T19:28:30.675Z\", \"description\": null, \"format\": \"delta\", \"id\": \"7605a77c-96fb-4b49-a50f-ca2985d6e312\", \"lastModified\": \"2026-10-07T19:28:33.000Z\", \"location\": \"abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/685a1e9b-fdec-4a46-b37e-f20b575eb454\", \"minReaderVersion\": \"3\", \"minWriterVersion\": \"7\", \"name\": \"client_dev.ashlar_entropy_20261006_r86.normalized_current_replacement_r433\", \"numFiles\": \"6\", \"partitionColumns\": \"[]\", \"properties\": \"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"685a1e9b-fdec-4a46-b37e-f20b575eb454\\\"}\", \"sizeInBytes\": \"150595415\", \"statistics\": \"{\\\"numRowsDeletedByDeletionVectors\\\":\\\"0\\\",\\\"numDeletionVectors\\\":\\\"0\\\"}\", \"tableFeatures\": \"[\\\"appendOnly\\\",\\\"deletionVectors\\\",\\\"invariants\\\",\\\"v2Checkpoint\\\"]\"}, \"history\": {\"clusterId\": null, \"engineInfo\": \"Databricks-Runtime/19.9.x-aarch64-photon-scala2.13\", \"isBlindAppend\": \"true\", \"isolationLevel\": \"WriteSerializable\", \"job\": null, \"notebook\": null, \"operation\": \"CREATE TABLE AS SELECT\", \"operationMetrics\": \"{\\\"numFiles\\\":\\\"6\\\",\\\"numOutputRows\\\":\\\"90000\\\",\\\"numOutputBytes\\\":\\\"150595415\\\"}\", \"operationParameters\": \"{\\\"partitionBy\\\":\\\"[]\\\",\\\"clusterBy\\\":\\\"[]\\\",\\\"description\\\":null,\\\"isManaged\\\":\\\"true\\\",\\\"properties\\\":\\\"{\\\\\\\"delta.parquet.compression.codec\\\\\\\":\\\\\\\"zstd\\\\\\\",\\\\\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.parquet.format.version.afe.internal\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.enableDeletionVectors\\\\\\\":\\\\\\\"true\\\\\\\",\\\\\\\"delta.checkpoint.writeStatsAsStruct\\\\\\\":\\\\\\\"true\\\\\\\",\\\\\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\\\\\":\\\\\\\"v2\\\\\\\",\\\\\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.parquet.format.version\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.checkpointPolicy\\\\\\\":\\\\\\\"v2\\\\\\\",\\\\\\\"delta.checkpoint.writeStatsAsJson\\\\\\\":\\\\\\\"false\\\\\\\",\\\\\\\"io.unitycatalog.tableId\\\\\\\":\\\\\\\"685a1e9b-fdec-4a46-b37e-f20b575eb454\\\\\\\"}\\\",\\\"statsOnLoad\\\":\\\"true\\\"}\", \"queryHistoryStatementId\": \"01f1c285-4638-1b7e-a0f7-95558c8228d5\", \"readVersion\": null, \"timestamp\": \"2026-10-07T19:28:33.000Z\", \"userId\": \"3755468182769617\", \"userMetadata\": null, \"userName\": \"erik.labianca@synaptiq.ai\", \"version\": \"0\"}, \"id\": \"7605a77c-96fb-4b49-a50f-ca2985d6e312\", \"statement_id\": \"01f1c285-4638-1b7e-a0f7-95558c8228d5\", \"table\": \"client_dev.ashlar_entropy_20261006_r86.normalized_current_replacement_r433\", \"version\": 0}, \"property_journal\": {\"detail\": {\"clusterByAuto\": \"false\", \"clusteringColumns\": \"[]\", \"createdAt\": \"2026-10-07T19:28:00.852Z\", \"description\": null, \"format\": \"delta\", \"id\": \"df00c3e1-1619-4d7c-a41b-3ba23e0cc581\", \"lastModified\": \"2026-10-07T19:28:06.000Z\", \"location\": \"abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/824e4291-e310-4a64-ba51-37b0c1ebccde\", \"minReaderVersion\": \"3\", \"minWriterVersion\": \"7\", \"name\": \"client_dev.ashlar_entropy_20261006_r86.normalized_property_journal_r433\", \"numFiles\": \"12\", \"partitionColumns\": \"[]\", \"properties\": \"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"824e4291-e310-4a64-ba51-37b0c1ebccde\\\"}\", \"sizeInBytes\": \"266342228\", \"statistics\": \"{\\\"numRowsDeletedByDeletionVectors\\\":\\\"0\\\",\\\"numDeletionVectors\\\":\\\"0\\\"}\", \"tableFeatures\": \"[\\\"appendOnly\\\",\\\"deletionVectors\\\",\\\"invariants\\\",\\\"v2Checkpoint\\\"]\"}, \"history\": {\"clusterId\": null, \"engineInfo\": \"Databricks-Runtime/19.9.x-aarch64-photon-scala2.13\", \"isBlindAppend\": \"true\", \"isolationLevel\": \"WriteSerializable\", \"job\": null, \"notebook\": null, \"operation\": \"CREATE TABLE AS SELECT\", \"operationMetrics\": \"{\\\"numFiles\\\":\\\"12\\\",\\\"numOutputRows\\\":\\\"216667\\\",\\\"numOutputBytes\\\":\\\"266342228\\\"}\", \"operationParameters\": \"{\\\"partitionBy\\\":\\\"[]\\\",\\\"clusterBy\\\":\\\"[]\\\",\\\"description\\\":null,\\\"isManaged\\\":\\\"true\\\",\\\"properties\\\":\\\"{\\\\\\\"delta.parquet.compression.codec\\\\\\\":\\\\\\\"zstd\\\\\\\",\\\\\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.parquet.format.version.afe.internal\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.enableDeletionVectors\\\\\\\":\\\\\\\"true\\\\\\\",\\\\\\\"delta.checkpoint.writeStatsAsStruct\\\\\\\":\\\\\\\"true\\\\\\\",\\\\\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\\\\\":\\\\\\\"v2\\\\\\\",\\\\\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.parquet.format.version\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.checkpointPolicy\\\\\\\":\\\\\\\"v2\\\\\\\",\\\\\\\"delta.checkpoint.writeStatsAsJson\\\\\\\":\\\\\\\"false\\\\\\\",\\\\\\\"io.unitycatalog.tableId\\\\\\\":\\\\\\\"824e4291-e310-4a64-ba51-37b0c1ebccde\\\\\\\"}\\\",\\\"statsOnLoad\\\":\\\"true\\\"}\", \"queryHistoryStatementId\": \"01f1c285-33b9-1b19-b7d2-d12dafcbf950\", \"readVersion\": null, \"timestamp\": \"2026-10-07T19:28:06.000Z\", \"userId\": \"3755468182769617\", \"userMetadata\": null, \"userName\": \"erik.labianca@synaptiq.ai\", \"version\": \"0\"}, \"id\": \"df00c3e1-1619-4d7c-a41b-3ba23e0cc581\", \"statement_id\": \"01f1c285-33b9-1b19-b7d2-d12dafcbf950\", \"table\": \"client_dev.ashlar_entropy_20261006_r86.normalized_property_journal_r433\", \"version\": 0}, \"source_record\": {\"detail\": {\"clusterByAuto\": \"false\", \"clusteringColumns\": \"[]\", \"createdAt\": \"2026-10-07T19:27:22.883Z\", \"description\": null, \"format\": \"delta\", \"id\": \"eb761cda-5b53-4956-a19d-8830a173fe7b\", \"lastModified\": \"2026-10-07T19:27:38.000Z\", \"location\": \"abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/d555c402-86af-4690-bb4e-9cf412ef6040\", \"minReaderVersion\": \"3\", \"minWriterVersion\": \"7\", \"name\": \"client_dev.ashlar_entropy_20261006_r86.normalized_source_record_r433\", \"numFiles\": \"16\", \"partitionColumns\": \"[]\", \"properties\": \"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"d555c402-86af-4690-bb4e-9cf412ef6040\\\"}\", \"sizeInBytes\": \"316872044\", \"statistics\": \"{\\\"numRowsDeletedByDeletionVectors\\\":\\\"0\\\",\\\"numDeletionVectors\\\":\\\"0\\\"}\", \"tableFeatures\": \"[\\\"appendOnly\\\",\\\"deletionVectors\\\",\\\"invariants\\\",\\\"v2Checkpoint\\\"]\"}, \"history\": {\"clusterId\": null, \"engineInfo\": \"Databricks-Runtime/19.9.x-aarch64-photon-scala2.13\", \"isBlindAppend\": \"true\", \"isolationLevel\": \"WriteSerializable\", \"job\": null, \"notebook\": null, \"operation\": \"CREATE TABLE AS SELECT\", \"operationMetrics\": \"{\\\"numFiles\\\":\\\"16\\\",\\\"numOutputRows\\\":\\\"100000\\\",\\\"numOutputBytes\\\":\\\"316872044\\\"}\", \"operationParameters\": \"{\\\"partitionBy\\\":\\\"[]\\\",\\\"clusterBy\\\":\\\"[]\\\",\\\"description\\\":null,\\\"isManaged\\\":\\\"true\\\",\\\"properties\\\":\\\"{\\\\\\\"delta.parquet.compression.codec\\\\\\\":\\\\\\\"zstd\\\\\\\",\\\\\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.parquet.format.version.afe.internal\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.enableDeletionVectors\\\\\\\":\\\\\\\"true\\\\\\\",\\\\\\\"delta.checkpoint.writeStatsAsStruct\\\\\\\":\\\\\\\"true\\\\\\\",\\\\\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\\\\\":\\\\\\\"v2\\\\\\\",\\\\\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.parquet.format.version\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.checkpointPolicy\\\\\\\":\\\\\\\"v2\\\\\\\",\\\\\\\"delta.checkpoint.writeStatsAsJson\\\\\\\":\\\\\\\"false\\\\\\\",\\\\\\\"io.unitycatalog.tableId\\\\\\\":\\\\\\\"d555c402-86af-4690-bb4e-9cf412ef6040\\\\\\\"}\\\",\\\"statsOnLoad\\\":\\\"true\\\"}\", \"queryHistoryStatementId\": \"01f1c285-17ea-1d7b-a728-de7414a2297b\", \"readVersion\": null, \"timestamp\": \"2026-10-07T19:27:38.000Z\", \"userId\": \"3755468182769617\", \"userMetadata\": null, \"userName\": \"erik.labianca@synaptiq.ai\", \"version\": \"0\"}, \"id\": \"eb761cda-5b53-4956-a19d-8830a173fe7b\", \"statement_id\": \"01f1c285-17ea-1d7b-a728-de7414a2297b\", \"table\": \"client_dev.ashlar_entropy_20261006_r86.normalized_source_record_r433\", \"version\": 0}, \"tombstone\": {\"detail\": {\"clusterByAuto\": \"false\", \"clusteringColumns\": \"[]\", \"createdAt\": \"2026-10-07T19:28:18.558Z\", \"description\": null, \"format\": \"delta\", \"id\": \"0eaaf599-50fe-45e9-a634-eee00e84f515\", \"lastModified\": \"2026-10-07T19:28:19.000Z\", \"location\": \"abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/523dccae-487e-445b-9562-668896fc55a3\", \"minReaderVersion\": \"3\", \"minWriterVersion\": \"7\", \"name\": \"client_dev.ashlar_entropy_20261006_r86.normalized_tombstone_r433\", \"numFiles\": \"1\", \"partitionColumns\": \"[]\", \"properties\": \"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"523dccae-487e-445b-9562-668896fc55a3\\\"}\", \"sizeInBytes\": \"193778\", \"statistics\": \"{\\\"numRowsDeletedByDeletionVectors\\\":\\\"0\\\",\\\"numDeletionVectors\\\":\\\"0\\\"}\", \"tableFeatures\": \"[\\\"appendOnly\\\",\\\"deletionVectors\\\",\\\"invariants\\\",\\\"v2Checkpoint\\\"]\"}, \"history\": {\"clusterId\": null, \"engineInfo\": \"Databricks-Runtime/19.9.x-aarch64-photon-scala2.13\", \"isBlindAppend\": \"true\", \"isolationLevel\": \"WriteSerializable\", \"job\": null, \"notebook\": null, \"operation\": \"CREATE TABLE AS SELECT\", \"operationMetrics\": \"{\\\"numFiles\\\":\\\"1\\\",\\\"numOutputRows\\\":\\\"10000\\\",\\\"numOutputBytes\\\":\\\"193778\\\"}\", \"operationParameters\": \"{\\\"partitionBy\\\":\\\"[]\\\",\\\"clusterBy\\\":\\\"[]\\\",\\\"description\\\":null,\\\"isManaged\\\":\\\"true\\\",\\\"properties\\\":\\\"{\\\\\\\"delta.parquet.compression.codec\\\\\\\":\\\\\\\"zstd\\\\\\\",\\\\\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.parquet.format.version.afe.internal\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.enableDeletionVectors\\\\\\\":\\\\\\\"true\\\\\\\",\\\\\\\"delta.checkpoint.writeStatsAsStruct\\\\\\\":\\\\\\\"true\\\\\\\",\\\\\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\\\\\":\\\\\\\"v2\\\\\\\",\\\\\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.parquet.format.version\\\\\\\":\\\\\\\"2.12.0\\\\\\\",\\\\\\\"delta.checkpointPolicy\\\\\\\":\\\\\\\"v2\\\\\\\",\\\\\\\"delta.checkpoint.writeStatsAsJson\\\\\\\":\\\\\\\"false\\\\\\\",\\\\\\\"io.unitycatalog.tableId\\\\\\\":\\\\\\\"523dccae-487e-445b-9562-668896fc55a3\\\\\\\"}\\\",\\\"statsOnLoad\\\":\\\"true\\\"}\", \"queryHistoryStatementId\": \"01f1c285-3f78-1ba4-a441-2d25f61efb2b\", \"readVersion\": null, \"timestamp\": \"2026-10-07T19:28:19.000Z\", \"userId\": \"3755468182769617\", \"userMetadata\": null, \"userName\": \"erik.labianca@synaptiq.ai\", \"version\": \"0\"}, \"id\": \"0eaaf599-50fe-45e9-a634-eee00e84f515\", \"statement_id\": \"01f1c285-3f78-1ba4-a441-2d25f61efb2b\", \"table\": \"client_dev.ashlar_entropy_20261006_r86.normalized_tombstone_r433\", \"version\": 0}}, \"members\": 100000, \"profile\": \"synthetic-mixed-change/1\", \"real_source_ack\": false}",
+    "{\"synthetic-scale-mixed\": \"synthetic-mixed/1\"}",
+    "{\"adjacency_forward\": {\"fields\": [\"source_system\", \"rel_type_id\", \"id\", \"source_type\", \"source_id\", \"target_type\", \"target_id\", \"entity_version\"], \"groups\": [[\"delete\", \"10000\", \"5\", \"5\", \"e3501fa842148b13108ec018cc1ada6e4cf80492d858da7747658f4ec00033cc\"], [\"update_postimage\", \"90000\", \"5\", \"5\", \"800fe61cb664944270b3d6f9bdb40fbd0d447b3c990ca4c0aace280e9825708e\"], [\"update_preimage\", \"90000\", \"5\", \"5\", \"96400b7c2258c43a592b3d088e3a4e9bad98ddfed750b5e7d2fbb5ca2d47c310\"]], \"rows\": 190000}, \"custody-before-publication\": {\"adjacency_forward\": [{\"clusterId\": null, \"engineInfo\": \"Databricks-Runtime/19.9.x-aarch64-photon-scala2.13\", \"isBlindAppend\": \"false\", \"isolationLevel\": \"WriteSerializable\", \"job\": null, \"notebook\": null, \"operation\": \"MERGE\", \"operationMetrics\": \"{\\\"numTargetRowsCopied\\\":\\\"0\\\",\\\"numTargetRowsDeleted\\\":\\\"10000\\\",\\\"numTargetFilesAdded\\\":\\\"1\\\",\\\"numTargetBytesAdded\\\":\\\"990628\\\",\\\"numTargetBytesRemoved\\\":\\\"0\\\",\\\"numTargetDeletionVectorsAdded\\\":\\\"6\\\",\\\"numTargetRowsMatchedUpdated\\\":\\\"90000\\\",\\\"executionTimeMs\\\":\\\"5250\\\",\\\"materializeSourceTimeMs\\\":\\\"1207\\\",\\\"numTargetRowsInserted\\\":\\\"0\\\",\\\"numTargetRowsMatchedDeleted\\\":\\\"10000\\\",\\\"numTargetDeletionVectorsUpdated\\\":\\\"6\\\",\\\"scanTimeMs\\\":\\\"1693\\\",\\\"numTargetRowsUpdated\\\":\\\"90000\\\",\\\"numOutputRows\\\":\\\"90000\\\",\\\"numTargetDeletionVectorsRemoved\\\":\\\"6\\\",\\\"numTargetRowsNotMatchedBySourceUpdated\\\":\\\"0\\\",\\\"numTargetChangeFilesAdded\\\":\\\"1\\\",\\\"numSourceRows\\\":\\\"100000\\\",\\\"numTargetFilesRemoved\\\":\\\"0\\\",\\\"numTargetRowsNotMatchedBySourceDeleted\\\":\\\"0\\\",\\\"rewriteTimeMs\\\":\\\"2321\\\"}\", \"operationParameters\": \"{\\\"predicate\\\":\\\"[\\\\\\\"(((source_system#35179 = source_system#35097) AND (rel_type_id#35180L = rel_type_id#35098L)) AND ((id#35181L = id#35099L) AND (entity_version#35186L = 1)))\\\\\\\"]\\\",\\\"clusterBy\\\":\\\"[\\\\\\\"source_id\\\\\\\"]\\\",\\\"matchedPredicates\\\":\\\"[{\\\\\\\"predicate\\\\\\\":\\\\\\\"is_delete#35138: boolean\\\\\\\",\\\\\\\"actionType\\\\\\\":\\\\\\\"delete\\\\\\\"},{\\\\\\\"actionType\\\\\\\":\\\\\\\"update\\\\\\\"}]\\\",\\\"statsOnLoad\\\":\\\"false\\\",\\\"notMatchedBySourcePredicates\\\":\\\"[]\\\",\\\"notMatchedPredicates\\\":\\\"[]\\\",\\\"clusteringOnWriteStatus\\\":null}\", \"queryHistoryStatementId\": \"01f1c286-3547-14c0-ad09-a84d5f0a0df7\", \"readVersion\": \"4\", \"timestamp\": \"2026-10-07T19:35:15.000Z\", \"userId\": \"3755468182769617\", \"userMetadata\": null, \"userName\": \"erik.labianca@synaptiq.ai\", \"version\": \"5\"}], \"edge_current\": [{\"clusterId\": null, \"engineInfo\": \"Databricks-Runtime/19.9.x-aarch64-photon-scala2.13\", \"isBlindAppend\": \"false\", \"isolationLevel\": \"WriteSerializable\", \"job\": null, \"notebook\": null, \"operation\": \"MERGE\", \"operationMetrics\": \"{\\\"numTargetRowsCopied\\\":\\\"0\\\",\\\"numTargetRowsDeleted\\\":\\\"10000\\\",\\\"numTargetFilesAdded\\\":\\\"2\\\",\\\"numTargetBytesAdded\\\":\\\"72548822\\\",\\\"numTargetBytesRemoved\\\":\\\"0\\\",\\\"numTargetDeletionVectorsAdded\\\":\\\"597\\\",\\\"numTargetRowsMatchedUpdated\\\":\\\"90000\\\",\\\"executionTimeMs\\\":\\\"57786\\\",\\\"materializeSourceTimeMs\\\":\\\"2617\\\",\\\"numTargetRowsInserted\\\":\\\"0\\\",\\\"numTargetRowsMatchedDeleted\\\":\\\"10000\\\",\\\"numTargetDeletionVectorsUpdated\\\":\\\"597\\\",\\\"scanTimeMs\\\":\\\"6318\\\",\\\"numTargetRowsUpdated\\\":\\\"90000\\\",\\\"numOutputRows\\\":\\\"90000\\\",\\\"numTargetDeletionVectorsRemoved\\\":\\\"597\\\",\\\"numTargetRowsNotMatchedBySourceUpdated\\\":\\\"0\\\",\\\"numTargetChangeFilesAdded\\\":\\\"2\\\",\\\"numSourceRows\\\":\\\"100000\\\",\\\"numTargetFilesRemoved\\\":\\\"0\\\",\\\"numTargetRowsNotMatchedBySourceDeleted\\\":\\\"0\\\",\\\"rewriteTimeMs\\\":\\\"48814\\\"}\", \"operationParameters\": \"{\\\"predicate\\\":\\\"[\\\\\\\"(((lookup_hash#33362 = lookup_hash#33268) AND (source_system#33343 = source_system#33249)) AND ((rel_type_id#33344L = rel_type_id#33250L) AND (id#33345L = id#33251L)))\\\\\\\"]\\\",\\\"clusterBy\\\":\\\"[\\\\\\\"lookup_hash\\\\\\\"]\\\",\\\"matchedPredicates\\\":\\\"[{\\\\\\\"predicate\\\\\\\":\\\\\\\"CASE WHEN ((((((hex(static_invoke(Encode.encode(source_system#33343, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_system#33249, UTF-8, true, true)))) AND (rel_type_id#33344L <=> rel_type_id#33250L)) AND (id#33345L <=> id#33251L)) AND (((source_type#33346L <=> source_type#33252L) AND (source_id#33347L <=> source_id#33253L)) AND (target_type#33348L <=> target_type#33254L))) AND ((((target_id#33349L <=> target_id#33255L) AND (hex(static_invoke(Encode.encode(order_key#33350, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(order_key#33256, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(schema_revision#33351, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(schema_revision#33257, UTF-8, true, true))))) AND ((entity_version#33352L <=> entity_version#33258L) AND (hex(static_invoke(Encode.encode(props_json#33353, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(props_json#33259, UTF-8, true, true))))))) AND (((((hex(static_invoke(Encode.encode(retained_json#33354, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(retained_json#33260, UTF-8, true, true)))) AND (hex(static_invoke(Encode.encode(source_feed#33355, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_feed#33261, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(source_epoch#33356, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_epoch#33262, UTF-8, true, true))))) AND (((source_position#33357L <=> source_position#33263L) AND (published_at#33358 <=> published_at#33264)) AND (hex(static_invoke(Encode.encode(apply_batch_id#33359, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(apply_batch_id#33265, UTF-8, true, true)))))) AND ((((hex(static_invoke(Encode.encode(source_cursor_json#33360, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_cursor_json#33266, UTF-8, true, true)))) AND (hex(static_invoke(Encode.encode(source_delivery_id#33361, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(source_delivery_id#33267, UTF-8, true, true))))) AND (hex(static_invoke(Encode.encode(lookup_hash#33362, UTF-8, true, true))) <=> hex(static_invoke(Encode.encode(lookup_hash#33268, UTF-8, true, true))))) AND (isnotnull(entity_version#33258L) AND (is_delete#33290 OR ((after_entity_version#33279L = (entity_version#33258L + 1)) AND (((after_source_system#33270 <=> source_system#33249) AND (after_rel_type_id#33271L <=> rel_type_id#33250L)) AND ((after_id#33272L <=> id#33251L) AND (after_lookup_hash#33289 <=> lookup_hash#33268))))))))) THEN is_delete#33290 ELSE cast(raise_error(USER_RAISED_EXCEPTION, map(keys: [errorMessage], values: [ASHLAR_INLINE_PREDECESSOR_MISMATCH]), NullType) as boolean) END\\\\\\\",\\\\\\\"actionType\\\\\\\":\\\\\\\"delete\\\\\\\"},{\\\\\\\"actionType\\\\\\\":\\\\\\\"update\\\\\\\"}]\\\",\\\"statsOnLoad\\\":\\\"false\\\",\\\"notMatchedBySourcePredicates\\\":\\\"[]\\\",\\\"notMatchedPredicates\\\":\\\"[{\\\\\\\"actionType\\\\\\\":\\\\\\\"insert\\\\\\\"}]\\\",\\\"clusteringOnWriteStatus\\\":null}\", \"queryHistoryStatementId\": \"01f1c286-0ed1-14e1-8857-39a7752bf20b\", \"readVersion\": \"6\", \"timestamp\": \"2026-10-07T19:35:04.000Z\", \"userId\": \"3755468182769617\", \"userMetadata\": null, \"userName\": \"erik.labianca@synaptiq.ai\", \"version\": \"7\"}], \"property_journal\": [{\"clusterId\": null, \"engineInfo\": \"Databricks-Runtime/19.9.x-aarch64-photon-scala2.13\", \"isBlindAppend\": \"true\", \"isolationLevel\": \"WriteSerializable\", \"job\": null, \"notebook\": null, \"operation\": \"WRITE\", \"operationMetrics\": \"{\\\"numFiles\\\":\\\"1\\\",\\\"numOutputRows\\\":\\\"216667\\\",\\\"numOutputBytes\\\":\\\"128854520\\\"}\", \"operationParameters\": \"{\\\"partitionBy\\\":\\\"[]\\\",\\\"clusterBy\\\":\\\"[\\\\\\\"source_delivery_id\\\\\\\"]\\\",\\\"statsOnLoad\\\":\\\"false\\\",\\\"mode\\\":\\\"Append\\\",\\\"clusteringOnWriteStatus\\\":\\\"fast-path clustering triggered\\\"}\", \"queryHistoryStatementId\": \"01f1c286-05c5-1e56-a464-2942fef93119\", \"readVersion\": \"3\", \"timestamp\": \"2026-10-07T19:33:53.000Z\", \"userId\": \"3755468182769617\", \"userMetadata\": null, \"userName\": \"erik.labianca@synaptiq.ai\", \"version\": \"4\"}], \"source_record\": [{\"clusterId\": null, \"engineInfo\": \"Databricks-Runtime/19.9.x-aarch64-photon-scala2.13\", \"isBlindAppend\": \"true\", \"isolationLevel\": \"WriteSerializable\", \"job\": null, \"notebook\": null, \"operation\": \"WRITE\", \"operationMetrics\": \"{\\\"numFiles\\\":\\\"1\\\",\\\"numOutputRows\\\":\\\"100000\\\",\\\"numOutputBytes\\\":\\\"151529233\\\"}\", \"operationParameters\": \"{\\\"partitionBy\\\":\\\"[]\\\",\\\"clusterBy\\\":\\\"[\\\\\\\"delivery_id\\\\\\\"]\\\",\\\"statsOnLoad\\\":\\\"false\\\",\\\"mode\\\":\\\"Append\\\",\\\"clusteringOnWriteStatus\\\":\\\"fast-path clustering triggered\\\"}\", \"queryHistoryStatementId\": \"01f1c286-007f-166e-8de9-f04ddc9e7e6c\", \"readVersion\": \"3\", \"timestamp\": \"2026-10-07T19:33:45.000Z\", \"userId\": \"3755468182769617\", \"userMetadata\": null, \"userName\": \"erik.labianca@synaptiq.ai\", \"version\": \"4\"}], \"tombstone\": [{\"clusterId\": null, \"engineInfo\": \"Databricks-Runtime/19.9.x-aarch64-photon-scala2.13\", \"isBlindAppend\": \"true\", \"isolationLevel\": \"WriteSerializable\", \"job\": null, \"notebook\": null, \"operation\": \"WRITE\", \"operationMetrics\": \"{\\\"numFiles\\\":\\\"1\\\",\\\"numOutputRows\\\":\\\"10000\\\",\\\"numOutputBytes\\\":\\\"46883\\\"}\", \"operationParameters\": \"{\\\"mode\\\":\\\"Append\\\",\\\"statsOnLoad\\\":\\\"false\\\",\\\"partitionBy\\\":\\\"[]\\\"}\", \"queryHistoryStatementId\": \"01f1c286-0b09-193c-834a-10c79d7db9e3\", \"readVersion\": \"3\", \"timestamp\": \"2026-10-07T19:34:00.000Z\", \"userId\": \"3755468182769617\", \"userMetadata\": null, \"userName\": \"erik.labianca@synaptiq.ai\", \"version\": \"4\"}]}, \"edge_current\": {\"fields\": [\"source_system\", \"rel_type_id\", \"id\", \"source_type\", \"source_id\", \"target_type\", \"target_id\", \"order_key\", \"schema_revision\", \"entity_version\", \"props_json\", \"retained_json\", \"source_feed\", \"source_epoch\", \"source_position\", \"published_at\", \"apply_batch_id\", \"source_cursor_json\", \"source_delivery_id\", \"lookup_hash\"], \"groups\": [[\"delete\", \"10000\", \"7\", \"7\", \"6b177aed4c4c1e0afeb053d64df3722b2281e4a1831fa6608575d7c702577e67\"], [\"update_postimage\", \"90000\", \"7\", \"7\", \"b1f56802b75d2f569f2de1f6f06cc797cd5270605eeef24a114cdba7e55cd538\"], [\"update_preimage\", \"90000\", \"7\", \"7\", \"24b10d09749dbc7df4354d336c6119745b96b9f6e4e1f85ae01276b6a905d63e\"]], \"rows\": 190000}, \"global_integrity\": \"Full counts/unique typed edge keys/all40k deletions absent/typed closure\", \"predecessors\": \"Complete20field predecessor guard is executed atomically inside current MERGE, qualified by r426 refusal/CDF evidence; prepared100k unique mutation partition passes before writes\", \"property_journal\": {\"fields\": [\"source_system\", \"entity_kind\", \"type_id\", \"id\", \"entity_version\", \"schema_revision\", \"source_feed\", \"source_epoch\", \"source_position\", \"source_time_text\", \"published_at\", \"apply_batch_id\", \"source_cursor_json\", \"source_delivery_id\", \"property_id\", \"operation\", \"old_present\", \"old_json\", \"new_present\", \"new_json\", \"event_ordinal\"], \"groups\": [[\"insert\", \"216667\", \"4\", \"4\", \"7525ec47ba51fc45222daa388f81fe784fe1e8a4bd7cd4cfe06259f70cb91554\"]], \"rows\": 216667}, \"source_record\": {\"fields\": [\"source_feed\", \"source_epoch\", \"delivery_id\", \"record_kind\", \"source_cursor_json\", \"payload_json\", \"payload_digest\", \"schema_revision\", \"received_at\", \"apply_batch_id\"], \"groups\": [[\"insert\", \"100000\", \"4\", \"4\", \"fb676be463a8ef6490a0c0f24bc5915f6b19bec552dfdb7b9857cd934b9f6a5c\"]], \"rows\": 100000}, \"tombstone\": {\"digest\": \"0eccc3c6b644dd691a7103415eab07babc4f74be064528f0632c1bacccad1783\", \"fields\": [\"source_system\", \"entity_kind\", \"type_id\", \"id\", \"source_feed\", \"source_epoch\", \"source_position\", \"source_cursor_json\", \"source_delivery_id\", \"entity_version\"], \"qualification\": \"Independent complete canonical10field tombstone oracle; input-only apply_batch_id remains preserved separately in original input_json.\", \"rows\": 10000, \"source_sha256\": {\"fourth_cdf_oracle_r430.py\": \"cf9045517fdd641bc9f78171d0528d9a3e7872ad85a929271fb2c4b634398abc\", \"fourth_changes_r427.py\": \"2edcdbf9d7aa7b48116be62a890ed134800f691be67394da0189f199061a0827\", \"mixed_change_queries_r230.py\": \"7c49d418861c5b2694f8461cc1a25858663d9b6eb7d813139e4d14455cf90540\", \"mixed_changes_r228.py\": \"2ab1d0c677cf7acff58e923bf3199a89a912fa712731769ca5a100e5ce9599fa\", \"scale_mixed_r219.py\": \"d39c6a01fbcd65b9302c52c71cc9d44a3a7fa56e47ddce84aa087ce6dc3a317d\"}}}"
+  ],
+  "active_details": {
+    "object_current": {
+      "format": "delta",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "name": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/6911f0c1-ff51-4c31-9fb3-fd021341c7f9",
+      "createdAt": "2026-10-07T07:33:41.623Z",
+      "lastModified": "2026-10-07T08:57:23.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"lookup_hash\"]",
+      "numFiles": "121",
+      "sizeInBytes": "6379382062",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"6911f0c1-ff51-4c31-9fb3-fd021341c7f9\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-91f5ac17-af2a-44cc-9dad-4a6247ec5fc5\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-d8ae258d-f982-4f0e-9c56-3b1aacb0086f\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    },
+    "edge_current": {
+      "format": "delta",
+      "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+      "name": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/bf8f09a9-05ea-40ea-ba01-4935dae517ca",
+      "createdAt": "2026-10-07T08:53:08.303Z",
+      "lastModified": "2026-10-07T19:35:04.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"lookup_hash\"]",
+      "numFiles": "604",
+      "sizeInBytes": "32245659024",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.enableChangeDataFeed\":\"true\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"bf8f09a9-05ea-40ea-ba01-4935dae517ca\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-afc5c464-8c49-4334-b025-8d52f78bd3ae\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-9ac78c7f-d7ea-4aaf-a4df-4d548c3f57ff\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"changeDataFeed\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"386169\",\"numDeletionVectors\":\"597\"}",
+      "clusterByAuto": "false"
+    },
+    "source_record": {
+      "format": "delta",
+      "id": "dc895abb-e861-4f5c-ac9b-c4f06d5e9b8a",
+      "name": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/e925e1ea-88d4-4a6b-af2f-a606fbf516bf",
+      "createdAt": "2026-10-07T07:34:10.353Z",
+      "lastModified": "2026-10-07T19:33:45.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"delivery_id\"]",
+      "numFiles": "730",
+      "sizeInBytes": "40108630130",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(delivery_id),lower(delivery_id)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"e925e1ea-88d4-4a6b-af2f-a606fbf516bf\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-2a7967c1-f657-414f-8e36-ba38ba3b16e2\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-be8ea23c-689d-490b-b2dd-0243a46e592c\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    },
+    "property_journal": {
+      "format": "delta",
+      "id": "8954e4b8-0255-4d24-adf7-508ded56b61c",
+      "name": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/b13be8be-f77a-4e5e-b88b-5ca816f79a11",
+      "createdAt": "2026-10-07T07:34:36.835Z",
+      "lastModified": "2026-10-07T19:33:53.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"source_delivery_id\"]",
+      "numFiles": "635",
+      "sizeInBytes": "35607714409",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_delivery_id),lower(source_delivery_id)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"b13be8be-f77a-4e5e-b88b-5ca816f79a11\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-e96d7dff-f1c0-456f-a444-30a2d48a47cf\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-fd50ca4a-8fe4-43c4-adea-6c8aac7a2dff\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    },
+    "adjacency_forward": {
+      "format": "delta",
+      "id": "4fc3692a-32b2-455a-b9a2-2a1e5f9eb792",
+      "name": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/4feef0ed-9f92-4ac1-8a7a-12461070078b",
+      "createdAt": "2026-10-07T08:56:43.676Z",
+      "lastModified": "2026-10-07T19:35:15.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"source_id\"]",
+      "numFiles": "10",
+      "sizeInBytes": "361370774",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.enableChangeDataFeed\":\"true\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"4feef0ed-9f92-4ac1-8a7a-12461070078b\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-e3a07467-e348-42bd-b02b-d015c9db3376\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-3ece0de7-99c8-453a-b926-041532a7218d\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"changeDataFeed\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"400000\",\"numDeletionVectors\":\"6\"}",
+      "clusterByAuto": "false"
+    },
+    "tombstone": {
+      "format": "delta",
+      "id": "c6db7de7-4b17-4837-83de-8667cd69e892",
+      "name": "client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/8c6f4f54-7f6b-420f-9591-28d5b1e2cf69",
+      "createdAt": "2026-10-07T15:11:59.571Z",
+      "lastModified": "2026-10-07T19:34:00.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[]",
+      "numFiles": "4",
+      "sizeInBytes": "189820",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"8c6f4f54-7f6b-420f-9591-28d5b1e2cf69\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    }
+  },
+  "processing_s": 231.609415333,
+  "publication_vector": {
+    "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236": 6,
+    "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337": 7,
+    "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332": 4,
+    "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332": 4,
+    "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332": 5,
+    "client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332": 4
+  },
+  "qualification": "Complete20field E/8field A190kCDF images, complete raw/journal new intervals and direct canonical10field tombstones match independent digests. Qualified immutable inherited vector plus closed submitted-commit intervals; SHA256 assumption. Entire ready-input processing clock includes preflight/inline atomic predecessor guard/telemetry. Synthetic input availability is not actual arrival or sustained10k/s/burst; no production worker fence, ACK, caller/cold/concurrency, retention or1B/5B admission."
+}
