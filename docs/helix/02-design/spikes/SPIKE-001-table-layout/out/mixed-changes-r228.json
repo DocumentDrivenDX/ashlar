@@ -1,0 +1,37 @@
+{
+  "state": "All scattered changes replay exactly with complete raw evidence and final endpoint closure",
+  "changed_edges": 2048,
+  "unique_selected_ordinals": 2048,
+  "final_edge_rows": 20275,
+  "roles": {
+    "source_record": {
+      "rows": 2048,
+      "utf8_jsonl_bytes": 10657658,
+      "sha256_stream": "2c4773aca681e87ad88ce7c8b708bb3373cb7f2e4b1d8aa5759b396e5219ba06"
+    },
+    "property_journal": {
+      "rows": 4437,
+      "utf8_jsonl_bytes": 7556108,
+      "sha256_stream": "98b1d131a42139a186fe1a1e15520fbc4c1e7a50f2a25a349e1c6ca022d7dd2b"
+    },
+    "tombstone": {
+      "rows": 205,
+      "utf8_jsonl_bytes": 58144,
+      "sha256_stream": "56ed91a83d54aef618dd372f6f763c6b790aa14f4015939d6aa5191374a701fb"
+    },
+    "current_replacement": {
+      "rows": 1843,
+      "utf8_jsonl_bytes": 4074242,
+      "sha256_stream": "990ca4513a7a574e1faa1c23eb855dcc1e7b14e1ad529a6e92a60c1e71d8999e"
+    }
+  },
+  "counts": {
+    "delete": 205,
+    "explicit_null_set": 819,
+    "edge_deletes": 205,
+    "set": 3686,
+    "edge_updates": 1843,
+    "remove": 546
+  },
+  "scope": "Deterministic edge-only update/delete batch; first raw predecessor, exact token history and delete tombstone for every selected entity. Nodes unchanged. Lifecycle marker property_id NULL/delete is proposed synthetic vocabulary. No cascade, source ACK/fencing, native mutation, publication, compression or throughput admission."
+}
