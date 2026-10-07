@@ -1653,3 +1653,54 @@ the policy and qualifies revised-DDL execution scope. Next run a bounded three-b
 queue diagnostic on isolated outputs, targeting publisher service before more
 clustering screens. This iteration runs arithmetic locally and performs no native
 write or compute provisioning. Full goal remains active and unproven.
+
+
+### r149 native three-batch queue diagnostic
+
+[Final native audit](out/native/ashlar_queue_r149/audited-summary.json) executes
+three serialized 100k complete synthetic property batches on isolated E23/R17/J19
+shallow clones, existing warehouse 2439e1f2e37ac563, runtime
+19.8.x-aarch64-photon-scala2.13. Releases are modeled at 10/20/30 s (10k/s), not
+real source arrivals. No readers, maintenance, resizing or new compute.
+
+| Batch | Processing seconds | Queue wait seconds | Modeled record-age p95 seconds |
+| --- | --- | --- | --- |
+| 1 | 50.139 | 0.0001 | 59.639 |
+| 2 | 54.654 | 40.507 | 104.661 |
+| 3 | 49.974 | 85.567 | 145.041 |
+
+Combined 300k uniform modeled per-record freshness p95 is 144.041 s. The oldest
+record in batch 1 is 60.139 s old. Distinguish these quantiles from service p95,
+which three samples do not establish. Input drained at 165.541 s after controller
+epoch, 135.541 s after final modeled input completion. First-batch near-pass does
+not admit sustained 10k/s or 100k/s burst; queue growth is actually observed under
+the modeled release schedule, not just the prior fixed-cost arithmetic.
+
+Exact20 affected fields and token changes, exact raw bytes/digests/origin/UTC
+instant and property journal pass per batch. All20M unique IDs and owned structural
+reuse proofs pass; independent full20M structural parity passes after the clock.
+Final19.9M untouched physical custody passes under stable schema/immutable-file
+assumptions, not fresh wide-payload equality or unknown-writer evidence. The second
+and third batches count a full structural baseline scan inside processing; batch1
+baseline is before the epoch. This extra proof cost is explicit, not attributed to
+layout degradation. Prepared input is outside clock; real source staging remains
+unmeasured. Source/history appends and validation are parallel separate lanes,
+while logical publication is serialized. Carrier entropy remains synthetic.
+
+Append pairs take13.696/10.670/10.596 s; raw/journal validation pairs take
+18.358/19.221/11.707 s; MERGE caller3.953/3.767/3.540 s. Costs across preparation,
+publication and final audit:122.642 GB recorded read_bytes and6.856 GB remote
+writes (decimal). These counters are not distinct storage footprint or billing.
+No whole-graph wide digest scan was repeated. Each statement is bounded180 s;
+controller stops admitting SQL after600 s, not a guaranteed global process kill;
+connector socket/retry bounds and durable submission correlation remain explicit.
+
+[Cleanup](out/native/ashlar_queue_r149/cleanup/summary.json) UUID/version-checks
+and drops all seven owned tables. Canonical E23/R17/J19/r139-b1 remains unchanged;
+no VACUUM. The evidence prioritizes reducing publisher validation/capture service
+cost with equivalent preservation proof over further singleton key changes.
+Next compare one bounded precomputed-wire validation path against exact wire
+checks, counting materialization inside publication; do not promote it without
+measured end-to-end benefit and an explicit proof-strength comparison. The prior
+r139 materialization regression remains relevant failed-candidate evidence.
+UC Delta remains selected; sustained/burst/concurrent/cold/billion gates stay open.
