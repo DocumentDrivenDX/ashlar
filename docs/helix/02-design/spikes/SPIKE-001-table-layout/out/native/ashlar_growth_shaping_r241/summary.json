@@ -1,0 +1,165 @@
+{
+  "state": "All20 exact full-field points and complete400k live-file ranges verified",
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_shaped_r241",
+    "id": "8a8e73bc-e294-4488-994b-284e3d5235bd",
+    "version": 3,
+    "rows": 400000
+  },
+  "reads": [
+    {
+      "ordinal": 88484,
+      "id": "88485",
+      "statement_id": "01f1c224-728e-1a25-9672-9df3e5123cd0"
+    },
+    {
+      "ordinal": 269926,
+      "id": "269927",
+      "statement_id": "01f1c224-72ca-17d7-bc84-47a735ad67f8"
+    },
+    {
+      "ordinal": 172608,
+      "id": "172609",
+      "statement_id": "01f1c224-7300-1bf9-9e51-cad70dcc9e85"
+    },
+    {
+      "ordinal": 397904,
+      "id": "397905",
+      "statement_id": "01f1c224-7336-1f74-afd5-da4591000f5d"
+    },
+    {
+      "ordinal": 196156,
+      "id": "196157",
+      "statement_id": "01f1c224-75b8-1082-8094-046ea182aa69"
+    },
+    {
+      "ordinal": 272275,
+      "id": "272276",
+      "statement_id": "01f1c224-75f1-1eb6-9bd4-2b2e3f0787c9"
+    },
+    {
+      "ordinal": 91415,
+      "id": "91416",
+      "statement_id": "01f1c224-7629-1dd3-ac39-4d69a06ed598"
+    },
+    {
+      "ordinal": 309162,
+      "id": "309163",
+      "statement_id": "01f1c224-7661-1ea1-85f4-dc96707b5bd2"
+    },
+    {
+      "ordinal": 120321,
+      "id": "120322",
+      "statement_id": "01f1c224-7894-1087-afa6-f3177710ff7c"
+    },
+    {
+      "ordinal": 284088,
+      "id": "284089",
+      "statement_id": "01f1c224-78ca-121f-8ec0-a8c78f062062"
+    },
+    {
+      "ordinal": 119147,
+      "id": "119148",
+      "statement_id": "01f1c224-7902-109a-a5f8-63b1e35a7afe"
+    },
+    {
+      "ordinal": 331733,
+      "id": "331734",
+      "statement_id": "01f1c224-793b-159c-9fb9-f1134178612f"
+    },
+    {
+      "ordinal": 96635,
+      "id": "96636",
+      "statement_id": "01f1c224-7b63-163e-83aa-05518894add7"
+    },
+    {
+      "ordinal": 205155,
+      "id": "205156",
+      "statement_id": "01f1c224-7b9b-1e22-9afd-75a699ac8c28"
+    },
+    {
+      "ordinal": 140808,
+      "id": "140809",
+      "statement_id": "01f1c224-7bd5-1ebf-a3d4-cfb2f1ba288e"
+    },
+    {
+      "ordinal": 301242,
+      "id": "301243",
+      "statement_id": "01f1c224-7c0f-1ee2-8213-578d69d914ee"
+    },
+    {
+      "ordinal": 186743,
+      "id": "186744",
+      "statement_id": "01f1c224-7e30-1626-bdcc-891aefc0a343"
+    },
+    {
+      "ordinal": 334276,
+      "id": "334277",
+      "statement_id": "01f1c224-7e66-1c83-b5ed-0cc634044a94"
+    },
+    {
+      "ordinal": 155403,
+      "id": "155404",
+      "statement_id": "01f1c224-7e9d-1b23-a009-d04201422db1"
+    },
+    {
+      "ordinal": 255802,
+      "id": "255803",
+      "statement_id": "01f1c224-7ed4-1c22-bddf-7754faccdec6"
+    }
+  ],
+  "files": [
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/2b544199-d980-4d69-9eb9-d14cf498cc5b/part-00000-3d9c6099-3895-4eac-9fb5-05114b3d92ca.c000.zstd.parquet",
+      "85587491",
+      "108024",
+      "bae9cf9036f251f41e181d76790be9b0cfac9c489f68f025e096274759703fed",
+      "ffffed9b9d7b0b8324cb12109e8a140e14e980fdd9b2d239c57ef2bca0823719"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/2b544199-d980-4d69-9eb9-d14cf498cc5b/part-00002-350b8886-ba13-4e51-8a0f-52439b164a0c.c000.zstd.parquet",
+      "81488828",
+      "102486",
+      "3fa031d45cb22873a31f10c9da0bfdcef24c4d15d943fa062ea6f5073ae2a68f",
+      "80ea8a0124c2ed5702531f4125c02441642998cf2248654de9b768b2b7933228"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/2b544199-d980-4d69-9eb9-d14cf498cc5b/part-00003-4a8af3e2-c947-461e-a2b4-8252ab72266f.c000.zstd.parquet",
+      "78711063",
+      "99060",
+      "00001615518a05375be95d5ed8e3c8b06e3132e17fb6ec766131f17fedc3b362",
+      "3fa00c49bcec0a2169355a094132fd68413c4af4f3c181b62a626b7ae8c07293"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/2b544199-d980-4d69-9eb9-d14cf498cc5b/part-00001-c61172be-2d47-4593-b537-fb8291453988.c000.zstd.parquet",
+      "72005723",
+      "90430",
+      "80eaa6b1c14697a9afbbc5dc69f39e868334810dedfc57f4969e2e1fdc8e00a0",
+      "bae9bfb0acaeeac4e4605c5b3eee132fbeb372c7fc55efa9cca319444da42574"
+    ]
+  ],
+  "hash_domain_spans": [
+    0.2698687341531095,
+    0.25504065602587206,
+    0.24853457240840987,
+    0.2265487310754975
+  ],
+  "full_preservation": {
+    "rows": 400000,
+    "independent_all_field_digest": "d6b1218c87a5059fcd834eb808653c8a211f3d007fbce962f02fc32bbf0ef86e"
+  },
+  "costs": {
+    "read_bytes": 2923760089,
+    "write_remote_bytes": 317793105,
+    "spill_to_disk_bytes": 0
+  },
+  "point_metrics": {
+    "caller_p95_ms": 396.51033299999483,
+    "execution_time_ms_p95": 108,
+    "compilation_time_ms_p95": 175,
+    "read_bytes_p95": 85815324,
+    "read_files_count_p95": 1,
+    "remote_queries": 0
+  },
+  "qualification": "Fresh owned shallow clone of400k node snapshot1, target64MiB and OPTIMIZE FULL; resulting snapshot pinned, ten SHA-ranked ordinals from each appended range, interleaved; full17fields. File extrema are live values, not stored Delta statistics. No controlled cold/service p95, graph publication, causal clustering or billion admission; metadata scan and prior validation may warm cache. Actual emitted files measured; clone-only maintenance, original baseline preserved. Read cap8GB/write cap1GB;180s SQL timeout, existing compute."
+}
