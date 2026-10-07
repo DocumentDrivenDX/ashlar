@@ -1,0 +1,11 @@
+# Connector RPC disposition r357–r358
+
+Governed by proposed ADR-001 and CONTRACT-003. This is scoped spike evidence, not production admission.
+
+The existing native fixture contains8M nodes and39.98M current edges after two100k mutation batches. Sixteen instrumented singleton reads use eight independently reconstructed keys, exact native identity and pinned Delta version5. All20 fields or expected absence match; all20 statements have successful finalized native history. Each point interval contains exactly one ExecuteStatement with direct results, rows and server-side closure. There are no status-poll, fetch or close-operation RPCs in these intervals. The installed connector source hashes are recorded in the receipt; instrumentation modifies only the process wrapper.
+
+All16 points are result-cache hits. Caller p95 is341.844ms, engine4ms and compilation200ms; client work outside the single RPC has p951.641ms. The RPC includes service, planning and network work; this evidence cannot attribute its latency to one component. No polling tweak or transport replacement is justified by this sample. Total native read/write/spill counters are zero and wall time13.400s; cache counters do not establish physical pruning or zero infrastructure cost.
+
+Retain Unity Catalog Delta and the liquid-clustered full-identity layout. The provisional250ms caller target remains unmet and unchanged. Cache-hit latency does not qualify a billion-node working set. Prior full-field ingest and bounded maintenance evidence remains applicable with its recorded limits. Next design work should specify bounded maintenance scheduling and publication retention/fencing around the measured layout, then test only unresolved implementation claims. Do not spend another broad optimizer run on this transport finding.
+
+Run: [audited receipt](out/native/ashlar_connector_rpc_r357/audited-summary.json). Audit independently verifies carriers, typed parameters, version predicate, native SQL custody, finality, cost bounds, cohorts, percentile calculations, installed source hashes and RPC intervals. Session teardown is outside the point trace scope. This is sequential synthetic evidence on existing2XSmall compute; no sustained ingest, service percentile, real producer fence or1B/5B admission is claimed.

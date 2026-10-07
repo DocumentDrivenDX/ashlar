@@ -1,0 +1,461 @@
+{
+  "state": "All16 instrumented connector singleton carriers match exactly",
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 5
+  },
+  "source_sha256": "2acce0bb4c6b08299bca24f068aedfb2660ba639d0ac1f215bbfdb4e1719d1cf",
+  "reads": [
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "rpc_first": 4,
+      "rpc_end": 5,
+      "ordinal": 32900000,
+      "kind": "delete",
+      "statement_id": "01f1c269-b756-19ce-bb2d-bbbfd9689928"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "rpc_first": 5,
+      "rpc_end": 6,
+      "ordinal": 33947290,
+      "kind": "delete",
+      "statement_id": "01f1c269-b789-1779-ad9d-7ebf563495d7"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "rpc_first": 6,
+      "rpc_end": 7,
+      "ordinal": 34994580,
+      "kind": "delete",
+      "statement_id": "01f1c269-b7b8-1c3d-8229-822b9a8c01ff"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "rpc_first": 7,
+      "rpc_end": 8,
+      "ordinal": 36041870,
+      "kind": "delete",
+      "statement_id": "01f1c269-b7e9-17af-b24c-1da7c78501a3"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "rpc_first": 8,
+      "rpc_end": 9,
+      "ordinal": 33004729,
+      "kind": "update",
+      "statement_id": "01f1c269-b815-1ac9-aac4-b9470df4d6a0"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "rpc_first": 9,
+      "rpc_end": 10,
+      "ordinal": 33109458,
+      "kind": "update",
+      "statement_id": "01f1c269-b841-139e-b20c-b3af442c899d"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "rpc_first": 10,
+      "rpc_end": 11,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c269-b86e-1357-9844-a193b4b3e39f"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "rpc_first": 11,
+      "rpc_end": 12,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c269-b89c-15be-88fb-e1da16e64714"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "rpc_first": 12,
+      "rpc_end": 13,
+      "ordinal": 32900000,
+      "kind": "delete",
+      "statement_id": "01f1c269-bacb-15cb-85df-ad0c2e1935f5"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "rpc_first": 13,
+      "rpc_end": 14,
+      "ordinal": 33947290,
+      "kind": "delete",
+      "statement_id": "01f1c269-baf6-15bc-9988-620e5a9ab277"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "rpc_first": 14,
+      "rpc_end": 15,
+      "ordinal": 34994580,
+      "kind": "delete",
+      "statement_id": "01f1c269-bb22-1d6f-b610-89273d44be23"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "rpc_first": 15,
+      "rpc_end": 16,
+      "ordinal": 36041870,
+      "kind": "delete",
+      "statement_id": "01f1c269-bb51-1a07-9f25-a3780fcf11cf"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "rpc_first": 16,
+      "rpc_end": 17,
+      "ordinal": 33004729,
+      "kind": "update",
+      "statement_id": "01f1c269-bb7b-1843-93eb-12bc460cebf9"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "rpc_first": 17,
+      "rpc_end": 18,
+      "ordinal": 33109458,
+      "kind": "update",
+      "statement_id": "01f1c269-bba7-1915-a948-ee0f5ec1454b"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "rpc_first": 18,
+      "rpc_end": 19,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c269-bbd4-1bbf-b28e-4d01a4948b80"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "rpc_first": 19,
+      "rpc_end": 20,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c269-bc06-1861-95ae-f8f4a6e830f1"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 12000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 300
+  },
+  "cohort_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    16,
+    17
+  ],
+  "rpc_trace": [
+    {
+      "sequence": 0,
+      "phase": null,
+      "label": "setup",
+      "method": "ExecuteStatement",
+      "wall_ms": 293.95495900000014,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 1,
+      "phase": null,
+      "label": "setup",
+      "method": "ExecuteStatement",
+      "wall_ms": 844.2669170000001,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 2,
+      "phase": null,
+      "label": "setup",
+      "method": "ExecuteStatement",
+      "wall_ms": 218.65529200000023,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 3,
+      "phase": null,
+      "label": "setup",
+      "method": "ExecuteStatement",
+      "wall_ms": 186.62650000000002,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 4,
+      "phase": 0,
+      "label": "point-0",
+      "method": "ExecuteStatement",
+      "wall_ms": 340.5136669999997,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 5,
+      "phase": 0,
+      "label": "point-1",
+      "method": "ExecuteStatement",
+      "wall_ms": 300.88937500000014,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 6,
+      "phase": 0,
+      "label": "point-2",
+      "method": "ExecuteStatement",
+      "wall_ms": 279.6105830000002,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 7,
+      "phase": 0,
+      "label": "point-3",
+      "method": "ExecuteStatement",
+      "wall_ms": 326.6809580000007,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 8,
+      "phase": 0,
+      "label": "point-4",
+      "method": "ExecuteStatement",
+      "wall_ms": 280.04674999999946,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 9,
+      "phase": 0,
+      "label": "point-5",
+      "method": "ExecuteStatement",
+      "wall_ms": 286.2374999999995,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 10,
+      "phase": 0,
+      "label": "point-6",
+      "method": "ExecuteStatement",
+      "wall_ms": 304.84729099999976,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 11,
+      "phase": 0,
+      "label": "point-7",
+      "method": "ExecuteStatement",
+      "wall_ms": 299.0389579999997,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 12,
+      "phase": 1,
+      "label": "point-0",
+      "method": "ExecuteStatement",
+      "wall_ms": 286.5409589999999,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 13,
+      "phase": 1,
+      "label": "point-1",
+      "method": "ExecuteStatement",
+      "wall_ms": 289.5134590000001,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 14,
+      "phase": 1,
+      "label": "point-2",
+      "method": "ExecuteStatement",
+      "wall_ms": 271.47399999999953,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 15,
+      "phase": 1,
+      "label": "point-3",
+      "method": "ExecuteStatement",
+      "wall_ms": 305.4660000000009,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 16,
+      "phase": 1,
+      "label": "point-4",
+      "method": "ExecuteStatement",
+      "wall_ms": 284.8832090000002,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 17,
+      "phase": 1,
+      "label": "point-5",
+      "method": "ExecuteStatement",
+      "wall_ms": 285.17229200000037,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 18,
+      "phase": 1,
+      "label": "point-6",
+      "method": "ExecuteStatement",
+      "wall_ms": 331.9075840000014,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 19,
+      "phase": 1,
+      "label": "point-7",
+      "method": "ExecuteStatement",
+      "wall_ms": 278.3030419999992,
+      "direct_requested": true,
+      "direct_response": true,
+      "direct_rows": true,
+      "direct_closed": true
+    },
+    {
+      "sequence": 20,
+      "phase": 1,
+      "label": "point-7",
+      "method": "CloseSession",
+      "wall_ms": 110.16829199999911,
+      "direct_requested": false,
+      "direct_response": false,
+      "direct_rows": false,
+      "direct_closed": false
+    }
+  ],
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "per_phase": {
+    "0": {
+      "queries": 8,
+      "cache_hits": 8,
+      "caller_p95_ms": 341.8435000000004,
+      "engine_p95_ms": 4,
+      "compile_p95_ms": 198
+    },
+    "1": {
+      "queries": 8,
+      "cache_hits": 8,
+      "caller_p95_ms": 333.2493750000012,
+      "engine_p95_ms": 3,
+      "compile_p95_ms": 200
+    }
+  },
+  "by_hit": {
+    "True": {
+      "queries": 16,
+      "cache_hits": 16,
+      "caller_p95_ms": 341.8435000000004,
+      "engine_p95_ms": 4,
+      "compile_p95_ms": 200
+    },
+    "False": null
+  },
+  "connector_source_sha256": {
+    "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/databricks/sql/client.py": "2e4c85ad5b8b98d6ca6b7ad38ef1076bb0f62fde6716e88c8ff8ce5d2728a339",
+    "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/databricks/sql/backend/thrift_backend.py": "02cf7d7da81bfca8e1c0f4e78efe45691d4a2bf50bd6200e7983eddcfe34e7d7",
+    "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/databricks/sql/result_set.py": "1420722a1d8469ab27326c88ec5316ab94a2607967a21bec0f987d551c9fa6a4"
+  },
+  "wall_s": 13.400343834,
+  "qualification": "Eight pinned full-identity keys, two passes with session result cache enabled; complete20fields/absence and native history. Local wrapper times RPC names/flags only, no request text/headers/credentials, no connector or table mutation. CloseOperation timing may close the preceding query and remains inside the following caller interval. Instrumentation overhead and sequential cache conditions prevent causal isolation; not service percentile, arbitrary1B working set, cold, production policy or freshness admission.",
+  "audit": {
+    "final_statements": 20,
+    "exact_full_field_points": 16,
+    "cache_hits": 16,
+    "source_sha256": {
+      "summary.json": "cb886eb388a91d6726a3631c118b1bd015cca60ac889fce8a7843b9e78339266",
+      "statements.jsonl": "ffae8b96389f4b1058dcd98c16de7776591674c65a04188b7338fc097258c14e",
+      "shared-history.json": "17003ab5f2a7e312364bf63eacd835217023d4d3078b52fe7c3c8b9dfbfe0ea1"
+    },
+    "qualification": "Eight pinned full-identity keys, two passes with session result cache enabled; complete20fields/absence and native history. Local wrapper times RPC names/flags only, no request text/headers/credentials, no connector or table mutation. CloseOperation timing may close the preceding query and remains inside the following caller interval. Instrumentation overhead and sequential cache conditions prevent causal isolation; not service percentile, arbitrary1B working set, cold, production policy or freshness admission.",
+    "rpc": {
+      "points": 16,
+      "requests_per_point": 1,
+      "method": "ExecuteStatement",
+      "direct_results": true,
+      "outside_rpc_p95_ms": 1.6409999999993374,
+      "scope": "point intervals only; session teardown excluded"
+    }
+  }
+}
