@@ -1,0 +1,426 @@
+{
+  "state": "Full24M-carrier scan and64exact singleton reads pass",
+  "source_sha256": "12359f89adabb3e41771cdf4570902a6626d74e03e3cae7d2c3e2f8bfefb344e",
+  "scope": "Retained24M synthetic carriers; full-field scan fingerprint and exact sampled reads, not a new ingest or billion-scale test",
+  "phases": [
+    {
+      "kind": "object",
+      "rows": 4000000,
+      "seconds": 12.527361290995032,
+      "fingerprint": "8493260653452494754243",
+      "invalid": 0,
+      "files": 1024,
+      "bytes": 6775253234,
+      "path": "/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-entropy-r86-n_nqff_b/object_current",
+      "pin": 0
+    },
+    {
+      "kind": "edge",
+      "rows": 20000000,
+      "seconds": 37.24886824999703,
+      "fingerprint": "-16226356336302820940041",
+      "invalid": 0,
+      "files": 1024,
+      "bytes": 33994990620,
+      "path": "/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/ashlar-entropy-r86-n_nqff_b/edge_current",
+      "pin": 0
+    }
+  ],
+  "reads": [
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 1,
+      "caller_ms": 310.69429096532986
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 3485864,
+      "caller_ms": 154.74391594761983
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 2971727,
+      "caller_ms": 132.5735830469057
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 2457590,
+      "caller_ms": 138.85324995499104
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 1943453,
+      "caller_ms": 118.87858301633969
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 1429316,
+      "caller_ms": 117.52537498250604
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 915179,
+      "caller_ms": 116.50629201903939
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 401042,
+      "caller_ms": 111.20395798934624
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 3886905,
+      "caller_ms": 113.0155409919098
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 3372768,
+      "caller_ms": 116.2694160011597
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 2858631,
+      "caller_ms": 107.65604203334078
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 2344494,
+      "caller_ms": 112.9190829815343
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 1830357,
+      "caller_ms": 120.84858398884535
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 1316220,
+      "caller_ms": 124.9953749938868
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 802083,
+      "caller_ms": 107.33637498924509
+    },
+    {
+      "kind": "object",
+      "phase": 0,
+      "id": 287946,
+      "caller_ms": 112.6362499780953
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 1,
+      "caller_ms": 76.55249995877966
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 3485864,
+      "caller_ms": 77.2453750250861
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 2971727,
+      "caller_ms": 87.56379195256159
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 2457590,
+      "caller_ms": 78.78120802342892
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 1943453,
+      "caller_ms": 73.20099999196827
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 1429316,
+      "caller_ms": 77.0066250115633
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 915179,
+      "caller_ms": 75.92670799931511
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 401042,
+      "caller_ms": 69.44491696776822
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 3886905,
+      "caller_ms": 74.70100000500679
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 3372768,
+      "caller_ms": 78.42391700251028
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 2858631,
+      "caller_ms": 82.36449997639284
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 2344494,
+      "caller_ms": 72.77912501012906
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 1830357,
+      "caller_ms": 75.5291249952279
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 1316220,
+      "caller_ms": 71.18400000035763
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 802083,
+      "caller_ms": 72.80070800334215
+    },
+    {
+      "kind": "object",
+      "phase": 1,
+      "id": 287946,
+      "caller_ms": 85.43404098600149
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 4000001,
+      "caller_ms": 199.3555419612676
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 19485864,
+      "caller_ms": 147.35983294667676
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 14971727,
+      "caller_ms": 148.57600000686944
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 10457590,
+      "caller_ms": 111.05129099451005
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 5943453,
+      "caller_ms": 129.65841602999717
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 21429316,
+      "caller_ms": 162.9521250142716
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 16915179,
+      "caller_ms": 133.33108404185623
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 12401042,
+      "caller_ms": 137.3754590167664
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 7886905,
+      "caller_ms": 134.27495799260214
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 23372768,
+      "caller_ms": 128.02766700042412
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 18858631,
+      "caller_ms": 157.69004204776138
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 14344494,
+      "caller_ms": 131.71824999153614
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 9830357,
+      "caller_ms": 140.0671669980511
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 5316220,
+      "caller_ms": 135.40579099208117
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 20802083,
+      "caller_ms": 134.9572500330396
+    },
+    {
+      "kind": "edge",
+      "phase": 0,
+      "id": 16287946,
+      "caller_ms": 119.17291703866795
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 4000001,
+      "caller_ms": 104.1858330136165
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 19485864,
+      "caller_ms": 96.97195800254121
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 14971727,
+      "caller_ms": 101.5446669771336
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 10457590,
+      "caller_ms": 76.78245799615979
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 5943453,
+      "caller_ms": 95.46074998797849
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 21429316,
+      "caller_ms": 107.94129100395367
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 16915179,
+      "caller_ms": 100.13379203155637
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 12401042,
+      "caller_ms": 96.33724996820092
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 7886905,
+      "caller_ms": 101.87558300094679
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 23372768,
+      "caller_ms": 97.19708299962804
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 18858631,
+      "caller_ms": 108.89504197984934
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 14344494,
+      "caller_ms": 108.48658299073577
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 9830357,
+      "caller_ms": 109.38708402682096
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 5316220,
+      "caller_ms": 106.83829203480855
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 20802083,
+      "caller_ms": 107.34799999045208
+    },
+    {
+      "kind": "edge",
+      "phase": 1,
+      "id": 16287946,
+      "caller_ms": 80.3156669717282
+    }
+  ],
+  "spark": "3.5.3",
+  "delta": "3.2.1",
+  "workers": 8,
+  "driver_gib": 32,
+  "p95_ms": {
+    "object-0": 310.69429096532986,
+    "object-1": 87.56379195256159,
+    "edge-0": 199.3555419612676,
+    "edge-1": 109.38708402682096
+  },
+  "wall_s": 60.740851041977294
+}

@@ -1,0 +1,8 @@
+{
+  "state": "Spark startup failed before any table access",
+  "source_sha256": "12359f89adabb3e41771cdf4570902a6626d74e03e3cae7d2c3e2f8bfefb344e",
+  "scope": "Retained24M synthetic carriers; full-field scan fingerprint and exact sampled reads, not a new ingest or billion-scale test",
+  "phases": [],
+  "reads": [],
+  "error": "Sandbox blocked Java gateway socket; retry with authorized escalation"
+}

@@ -1477,3 +1477,5 @@ Small native accepted-overlay controls pass update/delete/replay/typed-key/missi
 
 
 [Override/fallback experiment](overlay-override-disposition-r413.md) passes48full-carrier reads and native0shuffle plans, but caller929.3ms/engine272ms still fails. Retain qualified max_by for [bounded16MiB overlay file shaping](out/overlay-file-shaping-plan-r414.json); no further query proliferation or full-scale admission. All old/current source role pins remain unchanged.
+
+Owner-requested large local read iteration r415: retained4M nodes/20M edges,40,770,243,854active bytes/2048files, full-field fingerprint scans with count/hash/JSON checks pass;64exact generated-carrier singleton reads pass. Elapsed 60.741s; caller p95 ms {'object-0': 310.69429096532986, 'object-1': 87.56379195256159, 'edge-0': 199.3555419612676, 'edge-1': 109.38708402682096}. Local Spark3.5.3/Delta3.2.1/Java21,8workers/32GiB; fingerprint is not a new full parity or ingest proof. First sandbox startup failed before table access; authorized socket retry succeeded. Native larger comparison follows. Billion-scale remains untested.

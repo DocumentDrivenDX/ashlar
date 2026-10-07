@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "2630dfc48fc15e499734b554f1227eaf80c13e25f985d3c35c326243c5194f30",
+    "layout-status.md": "57f0dd30da4e6433dcc32aef3823bd0fc7bbd4539514df7ae7fc4f00c1ce8364",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -1915,7 +1915,10 @@
     "out/native/ashlar_overlay_override_points_r412/plan-override-36.txt": "833dcaadf82cfa85d60e1fa6de84d4edcf9546b494fdde04ef565bc68ceb7cd2",
     "out/native/ashlar_overlay_override_points_r412/completed-last-request.json": "cafd13900273137945d6883c197a132d98bf04226cb2f2bf8f4562028ef6b01f",
     "out/native/ashlar_overlay_override_points_r412/audited-summary.json": "fdd8e23212734a4a99922c13fdf4d70ad8b294fd3a7fe1f51228a012f6c1b3fa",
-    "out/native/ashlar_overlay_override_points_r412/plan-direct-16.txt": "f1252463e54b658592ad271f405d7cfdb953b31b13c058450908b846b3fecd1c"
+    "out/native/ashlar_overlay_override_points_r412/plan-direct-16.txt": "f1252463e54b658592ad271f405d7cfdb953b31b13c058450908b846b3fecd1c",
+    "large_local_read_r415.py": "f7b6c4748f2b5e7d9cd789c8822f21b7911a14ffe07a4c871c40e952bcb6bd89",
+    "out/large-local-read-r415.json": "34d8ba9e45b5a6c2b9fb6275c6f580ec994115412523c5fa472355a4d46376b4",
+    "out/large-local-read-r415-startup-failed.json": "7eb0c827508dcc09b2ebec3277cbe2969a209f0defce194ad983c64e69f37f23"
   },
   "evidence": {
     "ddl": {
