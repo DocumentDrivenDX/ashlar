@@ -244,3 +244,8 @@ passes6 exact100k structural differentials and rejects9 corruptions. Output
 checks5.5–5.8s offer only modest gain over6.5s full scan. Finite recorded-lineage
 guard tests pass; outside-membership/source/owned-SQL/baseline obligations block
 a general publication replacement. Failed r124 grouping control is retained.
+
+Structural proof composition: [r126 result](out/composed-structure-r126.json)
+combines the validated E17 adjacency baseline, full-carrier checks and owned
+E17→E18 apply lineage; three local tests reject11 missing/altered evidence cases.
+Fixed-fixture qualification only, no new native workload or performance claim.

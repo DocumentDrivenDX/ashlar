@@ -1141,3 +1141,35 @@ run here; production source authority/fencing and1B/5Badmission remain open.
 Two local unit tests include actual evidence and ten rejection subcases; all
 pass. All native tests are read-only on existing compute; no attributable dollar
 billing or whole-publication freshness claim follows.
+
+## Composed structural reuse proof (r126; no native workload)
+
+[Recorded result](out/composed-structure-r126.json) composes r121's full20M
+adjacency baseline at E17 with r123's intended full-carrier check, exact output
+check, unique100k input membership, global identities and closed owned MERGE
+lineage E17→E18. Reviewed exact query hashes are pinned in a digest-bound fixture
+profile; native history query text, query IDs, terminal success and result arrays
+are checked. The baseline and before/after checks collectively imply unchanged
+structural rows for this finite closed apply, agreeing with r123's independent
+full20M structural oracle. No extra Databricks workload or publication occurred.
+
+Three local unit tests pass: actual proof, all six missing-query cases, and five
+altered SQL/result/history/profile/lineage cases. Prior lineage guard tests
+remain separately applicable. Failed native operation-parameter JSON is not
+interpreted; matching actual owned query text avoids guessing its meaning.
+
+This is a fixed reviewed evidence profile, NOT a generic SQL verifier or a
+production publisher admission implementation. The profile is deliberately
+pinned to E17/E18, original stage0,100k members and adjacency1; it cannot be
+reused by merely changing versions or query digests. Generalization requires
+owned safe query templates, trusted complete membership, a qualified immutable
+adjacency baseline and source meaning, closed apply/lineage and a concurrent
+publisher boundary. Unknown source effects or missing proof must fail closed.
+Outside-membership mutations are not covered by changed-set comparison alone.
+
+The existing intended/output20-field checks already preserve structural fields,
+so avoid adding redundant changed-set scans when composing their proof. A
+future bounded integrated publisher experiment must retain an independent
+post-run full structural oracle and report it outside the publication clock.
+No new timing saving,60second pass, p95, real producer authority, external graph
+activation or1B/5Badmission follows from this local composition.

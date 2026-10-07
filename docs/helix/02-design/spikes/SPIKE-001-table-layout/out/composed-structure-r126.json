@@ -1,0 +1,15 @@
+{
+  "structural_reuse": true,
+  "old_edge_version": 17,
+  "new_edge_version": 18,
+  "adjacency_version": 1,
+  "proof_query_ids": {
+    "adjacency-reuse-r121-b1": "01f1c1f0-1abb-1ef0-b678-2ff5700a31cb",
+    "intended-r123-b1": "01f1c1f2-0e3f-173c-8bdf-3b0909aba078",
+    "output-parity-r123-b1": "01f1c1f2-2c66-18d3-aeef-1e01632f43b4",
+    "apply-r123-b1": "01f1c1f2-26d6-1b09-9d15-eb6b58775e5d",
+    "input-membership-r123-b1": "01f1c1f2-07ba-1878-a4f6-90169f3caf86",
+    "global-identities-r123-b1": "01f1c1f2-2bae-1d3b-ab60-575205473cda"
+  },
+  "qualification": "Fixed reviewed fixture query hashes, trusted local evidence and native history binding. Baseline full20M structural proof plus intended/output full-carrier checks and closed owned MERGE lineage imply reuse. Not a generic SQL verifier, producer authority or concurrent fence. Independent r123 full20M oracle also passed; no performance saving measured here."
+}

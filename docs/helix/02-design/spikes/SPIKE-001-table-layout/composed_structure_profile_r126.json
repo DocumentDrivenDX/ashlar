@@ -1,0 +1,18 @@
+{
+  "status": "Fixed reviewed r121/r123 synthetic evidence profile; not a general publisher admission rule",
+  "old_edge_version": 17,
+  "new_edge_version": 18,
+  "trusted_stage": "client_dev.ashlar_entropy_20261006_r86.schedule_r123_1",
+  "stage_version": 0,
+  "members": 100000,
+  "adjacency_table": "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120",
+  "adjacency_version": 1,
+  "owned_query_sha256": {
+    "adjacency-reuse-r121-b1": "6003c10612a1f638ed0f894c8cd2bb378003a3dccfd5ee256d51fdae56251b9d",
+    "intended-r123-b1": "1540d7aca7d3ae80c40060c536f648020de001b5f81b8dbbb4070e3d86d54185",
+    "output-parity-r123-b1": "de203d89a846154eb98714041bf032524216e694516ede40cf1a6e512a253e7b",
+    "apply-r123-b1": "8c923c4d2bc466ea5759d50b11583a1da788903d50b34c6323bc31c77622f210",
+    "input-membership-r123-b1": "68dff7c68d49be9149bb865662081137036c06de60cf85962005601deeae26c4",
+    "global-identities-r123-b1": "5ba85290da1cbbfcc36b5d0a4a20e43d00324df6db85ad548ac0d114ec1ce202"
+  }
+}
