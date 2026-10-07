@@ -1,0 +1,316 @@
+{
+  "state": "Both uncached pruned pure-edge blocks preserve every field digest and complete counts",
+  "checks": {
+    "source_record": {
+      "table": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.growth_source_record_r236",
+        "id": "7ab4ec7d-7a78-4e5e-a6b3-061b64bae1f5",
+        "version": 10,
+        "rows": 12000000
+      },
+      "groups": [
+        [
+          "100",
+          "100000",
+          "bb4536878a939dde93c1c28985ebf66374d232b8332b595d685a008768e9d7a7"
+        ],
+        [
+          "101",
+          "100000",
+          "8d9d01f685d95abfdffbc4476c87a9fa33fec2f6ac6857ec5403d2273a5c4c48"
+        ],
+        [
+          "102",
+          "100000",
+          "d0c4b7c43eec14ac88e7a3b8f4f7e4ff49820043870943503d096808add82ef5"
+        ],
+        [
+          "103",
+          "100000",
+          "c140c033f2ef9d7b42ce298ad129bdaf91351eb29ab2a81096de21eb8497d93a"
+        ],
+        [
+          "104",
+          "100000",
+          "3dda038cb14931914b836c8ed36c9cb985e938b2a86e5ebaa27f80ed9a0860b3"
+        ],
+        [
+          "105",
+          "100000",
+          "4b2668abbd7a4e02e2d67f8fe7afd0f09332859323930dbc629358bf721ad752"
+        ],
+        [
+          "106",
+          "100000",
+          "c5d3a567b05e324b2f2137041434d59a88a9635f1b71d91b12262227598532a9"
+        ],
+        [
+          "107",
+          "100000",
+          "e11df749a6b2872b9a27a05543fa7228bf4d20806a5f1bbc9954dbe68ba8814e"
+        ],
+        [
+          "108",
+          "100000",
+          "128dce661c3aa8fcc66ac7bea12ee69395cd1b3a9bf35441bd90167ca1d77168"
+        ],
+        [
+          "109",
+          "100000",
+          "272436cce0c3d621bc13fb529871a1d1c4b6cafa94733a16272e14776dd2e6a8"
+        ],
+        [
+          "110",
+          "100000",
+          "0a27d8719482d44646f34d735411b274e9795acaafc9813061d37d641a2dad5f"
+        ],
+        [
+          "111",
+          "100000",
+          "2d6c8aa6552bdfe732195f69880323fb3e01dfbdb9ef4c9a591fd9ab72750b58"
+        ],
+        [
+          "112",
+          "100000",
+          "db541cc68cc5704fd14cb02965632fe35e8e3654cc65890e420309a4bf3db26f"
+        ],
+        [
+          "113",
+          "100000",
+          "8a753681612b7af2d03e2ecaf1314a3a679b9ddb65241c831fc25edffbbb7f02"
+        ],
+        [
+          "114",
+          "100000",
+          "692b7fca3852245a2363f8b559521d4a033d91a4e02135f777f3eeca9b2e618c"
+        ],
+        [
+          "115",
+          "100000",
+          "b412ab3a8a6240c2148d1be55f1e159a300bacfd97b79d8eadf386564d47ae92"
+        ],
+        [
+          "116",
+          "100000",
+          "c2d620acf17432f548c108eee507d6c8877b2f6d92087cee7f7b58cdbb6b6e54"
+        ],
+        [
+          "117",
+          "100000",
+          "ebd378f71090b0f868f08a58f061306caf0ccb62e9ebe84b15bcdaec7a02448f"
+        ],
+        [
+          "118",
+          "100000",
+          "6ce38c780f057b3bc9744a47a1b00277b21c45a3fad868197595087d0193c330"
+        ],
+        [
+          "119",
+          "100000",
+          "a89f9cbc89f385ff55cbeb56c20819492d9b961ab24743c47dcc7df8844240ad"
+        ]
+      ],
+      "qualification": "Pure-edge final20 groups match independent complete prior oracle at same snapshot; prior first100 groups preserved by unchanged query shape. Whole-role count unchanged."
+    },
+    "property_journal": {
+      "table": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.growth_property_journal_r236",
+        "id": "e0a3e354-96b3-4e31-b773-e8c928fc2fca",
+        "version": 12,
+        "rows": 48000000
+      },
+      "groups": [
+        [
+          "100",
+          "400000",
+          "6039e148dfb2dacc28194a2a625f23d2ee9a6d2f93ce1ae3aaf496e5ab229576"
+        ],
+        [
+          "101",
+          "400000",
+          "785a63716c79174758ee51cd4cecedd6f168af2788662e5666b76e71bfaf36ea"
+        ],
+        [
+          "102",
+          "400000",
+          "1f27b7f9ae7603d70f34fcff5fac78173e067651b6b13a200bb70ce685d1f7f9"
+        ],
+        [
+          "103",
+          "400000",
+          "c9a697caab036eb6b799fbda571b3df517eab1fe482d9bb9a632c4be0b3c8d63"
+        ],
+        [
+          "104",
+          "400000",
+          "824c512a69c8419a028b5b08f054601adbd2a06163c62821f031299f20dc18e8"
+        ],
+        [
+          "105",
+          "400000",
+          "920588534382e48abbe131f4bf0606decba01e2130a4b9a80dc9d71d0de8fc82"
+        ],
+        [
+          "106",
+          "400000",
+          "c2002c5557bfe25fe6c6fa98aaddc502b15f9526793750a5d82a60598147e040"
+        ],
+        [
+          "107",
+          "400000",
+          "27904e4711f69bb01d6a84be4c5e87772b643884b514ac4f1bfb14964d6e43bc"
+        ],
+        [
+          "108",
+          "400000",
+          "d01324410c4dc83c3ccd7d9d53c6f1b3cd0ece3a41246d259147c0adcc818acd"
+        ],
+        [
+          "109",
+          "400000",
+          "bb1ea2372ed70d36740a3ffbaf0d22bdf51aa1fffdd38af3c4b067485d2e7a6d"
+        ],
+        [
+          "110",
+          "400000",
+          "0a62b08613c8cfe9ce083abd5222526f9c225e6ec8e06a9bee049fb55c2ef5ad"
+        ],
+        [
+          "111",
+          "400000",
+          "a5589f5c131993b58f27c5388599d456517b04615b6a5226bf4d899c98b62aab"
+        ],
+        [
+          "112",
+          "400000",
+          "b6c2c051589e8ce89aeee2053e2d6aa4f72ae336a07e7b6bd321518411c7d941"
+        ],
+        [
+          "113",
+          "400000",
+          "61bb53a3d48feb7ca4cbef5d10ce494bb5796affbe2978a4a9852f323a9fb3f9"
+        ],
+        [
+          "114",
+          "400000",
+          "02e46af5ebc60918fbc7f94b5263a2256c36b5ab32c358af0518f461e0820268"
+        ],
+        [
+          "115",
+          "400000",
+          "fa933980091dae32a9c9a55789c1fce2921251efff1f687bd3a9cc55edf25e34"
+        ],
+        [
+          "116",
+          "400000",
+          "641502ecc9347461184644404e2339c71a2be43815704659e5e93fb8a974c16b"
+        ],
+        [
+          "117",
+          "400000",
+          "f0a33349e8e923af2bec80ad16c995bda4c4c08eaf27e51bffcda87bb57a39d2"
+        ],
+        [
+          "118",
+          "400000",
+          "07d26c95ed7ed780b11344d86a757512c5545684ca88efcc708c1a3746fcd5c9"
+        ],
+        [
+          "119",
+          "400000",
+          "0275f319b588f3ac72735d250036c15ea2f1c5886a003381e6457e4493714b3d"
+        ]
+      ],
+      "qualification": "Pure-edge final20 groups match independent complete prior oracle at same snapshot; prior first100 groups preserved by unchanged query shape. Whole-role count unchanged."
+    }
+  },
+  "bounds": {
+    "read_bytes": 15000000000,
+    "write_bytes": 0,
+    "statement_s": 180
+  },
+  "costs": {
+    "read_bytes": 4801313787,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "metrics": {
+    "pruned-source_record": {
+      "caller_ms": 12040.848375,
+      "total_time_ms": 11742,
+      "read_bytes": 3331848320,
+      "rows_produced_count": 20,
+      "compilation_time_ms": 319,
+      "execution_time_ms": 11387,
+      "read_remote_bytes": 0,
+      "write_remote_bytes": 0,
+      "read_cache_bytes": 3331848320,
+      "spill_to_disk_bytes": 0,
+      "task_total_time_ms": 79010,
+      "read_files_count": 65,
+      "read_partitions_count": 0,
+      "photon_total_time_ms": 78683,
+      "rows_read_count": 2000000,
+      "result_fetch_time_ms": 36,
+      "network_sent_bytes": 0,
+      "result_from_cache": false,
+      "pruned_bytes": 6517124013,
+      "pruned_files_count": 114,
+      "query_compilation_start_timestamp": 1791364756680,
+      "metadata_time_ms": 0,
+      "query_execution_time_ms": 11706,
+      "bytes_read_from_cache_percentage": 100.0,
+      "write_remote_rows": 0,
+      "write_remote_files": 0,
+      "queue_end_time_ms": 1791364756653,
+      "read_files_bytes": 3315610831,
+      "rows_scanned": 4020446,
+      "task_progress": {
+        "planned_task_count": 47,
+        "completed_task_count": 47,
+        "completed_partition_count": 47,
+        "pending_task_count": 0,
+        "failed_task_count": 0
+      }
+    },
+    "pruned-property_journal": {
+      "caller_ms": 13255.444750000002,
+      "total_time_ms": 13002,
+      "read_bytes": 1469465467,
+      "rows_produced_count": 20,
+      "compilation_time_ms": 378,
+      "execution_time_ms": 12588,
+      "read_remote_bytes": 0,
+      "write_remote_bytes": 0,
+      "read_cache_bytes": 1469465467,
+      "spill_to_disk_bytes": 0,
+      "task_total_time_ms": 84566,
+      "read_files_count": 25,
+      "read_partitions_count": 0,
+      "photon_total_time_ms": 84363,
+      "rows_read_count": 8000000,
+      "result_fetch_time_ms": 40,
+      "network_sent_bytes": 0,
+      "result_from_cache": false,
+      "pruned_bytes": 7315865872,
+      "pruned_files_count": 143,
+      "query_compilation_start_timestamp": 1791364769930,
+      "metadata_time_ms": 0,
+      "query_execution_time_ms": 12966,
+      "bytes_read_from_cache_percentage": 100.0,
+      "write_remote_rows": 0,
+      "write_remote_files": 0,
+      "queue_end_time_ms": 1791364769902,
+      "read_files_bytes": 1462229858,
+      "rows_scanned": 8000000,
+      "task_progress": {
+        "planned_task_count": 26,
+        "completed_task_count": 26,
+        "completed_partition_count": 26,
+        "pending_task_count": 0,
+        "failed_task_count": 0
+      }
+    }
+  },
+  "wall_s": 33.012873042
+}
