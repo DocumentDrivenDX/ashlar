@@ -1,0 +1,32 @@
+{
+  "format": "ashlar-overlay-shaping-read-io/1",
+  "sources": {
+    "audit": "out/native/ashlar_overlay_shape_points_r419/audited-summary.json",
+    "history": "out/native/ashlar_overlay_shape_points_r419/shared-history.json"
+  },
+  "families": {
+    "direct": {
+      "queries": 16,
+      "read_bytes": 2604896552,
+      "median_read_bytes": 157212591.5,
+      "remote_read_bytes": 0
+    },
+    "old": {
+      "queries": 16,
+      "read_bytes": 2726068770,
+      "median_read_bytes": 164888910.5,
+      "remote_read_bytes": 0
+    },
+    "new": {
+      "queries": 16,
+      "read_bytes": 1758570768,
+      "median_read_bytes": 102897299.5,
+      "remote_read_bytes": 0
+    }
+  },
+  "new_vs_old_read_reduction_fraction": 0.3549059409825527,
+  "source_sha256": {
+    "audit": "ad5b305031b1c21058e79fbc19926e303304a4af2e490623bf90b4a96b782682",
+    "history": "1fee4febc32544e4898fd0bcbb876c8c50e040a168f7c5737dc818560f06d0e7"
+  }
+}

@@ -1,0 +1,34 @@
+== Physical Plan ==
+PhotonResultStage (4)
++- PhotonColumnarToRow (3)
+   +- PhotonProject (2)
+      +- PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 (1)
+
+
+(1) PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337
+Output [20]: [source_system#97294, rel_type_id#97295L, id#97296L, source_type#97297L, source_id#97298L, target_type#97299L, target_id#97300L, order_key#97301, schema_revision#97302, entity_version#97303L, props_json#97304, retained_json#97305, source_feed#97306, source_epoch#97307, source_position#97308L, published_at#97309, apply_batch_id#97310, source_cursor_json#97311, source_delivery_id#97312, lookup_hash#97313]
+DictionaryFilters: [(id#97296L = 33904730), (rel_type_id#97295L = 9), (source_system#97294 = pilot-a), (lookup_hash#97313 = 5275fe61528b8def756486abfdbfd3bb2bdb73cab7303f7680d1b444a3c03a17)]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/bf8f09a9-05ea-40ea-ba01-4935dae517ca]
+ReadSchema: struct<source_system:string,rel_type_id:bigint,id:bigint,source_type:bigint,source_id:bigint,target_type:bigint,target_id:bigint,order_key:string,schema_revision:string,entity_version:bigint,props_json:string,retained_json:string,source_feed:string,source_epoch:string,source_position:bigint,published_at:timestamp,apply_batch_id:string,source_cursor_json:string,source_delivery_id:string,lookup_hash:string>
+RequiredDataFilters: [isnotnull(rel_type_id#97295L), isnotnull(id#97296L), isnotnull(lookup_hash#97313), isnotnull(source_system#97294), (rel_type_id#97295L = 9), (id#97296L = 33904730), (lookup_hash#97313 = 5275fe61528b8def756486abfdbfd3bb2bdb73cab7303f7680d1b444a3c03a17), (source_system#97294 = pilot-a)]
+
+(2) PhotonProject
+Input [20]: [source_system#97294, rel_type_id#97295L, id#97296L, source_type#97297L, source_id#97298L, target_type#97299L, target_id#97300L, order_key#97301, schema_revision#97302, entity_version#97303L, props_json#97304, retained_json#97305, source_feed#97306, source_epoch#97307, source_position#97308L, published_at#97309, apply_batch_id#97310, source_cursor_json#97311, source_delivery_id#97312, lookup_hash#97313]
+Arguments: [source_system#97294, rel_type_id#97295L, id#97296L, source_type#97297L, source_id#97298L, target_type#97299L, target_id#97300L, order_key#97301, schema_revision#97302, entity_version#97303L, props_json#97304, retained_json#97305, source_feed#97306, source_epoch#97307, source_position#97308L, cast(published_at#97309 as string) AS published_at#97266, apply_batch_id#97310, source_cursor_json#97311, source_delivery_id#97312, lookup_hash#97313]
+
+(3) PhotonColumnarToRow
+Input [20]: [source_system#97294, rel_type_id#97295L, id#97296L, source_type#97297L, source_id#97298L, target_type#97299L, target_id#97300L, order_key#97301, schema_revision#97302, entity_version#97303L, props_json#97304, retained_json#97305, source_feed#97306, source_epoch#97307, source_position#97308L, published_at#97266, apply_batch_id#97310, source_cursor_json#97311, source_delivery_id#97312, lookup_hash#97313]
+
+(4) PhotonResultStage
+Input [20]: [source_system#97294, rel_type_id#97295L, id#97296L, source_type#97297L, source_id#97298L, target_type#97299L, target_id#97300L, order_key#97301, schema_revision#97302, entity_version#97303L, props_json#97304, retained_json#97305, source_feed#97306, source_epoch#97307, source_position#97308L, published_at#97266, apply_batch_id#97310, source_cursor_json#97311, source_delivery_id#97312, lookup_hash#97313]
+
+
+== Photon Explanation ==
+The query is fully supported by Photon.
+== Optimizer Statistics (table names per statistics state) ==
+  missing = lc_second_edge_current_r337
+  partial = 
+  full    = 
+Corrective actions: consider running the following command on all tables with missing or partial statistics
+  ANALYZE TABLE <table-name> COMPUTE STATISTICS FOR ALL COLUMNS
+

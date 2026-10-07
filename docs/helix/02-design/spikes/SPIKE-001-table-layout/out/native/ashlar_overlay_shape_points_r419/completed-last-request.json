@@ -1,0 +1,1 @@
+{"label": "final-overlay-head", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400 LIMIT 1", "parameters": null, "correlation": "/* ashlar ashlar_overlay_shape_points_r419 final-overlay-head */", "started_epoch": 1791398927.579498, "state": "returned", "query_id": "01f1c27f-bad3-15cd-92ed-862eaa266032"}
