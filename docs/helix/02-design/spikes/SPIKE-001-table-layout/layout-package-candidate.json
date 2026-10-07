@@ -1400,7 +1400,12 @@
     "out/native/ashlar_normalized_delta_stage_r275/audited-summary.json": "aef4fa9d9ff1a984b0fe2487b8941f2c2ec662adaf774eef3ff907cab542c8f0",
     "out/native/ashlar_normalized_delta_stage_r275/statements.jsonl": "e2f3e76944827c5d4dc358364ed3d0d62efa72c83b68a0c9f179417983ad9363",
     "out/native/ashlar_normalized_delta_stage_r275/shared-history.json": "f5f2dcc4836330807e2502a006401f59b52e19de8b7719773ab728bdcd5e3f98",
-    "normalized_predecessor_r279.py": "a884ae41a700d0f9eb3c32d1a40e22e5129535512ac25ecfba5f43cdba72e27a"
+    "normalized_predecessor_r279.py": "a884ae41a700d0f9eb3c32d1a40e22e5129535512ac25ecfba5f43cdba72e27a",
+    "mixed_preservation_sql_r280.py": "ade2e2b5a5a07c550c063c30a2d1cb50b56437d8635c93e635c0a379ae99a2ca",
+    "out/native/ashlar_normalized_predecessor_r279/summary.json": "cb809d7b452ee194a3b186348135695e4f0078d6655418bf806239d61fdd4f96",
+    "out/native/ashlar_normalized_predecessor_r279/audited-summary.json": "0251d3d770162f220cc60be8633ddfff4e5d3d5a0b35cc51eab35a5674e916ef",
+    "out/native/ashlar_normalized_predecessor_r279/statements.jsonl": "c65a3057f91d082583d848f46a823c915d8c5f5acd1e2a8ca71c35c58cb1e40b",
+    "out/native/ashlar_normalized_predecessor_r279/shared-history.json": "f7ca93a4130251bd7a5ad908480208db84d54b7c062e1f91d0d749f057ead90e"
   },
   "evidence": {
     "ddl": {
