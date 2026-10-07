@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "7bbe7ea236024e001a1fee878baa5c23934045c538fb34da400a21072df2efcf",
+    "layout-status.md": "a55afa8915ce659c4f8cb64f6bad55ddb61125a0e5feb3b4753b8d1a38a8edca",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -2106,7 +2106,21 @@
     "out/native/ashlar_concurrent_ranges_r454/concurrent-3/statements.jsonl": "bec48a6e760613b74af6809877ccc0e2134578dfa980958fd0ddd6fc002715cd",
     "out/native/ashlar_concurrent_ranges_r454/concurrent-3/completed-last-request.json": "a83be6b7ce7b4700faae721f7413dd3b9009c4773a265d9e7a8217109e4303f5",
     "out/native/ashlar_concurrent_ranges_r454/sequential-2/statements.jsonl": "608cfed1faeef8f429fe04269ba66f9eca734886f3d6ccdfb6b297ce9135dea3",
-    "out/native/ashlar_concurrent_ranges_r454/sequential-2/completed-last-request.json": "6fc409fbb918eab20452462780f6bf8775ed667d3a73de782ba7d8319a6caf35"
+    "out/native/ashlar_concurrent_ranges_r454/sequential-2/completed-last-request.json": "6fc409fbb918eab20452462780f6bf8775ed667d3a73de782ba7d8319a6caf35",
+    "full_range_sweep_r456.py": "e37235110aab4754f439e7a8579650a1cc547347b3c1ff3b71cb80e128bdb83e",
+    "audit_full_range_r457.py": "01330da33ef131cb12f4e73c3a21c61984abd4eabcfcc1c691522dec345bc25e",
+    "full-range-disposition-r457.md": "0d22c49ed0f62f30cccb4807156e8d87c22419432b22e50ddd2a852037069a1b",
+    "out/full-range-audit-r457.json": "c08255966ab77eb40a7a8fbc8c42e11ed2703d206445d901f287159635aca35e",
+    "out/native/ashlar_full_range_sweep_r456/summary.json": "89ff676c59c5efeb5d1346f419045d58538fd9d63b231f45cf40fcda6303b042",
+    "out/native/ashlar_full_range_sweep_r456/shared-history.json": "fa9654093476994f858444080c4763fa9294a0fe7c010cd0568605c4959e3ae6",
+    "out/native/ashlar_full_range_sweep_r456/worker-3/statements.jsonl": "90af94be4827daf8c79dd1d3dee112e33c4ab420fe7ccf3849016ad65c9ec6d1",
+    "out/native/ashlar_full_range_sweep_r456/worker-3/completed-last-request.json": "5f10bbe8e029ab8df1fd86154b2190528c1561eb71b95cf809994cc0a54b9ff2",
+    "out/native/ashlar_full_range_sweep_r456/worker-2/statements.jsonl": "edfb9b3a33119d4537e47d2aba77988fc1d0d72f0aae7523896b06a4b6cebdb0",
+    "out/native/ashlar_full_range_sweep_r456/worker-2/completed-last-request.json": "90ac5eb75abc6610cb7ab610b743c639068f0af01c40cd221e897562e2e07b61",
+    "out/native/ashlar_full_range_sweep_r456/worker-0/statements.jsonl": "d07a059ca7a91b58ace50fca03ccee4595d101f2ec52d45e0a1ceb9dc9fc8c09",
+    "out/native/ashlar_full_range_sweep_r456/worker-0/completed-last-request.json": "8520812befa3c94977cb8b888538e786a8533ce41325a467025ec92c48ec7c92",
+    "out/native/ashlar_full_range_sweep_r456/worker-1/statements.jsonl": "b7471b4191be2c05e2655dbe7c36e7378b015dc3ef45f5d220bda754a56cde63",
+    "out/native/ashlar_full_range_sweep_r456/worker-1/completed-last-request.json": "c34e9cd3281321585b90e978d5d646f52643fbfc92663ec0c4194e4d34276734"
   },
   "evidence": {
     "ddl": {

@@ -1,0 +1,13 @@
+{
+  "state": "Complete64range terminal SQL/results/digest bindings/cost audit passes",
+  "statements": 72,
+  "rows": 100000,
+  "costs": {
+    "read_bytes": 83650922507,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "summary_sha256": "89ff676c59c5efeb5d1346f419045d58538fd9d63b231f45cf40fcda6303b042",
+  "code_sha256": "e37235110aab4754f439e7a8579650a1cc547347b3c1ff3b71cb80e128bdb83e",
+  "qualification": "Native results bind independent generated per-range42field source digests; read-only/fixed-cache-state observations do not prove MERGE or source freshness."
+}
