@@ -1995,3 +1995,49 @@ Next test overlap of exact current/output validation with raw/journal validation
 on the existing100k fixture, keeping all publication checks and costs inside the
 barrier. Full throughput/singleton/cold/concurrent/external-runtime/1B/5B targets
 remain open, and UC Delta architecture remains selected.
+
+
+### r157 three validation lanes: scheduling tuning plateau
+
+[Native final audit](out/native/ashlar_queue_r157/audited-summary.json) runs one
+100k synthetic property publication on isolated E23/R17/J19 clones and existing
+warehouse2439e1f2e37ac563/runtime19.8.x-aarch64-photon-scala2.13. Three write lanes
+are followed by three exact validation lanes: current global identities/output,
+raw full-wire checks and symmetric property journal checks. All native IDs, owned
+query/lineage proofs and manifest checks are finalized inside publication timing;
+no checks are omitted or deferred from the existing publisher barrier.
+
+Processing47.981 s; uniform10 s modeled input window gives oldest57.983 s and
+record-age p95 57.483 s. Previous r15548.761 s, r15250.378 s. These are separate
+single batches, not a controlled sustained/service-p95 comparison or proof of
+10k/s capacity. They show a scheduling plateau rather than the required roughly
+fivefold service improvement. Raw validation20.840 s, journal19.396 s, current
+identities4.247 s and exact output7.884 s; three-lane barrier20.845 s. Additional
+concurrency hides work but also slows individual checks. No causal CPU/shuffle
+claim without further profiling. Do not promote this variation as a default.
+
+All20 affected fields/UTF8 values, exact raw origin/digest/UTC instant/native
+cursor and property journal,20M global IDs and owned structural reuse pass.
+Independent20M structural parity and19.9M unchanged physical custody pass after
+timing, under stable schema/immutable Delta-file assumptions, not fresh wide
+payload comparison for untouched rows or real feed authority/fencing/ACK. No
+reader workload/controlled-cold/external runtime/billion admission. Preparation,
+publication/final audit totals48.733GB recorded reads/2.286GB remote writes,
+not billing. Controller600 s SQL-admission deadline/per-statement180 s and bounded
+connector submission remain explicit. [Cleanup](out/native/ashlar_queue_r157/cleanup/summary.json)
+UUID/version-checks and drops all five owned tables; canonical E23/R17/J19/r139-b1
+unchanged; no new compute/resize/VACUUM.
+
+Stop this sequence of small scheduling/validator substitutions. Next return to
+physical design: screen a fixed64-bucket hash partition plus within-bucket Z-order
+against the current hash-clustered candidate. Historical four-bucket partition
+publication evidence motivates the comparison but uses a different10M fixture;
+it cannot establish a current20M winner or a universal billion-scale bucket count.
+First use100k complete existing carriers to verify bucket derivation, native DDL,
+exact values and directory pruning with actual file sizes; this is a prerequisite
+pilot, not scale admission. Keep logical Truss identity/typed endpoints unchanged
+and treat bucket as derived physical metadata only. Count copy/Z-order/write and
+point-read costs separately, preserve source proofs and reject bucket/hash drift.
+Advance to the existing20M corpus only after the pilot and a justified byte/time
+bound; avoid another unbounded whole-graph wire-digest query. UC Delta remains
+selected and the full agreed performance/correctness goal stays active.
