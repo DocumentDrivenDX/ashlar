@@ -1,0 +1,72 @@
+{
+  "state": "Six forced-payload aggregates and independent exact wire comparison passed; final metrics pending",
+  "results": [
+    {
+      "mode": "encoded",
+      "round": 0,
+      "result": [
+        [
+          "100000",
+          "1312947119",
+          "-623487971215124445422"
+        ]
+      ]
+    },
+    {
+      "mode": "stored",
+      "round": 0,
+      "result": [
+        [
+          "100000",
+          "1312947119",
+          "-623487971215124445422"
+        ]
+      ]
+    },
+    {
+      "mode": "stored",
+      "round": 1,
+      "result": [
+        [
+          "100000",
+          "1312947119",
+          "-623487971215124445422"
+        ]
+      ]
+    },
+    {
+      "mode": "encoded",
+      "round": 1,
+      "result": [
+        [
+          "100000",
+          "1312947119",
+          "-623487971215124445422"
+        ]
+      ]
+    },
+    {
+      "mode": "encoded",
+      "round": 2,
+      "result": [
+        [
+          "100000",
+          "1312947119",
+          "-623487971215124445422"
+        ]
+      ]
+    },
+    {
+      "mode": "stored",
+      "round": 2,
+      "result": [
+        [
+          "100000",
+          "1312947119",
+          "-623487971215124445422"
+        ]
+      ]
+    }
+  ],
+  "qualification": "Read-only three balanced serial pairs, immutable100k stage0/raw16, no writes. Same byte-count/digest aggregates plus independent exact lexical comparison. Source layouts and columns read differ, so timing difference does not uniquely attribute serialization CPU or predict append/publication throughput."
+}

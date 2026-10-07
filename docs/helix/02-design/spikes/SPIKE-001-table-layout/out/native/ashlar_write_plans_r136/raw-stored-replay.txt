@@ -1,0 +1,97 @@
+== Physical Plan ==
+AppendDataExecV1 (1)
+
+
+(1) AppendDataExecV1
+Arguments: [num_affected_rows#379769L, num_inserted_rows#379770L], DeltaTableV2(org.apache.spark.sql.classic.SparkSession@758a2c92,abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/e3831d24-beb5-480e-b770-a6b9f1371305,Some(CatalogTable(
+Catalog: client_dev
+Database: ashlar_entropy_20261006_r86
+Table: source_record_r89
+Created Time: Tue Oct 06 22:27:58 UTC 2026
+Last Access: UNKNOWN
+Created By: Spark 
+Type: MANAGED
+Provider: delta
+Table Properties: [clusteringColumns=[["source_feed"],["source_epoch"],["delivery_id"]], databricks.delta.expressionStats.selectedColumns=upper(source_feed),lower(source_feed),upper(source_epoch),lower(source_epoch),upper(delivery_id),lower(delivery_id), databricks.internal.autoUpgrades.delta.parquet.format.version=2.12.0, databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal=2.12.0, delta.checkpoint.writeStatsAsJson=false, delta.checkpoint.writeStatsAsStruct=true, delta.checkpointPolicy=v2, delta.dataSkippingStatsColumns=source_feed,source_epoch,delivery_id, delta.enableDeletionVectors=true, delta.enableRowTracking=true, delta.feature.appendOnly=supported, delta.feature.clustering=supported, delta.feature.deletionVectors=supported, delta.feature.domainMetadata=supported, delta.feature.invariants=supported, delta.feature.rowTracking=supported, delta.feature.v2Checkpoint=supported, delta.lastCommitTimestamp=1791325678000, delta.lastUpdateVersion=0, delta.minReaderVersion=3, delta.minWriterVersion=7, delta.parquet.compression.codec=zstd, delta.parquet.format.version=2.12.0, delta.parquet.format.version.afe.internal=2.12.0, delta.rowTracking.materializedRowCommitVersionColumnName=_row-commit-version-col-0a3c5252-8eae-4d4f-b1e4-f41e9adc13c1, delta.rowTracking.materializedRowIdColumnName=_row-id-col-2eadf0b3-0adf-4d4e-936f-b4766143bd32, io.unitycatalog.tableId=e3831d24-beb5-480e-b770-a6b9f1371305]
+Statistics: 8873031793 bytes, 1500000 rows
+Location: abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/e3831d24-beb5-480e-b770-a6b9f1371305
+Partition Provider: Catalog
+Schema: root
+-- source_feed: string (nullable = false)
+-- source_epoch: string (nullable = false)
+-- delivery_id: string (nullable = false)
+-- record_kind: string (nullable = false)
+-- source_cursor_json: string (nullable = false)
+-- payload_json: string (nullable = false)
+-- payload_digest: string (nullable = false)
+-- schema_revision: string (nullable = true)
+-- received_at: timestamp (nullable = false)
+-- apply_batch_id: string (nullable = true)
+
+Predictive Optimization: ENABLE (inherited from METASTORE metastore_centralus))),Some(client_dev.ashlar_entropy_20261006_r86.source_record_r89),None,Map()), Project [source_feed#379737, source_epoch#379738, delivery_id#379739, record_kind#379740, source_cursor_json#379741, payload_json#379742, payload_digest#379743, schema_revision#379744, received_at#379745, apply_batch_id#379746], org.apache.spark.sql.execution.datasources.v2.DataSourceV2Strategy$$Lambda$23984/0x000000d8053f6000@2f71480b, com.databricks.sql.transaction.tahoe.catalog.WriteIntoDeltaBuilder$$anon$3@4262592e
+
+
+== Photon Explanation ==
+Photon does not fully support the query because:
+		Unsupported node: AppendDataExecV1 [num_affected_rows#379769L, num_inserted_rows#379770L], DeltaTableV2(org.apache.spark.sql.classic.SparkSession@758a2c92,abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/e3831d24-beb5-480e-b770-a6b9f1371305,Some(CatalogTable(
+Catalog: client_dev
+Database: ashlar_entropy_20261006_r86
+Table: source_record_r89
+Created Time: Tue Oct 06 22:27:58 UTC 2026
+Last Access: UNKNOWN
+Created By: Spark 
+Type: MANAGED
+Provider: delta
+Table Properties: [clusteringColumns=[["source_feed"],["source_epoch"],["delivery_id"]], databricks.delta.expressionStats.selectedColumns=upper(source_feed),lower(source_feed),upper(source_epoch),lower(source_epoch),upper(delivery_id),lower(delivery_id), databricks.internal.autoUpgrades.delta.parquet.format.version=2.12.0, databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal=2.12.0, delta.checkpoint.writeStatsAsJson=false, delta.checkpoint.writeStatsAsStruct=true, delta.checkpointPolicy=v2, delta.dataSkippingStatsColumns=source_feed,source_epoch,delivery_id, delta.enableDeletionVectors=true, delta.enableRowTracking=true, delta.feature.appendOnly=supported, delta.feature.clustering=supported, delta.feature.deletionVectors=supported, delta.feature.domainMetadata=supported, delta.feature.invariants=supported, delta.feature.rowTracking=supported, delta.feature.v2Checkpoint=supported, delta.lastCommitTimestamp=1791325678000, delta.lastUpdateVersion=0, delta.minReaderVersion=3, delta.minWriterVersion=7, delta.parquet.compression.codec=zstd, delta.parquet.format.version=2.12.0, delta.parquet.format.version.afe.internal=2.12.0, delta.rowTracking.materializedRowCommitVersionColumnName=_row-commit-version-col-0a3c5252-8eae-4d4f-b1e4-f41e9adc13c1, delta.rowTracking.materializedRowIdColumnName=_row-id-col-2eadf0b3-0adf-4d4e-936f-b4766143bd32, io.unitycatalog.tableId=e3831d24-beb5-480e-b770-a6b9f1371305]
+Statistics: 8873031793 bytes, 1500000 rows
+Location: abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/e3831d24-beb5-480e-b770-a6b9f1371305
+Partition Provider: Catalog
+Schema: root
+ |-- source_feed: string (nullable = false)
+ |-- source_epoch: string (nullable = false)
+ |-- delivery_id: string (nullable = false)
+ |-- record_kind: string (nullable = false)
+ |-- source_cursor_json: string (nullable = false)
+ |-- payload_json: string (nullable = false)
+ |-- payload_digest: string (nullable = false)
+ |-- schema_revision: string (nullable = true)
+ |-- received_at: timestamp (nullable = false)
+ |-- apply_batch_id: string (nullable = true)
+
+Predictive Optimization: ENABLE (inherited from METASTORE metastore_centralus))),Some(client_dev.ashlar_entropy_20261006_r86.source_record_r89),None,Map()), Project [source_feed#379737, source_epoch#379738, delivery_id#379739, record_kind#379740, source_cursor_json#379741, payload_json#379742, payload_digest#379743, schema_revision#379744, received_at#379745, apply_batch_id#379746], org.apache.spark.sql.execution.datasources.v2.DataSourceV2Strategy$$Lambda$23984/0x000000d8053f6000@2f71480b, com.databricks.sql.transaction.tahoe.catalog.WriteIntoDeltaBuilder$$anon$3@4262592e.
+
+Reference node:
+	AppendDataExecV1 [num_affected_rows#379769L, num_inserted_rows#379770L], DeltaTableV2(org.apache.spark.sql.classic.SparkSession@758a2c92,abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/e3831d24-beb5-480e-b770-a6b9f1371305,Some(CatalogTable(
+Catalog: client_dev
+Database: ashlar_entropy_20261006_r86
+Table: source_record_r89
+Created Time: Tue Oct 06 22:27:58 UTC 2026
+Last Access: UNKNOWN
+Created By: Spark 
+Type: MANAGED
+Provider: delta
+Table Properties: [clusteringColumns=[["source_feed"],["source_epoch"],["delivery_id"]], databricks.delta.expressionStats.selectedColumns=upper(source_feed),lower(source_feed),upper(source_epoch),lower(source_epoch),upper(delivery_id),lower(delivery_id), databricks.internal.autoUpgrades.delta.parquet.format.version=2.12.0, databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal=2.12.0, delta.checkpoint.writeStatsAsJson=false, delta.checkpoint.writeStatsAsStruct=true, delta.checkpointPolicy=v2, delta.dataSkippingStatsColumns=source_feed,source_epoch,delivery_id, delta.enableDeletionVectors=true, delta.enableRowTracking=true, delta.feature.appendOnly=supported, delta.feature.clustering=supported, delta.feature.deletionVectors=supported, delta.feature.domainMetadata=supported, delta.feature.invariants=supported, delta.feature.rowTracking=supported, delta.feature.v2Checkpoint=supported, delta.lastCommitTimestamp=1791325678000, delta.lastUpdateVersion=0, delta.minReaderVersion=3, delta.minWriterVersion=7, delta.parquet.compression.codec=zstd, delta.parquet.format.version=2.12.0, delta.parquet.format.version.afe.internal=2.12.0, delta.rowTracking.materializedRowCommitVersionColumnName=_row-commit-version-col-0a3c5252-8eae-4d4f-b1e4-f41e9adc13c1, delta.rowTracking.materializedRowIdColumnName=_row-id-col-2eadf0b3-0adf-4d4e-936f-b4766143bd32, io.unitycatalog.tableId=e3831d24-beb5-480e-b770-a6b9f1371305]
+Statistics: 8873031793 bytes, 1500000 rows
+Location: abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/e3831d24-beb5-480e-b770-a6b9f1371305
+Partition Provider: Catalog
+Schema: root
+ |-- source_feed: string (nullable = false)
+ |-- source_epoch: string (nullable = false)
+ |-- delivery_id: string (nullable = false)
+ |-- record_kind: string (nullable = false)
+ |-- source_cursor_json: string (nullable = false)
+ |-- payload_json: string (nullable = false)
+ |-- payload_digest: string (nullable = false)
+ |-- schema_revision: string (nullable = true)
+ |-- received_at: timestamp (nullable = false)
+ |-- apply_batch_id: string (nullable = true)
+
+Predictive Optimization: ENABLE (inherited from METASTORE metastore_centralus))),Some(client_dev.ashlar_entropy_20261006_r86.source_record_r89),None,Map()), Project [source_feed#379737, source_epoch#379738, delivery_id#379739, record_kind#379740, source_cursor_json#379741, payload_json#379742, payload_digest#379743, schema_revision#379744, received_at#379745, apply_batch_id#379746], org.apache.spark.sql.execution.datasources.v2.DataSourceV2Strategy$$Lambda$23984/0x000000d8053f6000@2f71480b, com.databricks.sql.transaction.tahoe.catalog.WriteIntoDeltaBuilder$$anon$3@4262592e
+
+== Optimizer Statistics (table names per statistics state) ==
+  missing = source_record_r89
+  partial = 
+  full    = 
+Corrective actions: consider running the following command on all tables with missing or partial statistics
+  ANALYZE TABLE <table-name> COMPUTE STATISTICS FOR ALL COLUMNS
+

@@ -1,0 +1,21 @@
+{
+  "state": "Three read-only EXPLAIN statements successful/final; write internals not exposed",
+  "plans": {
+    "raw-capture": {
+      "append_wrapper": true,
+      "reported_unsupported_append_wrapper": true,
+      "exchange_nodes_exposed": 0
+    },
+    "raw-stored-replay": {
+      "append_wrapper": true,
+      "reported_unsupported_append_wrapper": true,
+      "exchange_nodes_exposed": 0
+    },
+    "journal-capture": {
+      "append_wrapper": true,
+      "reported_unsupported_append_wrapper": true,
+      "exchange_nodes_exposed": 0
+    }
+  },
+  "qualification": "Plans show AppendDataExecV1 command wrappers and a Photon unsupported-wrapper explanation for all three queries. They do not expose internal sort/shuffle/write stages; this is not evidence that every runtime write task falls back, or that serialization accounts for capture latency. No INSERT was executed."
+}

@@ -1374,3 +1374,31 @@ R16/J18 and descriptor r133-b1 remain unchanged. Next measure exact serializatio
 cost separately and test deferred clustering against history-read pruning and
 maintenance costs before changing canonical raw/journal layout. Native singleton,
 publication freshness/rate, concurrency and1B/5B admission gates remain open.
+
+
+Serialization screen: [r135 final native audit](out/native/ashlar_serialization_r135/audited-summary.json)
+forces consumption of every full wire byte using100k count/byte-length/digest
+aggregates in three balanced pairs. Encoding stage0 engine877–1182ms versus
+stored R16 payload591–626ms; caller1126–1491ms versus822–864ms. All aggregates
+agree; independent exact UTF8 lexical comparison passes4.698s caller, not merely
+digest equality. Result cache disabled, remote bytes0. Encoding reads4 files/
+665.733MB; stored bytes79 files/672.444MB, so different input layout prevents exact
+CPU attribution. These timings do not explain the full23.997s r133 capture pair;
+pre-encoding is not yet justified as the primary fix. No new data/table writes.
+
+[Read-only write plans](out/native/ashlar_write_plans_r136/summary.json) capture
+raw serialization INSERT, journal INSERT and stored raw replay through EXPLAIN
+only. All three expose AppendDataExecV1 command wrappers and report unsupported
+Photon wrappers; internal sort/shuffle/write stages are absent. Do not infer
+that all runtime tasks fall back or attribute latency from this incomplete plan.
+All three EXPLAIN histories final; no INSERT execution occurred.
+
+Qualification correction for r134: inspection of its saved DESCRIBE DETAIL
+shows clustered scratch tables include rowTracking, while unclustered scratch
+tables do not. Both retain deletionVectors/v2Checkpoint/Zstd. Therefore the
+8.791→4.665s pair changes a feature bundle, not clustering alone. Historical
+exact raw/journal preservation remains valid; performance attribution to liquid
+clustering alone is unqualified. Next replay with row tracking held constant,
+then investigate constraints/growing-table versus empty-table write costs and
+history-read pruning before altering canonical layout. E22/R16/J18/r133-b1 remain
+unchanged. No performance gate or billion-scale admission is established here.
