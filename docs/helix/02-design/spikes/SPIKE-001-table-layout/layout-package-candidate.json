@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "9ec3c728ecfc0e09bb184703a82381ac3ebf97434a1aa572c9438ba3139a0f12",
+    "scale-experiment-plan.md": "893d8a9bef662ddcf2f69df2de2db4738f3b45e6498329b1d720fdf2c364ed61",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1164,7 +1164,13 @@
     "out/native/ashlar_mixed_links_r218/statements.jsonl": "ca5475758d5853fc480169debcd85d2d4ecd6984dc6ff213749362ba29d1638f",
     "scale_mixed_r219.py": "d39c6a01fbcd65b9302c52c71cc9d44a3a7fa56e47ddce84aa087ce6dc3a317d",
     "out/mixed-scale-calibration-r219.json": "7679a7a04b9f5b477e5c606aae5ed2761bca07c226dfd31dd48eefc5c61d8315",
-    "out/mixed-scale-boundaries-r219.json": "f1179d74ee13e5a1618fc7a8f64c8d7effa5560135bdb2a2b53e3a4100e77278"
+    "out/mixed-scale-boundaries-r219.json": "f1179d74ee13e5a1618fc7a8f64c8d7effa5560135bdb2a2b53e3a4100e77278",
+    "mixed_native_r220.py": "ef977b61168b43418b8d6ee378d1a8fb04076d400555844cd21e2988c8195bd1",
+    "storage_projection_r221.py": "1c9ab925116ac755eb9ba1d1c1f4e7ad2f6ae1b3a7885167c282924fad1e0020",
+    "out/native-mixed-storage-r221.json": "84fe475e95bcc9487ed28e0c5134b85bc43461ae87aea6fa12cb2ecf59b89fe0",
+    "out/native/ashlar_mixed_r220/summary.json": "6fac49b2f46ee7add15a3463f8d67f7df02334145b9ea6f865ea93e461268a25",
+    "out/native/ashlar_mixed_r220/shared-history.json": "aaa51532ddcc02f4c3fb82bcf8f16898f6a0ee07bbb756eee7bc8b97e110cf1c",
+    "out/native/ashlar_mixed_r220/statements.jsonl": "f2c19b1971e4c8cd6f23f8883f1ba8e4b400c08313af8f735455da226950e2b2"
   },
   "evidence": {
     "ddl": {

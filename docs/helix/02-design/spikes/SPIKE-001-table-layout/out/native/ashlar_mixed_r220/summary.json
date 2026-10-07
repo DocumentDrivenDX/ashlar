@@ -1,0 +1,62 @@
+{
+  "state": "All five distinct-payload native roles match every expected field exactly",
+  "tables": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_object_current_r220",
+      "id": "51dded7f-be81-4d27-920e-4f56c52ad754",
+      "version": 0,
+      "rows": 128,
+      "files": 1,
+      "bytes": 117125,
+      "reader": "3",
+      "writer": "7"
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r220",
+      "id": "c026d69b-586f-499d-84af-40030f4313ac",
+      "version": 0,
+      "rows": 768,
+      "files": 1,
+      "bytes": 658859,
+      "reader": "3",
+      "writer": "7"
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r220",
+      "id": "e1aef415-1c1d-4b7a-8868-3f19b7c1a997",
+      "version": 0,
+      "rows": 3072,
+      "files": 3,
+      "bytes": 582504,
+      "reader": "3",
+      "writer": "7"
+    },
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_edge_current_r220",
+      "id": "8e134b03-80c1-4db5-a680-5b5ebf0ab2f8",
+      "version": 0,
+      "rows": 640,
+      "files": 1,
+      "bytes": 523575,
+      "reader": "3",
+      "writer": "7"
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r220",
+      "id": "10eb7f73-d958-4357-bc8d-e04d63240693",
+      "version": 0,
+      "rows": 640,
+      "files": 1,
+      "bytes": 5487,
+      "reader": "3",
+      "writer": "7"
+    }
+  },
+  "scope": "128 nodes640edges distinct mixed bootstrap; five roles, client-generated CTAS, not native range generator or manifest publication",
+  "costs": {
+    "read_bytes": 1887550,
+    "write_remote_bytes": 3770279,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "Small CTAS synthetic evidence, no NOT NULL/unique constraints or full DDL package qualification. Bootstrap current/raw/journal/forward adjacency complete for128nodes640edges. Python-generated input, not a native SQL generation differential. Timestamp display normalized to native string; does not expand timestamp-token semantics. Lexical bags, old/new tokens, flags, signed BIGINT identities, retained/raw envelopes and cursor strings exact. Native byte/file widths include tiny-table overhead and cannot extrapolate to scale."
+}

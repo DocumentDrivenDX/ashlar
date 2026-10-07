@@ -1,0 +1,70 @@
+{
+  "format": "ashlar-native-mixed-storage-sensitivity/1",
+  "source": "out/native/ashlar_mixed_r220/summary.json",
+  "source_sha256": "6fac49b2f46ee7add15a3463f8d67f7df02334145b9ea6f865ea93e461268a25",
+  "roles": {
+    "object_current": {
+      "sample_rows": 128,
+      "sample_bytes": 117125,
+      "sample_files": 1,
+      "bytes_per_row_with_tiny_file_overhead": 915.0390625,
+      "8m_40m_same_width_role_bytes": 7320312500.0
+    },
+    "source_record": {
+      "sample_rows": 768,
+      "sample_bytes": 658859,
+      "sample_files": 1,
+      "bytes_per_row_with_tiny_file_overhead": 857.8893229166666,
+      "8m_40m_same_width_role_bytes": 41178687500.0
+    },
+    "property_journal": {
+      "sample_rows": 3072,
+      "sample_bytes": 582504,
+      "sample_files": 3,
+      "bytes_per_row_with_tiny_file_overhead": 189.6171875,
+      "8m_40m_same_width_role_bytes": 36406500000.0
+    },
+    "edge_current": {
+      "sample_rows": 640,
+      "sample_bytes": 523575,
+      "sample_files": 1,
+      "bytes_per_row_with_tiny_file_overhead": 818.0859375,
+      "8m_40m_same_width_role_bytes": 32723437500.0
+    },
+    "adjacency_forward": {
+      "sample_rows": 640,
+      "sample_bytes": 5487,
+      "sample_files": 1,
+      "bytes_per_row_with_tiny_file_overhead": 8.5734375,
+      "8m_40m_same_width_role_bytes": 342937500.0
+    }
+  },
+  "8m_40m_same_width_total_bytes": 117971875000.0,
+  "proposed_cap_bytes": 140000000000,
+  "same_width_remaining_bytes": 22028125000.0,
+  "admission": "Not admitted: bootstrap only, tiny-file width uncertain, no native range generator, before/after change history, retained-version/failure/validation reserve or price qualification.",
+  "uncertainty_scenarios": [
+    {
+      "width_multiplier": 1,
+      "role_bytes": 117971875000.0,
+      "remaining_140gb_bytes": 22028125000.0
+    },
+    {
+      "width_multiplier": 1.5,
+      "role_bytes": 176957812500.0,
+      "remaining_140gb_bytes": -36957812500.0
+    },
+    {
+      "width_multiplier": 2,
+      "role_bytes": 235943750000.0,
+      "remaining_140gb_bytes": -95943750000.0
+    }
+  ],
+  "limits": [
+    "Same synthetic distribution/width arithmetic, not measured future compression or capacity.",
+    "192M bootstrap property events assumes4/entity; future changes and property fanout increase journal.",
+    "One raw bootstrap record per entity; staging/retries/retention/Delta logs/DVs not included.",
+    "Current/journal contain duplicated exact opaque values; each role independently consumes bytes.",
+    "No automatic growth because arithmetic fits a ceiling. Full all-row native generator and cost/deadline controllers still required."
+  ]
+}
