@@ -1469,7 +1469,8 @@
     "out/native/ashlar_merge_join_read_r296/audited-summary.json": "464d3ff56ed4e6eed9d58080ae220a3dd36b39fa09e4ef7cc47fe1d7a4623bcd",
     "file_fanout_r297.py": "473eeb3b1ccf095209a1a1384fbbc7cc98107e4ac7cb46895c02e25230fc7250",
     "out/file-fanout-r297.json": "dfc44bc5c7f69e0ca4f039ba299cc31d66da6fb5508f35867784c29aeb3ae4f0",
-    "file-fanout-design-r297.md": "8f9f560579a0e181ca15ed7ddfa06bb90c79aee8575e3ba48d7de75d90c5408d"
+    "file-fanout-design-r297.md": "8f9f560579a0e181ca15ed7ddfa06bb90c79aee8575e3ba48d7de75d90c5408d",
+    "out/scoped-maintenance-selection-r298.json": "2256cfdc0b2f06bbeeb1cece8e2508cc7a559feb8f326a322467aaf178f3f6f8"
   },
   "evidence": {
     "ddl": {

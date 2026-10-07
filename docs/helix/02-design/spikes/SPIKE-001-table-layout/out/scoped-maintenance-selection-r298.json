@@ -1,0 +1,44 @@
+{
+  "format": "ashlar-scoped-maintenance-selection/1",
+  "state": "Range selection and revised resource rationale recorded; no maintenance executed",
+  "source_sha256": "8bc8b9ad4824bac99fd3a8b85fe1acf913d96162d20dd7d296af337406f30203",
+  "reference_snapshot": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.mixed_edge_current_r281",
+    "id": "f9dca3a9-3037-48f6-bab6-0c458f6808cd",
+    "version": 1
+  },
+  "predicate": "lookup_hash < '1000000000000000000000000000000000000000000000000000000000000000'",
+  "reference_overlapping_files": 56,
+  "reference_candidate_bytes": 2265874914,
+  "candidate_existing_table": "client_dev.ashlar_entropy_20261006_r86.maintained_edge_r287",
+  "expected_candidate_uuid": "780781cb-9c42-434b-857c-dcddc663e735",
+  "expected_candidate_head": 2,
+  "bounds": {
+    "whole_read_bytes": 320000000000,
+    "write_remote_bytes": 5000000000,
+    "spill_to_disk_bytes": 5000000000,
+    "whole_wall_s": 1200,
+    "optimize_cancel_after_s": 90,
+    "observation_s": 200
+  },
+  "rationale": "Reference2.266GB overlapping files rather than32.038GB whole active carrier;2x reference rewrite4.532GB fits5GB write guard. Candidate r287 physical files differ, so independently query candidate file ranges and admit only if candidate overlapping bytes <=2.5GB. Full before/after carrier qualification can dominate reads: reserve eight40GB scans under320GB; no larger graph growth, compute resize or new40GB reconstruction. Guard reported counters are not peak temp or billing deadlines.",
+  "runtime_requirement": "Databricks documented18.1+ FULL WHERE single clustering-column range; installed19.9 evidence is version context, not proof accepted command.",
+  "documentation": {
+    "url": "https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/delta-optimize",
+    "checked_on": "2026-10-07",
+    "semantics": "Whole files whose clustering-key ranges overlap predicate are included; rows outside predicate may move too."
+  },
+  "mandatory_preflight": [
+    "Reinspect same canceled r287 OPTIMIZE SID terminal status and actual table history; require expected UUID/head2 and no unseen write/maintenance.",
+    "Check liquid lookup_hash key, schema, no automatic maintenance; bind original immutable baseline and normalized inputs.",
+    "Compute actual candidate file range overlap and independently recheck rewrite bounds before submission."
+  ],
+  "mandatory_validation": [
+    "Before and after: complete all20-field multiset group digests over all39.99M rows, not just WHERE rows; actual selected file rewrites may move outside-range rows.",
+    "Full final counts, unique typed identity, all known deletions absent and both typed endpoints closed.",
+    "Bind single actual OPTIMIZE SID to Delta commit and exact versions; recheck UUID/schema, unexplained history prohibited.",
+    "Measure all-file ranges and matched32-key singleton cohort both inside and outside scope; never infer whole-table distribution from favorable scoped keys.",
+    "Retain full read/write/spill/time telemetry, candidate overlap; no VACUUM, source ACK or production pointer publication."
+  ],
+  "qualification": "Reference-file metadata range selection only, not stored Delta statistics or actual r287 file selection. Pending native candidate preflight and syntax acceptance. This staged scoped maintenance is not final whole-table/billion admission and cannot replace successive ingest/publication or cold/concurrent read requirements."
+}
