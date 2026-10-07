@@ -1,0 +1,140 @@
+{
+  "state": "Exact input JSON and all known typed role fields preserved; malformed JSON and bad integer refused",
+  "checks": {
+    "source_record": {
+      "rows": 16,
+      "original_input_digest": "307bfbeb8fb3063d299002b6556b0d4479cbf83d20478cbd0a55921c4ad6bbbf",
+      "all_known_field_digest": "3c8235453d2701c1d5bc0b276ba9851e1652e2e7d794f8647c2955a4c37d5519",
+      "fields": [
+        "source_feed",
+        "source_epoch",
+        "delivery_id",
+        "record_kind",
+        "source_cursor_json",
+        "payload_json",
+        "payload_digest",
+        "schema_revision",
+        "received_at",
+        "apply_batch_id"
+      ]
+    },
+    "property_journal": {
+      "rows": 35,
+      "original_input_digest": "0add285a5ced2d0151517e9df44d5d50455037845c9a695d8e697e7f89813725",
+      "all_known_field_digest": "84ea4faa1de5797469a32532958590dc5f81fc165b67172a4717f66c9db8ce6e",
+      "fields": [
+        "source_system",
+        "entity_kind",
+        "type_id",
+        "id",
+        "entity_version",
+        "schema_revision",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "source_time_text",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "property_id",
+        "operation",
+        "old_present",
+        "old_json",
+        "new_present",
+        "new_json",
+        "event_ordinal"
+      ]
+    },
+    "tombstone": {
+      "rows": 2,
+      "original_input_digest": "c255c57820bcac1dc7290ce6276013cfaacc1b53265312c27ce00aeebed06a05",
+      "all_known_field_digest": "54dec7fee92dbf227af232d16dcd5cb9f8a22efe4917305e2f1859778bed2a5d",
+      "fields": [
+        "source_system",
+        "entity_kind",
+        "type_id",
+        "id",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "source_cursor_json",
+        "source_delivery_id",
+        "entity_version"
+      ]
+    },
+    "current_replacement": {
+      "rows": 14,
+      "original_input_digest": "9d2348f792277518cf01af7c928594c19395966a882cf60c755493e59551db8e",
+      "all_known_field_digest": "833146be2c3ad9475483799b942926a3a515492d27010bd912658fa02b27c52e",
+      "fields": [
+        "source_system",
+        "rel_type_id",
+        "id",
+        "source_type",
+        "source_id",
+        "target_type",
+        "target_id",
+        "order_key",
+        "schema_revision",
+        "entity_version",
+        "props_json",
+        "retained_json",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "lookup_hash"
+      ]
+    }
+  },
+  "negative_controls": {
+    "malformed_json": {
+      "state": "Native rejected",
+      "statement_id": "01f1c23a-4528-18cb-b3ec-7ec1f1b29f6e",
+      "status": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[MALFORMED_RECORD_IN_PARSING.WITHOUT_SUGGESTION] Malformed records are detected in record parsing: [null,null,null,null,null,null,null,null,null,null].\nParse Mode: FAILFAST. To process malformed records as null result, try setting the option 'mode' as 'PERMISSIVE'.  SQLSTATE: 22023"
+        },
+        "sql_state": "22023"
+      }
+    },
+    "invalid_bigint": {
+      "state": "Native rejected",
+      "statement_id": "01f1c23a-4560-18d9-87f4-3e31a18a8924",
+      "status": {
+        "state": "FAILED",
+        "error": {
+          "error_code": "BAD_REQUEST",
+          "message": "[CAST_INVALID_INPUT] The value 'not-an-integer' of the type \"STRING\" cannot be cast to \"BIGINT\" because it is malformed. Correct the value as per the syntax, or change its target type. Use `try_cast` to tolerate malformed input and return NULL instead. SQLSTATE: 22018\n== SQL (line 1, position 455) ==\n...S STRING) AS source_delivery_id,cast(r.entity_version AS BIGINT) AS entity_version FROM (SELECT ...\n                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n"
+        },
+        "sql_state": "22018"
+      }
+    }
+  },
+  "bounds": {
+    "read_bytes": 100000000,
+    "write_bytes": 0,
+    "spill_bytes": 0
+  },
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "sql_channels": [
+    "{\"dbsql_version\": \"2026.39\", \"name\": \"CHANNEL_NAME_CURRENT\"}"
+  ],
+  "source_sha256": {
+    "normalized_input_sql_r264.py": "643d21dafc88ea8411d064c2a6d030b4abb91342374e9a902ce2d71e14925bc9",
+    "normalized_input_conformance_r264.py": "4cb27fdcf10a80748b3735a0ba799d2fac7b1938bb9bc0e5bb147e8d88c00d31",
+    "mixed_changes_r228.py": "2ab1d0c677cf7acff58e923bf3199a89a912fa712731769ca5a100e5ce9599fa",
+    "mixed_change_queries_r230.py": "7c49d418861c5b2694f8461cc1a25858663d9b6eb7d813139e4d14455cf90540"
+  },
+  "qualification": "Small constant-input conformance on native SQL, including opaque unknown top-level content. Does not qualify actual TEXT/volume upload/file framing, arbitrary untrusted JSON/duplicate-key grammar, complete DDL/required-field constraints,100k native staging/apply/publication, producer fencing or freshness. Original input_json retained without from_json reserialization; explicit columns include tombstone entity_version. Read-only SELECTs, no table/volume/compute mutation."
+}
