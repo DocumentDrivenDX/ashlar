@@ -94,7 +94,7 @@
     "graphframes_scale.py": "165f5d89ef23e26eaae8a688fa4fc1811515ac2f633d800273c47466ca218e7a",
     "parameterized_reads.py": "c52b62fc1ed9c21c7df9ce65bcce6f45bc9b0eac3ad10e4d4fbf7dacf0ea1528",
     "cancel_controls.py": "136be2fba80a126197e9a1c2a91796a33935724e24f2ec775b611d39a1ea2d51",
-    "entropy-scale-status.md": "0d5984df4800ab0b2f1530a2deb1db5aab53e251345ed2ba295b748514118180",
+    "entropy-scale-status.md": "f554a74a5babcc9d168fe46fc968c9ad5bbc00b116f05d949235937b50c9a7bb",
     "out/entropy-local-20261006/summary.json": "12359f89adabb3e41771cdf4570902a6626d74e03e3cae7d2c3e2f8bfefb344e",
     "out/graphframes-scale-20261006/summary.json": "608ef7aaf0b1cb89668ada1f69213c050874f4851f2acef97a65e63ac1fe53ab",
     "out/graphframes-scale-20261006/materialization.json": "83ee2e37d60c9df1bb088ff239e63640bd0835a555ea085c8a3863b71791f691",
@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "27bf617f1fdf17317cc5a41175ec6348a89c298ee53c7fb657d486617ae52caf",
+    "layout-status.md": "dcc1ea84ad0fcdbbe728ade12355acf80ed8a633cf0e4b8d1e41dceafbeea55f",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -480,7 +480,17 @@
     "out/native/ashlar_merge_semantics_r132/summary.json": "7539b4e6922d1bd4cfcc971a74e749110437aa92f2ea8394893a1acea4797b27",
     "out/native/ashlar_merge_semantics_r132/statements.jsonl": "8e849f143b4869dc477af26ebd3f7eb1961504c3905306dffeade551036785e0",
     "out/native/ashlar_merge_semantics_r132/query-history.json": "850d31f94f5ae9a6f043f1c14f7d0362bccb8b825800c0eb5bd3a97d902ccc0c",
-    "out/native/ashlar_merge_semantics_r132/audited-summary.json": "6447bf1671ff73c6768141cc4f7600cb5700616b304f1b7f1372143bd7d60a37"
+    "out/native/ashlar_merge_semantics_r132/audited-summary.json": "6447bf1671ff73c6768141cc4f7600cb5700616b304f1b7f1372143bd7d60a37",
+    "publication_pruned_r133.py": "8e4657be5084f8aa5624c623f3869ca50f8ecfd44d8950c361f461abc568f3c6",
+    "publication_pruned_audit_r133.py": "a15310563ef7ed7c71f5ed4f7d463161dc0f8721d2cf2bcbb494d4d4a94f38ed",
+    "out/native/ashlar_isolation_r133/summary.json": "50dcae568429fb83983285c9f784b5250c4c0c929d46382be787bbd121bc2a49",
+    "out/native/ashlar_isolation_r133/statements.jsonl": "bf6b997be24b16669b47ac66d79aa14592a878e4c716470f17e06bae18578486",
+    "out/native/ashlar_isolation_r133/query-history.json": "7b1f14b063be480d29eb9c17afe3ec846ddc3d41fe151324234700cf064eeb8e",
+    "out/native/ashlar_isolation_r133/audited-summary.json": "9d08e693218924927aad1f4809e9b0d4c418dd7113b30f4b3186aa41bbaa5d71",
+    "out/native/ashlar_isolation_r133/journal-lane/statements.jsonl": "8933b7a331525e3f4fa1f45f39bfc7f6cda29229841c95940be3575f8023a25e",
+    "out/native/ashlar_isolation_r133/journal-lane/query-history.json": "e9d73b1444253a81d8dffb3fe4a06c9678c9efc055496627de810a9ad05a46bc",
+    "out/native/ashlar_isolation_r133/fresh/statements.jsonl": "864bc09aa0058662a8329bd7cb7d62536cd393b4f410df187523a74e15d5f615",
+    "out/native/ashlar_isolation_r133/fresh/query-history.json": "f469b8dc196a3de2bd2b2c2d376c5ec5793ccae52542c25891060561fe9f5b02"
   },
   "evidence": {
     "ddl": {

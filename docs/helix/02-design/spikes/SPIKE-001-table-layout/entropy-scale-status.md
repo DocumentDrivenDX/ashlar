@@ -1317,3 +1317,33 @@ or new publication occurred. Next integrate the opt-in template and statistics
 into the publisher, measuring maintenance separately and preserving raw/journal,
 exact carrier and structural proof requirements. All performance gates remain
 unproven.
+
+
+Integrated pruned publication: [r133 audited evidence](out/native/ashlar_isolation_r133/audited-summary.json)
+adds eligibility statistics to canonical edge_current (maintenance E19→E21), then
+publishes100k changed entities with owned ON eligibility and explicit adjacency
+reuse. Descriptor r133-b1 pins E22/N0/R16/J18/T0/forward1. Statistics setup23.179s,
+stage preparation7.281s and full20M baseline6.249s occur before the publisher clock
+and are recorded separately; no claim that setup is free or needed every batch.
+Exact20-field intended/output carriers, raw bytes/digests/UTC instant, property
+journal, global IDs and composed owned lineage proof pass before publication.
+Independent full20M structural parity passes afterward6.221s outside that clock.
+
+Ready-input→verified descriptor52.952s; oldest modeled arrival62.952s for the10s
+uniform10k/s admission window. This misses the60s oldest-record target and is a
+single synthetic batch, not publication p95 or sustained10k/s/burst admission.
+The observed ready-input interval improves from r12860.874s, without isolating
+all timing causes across runs. Parallel raw/journal append23.997s and validation
+10.905s remain major costs. Actual MERGE4.230s caller/3.943s engine,40 total read
+files/359.506MB,16 output files/327.002MB,100k updated rows. New writes retain
+configured skipping statistics; no statistics recompute runs between apply and
+output validation. Initial maintenance and steady-write costs must stay distinct.
+
+Thirty exact fresh20-field singleton reads: warm p95 engine107ms/caller372.50ms,
+15 files and no remote reads, final result-uncached. Both singleton gates remain
+missed. No untouched wide-payload comparison, real producer completeness/fencing,
+concurrent read admission, sustained arrival throughput, cold-data p95 or1B/5B
+qualification follows from this experiment. UC Delta remains chosen architecture.
+Next investigate measured raw/journal append cost and throughput; shrinking an
+admission batch alone would not prove sustained10k/s when service time exceeds
+its arrival window. Preserve exact record and property-history requirements.
