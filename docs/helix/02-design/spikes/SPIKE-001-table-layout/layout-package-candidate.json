@@ -1470,7 +1470,9 @@
     "file_fanout_r297.py": "473eeb3b1ccf095209a1a1384fbbc7cc98107e4ac7cb46895c02e25230fc7250",
     "out/file-fanout-r297.json": "dfc44bc5c7f69e0ca4f039ba299cc31d66da6fb5508f35867784c29aeb3ae4f0",
     "file-fanout-design-r297.md": "8f9f560579a0e181ca15ed7ddfa06bb90c79aee8575e3ba48d7de75d90c5408d",
-    "out/scoped-maintenance-selection-r298.json": "2256cfdc0b2f06bbeeb1cece8e2508cc7a559feb8f326a322467aaf178f3f6f8"
+    "out/scoped-maintenance-selection-r298.json": "2256cfdc0b2f06bbeeb1cece8e2508cc7a559feb8f326a322467aaf178f3f6f8",
+    "scoped_preflight_r299.py": "317661cfdb16cd042993655b13d15e177c5edd488aff9b8dbd3e3b29ade72dcc",
+    "scoped_maintenance_r300.py": "3aa69f9e298c8f6c93de1fbd6bc89e5e368cb5057d2edd716c0ea61726398791"
   },
   "evidence": {
     "ddl": {
