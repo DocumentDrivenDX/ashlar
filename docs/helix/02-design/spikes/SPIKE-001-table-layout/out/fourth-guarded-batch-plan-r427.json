@@ -1,0 +1,51 @@
+{
+  "format": "ashlar-fourth-guarded-batch-admission/1",
+  "state": "Local oracle qualified; native input creation/guarded publication not started",
+  "sources": {
+    "local_oracle": "out/fourth-batch-oracle-r427.json",
+    "guard_audit": "out/native/ashlar_inline_guard_finish_r425/audited-summary.json",
+    "publication": "out/native/ashlar_third_lc_publish_r391/audited-summary.json",
+    "guard_sql": "inline_guard_sql_r421.py"
+  },
+  "source_sha256": {
+    "local_oracle": "328c0bc0f268ad223beb714534ad75fa633e66ad3acba9a9b0518caa2ae47e03",
+    "guard_audit": "23a0ef40b62f1a286a91e2de7639449969ae1d11db3ec2e65d7290b28c96f025",
+    "publication": "a103a114fa1f0855da6d388ed3da60124c0044229dd7dc5431fa5ea5a2826c90",
+    "guard_sql": "1a289c498457f483822f65ec1edce28bd9128a32de4c4d331de97807e22e86ba"
+  },
+  "source_position_interval": [
+    300000,
+    400000
+  ],
+  "changes": 100000,
+  "updates": 90000,
+  "deletes": 10000,
+  "before_live_edges": 39970000,
+  "expected_after_live_edges": 39960000,
+  "provisional_current_pins": {
+    "object_current": 6,
+    "edge_current": 6,
+    "source_record": 3,
+    "property_journal": 3,
+    "adjacency": 4,
+    "tombstone": 3
+  },
+  "bounds": {
+    "read_bytes": 180000000000,
+    "write_remote_bytes": 10000000000,
+    "spill_to_disk_bytes": 5000000000,
+    "wall_s": 900,
+    "statement_cancel_after_s": 120
+  },
+  "requirements": [
+    "First materialize exact local normalized JSONL and verify full byte/SHA/semantic manifests, canonical tombstone and complete CDF oracles; retain all previous inputs",
+    "Upload owned new paths without overwrite on existing managed volume; full upload roundtrip bytes/SHA charged separately, not counted as successful ready-input freshness",
+    "Create only new private normalized tables, bind actual UUID/version0 and verify complete original/known field/raw digest/origin links and mutation partition",
+    "Refresh existing six role actual heads/UUID/schema/runtime profiles, selected immutable vector and all prior known maintenance; refuse unknown mutations or unresolved native handles",
+    "Execute inline current guard over fully qualified unique normalized input, omitting only the separate full predecessor sweep; no silent skip, no missing-predecessor insertion",
+    "Measure complete six-role mutation/CDF/source/history/endpoint/uniqueness/origin/manifest readback from ready inputs; all actual commits and telemetry costs included, keep source ACK false",
+    "Retain immutable older pins and private single-writer discipline; no clone-per-batch, VACUUM, cleanup, new compute or production pointer",
+    "Report caller/cold/concurrency and sustained/burst/billion qualification independently; a lone100k batch is not admission"
+  ],
+  "qualification": "Provisional vector must be refreshed against actual state; not an authorization to publish production or an executed throughput result. UC Delta owner-selected; UMF/external engine support limits unchanged."
+}
