@@ -1,0 +1,65 @@
+{
+  "state": "Every native generated carrier field equals Python oracle",
+  "cases": [
+    {
+      "kind": "node",
+      "nodes": 128,
+      "edges": 640,
+      "start": 0,
+      "end": 128,
+      "all_fields_exact": true
+    },
+    {
+      "kind": "edge",
+      "nodes": 128,
+      "edges": 640,
+      "start": 0,
+      "end": 640,
+      "all_fields_exact": true
+    },
+    {
+      "kind": "node",
+      "nodes": 8000000,
+      "edges": 40000000,
+      "start": 7999984,
+      "end": 8000000,
+      "all_fields_exact": true
+    },
+    {
+      "kind": "edge",
+      "nodes": 8000000,
+      "edges": 40000000,
+      "start": 39999984,
+      "end": 40000000,
+      "all_fields_exact": true
+    },
+    {
+      "kind": "node",
+      "nodes": 1000000000,
+      "edges": 5000000000,
+      "start": 999999984,
+      "end": 1000000000,
+      "all_fields_exact": true
+    },
+    {
+      "kind": "edge",
+      "nodes": 1000000000,
+      "edges": 5000000000,
+      "start": 4999999984,
+      "end": 5000000000,
+      "all_fields_exact": true
+    }
+  ],
+  "runtime": [
+    [
+      "{\"dbr_version\":null,\"dbsql_version\":\"2026.38\",\"u_build_hash\":\"5ed5dc28fe86dc0a5d08df504d6d5e89c8a4dcda\",\"r_build_hash\":\"722a1a33c2aa93f3d608cfe18bded36448192445\"}",
+      "Etc/UTC"
+    ]
+  ],
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "All768 base rows plus64 tail boundary rows compared, no materialized larger graph. Native carrier generation only; raw/property/adjacency role SQL ports pending. Billion-tail arithmetic/token differential is not billion-scale runtime admission. No writes or performance claim."
+}

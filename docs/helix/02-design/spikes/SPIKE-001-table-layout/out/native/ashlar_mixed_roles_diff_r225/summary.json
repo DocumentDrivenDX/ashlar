@@ -1,0 +1,53 @@
+{
+  "state": "All native generated bootstrap roles equal complete Python oracle",
+  "checks": [
+    {
+      "kind": "node",
+      "role": "object_current",
+      "rows": 128,
+      "all_fields_exact": true
+    },
+    {
+      "kind": "node",
+      "role": "source_record",
+      "rows": 128,
+      "all_fields_exact": true
+    },
+    {
+      "kind": "node",
+      "role": "property_journal",
+      "rows": 512,
+      "all_fields_exact": true
+    },
+    {
+      "kind": "edge",
+      "role": "edge_current",
+      "rows": 640,
+      "all_fields_exact": true
+    },
+    {
+      "kind": "edge",
+      "role": "source_record",
+      "rows": 640,
+      "all_fields_exact": true
+    },
+    {
+      "kind": "edge",
+      "role": "property_journal",
+      "rows": 2560,
+      "all_fields_exact": true
+    },
+    {
+      "kind": "edge",
+      "role": "adjacency_forward",
+      "rows": 640,
+      "all_fields_exact": true
+    }
+  ],
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "128 nodes640edges bootstrap only. All role rows compared including exact raw carrier numeric string encoding, lexical property tokens, presence flags and adjacency. No writes/materialized larger graph, native physical layout/constraint or performance qualification."
+}

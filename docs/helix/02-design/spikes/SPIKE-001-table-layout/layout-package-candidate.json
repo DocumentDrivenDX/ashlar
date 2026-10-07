@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "893d8a9bef662ddcf2f69df2de2db4738f3b45e6498329b1d720fdf2c364ed61",
+    "scale-experiment-plan.md": "0c1427baa51d0ff8c5930b4caa5e17ceb1dc47bcdcf70c3e435d44b3c46c0540",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1170,7 +1170,17 @@
     "out/native-mixed-storage-r221.json": "84fe475e95bcc9487ed28e0c5134b85bc43461ae87aea6fa12cb2ecf59b89fe0",
     "out/native/ashlar_mixed_r220/summary.json": "6fac49b2f46ee7add15a3463f8d67f7df02334145b9ea6f865ea93e461268a25",
     "out/native/ashlar_mixed_r220/shared-history.json": "aaa51532ddcc02f4c3fb82bcf8f16898f6a0ee07bbb756eee7bc8b97e110cf1c",
-    "out/native/ashlar_mixed_r220/statements.jsonl": "f2c19b1971e4c8cd6f23f8883f1ba8e4b400c08313af8f735455da226950e2b2"
+    "out/native/ashlar_mixed_r220/statements.jsonl": "f2c19b1971e4c8cd6f23f8883f1ba8e4b400c08313af8f735455da226950e2b2",
+    "scale_mixed_sql_r222.py": "247253c967ae449e0a220c5436f5e0ae5e723423e390250358b5bf0f82f1e993",
+    "mixed_sql_diff_r223.py": "307ff1d2e4ee81cfc67a4650836aab553bec2837e0a186e9e96171270b6462fa",
+    "scale_mixed_roles_sql_r224.py": "c1b98ba58085bb28bd3f5695673ed2975c56efd2d7314804b8e0ccd26e4fc466",
+    "mixed_roles_diff_r225.py": "1cf7795bc9ee0dd1ae70d141a50426aa75cb38f4b873413d85845289417c7222",
+    "out/native/ashlar_mixed_sql_diff_r223/summary.json": "546867db4e9d025b5c501ad028d9a1c5e768d3f9c5a51b32d4e9ba9c6c4514ff",
+    "out/native/ashlar_mixed_sql_diff_r223/shared-history.json": "c92417378468244bbed27b8cdc0dd33bbea1608b154d3aa3bb1e181cc81aedef",
+    "out/native/ashlar_mixed_sql_diff_r223/statements.jsonl": "34f58e6a13cd329a999f77e2da26defc3d42f19c07699545823d9974f60d61d3",
+    "out/native/ashlar_mixed_roles_diff_r225/summary.json": "c8854cbe71396d7a7bdc0d7e2093915de109144e2aba9387fa9790925dc8a1c2",
+    "out/native/ashlar_mixed_roles_diff_r225/shared-history.json": "707f8b5e462f447a17dc53f0b119c266b2cf642d676c68d3ae7bda1e1d7447b9",
+    "out/native/ashlar_mixed_roles_diff_r225/statements.jsonl": "fbea97acf5c39a3480efee476d37826582643ac96d4e4d807174f321f4096e76"
   },
   "evidence": {
     "ddl": {
