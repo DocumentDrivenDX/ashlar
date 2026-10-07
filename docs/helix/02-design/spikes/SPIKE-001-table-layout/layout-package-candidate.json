@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "7d765466c8bb42db5f0f4a4ca89f1d62b55c23c28a6661c389e12b91e427f138",
+    "scale-experiment-plan.md": "9ec3c728ecfc0e09bb184703a82381ac3ebf97434a1aa572c9438ba3139a0f12",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1161,7 +1161,10 @@
     "mixed_links_r218.py": "7eb467b7991a70b35269c31be980f6e72aa99f9454c59903e7f018254138b9d1",
     "out/native/ashlar_mixed_links_r218/summary.json": "34773470f28501f9ef3d42f2ba3bdbdac356ae3925908b325a37d86fb50e93cf",
     "out/native/ashlar_mixed_links_r218/shared-history.json": "91bcfde772822967a805c380e74f4bd5a644d237fd216f90f190aeeaacd39429",
-    "out/native/ashlar_mixed_links_r218/statements.jsonl": "ca5475758d5853fc480169debcd85d2d4ecd6984dc6ff213749362ba29d1638f"
+    "out/native/ashlar_mixed_links_r218/statements.jsonl": "ca5475758d5853fc480169debcd85d2d4ecd6984dc6ff213749362ba29d1638f",
+    "scale_mixed_r219.py": "d39c6a01fbcd65b9302c52c71cc9d44a3a7fa56e47ddce84aa087ce6dc3a317d",
+    "out/mixed-scale-calibration-r219.json": "7679a7a04b9f5b477e5c606aae5ed2761bca07c226dfd31dd48eefc5c61d8315",
+    "out/mixed-scale-boundaries-r219.json": "f1179d74ee13e5a1618fc7a8f64c8d7effa5560135bdb2a2b53e3a4100e77278"
   },
   "evidence": {
     "ddl": {

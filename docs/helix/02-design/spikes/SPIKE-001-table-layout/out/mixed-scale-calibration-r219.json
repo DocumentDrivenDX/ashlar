@@ -1,0 +1,54 @@
+{
+  "state": "Every calibration entity has exact raw/property bootstrap and typed endpoint closure",
+  "seed": "ashlar-scale-mixed/1",
+  "nodes": 4096,
+  "edges": 20480,
+  "roles": {
+    "object_current": {
+      "rows": 4096,
+      "utf8_jsonl_bytes": 8994904,
+      "sha256_stream": "72c6d0844bfd391a42c10f655ec18b1babc27d5d9a6613b86fae19e3fd1f11ce"
+    },
+    "source_record": {
+      "rows": 24576,
+      "utf8_jsonl_bytes": 71300667,
+      "sha256_stream": "4ae14ce4ec7f50c0ce75bbe24d3ffd0a0f08d9af65278c3ab971c3f178d0b9a0"
+    },
+    "property_journal": {
+      "rows": 98304,
+      "utf8_jsonl_bytes": 90467533,
+      "sha256_stream": "dda5bdc56cf4cfaa263bcab6590a065ce094225fcb2b051fc7f058fdb5d51bdf"
+    },
+    "edge_current": {
+      "rows": 20480,
+      "utf8_jsonl_bytes": 45288795,
+      "sha256_stream": "38c45c09faab3c1c371cb4fd80e301ebc0e8e1968eeeb76a8bca1d5feed31aea"
+    },
+    "adjacency_forward": {
+      "rows": 20480,
+      "utf8_jsonl_bytes": 3125645,
+      "sha256_stream": "df51f0ebb1f6a8e5dbc79ba6f5bb0799c84b582d9908cc723a82f4903a68b7fb"
+    }
+  },
+  "shapes": {
+    "node:0": 512,
+    "node:1": 512,
+    "node:2": 512,
+    "node:3": 512,
+    "node:4": 512,
+    "node:5": 512,
+    "node:6": 512,
+    "node:7": 512,
+    "edge:0": 2560,
+    "edge:1": 2560,
+    "edge:2": 2560,
+    "edge:3": 2560,
+    "edge:4": 2560,
+    "edge:5": 2560,
+    "edge:6": 2560,
+    "edge:7": 2560
+  },
+  "generation_s": 2.54179275,
+  "scope": "All calibration rows verified, not all future larger rows. Source80/20 residue allocation,20% edges from source-specific hub and1/97 explicit self-loops; overlaps possible. Opaque64/256/1024/4096 chars distinct per entity; eight semantic bag shapes plus property901. Bootstrap only; future change/deletion schedule absent.",
+  "limits": "UTF8 JSONL accounting, not Parquet compression/storage/billing. Small-run verification holds identity set in memory; generator itself random-access and O(payload) per entity. No large materialization, native SQL generator differential, Truss authority, full-scale integrity/SLO or production bootstrap admission."
+}
