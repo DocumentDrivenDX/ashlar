@@ -6,12 +6,20 @@ B=Path(__file__).resolve().parent
 def main():
  p=B/'out/native/ashlar_mixed_publish_r281';target=p/'audited-summary.json';assert not target.exists();a=json.loads((p/'summary.json').read_text());assert a['state']=='Complete private100k mixed publication passes full intermediate preservation audit'
  records=[json.loads(x) for x in (p/'statements.jsonl').read_text().splitlines()];h=json.loads((p/'shared-history.json').read_text());history={x['query_id']:x for x in h['queries']};assert h['require_final'] and not h['missing_ids'] and len(history)==len(records)
- bylabel={r['label']:r for r in records};bysid={r['statement_id']:r for r in records};assert len(bylabel)==len(records)
+ bylabel={r['label']:r for r in records};bysid={r['statement_id']:r for r in records};assert len(bysid)==len(records)
  for r in records:
-  q=history[r['statement_id']];assert r['response']['status']['state']=='SUCCEEDED' and q['status']=='FINISHED' and q['is_final'] and q['query_text']==r['sql'];assert not r['response'].get('manifest',{}).get('truncated')
+  q=history[r['statement_id']];assert r['response']['status']['state']=='SUCCEEDED' and q['status']=='FINISHED' and q['is_final'] ;assert not r['response'].get('manifest',{}).get('truncated')
+ native_query_text_truncations=[]
+ for r in records:
+  text=history[r['statement_id']]['query_text']
+  if text!=r['sql']:
+   assert r['label']=='publish' and text.endswith('...') and text[:-3]==r['sql'][:len(text)-3]
+   native_query_text_truncations.append({'label':r['label'],'statement_id':r['statement_id'],'native_chars':len(text),'submitted_chars':len(r['sql']),'submitted_sha256':hashlib.sha256(r['sql'].encode()).hexdigest(),'qualification':'Native history text truncates; client full SQL plus same SID terminal status and exact descriptor readback qualify contents.'})
  costs={k:sum(x['metrics'].get(k,0) for x in history.values()) for k in a['costs']};assert costs==a['costs'];assert all(v<=a['bounds'][k] for k,v in costs.items());assert a['wall_s']<a['bounds']['wall_s']
  base=json.loads((B/'out/native/ashlar_scale_edges_r274/audited-summary.json').read_text());inputs=json.loads((B/'out/native/ashlar_normalized_delta_stage_r275/audited-summary.json').read_text());changed=json.loads((B/'out/mixed-changed-oracle-r277.json').read_text());assert a['schema_revisions']=={'synthetic-scale-mixed':'synthetic-mixed/1'}
- def result(label):return bylabel[label]['response'].get('result',{}).get('data_array',[])
+ def result(label):
+  matched=[r for r in records if r['label']==label];assert len(matched)==1,label
+  return matched[0]['response'].get('result',{}).get('data_array',[])
  for role in ['edge_current','adjacency_forward']:
   reference=sum((result('reference-'+role+'-'+str(i)) for i in [0,100,200,300]),[]);actual=sum((result('unchanged-'+role+'-'+str(i)) for i in [0,100,200,300]),[])
   assert len(reference)==400 and sum(int(r[1]) for r in reference)==39900000 and reference==actual and actual==a['checks']['unchanged-'+role]['groups']
@@ -35,5 +43,5 @@ def main():
  assert a['publish_statement_id']==bylabel['publish']['statement_id']
  validation=[r for r in records if r['label'].startswith(('unchanged-','bootstrap-','digest-','final-count-')) or r['label'] in ['unique-edges','deleted-absent','typed-endpoints','descriptor-readback','schema-revisions']]
  assert all(not history[r['statement_id']]['metrics'].get('result_from_cache') for r in validation)
- a['audit']={'source_sha256':{n:hashlib.sha256((p/n).read_bytes()).hexdigest() for n in ['summary.json','statements.jsonl','shared-history.json']},'audit_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'final_statements':len(records),'validation_queries_uncached':len(validation),'mutation_receipts':mutations,'active_bytes':sum(int(x['sizeInBytes']) for x in a['active_details'].values()),'active_files':sum(int(x['numFiles']) for x in a['active_details'].values()),'mutation_telemetry':{r['label']:{'caller_ms':r['wall_ms'],'metrics':history[r['statement_id']]['metrics']} for r in records if r['label'].startswith(('append-','merge-'))},'qualification':'Full native input/baseline/change preservation and exact descriptor audited under SHA256 collision-resistance assumption; scope counts partition all final rows. Active shallow-clone metadata is not physical retained inventory. Mutation-only time is not freshness. No real source authority/fencing/ACK, concurrency/cold/caller or billion admission.'};target.write_text(json.dumps(a,indent=2)+'\n');print(json.dumps({k:a[k] for k in ['state','mutation_s','processing_s','costs','wall_s']},indent=2))
+ a['audit']={'source_sha256':{n:hashlib.sha256((p/n).read_bytes()).hexdigest() for n in ['summary.json','statements.jsonl','shared-history.json']},'audit_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'final_statements':len(records),'native_query_text_truncations':native_query_text_truncations,'validation_queries_uncached':len(validation),'mutation_receipts':mutations,'active_bytes':sum(int(x['sizeInBytes']) for x in a['active_details'].values()),'active_files':sum(int(x['numFiles']) for x in a['active_details'].values()),'mutation_telemetry':{r['label']:{'caller_ms':r['wall_ms'],'metrics':history[r['statement_id']]['metrics']} for r in records if r['label'].startswith(('append-','merge-'))},'qualification':'Full native input/baseline/change preservation and exact descriptor audited under SHA256 collision-resistance assumption; scope counts partition all final rows. Active shallow-clone metadata is not physical retained inventory. Mutation-only time is not freshness. No real source authority/fencing/ACK, concurrency/cold/caller or billion admission.'};target.write_text(json.dumps(a,indent=2)+'\n');print(json.dumps({k:a[k] for k in ['state','mutation_s','processing_s','costs','wall_s']},indent=2))
 if __name__=='__main__':main()

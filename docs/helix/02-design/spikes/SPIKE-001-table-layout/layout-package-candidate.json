@@ -1409,7 +1409,11 @@
     "mixed_publish_r281.py": "369628790f0d853c61f2c8e5c3512365371b32d215eb276821eb1a679eab26e7",
     "out/mixed-publisher-budget-r281.json": "cd8fe9b3e82bf1dba563732764f3c5d0f454289ad29bd729dfa0a0af43ce69e0",
     "growth_pruning_r282.py": "5a478ff696837673adb1e695dc0ab3b6aa6edecc1d48e0992680895e5e09b37a",
-    "mixed_publication_receipt_audit_r283.py": "705478dccccc06fd292c178cd5bb412e4ab8c71b579867406f8f707470029212"
+    "mixed_publication_receipt_audit_r283.py": "277d67ebf665c1a2866a7c96b7a613f11c9e6a36b3368b41ccc74ba599cdd2c4",
+    "out/native/ashlar_mixed_publish_r281/summary.json": "d69539eab500ed86451b3b869b86fdba93ca9cc1d05879ffddaa5c6b30a10e9e",
+    "out/native/ashlar_mixed_publish_r281/audited-summary.json": "a13ccb15c9c42845b125e5ebc18133afc6ce1714a06273f1cad2d1bb4b3dec7f",
+    "out/native/ashlar_mixed_publish_r281/statements.jsonl": "2172da48f7a3eb49f972d120ce322aa94e65a445123a7dd418a3f0199e454f55",
+    "out/native/ashlar_mixed_publish_r281/shared-history.json": "f0c3e414d028b7a382762cb1943da5954fadb37a5a862aa020e23174a65f5e35"
   },
   "evidence": {
     "ddl": {
