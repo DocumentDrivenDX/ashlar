@@ -1448,7 +1448,9 @@
     "out/native/ashlar_legacy_cdf_compare_r290/summary.json": "e9349467fd30f3e503d483e1e296d776e57294a4ae0b8e474928b120b9fe1daf",
     "out/native/ashlar_legacy_cdf_compare_r290/audited-summary.json": "e0fb8a03a07d010fe8710c570d64d79e2dc4c4aac2ddaf815684b84946e9824a",
     "out/native/ashlar_legacy_cdf_compare_r290/statements.jsonl": "0854ccf9e68b3be4b21789d6511c10481a8dae265a36d181a22cb9b28609721a",
-    "out/native/ashlar_legacy_cdf_compare_r290/shared-history.json": "07cf732e1400d835d19a17cd4e220b193a752876ea70d2baa6212c788b456a57"
+    "out/native/ashlar_legacy_cdf_compare_r290/shared-history.json": "07cf732e1400d835d19a17cd4e220b193a752876ea70d2baa6212c788b456a57",
+    "incremental_publish_r292.py": "73de2727672ab5187cf4d5f8e697278478cab2cdc565c7d4191eafacc70cfb5f",
+    "out/incremental-publisher-budget-r292.json": "d85ebeaf71ca66bdf0f66e311100db2ee9e9a2b74aa501b041a7f6284bfc767a"
   },
   "evidence": {
     "ddl": {

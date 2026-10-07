@@ -1,0 +1,20 @@
+{
+  "format": "ashlar-incremental-publisher-budget/1",
+  "source_sha256": {
+    "base": "9e746519e31eb1d6967761f376435c8be2171c943c46e363666dc12a3586d5ed",
+    "input": "aef4fa9d9ff1a984b0fe2487b8941f2c2ec662adaf774eef3ff907cab542c8f0",
+    "predecessor": "0251d3d770162f220cc60be8633ddfff4e5d3d5a0b35cc51eab35a5674e916ef",
+    "changed": "4712aded2d062b63886365066927e0dec8e22633619f585d589a4e31cd5781f1",
+    "cdf": "187924fbae792495ae627b16001eb1dcc3bfb9063ca58d76ab5b9d0e1377a380",
+    "legacy": "e0fb8a03a07d010fe8710c570d64d79e2dc4c4aac2ddaf815684b84946e9824a",
+    "full_sweep": "a13ccb15c9c42845b125e5ebc18133afc6ce1714a06273f1cad2d1bb4b3dec7f"
+  },
+  "bounds": {
+    "read_bytes": 150000000000,
+    "write_remote_bytes": 2000000000,
+    "spill_to_disk_bytes": 5000000000,
+    "wall_s": 1200,
+    "statement_s": 180
+  },
+  "basis": "Legacy edge/forward comparison35.091GB reads/222.818MB writes;150GB read bound adds full32.038GB current global identity and narrow endpoints, origin/CDF checks and2x headroom.2GB write bound exceeds measured full publisher354MB plus legacy CDF increase by>3x. Complete CDF intervals and exact input/baseline/commit custody replace inherited full sweeps; final global counts/identity/deletion/endpoint checks remain. Setup and processing clocks explicit. No1B/5B/sustained/concurrent/source-fencing admission or compute/retention changes."
+}
