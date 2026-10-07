@@ -47,3 +47,20 @@ On observation timeout inspect the existing statement handle; never replay write
 Any cleanup must account for live queries before removing owned compute. Preserve
 the completed source stages, manifest vectors and evidence; no VACUUM or retention
 change. The existing source authority/fencing gaps remain explicit.
+
+## Prepared exact-reader lane
+
+`isolation_reader.py` loads the recorded independent r103 stage oracle, validates
+30 complete20-field rows and the pinned manifest vector, and provides a bounded
+closed-loop reader with explicit full identity predicates and native decimal
+string parameters. Each compute target must own its driver connection on the
+thread running that lane. A preservation failure sets the shared stop event and
+propagates; missing, extra or changed carriers cannot become successful timings.
+Read-count and admission-time bounds do not interrupt an already running query;
+the session statement timeout bounds execution separately.
+
+Four offline failure-control tests pass, including missing/extra/corrupt data,
+shared stop propagation and stop/count limits. These prove lane guard behavior,
+not compute isolation performance. Live preflight and a dual-reader publisher
+controller still need integration and execution. Temporary compute authorization
+is pending; no second warehouse has been provisioned.
