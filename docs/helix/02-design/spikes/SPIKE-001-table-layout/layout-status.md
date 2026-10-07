@@ -1420,3 +1420,14 @@ REST is slower in both observed operational cohorts and misses250ms; keep SQL dr
 Initial1.640GB plus repeat1.693GB reads=3.333GB total,0 writes/0 spill. Each has6GB read admission with1GB reserve before each two-key pair block; all native IDs successful/final. No ingest, mutation, compute change or query/write replay. Evidence: `out/native/ashlar_read_transport_r210/summary.json`, `out/native/ashlar_read_transport_r211/summary.json`.
 
 Next investigate a documented compilation-reuse or query-shape option while keeping full identity/native parameters, all20 values and exact publication pins. Do not drop retained data, substitute sampled/narrow fields, enable stale cache claims or change250ms merely to pass. Use small isolated probes and material native controls before a new publisher. UC Delta/hash LC remain selected/proposed; production caller, controlled cold, sustained/burst and1B/5B gates remain open, graph-engine mappings scoped and UMF deferred.
+
+
+### r212: shorter projection does not establish a compilation improvement
+
+Twenty read-only exact singleton queries compare all20 explicit columns with SELECT * on the same ten SHA-ranked updated keys, alternating order through one persistent driver. Target and immutable source UUIDs, publication1/stage0 and the exact private manifest vector are verified. Star column names/order and every returned value equal the explicit oracle; session and native history confirm result cache disabled. Both have zero remote reads.
+
+Explicit caller p95525.137ms, engine227ms and compilation228ms; star485.737ms,150ms and244ms. Both read3files/110.901MB p95. Shorter SQL therefore does not demonstrate reduced compilation, and neither caller passes250ms. Ten-sample nearest-rank p95 is the maximum; alternating shared-compute observations are not randomized causal evidence, service p95 or compiler plan reuse. Keep explicit projection for stable schema handling; do not advertise the observed caller difference as an optimization.
+
+All native statements finish with final metrics:1,692,905,869 bytes read,0 writes/spill, below6GB admission with1GB pair-block reserve. No compute changes or mutation. Evidence: `out/native/ashlar_read_shape_r212/summary.json` and shared native history.
+
+Transport and projection probes have not closed caller latency. Next return to the material ingest/scale design gap: consolidate measured write amplification, publication barriers and realistic file/byte capacity bounds into a staged resource proposal before larger runs, preserving explicit unproved sustained10k/s,100k/s burst, controlled cold and1B/5B gates. Do not repeatedly substitute small singleton cohorts for the full objective. UC Delta/hash LC remain selected/proposed, full exact values and Truss identities preserved, graph mappings scoped and UMF deferred.

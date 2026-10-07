@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "4e5a3fb6b8b59b2371e910b71593f519c107038849f1b61f070aa07499f5546b",
+    "layout-status.md": "1f9a318cb9de48d53e31da1680948d7b835fa2ca6cb975e15171b66aa1cf0cea",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -1132,7 +1132,11 @@
     "out/native/ashlar_read_transport_r211/driver/statements.jsonl": "11b1fd4398212ad9c19a24341e5de979c33c35217f01117e620486afe9898683",
     "out/native/ashlar_read_transport_r211/driver/inflight-request.json": "6fc644b02b349fe67071128a40cce561235e90976ec05769e5cfcbf026103fa0",
     "out/native/ashlar_read_transport_r211/rest/statements.jsonl": "051b90bd885fd72eb3dbf209d2b7c855eafe32c937aa5ccec404315fb7230062",
-    "out/native/ashlar_read_transport_r211/rest/inflight-request.json": "58165392dde9d6e78345124f1f8114fa190b21e975abbfc57979363be17f8e77"
+    "out/native/ashlar_read_transport_r211/rest/inflight-request.json": "58165392dde9d6e78345124f1f8114fa190b21e975abbfc57979363be17f8e77",
+    "read_shape_r212.py": "0d5f8341b1fcbdad9abced228eab2121cedd398f039cc80fd3e8fa630968bf9e",
+    "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
+    "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
+    "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164"
   },
   "evidence": {
     "ddl": {

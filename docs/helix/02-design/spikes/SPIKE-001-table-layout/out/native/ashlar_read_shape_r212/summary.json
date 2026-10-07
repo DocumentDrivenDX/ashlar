@@ -1,0 +1,31 @@
+{
+  "state": "Twenty full-field exact reads passed",
+  "table": "client_dev.ashlar_entropy_20261006_r86.edge_queue_r197",
+  "version": 1,
+  "oracle": "client_dev.ashlar_entropy_20261006_r86.schedule_r189_1",
+  "oracle_version": 0,
+  "costs": {
+    "read_bytes": 1692905869,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "reads": {
+    "explicit": {
+      "caller_p95_ms": 525.1368329999978,
+      "execution_time_ms_p95": 227,
+      "compilation_time_ms_p95": 228,
+      "read_bytes_p95": 110901387,
+      "read_files_count_p95": 3,
+      "remote_queries": 0
+    },
+    "star": {
+      "caller_p95_ms": 485.73704100000015,
+      "execution_time_ms_p95": 150,
+      "compilation_time_ms_p95": 244,
+      "read_bytes_p95": 110901387,
+      "read_files_count_p95": 3,
+      "remote_queries": 0
+    }
+  },
+  "qualification": "Ten same SHA-ranked updated keys, alternating shape, persistent driver, native cache false. Star column names/order asserted identical to all20 explicit columns. Physical publication1 and stage0 pinned, UUIDs and manifest verified. Not randomized causation, controlled cold, service p95, compiler plan reuse or billion admission; ten-sample nearest-rank p95 is maximum."
+}
