@@ -1245,3 +1245,31 @@ raw/journal append costs rather than more copies of redundant validators.
 Keep the16MiB narrow forward candidate distinct from canonical hash clustering
 and64MiB wide-row tuning. Performance comparisons, real source authority,
 external activation, reverse/degree coverage and1B/5Badmission remain open.
+
+
+Eligibility-statistics screen (r129/r130): [audited native measurements](out/native/ashlar_write_pruning_r130/audited-summary.json)
+compare three balanced eligible-key joins against canonical E19 and an isolated
+shallow clone with additional entity_version/apply_batch_id skipping statistics.
+Each returns exactly100k keys. Total query files fall535→19, bytes416–447MB→13.4MB,
+and engine time491–635ms→243–294ms; result cache is disabled and remote bytes0.
+These totals include the stage and are not target-only file counts. The full20M
+key/filepath/row-index comparison passes, assuming stable logical schema and
+Delta immutable files; no fresh wide-payload comparison or payload rewrite.
+Statistics recomputation costs23.694s caller time and reads1.351GB, outside any
+publication clock. Canonical tables and publication remain unchanged.
+
+Read-only r129 metadata confirms configured Zstd on edge_current, source_record
+and property_journal; this does not independently verify historical file codecs.
+Edge_current has532 files/34.280GB, source_record74/8.217GB, journal72/7.672GB.
+The SQL warehouse/Unity Catalog targetFileSize setting controls OPTIMIZE;
+Databricks' documented clustering-on-write operation list does not include
+MERGE. Sources: [file-size controls](https://learn.microsoft.com/en-us/azure/databricks/tables/tune-file-size)
+and [liquid clustering](https://learn.microsoft.com/en-us/azure/databricks/tables/clustering),
+consulted2026-10-06. Do not infer MERGE write sizing from the64MiB setting.
+
+Next: qualify an actual update-only MERGE with eligibility predicates in ON and
+these statistics, including exact full-carrier and unchanged-membership checks,
+before changing the owned publisher templates or canonical settings. This SELECT
+screen does not qualify actual MERGE latency, mixed-revision production admission,
+publication p95, singleton SLOs or billion-scale performance. UC Delta remains the
+architecture; performance measurements inform tuning, not an architecture veto.
