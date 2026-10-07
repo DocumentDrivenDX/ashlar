@@ -3,7 +3,7 @@ import hashlib,re,collections
 from mixed_change_queries_r230 import row_hash,row_hash_sql
 
 def oracle_chunks(workload,kind,end,width=100000,start=0):
- if type(kind) is not str or kind not in ('node','edge') or any(type(x) is not int for x in [start,end,width]) or not 0<width<=100000 or not 0<=start<end<= (workload.nodes if kind=='node' else workload.edges) or start%width!=0:raise ValueError('Invalid bounded prefix')
+ if type(start) is not int or start<0 or start>=end or start%width!=0 or type(end) is not int or type(width) is not int or not 0<end<= (workload.nodes if kind=='node' else workload.edges) or not 0<width<=100000:raise ValueError('Invalid bounded prefix')
  for start in range(start,end,width):
   stop=min(end,start+width);hashes=collections.defaultdict(list);fields={}
   for ordinal in range(start,stop):
