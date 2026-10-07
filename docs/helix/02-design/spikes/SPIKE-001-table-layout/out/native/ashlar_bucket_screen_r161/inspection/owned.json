@@ -1,0 +1,26 @@
+[
+  {
+    "table": "client_dev.ashlar_entropy_20261006_r86.bucket_lc_r161",
+    "id": "c1df3016-cea5-4b29-baa4-672ce0affd43",
+    "version": "1",
+    "detail": {
+      "format": "delta",
+      "id": "c1df3016-cea5-4b29-baa4-672ce0affd43",
+      "name": "client_dev.ashlar_entropy_20261006_r86.bucket_lc_r161",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/4ea45025-443b-4aa6-a565-e243541782f8",
+      "createdAt": "2026-10-06T21:54:50.003000",
+      "lastModified": "2026-10-07T04:18:38",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"lookup_hash\"]",
+      "numFiles": "532",
+      "sizeInBytes": "34280460997",
+      "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-a98506b6-6013-431c-b30f-a7e3fe0130da\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-80b95717-1d80-4b78-9732-e480e7139266\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"4ea45025-443b-4aa6-a565-e243541782f8\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numDeletionVectors\":512,\"numRowsDeletedByDeletionVectors\":200000}",
+      "clusterByAuto": "False"
+    }
+  }
+]

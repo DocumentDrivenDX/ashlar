@@ -1,0 +1,1 @@
+{"label": "bucket_lc_r161-version", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.bucket_lc_r161 LIMIT 1", "parameters": null, "correlation": "/* ashlar inspection bucket_lc_r161-version */", "started_epoch": 1791346922.564789, "state": "returned", "query_id": "01f1c206-a56b-12a1-8ed7-0e7ae8895fee"}

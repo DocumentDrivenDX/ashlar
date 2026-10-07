@@ -2177,3 +2177,12 @@ counts, lookup/ingest tradeoffs and maintenance, not billion admission; full20M
 wide-copy parity remains separate if only scoped checks pass. No chosen64-bucket
 production layout or successful full performance gate is inferred. Hash-LC stays
 canonical candidate; UC Delta stays selected and the full goal remains active.
+
+
+### r161: full 20M bucket build reached the bounded timeout
+
+The existing 2XSmall warehouse attempted a full 20-million-edge, 20-logical-field copy of canonical E23 into the 64-bucket physical candidate, with row tracking, Zstd, 64MiB target files and the same eligibility statistics. The source was the pinned 34.28GB/532-file snapshot, independent of the observed canonical head. The CTAS terminated with a native 180-second timeout (query `01f1c206-2c29-1449-a308-ac76ec5e0126`, final FAILED). Native metrics report 20M rows read, 34.784GB read, 29.014GB remote read, 16.961GB remote write work and zero spill. These failed-write metrics are not committed table size or ingest throughput.
+
+No bucket table was registered. The shallow clone was UUID/version verified and dropped; no stage was created. No ZORDER, full structural parity, updates or singleton comparison ran. The source-copy wide-value obligation remains unproved. Uncommitted storage cleanup was not independently proven; no VACUUM or write retry was issued. Canonical publication r139-b1 still pins E23. Evidence is in `out/native/ashlar_bucket_screen_r161/{query-history,failed-summary}.json` and its inspection/cleanup subdirectories. The intended worker's unexecuted success-summary qualification inherited the 100k pilot scope; it produced no summary, and this terminal failure record defines r161's actual scope.
+
+UC managed Delta remains selected. This bounded failure measures build cost on the existing small warehouse, not a reason to change architecture or a billion-scale result. Next: resume design around the canonical hash-clustered tables and explicitly separate optional bucket build/maintenance costs; a future full bucket comparison needs a longer controlled build window or resumable owned staging before read results can be compared.
