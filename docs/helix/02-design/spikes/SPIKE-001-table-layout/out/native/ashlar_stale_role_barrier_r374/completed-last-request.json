@@ -1,0 +1,1 @@
+{"label": "manifest-after", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.stale_manifest_r374", "parameters": null, "correlation": "/* ashlar ashlar_stale_role_barrier_r374 manifest-after */", "started_epoch": 1791390949.511476, "state": "returned", "query_id": "01f1c26d-2786-1579-a9d7-74da8a10dc9b"}
