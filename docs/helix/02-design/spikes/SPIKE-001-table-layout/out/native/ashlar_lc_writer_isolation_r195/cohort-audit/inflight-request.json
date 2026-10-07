@@ -1,0 +1,1 @@
+{"label": "prior-version", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.lc_writer_r195_prior LIMIT 1", "parameters": null, "correlation": "/* ashlar cohort-audit prior-version */", "started_epoch": 1791353283.541232, "state": "returned", "query_id": "01f1c215-74db-1dc2-9f3a-f1bfa0809b72"}
