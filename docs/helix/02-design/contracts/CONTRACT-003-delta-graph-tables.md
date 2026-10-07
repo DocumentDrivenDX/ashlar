@@ -98,6 +98,25 @@ canonical constraints and do not establish the proposed64MiB target, real Truss
 producer authority, publication freshness, singleton/cold/concurrency targets
 or1B-node/5B-edge admission. The100k-change input/publisher test remains separate.
 
+The subsequent [r281 publication audit](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_publish_r281/audited-summary.json)
+applies90k updates/10k deletes from four exact pinned input roles. Final state is
+8M nodes,39.99M edges/forward rows,48.1M raw records,192,216,667 journal events
+and10k versioned tombstones. Full inherited/change field digests preserve
+multiplicity; global identities, deletions and typed endpoints pass. The descriptor
+contains exact native UUID/version inputs, actual revision map and canonical
+recorded_at. This is synthetic profile qualification, not a real producer fence.
+Apply-only took49.209s; ready-input processing through full validation/descriptor
+readback took922.120s, failing60s freshness. Whole run1229.906s includes301.023s
+clone/reference preparation. Earlier357.215s transfer,92.411s input staging and
+44.096s predecessor qualification are separately reported preparation costs.
+The run read372.920GB/wrote354.291MB with zero reported spill. Current merge
+updates90k/deletes10k without copying unaffected rows, adds11files/72.709MB and
+603deletion vectors; forward adds6files/0.9998MB and6deletion vectors. Active
+shallow-clone metadata113.651GB/2107files is not retained physical inventory.
+The [r284 sensitivity](../spikes/SPIKE-001-table-layout/out/publication-capacity-r284.json)
+shows even apply-only service exceeds the10s modeled arrival interval at10k/s.
+No sustained throughput, service p95, cold/concurrent singleton or billion admission.
+
 Complete role accounting, including exact history duplication, is required for
 scale admission. The mixed8M/40M bootstrap sensitivity is115.681GB; the140GB
 proposal excludes unresolved staging, changes, retained versions, failed work

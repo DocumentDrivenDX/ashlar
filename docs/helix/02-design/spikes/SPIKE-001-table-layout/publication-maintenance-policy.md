@@ -30,6 +30,34 @@ not a measured combined pipeline. Maintenance reduces affected read files from
 Immediate post-maintenance reads include remote data and regress. Mandatory
 cleanup per batch is therefore not the candidate freshness solution.
 
+## Complete intermediate publication evidence
+
+The [r281 audited publisher](out/native/ashlar_mixed_publish_r281/audited-summary.json)
+operates on the fully qualified8M-node/40M-edge baseline with90k updates/10k
+deletes. Complete unchanged/current/forward/raw/history digests and full global
+identity/deletion/endpoint checks pass before the exact descriptor readback.
+Apply-only49.209s differs from full ready-input processing922.120s; the latter
+misses60s freshness. Source preparation/transfer/staging and clone reference
+preflight are separately recorded, never claimed as measured arrival freshness.
+Reported372.920GB reads versus354.291MB writes and zero spill expose the full
+inherited-row validation cost. This does not justify omitting custody validation.
+
+The source-bound [r284 model](out/publication-capacity-r284.json) repeats this one
+sample only. At modeled10k/s,100k entities arrive every10s: apply-only utilization
+4.921 and an added39.209s wait per subsequent batch; full audit utilization92.212.
+These are queue sensitivities, not measured sustained throughput, parallel writer
+admission or service p95. Neither a passing apply-only first-batch age nor a
+faster future validator would by itself admit10k/s or100k/s burst recovery.
+
+Next qualify an incremental-custody publication protocol against this full sweep:
+exact eligible change set, complete affected-role field/origin digests, mutation
+predicate and commit receipts, immutable inherited snapshots, and explicit refusal
+of intervening/unknown writer changes. Keep full sweeps as independent qualification
+and audit evidence. The optimized protocol remains unimplemented/unqualified;
+no existing descriptor or correctness claim changes. Native0.3 forward rows include
+entity_version; this mixed run updates that field even for property-only changes,
+so structural endpoint stability alone does not prove unchanged forward carriers.
+
 ## Physical policy
 
 1. A logical publisher prepares immutable input, applies the exact eligible

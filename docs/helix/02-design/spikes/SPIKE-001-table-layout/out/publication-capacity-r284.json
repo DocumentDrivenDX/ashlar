@@ -1,0 +1,47 @@
+{
+  "format": "ashlar-intermediate-publication-capacity/1",
+  "source_sha256": "a13ccb15c9c42845b125e5ebc18133afc6ce1714a06273f1cad2d1bb4b3dec7f",
+  "batch_entities": 100000,
+  "base_nodes": 8000000,
+  "base_edges": 40000000,
+  "apply_s": 49.20865600000002,
+  "full_processing_s": 922.119598833,
+  "validation_and_publication_increment_s": 872.910942833,
+  "models": {
+    "apply_only": {
+      "single_sample_serial_rate_entities_s": 2032.1627967242177,
+      "arrivals": {
+        "10000": {
+          "batch_interval_s": 10.0,
+          "utilization": 4.920865600000002,
+          "additional_wait_per_later_batch_s": 39.20865600000002,
+          "first_batch_uniform_arrival_age_p95_s": 58.70865600000002
+        },
+        "100000": {
+          "batch_interval_s": 1.0,
+          "utilization": 49.20865600000002,
+          "additional_wait_per_later_batch_s": 48.20865600000002,
+          "first_batch_uniform_arrival_age_p95_s": 50.15865600000002
+        }
+      }
+    },
+    "full_audit_publication": {
+      "single_sample_serial_rate_entities_s": 108.44580261232518,
+      "arrivals": {
+        "10000": {
+          "batch_interval_s": 10.0,
+          "utilization": 92.21195988330001,
+          "additional_wait_per_later_batch_s": 912.119598833,
+          "first_batch_uniform_arrival_age_p95_s": 931.619598833
+        },
+        "100000": {
+          "batch_interval_s": 1.0,
+          "utilization": 922.119598833,
+          "additional_wait_per_later_batch_s": 921.119598833,
+          "first_batch_uniform_arrival_age_p95_s": 923.0695988330001
+        }
+      }
+    }
+  },
+  "qualification": "Arithmetic repeats one observed synthetic service sample on a serialized writer. Not measured service p95, sustained capacity, safe parallelism count, real arrivals or production price. Apply-only excludes validation/publication and cannot pass freshness. Full audit intentionally checks every inherited row; future incremental-custody protocol needs independent correctness and native timing evidence. Owner-selected UC Delta architecture remains fixed."
+}
