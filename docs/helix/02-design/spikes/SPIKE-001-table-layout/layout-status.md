@@ -30,6 +30,8 @@ The [second-batch comparison](second-layout-comparison-r340.md) retains liquid c
 
 [Third-batch input r378–r381](third-batch-input-disposition-r381.md) now prepares a disjoint100k batch:90kupdates/10kdeletes/216,667exact journal events, five corruption refusals and typed endpoint checks.35local parts/1.1006GB pass complete byte/field readback;190k-image current/forward oracles and bounded native stage/publisher admission are ready. No native input/mutation/publication yet. Next upload/reverify/stage exact inputs, then qualify all100k predecessors against LC5 before integrated publication.
 
+[Third native inputs r382–r385](third-native-input-disposition-r385.md) now roundtrip all35parts/1.1006GB in335.099s and qualify four Delta0 input pins across36native-final statements. Complete original JSON/known-field digests, payload SHA, identities/cursors/origins and216,667journal events pass; stage121.907s reports2.20GBreads/734MBwrites/0spill. No graph mutation yet. Next verify100k LC5 predecessors and integrate publication with all required clocks/custody checks.
+
 ## Earlier20M-edge measured read/ingest tradeoff
 
 At pinned20M-edge private publications, serial-current output has6 narrow hot files and matched20-key warm engine p9595/96ms across two passes, but caller349/340ms misses250ms. Overlap output has16 broad hot files and engine129/101ms, caller416/411ms. Modeled record-age p95 is72s serial/69s overlap; both miss60s. These scoped experiments do not qualify sustained10k/s,100k/s recovery or1B/5B. Physical-head Predictive Optimization does not change the manifest; readers verify and read exact published versions. See r201–r203 below for costs and limits.
