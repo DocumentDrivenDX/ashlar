@@ -1,0 +1,11 @@
+{
+  "state": "Plan-only probe completed; inspect plans for actual range exchange",
+  "table": "client_dev.ashlar_entropy_20261006_r86.bucket_lc_r176",
+  "version": 1,
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "EXPLAIN only, no MERGE execution. Input range partition does not guarantee final Delta writer layout; optimizer/runtime may repartition. Source and old eligibility remain owned profile, not producer authority."
+}

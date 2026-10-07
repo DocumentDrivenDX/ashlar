@@ -1,0 +1,48 @@
+== Physical Plan ==
+AdaptiveSparkPlan (7)
++- == Initial Plan ==
+   PhotonResultStage (6)
+   +- PhotonColumnarToRow (5)
+      +- PhotonShuffleExchangeSource (4)
+         +- PhotonShuffleMapStage (3)
+            +- PhotonShuffleExchangeSink (2)
+               +- PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.bucket_stage_r176 (1)
+
+
+(1) PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.bucket_stage_r176
+Output [20]: [source_system#685759, rel_type_id#685760L, id#685761L, source_type#685762L, source_id#685763L, target_type#685764L, target_id#685765L, schema_revision#685766, entity_version#685767L, props_json#685768, retained_json#685769, order_key#685770, source_feed#685771, source_epoch#685772, source_position#685773L, published_at#685774, lookup_hash#685775, apply_batch_id#685776, source_cursor_json#685777, source_delivery_id#685778]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/efc23ea9-ce0f-4326-83d7-a12606d8cb5e]
+ReadSchema: struct<source_system:string,rel_type_id:bigint,id:bigint,source_type:bigint,source_id:bigint,target_type:bigint,target_id:bigint,schema_revision:string,entity_version:bigint,props_json:string,retained_json:string,order_key:string,source_feed:string,source_epoch:string,source_position:bigint,published_at:timestamp,lookup_hash:string,apply_batch_id:string,source_cursor_json:string,source_delivery_id:string>
+
+(2) PhotonShuffleExchangeSink
+Input [20]: [source_system#685759, rel_type_id#685760L, id#685761L, source_type#685762L, source_id#685763L, target_type#685764L, target_id#685765L, schema_revision#685766, entity_version#685767L, props_json#685768, retained_json#685769, order_key#685770, source_feed#685771, source_epoch#685772, source_position#685773L, published_at#685774, lookup_hash#685775, apply_batch_id#685776, source_cursor_json#685777, source_delivery_id#685778]
+Arguments: rangepartitioning(lookup_hash#685775 ASC NULLS FIRST, 6)
+
+(3) PhotonShuffleMapStage
+Input [20]: [source_system#685759, rel_type_id#685760L, id#685761L, source_type#685762L, source_id#685763L, target_type#685764L, target_id#685765L, schema_revision#685766, entity_version#685767L, props_json#685768, retained_json#685769, order_key#685770, source_feed#685771, source_epoch#685772, source_position#685773L, published_at#685774, lookup_hash#685775, apply_batch_id#685776, source_cursor_json#685777, source_delivery_id#685778]
+Arguments: REPARTITION_BY_NUM, [id=#487597]
+
+(4) PhotonShuffleExchangeSource
+Input [20]: [source_system#685759, rel_type_id#685760L, id#685761L, source_type#685762L, source_id#685763L, target_type#685764L, target_id#685765L, schema_revision#685766, entity_version#685767L, props_json#685768, retained_json#685769, order_key#685770, source_feed#685771, source_epoch#685772, source_position#685773L, published_at#685774, lookup_hash#685775, apply_batch_id#685776, source_cursor_json#685777, source_delivery_id#685778]
+Arguments: false
+
+(5) PhotonColumnarToRow
+Input [20]: [source_system#685759, rel_type_id#685760L, id#685761L, source_type#685762L, source_id#685763L, target_type#685764L, target_id#685765L, schema_revision#685766, entity_version#685767L, props_json#685768, retained_json#685769, order_key#685770, source_feed#685771, source_epoch#685772, source_position#685773L, published_at#685774, lookup_hash#685775, apply_batch_id#685776, source_cursor_json#685777, source_delivery_id#685778]
+
+(6) PhotonResultStage
+Input [20]: [source_system#685759, rel_type_id#685760L, id#685761L, source_type#685762L, source_id#685763L, target_type#685764L, target_id#685765L, schema_revision#685766, entity_version#685767L, props_json#685768, retained_json#685769, order_key#685770, source_feed#685771, source_epoch#685772, source_position#685773L, published_at#685774, lookup_hash#685775, apply_batch_id#685776, source_cursor_json#685777, source_delivery_id#685778]
+
+(7) AdaptiveSparkPlan
+Output [20]: [source_system#685759, rel_type_id#685760L, id#685761L, source_type#685762L, source_id#685763L, target_type#685764L, target_id#685765L, schema_revision#685766, entity_version#685767L, props_json#685768, retained_json#685769, order_key#685770, source_feed#685771, source_epoch#685772, source_position#685773L, published_at#685774, lookup_hash#685775, apply_batch_id#685776, source_cursor_json#685777, source_delivery_id#685778]
+Arguments: isFinalPlan=false
+
+
+== Photon Explanation ==
+The query is fully supported by Photon.
+== Optimizer Statistics (table names per statistics state) ==
+  missing = bucket_stage_r176
+  partial = 
+  full    = 
+Corrective actions: consider running the following command on all tables with missing or partial statistics
+  ANALYZE TABLE <table-name> COMPUTE STATISTICS FOR ALL COLUMNS
+
