@@ -1,0 +1,25 @@
+{
+  "status": "prerequisite unavailable; no PuppyGraph runtime support claim",
+  "workspace": "adb-7405607548213398.18.azuredatabricks.net",
+  "profile": "aidev-cus",
+  "operation": "temporary_table_credentials.generate_temporary_table_credentials READ",
+  "tables": [
+    {
+      "name": "client_dev.ashlar_entropy_20261006_r86.object_current",
+      "table_type": "MANAGED",
+      "format": "DELTA",
+      "credential_vending": "PERMISSION_DENIED"
+    },
+    {
+      "name": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+      "table_type": "MANAGED",
+      "format": "DELTA",
+      "credential_vending": "PERMISSION_DENIED"
+    }
+  ],
+  "reason": "External Data Access from non Databricks Compute environment is disabled for metastore metastore_centralus",
+  "credentials_printed_or_persisted": false,
+  "security_configuration_changed": false,
+  "docker_server_version": "29.4.0",
+  "next_action": "Qualify PuppyGraph v1 model against an immutable typed release; direct Databricks runtime qualification requires an administrator-approved external-data-access configuration and schema privileges. Local protocol tests remain possible but cannot qualify this workspace."
+}

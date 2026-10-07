@@ -263,7 +263,8 @@
     "out/native/ashlar_maintained_contention_20261007_r103/new-publication-reads/summary.json": "1d12608b41914376317c536dc46aa934782463794366fb73aa08daf5efad2a8e",
     "out/native/ashlar_maintained_contention_20261007_r103/new-publication-reads/statements.jsonl": "97e301c5d72e7f35a81958692071f90d168d34209093ff53652e95aa12569f7e",
     "out/native/ashlar_maintained_contention_20261007_r103/new-publication-reads/query-history.json": "6d3f87539eae010e0c81370475dd66915bc7095705287a5946d6a59c19162e7a",
-    "adapters/README.md": "53121d12a12ce31489e328694f6df1c13a9a498d56cbed889ee06b76dfe00d31"
+    "adapters/README.md": "302b9bef614eecedd0dbc13b0887bfb2fd0d1cd5d2a86cdd405f50cb1aa27bcf",
+    "out/puppygraph-uc-prerequisite.json": "a6029ea8c9db504ec838509d5e0eb56306b989aa0f81ad32ea7afa1b524c8c85"
   },
   "evidence": {
     "ddl": {

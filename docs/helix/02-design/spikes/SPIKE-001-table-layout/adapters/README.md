@@ -68,3 +68,20 @@ The next adapter work is actual PuppyGraph runtime/catalog qualification and a
 bounded Fabric release, not another isolated singleton hot-set benchmark.
 Preserve immutable projection vectors, exact residual carriers, typed endpoint
 closure and native decimal-string IDs. Keep UMF binding deferred.
+
+## Direct Unity Catalog prerequisite probe
+
+[Actual read-only probe](../out/puppygraph-uc-prerequisite.json) found that both
+large synthetic managed Delta tables reject READ credential vending with
+`PERMISSION_DENIED`: external data access is disabled on `metastore_centralus`.
+No credentials were printed or persisted and no security setting was changed.
+Docker server 29.4.0 is available locally; missing Docker is not the limitation.
+
+[PuppyGraph's documented prerequisite](https://docs.puppygraph.com/reference/databricks-credential-vending/)
+is enabled external data access plus the relevant external-use schema permission.
+This finding does not establish whether additional storage, authentication or
+Delta-feature requirements would pass after that prerequisite is satisfied.
+Native Databricks reads do not depend on external credential vending.
+A local engine test can qualify mapping behavior separately, but cannot establish
+direct access to these UC tables. The existing model fragment also requires
+qualification against PuppyGraph's current v1 schema before a support claim.
