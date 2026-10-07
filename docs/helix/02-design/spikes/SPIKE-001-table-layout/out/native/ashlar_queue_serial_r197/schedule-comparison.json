@@ -1,0 +1,63 @@
+{
+  "overlap": {
+    "windows": {
+      "capture-r189-b1": {
+        "query_id": "01f1c214-1bfb-10ff-a3d6-45c9f37024fc",
+        "native_start_ms": 1791352704978,
+        "native_execution_end_ms": 1791352721054,
+        "caller_ms": 16363.757083999999
+      },
+      "journal-r189-b1": {
+        "query_id": "01f1c214-1bfb-117e-a277-4e65e754b6ff",
+        "native_start_ms": 1791352704978,
+        "native_execution_end_ms": 1791352717540,
+        "caller_ms": 12810.515582999997
+      },
+      "apply-r189-b1": {
+        "query_id": "01f1c214-1bfb-140e-8494-c9457771931f",
+        "native_start_ms": 1791352704979,
+        "native_execution_end_ms": 1791352716328,
+        "caller_ms": 11596.135291999999
+      }
+    },
+    "current_native_statement_overlap_ms": {
+      "capture-r189-b1": 11349,
+      "journal-r189-b1": 11349
+    },
+    "processing_s": 59.883352666,
+    "uniform_modeled_record_age_p95_s": 69.386348333,
+    "write_lane_wall_s": 16.367292333,
+    "validation_wall_s": 19.49532458299999
+  },
+  "serial": {
+    "windows": {
+      "capture-r189-b1": {
+        "query_id": "01f1c215-eae0-1bdf-90a9-a18ee6a5abed",
+        "native_start_ms": 1791353481590,
+        "native_execution_end_ms": 1791353495073,
+        "caller_ms": 13752.306083000001
+      },
+      "journal-r189-b1": {
+        "query_id": "01f1c215-eae0-19e8-9333-129058b3d4c9",
+        "native_start_ms": 1791353481589,
+        "native_execution_end_ms": 1791353492182,
+        "caller_ms": 10866.50075
+      },
+      "apply-r189-b1": {
+        "query_id": "01f1c215-f313-1006-965c-0ac53983d6d0",
+        "native_start_ms": 1791353495341,
+        "native_execution_end_ms": 1791353501687,
+        "caller_ms": 6605.831750000008
+      }
+    },
+    "current_native_statement_overlap_ms": {
+      "capture-r189-b1": 0,
+      "journal-r189-b1": 0
+    },
+    "processing_s": 62.468134667000015,
+    "uniform_modeled_record_age_p95_s": 71.97312525000001,
+    "write_lane_wall_s": 20.362308041000006,
+    "validation_wall_s": 17.951348750000008
+  },
+  "qualification": "Same pinned input, separate fresh owned clones, sequential observations on shared warehouse. Native query-start/execution-end windows establish statement ordering, not task scheduling/resource causation. Phase telemetry is included; no service-time p95, sustained/burst or billion admission."
+}
