@@ -1,0 +1,1 @@
+{"label": "server-text", "statement_id": "01f1c2a1-8233-1b85-94b4-d3a754c09edb", "statement": "SELECT statement_id,statement_text,execution_status FROM system.query.history WHERE statement_id='01f1c2a1-0550-1a33-bfc9-60b1b776aa3d' AND start_time>=current_timestamp()-INTERVAL 2 HOURS"}

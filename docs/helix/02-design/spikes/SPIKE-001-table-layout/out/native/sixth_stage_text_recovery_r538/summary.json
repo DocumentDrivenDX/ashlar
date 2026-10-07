@@ -1,0 +1,21 @@
+{
+  "state": "Observation terminal; full SQL not yet matched",
+  "source_statement_id": "01f1c2a1-0550-1a33-bfc9-60b1b776aa3d",
+  "submitted_sql_sha256": "d9636e94373002c9c676ec3733c8792c26055607425e216f684bce70bbea146e",
+  "records_sha256": "105d8d154a777d963019db49d947ff944446427c86286f8c9a2297671d2e39c9",
+  "code_sha256": "31a6fbf00f2be7aef5b5d5b2e167016a61fe7392680c554ceb82028f0d71e05d",
+  "bounds": {
+    "read_bytes": 1000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 120
+  },
+  "rows": [],
+  "matches_full_submitted_sql": false,
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 7.238895917
+}

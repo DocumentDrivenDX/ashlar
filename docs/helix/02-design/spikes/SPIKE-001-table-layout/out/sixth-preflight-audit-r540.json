@@ -1,0 +1,17 @@
+{
+  "state": "Ten-table UUID/head/profile preflight receipts and source budget bind; no sixth role writes",
+  "statements": 31,
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 28.12217175,
+  "sources_sha256": {
+    "vector": "0af2414f68ab168a75e8317ab59ce0e413fc2926a77416ee05f9bc6d5c91831a",
+    "inputs": "c0aa3ab737fb017cb4dd3bf627dcfb56ff96176312eb5cf7ffe33349eaf34701",
+    "budget": "489e15ed1d23489be7029793602ee33d0372f6f8e7980cafd7536b1d15ce664b",
+    "node_history": "a9cd14e5aa6f59412ca6d2abc85eb4a57c64b829353331804047ddd1ca7bd4df"
+  },
+  "qualification": "Read-only observation; publisher must repeat checks and enforce complete guarded writes/closing custody. N selected6/physical8 is explicit; new inputs0 actual UUIDs. One prior source CTAS history text remains prefix-only perR539; complete input contents independently qualify. No production fence/ACK or performance admission."
+}
