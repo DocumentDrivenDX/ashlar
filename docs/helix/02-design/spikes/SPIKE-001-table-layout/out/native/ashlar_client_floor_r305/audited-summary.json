@@ -1,0 +1,113 @@
+{
+  "state": "All16 literal and16 exact full-carrier calibration queries pass",
+  "source_sha256": "74b419c108cf9cdd6babd3547f7013163e14911969cebe7367caa8ffba75a17f",
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.maintained_edge_r287",
+    "version": 4,
+    "id": "780781cb-9c42-434b-857c-dcddc663e735"
+  },
+  "reads": [
+    {
+      "ordinal": 2386040,
+      "statement_id": "01f1c256-31c7-15ed-a97a-4f1a3402f256"
+    },
+    {
+      "ordinal": 5482189,
+      "statement_id": "01f1c256-321e-1862-9ab4-130cbecc6dfe"
+    },
+    {
+      "ordinal": 11748848,
+      "statement_id": "01f1c256-3273-179a-a502-646a99d63df9"
+    },
+    {
+      "ordinal": 16541888,
+      "statement_id": "01f1c256-32be-1854-a4b5-d5c7522ac32f"
+    },
+    {
+      "ordinal": 20800887,
+      "statement_id": "01f1c256-3508-19c4-88eb-ba3c8d3debfe"
+    },
+    {
+      "ordinal": 25888449,
+      "statement_id": "01f1c256-3553-1ce5-b5b0-f93329fe69a8"
+    },
+    {
+      "ordinal": 30047586,
+      "statement_id": "01f1c256-35a1-105b-ac14-82c7f74349fd"
+    },
+    {
+      "ordinal": 36842382,
+      "statement_id": "01f1c256-35f2-1c9b-a53d-21fc90ebc611"
+    },
+    {
+      "ordinal": 2386040,
+      "statement_id": "01f1c256-3844-1951-8709-040c5f94e486"
+    },
+    {
+      "ordinal": 5482189,
+      "statement_id": "01f1c256-3896-1295-bf92-aa21195ed4e2"
+    },
+    {
+      "ordinal": 11748848,
+      "statement_id": "01f1c256-38e4-167d-8699-ce0f62c6dfa0"
+    },
+    {
+      "ordinal": 16541888,
+      "statement_id": "01f1c256-3933-1c26-906e-68e9ff68cb20"
+    },
+    {
+      "ordinal": 20800887,
+      "statement_id": "01f1c256-3b77-196b-8a21-0886876ee1fb"
+    },
+    {
+      "ordinal": 25888449,
+      "statement_id": "01f1c256-3bc4-1e0a-b1d6-a01e52772cda"
+    },
+    {
+      "ordinal": 30047586,
+      "statement_id": "01f1c256-3c13-17f6-bce1-69f88da6deac"
+    },
+    {
+      "ordinal": 36842382,
+      "statement_id": "01f1c256-3c60-1964-9a33-00c262b7cdf9"
+    }
+  ],
+  "costs": {
+    "read_bytes": 1913431718,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "cohorts": {
+    "literal": {
+      "queries": 16,
+      "caller_p95_ms": 176.8408749999999,
+      "total_time_ms_p95": 75,
+      "execution_time_ms_p95": 27,
+      "compilation_time_ms_p95": 38,
+      "read_bytes_p95": 0,
+      "caller_minus_native_total_p95_ms": 111.39941700000006
+    },
+    "point": {
+      "queries": 16,
+      "caller_p95_ms": 421.5089589999996,
+      "total_time_ms_p95": 313,
+      "execution_time_ms_p95": 92,
+      "compilation_time_ms_p95": 215,
+      "read_bytes_p95": 135662939,
+      "caller_minus_native_total_p95_ms": 120.38962499999997
+    }
+  },
+  "wall_s": 25.307972917,
+  "qualification": "Small ordered alternating uncached cohort on one persistent SQL connection.8stratified unchanged keys repeated twice; not full workload service-tail or cold/concurrent trial. Native total and caller clocks differ; signed residual is approximate client/network/fetch/poll overhead, not isolated network latency. Do not add component p95 values or infer billion admission.",
+  "audit": {
+    "source_sha256": {
+      "summary.json": "b1564724dcefae8191a33dc53f821041e4a9a11438dc4ddd3ee99baa4e12baf0",
+      "statements.jsonl": "545c8b396565e8c3bec44ec9fb38c45bdc078331af0a655ff7cf27fc66caf050",
+      "shared-history.json": "41299fd138c539294386b856c0085c0c4b654d1c35b701037c85a529bb8d8192"
+    },
+    "native_final_statements": 34,
+    "uncached_calibration_queries": 32,
+    "independent_full_carrier_reconstruction": 16,
+    "qualification": "Small ordered alternating uncached cohort on one persistent SQL connection.8stratified unchanged keys repeated twice; not full workload service-tail or cold/concurrent trial. Native total and caller clocks differ; signed residual is approximate client/network/fetch/poll overhead, not isolated network latency. Do not add component p95 values or infer billion admission."
+  }
+}
