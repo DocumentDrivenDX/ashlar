@@ -2026,7 +2026,19 @@
     "out/native/ashlar_fourth_post_reads_r440/shared-history.json": "a71bc58cb46bba15553cd611baa0d2b9dc19a707810f9480a311162d336e99f8",
     "out/native/ashlar_fourth_post_reads_r440/statements.jsonl": "0ff97706bc4aa3b0a1f7680bbe75f46f8f4b04a9fba81a1cc8bd9d873485c5f3",
     "out/native/ashlar_fourth_post_reads_r440/completed-last-request.json": "9d5801ba884eebc2db419487801d7b35998b6ada82ec80c91ac3af3b234c93a3",
-    "out/native/ashlar_fourth_post_reads_r440/audited-summary.json": "47b8e78cd4932638ed7c3d56af24b9d3e550a8d10a746de281f9928958958190"
+    "out/native/ashlar_fourth_post_reads_r440/audited-summary.json": "47b8e78cd4932638ed7c3d56af24b9d3e550a8d10a746de281f9928958958190",
+    "merge_plan_probe_r443.py": "054a8e75744a606809ef0158f14f9ff74f54d4c2c80fa2275806e6341289878c",
+    "out/native/ashlar_merge_plan_probe_r443/summary.json": "d35e131b136efb4b1650cb83192596947d33c17c6f82759ec93ea90e1ac08448",
+    "out/native/ashlar_merge_plan_probe_r443/wide-read-default.txt": "6ec14a94ffd34e23df8263f5cf56cefccd53a2ad850fcff4284ad31987f7db5e",
+    "out/native/ashlar_merge_plan_probe_r443/shared-history.json": "129a7a408d6d737ea492174b8c23720e98965b0eb37ac59783ed8cb2333faf6c",
+    "out/native/ashlar_merge_plan_probe_r443/merge-outer-broadcast.txt": "c0cb9fa72fd644ac81347482df23bcfde0b021952140375dfb6061182c62f23c",
+    "out/native/ashlar_merge_plan_probe_r443/merge-default.txt": "4404b9cba7d349d3530eae910c27ff7f4de3d5c9cc8145d9bbb8c16824856938",
+    "out/native/ashlar_merge_plan_probe_r443/statements.jsonl": "4eadbd826313c6178f682d4c71757ca74edd8d0b4e49aa20cc155f54a82effc9",
+    "out/native/ashlar_merge_plan_probe_r443/merge-inner-broadcast.txt": "e7d4ac471024dd7305add4361945695f8ef03b14a64a26f2d211551b89ddd678",
+    "out/native/ashlar_merge_plan_probe_r443/completed-last-request.json": "cdb74959e13040ba0d04238b2af392ef5d114b7760019b7882b36e16a43b2b52",
+    "out/native/ashlar_merge_plan_probe_r443/wide-read-outer-broadcast.txt": "21f626a9822f82a77e96b2288549be4104d7b1a0debf53527c01f8eff7567688",
+    "out/native/ashlar_merge_plan_probe_r443/audited-summary.json": "f898f33f453758ce593a65de7aa9a453a32c18d865db5f928f5140c49ae4453f",
+    "out/native/ashlar_merge_plan_probe_r443/wide-read-inner-broadcast.txt": "7129f43e217ed4add7e033788657eb7f4005466544360b6ea562a77e953b340c"
   },
   "evidence": {
     "ddl": {
