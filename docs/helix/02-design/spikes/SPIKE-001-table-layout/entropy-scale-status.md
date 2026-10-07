@@ -1,5 +1,55 @@
 # Higher-entropy scale and GraphFrames iteration
 
+## Parallel appends and singleton contention
+
+[Audited r101](out/native/ashlar_parallel_publication_20261007_r101/audited-summary.json)
+publishes one new 100k-member large-token batch against the 20M-edge fixture,
+using two independent persistent connections for raw and journal appends and
+one bounded serial singleton reader. Input preparation remains outside the
+publisher clock; the complete pre-staged input is released at 10 s. All previous
+affected-carrier, lexical patch, raw/digest/cursor/independent timestamp,
+envelope metadata and journal multiset gates pass. MERGE updates exactly 100k
+rows with zero copied, inserted or deleted rows. The verified manifest binds
+current13/raw11/journal13/nodes0/tombstones0.
+
+Publisher processing is 64.19 s, complete-input-to-verified-manifest 64.19 s,
+and oldest modeled record freshness 74.19 s. Raw/journal callers overlap for
+25.09 s; the pair occupies 25.82 s wall time. Individual append callers are
+25.09/25.82 s and engine times 24.37/25.22 s. Earlier serial r99 appends were
+about 12–13 s each. This is not a controlled isolated parallel/serial speedup
+comparison: r101 also has a reader, newer file statistics and more retained
+history. Observed parallelism does not improve this full-path sample or qualify
+10k/s sustained, 100k/s burst or 60 s freshness p95.
+
+| Read cohort | n | Engine p95 | Caller p95 | Remote-read queries |
+| --- | ---: | ---: | ---: | ---: |
+| idle, old publication12 | 30 | 137 ms | 422 ms | 0 |
+| wholly during publisher, old publication12 | 129 | 637 ms | 921 ms | 13 |
+| during publisher, no-remote subset | 116 | 497 ms | 798 ms | 0 |
+| wholly within append overlap, subset | 51 | 635 ms | 921 ms | 2 |
+| afterward, old publication12 | 30 | 116 ms | 502 ms | 1 |
+| afterward, new publication13 | 30 | 110 ms | 414 ms | 0 |
+
+All 246 singleton reads return the exact expected 20-field carriers from
+independently staged inputs. The table omits 25 input-wait reads and two
+boundary-straddling reads; subsets overlap their parent cohort. All exact final
+metrics are uncached. The same 30 large-token hot-set keys are cycled by one
+closed-loop reader; these nearest-rank p95 samples are not graph-wide, steady,
+four-client or cold-data SLAs. Old controls intentionally remain pinned to
+publication12 while canonical version13 is applied and installed. Separate
+[new-publication checks](out/native/ashlar_parallel_publication_20261007_r101/new-publication-reads/summary.json)
+validate the newly published values at version13.
+
+Reported file-read p95 is 15 in these cohorts, against unmaintained update-file
+snapshots. Read latency rises under shared work even in the no-remote subset.
+Do not assume overlapping writes create additional warehouse capacity or that
+idle read results represent publication contention. Keep writer concurrency a
+resource-policy choice; measure native incremental maintenance and subsequent
+pruning before selecting a read/maintenance policy. The observed-after-run
+warehouse remains serverless PRO 2X-Small with one min/max cluster; no resize or
+provision operation was performed. Attributable dollars, real producer authority,
+full baseline origins and billion-scale admission remain unqualified.
+
 ## Journal batch file statistics
 
 [Audited r100](out/native/ashlar_journal_batch_statistics_20261007_r100/audited-summary.json)

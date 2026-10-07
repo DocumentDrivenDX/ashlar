@@ -94,7 +94,7 @@
     "graphframes_scale.py": "165f5d89ef23e26eaae8a688fa4fc1811515ac2f633d800273c47466ca218e7a",
     "parameterized_reads.py": "c52b62fc1ed9c21c7df9ce65bcce6f45bc9b0eac3ad10e4d4fbf7dacf0ea1528",
     "cancel_controls.py": "136be2fba80a126197e9a1c2a91796a33935724e24f2ec775b611d39a1ea2d51",
-    "entropy-scale-status.md": "090214a85f85e5d219d074094e6da3522ff55102bfd5df83ae8adfc14274ad6e",
+    "entropy-scale-status.md": "5d2a08f56a287ad721ed2a16d5058e592a5827e630b6a8f0d6ea266f9ea0db22",
     "out/entropy-local-20261006/summary.json": "12359f89adabb3e41771cdf4570902a6626d74e03e3cae7d2c3e2f8bfefb344e",
     "out/graphframes-scale-20261006/summary.json": "608ef7aaf0b1cb89668ada1f69213c050874f4851f2acef97a65e63ac1fe53ab",
     "out/graphframes-scale-20261006/materialization.json": "83ee2e37d60c9df1bb088ff239e63640bd0835a555ea085c8a3863b71791f691",
@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "1e609b9ba02b3c264f0eb16355d6d06f77e073e29674fe27ae0df6ba37df1c02",
+    "layout-status.md": "542df51cec56997b5355395f779f0dc3489fd58eb1a5f1f21036df7fbeb21ea4",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -127,7 +127,7 @@
     "out/native/ashlar_entropy_reads_20261006_r88/client-3/query-history.json": "bfa8b8205c57a336fbef0bc9aaf6b1d02aae0b1d948350517816d6808b474838",
     "entropy_publication.py": "ecb6c2e709348c9023b513cfb0516bb03221f2fb5f56b812450ff7665c3ed155",
     "entropy_publication_audit.py": "db9c7a2f7284ff3b526a1eed560258c3801ad0ab8d56fe0aafba9a8a35c5a8cd",
-    "incremental-publication-design.md": "ddc13a21c1dd45734ec7a920ef6915b09dfe2d6f5f156846ea6b267455b289b5",
+    "incremental-publication-design.md": "bf99d03b318916aac8e40d5f5e9912bcd36a268070f6c9d49913b3d2faf00b74",
     "out/native/ashlar_entropy_publication_20261006_r89/summary.json": "420cee0e2a8ea8c5616270db0f7b2d583b610dc58380a6a15127fec7b5208237",
     "out/native/ashlar_entropy_publication_20261006_r89/statements.jsonl": "4b045390a75cedfdb96e8da284364e056bee01cdeb0dce2fa890d1b4bfb373b0",
     "out/native/ashlar_entropy_publication_20261006_r89/query-history.json": "926663c336217d07ed0e3353de5ef2c50cdef1886322b262501266804b710b08",
@@ -228,7 +228,21 @@
     "out/native/ashlar_journal_batch_statistics_20261007_r100/summary.json": "94908e8d4c05e3883af24b8e2d260855cf95cb78c079c62cfbdfe092524ca79d",
     "out/native/ashlar_journal_batch_statistics_20261007_r100/statements.jsonl": "4ebb917aaf4063b03b5440861ab7f3c41b78c0eba169caa3ac41d16cf02c9dcf",
     "out/native/ashlar_journal_batch_statistics_20261007_r100/query-history.json": "c6115e52ea3128a511920eda56bb021a2d3b21b5f9e5c91c97579c022bb59789",
-    "out/native/ashlar_journal_batch_statistics_20261007_r100/audited-summary.json": "d804de10e13694c949e13c524fd01c01273742320e0641d262f8cc093b564c92"
+    "out/native/ashlar_journal_batch_statistics_20261007_r100/audited-summary.json": "d804de10e13694c949e13c524fd01c01273742320e0641d262f8cc093b564c92",
+    "parallel_publication.py": "fe5ceedcb5cbe4ba9fa380cbb0020ce82e1be15ce6bf978205cdc6d3a6ef3d7c",
+    "parallel_publication_audit.py": "47b0d52735906e5a276a204fe986889eddd4683994243067fd224722ee6808fb",
+    "parallel_publication_post_reads.py": "7af9a54e38cf9e12e3d7e26edb0eafd350e78cbae42d4b01c45bd47c943dc2aa",
+    "out/native/ashlar_parallel_publication_20261007_r101/summary.json": "db27b118c31475b045f803ef6a6b1b68e654af0a4c5987b91f4e264d68c4b1d8",
+    "out/native/ashlar_parallel_publication_20261007_r101/statements.jsonl": "e90a9e6625224a531565369e338dfff4e1971a8a1defa5488d05e92efe2cf56d",
+    "out/native/ashlar_parallel_publication_20261007_r101/query-history.json": "20ea38953e0ad22124fd2dc11e415b7b027d8e0f1a64486d1e46fcacc9d222ae",
+    "out/native/ashlar_parallel_publication_20261007_r101/audited-summary.json": "d6a832affbe84d1f2d0add7a8eb3b3a22ade2972ec3cdad292ab67d799c62c05",
+    "out/native/ashlar_parallel_publication_20261007_r101/reader/statements.jsonl": "52855fa5332fade5b7f6c4b449b8b18edd86ff22fde1a31703cf07547be6bc34",
+    "out/native/ashlar_parallel_publication_20261007_r101/reader/query-history.json": "881eec1016dde96e07eebfbaf10b4c8ed97dfb3bfe797a63da24c5e83a3dce3b",
+    "out/native/ashlar_parallel_publication_20261007_r101/journal-lane/statements.jsonl": "6398ba0e22ef271b4a8c3c8b3fb2bb7abff6efc85e30ef9311a833e55bbf715e",
+    "out/native/ashlar_parallel_publication_20261007_r101/journal-lane/query-history.json": "a26586ec7ce22419e1d92d458fd94e6f0e235e723979d8f465938686c1f604a8",
+    "out/native/ashlar_parallel_publication_20261007_r101/new-publication-reads/summary.json": "905096312f0763da4b4eee717a76c0ea4def233b5eeb3c86f2eb5c1e05068cd2",
+    "out/native/ashlar_parallel_publication_20261007_r101/new-publication-reads/statements.jsonl": "726d1aeac7c314b888d81a421369f4c31b48f4a298b8983a213f06fcf7c90fcd",
+    "out/native/ashlar_parallel_publication_20261007_r101/new-publication-reads/query-history.json": "caf584b4ccdecb623a534b801a6ea8fdcfa600bc5190addb0eae2381d94ae2ab"
   },
   "evidence": {
     "ddl": {
@@ -339,6 +353,10 @@
     "journal_batch_statistics_r100": {
       "result": "out/native/ashlar_journal_batch_statistics_20261007_r100/audited-summary.json",
       "scope": "900k rows preserved; journal version10 versus version12; file pruning improves without material latency or byte reduction; existing publication versions unchanged"
+    },
+    "parallel_publication_r101": {
+      "result": "out/native/ashlar_parallel_publication_20261007_r101/audited-summary.json",
+      "scope": "One actual 100k publication with independent overlapping append connections and one bounded reader. 246 exact old/new pinned reads; shared-resource latency degrades. No sustained/burst/billion-scale qualification."
     }
   },
   "design_choices": {

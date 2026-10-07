@@ -204,3 +204,28 @@ bytes remain about 2.6–2.7 GB and latency about 6–7 s. Include the statistic
 the physical candidate for pruning, without assigning an unmeasured freshness
 benefit. Existing manifests remain unchanged and their old snapshots do not
 inherit the new file statistics. Bind actual versions in later publications.
+
+## Independent append lanes and shared-resource contention
+
+The raw and journal append operations depend on the same immutable qualified
+input; they can execute independently on separate connections. Canonical apply
+must await both durable results and their validation. A failure in either lane
+leaves a partial unpublished batch requiring same-handle/commit recovery, not
+blind resubmission or acknowledgement. This ordering does not establish native
+producer completeness, exclusive-writer fencing or cross-table atomicity.
+
+[r101](out/native/ashlar_parallel_publication_20261007_r101/audited-summary.json)
+executes one actual 100k-member publication with overlapping appends and one
+bounded reader. All preservation gates pass; old published reads remain exact
+during canonical apply, and separate new-publication reads match new intended
+carriers. The append pair takes 25.82 s and the full publisher 64.19 s. Each
+append takes about 25 s versus previous serial samples of 12–13 s; differing
+reader load/history/statistics prevent isolated attribution. Do not make
+parallel lanes the performance default on this shared resource from that result.
+
+The 30-key large-token reader cohort has idle engine/caller p95 137/422 ms versus
+637/921 ms during publication; the no-remote subset remains 497/798 ms. File-read
+p95 is 15 for the unmaintained update snapshots. Resource policy must include
+concurrent reads, update-file pruning and maintenance cost. Earlier idle/static
+benchmarks cannot establish loaded singleton latency. This finite hot-set test
+does not qualify a general read population, sustained ingest or billion scale.
