@@ -1,0 +1,372 @@
+{
+  "state": "Complete100k source files match independent role counts/bytes/fields/digests",
+  "local_root": "/private/tmp/ashlar-fifth-input-r471",
+  "oracle_sha256": "9b39704b0748fc8931e6e7a97df99b1e410389d70585dad2b455cf13d85e8318",
+  "bounds": {
+    "total_bytes": 1200000000,
+    "part_bytes": 33554432,
+    "row_bytes": 1048576
+  },
+  "roles": {
+    "source_record": {
+      "fields": [
+        "source_feed",
+        "source_epoch",
+        "delivery_id",
+        "record_kind",
+        "source_cursor_json",
+        "payload_json",
+        "payload_digest",
+        "schema_revision",
+        "received_at",
+        "apply_batch_id"
+      ],
+      "rows": 100000,
+      "bytes": 525214049,
+      "parts": [
+        {
+          "name": "source_record-part0000.jsonl",
+          "bytes": 33553821,
+          "rows": 6389,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "271e8a18730b9d311d81a0467df1652f52ee3e74fee73110a4378f17160c1211"
+        },
+        {
+          "name": "source_record-part0001.jsonl",
+          "bytes": 33550533,
+          "rows": 6389,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "234a2caf216fd1941879ee1cc48f72f5b779864a9e58dea531b5c145def75c69"
+        },
+        {
+          "name": "source_record-part0002.jsonl",
+          "bytes": 33554099,
+          "rows": 6387,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "6922f4751024d02cf1bb979a5037d0ae037df65d79f86bf9c5e32653ce2cfe0d"
+        },
+        {
+          "name": "source_record-part0003.jsonl",
+          "bytes": 33552975,
+          "rows": 6390,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "fb762f9a0eb03f3b28888c3c45ea41da569f3656774db895168ca7706fbb1f93"
+        },
+        {
+          "name": "source_record-part0004.jsonl",
+          "bytes": 33545266,
+          "rows": 6386,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "cd3748da832c0c34571e3d036e16ba24913064b87a82d62a7da2e1ab8c49aa57"
+        },
+        {
+          "name": "source_record-part0005.jsonl",
+          "bytes": 33547542,
+          "rows": 6387,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "31d4aaf1de325115c75c2d3f9d74ed5f00e04e506f6e77498bd926b9d5917cd1"
+        },
+        {
+          "name": "source_record-part0006.jsonl",
+          "bytes": 33552153,
+          "rows": 6389,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "f53d4226d69122cb3818999cf47013454d6f5098e2d171d331f56719004e42b8"
+        },
+        {
+          "name": "source_record-part0007.jsonl",
+          "bytes": 33550325,
+          "rows": 6388,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "ffd28f16114ffd7693947b7b20df2c19c72ca883e0e35fd760e3f34d70dcdd4b"
+        },
+        {
+          "name": "source_record-part0008.jsonl",
+          "bytes": 33549768,
+          "rows": 6387,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "9633631c30f4a2b6548c56fee64996c6190c34d69ed475add62f809631bce11e"
+        },
+        {
+          "name": "source_record-part0009.jsonl",
+          "bytes": 33552248,
+          "rows": 6389,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "36734733bee64a215763ee4f7cfd68a1eff8ae18e7505eb6b8b9c157d129bcad"
+        },
+        {
+          "name": "source_record-part0010.jsonl",
+          "bytes": 33546743,
+          "rows": 6387,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "ea81488d0764427a397271d58d9ad133cebcc937ede8b6bd424c32372de6789c"
+        },
+        {
+          "name": "source_record-part0011.jsonl",
+          "bytes": 33550695,
+          "rows": 6388,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "702d38915445a8b48730d96061e8047a6fed9877b0a275254f309790ccf089de"
+        },
+        {
+          "name": "source_record-part0012.jsonl",
+          "bytes": 33552072,
+          "rows": 6388,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "1ad30af70362f0f006ed499487f83f1a9cb40023e9e0bbbba876c0ae5e2a81cb"
+        },
+        {
+          "name": "source_record-part0013.jsonl",
+          "bytes": 33549077,
+          "rows": 6388,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "c2f9c694c8cbde9bca6a827fc9458efe1bef2ab6ff7e00c193d6b6f1e5da0a06"
+        },
+        {
+          "name": "source_record-part0014.jsonl",
+          "bytes": 33551914,
+          "rows": 6389,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "110d0fdd4a0883829bdd19d817cecf5616478b1b5bf3b49603dcb67327213bf8"
+        },
+        {
+          "name": "source_record-part0015.jsonl",
+          "bytes": 21954818,
+          "rows": 4179,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "24671c172d84e2eb811083da01f563bfcb45fad1e604666242d94e69f97c00ac"
+        }
+      ],
+      "all_known_field_digest": "cb6a390b370781d213673e6e10452e5b55eaf239be3ae129c150059d7a235423",
+      "original_input_multiset_digest": "c6039f15efb86aa58e5b30665693dc4a2852e92e858be106e41264b6c9f96df9"
+    },
+    "property_journal": {
+      "fields": [
+        "source_system",
+        "entity_kind",
+        "type_id",
+        "id",
+        "entity_version",
+        "schema_revision",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "source_time_text",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "property_id",
+        "operation",
+        "old_present",
+        "old_json",
+        "new_present",
+        "new_json",
+        "event_ordinal"
+      ],
+      "rows": 216666,
+      "bytes": 371215307,
+      "parts": [
+        {
+          "name": "property_journal-part0000.jsonl",
+          "bytes": 33554426,
+          "rows": 19584,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "932548f278db4fe692b091d23d8f306453a58612e17fc8aeb994135b2f83044e"
+        },
+        {
+          "name": "property_journal-part0001.jsonl",
+          "bytes": 33553871,
+          "rows": 19581,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "0759427cac0b168727432236c152ec576031012674fa60381fd90d3d0050b6e3"
+        },
+        {
+          "name": "property_journal-part0002.jsonl",
+          "bytes": 33552204,
+          "rows": 19590,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "a3c0a07cad2711bd6fd9d6d451d87a44176c54f013b5bdbe0dfba9690b5c4ab3"
+        },
+        {
+          "name": "property_journal-part0003.jsonl",
+          "bytes": 33554116,
+          "rows": 19581,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "4da83e39d3ef390904b58905064ac8af501c8c48694e825a31cc4c6c29f32265"
+        },
+        {
+          "name": "property_journal-part0004.jsonl",
+          "bytes": 33546022,
+          "rows": 19584,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "cd66978840d0548856cdc8bad775b6eea5d1b1be7b6d211f1a24ef45297f8d5c"
+        },
+        {
+          "name": "property_journal-part0005.jsonl",
+          "bytes": 33553839,
+          "rows": 19581,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "9b11765c01117a785233217df28dcfb96c22a88ed79ac14f0403282daef9b786"
+        },
+        {
+          "name": "property_journal-part0006.jsonl",
+          "bytes": 33546711,
+          "rows": 19582,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "bad551c0a5f67bacb2b0e22efd23f44275ecee7ef2719fc7711784ede5dbf565"
+        },
+        {
+          "name": "property_journal-part0007.jsonl",
+          "bytes": 33554133,
+          "rows": 19584,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "50559f2d37e28a1740602ddfb9ae215feb43d6489ec0a2b96c0e1eafd3ff9cb5"
+        },
+        {
+          "name": "property_journal-part0008.jsonl",
+          "bytes": 33553896,
+          "rows": 19581,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "20690bd79f6b1803e5631867fdc292bbe2485760efa2188ec8ad367a78523599"
+        },
+        {
+          "name": "property_journal-part0009.jsonl",
+          "bytes": 33552445,
+          "rows": 19590,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "59fd6586b4d5169811f04a1be0a3a94f04d549cfa7b776a07a0567533eaa572e"
+        },
+        {
+          "name": "property_journal-part0010.jsonl",
+          "bytes": 33553851,
+          "rows": 19581,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "be489206a7b96ef22d6aebbad781be1390953446fac3e7864124887795dbb986"
+        },
+        {
+          "name": "property_journal-part0011.jsonl",
+          "bytes": 2139793,
+          "rows": 1247,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "d538f9c2edcfc58ebfcce9b322278957597eb790e3126d1dee9083326b4ce4a8"
+        }
+      ],
+      "all_known_field_digest": "f70e18666a9fc9482c3f7f4a9aa8697f38026736c8988f79938270ca989a6d2f",
+      "original_input_multiset_digest": "8f9d6f8b9f11d4549f70e0c89384c5d47e532f7d44eaf7c884c34e535c4dfe91"
+    },
+    "tombstone": {
+      "fields": [
+        "source_system",
+        "entity_kind",
+        "type_id",
+        "id",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "source_cursor_json",
+        "source_delivery_id",
+        "apply_batch_id",
+        "entity_version"
+      ],
+      "rows": 10000,
+      "bytes": 3476728,
+      "parts": [
+        {
+          "name": "tombstone-part0000.jsonl",
+          "bytes": 3476728,
+          "rows": 10000,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "f7af312ce9b640b759bb9b56678a29332679e44322c4bec0ff26d1e2c67fca82"
+        }
+      ],
+      "all_known_field_digest": "6c114be4b45da3e20bac919dc6152eea1f2c30891662d8ec2f3c045124b394ed",
+      "original_input_multiset_digest": "a218a18a566498e467da58497d65654309a6176cced199951defa4b41dd588de"
+    },
+    "current_replacement": {
+      "fields": [
+        "source_system",
+        "rel_type_id",
+        "id",
+        "source_type",
+        "source_id",
+        "target_type",
+        "target_id",
+        "order_key",
+        "schema_revision",
+        "entity_version",
+        "props_json",
+        "retained_json",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "lookup_hash"
+      ],
+      "rows": 90000,
+      "bytes": 200728083,
+      "parts": [
+        {
+          "name": "current_replacement-part0000.jsonl",
+          "bytes": 33553801,
+          "rows": 15045,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "41b243e6e6548f8f5bf6538574440288ead1c6544dd70b68abef207ba3d9399c"
+        },
+        {
+          "name": "current_replacement-part0001.jsonl",
+          "bytes": 33551861,
+          "rows": 15043,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "f949a154ed738dc826e8184789cf3bccb6fb88a2df310cd68493a513dc2acc0f"
+        },
+        {
+          "name": "current_replacement-part0002.jsonl",
+          "bytes": 33553623,
+          "rows": 15044,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "d3dcc9b881957ecd1ba3604284bf7662c5a2f2aeb2fcef5f79ab859de962d965"
+        },
+        {
+          "name": "current_replacement-part0003.jsonl",
+          "bytes": 33553068,
+          "rows": 15045,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "ab63c640b0ed4b31b0273012392bb0768f330df70df3cb95b384dd2556b62c4e"
+        },
+        {
+          "name": "current_replacement-part0004.jsonl",
+          "bytes": 33549769,
+          "rows": 15041,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "e674b14336f0ba7962a00aa301b7f78bf6b1515fe317ea0322b804fdd9432a9c"
+        },
+        {
+          "name": "current_replacement-part0005.jsonl",
+          "bytes": 32965961,
+          "rows": 14782,
+          "state": "Closed exact UTF-8 JSONL part",
+          "file_sha256": "cb2daec738be2766f035e6721d4f56b3ed6358d569a61f9cd46cbdfce8d11e1c"
+        }
+      ],
+      "all_known_field_digest": "8fb03d7cb060e0bfaa3da0c159a0302658b73bad603df89d700d9917bbc20581",
+      "original_input_multiset_digest": "c2f9dd365fde57eb39994ed1e61a308b8293a16195dc4f8953a4d20c4ac16e52"
+    }
+  },
+  "processed_changes": 100000,
+  "elapsed_s": 21.689063667,
+  "source_bytes": 1100634167,
+  "parts": 35,
+  "wall_s": 21.988229125,
+  "source_sha256": {
+    "fifth_batch_files_r471.py": "40a57bbe69c43e2373ae79c51675f73137a4ead57d75fbc7c9450eec2150574a",
+    "fifth_changes_r470.py": "6a76b1918db1337368663444a7c22608d75cdb677eb38e388c04c3c2a2f8d3d8",
+    "mixed_changes_r228.py": "2ab1d0c677cf7acff58e923bf3199a89a912fa712731769ca5a100e5ce9599fa",
+    "mixed_change_queries_r230.py": "7c49d418861c5b2694f8461cc1a25858663d9b6eb7d813139e4d14455cf90540",
+    "mixed_history_r215.py": "a38cd65a930e19ed98052adf425ac7bd6bcad959578b51fe5ff9bf804e62d31b"
+  },
+  "qualification": "Local exact JSONL parts only, source fields/payload/cursors/token spelling retained; no native upload/stage/apply/manifest or freshness claim. Data remains outside repository; compact manifest and code are reviewable. Fifth distinct batch over39.96M live edges; native target preflight remains required. Tombstone JSON includes an additional synthetic apply_batch_id metadata field beyond canonical CONTRACT-003 columns; full original input_json must retain it, and future native input schema/projection must explicitly qualify this extension before applying. It is not an implicit canonical DDL change. Files can be altered locally: reverify hashes before upload; volume overwrite false is not immutable source custody. Native input must later be validated and pinned at exact Delta versions."
+}

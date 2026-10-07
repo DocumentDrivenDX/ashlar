@@ -1,0 +1,24 @@
+{
+  "rows": 10000,
+  "fields": [
+    "source_system",
+    "entity_kind",
+    "type_id",
+    "id",
+    "source_feed",
+    "source_epoch",
+    "source_position",
+    "source_cursor_json",
+    "source_delivery_id",
+    "entity_version"
+  ],
+  "digest": "0fee1671527ce4f89d468d9ed9c5158ec2e33886607104066dd581af42e9b2fe",
+  "source_sha256": {
+    "fifth_cdf_oracle_r473.py": "9fe5f6ac3279e6e73e50a4cd8cedbeddccb7af75db55d9ff3717ae1c027f110f",
+    "fifth_changes_r470.py": "6a76b1918db1337368663444a7c22608d75cdb677eb38e388c04c3c2a2f8d3d8",
+    "mixed_changes_r228.py": "2ab1d0c677cf7acff58e923bf3199a89a912fa712731769ca5a100e5ce9599fa",
+    "scale_mixed_r219.py": "d39c6a01fbcd65b9302c52c71cc9d44a3a7fa56e47ddce84aa087ce6dc3a317d",
+    "mixed_change_queries_r230.py": "7c49d418861c5b2694f8461cc1a25858663d9b6eb7d813139e4d14455cf90540"
+  },
+  "qualification": "Independent complete canonical10field tombstone oracle; input-only apply_batch_id remains preserved separately in original input_json."
+}

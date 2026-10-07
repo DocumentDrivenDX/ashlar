@@ -1,0 +1,81 @@
+{
+  "format": "ashlar-cdf-image-oracle/1",
+  "state": "Independent complete190k-image multisets for each mutable role",
+  "roles": {
+    "edge_current": {
+      "fields": [
+        "source_system",
+        "rel_type_id",
+        "id",
+        "source_type",
+        "source_id",
+        "target_type",
+        "target_id",
+        "order_key",
+        "schema_revision",
+        "entity_version",
+        "props_json",
+        "retained_json",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "lookup_hash"
+      ],
+      "total_rows": 190000,
+      "images": {
+        "update_preimage": {
+          "rows": 90000,
+          "digest": "0ecb8ca891ffc2e23833ac87d74e37e2f2fe93ea603a98517dcc817a3474c912"
+        },
+        "update_postimage": {
+          "rows": 90000,
+          "digest": "8fb03d7cb060e0bfaa3da0c159a0302658b73bad603df89d700d9917bbc20581"
+        },
+        "delete": {
+          "rows": 10000,
+          "digest": "bc1f375e1761480cdf072dd057ea98ee177a7383249f28fffba392f645cc471a"
+        }
+      }
+    },
+    "adjacency_forward": {
+      "fields": [
+        "source_system",
+        "rel_type_id",
+        "id",
+        "source_type",
+        "source_id",
+        "target_type",
+        "target_id",
+        "entity_version"
+      ],
+      "total_rows": 190000,
+      "images": {
+        "update_preimage": {
+          "rows": 90000,
+          "digest": "7b173dbba44ec655a38195dc4a9c225c9b9c906f3af62505aa3e6ea18e42f402"
+        },
+        "update_postimage": {
+          "rows": 90000,
+          "digest": "6a62951f73210ac311a0319c588708a8e9dee6751b433a096a7a424bc166cafb"
+        },
+        "delete": {
+          "rows": 10000,
+          "digest": "90e0220cbf1a2cd8b864d948efb0982f0d6970b82a98028eb7641f28ad12fb4e"
+        }
+      }
+    }
+  },
+  "source_sha256": {
+    "fifth_cdf_oracle_r473.py": "9fe5f6ac3279e6e73e50a4cd8cedbeddccb7af75db55d9ff3717ae1c027f110f",
+    "fifth_changes_r470.py": "6a76b1918db1337368663444a7c22608d75cdb677eb38e388c04c3c2a2f8d3d8",
+    "mixed_changes_r228.py": "2ab1d0c677cf7acff58e923bf3199a89a912fa712731769ca5a100e5ce9599fa",
+    "scale_mixed_r219.py": "d39c6a01fbcd65b9302c52c71cc9d44a3a7fa56e47ddce84aa087ce6dc3a317d",
+    "mixed_change_queries_r230.py": "7c49d418861c5b2694f8461cc1a25858663d9b6eb7d813139e4d14455cf90540"
+  },
+  "qualification": "Local exact190k rows per role:90k preimages90k postimages10k deletion preimages, no inserts. Every native field included; SHA256 collision resistance assumed. Not native CDF compatibility, complete inherited custody, permanent history or freshness evidence.",
+  "wall_s": 19.478893
+}

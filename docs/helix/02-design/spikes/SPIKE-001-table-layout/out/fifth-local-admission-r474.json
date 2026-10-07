@@ -1,0 +1,21 @@
+{
+  "state": "Corrected fifth100k local input geometry and complete byte/field/CDF bindings pass; native transfer/stage/publication unexecuted",
+  "accepted_oracle_sha256": "9b39704b0748fc8931e6e7a97df99b1e410389d70585dad2b455cf13d85e8318",
+  "accepted_files_sha256": "894962518fa08fcd8fd96f6c3efa26cb1a7c49326c9b62a959fa4006e9d8cdba",
+  "rejected_attempt": {
+    "oracle_sha256": "22a158ed75226bf87eccf0d2af8d656f332c0b3097734738568620139f043193",
+    "original_edges": 50000000,
+    "reason": "Broad text substitution changed40M modulus to50M. Local replay checks self-consistently passed against wrong universe; never uploaded/applied. No preservation/publication support claim.",
+    "local_root": "/private/tmp/ashlar-fifth-input-r467",
+    "admissible": false
+  },
+  "roles": {
+    "source_record": 100000,
+    "property_journal": 216666,
+    "tombstone": 10000,
+    "current_replacement": 90000
+  },
+  "source_bytes": 1100634167,
+  "parts": 35,
+  "qualification": "Exact corrected local source only; geometry guard now explicit. Later native complete digests, target heads/UUIDs, inline predecessor guard and six-role custody remain required. No source arrival/freshness/real authority proof."
+}
