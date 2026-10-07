@@ -1,0 +1,172 @@
+{
+  "state": "Complete100k overlay accepted-carrier/key equivalence and192full-carrier point evidence audited",
+  "combined_costs": {
+    "read_bytes": 65508658432,
+    "write_remote_bytes": 80370684,
+    "spill_to_disk_bytes": 0
+  },
+  "evidence": {
+    "ashlar_overlay_build_r401": {
+      "native_final_statements": 26,
+      "costs": {
+        "read_bytes": 33547571338,
+        "write_remote_bytes": 80370684,
+        "spill_to_disk_bytes": 0
+      },
+      "source_sha256": {
+        "summary.json": "1d255e0387500745571bef7322f3c12b2f9619e12592c94f3eeee7fa994d061b",
+        "shared-history.json": "e643d8bc7f6e746cea8b116b0cec7a9c936681984199fc0b64398fa5d26a9989",
+        "statements.jsonl": "0bdac1681a12094f4ae682aaa38ec59a6bd63b6478912205d76337f2725766b7",
+        "query-history.json": "8b6816c4c6d032ffbf9a45898c92868926c9b719046c6b891335f425e7efd954",
+        "completed-last-request.json": "81035dd183da7265aa095012de428078450223da06c4b91b25abb9a263cafb23",
+        "canceled-native-final.json": "ac7d2407688d4652dbbab9c102b0e78192d9390bd77a23791f51370442b6aafe"
+      }
+    },
+    "ashlar_overlay_validate_r404": {
+      "native_final_statements": 7,
+      "costs": {
+        "read_bytes": 4234476547,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "source_sha256": {
+        "summary.json": "1d79e974f95454847431aa7eef70d5e1b52ec20e7e66a577329edf821ea830d0",
+        "shared-history.json": "f59443235ef9869e516a57ba5c3a179dd412cc65047e5ec4addb8657cee04d30",
+        "statements.jsonl": "ae4bfcaaea7e4451c404daee017e12d28859189964a99277024bab7a12eb794d",
+        "completed-last-request.json": "a0877a2d64696a17e0d77de87e1574e3886b69993bd89b72d07674d809847b07"
+      }
+    },
+    "ashlar_overlay_points_r405": {
+      "native_final_statements": 196,
+      "costs": {
+        "read_bytes": 27726610547,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "source_sha256": {
+        "summary.json": "4a5ec4002c0afc7ea9d74e7dc90fa5fc7b26bcc7034d91017d30dbf1d0548c6b",
+        "shared-history.json": "86ac5221f06554be845c717822da3963877c4de97ad476fffd273d1a997cb96f",
+        "statements.jsonl": "b3be3bb59adc688f43865475fc9248af0a179ea2e3d566083aea243e6eb5ebfa",
+        "completed-last-request.json": "d29cade7698516cb0a0e3e3807b6bec147d11862a1994d692f8b940315372ad7"
+      }
+    }
+  },
+  "append_caller_s": 8.022892374999998,
+  "append_native_metrics": {
+    "total_time_ms": 7646,
+    "read_bytes": 233378747,
+    "rows_produced_count": 1,
+    "compilation_time_ms": 485,
+    "execution_time_ms": 7128,
+    "read_remote_bytes": 233378747,
+    "write_remote_bytes": 80370684,
+    "read_cache_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "task_total_time_ms": 21252,
+    "read_files_count": 23,
+    "read_partitions_count": 0,
+    "photon_total_time_ms": 6783,
+    "rows_read_count": 200000,
+    "result_fetch_time_ms": 52,
+    "network_sent_bytes": 0,
+    "result_from_cache": false,
+    "pruned_bytes": 0,
+    "pruned_files_count": 0,
+    "query_compilation_start_timestamp": 1791395067237,
+    "metadata_time_ms": 0,
+    "query_execution_time_ms": 7613,
+    "bytes_read_from_cache_percentage": 0.0,
+    "write_remote_rows": 100000,
+    "write_remote_files": 1,
+    "queue_end_time_ms": 1791395067201,
+    "read_files_bytes": 467647943,
+    "conflict_resolution_time_ms": 0,
+    "rows_scanned": 200000,
+    "cloud_storage_retry_duration_ms": 0,
+    "task_progress": {
+      "planned_task_count": 25,
+      "completed_task_count": 25,
+      "completed_partition_count": 25,
+      "pending_task_count": 0,
+      "failed_task_count": 0
+    }
+  },
+  "point_metrics": {
+    "direct": {
+      "queries": 96,
+      "caller_p95_ms": 701.6084999999989,
+      "engine_p95_ms": 355,
+      "compile_p95_ms": 224,
+      "read_bytes_p95": 195322281,
+      "read_files_p95": 4,
+      "remote_queries": 22
+    },
+    "overlay": {
+      "queries": 96,
+      "caller_p95_ms": 1250.8479580000014,
+      "engine_p95_ms": 627,
+      "compile_p95_ms": 578,
+      "read_bytes_p95": 242894849,
+      "read_files_p95": 3,
+      "remote_queries": 35
+    }
+  },
+  "point_metrics_per_phase": {
+    "direct-0": {
+      "queries": 48,
+      "caller_p95_ms": 710.383084,
+      "engine_p95_ms": 399,
+      "compile_p95_ms": 224,
+      "read_bytes_p95": 151054893,
+      "read_files_p95": 4,
+      "remote_queries": 22
+    },
+    "direct-1": {
+      "queries": 48,
+      "caller_p95_ms": 442.1059580000133,
+      "engine_p95_ms": 112,
+      "compile_p95_ms": 205,
+      "read_bytes_p95": 206412851,
+      "read_files_p95": 4,
+      "remote_queries": 0
+    },
+    "overlay-0": {
+      "queries": 48,
+      "caller_p95_ms": 1250.8479580000014,
+      "engine_p95_ms": 627,
+      "compile_p95_ms": 593,
+      "read_bytes_p95": 242894849,
+      "read_files_p95": 3,
+      "remote_queries": 23
+    },
+    "overlay-1": {
+      "queries": 48,
+      "caller_p95_ms": 1215.4584170000078,
+      "engine_p95_ms": 624,
+      "compile_p95_ms": 535,
+      "read_bytes_p95": 242894849,
+      "read_files_p95": 3,
+      "remote_queries": 12
+    }
+  },
+  "overlay_physical_detail": {
+    "format": "delta",
+    "id": "fccb6a2f-182f-4745-82ee-73d08cd23ef2",
+    "name": "client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3f961e43-b3a9-4947-ad77-4fd155051223",
+    "createdAt": "2026-10-07T17:44:16.851Z",
+    "lastModified": "2026-10-07T17:44:34.000Z",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"lookup_hash\"]",
+    "numFiles": "1",
+    "sizeInBytes": "80370684",
+    "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.appendOnly\":\"true\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"3f961e43-b3a9-4947-ad77-4fd155051223\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-c9353726-4f08-43d9-b891-92134db7731d\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-43ad8350-b3f4-4dea-b629-7bb9bb8a0e68\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+    "clusterByAuto": "false"
+  },
+  "qualification": "One private overlay; failed/canceled comparison cost included. Full changed-carrier equality via independently audited overlay90k and published E6 complete CDF multisets plus closed E5\u2192E6 lineage, effective-key counts/deletions/typed closure. No claim that canceled wide join passed.192uncached full actual carrier/absence reads, ordered warmed cohort not robust service/cold/concurrent/compaction/publication/billion admission."
+}

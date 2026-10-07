@@ -1468,3 +1468,6 @@ Integrated third100k LC publication now passes complete preservation/custody: [r
 
 
 Small native accepted-overlay controls pass update/delete/replay/typed-key/missing and true live/deleted conflicts: [r398](overlay-control-disposition-r398.md). All costs include the stopped misconstructed fixture. [Bounded100k admission](out/overlay100k-admission-plan-r399.json) and normalized SQL are ready; full overlay ingest/read comparison remains unexecuted and all goal performance/scale gates remain open.
+
+
+[100k overlay/native read evidence](overlay100k-disposition-r407.md) now passes complete accepted-carrier/key integrity and192full-carrier comparisons. Isolated append8.023s; guarded overlay repeat caller1215.5ms/engine624ms vsdirect442.1ms/112ms. Canceled wide comparison and all costs retained; overlay not admitted. Next small query-plan/winner-shape comparison before file tuning/compaction. Full publication, steady/burst/cold/concurrency and1B/5B goals remain open.

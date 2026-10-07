@@ -1,0 +1,65 @@
+{
+  "state": "Accepted100k overlay matches qualified E6 change images and effective key integrity",
+  "source_sha256": {
+    "stopped_summary": "1d255e0387500745571bef7322f3c12b2f9619e12592c94f3eeee7fa994d061b",
+    "canceled_native": "ac7d2407688d4652dbbab9c102b0e78192d9390bd77a23791f51370442b6aafe",
+    "publication": "a103a114fa1f0855da6d388ed3da60124c0044229dd7dc5431fa5ea5a2826c90"
+  },
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400",
+    "id": "fccb6a2f-182f-4745-82ee-73d08cd23ef2",
+    "version": 1,
+    "create_statement_id": "01f1c276-b6dc-1603-aa8f-f6080f8267ec"
+  },
+  "base": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 5
+  },
+  "reference": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 6
+  },
+  "bounds": {
+    "read_bytes": 10000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 1000000000,
+    "wall_s": 180
+  },
+  "checks": {
+    "all90k_live_equivalence": "Independent complete20field native overlay digest equals previously audited E6 complete90k update_postimage digest, with exact E5\u2192E6 commit custody and full predecessor/uniqueness integrity. SHA256 collision assumption; canceled join is not counted as a passing comparison.",
+    "structural": "Unique39.97M effective typed edge keys,10k new deletions absent at E6,90k new typed endpoint closure; complete overlay identity/origin/digests from stopped r401 remain retained"
+  },
+  "final_detail": {
+    "format": "delta",
+    "id": "fccb6a2f-182f-4745-82ee-73d08cd23ef2",
+    "name": "client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3f961e43-b3a9-4947-ad77-4fd155051223",
+    "createdAt": "2026-10-07T17:44:16.851Z",
+    "lastModified": "2026-10-07T17:44:34.000Z",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"lookup_hash\"]",
+    "numFiles": "1",
+    "sizeInBytes": "80370684",
+    "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.appendOnly\":\"true\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"3f961e43-b3a9-4947-ad77-4fd155051223\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-c9353726-4f08-43d9-b891-92134db7731d\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-43ad8350-b3f4-4dea-b629-7bb9bb8a0e68\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+    "clusterByAuto": "false"
+  },
+  "costs": {
+    "read_bytes": 4234476547,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "combined_build_validation_costs": {
+    "read_bytes": 37782047885,
+    "write_remote_bytes": 80370684,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 20.291900582999997,
+  "qualification": "Complete changed-carrier equality is transitive through independently qualified native SHA multisets, not the canceled132.661s outer join. All stopped/canceled costs remain charged; original600s integrated phase is not reported successful. Read-only follow-up separately timed. No incoming admission, full publication freshness, compaction, caller/cold/concurrency, consumer engine or billion admission."
+}

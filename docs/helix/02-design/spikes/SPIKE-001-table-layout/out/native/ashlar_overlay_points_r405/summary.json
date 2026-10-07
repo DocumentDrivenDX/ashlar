@@ -1,0 +1,1698 @@
+{
+  "state": "All192 matched full-carrier direct and overlay reads pass",
+  "sources": {
+    "validation": "out/native/ashlar_overlay_validate_r404/summary.json",
+    "old_cohort": "out/native/ashlar_lc_prefix_points_r352/audited-summary.json",
+    "build": "out/native/ashlar_overlay_build_r401/summary.json"
+  },
+  "source_sha256": {
+    "validation": "1d79e974f95454847431aa7eef70d5e1b52ec20e7e66a577329edf821ea830d0",
+    "old_cohort": "2acce0bb4c6b08299bca24f068aedfb2660ba639d0ac1f215bbfdb4e1719d1cf",
+    "build": "1d255e0387500745571bef7322f3c12b2f9619e12592c94f3eeee7fa994d061b"
+  },
+  "base": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 5
+  },
+  "reference": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 6
+  },
+  "overlay": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400",
+    "id": "fccb6a2f-182f-4745-82ee-73d08cd23ef2",
+    "version": 1,
+    "create_statement_id": "01f1c276-b6dc-1603-aa8f-f6080f8267ec"
+  },
+  "reads": [
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "kind": "deleted",
+      "statement_id": "01f1c277-ab1c-17ff-8906-53cbbe99f019"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "kind": "deleted",
+      "statement_id": "01f1c277-ab81-15bd-b3e2-ceb1421940ca"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 1,
+      "ordinal": 33947290,
+      "kind": "deleted",
+      "statement_id": "01f1c277-ac41-10ba-8fdb-4ae51b35ec31"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 1,
+      "ordinal": 33947290,
+      "kind": "deleted",
+      "statement_id": "01f1c277-acd9-18bd-bf2f-1a187641c7ce"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 2,
+      "ordinal": 34994580,
+      "kind": "deleted",
+      "statement_id": "01f1c277-ad1a-1f74-ab01-e52d135943c7"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 2,
+      "ordinal": 34994580,
+      "kind": "deleted",
+      "statement_id": "01f1c277-ad56-179f-8911-cfa6606efb27"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 3,
+      "ordinal": 36041870,
+      "kind": "deleted",
+      "statement_id": "01f1c277-ade2-1ecc-8f8b-da4b1be58701"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 3,
+      "ordinal": 36041870,
+      "kind": "deleted",
+      "statement_id": "01f1c277-ae69-158b-a8f9-bf64ddc3e63e"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-aea7-1ae3-9338-234640498fdf"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-af17-130d-bc91-fbc959335403"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 5,
+      "ordinal": 33109458,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-afb4-1b60-bacb-e9e9efade8e0"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 5,
+      "ordinal": 33109458,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b07e-1960-81a2-17d10b771b25"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 6,
+      "ordinal": 33214187,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b0eb-1771-b28a-f45a6263375b"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 6,
+      "ordinal": 33214187,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b13b-1237-9c95-b63d680b739b"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 7,
+      "ordinal": 33318916,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b1cf-1ba0-a27b-228be6fa4278"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 7,
+      "ordinal": 33318916,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b260-12dd-8e82-37be26049fe9"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 8,
+      "ordinal": 33423645,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b49b-109a-bea3-bc568e237044"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 8,
+      "ordinal": 33423645,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b4dc-13fa-8eb5-64f42f5fb5b8"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 9,
+      "ordinal": 33528374,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b56b-1741-b170-c5501884eb51"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 9,
+      "ordinal": 33528374,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b601-12bb-8366-0b0e95d16aab"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 10,
+      "ordinal": 33633103,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b647-1c47-94ec-51f34075dbf3"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 10,
+      "ordinal": 33633103,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b6ae-1c73-84b4-ddc0bb51a143"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 11,
+      "ordinal": 33737832,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b72d-128d-8389-f33c597844d7"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 11,
+      "ordinal": 33737832,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b7cf-1e60-8856-6171cc6b83b2"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 12,
+      "ordinal": 33842561,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b811-1a4a-ae71-99e3553e4a80"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 12,
+      "ordinal": 33842561,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b85d-1a83-b0ae-4e2939e49999"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 13,
+      "ordinal": 34052019,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b900-1d2f-8725-43794a1946d2"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 13,
+      "ordinal": 34052019,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b9ae-143e-83fe-600a17869a66"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 14,
+      "ordinal": 34156748,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-b9f7-1958-9aec-cec655d5d2b6"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 14,
+      "ordinal": 34156748,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-ba4f-1563-8744-d103dcf6afcb"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 15,
+      "ordinal": 34261477,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-baf5-1856-ad6e-13be1d83e23d"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 15,
+      "ordinal": 34261477,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-bb93-1a07-8e4a-d83ebf9bcf24"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-bdbc-1783-83c8-ae39b9e51ed4"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-be29-1df4-92b3-f0d19c182c78"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-bec8-125e-9c1b-b3b0bb043996"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-bf87-1aa1-866a-501f005c02f4"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 18,
+      "ordinal": 5482189,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-bfca-119a-bd84-754210a2c66e"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 18,
+      "ordinal": 5482189,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c02b-152b-8117-aa9cae6521e9"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 19,
+      "ordinal": 9065599,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c0be-1e78-87e6-4cd026aba8a2"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 19,
+      "ordinal": 9065599,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c18e-1272-a8de-0fe6a30a2e04"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 20,
+      "ordinal": 11748848,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c1ea-13fa-86af-5de4d4b8991c"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 20,
+      "ordinal": 11748848,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c242-1a92-a55e-e7b45c9f5a87"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 21,
+      "ordinal": 14414299,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c2cb-16e4-9958-bffb45f25fac"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 21,
+      "ordinal": 14414299,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c374-1504-a0a3-455fceeb6420"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 22,
+      "ordinal": 16541888,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c3b7-1557-a44e-0e0aab067739"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 22,
+      "ordinal": 16541888,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c40c-155c-bc9f-2dd56df8b943"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 23,
+      "ordinal": 19088931,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c49a-1153-be0c-a6bb4638845f"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 23,
+      "ordinal": 19088931,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c53c-1ac4-8a35-05e98df5e0c2"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 24,
+      "ordinal": 20800887,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c777-115d-9deb-3066ed0f2889"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 24,
+      "ordinal": 20800887,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c7e2-16e7-843d-3a06bb13f552"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 25,
+      "ordinal": 23041334,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c854-100b-938d-771585000d57"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 25,
+      "ordinal": 23041334,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c8f2-1ea9-bc8f-cb735f27e529"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 26,
+      "ordinal": 25888449,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c947-11da-bb48-60ed9ce0e42d"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 26,
+      "ordinal": 25888449,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-c9a2-181c-9c67-6d9037f53919"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 27,
+      "ordinal": 27608145,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-ca22-1b06-ae2a-33b0d7be27f3"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 27,
+      "ordinal": 27608145,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-cabb-1588-ac66-acb7fd8919a5"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 28,
+      "ordinal": 30047586,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-caf7-1a2f-988f-dc47c600899b"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 28,
+      "ordinal": 30047586,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-cb48-1d17-9e42-f0c5d6e1e37c"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 29,
+      "ordinal": 34442027,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-cbcc-1499-96f2-7d9969bec211"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 29,
+      "ordinal": 34442027,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-cc74-1596-9e59-b4b91a6be342"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 30,
+      "ordinal": 36842382,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-ccc7-1a85-81d4-217a54a7d97c"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 30,
+      "ordinal": 36842382,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-cd29-1233-83d0-2390cfa8aedc"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 31,
+      "ordinal": 39896986,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-cdaa-1610-ab16-702f177e59c2"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 31,
+      "ordinal": 39896986,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-ce44-1fd9-86d8-9bbcb30af83e"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "kind": "deleted",
+      "statement_id": "01f1c277-d078-1eae-8898-7066fa23c1dc"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "kind": "deleted",
+      "statement_id": "01f1c277-d0b3-1005-93bb-53fc1670770d"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 33,
+      "ordinal": 26847290,
+      "kind": "deleted",
+      "statement_id": "01f1c277-d160-1475-9149-b4b3a88e5e21"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 33,
+      "ordinal": 26847290,
+      "kind": "deleted",
+      "statement_id": "01f1c277-d20e-171b-8407-23a2a47eec65"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 34,
+      "ordinal": 27894580,
+      "kind": "deleted",
+      "statement_id": "01f1c277-d247-18ff-8cf0-095f9f48375d"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 34,
+      "ordinal": 27894580,
+      "kind": "deleted",
+      "statement_id": "01f1c277-d27e-1bd2-b17a-a1412e7c88d1"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 35,
+      "ordinal": 28941870,
+      "kind": "deleted",
+      "statement_id": "01f1c277-d329-1d5d-9376-6801a2a1b521"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 35,
+      "ordinal": 28941870,
+      "kind": "deleted",
+      "statement_id": "01f1c277-d3d9-1dae-b172-bc853363d64a"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-d410-1d3b-9f69-ada2bf35def3"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-d46e-125b-90f7-eb9aca8eee4f"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-d514-114a-8a10-f7b9488656b6"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-d5c9-1b0a-911b-3ba3026f2bfd"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 38,
+      "ordinal": 26114187,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-d60d-1fdc-a580-b3257e578765"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 38,
+      "ordinal": 26114187,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-d649-1a8f-b3e1-99ce7b375cc3"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 39,
+      "ordinal": 26218916,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-d6f1-10bf-bbdb-593c7b23e70b"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 39,
+      "ordinal": 26218916,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-d793-197a-8b07-77dce1936207"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 40,
+      "ordinal": 26323645,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-d9bd-126d-8f50-57e731faed2d"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 40,
+      "ordinal": 26323645,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-d9f6-140f-9a5c-4f581dc62f7e"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 41,
+      "ordinal": 26428374,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-daa0-1c65-9b16-2d917ce80811"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 41,
+      "ordinal": 26428374,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-db3e-1b41-a7cd-c7d86434a240"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 42,
+      "ordinal": 26533103,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-db79-16d7-9f47-6b6aeb8dc89a"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 42,
+      "ordinal": 26533103,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-dbb0-18e3-8c01-7dde2e68ec14"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 43,
+      "ordinal": 26637832,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-dc63-1f25-b7c6-53da76baf82c"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 43,
+      "ordinal": 26637832,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-dd0a-193f-820c-fd9ebb4cc811"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 44,
+      "ordinal": 26742561,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-dd45-1f8d-9094-29fa84e92d9b"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 44,
+      "ordinal": 26742561,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-dd7e-19cf-a8ff-1a8873930ebd"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 45,
+      "ordinal": 26952019,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-de0e-10a9-adca-4cb9b50658e0"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 45,
+      "ordinal": 26952019,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-debe-1db5-a36d-4dc28a5be01e"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 46,
+      "ordinal": 27056748,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-def9-1917-ae39-4bf78c033fbb"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 46,
+      "ordinal": 27056748,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-df32-1c08-8b0c-b9d8ac418c85"
+    },
+    {
+      "family": "overlay",
+      "phase": 0,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-dfd5-1654-b2e5-e9b04691731b"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "kind": "third-updated",
+      "statement_id": "01f1c277-e075-1b64-b9fb-245eacc9eccc"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "kind": "deleted",
+      "statement_id": "01f1c277-e291-1581-bf95-76d03894add9"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "kind": "deleted",
+      "statement_id": "01f1c277-e304-1be8-aceb-ac6f0efd7c3f"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 1,
+      "ordinal": 33947290,
+      "kind": "deleted",
+      "statement_id": "01f1c277-e33b-1e5b-83b2-6cfafeb6ba3d"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 1,
+      "ordinal": 33947290,
+      "kind": "deleted",
+      "statement_id": "01f1c277-e371-1daf-b7cf-1798dd39b613"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 2,
+      "ordinal": 34994580,
+      "kind": "deleted",
+      "statement_id": "01f1c277-e3e5-1577-81c8-c3f75de17e0e"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 2,
+      "ordinal": 34994580,
+      "kind": "deleted",
+      "statement_id": "01f1c277-e458-1ad1-be17-68b6d4b3a488"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 3,
+      "ordinal": 36041870,
+      "kind": "deleted",
+      "statement_id": "01f1c277-e495-1cc0-ab6b-77e81684d8d9"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 3,
+      "ordinal": 36041870,
+      "kind": "deleted",
+      "statement_id": "01f1c277-e4ce-1fa6-a743-48410ed3b429"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-e545-1682-a3fa-620625eca727"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-e5c6-13e8-ac53-f7741addd61a"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 5,
+      "ordinal": 33109458,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-e602-14f0-84a2-5e4b43b0e8f7"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 5,
+      "ordinal": 33109458,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-e69d-12b9-83be-36fe05c1bd04"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 6,
+      "ordinal": 33214187,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-e726-19e6-aa43-69da09ae3f50"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 6,
+      "ordinal": 33214187,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-e7a9-18a4-b97b-bf0d68930cc7"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 7,
+      "ordinal": 33318916,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-e7e2-1656-aa48-b7700909ae9d"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 7,
+      "ordinal": 33318916,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-e81b-120e-88ac-6715416182b1"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 8,
+      "ordinal": 33423645,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-ea94-1011-a87c-eb5c05ead501"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 8,
+      "ordinal": 33423645,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-eb15-1514-96e6-98d27172deee"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 9,
+      "ordinal": 33528374,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-eb5a-1439-9b3e-4d361db5a68c"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 9,
+      "ordinal": 33528374,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-eb96-18ea-874d-2e7acc4bd0b8"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 10,
+      "ordinal": 33633103,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-ec16-16d6-85a7-855c0642e8c4"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 10,
+      "ordinal": 33633103,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-ec81-1262-97e6-00142c279957"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 11,
+      "ordinal": 33737832,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-ecb7-175b-a32c-4e1c91192930"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 11,
+      "ordinal": 33737832,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-ecf1-1ed5-aee4-bab5860841a7"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 12,
+      "ordinal": 33842561,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-ed71-189b-85fe-de73eff68ffe"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 12,
+      "ordinal": 33842561,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-edfd-1d28-bfd7-b35cc41c0896"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 13,
+      "ordinal": 34052019,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-ee3d-1405-803a-9c9820965b47"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 13,
+      "ordinal": 34052019,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-ee7b-12b4-8337-01a41fcd2553"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 14,
+      "ordinal": 34156748,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-ef35-1bb9-aa29-7b235b3bcef6"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 14,
+      "ordinal": 34156748,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-efc4-1fd3-bb47-3e32d8dee427"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 15,
+      "ordinal": 34261477,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-f003-1f09-8304-250c4419c6ad"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 15,
+      "ordinal": 34261477,
+      "kind": "earlier-updated",
+      "statement_id": "01f1c277-f041-1ee6-af64-6dbaae269554"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f2d0-176a-8db1-3b0e73706abe"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f360-1547-98a6-654d6b711031"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f3a1-1fda-b5c4-d9e2c1990c3d"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f3dc-1990-bef3-620bed3f0a66"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 18,
+      "ordinal": 5482189,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f470-178a-a4e8-91d89854e0d5"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 18,
+      "ordinal": 5482189,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f502-12c1-a484-f2517120dedf"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 19,
+      "ordinal": 9065599,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f541-1e31-8b07-76878af922e5"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 19,
+      "ordinal": 9065599,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f584-12f2-adb7-0ad72f5a8dcd"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 20,
+      "ordinal": 11748848,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f616-1995-8b6c-a49737582dfb"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 20,
+      "ordinal": 11748848,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f6a4-1268-864b-c8152572e17f"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 21,
+      "ordinal": 14414299,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f6e2-1d86-9e3c-d2eb73f5eec1"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 21,
+      "ordinal": 14414299,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f720-120e-86b5-3ba2a8105766"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 22,
+      "ordinal": 16541888,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f7b7-178a-b6a4-5e6f696f8541"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 22,
+      "ordinal": 16541888,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f848-1311-9ccd-4306215af512"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 23,
+      "ordinal": 19088931,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f889-1a08-b35a-6c605f7d633f"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 23,
+      "ordinal": 19088931,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-f8cd-12b0-9d03-7f7b31c054c0"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 24,
+      "ordinal": 20800887,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-fb56-1766-b141-1887162c7bd2"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 24,
+      "ordinal": 20800887,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-fbdd-1917-b970-dfb88f12f7ea"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 25,
+      "ordinal": 23041334,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-fc1a-1a38-b302-4a3eb6d491e2"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 25,
+      "ordinal": 23041334,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-fc58-1de9-9fb7-e9e5ae59c0b6"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 26,
+      "ordinal": 25888449,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-fce8-1bd2-9e53-65fb959b6cba"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 26,
+      "ordinal": 25888449,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-fd79-1d39-83cb-8fbc635112c5"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 27,
+      "ordinal": 27608145,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-fdb7-1318-9c0f-dd87ada3574f"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 27,
+      "ordinal": 27608145,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-fdef-1900-8e7f-9029582ed5a3"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 28,
+      "ordinal": 30047586,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-fe7e-1a6d-9ec7-df55458907bb"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 28,
+      "ordinal": 30047586,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-ff0d-1d48-8023-d0d43c7352a7"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 29,
+      "ordinal": 34442027,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-ff45-1f13-be1a-516eae11626c"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 29,
+      "ordinal": 34442027,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-ff7c-1c5b-a978-a49018fdd04b"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 30,
+      "ordinal": 36842382,
+      "kind": "unchanged",
+      "statement_id": "01f1c277-fff1-1d58-9016-fff649166d52"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 30,
+      "ordinal": 36842382,
+      "kind": "unchanged",
+      "statement_id": "01f1c278-0068-1fee-bf2f-b0dc0df1cf3d"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 31,
+      "ordinal": 39896986,
+      "kind": "unchanged",
+      "statement_id": "01f1c278-00a0-1b2b-a197-74c9892be79d"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 31,
+      "ordinal": 39896986,
+      "kind": "unchanged",
+      "statement_id": "01f1c278-00d6-1c52-8335-e1bf83038b7a"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "kind": "deleted",
+      "statement_id": "01f1c278-0340-1cb5-ba03-8cacd095a666"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "kind": "deleted",
+      "statement_id": "01f1c278-03e5-14f4-bf1c-b2252e06d4f3"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 33,
+      "ordinal": 26847290,
+      "kind": "deleted",
+      "statement_id": "01f1c278-041d-1fc7-9f7a-f9c67ad35900"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 33,
+      "ordinal": 26847290,
+      "kind": "deleted",
+      "statement_id": "01f1c278-0453-1334-8753-67d08ffedb69"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 34,
+      "ordinal": 27894580,
+      "kind": "deleted",
+      "statement_id": "01f1c278-04f8-1a08-8d71-e59f4cb7a6c4"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 34,
+      "ordinal": 27894580,
+      "kind": "deleted",
+      "statement_id": "01f1c278-0577-16fe-94a8-4897babbdb93"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 35,
+      "ordinal": 28941870,
+      "kind": "deleted",
+      "statement_id": "01f1c278-05ae-1b31-86bb-28983456a294"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 35,
+      "ordinal": 28941870,
+      "kind": "deleted",
+      "statement_id": "01f1c278-05e6-13a0-ae6f-58b8696cb2c8"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-06bd-1ab3-9576-a4ceda715563"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-076c-1a06-b8c3-5b775b05d58f"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-07a6-1a6b-88c1-110bf7eb32a2"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-07dc-1541-a178-9f0396de763e"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 38,
+      "ordinal": 26114187,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0878-1aed-adf1-0ae94389e9fc"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 38,
+      "ordinal": 26114187,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-08ff-10b3-bf8d-2577989fa138"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 39,
+      "ordinal": 26218916,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0938-1c96-94bc-045edc0c5e0f"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 39,
+      "ordinal": 26218916,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-096e-1f6b-909a-4b10fdc26eea"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 40,
+      "ordinal": 26323645,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0bdb-1fc5-b2fe-5518ae49785a"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 40,
+      "ordinal": 26323645,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0c7e-191c-849e-7cf7b7162e6a"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 41,
+      "ordinal": 26428374,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0cb8-1df3-bcac-9da1d4c8b7dd"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 41,
+      "ordinal": 26428374,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0cf1-12b5-a897-33dba0af2e3d"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 42,
+      "ordinal": 26533103,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0d95-127a-95fe-22ab5f57d681"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 42,
+      "ordinal": 26533103,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0e0f-1b33-8d1e-44ef0e1ea108"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 43,
+      "ordinal": 26637832,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0e47-1fc8-81e1-7096345b65f4"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 43,
+      "ordinal": 26637832,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0e83-16ac-ade1-bafd8b54c8ad"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 44,
+      "ordinal": 26742561,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0f18-17ed-bf4e-b77c35120fc5"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 44,
+      "ordinal": 26742561,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0f90-1695-b31c-0c6d6c6a3df5"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 45,
+      "ordinal": 26952019,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0fc8-156d-9dc0-ef94d68f15e2"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 45,
+      "ordinal": 26952019,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-0ffe-1c7e-810a-c9225e315cbc"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 46,
+      "ordinal": 27056748,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-10a7-158b-94ad-945e61c4298e"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 46,
+      "ordinal": 27056748,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-1167-1d27-b774-8ab5a2a62f40"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-119e-1472-8b60-330df739cd27"
+    },
+    {
+      "family": "overlay",
+      "phase": 1,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "kind": "third-updated",
+      "statement_id": "01f1c278-11d3-14a5-9c8e-ddc443c5d678"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 40000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 300
+  },
+  "combined_read_budget": 80000000000,
+  "qualification": "48stratified identities: same prior32 plus16third changes (4deleted12updated),2passes per family, interleaved order. Persistent connector/native cache disabled; full20field actual values/absence independently reconstructed. Validation/previous workload warms data; not controlled cold/service-tail/causal/producer publication/compaction/concurrent or billion admission.",
+  "ordinals": [
+    32900000,
+    33947290,
+    34994580,
+    36041870,
+    33004729,
+    33109458,
+    33214187,
+    33318916,
+    33423645,
+    33528374,
+    33633103,
+    33737832,
+    33842561,
+    34052019,
+    34156748,
+    34261477,
+    2386040,
+    3865839,
+    5482189,
+    9065599,
+    11748848,
+    14414299,
+    16541888,
+    19088931,
+    20800887,
+    23041334,
+    25888449,
+    27608145,
+    30047586,
+    34442027,
+    36842382,
+    39896986,
+    25800000,
+    26847290,
+    27894580,
+    28941870,
+    25904729,
+    26009458,
+    26114187,
+    26218916,
+    26323645,
+    26428374,
+    26533103,
+    26637832,
+    26742561,
+    26952019,
+    27056748,
+    27161477
+  ],
+  "queries": {
+    "direct": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 6 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)",
+    "overlay": "SELECT winner.source_system AS source_system,winner.rel_type_id AS rel_type_id,winner.id AS id,winner.source_type AS source_type,winner.source_id AS source_id,winner.target_type AS target_type,winner.target_id AS target_id,winner.order_key AS order_key,winner.schema_revision AS schema_revision,winner.entity_version AS entity_version,winner.props_json AS props_json,winner.retained_json AS retained_json,winner.source_feed AS source_feed,winner.source_epoch AS source_epoch,winner.source_position AS source_position,CAST(winner.published_at AS STRING) AS published_at,winner.apply_batch_id AS apply_batch_id,winner.source_cursor_json AS source_cursor_json,winner.source_delivery_id AS source_delivery_id,winner.lookup_hash AS lookup_hash FROM (SELECT CASE WHEN max(variants)>1 THEN raise_error('ASHLAR_OVERLAY_VERSION_CONFLICT') ELSE max_by(carrier,entity_version) END AS winner FROM (SELECT entity_version,count(DISTINCT sha2(concat(CASE WHEN source_system IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_system AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_system AS STRING),'UTF-8')),';') END,CASE WHEN rel_type_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(rel_type_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(rel_type_id AS STRING),'UTF-8')),';') END,CASE WHEN id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(id AS STRING),'UTF-8')),';') END,CASE WHEN source_type IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_type AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_type AS STRING),'UTF-8')),';') END,CASE WHEN source_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_id AS STRING),'UTF-8')),';') END,CASE WHEN target_type IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(target_type AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(target_type AS STRING),'UTF-8')),';') END,CASE WHEN target_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(target_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(target_id AS STRING),'UTF-8')),';') END,CASE WHEN order_key IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(order_key AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(order_key AS STRING),'UTF-8')),';') END,CASE WHEN schema_revision IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(schema_revision AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(schema_revision AS STRING),'UTF-8')),';') END,CASE WHEN entity_version IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(entity_version AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(entity_version AS STRING),'UTF-8')),';') END,CASE WHEN props_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(props_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(props_json AS STRING),'UTF-8')),';') END,CASE WHEN retained_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(retained_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(retained_json AS STRING),'UTF-8')),';') END,CASE WHEN source_feed IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_feed AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_feed AS STRING),'UTF-8')),';') END,CASE WHEN source_epoch IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_epoch AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_epoch AS STRING),'UTF-8')),';') END,CASE WHEN source_position IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_position AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_position AS STRING),'UTF-8')),';') END,CASE WHEN published_at IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(published_at AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(published_at AS STRING),'UTF-8')),';') END,CASE WHEN apply_batch_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(apply_batch_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(apply_batch_id AS STRING),'UTF-8')),';') END,CASE WHEN source_cursor_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_cursor_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_cursor_json AS STRING),'UTF-8')),';') END,CASE WHEN source_delivery_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_delivery_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_delivery_id AS STRING),'UTF-8')),';') END,CASE WHEN lookup_hash IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(lookup_hash AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(lookup_hash AS STRING),'UTF-8')),';') END,CASE WHEN is_deleted IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(is_deleted AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(is_deleted AS STRING),'UTF-8')),';') END),256)) AS variants,first(named_struct('source_system',source_system,'rel_type_id',rel_type_id,'id',id,'source_type',source_type,'source_id',source_id,'target_type',target_type,'target_id',target_id,'order_key',order_key,'schema_revision',schema_revision,'entity_version',entity_version,'props_json',props_json,'retained_json',retained_json,'source_feed',source_feed,'source_epoch',source_epoch,'source_position',source_position,'published_at',published_at,'apply_batch_id',apply_batch_id,'source_cursor_json',source_cursor_json,'source_delivery_id',source_delivery_id,'lookup_hash',lookup_hash,'is_deleted',is_deleted)) AS carrier FROM (SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash,false AS is_deleted FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 5 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT) UNION ALL SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash,is_deleted FROM client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400 VERSION AS OF 1 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)) GROUP BY entity_version)) WHERE winner IS NOT NULL AND NOT winner.is_deleted"
+  },
+  "costs": {
+    "read_bytes": 27726610547,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "combined_costs": {
+    "read_bytes": 65508658432,
+    "write_remote_bytes": 80370684,
+    "spill_to_disk_bytes": 0
+  },
+  "per_family": {
+    "direct": {
+      "queries": 96,
+      "caller_p95_ms": 701.6084999999989,
+      "engine_p95_ms": 355,
+      "compile_p95_ms": 224,
+      "read_bytes_p95": 195322281,
+      "read_files_p95": 4,
+      "remote_queries": 22
+    },
+    "overlay": {
+      "queries": 96,
+      "caller_p95_ms": 1250.8479580000014,
+      "engine_p95_ms": 627,
+      "compile_p95_ms": 578,
+      "read_bytes_p95": 242894849,
+      "read_files_p95": 3,
+      "remote_queries": 35
+    }
+  },
+  "per_family_phase": {
+    "direct-0": {
+      "queries": 48,
+      "caller_p95_ms": 710.383084,
+      "engine_p95_ms": 399,
+      "compile_p95_ms": 224,
+      "read_bytes_p95": 151054893,
+      "read_files_p95": 4,
+      "remote_queries": 22
+    },
+    "direct-1": {
+      "queries": 48,
+      "caller_p95_ms": 442.1059580000133,
+      "engine_p95_ms": 112,
+      "compile_p95_ms": 205,
+      "read_bytes_p95": 206412851,
+      "read_files_p95": 4,
+      "remote_queries": 0
+    },
+    "overlay-0": {
+      "queries": 48,
+      "caller_p95_ms": 1250.8479580000014,
+      "engine_p95_ms": 627,
+      "compile_p95_ms": 593,
+      "read_bytes_p95": 242894849,
+      "read_files_p95": 3,
+      "remote_queries": 23
+    },
+    "overlay-1": {
+      "queries": 48,
+      "caller_p95_ms": 1215.4584170000078,
+      "engine_p95_ms": 624,
+      "compile_p95_ms": 535,
+      "read_bytes_p95": 242894849,
+      "read_files_p95": 3,
+      "remote_queries": 12
+    }
+  },
+  "wall_s": 182.375296083
+}

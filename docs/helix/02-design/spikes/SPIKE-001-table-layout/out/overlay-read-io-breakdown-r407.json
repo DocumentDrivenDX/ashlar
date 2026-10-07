@@ -1,0 +1,52 @@
+{
+  "source_sha256": {
+    "summary.json": "4a5ec4002c0afc7ea9d74e7dc90fa5fc7b26bcc7034d91017d30dbf1d0548c6b",
+    "statements.jsonl": "b3be3bb59adc688f43865475fc9248af0a179ea2e3d566083aea243e6eb5ebfa",
+    "shared-history.json": "86ac5221f06554be845c717822da3963877c4de97ad476fffd273d1a997cb96f"
+  },
+  "subcohorts": {
+    "direct-0-zero-remote": {
+      "queries": 26,
+      "caller_p95_ms": 473.36420799999956,
+      "engine_p95_ms": 129,
+      "compile_p95_ms": 222
+    },
+    "direct-0-remote": {
+      "queries": 22,
+      "caller_p95_ms": 715.2069159999996,
+      "engine_p95_ms": 422,
+      "compile_p95_ms": 224
+    },
+    "direct-1-zero-remote": {
+      "queries": 48,
+      "caller_p95_ms": 442.1059580000133,
+      "engine_p95_ms": 112,
+      "compile_p95_ms": 205
+    },
+    "overlay-0-zero-remote": {
+      "queries": 25,
+      "caller_p95_ms": 1136.2631669999992,
+      "engine_p95_ms": 401,
+      "compile_p95_ms": 618
+    },
+    "overlay-0-remote": {
+      "queries": 23,
+      "caller_p95_ms": 1324.757958000001,
+      "engine_p95_ms": 638,
+      "compile_p95_ms": 562
+    },
+    "overlay-1-zero-remote": {
+      "queries": 36,
+      "caller_p95_ms": 1050.0666249999995,
+      "engine_p95_ms": 343,
+      "compile_p95_ms": 543
+    },
+    "overlay-1-remote": {
+      "queries": 12,
+      "caller_p95_ms": 1408.8503330000037,
+      "engine_p95_ms": 885,
+      "compile_p95_ms": 502
+    }
+  },
+  "qualification": "Descriptive native I/O-counter subcohorts only; no remote-read counter does not establish all caches/cold working set or a service tail. Keep complete192query cohort primary."
+}
