@@ -1,0 +1,110 @@
+{
+  "state": "All2048 immutable native change records and all predecessor fields verified",
+  "target": "client_dev.ashlar_entropy_20261006_r86.mixed_change_input_r229",
+  "source_pins": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_object_current_r226",
+      "id": "bcccd436-7ec0-4cde-b24b-64e96ee7a34b",
+      "version": 0,
+      "rows": 4096,
+      "bytes": 3313356,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r226",
+      "id": "8c33db81-1ba9-49a2-b241-e9bac87a02fb",
+      "version": 0,
+      "rows": 24576,
+      "bytes": 20991429,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r226",
+      "id": "6c883f58-81e1-493f-a456-aee6556851e6",
+      "version": 0,
+      "rows": 98304,
+      "bytes": 18235810,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_edge_current_r226",
+      "id": "42df52c5-5edd-4031-a169-921ade9a0536",
+      "version": 0,
+      "rows": 20480,
+      "bytes": 16573079,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r226",
+      "id": "03be3fd1-5bb3-4ca7-b6f3-86cbcb505fcf",
+      "version": 0,
+      "rows": 20480,
+      "bytes": 114901,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    }
+  },
+  "chunks": [
+    {
+      "start": 0,
+      "end": 256,
+      "statement_id": "01f1c21e-da56-1c75-ac66-c7ba42658c55"
+    },
+    {
+      "start": 256,
+      "end": 512,
+      "statement_id": "01f1c21e-deb3-160a-a0c7-db6524c405c9"
+    },
+    {
+      "start": 512,
+      "end": 768,
+      "statement_id": "01f1c21e-e33c-1594-9802-a9bcdb1be542"
+    },
+    {
+      "start": 768,
+      "end": 1024,
+      "statement_id": "01f1c21e-e7d6-128a-9e3a-52a6c356f238"
+    },
+    {
+      "start": 1024,
+      "end": 1280,
+      "statement_id": "01f1c21e-ec84-1562-b53f-d0034e03f3d7"
+    },
+    {
+      "start": 1280,
+      "end": 1536,
+      "statement_id": "01f1c21e-f103-1f3d-bba7-32aa0ec65881"
+    },
+    {
+      "start": 1536,
+      "end": 1792,
+      "statement_id": "01f1c21e-f561-1784-a57f-4d8bda43b3cf"
+    },
+    {
+      "start": 1792,
+      "end": 2048,
+      "statement_id": "01f1c21e-f9a9-1d04-a486-6710b14d3b2e"
+    }
+  ],
+  "costs": {
+    "read_bytes": 24142570,
+    "write_remote_bytes": 7297978,
+    "spill_to_disk_bytes": 0
+  },
+  "table_id": "e625ee90-7283-4569-80bd-4efbce44e553",
+  "active_bytes": 3653980,
+  "files": 8,
+  "version": 8,
+  "all_record_digest": "bd59482ed4e676706211374faa9a8048da7016b14326ce42f7adff19f9ca9cff",
+  "full_native_predecessor_rows": 2048,
+  "qualification": "Input0..2047 committed in eight disjoint append ranges; targetUUID/version8 exact full-record SHA256 multiset+identity count and native full-field predecessor join at bootstrapE0. Local event/tombstone replay verified before admission. No current/source/journal/tombstone publication writes, manifest advance or freshness/capacity claim. Source-only stage retained; no VACUUM."
+}
