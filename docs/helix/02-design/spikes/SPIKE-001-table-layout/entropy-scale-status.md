@@ -1,5 +1,45 @@
 # Higher-entropy scale and GraphFrames iteration
 
+## Maintained snapshot under publication load
+
+[Audited r103](out/native/ashlar_maintained_contention_20261007_r103/audited-summary.json)
+repeats the one-reader/parallel-append method against maintained candidate15.
+No descriptor binds that candidate; original r101 remains pinned13. Independent
+r101 stage0 expectations qualify the 30-key candidate reads. New publication
+r103 binds current16/raw12/journal14/nodes0/tombstones0 after all affected-carrier,
+raw, journal and independent timestamp gates pass. All 248 candidate/new-release
+singleton reads return exact full20 carriers, with final uncached metrics.
+
+Processing takes 63.94 s; the append pair occupies 23.97 s with 23.84 s caller
+overlap. Complete pre-staged input readiness to manifest is 63.94 s; oldest
+modeled arrival freshness is 73.94 s. This one batch is not a sustained/burst
+test or a freshness distribution. New values and increased history prevent an
+isolated causal comparison with r101's 64.19 s sample.
+
+| Cohort | n | Engine p95 | Caller p95 | File-read p95 | Remote queries |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| idle candidate15 | 30 | 113 ms | 394 ms | 3 | 0 |
+| wholly during publisher | 130 | 833 ms | 1,096 ms | 3 | 16 |
+| no-remote during-publisher subset | 114 | 495 ms | 784 ms | 3 | 0 |
+| within append-overlap subset | 54 | 505 ms | 775 ms | 3 | 1 |
+| post candidate15 | 30 | 106 ms | 485 ms | 3 | 0 |
+| post new publication16 | 30 | 110 ms | 374 ms | 15 | 0 |
+
+The table omits 26 input-wait and two boundary-straddling reads; subsets overlap
+parent cohorts. One closed-loop client cycles the same 30 large-token keys;
+these are observed small-cohort p95s, not graph-wide or cold-data SLAs. The
+maintained snapshot retains pruning under contention, but loaded latency remains
+high even without remote bytes. The new update snapshot again reads 15 files
+at p95. Maintenance alone does not qualify a shared compute read/write policy.
+Consider resource separation/admission and update-file policy as distinct tuning
+questions; no resource resize/provision or attributable dollar claim follows.
+
+These repeated hot-set measurements now establish concrete limits of the tested
+shared resource. Next work should prioritize actual graph-engine/catalog and
+producer integration, and justified scale/resource bounds, rather than keep
+repeating an isolated hot-set timing variant. Unity Catalog Delta remains the
+selected architecture; all performance targets and 1B/5B admission stay open.
+
 ## Updated-key maintenance comparison
 
 [Audited r102](out/native/ashlar_maintenance_reads_20261007_r102/audited-summary.json)

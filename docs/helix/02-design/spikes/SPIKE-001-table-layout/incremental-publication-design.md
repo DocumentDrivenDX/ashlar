@@ -241,3 +241,14 @@ without a rate/resource policy. One OPTIMIZE statement emits a rewrite commit
 and a no-op commit (14/15). Capture the actual final version. Existing manifests
 remain pinned13 until a separately validated descriptor binds a maintained
 snapshot; maintenance must not silently redirect publication readers.
+
+[r103 maintained-candidate contention](out/native/ashlar_maintained_contention_20261007_r103/audited-summary.json)
+keeps file-read p95 at three but measures loaded engine/caller p95 833/1,096 ms;
+the no-remote subset remains 495/784 ms. Publication takes 63.94 s and all exact
+preservation gates pass. The new unmaintained update snapshot returns to 15 file
+reads at p95. Better pruning alone does not qualify shared-resource latency.
+Keep compute admission/isolation and update-file maintenance as separate policy
+choices. Candidate15 is explicitly unbound by a manifest; the installed new
+publication binds actual current16/raw12/journal14. Small fixed-key repeated tests
+do not close source/runtime integration or billion-scale gaps. Prioritize those
+remaining integration/resource questions before another hot-set variation.

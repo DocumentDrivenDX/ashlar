@@ -1,0 +1,7 @@
+{
+  "state": "passed new published full-carrier reads",
+  "rows": 30,
+  "publication_id": "r103-b1",
+  "version": 16,
+  "scope": "Same 30-key large-token hot-set cohort; independently staged expected full20 carriers; no concurrent publisher. Not a graph-wide or cold-data SLA."
+}

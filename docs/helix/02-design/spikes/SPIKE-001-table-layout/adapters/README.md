@@ -1,7 +1,9 @@
 # Proposed graph adapter surfaces
 
 All mappings reference CONTRACT-003 and one immutable export publication.
-No external engine has executed these mappings. `puppygraph-model.json` is a
+PuppyGraph and Fabric runtime execution remain unqualified. Local GraphFrames
+execution is recorded below; direct UC protocol compatibility remains open.
+`puppygraph-model.json` is a
 model fragment; the live-version-specific Delta catalog connection must be
 supplied and validated independently. `fabric-projection.json` is an Ashlar
 mapping plan, not a Microsoft deployment API payload.
@@ -26,7 +28,7 @@ bounded by the adapter profile.
 
 [Native r67 export](../out/native/ashlar_layout_v02_export_20261006_r67/export.json) reads the actual r66 publication manifest and its pinned object/edge versions. Native IDs are exported as decimal strings to avoid consumer JSON-number precision loss. Injective graph keys preserve typed repeated IDs, two parallel edges, one self-loop and one isolated vertex. Exact JSON strings retain the integer above 2^53, explicit null and unknown content. The export declares history and other canonical-table residuals. This is native SQL plus Python conformance, not external-engine execution.
 
-The proposed GraphFrames helper now requires a release table-version vector, rejects missing versions and duplicate edge IDs, and reads prepared adapter tables with `VERSION AS OF`. Those projection tables require their own release versions; canonical versions cannot substitute for projection versions. The helper remains unexecuted in Spark/GraphFrames. PuppyGraph model fragments and Fabric mapping plans remain earlier examples pending 0.2 release integration.
+The proposed GraphFrames helper now requires a release table-version vector, rejects missing versions and duplicate edge IDs, and reads prepared adapter tables with `VERSION AS OF`. Those projection tables require their own release versions; canonical versions cannot substitute for projection versions. Spark/GraphFrames execution was pending at r67; later local evidence is below. PuppyGraph model fragments and Fabric mapping plans remain earlier examples pending 0.2 release integration.
 
 ## Concrete typed release plan
 
@@ -38,7 +40,7 @@ Each engine release must materialize immutable tables from this fixed vector, ve
 
 ## Native release materialization
 
-[r68 evidence](../out/native/ashlar_layout_v02_release_20261006_r68/summary.json) records four actual Delta projections, all version 0, with exhaustive exported-field parity against the local pinned release. Counts are 2/1 node rows and 2/1 edge rows. `create_v02_release_graph` accepts these exact columns and projection-version vector; its Python syntax is checked, but Spark/GraphFrames execution is pending. The existing spike Python runtime contains neither pyspark nor graphframes. No dependency installation or new compute was started. The tables have version evidence, not immutability enforced by permissions or cross-engine activation evidence.
+[r68 evidence](../out/native/ashlar_layout_v02_release_20261006_r68/summary.json) records four actual Delta projections, all version 0, with exhaustive exported-field parity against the local pinned release. Counts are 2/1 node rows and 2/1 edge rows. `create_v02_release_graph` accepts these exact columns and projection-version vector; its Python syntax was checked while Spark/GraphFrames execution was pending. At r68, that spike runtime contained neither pyspark nor graphframes and no dependency installation or new compute was started. Later local evidence is below. The tables have version evidence, not immutability enforced by permissions or cross-engine activation evidence.
 
 ## Portable native singleton query builder
 
@@ -48,3 +50,21 @@ Each engine release must materialize immutable tables from this fixed vector, ve
 
 
 The native builder now also produces bounded typed adjacency queries using pinned forward/reverse table versions and keyset ordering by relationship type/edge ID. [r76](../out/native/ashlar_native_adjacency_builder_20261006_r76/summary.json) passes two forward pages (parallel edges then self-loop), reverse typed endpoint lookup and isolate lookup. Caller service code must bind continuation to the same publication, table, direction and endpoint; a raw cursor is not authority. JavaScript numeric identities are rejected before possible rounding; exact decimal strings are required. Bun adversarial checks and browser-target bundling pass; no real-browser runtime execution or new latency/scale claim.
+
+## Subsequent actual GraphFrames evidence
+
+[Small local integration](../out/graphframes-local-20261006.json) executes the
+version-pinned helper with Spark 3.5.3 / Delta 3.2.1 / GraphFrames 0.12.3, including
+parallel-edge multiplicity, self-loop, isolate and unpublished-append exclusion.
+[Large local integration](../out/graphframes-scale-20261006/summary.json) executes
+4M vertices / 20M edges and counts 100M two-hop paths through the same helper.
+The higher-entropy carrier fixture retains about 41 GB of current data. These
+qualify local Delta DataFrame mapping and algorithms at the recorded scale, not
+direct UC reader3/writer7 features, actual Truss producer authority, PuppyGraph,
+Fabric, skewed production workloads or 1B/5B admission. Historical pending-runtime
+notes above describe the state when their evidence was captured.
+
+The next adapter work is actual PuppyGraph runtime/catalog qualification and a
+bounded Fabric release, not another isolated singleton hot-set benchmark.
+Preserve immutable projection vectors, exact residual carriers, typed endpoint
+closure and native decimal-string IDs. Keep UMF binding deferred.

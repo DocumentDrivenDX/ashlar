@@ -94,7 +94,7 @@
     "graphframes_scale.py": "165f5d89ef23e26eaae8a688fa4fc1811515ac2f633d800273c47466ca218e7a",
     "parameterized_reads.py": "c52b62fc1ed9c21c7df9ce65bcce6f45bc9b0eac3ad10e4d4fbf7dacf0ea1528",
     "cancel_controls.py": "136be2fba80a126197e9a1c2a91796a33935724e24f2ec775b611d39a1ea2d51",
-    "entropy-scale-status.md": "7d95f5b72400020c158670d88125db90c733d3edd0b128bfab1acde272e44435",
+    "entropy-scale-status.md": "7237c362f58aa9578fdd17945ec1bdbc290cb2b820ecb163f3a6d2efe22c3efe",
     "out/entropy-local-20261006/summary.json": "12359f89adabb3e41771cdf4570902a6626d74e03e3cae7d2c3e2f8bfefb344e",
     "out/graphframes-scale-20261006/summary.json": "608ef7aaf0b1cb89668ada1f69213c050874f4851f2acef97a65e63ac1fe53ab",
     "out/graphframes-scale-20261006/materialization.json": "83ee2e37d60c9df1bb088ff239e63640bd0835a555ea085c8a3863b71791f691",
@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "42bb764abd2118e84089fcfd5308c7ac17763d0b6080896c7f6874778bcc11a4",
+    "layout-status.md": "4a7ab001795b43c1d5425e9c2c827831ac111e422962e231048f44247cf90363",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -127,7 +127,7 @@
     "out/native/ashlar_entropy_reads_20261006_r88/client-3/query-history.json": "bfa8b8205c57a336fbef0bc9aaf6b1d02aae0b1d948350517816d6808b474838",
     "entropy_publication.py": "ecb6c2e709348c9023b513cfb0516bb03221f2fb5f56b812450ff7665c3ed155",
     "entropy_publication_audit.py": "db9c7a2f7284ff3b526a1eed560258c3801ad0ab8d56fe0aafba9a8a35c5a8cd",
-    "incremental-publication-design.md": "403e75df16ace2b7fc8dafe87d8f8b5760519bef7aaae6acecce04a58a95b9a6",
+    "incremental-publication-design.md": "1fbbd740a0c1df2f2082a132334d910efdf1296021d9d20776d464c47822177d",
     "out/native/ashlar_entropy_publication_20261006_r89/summary.json": "420cee0e2a8ea8c5616270db0f7b2d583b610dc58380a6a15127fec7b5208237",
     "out/native/ashlar_entropy_publication_20261006_r89/statements.jsonl": "4b045390a75cedfdb96e8da284364e056bee01cdeb0dce2fa890d1b4bfb373b0",
     "out/native/ashlar_entropy_publication_20261006_r89/query-history.json": "926663c336217d07ed0e3353de5ef2c50cdef1886322b262501266804b710b08",
@@ -248,7 +248,22 @@
     "out/native/ashlar_maintenance_reads_20261007_r102/summary.json": "b848f48a023a85178c88eeef7cebb313f471a3062880a7297e025c351e422a0b",
     "out/native/ashlar_maintenance_reads_20261007_r102/statements.jsonl": "cc1253bf7dc5863ef94da4bd5eba5181b2376063c51a1af04c9b9ea833e634c8",
     "out/native/ashlar_maintenance_reads_20261007_r102/query-history.json": "316d5676f4c87a158c1e1514883d47b9e3014a12f4172f098f2c324d2e53bcc5",
-    "out/native/ashlar_maintenance_reads_20261007_r102/audited-summary.json": "a34e223fd2d8469a750f76d6c59562fbf1addd18cd6b7d55653bc8b6a846f71c"
+    "out/native/ashlar_maintenance_reads_20261007_r102/audited-summary.json": "a34e223fd2d8469a750f76d6c59562fbf1addd18cd6b7d55653bc8b6a846f71c",
+    "maintained_contention.py": "2d236cba0d493259319f64fb6b4a2fad2e197ebe44ced3fecc5ab361f8800c0b",
+    "maintained_contention_audit.py": "e454663b27daac4fe157f211f6b258387dc591ddff24cdbdbcda2c7759f34ba0",
+    "maintained_contention_post_reads.py": "a627ef37d058bfbb91b7e7ad8177f818de8d5cdfd9ca633c5786a4f3c192d0da",
+    "out/native/ashlar_maintained_contention_20261007_r103/summary.json": "509b7986b97f8223968e32a6f8649aaa16cedd1bfafc4835c2216b90f7587cb3",
+    "out/native/ashlar_maintained_contention_20261007_r103/statements.jsonl": "f8a4568cfe4bc691c9c581e05a941d0e8065c253d80f934a272bf6721bb73a45",
+    "out/native/ashlar_maintained_contention_20261007_r103/query-history.json": "773ac342a732bcb736100c60a227a824175cdde58daaecda8ce57f9774cc5174",
+    "out/native/ashlar_maintained_contention_20261007_r103/audited-summary.json": "f995da7c3e5096ac1a5fbfe79415a1886883419f7fa56f2903f171f1811012a1",
+    "out/native/ashlar_maintained_contention_20261007_r103/reader/statements.jsonl": "718fd8e841ba2e9541fe9d173c8bd3160b6748433b656fef0773052d59024a87",
+    "out/native/ashlar_maintained_contention_20261007_r103/reader/query-history.json": "c8d5ccefe14172bf8328994a449a7de4d6dec1ff32cfd121eff573a402e1770a",
+    "out/native/ashlar_maintained_contention_20261007_r103/journal-lane/statements.jsonl": "8e361bdfd55ff529428706d6b86720f585f57fa5522f7a64828f01cfc8b2aa82",
+    "out/native/ashlar_maintained_contention_20261007_r103/journal-lane/query-history.json": "e22c43274397e996f912675b5d413f5f366beb500bc8cc0c77022eb381c29f96",
+    "out/native/ashlar_maintained_contention_20261007_r103/new-publication-reads/summary.json": "1d12608b41914376317c536dc46aa934782463794366fb73aa08daf5efad2a8e",
+    "out/native/ashlar_maintained_contention_20261007_r103/new-publication-reads/statements.jsonl": "97e301c5d72e7f35a81958692071f90d168d34209093ff53652e95aa12569f7e",
+    "out/native/ashlar_maintained_contention_20261007_r103/new-publication-reads/query-history.json": "6d3f87539eae010e0c81370475dd66915bc7095705287a5946d6a59c19162e7a",
+    "adapters/README.md": "53121d12a12ce31489e328694f6df1c13a9a498d56cbed889ee06b76dfe00d31"
   },
   "evidence": {
     "ddl": {
@@ -367,6 +382,10 @@
     "maintenance_reads_r102": {
       "result": "out/native/ashlar_maintenance_reads_20261007_r102/audited-summary.json",
       "scope": "One OPTIMIZE emits commits14/15; affected100k carriers and global IDs preserved; paired30-key reads prune15 to3 files. No fresh20M all-field, loaded-read or general SLA admission."
+    },
+    "maintained_contention_r103": {
+      "result": "out/native/ashlar_maintained_contention_20261007_r103/audited-summary.json",
+      "scope": "One100k publication and248 exact reads; maintained candidate15 retains3-file pruning under load but high latency; actual new release16. No maintained-manifest, sustained-rate or billion-scale admission."
     }
   },
   "design_choices": {
