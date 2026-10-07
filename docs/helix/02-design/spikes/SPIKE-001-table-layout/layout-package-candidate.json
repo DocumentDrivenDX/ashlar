@@ -94,7 +94,7 @@
     "graphframes_scale.py": "165f5d89ef23e26eaae8a688fa4fc1811515ac2f633d800273c47466ca218e7a",
     "parameterized_reads.py": "c52b62fc1ed9c21c7df9ce65bcce6f45bc9b0eac3ad10e4d4fbf7dacf0ea1528",
     "cancel_controls.py": "136be2fba80a126197e9a1c2a91796a33935724e24f2ec775b611d39a1ea2d51",
-    "entropy-scale-status.md": "7237c362f58aa9578fdd17945ec1bdbc290cb2b820ecb163f3a6d2efe22c3efe",
+    "entropy-scale-status.md": "246b88c89138591684bb769ba2c87709ae18e61f61e23daddd33e669993b0c69",
     "out/entropy-local-20261006/summary.json": "12359f89adabb3e41771cdf4570902a6626d74e03e3cae7d2c3e2f8bfefb344e",
     "out/graphframes-scale-20261006/summary.json": "608ef7aaf0b1cb89668ada1f69213c050874f4851f2acef97a65e63ac1fe53ab",
     "out/graphframes-scale-20261006/materialization.json": "83ee2e37d60c9df1bb088ff239e63640bd0835a555ea085c8a3863b71791f691",
@@ -271,7 +271,9 @@
     "out/puppygraph-local-r105.json": "1150b3ad548dbf06215bb6850331a383a44fc9ebb7dd585f5a4722f2ee1a5a8c",
     "out/puppygraph-r105-migration-rejected.json": "ee7e849bd00d088ec36793f3b9f6eb707704c9da49924a839abe2fa4f19bff0a",
     "out/puppygraph-r105-upload.json": "4c47ff6d6a55566bb8f54bde0c529b79504e19252dd6b7dd9cd656c59ced2979",
-    "out/goal-completion-audit-20261007.json": "f9f47fc974bd42c72b6b14efd732ad4e6aec3deccbcd95b6efbd3635a721f61d"
+    "out/goal-completion-audit-20261007.json": "f9f47fc974bd42c72b6b14efd732ad4e6aec3deccbcd95b6efbd3635a721f61d",
+    "contention_components.py": "0c9bb260701e9cefe9b07ebdc5d095fe525105f31edd061bd80b61586babbcd3",
+    "out/contention-components-r103.json": "01adc227544631199af9d3daa9e9be49a050309b34836ace8ffacb8e56b5cfa4"
   },
   "evidence": {
     "ddl": {

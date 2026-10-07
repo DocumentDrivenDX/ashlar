@@ -594,3 +594,24 @@ SELECT UNION ALL correction passes, with the failed read retained. No generic
 native-source token extraction or full producer reconstruction follows. Next
 measure repeated scheduled publications under the corrected encoder and full
 raw/history cost, then qualify file-count/skew and larger resource bounds.
+
+## r103 latency component audit
+
+[Offline exact-query decomposition](out/contention-components-r103.json) uses
+saved final uncached query histories; no benchmark queries were rerun. Quiet
+new-publication reads have component p95s of 156 ms compilation, 110 ms execution,
+264 ms total server duration and 114 ms caller-minus-server duration. During
+publication, the 114 reads with no remote bytes have 231/495/667/128 ms for those
+components respectively. Component percentiles describe different queries and
+MUST NOT be added. Caller-minus-server includes connector, network and client
+scheduling; queue-end minus server start also includes initialization.
+
+The live read-only compute inventory on 2026-10-07 found exactly one warehouse
+(`data-gateway`, 2439e1f2e37ac563, serverless 2X-Small, min/max one cluster,
+10-minute auto-stop, running) and no classic clusters. No resize or provisioning
+was performed. A true reader/publisher compute-isolation comparison needs another
+resource. Before that, compare stable parameterized singleton SQL against the
+existing literal-query path on identical keys and pinned versions, with result
+cache disabled and exact all-field checks. Separate compilation, execution and
+caller durations. This may reduce compilation overhead but is not presumed to
+fix execution contention or admit the provisional 250 ms caller target.
