@@ -1,0 +1,1 @@
+{"label": "pinned-edge-count", "sql": "SELECT count(*) FROM client_dev.ashlar_entropy_20261006_r86.edge_current VERSION AS OF 23", "parameters": null, "correlation": "/* ashlar canonical-lineage pinned-edge-count */", "started_epoch": 1791346185.091032, "state": "returned", "query_id": "01f1c204-eddc-1527-a665-1a589ae5122d"}

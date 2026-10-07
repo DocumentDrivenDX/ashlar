@@ -527,3 +527,55 @@ proofs; then bound larger copy/maintenance/parity bytes and statement/controller
 costs explicitly.64 is a pilot bucket count, not a chosen1B/5B partition strategy.
 The smaller point-read bytes justify continuing this physical comparison, while
 hash-LC remains the canonical candidate and all full-goal obligations stay open.
+
+
+### r159 matched rowTracking and bucket-aware updates
+
+[Native audit](out/native/ashlar_bucket_screen_r159/audited-summary.json) creates
+two100k full-carrier layouts with rowTracking explicitly enabled, common DV/
+Zstd/64MiB target/identity+eligibility statistics. LC retains its inherent
+clustering/domainMetadata features. [Owned bucket apply](bucket_apply_queries.py)
+derives source bucket from exact hash, matches bucket plus full native tuple and
+prior entity-version/batch eligibility, then assigns all20 logical fields
+explicitly. Bucket stays derived physical metadata. [Helper guard](out/bucket-apply-guard-check.json)
+matches executed SQL byte-for-byte and refuses unsupported matched placement.
+This remains trusted synthetic update-only code, not generic inserts or fencing.
+
+Initial100k exact20-field UTF8 copies/unique IDs pass. Both100k property MERGEs
+pass full intended/output values and post-update global membership; bucket drift
+and lowercase hash shape checks pass. Both native details confirm rowTracking
+true; zero/max60-bit and leading-prefix native bucket vectors match Python.
+One stage0 generates explicit64-hex-character property105 replacement values,
+much shorter than previous4–8KiB opaque values. Exact semantic replacement is
+intentional, but this is compact-update correctness and physical screening,
+not wide producer ingest or an equal-payload comparison with r158/r157.
+
+LC MERGE caller3.019 s versus partition5.605 s. Thirty alternating exact point
+reads: LC p95engine103ms/caller365.51ms/9.656MB; partition76ms/367.39ms/0.166MB,
+1file each/remote0/result-uncached. Both caller gates fail; compact payloads and
+prior full validation warm data, so no cold/full-scale or sustained admission.
+Different layouts remain different physical bundles; no causal directory-only
+or billing inference. No optimization/Z-order is run in this update pass.
+
+The original harness completed all60 reads then stopped because canonical head
+was25 instead of23. [Read-only recovery](bucket_updates_recover_r159.py) records
+contiguous OPTIMIZE24/25 lineage and verifies old r139-b1 still pinsE23/R17/J19,
+with20M pinned edges readable. No MERGE/copy or read workload was replayed. This
+experiment performs no canonical mutation; external maintenance changed its head,
+and its resource interference is an additional timing confound. Distinguish
+current physical head25 from the immutable published snapshot23. Do not silently
+repoint the manifest or assert the head stayed unchanged.
+
+Pilot/preparation/control/lineage audit records5.592GB reads/1.030GB remote writes,
+not billing or distinct storage footprint. Existing warehouse2439e1f2e37ac563;
+statements90 s/lineage30 s/bucket controls15 s and bounded connector submissions.
+All saved native IDs final. [Cleanup](out/native/ashlar_bucket_screen_r159/cleanup/summary.json)
+UUID/version-checks and removes the two owned tables and stage; no VACUUM/new
+compute/resize. PublishedE23/R17/J19/r139-b1 remains intact.
+
+The update-path prerequisite is now evidenced, but retain hash-LC as canonical
+candidate. Next compare equal-size wide property replacements and retain the
+same rowTracking/eligibility/bucket checks before a full20M copy. Observe actual
+canonical head/lineage and source snapshot rather than hard-coding unchanged
+physical head; keep explicit published versions.64 buckets remain experimental,
+not the chosen1B/5B layout. All full-goal obligations remain open.

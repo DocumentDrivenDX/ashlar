@@ -1,0 +1,454 @@
+{
+  "state": "Both matched-rowTracking100k layouts and bucket-aware updates exact;60 lookups passed; canonical head maintenance observed",
+  "owned": {
+    "lc": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.bucket_lc_r159",
+      "id": "4cdebf18-ea57-403d-a660-24ccc7912abf",
+      "version": 1,
+      "old_version": 0,
+      "detail": {
+        "format": "delta",
+        "id": "4cdebf18-ea57-403d-a660-24ccc7912abf",
+        "name": "client_dev.ashlar_entropy_20261006_r86.bucket_lc_r159",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/a69e43eb-c1c9-4125-b2e9-be06e73b22e6",
+        "createdAt": "2026-10-07T04:07:28.003000",
+        "lastModified": "2026-10-07T04:07:37",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"lookup_hash\"]",
+        "numFiles": "4",
+        "sizeInBytes": "335581540",
+        "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-cb1e2131-15b6-4188-a5d2-3a319eec3152\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-fe355909-236b-490a-b4b8-937b9de8a482\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"a69e43eb-c1c9-4125-b2e9-be06e73b22e6\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+        "clusterByAuto": "False"
+      },
+      "post_detail": {
+        "format": "delta",
+        "id": "4cdebf18-ea57-403d-a660-24ccc7912abf",
+        "name": "client_dev.ashlar_entropy_20261006_r86.bucket_lc_r159",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/a69e43eb-c1c9-4125-b2e9-be06e73b22e6",
+        "createdAt": "2026-10-07T04:07:28.003000",
+        "lastModified": "2026-10-07T04:08:16",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"lookup_hash\"]",
+        "numFiles": "1",
+        "sizeInBytes": "9593127",
+        "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-cb1e2131-15b6-4188-a5d2-3a319eec3152\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-fe355909-236b-490a-b4b8-937b9de8a482\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"a69e43eb-c1c9-4125-b2e9-be06e73b22e6\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+        "clusterByAuto": "False"
+      }
+    },
+    "part": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r159",
+      "id": "d4654968-0288-4c96-9458-a57c8f9671d9",
+      "version": 1,
+      "old_version": 0,
+      "detail": {
+        "format": "delta",
+        "id": "d4654968-0288-4c96-9458-a57c8f9671d9",
+        "name": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r159",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/b6ae7fd2-f7b7-4485-8ad1-0b82fd0a95d1",
+        "createdAt": "2026-10-07T04:07:38.919000",
+        "lastModified": "2026-10-07T04:07:44",
+        "partitionColumns": "[\"lookup_bucket\"]",
+        "clusteringColumns": "[]",
+        "numFiles": "64",
+        "sizeInBytes": "336285763",
+        "properties": "{\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-84151e30-4cf8-4182-b877-be3444c8324c\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-dda5434f-4461-4696-afaa-07d7a4c41c5d\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"b6ae7fd2-f7b7-4485-8ad1-0b82fd0a95d1\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+        "clusterByAuto": "False"
+      },
+      "post_detail": {
+        "format": "delta",
+        "id": "d4654968-0288-4c96-9458-a57c8f9671d9",
+        "name": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r159",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/b6ae7fd2-f7b7-4485-8ad1-0b82fd0a95d1",
+        "createdAt": "2026-10-07T04:07:38.919000",
+        "lastModified": "2026-10-07T04:08:26",
+        "partitionColumns": "[\"lookup_bucket\"]",
+        "clusteringColumns": "[]",
+        "numFiles": "64",
+        "sizeInBytes": "10262557",
+        "properties": "{\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-84151e30-4cf8-4182-b877-be3444c8324c\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-dda5434f-4461-4696-afaa-07d7a4c41c5d\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"b6ae7fd2-f7b7-4485-8ad1-0b82fd0a95d1\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+        "clusterByAuto": "False"
+      }
+    }
+  },
+  "stage": "client_dev.ashlar_entropy_20261006_r86.bucket_stage_r159",
+  "distribution": [
+    [
+      "0",
+      "1553"
+    ],
+    [
+      "1",
+      "1628"
+    ],
+    [
+      "2",
+      "1567"
+    ],
+    [
+      "3",
+      "1582"
+    ],
+    [
+      "4",
+      "1605"
+    ],
+    [
+      "5",
+      "1613"
+    ],
+    [
+      "6",
+      "1477"
+    ],
+    [
+      "7",
+      "1559"
+    ],
+    [
+      "8",
+      "1555"
+    ],
+    [
+      "9",
+      "1562"
+    ],
+    [
+      "10",
+      "1609"
+    ],
+    [
+      "11",
+      "1593"
+    ],
+    [
+      "12",
+      "1539"
+    ],
+    [
+      "13",
+      "1575"
+    ],
+    [
+      "14",
+      "1653"
+    ],
+    [
+      "15",
+      "1564"
+    ],
+    [
+      "16",
+      "1571"
+    ],
+    [
+      "17",
+      "1527"
+    ],
+    [
+      "18",
+      "1582"
+    ],
+    [
+      "19",
+      "1569"
+    ],
+    [
+      "20",
+      "1579"
+    ],
+    [
+      "21",
+      "1561"
+    ],
+    [
+      "22",
+      "1545"
+    ],
+    [
+      "23",
+      "1632"
+    ],
+    [
+      "24",
+      "1516"
+    ],
+    [
+      "25",
+      "1513"
+    ],
+    [
+      "26",
+      "1600"
+    ],
+    [
+      "27",
+      "1620"
+    ],
+    [
+      "28",
+      "1525"
+    ],
+    [
+      "29",
+      "1555"
+    ],
+    [
+      "30",
+      "1577"
+    ],
+    [
+      "31",
+      "1568"
+    ],
+    [
+      "32",
+      "1627"
+    ],
+    [
+      "33",
+      "1572"
+    ],
+    [
+      "34",
+      "1616"
+    ],
+    [
+      "35",
+      "1547"
+    ],
+    [
+      "36",
+      "1620"
+    ],
+    [
+      "37",
+      "1596"
+    ],
+    [
+      "38",
+      "1502"
+    ],
+    [
+      "39",
+      "1474"
+    ],
+    [
+      "40",
+      "1606"
+    ],
+    [
+      "41",
+      "1557"
+    ],
+    [
+      "42",
+      "1587"
+    ],
+    [
+      "43",
+      "1571"
+    ],
+    [
+      "44",
+      "1560"
+    ],
+    [
+      "45",
+      "1523"
+    ],
+    [
+      "46",
+      "1570"
+    ],
+    [
+      "47",
+      "1577"
+    ],
+    [
+      "48",
+      "1539"
+    ],
+    [
+      "49",
+      "1544"
+    ],
+    [
+      "50",
+      "1534"
+    ],
+    [
+      "51",
+      "1522"
+    ],
+    [
+      "52",
+      "1519"
+    ],
+    [
+      "53",
+      "1523"
+    ],
+    [
+      "54",
+      "1525"
+    ],
+    [
+      "55",
+      "1543"
+    ],
+    [
+      "56",
+      "1535"
+    ],
+    [
+      "57",
+      "1589"
+    ],
+    [
+      "58",
+      "1531"
+    ],
+    [
+      "59",
+      "1536"
+    ],
+    [
+      "60",
+      "1505"
+    ],
+    [
+      "61",
+      "1543"
+    ],
+    [
+      "62",
+      "1568"
+    ],
+    [
+      "63",
+      "1565"
+    ]
+  ],
+  "canonical_history": [
+    {
+      "version": "25",
+      "timestamp": "2026-10-07T04:08:46",
+      "userId": "144310222108026",
+      "userName": "24c6ebc2-9f0d-4d1e-90b6-2c964b3ebd41",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"auto\":\"false\",\"batchId\":\"1\",\"clusterBy\":\"[\"lookup_hash\"]\",\"isFull\":\"false\",\"predicate\":\"[]\",\"zOrderBy\":\"[]\"}",
+      "job": "{\"jobId\":\"743930124792215\",\"jobName\":\"Predictive Optimization Job-527d95f5-bec7-43e4-96af-f23b04a8639b\",\"jobRunId\":\"467713463735179\",\"runId\":\"745553350553825\",\"jobOwnerId\":\"144310222108026\",\"triggerType\":\"manual\",\"workspaceId\":\"7405607548213398\"}",
+      "notebook": null,
+      "queryHistoryStatementId": "09b836d8-b3a3-4b66-893e-f941ac17287b",
+      "clusterId": "1007-040526-mdclm5fz-v2n",
+      "readVersion": "23",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "True",
+      "operationMetrics": "{\"conflictDetectionTimeMs\":\"60\",\"numAddedBytes\":\"0\",\"numAddedFiles\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedBytes\":\"0\",\"numRemovedFiles\":\"0\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "24",
+      "timestamp": "2026-10-07T04:08:45",
+      "userId": "144310222108026",
+      "userName": "24c6ebc2-9f0d-4d1e-90b6-2c964b3ebd41",
+      "operation": "OPTIMIZE",
+      "operationParameters": "{\"auto\":\"false\",\"batchId\":\"0\",\"clusterBy\":\"[\"lookup_hash\"]\",\"isFull\":\"false\",\"predicate\":\"[]\",\"zOrderBy\":\"[]\"}",
+      "job": "{\"jobId\":\"743930124792215\",\"jobName\":\"Predictive Optimization Job-527d95f5-bec7-43e4-96af-f23b04a8639b\",\"jobRunId\":\"467713463735179\",\"runId\":\"745553350553825\",\"jobOwnerId\":\"144310222108026\",\"triggerType\":\"manual\",\"workspaceId\":\"7405607548213398\"}",
+      "notebook": null,
+      "queryHistoryStatementId": "09b836d8-b3a3-4b66-893e-f941ac17287b",
+      "clusterId": "1007-040526-mdclm5fz-v2n",
+      "readVersion": "23",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "False",
+      "operationMetrics": "{\"maxFileSize\":\"83812205\",\"minFileSize\":\"78827673\",\"numAddedBytes\":\"326808143\",\"numAddedFiles\":\"4\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedBytes\":\"326999747\",\"numRemovedFiles\":\"16\",\"p25FileSize\":\"81440308\",\"p50FileSize\":\"82727957\",\"p75FileSize\":\"83812205\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "23",
+      "timestamp": "2026-10-07T02:45:56",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "MERGE",
+      "operationParameters": "{\"clusterBy\":\"[\"lookup_hash\"]\",\"clusteringOnWriteStatus\":null,\"matchedPredicates\":\"[{\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"predicate\":\"[\"((((lookup_hash#397412 = lookup_hash#397432) AND (source_system#397396 = source_system#397416)) AND (rel_type_id#397397L = rel_type_id#397417L)) AND (((id#397398L = id#397418L) AND (entity_version#397404L = 14)) AND (apply_batch_id#397413 = r133-b1)))\"]\",\"statsOnLoad\":\"false\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c1f9-3629-1c2e-9169-55ea2b85acb4",
+      "clusterId": null,
+      "readVersion": "22",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "False",
+      "operationMetrics": "{\"executionTimeMs\":\"3826\",\"materializeSourceTimeMs\":\"1\",\"numOutputRows\":\"100000\",\"numSourceRows\":\"100000\",\"numTargetBytesAdded\":\"326999747\",\"numTargetBytesRemoved\":\"327002104\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"16\",\"numTargetFilesRemoved\":\"16\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"100000\",\"rewriteTimeMs\":\"2571\",\"scanTimeMs\":\"1233\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "22",
+      "timestamp": "2026-10-07T02:30:55",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "MERGE",
+      "operationParameters": "{\"clusterBy\":\"[\"lookup_hash\"]\",\"clusteringOnWriteStatus\":null,\"matchedPredicates\":\"[{\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"predicate\":\"[\"((((lookup_hash#364270 = lookup_hash#364290) AND (source_system#364254 = source_system#364274)) AND (rel_type_id#364255L = rel_type_id#364275L)) AND (((id#364256L = id#364276L) AND (entity_version#364262L = 13)) AND (apply_batch_id#364271 = r128-b1)))\"]\",\"statsOnLoad\":\"false\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c1f7-1cf3-1d45-a354-8c0be26b6d10",
+      "clusterId": null,
+      "readVersion": "21",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "False",
+      "operationMetrics": "{\"executionTimeMs\":\"3637\",\"materializeSourceTimeMs\":\"1\",\"numOutputRows\":\"100000\",\"numSourceRows\":\"100000\",\"numTargetBytesAdded\":\"327002104\",\"numTargetBytesRemoved\":\"327003767\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"16\",\"numTargetFilesRemoved\":\"16\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"100000\",\"rewriteTimeMs\":\"2493\",\"scanTimeMs\":\"1125\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    },
+    {
+      "version": "21",
+      "timestamp": "2026-10-07T02:29:42",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "COMPUTE STATS",
+      "operationParameters": "{\"buildFromFooter\":\"false\",\"incremental\":\"false\",\"predicate\":\"[\"true\"]\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c1f6-e776-1fad-a779-9f11a0b1e449",
+      "clusterId": null,
+      "readVersion": "20",
+      "isolationLevel": "SnapshotIsolation",
+      "isBlindAppend": "False",
+      "operationMetrics": "{}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    }
+  ],
+  "published_vector": {
+    "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120": 1,
+    "client_dev.ashlar_entropy_20261006_r86.edge_current": 23,
+    "client_dev.ashlar_entropy_20261006_r86.object_current": 0,
+    "client_dev.ashlar_entropy_20261006_r86.property_journal_r89": 19,
+    "client_dev.ashlar_entropy_20261006_r86.source_record_r89": 17,
+    "client_dev.ashlar_entropy_20261006_r86.tombstone_r89": 0
+  },
+  "head_assertion_failure": "Expected23, observed25 OPTIMIZE; original script stopped after60 successful reads before writing summary",
+  "qualification": "No writes replayed. Current canonical head advanced through external OPTIMIZE operations; unchanged published E23/R17/J19/r139-b1 verified.100k compact64-character replacements, no full20M layout, wide ingress, generic source authority, graph-engine or scale admission."
+}

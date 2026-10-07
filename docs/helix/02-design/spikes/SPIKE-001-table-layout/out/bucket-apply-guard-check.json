@@ -1,0 +1,4 @@
+{
+  "state": "Exact executed native MERGE matches owned helper;20 explicit assignments/full tuple+bucket eligibility; unsupported placement refused",
+  "qualification": "Synthetic trusted update-only profile, no generic inserts/authority/fencing admission"
+}
