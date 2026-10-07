@@ -1551,7 +1551,14 @@
     "out/native/ashlar_range32_pruning_r310/summary.json": "cd1f7dd7b5feb34ebc56e395442f3fd6db83c70c9cb212aaff44902b1707f0fd",
     "out/native/ashlar_range32_pruning_r310/shared-history.json": "6b951a634db9d60b6a2f875c905145695f2eff9374870e29ecd1578685f9c4ab",
     "out/native/ashlar_range32_pruning_r310/statements.jsonl": "e78898b7c2bfa76693cde144604de986db75015ec78a456f39a76b0dfca96855",
-    "out/native/ashlar_range32_pruning_r310/audited-summary.json": "a43b806143f1a887a1230735888494e4c06d4e9d748e539ff14fdcdabdcd6b9d"
+    "out/native/ashlar_range32_pruning_r310/audited-summary.json": "a43b806143f1a887a1230735888494e4c06d4e9d748e539ff14fdcdabdcd6b9d",
+    "range32-performance-disposition-r322.md": "98378a5401b45028b37a2147379d9741d4d7dea6f3fdba7498396aeb2fee5751",
+    "out/native/ashlar_range32_concurrent_r311/summary.json": "49bad5e50a2f3624498f9cb329e214c3d469039e04f9b51c45357af6e9f0145a",
+    "out/native/ashlar_range32_concurrent_r311/shared-history.json": "4dbd1ec680a9b1cb6db27ccb817fa1012c367f31b7e9c37ea2f2bd9b913e7401",
+    "out/native/ashlar_range32_concurrent_r311/statements.jsonl": "2e7f3b8020841a0ea2449d33b8f64d5662e85fc26f69d0e7463828a3493472c6",
+    "out/native/ashlar_range32_concurrent_r311/audited-summary.json": "0bca52374ee4a0ee400dbdaf5925df0acb9aab198a2904588b284a01e1da2dcf",
+    "out/native/ashlar_range32_concurrent_r311/reader-1/statements.jsonl": "05f69e094285a269b24cce0a8fb03f4c5b7a0b7b0e1a820e266d3dd0f1b1e7a0",
+    "out/native/ashlar_range32_concurrent_r311/reader-0/statements.jsonl": "1be646da78b52aea539f7a79963a3af2ae6ab6c5ea62e611f9e29026fc755f43"
   },
   "evidence": {
     "ddl": {

@@ -1,0 +1,334 @@
+{
+  "state": "All32 exact full-carrier/absence reads pass with2concurrent connections",
+  "source_sha256": "a43b806143f1a887a1230735888494e4c06d4e9d748e539ff14fdcdabdcd6b9d",
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.edge_range32_r313",
+    "version": 52,
+    "id": "7c76c985-b802-41b6-97e8-a76a809e2a01"
+  },
+  "bounds": {
+    "read_bytes": 12000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 1000000000,
+    "wall_s": 300,
+    "statement_timeout_s": 15
+  },
+  "reads": [
+    {
+      "index": 0,
+      "reader": 0,
+      "ordinal": 0,
+      "kind": "delete",
+      "statement_id": "01f1c25d-af4e-18c4-90db-708636d5d9ec"
+    },
+    {
+      "index": 1,
+      "reader": 1,
+      "ordinal": 1047290,
+      "kind": "delete",
+      "statement_id": "01f1c25d-af4c-13b2-8f8e-8b11b1a90944"
+    },
+    {
+      "index": 2,
+      "reader": 0,
+      "ordinal": 2094580,
+      "kind": "delete",
+      "statement_id": "01f1c25d-af8b-1591-be3a-8799d172653a"
+    },
+    {
+      "index": 3,
+      "reader": 1,
+      "ordinal": 3141870,
+      "kind": "delete",
+      "statement_id": "01f1c25d-af8b-1809-923c-89774f5bfa35"
+    },
+    {
+      "index": 4,
+      "reader": 0,
+      "ordinal": 104729,
+      "kind": "update",
+      "statement_id": "01f1c25d-afc2-1078-8972-b2b84c69d8e6"
+    },
+    {
+      "index": 5,
+      "reader": 1,
+      "ordinal": 209458,
+      "kind": "update",
+      "statement_id": "01f1c25d-afc1-174a-9a22-6039606d8979"
+    },
+    {
+      "index": 6,
+      "reader": 0,
+      "ordinal": 314187,
+      "kind": "update",
+      "statement_id": "01f1c25d-affe-1f98-a2cf-46666eba2113"
+    },
+    {
+      "index": 7,
+      "reader": 1,
+      "ordinal": 418916,
+      "kind": "update",
+      "statement_id": "01f1c25d-affd-1f3e-b6f0-df4be067cb60"
+    },
+    {
+      "index": 8,
+      "reader": 0,
+      "ordinal": 523645,
+      "kind": "update",
+      "statement_id": "01f1c25d-b034-1259-bbb0-04b78deb8b36"
+    },
+    {
+      "index": 9,
+      "reader": 1,
+      "ordinal": 628374,
+      "kind": "update",
+      "statement_id": "01f1c25d-b034-1616-894b-f59063773882"
+    },
+    {
+      "index": 10,
+      "reader": 0,
+      "ordinal": 733103,
+      "kind": "update",
+      "statement_id": "01f1c25d-b071-13dc-8494-2f57012b1ea0"
+    },
+    {
+      "index": 11,
+      "reader": 1,
+      "ordinal": 837832,
+      "kind": "update",
+      "statement_id": "01f1c25d-b06f-176f-b8e5-204c28858be3"
+    },
+    {
+      "index": 12,
+      "reader": 0,
+      "ordinal": 942561,
+      "kind": "update",
+      "statement_id": "01f1c25d-b0a8-14d0-891f-cb91e808ad52"
+    },
+    {
+      "index": 13,
+      "reader": 1,
+      "ordinal": 1152019,
+      "kind": "update",
+      "statement_id": "01f1c25d-b0a7-1d85-9262-54edf6caabef"
+    },
+    {
+      "index": 14,
+      "reader": 0,
+      "ordinal": 1256748,
+      "kind": "update",
+      "statement_id": "01f1c25d-b0e0-1444-9b10-97c1fee9359b"
+    },
+    {
+      "index": 15,
+      "reader": 1,
+      "ordinal": 1361477,
+      "kind": "update",
+      "statement_id": "01f1c25d-b0de-1344-a2d0-0af6c669eb6b"
+    },
+    {
+      "index": 16,
+      "reader": 0,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b116-1a59-92dc-80445fc5cbe3"
+    },
+    {
+      "index": 17,
+      "reader": 1,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b114-1fb7-a33b-432c8cc45bf1"
+    },
+    {
+      "index": 18,
+      "reader": 0,
+      "ordinal": 5482189,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b14b-1fd1-9e93-28699951fc87"
+    },
+    {
+      "index": 19,
+      "reader": 1,
+      "ordinal": 9065599,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b14b-1a46-a3a1-b59d8badb22a"
+    },
+    {
+      "index": 20,
+      "reader": 0,
+      "ordinal": 11748848,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b182-1d82-927b-12987ba7ba6c"
+    },
+    {
+      "index": 21,
+      "reader": 1,
+      "ordinal": 14414299,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b181-1c97-9d2f-2e15d9a9535a"
+    },
+    {
+      "index": 22,
+      "reader": 0,
+      "ordinal": 16541888,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b1ba-1bda-9194-34cae8eb4114"
+    },
+    {
+      "index": 23,
+      "reader": 1,
+      "ordinal": 19088931,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b1ba-1526-9830-6dafa91c9eb8"
+    },
+    {
+      "index": 24,
+      "reader": 0,
+      "ordinal": 20800887,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b1f0-1225-9d93-59b1a55dd121"
+    },
+    {
+      "index": 25,
+      "reader": 1,
+      "ordinal": 23041334,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b1ef-16f3-a694-e974efe7f43c"
+    },
+    {
+      "index": 26,
+      "reader": 0,
+      "ordinal": 25888449,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b226-1658-a46f-a2332f047726"
+    },
+    {
+      "index": 27,
+      "reader": 1,
+      "ordinal": 27608145,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b226-1f1e-ba7d-9749e2dfbf46"
+    },
+    {
+      "index": 28,
+      "reader": 0,
+      "ordinal": 30047586,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b25c-14c9-b066-330c94ad1c26"
+    },
+    {
+      "index": 29,
+      "reader": 1,
+      "ordinal": 34442027,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b25d-11c8-a397-c8c54f9d0a9f"
+    },
+    {
+      "index": 30,
+      "reader": 0,
+      "ordinal": 36842382,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b293-1c4a-9789-cbf694cce2c6"
+    },
+    {
+      "index": 31,
+      "reader": 1,
+      "ordinal": 39896986,
+      "kind": "unchanged",
+      "statement_id": "01f1c25d-b293-1043-af8a-a480c49a9479"
+    }
+  ],
+  "costs": {
+    "read_bytes": 2051578186,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "point_metrics": {
+    "caller_p95_ms": 395.20987499999995,
+    "execution_time_ms_p95": 104,
+    "compilation_time_ms_p95": 214,
+    "total_time_ms_p95": 288,
+    "read_bytes_p95": 79482625,
+    "read_files_count_p95": 1
+  },
+  "wall_s": 11.135345042,
+  "qualification": "One synchronized2reader cohort over32stratified keys from qualified39.99M-edge range32 partition candidate. Uncached results, warmed prior data, all20fields/exact deletions. Pair barriers measure simultaneous requests, not sustained multi-user tail or concurrent ingestion. Existing2XSmall compute unchanged; no cold-data, write-fencing, throughput, or billion admission.",
+  "audit": {
+    "source_sha256": {
+      "summary.json": "49bad5e50a2f3624498f9cb329e214c3d469039e04f9b51c45357af6e9f0145a",
+      "statements.jsonl": "2e7f3b8020841a0ea2449d33b8f64d5662e85fc26f69d0e7463828a3493472c6",
+      "shared-history.json": "4dbd1ec680a9b1cb6db27ccb817fa1012c367f31b7e9c37ea2f2bd9b913e7401"
+    },
+    "native_final_statements": 36,
+    "uncached_exact_points": 32,
+    "native_request_overlaps": [
+      {
+        "pair": 0,
+        "native_request_overlap_ms": 237
+      },
+      {
+        "pair": 1,
+        "native_request_overlap_ms": 232
+      },
+      {
+        "pair": 2,
+        "native_request_overlap_ms": 262
+      },
+      {
+        "pair": 3,
+        "native_request_overlap_ms": 229
+      },
+      {
+        "pair": 4,
+        "native_request_overlap_ms": 267
+      },
+      {
+        "pair": 5,
+        "native_request_overlap_ms": 225
+      },
+      {
+        "pair": 6,
+        "native_request_overlap_ms": 235
+      },
+      {
+        "pair": 7,
+        "native_request_overlap_ms": 237
+      },
+      {
+        "pair": 8,
+        "native_request_overlap_ms": 232
+      },
+      {
+        "pair": 9,
+        "native_request_overlap_ms": 235
+      },
+      {
+        "pair": 10,
+        "native_request_overlap_ms": 235
+      },
+      {
+        "pair": 11,
+        "native_request_overlap_ms": 223
+      },
+      {
+        "pair": 12,
+        "native_request_overlap_ms": 239
+      },
+      {
+        "pair": 13,
+        "native_request_overlap_ms": 234
+      },
+      {
+        "pair": 14,
+        "native_request_overlap_ms": 237
+      },
+      {
+        "pair": 15,
+        "native_request_overlap_ms": 244
+      }
+    ],
+    "overlapping_pairs": 16,
+    "qualification": "Actual request-lifetime overlap includes planning/queue, not proof simultaneous scan tasks. Same stratified32key cohort at full maintained range32 snapshot; small warmed comparison, no causal service-tail/cold/ingest or billion admission."
+  }
+}
