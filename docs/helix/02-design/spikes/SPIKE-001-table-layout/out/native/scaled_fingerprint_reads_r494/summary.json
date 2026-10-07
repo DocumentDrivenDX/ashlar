@@ -1,0 +1,321 @@
+{
+  "state": "Six uncached full-carrier/fingerprint comparisons agree at6227 changes",
+  "source_sha256": "c268812794916a33fc9d0846ef8723d23d0674779a0a49c1d62dfef0d675923e",
+  "code_sha256": "5a20511ee04f1dcb2ba9ab40bb74781a036a976f5e968d7466a229cb235d1dc9",
+  "bounds": {
+    "read_bytes": 20000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 1000000000,
+    "wall_s": 300
+  },
+  "reads": {
+    "full-0": {
+      "statement_id": "01f1c294-967e-1021-837c-64a274126bc5",
+      "caller_ms": 2425.5818329999997,
+      "result": [
+        [
+          "6227",
+          "0"
+        ]
+      ],
+      "metrics": {
+        "total_time_ms": 2304,
+        "read_bytes": 2096279035,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 317,
+        "execution_time_ms": 1980,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 2096279035,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 5881,
+        "read_files_count": 33,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 5445,
+        "rows_read_count": 2504873,
+        "result_fetch_time_ms": 7,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791407886124,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 2297,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791407886106,
+        "read_files_bytes": 2242760402,
+        "rows_scanned": 2598646,
+        "task_progress": {
+          "planned_task_count": 73,
+          "completed_task_count": 50,
+          "completed_partition_count": 50,
+          "pending_task_count": 23,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "fingerprint-1": {
+      "statement_id": "01f1c294-97ef-176f-9283-8ab05674735a",
+      "caller_ms": 1487.9413749999983,
+      "result": [
+        [
+          "6227",
+          "0"
+        ]
+      ],
+      "metrics": {
+        "total_time_ms": 1301,
+        "read_bytes": 260725212,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 445,
+        "execution_time_ms": 849,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 260725212,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 3016,
+        "read_files_count": 33,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 2797,
+        "rows_read_count": 2504873,
+        "result_fetch_time_ms": 6,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791407888621,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 1294,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791407888527,
+        "read_files_bytes": 2242760402,
+        "rows_scanned": 2598646,
+        "task_progress": {
+          "planned_task_count": 27,
+          "completed_task_count": 27,
+          "completed_partition_count": 27,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "fingerprint-2": {
+      "statement_id": "01f1c294-98d3-1252-b453-26097411f37f",
+      "caller_ms": 1322.4469590000006,
+      "result": [
+        [
+          "6227",
+          "0"
+        ]
+      ],
+      "metrics": {
+        "total_time_ms": 1215,
+        "read_bytes": 260725212,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 379,
+        "execution_time_ms": 830,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 260725212,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 3218,
+        "read_files_count": 33,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 2956,
+        "rows_read_count": 2504873,
+        "result_fetch_time_ms": 3,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791407890034,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 1209,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791407890018,
+        "read_files_bytes": 2242760402,
+        "rows_scanned": 2598646,
+        "task_progress": {
+          "planned_task_count": 27,
+          "completed_task_count": 27,
+          "completed_partition_count": 27,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "full-3": {
+      "statement_id": "01f1c294-999d-158a-b807-1bb7e0e06781",
+      "caller_ms": 1950.1554590000012,
+      "result": [
+        [
+          "6227",
+          "0"
+        ]
+      ],
+      "metrics": {
+        "total_time_ms": 1840,
+        "read_bytes": 2096279035,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 327,
+        "execution_time_ms": 1507,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 2096279035,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 5310,
+        "read_files_count": 33,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 4951,
+        "rows_read_count": 2504873,
+        "result_fetch_time_ms": 4,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791407891365,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 1834,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791407891349,
+        "read_files_bytes": 2242760402,
+        "rows_scanned": 2598646,
+        "task_progress": {
+          "planned_task_count": 73,
+          "completed_task_count": 49,
+          "completed_partition_count": 49,
+          "pending_task_count": 24,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "full-4": {
+      "statement_id": "01f1c294-9ac7-1186-8e3f-cfca3e120381",
+      "caller_ms": 1899.4951669999996,
+      "result": [
+        [
+          "6227",
+          "0"
+        ]
+      ],
+      "metrics": {
+        "total_time_ms": 1794,
+        "read_bytes": 2096279035,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 330,
+        "execution_time_ms": 1458,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 2096279035,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 5092,
+        "read_files_count": 33,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 4731,
+        "rows_read_count": 2504873,
+        "result_fetch_time_ms": 2,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791407893314,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 1788,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791407893295,
+        "read_files_bytes": 2242760402,
+        "rows_scanned": 2598646,
+        "task_progress": {
+          "planned_task_count": 73,
+          "completed_task_count": 49,
+          "completed_partition_count": 49,
+          "pending_task_count": 24,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "fingerprint-5": {
+      "statement_id": "01f1c294-9be9-110e-8dcb-b4819ea7ab37",
+      "caller_ms": 1284.2214590000012,
+      "result": [
+        [
+          "6227",
+          "0"
+        ]
+      ],
+      "metrics": {
+        "total_time_ms": 1169,
+        "read_bytes": 260725212,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 407,
+        "execution_time_ms": 755,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 260725212,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 2851,
+        "read_files_count": 33,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 2631,
+        "rows_read_count": 2504873,
+        "result_fetch_time_ms": 8,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791407895217,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 1162,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791407895201,
+        "read_files_bytes": 2242760402,
+        "rows_scanned": 2598646,
+        "task_progress": {
+          "planned_task_count": 27,
+          "completed_task_count": 27,
+          "completed_partition_count": 27,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    }
+  },
+  "qualification": "Three rotated pairs on identical immutable2.498646M-row private generated-column fixture and6227 prepared changes. Uncached query results; storage cache/order/compiler variation remain. No MERGE.",
+  "detail": {
+    "format": "delta",
+    "id": "4ceb8c24-2c17-452e-acc6-3d27a3c37bb0",
+    "name": "client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/7790f507-af46-413d-b65e-6a44864799a4",
+    "createdAt": "2026-10-07T21:15:29.098000",
+    "lastModified": "2026-10-07T21:16:07",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"lookup_hash\"]",
+    "numFiles": "32",
+    "sizeInBytes": "2085376387",
+    "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-2625a611-e1f8-4637-bdc7-e2bf5dd308a9\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-91049a3c-e81a-4aed-912f-9837922eb977\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"7790f507-af46-413d-b65e-6a44864799a4\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"generatedColumns\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+    "clusterByAuto": "False"
+  },
+  "costs": {
+    "read_bytes": 7071012741,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 22.950553584
+}

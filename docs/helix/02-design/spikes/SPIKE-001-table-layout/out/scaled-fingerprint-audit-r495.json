@@ -1,0 +1,90 @@
+{
+  "state": "Retained final handles, exact SQL, code bindings, full parity and six uncached read checks pass",
+  "runs": [
+    {
+      "run": "scaled_fingerprint_r493",
+      "final_native_statements": 12,
+      "cached_labels": [
+        "fingerprint-2"
+      ],
+      "costs": {
+        "read_bytes": 12234688054,
+        "write_remote_bytes": 2085376387,
+        "spill_to_disk_bytes": 0
+      },
+      "wall_s": 116.727401708
+    },
+    {
+      "run": "scaled_fingerprint_reads_r494",
+      "final_native_statements": 11,
+      "cached_labels": [],
+      "costs": {
+        "read_bytes": 7071012741,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "wall_s": 22.950553584
+    }
+  ],
+  "families": {
+    "full": {
+      "observations": 3,
+      "caller_ms": {
+        "median": 1950.1554590000012,
+        "values": [
+          2425.5818329999997,
+          1950.1554590000012,
+          1899.4951669999996
+        ]
+      },
+      "engine_ms": {
+        "median": 1507,
+        "values": [
+          1980,
+          1507,
+          1458
+        ]
+      },
+      "read_bytes_each": [
+        2096279035
+      ],
+      "remote_bytes_each": [
+        0
+      ],
+      "files_each": [
+        33
+      ]
+    },
+    "fingerprint": {
+      "observations": 3,
+      "caller_ms": {
+        "median": 1322.4469590000006,
+        "values": [
+          1487.9413749999983,
+          1322.4469590000006,
+          1284.2214590000012
+        ]
+      },
+      "engine_ms": {
+        "median": 830,
+        "values": [
+          849,
+          830,
+          755
+        ]
+      },
+      "read_bytes_each": [
+        260725212
+      ],
+      "remote_bytes_each": [
+        0
+      ],
+      "files_each": [
+        33
+      ]
+    }
+  },
+  "read_reduction_fraction": 0.8756247581324497,
+  "engine_median_reduction_fraction": 0.4492368944923689,
+  "qualification": "Read-only2.498646M private slice; not MERGE/publication timing, cold storage, p95, billion-scale, source fencing or external-reader admission. Cached third SDK observation invalid for timing and retained."
+}

@@ -1,0 +1,101 @@
+{
+  "state": "Stopped; inspect existing durable same handles; no replay",
+  "table": "client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493",
+  "base": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "version": 6,
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80"
+  },
+  "source": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.prepared_current_mutation_r445",
+    "version": 0,
+    "id": "67829d40-cd20-4068-85f5-c4e8cc578d48"
+  },
+  "bounds": {
+    "read_bytes": 30000000000,
+    "write_remote_bytes": 3000000000,
+    "spill_to_disk_bytes": 1000000000,
+    "wall_s": 600
+  },
+  "fingerprint_profile": "ashlar-carrier-fingerprint/1;",
+  "upper_exclusive_lookup_hash": "1000000000000000000000000000000000000000000000000000000000000000",
+  "code_sha256": {
+    "scaled_fingerprint_r493.py": "943d0b9f1978bbb32c6d3d8e29b387f37f2c60ab83313592064c7cc0f17656e5",
+    "generated_fingerprint_r491.py": "d08f75d020e8aa4a3a5fbb3f7cb1d830ac8e155622a53f6d8a60c1a1e118e57b"
+  },
+  "reads": {
+    "full-0": {
+      "statement_id": "01f1c294-6a68-1a2a-8fde-9c5a389eac9d",
+      "caller_ms": 4651.376374999998,
+      "result": [
+        [
+          "6227",
+          "0"
+        ]
+      ]
+    },
+    "fingerprint-1": {
+      "statement_id": "01f1c294-6f5c-169e-bb80-891ac91f58db",
+      "caller_ms": 1923.026667000002,
+      "result": [
+        [
+          "6227",
+          "0"
+        ]
+      ]
+    },
+    "fingerprint-2": {
+      "statement_id": "01f1c294-76ac-13ab-9ccf-34082b0e8f88",
+      "caller_ms": 627.0457499999935,
+      "result": [
+        [
+          "6227",
+          "0"
+        ]
+      ]
+    }
+  },
+  "qualification": "One private1/16 hash slice of accepted E6, with exact fourth-input predecessor checks. Copy/full parity costs separate from read comparisons. No MERGE/publication/billion-scale or external-reader admission.",
+  "copy_version": 1,
+  "copy_statement_id": "01f1c294-39e9-18b9-bcdf-6820a8f14643",
+  "detail": {
+    "format": "delta",
+    "id": "4ceb8c24-2c17-452e-acc6-3d27a3c37bb0",
+    "name": "client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/7790f507-af46-413d-b65e-6a44864799a4",
+    "createdAt": "2026-10-07T21:15:29.098Z",
+    "lastModified": "2026-10-07T21:16:07.000Z",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"lookup_hash\"]",
+    "numFiles": "32",
+    "sizeInBytes": "2085376387",
+    "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"7790f507-af46-413d-b65e-6a44864799a4\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-2625a611-e1f8-4637-bdc7-e2bf5dd308a9\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-91049a3c-e81a-4aed-912f-9837922eb977\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"generatedColumns\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+    "clusterByAuto": "false"
+  },
+  "table_id": "4ceb8c24-2c17-452e-acc6-3d27a3c37bb0",
+  "costs": {
+    "read_bytes": 12234688054,
+    "write_remote_bytes": 2085376387,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 116.727401708,
+  "parent_parity": [
+    [
+      "2498646",
+      "0"
+    ]
+  ],
+  "fixture_integrity": [
+    [
+      "2498646",
+      "2498646",
+      "0"
+    ]
+  ],
+  "error": ""
+}

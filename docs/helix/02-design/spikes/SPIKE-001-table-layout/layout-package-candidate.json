@@ -2248,7 +2248,22 @@
     "out/native/generated_fingerprint_r490/query-history.json": "7b1379b7444e485377fdb908c8847bffff4893fe95578b11ce838034ec2e77f4",
     "out/native/generated_fingerprint_r491/result.json": "90fb7448109023f9c05c7ae2586722f64dd115a33cc04582d576c09f56039903",
     "out/native/generated_fingerprint_r491/statements.jsonl": "f1cef937557b7f901ce70ca999bac128bcf52b457b8cd19ead4b9eb277720c23",
-    "out/native/generated_fingerprint_r491/query-history.json": "7d50dfd7ebb63b1ed0aeb1728a91db386771c66ed8cd318b7580a106ab0218e8"
+    "out/native/generated_fingerprint_r491/query-history.json": "7d50dfd7ebb63b1ed0aeb1728a91db386771c66ed8cd318b7580a106ab0218e8",
+    "scaled_fingerprint_r493.py": "943d0b9f1978bbb32c6d3d8e29b387f37f2c60ab83313592064c7cc0f17656e5",
+    "scaled_fingerprint_reads_r494.py": "5a20511ee04f1dcb2ba9ab40bb74781a036a976f5e968d7466a229cb235d1dc9",
+    "audit_scaled_fingerprint_r495.py": "8c3ea13c682bb47fb5d5a0ca8862c2edcde8d65b12b8626ae6667b0e0afac92a",
+    "scaled-fingerprint-disposition-r495.md": "8dd908ddad39991ecc21ff33b4e3d69f1eca6c2ec992faf02ba2291b8712c315",
+    "out/scaled-fingerprint-audit-r495.json": "673049be7c144c28f8782cdba3b1047204d6a507370fd904427c7e9e2f2e2d47",
+    "out/native/scaled_fingerprint_r493/summary.json": "c268812794916a33fc9d0846ef8723d23d0674779a0a49c1d62dfef0d675923e",
+    "out/native/scaled_fingerprint_r493/shared-history.json": "3849f0b8962e3257f832b23d3a41157d1b716c359d125ef891e618cfc15c44e8",
+    "out/native/scaled_fingerprint_r493/statements.jsonl": "d8922953b5c5215f31216115e12851255baf820e3e55755dc65dca6623b2bbda",
+    "out/native/scaled_fingerprint_r493/completed-last-statement.json": "709f74dd86a59c1c08439b79a2adc647fe58cca13bed3afdcd1bd5983b2f904c",
+    "out/native/scaled_fingerprint_reads_r494/summary.json": "e72a8fa7c868dccc67daae4c9a69106e182b9e5c0d066b211ea46e0da1351a05",
+    "out/native/scaled_fingerprint_reads_r494/shared-history.json": "f8b38e1c27bdcc1f90a349089b1eb8a2d72ddae44f271e42cb612744c3869d0b",
+    "out/native/scaled_fingerprint_reads_r494/plan-full.txt": "c6bf76a2707d8aa08dc4e8723bad7d6184eb5e1c801f8b532d186577f9d4f33f",
+    "out/native/scaled_fingerprint_reads_r494/statements.jsonl": "8e4b405f231eaa6d68ea10795fd0aeb51d20cf798a703ba79ae8bc949042e000",
+    "out/native/scaled_fingerprint_reads_r494/plan-fingerprint.txt": "01166448150e0254d6b54793ad96d77f7ba3fac87c102017c4d1afae6e4cc215",
+    "out/native/scaled_fingerprint_reads_r494/completed-last-request.json": "c7b55f7b9e97abd4aefbf99257fa4c7afd89b59b9f497d853d4376b866d20833"
   },
   "evidence": {
     "ddl": {

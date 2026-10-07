@@ -1,0 +1,105 @@
+== Physical Plan ==
+AdaptiveSparkPlan (17)
++- == Initial Plan ==
+   PhotonResultStage (16)
+   +- PhotonColumnarToRow (15)
+      +- PhotonAgg (14)
+         +- PhotonShuffleExchangeSource (13)
+            +- PhotonShuffleMapStage (12)
+               +- PhotonShuffleExchangeSink (11)
+                  +- PhotonAgg (10)
+                     +- PhotonShuffledHashJoin LeftOuter (9)
+                        :- PhotonShuffleExchangeSource (4)
+                        :  +- PhotonShuffleMapStage (3)
+                        :     +- PhotonShuffleExchangeSink (2)
+                        :        +- PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.prepared_current_mutation_r445 (1)
+                        +- PhotonShuffleExchangeSource (8)
+                           +- PhotonShuffleMapStage (7)
+                              +- PhotonShuffleExchangeSink (6)
+                                 +- PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493 (5)
+
+
+(1) PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.prepared_current_mutation_r445
+Output [20]: [source_system#23439, rel_type_id#23440L, id#23441L, source_type#23442L, source_id#23443L, target_type#23444L, target_id#23445L, order_key#23446, schema_revision#23447, entity_version#23448L, props_json#23449, retained_json#23450, source_feed#23451, source_epoch#23452, source_position#23453L, published_at#23454, apply_batch_id#23455, source_cursor_json#23456, source_delivery_id#23457, lookup_hash#23458]
+DictionaryFilters: [(lookup_hash#23458 < 1000000000000000000000000000000000000000000000000000000000000000)]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/f7ab7c5f-ac1c-406d-88f6-05fcc5c2b363]
+ReadSchema: struct<source_system:string,rel_type_id:bigint,id:bigint,source_type:bigint,source_id:bigint,target_type:bigint,target_id:bigint,order_key:string,schema_revision:string,entity_version:bigint,props_json:string,retained_json:string,source_feed:string,source_epoch:string,source_position:bigint,published_at:timestamp,apply_batch_id:string,source_cursor_json:string,source_delivery_id:string,lookup_hash:string>
+RequiredDataFilters: [isnotnull(lookup_hash#23458), (lookup_hash#23458 < 1000000000000000000000000000000000000000000000000000000000000000)]
+
+(2) PhotonShuffleExchangeSink
+Input [20]: [source_system#23439, rel_type_id#23440L, id#23441L, source_type#23442L, source_id#23443L, target_type#23444L, target_id#23445L, order_key#23446, schema_revision#23447, entity_version#23448L, props_json#23449, retained_json#23450, source_feed#23451, source_epoch#23452, source_position#23453L, published_at#23454, apply_batch_id#23455, source_cursor_json#23456, source_delivery_id#23457, lookup_hash#23458]
+Arguments: hashpartitioning(lookup_hash#23458, source_system#23439, rel_type_id#23440L, id#23441L, 16)
+
+(3) PhotonShuffleMapStage
+Input [20]: [source_system#23439, rel_type_id#23440L, id#23441L, source_type#23442L, source_id#23443L, target_type#23444L, target_id#23445L, order_key#23446, schema_revision#23447, entity_version#23448L, props_json#23449, retained_json#23450, source_feed#23451, source_epoch#23452, source_position#23453L, published_at#23454, apply_batch_id#23455, source_cursor_json#23456, source_delivery_id#23457, lookup_hash#23458]
+Arguments: ENSURE_REQUIREMENTS, [id=#12466]
+
+(4) PhotonShuffleExchangeSource
+Input [20]: [source_system#23439, rel_type_id#23440L, id#23441L, source_type#23442L, source_id#23443L, target_type#23444L, target_id#23445L, order_key#23446, schema_revision#23447, entity_version#23448L, props_json#23449, retained_json#23450, source_feed#23451, source_epoch#23452, source_position#23453L, published_at#23454, apply_batch_id#23455, source_cursor_json#23456, source_delivery_id#23457, lookup_hash#23458]
+Arguments: false
+
+(5) PhotonScan parquet client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493
+Output [20]: [source_system#23483, rel_type_id#23484L, id#23485L, source_type#23486L, source_id#23487L, target_type#23488L, target_id#23489L, order_key#23490, schema_revision#23491, entity_version#23492L, props_json#23493, retained_json#23494, source_feed#23495, source_epoch#23496, source_position#23497L, published_at#23498, apply_batch_id#23499, source_cursor_json#23500, source_delivery_id#23501, lookup_hash#23502]
+DictionaryFilters: [(lookup_hash#23502 < 1000000000000000000000000000000000000000000000000000000000000000)]
+Location: PreparedDeltaFileIndex [abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/7790f507-af46-413d-b65e-6a44864799a4]
+ReadSchema: struct<source_system:string,rel_type_id:bigint,id:bigint,source_type:bigint,source_id:bigint,target_type:bigint,target_id:bigint,order_key:string,schema_revision:string,entity_version:bigint,props_json:string,retained_json:string,source_feed:string,source_epoch:string,source_position:bigint,published_at:timestamp,apply_batch_id:string,source_cursor_json:string,source_delivery_id:string,lookup_hash:string>
+RequiredDataFilters: [isnotnull(rel_type_id#23484L), isnotnull(id#23485L), isnotnull(lookup_hash#23502), isnotnull(source_system#23483), (lookup_hash#23502 < 1000000000000000000000000000000000000000000000000000000000000000)]
+
+(6) PhotonShuffleExchangeSink
+Input [20]: [source_system#23483, rel_type_id#23484L, id#23485L, source_type#23486L, source_id#23487L, target_type#23488L, target_id#23489L, order_key#23490, schema_revision#23491, entity_version#23492L, props_json#23493, retained_json#23494, source_feed#23495, source_epoch#23496, source_position#23497L, published_at#23498, apply_batch_id#23499, source_cursor_json#23500, source_delivery_id#23501, lookup_hash#23502]
+Arguments: hashpartitioning(lookup_hash#23502, source_system#23483, rel_type_id#23484L, id#23485L, 16)
+
+(7) PhotonShuffleMapStage
+Input [20]: [source_system#23483, rel_type_id#23484L, id#23485L, source_type#23486L, source_id#23487L, target_type#23488L, target_id#23489L, order_key#23490, schema_revision#23491, entity_version#23492L, props_json#23493, retained_json#23494, source_feed#23495, source_epoch#23496, source_position#23497L, published_at#23498, apply_batch_id#23499, source_cursor_json#23500, source_delivery_id#23501, lookup_hash#23502]
+Arguments: ENSURE_REQUIREMENTS, [id=#12472]
+
+(8) PhotonShuffleExchangeSource
+Input [20]: [source_system#23483, rel_type_id#23484L, id#23485L, source_type#23486L, source_id#23487L, target_type#23488L, target_id#23489L, order_key#23490, schema_revision#23491, entity_version#23492L, props_json#23493, retained_json#23494, source_feed#23495, source_epoch#23496, source_position#23497L, published_at#23498, apply_batch_id#23499, source_cursor_json#23500, source_delivery_id#23501, lookup_hash#23502]
+Arguments: false
+
+(9) PhotonShuffledHashJoin
+Left keys [4]: [lookup_hash#23458, source_system#23439, rel_type_id#23440L, id#23441L]
+Right keys [4]: [lookup_hash#23502, source_system#23483, rel_type_id#23484L, id#23485L]
+Join type: LeftOuter
+Join condition: None
+
+(10) PhotonAgg
+Input [40]: [source_system#23439, rel_type_id#23440L, id#23441L, source_type#23442L, source_id#23443L, target_type#23444L, target_id#23445L, order_key#23446, schema_revision#23447, entity_version#23448L, props_json#23449, retained_json#23450, source_feed#23451, source_epoch#23452, source_position#23453L, published_at#23454, apply_batch_id#23455, source_cursor_json#23456, source_delivery_id#23457, lookup_hash#23458, source_system#23483, rel_type_id#23484L, id#23485L, source_type#23486L, source_id#23487L, target_type#23488L, target_id#23489L, order_key#23490, schema_revision#23491, entity_version#23492L, props_json#23493, retained_json#23494, source_feed#23495, source_epoch#23496, source_position#23497L, published_at#23498, apply_batch_id#23499, source_cursor_json#23500, source_delivery_id#23501, lookup_hash#23502]
+Arguments: [partial_count(1) AS count#23529L, partial_count(if (((((((((((((((((((((isnotnull(id#23485L) AND (rel_type_id#23484L <=> rel_type_id#23440L)) AND (id#23485L <=> id#23441L)) AND (source_type#23486L <=> source_type#23442L)) AND (source_id#23487L <=> source_id#23443L)) AND (target_type#23488L <=> target_type#23444L)) AND (target_id#23489L <=> target_id#23445L)) AND (entity_version#23492L <=> entity_version#23448L)) AND (source_position#23497L <=> source_position#23453L)) AND (published_at#23498 <=> published_at#23454)) AND (source_system#23483 <=> source_system#23439)) AND (order_key#23490 <=> order_key#23446)) AND (schema_revision#23491 <=> schema_revision#23447)) AND (props_json#23493 <=> props_json#23449)) AND (retained_json#23494 <=> retained_json#23450)) AND (source_feed#23495 <=> source_feed#23451)) AND (source_epoch#23496 <=> source_epoch#23452)) AND (apply_batch_id#23499 <=> apply_batch_id#23455)) AND (source_cursor_json#23500 <=> source_cursor_json#23456)) AND (source_delivery_id#23501 <=> source_delivery_id#23457)) AND (lookup_hash#23502 <=> lookup_hash#23458))) null else ((((((((((((((((((((isnull(id#23485L) OR NOT (rel_type_id#23484L <=> rel_type_id#23440L)) OR NOT (id#23485L <=> id#23441L)) OR NOT (source_type#23486L <=> source_type#23442L)) OR NOT (source_id#23487L <=> source_id#23443L)) OR NOT (target_type#23488L <=> target_type#23444L)) OR NOT (target_id#23489L <=> target_id#23445L)) OR NOT (entity_version#23492L <=> entity_version#23448L)) OR NOT (source_position#23497L <=> source_position#23453L)) OR NOT (published_at#23498 <=> published_at#23454)) OR NOT (source_system#23483 <=> source_system#23439)) OR NOT (order_key#23490 <=> order_key#23446)) OR NOT (schema_revision#23491 <=> schema_revision#23447)) OR NOT (props_json#23493 <=> props_json#23449)) OR NOT (retained_json#23494 <=> retained_json#23450)) OR NOT (source_feed#23495 <=> source_feed#23451)) OR NOT (source_epoch#23496 <=> source_epoch#23452)) OR NOT (apply_batch_id#23499 <=> apply_batch_id#23455)) OR NOT (source_cursor_json#23500 <=> source_cursor_json#23456)) OR NOT (source_delivery_id#23501 <=> source_delivery_id#23457)) OR NOT (lookup_hash#23502 <=> lookup_hash#23458))) AS count#23531L], [count#23528L, count#23530L], [count#23529L, count#23531L], false
+
+(11) PhotonShuffleExchangeSink
+Input [2]: [count#23529L, count#23531L]
+Arguments: SinglePartition
+
+(12) PhotonShuffleMapStage
+Input [2]: [count#23529L, count#23531L]
+Arguments: ENSURE_REQUIREMENTS, [id=#12480]
+
+(13) PhotonShuffleExchangeSource
+Input [2]: [count#23529L, count#23531L]
+Arguments: false
+
+(14) PhotonAgg
+Input [2]: [count#23529L, count#23531L]
+Arguments: [finalmerge_count(merge count#23529L) AS count(1)#23506L, finalmerge_count(merge count#23531L) AS count((IF((((((((((((((((((((((id IS NOT NULL) AND (rel_type_id <=> rel_type_id)) AND (id <=> id)) AND (source_type <=> source_type)) AND (source_id <=> source_id)) AND (target_type <=> target_type)) AND (target_id <=> target_id)) AND (entity_version <=> entity_version)) AND (source_position <=> source_position)) AND (published_at <=> published_at)) AND (source_system <=> source_system)) AND (order_key <=> order_key)) AND (schema_revision <=> schema_revision)) AND (props_json <=> props_json)) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND (source_epoch <=> source_epoch)) AND (apply_batch_id <=> apply_batch_id)) AND (source_cursor_json <=> source_cursor_json)) AND (source_delivery_id <=> source_delivery_id)) AND (lookup_hash <=> lookup_hash)), NULL, (((((((((((((((((((((id IS NULL) OR (NOT (rel_type_id <=> rel_type_id))) OR (NOT (id <=> id))) OR (NOT (source_type <=> source_type))) OR (NOT (source_id <=> source_id))) OR (NOT (target_type <=> target_type))) OR (NOT (target_id <=> target_id))) OR (NOT (entity_version <=> entity_version))) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at))) OR (NOT (source_system <=> source_system))) OR (NOT (order_key <=> order_key))) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (props_json <=> props_json))) OR (NOT (retained_json <=> retained_json))) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))) OR (NOT (apply_batch_id <=> apply_batch_id))) OR (NOT (source_cursor_json <=> source_cursor_json))) OR (NOT (source_delivery_id <=> source_delivery_id))) OR (NOT (lookup_hash <=> lookup_hash))))))#23508L], [count(1)#23506L, count((IF((((((((((((((((((((((id IS NOT NULL) AND (rel_type_id <=> rel_type_id)) AND (id <=> id)) AND (source_type <=> source_type)) AND (source_id <=> source_id)) AND (target_type <=> target_type)) AND (target_id <=> target_id)) AND (entity_version <=> entity_version)) AND (source_position <=> source_position)) AND (published_at <=> published_at)) AND (source_system <=> source_system)) AND (order_key <=> order_key)) AND (schema_revision <=> schema_revision)) AND (props_json <=> props_json)) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND (source_epoch <=> source_epoch)) AND (apply_batch_id <=> apply_batch_id)) AND (source_cursor_json <=> source_cursor_json)) AND (source_delivery_id <=> source_delivery_id)) AND (lookup_hash <=> lookup_hash)), NULL, (((((((((((((((((((((id IS NULL) OR (NOT (rel_type_id <=> rel_type_id))) OR (NOT (id <=> id))) OR (NOT (source_type <=> source_type))) OR (NOT (source_id <=> source_id))) OR (NOT (target_type <=> target_type))) OR (NOT (target_id <=> target_id))) OR (NOT (entity_version <=> entity_version))) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at))) OR (NOT (source_system <=> source_system))) OR (NOT (order_key <=> order_key))) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (props_json <=> props_json))) OR (NOT (retained_json <=> retained_json))) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))) OR (NOT (apply_batch_id <=> apply_batch_id))) OR (NOT (source_cursor_json <=> source_cursor_json))) OR (NOT (source_delivery_id <=> source_delivery_id))) OR (NOT (lookup_hash <=> lookup_hash))))))#23508L], [count(1)#23506L AS count(1)#23507L, count((IF((((((((((((((((((((((id IS NOT NULL) AND (rel_type_id <=> rel_type_id)) AND (id <=> id)) AND (source_type <=> source_type)) AND (source_id <=> source_id)) AND (target_type <=> target_type)) AND (target_id <=> target_id)) AND (entity_version <=> entity_version)) AND (source_position <=> source_position)) AND (published_at <=> published_at)) AND (source_system <=> source_system)) AND (order_key <=> order_key)) AND (schema_revision <=> schema_revision)) AND (props_json <=> props_json)) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND (source_epoch <=> source_epoch)) AND (apply_batch_id <=> apply_batch_id)) AND (source_cursor_json <=> source_cursor_json)) AND (source_delivery_id <=> source_delivery_id)) AND (lookup_hash <=> lookup_hash)), NULL, (((((((((((((((((((((id IS NULL) OR (NOT (rel_type_id <=> rel_type_id))) OR (NOT (id <=> id))) OR (NOT (source_type <=> source_type))) OR (NOT (source_id <=> source_id))) OR (NOT (target_type <=> target_type))) OR (NOT (target_id <=> target_id))) OR (NOT (entity_version <=> entity_version))) OR (NOT (source_position <=> source_position))) OR (NOT (published_at <=> published_at))) OR (NOT (source_system <=> source_system))) OR (NOT (order_key <=> order_key))) OR (NOT (schema_revision <=> schema_revision))) OR (NOT (props_json <=> props_json))) OR (NOT (retained_json <=> retained_json))) OR (NOT (source_feed <=> source_feed))) OR (NOT (source_epoch <=> source_epoch))) OR (NOT (apply_batch_id <=> apply_batch_id))) OR (NOT (source_cursor_json <=> source_cursor_json))) OR (NOT (source_delivery_id <=> source_delivery_id))) OR (NOT (lookup_hash <=> lookup_hash))))))#23508L AS count_if(((id IS NULL) OR (NOT ((((((source_system <=> source_system) AND (rel_type_id <=> rel_type_id)) AND (id <=> id)) AND ((source_type <=> source_type) AND (source_id <=> source_id))) AND ((((target_type <=> target_type) AND (target_id <=> target_id)) AND (order_key <=> order_key)) AND ((schema_revision <=> schema_revision) AND (entity_version <=> entity_version)))) AND (((((props_json <=> props_json) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND ((source_epoch <=> source_epoch) AND (source_position <=> source_position))) AND ((((published_at <=> published_at) AND (apply_batch_id <=> apply_batch_id)) AND (source_cursor_json <=> source_cursor_json)) AND ((source_delivery_id <=> source_delivery_id) AND (lookup_hash <=> lookup_hash))))))))#23509L], true
+
+(15) PhotonColumnarToRow
+Input [2]: [count(1)#23507L, count_if(((id IS NULL) OR (NOT ((((((source_system <=> source_system) AND (rel_type_id <=> rel_type_id)) AND (id <=> id)) AND ((source_type <=> source_type) AND (source_id <=> source_id))) AND ((((target_type <=> target_type) AND (target_id <=> target_id)) AND (order_key <=> order_key)) AND ((schema_revision <=> schema_revision) AND (entity_version <=> entity_version)))) AND (((((props_json <=> props_json) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND ((source_epoch <=> source_epoch) AND (source_position <=> source_position))) AND ((((published_at <=> published_at) AND (apply_batch_id <=> apply_batch_id)) AND (source_cursor_json <=> source_cursor_json)) AND ((source_delivery_id <=> source_delivery_id) AND (lookup_hash <=> lookup_hash))))))))#23509L]
+
+(16) PhotonResultStage
+Input [2]: [count(1)#23507L, count_if(((id IS NULL) OR (NOT ((((((source_system <=> source_system) AND (rel_type_id <=> rel_type_id)) AND (id <=> id)) AND ((source_type <=> source_type) AND (source_id <=> source_id))) AND ((((target_type <=> target_type) AND (target_id <=> target_id)) AND (order_key <=> order_key)) AND ((schema_revision <=> schema_revision) AND (entity_version <=> entity_version)))) AND (((((props_json <=> props_json) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND ((source_epoch <=> source_epoch) AND (source_position <=> source_position))) AND ((((published_at <=> published_at) AND (apply_batch_id <=> apply_batch_id)) AND (source_cursor_json <=> source_cursor_json)) AND ((source_delivery_id <=> source_delivery_id) AND (lookup_hash <=> lookup_hash))))))))#23509L]
+
+(17) AdaptiveSparkPlan
+Output [2]: [count(1)#23507L, count_if(((id IS NULL) OR (NOT ((((((source_system <=> source_system) AND (rel_type_id <=> rel_type_id)) AND (id <=> id)) AND ((source_type <=> source_type) AND (source_id <=> source_id))) AND ((((target_type <=> target_type) AND (target_id <=> target_id)) AND (order_key <=> order_key)) AND ((schema_revision <=> schema_revision) AND (entity_version <=> entity_version)))) AND (((((props_json <=> props_json) AND (retained_json <=> retained_json)) AND (source_feed <=> source_feed)) AND ((source_epoch <=> source_epoch) AND (source_position <=> source_position))) AND ((((published_at <=> published_at) AND (apply_batch_id <=> apply_batch_id)) AND (source_cursor_json <=> source_cursor_json)) AND ((source_delivery_id <=> source_delivery_id) AND (lookup_hash <=> lookup_hash))))))))#23509L]
+Arguments: isFinalPlan=false
+
+
+== Photon Explanation ==
+The query is fully supported by Photon.
+== Optimizer Statistics (table names per statistics state) ==
+  missing = prepared_current_mutation_r445, scaled_fingerprint_r493
+  partial = 
+  full    = 
+Corrective actions: consider running the following command on all tables with missing or partial statistics
+  ANALYZE TABLE <table-name> COMPUTE STATISTICS FOR ALL COLUMNS
+
