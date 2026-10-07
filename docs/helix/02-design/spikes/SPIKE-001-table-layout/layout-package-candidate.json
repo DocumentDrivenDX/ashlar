@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "394f54932e5749f3292f2cc72574bf3717fb5590991c598e1e46bc313b545bfb",
+    "scale-experiment-plan.md": "718d2cd71a9045bc59030552f95b92bbeab98412b0fefa4710a9a9f1a69ed364",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1302,7 +1302,12 @@
     "out/native/ashlar_scale_edges_r252/audited-summary.json": "cff733e37346c2218a25164d7668f3a627799bb548b03bdf5639a1ca090fbc20",
     "out/native/ashlar_scale_edges_r252/shared-history.json": "dd1429e5430d630f7fd0d2f0cfdf9d58319388b48cb9b3c6589d2bd6c2eedcd4",
     "out/native/ashlar_scale_edges_r252/statements.jsonl": "bbdfd2b6d94cc1e818c0d7eae717bd0738f3450227a15560f3dcd1e9c7d35d41",
-    "out/native/ashlar_scale_edges_r252/summary.json": "71d57efbaf59414e4b45e85b770cadc80c14018cc4cbefc270fdafbc8ae2a297"
+    "out/native/ashlar_scale_edges_r252/summary.json": "71d57efbaf59414e4b45e85b770cadc80c14018cc4cbefc270fdafbc8ae2a297",
+    "pure_group_blocks_r254.py": "9e1704719fd0bb99849d40526b7dbef7f2cd5748ef9c9ee4169e187774a01413",
+    "native_pure_blocks_r254.py": "12bbbe8a17f1e7a189dc9493542b270c62d3da5e6e6f23bf201184006d829ac7",
+    "out/native/ashlar_pure_blocks_r254/shared-history.json": "62299f13178db1254afab56c4a4cbe4d9a70fa75d45e17eae220ec5d50a94c1a",
+    "out/native/ashlar_pure_blocks_r254/statements.jsonl": "f95463b81b3e380c9f6a11e6f04c121db4051a6ecf29c59d624e02a685886ef6",
+    "out/native/ashlar_pure_blocks_r254/summary.json": "fae7d16ee30c2226432af4834488777cb933356d1ea5828958d89f4b01379c66"
   },
   "evidence": {
     "ddl": {
