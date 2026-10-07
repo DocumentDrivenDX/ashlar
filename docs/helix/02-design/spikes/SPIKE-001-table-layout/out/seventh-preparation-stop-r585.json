@@ -1,0 +1,7 @@
+{
+  "state": "Local oracle generation stopped at provenance filename check; no oracle or native submission",
+  "runner_sha256": "b2eaae60ab227901c81ac292a539d02c909cbcf152354a7085d2720912ad3a04",
+  "missing_provenance_path": "seventh_changes_r526.py",
+  "replacement_runner": "seventh_changes_r589.py",
+  "qualification": "All local generation/refusal loops executed, but terminal artifact was not written. No complete oracle claim from stopped run; corrected deterministic generation is separately executed."
+}

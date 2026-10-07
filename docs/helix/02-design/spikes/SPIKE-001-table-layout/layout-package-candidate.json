@@ -2595,7 +2595,20 @@
     "out/native/file_target_post_reads_r581/shared-history.json": "549ae053e5192b6f9f0f3556901372fd4cee35b38f7c44eda45ff2e1e15c309f",
     "out/native/file_target_post_reads_r581/statements.jsonl": "1f974e4667d596ad00b837c89fb08ce2e38af79b6849e6702832f0e873600f68",
     "out/native/file_target_post_reads_r581/completed-last-request.json": "94881c8957bb15c0ba1074c3d6809b094fe1e8269b83252be646a3af0043cf44",
-    "out/design-evidence-reconciliation-r584.json": "6098518fc6d157026ce1fd5647ced620877a16c606b588a429451f60b6a0419f"
+    "out/design-evidence-reconciliation-r584.json": "6098518fc6d157026ce1fd5647ced620877a16c606b588a429451f60b6a0419f",
+    "seventh_changes_r585.py": "b2eaae60ab227901c81ac292a539d02c909cbcf152354a7085d2720912ad3a04",
+    "seventh_changes_r589.py": "98a0361d7c34a1cc927483f6564dbd6340fcbcd00c9fa088a20b3e123d2e93af",
+    "seventh_batch_files_r586.py": "6aa4b5a56fcf9f617bc50058ee64397691162b6fba4c3557bdf71c4b837396c5",
+    "seventh_batch_audit_r587.py": "581b7c8819a080fff572ba1045a80b58cb6570e2a7c5bf458cc73fcbded7fee4",
+    "seventh_cdf_oracle_r588.py": "22c3d5fd9b07451698914452b245d0dc08daed58ab62102023f10402974c2681",
+    "seventh_guard_publish_r596.py": "15d106d58c279bda307cf06d4e60de9caebff08348434178d9a7a703c9c021a6",
+    "seventh-preparation-disposition-r590.md": "7f5951b4ace5c725af64fbf440e4c420004a164f405cbcc230afb50481e2fde9",
+    "out/seventh-preparation-stop-r585.json": "11d9a644605cdde0c69b6a39683dfaa1799595661580e4c8fc6a87362bb4d6a8",
+    "out/seventh-batch-oracle-r589.json": "2f56ccd74247318d4b956085b19f644fa031264c4ad18315600be394c96bd721",
+    "out/seventh-cdf-image-oracle-r588.json": "5b9627446ee28934624a19e5d28b7c90336bce7a6fe589c4e391bbbe87df3288",
+    "out/seventh-canonical-tomb-r588.json": "953b4a42a507eb433afad48c8ad0ecd51548c2bad98f3f9c28f4c8587683174c",
+    "out/ashlar_seventh_batch_files_r586/summary.json": "250d5c7afb0ff83224cb2295dcf48652a2980dc441a7d2909e1437878f02352a",
+    "out/ashlar_seventh_batch_files_r586/audited-summary.json": "5a0f6e1fc8a189aa07b6e4632302effd288e1fca8e7339d1c0fa575cdf22df7b"
   },
   "evidence": {
     "ddl": {
