@@ -1,0 +1,27 @@
+{
+  "state": "Local exact lexical property replay and full raw-carrier parity passed",
+  "files": {
+    "carriers": {
+      "rows": 512,
+      "utf8_bytes": 518964,
+      "sha256": "258cd4a9eea153275b469f417199143309aa18a6850ffa6ab5067d0b96143f93"
+    },
+    "source_records": {
+      "rows": 512,
+      "utf8_bytes": 878624,
+      "sha256": "ad81e43bada3ab1dc8cfdffe77daecb49a70fb22352f18d08ae4d265303d46c1"
+    },
+    "property_journal": {
+      "rows": 2496,
+      "utf8_bytes": 1545618,
+      "sha256": "778db9580e19e9909821c9659e2148052b8cb0903d9531c94db6333cc678c38b"
+    }
+  },
+  "event_counts": {
+    "set": 1664,
+    "explicit_null": 64,
+    "remove": 832
+  },
+  "source_shape": "Existing256-carrier mixed corpus, bootstrap plus rotated-bag update;64 nodes192edges, signed BIGINT identities, exact exponent/negative-zero/null/Unicode/retained tokens. Empty bags yield no fabricated property events.",
+  "limits": "Synthetic proposed set/remove operation vocabulary, not Truss source authority. Raw exact bag strings preserve full order/whitespace; property replay proves exact per-value tokens, not whole-bag lexical reconstruction. No native compression, hash differential, transaction fencing, scale or latency admission."
+}
