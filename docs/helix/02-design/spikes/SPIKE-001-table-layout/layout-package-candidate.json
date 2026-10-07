@@ -281,11 +281,16 @@
     "out/native/ashlar_parameterized_reads_r106/query-history.json": "374c4c46af8a52111f671fc0921df5e93fdbcd89db2b5d5ffb22e626af5b193d",
     "out/native/ashlar_parameterized_reads_r106/audited-summary.json": "b6276bdeb6ca12d0abafe7bb416ee5783c753bc0a17af781b1dffe94269e43a8",
     "test_warehouse_routing.py": "96935f06572903783b05294efe05e8f8c7922d4d75e323db64517ac7b849a692",
-    "compute-isolation-plan.md": "ec9a18decdf6c11612e9f9f5c621b17dd616afd5101915d6162cd450e7b4d6d0",
-    "isolation_reader.py": "8146b106dcee9015d56dbddd1d82f49bce52f407477771948da5173f55843952",
+    "compute-isolation-plan.md": "03d77e8e828e78e4b3bf277abeb3ca1d15e0adadc167203c02293a8c02d40328",
+    "isolation_reader.py": "66b2060de6ce19356cf776707b9cba651c3058aaf2a1103269e49b2a5a3a9a24",
     "test_isolation_reader.py": "be8f2bd1b43f063b3065454ae2376862f16b2fc0ebe416237a2169477164c930",
     "isolation_controller.py": "6c84ceb82b7d1b81205524911d832d40902b30d8307a82a11969b7e6183e6b58",
-    "test_isolation_controller.py": "aea65d518fa80c375e54b50ab021606330b4b72b5c7d4344c6fff34aaf351376"
+    "test_isolation_controller.py": "aea65d518fa80c375e54b50ab021606330b4b72b5c7d4344c6fff34aaf351376",
+    "isolation_publication_r107.py": "a992d83eaeea28c38d3035b7c8e0ba225f54d84568ba8b1a06dd8d0ab197da7c",
+    "out/native/ashlar_isolation_r107_preflight/summary.json": "fef6ee733685c9c53d663b869941d0de53fcca56043b7a21bff0e7db03ca4ec0",
+    "out/native/ashlar_isolation_r107_preflight/statements.jsonl": "9c187735544815bfbdcd658b8ff60bf528698c09166d8a27b4061914db048fa8",
+    "out/native/ashlar_isolation_r107_preflight/query-history.json": "18edb4850748f51859097664ebc45b1a8c89ed3cbb4da25a226a7b2b4f2329f5",
+    "out/native/ashlar_isolation_r107_preflight/journal-lane/query-history.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
   },
   "evidence": {
     "ddl": {

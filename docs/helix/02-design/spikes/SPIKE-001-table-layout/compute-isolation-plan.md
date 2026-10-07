@@ -77,3 +77,21 @@ No provisioning, live comparison or production publisher callback is included.
 The next integration must adapt the causal100k publisher with fresh lineage
 checks, invoke stop checks between phases and audit actual overlap from statement
 intervals. Callback completion alone does not prove sustained ingest or reader SLOs.
+
+## Integrated r107 runner
+
+`isolation_publication_r107.py` supplies the causal100k synthetic publisher to
+the dual-reader controller. It preserves the existing raw/journal/independent
+microsecond wire/exact-current/global-ID checks, advances entity10 to11 and
+checks newly published rows on both targets against the staged oracle. Readers
+use an explicit parameterized publication-ID binding. Historical scripts remain
+unchanged. No provisioning or automatic retry occurs in this runner.
+
+Actual `--preflight-only` evidence under
+`out/native/ashlar_isolation_r107_preflight/` passes complete lineage and descriptor
+checks at edge16/raw12/journal14. All eleven statements are SELECT/DESCRIBE/session
+SET; no staging or data writes occurred. Query-history metrics initially lagged;
+the same IDs were refreshed and all are now final, without query resubmission.
+Eight reader/controller guard tests and runner syntax checks pass. Full publisher
+writes and dual-compute performance remain unexecuted pending resource approval.
+This preflight is not source-authority, performance or billion-scale admission.
