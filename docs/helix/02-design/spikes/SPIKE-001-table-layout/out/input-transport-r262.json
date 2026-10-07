@@ -1,0 +1,17 @@
+{
+  "format": "ashlar-input-transport-plan/1",
+  "observed_at_utc": "2026-10-07T10:27:09.186324+00:00",
+  "workspace": "https://adb-7405607548213398.18.azuredatabricks.net/",
+  "profile": "aidev-cus",
+  "owned_schema": "client_dev.ashlar_entropy_20261006_r86",
+  "read_only_volume_inventory": [],
+  "inventory_method": "WorkspaceClient.volumes.list(catalog_name=client_dev,schema_name=ashlar_entropy_20261006_r86)",
+  "oracle_sha256": "833cc12e07230f384119bf54eb93645c9b22278e630febe5f1f10772cc28e10c",
+  "planned_normalized_input_bytes": 1099619892,
+  "planned_transport": "Owned managed UC volume, lossless role JSONL with STRING schemas for exact JSON bags/retained content/payload/cursors and explicit typed casts; source-file hashes and native full-field digests/counts before use. Not created/uploaded yet.",
+  "sources": [
+    "https://databricks-sdk-py.readthedocs.io/en/stable/workspace/files/files.html",
+    "https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/functions/read_files"
+  ],
+  "qualification": "Metadata observation only, no native staging/apply/publication or volume-create/upload capability proof. Role-byte sum excludes wrappers/file logs/actual compression; no giant SQL VALUES transport or repository payload blobs planned. Full40M qualified base required before admitting scattered100k mutations. Canonical tombstone entity_version and manifest recorded_at need explicit named-column adapters, not old small CTAS samples."
+}
