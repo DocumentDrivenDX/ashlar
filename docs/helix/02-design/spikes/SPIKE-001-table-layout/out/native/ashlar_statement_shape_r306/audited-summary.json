@@ -1,0 +1,100 @@
+{
+  "state": "All8 stable and8 unique comment full-carrier queries pass",
+  "source_sha256": "74b419c108cf9cdd6babd3547f7013163e14911969cebe7367caa8ffba75a17f",
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.maintained_edge_r287",
+    "version": 4,
+    "id": "780781cb-9c42-434b-857c-dcddc663e735"
+  },
+  "reads": [
+    {
+      "ordinal": 2386040,
+      "statement_id": "01f1c256-87cc-1325-9255-1ca15b70238f"
+    },
+    {
+      "ordinal": 5482189,
+      "statement_id": "01f1c256-8835-1709-9eb6-cb041212693d"
+    },
+    {
+      "ordinal": 11748848,
+      "statement_id": "01f1c256-889f-1d94-a0bc-6c7fcefd8b64"
+    },
+    {
+      "ordinal": 16541888,
+      "statement_id": "01f1c256-890a-1bf2-9afa-73b660b900e5"
+    },
+    {
+      "ordinal": 2386040,
+      "statement_id": "01f1c256-8b6e-13d2-86b1-00151bf9bae3"
+    },
+    {
+      "ordinal": 5482189,
+      "statement_id": "01f1c256-8bda-1023-b025-086eaecd2dee"
+    },
+    {
+      "ordinal": 11748848,
+      "statement_id": "01f1c256-8c42-15ec-88c7-f9519b8783ad"
+    },
+    {
+      "ordinal": 16541888,
+      "statement_id": "01f1c256-8cad-1330-a874-c77d64a8f371"
+    }
+  ],
+  "costs": {
+    "read_bytes": 1862279632,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "cohorts": {
+    "stable": {
+      "queries": 8,
+      "caller_p95_ms": 489.79054100000053,
+      "total_time_ms_p95": 374,
+      "execution_time_ms_p95": 89,
+      "compilation_time_ms_p95": 284,
+      "read_bytes_p95": 125353769,
+      "caller_minus_native_total_p95_ms": 115.79054100000053
+    },
+    "unique": {
+      "queries": 8,
+      "caller_p95_ms": 354.6440000000004,
+      "total_time_ms_p95": 246,
+      "execution_time_ms_p95": 95,
+      "compilation_time_ms_p95": 153,
+      "read_bytes_p95": 125353769,
+      "caller_minus_native_total_p95_ms": 110.31049999999851
+    }
+  },
+  "wall_s": 16.070370375000003,
+  "qualification": "Small ordered alternating uncached cohort on one persistent SQL connection.4stratified unchanged keys repeated twice with8stable-comment and8unique-comment queries; repeated labels remain bound by unique actual query IDs. not full workload service-tail or cold/concurrent trial. Native total and caller clocks differ; signed residual is approximate client/network/fetch/poll overhead, not isolated network latency. Do not add component p95 values or infer billion admission.",
+  "audit": {
+    "source_sha256": {
+      "summary.json": "a477c9f68ecded30ccaf0b7394031c464d3d1fd26f17c636ed23b6859ba52a24",
+      "statements.jsonl": "dab99ddc138a00b16fe31270b54be72d89cd536d639591807f7471929c428f67",
+      "shared-history.json": "6f3d0fec66da2439f22dc04e2a17539288bb734485c1810b08c89425bf4a509e"
+    },
+    "native_final_statements": 18,
+    "uncached_exact_full_carrier_queries": 16,
+    "matched_pairs": 8,
+    "stable_later_compile_ms": [
+      145,
+      147,
+      155,
+      145,
+      155,
+      148,
+      150
+    ],
+    "unique_compile_ms": [
+      144,
+      153,
+      150,
+      143,
+      142,
+      143,
+      150,
+      152
+    ],
+    "qualification": "Small alternating stable-first cohort; first stable compilation284ms, later stable145\u2013155ms versus unique142\u2013153ms. No demonstrated stability benefit; ordered startup/warming precludes causal regression claim. All other experiment qualifications retained."
+  }
+}
