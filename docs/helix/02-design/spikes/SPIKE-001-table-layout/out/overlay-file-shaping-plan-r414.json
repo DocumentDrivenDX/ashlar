@@ -1,0 +1,41 @@
+{
+  "format": "ashlar-overlay-file-shaping-admission/1",
+  "status": "plan only; no physical settings/maintenance started",
+  "sources": {
+    "read_audit": "out/native/ashlar_overlay_override_points_r412/audited-summary.json",
+    "pair_proof": "out/overlay100k-evidence-audit-r406.json",
+    "overlay_validation": "out/native/ashlar_overlay_validate_r404/summary.json",
+    "max_by_sql": "overlay_qualified_sql_r408.py"
+  },
+  "source_sha256": {
+    "read_audit": "fdd8e23212734a4a99922c13fdf4d70ad8b294fd3a7fe1f51228a012f6c1b3fa",
+    "pair_proof": "00479f8b5a30f06f9b6b5eca918d253397f82f3c27492568ffe231eb05bec453",
+    "overlay_validation": "1d79e974f95454847431aa7eef70d5e1b52ec20e7e66a577329edf821ea830d0",
+    "max_by_sql": "393a54f5456178e2feb2e2b6dcdc66c0be8dc05e5aa15cd61b933ae1e2385b5b"
+  },
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400",
+    "id": "fccb6a2f-182f-4745-82ee-73d08cd23ef2",
+    "version": 1,
+    "create_statement_id": "01f1c276-b6dc-1603-aa8f-f6080f8267ec"
+  },
+  "old_version": 1,
+  "target_file_size_bytes": 16777216,
+  "old_current_file_bytes": 80370684,
+  "bounds": {
+    "read_bytes": 15000000000,
+    "write_remote_bytes": 300000000,
+    "spill_to_disk_bytes": 1000000000,
+    "wall_s": 300,
+    "statement_cancel_after_s": 90
+  },
+  "requirements": [
+    "Verify exact UUID/head1/schema/feature profile and disabled predictive optimization; no other writer/unknown handle",
+    "Record actual ALTER and OPTIMIZE FULL statement IDs and all Delta commits, including zero-file commits; refuse unknown lineage",
+    "Complete100k21field digest/count/key/origin preservation at old and actual selected new version; no guessed head or automatic publication",
+    "Same full20field/absence max_by reads on paired old/new overlay snapshots plus direct reference, cache disabled; expose remote I/O and compile/engine/caller timing",
+    "Charge maintenance, settings, full validation, reads and telemetry; no source arrival, sustained/burst, compaction backlog or billionaire admission",
+    "Retain old file/pin availability; no VACUUM, cleanup, source ACK or compute change"
+  ],
+  "qualification": "Private one-overlay maintenance test.16MiB target may not control actual sizes. Existing accepted source/history roles stay pinned; no canonical0.3/current-schema revision or external-engine interoperability claim."
+}

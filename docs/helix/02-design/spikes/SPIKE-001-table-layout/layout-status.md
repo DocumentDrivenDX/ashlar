@@ -1474,3 +1474,6 @@ Small native accepted-overlay controls pass update/delete/replay/typed-key/missi
 
 
 [Overlay query-plan experiment](overlay-plan-disposition-r410.md): full Photon support, guarded3shuffles vsqualified winner1;48exact uncached full-carrier reads pass. Qualified caller768.3ms/engine226ms remains failed; direct tiny-subset engine95ms is not broad admission. Next small qualified override/fallback query-plan test before compaction. Canonical LC remains selected candidate and full goal remains open.
+
+
+[Override/fallback experiment](overlay-override-disposition-r413.md) passes48full-carrier reads and native0shuffle plans, but caller929.3ms/engine272ms still fails. Retain qualified max_by for [bounded16MiB overlay file shaping](out/overlay-file-shaping-plan-r414.json); no further query proliferation or full-scale admission. All old/current source role pins remain unchanged.

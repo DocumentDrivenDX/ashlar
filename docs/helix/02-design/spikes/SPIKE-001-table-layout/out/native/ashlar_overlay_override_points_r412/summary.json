@@ -1,0 +1,467 @@
+{
+  "state": "Six native plans and48matched full-carrier override reads pass",
+  "sources": {
+    "audit": "out/overlay100k-evidence-audit-r406.json",
+    "points": "out/native/ashlar_overlay_points_r405/summary.json",
+    "validation": "out/native/ashlar_overlay_validate_r404/summary.json"
+  },
+  "source_sha256": {
+    "audit": "00479f8b5a30f06f9b6b5eca918d253397f82f3c27492568ffe231eb05bec453",
+    "points": "4a5ec4002c0afc7ea9d74e7dc90fa5fc7b26bcc7034d91017d30dbf1d0548c6b",
+    "validation": "1d79e974f95454847431aa7eef70d5e1b52ec20e7e66a577329edf821ea830d0"
+  },
+  "code_sha256": {
+    "overlay_qualified_sql_r408.py": "393a54f5456178e2feb2e2b6dcdc66c0be8dc05e5aa15cd61b933ae1e2385b5b",
+    "overlay_carrier_sql_r403.py": "984d2c33cd0d3ed46aabfc5f52a07833840d170cb80ae0c6d981ac7089bb5a06",
+    "overlay_override_points_r412.py": "dabd7a386d841a1e8032889f29c6700aba1e1d01c4b2d87a23856cf8698c82af"
+  },
+  "base": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 5
+  },
+  "overlay": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400",
+    "id": "fccb6a2f-182f-4745-82ee-73d08cd23ef2",
+    "version": 1,
+    "create_statement_id": "01f1c276-b6dc-1603-aa8f-f6080f8267ec"
+  },
+  "reference": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 6
+  },
+  "cohort_indices": [
+    0,
+    4,
+    16,
+    17,
+    32,
+    36,
+    37,
+    47
+  ],
+  "reads": [
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "statement_id": "01f1c279-d5ce-149d-83f1-fa16be3ae4e6"
+    },
+    {
+      "family": "override",
+      "phase": 0,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "statement_id": "01f1c279-d607-154b-86bc-dc8b7156e737"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "statement_id": "01f1c279-d694-1ca8-ba93-a14cf3a67187"
+    },
+    {
+      "family": "override",
+      "phase": 0,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "statement_id": "01f1c279-d6f7-1cda-a747-dabc2b286ec7"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "statement_id": "01f1c279-d772-1e46-94b0-fdb2f3df21d0"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "statement_id": "01f1c279-d7d5-1dd5-b52f-ebe6fbce325e"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "statement_id": "01f1c279-d80f-1c96-9ce8-b46923d91369"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "statement_id": "01f1c279-d877-1532-b4ae-35dada3da291"
+    },
+    {
+      "family": "override",
+      "phase": 0,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "statement_id": "01f1c279-d8b1-1772-9046-2bb6eb4a038d"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "statement_id": "01f1c279-d91a-1d6b-a370-baa393ce94b5"
+    },
+    {
+      "family": "override",
+      "phase": 0,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "statement_id": "01f1c279-d955-1ee0-b693-5ccabd691822"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "statement_id": "01f1c279-d9c2-119e-9bff-f95b696002b5"
+    },
+    {
+      "family": "override",
+      "phase": 0,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "statement_id": "01f1c279-da25-1a39-87ab-65f10ca568f8"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "statement_id": "01f1c279-da8b-12ea-9279-96579eb4d4f3"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "statement_id": "01f1c279-daee-1847-a269-fda7d3fc804d"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "statement_id": "01f1c279-db27-1abf-ad1d-fca71df88aaf"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "statement_id": "01f1c279-db88-1aa4-bdee-d7cb8d88beef"
+    },
+    {
+      "family": "override",
+      "phase": 0,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "statement_id": "01f1c279-dbc2-1212-b467-eefce4ee17dc"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "statement_id": "01f1c279-dc2b-189c-a987-4f0ad6bfd41d"
+    },
+    {
+      "family": "override",
+      "phase": 0,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "statement_id": "01f1c279-dc64-1199-aca0-7855251a0a9e"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "statement_id": "01f1c279-dccc-15ee-96bb-acd691de942e"
+    },
+    {
+      "family": "override",
+      "phase": 0,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "statement_id": "01f1c279-dd2f-1af2-81b2-251edbda6aac"
+    },
+    {
+      "family": "qualified",
+      "phase": 0,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "statement_id": "01f1c279-dda1-18d3-a83d-203161d1c27e"
+    },
+    {
+      "family": "direct",
+      "phase": 0,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "statement_id": "01f1c279-de03-1abf-abca-81bc37619723"
+    },
+    {
+      "family": "override",
+      "phase": 1,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "statement_id": "01f1c279-e03b-10b6-a721-9f46aa9a382c"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "statement_id": "01f1c279-e09e-14a0-888e-c2c16d62a26a"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 0,
+      "ordinal": 32900000,
+      "statement_id": "01f1c279-e100-1ba2-bce1-11786872b9f6"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "statement_id": "01f1c279-e138-1379-84c1-2f3d5b88fce6"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "statement_id": "01f1c279-e19a-13fe-ae44-af296ec04abf"
+    },
+    {
+      "family": "override",
+      "phase": 1,
+      "cohort_index": 4,
+      "ordinal": 33004729,
+      "statement_id": "01f1c279-e1d2-1e78-894a-1cb3371cd348"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "statement_id": "01f1c279-e244-121f-a929-f6690be005f3"
+    },
+    {
+      "family": "override",
+      "phase": 1,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "statement_id": "01f1c279-e27d-103b-b63c-f8350487e0b7"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 16,
+      "ordinal": 2386040,
+      "statement_id": "01f1c279-e2e6-1b14-a7e8-6ad9c19c9c5c"
+    },
+    {
+      "family": "override",
+      "phase": 1,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "statement_id": "01f1c279-e34c-1b8e-9cfb-b828b9a5ae5e"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "statement_id": "01f1c279-e3b5-1915-a3b9-7221bed0e97a"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 17,
+      "ordinal": 3865839,
+      "statement_id": "01f1c279-e426-1caa-b4c6-313ec7d6c421"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "statement_id": "01f1c279-e45f-1c19-bd72-a7edb27c8572"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "statement_id": "01f1c279-e4d7-1b17-857d-22fa8b4525ae"
+    },
+    {
+      "family": "override",
+      "phase": 1,
+      "cohort_index": 32,
+      "ordinal": 25800000,
+      "statement_id": "01f1c279-e50d-19ed-995f-3b0ec7465e93"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "statement_id": "01f1c279-e577-1bc0-bb24-01c36342c160"
+    },
+    {
+      "family": "override",
+      "phase": 1,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "statement_id": "01f1c279-e5ac-1d9f-b69d-d9fac76741a9"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 36,
+      "ordinal": 25904729,
+      "statement_id": "01f1c279-e617-1dc7-9bae-a81c9afb4b38"
+    },
+    {
+      "family": "override",
+      "phase": 1,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "statement_id": "01f1c279-e678-1702-b1d0-d938fb9c9e79"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "statement_id": "01f1c279-e6dd-1e12-8280-8695dc9e6b22"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 37,
+      "ordinal": 26009458,
+      "statement_id": "01f1c279-e73c-1d55-87f3-f4689b0c7be4"
+    },
+    {
+      "family": "qualified",
+      "phase": 1,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "statement_id": "01f1c279-e774-1002-b4d1-bf999217ff72"
+    },
+    {
+      "family": "direct",
+      "phase": 1,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "statement_id": "01f1c279-e7d3-1313-8ad9-d7e4a65274bf"
+    },
+    {
+      "family": "override",
+      "phase": 1,
+      "cohort_index": 47,
+      "ordinal": 27161477,
+      "statement_id": "01f1c279-e808-1dcb-acdb-aaab21c5e2b4"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 12000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 180
+  },
+  "qualification": "Private E5+overlay1 complete digest/key/lineage/dominance proof required before override: each unique overlay version2 dominates its qualified E5 predecessor1; deletion suppresses fallback. All overlay versions2, every affected E5 predecessor1, complete tuple uniqueness and preserved fields independently qualified. Exact duplicates can only be identical accepted carriers. This is not arbitrary-input read safety, real publisher admission/fencing or support for unresolved conflicting versions. Small ordered cohort, not service/cold/concurrent/compaction/billion admission.",
+  "queries": {
+    "direct": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 6 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)",
+    "override": "WITH overlay_pick AS (SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash,is_deleted FROM client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400 VERSION AS OF 1 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)) SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM overlay_pick WHERE NOT is_deleted UNION ALL SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 5 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT) AND NOT EXISTS (SELECT 1 FROM overlay_pick)",
+    "qualified": "SELECT winner.source_system AS source_system,winner.rel_type_id AS rel_type_id,winner.id AS id,winner.source_type AS source_type,winner.source_id AS source_id,winner.target_type AS target_type,winner.target_id AS target_id,winner.order_key AS order_key,winner.schema_revision AS schema_revision,winner.entity_version AS entity_version,winner.props_json AS props_json,winner.retained_json AS retained_json,winner.source_feed AS source_feed,winner.source_epoch AS source_epoch,winner.source_position AS source_position,CAST(winner.published_at AS STRING) AS published_at,winner.apply_batch_id AS apply_batch_id,winner.source_cursor_json AS source_cursor_json,winner.source_delivery_id AS source_delivery_id,winner.lookup_hash AS lookup_hash FROM (SELECT max_by(named_struct('source_system',source_system,'rel_type_id',rel_type_id,'id',id,'source_type',source_type,'source_id',source_id,'target_type',target_type,'target_id',target_id,'order_key',order_key,'schema_revision',schema_revision,'entity_version',entity_version,'props_json',props_json,'retained_json',retained_json,'source_feed',source_feed,'source_epoch',source_epoch,'source_position',source_position,'published_at',published_at,'apply_batch_id',apply_batch_id,'source_cursor_json',source_cursor_json,'source_delivery_id',source_delivery_id,'lookup_hash',lookup_hash,'is_deleted',is_deleted),entity_version) AS winner FROM (SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash,false AS is_deleted FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 5 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT) UNION ALL SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash,is_deleted FROM client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400 VERSION AS OF 1 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT))) WHERE winner IS NOT NULL AND NOT winner.is_deleted"
+  },
+  "costs": {
+    "read_bytes": 8118574908,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "per_family": {
+    "direct": {
+      "queries": 16,
+      "caller_p95_ms": 392.0717079999996,
+      "engine_p95_ms": 98,
+      "compile_p95_ms": 168,
+      "remote_queries": 0
+    },
+    "override": {
+      "queries": 16,
+      "caller_p95_ms": 929.3458749999992,
+      "engine_p95_ms": 272,
+      "compile_p95_ms": 531,
+      "remote_queries": 0
+    },
+    "qualified": {
+      "queries": 16,
+      "caller_p95_ms": 791.0415420000021,
+      "engine_p95_ms": 207,
+      "compile_p95_ms": 483,
+      "remote_queries": 0
+    }
+  },
+  "per_family_phase": {
+    "direct-0": {
+      "queries": 8,
+      "caller_p95_ms": 392.0717079999996,
+      "engine_p95_ms": 98,
+      "compile_p95_ms": 168,
+      "remote_queries": 0
+    },
+    "direct-1": {
+      "queries": 8,
+      "caller_p95_ms": 385.0232079999998,
+      "engine_p95_ms": 93,
+      "compile_p95_ms": 167,
+      "remote_queries": 0
+    },
+    "override-0": {
+      "queries": 8,
+      "caller_p95_ms": 929.3458749999992,
+      "engine_p95_ms": 272,
+      "compile_p95_ms": 531,
+      "remote_queries": 0
+    },
+    "override-1": {
+      "queries": 8,
+      "caller_p95_ms": 727.3287500000016,
+      "engine_p95_ms": 264,
+      "compile_p95_ms": 354,
+      "remote_queries": 0
+    },
+    "qualified-0": {
+      "queries": 8,
+      "caller_p95_ms": 682.0312909999994,
+      "engine_p95_ms": 199,
+      "compile_p95_ms": 364,
+      "remote_queries": 0
+    },
+    "qualified-1": {
+      "queries": 8,
+      "caller_p95_ms": 791.0415420000021,
+      "engine_p95_ms": 207,
+      "compile_p95_ms": 483,
+      "remote_queries": 0
+    }
+  },
+  "wall_s": 45.897272083000004
+}
