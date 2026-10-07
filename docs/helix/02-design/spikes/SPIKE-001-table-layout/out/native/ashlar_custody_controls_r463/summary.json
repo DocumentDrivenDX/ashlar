@@ -1,0 +1,113 @@
+{
+  "state": "Native changed-state and local incomplete-worker custody controls pass",
+  "controls": [
+    {
+      "label": "unexpected native head",
+      "result": "refused",
+      "reason": "Head changed"
+    },
+    {
+      "label": "native properties changed with permitted new head",
+      "result": "refused",
+      "reason": "Metadata changed: properties"
+    },
+    {
+      "label": "native schema changed with permitted new head",
+      "result": "refused",
+      "reason": "Schema changed"
+    },
+    {
+      "label": "other native UUID under expected binding",
+      "result": "refused",
+      "reason": "UUID/format changed"
+    },
+    {
+      "label": "missing protocol metadata",
+      "result": "refused",
+      "reason": "Incomplete/invalid custody metadata"
+    },
+    {
+      "label": "changed protocol metadata local injection",
+      "result": "refused",
+      "reason": "Metadata changed: minWriterVersion"
+    },
+    {
+      "label": "structured metadata reordered",
+      "result": "accepted identical meanings"
+    },
+    {
+      "label": "worker failure",
+      "result": "no accepted cohort",
+      "reason": "Injected worker failure"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 10000000,
+    "write_remote_bytes": 10000000,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 180
+  },
+  "baseline": {
+    "key": "fixture",
+    "table": "client_dev.ashlar_entropy_20261006_r86.custody_control_r463",
+    "detail": {
+      "format": "delta",
+      "id": "cc757cdc-c752-43cd-8b05-e46b24a233b7",
+      "name": "client_dev.ashlar_entropy_20261006_r86.custody_control_r463",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/788d1db5-79f0-4752-9dd3-cd4648deafe4",
+      "createdAt": "2026-10-07T20:24:09.822Z",
+      "lastModified": "2026-10-07T20:24:10.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[]",
+      "numFiles": "0",
+      "sizeInBytes": "0",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"788d1db5-79f0-4752-9dd3-cd4648deafe4\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-3d7b1bfa-302b-44e8-a48f-9bb89b17bb29\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-2e5f9b8d-8eb2-424f-8e22-f152d8a5bae0\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    },
+    "head": {
+      "version": "0",
+      "timestamp": "2026-10-07T20:24:10.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "CREATE TABLE",
+      "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\":\\\"v2\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"788d1db5-79f0-4752-9dd3-cd4648deafe4\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-3d7b1bfa-302b-44e8-a48f-9bb89b17bb29\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-2e5f9b8d-8eb2-424f-8e22-f152d8a5bae0\\\"}\",\"statsOnLoad\":\"false\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c28d-0d29-1f2c-9211-8e8f61f5f1c1",
+      "clusterId": null,
+      "readVersion": null,
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+    },
+    "schema": [
+      {
+        "col_name": "id",
+        "data_type": "bigint",
+        "comment": null
+      },
+      {
+        "col_name": "exact_json",
+        "data_type": "string",
+        "comment": null
+      }
+    ]
+  },
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 1234,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 20.555722957999997,
+  "code_sha256": {
+    "publisher_custody_r462.py": "12099594f9e4a716e48a03bc004d9d8384b4ecb51cbae930535cc8707d0d78ff",
+    "custody_controls_r463.py": "8b9a7aa6da4dcf3e12abaf674a1ae34ad6c6bcda718baa2a438b97f59c8738d0"
+  }
+}

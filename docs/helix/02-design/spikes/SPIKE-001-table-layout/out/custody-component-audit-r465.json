@@ -1,0 +1,26 @@
+{
+  "state": "Native controls/integrated component terminal SQL/results/costs audit passes",
+  "reports": [
+    {
+      "revision": 463,
+      "final_statements": 20,
+      "costs": {
+        "read_bytes": 0,
+        "write_remote_bytes": 1234,
+        "spill_to_disk_bytes": 0
+      },
+      "summary_sha256": "1c88bf1a8adf147616e67652a7b28a65c78c87dcf61006cddfc0750c6332fd16"
+    },
+    {
+      "revision": 464,
+      "final_statements": 34,
+      "costs": {
+        "read_bytes": 0,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "summary_sha256": "c3fa869ba31d370740d77235a984d57522d8f075df0c0e21a984e33af75c17dd"
+    }
+  ],
+  "qualification": "Other native UUID is rebound locally as a refusal input; protocol/worker faults locally injected. No atomic writer fence or fresh publication performance proof."
+}
