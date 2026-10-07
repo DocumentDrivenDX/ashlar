@@ -1,0 +1,23 @@
+{
+  "state": "Canonical tombstone oracle independently matches exact transferred input files",
+  "rows": 10000,
+  "fields": [
+    "source_system",
+    "entity_kind",
+    "type_id",
+    "id",
+    "source_feed",
+    "source_epoch",
+    "source_position",
+    "source_cursor_json",
+    "source_delivery_id",
+    "entity_version"
+  ],
+  "digest": "1efdf250ea6b021a5f83aba8cff2203a0e724380b2d324dcfeaf1fe7be58d51b",
+  "source_sha256": {
+    "out/ashlar_third_batch_files_r379/audited-summary.json": "82010d9d73ea4fb376e5be9d1d0fab0b733cf55c2cc5ecf7970d1a39e0ef2d66",
+    "out/third-canonical-tomb-r391.json": "3d7e696176cfaa37a95f79d1a40918930d4bbc63f31ad52572ee5a7305944131",
+    "third_publish_report_r393.py": "593f12dc7df568661c8d9942ab1d0110c6fe54f95ec9dbfd21a749454a4c8e28",
+    "mixed_change_queries_r230.py": "7c49d418861c5b2694f8461cc1a25858663d9b6eb7d813139e4d14455cf90540"
+  }
+}

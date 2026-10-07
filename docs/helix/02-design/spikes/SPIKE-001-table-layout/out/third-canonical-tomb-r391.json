@@ -1,0 +1,18 @@
+{
+  "fields": [
+    "source_system",
+    "entity_kind",
+    "type_id",
+    "id",
+    "source_feed",
+    "source_epoch",
+    "source_position",
+    "source_cursor_json",
+    "source_delivery_id",
+    "entity_version"
+  ],
+  "rows": 10000,
+  "digest": "1efdf250ea6b021a5f83aba8cff2203a0e724380b2d324dcfeaf1fe7be58d51b",
+  "wall_s": 0.48408883299999994,
+  "qualification": "Independent canonical ten-field projection; input-only apply_batch_id remains retained in raw and original input."
+}

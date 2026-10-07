@@ -1462,3 +1462,6 @@ Transport and projection probes have not closed caller latency. Next return to t
 
 
 Live third-batch eligibility now passes: see [r390 disposition](third-publisher-eligibility-r390.md). Known node maintenance head8 is explicitly accounted while retaining node6; all mutable/input heads match. Integrated third-batch publication remains next, with predecessor/preflight included in its clock.
+
+
+Integrated third100k LC publication now passes complete preservation/custody: [r393](third-integrated-publication-disposition-r393.md). Ready-input processing257.486s fails60s; final N6/E6/R3/J3/A4/T3. Next [physical interventions](large-scattered-ingest-next-design-r394.md) target duplicate validation and append-overlay ingest/read amplification. No performance/billion-scale completion.

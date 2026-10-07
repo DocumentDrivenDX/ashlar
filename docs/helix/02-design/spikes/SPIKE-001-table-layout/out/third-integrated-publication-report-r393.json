@@ -1,0 +1,266 @@
+{
+  "state": "Integrated third batch correct; measured ready-input processing exceeds60s",
+  "processing_s": 257.48577225,
+  "preflight_s": 78.669360708,
+  "mutation_s": 88.48385966699999,
+  "costs": {
+    "read_bytes": 71679086868,
+    "write_remote_bytes": 503166652,
+    "spill_to_disk_bytes": 0
+  },
+  "statements": 88,
+  "cached_labels": [
+    "pinned-node-count",
+    "input-digest-source_record",
+    "input-digest-property_journal",
+    "input-digest-tombstone",
+    "input-digest-current_replacement",
+    "final-count-object_current"
+  ],
+  "selected_roles": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "version": 6,
+      "rows": 8000000
+    },
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+      "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+      "version": 6
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332",
+      "id": "dc895abb-e861-4f5c-ac9b-c4f06d5e9b8a",
+      "version": 3
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332",
+      "id": "8954e4b8-0255-4d24-adf7-508ded56b61c",
+      "version": 3
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332",
+      "id": "4fc3692a-32b2-455a-b9a2-2a1e5f9eb792",
+      "version": 4
+    },
+    "tombstone": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332",
+      "id": "c6db7de7-4b17-4837-83de-8667cd69e892",
+      "version": 3
+    }
+  },
+  "statement_breakdown": {
+    "all-predecessor-fields": {
+      "caller_s": 45.975227208999996,
+      "execution_time_ms": 44756,
+      "read_bytes": 32953648341,
+      "read_remote_bytes": 31613244819,
+      "write_remote_bytes": 0,
+      "spill_to_disk_bytes": 0
+    },
+    "mutation-partition": {
+      "caller_s": 2.995351,
+      "execution_time_ms": 2228,
+      "read_bytes": 160201359,
+      "read_remote_bytes": 59400116,
+      "write_remote_bytes": 0,
+      "spill_to_disk_bytes": 0
+    },
+    "append-source_record": {
+      "caller_s": 4.848055290999994,
+      "execution_time_ms": 4210,
+      "read_bytes": 157857394,
+      "read_remote_bytes": 0,
+      "write_remote_bytes": 151510729,
+      "spill_to_disk_bytes": 0
+    },
+    "append-property_journal": {
+      "caller_s": 3.8354691669999994,
+      "execution_time_ms": 3195,
+      "read_bytes": 135004627,
+      "read_remote_bytes": 0,
+      "write_remote_bytes": 128869043,
+      "spill_to_disk_bytes": 0
+    },
+    "append-tombstone": {
+      "caller_s": 1.7050839589999922,
+      "execution_time_ms": 1141,
+      "read_bytes": 194016,
+      "read_remote_bytes": 0,
+      "write_remote_bytes": 47154,
+      "spill_to_disk_bytes": 0
+    },
+    "merge-current": {
+      "caller_s": 46.57956966699999,
+      "execution_time_ms": 45386,
+      "read_bytes": 34916756921,
+      "read_remote_bytes": 6374951535,
+      "write_remote_bytes": 219501338,
+      "spill_to_disk_bytes": 0
+    },
+    "merge-forward": {
+      "caller_s": 6.8659654589999946,
+      "execution_time_ms": 6100,
+      "read_bytes": 654605772,
+      "read_remote_bytes": 358166027,
+      "write_remote_bytes": 3213577,
+      "spill_to_disk_bytes": 0
+    },
+    "unique-edges": {
+      "caller_s": 3.41047904200002,
+      "execution_time_ms": 2806,
+      "read_bytes": 768299509,
+      "read_remote_bytes": 850126,
+      "write_remote_bytes": 0,
+      "spill_to_disk_bytes": 0
+    },
+    "deleted-absent": {
+      "caller_s": 2.0035054580000065,
+      "execution_time_ms": 1210,
+      "read_bytes": 768446751,
+      "read_remote_bytes": 0,
+      "write_remote_bytes": 0,
+      "spill_to_disk_bytes": 0
+    },
+    "typed-endpoints": {
+      "caller_s": 6.288140166999994,
+      "execution_time_ms": 5291,
+      "read_bytes": 972496579,
+      "read_remote_bytes": 59616584,
+      "write_remote_bytes": 0,
+      "spill_to_disk_bytes": 0
+    }
+  },
+  "observed_head_details": {
+    "object_current": {
+      "format": "delta",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "name": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/6911f0c1-ff51-4c31-9fb3-fd021341c7f9",
+      "createdAt": "2026-10-07T07:33:41.623Z",
+      "lastModified": "2026-10-07T08:57:23.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"lookup_hash\"]",
+      "numFiles": "121",
+      "sizeInBytes": "6379382062",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"6911f0c1-ff51-4c31-9fb3-fd021341c7f9\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-91f5ac17-af2a-44cc-9dad-4a6247ec5fc5\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-d8ae258d-f982-4f0e-9c56-3b1aacb0086f\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    },
+    "edge_current": {
+      "format": "delta",
+      "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+      "name": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/bf8f09a9-05ea-40ea-ba01-4935dae517ca",
+      "createdAt": "2026-10-07T08:53:08.303Z",
+      "lastModified": "2026-10-07T17:17:12.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"lookup_hash\"]",
+      "numFiles": "602",
+      "sizeInBytes": "32173110202",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.enableChangeDataFeed\":\"true\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"bf8f09a9-05ea-40ea-ba01-4935dae517ca\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-afc5c464-8c49-4334-b025-8d52f78bd3ae\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-9ac78c7f-d7ea-4aaf-a4df-4d548c3f57ff\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"changeDataFeed\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"286169\",\"numDeletionVectors\":\"597\"}",
+      "clusterByAuto": "false"
+    },
+    "source_record": {
+      "format": "delta",
+      "id": "dc895abb-e861-4f5c-ac9b-c4f06d5e9b8a",
+      "name": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/e925e1ea-88d4-4a6b-af2f-a606fbf516bf",
+      "createdAt": "2026-10-07T07:34:10.353Z",
+      "lastModified": "2026-10-07T17:16:15.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"delivery_id\"]",
+      "numFiles": "729",
+      "sizeInBytes": "39957100897",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(delivery_id),lower(delivery_id)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"e925e1ea-88d4-4a6b-af2f-a606fbf516bf\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-2a7967c1-f657-414f-8e36-ba38ba3b16e2\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-be8ea23c-689d-490b-b2dd-0243a46e592c\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    },
+    "property_journal": {
+      "format": "delta",
+      "id": "8954e4b8-0255-4d24-adf7-508ded56b61c",
+      "name": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/b13be8be-f77a-4e5e-b88b-5ca816f79a11",
+      "createdAt": "2026-10-07T07:34:36.835Z",
+      "lastModified": "2026-10-07T17:16:23.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"source_delivery_id\"]",
+      "numFiles": "634",
+      "sizeInBytes": "35478859889",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_delivery_id),lower(source_delivery_id)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"b13be8be-f77a-4e5e-b88b-5ca816f79a11\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-e96d7dff-f1c0-456f-a444-30a2d48a47cf\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-fd50ca4a-8fe4-43c4-adea-6c8aac7a2dff\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    },
+    "adjacency_forward": {
+      "format": "delta",
+      "id": "4fc3692a-32b2-455a-b9a2-2a1e5f9eb792",
+      "name": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/4feef0ed-9f92-4ac1-8a7a-12461070078b",
+      "createdAt": "2026-10-07T08:56:43.676Z",
+      "lastModified": "2026-10-07T17:17:29.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"source_id\"]",
+      "numFiles": "9",
+      "sizeInBytes": "360380146",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.enableChangeDataFeed\":\"true\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"4feef0ed-9f92-4ac1-8a7a-12461070078b\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-e3a07467-e348-42bd-b02b-d015c9db3376\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-3ece0de7-99c8-453a-b926-041532a7218d\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"changeDataFeed\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"300000\",\"numDeletionVectors\":\"6\"}",
+      "clusterByAuto": "false"
+    },
+    "tombstone": {
+      "format": "delta",
+      "id": "c6db7de7-4b17-4837-83de-8667cd69e892",
+      "name": "client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/8c6f4f54-7f6b-420f-9591-28d5b1e2cf69",
+      "createdAt": "2026-10-07T15:11:59.571Z",
+      "lastModified": "2026-10-07T17:16:29.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[]",
+      "numFiles": "3",
+      "sizeInBytes": "142937",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"8c6f4f54-7f6b-420f-9591-28d5b1e2cf69\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    }
+  },
+  "inventory_caveat": "DESCRIBE DETAIL reports current physical heads; node head8 detail is not pinned-node6 file inventory. No retained/log/staging/CDF/orphan storage total or money estimate.",
+  "gate_disposition": {
+    "ready_input_60s": "failed,257.486s; single batch, not p95",
+    "steady_10k_per_s": "not admitted",
+    "burst_100k_per_s": "not tested here",
+    "warm_caller_250ms": "prior failure remains; no read cohort here",
+    "warm_engine_100ms": "not tested here",
+    "cold_caller_1s": "not tested here",
+    "scale_1B_5B": "not admitted"
+  },
+  "next_intervention": "Investigate exact before-carrier guard inside the existing current MERGE and complete CDF preimages to avoid a duplicate full predecessor scan. Preserve deletion/update transaction rollback and missing/mismatching-row refusal; qualify guarded controls before another full batch. Telemetry and semantic checks remain charged, not removed to improve reported time.",
+  "source_sha256": {
+    "publisher_audit": "a103a114fa1f0855da6d388ed3da60124c0044229dd7dc5431fa5ea5a2826c90",
+    "report_script": "593f12dc7df568661c8d9942ab1d0110c6fe54f95ec9dbfd21a749454a4c8e28"
+  }
+}
