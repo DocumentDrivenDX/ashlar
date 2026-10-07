@@ -50,6 +50,55 @@ settings are experiment candidates, not approved compatibility claims. UMF
 binding and source catalog schemas remain deferred. Truss's catalog IDs and
 source-local object/edge IDs are retained without renumbering.
 
+## Consolidated physical candidate after complete mixed bootstrap and changes
+
+This remains proposed ashlar-delta/0.3 under the owner-selected Unity Catalog
+Delta architecture. The following dispositions consolidate executed evidence;
+they do not approve a production source profile or reopen the architecture.
+
+| Role | Physical candidate | Qualified limit |
+| --- | --- | --- |
+| object_current / edge_current | Shared generic BIGINT identities, exact STRING bags/retained content, typed endpoints; unpartitioned hash liquid clustering and explicit hash+full-key predicates | Full4M/20M carrier evidence; mixed complete bootstrap/change evidence separately scoped. Six-range input shaping remains optional and final file shape must be measured. No caller/cold/billion admission. |
+| source_record | Independent exact envelope/digest and string cursor; feed/epoch/delivery identity with origin-oriented LC and statistics | Every mixed bootstrap/change origin retained. Raw storage is additional to current, not replaceable by parsed current fields. |
+| property_journal | Independent exact old/new tokens, presence flags and direct origin/event ordinal | Full DDL's position-oriented clustering remains proposed. Mixed experiment uses source-delivery LC; nullable scalar position and real producer access pattern require a separately measured origin-layout decision. Do not silently replace source meaning. |
+| tombstone | Typed deletion identity plus direct source origin, with lifecycle version preserved in qualified journal/source evidence | Current0.3 DDL has no explicit entity_version column. Latest-deletion/version fencing and resurrection prevention require a source-profile proof; a tombstone row alone does not establish them. No TTL. |
+| adjacency / degree / typed projections | Optional rebuildable narrow roles; include exact canonical versions in publication | Mixed forward adjacency preserves edge identity and applies updates/deletions. Reverse/degree and external engine runtime limits remain separately qualified. |
+| publication_manifest | Immutable exact version vector and validated source progress, revision map and preservation report | Match metadata before publication, not after repair. Physical heads may advance independently; readers pin published versions and refuse expired snapshots. Real fencing/ACK/recovery remains unqualified. |
+
+Implementation MUST name INSERT target columns or explicitly verify source/target
+column-order compatibility before appending events. The r231 failed journal cast
+left raw1 and other roles0 with an empty private descriptor; partial role commits
+are not a complete publication. Schema-revision metadata MUST be validated
+against the selected source/profile revisions before advancing the descriptor.
+The corrected mixed-r234 descriptor is retained alongside the original empty-map
+mixed-r232 evidence; its repaired clock is not substituted for a clean service
+measurement.
+
+The complete mixed bootstrap is4,096nodes/20,480edges with24,576rawrecords,
+98,304propertyevents and20,480adjacency rows. Independent all-row field digests
+and direct smaller differentials preserve exact values. A mixed2,048-edge batch
+updates1,843/deletes205, retains26,624rawrecords/102,741events/205tombstones and
+passes final identities/typed endpoints. These are synthetic bootstrap/change
+profiles, not real Truss semantics or producer authority. Evidence:
+[bootstrap](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_materialize_r226/summary.json),
+[apply](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_apply_r232/summary.json),
+[corrected descriptor](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_descriptor_r234/summary.json).
+
+Complete role accounting, including exact history duplication, is required for
+scale admission. The mixed8M/40M bootstrap sensitivity is115.681GB; the140GB
+proposal excludes unresolved staging, changes, retained versions, failed work
+and physical metadata reserves. A measured one-batch sensitivity adds353.406MB
+per100k changes and raw+journal2.420TB/day at10k/s if widths/mix remain constant.
+These are arithmetic, not sustained growth predictions or a retention policy.
+Do not omit roles, expire source/history or infer source ACK to fit the ceiling.
+[Reproducible measured role costs](../spikes/SPIKE-001-table-layout/out/mixed-role-costs-r235.json).
+
+Original100ms engine/250ms caller, controlled-cold1s,60s at sustained10k/s plus
+100k/s recovery and1B-node/5B-edge objectives remain open. Narrow engine95/96ms
+passes do not close caller or service gates. Unity Catalog Delta remains selected;
+PuppyGraph/GraphFrames/Fabric support stays within the separately recorded
+versions/subsets/projection bounds. UMF binding remains deferred.
+
 ## Normative Surface
 
 | Table | Logical key | Meaning and rules |

@@ -1212,7 +1212,9 @@
     "out/native/ashlar_mixed_apply_r232/executed-worker-source.py": "90cbd063f20878203eea409ff2e65543b408eccf73a60c71b488dd8d83feb0a8",
     "out/native/ashlar_mixed_descriptor_r234/summary.json": "3c699255b9d9726beaa7aed0cceb035c7343a39ce3b9618ffa0b13cd9d21a79b",
     "out/native/ashlar_mixed_descriptor_r234/shared-history.json": "7745c6bca2ae5e4b401061f426a1ff0ff0ed84750b1ac0fdfeeb691ceb89d4df",
-    "out/native/ashlar_mixed_descriptor_r234/statements.jsonl": "87026d86b636d60ac901ead92a24c931389fa156a64ad7718baac368656f2682"
+    "out/native/ashlar_mixed_descriptor_r234/statements.jsonl": "87026d86b636d60ac901ead92a24c931389fa156a64ad7718baac368656f2682",
+    "mixed_role_costs_r235.py": "b87d200fc0bf5729a08f34705eb0c3ff9b42211ef37a07eee558ff7d48573f04",
+    "out/mixed-role-costs-r235.json": "63112a2d618609ee6cc7a6d355c7409689e4e07d51fcde428f41486609fb808e"
   },
   "evidence": {
     "ddl": {

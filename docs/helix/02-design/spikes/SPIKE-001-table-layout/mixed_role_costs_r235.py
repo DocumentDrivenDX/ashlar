@@ -1,0 +1,12 @@
+"""Saved measured bootstrap/change-role growth and explicitly bounded sensitivity."""
+import json,hashlib
+from pathlib import Path
+B=Path(__file__).resolve().parent;S={'bootstrap':'out/native/ashlar_mixed_materialize_r226/summary.json','apply':'out/native/ashlar_mixed_apply_r232/summary.json','scale':'out/native-complete-storage-r227.json','stage':'out/native/ashlar_mixed_change_stage_r229/summary.json'}
+def calculate():
+ d={k:json.loads((B/v).read_text()) for k,v in S.items()};roles={};n=2048
+ for role,detail in d['apply']['active_details'].items():
+  old=d['bootstrap']['tables'].get(role,{}).get('bytes',0);now=int(detail['sizeInBytes']);roles[role]={'before_active_bytes':old,'after_active_bytes':now,'active_increment_bytes':now-old,'sample_changed_entities':n,'same_workload_active_increment_per_changed_entity':(now-old)/n}
+ per=sum(x['same_workload_active_increment_per_changed_entity'] for x in roles.values());source_history=sum(roles[r]['same_workload_active_increment_per_changed_entity'] for r in ['source_record','property_journal']);headroom=d['scale']['140gb_headroom_before_exclusions']
+ return {'format':'ashlar-measured-mixed-role-cost/1','source_sha256':{v:hashlib.sha256((B/v).read_bytes()).hexdigest() for v in S.values()},'roles':roles,'one_100k_batch_same_width_active_increment_bytes':per*100000,'raw_plus_journal_same_mix_10k_per_s_one_day_bytes':source_history*10000*86400,'all_roles_same_mix_10k_per_s_one_day_active_increment_bytes':per*10000*86400,'stage_bytes_per_changed_entity':d['stage']['active_bytes']/n,'idealized_140gb_headroom_s_at10k_if_only_measured_role_growth':headroom/(per*10000),'limitations':['Arithmetic sensitivity only; sample10% edge selection/10% deletes and particular opaque sizes, not sustained throughput or source distribution.','Active increments include unremoved old base file plus added current/adjacency files; not unique retained physical bytes across shallow clones.','Stage, raw failed-run tables, descriptor/log/checkpoint/DV overhead, repeated maintenance and old replaced files are additional.','No time-to-live, deletion, VACUUM, source ACK or retention policy inferred from remaining bytes.','Corrected descriptor wall134.907s includes repair/diagnostics; original35.473s descriptor omitted schema map. Neither passes the complete60s service gate.','140GB ceiling and bootstrap115.681GB are proposals/sensitivities, not full-scale admission.']}
+if __name__=='__main__':
+ r=calculate();(B/'out/mixed-role-costs-r235.json').write_text(json.dumps(r,indent=2)+'\n');print(json.dumps(r,indent=2))

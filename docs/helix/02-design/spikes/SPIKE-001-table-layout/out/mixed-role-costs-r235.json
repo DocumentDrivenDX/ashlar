@@ -1,0 +1,66 @@
+{
+  "format": "ashlar-measured-mixed-role-cost/1",
+  "source_sha256": {
+    "out/native/ashlar_mixed_materialize_r226/summary.json": "173edc8161fe1af65f13934e4557c592b8656350fcfb4d3d83922b0e6701021b",
+    "out/native/ashlar_mixed_apply_r232/summary.json": "ff6233bec27b59dc15261e8827750544b5bfb208d3e22addb9c9517b03501d64",
+    "out/native-complete-storage-r227.json": "8533cd3ac6943c869e2a5c9c296dce13f73c6c4cbe0fa22e326ea1e53f66c3e4",
+    "out/native/ashlar_mixed_change_stage_r229/summary.json": "82b871155de551e04b47b369d74314c7f830147bd33203b7ea1369d8c876ad60"
+  },
+  "roles": {
+    "object_current": {
+      "before_active_bytes": 3313356,
+      "after_active_bytes": 3313356,
+      "active_increment_bytes": 0,
+      "sample_changed_entities": 2048,
+      "same_workload_active_increment_per_changed_entity": 0.0
+    },
+    "edge_current": {
+      "before_active_bytes": 16573079,
+      "after_active_bytes": 18051619,
+      "active_increment_bytes": 1478540,
+      "sample_changed_entities": 2048,
+      "same_workload_active_increment_per_changed_entity": 721.943359375
+    },
+    "source_record": {
+      "before_active_bytes": 20991429,
+      "after_active_bytes": 24092027,
+      "active_increment_bytes": 3100598,
+      "sample_changed_entities": 2048,
+      "same_workload_active_increment_per_changed_entity": 1513.9638671875
+    },
+    "property_journal": {
+      "before_active_bytes": 18235810,
+      "after_active_bytes": 20871112,
+      "active_increment_bytes": 2635302,
+      "sample_changed_entities": 2048,
+      "same_workload_active_increment_per_changed_entity": 1286.7685546875
+    },
+    "adjacency_forward": {
+      "before_active_bytes": 114901,
+      "after_active_bytes": 134063,
+      "active_increment_bytes": 19162,
+      "sample_changed_entities": 2048,
+      "same_workload_active_increment_per_changed_entity": 9.3564453125
+    },
+    "tombstone": {
+      "before_active_bytes": 0,
+      "after_active_bytes": 4145,
+      "active_increment_bytes": 4145,
+      "sample_changed_entities": 2048,
+      "same_workload_active_increment_per_changed_entity": 2.02392578125
+    }
+  },
+  "one_100k_batch_same_width_active_increment_bytes": 353405615.234375,
+  "raw_plus_journal_same_mix_10k_per_s_one_day_bytes": 2419832812500.0,
+  "all_roles_same_mix_10k_per_s_one_day_active_increment_bytes": 3053424515625.0,
+  "stage_bytes_per_changed_entity": 1784.169921875,
+  "idealized_140gb_headroom_s_at10k_if_only_measured_role_growth": 688.1381733846182,
+  "limitations": [
+    "Arithmetic sensitivity only; sample10% edge selection/10% deletes and particular opaque sizes, not sustained throughput or source distribution.",
+    "Active increments include unremoved old base file plus added current/adjacency files; not unique retained physical bytes across shallow clones.",
+    "Stage, raw failed-run tables, descriptor/log/checkpoint/DV overhead, repeated maintenance and old replaced files are additional.",
+    "No time-to-live, deletion, VACUUM, source ACK or retention policy inferred from remaining bytes.",
+    "Corrected descriptor wall134.907s includes repair/diagnostics; original35.473s descriptor omitted schema map. Neither passes the complete60s service gate.",
+    "140GB ceiling and bootstrap115.681GB are proposals/sensitivities, not full-scale admission."
+  ]
+}

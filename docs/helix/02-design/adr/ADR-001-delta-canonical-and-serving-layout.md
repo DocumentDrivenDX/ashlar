@@ -419,3 +419,35 @@ On fresh owned clones with the same immutable input, raw/journal writes precede 
 ### Matched published-snapshot reads r201–r203
 
 Two20-key warm passes at verified private publication1 show serial-current engine p9595/96ms (scoped100ms screen passes), caller348.750/340.264ms (250ms fails),3files/142.939MB; overlap129/101ms,416.120/410.620ms,18files/414.851MB. All80 complete20-field results match immutable stage0. Combine with publisher age p9571.973s serial/69.386s overlap: both60s targets fail, so optional serialization is a measured read/freshness tradeoff, not a complete solution. Background Predictive Optimization advanced physical heads; reader verifies original version1 MERGE IDs and unchanged manifest vectors, then reads exact VERSION AS OF1. Never require publication==latest head or silently use a newer head. Evidence: [matched reads](../spikes/SPIKE-001-table-layout/out/native/ashlar_publication_reads_r202/summary.json). No cold, service, sustained/burst or1B/5B admission follows; UC Delta/hash LC remains selected/proposed and UMF deferred.
+
+
+### Consolidated complete-role disposition r226–r235
+
+Retain shared generic current tables with hash liquid clustering as the physical
+candidate. Exact source envelopes and property history are independent retained
+roles, not optional payload reductions. Keep bucket64/Z-order experimental:
+its prior hot-update write amplification was16.09× LC. Range-shaped emission is
+optional and must be verified in the actual publisher; neither a source hint nor
+latest physical head guarantees published file shape.
+
+The complete mixed bootstrap and2,048-edge update/delete publication now have
+independent all-row preservation/identity/endpoint evidence. Journal
+source-delivery clustering in this small experiment is a candidate for origins
+with null scalar position, not approval to replace the full DDL's position
+profile. Tombstone0.3 resolves accepted deletion version through qualified
+lifecycle/source evidence; no direct version column or real resurrection/fencing
+proof is claimed. Insert column binding and descriptor revision validation are
+required implementation safeguards exposed by the retained failure/repair.
+
+Original mixed descriptor processing35.473s omitted schema metadata; corrected
+readback134.907s includes diagnostics/repair under a host wall clock. Neither
+admits complete60s freshness. Complete mixed bootstrap storage sensitivity at
+8M/40M is115.681GB, before unresolved reserves. Native per-role change accounting
+makes the140GB proposal insufficiently justified for sustained retention; no
+role omission or silent expiry closes that gap. Continue staged complete-role
+resource/cost validation on existing compute, retaining original1B/5B and
+read/ingest gates. UMF deferred and external-engine limits unchanged.
+
+Evidence: [role cost calculator](../spikes/SPIKE-001-table-layout/out/mixed-role-costs-r235.json),
+[full native apply](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_apply_r232/summary.json),
+[corrected descriptor](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_descriptor_r234/summary.json).
