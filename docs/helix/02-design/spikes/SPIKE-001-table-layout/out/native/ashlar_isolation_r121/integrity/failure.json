@@ -1,0 +1,12 @@
+{
+  "state": "terminal180second timeout; no full-payload untouched parity evidence",
+  "query_id": "01f1c1f0-2f76-1739-9320-28feca94ba78",
+  "error": {
+    "state": "FAILED",
+    "error": {
+      "class": "ServerOperationError",
+      "message": "Statement has timed out after 180 seconds."
+    }
+  },
+  "recovery": "Separate narrower immutable physical-row custody proof; changed full carriers checked independently. Original failed query not rerun."
+}

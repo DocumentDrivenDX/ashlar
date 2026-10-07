@@ -989,3 +989,58 @@ structural-set evidence are still required before incremental reuse is trusted.
 Next measure a complete property publication with the candidate structural
 version reused and explicitly included in a new descriptor; do not add the
 r11929second structural maintenance cost to unrelated property-only batches.
+
+## Property publication with canonical adjacency reuse (r121)
+
+[Final publication audit](out/native/ashlar_isolation_r121/audited-summary.json)
+records one actual100k property apply, exact raw capture, property journal,
+canonical MERGE and immutable descriptor r121-b1. The descriptor pins E17/N0/
+R13/J15/T0 and canonical forward adjacency r120 v1. Before publication, all20M
+structural rows are compared exactly against the reused adjacency; no rebuild
+or maintenance is issued. All20 affected carrier fields, exact ASCII token patch,
+raw payload/digest/origin/UTC instant and property journal checks pass.
+
+Ready-input→verified-descriptor=64.615s; modeled oldest-record freshness=74.615s
+for a uniform10second/10k-per-second admission window. Actual input was prepared
+outside the clock (13.092s stage CREATE), not delivered by a real producer. One
+sample cannot establish publication p95 or sustained rate and misses even the
+provisional60second per-sample comparison. No100k/s burst was run here.
+Parallel raw/journal append wall=22.529s, canonical apply7.752s, full structural
+reuse oracle6.021s and descriptor INSERT1.141s. Component timings must not be
+added as though all phases were sequential.
+
+Thirty exact20-field fresh singleton reads are final uncached, remote bytes0,
+p95 engine110ms/caller361.48ms, files15. Both provisional warm targets remain
+missed. The recorded preparing scope accidentally inherited a two-reader string
+from the isolation harness; the final audit corrects it: one serialized publisher
+and subsequent fresh reads, with no concurrent readers or new compute. No
+real completeness, concurrent fence or acknowledgement is qualified. Baseline
+legacy origins/timestamp representation remain explicitly unqualified.
+
+Next reduce validation critical-path cost using evidence, not by weakening
+preservation: investigate independent validation lanes and a declared changed-set
+structural check, retaining exhaustive post-run oracles and predecessor/output
+lineage guards. The full20M scan here is an experiment oracle, not a viable
+universal per-batch billion-scale validation policy. Costs remain shared-warehouse
+caller timings without attributable dollar billing.
+
+[Post-publication integrity audit](out/native/ashlar_isolation_r121/integrity-custody/audited-summary.json)
+passes logical-key/immutable-file/physical-row-index custody for all19.9M
+untouched carriers in12.644s, with19.9M count and matching pinned predecessor/
+output DBAPI schemas for canonical/raw/journal. This relies on Delta immutable
+file semantics and stable schemas, not an independent re-read of all unchanged
+payload bytes. The attempted wide untouched EXCEPT ALL timed out at180seconds
+and is retained as [failed evidence](out/native/ashlar_isolation_r121/integrity/failure.json).
+It proves no payload equality. Changed100k20-field equality is separately proven.
+
+Complete inherited raw-record and property-journal EXCEPT ALL comparisons pass
+in117.127s and110.623s respectively. All successful follow-up histories are final
+uncached. These post-publication checks are excluded from recorded freshness;
+do not claim descriptor activation waited for them. The cost reinforces keeping
+exhaustive payload qualification bounded rather than prescribing it per batch.
+
+Current native canonical anchors advance to E17/R13/J15 with node/tombstone0
+and forward adjacency1 in r121-b1. The pending r107 isolation runner's old
+E16/R12/J14 maintenance-only preflight is now stale and must be adapted to this
+new predecessor before live execution. Its historical passing preflight and
+controller unit evidence remain preserved; no isolated warehouse was provisioned.

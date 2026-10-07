@@ -1,0 +1,1374 @@
+{
+  "state": "Post-publication19.9M immutable physical-row custody, exhaustive inherited raw/journal parity and stable3-table schemas audited; all successful histories final uncached",
+  "versions": {
+    "client_dev.ashlar_entropy_20261006_r86.edge_current": 17,
+    "client_dev.ashlar_entropy_20261006_r86.object_current": 0,
+    "client_dev.ashlar_entropy_20261006_r86.source_record_r89": 13,
+    "client_dev.ashlar_entropy_20261006_r86.property_journal_r89": 15,
+    "client_dev.ashlar_entropy_20261006_r86.tombstone_r89": 0,
+    "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120": 1
+  },
+  "old_current": 16,
+  "old_raw": 12,
+  "old_journal": 14,
+  "qualification": "Changed100k full20-field carriers verified in publication harness. Untouched19.9M logical-key/file-path/physical-row-index custody relies on Delta immutable-file semantics and stable schemas. Full unchanged-payload EXCEPT ALL timed out; do not claim independently re-read payload equality. Complete inherited raw and journal EXCEPT ALL parity passed. All post-publication checks exclude recorded freshness clock.",
+  "schema_evidence": {
+    "state": "All3 pinned predecessor/output logical schemas match",
+    "schemas": {
+      "canonical": {
+        "old": [
+          [
+            "source_system",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "rel_type_id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_type",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "target_type",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "target_id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "schema_revision",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "entity_version",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "props_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "retained_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "order_key",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_feed",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_epoch",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_position",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "published_at",
+            "timestamp",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "lookup_hash",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "apply_batch_id",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_cursor_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_delivery_id",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ],
+        "new": [
+          [
+            "source_system",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "rel_type_id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_type",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "target_type",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "target_id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "schema_revision",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "entity_version",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "props_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "retained_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "order_key",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_feed",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_epoch",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_position",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "published_at",
+            "timestamp",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "lookup_hash",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "apply_batch_id",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_cursor_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_delivery_id",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "raw": {
+        "old": [
+          [
+            "source_feed",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_epoch",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "delivery_id",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "record_kind",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_cursor_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "payload_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "payload_digest",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "schema_revision",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "received_at",
+            "timestamp",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "apply_batch_id",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ],
+        "new": [
+          [
+            "source_feed",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_epoch",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "delivery_id",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "record_kind",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_cursor_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "payload_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "payload_digest",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "schema_revision",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "received_at",
+            "timestamp",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "apply_batch_id",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      },
+      "journal": {
+        "old": [
+          [
+            "source_system",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "entity_kind",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "type_id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "property_id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "entity_version",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "operation",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "old_present",
+            "boolean",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "old_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "new_present",
+            "boolean",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "new_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "schema_revision",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_feed",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_epoch",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_position",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "event_ordinal",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_time_text",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "published_at",
+            "timestamp",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "apply_batch_id",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_cursor_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_delivery_id",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ],
+        "new": [
+          [
+            "source_system",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "entity_kind",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "type_id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "property_id",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "entity_version",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "operation",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "old_present",
+            "boolean",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "old_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "new_present",
+            "boolean",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "new_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "schema_revision",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_feed",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_epoch",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_position",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "event_ordinal",
+            "bigint",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_time_text",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "published_at",
+            "timestamp",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "apply_batch_id",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_cursor_json",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ],
+          [
+            "source_delivery_id",
+            "string",
+            null,
+            null,
+            null,
+            null,
+            null
+          ]
+        ]
+      }
+    },
+    "qualification": "DBAPI column descriptors at exact snapshots. Immutable file/physical-row custody relies on Delta immutable-file semantics and stable logical schema; not equivalent to independently re-reading all payload bytes."
+  },
+  "costs": {
+    "integrity-custody": {
+      "timeout": {
+        "caller_ms": 199.33545900000004,
+        "metrics": {
+          "total_time_ms": 60,
+          "read_bytes": 0,
+          "rows_produced_count": 1,
+          "compilation_time_ms": 8,
+          "execution_time_ms": 46,
+          "read_remote_bytes": 0,
+          "write_remote_bytes": 0,
+          "read_cache_bytes": 0,
+          "spill_to_disk_bytes": 0,
+          "task_total_time_ms": 0,
+          "read_files_count": 0,
+          "read_partitions_count": 0,
+          "photon_total_time_ms": 0,
+          "rows_read_count": 0,
+          "result_fetch_time_ms": 2,
+          "network_sent_bytes": 0,
+          "result_from_cache": false,
+          "pruned_files_count": 0,
+          "query_compilation_start_timestamp": 1791337497130,
+          "metadata_time_ms": 0,
+          "query_execution_time_ms": 54,
+          "bytes_read_from_cache_percentage": 0.0,
+          "write_remote_rows": 0,
+          "write_remote_files": 0,
+          "queue_end_time_ms": 1791337497116,
+          "task_progress": {}
+        }
+      },
+      "cache": {
+        "caller_ms": 161.21116700000005,
+        "metrics": {
+          "total_time_ms": 69,
+          "read_bytes": 0,
+          "rows_produced_count": 1,
+          "compilation_time_ms": 9,
+          "execution_time_ms": 41,
+          "read_remote_bytes": 0,
+          "write_remote_bytes": 0,
+          "read_cache_bytes": 0,
+          "spill_to_disk_bytes": 0,
+          "task_total_time_ms": 0,
+          "read_files_count": 0,
+          "read_partitions_count": 0,
+          "photon_total_time_ms": 0,
+          "rows_read_count": 0,
+          "result_fetch_time_ms": 2,
+          "network_sent_bytes": 0,
+          "result_from_cache": false,
+          "pruned_files_count": 0,
+          "query_compilation_start_timestamp": 1791337497326,
+          "metadata_time_ms": 0,
+          "query_execution_time_ms": 50,
+          "bytes_read_from_cache_percentage": 0.0,
+          "write_remote_rows": 0,
+          "write_remote_files": 0,
+          "queue_end_time_ms": 1791337497312,
+          "task_progress": {}
+        }
+      },
+      "untouched-physical-custody": {
+        "caller_ms": 12644.153457999999,
+        "metrics": {
+          "total_time_ms": 12340,
+          "read_bytes": 2943272059,
+          "rows_produced_count": 1,
+          "compilation_time_ms": 817,
+          "execution_time_ms": 11517,
+          "read_remote_bytes": 0,
+          "write_remote_bytes": 0,
+          "read_cache_bytes": 2943272059,
+          "spill_to_disk_bytes": 0,
+          "task_total_time_ms": 81280,
+          "read_files_count": 4259,
+          "read_partitions_count": 0,
+          "photon_total_time_ms": 79331,
+          "rows_read_count": 89653096,
+          "result_fetch_time_ms": 326,
+          "network_sent_bytes": 0,
+          "result_from_cache": false,
+          "pruned_bytes": 0,
+          "pruned_files_count": 0,
+          "query_compilation_start_timestamp": 1791337497484,
+          "metadata_time_ms": 0,
+          "query_execution_time_ms": 12334,
+          "bytes_read_from_cache_percentage": 100.0,
+          "write_remote_rows": 0,
+          "write_remote_files": 0,
+          "queue_end_time_ms": 1791337497472,
+          "read_files_bytes": 274907327540,
+          "rows_scanned": 90548445,
+          "task_progress": {
+            "planned_task_count": 434,
+            "completed_task_count": 246,
+            "completed_partition_count": 246,
+            "pending_task_count": 188,
+            "failed_task_count": 0
+          }
+        }
+      },
+      "untouched-count": {
+        "caller_ms": 1164.2186250000002,
+        "metrics": {
+          "total_time_ms": 930,
+          "read_bytes": 665532182,
+          "rows_produced_count": 1,
+          "compilation_time_ms": 238,
+          "execution_time_ms": 685,
+          "read_remote_bytes": 0,
+          "write_remote_bytes": 0,
+          "read_cache_bytes": 665532182,
+          "spill_to_disk_bytes": 0,
+          "task_total_time_ms": 3087,
+          "read_files_count": 535,
+          "read_partitions_count": 0,
+          "photon_total_time_ms": 2734,
+          "rows_read_count": 20100000,
+          "result_fetch_time_ms": 4,
+          "network_sent_bytes": 0,
+          "result_from_cache": false,
+          "pruned_bytes": 0,
+          "pruned_files_count": 0,
+          "query_compilation_start_timestamp": 1791337510262,
+          "metadata_time_ms": 0,
+          "query_execution_time_ms": 923,
+          "bytes_read_from_cache_percentage": 100.0,
+          "write_remote_rows": 0,
+          "write_remote_files": 0,
+          "queue_end_time_ms": 1791337510250,
+          "read_files_bytes": 34944099921,
+          "rows_scanned": 20300000,
+          "task_progress": {
+            "planned_task_count": 117,
+            "completed_task_count": 62,
+            "completed_partition_count": 62,
+            "pending_task_count": 55,
+            "failed_task_count": 0
+          }
+        }
+      },
+      "raw-inherited-parity": {
+        "caller_ms": 117127.00558399998,
+        "metrics": {
+          "total_time_ms": 116843,
+          "read_bytes": 45066391449,
+          "rows_produced_count": 1,
+          "compilation_time_ms": 381,
+          "execution_time_ms": 116455,
+          "read_remote_bytes": 39068832573,
+          "write_remote_bytes": 0,
+          "read_cache_bytes": 5997558876,
+          "spill_to_disk_bytes": 0,
+          "task_total_time_ms": 904965,
+          "read_files_count": 472,
+          "read_partitions_count": 0,
+          "photon_total_time_ms": 902227,
+          "rows_read_count": 4595429,
+          "result_fetch_time_ms": 300,
+          "network_sent_bytes": 0,
+          "result_from_cache": false,
+          "pruned_bytes": 0,
+          "pruned_files_count": 0,
+          "query_compilation_start_timestamp": 1791337511290,
+          "metadata_time_ms": 0,
+          "query_execution_time_ms": 116836,
+          "bytes_read_from_cache_percentage": 18.0,
+          "write_remote_rows": 0,
+          "write_remote_files": 0,
+          "queue_end_time_ms": 1791337511278,
+          "read_files_bytes": 52616672344,
+          "rows_scanned": 4795429,
+          "cloud_storage_retry_duration_ms": 0,
+          "task_progress": {
+            "planned_task_count": 640,
+            "completed_task_count": 430,
+            "completed_partition_count": 430,
+            "pending_task_count": 210,
+            "failed_task_count": 0
+          }
+        }
+      },
+      "journal-inherited-parity": {
+        "caller_ms": 110622.74975,
+        "metrics": {
+          "total_time_ms": 110146,
+          "read_bytes": 41466286333,
+          "rows_produced_count": 1,
+          "compilation_time_ms": 482,
+          "execution_time_ms": 109654,
+          "read_remote_bytes": 35849375656,
+          "write_remote_bytes": 0,
+          "read_cache_bytes": 5616910677,
+          "spill_to_disk_bytes": 0,
+          "task_total_time_ms": 839427,
+          "read_files_count": 432,
+          "read_partitions_count": 0,
+          "photon_total_time_ms": 836669,
+          "rows_read_count": 4519271,
+          "result_fetch_time_ms": 968,
+          "network_sent_bytes": 0,
+          "result_from_cache": false,
+          "pruned_bytes": 2556786640,
+          "pruned_files_count": 24,
+          "query_compilation_start_timestamp": 1791337628550,
+          "metadata_time_ms": 0,
+          "query_execution_time_ms": 110136,
+          "bytes_read_from_cache_percentage": 19.0,
+          "write_remote_rows": 0,
+          "write_remote_files": 0,
+          "queue_end_time_ms": 1791337628521,
+          "read_files_bytes": 46038779976,
+          "rows_scanned": 4519271,
+          "cloud_storage_retry_duration_ms": 0,
+          "task_progress": {
+            "planned_task_count": 564,
+            "completed_task_count": 374,
+            "completed_partition_count": 374,
+            "pending_task_count": 190,
+            "failed_task_count": 0
+          }
+        }
+      }
+    },
+    "schema": {
+      "canonical-old": {
+        "caller_ms": 390.7083330000003,
+        "metrics": {
+          "total_time_ms": 288,
+          "read_bytes": 0,
+          "rows_produced_count": 0,
+          "compilation_time_ms": 263,
+          "execution_time_ms": 17,
+          "read_remote_bytes": 0,
+          "write_remote_bytes": 0,
+          "read_cache_bytes": 0,
+          "spill_to_disk_bytes": 0,
+          "task_total_time_ms": 0,
+          "read_files_count": 0,
+          "read_partitions_count": 0,
+          "photon_total_time_ms": 0,
+          "rows_read_count": 0,
+          "result_fetch_time_ms": 2,
+          "network_sent_bytes": 0,
+          "result_from_cache": false,
+          "pruned_files_count": 0,
+          "query_compilation_start_timestamp": 1791337698440,
+          "metadata_time_ms": 0,
+          "query_execution_time_ms": 280,
+          "bytes_read_from_cache_percentage": 0.0,
+          "write_remote_rows": 0,
+          "write_remote_files": 0,
+          "queue_end_time_ms": 1791337698425,
+          "task_progress": {}
+        }
+      },
+      "canonical-new": {
+        "caller_ms": 246.70841600000014,
+        "metrics": {
+          "total_time_ms": 145,
+          "read_bytes": 0,
+          "rows_produced_count": 0,
+          "compilation_time_ms": 120,
+          "execution_time_ms": 17,
+          "read_remote_bytes": 0,
+          "write_remote_bytes": 0,
+          "read_cache_bytes": 0,
+          "spill_to_disk_bytes": 0,
+          "task_total_time_ms": 0,
+          "read_files_count": 0,
+          "read_partitions_count": 0,
+          "photon_total_time_ms": 0,
+          "rows_read_count": 0,
+          "result_fetch_time_ms": 2,
+          "network_sent_bytes": 0,
+          "result_from_cache": false,
+          "pruned_files_count": 0,
+          "query_compilation_start_timestamp": 1791337698835,
+          "metadata_time_ms": 0,
+          "query_execution_time_ms": 137,
+          "bytes_read_from_cache_percentage": 0.0,
+          "write_remote_rows": 0,
+          "write_remote_files": 0,
+          "queue_end_time_ms": 1791337698821,
+          "task_progress": {}
+        }
+      },
+      "raw-old": {
+        "caller_ms": 281.92516600000016,
+        "metrics": {
+          "total_time_ms": 176,
+          "read_bytes": 0,
+          "rows_produced_count": 0,
+          "compilation_time_ms": 155,
+          "execution_time_ms": 14,
+          "read_remote_bytes": 0,
+          "write_remote_bytes": 0,
+          "read_cache_bytes": 0,
+          "spill_to_disk_bytes": 0,
+          "task_total_time_ms": 0,
+          "read_files_count": 0,
+          "read_partitions_count": 0,
+          "photon_total_time_ms": 0,
+          "rows_read_count": 0,
+          "result_fetch_time_ms": 7,
+          "network_sent_bytes": 0,
+          "result_from_cache": false,
+          "pruned_files_count": 0,
+          "query_compilation_start_timestamp": 1791337699083,
+          "metadata_time_ms": 0,
+          "query_execution_time_ms": 169,
+          "bytes_read_from_cache_percentage": 0.0,
+          "write_remote_rows": 0,
+          "write_remote_files": 0,
+          "queue_end_time_ms": 1791337699068,
+          "task_progress": {}
+        }
+      },
+      "raw-new": {
+        "caller_ms": 244.83145800000017,
+        "metrics": {
+          "total_time_ms": 141,
+          "read_bytes": 0,
+          "rows_produced_count": 0,
+          "compilation_time_ms": 115,
+          "execution_time_ms": 18,
+          "read_remote_bytes": 0,
+          "write_remote_bytes": 0,
+          "read_cache_bytes": 0,
+          "spill_to_disk_bytes": 0,
+          "task_total_time_ms": 0,
+          "read_files_count": 0,
+          "read_partitions_count": 0,
+          "photon_total_time_ms": 0,
+          "rows_read_count": 0,
+          "result_fetch_time_ms": 2,
+          "network_sent_bytes": 0,
+          "result_from_cache": false,
+          "pruned_files_count": 0,
+          "query_compilation_start_timestamp": 1791337699364,
+          "metadata_time_ms": 0,
+          "query_execution_time_ms": 133,
+          "bytes_read_from_cache_percentage": 0.0,
+          "write_remote_rows": 0,
+          "write_remote_files": 0,
+          "queue_end_time_ms": 1791337699348,
+          "task_progress": {}
+        }
+      },
+      "journal-old": {
+        "caller_ms": 286.9010420000002,
+        "metrics": {
+          "total_time_ms": 184,
+          "read_bytes": 0,
+          "rows_produced_count": 0,
+          "compilation_time_ms": 163,
+          "execution_time_ms": 15,
+          "read_remote_bytes": 0,
+          "write_remote_bytes": 0,
+          "read_cache_bytes": 0,
+          "spill_to_disk_bytes": 0,
+          "task_total_time_ms": 0,
+          "read_files_count": 0,
+          "read_partitions_count": 0,
+          "photon_total_time_ms": 0,
+          "rows_read_count": 0,
+          "result_fetch_time_ms": 3,
+          "network_sent_bytes": 0,
+          "result_from_cache": false,
+          "pruned_files_count": 0,
+          "query_compilation_start_timestamp": 1791337699609,
+          "metadata_time_ms": 0,
+          "query_execution_time_ms": 178,
+          "bytes_read_from_cache_percentage": 0.0,
+          "write_remote_rows": 0,
+          "write_remote_files": 0,
+          "queue_end_time_ms": 1791337699594,
+          "task_progress": {}
+        }
+      },
+      "journal-new": {
+        "caller_ms": 251.36991599999982,
+        "metrics": {
+          "total_time_ms": 146,
+          "read_bytes": 0,
+          "rows_produced_count": 0,
+          "compilation_time_ms": 122,
+          "execution_time_ms": 16,
+          "read_remote_bytes": 0,
+          "write_remote_bytes": 0,
+          "read_cache_bytes": 0,
+          "spill_to_disk_bytes": 0,
+          "task_total_time_ms": 0,
+          "read_files_count": 0,
+          "read_partitions_count": 0,
+          "photon_total_time_ms": 0,
+          "rows_read_count": 0,
+          "result_fetch_time_ms": 3,
+          "network_sent_bytes": 0,
+          "result_from_cache": false,
+          "pruned_files_count": 0,
+          "query_compilation_start_timestamp": 1791337699900,
+          "metadata_time_ms": 0,
+          "query_execution_time_ms": 138,
+          "bytes_read_from_cache_percentage": 0.0,
+          "write_remote_rows": 0,
+          "write_remote_files": 0,
+          "queue_end_time_ms": 1791337699886,
+          "task_progress": {}
+        }
+      }
+    }
+  },
+  "failed_attempt": "integrity/failure.json"
+}

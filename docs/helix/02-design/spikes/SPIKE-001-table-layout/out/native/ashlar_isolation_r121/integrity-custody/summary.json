@@ -1,0 +1,15 @@
+{
+  "state": "Exhaustive19.9M untouched logical-key/file-path/physical-row-index custody and inherited complete raw/journal rows passed",
+  "versions": {
+    "client_dev.ashlar_entropy_20261006_r86.edge_current": 17,
+    "client_dev.ashlar_entropy_20261006_r86.object_current": 0,
+    "client_dev.ashlar_entropy_20261006_r86.source_record_r89": 13,
+    "client_dev.ashlar_entropy_20261006_r86.property_journal_r89": 15,
+    "client_dev.ashlar_entropy_20261006_r86.tombstone_r89": 0,
+    "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120": 1
+  },
+  "old_current": 16,
+  "old_raw": 12,
+  "old_journal": 14,
+  "qualification": "Post-publication oracle outside recorded freshness clock. Unchanged physical row custody uses Delta immutable-file semantics, not a fresh full-payload byte comparison. Stable logical schema required; failed wide EXCEPT ALL retained separately. Does not claim publisher gated descriptor on these checks. Legacy raw timestamp representation is compared exactly as stored, not retroactively corrected."
+}

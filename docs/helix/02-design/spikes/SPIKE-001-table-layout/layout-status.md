@@ -217,3 +217,13 @@ passes full20M eight-column parity, both typed endpoints, independent identities
 and30 sparse-neighborhood pages.16MiB candidate builds in8.699s,16files/206MB.
 Exact E13/E16 structural equivalence qualifies snapshot reuse; the reviewed
 vector is not activated and full publication remains open.
+
+Publication with adjacency reuse: [r121 audit](out/native/ashlar_isolation_r121/audited-summary.json)
+passes100k full affected carriers, raw/journal and full20M structural parity,
+then publishes E17/N0/R13/J15/T0/forward1. Ready-input64.615s, oldest modeled
+74.615s; fresh singleton p95 engine110/caller361.48ms.
+[Integrity follow-up](out/native/ashlar_isolation_r121/integrity-custody/audited-summary.json)
+passes19.9M immutable row custody and complete inherited raw/journal equality.
+Wide unchanged-payload parity timed out; post-check costs exclude freshness.
+The pending r107 execution preflight needs the new predecessor; no extra compute
+was provisioned. Provisional performance and1B/5B admission remain unmet.
