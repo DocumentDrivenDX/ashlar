@@ -1,0 +1,17 @@
+{
+  "format": "ashlar-mixed-publisher-budget/1",
+  "source_sha256": {
+    "base": "9e746519e31eb1d6967761f376435c8be2171c943c46e363666dc12a3586d5ed",
+    "input": "aef4fa9d9ff1a984b0fe2487b8941f2c2ec662adaf774eef3ff907cab542c8f0",
+    "predecessor": "0251d3d770162f220cc60be8633ddfff4e5d3d5a0b35cc51eab35a5674e916ef",
+    "changed": "4712aded2d062b63886365066927e0dec8e22633619f585d589a4e31cd5781f1"
+  },
+  "bounds": {
+    "read_bytes": 600000000000,
+    "write_remote_bytes": 40000000000,
+    "spill_to_disk_bytes": 30000000000,
+    "wall_s": 2700,
+    "statement_s": 180
+  },
+  "basis": "Full current/reference four-block scans conservatively8x31.965GB plus complete raw/journal bootstrap audit sensitivity2x r274187.721GB exceeds600GB if entirely redundant; actual r274188GB includes current and bootstrap and final derived reads. Planning model:256GB current/reference +2x(39.503+35.092)GB history scopes +50GB join/input/metadata =455.47GB,1.25x=569.34GB.40GB writes conservatively allows whole current rewrite plus narrow/history additions;30GB reported spill guard not peak temp cap.280GB prior intermediate retained-storage proposal remains uncertain; shallow-clone references do not copy whole113.297GB bootstrap. No new compute/resize/cleanup.45min admission; cancel/observation guards not guaranteed server/billing limits."
+}
