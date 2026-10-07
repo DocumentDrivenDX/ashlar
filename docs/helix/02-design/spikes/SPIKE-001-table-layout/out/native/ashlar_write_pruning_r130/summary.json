@@ -1,0 +1,8 @@
+{
+  "state": "6 eligible-key counts and full20M immutable row custody passed; final metrics pending",
+  "table": "client_dev.ashlar_entropy_20261006_r86.edge_stats_r130",
+  "version": 2,
+  "source_table": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "source_version": 19,
+  "qualification": "Same physical files, added entity_version/apply_batch_id skipping statistics on isolated clone only. Explicit eligible-key SELECT joins, not actual MERGE performance or production mixed-revision admission. Stable logical schema and Delta immutable-file semantics assumed; no payload rewrite."
+}
