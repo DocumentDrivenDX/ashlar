@@ -1,0 +1,1 @@
+{"label": "schema-serial-after-input-property_journal", "sql": "DESCRIBE TABLE client_dev.ashlar_entropy_20261006_r86.normalized_property_journal_r533", "parameters": null, "correlation": "/* ashlar closing_r546_worker3 schema-serial-after-input-property_journal */", "started_epoch": 1791414755.312109, "state": "returned", "query_id": "01f1c2a4-94e4-15ca-95d3-6490b3231d08"}

@@ -1,0 +1,11 @@
+{
+  "state": "Five closing-gate failures refuse without accepted partial cohort",
+  "controls": [
+    "shared client",
+    "missing role",
+    "missing commit ID",
+    "unsafe phase tag",
+    "changed commit despite same version"
+  ],
+  "qualification": "Local invalid-shape and same-version commit-ID guard checks; no native writes, worker fencing or performance evidence."
+}

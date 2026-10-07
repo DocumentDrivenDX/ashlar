@@ -1,0 +1,1 @@
+{"label": "schema-concurrent-input-current_replacement", "sql": "DESCRIBE TABLE client_dev.ashlar_entropy_20261006_r86.normalized_current_replacement_r533", "parameters": null, "correlation": "/* ashlar closing_r549_worker1 schema-concurrent-input-current_replacement */", "started_epoch": 1791415092.52238, "state": "returned", "query_id": "01f1c2a5-5de2-1636-aef1-ec70b509629b"}

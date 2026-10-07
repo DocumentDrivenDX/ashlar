@@ -1,0 +1,1 @@
+{"label": "schema-concurrent-input-source_record", "sql": "DESCRIBE TABLE client_dev.ashlar_entropy_20261006_r86.normalized_source_record_r533", "parameters": null, "correlation": "/* ashlar closing_r549_worker2 schema-concurrent-input-source_record */", "started_epoch": 1791415091.5184262, "state": "returned", "query_id": "01f1c2a5-5d48-1384-bc41-c6f31afc6ece"}

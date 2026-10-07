@@ -1,0 +1,30 @@
+{
+  "state": "All98 exact native statements/final metrics and three complete closing custody cohorts verified",
+  "cohorts": [
+    {
+      "phase": "serial-before",
+      "collection_s": 11.136714499999998,
+      "engine_sum_ms": 3468,
+      "caller_sum_ms": 11082.823500999999
+    },
+    {
+      "phase": "concurrent",
+      "collection_s": 3.3806991249999996,
+      "engine_sum_ms": 4345,
+      "caller_sum_ms": 10974.680625999987
+    },
+    {
+      "phase": "serial-after",
+      "collection_s": 11.439043667000004,
+      "engine_sum_ms": 3887,
+      "caller_sum_ms": 11370.804123000007
+    }
+  ],
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 40.06338125,
+  "qualification": "Read-only accepted sixth pins, ten current UUID/head/protocol/schema profiles, four owned clients; serial-before/concurrent/serial-after same queries with unique phase tags. No role/manifest writes, production fence or full ready-input clock."
+}

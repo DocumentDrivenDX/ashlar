@@ -1,0 +1,1 @@
+{"label": "schema-concurrent-input-tombstone", "sql": "DESCRIBE TABLE client_dev.ashlar_entropy_20261006_r86.normalized_tombstone_r533", "parameters": null, "correlation": "/* ashlar closing_r549_worker0 schema-concurrent-input-tombstone */", "started_epoch": 1791415092.5217931, "state": "returned", "query_id": "01f1c2a5-5de1-137e-b17d-131d6137b0df"}

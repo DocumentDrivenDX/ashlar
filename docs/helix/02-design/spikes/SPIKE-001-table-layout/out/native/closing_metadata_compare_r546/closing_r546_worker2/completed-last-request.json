@@ -1,0 +1,1 @@
+{"label": "schema-serial-after-input-source_record", "sql": "DESCRIBE TABLE client_dev.ashlar_entropy_20261006_r86.normalized_source_record_r533", "parameters": null, "correlation": "/* ashlar closing_r546_worker2 schema-serial-after-input-source_record */", "started_epoch": 1791414754.053377, "state": "returned", "query_id": "01f1c2a4-9424-1ba5-91a2-1d4539f24c38"}
