@@ -1513,7 +1513,16 @@
     "sql/range32-candidate-r308.sql": "41ad2c2e2bdc8e93f2d35223d9b8f6671f7f7e302e02c2de6917a172111dd03e",
     "out/range32-comparison-budget-r308.json": "cdfbaac9fe151c9d1e4233a166435cd675b220a9f25fee993bea7f167d57d6b6",
     "range32-comparison-design-r308.md": "2c9912d643a38567d90f301ea69ef4c200b13cfe431b2d9c7c99a708f0eb4568",
-    "range32_build_r309.py": "17a58609168cf1e4bd33b28136371c99673e26df903c4d16fc8de6aa0b98e7e3"
+    "range32_build_r309.py": "17a58609168cf1e4bd33b28136371c99673e26df903c4d16fc8de6aa0b98e7e3",
+    "range32_cancel_inspection_r312.py": "5e1afb7e5a0acfe556fca00ad1103d1a49f8976ef67134d97bb5b371349f9d0d",
+    "range32_pruning_r310.py": "762e6dab8f3f14e97592a8587caaa33b574a560d0ff1d010201f4453419e1cbd",
+    "range32_concurrent_r311.py": "52eab68aa2a01425cb1369ef62841407f05e041a10b9283a40741c63229377a4",
+    "range32-cancel-disposition-r312.md": "22a94a57809d7697cfc900c6f831646e6269a9cf7fa2dff456fc3cd8d39afbeb",
+    "out/native/ashlar_range32_build_r309/summary.json": "eb54dd01709dfac17b61da88d8cb84b4927ab6e3bf807ec778cec10b3ff0e262",
+    "out/native/ashlar_range32_build_r309/shared-history.json": "7dcbadd01b3718e00f532e7d0d2b1e18edde50b5814b902b17558a982cb21979",
+    "out/native/ashlar_range32_build_r309/statements.jsonl": "6ccc78b7f0aa292c6579a5b88756097353cb8db1ed47dcaedba7dc62f958f033",
+    "out/native/ashlar_range32_build_r309/cancel-audit.json": "f77e25c1c37f95019eea6f858ecac42c4d37ea7d3b7bfc755468cdda75f91ec7",
+    "out/native/ashlar_range32_build_r309/inspection/query-history.json": "aa820fe3ae220286a0a643b2e6c0c8c126f73399a84cfac2b46dc437b91f7a41"
   },
   "evidence": {
     "ddl": {

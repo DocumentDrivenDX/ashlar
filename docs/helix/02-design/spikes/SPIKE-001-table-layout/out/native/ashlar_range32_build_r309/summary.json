@@ -1,0 +1,28 @@
+{
+  "state": "Stopped; inspect original native handles without replay",
+  "source_sha256": "8a71556e50073d92c5446ae0a2135aa9c5e2e57f4b23eaf334879a1faa283e27",
+  "budget_sha256": "cdfbaac9fe151c9d1e4233a166435cd675b220a9f25fee993bea7f167d57d6b6",
+  "table": "client_dev.ashlar_entropy_20261006_r86.edge_range32_r308",
+  "parent": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.maintained_edge_r287",
+    "version": 4,
+    "id": "780781cb-9c42-434b-857c-dcddc663e735"
+  },
+  "bounds": {
+    "read_bytes": 400000000000,
+    "write_remote_bytes": 80000000000,
+    "spill_to_disk_bytes": 10000000000,
+    "whole_wall_s": 2400,
+    "statement_cancel_after_s": 180,
+    "observation_s": 200
+  },
+  "commits": [],
+  "checks": {},
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "error": "{\"state\": \"CANCELED\"}",
+  "wall_s": 198.43339433300002
+}
