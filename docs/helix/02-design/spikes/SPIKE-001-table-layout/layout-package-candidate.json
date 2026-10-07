@@ -1399,7 +1399,8 @@
     "out/native/ashlar_normalized_delta_stage_r275/summary.json": "a9b93dab32082c0f10eb8b322b223c7d5866b2ebe87cc993a0ee1af5735ba989",
     "out/native/ashlar_normalized_delta_stage_r275/audited-summary.json": "aef4fa9d9ff1a984b0fe2487b8941f2c2ec662adaf774eef3ff907cab542c8f0",
     "out/native/ashlar_normalized_delta_stage_r275/statements.jsonl": "e2f3e76944827c5d4dc358364ed3d0d62efa72c83b68a0c9f179417983ad9363",
-    "out/native/ashlar_normalized_delta_stage_r275/shared-history.json": "f5f2dcc4836330807e2502a006401f59b52e19de8b7719773ab728bdcd5e3f98"
+    "out/native/ashlar_normalized_delta_stage_r275/shared-history.json": "f5f2dcc4836330807e2502a006401f59b52e19de8b7719773ab728bdcd5e3f98",
+    "normalized_predecessor_r279.py": "a884ae41a700d0f9eb3c32d1a40e22e5129535512ac25ecfba5f43cdba72e27a"
   },
   "evidence": {
     "ddl": {
