@@ -2586,7 +2586,15 @@
     "out/native/file_target_merge_resume_r578/combined-history.json": "15621cb0e07d36ed1e3c01e469688ae361cb66c845ff7cf1635ffa884588f704",
     "out/native/file_target_merge_resume_r578/statements.jsonl": "da9e49472e52f905d90748dc10239a08b4d3418b146e528ac5179868a2862c96",
     "out/native/file_target_merge_resume_r578/query-history.json": "20781c5e7bd608b0587898107ea5ca1ff266f9a922a91d3bcc3aa243ac744780",
-    "out/native/file_target_merge_resume_r578/completed-last-statement.json": "a68ba651014c8a41a32d591808b70ba9b7e58cf8e024af4cbde0ff0472272030"
+    "out/native/file_target_merge_resume_r578/completed-last-statement.json": "a68ba651014c8a41a32d591808b70ba9b7e58cf8e024af4cbde0ff0472272030",
+    "file_target_post_reads_r581.py": "fc645bc8f5c05412f38860fc2c21d7f320faef330cfef51051cec883a1d6be47",
+    "file_target_post_audit_r582.py": "82a3962256229c1da4d47dd983bf5c54d361d61ed22600e01444a8404a0cf0d7",
+    "out/file-target-post-audit-r582.json": "a3151ec1d616820239ba457ccb1b14de29b52ab6f875b9e59f1f808d5b77c2e0",
+    "file-target-post-disposition-r583.md": "3c1101baa4d037bab86d8aa16026811a2a5573b8021d302302464063b9ece19b",
+    "out/native/file_target_post_reads_r581/summary.json": "79ed8cebaded0fd148c21b594a5aeba9dffdb28697c4da3c9c160865bc46b66b",
+    "out/native/file_target_post_reads_r581/shared-history.json": "549ae053e5192b6f9f0f3556901372fd4cee35b38f7c44eda45ff2e1e15c309f",
+    "out/native/file_target_post_reads_r581/statements.jsonl": "1f974e4667d596ad00b837c89fb08ce2e38af79b6849e6702832f0e873600f68",
+    "out/native/file_target_post_reads_r581/completed-last-request.json": "94881c8957bb15c0ba1074c3d6809b094fe1e8269b83252be646a3af0043cf44"
   },
   "evidence": {
     "ddl": {

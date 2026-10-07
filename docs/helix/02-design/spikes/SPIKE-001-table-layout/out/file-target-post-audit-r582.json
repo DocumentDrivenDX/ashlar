@@ -1,0 +1,56 @@
+{
+  "state": "All43 exact native statements and32 changed/deleted responses match independent fourth-batch carriers",
+  "groups": {
+    "file64-0": {
+      "queries": 8,
+      "caller_p95_ms": 367.3455420000007,
+      "engine_p95_ms": 92,
+      "compile_p95_ms": 164,
+      "read_bytes": 515962992,
+      "remote_queries": 0
+    },
+    "file64-1": {
+      "queries": 8,
+      "caller_p95_ms": 397.5779589999995,
+      "engine_p95_ms": 94,
+      "compile_p95_ms": 184,
+      "read_bytes": 515962992,
+      "remote_queries": 0
+    },
+    "file256-0": {
+      "queries": 8,
+      "caller_p95_ms": 373.14591700000045,
+      "engine_p95_ms": 87,
+      "compile_p95_ms": 168,
+      "read_bytes": 1007788839,
+      "remote_queries": 0
+    },
+    "file256-1": {
+      "queries": 8,
+      "caller_p95_ms": 420.60362499999826,
+      "engine_p95_ms": 111,
+      "compile_p95_ms": 180,
+      "read_bytes": 1007788839,
+      "remote_queries": 0
+    }
+  },
+  "io": {
+    "file64": {
+      "read_bytes": 1031925984,
+      "remote_bytes": 0,
+      "median_files": 2.0
+    },
+    "file256": {
+      "read_bytes": 2015577678,
+      "remote_bytes": 0,
+      "median_files": 2.0
+    }
+  },
+  "costs": {
+    "read_bytes": 3051992931,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 25.506035042,
+  "qualification": "Six updated/two deleted fourth-batch identities, two passes, matched64/256 pinned 2.5M-row private fixtures. Result cache disabled; storage cache and fixed warm history remain. No cold-data, concurrent, publication or billion admission. Nearest-rank p95 over eight samples is the maximum; not a production p95."
+}
