@@ -1,0 +1,1 @@
+{"label": "final-history", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.authority_generation_r371", "parameters": null, "correlation": "/* ashlar ashlar_authority_generation_r371 final-history */", "started_epoch": 1791390591.9457421, "state": "returned", "query_id": "01f1c26c-5267-1e20-8352-13e1863c78f7"}
