@@ -2183,7 +2183,11 @@
     "fifth_changes_r470.py": "6a76b1918db1337368663444a7c22608d75cdb677eb38e388c04c3c2a2f8d3d8",
     "fifth-input-disposition-r474.md": "c8f955d6d3eac5829b399ad14747809e22ff03e86ea067a0313bd2568d4c7687",
     "out/fifth-canonical-tomb-r473.json": "3ddfae39bc28cd2d0f3fb2a1948c1b119771c8b1f24114941b104fb979a22d5a",
-    "out/fifth-batch-oracle-r466.json": "22a158ed75226bf87eccf0d2af8d656f332c0b3097734738568620139f043193"
+    "out/fifth-batch-oracle-r466.json": "22a158ed75226bf87eccf0d2af8d656f332c0b3097734738568620139f043193",
+    "fifth_batch_upload_r475.py": "9bf4fffb70abe4766c411c74dae6c81bdad90aeaf0fb015f5f5b8d9bcb56e84b",
+    "fifth_transfer_audit_r476.py": "ce940f9aba2adfa695a7ca05e2d868b00b185bc8354a4b4ff0fa82aa382aec83",
+    "out/native/ashlar_fifth_batch_upload_r475/summary.json": "e02927fbba1a9da31c9b6d2e17f9be6cc5e73f2662a6490e17c612ac0f934fbf",
+    "out/native/ashlar_fifth_batch_upload_r475/audited-summary.json": "4b7fe2e57d89127e5c1bf7209b1966776975683f6fb6cfa53c947e57ecb3df52"
   },
   "evidence": {
     "ddl": {
