@@ -2502,7 +2502,11 @@
     "out/native/closing_metadata_native_r549/closing_r549_worker3/statements.jsonl": "ad665fdca5657f45c492185ea7cb7c6959a627583a52487b334f44c7d13b0b49",
     "out/native/closing_metadata_native_r549/closing_r549_worker3/completed-last-request.json": "9173ee26255b3b93413c3812633326946ae7194375a1a9a1f9b5faf45a241e92",
     "out/native/closing_metadata_native_r549/closing_r549_worker2/statements.jsonl": "592f211572f790b54f0d8dc610fd40e056a4ea97d175ffb9bd100b61c115b46c",
-    "out/native/closing_metadata_native_r549/closing_r549_worker2/completed-last-request.json": "2c6d49740fe4d273152d66be6dde2a482bb89a2d0f9e38dc22f6c2007d81d4ba"
+    "out/native/closing_metadata_native_r549/closing_r549_worker2/completed-last-request.json": "2c6d49740fe4d273152d66be6dde2a482bb89a2d0f9e38dc22f6c2007d81d4ba",
+    "publisher_commit_closing_r553.py": "8a3257ccec59aa2d2f694d70acc5726768b1131ba7b06f2ba9c1c2c294060d81",
+    "publisher_commit_closing_controls_r554.py": "e05a08ead91fa8fdb7eb096999fde3e3abec74dfef8b1778fcc066efe59bb9e2",
+    "out/publisher-commit-closing-controls-r554.json": "80f8558f49b9ef49460cf8591b4f0920efa5e6d8aa46bac21c5b7441575f5458",
+    "commit-closing-disposition-r555.md": "956872ea2a67233a8ea2075e6440c9ac9aac381f447d44173ea8f0a1a765358d"
   },
   "evidence": {
     "ddl": {
