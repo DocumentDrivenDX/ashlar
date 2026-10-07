@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "8ec928bee2845fa8983ad07d47e5c80542c3bb8ebd16e47050f2339a848e678f",
+    "scale-experiment-plan.md": "71a78a2823372c60a13d85430122506f86631a142378c631dc8312f253bb3137",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1230,7 +1230,11 @@
     "out/native/ashlar_scale_growth_r239/summary.json": "5c9d288aef849900caf6e71dacff76e85e4ec7e0fa89a464a1511f4c14d801cd",
     "out/native/ashlar_scale_growth_r239/shared-history.json": "b4d85bc3cf7e388e4b2c0754b2f690c455bab8ae9724646d5565eb93fd023c50",
     "out/native/ashlar_scale_growth_r239/statements.jsonl": "d643f73e1b010ca8ac7714197d9aad4898e291eaacb9723945b49a2b381e2f14",
-    "out/native/ashlar_scale_growth_r239/audited-summary.json": "c3f628b7c4acb1dfb2be773abfa7558ff7fa5ad92df1d795590cb865021241ff"
+    "out/native/ashlar_scale_growth_r239/audited-summary.json": "c3f628b7c4acb1dfb2be773abfa7558ff7fa5ad92df1d795590cb865021241ff",
+    "growth_pruning_r240.py": "f754a71f290926e59a997f45b873646f3d249818a0475fb918c4c433b5e5cf59",
+    "out/native/ashlar_growth_pruning_r240/shared-history.json": "01d21db89969dd47c3dfc28fddcdb6403bfef16c93a5c6ee8823e8a90b9fb0c7",
+    "out/native/ashlar_growth_pruning_r240/statements.jsonl": "c7df76a8e6168ce9f2860a9098a5222f672fc9abd097a80278ec9f30bb061b02",
+    "out/native/ashlar_growth_pruning_r240/summary.json": "d6d89c9489ee4a4f61547b953f7c19336764dbb98a23e5ce1b4b2d767a2ae611"
   },
   "evidence": {
     "ddl": {

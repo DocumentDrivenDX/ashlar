@@ -1,0 +1,153 @@
+{
+  "state": "All20 exact full-field points and complete400k live-file ranges verified",
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+    "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+    "version": 1,
+    "rows": 400000
+  },
+  "reads": [
+    {
+      "ordinal": 88484,
+      "id": "88485",
+      "statement_id": "01f1c223-bffa-1fdc-8c36-0a7d0b587796"
+    },
+    {
+      "ordinal": 269926,
+      "id": "269927",
+      "statement_id": "01f1c223-c036-1d7b-aaf6-1bc5ab78e9ee"
+    },
+    {
+      "ordinal": 172608,
+      "id": "172609",
+      "statement_id": "01f1c223-c071-1ab7-84bc-151ca882f3ca"
+    },
+    {
+      "ordinal": 397904,
+      "id": "397905",
+      "statement_id": "01f1c223-c0a7-1975-a7a6-4591857c6248"
+    },
+    {
+      "ordinal": 196156,
+      "id": "196157",
+      "statement_id": "01f1c223-c2eb-1d18-acb5-1bee8ef36e01"
+    },
+    {
+      "ordinal": 272275,
+      "id": "272276",
+      "statement_id": "01f1c223-c324-1a21-b24b-81c01cfe61c9"
+    },
+    {
+      "ordinal": 91415,
+      "id": "91416",
+      "statement_id": "01f1c223-c35a-1f50-9321-593e2b949902"
+    },
+    {
+      "ordinal": 309162,
+      "id": "309163",
+      "statement_id": "01f1c223-c391-1d2e-89ea-14eeb124e250"
+    },
+    {
+      "ordinal": 120321,
+      "id": "120322",
+      "statement_id": "01f1c223-c627-1032-845c-ba016abc5ad7"
+    },
+    {
+      "ordinal": 284088,
+      "id": "284089",
+      "statement_id": "01f1c223-c65e-15d0-b5c7-e88726943a6a"
+    },
+    {
+      "ordinal": 119147,
+      "id": "119148",
+      "statement_id": "01f1c223-c693-138f-909f-4b4d1bb1a984"
+    },
+    {
+      "ordinal": 331733,
+      "id": "331734",
+      "statement_id": "01f1c223-c6c9-18d7-a379-abbd79afdb6b"
+    },
+    {
+      "ordinal": 96635,
+      "id": "96636",
+      "statement_id": "01f1c223-c90a-1986-b16c-51c5167a7915"
+    },
+    {
+      "ordinal": 205155,
+      "id": "205156",
+      "statement_id": "01f1c223-c944-1313-9cad-d7a6020ad27f"
+    },
+    {
+      "ordinal": 140808,
+      "id": "140809",
+      "statement_id": "01f1c223-c978-11b7-9042-47a3708f7ff3"
+    },
+    {
+      "ordinal": 301242,
+      "id": "301243",
+      "statement_id": "01f1c223-c9b0-1501-b95b-f88bd95074d8"
+    },
+    {
+      "ordinal": 186743,
+      "id": "186744",
+      "statement_id": "01f1c223-cbe5-1247-8e32-a12114c00c2e"
+    },
+    {
+      "ordinal": 334276,
+      "id": "334277",
+      "statement_id": "01f1c223-cc20-1512-adbb-8e3dbee26b65"
+    },
+    {
+      "ordinal": 155403,
+      "id": "155404",
+      "statement_id": "01f1c223-cc57-1d6c-aded-bcbbd1cafc0d"
+    },
+    {
+      "ordinal": 255802,
+      "id": "255803",
+      "statement_id": "01f1c223-cc90-10dd-86e9-e2fcad15aac6"
+    }
+  ],
+  "files": [
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/6911f0c1-ff51-4c31-9fb3-fd021341c7f9/part-00000-e392dcb2-8a28-494d-af4b-8a3b7f8239a2.c000.zstd.parquet",
+      "162101976",
+      "200000",
+      "00001615518a05375be95d5ed8e3c8b06e3132e17fb6ec766131f17fedc3b362",
+      "ffff6f7aefd513636d79ae9178c9d9231bd9cc745990e12f46960b9a0a050608"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/6911f0c1-ff51-4c31-9fb3-fd021341c7f9/part-00000-3773c6ee-6979-472a-9c9b-95992da688d0.c000.zstd.parquet",
+      "82174560",
+      "103840",
+      "7b14a666d2162b27e97735d33974541ecd958087964fbe657daaa64c86a12354",
+      "ffffed9b9d7b0b8324cb12109e8a140e14e980fdd9b2d239c57ef2bca0823719"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/6911f0c1-ff51-4c31-9fb3-fd021341c7f9/part-00001-7cfb0943-c309-415d-881c-70d5e0d82102.c000.zstd.parquet",
+      "76541427",
+      "96160",
+      "00002da2cb388eab096ae6f0563498fb598807f5e275ff6b98877f83acdb8c7c",
+      "7b147d41c3427e89644adcc981c334ec5aff4537ef2be69f25d4c146a258701b"
+    ]
+  ],
+  "hash_domain_spans": [
+    0.9999900696841844,
+    0.5192150596516458,
+    0.48077867156101894
+  ],
+  "costs": {
+    "read_bytes": 1984574359,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "point_metrics": {
+    "caller_p95_ms": 385.968333000001,
+    "execution_time_ms_p95": 119,
+    "compilation_time_ms_p95": 163,
+    "read_bytes_p95": 162615383,
+    "read_files_count_p95": 1,
+    "remote_queries": 0
+  },
+  "qualification": "Pinned400k staging node snapshot1, ten SHA-ranked ordinals from each appended range, interleaved; full17fields. File extrema are live values, not stored Delta statistics. No controlled cold/service p95, graph publication, causal clustering or billion admission; metadata scan and prior validation may warm cache. Staging omitted64MiB target, actual emitted files measured."
+}
