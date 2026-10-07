@@ -1,0 +1,276 @@
+{
+  "state": "Complete node/edge raw and history digests pass bounded blocks and invalid controls",
+  "checks": {
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r226",
+      "uuid": "8c33db81-1ba9-49a2-b241-e9bac87a02fb",
+      "version": 0,
+      "groups": [
+        [
+          "0",
+          "1024",
+          "d0db83a9fe950a5ad8bdf33337f5338d4346c19f04c3811afa305f5584df2edd"
+        ],
+        [
+          "1",
+          "1024",
+          "51d83faa7d930c81db6ef77a7cb5d929eec2152ac021f0ecc69b81ad7d447194"
+        ],
+        [
+          "2",
+          "1024",
+          "6c3396e9a2a4074c0542472b02dbccd6e1effd29f1fd5235bb1f5b00d560825a"
+        ],
+        [
+          "3",
+          "1024",
+          "f3e01e7b919018cc9c12d018f1b7c67cab9d57e8bf50300f3d5659b2f527a9d2"
+        ],
+        [
+          "4",
+          "1024",
+          "816b4f7a9ac73242d35a36e6caaabad4d6553ef8791cc9646e40dfe35567bbea"
+        ],
+        [
+          "5",
+          "1024",
+          "34e0237cd786014e031b13aca5462e42af4635bd78a857697d378f3aafa82a28"
+        ],
+        [
+          "6",
+          "1024",
+          "4d9e81157d658246d0dc9c71b47ee162ea36aac9a460a6f0ecfaf3a3aa30a0a8"
+        ],
+        [
+          "7",
+          "1024",
+          "6c6230063fc2f736a367945b339cfe3b8eb970a99969dc278741c08272a4e89d"
+        ],
+        [
+          "8",
+          "1024",
+          "883c79e3cb109fd9331e9912118a202d505b066e0a110a096bbb46c08b72424a"
+        ],
+        [
+          "9",
+          "1024",
+          "49218913185e0fdf70c48af1d674b732da8f41325c1451b88a309f42d4984079"
+        ],
+        [
+          "10",
+          "1024",
+          "862d7f4367fb330024710ee314b25112f7b27d0c9afdcd9da715c217aa8c27bb"
+        ],
+        [
+          "11",
+          "1024",
+          "519b0e8e2dbe5a4fe27f0ac415c1e78d37aee4521cb1cd56245a3739c8e540cf"
+        ],
+        [
+          "12",
+          "1024",
+          "c76a19c2aaab20430f8e635b34fc1e858037c1ae4f6f61e16dd45e6aac17ae65"
+        ],
+        [
+          "13",
+          "1024",
+          "deeee43a16c8c9d5e69135eb6e89eb8892ecad17eb1ea2dec194563636528d74"
+        ],
+        [
+          "14",
+          "1024",
+          "5965a562e97de75b9c1315bba5555d0f6b60aa1ed32eb189397896162e827043"
+        ],
+        [
+          "15",
+          "1024",
+          "9cb6d1c9f551b7e58105afd17009f2a0fbfdc1377d5ebb557e3edfb03ee2ab1c"
+        ],
+        [
+          "16",
+          "1024",
+          "f04ad6cbef1ebc16356a564a04fa383a8857716933144a502df122a155a0fe26"
+        ],
+        [
+          "17",
+          "1024",
+          "7e481e62238adc6a8ce0bf1a8ad85af62bdec83f884057b850f78efc46c9c64d"
+        ],
+        [
+          "18",
+          "1024",
+          "c2fece73cd058c2058595efddfe676050811312b549d991c0b1098a0bdd7ede8"
+        ],
+        [
+          "19",
+          "1024",
+          "2731b69ff10a3e9c5e04275822b7b3a69aae01fb4ac615617dda47b725547f0a"
+        ],
+        [
+          "20",
+          "1024",
+          "619ce86e714013ce6d00eccb1e2f6240ab2e5ce3842a5ba4459856e0e81ff210"
+        ],
+        [
+          "21",
+          "1024",
+          "77fe07e1492d6f22f4f2a7b2274af2ce588f6a293de66df1b3309f5891124c5e"
+        ],
+        [
+          "22",
+          "1024",
+          "47ee6f7037cddce45b1b3fe7d4f861314ab5a35a27d5a89a43708f8bef048a43"
+        ],
+        [
+          "23",
+          "1024",
+          "20de1476277e709744e8a707c0b67a96a06b92a5bf24ff1acc1b0be5a49459db"
+        ]
+      ],
+      "rows": 24576,
+      "coverage": "Three disjoint8-group blocks; sum equals full same-snapshot count, all independent fields match"
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r226",
+      "uuid": "6c883f58-81e1-493f-a456-aee6556851e6",
+      "version": 0,
+      "groups": [
+        [
+          "0",
+          "4096",
+          "4c729fd1b182f396b6b6b1ac5c4d169f741f8cdec1871bbe73e735b90e749816"
+        ],
+        [
+          "1",
+          "4096",
+          "9bb64d72037a5eae697f8aec997e5c78a126b6d64a196d0ba5bd2fb3aeac3e71"
+        ],
+        [
+          "2",
+          "4096",
+          "f3853e2d5640470456352cc3eef8ceb178922f874a0d7cdd62ca843f3dcd5d28"
+        ],
+        [
+          "3",
+          "4096",
+          "61f3b79757031d1b89a737cfb7c96561e1d49b3950c4d68b574305f108ffd73d"
+        ],
+        [
+          "4",
+          "4096",
+          "de2922ac94409ddf88e968ab5bfbbc66ca161b0bc72f04f3a1bdf5cb59bcbb87"
+        ],
+        [
+          "5",
+          "4096",
+          "b8cd0ab918dabd89a19eb3c08bec84c2d1070020697e5af05951f8cf0ed50a0a"
+        ],
+        [
+          "6",
+          "4096",
+          "a45b11aa3942689576a08da36d470d9da8fab0c1939d0e23c6e82865b6d5db36"
+        ],
+        [
+          "7",
+          "4096",
+          "e29794aca5f22333f7406f5792f92b325a4dd428451e2df34970fc4803dd1c28"
+        ],
+        [
+          "8",
+          "4096",
+          "9faf19dddb7526df45090397b3b4e13d71b0c7d4f5947df90a8f5d859df6a2de"
+        ],
+        [
+          "9",
+          "4096",
+          "32743ed04bbc9eff6dbba7de8c18baffcb711a03476f2b44a11cc35ef35b1962"
+        ],
+        [
+          "10",
+          "4096",
+          "6c3d3f1b3c2d1ccc209eae724208afac047a308f0d38ac22e3cc628e9f9b1e09"
+        ],
+        [
+          "11",
+          "4096",
+          "0a7794adb951ded40267e584df130fe73a1a40710639e3cfefac6747dde2dc2b"
+        ],
+        [
+          "12",
+          "4096",
+          "d7de5f2fe55bc75f6454b1bdffd6f6982e8a91f2e7a47bca51f9331a5a66d722"
+        ],
+        [
+          "13",
+          "4096",
+          "e6e27dcc2f13544c1d46ebffeef22c6f6dd4e422a97d8852508cfc51f2c443e2"
+        ],
+        [
+          "14",
+          "4096",
+          "b912821e0be124149b977d79f7ff38a7e1427254e8f14239129a90a4d14a6551"
+        ],
+        [
+          "15",
+          "4096",
+          "ef948ef8d91015e65724cb1109daa923ebb9333c241e23e71f0eda0dab6fec13"
+        ],
+        [
+          "16",
+          "4096",
+          "65ae9e735286b805f41f7fb57ffbc371e690f5209a379edb62c2459d4cc832c5"
+        ],
+        [
+          "17",
+          "4096",
+          "5525444d9fc8c5e00ee69b9d602d69562be547c0eff315deb8bd658217518444"
+        ],
+        [
+          "18",
+          "4096",
+          "6fc4d1a2dd31b35f8a0632b1f69e7faf0ac5f4ffe030f94bb16028b61bca518b"
+        ],
+        [
+          "19",
+          "4096",
+          "6d2ee3a6c3827d5d3eb9881dff7d9ee04eff41e73c4b3d09abde5e4dea13bba9"
+        ],
+        [
+          "20",
+          "4096",
+          "ef926ad9486239be57efe2db4b90e67ab6c972051981a2135404f3b434009a24"
+        ],
+        [
+          "21",
+          "4096",
+          "34b1ad36f53418a41c594789a9ae82dd214bcd84dc805f27f0b7ac4d11a02895"
+        ],
+        [
+          "22",
+          "4096",
+          "0458c537a27eb335f136497d338aa22579dae5053840e31897b27671c8fa5dc9"
+        ],
+        [
+          "23",
+          "4096",
+          "948c0194d48f7864383d5cd9ee3907c5d0b2f47040d1e1f76d7904ce7acbf403"
+        ]
+      ],
+      "rows": 98304,
+      "coverage": "Three disjoint8-group blocks; sum equals full same-snapshot count, all independent fields match"
+    }
+  },
+  "bounds": {
+    "read_bytes": 1000000000,
+    "write_bytes": 0,
+    "statement_s": 180,
+    "wall_s": 600
+  },
+  "costs": {
+    "read_bytes": 118813431,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 36.573936083999996,
+  "qualification": "Existing4096-node/20480-edge snapshot0, independent local full-field oracles; full count plus every disjoint block proves no excluded rows under SHA256 assumption. Blocks cap100 groups, width100k entities; native total memory/scan cost still grows. Small protocol evidence, not2M edges/1B admission or performance gate."
+}

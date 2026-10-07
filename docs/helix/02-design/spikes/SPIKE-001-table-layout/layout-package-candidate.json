@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "a83f44d4f274cbe08132b82f6b81cef484252d34869804be769e3d130ba54682",
+    "scale-experiment-plan.md": "052a9a9e92e346696fa30d2e470e163a11ab1075efa80996b5535506910e4974",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1276,7 +1276,14 @@
     "out/native/ashlar_scale_growth_r248/audited-summary.json": "fd5a6e60ce758f8de254c971740c932d9450c95ad6c80d4efbaa1faa611d3f54",
     "out/native/ashlar_scale_growth_r248/shared-history.json": "4a0103fa06361f5f08c9b76a747e1de46e46bbd79af327283470d7a725f91690",
     "out/native/ashlar_scale_growth_r248/statements.jsonl": "3c4c62c357cb9c545ea4a1f1dfefcbc1ec599e7a76bce2685a33e7f4b60ac5ed",
-    "out/native/ashlar_scale_growth_r248/summary.json": "309782337c2be462c015ca9b41a84d65288e83802a9fdfe09bf567f60204d608"
+    "out/native/ashlar_scale_growth_r248/summary.json": "309782337c2be462c015ca9b41a84d65288e83802a9fdfe09bf567f60204d608",
+    "mixed_grouped_verification_r249.py": "5a60b52bd833faab1518d7b27d2aa90e2d6caae0b2b5bf18cc68dbaec1792cad",
+    "native_mixed_groups_r249.py": "a5e30a7a2f30b04026efd5f7db027024a01a5379e535c79bca111aa0ad447691",
+    "edge_admission_r249.py": "46085535a6ffe1a156ef3b051b949b688bfbacad368e0394f3f0be07fa9993ec",
+    "out/edge-admission-r249.json": "23394250a1e521414890b7dd6f7d5dd61f88804665cf149d952e12c381064b49",
+    "out/native/ashlar_mixed_groups_r249/shared-history.json": "e986ec8405f609866dda8b0c124223c83a61eb36345ff73970f52ffc131500f7",
+    "out/native/ashlar_mixed_groups_r249/statements.jsonl": "4fffaa19a8bef57f116532af2be72068b3adf2e4462bfe486122bd87f1d509cb",
+    "out/native/ashlar_mixed_groups_r249/summary.json": "024fec48887c35950f2bad9ebef9b127d4bca98cc8118a63ae024dd48dd834f0"
   },
   "evidence": {
     "ddl": {

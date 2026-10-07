@@ -1,0 +1,30 @@
+{
+  "format": "ashlar-first-edge-resource-proposal/1",
+  "source_sha256": {
+    "out/native/ashlar_mixed_materialize_r226/summary.json": "173edc8161fe1af65f13934e4557c592b8656350fcfb4d3d83922b0e6701021b",
+    "out/native/ashlar_scale_growth_r248/audited-summary.json": "fd5a6e60ce758f8de254c971740c932d9450c95ad6c80d4efbaa1faa611d3f54"
+  },
+  "node_prefix": 8000000,
+  "edge_range": [
+    0,
+    2000000
+  ],
+  "planned_edge_prefix": 40000000,
+  "owner_final_nodes": 1000000000,
+  "owner_final_edges": 5000000000,
+  "same_width_new_role_write_arithmetic": {
+    "edge_current": 1618464746.09375,
+    "source_record": 1708286865.234375,
+    "property_journal": 1484034016.9270833,
+    "adjacency_forward": 11220800.78125
+  },
+  "new_roles_1_5x_write_sensitivity": 7233009643.5546875,
+  "iteration_write_ceiling": 12000000000,
+  "iteration_read_ceiling": 80000000000,
+  "phase_reserve": 3000000000,
+  "iteration_wall_s": 900,
+  "statement_cancel_s": 180,
+  "existing_growth_active_bytes": 18762919244,
+  "active_after_1_5x_new_write_arithmetic": 25995928887.554688,
+  "qualification": "Small mixed calibration, shared raw/history widths average nodes+edges, not pure-edge future measured width; ordering/compression/retention may differ.80GB read ceiling explicitly accommodates fresh prior roles, combined10M raw/40M event grouped scans, carrier reuse, typed endpoint joins and control scans.12GB writes with3GB phase reserve. No bill/throughput/full40M/billion admission or publication inferred."
+}
