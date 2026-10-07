@@ -177,3 +177,21 @@ under another batch, and this synthetic history does not qualify that authority.
 Keep exact membership checks, predecessor coverage and bootstrap/periodic global
 audits. Apply the predicate in the next real synthetic publication timing;
 do not subtract this isolated saving from r96 and claim a new freshness result.
+
+[r99 actual publication](out/native/ashlar_filtered_publication_20261007_r99/audited-summary.json)
+applies the batch predicate with a persistent uncached session and extra envelope
+metadata checks. All three publications pass; one terminal metadata-column read
+failure is recovered before canonical apply without repeating writes. The first
+batch includes recovery and cannot substantiate clean latency; the remaining
+full processing samples are 61.62/66.47 s. No freshness p95 or sustained-rate
+admission follows. Raw capture and journal append remain serial 12–13 s phases.
+
+The native journal's explicit data-skipping statistics omit apply_batch_id.
+Its batch-filtered equality checks read 68/86/100 files with no file pruning as
+retained history grows. Test adding the batch column to statistics and recomputing
+existing file statistics as a physical tuning candidate, preserving logical
+columns, source-feed/cursor semantics and publication versions. Track the
+maintenance commit and actual before/after pruning, bytes and parity timings;
+do not assume metadata configuration alone retroactively indexes existing files
+or that mixed-batch compaction guarantees perfect pruning. Only a new full-path
+run can qualify any resulting publication latency.

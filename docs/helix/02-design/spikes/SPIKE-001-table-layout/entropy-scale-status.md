@@ -1,5 +1,48 @@
 # Higher-entropy scale and GraphFrames iteration
 
+## Actual filtered publication follow-up
+
+[Audited r99](out/native/ashlar_filtered_publication_20261007_r99/audited-summary.json)
+completes three new causal 100k-member hot-set publications. Actual vectors bind
+current 10/11/12 and raw/journal 8/9/10, with nodes/tombstones 0. Every batch passes
+all 20 affected carrier fields, lexical old/new property preservation, exact
+journal multiset equality, raw payload/digest/cursor and independent timestamp
+checks. Added outer-envelope schema revision, batch, record kind and non-null
+received-time checks pass. Each MERGE updates exactly 100k rows with zero copied,
+inserted or deleted rows. All exact statement metrics are final and uncached.
+
+The first batch stopped on a terminal metadata-column compilation error before
+canonical apply: the added predicate used record_type/captured_at instead of
+record_kind/received_at. Recovery corrects that read and reuses completed steps
+only after exact SQL equality. Audit verifies one successful execution of every
+stage CREATE, raw append, journal append, MERGE and manifest append. No writes
+were repeated. Its 89 s processing interval includes the recovery gap; schedule
+offsets are reconstructed from the original wall-clock epoch, so no clean
+freshness distribution is claimed.
+
+The uninterrupted second/third batch processing intervals are **61.62/66.47 s**.
+Batch-scoped raw parity takes 6.00/6.08 s; raw/journal appends each take about
+12–13 s. These are actual full-path samples, not a p95 or sustained admission.
+Compared with r96, transport changes from REST to a persistent uncached session,
+raw parity is batch-scoped, extra metadata gates are added and retained history
+has grown. Do not attribute all timing differences to one predicate.
+
+Journal parity takes 7.01/7.55/12.42 s, with 68/86/100 files read and zero files
+pruned. The observed journal has 43 active files / 4,476,500,707 bytes after the
+run; configured file statistics cover source_feed/source_epoch/source_position/id,
+omitting apply_batch_id. A batch statistic is the next bounded physical-layout
+candidate; faster last-batch validation is not proved. This is distinct from
+changing the logical journal or promising pruning after mixed-batch compaction.
+
+The warehouse is observed after the run as unchanged serverless PRO 2X-Small,
+one min/max cluster, ten-minute auto-stop. No resize/provision operation was
+performed and attributable dollars remain unqualified. The persistent session
+sets and reads back a 180-second statement execution timeout and disabled result
+caching; [session timeout semantics](https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/parameters/statement_timeout)
+bound execution rather than all controller/queue wall time. Input preparation,
+real source completeness/fencing/acknowledgement, reader contention, sustained
+10k/s or 100k/s burst admission and 1B/5B operation remain unqualified.
+
 ## Validation tuning after the scheduled run
 
 [r97](out/native/ashlar_raw_validation_20261007_r97/persistent-uncached/audited-summary.json)
