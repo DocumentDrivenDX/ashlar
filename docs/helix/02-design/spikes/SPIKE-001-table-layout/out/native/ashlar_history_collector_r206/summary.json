@@ -1,0 +1,7 @@
+{
+  "state": "Shared collector resolves all saved real publication IDs with final native histories",
+  "queries": 38,
+  "pages": 1,
+  "get_wall_ms": 722.6674590000001,
+  "qualification": "GET-only read of historical IDs, zero SQL submissions. Measured collection latency is one observation, not live publication improvement. No relaxation of exact SQL/result/native status requirements."
+}

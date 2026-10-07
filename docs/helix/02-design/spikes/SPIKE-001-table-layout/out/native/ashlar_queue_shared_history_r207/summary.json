@@ -1,0 +1,800 @@
+{
+  "state": "completed one isolated overlapped-write-and-validation property publication; native history audit pending, no sustained admission",
+  "batches": [
+    {
+      "batch": "r189-b1",
+      "rows": 100000,
+      "nominal_arrival_rate": 10000,
+      "first_arrival_offset_s": 0,
+      "complete_input_ready_offset_s": 10,
+      "publisher_start_offset_s": 10.00345304199999,
+      "queue_wait_s": 0.0034530419999896367,
+      "source_clock": "uniform modeled per-record arrivals within controller window; complete pre-staged input released at window end",
+      "source_stage": "client_dev.ashlar_entropy_20261006_r86.schedule_r189_1",
+      "stage_version": 0,
+      "old_current_version": 0,
+      "raw_journal_write_wall_s": 13.879134167000004,
+      "isolated_current_write_wall_s": 10.175672957999993,
+      "append_pair_wall_s": 24.054810500000002,
+      "origin_proof_wall_s": 0.46200579199999936,
+      "origin_proof": {
+        "feed": "synthetic",
+        "epoch": "schedule-r189",
+        "members": 100000,
+        "query_id": "01f1c218-c764-1df0-94ac-d9a40bb6d5c8"
+      },
+      "commits": [
+        {
+          "version": "1",
+          "timestamp": "2026-10-07T06:31:45",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "MERGE",
+          "operationParameters": "{\"clusterBy\":\"[\"lookup_hash\"]\",\"clusteringOnWriteStatus\":null,\"matchedPredicates\":\"[{\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"predicate\":\"[\"((((lookup_hash#20001 = lookup_hash#20021) AND (source_system#19985 = source_system#20005)) AND (rel_type_id#19986L = rel_type_id#20006L)) AND (((id#19987L = id#20007L) AND (entity_version#19993L = 15)) AND (apply_batch_id#20002 = r139-b1)))\"]\",\"statsOnLoad\":\"false\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c218-be9f-1dff-8a93-7e65249c1b31",
+          "clusterId": null,
+          "readVersion": "0",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "False",
+          "operationMetrics": "{\"executionTimeMs\":\"8755\",\"materializeSourceTimeMs\":\"2194\",\"numOutputRows\":\"100000\",\"numSourceRows\":\"100000\",\"numTargetBytesAdded\":\"326550022\",\"numTargetBytesRemoved\":\"326999747\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"6\",\"numTargetFilesRemoved\":\"16\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"100000\",\"rewriteTimeMs\":\"2913\",\"scanTimeMs\":\"3572\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        }
+      ],
+      "validation_three_lane_wall_s": 19.441646125000005,
+      "composed_proof_wall_s": 3.448347874999996,
+      "structural_reuse_proof": {
+        "mode": "serialized-synthetic-property105",
+        "canonical": "client_dev.ashlar_entropy_20261006_r86.edge_queue_r207",
+        "old_version": 0,
+        "new_version": 1,
+        "adjacency": "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120",
+        "adjacency_version": 1,
+        "structural_revision": 1,
+        "proof_query_ids": {
+          "baseline": "01f1c218-a467-153c-b13e-fb0540135d43",
+          "membership": "01f1c218-a31c-157e-ab6d-d1a3844cf703",
+          "intended": "01f1c218-b0d4-1ee7-bf50-2af5e374c683",
+          "output": "01f1c218-cb29-1fc0-96fe-c66a3a2f1754",
+          "identities": "01f1c218-c833-1c70-9f4e-47e161a3fd1f",
+          "apply": "01f1c218-be9f-1dff-8a93-7e65249c1b31"
+        },
+        "qualification": "Owned ASCII property105 profile, trusted immutable stage0, inherited full structural baseline, closed owned apply lineage. Serialized synthetic experiment only; no real producer completeness/fencing or general SQL analysis."
+      },
+      "verified_manifest_offset_s": 74.65044645900001,
+      "processing_s": 64.64699341700002,
+      "complete_input_to_manifest_s": 64.65044645900001,
+      "oldest_modeled_record_freshness_s": 74.65044645900001,
+      "uniform_record_age_p95_s": 74.15044645900001,
+      "versions": {
+        "client_dev.ashlar_entropy_20261006_r86.edge_queue_r207": 1,
+        "client_dev.ashlar_entropy_20261006_r86.object_current": 0,
+        "client_dev.ashlar_entropy_20261006_r86.raw_queue_r207": 1,
+        "client_dev.ashlar_entropy_20261006_r86.journal_queue_r207": 1,
+        "client_dev.ashlar_entropy_20261006_r86.tombstone_r89": 0,
+        "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120": 1
+      },
+      "complete_batches_waiting_at_finish": 0
+    }
+  ],
+  "phases": [
+    {
+      "label": "session-timeout-set",
+      "caller_ms": 5575.220165999999,
+      "result": [
+        [
+          "STATEMENT_TIMEOUT",
+          "180"
+        ]
+      ]
+    },
+    {
+      "label": "session-timeout-readback",
+      "caller_ms": 536.698874999999,
+      "result": [
+        [
+          "STATEMENT_TIMEOUT",
+          "180"
+        ]
+      ]
+    },
+    {
+      "label": "session-cache-readback",
+      "caller_ms": 277.48979200000076,
+      "result": [
+        [
+          "USE_CACHED_RESULT",
+          "false"
+        ]
+      ]
+    },
+    {
+      "label": "canonical-anchor",
+      "caller_ms": 7497.5577920000005,
+      "result": [
+        [
+          "25",
+          "2026-10-07T04:08:46",
+          "144310222108026",
+          "24c6ebc2-9f0d-4d1e-90b6-2c964b3ebd41",
+          "OPTIMIZE",
+          "{\"auto\":\"false\",\"batchId\":\"1\",\"clusterBy\":\"[\"lookup_hash\"]\",\"isFull\":\"false\",\"predicate\":\"[]\",\"zOrderBy\":\"[]\"}",
+          "{\"jobId\":\"743930124792215\",\"jobName\":\"Predictive Optimization Job-527d95f5-bec7-43e4-96af-f23b04a8639b\",\"jobRunId\":\"467713463735179\",\"runId\":\"745553350553825\",\"jobOwnerId\":\"144310222108026\",\"triggerType\":\"manual\",\"workspaceId\":\"7405607548213398\"}",
+          null,
+          "09b836d8-b3a3-4b66-893e-f941ac17287b",
+          "1007-040526-mdclm5fz-v2n",
+          "23",
+          "SnapshotIsolation",
+          "True",
+          "{\"conflictDetectionTimeMs\":\"60\",\"numAddedBytes\":\"0\",\"numAddedFiles\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedBytes\":\"0\",\"numRemovedFiles\":\"0\"}",
+          null,
+          "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        ],
+        [
+          "24",
+          "2026-10-07T04:08:45",
+          "144310222108026",
+          "24c6ebc2-9f0d-4d1e-90b6-2c964b3ebd41",
+          "OPTIMIZE",
+          "{\"auto\":\"false\",\"batchId\":\"0\",\"clusterBy\":\"[\"lookup_hash\"]\",\"isFull\":\"false\",\"predicate\":\"[]\",\"zOrderBy\":\"[]\"}",
+          "{\"jobId\":\"743930124792215\",\"jobName\":\"Predictive Optimization Job-527d95f5-bec7-43e4-96af-f23b04a8639b\",\"jobRunId\":\"467713463735179\",\"runId\":\"745553350553825\",\"jobOwnerId\":\"144310222108026\",\"triggerType\":\"manual\",\"workspaceId\":\"7405607548213398\"}",
+          null,
+          "09b836d8-b3a3-4b66-893e-f941ac17287b",
+          "1007-040526-mdclm5fz-v2n",
+          "23",
+          "SnapshotIsolation",
+          "False",
+          "{\"maxFileSize\":\"83812205\",\"minFileSize\":\"78827673\",\"numAddedBytes\":\"326808143\",\"numAddedFiles\":\"4\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedBytes\":\"326999747\",\"numRemovedFiles\":\"16\",\"p25FileSize\":\"81440308\",\"p50FileSize\":\"82727957\",\"p75FileSize\":\"83812205\"}",
+          null,
+          "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        ],
+        [
+          "23",
+          "2026-10-07T02:45:56",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "MERGE",
+          "{\"clusterBy\":\"[\"lookup_hash\"]\",\"clusteringOnWriteStatus\":null,\"matchedPredicates\":\"[{\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"predicate\":\"[\"((((lookup_hash#397412 = lookup_hash#397432) AND (source_system#397396 = source_system#397416)) AND (rel_type_id#397397L = rel_type_id#397417L)) AND (((id#397398L = id#397418L) AND (entity_version#397404L = 14)) AND (apply_batch_id#397413 = r133-b1)))\"]\",\"statsOnLoad\":\"false\"}",
+          null,
+          null,
+          "01f1c1f9-3629-1c2e-9169-55ea2b85acb4",
+          null,
+          "22",
+          "WriteSerializable",
+          "False",
+          "{\"executionTimeMs\":\"3826\",\"materializeSourceTimeMs\":\"1\",\"numOutputRows\":\"100000\",\"numSourceRows\":\"100000\",\"numTargetBytesAdded\":\"326999747\",\"numTargetBytesRemoved\":\"327002104\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"16\",\"numTargetFilesRemoved\":\"16\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"100000\",\"rewriteTimeMs\":\"2571\",\"scanTimeMs\":\"1233\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ],
+        [
+          "22",
+          "2026-10-07T02:30:55",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "MERGE",
+          "{\"clusterBy\":\"[\"lookup_hash\"]\",\"clusteringOnWriteStatus\":null,\"matchedPredicates\":\"[{\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"predicate\":\"[\"((((lookup_hash#364270 = lookup_hash#364290) AND (source_system#364254 = source_system#364274)) AND (rel_type_id#364255L = rel_type_id#364275L)) AND (((id#364256L = id#364276L) AND (entity_version#364262L = 13)) AND (apply_batch_id#364271 = r128-b1)))\"]\",\"statsOnLoad\":\"false\"}",
+          null,
+          null,
+          "01f1c1f7-1cf3-1d45-a354-8c0be26b6d10",
+          null,
+          "21",
+          "WriteSerializable",
+          "False",
+          "{\"executionTimeMs\":\"3637\",\"materializeSourceTimeMs\":\"1\",\"numOutputRows\":\"100000\",\"numSourceRows\":\"100000\",\"numTargetBytesAdded\":\"327002104\",\"numTargetBytesRemoved\":\"327003767\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"16\",\"numTargetFilesRemoved\":\"16\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"100000\",\"rewriteTimeMs\":\"2493\",\"scanTimeMs\":\"1125\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ],
+        [
+          "21",
+          "2026-10-07T02:29:42",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "COMPUTE STATS",
+          "{\"buildFromFooter\":\"false\",\"incremental\":\"false\",\"predicate\":\"[\"true\"]\"}",
+          null,
+          null,
+          "01f1c1f6-e776-1fad-a779-9f11a0b1e449",
+          null,
+          "20",
+          "SnapshotIsolation",
+          "False",
+          "{}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ],
+        [
+          "20",
+          "2026-10-07T02:29:21",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "SET TBLPROPERTIES",
+          "{\"properties\":\"{\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id\"}\"}",
+          null,
+          null,
+          "01f1c1f6-e708-15e0-b6af-75628137d894",
+          null,
+          "19",
+          "WriteSerializable",
+          "True",
+          "{}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ],
+        [
+          "19",
+          "2026-10-07T02:11:41",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "MERGE",
+          "{\"clusterBy\":\"[\"lookup_hash\"]\",\"clusteringOnWriteStatus\":null,\"matchedPredicates\":\"[{\"predicate\":\"((entity_version#333456L = 12) AND (apply_batch_id#333465 = r123-b1))\",\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"predicate\":\"[\"(((lookup_hash#333464 = lookup_hash#333484) AND (source_system#333448 = source_system#333468)) AND ((rel_type_id#333449L = rel_type_id#333469L) AND (id#333450L = id#333470L)))\"]\",\"statsOnLoad\":\"false\"}",
+          null,
+          null,
+          "01f1c1f4-6b9f-16b8-881c-72b1990c2bc0",
+          null,
+          "18",
+          "WriteSerializable",
+          "False",
+          "{\"executionTimeMs\":\"6322\",\"materializeSourceTimeMs\":\"1\",\"numOutputRows\":\"100000\",\"numSourceRows\":\"100000\",\"numTargetBytesAdded\":\"327003767\",\"numTargetBytesRemoved\":\"326998042\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"16\",\"numTargetFilesRemoved\":\"16\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"100000\",\"rewriteTimeMs\":\"3268\",\"scanTimeMs\":\"3029\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ],
+        [
+          "18",
+          "2026-10-07T01:55:26",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "MERGE",
+          "{\"clusterBy\":\"[\"lookup_hash\"]\",\"clusteringOnWriteStatus\":null,\"matchedPredicates\":\"[{\"predicate\":\"((entity_version#305087L = 11) AND (apply_batch_id#305096 = r121-b1))\",\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"predicate\":\"[\"(((lookup_hash#305095 = lookup_hash#305115) AND (source_system#305079 = source_system#305099)) AND ((rel_type_id#305080L = rel_type_id#305100L) AND (id#305081L = id#305101L)))\"]\",\"statsOnLoad\":\"false\"}",
+          null,
+          null,
+          "01f1c1f2-26d6-1b09-9d15-eb6b58775e5d",
+          null,
+          "17",
+          "WriteSerializable",
+          "False",
+          "{\"executionTimeMs\":\"6345\",\"materializeSourceTimeMs\":\"1\",\"numOutputRows\":\"100000\",\"numSourceRows\":\"100000\",\"numTargetBytesAdded\":\"326998042\",\"numTargetBytesRemoved\":\"326994031\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"16\",\"numTargetFilesRemoved\":\"16\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"100000\",\"rewriteTimeMs\":\"3121\",\"scanTimeMs\":\"3204\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ],
+        [
+          "17",
+          "2026-10-07T01:40:33",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "MERGE",
+          "{\"clusterBy\":\"[\"lookup_hash\"]\",\"clusteringOnWriteStatus\":null,\"matchedPredicates\":\"[{\"predicate\":\"((entity_version#288408L = 10) AND (apply_batch_id#288417 = r103-b1))\",\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"predicate\":\"[\"(((lookup_hash#288416 = lookup_hash#288436) AND (source_system#288400 = source_system#288420)) AND ((rel_type_id#288401L = rel_type_id#288421L) AND (id#288402L = id#288422L)))\"]\",\"statsOnLoad\":\"false\"}",
+          null,
+          null,
+          "01f1c1f0-123c-1592-85e1-3b2b0c362133",
+          null,
+          "16",
+          "WriteSerializable",
+          "False",
+          "{\"executionTimeMs\":\"6329\",\"materializeSourceTimeMs\":\"1\",\"numOutputRows\":\"100000\",\"numSourceRows\":\"100000\",\"numTargetBytesAdded\":\"326994031\",\"numTargetBytesRemoved\":\"327004194\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"16\",\"numTargetFilesRemoved\":\"16\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"100000\",\"rewriteTimeMs\":\"2984\",\"scanTimeMs\":\"3321\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ],
+        [
+          "16",
+          "2026-10-07T00:37:28",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "MERGE",
+          "{\"clusterBy\":\"[\"lookup_hash\"]\",\"clusteringOnWriteStatus\":null,\"matchedPredicates\":\"[{\"predicate\":\"((entity_version#155036L = 9) AND (apply_batch_id#155045 = r101-b1))\",\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"predicate\":\"[\"(((lookup_hash#155044 = lookup_hash#155103) AND (source_system#155028 = source_system#155087)) AND ((rel_type_id#155029L = rel_type_id#155088L) AND (id#155030L = id#155089L)))\"]\",\"statsOnLoad\":\"false\"}",
+          null,
+          null,
+          "01f1c1e7-41af-1ccc-8f14-82e1ddf51216",
+          null,
+          "15",
+          "WriteSerializable",
+          "False",
+          "{\"executionTimeMs\":\"6833\",\"materializeSourceTimeMs\":\"1\",\"numOutputRows\":\"100000\",\"numSourceRows\":\"100000\",\"numTargetBytesAdded\":\"327004194\",\"numTargetBytesRemoved\":\"326814770\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"16\",\"numTargetFilesRemoved\":\"4\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"100000\",\"rewriteTimeMs\":\"3285\",\"scanTimeMs\":\"3525\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "owned-absent",
+      "caller_ms": 578.7603329999981,
+      "result": []
+    },
+    {
+      "label": "clone-edge",
+      "caller_ms": 13642.105999999998,
+      "result": [
+        [
+          "34280460997",
+          "532",
+          null,
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "initial-edge",
+      "caller_ms": 717.0732089999988,
+      "result": [
+        [
+          "0",
+          "2026-10-07T06:30:22",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "CLONE",
+          "{\"isShallow\":\"true\",\"source\":\"client_dev.ashlar_entropy_20261006_r86.edge_current\",\"sourceVersion\":\"23\"}",
+          null,
+          null,
+          "01f1c218-8fad-13bb-8ea6-749aed042d3a",
+          null,
+          "-1",
+          "Serializable",
+          "False",
+          "{\"copiedFilesSize\":\"0\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"512\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedFiles\":\"0\",\"removedFilesSize\":\"0\",\"sourceNumOfFiles\":\"532\",\"sourceTableSize\":\"34280460997\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "clone-raw",
+      "caller_ms": 6817.928084000002,
+      "result": [
+        [
+          "9529013730",
+          "87",
+          null,
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "initial-raw",
+      "caller_ms": 726.7142500000006,
+      "result": [
+        [
+          "0",
+          "2026-10-07T06:30:33",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "CLONE",
+          "{\"isShallow\":\"true\",\"source\":\"client_dev.ashlar_entropy_20261006_r86.source_record_r89\",\"sourceVersion\":\"17\"}",
+          null,
+          null,
+          "01f1c218-983c-1816-b1c7-b376d4e10c4e",
+          null,
+          "-1",
+          "Serializable",
+          "False",
+          "{\"copiedFilesSize\":\"0\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedFiles\":\"0\",\"removedFilesSize\":\"0\",\"sourceNumOfFiles\":\"87\",\"sourceTableSize\":\"9529013730\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "clone-journal",
+      "caller_ms": 6531.129417000003,
+      "result": [
+        [
+          "8950877063",
+          "85",
+          null,
+          "0",
+          "0",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "initial-journal",
+      "caller_ms": 587.5695000000007,
+      "result": [
+        [
+          "0",
+          "2026-10-07T06:30:41",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "CLONE",
+          "{\"isShallow\":\"true\",\"source\":\"client_dev.ashlar_entropy_20261006_r86.property_journal_r89\",\"sourceVersion\":\"19\"}",
+          null,
+          null,
+          "01f1c218-9cbc-103f-bb86-014651bb3f87",
+          null,
+          "-1",
+          "Serializable",
+          "False",
+          "{\"copiedFilesSize\":\"0\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedFiles\":\"0\",\"removedFilesSize\":\"0\",\"sourceNumOfFiles\":\"85\",\"sourceTableSize\":\"8950877063\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "manifest-create",
+      "caller_ms": 2572.643042000003,
+      "result": []
+    },
+    {
+      "label": "initial-manifest",
+      "caller_ms": 487.0035419999965,
+      "result": [
+        [
+          "0",
+          "2026-10-07T06:30:48",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "CREATE TABLE AS SELECT",
+          "{\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"partitionBy\":\"[]\",\"properties\":\"{\"delta.parquet.compression.codec\":\"zstd\",\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"databricks.internal.autoUpgrades.delta.checkpointPolicy\":\"v2\",\"databricks.internal.autoUpgrades.delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"2405a12f-414c-4a47-be48-b66ec60382e3\"}\",\"statsOnLoad\":\"true\"}",
+          null,
+          null,
+          "01f1c218-a0fa-1144-b5f1-2faf0855983d",
+          null,
+          null,
+          "WriteSerializable",
+          "True",
+          "{\"numFiles\":\"0\",\"numOutputBytes\":\"0\",\"numOutputRows\":\"0\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "stage-history",
+      "caller_ms": 505.37624999999764,
+      "result": [
+        [
+          "0",
+          "2026-10-07T05:51:03",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "CREATE TABLE AS SELECT",
+          "{\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"partitionBy\":\"[]\",\"properties\":\"{\"delta.parquet.compression.codec\":\"zstd\",\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"databricks.internal.autoUpgrades.delta.checkpointPolicy\":\"v2\",\"databricks.internal.autoUpgrades.delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"d111f803-79b5-4b69-8c16-f3ce7ff9fc49\"}\",\"statsOnLoad\":\"true\"}",
+          null,
+          null,
+          "01f1c213-1108-101e-a7be-faf5433b865f",
+          null,
+          null,
+          "WriteSerializable",
+          "True",
+          "{\"numFiles\":\"4\",\"numOutputBytes\":\"663724546\",\"numOutputRows\":\"100000\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "input-membership-r189-b1",
+      "caller_ms": 1221.2664580000023,
+      "result": [
+        [
+          "100000",
+          "100000"
+        ]
+      ]
+    },
+    {
+      "label": "prepared-structural-baseline",
+      "caller_ms": 10015.214708000001,
+      "result": [
+        [
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "before-current-r189-b1",
+      "caller_ms": 487.8500840000015,
+      "result": [
+        [
+          "0",
+          "2026-10-07T06:30:22",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "CLONE",
+          "{\"isShallow\":\"true\",\"source\":\"client_dev.ashlar_entropy_20261006_r86.edge_current\",\"sourceVersion\":\"23\"}",
+          null,
+          null,
+          "01f1c218-8fad-13bb-8ea6-749aed042d3a",
+          null,
+          "-1",
+          "Serializable",
+          "False",
+          "{\"copiedFilesSize\":\"0\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"512\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedFiles\":\"0\",\"removedFilesSize\":\"0\",\"sourceNumOfFiles\":\"532\",\"sourceTableSize\":\"34280460997\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "intended-r189-b1",
+      "caller_ms": 5921.6283340000045,
+      "result": [
+        [
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "capture-r189-b1",
+      "caller_ms": 13876.655625000012,
+      "result": [
+        [
+          "100000",
+          "100000"
+        ]
+      ]
+    },
+    {
+      "label": "journal-r189-b1",
+      "caller_ms": 12730.412290999993,
+      "result": [
+        [
+          "100000",
+          "100000"
+        ]
+      ]
+    },
+    {
+      "label": "apply-r189-b1",
+      "caller_ms": 10173.233124999995,
+      "result": [
+        [
+          "100000",
+          "100000",
+          "0",
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "raw-version-r189-b1",
+      "caller_ms": 714.3815000000018,
+      "result": [
+        [
+          "1",
+          "2026-10-07T06:31:35",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "WRITE",
+          "{\"clusterBy\":\"[\"source_feed\",\"source_epoch\",\"delivery_id\"]\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\",\"mode\":\"Append\",\"partitionBy\":\"[]\",\"statsOnLoad\":\"false\"}",
+          null,
+          null,
+          "01f1c218-b659-1ae7-a625-fa8269c03df3",
+          null,
+          "0",
+          "WriteSerializable",
+          "True",
+          "{\"numFiles\":\"1\",\"numOutputBytes\":\"655948846\",\"numOutputRows\":\"100000\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "journal-version-r189-b1",
+      "caller_ms": 463.9025419999996,
+      "result": [
+        [
+          "1",
+          "2026-10-07T06:31:34",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "WRITE",
+          "{\"clusterBy\":\"[\"source_feed\",\"source_epoch\",\"source_position\",\"id\"]\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\",\"mode\":\"Append\",\"partitionBy\":\"[]\",\"statsOnLoad\":\"false\"}",
+          null,
+          null,
+          "01f1c218-b65a-1034-a707-ef5982d7a183",
+          null,
+          "0",
+          "WriteSerializable",
+          "True",
+          "{\"numFiles\":\"1\",\"numOutputBytes\":\"639164544\",\"numOutputRows\":\"100000\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "origin-proof-r189-b1",
+      "caller_ms": 458.179666999996,
+      "result": [
+        [
+          "synthetic",
+          "schedule-r189",
+          "100000"
+        ]
+      ]
+    },
+    {
+      "label": "current-version-r189-b1",
+      "caller_ms": 431.15683299998864,
+      "result": [
+        [
+          "1",
+          "2026-10-07T06:31:45",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "MERGE",
+          "{\"clusterBy\":\"[\"lookup_hash\"]\",\"clusteringOnWriteStatus\":null,\"matchedPredicates\":\"[{\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"predicate\":\"[\"((((lookup_hash#20001 = lookup_hash#20021) AND (source_system#19985 = source_system#20005)) AND (rel_type_id#19986L = rel_type_id#20006L)) AND (((id#19987L = id#20007L) AND (entity_version#19993L = 15)) AND (apply_batch_id#20002 = r139-b1)))\"]\",\"statsOnLoad\":\"false\"}",
+          null,
+          null,
+          "01f1c218-be9f-1dff-8a93-7e65249c1b31",
+          null,
+          "0",
+          "WriteSerializable",
+          "False",
+          "{\"executionTimeMs\":\"8755\",\"materializeSourceTimeMs\":\"2194\",\"numOutputRows\":\"100000\",\"numSourceRows\":\"100000\",\"numTargetBytesAdded\":\"326550022\",\"numTargetBytesRemoved\":\"326999747\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"6\",\"numTargetFilesRemoved\":\"16\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"100000\",\"rewriteTimeMs\":\"2913\",\"scanTimeMs\":\"3572\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "batch-current-lineage-r189-b1",
+      "caller_ms": 446.80495899999073,
+      "result": [
+        [
+          "1",
+          "2026-10-07T06:31:45",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "MERGE",
+          "{\"clusterBy\":\"[\"lookup_hash\"]\",\"clusteringOnWriteStatus\":null,\"matchedPredicates\":\"[{\"actionType\":\"update\"}]\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"predicate\":\"[\"((((lookup_hash#20001 = lookup_hash#20021) AND (source_system#19985 = source_system#20005)) AND (rel_type_id#19986L = rel_type_id#20006L)) AND (((id#19987L = id#20007L) AND (entity_version#19993L = 15)) AND (apply_batch_id#20002 = r139-b1)))\"]\",\"statsOnLoad\":\"false\"}",
+          null,
+          null,
+          "01f1c218-be9f-1dff-8a93-7e65249c1b31",
+          null,
+          "0",
+          "WriteSerializable",
+          "False",
+          "{\"executionTimeMs\":\"8755\",\"materializeSourceTimeMs\":\"2194\",\"numOutputRows\":\"100000\",\"numSourceRows\":\"100000\",\"numTargetBytesAdded\":\"326550022\",\"numTargetBytesRemoved\":\"326999747\",\"numTargetChangeFilesAdded\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"numTargetFilesAdded\":\"6\",\"numTargetFilesRemoved\":\"16\",\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetRowsMatchedUpdated\":\"100000\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetRowsUpdated\":\"100000\",\"rewriteTimeMs\":\"2913\",\"scanTimeMs\":\"3572\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ],
+        [
+          "0",
+          "2026-10-07T06:30:22",
+          "3755468182769617",
+          "erik.labianca@synaptiq.ai",
+          "CLONE",
+          "{\"isShallow\":\"true\",\"source\":\"client_dev.ashlar_entropy_20261006_r86.edge_current\",\"sourceVersion\":\"23\"}",
+          null,
+          null,
+          "01f1c218-8fad-13bb-8ea6-749aed042d3a",
+          null,
+          "-1",
+          "Serializable",
+          "False",
+          "{\"copiedFilesSize\":\"0\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"512\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedFiles\":\"0\",\"removedFilesSize\":\"0\",\"sourceNumOfFiles\":\"532\",\"sourceTableSize\":\"34280460997\"}",
+          null,
+          "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+        ]
+      ]
+    },
+    {
+      "label": "raw-parity-r189-b1",
+      "caller_ms": 19437.037542000013,
+      "result": [
+        [
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "journal-parity-r189-b1",
+      "caller_ms": 19122.915333000008,
+      "result": [
+        [
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "raw-count-r189-b1",
+      "caller_ms": 1080.8133750000195,
+      "result": [
+        [
+          "100000",
+          "100000"
+        ]
+      ]
+    },
+    {
+      "label": "publish-r189-b1",
+      "caller_ms": 1023.6699589999887,
+      "result": [
+        [
+          "1",
+          "1"
+        ]
+      ]
+    },
+    {
+      "label": "descriptor-r189-b1",
+      "caller_ms": 444.1717919999917,
+      "result": [
+        [
+          "r189-b1",
+          "ashlar-delta/0.3-synthetic-changed-origin-slice",
+          "{\"client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120\":1,\"client_dev.ashlar_entropy_20261006_r86.edge_queue_r207\":1,\"client_dev.ashlar_entropy_20261006_r86.journal_queue_r207\":1,\"client_dev.ashlar_entropy_20261006_r86.object_current\":0,\"client_dev.ashlar_entropy_20261006_r86.raw_queue_r207\":1,\"client_dev.ashlar_entropy_20261006_r86.tombstone_r89\":0}",
+          "{\"admission_window_offsets_s\":[0,10],\"clock_epoch\":1791354662.6444411,\"input_stage\":\"client_dev.ashlar_entropy_20261006_r86.schedule_r189_1\",\"members\":100000,\"source_ack\":\"None\",\"stage_version\":0}",
+          "{\"synthetic\":\"synthetic-r1\"}",
+          "{\"baseline_origins\":\"Unqualified; legacy raw timestamp loss retained\",\"checks\":\"All20 affected carrier fields and lexical patch; exact journal; raw bytes/digests/origins and global identity counts\",\"predecessor\":\"r139-b1\",\"projection_coverage\":\"Full forward adjacency reused at adjacency_canonical_r120 v1, structural revision1. Inherited full baseline plus owned full-carrier checks and closed apply lineage prove structural reuse; independent full20M oracle runs after publication. Reverse/degree/typed property release unavailable.\",\"rows\":100000,\"wire\":\"synthetic-full-carrier/2 explicit UTC microseconds; independent instant equality passed\",\"writer\":\"One synthetic publisher with parallel independent raw/journal appends; no real completeness/fencing/acknowledgement\"}"
+        ]
+      ]
+    },
+    {
+      "label": "post-structural-oracle",
+      "caller_ms": 7240.458834000009,
+      "result": [
+        [
+          "0"
+        ]
+      ]
+    }
+  ],
+  "scope": "Finite synthetic hot-set batch admission, prepared input outside publisher clock, one publisher with parallel raw/journal validation; no real network producer or fencing/acknowledgement, baseline-origin, sustained-rate or billion-scale admission",
+  "owned_tables": [
+    "client_dev.ashlar_entropy_20261006_r86.edge_queue_r207",
+    "client_dev.ashlar_entropy_20261006_r86.raw_queue_r207",
+    "client_dev.ashlar_entropy_20261006_r86.journal_queue_r207",
+    "client_dev.ashlar_entropy_20261006_r86.manifest_queue_r207"
+  ],
+  "initial_version": 0,
+  "canonical_anchor": {
+    "edge": 23,
+    "raw": 17,
+    "journal": 19,
+    "publication": "r139-b1"
+  },
+  "comparison": "Same pinned stage/schedule; shared native history scan replaces repeated per-lane telemetry, retaining final metrics and exact checks",
+  "telemetry_phases": [
+    {
+      "records": 20,
+      "wall_s": 0.7184869579999997,
+      "attempts": 1,
+      "inside_publication": false
+    },
+    {
+      "records": 22,
+      "wall_s": 3.197364499999992,
+      "attempts": 2,
+      "inside_publication": true
+    },
+    {
+      "records": 27,
+      "wall_s": 3.0984938339999957,
+      "attempts": 2,
+      "inside_publication": true
+    },
+    {
+      "records": 35,
+      "wall_s": 3.1794789580000042,
+      "attempts": 2,
+      "inside_publication": true
+    },
+    {
+      "records": 38,
+      "wall_s": 2.9810471669999856,
+      "attempts": 2,
+      "inside_publication": true
+    }
+  ],
+  "costs": {
+    "read_bytes": 13083664787,
+    "write_remote_bytes": 1621672221,
+    "spill_to_disk_bytes": 0
+  },
+  "clock_epoch": 1791354662.6444411,
+  "clock_monotonic": 66.279359541,
+  "post_structural_oracle": "Passed full20M parity outside recorded publication clock"
+}

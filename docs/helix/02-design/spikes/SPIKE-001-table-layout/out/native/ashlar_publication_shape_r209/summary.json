@@ -1,0 +1,64 @@
+{
+  "state": "Integrated100k live hot-file range group passed",
+  "table": "client_dev.ashlar_entropy_20261006_r86.edge_queue_r207",
+  "id": "d1d66b06-a61e-4d68-95be-03230acfd757",
+  "version": 1,
+  "files": [
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3147308d-da3a-4b86-b6e0-a2d39882c5df/part-00002-c3c97968-ed7a-4c63-b7ba-452b538a9834.c000.zstd.parquet",
+      "64450751",
+      "19751",
+      "52a7cafc3d2169f702e6e0da7feeab55491a3078d7a9329e30426431857b74cb",
+      "854c9168fa2ec9ea03d2e6aef5b8bc6f192f8c6507dfe36ef2b6061e2dab0ff0"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3147308d-da3a-4b86-b6e0-a2d39882c5df/part-00003-f6b386a2-26ac-4f98-b609-bfa7835ab94b.c000.zstd.parquet",
+      "55589385",
+      "17066",
+      "854cc5f98a579f0bbb1286297073ddcb745555fb0278b5fce8b9e5ce1693316c",
+      "b09c9657a0b7c3fc16ae3bceae6edfc4aa9520840938320c726e6fda7526f95e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3147308d-da3a-4b86-b6e0-a2d39882c5df/part-00001-0bba8980-0d3b-4d47-9535-eea5f1044dc6.c000.zstd.parquet",
+      "53980571",
+      "16531",
+      "2895eab19e04093f2df08cea5e729b5d1b930ea3d2d9bd885dcfe0b31d0f2e11",
+      "52a71163ab4c6157c9a04adffdee1225c09927b0dd95111952067c0c41adc610"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3147308d-da3a-4b86-b6e0-a2d39882c5df/part-00005-38dfb571-9620-4378-ae89-4ea894cb59cf.c000.zstd.parquet",
+      "52637646",
+      "16102",
+      "d6b0c556bfe4303c71c4998d6815bfbd1a022dea92f8d59b321f7a8e25e26f33",
+      "fffda4bcc9c3b3f92a2de0f188064acf9c05af79659b2c8c21ddef4aab30670c"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3147308d-da3a-4b86-b6e0-a2d39882c5df/part-00000-e4843648-dee3-4dbf-a84e-99691c6a48ca.c000.zstd.parquet",
+      "51461704",
+      "15742",
+      "00005259f35b12a66f70326032e442ebd4dc9860f7588cca4b068a09eefeb915",
+      "2895c80e7af9e72f86e0b26c66f0e23f46c1a1c5903bef4f8d1d0f8fff2558d4"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3147308d-da3a-4b86-b6e0-a2d39882c5df/part-00004-63491ec5-be58-446e-b533-8466a3412610.c000.zstd.parquet",
+      "48429965",
+      "14808",
+      "b09cb9e527e289d4ef418a5e86f612303ee57ec290ecf7af811efa314800ef68",
+      "d6b09e2df230a5ccc1bf521f671aa86501deb35bfc3965c59c79f703cf736f13"
+    ]
+  ],
+  "hash_domain_fractions": [
+    0.19782676844356706,
+    0.16918661400848173,
+    0.16432420584649898,
+    0.1613292335622401,
+    0.15853057534661313,
+    0.14874102379899806
+  ],
+  "costs": {
+    "read_bytes": 4786281,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "Actual integrated writer output, full-precision live extrema, not stored Delta statistics or point-read latency. Fresh property values on same synthetic100k hot identities; not a disjoint/skewed workload or production range count."
+}

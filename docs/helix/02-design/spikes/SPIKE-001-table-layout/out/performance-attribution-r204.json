@@ -1,0 +1,720 @@
+{
+  "kind": "Saved-evidence decomposition and counterfactual sensitivity, not native workload",
+  "reads": {
+    "0": {
+      "per_query": [
+        {
+          "query_id": "01f1c216-e865-172c-87f7-ed8b976240c4",
+          "caller_ms": 327.96687499999956,
+          "compile_ms": 129,
+          "engine_ms": 92,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 100.96687499999956,
+          "compile_elimination_counterfactual_ms": 198.96687499999956,
+          "compile_reduction_needed_for_250_ms": 77.96687499999956
+        },
+        {
+          "query_id": "01f1c216-e898-138f-9c86-0c9af84e18e8",
+          "caller_ms": 325.2322079999992,
+          "compile_ms": 126,
+          "engine_ms": 93,
+          "native_other_ms": 5,
+          "caller_minus_native_ms": 101.23220799999922,
+          "compile_elimination_counterfactual_ms": 199.23220799999922,
+          "compile_reduction_needed_for_250_ms": 75.23220799999922
+        },
+        {
+          "query_id": "01f1c216-e941-1d0d-b8ae-2cc7121d6b43",
+          "caller_ms": 330.36512500000015,
+          "compile_ms": 134,
+          "engine_ms": 84,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 106.36512500000015,
+          "compile_elimination_counterfactual_ms": 196.36512500000015,
+          "compile_reduction_needed_for_250_ms": 80.36512500000015
+        },
+        {
+          "query_id": "01f1c216-e973-18c5-96bd-78700ad12241",
+          "caller_ms": 317.48745899999875,
+          "compile_ms": 124,
+          "engine_ms": 91,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 96.48745899999875,
+          "compile_elimination_counterfactual_ms": 193.48745899999875,
+          "compile_reduction_needed_for_250_ms": 67.48745899999875
+        },
+        {
+          "query_id": "01f1c216-ebe5-1a1a-8f0e-8f190f59791e",
+          "caller_ms": 319.9663749999999,
+          "compile_ms": 126,
+          "engine_ms": 87,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 100.96637499999991,
+          "compile_elimination_counterfactual_ms": 193.9663749999999,
+          "compile_reduction_needed_for_250_ms": 69.96637499999991
+        },
+        {
+          "query_id": "01f1c216-ec18-164d-bec5-568c0793926d",
+          "caller_ms": 329.26491699999974,
+          "compile_ms": 123,
+          "engine_ms": 87,
+          "native_other_ms": 8,
+          "caller_minus_native_ms": 111.26491699999974,
+          "compile_elimination_counterfactual_ms": 206.26491699999974,
+          "compile_reduction_needed_for_250_ms": 79.26491699999974
+        },
+        {
+          "query_id": "01f1c216-ecb8-1cf0-8e5e-742944553f65",
+          "caller_ms": 305.74399999999713,
+          "compile_ms": 137,
+          "engine_ms": 67,
+          "native_other_ms": 7,
+          "caller_minus_native_ms": 94.74399999999713,
+          "compile_elimination_counterfactual_ms": 168.74399999999713,
+          "compile_reduction_needed_for_250_ms": 55.74399999999713
+        },
+        {
+          "query_id": "01f1c216-ece7-1da1-b567-7932a7684340",
+          "caller_ms": 315.53787500000044,
+          "compile_ms": 125,
+          "engine_ms": 90,
+          "native_other_ms": 5,
+          "caller_minus_native_ms": 95.53787500000044,
+          "compile_elimination_counterfactual_ms": 190.53787500000044,
+          "compile_reduction_needed_for_250_ms": 65.53787500000044
+        },
+        {
+          "query_id": "01f1c216-ef61-152e-ad76-e89e5efea81c",
+          "caller_ms": 309.8035420000009,
+          "compile_ms": 124,
+          "engine_ms": 85,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 94.8035420000009,
+          "compile_elimination_counterfactual_ms": 185.8035420000009,
+          "compile_reduction_needed_for_250_ms": 59.8035420000009
+        },
+        {
+          "query_id": "01f1c216-ef91-1506-b64c-5313f73c73f5",
+          "caller_ms": 326.26845799999774,
+          "compile_ms": 125,
+          "engine_ms": 92,
+          "native_other_ms": 8,
+          "caller_minus_native_ms": 101.26845799999774,
+          "compile_elimination_counterfactual_ms": 201.26845799999774,
+          "compile_reduction_needed_for_250_ms": 76.26845799999774
+        },
+        {
+          "query_id": "01f1c216-f034-17f4-ab3f-586492c8cd5b",
+          "caller_ms": 321.17066700000055,
+          "compile_ms": 128,
+          "engine_ms": 91,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 96.17066700000055,
+          "compile_elimination_counterfactual_ms": 193.17066700000055,
+          "compile_reduction_needed_for_250_ms": 71.17066700000055
+        },
+        {
+          "query_id": "01f1c216-f064-1c84-9936-08d695fbcdf7",
+          "caller_ms": 315.87750000000267,
+          "compile_ms": 127,
+          "engine_ms": 87,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 95.87750000000267,
+          "compile_elimination_counterfactual_ms": 188.87750000000267,
+          "compile_reduction_needed_for_250_ms": 65.87750000000267
+        },
+        {
+          "query_id": "01f1c216-f2e0-1048-aef6-4e97e7697bcc",
+          "caller_ms": 325.123167000001,
+          "compile_ms": 132,
+          "engine_ms": 89,
+          "native_other_ms": 5,
+          "caller_minus_native_ms": 99.12316700000099,
+          "compile_elimination_counterfactual_ms": 193.123167000001,
+          "compile_reduction_needed_for_250_ms": 75.12316700000099
+        },
+        {
+          "query_id": "01f1c216-f311-1ea3-9994-d8a7949a0ee1",
+          "caller_ms": 328.6949999999997,
+          "compile_ms": 131,
+          "engine_ms": 90,
+          "native_other_ms": 5,
+          "caller_minus_native_ms": 102.69499999999971,
+          "compile_elimination_counterfactual_ms": 197.6949999999997,
+          "compile_reduction_needed_for_250_ms": 78.69499999999971
+        },
+        {
+          "query_id": "01f1c216-f3b4-16c8-ab76-291f9a29b324",
+          "caller_ms": 329.9171670000014,
+          "compile_ms": 124,
+          "engine_ms": 95,
+          "native_other_ms": 8,
+          "caller_minus_native_ms": 102.91716700000143,
+          "compile_elimination_counterfactual_ms": 205.91716700000143,
+          "compile_reduction_needed_for_250_ms": 79.91716700000143
+        },
+        {
+          "query_id": "01f1c216-f3e7-1742-af45-c600799ed3a7",
+          "caller_ms": 348.7498339999995,
+          "compile_ms": 138,
+          "engine_ms": 95,
+          "native_other_ms": 8,
+          "caller_minus_native_ms": 107.74983399999951,
+          "compile_elimination_counterfactual_ms": 210.7498339999995,
+          "compile_reduction_needed_for_250_ms": 98.74983399999951
+        },
+        {
+          "query_id": "01f1c216-f665-1b75-a06f-4cd2a4f183b5",
+          "caller_ms": 381.54741600000364,
+          "compile_ms": 187,
+          "engine_ms": 85,
+          "native_other_ms": 5,
+          "caller_minus_native_ms": 104.54741600000364,
+          "compile_elimination_counterfactual_ms": 194.54741600000364,
+          "compile_reduction_needed_for_250_ms": 131.54741600000364
+        },
+        {
+          "query_id": "01f1c216-f6a0-1144-9364-d6461680ef73",
+          "caller_ms": 312.1975840000033,
+          "compile_ms": 120,
+          "engine_ms": 89,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 97.1975840000033,
+          "compile_elimination_counterfactual_ms": 192.1975840000033,
+          "compile_reduction_needed_for_250_ms": 62.1975840000033
+        },
+        {
+          "query_id": "01f1c216-f73e-1e4b-8306-bf8b48a23437",
+          "caller_ms": 332.6826250000039,
+          "compile_ms": 135,
+          "engine_ms": 93,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 98.6826250000039,
+          "compile_elimination_counterfactual_ms": 197.6826250000039,
+          "compile_reduction_needed_for_250_ms": 82.6826250000039
+        },
+        {
+          "query_id": "01f1c216-f771-1348-9d0f-2f93f5600863",
+          "caller_ms": 315.58979199999726,
+          "compile_ms": 127,
+          "engine_ms": 86,
+          "native_other_ms": 7,
+          "caller_minus_native_ms": 95.58979199999726,
+          "compile_elimination_counterfactual_ms": 188.58979199999726,
+          "compile_reduction_needed_for_250_ms": 65.58979199999726
+        }
+      ],
+      "p95_of_per_query_components": {
+        "caller_ms": 348.7498339999995,
+        "compile_ms": 138,
+        "engine_ms": 95,
+        "native_other_ms": 8,
+        "caller_minus_native_ms": 107.74983399999951,
+        "compile_elimination_counterfactual_ms": 206.26491699999974,
+        "compile_reduction_needed_for_250_ms": 98.74983399999951
+      },
+      "qualification": "Component percentiles are separate distributions and must not be added. Eliminating compilation assumes all other per-query timings remain unchanged; it is a mathematical sensitivity, not an executable optimization or achieved latency."
+    },
+    "1": {
+      "per_query": [
+        {
+          "query_id": "01f1c216-f9be-17ea-9fb6-62af93a6a564",
+          "caller_ms": 332.2193750000011,
+          "compile_ms": 134,
+          "engine_ms": 94,
+          "native_other_ms": 5,
+          "caller_minus_native_ms": 99.2193750000011,
+          "compile_elimination_counterfactual_ms": 198.2193750000011,
+          "compile_reduction_needed_for_250_ms": 82.2193750000011
+        },
+        {
+          "query_id": "01f1c216-fa61-161f-997f-abbfc0d09093",
+          "caller_ms": 315.95833300000464,
+          "compile_ms": 125,
+          "engine_ms": 84,
+          "native_other_ms": 8,
+          "caller_minus_native_ms": 98.95833300000464,
+          "compile_elimination_counterfactual_ms": 190.95833300000464,
+          "compile_reduction_needed_for_250_ms": 65.95833300000464
+        },
+        {
+          "query_id": "01f1c216-fa93-1623-a7a0-c7326c8f754b",
+          "caller_ms": 332.4814170000039,
+          "compile_ms": 125,
+          "engine_ms": 96,
+          "native_other_ms": 7,
+          "caller_minus_native_ms": 104.48141700000389,
+          "compile_elimination_counterfactual_ms": 207.4814170000039,
+          "compile_reduction_needed_for_250_ms": 82.48141700000389
+        },
+        {
+          "query_id": "01f1c216-fb3b-1e0b-b108-eb9be23a230c",
+          "caller_ms": 319.04300000000063,
+          "compile_ms": 125,
+          "engine_ms": 88,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 100.04300000000063,
+          "compile_elimination_counterfactual_ms": 194.04300000000063,
+          "compile_reduction_needed_for_250_ms": 69.04300000000063
+        },
+        {
+          "query_id": "01f1c216-fd35-1d29-a475-be6bceb95dbd",
+          "caller_ms": 336.50545799999776,
+          "compile_ms": 141,
+          "engine_ms": 93,
+          "native_other_ms": 7,
+          "caller_minus_native_ms": 95.50545799999776,
+          "compile_elimination_counterfactual_ms": 195.50545799999776,
+          "compile_reduction_needed_for_250_ms": 86.50545799999776
+        },
+        {
+          "query_id": "01f1c216-fdff-18aa-81f2-4672bc434936",
+          "caller_ms": 322.7035000000029,
+          "compile_ms": 126,
+          "engine_ms": 90,
+          "native_other_ms": 7,
+          "caller_minus_native_ms": 99.70350000000292,
+          "compile_elimination_counterfactual_ms": 196.70350000000292,
+          "compile_reduction_needed_for_250_ms": 72.70350000000292
+        },
+        {
+          "query_id": "01f1c216-fe30-176f-9401-2cdbf08f6746",
+          "caller_ms": 410.73049999999967,
+          "compile_ms": 208,
+          "engine_ms": 98,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 98.73049999999967,
+          "compile_elimination_counterfactual_ms": 202.73049999999967,
+          "compile_reduction_needed_for_250_ms": 160.73049999999967
+        },
+        {
+          "query_id": "01f1c216-fee2-1df7-a6fe-ac4a20183551",
+          "caller_ms": 317.7355839999976,
+          "compile_ms": 127,
+          "engine_ms": 83,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 101.73558399999757,
+          "compile_elimination_counterfactual_ms": 190.73558399999757,
+          "compile_reduction_needed_for_250_ms": 67.73558399999757
+        },
+        {
+          "query_id": "01f1c217-00f5-1b94-b7b6-a2f7533fabb7",
+          "caller_ms": 321.8373750000012,
+          "compile_ms": 129,
+          "engine_ms": 85,
+          "native_other_ms": 7,
+          "caller_minus_native_ms": 100.8373750000012,
+          "compile_elimination_counterfactual_ms": 192.8373750000012,
+          "compile_reduction_needed_for_250_ms": 71.8373750000012
+        },
+        {
+          "query_id": "01f1c217-0197-1b36-8391-db8dd9f18129",
+          "caller_ms": 318.03379200000137,
+          "compile_ms": 131,
+          "engine_ms": 85,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 96.03379200000137,
+          "compile_elimination_counterfactual_ms": 187.03379200000137,
+          "compile_reduction_needed_for_250_ms": 68.03379200000137
+        },
+        {
+          "query_id": "01f1c217-01c8-137c-a9ed-6119ff3358f5",
+          "caller_ms": 312.9027089999994,
+          "compile_ms": 125,
+          "engine_ms": 88,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 93.90270899999939,
+          "compile_elimination_counterfactual_ms": 187.9027089999994,
+          "compile_reduction_needed_for_250_ms": 62.90270899999939
+        },
+        {
+          "query_id": "01f1c217-026b-161d-9a19-495a83480347",
+          "caller_ms": 305.7969160000056,
+          "compile_ms": 127,
+          "engine_ms": 82,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 90.79691600000558,
+          "compile_elimination_counterfactual_ms": 178.79691600000558,
+          "compile_reduction_needed_for_250_ms": 55.79691600000558
+        },
+        {
+          "query_id": "01f1c217-0487-150e-8420-555c42ff2ff8",
+          "caller_ms": 324.293916000002,
+          "compile_ms": 131,
+          "engine_ms": 89,
+          "native_other_ms": 7,
+          "caller_minus_native_ms": 97.29391600000201,
+          "compile_elimination_counterfactual_ms": 193.293916000002,
+          "compile_reduction_needed_for_250_ms": 74.29391600000201
+        },
+        {
+          "query_id": "01f1c217-052a-1d61-b4a1-1295275baab4",
+          "caller_ms": 317.6798340000033,
+          "compile_ms": 125,
+          "engine_ms": 82,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 104.67983400000332,
+          "compile_elimination_counterfactual_ms": 192.67983400000332,
+          "compile_reduction_needed_for_250_ms": 67.67983400000332
+        },
+        {
+          "query_id": "01f1c217-055b-163c-9cac-965d2cd75755",
+          "caller_ms": 315.712542,
+          "compile_ms": 126,
+          "engine_ms": 88,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 95.71254199999998,
+          "compile_elimination_counterfactual_ms": 189.71254199999998,
+          "compile_reduction_needed_for_250_ms": 65.71254199999998
+        },
+        {
+          "query_id": "01f1c217-05f9-11e3-ae6e-ac496d715d7b",
+          "caller_ms": 325.30883300000113,
+          "compile_ms": 137,
+          "engine_ms": 86,
+          "native_other_ms": 8,
+          "caller_minus_native_ms": 94.30883300000113,
+          "compile_elimination_counterfactual_ms": 188.30883300000113,
+          "compile_reduction_needed_for_250_ms": 75.30883300000113
+        },
+        {
+          "query_id": "01f1c217-0805-1369-882f-7c9bd95cd345",
+          "caller_ms": 326.3591669999997,
+          "compile_ms": 136,
+          "engine_ms": 87,
+          "native_other_ms": 7,
+          "caller_minus_native_ms": 96.35916699999967,
+          "compile_elimination_counterfactual_ms": 190.35916699999967,
+          "compile_reduction_needed_for_250_ms": 76.35916699999967
+        },
+        {
+          "query_id": "01f1c217-08a6-131b-9200-00f72619ebcf",
+          "caller_ms": 340.26424999999705,
+          "compile_ms": 150,
+          "engine_ms": 89,
+          "native_other_ms": 7,
+          "caller_minus_native_ms": 94.26424999999705,
+          "compile_elimination_counterfactual_ms": 190.26424999999705,
+          "compile_reduction_needed_for_250_ms": 90.26424999999705
+        },
+        {
+          "query_id": "01f1c217-08da-1f82-b754-40ad63e39067",
+          "caller_ms": 317.6299579999977,
+          "compile_ms": 126,
+          "engine_ms": 85,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 100.62995799999771,
+          "compile_elimination_counterfactual_ms": 191.6299579999977,
+          "compile_reduction_needed_for_250_ms": 67.62995799999771
+        },
+        {
+          "query_id": "01f1c217-097b-1bc3-ab00-9612fd3a88de",
+          "caller_ms": 319.46616700000163,
+          "compile_ms": 124,
+          "engine_ms": 92,
+          "native_other_ms": 6,
+          "caller_minus_native_ms": 97.46616700000163,
+          "compile_elimination_counterfactual_ms": 195.46616700000163,
+          "compile_reduction_needed_for_250_ms": 69.46616700000163
+        }
+      ],
+      "p95_of_per_query_components": {
+        "caller_ms": 340.26424999999705,
+        "compile_ms": 150,
+        "engine_ms": 96,
+        "native_other_ms": 8,
+        "caller_minus_native_ms": 104.48141700000389,
+        "compile_elimination_counterfactual_ms": 202.73049999999967,
+        "compile_reduction_needed_for_250_ms": 90.26424999999705
+      },
+      "qualification": "Component percentiles are separate distributions and must not be added. Eliminating compilation assumes all other per-query timings remain unchanged; it is a mathematical sensitivity, not an executable optimization or achieved latency."
+    }
+  },
+  "publishers": {
+    "overlap": {
+      "processing_s": 59.883352666,
+      "union_of_timed_sql_call_intervals_s": 43.50632452964783,
+      "not_covered_by_sql_calls_s": 16.377028136352173,
+      "covered_intervals_relative_s": [
+        [
+          0.0020482540130615234,
+          3.9362752437591553
+        ],
+        [
+          9.175642251968384,
+          25.539971590042114
+        ],
+        [
+          25.54379940032959,
+          26.040456295013428
+        ],
+        [
+          26.042937517166138,
+          26.42608618736267
+        ],
+        [
+          31.86002540588379,
+          32.186720848083496
+        ],
+        [
+          32.18974232673645,
+          32.55652856826782
+        ],
+        [
+          32.55895948410034,
+          32.9245400428772
+        ],
+        [
+          32.92722225189209,
+          52.42014026641846
+        ],
+        [
+          52.42221927642822,
+          53.06190204620361
+        ],
+        [
+          58.741188526153564,
+          59.59877300262451
+        ],
+        [
+          59.60214638710022,
+          59.88086152076721
+        ]
+      ],
+      "timed_calls": [
+        {
+          "label": "intended-r189-b1",
+          "caller_ms": 3934.2270839999996,
+          "clipped_inside_publication_ms": 3934.2269897460938
+        },
+        {
+          "label": "capture-r189-b1",
+          "caller_ms": 16363.757083999999,
+          "clipped_inside_publication_ms": 16363.757133483887
+        },
+        {
+          "label": "raw-version-r189-b1",
+          "caller_ms": 496.65695799999554,
+          "clipped_inside_publication_ms": 496.6568946838379
+        },
+        {
+          "label": "journal-version-r189-b1",
+          "caller_ms": 383.14866599999675,
+          "clipped_inside_publication_ms": 383.1486701965332
+        },
+        {
+          "label": "origin-proof-r189-b1",
+          "caller_ms": 326.6953749999999,
+          "clipped_inside_publication_ms": 326.69544219970703
+        },
+        {
+          "label": "current-version-r189-b1",
+          "caller_ms": 366.7861249999973,
+          "clipped_inside_publication_ms": 366.78624153137207
+        },
+        {
+          "label": "batch-current-lineage-r189-b1",
+          "caller_ms": 365.5804579999966,
+          "clipped_inside_publication_ms": 365.58055877685547
+        },
+        {
+          "label": "raw-parity-r189-b1",
+          "caller_ms": 14122.31833300001,
+          "clipped_inside_publication_ms": 14122.318267822266
+        },
+        {
+          "label": "raw-count-r189-b1",
+          "caller_ms": 639.6827079999952,
+          "clipped_inside_publication_ms": 639.6827697753906
+        },
+        {
+          "label": "publish-r189-b1",
+          "caller_ms": 857.5845419999979,
+          "clipped_inside_publication_ms": 857.5844764709473
+        },
+        {
+          "label": "descriptor-r189-b1",
+          "caller_ms": 278.71504199998753,
+          "clipped_inside_publication_ms": 278.7151336669922
+        },
+        {
+          "label": "journal-r189-b1",
+          "caller_ms": 12810.515582999997,
+          "clipped_inside_publication_ms": 12810.515642166138
+        },
+        {
+          "label": "journal-parity-r189-b1",
+          "caller_ms": 19491.992958,
+          "clipped_inside_publication_ms": 19491.992950439453
+        },
+        {
+          "label": "apply-r189-b1",
+          "caller_ms": 11596.135291999999,
+          "clipped_inside_publication_ms": 11596.135377883911
+        },
+        {
+          "label": "global-identities-r189-b1",
+          "caller_ms": 3634.662624999997,
+          "clipped_inside_publication_ms": 3634.662628173828
+        },
+        {
+          "label": "output-parity-r189-b1",
+          "caller_ms": 10488.848875000001,
+          "clipped_inside_publication_ms": 10488.84892463684
+        }
+      ],
+      "qualification": "Coverage uses local submission epoch plus monotonic call duration against the controller epoch anchor; assumes no local wall-clock jump. Uncovered time includes history/telemetry, Python work and controller gaps, not a measured removable overhead. Never subtract it to advertise publication freshness. Overlapping SQL durations are unioned rather than summed."
+    },
+    "serial": {
+      "processing_s": 62.468134667000015,
+      "union_of_timed_sql_call_intervals_s": 45.994903326034546,
+      "not_covered_by_sql_calls_s": 16.47323134096547,
+      "covered_intervals_relative_s": [
+        [
+          0.00348663330078125,
+          3.7899434566497803
+        ],
+        [
+          8.996594667434692,
+          22.748900651931763
+        ],
+        [
+          22.751011610031128,
+          29.3568434715271
+        ],
+        [
+          29.359708547592163,
+          29.941012859344482
+        ],
+        [
+          29.94365954399109,
+          30.32712984085083
+        ],
+        [
+          35.69999861717224,
+          36.02139234542847
+        ],
+        [
+          36.02442669868469,
+          36.44366192817688
+        ],
+        [
+          36.44622039794922,
+          36.898404359817505
+        ],
+        [
+          36.902201652526855,
+          54.84991979598999
+        ],
+        [
+          54.85278058052063,
+          55.40222430229187
+        ],
+        [
+          61.26695537567139,
+          62.196123123168945
+        ],
+        [
+          62.19931364059448,
+          62.465705156326294
+        ]
+      ],
+      "timed_calls": [
+        {
+          "label": "intended-r189-b1",
+          "caller_ms": 3786.456875000006,
+          "clipped_inside_publication_ms": 3786.456823348999
+        },
+        {
+          "label": "capture-r189-b1",
+          "caller_ms": 13752.306083000001,
+          "clipped_inside_publication_ms": 13752.30598449707
+        },
+        {
+          "label": "raw-version-r189-b1",
+          "caller_ms": 581.3043329999914,
+          "clipped_inside_publication_ms": 581.3043117523193
+        },
+        {
+          "label": "journal-version-r189-b1",
+          "caller_ms": 383.4703330000053,
+          "clipped_inside_publication_ms": 383.4702968597412
+        },
+        {
+          "label": "origin-proof-r189-b1",
+          "caller_ms": 321.3937499999986,
+          "clipped_inside_publication_ms": 321.3937282562256
+        },
+        {
+          "label": "current-version-r189-b1",
+          "caller_ms": 419.23524999999984,
+          "clipped_inside_publication_ms": 419.2352294921875
+        },
+        {
+          "label": "batch-current-lineage-r189-b1",
+          "caller_ms": 452.18404199999895,
+          "clipped_inside_publication_ms": 452.18396186828613
+        },
+        {
+          "label": "raw-parity-r189-b1",
+          "caller_ms": 15965.821458000008,
+          "clipped_inside_publication_ms": 15965.821504592896
+        },
+        {
+          "label": "raw-count-r189-b1",
+          "caller_ms": 549.4436670000056,
+          "clipped_inside_publication_ms": 549.4437217712402
+        },
+        {
+          "label": "publish-r189-b1",
+          "caller_ms": 929.1677500000048,
+          "clipped_inside_publication_ms": 929.1677474975586
+        },
+        {
+          "label": "descriptor-r189-b1",
+          "caller_ms": 266.39149999999745,
+          "clipped_inside_publication_ms": 266.3915157318115
+        },
+        {
+          "label": "journal-r189-b1",
+          "caller_ms": 10866.50075,
+          "clipped_inside_publication_ms": 10866.500854492188
+        },
+        {
+          "label": "journal-parity-r189-b1",
+          "caller_ms": 17946.72945800001,
+          "clipped_inside_publication_ms": 17946.7294216156
+        },
+        {
+          "label": "apply-r189-b1",
+          "caller_ms": 6605.831750000008,
+          "clipped_inside_publication_ms": 6605.831861495972
+        },
+        {
+          "label": "global-identities-r189-b1",
+          "caller_ms": 3695.9557920000066,
+          "clipped_inside_publication_ms": 3695.955753326416
+        },
+        {
+          "label": "output-parity-r189-b1",
+          "caller_ms": 9274.292375,
+          "clipped_inside_publication_ms": 9274.292469024658
+        }
+      ],
+      "qualification": "Coverage uses local submission epoch plus monotonic call duration against the controller epoch anchor; assumes no local wall-clock jump. Uncovered time includes history/telemetry, Python work and controller gaps, not a measured removable overhead. Never subtract it to advertise publication freshness. Overlapping SQL durations are unioned rather than summed."
+    }
+  },
+  "source_sha256": {
+    "out/native/ashlar_publication_reads_r202/query-history.json": "95e7d86c3a97cceffe6a8427b43bbd1eb477cf48c418cbd81658ce4728fb5893",
+    "out/native/ashlar_publication_reads_r202/statements.jsonl": "06fd605f2ea41b15b13521e844c772977685ac39360f7289552a65e8cf6f25dc",
+    "out/native/ashlar_queue_resume_r192/apply-lane/statements.jsonl": "59e1e6125e20a86c70e6478760e41742c3252aac2a7b07a9be814bff2c59a95d",
+    "out/native/ashlar_queue_resume_r192/audited-summary.json": "91bae637461983e28d1d9e1e3048b93f613916fb4556b7b7f180ab1dde4408a6",
+    "out/native/ashlar_queue_resume_r192/journal-lane/statements.jsonl": "4a3b6c6d1cffb44937750de6922817ef65faccf51082851dccf638c5f3bc1689",
+    "out/native/ashlar_queue_resume_r192/statements.jsonl": "8b5c76f6fd4d09baae48f4a1cb31f0292055f542f03852c1e04fe96c66ffbb97",
+    "out/native/ashlar_queue_serial_r197/apply-lane/statements.jsonl": "3792759cb997af2b37340bf09741d8858ed19357e8e005ebc529a9610a1861a0",
+    "out/native/ashlar_queue_serial_r197/audited-summary.json": "bc68644a927af43988d2c4a4594ae6ca84fc5913222c4106924f50d407bc62da",
+    "out/native/ashlar_queue_serial_r197/journal-lane/statements.jsonl": "9de9d1d4bed2f20615bc5c980dc71f62d4fbc45ed01516d6ca603da258d5be38",
+    "out/native/ashlar_queue_serial_r197/statements.jsonl": "25ec589783563583bbf1b0ecd37389b0f950d1b2f56a10aa7bac0e057ace9b85"
+  },
+  "next_action": "Measure a concrete compile/caller improvement and separately instrument publisher telemetry before any new full publisher; preserve exact checks and all original gates."
+}
