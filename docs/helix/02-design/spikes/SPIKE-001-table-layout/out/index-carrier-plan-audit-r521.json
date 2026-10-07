@@ -1,0 +1,57 @@
+{
+  "plans": {
+    "exact_original_plans": 3,
+    "original_join_strategy": "Initial PhotonShuffledHashJoin with identity predicates on both scans",
+    "hinted_strategy": "Initial PhotonBroadcastHashJoin",
+    "qualification": "EXPLAIN initial plans, not final adaptive execution or per-operator cost attribution"
+  },
+  "state": "Broadcast paired cohort preserves all20 fields/deletion absence, exact SQL/final metrics and unchanged three-table custody",
+  "trials": [
+    {
+      "run": "r520",
+      "groups": {
+        "wide-0": {
+          "queries": 8,
+          "caller_p95_ms": 398.8410410000007,
+          "engine_p95_ms": 96,
+          "compile_p95_ms": 177,
+          "read_bytes": 515962992,
+          "remote_queries": 0
+        },
+        "wide-1": {
+          "queries": 8,
+          "caller_p95_ms": 389.3228340000014,
+          "engine_p95_ms": 106,
+          "compile_p95_ms": 176,
+          "read_bytes": 515962992,
+          "remote_queries": 0
+        },
+        "join-0": {
+          "queries": 8,
+          "caller_p95_ms": 958.5522910000002,
+          "engine_p95_ms": 531,
+          "compile_p95_ms": 338,
+          "read_bytes": 1882445860,
+          "remote_queries": 0
+        },
+        "join-1": {
+          "queries": 8,
+          "caller_p95_ms": 963.7140000000031,
+          "engine_p95_ms": 561,
+          "compile_p95_ms": 294,
+          "read_bytes": 1882445860,
+          "remote_queries": 0
+        }
+      },
+      "costs": {
+        "read_bytes": 4801306973,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "wall_s": 34.26873825,
+      "statements": 48,
+      "qualification": "BROADCAST(i) hint on filtered index plus explicit full-key predicates on BOTH index and carrier; eight selected changed identities, two passes, pinned 2.5M-row private fixture. Result cache disabled; storage cache and fixed warm history remain. No cold-data, concurrent, publication or billion admission."
+    }
+  ],
+  "qualification": "Small warm serial cohorts, nearest-rank sample p95; no production p95, cold-data, full publication or scale admission."
+}

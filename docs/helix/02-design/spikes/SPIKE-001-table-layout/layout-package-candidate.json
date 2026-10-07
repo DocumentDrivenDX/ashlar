@@ -2375,7 +2375,24 @@
     "out/native/index_carrier_reads_r517/summary.json": "daabaa33168b7c5e4abd2b0013f612a8543287462d4c711cc70beb742bc6e703",
     "out/native/index_carrier_reads_r517/shared-history.json": "2f21ecec4287ee7d9e94d93b36c6fb218c8055e2447004dc8bcff64a93beb136",
     "out/native/index_carrier_reads_r517/statements.jsonl": "c45257e652bb392aba4d9fbedecf1c3387345a1067b86eb796686b38f097f763",
-    "out/native/index_carrier_reads_r517/completed-last-request.json": "8a3cb6ea3e6a9147f9623524efc7e7f8ed944207a78f532de68366d1303fec35"
+    "out/native/index_carrier_reads_r517/completed-last-request.json": "8a3cb6ea3e6a9147f9623524efc7e7f8ed944207a78f532de68366d1303fec35",
+    "index_carrier_plans_r519.py": "1b31f47327df74338437d64d9c8f6b942e7e3caa1e5925600f9db7e349553af7",
+    "index_carrier_reads_r520.py": "7e94d53bf509bafc797b0ace01c36d8e4875af7ac78210165a90ab1f091fa364",
+    "audit_index_carrier_plan_r521.py": "efa268b5124ae019a3c640ad31050ebc298691dd8288047c291492618a3053cc",
+    "index-carrier-plan-disposition-r521.md": "9d9649b50f7830b41e71f263a023166c98f32bcae0bf0f6dc7c4501623953851",
+    "out/index-carrier-plan-audit-r521.json": "f65370298a28ba14bb27bb23ab3104ccedc74deaa1ade6af7b1109b7048eb2cd",
+    "out/native/index_carrier_plans_r519/summary.json": "ff8abbd969abd2b5cd61892dbc91a9894020a53f5f0ed407d82250a7df1ba34b",
+    "out/native/index_carrier_plans_r519/shared-history.json": "8bdfce8ae6f83bf24a4123cbcb0af40896b80f2d735c3939b54d820d403f7239",
+    "out/native/index_carrier_plans_r519/statements.jsonl": "776d7ad1363a87231affeccac636f0b108da1c855a1b87b3b11f85300d2f01d6",
+    "out/native/index_carrier_plans_r519/r517-join.txt": "755a0beb22a196996261402f156f1090e730a4746067c02437b8b8aba4fee4d2",
+    "out/native/index_carrier_plans_r519/completed-last-request.json": "3c1f2f403c065e73f948760f5269051edd0e816f4d309fcf6db53c22451717ad",
+    "out/native/index_carrier_plans_r519/r515-wide.txt": "5877cd1e132f62dcc11da7cdba4314a4ce2c6c6b1b769e8ae7c2ae036a44f91a",
+    "out/native/index_carrier_plans_r519/r515-join.txt": "479b8f4d1e1846228cbe5751dac0f019cefc6ac8091d1f73911325068c5cc7fb",
+    "out/native/index_carrier_reads_r520/summary.json": "a6abe2167232b3fa56fae69126b9936ada39547a0b80bc37fb51a6489f72c4f2",
+    "out/native/index_carrier_reads_r520/join-plan.txt": "7345335b9c914f027826e30a6e4556b95da2460353fd82b393ab0e6ae60d37c9",
+    "out/native/index_carrier_reads_r520/shared-history.json": "8fe0626fe64fdb6bc45e13d9820bebda4349e060a6c56dea2ffde586d21ccdb7",
+    "out/native/index_carrier_reads_r520/statements.jsonl": "69cd83739f698e84666781445d16fd2d145555943f91403249b3c0bbd5c4ff39",
+    "out/native/index_carrier_reads_r520/completed-last-request.json": "08a3f6d580fbd9e0001da9387c47fb6e1f38750e2aeecff41e966e69f6ff5d8f"
   },
   "evidence": {
     "ddl": {

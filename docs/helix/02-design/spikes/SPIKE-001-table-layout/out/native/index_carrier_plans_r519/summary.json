@@ -1,0 +1,62 @@
+{
+  "state": "Three exact parameterized pinned singleton plans retained",
+  "code_sha256": "1b31f47327df74338437d64d9c8f6b942e7e3caa1e5925600f9db7e349553af7",
+  "sources": {
+    "r515": "5f4a6ce26ac26cb33436ccf96bb27facbd9e7c582ce60b6bc1b5e2cfad69d41b",
+    "r517": "daabaa33168b7c5e4abd2b0013f612a8543287462d4c711cc70beb742bc6e703"
+  },
+  "plans": {
+    "r515-wide": {
+      "query": "SELECT v.source_system,v.rel_type_id,v.id,v.source_type,v.source_id,v.target_type,v.target_id,v.order_key,v.schema_revision,v.entity_version,v.props_json,v.retained_json,v.source_feed,v.source_epoch,v.source_position,CAST(v.published_at AS STRING) AS published_at,v.apply_batch_id,v.source_cursor_json,v.source_delivery_id,v.lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493 VERSION AS OF 3 v WHERE v.lookup_hash=:hash AND v.source_system=:source AND v.rel_type_id=CAST(:type AS BIGINT) AND v.id=CAST(:id AS BIGINT)",
+      "parameters": {
+        "hash": "0000d017c913d426c745b78bcbf49a5f6fb14cae02f75ffd55d4bec1259b3996",
+        "source": "pilot-a",
+        "type": "9",
+        "id": "21630890"
+      },
+      "statement_id": "01f1c29d-f228-1b9f-bff6-b436a6b77286",
+      "sha256": "5877cd1e132f62dcc11da7cdba4314a4ce2c6c6b1b769e8ae7c2ae036a44f91a"
+    },
+    "r515-join": {
+      "query": "SELECT v.source_system,v.rel_type_id,v.id,v.source_type,v.source_id,v.target_type,v.target_id,v.order_key,v.schema_revision,v.entity_version,v.props_json,v.retained_json,v.source_feed,v.source_epoch,v.source_position,CAST(v.published_at AS STRING) AS published_at,v.apply_batch_id,v.source_cursor_json,v.source_delivery_id,v.lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.current_index_r513 VERSION AS OF 1 i JOIN client_dev.ashlar_entropy_20261006_r86.immutable_carrier_r513 VERSION AS OF 2 v ON i.lookup_hash=v.lookup_hash AND i.source_system=v.source_system AND i.rel_type_id=v.rel_type_id AND i.id=v.id AND i.carrier_version=v.entity_version AND i.carrier_fingerprint=v.carrier_fingerprint WHERE NOT i.is_deleted AND i.lookup_hash=:hash AND i.source_system=:source AND i.rel_type_id=CAST(:type AS BIGINT) AND i.id=CAST(:id AS BIGINT)",
+      "parameters": {
+        "hash": "0000d017c913d426c745b78bcbf49a5f6fb14cae02f75ffd55d4bec1259b3996",
+        "source": "pilot-a",
+        "type": "9",
+        "id": "21630890"
+      },
+      "statement_id": "01f1c29d-f26b-1c67-bcfd-38d9d7202e32",
+      "sha256": "479b8f4d1e1846228cbe5751dac0f019cefc6ac8091d1f73911325068c5cc7fb"
+    },
+    "r517-join": {
+      "query": "SELECT v.source_system,v.rel_type_id,v.id,v.source_type,v.source_id,v.target_type,v.target_id,v.order_key,v.schema_revision,v.entity_version,v.props_json,v.retained_json,v.source_feed,v.source_epoch,v.source_position,CAST(v.published_at AS STRING) AS published_at,v.apply_batch_id,v.source_cursor_json,v.source_delivery_id,v.lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.current_index_r513 VERSION AS OF 1 i JOIN client_dev.ashlar_entropy_20261006_r86.immutable_carrier_r513 VERSION AS OF 2 v ON i.lookup_hash=v.lookup_hash AND i.source_system=v.source_system AND i.rel_type_id=v.rel_type_id AND i.id=v.id AND i.carrier_version=v.entity_version AND i.carrier_fingerprint=v.carrier_fingerprint WHERE NOT i.is_deleted AND i.lookup_hash=:hash AND i.source_system=:source AND i.rel_type_id=CAST(:type AS BIGINT) AND i.id=CAST(:id AS BIGINT) AND v.lookup_hash=:hash AND v.source_system=:source AND v.rel_type_id=CAST(:type AS BIGINT) AND v.id=CAST(:id AS BIGINT)",
+      "parameters": {
+        "hash": "0000d017c913d426c745b78bcbf49a5f6fb14cae02f75ffd55d4bec1259b3996",
+        "source": "pilot-a",
+        "type": "9",
+        "id": "21630890"
+      },
+      "statement_id": "01f1c29d-f2b0-1c9b-964b-34ed6dbe3246",
+      "sha256": "755a0beb22a196996261402f156f1090e730a4746067c02437b8b8aba4fee4d2"
+    }
+  },
+  "bounds": {
+    "wall_s": 120,
+    "read_bytes": 1000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "key": [
+    "0000d017c913d426c745b78bcbf49a5f6fb14cae02f75ffd55d4bec1259b3996",
+    "pilot-a",
+    "9",
+    "21630890",
+    "false"
+  ],
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 5.242960834
+}
