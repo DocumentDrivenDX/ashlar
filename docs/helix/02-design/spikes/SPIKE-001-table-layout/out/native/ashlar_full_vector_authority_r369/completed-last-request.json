@@ -1,0 +1,1 @@
+{"label": "final-history", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.full_vector_authority_r369", "parameters": null, "correlation": "/* ashlar ashlar_full_vector_authority_r369 final-history */", "started_epoch": 1791390444.576895, "state": "returned", "query_id": "01f1c26b-fa8f-1de5-85a9-1a334542d286"}
