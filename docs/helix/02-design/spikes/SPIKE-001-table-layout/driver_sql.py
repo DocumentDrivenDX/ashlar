@@ -2,11 +2,11 @@
 import datetime,json,time
 from databricks import sql as dbsql
 from databricks.sql.exc import ServerOperationError
-from persistent_sql import Client
+from persistent_sql import Client, WAREHOUSE
 class DriverClient(Client):
- def __init__(self,out):
-  super().__init__(out)
-  self.connection=dbsql.connect(server_hostname='adb-7405607548213398.18.azuredatabricks.net',http_path='/sql/1.0/warehouses/2439e1f2e37ac563',credentials_provider=lambda:self.w.config.authenticate,session_configuration={'use_cached_result':'false'},use_cloud_fetch=False)
+ def __init__(self,out,warehouse_id=WAREHOUSE):
+  super().__init__(out,warehouse_id=warehouse_id)
+  self.connection=dbsql.connect(server_hostname='adb-7405607548213398.18.azuredatabricks.net',http_path='/sql/1.0/warehouses/'+self.warehouse_id,credentials_provider=lambda:self.w.config.authenticate,session_configuration={'use_cached_result':'false'},use_cloud_fetch=False)
   self.cursor=self.connection.cursor()
   self.cursor.execute('SET use_cached_result=false');self.cursor.fetchall()
  def sql(self,label,statement,parameters=None,tag=True):
@@ -28,7 +28,7 @@ class DriverClient(Client):
    response={'status':{'state':'SUCCEEDED'},'result':{'data_array':rows},'manifest':{'schema':{'columns':[{'name':d[0]} for d in (self.cursor.description or [])]}}}
   except Exception as e:
    response={'status':{'state':'FAILED' if isinstance(e,ServerOperationError) else 'UNKNOWN','error':{'class':type(e).__name__,'message':str(e)}}};rows=[]
-  rec={'label':label,'sql':statement,'parameters':parameters,'tag':tag,'statement_id':self.cursor.query_id if self.cursor.query_id!=prior_id else None,'start_epoch':started,'wall_ms':(time.perf_counter()-start)*1000,'transport':'sql-driver','response':response};self.records.append(rec)
+  rec={'warehouse_id':self.warehouse_id,'label':label,'sql':statement,'parameters':parameters,'tag':tag,'statement_id':self.cursor.query_id if self.cursor.query_id!=prior_id else None,'start_epoch':started,'wall_ms':(time.perf_counter()-start)*1000,'transport':'sql-driver','response':response};self.records.append(rec)
   with (self.out/'statements.jsonl').open('a') as h:h.write(json.dumps(rec)+'\n')
   if response['status']['state']!='SUCCEEDED':raise RuntimeError(json.dumps(response['status']))
   return rows

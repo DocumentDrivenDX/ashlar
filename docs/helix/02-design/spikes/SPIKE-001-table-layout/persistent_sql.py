@@ -1,20 +1,22 @@
 """Reusable authenticated SDK transport. Never prints or stores credentials.
 Write submission exceptions require same-handle/history recovery, never blind retry.
 """
-import json,time
+import json,time,re
 from pathlib import Path
 from urllib.parse import urlencode
 from databricks.sdk import WorkspaceClient
 WAREHOUSE='2439e1f2e37ac563'
 class Client:
- def __init__(self,out,observation_timeout=180,cancel_after=None):
+ def __init__(self,out,observation_timeout=180,cancel_after=None,warehouse_id=WAREHOUSE):
+  if not re.fullmatch(r"[0-9a-f]{16}",warehouse_id):raise ValueError("Invalid warehouse ID")
+  self.warehouse_id=warehouse_id
   self.out=Path(out);self.out.mkdir(parents=True,exist_ok=True)
   self.observation_timeout=observation_timeout
   self.cancel_after=cancel_after
   self.w=WorkspaceClient(profile='aidev-cus');self.records=[]
  def sql(self,label,statement,parameters=None):
   start=time.perf_counter();started=time.time()
-  body={'warehouse_id':WAREHOUSE,'statement':statement,'wait_timeout':'10s','on_wait_timeout':'CONTINUE','disposition':'INLINE','format':'JSON_ARRAY','row_limit':1000}
+  body={'warehouse_id':self.warehouse_id,'statement':statement,'wait_timeout':'10s','on_wait_timeout':'CONTINUE','disposition':'INLINE','format':'JSON_ARRAY','row_limit':1000}
   if parameters is not None:body['parameters']=parameters
   r=self.w.api_client.do('POST','/api/2.0/sql/statements',body=body)
   sid=r['statement_id'];deadline=time.monotonic()+self.observation_timeout
@@ -28,7 +30,7 @@ class Client:
     (self.out/'live-statement.json').write_text(json.dumps({'label':label,'statement_id':sid,'statement':statement,'cancel_requested':True})+'\n')
     self.w.api_client.do('POST','/api/2.0/sql/statements/'+sid+'/cancel')
    time.sleep(.2);r=self.w.api_client.do('GET','/api/2.0/sql/statements/'+sid)
-  rec={'label':label,'sql':statement,'cancel_requested':cancel_requested,'parameters':parameters,'statement_id':sid,'start_epoch':started,'wall_ms':(time.perf_counter()-start)*1000,'response':r};self.records.append(rec)
+  rec={'warehouse_id':self.warehouse_id,'label':label,'sql':statement,'cancel_requested':cancel_requested,'parameters':parameters,'statement_id':sid,'start_epoch':started,'wall_ms':(time.perf_counter()-start)*1000,'response':r};self.records.append(rec)
   with (self.out/'statements.jsonl').open('a') as h:h.write(json.dumps(rec)+'\n')
   if r['status']['state']!='SUCCEEDED':raise RuntimeError(json.dumps(r['status']))
   if r.get('manifest',{}).get('truncated'):raise RuntimeError('Truncated result')

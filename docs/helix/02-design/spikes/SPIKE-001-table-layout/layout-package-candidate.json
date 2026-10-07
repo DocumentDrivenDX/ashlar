@@ -40,7 +40,7 @@
     "scale_workload.py": "72b78041ce0112744f41e7d18030561f7bc60b73738b2450eb40b21ef22a6f55",
     "scale_local.py": "f8a2e5aafd7349b820a722054cbc68e88edd44607311f51a5ef229b6f6eb6a87",
     "scale_native.py": "fcac84f79c043846147fe95e11c2e63e22b699709e2734beb1baf5f6a153cda7",
-    "persistent_sql.py": "dcc8175edebb7e1dfc3f4cf07bc6c076d9873da7644b73665b197545e53a4cee",
+    "persistent_sql.py": "a3cb5e45a255789d4342dba284c32b882f9e5b3e0ebf4767c8af08723650e857",
     "out/local-scale-20261006/summary.json": "243ad3829d134a3d8d676fbeae20c1bfd74a29fcef569a253c102348cf74c2bc",
     "scale_native_post.py": "850cf4fb960506ef299bf63cf14aa4509a688e83a54e5e37c14cbf8472a9206e",
     "scale_native_driver_reads.py": "110c0cb2845bd3d83e9da9e20b4e5b000435f216cff20d7ae46696dc2fb45e15",
@@ -87,7 +87,7 @@
     "out/native/ashlar_scale_20261006_r85/uncached-v2-driver-summary.json": "b20d94f9d28edb008e824a7438460f1d0702946cd7781ea934b1e018c5b449f8",
     "out/property-map-correction-20261006/native/query-history.json": "1821cb22cf4eaea56c2fefa4fd32526c2e6478e812bf9fcacccd281191d8e1ea",
     "out/property-map-correction-20261006/native/statements.jsonl": "3038591a06a6f9d65cae32187e1e86fde53303d80418f5f220c0016148566bbd",
-    "driver_sql.py": "cdf4da8940de822b9f5a5603ec81b69cee81da8d9a424483cf5b2d9b6806cd42",
+    "driver_sql.py": "67fa5278a5ab17bdd75a07edcd1fd47c629e23fb8caa3e295f17428a1296ddd7",
     "entropy_local.py": "538f702bca5f29a28d3d25ecdba6f1eb738038a362932d8a03330b4082d1a401",
     "entropy_native.py": "46ae8a106e8899382a6c75a3af46829d547e1fd1b764ea57894354000f8e8dea",
     "entropy_parity_check.py": "4bec3aa83b575b79cbe4b13c8e6732879d18d1040d40ceec8d0771508d2cb295",
@@ -279,7 +279,9 @@
     "out/native/ashlar_parameterized_reads_r106/summary.json": "ac5bbd7f5ea1ff90306f8baa4a162522ae80f8ab5268cb6318676075ec0a396f",
     "out/native/ashlar_parameterized_reads_r106/statements.jsonl": "d918a9aca0538e759c1dba5d11810c7f14d66f6bc9311ead6125a872fab5b0e8",
     "out/native/ashlar_parameterized_reads_r106/query-history.json": "374c4c46af8a52111f671fc0921df5e93fdbcd89db2b5d5ffb22e626af5b193d",
-    "out/native/ashlar_parameterized_reads_r106/audited-summary.json": "b6276bdeb6ca12d0abafe7bb416ee5783c753bc0a17af781b1dffe94269e43a8"
+    "out/native/ashlar_parameterized_reads_r106/audited-summary.json": "b6276bdeb6ca12d0abafe7bb416ee5783c753bc0a17af781b1dffe94269e43a8",
+    "test_warehouse_routing.py": "96935f06572903783b05294efe05e8f8c7922d4d75e323db64517ac7b849a692",
+    "compute-isolation-plan.md": "c0a5e513fc276869aa16066b4cce512407ac45b53290a6acbf5d9d5543e10904"
   },
   "evidence": {
     "ddl": {
