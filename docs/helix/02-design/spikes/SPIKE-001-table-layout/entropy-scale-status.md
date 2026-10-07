@@ -1204,3 +1204,44 @@ actual output version/lineage, validation and post-run full structural oracle
 remain execution obligations. Do not infer a performance saving from local
 proof composition. Warm/freshness, real producer, external engines and1B/5B
 requirements remain open.
+
+## Integrated owned-query structural reuse publication (r128)
+
+[Final audit](out/native/ashlar_isolation_r128/audited-summary.json) records one
+actual100k property publication using owned intended/apply/output/identity
+queries and the composed structural reuse proof. Its inherited baseline is
+r123's full20M E18↔forward1 parity, bound to exact native query text/ID. Immutable
+stage0 membership, all20 intended/output fields and closed owned MERGE lineage
+prove reuse before descriptor activation. Raw/journal capture and exact validation
+remain required and finish before canonical apply. No structural fields change.
+Actual r128-b1 vector: E19/N0/R15/J17/T0/forward r120 v1.
+
+Ready-input→verified-descriptor60.874s, modeled oldest freshness70.874s under the
+10second uniform admission window. Actual input preparation13.820s is excluded
+from that clock; this is not a real producer arrival trace. Parallel appends
+24.486s, parallel validations12.674s, canonical apply7.095s, composed proof with
+native history retrieval0.709s. Compared with r123's62.943s processing, the
+single-sample difference2.069s is not a strict causal or p95 estimate. Even
+ready-input latency remains above60seconds; oldest-record comparison also fails.
+
+The independent full20M structural EXCEPT ALL oracle runs after descriptor
+verification and passes in6.427s, explicitly outside the publication clock.
+Do not claim activation gated on that oracle. It corroborates the composed
+proof's decision for this closed synthetic apply. Thirty exact20-field singleton
+checks are final uncached, remote bytes0, p95 engine115ms/caller394.57ms and
+files15. Both warm gates remain missed. No concurrent reader load, new compute
+or repeated expensive inherited-history post-audit was run.
+
+This qualifies owned-query proof composition in the bounded serialized synthetic
+publisher, not production completeness/fencing, general source semantics or
+billion-scale admission. All20 affected carriers, exact raw/journal slices,
+global identities, owned apply lineage and independent structural parity pass;
+untouched full-carrier payload equality is not independently rerun here.
+Shared warehouse dollar attribution is unknown. Current anchors advance to
+E19/R15/J17; future execution must use the actual r128 predecessor.
+
+Further physical tuning should target actual canonical write/file behavior and
+raw/journal append costs rather than more copies of redundant validators.
+Keep the16MiB narrow forward candidate distinct from canonical hash clustering
+and64MiB wide-row tuning. Performance comparisons, real source authority,
+external activation, reverse/degree coverage and1B/5Badmission remain open.

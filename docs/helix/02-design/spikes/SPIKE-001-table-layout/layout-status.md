@@ -254,3 +254,10 @@ Owned publisher templates: [r127 qualification](out/property-template-r127.json)
 reproduces5 native r123 queries exactly and passes5 local tests with26 rejection
 cases. Template-based structural reuse proof is ready for a bounded synthetic
 integration experiment; no native execution or performance claim this iteration.
+
+Integrated owned proof: [r128 audit](out/native/ashlar_isolation_r128/audited-summary.json)
+publishes E19/N0/R15/J17/T0/forward1 after exact100k carrier/raw/journal checks
+and composed lineage proof. Independent20M structural parity passes afterward.
+Ready-input60.874s, modeled oldest70.874s; warm singleton p95 engine115/caller
+394.57ms. Targets remain unmet; next tune measured physical writes and append
+costs rather than adding redundant structural validation scans.
