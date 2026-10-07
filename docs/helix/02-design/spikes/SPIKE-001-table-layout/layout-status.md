@@ -249,3 +249,8 @@ Structural proof composition: [r126 result](out/composed-structure-r126.json)
 combines the validated E17 adjacency baseline, full-carrier checks and owned
 E17→E18 apply lineage; three local tests reject11 missing/altered evidence cases.
 Fixed-fixture qualification only, no new native workload or performance claim.
+
+Owned publisher templates: [r127 qualification](out/property-template-r127.json)
+reproduces5 native r123 queries exactly and passes5 local tests with26 rejection
+cases. Template-based structural reuse proof is ready for a bounded synthetic
+integration experiment; no native execution or performance claim this iteration.

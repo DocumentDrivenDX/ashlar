@@ -1173,3 +1173,34 @@ future bounded integrated publisher experiment must retain an independent
 post-run full structural oracle and report it outside the publication clock.
 No new timing saving,60second pass, p95, real producer authority, external graph
 activation or1B/5Badmission follows from this local composition.
+
+## Owned property query templates and reuse composition (r127; local only)
+
+[Recorded qualification](out/property-template-r127.json) replaces ad hoc query
+copying with typed owned constructors for the bounded synthetic ASCII property105
+profile. Intended change, MERGE, exact output, membership and global identity
+queries reproduce all five successful r123 native statements byte-for-byte,
+including the actual native history text. Source/type/ID and both typed endpoints
+remain unchanged in the intended/output20-field checks; UTF8 text comparisons
+preserve lexical carrier/retained values. Table names and synthetic tokens reject
+unsupported syntax; versions, entity versions and cursor xid reject booleans,
+floats, overflow and stale outputs. New batch identity is distinct from predecessor.
+
+The composed proof is derived from owned templates rather than per-fixture query
+hash substitution. It binds an exact prior full structural baseline, immutable
+stage0, successful matching native queries, unique membership, full intended/
+output checks and closed MERGE lineage. Proof mode is explicitly serialized
+synthetic-property105; production and other source profiles fail closed.
+Unknown source semantics, real completeness/fencing and outside-membership
+changes without a closed owned apply are not qualified. Caller evidence must
+come from trusted native capture; this does not authenticate arbitrary supplied
+history dictionaries. Structural revision is independent of entity_version.
+
+Five local tests pass: native equivalence,14 invalid parameter/output cases,
+actual composition and12 missing/altered boundary/check cases. No Databricks
+queries, writes or new compute run in this iteration. The recorded next r128
+input/apply SQL is compiled only; stage creation, durable raw/journal capture,
+actual output version/lineage, validation and post-run full structural oracle
+remain execution obligations. Do not infer a performance saving from local
+proof composition. Warm/freshness, real producer, external engines and1B/5B
+requirements remain open.

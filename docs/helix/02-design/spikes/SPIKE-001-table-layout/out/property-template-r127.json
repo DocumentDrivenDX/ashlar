@@ -1,0 +1,38 @@
+{
+  "mode": "serialized-synthetic-property105",
+  "canonical": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "old_version": 17,
+  "new_version": 18,
+  "adjacency": "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120",
+  "adjacency_version": 1,
+  "structural_revision": 1,
+  "proof_query_ids": {
+    "baseline": "01f1c1f0-1abb-1ef0-b678-2ff5700a31cb",
+    "membership": "01f1c1f2-07ba-1878-a4f6-90169f3caf86",
+    "intended": "01f1c1f2-0e3f-173c-8bdf-3b0909aba078",
+    "output": "01f1c1f2-2c66-18d3-aeef-1e01632f43b4",
+    "identities": "01f1c1f2-2bae-1d3b-ab60-575205473cda",
+    "apply": "01f1c1f2-26d6-1b09-9d15-eb6b58775e5d"
+  },
+  "qualification": "Owned ASCII property105 profile, trusted immutable stage0, inherited full structural baseline, closed owned apply lineage. Serialized synthetic experiment only; no real producer completeness/fencing or general SQL analysis.",
+  "state": "Owned template/native SQL equivalence and composed recorded proof passed; no native execution this iteration",
+  "tests": {
+    "template_unit_tests": 2,
+    "proof_unit_tests": 3,
+    "native_queries_reproduced_exactly": 5,
+    "invalid_parameter_cases": 14,
+    "proof_boundary_rejection_cases": 12
+  },
+  "next_candidate": {
+    "status": "Compiled only; stage not created, MERGE not submitted, output19 hypothetical until history confirms",
+    "old_edge_version": 18,
+    "predecessor": "r123-b1",
+    "stage": "client_dev.ashlar_entropy_20261006_r86.schedule_r128_1",
+    "queries": {
+      "intended": "SELECT count(*) FROM (SELECT /*+ BROADCAST(k) */ b.* FROM client_dev.ashlar_entropy_20261006_r86.edge_current VERSION AS OF 18 b JOIN\n            (SELECT source_system,rel_type_id,id FROM client_dev.ashlar_entropy_20261006_r86.schedule_r128_1 VERSION AS OF 0) k\n            ON b.source_system=k.source_system AND b.rel_type_id=k.rel_type_id AND b.id=k.id) b FULL OUTER JOIN client_dev.ashlar_entropy_20261006_r86.schedule_r128_1 VERSION AS OF 0 s\n            ON b.source_system=s.source_system AND b.rel_type_id=s.rel_type_id AND b.id=s.id\n            WHERE b.id IS NULL OR s.id IS NULL OR instr(b.props_json,concat('\"105\":',s.old_json))=0\n            OR NOT(s.old_json RLIKE '^\"[0-9a-f]+\"$') OR s.old_json=concat('\"',get_json_object(s.props_json,'$.105'),'\"')\n            OR NOT(hex(encode(s.source_system,'UTF-8')) <=> hex(encode(b.source_system,'UTF-8'))) OR NOT(s.rel_type_id <=> b.rel_type_id) OR NOT(s.id <=> b.id) OR NOT(s.source_type <=> b.source_type) OR NOT(s.source_id <=> b.source_id) OR NOT(s.target_type <=> b.target_type) OR NOT(s.target_id <=> b.target_id) OR NOT(hex(encode(s.schema_revision,'UTF-8')) <=> hex(encode(b.schema_revision,'UTF-8'))) OR NOT(s.entity_version <=> b.entity_version+1) OR NOT(hex(encode(s.props_json,'UTF-8')) <=> hex(encode(replace(b.props_json,concat('\"105\":',s.old_json),concat('\"105\":\"',get_json_object(s.props_json,'$.105'),'\"')),'UTF-8'))) OR NOT(hex(encode(s.retained_json,'UTF-8')) <=> hex(encode(b.retained_json,'UTF-8'))) OR NOT(hex(encode(s.order_key,'UTF-8')) <=> hex(encode(b.order_key,'UTF-8'))) OR NOT(hex(encode(s.source_feed,'UTF-8')) <=> hex(encode(b.source_feed,'UTF-8'))) OR NOT(hex(encode(s.source_epoch,'UTF-8')) <=> hex(encode('schedule-r128','UTF-8'))) OR NOT(s.source_position <=> b.source_position) OR NOT(s.published_at <=> s.published_at) OR NOT(hex(encode(s.lookup_hash,'UTF-8')) <=> hex(encode(b.lookup_hash,'UTF-8'))) OR NOT(hex(encode(s.apply_batch_id,'UTF-8')) <=> hex(encode(decode(unhex('723132382d6231'),'UTF-8'),'UTF-8'))) OR NOT(hex(encode(s.source_cursor_json,'UTF-8')) <=> hex(encode(concat('{\"xid\":\"9007199254741035\",\"seq\":\"',cast(s.id AS STRING),'\"}'),'UTF-8'))) OR NOT(hex(encode(s.source_delivery_id,'UTF-8')) <=> hex(encode(concat('r128-b1:edge:',cast(s.id AS STRING)),'UTF-8')))",
+      "apply": "MERGE INTO client_dev.ashlar_entropy_20261006_r86.edge_current t USING (SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,schema_revision,entity_version,props_json,retained_json,order_key,source_feed,source_epoch,source_position,published_at,lookup_hash,apply_batch_id,source_cursor_json,source_delivery_id FROM client_dev.ashlar_entropy_20261006_r86.schedule_r128_1 VERSION AS OF 0) s\n            ON t.lookup_hash=s.lookup_hash AND t.source_system=s.source_system AND t.rel_type_id=s.rel_type_id AND t.id=s.id\n            WHEN MATCHED AND t.entity_version=12 AND t.apply_batch_id=decode(unhex('723132332d6231'),'UTF-8') THEN UPDATE SET *",
+      "membership": "SELECT count(*),count(DISTINCT id) FROM client_dev.ashlar_entropy_20261006_r86.schedule_r128_1 VERSION AS OF 0"
+    },
+    "qualification": "Required raw/journal capture and validation, staged input membership, actual output version/lineage, fresh native query binding and independent post-run structural oracle must be integrated before any publication."
+  }
+}
