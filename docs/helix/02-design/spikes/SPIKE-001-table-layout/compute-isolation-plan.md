@@ -64,3 +64,16 @@ shared stop propagation and stop/count limits. These prove lane guard behavior,
 not compute isolation performance. Live preflight and a dual-reader publisher
 controller still need integration and execution. Temporary compute authorization
 is pending; no second warehouse has been provisioned.
+
+`isolation_controller.py` now coordinates both exact reader lanes: each owns
+its client on its worker thread, preflights independently and completes an idle
+cohort before the coordinator releases load and invokes the supplied publisher
+callback once. Distinct target IDs and evidence directories are mandatory.
+Reader or publisher failure sets stop; final histories and connection closure
+run on each lane. Post-publication reads run only after publisher success.
+Four offline controls verify preflight failure prevents publication, publisher
+failure does not retry, successful target routing/closure and same-compute refusal.
+No provisioning, live comparison or production publisher callback is included.
+The next integration must adapt the causal100k publisher with fresh lineage
+checks, invoke stop checks between phases and audit actual overlap from statement
+intervals. Callback completion alone does not prove sustained ingest or reader SLOs.
