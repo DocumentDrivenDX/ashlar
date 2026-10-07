@@ -25,11 +25,15 @@ class PropertyApply:
     epoch:str
     xid:int
     eligibility_placement:str='matched'
+    input_ranges:int=None
     def __post_init__(self):
         table(self.canonical);table(self.stage)
         if self.canonical==self.stage:raise ValueError('Stage must be distinct from canonical')
         integer(self.old_version);integer(self.previous_entity_version);integer(self.previous_entity_version+1)
         integer(self.xid,1)
+        if self.input_ranges is not None:
+            integer(self.input_ranges,1)
+            if self.input_ranges>64:raise ValueError('Owned range screen maximum64')
         for value in (self.batch,self.predecessor,self.epoch):token(value)
         if self.batch==self.predecessor:raise ValueError('New batch identity required')
         if self.eligibility_placement not in ('matched','on'):raise ValueError('Owned eligibility placement required')
@@ -57,6 +61,8 @@ class PropertyApply:
             WHEN MATCHED AND t.entity_version={self.previous_entity_version} AND t.apply_batch_id={lit(self.predecessor)} THEN UPDATE SET *'''
         if self.eligibility_placement=='on':
             query=query.replace('WHEN MATCHED AND t.entity_version=', 'AND t.entity_version=').replace(' THEN UPDATE SET *',' WHEN MATCHED THEN UPDATE SET *')
+        if self.input_ranges is not None:
+            query=query.replace('USING (SELECT ',f'USING (SELECT /*+ REPARTITION_BY_RANGE({self.input_ranges},lookup_hash) */ ')
         return query
     def output(self,new_version):
         integer(new_version)

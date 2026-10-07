@@ -29,4 +29,14 @@ class Checks(unittest.TestCase):
   history={h['query_id']:h for h in json.loads((p/'query-history.json').read_text())}
   self.assertTrue(history[record['statement_id']]['query_text'].endswith(q.apply()))
   with self.assertRaises(ValueError):dataclasses.replace(q,eligibility_placement='insert')
+ def test_range_input_preserves_native_predicates(self):
+  for placement in ('matched','on'):
+   base=dataclasses.replace(self.q,eligibility_placement=placement)
+   ranged=dataclasses.replace(base,input_ranges=6)
+   self.assertEqual(ranged.apply().replace('/*+ REPARTITION_BY_RANGE(6,lookup_hash) */ ',''),base.apply())
+   self.assertEqual(ranged.intended(),base.intended())
+   self.assertEqual(ranged.output(18),base.output(18))
+  for value in (True,0,-1,65,6.0,'6'):
+   with self.subTest(value=value):
+    with self.assertRaises(ValueError):dataclasses.replace(self.q,input_ranges=value)
 if __name__=='__main__':unittest.main()
