@@ -1,0 +1,32 @@
+{
+  "format": "ashlar-next-growth-budget/1",
+  "source_sha256": {
+    "out/native/ashlar_scale_edges_r257/audited-summary.json": "0dcfb502af0a32ef7e5ec28e528b393b30f97d4ae528ea50d91217f4570ebc07"
+  },
+  "prior_prefix_edges": 16000000,
+  "next_prefix_edges": 24000000,
+  "new_edges": 8000000,
+  "planned_intermediate": {
+    "nodes": 8000000,
+    "edges": 40000000
+  },
+  "final_owner_scale": {
+    "nodes": 1000000000,
+    "edges": 5000000000
+  },
+  "bounds": {
+    "read_bytes": 360000000000,
+    "write_bytes": 40000000000,
+    "spill_bytes": 30000000000,
+    "phase_reserve": 10000000000,
+    "wall_s": 2400,
+    "statement_cancel_s": 180
+  },
+  "sensitivity": {
+    "read": 291952044947.25,
+    "write": 28354741798.5,
+    "spill": 18171630103.5,
+    "wall": 2365.6045916865
+  },
+  "qualification": "1.5x larger verified prefix and1.5x read sensitivity; same8M append with1.5x write/spill sensitivity,1.5x prior whole-controller duration. Assumptions, not guarantees.40min replaces30min admission clock; foreground spill counters do not measure peak concurrent task memory/temp disk, retained files or price. Existing warehouse only; no resize/new compute. Recheck UUID/maintenance/full prior role prefix before append. Whole40M/1B5B remains unqualified."
+}
