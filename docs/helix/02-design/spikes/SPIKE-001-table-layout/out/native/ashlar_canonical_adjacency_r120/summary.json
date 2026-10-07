@@ -1,0 +1,42 @@
+{
+  "state": "20M canonical projection, typed closure, identities, structural reuse proof and30 exact pages passed; final metrics pending",
+  "table": "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120",
+  "version": 1,
+  "canonical_vectors": {
+    "r101-b1": {
+      "client_dev.ashlar_entropy_20261006_r86.edge_current": 13,
+      "client_dev.ashlar_entropy_20261006_r86.object_current": 0,
+      "client_dev.ashlar_entropy_20261006_r86.property_journal_r89": 13,
+      "client_dev.ashlar_entropy_20261006_r86.source_record_r89": 11,
+      "client_dev.ashlar_entropy_20261006_r86.tombstone_r89": 0
+    },
+    "r103-b1": {
+      "client_dev.ashlar_entropy_20261006_r86.edge_current": 16,
+      "client_dev.ashlar_entropy_20261006_r86.object_current": 0,
+      "client_dev.ashlar_entropy_20261006_r86.property_journal_r89": 14,
+      "client_dev.ashlar_entropy_20261006_r86.source_record_r89": 12,
+      "client_dev.ashlar_entropy_20261006_r86.tombstone_r89": 0
+    }
+  },
+  "physical_detail": {
+    "format": "delta",
+    "id": "ea6bb51b-5f1e-4cbc-91ce-57d7f5f963d5",
+    "name": "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/3ea068ce-181f-4418-b7a2-924845ac134d",
+    "createdAt": "2026-10-07T01:36:42.697000",
+    "lastModified": "2026-10-07T01:36:51",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"source_system\",\"source_type\",\"source_id\",\"rel_type_id\"]",
+    "numFiles": "16",
+    "sizeInBytes": "206001802",
+    "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"source_system,source_type,source_id,rel_type_id,target_type,target_id,edge_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-a7c0c239-3e0c-4ef3-9f4c-10f4d68af68c\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-8aa4bc7e-4fad-43ee-afb4-d4d4783aefb5\",\"delta.targetFileSize\":\"16777216\",\"io.unitycatalog.tableId\":\"3ea068ce-181f-4418-b7a2-924845ac134d\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+    "clusterByAuto": "False"
+  },
+  "coverage": "All canonical E16 independent edges, forward direction, all source and relationship IDs; structural revision1. Exact structural equivalence to E13 proven.",
+  "qualification": "Synthetic canonical native publication descriptors r101/r103. New projection is a candidate not activated in either immutable descriptor. No real producer authority, concurrent fencing, reverse/degree coverage, incremental structural publication or billion admission. NOT NULL shape explicitly created."
+}

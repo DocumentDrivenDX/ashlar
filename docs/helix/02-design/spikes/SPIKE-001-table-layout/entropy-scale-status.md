@@ -949,3 +949,43 @@ batch;29seconds is material against the60second freshness comparison. Next
 connect its incremental maintenance cost to the complete publication path before
 promoting physical defaults. Reverse layout, production degree distribution,
 real source custody, external-engine activation and1B/5Badmission remain open.
+
+## Canonical forward projection and structural reuse (r120)
+
+[Final audit](out/native/ashlar_canonical_adjacency_r120/audited-summary.json)
+reads actual immutable r101-b1/r103-b1 descriptors and verifies their canonical
+edge anchorsE13/E16. Full20M structural EXCEPT ALL equality passes in6.946s
+caller: independent identity, relationship, source custody and typed endpoints
+are unchanged. This qualifies a structural reuse decision for these snapshots,
+not interpretation of unknown producer events. Structural revision1 is a
+projection revision, independent of canonical property entity_version.
+
+A new canonical-derived forward candidate is explicitly created with all eight
+NOT NULL columns, reference source/relationship clustering, declared statistics,
+Zstd and16MiB target. Actual build8.699s (CREATE1.296s) yields v1 with16files
+and206001802physical bytes. Full20M parity, global independent edge identities,
+unique typed relationship-endpoint pairs and both endpoint closure checks pass.
+Canonical tables and existing descriptors are read-only throughout.
+
+Thirty exact full-shape pages at ten lexicographically first endpoint keys
+(three repetitions) are final uncached with no remote bytes. Engine p95=74ms,
+caller=299.38ms, files=1 and read bytes=2372865. These sparse neighborhoods are
+not canonical singleton queries, representative degrees, cold reads or general
+adjacency SLO evidence. The candidate is a faithful projection of the pinned
+synthetic canonical graph rather than an altered hub fixture.
+
+[Reviewable vector](out/native/ashlar_canonical_adjacency_r120/publication-candidate.json)
+adds this exact adjacency version to r103's existing canonical/raw/journal/node/
+tombstone anchors and explicitly marks reverse/degree/typed-property coverage
+unavailable. It is NOT activated, inserted into an immutable manifest, or proof
+of full publication/fencing/acknowledgement. Existing compute only; shared
+warehouse dollars are unattributed.
+
+Apply CONTRACT-003's property-only invalidation rule: a publisher may reuse a
+qualified unchanged structural projection rather than rebuild/compact it for
+every property batch. This full scan is a spike oracle, not a prescribed
+per-batch billion-scale validator. A real complete-boundary source and changed
+structural-set evidence are still required before incremental reuse is trusted.
+Next measure a complete property publication with the candidate structural
+version reused and explicitly included in a new descriptor; do not add the
+r11929second structural maintenance cost to unrelated property-only batches.

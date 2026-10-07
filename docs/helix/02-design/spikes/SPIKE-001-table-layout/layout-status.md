@@ -211,3 +211,9 @@ finds100117dangling targets; its changed graph does not qualify graph integrity.
 passes all20M rows, unique pairs, typed target closure and54 pages.16MiB FULL
 maintenance retains19MB large-hub deep reads, costing29.291s; publication
 freshness remains unqualified.
+
+Canonical adjacency: [r120 audit](out/native/ashlar_canonical_adjacency_r120/audited-summary.json)
+passes full20M eight-column parity, both typed endpoints, independent identities
+and30 sparse-neighborhood pages.16MiB candidate builds in8.699s,16files/206MB.
+Exact E13/E16 structural equivalence qualifies snapshot reuse; the reviewed
+vector is not activated and full publication remains open.

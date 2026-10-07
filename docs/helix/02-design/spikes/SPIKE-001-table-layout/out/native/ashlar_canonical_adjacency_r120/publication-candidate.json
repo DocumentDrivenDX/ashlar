@@ -1,0 +1,19 @@
+{
+  "status": "validated candidate vector; not activated or inserted into a manifest",
+  "publication_id": "r120-candidate",
+  "table_versions": {
+    "client_dev.ashlar_entropy_20261006_r86.edge_current": 16,
+    "client_dev.ashlar_entropy_20261006_r86.object_current": 0,
+    "client_dev.ashlar_entropy_20261006_r86.property_journal_r89": 14,
+    "client_dev.ashlar_entropy_20261006_r86.source_record_r89": 12,
+    "client_dev.ashlar_entropy_20261006_r86.tombstone_r89": 0,
+    "client_dev.ashlar_entropy_20261006_r86.adjacency_canonical_r120": 1
+  },
+  "forward_coverage": "All independent canonical E16 edges and source/relationship IDs; full typed endpoints; structural revision1",
+  "unavailable": [
+    "reverse adjacency",
+    "degree summary",
+    "typed property graph release"
+  ],
+  "reuse_evidence": "Exact20M structural EXCEPT ALL equivalence between published E13 andE16; no real producer complete-boundary authority or publication protocol qualified."
+}
