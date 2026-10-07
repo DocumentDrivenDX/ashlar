@@ -1,0 +1,43 @@
+{
+  "format": "ashlar-next-growth-budget/1",
+  "source_sha256": {
+    "out/native/ashlar_scale_edges_r270/audited-summary.json": "d78d0e3068d4c5783bbcc4b3611745e6b5237acadb779d0513cdf9bf3defdd90",
+    "out/native/ashlar_scale_edges_r257/audited-summary.json": "0dcfb502af0a32ef7e5ec28e528b393b30f97d4ae528ea50d91217f4570ebc07"
+  },
+  "prior_prefix_edges": 32000000,
+  "next_prefix_edges": 40000000,
+  "new_edges": 8000000,
+  "edge_generation_chunks": [
+    [
+      32000000,
+      36000000
+    ],
+    [
+      36000000,
+      40000000
+    ]
+  ],
+  "planned_intermediate": {
+    "nodes": 8000000,
+    "edges": 40000000
+  },
+  "final_owner_scale": {
+    "nodes": 1000000000,
+    "edges": 5000000000
+  },
+  "bounds": {
+    "read_bytes": 520000000000,
+    "write_bytes": 40000000000,
+    "spill_bytes": 30000000000,
+    "phase_reserve": 10000000000,
+    "wall_s": 2700,
+    "statement_cancel_s": 180
+  },
+  "sensitivity": {
+    "read": 486586741578.75,
+    "write": 28351586410.5,
+    "spill": 18171708942.0,
+    "wall": 2478.874764063
+  },
+  "qualification": "Final intermediate 8M-node/40M-edge growth. Read sensitivity uses uncached r257 at prior+final prefix ratio72M/24M and1.25x headroom plus10GB reserve. Same8M append retains40GB write/30GB spill bounds; zero r270 spill does not establish causality or justify reducing reserve. Two4M generation commits. 45min admission includes local oracle; guards are not hard server or billing limits. Existing compute only; no publication, full1B/5B or ingest/SLO admission."
+}
