@@ -1,0 +1,304 @@
+{
+  "state": "All32 repeated/cache-disabled pinned singleton carriers match exactly",
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 5
+  },
+  "source_sha256": "2acce0bb4c6b08299bca24f068aedfb2660ba639d0ac1f215bbfdb4e1719d1cf",
+  "reads": [
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "ordinal": 32900000,
+      "kind": "delete",
+      "statement_id": "01f1c268-80ce-1e01-b4fb-89e0423b68e8"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "ordinal": 33947290,
+      "kind": "delete",
+      "statement_id": "01f1c268-810f-1cf4-974e-40d2ba5dd2af"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "ordinal": 34994580,
+      "kind": "delete",
+      "statement_id": "01f1c268-814f-1295-b5b1-cca28a535e58"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "ordinal": 36041870,
+      "kind": "delete",
+      "statement_id": "01f1c268-818f-1ad3-877c-1c30028f53b5"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "ordinal": 33004729,
+      "kind": "update",
+      "statement_id": "01f1c268-81cc-136a-80d1-c8a52dcad0ad"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "ordinal": 33109458,
+      "kind": "update",
+      "statement_id": "01f1c268-822e-1bef-bb54-68922ebc5325"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c268-826f-1ef3-874e-6643e235bf2c"
+    },
+    {
+      "phase": 0,
+      "cache_enabled": true,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c268-82ab-15f9-ad74-03900f26d2b8"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "ordinal": 32900000,
+      "kind": "delete",
+      "statement_id": "01f1c268-835a-1647-8688-32333f5e802b"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "ordinal": 33947290,
+      "kind": "delete",
+      "statement_id": "01f1c268-838a-1176-8e6a-bdca2d53ad21"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "ordinal": 34994580,
+      "kind": "delete",
+      "statement_id": "01f1c268-83b5-1235-96db-89a13262fa5b"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "ordinal": 36041870,
+      "kind": "delete",
+      "statement_id": "01f1c268-83ea-1a31-a2f3-df9c934ad1ad"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "ordinal": 33004729,
+      "kind": "update",
+      "statement_id": "01f1c268-840f-1cce-87c2-cc7662828822"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "ordinal": 33109458,
+      "kind": "update",
+      "statement_id": "01f1c268-8437-1721-94bf-9951349cfd76"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c268-845c-1ae4-a4a4-b803c6dadef5"
+    },
+    {
+      "phase": 1,
+      "cache_enabled": true,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c268-8484-1ef9-aa3c-48142297e705"
+    },
+    {
+      "phase": 2,
+      "cache_enabled": true,
+      "ordinal": 32900000,
+      "kind": "delete",
+      "statement_id": "01f1c268-869b-1e17-909c-09a4c81cbb26"
+    },
+    {
+      "phase": 2,
+      "cache_enabled": true,
+      "ordinal": 33947290,
+      "kind": "delete",
+      "statement_id": "01f1c268-86d1-1571-9b00-19d7b91fed2b"
+    },
+    {
+      "phase": 2,
+      "cache_enabled": true,
+      "ordinal": 34994580,
+      "kind": "delete",
+      "statement_id": "01f1c268-86f9-144e-a521-b5c26ff52500"
+    },
+    {
+      "phase": 2,
+      "cache_enabled": true,
+      "ordinal": 36041870,
+      "kind": "delete",
+      "statement_id": "01f1c268-8722-16f5-b1a0-556efa7f9dd9"
+    },
+    {
+      "phase": 2,
+      "cache_enabled": true,
+      "ordinal": 33004729,
+      "kind": "update",
+      "statement_id": "01f1c268-874a-1ace-9e13-24435271f535"
+    },
+    {
+      "phase": 2,
+      "cache_enabled": true,
+      "ordinal": 33109458,
+      "kind": "update",
+      "statement_id": "01f1c268-8772-15da-ad62-ab71dad7df3c"
+    },
+    {
+      "phase": 2,
+      "cache_enabled": true,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c268-879a-17a6-9ed5-e846497f30ac"
+    },
+    {
+      "phase": 2,
+      "cache_enabled": true,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c268-87c4-185f-8294-0c511c099665"
+    },
+    {
+      "phase": 3,
+      "cache_enabled": false,
+      "ordinal": 32900000,
+      "kind": "delete",
+      "statement_id": "01f1c268-8a11-1284-977f-fe3dbe2c13e6"
+    },
+    {
+      "phase": 3,
+      "cache_enabled": false,
+      "ordinal": 33947290,
+      "kind": "delete",
+      "statement_id": "01f1c268-8a4c-1f7b-9b72-52fb93c15828"
+    },
+    {
+      "phase": 3,
+      "cache_enabled": false,
+      "ordinal": 34994580,
+      "kind": "delete",
+      "statement_id": "01f1c268-8a84-1cf8-ab8d-ad25eb38a971"
+    },
+    {
+      "phase": 3,
+      "cache_enabled": false,
+      "ordinal": 36041870,
+      "kind": "delete",
+      "statement_id": "01f1c268-8abe-1364-8380-fb251305f3a2"
+    },
+    {
+      "phase": 3,
+      "cache_enabled": false,
+      "ordinal": 33004729,
+      "kind": "update",
+      "statement_id": "01f1c268-8af5-1488-8182-12dac54f0061"
+    },
+    {
+      "phase": 3,
+      "cache_enabled": false,
+      "ordinal": 33109458,
+      "kind": "update",
+      "statement_id": "01f1c268-8b2e-1d11-8430-d3dbc50c5961"
+    },
+    {
+      "phase": 3,
+      "cache_enabled": false,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c268-8b6d-1610-9964-9b86b050d40f"
+    },
+    {
+      "phase": 3,
+      "cache_enabled": false,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c268-8ba5-177c-b70e-0ec14dd83eb9"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 12000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 300
+  },
+  "cohort_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    16,
+    17
+  ],
+  "costs": {
+    "read_bytes": 1520962436,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "per_phase": {
+    "0": {
+      "queries": 8,
+      "cache_hits": 0,
+      "caller_p95_ms": 626.2688330000001,
+      "engine_p95_ms": 108,
+      "compile_p95_ms": 197
+    },
+    "1": {
+      "queries": 8,
+      "cache_hits": 8,
+      "caller_p95_ms": 352.1252920000002,
+      "engine_p95_ms": 3,
+      "compile_p95_ms": 175
+    },
+    "2": {
+      "queries": 8,
+      "cache_hits": 8,
+      "caller_p95_ms": 342.2032500000007,
+      "engine_p95_ms": 3,
+      "compile_p95_ms": 223
+    },
+    "3": {
+      "queries": 8,
+      "cache_hits": 0,
+      "caller_p95_ms": 392.4524589999976,
+      "engine_p95_ms": 94,
+      "compile_p95_ms": 177
+    }
+  },
+  "by_hit": {
+    "True": {
+      "queries": 16,
+      "cache_hits": 16,
+      "caller_p95_ms": 352.1252920000002,
+      "engine_p95_ms": 3,
+      "compile_p95_ms": 223
+    },
+    "False": {
+      "queries": 16,
+      "cache_hits": 0,
+      "caller_p95_ms": 626.2688330000001,
+      "engine_p95_ms": 108,
+      "compile_p95_ms": 197
+    }
+  },
+  "wall_s": 23.422406125000002,
+  "qualification": "Eight stratified identities4deleted2updated2unchanged, repeated three times with native result cache enabled then once disabled. Stable exact SQL+parameters+run/key tag; complete20fields/absence independently reconstructed. Session cache setting only, unchanged tableUUID/version. Observed cache-hit latency is not cold/physical-read improvement, general cache-hit rate, robust service p95, live-head invalidation proof, production policy/delegation, arbitrary1Bkey working set, sustained ingest or billion admission."
+}

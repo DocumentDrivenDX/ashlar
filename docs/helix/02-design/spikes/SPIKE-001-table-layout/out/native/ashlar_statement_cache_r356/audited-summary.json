@@ -1,0 +1,163 @@
+{
+  "state": "All16 statement-API pinned full-field singleton results match exactly",
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 5
+  },
+  "source_sha256": "969f16cc59dfc1beb5b538635cd1e46d707536bc689c514e378bfa4387ee1815",
+  "reads": [
+    {
+      "phase": 0,
+      "ordinal": 32900000,
+      "kind": "delete",
+      "statement_id": "01f1c268-cb09-1704-ae60-0c12c12d5c59"
+    },
+    {
+      "phase": 0,
+      "ordinal": 33947290,
+      "kind": "delete",
+      "statement_id": "01f1c268-cc0b-116f-b4b3-88236cf0ee64"
+    },
+    {
+      "phase": 0,
+      "ordinal": 34994580,
+      "kind": "delete",
+      "statement_id": "01f1c268-cc74-1145-b6a0-e8d652457527"
+    },
+    {
+      "phase": 0,
+      "ordinal": 36041870,
+      "kind": "delete",
+      "statement_id": "01f1c268-ccdc-1839-bade-e0656ff46800"
+    },
+    {
+      "phase": 0,
+      "ordinal": 33004729,
+      "kind": "update",
+      "statement_id": "01f1c268-cd48-1612-b1f7-dcc40d48cacb"
+    },
+    {
+      "phase": 0,
+      "ordinal": 33109458,
+      "kind": "update",
+      "statement_id": "01f1c268-ce00-1721-945c-020f7a76d463"
+    },
+    {
+      "phase": 0,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c268-ce84-1b84-8bd4-ca93bdbf7732"
+    },
+    {
+      "phase": 0,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c268-cf1c-151d-a83b-fc0273375603"
+    },
+    {
+      "phase": 1,
+      "ordinal": 32900000,
+      "kind": "delete",
+      "statement_id": "01f1c268-cf95-1625-accd-701b91ef46c1"
+    },
+    {
+      "phase": 1,
+      "ordinal": 33947290,
+      "kind": "delete",
+      "statement_id": "01f1c268-cfd6-1a12-959a-aae18ab1dfb6"
+    },
+    {
+      "phase": 1,
+      "ordinal": 34994580,
+      "kind": "delete",
+      "statement_id": "01f1c268-d021-1ac3-a1c5-7fc0cb18e34f"
+    },
+    {
+      "phase": 1,
+      "ordinal": 36041870,
+      "kind": "delete",
+      "statement_id": "01f1c268-d062-1ab2-b6ca-4c59b4fda919"
+    },
+    {
+      "phase": 1,
+      "ordinal": 33004729,
+      "kind": "update",
+      "statement_id": "01f1c268-d0a6-1e41-ba62-212c46091bc4"
+    },
+    {
+      "phase": 1,
+      "ordinal": 33109458,
+      "kind": "update",
+      "statement_id": "01f1c268-d109-1303-ace9-5867ea90e60a"
+    },
+    {
+      "phase": 1,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c268-d154-1888-a110-80608a4cc9da"
+    },
+    {
+      "phase": 1,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c268-d19f-1384-9e94-3f71cbf5d3b5"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 6000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 180
+  },
+  "costs": {
+    "read_bytes": 760481218,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "per_phase": {
+    "0": {
+      "queries": 8,
+      "cache_hits": 0,
+      "caller_p95_ms": 1823.968458,
+      "engine_p95_ms": 344,
+      "compile_p95_ms": 1082
+    },
+    "1": {
+      "queries": 8,
+      "cache_hits": 8,
+      "caller_p95_ms": 647.7315420000007,
+      "engine_p95_ms": 122,
+      "compile_p95_ms": 147
+    }
+  },
+  "by_hit": {
+    "True": {
+      "queries": 8,
+      "cache_hits": 8,
+      "caller_p95_ms": 647.7315420000007,
+      "engine_p95_ms": 122,
+      "compile_p95_ms": 147
+    },
+    "False": {
+      "queries": 8,
+      "cache_hits": 0,
+      "caller_p95_ms": 1823.968458,
+      "engine_p95_ms": 344,
+      "compile_p95_ms": 1082
+    }
+  },
+  "wall_s": 14.837774,
+  "qualification": "Same eight-key cohort, immutable table UUID/version and STRING typed named parameters, two sequential passes through shared SDK HTTP client; default per-statement native session/cache behavior observed through actual history. Cache-hit cohorts are descriptive, not cached production hit rate, service tail, controlled cold, physical pruning, causal transport isolation, new publication or billion admission.",
+  "audit": {
+    "final_statements": 16,
+    "exact_full_field_points": 16,
+    "cache_hits": 8,
+    "source_sha256": {
+      "summary.json": "22d62c6dea3faaae1470d4a0fc64f19032ccbcc7b0f9c826a2c4fbf495443a57",
+      "statements.jsonl": "953eece866ea9ffaac33ee4a7eb028624b82d6bd4f7757a6e8aac80dcabdf723",
+      "shared-history.json": "8383e5d6792059f79f42db3fd057d8b03382925f4550befa7d4ad7f68173a8cd"
+    },
+    "qualification": "Same eight-key cohort, immutable table UUID/version and STRING typed named parameters, two sequential passes through shared SDK HTTP client; default per-statement native session/cache behavior observed through actual history. Cache-hit cohorts are descriptive, not cached production hit rate, service tail, controlled cold, physical pruning, causal transport isolation, new publication or billion admission."
+  }
+}

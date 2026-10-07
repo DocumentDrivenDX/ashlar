@@ -10,6 +10,8 @@ The [second-batch comparison](second-layout-comparison-r340.md) retains liquid c
 
 [Bounded prefix maintenance r350–r353](lc-prefix-maintenance-disposition-r353.md) now succeeds:33.8s/2.328GB rewrite, actual versions4/5, all39.98M20-field carriers preserved. Matched warmed reads104ms engine/416ms caller still miss targets, despite scan p95 dropping163MB/5files to145MB/2files. Current next action is a small cache/transport experiment, not another whole optimizer attempt.250ms remains the provisional caller target while an optional calibration question is pending.
 
+[Native cache/transport r354–r356](native-cache-disposition-r355.md) verifies all48exact pinned point results. Connector result-cache hits reduce engine p95 to3ms but caller352ms still misses250ms; the small cached statement-API cohort is slower at648ms. No cache/transport improvement or target revision is admitted. Next inspect connector polling/direct-result behavior with bounded matched reads before considering another serving copy. The provisional250ms calibration question remains pending.
+
 ## Earlier20M-edge measured read/ingest tradeoff
 
 At pinned20M-edge private publications, serial-current output has6 narrow hot files and matched20-key warm engine p9595/96ms across two passes, but caller349/340ms misses250ms. Overlap output has16 broad hot files and engine129/101ms, caller416/411ms. Modeled record-age p95 is72s serial/69s overlap; both miss60s. These scoped experiments do not qualify sustained10k/s,100k/s recovery or1B/5B. Physical-head Predictive Optimization does not change the manifest; readers verify and read exact published versions. See r201–r203 below for costs and limits.
