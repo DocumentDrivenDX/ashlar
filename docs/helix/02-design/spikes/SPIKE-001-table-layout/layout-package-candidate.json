@@ -2564,7 +2564,15 @@
     "out/native/file256_recover_r571/summary.json": "f405cd94d0cdc632a8907f7d98b18e21cb66fde9b95ebcc8ff651f8c3219e441",
     "out/native/file256_recover_r571/combined-history.json": "0a60a37c3631eacff6442f64cde7d5be7411e36afa1c705d1cf83c76f4e6fd3a",
     "out/native/file256_recover_r571/statements.jsonl": "6ca0424ef1390f7cdff123c004d2e7ce6c88dcfbfd74ccf7f61eece45a5e7a07",
-    "out/native/file256_recover_r571/completed-last-statement.json": "a0249c1911ecd7f38ab9f9ea21136398bd848c8c416300b2cda44de901c56ae3"
+    "out/native/file256_recover_r571/completed-last-statement.json": "a0249c1911ecd7f38ab9f9ea21136398bd848c8c416300b2cda44de901c56ae3",
+    "file256_reads_r574.py": "fa199e50056aba97235734e110e9f11022058a07f3bb5432f7247458920455e0",
+    "file256_reads_audit_r575.py": "29b0e30843caa1a6c7200a5ea199fc8058c4021ee4be30fb958d4f3133c37755",
+    "out/file256-reads-audit-r575.json": "6793058e5b6ca59e3f623a718dd19d80129591b133088c4a7aafdd2c8af8097b",
+    "file256-read-disposition-r576.md": "7ef808961a406d93f2c9a0059deb6e56be0bfe3e84914ec26f3a2b066112bb0c",
+    "out/native/file256_reads_r574/summary.json": "edd84e11eb987d0f78591355e9d1973b916c7f9d3067994528ad189a9136385e",
+    "out/native/file256_reads_r574/shared-history.json": "04b377f7cb296111c0de87e3c8b7f888329f29d02448792393b2fedccfafbe8f",
+    "out/native/file256_reads_r574/statements.jsonl": "a8a15455404485c56423bf79f0ade3fe2aa66078701b7429b3413d89f71eb5ae",
+    "out/native/file256_reads_r574/completed-last-request.json": "a9498fada078995c03329deb9440b6542df03b2afea58b132c5379e177fc2ed0"
   },
   "evidence": {
     "ddl": {

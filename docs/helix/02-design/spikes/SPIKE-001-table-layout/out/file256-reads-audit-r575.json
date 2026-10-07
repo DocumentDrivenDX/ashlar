@@ -1,0 +1,56 @@
+{
+  "state": "All39 exact native statements and32 full singleton responses match independent synthetic carriers",
+  "groups": {
+    "before64-0": {
+      "queries": 8,
+      "caller_p95_ms": 473.26933400000024,
+      "engine_p95_ms": 109,
+      "compile_p95_ms": 239,
+      "read_bytes": 488124161,
+      "remote_queries": 0
+    },
+    "before64-1": {
+      "queries": 8,
+      "caller_p95_ms": 418.73545800000045,
+      "engine_p95_ms": 108,
+      "compile_p95_ms": 198,
+      "read_bytes": 488124161,
+      "remote_queries": 0
+    },
+    "after256-0": {
+      "queries": 8,
+      "caller_p95_ms": 372.16966600000046,
+      "engine_p95_ms": 97,
+      "compile_p95_ms": 168,
+      "read_bytes": 779325002,
+      "remote_queries": 0
+    },
+    "after256-1": {
+      "queries": 8,
+      "caller_p95_ms": 341.64208400000007,
+      "engine_p95_ms": 89,
+      "compile_p95_ms": 142,
+      "read_bytes": 779325002,
+      "remote_queries": 0
+    }
+  },
+  "io": {
+    "before64": {
+      "read_bytes": 976248322,
+      "remote_bytes": 0,
+      "median_files": 1.0
+    },
+    "after256": {
+      "read_bytes": 1558650004,
+      "remote_bytes": 0,
+      "median_files": 1.0
+    }
+  },
+  "costs": {
+    "read_bytes": 2632720821,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 22.308659375,
+  "qualification": "Eight identities from spaced hash prefixes, two passes, pinned 2.5M-row private fixture. Result cache disabled; storage cache and fixed warm history remain. Clone0 versus maintained2; full-carrier responses. No controlled cold-data, concurrent, publication or billion admission. Nearest-rank p95 over eight samples is the maximum; not a production p95."
+}
