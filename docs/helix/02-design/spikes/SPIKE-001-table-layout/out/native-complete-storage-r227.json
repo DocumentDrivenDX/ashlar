@@ -1,0 +1,68 @@
+{
+  "format": "ashlar-complete-native-bootstrap-accounting/1",
+  "source": "out/native/ashlar_mixed_materialize_r226/summary.json",
+  "source_sha256": "173edc8161fe1af65f13934e4557c592b8656350fcfb4d3d83922b0e6701021b",
+  "roles": {
+    "object_current": {
+      "sample_rows": 4096,
+      "sample_bytes": 3313356,
+      "sample_files": 1,
+      "measured_bytes_per_row": 808.9248046875,
+      "same_width_8m_40m_bytes": 6471398437.5
+    },
+    "source_record": {
+      "sample_rows": 24576,
+      "sample_bytes": 20991429,
+      "sample_files": 1,
+      "measured_bytes_per_row": 854.1434326171875,
+      "same_width_8m_40m_bytes": 40998884765.625
+    },
+    "property_journal": {
+      "sample_rows": 98304,
+      "sample_bytes": 18235810,
+      "sample_files": 1,
+      "measured_bytes_per_row": 185.5042521158854,
+      "same_width_8m_40m_bytes": 35616816406.25
+    },
+    "edge_current": {
+      "sample_rows": 20480,
+      "sample_bytes": 16573079,
+      "sample_files": 1,
+      "measured_bytes_per_row": 809.232373046875,
+      "same_width_8m_40m_bytes": 32369294921.875
+    },
+    "adjacency_forward": {
+      "sample_rows": 20480,
+      "sample_bytes": 114901,
+      "sample_files": 1,
+      "measured_bytes_per_row": 5.610400390625,
+      "same_width_8m_40m_bytes": 224416015.625
+    }
+  },
+  "actual_active_bootstrap_bytes": 59228575,
+  "same_width_8m_40m_total_bytes": 115680810546.875,
+  "prior_tiny_chunk_same_width_bytes": 117971875000.0,
+  "140gb_headroom_before_exclusions": 24319189453.125,
+  "width_sensitivity": [
+    {
+      "factor": 1,
+      "bytes": 115680810546.875
+    },
+    {
+      "factor": 1.5,
+      "bytes": 173521215820.3125
+    },
+    {
+      "factor": 2,
+      "bytes": 231361621093.75
+    }
+  ],
+  "exclusions": [
+    "Changes/deletions: complete before/after history, extra raw deliveries and tombstones.",
+    "Retained versions, DVs, logs/checkpoints, staging and failed uncommitted work.",
+    "Publication intent/manifest/control rows and mutation fencing; integrity and arrival scheduling workload.",
+    "Marginal prices, resource saturation and full-range larger-table validation costs."
+  ],
+  "admission": "Proposed8M/40M only; all-row native sample is complete bootstrap evidence, not larger graph, steady ingest, cold/warm service or source fencing. Do not omit any role to fit140GB.",
+  "next": "Implement exact property change/deletion roles and bounded publication schedule for this complete bootstrap; then assess real write/validation overlap and revise larger-stage reserves."
+}

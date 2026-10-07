@@ -1,0 +1,95 @@
+{
+  "state": "All five native materialized roles pass independent full-row digests and typed identity/endpoint checks",
+  "tables": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_object_current_r226",
+      "id": "bcccd436-7ec0-4cde-b24b-64e96ee7a34b",
+      "version": 0,
+      "rows": 4096,
+      "bytes": 3313356,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r226",
+      "id": "8c33db81-1ba9-49a2-b241-e9bac87a02fb",
+      "version": 0,
+      "rows": 24576,
+      "bytes": 20991429,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r226",
+      "id": "6c883f58-81e1-493f-a456-aee6556851e6",
+      "version": 0,
+      "rows": 98304,
+      "bytes": 18235810,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_edge_current_r226",
+      "id": "42df52c5-5edd-4031-a169-921ade9a0536",
+      "version": 0,
+      "rows": 20480,
+      "bytes": 16573079,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r226",
+      "id": "03be3fd1-5bb3-4ca7-b6f3-86cbcb505fcf",
+      "version": 0,
+      "rows": 20480,
+      "bytes": 114901,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    }
+  },
+  "checks": {
+    "object_current": {
+      "rows": 4096,
+      "independent_all_field_digest": "fac75309d695e302560fe85442b9ba1e88a835319a2e0023f6cf8a93fd5af0e6"
+    },
+    "source_record": {
+      "rows": 24576,
+      "independent_all_field_digest": "3719cfe8f172057b0a95ba6d2eb499c952838ae85094569532be5288e1752420"
+    },
+    "property_journal": {
+      "rows": 98304,
+      "independent_all_field_digest": "72f6dad22ebfd5c10299bef2e82601137002513b359e344b596a5b5f9254052b"
+    },
+    "edge_current": {
+      "rows": 20480,
+      "independent_all_field_digest": "91a8816c4ea4ad959fb3b7c7d5854a5c24640d26f400d2e191d2afb8066b119f"
+    },
+    "adjacency_forward": {
+      "rows": 20480,
+      "independent_all_field_digest": "7c6123c7c2e146104790b7e8478e1ebfdc7af63db2f277c410c244e13af72266"
+    }
+  },
+  "bounds": {
+    "read_bytes": 10000000000,
+    "write_bytes": 1000000000,
+    "native_statement_s": 180
+  },
+  "runtime": [
+    [
+      "{\"dbr_version\":null,\"dbsql_version\":\"2026.38\",\"u_build_hash\":\"5ed5dc28fe86dc0a5d08df504d6d5e89c8a4dcda\",\"r_build_hash\":\"722a1a33c2aa93f3d608cfe18bded36448192445\"}",
+      "Etc/UTC"
+    ]
+  ],
+  "costs": {
+    "read_bytes": 70714402,
+    "write_remote_bytes": 59228575,
+    "spill_to_disk_bytes": 0
+  },
+  "active_role_bytes": 59228575,
+  "qualification": "Full4096nodes20480edges bootstrap, all field UTF8 length/hex encoding and sorted SHA256 multiset against Python oracle. Cryptographic preservation evidence, not collision-free direct full-value comparisons or full native source replay. No declaration of NOT NULL/unique constraints, manifest publication, real producer fencing, runtime scale or SLO claim. Native storage telemetry not complete dollar price."
+}

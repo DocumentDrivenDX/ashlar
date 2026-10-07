@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "0c1427baa51d0ff8c5930b4caa5e17ceb1dc47bcdcf70c3e435d44b3c46c0540",
+    "scale-experiment-plan.md": "186ae33202c03ed10ccfe48db4969c0047eccb1bad971ae600a4cf2307b3ce82",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1180,7 +1180,13 @@
     "out/native/ashlar_mixed_sql_diff_r223/statements.jsonl": "34f58e6a13cd329a999f77e2da26defc3d42f19c07699545823d9974f60d61d3",
     "out/native/ashlar_mixed_roles_diff_r225/summary.json": "c8854cbe71396d7a7bdc0d7e2093915de109144e2aba9387fa9790925dc8a1c2",
     "out/native/ashlar_mixed_roles_diff_r225/shared-history.json": "707f8b5e462f447a17dc53f0b119c266b2cf642d676c68d3ae7bda1e1d7447b9",
-    "out/native/ashlar_mixed_roles_diff_r225/statements.jsonl": "fbea97acf5c39a3480efee476d37826582643ac96d4e4d807174f321f4096e76"
+    "out/native/ashlar_mixed_roles_diff_r225/statements.jsonl": "fbea97acf5c39a3480efee476d37826582643ac96d4e4d807174f321f4096e76",
+    "mixed_materialize_r226.py": "0f2e0cfb98e539c78200871639ac1a596b0684e00757764eb3ec647669ac9b78",
+    "storage_calibration_r227.py": "439c25e4dbb65a0f4d2e4310f683160143382fe4bd600bbf49e03267467a893c",
+    "out/native-complete-storage-r227.json": "8533cd3ac6943c869e2a5c9c296dce13f73c6c4cbe0fa22e326ea1e53f66c3e4",
+    "out/native/ashlar_mixed_materialize_r226/summary.json": "173edc8161fe1af65f13934e4557c592b8656350fcfb4d3d83922b0e6701021b",
+    "out/native/ashlar_mixed_materialize_r226/shared-history.json": "e5e9439bbcf979a432129cdaa5f66eb998c6e723776a94938b1acb4b1a41aedd",
+    "out/native/ashlar_mixed_materialize_r226/statements.jsonl": "c9f953d51e89cf83506461c717811f78ae91d571df1ff1fb3c6c08c4fe86664c"
   },
   "evidence": {
     "ddl": {
