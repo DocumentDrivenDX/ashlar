@@ -265,3 +265,45 @@ symmetric EXCEPT query, preserving all columns, UTF8 equality, missing/null flag
 row multiplicity and membership refusals. Measure its own duplicate-key checks;
 no digest substitution or moved validation clock. UC Delta remains selected and
 all full-goal sustained/read/concurrent/cold/billion gates remain open.
+
+
+### r153 exact journal multiset aggregation: rejected for latency
+
+[Native audit](out/native/ashlar_journal_validation_r153/audited-summary.json)
+compares three alternating100k journal validation pairs over immutable stage
+r139 v0 and property journal v19/r139-b1. Candidate unions normalized expected
+and actual rows with signed multiplicities, groups by all21 fields and refuses
+nonzero balances. Every text field uses hex UTF8 bytes; timestamps, booleans,
+numerics and nulls remain native. No digest or approximate equality substitutes
+for full values. Zero imbalance means exact multiset equality within this bounded
+200k-row profile; nonzero result counts differ from EXCEPT counts but both refuse.
+
+Both paths pass exact100k equality. Eleven tiny typed native controls are refused
+by both: duplicate/missing row, old-value null, missing flag, Unicode lexical
+normalization difference, new value, native cursor, source epoch, microsecond
+instant, event ordinal and property ID. Expected stage membership/uniqueness and
+source authority remain separate publisher responsibilities; equal duplicated
+expected/actual bags alone would not prove those invariants. This helper is owned
+synthetic query code, not a generic SQL/authentication or source-contract API.
+
+Control caller7.156/6.346/6.653 s versus candidate9.283/9.416/9.071 s; engine
+6.076/5.560/5.894 versus8.504/8.727/8.403 s. Files24→12; reads2.602GB→
+1.301–1.305GB; spill0 throughout. Remote bytes control0/0/40,076; candidate
+18.409MB/0/3.927MB, so not strict all-warm paired admission. All result caches
+disabled, final native IDs and balanced order. Do not infer internal CPU/shuffle
+causality without a physical profile or extrapolate these pairs to service p95.
+The lower scan volume does not produce a latency benefit here. Reject candidate
+for publisher promotion; preserve the existing symmetric exact validator.
+
+Existing warehouse2439e1f2e37ac563, same published synthetic fixture; no tables,
+new compute, maintenance or publication writes. All comparison/refusal phases
+record11.717GB reads/zero remote writes, not billing. Statements90 s and durable
+submission/socket/retry limits remain explicit. No cleanup needed. A local syntax
+error was corrected before any SQL submission; the native run was not replayed.
+
+Next screen a full outer comparison keyed by unique journal delivery/property/
+event identity, counting uniqueness proof and all21 exact fields. Multiplicity
+refusal must survive; otherwise retain symmetric EXCEPT. Bound it to the same
+read-only100k corpus before another integrated publication. The r15250 s service
+and r149 queue-growth results remain unmet sustained capacity evidence; optimizing
+scan counts alone does not meet the full goal. UC Delta remains selected.
