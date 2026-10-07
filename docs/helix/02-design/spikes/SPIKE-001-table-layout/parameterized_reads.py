@@ -1,19 +1,29 @@
-"""Paired literal-hash/native-parameter read comparison on existing r85 version2.
-Identical full carrier outputs, cached results disabled, balanced AB order.
-"""
-import pathlib,json,hashlib
+"""Alternating uncached literal/parameter singleton reads against published E16."""
+import json, math
+from pathlib import Path
 from driver_sql import DriverClient
-B=pathlib.Path(__file__).resolve().parent;O=B/'out/native/ashlar_parameter_reads_20261006_r87';c=DriverClient(O)
-F='client_dev.ashlar_scale_20261006_r85.edge_current'
-query=f'SELECT * FROM {F} VERSION AS OF 2 WHERE lookup_hash=:lookup AND source_system=:source AND rel_type_id=:relationship AND id=:identity'
-for i in range(50):
- key=1+(i*15485863)%20000000;source='other' if key%10==0 else 'pilot';typ=key%32+1
- h=hashlib.sha256(json.dumps({'source_system':source,'rel_type_id':typ,'id':key},ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
- params={'lookup':h,'source':source,'relationship':typ,'identity':key}
- literal=f"SELECT * FROM {F} VERSION AS OF 2 WHERE lookup_hash='{h}' AND source_system='{source}' AND rel_type_id={typ} AND id={key}"
- results={}
- for mode in (['literal','parameter'] if i%2==0 else ['parameter','literal']):
-  results[mode]=c.sql(mode+'-'+str(i),literal if mode=='literal' else query,parameters=params if mode=='parameter' else None,tag=False)
- assert len(results['literal'])==1 and results['literal']==results['parameter'] and results['literal'][0][2]==str(key)
+B=Path(__file__).resolve().parent
+O=B/'out/native/ashlar_parameterized_reads_r106'
+assert not (O/'statements.jsonl').exists(), 'Inspect existing statement IDs before continuing'
+s=json.loads((B/'out/native/ashlar_maintained_contention_20261007_r103/summary.json').read_text())
+batch=s['batches'][0]
+E='client_dev.ashlar_entropy_20261006_r86.edge_current'
+cols=['source_system','rel_type_id','id','source_type','source_id','target_type','target_id','schema_revision','entity_version','props_json','retained_json','order_key','source_feed','source_epoch','source_position','published_at','lookup_hash','apply_batch_id','source_cursor_json','source_delivery_id']
+c=DriverClient(O)
+c.sql('timeout','SET STATEMENT_TIMEOUT=180')
+assert c.sql('cache-readback','SET USE_CACHED_RESULT')[0][-1].lower()=='false'
+rows=c.sql('expected',f"SELECT {','.join(cols)} FROM {batch['source_stage']} VERSION AS OF 0 ORDER BY id LIMIT 30")
+assert len(rows)==30
+base=f"SELECT {','.join(cols)} FROM {E} VERSION AS OF {batch['versions'][E]} WHERE "
+parameter_sql=base+'lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:rel AS BIGINT) AND id=CAST(:id AS BIGINT)'
+def lit(v):return "decode(unhex('"+v.encode().hex()+"'),'UTF-8')"
+for round in range(2):
+ for i,row in enumerate(rows):
+  modes=('literal','parameter') if (i+round)%2==0 else ('parameter','literal')
+  for mode in modes:
+   if mode=='literal':q=base+f'lookup_hash={lit(row[16])} AND source_system={lit(row[0])} AND rel_type_id={int(row[1])} AND id={int(row[2])}';params=None
+   else:q=parameter_sql;params={'hash':row[16],'source':row[0],'rel':row[1],'id':row[2]}
+   assert c.sql(f'{mode}-{round}-{i}',q,parameters=params,tag=False)==[row]
+(O/'summary.json').write_text(json.dumps({'state':'120 exact full-field reads completed; history audit pending','pinned_version':batch['versions'][E],'keys':30,'rounds':2,'reads_per_mode':60,'qualification':'Alternating modes on same warm large-token keys, one persistent connection; stable SQL text and no comments for both. No concurrent publisher or cold/scale SLA.'},indent=2)+'\n')
 c.history();c.close()
-(O/'summary.json').write_text(json.dumps({'state':'100 full-carrier result checks pass; final cache/engine metrics need audit','pairs':50,'edge_version':2,'changes':'Client computes qualified ordered-tuple hash; compares literal predicates against static native named-parameter SQL text; no varying SQL comment','driver':'4.3.0','scope':'Existing 20M compressed-carrier table, warm data; not higher-entropy/billion-scale/publication admission','docs':'https://docs.databricks.com/aws/en/dev-tools/python-sql-connector'},indent=2)+'\n')
+print('Completed 120 exact full-field reads')

@@ -1,0 +1,30 @@
+{
+  "state": "audited 120 exact full-field reads; all final uncached",
+  "pinned_version": 16,
+  "keys": 30,
+  "rounds": 2,
+  "reads_per_mode": 60,
+  "qualification": "Alternating modes on same warm large-token keys, one persistent connection; stable SQL text and no comments for both. No concurrent publisher or cold/scale SLA.",
+  "comparison": {
+    "literal": {
+      "n": 60,
+      "caller_p95_ms": 367.30145900000014,
+      "engine_p95_ms": 106,
+      "compile_p95_ms": 147,
+      "total_server_p95_ms": 256,
+      "remote_queries": 0,
+      "file_reads_p95": 15,
+      "unique_query_texts": 30
+    },
+    "parameter": {
+      "n": 60,
+      "caller_p95_ms": 379.2272499999996,
+      "engine_p95_ms": 112,
+      "compile_p95_ms": 155,
+      "total_server_p95_ms": 266,
+      "remote_queries": 0,
+      "file_reads_p95": 15,
+      "unique_query_texts": 1
+    }
+  }
+}

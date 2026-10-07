@@ -1,0 +1,8 @@
+{
+  "state": "120 exact full-field reads completed; history audit pending",
+  "pinned_version": 16,
+  "keys": 30,
+  "rounds": 2,
+  "reads_per_mode": 60,
+  "qualification": "Alternating modes on same warm large-token keys, one persistent connection; stable SQL text and no comments for both. No concurrent publisher or cold/scale SLA."
+}
