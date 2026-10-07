@@ -1,0 +1,257 @@
+{
+  "state": "All32 exact full-carrier/absence reads pass with2concurrent connections",
+  "source_sha256": "74b419c108cf9cdd6babd3547f7013163e14911969cebe7367caa8ffba75a17f",
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.maintained_edge_r287",
+    "version": 4,
+    "id": "780781cb-9c42-434b-857c-dcddc663e735"
+  },
+  "bounds": {
+    "read_bytes": 12000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 1000000000,
+    "wall_s": 300,
+    "statement_timeout_s": 15
+  },
+  "reads": [
+    {
+      "index": 0,
+      "reader": 0,
+      "ordinal": 0,
+      "kind": "delete",
+      "statement_id": "01f1c256-e914-10fd-b0fd-be4636ce9989"
+    },
+    {
+      "index": 1,
+      "reader": 1,
+      "ordinal": 1047290,
+      "kind": "delete",
+      "statement_id": "01f1c256-e913-1abd-a51e-d894178109c2"
+    },
+    {
+      "index": 2,
+      "reader": 0,
+      "ordinal": 2094580,
+      "kind": "delete",
+      "statement_id": "01f1c256-e974-1911-b99e-129dc1c811b7"
+    },
+    {
+      "index": 3,
+      "reader": 1,
+      "ordinal": 3141870,
+      "kind": "delete",
+      "statement_id": "01f1c256-e974-1920-bacb-275c69513791"
+    },
+    {
+      "index": 4,
+      "reader": 0,
+      "ordinal": 104729,
+      "kind": "update",
+      "statement_id": "01f1c256-e9ac-148a-b1f1-66b5e3a473f4"
+    },
+    {
+      "index": 5,
+      "reader": 1,
+      "ordinal": 209458,
+      "kind": "update",
+      "statement_id": "01f1c256-e9ac-1514-85a2-9576eaabcded"
+    },
+    {
+      "index": 6,
+      "reader": 0,
+      "ordinal": 314187,
+      "kind": "update",
+      "statement_id": "01f1c256-e9e6-10b4-b548-9a0034e0c85f"
+    },
+    {
+      "index": 7,
+      "reader": 1,
+      "ordinal": 418916,
+      "kind": "update",
+      "statement_id": "01f1c256-e9e3-18d2-b668-9d5b231d3f73"
+    },
+    {
+      "index": 8,
+      "reader": 0,
+      "ordinal": 523645,
+      "kind": "update",
+      "statement_id": "01f1c256-ea1e-12ee-8948-80cfc4feda7b"
+    },
+    {
+      "index": 9,
+      "reader": 1,
+      "ordinal": 628374,
+      "kind": "update",
+      "statement_id": "01f1c256-ea1e-13d6-b12e-4b33c2d11a35"
+    },
+    {
+      "index": 10,
+      "reader": 0,
+      "ordinal": 733103,
+      "kind": "update",
+      "statement_id": "01f1c256-ea53-1aa6-9d13-3faac65c65e4"
+    },
+    {
+      "index": 11,
+      "reader": 1,
+      "ordinal": 837832,
+      "kind": "update",
+      "statement_id": "01f1c256-ea52-196c-9c75-caffb77329a4"
+    },
+    {
+      "index": 12,
+      "reader": 0,
+      "ordinal": 942561,
+      "kind": "update",
+      "statement_id": "01f1c256-ea8e-105c-bd47-10ec7bfcc0b7"
+    },
+    {
+      "index": 13,
+      "reader": 1,
+      "ordinal": 1152019,
+      "kind": "update",
+      "statement_id": "01f1c256-ea8d-191b-99fa-5d25afdcb17a"
+    },
+    {
+      "index": 14,
+      "reader": 0,
+      "ordinal": 1256748,
+      "kind": "update",
+      "statement_id": "01f1c256-eac3-1c8a-9e49-a982e4bb4d2e"
+    },
+    {
+      "index": 15,
+      "reader": 1,
+      "ordinal": 1361477,
+      "kind": "update",
+      "statement_id": "01f1c256-eac3-12b6-8dd8-309ea012994e"
+    },
+    {
+      "index": 16,
+      "reader": 0,
+      "ordinal": 2386040,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-eafd-1a5e-9e11-aaaaf6f90499"
+    },
+    {
+      "index": 17,
+      "reader": 1,
+      "ordinal": 3865839,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-eafc-1552-87fa-eeb3a9e2756e"
+    },
+    {
+      "index": 18,
+      "reader": 0,
+      "ordinal": 5482189,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-eb34-1584-9c68-d48757178259"
+    },
+    {
+      "index": 19,
+      "reader": 1,
+      "ordinal": 9065599,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-eb32-1a37-bf8f-b6887e4bf83f"
+    },
+    {
+      "index": 20,
+      "reader": 0,
+      "ordinal": 11748848,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-eb6a-19fe-ab38-7616af397673"
+    },
+    {
+      "index": 21,
+      "reader": 1,
+      "ordinal": 14414299,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-eb6a-1270-a0f3-79dd8058e576"
+    },
+    {
+      "index": 22,
+      "reader": 0,
+      "ordinal": 16541888,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-eba1-16a5-a116-d48b67a3a8ea"
+    },
+    {
+      "index": 23,
+      "reader": 1,
+      "ordinal": 19088931,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-eba1-117d-bd84-2816935403a2"
+    },
+    {
+      "index": 24,
+      "reader": 0,
+      "ordinal": 20800887,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-ebd6-1468-930a-ac08ae11301d"
+    },
+    {
+      "index": 25,
+      "reader": 1,
+      "ordinal": 23041334,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-ebd6-1ef5-a426-dc4756416131"
+    },
+    {
+      "index": 26,
+      "reader": 0,
+      "ordinal": 25888449,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-ec0a-16f5-88dc-bc4b1d3ce51e"
+    },
+    {
+      "index": 27,
+      "reader": 1,
+      "ordinal": 27608145,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-ec0a-1808-bc81-86b90439eb77"
+    },
+    {
+      "index": 28,
+      "reader": 0,
+      "ordinal": 30047586,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-ec41-15f0-aded-bb8bc09d4136"
+    },
+    {
+      "index": 29,
+      "reader": 1,
+      "ordinal": 34442027,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-ec40-16e2-af69-80a2c0f75a24"
+    },
+    {
+      "index": 30,
+      "reader": 0,
+      "ordinal": 36842382,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-ec79-12d0-9148-9e8ccf293ace"
+    },
+    {
+      "index": 31,
+      "reader": 1,
+      "ordinal": 39896986,
+      "kind": "unchanged",
+      "statement_id": "01f1c256-ec78-14c7-a692-fc942d6a1f44"
+    }
+  ],
+  "costs": {
+    "read_bytes": 4413520502,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "point_metrics": {
+    "caller_p95_ms": 624.3816659999997,
+    "execution_time_ms_p95": 103,
+    "compilation_time_ms_p95": 412,
+    "total_time_ms_p95": 517,
+    "read_bytes_p95": 188283489,
+    "read_files_count_p95": 3
+  },
+  "wall_s": 11.668540167,
+  "qualification": "One synchronized2reader cohort over32stratified keys from qualified39.99M-edge version4. Uncached results, warmed prior data, all20fields/exact deletions. Pair barriers measure simultaneous requests, not sustained multi-user tail or concurrent ingestion. Existing2XSmall compute unchanged; no cold-data, write-fencing, throughput, or billion admission."
+}
