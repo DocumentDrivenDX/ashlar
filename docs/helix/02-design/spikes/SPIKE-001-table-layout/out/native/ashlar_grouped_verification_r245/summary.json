@@ -1,0 +1,324 @@
+{
+  "state": "All1M-node role ranges verified in3 uncached grouped scans; invalid membership control passes",
+  "tables": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "version": 3,
+      "rows": 1000000
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_source_record_r236",
+      "id": "7ab4ec7d-7a78-4e5e-a6b3-061b64bae1f5",
+      "version": 3,
+      "rows": 1000000
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_property_journal_r236",
+      "id": "e0a3e354-96b3-4e31-b773-e8c928fc2fca",
+      "version": 3,
+      "rows": 4000000
+    }
+  },
+  "checks": {
+    "object_current": {
+      "ranges": 10,
+      "rows": 1000000,
+      "all_field_digests": [
+        [
+          "0",
+          "100000",
+          "d4090621e9c1c29373fbb716366c027a7b56003dd914c870e91168b1393453c3"
+        ],
+        [
+          "1",
+          "100000",
+          "1a7180e278b3d2b9176e95c7e74416e5baf9e43c6cdafc62a1aba7b818e6801a"
+        ],
+        [
+          "2",
+          "100000",
+          "3d3cc2fedba3cf238040d0eb61baa9c031772b06c7c7863428b07f4c13e42ee0"
+        ],
+        [
+          "3",
+          "100000",
+          "89b128fa452310e5f7eb0899f620d67b8b605ebc580e892fdfc120b9f1956be8"
+        ],
+        [
+          "4",
+          "100000",
+          "e340c3379c9379423ecfba5596a989f5749d2df9a68e6b76f20c1a847128034b"
+        ],
+        [
+          "5",
+          "100000",
+          "2c00aa89bf0c05a618a48cdb8cb061fdefa3af3701568f64676a7f53beccc8b9"
+        ],
+        [
+          "6",
+          "100000",
+          "405ad115009fae35ad30836395defd00db8b14f56cbfb1dfcc6a35afc206ef00"
+        ],
+        [
+          "7",
+          "100000",
+          "934bc5d4caf0f1398b85a0e7503cc33824881bf425114cc95b5d00080745835f"
+        ],
+        [
+          "8",
+          "100000",
+          "43d31e91e7c852ab4e1235913efcb8a1ad8c68735ad01db804d67422dce2ce45"
+        ],
+        [
+          "9",
+          "100000",
+          "7631c32ba38d07f12421d8c913fc8426739315fad08d839db80fc9f6ca17af6f"
+        ]
+      ],
+      "invalid_bucket_absent": true
+    },
+    "source_record": {
+      "ranges": 10,
+      "rows": 1000000,
+      "all_field_digests": [
+        [
+          "0",
+          "100000",
+          "599c2187b44f4569cbe27274e8491cad1c34f77ea4608fd878b9fe11fb03ea6e"
+        ],
+        [
+          "1",
+          "100000",
+          "339f2f049260e4710f0fe5c7c49bbd33d520bf39e90d66a704c0c096566200ec"
+        ],
+        [
+          "2",
+          "100000",
+          "f723751c23e9b048d1e783dbc4150dfbfcf2c91695bf8c32a8fa340e2bc1fe97"
+        ],
+        [
+          "3",
+          "100000",
+          "a2a481b450f14b629faca16b7e754c4fd9684c9664172e1cd397aa11c96e3d0a"
+        ],
+        [
+          "4",
+          "100000",
+          "6a007b72aa800b02df52a75635ff0fad8da6624adb5c66bc8cdeb6b974cea028"
+        ],
+        [
+          "5",
+          "100000",
+          "8136bc7a67bb67a5eb92b505c658a61ae56e750072d222186d8ccb2bc449e893"
+        ],
+        [
+          "6",
+          "100000",
+          "eb55e65a457ea5693444a7ada2a34e886433ddeff757caa718e8784a74aef5ac"
+        ],
+        [
+          "7",
+          "100000",
+          "bea7e0718b7f9c45aed28899a18291d0d4f9ce419b2da1a254f35a0b2796b825"
+        ],
+        [
+          "8",
+          "100000",
+          "5069f2ea9569462f66ccf6ce84b8d1a46601fc76843451f04a77e76d296a1992"
+        ],
+        [
+          "9",
+          "100000",
+          "0b010beca72adee1b901bee5b4b5d9b2b8321e411a7982acaeac394c80fcecbb"
+        ]
+      ],
+      "invalid_bucket_absent": true
+    },
+    "property_journal": {
+      "ranges": 10,
+      "rows": 4000000,
+      "all_field_digests": [
+        [
+          "0",
+          "400000",
+          "0654cc939d721c7183f37121815e36b9dec0bb6d795498e7b48a77c9a44f0cae"
+        ],
+        [
+          "1",
+          "400000",
+          "3baa7e248a24db8884d66cffce0405f0e400b860e7f16e344d381776e52d8138"
+        ],
+        [
+          "2",
+          "400000",
+          "df4f1806708e81a98422f9b8bb19e3a5b630eb79a4c5e806e9e5616a846a992f"
+        ],
+        [
+          "3",
+          "400000",
+          "e0167c352328b204c9f80c5250d932233b4217a67498a55ac0e6a3909a888201"
+        ],
+        [
+          "4",
+          "400000",
+          "cad38e41386273e19867f145190f06e16a0a7d8cef0d588eb25192551a7c907e"
+        ],
+        [
+          "5",
+          "400000",
+          "28eb9a59007839f71c717146a3df2ea488ab5b9be3d01de3f8b470071ffd36d8"
+        ],
+        [
+          "6",
+          "400000",
+          "f012d56f45ecc81f48cb82aa5e6700d10678b9ab839b211514202c3ea1d62016"
+        ],
+        [
+          "7",
+          "400000",
+          "cfe50ab7f70b80defd1b0541f483f9338a3e0f7d84480e84893ac30eb15e5395"
+        ],
+        [
+          "8",
+          "400000",
+          "b64d6466228cba6fb13a42b42e6a438c976bb9b7db1093f207f9a28c5fe2e37c"
+        ],
+        [
+          "9",
+          "400000",
+          "452edd4ee808bdeabf1cae474d0e87b21068a71c2d529920e4e67fd71a823003"
+        ]
+      ],
+      "invalid_bucket_absent": true
+    }
+  },
+  "bounds": {
+    "read_bytes": 10000000000,
+    "write_bytes": 0,
+    "statement_s": 180,
+    "wall_s": 600
+  },
+  "costs": {
+    "read_bytes": 2360546727,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "group_metrics": {
+    "grouped-object_current": {
+      "caller_ms": 5676.766125,
+      "total_time_ms": 5338,
+      "read_bytes": 799918362,
+      "rows_produced_count": 10,
+      "compilation_time_ms": 305,
+      "execution_time_ms": 4992,
+      "read_remote_bytes": 0,
+      "write_remote_bytes": 0,
+      "read_cache_bytes": 799918362,
+      "spill_to_disk_bytes": 0,
+      "task_total_time_ms": 26241,
+      "read_files_count": 9,
+      "read_partitions_count": 0,
+      "photon_total_time_ms": 26125,
+      "rows_read_count": 1000000,
+      "result_fetch_time_ms": 43,
+      "network_sent_bytes": 0,
+      "result_from_cache": false,
+      "pruned_bytes": 0,
+      "pruned_files_count": 0,
+      "query_compilation_start_timestamp": 1791360846882,
+      "metadata_time_ms": 0,
+      "query_execution_time_ms": 5297,
+      "bytes_read_from_cache_percentage": 100.0,
+      "write_remote_rows": 0,
+      "write_remote_files": 0,
+      "queue_end_time_ms": 1791360846852,
+      "read_files_bytes": 797270256,
+      "rows_scanned": 1000000,
+      "task_progress": {
+        "planned_task_count": 18,
+        "completed_task_count": 18,
+        "completed_partition_count": 18,
+        "pending_task_count": 0,
+        "failed_task_count": 0
+      }
+    },
+    "grouped-source_record": {
+      "caller_ms": 7444.708374999999,
+      "total_time_ms": 7096,
+      "read_bytes": 825429431,
+      "rows_produced_count": 10,
+      "compilation_time_ms": 229,
+      "execution_time_ms": 6833,
+      "read_remote_bytes": 0,
+      "write_remote_bytes": 0,
+      "read_cache_bytes": 825429431,
+      "spill_to_disk_bytes": 0,
+      "task_total_time_ms": 35786,
+      "read_files_count": 9,
+      "read_partitions_count": 0,
+      "photon_total_time_ms": 35686,
+      "rows_read_count": 1000000,
+      "result_fetch_time_ms": 41,
+      "network_sent_bytes": 0,
+      "result_from_cache": false,
+      "pruned_bytes": 0,
+      "pruned_files_count": 0,
+      "query_compilation_start_timestamp": 1791360854357,
+      "metadata_time_ms": 0,
+      "query_execution_time_ms": 7062,
+      "bytes_read_from_cache_percentage": 100.0,
+      "write_remote_rows": 0,
+      "write_remote_files": 0,
+      "queue_end_time_ms": 1791360854327,
+      "read_files_bytes": 822868976,
+      "rows_scanned": 1000000,
+      "task_progress": {
+        "planned_task_count": 18,
+        "completed_task_count": 18,
+        "completed_partition_count": 18,
+        "pending_task_count": 0,
+        "failed_task_count": 0
+      }
+    },
+    "grouped-property_journal": {
+      "caller_ms": 8401.454957999998,
+      "total_time_ms": 8153,
+      "read_bytes": 735198934,
+      "rows_produced_count": 10,
+      "compilation_time_ms": 246,
+      "execution_time_ms": 7874,
+      "read_remote_bytes": 0,
+      "write_remote_bytes": 0,
+      "read_cache_bytes": 735198934,
+      "spill_to_disk_bytes": 0,
+      "task_total_time_ms": 39779,
+      "read_files_count": 9,
+      "read_partitions_count": 0,
+      "photon_total_time_ms": 39679,
+      "rows_read_count": 4000000,
+      "network_sent_bytes": 0,
+      "result_from_cache": false,
+      "pruned_bytes": 0,
+      "pruned_files_count": 0,
+      "query_compilation_start_timestamp": 1791360863533,
+      "metadata_time_ms": 0,
+      "query_execution_time_ms": 8120,
+      "bytes_read_from_cache_percentage": 100.0,
+      "write_remote_rows": 0,
+      "write_remote_files": 0,
+      "queue_end_time_ms": 1791360863504,
+      "read_files_bytes": 732433600,
+      "rows_scanned": 4000000,
+      "task_progress": {
+        "planned_task_count": 18,
+        "completed_task_count": 18,
+        "completed_partition_count": 18,
+        "pending_task_count": 0,
+        "failed_task_count": 0
+      }
+    }
+  },
+  "wall_s": 32.652505458,
+  "qualification": "Exact saved independently generated100k-range digests for each field across current/raw/history. No row filtering; invalid membership retained as bucket-1 and fails equality. At most10 groups here, each100k carrier/raw or400k event rows. Total native executor memory not measured or bounded by per-group limits; report actual spill. No billion/ingest/read/publication gate claim."
+}

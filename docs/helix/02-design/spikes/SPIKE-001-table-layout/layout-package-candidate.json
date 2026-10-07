@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "27159c2206679bbcdffe335447a9f33fbb439d06989eb812e6300c45794465f4",
+    "scale-experiment-plan.md": "9d206205dc859e2aa5395ebc5e8a3df31cc951ea861e06fde87a69475aaf8ba6",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1253,7 +1253,12 @@
     "out/native/ashlar_scale_growth_r244/audited-summary.json": "6ce7007d9e2652df84da79fff704edfe72f27b0185e2743da1dd81ca1ce4c82c",
     "out/native/ashlar_scale_growth_r244/shared-history.json": "d4f910da30f1794b299b6f920275b2a6626e08287f662852b20cd79b5ed9dbec",
     "out/native/ashlar_scale_growth_r244/statements.jsonl": "096fa1044f0550986b98a0ed8995b2c0bfce07bc9fea14ae46c4c6c8aec64dd6",
-    "out/native/ashlar_scale_growth_r244/summary.json": "536d588b9c22ea050718b16d3844df3afe7d59f8189fa8bdfc033abca0850dd5"
+    "out/native/ashlar_scale_growth_r244/summary.json": "536d588b9c22ea050718b16d3844df3afe7d59f8189fa8bdfc033abca0850dd5",
+    "grouped_verification_r245.py": "03bfb450b124c0fe67372973a47eceaf30735424030d6dfe20ac1b4a0d478fb0",
+    "native_grouped_r245.py": "c35d32b196822dc7d28227c89a63b6f8e1691864ae71c8998bae63c2df1ef5ef",
+    "out/native/ashlar_grouped_verification_r245/shared-history.json": "1dabbeace0348dc4d4ba5abb756b5af924c966b9536fea612c455158b65ae9ec",
+    "out/native/ashlar_grouped_verification_r245/statements.jsonl": "e24e3b55c938c8aea90e8f04d72efd6e209c8b45735ee188e72d696c76f24d47",
+    "out/native/ashlar_grouped_verification_r245/summary.json": "c0d1f68c59a710aabe0e621a2b25a8bf9c13dc8ae1d40a4e5599232a49033b24"
   },
   "evidence": {
     "ddl": {
