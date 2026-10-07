@@ -1,0 +1,34 @@
+{
+  "table": "client_dev.ashlar_entropy_20261006_r86.edge_queue_r197",
+  "id": "ad48bddd-be28-4d04-b461-00828f68c6c3",
+  "version": 1,
+  "oracle": "client_dev.ashlar_entropy_20261006_r86.schedule_r189_1",
+  "oracle_version": 0,
+  "state": "Twenty matched exact transport reads passed within budget",
+  "costs": {
+    "read_bytes": 1640426307,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "reads": {
+    "driver": {
+      "caller_p95_ms": 934.0033749999997,
+      "execution_time_ms_p95": 588,
+      "compilation_time_ms_p95": 233,
+      "read_bytes_p95": 99272081,
+      "read_files_count_p95": 3,
+      "caller_minus_native_p95_ms": 110.52966699999882,
+      "remote_queries": 8
+    },
+    "rest": {
+      "caller_p95_ms": 1607.4885420000005,
+      "execution_time_ms_p95": 1107,
+      "compilation_time_ms_p95": 368,
+      "read_bytes_p95": 110901445,
+      "read_files_count_p95": 3,
+      "caller_minus_native_p95_ms": 610.4885420000005,
+      "remote_queries": 8
+    }
+  },
+  "qualification": "Ten SHA-ranked same updated keys/full20fields; native timestamp cast to string on oracle and both readers for equal wire display, not a timestamp-support expansion. Both use same nondeterministic nonnegative rand predicate and metrics confirm result-uncached. Alternating order, prior validation/cache and telemetry idle gaps; not controlled cold, randomized causal result, service p95 or billion admission. REST parameters STRING plus explicit BIGINT casts match driver native decimal strings."
+}
