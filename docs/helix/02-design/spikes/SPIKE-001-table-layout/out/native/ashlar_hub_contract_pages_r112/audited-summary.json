@@ -1,0 +1,135 @@
+{
+  "state": "audited 36 contract-order hub pages; all final uncached",
+  "tables": {
+    "endpoint": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r111_endpoint",
+    "ordered": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r111_ordered"
+  },
+  "versions": {
+    "endpoint": 8,
+    "ordered": 8
+  },
+  "qualification": "Exact lexicographic relation/edge paging independently reconstructed from synthetic arithmetic. Not a canonical published projection or actual producer. No adjacency SLO or billion-scale admission.",
+  "query_comparison": {
+    "page-pilot-9005-endpoint": {
+      "n": 3,
+      "max": {
+        "caller_ms": 469.73975,
+        "engine_ms": 159,
+        "files": 8,
+        "bytes": 76188,
+        "remote_bytes": 0
+      }
+    },
+    "page-pilot-9005-ordered": {
+      "n": 3,
+      "max": {
+        "caller_ms": 434.4835000000002,
+        "engine_ms": 148,
+        "files": 8,
+        "bytes": 66826386,
+        "remote_bytes": 0
+      }
+    },
+    "page-pilot-9085-endpoint": {
+      "n": 3,
+      "max": {
+        "caller_ms": 423.77062499999954,
+        "engine_ms": 158,
+        "files": 8,
+        "bytes": 76188,
+        "remote_bytes": 0
+      }
+    },
+    "page-pilot-9085-ordered": {
+      "n": 3,
+      "max": {
+        "caller_ms": 421.6203329999999,
+        "engine_ms": 168,
+        "files": 8,
+        "bytes": 66826386,
+        "remote_bytes": 0
+      }
+    },
+    "page-pilot-9155-endpoint": {
+      "n": 3,
+      "max": {
+        "caller_ms": 382.6513330000001,
+        "engine_ms": 144,
+        "files": 8,
+        "bytes": 76188,
+        "remote_bytes": 0
+      }
+    },
+    "page-pilot-9155-ordered": {
+      "n": 3,
+      "max": {
+        "caller_ms": 420.75158299999947,
+        "engine_ms": 154,
+        "files": 8,
+        "bytes": 66826386,
+        "remote_bytes": 0
+      }
+    },
+    "page-other-9005-endpoint": {
+      "n": 3,
+      "max": {
+        "caller_ms": 373.9730839999993,
+        "engine_ms": 131,
+        "files": 8,
+        "bytes": 76188,
+        "remote_bytes": 0
+      }
+    },
+    "page-other-9005-ordered": {
+      "n": 3,
+      "max": {
+        "caller_ms": 408.7894590000012,
+        "engine_ms": 132,
+        "files": 8,
+        "bytes": 66826386,
+        "remote_bytes": 0
+      }
+    },
+    "page-other-9085-endpoint": {
+      "n": 3,
+      "max": {
+        "caller_ms": 402.9475830000013,
+        "engine_ms": 148,
+        "files": 8,
+        "bytes": 76188,
+        "remote_bytes": 0
+      }
+    },
+    "page-other-9085-ordered": {
+      "n": 3,
+      "max": {
+        "caller_ms": 410.3918750000002,
+        "engine_ms": 145,
+        "files": 8,
+        "bytes": 66826386,
+        "remote_bytes": 0
+      }
+    },
+    "page-other-9155-endpoint": {
+      "n": 3,
+      "max": {
+        "caller_ms": 369.27787499999806,
+        "engine_ms": 131,
+        "files": 8,
+        "bytes": 76188,
+        "remote_bytes": 0
+      }
+    },
+    "page-other-9155-ordered": {
+      "n": 3,
+      "max": {
+        "caller_ms": 398.33754200000016,
+        "engine_ms": 154,
+        "files": 8,
+        "bytes": 66826386,
+        "remote_bytes": 0
+      }
+    }
+  },
+  "writes": {}
+}

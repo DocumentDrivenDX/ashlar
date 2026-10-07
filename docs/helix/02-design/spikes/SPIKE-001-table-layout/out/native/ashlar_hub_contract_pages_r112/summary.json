@@ -1,0 +1,12 @@
+{
+  "state": "36 contract-order page checks passed; final-history audit pending",
+  "tables": {
+    "endpoint": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r111_endpoint",
+    "ordered": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r111_ordered"
+  },
+  "versions": {
+    "endpoint": 8,
+    "ordered": 8
+  },
+  "qualification": "Exact lexicographic relation/edge paging independently reconstructed from synthetic arithmetic. Not a canonical published projection or actual producer. No adjacency SLO or billion-scale admission."
+}

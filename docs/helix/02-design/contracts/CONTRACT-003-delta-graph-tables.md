@@ -602,3 +602,16 @@ rejects READ credential vending because external data access is disabled on the
 current metastore. External runtime access requires separately authorized access
 configuration and reader authentication; native Databricks singleton queries
 continue to use canonical Delta without that dependency.
+
+### Adjacency ordering qualification boundary
+
+[r112 native relationship-first pages](../spikes/SPIKE-001-table-layout/out/native/ashlar_hub_contract_pages_r112/audited-summary.json)
+preserve `(rel_type_id,edge_id)` continuation exactly on the synthetic20M-edge
+hub graph. Both eight-file layouts scan all8files at each tested relationship
+cursor. Earlier edge-ID-only8/4/1file pruning is not evidence for the contractual
+order. Keep relationship-first semantics and native edge identities; source/type/
+endpoint clustering and optional relationship clustering must be evaluated on
+that query shape. The seven-column fixture omits structural_version and does not
+qualify the complete reference adjacency DDL or published structural coverage.
+No canonical identity-layout change, cursor-order change or billion-scale
+admission follows. The proposed reference DDL remains unchanged.

@@ -726,3 +726,19 @@ clustering unchanged. A narrow adjacency layout can exploit edge-range file
 statistics, but maintenance costs and robustness under realistic updates need
 qualification before selecting a range or bucketing policy. No source-rate,
 external-engine or1B/5Badmission follows.
+
+## Proposed contract ordering differential (r112)
+
+[Native final audit](out/native/ashlar_hub_contract_pages_r112/audited-summary.json)
+passes36 exact pages in CONTRACT-003's `(rel_type_id,edge_id)` order at three
+relationship/edge cursors, over both pinned eight-file layouts. Independent
+arithmetic enumeration verifies cross-relationship continuation, all identities
+and typed destinations. All final queries are uncached with no remote reads.
+
+Every nonempty contract-order page reads8files; endpoint-only consumes76188bytes
+and the added-edge-ID layout66826386bytes. Three-sample engine maxima span
+131–168ms and caller369–470ms. The earlier edge-ID-only range pruning does NOT
+qualify the proposed relationship-first cursor. Keep the cursor semantics; next
+compare the reference DDL's relationship-oriented clustering or deliberate
+relationship-range writer layout, preserving exact independent edge identities
+and measuring costs. Do not infer a policy from this highly periodic fixture.
