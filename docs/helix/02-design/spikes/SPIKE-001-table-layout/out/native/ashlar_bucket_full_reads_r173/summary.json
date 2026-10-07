@@ -1,0 +1,53 @@
+{
+  "state": "60 matched full-carrier reads exact and finalized",
+  "table": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r164",
+  "id": "99831c85-f437-4e6f-8b8b-eaec9ab300d2",
+  "version": 8,
+  "source": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "source_version": 23,
+  "detail": {
+    "format": "delta",
+    "id": "99831c85-f437-4e6f-8b8b-eaec9ab300d2",
+    "name": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r164",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/23a0b8d5-2bbd-4d1e-a7de-45f6bc595bb3",
+    "createdAt": "2026-10-07T04:26:13.965000",
+    "lastModified": "2026-10-07T05:04:06",
+    "partitionColumns": "[\"lookup_bucket\"]",
+    "clusteringColumns": "[]",
+    "numFiles": "448",
+    "sizeInBytes": "33156068142",
+    "properties": "{\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-dc215623-91fd-4e02-af20-0e91586edbf8\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-a876e5da-5463-4abc-9d80-18ac9afd48d1\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"23a0b8d5-2bbd-4d1e-a7de-45f6bc595bb3\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+    "clusterByAuto": "False"
+  },
+  "reads": {
+    "lc": {
+      "caller_p95_ms": 669.3262920000009,
+      "engine_p95_ms": 203,
+      "compile_p95_ms": 248,
+      "files_p95": 18,
+      "bytes_p95": 414852267,
+      "remote_queries": 0
+    },
+    "part": {
+      "caller_p95_ms": 783.7021669999978,
+      "engine_p95_ms": 539,
+      "compile_p95_ms": 149,
+      "files_p95": 1,
+      "bytes_p95": 77745990,
+      "remote_queries": 29
+    }
+  },
+  "costs": {
+    "read_bytes": 14354716742,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "oracle": "client_dev.ashlar_entropy_20261006_r86.schedule_r139_1",
+  "oracle_version": 0,
+  "qualification": "30 same affected SHA-ranked keys per layout; alternation, cache false, large-token entity_version15/r139-b1. Canonical E23 has existing DVs/hot files; bucket8 is a consolidated/ZORDER-maintained full copy. Only input4 has full20M-wide parity; these30 exact carrier samples do not prove all20M values after rewrite. This is operational candidate comparison, not causal isolation of partitioning. Prior full-wide parity may warm data; no controlled cold or graph-wide distribution. No update, sustained publication or billion admission."
+}

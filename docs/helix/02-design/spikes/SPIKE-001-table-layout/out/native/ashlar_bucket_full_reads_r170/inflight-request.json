@@ -1,0 +1,1 @@
+{"label": "final-version", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.bucket_part_r164 LIMIT 1", "parameters": null, "correlation": "/* ashlar ashlar_bucket_full_reads_r170 final-version */", "started_epoch": 1791348826.718646, "state": "returned", "query_id": "01f1c20b-1461-179f-bd92-a18668b95b1d"}

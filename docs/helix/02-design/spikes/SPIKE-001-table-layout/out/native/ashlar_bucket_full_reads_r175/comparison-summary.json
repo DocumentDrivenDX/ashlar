@@ -1,0 +1,300 @@
+{
+  "state": "Actual full20M ZORDER and four matched60-read phases qualified; caller target still missed",
+  "table": "client_dev.ashlar_entropy_20261006_r86.bucket_part_r164",
+  "id": "99831c85-f437-4e6f-8b8b-eaec9ab300d2",
+  "versions": {
+    "before": 4,
+    "after": 8
+  },
+  "phases": {
+    "before-initial": {
+      "owned_version": 4,
+      "full_metrics": {
+        "lc": {
+          "caller_p95_ms": 601.1908330000005,
+          "engine_p95_ms": 167,
+          "compile_p95_ms": 308,
+          "files_p95": 18,
+          "bytes_p95": 414852267,
+          "remote_queries": 2
+        },
+        "part": {
+          "caller_p95_ms": 818.2835829999959,
+          "engine_p95_ms": 593,
+          "compile_p95_ms": 151,
+          "files_p95": 2,
+          "bytes_p95": 99902522,
+          "remote_queries": 28
+        }
+      },
+      "cache_condition_subsets": {
+        "lc": {
+          "all": {
+            "n": 30,
+            "caller_p95_ms": 601.1908330000005,
+            "engine_p95_ms": 167,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "no-remote": {
+            "n": 28,
+            "caller_p95_ms": 544.9537909999975,
+            "engine_p95_ms": 128,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "remote": {
+            "n": 2,
+            "caller_p95_ms": null,
+            "engine_p95_ms": null,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          }
+        },
+        "part": {
+          "all": {
+            "n": 30,
+            "caller_p95_ms": 818.2835829999959,
+            "engine_p95_ms": 593,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "no-remote": {
+            "n": 2,
+            "caller_p95_ms": null,
+            "engine_p95_ms": null,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "remote": {
+            "n": 28,
+            "caller_p95_ms": 818.2835829999959,
+            "engine_p95_ms": 593,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          }
+        }
+      },
+      "costs": {
+        "read_bytes": 13670384947,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      }
+    },
+    "before-repeat": {
+      "owned_version": 4,
+      "full_metrics": {
+        "lc": {
+          "caller_p95_ms": 497.33616600000016,
+          "engine_p95_ms": 126,
+          "compile_p95_ms": 276,
+          "files_p95": 18,
+          "bytes_p95": 414852267,
+          "remote_queries": 0
+        },
+        "part": {
+          "caller_p95_ms": 493.4826250000004,
+          "engine_p95_ms": 232,
+          "compile_p95_ms": 162,
+          "files_p95": 2,
+          "bytes_p95": 99731866,
+          "remote_queries": 5
+        }
+      },
+      "cache_condition_subsets": {
+        "lc": {
+          "all": {
+            "n": 30,
+            "caller_p95_ms": 497.33616600000016,
+            "engine_p95_ms": 126,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "no-remote": {
+            "n": 30,
+            "caller_p95_ms": 497.33616600000016,
+            "engine_p95_ms": 126,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "remote": {
+            "n": 0,
+            "caller_p95_ms": null,
+            "engine_p95_ms": null,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          }
+        },
+        "part": {
+          "all": {
+            "n": 30,
+            "caller_p95_ms": 493.4826250000004,
+            "engine_p95_ms": 232,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "no-remote": {
+            "n": 25,
+            "caller_p95_ms": 358.02975000000004,
+            "engine_p95_ms": 107,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "remote": {
+            "n": 5,
+            "caller_p95_ms": null,
+            "engine_p95_ms": null,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          }
+        }
+      },
+      "costs": {
+        "read_bytes": 14226494573,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      }
+    },
+    "after-initial": {
+      "owned_version": 8,
+      "full_metrics": {
+        "lc": {
+          "caller_p95_ms": 669.3262920000009,
+          "engine_p95_ms": 203,
+          "compile_p95_ms": 248,
+          "files_p95": 18,
+          "bytes_p95": 414852267,
+          "remote_queries": 0
+        },
+        "part": {
+          "caller_p95_ms": 783.7021669999978,
+          "engine_p95_ms": 539,
+          "compile_p95_ms": 149,
+          "files_p95": 1,
+          "bytes_p95": 77745990,
+          "remote_queries": 29
+        }
+      },
+      "cache_condition_subsets": {
+        "lc": {
+          "all": {
+            "n": 30,
+            "caller_p95_ms": 669.3262920000009,
+            "engine_p95_ms": 203,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "no-remote": {
+            "n": 30,
+            "caller_p95_ms": 669.3262920000009,
+            "engine_p95_ms": 203,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "remote": {
+            "n": 0,
+            "caller_p95_ms": null,
+            "engine_p95_ms": null,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          }
+        },
+        "part": {
+          "all": {
+            "n": 30,
+            "caller_p95_ms": 783.7021669999978,
+            "engine_p95_ms": 539,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "no-remote": {
+            "n": 1,
+            "caller_p95_ms": null,
+            "engine_p95_ms": null,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "remote": {
+            "n": 29,
+            "caller_p95_ms": 783.7021669999978,
+            "engine_p95_ms": 539,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          }
+        }
+      },
+      "costs": {
+        "read_bytes": 14354716742,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      }
+    },
+    "after-repeat": {
+      "owned_version": 8,
+      "full_metrics": {
+        "lc": {
+          "caller_p95_ms": 677.1933750000017,
+          "engine_p95_ms": 124,
+          "compile_p95_ms": 450,
+          "files_p95": 18,
+          "bytes_p95": 414852267,
+          "remote_queries": 0
+        },
+        "part": {
+          "caller_p95_ms": 416.7827499999994,
+          "engine_p95_ms": 151,
+          "compile_p95_ms": 182,
+          "files_p95": 1,
+          "bytes_p95": 77750163,
+          "remote_queries": 2
+        }
+      },
+      "cache_condition_subsets": {
+        "lc": {
+          "all": {
+            "n": 30,
+            "caller_p95_ms": 677.1933750000017,
+            "engine_p95_ms": 124,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "no-remote": {
+            "n": 30,
+            "caller_p95_ms": 677.1933750000017,
+            "engine_p95_ms": 124,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "remote": {
+            "n": 0,
+            "caller_p95_ms": null,
+            "engine_p95_ms": null,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          }
+        },
+        "part": {
+          "all": {
+            "n": 30,
+            "caller_p95_ms": 416.7827499999994,
+            "engine_p95_ms": 151,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "no-remote": {
+            "n": 28,
+            "caller_p95_ms": 416.7827499999994,
+            "engine_p95_ms": 99,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          },
+          "remote": {
+            "n": 2,
+            "caller_p95_ms": null,
+            "engine_p95_ms": null,
+            "qualification": "Observed subset; p95 withheld below20samples. This cache-condition subset is descriptive, not an independent or graph-wide SLA."
+          }
+        }
+      },
+      "costs": {
+        "read_bytes": 14354823712,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      }
+    }
+  },
+  "rewrite_footprint": {
+    "compressed_input_file_bytes": 33157013686,
+    "compressed_output_file_bytes": 33156068142,
+    "files_removed": 528,
+    "files_added": 448,
+    "qualification": "Command output covers all64 partitions and all input528 files. This is compressed logical file footprint, not measured physical reads, read amplification or billing."
+  },
+  "reader_phase_total_read_bytes": 56606419974,
+  "maintenance_reported_costs": {
+    "read_bytes": 939435523,
+    "write_remote_bytes": 33156068142,
+    "spill_to_disk_bytes": 0
+  },
+  "maintenance_read_qualification": "OPTIMIZE native history reports read_bytes/read_remote_bytes/read_cache_bytes zero while rewriting33GB. Those fields do not measure its actual input IO here. Check-query reported reads are separate;45GB logical input planning ceiling satisfied, actual physical maintenance read cap not independently verified.",
+  "preservation": "Input4 full20M20-field equality passed r169. Output8 globalIDs/bucket invariant and120 after-maintenance full-carrier reads exact; full-wide output8 obligation remains open. Derived hash/bucket never replaces full native tuple. Canonical r139 pins unchanged.",
+  "qualification": "Canonical E23 is existing LC with DVs and fragmented hot files; bucket4 was a consolidated copy. Comparisons are operational, not isolated causal partitioning effects. ZORDER comparison is same owned table/keys but sequential cache/load varies. No controlled cold, sustained/burst freshness, generic source authority or1B/5B admission. Remote subsets are not cold-only because cached bytes also occur. No-remote28 after-repeat engine99ms/caller416.783ms supports a scoped warm-engine observation, not goal completion.",
+  "next": "Matched100k high-entropy updates and full-wide final-state preservation under bounded costs; retain owned8 for these phases."
+}
