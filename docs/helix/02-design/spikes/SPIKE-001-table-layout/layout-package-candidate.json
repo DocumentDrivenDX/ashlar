@@ -2539,7 +2539,17 @@
     "out/native/mutation_source_probe_r562/summary.json": "c9b91eacf6d6e23f9efd2706311aa3238383382f0d1b829b71004d29a021a406",
     "out/native/mutation_source_probe_r562/completed-last-request-r563.json": "26d7e30c2168bff5122514acf39d25bd4813e9c6680f8a09d5d25b9f4ed2b308",
     "out/native/mutation_source_probe_r562/statements.jsonl": "6cfbc9f621a1a95bc97a282121edd8c277cded963e900643acb6ea15d246f184",
-    "out/native/mutation_source_probe_r562/source-plan.txt": "0fd11412bffd73e826c00a1312be19ffb28056d677bbb3d10a763bbc1976c656"
+    "out/native/mutation_source_probe_r562/source-plan.txt": "0fd11412bffd73e826c00a1312be19ffb28056d677bbb3d10a763bbc1976c656",
+    "target_join_probe_r565.py": "c63a76a1bb24366da4fe4ec45072488e8659d1deb50b5628a6a975544a449848",
+    "target_join_audit_r566.py": "3e4e1ca7d9cf3f75cc07ac90bd9d51114b00655d54087b52ebde21dd94a630d7",
+    "target-join-disposition-r567.md": "8d7075a8ab2fbb7db60377748943b2cf41efd1a27c6f09c374c9e6bd4aecb818",
+    "out/target-join-audit-r566.json": "998ff498c90d46a9bebb9479c4f678e906db7b19b7493a9e1d7a137a900a008a",
+    "out/native/target_join_probe_r565/summary.json": "e81fd88e521b21110f4cd7d5df98d6c39ba38e7bb4a268fa1ef318f35fa219e6",
+    "out/native/target_join_probe_r565/shared-history.json": "43dfde37961ce4f9a0ab77e27adf63ea38d476cbc78f7eaf396e9ea753646a3f",
+    "out/native/target_join_probe_r565/plan-default.txt": "eb9bac8c16e1f17b24b4c7ed180cd4ed1e8d7cc43c10a73e4d046d89c7006423",
+    "out/native/target_join_probe_r565/statements.jsonl": "9448db87d16d8846d5300ae0bc15978d7256dbdad02e0ded157d00cea0592885",
+    "out/native/target_join_probe_r565/plan-broadcast.txt": "079f5753303d784512a72a261b83b899cef0c6a0369c3024ceac30869619522e",
+    "out/native/target_join_probe_r565/completed-last-request.json": "52d9912d346dcd2083e8c56772833350b8eed6ad83cb5d6760c14d5ba6c368c4"
   },
   "evidence": {
     "ddl": {
