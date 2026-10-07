@@ -865,3 +865,36 @@ logical eight-column shape and relationship-first cursor; do not prescribe
 artificial20-relationship buckets or infer automatic range maintenance. The two
 hubs remain an extreme skew screen, not representative production degrees,
 reverse access, publication custody or1B/5Badmission.
+
+## Matched adjacency file-target comparison (r117)
+
+[Final audit](out/native/ashlar_hub_filesize_r117/audited-summary.json) passes
+full20M eight-column parity and36 exact contract-order pages on independent
+shallow clones of r116 v8. Both retain identical relationship-oriented clustering
+and run explicit OPTIMIZE FULL after setting16/64MiB targets. Actual snapshots
+are16-target v3:8files/137620838bytes;64-target v4:3files/137425304bytes.
+Captured individual file sizes and relationship bounds permit direct inspection.
+
+Important asymmetry: [16-target lineage](out/native/ashlar_hub_filesize_r117/delta-history-16.json)
+records no data rewrite; the existing append boundaries are retained.
+[64-target lineage](out/native/ashlar_hub_filesize_r117/delta-history-64.json)
+rewrites8files into3. Therefore this does not prove16MiB maintenance creates
+relationship ranges from fragmented updates. It qualifies the observed no-op
+versus coalescing behavior for identical source data, not a universal rewrite
+policy or target-size guarantee.
+
+Page file counts are8/4/1 versus3/3/1; byte maxima139690725/69947979/17337453
+versus138186734/138186734/51367696. All36 histories are final uncached with no
+remote bytes. Three-sample caller maxima span361–486ms for16 and400–505ms for64;
+engine98–180ms versus138–228ms. Balanced alternating reads limit ordering bias,
+but three samples are descriptive and cannot establish p95 or causal certainty.
+Actual maintenance caller costs6.388s versus10.045s; no-op versus rewrite matters
+to that comparison. Clone costs4.933/3.791s and target-setting1.381/1.220s.
+Existing compute only; shared-warehouse dollar attribution remains unknown.
+
+Carry16MiB as a bounded forward-adjacency candidate, independently of64MiB
+canonical wide-row tuning. Next qualify scattered changes plus maintenance on
+this exact higher-entropy graph before selecting a default. Retain all identity,
+endpoint and relationship-first cursor semantics. Do not change reverse defaults,
+add forced relationship partition directories, or infer production ingestion,
+cold/concurrent latency or1B/5Badmission.

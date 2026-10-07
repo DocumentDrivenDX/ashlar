@@ -199,3 +199,8 @@ Higher-entropy adjacency: [r116 final audit](out/native/ashlar_hub_entropy_r116/
 passes20M exact rows, typed closure, unique keys and36 pages. Built8files/138MB
 become3files/137MB after OPTIMIZE; deep-page bytes17MB→51MB with higher observed
 latency. Compare smaller adjacency target files before choosing maintenance.
+
+Adjacency file target: [r117 final audit](out/native/ashlar_hub_filesize_r117/audited-summary.json)
+compares16/64MiB on identical20M rows with full parity and36 exact pages.16MiB
+retains8files (no rewrite),64MiB coalesces into3; deep reads17MB versus51MB.
+Carry16MiB as a forward-adjacency candidate pending scattered-update maintenance.
