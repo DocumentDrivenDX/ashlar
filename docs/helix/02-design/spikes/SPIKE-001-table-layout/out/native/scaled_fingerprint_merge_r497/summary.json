@@ -1,0 +1,134 @@
+{
+  "state": "Private fingerprint MERGE passes atomic refusals, exact20-field CDF and full result digest/key integrity",
+  "table": "client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493",
+  "table_id": "4ceb8c24-2c17-452e-acc6-3d27a3c37bb0",
+  "source_sha256": {
+    "out/native/scaled_fingerprint_r493/summary.json": "c268812794916a33fc9d0846ef8723d23d0674779a0a49c1d62dfef0d675923e",
+    "out/scaled-fingerprint-audit-r495.json": "673049be7c144c28f8782cdba3b1047204d6a507370fd904427c7e9e2f2e2d47"
+  },
+  "code_sha256": {
+    "scaled_fingerprint_merge_r497.py": "a08521c90d836feaa7ee10758501e762710d818298074e10df026d711f0c7049",
+    "fingerprint_guard_r496.py": "575ce6d70e7dda4219f24965057db2ddf2061c26ada34c27ec7a52f7fb7ac4c9",
+    "generated_fingerprint_r491.py": "d08f75d020e8aa4a3a5fbb3f7cb1d830ac8e155622a53f6d8a60c1a1e118e57b"
+  },
+  "bounds": {
+    "read_bytes": 20000000000,
+    "write_remote_bytes": 1000000000,
+    "spill_to_disk_bytes": 1000000000,
+    "wall_s": 300
+  },
+  "controls": [
+    {
+      "label": "changed_property_token",
+      "atomic_refusal": true,
+      "statement_id": "01f1c295-3a05-1f99-8db1-27d1715b9003"
+    },
+    {
+      "label": "missing_predecessor",
+      "atomic_refusal": true,
+      "statement_id": "01f1c295-4414-1d60-b6ac-79d11cfc09c8"
+    }
+  ],
+  "qualification": "Private2.498646M-row fixture; one accepted6227-row fourth-input update/delete MERGE; exact20-field CDF and generated digest. No canonical or multi-role publication, source ACK, general insert/replay/resurrection/fencing or external-reader admission.",
+  "source_counts": [
+    [
+      "6227",
+      "6227",
+      "618",
+      "5609"
+    ]
+  ],
+  "costs": {
+    "read_bytes": 4937668337,
+    "write_remote_bytes": 14419251,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 83.737281583,
+  "baseline_version": 2,
+  "merge_statement_id": "01f1c295-4e58-18a9-abdd-3ba9e6e89640",
+  "after_version": 3,
+  "merge_result": [
+    [
+      "6227",
+      "5609",
+      "618",
+      "0"
+    ]
+  ],
+  "full_cdf_parity": [
+    [
+      "11836",
+      "0",
+      "618",
+      "5609",
+      "5609",
+      "0",
+      "0"
+    ]
+  ],
+  "result_integrity": [
+    [
+      "2498028",
+      "2498028",
+      "0"
+    ]
+  ],
+  "detail_after": {
+    "format": "delta",
+    "id": "4ceb8c24-2c17-452e-acc6-3d27a3c37bb0",
+    "name": "client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/7790f507-af46-413d-b65e-6a44864799a4",
+    "createdAt": "2026-10-07T21:15:29.098Z",
+    "lastModified": "2026-10-07T21:23:21.000Z",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"lookup_hash\"]",
+    "numFiles": "33",
+    "sizeInBytes": "2090136635",
+    "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.enableChangeDataFeed\":\"true\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"7790f507-af46-413d-b65e-6a44864799a4\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-2625a611-e1f8-4637-bdc7-e2bf5dd308a9\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-91049a3c-e81a-4aed-912f-9837922eb977\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"changeDataFeed\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"generatedColumns\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numRowsDeletedByDeletionVectors\":\"6227\",\"numDeletionVectors\":\"32\"}",
+    "clusterByAuto": "false"
+  },
+  "merge_metrics": {
+    "total_time_ms": 6865,
+    "read_bytes": 2354369643,
+    "rows_produced_count": 1,
+    "compilation_time_ms": 298,
+    "execution_time_ms": 6533,
+    "read_remote_bytes": 27917,
+    "write_remote_bytes": 14419251,
+    "read_cache_bytes": 2354341726,
+    "spill_to_disk_bytes": 0,
+    "task_total_time_ms": 9360,
+    "read_files_count": 66,
+    "read_partitions_count": 0,
+    "photon_total_time_ms": 7779,
+    "rows_read_count": 2386582,
+    "result_fetch_time_ms": 46,
+    "network_sent_bytes": 0,
+    "result_from_cache": false,
+    "pruned_bytes": 0,
+    "pruned_files_count": 0,
+    "query_compilation_start_timestamp": 1791408194626,
+    "metadata_time_ms": 5028,
+    "query_execution_time_ms": 6831,
+    "bytes_read_from_cache_percentage": 99.0,
+    "write_remote_rows": 17445,
+    "write_remote_files": 2,
+    "queue_end_time_ms": 1791408194593,
+    "read_files_bytes": 4485520804,
+    "conflict_resolution_time_ms": 0,
+    "rows_scanned": 5197292,
+    "cloud_storage_retry_duration_ms": 0,
+    "task_progress": {
+      "planned_task_count": 93,
+      "completed_task_count": 93,
+      "completed_partition_count": 93,
+      "pending_task_count": 0,
+      "failed_task_count": 0
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "state": "Both exact-before semantic controls refuse atomically at unchanged version4",
+  "table": "client_dev.ashlar_entropy_20261006_r86.generated_fingerprint_r491",
+  "expected_uuid": "f47c3de6-e29e-40ca-811d-0e3b1c744bc0",
+  "version": 4,
+  "code_sha256": {
+    "fingerprint_semantic_controls_r499.py": "38b091f153ce6f20075c03f727b93f3aed6acd301d8193b4fd4eb844e15d98e7",
+    "fingerprint_guard_r496.py": "575ce6d70e7dda4219f24965057db2ddf2061c26ada34c27ec7a52f7fb7ac4c9"
+  },
+  "bounds": {
+    "read_bytes": 1000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 90
+  },
+  "controls": [
+    {
+      "label": "nonadvancing_version",
+      "statement_id": "01f1c296-0f3c-1fcd-bb8d-06bd1f5e21de",
+      "exact_before_digest_matches": true,
+      "after_guard_atomic_refusal": true
+    },
+    {
+      "label": "changed_after_identity",
+      "statement_id": "01f1c296-11d0-1c46-b49d-7e2010ae059a",
+      "exact_before_digest_matches": true,
+      "after_guard_atomic_refusal": true
+    }
+  ],
+  "costs": {
+    "read_bytes": 29592,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 17.417449958
+}

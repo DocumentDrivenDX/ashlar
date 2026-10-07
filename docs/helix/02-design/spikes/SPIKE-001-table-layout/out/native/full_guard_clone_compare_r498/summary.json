@@ -1,0 +1,159 @@
+{
+  "state": "Full-field MERGE comparator preserves complete before/after21 fields and11836 CDF rows",
+  "table": "client_dev.ashlar_entropy_20261006_r86.full_guard_clone_r498",
+  "clone_source": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.scaled_fingerprint_r493",
+    "id": "4ceb8c24-2c17-452e-acc6-3d27a3c37bb0",
+    "version": 2
+  },
+  "source_sha256": "87289546ae834084774440131b139b290f5f6a6fd7170fdd02a88626b2023c87",
+  "code_sha256": {
+    "full_guard_clone_compare_r498.py": "aff78a8c2cceb0976e81278be214e323c22143f5c390f059165944a8287cfe04",
+    "inline_guard_sql_r421.py": "1a289c498457f483822f65ec1edce28bd9128a32de4c4d331de97807e22e86ba"
+  },
+  "bounds": {
+    "read_bytes": 20000000000,
+    "write_remote_bytes": 1000000000,
+    "spill_to_disk_bytes": 1000000000,
+    "wall_s": 300
+  },
+  "qualification": "One full-field MERGE after fingerprint MERGE on same predecessor files/input via new private shallow clone. Full before/after carrier and CDF parity. Fixed order/clone/cache/compiler prevent causal timing admission. No production publication.",
+  "clone_result": [
+    {
+      "source_table_size": "2085376387",
+      "source_num_of_files": "32",
+      "num_of_synced_transactions": null,
+      "num_removed_files": "0",
+      "num_copied_files": "0",
+      "removed_files_size": "0",
+      "copied_files_size": "0"
+    }
+  ],
+  "clone_statement_id": "01f1c295-9b0b-1562-af20-7cfe2bce9437",
+  "table_id": "e2585c5f-9dde-40d8-af9f-c2ce07e82944",
+  "detail_before": {
+    "format": "delta",
+    "id": "e2585c5f-9dde-40d8-af9f-c2ce07e82944",
+    "name": "client_dev.ashlar_entropy_20261006_r86.full_guard_clone_r498",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/72a5a92e-d567-45cd-8443-4a26b8d1e15b",
+    "createdAt": "2026-10-07T21:15:29.098Z",
+    "lastModified": "2026-10-07T21:25:24.000Z",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"lookup_hash\"]",
+    "numFiles": "32",
+    "sizeInBytes": "2085376387",
+    "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.enableChangeDataFeed\":\"true\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"72a5a92e-d567-45cd-8443-4a26b8d1e15b\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-6051ec74-2ebd-428b-92aa-1a7a26dbc326\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-4394944b-49d7-475b-bd6f-62edb2d92deb\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"changeDataFeed\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"generatedColumns\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+    "clusterByAuto": "false"
+  },
+  "costs": {
+    "read_bytes": 10740944809,
+    "write_remote_bytes": 14419345,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 101.891892417,
+  "complete-before-parity": [
+    [
+      "2498646",
+      "0"
+    ]
+  ],
+  "merge_statement_id": "01f1c295-b1ca-1c78-9968-c5a95a3050d7",
+  "after_version": 1,
+  "complete-cdf-parity": [
+    [
+      "11836",
+      "0"
+    ]
+  ],
+  "complete-result-parity": [
+    [
+      "2498028",
+      "0"
+    ]
+  ],
+  "merge_metrics": {
+    "total_time_ms": 8507,
+    "read_bytes": 2354420737,
+    "rows_produced_count": 1,
+    "compilation_time_ms": 440,
+    "execution_time_ms": 8023,
+    "read_remote_bytes": 79011,
+    "write_remote_bytes": 14419345,
+    "read_cache_bytes": 2354341726,
+    "spill_to_disk_bytes": 0,
+    "task_total_time_ms": 9005,
+    "read_files_count": 67,
+    "read_partitions_count": 1,
+    "photon_total_time_ms": 7380,
+    "rows_read_count": 2386650,
+    "result_fetch_time_ms": 47,
+    "network_sent_bytes": 0,
+    "result_from_cache": false,
+    "pruned_bytes": 0,
+    "pruned_files_count": 0,
+    "query_compilation_start_timestamp": 1791408361479,
+    "metadata_time_ms": 6069,
+    "query_execution_time_ms": 8463,
+    "bytes_read_from_cache_percentage": 99.0,
+    "write_remote_rows": 17445,
+    "write_remote_files": 2,
+    "queue_end_time_ms": 1791408361445,
+    "read_files_bytes": 4485571898,
+    "conflict_resolution_time_ms": 0,
+    "rows_scanned": 5197324,
+    "cloud_storage_retry_duration_ms": 0,
+    "task_progress": {
+      "planned_task_count": 96,
+      "completed_task_count": 96,
+      "completed_partition_count": 96,
+      "pending_task_count": 0,
+      "failed_task_count": 0
+    }
+  },
+  "merge_caller_ms": 8773.485499999999,
+  "fingerprint_merge_caller_ms": 7239.641958,
+  "fingerprint_merge_metrics": {
+    "total_time_ms": 6865,
+    "read_bytes": 2354369643,
+    "rows_produced_count": 1,
+    "compilation_time_ms": 298,
+    "execution_time_ms": 6533,
+    "read_remote_bytes": 27917,
+    "write_remote_bytes": 14419251,
+    "read_cache_bytes": 2354341726,
+    "spill_to_disk_bytes": 0,
+    "task_total_time_ms": 9360,
+    "read_files_count": 66,
+    "read_partitions_count": 0,
+    "photon_total_time_ms": 7779,
+    "rows_read_count": 2386582,
+    "result_fetch_time_ms": 46,
+    "network_sent_bytes": 0,
+    "result_from_cache": false,
+    "pruned_bytes": 0,
+    "pruned_files_count": 0,
+    "query_compilation_start_timestamp": 1791408194626,
+    "metadata_time_ms": 5028,
+    "query_execution_time_ms": 6831,
+    "bytes_read_from_cache_percentage": 99.0,
+    "write_remote_rows": 17445,
+    "write_remote_files": 2,
+    "queue_end_time_ms": 1791408194593,
+    "read_files_bytes": 4485520804,
+    "conflict_resolution_time_ms": 0,
+    "rows_scanned": 5197292,
+    "cloud_storage_retry_duration_ms": 0,
+    "task_progress": {
+      "planned_task_count": 93,
+      "completed_task_count": 93,
+      "completed_partition_count": 93,
+      "pending_task_count": 0,
+      "failed_task_count": 0
+    }
+  }
+}

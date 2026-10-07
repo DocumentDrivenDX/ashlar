@@ -1,0 +1,1 @@
+{"label": "one-carrier-after", "statement_id": "01f1c296-1411-1541-8789-1ab88007909a", "statement": "SELECT count(*),min(carrier_fingerprint) FROM client_dev.ashlar_entropy_20261006_r86.generated_fingerprint_r491"}

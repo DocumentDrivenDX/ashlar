@@ -1,0 +1,67 @@
+{
+  "state": "Exact SQL/terminal receipts/code bindings/private MERGE preservation/comparator/semantic refusals pass",
+  "runs": [
+    {
+      "run": "scaled_fingerprint_merge_r497",
+      "final_native_statements": 16,
+      "expected_failed": [
+        "changed_property_token",
+        "missing_predecessor"
+      ],
+      "cached_labels": [],
+      "costs": {
+        "read_bytes": 4937668337,
+        "write_remote_bytes": 14419251,
+        "spill_to_disk_bytes": 0
+      },
+      "wall_s": 83.737281583
+    },
+    {
+      "run": "full_guard_clone_compare_r498",
+      "final_native_statements": 13,
+      "expected_failed": [],
+      "cached_labels": [],
+      "costs": {
+        "read_bytes": 10740944809,
+        "write_remote_bytes": 14419345,
+        "spill_to_disk_bytes": 0
+      },
+      "wall_s": 101.891892417
+    },
+    {
+      "run": "fingerprint_semantic_controls_r499",
+      "final_native_statements": 8,
+      "expected_failed": [
+        "nonadvancing_version",
+        "changed_after_identity"
+      ],
+      "cached_labels": [
+        "one-carrier-before",
+        "one-carrier-after"
+      ],
+      "costs": {
+        "read_bytes": 29592,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "wall_s": 17.417449958
+    }
+  ],
+  "merge": {
+    "fingerprint": {
+      "read_bytes": 2354369643,
+      "engine_ms": 6533,
+      "caller_ms": 7239.641958,
+      "write_remote_bytes": 14419251
+    },
+    "full": {
+      "read_bytes": 2354420737,
+      "engine_ms": 8023,
+      "caller_ms": 8773.485499999999,
+      "write_remote_bytes": 14419345
+    }
+  },
+  "relative_read_difference": 2.170130393308713e-05,
+  "decision": "Do not promote generated fingerprint as default MERGE I/O optimization or backfill40M canonical table. Read-only projection benefit did not transfer to actual MERGE reported reads. One pair cannot establish causal CPU/latency improvement.",
+  "qualification": "Private2.5M slice/6227 mutations only; not full multi-role publication, freshness p95, cold lookup, fencing, source admission, external-reader or billion-scale evidence."
+}

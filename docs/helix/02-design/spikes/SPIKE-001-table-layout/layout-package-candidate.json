@@ -2263,7 +2263,26 @@
     "out/native/scaled_fingerprint_reads_r494/plan-full.txt": "c6bf76a2707d8aa08dc4e8723bad7d6184eb5e1c801f8b532d186577f9d4f33f",
     "out/native/scaled_fingerprint_reads_r494/statements.jsonl": "8e4b405f231eaa6d68ea10795fd0aeb51d20cf798a703ba79ae8bc949042e000",
     "out/native/scaled_fingerprint_reads_r494/plan-fingerprint.txt": "01166448150e0254d6b54793ad96d77f7ba3fac87c102017c4d1afae6e4cc215",
-    "out/native/scaled_fingerprint_reads_r494/completed-last-request.json": "c7b55f7b9e97abd4aefbf99257fa4c7afd89b59b9f497d853d4376b866d20833"
+    "out/native/scaled_fingerprint_reads_r494/completed-last-request.json": "c7b55f7b9e97abd4aefbf99257fa4c7afd89b59b9f497d853d4376b866d20833",
+    "fingerprint_guard_r496.py": "575ce6d70e7dda4219f24965057db2ddf2061c26ada34c27ec7a52f7fb7ac4c9",
+    "scaled_fingerprint_merge_r497.py": "a08521c90d836feaa7ee10758501e762710d818298074e10df026d711f0c7049",
+    "full_guard_clone_compare_r498.py": "aff78a8c2cceb0976e81278be214e323c22143f5c390f059165944a8287cfe04",
+    "fingerprint_semantic_controls_r499.py": "38b091f153ce6f20075c03f727b93f3aed6acd301d8193b4fd4eb844e15d98e7",
+    "audit_fingerprint_merge_r500.py": "f1f40581e576f0cb409fa07d2c6c192931c93c88378d2bec4e8077de134e0dd8",
+    "fingerprint-merge-disposition-r500.md": "cf0daa49757444c5bf7fe0c0452c4cd099d05e48fc87335a2984e7fd8e8e6d51",
+    "out/fingerprint-merge-audit-r500.json": "b9b7418788c864f16bc68683201cfd423d503657b57a754390a0a982eb7a8319",
+    "out/native/scaled_fingerprint_merge_r497/summary.json": "87289546ae834084774440131b139b290f5f6a6fd7170fdd02a88626b2023c87",
+    "out/native/scaled_fingerprint_merge_r497/statements.jsonl": "543267d37ebd9aba80178ba3d9454497e203ebc9dc170972085be46bd9a337ad",
+    "out/native/scaled_fingerprint_merge_r497/query-history.json": "c7e82c9e69d4d4474a93c4053a616be111f231548f89735e93b6c03ad5cbf1bd",
+    "out/native/scaled_fingerprint_merge_r497/completed-last-statement.json": "0b2f161889ae57d196159e4d82becac178338562697ccd33978f7c8ca6ed3c0f",
+    "out/native/full_guard_clone_compare_r498/summary.json": "3f15584da25b223a698a87d493bd005758e1490534379dcb7e1837a05f02bec3",
+    "out/native/full_guard_clone_compare_r498/shared-history.json": "640a418771b1dd741bfb09a3398c8033301d6a097c01b136f1bcb787e22a57de",
+    "out/native/full_guard_clone_compare_r498/statements.jsonl": "75f98ed9dcb5b91dc11e50f3172155c381e5cc9cd2eeddb85c875b58dc1d1c14",
+    "out/native/full_guard_clone_compare_r498/completed-last-statement.json": "856fad3d37309fe64fdc9eefa1bac6f637c81f8aefcf1ba3c1322f5e1a3809c9",
+    "out/native/fingerprint_semantic_controls_r499/summary.json": "d4b1657bb1d0365841b5fbbb6e9e2a5db4dea631ee747b1da9f1c8d3ba05c019",
+    "out/native/fingerprint_semantic_controls_r499/statements.jsonl": "9ce2828271e3eded923d8b16bfb9a02c66e3a3eee5b2cf8e1bdea87bc2cf58df",
+    "out/native/fingerprint_semantic_controls_r499/query-history.json": "aab5454e2a1d16ec40ad3e0a3817d74e3ddbcc17fc5a6c068e38d7cd59e5bfc7",
+    "out/native/fingerprint_semantic_controls_r499/completed-last-statement.json": "ce86491f3c468423b4e1c83ae6c0bde3fd8f22ef9d81e5d16169bc86741e720d"
   },
   "evidence": {
     "ddl": {
