@@ -1402,3 +1402,35 @@ clustering alone is unqualified. Next replay with row tracking held constant,
 then investigate constraints/growing-table versus empty-table write costs and
 history-read pruning before altering canonical layout. E22/R16/J18/r133-b1 remain
 unchanged. No performance gate or billion-scale admission is established here.
+
+
+Matched-row-tracking append comparison: [r137 native audit](out/native/ashlar_append_layout_r137/audited-summary.json)
+explicitly enables row tracking on both Zstd layouts and preflights tracking plus
+cluster keys before writing. Same immutable100k R16/J18 inputs, one sequential
+parallel pair each: clustered8.743s versus unclustered4.379s. Raw caller8.741→4.378s,
+journal7.438→3.999s; engine8.262→4.087s and6.842→3.490s. Same source read bytes
+per role, no spill, final result-uncached. Outputs6 versus8 files per role; full
+symmetric UTF8-exact raw/journal comparison passes100k rows per output. This
+removes the r134 tracking mismatch, but remains an empty-table replay, not a
+production growing-table or sustained-rate estimate.
+
+[Twenty exact full-row reads](out/native/ashlar_append_reads_r138/audited-summary.json)
+on those same tables use five SHA-ranked immutable keys per role, alternating
+layouts. Clustered reads1 file/89–123MB; unclustered8 files, raw657.716MB and
+journal640.251MB. Raw engine123–150ms clustered versus118–139ms unclustered;
+journal120–388ms versus113–131ms. Small remote reads occur on three clustered
+journal reads (100/48,939/11,379B); all other read remote bytes0. Cached storage
+and a journal latency outlier preclude a cold-read or general latency benefit
+claim. These are history/raw lookups, not canonical singleton SLO evidence.
+Replay source ordering and100k-row scale limit extrapolation. The pruning loss
+makes removing clustering globally premature despite faster scratch append.
+
+[Cleanup](out/native/ashlar_append_layout_r137/cleanup/summary.json) drops all four
+identity-checked owned scratch tables; platform retention applies, no VACUUM or
+immediate physical reclamation claim. Canonical E22/R16/J18/r133-b1 unchanged.
+Retain raw/journal clustering in the candidate layout. Next test materialized
+exact write inputs with preparation counted inside publication timing: stored
+replay is faster than direct computed capture, but the net materialization cost
+must be measured rather than moved outside the clock. Preserve exact carriers,
+history and origin checks. All native singleton/freshness/rate/concurrency and
+1B/5B admission gates remain open.

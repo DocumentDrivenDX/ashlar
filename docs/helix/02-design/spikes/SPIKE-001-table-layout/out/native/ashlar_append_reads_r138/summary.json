@@ -1,0 +1,4 @@
+{
+  "state": "20 exact full-row raw/history reads passed across both tracked layouts; metrics pending",
+  "scope": "Five hash-ranked immutable keys per role, alternating layouts, one pass each.100k-row scratch tables and already-stored clustered source replay may retain source ordering. No realistic growing-history, repeat p95, general history index or canonical singleton admission."
+}

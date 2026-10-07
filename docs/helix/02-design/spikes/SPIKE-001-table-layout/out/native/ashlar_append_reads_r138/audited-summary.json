@@ -1,0 +1,146 @@
+{
+  "state": "20 exact full-row raw/history reads audited; all final uncached",
+  "scope": "Five hash-ranked immutable keys per role, alternating layouts, one pass each.100k-row scratch tables and already-stored clustered source replay may retain source ordering. No realistic growing-history, repeat p95, general history index or canonical singleton admission.",
+  "reads": {
+    "raw-clustered-0": {
+      "caller_ms": 365.9786250000003,
+      "engine_ms": 150,
+      "files": 1,
+      "bytes": 89002217,
+      "remote_bytes": 0
+    },
+    "raw-unclustered-0": {
+      "caller_ms": 336.27766700000006,
+      "engine_ms": 124,
+      "files": 8,
+      "bytes": 657715718,
+      "remote_bytes": 0
+    },
+    "raw-unclustered-1": {
+      "caller_ms": 316.9047919999999,
+      "engine_ms": 118,
+      "files": 8,
+      "bytes": 657715718,
+      "remote_bytes": 0
+    },
+    "raw-clustered-1": {
+      "caller_ms": 329.97816700000016,
+      "engine_ms": 126,
+      "files": 1,
+      "bytes": 89002217,
+      "remote_bytes": 0
+    },
+    "raw-clustered-2": {
+      "caller_ms": 328.93524999999977,
+      "engine_ms": 123,
+      "files": 1,
+      "bytes": 89002217,
+      "remote_bytes": 0
+    },
+    "raw-unclustered-2": {
+      "caller_ms": 330.1579590000001,
+      "engine_ms": 125,
+      "files": 8,
+      "bytes": 657715718,
+      "remote_bytes": 0
+    },
+    "raw-unclustered-3": {
+      "caller_ms": 366.6296659999997,
+      "engine_ms": 139,
+      "files": 8,
+      "bytes": 657715718,
+      "remote_bytes": 0
+    },
+    "raw-clustered-3": {
+      "caller_ms": 371.7107080000002,
+      "engine_ms": 132,
+      "files": 1,
+      "bytes": 123299917,
+      "remote_bytes": 0
+    },
+    "raw-clustered-4": {
+      "caller_ms": 373.62050000000033,
+      "engine_ms": 125,
+      "files": 1,
+      "bytes": 104660307,
+      "remote_bytes": 0
+    },
+    "raw-unclustered-4": {
+      "caller_ms": 403.1715839999999,
+      "engine_ms": 134,
+      "files": 8,
+      "bytes": 657715718,
+      "remote_bytes": 0
+    },
+    "journal-clustered-0": {
+      "caller_ms": 384.72691599999996,
+      "engine_ms": 172,
+      "files": 1,
+      "bytes": 95286688,
+      "remote_bytes": 100
+    },
+    "journal-unclustered-0": {
+      "caller_ms": 344.290041999999,
+      "engine_ms": 122,
+      "files": 8,
+      "bytes": 640251243,
+      "remote_bytes": 0
+    },
+    "journal-unclustered-1": {
+      "caller_ms": 339.2823329999999,
+      "engine_ms": 130,
+      "files": 8,
+      "bytes": 640251243,
+      "remote_bytes": 0
+    },
+    "journal-clustered-1": {
+      "caller_ms": 340.5911249999996,
+      "engine_ms": 120,
+      "files": 1,
+      "bytes": 123004000,
+      "remote_bytes": 0
+    },
+    "journal-clustered-2": {
+      "caller_ms": 636.680417000001,
+      "engine_ms": 388,
+      "files": 1,
+      "bytes": 97375614,
+      "remote_bytes": 0
+    },
+    "journal-unclustered-2": {
+      "caller_ms": 387.15395799999897,
+      "engine_ms": 131,
+      "files": 8,
+      "bytes": 640251243,
+      "remote_bytes": 0
+    },
+    "journal-unclustered-3": {
+      "caller_ms": 317.54433299999897,
+      "engine_ms": 113,
+      "files": 8,
+      "bytes": 640251243,
+      "remote_bytes": 0
+    },
+    "journal-clustered-3": {
+      "caller_ms": 416.1925410000009,
+      "engine_ms": 212,
+      "files": 1,
+      "bytes": 107131525,
+      "remote_bytes": 48939
+    },
+    "journal-clustered-4": {
+      "caller_ms": 394.221709,
+      "engine_ms": 170,
+      "files": 1,
+      "bytes": 114026605,
+      "remote_bytes": 11379
+    },
+    "journal-unclustered-4": {
+      "caller_ms": 379.7484170000001,
+      "engine_ms": 124,
+      "files": 8,
+      "bytes": 640251243,
+      "remote_bytes": 0
+    }
+  }
+}
