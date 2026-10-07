@@ -2053,7 +2053,10 @@
     "out/native/ashlar_prepared_join_compare_r447/summary.json": "2b3c435a5d9f4aba3bd6b894428a2785a2dc7738ecae3fecf8089ae77082b095",
     "out/native/ashlar_prepared_join_compare_r447/shared-history.json": "5761d38df7bcb19eb574d3204a85af2331781894356402492e9f4e314916faf0",
     "out/native/ashlar_prepared_join_compare_r447/statements.jsonl": "08e221a0c3e7a6d5696e4724d0c7ee9b9e66a7abc01e5530c2e3be023c9ded46",
-    "out/native/ashlar_prepared_join_compare_r447/completed-last-statement.json": "3567d839d94e6a99c990f43eb1ad9c1718f0f49f3a8b00d8ec0eeeb43931ccbe"
+    "out/native/ashlar_prepared_join_compare_r447/completed-last-statement.json": "3567d839d94e6a99c990f43eb1ad9c1718f0f49f3a8b00d8ec0eeeb43931ccbe",
+    "hash_range_occupancy_r449.py": "fb4adc1011e43be6a70340f34f595f1f3fd1fb959beccbca0b2091041c6cfb9a",
+    "hash-range-disposition-r449.md": "5f39b5d45c3ba66fe4e819efd8793d66e3b1c173066d4c871b630f25e69a0ab9",
+    "out/hash-range-occupancy-r449.json": "41bd70ec959482a2509059769401b350961055d57770a49afc2e87ce65d461b1"
   },
   "evidence": {
     "ddl": {

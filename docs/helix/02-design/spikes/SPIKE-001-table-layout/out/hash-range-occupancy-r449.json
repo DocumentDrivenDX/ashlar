@@ -1,0 +1,196 @@
+{
+  "state": "Exact fourth100k hash range occupancy measured",
+  "source_sha256": "2edcdbf9d7aa7b48116be62a890ed134800f691be67394da0189f199061a0827",
+  "hash_sequence_sha256": "107808b642fc57da8d877aa1f4293cebb3c11b407573c19d4e79ebe62bce3a13",
+  "rows": 100000,
+  "ranges": [
+    {
+      "bits": 4,
+      "ranges": 16,
+      "occupied": 16,
+      "occupied_fraction": 1.0,
+      "min_occupied_rows": 6053,
+      "max_rows": 6386,
+      "microbatches": [
+        {
+          "size": 100,
+          "count": 1000,
+          "sum_occupied_ranges": 15977,
+          "mean_occupied_fraction": 0.9985625,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        },
+        {
+          "size": 1000,
+          "count": 100,
+          "sum_occupied_ranges": 1600,
+          "mean_occupied_fraction": 1.0,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        },
+        {
+          "size": 10000,
+          "count": 10,
+          "sum_occupied_ranges": 160,
+          "mean_occupied_fraction": 1.0,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        }
+      ]
+    },
+    {
+      "bits": 6,
+      "ranges": 64,
+      "occupied": 64,
+      "occupied_fraction": 1.0,
+      "min_occupied_rows": 1470,
+      "max_rows": 1661,
+      "microbatches": [
+        {
+          "size": 100,
+          "count": 1000,
+          "sum_occupied_ranges": 50710,
+          "mean_occupied_fraction": 0.79234375,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        },
+        {
+          "size": 1000,
+          "count": 100,
+          "sum_occupied_ranges": 6400,
+          "mean_occupied_fraction": 1.0,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        },
+        {
+          "size": 10000,
+          "count": 10,
+          "sum_occupied_ranges": 640,
+          "mean_occupied_fraction": 1.0,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        }
+      ]
+    },
+    {
+      "bits": 8,
+      "ranges": 256,
+      "occupied": 256,
+      "occupied_fraction": 1.0,
+      "min_occupied_rows": 333,
+      "max_rows": 444,
+      "microbatches": [
+        {
+          "size": 100,
+          "count": 1000,
+          "sum_occupied_ranges": 83106,
+          "mean_occupied_fraction": 0.3246328125,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        },
+        {
+          "size": 1000,
+          "count": 100,
+          "sum_occupied_ranges": 25102,
+          "mean_occupied_fraction": 0.980546875,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        },
+        {
+          "size": 10000,
+          "count": 10,
+          "sum_occupied_ranges": 2560,
+          "mean_occupied_fraction": 1.0,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        }
+      ]
+    },
+    {
+      "bits": 10,
+      "ranges": 1024,
+      "occupied": 1024,
+      "occupied_fraction": 1.0,
+      "min_occupied_rows": 68,
+      "max_rows": 128,
+      "microbatches": [
+        {
+          "size": 100,
+          "count": 1000,
+          "sum_occupied_ranges": 95447,
+          "mean_occupied_fraction": 0.0932099609375,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        },
+        {
+          "size": 1000,
+          "count": 100,
+          "sum_occupied_ranges": 63934,
+          "mean_occupied_fraction": 0.62435546875,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        },
+        {
+          "size": 10000,
+          "count": 10,
+          "sum_occupied_ranges": 10235,
+          "mean_occupied_fraction": 0.99951171875,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        }
+      ]
+    },
+    {
+      "bits": 12,
+      "ranges": 4096,
+      "occupied": 4096,
+      "occupied_fraction": 1.0,
+      "min_occupied_rows": 8,
+      "max_rows": 43,
+      "microbatches": [
+        {
+          "size": 100,
+          "count": 1000,
+          "sum_occupied_ranges": 98797,
+          "mean_occupied_fraction": 0.024120361328125,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        },
+        {
+          "size": 1000,
+          "count": 100,
+          "sum_occupied_ranges": 88704,
+          "mean_occupied_fraction": 0.2165625,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        },
+        {
+          "size": 10000,
+          "count": 10,
+          "sum_occupied_ranges": 37357,
+          "mean_occupied_fraction": 0.9120361328125,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        }
+      ]
+    },
+    {
+      "bits": 16,
+      "ranges": 65536,
+      "occupied": 51321,
+      "occupied_fraction": 0.7830963134765625,
+      "min_occupied_rows": 1,
+      "max_rows": 9,
+      "microbatches": [
+        {
+          "size": 100,
+          "count": 1000,
+          "sum_occupied_ranges": 99932,
+          "mean_occupied_fraction": 0.00152484130859375,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        },
+        {
+          "size": 1000,
+          "count": 100,
+          "sum_occupied_ranges": 99268,
+          "mean_occupied_fraction": 0.0151470947265625,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        },
+        {
+          "size": 10000,
+          "count": 10,
+          "sum_occupied_ranges": 92729,
+          "mean_occupied_fraction": 0.14149322509765624,
+          "qualification": "Range scans independently per microbatch can revisit targets; sum measures requests, not actual files."
+        }
+      ]
+    }
+  ],
+  "qualification": "Synthetic exact source hashes; uniform byte ranges are not actual Delta file boundaries. Occupancy is evidence about batching, not measured scan bytes, MERGE speed or freshness.",
+  "wall_s": 8.992486209
+}
