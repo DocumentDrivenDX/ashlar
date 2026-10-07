@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "8d3c51be69fa879236ac1cff3b2a4cc4531fa60e4bb1b10577a45b140e2a7040",
+    "scale-experiment-plan.md": "0f9f497d0a3739402d90819d9e3472fd6b07cf669584c9a48a61180db77c59b6",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1326,7 +1326,12 @@
     "out/native/ashlar_scale_edges_r257/summary.json": "54e52ee2f971dd2f8bc81dc665995ccfe0cbe94d86eab5663c984362fb87bd7d",
     "out/native/ashlar_scale_edges_r257/shared-history.json": "8661e0cb1bc809a42899ef9ec1d1b5f96a23889136865b1654345204c8ab1857",
     "out/native/ashlar_scale_edges_r257/statements.jsonl": "9446702e7b47ca6285fdfb48bc422f9f43e973b2fabac5be7433395b49fbb9f5",
-    "out/native/ashlar_scale_edges_r257/audited-summary.json": "0dcfb502af0a32ef7e5ec28e528b393b30f97d4ae528ea50d91217f4570ebc07"
+    "out/native/ashlar_scale_edges_r257/audited-summary.json": "0dcfb502af0a32ef7e5ec28e528b393b30f97d4ae528ea50d91217f4570ebc07",
+    "growth_pruning_r259.py": "dbd7920d5256240a0636f872d09148c9e5446b063ebdd6237278b2c6ab1355b1",
+    "out/native/ashlar_growth_pruning_r258/summary.json": "273a0693a425ce06630d37161e9b7a89bdaf4df1ebab539afb451bcf896fc1b0",
+    "out/native/ashlar_growth_pruning_r258/shared-history.json": "278f142727f8de43b532dad553a891b9faaf5aaa5c04f800d19f73ae314da5a0",
+    "out/native/ashlar_growth_pruning_r258/statements.jsonl": "82173b04fea537566b65bb70410f32c3e87144f1b7ecfa7773f20920c2f3cfb9",
+    "out/native/ashlar_growth_pruning_r258/audited-summary.json": "368dccbe419a3f5fbe84fe43531c412fac0efe04e8a276740099fc81c1b242c7"
   },
   "evidence": {
     "ddl": {
