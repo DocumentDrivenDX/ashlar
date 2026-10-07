@@ -1472,7 +1472,9 @@
     "file-fanout-design-r297.md": "8f9f560579a0e181ca15ed7ddfa06bb90c79aee8575e3ba48d7de75d90c5408d",
     "out/scoped-maintenance-selection-r298.json": "2256cfdc0b2f06bbeeb1cece8e2508cc7a559feb8f326a322467aaf178f3f6f8",
     "scoped_preflight_r299.py": "317661cfdb16cd042993655b13d15e177c5edd488aff9b8dbd3e3b29ade72dcc",
-    "scoped_maintenance_r300.py": "3aa69f9e298c8f6c93de1fbd6bc89e5e368cb5057d2edd716c0ea61726398791"
+    "scoped_maintenance_r300.py": "3aa69f9e298c8f6c93de1fbd6bc89e5e368cb5057d2edd716c0ea61726398791",
+    "scoped_resume_r302.py": "62fdb2c64dc15f85c3507b8d7d11570e9b6e5b35251bdfd6847822aa52552567",
+    "scoped_pruning_r301.py": "0508172d4b2f71fa06599c5c2f62fe7094fdf062cb1f9fdc4082f28bfdc26c42"
   },
   "evidence": {
     "ddl": {
