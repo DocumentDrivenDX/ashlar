@@ -1,0 +1,13 @@
+# Native hash-range pruning pair (r450–r451)
+
+Read-only immutable prepared input0 and pre-fourth E6 were tested on the existing warehouse2439e1f2e37ac563, SQL channel2026.39. No compute changes, canonical mutations or source ACK. Synthetic input retains Truss tuples, typed endpoints and complete20-field predecessor carriers; original raw/journal remains independently pinned. UMF and external graph support are unchanged.
+
+Both the explicit target `[00,04)` predicate and source-filter-only equijoin return1,554 rows with zero complete20-field predecessor mismatches. An independent generated100k local count confirms1,554. Both native statements are successful/final and uncached; the offline audit checks exact executed SQL, pins, results and reported costs.
+
+Both read13files and prune590files/31,563,281,602bytes. Reported reads703,487,394bytes explicit /703,037,457bytes join-only. Caller3308/2422ms and engine1835/1143ms differ with136MB/0remote reads; fixed order and storage warming preclude causal latency claims. Combined9.410s phase,1,406,524,851read bytes,0write/spill, below80GB/240s bounds. Actual runtime MERGE pruning remains untested; read-query behavior does not prove mutation behavior.
+
+Conclusion: identity liquid clustering already permits bounded source ranges to prune this target, without an extra target predicate. r449 shows the full100k batch covers all64ranges and all4096ranges. Simple range subdivision therefore bounds working sets but cannot eliminate full-target coverage; independent microbatches risk repeated scans. Do not add partitions or run64sequential mutations on this evidence.
+
+Next material intervention is a bounded full-batch **read-only** test of parallel disjoint range tasks, measuring total bytes, caller wall clock, queue time and contention against the39s full-parent baseline, including preparation costs. Start with a small concurrent cohort on existing compute before admitting an all-range sweep. Keep exact predecessor checks and immutable source pins. If scheduling has no total-cost/latency advantage, investigate compute throughput and explicit operational target revisions rather than claiming a layout trick meets60s. Any eventual publisher still requires fresh input, atomic guard controls, full six-role qualification and unresolved cross-role writer fencing.
+
+The chosen UC Delta layout remains unpartitioned hash LC. Full service p95, controlled cold/concurrent singleton performance, sustained10k/s/100k/s burst and actual1B/5B scale remain open. Evidence: out/native/ashlar_range_probe_r450/ and out/range-probe-audit-r451.json.

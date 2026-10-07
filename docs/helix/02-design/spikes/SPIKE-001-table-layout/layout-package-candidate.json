@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "7363598ab0a3fea39423b74a3dbe4455e36319bb8ad4003f943bbe1acaa87178",
+    "layout-status.md": "03be177c4d599bf684e464d941f89bc446cf54427e99939ce3d9097c6329563d",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -2056,7 +2056,15 @@
     "out/native/ashlar_prepared_join_compare_r447/completed-last-statement.json": "3567d839d94e6a99c990f43eb1ad9c1718f0f49f3a8b00d8ec0eeeb43931ccbe",
     "hash_range_occupancy_r449.py": "fb4adc1011e43be6a70340f34f595f1f3fd1fb959beccbca0b2091041c6cfb9a",
     "hash-range-disposition-r449.md": "5f39b5d45c3ba66fe4e819efd8793d66e3b1c173066d4c871b630f25e69a0ab9",
-    "out/hash-range-occupancy-r449.json": "41bd70ec959482a2509059769401b350961055d57770a49afc2e87ce65d461b1"
+    "out/hash-range-occupancy-r449.json": "41bd70ec959482a2509059769401b350961055d57770a49afc2e87ce65d461b1",
+    "native_range_probe_r450.py": "3a6f500a56892c20cf5e8cbe4947e415ac5424b4481ae7b203712fc9aab0c14f",
+    "audit_range_probe_r451.py": "cdb02bc2dc64bfd0d55e143ad2a248f16f67cb7f434d1f83b7b06d3803fc6fb9",
+    "native-range-disposition-r451.md": "eddfb2bc68745ff9bfb248f91cfff2aa59b2bf636a5c55bf95d7c7bdd6a9ba8e",
+    "out/range-probe-audit-r451.json": "831f2320a7703284a56accb1c942cbb8abc08ad1c6a5486a6d03e377b109e0f4",
+    "out/native/ashlar_range_probe_r450/summary.json": "d34b2f48805aad5e8ba6d443420225942ac07a138c4c16da50c5e7c610b06bfa",
+    "out/native/ashlar_range_probe_r450/shared-history.json": "e151af0c163ff38b8848ab4bf2f0f5de5abef3c1f869f4c950511e773bc11032",
+    "out/native/ashlar_range_probe_r450/statements.jsonl": "ea21ab918ab80f4a79a28e28169a4d8e05fb88a4c552fad234cc243bbba25c22",
+    "out/native/ashlar_range_probe_r450/completed-last-statement.json": "3c17c733d6c0bce7c7cd3947519cd1de663f4d9f6697fbfa128963e1d1f5e2cf"
   },
   "evidence": {
     "ddl": {

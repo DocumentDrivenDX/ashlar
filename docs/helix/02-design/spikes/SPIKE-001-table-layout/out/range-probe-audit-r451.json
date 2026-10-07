@@ -1,0 +1,12 @@
+{
+  "state": "Exact range count/full20field native results, terminal SQL receipts and costs pass",
+  "rows": 1554,
+  "costs": {
+    "read_bytes": 1406524851,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "summary_sha256": "d34b2f48805aad5e8ba6d443420225942ac07a138c4c16da50c5e7c610b06bfa",
+  "runner_sha256": "3a6f500a56892c20cf5e8cbe4947e415ac5424b4481ae7b203712fc9aab0c14f",
+  "qualification": "Read-only E6/prepared0; two fixed-order observations, not actual MERGE or production throughput."
+}
