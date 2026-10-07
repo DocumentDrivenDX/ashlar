@@ -1,0 +1,29 @@
+{
+  "state": "All200k raw records and800k bootstrap events reused from native carrier match independent oracle",
+  "source": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+    "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+    "version": 0,
+    "rows": 200000,
+    "bytes": 162101976,
+    "files": 1,
+    "reader": "3",
+    "writer": "7"
+  },
+  "checks": {
+    "source_record": {
+      "rows": 200000,
+      "independent_all_field_digest": "0659879d88e15fbe6860ef126b12dd44dbd4d24f01138fa137e04d086e20349a"
+    },
+    "property_journal": {
+      "rows": 800000,
+      "independent_all_field_digest": "6effbf5884de3790f7fdc7dd932c9120d98e6974f28dba6a9fba267fc91f89da"
+    }
+  },
+  "costs": {
+    "read_bytes": 309201983,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "Pinned verified synthetic bootstrap only. Default range SQL fingerprints unchanged. No mutation, source-authority/raw reconstruction claim, general property-event extraction, throughput improvement or scale admission; exact cryptographic field preservation across all slice rows."
+}

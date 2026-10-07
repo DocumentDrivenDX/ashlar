@@ -3,8 +3,10 @@ from scale_mixed_sql_r222 import carrier_sql,literal
 from scale_mixed_r219 import Workload,SEED,bags
 from mixed_history_r215 import tokens
 
-def role_sql(role,kind,nodes,edges,start,end):
- carrier=carrier_sql(kind,nodes,edges,start,end);w=Workload(nodes,edges);fields=list(w.carrier(kind,start));typ='type_id' if kind=='node' else 'rel_type_id'
+def role_sql(role,kind,nodes,edges,start,end,*,_carrier_query=None):
+ carrier=carrier_sql(kind,nodes,edges,start,end)
+ if _carrier_query is not None:carrier=_carrier_query
+ w=Workload(nodes,edges);fields=list(w.carrier(kind,start));typ='type_id' if kind=='node' else 'rel_type_id'
  if role==('object_current' if kind=='node' else 'edge_current'):return carrier
  if role=='adjacency_forward':
   if kind!='edge':raise ValueError('Adjacency requires edge range')
@@ -25,3 +27,12 @@ def role_sql(role,kind,nodes,edges,start,end):
  case='CASE pmod(cast(id AS BIGINT)-'+('1' if kind=='node' else str(nodes+1))+',8) '+' '.join(branches)+' END'
  return f"""WITH c AS ({carrier}),events AS (SELECT c.*,event_ordinal,event FROM c LATERAL VIEW posexplode({case}) e AS event_ordinal,event)
  SELECT source_system,'{kind}' entity_kind,{typ} type_id,id,event.property_id property_id,entity_version,'set' operation,false old_present,cast(NULL AS STRING) old_json,true new_present,event.new_json new_json,schema_revision,source_feed,source_epoch,source_position,cast(event_ordinal AS BIGINT) event_ordinal,cast(NULL AS STRING) source_time_text,published_at,apply_batch_id,source_cursor_json,source_delivery_id FROM events"""
+
+
+def role_from_pinned_carrier(role,kind,nodes,edges,start,end,table,version):
+ import re
+ if not isinstance(table,str) or not re.fullmatch(r'[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*',table) or type(version) is not int or version<0:raise ValueError('Validated native table/version required')
+ carrier_sql(kind,nodes,edges,start,end)
+ offset=0 if kind=='node' else nodes
+ q=f'SELECT * FROM {table} VERSION AS OF {version} WHERE id>{offset+start} AND id<={offset+end}'
+ return role_sql(role,kind,nodes,edges,start,end,_carrier_query=q)

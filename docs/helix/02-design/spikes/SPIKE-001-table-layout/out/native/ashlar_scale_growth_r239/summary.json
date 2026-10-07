@@ -1,0 +1,191 @@
+{
+  "state": "Complete400k-node prefix and all raw/history rows verified after disjoint append",
+  "planned_graph": {
+    "nodes": 8000000,
+    "edges": 40000000
+  },
+  "slice": {
+    "start": 200000,
+    "end": 400000
+  },
+  "tables": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "version": 0,
+      "rows": 200000,
+      "bytes": 162101976,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_source_record_r236",
+      "id": "7ab4ec7d-7a78-4e5e-a6b3-061b64bae1f5",
+      "version": 0,
+      "rows": 200000,
+      "bytes": 169389362,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_property_journal_r236",
+      "id": "e0a3e354-96b3-4e31-b773-e8c928fc2fca",
+      "version": 0,
+      "rows": 800000,
+      "bytes": 147910472,
+      "files": 1,
+      "reader": "3",
+      "writer": "7"
+    }
+  },
+  "versions": {
+    "object_current": 1,
+    "source_record": 1,
+    "property_journal": 1
+  },
+  "checks": {
+    "object_current": {
+      "rows": 400000,
+      "independent_all_field_digest": "d6b1218c87a5059fcd834eb808653c8a211f3d007fbce962f02fc32bbf0ef86e"
+    },
+    "source_record": {
+      "rows": 400000,
+      "independent_all_field_digest": "601f73df4539a47ecd5e8c26a4d79a188ef2d7f1ac0585b0ee53fa6c7cfa9b5f"
+    },
+    "property_journal": {
+      "rows": 1600000,
+      "independent_all_field_digest": "e9aaa466bde1767135b59c0b7a5747b47843b1b32a5933ab6a3982861060428a"
+    }
+  },
+  "bounds": {
+    "read_bytes": 10000000000,
+    "write_bytes": 2000000000,
+    "statement_s": 180,
+    "slice_wall_s": 900
+  },
+  "oracle_s": 30.962031832999998,
+  "costs": {
+    "read_bytes": 1256397642,
+    "write_remote_bytes": 468234209,
+    "spill_to_disk_bytes": 0
+  },
+  "commits": {
+    "object_current": {
+      "version": "1",
+      "timestamp": "2026-10-07T07:44:50.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c222-f502-14f8-b426-3cd49d89f1b0",
+      "clusterId": null,
+      "readVersion": "0",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"2\",\"numOutputRows\":\"200000\",\"numOutputBytes\":\"158715987\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    },
+    "source_record": {
+      "version": "1",
+      "timestamp": "2026-10-07T07:45:14.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c223-0281-1dfd-8bc8-86018eef93ee",
+      "clusterId": null,
+      "readVersion": "0",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"2\",\"numOutputRows\":\"200000\",\"numOutputBytes\":\"163334492\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    },
+    "property_journal": {
+      "version": "1",
+      "timestamp": "2026-10-07T07:45:41.000Z",
+      "userId": "3755468182769617",
+      "userName": "erik.labianca@synaptiq.ai",
+      "operation": "WRITE",
+      "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+      "job": null,
+      "notebook": null,
+      "queryHistoryStatementId": "01f1c223-12e5-1103-879b-9d00832e9708",
+      "clusterId": null,
+      "readVersion": "0",
+      "isolationLevel": "WriteSerializable",
+      "isBlindAppend": "true",
+      "operationMetrics": "{\"numFiles\":\"2\",\"numOutputRows\":\"800000\",\"numOutputBytes\":\"146183730\"}",
+      "userMetadata": null,
+      "engineInfo": "Databricks-Runtime/19.8.x-aarch64-photon-scala2.13"
+    }
+  },
+  "active_details": {
+    "object_current": {
+      "format": "delta",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "name": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/6911f0c1-ff51-4c31-9fb3-fd021341c7f9",
+      "createdAt": "2026-10-07T07:33:41.623Z",
+      "lastModified": "2026-10-07T07:44:50.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"lookup_hash\"]",
+      "numFiles": "3",
+      "sizeInBytes": "320817963",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"6911f0c1-ff51-4c31-9fb3-fd021341c7f9\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-91f5ac17-af2a-44cc-9dad-4a6247ec5fc5\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-d8ae258d-f982-4f0e-9c56-3b1aacb0086f\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    },
+    "source_record": {
+      "format": "delta",
+      "id": "7ab4ec7d-7a78-4e5e-a6b3-061b64bae1f5",
+      "name": "client_dev.ashlar_entropy_20261006_r86.growth_source_record_r236",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/6989678a-78b5-4d00-89ca-ed4da05fe71f",
+      "createdAt": "2026-10-07T07:34:10.353Z",
+      "lastModified": "2026-10-07T07:45:14.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"delivery_id\"]",
+      "numFiles": "3",
+      "sizeInBytes": "332723854",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(delivery_id),lower(delivery_id)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"6989678a-78b5-4d00-89ca-ed4da05fe71f\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-ca88cc03-2f70-402d-abeb-3cae6bec81a9\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-5680420d-181c-4a63-b6a3-6ef0492fde43\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    },
+    "property_journal": {
+      "format": "delta",
+      "id": "e0a3e354-96b3-4e31-b773-e8c928fc2fca",
+      "name": "client_dev.ashlar_entropy_20261006_r86.growth_property_journal_r236",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/568da0d5-71c9-470e-9721-1e76667912ca",
+      "createdAt": "2026-10-07T07:34:36.835Z",
+      "lastModified": "2026-10-07T07:45:41.000Z",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"source_delivery_id\"]",
+      "numFiles": "3",
+      "sizeInBytes": "294094202",
+      "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_delivery_id),lower(source_delivery_id)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"568da0d5-71c9-470e-9721-1e76667912ca\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-86418cb5-b52c-4177-965f-b9bc394c8780\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-ac25b832-2983-407b-8fe5-e26692c6e9c0\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+      "clusterByAuto": "false"
+    }
+  },
+  "slice_wall_s": 126.730978291,
+  "qualification": "Second200k-node range of proposed8M/40M graph. Prior complete logical prefix verified at observed physical versions; commitIDs bind new snapshots. Named columns and native carrier reuse, independent all-prefix SHA256 field digests. No complete graph/edges, manifest, performance causation, real source authority or full-scale admission."
+}
