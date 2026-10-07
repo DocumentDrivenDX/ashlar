@@ -1,0 +1,125 @@
+{
+  "format": "ashlar-second-distinct-batch/1",
+  "state": "All100k second-batch mutations replay exactly and avoid first-batch identities",
+  "nodes": 8000000,
+  "original_edges": 40000000,
+  "before_live_edges": 39990000,
+  "after_live_edges": 39980000,
+  "batch_id": "mixed-change/2",
+  "source_position_interval": [
+    100000,
+    200000
+  ],
+  "roles": {
+    "source_record": {
+      "fields": [
+        "source_feed",
+        "source_epoch",
+        "delivery_id",
+        "record_kind",
+        "source_cursor_json",
+        "payload_json",
+        "payload_digest",
+        "schema_revision",
+        "received_at",
+        "apply_batch_id"
+      ],
+      "rows": 100000,
+      "utf8_jsonl_bytes": 525213616,
+      "all_field_multiset_digest": "ec3ef3555b685176f26330076f0fd794381169569bcae53eb4c8df879ec4580f"
+    },
+    "property_journal": {
+      "fields": [
+        "source_system",
+        "entity_kind",
+        "type_id",
+        "id",
+        "entity_version",
+        "schema_revision",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "source_time_text",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "property_id",
+        "operation",
+        "old_present",
+        "old_json",
+        "new_present",
+        "new_json",
+        "event_ordinal"
+      ],
+      "rows": 216666,
+      "utf8_jsonl_bytes": 371215182,
+      "all_field_multiset_digest": "d9c88d545d7d0118938baa56377fe7eb26620f17ce5e93e796d0c7b0b3bc41bf"
+    },
+    "tombstone": {
+      "fields": [
+        "source_system",
+        "entity_kind",
+        "type_id",
+        "id",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "source_cursor_json",
+        "source_delivery_id",
+        "apply_batch_id",
+        "entity_version"
+      ],
+      "rows": 10000,
+      "utf8_jsonl_bytes": 3476720,
+      "all_field_multiset_digest": "215cc60bc51240bbcaa1ce011f2e71c80b7c9ad4e847a6bba61534dbea36ab72"
+    },
+    "current_replacement": {
+      "fields": [
+        "source_system",
+        "rel_type_id",
+        "id",
+        "source_type",
+        "source_id",
+        "target_type",
+        "target_id",
+        "order_key",
+        "schema_revision",
+        "entity_version",
+        "props_json",
+        "retained_json",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "lookup_hash"
+      ],
+      "rows": 90000,
+      "utf8_jsonl_bytes": 200727958,
+      "all_field_multiset_digest": "83ce4c8d84a5f8af6f4e452592aaba97207ce85bbed113c9ae623dba917adc91"
+    }
+  },
+  "counts": {
+    "delete": 10000,
+    "deletes": 10000,
+    "set": 180000,
+    "updates": 90000,
+    "remove": 26666
+  },
+  "selected_identities": 100000,
+  "first_batch_disjointness": "Permutation invertible modulo40M; selected indexes100000..199999 cannot intersect first0..99999. Native full predecessor verification still required.",
+  "negative_control": {
+    "wrong_event_batch": "refused"
+  },
+  "source_sha256": {
+    "second_changes_r318.py": "c78faff2841b8862cf353936ffef0a53092c6cf321721e3de66b582e254f47b0",
+    "mixed_changes_r228.py": "2ab1d0c677cf7acff58e923bf3199a89a912fa712731769ca5a100e5ce9599fa",
+    "mixed_change_queries_r230.py": "7c49d418861c5b2694f8461cc1a25858663d9b6eb7d813139e4d14455cf90540",
+    "mixed_history_r215.py": "a38cd65a930e19ed98052adf425ac7bd6bcad959578b51fe5ff9bf804e62d31b"
+  },
+  "wall_s": 18.163933167,
+  "qualification": "Local second distinct version1-to2 mutation oracle only; not version2-to3 conflict/replay, actual producer, immutable native inputs, ingest/publication or freshness evidence. Exact props/retained strings, raw payload SHA, property event tokens and typed identity preserved. No native upload/mutation/ACK or billion admission."
+}
