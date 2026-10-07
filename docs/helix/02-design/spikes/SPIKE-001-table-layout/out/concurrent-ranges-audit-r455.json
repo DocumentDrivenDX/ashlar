@@ -1,0 +1,27 @@
+{
+  "state": "Both terminal cohorts exact SQL/results/cache status/costs audited",
+  "reports": [
+    {
+      "revision": 452,
+      "final_statements": 8,
+      "costs": {
+        "read_bytes": 4807925050,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "cached_reads": 4,
+      "summary_sha256": "170a3528b366adb2aaf7c1338d7c39b783d90ee5deade019c13f548444964af7"
+    },
+    {
+      "revision": 454,
+      "final_statements": 16,
+      "costs": {
+        "read_bytes": 9608317247,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "cached_reads": 0,
+      "summary_sha256": "6a3343102aa36f5f8e698045d1978a2e4d8bff56e25509e5ff66129b42be933e"
+    }
+  ]
+}
