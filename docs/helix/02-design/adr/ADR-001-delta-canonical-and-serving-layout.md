@@ -355,3 +355,15 @@ that query shape. The seven-column fixture omits structural_version and does not
 qualify the complete reference adjacency DDL or published structural coverage.
 No canonical identity-layout change, cursor-order change or billion-scale
 admission follows. The proposed reference DDL remains unchanged.
+
+[r113 full-shape forward adjacency](../spikes/SPIKE-001-table-layout/out/native/ashlar_hub_contract_pages_r113/audited-summary.json)
+adds20M-row eight-column parity, including a constant synthetic structural version,
+and36 exact contractual page checks. Relationship-range writes with the proposed
+forward clustering prune8/4/1files at successive relationship cursors; the
+edge-range control stays at8files. This supports matching writer file statistics
+to `(rel_type_id,edge_id)` order, not a universal partition count or batch width.
+Keep reference DDL and canonical identity clustering unchanged. The explicit
+range-batch mechanism, exceptionally low entropy, different control column count,
+CTAS constraints, unbound synthetic structural revision and noisy caller timings
+limit the evidence. Automatic maintenance, scattered updates, reverse access
+and real source/publication authority still require qualification.

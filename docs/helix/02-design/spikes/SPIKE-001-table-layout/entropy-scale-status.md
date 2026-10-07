@@ -742,3 +742,29 @@ qualify the proposed relationship-first cursor. Keep the cursor semantics; next
 compare the reference DDL's relationship-oriented clustering or deliberate
 relationship-range writer layout, preserving exact independent edge identities
 and measuring costs. Do not infer a policy from this highly periodic fixture.
+
+## Full-shape relationship-range candidate (r113)
+
+[Final native audit](out/native/ashlar_hub_contract_pages_r113/audited-summary.json)
+passes20M full eight-column adjacency parity against the qualified baseline plus
+constant structural_version1,20M unique edges, and36 independently enumerated
+relationship-first page comparisons. Eight append batches each cover20relationship
+IDs, with reference forward clustering `(source_system,source_type,source_id,
+rel_type_id)` and declared statistics on identity/endpoints/edge ID. Metadata
+confirms8files per hub; no canonical tables or reference DDL were changed.
+
+The candidate reads8/4/1files at relationship cursors9005/9085/9155, versus8/8/8
+for the edge-range control. Corresponding candidate byte maxima are97968/45814/
+11087 versus76188 at every control cursor. All histories are final uncached and
+report no remote bytes. Caller three-sample maxima remain360–513ms; less scanning
+is not proof of stable latency. The candidate carries an additional constant
+structural-version column, so file bytes are not a strictly schema-identical
+comparison. This very low-entropy synthetic graph excludes production capacity
+extrapolation. CTAS does not qualify NOT NULL enforcement or publication custody.
+
+Retain the proposed relationship-first cursor and forward adjacency clustering.
+Prefer relationship-oriented file statistics to edge-only range claims when
+planning its writer/maintenance policy. Explicit batches here establish the
+bounds; neither automatic clustering nor arbitrary scattered updates have been
+shown to preserve them. Do not prescribe20relationships/file, disable compaction
+universally, or infer reverse/ingest/billion-scale performance from this fixture.

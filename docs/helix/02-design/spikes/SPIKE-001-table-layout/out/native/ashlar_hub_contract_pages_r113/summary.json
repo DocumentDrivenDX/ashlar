@@ -1,0 +1,31 @@
+{
+  "state": "36 contract-order page checks passed; final-history audit pending",
+  "tables": {
+    "edge_range_control": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r111_endpoint",
+    "relation_range": "client_dev.ashlar_entropy_20261006_r86.adjacency_relation_r113"
+  },
+  "versions": {
+    "edge_range_control": 8,
+    "relation_range": 8
+  },
+  "physical_detail": {
+    "format": "delta",
+    "id": "282773b8-3409-43fb-b6b9-e067aea131e7",
+    "name": "client_dev.ashlar_entropy_20261006_r86.adjacency_relation_r113",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/a01dcd43-121d-4c56-9a33-4c9a364c3b5a",
+    "createdAt": "2026-10-07T01:15:28.239000",
+    "lastModified": "2026-10-07T01:15:57",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"source_system\",\"source_type\",\"source_id\",\"rel_type_id\"]",
+    "numFiles": "8",
+    "sizeInBytes": "97968",
+    "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.autoOptimize.autoCompact\":\"false\",\"delta.autoOptimize.optimizeWrite\":\"false\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"source_system,source_type,source_id,rel_type_id,target_type,target_id,edge_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-0624c318-3d03-4f60-a3f5-e43c7bad14f4\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-0e8334b2-86c0-407c-96d8-d1c6db79b13d\",\"io.unitycatalog.tableId\":\"a01dcd43-121d-4c56-9a33-4c9a364c3b5a\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+    "clusterByAuto": "False"
+  },
+  "qualification": "Full eight-column synthetic adjacency candidate with exact baseline parity and constant structural_version1; no canonical publication binding or production NOT NULL enforcement. Relation-range appends differ from edge-range control, whose schema has seven columns. Exact lexicographic page oracle unchanged; no production entropy, ingest, reverse traversal or billion-scale admission."
+}

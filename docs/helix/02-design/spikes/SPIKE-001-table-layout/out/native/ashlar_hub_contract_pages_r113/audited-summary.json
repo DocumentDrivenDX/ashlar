@@ -1,0 +1,491 @@
+{
+  "state": "audited full-shape relationship-range candidate and36 contract-order comparisons; all final uncached",
+  "tables": {
+    "edge_range_control": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r111_endpoint",
+    "relation_range": "client_dev.ashlar_entropy_20261006_r86.adjacency_relation_r113"
+  },
+  "versions": {
+    "edge_range_control": 8,
+    "relation_range": 8
+  },
+  "physical_detail": {
+    "format": "delta",
+    "id": "282773b8-3409-43fb-b6b9-e067aea131e7",
+    "name": "client_dev.ashlar_entropy_20261006_r86.adjacency_relation_r113",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/a01dcd43-121d-4c56-9a33-4c9a364c3b5a",
+    "createdAt": "2026-10-07T01:15:28.239000",
+    "lastModified": "2026-10-07T01:15:57",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[\"source_system\",\"source_type\",\"source_id\",\"rel_type_id\"]",
+    "numFiles": "8",
+    "sizeInBytes": "97968",
+    "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.autoOptimize.autoCompact\":\"false\",\"delta.autoOptimize.optimizeWrite\":\"false\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"source_system,source_type,source_id,rel_type_id,target_type,target_id,edge_id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-0624c318-3d03-4f60-a3f5-e43c7bad14f4\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-0e8334b2-86c0-407c-96d8-d1c6db79b13d\",\"io.unitycatalog.tableId\":\"a01dcd43-121d-4c56-9a33-4c9a364c3b5a\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+    "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+    "clusterByAuto": "False"
+  },
+  "qualification": "Full eight-column synthetic adjacency candidate with exact baseline parity and constant structural_version1; no canonical publication binding or production NOT NULL enforcement. Relation-range appends differ from edge-range control, whose schema has seven columns. Exact lexicographic page oracle unchanged; no production entropy, ingest, reverse traversal or billion-scale admission.",
+  "query_comparison": {
+    "page-pilot-9005-edge_range_control": {
+      "n": 3,
+      "max": {
+        "caller_ms": 414.8301249999946,
+        "engine_ms": 149,
+        "files": 8,
+        "bytes": 76188,
+        "remote_bytes": 0
+      }
+    },
+    "page-pilot-9005-relation_range": {
+      "n": 3,
+      "max": {
+        "caller_ms": 421.05975000000484,
+        "engine_ms": 153,
+        "files": 8,
+        "bytes": 97968,
+        "remote_bytes": 0
+      }
+    },
+    "page-pilot-9085-edge_range_control": {
+      "n": 3,
+      "max": {
+        "caller_ms": 495.5560410000004,
+        "engine_ms": 151,
+        "files": 8,
+        "bytes": 76188,
+        "remote_bytes": 0
+      }
+    },
+    "page-pilot-9085-relation_range": {
+      "n": 3,
+      "max": {
+        "caller_ms": 409.46429100000614,
+        "engine_ms": 139,
+        "files": 4,
+        "bytes": 45814,
+        "remote_bytes": 0
+      }
+    },
+    "page-pilot-9155-edge_range_control": {
+      "n": 3,
+      "max": {
+        "caller_ms": 421.9127080000007,
+        "engine_ms": 157,
+        "files": 8,
+        "bytes": 76188,
+        "remote_bytes": 0
+      }
+    },
+    "page-pilot-9155-relation_range": {
+      "n": 3,
+      "max": {
+        "caller_ms": 359.8730420000038,
+        "engine_ms": 101,
+        "files": 1,
+        "bytes": 11087,
+        "remote_bytes": 0
+      }
+    },
+    "page-other-9005-edge_range_control": {
+      "n": 3,
+      "max": {
+        "caller_ms": 394.3325830000006,
+        "engine_ms": 129,
+        "files": 8,
+        "bytes": 76188,
+        "remote_bytes": 0
+      }
+    },
+    "page-other-9005-relation_range": {
+      "n": 3,
+      "max": {
+        "caller_ms": 411.6290420000013,
+        "engine_ms": 136,
+        "files": 8,
+        "bytes": 97968,
+        "remote_bytes": 0
+      }
+    },
+    "page-other-9085-edge_range_control": {
+      "n": 3,
+      "max": {
+        "caller_ms": 404.9678750000041,
+        "engine_ms": 150,
+        "files": 8,
+        "bytes": 76188,
+        "remote_bytes": 0
+      }
+    },
+    "page-other-9085-relation_range": {
+      "n": 3,
+      "max": {
+        "caller_ms": 402.2090419999955,
+        "engine_ms": 118,
+        "files": 4,
+        "bytes": 45814,
+        "remote_bytes": 0
+      }
+    },
+    "page-other-9155-edge_range_control": {
+      "n": 3,
+      "max": {
+        "caller_ms": 451.5584999999973,
+        "engine_ms": 154,
+        "files": 8,
+        "bytes": 76188,
+        "remote_bytes": 0
+      }
+    },
+    "page-other-9155-relation_range": {
+      "n": 3,
+      "max": {
+        "caller_ms": 512.5158750000054,
+        "engine_ms": 244,
+        "files": 1,
+        "bytes": 11087,
+        "remote_bytes": 0
+      }
+    }
+  },
+  "writes": {
+    "append-0": {
+      "caller_ms": 3600.004417000001,
+      "metrics": {
+        "total_time_ms": 3494,
+        "read_bytes": 41470197,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 213,
+        "execution_time_ms": 3273,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 14040,
+        "read_cache_bytes": 41470197,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 2847,
+        "read_files_count": 1,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 2722,
+        "rows_read_count": 2500000,
+        "result_fetch_time_ms": 4,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791335729566,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 3486,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 2500000,
+        "write_remote_files": 1,
+        "queue_end_time_ms": 1791335729552,
+        "read_files_bytes": 41211137,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 20000000,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 29,
+          "completed_task_count": 29,
+          "completed_partition_count": 29,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "append-1": {
+      "caller_ms": 3437.9524159999983,
+      "metrics": {
+        "total_time_ms": 3328,
+        "read_bytes": 41470197,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 195,
+        "execution_time_ms": 3126,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 13506,
+        "read_cache_bytes": 41470197,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 2684,
+        "read_files_count": 1,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 2584,
+        "rows_read_count": 2500000,
+        "result_fetch_time_ms": 2,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791335733168,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 3321,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 2500000,
+        "write_remote_files": 1,
+        "queue_end_time_ms": 1791335733154,
+        "read_files_bytes": 41211137,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 20000000,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 25,
+          "completed_task_count": 25,
+          "completed_partition_count": 25,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "append-2": {
+      "caller_ms": 3833.837250000002,
+      "metrics": {
+        "total_time_ms": 3731,
+        "read_bytes": 41470197,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 231,
+        "execution_time_ms": 3492,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 11724,
+        "read_cache_bytes": 41470197,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 3030,
+        "read_files_count": 1,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 2907,
+        "rows_read_count": 2500000,
+        "result_fetch_time_ms": 3,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791335736606,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 3723,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 2500000,
+        "write_remote_files": 1,
+        "queue_end_time_ms": 1791335736592,
+        "read_files_bytes": 41211137,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 20000000,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 29,
+          "completed_task_count": 29,
+          "completed_partition_count": 29,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "append-3": {
+      "caller_ms": 3457.5277920000003,
+      "metrics": {
+        "total_time_ms": 3351,
+        "read_bytes": 41470197,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 206,
+        "execution_time_ms": 3138,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 12884,
+        "read_cache_bytes": 41470197,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 2940,
+        "read_files_count": 1,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 2821,
+        "rows_read_count": 2500000,
+        "result_fetch_time_ms": 2,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791335740439,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 3344,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 2500000,
+        "write_remote_files": 1,
+        "queue_end_time_ms": 1791335740424,
+        "read_files_bytes": 41211137,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 20000000,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 27,
+          "completed_task_count": 27,
+          "completed_partition_count": 27,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "append-4": {
+      "caller_ms": 3491.373292000002,
+      "metrics": {
+        "total_time_ms": 3382,
+        "read_bytes": 41470197,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 218,
+        "execution_time_ms": 3157,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 11424,
+        "read_cache_bytes": 41470197,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 2802,
+        "read_files_count": 1,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 2675,
+        "rows_read_count": 2500000,
+        "result_fetch_time_ms": 3,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791335743900,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 3375,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 2500000,
+        "write_remote_files": 1,
+        "queue_end_time_ms": 1791335743883,
+        "read_files_bytes": 41211137,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 20000000,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 25,
+          "completed_task_count": 25,
+          "completed_partition_count": 25,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "append-5": {
+      "caller_ms": 3423.389457999999,
+      "metrics": {
+        "total_time_ms": 3318,
+        "read_bytes": 41470197,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 194,
+        "execution_time_ms": 3117,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 11546,
+        "read_cache_bytes": 41470197,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 2723,
+        "read_files_count": 1,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 2594,
+        "rows_read_count": 2500000,
+        "result_fetch_time_ms": 5,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791335747387,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 3311,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 2500000,
+        "write_remote_files": 1,
+        "queue_end_time_ms": 1791335747373,
+        "read_files_bytes": 41211137,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 20000000,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 27,
+          "completed_task_count": 27,
+          "completed_partition_count": 27,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "append-6": {
+      "caller_ms": 3442.079208000003,
+      "metrics": {
+        "total_time_ms": 3330,
+        "read_bytes": 41470197,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 208,
+        "execution_time_ms": 3115,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 11757,
+        "read_cache_bytes": 41470197,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 2764,
+        "read_files_count": 1,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 2668,
+        "rows_read_count": 2500000,
+        "result_fetch_time_ms": 4,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791335750818,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 3323,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 2500000,
+        "write_remote_files": 1,
+        "queue_end_time_ms": 1791335750804,
+        "read_files_bytes": 41211137,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 20000000,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 25,
+          "completed_task_count": 25,
+          "completed_partition_count": 25,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "append-7": {
+      "caller_ms": 3537.8164159999983,
+      "metrics": {
+        "total_time_ms": 3431,
+        "read_bytes": 41470197,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 185,
+        "execution_time_ms": 3238,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 11087,
+        "read_cache_bytes": 41470197,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 2845,
+        "read_files_count": 1,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 2733,
+        "rows_read_count": 2500000,
+        "result_fetch_time_ms": 4,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791335754259,
+        "metadata_time_ms": 0,
+        "query_execution_time_ms": 3423,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 2500000,
+        "write_remote_files": 1,
+        "queue_end_time_ms": 1791335754246,
+        "read_files_bytes": 41211137,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 20000000,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 29,
+          "completed_task_count": 29,
+          "completed_partition_count": 29,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    }
+  }
+}
