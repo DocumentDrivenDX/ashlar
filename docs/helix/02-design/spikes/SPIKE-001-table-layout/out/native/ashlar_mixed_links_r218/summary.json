@@ -1,0 +1,110 @@
+{
+  "state": "Pinned native identity, endpoints, origin links and complete native-value property replay passed",
+  "pins": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_object_current_r217",
+      "id": "4e166130-419c-465f-97ee-63d422074cc0",
+      "version": 0,
+      "rows": 64,
+      "files": 1,
+      "bytes": 17715,
+      "reader": "3",
+      "writer": "7"
+    },
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_edge_current_r217",
+      "id": "4b37b804-6787-4d36-af1b-f7b815829775",
+      "version": 0,
+      "rows": 192,
+      "files": 1,
+      "bytes": 38464,
+      "reader": "3",
+      "writer": "7"
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r217",
+      "id": "edd1933b-a406-46ad-9298-682c5e156bcc",
+      "version": 0,
+      "rows": 512,
+      "files": 1,
+      "bytes": 79055,
+      "reader": "3",
+      "writer": "7"
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r217",
+      "id": "217b2f61-65a7-45d9-b0e8-8bbf339bfec0",
+      "version": 0,
+      "rows": 2496,
+      "files": 3,
+      "bytes": 80211,
+      "reader": "3",
+      "writer": "7"
+    }
+  },
+  "checks": {
+    "identity-object_current": [
+      [
+        "64",
+        "64",
+        "0"
+      ]
+    ],
+    "origin-object_current": [
+      [
+        "0"
+      ]
+    ],
+    "identity-edge_current": [
+      [
+        "192",
+        "192",
+        "0"
+      ]
+    ],
+    "origin-edge_current": [
+      [
+        "0"
+      ]
+    ],
+    "endpoint-source": [
+      [
+        "0"
+      ]
+    ],
+    "endpoint-target": [
+      [
+        "0"
+      ]
+    ],
+    "raw-identity-digest": [
+      [
+        "512",
+        "512",
+        "0"
+      ]
+    ],
+    "event-origin": [
+      [
+        "0"
+      ]
+    ],
+    "native-values-local-replay": {
+      "origins": 512,
+      "events": 2496,
+      "entities": 256
+    }
+  },
+  "runtime": [
+    [
+      "{\"dbr_version\":null,\"dbsql_version\":\"2026.38\",\"u_build_hash\":\"5ed5dc28fe86dc0a5d08df504d6d5e89c8a4dcda\",\"r_build_hash\":\"722a1a33c2aa93f3d608cfe18bded36448192445\"}",
+      "Etc/UTC"
+    ]
+  ],
+  "costs": {
+    "read_bytes": 780413,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "All fixture rows, read-only snapshot0. Native joins and hash differential; replay runs locally on every native raw/event value. No producer fencing, transaction completeness, manifest barrier, native replay implementation, constraint enforcement or scale/SLO claim."
+}
