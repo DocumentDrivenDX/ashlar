@@ -1,0 +1,17 @@
+{
+  "format": "ashlar-maintenance-budget/1",
+  "source_sha256": {
+    "publisher": "a13ccb15c9c42845b125e5ebc18133afc6ce1714a06273f1cad2d1bb4b3dec7f",
+    "points": "8bc8b9ad4824bac99fd3a8b85fe1acf913d96162d20dd7d296af337406f30203",
+    "inputs": "aef4fa9d9ff1a984b0fe2487b8941f2c2ec662adaf774eef3ff907cab542c8f0",
+    "changed": "4712aded2d062b63886365066927e0dec8e22633619f585d589a4e31cd5781f1"
+  },
+  "bounds": {
+    "read_bytes": 320000000000,
+    "write_remote_bytes": 40000000000,
+    "spill_to_disk_bytes": 30000000000,
+    "wall_s": 1800,
+    "statement_s": 180
+  },
+  "basis": "Parent edge file bytes32.038GB/614files. Incremental OPTIMIZE may rewrite complete edge role;1.2x write sensitivity38.446GB under40GB. Read model six full role scans192.229GB plus40GB input/metadata/optimizer reserve,1.25x=290.286GB under320GB. Full preserved39.9M unchanged plus90kchanged cover every final39.99M row. Reported spill cap not peak temp limit. Prior280GB intermediate storage sensitivity remains uncertain; private edge rewrite overlap up to40GB, historical20.207GB removed-byte proxy and source/inputs must remain retained. No FULL optimize, new compute, resizing, VACUUM or published pointer change. Guards not hard server/billing deadlines."
+}
