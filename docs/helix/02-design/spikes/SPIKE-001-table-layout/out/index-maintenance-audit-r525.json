@@ -1,0 +1,69 @@
+{
+  "maintenance": {
+    "original_trial": "stopped after successful OPTIMIZE because head3 contradicted one-commit assumption",
+    "commits": [
+      2,
+      3
+    ],
+    "same_statement_id": "01f1c29e-77ac-1ba0-8801-0b3a33abf4f5",
+    "costs": {
+      "read_bytes": 964201039,
+      "write_remote_bytes": 181284194,
+      "spill_to_disk_bytes": 0
+    },
+    "before_files": "2",
+    "after_files": "2",
+    "before_bytes": "197356068",
+    "after_bytes": "181284194",
+    "qualification": "No mutation replay; costs include stopped original execution and recovery proofs. Original whole wall is not captured; recovery wall is separately bounded."
+  },
+  "state": "Maintained index paired cohort preserves all20 fields/deletion absence, exact SQL/final metrics and unchanged three-table custody",
+  "trials": [
+    {
+      "run": "r523",
+      "groups": {
+        "wide-0": {
+          "queries": 8,
+          "caller_p95_ms": 516.4872499999991,
+          "engine_p95_ms": 92,
+          "compile_p95_ms": 318,
+          "read_bytes": 515962992,
+          "remote_queries": 0
+        },
+        "wide-1": {
+          "queries": 8,
+          "caller_p95_ms": 358.83183299999996,
+          "engine_p95_ms": 82,
+          "compile_p95_ms": 145,
+          "read_bytes": 515962992,
+          "remote_queries": 0
+        },
+        "join-0": {
+          "queries": 8,
+          "caller_p95_ms": 755.7696669999991,
+          "engine_p95_ms": 351,
+          "compile_p95_ms": 272,
+          "read_bytes": 1204026160,
+          "remote_queries": 0
+        },
+        "join-1": {
+          "queries": 8,
+          "caller_p95_ms": 733.4630830000002,
+          "engine_p95_ms": 333,
+          "compile_p95_ms": 272,
+          "read_bytes": 1204026160,
+          "remote_queries": 0
+        }
+      },
+      "costs": {
+        "read_bytes": 3444467573,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "wall_s": 33.941444415999996,
+      "statements": 47,
+      "qualification": "Qualified OPTIMIZE index version3; same explicit full-key predicates asR517 on BOTH index and carrier; eight selected changed identities, two passes, pinned 2.5M-row private fixture. Result cache disabled; storage cache and fixed warm history remain. No cold-data, concurrent, publication or billion admission."
+    }
+  ],
+  "qualification": "Small warm serial cohorts, nearest-rank sample p95; no production p95, cold-data, full publication or scale admission."
+}
