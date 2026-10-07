@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "8fb7333a79afd74472281e2fd982e43cca20c2f23465acad117bdbe445337063",
+    "layout-status.md": "68f3bdf4ade2dc449ed9282707f56203c70c5cc8a22ef327d65c2025dea5f77e",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -1979,7 +1979,14 @@
     "out/native/ashlar_inline_guard_finish_r425/completed-last-statement.json": "1bb3516ccc3dc3d7ac962a32a4eb9a2b94eaf4e79c4157b28d7f841c918c7961",
     "fourth_changes_r427.py": "2edcdbf9d7aa7b48116be62a890ed134800f691be67394da0189f199061a0827",
     "out/fourth-batch-oracle-r427.json": "328c0bc0f268ad223beb714534ad75fa633e66ad3acba9a9b0518caa2ae47e03",
-    "out/fourth-guarded-batch-plan-r427.json": "e0f0e49b82dee6521b9b2af1e5075f0fc851b1c946b4b36189193d0c4833408e"
+    "out/fourth-guarded-batch-plan-r427.json": "e0f0e49b82dee6521b9b2af1e5075f0fc851b1c946b4b36189193d0c4833408e",
+    "fourth_batch_files_r428.py": "2fd6d8da14a28b54aa93e217cc575995018735bb10ba2b3b7043ca9dc3ea23f2",
+    "fourth_batch_audit_r429.py": "272704aabb2f5ef6df3b7bc71a1a2a7d11514550bf674250b55bf3b62875fac7",
+    "fourth_cdf_oracle_r430.py": "cf9045517fdd641bc9f78171d0528d9a3e7872ad85a929271fb2c4b634398abc",
+    "out/ashlar_fourth_batch_files_r428/summary.json": "e7bf862247081bfaa47c0765d9dfaba485b848e49229d062dddef83f304a0634",
+    "out/ashlar_fourth_batch_files_r428/audited-summary.json": "cf95eb4943bea8aff9816526b535e1c9a491d48824eb90733889fd08ee09b2b0",
+    "out/fourth-cdf-image-oracle-r430.json": "915cbd22ae110ecc94c02924b6d180b549fcc5985c1ef1eebc26522269282e7b",
+    "out/fourth-canonical-tomb-r430.json": "663f7baa502dade23696bfb007ae7bfcaaf48334e6a49f51ded1e310643fe5a2"
   },
   "evidence": {
     "ddl": {
