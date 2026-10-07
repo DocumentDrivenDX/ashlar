@@ -2410,7 +2410,20 @@
     "out/native/index_maintenance_recovery_r524/summary.json": "5cf818c0ee78c0e210a099eb88b90dfa6d5a111801962a966cbc43b00d7cf473",
     "out/native/index_maintenance_recovery_r524/combined-history.json": "9fc4cd9c6904959a022271d10df88581bb18c47caf70a6a2ffee1ae2f07c2abf",
     "out/native/index_maintenance_recovery_r524/statements.jsonl": "b0dbe033b2561cbc0578d62d64929d362afce09ca9254edbd195be0692b87c5b",
-    "out/native/index_maintenance_recovery_r524/completed-last-statement.json": "3dd89221d87c2bd0d8f7e06beb52d5762a274dd4a223fd83b9fb7121c64650fd"
+    "out/native/index_maintenance_recovery_r524/completed-last-statement.json": "3dd89221d87c2bd0d8f7e06beb52d5762a274dd4a223fd83b9fb7121c64650fd",
+    "sixth_changes_r526.py": "e127af2c9ae5c52e48b64449cb8423458c1a1d602325eb61b431baf26a8c25e7",
+    "sixth_batch_files_r527.py": "5ef9b7f11b9df0f48df3f345be47b2f846d6c60b41ae2e748d593c6b0d6f448f",
+    "sixth_batch_audit_r528.py": "17cb9d7799a70adf62f29d3244c77fb043be8b0444f0745898eafa46db0d6852",
+    "sixth_cdf_oracle_r529.py": "cb8a5d3ebe9a1d31099ad7f20e0790908e280d1fbcd953b329f4df76e4cafda9",
+    "sixth_admission_r530.py": "f44a24d26c469f94aeaf80328da8a4ea46942da67b8508b8788919626dd0c2e9",
+    "sixth_guard_publish_r537.py": "3d3dfdb01b691aada6c32c39a8ff96a515c4f0e19935f09744226fae449f40b5",
+    "sixth-publication-preparation-r530.md": "67fffbed893ccb517b932fc1eb35ce29fff1363cbd7d85b87667b3c8e3dd5c32",
+    "out/sixth-batch-oracle-r526.json": "33ad55ead160b23b983bff3104cf82eaf3256e86ade23d8831629843d7638a8b",
+    "out/sixth-cdf-image-oracle-r529.json": "adf0bd57b03a5ab6ce1cc2357e581c6b1fff46eaf0bc55776ba7e12c2137fe30",
+    "out/sixth-canonical-tomb-r529.json": "c1fc3c22a1813643a275ffb11ba801d8e6045594678482390902828583815a2f",
+    "out/sixth-local-admission-r530.json": "f8a1270176527c24b02d3266831055574cdde8dda4e78dd47f1a4f10b562f040",
+    "out/ashlar_sixth_batch_files_r527/summary.json": "16c49a8f79b5986507e417677421c344ecbe2fd88d53e15658caa154a3728d17",
+    "out/ashlar_sixth_batch_files_r527/audited-summary.json": "aa12242df8b01aaf290c766a7daca5f8ea68893f6285f5b87720b534b334a4f1"
   },
   "evidence": {
     "ddl": {
