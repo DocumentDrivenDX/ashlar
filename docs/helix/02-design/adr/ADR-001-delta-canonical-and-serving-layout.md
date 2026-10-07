@@ -332,3 +332,13 @@ the metastore external-access prerequisite. Keep canonical DV/row-tracking
 features; neither a DuckDB success nor a permission failure establishes Delta
 feature compatibility. GraphFrames already executes the 24M-element local
 release; bounded Fabric and direct UC graph-engine tests remain open.
+
+[r108 high-degree adjacency sensitivity](../spikes/SPIKE-001-table-layout/out/native/ashlar_hub_adjacency_r108/audited-summary.json)
+adds measured support for a separate narrow endpoint-clustered candidate:
+20M synthetic edges in240MB/8files, with900004/100004-edge hubs pruning to one
+file for count and first100-row page. Typed closure, unique IDs, unique relationship
+endpoint pairs and full projection equality pass. First-page reads still consume
+37.4/5.1MB and do not prove deep-page ordering/cost. This is an altered synthetic
+graph, not a published canonical projection or billion-scale support. Keep
+identity clustering on canonical edges and evaluate endpoint/query ordering on
+the optional adjacency surface separately.

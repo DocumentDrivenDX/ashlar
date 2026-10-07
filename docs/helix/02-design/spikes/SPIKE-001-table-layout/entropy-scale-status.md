@@ -629,3 +629,31 @@ latency improvement here, so retain it for safe query construction without
 claiming plan-cache gains. Quiet hot-set results do not qualify contention, cold
 data, sustained ingest or billion-scale admission. No writes or compute changes.
 The next performance comparison should isolate compute resources.
+
+## High-degree narrow adjacency sensitivity (r108)
+
+[Native final audit](out/native/ashlar_hub_adjacency_r108/audited-summary.json)
+creates a separate seven-column20M-edge synthetic adjacency table at version0.
+One million edges are redirected to typed pilot32/other160 hubs with degrees
+900004/100004; all other endpoints retain their baseline values. Hub relationship
+IDs form a distinct synthetic range by destination type. Full EXCEPT ALL projection
+parity,20M unique edge IDs, typed endpoint closure against4M objects and20M unique
+relationship/typed-endpoint pairs pass. Canonical tables were not modified.
+This altered graph is a layout sensitivity fixture, not a serving projection of
+a published canonical graph or an actual Truss relation vocabulary.
+
+Endpoint liquid clustering `(source_system,source_type,source_id)` produces8files
+and240160289bytes. Five uncached warm repetitions each give:
+
+| Hub | Degree | Count caller/engine p95 ms | 100-row page caller/engine p95 ms | Files p95 |
+| --- | ---: | ---: | ---: | ---: |
+| pilot32 | 900004 | 406/140 | 458/191 | 1 |
+| other160 | 100004 | 346/108 | 333/96 | 1 |
+
+All query histories are final, uncached and report zero remote bytes. Exact first
+page IDs, relationship IDs and typed destinations match an independent arithmetic
+oracle. Small five-sample p95s are observed maxima, not service percentiles.
+Pages read37.4/5.1MB at p95 despite returning100rows; source clustering does not
+prove edge-ID ordering or constant page cost. No later/deep pages, reverse layout,
+degree cache, updates, concurrent ingest or billion-scale behavior is admitted.
+The table's actual reader3/writer7 features still need external qualification.

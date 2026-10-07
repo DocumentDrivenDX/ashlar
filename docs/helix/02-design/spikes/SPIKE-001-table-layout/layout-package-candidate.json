@@ -94,7 +94,7 @@
     "graphframes_scale.py": "165f5d89ef23e26eaae8a688fa4fc1811515ac2f633d800273c47466ca218e7a",
     "parameterized_reads.py": "c52b62fc1ed9c21c7df9ce65bcce6f45bc9b0eac3ad10e4d4fbf7dacf0ea1528",
     "cancel_controls.py": "136be2fba80a126197e9a1c2a91796a33935724e24f2ec775b611d39a1ea2d51",
-    "entropy-scale-status.md": "5dc86356d50585830a4f4aaba66c038d87d9a584239a76546d97be0a165adbec",
+    "entropy-scale-status.md": "bf05a40691cdcec2edd5c5a7eaef5889704220deac6b71df9b20c4651168c656",
     "out/entropy-local-20261006/summary.json": "12359f89adabb3e41771cdf4570902a6626d74e03e3cae7d2c3e2f8bfefb344e",
     "out/graphframes-scale-20261006/summary.json": "608ef7aaf0b1cb89668ada1f69213c050874f4851f2acef97a65e63ac1fe53ab",
     "out/graphframes-scale-20261006/materialization.json": "83ee2e37d60c9df1bb088ff239e63640bd0835a555ea085c8a3863b71791f691",
@@ -290,7 +290,13 @@
     "out/native/ashlar_isolation_r107_preflight/summary.json": "fef6ee733685c9c53d663b869941d0de53fcca56043b7a21bff0e7db03ca4ec0",
     "out/native/ashlar_isolation_r107_preflight/statements.jsonl": "9c187735544815bfbdcd658b8ff60bf528698c09166d8a27b4061914db048fa8",
     "out/native/ashlar_isolation_r107_preflight/query-history.json": "18edb4850748f51859097664ebc45b1a8c89ed3cbb4da25a226a7b2b4f2329f5",
-    "out/native/ashlar_isolation_r107_preflight/journal-lane/query-history.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+    "out/native/ashlar_isolation_r107_preflight/journal-lane/query-history.json": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+    "hub_adjacency_r108.py": "34749a99fc55ca8abd524007d17d623fba90932f2a6bea51379f39b1db4696d5",
+    "hub_adjacency_audit.py": "c72dd7c40e8f53b92ed44fb0e71448ce99effbf0b29d7e34bd380d678c1f8957",
+    "out/native/ashlar_hub_adjacency_r108/summary.json": "f30999cdcdfe60d3674955bbb2b41db1948a3b1b35bc5d4a491a3a91283ffc24",
+    "out/native/ashlar_hub_adjacency_r108/statements.jsonl": "d081223a3b7d4824bf39d47442472f3cd5a55cd688c5bd04150ec7aa952c48ba",
+    "out/native/ashlar_hub_adjacency_r108/query-history.json": "b67b3588314f25cfa9fea30ad448e99095ae4024cb32b61981443a417e9f4191",
+    "out/native/ashlar_hub_adjacency_r108/audited-summary.json": "df9e500b0e77ee9c8aa999cebe6851a398eebc9be3a9d0f627fa543fd6820fc4"
   },
   "evidence": {
     "ddl": {

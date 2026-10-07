@@ -1,0 +1,31 @@
+{
+  "state": "20M synthetic hub adjacency preservation and bounded queries passed; final-history audit pending",
+  "table": "client_dev.ashlar_entropy_20261006_r86.adjacency_hub_r108",
+  "version": 0,
+  "hub_degrees": {
+    "pilot32": 900004,
+    "other160": 100004
+  },
+  "detail": [
+    [
+      "delta",
+      "1100028d-3530-433f-adff-d92790d68645",
+      "client_dev.ashlar_entropy_20261006_r86.adjacency_hub_r108",
+      null,
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/5ba06358-eb7b-4097-82bf-338f1c414ab4",
+      "2026-10-07T01:02:36.757000",
+      "2026-10-07T01:02:46",
+      "[]",
+      "[\"source_system\",\"source_type\",\"source_id\"]",
+      "8",
+      "240160289",
+      "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-7133b747-3380-4433-b07f-2e6694f9aae2\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-2750c90d-167f-4658-80bc-b3738f198279\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"5ba06358-eb7b-4097-82bf-338f1c414ab4\"}",
+      "3",
+      "7",
+      "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+      "False"
+    ]
+  ],
+  "qualification": "Synthetic altered endpoint fixture; not a projection of the canonical published graph. Canonical E/N unchanged. Typed closure and unique relation endpoint pairs checked; no source authority, general skew, full adjacency service or billion-scale admission."
+}
