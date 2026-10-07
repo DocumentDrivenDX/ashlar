@@ -21,7 +21,9 @@ def expected_r103(base):
     assert len({(row[0],row[1],row[2]) for row in rows})==30
     return batch['versions'],rows
 class ExactReader:
-    def __init__(self,client,versions,rows):
+    def __init__(self,client,versions,rows,publication_id="r103-b1"):
+        assert re.fullmatch(r"[a-zA-Z0-9_-]+",publication_id)
+        self.publication_id=publication_id
         self.client=client;self.versions=versions;self.rows=rows
         self.version=versions[E]
         assert isinstance(self.version,int) and self.version>=0 and rows
@@ -34,7 +36,7 @@ class ExactReader:
     def preflight(self):
         self.client.sql('reader-timeout','SET STATEMENT_TIMEOUT=180')
         assert self.client.sql('reader-cache','SET USE_CACHED_RESULT')[0][-1].lower()=='false'
-        manifest=self.client.sql('reader-manifest',f"SELECT table_versions_json FROM {M} WHERE publication_id='r103-b1'")
+        manifest=self.client.sql('reader-manifest',f"SELECT table_versions_json FROM {M} WHERE publication_id=:publication",parameters={'publication':self.publication_id})
         assert manifest==[[json.dumps(self.versions,sort_keys=True,separators=(',',':'))]]
     def read(self,phase,index):
         row=self.rows[index%len(self.rows)]
