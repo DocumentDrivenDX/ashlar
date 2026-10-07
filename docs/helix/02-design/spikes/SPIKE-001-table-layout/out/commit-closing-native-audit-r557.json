@@ -1,0 +1,24 @@
+{
+  "state": "All68 exact native statements and two commit-bound closing cohorts verified",
+  "cohorts": [
+    {
+      "phase": "before_descriptor",
+      "collection_s": 4.519597417000001,
+      "engine_sum_ms": 4077,
+      "caller_sum_ms": 16098.551918000003
+    },
+    {
+      "phase": "after_readback",
+      "collection_s": 3.0165912499999994,
+      "engine_sum_ms": 3874,
+      "caller_sum_ms": 9927.510543999995
+    }
+  ],
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 18.313919208,
+  "qualification": "Read-only accepted sixth pins, ten current UUID/head/protocol/schema profiles, four owned clients; Commit-bound wrapper executes two complete concurrent cohorts with unique phase tags. Phase names exercise publisher call sites without writing or reading a new descriptor. No role/manifest writes, production fence or full ready-input clock."
+}

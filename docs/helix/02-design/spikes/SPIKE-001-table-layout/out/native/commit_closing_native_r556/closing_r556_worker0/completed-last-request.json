@@ -1,0 +1,1 @@
+{"label": "schema-after_readback-input-tombstone", "sql": "DESCRIBE TABLE client_dev.ashlar_entropy_20261006_r86.normalized_tombstone_r533", "parameters": null, "correlation": "/* ashlar closing_r556_worker0 schema-after_readback-input-tombstone */", "started_epoch": 1791415490.2055979, "state": "returned", "query_id": "01f1c2a6-4aea-1ed8-b9eb-7df0159154db"}

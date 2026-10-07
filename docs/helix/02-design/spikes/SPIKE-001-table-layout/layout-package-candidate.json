@@ -2506,7 +2506,21 @@
     "publisher_commit_closing_r553.py": "8a3257ccec59aa2d2f694d70acc5726768b1131ba7b06f2ba9c1c2c294060d81",
     "publisher_commit_closing_controls_r554.py": "e05a08ead91fa8fdb7eb096999fde3e3abec74dfef8b1778fcc066efe59bb9e2",
     "out/publisher-commit-closing-controls-r554.json": "80f8558f49b9ef49460cf8591b4f0920efa5e6d8aa46bac21c5b7441575f5458",
-    "commit-closing-disposition-r555.md": "956872ea2a67233a8ea2075e6440c9ac9aac381f447d44173ea8f0a1a765358d"
+    "commit-closing-disposition-r555.md": "956872ea2a67233a8ea2075e6440c9ac9aac381f447d44173ea8f0a1a765358d",
+    "commit_closing_native_r556.py": "503e937d7186e75147d4d6496d0717e357c5d5681d0598e8643de6e67f9242b3",
+    "commit_closing_native_audit_r557.py": "20bd4c8195826cb8ba76921de1f76543374466c32f990f9e327a4afd70006f9f",
+    "commit-closing-native-disposition-r558.md": "9b0c78df31c5b7746966f47632b39810f6b62ada661d77ee44b5df2ac156a8fc",
+    "out/commit-closing-native-audit-r557.json": "c52d8b3c89a15f49a6eaa56d805ed5fe6d1efc2d6d8a41f5d7a8b35e25a21600",
+    "out/native/commit_closing_native_r556/closing_r556_worker0/completed-last-request.json": "b89e05163dff67feae5a9239c3e4c1db46a38836b6584e2b9e62b7191db8b685",
+    "out/native/commit_closing_native_r556/closing_r556_worker0/statements.jsonl": "167a6f01449b4462c382f7a55f34592ae090ef37aa1a5602a5216a1433fddb39",
+    "out/native/commit_closing_native_r556/closing_r556_worker1/completed-last-request.json": "94d29d2a8d3dd23c2a2f8d8569cc74ea50dc0ea774039caf379b986fe419d648",
+    "out/native/commit_closing_native_r556/closing_r556_worker1/statements.jsonl": "a7646b370fe221da8f3e787bf1a988bb56e465bd2f03ac6ff38f3c81479ad763",
+    "out/native/commit_closing_native_r556/closing_r556_worker2/completed-last-request.json": "2b768c91836885b5618a9332f42ecf662c83f1a67a45308cc19bd2a25cd3006d",
+    "out/native/commit_closing_native_r556/closing_r556_worker2/statements.jsonl": "bd3babf79ec508728ff7ad024acbd2db5a21dcb76eb65417c6197ce140cb4b44",
+    "out/native/commit_closing_native_r556/closing_r556_worker3/completed-last-request.json": "008aed8053f13c10ae667b7f8c69049e5d6dabfd751d545cb9e5bc455befef4a",
+    "out/native/commit_closing_native_r556/closing_r556_worker3/statements.jsonl": "bab322de0acf5272bb666d22f0467e934ad654b695007db10be3e3f428fcc187",
+    "out/native/commit_closing_native_r556/shared-history.json": "29b5ca0e4c4d3d350409b7466636878114c74652d5ba6f8a3fc77661dc7fefc0",
+    "out/native/commit_closing_native_r556/summary.json": "1d6e9a1c8965321c1bc79e67c3ba5cbec0c9eae959b652fabfa9b3b676cb1e79"
   },
   "evidence": {
     "ddl": {
