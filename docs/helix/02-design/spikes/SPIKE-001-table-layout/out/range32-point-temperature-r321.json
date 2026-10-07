@@ -1,0 +1,25 @@
+{
+  "format": "ashlar-range32-point-temperature/1",
+  "source_sha256": "a43b806143f1a887a1230735888494e4c06d4e9d748e539ff14fdcdabdcd6b9d",
+  "per_pass": {
+    "0": {
+      "queries": 32,
+      "remote_queries": 22,
+      "caller_p95_ms": 786.1847500000003,
+      "engine_p95_ms": 515
+    },
+    "1": {
+      "queries": 32,
+      "remote_queries": 1,
+      "caller_p95_ms": 366.7801670000017,
+      "engine_p95_ms": 96
+    }
+  },
+  "observed_remote_subset": {
+    "queries": 23,
+    "caller_p95_ms": 786.1847500000003,
+    "caller_max_ms": 786.4259170000025,
+    "engine_p95_ms": 515
+  },
+  "qualification": "Observed remote subset/first pass is not controlled all-cold service cohort; prior full-field and metadata scans warm data. Second pass is repeated samekeys, not independent service tail. No universal cold1s or warm250ms admission."
+}

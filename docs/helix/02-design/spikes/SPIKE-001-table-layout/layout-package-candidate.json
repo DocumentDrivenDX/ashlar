@@ -1546,7 +1546,12 @@
     "out/native/ashlar_range32_maintain_r316/summary.json": "482b104725e751cb6250dc93598025e70c69a368992f267486b5b4b2a1c6e41e",
     "out/native/ashlar_range32_maintain_r316/shared-history.json": "b3d9d651bcd96dcb7e553d46359671b6830c31b62bd2cde869f11e81bf0ae4e8",
     "out/native/ashlar_range32_maintain_r316/statements.jsonl": "7ab20e9d1c19481aeed759112cc81edebaf76fda9053962725d27dc35814c6f9",
-    "out/native/ashlar_range32_maintain_r316/audited-summary.json": "eb9e9c4fc6d12d8012c523f45f516db9e3ca7aea45ed40b719b8d342a1d6a46a"
+    "out/native/ashlar_range32_maintain_r316/audited-summary.json": "eb9e9c4fc6d12d8012c523f45f516db9e3ca7aea45ed40b719b8d342a1d6a46a",
+    "out/range32-point-temperature-r321.json": "aa48cc2e96ae8dc120ce13a1956f2e37ab358c9506fce6deb92b715491431a09",
+    "out/native/ashlar_range32_pruning_r310/summary.json": "cd1f7dd7b5feb34ebc56e395442f3fd6db83c70c9cb212aaff44902b1707f0fd",
+    "out/native/ashlar_range32_pruning_r310/shared-history.json": "6b951a634db9d60b6a2f875c905145695f2eff9374870e29ecd1578685f9c4ab",
+    "out/native/ashlar_range32_pruning_r310/statements.jsonl": "e78898b7c2bfa76693cde144604de986db75015ec78a456f39a76b0dfca96855",
+    "out/native/ashlar_range32_pruning_r310/audited-summary.json": "a43b806143f1a887a1230735888494e4c06d4e9d748e539ff14fdcdabdcd6b9d"
   },
   "evidence": {
     "ddl": {
