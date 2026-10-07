@@ -1483,7 +1483,13 @@
     "out/native/ashlar_scoped_maintenance_r300/audited-summary.json": "8a71556e50073d92c5446ae0a2135aa9c5e2e57f4b23eaf334879a1faa283e27",
     "out/native/ashlar_scoped_maintenance_preflight_r299/summary.json": "6d49b5646500f90ca43a7e86bc5845c9038fd5ac27ff9f974bdc40c0e92d3235",
     "out/native/ashlar_scoped_maintenance_preflight_r299/statements.jsonl": "57c68017eca2f8ef2efb34c77aecd7cb2b953b45d47ff60092b913236b148cf3",
-    "out/native/ashlar_scoped_maintenance_preflight_r299/query-history.json": "324952ae7e207378c760b71798ec3d357b66762500af830f4cf5b7266614c2b1"
+    "out/native/ashlar_scoped_maintenance_preflight_r299/query-history.json": "324952ae7e207378c760b71798ec3d357b66762500af830f4cf5b7266614c2b1",
+    "scoped_point_audit_r304.py": "d48efa481c33c4c39992ddc5607be18b76a2e6aea32ca11d670e112122437f53",
+    "scoped-maintenance-disposition-r304.md": "11d5019cce8252ec65ef9bdf891ddf3f856a5e386d2a2cc06d774360dc058329",
+    "out/native/ashlar_scoped_pruning_r301/summary.json": "3f263f88ca577d19b05e32d3ae2584c0855da1124c6f756bc54688fdec23d6e1",
+    "out/native/ashlar_scoped_pruning_r301/shared-history.json": "b1eb73d4d8005ccbfcc03c098768ce63766be9ba4f40ede8d785ed4d4cbbb94f",
+    "out/native/ashlar_scoped_pruning_r301/statements.jsonl": "9611b7b85c73e877bc03164d0f58bc528af81d779e5c36bf9e3ac406f6874bd3",
+    "out/native/ashlar_scoped_pruning_r301/audited-summary.json": "74b419c108cf9cdd6babd3547f7013163e14911969cebe7367caa8ffba75a17f"
   },
   "evidence": {
     "ddl": {
