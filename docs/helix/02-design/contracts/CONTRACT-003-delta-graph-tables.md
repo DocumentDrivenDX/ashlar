@@ -152,6 +152,15 @@ Liquid and partitioned/Z-ordered layouts are separate candidates. Type/id column
 must have statistics; key columns are never high-cardinality partition directories.
 No PostgreSQL index, FK or JSONB capability is presumed to exist on Delta.
 
+The journal physical tuning candidate includes apply_batch_id in file statistics
+alongside feed/epoch/source-position/id, without partitioning or changing its
+logical columns. [r100 native evidence](../spikes/SPIKE-001-table-layout/out/native/ashlar_journal_batch_statistics_20261007_r100/audited-summary.json)
+preserves all 900k journal rows and unchanged file sizes/counts and protocol.
+After explicit statistics backfill, paired version-pinned checks report 26 rather
+than 100 file reads and prune 74 file reads; byte volume and latency remain similar.
+The old publication vectors retain the old statistics snapshot. This is a
+pruning candidate, not a freshness guarantee or billion-scale qualification.
+
 ## Error Semantics
 
 | Condition | Outcome | Recovery |

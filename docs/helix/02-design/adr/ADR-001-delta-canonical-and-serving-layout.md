@@ -66,6 +66,13 @@ baselines; production source, recovery and graph-engine qualification are open.
 The 13-table spike inventory is a reference surface, not a requirement to deploy
 all projection examples or rewrite every table for every source batch.
 
+Include the journal batch ID in data-skipping statistics alongside its origin/id
+columns. Native r100 backfill preserves all 900k rows and protocol/file layout,
+and reduces paired validation file reads from 100 to 26. It does not materially
+reduce measured bytes or latency. Keep statistics backfill cost and actual pinned
+versions explicit; old manifests do not gain the new snapshot automatically.
+This physical tuning does not change the logical journal or qualify freshness.
+
 ## Alternatives
 
 | Option | Benefits | Costs | Evaluation |

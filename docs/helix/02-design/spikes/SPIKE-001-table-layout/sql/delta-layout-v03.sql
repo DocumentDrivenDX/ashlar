@@ -44,7 +44,9 @@ CREATE TABLE property_journal (
   published_at TIMESTAMP NOT NULL, apply_batch_id STRING,
   source_cursor_json STRING, source_delivery_id STRING
 ) USING DELTA CLUSTER BY (source_feed, source_epoch, source_position, id)
-TBLPROPERTIES ('delta.dataSkippingStatsColumns'='source_feed,source_epoch,source_position,id');
+-- r100: batch statistics improve pinned-version journal file pruning;
+-- no measured freshness gain. Backfill existing statistics separately.
+TBLPROPERTIES ('delta.dataSkippingStatsColumns'='source_feed,source_epoch,source_position,id,apply_batch_id');
 
 CREATE TABLE tombstone (
   source_system STRING NOT NULL, entity_kind STRING NOT NULL,

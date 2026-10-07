@@ -1,5 +1,39 @@
 # Higher-entropy scale and GraphFrames iteration
 
+## Journal batch file statistics
+
+[Audited r100](out/native/ashlar_journal_batch_statistics_20261007_r100/audited-summary.json)
+adds apply_batch_id to the journal's existing feed/epoch/source-position/id file
+statistics, then explicitly recomputes Delta statistics. The property change
+takes 1.08 s and backfill 6.35 s. Journal versions 10→11→12 record SET TBLPROPERTIES
+and COMPUTE STATS, without new publication. The 43 active files / 4,476,500,707
+bytes, clustering, reader/writer versions and table features remain unchanged.
+Full bidirectional EXCEPT ALL on all 900k rows and all columns passes in 84.20 s;
+this is experimental preservation accounting, not a required per-batch scan.
+
+| Paired snapshot | Caller | Engine | Read bytes | File reads | Pruned file reads |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| old version10, pair1 | 6.64 s | 5.73 s | 2.63 GB | 100 | 0 |
+| new version12, pair1 | 6.76 s | 5.89 s | 2.60 GB | 26 | 74 |
+| old version10, pair2 | 6.47 s | 5.61 s | 2.63 GB | 100 | 0 |
+| new version12, pair2 | 6.22 s | 5.39 s | 2.74 GB | 26 | 74 |
+
+Counts aggregate repeated scans in the multiset query, not unique physical
+files. All exact final metrics are uncached; remote-read bytes vary, including
+271 MB on the last new-version query. Both snapshots contain the same journal
+rows. Pruning improves, but bytes and latency do not improve materially within
+these two alternating pairs. No publication-freshness or billion-scale gain is
+claimed. Existing manifests still pin the old journal versions; future publisher
+vectors must capture actual new versions to bind the backfilled statistics.
+
+The proposed 0.3 DDL now includes this supplementary journal statistic, retaining
+logical columns and clustering. Existing tables need an explicit backfill;
+configuration alone is not retroactive. [Official ANALYZE semantics](https://learn.microsoft.com/azure/databricks/sql/language-manual/sql-ref-syntax-aux-analyze-compute-statistics)
+distinguish Delta file statistics from optimizer statistics. This experiment does
+not add a separate optimizer-statistics sweep, re-cluster/partition the table or
+prove pruning after arbitrary mixed-batch compaction. Publisher throughput and
+read contention remain separate measurements.
+
 ## Actual filtered publication follow-up
 
 [Audited r99](out/native/ashlar_filtered_publication_20261007_r99/audited-summary.json)

@@ -195,3 +195,12 @@ maintenance commit and actual before/after pruning, bytes and parity timings;
 do not assume metadata configuration alone retroactively indexes existing files
 or that mixed-batch compaction guarantees perfect pruning. Only a new full-path
 run can qualify any resulting publication latency.
+
+[r100](out/native/ashlar_journal_batch_statistics_20261007_r100/audited-summary.json)
+executes the journal batch-statistic candidate and backfill, preserving all 900k
+rows, active file count/bytes, clustering and Delta protocol. Paired new version12
+checks report 26 file reads / 74 pruned versus old version10's 100 / 0. Total
+bytes remain about 2.6–2.7 GB and latency about 6–7 s. Include the statistic in
+the physical candidate for pruning, without assigning an unmeasured freshness
+benefit. Existing manifests remain unchanged and their old snapshots do not
+inherit the new file statistics. Bind actual versions in later publications.
