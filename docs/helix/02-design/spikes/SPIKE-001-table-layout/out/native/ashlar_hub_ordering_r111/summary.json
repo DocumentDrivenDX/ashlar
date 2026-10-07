@@ -1,0 +1,56 @@
+{
+  "state": "batched paired 20M multi-file hub tables and 48 exact page checks passed; history audit pending",
+  "tables": {
+    "endpoint": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r111_endpoint",
+    "ordered": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r111_ordered"
+  },
+  "versions": {
+    "endpoint": 8,
+    "ordered": 8
+  },
+  "degrees": {
+    "pilot32": 18000000,
+    "other160": 2000000
+  },
+  "details": {
+    "endpoint": {
+      "format": "delta",
+      "id": "7d4ab2cf-34b2-4451-a059-e71f53148e4a",
+      "name": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r111_endpoint",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/9b454947-40ce-4d67-a41d-604564848882",
+      "createdAt": "2026-10-07T01:09:21.682000",
+      "lastModified": "2026-10-07T01:09:50",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"source_system\",\"source_type\",\"source_id\"]",
+      "numFiles": "8",
+      "sizeInBytes": "76188",
+      "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.autoOptimize.autoCompact\":\"false\",\"delta.autoOptimize.optimizeWrite\":\"false\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-0b324899-a2f4-442e-954a-6fde327373a3\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-be50a2ef-1cc4-46e5-bff9-63020df73326\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"9b454947-40ce-4d67-a41d-604564848882\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+      "clusterByAuto": "False"
+    },
+    "ordered": {
+      "format": "delta",
+      "id": "48ca9786-421f-4658-aac8-37336195ea38",
+      "name": "client_dev.ashlar_entropy_20261006_r86.adjacency_allhub_r111_ordered",
+      "description": null,
+      "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/7f37d416-9de6-491b-8d81-13a8e38e08f9",
+      "createdAt": "2026-10-07T01:10:01.964000",
+      "lastModified": "2026-10-07T01:10:29",
+      "partitionColumns": "[]",
+      "clusteringColumns": "[\"source_system\",\"source_type\",\"source_id\",\"edge_id\"]",
+      "numFiles": "8",
+      "sizeInBytes": "60689808",
+      "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.autoOptimize.autoCompact\":\"false\",\"delta.autoOptimize.optimizeWrite\":\"false\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-4db11a0f-9c8c-474d-ac8b-4913fe27d78e\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-736d3304-6b18-446e-83fd-9a48f52aefd5\",\"delta.targetFileSize\":\"67108864\",\"io.unitycatalog.tableId\":\"7f37d416-9de6-491b-8d81-13a8e38e08f9\"}",
+      "minReaderVersion": "3",
+      "minWriterVersion": "7",
+      "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+      "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+      "clusterByAuto": "False"
+    }
+  },
+  "qualification": "Identical seven-column synthetic all-hub graph. Full independent projection parity both tables; typed closure/global edge IDs/unique relation-endpoint pairs. Not canonical graph, publication/ingest or billion-scale admission. Three repetitions per query are descriptive samples."
+}

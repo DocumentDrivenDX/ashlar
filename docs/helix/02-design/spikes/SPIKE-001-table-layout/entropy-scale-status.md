@@ -699,3 +699,30 @@ must verify that a hub physically occupies multiple files before running that
 comparison, using declared entropy or controlled writer layout and recording
 additional bytes/cost. Canonical tables, selected UC architecture and provisional
 SLOs remain unchanged; no billion-scale or ingestion admission follows.
+
+## Actual eight-file hub comparison (r111)
+
+[Final native audit](out/native/ashlar_hub_ordering_r111/audited-summary.json)
+materializes the same20M all-hub graph in eight2.5M-row append ranges per table,
+with automatic compaction/optimized writes disabled. Metadata confirms each hub
+occupies8files before timing. Full EXCEPT ALL parity against the qualified pinned
+r110 baseline, typed closure,20M unique IDs/relation-endpoint pairs and48 exact
+page/end arithmetic checks pass. Each target is pinned to observed version8.
+
+Both declared clustering layouts prune8/4/1/0files at cursors4M/14M/22M/24M.
+The chosen append ranges provide disjoint edge-ID bounds; this is not evidence
+that adding edge ID to liquid clustering caused the pruning. Three-sample maxima
+for deepest nonempty pages are83–88ms engine and322–341ms caller. Shallow pages
+still scan8files; ordering plus LIMIT does not prove early file termination.
+All histories are final uncached with zero remote bytes.
+
+Endpoint-only physical size is76188bytes versus60689808bytes with the extra
+clustering key. This extreme periodic fixture compression excludes production
+capacity/entropy extrapolation, regardless of the passing20M-row correctness
+checks. Additional key clustering offers no clear timing benefit in this run.
+Write evidence records sixteen actual appends; no OPTIMIZE or scattered update
+has demonstrated retention of these range boundaries. Keep canonical identity
+clustering unchanged. A narrow adjacency layout can exploit edge-range file
+statistics, but maintenance costs and robustness under realistic updates need
+qualification before selecting a range or bucketing policy. No source-rate,
+external-engine or1B/5Badmission follows.

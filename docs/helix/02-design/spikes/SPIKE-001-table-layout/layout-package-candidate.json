@@ -94,7 +94,7 @@
     "graphframes_scale.py": "165f5d89ef23e26eaae8a688fa4fc1811515ac2f633d800273c47466ca218e7a",
     "parameterized_reads.py": "c52b62fc1ed9c21c7df9ce65bcce6f45bc9b0eac3ad10e4d4fbf7dacf0ea1528",
     "cancel_controls.py": "136be2fba80a126197e9a1c2a91796a33935724e24f2ec775b611d39a1ea2d51",
-    "entropy-scale-status.md": "e3f03f09acff90553ea4308fc29d2c0756e85e225c2b0391a161fd34f8d6f835",
+    "entropy-scale-status.md": "bca0761badd367b5b36c560ba926d143bfeec060f3fbec0e70748050d646e349",
     "out/entropy-local-20261006/summary.json": "12359f89adabb3e41771cdf4570902a6626d74e03e3cae7d2c3e2f8bfefb344e",
     "out/graphframes-scale-20261006/summary.json": "608ef7aaf0b1cb89668ada1f69213c050874f4851f2acef97a65e63ac1fe53ab",
     "out/graphframes-scale-20261006/materialization.json": "83ee2e37d60c9df1bb088ff239e63640bd0835a555ea085c8a3863b71791f691",
@@ -307,7 +307,13 @@
     "out/native/ashlar_hub_ordering_r110/summary.json": "33334492983284afef8ed26596bae07ab8cecf46c5af46bec6b1ae6f6d709f6b",
     "out/native/ashlar_hub_ordering_r110/statements.jsonl": "b3485a7a25ea1dbe6cb04c70fcb2e0e75b9e8c69da30a95468b866175d6fbb5c",
     "out/native/ashlar_hub_ordering_r110/query-history.json": "f6d698e0e7928a29b9b9c76bd7890430230afe881899cabbf5febafd7547760e",
-    "out/native/ashlar_hub_ordering_r110/audited-summary.json": "0d94b9d3e49c27648159cd145cee7693ca686b90378730ba7efdd4f79ac04790"
+    "out/native/ashlar_hub_ordering_r110/audited-summary.json": "0d94b9d3e49c27648159cd145cee7693ca686b90378730ba7efdd4f79ac04790",
+    "hub_batched_r111.py": "154f540a69b3337d7449e9493bc24800017d23bcb155821e98167828f8d73a4a",
+    "hub_batched_audit.py": "4f6ddb5737be6f479935cb8bfbf3fed9733bc137ab5b646ef326464ebfe11225",
+    "out/native/ashlar_hub_ordering_r111/summary.json": "c0db3fef45717e1e3845c42291a9191370112f5c0aa17a07dc88e4431ce420ea",
+    "out/native/ashlar_hub_ordering_r111/statements.jsonl": "c2a490d199db13e9113dfaa629ccc085058913b2f26bfc833bca40d7c7499f4a",
+    "out/native/ashlar_hub_ordering_r111/query-history.json": "0681e508484cf116b562702963c02ae5649197eb993845d3f5fcde7051152255",
+    "out/native/ashlar_hub_ordering_r111/audited-summary.json": "47f5c6ddad3fa64fdf4c9b7da227eca48ecf6bd03b3a4aadbe8e1403a9f15459"
   },
   "evidence": {
     "ddl": {
