@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "2b68c1c470dc9fe92e65653e7ee3c4460ff712424699cf13a648daf662ee2662",
+    "scale-experiment-plan.md": "8d3c51be69fa879236ac1cff3b2a4cc4531fa60e4bb1b10577a45b140e2a7040",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1322,7 +1322,11 @@
     "out/native/ashlar_controlled_maintenance_r256/statements.jsonl": "49a5a592f11c01293e39ca85426b692283926e2aed73de903cc66bb9e3275a62",
     "out/native/ashlar_controlled_maintenance_r256/summary.json": "da6b465cc3bd3aeee8358bacdcb84869fb00c70d432fffa684bba8fc5c6670c6",
     "scale_edges_r257.py": "ef43e6d8c57bc1275501ebf27ef7e55e7d18e6477034c60351e1dd12d52c1357",
-    "growth_pruning_r258.py": "58ed9a56aa32cac1850cf1805cc7913d7a684937b2d53c4e45e1b0ebde3bc296"
+    "growth_pruning_r258.py": "58ed9a56aa32cac1850cf1805cc7913d7a684937b2d53c4e45e1b0ebde3bc296",
+    "out/native/ashlar_scale_edges_r257/summary.json": "54e52ee2f971dd2f8bc81dc665995ccfe0cbe94d86eab5663c984362fb87bd7d",
+    "out/native/ashlar_scale_edges_r257/shared-history.json": "8661e0cb1bc809a42899ef9ec1d1b5f96a23889136865b1654345204c8ab1857",
+    "out/native/ashlar_scale_edges_r257/statements.jsonl": "9446702e7b47ca6285fdfb48bc422f9f43e973b2fabac5be7433395b49fbb9f5",
+    "out/native/ashlar_scale_edges_r257/audited-summary.json": "0dcfb502af0a32ef7e5ec28e528b393b30f97d4ae528ea50d91217f4570ebc07"
   },
   "evidence": {
     "ddl": {
