@@ -103,9 +103,17 @@ publication and original input; no source ACK. Reconcile duplicate/stale orderin
 under CONTRACT-001 before extending beyond this distinct version1-to2 batch.
 
 Native read-only and write-time CDF image comparisons are complete in the scoped
-fixtures above. Next compare a private incremental publisher certificate with
-the qualified full sweep, measure its entire critical path, and run bounded
-successive-batch/queue tests. A single fast
+fixtures above. The r292 private incremental publisher now passes the complete change-image
+certificate, audited offline by incremental_receipt_audit_r293.py. Its ready-input
+critical path is139.786seconds (82.745seconds mutations), compared with922.120seconds
+for the independently qualified r281 full sweep. Preparation is67.227seconds;
+whole run213.695seconds. Native counters report37.164GB read,503.333MB write and
+zero spill. Complete mutable-role pre/post/delete images, raw/journal insert
+images, tombstones, contiguous approved commit custody, final global integrity
+and exact descriptor readback pass. This controlled immutable-baseline fixture
+misses the60-second freshness target and does not prove concurrent writer fencing
+or sustained throughput. Next exercise certificate refusal cases and bounded
+successive-batch/queue behavior. A single fast
 sample, commit metrics, or preserved final state alone does not admit10k/s or
 100k/s bursts. Production writer fencing and authorization remain separate open
 requirements; this controlled fixture is not their substitute.

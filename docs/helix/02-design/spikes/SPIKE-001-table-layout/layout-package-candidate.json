@@ -1430,7 +1430,7 @@
     "out/native/ashlar_maintained_edge_r285/statements.jsonl": "9ee441a321c6eaa327b25ee9f3ef4a9b7f91d93de8811a45f6474171a80ed905",
     "cdf_image_oracle_r288.py": "b4ac45d835b8f7dba5a739144d2195f230096c38393fdda6890a147f3cd46153",
     "out/cdf-image-oracle-r288.json": "187924fbae792495ae627b16001eb1dcc3bfb9063ca58d76ab5b9d0e1377a380",
-    "incremental-custody-cdf-candidate.md": "882f6ff1745810eae1de4368f6286f42e4c60cfece370925db37f76fd3b226cd",
+    "incremental-custody-cdf-candidate.md": "0290687d9f6e2a5290cac0f8a474277968c8752e12217ec35bbde03a5a16d423",
     "cdf_interval_read_r289.py": "854f44e2eb3ac7bc0c88dc2372c62078687c2521249c94ba43e90fa2cdfb6210",
     "out/native/ashlar_maintained_edge_r287/summary.json": "d79344f73a16cf837bd673f151a4d4d0e35bc7991454e1832286eb4632c59e2d",
     "out/native/ashlar_maintained_edge_r287/audited-summary.json": "9f012ad2f693ad2cb8de2782a7b0386fa3ef2233ac82ff06a9e9842d0ff597f7",
@@ -1450,7 +1450,12 @@
     "out/native/ashlar_legacy_cdf_compare_r290/statements.jsonl": "0854ccf9e68b3be4b21789d6511c10481a8dae265a36d181a22cb9b28609721a",
     "out/native/ashlar_legacy_cdf_compare_r290/shared-history.json": "07cf732e1400d835d19a17cd4e220b193a752876ea70d2baa6212c788b456a57",
     "incremental_publish_r292.py": "73de2727672ab5187cf4d5f8e697278478cab2cdc565c7d4191eafacc70cfb5f",
-    "out/incremental-publisher-budget-r292.json": "d85ebeaf71ca66bdf0f66e311100db2ee9e9a2b74aa501b041a7f6284bfc767a"
+    "out/incremental-publisher-budget-r292.json": "d85ebeaf71ca66bdf0f66e311100db2ee9e9a2b74aa501b041a7f6284bfc767a",
+    "incremental_receipt_audit_r293.py": "1f439ec064ee7b1f82d422d7a70a39bd888085837404af97881a74eb79cfb2af",
+    "out/native/ashlar_incremental_publish_r292/summary.json": "29785870ed4ebb3f1fdc5a679c5a36452643cdc5153b820cb234205b55fd8710",
+    "out/native/ashlar_incremental_publish_r292/shared-history.json": "aff136271f7fee16fad26aa08fd2b8fa546742fc591fc2d58bdd613da2377c30",
+    "out/native/ashlar_incremental_publish_r292/statements.jsonl": "bb34ac11b5f1030a530cc747d7537276abe6c3429ef6612fd0b4068733a7f54b",
+    "out/native/ashlar_incremental_publish_r292/audited-summary.json": "7988b95707bddc27895008a7c304eab64125c25019b5344f2ce2a3d14874ab36"
   },
   "evidence": {
     "ddl": {

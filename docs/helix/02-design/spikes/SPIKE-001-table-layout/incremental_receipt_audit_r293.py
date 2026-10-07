@@ -1,0 +1,34 @@
+"""Offline audit of the completed r292 controlled incremental publication."""
+import hashlib,json
+from pathlib import Path
+B=Path(__file__).resolve().parent
+
+def main():
+ p=B/'out/native/ashlar_incremental_publish_r292';a=json.loads((p/'summary.json').read_text());assert a['state']=='Private100k incremental publication passes complete change-image custody checks'
+ records=[json.loads(x) for x in (p/'statements.jsonl').read_text().splitlines()];h=json.loads((p/'shared-history.json').read_text());native={q['query_id']:q for q in h['queries']};sid={r['statement_id']:r for r in records}
+ assert len(sid)==len(records)==len(native) and h['require_final'] and not h['missing_ids']
+ for r in records:
+  q=native[r['statement_id']];assert r['response']['status']['state']=='SUCCEEDED' and q['status']=='FINISHED' and q['is_final'];assert q['query_text']==r['sql'];assert not r['response'].get('manifest',{}).get('truncated')
+ def result(label):
+  r=[r for r in records if r['label']==label];assert len(r)==1,label
+  return r[0]['response'].get('result',{}).get('data_array',[])
+ costs={k:sum(q['metrics'].get(k,0) for q in native.values()) for k in a['costs']};assert costs==a['costs'] and all(v<=a['bounds'][k] for k,v in costs.items());assert a['wall_s']<a['bounds']['wall_s']
+ oracle=json.loads((B/'out/cdf-image-oracle-r288.json').read_text());inputs=json.loads((B/'out/native/ashlar_normalized_delta_stage_r275/audited-summary.json').read_text())
+ for role in ['edge_current','adjacency_forward']:
+  rows=result('cdf-'+role);assert len(rows)==3 and rows==a['checks'][role]['groups']
+  for kind,n,lo,hi,digest in rows:
+   expected=oracle['roles'][role]['images'][kind];assert int(n)==expected['rows'] and digest==expected['digest'] and int(lo)==int(hi)==a['tables'][role]['version']
+ for role in ['source_record','property_journal']:
+  expected=inputs['checks'][role];v=str(a['tables'][role]['version']);assert result('cdf-'+role)==[['insert',str(expected['rows']),v,v,expected['all_known_field_digest']]]
+ expected=inputs['checks']['tombstone'];assert result('digest-tombstone')==[[str(expected['rows']),expected['all_known_field_digest']]]
+ for role,n in {'object_current':8000000,'edge_current':39990000,'adjacency_forward':39990000,'source_record':48100000,'property_journal':192216667,'tombstone':10000}.items():
+  assert result('final-count-'+role)==[[str(n)]];assert a['active_details'][role]['id']==a['tables'][role]['id']
+ assert result('unique-edges')==[['39990000','39990000']] and result('deleted-absent')==[['0']] and result('typed-endpoints')==[['39990000','0']]
+ for role in ['edge_current','source_record','property_journal','adjacency_forward','tombstone']:
+  r=next(r for r in records if r['label']=='custody-history-'+role);columns=[c['name'] for c in r['response']['manifest']['schema']['columns']];rows=[dict(zip(columns,x)) for x in result(r['label'])];events={e['version']:e for e in a['commit_events'] if e['role']==role}
+  assert set(events)==set(range(a['tables'][role]['version']+1))=={int(x['version']) for x in rows}
+  for x in rows:assert x['queryHistoryStatementId']==events[int(x['version'])]['statement_id'] and x['queryHistoryStatementId'] in sid
+ d=result('descriptor-readback')[0];assert d[0]=='incremental-r292';assert json.loads(d[2])==a['publication_vector']=={t['table']:t['version'] for t in a['tables'].values()};assert json.loads(d[4])==a['schema_revisions']=={'synthetic-scale-mixed':'synthetic-mixed/1'} and json.loads(d[5])==a['checks'];assert json.loads(d[3])['inputs']==inputs['tables'] and json.loads(d[3])['real_source_ack'] is False
+ cdf=[r for r in records if r['label'].startswith('cdf-')];assert len(cdf)==4 and all(not native[r['statement_id']]['metrics'].get('result_from_cache') for r in cdf)
+ a['audit']={'source_sha256':{n:hashlib.sha256((p/n).read_bytes()).hexdigest() for n in ['summary.json','statements.jsonl','shared-history.json']},'audit_script_sha256':hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),'final_statements':len(records),'uncached_cdf_queries':4,'qualification':a['qualification']};(p/'audited-summary.json').write_text(json.dumps(a,indent=2)+'\n');print(a['processing_s'])
+if __name__=='__main__':main()
