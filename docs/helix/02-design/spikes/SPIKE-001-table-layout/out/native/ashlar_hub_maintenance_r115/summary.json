@@ -1,0 +1,45 @@
+{
+  "state": "full parity and54 exact full-shape pages passed; final audit pending",
+  "table": "client_dev.ashlar_entropy_20261006_r86.adjacency_maintenance_r115",
+  "source_table": "client_dev.ashlar_entropy_20261006_r86.adjacency_relation_r113",
+  "source_version": 8,
+  "versions": {
+    "baseline": 0,
+    "updated": 1,
+    "optimized": 4
+  },
+  "changed_edges": 100117,
+  "hub_files": {
+    "baseline": [
+      [
+        "other",
+        "8"
+      ],
+      [
+        "pilot",
+        "8"
+      ]
+    ],
+    "updated": [
+      [
+        "other",
+        "9"
+      ],
+      [
+        "pilot",
+        "9"
+      ]
+    ],
+    "optimized": [
+      [
+        "other",
+        "1"
+      ],
+      [
+        "pilot",
+        "1"
+      ]
+    ]
+  },
+  "qualification": "20M low-entropy synthetic edges; isolated shallow clone, deterministic hash-scattered source-hub moves. Oracle projects pinned original, independent of mutated clone. No canonical publication, producer ingest, reverse layout, high-entropy capacity or billion admission. OPTIMIZE rather than OPTIMIZE FULL."
+}

@@ -189,3 +189,8 @@ Maintained-candidate contention: [r103](out/native/ashlar_maintained_contention_
 Singleton transport evidence: [r114 final audit](out/native/ashlar_singleton_rpc_r114/audited-summary.json)
 qualifies30 exact warm reads, p95 engine111ms/caller385.05ms, one RPC/read and
 less than1ms p95 outside RPC. No polling-delay fix or billion-scale claim follows.
+
+Adjacency maintenance: [r115 final audit](out/native/ashlar_hub_maintenance_r115/audited-summary.json)
+passes20M-row parity through100117scattered moves and OPTIMIZE. Page files change
+8/4/1→9/5/2→1/1/1 while optimized bytes become2.16MB at every cursor. Do not
+choose maintenance from file counts alone; production entropy remains untested.

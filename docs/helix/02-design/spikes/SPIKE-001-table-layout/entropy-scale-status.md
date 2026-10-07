@@ -793,3 +793,38 @@ Next physical-layout qualification should exercise relationship-range adjacency
 statistics under scattered updates and OPTIMIZE, retaining the proposed cursor
 order and independent full-row oracles. The4M-node/20M-edge local and native
 large-data evidence remains the tested scale;1B/5B admission is still open.
+
+## Scattered adjacency changes and maintenance (r115)
+
+[Final audit](out/native/ashlar_hub_maintenance_r115/audited-summary.json)
+passes full20M eight-column parity and unique edge identities at clone v0,
+updated v1 and optimized v4, plus54 exact full-shape cursor pages. The isolated
+shallow clone starts from r113 v8; a deterministic hash selects100117edges
+(0.50%) for source-hub moves and structural_version2. Expected state is projected
+from the immutable original, independent of the mutated clone. This is synthetic
+structural churn, not a real producer or canonical publication test.
+
+Baseline page file counts8/4/1 become9/5/2 after update: one new mixed-range file
+is admitted at every cursor. Byte maxima rise from97968/45814/11087 to
+2389009/1524907/881219. The explicit OPTIMIZE produces one2,163,234-byte file,
+read at every cursor. [Delta lineage](out/native/ashlar_hub_maintenance_r115/delta-history.json)
+records clone0, update1, then three OPTIMIZE commits2–4 (one data rewrite and
+a final no-op), not three issued OPTIMIZE commands. Update adds8deletion vectors;
+maintenance removes8vectors and replaces9files with1. The baseline physical
+files are shared across both hubs: per-hub counts must not be summed.
+
+All54 final pages are uncached with no remote bytes. Three-sample caller maxima
+span360–408ms baseline,369–440ms updated and414–561ms optimized; engine maxima
+span87–138ms,116–171ms and163–294ms respectively. This is not a robust p95 or
+a controlled causal timing estimate. Actual caller update cost4.094s and
+OPTIMIZE15.554s exclude producer/publication work; they cannot establish ingest
+freshness. Clone costs7.092s, with no additional compute provisioned; shared
+warehouse dollar attribution remains unknown.
+
+Retain the relationship-first cursor and reference clustering, but treat explicit
+append range boundaries as temporary. Plan maintenance around measured bytes and
+query selectivity as well as active file count; this fixture contradicts a claim
+that fewer files necessarily improve adjacency latency. Its extremely periodic
+low-entropy input cannot justify capacity, physical bucket counts, reverse access
+or1B/5Badmission. Next test adjacency with realistic endpoint/relationship entropy
+and bounded skew before making maintenance thresholds normative.
