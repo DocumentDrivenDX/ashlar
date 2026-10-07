@@ -1497,3 +1497,26 @@ post-MERGE write distribution before adding maintenance to every publication.
 only the identity-verified owned clone; source/publication r139-b1 remains pinned
 E23/N0/R17/J19/T0/forward1. Platform retention applies; no VACUUM claim. All full
 goal performance/scale requirements remain open.
+
+
+Persistent-client/compile floor: [r143 final audit](out/native/ashlar_client_floor_r143/audited-summary.json)
+passes30 exact SELECT1 queries on one connection, result cache disabled, final
+histories. Caller p95154.13ms; compile29ms, engine19ms, server total54ms. Paired
+caller-minus-server p95106.13ms. Historic optimized r142 full-carrier singleton:
+caller363.10ms, compile145ms, engine101ms, server259ms; paired caller-minus-server
+111.56ms and caller-minus-execution257.12ms. Residuals computed per query before
+ranking; never add or subtract separately ranked p95s. Outside-server residual
+includes transport/client and metric-boundary differences, not just network;
+caller-minus-execution is diagnostic, not a zero-engine latency prediction.
+
+This small control shows client/compile work must be addressed alongside file
+pruning; it does not qualify singleton performance. SELECT1 differs in plan and
+payload from20-field Delta queries. Existing workstation→Central US endpoint
+measurement is the recorded caller context; a service colocated with the warehouse
+is an unmeasured deployment alternative, not an inferred faster result or a
+changed250ms target. Preserve current gates while recording caller placement,
+compilation and parameterized-query behavior as explicit tuning dimensions.
+No new tables, writes, compute, publication or scale admission. E23/R17/J19 and
+r139-b1 unchanged. Next test bounded query/plan choices with exact identity and
+publication pinning retained, and post-MERGE distribution controls; do not treat
+a scalar query or relaxed pinning as the native singleton architecture.

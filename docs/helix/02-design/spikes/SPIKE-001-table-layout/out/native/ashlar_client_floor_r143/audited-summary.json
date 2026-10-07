@@ -1,0 +1,24 @@
+{
+  "state": "Thirty exact SELECT1 controls audited final uncached; historic singleton timing breakdown derived",
+  "constant": {
+    "n": 30,
+    "caller_p95_ms": 154.13333300000076,
+    "compilation_time_ms_p95": 29,
+    "execution_time_ms_p95": 19,
+    "total_time_ms_p95": 54,
+    "result_fetch_time_ms_p95": 5,
+    "paired_caller_minus_server_p95_ms": 106.13333300000076,
+    "paired_caller_minus_execution_p95_ms": 136.65091700000045
+  },
+  "singleton_r142": {
+    "n": 30,
+    "caller_p95_ms": 363.0992499999994,
+    "compilation_time_ms_p95": 145,
+    "execution_time_ms_p95": 101,
+    "total_time_ms_p95": 259,
+    "result_fetch_time_ms_p95": 5,
+    "paired_caller_minus_server_p95_ms": 111.56249999999977,
+    "paired_caller_minus_execution_p95_ms": 257.1240840000007
+  },
+  "qualification": "Each residual is computed per query before its p95; do not add/subtract independently ranked p95s. Caller-minus-server includes transport/client and metric-boundary differences, not exclusively network. Caller-minus-execution includes compilation and other work; it is diagnostic, not a prediction of a zero-execution query. SELECT1 has a different plan/result size from exact20-field Delta reads. No statement preparation or scalar control proves singleton, concurrency or billion admission."
+}

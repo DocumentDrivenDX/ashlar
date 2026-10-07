@@ -94,7 +94,7 @@
     "graphframes_scale.py": "165f5d89ef23e26eaae8a688fa4fc1811515ac2f633d800273c47466ca218e7a",
     "parameterized_reads.py": "c52b62fc1ed9c21c7df9ce65bcce6f45bc9b0eac3ad10e4d4fbf7dacf0ea1528",
     "cancel_controls.py": "136be2fba80a126197e9a1c2a91796a33935724e24f2ec775b611d39a1ea2d51",
-    "entropy-scale-status.md": "e5d4c75c33d6e137b9c5325165f8b7d96ebedc97cb3a56465b0522a39ba0c40a",
+    "entropy-scale-status.md": "856c991387537a1e6e13255e06da58462f2bcb633bb9c1f12cab0c9bf92fe42c",
     "out/entropy-local-20261006/summary.json": "12359f89adabb3e41771cdf4570902a6626d74e03e3cae7d2c3e2f8bfefb344e",
     "out/graphframes-scale-20261006/summary.json": "608ef7aaf0b1cb89668ada1f69213c050874f4851f2acef97a65e63ac1fe53ab",
     "out/graphframes-scale-20261006/materialization.json": "83ee2e37d60c9df1bb088ff239e63640bd0835a555ea085c8a3863b71791f691",
@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "4c3807960f731ed9f89284fae615181ce7381fa06e584cf1507b170637c6c2de",
+    "layout-status.md": "c44d8adf31f872e3e3a70fd4866add484ee7668d642ae97a396c1dfdeabeea33",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -567,7 +567,12 @@
     "out/native/ashlar_singleton_custody_r141/query-history.json": "37f89a93f0db7f40f88ea4efa9e26414ceba38061a39e69d037f28201da1a047",
     "out/native/ashlar_singleton_warm_r142/statements.jsonl": "cdf9943f3f7e346c475cedf4d1c9ccb5d0e2a3826ec11d26f066cbf9439c207c",
     "out/native/ashlar_singleton_warm_r142/query-history.json": "d4f7d7c635bc91d643899658656f7cd43de173dacff8e1826151dc066c706cb6",
-    "out/native/ashlar_singleton_warm_r142/audited-summary.json": "c929abe3b97294d85a235c23081cac1ee386cf8520884147d1b53fdb6f0bff4e"
+    "out/native/ashlar_singleton_warm_r142/audited-summary.json": "c929abe3b97294d85a235c23081cac1ee386cf8520884147d1b53fdb6f0bff4e",
+    "client_floor_r143.py": "7f12a216201f1b16592ffd712381a0b7c17d0b824424dce57bd00a01134bad4f",
+    "client_floor_audit_r143.py": "254b287b4e94055905391445d93213c1be0d308416ffecd5108a1a1c04b56664",
+    "out/native/ashlar_client_floor_r143/statements.jsonl": "681466633a15a6d1b56ab4895d61db2fad686d84fc5126f997e4b860a3a2aedc",
+    "out/native/ashlar_client_floor_r143/query-history.json": "50d828e36e2a3a02b689929f3895b1739349b9e711d417364de43121d28be037",
+    "out/native/ashlar_client_floor_r143/audited-summary.json": "ba10b61a446500d17053ec98c7aac986261e6fefe097d757126cebbf2fd28b6f"
   },
   "evidence": {
     "ddl": {
