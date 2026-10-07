@@ -142,3 +142,41 @@ checks, counting materialization inside publication; do not promote it without
 measured end-to-end benefit and an explicit proof-strength comparison. The prior
 r139 materialization regression remains relevant failed-candidate evidence.
 UC Delta remains selected; sustained/burst/concurrent/cold/billion gates stay open.
+
+
+### r150 exact wire witness screen: rejected
+
+[Final native audit](out/native/ashlar_wire_validation_r150/audited-summary.json)
+compares three alternating exact raw-wire validation pairs using immutable stage
+r139 v0 and published source_record v17/r139-b1. An isolated100k-row Zstd wire
+witness preserves complete20-field-plus-old_json UTC/microsecond encoding; full
+symmetric exact witness comparison passes, as do100k unique delivery memberships
+and all six exact raw UTF8/digest/origin validations. No canonical, raw, journal,
+MERGE or publication write occurs; only one temporary witness is created.
+
+Control caller5.220/5.030/6.216 s; stored5.436/4.844/5.107 s. Engine control
+4.750/4.579/5.207 s; stored4.911/4.227/4.651 s. Control91files versus stored95;
+control all remote0, first stored19.902MB remote, other stored remote0. Actual
+witness8files673.355MB/reader3/writer7; source-stage and witness physical layouts
+are different. Do not attribute timing differences to serialization alone.
+
+Materialization7.473 s plus stored validation yields a hypothetical12.317–12.909 s
+single-use cost versus5.030–6.216 s direct checks. Independent exact witness
+verification12.774 s raises that sensitivity to25.091–25.683 s. These sums are
+separate samples, not a measured publication. Digest does not replace exact raw
+UTF8 comparison. No demonstrated benefit: reject this validation witness path;
+retain the earlier r139 whole-publication materialization regression as evidence.
+
+Total recorded reads11.515GB/remote writes0.673GB, not billable amounts or distinct
+storage footprint. Each statement90 s; socket/retry bounded and submissions
+correlated. [Cleanup](out/native/ashlar_wire_validation_r150/cleanup/summary.json)
+UUID/version-checks and drops the witness; canonical E23/R17/J19/r139-b1 unchanged,
+no VACUUM. All native metric IDs are final and result-uncached; three cached-data
+pairs do not admit service/freshness/concurrency/billion targets.
+
+Next screen explicit source-feed/epoch bounds in the raw validation query using
+its existing source_feed/source_epoch/delivery_id statistics. Such bounds must be
+proved from immutable stage membership and retain missing-row and exact-origin
+refusals. This targets raw-file pruning without copying complete wire payloads or
+weakening preservation proof. If it fails, do not keep adding per-batch copies.
+UC Delta remains selected and the full performance goal remains active.

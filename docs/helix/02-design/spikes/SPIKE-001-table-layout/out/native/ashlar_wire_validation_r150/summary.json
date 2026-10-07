@@ -1,0 +1,31 @@
+{
+  "state": "Three balanced pairs and independent exact100k witness passed; native final metrics pending",
+  "witness": "client_dev.ashlar_entropy_20261006_r86.wire_witness_r150",
+  "witness_id": "8a2fe3da-11c8-4819-b29b-1242aed23984",
+  "witness_version": 0,
+  "witness_detail": {
+    "format": "delta",
+    "id": "8a2fe3da-11c8-4819-b29b-1242aed23984",
+    "name": "client_dev.ashlar_entropy_20261006_r86.wire_witness_r150",
+    "description": null,
+    "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/8a7b26ac-004b-4282-879f-50bed78e3bd6",
+    "createdAt": "2026-10-07T03:33:34.678000",
+    "lastModified": "2026-10-07T03:33:40",
+    "partitionColumns": "[]",
+    "clusteringColumns": "[]",
+    "numFiles": "8",
+    "sizeInBytes": "673355273",
+    "properties": "{\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.enableDeletionVectors\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"io.unitycatalog.tableId\":\"8a7b26ac-004b-4282-879f-50bed78e3bd6\"}",
+    "minReaderVersion": "3",
+    "minWriterVersion": "7",
+    "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"invariants\",\"v2Checkpoint\"]",
+    "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+    "clusterByAuto": "False"
+  },
+  "materialize_wall_s": 7.474967584,
+  "source_stage": "client_dev.ashlar_entropy_20261006_r86.schedule_r139_1",
+  "stage_version": 0,
+  "raw": "client_dev.ashlar_entropy_20261006_r86.source_record_r89",
+  "raw_version": 17,
+  "qualification": "100k preexisting r139 exact full-wire witness. Materialization counted; independent exact witness oracle separately counted. No source/history append, MERGE, publication, actual producer or end-to-end admission. Stored witness is trusted only under owned immutable source and explicit provenance; digest does not replace exact raw UTF8 equality."
+}

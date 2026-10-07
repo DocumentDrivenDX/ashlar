@@ -1,0 +1,1 @@
+{"label": "detail", "sql": "DESCRIBE DETAIL client_dev.ashlar_entropy_20261006_r86.wire_witness_r150", "parameters": null, "correlation": "/* ashlar ashlar_wire_validation_r150 detail */", "started_epoch": 1791344067.726623, "state": "returned", "query_id": "01f1c1ff-ffcd-1f64-867a-e7ae0944920f"}

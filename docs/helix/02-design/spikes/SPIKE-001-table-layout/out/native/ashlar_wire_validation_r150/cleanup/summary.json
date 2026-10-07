@@ -1,0 +1,5 @@
+{
+  "state": "Owned witness UUID/version checked and dropped",
+  "table": "client_dev.ashlar_entropy_20261006_r86.wire_witness_r150",
+  "qualification": "Canonical E23/R17/J19/r139-b1 unchanged; no VACUUM"
+}
