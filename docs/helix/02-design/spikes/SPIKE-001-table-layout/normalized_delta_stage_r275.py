@@ -45,6 +45,16 @@ def main():
    q=f"SELECT count(*),sha2(concat_ws('',sort_array(collect_list(sha2(input_json,256)))),256),sha2(concat_ws('',sort_array(collect_list({row_hash_sql(f['fields'])}))),256) FROM {table} VERSION AS OF {version}"
    expected=[[str(f['rows']),f['original_input_multiset_digest'],f['all_known_field_digest']]];assert c.sql('verify-'+role,q)==expected
    a['checks'][role]={'rows':f['rows'],'original_input_digest':f['original_input_multiset_digest'],'all_known_field_digest':f['all_known_field_digest'],'fields':f['fields'],'version':version};save();metrics(100000000)
+  def pinned(role):
+   t=a['tables'][role];return f"{t['table']} VERSION AS OF {t['version']}"
+  raw=pinned('source_record');journal=pinned('property_journal');tomb=pinned('tombstone');current=pinned('current_replacement')
+  assert c.sql('raw-unique-and-digests',f"SELECT count(*),count(DISTINCT struct(source_feed,source_epoch,delivery_id)),count_if(payload_digest IS NULL OR payload_digest <> sha2(payload_json,256)) FROM {raw}")==[['100000','100000','0']]
+  assert c.sql('replacement-identity',f"SELECT count(*),count(DISTINCT struct(source_system,rel_type_id,id)),count_if(entity_version IS NULL OR entity_version <> 2) FROM {current}")==[['90000','90000','0']]
+  assert c.sql('deletion-identity',f"SELECT count(*),count(DISTINCT struct(source_system,entity_kind,type_id,id)),count_if(entity_version IS NULL OR entity_version <> 2) FROM {tomb}")==[['10000','10000','0']]
+  assert c.sql('journal-identity',f"SELECT count(*),count(DISTINCT struct(source_system,entity_kind,type_id,id,entity_version,event_ordinal)),count_if(entity_version IS NULL OR entity_version <> 2) FROM {journal}")==[['216667','216667','0']]
+  for role in ['property_journal','tombstone','current_replacement']:
+   assert c.sql('raw-link-'+role,f"SELECT count(*),count_if(r.delivery_id IS NULL OR NOT (d.source_cursor_json <=> r.source_cursor_json)) FROM {pinned(role)} d LEFT JOIN {raw} r ON d.source_feed=r.source_feed AND d.source_epoch=r.source_epoch AND d.source_delivery_id=r.delivery_id")==[[str(source['roles'][role]['rows']),'0']]
+  a['checks']['cohesion']='Unique role identities/event ordinals, exact raw payload SHA, version2, and every derived row linked to unique raw delivery and exact cursor';save()
   h=metrics();assert all(not h[r['statement_id']]['metrics'].get('result_from_cache') for r in c.records if r['label'].startswith('verify-'))
   a['wall_s']=time.monotonic()-started;assert a['wall_s']<900;a['state']='Four complete normalized input roles match independent source digests and are Delta-version pinned';save();print(json.dumps({'state':a['state'],'costs':a['costs'],'wall_s':a['wall_s']},indent=2))
  except Exception as e:a.update(state='Stopped; inspect same native handles and created tables; never blindly replay',error=str(e));save();raise
