@@ -1,0 +1,69 @@
+{
+  "state": "All reconstructed first-batch role intervals match complete independent digests",
+  "publisher_summary_sha256": "f6f3eadb063ccb2f4d05a349429f70d0ccb103e835821eeb8bb7ca4083ed9a71",
+  "checks": {
+    "source_record": {
+      "version": 1,
+      "expected": [
+        [
+          "100000",
+          "0a4f3b18b7423737d0f98b24e190693784d307af52a8347fbb6e16b277a5e4a5"
+        ]
+      ]
+    },
+    "property_journal": {
+      "version": 1,
+      "expected": [
+        [
+          "216667",
+          "0ef99b4cd8d408d2e3a281aa2b908f12c6bc9fbf06b6c85626cac739e7fdbdc4"
+        ]
+      ]
+    },
+    "tombstone": {
+      "version": 1,
+      "expected": [
+        [
+          "10000",
+          "613fa14ab9c5865005a7bbc2638e860aafbdc81efcae43623c9efaa5ada367c8"
+        ]
+      ]
+    },
+    "adjacency_forward": {
+      "version": 2,
+      "expected": [
+        [
+          "delete",
+          "10000",
+          "aedf75ba586a48f687d701799f2bb15c394554fe497025f5f7b11c91fe26d52f"
+        ],
+        [
+          "update_postimage",
+          "90000",
+          "52e15c25e14a33157e91e49b138964eec24146d87533dfa1ea3ef5b40dc5f2cd"
+        ],
+        [
+          "update_preimage",
+          "90000",
+          "eec21fbd38cf3a1594f3347bae3074f6d101925146fbe80b718d0b5a04e83735"
+        ]
+      ]
+    }
+  },
+  "costs": {
+    "read_bytes": 48633,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 22.763390416,
+  "qualification": "Supplemental read-only baseline qualification after experimental descriptor; excluded from r332 processing clock and explicitly charged separately. No production pointer/ACK or general writer fence.",
+  "audit": {
+    "final_statements": 4,
+    "uncached_complete_first_intervals": true,
+    "source_sha256": {
+      "summary.json": "2351ee403c1c4d3c3485c1a5b31d47f9ca365cc2a1aa3ef9b84f85e31b00bb4a",
+      "statements.jsonl": "fa8fb63691699466392bcca84b46097185f173daa73a82d8f377139a089231c2",
+      "shared-history.json": "31e6a1157f19abf2d44f0730e75e00b43011c8f97ff593301699008077f62d2c"
+    }
+  }
+}

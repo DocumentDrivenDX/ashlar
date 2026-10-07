@@ -1,0 +1,17 @@
+{
+  "fields": [
+    "source_system",
+    "entity_kind",
+    "type_id",
+    "id",
+    "source_feed",
+    "source_epoch",
+    "source_position",
+    "source_cursor_json",
+    "source_delivery_id",
+    "entity_version"
+  ],
+  "rows": 10000,
+  "digest": "46e99eb395010dfae62b22339fcc09c4f8793f44fa08055f6e489407e545783c",
+  "disposition": "input apply_batch_id retained in input_json and raw delivery; canonical ten fields unchanged"
+}

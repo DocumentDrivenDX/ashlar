@@ -1,0 +1,23 @@
+{
+  "format": "ashlar-incremental-publisher-budget/1",
+  "source_sha256": {
+    "base": "9e746519e31eb1d6967761f376435c8be2171c943c46e363666dc12a3586d5ed",
+    "input": "c4c891ce59128942a1e256b4edf74d5542d750955ed8fd98d080658f5d745830",
+    "predecessor": "791f36880ab912d4c2fd8811118b7f96508f042491c0e94de66b7695b1f70c76",
+    "changed": "4712aded2d062b63886365066927e0dec8e22633619f585d589a4e31cd5781f1",
+    "cdf": "b543c8519c8ab9fd5fd1108047310fc8856ffface123fbe86d444c54afe8c408",
+    "legacy": "e0fb8a03a07d010fe8710c570d64d79e2dc4c4aac2ddaf815684b84946e9824a",
+    "full_sweep": "a13ccb15c9c42845b125e5ebc18133afc6ce1714a06273f1cad2d1bb4b3dec7f",
+    "range": "eb9e9c4fc6d12d8012c523f45f516db9e3ca7aea45ed40b719b8d342a1d6a46a",
+    "first_input": "aef4fa9d9ff1a984b0fe2487b8941f2c2ec662adaf774eef3ff907cab542c8f0",
+    "canonical_tomb": "21ae643d017c182486ac28f8088531e9a4b81e840de93e93d3064dcbcc58c80e"
+  },
+  "bounds": {
+    "read_bytes": 200000000000,
+    "write_remote_bytes": 10000000000,
+    "spill_to_disk_bytes": 5000000000,
+    "wall_s": 1200,
+    "statement_s": 180
+  },
+  "basis": "Second edge mutation measured36.62GB/2.49GB plus first-batch R/J/A preparation, full global invariants, second permanent append and narrow adjacency/CDF checks. Explicit larger bounds; no compute changes or automatic scale advancement."
+}

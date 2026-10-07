@@ -1,0 +1,73 @@
+{
+  "client": {
+    "statement_id": "01f1c261-d70e-1d13-a026-fbfe38a7e493",
+    "status": {
+      "state": "FAILED",
+      "error": {
+        "error_code": "BAD_REQUEST",
+        "message": "[DELTA_MISSING_ROW_TRACKING_FOR_CDC] Error getting change data for client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332 as row tracking was not enabled. To enable row tracking, use `ALTER TABLE table_name SET TBLPROPERTIES (delta.enableRowTracking=true)`."
+      },
+      "sql_state": "0AKDE"
+    }
+  },
+  "native": {
+    "query_id": "01f1c261-d70e-1d13-a026-fbfe38a7e493",
+    "status": "FAILED",
+    "query_text": "SELECT count(*),sha2(concat_ws('',sort_array(collect_list(sha2(concat(CASE WHEN source_system IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_system AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_system AS STRING),'UTF-8')),';') END,CASE WHEN entity_kind IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(entity_kind AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(entity_kind AS STRING),'UTF-8')),';') END,CASE WHEN type_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(type_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(type_id AS STRING),'UTF-8')),';') END,CASE WHEN id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(id AS STRING),'UTF-8')),';') END,CASE WHEN source_feed IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_feed AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_feed AS STRING),'UTF-8')),';') END,CASE WHEN source_epoch IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_epoch AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_epoch AS STRING),'UTF-8')),';') END,CASE WHEN source_position IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_position AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_position AS STRING),'UTF-8')),';') END,CASE WHEN source_cursor_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_cursor_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_cursor_json AS STRING),'UTF-8')),';') END,CASE WHEN source_delivery_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_delivery_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_delivery_id AS STRING),'UTF-8')),';') END,CASE WHEN entity_version IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(entity_version AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(entity_version AS STRING),'UTF-8')),';') END),256)))),256) FROM table_changes('client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332',2,2) WHERE _change_type='insert'",
+    "query_start_time_ms": 1791386090093,
+    "execution_end_time_ms": 1791386090392,
+    "query_end_time_ms": 1791386090364,
+    "user_id": 3755468182769617,
+    "user_name": "erik.labianca@synaptiq.ai",
+    "user_display_name": "Erik LaBianca",
+    "endpoint_id": "2439e1f2e37ac563",
+    "error_message": "[DELTA_MISSING_ROW_TRACKING_FOR_CDC] Error getting change data for client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332 as row tracking was not enabled. To enable row tracking, use `ALTER TABLE table_name SET TBLPROPERTIES (delta.enableRowTracking=true)`.",
+    "lookup_key": "CiQwMWYxYzI2MS1kNzBlLTFkMTMtYTAyNi1mYmZlMzhhN2U0OTMQ7fS5t5E0GhAyNDM5ZTFmMmUzN2FjNTYzINGf/5fB8tUG",
+    "metrics": {
+      "total_time_ms": 271,
+      "read_bytes": 0,
+      "rows_produced_count": 0,
+      "read_remote_bytes": 0,
+      "write_remote_bytes": 0,
+      "read_cache_bytes": 0,
+      "spill_to_disk_bytes": 0,
+      "task_total_time_ms": 0,
+      "read_files_count": 0,
+      "read_partitions_count": 0,
+      "photon_total_time_ms": 0,
+      "rows_read_count": 0,
+      "result_fetch_time_ms": 0,
+      "network_sent_bytes": 0,
+      "result_from_cache": false,
+      "pruned_files_count": 0,
+      "query_compilation_start_timestamp": 1791386090159,
+      "metadata_time_ms": 0,
+      "query_execution_time_ms": 233,
+      "bytes_read_from_cache_percentage": 0.0,
+      "write_remote_rows": 0,
+      "write_remote_files": 0,
+      "queue_end_time_ms": 1791386090131,
+      "task_progress": {}
+    },
+    "executed_as_user_id": 3755468182769617,
+    "executed_as_user_name": "erik.labianca@synaptiq.ai",
+    "executed_as_user_display_name": "Erik LaBianca",
+    "session_id": "01f1c261-d70b-16e2-ab33-6e0f25d666ec",
+    "is_final": true,
+    "channel_used": {
+      "name": "CHANNEL_NAME_CURRENT",
+      "dbsql_version": "2026.39"
+    },
+    "plans_state": "EMPTY",
+    "statement_type": "SELECT",
+    "warehouse_id": "2439e1f2e37ac563",
+    "duration": 271,
+    "canSubscribeToLiveQuery": true,
+    "client_application": "Databricks CLI",
+    "query_source": {},
+    "is_cancelable": false,
+    "last_updated_at_ms": 1791386090526,
+    "workspace_id": 7405607548213398,
+    "error_class": "DELTA_MISSING_ROW_TRACKING_FOR_CDC"
+  }
+}
