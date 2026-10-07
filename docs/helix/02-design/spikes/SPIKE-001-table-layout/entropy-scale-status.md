@@ -1742,3 +1742,41 @@ proved from immutable stage membership and retain missing-row and exact-origin
 refusals. This targets raw-file pruning without copying complete wire payloads or
 weakening preservation proof. If it fails, do not keep adding per-batch copies.
 UC Delta remains selected and the full performance goal remains active.
+
+
+### r151 explicit raw origin bounds: pruning candidate
+
+[Final native audit](out/native/ashlar_origin_validation_r151/audited-summary.json)
+compares three alternating100k exact raw validations over stage r139 v0/source
+records v17. A stage-origin GROUP BY proves one non-null feed/epoch and100k rows;
+static feed/epoch filters supplement the existing apply_batch_id predicate.
+Because every stage row has that exact origin and the join already requires it,
+these filters preserve the logical match set. They do not replace delivery-ID,
+missing-row, wire UTF8/digest/origin/UTC instant validation or global raw-membership
+checks. Six exact comparisons pass. Two deliberately incorrect static origin
+bounds each produce100k failures, confirming that missing rows are not suppressed.
+
+Control caller6.148/4.885/5.408 s versus bounded4.919/4.470/5.095 s; engine
+5.631/4.567/4.738 versus4.440/4.083/4.480 s. File reads91→12 in every pair;
+read bytes1.353→1.323GB (decimal), all remote0/result-uncached. File-count gains
+are much larger than byte savings; no assumption that payload serialization or
+publication bottlenecks are solved. Three cached-data pairs do not establish
+service p95, sustained rate, cold reads or timing causality. Stage-origin proof
+cost is separate and must count inside any integrated publication comparison.
+
+Read-only existing warehouse2439e1f2e37ac563; no materialization, mutations,
+maintenance or compute changes. Canonical anchor E23/r139-b1 remains unchanged.
+All phases plus refusal controls record8.057GB reads/zero remote writes, not
+billing. Statements90 s, refusal controls30 s, bounded connector retries/socket
+and durable correlation. Initial audit encountered finalization lag for two
+FINISHED refusal-control IDs; [finalization note](out/native/ashlar_origin_validation_r151/audit-finalization-note.json)
+records same-ID history refresh without SQL replay. Final histories all final.
+
+The [executed bounded query](out/native/ashlar_origin_validation_r151/bounded-query.sql)
+is a scoped owned candidate, not a generic consumer SQL API. Next incorporate
+origin-proof validation into an owned query builder, rejecting unverified,
+non-singleton or null origins, then count origin proof and exact validation in
+one isolated publisher comparison. Preserve multi-origin fallback and real source
+semantics; never assume all future batches share one epoch. This is the first
+useful raw-validation pruning change in this sequence, but no agreed full gate is
+admitted. UC Delta remains selected and the full goal remains active.

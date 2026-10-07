@@ -1,0 +1,6 @@
+{
+  "initial_audit": "AssertionError: Inspect same saved IDs",
+  "observed": "Both wrong-origin controls had SUCCEEDED responses and FINISHED history status but is_final=false",
+  "recovery": "origin_validation_finalize_r151.py refreshed only same native history IDs; no SQL was replayed",
+  "final": "All saved native IDs FINISHED and is_final=true"
+}

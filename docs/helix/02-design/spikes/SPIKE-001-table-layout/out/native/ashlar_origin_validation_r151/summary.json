@@ -1,0 +1,15 @@
+{
+  "state": "Three alternating exact origin-bounded validation pairs passed; native final metrics pending",
+  "origins": [
+    [
+      "synthetic",
+      "schedule-r139",
+      "100000"
+    ]
+  ],
+  "source_stage": "client_dev.ashlar_entropy_20261006_r86.schedule_r139_1",
+  "stage_version": 0,
+  "raw": "client_dev.ashlar_entropy_20261006_r86.source_record_r89",
+  "raw_version": 17,
+  "qualification": "Read-only100k exact r139 full-wire checks. Stage proves one non-null feed/epoch with100k members; static raw filters are logically redundant with exact join. No mutation, materialization, MERGE, publication or sustained admission."
+}
