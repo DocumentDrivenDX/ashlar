@@ -94,7 +94,7 @@
     "graphframes_scale.py": "165f5d89ef23e26eaae8a688fa4fc1811515ac2f633d800273c47466ca218e7a",
     "parameterized_reads.py": "c52b62fc1ed9c21c7df9ce65bcce6f45bc9b0eac3ad10e4d4fbf7dacf0ea1528",
     "cancel_controls.py": "136be2fba80a126197e9a1c2a91796a33935724e24f2ec775b611d39a1ea2d51",
-    "entropy-scale-status.md": "8e1223da2385781e046bd4951b9abcb94d3bfbf83e74a1e0bded8305dc14c281",
+    "entropy-scale-status.md": "0d5984df4800ab0b2f1530a2deb1db5aab53e251345ed2ba295b748514118180",
     "out/entropy-local-20261006/summary.json": "12359f89adabb3e41771cdf4570902a6626d74e03e3cae7d2c3e2f8bfefb344e",
     "out/graphframes-scale-20261006/summary.json": "608ef7aaf0b1cb89668ada1f69213c050874f4851f2acef97a65e63ac1fe53ab",
     "out/graphframes-scale-20261006/materialization.json": "83ee2e37d60c9df1bb088ff239e63640bd0835a555ea085c8a3863b71791f691",
@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "3b6a0f0ad3cef3812f595b5bbbb0c60add0e558d2b18a9daa6be78d512296f2a",
+    "layout-status.md": "27bf617f1fdf17317cc5a41175ec6348a89c298ee53c7fb657d486617ae52caf",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -443,8 +443,8 @@
     "composed_structure_r126.py": "bbdb3e2f646aab4d372960efdb55444f4740450363ce094ecbf00566acd58d6f",
     "test_composed_structure_r126.py": "a41f04ee32e541c53347d8ebc3eaf317a874103c0c9c829812629019a333b99c",
     "out/composed-structure-r126.json": "bcdde8621dc0c33704b2ba9ed90fd2d60a625b5df82820e17210394ba9576851",
-    "property_apply_queries.py": "535ff7e7a2c609b480a6377a5404f1151feb50edacc71ff5b251f3b23e06f4e8",
-    "test_property_apply_queries.py": "9c9f6f8ebfb96924ab67d1c18ae56976f9949c832a8281ba67bdbd692d42007b",
+    "property_apply_queries.py": "daca0d54dd97806742189873106f7b5fdade9cdee0f446ae43dd047883005dfc",
+    "test_property_apply_queries.py": "b2ea8d82d36b7b664cd67400497ecfea43e3299850512c529560d3735c44e111",
     "property_reuse_proof.py": "e0f90e6f769a1aa5c9693cb1263a9d70e326eb0d5a1f2121ee54bac1cd494056",
     "test_property_reuse_proof.py": "8658a57e28c021a17b65e4191bfa718044dc40335456c6d402a1a29211d8e439",
     "out/property-template-r127.json": "e93f03469ad4d3d56153ad995561307f072e6b47722eb757473e8e59679812ba",
@@ -474,7 +474,13 @@
     "out/native/ashlar_merge_pruning_r131/candidate-delta-history.json": "68948d06bbd4386b23a32e1952823147e37fbfdd38143e568b16b212b8de6770",
     "out/native/ashlar_merge_pruning_r131/query-history.json": "02fc0dffc968b220155e277987b15c0834349879d45e267a74bd09eeffbe2d5e",
     "out/native/ashlar_merge_pruning_r131/audited-summary.json": "1b7acf67b5e7d912e4cd4249007ea45bf00ea9f75db395f37e2642459091abee",
-    "out/native/ashlar_merge_pruning_r131/control-delta-history.json": "5e349510fd3e44bd673f8b6969d2328afb75b995c4f456739a19bbec26505917"
+    "out/native/ashlar_merge_pruning_r131/control-delta-history.json": "5e349510fd3e44bd673f8b6969d2328afb75b995c4f456739a19bbec26505917",
+    "merge_semantics_r132.py": "f8425ec10093e3aabc43cfef01f09dd2a00cf4e842dbacf6e9bc4ec71b0a0195",
+    "merge_semantics_audit_r132.py": "9e1de1c7f26d8569eb37270c77a877ad483341725af96d50dc49b7ece157480f",
+    "out/native/ashlar_merge_semantics_r132/summary.json": "7539b4e6922d1bd4cfcc971a74e749110437aa92f2ea8394893a1acea4797b27",
+    "out/native/ashlar_merge_semantics_r132/statements.jsonl": "8e849f143b4869dc477af26ebd3f7eb1961504c3905306dffeade551036785e0",
+    "out/native/ashlar_merge_semantics_r132/query-history.json": "850d31f94f5ae9a6f043f1c14f7d0362bccb8b825800c0eb5bd3a97d902ccc0c",
+    "out/native/ashlar_merge_semantics_r132/audited-summary.json": "6447bf1671ff73c6768141cc4f7600cb5700616b304f1b7f1372143bd7d60a37"
   },
   "evidence": {
     "ddl": {

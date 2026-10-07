@@ -314,3 +314,22 @@ native control before adapting owned templates and the integrated publisher.
 Account separately for initial statistics maintenance and ongoing write stats.
 No production admission, publication p95, read SLO or billion-scale qualification
 is established by this pair. Performance targets remain open.
+
+
+Mixed eligibility control: [r132 audited native evidence](out/native/ashlar_merge_semantics_r132/audited-summary.json)
+passes five exact checks comparing both update-only predicate placements across
+8 unique inputs/7 existing rows. Only eligible id1 updates; stale version, wrong
+predecessor, null eligibility/hash, mismatched compound identity and unmatched
+ID sharing another hash remain untouched. Full20-field expected output and paired
+parity pass. Synthetic nullable fields exercise SQL three-valued logic beyond
+canonical NOT NULL constraints; this is not multiwriter/fencing admission.
+
+Owned PropertyApply now accepts explicit eligibility_placement='on', with the
+historical 'matched' default preserved. The new option reproduces the r131 native
+MERGE byte-for-byte and therefore binds through the existing exact-SQL proof
+interface. Six template/proof unit tests pass, including historical equivalence,
+new native-query equivalence and invalid placement rejection. No canonical write
+or new publication occurred. Next integrate the opt-in template and statistics
+into the publisher, measuring maintenance separately and preserving raw/journal,
+exact carrier and structural proof requirements. All performance gates remain
+unproven.

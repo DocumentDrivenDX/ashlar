@@ -19,4 +19,14 @@ class Checks(unittest.TestCase):
   for version in (17,16,True,18.0):
    with self.subTest(version=version):
     with self.assertRaises(ValueError):self.q.output(version)
+ def test_pruned_native_equivalence(self):
+  p=B/'out/native/ashlar_merge_pruning_r131'
+  summary=json.loads((p/'audited-summary.json').read_text())
+  q=PropertyApply(summary['results']['candidate']['table'],F+'.schedule_r128_1',summary['results']['candidate']['old_version'],12,'r128-b1','r123-b1','schedule-r128',9007199254741035,eligibility_placement='on')
+  records=[json.loads(l) for l in (p/'statements.jsonl').read_text().splitlines()]
+  record=next(r for r in records if r['label']=='candidate-merge')
+  self.assertEqual(q.apply(),record['sql'])
+  history={h['query_id']:h for h in json.loads((p/'query-history.json').read_text())}
+  self.assertTrue(history[record['statement_id']]['query_text'].endswith(q.apply()))
+  with self.assertRaises(ValueError):dataclasses.replace(q,eligibility_placement='insert')
 if __name__=='__main__':unittest.main()

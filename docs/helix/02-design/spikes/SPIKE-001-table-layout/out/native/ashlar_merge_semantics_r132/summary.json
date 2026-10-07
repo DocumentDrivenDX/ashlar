@@ -1,0 +1,24 @@
+{
+  "state": "Both predicate placements pass exact20-field expected output and paired parity",
+  "cases": {
+    "1": "eligible update",
+    "2": "stale version",
+    "3": "wrong predecessor",
+    "4": "null version",
+    "5": "null predecessor",
+    "6": "null lookup hash",
+    "7": "unchanged existing compound identity",
+    "8": "unmatched ID sharing lookup hash with7; no insertion"
+  },
+  "tables": {
+    "control": "client_dev.ashlar_entropy_20261006_r86.merge_semantics_control_r132",
+    "candidate": "client_dev.ashlar_entropy_20261006_r86.merge_semantics_candidate_r132"
+  },
+  "source": "client_dev.ashlar_entropy_20261006_r86.merge_stage_r132",
+  "versions": {
+    "source": 0,
+    "target_before": 0,
+    "target_after": 1
+  },
+  "qualification": "Bounded eight-input SQL semantics control, unique stage IDs and no insert branches. Nullable synthetic fields test three-valued SQL logic beyond canonical NOT NULL constraints. Not general multiwriter/fencing or performance admission."
+}
