@@ -1465,3 +1465,6 @@ Live third-batch eligibility now passes: see [r390 disposition](third-publisher-
 
 
 Integrated third100k LC publication now passes complete preservation/custody: [r393](third-integrated-publication-disposition-r393.md). Ready-input processing257.486s fails60s; final N6/E6/R3/J3/A4/T3. Next [physical interventions](large-scattered-ingest-next-design-r394.md) target duplicate validation and append-overlay ingest/read amplification. No performance/billion-scale completion.
+
+
+Small native accepted-overlay controls pass update/delete/replay/typed-key/missing and true live/deleted conflicts: [r398](overlay-control-disposition-r398.md). All costs include the stopped misconstructed fixture. [Bounded100k admission](out/overlay100k-admission-plan-r399.json) and normalized SQL are ready; full overlay ingest/read comparison remains unexecuted and all goal performance/scale gates remain open.

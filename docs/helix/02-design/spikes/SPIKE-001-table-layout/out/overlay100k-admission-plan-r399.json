@@ -1,0 +1,53 @@
+{
+  "format": "ashlar-overlay100k-admission/1",
+  "status": "plan only;100k overlay not created",
+  "sources": {
+    "controls": "out/overlay-controls-audit-r398.json",
+    "publication": "out/native/ashlar_third_lc_publish_r391/audited-summary.json",
+    "inputs": "out/native/ashlar_third_delta_stage_r384/audited-summary.json",
+    "base": "out/native/ashlar_lc_full_vector_r376/audited-summary.json",
+    "sql": "overlay_normalized_sql_r399.py",
+    "lookup": "overlay_sql_r395.py"
+  },
+  "source_sha256": {
+    "controls": "91939c59f690d457e21b1d95990230713023922aefc49025e525fad5f62f8190",
+    "publication": "a103a114fa1f0855da6d388ed3da60124c0044229dd7dc5431fa5ea5a2826c90",
+    "inputs": "310d83381fdcebe659c311d299036857fa4b24d86d16a88b42ad9c59ca27435b",
+    "base": "d402425aa8d8511025dac8ac4198907720f35fb1af001aea6287fe40d0b306ca",
+    "sql": "719f525ba428f32c18c3387f4777741cc18270b4190d471733b3332c98c74a7d",
+    "lookup": "a4c43eba6a12842e0f74f10c123d59055f4214145491bf47923f291e5144452c"
+  },
+  "private_table": "client_dev.ashlar_entropy_20261006_r86.accepted_edge_overlay_r400",
+  "base_pin": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "version": 5
+  },
+  "reference_pin": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "version": 6
+  },
+  "input_role_versions": {
+    "source_record": 0,
+    "current_replacement": 0,
+    "tombstone": 0
+  },
+  "rows": 100000,
+  "live_replacements": 90000,
+  "deletion_markers": 10000,
+  "bounds": {
+    "read_bytes": 80000000000,
+    "write_remote_bytes": 1000000000,
+    "spill_to_disk_bytes": 1000000000,
+    "wall_s": 600,
+    "statement_cancel_after_s": 120
+  },
+  "phases": [
+    "Generate independent complete21field marker,20field live and canonical10field deletion expectations with exact input provenance",
+    "Repeat UUID/head/profile checks; disable predictive maintenance on new private overlay; explicit64MiB hash LC/appendOnly; preserve old base5/current reference6",
+    "Create empty table then append normalized100k accepted rows; separately record setup/append/validation/native telemetry, not full-publication freshness",
+    "Complete overlay identity/origin/field digests and90k exact live comparison against qualified E6; no arbitrary same-version resolution",
+    "Bound logical-current key counts and new typed endpoint integrity; inherited E5 carrier/history correctness is from explicit prior qualification, not a new full sweep",
+    "Compare full returned carriers through combined base+overlay and direct E6 on matched stratified singleton cohort; no cached-result latency claim"
+  ],
+  "qualification": "This reuses an already accepted, fully qualified third batch. Prior predecessor/pub/source-history costs remain explicit; cheap overlay append is not proof of newly arriving source admission, full graph publication,10k/s/burst/compaction/cold/concurrency/billion-scale performance. Deletion marker inactive carrier fields are diagnostic preimage content, never a live current value. Physical duplicate versions are experimental and do not meet existing CONTRACT-003 unique-row current schema without an explicit revision. No UMF or direct graph-engine interoperability claims."
+}

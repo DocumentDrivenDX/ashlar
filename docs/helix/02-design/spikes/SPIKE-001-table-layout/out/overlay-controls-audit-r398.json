@@ -1,0 +1,44 @@
+{
+  "state": "Native overlay winner and true conflict control audit passes",
+  "native_successful_statements": 22,
+  "native_failed_expected_statements": 2,
+  "costs": {
+    "read_bytes": 235570,
+    "write_remote_bytes": 68942,
+    "spill_to_disk_bytes": 0
+  },
+  "evidence": {
+    "ashlar_overlay_controls_r396": {
+      "statements": 16,
+      "costs": {
+        "read_bytes": 235570,
+        "write_remote_bytes": 68942,
+        "spill_to_disk_bytes": 0
+      },
+      "source_sha256": {
+        "summary.json": "646bae8ec7524b14fa4ee2795685eef845c1d09c909acc1bb10508cad78cef5c",
+        "shared-history.json": "ea624aa6b13cc677518aaefd9746575f6be6ac30ecdd87ad032d9bcca3fb3eea",
+        "statements.jsonl": "40ca9f24c08a15ec63be6931dc4d12de163447abf12819344a33b8dab9b26ae7",
+        "summary-as-used-r397.json": "19b1ca0b1b4348638d3b43b5200a9ba25a825f3ce4b60bb36096aa96fcfadbe9",
+        "completed-last-request.json": "d73932179e269a7a56f62e898e2f383b82bacd7c692e6eb86403c4059a778ffb"
+      }
+    },
+    "ashlar_overlay_conflicts_r397": {
+      "statements": 8,
+      "costs": {
+        "read_bytes": 0,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "source_sha256": {
+        "summary.json": "d2371ef867531685151d66bc2f6be62d5fb357cf0ed15d05bc6148349627a97c",
+        "shared-history.json": "4ff6ae2bb995f560457ed4a929c64aa26eea001ddf06e2b56b1a41e78bb835f1",
+        "statements.jsonl": "5da2f120421ff40efd9609ec5cce36dd6c65071b78e751c64237aa4096847f82",
+        "query-history.json": "ee9a8f9ea8c2a26de6d2f5aa9e3dd64b22f05b9552e61821501b4ce9bdf8787b",
+        "failed-native-final.json": "2d31ae7835f994b6e6b5573cdcde08d252ab3a94f73d81010d4419c8ab3c2158",
+        "completed-last-request.json": "6c9dbb466d512a74b0ef093890052729a73db707fdbb8696764bb11624db4281"
+      }
+    }
+  },
+  "qualification": "Four-row base/four-row overlay. Correct live/delete/replay/stale/unchanged/missing/full-typed-key behavior and read-only same-version rejection at unchanged native pins. Prior misnamed field generated an exact replay, not a failed guard. No publisher conflict admission, source semantics, general signed-key support, latency, compaction, full100k overlay or billion-scale evidence."
+}
