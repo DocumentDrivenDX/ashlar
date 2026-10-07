@@ -1,0 +1,407 @@
+{
+  "state": "Both write-time CDF intervals preserve every expected full-field image",
+  "source_sha256": {
+    "base": "9e746519e31eb1d6967761f376435c8be2171c943c46e363666dc12a3586d5ed",
+    "inputs": "aef4fa9d9ff1a984b0fe2487b8941f2c2ec662adaf774eef3ff907cab542c8f0",
+    "oracle": "187924fbae792495ae627b16001eb1dcc3bfb9063ca58d76ab5b9d0e1377a380",
+    "automatic": "f44c312a9ade8ea49173006d66fa219a126d3ace8079c4e50035d0f422e4b79c"
+  },
+  "bounds": {
+    "read_bytes": 50000000000,
+    "write_remote_bytes": 2000000000,
+    "spill_to_disk_bytes": 5000000000,
+    "wall_s": 900,
+    "statement_s": 180
+  },
+  "tables": {
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.legacy_cdf_edge_current_r290",
+      "id": "c57101b0-b454-4b06-a75c-72449e6b2460",
+      "base": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.growth_edge_current_r250",
+        "id": "653b3b49-1423-4892-be10-19c28a6b9ecf",
+        "version": 8,
+        "rows": 40000000
+      },
+      "clone_version": 0,
+      "cdf_enable_version": 1,
+      "apply_caller_s": 42.147117666,
+      "version": 2
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.legacy_cdf_adjacency_forward_r290",
+      "id": "c7b0e120-bcbf-4e07-9ee5-7d411f75fca3",
+      "base": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.growth_adjacency_forward_r250",
+        "id": "a2ea9c1b-c0ac-407c-a9d3-66ac91ffcaec",
+        "version": 8,
+        "rows": 40000000
+      },
+      "clone_version": 0,
+      "cdf_enable_version": 1,
+      "apply_caller_s": 5.948439167000004,
+      "version": 2
+    }
+  },
+  "checks": {
+    "edge_current": {
+      "rows": 190000,
+      "groups": [
+        [
+          "delete",
+          "10000",
+          "2",
+          "2",
+          "01413c799bdb6c1c45c5753099cbe5b1860935a053280d9150293131e981d7ae"
+        ],
+        [
+          "update_postimage",
+          "90000",
+          "2",
+          "2",
+          "a16432914189e4e9dced4b64a6ba2f8406b03de142a1c01b476833f07f577a35"
+        ],
+        [
+          "update_preimage",
+          "90000",
+          "2",
+          "2",
+          "c6f56d9278af062a9dd7451b2e5d54a9f103cd973311bdaee0da6a50b81af4cb"
+        ]
+      ],
+      "cdf_read_caller_s": 5.398207541999994
+    },
+    "adjacency_forward": {
+      "rows": 190000,
+      "groups": [
+        [
+          "delete",
+          "10000",
+          "2",
+          "2",
+          "aedf75ba586a48f687d701799f2bb15c394554fe497025f5f7b11c91fe26d52f"
+        ],
+        [
+          "update_postimage",
+          "90000",
+          "2",
+          "2",
+          "52e15c25e14a33157e91e49b138964eec24146d87533dfa1ea3ef5b40dc5f2cd"
+        ],
+        [
+          "update_preimage",
+          "90000",
+          "2",
+          "2",
+          "eec21fbd38cf3a1594f3347bae3074f6d101925146fbe80b718d0b5a04e83735"
+        ]
+      ],
+      "cdf_read_caller_s": 1.6770548329999997
+    }
+  },
+  "commits": [
+    {
+      "label": "clone-edge_current",
+      "statement_id": "01f1c24f-65c4-1cf8-b585-d625b888986d",
+      "history": {
+        "version": "0",
+        "timestamp": "2026-10-07T13:02:50.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "CLONE",
+        "operationParameters": "{\"source\":\"client_dev.ashlar_entropy_20261006_r86.growth_edge_current_r250\",\"sourceVersion\":\"8\",\"isShallow\":\"true\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c24f-65c4-1cf8-b585-d625b888986d",
+        "clusterId": null,
+        "readVersion": "-1",
+        "isolationLevel": "Serializable",
+        "isBlindAppend": "false",
+        "operationMetrics": "{\"removedFilesSize\":\"0\",\"numRemovedFiles\":\"0\",\"sourceTableSize\":\"31965386055\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"copiedFilesSize\":\"0\",\"sourceNumOfFiles\":\"603\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "label": "enable-edge_current",
+      "statement_id": "01f1c24f-6b0a-17ff-a760-82d5b12ca019",
+      "history": {
+        "version": "1",
+        "timestamp": "2026-10-07T13:02:58.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "SET TBLPROPERTIES",
+        "operationParameters": "{\"properties\":\"{\\\"delta.enableChangeDataFeed\\\":\\\"true\\\"}\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c24f-6b0a-17ff-a760-82d5b12ca019",
+        "clusterId": null,
+        "readVersion": "0",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "label": "merge-edge_current",
+      "statement_id": "01f1c24f-6ec2-1096-bba4-22b66f7fa63b",
+      "history": {
+        "version": "2",
+        "timestamp": "2026-10-07T13:03:45.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "MERGE",
+        "operationParameters": "{\"predicate\":\"[\\\"((((lookup_hash#64755 = lookup_hash#64661) AND (source_system#64736 = source_system#64642)) AND (rel_type_id#64737L = rel_type_id#64643L)) AND (((id#64738L = id#64644L) AND (entity_version#64745L = 1)) AND (apply_batch_id#64752 = mixed-bootstrap)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"predicate\\\":\\\"is_delete#64683: boolean\\\",\\\"actionType\\\":\\\"delete\\\"},{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c24f-6ec2-1096-bba4-22b66f7fa63b",
+        "clusterId": null,
+        "readVersion": "1",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "false",
+        "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"10000\",\"numTargetFilesAdded\":\"1\",\"numTargetBytesAdded\":\"72549028\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"603\",\"numTargetRowsMatchedUpdated\":\"90000\",\"executionTimeMs\":\"40713\",\"materializeSourceTimeMs\":\"1878\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"10000\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"4918\",\"numTargetRowsUpdated\":\"90000\",\"numOutputRows\":\"90000\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"1\",\"numSourceRows\":\"100000\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"33886\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "label": "clone-adjacency_forward",
+      "statement_id": "01f1c24f-9052-1bd6-be2a-2cd1e24a76b2",
+      "history": {
+        "version": "0",
+        "timestamp": "2026-10-07T13:04:02.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "CLONE",
+        "operationParameters": "{\"source\":\"client_dev.ashlar_entropy_20261006_r86.growth_adjacency_forward_r250\",\"sourceVersion\":\"8\",\"isShallow\":\"true\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c24f-9052-1bd6-be2a-2cd1e24a76b2",
+        "clusterId": null,
+        "readVersion": "-1",
+        "isolationLevel": "Serializable",
+        "isBlindAppend": "false",
+        "operationMetrics": "{\"removedFilesSize\":\"0\",\"numRemovedFiles\":\"0\",\"sourceTableSize\":\"357405371\",\"numCopiedFiles\":\"0\",\"numDeletionVectorsAdded\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"copiedFilesSize\":\"0\",\"sourceNumOfFiles\":\"6\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "label": "enable-adjacency_forward",
+      "statement_id": "01f1c24f-9522-1c6e-b97d-912565b1f09d",
+      "history": {
+        "version": "1",
+        "timestamp": "2026-10-07T13:04:08.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "SET TBLPROPERTIES",
+        "operationParameters": "{\"properties\":\"{\\\"delta.enableChangeDataFeed\\\":\\\"true\\\"}\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c24f-9522-1c6e-b97d-912565b1f09d",
+        "clusterId": null,
+        "readVersion": "0",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "label": "merge-adjacency_forward",
+      "statement_id": "01f1c24f-98ed-1d53-a319-cb978eb51a9a",
+      "history": {
+        "version": "2",
+        "timestamp": "2026-10-07T13:04:20.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "MERGE",
+        "operationParameters": "{\"predicate\":\"[\\\"(((source_system#68201 = source_system#68119) AND (rel_type_id#68202L = rel_type_id#68120L)) AND ((id#68203L = id#68121L) AND (entity_version#68208L = 1)))\\\"]\",\"clusterBy\":\"[\\\"source_id\\\"]\",\"matchedPredicates\":\"[{\\\"predicate\\\":\\\"is_delete#68160: boolean\\\",\\\"actionType\\\":\\\"delete\\\"},{\\\"actionType\\\":\\\"update\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c24f-98ed-1d53-a319-cb978eb51a9a",
+        "clusterId": null,
+        "readVersion": "1",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "false",
+        "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"10000\",\"numTargetFilesAdded\":\"1\",\"numTargetBytesAdded\":\"991384\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"6\",\"numTargetRowsMatchedUpdated\":\"90000\",\"executionTimeMs\":\"4819\",\"materializeSourceTimeMs\":\"1240\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"10000\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"1537\",\"numTargetRowsUpdated\":\"90000\",\"numOutputRows\":\"90000\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"1\",\"numSourceRows\":\"100000\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"2015\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    }
+  ],
+  "costs": {
+    "read_bytes": 35091271178,
+    "write_remote_bytes": 222817685,
+    "spill_to_disk_bytes": 0
+  },
+  "telemetry": {
+    "merge-edge_current": {
+      "caller_ms": 42145.91029099999,
+      "metrics": {
+        "total_time_ms": 41842,
+        "read_bytes": 34426826035,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 310,
+        "execution_time_ms": 41481,
+        "read_remote_bytes": 9737160775,
+        "write_remote_bytes": 219600651,
+        "read_cache_bytes": 24689665260,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 230147,
+        "read_files_count": 1228,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 211681,
+        "rows_read_count": 38022184,
+        "result_fetch_time_ms": 46,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791378184246,
+        "metadata_time_ms": 39834,
+        "query_execution_time_ms": 41791,
+        "bytes_read_from_cache_percentage": 66.0,
+        "write_remote_rows": 280000,
+        "write_remote_files": 2,
+        "queue_end_time_ms": 1791378184216,
+        "read_files_bytes": 64398197905,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 80190000,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 1074,
+          "completed_task_count": 1074,
+          "completed_partition_count": 1074,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "all-images-edge_current": {
+      "caller_ms": 5397.777250000005,
+      "metrics": {
+        "total_time_ms": 5106,
+        "read_bytes": 0,
+        "rows_produced_count": 3,
+        "compilation_time_ms": 593,
+        "execution_time_ms": 4475,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 0,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 7221,
+        "read_files_count": 1,
+        "read_partitions_count": 1,
+        "photon_total_time_ms": 6299,
+        "rows_read_count": 190000,
+        "result_fetch_time_ms": 38,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791378231109,
+        "metadata_time_ms": 14,
+        "query_execution_time_ms": 5068,
+        "bytes_read_from_cache_percentage": 0.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791378231076,
+        "read_files_bytes": 147051623,
+        "task_progress": {
+          "planned_task_count": 6,
+          "completed_task_count": 6,
+          "completed_partition_count": 6,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "merge-adjacency_forward": {
+      "caller_ms": 5947.7327079999895,
+      "metrics": {
+        "total_time_ms": 5644,
+        "read_bytes": 664406937,
+        "rows_produced_count": 1,
+        "compilation_time_ms": 326,
+        "execution_time_ms": 5283,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 3217034,
+        "read_cache_bytes": 664406937,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 11410,
+        "read_files_count": 34,
+        "read_partitions_count": 0,
+        "photon_total_time_ms": 6248,
+        "rows_read_count": 40465490,
+        "result_fetch_time_ms": 44,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791378254988,
+        "metadata_time_ms": 4232,
+        "query_execution_time_ms": 5609,
+        "bytes_read_from_cache_percentage": 100.0,
+        "write_remote_rows": 280000,
+        "write_remote_files": 2,
+        "queue_end_time_ms": 1791378254952,
+        "read_files_bytes": 1182236537,
+        "conflict_resolution_time_ms": 0,
+        "rows_scanned": 80190000,
+        "cloud_storage_retry_duration_ms": 0,
+        "task_progress": {
+          "planned_task_count": 56,
+          "completed_task_count": 50,
+          "completed_partition_count": 50,
+          "pending_task_count": 6,
+          "failed_task_count": 0
+        }
+      }
+    },
+    "all-images-adjacency_forward": {
+      "caller_ms": 1676.3113339999904,
+      "metrics": {
+        "total_time_ms": 1470,
+        "read_bytes": 0,
+        "rows_produced_count": 3,
+        "compilation_time_ms": 490,
+        "execution_time_ms": 946,
+        "read_remote_bytes": 0,
+        "write_remote_bytes": 0,
+        "read_cache_bytes": 0,
+        "spill_to_disk_bytes": 0,
+        "task_total_time_ms": 788,
+        "read_files_count": 1,
+        "read_partitions_count": 1,
+        "photon_total_time_ms": 507,
+        "rows_read_count": 190000,
+        "result_fetch_time_ms": 37,
+        "network_sent_bytes": 0,
+        "result_from_cache": false,
+        "pruned_bytes": 0,
+        "pruned_files_count": 0,
+        "query_compilation_start_timestamp": 1791378265296,
+        "metadata_time_ms": 13,
+        "query_execution_time_ms": 1436,
+        "bytes_read_from_cache_percentage": 0.0,
+        "write_remote_rows": 0,
+        "write_remote_files": 0,
+        "queue_end_time_ms": 1791378265265,
+        "read_files_bytes": 2225650,
+        "task_progress": {
+          "planned_task_count": 4,
+          "completed_task_count": 4,
+          "completed_partition_count": 4,
+          "pending_task_count": 0,
+          "failed_task_count": 0
+        }
+      }
+    }
+  },
+  "wall_s": 104.575925834,
+  "qualification": "Two fresh private non-clone baseline clones, explicit legacy CDF before each qualified100k MERGE. Complete190k pre/post/delete images per role match same independent oracle and previous full-sweep publication. Setup/property mutations recorded separately; no isolated causal estimate, whole incremental publisher, inherited global sweep, permanent CDF history, production fencing/ACK, sustained rate, freshness/caller/cold/concurrency or billion admission. Published originals/manifest untouched. No maintenance, retention or compute changes."
+}
