@@ -1,0 +1,237 @@
+{
+  "state": "Private serialized maintenance successor/replay/conflict and old-pin reads pass",
+  "source_sha256": "b7857b4b2bc5a90725d5d75b7f8098a5bf21153d682b95c5981c5c5f7d92c527",
+  "table": "client_dev.ashlar_entropy_20261006_r86.maintenance_manifest_r360",
+  "receipts": [
+    {
+      "label": "parent",
+      "descriptor": {
+        "id": "r360-parent",
+        "kind": "reference-parent",
+        "parent": null,
+        "progress": {
+          "synthetic-fixture": "second-batch-complete"
+        },
+        "revisions": {
+          "schema": "ashlar-delta/0.3-reference-only"
+        },
+        "vector": {
+          "object": {
+            "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+            "uuid": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+            "version": 6
+          },
+          "edge": {
+            "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+            "uuid": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+            "version": 3
+          }
+        },
+        "scope": "two-role test, not a complete source/history publication"
+      },
+      "canonical_json": "{\"id\":\"r360-parent\",\"kind\":\"reference-parent\",\"parent\":null,\"progress\":{\"synthetic-fixture\":\"second-batch-complete\"},\"revisions\":{\"schema\":\"ashlar-delta/0.3-reference-only\"},\"scope\":\"two-role test, not a complete source/history publication\",\"vector\":{\"edge\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337\",\"uuid\":\"2d2672c4-8618-4b10-af9c-477d2c1fcc80\",\"version\":3},\"object\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236\",\"uuid\":\"ea6b0cbe-28fc-426c-a52b-15844ef14e91\",\"version\":6}}}",
+      "sha256": "54331a5142db434a8429b79e62b157b02577e5a2f428bdfa0ae7953b36868bd3"
+    },
+    {
+      "label": "child",
+      "descriptor": {
+        "id": "r360-maintenance",
+        "kind": "maintenance",
+        "parent": "r360-parent",
+        "progress": {
+          "synthetic-fixture": "second-batch-complete"
+        },
+        "revisions": {
+          "schema": "ashlar-delta/0.3-reference-only"
+        },
+        "vector": {
+          "object": {
+            "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+            "uuid": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+            "version": 6
+          },
+          "edge": {
+            "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+            "uuid": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+            "version": 5
+          }
+        },
+        "scope": "two-role test, not a complete source/history publication",
+        "maintenance_statement_id": "01f1c266-b11d-1cdd-b502-20f8a44e7e99",
+        "preservation_receipt_sha256": "b7857b4b2bc5a90725d5d75b7f8098a5bf21153d682b95c5981c5c5f7d92c527"
+      },
+      "canonical_json": "{\"id\":\"r360-maintenance\",\"kind\":\"maintenance\",\"maintenance_statement_id\":\"01f1c266-b11d-1cdd-b502-20f8a44e7e99\",\"parent\":\"r360-parent\",\"preservation_receipt_sha256\":\"b7857b4b2bc5a90725d5d75b7f8098a5bf21153d682b95c5981c5c5f7d92c527\",\"progress\":{\"synthetic-fixture\":\"second-batch-complete\"},\"revisions\":{\"schema\":\"ashlar-delta/0.3-reference-only\"},\"scope\":\"two-role test, not a complete source/history publication\",\"vector\":{\"edge\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337\",\"uuid\":\"2d2672c4-8618-4b10-af9c-477d2c1fcc80\",\"version\":5},\"object\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236\",\"uuid\":\"ea6b0cbe-28fc-426c-a52b-15844ef14e91\",\"version\":6}}}",
+      "sha256": "5463dcbbff80a6c18f4cf159b09e5a4df00f8adcb3833978eba0e5e09d851b15"
+    },
+    {
+      "label": "duplicate-child",
+      "descriptor": {
+        "id": "r360-maintenance",
+        "kind": "maintenance",
+        "parent": "r360-parent",
+        "progress": {
+          "synthetic-fixture": "second-batch-complete"
+        },
+        "revisions": {
+          "schema": "ashlar-delta/0.3-reference-only"
+        },
+        "vector": {
+          "object": {
+            "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+            "uuid": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+            "version": 6
+          },
+          "edge": {
+            "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+            "uuid": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+            "version": 5
+          }
+        },
+        "scope": "two-role test, not a complete source/history publication",
+        "maintenance_statement_id": "01f1c266-b11d-1cdd-b502-20f8a44e7e99",
+        "preservation_receipt_sha256": "b7857b4b2bc5a90725d5d75b7f8098a5bf21153d682b95c5981c5c5f7d92c527"
+      },
+      "canonical_json": "{\"id\":\"r360-maintenance\",\"kind\":\"maintenance\",\"maintenance_statement_id\":\"01f1c266-b11d-1cdd-b502-20f8a44e7e99\",\"parent\":\"r360-parent\",\"preservation_receipt_sha256\":\"b7857b4b2bc5a90725d5d75b7f8098a5bf21153d682b95c5981c5c5f7d92c527\",\"progress\":{\"synthetic-fixture\":\"second-batch-complete\"},\"revisions\":{\"schema\":\"ashlar-delta/0.3-reference-only\"},\"scope\":\"two-role test, not a complete source/history publication\",\"vector\":{\"edge\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337\",\"uuid\":\"2d2672c4-8618-4b10-af9c-477d2c1fcc80\",\"version\":5},\"object\":{\"table\":\"client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236\",\"uuid\":\"ea6b0cbe-28fc-426c-a52b-15844ef14e91\",\"version\":6}}}",
+      "sha256": "5463dcbbff80a6c18f4cf159b09e5a4df00f8adcb3833978eba0e5e09d851b15"
+    }
+  ],
+  "reads": [
+    {
+      "label": "point-r360-parent-0",
+      "publication_id": "r360-parent",
+      "version": 3,
+      "ordinal": 32900000,
+      "statement_id": "01f1c26a-bb77-13ec-8e93-f2d489e29776"
+    },
+    {
+      "label": "point-r360-maintenance-0",
+      "publication_id": "r360-maintenance",
+      "version": 5,
+      "ordinal": 32900000,
+      "statement_id": "01f1c26a-bc22-17df-bc83-872a0c94c03b"
+    },
+    {
+      "label": "point-r360-parent-1",
+      "publication_id": "r360-parent",
+      "version": 3,
+      "ordinal": 33947290,
+      "statement_id": "01f1c26a-bc5c-12d6-b54d-558666ed0eeb"
+    },
+    {
+      "label": "point-r360-maintenance-1",
+      "publication_id": "r360-maintenance",
+      "version": 5,
+      "ordinal": 33947290,
+      "statement_id": "01f1c26a-bcce-1105-b0ef-ffb7e2ee3276"
+    },
+    {
+      "label": "point-r360-parent-2",
+      "publication_id": "r360-parent",
+      "version": 3,
+      "ordinal": 34994580,
+      "statement_id": "01f1c26a-bd07-114e-999f-3b4a564a75af"
+    },
+    {
+      "label": "point-r360-maintenance-2",
+      "publication_id": "r360-maintenance",
+      "version": 5,
+      "ordinal": 34994580,
+      "statement_id": "01f1c26a-bd8b-1f0b-b4b6-63ef6c7ed1d5"
+    },
+    {
+      "label": "point-r360-parent-3",
+      "publication_id": "r360-parent",
+      "version": 3,
+      "ordinal": 36041870,
+      "statement_id": "01f1c26a-bdc2-141e-9175-cd06754352ca"
+    },
+    {
+      "label": "point-r360-maintenance-3",
+      "publication_id": "r360-maintenance",
+      "version": 5,
+      "ordinal": 36041870,
+      "statement_id": "01f1c26a-be4f-1d42-9989-fbb844b7a1ce"
+    },
+    {
+      "label": "point-r360-parent-4",
+      "publication_id": "r360-parent",
+      "version": 3,
+      "ordinal": 33004729,
+      "statement_id": "01f1c26a-be87-1092-8165-d46b5e72928f"
+    },
+    {
+      "label": "point-r360-maintenance-4",
+      "publication_id": "r360-maintenance",
+      "version": 5,
+      "ordinal": 33004729,
+      "statement_id": "01f1c26a-bf0f-1cf8-8e40-b265921af273"
+    },
+    {
+      "label": "point-r360-parent-5",
+      "publication_id": "r360-parent",
+      "version": 3,
+      "ordinal": 33109458,
+      "statement_id": "01f1c26a-bf45-1ddf-bc63-3bf0faaa6625"
+    },
+    {
+      "label": "point-r360-maintenance-5",
+      "publication_id": "r360-maintenance",
+      "version": 5,
+      "ordinal": 33109458,
+      "statement_id": "01f1c26a-bfbf-103d-8f14-0ff25b0da5d5"
+    },
+    {
+      "label": "point-r360-parent-6",
+      "publication_id": "r360-parent",
+      "version": 3,
+      "ordinal": 2386040,
+      "statement_id": "01f1c26a-bff6-1d8c-8292-8ff88a9ea287"
+    },
+    {
+      "label": "point-r360-maintenance-6",
+      "publication_id": "r360-maintenance",
+      "version": 5,
+      "ordinal": 2386040,
+      "statement_id": "01f1c26a-c06c-1e95-b77a-eca8e5bf0f74"
+    },
+    {
+      "label": "point-r360-parent-7",
+      "publication_id": "r360-parent",
+      "version": 3,
+      "ordinal": 3865839,
+      "statement_id": "01f1c26a-c0a6-1d82-9a65-331dfe19464b"
+    },
+    {
+      "label": "point-r360-maintenance-7",
+      "publication_id": "r360-maintenance",
+      "version": 5,
+      "ordinal": 3865839,
+      "statement_id": "01f1c26a-c128-133d-836c-34ac5b5a8e94"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 10000000000,
+    "write_remote_bytes": 10000000,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 300
+  },
+  "conflict_refusal": "conflicting publication ID",
+  "costs": {
+    "read_bytes": 2291666709,
+    "write_remote_bytes": 9320,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 22.601963208,
+  "qualification": "Two-role reference only; exact20field/absence reads at3/5. Prior full carrier preservation reused. No full raw/history vector, production fencing, concurrent uniqueness, native crash/expiry injection, active-pin registry, source ACK, freshness or billion-scale admission.",
+  "audit": {
+    "native_final_statements": 31,
+    "exact_points": 16,
+    "serialized_manifest_rows": 2,
+    "source_sha256": {
+      "summary.json": "002ab0f71a52ff64a1c903d39ad100838497b104ca39015bb0d7c2e3b6fb9352",
+      "statements.jsonl": "cf1e9bd8effdf4a18b23ae4442ccf1257f4d0a6dfcfee05f160b246d5e0c87a6",
+      "shared-history.json": "c3a3f4070654e70c83634a521aaedcd8abedea7d13c8772a31d8a05324ee77d6"
+    },
+    "qualification": "Two-role reference only; exact20field/absence reads at3/5. Prior full carrier preservation reused. No full raw/history vector, production fencing, concurrent uniqueness, native crash/expiry injection, active-pin registry, source ACK, freshness or billion-scale admission."
+  }
+}
