@@ -1,0 +1,54 @@
+{
+  "state": "Four exact native EXPLAIN statements verified; MERGE internals unavailable",
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 6.5939577499999995,
+  "historical_merge": {
+    "statement_id": "01f1c2a2-42be-1381-b245-34372f736ade",
+    "metrics": {
+      "total_time_ms": 64395,
+      "read_bytes": 35545538173,
+      "rows_produced_count": 1,
+      "compilation_time_ms": 390,
+      "execution_time_ms": 63975,
+      "read_remote_bytes": 31861052206,
+      "write_remote_bytes": 219668744,
+      "read_cache_bytes": 3684485967,
+      "spill_to_disk_bytes": 0,
+      "task_total_time_ms": 385950,
+      "read_files_count": 1226,
+      "read_partitions_count": 1,
+      "photon_total_time_ms": 358185,
+      "rows_read_count": 37619395,
+      "result_fetch_time_ms": 52,
+      "network_sent_bytes": 0,
+      "result_from_cache": false,
+      "pruned_bytes": 347496431,
+      "pruned_files_count": 9,
+      "query_compilation_start_timestamp": 1791413758610,
+      "metadata_time_ms": 61997,
+      "query_execution_time_ms": 64365,
+      "bytes_read_from_cache_percentage": 9.0,
+      "write_remote_rows": 280000,
+      "write_remote_files": 4,
+      "queue_end_time_ms": 1791413758579,
+      "read_files_bytes": 64756781118,
+      "conflict_resolution_time_ms": 0,
+      "rows_scanned": 80633840,
+      "cloud_storage_retry_duration_ms": 0,
+      "task_progress": {
+        "planned_task_count": 1418,
+        "completed_task_count": 821,
+        "completed_partition_count": 821,
+        "pending_task_count": 597,
+        "failed_task_count": 0
+      }
+    },
+    "history_sha256": "e172eba110ef36232e92143de83b21f671a9f30456e62c69a2d2e3e021e22dce"
+  },
+  "qualification": "EXPLAIN only; no MERGE execution. Source sixth before-images are stale against E9; must never execute these statements. Historical simple MERGE omits full predecessor guards and is not an admissible implementation. Plans describe current catalog state, not the completed E8-to-E9 runtime adaptive plan.",
+  "interpretation": "Command-only plans do not expose executed adaptive scans/joins. Read files and pruning counters aggregate query work; cannot infer distinct target coverage or attribute metadata_time_ms exclusively to catalog overhead. Nested timings are not additive. Simple guard omission remains inadmissible."
+}

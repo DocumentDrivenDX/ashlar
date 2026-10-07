@@ -2520,7 +2520,17 @@
     "out/native/commit_closing_native_r556/closing_r556_worker3/completed-last-request.json": "008aed8053f13c10ae667b7f8c69049e5d6dabfd751d545cb9e5bc455befef4a",
     "out/native/commit_closing_native_r556/closing_r556_worker3/statements.jsonl": "bab322de0acf5272bb666d22f0467e934ad654b695007db10be3e3f428fcc187",
     "out/native/commit_closing_native_r556/shared-history.json": "29b5ca0e4c4d3d350409b7466636878114c74652d5ba6f8a3fc77661dc7fefc0",
-    "out/native/commit_closing_native_r556/summary.json": "1d6e9a1c8965321c1bc79e67c3ba5cbec0c9eae959b652fabfa9b3b676cb1e79"
+    "out/native/commit_closing_native_r556/summary.json": "1d6e9a1c8965321c1bc79e67c3ba5cbec0c9eae959b652fabfa9b3b676cb1e79",
+    "current_merge_plans_r559.py": "2ffe2f08cff96afeca4bff3a998b291238752243f02045fbc0fbd3ffd91ac54b",
+    "current_merge_plan_audit_r560.py": "17ff2be75cd402401feef7d5d0961384fbc4cb8a3e9db4dcac875ac2b061dda3",
+    "out/current-merge-plan-audit-r560.json": "d55509162467ec2ce8741d8b15ce6cc3ff40027384e6dc107665bd0b43ca59eb",
+    "current-merge-plan-disposition-r561.md": "22eee69f60f0eb22249e620cd7fc814e843d828da8a0ce9922b3f92cae8e7e35",
+    "out/native/current_merge_plans_r559/summary.json": "e6e27b85cec79bc7b347e544ac0b594a7a203d232958ae4dad9c4e8c9311641c",
+    "out/native/current_merge_plans_r559/shared-history.json": "8f9adb48d78b20bc2240ab8ff4827b196832ded7ecc7ab1f6306d40b1add4f3d",
+    "out/native/current_merge_plans_r559/full_guard.txt": "01f05ab7a031679eb1381553eed79821b83c9fe2fd62003495573d7bffc37fdb",
+    "out/native/current_merge_plans_r559/statements.jsonl": "b01ca3cf3e698f75f491d44abbc61aeb92db54730435c10c32739124b08ae5d8",
+    "out/native/current_merge_plans_r559/completed-last-request.json": "92880e15066f0710246959703adc17c9b89de2c07e7a7f9e481e215a4d466ac0",
+    "out/native/current_merge_plans_r559/historical_simple.txt": "3db6deb50f7efa137ef7d9aebbbdb525ba65bc0820e44c938c20665d2f8b99b8"
   },
   "evidence": {
     "ddl": {
