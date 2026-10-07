@@ -1529,7 +1529,9 @@
     "out/native/ashlar_range32_stage_r313/statements.jsonl": "d1a7a33e778806c4b838dcb8d9188dc697ebda7ee4d70425f2f09c3d2c67a191",
     "out/native/ashlar_range32_stage_r313/audited-summary.json": "2e72a2cbe441e173cb4c65179b4d3e376cf9a013e7ce81afb960231812a865cb",
     "range32_grow_r314.py": "5e048dd94d95a676d1b234baaa7cc5b0901b21897a9ea053c7f4e74da84865ef",
-    "range32_grow_audit_r315.py": "7ff762c7725078e493fa9c2e049b4a96ddbf4904e96f0adcc1e39a23cb2fff03"
+    "range32_grow_audit_r315.py": "7ff762c7725078e493fa9c2e049b4a96ddbf4904e96f0adcc1e39a23cb2fff03",
+    "range32_maintain_r316.py": "8de15aa519a3fde654d62e0cdfc6eb811dbdd11404c4990961444ed231b7dbf0",
+    "out/range32-maintenance-budget-r316.json": "101f487c55850f5355dcf07627c761e80cd6e8dc578e02758f9dac7ab95fe2f7"
   },
   "evidence": {
     "ddl": {

@@ -1,0 +1,18 @@
+{
+  "format": "ashlar-range32-staged-maintenance-budget/1",
+  "state": "Prepared; requires completed r314 audited summary before execution",
+  "phase_bounds": {
+    "read_bytes": 250000000000,
+    "write_remote_bytes": 40000000000,
+    "spill_to_disk_bytes": 5000000000,
+    "wall_s": 1800,
+    "statement_cancel_after_s": 90
+  },
+  "aggregate_attempt_caps": {
+    "read_bytes": 600000000000,
+    "write_remote_bytes": 120000000000,
+    "summed_phase_wall_s": 2400
+  },
+  "basis": "All32partitions about1GB each: up to3fulltable read equivalents96GB forZORDER plus4all20-field audit scans128GB plus26GB headroom=250GB. One rewrite32GB with1.2xwrite sensitivity38.4GBunder40GB. All-phaseattempt totals include canceled CREATE32.508GBread/19.383GBattemptedwrites, first2Mstage5.426GBread/1.596GBwrite and measured r314continuation. Aggregate600GBread/120GBwritecaps explicitly revise earlier r308400GBread/80GBsuccessful-build model for staged work and canceled output; no costs hidden or new compute. Planned bounds are not measured usage, storage inventory, peaktemp or billing deadlines.",
+  "qualification": "No execution yet. Full stage receipts and400field groups required; then32ZORDERstages followed by full carrier/global checks. No shortcut to favorable partition, no automatic cleanup/ACK or revised latency target."
+}
