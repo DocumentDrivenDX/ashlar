@@ -1,0 +1,144 @@
+{
+  "format": "ashlar-third-distinct-batch/1",
+  "state": "All100k third-batch mutations replay exactly and avoid both prior batches",
+  "nodes": 8000000,
+  "original_edges": 40000000,
+  "before_live_edges": 39980000,
+  "after_live_edges": 39970000,
+  "batch_id": "mixed-change/3",
+  "source_position_interval": [
+    200000,
+    300000
+  ],
+  "roles": {
+    "source_record": {
+      "fields": [
+        "source_feed",
+        "source_epoch",
+        "delivery_id",
+        "record_kind",
+        "source_cursor_json",
+        "payload_json",
+        "payload_digest",
+        "schema_revision",
+        "received_at",
+        "apply_batch_id"
+      ],
+      "rows": 100000,
+      "utf8_jsonl_bytes": 525213517,
+      "all_field_multiset_digest": "dbad432af99463e6b44e38857690106dccc3af0ba01e8ff4d54f0c47782186d9"
+    },
+    "property_journal": {
+      "fields": [
+        "source_system",
+        "entity_kind",
+        "type_id",
+        "id",
+        "entity_version",
+        "schema_revision",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "source_time_text",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "property_id",
+        "operation",
+        "old_present",
+        "old_json",
+        "new_present",
+        "new_json",
+        "event_ordinal"
+      ],
+      "rows": 216667,
+      "utf8_jsonl_bytes": 371215844,
+      "all_field_multiset_digest": "96bf41790c211842773262ae0cccacc0b02b6d00f84c000eac3bd12dc6636bca"
+    },
+    "tombstone": {
+      "fields": [
+        "source_system",
+        "entity_kind",
+        "type_id",
+        "id",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "source_cursor_json",
+        "source_delivery_id",
+        "apply_batch_id",
+        "entity_version"
+      ],
+      "rows": 10000,
+      "utf8_jsonl_bytes": 3476720,
+      "all_field_multiset_digest": "63f846961f548c5a6802323a3b007c7499ceaca47cac43b9aaff9908cfe1cf79"
+    },
+    "current_replacement": {
+      "fields": [
+        "source_system",
+        "rel_type_id",
+        "id",
+        "source_type",
+        "source_id",
+        "target_type",
+        "target_id",
+        "order_key",
+        "schema_revision",
+        "entity_version",
+        "props_json",
+        "retained_json",
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "published_at",
+        "apply_batch_id",
+        "source_cursor_json",
+        "source_delivery_id",
+        "lookup_hash"
+      ],
+      "rows": 90000,
+      "utf8_jsonl_bytes": 200727874,
+      "all_field_multiset_digest": "53e1bfc12cf6caec7ae8c1c98e7974e7e0af87fb2198f95c005008651b7b074c"
+    }
+  },
+  "counts": {
+    "delete": 10000,
+    "deletes": 10000,
+    "remove": 26667,
+    "set": 180000,
+    "updates": 90000
+  },
+  "selected_identities": 100000,
+  "disjointness": "Invertible104729 permutation modulo40M; indexes200000..299999 cannot intersect prior0..199999. Native full predecessor qualification still required.",
+  "negative_controls": [
+    {
+      "control": "wrong event batch",
+      "result": "refused"
+    },
+    {
+      "control": "same numeric value different token spelling",
+      "result": "refused"
+    },
+    {
+      "control": "retained content dropped with recomputed raw SHA",
+      "result": "refused"
+    },
+    {
+      "control": "unknown envelope dropped with recomputed raw SHA",
+      "result": "refused"
+    },
+    {
+      "control": "large cursor value changed consistently",
+      "result": "refused"
+    }
+  ],
+  "source_sha256": {
+    "third_changes_r378.py": "ed1fc462e7d4d68da6576c8c3de71ea03c0f8e2e2be87107fbc855b7b647e1c9",
+    "mixed_changes_r228.py": "2ab1d0c677cf7acff58e923bf3199a89a912fa712731769ca5a100e5ce9599fa",
+    "mixed_history_r215.py": "a38cd65a930e19ed98052adf425ac7bd6bcad959578b51fe5ff9bf804e62d31b",
+    "mixed_change_queries_r230.py": "7c49d418861c5b2694f8461cc1a25858663d9b6eb7d813139e4d14455cf90540"
+  },
+  "wall_s": 22.278972959,
+  "qualification": "Local distinct version1-to2 edge mutation oracle only. Exact token replay, envelopes, typed endpoints and source cursor tested; no native stage/publisher/source ACK, real authority, version2-to3 conflicts, freshness or billion admission."
+}

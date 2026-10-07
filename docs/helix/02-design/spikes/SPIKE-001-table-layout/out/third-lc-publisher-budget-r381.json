@@ -1,0 +1,101 @@
+{
+  "format": "ashlar-third-lc-publisher-admission-plan/1",
+  "status": "bounded plan; native inputs and mutations not started",
+  "source_sha256": {
+    "vector": "d402425aa8d8511025dac8ac4198907720f35fb1af001aea6287fe40d0b306ca",
+    "oracle": "850919171dad90b4c7a5a890c481e57e149a5340f801a3e7465e390759ac9fb4",
+    "files": "82010d9d73ea4fb376e5be9d1d0fab0b733cf55c2cc5ecf7970d1a39e0ef2d66",
+    "cdf": "753755e196b2993d0fb7639388ca48836c66bde099b1a8b5c8b458d89b2bb3af"
+  },
+  "sources": {
+    "vector": "out/native/ashlar_lc_full_vector_r376/audited-summary.json",
+    "oracle": "out/third-batch-oracle-r378.json",
+    "files": "out/ashlar_third_batch_files_r379/audited-summary.json",
+    "cdf": "out/third-cdf-image-oracle-r381.json"
+  },
+  "base_vector": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "version": 6,
+      "rows": 8000000
+    },
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+      "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+      "version": 5
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332",
+      "id": "dc895abb-e861-4f5c-ac9b-c4f06d5e9b8a",
+      "version": 2
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332",
+      "id": "8954e4b8-0255-4d24-adf7-508ded56b61c",
+      "version": 2
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332",
+      "id": "4fc3692a-32b2-455a-b9a2-2a1e5f9eb792",
+      "version": 3
+    },
+    "tombstone": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332",
+      "id": "c6db7de7-4b17-4837-83de-8667cd69e892",
+      "version": 2
+    }
+  },
+  "batch_id": "mixed-change/3",
+  "source_position_interval": [
+    200000,
+    300000
+  ],
+  "input_bytes": 1100633955,
+  "input_parts": 35,
+  "changes": 100000,
+  "updates": 90000,
+  "deletes": 10000,
+  "journal_appends": 216667,
+  "expected_final_rows": {
+    "object_current": 8000000,
+    "edge_current": 39970000,
+    "source_record": 48300000,
+    "property_journal": 192650000,
+    "adjacency_forward": 39970000,
+    "tombstone": 30000
+  },
+  "stages": {
+    "transfer": {
+      "max_uploaded_bytes": 1200000000,
+      "max_downloaded_bytes": 1200000000,
+      "wall_s": 900,
+      "overwrite": false,
+      "volume": "existing owned ashlar_inputs_r265; UUID/path must be revalidated"
+    },
+    "native_input": {
+      "read_bytes": 10000000000,
+      "write_remote_bytes": 2000000000,
+      "spill_to_disk_bytes": 1000000000,
+      "wall_s": 600,
+      "statement_cancel_after_s": 120
+    },
+    "integrated_publisher": {
+      "read_bytes": 180000000000,
+      "write_remote_bytes": 10000000000,
+      "spill_to_disk_bytes": 5000000000,
+      "wall_s": 900,
+      "statement_cancel_after_s": 120
+    }
+  },
+  "publication_requirements": [
+    "Rehash local files and exact upload/download bytes before native stage; no overwrite",
+    "Qualify complete original input_json and known-field digests, payload SHA, origin/event joins, canonical tombstone10field projection and retained synthetic extension",
+    "Verify every100k full20field predecessor at exact LC5; all eligible identities remain bootstrap version1 and disjoint from both prior inputs",
+    "Inspect UUID/schema/profile/complete commit custody; refuse unknown writes or unresolved handles; do not clone per batch",
+    "Record all current/raw/journal/adjacency/tombstone mutations and actual versions; no blind replay",
+    "Verify exact changed fields and history, immutable inherited custody, uniqueness/deletions/typed endpoints, complete actual vector and revision/progress agreement before private descriptor advancement",
+    "Include preflight/predecessors/mutations/validation/authority/readback/final telemetry in ready-input processing clock; separate generator/transfer/staging and any one-time setup costs explicitly"
+  ],
+  "qualification": "Plan uses measured r325 predecessor33.287GB reads and r337 LC MERGE34.754GB reads/219MB writes as resource references, not forecasts or guaranteed bounds. No new provisioning/resize/maintenance/ACK, no source arrival or10k/s/100k/s admission, no real writer fence or production profile. Full r376130.738GB bridge remains separate prior qualification, not silently required/subtracted from each batch."
+}
