@@ -1,0 +1,479 @@
+{
+  "catalog": [
+    {
+      "name": "ashlar_release",
+      "type": "duckdb",
+      "jdbc": {
+        "jdbcUri": "jdbc:duckdb:/tmp/ashlar-release-r105b.duckdb"
+      }
+    }
+  ],
+  "node": [
+    {
+      "label": "Type1",
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "enabled": true,
+          "catalog": "ashlar_release",
+          "schema": "spike",
+          "table": "node_1",
+          "mappedField": [
+            {
+              "sourceFieldName": "source_system",
+              "targetFieldName": "source_system"
+            },
+            {
+              "sourceFieldName": "type_id",
+              "targetFieldName": "type_id"
+            },
+            {
+              "sourceFieldName": "logical_key_json",
+              "targetFieldName": "logical_key_json"
+            },
+            {
+              "sourceFieldName": "props_json",
+              "targetFieldName": "props_json"
+            },
+            {
+              "sourceFieldName": "retained_json",
+              "targetFieldName": "retained_json"
+            },
+            {
+              "sourceFieldName": "node_key",
+              "targetFieldName": "node_key"
+            },
+            {
+              "sourceFieldName": "native_id",
+              "targetFieldName": "native_id"
+            },
+            {
+              "sourceFieldName": "carrier_key",
+              "targetFieldName": "carrier_key"
+            },
+            {
+              "sourceFieldName": "carrier_id",
+              "targetFieldName": "carrier_id"
+            }
+          ]
+        }
+      },
+      "id": [
+        {
+          "name": "node_key",
+          "type": "STRING"
+        }
+      ],
+      "attribute": [
+        {
+          "name": "source_system",
+          "type": "STRING"
+        },
+        {
+          "name": "type_id",
+          "type": "STRING"
+        },
+        {
+          "name": "logical_key_json",
+          "type": "STRING"
+        },
+        {
+          "name": "props_json",
+          "type": "STRING"
+        },
+        {
+          "name": "retained_json",
+          "type": "STRING"
+        },
+        {
+          "name": "native_id",
+          "type": "STRING"
+        },
+        {
+          "name": "carrier_key",
+          "type": "STRING"
+        },
+        {
+          "name": "carrier_id",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "label": "Type2",
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "enabled": true,
+          "catalog": "ashlar_release",
+          "schema": "spike",
+          "table": "node_2",
+          "mappedField": [
+            {
+              "sourceFieldName": "source_system",
+              "targetFieldName": "source_system"
+            },
+            {
+              "sourceFieldName": "type_id",
+              "targetFieldName": "type_id"
+            },
+            {
+              "sourceFieldName": "logical_key_json",
+              "targetFieldName": "logical_key_json"
+            },
+            {
+              "sourceFieldName": "props_json",
+              "targetFieldName": "props_json"
+            },
+            {
+              "sourceFieldName": "retained_json",
+              "targetFieldName": "retained_json"
+            },
+            {
+              "sourceFieldName": "node_key",
+              "targetFieldName": "node_key"
+            },
+            {
+              "sourceFieldName": "native_id",
+              "targetFieldName": "native_id"
+            },
+            {
+              "sourceFieldName": "carrier_key",
+              "targetFieldName": "carrier_key"
+            },
+            {
+              "sourceFieldName": "carrier_id",
+              "targetFieldName": "carrier_id"
+            }
+          ]
+        }
+      },
+      "id": [
+        {
+          "name": "node_key",
+          "type": "STRING"
+        }
+      ],
+      "attribute": [
+        {
+          "name": "source_system",
+          "type": "STRING"
+        },
+        {
+          "name": "type_id",
+          "type": "STRING"
+        },
+        {
+          "name": "logical_key_json",
+          "type": "STRING"
+        },
+        {
+          "name": "props_json",
+          "type": "STRING"
+        },
+        {
+          "name": "retained_json",
+          "type": "STRING"
+        },
+        {
+          "name": "native_id",
+          "type": "STRING"
+        },
+        {
+          "name": "carrier_key",
+          "type": "STRING"
+        },
+        {
+          "name": "carrier_id",
+          "type": "STRING"
+        }
+      ]
+    }
+  ],
+  "edge": [
+    {
+      "label": "Rel7_1_2",
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "enabled": true,
+          "catalog": "ashlar_release",
+          "schema": "spike",
+          "table": "edge_7_1_2",
+          "mappedField": [
+            {
+              "sourceFieldName": "source_system",
+              "targetFieldName": "source_system"
+            },
+            {
+              "sourceFieldName": "rel_type_id",
+              "targetFieldName": "rel_type_id"
+            },
+            {
+              "sourceFieldName": "source_type",
+              "targetFieldName": "source_type"
+            },
+            {
+              "sourceFieldName": "source_id",
+              "targetFieldName": "source_id"
+            },
+            {
+              "sourceFieldName": "target_type",
+              "targetFieldName": "target_type"
+            },
+            {
+              "sourceFieldName": "target_id",
+              "targetFieldName": "target_id"
+            },
+            {
+              "sourceFieldName": "props_json",
+              "targetFieldName": "props_json"
+            },
+            {
+              "sourceFieldName": "retained_json",
+              "targetFieldName": "retained_json"
+            },
+            {
+              "sourceFieldName": "edge_key",
+              "targetFieldName": "edge_key"
+            },
+            {
+              "sourceFieldName": "src",
+              "targetFieldName": "src"
+            },
+            {
+              "sourceFieldName": "dst",
+              "targetFieldName": "dst"
+            },
+            {
+              "sourceFieldName": "native_id",
+              "targetFieldName": "native_id"
+            },
+            {
+              "sourceFieldName": "carrier_key",
+              "targetFieldName": "carrier_key"
+            },
+            {
+              "sourceFieldName": "carrier_id",
+              "targetFieldName": "carrier_id"
+            }
+          ]
+        }
+      },
+      "id": [
+        {
+          "name": "edge_key",
+          "type": "STRING"
+        }
+      ],
+      "attribute": [
+        {
+          "name": "source_system",
+          "type": "STRING"
+        },
+        {
+          "name": "rel_type_id",
+          "type": "STRING"
+        },
+        {
+          "name": "source_type",
+          "type": "STRING"
+        },
+        {
+          "name": "source_id",
+          "type": "STRING"
+        },
+        {
+          "name": "target_type",
+          "type": "STRING"
+        },
+        {
+          "name": "target_id",
+          "type": "STRING"
+        },
+        {
+          "name": "props_json",
+          "type": "STRING"
+        },
+        {
+          "name": "retained_json",
+          "type": "STRING"
+        },
+        {
+          "name": "src",
+          "type": "STRING"
+        },
+        {
+          "name": "dst",
+          "type": "STRING"
+        },
+        {
+          "name": "native_id",
+          "type": "STRING"
+        },
+        {
+          "name": "carrier_key",
+          "type": "STRING"
+        },
+        {
+          "name": "carrier_id",
+          "type": "STRING"
+        }
+      ],
+      "fromNodeLabel": "Type1",
+      "toNodeLabel": "Type2",
+      "fromKey": [
+        {
+          "name": "src",
+          "type": "STRING"
+        }
+      ],
+      "toKey": [
+        {
+          "name": "dst",
+          "type": "STRING"
+        }
+      ]
+    },
+    {
+      "label": "Rel7_1_1",
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "enabled": true,
+          "catalog": "ashlar_release",
+          "schema": "spike",
+          "table": "edge_7_1_1",
+          "mappedField": [
+            {
+              "sourceFieldName": "source_system",
+              "targetFieldName": "source_system"
+            },
+            {
+              "sourceFieldName": "rel_type_id",
+              "targetFieldName": "rel_type_id"
+            },
+            {
+              "sourceFieldName": "source_type",
+              "targetFieldName": "source_type"
+            },
+            {
+              "sourceFieldName": "source_id",
+              "targetFieldName": "source_id"
+            },
+            {
+              "sourceFieldName": "target_type",
+              "targetFieldName": "target_type"
+            },
+            {
+              "sourceFieldName": "target_id",
+              "targetFieldName": "target_id"
+            },
+            {
+              "sourceFieldName": "props_json",
+              "targetFieldName": "props_json"
+            },
+            {
+              "sourceFieldName": "retained_json",
+              "targetFieldName": "retained_json"
+            },
+            {
+              "sourceFieldName": "edge_key",
+              "targetFieldName": "edge_key"
+            },
+            {
+              "sourceFieldName": "src",
+              "targetFieldName": "src"
+            },
+            {
+              "sourceFieldName": "dst",
+              "targetFieldName": "dst"
+            },
+            {
+              "sourceFieldName": "native_id",
+              "targetFieldName": "native_id"
+            },
+            {
+              "sourceFieldName": "carrier_key",
+              "targetFieldName": "carrier_key"
+            },
+            {
+              "sourceFieldName": "carrier_id",
+              "targetFieldName": "carrier_id"
+            }
+          ]
+        }
+      },
+      "id": [
+        {
+          "name": "edge_key",
+          "type": "STRING"
+        }
+      ],
+      "attribute": [
+        {
+          "name": "source_system",
+          "type": "STRING"
+        },
+        {
+          "name": "rel_type_id",
+          "type": "STRING"
+        },
+        {
+          "name": "source_type",
+          "type": "STRING"
+        },
+        {
+          "name": "source_id",
+          "type": "STRING"
+        },
+        {
+          "name": "target_type",
+          "type": "STRING"
+        },
+        {
+          "name": "target_id",
+          "type": "STRING"
+        },
+        {
+          "name": "props_json",
+          "type": "STRING"
+        },
+        {
+          "name": "retained_json",
+          "type": "STRING"
+        },
+        {
+          "name": "src",
+          "type": "STRING"
+        },
+        {
+          "name": "dst",
+          "type": "STRING"
+        },
+        {
+          "name": "native_id",
+          "type": "STRING"
+        },
+        {
+          "name": "carrier_key",
+          "type": "STRING"
+        },
+        {
+          "name": "carrier_id",
+          "type": "STRING"
+        }
+      ],
+      "fromNodeLabel": "Type1",
+      "toNodeLabel": "Type1",
+      "fromKey": [
+        {
+          "name": "src",
+          "type": "STRING"
+        }
+      ],
+      "toKey": [
+        {
+          "name": "dst",
+          "type": "STRING"
+        }
+      ]
+    }
+  ]
+}

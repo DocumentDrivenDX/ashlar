@@ -1,0 +1,215 @@
+{
+  "loadDataResults": null,
+  "message": "Schema uploaded successfully",
+  "ok": true,
+  "progress": [
+    "Loaded current topology-v2 schema state",
+    "No healthy leader available yet, waiting for one to become ready ...",
+    "Computed upload diff with 5 change(s) across 5 planned step(s)",
+    "Applying step 1/5: Add catalog \"ashlar_release\"",
+    "Step 1 succeeded: Add catalog \"ashlar_release\"",
+    "Validating 2 changed node label(s) and 2 changed edge label(s) as one batch",
+    "Committed 4 planned change(s) as schema version 2",
+    "Schema upload migration completed successfully (active version 2)"
+  ],
+  "progressDetails": [
+    {
+      "type": "INFO",
+      "message": "Loaded current topology-v2 schema state",
+      "completed": false
+    },
+    {
+      "type": "INFO",
+      "message": "No healthy leader available yet, waiting for one to become ready ...",
+      "completed": false
+    },
+    {
+      "type": "INFO",
+      "message": "Computed upload diff with 5 change(s) across 5 planned step(s)",
+      "completed": false
+    },
+    {
+      "type": "INFO",
+      "message": "Applying step 1/5: Add catalog \"ashlar_release\"",
+      "currentStep": 1,
+      "totalSteps": 5,
+      "stepIndex": 1,
+      "actionType": "ADD_CATALOG",
+      "targetType": "catalog",
+      "targetName": "ashlar_release",
+      "completed": false
+    },
+    {
+      "type": "SUCCESS",
+      "message": "Step 1 succeeded: Add catalog \"ashlar_release\"",
+      "currentStep": 1,
+      "totalSteps": 5,
+      "stepIndex": 1,
+      "actionType": "ADD_CATALOG",
+      "targetType": "catalog",
+      "targetName": "ashlar_release",
+      "completed": true
+    },
+    {
+      "type": "INFO",
+      "message": "Validating 2 changed node label(s) and 2 changed edge label(s) as one batch",
+      "completed": false
+    },
+    {
+      "type": "INFO",
+      "message": "Committed 4 planned change(s) as schema version 2",
+      "completed": false
+    },
+    {
+      "type": "SUCCESS",
+      "message": "Schema upload migration completed successfully (active version 2)",
+      "completed": true
+    }
+  ],
+  "report": {
+    "migrationId": "37ef92bf-f32a-4a90-9f4a-ff5e4ec6bfaa",
+    "summary": {
+      "currentVersion": 0,
+      "targetSteps": 5,
+      "totalChanges": 5
+    },
+    "diff": {
+      "addedCatalogs": [
+        {
+          "name": "ashlar_release"
+        }
+      ],
+      "addedNodes": [
+        {
+          "name": "Type1"
+        },
+        {
+          "name": "Type2"
+        }
+      ],
+      "addedEdges": [
+        {
+          "name": "Rel7_1_2"
+        },
+        {
+          "name": "Rel7_1_1"
+        }
+      ]
+    },
+    "plan": [
+      {
+        "index": 1,
+        "actionType": "ADD_CATALOG",
+        "targetType": "catalog",
+        "targetName": "ashlar_release",
+        "description": "Add catalog \"ashlar_release\"",
+        "status": "completed",
+        "version": 1,
+        "message": "Confirmed schema version 1"
+      },
+      {
+        "index": 2,
+        "actionType": "ADD_NODE",
+        "targetType": "node",
+        "targetName": "Type1",
+        "description": "Add node \"Type1\"",
+        "status": "completed",
+        "version": 2,
+        "message": "Committed in batch schema version 2"
+      },
+      {
+        "index": 3,
+        "actionType": "ADD_NODE",
+        "targetType": "node",
+        "targetName": "Type2",
+        "description": "Add node \"Type2\"",
+        "status": "completed",
+        "version": 2,
+        "message": "Committed in batch schema version 2"
+      },
+      {
+        "index": 4,
+        "actionType": "ADD_EDGE",
+        "targetType": "edge",
+        "targetName": "Rel7_1_2",
+        "description": "Add edge \"Rel7_1_2\"",
+        "status": "completed",
+        "version": 2,
+        "message": "Committed in batch schema version 2"
+      },
+      {
+        "index": 5,
+        "actionType": "ADD_EDGE",
+        "targetType": "edge",
+        "targetName": "Rel7_1_1",
+        "description": "Add edge \"Rel7_1_1\"",
+        "status": "completed",
+        "version": 2,
+        "message": "Committed in batch schema version 2"
+      }
+    ],
+    "events": [
+      {
+        "type": "INFO",
+        "message": "Loaded current topology-v2 schema state",
+        "completed": false
+      },
+      {
+        "type": "INFO",
+        "message": "No healthy leader available yet, waiting for one to become ready ...",
+        "completed": false
+      },
+      {
+        "type": "INFO",
+        "message": "Computed upload diff with 5 change(s) across 5 planned step(s)",
+        "completed": false
+      },
+      {
+        "type": "INFO",
+        "message": "Applying step 1/5: Add catalog \"ashlar_release\"",
+        "currentStep": 1,
+        "totalSteps": 5,
+        "stepIndex": 1,
+        "actionType": "ADD_CATALOG",
+        "targetType": "catalog",
+        "targetName": "ashlar_release",
+        "completed": false
+      },
+      {
+        "type": "SUCCESS",
+        "message": "Step 1 succeeded: Add catalog \"ashlar_release\"",
+        "currentStep": 1,
+        "totalSteps": 5,
+        "stepIndex": 1,
+        "actionType": "ADD_CATALOG",
+        "targetType": "catalog",
+        "targetName": "ashlar_release",
+        "completed": true
+      },
+      {
+        "type": "INFO",
+        "message": "Validating 2 changed node label(s) and 2 changed edge label(s) as one batch",
+        "completed": false
+      },
+      {
+        "type": "INFO",
+        "message": "Committed 4 planned change(s) as schema version 2",
+        "completed": false
+      },
+      {
+        "type": "SUCCESS",
+        "message": "Schema upload migration completed successfully (active version 2)",
+        "completed": true
+      }
+    ],
+    "results": {
+      "status": "success",
+      "appliedSteps": 5,
+      "totalSteps": 5,
+      "lastAppliedVersion": 2,
+      "activeVersion": 2,
+      "finalVersion": 2
+    }
+  },
+  "version": 2
+}

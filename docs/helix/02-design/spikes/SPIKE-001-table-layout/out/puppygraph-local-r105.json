@@ -1,0 +1,172 @@
+{
+  "runtime": "PuppyGraph 1.13.0 ARM64",
+  "image_digest": "sha256:6d016d5a7e3eab0a57bd4d23c4e218467d00c7661fcda215ea2a429941a68cee",
+  "source": "DuckDB 1.4.1 file copied from hash-pinned r66 typed carrier",
+  "driver": "neo4j 5.28.2 Bolt",
+  "resource_bounds": {
+    "cpus": 4,
+    "memory_gib": 8
+  },
+  "records": [
+    {
+      "table": "node_1",
+      "query": "MATCH (x:Type1) RETURN x.source_system AS source_system,x.type_id AS type_id,x.carrier_id AS id,x.logical_key_json AS logical_key_json,x.props_json AS props_json,x.retained_json AS retained_json,x.carrier_key AS node_key,x.native_id AS native_id",
+      "rows": [
+        {
+          "source_system": "pilot",
+          "type_id": "1",
+          "id": "N5:pilot:1:1",
+          "logical_key_json": "[\"logical\",1,1]",
+          "props_json": "{\"101\":null,\"102\":9007199254740993,\"103\":\"verbatim\"}",
+          "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+          "node_key": "N5:pilot:1:1",
+          "native_id": "1"
+        },
+        {
+          "source_system": "pilot",
+          "type_id": "1",
+          "id": "N5:pilot:1:-1",
+          "logical_key_json": "[\"logical\",1,-1]",
+          "props_json": "{\"101\":null,\"102\":9007199254740993,\"103\":\"verbatim\"}",
+          "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+          "node_key": "N5:pilot:1:-1",
+          "native_id": "-1"
+        }
+      ],
+      "exact_parity": true
+    },
+    {
+      "table": "node_2",
+      "query": "MATCH (x:Type2) RETURN x.source_system AS source_system,x.type_id AS type_id,x.carrier_id AS id,x.logical_key_json AS logical_key_json,x.props_json AS props_json,x.retained_json AS retained_json,x.carrier_key AS node_key,x.native_id AS native_id",
+      "rows": [
+        {
+          "source_system": "pilot",
+          "type_id": "2",
+          "id": "N5:pilot:2:1",
+          "logical_key_json": "[\"logical\",2,1]",
+          "props_json": "{\"101\":null,\"102\":9007199254740993,\"103\":\"verbatim\"}",
+          "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+          "node_key": "N5:pilot:2:1",
+          "native_id": "1"
+        }
+      ],
+      "exact_parity": true
+    },
+    {
+      "table": "edge_7_1_2",
+      "query": "MATCH ()-[x:Rel7_1_2]->() RETURN x.source_system AS source_system,x.rel_type_id AS rel_type_id,x.carrier_id AS id,x.source_type AS source_type,x.source_id AS source_id,x.target_type AS target_type,x.target_id AS target_id,x.props_json AS props_json,x.retained_json AS retained_json,x.carrier_key AS edge_key,x.src AS src,x.dst AS dst,x.native_id AS native_id",
+      "rows": [
+        {
+          "source_system": "pilot",
+          "rel_type_id": "7",
+          "id": "E5:pilot:7:1",
+          "source_type": "1",
+          "source_id": "1",
+          "target_type": "2",
+          "target_id": "1",
+          "props_json": "{}",
+          "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+          "edge_key": "E5:pilot:7:1",
+          "src": "N5:pilot:1:1",
+          "dst": "N5:pilot:2:1",
+          "native_id": "1"
+        },
+        {
+          "source_system": "pilot",
+          "rel_type_id": "7",
+          "id": "E5:pilot:7:2",
+          "source_type": "1",
+          "source_id": "1",
+          "target_type": "2",
+          "target_id": "1",
+          "props_json": "{}",
+          "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+          "edge_key": "E5:pilot:7:2",
+          "src": "N5:pilot:1:1",
+          "dst": "N5:pilot:2:1",
+          "native_id": "2"
+        }
+      ],
+      "exact_parity": true
+    },
+    {
+      "table": "edge_7_1_1",
+      "query": "MATCH ()-[x:Rel7_1_1]->() RETURN x.source_system AS source_system,x.rel_type_id AS rel_type_id,x.carrier_id AS id,x.source_type AS source_type,x.source_id AS source_id,x.target_type AS target_type,x.target_id AS target_id,x.props_json AS props_json,x.retained_json AS retained_json,x.carrier_key AS edge_key,x.src AS src,x.dst AS dst,x.native_id AS native_id",
+      "rows": [
+        {
+          "source_system": "pilot",
+          "rel_type_id": "7",
+          "id": "E5:pilot:7:3",
+          "source_type": "1",
+          "source_id": "1",
+          "target_type": "1",
+          "target_id": "1",
+          "props_json": "{}",
+          "retained_json": "{\"future\":{\"unrecognized\":[null,1,\"x\"]}}",
+          "edge_key": "E5:pilot:7:3",
+          "src": "N5:pilot:1:1",
+          "dst": "N5:pilot:1:1",
+          "native_id": "3"
+        }
+      ],
+      "exact_parity": true
+    },
+    {
+      "check": "vertices",
+      "query": "MATCH (n) RETURN count(n) AS value",
+      "rows": [
+        {
+          "value": 3
+        }
+      ],
+      "passed": true
+    },
+    {
+      "check": "edges",
+      "query": "MATCH ()-[e]->() RETURN count(e) AS value",
+      "rows": [
+        {
+          "value": 3
+        }
+      ],
+      "passed": true
+    },
+    {
+      "check": "isolates",
+      "query": "MATCH (n) WHERE NOT (n)--() RETURN count(n) AS value",
+      "rows": [
+        {
+          "value": 1
+        }
+      ],
+      "passed": true
+    },
+    {
+      "check": "self_loops",
+      "query": "MATCH (n)-[e]->(n) RETURN count(e) AS value",
+      "rows": [
+        {
+          "value": 1
+        }
+      ],
+      "passed": true
+    },
+    {
+      "check": "parallel_edges",
+      "query": "MATCH (:Type1)-[e:Rel7_1_2]->(:Type2) RETURN count(e) AS value",
+      "rows": [
+        {
+          "value": 2
+        }
+      ],
+      "passed": true
+    }
+  ],
+  "all_passed": true,
+  "limits": [
+    "Not direct Unity Catalog or Delta protocol evidence",
+    "Not scale or latency evidence",
+    "Parallel carrier fixture is not a legal Truss duplicate endpoint pair",
+    "No cross-engine atomic release activation or rollback qualification"
+  ]
+}

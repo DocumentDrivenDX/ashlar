@@ -1,0 +1,243 @@
+{
+  "error": "Upload schema includes unsupported topology-v2 changes; see diff.rejectedChanges",
+  "loadDataResults": null,
+  "ok": false,
+  "progress": [
+    "Loaded current topology-v2 schema state",
+    "Computed upload diff with 13 change(s) across 12 planned step(s)",
+    "Upload schema includes unsupported topology-v2 changes; see diff.rejectedChanges"
+  ],
+  "progressDetails": [
+    {
+      "type": "INFO",
+      "message": "Loaded current topology-v2 schema state",
+      "completed": false
+    },
+    {
+      "type": "INFO",
+      "message": "Computed upload diff with 13 change(s) across 12 planned step(s)",
+      "completed": false
+    },
+    {
+      "type": "WARNING",
+      "message": "Upload schema includes unsupported topology-v2 changes; see diff.rejectedChanges",
+      "completed": true
+    }
+  ],
+  "report": {
+    "migrationId": "c6f73b2a-0654-427f-8a10-91ac5ae998a5",
+    "summary": {
+      "currentVersion": 2,
+      "targetSteps": 12,
+      "totalChanges": 13
+    },
+    "diff": {
+      "addedNodeAttributes": [
+        {
+          "parentName": "Type1",
+          "name": "carrier_key",
+          "type": "STRING"
+        },
+        {
+          "parentName": "Type1",
+          "name": "carrier_id",
+          "type": "STRING"
+        },
+        {
+          "parentName": "Type2",
+          "name": "carrier_key",
+          "type": "STRING"
+        },
+        {
+          "parentName": "Type2",
+          "name": "carrier_id",
+          "type": "STRING"
+        }
+      ],
+      "removedNodeAttributes": [
+        {
+          "parentName": "Type1",
+          "name": "id"
+        },
+        {
+          "parentName": "Type2",
+          "name": "id"
+        }
+      ],
+      "addedEdgeAttributes": [
+        {
+          "parentName": "Rel7_1_2",
+          "name": "carrier_key",
+          "type": "STRING"
+        },
+        {
+          "parentName": "Rel7_1_2",
+          "name": "carrier_id",
+          "type": "STRING"
+        },
+        {
+          "parentName": "Rel7_1_1",
+          "name": "carrier_key",
+          "type": "STRING"
+        },
+        {
+          "parentName": "Rel7_1_1",
+          "name": "carrier_id",
+          "type": "STRING"
+        }
+      ],
+      "removedEdgeAttributes": [
+        {
+          "parentName": "Rel7_1_2",
+          "name": "id"
+        },
+        {
+          "parentName": "Rel7_1_1",
+          "name": "id"
+        }
+      ],
+      "rejectedChanges": [
+        {
+          "objectType": "catalog",
+          "name": "ashlar_release",
+          "reason": "changing an existing catalog definition by uploadSchema is not supported; re-upload with allowCatalogUpdate=true to apply it in place"
+        }
+      ]
+    },
+    "plan": [
+      {
+        "index": 1,
+        "actionType": "REMOVE_NODE_ATTRIBUTE",
+        "targetType": "nodeAttribute",
+        "targetName": "Type1",
+        "parentName": "Type1",
+        "description": "Remove attribute \"id\" from node \"Type1\"",
+        "status": "pending"
+      },
+      {
+        "index": 2,
+        "actionType": "REMOVE_NODE_ATTRIBUTE",
+        "targetType": "nodeAttribute",
+        "targetName": "Type2",
+        "parentName": "Type2",
+        "description": "Remove attribute \"id\" from node \"Type2\"",
+        "status": "pending"
+      },
+      {
+        "index": 3,
+        "actionType": "ADD_NODE_ATTRIBUTE",
+        "targetType": "nodeAttribute",
+        "targetName": "Type1",
+        "parentName": "Type1",
+        "description": "Add attribute \"carrier_key\" to node \"Type1\"",
+        "status": "pending"
+      },
+      {
+        "index": 4,
+        "actionType": "ADD_NODE_ATTRIBUTE",
+        "targetType": "nodeAttribute",
+        "targetName": "Type1",
+        "parentName": "Type1",
+        "description": "Add attribute \"carrier_id\" to node \"Type1\"",
+        "status": "pending"
+      },
+      {
+        "index": 5,
+        "actionType": "ADD_NODE_ATTRIBUTE",
+        "targetType": "nodeAttribute",
+        "targetName": "Type2",
+        "parentName": "Type2",
+        "description": "Add attribute \"carrier_key\" to node \"Type2\"",
+        "status": "pending"
+      },
+      {
+        "index": 6,
+        "actionType": "ADD_NODE_ATTRIBUTE",
+        "targetType": "nodeAttribute",
+        "targetName": "Type2",
+        "parentName": "Type2",
+        "description": "Add attribute \"carrier_id\" to node \"Type2\"",
+        "status": "pending"
+      },
+      {
+        "index": 7,
+        "actionType": "REMOVE_EDGE_ATTRIBUTE",
+        "targetType": "edgeAttribute",
+        "targetName": "Rel7_1_2",
+        "parentName": "Rel7_1_2",
+        "description": "Remove attribute \"id\" from edge \"Rel7_1_2\"",
+        "status": "pending"
+      },
+      {
+        "index": 8,
+        "actionType": "REMOVE_EDGE_ATTRIBUTE",
+        "targetType": "edgeAttribute",
+        "targetName": "Rel7_1_1",
+        "parentName": "Rel7_1_1",
+        "description": "Remove attribute \"id\" from edge \"Rel7_1_1\"",
+        "status": "pending"
+      },
+      {
+        "index": 9,
+        "actionType": "ADD_EDGE_ATTRIBUTE",
+        "targetType": "edgeAttribute",
+        "targetName": "Rel7_1_2",
+        "parentName": "Rel7_1_2",
+        "description": "Add attribute \"carrier_key\" to edge \"Rel7_1_2\"",
+        "status": "pending"
+      },
+      {
+        "index": 10,
+        "actionType": "ADD_EDGE_ATTRIBUTE",
+        "targetType": "edgeAttribute",
+        "targetName": "Rel7_1_2",
+        "parentName": "Rel7_1_2",
+        "description": "Add attribute \"carrier_id\" to edge \"Rel7_1_2\"",
+        "status": "pending"
+      },
+      {
+        "index": 11,
+        "actionType": "ADD_EDGE_ATTRIBUTE",
+        "targetType": "edgeAttribute",
+        "targetName": "Rel7_1_1",
+        "parentName": "Rel7_1_1",
+        "description": "Add attribute \"carrier_key\" to edge \"Rel7_1_1\"",
+        "status": "pending"
+      },
+      {
+        "index": 12,
+        "actionType": "ADD_EDGE_ATTRIBUTE",
+        "targetType": "edgeAttribute",
+        "targetName": "Rel7_1_1",
+        "parentName": "Rel7_1_1",
+        "description": "Add attribute \"carrier_id\" to edge \"Rel7_1_1\"",
+        "status": "pending"
+      }
+    ],
+    "events": [
+      {
+        "type": "INFO",
+        "message": "Loaded current topology-v2 schema state",
+        "completed": false
+      },
+      {
+        "type": "INFO",
+        "message": "Computed upload diff with 13 change(s) across 12 planned step(s)",
+        "completed": false
+      },
+      {
+        "type": "WARNING",
+        "message": "Upload schema includes unsupported topology-v2 changes; see diff.rejectedChanges",
+        "completed": true
+      }
+    ],
+    "results": {
+      "status": "rejected",
+      "appliedSteps": 0,
+      "totalSteps": 12,
+      "lastAppliedVersion": 2,
+      "activeVersion": 2,
+      "errorMessage": "Upload schema includes unsupported topology-v2 changes; see diff.rejectedChanges"
+    }
+  }
+}

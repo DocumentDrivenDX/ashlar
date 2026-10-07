@@ -85,3 +85,29 @@ Native Databricks reads do not depend on external credential vending.
 A local engine test can qualify mapping behavior separately, but cannot establish
 direct access to these UC tables. The existing model fragment also requires
 qualification against PuppyGraph's current v1 schema before a support claim.
+
+## Actual PuppyGraph 1.13.0 local carrier conformance
+
+[r105 runtime evidence](../out/puppygraph-local-r105.json) passes exhaustive
+scalar-field comparisons for all four typed tables and five graph controls:
+3 vertices, 3 edges, one isolate, one self-loop and two parallel edges.
+The actual ARM64 engine image is digest-pinned, bounded to four CPUs / 8 GiB,
+queried through neo4j 5.28.2 Bolt. [Preparation](../puppygraph_local.py) verifies
+fixture hashes and every DuckDB scalar before model upload;
+[conformance](../puppygraph_check.py) independently compares query outputs.
+
+[The executed v1 model](puppygraph-r105-model.json) uses explicit `carrier_id`
+and `carrier_key` duplicates: initial graph identity columns were not returned
+as ordinary properties. All original IDs, property JSON (including the integer
+9007199254740993), retained JSON and endpoint carriers now survive verbatim.
+Do not infer ordinary-property visibility from a field serving as graph identity.
+
+An attempted in-place catalog/model change was
+[rejected by the engine](../out/puppygraph-r105-migration-rejected.json). A fresh
+disposable engine accepted the corrected complete model and passed the checks.
+This is not an atomic release replacement or rollback protocol; release activation
+needs explicit qualification. DuckDB is only the local carrier fixture source.
+Canonical Ashlar remains UC Delta, and this run proves neither direct UC/Delta
+feature compatibility nor performance or scale. The external-access prerequisite
+above still applies. Parallel edges here exercise carrier capacity, not permission
+to violate Truss's unique relationship/endpoint constraint.
