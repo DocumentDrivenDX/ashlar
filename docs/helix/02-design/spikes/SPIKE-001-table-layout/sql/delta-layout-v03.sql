@@ -4,6 +4,8 @@
 -- Native-source profiles require cursor/reference and reject scalar flattening.
 -- Source delivery ID is resolved by (source_feed,source_epoch,source_delivery_id).
 -- UC managed Delta is selected; derived metadata does not redefine producer fields.
+-- Edge eligibility statistics below reflect r130/r131/r133 native tuning;
+-- the revised complete 13-table DDL has not been re-executed as a package.
 -- Candidate L: liquid clustering. Do not combine with PARTITIONED BY or ZORDER.
 CREATE TABLE object_current (
   source_system STRING NOT NULL, type_id BIGINT NOT NULL, id BIGINT NOT NULL,
@@ -29,7 +31,7 @@ CREATE TABLE edge_current (
   lookup_hash STRING NOT NULL, apply_batch_id STRING,
   source_cursor_json STRING, source_delivery_id STRING
 ) USING DELTA CLUSTER BY (lookup_hash)
-TBLPROPERTIES ('delta.dataSkippingStatsColumns'='lookup_hash,source_system,rel_type_id,id',
+TBLPROPERTIES ('delta.dataSkippingStatsColumns'='lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id',
 'delta.targetFileSize'='67108864','delta.parquet.compression.codec'='zstd');
 
 CREATE TABLE property_journal (

@@ -1,0 +1,8 @@
+{
+  "state": "Two identity-verified audited key-screen tables dropped; canonical data unchanged",
+  "tables": [
+    "client_dev.ashlar_entropy_20261006_r86.key_hash_r147",
+    "client_dev.ashlar_entropy_20261006_r86.key_source_id_r147"
+  ],
+  "qualification": "UC retention applies; no VACUUM/immediate physical reclamation claim."
+}

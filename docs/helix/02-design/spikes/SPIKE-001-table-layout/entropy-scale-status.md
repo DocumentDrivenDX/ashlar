@@ -1607,3 +1607,29 @@ Next compare physical key/maintenance choices with explicit ingest/read tradeoff
 source partition hints alone did not solve post-MERGE file overlap. Retain the
 chosen UC Delta architecture and current agreed gates; all full-goal obligations
 remain open.
+
+
+### r147 physical key screen and candidate DDL reconciliation
+
+[r147 native audit](out/native/ashlar_key_screen_r147/audited-summary.json) compares
+lookup_hash clustering with (source_system,id) on the same 100k complete carriers
+from stage r139. Exact symmetric 20-field/UTF-8 carrier equality and unique IDs
+pass for both tables. Both OPTIMIZE FULL commands were no-ops (version 0 retained,
+zero rewritten bytes); the 16 MiB target did not cause a demonstrated rebuild.
+Actual hash/source-id layouts contain 16/14 files and 335.655/335.319 MB.
+
+Thirty alternating exact singleton reads per layout prune one file each. Hash
+p95 engine/caller is 103/338.45 ms; source-id is 135/366.79 ms with two remote-read
+queries versus zero for hash. Result cache is disabled. Neither comparison admits
+the latency targets. This 100k screen does not establish full-scale source/type
+diversity, incremental write behavior or billion-scale performance; retain hash
+as the candidate. Both owned tables were identity/version checked and dropped;
+canonical E23/R17/J19 and the r139-b1 publication remain unchanged.
+
+The candidate DDL now includes edge entity_version/apply_batch_id statistics,
+reflecting r130/r131/r133 evidence. CONTRACT-003 records the bounded evidence,
+backfill cost, update-only eligibility scope and remaining obligations. Logical
+schema and the 64 MiB reference target remain unchanged. The revised complete
+13-table DDL has not been re-executed. Next resolve the publication maintenance
+policy and service-side reader deployment using the existing large fixture;
+retain UC Delta as selected architecture and keep ingest/read metrics explicit.

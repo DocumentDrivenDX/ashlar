@@ -1,0 +1,59 @@
+{
+  "state": "Both key-screen tables pass exact100k full-carrier preservation/IDs; bounded read comparison pending",
+  "tables": {
+    "hash": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.key_hash_r147",
+      "version": 0,
+      "keys": [
+        "lookup_hash"
+      ],
+      "detail": {
+        "format": "delta",
+        "id": "82089a02-8102-4fbe-a734-a0eb98ec0c3c",
+        "name": "client_dev.ashlar_entropy_20261006_r86.key_hash_r147",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/5ee8ccf7-c5f3-4c3f-ad31-83b40638e8b2",
+        "createdAt": "2026-10-07T03:18:27.884000",
+        "lastModified": "2026-10-07T03:18:36",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"lookup_hash\"]",
+        "numFiles": "16",
+        "sizeInBytes": "335655200",
+        "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-a5c2dda9-a32b-438c-a5b7-7ab077d2b2d4\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-42285dbb-d42d-49c1-a7a1-880cf791d872\",\"delta.targetFileSize\":\"16777216\",\"io.unitycatalog.tableId\":\"5ee8ccf7-c5f3-4c3f-ad31-83b40638e8b2\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+        "clusterByAuto": "False"
+      }
+    },
+    "source_id": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.key_source_id_r147",
+      "version": 0,
+      "keys": [
+        "source_system",
+        "id"
+      ],
+      "detail": {
+        "format": "delta",
+        "id": "36fb44ff-56a4-4076-9fbe-c23618223e4b",
+        "name": "client_dev.ashlar_entropy_20261006_r86.key_source_id_r147",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/cf75756c-e3ed-48b2-9b0c-6a161e281e8f",
+        "createdAt": "2026-10-07T03:18:52.214000",
+        "lastModified": "2026-10-07T03:18:56",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"source_system\",\"id\"]",
+        "numFiles": "14",
+        "sizeInBytes": "335319071",
+        "properties": "{\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id\",\"delta.enableDeletionVectors\":\"true\",\"delta.enableRowTracking\":\"true\",\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-e983a5cd-59d7-475d-a18c-c803d5395fd5\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-9c72e51b-e8fe-46a5-b1c5-3ba46e5a5e6c\",\"delta.targetFileSize\":\"16777216\",\"io.unitycatalog.tableId\":\"cf75756c-e3ed-48b2-9b0c-6a161e281e8f\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numDeletionVectors\":0,\"numRowsDeletedByDeletionVectors\":0}",
+        "clusterByAuto": "False"
+      }
+    }
+  },
+  "qualification": "100k affected hot-set full20-field carriers only, identical input and16MiB maintenance target/Zstd. One build/OPTIMIZE FULL each; not full20M layout, incremental MERGE/publication, source/type diversity or1B/5B qualification."
+}

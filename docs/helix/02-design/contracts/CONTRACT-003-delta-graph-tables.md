@@ -152,6 +152,20 @@ Liquid and partitioned/Z-ordered layouts are separate candidates. Type/id column
 must have statistics; key columns are never high-cardinality partition directories.
 No PostgreSQL index, FK or JSONB capability is presumed to exist on Delta.
 
+The edge physical tuning candidate adds entity_version and apply_batch_id to
+file statistics alongside lookup_hash/source_system/rel_type_id/id. The logical
+identity and table columns remain unchanged. Native r130 statistics controls,
+r131 paired MERGEs and r133 canonical publication evidence qualify this setting
+for the scoped 100k property-update fixture over 20M edges. Update-only MERGE
+eligibility in ON is a separately tested tuning option; it does not establish
+producer fencing or insertion semantics. Existing tables require an explicit
+statistics backfill, whose measured setup cost is outside the publication clock;
+older publication snapshots retain their original statistics. The reference DDL
+now reflects the tested edge settings, but its revised complete 13-table package
+has not been re-executed. Singleton latency, sustained ingest, freshness and
+billion-scale qualification remain open. See the
+[recorded native tuning evidence](../spikes/SPIKE-001-table-layout/entropy-scale-status.md).
+
 The journal physical tuning candidate includes apply_batch_id in file statistics
 alongside feed/epoch/source-position/id, without partitioning or changing its
 logical columns. [r100 native evidence](../spikes/SPIKE-001-table-layout/out/native/ashlar_journal_batch_statistics_20261007_r100/audited-summary.json)
