@@ -1,0 +1,30 @@
+{
+  "state": "Thirty exact correlated full-carrier reads passed within60s worker bound; final result-uncached",
+  "process": {
+    "pid": 11107,
+    "max_worker_wall_s": 60,
+    "started_epoch": 1791342480.2663412,
+    "state": "worker returned",
+    "exit_code": 0,
+    "worker_wall_s": 14.043595959
+  },
+  "caller_p95_ms": 397.2813340000001,
+  "engine_p95_ms": 159,
+  "compile_p95_ms": 144,
+  "files_p95": 18,
+  "remote_queries": 0,
+  "configured_controls": {
+    "socket_seconds": 10,
+    "request_attempts": 1,
+    "retry_duration_seconds": 10,
+    "max_redirects": 0,
+    "sql_statement_seconds": 15,
+    "worker_wall_seconds": 60
+  },
+  "installed_source_sha256": {
+    "client.py": "2e4c85ad5b8b98d6ca6b7ad38ef1076bb0f62fde6716e88c8ff8ce5d2728a339",
+    "backend/thrift_backend.py": "02cf7d7da81bfca8e1c0f4e78efe45691d4a2bf50bd6200e7983eddcfe34e7d7",
+    "auth/thrift_http_client.py": "cb5797297013321df62aed8fd7059b7425ed69d86d1b783de58a0ff8deba16d7"
+  },
+  "qualification": "Installed connector internal settings verified in source and accepted by this healthy run; not a fault-injected proof of every socket/auth timeout.60s bound covers the read-only worker including connect/auth, not this separate audit. Each request correlation persisted before submission; no generic replay on timeout. Existing canonical E23 and exact identities retained. Status recovery of r144 does not recover lost results. No production multiwriter, caller SLO, concurrency or billion admission."
+}

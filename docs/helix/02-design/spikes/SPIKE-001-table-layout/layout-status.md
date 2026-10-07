@@ -563,3 +563,32 @@ and agreed gates unchanged. No candidate is promoted from this incomplete sample
 E23/N0/R17/J19/T0/forward1 and r139-b1 unchanged; no scratch data or new compute.
 All full goal performance/scale obligations remain open. Continue physical write
 and native-read tuning while preserving caller-layer failures in end-to-end evidence.
+
+
+Bounded correlated reader: [r145 final audit](out/native/ashlar_bounded_reads_r145/audited-summary.json)
+runs an owned read-only subprocess with60s total worker wall bound (including
+connect/auth),10s configured sockets, one connector request attempt,10s retry
+budget/no redirects and15s SQL statement timeout. Unique run/label SQL correlation
+and parameters are persisted before submission; no generic timeout replay. Thirty
+exact E23 pinned20-field reads pass in14.044s total worker time, all final result-
+uncached/remote0. Caller p95397.28ms/engine159ms/compile144ms,18 files. Gates still
+missed; comments/control settings and runtime sample differ from previous runs,
+so no causal overhead comparison or transport fault admission.
+
+[Same-query status recovery](out/native/ashlar_bounded_reads_r145/recovery/summary.json)
+uses history GET only to recover the previously undelivered r144 server ID as
+FINISHED/final, without resubmission. Status recovery does not recover result
+bytes or assert the lost carrier. The caller must fail closed on ambiguous request
+correlation; new request labels identify pending work when a handle is unavailable.
+Whole-worker timeout covers reads only, not subsequent SDK history audits.
+
+[Offline timeout field control](out/native/ashlar_bounded_reads_r145/timeout-field-control.json)
+confirms installed HTTP timeout setter10000ms propagates to10s pool timeout. Base
+and subclass share class name THttpClient/private field; an initial separate-field
+concern was resolved, not a discovered timeout bug. Installed source fingerprints
+are recorded; controls are internal/version-specific, not general API guarantees.
+No induced socket/auth/trickle-response fault was tested. The observed healthy run
+therefore verifies acceptance/configuration and exact reads, not all timeout paths.
+No table writes/new compute/publication; canonical E23/R17/J19/r139-b1 unchanged.
+Next use bounded correlated reads for post-MERGE distribution experiments. Keep
+native singleton, publication/rate, concurrency, cold-data and1B/5B gates open.

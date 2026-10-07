@@ -1,0 +1,7 @@
+{
+  "state": "Same previously undelivered r144 query ID recovered as FINISHED/final via history GET only",
+  "query_id": "01f1c1fb-304e-1e2b-bb03-de1d807c805f",
+  "query_start_time_ms": 1791342001663,
+  "query_end_time_ms": 1791342001902,
+  "qualification": "Status recovery only; no result recovery, native SQL submission/re-execution or undelivered carrier assertion. A request correlation tag can identify the owned pending request when no handle returned; ambiguity must fail closed."
+}
