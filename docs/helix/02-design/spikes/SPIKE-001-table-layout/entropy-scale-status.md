@@ -1869,3 +1869,46 @@ refusal must survive; otherwise retain symmetric EXCEPT. Bound it to the same
 read-only100k corpus before another integrated publication. The r15250 s service
 and r149 queue-growth results remain unmet sustained capacity evidence; optimizing
 scan counts alone does not meet the full goal. UC Delta remains selected.
+
+
+### r154 keyed exact journal comparison: rejected
+
+[Native audit](out/native/ashlar_journal_validation_r154/audited-summary.json)
+compares three alternating100k journal pairs over stage r139 v0 and property
+journal v19/r139-b1. Candidate full-outer joins feed/epoch/delivery/property/event
+keys, compares all21 columns with UTF8-normalized texts and includes per-side
+window counts for duplicate refusal. This is an owned unique-event synthetic
+profile; it does not select native Truss event identity. The source-profile key
+and authority requirements of CONTRACT-003 remain unqualified for real feeds.
+
+All exact equality checks and11 typed native corruption refusals pass on both
+paths. Candidate also refuses equal duplicated expected/actual bags: intentionally
+stricter than multiset equality because this profile requires unique events.
+Missing-row detection uses the non-null window count, not nullable value columns.
+Nulls, missing flags, Unicode lexical differences, native cursor/origin, exact
+microseconds, event ordinal/property identity and changed values stay distinguishable.
+
+Control caller6.618/6.673/6.589 s versus candidate11.389/11.497/11.999 s; engine
+5.941/5.924/5.870 versus10.635/10.658/11.318 s. Files24→12, reads2.602–2.606GB→
+1.301–1.305GB, spill0. Remote bytes control0/0/18.443MB versus candidate1.969MB/
+0/3.961MB. Balanced order, final native IDs, result cache disabled; this is not
+strict all-warm service-p95 or causal internal-profile evidence. The included
+uniqueness checks halve scans but do not reduce latency. Reject publisher
+promotion and retain symmetric exact EXCEPT validation.
+
+Read-only existing warehouse2439e1f2e37ac563; no resources/tables or publication
+changed. All phases11.719GB recorded reads/zero remote writes, not billing.
+Statement90 s and bounded submission/socket/retry controls. No cleanup needed.
+Preserve both r153/r154 failed alternatives rather than claiming fewer scans are
+faster or changing the exact preservation obligation.
+
+Next test three independent physical write lanes: current apply, raw append and
+journal append, followed by the same complete exact checks and manifest barrier.
+Only one logical publisher may own the fixture; consumers remain pinned to the
+old manifest until all new vector members pass. A failed lane may leave unpublished
+physical versions and requires inspection/recovery, never progress advancement or
+blind mutation replay. Do not advertise native multi-table transactions or real
+fencing from this experiment. Count all checks, history collection and manifest
+confirmation in publication time. Keep the isolated100k/current20M bound and
+existing compute; this addresses elapsed service without weakening validation.
+The full goal and all sustained/read/concurrent/cold/billion gates remain open.

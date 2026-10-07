@@ -1,0 +1,22 @@
+{
+  "state": "Three exact journal pairs and11 typed native corruption refusals passed; final metrics pending",
+  "stage": "client_dev.ashlar_entropy_20261006_r86.schedule_r139_1",
+  "stage_version": 0,
+  "journal": "client_dev.ashlar_entropy_20261006_r86.property_journal_r89",
+  "journal_version": 19,
+  "batch": "r139-b1",
+  "refused": [
+    "duplicate",
+    "missing",
+    "old-null",
+    "missing-flag",
+    "unicode-lexical",
+    "new-value",
+    "cursor",
+    "origin",
+    "timestamp",
+    "event-ordinal",
+    "property-id"
+  ],
+  "qualification": "100k existing unique-event scoped journal rows, exact all21 fields/UTF8 and duplicate detection included; no digest substitution.11 tiny typed native controls, not all production semantics. No table writes or publication/sustained admission."
+}
