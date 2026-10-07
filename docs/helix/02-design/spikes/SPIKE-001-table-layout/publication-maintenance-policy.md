@@ -3,7 +3,15 @@
 Draft physical policy under CONTRACT-001, CONTRACT-002, CONTRACT-003 and ADR-001.
 No producer wire format, UMF binding or new support claim is selected here.
 
-## Evidence and limiting resource
+## Current40M-edge maintenance candidate
+
+Retain the proposed unpartitioned lookup-hash liquid-clustered baseline with full native identity checks and exact carriers;64MiB remains a tuning target, not a file-size guarantee. The [matched second-batch comparison](second-layout-comparison-r340.md) favors LC ingest cost. The [bounded maintenance qualification](lc-prefix-maintenance-disposition-r353.md) proves one prefix rewrite33.8s/2.328GB with all39.98M complete carriers preserved and actual same-SID versions4/5. All-table ordinary attempts remain canceled evidence with costs retained; no cheap per-batch whole maintenance assumption is justified.
+
+Admit separately scheduled maintenance only against a validated base vector, actual coverage and stated resource/interference budget; source backlog retains priority. Select range width by candidate file/byte coverage. This pilot's49files/2.338GB and1/16prefix are not a billion-scale threshold or cadence. Require actual commit custody and preservation before maintained versions are exposed; no existing manifest is repointed. The maintenance-manifest/concurrent-writer protocol remains unqualified beyond controlled fixture receipts. Keep raw/journal history and active cursor/version retention intact.
+
+Matched uncached warm second-pass reads remain104ms engine/416ms caller after maintenance, versus101ms/435ms before. Lower sampled bytes/files do not establish causal latency improvement. Warm100ms/250ms, sustained10k/s/100k/s burst, controlled cold and1B/5B remain open; the optional target calibration question has not changed the current budget. Native result-cache/transport behavior is the next small singleton experiment, with cache hits and physical reads explicitly separated. UMF and native graph-engine feature admission remain deferred.
+
+## Earlier evidence and limiting resource
 
 The [r148 calculator](publication_capacity_r148.py) consumes hashed authoritative
 r133 publisher, r140 maintenance and r142 reader evidence. Its
@@ -53,7 +61,7 @@ Next qualify an incremental-custody publication protocol against this full sweep
 exact eligible change set, complete affected-role field/origin digests, mutation
 predicate and commit receipts, immutable inherited snapshots, and explicit refusal
 of intervening/unknown writer changes. Keep full sweeps as independent qualification
-and audit evidence. The optimized protocol remains unimplemented/unqualified;
+and audit evidence. The later r292/r332 incremental-custody runs now have scoped controlled-fixture evidence; production source/concurrent-writer qualification remains open;
 no existing descriptor or correctness claim changes. Native0.3 forward rows include
 entity_version; this mixed run updates that field even for property-only changes,
 so structural endpoint stability alone does not prove unchanged forward carriers.
