@@ -1,0 +1,2231 @@
+{
+  "state": "All64 exact full-field points and complete16M live-file ranges verified",
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.growth_edge_current_r250",
+    "id": "653b3b49-1423-4892-be10-19c28a6b9ecf",
+    "version": 3,
+    "rows": 16000000
+  },
+  "reads": [
+    {
+      "ordinal": 354689,
+      "id": "8354690",
+      "pass": 0,
+      "statement_id": "01f1c238-2e47-1920-b7e1-c4c4f9f74ed3"
+    },
+    {
+      "ordinal": 915037,
+      "id": "8915038",
+      "pass": 0,
+      "statement_id": "01f1c238-2e8a-18c2-b80d-6804340c2dc3"
+    },
+    {
+      "ordinal": 1719639,
+      "id": "9719640",
+      "pass": 0,
+      "statement_id": "01f1c238-2ecb-15a9-839b-0364d928f893"
+    },
+    {
+      "ordinal": 1499794,
+      "id": "9499795",
+      "pass": 0,
+      "statement_id": "01f1c238-2f10-1651-90c5-1dd51bbfeba5"
+    },
+    {
+      "ordinal": 2751892,
+      "id": "10751893",
+      "pass": 0,
+      "statement_id": "01f1c238-31ad-14c5-9674-6fd91ae38d97"
+    },
+    {
+      "ordinal": 2657640,
+      "id": "10657641",
+      "pass": 0,
+      "statement_id": "01f1c238-31e8-1b1d-934c-29113fd4e1ea"
+    },
+    {
+      "ordinal": 3896291,
+      "id": "11896292",
+      "pass": 0,
+      "statement_id": "01f1c238-3223-12b4-8c48-4ae1ace231a3"
+    },
+    {
+      "ordinal": 3275202,
+      "id": "11275203",
+      "pass": 0,
+      "statement_id": "01f1c238-3263-1734-8fcd-54a58e7909e0"
+    },
+    {
+      "ordinal": 4070599,
+      "id": "12070600",
+      "pass": 0,
+      "statement_id": "01f1c238-34a9-17a9-8baa-0ecd003fffe6"
+    },
+    {
+      "ordinal": 4231512,
+      "id": "12231513",
+      "pass": 0,
+      "statement_id": "01f1c238-34e2-1b0c-a467-efae2c41977d"
+    },
+    {
+      "ordinal": 5626686,
+      "id": "13626687",
+      "pass": 0,
+      "statement_id": "01f1c238-351d-17f7-a750-78b823b636f4"
+    },
+    {
+      "ordinal": 5836007,
+      "id": "13836008",
+      "pass": 0,
+      "statement_id": "01f1c238-3559-1748-907e-f78c7843ed0c"
+    },
+    {
+      "ordinal": 6523726,
+      "id": "14523727",
+      "pass": 0,
+      "statement_id": "01f1c238-3793-19ca-9783-9f02d2218447"
+    },
+    {
+      "ordinal": 6491940,
+      "id": "14491941",
+      "pass": 0,
+      "statement_id": "01f1c238-37d5-12ce-8512-518e36cb43d7"
+    },
+    {
+      "ordinal": 7118255,
+      "id": "15118256",
+      "pass": 0,
+      "statement_id": "01f1c238-3812-1443-8209-a91ecc40e6ef"
+    },
+    {
+      "ordinal": 7460403,
+      "id": "15460404",
+      "pass": 0,
+      "statement_id": "01f1c238-384e-141a-a1ad-eeeef5e6b5d4"
+    },
+    {
+      "ordinal": 8891268,
+      "id": "16891269",
+      "pass": 0,
+      "statement_id": "01f1c238-3a9b-11d8-8de6-3fc3ab4f0baa"
+    },
+    {
+      "ordinal": 8369642,
+      "id": "16369643",
+      "pass": 0,
+      "statement_id": "01f1c238-3ad6-19d3-b186-26d2b263e4c5"
+    },
+    {
+      "ordinal": 9016386,
+      "id": "17016387",
+      "pass": 0,
+      "statement_id": "01f1c238-3b10-1ef9-8259-e5c62b654980"
+    },
+    {
+      "ordinal": 9046863,
+      "id": "17046864",
+      "pass": 0,
+      "statement_id": "01f1c238-3b4e-1728-bc94-885dbfc1f4fb"
+    },
+    {
+      "ordinal": 10690946,
+      "id": "18690947",
+      "pass": 0,
+      "statement_id": "01f1c238-3d8e-1eb0-8770-488cfef1b00f"
+    },
+    {
+      "ordinal": 10733684,
+      "id": "18733685",
+      "pass": 0,
+      "statement_id": "01f1c238-3dd3-1361-abe6-4dc210551703"
+    },
+    {
+      "ordinal": 11418293,
+      "id": "19418294",
+      "pass": 0,
+      "statement_id": "01f1c238-3e10-18bb-814d-6a421807777a"
+    },
+    {
+      "ordinal": 11987557,
+      "id": "19987558",
+      "pass": 0,
+      "statement_id": "01f1c238-3e4d-1b92-8d27-82eeae67b7d4"
+    },
+    {
+      "ordinal": 12111227,
+      "id": "20111228",
+      "pass": 0,
+      "statement_id": "01f1c238-408d-1f79-a635-6c6e2e820b30"
+    },
+    {
+      "ordinal": 12227511,
+      "id": "20227512",
+      "pass": 0,
+      "statement_id": "01f1c238-40c8-1abc-a4da-d05d35f83682"
+    },
+    {
+      "ordinal": 13663904,
+      "id": "21663905",
+      "pass": 0,
+      "statement_id": "01f1c238-4107-11a9-b01c-c91ba19c1e89"
+    },
+    {
+      "ordinal": 13080131,
+      "id": "21080132",
+      "pass": 0,
+      "statement_id": "01f1c238-4143-1109-80fc-ee94d5be9d1e"
+    },
+    {
+      "ordinal": 14457574,
+      "id": "22457575",
+      "pass": 0,
+      "statement_id": "01f1c238-438b-171f-879d-4355e538ebbb"
+    },
+    {
+      "ordinal": 14896489,
+      "id": "22896490",
+      "pass": 0,
+      "statement_id": "01f1c238-43c7-1e2b-9fb2-30ba1c300c95"
+    },
+    {
+      "ordinal": 15405162,
+      "id": "23405163",
+      "pass": 0,
+      "statement_id": "01f1c238-4409-102f-8214-bbec76a9f26b"
+    },
+    {
+      "ordinal": 15023059,
+      "id": "23023060",
+      "pass": 0,
+      "statement_id": "01f1c238-4448-13c5-88d3-ba88aa36d4d4"
+    },
+    {
+      "ordinal": 354689,
+      "id": "8354690",
+      "pass": 1,
+      "statement_id": "01f1c238-4685-1dcb-b622-e524078dbac1"
+    },
+    {
+      "ordinal": 915037,
+      "id": "8915038",
+      "pass": 1,
+      "statement_id": "01f1c238-46c1-170b-a113-0eb72f7a54af"
+    },
+    {
+      "ordinal": 1719639,
+      "id": "9719640",
+      "pass": 1,
+      "statement_id": "01f1c238-46ff-11f6-afe2-ebdec29e168c"
+    },
+    {
+      "ordinal": 1499794,
+      "id": "9499795",
+      "pass": 1,
+      "statement_id": "01f1c238-4738-1d7b-8ee5-26f57dee5f38"
+    },
+    {
+      "ordinal": 2751892,
+      "id": "10751893",
+      "pass": 1,
+      "statement_id": "01f1c238-4977-14b2-8e4b-aa399a8128b3"
+    },
+    {
+      "ordinal": 2657640,
+      "id": "10657641",
+      "pass": 1,
+      "statement_id": "01f1c238-49b5-1e99-a901-b983ad0775e7"
+    },
+    {
+      "ordinal": 3896291,
+      "id": "11896292",
+      "pass": 1,
+      "statement_id": "01f1c238-49ee-1439-bb05-3a30275c57af"
+    },
+    {
+      "ordinal": 3275202,
+      "id": "11275203",
+      "pass": 1,
+      "statement_id": "01f1c238-4a2b-12c1-b4d5-37f33b444188"
+    },
+    {
+      "ordinal": 4070599,
+      "id": "12070600",
+      "pass": 1,
+      "statement_id": "01f1c238-4c6e-18b7-b31d-de70118fe65d"
+    },
+    {
+      "ordinal": 4231512,
+      "id": "12231513",
+      "pass": 1,
+      "statement_id": "01f1c238-4ca6-1bc5-a320-481cb3b225ef"
+    },
+    {
+      "ordinal": 5626686,
+      "id": "13626687",
+      "pass": 1,
+      "statement_id": "01f1c238-4cdf-14fb-a2fe-dd401afbfb64"
+    },
+    {
+      "ordinal": 5836007,
+      "id": "13836008",
+      "pass": 1,
+      "statement_id": "01f1c238-4d17-1de1-91bc-b34d248d8574"
+    },
+    {
+      "ordinal": 6523726,
+      "id": "14523727",
+      "pass": 1,
+      "statement_id": "01f1c238-4f64-1bf5-93f7-655ccf1d4600"
+    },
+    {
+      "ordinal": 6491940,
+      "id": "14491941",
+      "pass": 1,
+      "statement_id": "01f1c238-4f9e-12b6-8d49-2ce368985758"
+    },
+    {
+      "ordinal": 7118255,
+      "id": "15118256",
+      "pass": 1,
+      "statement_id": "01f1c238-4fdc-10fe-87a2-08b50036df3a"
+    },
+    {
+      "ordinal": 7460403,
+      "id": "15460404",
+      "pass": 1,
+      "statement_id": "01f1c238-5016-1b6a-bc5b-b7ddde10e030"
+    },
+    {
+      "ordinal": 8891268,
+      "id": "16891269",
+      "pass": 1,
+      "statement_id": "01f1c238-525d-18b4-9b20-2da09c629236"
+    },
+    {
+      "ordinal": 8369642,
+      "id": "16369643",
+      "pass": 1,
+      "statement_id": "01f1c238-5299-193b-ba63-485a395ea15d"
+    },
+    {
+      "ordinal": 9016386,
+      "id": "17016387",
+      "pass": 1,
+      "statement_id": "01f1c238-52d1-167d-9b34-0112bb657c66"
+    },
+    {
+      "ordinal": 9046863,
+      "id": "17046864",
+      "pass": 1,
+      "statement_id": "01f1c238-530b-115d-b0d1-add7ea4bb8bf"
+    },
+    {
+      "ordinal": 10690946,
+      "id": "18690947",
+      "pass": 1,
+      "statement_id": "01f1c238-5542-10eb-8551-984c85967513"
+    },
+    {
+      "ordinal": 10733684,
+      "id": "18733685",
+      "pass": 1,
+      "statement_id": "01f1c238-557c-1698-813e-938fa461419a"
+    },
+    {
+      "ordinal": 11418293,
+      "id": "19418294",
+      "pass": 1,
+      "statement_id": "01f1c238-55b6-1a34-8fbe-563baafa5ff6"
+    },
+    {
+      "ordinal": 11987557,
+      "id": "19987558",
+      "pass": 1,
+      "statement_id": "01f1c238-55f0-1bfb-bc4d-8779fbc20e3b"
+    },
+    {
+      "ordinal": 12111227,
+      "id": "20111228",
+      "pass": 1,
+      "statement_id": "01f1c238-5823-16cf-9f7a-8f4d46e76b9d"
+    },
+    {
+      "ordinal": 12227511,
+      "id": "20227512",
+      "pass": 1,
+      "statement_id": "01f1c238-585d-1854-9cea-11c4034790f5"
+    },
+    {
+      "ordinal": 13663904,
+      "id": "21663905",
+      "pass": 1,
+      "statement_id": "01f1c238-5895-1546-8bed-b3ec0b58403c"
+    },
+    {
+      "ordinal": 13080131,
+      "id": "21080132",
+      "pass": 1,
+      "statement_id": "01f1c238-58cf-18e0-983e-5393a012e34f"
+    },
+    {
+      "ordinal": 14457574,
+      "id": "22457575",
+      "pass": 1,
+      "statement_id": "01f1c238-5b0c-1eb2-b7b3-d8d9cb8efade"
+    },
+    {
+      "ordinal": 14896489,
+      "id": "22896490",
+      "pass": 1,
+      "statement_id": "01f1c238-5b47-1d08-8848-03c79b7cfe95"
+    },
+    {
+      "ordinal": 15405162,
+      "id": "23405163",
+      "pass": 1,
+      "statement_id": "01f1c238-5b81-1d46-a1e3-101cd8fb5fce"
+    },
+    {
+      "ordinal": 15023059,
+      "id": "23023060",
+      "pass": 1,
+      "statement_id": "01f1c238-5bbb-1494-9c9b-bed1797a2980"
+    }
+  ],
+  "files": [
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00012-611c226b-a4b9-4f35-b843-94900c13ae89.c000.zstd.parquet",
+      "133552507",
+      "164134",
+      "bb8da11dca473e1780ff12ae543130bffc11bad6b68832e14e3482b070d0bee8",
+      "d08741e1178fb8fbc8e7698a578f7b65feb92ff00efeec595ce9eb12575a5607"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00007-026b1472-b9a9-4f0f-b74d-455124f16933.c000.zstd.parquet",
+      "110319195",
+      "134874",
+      "d087456567754bf8a3e3d7be142d9bbb8a94fd89613e6c6ac081aa90046c323f",
+      "e1bd1a015862e10a4e2f0fe4844cb93d8905fb7b85c700b113da190c0bb8cf4a"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00009-40ca0619-4194-47e6-aa52-9fdd4cfc90a7.c000.zstd.parquet",
+      "100520651",
+      "123210",
+      "4fa104d50094b0638d705343cae54175c795af5fc1b4c601f6ac4e7660810149",
+      "5f70758338a693f08781c7f876669bfab9876efa9ea4ff78b64b2082ae0db815"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00013-d707df24-307b-4709-95cc-2451fcb944ae.c000.zstd.parquet",
+      "118471684",
+      "145605",
+      "8cb2c08c79561c318d3afc7bff575ca69f9efe72ff62f65c328c59c88a299b5f",
+      "9f57b6d9a703b9c6ebd9e7111a50f08a6bb31d8be627c701f2c5a5b2f198f204"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00006-5ef223f6-1e29-460f-95af-3c56abdc0e52.c000.zstd.parquet",
+      "115579705",
+      "141598",
+      "1ae3ec1648c19b46055511a18a35c5bef2f13f0f15a613d8903e9ff7aea60958",
+      "2d04f87d65bea8f24f4c9497446d1376a6c4fbd9ef92da5901fd28eeced294fb"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00023-3c945a39-d643-45d3-afaf-e1fe24ce360e.c000.zstd.parquet",
+      "104677229",
+      "131922",
+      "7bd7f0f89c67368058115657e9a82dbeb1c19d1fc433f8d10ea2e25317723879",
+      "8cb2bbb48d941d6c7b4f0c632b25bb91afa929f66835bea3d081b7caadffcde3"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00008-344600b2-7439-4648-a642-37eb7b9c68cd.c000.zstd.parquet",
+      "107164670",
+      "131767",
+      "7bd7e81cba1caff5165d64d94ea9b17316873033a6f3badab77d6c26fe13d9f5",
+      "8cb2b108c5d11c98a75fe28704df9ece6ef0325f422409f3cf3a1d10aeae0255"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00014-0871ff13-d0bd-4f5a-aa4c-a197480b65b6.c000.zstd.parquet",
+      "104957462",
+      "129209",
+      "2d04f99db7c2316afe09ef00567d92b6672e3546d7b6787d32773373f3ad3f20",
+      "3da1a13eb4f8d7c68bf9766050d97d93083605efa91dcb26af0a6e54f8ba6b50"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00002-bbe55ba1-9f12-486c-8e09-2704cb4d1572.c000.zstd.parquet",
+      "114776371",
+      "140449",
+      "3da1b4004aa52eb980f81154a607880732a2968b26b29f28dc0f593d4be7fe65",
+      "4fa103a3094d6ba2326917f88b5bea18ac0ca6cebf03e851fabf6cf6d465fb89"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00010-e763cbf4-cc0c-41ec-bfac-e3f5ebacb924.c000.zstd.parquet",
+      "87054059",
+      "109512",
+      "ad8b7f27984148ec6144167e0138216446152fb4a915bab1485afce514f58518",
+      "bb8d9cbae3c361b5b3bc708ccb11fbd41d37cffb38bf933e59698ea26d030013"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00087-331b21c4-4451-4066-8d32-91f7add9e030.c000.zstd.parquet",
+      "88867182",
+      "110805",
+      "0d7eaa43e59616c3f9da381b10188e99434462c50bea9eab04c7a05cd0b3b6ad",
+      "1108a5e72a0fe29366a251c9e3ce5b2160268ff8f88383db09a50336a8482f25"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00004-3ecf5ddc-a3e6-42da-b518-9a3223f54283.c000.zstd.parquet",
+      "94014088",
+      "115526",
+      "e1bd2d46985834bb8f1074fefefdaf33289df6a17d3e68cf651a8715b006cc94",
+      "f08f3e44cbdad638c30f72012bd419c7affcbba245fd9fe0c43e6c7700452d6c"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00001-1d52fc21-05e2-4e20-8508-3d3926c75e3e.c000.zstd.parquet",
+      "90454681",
+      "110970",
+      "9f57b95a1529858b7c8d9e04af69ad7c048bce551b70b1880d54f4f2772a4cff",
+      "ad8b66ae7e6db02edf6ccbe2fb2c699912c9a34c04024a10ac90763ccc796212"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00000-0b422b79-1207-4384-afbb-814c3fae4b18.c000.zstd.parquet",
+      "96090636",
+      "118316",
+      "6cab669475207235f9c4dbe483303d1a80ca8745bd599efc9a50eec072e573c3",
+      "7bd7e21111c637105b1ce47f9a1fa1dc771765bdc93f15e85274788f868e4c43"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00015-7f9e629f-1dc5-4e58-9ac0-68302a78d82d.c000.zstd.parquet",
+      "85769283",
+      "105510",
+      "00000816c77031ce28a15c4dc150f81eb293bd5c088545b68d9bda3923c50b57",
+      "0d7ea6013acaa65a13ee62807b588ed16a9c3cd75ecf0562945a158d80298fa6"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00091-320f3549-730c-4d40-ae3b-3ab4501c8a41.c000.zstd.parquet",
+      "95632166",
+      "119665",
+      "b4637c9ca9220a7054d8b31e7708eee3355ea4d467e342f50ae180a74aac0638",
+      "b838df58d9cd0e83e0353863cad19093640bffd80884e1d229bac32a53e74a63"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00005-a0a10903-9033-4021-ae0d-19e945464370.c000.zstd.parquet",
+      "89679130",
+      "109574",
+      "ad8b6b19a500d3ca6efbd989a6db0fe33cd2a6c8e3263bf8fdd17cbc58f02f51",
+      "bb8d9d9a5fcea0c539e056c7fd7d5c4c1cf50291019df3c7c2b87af209251161"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00047-b5576476-4dca-4d3d-9e8a-1989c0fed289.c000.zstd.parquet",
+      "91705830",
+      "115514",
+      "a62bffa10f25ab0101d58bc2e73611c70dfecc3ff8fd42569dc5db903bad4072",
+      "ad8b6403e1f9cb5dc80b1e6b740ad259d12ea72f26022d5e76a4cf29a9922047"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00003-05c83efc-8d2e-4f3c-9b73-b7fa4c7ec607.c000.zstd.parquet",
+      "85817604",
+      "105188",
+      "0d7ea86bbcff3f986dcf6b132809f45f69c6c378726e769ab3a065755457ad34",
+      "1ae3e0002b2e1cd1a408d21a656703ad14d1fa1f32edbd12fffd5c9e6bbc6dd6"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00010-95af911f-c072-46ea-ba0d-a22b31fdbbc3.c000.zstd.parquet",
+      "98442308",
+      "120347",
+      "f08f3ff6cb173b56aacf0c14075cdd9e94338df24795df0f85319c105b545609",
+      "fffff3ab317cc6c74c36ecf621f5aa8dacda4c278e99b429a091d009299363c0"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00036-ca744c08-9141-4472-8af2-1e43c2feeedc.c000.zstd.parquet",
+      "80451218",
+      "100766",
+      "bb8da34aba8cf517ec30bb3e8f54fb98051d00cac11fbe9f2b971f1fa42d70b0",
+      "c201d7cdfd4537e3d343035d5168a308d6b584800b7be005d880ce249a161f72"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00084-b6c88795-c30f-4c5c-8d34-4de4da6d33e1.c000.zstd.parquet",
+      "83126428",
+      "103694",
+      "cd357a7d5c56a6a60479129ca553f550c5c6f3cb2ca45a3b708701f5baebba7e",
+      "d08745221297e2a90e941b73b696f2de0ba9ecbd8bdc5b42d591f31fa491fe0e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00040-42bb4c9f-a345-411f-950d-9fee0539d3b6.c000.zstd.parquet",
+      "27612478",
+      "34621",
+      "6181c31acac67cecc8976dc21df0faf90c0aa14a89bcdfeebe3d1e791373f9f7",
+      "629ce97ec3ca9b9e6fa369058a01035643358ad738d6ccea8b4d1c56fe30f24c"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00052-b12b0eec-a4a7-4c60-8325-4e5e961b1617.c000.zstd.parquet",
+      "85144053",
+      "106958",
+      "177b2990c588fc46b19fa26b18ab72cb74d3f22b21a9598e0350e794f7e4d36b",
+      "1ae3e42cad425e3a3e169837486648df46fbe61d1f8e2dcbb62dbc7391e1bf63"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00011-e09ef3fc-5d6c-44b1-bd57-8689852ea066.c000.zstd.parquet",
+      "84581561",
+      "103723",
+      "5f7077aa3c8a80efb0dec3c8142de45a00b8a7e50d13cf28b8d44a132083e824",
+      "6cab535c7036d35eec45ac903e189969e3c868c7ab5b339d926812e185e3bcc1"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00047-964992d4-82f3-4169-9f41-f34db893e2d6.c000.zstd.parquet",
+      "78412139",
+      "98323",
+      "1108a9c976219484c5b76f74976f0486da45b7a03133b4a00bcc533c100db570",
+      "1428fcff88cb3c274c773539bb3dae1e632485b86284d07611b577688b55f4b9"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00071-dbee0c59-66f3-49e3-b28a-4fd7fd89e844.c000.zstd.parquet",
+      "77125701",
+      "96741",
+      "ad8b6b238f56b37a95dd77c15af88435a4eda89aa405e319cf3d7495afc0b636",
+      "b0a182122459419b8b58fc4d4c39d5928d7e957f8c0fadee04487ea7c6edb9fc"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00043-76060aac-d69b-4998-863e-e204604d365a.c000.zstd.parquet",
+      "83508339",
+      "104270",
+      "06d0c34a74245ccb7016c94bc74969f0939937e8c2db8034cb0c69852e1e3dce",
+      "0d7e9d677c97018bd02fda912c19a634b2398792a87e6e291dcca88c0d1ca1d0"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00051-5f456808-f16e-404d-89c9-9374de89d774.c000.zstd.parquet",
+      "82456759",
+      "103457",
+      "1428fd6249c5de29d0b93c3db04e15ea52e6fe12e540a6e541491f171c46593a",
+      "177b27d853b966e0cf9f96057d28fba0005bd6e4582ed015fa7bc18d37b82c11"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00011-d26b5eed-f336-4b5e-b878-e37448659d48.c000.zstd.parquet",
+      "85255692",
+      "106678",
+      "9f57bb4782752ab4605bf045c9f33d5d816793a552a449b844136bd4581ee37e",
+      "a62bf9b1967870b776d6075d2e64f57622b0a9552afb57f33f9c80969093190f"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00009-db492bd9-a8eb-4c65-85fc-0b33a47c206c.c000.zstd.parquet",
+      "82996852",
+      "103639",
+      "5f707c40795cabfce18bedb6202202743dea3bc2dd20120af8aeafbfa77f833f",
+      "6cab4ff9a882b8e09e419a2ad3bbd9bf5ff99d6e0caf06d36822bc0e9942b11e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00051-040198f7-ab31-4d14-8c49-e7946cf091b7.c000.zstd.parquet",
+      "84726934",
+      "106711",
+      "000005e5555be6507a05ace2273d4c8ef83854279432a375ef99b1ca6d0e66ec",
+      "06d0c05715c9e449e09f14baa57b545bc96106b5d27c2c15c49dda0e77594c18"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00076-36d8f28d-3402-498e-861c-a956429e51fb.c000.zstd.parquet",
+      "83468465",
+      "104358",
+      "b838e76fcb218c9aa341113314a8182fae3cfa0a6be6e10276a407b840f2757a",
+      "bb8da0dfb4469ef9f5ba17ea6868a5196f347eef00225f3a8c71ad21a70c9eee"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00001-751786a5-b561-4e49-bf7b-072e6014577f.c000.zstd.parquet",
+      "68855643",
+      "86479",
+      "44933a765ce298a4662a833fa915b52fcb4cc3ac67228726fc310347bc356eec",
+      "4fa0f409bff2f2ecc2a615faa794ddf13ac1876a45108bb0d77397d2e7e5b0f4"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00020-f34a6194-8a04-4746-b422-ad89bbc8993d.c000.zstd.parquet",
+      "65246573",
+      "81917",
+      "8a15986d411c45844d8db0ba536fa2f1f0df4c7bc3790415efbddc3349027aba",
+      "8cb2b6e5ffb55113d76f38255820f93f4bb73edc55806e80611e12c25542e6dc"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00046-f1b89a0b-5764-4e38-be8e-cd117a2a75d7.c000.zstd.parquet",
+      "70397557",
+      "88178",
+      "1ae3ee080fa426f497d76db21abf4fa4c51d49aae3a9f0e9f3a70f5a9fc2b3e0",
+      "1dba7175bf2023a000eccfafb9b857fb88cfa267e30a009b3399be89e233fb6f"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00057-0286f9db-19e2-4783-9e4d-5b90512ed659.c000.zstd.parquet",
+      "68207599",
+      "85404",
+      "8ed63ce36b805ba8a660096991ec42963089de395b5aba960ad12707587d3844",
+      "918f81157a34f45d175244db0be0085aaf4d454e9a3cdb638d33703bb3c1bdb0"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00038-05e9ea1a-1777-4770-8aa4-f690b45b37c8.c000.zstd.parquet",
+      "73707662",
+      "92090",
+      "c819153f29c4d93890c6c913fb3c4909480838a7f656d212aef78ad647d0745b",
+      "cb0c15759f3a8ee13a3c1a233e5b1c90871588223b7207691f672890699ba6d9"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00002-352843c2-f054-4dd0-83d1-8ec6e4852f88.c000.zstd.parquet",
+      "72703920",
+      "91628",
+      "c4d732146174e1511c68dc0ecc012187220a20830a491e056034f1b2cd01a382",
+      "d0873ca95bfe452f8a6a312452d59a9343eecd59738d39e30f43047f521b6175"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00013-ff8461b6-2c08-49e3-a0a0-88f93d544f78.c000.zstd.parquet",
+      "67063051",
+      "83925",
+      "22207740bb036c23fb5d75244eb39d66d7d1da25c388529b969f3ba1d001d8b8",
+      "24ce146f6a51d0ccdb0f203043b7cbd03d59f3ce1f2e44968d4aa38330d9433d"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00077-6f085957-5409-4654-b9e8-8e00f775e6d5.c000.zstd.parquet",
+      "66528519",
+      "82998",
+      "941a710a1d485bd8dee46cb676b1b75992734e667b2ccd870e5ecd80274bfcca",
+      "96c199108c201bdcd518c1b90c6badf54a13cb78b2f01ebcae769b4801414f85"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00023-3ed1ec6b-5466-48e2-b59b-94cf2733612e.c000.zstd.parquet",
+      "66796682",
+      "83634",
+      "27a9c6bf9821c64079220e56f7c4c59f89ee80aa58e9eb52b32d8e896e0323dd",
+      "2d04f7d88ed8d8311673feba71ccb4279856f9459a87aa54455de7dc11c85a14"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00012-1a4eabeb-6ae3-47c6-b581-1363fe358d7a.c000.zstd.parquet",
+      "70323243",
+      "87881",
+      "41e8cab358e640c2a657a7356eefb8aa7e053a45f065cd68ccc68aa435dfa7ef",
+      "478f576e3adaa2c1f7c84bd86f63a55304c8cd76c371ea21ca9a1144040eb70a"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00088-336c9a00-caff-42b1-97fa-4f3c5bb4b549.c000.zstd.parquet",
+      "65640397",
+      "82473",
+      "8770bb04b572ba30a1ec76da8879c1255debbbc09a16cf321badb4e908e547ad",
+      "8a15973adcc6ac21e1e5233954d7a16ab7b471dba34467f3c804f6beeccbcc17"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00053-d824520e-7eb4-46ce-8f09-39d72bf62a98.c000.zstd.parquet",
+      "66471979",
+      "82943",
+      "c31b7e96f406f0f117c12d8e08c3d2d3f300a68d1ea891b04ca56b82cbe6cbe5",
+      "c5c37abae3764876198470e8012f6040ab50c50393ec56505361bccd9e6d9fe9"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00016-2ad85fb1-fd12-4828-8dd2-330cfcaf6c61.c000.zstd.parquet",
+      "70681843",
+      "88164",
+      "e4a1edc237abbf38a087e148b748be63e17fda4409e38391b0c6944a5b07e8bc",
+      "e7768aee8f14da09c8c33ee22755da02849062736368731df501feaedec810ba"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00026-f7c9d83a-bbaf-4d0c-b2f1-848f77cbc43a.c000.zstd.parquet",
+      "66902570",
+      "83794",
+      "c201da9f283750bc8916c5a484e8d2cf44eea5893420e031d3ae47edfe0ae94a",
+      "c75e3baa43158df24eee0f379f64b2f68e5eb1f426cbd44fba65a671bcdfeed9"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00062-aac6e51d-9eb7-49ce-aa27-c0861fab163a.c000.zstd.parquet",
+      "55211483",
+      "68810",
+      "4d6a52edcfb1303f7d57ed59b25fbea9d4c6af52967da75ce74bb306175fdaff",
+      "4fa101589a6393b3d73bf3d5207808eb8c69a9a1d9c752fffa38d2fae5f7cf4e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00109-5b362ef7-6811-40b2-9683-bbb27abd6bfe.c000.zstd.parquet",
+      "64136179",
+      "80393",
+      "d8db97a84fcb1da7af9e4d094761a697352f0921ff5a5858c215a72a8ebc304e",
+      "db70aa12ad80756daccabcdd381a9d2d46c5d9119bc60af1508717bb1be8b133"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00019-d7526fc0-0de1-4369-b6e7-b5b534152166.c000.zstd.parquet",
+      "64251295",
+      "80983",
+      "d087468124b64e0cedd19399663a5bef9ddf073150dc6ca8b7211dd2c6a14f24",
+      "d5b015b5fcdbd4f2bc66497735d29649f7aca1fa673d35dc7ebff36579dbbeeb"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00038-b4c44419-3310-4b9c-b53c-981bd80a3d92.c000.zstd.parquet",
+      "63536785",
+      "79874",
+      "6cab6b671fa50cdfd7b09b2d6866aa9a4b4d8ced50b7ace9fd6fc64bbea6c7aa",
+      "71c234d6f2e818be289ea58aa2819242b0c3bbf94103a4e5a1deee24f1ad2c8b"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00099-ca994d16-d57a-48d2-90da-ddc8bce77818.c000.zstd.parquet",
+      "63298165",
+      "79101",
+      "be0043d789006ae6170a32ab92544c14e0a74c38b31c4238b4f85f482b4764d4",
+      "c088135def468cab457472257a9975d2b9825043be26d02ea8edd47bd6da8883"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00072-77659b42-2d9c-4138-8b30-c9b9a90f6682.c000.zstd.parquet",
+      "62322033",
+      "77645",
+      "d4790ac9b2c67baf041f16a44ce358421fc7fd74dff6876718c0c633c740fd77",
+      "d6f497e943140c429d9e235eae9af10b2b14ca34b8baff40c92e078f27be5232"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00108-aa9ebcc2-60fb-4caf-93be-4b2c8f60f81a.c000.zstd.parquet",
+      "64926856",
+      "80680",
+      "3da1b4066eabe435a0236fc3d8962fd072f87493e213bfec48485f1355ad04e4",
+      "4037f2f6e74c711151a42a04d9ecba663a09452f35739963f173b717a8d81c69"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00095-70d09e19-c169-4144-8267-f231bdb7c9ae.c000.zstd.parquet",
+      "64504118",
+      "80745",
+      "c08813c361e86f1b1049384de4c9452237072edffabeb13ba860448230aab07b",
+      "c31b7e08fed8b6a35eab554871d756c001e2eea0d40935f7358b9dcef529fc4d"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00044-13777938-13e1-4c53-a712-df2b08197b65.c000.zstd.parquet",
+      "63915307",
+      "80146",
+      "2d05030db39b94b687afca2485502f99d6d19d37e206d8938f2906df1f442653",
+      "322dc02702283067a2e67b30d1b79424c969d5979ee06b8d896397c30a34319a"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00056-c23be7cd-d167-464b-82f0-48cc137dd4a4.c000.zstd.parquet",
+      "54594418",
+      "68705",
+      "55b908344fbd008ead5343b2635e04781c5061c1d5e9a10d03a54bd4cd8ee327",
+      "57ed9ab63e0cff7aedec86747640992563049b5d3a4f7cc6504834490275afca"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00009-cad97f6a-6728-44f9-90b7-3fa5f7d3e2ab.c000.zstd.parquet",
+      "63978109",
+      "80409",
+      "1dba720388496e89e54f1c042a4ed8cc4d0b676e4cc67f8cff23b6a2a77d826b",
+      "204fd29ceeae8f66918fc62932340788a7636fba576b1aa67104094dd97b4d1d"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00018-f1fe835d-ab97-4951-b5dc-a1420e12a30e.c000.zstd.parquet",
+      "63613850",
+      "80214",
+      "96c19aeea3fc63e2cd22e7e9ca8f5d77713426b71a4e65083006d330d968371a",
+      "994f3724946ef168da4f69b676fba919db3b16eb054072978109fd7df1b110f6"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00070-bf0a0f1e-6095-4503-813e-13b4ef9ea2dc.c000.zstd.parquet",
+      "62775633",
+      "78570",
+      "77bc35ad323a2de5689d2a13f102897c56bda7935d15d24eb1b4551fa36d44f0",
+      "7a4099f9afe8f25d16919213c3290e624252835cdb7686980b5272d6fcd1de46"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00058-5ea4d03b-75d2-4152-9405-0a19220e4b33.c000.zstd.parquet",
+      "65180711",
+      "81903",
+      "9a233a839a7e27a76d7ef08d471c7f7eddd04b45dab806885a31483b638f4005",
+      "9f57a2d6163f188f1ae20cca7aea186667a7c76f9e4036d4a7af514a319b0061"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00030-281f86a9-465c-45e5-ac43-0bc2bb6efe81.c000.zstd.parquet",
+      "63137496",
+      "79189",
+      "918f83097f301a73858994906b9ab2c30315e157eaeef819b3faad985727d0a3",
+      "941a6c27579dddae3a23c37c671b92ba7094cdcef0491746180405e38869aeb8"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00080-f5088413-6941-43b4-94f4-96d6b83f81c0.c000.zstd.parquet",
+      "63866233",
+      "80195",
+      "330f3f589ee34f5e25471344c94b28fd2d1e776adb08d1d4d1b5c7178d9252ce",
+      "35a3b6077e5fbe3ce6512473fe1a45de0882b47e555c004194a981f426f6fc78"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00118-d42cf07d-3068-480a-be46-b7a299424b37.c000.zstd.parquet",
+      "62605865",
+      "78825",
+      "48e179ddc23ff0692776b71f353742c28f9d9877fb736282f84cd2a7e0d2e5de",
+      "4b692524560b8d7d939fbdb0dd1a7ba2cf506ae49a2acb6f13ec0f2e3e6ce1a4"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00041-44d965a8-a56e-46e1-b3ea-7f6bd0e806fa.c000.zstd.parquet",
+      "57870973",
+      "72670",
+      "d5b01a6d0197af759214a446cb8abb5736afdbd932d4407c6d998fe609933d3c",
+      "da5acd5813b4c4f1b125039d58967f7b2fe3c620e17de6014b775e08358417a9"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00025-b85c3523-e868-4e14-b0da-86fc70e5efa1.c000.zstd.parquet",
+      "62035068",
+      "77675",
+      "8cb2ca0ba182f79e680e2d3ab39be2612d5b64964835a533c9e8fe1611ca74c8",
+      "96a9fbceb30628631ae8143fea98db4008d48b05a5210f35e92f79dfa723c32c"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00037-d2f75ead-533b-4874-acf7-f6e16698ee94.c000.zstd.parquet",
+      "59094403",
+      "73732",
+      "51763d15a2979ba9d9d88cd956588334abcc36344d611ec82e71e489d606b699",
+      "53d261b2e70aa5dcb48dde9df82126631f3e1e7b7a3aacf7429e5cb2f0decad3"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00024-2cfc735c-f873-4725-8a83-64332157899e.c000.zstd.parquet",
+      "57292641",
+      "71901",
+      "f08f40a0cb7949a6ab9271392542ac221a0dd272d2e1c6dbde2d64c1f62f67f4",
+      "f2dc897ffd6a646b3a376ae8eac25bd1cd16c512360f6deb17a8d897a1cfc4ec"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00034-7028858a-2fa2-4d35-a88e-6c860daaf37d.c000.zstd.parquet",
+      "56651914",
+      "70780",
+      "cc05a59ac58bd880423a064420ca384f6ce517455f4f14643255feb989802b65",
+      "d08745380239b19d1314284af66ac0f73ce95b4f56d4ab5b8df64838054ad379"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00015-d365d2eb-23be-454c-84a3-9f0f65afe080.c000.zstd.parquet",
+      "58680727",
+      "73371",
+      "537994ff8e2a76fac54cf0563742c37deaf14b2444267d1a4b684ae61e530987",
+      "582707b6f114c880d01334e87fc78dfb373ba824d34821d864b9f6a752f78aea"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00026-2d7d961b-7138-4476-a418-3196d2125526.c000.zstd.parquet",
+      "57475741",
+      "72683",
+      "bb8dac91485c7992195ba5bcea7add91c445c8d56e242b83466ba7b60bda5204",
+      "c4d724098da0bfe414e2b930d9e8008a5a456b29e433015b218314496888f928"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00043-71b3048d-2560-4240-857b-21c361f103ff.c000.zstd.parquet",
+      "56952052",
+      "71795",
+      "35a3b956235b231a34a922e38e354e7b285f155f0518e7c3cb0a24c8598baee0",
+      "37f11ba595252d70aee57b45ec1a595659a109ceb068dee31d9b59c7ae8c9096"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00050-2c737e25-75bd-4c1a-b9f8-945212c54ff6.c000.zstd.parquet",
+      "57153124",
+      "71769",
+      "2ab5aba63aa1f9d4b0fa6286b874cf9fbe9dd8c81f7e5e9e0df6012455c3c666",
+      "2d04f867d21278d3632d719a50aed8e1ef146b7464838227a0356f64ee05f9ba"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00011-8765ce26-9da1-4022-b3e6-60caa7688354.c000.zstd.parquet",
+      "61977478",
+      "77745",
+      "231296e1d08defa4ed51696e37a4132cde333bcc6ad6abdfa055c50afbe8b56b",
+      "2d04f034cddfda18e7722d703213bd03f734f75c7f57503ac5aece3e44556510"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00056-dcf64929-13e4-4248-833b-59309dcd7e26.c000.zstd.parquet",
+      "58984720",
+      "74254",
+      "9565abea8163dec8633da7b3b9a6e700933f19178e1ffa49708e176f4fe00c59",
+      "9a233a376bf2c06cd3d6708327d70c29dd56198e57cc36be910658f8e9b674b8"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00078-2916a0d7-5db2-4d6f-8625-90c475b23ae8.c000.zstd.parquet",
+      "61015537",
+      "76591",
+      "bb8da1bf55a41e8d6e105f3d6d66b0c861a87a185795646b00bbf317b672f8dd",
+      "be00415498e77e58a1f38891187bf486d8db21010276c98b81c87477615e888e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00017-a544ad66-a4f1-4e7a-a9db-76454114a58f.c000.zstd.parquet",
+      "60953511",
+      "75879",
+      "d0874d40f5fcd62a440e3db30e382d5a87a8eb384cca430aa867b794acc16d45",
+      "da3f6c86a2f3b5e18c4fd398fd7c84f998e825b11081a6e09912ec217ea296c2"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00014-623943e6-9fac-4674-809b-92c74b7e070a.c000.zstd.parquet",
+      "58015160",
+      "72761",
+      "c5c37b999a5935abd6277092418a16f2eb782ba0c4724e71497b919ca6f17f0a",
+      "c81913ad0532a54e0724b283c723a7b253c6c449f4e4c218a7c4689893ac9c7c"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00045-33286f97-5207-474a-9318-df7f1ec55d81.c000.zstd.parquet",
+      "60839457",
+      "76109",
+      "8cb2c1b2da4a2777cf0a9ad470c07107a6121ee4a6381a274cca85c325f91da8",
+      "919984ceccb07fe906170e8a6c63697ae747385b253e56b2118738f7df9e8421"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00016-74ca67c3-412f-4fef-a6f8-e3ab0ea420bb.c000.zstd.parquet",
+      "58138272",
+      "73067",
+      "c75e3f8d0e509aebabdbbf0fc9da9495d1a483522d16753965e9bf17f8f237d8",
+      "cc0599c0a7917aaabceecd8e07f9f0a55aa51d9c6e23448904ff7168e8e9b368"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00094-7e0dc4a9-840d-42bb-ad93-c35c62781be4.c000.zstd.parquet",
+      "56802166",
+      "71219",
+      "4037f45d815ad56f61554ae33dedd99c5ff0f5ef2b6f795eb2ebb16495c15350",
+      "427d3366c446ef7cbb8bc07e02c313cd876e9c001908aff60c8ef78da02855f6"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00033-159d8d91-4c4b-4729-9352-ca512c778875.c000.zstd.parquet",
+      "53784409",
+      "67062",
+      "88642bd7b11032a3cbb12f217772688568912674abf9745400ae02c27b7a91e4",
+      "8cb2aff3690892be5de567ee39191dfe5a4a1742ff0e80be8c5b3f91ce35a0fe"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00007-ee404a6b-3912-4068-b1ba-6cdd9f7db69f.c000.zstd.parquet",
+      "55796653",
+      "70089",
+      "fb82c096de301a06d7f266a7636d2ee5e5f14f02ca736cf76d37a1912c864f54",
+      "fffffd4adb799b7e26145bbb1bd49f3fc697574ff5b33dabdca64a7ec7ad6bc9"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00048-7a678bfe-9ee7-49a7-a8b1-0a2241448c01.c000.zstd.parquet",
+      "54021422",
+      "68006",
+      "cb0c185fc6cc6637a92c633853cde7868e07adbdb8b838f4c625a3a6e8d13a04",
+      "cd35780ed2f5ca4474b671c75cf5f870fc0ccaf2d5c94095a8a6c13f8504af44"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00024-2d99c358-7607-4925-9606-0a8526519845.c000.zstd.parquet",
+      "55130001",
+      "68880",
+      "7fac16ec3aff0cb075df32945f178cf4dbd670925c50351ca8456ce1e55f2bd5",
+      "8416806a96fbeac31404e1bcd5944aa004114723b2364ec4c3340807cf532681"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00009-09722669-5317-4a62-9850-8da18127fa2e.c000.zstd.parquet",
+      "55568930",
+      "70351",
+      "2326ab37252f62c72e53f1887cb6c559e6902750ad4c5e3d901353db87a9d6b4",
+      "27a9c3d99c43112183ae3230417a14b4644131dc232a671aa2453e85e9b6dfa9"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00119-66f41b7c-c686-43a9-b862-e92fcc78edf8.c000.zstd.parquet",
+      "53544252",
+      "66994",
+      "24ce148cd66797c1409d49fc133ab0e469f1e578c83ea07b85040882e241e37e",
+      "26f2998d74c1f1ce2eebf7f7d077ceb4f1904c38c743b6b40f14552867d0665c"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00029-135db96e-8388-42ea-bb75-61575c3aeaba.c000.zstd.parquet",
+      "53982917",
+      "67500",
+      "3da1bc5595621b326c562faec92571c5d2f4b22544cc4179d0216c9ecbe55425",
+      "41e8c2986154d53ed541dcc8433b9cf5fb3132ac85b9818569ffb31760c3779d"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00022-3c851467-d816-4cdf-93a1-e6116c721c44.c000.zstd.parquet",
+      "56608094",
+      "71268",
+      "2d05062e94b6ed80a936a93272a7967ecd56b9dece1331b68a9f4668dc522cef",
+      "362d5385217b56bdc2321b524b28b4c630e998544fd2e6182d14dca4396e0bb5"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00090-47532424-fa4b-4e1b-9791-cb0831277498.c000.zstd.parquet",
+      "54898065",
+      "68376",
+      "f66aadec960f437e0a5cefbcd9ef517920d7a621a8ad5b25fca84b016924c619",
+      "f89cdaca63827368958399ca3c9d4e9f90258e2fd297e013d6d6a624ee21867f"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00107-fc6c3001-adbf-4c4c-94d3-948e95c75504.c000.zstd.parquet",
+      "54271409",
+      "68101",
+      "e7768e5ae50357b426e3cdf2276d80274e06b52045661446ea47c2e33d6d4927",
+      "e9a52a5fbd9870252b0607b9285e31e2187e70c099d51331517f92bdddeb9e1e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00059-cbc5e301-731e-44b8-9fd7-0c340139aa74.c000.zstd.parquet",
+      "54915160",
+      "68601",
+      "5b4e31bda0ff88a5b1816dd07e82dd1bb2cf27194e85b56e0061bea1fcc2844b",
+      "5d8499c62747517ed3828a6235482941431373a0daa6833d1417623a35ae498a"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00000-51240eda-682f-4861-808a-6425cede955a.c000.zstd.parquet",
+      "55575290",
+      "69682",
+      "397583780526640bf4db5ba8120093b4e73e55e6c681d9261c3bf7af6c46146b",
+      "3baf9c1b77de2bf5da89b9d3084ba0cd536f7b1b68f5542d1a3f92e1c67b236c"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00039-f3c3e7d4-1b8c-4546-8962-612118fe663b.c000.zstd.parquet",
+      "54276864",
+      "67639",
+      "a16370df42365b79a680b4f4db08f79a6594968736cd3407348e28299fd3a172",
+      "a38abbf6b7fbed859b818774a87e99a8ad19ad161f7b1c99332a31e3e0c106e2"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00008-47b692d9-09e3-49a1-a9a0-7c48570c27c8.c000.zstd.parquet",
+      "53552977",
+      "67045",
+      "f368983bee21bf27598d1a0641bbdb4e4e6782982147700e4900bf4874686ea9",
+      "f7b57c4b8989229b1df9165c8c8f718d7d4129b4cc66e271caa56683de03ac47"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00000-56e44485-2b1f-4a20-8621-bd84787c7bca.c000.zstd.parquet",
+      "53615519",
+      "67503",
+      "96a9feab039b09a75f0720853056be24334b64fc79c710e13d2ea751f725259d",
+      "9f57b66815569bb63f48660c762318a81819e9b2cf2df88969f338ee57c46839"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00011-eb022e72-96ec-4b58-82e6-a2e372229261.c000.zstd.parquet",
+      "56187188",
+      "70355",
+      "469f7dd44df62758d1897b80cfacd2bf08a2f7e090cd9638c3f811bfbd9aee7d",
+      "48e177a5283d79ed2b390f906904ef01a99cd737f76de459d34965fa46720ace"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00083-55541ba4-e4f3-44cf-8b3e-feffed917d46.c000.zstd.parquet",
+      "54387102",
+      "68341",
+      "fdce04a8bcce8df818379ed61e7c62b4045813626f8ba96785c87eb034db854a",
+      "ffffff86bcbaa75c9f01be496ce542103cfd8e2355ac9134a75c09d2c0c2a594"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00034-e6a0b273-6ecb-4f53-a0ba-dee60fb3d06b.c000.zstd.parquet",
+      "53589943",
+      "67360",
+      "7f92a9a8968482f7f2c09a235b83f45afba3783ab49af09253b34f9dcab4cb5a",
+      "81b75ee516a88350eed0a249f5e3d8d4ebef6d4ebd16f3a3cdac1ec8fc929591"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00035-1bc83b23-5856-40c4-bf5f-a49cd326daf6.c000.zstd.parquet",
+      "52953833",
+      "66448",
+      "2d04f9c6028557f66cea9c4b5cd42af8283b4b2e1d821f51fb7db1cb433a2bd8",
+      "2f2481ab1327e0f6d5b58020a0168a66b1abf786966400caa7b99b228e814076"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00085-14fd3d44-202d-4270-b527-7990f43daef1.c000.zstd.parquet",
+      "50078292",
+      "62835",
+      "0b798e94f9992063b081a6ddd7be4210ca43ea8fbfb030e7f9824b24d5676567",
+      "0d7ea35756bce66d337a80f51b16aa2194626dc7bdeed5316def55f9399f3941"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00026-fbb6a787-0fa8-4224-be71-f7d6a61cf422.c000.zstd.parquet",
+      "52711285",
+      "66289",
+      "a50481dce3907b6882578bebd06eb1892332db1233d25a1632e0552a04e13c09",
+      "a72456d122ec813e756f5b58fbf3f324ac8dbfe6357926b92c9edda960380f55"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00037-25f59515-8b39-4faa-a94c-9a93c7adc521.c000.zstd.parquet",
+      "53054279",
+      "66174",
+      "e1bd31f9c1d4dda351601065e0dde03eb8b32d6569398d2e8794f00e5daed511",
+      "e5fbaae8a8cf9c72a3f90787f2ae09f9223b71bf48a4f603dd29d844fe93ed39"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00003-e52f325b-9af3-4708-b5ed-2122db0c0d5c.c000.zstd.parquet",
+      "52868412",
+      "66420",
+      "dfa05cc740b691ce79761a1f4191abdf18e1bbc62f6193692a112e87d1bc54bf",
+      "e1bd2aa2046cfc1b805406ed56925f1911ce1bd8edcbfeab4e490e42beabf30b"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00075-340d6526-c47b-41d0-ada2-0c65fba44c8f.c000.zstd.parquet",
+      "53200290",
+      "66778",
+      "dd7dc3eef260c11f8b03277dbafa7bcde33c84fc3bc246d4be88acbe294418a3",
+      "dfa05a8ccdb8254203b63624415bacf5a44568c05a2c2fd51f2d8200374a8f0b"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00066-3f9be170-b9bb-4ae5-9852-c830a502f422.c000.zstd.parquet",
+      "52159986",
+      "65132",
+      "9b2cce8b4fa5853c0ede8170f25ee63bd5b516db1fde97eb216d9f7bc4158d86",
+      "9d406dfd69b7d8919baad09536f301b9dbd69eb0648d3fa1ba7e481d1a2c3fa0"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00046-8b6ad0ee-8d2e-494c-8c9b-0fb834b1dfbb.c000.zstd.parquet",
+      "53402476",
+      "67183",
+      "84168174ace3f3b659701d4cce2fef569920677b9633d5109aa7a34f3e04346d",
+      "88642ac66c01d6c58b729c01fe2001d6e0f4c8824b21ef5c848306aa99583915"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00014-2495d9d6-5abc-4764-96e4-2b6f8c5923ac.c000.zstd.parquet",
+      "51868907",
+      "65077",
+      "f7ae31c0530523f7d3c5d511699aa9dc5543d565c27338e2b6fa810ae5aeb8bd",
+      "fffffb2eb213324af723f95ace95809075990ca37a1906af85e90940e198a68a"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00013-e90ee52e-b87f-4d0b-acdd-fa748e0efc83.c000.zstd.parquet",
+      "53056275",
+      "66396",
+      "478f57f37cd713a9489045a656b8335a065d005bd61c7e3e1014b9be21af6bf7",
+      "4bcd43bbeea151a2a4e489fa604805216a0a22ad3d56a674eb32a944ac114434"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00103-9e47e7cd-7b62-47e2-8010-105b00d872ba.c000.zstd.parquet",
+      "52994401",
+      "65912",
+      "8365285e78f146da79772e22f75d3c88a74ee7be2c0136882bdd45aad3fd9b47",
+      "85805cb6f04080b326c7f129933f4d5d600e07e450b9de8022bc0e426941f4b7"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00016-906915f7-0d15-4854-8a10-b25fcecc09ce.c000.zstd.parquet",
+      "51828581",
+      "64840",
+      "4fa107821f3029d886e3f72a141178ad1384fdf3a419480fa9422d5a061b5140",
+      "57ef821bdebbdaa6a25ac8417a962a672301c8d0892530f35eac9bb89d9e7571"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00018-c78a06b3-1a07-46c5-b72b-800ae33080d6.c000.zstd.parquet",
+      "52033430",
+      "65040",
+      "e1bd33a57314b978a16f46d376e2e312bdf7097da56f1cdfaa6d5af06387a665",
+      "ea17cbc10dd86ede3800928a2d801275800b3b0ceb4c8a58a7125cbd2b67de92"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00001-a650e65a-538d-4933-b099-10c344fcc94a.c000.zstd.parquet",
+      "52595946",
+      "65900",
+      "5f7078b82accac12ae6492c96687c5abcf0aa0fa2e63a453d03fae45e42c41c2",
+      "63a261fd8d334c8d3e3eaff36c9eb9626c00cdba537c559a76856e13a6859d23"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00093-18345df4-7f1c-412b-b79e-5e9700dbac16.c000.zstd.parquet",
+      "52302897",
+      "65480",
+      "427d35a4d7bd22975bd9ae47b3e2c42029032b80e3dd57105a1ac1662f16c5eb",
+      "4496a454b7bf05f880fd818feaa4d85c91d4f84b719136c14cc2c3e06528ad6b"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00065-006e69ca-0de4-441f-8a91-50415c7d1007.c000.zstd.parquet",
+      "51854300",
+      "64758",
+      "5f7078a9fe41bc8ff6727672e944e0ec748aad78d616963b71fba95d2993f2d3",
+      "6181c30e41541c0878038a729d4197d24a45d29e243280dc0e60a358f9d0122f"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00064-f74ad19a-02f7-43fe-a790-0cd869c073d0.c000.zstd.parquet",
+      "53431488",
+      "66543",
+      "8cb2c2863575d817aa5d94f41dd81ccca993015513c948fcb62134b3ce2e055d",
+      "8ed6335309ba6f17fd974cb75d0cf305c2d593d78b76c2957c97e1bc2aa29460"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00110-34c0f0e0-3639-4f89-9353-ad7cc8d3639c.c000.zstd.parquet",
+      "53172347",
+      "66761",
+      "b0a183a71d496cf4bfee709817ee1c5fbee838918931e998add3b59d9c4b3384",
+      "b2c25aa02cb0c3b52e72e062f134141f9b05cbd48f6820f2a44d4ca60a9313bf"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00114-399d00e7-c112-46fa-8163-341d8db52b20.c000.zstd.parquet",
+      "52580007",
+      "65765",
+      "9d406f53a0a3a9931f188dcfbc855722e4b98a42fdfbde1a2b1fed6cbd83d686",
+      "9f57b86abecb75018887dd806d7aada40f0420290d212ac06b00def16b580ffd"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00055-8ac385bb-5d8e-45f2-8d57-230b4c7c8047.c000.zstd.parquet",
+      "51539328",
+      "64517",
+      "dda1002ba182e4dd812fee1b8130eaac44753ad8540e63d03afea0caad7674e2",
+      "e1bd28f818abcf9af7e84466085b55583459c04f09ce5f49a56c070e06f30f50"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00068-6fb6c565-69f7-4162-9b82-ca755d118ddb.c000.zstd.parquet",
+      "50958789",
+      "63843",
+      "26f2a043adb3213f6063a50a23fda6e52c01947e9e7cfc39a3fa572ac9077aa2",
+      "28fe3ce358c7fd58f81aac6b15c50e1f1c92bcecbbab27a25cc54fc4b1262cc0"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00027-ea57b58d-ba60-4e42-9da1-fddce27c3ba7.c000.zstd.parquet",
+      "50747636",
+      "63934",
+      "1ae3edd45486223fbc8e62ad3fe3513dbd62eb420f166975e7de83c929b803fb",
+      "1f009a2d979407c01a6d0ed5493d7f6fce53a43d874c933b71f37c3891a31d46"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00006-d2315c6a-c3c8-43e3-af18-d8dddc6cc80d.c000.zstd.parquet",
+      "50444478",
+      "63003",
+      "1422c2aa5f8d7a3b09200aca0956b124f7d754d34cd17887df7307a3bbe032dc",
+      "182ee6e33cbff1b2f8e6a4f00773ff6d9bfe6f268fcb6ee20cfe0331cc1d54cd"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00006-77e6c93c-ce33-4c29-95a5-0423fd819a15.c000.zstd.parquet",
+      "51697689",
+      "64603",
+      "db70aa5b38d193dbc2d483867e9294aef67707439abed62fe45a00eb9f180845",
+      "dd7dbe7339209194df6cd84a44f74227ae2aad15b998031761c6bcfb2e022f8e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00023-78e5f579-1cd0-4675-894a-3b5a20839df2.c000.zstd.parquet",
+      "49726358",
+      "62184",
+      "629ced00c83ca0ad280dc1783536a76d32ff0ae0fa985107e45bc0ecb2d0a066",
+      "649a10566439deee03aa3715837c37009ece638a8044382c5554441518b49bed"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00102-2b67f07d-8f46-4e53-8a2d-5ef4a3aa9e58.c000.zstd.parquet",
+      "51574935",
+      "64189",
+      "71b3ba20712e8ab72bb2a78f0df13b4a343a67ebc440fbe4b91bebcc6dfee6a9",
+      "73c385377a5e817103262c7d8faa426f29c91e88881446f72c19bfae7b81a544"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00002-9bcec6e4-10ca-4105-b2d3-4051f3f9b27c.c000.zstd.parquet",
+      "50574455",
+      "63405",
+      "9f57ba779f9a6be50824a7e9aa3800e3502f90cde496b410ef4fd3c4736e3419",
+      "a1636f7c9803ad5ca2bacf45ed10fd3596f282f269c8f30b1d4fdf71da14bbbb"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00020-0e1e0cba-7c11-4071-bf00-d0881940c915.c000.zstd.parquet",
+      "50895522",
+      "63742",
+      "1ae3f59448202a92cf95739d30843208ae8d22c5008379f075170b64e20892fc",
+      "231296d73b6992444a5db2f2e9552d29013344da42554e89be3d9772c4567cb1"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00036-ec4f70c3-1657-4fe4-a4e7-696c917b3119.c000.zstd.parquet",
+      "50379488",
+      "63219",
+      "f89cdde64e7864411e6df57950dc3c9dc61d9aa03ca028d2aaf8e123b9ad72fb",
+      "faa0cc9cf45153961eaa653c71fe68ffdb7c25ff6d8f93729cd0b5a789bb99f7"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00007-802c3b37-6908-4d45-9913-9b49b2c63f3b.c000.zstd.parquet",
+      "50004455",
+      "62358",
+      "73d5465cfb817d474b709bf505b231793419ccf6112c05c989ad9c5ac93031ed",
+      "7bd7dcdc6a683dcb7dff7ba1dfc30e921bf37003102229d7c68756adb9a813b2"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00060-5fa17e12-7197-4416-80e2-36d046b1bf87.c000.zstd.parquet",
+      "50685373",
+      "63863",
+      "4496a5282fcab5acaec2c58292ca0aebf78d39b949028898f5deb92fb3b94ba3",
+      "469f7d7e084dff218582057bc058e9c67b65423aceae199347c9f4edef34e53e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00003-f3895e3f-6a57-425d-baae-34b6ae8e10d2.c000.zstd.parquet",
+      "51693353",
+      "64795",
+      "1f009f7888b5b4ec1592edfe5917bc10c02d43a240bab1e13e66592bd0c8636f",
+      "23269374fdacf685e7f3ec27ff6ad6e3976c2ebc3af5a2a9e82798c691e29686"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00035-bc1d797c-6592-46aa-b58b-371f0f54f45e.c000.zstd.parquet",
+      "51395668",
+      "64170",
+      "ec74496ade9ddd4b0c2fcb6ef085223031ec6229875b9a5b0c4db5c9fd9d5db6",
+      "f08f3fdfba0974d5e7e2721cc3b4d735b4c6c8d15803b589c949a3c2bfe4781c"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00012-3dbcd7a6-a2e1-469e-8647-28852eeb0be8.c000.zstd.parquet",
+      "50458002",
+      "62919",
+      "4b69292a8bede4a1fd316c773689bca2a80f0b658809f8af1b309be220758960",
+      "4d6a51ed9928195ad5026d41cc677824f4360f95c04ab3e1c177c8fccc8fe29a"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00063-63ba09c2-c99f-4c3c-a4d1-af717259aa40.c000.zstd.parquet",
+      "50000860",
+      "62294",
+      "d27b4525546dbf22b9345181b5de7d65790d14d42ee53251154e372371722ca9",
+      "d47908ede8320f65ef2779ccbd4c29802be088dda40da5de8b88586b9009c33f"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00048-8170d786-c71e-4694-948f-2d01de443001.c000.zstd.parquet",
+      "51636117",
+      "65158",
+      "35ca1bee823eb8ba6ccffa75d006fd7393118df94a8ad71c5680f3f9aa3837d7",
+      "39f6982e91f1c5d7c97971592c4458f63c1c45b6f36ef2f4a55a707aaf4483b0"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00005-9083403a-db3a-45b3-ab91-a0fda2c533fe.c000.zstd.parquet",
+      "49818815",
+      "62494",
+      "a57fe68ebb7d5371dc7eca42f7a9b4a4c0f567418e45f0afdf137c311c95332c",
+      "ad8b6896990b1c933b2888ad368c627dd0cf74b0a5308b6f8613cfc2c5cf2ae0"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00033-f277b773-fa70-4b87-82e7-fa792cfa97b1.c000.zstd.parquet",
+      "50719988",
+      "63592",
+      "75b252868c95e9a07c45d859a9004f024cea773d5ce7a025a49011fc8ebda21e",
+      "77bc3284a412308252b63d89901ca8cbf2d3cca93561324cf8b302f33de3d483"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00000-b9971ede-83b1-4b46-ba0c-a12bbce63820.c000.zstd.parquet",
+      "47947146",
+      "59767",
+      "f7b5803112379a4a17fade0a0fff97b004e35e21d74afef8ae600b02687be956",
+      "fb82c064e5e5a4daa884d133f1aaf33fa05a05f0335142937e8ac8f82ce3f191"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00054-4ba7016a-5ef2-43b3-91a2-4e3a59a1b9c8.c000.zstd.parquet",
+      "49339726",
+      "61428",
+      "7d98683dfab3515c6f0e3d47378a2a96fd7bba7feb03ec1841694c558ac563a0",
+      "7f92a420ac94c643a2e02c705c76ded77074096fcc26fee3c76b65ec88af88a8"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00058-a6438ca4-ee6b-439b-b6fc-1de1a28568b9.c000.zstd.parquet",
+      "48656723",
+      "60802",
+      "d087480a45c8465247e856feb07e91cd9b831f9ffd9ce9c51bb735e9ff7312ba",
+      "d27b4517640be33e19e101cf21878043e5fbbcaf750fdc2c558468e09de996f9"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00008-69caac2c-4056-42c6-9400-077208b429ec.c000.zstd.parquet",
+      "47879830",
+      "60170",
+      "85805e35e7c9e690b3a104ceaa09d1fc31ec89fe03be39702e924d5cfe915dfb",
+      "8770b959020157e3b371ebd640808bfa6f24d15e53ac6fb913193d1a9ac9f6ec"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00039-1bbf8f76-c453-4e30-9d09-57b4250b5eb3.c000.zstd.parquet",
+      "48153624",
+      "60103",
+      "5827147526e12978c1385c79a12dec421747d600d0d79955555b907d760047f0",
+      "5c0439cac952c1ae3c51a8b4a0f0d78bf5f71f1206e44eb04079afd7940fc09d"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00055-80443323-e1d8-4b47-9a9d-5d60c556b71c.c000.zstd.parquet",
+      "47915145",
+      "59704",
+      "5d849c832248dba619bcce286b0015299244747b973b9ccbd5180a86dbd01804",
+      "5f70774952a9f73eb7dd62db344f291de7dcd11330fd8998fb749fa1b647abd9"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00028-4e461dc2-ee07-44bc-95c6-b88f4341f076.c000.zstd.parquet",
+      "49404783",
+      "61898",
+      "6cab675f71cbca08e20344b349fcc68fe3592cb6d4f2a80c4a7b6fc695d7a9b5",
+      "6ea680dff3c82bd8db2738ccb0e02c73e63a8fb6b67d4df4a69f9cf97fe596b1"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00007-efffc57d-c91a-4ff6-9b01-224f05c9ce92.c000.zstd.parquet",
+      "47669056",
+      "59231",
+      "d6f4982cb5b90b5810f0f3604c25791fab267088b75a50ee6dd1801a9bcbf567",
+      "d8db97366ca8e3aaf6d096acea6997fefebc22388af226f34649fa90f4fa2e27"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00025-49fabb1a-8503-4de7-9969-15078c84d8c7.c000.zstd.parquet",
+      "48955229",
+      "61228",
+      "74f8b9c92790e52443830f7ca500d9eca35aa46b302d1ca2491b455a4492adf3",
+      "78e1f5dd6d64a8acb55c2a2f218814a0198d71178ce1757fe993d930fdc2858d"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00019-c791c5b9-8cab-40b8-869a-1bc43107a889.c000.zstd.parquet",
+      "48199835",
+      "60405",
+      "2f248b9098004eb04629451d76ed36fe5857bf41dc1e9a0da3a911c72aa37552",
+      "31149c969a9871da1932b6ff485d737f117ca50fb428e74710134513e4c56dfd"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00021-20a632a4-a257-4f28-9960-4b583a191825.c000.zstd.parquet",
+      "47669616",
+      "59418",
+      "7bd7eb794950e2665d499ad64d8432122baf22e2f5f89578820915fea63eea58",
+      "7fac1418a35b26511a826bdb9e13c9c9b641f7bba0d661709d6dcf4a2f000e5f"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00067-4efeb779-50ed-40a6-9c56-c3b73ff8aaa8.c000.zstd.parquet",
+      "47971558",
+      "60426",
+      "73c387fb694374a38f7022b299335ee2ff832f1e1ee3db4321a175641be56f6e",
+      "75b251d093f3fb524a027dc69e7baa9706df48060d4c0764d4f67d3846b7e951"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00020-6a6f0d15-ecbc-4d6a-8d03-75182912b5e1.c000.zstd.parquet",
+      "49058571",
+      "61081",
+      "b7abe9dcde50c8018cfe7d4356b276129863998e71e9dfe8ef4ea41c85f522fd",
+      "bb8d98be4c2e75d0d61f56f57d26fd8b55bac81f82281aa1b5e540be49bef881"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00069-f4370ad7-254b-4a87-ad02-c9be97c4ca87.c000.zstd.parquet",
+      "49302158",
+      "61970",
+      "31149d99f693312ff7a5270380b88412507caf696e574c960a8f906798f2400a",
+      "330f3d8ee4f2c9d50c01364edab392064d0e4c9ba67ec9bd5a5933b616356daa"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00117-861af593-6530-4a0f-8d31-5e9033001e28.c000.zstd.parquet",
+      "49520934",
+      "62093",
+      "6641924ce379fea4e48462a8a8caff2ca1cb368b734e8e5b28af91efda3ecb47",
+      "683efb3b9c763ae36610716c39a6717fca0197a7bc2ca81702c81d46de8717cc"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00030-d5b54ed8-8d53-4bc6-80f8-01a1ae2f3d3e.c000.zstd.parquet",
+      "47711166",
+      "59862",
+      "4bcd4410aab41d7c1463ee8761d25ba3d71fce09c5028f452817305efe19a62a",
+      "4fa100b1b002b41b9772fa84ba9b1495c4e41fb94b4d9e4f1bccac08184bfe1a"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00052-93568df3-e3d6-42b8-b7dd-b675b5ecba77.c000.zstd.parquet",
+      "49056562",
+      "61093",
+      "e5fbabbe53fef81e717067f12e51b833674d57b53c30fcdebb20848a7c614c40",
+      "e9e4692e94f454f98a5207e1022458a9aafd09b32a2e4952d4b0eae69da9a4b9"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00100-bb547d97-2966-4003-b38c-c69e7650f796.c000.zstd.parquet",
+      "48616556",
+      "60831",
+      "3baf9c5a8de9c44ec32f11b03cc5e8634d0828131a7ed115e4b86e36bf7b6a1a",
+      "3da1b2a8eaac4614c1dfbcf336cc3581b5e8727708ac4da956e752748b33537b"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00005-817606dc-1d8d-4cfe-a970-b41fb1b8d3c8.c000.zstd.parquet",
+      "48270075",
+      "60148",
+      "4fa107b95f9ffabb8af876a306f9c4c28c23348a13ba0d6b6353f78d5d732b92",
+      "53798a9f87c8811410286b647af977740ed15fbe8ca888b5644b0ca753dae352"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00032-422bc377-ccad-4365-89b8-492c517e7498.c000.zstd.parquet",
+      "47691572",
+      "59525",
+      "b3ded44b29945e42771cc7457fc63d218f67073ea5e5a17f7da00d1fa2b2cd21",
+      "b7abe9275ac4548802741ee585dfafaa873dd70abee2791dca7d336abe687e03"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00106-f5a16064-9ed8-4ae8-8f15-1244c27200f5.c000.zstd.parquet",
+      "47490214",
+      "59479",
+      "f481e6a1afbbb5fb196945b44de959263ed32aeab820841539ef093c38dd8957",
+      "f66aad69a514cdf246b69fff29c382fac61fd54cc17205459d3d67d44e117a5e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00010-96855957-c024-4709-91f8-1cdea88e17ad.c000.zstd.parquet",
+      "45294657",
+      "56437",
+      "204fd5939f42de28cc1bd23ff984a4f233a3b1e7d8cbb2e92e92450acc659bc8",
+      "2220769a9a65d4fb4de60a78450c059ebfc74e1926e8bdeb05cc84c9eee127aa"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00081-aaaa4847-acd7-40d1-87a2-c6b9fbaa5dcc.c000.zstd.parquet",
+      "47284387",
+      "58988",
+      "ecf466c4735c8a60d98ea4866f0920b63455c26cdfd8034b8d9f797226b3d447",
+      "eed7eb366f360fbfb42cc014a2bf40d50ee1e6d25583db8b4fc687eb629401f4"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00013-87f15d3d-f4e5-4cf4-9bf9-663a5766c6db.c000.zstd.parquet",
+      "44245291",
+      "55636",
+      "f08f4cff175088de4fc7e284d59c8e3f52220a1c9f672ded1a02c9e3aec81720",
+      "f7ae2b94b997795aeb2cc3033c7bd15c79c7e8b413c8f749f3addc71cc22e2d2"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00027-da4fab25-aac8-4493-8225-34ca6d2dcb97.c000.zstd.parquet",
+      "44111612",
+      "55071",
+      "000005dfd3208623764db357bcbe5b797db53bf7fd36a4b5fb94d9f0311741e0",
+      "070b6814e1d218434fab77b4622d09665f98a2e30730f808c4d453f51345cd5c"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00098-c11720e4-5a85-435c-8554-4a7673da82eb.c000.zstd.parquet",
+      "43548957",
+      "54784",
+      "7bd7eeb47bebe245618895088c376d199f331407b46f6f592fd944e53b59b965",
+      "7d9866084e1a9b78ef311c6c882cb7ade84f9868411378db2533a027417365f7"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00027-b306c9d9-7c02-4aa1-9f10-1caf1726be43.c000.zstd.parquet",
+      "47629456",
+      "59684",
+      "53d261bf43ff5743fa3cc9984924de9473ef1d7e87e7bf26d18204b0e332f83e",
+      "55b90774231b66d4a0e5509e5eacbc6b7dcde9cad67b97d2f2fb95296296097a"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00015-a5b57769-2076-42d4-b86d-721c103a9336.c000.zstd.parquet",
+      "47127345",
+      "58832",
+      "da3f8b95af527c5ed50b6291a7cf17d988b19d87c1f56feb94d8d1176a4feb07",
+      "e1bd2c875be08216b62469df2da9e6bc9591230deb53184a231cf50d7b77ec85"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00101-75276e3a-eb8b-40a0-bcaa-cc45aff3125a.c000.zstd.parquet",
+      "44692294",
+      "56136",
+      "57ed9ef2d9e766815c4444858e751c6bf0a378c657703bf4e24e6677e82fb9fe",
+      "59b923554429feb7ed4a699f38dbd51063d7bf266bf1933d1acc6c7022ac0a3b"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00028-aeca8d26-9c3b-4157-98e5-222d9b7a6993.c000.zstd.parquet",
+      "45281324",
+      "56258",
+      "322dc276ea984b7bd2916b56f090c149a255a99eca943ca9cfc8938325426485",
+      "35ca17afbe9bf9caa6af45a95516ab754d8bd000df2993c1168bc10c3f3d96f4"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00073-a6788406-5732-499b-b7d5-63b256f248bb.c000.zstd.parquet",
+      "46234560",
+      "58070",
+      "e9a52c8d5267d4fc458ad9de1123c8dd81fbdebe36bf9c64559deb0b0a8392e8",
+      "eb7f8fc71d99293305eb508f4176410211f6b6271fcca43b322a186181dacc65"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00003-8fdae92d-37ab-45ba-84e0-6eaebf89b92e.c000.zstd.parquet",
+      "46585292",
+      "58361",
+      "362d55c34c44b5b010130b833cace20ecb55f566b780b1494eccec6a1a750d9d",
+      "3da1b1c4e0d4f8a36d8e88ac06099735dbc7ad9f846ad2e59f85e79db4e8ecac"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00017-f6a8569b-ed4c-4fbe-9dfa-8c68976b3dac.c000.zstd.parquet",
+      "46079806",
+      "57442",
+      "39f6984d69e60e4994a87675470217da08fee37b937e768eb041ff2b0de243aa",
+      "3da1b3a375511dabd33a84fbae04dfca8da45dc1d4c57b902e5e267756f43167"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00049-92ec3b7c-9c05-4698-b63e-ca3f47bf90fe.c000.zstd.parquet",
+      "45684087",
+      "57042",
+      "4fa10570a08fcc8114292aa77212aee85cb9bcdb699491780fc303066de56e0e",
+      "51763ab8bf43d93585eaac980056881035f7cb8297221724966b85fb0f75d1c7"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00097-eeb58e91-2be3-4c8b-816a-9196836c5d8c.c000.zstd.parquet",
+      "44759767",
+      "56195",
+      "0344ee7cb4277364612cfed1e0d78f8a0c19e0237645d67cba888a0f0d7ed660",
+      "051083c2876057cd3d33ad05192659927964bc6c1810e5c53d7d098f6a09f3e9"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00019-4c99a498-f908-4cca-b970-bf0e11936c1f.c000.zstd.parquet",
+      "44649472",
+      "55856",
+      "6cab669fa5d46f937416fabb28199cdfb5804fe0bfae00b57d39d45defbf4e30",
+      "73d53a95b47b269424bdb075e88e4e705c3fec149d9e74d6fb1abf7008b449ca"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00022-eff97a57-9065-47cf-9b33-5ef4f4d57460.c000.zstd.parquet",
+      "46784721",
+      "58706",
+      "919985cddd58ea2ee048523d7e887074927e27ffdd898fd4e5e9ab7bb319d6ac",
+      "9565a3908a90aa2eb1884a582eff3aa2aad485f432cb5cfe054ed5938f30cc2f"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00074-879c8212-238b-40ac-b27b-580430ce358b.c000.zstd.parquet",
+      "45640279",
+      "56916",
+      "abb89657f33200793b11f658df5c3e7e39719dfe2c08192eb28fad153354c03e",
+      "ad8b6570079bea894d84e9b7011eec1061ad98dbfc27411bffa4cb657956323a"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00022-7dfeeeeb-d1a5-4fae-b6bd-8e76007f00d8.c000.zstd.parquet",
+      "43788745",
+      "54977",
+      "faa0cd57fcd0640bc70c621259515bbba4d3e148c837895d9233b92ef45221b1",
+      "fc63425b29c93befd7d9421ac244a87ce64bd020079b53ac3198f7f722a75d2b"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00024-b7a421e8-7e2c-4cca-8173-cc01e1fbbf5d.c000.zstd.parquet",
+      "47165360",
+      "58826",
+      "57ef86d799e66a4e334baadc067b0dea41dc0d274bb9034bb586603658a082a8",
+      "5f706ffab38b6849245164fc805b31cb4db2e3026750612442f82e68978b8643"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00021-e480e74e-3376-4a27-b264-b7d37e04ccae.c000.zstd.parquet",
+      "46735698",
+      "58244",
+      "994f3921c3c216565d5dfa4b089b7d082283377cd4f42e9d6c47497d7a54493c",
+      "9b2ccd87e0e75c524a3a82ed1f2e6e0ba9f52a737029795bc126c145e07fdefb"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00113-d8769124-5dbf-4675-a354-e572b23d7071.c000.zstd.parquet",
+      "43548771",
+      "54627",
+      "a8a70b4b71005a0767b13057bf18f720c7cf2cb494cbf19cce50ace942cefa27",
+      "aa67b0ef4d01a6f45aac59df62b291d504e7f325808d5632cd67dac333b54cab"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00025-fc9c36b8-27a8-4547-9366-7963acc7973f.c000.zstd.parquet",
+      "42554870",
+      "53568",
+      "28fe3df1f123309babc00f1256e03185181ddab9d8c35276ac260d62b4cc3bd3",
+      "2ab5ab736ce58705b409310b5a42aa76f8fd3b0a276a7dd0b14d5d3521598057"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00105-e3d322ef-2aa3-4e7e-8592-76c17cde2485.c000.zstd.parquet",
+      "41962871",
+      "52592",
+      "81b760c71a1fea303dde750811211866c31381ce50b846fad68c54f573407805",
+      "8365253540ac89784d05d7560b908e9da9105ee256bf4388fc0a7d253dbb6d5f"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00004-ee009f27-401e-4b40-ba4a-3467451bfbee.c000.zstd.parquet",
+      "40922145",
+      "51173",
+      "05108443d2722b979c532e50d47e010008fa26684edd64cd248bcae6e78dc72f",
+      "06b0874cc4fccd37cf77243441236e19f324a719cb18244735332cca59d60838"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00014-30ac7f73-dd01-48cd-ba6b-518c581a5d7e.c000.zstd.parquet",
+      "42435408",
+      "53493",
+      "5c0444403309992a06af429266cf4fb2a513f0b9d67d33c5c91081ea379d650b",
+      "5f7074d6e3d77609f93d0f4810f28500eaef1888d9f7a22935e476f913e58fa7"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00001-afe93b9a-638d-4ebd-ba43-3cf2a9ecd116.c000.zstd.parquet",
+      "43427762",
+      "54275",
+      "09bfa3f264c808a2ae5104a3c5ea270020bec4495911254ae1d13f1b8fde03c6",
+      "0b798c5c6ad8871889de13671fe246fcd8753fe060fb772e028175a50e1c9f93"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00042-545c8db7-518d-4067-9222-592cf5381755.c000.zstd.parquet",
+      "40013539",
+      "49895",
+      "7a409f61b17d45814cf9b30e35e5039dc61a50bc98b34b88636c1a51e0bd3185",
+      "7bd7e7fd39a8a6c244249590ba897892d08374bef63cf11b6cf5ddb3a2a6f1a3"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00059-d9c6c307-39f4-45c9-bc6b-2e048e9defcb.c000.zstd.parquet",
+      "41047289",
+      "51279",
+      "da5ace6bfe424fcf4d04baf5f009c48918c3789674e4d1469e2d9fb39f86262c",
+      "dda0fb599b573b93b11644722053f0e88444e99452e9612f76dbe5c42227a2a8"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00061-216e320a-1987-41ea-8462-becf7b5f1a56.c000.zstd.parquet",
+      "41312397",
+      "52013",
+      "649a10a0ded0f558a86561f778fdd95557933e2a24e4b468c533366f3f710444",
+      "664190ecca32896b3e522c8370580d7996f60f11c2f308846a6b7ab047905e9b"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00120-def682b0-5d2b-42b3-a052-52248a07b5ed.c000.zstd.parquet",
+      "40097969",
+      "50183",
+      "01ac14bb60c4a380b4ad9eb44c5940b47c25476ee7c461d1088e514380a59df2",
+      "0344e781d14877dfc16c3755b547c56f532bef00da53a0a9959905e6e71e3321"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00004-ff2cf7a2-9941-46e8-a23c-add7c40b0c16.c000.zstd.parquet",
+      "43204421",
+      "54150",
+      "3da1c18de11a2936fce8a1d4986c6700e9756e9e6ab4ebbc22b4fa8749a97551",
+      "449326893ebd66a5cbe3e36c8346cedc3b6d06045244f61bb505ba4c7c55a983"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00005-61c8601d-9f3a-4809-8f36-def59168ecc0.c000.zstd.parquet",
+      "41830713",
+      "52066",
+      "699bc9e28f9b553f70b56506a4f44d0de4e01388de8eff0a8b81e4f477c15566",
+      "6b4585860e50fdd9d7fdd14ef337736084589e16c68452dd5f8e9cf329dd7d5e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00021-20e0073a-b952-4d3b-ab45-0c8f86d7532a.c000.zstd.parquet",
+      "40368901",
+      "50471",
+      "070b782f9f160de04d39c3a6c32790fbbe2e852ccdc6cf40dee02716eec2f903",
+      "0d7ea09f81293847d49afaffae41682d0aded9cb6781264a2221746f191d9d29"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00006-6574067a-d07b-486b-884e-06dca3b60b19.c000.zstd.parquet",
+      "41983762",
+      "52247",
+      "0d7eb1176d4c83dcb0b22bce8babb17b3004e6942ab0da71e963761fd50c94cc",
+      "14331cb4e8957328a094cf4a8e86b3446399c4c7467e1a78d1be393d71e4792f"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00008-f1d67302-bf6e-41ff-92ee-b1a122fa4d93.c000.zstd.parquet",
+      "40395638",
+      "50746",
+      "ea17cbe32a2882fed44597666c5b23f1b498ebf86ef8cc8aa0f74cdd5019219f",
+      "f08f3f75cde85c237b6afe33aab1b00782583bca141a899f5c22daf143c4fd91"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00031-969ab997-003b-45fe-9140-87f2a8520cb3.c000.zstd.parquet",
+      "42598649",
+      "53394",
+      "eed7ebae0ecc46b234d69ef63c3cb0a069972c25fea66ac00c818f233432188d",
+      "f08f3f793277796bc9f5504dfdbe1267041e0afe8b58ec0dc45dcfd5abb9a739"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00115-32291899-fb31-4bc2-b46b-bda4042106bc.c000.zstd.parquet",
+      "42577377",
+      "53389",
+      "6ea68371091ab1c92d680d8d62cbbfa00c40a7355ffd7554710fe3854f344808",
+      "705f6c4f0d0d53d4782d0c7dfec5e4f3b33d370f0554ee00cd9183dcd80b4f77"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00086-20be6a38-b979-4cb6-b579-f9433ffb1ec9.c000.zstd.parquet",
+      "41464822",
+      "51759",
+      "f2dc8bfe151f759dbf319f074c492d9e0e3dbdbf5729985977fa2571c72d6c41",
+      "f481e5f3edd5ae2435d87101ba847014d9ca858cd733e098df3c2513e7af522d"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00004-87eb6af1-523c-4ae9-a977-c89234f948bb.c000.zstd.parquet",
+      "40224441",
+      "50298",
+      "71c236f3bfe4373a5ca231958ce5946b45def16182bf0e829ea8b9bfc8831a3d",
+      "74f8b364606cb6960deab050804d6b465eb061d299bcd6264e7340f4ab22a0d9"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00054-094f698d-ef2a-425d-84ff-ef9b797266a3.c000.zstd.parquet",
+      "42985454",
+      "53952",
+      "0d7eac7d7e3b09b903715abe2f877b8a4b052dcfb0673f9f594949643541867f",
+      "10f902504c7eee25e8b52a0b5c95d09e8966b3b1b5934fe6cfba194168525205"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00028-68f9245d-8309-404d-89ef-567b41ea6b1c.c000.zstd.parquet",
+      "41624867",
+      "52275",
+      "143321f0c90980e1c1c044af6575fc8fcb6c99375d1de1bc6f609216895bdd98",
+      "1ae3dae6a830798da843b11da9f348fa2ec9490818f539006943db4cba75af15"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00017-afa6cbb5-8463-4d5d-8529-1e987a3f1171.c000.zstd.parquet",
+      "41518015",
+      "52447",
+      "0000035642fa82a8baf42d3ffc39a41013a5bc2b6070a6ab38e29c55c4d45f39",
+      "01ac0fa8640cd0bd1e300bc74c3b7432b727f0984cecc6de13f42ddc270dc62e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00096-9cb5e865-50aa-445b-be86-479a2cdcf7d6.c000.zstd.parquet",
+      "41176654",
+      "51238",
+      "b2c25bbfb04e4fa814cf1c512c7f79f6ec64abdfae73cb51e4415d8f84aac4f5",
+      "b4637c39e0618986f086c3a3493b8c4c1904fb171d1e96db53f0b6c4abd1abc1"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00092-900d7b58-e336-42b4-8d55-6d5ed52e8413.c000.zstd.parquet",
+      "36713015",
+      "45698",
+      "e32c684eccb077dc87a57cae5f64db41c3a26632656b842b18238ec01226a8ee",
+      "e4a1eaa5e00622db5ad58d7e827bffd61ed8fa7a4cdd99e33ff2940922c1da72"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00044-20755489-e939-4b2e-b641-907012f0256c.c000.zstd.parquet",
+      "33200600",
+      "41612",
+      "705f6d6b68cad35ab95ce8df1d7127d9789495b5f8806cd140f776b863e080b7",
+      "71b3b8ef2e025da4a2171921c7f0af42038f6ad6c19a888b78059aaef6caa8d2"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00082-a591995d-615a-4483-89be-08e4aad28ba0.c000.zstd.parquet",
+      "32855636",
+      "40979",
+      "aa67b1aa589bdfa71fbb8571b2fda495fa0377684d559e0ac71401bd2707e3de",
+      "abb893ef15c41039fa646c49c753a2f06ad7b175a0454c3bfd4eafd1fae96635"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00040-f75e3cb2-55f0-4341-94b8-42a4d939f7fc.c000.zstd.parquet",
+      "32507895",
+      "40362",
+      "e9e46aa1b2e4a4fc60ee5e08a0d3eb1a518a908e2eccd501a0e32215401a5600",
+      "ec744818ce7db0d2b299b3f2f2a6c0d94fa2cc8dabe14a07b171daace649520e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00111-607e9482-b3ac-4305-ae6b-7ef88ef5a8c5.c000.zstd.parquet",
+      "39510312",
+      "49721",
+      "06b0893d9205904246d0a6e13e6bb72ee584d6bb312ef264ff232444d250e15f",
+      "084b7ebc3a748678e55591e090f92b21e128f1e2195aa2a3b23a12da4df6dcdd"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00079-ae1710ee-33c2-406c-a55f-9f7f4e825b30.c000.zstd.parquet",
+      "37910534",
+      "47326",
+      "a724572e2808fe0333c8a6057c5f16b01fe2e1d94d096cd8e4cef58d17d302d7",
+      "a8a70b32631a26970e9094a79600e37362aae4b4a8380b95fe2a6bf0d9e329fe"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00053-8f8d8fbb-edf9-44ef-b6a3-a7d1cf69fe32.c000.zstd.parquet",
+      "38911515",
+      "48698",
+      "ad8b6de7f9a942a8836541593d3efa2662848df5f6ab3f1b6fca7ceaa13ea3a8",
+      "b0b2bd669606af6a853ccc3af0e5fdc5d8c6838dd09246606799507a2565babc"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00045-858afda2-66a8-4311-bfc8-bf846208ce55.c000.zstd.parquet",
+      "37722653",
+      "47172",
+      "37f11c6ba20eb9aae3d69710a6a99ffb7dc15363087eb286558114336f154ef9",
+      "39757eb9d8f6d4ceb4957f5fd7af99d80b0c8c51e5f34eeaa06ddc4f8185ef8d"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00104-06ebc7a2-f9d7-45b1-8c6c-2361817e23ce.c000.zstd.parquet",
+      "35371379",
+      "44537",
+      "e1bd30d39e478b0275c690fa2df5ce239991b0c58a5ad668339c5552bbe4ae7a",
+      "e32c665d41ecfeddc3116526d05ca197a96f61af50a1b63311ea2c2e414b1a7e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00010-9a014de7-4e4a-435d-9ace-cf9c88d04bd6.c000.zstd.parquet",
+      "39080952",
+      "49374",
+      "b0b2bf192f34316e617bb3641fb765b24ed6ebfb265bf424f976caf4a3af2274",
+      "b3ded2dabf05f996e8d3342fc215cc2e3256a04bcd466c9bc8a8497624378e84"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00089-631cd7d9-522a-4c4a-8280-7e28c0331b00.c000.zstd.parquet",
+      "34820623",
+      "43515",
+      "6b45863e39cf61b17e6e08d7d35a1f83b84f50fcc1d714efa7855a8fb0369f02",
+      "6cab63e643befa6aad85d66dc02e743e06a33d68312c8f519328ccb60ac668b4"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00015-1d73dcce-59aa-4c01-81a7-1573c6d6c719.c000.zstd.parquet",
+      "34106482",
+      "42657",
+      "683efce43c4c893d29d3bc7926983de69b143f2b2b8c0ff3a70867287e1b5173",
+      "699bc84ee955019fca27da437918353501bf7d8d4ec4ca17a46ce2d71c7ef295"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00018-7c293ab2-03b6-4931-8c48-36d7a2741ad6.c000.zstd.parquet",
+      "35578130",
+      "44586",
+      "f08f595c0437fb0c3a2ac29539b657b9077d7026d87a14443ad70d9a661c1961",
+      "f36895dddad0be94f8b4c7a121206b6acc4fc46599fa79961723f2a4713872c4"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00116-7b1e98d2-918c-4007-ab24-fce68e5f65ed.c000.zstd.parquet",
+      "39787436",
+      "49751",
+      "59b92360c8a9cade9c6af661b48b84ec2508cfc159a2bc3ce39d69c8407431e5",
+      "5b4e30cafae6d5861d8d42af19537dce2962cc2725ba79a33d3c539c21d33fa1"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00050-f6f76d06-92cb-4cf6-be59-ccd611b4c561.c000.zstd.parquet",
+      "36749937",
+      "45685",
+      "66968b3ce9551e2244774a6bf221c1727e3aea55772ecf39a2d08d711d265358",
+      "698427b263eb181ce7bf441094e9d1469d567510fe62bbc5fec733ec45aa278e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00029-e68dcea8-374c-47bd-bf63-86b34ac815d2.c000.zstd.parquet",
+      "34904153",
+      "44249",
+      "fc6344a92fb2c1475e59c6fdfaca2b396e2d0ff7fdfe28febffd94085cd76fa1",
+      "fdce03cc59baa546ea0502ca2b86b216c0edbb9bfd32718949cddf95eb5a9ac6"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00049-6e0785f3-0326-4949-8c92-9d0aa238fb21.c000.zstd.parquet",
+      "33652019",
+      "42289",
+      "182ee7272e7475cce8ee64d0757f4adfa7bb10ee0e1125f67dd78af521105d8f",
+      "1ae3eb8960954e0ae69644162646d14333bb0207156a5f7070913dce51e16040"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00112-12b9406c-dcc9-4f58-b4ce-4b0747c3c8a1.c000.zstd.parquet",
+      "37127529",
+      "46278",
+      "a38abc1068b647072067665e9a6bae721242623902e8b6b5ed79d8191d323be2",
+      "a50480f589814c5104427fe8eba17a5311f9215ef3119ffac0710626ff50e2d1"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00057-8ab76c99-c674-49c7-9f1b-229d4c369dc3.c000.zstd.parquet",
+      "36609577",
+      "45907",
+      "78e1f9f21fc640cddf2e80405769bf67d77e2e85883fb45e1381fd2a7744f1e4",
+      "7bd7e78232025ce949518d15cf1db72ec912e0a6f66d16ba606bfc172acf61a6"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00031-fc154531-c04b-414a-995c-cc0d534b9f13.c000.zstd.parquet",
+      "39311245",
+      "49440",
+      "69842b8ea52ae944c245bab684bbf0aef89b65500bc0db22495251bca19008ae",
+      "6cab607a616449afb83021e3674ffde1ae3b0d460b6aad10828b485fe1959705"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00042-ae5ccf12-6eb5-4914-ab0c-9182ab5ef619.c000.zstd.parquet",
+      "39280195",
+      "49412",
+      "10f902ea96bb45b5c7cea27d0cbed34517dfddc4014a87a49f3864f437eb4d32",
+      "1422c15f0eb6bd4591a01a1d266317c6568d2ce5d0437386c14d5d1ae226955e"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00032-44a1f7d7-a3f4-4e88-bcbc-237e4a714f5a.c000.zstd.parquet",
+      "36109953",
+      "45623",
+      "084b7fee5c37b2ebc3eaf052fc617818a55bac16e6958f78020cea93d9a09ce3",
+      "09bfa31b0026c814eabb5b525e8ada65399e4764fc25a4a347011de2c2dd8bdc"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00041-bd0fcc62-026f-401f-aa45-f7a5da942599.c000.zstd.parquet",
+      "36490617",
+      "45703",
+      "eb7f905d93226868215f0c037c22667eaf9ff555817ce3a3e700c0df8c70a08d",
+      "ecf461ce67218b419896b6fe2a3eee4615840e2ba76ed9f736a1f1e7c74e3deb"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00012-7d8853de-2188-4aa6-8352-92cfa7d84158.c000.zstd.parquet",
+      "38677445",
+      "48045",
+      "9f57faaaa84eda341033c7e23def6ff21562ef2b6fe600ccf13c648271193ba6",
+      "a57fe4d991f9dfc9dd139336ab3c07d204a6ac58fea134d1f829aba98993a0ba"
+    ],
+    [
+      "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0b2594b7-ead1-4c23-a85e-8d2746bfcb53/part-00002-872fcdfa-41e1-400b-9fee-8c2ec7c0b912.c000.zstd.parquet",
+      "36273902",
+      "46032",
+      "63a262902b7b45923874353295a3be9ab51933931a594f30eedd944a8d335382",
+      "66968940a718602567728e367ac7537832dd249fc0f1ecf75ff45d92b4620e93"
+    ]
+  ],
+  "hash_domain_spans": [
+    0.08193402069199067,
+    0.06722763831287744,
+    0.061759035619679596,
+    0.07282962211836838,
+    0.07081677930272098,
+    0.06583849991254774,
+    0.06583839190325742,
+    0.06489036255262678,
+    0.07030198786984072,
+    0.054719780407602406,
+    0.013824202881074384,
+    0.05789285856327322,
+    0.05547602949924683,
+    0.05927249710352729,
+    0.0527132699383886,
+    0.014974757141924812,
+    0.05472102778258332,
+    0.028799318434565627,
+    0.052325700509921316,
+    0.06031344560905987,
+    0.025210649534273915,
+    0.012966790402292483,
+    0.004320525557901504,
+    0.013316786825929877,
+    0.05167935467368182,
+    0.012211991025344754,
+    0.012055810210777037,
+    0.026090271080145454,
+    0.012972501581272177,
+    0.026676083467475825,
+    0.05167887946222312,
+    0.02662244107380471,
+    0.013011541196778864,
+    0.04317817543329864,
+    0.010209946135180718,
+    0.011085714605982797,
+    0.010639440747313943,
+    0.011520398421871325,
+    0.0456549276082448,
+    0.010461639306691925,
+    0.010363103457023293,
+    0.020922726244603035,
+    0.022072597146647804,
+    0.01032806703672387,
+    0.010375746510758226,
+    0.011056731534527504,
+    0.020940842829866708,
+    0.008646870681965839,
+    0.01008715721919395,
+    0.020153952027746155,
+    0.019878949929317876,
+    0.009884805977229873,
+    0.009697742658593586,
+    0.010105069836415305,
+    0.01006187629258292,
+    0.02015287273256877,
+    0.008614689561284179,
+    0.010091817332427156,
+    0.009973300141107276,
+    0.009832638430164194,
+    0.020330925118972734,
+    0.009932107721787143,
+    0.010077874845124886,
+    0.00988264535025825,
+    0.01822965849907051,
+    0.0389281369439345,
+    0.009218490977627312,
+    0.008991770258891679,
+    0.017602897537180154,
+    0.01827160813528763,
+    0.03627726255696571,
+    0.00899328651011203,
+    0.009022519362988021,
+    0.03885420108901597,
+    0.0185173929008289,
+    0.009561513844585697,
+    0.03796573115411261,
+    0.009118561497279515,
+    0.019146150896994903,
+    0.01817859420521328,
+    0.008869113694274594,
+    0.016823059813732666,
+    0.017535966818547542,
+    0.008443813549239787,
+    0.0172487195486499,
+    0.01762536970552617,
+    0.008369743968026283,
+    0.016708747203618396,
+    0.03577121127161011,
+    0.008578113699923005,
+    0.008523703749763085,
+    0.00864267547720411,
+    0.008698978332829841,
+    0.00841206858401325,
+    0.016798261461557433,
+    0.03390072217892584,
+    0.008819211472908687,
+    0.008575133513588537,
+    0.00837261893333619,
+    0.00829362242132893,
+    0.007890031292062977,
+    0.008298215513932032,
+    0.016578253103015844,
+    0.008252015981008807,
+    0.008340276278742178,
+    0.008111920697112132,
+    0.016810018975881344,
+    0.03249796814548509,
+    0.016569839893954857,
+    0.008227607343823799,
+    0.03244749311083585,
+    0.03263235734881572,
+    0.016386584701104663,
+    0.008200567186583954,
+    0.008076333501841663,
+    0.008353281027910206,
+    0.008313594632821757,
+    0.008167808670037127,
+    0.016054677885367557,
+    0.007989682179942505,
+    0.016062518875564168,
+    0.015810264475655582,
+    0.008012061938924089,
+    0.0077688297278557285,
+    0.008053486942287563,
+    0.00799113627764305,
+    0.031961516232774316,
+    0.007872504798658522,
+    0.031289487945197265,
+    0.007947464903293476,
+    0.016204117903694935,
+    0.016036418466155992,
+    0.007830188388859249,
+    0.007778393239065599,
+    0.01630379261014188,
+    0.03142559711482486,
+    0.007963180097690798,
+    0.014850628521962653,
+    0.007724516721173759,
+    0.007629218771639092,
+    0.0075737915705909225,
+    0.015093167693015611,
+    0.007505105386716721,
+    0.00773772609135073,
+    0.007430972930648654,
+    0.015277628850369367,
+    0.007569374053304534,
+    0.014956034569004349,
+    0.007549871962227876,
+    0.015162401234070724,
+    0.007730481431620704,
+    0.007772978097805475,
+    0.014949597655965577,
+    0.015270080476474003,
+    0.007600206500464803,
+    0.015022450628892603,
+    0.014848045118185247,
+    0.00745813733860634,
+    0.0070896760982000874,
+    0.007377889469216544,
+    0.02781478074237121,
+    0.027517450288263384,
+    0.006843049968831577,
+    0.007425648363195808,
+    0.029260691645099337,
+    0.007011674906843959,
+    0.014104200719897906,
+    0.007238580331607128,
+    0.029119253526517716,
+    0.014329632288916585,
+    0.007159547908216444,
+    0.00701268152917895,
+    0.027981994221273662,
+    0.014833316830134002,
+    0.007122939471095131,
+    0.006873429560957487,
+    0.02931077105462873,
+    0.007287287645472679,
+    0.00684581041787631,
+    0.006705135452429323,
+    0.006557728664619668,
+    0.006347837147169711,
+    0.013369595327098206,
+    0.006742978939714184,
+    0.00621465489545649,
+    0.012789543162472657,
+    0.006462114844344947,
+    0.006238149115702035,
+    0.02712088715419455,
+    0.006496169486772127,
+    0.025194670977793855,
+    0.026190496394778984,
+    0.025260184574789863,
+    0.006703602881015052,
+    0.006727747157081272,
+    0.0064293122493034385,
+    0.012550141808363327,
+    0.013585437742463185,
+    0.02613407137610214,
+    0.006531496096678442,
+    0.006364850836757889,
+    0.005699297197984052,
+    0.005192489309790248,
+    0.005140439779240288,
+    0.010007707194379543,
+    0.006270736143445396,
+    0.005900622399228291,
+    0.012318581019248941,
+    0.005926269622165513,
+    0.0056031666787442185,
+    0.012391314274117994,
+    0.005460599446392666,
+    0.005322183174060307,
+    0.011127263735576647,
+    0.0061806091564344055,
+    0.011438158685073946,
+    0.005535074315076438,
+    0.010574602101886103,
+    0.005764299334980978,
+    0.011565063165321412,
+    0.012316997101355925,
+    0.012355712351547747,
+    0.0056783660874624884,
+    0.005688753171849954,
+    0.024046551183044405,
+    0.011537950598370742
+  ],
+  "costs": {
+    "read_bytes": 4376443910,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "point_metrics": {
+    "caller_p95_ms": 441.5136249999989,
+    "execution_time_ms_p95": 141,
+    "compilation_time_ms_p95": 182,
+    "read_bytes_p95": 105222058,
+    "read_files_count_p95": 1,
+    "remote_queries": 0
+  },
+  "per_pass": {
+    "0": {
+      "caller_p95_ms": 448.5847079999985,
+      "engine_p95_ms": 145
+    },
+    "1": {
+      "caller_p95_ms": 403.64533300000005,
+      "engine_p95_ms": 114
+    }
+  },
+  "qualification": "Pinned16M staging edge snapshot3, two SHA-derived keys per million-node range, repeated twice; full20fields. Separate32-observation passes are descriptive, not robust service-tail estimates. File extrema are live values, not stored Delta statistics. No controlled cold/service p95, graph publication, causal clustering or billion admission; metadata scan and prior validation may warm cache. Staging omitted64MiB target, actual emitted files measured."
+}

@@ -486,3 +486,10 @@ Points read p9576821189bytes/one file, all32 report zero remote reads. No contro
 ## r259 started: native singleton cohort on16M-edge snapshot
 
 `growth_pruning_r259.py` repeats the read-only method on qualified edge3: full20 returned fields,32 distinct SHA-derived keys across16 million-edge intervals, two passes/64 reads. Same persistent-client/no-result-cache method, complete file metadata scan,40GB read ceiling/6.5GB phase reserve/zero writes. Experimental work is running; mutable output excluded from package until terminal audit. This tests edge identities and complete values; no production publication, maintenance or compute changes.
+
+
+## r259 completed: native exact singleton reads on16M-edge snapshot
+
+Audited68 final statements include64 exact full20-field points for32 distinct SHA-derived keys, two per million-edge interval repeated twice against edge3. All points uncached at result level; zero remote reads observed. Combined caller p95441.514ms/engine141ms/compilation182ms; first32 caller448.585ms/engine145ms, repeated32 caller403.645ms/engine114ms. Both cohorts miss provisional caller250ms/engine100ms; record as tuning limits, not an architecture-selection gate.32-observation passes after a metadata scan do not establish service-tail or controlled-cold behavior.
+
+Complete file metadata counts16M rows/226files/12806876372bytes, min27612478/median52033430/max133552507 file bytes. Point reads p95105222058bytes/one file. Whole experiment4376443910bytes read, zero writes/spill. SQL2026.39. Evidence `out/native/ashlar_growth_pruning_r259/audited-summary.json`, exact returned field rows and final query history. UC Delta chosen; exact identity/property/retained content/typed endpoint roles preserved. Next work must address growth through40M intermediate edges with renewed time/read/spill bounds and distinguish generator/bootstrap cost from incremental apply/publication; full ingest/freshness, controlled cold/concurrency and final1B/5B remain unproved. No external serving engine or UMF dependency introduced.
