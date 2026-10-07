@@ -1,0 +1,6 @@
+{
+  "state": "44 exact deep/tail/end reads passed; final history audit pending",
+  "table": "client_dev.ashlar_entropy_20261006_r86.adjacency_hub_r108",
+  "version": 0,
+  "qualification": "Warm uncached synthetic hub graph, stable keyset order with unique edge IDs; no actual source or billion-scale claim."
+}

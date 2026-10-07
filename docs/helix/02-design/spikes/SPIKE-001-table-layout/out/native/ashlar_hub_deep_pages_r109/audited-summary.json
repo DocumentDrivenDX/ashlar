@@ -1,0 +1,108 @@
+{
+  "state": "44 exact deep/tail/end reads audited; all final uncached",
+  "table": "client_dev.ashlar_entropy_20261006_r86.adjacency_hub_r108",
+  "version": 0,
+  "qualification": "Warm uncached synthetic hub graph, stable keyset order with unique edge IDs; no actual source or billion-scale claim.",
+  "comparison": {
+    "page-pilot-4000000": {
+      "n": 5,
+      "p95": {
+        "caller_ms": 659.9877080000005,
+        "engine_ms": 193,
+        "files": 1,
+        "bytes": 37419393,
+        "remote": 0
+      }
+    },
+    "page-pilot-4400000": {
+      "n": 5,
+      "p95": {
+        "caller_ms": 646.6071250000001,
+        "engine_ms": 198,
+        "files": 1,
+        "bytes": 37419393,
+        "remote": 0
+      }
+    },
+    "page-pilot-4800000": {
+      "n": 5,
+      "p95": {
+        "caller_ms": 1089.6693330000007,
+        "engine_ms": 186,
+        "files": 1,
+        "bytes": 37419393,
+        "remote": 0
+      }
+    },
+    "page-pilot-5000000": {
+      "n": 5,
+      "p95": {
+        "caller_ms": 382.54466699999944,
+        "engine_ms": 160,
+        "files": 1,
+        "bytes": 37419393,
+        "remote": 0
+      }
+    },
+    "end-pilot": {
+      "n": 2,
+      "p95": {
+        "caller_ms": 387.1591670000001,
+        "engine_ms": 148,
+        "files": 1,
+        "bytes": 21262284,
+        "remote": 0
+      }
+    },
+    "page-other-4000000": {
+      "n": 5,
+      "p95": {
+        "caller_ms": 333.94425000000007,
+        "engine_ms": 96,
+        "files": 1,
+        "bytes": 5082347,
+        "remote": 0
+      }
+    },
+    "page-other-4400000": {
+      "n": 5,
+      "p95": {
+        "caller_ms": 319.74954200000025,
+        "engine_ms": 90,
+        "files": 1,
+        "bytes": 5082347,
+        "remote": 0
+      }
+    },
+    "page-other-4800000": {
+      "n": 5,
+      "p95": {
+        "caller_ms": 336.52637500000185,
+        "engine_ms": 99,
+        "files": 1,
+        "bytes": 5082347,
+        "remote": 0
+      }
+    },
+    "page-other-5000000": {
+      "n": 5,
+      "p95": {
+        "caller_ms": 350.878625,
+        "engine_ms": 86,
+        "files": 1,
+        "bytes": 5082347,
+        "remote": 0
+      }
+    },
+    "end-other": {
+      "n": 2,
+      "p95": {
+        "caller_ms": 300.5119580000013,
+        "engine_ms": 77,
+        "files": 1,
+        "bytes": 2996286,
+        "remote": 0
+      }
+    }
+  }
+}

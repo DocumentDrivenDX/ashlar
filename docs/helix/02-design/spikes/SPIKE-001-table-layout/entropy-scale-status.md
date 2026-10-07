@@ -657,3 +657,22 @@ Pages read37.4/5.1MB at p95 despite returning100rows; source clustering does not
 prove edge-ID ordering or constant page cost. No later/deep pages, reverse layout,
 degree cache, updates, concurrent ingest or billion-scale behavior is admitted.
 The table's actual reader3/writer7 features still need external qualification.
+
+## Deep keyset and empty-tail sensitivity (r109)
+
+[Read-only exact-query audit](out/native/ashlar_hub_deep_pages_r109/audited-summary.json)
+passes44 arithmetic-oracle page/tail/end queries over pinned adjacency version0.
+Cursors4M/4.4M/4.8M return100 exact increasing edges; cursor5M returns the four
+remaining baseline edges with exact relation/destination types and IDs. A cursor
+beyond the last edge returns empty. Five repetitions per page and two per empty
+end are all final uncached, with no remote reads.
+
+Pilot pages always read37.4MB/onefile regardless of cursor; other pages read5.1MB.
+Empty ends still read21.3/3.0MB. Engine page maxima across the five-sample groups
+are160–198ms pilot and86–99ms other. Caller observations include a1.09s pilot
+maximum despite186ms engine execution; no caller stability or general SLO follows.
+Endpoint clustering locates a hub but does not demonstrate within-hub edge-ID
+pruning. Next compare explicit edge-ID clustering/order under a hub that spans
+multiple files, with write/maintenance costs recorded. Preserve canonical
+identity clustering and keep any adjacency change rebuildable and publication
+pinned. These results do not qualify ingest, external engines or1B/5B.
