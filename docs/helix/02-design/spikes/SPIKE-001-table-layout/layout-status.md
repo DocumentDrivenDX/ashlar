@@ -536,3 +536,30 @@ No new tables, writes, compute, publication or scale admission. E23/R17/J19 and
 r139-b1 unchanged. Next test bounded query/plan choices with exact identity and
 publication pinning retained, and post-MERGE distribution controls; do not treat
 a scalar query or relaxed pinning as the native singleton architecture.
+
+
+Typed parameter partial experiment: [r144 final audit](out/native/ashlar_typed_reads_r144/audited-summary.json)
+retains E23 snapshot/hash/source/Rel/id predicates and full20-field carriers,
+alternating decimal-text CAST versus Python integer parameters. Only12 pairs
+complete (24 exact carrier matches), all result-uncached/remote0. Descriptive
+completed-query nearest-rank p95/max: CAST caller469.78ms/engine126ms/compile254ms;
+typed366.23ms/116ms/155ms,18 files each. These exclude the stalled25th request,
+so cannot be used as latency admission or a completed30-key comparison. No
+signed64 boundary or general connector precision admission; retain current casts.
+
+Server-only pending cast-12 query01f1c1fb-304e-1e2b-bb03-de1d807c805f was FINISHED/
+final in239ms while the client stayed stalled for several minutes. A separate
+history observation also initially waited; basic workspace HTTP reachability303
+was insufficient to establish authenticated SQL health. [Termination evidence](out/native/ashlar_typed_reads_r144/termination.json)
+records stopping only identity-verified owned Python PID8866 after the authoritative
+server terminal observation (exec session79617 exit143). No blind restart, duplicate
+SQL, native write or assertion of the undelivered result. Exact culprit within
+client/gateway/response handling remains unknown; this is not slow Delta execution.
+
+This adds a transport reliability requirement to the next bounded client experiment:
+finite request wall timeout, durable request correlation/server-query recovery,
+and no re-execution solely on observation/response timeout. Current query builder
+and agreed gates unchanged. No candidate is promoted from this incomplete sample.
+E23/N0/R17/J19/T0/forward1 and r139-b1 unchanged; no scratch data or new compute.
+All full goal performance/scale obligations remain open. Continue physical write
+and native-read tuning while preserving caller-layer failures in end-to-end evidence.

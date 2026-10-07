@@ -1,0 +1,42 @@
+{
+  "state": "Partial24 exact pinned singleton reads audited; server-finished/client-stalled25th request retained",
+  "table": "client_dev.ashlar_entropy_20261006_r86.edge_current",
+  "version": 23,
+  "results": {
+    "cast": {
+      "n": 12,
+      "caller_p95_ms": 469.78083299999975,
+      "engine_p95_ms": 126,
+      "compile_p95_ms": 254,
+      "files_p95": 18,
+      "remote_queries": 0
+    },
+    "typed": {
+      "n": 12,
+      "caller_p95_ms": 366.23420799999985,
+      "engine_p95_ms": 116,
+      "compile_p95_ms": 155,
+      "files_p95": 18,
+      "remote_queries": 0
+    }
+  },
+  "qualification": "Only12 complete alternating pairs from intended30. Cast12 server finished239ms but client transport stalled for several minutes; process deliberately stopped without restart. Descriptive completed-query percentiles exclude the stalled request and must not be treated as latency admission or completed30-key comparison. All24 recorded carriers exact. No signed64 boundary, transport reliability, general p95, concurrency or billion admission.",
+  "termination": {
+    "state": "Owned read-only client stopped after server query was FINISHED/final and client remained stalled for several minutes",
+    "exec_session": 79617,
+    "process_id": 8866,
+    "process_exit_code": 143,
+    "completed_reads": 24,
+    "pending_expected_label": "cast-12",
+    "pending_server_queries": [
+      {
+        "query_id": "01f1c1fb-304e-1e2b-bb03-de1d807c805f",
+        "status": "FINISHED",
+        "is_final": true,
+        "start_ms": 1791342001663,
+        "end_ms": 1791342001902
+      }
+    ],
+    "qualification": "No restarted run or duplicate statement; pending server result never returned to client and exact carrier assertion did not execute for it. No native writes."
+  }
+}

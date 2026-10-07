@@ -1,0 +1,18 @@
+{
+  "state": "Owned read-only client stopped after server query was FINISHED/final and client remained stalled for several minutes",
+  "exec_session": 79617,
+  "process_id": 8866,
+  "process_exit_code": 143,
+  "completed_reads": 24,
+  "pending_expected_label": "cast-12",
+  "pending_server_queries": [
+    {
+      "query_id": "01f1c1fb-304e-1e2b-bb03-de1d807c805f",
+      "status": "FINISHED",
+      "is_final": true,
+      "start_ms": 1791342001663,
+      "end_ms": 1791342001902
+    }
+  ],
+  "qualification": "No restarted run or duplicate statement; pending server result never returned to client and exact carrier assertion did not execute for it. No native writes."
+}
