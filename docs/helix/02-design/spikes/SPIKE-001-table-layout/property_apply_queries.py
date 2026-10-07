@@ -26,7 +26,9 @@ class PropertyApply:
     xid:int
     eligibility_placement:str='matched'
     input_ranges:int=None
+    scope_predecessor:bool=False
     def __post_init__(self):
+        if type(self.scope_predecessor) is not bool:raise ValueError('Explicit boolean required')
         table(self.canonical);table(self.stage)
         if self.canonical==self.stage:raise ValueError('Stage must be distinct from canonical')
         integer(self.old_version);integer(self.previous_entity_version);integer(self.previous_entity_version+1)
@@ -42,6 +44,8 @@ class PropertyApply:
         baseline=f'''SELECT /*+ BROADCAST(k) */ b.* FROM {E} VERSION AS OF {old_v} b JOIN
             (SELECT source_system,rel_type_id,id FROM {stage} VERSION AS OF 0) k
             ON b.source_system=k.source_system AND b.rel_type_id=k.rel_type_id AND b.id=k.id'''
+        if self.scope_predecessor:
+            baseline+=f' WHERE b.entity_version={self.previous_entity_version} AND b.apply_batch_id={lit(self.predecessor)}'
         expected={col:'b.'+col for col in COLS}
         expected.update(entity_version='b.entity_version+1',
             props_json="replace(b.props_json,concat('\"105\":',s.old_json),concat('\"105\":\"',get_json_object(s.props_json,'$.105'),'\"'))",

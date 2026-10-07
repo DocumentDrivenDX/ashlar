@@ -7,9 +7,10 @@ from persistent_sql import Client
 from property_apply_queries import COLS
 B=Path(__file__).resolve().parent;O=B/'out/native/ashlar_bounded_reads_r145'
 class BoundedReads(DriverClient):
- def __init__(self,out):
+ def __init__(self,out,socket_timeout=10):
+  if type(socket_timeout) is not int or not 1<=socket_timeout<=60:raise ValueError('Explicit socket bound1–60 seconds required')
   Client.__init__(self,out)
-  self.connection=dbsql.connect(server_hostname='adb-7405607548213398.18.azuredatabricks.net',http_path='/sql/1.0/warehouses/'+self.warehouse_id,credentials_provider=lambda:self.w.config.authenticate,session_configuration={'use_cached_result':'false'},use_cloud_fetch=False,_socket_timeout=10,_retry_stop_after_attempts_count=1,_retry_stop_after_attempts_duration=10,_retry_max_redirects=0)
+  self.connection=dbsql.connect(server_hostname='adb-7405607548213398.18.azuredatabricks.net',http_path='/sql/1.0/warehouses/'+self.warehouse_id,credentials_provider=lambda:self.w.config.authenticate,session_configuration={'use_cached_result':'false'},use_cloud_fetch=False,_socket_timeout=socket_timeout,_retry_stop_after_attempts_count=1,_retry_stop_after_attempts_duration=10,_retry_max_redirects=0)
   self.cursor=self.connection.cursor()
  def sql(self,label,statement,parameters=None,tag=True):
   assert tag,'Durable unique run/label correlation required'

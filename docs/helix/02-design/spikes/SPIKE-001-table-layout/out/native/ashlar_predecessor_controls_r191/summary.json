@@ -1,0 +1,19 @@
+{
+  "state": "Predecessor scope baseline and six native counterexamples passed",
+  "results": {
+    "baseline": 0,
+    "wrong-version": 100000,
+    "wrong-predecessor": 100000,
+    "missing-target": 1,
+    "corrupt-retained": 1,
+    "corrupt-endpoint": 1,
+    "corrupt-version": 1
+  },
+  "costs": {
+    "read_bytes": 4997358344,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "baseline_query_id": "01f1c213-e913-196b-8583-66a648b99bdc",
+  "qualification": "Owned100k stage; full outer source check retained, missing/ineligible targets and field corruption fail. Separate source membership100k unique remains required. Read-only derived views; no source authority, publisher throughput or billion claim."
+}

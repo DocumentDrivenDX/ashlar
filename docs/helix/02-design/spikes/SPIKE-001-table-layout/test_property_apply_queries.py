@@ -39,4 +39,11 @@ class Checks(unittest.TestCase):
   for value in (True,0,-1,65,6.0,'6'):
    with self.subTest(value=value):
     with self.assertRaises(ValueError):dataclasses.replace(self.q,input_ranges=value)
+ def test_predecessor_scope_keeps_full_outer_source_check(self):
+  scoped=dataclasses.replace(self.q,scope_predecessor=True)
+  self.assertIn('WHERE b.entity_version=11 AND b.apply_batch_id=',scoped.intended())
+  self.assertIn('FULL OUTER JOIN '+self.q.stage+' VERSION AS OF 0 s',scoped.intended())
+  self.assertEqual(scoped.apply(),self.q.apply())
+  for value in (1,None,'true'):
+   with self.assertRaises(ValueError):dataclasses.replace(self.q,scope_predecessor=value)
 if __name__=='__main__':unittest.main()
