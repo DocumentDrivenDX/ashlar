@@ -1,0 +1,1 @@
+{"label": "overlap-version", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.edge_queue_r189 LIMIT 1", "parameters": null, "correlation": "/* ashlar ashlar_publication_reads_r201 overlap-version */", "started_epoch": 1791353796.483171, "state": "returned", "query_id": "01f1c216-a698-100b-8d04-181697e80cbd"}

@@ -1,0 +1,1 @@
+{"label": "serial-final-manifest", "sql": "SELECT table_versions_json FROM client_dev.ashlar_entropy_20261006_r86.manifest_queue_r197 WHERE publication_id='r189-b1'", "parameters": null, "correlation": "/* ashlar ashlar_publication_reads_r202 serial-final-manifest */", "started_epoch": 1791353964.033976, "state": "returned", "query_id": "01f1c217-0a75-1e01-84ee-c63291b09201"}

@@ -4,6 +4,10 @@ This is a spike evidence index governed by CONTRACT-003 and proposed ADR-001, no
 
 The proposed 0.3 schema now adds source_record and direct source cursor/origin references; complete 0.3 native DDL execution passes; synthetic reference validation now passes; real producer and recovery remain pending. Existing 0.2 evidence remains scoped to its original schema. The owner selected Unity Catalog Delta. Current-state tables use native typed identities and exact property/retained JSON text; derived identity hashes provide lookup pruning without replacing full identity checks. Liquid clustering with a 64MiB target is the initial tuning candidate. Optional forward/reverse adjacency and degree tables support structural queries without duplicating full bags. Every consumed table is bound to an actual-version publication vector. Typed engine releases are separate rebuildable projections. UMF bindings remain deferred.
 
+## Latest measured read/ingest tradeoff
+
+At pinned20M-edge private publications, serial-current output has6 narrow hot files and matched20-key warm engine p9595/96ms across two passes, but caller349/340ms misses250ms. Overlap output has16 broad hot files and engine129/101ms, caller416/411ms. Modeled record-age p95 is72s serial/69s overlap; both miss60s. These scoped experiments do not qualify sustained10k/s,100k/s recovery or1B/5B. Physical-head Predictive Optimization does not change the manifest; readers verify and read exact published versions. See r201–r203 below for costs and limits.
+
 | Requirement | Evidence | Remaining limit |
 | --- | --- | --- |
 | Executable table shape | r65: 12 native 0.2 tables; r73: 13 native 0.3 tables | Draft profile, publisher-enforced semantic checks |
@@ -1360,3 +1364,27 @@ Write phase raw/journal13.755s plus current6.608s gives20.362s total versus over
 Run plus custody15.564GB reported reads/1.622GB writes, shape audit4.787MB reads,0 spill, fit30GB/3GB and2GB shape bounds. Native windows and complete timing comparison are local saved-ID evidence, not another workload. Evidence: `out/native/ashlar_queue_serial_r197/audited-summary.json`, `out/native/ashlar_publication_shape_r199/summary.json`, `out/native/ashlar_queue_serial_r197/schedule-comparison.json`.
 
 Next measure a small exact singleton cohort at this verified serial-current publication, using the same immutable expected values and a bounded per-query read reserve. Then consolidate the candidate read/ingest tradeoff and investigate validation/caller costs from the existing profiles before spending on another complete publisher. Do not infer1B/5B feasibility from these20M hot-set runs or replace UC Delta because metrics miss targets. Source authority/fencing, controlled cold, sustained/burst/concurrent service, external native-engine and full-scale gates remain open; UMF binding remains deferred.
+
+
+### r201–r203: matched publication reads show a read/freshness tradeoff
+
+The initial read controller stops before any oracle/singleton query because its obsolete latest-head==published1 check sees overlap head3. The owned UUID matches; recorded Predictive Optimization Job history shows an OPTIMIZE commit under runtime19.9.x with0 added/removed bytes/files. All three submitted metadata statements succeed/finalize with0 reads/writes/spill. This controller failure is preserved, not treated as a failed native read. The corrected reader verifies the original version1 MERGE statement ID and exact private manifest vector, observes later history separately, and explicitly reads VERSION AS OF1. It also checks the immutable stage oracle UUID. Background maintenance is not a new logical publication and its work/cache/cost is not attributed to this worker; no predictive settings are changed.
+
+Eighty complete20-field exact reads pass: same20 SHA-ranked updated identities, each layout in two passes, alternating order reversed on repeat, persistent SQL client/result cache false. No remote reads occur. Prior validation/background work and telemetry idle gaps make this a scoped warm-cache cohort, not controlled cold, sustained load or production service p95. Query distributions and field equality cover the same keys; manifests remain unchanged and final physical heads are recorded independently.
+
+| Measured p95 | Overlapping writes pass0/pass1 | Serial current pass0/pass1 |
+| --- | --- | --- |
+| Engine ms |129 /101 |95 /96 |
+| Caller ms |416.120 /410.620 |348.750 /340.264 |
+| Compilation ms |187 /179 |138 /150 |
+| Files read |18 /18 |3 /3 |
+| Read MB |414.851 /414.851 |142.939 /142.939 |
+| Per-query caller minus native total ms |112.987 /141.620 |107.750 /104.481 |
+
+The serial-current cohort passes the100ms engine screen in both measured passes; caller250ms still fails, as do both overlap engine screens. Do not add unrelated p95s or interpret the caller-minus-native-total residual as network alone. Narrow output demonstrably reduces candidate bytes/files for these published snapshots, but compiler/caller overhead remains material. Same-stage sequential timing on shared compute is operational evidence, not randomized causation or a full graph workload.
+
+Combine with recorded publisher clocks: overlap modeled record-age p9569.386s, serial71.973s; both fail60s. Serialization is therefore an optional read tuning profile, not a successful full ingest/read solution or mandatory freshness path. Canonical UC Delta/hash LC remain selected/proposed and performance misses do not reopen architecture. No engine or read metric is transferred from unmeasured physical maintenance heads to older manifests.
+
+Total21.024GB read/0 writes/0 spill fits25GB with3GB reserves before every four-key/two-layout batch. All native IDs succeed/finalize; no write, resize, new compute or mutation replay. Evidence: `out/native/ashlar_publication_reads_r202/summary.json`, with the separate stopped preflight audit at `out/native/ashlar_publication_reads_r201/audited-summary.json`.
+
+Next analyze the existing validation and compiler/caller phase evidence before another full publisher; prepare a controlled improvement that preserves exact raw/current/journal and manifest checks. Native published-version selection must tolerate physical-head maintenance and refuse expired snapshots rather than silently repoint. Production caller, controlled cold, sustained10k/s/100k/s recovery, diverse/skewed and1B/5B workloads, real producer authority/fencing and external-runtime gates remain open; UMF binding remains deferred.

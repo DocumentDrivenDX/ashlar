@@ -1,0 +1,27 @@
+{
+  "state": "Controller preflight stopped on obsolete latest-head==published-version assumption; all submitted metadata queries succeeded",
+  "observed_head": {
+    "version": "3",
+    "timestamp": "2026-10-07T06:09:23",
+    "userId": "144310222108026",
+    "userName": "24c6ebc2-9f0d-4d1e-90b6-2c964b3ebd41",
+    "operation": "OPTIMIZE",
+    "operationParameters": "{\"auto\":\"false\",\"batchId\":\"1\",\"clusterBy\":\"[\"lookup_hash\"]\",\"isFull\":\"false\",\"predicate\":\"[]\",\"zOrderBy\":\"[]\"}",
+    "job": "{\"jobId\":\"1118716563015070\",\"jobName\":\"Predictive Optimization Job-36c0c7fe-cc97-4026-b46b-907ba2079665\",\"jobRunId\":\"515908809280822\",\"runId\":\"702348756834369\",\"jobOwnerId\":\"144310222108026\",\"triggerType\":\"manual\",\"workspaceId\":\"7405607548213398\"}",
+    "notebook": null,
+    "queryHistoryStatementId": "7a0214a1-ee4b-44b7-b43f-cccb158fd2f6",
+    "clusterId": "1007-060509-tjmzsmd2-v2n",
+    "readVersion": "1",
+    "isolationLevel": "SnapshotIsolation",
+    "isBlindAppend": "True",
+    "operationMetrics": "{\"conflictDetectionTimeMs\":\"66\",\"numAddedBytes\":\"0\",\"numAddedFiles\":\"0\",\"numDeletionVectorsRemoved\":\"0\",\"numRemovedBytes\":\"0\",\"numRemovedFiles\":\"0\"}",
+    "userMetadata": null,
+    "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+  },
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "No singleton or oracle query was submitted by r201. Physical maintenance head is not a new logical publication; r202 separately verifies/read-pins exact published version1. No native failure or write replay."
+}
