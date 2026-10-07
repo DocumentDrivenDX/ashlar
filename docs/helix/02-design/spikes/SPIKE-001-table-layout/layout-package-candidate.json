@@ -1137,7 +1137,7 @@
     "out/native/ashlar_read_shape_r212/summary.json": "15200ff139c776dbddf982b0b9f547f52fc93a82195249a73c7d99cdaf17f71e",
     "out/native/ashlar_read_shape_r212/shared-history.json": "33826b23c0794af722d34c960f7fbf1193fbb4618d4d8a05ac286cc7061bd038",
     "out/native/ashlar_read_shape_r212/statements.jsonl": "c3c7ab19d5a8305f42e18fc40b4b16f165601c6c5c2f5a2969b4ccc28dd1e164",
-    "scale-experiment-plan.md": "718d2cd71a9045bc59030552f95b92bbeab98412b0fefa4710a9a9f1a69ed364",
+    "scale-experiment-plan.md": "2c845ce9ad5a4cb4e400d115c8d6986dab5ea20f111f5dc7a417abcc1228badc",
     "capacity_measured_r213.py": "f1af157fcadcfcb7f67a09154797266679c0e306266ce5232dbdbd425d027617",
     "out/measured-capacity-r213.json": "65716809f093bd28919dc9118cc883361110d84c84e08736f44659167e004f34",
     "role_accounting_r214.py": "d99eb008174d4e548cdb26d8e4e8c5660bcddc24d7e3cfcd7118876d2aad6d72",
@@ -1307,7 +1307,11 @@
     "native_pure_blocks_r254.py": "12bbbe8a17f1e7a189dc9493542b270c62d3da5e6e6f23bf201184006d829ac7",
     "out/native/ashlar_pure_blocks_r254/shared-history.json": "62299f13178db1254afab56c4a4cbe4d9a70fa75d45e17eae220ec5d50a94c1a",
     "out/native/ashlar_pure_blocks_r254/statements.jsonl": "f95463b81b3e380c9f6a11e6f04c121db4051a6ecf29c59d624e02a685886ef6",
-    "out/native/ashlar_pure_blocks_r254/summary.json": "fae7d16ee30c2226432af4834488777cb933356d1ea5828958d89f4b01379c66"
+    "out/native/ashlar_pure_blocks_r254/summary.json": "fae7d16ee30c2226432af4834488777cb933356d1ea5828958d89f4b01379c66",
+    "storage_history_r255.py": "98d9050655b20223bf6ca0ae0f92554b6ba4fc97cd58e10ad1a49db7583346a6",
+    "out/native/ashlar_storage_history_r255/shared-history.json": "2ca655c067e62c83bd20324d6a24854b29160af27fc1770f0f119fb2709bc33f",
+    "out/native/ashlar_storage_history_r255/statements.jsonl": "4e000f7ba97d9988501837ededbfce8a44d7633c0971b8e8f71f550c2cb95a13",
+    "out/native/ashlar_storage_history_r255/summary.json": "a9cd14e5aa6f59412ca6d2abc85eb4a57c64b829353331804047ddd1ca7bd4df"
   },
   "evidence": {
     "ddl": {
