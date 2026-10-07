@@ -1512,7 +1512,8 @@
     "out/native/ashlar_concurrent_points_r307/reader-0/statements.jsonl": "1424a8f364ab0360b164174bb65e18e6e33c2a780171931f41344af43aa7caa5",
     "sql/range32-candidate-r308.sql": "41ad2c2e2bdc8e93f2d35223d9b8f6671f7f7e302e02c2de6917a172111dd03e",
     "out/range32-comparison-budget-r308.json": "cdfbaac9fe151c9d1e4233a166435cd675b220a9f25fee993bea7f167d57d6b6",
-    "range32-comparison-design-r308.md": "2c9912d643a38567d90f301ea69ef4c200b13cfe431b2d9c7c99a708f0eb4568"
+    "range32-comparison-design-r308.md": "2c9912d643a38567d90f301ea69ef4c200b13cfe431b2d9c7c99a708f0eb4568",
+    "range32_build_r309.py": "17a58609168cf1e4bd33b28136371c99673e26df903c4d16fc8de6aa0b98e7e3"
   },
   "evidence": {
     "ddl": {
