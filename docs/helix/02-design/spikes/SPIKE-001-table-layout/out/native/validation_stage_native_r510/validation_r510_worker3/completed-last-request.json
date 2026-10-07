@@ -1,0 +1,1 @@
+{"label": "final-count-tombstone", "sql": "SELECT count(*) FROM client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332 VERSION AS OF 5", "parameters": null, "correlation": "/* ashlar validation_r510_worker3 final-count-tombstone */", "started_epoch": 1791410016.365624, "state": "returned", "query_id": "01f1c299-8c41-1f57-8724-5c1713db798d"}

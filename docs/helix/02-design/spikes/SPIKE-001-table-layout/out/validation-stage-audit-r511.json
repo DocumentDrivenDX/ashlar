@@ -1,0 +1,41 @@
+{
+  "state": "Corrected integrated15-check stage passes exact SQL/results, final metrics and ten-table closing custody; stopped trial preserved separately",
+  "trials": [
+    {
+      "trial": "r509",
+      "execution_finished": 32,
+      "final_metric_records": 28,
+      "pending_metric_ids": [
+        "01f1c298-b801-1b7f-96d1-d2160962b5e2",
+        "01f1c298-b800-1f85-9068-ec65f5fa9774",
+        "01f1c298-b801-1428-af0c-a9065d0e2c0f",
+        "01f1c298-b801-1cce-823b-6a177ff933d2"
+      ],
+      "complete_checks": 4,
+      "reported_costs": {
+        "read_bytes": 1213787131,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "cost_final": false,
+      "qualification": "r509 is stopped first cohort only and costs remain provisional; r510 is complete read-only post-commit integration, not new apply/publication."
+    },
+    {
+      "trial": "r510",
+      "execution_finished": 63,
+      "final_metric_records": 63,
+      "pending_metric_ids": [],
+      "complete_checks": 15,
+      "reported_costs": {
+        "read_bytes": 3420585386,
+        "write_remote_bytes": 0,
+        "spill_to_disk_bytes": 0
+      },
+      "cost_final": true,
+      "qualification": "r509 is stopped first cohort only and costs remain provisional; r510 is complete read-only post-commit integration, not new apply/publication."
+    }
+  ],
+  "validation_with_telemetry_s": 29.516637125,
+  "total_corrected_s": 71.666813834,
+  "qualification": "No new role/manifest/ACK writes or ready-input clock. Pending old metrics must be re-observed by same IDs, not silently omitted or counted as final. Published pins remainN6/E8/R5/J5/A6/T5; physicalN head8 is separately recorded."
+}

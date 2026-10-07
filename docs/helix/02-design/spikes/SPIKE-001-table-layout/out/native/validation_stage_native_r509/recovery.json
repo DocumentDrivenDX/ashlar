@@ -1,0 +1,17 @@
+{
+  "state": "All executions FINISHED; four metric records remain nonfinal",
+  "native_statements": 32,
+  "pending_metric_ids": [
+    "01f1c298-b801-1cce-823b-6a177ff933d2",
+    "01f1c298-b801-1b7f-96d1-d2160962b5e2",
+    "01f1c298-b801-1428-af0c-a9065d0e2c0f",
+    "01f1c298-b800-1f85-9068-ec65f5fa9774"
+  ],
+  "reported_costs": {
+    "read_bytes": 1213787131,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "observed_epoch": 1791410138.3622148,
+  "qualification": "Stopped first-cohort trial, not complete15-check validation; reported costs provisional if pending_metric_ids is nonempty. No replay or accepted publication."
+}

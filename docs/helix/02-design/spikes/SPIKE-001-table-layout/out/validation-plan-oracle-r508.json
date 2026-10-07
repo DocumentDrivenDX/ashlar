@@ -1,0 +1,25 @@
+{
+  "state": "Integrated15-check plan preserves exact native SQL and complete results for every post-commit check",
+  "checks": [
+    "cdf-source_record",
+    "cdf-property_journal",
+    "cdf-edge_current",
+    "typed-endpoints",
+    "cdf-adjacency_forward",
+    "canonical-tombstone",
+    "final-count-object_current",
+    "final-count-edge_current",
+    "final-count-source_record",
+    "final-count-property_journal",
+    "final-count-adjacency_forward",
+    "final-count-tombstone",
+    "unique-edges",
+    "deleted-absent",
+    "schema-revisions"
+  ],
+  "code_sha256": {
+    "publisher_validation_r507.py": "94cccae5d32200b9650ed1c9b82ba3f2a3caa7344609053d97ff3c983b6faa6d",
+    "validation_plan_oracle_r508.py": "7153d0224b1b038e08dcc9ef53a2505233c8e63e01eb1b776b56a11464a39421"
+  },
+  "qualification": "Offline regression against independently retained native corpus; no new native call/publication/clock. Before-input and closing custody/fencing remain caller responsibilities."
+}
