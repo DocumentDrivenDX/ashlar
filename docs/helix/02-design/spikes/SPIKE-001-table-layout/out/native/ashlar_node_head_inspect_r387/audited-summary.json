@@ -1,0 +1,13 @@
+{
+  "state": "Terminal read-only observation audit passes",
+  "statements": 1,
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "files": {
+    "statements.jsonl": "139de57321a91f2b6806e93e07ba013986f214e50ec4c1aed18941490aebefeb",
+    "shared-history.json": "5fd5c02ac66cb12db601ab8efcc1931f2a2b8c21c55c67c30dd214088cc5fbf3"
+  }
+}

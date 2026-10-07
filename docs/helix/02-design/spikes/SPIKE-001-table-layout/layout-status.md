@@ -1459,3 +1459,6 @@ Explicit caller p95525.137ms, engine227ms and compilation228ms; star485.737ms,15
 All native statements finish with final metrics:1,692,905,869 bytes read,0 writes/spill, below6GB admission with1GB pair-block reserve. No compute changes or mutation. Evidence: `out/native/ashlar_read_shape_r212/summary.json` and shared native history.
 
 Transport and projection probes have not closed caller latency. Next return to the material ingest/scale design gap: consolidate measured write amplification, publication barriers and realistic file/byte capacity bounds into a staged resource proposal before larger runs, preserving explicit unproved sustained10k/s,100k/s burst, controlled cold and1B/5B gates. Do not repeatedly substitute small singleton cohorts for the full objective. UC Delta/hash LC remain selected/proposed, full exact values and Truss identities preserved, graph mappings scoped and UMF deferred.
+
+
+Live third-batch eligibility now passes: see [r390 disposition](third-publisher-eligibility-r390.md). Known node maintenance head8 is explicitly accounted while retaining node6; all mutable/input heads match. Integrated third-batch publication remains next, with predecessor/preflight included in its clock.

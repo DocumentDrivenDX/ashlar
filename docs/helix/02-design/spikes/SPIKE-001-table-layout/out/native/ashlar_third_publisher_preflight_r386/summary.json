@@ -1,0 +1,28 @@
+{
+  "state": "Stopped; same handles only; no mutation or publication",
+  "source_sha256": {
+    "vector": "d402425aa8d8511025dac8ac4198907720f35fb1af001aea6287fe40d0b306ca",
+    "inputs": "310d83381fdcebe659c311d299036857fa4b24d86d16a88b42ad9c59ca27435b",
+    "budget": "49cac14d018aafba9fb5ccea23c5cb8fb3ca32c015f2a97f1c74f7a43d53fec1"
+  },
+  "sources": {
+    "vector": "out/native/ashlar_lc_full_vector_r376/audited-summary.json",
+    "inputs": "out/native/ashlar_third_delta_stage_r384/audited-summary.json",
+    "budget": "out/third-lc-publisher-budget-r381.json"
+  },
+  "tables": {},
+  "bounds": {
+    "read_bytes": 10000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 180
+  },
+  "qualification": "Read-only eligibility observation. Integrated publisher must repeat UUID/head/profile checks inside its ready-input clock. No predecessor scan, mutation, descriptor advance, fence, ACK or throughput admission.",
+  "error": "('base-object_current', '8', 6)",
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "terminal_observation": "Both submitted SQL statements succeeded/native final; local head assertion refused continued preflight before graph mutation"
+}
