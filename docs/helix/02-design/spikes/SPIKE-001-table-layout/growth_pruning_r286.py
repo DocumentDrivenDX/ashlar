@@ -5,7 +5,7 @@ from bounded_reads_r145 import BoundedReads
 from scale_mixed_r219 import Workload
 from mixed_changes_r228 import Changes
 from publication_history import collect_history,HistoryPending
-B=Path(__file__).resolve().parent;O=B/'out/native/ashlar_growth_pruning_r286';assert not O.exists();s=json.loads((B/'out/native/ashlar_maintained_edge_r285/audited-summary.json').read_text());t=s['tables']['edge_current'];assert s['state']=='Private maintained39.99M-edge snapshot preserves every carrier field' and type(t['version']) is int;c=BoundedReads(O);a={'state':'running','table':t,'reads':[]}
+B=Path(__file__).resolve().parent;O=B/'out/native/ashlar_growth_pruning_r286';assert not O.exists();s=json.loads((B/'out/native/ashlar_maintained_edge_r287/audited-summary.json').read_text());t=s['tables']['edge_current'];assert s['state']=='Private maintained39.99M-edge snapshot preserves every carrier field' and type(t['version']) is int;c=BoundedReads(O);a={'state':'running','table':t,'reads':[]}
 def save():(O/'summary.json').write_text(json.dumps(a,indent=2)+'\n')
 def metrics(reserve=0):
  c.cursor.close();c.cursor=c.connection.cursor()

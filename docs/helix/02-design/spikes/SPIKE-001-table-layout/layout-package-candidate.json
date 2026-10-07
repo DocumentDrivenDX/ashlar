@@ -1422,7 +1422,12 @@
     "out/native/ashlar_growth_pruning_r282/shared-history.json": "84eb1adb678410ea0c2bed377f7e8cfc55b300b16a533645295de95955862699",
     "maintained_edge_r285.py": "2af4ce3120b31b65fab0b78e3741e596fad40891d3bd937d482a9277ea22daee",
     "out/maintenance-budget-r285.json": "bed88cb5295ffc0fea4528e510928563bc64f6abfd51541a39eabc128969a7e1",
-    "growth_pruning_r286.py": "258caaf94e6bf5e3a8d7a85977303e82e2886add54a2f57f13490786183e4c0b"
+    "growth_pruning_r286.py": "ec0328524f27d7a693d50f6296854b704c8a1f597256a5c740c4d2036aa0c2b1",
+    "maintained_edge_r287.py": "e81ef3d7ac148e6459ffc5a76065ec4539a006542844b6d8714e4ec730f58509",
+    "out/maintenance-budget-r287.json": "2ab1bb0009be2df5e898c0262cf72f528ad0e5162c3f367e819837ce0b925d79",
+    "out/native/ashlar_maintained_edge_r285/summary.json": "77c09390514759701af735581f0be2d956e63182969152cc68fd90c569320fa2",
+    "out/native/ashlar_maintained_edge_r285/audited-summary.json": "72e673a22bf2530733a6767df9d6ea20827cacf34fd63a3832d9862e434bdc80",
+    "out/native/ashlar_maintained_edge_r285/statements.jsonl": "9ee441a321c6eaa327b25ee9f3ef4a9b7f91d93de8811a45f6474171a80ed905"
   },
   "evidence": {
     "ddl": {

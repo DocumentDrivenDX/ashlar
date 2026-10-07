@@ -1,0 +1,28 @@
+{
+  "state": "Stopped; inspect same native handles and clone commits; never blindly replay OPTIMIZE",
+  "parent": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.mixed_edge_current_r281",
+    "id": "f9dca3a9-3037-48f6-bab6-0c458f6808cd",
+    "version": 1
+  },
+  "source_sha256": {
+    "publisher": "a13ccb15c9c42845b125e5ebc18133afc6ce1714a06273f1cad2d1bb4b3dec7f",
+    "points": "8bc8b9ad4824bac99fd3a8b85fe1acf913d96162d20dd7d296af337406f30203",
+    "inputs": "aef4fa9d9ff1a984b0fe2487b8941f2c2ec662adaf774eef3ff907cab542c8f0",
+    "changed": "4712aded2d062b63886365066927e0dec8e22633619f585d589a4e31cd5781f1"
+  },
+  "bounds": {
+    "read_bytes": 320000000000,
+    "write_remote_bytes": 40000000000,
+    "spill_to_disk_bytes": 30000000000,
+    "wall_s": 1800,
+    "statement_s": 180
+  },
+  "tables": {},
+  "checks": {},
+  "error": "{\"state\": \"FAILED\", \"error\": {\"error_code\": \"BAD_REQUEST\", \"message\": \"[CANNOT_SHALLOW_CLONE_NESTED] Cannot shallow-clone a table client_dev.ashlar_entropy_20261006_r86.mixed_edge_current_r281 that is already a shallow clone. SQLSTATE: 0AKUC\"}, \"sql_state\": \"0AKUC\"}",
+  "failure_audit": {
+    "native_statement_id": "01f1c24d-3169-1f48-8fb2-e00765f81ded",
+    "qualification": "Native FAILED nested shallow-clone creation; no target clone or maintenance. Original published snapshot unchanged. Restart uses distinct name and qualified non-clone grandparent, never replays unknown outcomes."
+  }
+}
