@@ -1,0 +1,1 @@
+{"label": "final-head", "sql": "DESCRIBE HISTORY client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 LIMIT 1", "parameters": null, "correlation": "/* ashlar ashlar_fifth_post_reads_r485 final-head */", "started_epoch": 1791406302.351833, "state": "returned", "query_id": "01f1c290-e687-1f97-be25-fb2efbe4614e"}
