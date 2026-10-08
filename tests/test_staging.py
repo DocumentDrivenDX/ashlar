@@ -7,7 +7,7 @@ import json
 import unittest
 from ashlar.native import SQLResult
 from ashlar.source import jsonl_batches
-from ashlar.staging import DeltaBatchStage,StagingError,batch_row
+from ashlar.staging import DeltaBatchStage,StagingError,batch_row,batch_from_row
 
 ROOT=Path(__file__).resolve().parents[1]
 TABLE='catalog.schema.stage'
@@ -25,6 +25,24 @@ class Executor:
             self.row=json.loads(parameters['payload']);return SQLResult([])
         return SQLResult([self.row])
 class StageTests(unittest.TestCase):
+    def test_retained_recovery_rejects_rehashed_metadata_and_original_drift(self):
+        row=batch_row(self.batch())
+        self.assertEqual(batch_from_row(row),self.batch())
+        for field,value in [('cursor_after','999'),('records_digest','0'*64),('source_profile','other'),('batch_id','other')]:
+            bad=dict(row);bad[field]=value
+            with self.assertRaises(StagingError):batch_from_row(bad)
+        for mutate in [lambda v:v.update(cursor_after='999'),
+                       lambda v:v['records'][0].update(sha256='0'*64),
+                       lambda v:v['records'][0].update(raw_base64='AA=='),
+                       lambda v:v.update(extra='unselected'),
+                       lambda v:v.update(begin_base64=v['begin_base64']+'='),
+                       lambda v:v.update(records=v['records']*1001)]:
+            value=json.loads(row['batch_json']);mutate(value)
+            bad=dict(row);bad['batch_json']=json.dumps(value,separators=(',',':'),sort_keys=True)
+            bad['batch_digest']=hashlib.sha256(bad['batch_json'].encode()).hexdigest()
+            with self.assertRaises(StagingError):batch_from_row(bad)
+        for bad in [dict(row,extra='x'),dict(row,cursor_after=1),dict(row,batch_json='x'*(4*1024*1024+1))]:
+            with self.assertRaises(StagingError):batch_from_row(bad)
     def batch(self):
         raw=(ROOT/'examples/end-to-end/source.jsonl').read_bytes()
         return list(jsonl_batches(raw.splitlines(keepends=True),feed='f',epoch='e'))[0]

@@ -14,6 +14,7 @@ from ashlar.catalog import Identity, MappingEntry
 from ashlar.schema import SchemaIntake
 from ashlar.semantic_policy import StringRecordPolicy
 from ashlar.source import jsonl_batches
+from ashlar.staging import batch_row, batch_from_row
 from ashlar.whole_entity import changes_from_batch
 
 PIN = '16c35e8d943769ccfa7bb57d16785aa7159abe65'
@@ -36,7 +37,11 @@ def run():
     for batch in batches:
         state = plan_apply(state, changes_from_batch(batch), schema_policy=policy)
     original = state
-    for batch in batches:
+    # Cross the same JSON custody boundary used by native staging; reconstruct
+    # from original bytes rather than treating cached Python objects as recovery.
+    retained_rows = json.loads(json.dumps([batch_row(batch) for batch in batches]))
+    for row in retained_rows:
+        batch = batch_from_row(row)
         state = plan_apply(state, changes_from_batch(batch), schema_policy=policy)
     if state != original:
         raise ValueError('Exact replay changed complete graph state')

@@ -735,3 +735,19 @@ workload ran. Explicit fixture mappings are not accepted Truss authority; no
 publication or ACK is issued. This provides a runnable local entry point while
 protected Truss acceptance/mutations and composed Delta publication/read remain
 required by the full goal. Truss HEAD f78785b still contains no runtime package.
+
+## Retained source recovery reader — 2026-10-08
+
+batch_from_row reconstructs a complete staged transaction from retained original
+begin/event/commit bytes, reparses count/digest/cursor custody and compares every
+field against the canonical original stage row. Closed shapes, finite artifact/
+original byte/record limits, canonical base64 and exact metadata correspondence
+refuse rehashed drift. The caller still owns native UUID/snapshot/authorization
+and source ordering. No recovered batch authorizes publication or ACK.
+
+All117 local checks pass. The local workflow now replays through serialized
+retained rows rather than cached source objects. Three complete original
+Databricks readbacks from source_stage_20261008 also reconstruct successfully;
+partial projections are not complete custody. This reused archived native evidence,
+not a fresh cloud run or restart/retention qualification. Native composition and
+protected Truss acceptance/mutations remain required.

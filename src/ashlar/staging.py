@@ -6,6 +6,7 @@ import json
 from typing import Any, Protocol
 from .source import SourceBatch, SourceRecord, SourceError, jsonl_batches
 from .native import Executor, _quoted
+from .schema import _json
 
 class StagingError(ValueError):
     pass
@@ -48,6 +49,56 @@ def batch_row(batch: SourceBatch):
     return {'source_profile':batch.profile,'feed':batch.feed,'epoch':batch.epoch,'batch_id':batch.batch_id,
             'cursor_before':batch.cursor_before,'cursor_after':batch.cursor_after,'records_digest':batch.records_sha256,
             'batch_json':text,'batch_digest':hashlib.sha256(text.encode('utf-8')).hexdigest()}
+
+
+def batch_from_row(row):
+    """Recover one bounded original staged transaction, checking all custody fields.
+
+    The caller must independently establish table UUID, snapshot, authorization
+    and batch ordering. A recovered batch grants no publication or source ACK.
+    """
+    fields = {'source_profile', 'feed', 'epoch', 'batch_id', 'cursor_before',
+              'cursor_after', 'records_digest', 'batch_json', 'batch_digest'}
+    if not isinstance(row, dict) or set(row) != fields:
+        raise StagingError('Complete exact staged row required')
+    if any(not isinstance(value, str) for value in row.values()):
+        raise StagingError('Staged custody fields must be strings')
+    try:
+        encoded = row['batch_json'].encode('utf-8')
+        if len(encoded) > 4 * 1024 * 1024:
+            raise StagingError('Retained batch artifact byte limit exceeded')
+        if hashlib.sha256(encoded).hexdigest() != row['batch_digest']:
+            raise StagingError('Retained batch artifact digest differs')
+        value = _json(encoded)
+        if not isinstance(value, dict) or not isinstance(value.get('records'), list):
+            raise StagingError('Complete retained batch artifact required')
+        if len(value['records']) > 1000:
+            raise StagingError('Retained record count exceeded')
+        raw = []
+        remaining = 1024 * 1024
+        def original(text):
+            nonlocal remaining
+            if not isinstance(text, str) or len(text) > ((remaining + 2) // 3) * 4:
+                raise StagingError('Retained original byte budget exceeded')
+            decoded = base64.b64decode(text, validate=True)
+            if base64.b64encode(decoded).decode('ascii') != text or len(decoded) > remaining:
+                raise StagingError('Noncanonical or oversized original bytes')
+            remaining -= len(decoded)
+            return decoded
+        raw.append(original(value['begin_base64']))
+        for record in value['records']:
+            raw.append(original(record['raw_base64']))
+        raw.append(original(value['commit_base64']))
+        recovered = list(jsonl_batches(b''.join(raw).splitlines(keepends=True),
+                         feed=row['feed'], epoch=row['epoch'],
+                         cursor_before=row['cursor_before']))
+        if len(recovered) != 1 or batch_row(recovered[0]) != row:
+            raise StagingError('Retained metadata differs from original transaction')
+        return recovered[0]
+    except StagingError:
+        raise
+    except (ValueError, TypeError, KeyError, UnicodeError) as exc:
+        raise StagingError('Malformed retained original transaction') from exc
 
 class DeltaBatchStage:
     def __init__(self,executor:Executor,policy:StagePolicy,table:str,uuid:str):

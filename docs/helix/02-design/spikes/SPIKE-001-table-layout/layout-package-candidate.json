@@ -2901,7 +2901,7 @@
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "c4d2924b2348b941ca2914b9738e1af51a1ddfbfcf96e4f21243bd8cd720f663",
-    "../../../04-build/end-to-end-plan.md": "a8a3555e7ab958255519e191a889edd205eba5fa71e56f53e9ad8b75b4407363",
+    "../../../04-build/end-to-end-plan.md": "080113c5759da23170f06afa3b6e26e9b376ad6ea6d032b89524e3708ecf4ef5",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -2946,8 +2946,8 @@
     "../../../../../examples/end-to-end/source.jsonl": "4d5e4b043d260e4ecc77f2ddc6ed051cb85cb75381d308da981ac1e2ea09c3de",
     "../../../../../examples/end-to-end/source-batches.jsonl": "79510c9bd9d702ba33181323213c6fc8ce0e2f897ab757fa1c7333d4b6a43c3e",
     "out/jsonl-source-local-20261008.json": "7f6ff278428d76596ee47c71b6c80e8220df6e3426532944df45da52e2e9f89f",
-    "../../../../../src/ashlar/staging.py": "72e56a34b365574ce3a37a54ee4c50b14e18ad8f15e35bddf2b73b9dd3077c6a",
-    "../../../../../tests/test_staging.py": "875b274c38503e2256830bb72f8c88cb1acbaef68b6f9bcd514efc1079250ad0",
+    "../../../../../src/ashlar/staging.py": "b2807c11bf2703f47646765e5e8d9a43af4863cce8ad6a3909b25d89c0058545",
+    "../../../../../tests/test_staging.py": "32213c14e118ac9e7f485e92106176ea7cb0b273e019b3316cb7057cf2f8a12e",
     "../../../../../tools/check_native_source_stage.py": "aa9b9fcdb03b74e10de98d2f1816ce1b074243fa435d9df57576296ce8b3494a",
     "out/native/source_stage_20261008/summary.json": "8fa1d4de9fddee3e59ff258ccf1dfac4566be27c3b19c681ee394771cd287e0e",
     "out/native/source_stage_20261008/statements.jsonl": "9955b26bb79002fe8ed0f1a70fb8e620106112a492adcf5b9946b9b5ec737b9e",
@@ -3165,7 +3165,7 @@
     "out/native/profile_custody_replay_20261008/source-bundle.json": "4abe043c84f9a02e1e97416edcebbab8d9b5b18065c22a5e5db73c1cbf3ebebf",
     "out/native/profile_custody_replay_20261008/native-output.txt": "993f37fa3bd0451132e1cf9ccc06d4f76e0938024c8d019182ba500edf075bf2",
     "out/native/profile_custody_replay_20261008/retain.sql": "e8b77f70f49419c93653129d8af19f100b0e619598d2fa9e361eec46e0ecba9d",
-    "../../../../../tools/run_local_example.py": "e0b6b122d18fa6c04688c65c1c7dd0bc9ca7b128e98bc60d87351a387a66c4f4",
+    "../../../../../tools/run_local_example.py": "eaa9b59dba099afb5133e88f35a16457e7871a57fad23dc9c5a6cfdf48bae961",
     "../../../../../examples/end-to-end/local-string-source.jsonl": "fa28ecead66f0f8a6b1dfd50dc26c89b4f129ff0dcbd7d94010e34bd3e9b460d"
   },
   "evidence": {
