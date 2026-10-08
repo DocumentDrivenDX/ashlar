@@ -1,0 +1,16 @@
+{
+  "state": "All14 exact final native statements and15 independent complete-field digest groups audited",
+  "costs": {
+    "read_bytes": 1203056211,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 47.268383833,
+  "oracle_sha256": "c71700ecb6672070235aa49b4e4c4fa9c3c5897e182fee29fddbae7bcf230331",
+  "sources": {
+    "summary.json": "a142753771d1befa732994db9ced2af22b4e72ab8b8f5b37c74d844e45914865",
+    "statements.jsonl": "c78196b89677e3f2dd9c4972aea00989f8629ff03412d4e22e62f79a314ce5f3",
+    "shared-history.json": "c700c905eb673a6473e0f83adee435e4f761bc8a154413be6e39309805c0893e"
+  },
+  "qualification": "Independent full500k native prefix parity against local8M oracle, including all fields and invalid-membership bucket. Read-only preflight; no remaining7.5M growth, graph-wide closure, publication or performance admission. Schema native transport types checked independently. Observed heads are preflight evidence, not a writer fence or guarantee of future head stability."
+}

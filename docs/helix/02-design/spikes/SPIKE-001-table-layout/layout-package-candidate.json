@@ -2770,7 +2770,13 @@
     "out/node-extent-budget-r646.json": "a727f20de27acc9edde7994cc3ec19789e3c544e572ce6b69926c6da5311eb14",
     "append_node_digest_r647.py": "78476781a69ee6ec22a66de6db56b5b114bb60ad63b74e7a3c794f44ffc28fab",
     "append_node_oracle_audit_r648.py": "4c0982daebd2dd91207c16e2db3b114d1f6fabf6469ff5ea811ea9dc81b19543",
-    "out/append-node-oracle-audit-r648.json": "e23b0cd69980d6e21b413b83d3865ce4782e47e766f25ec3f74064a827b22526"
+    "out/append-node-oracle-audit-r648.json": "e23b0cd69980d6e21b413b83d3865ce4782e47e766f25ec3f74064a827b22526",
+    "append_node_preflight_r649.py": "c4f9d6bf10c815ba6a77d68fbd91d51c4a6e46ae60e08328fdbef82034965e7e",
+    "append_node_preflight_audit_r650.py": "25aec323c4fce2a01a15c4af2e10c7b09347c653cc3118628d42349a1064ffcd",
+    "out/native/ashlar_append_node_preflight_r649/audited-summary-r650.json": "464afb8a0ee300466752728a0c3e82594bde784ca5c4a5d647423cd8468eac6c",
+    "out/native/ashlar_append_node_preflight_r649/shared-history.json": "c700c905eb673a6473e0f83adee435e4f761bc8a154413be6e39309805c0893e",
+    "out/native/ashlar_append_node_preflight_r649/statements.jsonl": "c78196b89677e3f2dd9c4972aea00989f8629ff03412d4e22e62f79a314ce5f3",
+    "out/native/ashlar_append_node_preflight_r649/summary.json": "a142753771d1befa732994db9ced2af22b4e72ab8b8f5b37c74d844e45914865"
   },
   "evidence": {
     "ddl": {
