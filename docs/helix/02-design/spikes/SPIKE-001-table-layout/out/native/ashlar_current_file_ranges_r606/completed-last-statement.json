@@ -1,0 +1,1 @@
+{"label": "file-ranges", "statement_id": "01f1c2ac-fb0f-1b71-a920-7fe154b5050e", "statement": "SELECT _metadata.file_path,max(_metadata.file_size),count(*),min(lookup_hash),max(lookup_hash) FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 10 GROUP BY _metadata.file_path ORDER BY _metadata.file_path"}
