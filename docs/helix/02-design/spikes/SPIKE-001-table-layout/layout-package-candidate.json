@@ -2825,7 +2825,15 @@
     "out/native/ashlar_append_journal_blocks_r673/audited-stop-r674.json": "0821e5a4c89304b7d037f387201ad16b36273e5838c8e7f5c99718c8c7cefc8f",
     "out/native/ashlar_append_journal_blocks_r673/initial-observation-r674.json": "24bdd9926d1cfca4b4649d5dee58b8ac4cae3aee8b7320faf81e017f732f645c",
     "out/native/ashlar_append_journal_blocks_r673/query-history.json": "50d89165b1fc0e916b0cbb5955b7ac4b289ab697005979efd8fb9fe9c1128bf0",
-    "out/native/ashlar_append_journal_blocks_r673/statements.jsonl": "425496499c84b2251bd62f01f043abe1fca3e17100c8d63f8ee3d17c715ed832"
+    "out/native/ashlar_append_journal_blocks_r673/statements.jsonl": "425496499c84b2251bd62f01f043abe1fca3e17100c8d63f8ee3d17c715ed832",
+    "out/journal-availability-r675.json": "c1a0f79e97cf826afc5296c68428c8f5e55aa9025271be1913e00f8c3e0f297a",
+    "append_journal_blocks_r676.py": "55e4b7ad6b54e86768d28556d86e481619619fc3e32573c11b220242a9231043",
+    "append_journal_blocks_audit_r677.py": "3346c0f6ecf6244dd010e18efe1fa1791ad1b01e1638cd7853a94e8594df863c",
+    "journal-block-disposition-r678.md": "5fe2141d546ef4838bff89802d9763c68aace7a6b3e2872fff65a2ff52359cd8",
+    "out/native/ashlar_append_journal_blocks_r676/audited-summary-r677.json": "67630d94b3449d5d729e8073c998ea449147036f9f0ced350de9f071619f89b5",
+    "out/native/ashlar_append_journal_blocks_r676/shared-history.json": "7426ee2fe6899c8542733ce2ad71626898fc2614d43d9bb6bead2e309aae2660",
+    "out/native/ashlar_append_journal_blocks_r676/statements.jsonl": "0025b25d4dce34d8f2600f0c382f5a56881cde4f1e1981f8b5da8b82346e1066",
+    "out/native/ashlar_append_journal_blocks_r676/summary.json": "70b6c70e4785df0c60919ad1fcc7bb7420106d0ea30e27757b6445064ca2cf8c"
   },
   "evidence": {
     "ddl": {

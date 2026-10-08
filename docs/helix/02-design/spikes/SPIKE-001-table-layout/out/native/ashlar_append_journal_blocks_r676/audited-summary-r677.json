@@ -1,0 +1,32 @@
+{
+  "state": "All6 exact final statements,80 independent digest groups and whole32M coverage audited",
+  "costs": {
+    "read_bytes": 6006637678,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 70.614710625,
+  "blocks": [
+    {
+      "execution_time_ms": 31273,
+      "total_time_ms": 32152,
+      "read_bytes": 2976621176,
+      "read_files_count": 40,
+      "pruned_files_count": 63
+    },
+    {
+      "execution_time_ms": 29620,
+      "total_time_ms": 30214,
+      "read_bytes": 2956265629,
+      "read_files_count": 63,
+      "pruned_files_count": 40
+    }
+  ],
+  "sources": {
+    "out/append-edge-oracle-r656.json": "a959801b547267f70a4dce3015477cab19428c5a670a093e26088c1476ba6266",
+    "out/native/ashlar_append_journal_blocks_r676/summary.json": "70b6c70e4785df0c60919ad1fcc7bb7420106d0ea30e27757b6445064ca2cf8c",
+    "out/native/ashlar_append_journal_blocks_r676/statements.jsonl": "0025b25d4dce34d8f2600f0c382f5a56881cde4f1e1981f8b5da8b82346e1066",
+    "out/native/ashlar_append_journal_blocks_r676/shared-history.json": "7426ee2fe6899c8542733ce2ad71626898fc2614d43d9bb6bead2e309aae2660"
+  },
+  "qualification": "Independent full local oracle; all80 groups and32M property rows covered. Whole-table count/invalid membership plus sum-of-block counts prevents filtered corrupt rows disappearing. Current8M edge extent only; not16M-stage admission, real source fidelity, ingest or singleton gate evidence. Only property-journal blocks have native execution evidence here. General carrier/raw/adjacency block branches are not promoted from this result. Prior setup cancellation costs remain unknown until final metrics arrive."
+}
