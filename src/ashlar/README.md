@@ -381,3 +381,22 @@ Native table/snapshot/order/interval authority is external; the result is neithe
 source ACK nor publication and must not replace original-handle effect recovery.
 The schema-evolution example exercises complete reconstruction and checks equality
 against the directly applied source stream.
+
+
+## Additional source: PostgreSQL committed outbox
+
+PostgresOutbox.read returns complete immutable OutboxTransaction groups under
+ashlar-postgresql-outbox/0.1. The supplied authenticated executor and source scope
+must bind the protected native table and original epoch. Use the returned previous/
+position strings to page; do not use batch.cursor_after as the PostgreSQL checkpoint.
+Each contained transaction has its own independent zero-based JSONL byte cursor.
+
+apply_outbox_transactions composes a page into a trusted prior graph state under
+explicit schema and transition policies. Supply the admitted feed/epoch, previous
+native after position and exact expected_position for that page. It verifies
+original payload digest, complete inner custody and contiguous native positions,
+then returns immutable graph state and terminal native position. The page/result
+never grants source ACK. Advance a durable source checkpoint only after the
+publisher independently binds the original group interval to a committed descriptor.
+The event profile must be ashlar-whole-entity/0.1; opaque events or Truss property
+journals require their own semantic adapter and cannot be relabelled.

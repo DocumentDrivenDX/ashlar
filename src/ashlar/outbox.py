@@ -3,6 +3,9 @@ from dataclasses import dataclass
 import hashlib
 import re
 from .source import SourceBatch,SourceError,jsonl_batches
+from .staging import batch_row
+from .apply import plan_apply
+from .whole_entity import changes_from_batch
 
 class OutboxError(ValueError):
     pass
@@ -16,6 +19,49 @@ class OutboxTransaction:
     position: str
     payload_digest: str
     batch: SourceBatch
+
+@dataclass(frozen=True)
+class OutboxApplyResult:
+    state: object
+    position: str
+    transactions: int
+
+
+def apply_outbox_transactions(transactions, *, prior, feed, epoch, after,
+                              expected_position, schema_policy, schema_transition_policy=None):
+    """Apply an admitted committed page using native group positions, never byte offsets.
+
+    The caller owns original reader/table/epoch/checkpoint admission and complete
+    prior state. This pure result grants neither publication nor source ACK.
+    """
+    position=_position(after);_position(expected_position)
+    if any(not isinstance(value,str) or not value or '\x00' in value for value in (feed,epoch)):
+        raise OutboxError('Explicit admitted outbox scope required')
+    state=prior;count=0;seen=set();size=0
+    for transaction in transactions:
+        count+=1
+        if count>32 or not isinstance(transaction,OutboxTransaction):
+            raise OutboxError('Bounded original outbox page required')
+        if (transaction.profile,transaction.feed,transaction.epoch,transaction.previous) != (
+                'ashlar-postgresql-outbox/0.1',feed,epoch,str(position)):
+            raise OutboxError('Mixed, reordered or overlapping outbox page')
+        next_position=_position(transaction.position)
+        if next_position!=position+1:raise OutboxError('Missing committed outbox group')
+        batch=transaction.batch;batch_row(batch)
+        if (batch.feed,batch.epoch,batch.cursor_before)!=(feed,epoch,'0'):
+            raise OutboxError('Outbox-contained transaction has independent zero-based byte cursor')
+        if batch.batch_id in seen:raise OutboxError('Repeated original outbox batch identity')
+        seen.add(batch.batch_id)
+        raw=batch.begin+b''.join(record.raw for record in batch.records)+batch.commit
+        size+=len(raw)
+        if size>16*1024*1024:raise OutboxError('Outbox page original byte budget exceeded')
+        if hashlib.sha256(raw).hexdigest()!=transaction.payload_digest:
+            raise OutboxError('Original outbox payload differs')
+        state=plan_apply(state,changes_from_batch(batch),schema_policy=schema_policy,
+                         schema_transition_policy=schema_transition_policy)
+        position=next_position
+    if str(position)!=expected_position:raise OutboxError('Outbox page does not reach admitted checkpoint')
+    return OutboxApplyResult(state,str(position),count)
 
 
 def _position(value):

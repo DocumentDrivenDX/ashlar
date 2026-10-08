@@ -867,3 +867,21 @@ recovery. All128 local checks pass. No native/cloud workload ran. Native stage
 UUID/snapshot/full-scope ordering and checkpoint authority are still caller
 admission obligations, and original-handle native effect recovery stays separate.
 This is necessary restart wiring, not a completed live publisher/Truss feed.
+
+## PostgreSQL source-to-graph bridge — 2026-10-08
+
+apply_outbox_transactions composes exact original committed-group custody and
+whole-entity graph apply under explicit source/prior/checkpoint/schema/transition
+admission. Native signed64 group positions drive page continuity and terminal
+checkpoint, while each contained JSONL transaction retains its own zero-based
+byte cursor. Scope/position/order/payload/duplicate identity and finite page/byte
+budgets refuse; no sorting, position inference, publication or source ACK occurs.
+
+All130 local checks pass. The v1-to-v3 fixture composes across independent
+contained transactions and a partial page resume produces identical complete
+state. Gaps/overlaps/scope drift/original-payload drift and JSONL byte offsets used
+as native checkpoints refuse. No native/cloud workload ran. The prior existing
+native outbox installation/reader evidence remains separately scoped; actual
+protected source append through this bridge and Delta publisher/checkpoint
+composition remain required. This is a PostgreSQL whole-entity outbox adapter,
+not an alias for the unfinished Truss property-feed reconstruction.
