@@ -83,3 +83,10 @@ original apply/commit recovery ports; committed replay only acknowledges the
 original descriptor. Native attempt custody, source fencing, complete validation
 and immutable manifest/checkpoint producers are unfinished mandatory integration
 work. Local mock tests establish orchestration order, not native durability.
+
+DeltaAttemptStore in attempt_store.py retains exact original request/result/
+descriptor artifact bytes as a contiguous immutable phase prefix, using bound
+Delta MERGE/readback and mandatory exclusive-writer policy. Sessions verify UUID
+and invalidate access after release. Native five-row custody/reload is verified;
+real effect/commit proof, source fencing/grants, manifest and acknowledgement
+producers remain required. A stored phase label is not publication authority.

@@ -2894,14 +2894,14 @@
     "../../../../../src/ashlar/__init__.py": "8f20eb9aa449f5817f8200eb8a8ce05922a65c6fc4ad56312027bca14615e9aa",
     "../../../../../src/ashlar/native.py": "2a95c50ba63be357b65a279e8a5c7d06aaf487e6d0e55dc4006b7c68fa16a78c",
     "../../../../../src/ashlar/publication.py": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
-    "../../../../../src/ashlar/README.md": "b61d9ff591310206235ee384b3fff367985aa2220be4c89c6107bf4e93bd47e8",
+    "../../../../../src/ashlar/README.md": "b824e8180a8bb7b3a2fce19215ff003b62a0f998de05f9459e49f51a26e25241",
     "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
     "../../contracts/CONTRACT-004-publication-resolver.md": "52492ad626cf046d2ff595d5aa91c20d086561c1aba0df3b6b70338bbd08514b",
     "../../../../../README.md": "11e0aaa10f67e008542066d293624bd5e195529dd5bc2c3f8ed75b960f22bda7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
-    "../../../../../examples/end-to-end/README.md": "a78a5a679322765cc04ce7dd1f163cc01631fae7e4372d1e9744d9deb6131113",
-    "../../../04-build/end-to-end-plan.md": "1ac274733c22fec4226066c31934c61dd8526f73656c25b5308372ef389815c5",
+    "../../../../../examples/end-to-end/README.md": "7bcf4f9c6d27d6248761319523f87b56cb7063c0ff357f0000f2ac78fd9dde86",
+    "../../../04-build/end-to-end-plan.md": "65b655a11766d36efcb1c6990f75d61f5edc20cb8d27671e6dc306d2265e5b63",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -2962,7 +2962,12 @@
     "out/native/graph_apply_20261008/statements.jsonl": "a4d9b536ae720e1fcc181c814d7f47bad7b2c7e2484c4ca6a3b7f468e6e455e9",
     "../../../../../src/ashlar/publisher.py": "491a8f4b99c30b4198a7b770ac99cd5ab482d258893123a1072cd21fa2141bb0",
     "../../../../../tests/test_publisher.py": "6ab699eea8227cff4810c687224bdc7dbd6adf46decd5636ca775c51a4c317eb",
-    "out/publisher-coordinator-local-20261008.json": "02e7b51ee8a29c85c6ced7a846913566c62fc3b424525980a63aa7be07812b0c"
+    "out/publisher-coordinator-local-20261008.json": "02e7b51ee8a29c85c6ced7a846913566c62fc3b424525980a63aa7be07812b0c",
+    "../../../../../src/ashlar/attempt_store.py": "c9dd83bfcaa85aaa9ab21e5d76769cda2429ee80626d1f2f16b0708289eb0179",
+    "../../../../../tests/test_attempt_store.py": "57cbc96f1d7a1385553541c31c51b8735ff67d0e8c834c142331956664759ecb",
+    "../../../../../tools/check_native_attempt_store.py": "7953c5998ac6031a978e1812e90cbbbb67fe5ba5455f3d7a176dbf9ac4237ec5",
+    "out/native/attempt_store_20261008/summary.json": "f67683189545b55b738b4cd91343b4318fe3dc8a43a0dc49597e1ea44f0a5734",
+    "out/native/attempt_store_20261008/statements.jsonl": "77b71a5e20118a748a863df14ede9ca4a52211aaf910fb397fb5d46871df2f95"
   },
   "evidence": {
     "ddl": {

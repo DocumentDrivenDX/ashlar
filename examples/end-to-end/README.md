@@ -179,3 +179,18 @@ and supplies no safe production replay/recovery, schema authority or source
 acknowledgement. The next integration must make these effects durable/replayable
 and publish one validated immutable version vector before users read or advance
 source checkpoints.
+
+## Durable publication attempt custody
+
+`src/ashlar/attempt_store.py` adds durable exact-byte phase custody for the
+publication coordinator. The native receipt is
+`docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/attempt_store_20261008/summary.json`.
+Five small UC rows replay unchanged, refuse a changed result and reload from a
+fresh store/session. The fixed one-shot native checker is
+`tools/check_native_attempt_store.py`; it uses administrative development
+authority with local process locking, not qualified native/remote fencing.
+
+Its result/descriptor artifacts are explicitly synthetic byte carriers. They
+prove storage behavior and grant no graph publication or source acknowledgement.
+Connecting real native effect/recovery and immutable manifest/checkpoint
+producers remains the next integration step.

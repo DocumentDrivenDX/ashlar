@@ -1,0 +1,15 @@
+{
+  "state": "passed",
+  "table": "client_dev.ashlar_graph_apply_20261008.publication_attempt_phase",
+  "table_uuid": "e77e5200-1b33-4eec-addc-1d38df4f12cc",
+  "phase_rows": 5,
+  "request_digest": "f9744a6d7ac2a3abe7002d2bf7d53ea5623b434ac3c3c92aaddba236334a349c",
+  "checks": [
+    "five original phase byte records persisted in UC Delta",
+    "phase predecessor and exact-request/result correspondence",
+    "identical phase replay preserves original bytes",
+    "changed valid result refuses and all originals remain",
+    "fresh object/session reloads all original custody from native state"
+  ],
+  "qualification": "Native immutable-phase carrier and client-enforced serialized state-machine checks only. Administrative development authority plus local cooperating-process lock; no native/remote fencing or immutable grants. Result/descriptor are explicitly synthetic artifacts, not graph effect/commit proof or read publication. Existing graph remains unpublished; no acknowledgement. Five rows on existing warehouse; no scale test or resize."
+}

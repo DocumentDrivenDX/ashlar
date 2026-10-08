@@ -243,3 +243,19 @@ validation to actual pins and wire the resolver/acknowledgement transport. The
 coordinator is not itself native durable state or proof of authority. The private
 graph fixture stays unpublished. Truss schema/runtime/feed and broader schema/
 outbox support remain required parts of the same goal.
+
+## Native durable attempt custody checkpoint
+
+The reusable Delta attempt store now retains original request and contiguous
+phase artifact bytes under injected writer authority, native UUID checks and
+parameterized append/readback. Five tiny native rows pass original-byte replay,
+changed-result refusal and fresh object/session reload from durable UC state.
+The result/descriptor are explicitly synthetic storage artifacts; neither is a
+real graph effect report or publication. Fifty-one local checks pass. No graph
+heads or source checkpoints changed during this storage check.
+
+Next bind real native effect receipts/handles and complete effect/pin validation
+to the coordinator/store, then implement immutable descriptor and checkpoint
+producers. Native source fencing/privileges and Truss acceptance/runtime/feed
+remain unqualified; this store does not replace them. The existing graph fixture
+still has no completed publication. No scale test or warehouse resize occurred.

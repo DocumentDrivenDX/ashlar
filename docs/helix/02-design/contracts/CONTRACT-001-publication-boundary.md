@@ -196,3 +196,52 @@ ports to complete durable attempt stores and recovery procedures. The currently
 materialized private graph fixture remains unpublished and cannot be promoted
 merely because coordinator unit tests pass. Full Truss acceptance/feed and the
 additional source/schema paths remain required by the active toolkit goal.
+
+## Native attempt phase custody store
+
+DeltaAttemptStore implements the proposed serialized original-phase carrier.
+Its six nonnull STRING columns are stream, batch_id, phase, request_digest,
+payload_json and payload_digest; the logical key is (stream,batch_id,phase).
+Native SHA256 checks bind payload_digest to exact payload_json UTF8 bytes.
+The payload has exactly request, result_json and descriptor_json. Request
+retains all original coordinator fields including its verified request digest.
+Result/descriptor are exact original JSON text artifacts, not expanded trees.
+Unknown content inside those artifacts remains unchanged. Artifact semantics
+and original producer authority are separate admission obligations.
+
+Within an injected authorized exclusive-writer session, verify native table UUID,
+read at most six records for one bound attempt, and require a contiguous prefix
+of the five declared phases with no duplicates/unknown substitutions. Every
+record must have exact digest and matching original request/source identity.
+Prepared/applying have no result/descriptor; applied retains one result;
+committing retains exactly that result; committed additionally retains the
+original descriptor. Phase payload budget is 4MiB. Duplicate JSON members and
+invalid original artifact text refuse. Read-side verification does not repair
+or recreate missing original phase custody.
+
+Append validates complete expected predecessor and original input/result
+correspondence before parameter-bound MERGE. Identical original phase replay
+returns its retained record without writes; changed phase/request/result refuses.
+Native readback verifies exact new prefix/record. Release verifies the same
+table UUID and invalidates the session object. Unknown native outcomes require
+original submission handle/state recovery and cannot count as proven absence.
+The exclusive writer remains a mandatory external policy, with no permissive
+implementation; a local caller flag cannot establish native authority.
+
+This carrier is not complete native publication production: it does not itself
+validate graph effects, implement source fencing/grants, inspect uncertain graph/
+descriptor handles, create an immutable manifest or acknowledge a source. Its
+phase label alone never proves semantic completion or actual outer commit.
+The qualified publisher backend must independently verify original effect/
+descriptor provenance and current authority. Client state-machine checks and
+MERGE replay do not establish remote/adversarial uniqueness or direct-DML denial.
+
+The small 2026-10-08 native check stored five phase rows under a separate
+native-attempt-storage-fixture stream, verified exact replay/conflict and
+fresh-object/session reload from UC Delta. Result/descriptor explicitly state
+they are synthetic storage artifacts with no graph-effect/publication proof.
+Administrative development authority plus a local cooperating-process lock
+qualified only that experiment; existing graph tables remain unpublished.
+Evidence: out/native/attempt_store_20261008. Fifty-one focused local checks pass.
+Complete native producer/recovery/pin/manifest/checkpoint integration remains
+required before the full toolkit can be claimed usable.
