@@ -1156,3 +1156,14 @@ two custom-bound objects and two original history records, with all four exact
 native inventories checked. Its nine original mutations succeeded. Later source
 transactions and native query remain separate pending checks; this first result
 does not prove the entire configured-source stream.
+
+After installing the toolkit, the configuration inspection also runs directly:
+
+```sh
+ashlar inspect-configured-source examples/end-to-end/configured-source.json
+```
+
+This dependency-free installed command checks the entire configured source and
+local exact replay before emitting a summary. It does not issue database I/O or
+invoke a fresh upstream UMF logical-value check; use the host preflight for that
+additional evidence. A fresh wheel installation outside the checkout is verified.

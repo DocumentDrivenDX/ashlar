@@ -56,3 +56,15 @@ class CSVCLITests(unittest.TestCase):
         for mapping in ['{"label":23}','{"label":"23","label":"24"}','[]']:
             result=self.invoke(raw,mapping);self.assertNotEqual(result.returncode,0)
             self.assertEqual(result.stdout,b'')
+
+class ConfiguredCLITests(unittest.TestCase):
+    def test_configured_source_uses_installed_portable_components(self):
+        result=subprocess.run([sys.executable,'-m','ashlar','inspect-configured-source',
+            str(ROOT/'examples/end-to-end/configured-source.json')],capture_output=True,cwd=ROOT)
+        self.assertEqual(result.returncode,0,result.stderr)
+        value=json.loads(result.stdout)
+        self.assertEqual(value['state'],'inspected-configured-source')
+        self.assertEqual((value['batches'],value['records'],value['current_entities'],value['history_records'],value['tombstones']),(3,4,1,4,1))
+        self.assertEqual(value['feed'],'configured-jsonl')
+        self.assertTrue(value['exact_replay_unchanged'])
+        self.assertNotIn('published',value)

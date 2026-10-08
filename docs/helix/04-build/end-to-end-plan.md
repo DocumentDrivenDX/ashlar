@@ -2982,3 +2982,29 @@ its full-run execution check awaits the original summary before committing it as
 a supported command. An initial column comparison used native types instead of
 the recorded complete STRING projections; corrected before first-prefix parity.
 Native query/replay/complete configured stream and real Truss remain unproved.
+
+### Installed configured-source inspection — 2026-10-08
+
+Configured loader/local inspection now live in the dependency-free Python library;
+the installed ashlar inspect-configured-source command uses those components.
+Host imports remain compatible, and actual UMF preflight reuses the same local
+inspection rather than maintaining a second staging/apply/replay flow. Root README
+now reflects scoped native publication/singleton/Weft evidence and directs users
+to the current workflow instead of the obsolete executor-wiring next action.
+
+Thirty-two focused local checks pass. A real fresh Python3.9.6 wheel installation
+runs the actual entrypoint outside the checkout, with all44 packaged source files
+byte-matching current code. Four configured events leave one current entity,
+four history rows and one tombstone after unchanged replay; unknown configuration
+refuses without summary output. Actual upstream three-record results remain
+unchanged after the portable move. Evidence:
+[installed configured CLI](evidence/configured-cli-installed-20261008.json).
+The SDK environment lacked wheel/current setuptools; an offline uv build also
+confirmed missing cache. A small isolated uv build resolved those build-only
+dependencies and succeeded. No global Python dependency or native/cloud setting
+changed. Actual UMF logical-value validation remains a separate host preflight.
+
+Original native configured publisher process5165 remains active; its update
+checkpoint1331 is present alongside815. Final delete/publication/query and complete
+receipt parity remain pending. The portable-code move does not restart or alter
+that process's retained configuration/model/source bytes or original journal.

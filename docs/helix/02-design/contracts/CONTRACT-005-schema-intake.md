@@ -318,3 +318,12 @@ source/policy validation, original phase/effect/artifact/manifest custody, reten
 and resolver/pin checks. The selected profile remains singleton string objects.
 Singleton queries use the configured source and explicitly bound type, with an
 explicit --type-id when there is more than one Record type. No new IDs are inferred.
+
+The configured loader now lives in the dependency-free installed library as
+`ashlar.source_config.load_jsonl_configuration`. Host import compatibility is
+retained. `inspect_configured_source(configuration)` returns local custody and
+staging/apply/delete/history/exact-replay counts without applying SQL. Installed
+`ashlar inspect-configured-source CONFIG` exposes this inspection and buffers its
+summary until the complete file/replay and closing input checks succeed. Actual
+upstream UMF logical-value validation remains the host preflight; local inspection
+MUST NOT relabel retained artifacts as a fresh validator execution or publication.

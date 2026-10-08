@@ -5,10 +5,11 @@ A standard graph data model for Databricks.
 Ashlar starts with a shared structure for graph nodes on Databricks. Its name
 comes from precisely shaped stones that fit together into a larger structure.
 
-**Status:** Candidate Unity Catalog Delta layout, publication resolver, durable
-source/schema custody and UMF-backed selected string-record policy are implemented.
-A small local workflow runs now. Protected Truss acceptance/mutations and the
-composed native publication/read workflow remain unfinished.
+**Status:** Development toolkit with Unity Catalog managed Delta, immutable
+publication resolution, UMF-backed selected string-Record bindings and native
+singleton reads. Private CSV/JSONL and schema-evolution publication/read workflows
+have scoped native evidence; a Weft string/presence query also runs. Real Truss
+acceptance/producer/feed and production source fencing remain unfinished.
 
 Install the candidate toolkit locally (Python3.9+):
 
@@ -16,6 +17,16 @@ Install the candidate toolkit locally (Python3.9+):
 python3 -m pip install .
 ashlar inspect-source --feed example --epoch one < examples/end-to-end/local-string-source.jsonl
 ```
+
+Inspect an explicitly configured source with the installed command:
+
+```sh
+ashlar inspect-configured-source examples/end-to-end/configured-source.json
+```
+
+This checks pinned inputs, explicit bindings, transaction staging, local
+create/update/delete/history and unchanged exact replay. It performs no database
+I/O; actual upstream UMF logical-value checking remains the separate host preflight.
 
 The distribution is `ashlar-graph-toolkit`; the import is `ashlar`. It has no
 runtime dependencies. The installed CLI verifies source custody and emits complete
@@ -43,10 +54,10 @@ Read `AGENTS.md` and `.helix.yml`, then invoke the installed `helix` skill.
 The bootstrap used HELIX 0.14.1. Resolve its graph, templates, and prompts from
 the installed plugin; the methodology catalog is not vendored here.
 
-**Next action:** Wire an authenticated SQL executor and qualified policy/custody
-provider into the [publication resolver](src/ashlar/README.md). The read-only native
-backend rejects mismatched table identities and pinned schemas. No scale
-benchmarks are scheduled.
+Continue with the [runnable setup/source/query workflow](examples/end-to-end/README.md).
+The active goal still requires the real Truss catalog/producer/feed and completion
+of the caller-configured native source path. Native reads retain explicit identity,
+permissions, schema, finite-retention and pin checks. No scale benchmarks are scheduled.
 
 ## Naming
 

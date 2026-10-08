@@ -17,7 +17,13 @@ def main():
     csv = commands.add_parser('inspect-csv', help='Adapt bounded UTF-8 CSV to retained source batches/checkpoints; no ACK')
     for name in ('feed','epoch','source-system','schema-revision','type-id','properties-json'):
         csv.add_argument('--'+name,required=True)
+    configured=commands.add_parser('inspect-configured-source',help='Inspect pinned model/ID/source configuration and local replay; no database I/O')
+    configured.add_argument('configuration')
     args = parser.parse_args()
+    if args.command=='inspect-configured-source':
+        from .source_config import load_jsonl_configuration,inspect_configured_source
+        print(json.dumps(inspect_configured_source(load_jsonl_configuration(args.configuration)),separators=(',',':')))
+        return
     if args.command == 'inspect-csv':
         from .csv_source import csv_batches,validate_csv_batch
         from .schema import _json
