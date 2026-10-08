@@ -1,0 +1,45 @@
+{
+  "state": "passed",
+  "ashlar_revision": "0331374b33e79651293d580aeba6d36770a11993",
+  "table": "ashlar_e2e_private_20261008.runtime_clean_user.schema_intake",
+  "table_uuid": "4d925bcc-b4fd-4c9b-9e97-07d77417789f",
+  "document_revision": "3",
+  "source_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+  "artifact_sha256": "f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1",
+  "complete_interpretation": false,
+  "validator_revision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+  "native_mutations": [
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_clean_user.schema_intake:install",
+      "original_handle": "01f1c34a-c213-1d90-b3dd-cbee9c6df4eb",
+      "request_sha256": "f3b7b277989125f1b2b4e4f14b480c5a0a1162da07800e8719a3b043b7e5c0a6",
+      "response_sha256": "2b066a28630938330dc22841c53fbd616438a894a652d647ce5188da37688e61",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "schema-intake:b063a4b4ec3c5e42de3debdadf440a0c6fe9f1c86e536d09a7a8a25da821fb9a",
+      "original_handle": "01f1c34a-c539-16c2-928a-8caa16d4d1c8",
+      "request_sha256": "57af424e0b83477f728540c985ffba294b2f061d2c8fb3afebd2cd5152f0263d",
+      "response_sha256": "c30eeb0bab9131dc1bd0256db293c295be012e06a8c79621371ce9217ddf8aef",
+      "terminal_state": "SUCCEEDED"
+    }
+  ],
+  "warehouse_reads": 5,
+  "effective_permission_pages": 11,
+  "private_receipts": "/private/tmp/ashlar-clean-user-schema-20261008",
+  "private_journal": "/private/tmp/ashlar-clean-user-schema-20261008.sqlite",
+  "receipt_sha256": {
+    "summary.json": "0baafb2cf8bcfd7345b2439d3cc1359f6ad66545c5ff00c580de126a5afb4312",
+    "intake-artifact.json": "f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1",
+    "journal-export.json": "82975180697928e76c71c262e5cf94c5012b62af2db1b46c0dea1ee6c0e31c06",
+    "statements.jsonl": "1b3974ae4b3b9510800c06346a3ba5ea3ac4d9b50b14987269ae5a5dad006436",
+    "effective-grants.jsonl": "6c71147001211a7194d59735571e1e933d94a44335abb6a28e95c324569f882c"
+  },
+  "checks": [
+    "actual pinned clean UMF validation retains original bytes",
+    "exact complete native row readback",
+    "current fresh installation and managed registry admitted",
+    "original two mutations terminal SUCCEEDED"
+  ],
+  "qualification": "One revision-3 raw registration in fresh current carrier installation. Serialized trusted owner lane, exact UUID/model custody and retained complete effective permissions. No accepted catalog/IDs, migration or source ACK. Native publication is separate pending work; no compute/grants/predictive optimization changes."
+}

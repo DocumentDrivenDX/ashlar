@@ -844,6 +844,40 @@ publication or replacement source epoch is licensed by uncertainty. This
 component has connected test-transport evidence and a demonstrated one-row native
 stored-publisher run. Multi-row continuation/recovery remains to be demonstrated.
 
+## Continue the fresh native installation
+
+The current fresh installation is `ashlar_e2e_private_20261008.runtime_clean_user`.
+Its original carrier receipt is `/private/tmp/ashlar-clean-user-setup-20261008/summary.json`.
+Revision 3 is now retained in that namespace's managed raw registry, with exact
+original source/artifact bytes and incomplete interpretation recorded. Its proof
+is `/private/tmp/ashlar-clean-user-schema-20261008/summary.json`, and its registry
+journal is `/private/tmp/ashlar-clean-user-schema-20261008.sqlite`.
+These are separate original receipts from the older four-row fixture.
+
+The one-row stored publication uses this installation and registry together:
+
+```sh
+python3 tools/run_native_csv_stream.py \
+  --installation /private/tmp/ashlar-clean-user-setup-20261008/summary.json \
+  --intake-proof /private/tmp/ashlar-clean-user-schema-20261008/summary.json \
+  --journal /private/tmp/ashlar-clean-user-stream-20261008.sqlite \
+  --output out/clean-user-publication \
+  --umf-source /path/to/clean/umf-record-check \
+  --profile aidev-cus --warehouse 2439e1f2e37ac563 --limit 1
+```
+
+The record-checker checkout must be clean at
+`c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3` with dependencies installed.
+Use the existing SDK/psycopg environment and local PostgreSQL pin service.
+Retain the stream journal; use a fresh output directory for each invocation.
+After successful terminal publication and checkpoint 1, the same command with
+`--query-only --entity-id 1` and another fresh output directory reads the object
+through the native singleton resolver. Do not substitute a new journal or old
+registry UUID, clear tables or infer success from pending effects. Native
+publication/query execution on this new installation is currently in progress;
+its full outcome remains unproved. The source and IDs remain synthetic fixture
+inputs; actual Truss acceptance/feed is still required for the full toolkit.
+
 ## Stored native CSV publication and singleton query
 
 `tools/run_native_csv_stream.py` is a bounded development workflow for the

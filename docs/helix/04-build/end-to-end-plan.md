@@ -2461,3 +2461,28 @@ No graph writes, cleanup, grants, compute or predictive optimization changes
 occurred. Actual UMF registration, publication/query and schema evolution on
 this fresh installation remain unexecuted. Actual Truss remains required for the
 full goal; historical native CSV proofs cannot stand in for this new workload.
+
+
+### Fresh-installation raw UMF intake and one-row continuation — 2026-10-08
+
+Actual pinned UMF revision 16c35e8d retained schema-v3 in the new
+runtime_clean_user managed registry, UUID 4d925bcc-b4fd-4c9b-9e97-07d77417789f.
+The complete original source/artifact row readback matches byte-for-byte and
+preserves incomplete interpretation. Both native mutation receipts are terminal
+SUCCEEDED. Five warehouse reads and 11 retained effective-permission pages were
+used on existing compute; no additional setup or graph writes occurred during
+registration. Exact UUID and receipt/source fingerprints are retained in
+[evidence/native-clean-schema-intake-20261008.json](evidence/native-clean-schema-intake-20261008.json).
+
+The one-row native stored-publisher process was started using exactly this new
+installation, registry proof and independent original stream journal. Its active
+process handle is 80087; retained receipts are
+/private/tmp/ashlar-clean-user-stream-20261008 and journal is
+/private/tmp/ashlar-clean-user-stream-20261008.sqlite. Publication, local
+checkpoint and singleton success remain unproved until that original process is
+terminal and complete receipt/oracle/pin-closure checks pass. No replacement
+attempt or source epoch is licensed by pending observations. This is a small
+fresh setup workflow, not a repeated four-row or scale benchmark. The guide
+provides the same-installation continuation and required pinned checker/service
+inputs. Actual Truss, schema evolution and supported wider source paths remain
+open under the original goal.
