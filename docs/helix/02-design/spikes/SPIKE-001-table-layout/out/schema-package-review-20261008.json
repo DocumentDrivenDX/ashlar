@@ -1,0 +1,37 @@
+{
+  "state": "Passed offline candidate package review",
+  "ddl_tables": [
+    "object_current",
+    "edge_current",
+    "source_record",
+    "property_journal",
+    "tombstone",
+    "publication_manifest",
+    "adjacency_forward",
+    "adjacency_reverse",
+    "degree_summary",
+    "node_type_a",
+    "edge_ab",
+    "publisher_fence",
+    "apply_receipt"
+  ],
+  "all_file_hashes_match": true,
+  "source_hash_matches": true,
+  "native_growth_audit_state": "All237 exact final native statements,64 attributed appends and640 independent full-field digest groups audited",
+  "endpoint_closure": {
+    "pins": {
+      "old_nodes": 6,
+      "new_nodes": 15,
+      "edges": 29
+    },
+    "rows": [
+      [
+        "32000000",
+        "0",
+        "0"
+      ]
+    ]
+  },
+  "runtime_tests_executed": 0,
+  "qualification": "Package/receipt review only; no new deployment, benchmark or production admission."
+}

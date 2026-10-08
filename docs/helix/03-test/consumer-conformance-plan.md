@@ -17,6 +17,16 @@ ddx:
 
 # Consumer conformance test plan
 
+## Current physical-layout milestone
+
+The owner revised acceptance on2026-10-08 to close the design/schema-package
+milestone using existing evidence plus a quick local package review. Its scope
+and passed checks are recorded in [layout milestone acceptance](../02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md).
+No Spark, Databricks benchmark or enlarged corpus is required to move to build.
+The broader consumer-conformance strategy below continues to govern later
+behavior/security/production claims; it is not a gate for this bounded handoff.
+Original latency/freshness/scale shortfalls remain measured limits, not passes.
+
 ## Testing Strategy
 
 Prove deterministic publication and bounded authorized reads using
@@ -118,10 +128,11 @@ SPIKE-001 locally compares generic bags, shared promoted columns and typed
 serving tables with matching query-result digests. Adapter fixture shape checks
 retain isolated A0 and four parallel two-hop paths. This is screening evidence,
 not acceptance of US-002-AC6/AC7 or US-003-AC5: exact scalar corpus, native
-Databricks lookup/query gates and external engine execution remain required.
+Databricks lookup/query evidence and external engine execution remain required
+for the corresponding full support claims, rather than the bounded design handoff.
 Native DDL, exact-carrier and version-pinned read probes now pass on dbw-aidev-cus.
 Bounded native query results are recorded in the native spike evidence, with the
-singleton latency gate still unresolved. CONTRACT-003 supplies the physical surface. No full platform story criterion is marked covered by a local simulator.
+singleton latency targets still missed or unproved in their recorded scopes. CONTRACT-003 supplies the physical surface. No full platform story criterion is marked covered by a local simulator.
 
 ## Build Handoff
 

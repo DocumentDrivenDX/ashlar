@@ -9,6 +9,12 @@ R694's offline audit passes16M private new edges and all related roles/endpoints
 Next consolidate the existing table design and implementation boundary. No
 further scale or performance testing; unresolved measurements remain explicit.
 
+[Revised milestone acceptance](layout-milestone-acceptance.md) closes the bounded
+physical-design/schema-package milestone under the owner's2026-10-08 criteria.
+Next is the publication resolver; the SQL descriptor read component is packaged.
+Operational performance and production qualification remain separate and unproved
+where recorded. No further scale benchmark is needed for this handoff.
+
 UC managed Delta remains selected; physical ashlar-delta/0.3 remains proposed.
 Latest logical vectorN6/E10/R7/J7/A8/T7 has8Mnodes/39.93Mliveedges; nodephysical8
 and edgephysical12 remain distinct from selectedpins. [R628](common-preservation-disposition-r628.md)

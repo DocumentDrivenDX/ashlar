@@ -1,5 +1,10 @@
 # Scale experiment — owner authorized local then Databricks
 
+Owner revision2026-10-08: this document is historical experiment evidence, not an
+active run plan. The [layout milestone acceptance](layout-milestone-acceptance.md)
+supersedes earlier mandatory1B/5B and performance-gate language for design closure.
+No further benchmark is required or authorized by this plan.
+
 Governed by CONTRACT-003/ADR-001 and the owner's instruction to limit time, money and effort. The earlier native 10M-edge experiments establish bounded pruning/preservation, not 1B-node/5B-edge capacity. The current warehouse is available; no Spark/graph runtime was found in the recorded inventory. The superseding owner authorization and executed results are recorded below.
 
 ## Questions the next experiment must answer

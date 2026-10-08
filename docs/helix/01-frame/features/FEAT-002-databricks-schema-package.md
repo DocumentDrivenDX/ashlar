@@ -89,6 +89,16 @@ keys do not close those gaps.
 - 100% of authored duplicate, endpoint, and nullability counterexamples detected.
 - Zero compatibility claims without target/version/subset and execution evidence.
 
+## Schema-package milestone acceptance
+
+For the owner-revised physical design milestone, accept the candidate when the
+six checks in the [milestone acceptance record](../../02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md)
+are supported by bounded native evidence and exact local package review. Existing
+SCHEMA-01–SCHEMA-09 remain governing product requirements. Full production/source
+and external-engine qualification belong to their implementation milestones.
+Timing and1B/5B runtime targets do not block packaging or the next build slice;
+unmet targets must remain visible. No heavy or repeated benchmark is required.
+
 ## User Stories
 
 - [US-002 — Validate a schema package](../user-stories/US-002-validate-schema-package.md)

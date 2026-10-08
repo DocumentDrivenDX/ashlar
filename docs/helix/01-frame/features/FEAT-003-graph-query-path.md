@@ -82,7 +82,9 @@ Single capability: bounded relationship queries and their feasibility evidence.
 - 100% query result identity and multiplicity agreement on the selected corpus.
 - Every reported measurement identifies workload and execution environment.
 - No billion-node support claim from a smaller trial; latency/cost budgets are
-  PRD Q5 and must be resolved before performance acceptance.
+  provisional operational targets. Report their measured status; they do not
+  gate the physical-design/schema-package milestone. Production performance
+  support still requires evidence at its claimed workload.
 
 ## User Stories
 

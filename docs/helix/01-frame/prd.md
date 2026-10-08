@@ -31,6 +31,24 @@ those outcomes; it does not claim that the schemas or query tools exist yet.
 Success requires zero unexplained mapping loss, valid table creation on one
 pinned Databricks target, and exact expected results for the agreed query corpus.
 
+## Current milestone acceptance — owner revision2026-10-08
+
+Close the physical-layout/schema-package milestone using the existing bounded
+synthetic evidence and local package review. Its required outcomes are concrete
+Delta definitions, native structural evidence, exact identity/value/unknown-content
+preservation, explicit integrity/enforcement responsibilities, pinned publication
+and native lookup evidence, and scoped graph-tool mappings. UMF binding is deferred.
+The [milestone acceptance record](../02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md)
+identifies the required evidence and its limits.
+
+Provisional latency, publication freshness, sustained/burst throughput and1B-node/
+5B-edge capacity are operational qualification targets, not gates for this design
+milestone or prerequisites to implementation. Record misses and unknowns without
+asserting performance support. No further scale benchmark is required. Production
+source authority, concurrency fencing, authorization delegation, retention and
+external engine deployment remain requirements for their later delivery scopes;
+closing this milestone does not declare those scopes complete.
+
 ## Problem and Goals
 
 ### Problem

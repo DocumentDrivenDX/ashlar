@@ -37,8 +37,9 @@
     "04-degree-summary.sql": "ac2176e0d145bb21dc8edffd047c5d357343f215f181c0109902d4eaa0722dd5",
     "05-typed-examples.sql": "356b465eae7e4effe22d013a034efc2dd872eaf779a9b10d6a07953723b0a1ac",
     "06-coordination-candidate.sql": "bdc2449dd72092a8e1eaa547ff0ccf81194ba66b506af106387c6f02e7239581",
-    "README.md": "b731e85d4e206ef9915242ce8f435ed72dc821ad0e7e798667e0f7b0721d623f",
-    "native-singleton.sql": "311a7cabed197c991e13ad53dddfb1705cbe45bc82bfbf572bc75cf927953316"
+    "README.md": "dfa2f0cfd2334be655ac2fe17318ddaa7d5fb1d28a60e83af85547023c3e040d",
+    "native-singleton.sql": "311a7cabed197c991e13ad53dddfb1705cbe45bc82bfbf572bc75cf927953316",
+    "publication-descriptor.sql": "5f98d741d4fbe313f3cc960b1473dc7c6ca5bef47a4ada87a5c51e1faa18b300"
   },
   "qualification": "Exact source CREATE extraction only; no native execution, migration, service performance, security or production fencing claim."
 }

@@ -59,3 +59,14 @@ Never alter the raw payload to fit a projection. Retain old publication pins
 through migration and select a validated prior descriptor for reader rollback.
 This package does not DROP, VACUUM, rewrite or advance production progress.
 Runtime, producer authority, production fencing and UMF binding remain open.
+
+## Publication resolver slice
+
+publication-descriptor.sql reads a named immutable descriptor without silently
+choosing current physical heads. The runtime adapter must reject missing or
+ambiguous descriptors under the contracts and validate role identity, supported
+revisions, retained versions and effective policy before using native-singleton.sql.
+This first SQL component does not implement the runtime resolver or publisher.
+The [revised layout acceptance](../../docs/helix/02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md)
+closes the bounded design milestone; its operational targets and production
+qualification remain explicit. No new native deployment or benchmark was run.

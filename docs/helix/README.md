@@ -44,13 +44,13 @@ owner selected 1B nodes with more edges; Fabric mappings are bounded projections
 liquid clustering includes ingest cost. Exhaustive maintenance parity passes
 all 10,019,981 edge rows, complete fields, hidden metadata and unique typed keys.
 
-**Next action:** Implement the reviewable schema-package slice described in the
-[table design handoff](02-design/spikes/SPIKE-001-table-layout/table-design-handoff.md).
-The owner stopped further testing; reuse the completed evidence and keep measured
-limits explicit. Baseline canonical/raw/history/delete/publication tables are
-separate from optional adjacency, typed examples and coordination candidates.
-Production source authority, fencing and runtime selection remain open. UMF is
-deferred; native singleton reads use Unity Catalog Delta independently of Fabric.
+**Next action:** Implement the publication resolver and then the serialized
+publisher boundary using CONTRACT-001/002/003. The owner-revised
+[layout milestone acceptance](02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md)
+is met in its bounded scope. The [SQL candidate package](../../sql/ashlar-delta-v03/README.md)
+contains selectable table groups, descriptor and singleton read templates.
+No further scale tests are required; unmet operational targets and production
+source/fencing/security/retention qualifications remain explicit. UMF is deferred.
 
 **Historical spike status (superseded as a work plan):** The maintenance-inclusive comparisons below now fail.
 Final verification passes on both layouts, including 9,419,981 untouched carriers,
