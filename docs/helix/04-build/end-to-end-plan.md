@@ -2835,3 +2835,26 @@ Next implement host obligations, exact decoding, buffered context recheck and
 native tests against these actual publications, then broader admitted homes,
 joins/aggregates/keys/relationships. No native Weft execution or full goal completion
 is claimed by this build/compile checkpoint.
+
+### Buffered Weft execution boundary — 2026-10-08
+
+New read_weft executes integrity checks and compiler SQL inside one complete
+resolver/pin interval, requires mandatory compiler-custody/profile/authorization/
+decoding/release policies and returns only after closing checks succeed. It
+strictly recognizes the initial three original obligation families, ordered exact
+parameter slots, complete STRING carriers and one-zero guard outcomes. Unknown
+families are not ignored. CompiledWeftTransport admits exact compiler WITH SQL and
+checks without changing ordinary native read routing. Explicit string/presence
+decoding retains absence versus value and refuses native null, duplicate/unknown
+JSON content, invalid Unicode and coercion.
+
+Eleven focused execution/decoder/binding/singleton tests pass, including guard
+ordering, exact parameter reuse, late authority/pin failure, type mismatch and
+profile/unknown-obligation refusal before user SQL. Test policies and backend are
+explicit synthetic boundary fixtures; no native authorization or execution claim.
+This iteration submits no warehouse statements or graph writes. Next compose the
+actual owner policy and profile observations with these boundaries, recompile to
+verify original artifact custody, then execute queries against the completed
+native evolution publication. Numeric/recursive/typed-home/join/aggregate/key/
+relationship support and broader source/Truss paths remain unfinished. Full goal
+is active; a callback boundary alone does not satisfy native Weft integration.

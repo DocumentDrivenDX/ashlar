@@ -430,3 +430,23 @@ unsupported meanings. The nativeProfile obligation requires engine 2026.39 and
 both exact build hashes from pinned Weft; no newer-engine fallback is allowed.
 Merged B-007 does not include the owner's uncommitted B-008 security changes.
 This integration's local compilation is verified; host/native execution is pending.
+
+`weft_query.read_weft` now supplies the buffered execution boundary. It MUST hold
+the complete pin vector across resolver admission, every emitted scalar-integrity
+check, exact ordered-parameter execution, decoding and final authorization/context
+checks. The pin context MUST close successfully before rows return. The selected
+implementation handles publication, scalarIntegrity and nativeProfile obligations;
+unknown/duplicate/additional families refuse pending explicit handlers. Mandatory
+policy callbacks independently verify original compiler/model/binding custody,
+native profile, caller authority, exact decoding and final row release. Library
+callback presence is not evidence that a deployed policy establishes these facts.
+
+The exact compiled-statement transport may execute WITH statements only from its
+trusted original artifact allowlist. Ordinary native read routing is unchanged.
+All guard results MUST be one exact STRING zero. Result names/order/native STRING
+types and complete row inventory MUST match compiler descriptors. Unexpected null
+carriers refuse. No numeric parameter or result conversion through floats occurs.
+The initial decoder admits qualified string scalars and explicit absent/value
+string envelopes bound to original Field identities; native null, duplicate JSON
+members, unpaired Unicode, NUL, extra states and numeric substitution refuse.
+Numeric/recursive/entity/relationship decoder handlers remain unfinished.

@@ -59,3 +59,18 @@ class OperationExecutor:
         prefix=sql.lstrip().split(None,1)[0].upper() if sql.strip() else ''
         if prefix in ('SELECT','SHOW','DESCRIBE'):return self.transport.query(sql,parameters)
         return self.transport.mutation(self.operation,sql,parameters)
+
+class CompiledWeftTransport:
+    """Allow exact trusted compiler statements, including WITH, without widening reads."""
+    def __init__(self,transport,artifact):
+        self.transport=transport
+        self.allowed={artifact['sql']}
+        for item in artifact['obligations']:
+            self.allowed.update(check['sql'] for check in item['parameters'].get('checks',[]))
+    def query(self,sql,parameters):
+        if sql not in self.allowed:return self.transport.query(sql,parameters)
+        if any(type(k) is not str or type(v) is not str for k,v in parameters.items()):
+            raise SQLCustodyError('Exact compiler parameter carriers required')
+        client=self.transport.read_client
+        client.sql('weft-compiled-read',sql,parameters=[{'name':k,'type':'STRING','value':v} for k,v in parameters.items()] or None)
+        return sql_result(client.records[-1]['response'])

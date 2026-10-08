@@ -1078,3 +1078,11 @@ The next host layer must admit the exact engine/settings/build, enforce caller
 policy and every integrity check, decode exact results and hold/recheck the
 immutable publication before releasing buffered rows. Native Weft query execution
 has not yet been demonstrated. Existing singleton workflow remains available.
+
+The core `ashlar.weft_query.read_weft` boundary now handles one pinned buffered
+read with mandatory trusted host policies and scalar-integrity/native-profile
+obligations. `CompiledWeftTransport` executes its exact compiler statements,
+including WITH. `decode_string_column` supports exact selected string scalars
+and explicit absent/value envelopes. Local boundary/refusal checks pass; concrete
+native policy/profile verification and execution remain pending. Wider numeric,
+recursive, typed-column and relationship handlers must be added explicitly.
