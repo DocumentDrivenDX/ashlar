@@ -2962,3 +2962,23 @@ results are pending; no published/query/ACK claim follows from setup/intake.
 Continue observing that original handle/journal; do not restart on an observation
 timeout. Existing warehouse/catalog only, no predictive-optimization, grant or
 compute configuration change. Actual Truss catalog/producer/feed remains required.
+
+### Configured source first native publication verified — 2026-10-08
+
+The original configured-source native publisher process5165 remains active.
+Its first complete transaction is durably published at byte815. All four original
+exact-version native inventories equal independent reconstruction from the original
+configured source: two objects using source configured-example/type1017 and
+property1023/1024, two whole-source history records, empty edges/tombstones.
+Nine original mutations are terminal SUCCEEDED. Evidence:
+[first configured publication](evidence/native-configured-publication-first-20261008.json).
+This offline receipt comparison issues no additional warehouse statements.
+
+The update and delete groups remain running/unverified. Observe the original
+handle and /private/tmp/ashlar-configured-stream-20261008.sqlite journal; do not
+restart or replace originals. A candidate reusable completed-run offline verifier
+is retained at /private/tmp/ashlar-verify-configured-publication-pending-20261008.py;
+its full-run execution check awaits the original summary before committing it as
+a supported command. An initial column comparison used native types instead of
+the recorded complete STRING projections; corrected before first-prefix parity.
+Native query/replay/complete configured stream and real Truss remain unproved.

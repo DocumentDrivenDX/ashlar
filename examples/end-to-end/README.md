@@ -1150,3 +1150,9 @@ The configured example's fresh native setup and raw intake now pass in
 `/private/tmp/ashlar-configured-setup-20261008/summary.json`; original intake proof
 is `/private/tmp/ashlar-configured-schema-20261008/summary.json`. Publication/query
 are separate checks; raw intake is not native catalog acceptance.
+
+The first configured native transaction now passes at byte checkpoint `815`:
+two custom-bound objects and two original history records, with all four exact
+native inventories checked. Its nine original mutations succeeded. Later source
+transactions and native query remain separate pending checks; this first result
+does not prove the entire configured-source stream.
