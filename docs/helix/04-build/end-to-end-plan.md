@@ -647,3 +647,23 @@ accepted catalog's complete enforcement report. Complete report assembly still
 needs admitted profile/execution/origin context, full effect/count/diagnostic
 correspondence and protected report/head persistence. Candidate inventories and
 IDs still cannot authorize ingestion. Evidence: SPIKE-001-table-layout/out/truss-assertion-inventory-20261008.
+
+## Initial report source/effect parts — 2026-10-08
+
+Report production now composes actual original documents, complete native UMF
+validation/warning custody, partial interpretation coverage, selected source
+assertions and verified candidate type/property counts. The probe explicitly
+observes complete additional key/relationship/endpoint/schema-change/journal/
+object/edge counts rather than supplying unchecked zeros. Native original request,
+source/validation, complete definition columns/lineage/provenance and semantic
+fields must match before any parts are emitted. Unknown/missing effects, changed
+original requests and numeric/boolean aliases refuse. Four original Truss report
+fragment schemas pass; all109 local checks pass. One small isolated rollback probe
+ran; no Databricks workload or committed catalog change occurred.
+
+These are unregistered initial-candidate parts, deliberately lacking an accepted
+report interface/revision. Full original execution/authority/origin/report/lifecycle
+registration and complete protected persistence are still required before a
+positive accepted head or ingestion authority. The goal's schema evolution, real
+Truss mutation/feed and composed Ashlar publication/read remain unfinished.
+Evidence: SPIKE-001-table-layout/out/native/truss_catalog_candidate_20261008_report_parts.

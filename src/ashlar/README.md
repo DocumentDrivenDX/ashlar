@@ -292,3 +292,16 @@ The explicit profile and byte/count bounds are unregistered candidates; this
 inventory cannot stand in for an admitted complete Truss enforcement report.
 `tools/check_truss_assertion_schema.ts` independently checks entries against the
 original Truss schema without promoting shapes into completeness/authority.
+
+report_parts.py assembles initial-candidate documents, original diagnostic custody,
+interpretation coverage and effect counts only after exact native source/request/
+definition/lineage/provenance correspondence. It checks explicit complete additional
+key/relationship/endpoint/schema-change/journal/object/edge counts; unknown effects
+or columns, missing definitions and boolean/numeric aliases refuse. Original
+UMF warnings are retained as one complete original producer artifact under an
+explicit candidate diagnostic profile; no diagnostic is extracted/reserialized or
+reclassified as source invalidity. Partial interpretation stays partial.
+These parts lack execution/origin/report/lifecycle registration and protected
+persistence, so they deliberately have no accepted-report interface/revision.
+`tools/check_truss_report_parts_schema.ts` verifies four original fragment schemas
+without treating fragments as a complete accepted report.
