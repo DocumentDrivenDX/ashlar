@@ -1,0 +1,112 @@
+{
+  "state": "passed",
+  "base_revision": "d2ee6da91e35e462dafcf3f145bd8abbfa6cad85",
+  "tested_source_sha256": {
+    "tools/setup_native.py": "32f37a5e277472df201e4ee5baf19c6c1e0c2dca4b2bf75b48a348ab0b1f3826",
+    "tools/native_owner_lane.py": "0716c2b14a2db152d6ac59c16a0fecfd11634adeefca610d2abd56580daadf06",
+    "tools/native_registry_authority.py": "f6914c7743d182e41300e37de212d1f327b68705836d26a1f337fb28fb431394",
+    "tools/effective_grants.py": "5ec119af5e255bc15d6ac5a5301fad12199a151c6051a78a932f3009b048a432"
+  },
+  "namespace": "ashlar_e2e_private_20261008.runtime_clean_user",
+  "native_table_uuids": {
+    "ashlar_e2e_private_20261008.runtime_clean_user.object_current": "515a70f2-02e2-49db-82a7-c0ebe47b187e",
+    "ashlar_e2e_private_20261008.runtime_clean_user.edge_current": "fb2155f3-d055-4491-b49c-16bd1573009c",
+    "ashlar_e2e_private_20261008.runtime_clean_user.source_record": "2c38ab75-5b52-4df4-aa63-d0b0ed5ba1d0",
+    "ashlar_e2e_private_20261008.runtime_clean_user.property_journal": "5310bba8-d5a5-4a10-8963-7030a3a56dcd",
+    "ashlar_e2e_private_20261008.runtime_clean_user.tombstone": "813c4555-265b-40cf-a9bc-1158c3fbfb2e",
+    "ashlar_e2e_private_20261008.runtime_clean_user.publication_manifest": "cf6c47db-0621-48e6-b8d8-d8512f1af732",
+    "ashlar_e2e_private_20261008.runtime_clean_user.publication_attempt_phase": "9618a50b-70c3-441d-860d-f89b9852dcfa",
+    "ashlar_e2e_private_20261008.runtime_clean_user.whole_source_history": "02955e2f-fa10-46e9-9eb9-2bd95a4d3d9d"
+  },
+  "generated_carriers_sha256": "89bcb139316bfbb110c9f3beaa1b582de6d521239217abcc307e55fc43a81e45",
+  "umf_generator": {
+    "project": "UMF",
+    "revision": "fac1497a5ac5cb39bbaaac34eb0da8dc8b208c69",
+    "extension": "umf.delta.definition/0.1.0"
+  },
+  "private_receipts": "/private/tmp/ashlar-clean-user-setup-20261008",
+  "private_journal": "/private/tmp/ashlar-clean-user-setup-20261008.sqlite",
+  "receipt_sha256": {
+    "summary.json": "a8b776fc65de22dc519a05376e78b597957c93cf4b1e84239e9441495fff58e7",
+    "journal-export.json": "309b0e07e0c336351e4db12143c3635e9b75e7c00c7f5a0eb82e4063d0878ed5",
+    "statements.jsonl": "9259388e56cc3b985c4eaab526eabf93b66d8bb2606adeda9b46540ae0813663",
+    "effective-grants.jsonl": "7146d2ef4e77d8e927650333701743b11c7f5c70287fe96505bf5a8d81b5f1e3"
+  },
+  "native_mutations": [
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_clean_user.edge_current:install",
+      "original_handle": "01f1c34a-72ca-1aaf-b40c-63ad96cbd851",
+      "request_sha256": "7e5b4cea716ff146ddb25382d01389819ec60997dce73613d37bcdf4734e4147",
+      "response_sha256": "ac0e3f00deca2fa46cd7b68f35aac1b6fec31f3af5e56de86dec8e43f844ba45",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_clean_user.object_current:install",
+      "original_handle": "01f1c34a-6fef-16af-8729-f00630a201cb",
+      "request_sha256": "daad8ecfaf3c4ab34d1e00d8ff49bd84f80c59be2b58f0f9e055fcadf6e19d57",
+      "response_sha256": "013d1a123f54e2f28f5f0e97774e3b0f9785c5d0e32badf7564ab6fa0fb1c5b6",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_clean_user.property_journal:install",
+      "original_handle": "01f1c34a-780a-1c3e-ac85-8c40a8404dde",
+      "request_sha256": "af06c76becefb1d98841f60fbdbaed491cf4d79566a6b5ee989b902a5fdc3c6f",
+      "response_sha256": "c810210cecd7945f3d7da70af8206566563a4f68a85684ed14f0b0033c353417",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_clean_user.publication_attempt_phase:install",
+      "original_handle": "01f1c34a-7fb7-1599-96cb-2e07994e799a",
+      "request_sha256": "8f4936037c6264b0e7552830ec7c893f97759950ad3e5466790eb0da2192f031",
+      "response_sha256": "52f658db14db782ae8488b689794349ab6bcfb89e63993036db9e14ce0f882af",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_clean_user.publication_manifest:install",
+      "original_handle": "01f1c34a-7d4e-1ea0-81d3-f6ac0041829b",
+      "request_sha256": "56e7f8dad8f6563631d1cdc21028de04b2fbb013a4fa48dd7a1f55b3d5383239",
+      "response_sha256": "48bb0d9fe395751aaef0ccb47bbbf24118b4b8bca0e757f06034dd09059e5880",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_clean_user.source_record:install",
+      "original_handle": "01f1c34a-7564-1abb-8490-fbb36609f706",
+      "request_sha256": "31699965afa95a99d38de981f4bb303048884ff20f669f239bb91282bd869d1e",
+      "response_sha256": "3910dbeba4551c23dba1e99415277a041a7d1b6d2e4955ac0b14e21f3510e1c4",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_clean_user.tombstone:install",
+      "original_handle": "01f1c34a-7ab5-10b9-9a91-094b40e34f92",
+      "request_sha256": "6fec14885d9fe6cb1084779ddee7ecf68d67aba5340c5b1d5e90917834a5ccca",
+      "response_sha256": "1f29ddaa8b783eed60cca6aac174a57252412b235562ede8cf37abea094ffb45",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_clean_user.whole_source_history:install",
+      "original_handle": "01f1c34a-8245-18ce-b02b-e26067e68c2c",
+      "request_sha256": "7fa058f6c8928bc8a7c365dc04e9017fc86c526692ec60f0584ff1b79bec2966",
+      "response_sha256": "149806dd4cb32de54fdd38df85ba2ad44631ebcd758acc0bc6938f62fd6490f3",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_clean_user:schema",
+      "original_handle": "01f1c34a-6edc-1f6d-a0f0-a37600e0c6f4",
+      "request_sha256": "6cb797c22e0689203ee59551b39b76230d22a27e19ee9038399221ec3eac1254",
+      "response_sha256": "bc3a38d9b64a9efba7286260226ee1cc0c843e6f9b757148dec387015b60925d",
+      "terminal_state": "SUCCEEDED"
+    }
+  ],
+  "warehouse_reads": 24,
+  "effective_permission_pages": 53,
+  "checks": [
+    "exact original UMF-generated CREATE statement inventory",
+    "nine original mutations terminal SUCCEEDED",
+    "all eight native UUIDs unique and consistent with journal",
+    "exact ordered model column names/types for every carrier",
+    "eight final native UUID reobservations match original identities",
+    "all initial native details report zero files",
+    "current installation receipt passes stream/registry configuration admission"
+  ],
+  "qualification": "Fresh eight-carrier setup in a new schema of existing authorized private catalog, existing warehouse. Revised owner-lane checks current actor, native managed tables and complete retained effective permissions. No graph data/ingest/publication/source ACK. Original journals required; no native recovery fault injection or remote fencing. Actual Truss, clean whole-toolkit setup, broader schemas and sources remain open. No grants/compute/predictive optimization changes. Code executed as listed source fingerprints on the base revision with the documented local edits."
+}

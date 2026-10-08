@@ -2428,3 +2428,36 @@ shared registry UUID/proof; this new registry is not swapped into that journal.
 A fresh complete carrier installation, broader schemas and actual Truss runtime/
 acceptance/feed remain open. Native concurrent uniqueness/remote fencing and
 hash CHECK constraints on this newly created registry are not claimed.
+
+
+### Fresh generated carrier setup — 2026-10-08
+
+The Truss delivery request remains live (tool cell 1306), while its owner chat
+remains idle at 221cb72 and the runtime candidate remains inert at 8af84f7.
+No duplicate request or fabricated feed/catalog admission was issued. Independent
+progress closes the carrier installation gap: setup_native.py now shares the
+NativeOwnerLane used by raw registry admission, with fresh actor/native owners,
+managed-table checks and complete retained effective-permission API pages.
+Ancestors are renewed before every native CREATE; all eight UUIDs are reobserved
+before readiness. Original generated model custody is checked at completion.
+Read and mutation transports use the same actual SDK client. Five focused shared
+authority/permission tests pass; no new Truss capability is claimed.
+
+The revised installer completed in new existing-catalog schema
+ashlar_e2e_private_20261008.runtime_clean_user on existing compute. All nine
+original native CREATE statements are terminal SUCCEEDED. Offline inspection
+matches the complete native statement set against UMF-generated intent, every
+ordered column/type inventory and eight final UUID observations against original
+journal identities. All initial DESCRIBE DETAIL records report zero files.
+The resulting receipt passes the stream/registry configuration helper unchanged.
+Native observations comprise 24 warehouse reads and 53 permission API pages.
+
+[evidence/native-clean-carrier-setup-20261008.json](evidence/native-clean-carrier-setup-20261008.json)
+retains tested source fingerprints, original statement handles/hashes, all native
+UUIDs, generated model provenance and private receipt/journal paths. Tested source
+is the documented edited snapshot on d2ee6da; no later commit is backdated as
+execution evidence. The user setup command now names this current installation.
+No graph writes, cleanup, grants, compute or predictive optimization changes
+occurred. Actual UMF registration, publication/query and schema evolution on
+this fresh installation remain unexecuted. Actual Truss remains required for the
+full goal; historical native CSV proofs cannot stand in for this new workload.

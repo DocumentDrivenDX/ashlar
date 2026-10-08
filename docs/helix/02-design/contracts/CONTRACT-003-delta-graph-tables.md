@@ -1198,3 +1198,24 @@ An offline reconstruction from the original CSV source-intent and effect-plan
 exports matches all four complete original SQL plans exactly, using the
 historical timestamp. Original native receipts remain unchanged; no network
 requests were made for this verification.
+
+
+## Native development setup admission renewal — 2026-10-08
+
+The setup_native.py host installer consumes only checked UMF-generated carrier
+proposals and retains original SQL submissions/UUIDs in its same-host journal.
+Before creating a schema or carrier it MUST renew current actor and complete
+catalog/schema owner-lane effective-permission admission. Raw API pages are
+retained before interpretation; inherited, unknown and partial content follows
+the bounded effective-permission reader's refusal rules. Native table admission
+MUST verify a current Unity Catalog MANAGED table. It MUST compare every installed
+carrier's exact ordered columns with the generated model and renew owners,
+permissions and original UUIDs before reporting readiness. Generated source/model
+custody MUST still match at completion. No CREATE IF NOT EXISTS or replacement
+submission may hide an existing target or uncertain native outcome.
+
+The raw-registry and carrier-setup tools share NativeOwnerLane for these native
+observations. This is qualified development owner admission, not remote fencing,
+immutable administrator restrictions, publication readability or accepted schema.
+It changes no grants, predictive optimization or table retention settings beyond
+explicit original UMF-generated CREATE intent.

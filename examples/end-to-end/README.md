@@ -292,7 +292,7 @@ materialization and original-plan replay, not a Truss feed or read publication.
 
 ## Isolated Unity Catalog setup
 
-The dedicated `ashlar_e2e_private_20261008.runtime` namespace now contains eight
+The fresh `ashlar_e2e_private_20261008.runtime_clean_user` namespace contains eight
 empty candidate graph/source/history/publication tables. Setup requires the
 Databricks SDK (tested0.102.0), a configured authenticated CLI/SDK profile and an
 existing catalog owned by that identity without unexpected inherited writers.
@@ -300,10 +300,10 @@ From the Ashlar repository, the demonstrated command is:
 
 ```sh
 python3 tools/setup_native.py \
-  --catalog ashlar_e2e_private_20261008 --schema runtime \
+  --catalog ashlar_e2e_private_20261008 --schema runtime_clean_user \
   --profile aidev-cus --warehouse 2439e1f2e37ac563 \
-  --journal /private/tmp/ashlar-private-setup-20261008.sqlite \
-  --output docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_setup_20261008
+  --journal /private/tmp/ashlar-clean-user-setup-20261008.sqlite \
+  --output /private/tmp/ashlar-clean-user-setup-20261008
 ```
 
 Run it with the Python environment containing the SDK. The demonstrated journal
@@ -312,9 +312,21 @@ telemetry. For a new deployment, choose a persistent private journal path and a
 fresh schema, retaining the same arguments/path through retries. Setup has no
 overwrite, cleanup or blind resubmission. A pending returned statement resumes
 its original handle; a submission with no retained handle requires reconciliation.
-It verifies each original UUID/schema and renews owner/inherited grant admission.
+It checks current actor, complete paginated effective permissions and native
+managed-table type, compares exact columns with the UMF-generated model, then
+renews all eight UUIDs and owner lanes before reporting readiness.
+Raw permission pages are retained in effective-grants.jsonl. The fresh setup
+passed nine original CREATE statements, 24 warehouse reads and 53 permission
+pages; all tables reported zero files.
 This command deploys empty carriers; actual UMF schema acceptance, Truss feed,
 streaming publication and user reads are still required by the end-to-end goal.
+
+The older `runtime` and CSV installations remain separate retained fixtures.
+Do not reuse their journals for this schema or rewrite their historical receipts.
+Pass this new installation's summary.json to register_umf.py with the pinned
+UMF source and its own persistent registry journal. That new registration and
+publication/query sequence remain to be demonstrated on runtime_clean_user;
+the earlier native CSV sequence belongs to its original installation.
 
 ## Stream complete source batches into raw custody
 
