@@ -1994,3 +1994,25 @@ This moves the reusable checker from a Truss integration probe into a runnable
 Ashlar consumer workflow. It remains a local development fixture path, not protected
 native Truss acceptance/streaming, dataset key/relationship proof, qualified validator
 isolation, publication or source ACK. Full goal remains active; no cloud/scale run.
+
+### Actual UMF checks in the schema-evolution workflow (2026-10-08)
+
+The user-facing evolution command now optionally consumes the same actual pinned
+UMF Record checker, with complete per-revision/prestate results retained through
+--umf-check-output-dir. Original event revision must match its selected definition;
+the fixed fixture's complete batches are not reassembled or dispatched through a
+newer-schema fallback. Two v1 creates and one v3 replacement receive actual checks.
+Before the existing explicitly admitted v1→v3 transition, both existing records are
+checked against the new logical v3 definition using their original matching retained
+history/delivery/hash custody. Their original versions/revisions are not rewritten
+by this check; no automatic compatibility or native migration is introduced.
+
+The actual producer integration passes: original schema bytes, explicit upgrade
+receipts, 2/1/2 complete source/new/existing check inventory, original prestate
+locators and absent optional caption are verified. Independent evolution replay
+retains both historical revisions, four events, one tombstone and live revision3.
+Four evolution unittests and the default local-example check pass; the previous
+actual UMF example integration also passes after shared-runner factoring. README
+commands reproduce the checks and retain complete receipts. No defaults, native IDs,
+publication or source ACK is manufactured. Full native Truss installation/acceptance,
+protected feed and native end-to-end workflow remain unfinished; goal stays active.

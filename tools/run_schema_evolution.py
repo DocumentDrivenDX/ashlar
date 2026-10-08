@@ -1,6 +1,9 @@
 """Local v1-to-v3 UMF schema evolution; fixture authority only, no native writes."""
 import json
-from run_local_example import ROOT, PIN, fixture_inputs
+import argparse
+from pathlib import Path
+from run_local_example import ROOT, PIN, fixture_inputs, check_original_records, check_existing_records
+from ashlar.schema import _json
 from ashlar.apply import empty_state, plan_apply
 from ashlar.catalog import Identity, MappingEntry
 from ashlar.schema import SchemaIntake
@@ -37,10 +40,35 @@ def inputs():
     return (v1, v3), policies, transition, batches
 
 
-def run():
+def run(umf_source=None, umf_check_output_dir=None):
     intakes, policies, transition, batches = inputs()
+    upstream = []
+    if umf_source is not None:
+        for intake in intakes:
+            selected = []
+            for batch in batches:
+                revisions = {_json(record.raw)['schema_revision'] for record in batch.records}
+                if len(revisions) != 1:
+                    raise ValueError('This fixture requires explicit single-revision batches')
+                if revisions == {intake.document_revision}:
+                    selected.append(batch)
+            output = None if umf_check_output_dir is None else umf_check_output_dir / ('schema-' + intake.document_revision + '.json')
+            result = check_original_records(umf_source, intake, selected, output,
+                ROOT / ('examples/end-to-end/schema-v' + intake.document_revision + '.umf.json'))
+            upstream.append({'revision': intake.document_revision, 'records': len(result['records']),
+                             'document_complete': result['originalValidation']['complete']})
+    existing_checks = []
     state = empty_state()
     for batch in batches:
+        changes = changes_from_batch(batch)
+        if umf_source is not None and any(change.state.schema_revision == '3' and
+            change.state.key in state.current and state.current[change.state.key].schema_revision == '1'
+            for change in changes):
+            output = None if umf_check_output_dir is None else umf_check_output_dir / 'existing-values-under-v3.json'
+            result = check_existing_records(umf_source, intakes[1], state, output,
+                                            ROOT / 'examples/end-to-end/schema-v3.umf.json')
+            existing_checks.append({'target_revision': '3', 'existing_records': len(result['records']),
+                                    'native_migration': False})
         state = plan_apply(state, changes_from_batch(batch), schema_policy=policies,
                            schema_transition_policy=transition)
     original = state
@@ -57,8 +85,15 @@ def run():
             'history_revisions': sorted({change.state.schema_revision for change in state.history.values()}),
             'live_schema_revisions': sorted({entity.schema_revision for entity in state.current.values()}),
             'events': len(state.history), 'tombstones': len(state.tombstones),
+            'upstream_record_checks': upstream or None, 'existing_value_checks': existing_checks or None,
             'replay_unchanged': True, 'published': False, 'acknowledged': False}
 
 
 if __name__ == '__main__':
-    print(json.dumps(run(), indent=2))
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--umf-source', type=Path)
+    parser.add_argument('--umf-check-output-dir', type=Path)
+    args = parser.parse_args()
+    if args.umf_check_output_dir is not None and args.umf_source is None:
+        parser.error('--umf-check-output-dir requires --umf-source')
+    print(json.dumps(run(args.umf_source, args.umf_check_output_dir), indent=2))

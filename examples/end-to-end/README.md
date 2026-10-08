@@ -45,6 +45,24 @@ Repeat the small actual-producer integration check with:
 python3 tools/check_local_umf_example.py /tmp/ashlar-umf-record-check
 ```
 
+The same pinned producer also checks the schema-evolution workflow:
+
+```sh
+python3 tools/run_schema_evolution.py --umf-source /tmp/ashlar-umf-record-check --umf-check-output-dir out/local-evolution/umf
+python3 tools/check_local_umf_evolution.py /tmp/ashlar-umf-record-check
+```
+
+Each original event revision selects its own definition: two v1 creates and one
+v3 replacement receive actual UMF logical checks. Before the explicitly admitted
+v1→v3 fixture transition, both existing records are checked against the new v3
+logical definition, tied to their original retained-history delivery IDs/hashes.
+This does not rewrite their old revisions or declare automatic schema compatibility.
+The workflow keeps the existing exact transition guard, retains source/check/upgrade
+receipts when requested, and verifies independent retained evolution replay. History
+includes revisions1/3, the surviving object uses3, and one old-revision object is
+deleted. Unknown meaning never falls back to a newer definition. Native migration,
+Truss acceptance, publication and source ACK remain unproved.
+
 The isolated PostgreSQL substrate is also runnable:
 
 ```sh

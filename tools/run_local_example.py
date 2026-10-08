@@ -41,24 +41,17 @@ def fixture_inputs():
     return intake, policy, batches
 
 
-def check_original_records(umf_source, intake, batches, output=None):
-    records = []
-    for batch in batches:
-        changes_from_batch(batch)  # complete original transaction/event admission
-        for record in batch.records:
-            event = _json(record.raw)
-            if event['operation'] == 'delete':
-                continue  # deletion is a source operation, not a Record value
-            if event['entity_kind'] != 'object' or event['type_id'] != '17':
-                raise ValueError('Only the explicit example fixture type is mapped')
-            props = _json(event['props_json'].encode('utf-8'))
-            values = []
-            for key, value in props.items():
-                if key not in ('23', '24') or not isinstance(value, str):
-                    raise ValueError('Explicit fixture string properties required')
-                values.append({'field': {'module': 'fixture', 'element': 'label' if key == '23' else 'caption'},
-                               'state': 'present', 'value': {'string': value}})
-            records.append({'deliveryId': record.delivery_id, 'recordSha256': record.sha256, 'values': values})
+def fixture_value_entries(props):
+    values = []
+    for key, value in props.items():
+        if key not in ('23', '24') or not isinstance(value, str):
+            raise ValueError('Explicit fixture string properties required')
+        values.append({'field': {'module': 'fixture', 'element': 'label' if key == '23' else 'caption'},
+                       'state': 'present', 'value': {'string': value}})
+    return values
+
+
+def check_value_request(umf_source, intake, records, output=None, schema_path=None):
     request = json.dumps({'identity': {'module': 'fixture', 'element': 'item'}, 'records': records},
                          ensure_ascii=False, separators=(',', ':')).encode('utf-8')
     with tempfile.TemporaryDirectory(prefix='ashlar-umf-record-') as temporary:
@@ -66,7 +59,7 @@ def check_original_records(umf_source, intake, batches, output=None):
         request_path.write_bytes(request)
         process = subprocess.run(['bun', str(ROOT / 'tools/check_umf_record_values.ts'),
                                   str(umf_source), RECORD_CHECK_PIN,
-                                  str(ROOT / 'examples/end-to-end/schema-v3.umf.json'), str(request_path)],
+                                  str(schema_path or ROOT / 'examples/end-to-end/schema-v3.umf.json'), str(request_path)],
                                  check=True, capture_output=True, timeout=30)
     if len(process.stdout) > 4 * 1024 * 1024:
         raise ValueError('Example producer result limit exceeded')
@@ -81,6 +74,39 @@ def check_original_records(umf_source, intake, batches, output=None):
         output.parent.mkdir(parents=True, exist_ok=True)
         output.write_bytes(process.stdout)
     return result
+
+
+
+def check_original_records(umf_source, intake, batches, output=None, schema_path=None):
+    records = []
+    for batch in batches:
+        changes_from_batch(batch)
+        for record in batch.records:
+            event = _json(record.raw)
+            if event['schema_revision'] != intake.document_revision:
+                raise ValueError('Original event revision must match the selected definition')
+            if event['operation'] == 'delete':
+                continue
+            if event['entity_kind'] != 'object' or event['type_id'] != '17':
+                raise ValueError('Only the explicit example fixture type is mapped')
+            records.append({'deliveryId': record.delivery_id, 'recordSha256': record.sha256,
+                            'values': fixture_value_entries(_json(event['props_json'].encode('utf-8')))})
+    return check_value_request(umf_source, intake, records, output, schema_path)
+
+
+def check_existing_records(umf_source, intake, state, output=None, schema_path=None):
+    records = []
+    for entity in sorted(state.current.values(), key=lambda value: value.key):
+        original = state.history[(entity.key, entity.version)]
+        if original.state != entity:
+            raise ValueError('Original retained history must match current prestate')
+        if entity.key.kind != 'object' or entity.key.type_id != 17:
+            raise ValueError('Only the explicit fixture Record is mapped')
+        records.append({'deliveryId': original.delivery_id, 'recordSha256': original.raw_digest,
+                        'values': fixture_value_entries(_json(entity.props_json.encode('utf-8')))})
+    # This compares old logical values with the explicitly chosen new definition;
+    # it never rewrites their original schema revision or claims a native migration.
+    return check_value_request(umf_source, intake, records, output, schema_path)
 
 
 def run(umf_source=None, umf_check_output=None):
