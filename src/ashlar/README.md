@@ -253,3 +253,14 @@ and component boundaries. Controls use the required long lowercase escapes. Clos
 shapes reject unknown members/profiles, NUL and unpaired surrogates. The encoder
 establishes byte correspondence only: original source/ownership admission, native
 allocation/report/head authority and protected acceptance remain outstanding.
+
+`tools/probe_truss_catalog.py` executes an initial-catalog rollback-only probe
+in the labeled isolated PostgreSQL container. It invokes the actual pinned UMF
+reader/interpretation APIs, verifies source correspondence and selected constraints,
+holds the catalog head lock, captures native allocation high waters, inserts
+candidate source/type/property rows, compares every stored definition/provenance
+column and exact source bytes, then rolls back and checks the empty catalog.
+The source-completeness constraint rejected the initial missing-provenance attempt;
+its original SQL and error remain retained. The corrected native allocation run
+passes. This is a producer-development probe with admin custody, not a protected
+public acceptance producer or accepted catalog; candidate IDs have no authority.

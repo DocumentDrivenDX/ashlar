@@ -593,3 +593,21 @@ catalog that conflicts with its authoritative IDs/revision boundary. Next
 implement the protected Truss acceptance producer/report path and then consume
 its admitted identity custody at Ashlar’s schema barrier; broader bindings and
 mutation/feed/publication remain required. No Databricks workload this iteration.
+
+## Native catalog candidate probe — 2026-10-08
+
+The rollback-only probe now consumes actual pinned UMF v3 source and interpretation,
+holds the installed native head at revision zero, captures all three global ID
+high waters and applies the selected one-Record/two-string-property candidate.
+Independent expected values cover exact original source/validation, lineage bytes
+and generated digest, all definition columns and definition-source provenance.
+Initial omitted provenance correctly fails native `type_def_definition_source_complete`;
+corrected effects/readback pass and rollback restores zero definitions/reports and
+one genesis revision. Original failed and successful observations are retained
+under SPIKE-001-table-layout/out/native/truss_catalog_candidate_20261008*.
+
+This closes a small native candidate-storage observation, not acceptance, revision
+publication, protected-role closure, Truss runtime or the end-to-end acceptance.
+Complete report construction/admission and protected persistence/ordinary-role
+inventory remain the next producer work. Do not use the probe's tentative IDs
+for Ashlar ingestion. All 97 local checks pass; no Databricks workload was run.

@@ -1,0 +1,2 @@
+ERROR:  new row for relation "type_def" violates check constraint "type_def_definition_source_complete"
+DETAIL:  Failing row contains (truss-weft-source-review-fixture, 1, fixture, item, record, f, 1, 0, null, truss-type-lineage/0.1.0, \x74727573732d63616e6f6e6963616c2f302e312e300a74727573732d747970..., \xa5abbde4caaf5b9517d01fc9b3c74c9a254c5e8fcc522e8278d3467118ec59..., null, null, null, null, null, null, null).

@@ -1,0 +1,135 @@
+{
+  "state": "verified_rollback_only",
+  "source_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+  "validator_revision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+  "sql_sha256": "9a1f3dd67eba965d349e282b66ed563ed74fb527afb972aaf6aaad64814100a9",
+  "observed": [
+    {
+      "phase": "candidate",
+      "head": 0,
+      "document": {
+        "doc_id": "truss-weft-source-review-fixture",
+        "doc_revision": "3",
+        "umf_version": "0.7.0",
+        "content_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+        "document": "{\"umf\":\"0.7.0\",\"id\":\"truss-weft-source-review-fixture\",\"vocabularies\":{},\"modules\":[{\"id\":\"fixture\",\"namespace\":\"fixture\",\"elements\":[{\"id\":\"item\",\"name\":\"Item\",\"kind\":\"record\",\"members\":[{\"module\":\"fixture\",\"element\":\"label\"},{\"module\":\"fixture\",\"element\":\"caption\"}],\"extensions\":{}},{\"id\":\"label\",\"name\":\"label\",\"kind\":\"field\",\"scalarType\":\"string\",\"nullability\":\"required\",\"cardinality\":\"one\",\"extensions\":{}},{\"id\":\"caption\",\"name\":\"caption\",\"kind\":\"field\",\"scalarType\":\"string\",\"nullability\":\"absent-allowed\",\"cardinality\":\"one\",\"extensions\":{}}]}]}",
+        "validation": {
+          "valid": true,
+          "complete": false,
+          "diagnostics": [
+            {
+              "code": "EXPERIMENTAL_CORE_NULLABILITY",
+              "path": "/umf",
+              "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+              "severity": "warning"
+            },
+            {
+              "code": "EXPERIMENTAL_CORE_CARDINALITY",
+              "path": "/umf",
+              "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+              "severity": "warning"
+            },
+            {
+              "code": "EXPERIMENTAL_CORE_FACETS",
+              "path": "/umf",
+              "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+              "severity": "warning"
+            },
+            {
+              "code": "EXPERIMENTAL_CORE_KEYS",
+              "path": "/umf",
+              "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+              "severity": "warning"
+            },
+            {
+              "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+              "path": "/umf",
+              "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+              "severity": "warning"
+            }
+          ]
+        }
+      },
+      "types": [
+        {
+          "document_id": "truss-weft-source-review-fixture",
+          "type_id": 1,
+          "module": "fixture",
+          "element": "item",
+          "kind": "record",
+          "since_rev": 1,
+          "doc_ord": 0,
+          "retired_rev": null,
+          "provisional": false,
+          "lineage_profile": "truss-type-lineage/0.1.0",
+          "lineage_hex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d747970652d6c696e656167652f302e312e300a5b2274727573732d776566742d736f757263652d7265766965772d66697874757265222c2266697874757265222c226974656d225d",
+          "lineage_sha256": "a5abbde4caaf5b9517d01fc9b3c74c9a254c5e8fcc522e8278d3467118ec59ca",
+          "definition_source_kind": "accepted_document",
+          "definition_rev": 1,
+          "definition_doc_ord": 0,
+          "definition_document_id": "truss-weft-source-review-fixture",
+          "binding_source_rev": null,
+          "binding_source_pointer": null,
+          "binding_source_bytes": null
+        }
+      ],
+      "properties": [
+        {
+          "prop_id": 1,
+          "type_id": 1,
+          "element": "caption",
+          "name": "caption",
+          "scalar_type": "string",
+          "nullability": "absent-allowed",
+          "cardinality": "one",
+          "home": "json",
+          "since_rev": 1,
+          "doc_ord": 0,
+          "retired_rev": null,
+          "facets": null,
+          "item": null,
+          "definition_source_kind": "accepted_document",
+          "definition_rev": 1,
+          "definition_doc_ord": 0,
+          "definition_document_id": "truss-weft-source-review-fixture",
+          "binding_source_rev": null,
+          "binding_source_pointer": null,
+          "binding_source_bytes": null
+        },
+        {
+          "prop_id": 2,
+          "type_id": 1,
+          "element": "label",
+          "name": "label",
+          "scalar_type": "string",
+          "nullability": "required",
+          "cardinality": "one",
+          "home": "json",
+          "since_rev": 1,
+          "doc_ord": 0,
+          "retired_rev": null,
+          "facets": null,
+          "item": null,
+          "definition_source_kind": "accepted_document",
+          "definition_rev": 1,
+          "definition_doc_ord": 0,
+          "definition_document_id": "truss-weft-source-review-fixture",
+          "binding_source_rev": null,
+          "binding_source_pointer": null,
+          "binding_source_bytes": null
+        }
+      ],
+      "report_count": 0
+    },
+    {
+      "phase": "after_rollback",
+      "head": 0,
+      "revision_count": 1,
+      "document_count": 0,
+      "type_count": 0,
+      "property_count": 0,
+      "report_count": 0
+    }
+  ],
+  "qualification": "Actual selected UMF string-record candidate effects and exact native lineage/property/source readback under initial head lock, rolled back. No accepted revision/report, committed IDs, protected producer, ordinary-role closure, mutation/feed or full runtime readiness."
+}
