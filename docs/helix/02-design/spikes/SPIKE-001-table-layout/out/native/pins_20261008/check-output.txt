@@ -1,0 +1,33 @@
+BEGIN
+SET
+ register 
+----------
+ 
+(1 row)
+
+ register 
+----------
+ 
+(1 row)
+
+COMMIT
+DO
+DO
+DO
+BEGIN
+SET
+ release 
+---------
+ 
+(1 row)
+
+ROLLBACK
+   pin_id    | version | released 
+-------------+---------+----------
+ fixture-pin |       4 | f
+(1 row)
+
+NOTICE:  PASS writer direct delete refused
+NOTICE:  PASS changed version refused
+NOTICE:  PASS reader release refused
+NOTICE:  PASS active pin retention refused

@@ -154,3 +154,11 @@ rows must come from an independent admitted source/prior-state oracle. The
 scale acceptance. Native final four-table parity and initial node/edge carrier
 parity pass. This proves observed version readability, not future retention,
 protocol support, active pin custody or publication authority.
+
+Protected development active-pin DDL is in sql/ashlar-pins/01-postgresql.sql.
+It preserves original authority/scope/table UUID/version/custody and explicit
+release history, without automatic expiry. Native ordinary-role replay/conflict/
+rollback/retention-refusal checks pass. This registry is not a resolver policy:
+trusted registration needs independent target availability proof, and every
+Delta retention operator must hold its guard transaction over the complete
+affected pin/file union. No external Delta retention guard is wired yet.

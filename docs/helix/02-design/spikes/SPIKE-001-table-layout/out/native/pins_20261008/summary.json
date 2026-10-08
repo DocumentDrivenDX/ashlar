@@ -1,0 +1,15 @@
+{
+  "state": "passed",
+  "database": "truss_e2e",
+  "schema": "ashlar_pins",
+  "ddl_sha256": "18f3428464b9cd5e53eb30148523cb01679c899c9baf619aff7b53bdd3a56798",
+  "checks": [
+    "exact original register replay preserves one active pin",
+    "changed original version refuses",
+    "writer direct DELETE denied",
+    "reader release denied",
+    "active pin refuses maintenance admission",
+    "rolled-back release leaves original active"
+  ],
+  "qualification": "Protected private PostgreSQL pin registry and ordinary-role guard checks only. Trusted registration must prove target data availability/source/custody before commit. Every admitted Delta retention operator must hold the guard transaction and check the full affected version/file union. No Delta retention operator is wired yet; no future availability, remote role-table fencing, publication or resolver authority claim. No automatic expiry or cleanup."
+}

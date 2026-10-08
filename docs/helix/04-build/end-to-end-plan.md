@@ -394,3 +394,22 @@ availability, protocol policy or active pin custody. No manifest/checkpoint or
 data changed. Next qualify retained pin authority and connect the real effect
 result to manifest/resolver/singleton. Actual Truss native acceptance/runtime/
 feed and broader UMF bindings remain required by the same active goal.
+
+## Protected active-pin registry checkpoint
+
+Installed the private PostgreSQL ashlar_pins substrate with immutable original
+pin identity and source/custody scope, explicit retained release and no expiry.
+Ordinary roles separate registration/release, read and maintenance guard; direct
+table mutations are unavailable. Native replay preserves one original active
+version; changed-version reuse refuses, writer DELETE and reader release are
+denied, active-pin retention admission refuses, and rolled-back release leaves
+the pin active. The first recovery-fixture object version4 is registered.
+
+This is registry/guard evidence, not full retained-pin authority. Every admitted
+Delta retention operator must hold the guard transaction and reconcile all
+affected files/versions and pin scopes; registration must independently verify
+retained availability before commit. Those integrations and privileges remain
+unqualified. No automatic TTL, purge, VACUUM, retention setting or Databricks
+workload occurred. Next connect full publication-vector registration/read custody
+and the authenticated snapshot policy, while preserving the external retention
+operator obligation. Actual Truss acceptance/runtime/feed remains unfinished.

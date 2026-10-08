@@ -81,3 +81,24 @@ between resolution and execution must refuse or require renewed resolution.
 The local suite uses simulated backends. It does not qualify live authentication,
 retention, data-file custody, native execution or concurrency. No Spark/Databricks
 benchmark is needed for this implementation iteration. UMF remains deferred.
+
+## Active-pin registry substrate
+
+The private PostgreSQL ashlar_pins registry retains immutable pin identity,
+authority, manifest/cursor/recovery/release scope, native table name/UUID/version
+and original custody digest. Explicit release retains the original row; exact
+registration replay preserves it and released identities cannot reactivate.
+No TTL or automatic expiry is selected. Ordinary writer/reader/maintenance roles
+have scoped function/read permissions, with no direct table mutation.
+
+Registration and release share a native table lock. assert_unpinned holds a
+conflicting SHARE lock until its transaction ends and refuses an active exact
+version. Registration must independently prove the target/source/custody and
+retained data availability before committing. A maintenance operator must hold
+the guard transaction throughout retention and check every affected version/file
+in the complete union of all pin scopes. One checked version cannot authorize
+removing files required by another version. External Delta maintenance and
+privileges are not yet wired through this guard. Registry presence alone is not
+proof of future retention or valid resolver policy; the existing mandatory
+validate_snapshot contract remains unchanged. Native private role/replay/conflict/
+rollback/retention-refusal checks pass; no purge or Delta retention change ran.
