@@ -2653,3 +2653,24 @@ No new compute, grants or predictive optimization changes occurred. Native later
 JSONL groups/replay/deletes, actual Truss engine/catalog/feed/ACK, wider schema
 admission/evolution and combined multi-source state remain open. Full end-to-end
 goal remains active; synthetic source IDs are not accepted Truss catalog IDs.
+
+
+### Stored native schema-evolution wiring — 2026-10-08
+
+The runner now connects the existing explicitly admitted v1-to-v3 schema policy
+and original evolution JSONL bytes to durable native publication. It requires
+two exact original intake proofs in the same installed registry UUID, renews
+both raw rows at admission and includes their complete intake custody in its
+original workload. Manifest inventory retains both revision aliases; replay
+cannot substitute revision 3 for revision 1. Prior values receive actual UMF
+v3 Record checks before transition planning. Existing single-revision workload
+and request encodings remain unchanged, including the historical CSV proof.
+
+Fifteen focused tests pass: three new multi-intake/source-oracle tests, four
+schema-evolution tests and eight existing JSONL/CSV handoff tests. Actual pinned
+UMF source and prior-value evolution checks pass. Native CLI help loads with the
+existing SDK environment. Initial test import used the wrong PublicationError
+module and was corrected; direct py_compile attempted a protected system cache,
+so CLI loading provided the syntax/import check instead. No admission relaxed.
+Native evolution setup/intake/publication/query remains pending; local tests do
+not establish cloud migration or Truss acceptance. Full goal remains active.

@@ -234,3 +234,32 @@ current installation/source and serialized owner lane. Fresh full installation,
 concurrent uniqueness, hash CHECK constraints in this new registry and executable
 catalog acceptance remain unverified. Existing publication journals cannot swap
 to this new registry UUID without changing their original workload identity.
+
+
+## Stored development schema-evolution source
+
+The bounded native source runner accepts --source evolution for the existing
+original v1-to-v3 string-Record example. Primary --intake-proof MUST match
+revision 3; exactly one --additional-intake-proof MUST match revision 1. Both
+complete original source/artifact fingerprints and validator revisions MUST
+match the local retained intake artifacts. Both proofs MUST name the same
+installed managed schema_intake UUID in this namespace; fresh native checks
+compare every original raw row before source/publication admission.
+
+Publication schema inventory explicitly names fixture revision 1 and fixture-v3
+revision 3; these are development inventory aliases, not native catalog heads.
+Both are required because immutable history and live entities can retain
+independent schema revisions. No lexical version ordering or latest fallback is
+permitted. The original local policy explicitly admits only the additive
+object replace transition from 1 to 3. Revision-1 delete remains governed by
+revision-1 policy. Actual UMF Record checks cover original values and prior
+live values under revision 3 before planning the transition. Unknown meaning
+remains retained and interpretation completeness remains false.
+
+Evolution scope MUST retain both complete intake rows and their registry UUID
+in its original workload digest. Checkpoints remain original JSONL byte offsets,
+not schema versions or group ordinals. Native effect/history/publication/pin/
+retention admission remains required. This wiring has local verification;
+native evolution execution remains unproved until original terminal receipts
+and complete inventories are inspected. It does not admit arbitrary migrations,
+accepted Truss IDs or new schema transformations.

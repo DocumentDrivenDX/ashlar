@@ -50,7 +50,9 @@ from native_artifact_validation import NativeArtifactValidator
 from native_csv_configuration import installation_namespace
 from pinned_artifact_validation import PinnedArtifactValidation
 from persistent_sql import Client
-from run_local_example import fixture_inputs,check_original_records
+from run_local_example import fixture_inputs,check_original_records,check_existing_records
+from native_schema_inventory import bind_intake_proofs
+from run_schema_evolution import inputs as evolution_inputs
 from sandbox_pins import PrivatePinTransactions
 from whole_graph_sql import graph_sql_plan
 
@@ -67,7 +69,8 @@ def descriptor(row):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ('installation','intake-proof','journal','output','umf-source'):parser.add_argument('--'+name,type=Path,required=True)
-    parser.add_argument('--source',choices=['csv','jsonl'],default='csv',help='Explicit supplied development source; original CSV default preserved')
+    parser.add_argument('--source',choices=['csv','jsonl','evolution'],default='csv',help='Explicit supplied development source; original CSV default preserved')
+    parser.add_argument('--additional-intake-proof',type=Path,action='append',default=[],help='Evolution only: original revision-1 proof; primary proof is revision 3')
     parser.add_argument('--limit',type=int,choices=range(1,5),default=1,help='Process through this original source batch ordinal; default one batch')
     parser.add_argument('--query-only',action='store_true',help='Read the last retained publication; no ingestion, publication or progress advancement')
     parser.add_argument('--entity-id',type=int,default=1,help='Signed 64-bit local-example object identity for query-only mode')
@@ -80,12 +83,19 @@ def main():
     installation=json.loads(args.installation.read_bytes());intake_proof=json.loads(args.intake_proof.read_bytes())
     NAMESPACE=installation_namespace(installation,ROOT)
     STREAM='native-'+args.source+'-stream:'+NAMESPACE
-    intake,semantic_policy,_=fixture_inputs()
-    if (intake.source_sha256,intake.artifact_sha256,intake.document_revision,intake.validator_revision)!=(
-        intake_proof['source_sha256'],intake_proof['artifact_sha256'],intake_proof['revision'],intake_proof['validator_revision']):
-        raise PublicationError('Exact original native UMF intake proof required')
-    source,oracle_batches=fixture_batches(ROOT,'csv' if args.source=='csv' else 'local');source_sha=hashlib.sha256(source.read_bytes()).hexdigest()
-    feed='csv-example' if args.source=='csv' else 'local-jsonl'
+    intake,semantic_policy,_=fixture_inputs();transition=None
+    intakes=(intake,);proofs=(intake_proof,)
+    schema_revisions={'fixture':'3'};supported_revisions={'fixture':['3']}
+    if args.source=='evolution':
+        if len(args.additional_intake_proof)!=1:parser.error('Evolution requires exactly one original revision-1 intake proof')
+        intakes,semantic_policy,transition,_=evolution_inputs()
+        proofs=(json.loads(args.additional_intake_proof[0].read_bytes()),intake_proof)
+        schema_revisions={'fixture':'1','fixture-v3':'3'}
+        supported_revisions={'fixture':['1'],'fixture-v3':['3']}
+    elif args.additional_intake_proof:parser.error('Additional intake proofs require the explicit evolution source')
+    bound_intakes=bind_intake_proofs(intakes,proofs,NAMESPACE)
+    source,oracle_batches=fixture_batches(ROOT,'csv' if args.source=='csv' else 'evolution' if args.source=='evolution' else 'local');source_sha=hashlib.sha256(source.read_bytes()).hexdigest()
+    feed='csv-example' if args.source=='csv' else 'local-evolution' if args.source=='evolution' else 'local-jsonl'
     epoch='immutable-example-1' if args.source=='csv' else 'example-1'
     checkpoint=csv_checkpoint if args.source=='csv' else jsonl_checkpoint
     if args.source=='csv':
@@ -96,7 +106,11 @@ def main():
     if tuple(oracle_batches)!=batches or not batches:raise PublicationError('Independent original source custody differs')
     if args.limit>len(batches):parser.error('Limit exceeds complete original source batches')
     args.output.mkdir(parents=True)
-    umf=check_original_records(args.umf_source,intake,batches,args.output/'umf-record-check.json')
+    for selected_intake,_ in bound_intakes:
+        selected_batches=tuple(batch for batch in batches if all(json.loads(record.raw)['schema_revision']==selected_intake.document_revision for record in batch.records))
+        output=args.output/('umf-record-check-'+selected_intake.document_revision+'.json' if args.source=='evolution' else 'umf-record-check.json')
+        umf=check_original_records(args.umf_source,selected_intake,selected_batches,output,
+            ROOT/('examples/end-to-end/schema-v'+selected_intake.document_revision+'.umf.json'))
     client=Client(args.output,profile=args.profile,warehouse_id=args.warehouse);user=client.w.current_user.me()
     if user.user_name!=installation['authenticated_owner']:raise PermissionError('Original private installation owner differs')
     journal=DurableSQL(str(args.journal),client.w.api_client,client.warehouse_id,user.id)
@@ -168,11 +182,12 @@ def main():
         default_profile='azure-databricks-delta-documented-defaults/2026-09-11',max_observation_span_us=180_000_000)
     gate=RetentionGate(provider,minimum_margin_us=600_000_000)
     def source_schema():
-        table=intake_proof['table'];native=transport.query('DESCRIBE DETAIL '+_quoted(table),{}).rows
-        if len(native)!=1 or native[0]['id']!=intake_proof['table_uuid']:raise PublicationError('Original native UMF registry identity differs')
-        row=intake.row();projection=','.join('cast(complete_interpretation AS STRING) AS complete_interpretation' if k=='complete_interpretation' else k for k in row)
-        native=transport.query('SELECT '+projection+' FROM '+_quoted(table)+' WHERE document_id=:id AND document_revision=:revision',{'id':intake.document_id,'revision':'3'}).rows
-        if native!=[dict(row,complete_interpretation=str(row['complete_interpretation']).lower())]:raise PublicationError('Original raw native UMF intake differs')
+        for selected_intake,proof in bound_intakes:
+            table=proof['table'];native=transport.query('DESCRIBE DETAIL '+_quoted(table),{}).rows
+            if len(native)!=1 or native[0]['id']!=proof['table_uuid']:raise PublicationError('Original native UMF registry identity differs')
+            row=selected_intake.row();projection=','.join('cast(complete_interpretation AS STRING) AS complete_interpretation' if k=='complete_interpretation' else k for k in row)
+            native=transport.query('SELECT '+projection+' FROM '+_quoted(table)+' WHERE document_id=:id AND document_revision=:revision',{'id':selected_intake.document_id,'revision':selected_intake.document_revision}).rows
+            if native!=[dict(row,complete_interpretation=str(row['complete_interpretation']).lower())]:raise PublicationError('Original raw native UMF intake differs')
     class CapturePolicy:
         def admit(self,request,effects,snapshots,supplied):
             if supplied is not context:raise PermissionError('Original capture context required')
@@ -203,7 +218,7 @@ def main():
     def manifest_row(request,effects,witnesses,supplied):
         anchors=json.loads(journal.db.execute('SELECT original_json FROM stream_snapshot_anchor WHERE request_digest=?',(request['request_digest'],)).fetchone()[0])
         versions={table:anchor['version'] for table,anchor in anchors.items()}
-        observed=provider.observe(Descriptor(active['publication_id'],'ashlar-delta/0.3',versions,{'fixture':'3'},{},{},{}),context)
+        observed=provider.observe(Descriptor(active['publication_id'],'ashlar-delta/0.3',versions,json.loads(request['schema_revisions_json']),{},{},{}),context)
         report=publication_retention_report(anchors,observed['configurations'],margin_us=600_000_000)
         checkpoint=json.loads(request['source_checkpoint_json'])
         return {'publication_id':active['publication_id'],'profile_version':'ashlar-delta/0.3',
@@ -212,6 +227,7 @@ def main():
             'validation_report_json':encoded({'complete':True,'request_digest':request['request_digest'],
                 'source_sha256':source_sha,'source_groups':active['ordinal'],'intake_source_sha256':intake.source_sha256,
                 'intake_artifact_sha256':intake.artifact_sha256,'upstream_record_check_revision':umf['producerRevision'],
+                **({'schema_intakes':[{'revision':i.document_revision,'source_sha256':i.source_sha256,'artifact_sha256':i.artifact_sha256,'table':p['table'],'table_uuid':p['table_uuid']} for i,p in bound_intakes]} if args.source=='evolution' else {}),
                 'effect_parity':witnesses,'retention':report,'qualification':'Private '+args.source.upper()+' fixture native publication; explicit local IDs and source custody, actual UMF logical checks. No accepted Truss IDs, remote source ACK or production remote fencing.'})}
     class SourcePolicy:
         def admit(self,value,snapshots,supplied):
@@ -304,7 +320,7 @@ def main():
         with (nullcontext() if read_interval is not None else QueryPins().hold(pin_vector,context=context)):
             backend=NativeBackend(transport,ReadPolicy(),manifest_table,uuids[manifest_table],{table:columns[table.rsplit('.',1)[1]] for table in tables.values()})
             resolved=resolve_publication(backend,value.publication_id,{t:uuids[t] for t in tables.values()},context=context,
-                supported_profiles=['ashlar-delta/0.3'],supported_revisions={'fixture':['3']})
+                supported_profiles=['ashlar-delta/0.3'],supported_revisions=supported_revisions)
             if resolved.descriptor!=value:raise PublicationError('Original committed native manifest differs')
             yield resolved.descriptor
             ReadPolicy().validate_descriptor(value,supplied)
@@ -323,7 +339,9 @@ def main():
     try:
         with open(str(args.journal)+'.native-csv-stream-lock','a') as lock:
             fcntl.flock(lock,fcntl.LOCK_EX);held=True;authority();source_schema()
-            workload=hashlib.sha256(encoded({'namespace':NAMESPACE,'source_sha256':source_sha,'uuids':uuids,'intake_source_sha256':intake.source_sha256,'intake_table_uuid':intake_proof['table_uuid']}).encode()).hexdigest()
+            workload_input={'namespace':NAMESPACE,'source_sha256':source_sha,'uuids':uuids,'intake_source_sha256':intake.source_sha256,'intake_table_uuid':intake_proof['table_uuid']}
+            if args.source=='evolution':workload_input['schema_inventory']=[{'row':i.row(),'table':p['table'],'uuid':p['table_uuid']} for i,p in bound_intakes]
+            workload=hashlib.sha256(encoded(workload_input).encode()).hexdigest()
             with journal.db:
                 journal.db.execute('CREATE TABLE IF NOT EXISTS stream_scope (id INTEGER PRIMARY KEY,workload TEXT NOT NULL)')
                 created=journal.db.execute('INSERT OR IGNORE INTO stream_scope VALUES (1,?)',(workload,)).rowcount==1
@@ -334,11 +352,13 @@ def main():
                 if rows!=[{'n':'0'}]:raise PublicationError('Original private bootstrap is not empty; no overwrite/replacement permitted')
             clock=materialization_clock(journal,workload);columns=fixture_columns(ROOT);state=empty_state();predecessor='empty-native-'+args.source+'-stream';specs=[]
             for ordinal,batch in enumerate(batches,1):
-                row=batch_row(batch);request={'stream':STREAM,'batch_id':batch.batch_id,'predecessor':predecessor,'schema_revisions_json':'{"fixture":"3"}',
+                row=batch_row(batch);request={'stream':STREAM,'batch_id':batch.batch_id,'predecessor':predecessor,'schema_revisions_json':encoded(schema_revisions),
                     'source_batch_json':row['batch_json'],'source_batch_digest':row['batch_digest'],'source_checkpoint_json':checkpoint(batch)}
                 request['request_digest']=hashlib.sha256(encoded(request).encode()).hexdigest()
                 publication_id=args.source+'-stream-'+request['request_digest']
-                state,steps=graph_sql_plan(state,batch,tables,materialized_at=clock,schema_policy=semantic_policy)
+                if args.source=='evolution' and any(json.loads(r.raw)['schema_revision']=='3' for r in batch.records):
+                    check_existing_records(args.umf_source,intake,state,args.output/('existing-values-before-'+str(ordinal)+'.json'),ROOT/'examples/end-to-end/schema-v3.umf.json')
+                state,steps=graph_sql_plan(state,batch,tables,materialized_at=clock,schema_policy=semantic_policy,schema_transition_policy=transition)
                 expected,_=fixture_inventory(oracle_batches[:ordinal],columns,materialized_at=clock)
                 specs.append({'ordinal':ordinal,'batch':batch,'request':request,'publication_id':publication_id,'steps':steps,'expected':expected})
                 predecessor=publication_id
@@ -361,7 +381,7 @@ def main():
                 backend=NativeBackend(transport,policy,manifest_table,uuids[manifest_table],{table:columns[table.rsplit('.',1)[1]] for table in tables.values()})
                 row=read_singleton(transport,backend,QueryPins(),pin_vector,policy,publication_id=current.publication_id,
                     table=tables['object_current'],kind='object',source='local-example',type_id=17,entity_id=args.entity_id,context=context,
-                    supported_profiles=['ashlar-delta/0.3'],supported_revisions={'fixture':['3']})
+                    supported_profiles=['ashlar-delta/0.3'],supported_revisions=supported_revisions)
                 singleton=dict(row) if row is not None else None
             for active in ([] if args.query_only else specs[start:args.limit]):
                 try:
@@ -373,7 +393,7 @@ def main():
                         deadline=time.monotonic()+180
                         while True:
                             try:
-                                value=publish_batch(backend,STREAM,active['batch'],predecessor=active['request']['predecessor'],schema_revisions_json='{"fixture":"3"}',
+                                value=publish_batch(backend,STREAM,active['batch'],predecessor=active['request']['predecessor'],schema_revisions_json=active['request']['schema_revisions_json'],
                                     source_checkpoint_json=active['request']['source_checkpoint_json'],context=context)
                                 break
                             except SQLPending:

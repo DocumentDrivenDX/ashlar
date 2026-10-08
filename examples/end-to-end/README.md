@@ -1002,3 +1002,30 @@ checks, not singleton latency measurements. Native later-group replay/update/del
 for JSONL remains unverified. This runner cannot combine sources into an existing installation;
 source switching must not clear existing tables/phases or manufacture new epochs.
 Broader source/schema support and actual Truss remain required for the full goal.
+
+
+## Stored schema-evolution source (native verification pending)
+
+The source runner now accepts `--source evolution --limit 3` for
+`schema-evolution-source.jsonl`: revision-1 creates, an explicitly admitted
+revision-3 replacement adding optional caption, then a revision-1 delete.
+It requires an independent empty admitted installation and both actual raw
+UMF intake receipts in that installation's same registry UUID. Register v1 and
+v3 sequentially through `register_umf.py`, retaining the **same registry journal**
+so its original CREATE handle is recovered rather than replaced. Keep separate
+output directories and original schema revision arguments.
+
+Pass the revision-3 summary as `--intake-proof` and revision-1 summary as
+`--additional-intake-proof`; retain one new original stream journal. All other
+setup, profile/warehouse, actual UMF checker and query arguments follow the
+JSONL command above. Use `--limit 1` to publish only the first group or `--limit 3`
+to include the complete four-event transition/deletion sequence. Query-only
+requires the exact last retained limit. Original byte progress, immutable history
+and both schema proofs remain bound throughout; source switching is forbidden.
+
+Fifteen focused local checks pass, including the explicit transition, original
+bytes, independent expected state, missing/foreign proof refusals and unchanged
+CSV/JSONL checkpoint behavior. Actual UMF checks cover both original schema
+revisions and existing values under v3. The native evolution path has **not yet
+been executed**. This remains the fixed string-Record example with development
+IDs; broader schemas and actual Truss still require implementation.

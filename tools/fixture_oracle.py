@@ -18,9 +18,9 @@ def fixture_columns(root):
 
 
 def fixture_batches(root, source_kind):
-    if source_kind not in ('local', 'outbox', 'csv'):raise ValueError('Unsupported fixture oracle')
-    source=root/('examples/end-to-end/schema-evolution-source.jsonl' if source_kind=='outbox' else 'examples/end-to-end/local-string-source.jsonl')
-    feed='native-evolution' if source_kind=='outbox' else 'local-jsonl'
+    if source_kind not in ('local', 'outbox', 'csv', 'evolution'):raise ValueError('Unsupported fixture oracle')
+    source=root/('examples/end-to-end/schema-evolution-source.jsonl' if source_kind in ('outbox','evolution') else 'examples/end-to-end/local-string-source.jsonl')
+    feed='native-evolution' if source_kind=='outbox' else 'local-evolution' if source_kind=='evolution' else 'local-jsonl'
     if source_kind=='csv':
         # Independent CSV oracle: no csv_batches, apply planner or generated SQL.
         import csv
