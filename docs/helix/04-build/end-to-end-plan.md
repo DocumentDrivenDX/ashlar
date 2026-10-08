@@ -1581,3 +1581,20 @@ fixture bytes do not qualify context/effect/group meaning or roles. Full native
 producer/security/body composition, bootstrap and streaming remain unfinished.
 No partial selected layout, persistent tables, cloud workload or deployment
 settings change occurs. The full end-to-end goal remains active.
+
+
+## Truss coordination and savepoint lifetime correction — 2026-10-08
+
+The authorized Truss Impl chat is reviewing the candidate against OC01–OC07/E06
+and the protected producer/security chain; its planning checkout remains unchanged.
+The review is live, not completed. Initial findings identify missing shared
+operation arbitration and the selected predecode/native-protocol capture path.
+Existing public-driver observations do not qualify those stronger claims.
+
+A concrete executor lifetime bug is fixed: released/foreign savepoint rollback
+or release now returns invalid_transaction before native calls and does not
+poison otherwise valid outer work. A focused test verifies both refusals issue
+no SQL and a later valid read/commit succeeds. Twenty-four tests/188 assertions,
+both builds and the portable packed consumer pass. No new native/cloud workload
+or settings change occurred. Full protected producers, bootstrap and actual
+Truss streaming remain unfinished under the active full goal.
