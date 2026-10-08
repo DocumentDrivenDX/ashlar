@@ -2207,3 +2207,33 @@ That observation preceded the explicit pagination parameter; multi-page native
 evidence remains open. The API contract was checked against the
 [Databricks effective-permissions reference](https://docs.databricks.com/api/uc-grants/v1/get-effective-permissions).
 No permissions or predictive optimization settings are changed by this helper.
+
+### One-row native stored CSV publication — 2026-10-08
+
+tools/run_native_csv_stream.py now connects the original CSV adapter, actual UMF
+Record checks, raw native schema intake, durable immutable Delta attempt phases,
+original effect plans and snapshot artifacts, immutable manifest commit, native
+publication resolver, ordinary PostgreSQL pin guards and descriptor-bound local
+CSV progress. A real run processed only ordinal 1 in the fresh private
+ashlar_e2e_private_20261008.runtime_csv_stream namespace. It exited successfully
+with local consumer position 1 and the retained four-table vector: object_current
+2, edge_current 0, tombstone 0, whole_source_history 1. Nine mutation statements
+have successful original receipts, including the manifest and attempt phases.
+
+The run issued 523 warehouse reads and retained 154 effective-permission pages;
+repeated complete validation dominates this one-row workflow. Reduce redundant
+checks under demonstrated continuous writer/pin custody before treating this as
+an efficient user command. No additional rows or scale workload were run. The
+helper's later explicit-pagination/ancestry hardening has local test evidence;
+this native process imported the earlier helper version.
+
+[evidence/native-csv-stream-20261008.json](evidence/native-csv-stream-20261008.json)
+binds the descriptor, original mutation handles/request/response hashes, runner
+hash, private original receipt hashes and qualifications. The existing native
+installation summary, UMF v3 registry proof, pinned UMF checker checkout and
+private PG service are prerequisites. Reuse the original journal and a fresh
+output directory with --limit 1; never reset original tables, phases or progress.
+Later ordinal progression remains untested. This run uses explicit fixture IDs
+and same-host cooperating writer/source custody. Actual Truss acceptance/feed,
+remote producer ACK/fencing, a clean setup workflow and a singleton point query
+through this runner remain open. Predictive optimization was unchanged.
