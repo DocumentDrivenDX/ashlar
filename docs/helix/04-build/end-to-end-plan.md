@@ -1473,3 +1473,20 @@ persistent tables, cloud workload or settings changes occurred. The host package
 is source-only; caller adoption/cancellation, native uncertainty settlement, full
 parameter/resource/error/current-operation admission and complete Truss bootstrap
 remain unfinished. Actual Truss streaming and the full goal remain open.
+
+
+## Native executor writes and bootstrap DDL — 2026-10-08
+
+The actual pg executor now supports known rowless DDL command tags with zero
+affected data rows; unknown absent counts remain refused. This fixes temporary
+CREATE/DROP execution needed for later bootstrap. Native checks verify exact
+parameterized bigint/JSON writes, uniqueness-error containment through the
+original savepoint preserving earlier work, and full callback rollback independently
+observed in a following transaction. All native probe tables are temporary and
+removed or rolled back. Carrier domains validate before native dispatch while
+original JSON text remains unchanged. Nineteen tests/154 assertions, strict host
+typecheck, portable build and packed consumer pass; final native probe also passes.
+
+No cloud workload or settings change occurred. Complete error/resource admission,
+caller adoption/cancellation and uncertain native settlement remain unfinished,
+along with full Truss bootstrap and actual feed integration. Goal remains active.
