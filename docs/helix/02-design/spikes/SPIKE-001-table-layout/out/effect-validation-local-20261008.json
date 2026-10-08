@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "tests": 73,
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q",
+  "scope": "Exact-version full-column parity, original retained text, duplicate/null/missing/extra refusal, schema/UUID/profile bounds; future retention and publication are not proved."
+}

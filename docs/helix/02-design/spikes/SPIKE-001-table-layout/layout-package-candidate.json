@@ -2894,14 +2894,14 @@
     "../../../../../src/ashlar/__init__.py": "8f20eb9aa449f5817f8200eb8a8ce05922a65c6fc4ad56312027bca14615e9aa",
     "../../../../../src/ashlar/native.py": "2a95c50ba63be357b65a279e8a5c7d06aaf487e6d0e55dc4006b7c68fa16a78c",
     "../../../../../src/ashlar/publication.py": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
-    "../../../../../src/ashlar/README.md": "621d9fc11470367568ee052c042e04d5bc0d33ca8371727e01b998e465894d5d",
+    "../../../../../src/ashlar/README.md": "acf09a263514b3b53de35a426662045244f93c551f03395784f38438e425f085",
     "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
     "../../contracts/CONTRACT-004-publication-resolver.md": "52492ad626cf046d2ff595d5aa91c20d086561c1aba0df3b6b70338bbd08514b",
     "../../../../../README.md": "11e0aaa10f67e008542066d293624bd5e195529dd5bc2c3f8ed75b960f22bda7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "58dd4e153711f8211abc17a5c05fe40ba5bdc026b721b1453d0ca05b96e3fbbd",
-    "../../../04-build/end-to-end-plan.md": "ceaea76a4e5940add27e389aaff30671e747daa154c2a0960659854116e068f1",
+    "../../../04-build/end-to-end-plan.md": "f98f1d00eb40ea7e96dc5dd97a5f521c45b245c4c60ab6c52ea8fa3ac5bdfac3",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -2996,7 +2996,13 @@
     "out/native/recoverable_graph_20261008/summary.json": "366021729b242d9de851043d213614603fc257daeba7c5028c030c40cba40405",
     "out/native/recoverable_graph_20261008/statements.jsonl": "df7419478c4ea773e835fc29aaa1fc0f15eb1cfcdec574a692151decff05bb95",
     "out/native/recoverable_graph_20261008/journal-export.json": "5f71c5575143af07fc3b424c55f2b38c5658b124f18946ea6c0ac028634e5119",
-    "out/native/recoverable_graph_20261008/effect-results.json": "ba013b7e1aac491e84e64ad9987cad43b0dac5144bca9c569577dbf5a6f1540d"
+    "out/native/recoverable_graph_20261008/effect-results.json": "ba013b7e1aac491e84e64ad9987cad43b0dac5144bca9c569577dbf5a6f1540d",
+    "../../../../../src/ashlar/effect_validation.py": "61421382f15912ed14f7c3fe05e3bee15e4aca715672dae5f47e9e85d4a33a7a",
+    "../../../../../tests/test_effect_validation.py": "331ddc930ebf3a23ffcf68575fff110f754889ded20032f256261c3b3af4587c",
+    "../../../../../tools/check_native_graph_parity.py": "23de7741f681b440eddb57758b25f7a0f56c0174bd8dc12bfb4bec6e17930249",
+    "out/effect-validation-local-20261008.json": "700549054297b379450905070ec7bfec8cb9db03c81447cc35704390e9b9010f",
+    "out/native/graph_full_parity_20261008/summary.json": "b7383602c52689567258c45d36f9569ca6f2b1ef99af8dbdf2fa8488fe76c98b",
+    "out/native/graph_full_parity_20261008/statements.jsonl": "72d6bb9111bc434d8d73f14a310c83aca7ff28062a6eacc03067866bc8449abe"
   },
   "evidence": {
     "ddl": {

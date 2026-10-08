@@ -1,0 +1,54 @@
+{
+  "state": "passed",
+  "version_vector": {
+    "client_dev.ashlar_recoverable_graph_20261008.object_current": 4,
+    "client_dev.ashlar_recoverable_graph_20261008.edge_current": 3,
+    "client_dev.ashlar_recoverable_graph_20261008.tombstone": 1,
+    "client_dev.ashlar_recoverable_graph_20261008.whole_source_history": 2
+  },
+  "reports": [
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.object_current",
+      "uuid": "e420f55d-449f-4c21-b91b-460ffc6493e2",
+      "version": 4,
+      "rows": 2,
+      "columns": 17
+    },
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.object_current",
+      "uuid": "e420f55d-449f-4c21-b91b-460ffc6493e2",
+      "version": 2,
+      "rows": 3,
+      "columns": 17
+    },
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.edge_current",
+      "uuid": "e5c10b7c-cc41-4136-8603-d774cadfb9e7",
+      "version": 3,
+      "rows": 0,
+      "columns": 20
+    },
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.edge_current",
+      "uuid": "e5c10b7c-cc41-4136-8603-d774cadfb9e7",
+      "version": 2,
+      "rows": 2,
+      "columns": 20
+    },
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.tombstone",
+      "uuid": "dd4a9603-9299-4a2c-9bf7-4e3013d91366",
+      "version": 1,
+      "rows": 3,
+      "columns": 10
+    },
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.whole_source_history",
+      "uuid": "63846fb0-18ad-4a90-a934-61d21bcaf749",
+      "version": 2,
+      "rows": 9,
+      "columns": 6
+    }
+  ],
+  "qualification": "Bounded fixture all-column schema/value/multiplicity parity and successful exact-version data reads. Expectations derived directly from original events rather than generated SQL. Historical initial edge/object carriers included. Does not establish future retained-data availability, protocol policy, active pins, native fencing, publication or accepted Truss schema."
+}

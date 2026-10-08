@@ -144,3 +144,13 @@ now passes fresh-journal replay with zero new effect statements, independent
 selected-field inventories, all source event bytes and tombstone checks.
 Complete all-column parity, native interruption recovery and publication/pin
 authority remain unfinished.
+
+validate_effect_snapshot in effect_validation.py verifies a bounded complete
+STRING/BIGINT/TIMESTAMP inventory at a trusted exact native UUID/version. It
+checks exact schema, every carrier column, SQL NULL versus text, duplicate
+multiplicity and original JSON text, with UUID checks around the read. Expected
+rows must come from an independent admitted source/prior-state oracle. The
+1000-row limit is this fixture validation profile, not graph architecture or
+scale acceptance. Native final four-table parity and initial node/edge carrier
+parity pass. This proves observed version readability, not future retention,
+protocol support, active pin custody or publication authority.

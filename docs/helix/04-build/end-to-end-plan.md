@@ -374,3 +374,23 @@ Next extend effect validation to complete all-column correspondence and retained
 version/pin custody, connect results to DurablePublisher and exercise a genuine
 manifest/resolver/singleton path. Actual Truss schema acceptance/runtime/feed
 and broader UMF bindings remain required. No benchmark or resize occurred.
+
+## Complete native carrier parity checkpoint
+
+The reusable exact-version verifier now checks the full declared schema and
+every carrier column, preserving original JSON text, NULL distinction and
+duplicate multiplicity under native UUID checks. The native source oracle
+reconstructs expected carriers directly from the original events, not generated
+SQL rows. Seventy-three local checks pass. Read-only native verification passes
+for the final object_current4, edge_current3, tombstone1 and whole_source_history2
+version vector, plus initial object/edge version2 inventories. All17 object,
+20 edge, 10 tombstone and6 history columns are covered, including nonempty
+initial parallel edges. Retained unknown wide numeric tokens remain exact text.
+
+The bounded1000-row validator is a tiny-fixture profile, not a changed graph
+scale requirement or production full-graph collect plan. Successful reads prove
+current data-file readability for these versions, not future retained-data
+availability, protocol policy or active pin custody. No manifest/checkpoint or
+data changed. Next qualify retained pin authority and connect the real effect
+result to manifest/resolver/singleton. Actual Truss native acceptance/runtime/
+feed and broader UMF bindings remain required by the same active goal.
