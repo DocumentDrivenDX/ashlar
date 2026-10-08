@@ -1437,3 +1437,20 @@ adapter. It does not establish Executor conformance, caller adoption, cancellati
 cleanup, unknown COMMIT/quarantine/recovery, prepared/pooler/Node support or native
 Truss bootstrap. Implement the qualified execution boundary next; actual Truss
 streaming and the full end-to-end goal remain unfinished.
+
+
+## Truss engine-owned executor composition — 2026-10-08
+
+The runtime candidate implements the canonical engine-owned executor over
+mandatory native connection ports: affine/lifetime-checked handles, serialized
+statements, original-entry savepoints, text/null result copying and explicit
+commit/rollback settlement. Unknown COMMIT quarantines original custody without
+release or guessed rollback. Four controlled-port tests supplement the package
+suite: eighteen tests, 146 assertions; strict build and packed consumer pass.
+No native/cloud workload or settings change occurred this iteration.
+
+Concrete Bun port integration, caller adoption/cancellation, parameter domains,
+SQLSTATE mapping, full native result/resource admission and shared public-operation
+arbitration remain unfinished. Controlled port promises are not native confirmation;
+no complete Executor conformance or installed Truss is claimed. Native bootstrap
+and streaming remain open under the unchanged full end-to-end goal.
