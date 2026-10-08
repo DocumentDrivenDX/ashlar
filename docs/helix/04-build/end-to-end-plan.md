@@ -1508,3 +1508,21 @@ cloud workload remains. Original final outcomes are retained in pg-executor.json
 COMMIT-phase error classification, cancellation/adoption and complete native
 recovery/resource/bootstrap admission remain unfinished. Actual Truss streaming
 and the unchanged full end-to-end goal remain open.
+
+
+## Confirmed Truss native COMMIT rejection — 2026-10-08
+
+The native commit port distinguishes rejected from uncertain only after actual
+pg server DatabaseError classification and confirmed original-connection rollback.
+The executor withholds callback data, releases confirmed rejected resources and
+returns selected whole-transaction retry or no-retry constraint failure. Unknown
+transport/error/rollback still quarantines original custody without guessed replay.
+Twenty-one tests/168 assertions, strict host typecheck, build and packed consumer
+pass. An actual temporary deferred-FK transaction rejects COMMIT with 23503,
+confirms rollback, and independently observes both tables absent afterward.
+No persistent tables or cloud/deployment settings changes occur. Evidence is
+retained in pg-executor.json.
+
+Native commit-time serialization, lost-transport containment/recovery, caller
+adoption/cancellation, complete resources and full bootstrap remain unfinished.
+Actual Truss feed integration and the full end-to-end goal remain open.
