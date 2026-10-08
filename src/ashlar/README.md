@@ -90,3 +90,10 @@ Delta MERGE/readback and mandatory exclusive-writer policy. Sessions verify UUID
 and invalidate access after release. Native five-row custody/reload is verified;
 real effect/commit proof, source fencing/grants, manifest and acknowledgement
 producers remain required. A stored phase label is not publication authority.
+
+PostgresOutbox in outbox.py reads bounded committed native source groups and
+verifies exact original bytes/membership. OutboxTransaction preserves the outer
+PostgreSQL previous/position separately from its contained JSONL batch offsets.
+Protected development producer DDL and native role/rollback/replay evidence are
+available. Registered source authority/retention, application effect recovery
+and outer-cursor publication/acknowledgement integration remain mandatory.

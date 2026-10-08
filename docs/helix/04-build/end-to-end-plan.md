@@ -259,3 +259,21 @@ to the coordinator/store, then implement immutable descriptor and checkpoint
 producers. Native source fencing/privileges and Truss acceptance/runtime/feed
 remain unqualified; this store does not replace them. The existing graph fixture
 still has no completed publication. No scale test or warehouse resize occurred.
+
+## PostgreSQL outbox source checkpoint
+
+The additional outbox source now has a real protected PostgreSQL append function
+and committed-group reader. Two native committed groups/seven events preserve
+original bytes; a rolled-back pending group is absent with unchanged head.
+Exact replay retains original position, changed valid source bytes refuse,
+writer direct DML and reader append are denied under ordinary role tests.
+The consumer pages exact native positions separately from contained JSONL byte
+offsets and refuses missing/original-custody failures. Fifty-four local tests
+pass. This used the existing bounded local container, with no Databricks run.
+
+Next bind its trusted connection/schema/feed/epoch and outer native cursor to
+publication/checkpoint custody, qualify application write transaction/lost-commit
+correspondence and keep required source retention. No automatic arbitrary-SQL
+capture or Truss-native feed is inferred. Native publication producer/recovery
+and Truss schema/runtime/feed remain active work; the private graph still has
+no completed publication.

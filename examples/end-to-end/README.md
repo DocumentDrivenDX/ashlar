@@ -194,3 +194,25 @@ Its result/descriptor artifacts are explicitly synthetic byte carriers. They
 prove storage behavior and grant no graph publication or source acknowledgement.
 Connecting real native effect/recovery and immutable manifest/checkpoint
 producers remains the next integration step.
+
+## Additional PostgreSQL transactional outbox
+
+Fresh private source DDL is `sql/ashlar-outbox/01-postgresql.sql`; the small native
+checker is `tools/check_native_outbox.py`. It installs only a separate namespace
+in the isolated sandbox and uses ordinary NOLOGIN writer/reader roles to verify
+append-only admitted access. The setup intentionally refuses namespace reuse.
+Its native receipt is
+`docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/outbox_20261008/summary.json`.
+
+Two committed groups/seven events round-trip exactly; rollback leaves pending
+position/payload invisible, replay preserves original position and byte-different
+reuse refuses. `PostgresOutbox` in `src/ashlar/outbox.py` supplies bounded committed
+pages with native sequence positions. Those are separate from the contained
+JSONL byte offsets. The reader supplies no source acknowledgement.
+
+This is an additional outbox source, not Truss-native capture or automatic
+observation of arbitrary SQL. Producers must append in their actual application
+write transaction and retain original commit recovery. Registered source identity,
+retention and outer-cursor publication/checkpoint integration are still required.
+The development roles have no login; application credentials/service authority
+are not provisioned by this example.

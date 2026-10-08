@@ -1088,3 +1088,62 @@ or property_journal/Truss feed reconstruction is qualified. Forty-two focused
 local checks cover explicit source profile/version admission and complete
 apply planning. The full toolkit still requires reusable native recovery,
 immutable publication, Truss acceptance/feed and the other source bindings.
+
+## PostgreSQL transactional outbox source profile
+
+Proposed ashlar-postgresql-outbox/0.1 is a separate additional source, not a Truss
+native mutation/journal/feed substitute. Fresh private source DDL is
+sql/ashlar-outbox/01-postgresql.sql. One selected namespace has a singleton
+signed64 nonnegative head and immutable-by-admitted-writer batch rows keyed by
+positive position with exact unique opaque batch_id, UTF8 payload text and
+SHA256 byte digest. Payload is a 1-byte to1MiB opaque complete JSONL group. Native
+append preserves bytes; the consumer independently verifies the contained
+begin/event/commit count/digest and identity before admitting a source batch.
+Opaque storage alone is not graph or schema interpretation.
+
+The SECURITY DEFINER append function fixes its search path and locks the head
+through the actual caller transaction. Exact existing batch bytes return the
+original position without allocation; different bytes raise OUTBOX_BATCH_CONFLICT.
+Fresh allocation inserts payload/digest and advances head in that same outer
+transaction. The returned scalar is pending until actual commit; rollback
+restores both payload/head. Position exhaustion refuses. The selected namespace
+serializes admission/commit order on that head; cross-host blocking, fairness,
+resource and lost-commit qualification remain separate. No scale/SLO follows
+from the small sequential test.
+
+PUBLIC has no schema/table/function access. The NOLOGIN writer role has only
+namespace usage and append execution; direct batch/head DML is denied. The
+NOLOGIN reader has only namespace usage and source-table SELECT, no append.
+Native owner/admin authority remains separate; this development installation
+does not provision application login/credential or remote service authority.
+It changes no Truss table, catalog revision, mutation or feed registration.
+
+PostgresOutbox reads a committed head then its bounded ordered original prefix.
+Default page is10 groups, maximum32; each original payload is at most1MiB.
+Head/cursors are canonical decimal strings in signed64 range, never host floats.
+Missing, duplicate, unordered or corrupt original groups and an ahead-of-head
+checkpoint refuse. Hashes and full original JSONL group membership/identity are
+verified before the complete page is returned. Exact original byte payloads
+and contained unknown content survive read/parse; unbound executable meaning
+remains the downstream admission boundary.
+
+OutboxTransaction carries profile, registered feed/epoch, previous, native
+position, payload_digest and the original contained SourceBatch. Native
+PostgreSQL sequence positions are distinct from that contained JSONL's local
+byte offsets. Publish/acknowledge only the outer source cursor under an explicit
+registered adapter; passing its inner SourceBatch to a JSONL publisher does not
+admit PostgreSQL progress. Source connection/schema identity and immutable
+feed/epoch registration are trusted host obligations; arbitrary caller strings
+do not establish producer authority. Retain committed rows beyond every
+registered consumer boundary. No cleanup, acknowledgement or new epoch reset
+is supplied by this reader.
+
+Application producers must couple source append to their own actual write
+transaction and implement original lost-commit recovery; this profile is not
+automatic capture of arbitrary SQL changes. The native test covers two committed
+groups/seven events, a rolled-back pending group, exact replay/conflict, ordinary
+role restrictions and read pagination with original bytes. It does not qualify
+external application write/effect correspondence or native Truss capture.
+Evidence: out/native/outbox_20261008 on isolated PostgreSQL17.9. Fifty-four local
+checks pass. Durable source-context/epoch registration and publication/checkpoint
+wiring remain required for this additional source in the full toolkit goal.

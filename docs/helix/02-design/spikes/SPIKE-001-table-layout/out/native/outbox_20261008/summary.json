@@ -1,0 +1,17 @@
+{
+  "state": "passed",
+  "container": "ashlar-e2e-truss-pg17",
+  "source_profile": "ashlar-postgresql-outbox/0.1",
+  "ddl_sha256": "3d120a63c1afebf0f8a057ce4b66301fc837eb34220adb340227c4dc339be739",
+  "committed_groups": 2,
+  "committed_events": 7,
+  "checks": [
+    "native append allocations serialize on head through outer transaction",
+    "rolled-back pending position/payload invisible and head unchanged",
+    "exact repeat retains original position with no progress allocation",
+    "different valid source bytes under same identity refuse",
+    "ordinary writer direct batch/head DML denied; reader append denied",
+    "committed reader pages preserve original bytes and exact native cursor"
+  ],
+  "qualification": "Private PostgreSQL17.9 outbox source plus committed-group reader. No Truss-native mutation/feed, schema acceptance, external application write transaction integration or source acknowledgement. Native scalar positions are separate from contained JSONL byte offsets. Single-writer observed; cross-host blocking/fairness/resource/lost-commit qualification remains. Existing bounded local container; no Databricks or scale workload."
+}
