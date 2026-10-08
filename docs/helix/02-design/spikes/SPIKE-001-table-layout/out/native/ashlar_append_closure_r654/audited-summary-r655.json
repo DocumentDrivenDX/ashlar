@@ -1,0 +1,37 @@
+{
+  "state": "All17 exact final native statements and complete pinned identity/endpoint/adjacency checks audited",
+  "costs": {
+    "read_bytes": 447899478,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 25.530986541,
+  "pins": {
+    "old_nodes": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "version": 6
+    },
+    "new_nodes": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_node_object_current_r643",
+      "id": "67cb3fd1-5ec4-4f5e-be0f-bab0e9521b50",
+      "version": 15
+    },
+    "new_edges": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_edge_current_r643",
+      "id": "34385705-21a3-4f8e-bea9-5a399b4ab286",
+      "version": 0
+    },
+    "new_adjacency": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_adjacency_forward_r643",
+      "id": "fc7f1833-1cdc-433f-8a69-9944ca497d69",
+      "version": 0
+    }
+  },
+  "sources": {
+    "summary.json": "47473efb8fb74746f8933def803a917d1c0323660fcb51f9b5117a5063e01915",
+    "shared-history.json": "8b8410ad0da58838f91de60fce72a71bd037401f65733d1514ab9d721630db67",
+    "statements.jsonl": "e93119b842674a1bcb1bbe6d470fe7a0c9eec71904d6678f84660d75da3cdb83"
+  },
+  "qualification": "Complete typed identity/count and endpoint closure for pinned old8M/new8M node union and2.5M new edges, plus full adjacency multiset parity. Separate physical node extents, not single16M-node table or full80M-edge graph. No publication, canonical writes, ACK, source authority or performance admission. Null typed keys explicitly rejected, endpoint multiplicity retained, adjacency compared with bidirectional EXCEPT ALL. Stable observed heads do not establish a writer fence or atomic published vector."
+}

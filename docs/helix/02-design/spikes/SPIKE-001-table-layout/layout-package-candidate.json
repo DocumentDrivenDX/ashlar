@@ -2779,11 +2779,17 @@
     "out/native/ashlar_append_node_preflight_r649/summary.json": "a142753771d1befa732994db9ced2af22b4e72ab8b8f5b37c74d844e45914865",
     "append_node_growth_r651.py": "72bd9ca72e1224fe1faebb5b6f2aba7c79884fe82a703ffe304e43540832a222",
     "append_node_growth_audit_r652.py": "fdd6d575d7ae0303993b049f97ddc387f41d3b0313a8ae110be89245d26720f7",
-    "node-extent-disposition-r653.md": "a768bd40474fd1bd4d0e3326d00fc7e66e37ba1ab6aca08721ba62e20c24fb71",
+    "node-extent-disposition-r653.md": "9a3d85f0c977a8f2090177ce4832d6ae0005d8de34b58d6ae4f0fc23de1c0ab2",
     "out/native/ashlar_append_node_growth_r651/audited-summary-r652.json": "68031bbad402acfbca0ff8dc09644b3888a6a0598d27ff2a8c2e8806fd8637be",
     "out/native/ashlar_append_node_growth_r651/shared-history.json": "be7366ee5a3d5377b319655abeabc6fc639601787f6dacf23cfa495890448e81",
     "out/native/ashlar_append_node_growth_r651/statements.jsonl": "5cd7cc0df35c0b0ca2997b15afa1923408b35d679eb1b74f0610cfac913bc4dc",
-    "out/native/ashlar_append_node_growth_r651/summary.json": "8ca214d98b426d2af6e69accfce35afc3826eb9d4057589921bda2e3b2b37668"
+    "out/native/ashlar_append_node_growth_r651/summary.json": "8ca214d98b426d2af6e69accfce35afc3826eb9d4057589921bda2e3b2b37668",
+    "append_closure_r654.py": "9658aae0490bee458edd685389c82071ff2ecd655c6b533d9f3687e4cfc7189c",
+    "append_closure_audit_r655.py": "99019df6067059b4e70887659cdb0fefd68bd318c96d576b465f90e2e494c76d",
+    "out/native/ashlar_append_closure_r654/audited-summary-r655.json": "b56c8a9eb5358a675e4a7e9d7eae3d0c4f8192020f9ce3b6608644f615e62307",
+    "out/native/ashlar_append_closure_r654/shared-history.json": "8b8410ad0da58838f91de60fce72a71bd037401f65733d1514ab9d721630db67",
+    "out/native/ashlar_append_closure_r654/statements.jsonl": "e93119b842674a1bcb1bbe6d470fe7a0c9eec71904d6678f84660d75da3cdb83",
+    "out/native/ashlar_append_closure_r654/summary.json": "47473efb8fb74746f8933def803a917d1c0323660fcb51f9b5117a5063e01915"
   },
   "evidence": {
     "ddl": {

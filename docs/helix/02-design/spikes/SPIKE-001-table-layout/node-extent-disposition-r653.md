@@ -29,9 +29,17 @@ vector remains N6/E10/R7/J7/A8/T7; the existing edge physical head remains the
 separately qualified maintenance head12. This experiment does not reconcile that
 head for a new publication.
 
-Next verify the complete typed node union and endpoint closure for the existing
-2.5M-edge append slice against explicit old/new node pins, then grow the remaining
-new edge extent with independent local field oracles and measured bounds.
+R654/R655 now verify the complete pinned old/new node union: 16M rows and
+16M distinct non-null typed identities. Both endpoints of all 2.5M new edges
+resolve (5M references, zero missing/null keys); the complete forward adjacency
+multiset matches those edges. The read-only run took 25.531 seconds and read
+447,899,478 bytes with zero writes/spill; all17 exact final statements are audited.
+Pins are old nodes6/new nodes15/new edges0/new adjacency0. This establishes
+scoped closure across two physical node extents, not a single16M-node table,
+atomic publication, source fence or whole80M-edge graph.
+
+Next grow the remaining new edge extent with independent local field oracles
+and measured bounds.
 No complete 16M/80M graph or billion-scale admission is established. The chosen
 Unity Catalog Delta architecture, Truss semantics, parameterized native singleton
 queries, deferred UMF binding and bounded engine mappings remain unchanged.
