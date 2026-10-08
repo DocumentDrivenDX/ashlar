@@ -1,0 +1,5 @@
+{
+  "state": "Local admission AssertionError before client creation or SQL submission",
+  "cause": "Prepared controller incorrectly expected pilot stateAll600 instead ofAll20; correctedR624 also separates common-set assignment from physical metadata assertion.",
+  "qualification": "No native handle, output directory or reads/writes fromR623; frozen failed entrypoint retained, correctedR624 passes local dependency admission."
+}
