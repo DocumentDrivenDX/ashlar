@@ -535,3 +535,27 @@ all batch/event custody. Altered mapped values with a recomputed commit digest
 refuse. Mapping order is part of the original producer codec; preserve it. This
 check does not admit IDs, schema meaning, file authority or read/write permission.
 The CLI and both example runners now perform it before downstream use.
+
+### Truss complete-feed adapter component
+
+`ashlar.truss_feed.assemble_feed(original_manifest_artifact, original_fragment_bytes,
+policy=..., context=...)` implements bounded proposed complete-feed/0.1 custody
+assembly. It accepts the original complete canonical manifest archive, verifies
+its domain-framed semantic digest and each exact payload artifact, retains all
+original fragment bytes and returns payload bytes in original manifest order.
+Missing/foreign/conflicting members refuse; exact fragment replay is idempotent
+for the assembled payloads. Bounds are 1,000 manifest members, 128 fragments,
+one MiB per fragment and 16 MiB total custody. No ACK occurs.
+
+The host policy must independently implement `admit_manifest(original_bytes,
+context)` and `admit_complete(original_bytes, ordered_payload_bytes, context)`,
+returning None or refusing. Admission must prove current source authorization,
+registered original profile/member ordering, full committed native membership,
+configuration/revision prerequisites, safe clock and retention/worker custody,
+and payload interpretation. Hashes alone prove none of these. Supply original
+manifest archive hash and framed manifest hash as distinct identities.
+
+This component has local wire/refusal evidence only; Truss still has no installed
+public runtime here. The 0.2 transition-capable manifest is unsupported and
+refuses; do not rewrite it as 0.1 or treat journal-only `(xid, seq)` progress as a
+complete transaction. It does not reconstruct property changes into object state.

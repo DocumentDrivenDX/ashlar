@@ -1234,3 +1234,22 @@ authorization. Even after that change, a trusted scheduling/termination observat
 or other qualified containment is required for previously submitted operations;
 this completed-operation table alone cannot provide it. Protected Truss runtime
 and native publication/read admission remain required by the full goal.
+
+## Truss complete-feed fragment assembly — 2026-10-08
+
+The new truss_feed component implements bounded original custody assembly against
+Truss's reviewed complete-feed/0.1 and ExactArtifact proposals at HEADadd84ce.
+Canonical archive spelling and domain-framed manifest digest are distinct from
+artifact byte hash; complete membership payload hashes and original manifest order
+are preserved across fragments. Missing/foreign/tampered members and unadmitted
+source context refuse. Exact fragment duplicates preserve ordered payloads. Both
+original manifest and all original fragment bytes are returned defensively as
+immutable bytes/tuples. All160 local checks pass; no native workload occurred.
+Source paths/hashes: out/truss-feed-assembly-source-review.json.
+
+Mandatory host admission must still independently prove native complete committed
+membership, original registered definitions/order, prerequisites, safe watermark,
+retention/worker custody, authorization and payload interpretation. The component
+does not issue ACK, reconstruct property state, install Truss or support 0.2
+transition manifests. Full native Truss integration and publication/read admission
+remain open. Maintenance settings remain unchanged pending prior authorization.

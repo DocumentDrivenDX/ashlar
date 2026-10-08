@@ -1,0 +1,8 @@
+{
+  "source_commit": "add84ce880300e46b4bade8f65d7cb42f67fb65f",
+  "source_files": {
+    "docs/helix/02-design/contracts/bindings/truss-feed-transaction-v0.1.d.ts": "010d2ea005d712bb016943e244cda0f10510ab494edbd434f9bc47668479547f",
+    "docs/helix/02-design/contracts/bindings/truss-acceptance-input-v0.1.d.ts": "bde6c1a386b41efc24cee68495ee878656e35bca1072ff0fdd3ad14179b48db3"
+  },
+  "qualification": "Original proposed complete-feed/0.1 wire and ExactArtifact definitions reviewed; local assembly tests only. No native profile adoption, source commitment, membership completeness, prerequisite admission, payload interpretation, worker installation or ACK qualified."
+}

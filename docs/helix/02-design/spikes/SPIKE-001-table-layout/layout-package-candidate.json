@@ -2900,8 +2900,8 @@
     "../../../../../README.md": "e809e372423f32184f20044cf51ea1e3ced565d6df4d176db6951c01332d6cc7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
-    "../../../../../examples/end-to-end/README.md": "65e6d2538879cb7ce0b0a0571f673bc08734edd1a0cd3ef6346f8ecf0b2a3724",
-    "../../../04-build/end-to-end-plan.md": "86ff02d56c62423421e1c8ca8a8d70d465646d4c2f14b3f9059caad6c0055b87",
+    "../../../../../examples/end-to-end/README.md": "9fd606a721f425a5ec752e45dd014d12b79d8afbd42499eee2a31a2b396812e7",
+    "../../../04-build/end-to-end-plan.md": "dac586931d40bcf9d640139de134ef9be583bce246bf4ecb95c82c6d76203ee8",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3275,7 +3275,10 @@
     "out/native/automatic_maintenance_history_20261008/columns.json": "9529213da163a54a2558d23e1c30d4828be9503bf4cab74469288710f35cbf8c",
     "out/native/automatic_maintenance_history_20261008/live-statement.json": "dfcde67bc5f818feb162f0d79f1e51536c30648e1e69a3cf41dcbbeea80721e6",
     "out/native/automatic_maintenance_history_20261008/statements.jsonl": "0713dab6bf9f6d8384bd14f174760c9187f8cffee2a2b7943b2a13ebec24262d",
-    "out/native/automatic_maintenance_history_20261008/summary.json": "143c513daf3a7ab55296d2107abd143050b3085c60b9cfb6529968af7e51d709"
+    "out/native/automatic_maintenance_history_20261008/summary.json": "143c513daf3a7ab55296d2107abd143050b3085c60b9cfb6529968af7e51d709",
+    "out/truss-feed-assembly-source-review.json": "5806fb739715771aee5232690f070aa01da01f430320c85699baf7446ac732c2",
+    "../../../../../src/ashlar/truss_feed.py": "125b0a6406539cee03958740b2dd5b783dfc8374de67f090cc21fabb1670c88d",
+    "../../../../../tests/test_truss_feed.py": "ca5092601cfc4fc3308703088ea4924998770fefd3c17259a64f0e9437b3dc8e"
   },
   "evidence": {
     "ddl": {
