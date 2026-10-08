@@ -344,12 +344,12 @@ The command runs the actual pinned UMF reader/validator from a clean checkout:
 
 ```sh
 python3 tools/register_umf.py \
-  --installation docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_setup_20261008/summary.json \
+  --installation /private/tmp/ashlar-csv-stream-setup-20261008/summary.json \
   --umf-source /path/to/clean/pinned/umf \
   --validator-revision 16c35e8d943769ccfa7bb57d16785aa7159abe65 \
-  --document examples/end-to-end/schema-v1.umf.json --revision 1 \
-  --journal /private/tmp/ashlar-private-schema-20261008.sqlite \
-  --output docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_schema_v1_20261008
+  --document examples/end-to-end/schema-v3.umf.json --revision 3 \
+  --journal /private/tmp/ashlar-csv-stream-schema-20261008.sqlite \
+  --output out/native-umf-registration
 ```
 
 Requires the SDK-enabled Python environment, Bun on PATH (or --bun), and installed
@@ -360,13 +360,24 @@ existing `--profile`/`--warehouse`. The command derives the registry namespace
 from the complete UMF-generated installation receipt. It retains raw paginated
 effective permissions in `effective-grants.jsonl` and checks fresh actor/owners,
 a managed registry, exact UUID/columns and unchanged inspected source bytes.
-The new authority composition has focused local evidence; its native rerun and
-fresh user installation remain unverified. Retain the journal. Native v1 and separate v3/revision3
-registration pass exact original bytes and diagnostic readback. For v3, change
---document, --revision and --output; keep the registry journal. Unknown/partial
+The revised command has native one-row registration and fresh-process replay
+evidence on this current CSV installation. Retain the journal. Historical v1 and v3 receipts remain separate evidence. The revised command
+retains v3/revision3 in the CSV installation and replays without new native
+mutations. Change --document, --revision and --output for another source revision;
+keep that installation’s registry journal. Unknown/partial
 interpretation is retained truthfully. This registers raw schema custody, not an
 accepted executable schema or stable native catalog IDs; graph ingestion must
 still await selected semantic admission.
+
+The original two mutation receipts (CREATE and MERGE) remain unchanged across a
+fresh-process replay. Original registration issued six warehouse reads; replay
+issued five, plus retained effective-permission pages. The older runtime setup
+receipt predates current generated-model provenance and is refused by the revised
+command. Do not manufacture an updated receipt for that installation.
+This registry's proof belongs to its own installation/workload. Keep the existing
+CSV publication journal bound to its original intake proof; swapping the registry
+UUID changes the workload and must refuse. A fresh complete carrier setup and
+actual Truss acceptance/feed remain required for a clean end-to-end workflow.
 
 ## Apply the selected local fixture to the private Delta sandbox
 

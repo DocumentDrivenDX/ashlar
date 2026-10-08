@@ -223,3 +223,14 @@ changes, external registries, foreign namespaces and untrusted writers. Existing
 three effective-permission and two raw-registry tests pass independently. These
 checks qualify host composition; the revised native command has not yet been
 executed and historical native receipts do not prove its new admission behavior.
+
+
+The revised CLI now has native one-row v3 registration and fresh-process replay
+at Ashlar 61c37e8. Both complete raw rows match independently retained bytes, and
+the original two native mutation handles/request/response receipts are unchanged.
+Evidence is [native UMF registry admission](../../04-build/evidence/native-umf-registry-admission-20261008.json).
+This supersedes the preceding unexecuted-CLI qualification only for this exact
+current installation/source and serialized owner lane. Fresh full installation,
+concurrent uniqueness, hash CHECK constraints in this new registry and executable
+catalog acceptance remain unverified. Existing publication journals cannot swap
+to this new registry UUID without changing their original workload identity.

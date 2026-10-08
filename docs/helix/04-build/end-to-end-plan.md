@@ -2398,3 +2398,33 @@ SDK environment. No warehouse SQL or cloud mutations were run. Native revised
 registration and a fresh setup/publish/query remain unverified. Historical v1/v3
 receipts retain their original scope. Actual Truss implementation/feed and remote
 schema/source acceptance remain necessary to complete the goal.
+
+
+### Native revised registry registration and replay — 2026-10-08
+
+The revised command passed actual native registration of the single retained v3
+UMF source in the existing current generated CSV installation. It created the
+managed registry ashlar_e2e_private_20261008.runtime_csv_stream.schema_intake
+with native UUID 729976af-7831-403a-9847-c78e03a29847, then retained revision 3.
+Actual clean UMF source remains pinned at 16c35e8d943769ccfa7bb57d16785aa7159abe65.
+The source/artifact SHA256 match the original v3 intake, including explicit
+incomplete interpretation. This is raw custody, not accepted executable schema.
+
+A fresh-process same-journal replay exited successfully. Independent offline
+inspection compared both full native selected rows against original retained
+source/artifact bytes, complete fields and boolean interpretation. The two
+original terminal SUCCEEDED mutation handles, request digests and full response
+bytes are identical across both journal exports. Native initial registration
+used six warehouse reads and 14 effective-permission pages; replay used five
+reads and 11 pages with zero new mutations. No graph effects, publication, ACK,
+grants, predictive optimization or compute changes occurred.
+
+[evidence/native-umf-registry-admission-20261008.json](evidence/native-umf-registry-admission-20261008.json)
+retains the original handles, response/source fingerprints and separate private
+receipt directories. The older runtime installation receipt correctly failed
+current generated-model admission before effects; it was not rewritten or
+silently upgraded. Existing CSV publication workload remains bound to its older
+shared registry UUID/proof; this new registry is not swapped into that journal.
+A fresh complete carrier installation, broader schemas and actual Truss runtime/
+acceptance/feed remain open. Native concurrent uniqueness/remote fencing and
+hash CHECK constraints on this newly created registry are not claimed.

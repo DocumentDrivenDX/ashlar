@@ -1,0 +1,61 @@
+{
+  "state": "passed",
+  "ashlar_revision": "61c37e8d0c8e2200234ebe3343acce271ab1684c",
+  "table": "ashlar_e2e_private_20261008.runtime_csv_stream.schema_intake",
+  "table_uuid": "729976af-7831-403a-9847-c78e03a29847",
+  "source_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+  "artifact_sha256": "f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1",
+  "validator_revision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+  "document_revision": "3",
+  "complete_interpretation": false,
+  "native_mutations": [
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_csv_stream.schema_intake:install",
+      "original_handle": "01f1c349-f012-1933-81b7-0bc81ca1e2d6",
+      "request_sha256": "13ff9cc91bd628e0951a92c52039f2e71878af335e9e18172e3d9903c8c04223",
+      "response_sha256": "c47b3fcf1a3eb478e9c92672d299581bf928ff2e98a66ce2300b0c9cc6b7cdcb",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "schema-intake:49d47279c66e73b1bad1e956672e0ebe421d81c1e016910ba82b39ceb1b94851",
+      "original_handle": "01f1c349-f93d-1fc3-952c-3c8bba9339de",
+      "request_sha256": "b1a9e76f4942cbbc62ccd979ffa90fe7a195ff00b8209ea7b7e755c81ff39372",
+      "response_sha256": "a73ac2f6ed87f06043e725cb14b92faac33d54e71fa29fe061ee6d61632ab237",
+      "terminal_state": "SUCCEEDED"
+    }
+  ],
+  "runs": [
+    {
+      "private_receipts": "/private/tmp/ashlar-csv-stream-schema-admission-20261008",
+      "warehouse_reads": 6,
+      "effective_permission_pages": 14,
+      "receipt_sha256": {
+        "summary.json": "447371d46504ad3037336dfe5477d92d908c3b343ed826d20963de8070f35d72",
+        "intake-artifact.json": "f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1",
+        "journal-export.json": "a9d29e04c57f5e3e739c33e6a7df7091928c83e79def737c89bf3030853baf1f",
+        "statements.jsonl": "40ea9fc417edacd9d18afae2668561af6c4791341dac0833f43b6e08fb9ef0ad",
+        "effective-grants.jsonl": "27ab6637fc5009f245905aa34427b9fe4a13de3485bdb7cb57496cbec9ed846b"
+      }
+    },
+    {
+      "private_receipts": "/private/tmp/ashlar-csv-stream-schema-replay-20261008",
+      "warehouse_reads": 5,
+      "effective_permission_pages": 11,
+      "receipt_sha256": {
+        "summary.json": "447371d46504ad3037336dfe5477d92d908c3b343ed826d20963de8070f35d72",
+        "intake-artifact.json": "f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1",
+        "journal-export.json": "a9d29e04c57f5e3e739c33e6a7df7091928c83e79def737c89bf3030853baf1f",
+        "statements.jsonl": "38d06833c19892f0f19520f61cf7ce5bd4af2f3e26190b11c25523f3ec1710f9",
+        "effective-grants.jsonl": "9f6878db3a0915b972468417bbf234b1b7f2276064f88d297f018b882fdbb8cb"
+      }
+    }
+  ],
+  "checks": [
+    "actual pinned clean UMF inspection matches original source bytes",
+    "current generated installation admitted before native effects",
+    "native registration exact complete raw row readback",
+    "fresh-process replay same table UUID source artifact and interpretation",
+    "all original mutation handles requests responses unchanged after replay"
+  ],
+  "qualification": "One synthetic revision-3 raw UMF registration and exact replay in an existing authorized CSV installation on existing warehouse. Complete paginated effective permissions and fresh actor/managed registry checked by revised command. Two original native mutations total; no additional mutations on replay. No accepted Truss/Ashlar schema, native ID allocation, registry concurrent uniqueness or remote fencing. Fresh carrier installation and schema evolution remain separate; no graph publication/source ACK or compute/grants/maintenance changes."
+}
