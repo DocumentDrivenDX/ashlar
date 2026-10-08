@@ -1144,3 +1144,9 @@ the configured source and sole bound type, or explicit `--type-id` for multiple
 bound Records. Weft queries also consume the configured model/bindings.
 Configuration alone does not establish native admission, Truss acceptance, remote
 ACK or automatic schema evolution. Native configured-source execution is pending.
+
+The configured example's fresh native setup and raw intake now pass in
+`ashlar_e2e_private_20261008.runtime_configured_jsonl`. Original setup receipts are
+`/private/tmp/ashlar-configured-setup-20261008/summary.json`; original intake proof
+is `/private/tmp/ashlar-configured-schema-20261008/summary.json`. Publication/query
+are separate checks; raw intake is not native catalog acceptance.

@@ -1,0 +1,44 @@
+{
+  "state": "passed-native-intake",
+  "ashlar_execution_revision": "acaf6d4",
+  "summary": {
+    "state": "retained",
+    "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.schema_intake",
+    "table_uuid": "85f1ce18-d411-4764-805b-970d877e6dc9",
+    "document_id": "truss-weft-source-review-fixture",
+    "revision": "3",
+    "source_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+    "artifact_sha256": "f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1",
+    "validator_revision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+    "complete_interpretation": false,
+    "qualification": "Actual pinned UMF structural validation and exact raw native intake/readback only. Target semantic/schema/catalog acceptance, ID allocation, Truss head/runtime and feed are separate. Fresh actor/managed registry and complete paginated inherited grants plus original model custody and same-host lock; remote writer lifecycle remains unqualified."
+  },
+  "native_mutations": [
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_configured_jsonl.schema_intake:install",
+      "original_handle": "01f1c357-e50d-1926-a33e-67748d2a388f",
+      "request_sha256": "3ca7155d3476825c237715882b4dadb23d735a8919c23df36157e027a5dcb016",
+      "response_sha256": "f1467bc0e0bf84d2020c70e73ab8b8adc66321cbe613fdb80e56f040860fe523",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "schema-intake:a0644372ea6ab3ed9b8cc785792289f7d6871914d850c381b8c4f935d4d791aa",
+      "original_handle": "01f1c357-e7ab-1951-9d3a-1958a8563b2e",
+      "request_sha256": "085b9ca83742e38c65decfaeb3a4351feff42f6b278d397ac7c77e32fba8dc11",
+      "response_sha256": "b9fa7134fc7fb32b68be681a93117278dd0da9fdf399c9aafa9b96f165ecbc03",
+      "state": "SUCCEEDED"
+    }
+  ],
+  "native_read_statements": 5,
+  "complete_original_rows_verified": 1,
+  "effective_grant_pages": 11,
+  "receipt_sha256": {
+    "summary.json": "fa77287b86b01b361772e4ece10a1246f5125c4dbbd6de1bd48fe04bf1c29aa9",
+    "statements.jsonl": "5d481fed2f3764a847485054f430ffc18a6c39e864d0cdb48852ff00d22f6767",
+    "journal-export.json": "a865edfe94a80e316e35971f550beb5660ffd0598518e04a48845f61a012027b",
+    "intake-artifact.json": "f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1",
+    "effective-grants.jsonl": "e0c090f3a4ac622148a73d2a5a2aacefb9e533892218c82a267a0e74d01e6be0",
+    "live-statement.json": "fc00dedb9c399a5467568f7768faf428e20460d9f7379835011c863b2ed2c800"
+  },
+  "qualification": "Actual clean pinned UMF validation; original configured intake bytes match native raw registry complete-row observations, including exact projected STRING false for original boolean. Registry CREATE and original MERGE terminal SUCCEEDED. Target binding separately supplied as explicit development IDs; complete interpretation false retained. No Truss acceptance/feed/ACK or native publication completion."
+}

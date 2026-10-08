@@ -2936,3 +2936,29 @@ verified SDK Python runs it correctly. Evidence:
 No cloud statements were issued. Native configured installation/intake/publication/
 query remains the next integration check. No Truss acceptance, arbitrary semantic
 support, remote fencing/ACK or complete goal achievement is claimed.
+
+### Native configured source setup and intake — 2026-10-08
+
+Fresh namespace ashlar_e2e_private_20261008.runtime_configured_jsonl now contains
+the eight current UMF-generated managed Delta carriers. All nine original CREATE
+handles are terminal SUCCEEDED, with exact schema/UUIDs, zero files and closing
+UUID checks. Setup performs 24 metadata reads and retains inherited permission
+pages. Evidence: [configured setup](evidence/native-configured-setup-20261008.json).
+
+Raw UMF registration also completes in that namespace using the original clean
+16c35e8d943769ccfa7bb57d16785aa7159abe65 validator. Original configured schema and
+intake bytes/digests match complete native registry row readback. Registry CREATE
+and MERGE are terminal SUCCEEDED; five reads and retained permission pages prove
+the scoped registration. completeInterpretation:false remains explicit. Evidence:
+[configured intake](evidence/native-configured-intake-20261008.json).
+The first offline verifier looked for BOOLEAN columns in the registry's complete
+STRING projection; correcting that expected observation verified the original
+false token without issuing more warehouse statements.
+
+The three-group/four-event configured publication is now running from its
+original /private/tmp/ashlar-configured-stream-20261008.sqlite journal, output
+/private/tmp/ashlar-configured-stream-20261008, native process handle5165. Its
+results are pending; no published/query/ACK claim follows from setup/intake.
+Continue observing that original handle/journal; do not restart on an observation
+timeout. Existing warehouse/catalog only, no predictive-optimization, grant or
+compute configuration change. Actual Truss catalog/producer/feed remains required.
