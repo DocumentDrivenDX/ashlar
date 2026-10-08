@@ -138,3 +138,61 @@ cannot restore it.
 The boundary can be exercised before UMF merges. Later mapping must identify
 exact native-to-boundary loss and preserve source evidence. This is a proposed
 contract, not Databricks compatibility or producer-adapter evidence.
+
+## Durable publication coordinator boundary
+
+The proposed Python publish_batch coordinator consumes a complete source batch,
+explicit stream, original predecessor publication, exact nonempty named schema
+revision JSON and caller context. It derives and retains one deterministic full
+request digest over the original stream/batch/predecessor/schema/source custody.
+Changed semantic request under an existing attempt key refuses before effects.
+Revision inventory must be duplicate-free JSON with named nonempty string values.
+The request mapping is immutable; backend implementations retain exact original
+bytes and do not reconstruct intent from current graph state.
+
+PublisherBackend is a mandatory native port, not a default implementation:
+writer holds current authority/exclusion/source fencing through the attempt;
+observe returns original durable Attempt or None only after proving absence;
+prepare retains complete original input and predecessor/revision/authority
+custody. Unresolved original submission never counts as absent. Every state-
+changing native port preserves original handles/receipts and uncertain outcome.
+An ordinary caller flag or in-memory callback cannot supply durable authority.
+
+The attempt phases are prepared, applying, applied, committing and committed.
+Persist applying before any graph submission; apply returns the completed actual
+effect result, which retain_applied preserves once under the original request.
+A later applying attempt uses recover_apply to inspect original native handles/
+effects; it never invokes apply again or generates a new mutation plan. Missing
+original result/custody refuses rather than filling from current tables.
+
+Validate complete actual source/schema/graph/history/tombstone/delivery/pin
+correspondence under current authority before descriptor submission. Validation
+must succeed with None, never a false/success flag or partial report. Persist
+committing before descriptor submission; commit returns one immutable original
+descriptor and retained committed attempt. A later committing attempt uses
+recover_commit to resolve the original submission/descriptor, never commit again.
+Original apply/result/descriptor/resource and native recovery producers remain
+backend obligations; these signatures do not qualify their implementation.
+
+Only a committed original descriptor reaches acknowledge. That port independently
+checks source/descriptor correspondence and current checkpoint authority, moves
+progress only to the completed boundary and handles identical replay idempotently.
+A committed repeat observes the retained descriptor and reuses acknowledgement;
+it does not rerun graph effects, validation callbacks or descriptor production.
+No receipt from an earlier phase permits acknowledgement. False/non-None policy
+or acknowledgement completion refuses. Unknown commit/ack outcome retains the
+original recovery custody and cannot create a replacement publication.
+
+Forty-eight focused local tests include original-handle recovery after uncertain
+apply, incomplete validation retaining previous publication/progress, original
+descriptor recovery after uncertain commit and lost acknowledgement, conflicting
+intent refusal, malformed revisions and denied writer before metadata effects.
+Those tests use an explicit in-memory backend to exercise coordinator order only;
+no native durability, fencing, retention, complete effect parity, immutable
+manifest or actual source checkpoint is established by the mock.
+
+Native implementation must connect the existing Delta staging/apply/resolver
+ports to complete durable attempt stores and recovery procedures. The currently
+materialized private graph fixture remains unpublished and cannot be promoted
+merely because coordinator unit tests pass. Full Truss acceptance/feed and the
+additional source/schema paths remain required by the active toolkit goal.

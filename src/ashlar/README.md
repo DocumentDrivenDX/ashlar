@@ -76,3 +76,10 @@ executable fields block normalized admission. Use its Change values only with
 the mandatory target schema/constraint policy in plan_apply. The native nine-
 event example is unpublished materialization evidence, not durable production
 apply/recovery or a Truss property-feed adapter.
+
+publish_batch in publisher.py coordinates a mandatory durable backend through
+prepared/applying/applied/committing/committed phases. Uncertain submissions use
+original apply/commit recovery ports; committed replay only acknowledges the
+original descriptor. Native attempt custody, source fencing, complete validation
+and immutable manifest/checkpoint producers are unfinished mandatory integration
+work. Local mock tests establish orchestration order, not native durability.

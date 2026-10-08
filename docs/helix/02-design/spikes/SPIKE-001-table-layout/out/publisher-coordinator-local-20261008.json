@@ -1,0 +1,13 @@
+{
+  "state": "passed",
+  "local_tests": 48,
+  "checks": [
+    "durable-port phase order: prepared/applying/applied/committing/committed",
+    "unknown apply recovers original without reinvoking mutation",
+    "incomplete validation retains prior publication and progress",
+    "unknown commit recovers original descriptor without resubmission",
+    "lost acknowledgement reuses original descriptor",
+    "conflicting request/denied writer/missing original result/malformed revision refuses"
+  ],
+  "qualification": "Pure orchestration with explicit in-memory backend test doubles. Native durable attempts, source fencing, complete effect validation, retained pins, immutable descriptor and acknowledgement remain required. Existing native graph fixture remains unpublished. No Databricks run."
+}

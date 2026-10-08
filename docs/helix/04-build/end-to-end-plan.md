@@ -225,3 +225,21 @@ or durable replay/recovery. Reusable version/delivery admission and native
 recovery must precede immutable manifest/checkpoint production. Truss native
 schema/runtime/feed, broader UMF bindings and PostgreSQL outbox remain required.
 No scale workload or warehouse resize occurred.
+
+## Publication orchestration checkpoint
+
+The reusable coordinator now retains a stable complete request identity through
+prepared/applying/applied/committing/committed phases. It requires persisted
+submission phases before graph or descriptor effects and separate original-handle
+recovery callbacks on interruption. Only the retained committed descriptor can
+reach idempotent source acknowledgement. Forty-eight local tests verify order,
+changed intent/refusal and uncertainty recovery without repeating mutations or
+commits; incomplete validation keeps prior publication/progress. No Databricks
+workload or actual graph publication occurred this iteration.
+
+Next implement native durable attempt/result/descriptor stores and recovery
+producer bodies under qualified source/writer authority, connect complete effect
+validation to actual pins and wire the resolver/acknowledgement transport. The
+coordinator is not itself native durable state or proof of authority. The private
+graph fixture stays unpublished. Truss schema/runtime/feed and broader schema/
+outbox support remain required parts of the same goal.
