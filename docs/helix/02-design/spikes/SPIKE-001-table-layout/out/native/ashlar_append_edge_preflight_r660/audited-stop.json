@@ -1,0 +1,10 @@
+{
+  "state": "Terminal preflight stopped on observed adjacency OPTIMIZE version1 before any digest queries or writes",
+  "statements": 13,
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "All13 exact statements final; local version0 expectation incorrect for maintained private adjacency. No native query replay or write. New observed-head parity phase required."
+}

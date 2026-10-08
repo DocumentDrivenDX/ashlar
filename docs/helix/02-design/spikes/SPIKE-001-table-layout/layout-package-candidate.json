@@ -2789,7 +2789,24 @@
     "out/native/ashlar_append_closure_r654/audited-summary-r655.json": "b56c8a9eb5358a675e4a7e9d7eae3d0c4f8192020f9ce3b6608644f615e62307",
     "out/native/ashlar_append_closure_r654/shared-history.json": "8b8410ad0da58838f91de60fce72a71bd037401f65733d1514ab9d721630db67",
     "out/native/ashlar_append_closure_r654/statements.jsonl": "e93119b842674a1bcb1bbe6d470fe7a0c9eec71904d6678f84660d75da3cdb83",
-    "out/native/ashlar_append_closure_r654/summary.json": "47473efb8fb74746f8933def803a917d1c0323660fcb51f9b5117a5063e01915"
+    "out/native/ashlar_append_closure_r654/summary.json": "47473efb8fb74746f8933def803a917d1c0323660fcb51f9b5117a5063e01915",
+    "append_edge_oracle_r656.py": "1c5046d5ae1e000164d12b41e52c7a52c4ae4cc050a98358b3be175bc90d83a4",
+    "out/append-edge-oracle-r656.json": "a959801b547267f70a4dce3015477cab19428c5a670a093e26088c1476ba6266",
+    "out/edge-extent-budget-r657.json": "03bddee7c1731fcf186a00997ea16ba6dd3424ac303bdc181a829cde1ea692c4",
+    "append_edge_digest_r658.py": "ed9bb73c1ba4003ea88695dd136eb9d90b430e2e0675cbd8340da3516f025b0d",
+    "append_edge_oracle_audit_r659.py": "9f358a330f47fb2119cef670d539a685ad395e03f76206abbe419c65a966a58a",
+    "out/append-edge-oracle-audit-r659.json": "f7b0be99b3e89fbbbef2994ebeb26b3e2c38bd714e0061f88c72a4b2848157cc",
+    "append_edge_preflight_r660.py": "26f379b36c25e474d32b090fbc1174dd5230189cb52273955fc0ef4d395a286f",
+    "append_edge_preflight_r662.py": "f7725612badfd5a3777fd2d7403d112ec4c4506c454ea0ccac98d1ad8f2682a3",
+    "append_edge_preflight_audit_r663.py": "cf52abe5b4f7829b2a98ce786ff13602a7f70aac57159841f7dbed6ab9c0c669",
+    "edge-oracle-disposition-r664.md": "0a0cb470d4fd358dbac1ff3b14e45a74339da9512f7a5a188b4422cafe0a5ee1",
+    "out/native/ashlar_append_edge_preflight_r660/audited-stop.json": "b9610405152843251f186682942a19fd44954094a1f395c1ff3db4c37001dbcb",
+    "out/native/ashlar_append_edge_preflight_r660/shared-history.json": "eff256b8c65ce16561e28b662afd067ee71893caa04821ef3aac9de421dcc401",
+    "out/native/ashlar_append_edge_preflight_r660/statements.jsonl": "7ff9a6b328e3b68cdfba2bcb4571ab6f5d79f8ac6212f100966daa83dfe758a6",
+    "out/native/ashlar_append_edge_preflight_r662/audited-summary-r663.json": "5a64423cf45043b0a5919283040f0b260d550ca7fcc2eb7cbd1f3c34358e56f2",
+    "out/native/ashlar_append_edge_preflight_r662/shared-history.json": "a8c4f6f970d96d2484bf5f12eb94cb056bb20dde226f20dedb0a4d06ab8d4326",
+    "out/native/ashlar_append_edge_preflight_r662/statements.jsonl": "f7e28f1fad6fecd17248ae189e2c18588f385871794075b5890b54017a3f05e5",
+    "out/native/ashlar_append_edge_preflight_r662/summary.json": "19e7ee1808c83dc16b192de93ce8f422fc2522a7d6816240f50e46149021fe2d"
   },
   "evidence": {
     "ddl": {

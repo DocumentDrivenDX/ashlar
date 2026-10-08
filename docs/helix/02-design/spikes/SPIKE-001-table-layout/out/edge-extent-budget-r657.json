@@ -1,0 +1,31 @@
+{
+  "format": "ashlar-edge-extent-budget/1",
+  "sources": {
+    "out/native/ashlar_append_write_r643/shared-history.json": "20299d9dc87c2fbde031cc5b5ea34eef70b605fee6496331deb923eee02741c9",
+    "out/native/ashlar_append_write_r643/statements.jsonl": "bb3fef8a1c645f11c87149df1ce51835d773d81fcfd71e74ebc505a492a0de27",
+    "out/native/ashlar_append_write_r643/audited-summary-r644.json": "d3d87abf6b3b3917588d095ed142798dbb7b78c632aaa54e0b84d0df556e9058"
+  },
+  "basis_edges": 2500000,
+  "basis_costs": {
+    "read_bytes": 13544990566,
+    "write_remote_bytes": 6062681093,
+    "spill_to_disk_bytes": 0
+  },
+  "target_new_edges": 8000000,
+  "already_staged_edges": 2500000,
+  "remaining_edges": 5500000,
+  "append_chunk_edges": 500000,
+  "sensitivity": {
+    "read_bytes": 65015954716.8,
+    "write_remote_bytes": 29100869246.4,
+    "spill_to_disk_bytes": 0.0
+  },
+  "bounds": {
+    "read_bytes": 75000000000,
+    "write_remote_bytes": 35000000000,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 2700,
+    "statement_cancel_s": 180
+  },
+  "qualification": "Conditional first8M new-edge native stage, not full40M new edges or16M/80M graph admission. Full local edge oracle and complete existing2.5M independent parity required before appends. Preflight all four owned edge-role UUID/heads/schema, attributed bounded append commits and final full independent digests/endpoint closure against old-node6/new-node15 pins required. Stop on spill. Bounds are observations, not hard billing/cancellation caps. Local oracle has separate1800s guard. No published vector, canonical tables or compute settings changed."
+}
