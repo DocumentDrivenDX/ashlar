@@ -2894,14 +2894,14 @@
     "../../../../../src/ashlar/__init__.py": "8f20eb9aa449f5817f8200eb8a8ce05922a65c6fc4ad56312027bca14615e9aa",
     "../../../../../src/ashlar/native.py": "2a95c50ba63be357b65a279e8a5c7d06aaf487e6d0e55dc4006b7c68fa16a78c",
     "../../../../../src/ashlar/publication.py": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
-    "../../../../../src/ashlar/README.md": "6b017137ca3a60f35929b980cf26e5b29b1e187af186d82b7b0f40d3ddf7246c",
+    "../../../../../src/ashlar/README.md": "c05002647edce7113e234891664bad92a42161085c1f3a0f460c2a7c7b5b1cc6",
     "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
-    "../../contracts/CONTRACT-004-publication-resolver.md": "376d0e5ad3acbf3dc648b08f6f5b438892fda0c3a961b45d4b87ba080d7ca86c",
+    "../../contracts/CONTRACT-004-publication-resolver.md": "ae1d2dee402d359dbc9bb22ef5c6bc774e22fed1c93b1a6817ff719f99db402c",
     "../../../../../README.md": "11e0aaa10f67e008542066d293624bd5e195529dd5bc2c3f8ed75b960f22bda7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "58dd4e153711f8211abc17a5c05fe40ba5bdc026b721b1453d0ca05b96e3fbbd",
-    "../../../04-build/end-to-end-plan.md": "cb923a9c7d2ee6ce28e8c2e17376bfc6b8f6cd72bb98359d6b2ff3f78d2b327d",
+    "../../../04-build/end-to-end-plan.md": "0a0e83ebff72318a92ce27b0455fb0ff1b6097acb8591ee5a782cdc5bba198cf",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -2989,7 +2989,7 @@
     "../../../../../tools/durable_effects.py": "80c84c9f6e6ca24593df7bd4e164529fe1ed650d772badf139bb378bb3e3df91",
     "../../../../../tests/test_durable_effects.py": "e6767d589626124e89e15501570c77c73ba507d3732ff9e77e5f2bf4b2275cdf",
     "out/durable-effects-local-20261008.json": "44b3d581ee57c8def05ff06d249f635a323236abe859fbcce0b28bf7e8774c23",
-    "../../../../../tools/whole_graph_sql.py": "5613ae9e8f8904e601ff1df772a09247ad4720ec1f229adf43e5fbbb24ff52a6",
+    "../../../../../tools/whole_graph_sql.py": "eaa413523a3a85cbaba59e0ccd8fbf540dfcadfaac52a0c48413effa68f676ca",
     "../../../../../tools/check_native_recoverable_graph.py": "29ccaea0daf9f4d52bf34b5b399d41e09e2ec7e500f8bb4a329c4eac6f64382d",
     "../../../../../tests/test_whole_graph_sql.py": "8fcadc418cd5c30b3bd4d51cc77cee777212c20f67798dd20eff4ef43fc8cd55",
     "out/whole-graph-sql-local-20261008.json": "ebe8895ba35df40add1399ce9d04f25ec66243dbb44b8ef487702ce576c3487f",
@@ -3017,7 +3017,10 @@
     "out/native/pin_vector_20261008/retained-vector.json": "e85d887f7d42184cb2ece1a7e77868375231399d375a63127d379a651d7c87b1",
     "out/native/pin_vector_20261008/register-output.txt": "545c38b0922de19734fbffde62792c37c2aef6a3216cfa472449173165220f7d",
     "out/native/pin_vector_20261008/read-guard-output.txt": "2ce99148e8311cb0cefd826e2d23dd5570a5f42b3e5905b7a7e972d2c9a41e03",
-    "out/native/pin_vector_20261008/release-output.txt": "0d7b1d14c92cb9355f03bf3f1a4f908222f15f904d6102d4c345134f78dd310b"
+    "out/native/pin_vector_20261008/release-output.txt": "0d7b1d14c92cb9355f03bf3f1a4f908222f15f904d6102d4c345134f78dd310b",
+    "../../../../../src/ashlar/singleton.py": "8668aa464431e4c84ec6edcf3fda00fee62a251fb0dbae04ed6e89ed978c312c",
+    "../../../../../tests/test_singleton.py": "33d8195a132a96103353065899ab839d2f824769b7f034dbbca7cc0af6d76b90",
+    "out/singleton-local-20261008.json": "d7314b4bc1cae90b7ab77c56447745f188d42d392e346c142176fd44d060d49a"
   },
   "evidence": {
     "ddl": {

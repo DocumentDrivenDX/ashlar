@@ -49,7 +49,7 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy):
             row.update(schema_revision=entity.schema_revision,entity_version=str(entity.version),props_json=entity.props_json,retained_json=entity.retained_json,
                        source_feed=change.feed,source_epoch=change.epoch,source_cursor_json=json.dumps({'profile':batch.profile,'offset':batch.cursor_after},separators=(',',':')),
                        source_delivery_id=change.delivery_id,published_at=materialized_at,
-                       lookup_hash=hashlib.sha256(json.dumps(identity,separators=(',',':')).encode()).hexdigest(),apply_batch_id=batch.batch_id)
+                       lookup_hash=hashlib.sha256(json.dumps(identity,ensure_ascii=False,separators=(',',':')).encode()).hexdigest(),apply_batch_id=batch.batch_id)
             if kind=='object':row['logical_key_json']='[]'
             else:
                 a,b=entity.endpoints

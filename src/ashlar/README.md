@@ -171,3 +171,12 @@ must retain one authenticated PostgreSQL transaction throughout yield. Policy
 authentication/registration admission is mandatory. Native four-pin registration
 and competing-release lock refusal pass; snapshot/retention policy integration
 is still required before using this as read publication authority.
+
+read_singleton in singleton.py holds the complete pin vector across resolution
+and native lookup. It binds the original descriptor via a mandatory policy,
+requires exact vector versions, uses UTF-8 canonical lookup hash plus complete
+typed predicates and checks UUID before/after execution. BIGINT identity/version
+and edge endpoints return as strings; original JSON text remains untouched.
+Duplicates refuse; absence still requires current row policy. Result escapes
+only after final pin custody and authorization checks. Seventy-nine local checks
+pass; real manifest/snapshot policy and native composed execution are required.

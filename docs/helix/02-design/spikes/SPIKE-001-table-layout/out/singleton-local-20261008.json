@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "tests": 79,
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q",
+  "scope": "Held-pin resolver/singleton composition, exact bound Unicode/signed64 identity and text custody, absence/duplicate and policy/vector/UUID/final-custody refusal. Native composed publication not yet executed."
+}

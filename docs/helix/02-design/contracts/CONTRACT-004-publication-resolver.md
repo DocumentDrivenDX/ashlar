@@ -113,3 +113,15 @@ revalidated before release. Native four-pin guard versus competing release
 passes. This supplies one custody component of validate_snapshot; protocol,
 retained availability and effective external retention policy remain mandatory
 independent checks. It does not turn the recovery fixture into a publication.
+
+## Singleton execution composition
+
+read_singleton holds a complete PinVector read context around resolve_publication
+and exact-version native point execution. The descriptor-to-pin custody policy
+is mandatory and independent; every held version must match the resolved vector.
+A bound lookup_hash improves pruning but complete source/typed identity predicates
+remain authoritative. Duplicate native identities refuse. UUID checks and current
+authorization run before returning; absence also undergoes row policy. The final
+read result is released only after the pin context’s closing checks. Resolution
+and execution failures return no partial singleton response. Native composed
+publication/policy evidence remains unqualified; local refusal controls pass.

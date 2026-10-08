@@ -433,3 +433,24 @@ No Delta workload or cleanup occurred. Next connect authenticated snapshot polic
 and native resolver execution, retaining the separate requirement that every
 admitted Delta retention operator honor the complete affected pin/file union.
 Truss native acceptance/runtime/feed remains required by the active goal.
+
+## Resolver-bound singleton execution checkpoint
+
+The portable singleton adapter now holds all original pins through resolution,
+requires the complete publication vector to match held UUID/versions, and binds
+original descriptor custody via a mandatory policy. The point read uses explicit
+VERSION AS OF, bound source/type/id/hash and full typed predicates, with LIMIT2
+to detect duplicate identities. UUID is checked around execution; current caller
+and row policy are revalidated even on absence. The result cannot escape before
+final pin context checks. Identifiers/version/typed endpoints cross SQL as exact
+strings and JSON carrier text stays original.
+
+Seventy-nine local checks pass, including UTF-8 Unicode hashing, signed64 max,
+wide retained text, absence/duplicate controls, custody/row refusal, vector drift,
+namespace replacement and final pin-authority loss. Corrected the SQL planner’s
+identity hash encoder to ensure_ascii=False, matching the established native UTF-8
+hash profile; the ASCII native fixture is unchanged. These are local composition
+checks, not a native completed publication or live policy claim. No Databricks
+workload occurred. Next connect actual immutable manifest/admission and protocol/
+retention snapshot policy to this path and demonstrate native execution. Truss
+native acceptance/runtime/feed and broader UMF bindings remain required.
