@@ -174,3 +174,20 @@ publish, then add PostgreSQL outbox and the complete qualified Truss feed. The
 reader exposes no acknowledgement and no checkpoint advance; publication remains
 required before source progress. Native schema acceptance and the remaining
 bindings remain active work. No Databricks workload ran in this iteration.
+
+## Durable Delta raw staging checkpoint
+
+The SourceBatch now reaches a real private UC Delta stage through a reusable
+parameterized backend and mandatory exclusive-writer policy port. One synthetic
+two-event transaction passes native original-byte custody, identical replay and
+changed-valid-source conflict refusal with preserved original row/UUID. A
+separate native readback independently reconstructs the full source bytes.
+Thirty-four focused local tests pass, including admission/order/refusal cases.
+The development process lock is only local cooperating-writer exclusion, not
+qualified native/remote fencing. No graph publication or checkpoint advanced.
+
+Next implement admitted per-delivery/version replay and graph current/history/
+tombstone apply, followed by serialized immutable publication and checkpoint
+admission. Raw batch stage custody is not semantic support or a source progress
+receipt. Native Truss acceptance/feed, broader schema binding and the outbox
+source remain required for the full end-to-end goal.

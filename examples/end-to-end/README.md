@@ -138,3 +138,22 @@ progress. Host file/feed/epoch custody, authorized semantic/schema admission,
 durable stage replay and completed publication/checkpoint are the next pieces.
 The same boundary will receive the Truss native feed and PostgreSQL outbox under
 their own qualified profiles. JSONL does not claim Truss-native semantics.
+
+## Durable native stage checkpoint
+
+`src/ashlar/staging.py` validates complete exact source batches and persists them
+through authenticated SQL plus an explicitly injected exclusive-writer policy.
+Same batch replay preserves originals; changed bytes or metadata under the same
+batch key refuse. A returned stage receipt grants no publication or source
+acknowledgement. The development runner `tools/check_native_source_stage.py`
+creates a private table once and intentionally refuses ordinary repeat setup.
+It requires the existing Databricks SDK/profile/warehouse and uses local process
+locking under administrative development authority. Native/remote fencing is
+still required for deployment.
+
+The actual small native receipt is
+`docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/source_stage_20261008/summary.json`.
+One two-event transaction stored/replayed correctly; a changed valid transaction
+with the same ID refused and original full bytes were recovered independently
+from Delta. Per-delivery apply/version conflicts, graph effects, immutable
+publication and durable checkpoints are still next.

@@ -1,0 +1,22 @@
+{
+  "state": "passed",
+  "stage_receipt": {
+    "table": "client_dev.ashlar_layout_v03_20261006_r73.source_batch_stage_20261008",
+    "table_uuid": "15c338f6-eb42-491e-9889-02573838396f",
+    "feed": "synthetic-jsonl",
+    "epoch": "epoch-1",
+    "batch_id": "fixture-tx-1",
+    "batch_digest": "f9f49383f52af3f00068c35ab8a61e87bb8ff359ea51382aad952ff468347a9f",
+    "cursor_after": "542"
+  },
+  "batches": 1,
+  "source_events": 2,
+  "checks": [
+    "actual UC Delta batch append and original exact raw byte custody",
+    "identical replay preserves receipt and row",
+    "independently valid changed source commit refuses with original row unchanged",
+    "table UUID and named-field parity around each stage",
+    "independent native base64 decode reconstructs original full transaction bytes"
+  ],
+  "qualification": "Raw staging only; local cooperating-process exclusion under administrative development authority, not native/remote source fencing or production uniqueness. No event apply, manifest publication, schema acceptance or checkpoint acknowledgement. Existing authorized warehouse; two synthetic events, no benchmark/resize."
+}

@@ -53,3 +53,10 @@ a bounded positioned binary stream under an explicit feed/epoch. The stdin CLI
 is tools/read_jsonl_source.py. It preserves original bytes and verifies commit
 count/digest; it neither interprets operations nor acknowledges progress. Durable
 stage/replay, admitted schemas and complete publication remain required.
+
+DeltaBatchStage in staging.py persists complete exact source custody through
+parameterized Delta SQL and a required exclusive-writer policy. It checks native
+UUID before/after, exact full readback and identical replay/conflict semantics.
+StagedBatch is raw custody only; it authorizes no source acknowledgement. The
+local development policy in the native checker does not qualify remote/native
+fencing, application grants, graph apply or publication.

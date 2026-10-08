@@ -948,3 +948,50 @@ raw custody but block dependent current-state publication. This development
 profile is distinct from Truss's native transactional feed and PostgreSQL outbox;
 their bootstrap, authority, transaction/version and recovery contracts remain
 required. The full end-to-end goal includes all three source paths.
+
+## Durable raw batch staging boundary
+
+Proposed source-batch-stage/0.1 is a supplemental raw transaction custody table,
+not a replacement for source_record/current/history or a completed publication.
+Its nine nonnull STRING columns are source_profile, feed, epoch, batch_id,
+cursor_before, cursor_after, records_digest, batch_json and batch_digest. The
+logical key is (feed, epoch, batch_id). batch_json is the deterministic stage
+encoding of the full SourceBatch, including original begin/commit/event bytes
+in base64; batch_digest is SHA256 over its UTF8 text, checked natively. Unknown
+source payloads remain byte-exact. Ordered event membership digest remains
+separate from this stage encoding digest.
+
+DeltaBatchStage consumes the exact complete JSONL batch, verifies bounded raw
+source reconstruction and all supplied metadata, then requires an injected
+authorized exclusive-writer context through native UUID verification, parameter-
+bound MERGE and exact full readback. No permissive writer policy is supplied.
+An identical original row is a replay; any changed field under the same batch
+key raises SOURCE_BATCH_CONFLICT without replacing original custody. Missing,
+ambiguous, mismatched readback or replacement UUID refuses a staging receipt.
+A submission/observation exception is unresolved or failed native work requiring
+original statement-handle/custody recovery; never blindly submit a replacement.
+
+StagePolicy.writer must hold authorization and exclusion/fencing for every
+admitted writer path until verification and retain recovery custody on unknown
+outcome. Its context manager yields None; a returned false/success token is
+not policy completion. This port does not itself install native authority,
+grant restrictions or concurrency uniqueness. The development runner uses
+administrative private-table writes plus local cooperating-process file locking;
+remote/adversarial bypass and native source fencing remain unqualified.
+
+The immutable StagedBatch result records table/UUID, source namespace/batch ID,
+batch digest and candidate cursor_after. It is only raw-stage custody, with no
+accepted schema, current/history apply, source acknowledgement or checkpoint.
+Per-delivery identity/version conflicts across different raw batches still
+require the downstream source_record/apply admission; raw batch membership
+does not establish those invariants. Publication must validate complete source
+and effect membership, schemas, durable replay and pins before progress.
+
+Small native evidence on 2026-10-08 stores one two-event synthetic batch in
+client_dev.ashlar_layout_v03_20261006_r73.source_batch_stage_20261008, checks
+identical replay and changed valid source conflict, verifies table UUID/full
+row parity, and independently decodes the native stored base64 to reproduce
+the original full source transaction. No checkpoint or published graph changed.
+The native receipts are under out/native/source_stage_20261008. Thirty-four
+focused local checks include refusal before native effects on denied or
+nonconforming policy, table replacement and forged batch metadata.
