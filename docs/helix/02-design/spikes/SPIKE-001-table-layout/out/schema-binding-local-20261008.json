@@ -1,0 +1,17 @@
+{
+  "state": "passed",
+  "local_tests": 22,
+  "validatorRevision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+  "actual_umf_findings": [
+    "revision 2 optional nullability is unknown",
+    "separate revision 3 absent-allowed is known",
+    "schema properties API refuses 0.7 envelope requiring 0.8"
+  ],
+  "binding_checks": [
+    "original source hash and complete element receipt correspondence",
+    "unknown optional binding blocks without translation",
+    "separate absent-allowed candidate supplies type/property identities",
+    "foreign duplicate missing source-mismatched interpretation refuses"
+  ],
+  "qualification": "Actual UMF inspection plus selected pure string-record binding planner. No native acceptance, mutation/feed, engine enforcement or broad value/key/relationship support; original native revision2 intake untouched; no Databricks run."
+}

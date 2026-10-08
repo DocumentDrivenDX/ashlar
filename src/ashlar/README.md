@@ -41,3 +41,9 @@ reservations and same-identity reactivation; allocation stays above supplied
 highwaters. Native acceptance must serialize/revalidate/persist the plan with
 its full semantic and report effects. Pure planning does not provide acceptance,
 authorization, field binding or a native allocator.
+
+plan_string_record_binding in binding.py consumes independently trusted original
+UMF interpretation custody for core0.7 singleton string Records, retaining the
+full original report. It emits candidate identities or source-qualified blocked
+assertions; engine enforcement remains unimplemented. The host interpretation
+CLI calls actual pinned UMF APIs rather than defining private UMF meanings.

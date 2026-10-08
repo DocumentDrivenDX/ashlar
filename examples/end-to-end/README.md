@@ -31,7 +31,8 @@ The checked artifacts use UMF source16c35e8d943769ccfa7bb57d16785aa7159abe65
 and Bun1.4.2. This matches the Truss source handoff's UMF baseline; a separate
 newer worktree was inspected but missing dependencies, and was not used for the
 successful run. schema-v1 is the exact original Truss0.11 source-review model;
-schema-v2 adds an optional string field, and schema-unknown retains an unknown
+schema-v2 asserts an `optional` string field (later actual semantic inspection
+finds that token unknown), and schema-unknown retains an unknown
 root assertion. The `.intake.json` files preserve original source bytes/digests
 and UMF diagnostics. All examples are structurally valid, but UMF's experimental
 warnings keep completeInterpretation false. Do not equate that flag with target
@@ -96,3 +97,21 @@ a target binding: display names and document revisions cannot replace lineage.
 complete admitted binding inventory and locked native acceptance. The planner
 retains retirement history and same-identity IDs, but does not persist or issue
 a catalog revision.
+
+## Semantic inspection and binding plans
+
+```sh
+bun tools/inspect_schema_semantics.ts /path/to/umf EXACT_GIT_REVISION examples/end-to-end/schema-v3.umf.json
+```
+
+The original revision-2 caption uses optional, which the pinned UMF API interprets
+as unknown; its checked binding plan blocks. The new revision-3 fixture explicitly
+uses absent-allowed and has a candidate string-record binding plan. Both full
+interpretation receipts are retained. Revision 2's source and native intake stay
+unchanged. Schema-property inspection requires UMF core 0.8.0; its original
+refusal under 0.7.0 remains in the report.
+
+`plan_string_record_binding` in `src/ashlar/binding.py` verifies complete receipt
+correspondence and prepares qualified type/property identities. It blocks unbound
+assertions and reports engine enforcement as unimplemented. This is the planning
+component before native acceptance, not a working mutation or streaming command.

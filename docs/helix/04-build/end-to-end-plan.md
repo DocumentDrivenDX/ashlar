@@ -140,3 +140,21 @@ Next compose the complete target semantic inventory with these identities and
 locked native state, then persist it together with immutable acceptance report
 and complete original effects. No native catalog head is advanced by this
 planner. Source/feed and publication integration remain required.
+
+## Actual semantic inspection and binding checkpoint
+
+The pinned real UMF interpretation APIs now produce full source-qualified
+receipts. This revealed revision 2 caption nullability optional is unknown under
+the selected API, although structural intake is valid. Preserve its original
+bytes/native intake row; its target binding is blocked. Separately authored
+revision 3 uses absent-allowed and produces a candidate string-record binding.
+Schema-property inspection requires 0.8.0 and its actual 0.7 refusal is retained.
+No envelope rewrite or private interpretation fills that version gap.
+
+The initial selected string-record target planner maps complete explicit members
+to document/owner-qualified identities for the stable ID planner, preserving
+source diagnostics and refusing unbound assertions, foreign/duplicate/missing
+receipts and mismatched source custody. Twenty-two focused local tests pass.
+Engine enforcement, broader value/key/relationship bindings and complete native
+acceptance remain required; candidate plans cannot advance any accepted head.
+No Databricks workload occurred in this iteration.

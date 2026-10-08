@@ -133,3 +133,44 @@ with original source pointers and validation diagnostics. It retains source
 kind assertions verbatim and infers no type/property/relationship bindings.
 The additive example yields three authored elements; executable semantic
 projection and atomic catalog acceptance remain outstanding.
+
+## UMF interpretation and selected binding planner
+
+Host tool tools/inspect_schema_semantics.ts invokes the pinned UMF reader and
+existing kind, nullability, cardinality, facets, keys, relationship and schema-
+property interpretation APIs. The report retains exact source bytes/digest and
+original complete inspection receipts. Unknown and legacy meanings stay as UMF
+returned them; no consumer token alias or invented author receipt is introduced.
+Schema-property inspection at the selected source requires core 0.8.0 and
+refuses 0.7.0. Preserve that actual unavailable result and original error rather
+than presenting missing schema properties as a complete interpretation.
+
+Proposed ashlar-string-record-binding-plan/0.1 is a target consumer planning
+profile for explicit core 0.7 singleton string Record members. It checks complete
+original element receipt membership, source/identity/pointer correspondence and
+digest before deriving owner-qualified type/property identities. Source kind
+must be known Record/Field; selected Field scalar family is string, cardinality
+is known one, and availability is known required or absent-allowed. Original
+source and inspection bytes, names and all warnings remain retained. This
+consumer requires independently trusted original interpretation custody: matching
+a declared validator pin is not authentication or UMF receipt recomputation.
+
+Unsupported kind/value shape, unresolved/duplicate member, unknown availability,
+facets, keys, extension meaning, relationship or other unbound assertion blocks
+this selected executable profile with source pointers and none enforcement.
+Known supported members are marked engine-unimplemented, not database-enforced.
+No candidate plan grants data-write authority or advances schema/head/publication.
+This first binding profile does not reduce the end-to-end goal: broader values,
+keys and relationships remain required bindings rather than omitted requirements.
+The native accepted profile must compose their original semantic and effect
+obligations before claiming complete runtime support.
+
+The original revision-2 example caption asserts optional; the real pinned UMF
+nullability inspector returns unknown/value optional. Its binding plan therefore
+blocks at the original caption nullability pointer. A separate revision-3 fixture
+explicitly asserts absent-allowed and yields a candidate binding plan. It is a
+new authored example, not reinterpretation or rewriting of retained revision 2.
+Neither fixture has native accepted catalog status. Unknown root assertions and
+newer schema properties remain retained and block this selected binding when
+present; supported target interpretation cannot be inferred from structural
+validity or the presence of a source field.
