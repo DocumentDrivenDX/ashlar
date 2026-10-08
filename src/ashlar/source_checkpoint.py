@@ -50,10 +50,10 @@ def validate_checkpoint_request(request):
              'cursor_after':value['cursor_after'],'records_digest':value['records_sha256'],
              'batch_json':request['source_batch_json'],'batch_digest':request['source_batch_digest']}
     except KeyError as exc:raise CheckpointError('Incomplete original source artifact') from exc
-    validate_outbox_checkpoint(request['source_checkpoint_json'],batch_from_row(row))
+    validate_source_checkpoint(request['source_checkpoint_json'],batch_from_row(row))
 
 
-def bind_outbox_descriptor(request,descriptor,*,expected_publication_id):
+def bind_source_descriptor(request,descriptor,*,expected_publication_id):
     """Require exact original source progress before a backend may consider ACK.
 
     This checks correspondence only. The caller must resolve authoritative native
@@ -80,3 +80,51 @@ def bind_outbox_descriptor(request,descriptor,*,expected_publication_id):
     if not isinstance(report,Mapping) or report.get('request_digest')!=request['request_digest']:
         raise CheckpointError('Publication validation does not bind original request')
     # No source mutation/acknowledgement is issued by correspondence validation.
+
+
+def csv_checkpoint(batch):
+    """Bind one original CSV row ordinal separately from its inner JSONL cursor.
+
+    This does not prove immutable file identity, source permissions or semantic
+    mapping admission. Those remain required independent host policy checks.
+    """
+    import base64
+    from .source import records_digest
+    batch_row(batch)
+    if batch.cursor_before!='0' or len(batch.records)!=1:raise CheckpointError('One original CSV singleton transaction required')
+    value=_json(batch.records[0].delivery_id.encode('utf-8'))
+    fields={'profile','header_base64','row_base64','row_ordinal'}
+    if not isinstance(value,dict) or set(value)!=fields or value.get('profile')!='ashlar-single-line-csv/0.1':raise CheckpointError('Original CSV delivery custody required')
+    token=value['row_ordinal']
+    if not isinstance(token,str) or not token.isascii() or not token.isdecimal() or len(token)>4 or str(int(token))!=token or not 1<=int(token)<=1000 or batch.batch_id!='csv-row-'+token:raise CheckpointError('Canonical bounded CSV row ordinal required')
+    originals=[]
+    for field in ('header_base64','row_base64'):
+        text=value[field]
+        if not isinstance(text,str) or len(text)>87384:raise CheckpointError('Bounded original CSV bytes required')
+        try:raw=base64.b64decode(text,validate=True)
+        except (ValueError,TypeError) as exc:raise CheckpointError('Invalid CSV original encoding') from exc
+        if base64.b64encode(raw).decode('ascii')!=text or not raw.endswith(b'\n') or b'\n' in raw[:-1] or len(raw)>65536:raise CheckpointError('Original CSV single-line custody differs')
+        originals.append(raw)
+    checkpoint={'profile':'ashlar-single-line-csv/0.1','feed':batch.feed,'epoch':batch.epoch,
+                'previous':str(int(token)-1),'position':token,'payload_digest':records_digest(originals),'batch_id':batch.batch_id}
+    return json.dumps(checkpoint,sort_keys=True,separators=(',',':'))
+
+
+def validate_source_checkpoint(text,batch):
+    if not isinstance(text,str) or len(text)>16384:raise CheckpointError('Bounded original checkpoint text required')
+    value=_json(text.encode('utf-8'))
+    if not isinstance(value,dict):raise CheckpointError('Explicit source checkpoint profile required')
+    if value.get('profile')=='ashlar-postgresql-outbox/0.1':return validate_outbox_checkpoint(text,batch)
+    if value.get('profile')=='ashlar-single-line-csv/0.1':
+        expected=_json(csv_checkpoint(batch).encode('utf-8'))
+        if value!=expected:raise CheckpointError('CSV checkpoint differs from original row custody')
+        return value
+    raise CheckpointError('Unsupported source checkpoint profile')
+
+
+def bind_outbox_descriptor(request,descriptor,*,expected_publication_id):
+    # Preserve the previously qualified outbox-only entrypoint, never silently
+    # admit another source profile through that explicit API.
+    value=_json(request['source_checkpoint_json'].encode('utf-8'))
+    if not isinstance(value,dict) or value.get('profile')!='ashlar-postgresql-outbox/0.1':raise CheckpointError('Original outbox checkpoint required')
+    return bind_source_descriptor(request,descriptor,expected_publication_id=expected_publication_id)

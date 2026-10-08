@@ -64,8 +64,8 @@ def publish_batch(backend: PublisherBackend, stream: str, batch: SourceBatch, *,
              'schema_revisions_json':schema_revisions_json,'source_batch_json':row['batch_json'],
              'source_batch_digest':row['batch_digest']}
     if source_checkpoint_json is not None:
-        from .source_checkpoint import validate_outbox_checkpoint
-        validate_outbox_checkpoint(source_checkpoint_json,batch)
+        from .source_checkpoint import validate_source_checkpoint
+        validate_source_checkpoint(source_checkpoint_json,batch)
         request['source_checkpoint_json']=source_checkpoint_json
     encoded=json.dumps(request,separators=(',',':'),sort_keys=True).encode('utf-8')
     digest=hashlib.sha256(encoded).hexdigest();request['request_digest']=digest

@@ -482,3 +482,12 @@ cursors. Use `batch_row`/`batch_from_row` for custody and `changes_from_batch` t
 checkpoints remain separate: PostgreSQL outbox positions and CSV ordinals must
 never be substituted for inner JSONL offsets. Additional schema meanings require
 a qualified policy rather than a permissive fallback.
+
+For publication intent, `ashlar.source_checkpoint.csv_checkpoint(batch)` retains
+the outer CSV ordinal and ordered original header/row digest. Pass its returned
+text as `source_checkpoint_json` to `publish_batch`; retained attempt reads
+revalidate it against the full original transaction. Use `bind_source_descriptor`
+for descriptor correspondence. The older `bind_outbox_descriptor` remains
+outbox-only. This correspondence does not prove original immutable file custody,
+source permission or the semantic column mapping; the host must independently
+admit these before source ACK, alongside manifest/effect/pin/retention admission.

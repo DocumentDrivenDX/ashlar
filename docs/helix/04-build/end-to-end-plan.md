@@ -1122,3 +1122,17 @@ ACK/native publication. All149 local checks pass. No cloud workload occurred.
 This completes a runnable local additional-source path, not its native published
 composition. Protected Truss acceptance/feed, native publication admission/retention
 and resolver-backed publication singleton use remain required by the full goal.
+
+## CSV outer checkpoint publication-intent binding — 2026-10-08
+
+Publisher checkpoint admission now dispatches only explicit outbox and single-line
+CSV profiles. csv_checkpoint binds ordinal previous/position, feed/epoch/batch
+and the ordered original header/row digest from retained delivery custody; inner
+JSONL offsets remain distinct. Retained phase request validation rechecks this
+correspondence, and bind_source_descriptor provides descriptor/source matching.
+The existing bind_outbox_descriptor rejects CSV to preserve its qualified scope.
+All152 local checks pass, including stable original attempt replay, changed outer
+positions/epoch/digest/profile refusal before writer and rehashed request refusal.
+No cloud workload or source ACK occurred. File identity/semantic mapping authority
+and positive native publication/retention remain external mandatory admission,
+not claims established by digest correspondence. The full goal remains active.
