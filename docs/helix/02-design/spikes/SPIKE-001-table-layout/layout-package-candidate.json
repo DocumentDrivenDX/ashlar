@@ -2896,7 +2896,7 @@
     "../../../../../src/ashlar/publication.py": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
     "../../../../../src/ashlar/README.md": "3909a116d8449be3d152db303e3e3d99117a790a87b2628cf6be70508d8133a3",
     "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
-    "../../contracts/CONTRACT-004-publication-resolver.md": "dc027296c6897491675c24c25062d4c5674f86614f25478952b9eaa30b811907",
+    "../../contracts/CONTRACT-004-publication-resolver.md": "173cb1fbac3a56edcd3f25d4e512c4f49f0ca2f8f98f077c082aecbe9c8992ac",
     "../../../../../README.md": "e809e372423f32184f20044cf51ea1e3ced565d6df4d176db6951c01332d6cc7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
@@ -3281,9 +3281,9 @@
     "../../../../../tests/test_truss_feed.py": "206331e790b79ced90e85740ce9e6a1c890d5d629089c204b3d34160495fe1f5",
     "out/truss-feed-original-vector-review.json": "ef0534abaf3061eb0c7feddb7ebb97911dbfb60e353db49d3d424c8006532adc",
     "../../../../../tests/fixtures/truss-feed-manifest-original-vectors.json": "cd8dfba437b0dc0a8e7b7ac370d2dc28e654b12d0f2fb2f631c1e3b81579a855",
-    "../../../../../tests/test_retention.py": "395ef971c3f16da22616506949368adadd445bb72817c934ff4ef400358c38a5",
+    "../../../../../tests/test_retention.py": "92fb42b14d8496b19bc407ba1e2263348fd91ce3f017f2d7fce61a5db687e6d5",
     "out/native/csv_retention_metadata_20261008/admission-refusal.json": "d2e7c4ec32a29f835b3d475d6f3955bf27401bdb4174d33fd3b6a2f745843df1",
-    "../../../../../src/ashlar/retention.py": "0f9ec28b28d4b7c474cb1c61558c5e1c3d197ddea6bd14bc8dba01a5e403f500",
+    "../../../../../src/ashlar/retention.py": "e68f10530089ecc89ae4dd3ad251326ef6696bbdb7d082412a8027cf1b771b0a",
     "out/native/csv_retention_metadata_20261008/policy-decision.json": "f1868f9b148dc6343d867f2db9d8484cd38948b2badc01d17550dc1237d57e0a",
     "../../../../../tools/generate_delta_model.ts": "167397e0ac49e41d1f9270d8c3f49748eb07492fa651b655222466b08402f7d7",
     "../../../../../tools/generated_carriers.py": "4a3142e7ccc563a165cadf4dae58367c7c3c2cf1ba3cc7f3199e799516f03d25",
@@ -3314,7 +3314,12 @@
     "../../../../../website/static/model/runtime-er.svg": "bc5bf899b0583f2cd995d8f05d9993bca82e63bb43ad6b54baba374f3b1cef15",
     "../../../../../tools/check_runtime_diagram.py": "880b7dc492c94e43054852dc1b5552a8acbc7a96075d61c029eb2a8ad1946145",
     "../../../../../tools/check_runtime_diagram_browser.ts": "614f4fcfe86777ec7520a756783e10bb8cf1b7420933adf20c2db1ddfa76c91c",
-    "../../../../../tools/generate_runtime_diagram.ts": "120e77c0655466fe8c769d64875080e41709f3189dc901614a0fd837d3d2c8c3"
+    "../../../../../tools/generate_runtime_diagram.ts": "120e77c0655466fe8c769d64875080e41709f3189dc901614a0fd837d3d2c8c3",
+    "../../../../../tools/check_native_retention_window.py": "35c3ed1071b98f5ba670d7a93f6621118b4dbcedab9c7c840adbb9a928419a6a",
+    "out/native/csv_retention_window_20261008/initial-refusal.json": "1afca271d08b878461a4a6dbf330103d959453027d907c08e29692ae0006d3bd",
+    "out/native/csv_retention_window_20261008/statements.jsonl": "1ceddd23e6a994663c24c068e59155bfd760c305e1cac62abe25daeac5890791",
+    "out/native/csv_retention_window_20261008/recovery-summary.json": "a340c9eb75c4326eb24b036077ee643f2d694d78e6602c8bae6a3cde2ce751b8",
+    "out/native/csv_retention_window_20261008/live-statement.json": "11bbdf59b96cf054c0388df2d1b6a784d803da56725d62fa747ea249d7ffa958"
   },
   "evidence": {
     "ddl": {

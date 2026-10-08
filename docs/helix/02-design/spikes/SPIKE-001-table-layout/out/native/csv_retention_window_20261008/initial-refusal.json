@@ -1,0 +1,8 @@
+{
+  "stage": "host-clock-interpretation",
+  "initial_outcome": "refused",
+  "reason": "Initial tool required timezone spelling UTC; original Databricks clock returned the fixed-zero-offset alias Etc/UTC. All 17 original read-only SQL responses succeeded; the tool exited before writing a summary.",
+  "recovery": "Accept only UTC and Etc/UTC; replay the exact original SQL and parameter inventory through the complete original-result parser. No new SQL requests or setting changes.",
+  "original_statements_sha256": "1ceddd23e6a994663c24c068e59155bfd760c305e1cac62abe25daeac5890791",
+  "qualification": "Original observation time remains authoritative. Recovery does not make old observations fresh, prove retained files, commit a manifest, acknowledge a source or release pins."
+}

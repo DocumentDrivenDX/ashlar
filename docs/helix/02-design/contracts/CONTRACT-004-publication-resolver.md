@@ -216,3 +216,31 @@ pin retirement/cleanup accounting is separate. Autonomous predictive maintenance
 need not consult Ashlar's PostgreSQL pins for this finite profile; pins do not
 supply an indefinite retention promise. Manual destructive/configuration changes
 remain governed by the effective policy and availability checks.
+
+
+## Native finite-window observation (non-normative)
+
+[Original read-only receipts](../spikes/SPIKE-001-table-layout/out/native/csv_retention_window_20261008/statements.jsonl)
+cover UUIDs, explicit/absent retention properties and exact selected snapshot
+commit timestamps for the four previously verified CSV tables. The initial host
+check refused the `Etc/UTC` spelling after all 17 SQL statements succeeded; the
+[refusal disposition](../spikes/SPIKE-001-table-layout/out/native/csv_retention_window_20261008/initial-refusal.json)
+and [local recovery](../spikes/SPIKE-001-table-layout/out/native/csv_retention_window_20261008/recovery-summary.json)
+retain that distinction. Recovery binds exact original SQL/parameters and
+complete responses; it issues no new native requests and does not make old
+observations fresh. The tool accepts only the fixed zero-offset `UTC`/`Etc/UTC`
+spellings for its selected SQL timestamp interpretation.
+
+As of the retained clock **2026-10-08 12:52:54.711244 UTC**, the configured finite
+ceiling is **2026-10-15 10:03:15 UTC** for the earliest selected snapshot, using
+explicitly qualified documented defaults (7-day data/30-day logs) and a 60-second
+development margin. This is a configuration-based ceiling, not a guarantee of
+file availability. Current configuration, file/log availability, protocol, UUID
+and permissions remain required before and after a real read. No publication,
+ACK, pin retirement, predictive optimization or retention-setting mutation ran.
+
+`python3 tools/check_native_retention_window.py --replay-original` recovers the
+original receipts offline. Fresh observations require a new `--output` directory.
+The native observer distinguishes explicit properties from qualified defaults
+and refuses identity changes, ambiguous properties or unsupported intervals.
+All 175 small local tests pass; no scale or renewed cloud test was run.

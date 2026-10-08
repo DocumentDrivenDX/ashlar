@@ -2,6 +2,8 @@ from dataclasses import replace
 import unittest
 from ashlar.publication import Descriptor
 from ashlar.retention import RetentionError,interval_microseconds,publication_retention_report,validate_publication_retention as validate_core
+from ashlar.retention import observe_retention_configuration
+from ashlar.native import SQLResult
 T='c.s.t';DAY=86400000000
 def validate_publication_retention(d,c,*,now_us):return validate_core(d,c,now_us=now_us,table_uuids={T:'original'})
 class RetentionTests(unittest.TestCase):
@@ -33,3 +35,31 @@ class RetentionTests(unittest.TestCase):
             with self.assertRaises(RetentionError):interval_microseconds(value)
         d,c=self.pair()
         with self.assertRaises(RetentionError):publication_retention_report({T:{'uuid':'original','version':5,'committed_at':'0'}},c,margin_us=7*DAY)
+
+class RetentionObservationTests(unittest.TestCase):
+    def observer(self,properties,final_uuid='original'):
+        class Executor:
+            def __init__(self):self.identities=0
+            def query(self,sql,parameters):
+                if sql.startswith('DESCRIBE DETAIL'):
+                    self.identities+=1
+                    return SQLResult([{'id':'original' if self.identities==1 else final_uuid}])
+                return SQLResult(properties)
+        return Executor()
+    def observe(self,executor,defaults=None):
+        return observe_retention_configuration(executor,T,'original',defaults=defaults or {'data_retention':'7 days','log_retention':'30 days'},default_profile='explicit-qualified-defaults')
+    def test_explicit_override_and_missing_property_keep_distinct_custody(self):
+        rows=[{'key':'delta.deletedFileRetentionDuration','value':'2 days'},{'key':'delta.future','value':'opaque'}]
+        result=self.observe(self.observer(rows))
+        self.assertEqual(result['configuration'],{'data_retention':'2 days','log_retention':'30 days'})
+        self.assertEqual(result['sources'],{'data_retention':'explicit-property','log_retention':'explicit-qualified-defaults'})
+        self.assertEqual(result['original_properties'],tuple(rows))
+    def test_native_identity_change_and_ambiguous_or_unsupported_retention_refuse(self):
+        with self.assertRaises(RetentionError):self.observe(self.observer([],final_uuid='replacement'))
+        for rows in [
+            [{'key':'delta.logRetentionDuration','value':'1 month'}],
+            [{'key':'x','value':'a'},{'key':'x','value':'b'}],
+            [{'key':'x','value':None}],
+        ]:
+            with self.assertRaises(RetentionError):self.observe(self.observer(rows))
+        with self.assertRaises(RetentionError):self.observe(self.observer([]),defaults={'data_retention':'7 days'})

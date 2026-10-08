@@ -71,3 +71,32 @@ def validate_publication_retention(descriptor,configurations,*,now_us,table_uuid
         if now>=effective:raise RetentionError('Publication snapshot retention window expired')
         deadline=effective if deadline is None else min(deadline,effective)
     return str(deadline)
+
+
+def observe_retention_configuration(executor,table,uuid,*,defaults,default_profile):
+    """Read exact UUID/properties with explicitly qualified native defaults.
+
+    The host admits platform defaults/profile, authenticated executor and target.
+    Original property rows are returned; an absent override is distinguished from
+    an explicit value. This observation is not a lock or file-availability proof.
+    """
+    from .native import _quoted
+    if not isinstance(default_profile,str) or not default_profile or not isinstance(uuid,str) or not uuid:raise RetentionError('Trusted default profile and target identity required')
+    _duration(defaults);quoted=_quoted(table)
+    def identity():
+        rows=executor.query('DESCRIBE DETAIL '+quoted,{}).rows
+        if len(rows)!=1 or rows[0].get('id')!=uuid:raise RetentionError('Retention target identity changed')
+    identity()
+    rows=executor.query('SHOW TBLPROPERTIES '+quoted,{}).rows
+    if len(rows)>1024:raise RetentionError('Retention property observation exceeds bound')
+    properties={}
+    for row in rows:
+        if set(row)!={'key','value'} or not isinstance(row['key'],str) or not isinstance(row['value'],str) or row['key'] in properties:raise RetentionError('Incomplete or ambiguous native properties')
+        properties[row['key']]=row['value']
+    configuration={}
+    sources={}
+    for name,key in [('data_retention','delta.deletedFileRetentionDuration'),('log_retention','delta.logRetentionDuration')]:
+        configuration[name]=properties.get(key,defaults[name])
+        sources[name]='explicit-property' if key in properties else default_profile
+    _duration(configuration);identity()
+    return {'table':table,'uuid':uuid,'configuration':configuration,'sources':sources,'original_properties':tuple(dict(row) for row in rows)}

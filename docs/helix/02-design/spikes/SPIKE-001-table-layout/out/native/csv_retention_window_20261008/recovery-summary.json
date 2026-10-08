@@ -1,0 +1,453 @@
+{
+  "state": "eligible-window-observed",
+  "observation_mode": "original-receipt-recovery",
+  "original_statements_sha256": "1ceddd23e6a994663c24c068e59155bfd760c305e1cac62abe25daeac5890791",
+  "observations": {
+    "ashlar_e2e_private_20261008.runtime_csv.object_current": {
+      "table": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+      "uuid": "422020e6-aa98-4b2d-91eb-e2221edcc13b",
+      "configuration": {
+        "data_retention": "interval 7 days",
+        "log_retention": "interval 30 days"
+      },
+      "sources": {
+        "data_retention": "azure-databricks-delta-documented-defaults/2026-09-11",
+        "log_retention": "azure-databricks-delta-documented-defaults/2026-09-11"
+      },
+      "original_properties": [
+        {
+          "key": "clusteringColumns",
+          "value": "[[\"lookup_hash\"]]"
+        },
+        {
+          "key": "databricks.delta.expressionStats.selectedColumns",
+          "value": "upper(lookup_hash),lower(lookup_hash)"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsJson",
+          "value": "false"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsStruct",
+          "value": "true"
+        },
+        {
+          "key": "delta.checkpointPolicy",
+          "value": "v2"
+        },
+        {
+          "key": "delta.dataSkippingStatsColumns",
+          "value": "lookup_hash,source_system,type_id,id"
+        },
+        {
+          "key": "delta.enableDeletionVectors",
+          "value": "true"
+        },
+        {
+          "key": "delta.enableRowTracking",
+          "value": "true"
+        },
+        {
+          "key": "delta.feature.appendOnly",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.clustering",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.deletionVectors",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.domainMetadata",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.invariants",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.rowTracking",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.v2Checkpoint",
+          "value": "supported"
+        },
+        {
+          "key": "delta.minReaderVersion",
+          "value": "3"
+        },
+        {
+          "key": "delta.minWriterVersion",
+          "value": "7"
+        },
+        {
+          "key": "delta.parquet.compression.codec",
+          "value": "zstd"
+        },
+        {
+          "key": "delta.parquet.format.version",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.parquet.format.version.afe.internal",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowCommitVersionColumnName",
+          "value": "_row-commit-version-col-35ee9647-cf0b-4efe-8cf2-747bbcdd6f09"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowIdColumnName",
+          "value": "_row-id-col-b44409b7-f690-4aa2-ba84-dc5c2dd79506"
+        },
+        {
+          "key": "delta.targetFileSize",
+          "value": "67108864"
+        }
+      ]
+    },
+    "ashlar_e2e_private_20261008.runtime_csv.edge_current": {
+      "table": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+      "uuid": "e526a055-38ef-4b0a-9e4c-d09a3b6fc14b",
+      "configuration": {
+        "data_retention": "interval 7 days",
+        "log_retention": "interval 30 days"
+      },
+      "sources": {
+        "data_retention": "azure-databricks-delta-documented-defaults/2026-09-11",
+        "log_retention": "azure-databricks-delta-documented-defaults/2026-09-11"
+      },
+      "original_properties": [
+        {
+          "key": "clusteringColumns",
+          "value": "[[\"lookup_hash\"]]"
+        },
+        {
+          "key": "databricks.delta.expressionStats.selectedColumns",
+          "value": "upper(lookup_hash),lower(lookup_hash)"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsJson",
+          "value": "false"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsStruct",
+          "value": "true"
+        },
+        {
+          "key": "delta.checkpointPolicy",
+          "value": "v2"
+        },
+        {
+          "key": "delta.dataSkippingStatsColumns",
+          "value": "lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id"
+        },
+        {
+          "key": "delta.enableDeletionVectors",
+          "value": "true"
+        },
+        {
+          "key": "delta.enableRowTracking",
+          "value": "true"
+        },
+        {
+          "key": "delta.feature.appendOnly",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.clustering",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.deletionVectors",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.domainMetadata",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.invariants",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.rowTracking",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.v2Checkpoint",
+          "value": "supported"
+        },
+        {
+          "key": "delta.minReaderVersion",
+          "value": "3"
+        },
+        {
+          "key": "delta.minWriterVersion",
+          "value": "7"
+        },
+        {
+          "key": "delta.parquet.compression.codec",
+          "value": "zstd"
+        },
+        {
+          "key": "delta.parquet.format.version",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.parquet.format.version.afe.internal",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowCommitVersionColumnName",
+          "value": "_row-commit-version-col-501863d8-8e09-49b3-addd-bcf144d32de2"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowIdColumnName",
+          "value": "_row-id-col-4bbd3dcc-54d0-4931-896f-ec5d13595fe6"
+        },
+        {
+          "key": "delta.targetFileSize",
+          "value": "67108864"
+        },
+        {
+          "key": "io.unitycatalog.tableId",
+          "value": "3f314bf2-83f9-4c66-852b-a826cb427272"
+        }
+      ]
+    },
+    "ashlar_e2e_private_20261008.runtime_csv.tombstone": {
+      "table": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+      "uuid": "8864d8b0-aca2-4df4-acc5-03ddf853a6dc",
+      "configuration": {
+        "data_retention": "interval 7 days",
+        "log_retention": "interval 30 days"
+      },
+      "sources": {
+        "data_retention": "azure-databricks-delta-documented-defaults/2026-09-11",
+        "log_retention": "azure-databricks-delta-documented-defaults/2026-09-11"
+      },
+      "original_properties": [
+        {
+          "key": "clusteringColumns",
+          "value": "[[\"source_system\"],[\"type_id\"],[\"id\"]]"
+        },
+        {
+          "key": "databricks.delta.expressionStats.selectedColumns",
+          "value": "upper(source_system),lower(source_system)"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsJson",
+          "value": "false"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsStruct",
+          "value": "true"
+        },
+        {
+          "key": "delta.checkpointPolicy",
+          "value": "v2"
+        },
+        {
+          "key": "delta.enableDeletionVectors",
+          "value": "true"
+        },
+        {
+          "key": "delta.enableRowTracking",
+          "value": "true"
+        },
+        {
+          "key": "delta.feature.appendOnly",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.clustering",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.deletionVectors",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.domainMetadata",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.invariants",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.rowTracking",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.v2Checkpoint",
+          "value": "supported"
+        },
+        {
+          "key": "delta.minReaderVersion",
+          "value": "3"
+        },
+        {
+          "key": "delta.minWriterVersion",
+          "value": "7"
+        },
+        {
+          "key": "delta.parquet.compression.codec",
+          "value": "zstd"
+        },
+        {
+          "key": "delta.parquet.format.version",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.parquet.format.version.afe.internal",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowCommitVersionColumnName",
+          "value": "_row-commit-version-col-564b3761-14c8-464a-a90a-84507c3ee52e"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowIdColumnName",
+          "value": "_row-id-col-19334999-b8c2-4c46-a50b-df59e1168656"
+        },
+        {
+          "key": "io.unitycatalog.tableId",
+          "value": "4cf7959d-36aa-49f6-ba7c-61f26e14b36c"
+        }
+      ]
+    },
+    "ashlar_e2e_private_20261008.runtime_csv.whole_source_history": {
+      "table": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+      "uuid": "2f64b8dc-dd2b-4887-a635-3f54b99bbb99",
+      "configuration": {
+        "data_retention": "interval 7 days",
+        "log_retention": "interval 30 days"
+      },
+      "sources": {
+        "data_retention": "azure-databricks-delta-documented-defaults/2026-09-11",
+        "log_retention": "azure-databricks-delta-documented-defaults/2026-09-11"
+      },
+      "original_properties": [
+        {
+          "key": "delta.checkpoint.writeStatsAsJson",
+          "value": "false"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsStruct",
+          "value": "true"
+        },
+        {
+          "key": "delta.checkpointPolicy",
+          "value": "v2"
+        },
+        {
+          "key": "delta.enableDeletionVectors",
+          "value": "true"
+        },
+        {
+          "key": "delta.enableRowTracking",
+          "value": "true"
+        },
+        {
+          "key": "delta.feature.appendOnly",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.deletionVectors",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.domainMetadata",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.invariants",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.rowTracking",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.v2Checkpoint",
+          "value": "supported"
+        },
+        {
+          "key": "delta.minReaderVersion",
+          "value": "3"
+        },
+        {
+          "key": "delta.minWriterVersion",
+          "value": "7"
+        },
+        {
+          "key": "delta.parquet.compression.codec",
+          "value": "zstd"
+        },
+        {
+          "key": "delta.parquet.format.version",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.parquet.format.version.afe.internal",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowCommitVersionColumnName",
+          "value": "_row-commit-version-col-21ebd383-92ef-4df3-b731-2e1994d6e1ad"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowIdColumnName",
+          "value": "_row-id-col-7af340e7-093f-4ecb-8721-5f00f0525384"
+        },
+        {
+          "key": "io.unitycatalog.tableId",
+          "value": "0cbc79bd-7987-42a2-8b9d-5680c111d512"
+        }
+      ]
+    }
+  },
+  "snapshot_retention": {
+    "profile": "ashlar-retention-window/0.1",
+    "margin_us": "60000000",
+    "targets": {
+      "ashlar_e2e_private_20261008.runtime_csv.object_current": {
+        "uuid": "422020e6-aa98-4b2d-91eb-e2221edcc13b",
+        "version": 7,
+        "committed_at": "1791453920000000",
+        "readable_until": "1792058660000000"
+      },
+      "ashlar_e2e_private_20261008.runtime_csv.edge_current": {
+        "uuid": "e526a055-38ef-4b0a-9e4c-d09a3b6fc14b",
+        "version": 0,
+        "committed_at": "1791453855000000",
+        "readable_until": "1792058595000000"
+      },
+      "ashlar_e2e_private_20261008.runtime_csv.tombstone": {
+        "uuid": "8864d8b0-aca2-4df4-acc5-03ddf853a6dc",
+        "version": 1,
+        "committed_at": "1791453924000000",
+        "readable_until": "1792058664000000"
+      },
+      "ashlar_e2e_private_20261008.runtime_csv.whole_source_history": {
+        "uuid": "2f64b8dc-dd2b-4887-a635-3f54b99bbb99",
+        "version": 4,
+        "committed_at": "1791453921000000",
+        "readable_until": "1792058661000000"
+      }
+    }
+  },
+  "observed_now_us": "1791463974711244",
+  "observed_timezone": "Etc/UTC",
+  "effective_readable_until": "1792058595000000",
+  "default_sources": [
+    "https://learn.microsoft.com/en-us/azure/databricks/optimizations/predictive-optimization",
+    "https://learn.microsoft.com/en-us/azure/databricks/tables/history"
+  ],
+  "qualification": "UUID/properties/native snapshot timestamp and fixed UTC clock observations as of the retained native observed_now_us, under explicitly selected documented defaults and 60-second margin. Recovery makes no new observations or network calls. Not a current admission, committed publication, source ACK, current file proof or indefinite retention promise. No settings changed."
+}
