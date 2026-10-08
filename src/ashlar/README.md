@@ -281,3 +281,14 @@ archives, round-trips its original transport/canonical preimage with native
 candidate effects, and still rolls back. Its actual complete request passes
 Truss's original input schema using `tools/check_truss_input_schema.ts`; that
 shape check is independent of the Python custody checks.
+
+assertions.py and `tools/inspect_umf_assertions.py` retain the selected explicit
+Record/Field assertion inventory from actual pinned UMF inspection. Each assertion
+resolves its original document/qualified owner/source pointer; complete original
+intake/interpretation bytes and their partial interpretation flag are retained.
+All entries are none/unqualified. Unsupported closure, wrong source, ambiguity or
+resource overflow refuses instead of returning a truncated complete inventory.
+The explicit profile and byte/count bounds are unregistered candidates; this
+inventory cannot stand in for an admitted complete Truss enforcement report.
+`tools/check_truss_assertion_schema.ts` independently checks entries against the
+original Truss schema without promoting shapes into completeness/authority.

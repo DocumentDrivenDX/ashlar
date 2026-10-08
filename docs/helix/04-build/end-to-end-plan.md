@@ -630,3 +630,20 @@ enforcement evidence, native report encoder/persistence or accepted head publica
 The head remains zero. Required next work remains the protected producer and its
 full report/effect correspondence; no ingestion may treat these candidate IDs as
 accepted. Receipts live in SPIKE-001-table-layout/out/native/truss_catalog_candidate_20261008_input_custody.
+
+## Selected assertion inventory — 2026-10-08
+
+Report-producer development now has eleven independently expected v3 source
+assertions: Record kind/two members, plus both Fields' kind/scalarType/nullability/
+cardinality. Exact original document bytes, qualified source pointers, profile
+artifacts and original UMF intake/interpretation receipts remain retained. The
+source's partial interpretation is preserved. All entries are **none/unqualified**;
+no database/engine evidence is inferred from candidate storage or test success.
+Original Truss entry shapes pass, unsupported/wrong-source/resource cases refuse,
+and all106 local checks pass. No database/cloud workload ran in this iteration.
+
+This is the explicitly selected unregistered assertion-source profile, not the
+accepted catalog's complete enforcement report. Complete report assembly still
+needs admitted profile/execution/origin context, full effect/count/diagnostic
+correspondence and protected report/head persistence. Candidate inventories and
+IDs still cannot authorize ingestion. Evidence: SPIKE-001-table-layout/out/truss-assertion-inventory-20261008.

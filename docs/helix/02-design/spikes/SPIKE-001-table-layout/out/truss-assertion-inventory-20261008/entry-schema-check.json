@@ -1,0 +1,8 @@
+{
+  "schema": "urn:truss:draft:enforcement-report:0.1.0#/$defs/entry",
+  "schemaSha256": "452b7562d6e7959d940d5596a52a2221529482ea29853c3e021431885faa4351",
+  "inputSha256": "027fc3a1e937acca94f8421bf73e045a35cb1de7c377ae05a44c2f8d730a9bf5",
+  "entries": 11,
+  "valid": true,
+  "qualification": "Original entry shapes only; no complete accepted report, semantic completeness or enforcement authority"
+}
