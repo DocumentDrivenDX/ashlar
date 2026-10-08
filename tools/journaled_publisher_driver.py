@@ -72,7 +72,7 @@ class JournaledPublisherDriver:
             artifact=retained[2]
         else:
             capture=self.artifacts.recover if recovery else self.artifacts.capture
-            artifact=capture(dict(request),effects,context)
+            artifact=capture(dict(request),_json(json.dumps(effects,sort_keys=True,separators=(',',':')).encode()),context)
         parsed,_=_artifact(artifact,request)
         if json.dumps(parsed['effects'],sort_keys=True,separators=(',',':'))!=json.dumps(effects,sort_keys=True,separators=(',',':')):raise PublicationError('Applied artifact differs from original effect responses')
         digest=hashlib.sha256(artifact.encode()).hexdigest()

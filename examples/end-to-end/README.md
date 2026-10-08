@@ -746,3 +746,18 @@ This host composition has focused test-transport evidence. The development
 CSV snapshot's earlier native publication does not establish that this complete
 stored-publisher path has run natively. Concrete native capture, validation and
 source policies remain required; this is not a ready production CLI.
+
+
+`tools.journaled_snapshot_artifacts.JournaledSnapshotArtifacts` implements the
+host driver's artifact port. Supply the journal, native query executor, current
+admission policy, independent expected snapshot inventory producer, and admitted
+manifest producer. Each target supplies exact UUID, version, complete columns
+and complete expected rows. The component checks native full-row parity and
+requires the manifest's entire version vector to match those targets.
+
+Capture records original inputs before native observation and retains one exact
+proposal before returning. Recovery reads the original proposal; an interrupted
+capture without retained proposal bytes requires reconciliation and refuses a
+new observation. This component is wired into the focused host-pipeline tests.
+A native installation must still supply source/writer custody, independent
+expected-state derivation, protocol/retention/pin policies and ACK semantics.

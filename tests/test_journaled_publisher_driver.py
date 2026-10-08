@@ -7,11 +7,18 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 from durable_effects import DurableEffects,EffectPlanError
 from durable_sql import DurableSQL,SQLPending
 from journaled_publisher_driver import JournaledPublisherDriver
+from journaled_snapshot_artifacts import JournaledSnapshotArtifacts
+from test_effect_validation import Executor,COLS,ROW
 from ashlar.publisher import PublicationError
 from ashlar.stored_publisher import _artifact
 from test_durable_effects import API,Policy,STEPS
 from test_stored_publisher import Driver,PhaseExecutor,Transport,Policy as ManifestPolicy
 import test_stored_publisher as stored
+
+class SnapshotAdmission:
+    def admit(self,request,effects,targets,context):
+        if context!='admitted' or set(targets)!={'c.s.object_current'}:
+            raise PermissionError('Test snapshot admission denied')
 
 class Artifacts:
     def __init__(self):self.capture_calls=0;self.recover_calls=0
@@ -38,10 +45,13 @@ class JournaledDriverTests(unittest.TestCase):
                         return self.manifest.do(method,path,**kwargs)
                     return super().do(method,path,**kwargs)
             api=CombinedAPI();path=str(Path(temporary)/'original.sqlite');phases=PhaseExecutor()
-            artifacts=Artifacts();acks=[];validations=[]
+            snapshot_executor=Executor();acks=[];validations=[]
             for iteration in range(2):
                 journal=DurableSQL(path,api,'2439e1f2e37ac563','actor')
                 try:
+                    artifacts=JournaledSnapshotArtifacts(journal,snapshot_executor,SnapshotAdmission(),
+                        lambda *args:{'c.s.object_current':{'uuid':'uuid','version':7,'columns':COLS,'rows':[ROW]}},
+                        lambda request,*args:json.loads(Driver().artifact(request))['manifest'],namespace='snapshot')
                     driver=JournaledPublisherDriver(DurableEffects(journal,Policy()),ManifestPolicy(),
                         lambda request,context:STEPS,artifacts,
                         lambda *args:validations.append(args[0]['request_digest']),
@@ -50,9 +60,9 @@ class JournaledDriverTests(unittest.TestCase):
                     backend=helper.backend(phases,driver,transport,ManifestPolicy())
                     descriptor=helper.publish(backend,'admitted')
                     self.assertTrue(descriptor.validation_report['complete'])
+                    self.assertEqual(journal.db.execute('SELECT count(*) FROM snapshot_artifact').fetchone()[0],1)
                 finally:journal.close()
-            self.assertEqual(artifacts.capture_calls,1)
-            self.assertEqual(artifacts.recover_calls,0)
+            self.assertEqual(len(snapshot_executor.calls),4)
             self.assertEqual([method for method,_ in api.calls],['POST','POST'])
             self.assertEqual(api.manifest.calls,['POST'])
             self.assertEqual(len(acks),2)

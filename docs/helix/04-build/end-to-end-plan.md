@@ -2104,3 +2104,30 @@ refusal, native validation denial before manifest/ACK, context mismatch and
 corrupt artifact refusal. These use a test transport; full native phase execution
 is still unproved. No cloud job or source ACK was performed. Concrete native
 artifact/validation/source policies and the actual Truss producer remain next.
+
+
+### Full-row native snapshot artifact component — 2026-10-08
+
+JournaledSnapshotArtifacts now supplies the journaled publisher driver's capture
+and recovery port. Caller-provided expected inventories are copied, bounded,
+explicitly admitted and retained before native observation. Every target gets
+full-column/multiset parity at its exact UUID/version through
+validate_effect_snapshot. The proposed manifest must name precisely the captured
+version vector and bind the original publication request/source checkpoint.
+Original request/effect/target inventory and applied artifact have digest custody.
+Callback effect inputs are copied so a producer cannot rewrite the driver's
+original response evidence while constructing its result.
+
+Recovery returns only retained original proposal bytes after renewed explicit
+admission. Missing or interrupted capture remains unresolved and refuses; it
+never samples current tables to manufacture a replacement proposal. Native
+retention, protocol, pin and source checks remain mandatory supplied policy and
+validator obligations; parity alone does not establish them or source ACK.
+
+Nine focused artifact, connected effect-to-stored-publisher and complete-row
+parity tests pass with a test transport. The connected test now uses the real
+artifact component, not a replacement artifact stub. Evidence covers reopen
+without new snapshot queries/submissions, initial capture failure with later
+replacement refusal, exact vector binding, changed target/artifact custody and
+current admission failure. Full native phase execution and real Truss still
+remain required. No cloud job, schema mutation or source ACK occurred.
