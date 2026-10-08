@@ -2185,3 +2185,25 @@ Scope change, gaps, wrong predecessor, missing native resolution, precommit
 refusal and both postcommit uncertainty modes are exercised. No new cloud
 workload or native ACK was issued. Full native phase wiring and actual Truss
 installation/acceptance/mutation/feed remain required.
+
+### Native effective-permission observations — 2026-10-08
+
+The native CSV runner can obtain complete effective privileges through the Unity
+Catalog API without warehouse grant statements. tools/effective_grants.py retains
+each original raw page before interpretation, explicitly requests pagination,
+continues through empty pages until the continuation is absent, and preserves
+inherited privilege origins. Unknown content/actions, partial origins, origins
+outside the target ancestry, repeated principals/tokens and observation-budget
+overflow refuse admission. Current authenticated actor, native owner and held
+writer/source admission remain independent requirements.
+
+Three focused tests pass, including complete pagination, inherited writer
+inventory, empty-page continuation and retained unknown-content refusal. An
+earlier native catalog observation retained one empty privilege page and issued
+zero warehouse statements; its private receipt is
+/private/tmp/ashlar-csv-stream-effective-permissions-20261008.json (SHA-256
+efc447dc0355e4eaf43e00c72b302a8ba42da50ee72f361bc5f4c2a70f484b33).
+That observation preceded the explicit pagination parameter; multi-page native
+evidence remains open. The API contract was checked against the
+[Databricks effective-permissions reference](https://docs.databricks.com/api/uc-grants/v1/get-effective-permissions).
+No permissions or predictive optimization settings are changed by this helper.
