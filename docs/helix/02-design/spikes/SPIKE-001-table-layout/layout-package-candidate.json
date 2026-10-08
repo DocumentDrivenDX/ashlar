@@ -2743,7 +2743,13 @@
     "growth_cost_basis_r635.py": "59eb5e149000b244105e3206136e4933956032b847ed13c3c38e0d2070aceb6a",
     "out/growth-cost-basis-r635.json": "63e645b7739261a0bef943fb9c58a1352cc559b3568a9bcd402cb4a8cef544ca",
     "append_profile_r636.py": "c4fdd8a0167a5d4f3dbb9beff6ea7226e08647693fae523a271328237af60161",
-    "out/append-calibration-r636.json": "99c5e940d4b1f10a2982612fc3ceb396848825305a6c0988ac62dc484d82cf8d"
+    "out/append-calibration-r636.json": "99c5e940d4b1f10a2982612fc3ceb396848825305a6c0988ac62dc484d82cf8d",
+    "append_native_r637.py": "740eecc04d03a7167df9229d9d7f0f1b5903050ae0ad9a57edbd791e325fab03",
+    "append_native_audit_r638.py": "74a5da8947e7ec616c1a9ef6c0d5173dfee6e7c8e6907211de65fe14088c39a3",
+    "out/native/ashlar_append_native_r637/audited-summary-r638.json": "6c599ab4cb55e6d28dc14889536fdb7dbcb34ef8ef8ed489f881e54df062aa3e",
+    "out/native/ashlar_append_native_r637/shared-history.json": "37cfd6a2146b6a645c237059a93f2c08e7fc1d57cddaad7e2f69eb324080b7c0",
+    "out/native/ashlar_append_native_r637/statements.jsonl": "c9b61b8405167033c17cf197ee21c941bb184ea0c945f97000b860e936cb5150",
+    "out/native/ashlar_append_native_r637/summary.json": "ac4bfc63aafc8e7d4636ee9bc007f332455fd0d742d6502f2922e5984c84abca"
   },
   "evidence": {
     "ddl": {

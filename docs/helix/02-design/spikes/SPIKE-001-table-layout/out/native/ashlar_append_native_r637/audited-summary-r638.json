@@ -1,0 +1,17 @@
+{
+  "state": "All30 exact final native statements and28 complete sampled role responses audited",
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "runtime_channels": [
+    "{\"dbsql_version\": \"2026.39\", \"name\": \"CHANNEL_NAME_CURRENT\"}"
+  ],
+  "sources": {
+    "statements.jsonl": "c9b61b8405167033c17cf197ee21c941bb184ea0c945f97000b860e936cb5150",
+    "shared-history.json": "37cfd6a2146b6a645c237059a93f2c08e7fc1d57cddaad7e2f69eb324080b7c0",
+    "summary.json": "ac4bfc63aafc8e7d4636ee9bc007f332455fd0d742d6502f2922e5984c84abca"
+  },
+  "qualification": "256 carrier boundary/residue sample with exact raw envelopes, lexical property tokens and typed adjacency. Read-only SQL generator differential, not full growth, current publication reconciliation, scale admission or performance proof. Regenerated expected Python roles and submitted SQL; historical node/edge prefix remains bootstrap-profile evidence, not verification of current seven-change-batch published content."
+}

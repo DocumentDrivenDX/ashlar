@@ -1,0 +1,237 @@
+{
+  "state": "Scoped independent native append parity passes every sampled role field",
+  "checks": [
+    {
+      "kind": "node",
+      "start": 0,
+      "end": 32,
+      "role": "object_current",
+      "rows": 32,
+      "sha256": "1c4c8d5dc3c73cc11d43378cfe535b81ff4a19d2e6d5841251f441c50688886d"
+    },
+    {
+      "kind": "node",
+      "start": 0,
+      "end": 32,
+      "role": "source_record",
+      "rows": 32,
+      "sha256": "0eac8950976c3d4465f0a761bd86a9314cbae8087f18c621f20624ca3a188083"
+    },
+    {
+      "kind": "node",
+      "start": 0,
+      "end": 32,
+      "role": "property_journal",
+      "rows": 128,
+      "sha256": "ee584186da2d34b46be113d68accb3cc804238d658db0ae574bdf4b96dd80829"
+    },
+    {
+      "kind": "node",
+      "start": 7999968,
+      "end": 8000000,
+      "role": "object_current",
+      "rows": 32,
+      "sha256": "045f535c1f99890dbdc874d74f7310b1449b8f626ca75ef05835f0a2a3bb3ad5"
+    },
+    {
+      "kind": "node",
+      "start": 7999968,
+      "end": 8000000,
+      "role": "source_record",
+      "rows": 32,
+      "sha256": "b75d31d5186ed9c2cfd7066dd32892a45cde88bb78b3b2c0c9a9d9c56e8dc84c"
+    },
+    {
+      "kind": "node",
+      "start": 7999968,
+      "end": 8000000,
+      "role": "property_journal",
+      "rows": 128,
+      "sha256": "9b75d1cd0f8cb217ca41d1b146a22a5baf2078b4cb04b614e14e028815b51467"
+    },
+    {
+      "kind": "node",
+      "start": 8000000,
+      "end": 8000032,
+      "role": "object_current",
+      "rows": 32,
+      "sha256": "43d7ffe0ba3dc3cadda00f00f3d22e97f050ce0c48c4734f722c135ca0a9e2f2"
+    },
+    {
+      "kind": "node",
+      "start": 8000000,
+      "end": 8000032,
+      "role": "source_record",
+      "rows": 32,
+      "sha256": "1eee401f84d8b9f4e8deac8ce4687b18a30bdf8730dbf1c0b0c788f93445998e"
+    },
+    {
+      "kind": "node",
+      "start": 8000000,
+      "end": 8000032,
+      "role": "property_journal",
+      "rows": 128,
+      "sha256": "bf8720a4fe41c317046e86bde66b9aef9fb8e7e0acf9d70ebc8802c01fe79fdf"
+    },
+    {
+      "kind": "node",
+      "start": 15999968,
+      "end": 16000000,
+      "role": "object_current",
+      "rows": 32,
+      "sha256": "3633ab6e5f327437ed43241fdde6b5825db1babdd5bbb4ed51fd6aec620a935f"
+    },
+    {
+      "kind": "node",
+      "start": 15999968,
+      "end": 16000000,
+      "role": "source_record",
+      "rows": 32,
+      "sha256": "66ca4bd10d16550022635dc9a5b142f976955d09dd52004b031ea56e9ed4494d"
+    },
+    {
+      "kind": "node",
+      "start": 15999968,
+      "end": 16000000,
+      "role": "property_journal",
+      "rows": 128,
+      "sha256": "98886c78bea3187db55b18980457d0906c6592db342594a9323d115712928037"
+    },
+    {
+      "kind": "edge",
+      "start": 0,
+      "end": 32,
+      "role": "edge_current",
+      "rows": 32,
+      "sha256": "1930d2cb80cbf85c33ca98cfb107f6163e5de4aab7649dc4c77c15a478a32d91"
+    },
+    {
+      "kind": "edge",
+      "start": 0,
+      "end": 32,
+      "role": "source_record",
+      "rows": 32,
+      "sha256": "e8ceff52277f56d4395afd5d1e6f52f3bca7dff9e603c85e0f2d3f2cba30ade4"
+    },
+    {
+      "kind": "edge",
+      "start": 0,
+      "end": 32,
+      "role": "property_journal",
+      "rows": 128,
+      "sha256": "1a7a0d775bfb66a1250e47056cb179f8cf24b9c7d5ec43999c8855aaaa42d45f"
+    },
+    {
+      "kind": "edge",
+      "start": 0,
+      "end": 32,
+      "role": "adjacency_forward",
+      "rows": 32,
+      "sha256": "48e131a0cda73e9f700567912e6f90c2187dc99f77bcb80d63dff9b2ef6b46fd"
+    },
+    {
+      "kind": "edge",
+      "start": 39999968,
+      "end": 40000000,
+      "role": "edge_current",
+      "rows": 32,
+      "sha256": "c7a4c4d214bff107c52322ba4f3bfd4450e1d4a41882ee54c371b2e3e048d283"
+    },
+    {
+      "kind": "edge",
+      "start": 39999968,
+      "end": 40000000,
+      "role": "source_record",
+      "rows": 32,
+      "sha256": "239ea6a8c12d2e3594996885effce9667c151cb52bc16d67abf9fe3a276325a1"
+    },
+    {
+      "kind": "edge",
+      "start": 39999968,
+      "end": 40000000,
+      "role": "property_journal",
+      "rows": 128,
+      "sha256": "787f6e3ed4edba41308ce2bddba5272e693ccebca85da28ba06d1b1d4bd1a25c"
+    },
+    {
+      "kind": "edge",
+      "start": 39999968,
+      "end": 40000000,
+      "role": "adjacency_forward",
+      "rows": 32,
+      "sha256": "927e8c95a66fc44baaa11b1759f8cfdf612c9d989a21aa7d0612d29c51c27965"
+    },
+    {
+      "kind": "edge",
+      "start": 40000000,
+      "end": 40000032,
+      "role": "edge_current",
+      "rows": 32,
+      "sha256": "22240a1fd8fc54d6af57cf6196d4b0b37306e81fc4f26f126533acf3a1a8ca40"
+    },
+    {
+      "kind": "edge",
+      "start": 40000000,
+      "end": 40000032,
+      "role": "source_record",
+      "rows": 32,
+      "sha256": "669a7bd7a39d4b837869ee0f9604bc9217497e57e7a48388b84f22a49235e513"
+    },
+    {
+      "kind": "edge",
+      "start": 40000000,
+      "end": 40000032,
+      "role": "property_journal",
+      "rows": 128,
+      "sha256": "800b43edd6d5a7bf2b1a146ded038c820ca3842e001f14fc2057476c2b630e4b"
+    },
+    {
+      "kind": "edge",
+      "start": 40000000,
+      "end": 40000032,
+      "role": "adjacency_forward",
+      "rows": 32,
+      "sha256": "94dbac850113ca162151132aa4bb0fee92566fc07fc878be008854df447a6699"
+    },
+    {
+      "kind": "edge",
+      "start": 79999968,
+      "end": 80000000,
+      "role": "edge_current",
+      "rows": 32,
+      "sha256": "e0f5ea997b53c4c6b56d6c6cb53940b7552348ada68a1e200b8db42328451fc6"
+    },
+    {
+      "kind": "edge",
+      "start": 79999968,
+      "end": 80000000,
+      "role": "source_record",
+      "rows": 32,
+      "sha256": "77c75301f5d32c5be1f6ca53aaa0c6dfe3a4648859c25d7e8110994827b5c14f"
+    },
+    {
+      "kind": "edge",
+      "start": 79999968,
+      "end": 80000000,
+      "role": "property_journal",
+      "rows": 128,
+      "sha256": "eeaaf70ed1df8e2be1663940b5ff197aa5196b4c366334265000eb270181515e"
+    },
+    {
+      "kind": "edge",
+      "start": 79999968,
+      "end": 80000000,
+      "role": "adjacency_forward",
+      "rows": 32,
+      "sha256": "7749b16217c31303d7391206817e0508b15f2f01a831e0d743a23adc256f9017"
+    }
+  ],
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 26.832019792,
+  "statements": 30,
+  "qualification": "256 carrier boundary/residue sample with exact raw envelopes, lexical property tokens and typed adjacency. Read-only SQL generator differential, not full growth, current publication reconciliation, scale admission or performance proof."
+}
