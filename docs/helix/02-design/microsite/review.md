@@ -32,5 +32,22 @@ navigation and the page-local outline. No live warehouse operation was run.
 Signing declaration and key usage approved by the owner. All seven source seals
 verify VALID, every claim matches the approved model-primary colophon exactly,
 and the strict Hugo build and source-seal coverage checks pass. Live deployment
-verification is next.
+verification passes for all seven pages and published keys/claims.
 The source-seal gate deliberately rejects unsigned/stale production builds.
+
+## Live publication
+
+GitHub Actions run 37731576687 completed build and deploy successfully. Live
+URL: https://documentdrivendx.github.io/ashlar/. All seven page routes return
+rendered source attestations. Every downloaded attestation matches its committed
+claim and verifies VALID with the downloaded public issuer document against the
+corresponding Markdown source. Live browser home-to-schema navigation passes.
+
+The artifact is packaged explicitly to retain `.well-known/innsigle`; the default
+Pages uploader excluded that directory on the initial deployment. Archive checks
+now require the public issuer and all seven claims before upload.
+
+Use per-file sealing with the reviewed `.innsigle/colo.json`; pinned `seal --all`
+selects built-in example declarations and must not replace the approved colophon.
+The homepage claim explicitly names the public root URL. Private key custody is
+in 1Password; no private key is committed or provided to CI.
