@@ -1,0 +1,61 @@
+{
+  "profile": "ashlar-jsonl-source/0.1",
+  "feed": "configured-jsonl",
+  "epoch": "configured-1",
+  "sourceSystem": "configured-example",
+  "schemaAlias": "configured-items",
+  "documentRevision": "3",
+  "validatorRevision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+  "source": {
+    "path": "configured-string-source.jsonl",
+    "sha256": "f76ecd69ec2939017ac427136c742544837e4068e8a161dd90e72eb8740dd585"
+  },
+  "schema": {
+    "path": "schema-v3.umf.json",
+    "sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085"
+  },
+  "intake": {
+    "path": "schema-v3.intake.json",
+    "sha256": "f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1"
+  },
+  "interpretation": {
+    "path": "schema-v3.interpretation.json",
+    "sha256": "8fb1d5322ad46629bd0d57aa8b7e4ebc715ccec3992e54aaa5ff7e72a40cea16"
+  },
+  "bindings": [
+    {
+      "family": "type",
+      "parts": [
+        "truss-weft-source-review-fixture",
+        "fixture",
+        "item"
+      ],
+      "catalogId": 1017,
+      "active": true
+    },
+    {
+      "family": "property",
+      "parts": [
+        "truss-weft-source-review-fixture",
+        "fixture",
+        "item",
+        "fixture",
+        "label"
+      ],
+      "catalogId": 1023,
+      "active": true
+    },
+    {
+      "family": "property",
+      "parts": [
+        "truss-weft-source-review-fixture",
+        "fixture",
+        "item",
+        "fixture",
+        "caption"
+      ],
+      "catalogId": 1024,
+      "active": true
+    }
+  ]
+}

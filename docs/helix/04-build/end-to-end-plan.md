@@ -2915,3 +2915,24 @@ still no public protected schema acceptance/producer/feed entrypoint. An updated
 explicitly authorized capability request was successfully delivered to Truss Impl
 in this iteration. Actual Truss runtime remains required; that gap does not
 license synthetic acceptance/ACK or completion of the end-to-end goal.
+
+### Caller-configured immutable JSONL workflow — 2026-10-08
+
+The native source runner now accepts configured-jsonl with an exact pinned
+source/model/intake/interpretation and explicit qualified ID binding configuration.
+Configuration and all referenced bytes are rechecked during custody; configuration
+SHA256 joins the original journal scope. Logical checks, publication and Weft
+binding use the selected model; singleton uses the selected source/type. Built-in
+CSV/JSONL/evolution paths remain available. The configured branch does not load
+fixture_inputs to construct its model or IDs.
+
+The runnable configured example has four events with development type1017 and
+properties1023/1024. Actual pinned UMF validation checks three nondelete values;
+local staging/apply/delete/history and exact replay leave one current entity,
+four history records and one tombstone at byte1828. Fifteen focused source/binding/
+evolution checks pass. Initial CLI help used system Python without the SDK;
+verified SDK Python runs it correctly. Evidence:
+[configured local workflow](evidence/configured-source-local-20261008.json).
+No cloud statements were issued. Native configured installation/intake/publication/
+query remains the next integration check. No Truss acceptance, arbitrary semantic
+support, remote fencing/ACK or complete goal achievement is claimed.

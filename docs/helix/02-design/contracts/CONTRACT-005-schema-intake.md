@@ -298,3 +298,23 @@ target definition; target IDs MUST NOT overwrite original IDs/history/revisions.
 Missing original binding/history, source drift or absent target correspondence
 MUST refuse. Unmapped retained Fields MUST NOT disappear. This is a logical
 prestate check, not automatic compatibility, data conversion or native acceptance.
+
+### Explicit configured JSONL input — 2026-10-08
+
+`ashlar-jsonl-source/0.1` is a development host configuration, separate from native
+Truss catalog authority. It requires explicit feed, epoch, sourceSystem,
+schemaAlias, documentRevision, validatorRevision; exact path/SHA256 references
+for source, original schema, intake and interpretation; and complete qualified
+MappingEntry bindings (family, parts, catalogId, active). Relative paths resolve
+against the configuration file. Unknown fields/versions, digest drift, missing or
+foreign bindings and mismatched original schema/intake bytes MUST refuse.
+Retained configuration and referenced bytes MUST be rechecked during native
+custody. The configuration digest participates in the original publication
+journal scope. It MUST NOT license another source/configuration to reuse that
+scope, or confer accepted IDs, automatic schema evolution or source ACK.
+
+The native runner's configured-jsonl path uses the existing managed carriers,
+source/policy validation, original phase/effect/artifact/manifest custody, retention
+and resolver/pin checks. The selected profile remains singleton string objects.
+Singleton queries use the configured source and explicitly bound type, with an
+explicit --type-id when there is more than one Record type. No new IDs are inferred.

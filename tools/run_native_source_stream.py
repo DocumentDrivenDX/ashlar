@@ -59,6 +59,7 @@ from persistent_sql import Client
 from run_local_example import fixture_inputs,RECORD_CHECK_PIN
 from check_bound_umf_records import check_bound_records,check_bound_existing_records
 from native_schema_inventory import bind_intake_proofs
+from jsonl_source_configuration import load_jsonl_configuration
 from run_schema_evolution import inputs as evolution_inputs
 from sandbox_pins import PrivatePinTransactions
 from whole_graph_sql import graph_sql_plan
@@ -76,17 +77,20 @@ def descriptor(row):
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ('installation','intake-proof','journal','output','umf-source'):parser.add_argument('--'+name,type=Path,required=True)
-    parser.add_argument('--source',choices=['csv','jsonl','evolution'],default='csv',help='Explicit supplied development source; original CSV default preserved')
+    parser.add_argument('--source',choices=['csv','jsonl','evolution','configured-jsonl'],default='csv',help='Explicit supplied development source; original CSV default preserved')
+    parser.add_argument('--source-config',type=Path,help='Configured JSONL only: exact model/source/ID binding configuration')
     parser.add_argument('--additional-intake-proof',type=Path,action='append',default=[],help='Evolution only: original revision-1 proof; primary proof is revision 3')
     parser.add_argument('--limit',type=int,choices=range(1,5),default=1,help='Process through this original source batch ordinal; default one batch')
     parser.add_argument('--query-only',action='store_true',help='Read the last retained publication; no ingestion, publication or progress advancement')
     parser.add_argument('--weft-sql',help='Query-only: compile a Weft query against the exact retained model/publication')
     parser.add_argument('--weft-python',type=Path,help='Verified pinned wheel installation directory')
     parser.add_argument('--weft-source',type=Path,help='Clean source checkout at the admitted Weft revision')
+    parser.add_argument('--type-id',type=int,help='Query-only: select an explicitly bound Record type; defaults to the sole admitted type')
     parser.add_argument('--entity-id',type=int,default=1,help='Signed 64-bit local-example object identity for query-only mode')
     parser.add_argument('--profile',default='aidev-cus',help='Authorized existing Databricks CLI profile')
     parser.add_argument('--warehouse',default='2439e1f2e37ac563',help='Authorized existing SQL warehouse')
     args=parser.parse_args()
+    if (args.source=='configured-jsonl')!=(args.source_config is not None):parser.error('Configured JSONL requires --source-config; other sources do not accept it')
     if args.weft_sql and (not args.query_only or not args.weft_python or not args.weft_source):parser.error('Weft requires query-only and both pinned compiler paths')
     if not args.weft_sql and (args.weft_python or args.weft_source):parser.error('Compiler paths require a Weft query')
     if args.query_only and not args.journal.is_file():parser.error('Query-only requires the original retained publication journal')
@@ -95,20 +99,39 @@ def main():
     installation=json.loads(args.installation.read_bytes());intake_proof=json.loads(args.intake_proof.read_bytes())
     NAMESPACE=installation_namespace(installation,ROOT)
     STREAM='native-'+args.source+'-stream:'+NAMESPACE
-    intake,semantic_policy,_=fixture_inputs();transition=None
+    configuration=load_jsonl_configuration(args.source_config) if args.source_config else None
+    if configuration is None:intake,semantic_policy,_=fixture_inputs()
+    else:intake,semantic_policy=configuration.intake,configuration.policy
+    transition=None
+    schema_paths={intake.document_revision:configuration.schema if configuration else ROOT/'examples/end-to-end/schema-v3.umf.json'}
+    primary_alias='fixture'
     intakes=(intake,);proofs=(intake_proof,)
     schema_revisions={'fixture':'3'};supported_revisions={'fixture':['3']}
+    if configuration is not None:
+        intake=configuration.intake;semantic_policy=configuration.policy
+        intakes=(intake,);schema_paths={intake.document_revision:configuration.schema};primary_alias=configuration.schema_alias
+        schema_revisions={primary_alias:intake.document_revision};supported_revisions={primary_alias:[intake.document_revision]}
     if args.source=='evolution':
         if len(args.additional_intake_proof)!=1:parser.error('Evolution requires exactly one original revision-1 intake proof')
         intakes,semantic_policy,transition,_=evolution_inputs()
         proofs=(json.loads(args.additional_intake_proof[0].read_bytes()),intake_proof)
+        schema_paths={i.document_revision:ROOT/('examples/end-to-end/schema-v'+i.document_revision+'.umf.json') for i in intakes}
+        primary_alias='fixture-v3'
         schema_revisions={'fixture':'1','fixture-v3':'3'}
         supported_revisions={'fixture':['1'],'fixture-v3':['3']}
     elif args.additional_intake_proof:parser.error('Additional intake proofs require the explicit evolution source')
+    primary_policy=semantic_policy.policies[('local-example','3')] if args.source=='evolution' else semantic_policy
+    query_source=primary_policy.source_system
+    query_type_id=args.type_id
+    if query_type_id is None and len(primary_policy.types)==1:query_type_id=next(iter(primary_policy.types))
+    if args.query_only and not args.weft_sql and query_type_id not in primary_policy.types:parser.error('Singleton requires one explicitly admitted Record type')
     bound_intakes=bind_intake_proofs(intakes,proofs,NAMESPACE)
-    source,oracle_batches=fixture_batches(ROOT,'csv' if args.source=='csv' else 'evolution' if args.source=='evolution' else 'local');source_sha=hashlib.sha256(source.read_bytes()).hexdigest()
-    feed='csv-example' if args.source=='csv' else 'local-evolution' if args.source=='evolution' else 'local-jsonl'
-    epoch='immutable-example-1' if args.source=='csv' else 'example-1'
+    if configuration is not None:
+        source=configuration.source;oracle_batches=tuple(jsonl_batches(source.read_bytes().splitlines(keepends=True),feed=configuration.feed,epoch=configuration.epoch))
+    else:source,oracle_batches=fixture_batches(ROOT,'csv' if args.source=='csv' else 'evolution' if args.source=='evolution' else 'local')
+    source_sha=hashlib.sha256(source.read_bytes()).hexdigest()
+    feed=configuration.feed if configuration else 'csv-example' if args.source=='csv' else 'local-evolution' if args.source=='evolution' else 'local-jsonl'
+    epoch=configuration.epoch if configuration else 'immutable-example-1' if args.source=='csv' else 'example-1'
     checkpoint=csv_checkpoint if args.source=='csv' else jsonl_checkpoint
     if args.source=='csv':
         batches=tuple(csv_batches(source.read_bytes().splitlines(keepends=True),feed=feed,epoch=epoch,
@@ -124,7 +147,7 @@ def main():
         selected_policy=semantic_policy.policies[('local-example',selected_intake.document_revision)] if args.source=='evolution' else semantic_policy
         receipts=check_bound_records(args.umf_source,selected_intake,selected_policy,selected_batches,
             output_dir=args.output/('umf-record-check-'+selected_intake.document_revision),
-            schema_path=ROOT/('examples/end-to-end/schema-v'+selected_intake.document_revision+'.umf.json'))
+            schema_path=schema_paths[selected_intake.document_revision])
         producer_revisions.update(receipt['producerRevision'] for receipt in receipts)
     if producer_revisions!={RECORD_CHECK_PIN}:raise PublicationError('Actual original UMF Record checker evidence required')
     upstream_revision=next(iter(producer_revisions))
@@ -138,6 +161,7 @@ def main():
     context=object();held=False;active=None;current=None;pin_vector=None;pin_held=False;targets=None;read_interval=None;publication_scope=None
     permission_reads=[]
     def custody():
+        if configuration is not None:configuration.verify()
         if not held or hashlib.sha256(source.read_bytes()).hexdigest()!=source_sha:raise PermissionError('Original admitted immutable-file writer/source lane required')
         fresh=client.w.current_user.me()
         if (fresh.id,fresh.user_name)!=(user.id,user.user_name):raise PermissionError('Current authenticated actor differs')
@@ -305,7 +329,7 @@ def main():
         def authorize_row(self,value,table,row,supplied):
             self.bind_descriptor(value,pin_vector,supplied)
             if table!=tables['object_current']:raise PermissionError('Only the admitted fixture object carrier is queryable')
-            expected=[item for item in active['expected']['object_current'] if item['id']==str(args.entity_id)]
+            expected=[item for item in active['expected']['object_current'] if item['id']==str(args.entity_id) and item['type_id']==str(query_type_id) and item['source_system']==query_source]
             if len(expected)>1 or (row is None)!=(not expected):raise PublicationError('Independent singleton presence differs')
             if row is not None:
                 # The full pinned inventory checks both timestamps and all other
@@ -357,6 +381,7 @@ def main():
         with open(str(args.journal)+'.native-csv-stream-lock','a') as lock:
             fcntl.flock(lock,fcntl.LOCK_EX);held=True;authority();source_schema()
             workload_input={'namespace':NAMESPACE,'source_sha256':source_sha,'uuids':uuids,'intake_source_sha256':intake.source_sha256,'intake_table_uuid':intake_proof['table_uuid']}
+            if configuration is not None:workload_input['source_configuration_sha256']=hashlib.sha256(configuration.original).hexdigest()
             if args.source=='evolution':workload_input['schema_inventory']=[{'row':i.row(),'table':p['table'],'uuid':p['table_uuid']} for i,p in bound_intakes]
             workload=hashlib.sha256(encoded(workload_input).encode()).hexdigest()
             with journal.db:
@@ -413,12 +438,12 @@ def main():
                     compiler=importlib.import_module('weft')
                     if Path(compiler.weft.__file__).resolve()!=(args.weft_python/'weft/weft.abi3.so').resolve():
                         raise PublicationError('Actually loaded compiler path differs')
-                    selected_intake,selected_policy,_=fixture_inputs()
+                    selected_intake=intake;selected_policy=semantic_policy.policies[('local-example','3')] if args.source=='evolution' else semantic_policy
                     layout=ROOT/'docs/helix/02-design/spikes/SPIKE-001-table-layout/sql/delta-layout-v03.sql'
                     if hashlib.sha256(layout.read_bytes()).hexdigest()!=LAYOUT_SHA256:
                         raise PublicationError('Qualified original layout differs')
                     query_request=string_compile_request(args.weft_sql,selected_intake,selected_policy,current,
-                        schema_alias='fixture-v3' if args.source=='evolution' else 'fixture',
+                        schema_alias=primary_alias,
                         table_uuids={t:uuids[t] for t in tables.values()},manifest_uuid=uuids[manifest_table],layout_sha256=LAYOUT_SHA256)
                     compiled=json.loads(compiler.compile_json(encoded(query_request)))
                     (args.output/'weft-compile.json').write_text(json.dumps({'request':query_request,'response':compiled},indent=2)+'\n')
@@ -426,7 +451,7 @@ def main():
                         def admit_artifact(self,request,artifact,value,supplied):
                             self.bind_descriptor(value,pin_vector,supplied);compiler_custody()
                             fresh=string_compile_request(args.weft_sql,selected_intake,selected_policy,value,
-                                schema_alias='fixture-v3' if args.source=='evolution' else 'fixture',
+                                schema_alias=primary_alias,
                                 table_uuids={t:uuids[t] for t in tables.values()},manifest_uuid=uuids[manifest_table],layout_sha256=hashlib.sha256(layout.read_bytes()).hexdigest())
                             if request!=fresh or artifact!=json.loads(compiler.compile_json(encoded(fresh))):
                                 raise PublicationError('Exact original owner request and recompiled artifact required')
@@ -449,7 +474,7 @@ def main():
                         'compiler_revision':WEFT_REVISION,'qualification':'Original model/publication, mandatory integrity checks, exact string/presence decoding and closing pin/authority checks. Profile observations are separate statements before execution and release, not same-statement settings proof.'}
                 else:
                     row=read_singleton(transport,backend,QueryPins(),pin_vector,policy,publication_id=current.publication_id,
-                        table=tables['object_current'],kind='object',source='local-example',type_id=17,entity_id=args.entity_id,context=context,
+                        table=tables['object_current'],kind='object',source=query_source,type_id=query_type_id,entity_id=args.entity_id,context=context,
                         supported_profiles=['ashlar-delta/0.3'],supported_revisions=supported_revisions)
                     singleton=dict(row) if row is not None else None
             for active in ([] if args.query_only else specs[start:args.limit]):

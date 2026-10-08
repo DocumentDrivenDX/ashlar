@@ -1112,3 +1112,35 @@ schema binding, even when the selected target uses different IDs, then checks th
 qualified logical references against the explicit target. Source selection in
 this runner remains the documented examples; this wiring does not admit arbitrary
 source configurations or native Truss catalog IDs.
+
+## Supply an immutable JSONL source and explicit model bindings
+
+`configured-source.json` is a complete development example with source
+`configured-example`, feed `configured-jsonl`, type 1017 and properties 1023/1024.
+It pins exact source/model/intake/interpretation files by SHA256. The schema is the
+retained UMF string Record; bindings are explicit development choices rather than
+Truss accepted IDs. It contains two creates, one update and one delete.
+
+```sh
+PYTHONPATH=src:tools python3 -B tools/check_configured_source.py \
+  --source-config examples/end-to-end/configured-source.json \
+  --umf-source /path/to/pinned/umf-record-check \
+  --output /fresh/path/preflight
+```
+
+This invokes the actual pinned UMF checker and verifies complete transaction
+staging, deletes/history and unchanged exact replay locally. To use your own
+selected string-Record model, supply its original intake and interpretation,
+explicit qualified ID bindings and complete ashlar-whole-entity/0.1 JSONL
+transactions; update every input digest. Paths resolve against the configuration.
+Unknown configuration, stale bytes or incomplete/foreign bindings refuse.
+
+After generated native setup and raw schema registration in a fresh private
+namespace, use the standard runner with `--source configured-jsonl --source-config
+/path/to/config.json`, the original `--installation`, `--intake-proof`, `--journal`,
+`--umf-source`, fresh `--output` and explicit `--limit`. The native runner keeps the
+complete original publication/fencing/retention checks. Query-only singleton uses
+the configured source and sole bound type, or explicit `--type-id` for multiple
+bound Records. Weft queries also consume the configured model/bindings.
+Configuration alone does not establish native admission, Truss acceptance, remote
+ACK or automatic schema evolution. Native configured-source execution is pending.

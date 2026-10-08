@@ -1,0 +1,613 @@
+{
+  "state": "passed-local-configured-source",
+  "summary": {
+    "state": "preflight-passed",
+    "configuration_sha256": "cec472a462dc6306798aade3b29928b55dd8d39731e767fb86dc6fc86c7c5217",
+    "source_sha256": "f76ecd69ec2939017ac427136c742544837e4068e8a161dd90e72eb8740dd585",
+    "model_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+    "feed": "configured-jsonl",
+    "epoch": "configured-1",
+    "schema_alias": "configured-items",
+    "batches": 3,
+    "records": 4,
+    "current_entities": 1,
+    "history_records": 4,
+    "tombstones": 1,
+    "final_cursor": "1828",
+    "exact_replay_unchanged": true,
+    "upstream_record_results": 3,
+    "qualification": "Configured original model/binding/source, actual UMF logical checks, local complete transaction staging/apply/delete/history/exact replay. No native application, publication, accepted Truss IDs, source ACK or automatic evolution."
+  },
+  "upstream_results": {
+    "format": "ashlar-umf-record-check/0.1",
+    "producerRevision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+    "sourceBase64": "eyJ1bWYiOiIwLjcuMCIsImlkIjoidHJ1c3Mtd2VmdC1zb3VyY2UtcmV2aWV3LWZpeHR1cmUiLCJ2b2NhYnVsYXJpZXMiOnt9LCJtb2R1bGVzIjpbeyJpZCI6ImZpeHR1cmUiLCJuYW1lc3BhY2UiOiJmaXh0dXJlIiwiZWxlbWVudHMiOlt7ImlkIjoiaXRlbSIsIm5hbWUiOiJJdGVtIiwia2luZCI6InJlY29yZCIsIm1lbWJlcnMiOlt7Im1vZHVsZSI6ImZpeHR1cmUiLCJlbGVtZW50IjoibGFiZWwifSx7Im1vZHVsZSI6ImZpeHR1cmUiLCJlbGVtZW50IjoiY2FwdGlvbiJ9XSwiZXh0ZW5zaW9ucyI6e319LHsiaWQiOiJsYWJlbCIsIm5hbWUiOiJsYWJlbCIsImtpbmQiOiJmaWVsZCIsInNjYWxhclR5cGUiOiJzdHJpbmciLCJudWxsYWJpbGl0eSI6InJlcXVpcmVkIiwiY2FyZGluYWxpdHkiOiJvbmUiLCJleHRlbnNpb25zIjp7fX0seyJpZCI6ImNhcHRpb24iLCJuYW1lIjoiY2FwdGlvbiIsImtpbmQiOiJmaWVsZCIsInNjYWxhclR5cGUiOiJzdHJpbmciLCJudWxsYWJpbGl0eSI6ImFic2VudC1hbGxvd2VkIiwiY2FyZGluYWxpdHkiOiJvbmUiLCJleHRlbnNpb25zIjp7fX1dfV19",
+    "sourceSha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+    "requestSha256": "e3e29d79bb4a8334d50b667972a0bbdb66fa1ae5893c8ca1c155735bd80cca58",
+    "originalValidation": {
+      "valid": true,
+      "complete": false,
+      "diagnostics": [
+        {
+          "code": "EXPERIMENTAL_CORE_NULLABILITY",
+          "path": "/umf",
+          "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+          "severity": "warning"
+        },
+        {
+          "code": "EXPERIMENTAL_CORE_CARDINALITY",
+          "path": "/umf",
+          "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+          "severity": "warning"
+        },
+        {
+          "code": "EXPERIMENTAL_CORE_FACETS",
+          "path": "/umf",
+          "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+          "severity": "warning"
+        },
+        {
+          "code": "EXPERIMENTAL_CORE_KEYS",
+          "path": "/umf",
+          "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+          "severity": "warning"
+        },
+        {
+          "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+          "path": "/umf",
+          "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+          "severity": "warning"
+        }
+      ]
+    },
+    "upgrade": {
+      "operation": "upgrade-schema-properties-envelope",
+      "version": "1.0.0",
+      "source": {
+        "umf": "0.7.0",
+        "id": "truss-weft-source-review-fixture",
+        "vocabularies": {},
+        "modules": [
+          {
+            "id": "fixture",
+            "namespace": "fixture",
+            "elements": [
+              {
+                "id": "item",
+                "name": "Item",
+                "kind": "record",
+                "members": [
+                  {
+                    "module": "fixture",
+                    "element": "label"
+                  },
+                  {
+                    "module": "fixture",
+                    "element": "caption"
+                  }
+                ],
+                "extensions": {}
+              },
+              {
+                "id": "label",
+                "name": "label",
+                "kind": "field",
+                "scalarType": "string",
+                "nullability": "required",
+                "cardinality": "one",
+                "extensions": {}
+              },
+              {
+                "id": "caption",
+                "name": "caption",
+                "kind": "field",
+                "scalarType": "string",
+                "nullability": "absent-allowed",
+                "cardinality": "one",
+                "extensions": {}
+              }
+            ]
+          }
+        ]
+      },
+      "target": {
+        "umf": "0.8.0",
+        "id": "truss-weft-source-review-fixture",
+        "vocabularies": {},
+        "modules": [
+          {
+            "id": "fixture",
+            "namespace": "fixture",
+            "elements": [
+              {
+                "id": "item",
+                "name": "Item",
+                "kind": "record",
+                "members": [
+                  {
+                    "module": "fixture",
+                    "element": "label"
+                  },
+                  {
+                    "module": "fixture",
+                    "element": "caption"
+                  }
+                ],
+                "extensions": {}
+              },
+              {
+                "id": "label",
+                "name": "label",
+                "kind": "field",
+                "scalarType": "string",
+                "nullability": "required",
+                "cardinality": "one",
+                "extensions": {}
+              },
+              {
+                "id": "caption",
+                "name": "caption",
+                "kind": "field",
+                "scalarType": "string",
+                "nullability": "absent-allowed",
+                "cardinality": "one",
+                "extensions": {}
+              }
+            ]
+          }
+        ]
+      },
+      "residuals": []
+    },
+    "records": [
+      {
+        "deliveryId": "1-1",
+        "recordSha256": "2e28d807cd6fe778223d3c57d4a0dcb8b76b98fe8023681863bd53363c24ef2d",
+        "result": {
+          "operation": "validate-core-record-values",
+          "version": "1.0.0",
+          "source": {
+            "umf": "0.8.0",
+            "id": "truss-weft-source-review-fixture",
+            "vocabularies": {},
+            "modules": [
+              {
+                "id": "fixture",
+                "namespace": "fixture",
+                "elements": [
+                  {
+                    "id": "item",
+                    "name": "Item",
+                    "kind": "record",
+                    "members": [
+                      {
+                        "module": "fixture",
+                        "element": "label"
+                      },
+                      {
+                        "module": "fixture",
+                        "element": "caption"
+                      }
+                    ],
+                    "extensions": {}
+                  },
+                  {
+                    "id": "label",
+                    "name": "label",
+                    "kind": "field",
+                    "scalarType": "string",
+                    "nullability": "required",
+                    "cardinality": "one",
+                    "extensions": {}
+                  },
+                  {
+                    "id": "caption",
+                    "name": "caption",
+                    "kind": "field",
+                    "scalarType": "string",
+                    "nullability": "absent-allowed",
+                    "cardinality": "one",
+                    "extensions": {}
+                  }
+                ]
+              }
+            ]
+          },
+          "identity": {
+            "module": "fixture",
+            "element": "item"
+          },
+          "values": [
+            {
+              "field": {
+                "module": "fixture",
+                "element": "label"
+              },
+              "state": "present",
+              "value": {
+                "string": "first"
+              }
+            }
+          ],
+          "documentValidation": {
+            "valid": true,
+            "complete": false,
+            "diagnostics": [
+              {
+                "code": "EXPERIMENTAL_CORE_NULLABILITY",
+                "path": "/umf",
+                "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_CARDINALITY",
+                "path": "/umf",
+                "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_FACETS",
+                "path": "/umf",
+                "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_KEYS",
+                "path": "/umf",
+                "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+                "path": "/umf",
+                "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_SCHEMA_PROPERTIES",
+                "path": "/umf",
+                "message": "Experimental 0.8.0 properties; native enforcement/admission not implied",
+                "severity": "warning"
+              }
+            ]
+          },
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          },
+          "fields": [
+            {
+              "field": {
+                "module": "fixture",
+                "element": "label"
+              },
+              "state": "present",
+              "validation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              }
+            },
+            {
+              "field": {
+                "module": "fixture",
+                "element": "caption"
+              },
+              "state": "absent",
+              "validation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "deliveryId": "2-1",
+        "recordSha256": "634aa8ba4c7c246a3caa3abda605d8742b564aa1a846679f0d252a19a04777d1",
+        "result": {
+          "operation": "validate-core-record-values",
+          "version": "1.0.0",
+          "source": {
+            "umf": "0.8.0",
+            "id": "truss-weft-source-review-fixture",
+            "vocabularies": {},
+            "modules": [
+              {
+                "id": "fixture",
+                "namespace": "fixture",
+                "elements": [
+                  {
+                    "id": "item",
+                    "name": "Item",
+                    "kind": "record",
+                    "members": [
+                      {
+                        "module": "fixture",
+                        "element": "label"
+                      },
+                      {
+                        "module": "fixture",
+                        "element": "caption"
+                      }
+                    ],
+                    "extensions": {}
+                  },
+                  {
+                    "id": "label",
+                    "name": "label",
+                    "kind": "field",
+                    "scalarType": "string",
+                    "nullability": "required",
+                    "cardinality": "one",
+                    "extensions": {}
+                  },
+                  {
+                    "id": "caption",
+                    "name": "caption",
+                    "kind": "field",
+                    "scalarType": "string",
+                    "nullability": "absent-allowed",
+                    "cardinality": "one",
+                    "extensions": {}
+                  }
+                ]
+              }
+            ]
+          },
+          "identity": {
+            "module": "fixture",
+            "element": "item"
+          },
+          "values": [
+            {
+              "field": {
+                "module": "fixture",
+                "element": "label"
+              },
+              "state": "present",
+              "value": {
+                "string": "second"
+              }
+            }
+          ],
+          "documentValidation": {
+            "valid": true,
+            "complete": false,
+            "diagnostics": [
+              {
+                "code": "EXPERIMENTAL_CORE_NULLABILITY",
+                "path": "/umf",
+                "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_CARDINALITY",
+                "path": "/umf",
+                "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_FACETS",
+                "path": "/umf",
+                "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_KEYS",
+                "path": "/umf",
+                "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+                "path": "/umf",
+                "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_SCHEMA_PROPERTIES",
+                "path": "/umf",
+                "message": "Experimental 0.8.0 properties; native enforcement/admission not implied",
+                "severity": "warning"
+              }
+            ]
+          },
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          },
+          "fields": [
+            {
+              "field": {
+                "module": "fixture",
+                "element": "label"
+              },
+              "state": "present",
+              "validation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              }
+            },
+            {
+              "field": {
+                "module": "fixture",
+                "element": "caption"
+              },
+              "state": "absent",
+              "validation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              }
+            }
+          ]
+        }
+      },
+      {
+        "deliveryId": "1-2",
+        "recordSha256": "b4b6255b8f4c0a898b2e7fe5c6ac36f708af0f98637cd66fe142699710e82a98",
+        "result": {
+          "operation": "validate-core-record-values",
+          "version": "1.0.0",
+          "source": {
+            "umf": "0.8.0",
+            "id": "truss-weft-source-review-fixture",
+            "vocabularies": {},
+            "modules": [
+              {
+                "id": "fixture",
+                "namespace": "fixture",
+                "elements": [
+                  {
+                    "id": "item",
+                    "name": "Item",
+                    "kind": "record",
+                    "members": [
+                      {
+                        "module": "fixture",
+                        "element": "label"
+                      },
+                      {
+                        "module": "fixture",
+                        "element": "caption"
+                      }
+                    ],
+                    "extensions": {}
+                  },
+                  {
+                    "id": "label",
+                    "name": "label",
+                    "kind": "field",
+                    "scalarType": "string",
+                    "nullability": "required",
+                    "cardinality": "one",
+                    "extensions": {}
+                  },
+                  {
+                    "id": "caption",
+                    "name": "caption",
+                    "kind": "field",
+                    "scalarType": "string",
+                    "nullability": "absent-allowed",
+                    "cardinality": "one",
+                    "extensions": {}
+                  }
+                ]
+              }
+            ]
+          },
+          "identity": {
+            "module": "fixture",
+            "element": "item"
+          },
+          "values": [
+            {
+              "field": {
+                "module": "fixture",
+                "element": "label"
+              },
+              "state": "present",
+              "value": {
+                "string": "updated"
+              }
+            },
+            {
+              "field": {
+                "module": "fixture",
+                "element": "caption"
+              },
+              "state": "present",
+              "value": {
+                "string": "\u96ea"
+              }
+            }
+          ],
+          "documentValidation": {
+            "valid": true,
+            "complete": false,
+            "diagnostics": [
+              {
+                "code": "EXPERIMENTAL_CORE_NULLABILITY",
+                "path": "/umf",
+                "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_CARDINALITY",
+                "path": "/umf",
+                "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_FACETS",
+                "path": "/umf",
+                "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_KEYS",
+                "path": "/umf",
+                "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+                "path": "/umf",
+                "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+                "severity": "warning"
+              },
+              {
+                "code": "EXPERIMENTAL_CORE_SCHEMA_PROPERTIES",
+                "path": "/umf",
+                "message": "Experimental 0.8.0 properties; native enforcement/admission not implied",
+                "severity": "warning"
+              }
+            ]
+          },
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          },
+          "fields": [
+            {
+              "field": {
+                "module": "fixture",
+                "element": "label"
+              },
+              "state": "present",
+              "validation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              }
+            },
+            {
+              "field": {
+                "module": "fixture",
+                "element": "caption"
+              },
+              "state": "present",
+              "validation": {
+                "valid": true,
+                "complete": true,
+                "diagnostics": []
+              }
+            }
+          ]
+        }
+      }
+    ],
+    "qualification": "Actual logical Record checks on explicit upgrade. Original schema/source custody remains distinct; no native accepted IDs, defaults, dataset key/relationship checks, qualified validator isolation or source ACK."
+  },
+  "receipt_sha256": {
+    "summary.json": "0ad432991acf172c51ad286440f50e827188136682525064fd02859879fbfc2f",
+    "records/record-1.json": "76d49070046819452f07619a0dd8d5e110a790a32c44ebc5eae1907ccc8b55fe"
+  },
+  "qualification": "Explicit configured source and original model/IDs, actual pinned UMF three-value checks, four-event create/update/delete/history and exact replay. Native configured-source runner not yet executed; no accepted Truss IDs or publication/ACK claim."
+}
