@@ -2563,3 +2563,36 @@ cases are not claimed; those are local tests. This closes the observed timestamp
 fidelity gap for the fresh one-row workflow. Actual Truss runtime/catalog/feed,
 wider schema/source integration, remote fencing and ACK remain open. No compute,
 grants, predictive optimization or native source/table data changes occurred.
+
+
+### Additional immutable JSONL source publication wiring — 2026-10-08
+
+The stored native runner now exposes explicit CSV/JSONL selection rather than
+embedding a CSV-only consumer handoff. Generic runner is
+run_native_source_stream.py; the original CSV entrypoint delegates with the same
+CSV default, request IDs/checkpoints and journal scopes. Shared
+JournaledFileProgress retains private immutable file custody, mandatory source/
+resolver policies, exact publication correspondence, contiguous original-prefix
+progress and post-COMMIT uncertainty semantics. Separate adapters retain CSV row
+ordinals and JSONL complete-transaction byte offsets without converting one to
+the other. JSONL publication requests bind a new explicit checkpoint profile;
+existing outbox/CSV profiles remain separately selected and tested.
+
+Three new JSONL tests and five existing CSV handoff tests pass, alongside three
+source-checkpoint, three CSV-checkpoint and three journaled-publisher-driver
+checks (17 unique tests). JSONL checks cover all three original fixture groups,
+reopen/exact old replay, gap/source changes, resolver refusal/closure uncertainty
+and cursor/ordinal substitution. Initial new-test assumptions incorrectly treated
+the existing fixture as two groups and expected a later checkpoint exception
+where original staging refused first; assertions were corrected to the actual
+three-group source and preserved earlier refusal. No admission was relaxed.
+Actual pinned UMF Record checks also pass for the JSONL source records.
+
+Offline read-only backup copies of both completed native CSV journals recover
+positions 1 and 4 unchanged through the extracted component; no original journal
+or cloud data was modified by that check. Both CLI entrypoints load. No native
+JSONL run or new native mutation occurred in this iteration. Its next integration
+check must use its own empty installation/retained UMF proof and small first
+complete group, then independently verify publication, byte checkpoint and
+singleton. This is an additional supported wiring slice, not completion of
+actual Truss, arbitrary schemas, combined multi-feed state or remote fencing/ACK.

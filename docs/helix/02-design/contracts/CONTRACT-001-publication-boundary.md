@@ -347,3 +347,43 @@ new-process recovery. Initial pin-role refusal, rollback and subsequent admissio
 remain explicit evidence. Predictive optimization and all grants/settings are
 unchanged. This component demonstration does not qualify StoredPublisherBackend's
 full native phase/apply/ACK path or stand up real Truss; the goal remains open.
+
+
+## Immutable JSONL source checkpoint — 2026-10-08
+
+The additional ashlar-immutable-jsonl/0.1 checkpoint profile binds an admitted
+ashlar-jsonl-transactions/0.1 SourceBatch. Its exact fields are profile, feed,
+epoch, previous, position, payload_digest and batch_id, all strings. previous
+and position are canonical nonnegative signed64 byte-offset cursors from the
+original complete batch; position MUST be strictly greater than previous.
+payload_digest is SHA256 over exact begin + ordered record bytes + commit bytes.
+Batch custody MUST reparse and match the original transaction. Unknown fields,
+versions, changed bytes/cursors or substituted group ordinals MUST refuse.
+The existing CSV row-ordinal and PostgreSQL outbox group profiles stay separate.
+
+JournaledFileProgress is a shared host handoff for the two explicitly supported
+immutable-file adapters. CSV retains its original journal tables/configuration,
+request/checkpoint profile and row ordinals. JSONL has separate scope/progress
+tables and actual byte positions. The bounded private original file MUST match
+its original full SHA256 and adapter configuration on every admission. Complete
+source checkpoints MUST form the original ordered prefix; byte offsets MUST NOT
+be inferred from batch counts. position() returns the source cursor, while
+completed_batches() identifies the number of complete original groups for resume.
+A missing group, changed file/epoch/configuration, predecessor or retained proof
+MUST refuse. Registration of a new source profile alone grants no authority.
+
+Mandatory source/writer policy and native resolver admission remain held across
+the durable local COMMIT, including complete publication correspondence and pin/
+retention checks. A post-COMMIT closure failure remains explicit
+LocalProgressOutcomeUnknown and licenses only original-receipt reconciliation.
+This is local consumer progress, never native Truss registration or remote ACK.
+
+The host run_native_source_stream.py now selects supplied CSV or JSONL fixtures
+using this same stored-publisher path. JSONL fixture support is three complete
+object create/update/delete groups under the retained revision-3 StringRecord
+mapping; arbitrary schemas, relationships and real Truss IDs/feed are not admitted.
+The existing run_native_csv_stream.py delegates with CSV default. Existing stream,
+publication ID and checkpoint meanings remain unchanged for that default. Source
+switching requires its own admitted empty installation and original journal; it
+MUST NOT overwrite an existing publication or pretend multiple feeds share an
+unimplemented combined state. Native JSONL execution remains unverified.

@@ -953,3 +953,43 @@ reuse even if caught. The qualified cooperating maintenance profile still applie
 and predictive optimization remains bounded by the finite retention window.
 The demonstrated query issued 112 warehouse reads instead of the earlier 128;
 this reduces duplicate fixture scans but is not a latency or scale claim.
+
+
+## Additional JSONL source through the stored publisher
+
+`tools/run_native_source_stream.py` now has `--source csv|jsonl` (CSV default).
+The original CSV command remains a compatibility entrypoint with the same
+original journal/request semantics. JSONL selects the supplied
+`local-string-source.jsonl` and revision-3 fixture mapping. Its three complete
+transactions preserve exact begin/event/commit bytes, required/optional strings,
+unknown retained content, updates and deletes. This is a bounded development
+source; it does not register real Truss IDs or supply a real Truss feed.
+
+Use an independent admitted empty eight-carrier installation, actual same-target
+UMF intake proof and its own retained stream journal:
+
+```sh
+python3 tools/run_native_source_stream.py \
+  --source jsonl --limit 1 \
+  --installation /path/to/original/installation/summary.json \
+  --intake-proof /path/to/original/registry/summary.json \
+  --journal /path/to/persistent/jsonl-stream.sqlite \
+  --output out/native-jsonl-first \
+  --umf-source /path/to/clean/umf-record-check \
+  --profile aidev-cus --warehouse 2439e1f2e37ac563
+```
+
+`--limit` counts complete source groups. JSONL's local_consumer_position and
+publication progress are actual byte offsets; local_completed_batches is the
+separate resume count. Do not replace byte offsets with group ordinals. Continue
+through groups 2 or 3 using the original journal and fresh output directories.
+After a completed publication, `--query-only --entity-id 1` uses the same original
+proof/journal and exact last group limit; published_at is microsecond text.
+The local checkpoint only advances after resolver admission inside the complete
+pin/retention interval, with post-COMMIT uncertainty explicitly retained.
+
+Three JSONL and five CSV local handoff tests pass. Copies of original native CSV
+journals still recover their retained positions. Native JSONL publication remains
+unverified, and this runner cannot combine sources into an existing installation;
+source switching must not clear existing tables/phases or manufacture new epochs.
+Broader source/schema support and actual Truss remain required for the full goal.

@@ -1,4 +1,4 @@
-"""Exact native outbox checkpoint binding for durable publication intent."""
+"""Exact explicit source checkpoint binding for durable publication intent."""
 import hashlib
 import json
 from .schema import _json
@@ -110,10 +110,28 @@ def csv_checkpoint(batch):
     return json.dumps(checkpoint,sort_keys=True,separators=(',',':'))
 
 
+def jsonl_checkpoint(batch):
+    """Bind the complete original transaction and its actual byte-offset cursors."""
+    batch_row(batch)
+    if batch.profile!='ashlar-jsonl-transactions/0.1':raise CheckpointError('Original JSONL transaction profile required')
+    for token in (batch.cursor_before,batch.cursor_after):
+        if not isinstance(token,str) or len(token)>19 or not token.isascii() or not token.isdecimal() or str(int(token))!=token or not 0<=int(token)<2**63:
+            raise CheckpointError('Canonical signed64 JSONL byte cursor required')
+    if int(batch.cursor_after)<=int(batch.cursor_before):raise CheckpointError('Complete forward JSONL transaction required')
+    value={'profile':'ashlar-immutable-jsonl/0.1','feed':batch.feed,'epoch':batch.epoch,
+           'previous':batch.cursor_before,'position':batch.cursor_after,'batch_id':batch.batch_id,
+           'payload_digest':hashlib.sha256(batch.begin+b''.join(r.raw for r in batch.records)+batch.commit).hexdigest()}
+    return json.dumps(value,sort_keys=True,separators=(',',':'))
+
+
 def validate_source_checkpoint(text,batch):
     if not isinstance(text,str) or len(text)>16384:raise CheckpointError('Bounded original checkpoint text required')
     value=_json(text.encode('utf-8'))
     if not isinstance(value,dict):raise CheckpointError('Explicit source checkpoint profile required')
+    if value.get('profile')=='ashlar-immutable-jsonl/0.1':
+        expected=_json(jsonl_checkpoint(batch).encode('utf-8'))
+        if value!=expected:raise CheckpointError('JSONL checkpoint differs from original transaction bytes/cursors')
+        return value
     if value.get('profile')=='ashlar-postgresql-outbox/0.1':return validate_outbox_checkpoint(text,batch)
     if value.get('profile')=='ashlar-single-line-csv/0.1':
         expected=_json(csv_checkpoint(batch).encode('utf-8'))
