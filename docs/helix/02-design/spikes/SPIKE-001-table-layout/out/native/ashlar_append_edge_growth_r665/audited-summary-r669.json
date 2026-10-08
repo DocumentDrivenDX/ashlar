@@ -1,0 +1,51 @@
+{
+  "state": "All161 exact final native statements,44 attributed appends and320 independent full-field digest groups audited",
+  "costs": {
+    "read_bytes": 19538987139,
+    "write_remote_bytes": 12985250098,
+    "spill_to_disk_bytes": 0
+  },
+  "original_partial_wall_s": 720.3434330419999,
+  "recovery_wall_s": 101.445394875,
+  "oracle_sha256": "a959801b547267f70a4dce3015477cab19428c5a670a093e26088c1476ba6266",
+  "profiles": {
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_edge_current_r643",
+      "id": "34385705-21a3-4f8e-bea9-5a399b4ab286",
+      "version": 11,
+      "rows": 8000000,
+      "files": 104,
+      "bytes": 6427536483
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_source_record_r643",
+      "id": "ebff4b7c-07f1-42ba-bd52-2c7df855985c",
+      "version": 11,
+      "rows": 8000000,
+      "files": 120,
+      "bytes": 6686689798
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_property_journal_r643",
+      "id": "73fd68f5-f4cb-468f-b39c-ae6827474fd1",
+      "version": 11,
+      "rows": 32000000,
+      "files": 103,
+      "bytes": 5864012791
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_adjacency_forward_r643",
+      "id": "fc7f1833-1cdc-433f-8a69-9944ca497d69",
+      "version": 12,
+      "rows": 8000000,
+      "files": 12,
+      "bytes": 69692119
+    }
+  },
+  "sources": {
+    "summary.json": "12e8a5e633c49ab21646e7f126a6911061862672ba6df3317941c2268df1f6aa",
+    "shared-history.json": "c7c09afbe3188bfd1265210e7374f36e537bac649f1110e1c20622313e58aa3a",
+    "statements.jsonl": "bf9910a16d99dc4a50a952ec08887e2d2546001b43ace0cab51267a7cab1be10"
+  },
+  "qualification": "Private first8M new-edge extent with associated raw records/property events/adjacency; independent all-field local oracle. Existing published nodes and edges untouched; new node extent pinned15. No publication, ACK, graph-wide endpoint closure, complete16M/80M graph, billion-scale, ingest or singleton performance admission. Partial commits survive a stop and must be inspected; never replay automatically. Source response recovered from original terminal handle without replay. Pending validations completed in separate read-only phase. Original wall_s remains partial observation; full uninterrupted controller wall time unqualified. Every live row belongs to a verified100k-entity bucket; SHA256 collision assumption. Closing observations are not source authority, concurrency fence or retention proof."
+}
