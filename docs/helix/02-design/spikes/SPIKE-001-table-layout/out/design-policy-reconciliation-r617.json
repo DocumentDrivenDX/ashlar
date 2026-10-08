@@ -1,0 +1,18 @@
+{
+  "state": "Reconciled current contract/ADR/policy to seventh publication and sparse maintenance evidence",
+  "artifacts": {
+    "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md": {
+      "before_sha256": "6a70216d0931eb86769c34afa3b3f814a8a9493900f35282ea7bd8a9dc7e590a",
+      "after_sha256": "e6826adb75ba6c8c92555d8264edea480deb3b9e8c2fb752e7a4360987c8470c"
+    },
+    "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": {
+      "before_sha256": "8c396cd4e5581c3a558080cd087c6de4ae025eaabb06c67f66ef62c261cdb3aa",
+      "after_sha256": "097c58844fe504155598d8ad0965b404fb5e0d6a2a4c86fb9e6fe779ea2e0dd6"
+    },
+    "/Users/erik/Projects/ashlar/docs/helix/02-design/spikes/SPIKE-001-table-layout/publication-maintenance-policy.md": {
+      "before_sha256": "53babf59ee7cccc44f9b8f6bb282ccd4a2c2a708d6dd2d5129c5e3fc1365dc5f",
+      "after_sha256": "1af6d0636336544dc47cbcf86ff43dd49b0f8b6fad3f12bcea963617c3918465"
+    }
+  },
+  "qualification": "Draft/proposed statuses and original frontmatter preserved; no schema/version/UMF/graph compatibility or performance gate relaxation."
+}

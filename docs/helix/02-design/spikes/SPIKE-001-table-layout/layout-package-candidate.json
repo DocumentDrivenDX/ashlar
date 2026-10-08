@@ -634,7 +634,7 @@
     "out/native/ashlar_key_screen_r147/cleanup/query-history.json": "fe0e570b932a51ca4e4e37b8f3dad3afd568e0880c2961903b4f9f5994d9b3cd",
     "publication_capacity_r148.py": "dd7cb463dbf717f32e588f015d220a019cdbf89a9d786631bbd2fc582c172868",
     "out/publication-capacity-r148.json": "21c44559110882fbedf3429d1e36914b66b83a49121e4a158653a80913657a9a",
-    "publication-maintenance-policy.md": "53babf59ee7cccc44f9b8f6bb282ccd4a2c2a708d6dd2d5129c5e3fc1365dc5f",
+    "publication-maintenance-policy.md": "1af6d0636336544dc47cbcf86ff43dd49b0f8b6fad3f12bcea963617c3918465",
     "publication_queue_r149.py": "2ca7cf831edc4f76a0dafab38053296215cbf7fc21d53cb8d8a0e6e3f015249b",
     "publication_queue_audit_r149.py": "419543cda37477a423941c552c1c800fe5d12d6dc5cb117968fd900e8abba7ad",
     "publication_queue_cleanup_r149.py": "44afc1f19f40731c9407ca51fcc74fe065bd3b88a68bac4e65114e6ce8a4f874",
@@ -1363,8 +1363,8 @@
     "out/native/ashlar_input_volume_resume_r266/summary.json": "1e2d5d825e73f88bd7d79e509119b1878fb0f53020da1a63895f37f05d7d13c1",
     "capacity_observed_r268.py": "aa4504fa25e8403df49d8610ced3d31ae08cf6c37b73a2644fd58095327317b4",
     "out/capacity-observed-r268.json": "094314e2ea3b24b2b2b13fb4af32c012e1da956679ed6de39b92662e8de1e9df",
-    "../../adr/ADR-001-delta-canonical-and-serving-layout.md": "8c396cd4e5581c3a558080cd087c6de4ae025eaabb06c67f66ef62c261cdb3aa",
-    "../../contracts/CONTRACT-003-delta-graph-tables.md": "6a70216d0931eb86769c34afa3b3f814a8a9493900f35282ea7bd8a9dc7e590a",
+    "../../adr/ADR-001-delta-canonical-and-serving-layout.md": "097c58844fe504155598d8ad0965b404fb5e0d6a2a4c86fb9e6fe779ea2e0dd6",
+    "../../contracts/CONTRACT-003-delta-graph-tables.md": "e6826adb75ba6c8c92555d8264edea480deb3b9e8c2fb752e7a4360987c8470c",
     "out/native/ashlar_scale_edges_r261/summary.json": "1d3a9b028d95fca1c07420b27265d1a940efc873fa568e36fdd7100bc1b82899",
     "out/native/ashlar_scale_edges_r261/shared-history.json": "7b17e657cc32d95c335728d01295b650bb0ce782641e7664c068ba58ddf2ff7d",
     "out/native/ashlar_scale_edges_r261/statements.jsonl": "8f7562a5a308cb97c845d2a0383fcb7e67172e5b3059cedc6f4d9f5b7840fc42",
@@ -2686,7 +2686,8 @@
     "sparse-read-disposition-r616.md": "23658e698ed1abcda58c8d7e160a642bd544bfbf79cf9fc335bf29213e05cebf",
     "sparse_post_audit_r614.py": "08d2981429893380cff99a74222c6b9a7172a9e68ac472e181016dcabc77ee32",
     "sparse_post_reads_r613.py": "570f54f67eaffd4cdae02b13aed40e1388c6ee070bc77dc143d7c6057531a799",
-    "sparse_read_groups_r615.py": "829609ce5c72edcbe8250d09fcf6120130dcf6e451d2f48b7fb3ed5c29a69d4e"
+    "sparse_read_groups_r615.py": "829609ce5c72edcbe8250d09fcf6120130dcf6e451d2f48b7fb3ed5c29a69d4e",
+    "out/design-policy-reconciliation-r617.json": "e95b1e20ca63e098adcc24306beff75295895c1e912de55b5bf498d884985f37"
   },
   "evidence": {
     "ddl": {

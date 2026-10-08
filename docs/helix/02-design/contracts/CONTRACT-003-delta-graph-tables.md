@@ -50,15 +50,16 @@ settings are experiment candidates, not approved compatibility claims. UMF
 binding and source catalog schemas remain deferred. Truss's catalog IDs and
 source-local object/edge IDs are retained without renumbering.
 
-## Current qualification summary (non-normative, through r583)
+## Current qualification summary (non-normative, through r616)
 
-The latest [complete sixth publication](../spikes/SPIKE-001-table-layout/sixth-publication-disposition-r542.md)
-selects N6/E9/R6/J6/A7/T6 for the named private tables in its immutable vector.
+The latest [complete seventh publication](../spikes/SPIKE-001-table-layout/seventh-publication-disposition-r602.md)
+selects N6/E10/R7/J7/A8/T7 for the named private tables in its immutable vector.
 These labels are role-local versions, not a global revision. Node physical head8
-is distinct from selected node6. The synthetic bootstrap and six disjoint100k
+is distinct from selected node6. The synthetic bootstrap and seven disjoint100k
 batches preserve exact current carriers, raw/unknown content, property-level
 history, typed endpoints and tombstones. Final selected current is8M nodes/
-39.94M live edges. Production source authority, canonical constraint enforcement
+39.93M live edges. Edge physical head12 is distinct from selected edge10 after
+the bounded maintenance experiment. Production source authority, canonical constraint enforcement
 and cross-role writer fencing remain unqualified. This does not approve the draft.
 
 Retain unpartitioned identity-hash liquid clustering and the64MiB initial file
@@ -74,22 +75,35 @@ a universal file-size winner or transfer their timing to the40M-edge graph.
 Actual emitted files, deletion vectors and maintenance cost remain measured
 policy inputs; targetFileSize is not a maximum or promised file geometry.
 
-Latest complete ready-input processing221.826s and current MERGE64.677s remain
-above the provisional60s freshness budget even before source preparation or
-arrival is accounted for. This is not a measured producer-arrival p95. The [sixth changed-key cohort](../spikes/SPIKE-001-table-layout/sixth-read-closing-disposition-r552.md)
-reports repeat p95engine102ms/caller407ms at E9, missing100/250ms. These are scoped
-measurements, not service p95, producer-arrival or sustained/burst evidence.
-Controlled cold/concurrent service and actual1B-node/5B-edge admission remain
-open. Unity Catalog Delta remains selected independently of those misses.
+Latest complete ready-input processing is213.056s; its current MERGE takes
+70.787s caller/69.648s engine and reads35.775GB. Both exceed the provisional60s
+freshness budget before source preparation or arrival is accounted for. The
+seventh publisher integrates complete concurrent closing checks, all15 uncached
+post-commit validations, closed commit intervals and exact manifest readback.
+Its151 native statements have final telemetry. This is one synthetic observation,
+not producer-arrival p95, sustained10k/s or100k/s burst admission. Metadata
+observations remain distinct from a production writer fence.
 
-The [commit-bound concurrent closing module](../spikes/SPIKE-001-table-layout/commit-closing-native-disposition-r558.md)
-checks all ten base/input UUIDs, full schemas, protocol/features, physical profiles
-and actual SQL commit IDs on four owned persistent clients. Native complete
-cohorts take4.52s/3.02s. This qualifies a publisher component: it does not establish
-a new whole-publication clock or a production fence. Independent closed commit
-interval checks, content validation, exact manifest readback and retained-version
-rules remain required. A metadata observation cannot prevent another writer
-from committing afterward. Non-SQL-writer commit identity needs its own profile.
+The [sparse maintenance experiment](../spikes/SPIKE-001-table-layout/sparse-maintenance-disposition-r612.md)
+rewrites ten broad-overlap files into six in21.722s, with two same-SID OPTIMIZE
+commits11/12. Every removed/added full20field multiset matches bidirectionally;
+common file path/size/livecount/extrema remain unchanged. Independent Delta-log
+deletion-vector action custody for common files is not proved. Existing E10
+publication remains pinned; no maintenance manifest or source progress advances.
+The complete maintenance/preservation experiment takes51.970s/4.615GB read/
+0.363GB write, separately from17.435s baseline preparation.
+
+[Matched E10/E12 reads](../spikes/SPIKE-001-table-layout/sparse-read-disposition-r616.md)
+include identities inside and outside the selected range. All32 full-record or
+deletion-absence responses pass. Repeated E12 engine p95 is96ms and caller374ms;
+median files11.5→2.5 and aggregate read bytes fall73.8%. This tiny serial cached-data
+cohort passes the scoped engine target but misses caller250ms; it proves no
+service-wide warm/cold/concurrency gate. Retain overlap-triggered maintenance as
+a policy candidate with explicit cost and preservation admission, rather than
+blind range sweeps or a promised per-batch60s cleanup. Current physical heads
+must be reconciled independently of selected publication pins before new writes.
+Controlled cold/concurrent service and actual1B-node/5B-edge admission remain open.
+Unity Catalog Delta stays selected independently of those misses.
 
 [File geometry](../spikes/SPIKE-001-table-layout/file-overlap-disposition-r488.md)
 and [throughput envelope](../spikes/SPIKE-001-table-layout/throughput-envelope-disposition-r489.md)
@@ -114,7 +128,7 @@ they do not approve a production source profile or reopen the architecture.
 
 | Role | Physical candidate | Qualified limit |
 | --- | --- | --- |
-| object_current / edge_current | Shared generic BIGINT identities, exact STRING bags/retained content, typed endpoints; unpartitioned hash liquid clustering and explicit hash+full-key predicates | Complete8M-node/40M-edge synthetic bootstrap and six disjoint100k change publications; latest selected current8M/39.94M. CTAS spike constraints are separately scoped. Full scattered-range subdivision is rejected by r457 cost evidence; singleton/cold/service/billion gates remain open. |
+| object_current / edge_current | Shared generic BIGINT identities, exact STRING bags/retained content, typed endpoints; unpartitioned hash liquid clustering and explicit hash+full-key predicates | Complete8M-node/40M-edge synthetic bootstrap and seven disjoint100k change publications; latest selected current8M/39.94M. CTAS spike constraints are separately scoped. Full scattered-range subdivision is rejected by r457 cost evidence; singleton/cold/service/billion gates remain open. |
 | source_record | Independent exact envelope/digest and string cursor; feed/epoch/delivery identity with origin-oriented LC and statistics | Every mixed bootstrap/change origin retained. Raw storage is additional to current, not replaceable by parsed current fields. |
 | property_journal | Independent exact old/new tokens, presence flags and direct origin/event ordinal | Full DDL's position-oriented clustering remains proposed. Mixed experiment uses source-delivery LC; nullable scalar position and real producer access pattern require a separately measured origin-layout decision. Do not silently replace source meaning. |
 | tombstone | Typed deletion identity, direct entity_version and source origin, with lifecycle version cross-checked against qualified journal/source evidence | Current0.3 DDL declares entity_version BIGINT NOT NULL; r73 native CREATE succeeded. Small r232 CTAS tombstone sample omitted this field and does not qualify the complete canonical schema. Latest-deletion/version fencing and resurrection prevention still require a source-profile proof; a tombstone row alone does not establish them. No TTL. |

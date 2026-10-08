@@ -130,9 +130,10 @@ freshness. Unity Catalog Delta remains selected independent of benchmark misses.
 
 ## Current measured qualification and consequence
 
-The [sixth complete synthetic publication](../spikes/SPIKE-001-table-layout/sixth-publication-disposition-r542.md)
-preserves8M nodes/39.94M live edges after six disjoint100k batches. Its exact
-vector is N6/E9/R6/J6/A7/T6; node physical head8 remains distinct from selected6.
+The [seventh complete synthetic publication](../spikes/SPIKE-001-table-layout/seventh-publication-disposition-r602.md)
+preserves8M nodes/39.93M live edges after seven disjoint100k batches. Its exact
+vector is N6/E10/R7/J7/A8/T7. Node physical head8 and edge physical head12
+remain distinct from selected node6/edge10; maintenance has not advanced publication.
 Retain generic exact carriers, unpartitioned identity-hash liquid clustering,
 full tuple predicates and independent raw/journal/tombstone evidence. CTAS
 fixture success does not qualify every canonical DDL constraint or real source.
@@ -149,23 +150,35 @@ cohort. Fixed order/cache/compiled versions prevent causal claims; retain the
 candidate for separately justified workloads rather than repeat it unchanged.
 The generated-column2.5M fixture also has distinct interoperability obligations.
 
-**Publisher component:** Commit-bound concurrent closing now has offline refusal
-and [native execution evidence](../spikes/SPIKE-001-table-layout/commit-closing-native-disposition-r558.md).
-Four owned clients preserve all ten UUID/schema/protocol/profile/head checks and
-actual SQL statement IDs. Two complete cohorts take4.52s/3.02s. Integrate these
-checks while retaining independent closed commit intervals, full content checks,
-manifest readback and final resource telemetry; observations do not fence writers.
-No new full publisher or clock improvement follows from component timings.
-The non-SQL-writer commit identity and production authority mechanisms remain open.
+**Maintenance policy:** Prefer a separately admitted rewrite triggered by broad
+file overlap over blindly visiting every hash range. The [E10 sparse pilot](../spikes/SPIKE-001-table-layout/sparse-maintenance-disposition-r612.md)
+removes allten wide-domain files and adds six in21.722s; total preservation/custody
+work is51.970s. Changed-file complete values pass exact EXCEPT ALL in both
+directions. Common-file physical custody is scoped; independent deletion-vector
+log custody remains open. No maintenance manifest or production fence is proved.
 
-**Performance and capacity:** Full ready-input publication221.826s/current MERGE
-64.677s and E9 changed-key repeat p95engine102ms/caller407ms leave original60s
-freshness and100/250ms warm targets unmet. Exact source-only full-carrier digest
-validation takes5.49s caller/4.76s engine in one cached observation, but this is
-not a causal decomposition of MERGE. Command-only EXPLAIN does not expose its
-internal executed plan. A source broadcast hint in the preserved side of a
-left join leaves its initial plan unchanged; do not drop missing-key protection
-or claim that hint improves the guarded mutation.
+The [matched reads](../spikes/SPIKE-001-table-layout/sparse-read-disposition-r616.md)
+show median files11.5→2.5 and73.8% less read bytes. Repeated E12 engine96ms meets
+the scoped100ms target, while caller374ms misses250ms. Four keys inside and four
+outside the range include full values and deletion absence; cached-data serial
+observations do not establish service p95, cold behavior or concurrency. Include
+maintenance, validation and preparation costs when judging the operational envelope.
+Reconsider this policy if broader workloads or later ingest erase the benefit.
+
+**Publisher integration:** The seventh full publication now integrates concurrent
+complete ten-table UUID/schema/protocol/profile/commit closing custody with closed
+write intervals, all15 uncached post-commit validations, manifest readback and
+final telemetry. All151 statements qualify. Complete ready-input processing is
+213.056s versus prior221.826s; this ordered pair is not a causal improvement claim.
+Current MERGE alone is70.787s caller/69.648s engine, exceeding60s. Its nested
+metadata-time metric is not standalone catalog overhead. Production writer
+fencing, real source authority and non-SQL commit identity remain open.
+
+**Performance and capacity:** Caller250ms and full60s freshness remain unmet.
+Source-only digest timing, command-only MERGE EXPLAIN and the unchanged broadcast
+join plan do not establish a faster guarded mutation. Preserve missing-key and
+full predecessor protections. Selected publication pins are not physical heads;
+subsequent mutation admission must reconcile the bounded maintenance commits.
 
 Keep64-range scheduling rejected by its full100k129.676s/83.651GB result versus
 prior39.279s/33.261GB; one pruned range does not overturn the whole-batch cost.

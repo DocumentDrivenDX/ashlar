@@ -3,7 +3,36 @@
 Draft physical policy under CONTRACT-001, CONTRACT-002, CONTRACT-003 and ADR-001.
 No producer wire format, UMF binding or new support claim is selected here.
 
-## Current40M-edge maintenance candidate
+## Current qualification through r616
+
+The [seventh publication](seventh-publication-disposition-r602.md) selects
+N6/E10/R7/J7/A8/T7, with8M nodes/39.93M live edges. Its full ready-input clock is
+213.056s and guarded current MERGE70.787s; neither is a60s freshness qualification.
+Concurrent closing is now integrated, with complete retained schemas/profiles/
+commit IDs, all15 post-commit checks and151 final native statements.
+
+Treat broad file overlap as the maintenance trigger candidate. At E10 ten files
+span more than90% of the live hash domain. One bounded08..0c FULL operation
+[removes allten and adds six](sparse-maintenance-disposition-r612.md), advancing
+physical head11/12 with oneSID while publication staysE10. Complete changed-file
+multisets match exactly in both directions; common-file physical custody does
+not independently establish deletion-vector log custody. That proof, production
+fencing and a new maintenance manifest remain outstanding.
+
+[Matched reads](sparse-read-disposition-r616.md) pass32 full-record/absence results,
+reduce median files11.5→2.5/readbytes73.8%, and give repeated engine96ms/caller374ms.
+The engine target passes only this tiny cached-data cohort; caller still misses.
+Charge21.722s optimizer,51.970s full maintenance/preservation,17.435s baseline
+and30.288s read comparison separately. They are not source-arrival freshness.
+Do not schedule64blind rewrites from the sum of overlapping ranges: E10 candidate
+file coverage sums90.8GB across64ranges versus32.46GB unique physical files.
+Actual optimizer selection and I/O must be measured; live extrema are not persisted
+statistics. Admit a future batch only after physical head12 is reconciled with
+publishedE10 and complete custody is retained. No writer or throughput admission
+follows from the current pilot.
+
+## Historical second-batch maintenance evidence
+
 
 Retain the proposed unpartitioned lookup-hash liquid-clustered baseline with full native identity checks and exact carriers;64MiB remains a tuning target, not a file-size guarantee. The [matched second-batch comparison](second-layout-comparison-r340.md) favors LC ingest cost. The [bounded maintenance qualification](lc-prefix-maintenance-disposition-r353.md) proves one prefix rewrite33.8s/2.328GB with all39.98M complete carriers preserved and actual same-SID versions4/5. All-table ordinary attempts remain canceled evidence with costs retained; no cheap per-batch whole maintenance assumption is justified.
 
