@@ -2900,8 +2900,8 @@
     "../../../../../README.md": "11e0aaa10f67e008542066d293624bd5e195529dd5bc2c3f8ed75b960f22bda7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
-    "../../../../../examples/end-to-end/README.md": "2ab5b1a97a288e56504a2be1d823bc0cc60e8a1e683fa5a16013e3c230b39bdb",
-    "../../../04-build/end-to-end-plan.md": "f68eab851501b95129985def603fa1a2261dba8f9364db4497c7cf5f52ab1e0d",
+    "../../../../../examples/end-to-end/README.md": "d8a866c534f8cf081e2616ac8215d72ce968a188943e7eca4deccee495f2cdd2",
+    "../../../04-build/end-to-end-plan.md": "91d1407b4dbf0f81b598db0082427c9d7cbbe7ae7cd48ca5907d8479186a38f1",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -2912,7 +2912,13 @@
     "../../../../../examples/end-to-end/schema-v1.intake.json": "ad8a83360445c52aa7bc0c4d913ce4e44c5823b9b5f6c492580030ae11e1920d",
     "../../../../../examples/end-to-end/schema-unknown.intake.json": "fae1dc5772974a64f1ed3c68030753b1b06281759e88af55f048edb4e765bd0d",
     "../../../../../examples/end-to-end/schema-v2.intake.json": "f25dc242c74e93f4d86fab10ad1eecc952dc4efbfdb8478e7c5583bf5d065a76",
-    "../../../../../examples/end-to-end/schema-unknown.umf.json": "5221c59ad5c35bf25dda8b79e9de88b2ab096c003dc5bae74254a68b22c4d427"
+    "../../../../../examples/end-to-end/schema-unknown.umf.json": "5221c59ad5c35bf25dda8b79e9de88b2ab096c003dc5bae74254a68b22c4d427",
+    "../../../../../tools/install_truss_layout.py": "f16718d4af6cff2bbaf790d829106d867349bc4863c720d4b014687448b1239b",
+    "out/truss-layout-utf8-native-20261008.json": "837a23039b1df39894c722c8cf82bbc97fe60bd934ab3ca56e5dbedc843496a7",
+    "out/truss-utf8-helper-20261008.json": "0e4dcf0bf5fa88a401c64b8b080639a1e2f4bc1bccf226fa6ce3f43944d7709c",
+    "out/truss-installed-inventory-20261008.json": "eaf6367ae9bb120d9687a2b0ff40bfdeec904095acb281507a44b32fd78783cd",
+    "out/truss-layout-installed-20261008.json": "2f0478cf44427b1db5ed35cd43400e925cc2f9cd3ca8d511d9d1ca27a8eb65dd",
+    "out/truss-layout-native-20261008.json": "77a58640abe059252aac6cb551dcf6cd710ba1ac2b4df94290768a9fef9398cb"
   },
   "evidence": {
     "ddl": {

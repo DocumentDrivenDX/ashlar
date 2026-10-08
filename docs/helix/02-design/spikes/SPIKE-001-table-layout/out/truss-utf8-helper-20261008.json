@@ -1,0 +1,26 @@
+{
+  "state": "Five exact native UTF8 byte controls passed",
+  "cases": [
+    {
+      "value": "",
+      "utf8_hex": ""
+    },
+    {
+      "value": "ASCII",
+      "utf8_hex": "4153434949"
+    },
+    {
+      "value": "é雪",
+      "utf8_hex": "c3a9e99baa"
+    },
+    {
+      "value": "slash\\quote'",
+      "utf8_hex": "736c6173685c71756f746527"
+    },
+    {
+      "value": "🙂",
+      "utf8_hex": "f09f9982"
+    }
+  ],
+  "qualification": "Fixed-UTF8 compatibility helper only; no engine/feed qualification"
+}

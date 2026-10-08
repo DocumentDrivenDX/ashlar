@@ -1,0 +1,14 @@
+{
+  "state": "Truss0.11 declarations installed with explicit UTF8 compatibility profile",
+  "source_sha256": "1ac7cc82405ff581072d45ad586f54d8c48343eaecc7c011195535ed359e37f9",
+  "execution_sha256": "8fd8b46afaa0a6ad97402c879f27e90efd0546b32807d03206fa240ef14861e0",
+  "compatibility_profile": "isolated UTF8 immutable conversion helper; one explicit generated-expression replacement; original source unchanged",
+  "observed": {
+    "tables": 46,
+    "functions": 2,
+    "server": "PostgreSQL 17.9 (Debian 17.9-1.pgdg13+1) on aarch64-unknown-linux-gnu, compiled by gcc (Debian 14.2.0-19) 14.2.0, 64-bit",
+    "head": 0
+  },
+  "container": "ashlar-e2e-truss-pg17",
+  "qualification": "46 table and2 function declaration installation only; no adopted complete runtime, catalog acceptance, mutation/feed, production authority or native semantic qualification"
+}

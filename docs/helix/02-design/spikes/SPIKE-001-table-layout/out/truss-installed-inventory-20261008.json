@@ -1,0 +1,3985 @@
+{
+  "state": "Native46-table membership and442-column count match source inventory",
+  "source_sha256": "1ac7cc82405ff581072d45ad586f54d8c48343eaecc7c011195535ed359e37f9",
+  "columns": [
+    {
+      "table_name": "catalog_acceptance_report",
+      "column_name": "rev",
+      "ordinal_position": 1,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "catalog_acceptance_report",
+      "column_name": "report_bytes",
+      "ordinal_position": 2,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "storage_row_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "source_epoch",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "administrative_namespace",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "request_id",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "identity_bytes",
+      "ordinal_position": 5,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "identity_sha256",
+      "ordinal_position": 6,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(identity_bytes)"
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "canonical_input_bytes",
+      "ordinal_position": 7,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "input_profile_bytes",
+      "ordinal_position": 8,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "receipt_bytes",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "receipt_profile_bytes",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "actual_database_role",
+      "ordinal_position": 11,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "authorization_evidence_bytes",
+      "ordinal_position": 12,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "producing_xid",
+      "ordinal_position": 13,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_administration_receipt",
+      "column_name": "original_production_evidence_bytes",
+      "ordinal_position": 14,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "storage_row_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "source_epoch",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "feed_profile",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "scope_identity",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "consumer_id",
+      "ordinal_position": 5,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "registration_id",
+      "ordinal_position": 6,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "worker_generation",
+      "ordinal_position": 7,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "state_kind",
+      "ordinal_position": 8,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "consumer_identity_bytes",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "consumer_identity_sha256",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(consumer_identity_bytes)"
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "original_registration_bytes",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "current_state_bytes",
+      "ordinal_position": 12,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "current_state_sha256",
+      "ordinal_position": 13,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(current_state_bytes)"
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "applied_boundary_bytes",
+      "ordinal_position": 14,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "applied_boundary_profile_bytes",
+      "ordinal_position": 15,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "inclusive_protection_xid",
+      "ordinal_position": 16,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "protection_evidence_bytes",
+      "ordinal_position": 17,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "procedure_profile_bytes",
+      "ordinal_position": 18,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "downstream_profile_bytes",
+      "ordinal_position": 19,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "registered_at",
+      "ordinal_position": 20,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_consumer",
+      "column_name": "acknowledged_at",
+      "ordinal_position": 21,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_artifact",
+      "column_name": "storage_row_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_artifact",
+      "column_name": "attempt_row_id",
+      "ordinal_position": 2,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_artifact",
+      "column_name": "artifact_role",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_artifact",
+      "column_name": "artifact_ordinal",
+      "ordinal_position": 4,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_artifact",
+      "column_name": "artifact_identity_bytes",
+      "ordinal_position": 5,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_artifact",
+      "column_name": "artifact_identity_sha256",
+      "ordinal_position": 6,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(artifact_identity_bytes)"
+    },
+    {
+      "table_name": "complete_feed_seed_artifact",
+      "column_name": "artifact_profile_bytes",
+      "ordinal_position": 7,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_artifact",
+      "column_name": "payload_bytes",
+      "ordinal_position": 8,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_artifact",
+      "column_name": "payload_sha256",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(payload_bytes)"
+    },
+    {
+      "table_name": "complete_feed_seed_artifact",
+      "column_name": "production_custody_evidence_bytes",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_attempt",
+      "column_name": "storage_row_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_attempt",
+      "column_name": "attempt_identity_bytes",
+      "ordinal_position": 2,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_attempt",
+      "column_name": "attempt_identity_sha256",
+      "ordinal_position": 3,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(attempt_identity_bytes)"
+    },
+    {
+      "table_name": "complete_feed_seed_attempt",
+      "column_name": "activation_profile_bytes",
+      "ordinal_position": 4,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_attempt",
+      "column_name": "source_context_bytes",
+      "ordinal_position": 5,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_attempt",
+      "column_name": "original_worker_bytes",
+      "ordinal_position": 6,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_attempt",
+      "column_name": "state_kind",
+      "ordinal_position": 7,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_attempt",
+      "column_name": "current_state_bytes",
+      "ordinal_position": 8,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_attempt",
+      "column_name": "inclusive_replay_xmin",
+      "ordinal_position": 9,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_attempt",
+      "column_name": "protection_evidence_bytes",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_attempt",
+      "column_name": "invalidation_evidence_bytes",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "complete_feed_seed_attempt",
+      "column_name": "classifier_retirement_evidence_bytes",
+      "ordinal_position": 12,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "rel_type_id",
+      "ordinal_position": 2,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "source_id",
+      "ordinal_position": 3,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "source_type",
+      "ordinal_position": 4,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "target_id",
+      "ordinal_position": 5,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "target_type",
+      "ordinal_position": 6,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "props",
+      "ordinal_position": 7,
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "order_key",
+      "ordinal_position": 8,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "rev",
+      "ordinal_position": 9,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "ver",
+      "ordinal_position": 10,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "created_at",
+      "ordinal_position": 11,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "updated_at",
+      "ordinal_position": 12,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge",
+      "column_name": "retained",
+      "ordinal_position": 13,
+      "data_type": "jsonb",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge_limit",
+      "column_name": "rel_type_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge_limit",
+      "column_name": "side",
+      "ordinal_position": 2,
+      "data_type": "character",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge_limit",
+      "column_name": "endpoint_id",
+      "ordinal_position": 3,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "edge_limit",
+      "column_name": "edge_id",
+      "ordinal_position": 4,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_configuration_prerequisite",
+      "column_name": "source_epoch",
+      "ordinal_position": 1,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_configuration_prerequisite",
+      "column_name": "feed_profile",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_configuration_prerequisite",
+      "column_name": "original_writer_xid",
+      "ordinal_position": 3,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_configuration_prerequisite",
+      "column_name": "configuration_address",
+      "ordinal_position": 4,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_configuration_prerequisite",
+      "column_name": "original_installation_identity_bytes",
+      "ordinal_position": 5,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_configuration_prerequisite",
+      "column_name": "original_configuration_generation",
+      "ordinal_position": 6,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_configuration_prerequisite",
+      "column_name": "original_configuration_profile_bytes",
+      "ordinal_position": 7,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_configuration_prerequisite",
+      "column_name": "original_configuration_bytes",
+      "ordinal_position": 8,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_configuration_prerequisite",
+      "column_name": "original_producer_inventory_bytes",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_configuration_prerequisite",
+      "column_name": "original_configuration_sha256",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_configuration_prerequisite",
+      "column_name": "original_owner_context_bytes",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_consumer",
+      "column_name": "consumer",
+      "ordinal_position": 1,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_consumer",
+      "column_name": "xid",
+      "ordinal_position": 2,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_consumer",
+      "column_name": "seq",
+      "ordinal_position": 3,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_consumer",
+      "column_name": "updated_at",
+      "ordinal_position": 4,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "source_epoch",
+      "ordinal_position": 1,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "feed_profile",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "original_writer_xid",
+      "ordinal_position": 3,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "registration_address",
+      "ordinal_position": 4,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "fact_kind",
+      "ordinal_position": 5,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "original_fact_key_bytes",
+      "ordinal_position": 6,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "original_fact_key_profile_bytes",
+      "ordinal_position": 7,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "original_payload_bytes",
+      "ordinal_position": 8,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "original_payload_profile_bytes",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "original_payload_sha256",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "original_owner_context_bytes",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "original_write_at",
+      "ordinal_position": 12,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "original_fact_clock_bytes",
+      "ordinal_position": 13,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_member",
+      "column_name": "delivery_ordinal",
+      "ordinal_position": 14,
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_prerequisite",
+      "column_name": "source_epoch",
+      "ordinal_position": 1,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_prerequisite",
+      "column_name": "feed_profile",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_prerequisite",
+      "column_name": "original_writer_xid",
+      "ordinal_position": 3,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_prerequisite",
+      "column_name": "prerequisite_address",
+      "ordinal_position": 4,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_prerequisite",
+      "column_name": "original_revision",
+      "ordinal_position": 5,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_prerequisite",
+      "column_name": "original_artifact_identity_bytes",
+      "ordinal_position": 6,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_prerequisite",
+      "column_name": "original_definition_bytes",
+      "ordinal_position": 7,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_prerequisite",
+      "column_name": "original_definition_profile_bytes",
+      "ordinal_position": 8,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_prerequisite",
+      "column_name": "original_definition_sha256",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_prerequisite",
+      "column_name": "original_owner_context_bytes",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_tx",
+      "column_name": "source_epoch",
+      "ordinal_position": 1,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_tx",
+      "column_name": "feed_profile",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_tx",
+      "column_name": "original_writer_xid",
+      "ordinal_position": 3,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_tx",
+      "column_name": "registration_counter",
+      "ordinal_position": 4,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_tx",
+      "column_name": "prerequisite_registration_counter",
+      "ordinal_position": 5,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_tx",
+      "column_name": "configuration_registration_counter",
+      "ordinal_position": 6,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_tx",
+      "column_name": "membership_generation",
+      "ordinal_position": 7,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_tx",
+      "column_name": "finalized_generation",
+      "ordinal_position": 8,
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_tx",
+      "column_name": "original_context_bytes",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_tx",
+      "column_name": "manifest_profile_bytes",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_tx",
+      "column_name": "manifest_bytes",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "feed_tx",
+      "column_name": "manifest_sha256",
+      "ordinal_position": 12,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_admission",
+      "column_name": "head_id",
+      "ordinal_position": 1,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_admission",
+      "column_name": "installation_id_utf8",
+      "ordinal_position": 2,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_admission",
+      "column_name": "source_epoch_utf8",
+      "ordinal_position": 3,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_admission",
+      "column_name": "configuration_generation",
+      "ordinal_position": 4,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_admission",
+      "column_name": "key_reuse",
+      "ordinal_position": 5,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_admission",
+      "column_name": "journal_mode",
+      "ordinal_position": 6,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_admission",
+      "column_name": "configuration_bytes",
+      "ordinal_position": 7,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_admission",
+      "column_name": "selected_binding_bytes",
+      "ordinal_position": 8,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_admission",
+      "column_name": "installed_inventory_bytes",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_admission",
+      "column_name": "configuration_sha256",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(configuration_bytes)"
+    },
+    {
+      "table_name": "installation_admission",
+      "column_name": "selected_binding_sha256",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(selected_binding_bytes)"
+    },
+    {
+      "table_name": "installation_admission",
+      "column_name": "installed_inventory_sha256",
+      "ordinal_position": 12,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(installed_inventory_bytes)"
+    },
+    {
+      "table_name": "installation_archive",
+      "column_name": "archive_row_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_archive",
+      "column_name": "installation_id",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_archive",
+      "column_name": "artifact_role",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_archive",
+      "column_name": "artifact_identity",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_archive",
+      "column_name": "artifact_bytes",
+      "ordinal_position": 5,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_archive",
+      "column_name": "artifact_sha256",
+      "ordinal_position": 6,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(artifact_bytes)"
+    },
+    {
+      "table_name": "installation_archive",
+      "column_name": "artifact_identity_sha256",
+      "ordinal_position": 7,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(ashlar_bootstrap.utf8_bytes(artifact_identity))"
+    },
+    {
+      "table_name": "installation_marker",
+      "column_name": "singleton_id",
+      "ordinal_position": 1,
+      "data_type": "smallint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_marker",
+      "column_name": "marker_interface_version",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_marker",
+      "column_name": "installation_id",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_marker",
+      "column_name": "layout_version",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_marker",
+      "column_name": "bundle_sha256",
+      "ordinal_position": 5,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_marker",
+      "column_name": "inventory_profile",
+      "ordinal_position": 6,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_marker",
+      "column_name": "inventory_sha256",
+      "ordinal_position": 7,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_marker",
+      "column_name": "database_identity",
+      "ordinal_position": 8,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_marker",
+      "column_name": "schema_name",
+      "ordinal_position": 9,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_marker",
+      "column_name": "installed_at",
+      "ordinal_position": 10,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "installation_marker",
+      "column_name": "installed_at_text",
+      "ordinal_position": 11,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "seq",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "at",
+      "ordinal_position": 2,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "xid",
+      "ordinal_position": 3,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "entity_kind",
+      "ordinal_position": 4,
+      "data_type": "character",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "entity_id",
+      "ordinal_position": 5,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "entity_type",
+      "ordinal_position": 6,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "ver",
+      "ordinal_position": 7,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "op",
+      "ordinal_position": 8,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "prop_id",
+      "ordinal_position": 9,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "old_value",
+      "ordinal_position": 10,
+      "data_type": "jsonb",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "new_value",
+      "ordinal_position": 11,
+      "data_type": "jsonb",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "rev",
+      "ordinal_position": 12,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "journal",
+      "column_name": "origin",
+      "ordinal_position": 13,
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_bucket_guard",
+      "column_name": "namespace_sha256",
+      "ordinal_position": 1,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_bucket_guard",
+      "column_name": "key_sha256",
+      "ordinal_position": 2,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_bucket_guard",
+      "column_name": "generation",
+      "ordinal_position": 3,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "type_id",
+      "ordinal_position": 1,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "key_id",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "key_num",
+      "ordinal_position": 3,
+      "data_type": "smallint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "prop_ids",
+      "ordinal_position": 4,
+      "data_type": "ARRAY",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "is_primary",
+      "ordinal_position": 5,
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "since_rev",
+      "ordinal_position": 6,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "retired_rev",
+      "ordinal_position": 7,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "definition_source_kind",
+      "ordinal_position": 8,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "definition_rev",
+      "ordinal_position": 9,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "definition_doc_ord",
+      "ordinal_position": 10,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "definition_document_id",
+      "ordinal_position": 11,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "binding_source_rev",
+      "ordinal_position": 12,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "binding_source_pointer",
+      "ordinal_position": 13,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_def",
+      "column_name": "binding_source_bytes",
+      "ordinal_position": 14,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_lifecycle_history",
+      "column_name": "rev",
+      "ordinal_position": 1,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_lifecycle_history",
+      "column_name": "seq",
+      "ordinal_position": 2,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_lifecycle_history",
+      "column_name": "type_id",
+      "ordinal_position": 3,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_lifecycle_history",
+      "column_name": "key_num",
+      "ordinal_position": 4,
+      "data_type": "smallint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_lifecycle_history",
+      "column_name": "transition_kind",
+      "ordinal_position": 5,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_lifecycle_history",
+      "column_name": "before_retired_rev",
+      "ordinal_position": 6,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_lifecycle_history",
+      "column_name": "after_retired_rev",
+      "ordinal_position": 7,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_lifecycle_history",
+      "column_name": "before_definition_bytes",
+      "ordinal_position": 8,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_lifecycle_history",
+      "column_name": "after_definition_bytes",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "storage_row_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "installation_id_utf8",
+      "ordinal_position": 2,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "source_epoch_utf8",
+      "ordinal_position": 3,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "migration_attempt_id_utf8",
+      "ordinal_position": 4,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "original_request_bytes",
+      "ordinal_position": 5,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "original_attempt_bytes",
+      "ordinal_position": 6,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "receipt_bytes",
+      "ordinal_position": 7,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "prior_generation",
+      "ordinal_position": 8,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "resulting_generation",
+      "ordinal_position": 9,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "installation_sha256",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(installation_id_utf8)"
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "epoch_sha256",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(source_epoch_utf8)"
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "attempt_sha256",
+      "ordinal_position": 12,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(migration_attempt_id_utf8)"
+    },
+    {
+      "table_name": "key_migration_receipt",
+      "column_name": "receipt_sha256",
+      "ordinal_position": 13,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(receipt_bytes)"
+    },
+    {
+      "table_name": "key_tombstone",
+      "column_name": "entity_kind",
+      "ordinal_position": 1,
+      "data_type": "character",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_tombstone",
+      "column_name": "type_id",
+      "ordinal_position": 2,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_tombstone",
+      "column_name": "key_num",
+      "ordinal_position": 3,
+      "data_type": "smallint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_tombstone",
+      "column_name": "k",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_tombstone",
+      "column_name": "entity_id",
+      "ordinal_position": 5,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_tombstone",
+      "column_name": "ver",
+      "ordinal_position": 6,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "key_tombstone",
+      "column_name": "at",
+      "ordinal_position": 7,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "module_access",
+      "column_name": "document_id",
+      "ordinal_position": 1,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "module_access",
+      "column_name": "module",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "module_access",
+      "column_name": "reader_role",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "module_access",
+      "column_name": "writer_role",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object",
+      "column_name": "id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object",
+      "column_name": "type_id",
+      "ordinal_position": 2,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object",
+      "column_name": "props",
+      "ordinal_position": 3,
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object",
+      "column_name": "retained",
+      "ordinal_position": 4,
+      "data_type": "jsonb",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object",
+      "column_name": "root_id",
+      "ordinal_position": 5,
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object",
+      "column_name": "root_type",
+      "ordinal_position": 6,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object",
+      "column_name": "rev",
+      "ordinal_position": 7,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object",
+      "column_name": "ver",
+      "ordinal_position": 8,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object",
+      "column_name": "created_at",
+      "ordinal_position": 9,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object",
+      "column_name": "updated_at",
+      "ordinal_position": 10,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object_key_bucket",
+      "column_name": "storage_row_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object_key_bucket",
+      "column_name": "type_id",
+      "ordinal_position": 2,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object_key_bucket",
+      "column_name": "key_num",
+      "ordinal_position": 3,
+      "data_type": "smallint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object_key_bucket",
+      "column_name": "object_id",
+      "ordinal_position": 4,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object_key_bucket",
+      "column_name": "namespace_bytes",
+      "ordinal_position": 5,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object_key_bucket",
+      "column_name": "key_bytes",
+      "ordinal_position": 6,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object_key_bucket",
+      "column_name": "original_context_bytes",
+      "ordinal_position": 7,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object_key_bucket",
+      "column_name": "namespace_sha256",
+      "ordinal_position": 8,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(namespace_bytes)"
+    },
+    {
+      "table_name": "object_key_bucket",
+      "column_name": "key_sha256",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(key_bytes)"
+    },
+    {
+      "table_name": "object_key_reservation_bucket",
+      "column_name": "storage_row_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object_key_reservation_bucket",
+      "column_name": "namespace_bytes",
+      "ordinal_position": 2,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object_key_reservation_bucket",
+      "column_name": "key_bytes",
+      "ordinal_position": 3,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object_key_reservation_bucket",
+      "column_name": "original_reservation_bytes",
+      "ordinal_position": 4,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "object_key_reservation_bucket",
+      "column_name": "namespace_sha256",
+      "ordinal_position": 5,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(namespace_bytes)"
+    },
+    {
+      "table_name": "object_key_reservation_bucket",
+      "column_name": "key_sha256",
+      "ordinal_position": 6,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(key_bytes)"
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "prop_id",
+      "ordinal_position": 1,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "type_id",
+      "ordinal_position": 2,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "element",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "name",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "scalar_type",
+      "ordinal_position": 5,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "nullability",
+      "ordinal_position": 6,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "cardinality",
+      "ordinal_position": 7,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "facets",
+      "ordinal_position": 8,
+      "data_type": "jsonb",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "item",
+      "ordinal_position": 9,
+      "data_type": "jsonb",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "home",
+      "ordinal_position": 10,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "since_rev",
+      "ordinal_position": 11,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "doc_ord",
+      "ordinal_position": 12,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "retired_rev",
+      "ordinal_position": 13,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "definition_source_kind",
+      "ordinal_position": 14,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "definition_rev",
+      "ordinal_position": 15,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "definition_doc_ord",
+      "ordinal_position": 16,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "definition_document_id",
+      "ordinal_position": 17,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "binding_source_rev",
+      "ordinal_position": 18,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "binding_source_pointer",
+      "ordinal_position": 19,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "prop_def",
+      "column_name": "binding_source_bytes",
+      "ordinal_position": 20,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "record_source",
+      "column_name": "entity_kind",
+      "ordinal_position": 1,
+      "data_type": "character",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "record_source",
+      "column_name": "entity_id",
+      "ordinal_position": 2,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "record_source",
+      "column_name": "load_id",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "record_source",
+      "column_name": "source",
+      "ordinal_position": 4,
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "record_source",
+      "column_name": "imported_at",
+      "ordinal_position": 5,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "document_id",
+      "ordinal_position": 1,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "rel_type_id",
+      "ordinal_position": 2,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "module",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "rel_id",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "name",
+      "ordinal_position": 5,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "source_min",
+      "ordinal_position": 6,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "source_max",
+      "ordinal_position": 7,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "target_min",
+      "ordinal_position": 8,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "target_max",
+      "ordinal_position": 9,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "lifecycle",
+      "ordinal_position": 10,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "directed",
+      "ordinal_position": 11,
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "target_key",
+      "ordinal_position": 12,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "composition",
+      "ordinal_position": 13,
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "assoc_type_id",
+      "ordinal_position": 14,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "inverse",
+      "ordinal_position": 15,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "since_rev",
+      "ordinal_position": 16,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "doc_ord",
+      "ordinal_position": 17,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "retired_rev",
+      "ordinal_position": 18,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "definition_source_kind",
+      "ordinal_position": 19,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "definition_rev",
+      "ordinal_position": 20,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "definition_doc_ord",
+      "ordinal_position": 21,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "definition_document_id",
+      "ordinal_position": 22,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "binding_source_rev",
+      "ordinal_position": 23,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "binding_source_pointer",
+      "ordinal_position": 24,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_def",
+      "column_name": "binding_source_bytes",
+      "ordinal_position": 25,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_endpoint",
+      "column_name": "rel_type_id",
+      "ordinal_position": 1,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_endpoint",
+      "column_name": "source_type",
+      "ordinal_position": 2,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "rel_endpoint",
+      "column_name": "target_type",
+      "ordinal_position": 3,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "relationship_lineage",
+      "column_name": "rel_type_id",
+      "ordinal_position": 1,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "relationship_lineage",
+      "column_name": "lineage_category",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "relationship_lineage",
+      "column_name": "identity_profile",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "relationship_lineage",
+      "column_name": "original_identity_bytes",
+      "ordinal_position": 4,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "relationship_lineage",
+      "column_name": "identity_sha256",
+      "ordinal_position": 5,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(original_identity_bytes)"
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "storage_row_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "namespace_identity_utf8",
+      "ordinal_position": 2,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "request_id_utf8",
+      "ordinal_position": 3,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "original_writer_xid",
+      "ordinal_position": 4,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "original_writer_context_bytes",
+      "ordinal_position": 5,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "lifecycle_generation",
+      "ordinal_position": 6,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "payload_state",
+      "ordinal_position": 7,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "original_receipt_bytes",
+      "ordinal_position": 8,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "expired_identity_bytes",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "namespace_sha256",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(namespace_identity_utf8)"
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "request_sha256",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(request_id_utf8)"
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "expiry_writer_xid",
+      "ordinal_position": 12,
+      "data_type": "xid8",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt",
+      "column_name": "expiry_writer_context_bytes",
+      "ordinal_position": 13,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt_protection",
+      "column_name": "receipt_storage_row_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt_protection",
+      "column_name": "protection_generation",
+      "ordinal_position": 2,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt_protection",
+      "column_name": "original_protection_bytes",
+      "ordinal_position": 3,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt_protection",
+      "column_name": "original_update_evidence_bytes",
+      "ordinal_position": 4,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt_protection",
+      "column_name": "original_update_writer_xid",
+      "ordinal_position": 5,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt_protection",
+      "column_name": "original_update_writer_context_bytes",
+      "ordinal_position": 6,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt_route_guard",
+      "column_name": "namespace_sha256",
+      "ordinal_position": 1,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt_route_guard",
+      "column_name": "request_sha256",
+      "ordinal_position": 2,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "request_receipt_route_guard",
+      "column_name": "generation",
+      "ordinal_position": 3,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_capacity",
+      "column_name": "singleton_id",
+      "ordinal_position": 1,
+      "data_type": "smallint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_capacity",
+      "column_name": "retained_rows",
+      "ordinal_position": 2,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_capacity",
+      "column_name": "retained_custody_bytes",
+      "ordinal_position": 3,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_capacity",
+      "column_name": "reserved_rows",
+      "ordinal_position": 4,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_capacity",
+      "column_name": "reserved_custody_bytes",
+      "ordinal_position": 5,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_capacity",
+      "column_name": "original_layout_bytes",
+      "ordinal_position": 6,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_capacity",
+      "column_name": "original_resource_profile_bytes",
+      "ordinal_position": 7,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_journal_stage",
+      "column_name": "original_writer_xid",
+      "ordinal_position": 1,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_journal_stage",
+      "column_name": "operation_ordinal",
+      "ordinal_position": 2,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_journal_stage",
+      "column_name": "stage_name",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_journal_stage",
+      "column_name": "stage_ordinal",
+      "ordinal_position": 4,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_journal_stage",
+      "column_name": "effect_generation",
+      "ordinal_position": 5,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_journal_stage",
+      "column_name": "body_bytes",
+      "ordinal_position": 6,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_node",
+      "column_name": "state_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_node",
+      "column_name": "node_id",
+      "ordinal_position": 2,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_node",
+      "column_name": "parent_node_id",
+      "ordinal_position": 3,
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_node",
+      "column_name": "slot_kind",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_node",
+      "column_name": "sequence_ordinal",
+      "ordinal_position": 5,
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_node",
+      "column_name": "map_key",
+      "ordinal_position": 6,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_node",
+      "column_name": "record_field_identity_bytes",
+      "ordinal_position": 7,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_node",
+      "column_name": "value_kind",
+      "ordinal_position": 8,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_node",
+      "column_name": "definition_bytes",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_node",
+      "column_name": "source_bytes",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "original_writer_xid",
+      "ordinal_position": 1,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "operation_ordinal",
+      "ordinal_position": 2,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "operation_kind",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "phase",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "effect_generation",
+      "ordinal_position": 5,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "readiness_generation",
+      "ordinal_position": 6,
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "sealed_generation",
+      "ordinal_position": 7,
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "application_generation",
+      "ordinal_position": 8,
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "original_context_bytes",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "original_definition_bytes",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "original_input_bytes",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "original_prestate_bytes",
+      "ordinal_position": 12,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "admitted_candidate_bytes",
+      "ordinal_position": 13,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "effect_obligation_bytes",
+      "ordinal_position": 14,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "original_group_custody_bytes",
+      "ordinal_position": 15,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_operation",
+      "column_name": "application_result_bytes",
+      "ordinal_position": 16,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "state_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "node_id",
+      "ordinal_position": 2,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "scalar_kind",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "text_value",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "boolean_value",
+      "ordinal_position": 5,
+      "data_type": "boolean",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "numeric_value",
+      "ordinal_position": 6,
+      "data_type": "numeric",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "numeric_token",
+      "ordinal_position": 7,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "binary_value",
+      "ordinal_position": 8,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "temporal_text",
+      "ordinal_position": 9,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "temporal_instant",
+      "ordinal_position": 10,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "opaque_bytes",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "codec_definition_bytes",
+      "ordinal_position": 12,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_scalar",
+      "column_name": "original_source_bytes",
+      "ordinal_position": 13,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "state_id",
+      "ordinal_position": 1,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "owner_kind",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "object_id",
+      "ordinal_position": 3,
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "object_type_id",
+      "ordinal_position": 4,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "edge_id",
+      "ordinal_position": 5,
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "relationship_type_id",
+      "ordinal_position": 6,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "property_owner_type_id",
+      "ordinal_position": 7,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "property_id",
+      "ordinal_position": 8,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "root_node_id",
+      "ordinal_position": 9,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "definition_bytes",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "home_profile_bytes",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "value_profile_bytes",
+      "ordinal_position": 12,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_state",
+      "column_name": "source_bytes",
+      "ordinal_position": 13,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_touch",
+      "column_name": "transaction_id",
+      "ordinal_position": 1,
+      "data_type": "xid8",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_touch",
+      "column_name": "owner_kind",
+      "ordinal_position": 2,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_touch",
+      "column_name": "owner_id",
+      "ordinal_position": 3,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_touch",
+      "column_name": "owner_discriminator_id",
+      "ordinal_position": 4,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_touch",
+      "column_name": "property_owner_type_id",
+      "ordinal_position": 5,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_touch",
+      "column_name": "property_id",
+      "ordinal_position": 6,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_touch",
+      "column_name": "dirty_generation",
+      "ordinal_position": 7,
+      "data_type": "bigint",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_touch",
+      "column_name": "sealed_generation",
+      "ordinal_position": 8,
+      "data_type": "bigint",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_touch",
+      "column_name": "original_layout_bytes",
+      "ordinal_position": 9,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_touch",
+      "column_name": "original_home_bytes",
+      "ordinal_position": 10,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_touch",
+      "column_name": "original_owner_property_bytes",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "row_home_touch",
+      "column_name": "original_operation_bytes",
+      "ordinal_position": 12,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_change",
+      "column_name": "rev",
+      "ordinal_position": 1,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_change",
+      "column_name": "seq",
+      "ordinal_position": 2,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_change",
+      "column_name": "kind",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_change",
+      "column_name": "def_id",
+      "ordinal_position": 4,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_change",
+      "column_name": "before",
+      "ordinal_position": 5,
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_change",
+      "column_name": "after",
+      "ordinal_position": 6,
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_doc",
+      "column_name": "rev",
+      "ordinal_position": 1,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_doc",
+      "column_name": "ord",
+      "ordinal_position": 2,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_doc",
+      "column_name": "doc_id",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_doc",
+      "column_name": "doc_revision",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_doc",
+      "column_name": "umf_version",
+      "ordinal_position": 5,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_doc",
+      "column_name": "content_sha256",
+      "ordinal_position": 6,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_doc",
+      "column_name": "document",
+      "ordinal_position": 7,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_doc",
+      "column_name": "validation",
+      "ordinal_position": 8,
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_head",
+      "column_name": "id",
+      "ordinal_position": 1,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_head",
+      "column_name": "rev",
+      "ordinal_position": 2,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_rev",
+      "column_name": "rev",
+      "ordinal_position": 1,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_rev",
+      "column_name": "accepted_at",
+      "ordinal_position": 2,
+      "data_type": "timestamp with time zone",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "schema_rev",
+      "column_name": "origin",
+      "ordinal_position": 3,
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "setting",
+      "column_name": "key",
+      "ordinal_position": 1,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "setting",
+      "column_name": "value",
+      "ordinal_position": 2,
+      "data_type": "jsonb",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "document_id",
+      "ordinal_position": 1,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "type_id",
+      "ordinal_position": 2,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "module",
+      "ordinal_position": 3,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "element",
+      "ordinal_position": 4,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "kind",
+      "ordinal_position": 5,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "provisional",
+      "ordinal_position": 6,
+      "data_type": "boolean",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "since_rev",
+      "ordinal_position": 7,
+      "data_type": "integer",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "doc_ord",
+      "ordinal_position": 8,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "retired_rev",
+      "ordinal_position": 9,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "lineage_profile",
+      "ordinal_position": 10,
+      "data_type": "text",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "lineage_bytes",
+      "ordinal_position": 11,
+      "data_type": "bytea",
+      "is_nullable": "NO",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "lineage_sha256",
+      "ordinal_position": 12,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "ALWAYS",
+      "generation_expression": "sha256(lineage_bytes)"
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "definition_source_kind",
+      "ordinal_position": 13,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "definition_rev",
+      "ordinal_position": 14,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "definition_doc_ord",
+      "ordinal_position": 15,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "definition_document_id",
+      "ordinal_position": 16,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "binding_source_rev",
+      "ordinal_position": 17,
+      "data_type": "integer",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "binding_source_pointer",
+      "ordinal_position": 18,
+      "data_type": "text",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    },
+    {
+      "table_name": "type_def",
+      "column_name": "binding_source_bytes",
+      "ordinal_position": 19,
+      "data_type": "bytea",
+      "is_nullable": "YES",
+      "is_generated": "NEVER",
+      "generation_expression": null
+    }
+  ],
+  "qualification": "Observed native declarations; full per-column semantic/constraint/privilege equivalence and runtime production still unqualified"
+}

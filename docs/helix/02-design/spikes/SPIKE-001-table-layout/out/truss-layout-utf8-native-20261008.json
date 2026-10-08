@@ -1,0 +1,5 @@
+{
+  "state": "Declaration installation refused; transaction not committed",
+  "source_sha256": "1ac7cc82405ff581072d45ad586f54d8c48343eaecc7c011195535ed359e37f9",
+  "error": "ERROR:  syntax error at or near \"COMMIT\"\nLINE 2: COMMIT;\n        ^\n"
+}

@@ -41,3 +41,27 @@ catalog acceptance or silently remove warnings to make it true.
 owns this shared intake boundary. Native Truss/Ashlar registry persistence,
 semantic binding, stable catalog allocation and schema evolution are next;
 this inspection component does not yet claim to feed a running Truss engine.
+
+## Native Truss storage checkpoint
+
+The isolated sandbox now contains the current source-review 0.11 declarations:
+46 tables, 442 columns and two catalog functions; catalog head remains revision 0.
+Install into a fresh sandbox with:
+
+```sh
+python3 tools/install_truss_layout.py /path/to/truss/docs/helix/02-design/models/truss-layout-weft-review-0.11.proposal.sql 1ac7cc82405ff581072d45ad586f54d8c48343eaecc7c011195535ed359e37f9 /tmp/truss-install-receipt.json
+```
+
+The installer refuses an existing Truss namespace. It verifies the exact source
+hash and runs one transaction. PostgreSQL rejects the source's generated UTF-8
+conversion expression as non-immutable; this development profile substitutes
+one explicitly recorded immutable UTF-8 helper after checking database encoding.
+The original source remains unchanged and the derived execution has a separate
+hash. The exporter also omits its final statement terminator; the installer adds
+it. Both failed attempts and the successful native inventory are retained in
+the spike's `out/truss-*-20261008.json` receipts. Five small UTF-8 boundary cases
+match native byte conversion.
+
+This is storage installation evidence, not full catalog semantics or a working
+producer/feed. Application privileges, atomic schema acceptance and runtime
+operations are still required before the end-to-end workflow can run.

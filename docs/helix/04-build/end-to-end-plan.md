@@ -72,7 +72,8 @@ source hashes and do not mix incompatible profiles.
 The isolated container ashlar-e2e-truss-pg17 is healthy on PostgreSQL17.9,
 localhost15432, capped at512MiB/1CPU. tools/start_truss_sandbox.py creates/reuses
 only its labelled container and generates a private database password without
-printing it. No Truss layout, runtime or feed has yet been installed.
+printing it. The current Truss 0.11 declarations are now installed in this sandbox; no runtime
+or feed has yet been implemented.
 Other running containers are untouched. Use docker exec for local administrative
 setup; design a least-privilege application role before the runtime integration.
 No production data, broad database grants, retention cleanup, warehouse resize
@@ -87,3 +88,20 @@ real APIs. UMF experimental warnings remain visible; no complete-interpretation
 or target-enforcement claim is manufactured. CONTRACT-005 defines the intake
 boundary. Next persist the same artifact in both native registries and implement
 the selected binding/catalog acceptance; no full Truss runtime/feed is delivered.
+
+## Native storage installation checkpoint
+
+The exact 0.11 declaration source SHA256
+1ac7cc82405ff581072d45ad586f54d8c48343eaecc7c011195535ed359e37f9
+now installs transactionally on PostgreSQL17.9 using an explicit isolated UTF8
+compatibility helper for one generated expression and a final statement
+terminator. Native membership matches all 46 source tables and 442 columns;
+two catalog functions are present and schema head remains 0. Five small helper
+byte-conversion cases pass. Preserve original-source and derived-execution
+hashes, failed receipts and the full native inventory. This does not establish
+constraint/privilege equivalence or complete runtime adoption.
+
+Next implement the selected atomic schema acceptance and stable binding, then
+mutation/feed operations; storing a raw UMF document alone must not advance the
+accepted catalog head. Application roles need their explicit privilege profile
+before user-facing runtime access.
