@@ -1303,3 +1303,29 @@ refusal. No cloud workload or setting changes occurred. Governing CONTRACT-004
 and the user-facing workflow now describe this finite profile. Existing historical
 receipts remain unchanged. Native configuration/default/availability admission and
 Truss runtime integration are still required for the full end-to-end demonstration.
+
+
+## First Truss runtime package — 2026-10-08
+
+The isolated Truss candidate `codex/ashlar-runtime` is committed and pushed at
+`7a77233`, based on the owner-reviewed source packet `64d8469`. Its private
+experimental ESM package implements the governed inert reference assembly.
+Strict TypeScript 7.0.2 build and three Bun tests (18 assertions) pass. A clean
+packed consumer compiles and executes; the public declaration closure contains
+37 files and one canonical transaction brand, and an independently counterfeit
+brand is rejected. Construction, selection, observation and disposal make zero
+native calls. Configured readiness remains unverified; native capabilities are
+unavailable. Evidence is retained in the Truss candidate under
+`docs/helix/04-build/evidence/inert-assembly/` and package `dist/`.
+
+This starts the package implementation without changing the Truss owner's
+planning checkout. It does not install the selected 0.12 source-review layout,
+interpret UMF, mutate data, deliver a feed or qualify Node/browser/native driver
+support. Required native bodies, security dependencies and the complete bootstrap
+qualification remain unfinished. The full Ashlar end-to-end goal remains active.
+
+UMF owns the reusable Delta DDL generator at `fac1497a`, pushed on
+`codex/delta-ddl-generator` and not yet merged into UMF's default branch. Ashlar's
+eight runtime physical models already generate their checked installer input
+through that version. No further database workload or settings change occurred
+in this package iteration.
