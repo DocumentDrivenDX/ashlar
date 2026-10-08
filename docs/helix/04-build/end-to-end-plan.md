@@ -1418,3 +1418,22 @@ control: total heap, dimensions/hex/transport buffers, work/deadline/cancellatio
 and native containment remain unfinished, as do full bootstrap/security and
 actual Truss streaming. Callers must supply the shared ledger to use aggregate
 accounting. The full end-to-end goal remains active.
+
+
+## Native Bun execution foundation — 2026-10-08
+
+The Truss runtime candidate now has actual Bun 1.4.2/PostgreSQL 17.9 direct
+unprepared execution evidence. The small local probe verifies explicit exact
+text transport for large integer/decimal/timestamp values, unchanged JSON text
+parameters and SQL NULL; native SERIALIZABLE/read-only settings and connection
+affinity; callback rollback independently observed through absence of its
+temporary table; and savepoint rollback preserving earlier work. Evidence and
+reproduction are under `inert-assembly/bun-execution.json` and
+`scripts/check-bun-execution.ts`. No persistent table, cloud workload or setting
+change remains. Credentials stay memory-only.
+
+This resolves the immediate direct-driver viability question for the execution
+adapter. It does not establish Executor conformance, caller adoption, cancellation
+cleanup, unknown COMMIT/quarantine/recovery, prepared/pooler/Node support or native
+Truss bootstrap. Implement the qualified execution boundary next; actual Truss
+streaming and the full end-to-end goal remain unfinished.
