@@ -1329,3 +1329,21 @@ UMF owns the reusable Delta DDL generator at `fac1497a`, pushed on
 eight runtime physical models already generate their checked installer input
 through that version. No further database workload or settings change occurred
 in this package iteration.
+
+
+## Truss native vector decoder prerequisite — 2026-10-08
+
+Truss candidate `codex/ashlar-runtime` is pushed at `889bfd0`. It implements
+CONTRACT-008's bounded canonical OID/int2 native-output vector grammar, preserving
+original text/order and using exact integer domain checks. All eight original
+independent vectors and additional malformed/resource controls pass: five total
+package tests, 45 assertions. Strict TypeScript build and clean packed consumer
+checks pass. The retained native-vector receipt records exact original SQL/stdout
+and decoder correspondence for three constant observations on existing local
+PostgreSQL 17.9, including empty OID bounds `[0:-1]`. No data mutations, cloud
+workload or settings changes occurred.
+
+This is a concrete bootstrap decoder dependency, not complete native inventory
+or installed Truss. Field-specific index/signature semantics, complete native
+array/JSON/dimension correspondence, required routine bodies/security and
+bootstrap/feed qualification remain unfinished. The end-to-end goal stays active.
