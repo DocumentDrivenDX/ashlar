@@ -9,9 +9,14 @@ from ashlar.source import jsonl_batches
 from persistent_sql import Client
 parser=argparse.ArgumentParser(description=__doc__)
 parser.add_argument('--source',choices=['local','outbox','csv'],default='local')
+parser.add_argument('--materialized-at',default='2026-10-08T17:00:00+00:00',help='Original retained materialization clock; default is historical fixture metadata')
+parser.add_argument('--output',help='Fresh output directory for a new observation')
 args=parser.parse_args()
 N='ashlar_e2e_private_20261008.'+{'local':'runtime','outbox':'runtime_outbox','csv':'runtime_csv'}[args.source]
-OUT=B/('out/native/'+{'local':'local_example_full_parity_20261008','outbox':'outbox_delta_full_parity_20261008','csv':'csv_delta_full_parity_20261008'}[args.source]);c=Client(OUT)
+OUT=B/('out/native/'+{'local':'local_example_full_parity_20261008','outbox':'outbox_delta_full_parity_20261008','csv':'csv_delta_full_parity_20261008'}[args.source])
+if args.output:OUT=Path(args.output)
+if OUT.exists():raise ValueError('Parity output already exists; retain original evidence and select a fresh output')
+c=Client(OUT)
 installation=json.loads((B/('out/native/'+{'local':'private_setup_20261008','outbox':'outbox_setup_20261008','csv':'csv_setup_20261008'}[args.source]+'/summary.json')).read_text())
 registered={table: value['uuid'] for table,value in installation['tables'].items()}
 if installation['namespace']!=N:raise ValueError('Private installation differs')
@@ -53,7 +58,10 @@ if args.source=='outbox':
     batches=[tuple(jsonl_batches((batch.begin+b''.join(record.raw for record in batch.records)+batch.commit).splitlines(keepends=True),feed=feed,epoch='example-1'))[0] for batch in batches]
 # Independent source-to-carrier expectations: do not call graph_sql_plan or
 # consume generated SQL rows as an oracle.
-stamp=str(int(datetime.datetime(2026,10,8,17,tzinfo=datetime.timezone.utc).timestamp())*1000000)
+instant=datetime.datetime.fromisoformat(args.materialized_at)
+if instant.tzinfo is None or instant.utcoffset()!=datetime.timedelta(0):raise ValueError('Explicit original UTC materialization clock required')
+elapsed=instant-datetime.datetime(1970,1,1,tzinfo=datetime.timezone.utc)
+stamp=str((elapsed.days*86400+elapsed.seconds)*1000000+elapsed.microseconds)
 current={};history=[];deletes=[];first={}
 for batch in batches:
     for record in batch.records:
@@ -89,5 +97,5 @@ for short,rows in expected.items():
         writes=[int(r['version']) for r in native_history if r['operation']=='WRITE']
         initial=min(writes)
         reports.append(validate_effect_snapshot(transport,table,registered[table],initial,columns[short],[r for k,r in first.items() if k[0]==('object' if short=='object_current' else 'edge')]))
-summary={'state':'passed','source':args.source,'original_source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'version_vector':vector,'reports':reports,'qualification':'Bounded fixture all-column schema/value/multiplicity parity and successful exact-version data reads. Expectations derived directly from original events rather than generated SQL. Historical initial object carrier included; initial edge table remains empty. Does not establish future retained-data availability, protocol policy, active pins, native fencing, publication or accepted Truss schema.'}
+summary={'state':'passed','source':args.source,'materialized_at':args.materialized_at,'original_source_sha256':hashlib.sha256(source.read_bytes()).hexdigest(),'version_vector':vector,'reports':reports,'qualification':'Bounded fixture all-column schema/value/multiplicity parity and successful exact-version data reads. Expectations derived directly from original events rather than generated SQL. Historical initial object carrier included; initial edge table remains empty. Does not establish future retained-data availability, protocol policy, active pins, native fencing, publication or accepted Truss schema.'}
 (OUT/'summary.json').write_text(json.dumps(summary,indent=2)+'\n');print('Validated five exact-version full-column inventories; no publication or acknowledgement')

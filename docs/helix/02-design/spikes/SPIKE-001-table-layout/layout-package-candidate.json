@@ -1364,7 +1364,7 @@
     "capacity_observed_r268.py": "aa4504fa25e8403df49d8610ced3d31ae08cf6c37b73a2644fd58095327317b4",
     "out/capacity-observed-r268.json": "094314e2ea3b24b2b2b13fb4af32c012e1da956679ed6de39b92662e8de1e9df",
     "../../adr/ADR-001-delta-canonical-and-serving-layout.md": "ead7e43df4a3f2ec4f48a6e7acb93953cc5e3117ef68553d70fc6242e15394a7",
-    "../../contracts/CONTRACT-003-delta-graph-tables.md": "618687d083eb61b6d8e52484912cc255eb17ddf7af717163136ffb16676e5066",
+    "../../contracts/CONTRACT-003-delta-graph-tables.md": "727d50bac8be4f99eb2de772f106f6743c179a17a3de40a41751c86813bc67d3",
     "out/native/ashlar_scale_edges_r261/summary.json": "1d3a9b028d95fca1c07420b27265d1a940efc873fa568e36fdd7100bc1b82899",
     "out/native/ashlar_scale_edges_r261/shared-history.json": "7b17e657cc32d95c335728d01295b650bb0ce782641e7664c068ba58ddf2ff7d",
     "out/native/ashlar_scale_edges_r261/statements.jsonl": "8f7562a5a308cb97c845d2a0383fcb7e67172e5b3059cedc6f4d9f5b7840fc42",
@@ -2900,7 +2900,7 @@
     "../../../../../README.md": "e809e372423f32184f20044cf51ea1e3ced565d6df4d176db6951c01332d6cc7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
-    "../../../../../examples/end-to-end/README.md": "ac768459a872e19b91de7340bc9ce96c03fcaf0557b709826345539639972b15",
+    "../../../../../examples/end-to-end/README.md": "edbeb140397b1b7458f8dc1956881258c89b7e22f28359f37640c4f54ec9a585",
     "../../../04-build/end-to-end-plan.md": "d0f9b7b4ce345a24fc1e1389b320e004444fa0ed9e960a020445b8afa3870bac",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
@@ -3167,7 +3167,7 @@
     "out/native/profile_custody_replay_20261008/retain.sql": "e8b77f70f49419c93653129d8af19f100b0e619598d2fa9e361eec46e0ecba9d",
     "../../../../../tools/run_local_example.py": "79000eee0da61f19bd07ae9884dfbc1e66563c6dadf073e9752d2b01b28657a9",
     "../../../../../examples/end-to-end/local-string-source.jsonl": "fa28ecead66f0f8a6b1dfd50dc26c89b4f129ff0dcbd7d94010e34bd3e9b460d",
-    "../../../../../tools/run_native_example.py": "01a57fcb255265b38c15719d1a5eafa38edd462d337c4e1853d81b145cfd8e56",
+    "../../../../../tools/run_native_example.py": "729684f2914a9cc40a48f479f59300f85896748593a8ec9b6ab6c82a6db23a1c",
     "../../../../../tests/test_local_example.py": "0582164d35efc0876bd673c108a932a0c0194aec117f6844bedd083bf0943f4d",
     "out/native/local_example_20261008/summary.json": "31d25eb7a2af11f526b6250de2e36bfb7a9f22b581960b92bd61312be7401138",
     "out/native/local_example_20261008/statements.jsonl": "e4a870a219b2cd62bc34fb432b1afb207ec2eb828c7d9ed31cce58a4323e58e9",
@@ -3177,7 +3177,7 @@
     "out/native/local_example_replay_20261008/statements.jsonl": "a305cefbf13f1f600674ea0f369d26a7c6e89080027eb099a2b60f07d5aa6e82",
     "out/native/local_example_replay_20261008/original-journal.json": "5a0cdfba27ffcf72006dad2d0232e1c8a9ef9d86fcec97669e0f0947bbd130fa",
     "out/native/local_example_replay_20261008/live-statement.json": "675d28bcd4401a0c9bb93dd5025b936d52434b0f44e73d65072d7c5357fe8cfb",
-    "../../../../../tools/check_native_local_example.py": "3a57578b6391e3d93e96392058e063a9bc57be2d17d9ab483ec401c616cd66a3",
+    "../../../../../tools/check_native_local_example.py": "b65c52e9253d3ee4f3b31688c9834dcca2a50add541a2359e0101d8649fef707",
     "out/native/local_example_full_parity_20261008/summary.json": "eb596ac24636ab3640d6b88010098f605aa87de3b02261c5fd4ae85f6f212707",
     "out/native/local_example_full_parity_20261008/statements.jsonl": "9821f1ce5f22b7b47d2048cc347fef615760ea2d33c1a90d743dd3def0abfd49",
     "out/native/local_example_full_parity_20261008/live-statement.json": "6b54048cfdba4112847f29d4b50671c4f22699f3c185ceb21732538f3bca754c",
@@ -3321,7 +3321,9 @@
     "out/native/csv_retention_window_20261008/recovery-summary.json": "a340c9eb75c4326eb24b036077ee643f2d694d78e6602c8bae6a3cde2ce751b8",
     "out/native/csv_retention_window_20261008/live-statement.json": "11bbdf59b96cf054c0388df2d1b6a784d803da56725d62fa747ea249d7ffa958",
     "../../../../../src/ashlar/retention_policy.py": "966d3064ccf4dbdc39efd37d08d39a4a940e5fa5857beadea0516f1c0062b394",
-    "../../../../../tests/test_retention_policy.py": "2cf803b04bd82b8075e328ed10e31a9b171b6977a78ff1b59f967f0561709046"
+    "../../../../../tests/test_retention_policy.py": "2cf803b04bd82b8075e328ed10e31a9b171b6977a78ff1b59f967f0561709046",
+    "../../../../../tools/materialization_clock.py": "ad6e93f9c014741403030a777ff2645a6dc77f8ce2d54a1f04901fcd609066ba",
+    "../../../../../tests/test_materialization_clock.py": "28453ee7c4b621ce00cb3a8ede5c9080d7a67d1a9326b7debdfad0a548cbbd95"
   },
   "evidence": {
     "ddl": {

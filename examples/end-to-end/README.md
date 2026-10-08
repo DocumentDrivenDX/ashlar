@@ -574,3 +574,26 @@ Longer settings cannot renew original expiry. Shorter settings tighten it. Real
 file/log availability, authenticated configuration/clock/UUID observations, schema,
 protocol and permissions remain mandatory. No retention setting or pin lifecycle
 is changed by these functions. The earlier disable requirement is superseded.
+
+## Original materialization clock for native runs
+
+New `run_native_example.py` runs retain a Databricks server clock through their
+original SQLite submission journal before applying the fixture. Replay uses
+that same clock. Keep the journal: a lost submission handle requires explicit
+reconciliation. Existing fixture journals preserve their historical fixed
+timestamp and original plans. This clock is row metadata, not a publication or
+retention anchor.
+
+For a new run, copy `materialization_clock.materialized_at` from its summary
+into the independent parity check and select a fresh output directory:
+
+```sh
+python3 tools/check_native_local_example.py --source csv \
+  --materialized-at '<exact original UTC value from the run summary>' \
+  --output /private/tmp/ashlar-new-csv-parity
+```
+
+Omitting the clock uses the historical fixture timestamp. Existing evidence
+directories are refused rather than overwritten. The checker still requires
+the recorded private installation and independently derives all expected rows
+from original source events; no Truss acceptance or publication is inferred.

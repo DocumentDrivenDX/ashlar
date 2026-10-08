@@ -1170,3 +1170,31 @@ external application write/effect correspondence or native Truss capture.
 Evidence: out/native/outbox_20261008 on isolated PostgreSQL17.9. Fifty-four local
 checks pass. Durable source-context/epoch registration and publication/checkpoint
 wiring remain required for this additional source in the full toolkit goal.
+
+### Native example clock custody — 2026-10-08
+
+New native fixture applications retain one original server microsecond clock
+through DurableSQL before graph effects. The request binds the exact source
+batches, outer checkpoints and namespace digest, authenticated authority and
+warehouse. Completed responses replay without a replacement request; pending
+handles recover through GET; submission uncertainty without a handle refuses.
+Clock values must be canonical nonnegative signed64 microseconds and fit the
+Python datetime carrier without floating-point rounding.
+
+Original effect journals that predate this clock operation retain the historical
+2026-10-08T17:00:00+00:00 fixture metadata. Every reconstructed effect plan must
+still match its retained original. New runs record the clock in their summary
+and original submission custody. Neither clock establishes Delta commit time,
+publication, retention, accepted Truss IDs or a remote writer fence. Independent
+full-column parity accepts the explicit original clock and a fresh output
+directory; it continues to derive data expectations from original source events.
+
+Three focused host checks cover fresh-process exact microsecond replay, changed
+workload refusal, pending-handle recovery, uncertain-submission refusal and
+malformed clock/workload refusal. The full portable suite passes 183 tests. No
+new native ingestion or publication is claimed by this change.
+
+An offline reconstruction from the original CSV source-intent and effect-plan
+exports matches all four complete original SQL plans exactly, using the
+historical timestamp. Original native receipts remain unchanged; no network
+requests were made for this verification.

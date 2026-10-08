@@ -22,6 +22,7 @@ from ashlar.authority import validate_writer_inventory
 from ashlar.staging import batch_row, batch_from_row
 from durable_sql import DurableSQL, SQLPending
 from durable_effects import DurableEffects
+from materialization_clock import materialization_clock, CLOCK_OPERATION
 from databricks_transport import DatabricksTransport
 from persistent_sql import Client
 from run_local_example import fixture_inputs
@@ -80,13 +81,6 @@ def main():
     batches = tuple(batch_from_row(batch_row(batch)) for batch in batches)
     tables = {key: namespace + '.' + key for key in
               ['object_current', 'edge_current', 'tombstone', 'whole_source_history']}
-    state = empty_state()
-    plans = []
-    for batch in batches:
-        state, steps = graph_sql_plan(state, batch, tables,
-            materialized_at='2026-10-08T17:00:00+00:00', schema_policy=policy,
-            schema_transition_policy=transition)
-        plans.append((batch, steps))
     w = WorkspaceClient(profile='aidev-cus')
     user = w.current_user.me()
     actor = user.user_name
@@ -131,6 +125,24 @@ def main():
                 for table in tables.values():
                     if transport.query('SELECT count(*) AS n FROM ' + table, {}).rows != [{'n': '0'}]:
                         raise ValueError('Fresh fixture requires empty private graph; retain original journal')
+            clock_record = journal.db.execute('SELECT operation FROM submission WHERE operation=?', (CLOCK_OPERATION,)).fetchone()
+            # Existing immutable fixture plans predate clock custody. Regenerate
+            # their exact original timestamp; DurableEffects checks every plan.
+            legacy_clock = bool(operations) and clock_record is None
+            workload = hashlib.sha256(json.dumps({'namespace': namespace,
+                'batches': [batch_row(batch) for batch in batches], 'checkpoints': checkpoints},
+                sort_keys=True, separators=(',', ':')).encode()).hexdigest()
+            if legacy_clock:
+                materialized_at = '2026-10-08T17:00:00+00:00'
+            else:
+                materialized_at = materialization_clock(journal, workload)
+            state = empty_state()
+            plans = []
+            for batch in batches:
+                state, steps = graph_sql_plan(state, batch, tables,
+                    materialized_at=materialized_at, schema_policy=policy,
+                    schema_transition_policy=transition)
+                plans.append((batch, steps))
             results = []
             for batch, expected_steps in plans:
                 row = batch_row(batch)
@@ -171,6 +183,10 @@ def main():
                        'source': args.source, 'source_checkpoints': checkpoints,
                        'objects': observed, 'published': False, 'acknowledged': False,
                        'qualification': 'Four-event UMF-backed fixture; explicit fixture IDs, original same-host SQL plan/handle recovery, owner/grant/UUID observations and selected final inventory. Full-column parity, remote fencing, retention and publication remain unqualified.'}
+            if not legacy_clock:
+                summary['materialization_clock'] = {'operation': CLOCK_OPERATION,
+                    'workload': workload, 'materialized_at': materialized_at,
+                    'qualification': 'Original retained server clock before effects; not a Delta commit timestamp or publication retention anchor.'}
             (Path(args.output) / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
             journal.db.row_factory = __import__('sqlite3').Row
             custody = {table: [dict(row) for row in journal.db.execute('SELECT * FROM ' + table)]
