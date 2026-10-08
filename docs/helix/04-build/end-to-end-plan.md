@@ -722,3 +722,16 @@ positive accepted head or ID authority. Complete report/context registration and
 protected native acceptance/persistence remain unfinished. Existing immutable
 profile custody is unchanged; changed implementations require explicit new
 profile/version recognition rather than overwriting archived originals.
+
+## Runnable local composition — 2026-10-08
+
+`python3 tools/run_local_example.py` now composes original v3 UMF intake and
+interpretation, selected string-record policy, bounded committed JSONL decoding,
+whole-entity translation and complete graph apply/replay. Three transactions/four
+events leave one updated Unicode-bearing object, one tombstone and four original
+history entries; exact replay preserves complete state and retained numeric text.
+The actual command passed with Python standard library only. No cloud/native
+workload ran. Explicit fixture mappings are not accepted Truss authority; no
+publication or ACK is issued. This provides a runnable local entry point while
+protected Truss acceptance/mutations and composed Delta publication/read remain
+required by the full goal. Truss HEAD f78785b still contains no runtime package.

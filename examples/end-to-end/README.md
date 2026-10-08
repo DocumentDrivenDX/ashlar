@@ -1,6 +1,24 @@
 # End-to-end example — under construction
 
-The first runnable component is the isolated PostgreSQL substrate:
+Run the local schema-to-source-to-state workflow first:
+
+```sh
+python3 tools/run_local_example.py
+```
+
+No Docker, cloud account or installed dependencies are needed. The command reads
+original v3 UMF intake and interpretation, uses explicit fixture type/property
+mappings and validates three committed JSONL transactions under the selected
+string-record policy. It creates two objects, updates one and deletes the other,
+then replays all transactions against the complete retained state. Expected output:
+one live object at version2, four history entries, one tombstone, replay unchanged.
+Unicode caption and the original large numeric token in retained_json survive.
+UMF completeInterpretation remains false. Fixture mappings are development inputs,
+not native Truss accepted IDs; this command issues no publication or source ACK.
+The input is local-string-source.jsonl; graph-source.jsonl is a different fixture
+and intentionally does not satisfy this selected UMF string-record policy.
+
+The isolated PostgreSQL substrate is also runnable:
 
 ```sh
 python3 tools/start_truss_sandbox.py

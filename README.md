@@ -5,10 +5,21 @@ A standard graph data model for Databricks.
 Ashlar starts with a shared structure for graph nodes on Databricks. Its name
 comes from precisely shaped stones that fit together into a larger structure.
 
-**Status:** Proposed Unity Catalog Delta schema and a Python publication-resolver
-core are implemented as candidates. Scoped synthetic native evidence supports
-the physical-layout milestone; production policy, retention, publisher fencing
-and native resolver transport remain unqualified. UMF binding is deferred.
+**Status:** Candidate Unity Catalog Delta layout, publication resolver, durable
+source/schema custody and UMF-backed selected string-record policy are implemented.
+A small local workflow runs now. Protected Truss acceptance/mutations and the
+composed native publication/read workflow remain unfinished.
+
+Run the local example (Python standard library only):
+
+```sh
+python3 tools/run_local_example.py
+```
+
+It reads retained UMF intake and interpretation, validates a bounded JSONL source,
+applies create/update/delete transactions and checks exact replay. The output
+contains one live object, four history entries and one tombstone. IDs are explicit
+fixture mappings; it does not establish Truss acceptance or Delta publication.
 
 Start with the [project documentation](docs/helix/README.md) and
 [product vision](docs/helix/00-discover/product-vision.md).

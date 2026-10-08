@@ -2897,11 +2897,11 @@
     "../../../../../src/ashlar/README.md": "040b227ba2a415f28e3609738402611e88b0a6b714b628bdd429c549f3240250",
     "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
     "../../contracts/CONTRACT-004-publication-resolver.md": "24355c20e375474d8a30c421744397de2e6d5beac7f79f085e3a0b4ecf20b25e",
-    "../../../../../README.md": "11e0aaa10f67e008542066d293624bd5e195529dd5bc2c3f8ed75b960f22bda7",
+    "../../../../../README.md": "2e3999076ac9f30db11a3cbace8e589452dfe5ec01743c6e6076ce6ab8319f90",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
-    "../../../../../examples/end-to-end/README.md": "10271b95970f47f9d10eb64cb4146da66913aa81d447537bf5394a43177f35da",
-    "../../../04-build/end-to-end-plan.md": "a441f3e422ae9e69e2fc1655c3885bf3067271ee5b2eb1084d602a681c691ef8",
+    "../../../../../examples/end-to-end/README.md": "c4d2924b2348b941ca2914b9738e1af51a1ddfbfcf96e4f21243bd8cd720f663",
+    "../../../04-build/end-to-end-plan.md": "a8a3555e7ab958255519e191a889edd205eba5fa71e56f53e9ad8b75b4407363",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3164,7 +3164,9 @@
     "out/native/profile_custody_replay_20261008/native-errors.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
     "out/native/profile_custody_replay_20261008/source-bundle.json": "4abe043c84f9a02e1e97416edcebbab8d9b5b18065c22a5e5db73c1cbf3ebebf",
     "out/native/profile_custody_replay_20261008/native-output.txt": "993f37fa3bd0451132e1cf9ccc06d4f76e0938024c8d019182ba500edf075bf2",
-    "out/native/profile_custody_replay_20261008/retain.sql": "e8b77f70f49419c93653129d8af19f100b0e619598d2fa9e361eec46e0ecba9d"
+    "out/native/profile_custody_replay_20261008/retain.sql": "e8b77f70f49419c93653129d8af19f100b0e619598d2fa9e361eec46e0ecba9d",
+    "../../../../../tools/run_local_example.py": "e0b6b122d18fa6c04688c65c1c7dd0bc9ca7b128e98bc60d87351a387a66c4f4",
+    "../../../../../examples/end-to-end/local-string-source.jsonl": "fa28ecead66f0f8a6b1dfd50dc26c89b4f129ff0dcbd7d94010e34bd3e9b460d"
   },
   "evidence": {
     "ddl": {
