@@ -5,9 +5,10 @@ A standard graph data model for Databricks.
 Ashlar starts with a shared structure for graph nodes on Databricks. Its name
 comes from precisely shaped stones that fit together into a larger structure.
 
-**Status:** discovery drafts only. No schema, library, Databricks integration,
-or compatibility guarantee has been implemented. The first users, node identity
-rules, relationship scope, and physical representation remain open.
+**Status:** Proposed Unity Catalog Delta schema and a Python publication-resolver
+core are implemented as candidates. Scoped synthetic native evidence supports
+the physical-layout milestone; production policy, retention, publisher fencing
+and native resolver transport remain unqualified. UMF binding is deferred.
 
 Start with the [project documentation](docs/helix/README.md) and
 [product vision](docs/helix/00-discover/product-vision.md).
@@ -19,8 +20,10 @@ Read `AGENTS.md` and `.helix.yml`, then invoke the installed `helix` skill.
 The bootstrap used HELIX 0.14.1. Resolve its graph, templates, and prompts from
 the installed plugin; the methodology catalog is not vendored here.
 
-**Next action:** `frame` — review the discovery assumptions, choose the first
-producer/consumer scenario, and draft the PRD and feature specifications.
+**Next action:** Wire an authenticated SQL executor and qualified policy/custody
+provider into the [publication resolver](src/ashlar/README.md). The read-only native
+backend rejects mismatched table identities and pinned schemas. No scale
+benchmarks are scheduled.
 
 ## Naming
 

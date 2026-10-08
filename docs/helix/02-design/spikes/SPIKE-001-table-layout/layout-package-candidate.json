@@ -2874,7 +2874,7 @@
     "out/native/ashlar_billing_prices_r697/billing-result.json": "8df943d8e352ffd41516fce237d431df5beb0e1ea6ebe62cc2b7b4511fa97617",
     "table-design-handoff.md": "3a76a2b952df773b9dbec99120fee84f21642f9d6c0a737bd0973e1df426735f",
     "../../../01-frame/user-stories/US-002-validate-schema-package.md": "0a588b9e5cc416734018512c1ee04f5a7a550aa70a486e64e4c1dedbf3dcbd61",
-    "../../../README.md": "115b0e7b0e8ee8490a994cf8ac6787eea4b7b3e14031ae589a6d6e57e5833896",
+    "../../../README.md": "2edc062afb6c8b940b65a03bb871f259ace090f1c65431e2dba834e38a03bf50",
     "../../../../../sql/ashlar-delta-v03/04-degree-summary.sql": "ac2176e0d145bb21dc8edffd047c5d357343f215f181c0109902d4eaa0722dd5",
     "../../../../../sql/ashlar-delta-v03/native-singleton.sql": "311a7cabed197c991e13ad53dddfb1705cbe45bc82bfbf572bc75cf927953316",
     "../../../../../sql/ashlar-delta-v03/README.md": "dfa2f0cfd2334be655ac2fe17318ddaa7d5fb1d28a60e83af85547023c3e040d",
@@ -2890,7 +2890,15 @@
     "../../../03-test/consumer-conformance-plan.md": "81cba3df17f72687e230b689477fd171610eb55d5a4de02c9650f6b4f812bdcc",
     "out/schema-package-review-20261008.json": "8d37e213d3ee1a5eb44ad98872dee42f06ce3325362f87ee98c223b3ed88a2b9",
     "layout-milestone-acceptance.md": "baba6f089551d96dd99f79401ff59666cbea79fde3f774f5ff76c3269b5c7a41",
-    "../../../../../sql/ashlar-delta-v03/publication-descriptor.sql": "5f98d741d4fbe313f3cc960b1473dc7c6ca5bef47a4ada87a5c51e1faa18b300"
+    "../../../../../sql/ashlar-delta-v03/publication-descriptor.sql": "5f98d741d4fbe313f3cc960b1473dc7c6ca5bef47a4ada87a5c51e1faa18b300",
+    "../../../../../src/ashlar/__init__.py": "8f20eb9aa449f5817f8200eb8a8ce05922a65c6fc4ad56312027bca14615e9aa",
+    "../../../../../src/ashlar/native.py": "2a95c50ba63be357b65a279e8a5c7d06aaf487e6d0e55dc4006b7c68fa16a78c",
+    "../../../../../src/ashlar/publication.py": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
+    "../../../../../src/ashlar/README.md": "b1490b0fb433863d5eac7b0594bd09c02244ccc7a93b3ee60576d9142ddb1274",
+    "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
+    "../../contracts/CONTRACT-004-publication-resolver.md": "52492ad626cf046d2ff595d5aa91c20d086561c1aba0df3b6b70338bbd08514b",
+    "../../../../../README.md": "11e0aaa10f67e008542066d293624bd5e195529dd5bc2c3f8ed75b960f22bda7",
+    "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52"
   },
   "evidence": {
     "ddl": {

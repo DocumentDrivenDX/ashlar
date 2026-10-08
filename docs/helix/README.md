@@ -44,12 +44,12 @@ owner selected 1B nodes with more edges; Fabric mappings are bounded projections
 liquid clustering includes ingest cost. Exhaustive maintenance parity passes
 all 10,019,981 edge rows, complete fields, hidden metadata and unique typed keys.
 
-**Next action:** Implement the publication resolver and then the serialized
-publisher boundary using CONTRACT-001/002/003. The owner-revised
-[layout milestone acceptance](02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md)
-is met in its bounded scope. The [SQL candidate package](../../sql/ashlar-delta-v03/README.md)
-contains selectable table groups, descriptor and singleton read templates.
-No further scale tests are required; unmet operational targets and production
+**Next action:** Connect the [Python resolver core](../../src/ashlar/README.md)
+and read-only native verifier to an authenticated SQL executor and a qualified
+policy/retention provider under [CONTRACT-004](02-design/contracts/CONTRACT-004-publication-resolver.md).
+Seven small local tests pass; no native resolver deployment is claimed. Then
+implement the serialized publisher boundary under CONTRACT-001/003.
+The revised layout milestone is closed; operational performance and production
 source/fencing/security/retention qualifications remain explicit. UMF is deferred.
 
 **Historical spike status (superseded as a work plan):** The maintenance-inclusive comparisons below now fail.

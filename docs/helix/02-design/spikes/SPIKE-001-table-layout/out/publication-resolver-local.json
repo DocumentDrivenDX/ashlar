@@ -1,0 +1,13 @@
+{
+  "state": "Seven small local unittest cases passed",
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -v",
+  "runtime": "Python standard library; Python3.9+ candidate",
+  "cases": 7,
+  "qualification": "Simulated transport/policy; no cloud, Spark, native credentials, retention or production authorization qualification",
+  "sources": {
+    "src/ashlar/__init__.py": "8f20eb9aa449f5817f8200eb8a8ce05922a65c6fc4ad56312027bca14615e9aa",
+    "src/ashlar/native.py": "2a95c50ba63be357b65a279e8a5c7d06aaf487e6d0e55dc4006b7c68fa16a78c",
+    "src/ashlar/publication.py": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
+    "tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433"
+  }
+}
