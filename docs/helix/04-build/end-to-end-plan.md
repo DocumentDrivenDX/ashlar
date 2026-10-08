@@ -1891,3 +1891,26 @@ Qualified semantic-check composition, native acceptance/installation, original
 producer authority and streaming still remain required. The owner-authorized
 Truss review is active; full end-to-end goal remains active. No cloud/scale run or
 native installation occurs in this iteration.
+
+### Source-qualified UMF interpretation/check inventory (2026-10-08)
+
+Truss planning review 93633f2 is completed and pushed. It confirms that original
+document diagnostics, complete selected required checks and actual native acceptance
+are separate conclusions. It requests a source-qualified check inventory rather
+than a Truss semantic validator or warning suppression.
+
+Truss runtime candidate `c615503` now emits this prerequisite inventory using the
+actual pinned UMF nullability/cardinality/facet/key/relationship inspection producers.
+Twenty-six full original operation results are tied to original example artifact
+bytes/hash and declaration pointers (5/8/8/5 across v1/v2/v3/unknown). Raw inputs,
+full envelope diagnostics and unknown-scope diagnostics stay preserved. Required
+semantic-check producer, native binding and support-profile slots are explicitly
+unresolved. No inspection's unverified provenance is promoted into author/native
+custody, complete value-check evidence or accepted IDs.
+
+The repeatable semantic probe and real Chromium probe pass; every actual original
+inspection result agrees across Bun and Chromium 153.0.8010.12. Updated producer
+bundle hashes anchor both receipts. This advances the required profile composition
+without claiming writable acceptance, actual native installation or a Truss source
+stream. Complete selected-check producers and original native bindings remain the
+next implementation dependencies. Full goal remains active; no cloud/scale run.
