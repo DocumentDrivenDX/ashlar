@@ -1780,3 +1780,22 @@ API. This is deliberate completion-loss containment evidence, not natural packet
 loss, crash recovery, native protected operation identity/issuer/epoch, full Truss
 bootstrap/feed or source ACK authority. It closes a native evidence gap previously
 covered only by controlled ports. The complete end-to-end goal remains active.
+
+### Bounded explicit local transport teardown (2026-10-08)
+
+Truss candidate `ad741c9` adds `shutdownQuarantinedTransports()` to the host source.
+It refuses healthy active checkouts before changing admission. Explicit shutdown
+then closes admission, destroys only original quarantined local transports and
+awaits actual local close with a five-second bound. Dead pool checkouts are removed
+while original quarantine/outcome custody remains retained. Repeated successful
+shutdown is inert; missing transport/timeout keeps uncertainty and closed admission.
+Ordinary close still refuses unresolved quarantine and now refuses live checkouts.
+
+The actual native commit-loss probe passes without forced process exit, replacing
+that earlier harness workaround. It independently observes the committed row,
+checks healthy-checkout protection, retained quarantine after local teardown,
+closed future acquisition and repeated shutdown, then removes its fixture table.
+Thirty-five local tests/232 assertions, host build and clean packed consumer checks
+pass. Local socket closure is not native backend termination, transaction settlement,
+source fencing or replay authority; full original recovery/protected native
+producer/installation/schema/feed work remains incomplete. The full goal stays active.
