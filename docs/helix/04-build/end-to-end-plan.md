@@ -1720,3 +1720,22 @@ native journal correspondence is claimed by this iteration. Durable records are
 an experimental recovery input, not native issuer/epoch custody, protected
 producer admission, full shared resource accounting or a completed Truss stream.
 The full end-to-end objective remains active.
+
+### Native retained-original correspondence (2026-10-08)
+
+The previously pending original-query journal probe completed successfully on
+existing local PostgreSQL 17.9. Truss candidate `bafe00e` retains the repeatable
+native probe, independent offline verifier and hashed receipt. A separate process
+read all 50 private original request files and validated their complete response
+frames without database submission: 47 response-complete observations and three
+original server errors (23505, 40P01, 23503). Sensitive SQL/parameters/results remain
+in the private host directory; committed evidence contains file hashes/inventory
+and classifications. This supersedes the pending native status above.
+
+The journal unit check and a fresh packed host/portable consumer typecheck/runtime
+also pass. This proves process-independent retained-original correspondence for
+the exercised subset, not power-loss durability, uncertain-commit reconciliation,
+native issuer/epoch, safe source ACK or full protected Truss bootstrap/streaming.
+No cloud run or persistent native table change was needed. Full toolkit completion
+remains unproved; retained originals must next bind to connection/operation custody
+and explicit uncertainty handling before serving as recovery inputs.
