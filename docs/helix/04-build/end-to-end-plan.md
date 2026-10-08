@@ -309,3 +309,23 @@ Next implement the qualified native effect provider and retained-pin proof,
 then exercise the composed publication/resolver/singleton workflow. Truss still
 has design/reference artifacts and no runtime source at inspected commit
 29bde23; actual Truss acceptance/mutation/feed remains required by the goal.
+
+## Original native SQL submission custody checkpoint
+
+The host transport now retains per-operation request intent before POST and
+original native handle/terminal response afterward in synchronous SQLite.
+Fresh connections replay terminal custody or GET the retained handle; a lost
+POST response with no handle refuses another POST. Exact changed SQL, parameter,
+warehouse or authority conflicts refuse. Terminal failures remain original
+failures. The journal is mandatory retained recovery state, with host filesystem
+access and lifetime controlled by deployment; it is not remote source fencing.
+
+Sixty-six focused local checks pass. One bound read-only SELECT on the existing
+warehouse and fresh journal connection replay pass with retained native receipt.
+No graph data or manifests changed. Run tools/check_native_durable_sql.py with
+explicit --journal and --output paths; pending outcomes resume the same journal
+and operation. An unknown no-handle submission requires native reconciliation.
+
+Next use these original handles in the real effect provider, retain admitted
+plans before graph writes, and qualify complete effect/schema/source/pin parity
+before manifest publication. Truss acceptance/runtime/feed remains unfinished.

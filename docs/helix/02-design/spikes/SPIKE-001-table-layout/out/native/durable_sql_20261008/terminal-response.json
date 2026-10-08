@@ -1,0 +1,40 @@
+{
+  "statement_id": "01f1c2df-d0f3-1148-a610-92593bb849d2",
+  "status": {
+    "state": "SUCCEEDED"
+  },
+  "manifest": {
+    "format": "JSON_ARRAY",
+    "schema": {
+      "column_count": 1,
+      "columns": [
+        {
+          "name": "original",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 0
+        }
+      ]
+    },
+    "total_chunk_count": 1,
+    "chunks": [
+      {
+        "chunk_index": 0,
+        "row_offset": 0,
+        "row_count": 1
+      }
+    ],
+    "total_row_count": 1,
+    "truncated": false
+  },
+  "result": {
+    "chunk_index": 0,
+    "row_offset": 0,
+    "row_count": 1,
+    "data_array": [
+      [
+        "retained-original"
+      ]
+    ]
+  }
+}

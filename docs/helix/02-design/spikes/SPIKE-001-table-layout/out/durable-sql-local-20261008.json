@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "tests": 66,
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q",
+  "scope": "Original request, terminal replay, pending handle recovery, lost POST refusal, terminal failure custody; native effects unfinished."
+}

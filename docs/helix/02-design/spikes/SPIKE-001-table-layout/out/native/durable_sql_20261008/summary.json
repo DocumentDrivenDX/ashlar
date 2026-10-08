@@ -1,0 +1,9 @@
+{
+  "state": "passed",
+  "statement_id": "01f1c2df-d0f3-1148-a610-92593bb849d2",
+  "checks": [
+    "one bound SELECT on existing warehouse",
+    "fresh SQLite journal connection replays original terminal response"
+  ],
+  "qualification": "Read-only native transport check; no graph effects, publication admission, fencing or long-term journal retention proof."
+}

@@ -114,3 +114,13 @@ provider owns native operations, complete pin/admission proof and source
 acknowledgement; it must return exact JSON strings for result/descriptor custody.
 There is no default effect provider. Sixty-two local checks pass; native composed
 execution remains unfinished.
+
+Host transport tools/durable_sql.py journals each original SQL request before
+submission, then retains its native handle and terminal response in synchronous
+SQLite storage. Reopening the same operation replays original terminal custody
+or polls its original handle; an uncertain submission without a handle refuses
+reposting and requires independent native reconciliation. Operation identity
+binds exact SQL/parameters, warehouse and explicit authenticated authority.
+Retain the private journal; it is recovery state, not expendable telemetry.
+This host module is outside the portable core and does not establish source
+fencing, effect parity or publication authority. One native SELECT/reload passes.
