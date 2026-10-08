@@ -1,0 +1,251 @@
+{
+  "state": "Seventh100k local byte/field/source geometry and proposed15 concurrent validation checks bind; native stages unexecuted",
+  "sources": {
+    "oracle": "out/seventh-batch-oracle-r589.json",
+    "files": "out/ashlar_seventh_batch_files_r586/audited-summary.json",
+    "cdf": "out/seventh-cdf-image-oracle-r588.json",
+    "tomb": "out/seventh-canonical-tomb-r588.json",
+    "parent": "out/native/ashlar_sixth_guard_publish_r537/audited-summary.json",
+    "parent_budget": "out/sixth-publisher-budget-r535.json"
+  },
+  "source_sha256": {
+    "oracle": "2f56ccd74247318d4b956085b19f644fa031264c4ad18315600be394c96bd721",
+    "files": "5a0f6e1fc8a189aa07b6e4632302effd288e1fca8e7339d1c0fa575cdf22df7b",
+    "cdf": "5b9627446ee28934624a19e5d28b7c90336bce7a6fe589c4e391bbbe87df3288",
+    "tomb": "953b4a42a507eb433afad48c8ad0ecd51548c2bad98f3f9c28f4c8587683174c",
+    "parent": "2b889dcd36e7a303792bf18556dbabbbd8787329e859668d38951cfe8d15ea0b",
+    "parent_budget": "489e15ed1d23489be7029793602ee33d0372f6f8e7980cafd7536b1d15ce664b"
+  },
+  "accepted_files_sha256": "5a0f6e1fc8a189aa07b6e4632302effd288e1fca8e7339d1c0fa575cdf22df7b",
+  "accepted_oracle_sha256": "2f56ccd74247318d4b956085b19f644fa031264c4ad18315600be394c96bd721",
+  "source_bytes": 1100633880,
+  "parts": 35,
+  "expected_final_rows": {
+    "object_current": 8000000,
+    "edge_current": 39930000,
+    "source_record": 48700000,
+    "property_journal": 193516667,
+    "adjacency_forward": 39930000,
+    "tombstone": 70000
+  },
+  "proposed_publication_vector": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+      "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+      "version": 6,
+      "rows": 8000000
+    },
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+      "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+      "version": 10
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332",
+      "id": "dc895abb-e861-4f5c-ac9b-c4f06d5e9b8a",
+      "version": 7
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332",
+      "id": "8954e4b8-0255-4d24-adf7-508ded56b61c",
+      "version": 7
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332",
+      "id": "4fc3692a-32b2-455a-b9a2-2a1e5f9eb792",
+      "version": 8
+    },
+    "tombstone": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332",
+      "id": "c6db7de7-4b17-4837-83de-8667cd69e892",
+      "version": 7
+    }
+  },
+  "planned_checks": [
+    {
+      "label": "cdf-source_record",
+      "sql": "SELECT _change_type,count(*),min(_commit_version),max(_commit_version),sha2(concat_ws('',sort_array(collect_list(sha2(concat(CASE WHEN source_feed IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_feed AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_feed AS STRING),'UTF-8')),';') END,CASE WHEN source_epoch IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_epoch AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_epoch AS STRING),'UTF-8')),';') END,CASE WHEN delivery_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(delivery_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(delivery_id AS STRING),'UTF-8')),';') END,CASE WHEN record_kind IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(record_kind AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(record_kind AS STRING),'UTF-8')),';') END,CASE WHEN source_cursor_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_cursor_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_cursor_json AS STRING),'UTF-8')),';') END,CASE WHEN payload_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(payload_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(payload_json AS STRING),'UTF-8')),';') END,CASE WHEN payload_digest IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(payload_digest AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(payload_digest AS STRING),'UTF-8')),';') END,CASE WHEN schema_revision IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(schema_revision AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(schema_revision AS STRING),'UTF-8')),';') END,CASE WHEN received_at IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(received_at AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(received_at AS STRING),'UTF-8')),';') END,CASE WHEN apply_batch_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(apply_batch_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(apply_batch_id AS STRING),'UTF-8')),';') END),256)))),256) FROM table_changes('client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332',7,7) GROUP BY _change_type ORDER BY _change_type",
+      "expected": [
+        [
+          "insert",
+          "100000",
+          "7",
+          "7",
+          "17c27274754bd7e77394a7363e3a5104406510526e7ee081d835d48c573b65e7"
+        ]
+      ]
+    },
+    {
+      "label": "cdf-property_journal",
+      "sql": "SELECT _change_type,count(*),min(_commit_version),max(_commit_version),sha2(concat_ws('',sort_array(collect_list(sha2(concat(CASE WHEN source_system IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_system AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_system AS STRING),'UTF-8')),';') END,CASE WHEN entity_kind IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(entity_kind AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(entity_kind AS STRING),'UTF-8')),';') END,CASE WHEN type_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(type_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(type_id AS STRING),'UTF-8')),';') END,CASE WHEN id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(id AS STRING),'UTF-8')),';') END,CASE WHEN entity_version IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(entity_version AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(entity_version AS STRING),'UTF-8')),';') END,CASE WHEN schema_revision IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(schema_revision AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(schema_revision AS STRING),'UTF-8')),';') END,CASE WHEN source_feed IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_feed AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_feed AS STRING),'UTF-8')),';') END,CASE WHEN source_epoch IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_epoch AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_epoch AS STRING),'UTF-8')),';') END,CASE WHEN source_position IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_position AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_position AS STRING),'UTF-8')),';') END,CASE WHEN source_time_text IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_time_text AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_time_text AS STRING),'UTF-8')),';') END,CASE WHEN published_at IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(published_at AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(published_at AS STRING),'UTF-8')),';') END,CASE WHEN apply_batch_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(apply_batch_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(apply_batch_id AS STRING),'UTF-8')),';') END,CASE WHEN source_cursor_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_cursor_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_cursor_json AS STRING),'UTF-8')),';') END,CASE WHEN source_delivery_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_delivery_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_delivery_id AS STRING),'UTF-8')),';') END,CASE WHEN property_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(property_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(property_id AS STRING),'UTF-8')),';') END,CASE WHEN operation IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(operation AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(operation AS STRING),'UTF-8')),';') END,CASE WHEN old_present IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(old_present AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(old_present AS STRING),'UTF-8')),';') END,CASE WHEN old_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(old_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(old_json AS STRING),'UTF-8')),';') END,CASE WHEN new_present IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(new_present AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(new_present AS STRING),'UTF-8')),';') END,CASE WHEN new_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(new_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(new_json AS STRING),'UTF-8')),';') END,CASE WHEN event_ordinal IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(event_ordinal AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(event_ordinal AS STRING),'UTF-8')),';') END),256)))),256) FROM table_changes('client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332',7,7) GROUP BY _change_type ORDER BY _change_type",
+      "expected": [
+        [
+          "insert",
+          "216667",
+          "7",
+          "7",
+          "46b5e19f7227ca27661e3dab93e8f41ad082245ebcb4ba0cf1e4214ea7abab08"
+        ]
+      ]
+    },
+    {
+      "label": "cdf-edge_current",
+      "sql": "SELECT _change_type,count(*),min(_commit_version),max(_commit_version),sha2(concat_ws('',sort_array(collect_list(sha2(concat(CASE WHEN source_system IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_system AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_system AS STRING),'UTF-8')),';') END,CASE WHEN rel_type_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(rel_type_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(rel_type_id AS STRING),'UTF-8')),';') END,CASE WHEN id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(id AS STRING),'UTF-8')),';') END,CASE WHEN source_type IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_type AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_type AS STRING),'UTF-8')),';') END,CASE WHEN source_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_id AS STRING),'UTF-8')),';') END,CASE WHEN target_type IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(target_type AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(target_type AS STRING),'UTF-8')),';') END,CASE WHEN target_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(target_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(target_id AS STRING),'UTF-8')),';') END,CASE WHEN order_key IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(order_key AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(order_key AS STRING),'UTF-8')),';') END,CASE WHEN schema_revision IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(schema_revision AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(schema_revision AS STRING),'UTF-8')),';') END,CASE WHEN entity_version IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(entity_version AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(entity_version AS STRING),'UTF-8')),';') END,CASE WHEN props_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(props_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(props_json AS STRING),'UTF-8')),';') END,CASE WHEN retained_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(retained_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(retained_json AS STRING),'UTF-8')),';') END,CASE WHEN source_feed IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_feed AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_feed AS STRING),'UTF-8')),';') END,CASE WHEN source_epoch IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_epoch AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_epoch AS STRING),'UTF-8')),';') END,CASE WHEN source_position IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_position AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_position AS STRING),'UTF-8')),';') END,CASE WHEN published_at IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(published_at AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(published_at AS STRING),'UTF-8')),';') END,CASE WHEN apply_batch_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(apply_batch_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(apply_batch_id AS STRING),'UTF-8')),';') END,CASE WHEN source_cursor_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_cursor_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_cursor_json AS STRING),'UTF-8')),';') END,CASE WHEN source_delivery_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_delivery_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_delivery_id AS STRING),'UTF-8')),';') END,CASE WHEN lookup_hash IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(lookup_hash AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(lookup_hash AS STRING),'UTF-8')),';') END),256)))),256) FROM table_changes('client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337',10,10) GROUP BY _change_type ORDER BY _change_type",
+      "expected": [
+        [
+          "delete",
+          "10000",
+          "10",
+          "10",
+          "fbf0651f71b7de395d6d917e49a5f18d8b46a9cf87f40e0cd52006cff4f037a9"
+        ],
+        [
+          "update_postimage",
+          "90000",
+          "10",
+          "10",
+          "8f59d956aa3764237365a1d547ad2bf7528cabf7ea3f7d1c36b79acf408032e6"
+        ],
+        [
+          "update_preimage",
+          "90000",
+          "10",
+          "10",
+          "9465bfdaeb645c4dace373c3d6ceb0921246a0c9f5fb51133d44e56d62067526"
+        ]
+      ]
+    },
+    {
+      "label": "typed-endpoints",
+      "sql": "SELECT count(*),count_if(s.id IS NULL OR t.id IS NULL) FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 10 e LEFT JOIN client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236 VERSION AS OF 6 s ON e.source_system=s.source_system AND e.source_type=s.type_id AND e.source_id=s.id LEFT JOIN client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236 VERSION AS OF 6 t ON e.source_system=t.source_system AND e.target_type=t.type_id AND e.target_id=t.id",
+      "expected": [
+        [
+          "39930000",
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "cdf-adjacency_forward",
+      "sql": "SELECT _change_type,count(*),min(_commit_version),max(_commit_version),sha2(concat_ws('',sort_array(collect_list(sha2(concat(CASE WHEN source_system IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_system AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_system AS STRING),'UTF-8')),';') END,CASE WHEN rel_type_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(rel_type_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(rel_type_id AS STRING),'UTF-8')),';') END,CASE WHEN id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(id AS STRING),'UTF-8')),';') END,CASE WHEN source_type IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_type AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_type AS STRING),'UTF-8')),';') END,CASE WHEN source_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(source_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(source_id AS STRING),'UTF-8')),';') END,CASE WHEN target_type IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(target_type AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(target_type AS STRING),'UTF-8')),';') END,CASE WHEN target_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(target_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(target_id AS STRING),'UTF-8')),';') END,CASE WHEN entity_version IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(entity_version AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(entity_version AS STRING),'UTF-8')),';') END),256)))),256) FROM table_changes('client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332',8,8) GROUP BY _change_type ORDER BY _change_type",
+      "expected": [
+        [
+          "delete",
+          "10000",
+          "8",
+          "8",
+          "db4b218b10765048009d533531a177576c53ab4ec5537e9608041ec4ddaf59c2"
+        ],
+        [
+          "update_postimage",
+          "90000",
+          "8",
+          "8",
+          "4dcf59002852d9f4b1146ea4efad39d600b0feea5c670658d5d5379e295affef"
+        ],
+        [
+          "update_preimage",
+          "90000",
+          "8",
+          "8",
+          "43a418e8cdaea25ea88045ed34f089d6296f691c72451a62c25605db4c3d8e87"
+        ]
+      ]
+    },
+    {
+      "label": "canonical-tombstone",
+      "sql": "SELECT count(*),sha2(concat_ws('',sort_array(collect_list(sha2(concat(CASE WHEN t.source_system IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(t.source_system AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(t.source_system AS STRING),'UTF-8')),';') END,CASE WHEN t.entity_kind IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(t.entity_kind AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(t.entity_kind AS STRING),'UTF-8')),';') END,CASE WHEN t.type_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(t.type_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(t.type_id AS STRING),'UTF-8')),';') END,CASE WHEN t.id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(t.id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(t.id AS STRING),'UTF-8')),';') END,CASE WHEN t.source_feed IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(t.source_feed AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(t.source_feed AS STRING),'UTF-8')),';') END,CASE WHEN t.source_epoch IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(t.source_epoch AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(t.source_epoch AS STRING),'UTF-8')),';') END,CASE WHEN t.source_position IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(t.source_position AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(t.source_position AS STRING),'UTF-8')),';') END,CASE WHEN t.source_cursor_json IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(t.source_cursor_json AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(t.source_cursor_json AS STRING),'UTF-8')),';') END,CASE WHEN t.source_delivery_id IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(t.source_delivery_id AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(t.source_delivery_id AS STRING),'UTF-8')),';') END,CASE WHEN t.entity_version IS NULL THEN 'N;' ELSE concat('V',cast(length(encode(CAST(t.entity_version AS STRING),'UTF-8')) AS STRING),':',hex(encode(CAST(t.entity_version AS STRING),'UTF-8')),';') END),256)))),256) FROM client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332 VERSION AS OF 7 t INNER JOIN client_dev.ashlar_entropy_20261006_r86.normalized_tombstone_r593 VERSION AS OF 0 s ON t.source_feed=s.source_feed AND t.source_epoch=s.source_epoch AND t.source_delivery_id=s.source_delivery_id",
+      "expected": [
+        [
+          "10000",
+          "20f5b61195014e1d73280a1da1e892af622308d5f1a9cfb08815c03c66665ce4"
+        ]
+      ]
+    },
+    {
+      "label": "final-count-object_current",
+      "sql": "SELECT count(*) FROM client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236 VERSION AS OF 6",
+      "expected": [
+        [
+          "8000000"
+        ]
+      ]
+    },
+    {
+      "label": "final-count-edge_current",
+      "sql": "SELECT count(*) FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 10",
+      "expected": [
+        [
+          "39930000"
+        ]
+      ]
+    },
+    {
+      "label": "final-count-source_record",
+      "sql": "SELECT count(*) FROM client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332 VERSION AS OF 7",
+      "expected": [
+        [
+          "48700000"
+        ]
+      ]
+    },
+    {
+      "label": "final-count-property_journal",
+      "sql": "SELECT count(*) FROM client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332 VERSION AS OF 7",
+      "expected": [
+        [
+          "193516667"
+        ]
+      ]
+    },
+    {
+      "label": "final-count-adjacency_forward",
+      "sql": "SELECT count(*) FROM client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332 VERSION AS OF 8",
+      "expected": [
+        [
+          "39930000"
+        ]
+      ]
+    },
+    {
+      "label": "final-count-tombstone",
+      "sql": "SELECT count(*) FROM client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332 VERSION AS OF 7",
+      "expected": [
+        [
+          "70000"
+        ]
+      ]
+    },
+    {
+      "label": "unique-edges",
+      "sql": "SELECT count(*),count(DISTINCT struct(source_system,rel_type_id,id)) FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 10",
+      "expected": [
+        [
+          "39930000",
+          "39930000"
+        ]
+      ]
+    },
+    {
+      "label": "deleted-absent",
+      "sql": "SELECT count(*) FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 10 e INNER JOIN client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332 VERSION AS OF 7 t ON e.source_system=t.source_system AND e.rel_type_id=t.type_id AND e.id=t.id",
+      "expected": [
+        [
+          "0"
+        ]
+      ]
+    },
+    {
+      "label": "schema-revisions",
+      "sql": "SELECT DISTINCT source_feed,schema_revision FROM client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332 VERSION AS OF 7",
+      "expected": [
+        [
+          "synthetic-scale-mixed",
+          "synthetic-mixed/1"
+        ]
+      ]
+    }
+  ],
+  "publisher_sha256": "15d106d58c279bda307cf06d4e60de9caebff08348434178d9a7a703c9c021a6",
+  "qualification": "Offline future query/expectation binding and syntax/entrypoint wiring only; not executed SQL, native preflight, new input UUIDs, actual role commit, manifest or freshness evidence. Parent table versions are historical qualified pins; actual mutable heads must be refreshed. Generation/transfer/staging costs remain separate; no cloning or real source ACK."
+}

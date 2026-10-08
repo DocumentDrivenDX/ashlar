@@ -2608,7 +2608,17 @@
     "out/seventh-cdf-image-oracle-r588.json": "5b9627446ee28934624a19e5d28b7c90336bce7a6fe589c4e391bbbe87df3288",
     "out/seventh-canonical-tomb-r588.json": "953b4a42a507eb433afad48c8ad0ecd51548c2bad98f3f9c28f4c8587683174c",
     "out/ashlar_seventh_batch_files_r586/summary.json": "250d5c7afb0ff83224cb2295dcf48652a2980dc441a7d2909e1437878f02352a",
-    "out/ashlar_seventh_batch_files_r586/audited-summary.json": "5a0f6e1fc8a189aa07b6e4632302effd288e1fca8e7339d1c0fa575cdf22df7b"
+    "out/ashlar_seventh_batch_files_r586/audited-summary.json": "5a0f6e1fc8a189aa07b6e4632302effd288e1fca8e7339d1c0fa575cdf22df7b",
+    "out/native/ashlar_seventh_batch_upload_r592/audited-summary.json": "78310c491ab46b3d468303a9cde0824e25cddd01cb49a1f6c5eb26e1836a7bbd",
+    "out/native/ashlar_seventh_batch_upload_r592/summary.json": "570a2283977ff324025516ae072b4891375fb52931aa306b40ec7f521acbf050",
+    "out/seventh-local-admission-r591.json": "07c4ae455bac07c22e62f9ba3a0643e72ced49df89b3aa7f45c54c15b7120f5d",
+    "seventh_admission_r591.py": "e658bc8d5a13cbfc49a77de62f382eca4ca512500b693ceb52054caf71d50846",
+    "seventh_batch_upload_r592.py": "6c019bbbd249bc037c0a34e6d0191ca709cb25d4921c523b508b2c5c0fe8b426",
+    "seventh_delta_stage_r593.py": "0ed23bd2142dcb4cd22d8d7e90d6e230620556ee30b330eee3cf3fd4e7e157b9",
+    "seventh_publisher_budget_r594.py": "4b64bd1380b16165ddb62fbc1d9e4cfd465e262968e6a15ac0d5e8e0fab17997",
+    "seventh_publisher_preflight_r595.py": "4cc1dcfda4135c95216d79f337a465e8ed3ae2835caf63c5b116632f14fb60d8",
+    "seventh_stage_audit_r598.py": "0a2aea01e723d42bb7c8a3135e70240a88205e0dc46f431f6414f05715f4196b",
+    "seventh_transfer_audit_r597.py": "97d197ce7dfef6ddc779e73ce15d211cca9e30143bc1bc72a9b5a5cbd353d736"
   },
   "evidence": {
     "ddl": {
