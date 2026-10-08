@@ -8,6 +8,10 @@ from durable_effects import DurableEffects,EffectPlanError
 from durable_sql import DurableSQL,SQLPending
 from journaled_publisher_driver import JournaledPublisherDriver
 from journaled_snapshot_artifacts import JournaledSnapshotArtifacts
+from native_artifact_validation import NativeArtifactValidator
+from test_native_artifact_validation import NativeExecutor,Gate
+from ashlar.protocol import ReaderProtocolProfile
+from ashlar.native import SQLResult
 from test_effect_validation import Executor,COLS,ROW
 from ashlar.publisher import PublicationError
 from ashlar.stored_publisher import _artifact
@@ -52,9 +56,22 @@ class JournaledDriverTests(unittest.TestCase):
                     artifacts=JournaledSnapshotArtifacts(journal,snapshot_executor,SnapshotAdmission(),
                         lambda *args:{'c.s.object_current':{'uuid':'uuid','version':7,'columns':COLS,'rows':[ROW]}},
                         lambda request,*args:json.loads(Driver().artifact(request))['manifest'],namespace='snapshot')
+                    class NativeRows(NativeExecutor):
+                        def query(self,sql,parameters):
+                            if sql.startswith('DESCRIBE') and '`manifest`' in sql:
+                                self.calls.append(sql)
+                                return SQLResult([{'id':'manifest-uuid','format':'delta','minReaderVersion':'3','minWriterVersion':'7','tableFeatures':'[]'}])
+                            return super().query(sql,parameters)
+                    class SourceAdmission:
+                        def admit(self,descriptor,targets,context):
+                            if context!='admitted':raise PermissionError('Test source admission denied')
+                            validations.append(descriptor.validation_report['request_digest'])
+                    validator=NativeArtifactValidator(NativeRows(),
+                        {'c.s.object_current':{'uuid':'uuid','version':7,'columns':COLS,'rows':[ROW]}},
+                        SourceAdmission(),Gate(),lambda *args:None,
+                        reader_profile=ReaderProtocolProfile('test',(3,),(7,),()),manifest_table='c.s.manifest',manifest_uuid='manifest-uuid')
                     driver=JournaledPublisherDriver(DurableEffects(journal,Policy()),ManifestPolicy(),
-                        lambda request,context:STEPS,artifacts,
-                        lambda *args:validations.append(args[0]['request_digest']),
+                        lambda request,context:STEPS,artifacts,validator,
                         lambda *args:acks.append(args[0]['request_digest']),namespace='test')
                     transport=Transport(journal,api.manifest)
                     backend=helper.backend(phases,driver,transport,ManifestPolicy())
@@ -66,7 +83,7 @@ class JournaledDriverTests(unittest.TestCase):
             self.assertEqual([method for method,_ in api.calls],['POST','POST'])
             self.assertEqual(api.manifest.calls,['POST'])
             self.assertEqual(len(acks),2)
-            self.assertEqual(len(validations),2)
+            self.assertEqual(len(validations),4)
 
     def test_interrupted_effect_recovery_requires_original_artifact_observations(self):
         helper=stored.StoredPublisherTests();artifacts=Artifacts()

@@ -761,3 +761,28 @@ capture without retained proposal bytes requires reconciliation and refuses a
 new observation. This component is wired into the focused host-pipeline tests.
 A native installation must still supply source/writer custody, independent
 expected-state derivation, protocol/retention/pin policies and ACK semantics.
+
+
+## Validate the existing native publication without writing
+
+With the documented SDK/psycopg environment, existing local PostgreSQL sandbox,
+original CSV publication journal and authorized Databricks profile:
+
+```sh
+python3 tools/check_native_csv_artifact.py --journal /private/tmp/ashlar-csv-publication-20261008.sqlite --output out/native-artifact-check
+```
+
+The output directory must be fresh. This reads the original journal and immutable
+native manifest, holds all original PostgreSQL pin guards, and invokes
+`NativeArtifactValidator` against the four original versioned tables. Current
+private owner/grants, raw UMF intake, complete rows, protocol, finite retention
+and descriptor correspondence must all pass. It changes no data, manifest,
+permissions or maintenance settings and issues no source ACK. It requires the
+existing demonstrated private fixture; it does not initialize Truss or validate
+a substitute deployment. Original statement receipts and their summary are kept
+in the output directory.
+
+The same validator is callable from `JournaledPublisherDriver` for new
+request-bound artifacts. The earlier CSV descriptor has no publisher request
+digest and is checked through the retained-descriptor surface, without relabeling
+it as a native stored-publisher execution. Full native phase wiring remains open.

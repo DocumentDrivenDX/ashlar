@@ -1,0 +1,509 @@
+{
+  "state": "validated",
+  "publication_id": "csv-fixture-publication-20261008",
+  "version_vector": {
+    "ashlar_e2e_private_20261008.runtime_csv.edge_current": 0,
+    "ashlar_e2e_private_20261008.runtime_csv.object_current": 7,
+    "ashlar_e2e_private_20261008.runtime_csv.tombstone": 1,
+    "ashlar_e2e_private_20261008.runtime_csv.whole_source_history": 4
+  },
+  "complete_tables": 4,
+  "native_read_statements": 68,
+  "source_sha256": "944b1ebb4c9c564ce4687a4a731c360cd6575d97aa9abfa4994203968f498e12",
+  "published": false,
+  "acknowledged": false,
+  "qualification": "Actual existing CSV descriptor checked under complete ordinary PG pin guards, current private owner/grants, exact native raw UMF intake, full-row/version parity, recognized protocol and finite retention. Original journal read-only; no new data/manifest writes, source ACK or stored-publisher phase claim. Trusted admins and same-host cooperating lane; not real Truss or remote writer fencing.",
+  "code_sha256": {
+    "tools/native_artifact_validation.py": "4af573935b5ef8a39a02917fc1b551592101dcd0e694b30d323005aa2be5e8cf",
+    "tools/check_native_csv_artifact.py": "4b0343c9cb3c24539042258984badd70d89c72e5221decc2e31db976bf356eaa"
+  },
+  "original_read_receipts_directory": "/private/tmp/ashlar-native-artifact-validation-20261008-r3",
+  "receipts": [
+    {
+      "statement_id": "01f1c33e-1f95-14cd-ba25-1417e8e28b8d",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "86c098181b4f8cd8758aba3460a9f855d9aca816facb02d60f1647a8d29f912a",
+      "response_sha256": "721700126631731fbbad21c4cafe2dffbf9da899ea0c8f6d6571cb5917d755a3"
+    },
+    {
+      "statement_id": "01f1c33e-20cc-1dc4-82c0-815be94b5ce7",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "e41a0a66b5e7663e88211a6dd0e9aedb2f4cf75e401889faf8b8e4da67780887",
+      "response_sha256": "8584af936ad1bd8f4f13de94b59c2ec5e74ee60846a9ac638cb73edff445b039"
+    },
+    {
+      "statement_id": "01f1c33e-2132-1bbd-bea7-3919a59ebf3b",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "2290585ca6e1e2f7d37f0cd3f8e117610cfe75d1e567c07817b79966a30c2e95",
+      "response_sha256": "a7a2a3057eba8b07d5880aa4cd3de58e8589e3359ef5b4125cf3733387be9b89"
+    },
+    {
+      "statement_id": "01f1c33e-217f-100d-ac15-e127c583b7c5",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "e6ea628999c5b5e8597af267e000e4ef7784e4f5f474856a7aec7a5d40378406",
+      "response_sha256": "d5c999b171e3cba178e5d7119922d8119c07807dfa48123b5e7cc549f706d96a"
+    },
+    {
+      "statement_id": "01f1c33e-21d3-1c96-964c-a4961d426104",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "7dad1d74423d7519faef149f11557fec265d0a2c60de8dc5e099c782a873f9e9",
+      "response_sha256": "b4fe64095e6c503175227df98f94bbeae95d48b28b18910bf8261cd29ba532eb"
+    },
+    {
+      "statement_id": "01f1c33e-221e-1d5e-b7a4-f89c78bca711",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "c578b2a0989ebc907e796294f4121932414f74eec9e48aa878126f7bbd43866b",
+      "response_sha256": "79110d9fd61390effa37fd2cda52b7bd568f2db148e412c4c38e8b8396472057"
+    },
+    {
+      "statement_id": "01f1c33e-2274-14c8-8eba-a4000966f836",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "fb4088514cb724a2adaa9e3c4c290000c05a314073ae014ed4501cb7160be363",
+      "response_sha256": "fd44438989b21470329e4c6c3d719bb6ab5bf4a7e44ee0a5cadb2d0e56f93703"
+    },
+    {
+      "statement_id": "01f1c33e-22bc-1a34-a7f6-9939fa889476",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "4896943816588e5b31a86f59a0a3340735d9dac29b2390e41820b4a476713fa8",
+      "response_sha256": "442b61e75e093f3e68d4572555fc2282a5f37fb73c287a10bc207ef8f59dcc1b"
+    },
+    {
+      "statement_id": "01f1c33e-2303-1236-851d-0f43879815ea",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "1916ec23aa0f0232a59e569c4107ccdcca3daf93561ad14d77e5d01580daed94",
+      "response_sha256": "01191cbcd60caa828e7cae60d4500345fd7b2f1dee98148e14646216e97251ce"
+    },
+    {
+      "statement_id": "01f1c33e-234c-10bb-8546-a41a2b4eec8b",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "e6d6015c279c5af76dc3132a3b5fa84ade1d2c4d77a3e68ccc0af6a4530cbfaa",
+      "response_sha256": "fbea9928b2921f3417d4e759d56540c8924174d2d347e9bff5621a96393a820a"
+    },
+    {
+      "statement_id": "01f1c33e-2487-1c7f-bde7-049e429ad216",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "933f1c52f1034118f86d18cc9500de75178ca0523aebbd9075e3ebcf4f9491b9",
+      "response_sha256": "52b472f107b411277efd546c28ee22f7a880024287be776d71473fef1902aecb"
+    },
+    {
+      "statement_id": "01f1c33e-2502-108d-bf76-1aa3356ee2cc",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "d939e376ff18d94796ac4d96ac2f9a351914e2763dbfa600efadf6c5d2e3a180",
+      "response_sha256": "ddf13b944961f01c9cf47ade96f0e122331d8bf4bcf1a4af7f9847f88f9a2998"
+    },
+    {
+      "statement_id": "01f1c33e-25a9-1ae5-8a80-84b7404ff6f7",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "f5d7facd7f0fd40fbb1c688c97ce22b3bfa825d79368d920a6f3bf1236a008d9",
+      "response_sha256": "ae801f5a697f4a816e866faaf5d3c03b727f2980ad88a098b00633995407b37a"
+    },
+    {
+      "statement_id": "01f1c33e-2630-1cf8-a6be-4411f0d840e1",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "d939e376ff18d94796ac4d96ac2f9a351914e2763dbfa600efadf6c5d2e3a180",
+      "response_sha256": "35cc5372d6fbf696349f25bf7daa1cc84ade21910d1045cd368ef5f23f232777"
+    },
+    {
+      "statement_id": "01f1c33e-26c6-17e6-bd58-70835fc6637e",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "90e70fccb8c6e94e94334990152164bc8816457a06feca670c8a2b2a5592385c",
+      "response_sha256": "9afc1882d0a99919948e1dfe562677dd794489a7ef040409139547b899687a63"
+    },
+    {
+      "statement_id": "01f1c33e-275c-1bae-84b3-c24bd0e0c362",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "c2f95f67451cbae2a7e5c61e43b62567d3489a1a9663dd23c2d9772b74e3dbce",
+      "response_sha256": "72640153e341cd78e96425bc4f26544651d426bc686f2ead11f7dd30dc1dace3"
+    },
+    {
+      "statement_id": "01f1c33e-27b9-1621-80fd-bd36e80799fd",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "90e70fccb8c6e94e94334990152164bc8816457a06feca670c8a2b2a5592385c",
+      "response_sha256": "db5a9e7d214f892768cf6cf791368ffc88121c267bb97f327dc84c95006f9420"
+    },
+    {
+      "statement_id": "01f1c33e-282f-187c-ae5c-fbf371d24139",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "4575a9608a57f681dc3efa1100f1769a8026d8d4c948f2ee976f8fa827790276",
+      "response_sha256": "afc81e52f12c386208487a2f421781fe6d64947b3828a6563fd44397c398e0ed"
+    },
+    {
+      "statement_id": "01f1c33e-28cb-1768-9ac8-4b0fea21c8ed",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "79ac2e06598f5a2d6e060101a35b5d747d99ac696e13a2052658341537d0fc98",
+      "response_sha256": "24633c74fb7ecd70a3dea7ff7e519cc57d031c3da58d9aa7826f4257e12abd3b"
+    },
+    {
+      "statement_id": "01f1c33e-2932-12ff-97af-0d032d1f0903",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "4575a9608a57f681dc3efa1100f1769a8026d8d4c948f2ee976f8fa827790276",
+      "response_sha256": "45ae6f5191e28c4c0639cfc482cba68cb8af9e5f14adf6a9d77094e1a52b03af"
+    },
+    {
+      "statement_id": "01f1c33e-29af-198e-8fb6-8fdf81e802a9",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "2659fd7e6053363c0bdebb4647c6a57bcbae2bdf5c6adfa57ac355c4bc50b141",
+      "response_sha256": "2e5125f11d268f79de219402bbc840223c7f994afd6616eb5015f8f37dcbe7ff"
+    },
+    {
+      "statement_id": "01f1c33e-2a33-133e-8b51-f7ec5f3a9b9b",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "5f15d8aeeb15d91f53962c8195b6d557ee2c6b377102f670a969d80288280866",
+      "response_sha256": "d326971c2df5126b9f7ecf4d4e3c915a0edaff0f67c9e06647410319e3e9c160"
+    },
+    {
+      "statement_id": "01f1c33e-2a8f-1773-be69-7237bb809504",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "2659fd7e6053363c0bdebb4647c6a57bcbae2bdf5c6adfa57ac355c4bc50b141",
+      "response_sha256": "a75f687b2f5ed3bb95460d83ef6450e84c24fdf379ec7a4227bb590c7ac2088b"
+    },
+    {
+      "statement_id": "01f1c33e-2aef-1efa-ae29-43f79ae31dd8",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "f3635c517820c6a92ce6f81cf7f7cfc9d06fb58519d7a2f1b8cee04128d526e6",
+      "response_sha256": "ff19f8bebd92327cd0370471afa24538ae0e8798577337132d18ceaafb7a3e2b"
+    },
+    {
+      "statement_id": "01f1c33e-2b4e-14d1-a5b6-78c080c4472c",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "5fc1e97f6e2e77c1130f7332dd61e0c004c68a2472423eff3b1a5c248bd2b4da",
+      "response_sha256": "8d3d6c00aa89ffd5f7632597008bf4362b27389a92d51ce018a03d0eaec8dfaf"
+    },
+    {
+      "statement_id": "01f1c33e-2bb1-1773-bb03-d97887597728",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "d939e376ff18d94796ac4d96ac2f9a351914e2763dbfa600efadf6c5d2e3a180",
+      "response_sha256": "99d91007b4c1398227b938b7ed892452b7434ca6b22ac461dd963c784048b56a"
+    },
+    {
+      "statement_id": "01f1c33e-2c23-1b4a-b2d1-164bd3637746",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "d939e376ff18d94796ac4d96ac2f9a351914e2763dbfa600efadf6c5d2e3a180",
+      "response_sha256": "c6568d1f4c7474c13cee4d7b1d371525c8edfa61b69be634b4da19e73d75c6a9"
+    },
+    {
+      "statement_id": "01f1c33e-2c89-13da-a04c-4f0456768d45",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "53cc284f15362c5edbebf2b77b535053be9cc18547b086fcff1b67760e56bb23",
+      "response_sha256": "8d81b14d740613e16328d9362d8d11b293bd638ed4ea286f41b03db7b2383964"
+    },
+    {
+      "statement_id": "01f1c33e-2ced-1bb1-8973-0b6c73b605aa",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "12bc78f5312169c557d6d5f1e9a22c036f77df22f5ea85882542d139f983a737",
+      "response_sha256": "08bb0af461eec2b71a6c272a245ded5c7471645c72d254bef6412bed327e2e62"
+    },
+    {
+      "statement_id": "01f1c33e-2d44-127d-8ac0-6c30c609bff1",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "d939e376ff18d94796ac4d96ac2f9a351914e2763dbfa600efadf6c5d2e3a180",
+      "response_sha256": "e5b18d92a252cddbf2c1a50197d7389011ffe03b6437eb52259fb539eb382709"
+    },
+    {
+      "statement_id": "01f1c33e-2da2-1532-84f4-9a426b93db21",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "90e70fccb8c6e94e94334990152164bc8816457a06feca670c8a2b2a5592385c",
+      "response_sha256": "52e215e1b84aca1753ce252da9805ba0dca40680b37c94d678d0095c850835b0"
+    },
+    {
+      "statement_id": "01f1c33e-2e1b-106a-bfb2-7ef62472cc62",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "90e70fccb8c6e94e94334990152164bc8816457a06feca670c8a2b2a5592385c",
+      "response_sha256": "9ca61b128b5ae2cbeabc05ac453c7eed5a300475a0777e3407b0a593cf44b105"
+    },
+    {
+      "statement_id": "01f1c33e-2e8f-1042-b4f7-936682f3fb6b",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "0a7d7d3bd0f2de6f9b9c57532d43f2dcf2640fd31969eb713069e005d6f9fb2b",
+      "response_sha256": "ce65ef112bb3a01725e9aa59659cf59e79617aa2fef4b55b2be71a992a6aa4cc"
+    },
+    {
+      "statement_id": "01f1c33e-2eea-15af-abd6-f61fb0ca33b8",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "dd18c2d2d28fd2e9810e4e7647d406f9db98cde29cc3b9a1bf88ec6a79409995",
+      "response_sha256": "085920bf2e332ee4186fb8956f8b710ce39d19c5a2c8e1c765d46450ed7cd37e"
+    },
+    {
+      "statement_id": "01f1c33e-2f46-1064-b5e8-e5dac99a71a5",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "90e70fccb8c6e94e94334990152164bc8816457a06feca670c8a2b2a5592385c",
+      "response_sha256": "8019e26d601ea44309321276525dfcc4e7dd290d9113f0d04de316e1695489f1"
+    },
+    {
+      "statement_id": "01f1c33e-2fd6-1155-ab12-84cbdba9ecbd",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "4575a9608a57f681dc3efa1100f1769a8026d8d4c948f2ee976f8fa827790276",
+      "response_sha256": "b41c8efc75a5103e094070790450f27cb2d90f5bc839f64b16198423910facd6"
+    },
+    {
+      "statement_id": "01f1c33e-303a-1e60-80da-82d30a83cd47",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "4575a9608a57f681dc3efa1100f1769a8026d8d4c948f2ee976f8fa827790276",
+      "response_sha256": "e5d3abb4b0c70709ad7db5eafb0bbb3f3e0d57dae9234955b39d0efa407540e7"
+    },
+    {
+      "statement_id": "01f1c33e-30b3-1f53-af7b-3625c988d775",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "73e43f966480b1626e655dc2caca894b49dd5861a75d60aeba8aed5576a76954",
+      "response_sha256": "b1064a5b5b944546a2b089e3ac637cc9f4e6244fa5d05f23bc7dd70d0b20d216"
+    },
+    {
+      "statement_id": "01f1c33e-3101-1d00-a5d2-b99f8bc6e883",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "9eb2eb9bf07b5dfa5641947cbccad085d3633b5b84492805cf7d481fe6398f01",
+      "response_sha256": "f26b5c6547471de3a55bce741d4ba6087a9c0772f2dbf16c2528751df7ec80c9"
+    },
+    {
+      "statement_id": "01f1c33e-3171-1c90-9c00-084b319daa75",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "4575a9608a57f681dc3efa1100f1769a8026d8d4c948f2ee976f8fa827790276",
+      "response_sha256": "f316402de76ddc3884b2ec19ed83ccbf5b105b0cf23a12a6dad50df6f90619ec"
+    },
+    {
+      "statement_id": "01f1c33e-31fa-160e-af98-d48f9c431e72",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "2659fd7e6053363c0bdebb4647c6a57bcbae2bdf5c6adfa57ac355c4bc50b141",
+      "response_sha256": "cd254954ea2356ccf1dd7bf7b9fb21a00374c9651f4dc8d17e1fae5f872e04da"
+    },
+    {
+      "statement_id": "01f1c33e-3256-1ba9-a6cf-d193bd4d21aa",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "2659fd7e6053363c0bdebb4647c6a57bcbae2bdf5c6adfa57ac355c4bc50b141",
+      "response_sha256": "d29c9fefefdfacc22d6e8780a84c5d00961e9ce39c61d3efedaec0906f2eb467"
+    },
+    {
+      "statement_id": "01f1c33e-32c2-13b4-934d-50287b90219b",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "9b44c7bb064b169b66e4e2b392f710fe3d8a82f78e8f4903aca35628484359df",
+      "response_sha256": "770081775f66d5f5b7ff61843ce9be19e9045979ae962cc55ed0288b24d9ac3b"
+    },
+    {
+      "statement_id": "01f1c33e-3314-1e5a-861f-593b0a3390fc",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "91d8858dd689153aa0a0ad2994acebbec46cbc72a24a0eda0fd6dba2e822f68b",
+      "response_sha256": "248de5c3b80f290075d5ebc59bc76602ded50647d68b10c391cda1cc6a86a99f"
+    },
+    {
+      "statement_id": "01f1c33e-3377-1a6e-85db-2f24872c4043",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "2659fd7e6053363c0bdebb4647c6a57bcbae2bdf5c6adfa57ac355c4bc50b141",
+      "response_sha256": "9ba3395e5f39c2aad70ed8125b1680f0605cfef5aa53dfcc23a9679bd630df11"
+    },
+    {
+      "statement_id": "01f1c33e-33f1-1d9c-8815-661bf35c168a",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "d939e376ff18d94796ac4d96ac2f9a351914e2763dbfa600efadf6c5d2e3a180",
+      "response_sha256": "63e3839535fc49afd3f24d57c83d67304636054b4d37e8cc0cfd5e2832459254"
+    },
+    {
+      "statement_id": "01f1c33e-344c-1309-bd66-fdd53156afee",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "f5d7facd7f0fd40fbb1c688c97ce22b3bfa825d79368d920a6f3bf1236a008d9",
+      "response_sha256": "1d8667f382ab7cad6623ffa4acabf54d9c151ac5f3dd71c173fd6855cdfaa467"
+    },
+    {
+      "statement_id": "01f1c33e-34a2-180d-9253-b43c19c34c1a",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "d939e376ff18d94796ac4d96ac2f9a351914e2763dbfa600efadf6c5d2e3a180",
+      "response_sha256": "681e41415f5d0f61d7075cd65d433305adf231e76e1cf09dd7dbc87c27e0e4f0"
+    },
+    {
+      "statement_id": "01f1c33e-3507-15bd-b35e-914b63d47784",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "90e70fccb8c6e94e94334990152164bc8816457a06feca670c8a2b2a5592385c",
+      "response_sha256": "f8c1dc74ffb29bb879875cd6486d492eef8036d50ef29753fad21d0943eb68a8"
+    },
+    {
+      "statement_id": "01f1c33e-356f-1bfe-a1d2-503f00cd03aa",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "c2f95f67451cbae2a7e5c61e43b62567d3489a1a9663dd23c2d9772b74e3dbce",
+      "response_sha256": "bbe3134c75f189db024cb04addfaa032256805c92c1595a32e7bcdf0cab87c56"
+    },
+    {
+      "statement_id": "01f1c33e-35d2-1f84-bcf3-ed9a74d53e7a",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "90e70fccb8c6e94e94334990152164bc8816457a06feca670c8a2b2a5592385c",
+      "response_sha256": "d73b5b2a5e6b86267607309c5c32f52cf85f705b68cdba3977c530b59a6fb2ab"
+    },
+    {
+      "statement_id": "01f1c33e-3647-1a31-b82f-7940f100c1d1",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "4575a9608a57f681dc3efa1100f1769a8026d8d4c948f2ee976f8fa827790276",
+      "response_sha256": "fada7e9ad69fb16dfe2554b5621232a566844019744a96e4d1b31509ab696218"
+    },
+    {
+      "statement_id": "01f1c33e-36a7-1ea8-8dd4-ace653cf1d56",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "79ac2e06598f5a2d6e060101a35b5d747d99ac696e13a2052658341537d0fc98",
+      "response_sha256": "32b6cb64864fb3b046ccf1ce907ed1e20c67ea318622ce1823e9f8bbbb0a322e"
+    },
+    {
+      "statement_id": "01f1c33e-3701-1bf0-941c-d084421097a4",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "4575a9608a57f681dc3efa1100f1769a8026d8d4c948f2ee976f8fa827790276",
+      "response_sha256": "82b8b43781fd8c713b1ec5eb012cdc52ce50337a7667effaf19fd7fc27871659"
+    },
+    {
+      "statement_id": "01f1c33e-3770-1dde-9a7c-79f0d079ad67",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "2659fd7e6053363c0bdebb4647c6a57bcbae2bdf5c6adfa57ac355c4bc50b141",
+      "response_sha256": "c1606f13156616ee89eb1f4e05a97013d292b6f83b831c421a3f0cbb52950f15"
+    },
+    {
+      "statement_id": "01f1c33e-37d7-129b-9acf-90d8f0a2da11",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "5f15d8aeeb15d91f53962c8195b6d557ee2c6b377102f670a969d80288280866",
+      "response_sha256": "7c80e1fa30a11f3af28e769322937bac66d65366b8f279a2f2364e7141c48b40"
+    },
+    {
+      "statement_id": "01f1c33e-3829-1e93-8383-e8e17ae28074",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "2659fd7e6053363c0bdebb4647c6a57bcbae2bdf5c6adfa57ac355c4bc50b141",
+      "response_sha256": "7bf0654a9cc29a1397f63644d8b33700aa1f295aec645a11b21e74656ab9b885"
+    },
+    {
+      "statement_id": "01f1c33e-389c-17be-9087-f8ad79463092",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "f3635c517820c6a92ce6f81cf7f7cfc9d06fb58519d7a2f1b8cee04128d526e6",
+      "response_sha256": "7f1bd0c7e55ede9bdd4a0ff70380582365803afbb71ebe4e2f71230a8fb9a1c7"
+    },
+    {
+      "statement_id": "01f1c33e-395e-1bff-9d98-0d9781594b03",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "e41a0a66b5e7663e88211a6dd0e9aedb2f4cf75e401889faf8b8e4da67780887",
+      "response_sha256": "77bfe8673e632bed97ba07804b8e528bf08b943f859434c73d9b15b8801a51ee"
+    },
+    {
+      "statement_id": "01f1c33e-399d-1430-836e-e573af7b20e4",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "2290585ca6e1e2f7d37f0cd3f8e117610cfe75d1e567c07817b79966a30c2e95",
+      "response_sha256": "c76b317506d60b66b67731d5e999fcc893fe77e9f53a30cf1401e67e313a2fc3"
+    },
+    {
+      "statement_id": "01f1c33e-39df-1519-aa49-e3f0068814f5",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "e6ea628999c5b5e8597af267e000e4ef7784e4f5f474856a7aec7a5d40378406",
+      "response_sha256": "1a23a4c0364978b7b5fddd626a3414d9aa3fb7b350d0be1baeaa7f4845f58d8d"
+    },
+    {
+      "statement_id": "01f1c33e-3a1c-1c58-9b93-3edad7b2d332",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "7dad1d74423d7519faef149f11557fec265d0a2c60de8dc5e099c782a873f9e9",
+      "response_sha256": "4bdd51223b09d3aafabbe7feee741a995c8b997ec2f60206f926caa70a0f8202"
+    },
+    {
+      "statement_id": "01f1c33e-3a5a-1f22-a5c7-ea292badb88f",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "c578b2a0989ebc907e796294f4121932414f74eec9e48aa878126f7bbd43866b",
+      "response_sha256": "bbc5b80ae9ffaba8c64c789f14a44963adcb6433efd5a0082f7ddbbe6bdfd45d"
+    },
+    {
+      "statement_id": "01f1c33e-3aa4-1502-916e-58b152179ad1",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "fb4088514cb724a2adaa9e3c4c290000c05a314073ae014ed4501cb7160be363",
+      "response_sha256": "01419bb3020efbc5a1f8b4517ad91c653ec9781d7c085c5357d4d5c20fb1bbd9"
+    },
+    {
+      "statement_id": "01f1c33e-3ae9-156f-bea9-a78edb570cf8",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "4896943816588e5b31a86f59a0a3340735d9dac29b2390e41820b4a476713fa8",
+      "response_sha256": "fd2dc7e31ec58caa102cdfebbf80a487e9e3caf3d3397edc73f0d4c154031c1e"
+    },
+    {
+      "statement_id": "01f1c33e-3b28-139f-b611-28ff2f4733da",
+      "kind": "SHOW",
+      "status": "SUCCEEDED",
+      "request_sha256": "1916ec23aa0f0232a59e569c4107ccdcca3daf93561ad14d77e5d01580daed94",
+      "response_sha256": "0b2bce83c75d9ae8885d80df36292b290478d64c417a112f0c4ff73242ce4e5e"
+    },
+    {
+      "statement_id": "01f1c33e-3b65-11a9-b218-357837e329e9",
+      "kind": "DESCRIBE",
+      "status": "SUCCEEDED",
+      "request_sha256": "e6d6015c279c5af76dc3132a3b5fa84ade1d2c4d77a3e68ccc0af6a4530cbfaa",
+      "response_sha256": "bd07cf1355bb82489974e76bf2a1b90fa1c3bb3b47797d4409db5ed5dd60da84"
+    },
+    {
+      "statement_id": "01f1c33e-3bc8-1b7f-bdb2-7af1aa99de8a",
+      "kind": "SELECT",
+      "status": "SUCCEEDED",
+      "request_sha256": "933f1c52f1034118f86d18cc9500de75178ca0523aebbd9075e3ebcf4f9491b9",
+      "response_sha256": "760bf2a72469eb76b99ef2607f7ca6aede7e452e82dedc76afbc65f79d47a68f"
+    }
+  ],
+  "earlier_attempts": [
+    {
+      "directory": "/private/tmp/ashlar-native-artifact-validation-20261008",
+      "outcome": "One successful read, then comparison refused: TIMESTAMP needed the existing microsecond projection"
+    },
+    {
+      "directory": "/private/tmp/ashlar-native-artifact-validation-20261008-r2",
+      "outcome": "One successful manifest read, then catalog/schema identifier helper refused before grants query"
+    }
+  ]
+}

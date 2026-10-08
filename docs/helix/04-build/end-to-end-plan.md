@@ -2131,3 +2131,31 @@ without new snapshot queries/submissions, initial capture failure with later
 replacement refusal, exact vector binding, changed target/artifact custody and
 current admission failure. Full native phase execution and real Truss still
 remain required. No cloud job, schema mutation or source ACK occurred.
+
+
+### Concrete native artifact validator — 2026-10-08
+
+NativeArtifactValidator now connects full effect parity, target/manifest UUID and
+reader-protocol recognition, renewed finite-retention checks, mandatory complete
+pin custody and independent source/schema/writer admission to the journaled
+publisher driver. Its callable surface verifies the original request-bound
+artifact; a separate retained-descriptor method never adds a request digest to
+an older publication. Parsed descriptor fields must equal the original raw row.
+Expected targets are copied at construction and source policies receive copies.
+
+Twelve focused validator, connected publisher, artifact and effect-parity checks
+pass. A real read-only run on the existing immutable CSV publication also passes:
+all four native snapshot inventories, raw UMF intake, current owner/effective
+grants, original vector, recognized protocol and finite retention were checked
+under complete ordinary PG pin guards and the same-host cooperating lane.
+The successful run issued 68 read statements on existing compute. Earlier
+one-read attempts exposed timestamp-projection and catalog/schema quoting bugs
+in the new check tool; both are corrected and original evidence remains retained.
+No data/manifest write, source ACK, grant/settings change or new compute occurred.
+Predictive optimization stays unchanged.
+
+[evidence/native-artifact-validation-20261008.json](evidence/native-artifact-validation-20261008.json)
+retains source hashes, original statement handles and response hashes; original
+read receipts remain in the named private output directory. This verifies the
+new native descriptor-checking service, not full native stored-publisher phases
+or actual Truss acceptance/mutation/feed. Those remain required.
