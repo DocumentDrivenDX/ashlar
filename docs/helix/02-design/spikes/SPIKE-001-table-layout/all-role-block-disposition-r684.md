@@ -16,7 +16,11 @@ double verified full-role reads,1.5x headroom and10GB reserve. Native bounds rem
 85GB read/35GB write/zero spill and2,700 seconds; no interrupted wall-rate estimate
 is used. Prior canceled-setup costs remain unknown rather than silently zero.
 
-The independent next8M local oracle R680 is a separate ongoing prerequisite.
+The independent next8M local oracle R680 completed in814.609 seconds. R685
+validates all80 next-range chunks and source provenance; R686 combines prior
+and next ranges into160 contiguous chunks covering16M new edges,16M raw records,
+64M property events and16M adjacency records. Composition is receipt/coverage
+validation, not a third independent regeneration or native16M growth admission.
 No next-stage native writes have occurred. Fresh UUID/head/schema preflight and
 explicit maintenance reconciliation are still required. Published pins, Truss
 semantics, UMF deferral and provisional performance gates remain unchanged.

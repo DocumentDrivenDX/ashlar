@@ -2839,11 +2839,16 @@
     "append_edge_blocks_r681.py": "7b55f1cb1700c49571861d299d56c448cc450de7f33648922746fe72ca34be7d",
     "append_other_blocks_r682.py": "5777307bec25c46ced3a67fb118d470fb451de71fd6b21a3912abe9bee1589d5",
     "append_other_blocks_audit_r683.py": "437fe393765e70137d3767407e32c6e7a47b00e602d4aac792042785d6f1e9b4",
-    "all-role-block-disposition-r684.md": "2863d34fc69e8ac8042e948ea6b5ea6ac205193fcdbd1718d349f8839902d4de",
+    "all-role-block-disposition-r684.md": "e9722bff3acb565201c40d603d73bb361b5b31aa57c4b664a518a277489e1ae0",
     "out/native/ashlar_append_other_blocks_r682/audited-summary-r683.json": "85f31bbd4ce5fb6bb1e2721f4fe8d8b64551b10b28025c16194562c4c655c3e0",
     "out/native/ashlar_append_other_blocks_r682/shared-history.json": "548698cff79a6e872b2ce92d023441554d92b9ddcb0210d6b1beb9cbbfc7a6a3",
     "out/native/ashlar_append_other_blocks_r682/statements.jsonl": "813f44934fc0b8991b318b81356d504636603a39a1cdd6810325a93b33b7f46a",
-    "out/native/ashlar_append_other_blocks_r682/summary.json": "6da78cfbf603ae0f27e7d7c265594f0686c3a79b6c6b3b1243d7fffc7d613fd7"
+    "out/native/ashlar_append_other_blocks_r682/summary.json": "6da78cfbf603ae0f27e7d7c265594f0686c3a79b6c6b3b1243d7fffc7d613fd7",
+    "append_edge_oracle_audit_r685.py": "75a27a1d6ce10326feda7c6d7e8851c0ec7edad00367cfedb0ea8b935159c341",
+    "append_combined_oracle_r686.py": "10890088dc177dbbecda914bd2ddb30fe72c9dd5609f6f825cd01c16c7908299",
+    "out/append-edge-oracle-r680.json": "3c98e8a8beee83ce3815f5151cb584cc6652378bbdb2e3780c5ccece6b45f357",
+    "out/append-edge-oracle-audit-r685.json": "2e43871a3533c65e2b1212194c8feef6925708cc06c1b0769f40aed541eab6fe",
+    "out/combined-edge-oracle-r686.json": "c9faa1555662186f54bbd41ede255b2bed6955e799c781754bebb71157db4456"
   },
   "evidence": {
     "ddl": {
