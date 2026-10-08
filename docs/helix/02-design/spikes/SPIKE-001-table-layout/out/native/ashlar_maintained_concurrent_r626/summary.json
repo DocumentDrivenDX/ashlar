@@ -1,0 +1,517 @@
+{
+  "state": "All64 complete maintained carriers/absence pass four synchronized readers",
+  "source_sha256": "cf8da19fefc428974e2f15d60b7ba435452c448e87526e9208e2487ad186b32d",
+  "table": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 12
+  },
+  "indices": [
+    162,
+    328,
+    435,
+    438,
+    682,
+    894,
+    996,
+    1154,
+    1172,
+    1365,
+    1408,
+    1414,
+    410,
+    1310,
+    1390,
+    2880,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11,
+    12,
+    13,
+    0,
+    10,
+    20,
+    30
+  ],
+  "reads": [
+    {
+      "reader": 0,
+      "phase": 0,
+      "slot": 0,
+      "index": 162,
+      "statement_id": "01f1c2b0-b0a5-1d0c-adec-fa467fa2fabf"
+    },
+    {
+      "reader": 1,
+      "phase": 0,
+      "slot": 0,
+      "index": 328,
+      "statement_id": "01f1c2b0-b0a5-1240-810f-6dbcb3e977e7"
+    },
+    {
+      "reader": 2,
+      "phase": 0,
+      "slot": 0,
+      "index": 435,
+      "statement_id": "01f1c2b0-b0a6-14f7-b54d-1ffc254b1fdc"
+    },
+    {
+      "reader": 3,
+      "phase": 0,
+      "slot": 0,
+      "index": 438,
+      "statement_id": "01f1c2b0-b0a6-18e4-8273-dc449c064d15"
+    },
+    {
+      "reader": 0,
+      "phase": 0,
+      "slot": 1,
+      "index": 682,
+      "statement_id": "01f1c2b0-b101-1308-ae93-91facf157ac5"
+    },
+    {
+      "reader": 1,
+      "phase": 0,
+      "slot": 1,
+      "index": 894,
+      "statement_id": "01f1c2b0-b100-11a9-9e4a-5efc113aa52c"
+    },
+    {
+      "reader": 2,
+      "phase": 0,
+      "slot": 1,
+      "index": 996,
+      "statement_id": "01f1c2b0-b100-130d-904e-c8d196fef81b"
+    },
+    {
+      "reader": 3,
+      "phase": 0,
+      "slot": 1,
+      "index": 1154,
+      "statement_id": "01f1c2b0-b100-1195-994b-f6595b05878b"
+    },
+    {
+      "reader": 0,
+      "phase": 0,
+      "slot": 2,
+      "index": 1172,
+      "statement_id": "01f1c2b0-b13f-17a8-b508-35f308397928"
+    },
+    {
+      "reader": 1,
+      "phase": 0,
+      "slot": 2,
+      "index": 1365,
+      "statement_id": "01f1c2b0-b13e-1324-8e67-e0b7348fd7f4"
+    },
+    {
+      "reader": 2,
+      "phase": 0,
+      "slot": 2,
+      "index": 1408,
+      "statement_id": "01f1c2b0-b141-1cfb-bcdf-1e6b7d711c6a"
+    },
+    {
+      "reader": 3,
+      "phase": 0,
+      "slot": 2,
+      "index": 1414,
+      "statement_id": "01f1c2b0-b13f-1213-89c3-c092688851a4"
+    },
+    {
+      "reader": 0,
+      "phase": 0,
+      "slot": 3,
+      "index": 410,
+      "statement_id": "01f1c2b0-b17e-1658-851a-89f016a1257d"
+    },
+    {
+      "reader": 1,
+      "phase": 0,
+      "slot": 3,
+      "index": 1310,
+      "statement_id": "01f1c2b0-b17d-18fb-b0cc-07035db55ee3"
+    },
+    {
+      "reader": 2,
+      "phase": 0,
+      "slot": 3,
+      "index": 1390,
+      "statement_id": "01f1c2b0-b17e-1238-b033-65392acb211e"
+    },
+    {
+      "reader": 3,
+      "phase": 0,
+      "slot": 3,
+      "index": 2880,
+      "statement_id": "01f1c2b0-b17d-1bdf-b9da-ee1137e7607a"
+    },
+    {
+      "reader": 0,
+      "phase": 0,
+      "slot": 4,
+      "index": 1,
+      "statement_id": "01f1c2b0-b1c0-1897-8878-01a87a8510d6"
+    },
+    {
+      "reader": 1,
+      "phase": 0,
+      "slot": 4,
+      "index": 2,
+      "statement_id": "01f1c2b0-b1c0-146c-a4db-a9fdbff404fa"
+    },
+    {
+      "reader": 2,
+      "phase": 0,
+      "slot": 4,
+      "index": 3,
+      "statement_id": "01f1c2b0-b1c0-1529-b6dc-f18d07dd4036"
+    },
+    {
+      "reader": 3,
+      "phase": 0,
+      "slot": 4,
+      "index": 4,
+      "statement_id": "01f1c2b0-b1c0-10ca-947b-3587fd7188d8"
+    },
+    {
+      "reader": 0,
+      "phase": 0,
+      "slot": 5,
+      "index": 5,
+      "statement_id": "01f1c2b0-b21d-1b9a-9567-2c9201eafe51"
+    },
+    {
+      "reader": 1,
+      "phase": 0,
+      "slot": 5,
+      "index": 6,
+      "statement_id": "01f1c2b0-b21d-1dc3-86ed-1f0a0fa8f1bb"
+    },
+    {
+      "reader": 2,
+      "phase": 0,
+      "slot": 5,
+      "index": 7,
+      "statement_id": "01f1c2b0-b21c-1c91-9c82-70669ec1f39c"
+    },
+    {
+      "reader": 3,
+      "phase": 0,
+      "slot": 5,
+      "index": 8,
+      "statement_id": "01f1c2b0-b21d-1f52-9f0c-119a3d20a617"
+    },
+    {
+      "reader": 0,
+      "phase": 0,
+      "slot": 6,
+      "index": 9,
+      "statement_id": "01f1c2b0-b26d-110f-85e5-0c31e6b46b26"
+    },
+    {
+      "reader": 1,
+      "phase": 0,
+      "slot": 6,
+      "index": 11,
+      "statement_id": "01f1c2b0-b26c-1c00-9037-2054686b905a"
+    },
+    {
+      "reader": 2,
+      "phase": 0,
+      "slot": 6,
+      "index": 12,
+      "statement_id": "01f1c2b0-b26d-11b9-bcc5-3dd96abfb521"
+    },
+    {
+      "reader": 3,
+      "phase": 0,
+      "slot": 6,
+      "index": 13,
+      "statement_id": "01f1c2b0-b26d-1739-bacf-e71df15e1db1"
+    },
+    {
+      "reader": 0,
+      "phase": 0,
+      "slot": 7,
+      "index": 0,
+      "statement_id": "01f1c2b0-b2cb-110a-84aa-66cdb34ff630"
+    },
+    {
+      "reader": 1,
+      "phase": 0,
+      "slot": 7,
+      "index": 10,
+      "statement_id": "01f1c2b0-b2ca-1bf5-b566-84c3a052dacd"
+    },
+    {
+      "reader": 2,
+      "phase": 0,
+      "slot": 7,
+      "index": 20,
+      "statement_id": "01f1c2b0-b2cb-15d2-89e1-d87f321b9b17"
+    },
+    {
+      "reader": 3,
+      "phase": 0,
+      "slot": 7,
+      "index": 30,
+      "statement_id": "01f1c2b0-b2ca-1f11-af12-d0461d7f6d13"
+    },
+    {
+      "reader": 0,
+      "phase": 1,
+      "slot": 0,
+      "index": 162,
+      "statement_id": "01f1c2b0-b30e-1a20-b218-94db03296b5a"
+    },
+    {
+      "reader": 1,
+      "phase": 1,
+      "slot": 0,
+      "index": 328,
+      "statement_id": "01f1c2b0-b30d-16e5-be36-c87823366a95"
+    },
+    {
+      "reader": 2,
+      "phase": 1,
+      "slot": 0,
+      "index": 435,
+      "statement_id": "01f1c2b0-b30e-1e44-ab25-da30082857b1"
+    },
+    {
+      "reader": 3,
+      "phase": 1,
+      "slot": 0,
+      "index": 438,
+      "statement_id": "01f1c2b0-b30e-1600-a5c5-f6e2453edbb0"
+    },
+    {
+      "reader": 0,
+      "phase": 1,
+      "slot": 1,
+      "index": 682,
+      "statement_id": "01f1c2b0-b34a-1f2d-87b6-7626b62c6afb"
+    },
+    {
+      "reader": 1,
+      "phase": 1,
+      "slot": 1,
+      "index": 894,
+      "statement_id": "01f1c2b0-b349-157d-be73-f42ca03cfdd6"
+    },
+    {
+      "reader": 2,
+      "phase": 1,
+      "slot": 1,
+      "index": 996,
+      "statement_id": "01f1c2b0-b349-1a6a-958e-e10e6fc57c6a"
+    },
+    {
+      "reader": 3,
+      "phase": 1,
+      "slot": 1,
+      "index": 1154,
+      "statement_id": "01f1c2b0-b34a-1451-8491-e36957098de0"
+    },
+    {
+      "reader": 0,
+      "phase": 1,
+      "slot": 2,
+      "index": 1172,
+      "statement_id": "01f1c2b0-b389-164a-9316-867c43e0bf30"
+    },
+    {
+      "reader": 1,
+      "phase": 1,
+      "slot": 2,
+      "index": 1365,
+      "statement_id": "01f1c2b0-b388-1e92-bfd0-2533280419e1"
+    },
+    {
+      "reader": 2,
+      "phase": 1,
+      "slot": 2,
+      "index": 1408,
+      "statement_id": "01f1c2b0-b389-1147-a10f-168aa26fe596"
+    },
+    {
+      "reader": 3,
+      "phase": 1,
+      "slot": 2,
+      "index": 1414,
+      "statement_id": "01f1c2b0-b389-112c-899e-3a8d876e78d5"
+    },
+    {
+      "reader": 0,
+      "phase": 1,
+      "slot": 3,
+      "index": 410,
+      "statement_id": "01f1c2b0-b3c4-17fa-a4d5-db66783d366a"
+    },
+    {
+      "reader": 1,
+      "phase": 1,
+      "slot": 3,
+      "index": 1310,
+      "statement_id": "01f1c2b0-b3c4-1546-966e-45b6f76df5b2"
+    },
+    {
+      "reader": 2,
+      "phase": 1,
+      "slot": 3,
+      "index": 1390,
+      "statement_id": "01f1c2b0-b3c4-1891-9b0e-1380d725658e"
+    },
+    {
+      "reader": 3,
+      "phase": 1,
+      "slot": 3,
+      "index": 2880,
+      "statement_id": "01f1c2b0-b3c4-1801-a950-22f2649a3f00"
+    },
+    {
+      "reader": 0,
+      "phase": 1,
+      "slot": 4,
+      "index": 1,
+      "statement_id": "01f1c2b0-b3fe-1bc5-86f3-7ada1961db75"
+    },
+    {
+      "reader": 1,
+      "phase": 1,
+      "slot": 4,
+      "index": 2,
+      "statement_id": "01f1c2b0-b3fe-1280-80af-8acbc93016ff"
+    },
+    {
+      "reader": 2,
+      "phase": 1,
+      "slot": 4,
+      "index": 3,
+      "statement_id": "01f1c2b0-b3fe-18c7-b634-83f5e8ec87a6"
+    },
+    {
+      "reader": 3,
+      "phase": 1,
+      "slot": 4,
+      "index": 4,
+      "statement_id": "01f1c2b0-b3ff-1347-b329-fd1633809437"
+    },
+    {
+      "reader": 0,
+      "phase": 1,
+      "slot": 5,
+      "index": 5,
+      "statement_id": "01f1c2b0-b43e-1d79-aab3-ecc8e5a7e783"
+    },
+    {
+      "reader": 1,
+      "phase": 1,
+      "slot": 5,
+      "index": 6,
+      "statement_id": "01f1c2b0-b43f-1f97-9633-9abe2d228fde"
+    },
+    {
+      "reader": 2,
+      "phase": 1,
+      "slot": 5,
+      "index": 7,
+      "statement_id": "01f1c2b0-b43e-1dd8-9e2a-94300ae5cd6d"
+    },
+    {
+      "reader": 3,
+      "phase": 1,
+      "slot": 5,
+      "index": 8,
+      "statement_id": "01f1c2b0-b43e-1b91-a485-52c66bd34147"
+    },
+    {
+      "reader": 0,
+      "phase": 1,
+      "slot": 6,
+      "index": 9,
+      "statement_id": "01f1c2b0-b480-1678-8c20-5da8dbdc308e"
+    },
+    {
+      "reader": 1,
+      "phase": 1,
+      "slot": 6,
+      "index": 11,
+      "statement_id": "01f1c2b0-b485-1eac-83d2-69aea5aaebf5"
+    },
+    {
+      "reader": 2,
+      "phase": 1,
+      "slot": 6,
+      "index": 12,
+      "statement_id": "01f1c2b0-b480-1631-90f2-ca2840921343"
+    },
+    {
+      "reader": 3,
+      "phase": 1,
+      "slot": 6,
+      "index": 13,
+      "statement_id": "01f1c2b0-b480-1b99-b265-666fdf8b3b8b"
+    },
+    {
+      "reader": 0,
+      "phase": 1,
+      "slot": 7,
+      "index": 0,
+      "statement_id": "01f1c2b0-b4c1-184a-bd9f-a3e645ef4686"
+    },
+    {
+      "reader": 1,
+      "phase": 1,
+      "slot": 7,
+      "index": 10,
+      "statement_id": "01f1c2b0-b4c1-106a-aeb7-32bad1f1b04c"
+    },
+    {
+      "reader": 2,
+      "phase": 1,
+      "slot": 7,
+      "index": 20,
+      "statement_id": "01f1c2b0-b4c1-135e-98ae-5b7164a58d78"
+    },
+    {
+      "reader": 3,
+      "phase": 1,
+      "slot": 7,
+      "index": 30,
+      "statement_id": "01f1c2b0-b4c1-15ee-9b05-f348944b4eca"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 25000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 1000000000,
+    "wall_s": 300
+  },
+  "qualification": "Two passes32stratified changed keys,16inside/16outside maintenance hash scope;24updates/8deletes. Four persistent clients/barrier per slot, full20fields/exact absence, SQL result caching disabled. Query interval overlap is measured, not proof of simultaneous engine scans. Warm-biased data after audits; no controlled cold/sustained throughput/ingest concurrency/globalp95/1B admission.",
+  "query": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 12 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)",
+  "costs": {
+    "read_bytes": 8861412076,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "metrics": {
+    "0": {
+      "caller_p95_ms": 611.618292000001,
+      "engine_p95_ms": 335
+    },
+    "1": {
+      "caller_p95_ms": 423.368709,
+      "engine_p95_ms": 135
+    }
+  },
+  "wall_s": 18.103696625
+}
