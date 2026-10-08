@@ -971,9 +971,9 @@ UMF intake proof and its own retained stream journal:
 ```sh
 python3 tools/run_native_source_stream.py \
   --source jsonl --limit 1 \
-  --installation /path/to/original/installation/summary.json \
-  --intake-proof /path/to/original/registry/summary.json \
-  --journal /path/to/persistent/jsonl-stream.sqlite \
+  --installation /private/tmp/ashlar-jsonl-setup-20261008/summary.json \
+  --intake-proof /private/tmp/ashlar-jsonl-schema-20261008/summary.json \
+  --journal /private/tmp/ashlar-jsonl-stream-20261008.sqlite \
   --output out/native-jsonl-first \
   --umf-source /path/to/clean/umf-record-check \
   --profile aidev-cus --warehouse 2439e1f2e37ac563
@@ -989,7 +989,9 @@ The local checkpoint only advances after resolver admission inside the complete
 pin/retention interval, with post-COMMIT uncertainty explicitly retained.
 
 Three JSONL and five CSV local handoff tests pass. Copies of original native CSV
-journals still recover their retained positions. Native JSONL publication remains
-unverified, and this runner cannot combine sources into an existing installation;
+journals still recover their retained positions. Native setup and exact raw UMF intake passed in
+`ashlar_e2e_private_20261008.runtime_jsonl_stream`. Its original first publication
+is running with two source records and expected byte checkpoint 797. Native
+JSONL publication/checkpoint/singleton success remains unverified, and this runner cannot combine sources into an existing installation;
 source switching must not clear existing tables/phases or manufacture new epochs.
 Broader source/schema support and actual Truss remain required for the full goal.

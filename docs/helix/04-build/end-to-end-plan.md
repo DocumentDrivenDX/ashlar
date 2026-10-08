@@ -2596,3 +2596,34 @@ check must use its own empty installation/retained UMF proof and small first
 complete group, then independently verify publication, byte checkpoint and
 singleton. This is an additional supported wiring slice, not completion of
 actual Truss, arbitrary schemas, combined multi-feed state or remote fencing/ACK.
+
+
+### Native JSONL installation/intake completed; original publication live — 2026-10-08
+
+The independent runtime_jsonl_stream setup completed on existing private
+catalog/compute. All nine original CREATE statements are terminal SUCCEEDED;
+eight managed carriers match exact generated columns, native journal UUIDs and
+final identity reobservations, with initial zero-file details. Current generated
+installation receipt passes the runner admission unchanged. Setup used 24
+warehouse reads and 53 retained effective-permission pages.
+
+Actual pinned UMF inspection/registration retained source revision 3 in this
+same namespace's managed schema_intake. Both native mutations are terminal
+SUCCEEDED; the complete raw source/artifact row independently matches retained
+original bytes and incomplete interpretation. Registration used six warehouse
+reads and 14 effective-permission pages.
+[evidence/native-jsonl-setup-intake-20261008.json](evidence/native-jsonl-setup-intake-20261008.json)
+retains all original handles, request/response hashes, source/model/generator
+and native UUID fingerprints. These checks do not admit actual Truss catalog IDs.
+
+The actual new source publisher was then started with --source jsonl --limit 1,
+using this installation, same-namespace registry proof and original journal
+/private/tmp/ashlar-jsonl-stream-20261008.sqlite. First complete group has two
+object records and actual checkpoint byte position 797; it is not ordinal 1.
+Original process 53121 remains live; receipts are
+/private/tmp/ashlar-jsonl-stream-first-20261008. Native publication, checkpoint,
+full independent inventories and singleton remain unproved until terminal
+receipts/closure checks pass. Do not restart or replace this journal/epoch based
+on an observation timeout. No source graph rows were written during setup/intake;
+any later effects belong to that still-live publication. Actual Truss, wider
+schemas and combined multi-source/remote fencing semantics remain open.

@@ -1,0 +1,146 @@
+{
+  "state": "passed",
+  "ashlar_revision": "05bf0b5ed9debe0a8c26c218340da4f9ed796b72",
+  "namespace": "ashlar_e2e_private_20261008.runtime_jsonl_stream",
+  "table_uuids": {
+    "ashlar_e2e_private_20261008.runtime_jsonl_stream.object_current": "531ff302-b05a-4b91-bf72-b438c917178c",
+    "ashlar_e2e_private_20261008.runtime_jsonl_stream.edge_current": "45a76680-4fd1-4cbb-a177-5f15c2261ba9",
+    "ashlar_e2e_private_20261008.runtime_jsonl_stream.source_record": "720c905a-471f-4f2b-a756-248cb10a2a12",
+    "ashlar_e2e_private_20261008.runtime_jsonl_stream.property_journal": "7adb07c1-a071-45ba-982e-4f21b9fe64b6",
+    "ashlar_e2e_private_20261008.runtime_jsonl_stream.tombstone": "eb886642-3148-4ab5-a201-31dd6195c3bc",
+    "ashlar_e2e_private_20261008.runtime_jsonl_stream.publication_manifest": "56ca1564-b58c-4d4f-97a4-deafedf0fbac",
+    "ashlar_e2e_private_20261008.runtime_jsonl_stream.publication_attempt_phase": "63ffe2e6-8eae-4a01-a8f9-a4fabf51f45f",
+    "ashlar_e2e_private_20261008.runtime_jsonl_stream.whole_source_history": "73b60687-1d05-40f8-b384-ff178d7ecb87"
+  },
+  "generated_carriers_sha256": "89bcb139316bfbb110c9f3beaa1b582de6d521239217abcc307e55fc43a81e45",
+  "umf_generator": {
+    "project": "UMF",
+    "revision": "fac1497a5ac5cb39bbaaac34eb0da8dc8b208c69",
+    "extension": "umf.delta.definition/0.1.0"
+  },
+  "registry_proof": {
+    "state": "retained",
+    "table": "ashlar_e2e_private_20261008.runtime_jsonl_stream.schema_intake",
+    "table_uuid": "0f5d98a5-1fcd-4de9-ac8a-e9c6c2dd2ea1",
+    "document_id": "truss-weft-source-review-fixture",
+    "revision": "3",
+    "source_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+    "artifact_sha256": "f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1",
+    "validator_revision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+    "complete_interpretation": false,
+    "qualification": "Actual pinned UMF structural validation and exact raw native intake/readback only. Target semantic/schema/catalog acceptance, ID allocation, Truss head/runtime and feed are separate. Fresh actor/managed registry and complete paginated inherited grants plus original model custody and same-host lock; remote writer lifecycle remains unqualified."
+  },
+  "setup_mutations": [
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_jsonl_stream.edge_current:install",
+      "original_handle": "01f1c34d-c600-15c0-bf44-51737f8a659f",
+      "request_sha256": "2cca53a1473c15468549763bb75cde5a57366cecd254fe6c580d37d56726a502",
+      "response_sha256": "56c86b81d19a23ab6be772e3c819c0a8f6f3a42c5d1aadd15d2ef8194fe46fd9",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_jsonl_stream.object_current:install",
+      "original_handle": "01f1c34d-c0ad-1f18-bc1c-dd85b88c98ed",
+      "request_sha256": "12e686e4227e2e1d2d4e829da0a1bd91867e8d3f82582b49c234ca8201516872",
+      "response_sha256": "04b1715667c435ded269e598a4016c13009b155316d568129d9aeccfa607e3aa",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_jsonl_stream.property_journal:install",
+      "original_handle": "01f1c34d-cb72-1917-aabd-cb10330a4912",
+      "request_sha256": "e5738afe0f07652ab00893b509136c843df5b7e8b00ec7f9416b82c325bc9572",
+      "response_sha256": "b8e5f4fd9c4c1edddb994b55d21f453c7d0591c7e89e34b0b2914a22c0c72cfa",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_jsonl_stream.publication_attempt_phase:install",
+      "original_handle": "01f1c34d-d34f-1e2e-88b9-61ebbb6e3f81",
+      "request_sha256": "895f46b1553b78409a7a6d0e25ef517fae30d760655a7d5431189690fb374390",
+      "response_sha256": "56b83c115b8b87066cdc4e1cb521f2b593976c5361ad7460a244ffe397b6c9ef",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_jsonl_stream.publication_manifest:install",
+      "original_handle": "01f1c34d-d0ab-1c28-9312-f4d77fc23177",
+      "request_sha256": "d64cc225d170975e2f69e1cb7135875018200d57fe2470a69de8ce6bdb0b4695",
+      "response_sha256": "c8caf8cdfb6f7174aea6daa11a5eca0120e52541f330814218cdc83bb2ac74a6",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_jsonl_stream.source_record:install",
+      "original_handle": "01f1c34d-c8d1-148c-b0d9-dbcf7a929738",
+      "request_sha256": "e2374a1d8213c1470354650f444729a1301721acfe6fb7049216f1f12af0ce20",
+      "response_sha256": "37241ba217bbb9714c6175e1e5800f8a1caa87030b02a751ab6b13a853eaf17e",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_jsonl_stream.tombstone:install",
+      "original_handle": "01f1c34d-ce27-1f82-86bb-f315f524cf38",
+      "request_sha256": "e6556276a6a88520408e40320141870b7f278dab19cd6dac4dcd34d5c9725421",
+      "response_sha256": "000376793472ae526bc64733174ed1dc8a97a6ed9d95eb0b907144290096149d",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_jsonl_stream.whole_source_history:install",
+      "original_handle": "01f1c34d-d5f4-1c44-9fa6-c38c6008d6d4",
+      "request_sha256": "44105f633859e532f35c1fcf68a5ccc85807e919a561ea59a796416ebf7d7cab",
+      "response_sha256": "96067071581a6077d57847684aab2c85354e5509520fb43786875c39787497e3",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_jsonl_stream:schema",
+      "original_handle": "01f1c34d-bad9-10ca-b1d4-1e95eb68f8ef",
+      "request_sha256": "5ea9b6678b4ae6929d6317609a05a40f3ce49fc27ab1de0fc3f95615f94a4871",
+      "response_sha256": "bd5d2ab4b64590f21c8201c09e690d87c03c0b02b6a807223b20938e101ac2de",
+      "terminal_state": "SUCCEEDED"
+    }
+  ],
+  "registry_mutations": [
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_jsonl_stream.schema_intake:install",
+      "original_handle": "01f1c34d-ebf1-1153-b1ce-9b04b00e3107",
+      "request_sha256": "376b619c98e5b3ea81172e1c041bcf70c2a64c226659cdf3b6632cf120aa623a",
+      "response_sha256": "85c4336d1acf07f40d0b2017a99e257f541bd3e3b8cf75a9ea8dd4cb2ec9f4d5",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "schema-intake:d0464d1537a7f74d2228aa091f573f9db6e86527dd11bd61b26a5957ef686a2f",
+      "original_handle": "01f1c34d-ee9f-1bd8-8e46-528c744a9022",
+      "request_sha256": "0162719f597b532b3f7e1bd0df9655baece0babbafa4aded379ef726fe2e2313",
+      "response_sha256": "2d6c2aec5e0c32d11567d11d9e7d36760d70a949863f80eb6fe0951fb94014fb",
+      "terminal_state": "SUCCEEDED"
+    }
+  ],
+  "checks": [
+    "nine exact original UMF-generated CREATE statements terminal SUCCEEDED",
+    "eight managed carrier UUID/column and final identity checks",
+    "initial eight carrier details report zero files",
+    "actual clean pinned UMF inspection and exact complete native row readback",
+    "incomplete interpretation retained explicitly"
+  ],
+  "receipts": [
+    {
+      "private_directory": "/private/tmp/ashlar-jsonl-setup-20261008",
+      "warehouse_reads": 24,
+      "permission_pages": 53,
+      "sha256": {
+        "summary.json": "a2aed0e33fd5cacad7f6f258b8505f1197dda69c91785d7613712c8cc046ef51",
+        "journal-export.json": "174d4d32023c116f2b7f1dc913b4034c3eb3dacba782ade974e5673318b87c3e",
+        "statements.jsonl": "f6ec9b698185d89a18a2a2b06006e22243f8f8536c23ae8e33ffa387cdc14a59",
+        "effective-grants.jsonl": "a3dd55a81510f779323d452207f243295e7f5b37458d0c01215a7ca48d0f92a1"
+      }
+    },
+    {
+      "private_directory": "/private/tmp/ashlar-jsonl-schema-20261008",
+      "warehouse_reads": 6,
+      "permission_pages": 14,
+      "sha256": {
+        "summary.json": "dd9cd897689ad08669aa7c9baf9446d402c7699e9b8d22cbe4f474a0131f45b9",
+        "journal-export.json": "63040863f7b14a34379b99d465b76a4b3850f1e9c7238ee39b85e90c0f18a5ed",
+        "statements.jsonl": "061d4c626d83f61afcd28f856f7a6c71268423951a5b92f0e62949222150a9b6",
+        "effective-grants.jsonl": "b686010287b1f94b2ae92049d20bf80092973f4c3f1db19fe0a47e6c0b024e35"
+      }
+    }
+  ],
+  "qualification": "Independent empty installation and one raw UMF revision for JSONL integration. Existing authorized catalog and warehouse; source/actor/managed-table and effective-permission admission observed by actual tools. No JSONL publication or checkpoint success claimed here; live original publisher is separate. No accepted Truss IDs/feed, remote fencing/ACK or broader schema support. No compute/grants/predictive optimization changes."
+}
