@@ -1,0 +1,37 @@
+{
+  "format": "ashlar-append-calibration/1",
+  "profile": "ashlar-scale-append/2",
+  "counts": {
+    "historical": 4096,
+    "new": 4096,
+    "new_endpoint_references": 1860
+  },
+  "role_stream_sha256": "953a797545a93de39a16ec19794bd36d68772048fe36f2f255a77a15efa07bf3",
+  "old_graph": [
+    8000000,
+    40000000
+  ],
+  "proposed_graph": [
+    16000000,
+    80000000
+  ],
+  "allocation": {
+    "old_nodes": [
+      1,
+      8000000
+    ],
+    "old_edges": [
+      8000001,
+      48000000
+    ],
+    "new_nodes": [
+      48000001,
+      56000000
+    ],
+    "new_edges": [
+      56000001,
+      96000000
+    ]
+  },
+  "qualification": "Local boundary/residue sample, not full-scale proof or native admission. Existing carrier and role content is byte-equivalent. New raw envelope retains historical generator profile while carrier schema_revision/source_epoch explicitly identify append profile. Native SQL must independently implement this mapping; old extent-based SQL slicing must not be reused. No canonical tables or published pins changed."
+}

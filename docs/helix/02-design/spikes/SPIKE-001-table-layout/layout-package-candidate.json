@@ -2741,7 +2741,9 @@
     "full_role_capacity_r634.py": "2948a879e11e1e5a14a9e894da74ebcb722190535c6a7f06d8b7365c5ce1fdff",
     "out/full-role-capacity-r634.json": "a86b60c3e76e2a60f93debad526b105d7feda7c784143fc11ebd51c2272a08f1",
     "growth_cost_basis_r635.py": "59eb5e149000b244105e3206136e4933956032b847ed13c3c38e0d2070aceb6a",
-    "out/growth-cost-basis-r635.json": "63e645b7739261a0bef943fb9c58a1352cc559b3568a9bcd402cb4a8cef544ca"
+    "out/growth-cost-basis-r635.json": "63e645b7739261a0bef943fb9c58a1352cc559b3568a9bcd402cb4a8cef544ca",
+    "append_profile_r636.py": "c4fdd8a0167a5d4f3dbb9beff6ea7226e08647693fae523a271328237af60161",
+    "out/append-calibration-r636.json": "99c5e940d4b1f10a2982612fc3ceb396848825305a6c0988ac62dc484d82cf8d"
   },
   "evidence": {
     "ddl": {
