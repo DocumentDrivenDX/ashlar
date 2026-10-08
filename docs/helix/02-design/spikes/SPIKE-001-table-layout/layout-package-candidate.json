@@ -2676,7 +2676,17 @@
     "out/native/ashlar_sparse_maintain_r610/summary.json": "dd99ff89a4585cd056f17adc28372ae92e9e034a08e699570a2021a6b1cc0d3d",
     "sparse-maintenance-disposition-r612.md": "8edd23facd615e996b340239c57cac68b7bc3eaecb7204109fd89754d6d2cf0a",
     "sparse_maintain_audit_r611.py": "49c2996fc97747ee7e737f39f5f9438236b2ea6d38f3cc715c0f275e62d7a452",
-    "sparse_maintain_r610.py": "db4f1b0f25ad02d4cc0bc9bc6e304e9414ebc0e00e9ff5c7b2fd4027b0f5f121"
+    "sparse_maintain_r610.py": "db4f1b0f25ad02d4cc0bc9bc6e304e9414ebc0e00e9ff5c7b2fd4027b0f5f121",
+    "out/native/ashlar_sparse_post_reads_r613/audited-summary.json": "d1893c81945bf097998193a16dd8e2c3225525f10543cd1f456748a5e2ad812b",
+    "out/native/ashlar_sparse_post_reads_r613/completed-last-request.json": "2660a6f19fd95068fa46d7c5e6dafe14571b1c0c172fd035215e866c16447ce7",
+    "out/native/ashlar_sparse_post_reads_r613/shared-history.json": "e1bbcec49d52fcf1efeaac143638d005e59fd0736a02d7db341fd1479f889a92",
+    "out/native/ashlar_sparse_post_reads_r613/statements.jsonl": "958abdf58b1a91c64a6280801450161914227d31a9e4bb350ae22d2923e3d301",
+    "out/native/ashlar_sparse_post_reads_r613/summary.json": "b549a44475e5173d7e6048e85efd84d74c22a35ac3b59739931465d31527a4d1",
+    "out/sparse-read-groups-r615.json": "e01dbca081bda09d46227bcb72314ebd88e3ef6d93105aa96c4b72a3ffb753f2",
+    "sparse-read-disposition-r616.md": "23658e698ed1abcda58c8d7e160a642bd544bfbf79cf9fc335bf29213e05cebf",
+    "sparse_post_audit_r614.py": "08d2981429893380cff99a74222c6b9a7172a9e68ac472e181016dcabc77ee32",
+    "sparse_post_reads_r613.py": "570f54f67eaffd4cdae02b13aed40e1388c6ee070bc77dc143d7c6057531a799",
+    "sparse_read_groups_r615.py": "829609ce5c72edcbe8250d09fcf6120130dcf6e451d2f48b7fb3ed5c29a69d4e"
   },
   "evidence": {
     "ddl": {

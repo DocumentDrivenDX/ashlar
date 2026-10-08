@@ -1,0 +1,308 @@
+{
+  "state": "All32matched newly changed full-carrier direct reads pass",
+  "source_sha256": "01547e241fafedbe39b78af2e6d2487025b94b8c8df8515a59690f76d7e33800",
+  "old": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 10
+  },
+  "new": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 12
+  },
+  "indices": [
+    162,
+    328,
+    435,
+    410,
+    1,
+    2,
+    3,
+    0
+  ],
+  "reads": [
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 162,
+      "statement_id": "01f1c2ad-c0df-13bc-a197-5847bb530df8"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 162,
+      "statement_id": "01f1c2ad-c159-1980-9210-93560238e098"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 328,
+      "statement_id": "01f1c2ad-c190-186d-a6fa-b11a42822631"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 328,
+      "statement_id": "01f1c2ad-c1c7-1b4a-b0e3-f511e2889f9a"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 435,
+      "statement_id": "01f1c2ad-c24a-1e62-8c3f-76a725b273d8"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 435,
+      "statement_id": "01f1c2ad-c2b6-1e22-bdc9-fe50461eed06"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 410,
+      "statement_id": "01f1c2ad-c2f1-1528-98db-8c0294f3b0a2"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 410,
+      "statement_id": "01f1c2ad-c327-1de6-a256-1712b79e3199"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 1,
+      "statement_id": "01f1c2ad-c39d-12aa-99a2-807a0b87bcee"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 1,
+      "statement_id": "01f1c2ad-c40a-14f3-a8dd-b5bc5ac03c9b"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 2,
+      "statement_id": "01f1c2ad-c443-17bd-afb6-453e6cc21b32"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 2,
+      "statement_id": "01f1c2ad-c47c-1d5e-baae-3aed036fd7d8"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 3,
+      "statement_id": "01f1c2ad-c4f2-19aa-9d79-c66031c572df"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 3,
+      "statement_id": "01f1c2ad-c560-1056-ac8b-cde66636afdc"
+    },
+    {
+      "family": "after",
+      "phase": 0,
+      "index": 0,
+      "statement_id": "01f1c2ad-c599-1592-b86f-b0729a99e31c"
+    },
+    {
+      "family": "before",
+      "phase": 0,
+      "index": 0,
+      "statement_id": "01f1c2ad-c5d5-1159-8ca8-8130f214654d"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 162,
+      "statement_id": "01f1c2ad-c83d-1613-b7a8-a9fc8f14069a"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 162,
+      "statement_id": "01f1c2ad-c877-1206-b6c7-371a1921fc91"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 328,
+      "statement_id": "01f1c2ad-c8e2-153f-bd5b-e267bd592307"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 328,
+      "statement_id": "01f1c2ad-c94c-14a1-ad96-b60bf3daa1b3"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 435,
+      "statement_id": "01f1c2ad-c982-1548-ad84-1608de3be833"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 435,
+      "statement_id": "01f1c2ad-c9bb-19cc-ac7e-43e3f1a89c12"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 410,
+      "statement_id": "01f1c2ad-ca22-163e-8926-ae748e3306af"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 410,
+      "statement_id": "01f1c2ad-ca89-1955-a17a-068921d02a25"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 1,
+      "statement_id": "01f1c2ad-cac2-1258-8cf9-319da5d29fef"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 1,
+      "statement_id": "01f1c2ad-cafb-13b5-adba-eafa89978bb6"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 2,
+      "statement_id": "01f1c2ad-cb6e-1eb6-a701-a1661fd2a749"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 2,
+      "statement_id": "01f1c2ad-cbd8-157a-9fc3-2cf8a673aaf0"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 3,
+      "statement_id": "01f1c2ad-cc10-12b0-93f9-4f3bf2249fe9"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 3,
+      "statement_id": "01f1c2ad-cc47-14ab-8d80-0d915f83c082"
+    },
+    {
+      "family": "before",
+      "phase": 1,
+      "index": 0,
+      "statement_id": "01f1c2ad-ccb2-1ed6-81f9-3638c75aad3b"
+    },
+    {
+      "family": "after",
+      "phase": 1,
+      "index": 0,
+      "statement_id": "01f1c2ad-cd18-1a25-92a6-f6b8bcf79f16"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 20000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 180
+  },
+  "code_sha256": {
+    "sparse_post_reads_r613.py": "570f54f67eaffd4cdae02b13aed40e1388c6ee070bc77dc143d7c6057531a799",
+    "seventh_changes_r589.py": "98a0361d7c34a1cc927483f6564dbd6340fcbcd00c9fa088a20b3e123d2e93af",
+    "overlay_sql_r395.py": "a4c43eba6a12842e0f74f10c123d59055f4214145491bf47923f291e5144452c"
+  },
+  "qualification": "Eight seventh-batch identities: four inside08..0c and four outside, each with threeupdates/one deletion, matched maintenance E10/E12 pins. Both versions expect identical seventh after-carriers/absence. Tiny serial cohort after publication validation; not cold-data, concurrency, freshness or billion admission.",
+  "queries": {
+    "before": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 10 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)",
+    "after": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 12 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)"
+  },
+  "costs": {
+    "read_bytes": 8461772490,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "per_family": {
+    "before": {
+      "queries": 16,
+      "caller_p95_ms": 858.3339580000003,
+      "engine_p95_ms": 114,
+      "compile_p95_ms": 638,
+      "remote_queries": 0
+    },
+    "after": {
+      "queries": 16,
+      "caller_p95_ms": 383.9302080000007,
+      "engine_p95_ms": 97,
+      "compile_p95_ms": 178,
+      "remote_queries": 0
+    }
+  },
+  "per_family_phase": {
+    "before-0": {
+      "queries": 8,
+      "caller_p95_ms": 858.3339580000003,
+      "engine_p95_ms": 114,
+      "compile_p95_ms": 638,
+      "remote_queries": 0
+    },
+    "before-1": {
+      "queries": 8,
+      "caller_p95_ms": 766.6792500000029,
+      "engine_p95_ms": 102,
+      "compile_p95_ms": 501,
+      "remote_queries": 0
+    },
+    "after-0": {
+      "queries": 8,
+      "caller_p95_ms": 383.9302080000007,
+      "engine_p95_ms": 97,
+      "compile_p95_ms": 178,
+      "remote_queries": 0
+    },
+    "after-1": {
+      "queries": 8,
+      "caller_p95_ms": 374.20283399999835,
+      "engine_p95_ms": 96,
+      "compile_p95_ms": 175,
+      "remote_queries": 0
+    }
+  },
+  "wall_s": 30.287904583000003,
+  "audit": {
+    "native_final_statements": 37,
+    "matched_full_carriers": 32,
+    "point_io": {
+      "before": {
+        "read_bytes": 6705147720,
+        "median_files": 11.5,
+        "read_remote_bytes": 0
+      },
+      "after": {
+        "read_bytes": 1756624770,
+        "median_files": 2.5,
+        "read_remote_bytes": 0
+      }
+    },
+    "source_sha256": {
+      "summary.json": "b549a44475e5173d7e6048e85efd84d74c22a35ac3b59739931465d31527a4d1",
+      "statements.jsonl": "958abdf58b1a91c64a6280801450161914227d31a9e4bb350ae22d2923e3d301",
+      "shared-history.json": "e1bbcec49d52fcf1efeaac143638d005e59fd0736a02d7db341fd1479f889a92"
+    },
+    "qualification": "Eight seventh-batch identities: four inside08..0c and four outside, each with threeupdates/one deletion, matched maintenance E10/E12 pins. Both versions expect identical seventh after-carriers/absence. Tiny serial cohort after publication validation; not cold-data, concurrency, freshness or billion admission."
+  }
+}

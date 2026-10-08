@@ -1,0 +1,71 @@
+{
+  "state": "Audited maintenance read responses split by exact inside/outside hash predicate",
+  "source_sha256": "d1893c81945bf097998193a16dd8e2c3225525f10543cd1f456748a5e2ad812b",
+  "groups": {
+    "before-0-inside": {
+      "queries": 4,
+      "caller_p95_ms": 858.3339580000003,
+      "engine_p95_ms": 114,
+      "read_bytes": 1691852902,
+      "median_files": 11.0,
+      "remote_bytes": 0
+    },
+    "before-0-outside": {
+      "queries": 4,
+      "caller_p95_ms": 764.6241249999993,
+      "engine_p95_ms": 108,
+      "read_bytes": 1660720958,
+      "median_files": 12.0,
+      "remote_bytes": 0
+    },
+    "before-1-inside": {
+      "queries": 4,
+      "caller_p95_ms": 703.4264580000009,
+      "engine_p95_ms": 102,
+      "read_bytes": 1691852902,
+      "median_files": 11.0,
+      "remote_bytes": 0
+    },
+    "before-1-outside": {
+      "queries": 4,
+      "caller_p95_ms": 766.6792500000029,
+      "engine_p95_ms": 97,
+      "read_bytes": 1660720958,
+      "median_files": 12.0,
+      "remote_bytes": 0
+    },
+    "after-0-inside": {
+      "queries": 4,
+      "caller_p95_ms": 380.4550840000003,
+      "engine_p95_ms": 87,
+      "read_bytes": 389191330,
+      "median_files": 2.0,
+      "remote_bytes": 0
+    },
+    "after-0-outside": {
+      "queries": 4,
+      "caller_p95_ms": 383.9302080000007,
+      "engine_p95_ms": 97,
+      "read_bytes": 489121055,
+      "median_files": 3.0,
+      "remote_bytes": 0
+    },
+    "after-1-inside": {
+      "queries": 4,
+      "caller_p95_ms": 369.26520799999986,
+      "engine_p95_ms": 89,
+      "read_bytes": 389191330,
+      "median_files": 2.0,
+      "remote_bytes": 0
+    },
+    "after-1-outside": {
+      "queries": 4,
+      "caller_p95_ms": 374.20283399999835,
+      "engine_p95_ms": 96,
+      "read_bytes": 489121055,
+      "median_files": 3.0,
+      "remote_bytes": 0
+    }
+  },
+  "qualification": "Four queries per subgroup means nearest-rank95th is maximum; tiny serial paired sample only, one delete/threeupdates each. No servicewidep95/cold/concurrency/causal/performance admission."
+}
