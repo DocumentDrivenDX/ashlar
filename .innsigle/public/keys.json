@@ -1,0 +1,16 @@
+{
+  "innsigle_issuer": "1",
+  "issuer_id": "ashlar",
+  "issuer_name": "Ashlar",
+  "keys": [
+    {
+      "key_id": "ed25519:c2d14d17c30aa16155894b10c42bf1f1",
+      "alg": "ed25519",
+      "public_key": "7DJIgw1tmnSP_Ykw6gOH6Ky1NyRwY7AfB436NoiGxbM",
+      "created_at": "2026-10-08T05:13:29Z",
+      "revoked_at": null,
+      "role": "human"
+    }
+  ],
+  "endorsements": []
+}

@@ -1,0 +1,58 @@
+{
+  "payload": {
+    "innsigle": "1",
+    "type": "https://innsigle.dev/claim/colophon/v1",
+    "issued_at": "2026-10-08T05:14:21Z",
+    "issuer": {
+      "id": "ashlar",
+      "name": "Ashlar",
+      "key_id": "ed25519:c2d14d17c30aa16155894b10c42bf1f1",
+      "key_url": "https://documentdrivendx.github.io/ashlar/.well-known/innsigle/keys.json"
+    },
+    "subjects": [
+      {
+        "uri": "https://documentdrivendx.github.io/ashlar/start/",
+        "digest": {
+          "alg": "sha256",
+          "value": "6515f201dec9d6713bb0aaa832190f16e2e041a16cbc65f7fce7fd8411205181"
+        }
+      }
+    ],
+    "colophon": {
+      "schema_version": "1",
+      "composition": "model-primary",
+      "ingredients": [
+        {
+          "kind": "model",
+          "name": "Codex",
+          "role": "draft, design and implementation"
+        },
+        {
+          "kind": "human",
+          "name": "project owner",
+          "role": "direction and scope"
+        },
+        {
+          "kind": "tool",
+          "name": "HELIX",
+          "role": "design templates and source grounding"
+        },
+        {
+          "kind": "tool",
+          "name": "innsigle-seal skill",
+          "role": "provenance declaration and sealing workflow"
+        }
+      ],
+      "notes": "Codex drafted the microsite and diagrams from Ashlar's governed repository artifacts under the project owner's direction. The seal covers the page source, including inline diagrams, and does not certify product support or performance. No human-input percentage is asserted."
+    }
+  },
+  "payload_encoding": "json",
+  "signatures": [
+    {
+      "key_id": "ed25519:c2d14d17c30aa16155894b10c42bf1f1",
+      "alg": "ed25519",
+      "sig": "8LPvwvazQgj8NbpjcVCSJJ9IHvYBLnxFoeztA0md-0ZkguIbV5cus1TTmPsDblBSxd_Tnmue3nir4lPVC_5MBg",
+      "signed_at": "2026-10-08T05:14:21Z"
+    }
+  ]
+}

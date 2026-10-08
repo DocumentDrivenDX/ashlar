@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ if not .IsHome }}{{ .Title }} · {{ end }}Ashlar — Property graphs on warehouse tables</title>
+  <meta name="description" content="{{ .Description | default "Typed entities and relationships on warehouse tables. Explore Ashlar's design for Databricks Unity Catalog Delta." }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  {{ $css := slice (resources.Get "css/site.css") (resources.Get "css/docs.css") (resources.Get "css/innsigle.css") | resources.Concat "css/ashlar.css" | minify | fingerprint }}
+  <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+  <link rel="icon" href="{{ "favicon.svg" | relURL }}" type="image/svg+xml">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <a class="brand" href="{{ site.Home.RelPermalink }}" aria-label="Ashlar home"><span class="mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>ashlar</a>
+  <nav aria-label="Primary">
+  {{ $current := .RelPermalink }}
+  {{ range slice (dict "path" "" "name" "Overview") (dict "path" "concepts/" "name" "Concepts") (dict "path" "schema/" "name" "Schema") (dict "path" "background/" "name" "Background") (dict "path" "ecosystem/" "name" "Ecosystem") (dict "path" "start/" "name" "Start here") (dict "path" "reference/" "name" "Reference") }}
+    {{ $url := .path | relURL }}
+    <a href="{{ $url }}"{{ if eq $current $url }} aria-current="page"{{ end }}>{{ .name }}</a>
+  {{ end }}
+    <a class="source" href="https://github.com/DocumentDrivenDX/ashlar">Source ↗</a>
+  </nav>
+</header>
+<main id="main">{{ block "main" . }}{{ end }}
+  <div class="seal-wrap">{{ partial "innsigle-colophon.html" . }}</div>
+</main>
+<footer><span>Ashlar / DocumentDrivenDX</span><span>Property graphs on warehouse tables</span><a href="https://github.com/DocumentDrivenDX/ashlar">Source ↗</a></footer>
+</body>
+</html>

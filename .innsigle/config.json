@@ -1,0 +1,35 @@
+{
+  "schema_version": "1",
+  "issuer": {
+    "id": "ashlar",
+    "name": "Ashlar",
+    "key_id": "ed25519:c2d14d17c30aa16155894b10c42bf1f1",
+    "key_url": "https://documentdrivendx.github.io/ashlar/.well-known/innsigle/keys.json",
+    "public_key": "7DJIgw1tmnSP_Ykw6gOH6Ky1NyRwY7AfB436NoiGxbM"
+  },
+  "paths": {
+    "public": ".innsigle/public",
+    "keys": ".innsigle/public/keys.json",
+    "claims_dir": ".innsigle/public/claims"
+  },
+  "publish": {
+    "site_keys_path": "/.well-known/innsigle/keys.json",
+    "copy": {
+      "from": ".innsigle/public",
+      "to": ".well-known/innsigle"
+    }
+  },
+  "onepassword": {
+    "vault": "Employee",
+    "item_title": "Innsigle \u00b7 ashlar",
+    "item_id": "7xjelraeusq3hz3ehficc4u2gi",
+    "private_key_ref": "op://Employee/7xjelraeusq3hz3ehficc4u2gi/private key"
+  },
+  "content_root": "website/content",
+  "content_globs": [
+    "website/content/**/*.md"
+  ],
+  "kind_from_frontmatter": {
+    "field": "composition"
+  }
+}

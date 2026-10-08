@@ -1,0 +1,26 @@
+baseURL: https://documentdrivendx.github.io/ashlar/
+title: Ashlar
+locale: en-US
+enableRobotsTXT: true
+enableGitInfo: true
+disableKinds: [taxonomy, term, RSS]
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+    parser:
+      attribute:
+        block: true
+params:
+  innsigle:
+    field: composition
+    warnUnsealed: true
+module:
+  mounts:
+    - {source: content, target: content}
+    - {source: assets, target: assets}
+    - {source: layouts, target: layouts}
+    - {source: static, target: static}
+    - {source: ../.innsigle/public, target: static/.well-known/innsigle}
+    - {source: ../.innsigle/public, target: assets/innsigle}
+    - {source: content, target: assets/content-src}

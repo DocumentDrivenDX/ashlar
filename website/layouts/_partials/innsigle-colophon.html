@@ -1,0 +1,98 @@
+{{- /*
+  Innsigle colophon seal.
+
+  A seal appears only when a claim in .innsigle/public/claims/ names this
+  page's SOURCE file and its sha256 digest still matches the current source
+  bytes. An edited-but-not-resealed page renders no seal and emits a build
+  warning, rather than a seal that would fail verification.
+
+  The signature covers the markdown source, never these HTML bytes. The page
+  quotes the source attestation verbatim as application/innsigle+json so a
+  reader can verify it against the source file themselves.
+
+  Required mounts (see integrations/hugo/README.md, or run
+  `innsigle init --hugo` to write them):
+
+    .innsigle/public → assets/innsigle              (claims + keys, build-time)
+    .innsigle/public → static/.well-known/innsigle  (claims + keys, published)
+    <content root>   → assets/content-src           (source bytes, to re-hash)
+
+  Call it from wherever your theme ends a page. Produce claims with
+  `innsigle seal --all`, and check the wiring with `innsigle doctor --hugo`.
+*/ -}}
+{{- with .File }}
+{{- $rel := .Path }}
+{{- /* strings.Trim takes (input, cutset): the slug is the first argument */ -}}
+{{- $slug := strings.Trim ($rel | replaceRE `[^a-zA-Z0-9]+` "-") "-" }}
+{{- $claimRes := resources.Get (printf "innsigle/claims/%s.attestation.json" $slug) }}
+{{- if not $claimRes }}
+  {{- /* No claim for this page. Usually that is deliberate (an unsealed page),
+         but it is also exactly what a broken assets/innsigle mount looks like:
+         every page silently loses its seal and the site still builds. Sites
+         that seal everything can turn this into a build warning. */ -}}
+  {{- if site.Params.innsigle.warnUnsealed }}
+    {{- warnf "innsigle: %s has no claim at innsigle/claims/%s.attestation.json — unsealed, or the assets/innsigle mount is wrong" $rel $slug }}
+  {{- end }}
+{{- else }}
+{{- $raw := $claimRes.Content }}
+{{- $att := $raw | transform.Unmarshal }}
+{{- $payload := $att.payload }}
+{{- $subject := index $payload.subjects 0 }}
+{{- $srcRes := resources.Get (printf "content-src/%s" $rel) }}
+{{- if not $srcRes }}
+  {{- warnf "innsigle: %s has a claim but its source is unreadable — is the assets/content-src mount pointing at the content root? no seal rendered" $rel }}
+{{- else if ne $subject.digest.alg "sha256" }}
+  {{- warnf "innsigle: %s claim uses unsupported digest alg %q; no seal rendered" $rel $subject.digest.alg }}
+{{- else if ne (sha256 $srcRes.Content) $subject.digest.value }}
+  {{- warnf "innsigle: %s no longer matches its seal (edited since sealing?) — run `innsigle seal --all`; no seal rendered" $rel }}
+{{- else }}
+{{- $colo := $payload.colophon }}
+{{- $issuer := $payload.issuer }}
+{{- $sig := index (default (slice dict) $att.signatures) 0 }}
+{{- /* key role and endorsement come from the issuer document, not the claim */ -}}
+{{- $keysDoc := dict }}
+{{- with resources.Get "innsigle/keys.json" }}{{ $keysDoc = .Content | transform.Unmarshal }}{{ end }}
+{{- $role := "" }}
+{{- range $keysDoc.keys }}{{ if eq .key_id $issuer.key_id }}{{ $role = .role | default "" }}{{ end }}{{ end }}
+{{- $endorsement := dict }}
+{{- range $keysDoc.endorsements }}{{ if eq .subject_key_id $issuer.key_id }}{{ $endorsement = . }}{{ end }}{{ end }}
+{{- $roleLabel := cond (eq $role "build") "build key" (cond (eq $role "human") "human key" "signing key") }}
+{{- /* relURL drops the site's base path for a root-absolute input, so build
+       hrefs from the base URL's own path — otherwise every link breaks on a
+       project-pages style deploy served under a subdirectory. */ -}}
+{{- $basePath := (urls.Parse site.BaseURL).Path | default "/" }}
+{{- $attHref := printf "%s.well-known/innsigle/claims/%s.attestation.json" $basePath $slug }}
+{{- $keysHref := printf "%s.well-known/innsigle/keys.json" $basePath }}
+<div class="innsigle-colophon" data-innsigle-slug="{{ $slug }}" data-innsigle-role="{{ $role }}" data-innsigle-composition="{{ $colo.composition }}">
+  <script type="application/innsigle+json">{{ $raw | safeHTML }}</script>
+  <details class="innsigle-seal">
+    <summary title="View Innsigle attestation">
+      {{ partial "innsigle-glyph.html" . }}
+      <span>Innsigle seal: <strong>{{ $colo.composition | default "unknown" }}</strong> by {{ $issuer.name | default "unknown issuer" }}</span>
+    </summary>
+    <div class="innsigle-viewer">
+      <p class="innsigle-covers">The signature covers the markdown source of this page, not these HTML bytes. This page quotes that seal; verify it against the source file.</p>
+      <dl>
+        <dt>Composition</dt><dd>{{ $colo.composition | default "unknown" }}</dd>
+        <dt>Issuer</dt><dd>{{ $issuer.name }} <code>{{ $issuer.id }}</code></dd>
+        <dt>Signing key</dt><dd><a href="{{ $issuer.key_url | default $keysHref }}"><code>{{ $issuer.key_id }}</code></a> ({{ $roleLabel }})</dd>
+        <dt>Signed source</dt><dd><code>{{ $rel }}</code></dd>
+        <dt>Signed</dt><dd>{{ $sig.signed_at | default $payload.issued_at | default "unknown" }}</dd>
+        <dt>Content digest</dt><dd><code>{{ $subject.digest.alg }}:{{ printf "%.8s…%s" $subject.digest.value (substr $subject.digest.value -8) }}</code></dd>
+      </dl>
+      {{- if $endorsement.attestation_url }}
+      <p class="innsigle-trust">This build key is <a href="{{ $endorsement.attestation_url }}">endorsed by the human key</a> for build signing; the signature is not a detector and not a truth guarantee.</p>
+      {{- else if eq $role "human" }}
+      <p class="innsigle-trust">Human-controlled key, held outside CI; the signature is not a detector and not a truth guarantee.</p>
+      {{- else }}
+      <p class="innsigle-trust">The signature is not a detector and not a truth guarantee.</p>
+      {{- end }}
+      <details class="innsigle-raw"><summary>Raw attestation JSON</summary>
+      <pre>{{ $raw }}</pre></details>
+      <p class="innsigle-links"><a href="{{ $attHref }}">attestation file</a> · <a href="{{ $keysHref }}">issuer keys</a></p>
+    </div>
+  </details>
+</div>
+{{- end }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,112 @@
+/*
+ * Innsigle colophon + badge.
+ *
+ * Colours are custom properties so a site can restyle without forking this
+ * file. Dark mode is handled two ways because themes disagree: a
+ * prefers-color-scheme query (works anywhere) and a .dark ancestor class
+ * (Tailwind, Hextra, PaperMod's data-theme sibling). Override the properties
+ * on :root to match your palette.
+ */
+
+:root {
+  --innsigle-fg: #334155;
+  --innsigle-muted: #64748b;
+  --innsigle-border: #e2e8f0;
+  --innsigle-bg: #f8fafc;
+  --innsigle-code-bg: #eef2f7;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --innsigle-fg: #cbd5e1;
+    --innsigle-muted: #94a3b8;
+    --innsigle-border: #334155;
+    --innsigle-bg: #1e293b;
+    --innsigle-code-bg: #0f172a;
+  }
+}
+
+:root[data-theme="dark"],
+.dark {
+  --innsigle-fg: #cbd5e1;
+  --innsigle-muted: #94a3b8;
+  --innsigle-border: #334155;
+  --innsigle-bg: #1e293b;
+  --innsigle-code-bg: #0f172a;
+}
+
+/* ---- colophon ---------------------------------------------------------- */
+
+.innsigle-colophon {
+  margin: 2.5rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--innsigle-border);
+  color: var(--innsigle-muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.innsigle-seal > summary {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  cursor: pointer;
+  list-style: none;
+  color: var(--innsigle-muted);
+}
+
+.innsigle-seal > summary::-webkit-details-marker { display: none; }
+.innsigle-seal > summary:hover { color: var(--innsigle-fg); }
+.innsigle-seal[open] > summary { margin-bottom: 0.75rem; }
+
+.innsigle-glyph { flex: 0 0 auto; }
+
+.innsigle-viewer {
+  padding: 0.85rem 1rem;
+  border: 1px solid var(--innsigle-border);
+  border-radius: 6px;
+  background: var(--innsigle-bg);
+}
+
+.innsigle-viewer dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.3rem 1rem;
+  margin: 0.75rem 0;
+}
+
+.innsigle-viewer dt { color: var(--innsigle-muted); }
+.innsigle-viewer dd { margin: 0; color: var(--innsigle-fg); overflow-wrap: anywhere; }
+
+.innsigle-covers,
+.innsigle-trust { margin: 0 0 0.5rem; }
+
+.innsigle-raw > summary { cursor: pointer; }
+.innsigle-raw pre {
+  max-height: 22rem;
+  overflow: auto;
+  padding: 0.6rem;
+  border-radius: 4px;
+  background: var(--innsigle-code-bg);
+  font-size: 0.78rem;
+}
+
+.innsigle-links { margin: 0.6rem 0 0; }
+
+/* ---- list badge -------------------------------------------------------- */
+
+.innsigle-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.05rem 0.45rem;
+  border: 1px solid var(--innsigle-border);
+  border-radius: 999px;
+  color: var(--innsigle-muted);
+  font-size: 0.78em;
+  line-height: 1.6;
+  white-space: nowrap;
+  vertical-align: baseline;
+}
+
+.innsigle-badge .innsigle-glyph { width: 12px; height: 12px; }

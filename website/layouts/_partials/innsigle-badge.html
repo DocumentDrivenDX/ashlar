@@ -1,0 +1,32 @@
+{{- /*
+  Compact provenance marker for list, archive and card views, where the full
+  colophon is too heavy and re-hashing every page's source would be wasteful.
+
+  It reads the page's own frontmatter rather than its claim, so it is cheap
+  enough for a paginated list. The claim is what proves provenance, and it is
+  checked on the page itself by innsigle-colophon.html; this is a signpost
+  pointing there.
+
+  Config (all optional):
+    params.innsigle.field      frontmatter key holding the composition.
+                               Default "composition". Falls back to the
+                               legacy `generated: true` boolean.
+    params.innsigle.badgeAll   show human-authored too. Default false, since
+                               on most sites that is the unremarkable case.
+
+  Usage:  {{ partial "innsigle-badge.html" . }}
+*/ -}}
+{{- $field := site.Params.innsigle.field | default "composition" }}
+{{- $composition := index .Params $field }}
+{{- if and (not $composition) (.Params.generated) }}{{ $composition = "model-primary" }}{{ end }}
+{{- $label := dict
+      "model-primary"  "agent-drafted"
+      "mixed"          "human + agent"
+      "human-authored" "human-written" }}
+{{- if $composition }}
+{{- if or site.Params.innsigle.badgeAll (ne $composition "human-authored") }}
+<span class="innsigle-badge" data-innsigle-composition="{{ $composition }}" title="Innsigle composition: {{ $composition }}">
+  {{ partial "innsigle-glyph.html" . }}<span>{{ index $label $composition | default $composition }}</span>
+</span>
+{{- end }}
+{{- end }}

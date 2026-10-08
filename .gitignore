@@ -10,3 +10,11 @@ node_modules/
 __pycache__/
 *.py[cod]
 /docs/helix/02-design/spikes/**/out/**/live-statement.json
+
+# Microsite build output and local tooling
+/website/public/
+/website/.hugo_build.lock
+/website/resources/
+/.tools/
+/.innsigle/provenance/
+/.innsigle/debug/

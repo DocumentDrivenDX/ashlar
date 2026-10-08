@@ -1,0 +1,21 @@
+{{ define "main" }}
+<div class="docs-layout">
+  <aside class="docs-nav" aria-label="Documentation sections">
+    <div class="label">Explore Ashlar</div>
+    {{ $current := .RelPermalink }}
+    <nav aria-label="Documentation">
+      {{ range slice (dict "path" "concepts/" "name" "The graph model") (dict "path" "schema/" "name" "Physical schema") (dict "path" "background/" "name" "Structural choices") (dict "path" "ecosystem/" "name" "Ecosystem mappings") (dict "path" "start/" "name" "Inspect the schema package") (dict "path" "reference/" "name" "Contracts & evidence") }}
+      {{ $url := .path | relURL }}<a href="{{ $url }}"{{ if eq $url $current }} aria-current="page"{{ end }}>{{ .name }}</a>{{ end }}
+    </nav>
+    <a class="docs-source" href="https://github.com/DocumentDrivenDX/ashlar">Contribute on GitHub ↗</a>
+  </aside>
+  <article class="prose">
+    <div class="label">{{ .Params.eyebrow }}</div>
+    <h1>{{ .Title }}</h1>
+    <p class="lede">{{ .Description }}</p>
+    {{ .Content }}
+    <div class="next-page"><a href="{{ .Params.nextPath | relURL }}">{{ .Params.nextLabel }} →</a></div>
+  </article>
+  <aside class="page-outline"><div class="label">On this page</div>{{ .TableOfContents }}</aside>
+</div>
+{{ end }}
