@@ -1635,3 +1635,20 @@ probe. Production bridge adoption, other/error/notice/binary message coverage,
 transport allocation limits, original issuer/epoch and refusal settlement remain
 unqualified. Full arbitration/protected producers, bootstrap and Truss streaming
 remain unfinished. No mutations/cloud/deployment changes occur; goal stays active.
+
+
+## Original Truss response completion — 2026-10-08
+
+The incremental component now requires ordered description/rows/command/ready
+state, checks original SELECT count against all observed rows, and refuses missing
+readiness, duplicate/out-of-order completion or post-end reuse. finish now proves
+this single response ended rather than merely accepting complete frame bytes.
+Thirty tests/212 assertions, strict host build, clean packed consumer and the
+small original native one-SELECT pre-parser probe pass. No mutations/cloud or
+deployment changes occur.
+
+Error/notice/extended-query/binary/multiple-result coverage, original native
+producer/issuer/resource/settlement admission and bridge adoption remain open.
+ReadyForQuery does not independently authorize quarantined-resource release.
+Protected producers, bootstrap and actual Truss streaming remain unfinished;
+the unchanged full end-to-end goal remains active.
