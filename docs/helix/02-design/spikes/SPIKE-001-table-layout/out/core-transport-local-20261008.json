@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "tests": 84,
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q",
+  "scope": "Native SQLResult exact carrier/schema adaptation and failed/truncated/shape/position/count refusal; saved successful native responses rechecked with current parser."
+}

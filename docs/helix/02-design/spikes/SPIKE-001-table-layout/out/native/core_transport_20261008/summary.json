@@ -1,0 +1,9 @@
+{
+  "state": "passed",
+  "checks": [
+    "bound wide token remains exact STRING",
+    "native 17-column empty target metadata preserved",
+    "same authenticated SDK instance and warehouse required"
+  ],
+  "qualification": "Two read-only adapter checks; no source/schema admission, mutation, publication or retained availability claim."
+}

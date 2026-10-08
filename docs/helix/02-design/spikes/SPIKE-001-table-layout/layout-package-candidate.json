@@ -2894,14 +2894,14 @@
     "../../../../../src/ashlar/__init__.py": "8f20eb9aa449f5817f8200eb8a8ce05922a65c6fc4ad56312027bca14615e9aa",
     "../../../../../src/ashlar/native.py": "2a95c50ba63be357b65a279e8a5c7d06aaf487e6d0e55dc4006b7c68fa16a78c",
     "../../../../../src/ashlar/publication.py": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
-    "../../../../../src/ashlar/README.md": "89bf9909347fc35a61ece2aabb6153f94d666989751bde9186b87f3d7cdef2d1",
+    "../../../../../src/ashlar/README.md": "de4cfa145e02cecf28532b09d4a24e1d32a5f4ac2c778d329c36fe7964daeff3",
     "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
     "../../contracts/CONTRACT-004-publication-resolver.md": "24355c20e375474d8a30c421744397de2e6d5beac7f79f085e3a0b4ecf20b25e",
     "../../../../../README.md": "11e0aaa10f67e008542066d293624bd5e195529dd5bc2c3f8ed75b960f22bda7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "66d602a8d75497a0ab4cf279718ceb6df719b7aa99625bec625d5971092ab15a",
-    "../../../04-build/end-to-end-plan.md": "255619ae4ac269613cfb2fb58a50a6592a7467cb118b34df4992f8271faacfc4",
+    "../../../04-build/end-to-end-plan.md": "d0c2fdfd36ea49b67b2de8dbff519ddbfb439535882a03b35e9eb3ee1f74b9a9",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3035,7 +3035,12 @@
     "../../../../../tools/setup_native.py": "d45e2ab59e2dd66fdbdbcc8c58be93f0b12bb0c4025ebf842ff68d1826606301",
     "out/native/private_setup_20261008/summary.json": "45aa2066d68869c6014939f0199ea83b31eb6c4528c4597154882eddf49ae8eb",
     "out/native/private_setup_20261008/statements.jsonl": "1d91eb62e773883f8503528b99d9a9577d3641c6ece0feb5f0ce7a92db3184d7",
-    "out/native/private_setup_20261008/journal-export.json": "3c866edd6fbbc2169d078310e66cb30edd8de6ccbcab9d130c7121a3415713df"
+    "out/native/private_setup_20261008/journal-export.json": "3c866edd6fbbc2169d078310e66cb30edd8de6ccbcab9d130c7121a3415713df",
+    "../../../../../tools/databricks_transport.py": "186be2df1c69cb7549dba5827c7f77b8a94efb26b7d0a2044cc6ad1f4b165195",
+    "../../../../../tests/test_databricks_transport.py": "3211d59120d843215629be0a4a7e41d0922c582a274803e86cecc9bf3a53b0fc",
+    "out/core-transport-local-20261008.json": "6557ef6940921b6f2b2dfdcad1f828879349210f5be041a9783efa876292075a",
+    "out/native/core_transport_20261008/summary.json": "07a07d6d8b87fe551a02f476bf506d5f26ad54dc615ba41759d588803fcea9e7",
+    "out/native/core_transport_20261008/statements.jsonl": "4b00f1e071932868b5c7047c44f7a0ea69c24112c24ab026ac945011e38b97a8"
   },
   "evidence": {
     "ddl": {

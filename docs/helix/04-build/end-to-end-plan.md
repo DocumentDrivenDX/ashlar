@@ -498,3 +498,20 @@ carriers, not accepted UMF/Truss schemas or a published graph. Next connect sche
 intake and admitted recoverable streaming/publication bodies to this namespace,
 then exercise the native resolver/singleton path. Truss acceptance/runtime/feed
 remains unfinished and required by the same goal.
+
+## Reusable authenticated host-to-core transport checkpoint
+
+DatabricksTransport now adapts complete native SDK responses to portable SQLResult
+with exact STRING carriers and column/type metadata. Reads use fresh observations;
+mutations require an explicit original operation ID and the retained-handle
+journal. Read/write clients must share the authenticated SDK object and warehouse.
+Failed/truncated/chunked, malformed schema/rows and incomplete row-count responses
+refuse rather than manufacturing success. SQL is trusted generated implementation
+content; prefix checks route operations and do not authorize arbitrary caller SQL.
+
+Eighty-four local checks pass. Two native read-only checks preserve a wide numeric
+token as original STRING and all17 object_current columns in the isolated runtime.
+No source/schema/graph/manifest writes occurred. Next connect actual UMF raw intake
+and complete-batch stream staging to the admitted namespace through explicit
+original mutation operations, then join graph publication/resolver execution.
+Truss acceptance/runtime/feed remains unfinished and required by the active goal.

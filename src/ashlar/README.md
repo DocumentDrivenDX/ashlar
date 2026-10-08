@@ -198,3 +198,13 @@ owner and inherited grant checks run before setup, per table and at completion;
 all declared columns/types and retained native UUIDs are verified. Original DDL
 handles remain in the host journal. Native isolated eight-table setup passes;
 the tables remain empty candidates awaiting schema/feed/publication integration.
+
+Host DatabricksTransport in tools/databricks_transport.py connects authenticated
+SDK responses to core SQLResult without coercing native string carriers. It
+requires the same authenticated SDK instance/warehouse for fresh reads and
+journaled mutations. Mutations require explicit original operation IDs; normal
+query routing cannot create replacement writes. Failed/truncated/chunked results,
+missing column metadata, duplicate columns, row-shape/count mismatches refuse.
+Trusted generated SQL only: prefix routing is not an arbitrary-SQL sandbox.
+Native wide-text and17-column metadata adaptation pass; schema/source producer
+commands are the next integration step.
