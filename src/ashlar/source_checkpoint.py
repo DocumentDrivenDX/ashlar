@@ -51,3 +51,32 @@ def validate_checkpoint_request(request):
              'batch_json':request['source_batch_json'],'batch_digest':request['source_batch_digest']}
     except KeyError as exc:raise CheckpointError('Incomplete original source artifact') from exc
     validate_outbox_checkpoint(request['source_checkpoint_json'],batch_from_row(row))
+
+
+def bind_outbox_descriptor(request,descriptor,*,expected_publication_id):
+    """Require exact original source progress before a backend may consider ACK.
+
+    This checks correspondence only. The caller must resolve authoritative native
+    manifest/pin/effect custody and current source/checkpoint permission separately.
+    Other feeds remain in the descriptor and are not discarded or normalized.
+    """
+    from collections.abc import Mapping
+    from .attempt_store import _request_digest
+    from .publication import Descriptor
+    if not isinstance(request,Mapping) or 'source_checkpoint_json' not in request:
+        raise CheckpointError('Original native source request required')
+    request=dict(request)
+    _request_digest(request)  # Revalidates full original inner and outer custody.
+    if not isinstance(descriptor,Descriptor) or not isinstance(expected_publication_id,str) or not expected_publication_id or descriptor.publication_id!=expected_publication_id:
+        raise CheckpointError('Independently admitted original publication identity required')
+    checkpoint=_json(request['source_checkpoint_json'].encode('utf-8'))
+    progress=descriptor.source_progress
+    if not isinstance(progress,Mapping) or progress.get(checkpoint['feed'])!=checkpoint:
+        raise CheckpointError('Publication progress differs from original native source group')
+    revisions=_json(request['schema_revisions_json'].encode('utf-8'))
+    if descriptor.revisions!=revisions:
+        raise CheckpointError('Publication schema inventory differs from original request')
+    report=descriptor.validation_report
+    if not isinstance(report,Mapping) or report.get('request_digest')!=request['request_digest']:
+        raise CheckpointError('Publication validation does not bind original request')
+    # No source mutation/acknowledgement is issued by correspondence validation.

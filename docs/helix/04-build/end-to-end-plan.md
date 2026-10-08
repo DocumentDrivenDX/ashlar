@@ -1029,3 +1029,19 @@ all-operator/physical-target closure or retained snapshot availability. The one
 closed native operation is explicitly metadata-only with no remote action started;
 it must not qualify a real Delta cleanup receipt. Live publisher/read admission
 and protected Truss acceptance/feed remain unfinished.
+
+## Descriptor-to-source checkpoint binding — 2026-10-08
+
+bind_outbox_descriptor now revalidates full original request/source custody and
+checks independently admitted publication identity, exact schema inventory,
+validation request digest and the complete native checkpoint in descriptor feed
+progress. Other original feed progress is preserved. JSON numeric positions,
+changed epoch/payload/batch/schema/ID/intent refuse. All139 local checks pass; no
+native/cloud workload ran. This provides the required correspondence handoff for
+native ACK, not manifest/effect/pin/source authorization itself.
+
+Truss HEAD21a04f3 was rechecked: still no src/packages/package runtime. Its current
+CH-02/03 body/bootstrap dependencies and CH-05 package work remain open. That
+absence is not a completed Truss integration or a goal-completion basis. Live
+Ashlar native publication/read admission and protected Truss acceptance/feed
+remain required by the full objective.

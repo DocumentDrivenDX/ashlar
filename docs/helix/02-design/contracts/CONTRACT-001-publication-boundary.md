@@ -266,3 +266,20 @@ and acknowledgement to this original native group under current source authority
 Checkpoint-shaped text, wrapper success or retained phase custody alone grants no
 native authority or source ACK. Changed outer position under an existing attempt
 is a different original request and refuses instead of committed replay.
+
+
+### Descriptor-to-native checkpoint correspondence
+
+For the selected outbox handoff, source_progress_json maps the original feed to
+its complete closed native checkpoint carrier (profile/feed/epoch/previous/
+position/payload_digest/batch_id). Other feed progress remains in the original
+descriptor. bind_outbox_descriptor requires the independently admitted publication
+ID, exact full original schema inventory and validation_report.request_digest,
+then checks the complete native checkpoint against that feed's descriptor entry.
+It revalidates original request/inner-byte custody first. A JSON numeric position,
+inner byte offset, changed epoch/payload/batch or a different request refuses.
+
+This is correspondence validation, never publication or ACK authority. The native
+backend must independently resolve immutable original manifest/effects/pins and
+current source/checkpoint permission before acknowledging. It cannot call this
+helper with a caller-created Descriptor and infer authoritative native custody.

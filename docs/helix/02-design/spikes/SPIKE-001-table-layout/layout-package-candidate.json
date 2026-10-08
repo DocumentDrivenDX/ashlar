@@ -2901,7 +2901,7 @@
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "3104502e49c985191bfced4d8377dfd6c6c0932aa6a28b566704ddcdcb4d0063",
-    "../../../04-build/end-to-end-plan.md": "b59406b6c00cdd5f38ee286a6d56a0ba11d71847ce287ca23a94a29047d6a2a6",
+    "../../../04-build/end-to-end-plan.md": "6345a20a7ec79c773c8447fce8616b38109ddea0d403b731d1b145ab0ecb91ef",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3202,7 +3202,7 @@
     "../../../../../tools/run_outbox_example.py": "b076a8cb86f3f422956d107366fe5d0345a87ad152084d2ed3b83f3d426ce00e",
     "out/native/outbox_evolution_20261008/summary.json": "2c4967c5888c3e3268f54cf1328d9a449082fc02fbfc10735f536599da3c30de",
     "out/native/outbox_evolution_20261008/original-transactions.json": "e3a714bd85bff0399a0324b958c62a6758fb2880534a91e5fc2352d6d24e65dc",
-    "../../../../../src/ashlar/source_checkpoint.py": "9d1699e901f3f9eea4f9b347aefd588a677c9a0f935e78f687b1deb9f0b7f0ff",
+    "../../../../../src/ashlar/source_checkpoint.py": "76b8e2a596cac4d35748d0191362c3e60ffbb909ca2d4117f05625561151d704",
     "../../../../../tests/test_source_checkpoint.py": "5e6e852c7fa0110ed2a33a86612bc910e2e453ccaa6479030140c5ffa4ff2821",
     "../../../../../src/ashlar/protocol.py": "aefdf8cb058cfe2b47d98f70d28c59a08d2865731c32004a7cc7c793d7cd8aae",
     "../../../../../tests/test_protocol.py": "ad15b53eee9f820bbd0988c10911bcd084d365a04824211aa0141ae440ac3aba",
@@ -3231,7 +3231,8 @@
     "../../../../../src/ashlar/quarantine.py": "cfa8902a467b72e7a24c55655eb018b694685211f6f53ee803139a7121a3f000",
     "../../../../../tools/check_native_cleanup_quarantine.py": "4ca264ba903029e00c99bdcaafbdec25c1414c9a97ad413cd5607e54ea599791",
     "../../../../../tests/test_quarantine.py": "1afa59b9f13f7e25f3e577ea2c082efdbbed7c55f2cf8d37c1bcf40f1c321e75",
-    "out/native/cleanup_quarantine_20261008/summary.json": "b5564f29f6676a787d0207d62d962101b13042669488f0ecfa8b6606685b74a5"
+    "out/native/cleanup_quarantine_20261008/summary.json": "b5564f29f6676a787d0207d62d962101b13042669488f0ecfa8b6606685b74a5",
+    "../../../../../tests/test_descriptor_checkpoint.py": "b8f097203506eb1a5d9b93dcc5ebb371f5e8f99b7d6c38f6ab3f2799dd56b690"
   },
   "evidence": {
     "ddl": {
