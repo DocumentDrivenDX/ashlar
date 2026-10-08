@@ -1,0 +1,11 @@
+{
+  "state": "Complete80-chunk local oracle coverage and source provenance validated",
+  "rows": {
+    "object_current": 8000000,
+    "source_record": 8000000,
+    "property_journal": 32000000
+  },
+  "oracle_sha256": "c71700ecb6672070235aa49b4e4c4fa9c3c5897e182fee29fddbae7bcf230331",
+  "wall_s": 681.7568745,
+  "qualification": "Receipt coverage audit, not a second independent regeneration. Every generated field was hashed by the terminal streaming run; native physical comparison remains pending. No native writes, table growth or performance admission."
+}

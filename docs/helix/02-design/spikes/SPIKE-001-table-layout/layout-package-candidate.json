@@ -2764,7 +2764,13 @@
     "out/native/ashlar_append_write_r643/audited-summary-r644.json": "d3d87abf6b3b3917588d095ed142798dbb7b78c632aaa54e0b84d0df556e9058",
     "out/native/ashlar_append_write_r643/shared-history.json": "20299d9dc87c2fbde031cc5b5ea34eef70b605fee6496331deb923eee02741c9",
     "out/native/ashlar_append_write_r643/statements.jsonl": "bb3fef8a1c645f11c87149df1ce51835d773d81fcfd71e74ebc505a492a0de27",
-    "out/native/ashlar_append_write_r643/summary.json": "c7809fc9e4c0a17d7ae1b49328a3b7a4fe62565e9799c3fe826bd1edbf811049"
+    "out/native/ashlar_append_write_r643/summary.json": "c7809fc9e4c0a17d7ae1b49328a3b7a4fe62565e9799c3fe826bd1edbf811049",
+    "append_node_oracle_r645.py": "211cbc80cc655b95621c8b82d4194b996e50c9dfb37fc1309d4bf46c5d53d36f",
+    "out/append-node-oracle-r645.json": "c71700ecb6672070235aa49b4e4c4fa9c3c5897e182fee29fddbae7bcf230331",
+    "out/node-extent-budget-r646.json": "a727f20de27acc9edde7994cc3ec19789e3c544e572ce6b69926c6da5311eb14",
+    "append_node_digest_r647.py": "78476781a69ee6ec22a66de6db56b5b114bb60ad63b74e7a3c794f44ffc28fab",
+    "append_node_oracle_audit_r648.py": "4c0982daebd2dd91207c16e2db3b114d1f6fabf6469ff5ea811ea9dc81b19543",
+    "out/append-node-oracle-audit-r648.json": "e23b0cd69980d6e21b413b83d3865ce4782e47e766f25ec3f74064a827b22526"
   },
   "evidence": {
     "ddl": {
