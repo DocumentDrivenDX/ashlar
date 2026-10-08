@@ -208,3 +208,14 @@ missing column metadata, duplicate columns, row-shape/count mismatches refuse.
 Trusted generated SQL only: prefix routing is not an arbitrary-SQL sandbox.
 Native wide-text and17-column metadata adaptation pass; schema/source producer
 commands are the next integration step.
+
+Host stage_source.py now streams complete JSONL batches into an additional
+source_batch_stage carrier in the admitted runtime. It renews authenticated owner
+and inherited grants, retains its original table UUID, validates the exact nine
+columns and binds stable original mutation IDs per table/feed/epoch/batch. Fresh
+reads validate complete original readback around UUID checks. Explicit operation
+wrapping keeps reads fresh while recovering original mutation handles. Native
+two-batch/nine-event staging and fresh-process replay pass with no new mutation
+submissions, and full original source bytes reconstruct exactly. This is raw
+intake; schema/graph admission, remote source fencing and publication/ACK remain
+required. The input/cursor/feed/epoch registration is trusted owner configuration.

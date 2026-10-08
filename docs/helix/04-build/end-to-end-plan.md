@@ -515,3 +515,23 @@ No source/schema/graph/manifest writes occurred. Next connect actual UMF raw int
 and complete-batch stream staging to the admitted namespace through explicit
 original mutation operations, then join graph publication/resolver execution.
 Truss acceptance/runtime/feed remains unfinished and required by the active goal.
+
+## Isolated runtime streaming intake checkpoint
+
+The runnable stage_source.py command now reads one complete bounded transaction
+at a time from a binary JSONL input and retains original complete source custody
+in ashlar_e2e_private_20261008.runtime.source_batch_stage. It uses installed
+namespace/owner configuration, fresh owner/inherited permission and UUID/schema
+checks, same-host serialization and stable original operation IDs with retained
+native handles. It does not infer schema meaning or acknowledge source progress.
+Input feed/epoch/cursor provenance remains trusted explicit owner configuration;
+production source registration/remote fencing is still required.
+
+Two native batches/nine events pass original readback, digest checks and exact
+byte reconstruction including begin/commit markers and line endings. Fresh
+process replay completes with the same three terminal mutation submissions
+(one carrier DDL/two batches), without replacement writes. Eighty-five local
+checks pass. Raw staging preserves unsupported payloads but cannot advertise
+normalized interpretation. No manifest/checkpoint or retention/grant changes
+occurred. Next connect UMF schema intake/admission and graph effect/publication
+consumption to this staged source; Truss acceptance/runtime/feed remains required.

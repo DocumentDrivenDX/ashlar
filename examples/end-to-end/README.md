@@ -251,3 +251,25 @@ its original handle; a submission with no retained handle requires reconciliatio
 It verifies each original UUID/schema and renews owner/inherited grant admission.
 This command deploys empty carriers; actual UMF schema acceptance, Truss feed,
 streaming publication and user reads are still required by the end-to-end goal.
+
+## Stream complete source batches into raw custody
+
+After native setup, this command streams the supplied nine-event JSONL fixture:
+
+```sh
+python3 tools/stage_source.py \
+  --installation docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_setup_20261008/summary.json \
+  --input examples/end-to-end/graph-source.jsonl \
+  --feed whole-entity-fixture --epoch epoch-1 \
+  --journal /private/tmp/ashlar-private-stage-20261008.sqlite \
+  --output docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_stage_20261008
+```
+
+Use the SDK-enabled Python environment and retain the same journal across
+restarts. Native staging and fresh-process replay have passed. Complete original
+batches (including unknown payloads) are stored before interpretation; no graph
+publication or source acknowledgement follows from a staged receipt. The
+optional --cursor-before describes the original offset of the input fragment,
+not an instruction to seek within the file. Feed/epoch/input/cursor provenance
+are trusted development-owner configuration, not automatic native source
+registration. Other adapters must preserve their outer cursor independently.

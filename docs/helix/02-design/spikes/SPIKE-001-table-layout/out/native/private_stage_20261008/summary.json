@@ -1,0 +1,26 @@
+{
+  "state": "staged",
+  "table": "ashlar_e2e_private_20261008.runtime.source_batch_stage",
+  "table_uuid": "83a788f1-ce2d-495a-b57a-08154ebcb3b3",
+  "batches": [
+    {
+      "table": "ashlar_e2e_private_20261008.runtime.source_batch_stage",
+      "table_uuid": "83a788f1-ce2d-495a-b57a-08154ebcb3b3",
+      "feed": "whole-entity-fixture",
+      "epoch": "epoch-1",
+      "batch_id": "graph-1",
+      "batch_digest": "0bc613b72f27726b6fe602c9addf75742624403b9ddfdfb3a8cd23b803bb3302",
+      "cursor_after": "1775"
+    },
+    {
+      "table": "ashlar_e2e_private_20261008.runtime.source_batch_stage",
+      "table_uuid": "83a788f1-ce2d-495a-b57a-08154ebcb3b3",
+      "feed": "whole-entity-fixture",
+      "epoch": "epoch-1",
+      "batch_id": "graph-2",
+      "batch_digest": "75addb4b1aaa2311c729c907683cabc46d7899a99ed94c08b59f498dda045e68",
+      "cursor_after": "3294"
+    }
+  ],
+  "qualification": "Original complete source custody, no normalized schema/graph admission or publication/acknowledgement. Authenticated owner/inherited grants and same-host writer lock verified; remote writer lifecycle/source fencing remains unqualified."
+}

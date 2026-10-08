@@ -1,0 +1,13 @@
+{
+  "state": "passed",
+  "source_sha256": "8675a792e9b30362f1937534a93b0c2b5366bedf490eea761b83d1469b6d46c9",
+  "bytes": 3294,
+  "batches": 2,
+  "retained_mutation_submissions": 3,
+  "checks": [
+    "all source bytes including begin/commit LF reconstruct from actual native row receipts",
+    "each complete batch carrier digest matches",
+    "original journal contains one DDL and two batch operations",
+    "fresh process replay completes with exactly the same three original terminal submissions"
+  ]
+}

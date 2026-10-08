@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "tests": 85,
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q",
+  "scope": "Explicit operation routing with fresh reads plus existing source custody/replay/schema/authority checks; native stream/restart/byte reconstruction recorded separately."
+}

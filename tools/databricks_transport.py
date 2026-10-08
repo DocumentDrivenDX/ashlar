@@ -48,3 +48,14 @@ class DatabricksTransport:
         return sql_result(self.read_client.records[-1]['response'])
     def mutation(self,operation,sql,parameters):
         return sql_result(self.journal.query(operation,sql,parameters))
+
+class OperationExecutor:
+    """Bind one retained mutation identity while keeping all reads fresh."""
+    def __init__(self,transport,operation):
+        if not isinstance(operation,str) or not operation:
+            raise SQLCustodyError('Explicit original mutation operation required')
+        self.transport=transport;self.operation=operation
+    def query(self,sql,parameters):
+        prefix=sql.lstrip().split(None,1)[0].upper() if sql.strip() else ''
+        if prefix in ('SELECT','SHOW','DESCRIBE'):return self.transport.query(sql,parameters)
+        return self.transport.mutation(self.operation,sql,parameters)

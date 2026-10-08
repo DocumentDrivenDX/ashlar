@@ -17,4 +17,18 @@ class TransportTests(unittest.TestCase):
             if mode=='failed':r['status']['state']='FAILED'
             if mode=='count':r['manifest']['total_row_count']=2
             with self.assertRaises(SQLCustodyError):sql_result(r)
+
+class OperationRoutingTests(unittest.TestCase):
+    def test_explicit_mutation_identity_keeps_reads_fresh(self):
+        from databricks_transport import OperationExecutor
+        class Transport:
+            def __init__(self):self.calls=[]
+            def query(self,sql,p):self.calls.append(('read',sql));return 'fresh'
+            def mutation(self,op,sql,p):self.calls.append(('write',op));return 'original'
+        t=Transport();e=OperationExecutor(t,'batch-original')
+        self.assertEqual(e.query('DESCRIBE DETAIL c.s.t',{}),'fresh')
+        self.assertEqual(e.query('MERGE INTO c.s.t',{}),'original')
+        self.assertEqual(e.query('SELECT * FROM c.s.t',{}),'fresh')
+        self.assertEqual(t.calls,[('read','DESCRIBE DETAIL c.s.t'),('write','batch-original'),('read','SELECT * FROM c.s.t')])
+
 if __name__=='__main__':unittest.main()
