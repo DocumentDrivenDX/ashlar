@@ -1,0 +1,17 @@
+{
+  "state": "proposed-not-executed",
+  "target": "ashlar_e2e_private_20261008.runtime_csv",
+  "reason": "Effective predictive optimization ENABLE inherited from metastore; automatic maintenance is outside existing PostgreSQL pin/cleanup guards.",
+  "statement": "ALTER SCHEMA ashlar_e2e_private_20261008.runtime_csv DISABLE PREDICTIVE OPTIMIZATION",
+  "scope": "Only isolated CSV development schema; no catalog/metastore/shared schemas, compute or grants.",
+  "prerequisites": [
+    "Explicit authorization to change maintenance policy",
+    "Identify and contain any already submitted automatic maintenance before admitting pins"
+  ],
+  "postconditions": [
+    "Fresh schema and every carrier effective flag DISABLE",
+    "Independently verify outstanding automatic operations have reached a safe terminal state",
+    "Retained data/log availability and all remaining operators still independently admitted"
+  ],
+  "qualification": "Disabling future scheduling alone is not sufficient retention admission; this proposal neither establishes retained-file custody nor authorizes a native publication."
+}

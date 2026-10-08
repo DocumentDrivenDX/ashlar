@@ -1154,3 +1154,21 @@ This is real additional-source managed Delta ingestion/replay, not full-column
 parity, remote fencing, native publication/pin/retention admission or source ACK.
 The full goal still requires protected Truss acceptance/feed and composed native
 publication/resolver singleton use.
+
+## Automatic native maintenance discovered — 2026-10-08
+
+Fresh UC metadata API observations show effective predictive optimization ENABLE
+inherited from metastore_centralus for the private catalog, runtime_csv schema and
+all four graph/history carriers. Table retention properties are absent from those
+API records; absence is not a disabled setting. Evidence and an unexecuted scoped
+policy-change proposal are retained in out/native/csv_retention_metadata_20261008.
+No SQL workload or setting change occurred. This is a specific automatic operator
+outside the PostgreSQL guards, so current pin presence cannot admit protected
+native publication retention.
+
+The reviewable proposal disables predictive optimization only on runtime_csv.
+Executing it requires maintenance-policy authorization, then verification of fresh
+effective flags and safe terminal custody for already submitted operations. It
+does not alone prove log/data availability, all-operator closure or authorize
+publication. Other schema/canonical Truss work can continue independently while
+this policy decision remains pending. The full goal is not complete.

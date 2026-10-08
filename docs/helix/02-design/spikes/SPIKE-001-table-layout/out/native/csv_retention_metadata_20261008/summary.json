@@ -1,0 +1,78 @@
+{
+  "authenticated_actor": "erik.labianca@synaptiq.ai",
+  "observations": [
+    {
+      "kind": "catalog",
+      "name": "ashlar_e2e_private_20261008",
+      "owner": "erik.labianca@synaptiq.ai",
+      "enable_predictive_optimization": "INHERIT",
+      "effective_predictive_optimization_flag": {
+        "inherited_from_name": "metastore_centralus",
+        "value": "ENABLE"
+      },
+      "retention_properties": {},
+      "qualification": "Fresh UC metadata observation, not an operator fence or retained-file proof. Absent properties are unspecified, never assumed disabled."
+    },
+    {
+      "kind": "schema",
+      "name": "ashlar_e2e_private_20261008.runtime_csv",
+      "owner": "erik.labianca@synaptiq.ai",
+      "enable_predictive_optimization": "INHERIT",
+      "effective_predictive_optimization_flag": {
+        "inherited_from_name": "metastore_centralus",
+        "value": "ENABLE"
+      },
+      "retention_properties": {},
+      "qualification": "Fresh UC metadata observation, not an operator fence or retained-file proof. Absent properties are unspecified, never assumed disabled."
+    },
+    {
+      "kind": "table",
+      "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+      "owner": "erik.labianca@synaptiq.ai",
+      "enable_predictive_optimization": "INHERIT",
+      "effective_predictive_optimization_flag": {
+        "inherited_from_name": "metastore_centralus",
+        "value": "ENABLE"
+      },
+      "retention_properties": {},
+      "qualification": "Fresh UC metadata observation, not an operator fence or retained-file proof. Absent properties are unspecified, never assumed disabled."
+    },
+    {
+      "kind": "table",
+      "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+      "owner": "erik.labianca@synaptiq.ai",
+      "enable_predictive_optimization": "INHERIT",
+      "effective_predictive_optimization_flag": {
+        "inherited_from_name": "metastore_centralus",
+        "value": "ENABLE"
+      },
+      "retention_properties": {},
+      "qualification": "Fresh UC metadata observation, not an operator fence or retained-file proof. Absent properties are unspecified, never assumed disabled."
+    },
+    {
+      "kind": "table",
+      "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+      "owner": "erik.labianca@synaptiq.ai",
+      "enable_predictive_optimization": "INHERIT",
+      "effective_predictive_optimization_flag": {
+        "inherited_from_name": "metastore_centralus",
+        "value": "ENABLE"
+      },
+      "retention_properties": {},
+      "qualification": "Fresh UC metadata observation, not an operator fence or retained-file proof. Absent properties are unspecified, never assumed disabled."
+    },
+    {
+      "kind": "table",
+      "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+      "owner": "erik.labianca@synaptiq.ai",
+      "enable_predictive_optimization": "INHERIT",
+      "effective_predictive_optimization_flag": {
+        "inherited_from_name": "metastore_centralus",
+        "value": "ENABLE"
+      },
+      "retention_properties": {},
+      "qualification": "Fresh UC metadata observation, not an operator fence or retained-file proof. Absent properties are unspecified, never assumed disabled."
+    }
+  ],
+  "qualification": "Read-only metadata API; no SQL workload, mutations, retention changes or publication admission. Effective predictive optimization may expose an automatic maintenance lane requiring independent containment."
+}
