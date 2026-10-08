@@ -449,3 +449,44 @@ back or authorizing a blind retry. Keep the original operation/handle journal.
 
 All 180 small tests pass. Native publication with these composed policies and
 real Truss integration remain to be demonstrated.
+
+## Compose durable publication stores
+
+`StoredPublisherBackend` supplies the coordinator implementation over the phase
+store. The host must provide a qualified effect/source driver and original
+manifest factory:
+
+```python
+from ashlar import StoredPublisherBackend
+from ashlar.attempt_store import DeltaAttemptStore
+from journaled_attempts import JournaledAttemptExecutor
+from journaled_manifest import JournaledManifestStore
+
+phase_executor = JournaledAttemptExecutor(transport, namespace=admitted_namespace)
+attempts = DeltaAttemptStore(phase_executor, attempt_writer_policy,
+    attempt_table, attempt_uuid)
+
+def manifests(request, context):
+    return JournaledManifestStore(transport, qualified_manifest_policy,
+        manifest_table, manifest_uuid,
+        operation='manifest:' + request['request_digest'])
+
+backend = StoredPublisherBackend(attempts, qualified_effect_source_driver, manifests)
+# Pass backend to publish_batch with original predecessor, revisions and checkpoint.
+```
+
+The two `journaled_*` modules are host tools, imported with `tools` on the host's
+Python path. They use the supplied original `DatabricksTransport`/`DurableSQL`;
+no credentials or authority are inferred. The namespace and permanent journal
+must be independently bound to the original installation and caller.
+
+The driver supplies `writer`, `apply`, `recover_apply`, `validate` and
+`acknowledge`; see the class docstring for signatures. Apply/recovery must return
+the exact original JSON artifact with `effects` and `manifest` fields, retained
+from actual native effects and manifest planning. Driver validation/ACK still
+require current full source/schema/pin/file/protocol/retention/authorization
+admission. No default driver is supplied. Commit recovery requires original
+submission custody; missing submission/handle refuses for reconciliation.
+
+All 192 tests pass, including local composed-store recovery. Actual native
+publication/resolver success and runnable Truss integration remain unfinished.

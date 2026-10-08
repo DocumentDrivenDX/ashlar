@@ -7,10 +7,11 @@ from .semantic_policy import StringRecordPolicy, SemanticPolicyError
 from .source import SourceBatch, SourceRecord, SourceError, jsonl_batches
 from .staging import batch_row, batch_from_row
 from .singleton import read_singleton
+from .stored_publisher import StoredPublisherBackend
 from .recovery import RecoveryError, RecoveredState, recover_whole_entity_state
 
 __all__ = ['Descriptor', 'ResolutionError', 'ResolvedPublication', 'Snapshot', 'resolve_publication',
            'ApplyError', 'ApplyState', 'Change', 'EntityKey', 'EntityState', 'empty_state', 'plan_apply',
            'SchemaIntake', 'SchemaIntakeError', 'SchemaPolicies', 'StringRecordPolicy', 'SemanticPolicyError',
            'SourceBatch', 'SourceRecord', 'SourceError', 'jsonl_batches', 'batch_row', 'batch_from_row',
-           'read_singleton', 'RecoveryError', 'RecoveredState', 'recover_whole_entity_state']
+           'read_singleton', 'StoredPublisherBackend', 'RecoveryError', 'RecoveredState', 'recover_whole_entity_state']

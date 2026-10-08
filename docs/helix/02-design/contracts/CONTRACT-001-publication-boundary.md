@@ -283,3 +283,56 @@ This is correspondence validation, never publication or ACK authority. The nativ
 backend must independently resolve immutable original manifest/effects/pins and
 current source/checkpoint permission before acknowledging. It cannot call this
 helper with a caller-created Descriptor and infer authoritative native custody.
+
+## Stored publisher composition — 2026-10-08
+
+StoredPublisherBackend connects publish_batch to a held DeltaAttemptStore
+session, a mandatory native effect/source driver and a mandatory manifest-store
+factory. Its session is single-use, nonreentrant and invalid outside the held
+stream/context. Phase reads retain original request bytes, complete result text
+and descriptor custody rather than reconstructing them from current state.
+
+Applied result text MUST be bounded JSON with exactly effects (object) and
+manifest (complete immutable row). The driver MUST retain actual original
+effects and proposed manifest provenance before returning that artifact, including
+original publication clock, UUID/version vector, schema/source custody and
+configured finite retention anchors. The bridge checks exact request digest and
+schema revision correspondence. Native source checkpoints additionally pass
+bind_source_descriptor; other source profiles still require independent complete
+source correspondence in the driver. These checks do not admit effects by flags.
+
+The applied artifact is retained unchanged across applied, committing and
+committed phases. Current complete driver admission MUST return None before
+initial commit and every recovery. The factory's commit/recover result MUST
+equal the complete retained manifest row. Recovery uses its separate recover
+port and cannot substitute commit. Only after exact descriptor custody enters
+committed can current source authority consider ACK; identical committed replay
+retains the same descriptor and renews ACK through the driver.
+
+Host JournaledManifestStore connects the manifest store to an explicit original
+OperationExecutor identity and DurableSQL journal. Recovery requires that original
+submission record, renews mandatory manifest admission/readback and recovers the
+same terminal receipt or handle. Missing original submission or handle refuses
+for explicit reconciliation; a phase label never permits a new manifest POST.
+Closing admission failure preserves an already committed row, leaves phase
+committing and emits no ACK. A later admitted recovery reuses original custody.
+
+Host JournaledAttemptExecutor supplies explicit phase SQL identity from an
+admitted namespace plus stream/batch/phase. Changed payload under that identity
+conflicts. Before any native phase read, it resolves outstanding original
+submissions within that namespace through DurableSQL. Pending handles or
+uncertain no-handle submissions refuse before a read can claim phase absence.
+It does not establish exclusive writers, source authority or immutable grants.
+The namespace and journal must be independently bound to the original installation
+and authority; replacing a journal cannot establish absence or recovery.
+
+Nine focused checks exercise composed real library stores and a real temporary
+SQLite journal using controlled native transport doubles: full phase sequence,
+new-backend descriptor replay, interrupted apply, lost ACK, reopened-journal
+pending manifest/phase recovery, postcommit admission refusal, no-handle/missing
+submission refusal, changed source progress, incomplete admission, changed phase
+payload and changed authority. The first test fixture used unsupported CSV
+operation upsert; correcting it to supported create allowed all cases to reach
+the intended boundaries. The full suite passes 192 tests. These are local
+composition/recovery checks, not actual Databricks publication, production
+authority, retained-file proof or real Truss integration evidence.

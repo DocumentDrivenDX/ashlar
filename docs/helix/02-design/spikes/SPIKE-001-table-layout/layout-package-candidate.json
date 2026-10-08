@@ -2891,10 +2891,10 @@
     "out/schema-package-review-20261008.json": "8d37e213d3ee1a5eb44ad98872dee42f06ce3325362f87ee98c223b3ed88a2b9",
     "layout-milestone-acceptance.md": "baba6f089551d96dd99f79401ff59666cbea79fde3f774f5ff76c3269b5c7a41",
     "../../../../../sql/ashlar-delta-v03/publication-descriptor.sql": "5f98d741d4fbe313f3cc960b1473dc7c6ca5bef47a4ada87a5c51e1faa18b300",
-    "../../../../../src/ashlar/__init__.py": "b79e82ae0c7fab775c7284ff91a9fc3bde8f69b1c194d2205a4fb3a354598b6d",
+    "../../../../../src/ashlar/__init__.py": "4a2120fc27c18defb9fda700fdf12fe5f02aec883c994b425c3771d85f231bc6",
     "../../../../../src/ashlar/native.py": "fc54aef7407242fe8b8811ff0da7ceb7fc5030a1be1b178b4fe0be9e3f0fcec4",
     "../../../../../src/ashlar/publication.py": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
-    "../../../../../src/ashlar/README.md": "9c8c590d1ff0c9e8d84b3b4697aab66754e70a34edab92815c349c8720c92ec4",
+    "../../../../../src/ashlar/README.md": "0c20b3a9b432cd2c6468de69d403ac12029b279e3d16823ad4c99c6daca10801",
     "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
     "../../contracts/CONTRACT-004-publication-resolver.md": "85198ae0e08c75345860c51ce5d5f06a54fc55b0312ca51cd55e3ed885afd85c",
     "../../../../../README.md": "e809e372423f32184f20044cf51ea1e3ced565d6df4d176db6951c01332d6cc7",
@@ -3323,7 +3323,13 @@
     "../../../../../src/ashlar/retention_policy.py": "966d3064ccf4dbdc39efd37d08d39a4a940e5fa5857beadea0516f1c0062b394",
     "../../../../../tests/test_retention_policy.py": "2cf803b04bd82b8075e328ed10e31a9b171b6977a78ff1b59f967f0561709046",
     "../../../../../tools/materialization_clock.py": "ad6e93f9c014741403030a777ff2645a6dc77f8ce2d54a1f04901fcd609066ba",
-    "../../../../../tests/test_materialization_clock.py": "28453ee7c4b621ce00cb3a8ede5c9080d7a67d1a9326b7debdfad0a548cbbd95"
+    "../../../../../tests/test_materialization_clock.py": "28453ee7c4b621ce00cb3a8ede5c9080d7a67d1a9326b7debdfad0a548cbbd95",
+    "../../../../../src/ashlar/stored_publisher.py": "36f50d738335c511dafc987a7f73fc8eec9d7c417a60a2b0dd4d6204aade2202",
+    "../../../../../tools/journaled_manifest.py": "4f00f3c930ea443ca7a94fd49c3e71a038f90319020a4e2d97af56ec8b7a96d2",
+    "../../../../../tools/journaled_attempts.py": "cb939fe1b2717a23b398170dc8e639624a4081dd6ecaf9424f8dbd190b58777e",
+    "../../../../../tests/test_stored_publisher.py": "2d000bd7d252bb3bcb051c8fa158cbaa4e7f2e2f12c0140d30ecb67ca7cb41b5",
+    "../../../../../tests/test_journaled_attempts.py": "c5098c92e3bf8b3b21f73d2bb7795a949678f5a3e2a456bec862c8a45bf11320",
+    "../../contracts/CONTRACT-001-publication-boundary.md": "61e22f9420b402989f0d03d5665d533f0e944252cb48733ad0acf4b43ef001f5"
   },
   "evidence": {
     "ddl": {
