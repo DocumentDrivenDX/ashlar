@@ -1543,3 +1543,22 @@ Required routine bodies still need protected original-operation producer/securit
 composition; observation SQL cannot substitute. Existing full bootstrap/feed
 readiness remains unavailable. No persistent tables, cloud workload or deployment
 settings change occurred; the full end-to-end goal remains active.
+
+
+## Clean packed Truss runtime consumer — 2026-10-08
+
+Both built Truss runtime artifacts now typecheck and execute from a fresh external
+consumer with no repository source links. Actual archives carry public ESM/types;
+the host's staged workspace dependency becomes the exact candidate version and
+an explicit consumer override supplies the unreleased portable archive. An initial
+no-override attempt returned npm 404 for that unpublished version; this does not
+claim released-package support. Canonical transaction type composition passes
+without brand repair and retains one declaration in the full portable closure.
+Construction/shutdown acquire no connection. Exact consumer/archive/manifest/lock
+provenance is retained in packed-host-check.json. The portable checker’s compiler
+path is also corrected and passes with its default invocation.
+
+No native/cloud workload or deployment change occurred. This closes the clean
+packed-consumer gap; publication, full native bootstrap, protected routine bodies,
+adoption/cancellation/recovery and actual Truss streaming remain unfinished. The
+unchanged full end-to-end goal remains active.
