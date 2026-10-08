@@ -416,7 +416,18 @@ acceptance/publication. schema-evolution-source.jsonl is a separate source fixtu
 
 ```sh
 python3 tools/run_outbox_example.py
+# Read already-installed exact fixture groups with actual UMF logical checks:
+python3 tools/run_outbox_example.py --read-only --umf-source /tmp/ashlar-umf-record-check --output-dir out/native-outbox-umf
 ```
+
+The optional UMF path checks the original native-read create/replace records
+against each original revision before apply. --read-only skips every append;
+it requires the demonstrated groups already present at native positions 3–5.
+Retained original transactions and per-revision producer results are joined by
+exact payload hashes and outer PostgreSQL checkpoints. Native positions remain
+separate from the contained JSONL byte cursors. These are logical checks under
+explicit fixture mappings, with no Truss acceptance, publication or ACK authority.
+
 
 Requires Docker, psycopg3.2.13 and the existing isolated sandbox/outbox containing
 its initial two source groups. This fixed development runner appends three exact

@@ -1,0 +1,59 @@
+[
+  {
+    "profile": "ashlar-postgresql-outbox/0.1",
+    "feed": "native-evolution",
+    "epoch": "example-1",
+    "previous": "2",
+    "position": "3",
+    "payload_digest": "7622361599f9fa4eeb547fe3121290e77e938f85570045ee49f4f47ba87c7b46",
+    "batch_row": {
+      "source_profile": "ashlar-jsonl-transactions/0.1",
+      "feed": "native-evolution",
+      "epoch": "example-1",
+      "batch_id": "evolution-1",
+      "cursor_before": "0",
+      "cursor_after": "805",
+      "records_digest": "0b7a4b6a9b022ffe64c6b272480dbce97700af2c02485666f38773a04d9e3890",
+      "batch_json": "{\"batch_id\":\"evolution-1\",\"begin_base64\":\"eyJraW5kIjoiYmVnaW4iLCJiYXRjaF9pZCI6ImV2b2x1dGlvbi0xIn0K\",\"commit_base64\":\"eyJraW5kIjoiY29tbWl0IiwiYmF0Y2hfaWQiOiJldm9sdXRpb24tMSIsInJlY29yZF9jb3VudCI6MiwicmVjb3Jkc19zaGEyNTYiOiIwYjdhNGI2YTliMDIyZmZlNjRjNmIyNzI0ODBkYmNlOTc3MDBhZjJjMDI0ODU2NjZmMzg3NzNhMDRkOWUzODkwIn0K\",\"cursor_after\":\"805\",\"cursor_before\":\"0\",\"epoch\":\"example-1\",\"feed\":\"native-evolution\",\"profile\":\"ashlar-jsonl-transactions/0.1\",\"records\":[{\"cursor\":\"351\",\"delivery_id\":\"1-1\",\"raw_base64\":\"eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImxvY2FsLWV4YW1wbGUiLCJzY2hlbWFfcmV2aXNpb24iOiIxIiwicmV0YWluZWRfanNvbiI6IntcImZ1dHVyZVwiOjE4NDQ2NzQ0MDczNzA5NTUxNjE1fSIsImRlbGl2ZXJ5X2lkIjoiMS0xIiwiZW50aXR5X2tpbmQiOiJvYmplY3QiLCJ0eXBlX2lkIjoiMTciLCJpZCI6IjEiLCJlbnRpdHlfdmVyc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJjcmVhdGUiLCJwcm9wc19qc29uIjoie1wiMjNcIjpcImZpcnN0XCJ9In0K\",\"sha256\":\"1368935048fe6caeafd8d4e4484db046fd3e6a562e922fe0c78902193498f0b6\"},{\"cursor\":\"661\",\"delivery_id\":\"2-1\",\"raw_base64\":\"eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImxvY2FsLWV4YW1wbGUiLCJzY2hlbWFfcmV2aXNpb24iOiIxIiwicmV0YWluZWRfanNvbiI6IntcImZ1dHVyZVwiOjE4NDQ2NzQ0MDczNzA5NTUxNjE1fSIsImRlbGl2ZXJ5X2lkIjoiMi0xIiwiZW50aXR5X2tpbmQiOiJvYmplY3QiLCJ0eXBlX2lkIjoiMTciLCJpZCI6IjIiLCJlbnRpdHlfdmVyc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJjcmVhdGUiLCJwcm9wc19qc29uIjoie1wiMjNcIjpcInNlY29uZFwifSJ9Cg==\",\"sha256\":\"067c884088e6a80b047a7d53bb16a86393e5c8af4ffaf2b6b284e23457bbaa55\"}],\"records_sha256\":\"0b7a4b6a9b022ffe64c6b272480dbce97700af2c02485666f38773a04d9e3890\"}",
+      "batch_digest": "7a0cb53de4e410d4015450ac6e6136c1ce4e26be201fcb9c20e44052e6dee2de"
+    }
+  },
+  {
+    "profile": "ashlar-postgresql-outbox/0.1",
+    "feed": "native-evolution",
+    "epoch": "example-1",
+    "previous": "3",
+    "position": "4",
+    "payload_digest": "8b98cb7960df77ebfec15005c2ba8f69fa0b7b7b8aebbc8eb6dcfa91cf9c35c7",
+    "batch_row": {
+      "source_profile": "ashlar-jsonl-transactions/0.1",
+      "feed": "native-evolution",
+      "epoch": "example-1",
+      "batch_id": "evolution-2",
+      "cursor_before": "0",
+      "cursor_after": "513",
+      "records_digest": "d13330cf53ca0e48f405c652d014f9540e40f589304e794fdf899676f4b79ff3",
+      "batch_json": "{\"batch_id\":\"evolution-2\",\"begin_base64\":\"eyJraW5kIjoiYmVnaW4iLCJiYXRjaF9pZCI6ImV2b2x1dGlvbi0yIn0K\",\"commit_base64\":\"eyJraW5kIjoiY29tbWl0IiwiYmF0Y2hfaWQiOiJldm9sdXRpb24tMiIsInJlY29yZF9jb3VudCI6MSwicmVjb3Jkc19zaGEyNTYiOiJkMTMzMzBjZjUzY2EwZTQ4ZjQwNWM2NTJkMDE0Zjk1NDBlNDBmNTg5MzA0ZTc5NGZkZjg5OTY3NmY0Yjc5ZmYzIn0K\",\"cursor_after\":\"513\",\"cursor_before\":\"0\",\"epoch\":\"example-1\",\"feed\":\"native-evolution\",\"profile\":\"ashlar-jsonl-transactions/0.1\",\"records\":[{\"cursor\":\"369\",\"delivery_id\":\"1-2\",\"raw_base64\":\"eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImxvY2FsLWV4YW1wbGUiLCJzY2hlbWFfcmV2aXNpb24iOiIzIiwicmV0YWluZWRfanNvbiI6IntcImZ1dHVyZVwiOjE4NDQ2NzQ0MDczNzA5NTUxNjE1fSIsImRlbGl2ZXJ5X2lkIjoiMS0yIiwiZW50aXR5X2tpbmQiOiJvYmplY3QiLCJ0eXBlX2lkIjoiMTciLCJpZCI6IjEiLCJlbnRpdHlfdmVyc2lvbiI6IjIiLCJvcGVyYXRpb24iOiJyZXBsYWNlIiwicHJvcHNfanNvbiI6IntcIjIzXCI6XCJ1cGRhdGVkXCIsXCIyNFwiOlwi6ZuqXCJ9In0K\",\"sha256\":\"01ab9578d121d2cc68c34e241753638fd4c2618b4a20bea21bbd08750b864bf8\"}],\"records_sha256\":\"d13330cf53ca0e48f405c652d014f9540e40f589304e794fdf899676f4b79ff3\"}",
+      "batch_digest": "5f5539e04a355ba41e5f8254e2f15aa491f1ff2f9e2a0d120a0e142f528bdc13"
+    }
+  },
+  {
+    "profile": "ashlar-postgresql-outbox/0.1",
+    "feed": "native-evolution",
+    "epoch": "example-1",
+    "previous": "4",
+    "position": "5",
+    "payload_digest": "7f723e87aca8a2284bc6e449b84f68399f0376f418c66d2847d732c07b3369e6",
+    "batch_row": {
+      "source_profile": "ashlar-jsonl-transactions/0.1",
+      "feed": "native-evolution",
+      "epoch": "example-1",
+      "batch_id": "evolution-3",
+      "cursor_before": "0",
+      "cursor_after": "496",
+      "records_digest": "c34caa2d1dba8803a48805c2660a358dae55d32db605d8646fc868f1a5571b69",
+      "batch_json": "{\"batch_id\":\"evolution-3\",\"begin_base64\":\"eyJraW5kIjoiYmVnaW4iLCJiYXRjaF9pZCI6ImV2b2x1dGlvbi0zIn0K\",\"commit_base64\":\"eyJraW5kIjoiY29tbWl0IiwiYmF0Y2hfaWQiOiJldm9sdXRpb24tMyIsInJlY29yZF9jb3VudCI6MSwicmVjb3Jkc19zaGEyNTYiOiJjMzRjYWEyZDFkYmE4ODAzYTQ4ODA1YzI2NjBhMzU4ZGFlNTVkMzJkYjYwNWQ4NjQ2ZmM4NjhmMWE1NTcxYjY5In0K\",\"cursor_after\":\"496\",\"cursor_before\":\"0\",\"epoch\":\"example-1\",\"feed\":\"native-evolution\",\"profile\":\"ashlar-jsonl-transactions/0.1\",\"records\":[{\"cursor\":\"352\",\"delivery_id\":\"2-2\",\"raw_base64\":\"eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImxvY2FsLWV4YW1wbGUiLCJzY2hlbWFfcmV2aXNpb24iOiIxIiwicmV0YWluZWRfanNvbiI6IntcImZ1dHVyZVwiOjE4NDQ2NzQ0MDczNzA5NTUxNjE1fSIsImRlbGl2ZXJ5X2lkIjoiMi0yIiwiZW50aXR5X2tpbmQiOiJvYmplY3QiLCJ0eXBlX2lkIjoiMTciLCJpZCI6IjIiLCJlbnRpdHlfdmVyc2lvbiI6IjIiLCJvcGVyYXRpb24iOiJkZWxldGUiLCJwcm9wc19qc29uIjoie1wiMjNcIjpcInNlY29uZFwifSJ9Cg==\",\"sha256\":\"31d16cbcb8de024bc67d9567b9ad15e34dc5bbd42ad3f6264052cece747e63c8\"}],\"records_sha256\":\"c34caa2d1dba8803a48805c2660a358dae55d32db605d8646fc868f1a5571b69\"}",
+      "batch_digest": "418bc7f4670ecf88cb6d28a61f762d69ccfaaec1a2319994805d5dee5ae4c3c4"
+    }
+  }
+]

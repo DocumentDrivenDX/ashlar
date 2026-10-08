@@ -1,0 +1,61 @@
+{
+  "state": "applied",
+  "source_profile": "ashlar-postgresql-outbox/0.1",
+  "read_only": true,
+  "upstream_record_checks": [
+    {
+      "revision": "1",
+      "records": 2,
+      "source_sha256": "bc5357b1eb99bddac4f1d1d1ce6d9727dbc98d8ca3a56b644510d07117919aec",
+      "producer_revision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+      "original_document_complete": false,
+      "source_checkpoints": [
+        "{\"batch_id\":\"evolution-1\",\"epoch\":\"example-1\",\"feed\":\"native-evolution\",\"payload_digest\":\"7622361599f9fa4eeb547fe3121290e77e938f85570045ee49f4f47ba87c7b46\",\"position\":\"3\",\"previous\":\"2\",\"profile\":\"ashlar-postgresql-outbox/0.1\"}",
+        "{\"batch_id\":\"evolution-3\",\"epoch\":\"example-1\",\"feed\":\"native-evolution\",\"payload_digest\":\"7f723e87aca8a2284bc6e449b84f68399f0376f418c66d2847d732c07b3369e6\",\"position\":\"5\",\"previous\":\"4\",\"profile\":\"ashlar-postgresql-outbox/0.1\"}"
+      ],
+      "native_acceptance": false
+    },
+    {
+      "revision": "3",
+      "records": 1,
+      "source_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+      "producer_revision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+      "original_document_complete": false,
+      "source_checkpoints": [
+        "{\"batch_id\":\"evolution-2\",\"epoch\":\"example-1\",\"feed\":\"native-evolution\",\"payload_digest\":\"8b98cb7960df77ebfec15005c2ba8f69fa0b7b7b8aebbc8eb6dcfa91cf9c35c7\",\"position\":\"4\",\"previous\":\"3\",\"profile\":\"ashlar-postgresql-outbox/0.1\"}"
+      ],
+      "native_acceptance": false
+    }
+  ],
+  "previous": "2",
+  "position": "5",
+  "groups": [
+    {
+      "batch_id": "evolution-1",
+      "position": "3",
+      "payload_sha256": "7622361599f9fa4eeb547fe3121290e77e938f85570045ee49f4f47ba87c7b46"
+    },
+    {
+      "batch_id": "evolution-2",
+      "position": "4",
+      "payload_sha256": "8b98cb7960df77ebfec15005c2ba8f69fa0b7b7b8aebbc8eb6dcfa91cf9c35c7"
+    },
+    {
+      "batch_id": "evolution-3",
+      "position": "5",
+      "payload_sha256": "7f723e87aca8a2284bc6e449b84f68399f0376f418c66d2847d732c07b3369e6"
+    }
+  ],
+  "native_reader": [
+    {
+      "role": "ashlar_outbox_reader"
+    }
+  ],
+  "objects": 1,
+  "history": 4,
+  "tombstones": 1,
+  "native_page_resume_equal": true,
+  "published": false,
+  "acknowledged": false,
+  "qualification": "Actual protected private PG outbox append/read and schema-evolved graph reconstruction; fixture IDs, isolated admin-authenticated ordinary roles. Not Truss property feed, Delta publication or source ACK."
+}

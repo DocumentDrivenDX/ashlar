@@ -2035,3 +2035,23 @@ original incomplete schema validation, native acceptance, publication and ACK
 qualifications remain unchanged. Native Truss producer/feed and full toolkit
 acceptance remain required. The Truss owner planning chat incorporated the shared
 Record producer at 221cb72; this is design progress, not native installation.
+
+
+### Actual UMF checks after native outbox read — 2026-10-08
+
+`run_outbox_example.py` now supports optional actual UMF Record checks and an
+explicit read-only mode that performs no append calls. Existing committed native
+groups 3–5 were read under ashlar_outbox_reader, independently compared with the
+original fixture payloads and checked under their original v1/v3 definitions
+before apply. Two v1 create checks and one v3 replacement check are complete;
+the original envelope validation remains incomplete. Outer native checkpoints
+are retained separately from inner source bytes/offsets, including the delete
+group that has no Record-value check. Page resume reaches the same graph.
+
+Five focused outbox tests and the actual PG17.9 read-only/UMF integration pass.
+Original native groups and UMF receipts are retained under
+[evidence/native-outbox-umf-20261008](evidence/native-outbox-umf-20261008/summary.json).
+This iteration issues no source append, cloud mutation, publication or ACK.
+Fixture/native source custody is not Truss catalog acceptance or a real Truss
+feed. Full Truss installation/acceptance/mutation/feed and publication remain
+required; the authorized owner coordination request is pending its tool result.
