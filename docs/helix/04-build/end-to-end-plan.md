@@ -1268,3 +1268,20 @@ prerequisite custody. All165 local checks pass; no native workload ran. Receipt:
 out/truss-feed-original-vector-review.json. Upstream vectors remain unadopted and
 synthetic; this is byte correspondence, not full source semantics or native runtime
 qualification. The full goal and pending maintenance-policy decision remain open.
+
+## Native automatic-maintenance exclusion check — 2026-10-08
+
+validate_predictive_optimization_disabled makes the discovered deployment gap an
+explicit reusable refusal check. Explicit DISABLE or INHERIT with effective
+DISABLE and original inheritance source can pass this narrow scheduling check;
+enabled/missing/unknown/contradictory observations refuse. The native metadata
+inspection tool applies it to fresh observations. Local application against all
+six original private-deployment records refused enabled automatic maintenance;
+receipt: out/native/csv_retention_metadata_20261008/admission-refusal.json.
+All167 local checks pass. No new cloud workload or setting change occurred.
+
+The check does not establish full retention admission, current state from archived
+records, outstanding operation termination, all-operator fencing, native file/log
+availability or active publication pins. The pending maintenance-policy proposal
+remains unexecuted. Native Truss integration and positive publication/resolver
+composition remain required by the active full goal.

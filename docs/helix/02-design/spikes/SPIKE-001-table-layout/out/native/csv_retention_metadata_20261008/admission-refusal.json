@@ -1,0 +1,36 @@
+{
+  "state": "passed",
+  "checks": [
+    {
+      "target": "ashlar_e2e_private_20261008",
+      "outcome": "refused",
+      "reason": "Native automatic maintenance remains enabled or unknown"
+    },
+    {
+      "target": "ashlar_e2e_private_20261008.runtime_csv",
+      "outcome": "refused",
+      "reason": "Native automatic maintenance remains enabled or unknown"
+    },
+    {
+      "target": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+      "outcome": "refused",
+      "reason": "Native automatic maintenance remains enabled or unknown"
+    },
+    {
+      "target": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+      "outcome": "refused",
+      "reason": "Native automatic maintenance remains enabled or unknown"
+    },
+    {
+      "target": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+      "outcome": "refused",
+      "reason": "Native automatic maintenance remains enabled or unknown"
+    },
+    {
+      "target": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+      "outcome": "refused",
+      "reason": "Native automatic maintenance remains enabled or unknown"
+    }
+  ],
+  "qualification": "New narrow exclusion check applied to original metadata bytes locally. Archived state is not a current observation or authority token. No full retention admission, settings change or native workload."
+}

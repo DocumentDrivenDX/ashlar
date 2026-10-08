@@ -559,3 +559,12 @@ This component has local wire/refusal evidence only; Truss still has no installe
 public runtime here. The 0.2 transition-capable manifest is unsupported and
 refuses; do not rewrite it as 0.1 or treat journal-only `(xid, seq)` progress as a
 complete transaction. It does not reconstruct property changes into object state.
+
+For a deployment that excludes native automatic predictive optimization, use
+`ashlar.retention.validate_predictive_optimization_disabled(setting, effective_flag)`
+with fresh authenticated UC metadata for each independently bound physical target.
+Unknown/missing/effective enabled settings refuse. Inherited exclusion requires
+explicit effective DISABLE and its original inheritance source. The native
+inspection tool now reports this check. This is one exclusion condition, not
+retention admission: outstanding work, other operators, data/log availability
+and active pin custody still need independently verified policies.
