@@ -1365,3 +1365,21 @@ No cloud workload, mutations or setting changes occurred. Type/field-specific
 admission, ACL authority, aggregate native collector custody, complete bootstrap
 bodies/security and actual installed Truss/feed remain unfinished. This completes
 a decoder dependency and leaves the full end-to-end goal active.
+
+
+## Truss trigger argument decoder prerequisite — 2026-10-08
+
+Truss candidate `codex/ashlar-runtime` is pushed at `f667ee2`. CONTRACT-008's
+UTF8 trigger argument decoder preserves original lowercase hex/count/byte length
+and ordered strings, including empty strings and BOM data. Exact native-int2
+count, allocation bounds, NUL framing and strict UTF8 are checked. All twelve
+original independent vectors plus additional controls pass; the package suite
+has nine tests and 116 assertions. Strict build and clean packed consumer pass.
+One temporary local PostgreSQL 17.9 UTF8 trigger supplied actual pg_trigger
+bytes/count; decoded arguments match the original supplied arguments. SQL/stdout
+are retained in the candidate's native-trigger receipt. The entire transaction
+was rolled back, leaving no installed probe or Truss trigger.
+
+No cloud workload or configuration changes occurred. Complete native trigger
+definition/WHEN/dependency admission, full bootstrap bodies/security, installed
+Truss and streaming remain unfinished. The end-to-end goal remains active.
