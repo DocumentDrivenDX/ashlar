@@ -410,3 +410,42 @@ features or versions refuse; the library supplies no permissive profile. Qualify
 the host SQL engine independently for the chosen feature set. This table-level
 observation neither proves pinned files remain available nor replaces schema,
 active pin, descriptor and authorization checks in NativeBackend.Policy.
+
+
+## Configured finite readability in publisher and reader policies
+
+`ashlar.retention_policy` provides `RetentionGate`, `RetentionNativePolicy` and
+`RetentionManifestPolicy`. Wrap qualified existing policies; do not replace their
+source/custody/file/protocol/permission checks with these adapters. The same gate
+checks the original immutable snapshot ceiling against fresh complete-vector
+configuration, physical UUID and server-clock observations, including the closing
+singleton and manifest checks. No wrapper disables predictive optimization.
+
+For bounded development SQL observations:
+
+```python
+from ashlar.retention_policy import (SQLRetentionProvider, RetentionGate,
+    RetentionNativePolicy, RetentionManifestPolicy)
+
+provider = SQLRetentionProvider(authenticated_executor, admitted_table_uuids,
+    defaults=qualified_native_defaults, default_profile=qualified_default_profile,
+    max_observation_span_us=5_000_000)
+gate = RetentionGate(provider, minimum_margin_us=60_000_000)
+reader_policy = RetentionNativePolicy(qualified_reader_policy, gate)
+manifest_policy = RetentionManifestPolicy(qualified_manifest_policy, gate)
+# Inject reader_policy into NativeBackend and manifest_policy into DeltaManifestStore.
+```
+
+These inputs deliberately have no defaults for credentials, authority or native
+qualification. The illustrative 5-second observation/60-second margin choices
+are development assumptions; original reports must reserve the host budget.
+The serial SQL provider adds 13 queries per four-table check and is not a fast
+singleton production path. Qualified metadata providers may batch observations
+within an explicitly admitted age/configuration-change budget. Native availability
+and permissions remain required; original snapshot timestamps need independent
+publication custody. The closing manifest check can refuse after a native commit;
+that preserves the committed row and returns no success, rather than rolling it
+back or authorizing a blind retry. Keep the original operation/handle journal.
+
+All 180 small tests pass. Native publication with these composed policies and
+real Truss integration remain to be demonstrated.

@@ -48,6 +48,9 @@ class DeltaManifestStore:
             actual=self.executor.query('SELECT '+select+' FROM '+self.sql_table+' WHERE publication_id=:id',{'id':row['publication_id']}).rows
             if len(actual)!=1 or dict(actual[0])!=row:raise ManifestError('Ambiguous or mismatched original manifest')
             self._identity()
+            # Final admission may refuse after native commit. Never interpret
+            # that refusal as rollback or retry the mutation with a new handle.
+            if self.policy.admit(row,context) is not None:raise ManifestError('Closing publication admission incomplete')
         return row
 
 

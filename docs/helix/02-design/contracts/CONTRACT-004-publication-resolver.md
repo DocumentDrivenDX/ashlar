@@ -244,3 +244,55 @@ original receipts offline. Fresh observations require a new `--output` directory
 The native observer distinguishes explicit properties from qualified defaults
 and refuses identity changes, ambiguous properties or unsupported intervals.
 All 175 small local tests pass; no scale or renewed cloud test was run.
+
+
+## Finite-retention policy composition
+
+`RetentionGate(provider, minimum_margin_us=...)` MUST be constructed with an
+independently qualified fresh observation provider and an explicit host margin
+budget. `provider.observe(descriptor, context)` MUST return exactly
+`configurations`, `table_uuids` and canonical native `now_us`, covering the complete
+original descriptor vector. It MUST independently admit configuration defaults,
+physical identities, clock authority and observation age; it MUST NOT treat
+manifest-supplied UUIDs or a saved metadata report as fresh native observations.
+The gate MUST refuse an original margin smaller than the current host budget,
+unknown/incomplete observations, tightened expiry or expired original ceilings.
+It MUST NOT renew the original snapshot window.
+
+`RetentionNativePolicy(policy, gate)` composes with `NativeBackend`. It MUST
+preserve independent authorization and snapshot admission and require completed
+original descriptor custody admission before observing retention. Resolver and
+singleton closing checks use the same gate and MUST take new observations on
+each invocation. Native schema/protocol/data-file checks remain the underlying
+policy's responsibility; the wrapper supplies no permissive admission.
+
+`RetentionManifestPolicy(policy, gate)` composes with `DeltaManifestStore`. It
+MUST preserve the independent writer lane and full source/schema/effect/pin
+admission. It converts exact retained manifest strings to the same immutable
+descriptor representation used by reads; admission MUST NOT mutate those strings.
+Manifest admission MUST repeat after exact native readback and closing UUID
+inspection, while still under the writer lane. A closing refusal returns no
+success and MUST NOT be interpreted as rollback: the native manifest may already
+be committed. Preserve original submission/handle custody; no automatic ACK, pin
+release, cleanup or resubmission with a new identity follows from that refusal.
+
+`SQLRetentionProvider` is a bounded development provider. Its independently
+admitted UUID allowlist/default profile and positive maximum observation span
+are explicit inputs. It observes UUID/properties with existing bookends and
+queries canonical server-clock microseconds; an exceeded monotonic observation
+span MUST refuse. The gate's host margin MUST reserve at least that span budget.
+This provider does not inspect original commit history or supply original
+timestamp custody, authorization, file/protocol evidence or a writer fence.
+For four tables it adds 13 serial SQL observations per gate check; this is not a
+qualified low-latency production provider. Production hosts MAY inject a
+separately qualified metadata batching/cache provider whose observation age and
+configuration-change policy fit the reserved margin. Predictive optimization
+remains enabled; no setting mutation or performance acceptance claim is implied.
+
+Non-normative implementation evidence: all 180 small local tests pass, including
+successful manifest replay with fresh opening/closing admission, expired closing
+admission retaining the already-written manifest, independent source-admission
+refusal before effects, actual retention-gate expiry after a singleton fetch,
+and bounded SQL observation/margin refusal. These are component checks, not
+native manifest publication or end-to-end Truss evidence. No cloud run or renewed
+benchmark was performed for this iteration.
