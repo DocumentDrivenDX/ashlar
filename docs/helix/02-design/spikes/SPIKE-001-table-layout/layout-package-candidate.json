@@ -2852,5 +2852,6 @@
     "historical provisional caller latency/freshness budgets remain unmet; owner treats measurements as tuning metrics",
     "Newer complete-feed transaction/seed/coverage boundaries and trusted proof/registration/generation protocol"
   ],
-  "executed_baseline": "ashlar-delta/0.2"
+  "executed_baseline": "ashlar-delta/0.2",
+  "common_carriers_remaining_audit_r625.py": "da8c8d326983e7c8153246a8e65b0cd86813bcd11d6e193d8e0525d148d398c9"
 }
