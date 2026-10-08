@@ -2732,3 +2732,25 @@ Truss Impl's returned clarification at 0ad0b4c separates the microsite from the
 runtime path. Protected orchestration, atomic acceptance and feed fencing have
 design direction; exact runtime profiles and native engine implementation remain
 unfinished. This is a dependency clarification, not evidence of a running Truss.
+
+
+### Binding-derived UMF Record checks — 2026-10-08
+
+StringRecordPolicy now retains immutable qualified Record/Field bindings and
+exposes an admitted value-request translation without fixed fixture IDs. A host
+helper groups original records by qualified Record identity, invokes actual
+pinned UMF and retains independent complete receipts. It verifies original
+intake/binding source correspondence, checks delete carriers without treating
+them as new value observations, and never supplies native acceptance or ACK.
+
+Eleven focused semantic-policy/evolution tests pass. Actual UMF checker c45c72a2
+passes three non-delete source records with development type 1017 and property
+1023/1024, including absence and Unicode, from three newly encoded complete
+transactions with recomputed manifests. Original schema is unchanged; arbitrary
+schema/native qualification remains open. Evidence:
+[bound Record checks](evidence/umf-bound-records-20261008.json).
+
+Original native evolution publisher 59082 is still live and now has committed
+checkpoints 805 and 1318. The second checkpoint follows the explicit revision-3
+replacement. Final delete/checkpoint 1814 and singleton remain pending; full
+independent final receipt comparisons will follow terminal completion.

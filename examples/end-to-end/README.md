@@ -1031,3 +1031,23 @@ revisions and existing values under v3. Native evolution setup and both actual r
 running the four-event sequence. Native publication/query success is **not yet
 verified**. This remains the fixed string-Record example with development
 IDs; broader schemas and actual Truss still require implementation.
+
+
+## Logical checks with your explicit string-Record bindings
+
+The reusable policy now exposes `record_value_request(change)`, translating
+admitted type/property IDs to UMF Record and Field references from the retained
+binding plan. It preserves absent optional properties and opaque content. Host
+helper `check_bound_umf_records.check_bound_records(umf_source, intake, policy,
+batches, schema_path=..., output_dir=...)` invokes the actual upstream checker
+once per qualified Record and retains each original receipt in a fresh directory.
+Supply your original intake, matching interpretation and independently admitted
+MappingEntry inventory to StringRecordPolicy.from_intake; IDs are never inferred.
+The selected profile remains required/absent-allowed singleton strings.
+
+A scoped actual check passes three non-delete records with explicit development
+type ID 1017 and property IDs 1023/1024. Each source transaction was re-encoded
+and its manifest recomputed; no original receipt was relabeled. This demonstrates
+that the helper no longer assumes the example IDs. It does not qualify arbitrary
+schemas or accepted Truss IDs, and the native runner still selects its documented
+fixed sources. The helper does not write graph data or acknowledge a source.

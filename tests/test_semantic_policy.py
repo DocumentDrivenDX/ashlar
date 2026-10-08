@@ -45,4 +45,16 @@ class SemanticTests(unittest.TestCase):
         c=self.change('{"23":"x"}')
         for state in [replace(c.state,schema_revision='2'),replace(c.state,key=EntityKey('other','object',17,1))]:
             with self.assertRaises(SemanticPolicyError):self.policy()(replace(c,state=state))
+    def test_record_request_uses_admitted_ids_and_qualified_fields(self):
+        entries=[replace(entry,catalog_id=entry.catalog_id+1000) for entry in ENTRIES]
+        policy=self.policy(entries=entries)
+        change=self.change('{"1023":"hello","1024":"雪"}')
+        change=replace(change,state=replace(change.state,key=EntityKey('source','object',1017,1)))
+        self.assertEqual(policy.record_value_request(change),{'identity':{'module':'fixture','element':'item'},'values':[
+            {'field':{'module':'fixture','element':'label'},'state':'present','value':{'string':'hello'}},
+            {'field':{'module':'fixture','element':'caption'},'state':'present','value':{'string':'雪'}}]})
+        absent=replace(change,state=replace(change.state,props_json='{"1023":"hello"}'))
+        self.assertEqual(len(policy.record_value_request(absent)['values']),1)
+        with self.assertRaises(SemanticPolicyError):policy.record_value_request(self.change('{"23":"old ID"}'))
+
 if __name__=='__main__':unittest.main()

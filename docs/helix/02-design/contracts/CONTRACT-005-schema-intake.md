@@ -263,3 +263,22 @@ retention admission remains required. This wiring has local verification;
 native evolution execution remains unproved until original terminal receipts
 and complete inventories are inspected. It does not admit arbitrary migrations,
 accepted Truss IDs or new schema transformations.
+
+
+## Binding-derived logical Record requests
+
+StringRecordPolicy.record_value_request(change) MUST admit the original source,
+revision, type and property inventory before translating numeric IDs to the
+qualified Record/Field identities retained in its original binding plan. It
+returns identity and typed string values. Omitted properties remain absent;
+retained_json remains opaque. It MUST NOT assume example IDs 17/23/24, infer IDs,
+validate UMF independently, claim native acceptance or apply defaults.
+
+Host helper check_bound_umf_records.check_bound_records groups original
+non-delete records by their explicit qualified Record identity and invokes the
+actual pinned UMF Record checker for each group. It MUST retain independent
+complete original receipts rather than combine them into a fabricated producer
+result. Binding source SHA and the reconstructed original intake MUST agree.
+Every original complete transaction is admitted; deletion values still pass the
+host binding policy but do not become a new logical Record value observation.
+No publication or acknowledgement is issued by this helper.

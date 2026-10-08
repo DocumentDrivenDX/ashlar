@@ -70,14 +70,18 @@ class StringRecordPolicy:
                 raise SemanticPolicyError('Foreign or duplicate active binding')
             mapping[entry.identity]=entry.catalog_id
         if set(mapping)!=desired:raise SemanticPolicyError('Incomplete active catalog binding')
-        types={}
+        types={};record_identities={};property_fields={}
         for record in plan['types']:
             identity=tuple(record['identity']);properties={}
             for prop in plan['properties']:
                 if tuple(prop['identity'][:3])!=identity:continue
                 pid=str(mapping[Identity('property',tuple(prop['identity']))])
                 properties[pid]=prop['nullability']['nullability']
-            types[mapping[Identity('type',identity)]]=MappingProxyType(properties)
+            type_id=mapping[Identity('type',identity)]
+            types[type_id]=MappingProxyType(properties)
+            record_identities[type_id]=(identity[1],identity[2])
+            property_fields[type_id]=MappingProxyType({str(mapping[Identity('property',tuple(prop['identity']))]):tuple(prop['identity'][3:]) for prop in plan['properties'] if tuple(prop['identity'][:3])==identity})
+        self.record_identities=MappingProxyType(record_identities);self.property_fields=MappingProxyType(property_fields)
         self.types=MappingProxyType(types);self.source_system=source_system;self.schema_revision=schema_revision
         self.source_sha256=plan['sourceSha256'];self.interpretation_sha256=plan['interpretationSha256']
     def __call__(self,change):
@@ -96,3 +100,17 @@ class StringRecordPolicy:
                 # absent-allowed means absence, never implicit JSON null or cast.
                 raise SemanticPolicyError('Singleton string required; no null/type coercion')
         # retained_json remains opaque exact custody, not executable assertions.
+
+    def record_value_request(self,change):
+        """Translate an admitted ID binding into UMF's qualified Record request.
+
+        Does not validate UMF or confer accepted native IDs. Omitted properties
+        remain absent; opaque retained content is not interpreted as fields.
+        """
+        self(change)
+        module,element=self.record_identities[change.state.key.type_id]
+        fields=self.property_fields[change.state.key.type_id]
+        values=_json(change.state.props_json.encode('utf-8'))
+        return {'identity':{'module':module,'element':element},'values':[
+            {'field':{'module':fields[pid][0],'element':fields[pid][1]},
+             'state':'present','value':{'string':value}} for pid,value in values.items()]}

@@ -51,8 +51,8 @@ def fixture_value_entries(props):
     return values
 
 
-def check_value_request(umf_source, intake, records, output=None, schema_path=None):
-    request = json.dumps({'identity': {'module': 'fixture', 'element': 'item'}, 'records': records},
+def check_value_request(umf_source, intake, records, output=None, schema_path=None, *, identity=None):
+    request = json.dumps({'identity': {'module': 'fixture', 'element': 'item'} if identity is None else identity, 'records': records},
                          ensure_ascii=False, separators=(',', ':')).encode('utf-8')
     with tempfile.TemporaryDirectory(prefix='ashlar-umf-record-') as temporary:
         request_path = Path(temporary) / 'records.json'
