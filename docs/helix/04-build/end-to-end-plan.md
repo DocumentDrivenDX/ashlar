@@ -1253,3 +1253,18 @@ retention/worker custody, authorization and payload interpretation. The componen
 does not issue ACK, reconstruct property state, install Truss or support 0.2
 transition manifests. Full native Truss integration and publication/read admission
 remain open. Maintenance settings remain unchanged pending prior authorization.
+
+## Original Truss feed vector correspondence — 2026-10-08
+
+The exact unmodified upstream feed-manifest canonical vector file is now archived
+as a test fixture. All four original canonical trees/framed preimages/digests
+match; the original complete 0.1 archive reaches mandatory native admission
+unchanged, whose test policy deliberately refuses unadopted profiles. Three
+original 0.2 wires refuse before policy. Digest-excluded preimages and unframed
+byte hashes cannot substitute for complete wire archives. The assembler now also
+verifies closed context/profile pins and exact revision/configuration prerequisite
+artifact bytes before policy; a recomputed manifest hash cannot hide corrupted
+prerequisite custody. All165 local checks pass; no native workload ran. Receipt:
+out/truss-feed-original-vector-review.json. Upstream vectors remain unadopted and
+synthetic; this is byte correspondence, not full source semantics or native runtime
+qualification. The full goal and pending maintenance-policy decision remain open.

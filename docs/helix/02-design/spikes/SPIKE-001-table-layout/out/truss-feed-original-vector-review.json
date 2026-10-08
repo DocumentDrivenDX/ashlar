@@ -1,0 +1,10 @@
+{
+  "state": "passed",
+  "original_source_path": "/Users/erik/Projects/truss/docs/helix/02-design/contracts/bindings/feed-manifest-canonical.proposal.vectors.json",
+  "original_sha256": "cd8dfba437b0dc0a8e7b7ac370d2dc28e654b12d0f2fb2f631c1e3b81579a855",
+  "upstream_status": "unadopted design vectors",
+  "canonical_vectors": 4,
+  "supported_wire_admission_probe": "0.1 only; policy deliberately refuses unadopted source",
+  "unsupported_wire_refusals": 3,
+  "qualification": "Original upstream canonical/framed/archive byte correspondence, preimage versus complete archive refusal and corrupt prerequisite refusal. Synthetic upstream pins do not supply native source/runtime/profile adoption."
+}

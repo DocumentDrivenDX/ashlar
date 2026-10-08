@@ -29,11 +29,26 @@ def assemble_feed(manifest_artifact,fragments,*,policy,context):
     if digest!=manifest['manifestSha256']:raise FeedAssemblyError('Framed original manifest digest differs')
     for name in ('configurationPrerequisites','prerequisites'):
         if not isinstance(manifest[name],list):raise FeedAssemblyError('Complete prerequisite arrays required')
+    scope=manifest['context']
+    if not isinstance(scope,dict) or set(scope)!={'sourceEpoch','feedProfile','scopeIdentity'}:raise FeedAssemblyError('Complete original feed context required')
+    for value in scope.values():_text(value)
+    _text(manifest['xid'])
+    def profile(pin):
+        if not isinstance(pin,dict) or set(pin)!={'identity','version','sha256'}:raise FeedAssemblyError('Complete original profile pin required')
+        _text(pin['identity']);_text(pin['version']);_hash(pin['sha256'])
+    profile(manifest['manifestProfile'])
+    for prerequisite in manifest['prerequisites']:
+        if not isinstance(prerequisite,dict) or set(prerequisite)!={'revision','artifact'}:raise FeedAssemblyError('Complete revision prerequisite required')
+        _text(prerequisite['revision']);exact_artifact(prerequisite['artifact'])
+    for prerequisite in manifest['configurationPrerequisites']:
+        if not isinstance(prerequisite,dict) or set(prerequisite)!={'configuration','artifact'} or not isinstance(prerequisite['configuration'],dict):raise FeedAssemblyError('Complete original configuration prerequisite required')
+        exact_artifact(prerequisite['artifact'])
     members=manifest['members']
     if not isinstance(members,list) or not 1<=len(members)<=1000:raise FeedAssemblyError('Bounded nonempty native membership required')
     inventory={}
     for member in members:
         if not isinstance(member,dict) or set(member)!={'ordinal','key','payloadProfile','payloadSha256'}:raise FeedAssemblyError('Closed complete member shape required')
+        profile(member['payloadProfile'])
         ordinal=member['ordinal'];_text(ordinal);_hash(member['payloadSha256'])
         if not ordinal.isascii() or not ordinal.isdecimal() or len(ordinal)>19 or str(int(ordinal))!=ordinal or int(ordinal)>=2**63 or ordinal in inventory:raise FeedAssemblyError('Unique canonical native ordinal required')
         inventory[ordinal]=member

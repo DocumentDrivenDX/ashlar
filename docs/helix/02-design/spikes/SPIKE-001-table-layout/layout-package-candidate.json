@@ -2901,7 +2901,7 @@
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "9fd606a721f425a5ec752e45dd014d12b79d8afbd42499eee2a31a2b396812e7",
-    "../../../04-build/end-to-end-plan.md": "dac586931d40bcf9d640139de134ef9be583bce246bf4ecb95c82c6d76203ee8",
+    "../../../04-build/end-to-end-plan.md": "8e7e73e6df4f27f86356008a12b6bb1f93868a86a1b833e497939befd043fea6",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3277,8 +3277,10 @@
     "out/native/automatic_maintenance_history_20261008/statements.jsonl": "0713dab6bf9f6d8384bd14f174760c9187f8cffee2a2b7943b2a13ebec24262d",
     "out/native/automatic_maintenance_history_20261008/summary.json": "143c513daf3a7ab55296d2107abd143050b3085c60b9cfb6529968af7e51d709",
     "out/truss-feed-assembly-source-review.json": "5806fb739715771aee5232690f070aa01da01f430320c85699baf7446ac732c2",
-    "../../../../../src/ashlar/truss_feed.py": "125b0a6406539cee03958740b2dd5b783dfc8374de67f090cc21fabb1670c88d",
-    "../../../../../tests/test_truss_feed.py": "ca5092601cfc4fc3308703088ea4924998770fefd3c17259a64f0e9437b3dc8e"
+    "../../../../../src/ashlar/truss_feed.py": "3829993c92859a0bd3cec7e66834c70394b86b05ca41f83bea8ee84c2d695992",
+    "../../../../../tests/test_truss_feed.py": "206331e790b79ced90e85740ce9e6a1c890d5d629089c204b3d34160495fe1f5",
+    "out/truss-feed-original-vector-review.json": "ef0534abaf3061eb0c7feddb7ebb97911dbfb60e353db49d3d424c8006532adc",
+    "../../../../../tests/fixtures/truss-feed-manifest-original-vectors.json": "cd8dfba437b0dc0a8e7b7ac370d2dc28e654b12d0f2fb2f631c1e3b81579a855"
   },
   "evidence": {
     "ddl": {
