@@ -1402,3 +1402,19 @@ field/type/ACL/dependency/security admission and aggregate collector resource/cu
 custody remain required. No cloud workload, persistent probe or settings changes
 occurred. Native bootstrap and actual Truss streaming are still unfinished; the
 full end-to-end goal remains active.
+
+
+## Shared Truss catalog decode budget — 2026-10-08
+
+The runtime candidate now accepts one caller-owned aggregate input-byte/node
+ledger across vector/array codecs and routine original-row/JSON projections.
+Reservations remain consumed; exhaustion is sticky and later fields refuse.
+Tests show individually admissible fields exceeding their combined allowance
+and shared-node refusal. Fourteen tests, 134 assertions, strict build and clean
+packed consumer pass. No native/cloud workload or configuration change occurred.
+
+This closes one accounting gap without claiming complete collector resource
+control: total heap, dimensions/hex/transport buffers, work/deadline/cancellation
+and native containment remain unfinished, as do full bootstrap/security and
+actual Truss streaming. Callers must supply the shared ledger to use aggregate
+accounting. The full end-to-end goal remains active.
