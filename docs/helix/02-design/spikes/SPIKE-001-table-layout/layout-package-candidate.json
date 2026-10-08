@@ -2687,7 +2687,9 @@
     "sparse_post_audit_r614.py": "08d2981429893380cff99a74222c6b9a7172a9e68ac472e181016dcabc77ee32",
     "sparse_post_reads_r613.py": "570f54f67eaffd4cdae02b13aed40e1388c6ee070bc77dc143d7c6057531a799",
     "sparse_read_groups_r615.py": "829609ce5c72edcbe8250d09fcf6120130dcf6e451d2f48b7fb3ed5c29a69d4e",
-    "out/design-policy-reconciliation-r617.json": "e95b1e20ca63e098adcc24306beff75295895c1e912de55b5bf498d884985f37"
+    "out/design-policy-reconciliation-r617.json": "e95b1e20ca63e098adcc24306beff75295895c1e912de55b5bf498d884985f37",
+    "common_carriers_r618.py": "b5a8dc74b9e5e0a244be112d49079b36ab02511b458c54f77c476ea414bcaed8",
+    "common_carriers_audit_r619.py": "ed3454e50864f427a0e404a59ff93c5a016c4665fa68cd7e5b02c3c66e730edd"
   },
   "evidence": {
     "ddl": {
