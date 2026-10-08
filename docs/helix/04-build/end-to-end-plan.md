@@ -686,3 +686,22 @@ is direct isolated admin custody, not qualified ordinary-role/driver/authorizati
 or original installation/epoch registration. Complete report/context registration
 and protected persistence remain required; the head stays zero and candidate IDs
 cannot authorize ingestion. Evidence: SPIKE-001-table-layout/out/native/truss_catalog_candidate_20261008_origin_capture.
+
+## Durable original profile custody — 2026-10-08
+
+Six original candidate definitions and their selected original archive/producer
+source bundle are now durably retained in isolated PostgreSQL. Identity/version
+originals are immutable to the ordinary writer/reader roles; the private owner
+function compares full definition and bundle bytes, refuses changed originals and
+returns original native role/xid/timestamp on repeat. Actual binary/refusal/direct
+DML/read-role schedules, a fresh-process repeat, independent reader equality and
+native owner/function/privilege observations pass. All115 local checks pass; no
+cloud workload ran. Owner/superuser and unqualified global/proxy paths remain
+outside this narrowly observed ordinary-role scope.
+
+This closes original byte custody, not executable profile registration, complete
+implementation/dependency recognition, current acceptance authority or Truss ready
+installation. No activation/admission flag exists; the head remains zero. Complete
+report/context registration and protected persistence are still required before
+accepted IDs can authorize ingestion. Evidence: SPIKE-001-table-layout/out/native/profile_custody_20261008
+and profile_custody_replay_20261008.

@@ -323,3 +323,15 @@ parts version0.2 checks this correspondence and the original report schemas'
 three origin fragments; it still lacks registered installation/epoch/capture
 and complete protected report/head persistence. Older candidate parts are not
 relabelled as the new version.
+
+The isolated profile-custody SQL store now retains immutable original definition
+and selected source-bundle bytes under identity/version. A protected owner function
+compares both complete originals and returns their original native context on exact
+repeat; changed bytes refuse. Writer/reader NOLOGIN roles have no direct mutation
+privileges. Native binary/conflict/direct-write controls, fresh-process replay,
+independent reader equality and actual owner/function/grant observations pass.
+profile_custody.py verifies complete native receipts and exact xid8 text without
+inferring active registration. `tools/retain_profile_custody.py` has bounded original
+files and complete submission limits. Its bundle is explicitly selected-source
+custody, not full transitive implementation recognition or accepted Truss support.
+Six candidate artifacts are durably retained; the accepted Truss head stays zero.

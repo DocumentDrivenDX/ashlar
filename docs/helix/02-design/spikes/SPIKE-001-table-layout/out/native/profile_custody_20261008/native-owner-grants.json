@@ -1,0 +1,57 @@
+{
+  "table_owner": "ashlar_profile_custody_owner",
+  "function": {
+    "owner": "ashlar_profile_custody_owner",
+    "security_definer": true,
+    "parallel": "u",
+    "volatility": "v",
+    "strict": false,
+    "config": [
+      "search_path=pg_catalog, pg_temp"
+    ],
+    "acl": "{ashlar_profile_custody_owner=X/ashlar_profile_custody_owner,ashlar_profile_custody_writer=X/ashlar_profile_custody_owner}"
+  },
+  "roles": [
+    {
+      "name": "ashlar_profile_custody_owner",
+      "login": false,
+      "superuser": false
+    },
+    {
+      "name": "ashlar_profile_custody_writer",
+      "login": false,
+      "superuser": false
+    },
+    {
+      "name": "ashlar_profile_custody_reader",
+      "login": false,
+      "superuser": false
+    }
+  ],
+  "matrix": [
+    {
+      "role": "ashlar_profile_custody_owner",
+      "select": true,
+      "insert": true,
+      "update": true,
+      "delete": true,
+      "execute": true
+    },
+    {
+      "role": "ashlar_profile_custody_writer",
+      "select": false,
+      "insert": false,
+      "update": false,
+      "delete": false,
+      "execute": true
+    },
+    {
+      "role": "ashlar_profile_custody_reader",
+      "select": true,
+      "insert": false,
+      "update": false,
+      "delete": false,
+      "execute": false
+    }
+  ]
+}
