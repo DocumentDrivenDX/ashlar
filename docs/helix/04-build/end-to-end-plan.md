@@ -1668,3 +1668,21 @@ is synthetic only. No table/cloud/deployment changes occur.
 Production integration, remaining protocol kinds, original issuer/resource/
 refusal-settlement authority, protected producers, bootstrap and actual Truss
 streaming remain unfinished under the unchanged active full goal.
+
+
+## Original-response Truss adapter integration — 2026-10-08
+
+Every experimental native control/statement now uses bounded frame admission
+before pg parser forwarding and original ReadyForQuery/error correspondence.
+Public columns/raw cells/exact command count text derive from original frames,
+replacing converted Result metadata. Unnamed parse/bind/no-data responses have
+order/body validation. Thirty-three tests/221 assertions, strict host build and
+packed consumer pass. Existing small actual native executor checks also pass
+through this integrated path, including writes, rollback, deadlock and deferred
+COMMIT rejection. No persistent tables/cloud/deployment changes occur.
+
+Per-query frame/delivered-byte/field/count/deadline limits are implemented; socket
+allocation, total heap/shared operation accounts, durable original transcripts,
+issuer/epoch/cut and unknown/refusal recovery remain unfinished. This supersedes
+probe-only integration without claiming the complete selected native producer,
+E06/protected bodies, bootstrap or actual Truss streaming. Goal stays active.
