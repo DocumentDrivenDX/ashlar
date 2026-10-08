@@ -25,6 +25,7 @@ checkout without changing your existing UMF branch:
 ```sh
 git -C ../umf fetch origin codex/core-record-value-check
 git -C ../umf worktree add --detach /tmp/ashlar-umf-record-check c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3
+(cd /tmp/ashlar-umf-record-check && bun install --frozen-lockfile)
 python3 tools/run_local_example.py --umf-source /tmp/ashlar-umf-record-check --umf-check-output out/local-example/umf-record-check.json
 ```
 
@@ -497,6 +498,24 @@ and selected string policy. Four singleton transactions create two objects,
 replace one and delete the other; replay through retained staging leaves the
 complete graph unchanged. Fixture IDs remain development mappings, not accepted
 Truss IDs. This example does not write Delta or publish/acknowledge a source.
+
+To include actual upstream UMF Record checks, use the clean pinned UMF checkout
+and Bun setup above:
+
+```sh
+python3 tools/run_csv_example.py --umf-source /tmp/ashlar-umf-record-check --umf-check-output out/local-csv/umf-record-check.json
+python3 tools/check_local_umf_csv.py /tmp/ashlar-umf-record-check
+```
+
+The runner first verifies original CSV correspondence, then checks all three
+create/replace records through UMF's explicit 0.7-to-0.8 upgrade and Record
+checker before applying any batch. The retained result carries the original
+schema, upgrade receipt, adapted-record digest and delivery identity containing
+original CSV header/row bytes. Deletes remain source operations. Empty mapped
+CSV cells are present empty strings; they are not inferred absent or null.
+These logical checks do not admit native catalog IDs, prove source epoch custody,
+check dataset keys/relationships, publish Delta or authorize source ACK. The
+original document's incomplete validation remains visible.
 
 For another CSV producer, call `ashlar.csv_source.csv_batches(binary_lines,
 feed=..., epoch=..., source_system=..., schema_revision=..., type_id=...,

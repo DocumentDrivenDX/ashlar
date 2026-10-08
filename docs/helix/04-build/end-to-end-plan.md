@@ -2016,3 +2016,22 @@ actual UMF example integration also passes after shared-runner factoring. README
 commands reproduce the checks and retain complete receipts. No defaults, native IDs,
 publication or source ACK is manufactured. Full native Truss installation/acceptance,
 protected feed and native end-to-end workflow remain unfinished; goal stays active.
+
+
+### Actual UMF checks in the CSV source workflow — 2026-10-08
+
+The runnable additional-source path now optionally invokes the same actual pinned
+UMF c45c72a2 Record checker as the JSONL and evolution workflows, before local
+apply. Original CSV correspondence is verified first. Full original producer
+results and explicit upgrade receipts can be retained; three create/replace
+records bind to original adapted-record hashes and exact header/row custody.
+Deletes remain source operations. Empty cells remain present strings.
+
+Seven focused CSV tests and the real-producer integration check pass. The latter
+independently compares schema bytes, delivery custody, field values, history,
+delete and replay results, including quoted labels, Unicode and the large opaque
+future-column token. No cloud jobs or new native mutation occurred. Fixture IDs,
+original incomplete schema validation, native acceptance, publication and ACK
+qualifications remain unchanged. Native Truss producer/feed and full toolkit
+acceptance remain required. The Truss owner planning chat incorporated the shared
+Record producer at 221cb72; this is design progress, not native installation.

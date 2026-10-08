@@ -1,5 +1,5 @@
 """Run the additional CSV source through the actual UMF-backed apply pipeline."""
-import base64,json,sys
+import argparse,base64,json,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
@@ -7,16 +7,19 @@ from ashlar.csv_source import csv_batches,validate_csv_batch
 from ashlar.apply import empty_state,plan_apply
 from ashlar.whole_entity import changes_from_batch
 from ashlar.staging import batch_row,batch_from_row
-from run_local_example import fixture_inputs
+from run_local_example import fixture_inputs,check_original_records,RECORD_CHECK_PIN
 
-def run():
+def run(umf_source=None,umf_check_output=None):
     intake,policy,_=fixture_inputs()
     raw=(ROOT/'examples/end-to-end/string-source.csv').read_bytes()
     originals=raw.splitlines(keepends=True)
     batches=tuple(csv_batches(originals,feed='csv-example',epoch='immutable-example-1',source_system='local-example',schema_revision='3',type_id='17',properties={'label':'23','caption':'24'}))
+    # Revalidate original CSV correspondence before any semantic check or apply.
+    for batch in batches:
+        validate_csv_batch(batch,feed='csv-example',epoch='immutable-example-1',source_system='local-example',schema_revision='3',type_id='17',properties={'label':'23','caption':'24'})
+    upstream=None if umf_source is None else check_original_records(umf_source,intake,batches,umf_check_output)
     state=empty_state()
     for ordinal,batch in enumerate(batches,1):
-        validate_csv_batch(batch,feed='csv-example',epoch='immutable-example-1',source_system='local-example',schema_revision='3',type_id='17',properties={'label':'23','caption':'24'})
         retained=json.loads(batch.records[0].delivery_id)
         if base64.b64decode(retained['header_base64'])!=originals[0] or base64.b64decode(retained['row_base64'])!=originals[ordinal]:raise ValueError('CSV original custody changed')
         state=plan_apply(state,changes_from_batch(batch),schema_policy=policy)
@@ -25,5 +28,12 @@ def run():
     if state!=expected:raise ValueError('Replay changed CSV-derived state')
     if len(state.current)!=1 or len(state.tombstones)!=1 or len(state.history)!=4:raise ValueError('Unexpected CSV graph')
     live=next(iter(state.current.values()))
-    return {'source_profile':'ashlar-single-line-csv/0.1','batches':len(batches),'events':len(state.history),'objects':len(state.current),'tombstones':len(state.tombstones),'replay_unchanged':True,'props_json':live.props_json,'complete_interpretation':intake.complete_interpretation,'published':False,'acknowledged':False,'qualification':'Local additional source; exact CSV custody and UMF-backed selected string constraints. Fixture IDs only; not a Truss catalog or native publication.'}
-if __name__=='__main__':print(json.dumps(run(),indent=2,ensure_ascii=False))
+    return {'source_profile':'ashlar-single-line-csv/0.1','batches':len(batches),'events':len(state.history),'objects':len(state.current),'tombstones':len(state.tombstones),'replay_unchanged':True,'props_json':live.props_json,'retained_json':live.retained_json,'upstream_record_checks':None if upstream is None else {'producer_revision':RECORD_CHECK_PIN,'records':len(upstream['records']),'logical_checks_complete':True,'original_document_complete':upstream['originalValidation']['complete'],'native_acceptance':False},'complete_interpretation':intake.complete_interpretation,'published':False,'acknowledged':False,'qualification':'Local additional source; exact CSV custody and UMF-backed selected string constraints. Fixture IDs only; not a Truss catalog or native publication.'}
+if __name__=='__main__':
+    parser=argparse.ArgumentParser()
+    parser.add_argument('--umf-source',type=Path,help='Clean pinned UMF c45c72a2 checkout for actual Record checks')
+    parser.add_argument('--umf-check-output',type=Path,help='Retain the full original UMF result and explicit upgrade receipt')
+    args=parser.parse_args()
+    if args.umf_check_output is not None and args.umf_source is None:
+        parser.error('--umf-check-output requires --umf-source')
+    print(json.dumps(run(args.umf_source,args.umf_check_output),indent=2,ensure_ascii=False))
