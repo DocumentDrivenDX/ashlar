@@ -1701,3 +1701,22 @@ tables/cloud/deployment settings change occurs.
 Full issuer/epoch, durable transcript/recovery, shared resources, caller adoption/
 cancellation and protected producers/bootstrap/streaming remain unfinished. The
 unchanged full end-to-end goal remains active.
+
+### Explicit original-query journal candidate (2026-10-08)
+
+Truss candidate `01f7b70` adds optional host-local file retention: original SQL
+and ordered text/null parameters are fsynced before submission; original validated
+frames are fsynced before driver parser forwarding. Exclusive private files and
+an existing private host-owned directory are required. Response-complete,
+server-error and uncertain outcomes are observations, not commit/replay authority.
+Files contain sensitive data and require a trusted directory without concurrent
+writers. No automatic replay or deletion is provided. Missing outcome remains
+uncertain. Journal failure destroys transport. No host file I/O occurs without
+explicit opt-in.
+
+Thirty-five local tests/230 assertions and the host package build pass. The small
+native executor rerun with journaling was dispatched but remains pending; no
+native journal correspondence is claimed by this iteration. Durable records are
+an experimental recovery input, not native issuer/epoch custody, protected
+producer admission, full shared resource accounting or a completed Truss stream.
+The full end-to-end objective remains active.
