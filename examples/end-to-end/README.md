@@ -823,7 +823,8 @@ and clean pinned UMF checker checkout described above. It uses fixture catalog
 IDs and a same-host cooperating writer lane. A clean Truss deployment and remote
 producer ACK/fencing remain separate integration work.
 
-The original one-row run has already completed. Keep its tables and original
+The original four-row run has completed, resuming from the initial checkpoint 1
+through the remaining create, update and delete. Keep its tables and original
 journal; never reinstall, clear phases or replace the journal to retry an
 uncertain outcome. A fresh output directory retains each new observation:
 
@@ -834,7 +835,7 @@ python3 tools/run_native_csv_stream.py \
   --journal /private/tmp/ashlar-csv-stream-20261008.sqlite \
   --output out/native-csv-query \
   --umf-source /path/to/pinned/umf-record-check \
-  --limit 1 --query-only --entity-id 1
+  --limit 4 --query-only --entity-id 1
 ```
 
 Use the SDK/psycopg-enabled Python environment documented for the native checks.
@@ -849,8 +850,11 @@ The mode creates no graph effects, manifest, attempt phase or consumer progress.
 
 Omit `--query-only` for the original bounded publisher workflow. Its default
 `--limit 1` processes through ordinal 1; already checkpointed rows are skipped.
-Later ordinals are selectable through 4 but their native progression remains
-untested. Output includes the original publication ID, singleton and local
+The demonstrated native continuation reached ordinal 4 with one surviving object
+at entity version 2, four original history records and one tombstone. Use the last
+retained ordinal (currently 4) with query-only; ordinal 1 is a historical
+publication and cannot stand in for the last checkpoint. The final deleted-object
+point lookup and exact-repeat native run remain untested. Output includes the original publication ID, singleton and local
 consumer position. Repeated metadata checks still dominate runtime; this is
 integration evidence rather than a latency benchmark. Predictive optimization
 and grants remain unchanged.

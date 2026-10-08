@@ -2325,3 +2325,32 @@ unproved until original terminal receipts, descriptor chain, full current/histor
 tombstone parity and closing custody are inspected. Original receipts remain in
 /private/tmp/ashlar-csv-stream-complete-20261008. This extends the small runnable
 fixture and does not supply actual Truss producer/catalog IDs or remote ACK.
+
+### Native CSV resume, update and delete completed — 2026-10-08
+
+The original process exited successfully at local consumer position 4. It resumed
+from position 1 without reapplying that row and published new ordinals 2, 3 and 4:
+second object creation, object 1 replacement and object 2 deletion. The final
+vector is object_current 7, edge_current 0, tombstone 1, whole_source_history 4.
+One object survives at entity version 2, with the quoted label and Unicode
+caption; four exact original history records and one tombstone remain.
+
+Offline inspection independently reconstructed each new prefix from original
+CSV bytes and compared every retained native full-inventory response at its exact
+version: 12 table/publication combinations passed. The original checkpoint chain
+is contiguous 1–4 and preserves each predecessor/request digest. All 36 mutation
+receipts are terminal SUCCEEDED; the original nine receipts from ordinal 1 are
+unchanged. The run issued 1,069 warehouse reads and 418 effective-permission pages.
+These counts expose remaining metadata overhead, not a scale/latency benchmark.
+
+[evidence/native-csv-stream-complete-20261008.json](evidence/native-csv-stream-complete-20261008.json)
+retains the full new descriptors, checkpoint chain, inventory counts, original
+mutation handles/request/response hashes and private receipt/source fingerprints.
+No extra warehouse statements were needed for the independent receipt checks.
+The example's query command now selects retained ordinal 4. Native exact-repeat
+and deleted-object point lookup through that final descriptor remain untested;
+full final inventory does establish absence of object 2. Earlier publication
+descriptors are retained and source ACK remains local consumer progress only.
+Actual Truss acceptance/feed, native schema evolution through this runner, clean
+setup and remote source/fencing semantics remain open. Predictive optimization,
+grants and compute settings were unchanged.
