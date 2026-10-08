@@ -1598,3 +1598,22 @@ no SQL and a later valid read/commit succeeds. Twenty-four tests/188 assertions,
 both builds and the portable packed consumer pass. No new native/cloud workload
 or settings change occurred. Full protected producers, bootstrap and actual
 Truss streaming remain unfinished under the active full goal.
+
+
+## Original Truss protocol-frame prerequisite — 2026-10-08
+
+Truss Impl completed candidate design review at 9665a4d on its separate branch,
+identifying missing E06 and predecode producer integration and the full protected
+chain. The runtime now adds a bounded T/D/C/Z frame decoder preserving original
+hex, ordered/duplicate column descriptions, raw value/NULL bytes, exact command
+count text and transaction status. Counts beyond host precision are retained as
+text. Twenty-six tests/197 assertions, host build and packed consumer pass.
+A single actual PostgreSQL 17.9 SELECT through pg 8.16.3 supplies original frames
+matching independently expected descriptors/data/command/status; evidence is
+retained in native-wire.json. No mutations/cloud/deployment changes occurred.
+
+The probe captures after the existing driver parser, so predecode ingress/heap/
+transport enforcement and original issuer/epoch/cut authority remain unfinished.
+The frozen reviewed pg 8.23.0/pg-protocol 1.16.0 profile is not adopted by this
+component. Full arbitration/protected native producers, bootstrap and Truss
+streaming remain open under the unchanged active end-to-end goal.
