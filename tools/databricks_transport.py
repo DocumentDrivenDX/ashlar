@@ -64,6 +64,11 @@ class CompiledWeftTransport:
     """Allow exact trusted compiler statements, including WITH, without widening reads."""
     def __init__(self,transport,artifact):
         self.transport=transport
+        from weft_native_profile import EXPECTED_PROFILE
+        profiles=[item['parameters'] for item in artifact['obligations'] if item['id']=='ashlar.nativeProfile']
+        if profiles!=[EXPECTED_PROFILE]:
+            raise SQLCustodyError('Exact native execution profile required')
+        self.profile=profiles[0]
         self.allowed={artifact['sql']}
         for item in artifact['obligations']:
             self.allowed.update(check['sql'] for check in item['parameters'].get('checks',[]))
@@ -72,5 +77,6 @@ class CompiledWeftTransport:
         if any(type(k) is not str or type(v) is not str for k,v in parameters.items()):
             raise SQLCustodyError('Exact compiler parameter carriers required')
         client=self.transport.read_client
-        client.sql('weft-compiled-read',sql,parameters=[{'name':k,'type':'STRING','value':v} for k,v in parameters.items()] or None)
+        from weft_execution_guard import guarded_statement
+        client.sql('weft-compiled-read',guarded_statement(sql,self.profile),parameters=[{'name':k,'type':'STRING','value':v} for k,v in parameters.items()] or None)
         return sql_result(client.records[-1]['response'])

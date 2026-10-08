@@ -3059,3 +3059,27 @@ native configuration unit checks pass; compatibility generation covers the curre
 eight carriers, not native acceptance of the new nested/comment/bundle features.
 Actual accepted Truss schema/mutation/feed/ACK remains absent from the owner's
 current implementation; the end-to-end goal remains active.
+
+
+## Weft same-execution profile guard — 2026-10-08
+
+The native compiled transport now retains the original artifact SQL allowlist
+and exact named STRING parameters while enclosing each integrity/user statement
+in a trusted read-only compound statement. Before the original SQL, a nested EXIT
+handler observes the ANSI malformed-cast error; an exact JSON engine/build guard
+then rejects drift. A missing, duplicate or changed native profile refuses before
+submission. Separate profile observations, artifact admission, authority, retention
+and closing buffered-result checks remain mandatory. No warehouse setting changes.
+
+Three native probes on the existing warehouse passed: bound Unicode text, empty
+result with its exact STRING descriptor, and deliberate engine mismatch refused
+before an empty SELECT. Original statement handles/receipts are retained privately;
+[evidence](evidence/native-weft-execution-guard-20261008.json) records their hashes
+and scope. Eight focused local tests pass. The complete compiled publication
+workflow with this new wrapper remains unexecuted; wider Weft families and actual
+Truss runtime remain incomplete. This closes the individual-execution guard gap
+for the tested script mechanism, not the end-to-end goal.
+
+Syntax sources inspected: [compound statement](https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/control-flow/compound-stmt),
+[SQL scripting](https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/sql-ref-scripting)
+and [SIGNAL](https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/control-flow/signal-stmt).

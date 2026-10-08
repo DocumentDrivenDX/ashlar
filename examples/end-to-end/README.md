@@ -1101,7 +1101,11 @@ The current host decodes string scalar/presence results and executes mandatory
 scalar checks. It refuses other result representations or obligation families.
 Only existing props homes are mapped. Native profile observations read the exact
 engine/build and ANSI setting before execution and release without changing them;
-these separate observations do not prove same-statement session settings. Broader
+each compiled integrity check and user query additionally runs inside a read-only
+SQL script. The script catches the required ANSI cast error and checks the exact
+engine/build before executing the original SQL, even for an empty result. Caller
+values retain named parameter markers. Three small native guard probes pass; the
+full compiled workflow with this new wrapper remains to be rerun. Broader
 numeric/recursive/typed-home/join/relationship qualification remains unfinished.
 
 The native runner's logical preflight now uses the admitted binding helper above,

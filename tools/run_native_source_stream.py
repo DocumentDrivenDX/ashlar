@@ -471,7 +471,7 @@ def main():
                         request=query_request,artifact=compiled,context=context,supported_profiles=['ashlar-delta/0.3'],supported_revisions=supported_revisions)
                     weft_result={'columns':[c['outputName'] for c in compiled['columns']],
                         'rows':[[dict(cell) if hasattr(cell,'items') else cell for cell in row] for row in rows],
-                        'compiler_revision':WEFT_REVISION,'qualification':'Original model/publication, mandatory integrity checks, exact string/presence decoding and closing pin/authority checks. Profile observations are separate statements before execution and release, not same-statement settings proof.'}
+                        'compiler_revision':WEFT_REVISION,'qualification':'Original model/publication, mandatory integrity checks, exact string/presence decoding and closing pin/authority checks. Each compiled check/query runs in a read-only script with preceding ANSI cast-error and exact engine/build guards. Separate exact setting observations and closing checks remain; no fallback.'}
                 else:
                     row=read_singleton(transport,backend,QueryPins(),pin_vector,policy,publication_id=current.publication_id,
                         table=tables['object_current'],kind='object',source=query_source,type_id=query_type_id,entity_id=args.entity_id,context=context,

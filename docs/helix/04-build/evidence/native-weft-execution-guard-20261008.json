@@ -1,0 +1,24 @@
+{
+  "state": "passed",
+  "profile": "ashlar-weft-same-execution-guard/0.1",
+  "cases": [
+    {
+      "label": "bound-value",
+      "statement_id": "01f1c35c-48cb-1903-aeee-efc4f4359e3a",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "empty-result",
+      "statement_id": "01f1c35c-4995-1428-9985-8a50351f6d69",
+      "state": "SUCCEEDED"
+    },
+    {
+      "label": "wrong-engine-empty-query",
+      "statement_id": "01f1c35c-4a45-155e-834d-16409b02c3a2",
+      "state": "FAILED"
+    }
+  ],
+  "original_receipts_sha256": "25bee9f7c4af6e5b9610d564ae6573b222fc64a339ab085c47dbef6f6d4fbe29",
+  "guard_source_sha256": "c12683f002763a30b4acf641d00a25f80fba14c787e48d264c3df91d0be84d81",
+  "qualification": "Three small read-only script probes on the existing warehouse: exact bound Unicode, empty result, mismatched engine refusal before empty SELECT. ANSI cast error observed within each script. No settings or data mutation, complete compiled workflow or broader native conformance claimed."
+}
