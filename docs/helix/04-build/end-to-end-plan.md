@@ -829,3 +829,22 @@ noncompleting transition, prior-state preservation and native-planner propagatio
 No native/cloud workload ran this iteration. This is selected local fixture
 schema-evolution wiring, not accepted native Truss IDs/catalog evolution or a
 published evolved Delta stream; those remain required by the full goal.
+
+## Installable candidate toolkit — 2026-10-08
+
+pyproject.toml now builds ashlar-graph-toolkit0.1.0.dev0 with Python3.9+ declaration,
+no runtime dependencies and the ashlar console command. Public imports expose
+source/schema/apply/resolver/singleton components; native cloud/PG tooling remains
+host-owned. The bounded inspect-source CLI retains original byte/cursor/digest
+custody and fails incomplete transactions without ACK/publication.
+
+An actual wheel built and installed offline in a fresh Python3.9.6 environment
+outside the repository. Isolated public import, installed command original-byte
+roundtrip (3transactions/4events), no runtime dependencies and all packaged Python
+modules equal source passed. All124 local checks pass, including module CLI
+roundtrip and truncated-first-transaction refusal. Evidence and original wheel SHA:
+SPIKE-001-table-layout/out/local/toolkit_install_20261008. The wheel remains a
+local development artifact, not a published release; this evidence covers that
+original wheel's code and metadata before the subsequent documentation update.
+No native/cloud workload ran. Truss acceptance/feed, qualified native providers,
+retention and immutable publication/read remain required for the full goal.

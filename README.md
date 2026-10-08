@@ -10,6 +10,18 @@ source/schema custody and UMF-backed selected string-record policy are implement
 A small local workflow runs now. Protected Truss acceptance/mutations and the
 composed native publication/read workflow remain unfinished.
 
+Install the candidate toolkit locally (Python3.9+):
+
+```sh
+python3 -m pip install .
+ashlar inspect-source --feed example --epoch one < examples/end-to-end/local-string-source.jsonl
+```
+
+The distribution is `ashlar-graph-toolkit`; the import is `ashlar`. It has no
+runtime dependencies. The installed CLI verifies source custody and emits complete
+original transaction bytes; it does not publish or acknowledge data. Native SDKs
+and credentials belong to the separate host tools.
+
 Run the local example (Python standard library only):
 
 ```sh

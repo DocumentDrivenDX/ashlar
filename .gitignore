@@ -16,5 +16,8 @@ __pycache__/
 /website/.hugo_build.lock
 /website/resources/
 /.tools/
+/build/
+/dist/
+/src/*.egg-info/
 /.innsigle/provenance/
 /.innsigle/debug/

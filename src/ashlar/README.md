@@ -344,3 +344,29 @@ catalog revision. from_intake retains the raw document-source default and accept
 an explicit source-schema revision for other admitted adapters. Neither path
 establishes acceptance authority: original report/IDs/source-revision admission
 remains the caller's independent obligation. The installed Truss head is still zero.
+
+
+## Install and import
+
+From the repository, `python3 -m pip install .` installs the candidate
+ashlar-graph-toolkit distribution and ashlar console command. Core runtime has no
+third-party dependencies. A clean Python3.9.6 environment installed the original
+wheel offline and verified all packaged Python modules against source, isolated
+public imports and installed CLI byte roundtrip. This qualifies local packaging,
+not native provider deployment or a production support profile.
+
+The ashlar import exports source batches/decoding, exact UMF intake, selected
+string-record and multi-revision policies, immutable graph apply types/planning,
+publication resolution and resolver-backed singleton orchestration. Submodules
+retain their explicit provider interfaces. Runtime policy and schema-transition
+admission are required; installing the library grants no schema/native authority.
+
+```sh
+ashlar inspect-source --feed example --epoch one < examples/end-to-end/local-string-source.jsonl
+python3 -m ashlar inspect-source --feed example --epoch one < examples/end-to-end/local-string-source.jsonl
+```
+
+The bounded command emits complete committed transactions with original bytes,
+exact digest and text cursors. A truncated first transaction emits no batch and
+fails. Each completed transaction is independent; a later stream failure does not
+undo earlier emitted custody. Output never authorizes source acknowledgement.

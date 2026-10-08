@@ -1,0 +1,43 @@
+{
+  "state": "passed",
+  "wheel_sha256": "9704f077e2e039637c6f13f469678c3ac5868856ec49bbe4b229a47bf6990121",
+  "python_version": "Python 3.9.6",
+  "installed_version": "0.1.0.dev0",
+  "exports": [
+    "Descriptor",
+    "ResolutionError",
+    "ResolvedPublication",
+    "Snapshot",
+    "resolve_publication",
+    "ApplyError",
+    "ApplyState",
+    "Change",
+    "EntityKey",
+    "EntityState",
+    "empty_state",
+    "plan_apply",
+    "SchemaIntake",
+    "SchemaIntakeError",
+    "SchemaPolicies",
+    "StringRecordPolicy",
+    "SemanticPolicyError",
+    "SourceBatch",
+    "SourceRecord",
+    "SourceError",
+    "jsonl_batches",
+    "batch_row",
+    "batch_from_row",
+    "read_singleton"
+  ],
+  "batches": 3,
+  "events": 4,
+  "source_sha256": "b82a85055d47896499291f47c7c50c248153e08ef6cc8579a92bed3c8b662a6d",
+  "checks": [
+    "clean offline wheel install outside repository",
+    "isolated public API import",
+    "installed console command exact original byte roundtrip",
+    "all packaged Python modules equal source",
+    "no runtime dependencies"
+  ],
+  "qualification": "Candidate local packaging and source-custody CLI only; no native acceptance, publication, source ACK or deployment policy claim."
+}
