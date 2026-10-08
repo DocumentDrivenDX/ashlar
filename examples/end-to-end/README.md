@@ -526,3 +526,12 @@ IDs and column mapping are explicit caller inputs, not inferred catalog acceptan
 it does not apply a schema policy, publish or ACK. Invalid mappings and malformed
 rows refuse; a later failure leaves earlier complete emitted batches intact and
 unacknowledged. The fresh isolated wheel installation passed outside the checkout.
+
+Before trusting adapted CSV semantics, call `validate_csv_batch(batch, feed=...,
+epoch=..., source_system=..., schema_revision=..., type_id=..., properties=...)`
+with independently admitted original configuration. It reconstructs the exact
+singleton transaction from retained header/row bytes and ordinal, and compares
+all batch/event custody. Altered mapped values with a recomputed commit digest
+refuse. Mapping order is part of the original producer codec; preserve it. This
+check does not admit IDs, schema meaning, file authority or read/write permission.
+The CLI and both example runners now perform it before downstream use.

@@ -3,7 +3,7 @@ import base64,json,sys
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
-from ashlar.csv_source import csv_batches
+from ashlar.csv_source import csv_batches,validate_csv_batch
 from ashlar.apply import empty_state,plan_apply
 from ashlar.whole_entity import changes_from_batch
 from ashlar.staging import batch_row,batch_from_row
@@ -16,6 +16,7 @@ def run():
     batches=tuple(csv_batches(originals,feed='csv-example',epoch='immutable-example-1',source_system='local-example',schema_revision='3',type_id='17',properties={'label':'23','caption':'24'}))
     state=empty_state()
     for ordinal,batch in enumerate(batches,1):
+        validate_csv_batch(batch,feed='csv-example',epoch='immutable-example-1',source_system='local-example',schema_revision='3',type_id='17',properties={'label':'23','caption':'24'})
         retained=json.loads(batch.records[0].delivery_id)
         if base64.b64decode(retained['header_base64'])!=originals[0] or base64.b64decode(retained['row_base64'])!=originals[ordinal]:raise ValueError('CSV original custody changed')
         state=plan_apply(state,changes_from_batch(batch),schema_policy=policy)

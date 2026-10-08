@@ -19,7 +19,7 @@ def main():
         csv.add_argument('--'+name,required=True)
     args = parser.parse_args()
     if args.command == 'inspect-csv':
-        from .csv_source import csv_batches
+        from .csv_source import csv_batches,validate_csv_batch
         from .schema import _json
         from .staging import batch_row
         from .source_checkpoint import csv_checkpoint
@@ -28,6 +28,8 @@ def main():
         for batch in csv_batches(lines,feed=args.feed,epoch=args.epoch,
                 source_system=args.source_system,schema_revision=args.schema_revision,
                 type_id=args.type_id,properties=mapping):
+            validate_csv_batch(batch,feed=args.feed,epoch=args.epoch,source_system=args.source_system,
+                schema_revision=args.schema_revision,type_id=args.type_id,properties=mapping)
             print(json.dumps({'format':'ashlar-csv-source-custody/0.1',
                 'batch_row':batch_row(batch),'source_checkpoint_json':csv_checkpoint(batch)},
                 separators=(',',':')),flush=True)

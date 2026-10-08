@@ -43,3 +43,24 @@ class CSVSourceTests(unittest.TestCase):
         self.assertEqual(next(iterator).batch_id,'csv-row-2')
         with self.assertRaises(StopIteration):next(iterator)
 if __name__=='__main__':unittest.main()
+
+class CSVCorrespondenceTests(unittest.TestCase):
+    def validate(self,batch,**delta):
+        from ashlar.csv_source import validate_csv_batch
+        config=dict(feed='f',epoch='e',source_system='s',schema_revision='r',type_id='17',properties={'label':'23'})
+        config.update(delta);return validate_csv_batch(batch,**config)
+    def batches(self):return tuple(csv_batches([b'id,entity_version,operation,label,future\n',b'1,1,create,first,opaque\n',b'1,2,replace,second,opaque\n'],feed='f',epoch='e',source_system='s',schema_revision='r',type_id='17',properties={'label':'23'}))
+    def test_all_ordinals_revalidate_without_reconstructing_preceding_rows(self):
+        for batch in self.batches():self.assertIsNone(self.validate(batch))
+    def test_valid_but_substituted_event_with_rehashed_commit_refuses(self):
+        from ashlar.source import jsonl_batches,records_digest
+        batch=self.batches()[1];event=json.loads(batch.records[0].raw)
+        event['props_json']='{"23":"substituted"}'
+        record=(json.dumps(event,separators=(',',':'))+'\n').encode()
+        commit=json.loads(batch.commit);commit['records_sha256']=records_digest([record])
+        forged=next(jsonl_batches([batch.begin,record,(json.dumps(commit,separators=(',',':'))+'\n').encode()],feed='f',epoch='e'))
+        with self.assertRaises(SourceError):self.validate(forged)
+    def test_untrusted_source_mapping_schema_identity_refuse(self):
+        batch=self.batches()[0]
+        for delta in [dict(feed='other'),dict(epoch='other'),dict(source_system='other'),dict(schema_revision='other'),dict(type_id='18'),dict(properties={'future':'23'})]:
+            with self.assertRaises(SourceError):self.validate(batch,**delta)

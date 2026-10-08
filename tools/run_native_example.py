@@ -68,11 +68,13 @@ def main():
         batches = tuple(transaction.batch for transaction in transactions)
         operation_prefix = 'outbox-example:'
     if args.source == 'csv':
-        from ashlar.csv_source import csv_batches
+        from ashlar.csv_source import csv_batches,validate_csv_batch
         from ashlar.source_checkpoint import csv_checkpoint
         with (ROOT / 'examples/end-to-end/string-source.csv').open('rb') as source:
             batches = tuple(csv_batches(source,feed='csv-example',epoch='immutable-example-1',
                 source_system='local-example',schema_revision='3',type_id='17',properties={'label':'23','caption':'24'}))
+        for batch in batches:
+            validate_csv_batch(batch,feed='csv-example',epoch='immutable-example-1',source_system='local-example',schema_revision='3',type_id='17',properties={'label':'23','caption':'24'})
         checkpoints = {batch.batch_id:csv_checkpoint(batch) for batch in batches}
         operation_prefix = 'csv-example:'
     batches = tuple(batch_from_row(batch_row(batch)) for batch in batches)

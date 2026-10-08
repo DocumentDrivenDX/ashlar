@@ -9,8 +9,8 @@ from .source import SourceError,jsonl_batches,records_digest
 from .whole_entity import _integer
 
 
-def csv_batches(lines, *, feed, epoch, source_system, schema_revision, type_id,
-                properties, max_records=1000, max_line_bytes=65536):
+def _csv_batches(lines, *, feed, epoch, source_system, schema_revision, type_id,
+                properties, max_records=1000, max_line_bytes=65536, _first_ordinal=1):
     """Consume a complete header then one object operation per complete CSV line.
 
     Required control columns: id, entity_version, operation. Mapped values are
@@ -44,7 +44,7 @@ def csv_batches(lines, *, feed, epoch, source_system, schema_revision, type_id,
     if not header or any(not name or '\x00' in name for name in header) or len(set(header))!=len(header) or not controls|set(properties)<=set(header):raise SourceError('Unique complete CSV header required')
     header64=base64.b64encode(header_raw).decode('ascii')
     def encoded(value):return (json.dumps(value,ensure_ascii=False,separators=(',',':'))+'\n').encode('utf-8')
-    for ordinal,raw in enumerate(iterator,1):
+    for ordinal,raw in enumerate(iterator,_first_ordinal):
         if ordinal>max_records:raise SourceError('CSV record bound exceeded')
         values=parse(raw)
         if len(values)!=len(header):raise SourceError('CSV row width differs from header')
@@ -65,3 +65,30 @@ def csv_batches(lines, *, feed, epoch, source_system, schema_revision, type_id,
         # Resume native CSV progress by admitted epoch plus retained row ordinal,
         # never by concatenating these offsets or manufacturing a source ACK.
         yield next(jsonl_batches(transaction,feed=feed,epoch=epoch))
+
+
+def csv_batches(lines, *, feed, epoch, source_system, schema_revision, type_id,
+                properties, max_records=1000, max_line_bytes=65536):
+    """Adapt original CSV lines with explicit source identity and ordered mapping."""
+    return _csv_batches(lines,feed=feed,epoch=epoch,source_system=source_system,
+        schema_revision=schema_revision,type_id=type_id,properties=properties,
+        max_records=max_records,max_line_bytes=max_line_bytes)
+
+
+def validate_csv_batch(batch, *, feed, epoch, source_system, schema_revision,
+                       type_id, properties):
+    """Verify original CSV-to-event correspondence under independently admitted config.
+
+    Retains exact producer bytes/order; it does not authorize the caller, admit
+    catalog IDs/schema meanings or prove original file epoch authority. The host
+    must supply the same ordered original mapping, not one derived from the event.
+    """
+    from .source_checkpoint import csv_checkpoint
+    from .schema import _json
+    csv_checkpoint(batch)  # Validate full original transaction and bounded custody.
+    custody=_json(batch.records[0].delivery_id.encode('utf-8'))
+    originals=[base64.b64decode(custody[key],validate=True) for key in ('header_base64','row_base64')]
+    expected=next(_csv_batches(originals,feed=feed,epoch=epoch,source_system=source_system,
+        schema_revision=schema_revision,type_id=type_id,properties=properties,
+        _first_ordinal=int(custody['row_ordinal'])))
+    if expected!=batch:raise SourceError('Adapted batch differs from original CSV and admitted mapping')

@@ -1204,3 +1204,16 @@ Truss HEADadd84ce remains specification/source review without src/packages runti
 No maintenance setting, cloud workload or publication/ACK changed. The earlier
 maintenance-policy authorization remains pending; native publication and protected
 Truss integration remain required by the full goal.
+
+## CSV original semantic correspondence — 2026-10-08
+
+validate_csv_batch now reconstructs complete producer bytes from retained original
+CSV header/row/ordinal under explicit independently admitted feed/epoch/source/
+schema/type and ordered property mapping. It compares the full SourceBatch, not
+only source digests. The CLI, local and native example runners invoke it before
+use. Three new checks cover every ordinal, fully rehashed property substitution
+and source/schema/type/mapping substitution. All157 local checks pass; the local
+UMF-backed four-event replay remains unchanged. No cloud workload, policy setting
+or source ACK occurred. This supplies semantic correspondence to mandatory source
+admission; it does not prove file epoch authority or catalog/retention admission.
+Native publication and protected Truss integration remain required by the goal.
