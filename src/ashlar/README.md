@@ -229,3 +229,12 @@ the installed owner/grants, registry UUID/schema and original mutation custody.
 Native v1 and additive v3 exact bytes/digests and incomplete interpretation flags
 pass independent readback. This is raw intake, not native catalog acceptance,
 semantic binding/IDs or a schema barrier for graph data.
+
+StringRecordPolicy in semantic_policy.py rebuilds the selected binding from
+retained actual UMF interpretation and enforces required/absent-allowed singleton
+string properties by explicit trusted catalog IDs. It refuses unsupported UMF
+assertions, unknown properties, null/array/type coercion, source/revision drift
+and incomplete/ambiguous ID bindings. Retained JSON stays opaque exact custody.
+This is executable host constraint policy for the selected profile, not native
+catalog acceptance or proof that supplied bindings came from an accepted head.
+Relationships and broader value/key/facet bindings remain required.

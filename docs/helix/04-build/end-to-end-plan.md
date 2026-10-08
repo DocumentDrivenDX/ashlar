@@ -554,3 +554,24 @@ overwritten. Eighty-seven local checks pass. No graph publication/checkpoint or
 retention/grant changes occurred. Next implement actual selected target semantic
 admission/catalog identity custody and connect admitted schema barriers to
 staged source consumption. Truss native acceptance/runtime/feed remains required.
+
+## Executable selected semantic constraint checkpoint
+
+StringRecordPolicy now enforces the actual interpreted singleton string Record
+closure using complete explicit trusted type/property bindings. It rebuilds the
+binding plan from retained UMF interpretation, refuses unresolved assertions and
+invalid/ambiguous reserved IDs, and checks source and schema revision at ingestion.
+Required properties must be present; absent-allowed permits absence without
+coercing JSON null. Nulls, arrays, nonstrings and unknown executable property IDs
+refuse. Original retained extension text is not silently interpreted or narrowed.
+
+Ninety-one local checks pass against actual v3 interpretation, including preserved
+wide unknown tokens and v2 unknown availability refusal. Test IDs17/23/24 are
+explicit fixture bindings, not accepted native IDs. This implements host-side
+constraints, not native schema/catalog acceptance or Truss engine enforcement.
+Next persist and admit actual catalog identity/revision custody, extend selected
+relationship/value bindings and connect the policy to schema-barriered source
+consumption. The existing nine-event graph fixture has independent synthetic
+schema/IDs and is not retroactively admitted by this string-only model. Truss
+acceptance/runtime/feed and full native publication remain required. No Databricks
+workload occurred this iteration.

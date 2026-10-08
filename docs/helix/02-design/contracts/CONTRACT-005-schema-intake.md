@@ -183,3 +183,11 @@ with source identity and validator digest verified, mandatory writer policy and
 UUID/schema/grant checks. Native semantic/catalog acceptance, stable allocation
 and schema barriers remain independent required steps; no raw registry row
 authorizes data ingestion or advances Truss schema_head.
+
+The selected StringRecordPolicy now enforces interpreted required/absent-allowed
+singleton string fields at the host graph-planning boundary, keyed by complete
+explicit trusted catalog bindings. Unsupported assertions/nulls/arrays/unknown
+properties and source/revision drift refuse. Actual native acceptance must prove
+the supplied IDs/revision against retained catalog authority; test fixture IDs
+do not establish that authority. Relationships, broader values/facets/keys and
+Truss native enforcement are still unimplemented requirements.
