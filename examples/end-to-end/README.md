@@ -1057,3 +1057,24 @@ and its manifest recomputed; no original receipt was relabeled. This demonstrate
 that the helper no longer assumes the example IDs. It does not qualify arbitrary
 schemas or accepted Truss IDs, and the native runner still selects its documented
 fixed sources. The helper does not write graph data or acknowledge a source.
+
+## Weft query engine integration (host execution pending)
+
+The pinned Weft source build uses commit
+2744531735c2a771fbe7ed24a7f67e3afc851b25 and explicit feature
+`ashlar-databricks-qualified`. Python entrypoint is `weft.compile_json` from the
+locally built ABI3 wheel. Packages are not yet published; do not build against
+the owner checkout's uncommitted B-008 security work or use --all-features.
+
+`ashlar.weft_binding.string_compile_request` creates the original module/binding
+request from SchemaIntake, explicit StringRecordPolicy, a resolved Descriptor,
+selected schema alias and complete original native UUID inventory. Its layout
+pin is the retained full owner v0.3 design SQL. Compilation of
+`SELECT i.label, i.caption FROM Item i` using the actual evolved publication
+passes, with original model bytes and exact table versions. It returns compiler
+SQL, parameters, result descriptors and mandatory obligations; it does not execute.
+
+The next host layer must admit the exact engine/settings/build, enforce caller
+policy and every integrity check, decode exact results and hold/recheck the
+immutable publication before releasing buffered rows. Native Weft query execution
+has not yet been demonstrated. Existing singleton workflow remains available.

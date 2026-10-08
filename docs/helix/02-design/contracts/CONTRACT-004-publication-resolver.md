@@ -399,3 +399,34 @@ This proves a private snapshot-publication/resolver component using an already
 applied CSV fixture. Fixture IDs 17/23/24 are not accepted Truss catalog IDs.
 No native publisher phase path, real Truss stream, source ACK, production
 authority or full end-to-end toolkit completion is claimed.
+
+## Weft query integration boundary (implementation in progress)
+
+Owner-authored `weft_binding.string_compile_request` binds retained UMF 0.7
+source bytes and explicit string Record IDs to the original publication and
+complete native table UUID/version inventory. Selected schema alias MUST match
+the original document revision. Only actual props_json homes are emitted here;
+physical object IDs MUST NOT become logical keys or invented typed columns.
+The qualified layout reference is the retained full delta-layout-v03.sql hash
+ad4a264508c971aefcd94e3ae90f8f74dcf119b7d767f6060c638f4abde3284e, which exactly
+matches Weft's pinned owner-source copy. The packaged baseline is a subset with
+its own different byte hash; this does not qualify missing typed projections.
+Host admission MUST independently compare every consumed native schema to the
+selected qualified owner realization before issuing integrity/query SQL.
+
+Pinned Weft source is 2744531735c2a771fbe7ed24a7f67e3afc851b25; build only explicit
+ashlar-databricks-qualified feature, backend 0.1.0-qualified and
+ dbsql2026.39-qualified. Candidate opt-in is false. Unknown or stale model/binding/
+profile must block without SQL. Package/build verification and compiler success
+MUST NOT imply host execution or native profile admission.
+
+The host query API MUST verify exact Databricks engine/build/settings, actual
+caller authorization and original model/storage correspondence. Hold the complete
+resolver publication/pin/retention context for every emitted integrity check and
+user query. Buffer complete exact STRING results, decode all declared result
+representations without numeric coercion, and renew context/policy before release.
+Refuse unknown obligations, failed checks, partial transport, profile drift or
+unsupported meanings. The nativeProfile obligation requires engine 2026.39 and
+both exact build hashes from pinned Weft; no newer-engine fallback is allowed.
+Merged B-007 does not include the owner's uncommitted B-008 security changes.
+This integration's local compilation is verified; host/native execution is pending.

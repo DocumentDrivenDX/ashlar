@@ -2808,3 +2808,30 @@ pinned committed source. Native engine/settings/layout, integrity, authorization
 publication/schema context and exact decoding must be admitted and rechecked
 before releasing buffered results. Unfinished security work is not included.
 The requested native Weft integration is not yet implemented or qualified.
+
+### Pinned Weft build and publication-bound compilation — 2026-10-08
+
+Clean separate source checkout /private/tmp/ashlar-weft-2744531735c2 is pinned to
+merged 2744531735c2a771fbe7ed24a7f67e3afc851b25. Existing cached Rust 1.90.0 and
+Maturin 1.9.6 built the ABI3 Python wheel offline/locked with two local jobs and
+only ashlar-databricks-qualified. No owner dirty checkout or global packages were
+changed. Wheel RECORD member hashes and actually loaded native-extension hash
+are retained in [compiler evidence](evidence/weft-pinned-compiler-20261008.json).
+
+New owner binding generator composes exact original evolved UMF source, admitted
+string Record/Field IDs, schema revision and all native publication versions/UUIDs.
+The actual built compiler accepts label/caption selection at final object version
+5 with candidate opt-in false. Four real compiler controls refuse stale model pin,
+binding pin, unknown target profile and unavailable candidate registration without
+SQL. Nine focused binding/semantic tests pass. The full owner layout reference
+hash exactly matches Weft's pinned copy; the packaged baseline has a separate
+subset hash. Only current props homes are mapped; no typed projection invented.
+
+Initial cargo lookup targeted a nonexistent user rustup home; locating the already
+installed private toolchain resolved it without installation. The locked build
+emits existing vendored ahash/dead-code warnings but succeeds. Actual compiler
+work is local only; no new warehouse statements or writes were issued.
+Next implement host obligations, exact decoding, buffered context recheck and
+native tests against these actual publications, then broader admitted homes,
+joins/aggregates/keys/relationships. No native Weft execution or full goal completion
+is claimed by this build/compile checkpoint.
