@@ -1,0 +1,21 @@
+{
+  "profile": "ashlar-delta-runtime-model/0.1",
+  "umfRevision": "fac1497a5ac5cb39bbaaac34eb0da8dc8b208c69",
+  "tables": [
+    "object_current",
+    "edge_current",
+    "source_record",
+    "property_journal",
+    "tombstone",
+    "publication_manifest",
+    "publication_attempt_phase",
+    "whole_source_history"
+  ],
+  "capture": {
+    "baseline": "sql/ashlar-delta-v03/01-baseline.sql",
+    "baselineSha256": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060",
+    "supplementalSource": "tools/setup_native.py at ashlar 1046b33",
+    "supplementalSQL": "CREATE TABLE publication_attempt_phase (stream STRING NOT NULL,batch_id STRING NOT NULL,phase STRING NOT NULL,request_digest STRING NOT NULL,payload_json STRING NOT NULL,payload_digest STRING NOT NULL) USING DELTA;\nCREATE TABLE whole_source_history (feed STRING NOT NULL,epoch STRING NOT NULL,delivery_id STRING NOT NULL,digest STRING NOT NULL,change_json STRING NOT NULL,raw_base64 STRING NOT NULL) USING DELTA;"
+  },
+  "qualification": "One-time capture of six existing baseline carriers and two existing runtime helpers. These UMF documents are subsequent generation inputs; no native migration or relationship enforcement is claimed."
+}

@@ -1,0 +1,15 @@
+{
+  "state": "passed",
+  "comparison": "Original complete eight CREATE statements versus generated CREATE statements; comments, whitespace and safe identifier quoting normalized. All column order/types/nullability, clustering and property literals match. Initial capture only, not acceptance of future model changes or native execution.",
+  "tables": {
+    "object_current": true,
+    "edge_current": true,
+    "source_record": true,
+    "property_journal": true,
+    "tombstone": true,
+    "publication_manifest": true,
+    "publication_attempt_phase": true,
+    "whole_source_history": true
+  },
+  "corrected_capture": "Initial comparison caught a semicolon in a property_journal comment truncating its properties during one-time extraction. Removing comments before extraction restored complete DDL parity."
+}

@@ -83,6 +83,12 @@ keys do not close those gaps.
   and bounded Microsoft Fabric Graph projections. Each mapping must identify
   target restrictions, omitted meaning and native execution evidence.
 
+- **SCHEMA-10:** Ashlar’s physical model must be maintained as UMF. Reusable
+  Delta DDL generation belongs to UMF, including versioned extensions for missing
+  semantics. Generated installation output and microsite diagram data must come
+  from that model. Unknown meaning must survive serialization and block unsafe
+  DDL generation; logical references must not imply warehouse enforcement.
+
 ### Non-Functional Requirements
 
 - 100% of accepted DDL and valid fixtures must execute on one pinned target.

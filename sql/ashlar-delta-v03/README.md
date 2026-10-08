@@ -6,6 +6,16 @@ Unity Catalog managed Delta is selected; this package remains a candidate and
 has not been deployed. No runtime library, automatic installer or migration is
 included. The owner stopped further tests; no cloud or Spark run is required here.
 
+## Runtime model generation
+
+The end-to-end installer now consumes eight
+[UMF-defined runtime carriers](../../docs/helix/02-design/models/ashlar-delta-runtime/README.md)
+through `runtime-carriers.generated.json`. UMF owns the Delta DDL generator.
+The six historical baseline CREATEs and two runtime helpers match the initial
+model-generated proposals in full. This does not capture optional projection
+or coordination tables below, apply a migration or add native execution evidence.
+The installer refuses stale model hashes; regenerate with the pinned UMF source.
+
 ## Deployment selection
 
 Create/select a fresh, explicitly reviewed UC catalog/schema with the intended

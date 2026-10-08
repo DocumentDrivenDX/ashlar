@@ -36,6 +36,25 @@ Catalog managed Delta tables. Latency is an operational measurement, not an
 architecture acceptance gate; preservation, identity and publication correctness
 remain contract requirements.
 
+## UMF model and generation direction (2026-10-08)
+
+The owner requires UMF to own reusable Delta DDL generation and explicit
+extensions for missing Delta semantics. The eight end-to-end runtime carriers
+are now authored in [canonical UMF documents](../models/ashlar-delta-runtime/README.md).
+The pinned `umf.delta.definition` 0.1.0 generator preserves exact schemas via
+`umf.delta` 0.1.0 and emits fresh managed CREATE proposals. The initial complete
+DDL comparison matches all existing columns, nullability, clustering and table
+properties; historical hand-authored SQL and native receipts remain preserved.
+The runtime installer now consumes checked-in generated output and refuses stale
+model hashes. This change performs no native migration or retention setting change.
+
+The microsite must consume this model for its physical ER diagram, including
+explicit logical-reference semantics. That diagram integration remains pending;
+the existing manually drawn map must not be described as UMF-generated.
+Optional adjacency, degree, typed projections and coordination candidates in the
+broader schema package remain to be captured; the eight-carrier runtime model
+must not be described as covering those optional layouts.
+
 ## Scope and Boundaries
 
 The [0.3 DDL](../spikes/SPIKE-001-table-layout/sql/delta-layout-v03.sql) is the proposed revised surface; all 13 CREATEs and new cursor/reference column checks now pass in private schema `client_dev.ashlar_layout_v03_20261006_r73`. The [0.2 DDL](../spikes/SPIKE-001-table-layout/sql/delta-layout-v02.sql) remains the preserved executed baseline. All12 CREATEs and table descriptions now pass on the existing

@@ -11,6 +11,7 @@ sys.path.insert(0,str(ROOT/'src'));sys.path.insert(0,str(B))
 from ashlar.authority import validate_writer_inventory
 from durable_sql import DurableSQL,SQLPending
 from persistent_sql import Client
+from generated_carriers import load_generated_carriers
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
@@ -38,11 +39,8 @@ def main():
                 if time.monotonic()>deadline:raise
                 time.sleep(.2)
     prefix=args.catalog+'.'+args.schema
-    baseline=(ROOT/'sql/ashlar-delta-v03/01-baseline.sql').read_text()
-    definitions={m.group(1):m.group(0) for m in re.finditer(r'CREATE TABLE (\w+) \(.*?;',baseline,re.S)}
-    if set(definitions)!={'object_current','edge_current','source_record','property_journal','tombstone','publication_manifest'}:raise ValueError('Complete candidate carrier inventory required')
-    definitions['publication_attempt_phase']='CREATE TABLE publication_attempt_phase (stream STRING NOT NULL,batch_id STRING NOT NULL,phase STRING NOT NULL,request_digest STRING NOT NULL,payload_json STRING NOT NULL,payload_digest STRING NOT NULL) USING DELTA'
-    definitions['whole_source_history']='CREATE TABLE whole_source_history (feed STRING NOT NULL,epoch STRING NOT NULL,delivery_id STRING NOT NULL,digest STRING NOT NULL,change_json STRING NOT NULL,raw_base64 STRING NOT NULL) USING DELTA'
+    generated,generated_sha256=load_generated_carriers(ROOT)
+    definitions={name:carrier['sql'] for name,carrier in generated['carriers'].items()}
     identities={}
     try:
         with open(args.journal+'.writer-lock','a') as lock:
@@ -52,7 +50,7 @@ def main():
             validate_writer_inventory(schema.owner,observe('schema-authority','SHOW GRANTS ON SCHEMA '+prefix),trusted_writers=[actor])
             for short,ddl in definitions.items():
                 name=prefix+'.'+short
-                execute(name+':install',ddl.replace('CREATE TABLE '+short,'CREATE TABLE '+name,1))
+                execute(name+':install',ddl.replace('CREATE TABLE `'+short+'`','CREATE TABLE '+name,1))
                 native=w.tables.get(full_name=name)
                 validate_writer_inventory(native.owner,observe('table-authority','SHOW GRANTS ON TABLE '+name),trusted_writers=[actor])
                 detail=observe('target-identity','DESCRIBE DETAIL '+name)
@@ -65,13 +63,14 @@ def main():
                 # Verify the declared columns independently of metadata flags.
                 observe('declared-schema','SELECT * FROM '+name+' LIMIT 0')
                 actual=c.records[-1]['response']['manifest']['schema']['columns']
-                expected=re.findall(r'(\w+)\s+(STRING|BIGINT|BOOLEAN|TIMESTAMP)(?:\s+NOT NULL)?',ddl.split(') USING')[0])
+                types={'string':'STRING','long':'BIGINT','boolean':'BOOLEAN','timestamp':'TIMESTAMP'}
+                expected=[(field['name'],types[field['deltaType']]) for field in generated['carriers'][short]['columns']]
                 if [(x['name'],x['type_text']) for x in actual]!=expected:raise ValueError('Installed carrier schema differs: '+name)
                 identities[name]={'uuid':uuid,'columns':expected,'detail':detail[0]}
             # Renew ancestors after all setup operations, before readiness.
             validate_writer_inventory(w.catalogs.get(name=args.catalog).owner,observe('final-catalog-authority','SHOW GRANTS ON CATALOG '+args.catalog),trusted_writers=[actor])
             validate_writer_inventory(w.schemas.get(full_name=prefix).owner,observe('final-schema-authority','SHOW GRANTS ON SCHEMA '+prefix),trusted_writers=[actor])
-        summary={'state':'installed','namespace':prefix,'authenticated_owner':actor,'tables':identities,'baseline_sha256':hashlib.sha256(baseline.encode()).hexdigest(),'qualification':'Candidate ashlar-delta/0.3 development carriers; exact schema/UUID and fresh inherited writer inventories verified. Same-host journal/lock; platform admin trust, remote writer lifecycle, retained pins, actual schema admission and producer/publication still required. No data writes, cleanup or retention/grant changes.'}
+        summary={'state':'installed','namespace':prefix,'authenticated_owner':actor,'tables':identities,'generated_carriers_sha256':generated_sha256,'umf_generator':generated['generator'],'model_inputs':generated['inputs'],'qualification':'UMF-generated candidate ashlar-delta/0.3 development carriers; exact schema/UUID and fresh inherited writer inventories verified. Same-host journal/lock; platform admin trust, remote writer lifecycle, retained pins, actual schema admission and producer/publication still required. No data writes, cleanup or retention/grant changes.'}
         (out/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
         transport.db.row_factory=__import__('sqlite3').Row
         (out/'journal-export.json').write_text(json.dumps({'submissions':[dict(r) for r in transport.db.execute('SELECT * FROM submission ORDER BY operation')],'installed_targets':[dict(r) for r in transport.db.execute('SELECT * FROM installed_target ORDER BY name')]},indent=2)+'\n')

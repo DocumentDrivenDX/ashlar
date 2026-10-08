@@ -1,0 +1,180 @@
+{
+  "umf": "0.1.0",
+  "id": "ashlar-delta-runtime-publication_attempt_phase",
+  "vocabularies": {
+    "umf.delta": {
+      "version": "0.1.0"
+    },
+    "umf.delta.definition": {
+      "version": "0.1.0"
+    }
+  },
+  "modules": [
+    {
+      "id": "schema",
+      "namespace": "",
+      "elements": [
+        {
+          "id": "schema",
+          "extensions": {
+            "umf.delta": {
+              "profile": "delta-schema-json",
+              "root": {
+                "kind": "object",
+                "members": {
+                  "type": {
+                    "kind": "string",
+                    "value": "struct"
+                  },
+                  "fields": {
+                    "kind": "array",
+                    "items": [
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "stream"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "batch_id"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "phase"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "request_digest"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "payload_json"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      },
+                      {
+                        "kind": "object",
+                        "members": {
+                          "name": {
+                            "kind": "string",
+                            "value": "payload_digest"
+                          },
+                          "type": {
+                            "kind": "string",
+                            "value": "string"
+                          },
+                          "nullable": {
+                            "kind": "boolean",
+                            "value": false
+                          },
+                          "metadata": {
+                            "kind": "object",
+                            "members": {}
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "extensions": {
+    "umf.delta.definition": {
+      "profile": "databricks-managed-delta/0.1",
+      "name": [
+        "publication_attempt_phase"
+      ],
+      "clusterBy": [],
+      "partitionBy": [],
+      "properties": {}
+    }
+  }
+}
+

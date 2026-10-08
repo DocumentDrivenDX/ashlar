@@ -160,7 +160,9 @@ the supported query path itself is mandatory.
 - **FR-2 (P0)** — Engineers must obtain a reviewed gold Delta schema package
   sufficient to create tables, represent isolated nodes and typed edges, validate
   integrity, and explain evolution and incremental publication semantics.
-  Every constraint must identify its actual enforcement boundary.
+  Every constraint must identify its actual enforcement boundary. The physical
+  model must be authored as UMF with explicit versioned extensions for Delta
+  meaning; UMF must generate its DDL and supply the microsite diagram model.
   Governed by FEAT-002 and US-002.
 
 ### Subsystem: Graph query path
