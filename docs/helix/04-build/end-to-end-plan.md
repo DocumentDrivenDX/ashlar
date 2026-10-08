@@ -2055,3 +2055,26 @@ This iteration issues no source append, cloud mutation, publication or ACK.
 Fixture/native source custody is not Truss catalog acceptance or a real Truss
 feed. Full Truss installation/acceptance/mutation/feed and publication remain
 required; the authorized owner coordination request is pending its tool result.
+
+
+### Explicit retained-effect recovery — 2026-10-08
+
+The native effect runner now distinguishes first application from recovery.
+`DurableEffects.recover` requires the exact retained operation/intent/plan digest
+and refuses missing original custody rather than inserting a replacement plan.
+The native example uses this entry point for originally retained operations.
+Original unsubmitted ordinals may still be submitted after renewed admission;
+previously submitted ordinals retain the original-handle/no-blind-retry rules.
+This is a needed effect port for the unfinished native stored-publisher driver,
+not evidence that that full driver now runs.
+
+Thirteen focused effect, SQL custody and stored-publisher tests pass, including
+original-handle resume and missing/changed/corrupt/deleted-plan refusal before
+transport. An offline check opened the actual original CSV apply journal read-only,
+backed it up privately, recovered all four original plans from retained responses,
+and proved missing-plan refusal on the copy with zero native transport calls.
+[evidence/csv-effect-recovery-20261008.json](evidence/csv-effect-recovery-20261008.json)
+qualifies this as offline receipt recovery, not current native authority/admission.
+No cloud workload, original journal rewrite, publication or source ACK occurred.
+The Truss coordination tool operation is still live without a delivery result;
+it has not been retried or interpreted as accepted owner work.

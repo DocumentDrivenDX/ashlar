@@ -1,0 +1,32 @@
+{
+  "state": "passed",
+  "plans": [
+    {
+      "operation": "csv-example:csv-row-1",
+      "plan_digest": "f0a7a547880a283c75ea5a9f946797ee73cd3566c1d5b1c651fac543852a3a7f",
+      "intent_digest": "e70e8d597cbad03f6b015d8d4952c7cf3985c1f10c74647ddd521c0a44265f1c",
+      "responses": 3
+    },
+    {
+      "operation": "csv-example:csv-row-2",
+      "plan_digest": "38f6d731136f874620f383710d58db1e5e8d1e05d0330298951d263584d3ae19",
+      "intent_digest": "09dc2d4158cf73a5e497fc1ead8c72655636dd95a7d69a785349a04a4a6f1f22",
+      "responses": 3
+    },
+    {
+      "operation": "csv-example:csv-row-3",
+      "plan_digest": "f8d3e3777b9c0a2705ef6568f385a1114890126ae186bd7511206a4a21c45c8a",
+      "intent_digest": "e10443caf327f4ec77dd96f9f1cdf85939a7efab25cb345b12a3c715f6fcc7db",
+      "responses": 3
+    },
+    {
+      "operation": "csv-example:csv-row-4",
+      "plan_digest": "6f7b114fd65a53fc59875111c09028314fe3fe46c20a0f9063948f01dce855cb",
+      "intent_digest": "7000ed9a6e4c1c751f0a2c3641eee71b9a8e3d8e5f6dd451c8b2d6f07da7477d",
+      "responses": 3
+    }
+  ],
+  "missing_plan_refused": true,
+  "native_transport_calls": 0,
+  "qualification": "Offline recovery from copied original native receipts; original journal opened read-only. No current authentication, native execution, writer/source admission, publication or ACK."
+}

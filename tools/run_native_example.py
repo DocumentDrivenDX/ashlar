@@ -160,7 +160,9 @@ def main():
                 deadline = time.monotonic() + 180
                 while True:
                     try:
-                        result = runner.run(operation_prefix + batch.batch_id, digest, expected_steps, context=lock)
+                        operation = operation_prefix + batch.batch_id
+                        execute = runner.recover if operation in operations else runner.run
+                        result = execute(operation, digest, expected_steps, context=lock)
                         break
                     except SQLPending:
                         if time.monotonic() > deadline:

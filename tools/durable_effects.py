@@ -21,6 +21,18 @@ class DurableEffects:
             transport.db.execute('CREATE TABLE IF NOT EXISTS effect_plan (operation TEXT PRIMARY KEY, intent_digest TEXT NOT NULL, plan_json TEXT NOT NULL, plan_digest TEXT NOT NULL)')
 
     def run(self, operation, intent_digest, steps, *, context):
+        """Start or idempotently continue a caller-admitted original plan."""
+        return self._execute(operation,intent_digest,steps,context=context,recovery=False)
+
+    def recover(self, operation, intent_digest, steps, *, context):
+        """Resume only retained exact plan custody; never recreate a missing plan.
+
+        Original unsubmitted ordinals may be submitted after renewed admission.
+        Previously submitted ordinals retain DurableSQL handle/uncertainty rules.
+        """
+        return self._execute(operation,intent_digest,steps,context=context,recovery=True)
+
+    def _execute(self, operation, intent_digest, steps, *, context, recovery):
         if not isinstance(operation,str) or not operation:
             raise EffectPlanError('Original operation required')
         import re
@@ -50,8 +62,11 @@ class DurableEffects:
                 raise EffectPlanError('Original effect plan admission incomplete')
             db=self.transport.db
             with db:
-                db.execute('INSERT OR IGNORE INTO effect_plan VALUES (?,?,?,?)',(operation,intent_digest,text,digest))
+                if not recovery:
+                    db.execute('INSERT OR IGNORE INTO effect_plan VALUES (?,?,?,?)',(operation,intent_digest,text,digest))
                 retained=db.execute('SELECT intent_digest,plan_json,plan_digest FROM effect_plan WHERE operation=?',(operation,)).fetchone()
+            if recovery and retained is None:
+                raise EffectPlanError('Recovery requires retained original effect plan; no replacement is authorized')
             if retained != (intent_digest,text,digest):
                 raise EffectPlanError('Immutable original effect plan conflict')
             results=[]

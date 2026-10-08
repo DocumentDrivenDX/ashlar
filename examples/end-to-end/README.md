@@ -707,3 +707,19 @@ native publisher phase path and real Truss runtime remains unfinished. The
 private pin role adapter relies on the existing trusted administrative login
 while executing functions/inventory under ordinary roles. It changes no grants
 and must not be used as production authentication.
+
+
+## Inspect retained effect recovery without cloud calls
+
+For the demonstrated original CSV journal, this command works from a read-only
+snapshot and checks exact plan/response recovery without native transport:
+
+```sh
+python3 tools/check_retained_effect_recovery.py --journal /private/tmp/ashlar-csv-apply-20261008.sqlite --output out/offline-effect-recovery.json
+```
+
+The output path must be fresh. Original native journals must be retained; do not
+replace them to restart a pending operation. Native replay uses an explicit
+recovery entry point for already-retained plans and refuses lost plan custody.
+This offline check does not authenticate current authority, admit a source,
+execute native effects, publish a descriptor or acknowledge progress.
