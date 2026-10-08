@@ -2618,7 +2618,12 @@
     "seventh_publisher_budget_r594.py": "4b64bd1380b16165ddb62fbc1d9e4cfd465e262968e6a15ac0d5e8e0fab17997",
     "seventh_publisher_preflight_r595.py": "4cc1dcfda4135c95216d79f337a465e8ed3ae2835caf63c5b116632f14fb60d8",
     "seventh_stage_audit_r598.py": "0a2aea01e723d42bb7c8a3135e70240a88205e0dc46f431f6414f05715f4196b",
-    "seventh_transfer_audit_r597.py": "97d197ce7dfef6ddc779e73ce15d211cca9e30143bc1bc72a9b5a5cbd353d736"
+    "seventh_transfer_audit_r597.py": "97d197ce7dfef6ddc779e73ce15d211cca9e30143bc1bc72a9b5a5cbd353d736",
+    "out/native/ashlar_seventh_delta_stage_r593/audited-summary.json": "26309813125d0de34f8c3b7a7aa98ac90f68e5627b0e789c5fd4060ecfe6fae8",
+    "out/native/ashlar_seventh_delta_stage_r593/completed-last-statement.json": "28e8d1c1182ee6c8a9e3057b1f1cc583fc6d6218e0828c7cba2fbf1f292cbac8",
+    "out/native/ashlar_seventh_delta_stage_r593/shared-history.json": "806ebe224e01adc838baed7daf06c43e90180ac1e2e24fb7279557cbd30ca404",
+    "out/native/ashlar_seventh_delta_stage_r593/statements.jsonl": "26c9de564d9a73d6a4be259b64f4145e5fdd5ff2f2c0af9ea0d66017b0451ab7",
+    "out/native/ashlar_seventh_delta_stage_r593/summary.json": "ee71eb378c20e03866eb80748a46f5923626a830dfaa94d6e6c95e319c84eb4d"
   },
   "evidence": {
     "ddl": {

@@ -1,0 +1,1 @@
+{"label": "seventh-batch-current_replacement", "statement_id": "01f1c2ab-a6ee-13e2-b91b-1fc824f9f53e", "statement": "SELECT count_if(apply_batch_id IS NULL OR apply_batch_id <> 'mixed-change/7') FROM client_dev.ashlar_entropy_20261006_r86.normalized_current_replacement_r593 VERSION AS OF 0"}
