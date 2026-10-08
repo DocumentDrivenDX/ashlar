@@ -282,3 +282,19 @@ result. Binding source SHA and the reconstructed original intake MUST agree.
 Every original complete transaction is admitted; deletion values still pass the
 host binding policy but do not become a new logical Record value observation.
 No publication or acknowledgement is issued by this helper.
+
+### Binding-derived native source preflight — 2026-10-08
+
+The native development runner now obtains logical Record/Field requests through
+its selected admitted StringRecordPolicy rather than fixture type/property IDs.
+Every selected original intake/binding MUST agree on source bytes and document
+revision; actual upstream receipts MUST identify the pinned UMF checker. Each
+qualified Record retains its own unchanged original receipt.
+
+Before a selected schema transition, retained current values MUST be decoded
+using their original source/revision policy and matching original history. Their
+logical Record/Field references may be checked against the explicitly selected
+target definition; target IDs MUST NOT overwrite original IDs/history/revisions.
+Missing original binding/history, source drift or absent target correspondence
+MUST refuse. Unmapped retained Fields MUST NOT disappear. This is a logical
+prestate check, not automatic compatibility, data conversion or native acceptance.

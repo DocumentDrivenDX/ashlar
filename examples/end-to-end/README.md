@@ -1103,3 +1103,12 @@ Only existing props homes are mapped. Native profile observations read the exact
 engine/build and ANSI setting before execution and release without changing them;
 these separate observations do not prove same-statement session settings. Broader
 numeric/recursive/typed-home/join/relationship qualification remains unfinished.
+
+The native runner's logical preflight now uses the admitted binding helper above,
+retaining per-Record results under `umf-record-check-REV/record-N.json` and schema
+prestate results under `existing-values-before-N/record-N.json`. Earlier receipt
+files remain original historical evidence. Prestate decoding uses the original
+schema binding, even when the selected target uses different IDs, then checks the
+qualified logical references against the explicit target. Source selection in
+this runner remains the documented examples; this wiring does not admit arbitrary
+source configurations or native Truss catalog IDs.

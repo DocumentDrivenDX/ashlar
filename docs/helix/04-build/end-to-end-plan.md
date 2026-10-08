@@ -2889,3 +2889,29 @@ This is a private development owner fixture string/presence query, not complete
 native Weft language conformance or production authorization. Exact per-execution
 settings proof, numeric/recursive/typed homes, joins/aggregates/keys/relationships
 and the actual Truss catalog/producer/feed remain unfinished. Goal stays active.
+
+### Binding-derived native preflight wiring — 2026-10-08
+
+The native source runner now uses the reusable admitted-binding UMF checker for
+original source records and selected target-schema prestate checks. Qualified
+Record/Field references replace its old example-ID switches. Original prestate
+IDs are decoded under their original schema binding, so changed target storage
+IDs cannot reinterpret history. Missing original bindings/history or unmapped
+Fields refuse; exact target selection does not imply automatic compatibility.
+Per-Record receipts are retained in fresh directories. Original publication
+request encoding and checker revision remain unchanged.
+
+Twenty-five focused local checks pass, including changed target IDs and missing
+prestate custody. The actual pinned UMF checker passes all three source values
+and two retained v1 values against v3; its complete results exactly equal the
+previous native run's logical receipts. Evidence:
+[bound preflight](evidence/bound-native-preflight-20261008.json). No warehouse
+statements, graph writes or source ACK were issued. An initial test invocation
+named a nonexistent test module; the corrected focused set passes. Native runner
+reexecution and broader source configuration remain separate qualification.
+
+The current Truss owner checkout at b8ab902 provides Weft query components but
+still no public protected schema acceptance/producer/feed entrypoint. An updated
+explicitly authorized capability request was successfully delivered to Truss Impl
+in this iteration. Actual Truss runtime remains required; that gap does not
+license synthetic acceptance/ACK or completion of the end-to-end goal.

@@ -56,7 +56,8 @@ from native_artifact_validation import NativeArtifactValidator
 from native_csv_configuration import installation_namespace
 from pinned_artifact_validation import PinnedArtifactValidation
 from persistent_sql import Client
-from run_local_example import fixture_inputs,check_original_records,check_existing_records
+from run_local_example import fixture_inputs,RECORD_CHECK_PIN
+from check_bound_umf_records import check_bound_records,check_bound_existing_records
 from native_schema_inventory import bind_intake_proofs
 from run_schema_evolution import inputs as evolution_inputs
 from sandbox_pins import PrivatePinTransactions
@@ -117,11 +118,16 @@ def main():
     if tuple(oracle_batches)!=batches or not batches:raise PublicationError('Independent original source custody differs')
     if args.limit>len(batches):parser.error('Limit exceeds complete original source batches')
     args.output.mkdir(parents=True)
+    producer_revisions=set()
     for selected_intake,_ in bound_intakes:
         selected_batches=tuple(batch for batch in batches if all(json.loads(record.raw)['schema_revision']==selected_intake.document_revision for record in batch.records))
-        output=args.output/('umf-record-check-'+selected_intake.document_revision+'.json' if args.source=='evolution' else 'umf-record-check.json')
-        umf=check_original_records(args.umf_source,selected_intake,selected_batches,output,
-            ROOT/('examples/end-to-end/schema-v'+selected_intake.document_revision+'.umf.json'))
+        selected_policy=semantic_policy.policies[('local-example',selected_intake.document_revision)] if args.source=='evolution' else semantic_policy
+        receipts=check_bound_records(args.umf_source,selected_intake,selected_policy,selected_batches,
+            output_dir=args.output/('umf-record-check-'+selected_intake.document_revision),
+            schema_path=ROOT/('examples/end-to-end/schema-v'+selected_intake.document_revision+'.umf.json'))
+        producer_revisions.update(receipt['producerRevision'] for receipt in receipts)
+    if producer_revisions!={RECORD_CHECK_PIN}:raise PublicationError('Actual original UMF Record checker evidence required')
+    upstream_revision=next(iter(producer_revisions))
     client=Client(args.output,profile=args.profile,warehouse_id=args.warehouse);user=client.w.current_user.me()
     if user.user_name!=installation['authenticated_owner']:raise PermissionError('Original private installation owner differs')
     journal=DurableSQL(str(args.journal),client.w.api_client,client.warehouse_id,user.id)
@@ -237,7 +243,7 @@ def main():
             'source_progress_json':encoded({checkpoint['feed']:checkpoint}),'recorded_at':observed['now_us'],
             'validation_report_json':encoded({'complete':True,'request_digest':request['request_digest'],
                 'source_sha256':source_sha,'source_groups':active['ordinal'],'intake_source_sha256':intake.source_sha256,
-                'intake_artifact_sha256':intake.artifact_sha256,'upstream_record_check_revision':umf['producerRevision'],
+                'intake_artifact_sha256':intake.artifact_sha256,'upstream_record_check_revision':upstream_revision,
                 **({'schema_intakes':[{'revision':i.document_revision,'source_sha256':i.source_sha256,'artifact_sha256':i.artifact_sha256,'table':p['table'],'table_uuid':p['table_uuid']} for i,p in bound_intakes]} if args.source=='evolution' else {}),
                 'effect_parity':witnesses,'retention':report,'qualification':'Private '+args.source.upper()+' fixture native publication; explicit local IDs and source custody, actual UMF logical checks. No accepted Truss IDs, remote source ACK or production remote fencing.'})}
     class SourcePolicy:
@@ -368,7 +374,8 @@ def main():
                 request['request_digest']=hashlib.sha256(encoded(request).encode()).hexdigest()
                 publication_id=args.source+'-stream-'+request['request_digest']
                 if args.source=='evolution' and any(json.loads(r.raw)['schema_revision']=='3' for r in batch.records):
-                    check_existing_records(args.umf_source,intake,state,args.output/('existing-values-before-'+str(ordinal)+'.json'),ROOT/'examples/end-to-end/schema-v3.umf.json')
+                    check_bound_existing_records(args.umf_source,intake,semantic_policy.policies[('local-example','3')],state,semantic_policy.policies,
+                        output_dir=args.output/('existing-values-before-'+str(ordinal)),schema_path=ROOT/'examples/end-to-end/schema-v3.umf.json')
                 state,steps=graph_sql_plan(state,batch,tables,materialized_at=clock,schema_policy=semantic_policy,schema_transition_policy=transition)
                 expected,_=fixture_inventory(oracle_batches[:ordinal],columns,materialized_at=clock)
                 specs.append({'ordinal':ordinal,'batch':batch,'request':request,'publication_id':publication_id,'steps':steps,'expected':expected})
