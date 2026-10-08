@@ -1490,3 +1490,21 @@ typecheck, portable build and packed consumer pass; final native probe also pass
 No cloud workload or settings change occurred. Complete error/resource admission,
 caller adoption/cancellation and uncertain native settlement remain unfinished,
 along with full Truss bootstrap and actual feed integration. Goal remains active.
+
+
+## Native Truss deadlock retry settlement — 2026-10-08
+
+The executor preserves statement SQLSTATE 40001/40P01 as whole-transaction retry.
+Savepoint rollback cannot clear that state; outer confirmed rollback/release
+returns the original retry failure without automatic replay or commit. Twenty
+tests/164 assertions, strict host typecheck, portable build and packed consumer
+pass. The actual PostgreSQL probe produces one 40P01 victim with confirmed outer
+rollback and one committed peer using opposing transaction-scoped advisory locks.
+Initial runs hit 55P03 under the one-second lock timeout; both rolled back. The
+successful probe uses a three-second transaction-local lock limit and retains the
+five-second statement limit. No deployment setting, table, persistent lock or
+cloud workload remains. Original final outcomes are retained in pg-executor.json.
+
+COMMIT-phase error classification, cancellation/adoption and complete native
+recovery/resource/bootstrap admission remain unfinished. Actual Truss streaming
+and the unchanged full end-to-end goal remain open.
