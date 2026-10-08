@@ -1,0 +1,16 @@
+"""Independent native-terminal selected-file baseline audit; no SQL execution."""
+import json,hashlib
+from mixed_change_queries_r230 import row_hash_sql
+from overlay_sql_r395 import FIELDS
+from pathlib import Path
+B=Path(__file__).resolve().parent;p=B/'out/native/ashlar_sparse_baseline_r608';a=json.loads((p/'summary.json').read_text());assert a['state']=='Complete20field selected-file baseline and typed identity uniqueness measured at E10';inventory=B/'out/native/ashlar_current_file_ranges_r606/summary.json';assert hashlib.sha256(inventory.read_bytes()).hexdigest()==a['source_sha256'];i=json.loads(inventory.read_text());assert a['table']==i['table']
+rs=list(map(json.loads,(p/'statements.jsonl').read_text().splitlines()));h=json.loads((p/'shared-history.json').read_text());qs={q['query_id']:q for q in h['queries']};assert len(rs)==len(qs)==len({r['statement_id'] for r in rs})==4 and h['require_final'] and not h['missing_ids']
+for r in rs:
+ q=qs[r['statement_id']];assert q['status']=='FINISHED' and q['is_final'] and q['query_text']==r['sql'] and r['response']['status']['state']=='SUCCEEDED' and not r['response'].get('manifest',{}).get('truncated')
+by={r['label']:r for r in rs};assert by['complete-selected-files']['response']['result']['data_array']==a['baseline'] and not qs[by['complete-selected-files']['statement_id']]['metrics'].get('result_from_cache');expected=[r for r in i['files'] if r[4]>=a['scope']['lower'] and r[3]<a['scope']['upper']];assert expected==a['files'] and len(expected)==20;assert {r[0]:int(r[1]) for r in a['baseline']}=={r[0]:int(r[2]) for r in expected};assert all(r[1]==r[2] and len(r[3])==64 for r in a['baseline']);assert sum(int(r[1]) for r in expected)==a['scope']['overlapping_physical_bytes']
+literals=','.join("decode(unhex('"+r[0].encode().hex()+"'),'UTF-8')" for r in expected)
+query=f"SELECT _metadata.file_path,count(*),count(DISTINCT struct(source_system,rel_type_id,id)),sha2(concat_ws('',sort_array(collect_list({row_hash_sql(FIELDS)}))),256) FROM {a['table']['table']} VERSION AS OF 10 WHERE _metadata.file_path IN ({literals}) GROUP BY _metadata.file_path ORDER BY _metadata.file_path"
+assert by['complete-selected-files']['sql']==query
+for label in ['head','final-head']:assert by[label]['response']['result']['data_array'][0][0]=='10'
+cols=[c['name'] for c in by['detail']['response']['manifest']['schema']['columns']];assert dict(zip(cols,by['detail']['response']['result']['data_array'][0]))['id']==a['table']['id']
+costs={k:sum(q['metrics'].get(k,0) for q in qs.values()) for k in a['costs']};assert costs==a['costs'] and all(v<=a['bounds'][k] for k,v in costs.items()) and a['wall_s']<180;a['audit']={'final_native_statements':4,'rows':sum(int(r[1]) for r in a['baseline']),'receipt_sha256':{n:hashlib.sha256((p/n).read_bytes()).hexdigest() for n in ['summary.json','statements.jsonl','shared-history.json']},'qualification':'Full selected-file row multisets and per-file typed identity uniqueness at pinnedE10; no global uniqueness proof or independently generated source contents. Future maintenance must prove complete changed-file preservation and untouched file/Delta-action custody; do not treat this baseline as a completed maintenance result.'};(p/'audited-summary.json').write_text(json.dumps(a,indent=2)+'\n');print(a['audit'])
