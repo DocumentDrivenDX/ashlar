@@ -2833,7 +2833,17 @@
     "out/native/ashlar_append_journal_blocks_r676/audited-summary-r677.json": "67630d94b3449d5d729e8073c998ea449147036f9f0ced350de9f071619f89b5",
     "out/native/ashlar_append_journal_blocks_r676/shared-history.json": "7426ee2fe6899c8542733ce2ad71626898fc2614d43d9bb6bead2e309aae2660",
     "out/native/ashlar_append_journal_blocks_r676/statements.jsonl": "0025b25d4dce34d8f2600f0c382f5a56881cde4f1e1981f8b5da8b82346e1066",
-    "out/native/ashlar_append_journal_blocks_r676/summary.json": "70b6c70e4785df0c60919ad1fcc7bb7420106d0ea30e27757b6445064ca2cf8c"
+    "out/native/ashlar_append_journal_blocks_r676/summary.json": "70b6c70e4785df0c60919ad1fcc7bb7420106d0ea30e27757b6445064ca2cf8c",
+    "out/next-edge-stage-budget-r679.json": "3326d7274734d8b953b7f4879c2d9d9f8d45da5d955214371ecd96d42eb46e01",
+    "append_edge_oracle_r680.py": "24c7e50fafba327db432e92c02a4a31b36a8e56fce4b25e136c9d244444dc85b",
+    "append_edge_blocks_r681.py": "7b55f1cb1700c49571861d299d56c448cc450de7f33648922746fe72ca34be7d",
+    "append_other_blocks_r682.py": "5777307bec25c46ced3a67fb118d470fb451de71fd6b21a3912abe9bee1589d5",
+    "append_other_blocks_audit_r683.py": "437fe393765e70137d3767407e32c6e7a47b00e602d4aac792042785d6f1e9b4",
+    "all-role-block-disposition-r684.md": "2863d34fc69e8ac8042e948ea6b5ea6ac205193fcdbd1718d349f8839902d4de",
+    "out/native/ashlar_append_other_blocks_r682/audited-summary-r683.json": "85f31bbd4ce5fb6bb1e2721f4fe8d8b64551b10b28025c16194562c4c655c3e0",
+    "out/native/ashlar_append_other_blocks_r682/shared-history.json": "548698cff79a6e872b2ce92d023441554d92b9ddcb0210d6b1beb9cbbfc7a6a3",
+    "out/native/ashlar_append_other_blocks_r682/statements.jsonl": "813f44934fc0b8991b318b81356d504636603a39a1cdd6810325a93b33b7f46a",
+    "out/native/ashlar_append_other_blocks_r682/summary.json": "6da78cfbf603ae0f27e7d7c265594f0686c3a79b6c6b3b1243d7fffc7d613fd7"
   },
   "evidence": {
     "ddl": {

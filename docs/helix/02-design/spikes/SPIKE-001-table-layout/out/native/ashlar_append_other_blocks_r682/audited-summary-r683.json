@@ -1,0 +1,60 @@
+{
+  "state": "All14 exact final native statements and240 complete independent digest groups audited",
+  "costs": {
+    "read_bytes": 13418825258,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 111.668672125,
+  "block_metrics": {
+    "edge_current": [
+      {
+        "execution_time_ms": 20714,
+        "read_bytes": 3260589698,
+        "read_files_count": 51,
+        "pruned_files_count": 53
+      },
+      {
+        "execution_time_ms": 19301,
+        "read_bytes": 3212547962,
+        "read_files_count": 53,
+        "pruned_files_count": 51
+      }
+    ],
+    "source_record": [
+      {
+        "execution_time_ms": 25291,
+        "read_bytes": 3413794966,
+        "read_files_count": 56,
+        "pruned_files_count": 64
+      },
+      {
+        "execution_time_ms": 24179,
+        "read_bytes": 3328939139,
+        "read_files_count": 64,
+        "pruned_files_count": 56
+      }
+    ],
+    "adjacency_forward": [
+      {
+        "execution_time_ms": 5240,
+        "read_bytes": 39866059,
+        "read_files_count": 4,
+        "pruned_files_count": 8
+      },
+      {
+        "execution_time_ms": 1948,
+        "read_bytes": 42886698,
+        "read_files_count": 8,
+        "pruned_files_count": 4
+      }
+    ]
+  },
+  "sources": {
+    "out/append-edge-oracle-r656.json": "a959801b547267f70a4dce3015477cab19428c5a670a093e26088c1476ba6266",
+    "out/native/ashlar_append_other_blocks_r682/summary.json": "6da78cfbf603ae0f27e7d7c265594f0686c3a79b6c6b3b1243d7fffc7d613fd7",
+    "out/native/ashlar_append_other_blocks_r682/shared-history.json": "548698cff79a6e872b2ce92d023441554d92b9ddcb0210d6b1beb9cbbfc7a6a3",
+    "out/native/ashlar_append_other_blocks_r682/statements.jsonl": "813f44934fc0b8991b318b81356d504636603a39a1cdd6810325a93b33b7f46a"
+  },
+  "qualification": "Complete independent current8M extent for carrier/raw/adjacency branches. Direct ID pruning adds no new logical allocation. Whole-table count/invalid membership and sum-of-block counts required. Not next16M growth, publication or performance admission. All branch fields and complete membership checked; SHA256 collision assumption. No full16M new-edge, wall-rate or sustained-service inference."
+}
