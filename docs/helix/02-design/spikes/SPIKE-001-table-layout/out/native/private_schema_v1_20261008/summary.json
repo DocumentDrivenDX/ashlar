@@ -1,0 +1,12 @@
+{
+  "state": "retained",
+  "table": "ashlar_e2e_private_20261008.runtime.schema_intake",
+  "table_uuid": "a090749b-e026-4fbb-a506-1a304407a6c7",
+  "document_id": "truss-weft-source-review-fixture",
+  "revision": "1",
+  "source_sha256": "bc5357b1eb99bddac4f1d1d1ce6d9727dbc98d8ca3a56b644510d07117919aec",
+  "artifact_sha256": "ad8a83360445c52aa7bc0c4d913ce4e44c5823b9b5f6c492580030ae11e1920d",
+  "validator_revision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+  "complete_interpretation": false,
+  "qualification": "Actual pinned UMF structural validation and exact raw native intake/readback only. Target semantic/schema/catalog acceptance, ID allocation, Truss head/runtime and feed are separate. Owner/inherited grants and same-host lock; remote writer lifecycle remains unqualified."
+}

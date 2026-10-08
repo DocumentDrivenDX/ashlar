@@ -535,3 +535,22 @@ checks pass. Raw staging preserves unsupported payloads but cannot advertise
 normalized interpretation. No manifest/checkpoint or retention/grant changes
 occurred. Next connect UMF schema intake/admission and graph effect/publication
 consumption to this staged source; Truss acceptance/runtime/feed remains required.
+
+## Runnable pinned UMF registry intake checkpoint
+
+The portable immutable raw registry now validates original SchemaIntake receipts
+and retains source/diagnostic bytes by document/revision under mandatory writer
+policy, bound native MERGE and complete original UUID/readback checks. The host
+register_umf.py command invokes actual clean pinned UMF code first, then renews
+installed owner/inherited permission admission and preserves original operation
+handles. It does not allocate schema/catalog IDs or advance Truss acceptance.
+
+Native schema_intake in the isolated runtime retains independently validated
+v1/revision1 and explicitly corrected additive v3/revision3. One independent
+query recovers both complete original source and actual diagnostic artifacts,
+matching their SHA256 values. UMF complete interpretation remains false for both;
+no flag was promoted. The v2 unknown optional token is not reinterpreted or
+overwritten. Eighty-seven local checks pass. No graph publication/checkpoint or
+retention/grant changes occurred. Next implement actual selected target semantic
+admission/catalog identity custody and connect admitted schema barriers to
+staged source consumption. Truss native acceptance/runtime/feed remains required.

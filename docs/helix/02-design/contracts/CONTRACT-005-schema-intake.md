@@ -174,3 +174,12 @@ Neither fixture has native accepted catalog status. Unknown root assertions and
 newer schema properties remain retained and block this selected binding when
 present; supported target interpretation cannot be inferred from structural
 validity or the presence of a source field.
+
+The runnable register_umf.py path invokes actual pinned clean UMF reader/validator
+code and retains raw documents/complete receipts through DeltaSchemaRegistry.
+Native isolated v1 and additive v3 source/artifact readback is byte-exact; both
+retain incomplete interpretation. Registration is immutable by document/revision,
+with source identity and validator digest verified, mandatory writer policy and
+UUID/schema/grant checks. Native semantic/catalog acceptance, stable allocation
+and schema barriers remain independent required steps; no raw registry row
+authorizes data ingestion or advances Truss schema_head.

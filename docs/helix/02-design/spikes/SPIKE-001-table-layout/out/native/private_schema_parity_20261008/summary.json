@@ -1,0 +1,16 @@
+{
+  "state": "passed",
+  "documents": 2,
+  "revisions": [
+    "1",
+    "3"
+  ],
+  "checks": [
+    "distinct original revisions retain complete exact source bytes",
+    "complete original actual UMF diagnostic artifacts preserved",
+    "native source/artifact digests match",
+    "incomplete interpretation remains false for both",
+    "journal retains one DDL and two original intake operations"
+  ],
+  "qualification": "Raw registry preservation and evolution custody only; executable binding, catalog IDs, native schema admission, Truss accepted head/feed and publication still unfinished."
+}

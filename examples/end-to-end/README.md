@@ -273,3 +273,25 @@ optional --cursor-before describes the original offset of the input fragment,
 not an instruction to seek within the file. Feed/epoch/input/cursor provenance
 are trusted development-owner configuration, not automatic native source
 registration. Other adapters must preserve their outer cursor independently.
+
+## Register a UMF document in raw schema intake
+
+The command runs the actual pinned UMF reader/validator from a clean checkout:
+
+```sh
+python3 tools/register_umf.py \
+  --installation docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_setup_20261008/summary.json \
+  --umf-source /Users/erik/Projects/umf \
+  --validator-revision 16c35e8d943769ccfa7bb57d16785aa7159abe65 \
+  --document examples/end-to-end/schema-v1.umf.json --revision 1 \
+  --journal /private/tmp/ashlar-private-schema-20261008.sqlite \
+  --output docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_schema_v1_20261008
+```
+
+Requires the SDK-enabled Python environment, Bun on PATH (or --bun), and installed
+UMF checkout dependencies. Retain the journal. Native v1 and separate v3/revision3
+registration pass exact original bytes and diagnostic readback. For v3, change
+--document, --revision and --output; keep the registry journal. Unknown/partial
+interpretation is retained truthfully. This registers raw schema custody, not an
+accepted executable schema or stable native catalog IDs; graph ingestion must
+still await selected semantic admission.

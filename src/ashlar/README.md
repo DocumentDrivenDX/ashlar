@@ -219,3 +219,13 @@ two-batch/nine-event staging and fresh-process replay pass with no new mutation
 submissions, and full original source bytes reconstruct exactly. This is raw
 intake; schema/graph admission, remote source fencing and publication/ACK remain
 required. The input/cursor/feed/epoch registration is trusted owner configuration.
+
+DeltaSchemaRegistry in schema_registry.py retains complete SchemaIntake source
+and diagnostic artifact bytes by immutable document/revision identity under a
+mandatory writer policy, bound MERGE and exact UUID/readback checks. Host
+register_umf.py invokes the actual clean pinned UMF reader/validator before raw
+registration; caller-authored validation flags are not substituted. It verifies
+the installed owner/grants, registry UUID/schema and original mutation custody.
+Native v1 and additive v3 exact bytes/digests and incomplete interpretation flags
+pass independent readback. This is raw intake, not native catalog acceptance,
+semantic binding/IDs or a schema barrier for graph data.

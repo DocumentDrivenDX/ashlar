@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "tests": 87,
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q",
+  "scope": "Raw registry original custody/replay/conflict, incomplete interpretation and pre-effect policy refusal; actual native UMF invocation and exact byte checks recorded separately."
+}
