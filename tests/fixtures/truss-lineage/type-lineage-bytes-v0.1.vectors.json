@@ -1,0 +1,80 @@
+{
+  "status": "unadopted_candidate",
+  "scope": "Six authored tree/preimage/routing examples; no production canonicalizer, native uniqueness or allocation proof",
+  "canonicalProfile": "truss-canonical/0.1.0",
+  "identityTransportProfile": "truss-type-lineage/0.1.0",
+  "vectors": [
+    {
+      "name": "document-A",
+      "identity": [
+        "doc:A",
+        "sales",
+        "Customer"
+      ],
+      "canonicalUtf8": "[\"doc:A\",\"sales\",\"Customer\"]",
+      "storedBytesHex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d747970652d6c696e656167652f302e312e300a5b22646f633a41222c2273616c6573222c22437573746f6d6572225d",
+      "storedBytesLength": "75",
+      "routingSha256": "5ebcf80d6217d95b5e88232ea0cc52cd6749ddab2264166202d2b0ea543b809a"
+    },
+    {
+      "name": "document-B",
+      "identity": [
+        "doc:B",
+        "sales",
+        "Customer"
+      ],
+      "canonicalUtf8": "[\"doc:B\",\"sales\",\"Customer\"]",
+      "storedBytesHex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d747970652d6c696e656167652f302e312e300a5b22646f633a42222c2273616c6573222c22437573746f6d6572225d",
+      "storedBytesLength": "75",
+      "routingSha256": "3d7edd978263b0507135d2b9cf7ace3cf980a87d310c54ecabf17d97e32ca90f"
+    },
+    {
+      "name": "composed-unicode",
+      "identity": [
+        "doc:A",
+        "sales",
+        "é"
+      ],
+      "canonicalUtf8": "[\"doc:A\",\"sales\",\"é\"]",
+      "storedBytesHex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d747970652d6c696e656167652f302e312e300a5b22646f633a41222c2273616c6573222c22c3a9225d",
+      "storedBytesLength": "69",
+      "routingSha256": "aa548f22af628dba27047aee7ee7a1522e5e4196619364cb4d5b3fec8c688b21"
+    },
+    {
+      "name": "decomposed-unicode",
+      "identity": [
+        "doc:A",
+        "sales",
+        "é"
+      ],
+      "canonicalUtf8": "[\"doc:A\",\"sales\",\"é\"]",
+      "storedBytesHex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d747970652d6c696e656167652f302e312e300a5b22646f633a41222c2273616c6573222c2265cc81225d",
+      "storedBytesLength": "70",
+      "routingSha256": "93de6b485808c3acf4d01703da5ed723c90814859dfca237e7a3f3de8b5677e3"
+    },
+    {
+      "name": "component-boundary-left",
+      "identity": [
+        "ab",
+        "c",
+        "d"
+      ],
+      "canonicalUtf8": "[\"ab\",\"c\",\"d\"]",
+      "storedBytesHex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d747970652d6c696e656167652f302e312e300a5b226162222c2263222c2264225d",
+      "storedBytesLength": "61",
+      "routingSha256": "d732f101c36e53ed33627a03078ea1ce708fde05603e03ba4d02a997e844c4b4"
+    },
+    {
+      "name": "component-boundary-right",
+      "identity": [
+        "a",
+        "bc",
+        "d"
+      ],
+      "canonicalUtf8": "[\"a\",\"bc\",\"d\"]",
+      "storedBytesHex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d747970652d6c696e656167652f302e312e300a5b2261222c226263222c2264225d",
+      "storedBytesLength": "61",
+      "routingSha256": "029b8c25dee7778040d05cbec91a4a95937bc026ac93e4e0b7bbdf8a7cc0b01b"
+    }
+  ]
+}

@@ -245,3 +245,11 @@ revision. It reparses the original intake and refuses mismatched interpretation
 source or altered custody before returning a policy. Native ID/revision acceptance
 is still a separate requirement; a local fixture MappingEntry is not Truss
 acceptance authority. The installed private Truss head remains revision0.
+
+lineage.py produces the exact bounded candidate Truss type and tagged relationship
+lineage carriers. Twelve independently authored Truss vectors verify exact bytes,
+lengths and routing digests, including derived/authored separation, Unicode spelling
+and component boundaries. Controls use the required long lowercase escapes. Closed
+shapes reject unknown members/profiles, NUL and unpaired surrogates. The encoder
+establishes byte correspondence only: original source/ownership admission, native
+allocation/report/head authority and protected acceptance remain outstanding.

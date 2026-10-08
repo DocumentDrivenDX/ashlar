@@ -2894,7 +2894,7 @@
     "../../../../../src/ashlar/__init__.py": "8f20eb9aa449f5817f8200eb8a8ce05922a65c6fc4ad56312027bca14615e9aa",
     "../../../../../src/ashlar/native.py": "2a95c50ba63be357b65a279e8a5c7d06aaf487e6d0e55dc4006b7c68fa16a78c",
     "../../../../../src/ashlar/publication.py": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
-    "../../../../../src/ashlar/README.md": "33b2704ac44261cd936f9a47a0ed7819563919d4ae4e04e082f835fa1a3bc156",
+    "../../../../../src/ashlar/README.md": "b94e4af9a41cf814dc5881d9cc87473ae3246f28a9069a4a4f8b746ac98cf339",
     "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
     "../../contracts/CONTRACT-004-publication-resolver.md": "24355c20e375474d8a30c421744397de2e6d5beac7f79f085e3a0b4ecf20b25e",
     "../../../../../README.md": "11e0aaa10f67e008542066d293624bd5e195529dd5bc2c3f8ed75b960f22bda7",
@@ -3064,7 +3064,12 @@
     "../../../../../src/ashlar/semantic_policy.py": "61fda7c8507ef51856ee3a7f75c092b4c2e261175ede04d0d9d2234673f526c1",
     "../../../../../tests/test_semantic_policy.py": "7f07eb1d6c1e0e1628e0ad8c15b557661f9a1f47b613c2243923b68cbddade75",
     "out/semantic-policy-local-20261008.json": "b4c12162b729e4696bca7e082e5f324c9365791580323f279223167b3cdb7cd3",
-    "out/intake-semantic-barrier-local-20261008.json": "f32c055e1317d3fbed06359b3311d35d8b742f82e2a3a74125396743cdc5d070"
+    "out/intake-semantic-barrier-local-20261008.json": "f32c055e1317d3fbed06359b3311d35d8b742f82e2a3a74125396743cdc5d070",
+    "../../../../../src/ashlar/lineage.py": "e907213575039d9c191ee7b45a840b81c7d2009a3f63c946d906fc2b2ba2b3f2",
+    "../../../../../tests/test_lineage.py": "69759eb8263405cf3b66d41b1c1fcabb72d25a8d7f8f75062a3d66f56d0a87f2",
+    "../../../../../tests/fixtures/truss-lineage/README.md": "3da8d2bc883a11b0a8be317ff5cb514f252cf6dfe9ac56d202d36fd9020bfecb",
+    "../../../../../tests/fixtures/truss-lineage/type-lineage-bytes-v0.1.vectors.json": "72f6d4ad48eac6c10a0395e0840521423f1094c66c0c6d4afb7937e58c078af2",
+    "../../../../../tests/fixtures/truss-lineage/relationship-lineage-bytes-v0.1.vectors.json": "3972f26a9541f68acec3b819d259166eb2a230c7bd5656544cc463b50ab770bf"
   },
   "evidence": {
     "ddl": {

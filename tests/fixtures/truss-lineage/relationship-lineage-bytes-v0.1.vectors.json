@@ -1,0 +1,104 @@
+{
+  "status": "unadopted_candidate",
+  "scope": "Authored complete tree/canonical/preimage/routing examples; no production canonicalizer/native identity or allocation proof",
+  "canonicalProfile": "truss-canonical/0.1.0",
+  "identityTransportProfile": "truss-relationship-lineage-bytes/0.1.0",
+  "vectors": [
+    {
+      "name": "authored",
+      "identity": {
+        "category": "authored",
+        "relationship": {
+          "document": "doc:A",
+          "module": "sales",
+          "element": "CustomerOrders"
+        }
+      },
+      "canonicalUtf8": "{\"category\":\"authored\",\"relationship\":{\"document\":\"doc:A\",\"element\":\"CustomerOrders\",\"module\":\"sales\"}}",
+      "storedBytesHex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d72656c6174696f6e736869702d6c696e656167652d62797465732f302e312e300a7b2263617465676f7279223a22617574686f726564222c2272656c6174696f6e73686970223a7b22646f63756d656e74223a22646f633a41222c22656c656d656e74223a22437573746f6d65724f7264657273222c226d6f64756c65223a2273616c6573227d7d",
+      "storedBytesLength": "164",
+      "routingSha256": "f5560d38904e1496f588bdbe7be4a54d7899981b3609015f78b2150f70e3289f"
+    },
+    {
+      "name": "authored-other-document",
+      "identity": {
+        "category": "authored",
+        "relationship": {
+          "document": "doc:B",
+          "module": "sales",
+          "element": "CustomerOrders"
+        }
+      },
+      "canonicalUtf8": "{\"category\":\"authored\",\"relationship\":{\"document\":\"doc:B\",\"element\":\"CustomerOrders\",\"module\":\"sales\"}}",
+      "storedBytesHex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d72656c6174696f6e736869702d6c696e656167652d62797465732f302e312e300a7b2263617465676f7279223a22617574686f726564222c2272656c6174696f6e73686970223a7b22646f63756d656e74223a22646f633a42222c22656c656d656e74223a22437573746f6d65724f7264657273222c226d6f64756c65223a2273616c6573227d7d",
+      "storedBytesLength": "164",
+      "routingSha256": "5fbd3d179f89f6f47ca7581bba39ca9d89365da1344f3da99da4ea6c65070df1"
+    },
+    {
+      "name": "derived",
+      "identity": {
+        "category": "composition_field",
+        "profile": "truss-composition-field-lineage/0.1.0",
+        "ownerRecord": {
+          "document": "doc:A",
+          "module": "sales",
+          "element": "Customer"
+        },
+        "sourceField": {
+          "document": "doc:A",
+          "module": "detail",
+          "element": "Orders"
+        }
+      },
+      "canonicalUtf8": "{\"category\":\"composition_field\",\"ownerRecord\":{\"document\":\"doc:A\",\"element\":\"Customer\",\"module\":\"sales\"},\"profile\":\"truss-composition-field-lineage/0.1.0\",\"sourceField\":{\"document\":\"doc:A\",\"element\":\"Orders\",\"module\":\"detail\"}}",
+      "storedBytesHex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d72656c6174696f6e736869702d6c696e656167652d62797465732f302e312e300a7b2263617465676f7279223a22636f6d706f736974696f6e5f6669656c64222c226f776e65725265636f7264223a7b22646f63756d656e74223a22646f633a41222c22656c656d656e74223a22437573746f6d6572222c226d6f64756c65223a2273616c6573227d2c2270726f66696c65223a2274727573732d636f6d706f736974696f6e2d6669656c642d6c696e656167652f302e312e30222c22736f757263654669656c64223a7b22646f63756d656e74223a22646f633a41222c22656c656d656e74223a224f7264657273222c226d6f64756c65223a2264657461696c227d7d",
+      "storedBytesLength": "288",
+      "routingSha256": "30c9a2212ece9ec1ad51426bf7ddae36fd3a097595b460f66638aa1804e954be"
+    },
+    {
+      "name": "authored-derived-looking-name",
+      "identity": {
+        "category": "authored",
+        "relationship": {
+          "document": "doc:A",
+          "module": "sales",
+          "element": "composition_field:Customer:Orders"
+        }
+      },
+      "canonicalUtf8": "{\"category\":\"authored\",\"relationship\":{\"document\":\"doc:A\",\"element\":\"composition_field:Customer:Orders\",\"module\":\"sales\"}}",
+      "storedBytesHex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d72656c6174696f6e736869702d6c696e656167652d62797465732f302e312e300a7b2263617465676f7279223a22617574686f726564222c2272656c6174696f6e73686970223a7b22646f63756d656e74223a22646f633a41222c22656c656d656e74223a22636f6d706f736974696f6e5f6669656c643a437573746f6d65723a4f7264657273222c226d6f64756c65223a2273616c6573227d7d",
+      "storedBytesLength": "183",
+      "routingSha256": "35c38692fff24477f0d71670adc9ff9ab6a5e62b83991cb3ab39275f710c933b"
+    },
+    {
+      "name": "unicode-nfc",
+      "identity": {
+        "category": "authored",
+        "relationship": {
+          "document": "doc:A",
+          "module": "é",
+          "element": "Quote\"\\Ω"
+        }
+      },
+      "canonicalUtf8": "{\"category\":\"authored\",\"relationship\":{\"document\":\"doc:A\",\"element\":\"Quote\\\"\\\\Ω\",\"module\":\"é\"}}",
+      "storedBytesHex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d72656c6174696f6e736869702d6c696e656167652d62797465732f302e312e300a7b2263617465676f7279223a22617574686f726564222c2272656c6174696f6e73686970223a7b22646f63756d656e74223a22646f633a41222c22656c656d656e74223a2251756f74655c225c5ccea9222c226d6f64756c65223a22c3a9227d7d",
+      "storedBytesLength": "158",
+      "routingSha256": "e359d30d39ed087c6c1524b2a254e696a798371f96f59f67b7ab75e0d1e7c385"
+    },
+    {
+      "name": "unicode-nfd",
+      "identity": {
+        "category": "authored",
+        "relationship": {
+          "document": "doc:A",
+          "module": "é",
+          "element": "Quote\"\\Ω"
+        }
+      },
+      "canonicalUtf8": "{\"category\":\"authored\",\"relationship\":{\"document\":\"doc:A\",\"element\":\"Quote\\\"\\\\Ω\",\"module\":\"é\"}}",
+      "storedBytesHex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d72656c6174696f6e736869702d6c696e656167652d62797465732f302e312e300a7b2263617465676f7279223a22617574686f726564222c2272656c6174696f6e73686970223a7b22646f63756d656e74223a22646f633a41222c22656c656d656e74223a2251756f74655c225c5ccea9222c226d6f64756c65223a2265cc81227d7d",
+      "storedBytesLength": "159",
+      "routingSha256": "cfe07c1183f0a74599b08ba38d715267162b4a207feb7cc31a876f9865225d2b"
+    }
+  ]
+}
