@@ -1,0 +1,44 @@
+{
+  "format": "ashlar-sql-schema-candidate/0.3",
+  "status": "proposed; not deployed",
+  "source": "docs/helix/02-design/spikes/SPIKE-001-table-layout/sql/delta-layout-v03.sql",
+  "source_sha256": "ad4a264508c971aefcd94e3ae90f8f74dcf119b7d767f6060c638f4abde3284e",
+  "ddl_groups": {
+    "01-baseline.sql": [
+      "object_current",
+      "edge_current",
+      "source_record",
+      "property_journal",
+      "tombstone",
+      "publication_manifest"
+    ],
+    "02-forward-adjacency.sql": [
+      "adjacency_forward"
+    ],
+    "03-reverse-adjacency.sql": [
+      "adjacency_reverse"
+    ],
+    "04-degree-summary.sql": [
+      "degree_summary"
+    ],
+    "05-typed-examples.sql": [
+      "node_type_a",
+      "edge_ab"
+    ],
+    "06-coordination-candidate.sql": [
+      "publisher_fence",
+      "apply_receipt"
+    ]
+  },
+  "files": {
+    "01-baseline.sql": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060",
+    "02-forward-adjacency.sql": "55da40832749f39f53f25ca90a2c85a868f5a7b3383cfb9651f50f74d706b325",
+    "03-reverse-adjacency.sql": "3c4575478efa7dd84d7545069a996c01e7d15a10b53fe52c9954a8c89ac066c9",
+    "04-degree-summary.sql": "ac2176e0d145bb21dc8edffd047c5d357343f215f181c0109902d4eaa0722dd5",
+    "05-typed-examples.sql": "356b465eae7e4effe22d013a034efc2dd872eaf779a9b10d6a07953723b0a1ac",
+    "06-coordination-candidate.sql": "bdc2449dd72092a8e1eaa547ff0ccf81194ba66b506af106387c6f02e7239581",
+    "README.md": "b731e85d4e206ef9915242ce8f435ed72dc821ad0e7e798667e0f7b0721d623f",
+    "native-singleton.sql": "311a7cabed197c991e13ad53dddfb1705cbe45bc82bfbf572bc75cf927953316"
+  },
+  "qualification": "Exact source CREATE extraction only; no native execution, migration, service performance, security or production fencing claim."
+}

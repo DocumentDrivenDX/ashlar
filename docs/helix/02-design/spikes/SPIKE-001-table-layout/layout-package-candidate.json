@@ -2874,7 +2874,16 @@
     "out/native/ashlar_billing_prices_r697/billing-result.json": "8df943d8e352ffd41516fce237d431df5beb0e1ea6ebe62cc2b7b4511fa97617",
     "table-design-handoff.md": "3a76a2b952df773b9dbec99120fee84f21642f9d6c0a737bd0973e1df426735f",
     "../../../01-frame/user-stories/US-002-validate-schema-package.md": "0a588b9e5cc416734018512c1ee04f5a7a550aa70a486e64e4c1dedbf3dcbd61",
-    "../../../README.md": "f768808ee881e2bd3600edf2cc90778a06f4d28acd3dda97e8955e74ac5cd23a"
+    "../../../README.md": "f768808ee881e2bd3600edf2cc90778a06f4d28acd3dda97e8955e74ac5cd23a",
+    "../../../../../sql/ashlar-delta-v03/04-degree-summary.sql": "ac2176e0d145bb21dc8edffd047c5d357343f215f181c0109902d4eaa0722dd5",
+    "../../../../../sql/ashlar-delta-v03/native-singleton.sql": "311a7cabed197c991e13ad53dddfb1705cbe45bc82bfbf572bc75cf927953316",
+    "../../../../../sql/ashlar-delta-v03/README.md": "b731e85d4e206ef9915242ce8f435ed72dc821ad0e7e798667e0f7b0721d623f",
+    "../../../../../sql/ashlar-delta-v03/manifest.json": "6dc5cc216617871af1f966961a99ca1ed54ee017edc162cfe0e097b16c989748",
+    "../../../../../sql/ashlar-delta-v03/06-coordination-candidate.sql": "bdc2449dd72092a8e1eaa547ff0ccf81194ba66b506af106387c6f02e7239581",
+    "../../../../../sql/ashlar-delta-v03/05-typed-examples.sql": "356b465eae7e4effe22d013a034efc2dd872eaf779a9b10d6a07953723b0a1ac",
+    "../../../../../sql/ashlar-delta-v03/02-forward-adjacency.sql": "55da40832749f39f53f25ca90a2c85a868f5a7b3383cfb9651f50f74d706b325",
+    "../../../../../sql/ashlar-delta-v03/01-baseline.sql": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060",
+    "../../../../../sql/ashlar-delta-v03/03-reverse-adjacency.sql": "3c4575478efa7dd84d7545069a996c01e7d15a10b53fe52c9954a8c89ac066c9"
   },
   "evidence": {
     "ddl": {
