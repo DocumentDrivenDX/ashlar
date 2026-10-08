@@ -1062,3 +1062,15 @@ observation separately; existing native evidence is preserved. No cloud query,
 remote cleanup, retained pin changes, TTL or retention setting changes occurred.
 UUID availability here means no pending cleanup, not Delta file availability.
 Native publication/read and protected Truss acceptance/feed remain unfinished.
+
+## Runnable native singleton diagnostic — 2026-10-08
+
+The outbox-streamed development object was read directly at Delta version 5
+through a new host command, with parameterized signed64 identity, exact lookup
+hash, LIMIT 2 ambiguity refusal, full native response parsing and before/after UUID
+checks. Three read-only statements on the existing warehouse returned object 1,
+entity version 2, schema revision 3, updated label, Unicode caption and unchanged
+opaque extension integer. Original receipts: out/native/singleton_diagnostic_20261008.
+No write, pin, publication or source ACK occurred. The command is documented in
+examples/end-to-end/README.md. Protected Truss acceptance/feed and composed
+manifest/resolver/pin admission remain required for the full end-to-end goal.

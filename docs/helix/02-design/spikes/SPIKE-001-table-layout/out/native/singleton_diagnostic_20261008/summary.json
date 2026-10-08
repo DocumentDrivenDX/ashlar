@@ -1,0 +1,16 @@
+{
+  "table": "ashlar_e2e_private_20261008.runtime_outbox.object_current",
+  "uuid": "6acb58c4-f660-4f38-8221-1edbb3248eb0",
+  "version": 5,
+  "row": {
+    "source_system": "local-example",
+    "type_id": "17",
+    "id": "1",
+    "entity_version": "2",
+    "schema_revision": "3",
+    "props_json": "{\"23\":\"updated\",\"24\":\"\u96ea\"}",
+    "retained_json": "{\"future\":18446744073709551615}",
+    "lookup_hash": "130425ac5264b46607cffbe83c741d069dcacc8d72cc4038c4049da15f7c5080"
+  },
+  "qualification": "Unpublished development diagnostic under current UC access. No manifest, active publication pins, retained-file guarantee, source ACK or accepted Truss schema."
+}

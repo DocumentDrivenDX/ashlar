@@ -415,3 +415,19 @@ Actual checks pass for the four final carriers and initial object snapshot,
 including v1/v3 revision custody and independent inner cursors. The captured
 version vector is observed effect evidence, not an active retention pin or
 published descriptor. This is a read-only command on the existing warehouse.
+
+### Read the streamed development object
+
+After the outbox native example, use the host environment with Databricks SDK
+and profile `aidev-cus`:
+
+```sh
+python tools/lookup_native_example.py --version 5 --id 1 --output /tmp/ashlar-point-read-new
+```
+
+The output directory must be new. The command checks the recorded development
+table UUID before/after a parameterized exact-version singleton lookup and saves
+original native responses. Object 1 currently carries version 2, schema revision
+3, the updated label and Unicode caption. This is an unpublished diagnostic
+under current Unity Catalog permissions. It does not establish manifest admission,
+active publication pins, future retained-file availability or source acknowledgement.
