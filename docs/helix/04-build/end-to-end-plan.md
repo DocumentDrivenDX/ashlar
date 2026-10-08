@@ -3041,3 +3041,21 @@ replay is verified; native exact-repeat and configured Weft queries remain separ
 unexecuted checks. Actual Truss acceptance/catalog/producer/feed, broader semantic
 models, combined source orchestration and production remote fencing/ACK remain
 unfinished. Full goal remains active.
+
+
+## Expanded UMF generator compatibility — 2026-10-08
+
+The actual clean UMF revision `385c8cf119a3c2e40ba59cc5f15e24edab52f3b2`
+regenerates all eight current carrier SQL statements, ordered columns and layouts
+identically. `tools/check_delta_generator_upgrade.ts` reproduces this comparison
+against the exact original model and generated artifact hashes. The retained
+[evidence](evidence/umf-delta-generator-upgrade-20261008.json) records both revisions.
+The current default remains the original `fac1497a` generator: native installation
+proofs bind that exact artifact digest and provenance, and must not be rewritten
+when a newer generator becomes available. An upgrade is therefore a separately
+qualified installation/provenance transition, not an automatic historical repin.
+No SQL, settings or cloud workload was executed. The four generated-carrier and
+native configuration unit checks pass; compatibility generation covers the current
+eight carriers, not native acceptance of the new nested/comment/bundle features.
+Actual accepted Truss schema/mutation/feed/ACK remains absent from the owner's
+current implementation; the end-to-end goal remains active.
