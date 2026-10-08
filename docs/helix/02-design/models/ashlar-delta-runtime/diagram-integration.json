@@ -1,0 +1,31 @@
+{
+  "state": "passed",
+  "profile": "ashlar-runtime-er/0.1",
+  "umf_revision": "fac1497a5ac5cb39bbaaac34eb0da8dc8b208c69",
+  "tables": 8,
+  "physical_fields": 97,
+  "relationships": 2,
+  "controls": [
+    {
+      "case": "unknown-logical-content",
+      "refused": true,
+      "prior_outputs_preserved": true
+    },
+    {
+      "case": "missing-member",
+      "refused": true,
+      "prior_outputs_preserved": true
+    },
+    {
+      "case": "wrong-field-family",
+      "refused": true,
+      "prior_outputs_preserved": true
+    },
+    {
+      "case": "unknown-native-metadata",
+      "refused": true,
+      "prior_outputs_preserved": true
+    }
+  ],
+  "qualification": "Actual pinned UMF schema/core readers and DDL generator used; complete current diagram byte regeneration and four refusal controls. No native SQL or end-to-end toolkit completion claim."
+}

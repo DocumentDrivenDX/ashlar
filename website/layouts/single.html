@@ -13,6 +13,7 @@
     <div class="label">{{ .Params.eyebrow }}</div>
     <h1>{{ .Title }}</h1>
     <p class="lede">{{ .Description }}</p>
+    {{ if eq .File.BaseFileName "schema" }}{{ partial "runtime-er.generated.html" . }}{{ end }}
     {{ .Content }}
     <div class="next-page"><a href="{{ .Params.nextPath | relURL }}">{{ .Params.nextLabel }} →</a></div>
   </article>

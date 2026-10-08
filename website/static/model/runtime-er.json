@@ -1,0 +1,758 @@
+{
+  "profile": "ashlar-runtime-er/0.1",
+  "umfRevision": "fac1497a5ac5cb39bbaaac34eb0da8dc8b208c69",
+  "generator": {
+    "tool": "tools/generate_runtime_diagram.ts",
+    "sha256": "120e77c0655466fe8c769d64875080e41709f3189dc901614a0fd837d3d2c8c3"
+  },
+  "inputs": {
+    "relationships.umf.json": "3b09f2938e94a83c92369a9b1f3b682528db463978fd1ac708c7b376fca4ce57",
+    "index.json": "3905d10dc5ec5e7bc7297004e9e73e6786e53dbf4d2533ecdd351c0b38ba7679",
+    "object_current.umf.json": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884",
+    "edge_current.umf.json": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302",
+    "source_record.umf.json": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375",
+    "property_journal.umf.json": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5",
+    "tombstone.umf.json": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13",
+    "publication_manifest.umf.json": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d",
+    "publication_attempt_phase.umf.json": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c",
+    "whole_source_history.umf.json": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926"
+  },
+  "tables": [
+    {
+      "name": "object_current",
+      "columns": [
+        {
+          "name": "source_system",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "required"
+        },
+        {
+          "name": "type_id",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "required"
+        },
+        {
+          "name": "id",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "required"
+        },
+        {
+          "name": "logical_key_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "schema_revision",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "entity_version",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "props_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "retained_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "root_id",
+          "deltaType": "long",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_feed",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_epoch",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_position",
+          "deltaType": "long",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "published_at",
+          "deltaType": "timestamp",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "lookup_hash",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "apply_batch_id",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_cursor_json",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_delivery_id",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        }
+      ],
+      "keys": [
+        {
+          "id": "identity",
+          "name": "typed identity",
+          "primary": true,
+          "fields": [
+            "source_system",
+            "type_id",
+            "id"
+          ]
+        }
+      ],
+      "clusterBy": [
+        "lookup_hash"
+      ],
+      "properties": {
+        "delta.dataSkippingStatsColumns": "lookup_hash,source_system,type_id,id",
+        "delta.targetFileSize": "67108864",
+        "delta.parquet.compression.codec": "zstd"
+      }
+    },
+    {
+      "name": "edge_current",
+      "columns": [
+        {
+          "name": "source_system",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "required"
+        },
+        {
+          "name": "rel_type_id",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "required"
+        },
+        {
+          "name": "id",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "required"
+        },
+        {
+          "name": "source_type",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_id",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "target_type",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "target_id",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "schema_revision",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "entity_version",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "props_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "retained_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "order_key",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_feed",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_epoch",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_position",
+          "deltaType": "long",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "published_at",
+          "deltaType": "timestamp",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "lookup_hash",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "apply_batch_id",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_cursor_json",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_delivery_id",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        }
+      ],
+      "keys": [
+        {
+          "id": "identity",
+          "name": "typed identity",
+          "primary": true,
+          "fields": [
+            "source_system",
+            "rel_type_id",
+            "id"
+          ]
+        }
+      ],
+      "clusterBy": [
+        "lookup_hash"
+      ],
+      "properties": {
+        "delta.dataSkippingStatsColumns": "lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id",
+        "delta.targetFileSize": "67108864",
+        "delta.parquet.compression.codec": "zstd"
+      }
+    },
+    {
+      "name": "source_record",
+      "columns": [
+        {
+          "name": "source_feed",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_epoch",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "delivery_id",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "record_kind",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_cursor_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "payload_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "payload_digest",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "schema_revision",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "received_at",
+          "deltaType": "timestamp",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "apply_batch_id",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        }
+      ],
+      "keys": [],
+      "clusterBy": [
+        "source_feed",
+        "source_epoch",
+        "delivery_id"
+      ],
+      "properties": {
+        "delta.dataSkippingStatsColumns": "source_feed,source_epoch,delivery_id"
+      }
+    },
+    {
+      "name": "property_journal",
+      "columns": [
+        {
+          "name": "source_system",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "entity_kind",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "type_id",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "id",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "property_id",
+          "deltaType": "long",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "entity_version",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "operation",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "old_present",
+          "deltaType": "boolean",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "old_json",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "new_present",
+          "deltaType": "boolean",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "new_json",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "schema_revision",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_feed",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_epoch",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_position",
+          "deltaType": "long",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "event_ordinal",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_time_text",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "published_at",
+          "deltaType": "timestamp",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "apply_batch_id",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_cursor_json",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_delivery_id",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        }
+      ],
+      "keys": [],
+      "clusterBy": [
+        "source_feed",
+        "source_epoch",
+        "source_position",
+        "id"
+      ],
+      "properties": {
+        "delta.dataSkippingStatsColumns": "source_feed,source_epoch,source_position,id,apply_batch_id"
+      }
+    },
+    {
+      "name": "tombstone",
+      "columns": [
+        {
+          "name": "source_system",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "entity_kind",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "type_id",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "id",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "entity_version",
+          "deltaType": "long",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_feed",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_epoch",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_position",
+          "deltaType": "long",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_cursor_json",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_delivery_id",
+          "deltaType": "string",
+          "nullable": true,
+          "logicalAvailability": "unspecified"
+        }
+      ],
+      "keys": [],
+      "clusterBy": [
+        "source_system",
+        "type_id",
+        "id"
+      ],
+      "properties": {}
+    },
+    {
+      "name": "publication_manifest",
+      "columns": [
+        {
+          "name": "publication_id",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "profile_version",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "table_versions_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "source_progress_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "schema_revisions_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "validation_report_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "recorded_at",
+          "deltaType": "timestamp",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        }
+      ],
+      "keys": [],
+      "clusterBy": [],
+      "properties": {}
+    },
+    {
+      "name": "publication_attempt_phase",
+      "columns": [
+        {
+          "name": "stream",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "batch_id",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "phase",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "request_digest",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "payload_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "payload_digest",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        }
+      ],
+      "keys": [],
+      "clusterBy": [],
+      "properties": {}
+    },
+    {
+      "name": "whole_source_history",
+      "columns": [
+        {
+          "name": "feed",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "epoch",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "delivery_id",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "digest",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "change_json",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        },
+        {
+          "name": "raw_base64",
+          "deltaType": "string",
+          "nullable": false,
+          "logicalAvailability": "unspecified"
+        }
+      ],
+      "keys": [],
+      "clusterBy": [],
+      "properties": {}
+    }
+  ],
+  "relationships": [
+    {
+      "id": "edge-source",
+      "name": "source endpoint",
+      "source": "edge_current",
+      "target": "object_current",
+      "targetKey": "identity",
+      "sourceMultiplicity": {
+        "min": 0,
+        "max": "*"
+      },
+      "targetMultiplicity": {
+        "min": 1,
+        "max": 1
+      },
+      "enforcement": "authored logical requirement; publisher responsibility, not Delta foreign-key enforcement"
+    },
+    {
+      "id": "edge-target",
+      "name": "target endpoint",
+      "source": "edge_current",
+      "target": "object_current",
+      "targetKey": "identity",
+      "sourceMultiplicity": {
+        "min": 0,
+        "max": "*"
+      },
+      "targetMultiplicity": {
+        "min": 1,
+        "max": 1
+      },
+      "enforcement": "authored logical requirement; publisher responsibility, not Delta foreign-key enforcement"
+    }
+  ],
+  "qualification": "Eight current runtime tables. Physical columns/layout come from exact UMF Delta definitions; logical keys and endpoint relationships are separate authored core 0.7.0 requirements. No native equality, FK enforcement, optional projection coverage or end-to-end runtime completion is implied.",
+  "outputs": {
+    "website/static/model/runtime-er.svg": "bc5bf899b0583f2cd995d8f05d9993bca82e63bb43ad6b54baba374f3b1cef15",
+    "website/layouts/_partials/runtime-er.generated.html": "f82578dbde716ee9b19a996ca46694d3d6c921dec517a9f45018d9949c53de41"
+  }
+}

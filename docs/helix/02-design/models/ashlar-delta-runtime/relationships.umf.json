@@ -1,0 +1,1437 @@
+{
+  "umf": "0.7.0",
+  "id": "ashlar-runtime-relational-model",
+  "vocabularies": {},
+  "modules": [
+    {
+      "id": "runtime",
+      "namespace": "ashlar",
+      "elements": [
+        {
+          "id": "object_current",
+          "name": "object_current",
+          "kind": "record",
+          "members": [
+            {
+              "module": "runtime",
+              "element": "object_current.source_system"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.type_id"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.id"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.logical_key_json"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.schema_revision"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.entity_version"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.props_json"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.retained_json"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.root_id"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.source_feed"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.source_epoch"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.source_position"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.published_at"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.lookup_hash"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.apply_batch_id"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.source_cursor_json"
+            },
+            {
+              "module": "runtime",
+              "element": "object_current.source_delivery_id"
+            }
+          ],
+          "extensions": {},
+          "keys": [
+            {
+              "id": "identity",
+              "name": "typed identity",
+              "primary": true,
+              "fields": [
+                {
+                  "module": "runtime",
+                  "element": "object_current.source_system"
+                },
+                {
+                  "module": "runtime",
+                  "element": "object_current.type_id"
+                },
+                {
+                  "module": "runtime",
+                  "element": "object_current.id"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "object_current.source_system",
+          "name": "object_current.source_system",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "required",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.type_id",
+          "name": "object_current.type_id",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "required",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.id",
+          "name": "object_current.id",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "required",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.logical_key_json",
+          "name": "object_current.logical_key_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.schema_revision",
+          "name": "object_current.schema_revision",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.entity_version",
+          "name": "object_current.entity_version",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.props_json",
+          "name": "object_current.props_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.retained_json",
+          "name": "object_current.retained_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.root_id",
+          "name": "object_current.root_id",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.source_feed",
+          "name": "object_current.source_feed",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.source_epoch",
+          "name": "object_current.source_epoch",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.source_position",
+          "name": "object_current.source_position",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.published_at",
+          "name": "object_current.published_at",
+          "kind": "field",
+          "scalarType": "timestamp",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.lookup_hash",
+          "name": "object_current.lookup_hash",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.apply_batch_id",
+          "name": "object_current.apply_batch_id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.source_cursor_json",
+          "name": "object_current.source_cursor_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "object_current.source_delivery_id",
+          "name": "object_current.source_delivery_id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current",
+          "name": "edge_current",
+          "kind": "record",
+          "members": [
+            {
+              "module": "runtime",
+              "element": "edge_current.source_system"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.rel_type_id"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.id"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.source_type"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.source_id"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.target_type"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.target_id"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.schema_revision"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.entity_version"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.props_json"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.retained_json"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.order_key"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.source_feed"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.source_epoch"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.source_position"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.published_at"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.lookup_hash"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.apply_batch_id"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.source_cursor_json"
+            },
+            {
+              "module": "runtime",
+              "element": "edge_current.source_delivery_id"
+            }
+          ],
+          "extensions": {},
+          "keys": [
+            {
+              "id": "identity",
+              "name": "typed identity",
+              "primary": true,
+              "fields": [
+                {
+                  "module": "runtime",
+                  "element": "edge_current.source_system"
+                },
+                {
+                  "module": "runtime",
+                  "element": "edge_current.rel_type_id"
+                },
+                {
+                  "module": "runtime",
+                  "element": "edge_current.id"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "edge_current.source_system",
+          "name": "edge_current.source_system",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "required",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.rel_type_id",
+          "name": "edge_current.rel_type_id",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "required",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.id",
+          "name": "edge_current.id",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "required",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.source_type",
+          "name": "edge_current.source_type",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.source_id",
+          "name": "edge_current.source_id",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.target_type",
+          "name": "edge_current.target_type",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.target_id",
+          "name": "edge_current.target_id",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.schema_revision",
+          "name": "edge_current.schema_revision",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.entity_version",
+          "name": "edge_current.entity_version",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.props_json",
+          "name": "edge_current.props_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.retained_json",
+          "name": "edge_current.retained_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.order_key",
+          "name": "edge_current.order_key",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.source_feed",
+          "name": "edge_current.source_feed",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.source_epoch",
+          "name": "edge_current.source_epoch",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.source_position",
+          "name": "edge_current.source_position",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.published_at",
+          "name": "edge_current.published_at",
+          "kind": "field",
+          "scalarType": "timestamp",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.lookup_hash",
+          "name": "edge_current.lookup_hash",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.apply_batch_id",
+          "name": "edge_current.apply_batch_id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.source_cursor_json",
+          "name": "edge_current.source_cursor_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "edge_current.source_delivery_id",
+          "name": "edge_current.source_delivery_id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "source_record",
+          "name": "source_record",
+          "kind": "record",
+          "members": [
+            {
+              "module": "runtime",
+              "element": "source_record.source_feed"
+            },
+            {
+              "module": "runtime",
+              "element": "source_record.source_epoch"
+            },
+            {
+              "module": "runtime",
+              "element": "source_record.delivery_id"
+            },
+            {
+              "module": "runtime",
+              "element": "source_record.record_kind"
+            },
+            {
+              "module": "runtime",
+              "element": "source_record.source_cursor_json"
+            },
+            {
+              "module": "runtime",
+              "element": "source_record.payload_json"
+            },
+            {
+              "module": "runtime",
+              "element": "source_record.payload_digest"
+            },
+            {
+              "module": "runtime",
+              "element": "source_record.schema_revision"
+            },
+            {
+              "module": "runtime",
+              "element": "source_record.received_at"
+            },
+            {
+              "module": "runtime",
+              "element": "source_record.apply_batch_id"
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "source_record.source_feed",
+          "name": "source_record.source_feed",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "source_record.source_epoch",
+          "name": "source_record.source_epoch",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "source_record.delivery_id",
+          "name": "source_record.delivery_id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "source_record.record_kind",
+          "name": "source_record.record_kind",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "source_record.source_cursor_json",
+          "name": "source_record.source_cursor_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "source_record.payload_json",
+          "name": "source_record.payload_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "source_record.payload_digest",
+          "name": "source_record.payload_digest",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "source_record.schema_revision",
+          "name": "source_record.schema_revision",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "source_record.received_at",
+          "name": "source_record.received_at",
+          "kind": "field",
+          "scalarType": "timestamp",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "source_record.apply_batch_id",
+          "name": "source_record.apply_batch_id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal",
+          "name": "property_journal",
+          "kind": "record",
+          "members": [
+            {
+              "module": "runtime",
+              "element": "property_journal.source_system"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.entity_kind"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.type_id"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.id"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.property_id"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.entity_version"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.operation"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.old_present"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.old_json"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.new_present"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.new_json"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.schema_revision"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.source_feed"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.source_epoch"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.source_position"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.event_ordinal"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.source_time_text"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.published_at"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.apply_batch_id"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.source_cursor_json"
+            },
+            {
+              "module": "runtime",
+              "element": "property_journal.source_delivery_id"
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.source_system",
+          "name": "property_journal.source_system",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.entity_kind",
+          "name": "property_journal.entity_kind",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.type_id",
+          "name": "property_journal.type_id",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.id",
+          "name": "property_journal.id",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.property_id",
+          "name": "property_journal.property_id",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.entity_version",
+          "name": "property_journal.entity_version",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.operation",
+          "name": "property_journal.operation",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.old_present",
+          "name": "property_journal.old_present",
+          "kind": "field",
+          "scalarType": "boolean",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.old_json",
+          "name": "property_journal.old_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.new_present",
+          "name": "property_journal.new_present",
+          "kind": "field",
+          "scalarType": "boolean",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.new_json",
+          "name": "property_journal.new_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.schema_revision",
+          "name": "property_journal.schema_revision",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.source_feed",
+          "name": "property_journal.source_feed",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.source_epoch",
+          "name": "property_journal.source_epoch",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.source_position",
+          "name": "property_journal.source_position",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.event_ordinal",
+          "name": "property_journal.event_ordinal",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.source_time_text",
+          "name": "property_journal.source_time_text",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.published_at",
+          "name": "property_journal.published_at",
+          "kind": "field",
+          "scalarType": "timestamp",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.apply_batch_id",
+          "name": "property_journal.apply_batch_id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.source_cursor_json",
+          "name": "property_journal.source_cursor_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "property_journal.source_delivery_id",
+          "name": "property_journal.source_delivery_id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "tombstone",
+          "name": "tombstone",
+          "kind": "record",
+          "members": [
+            {
+              "module": "runtime",
+              "element": "tombstone.source_system"
+            },
+            {
+              "module": "runtime",
+              "element": "tombstone.entity_kind"
+            },
+            {
+              "module": "runtime",
+              "element": "tombstone.type_id"
+            },
+            {
+              "module": "runtime",
+              "element": "tombstone.id"
+            },
+            {
+              "module": "runtime",
+              "element": "tombstone.entity_version"
+            },
+            {
+              "module": "runtime",
+              "element": "tombstone.source_feed"
+            },
+            {
+              "module": "runtime",
+              "element": "tombstone.source_epoch"
+            },
+            {
+              "module": "runtime",
+              "element": "tombstone.source_position"
+            },
+            {
+              "module": "runtime",
+              "element": "tombstone.source_cursor_json"
+            },
+            {
+              "module": "runtime",
+              "element": "tombstone.source_delivery_id"
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "tombstone.source_system",
+          "name": "tombstone.source_system",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "tombstone.entity_kind",
+          "name": "tombstone.entity_kind",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "tombstone.type_id",
+          "name": "tombstone.type_id",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "tombstone.id",
+          "name": "tombstone.id",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "tombstone.entity_version",
+          "name": "tombstone.entity_version",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "tombstone.source_feed",
+          "name": "tombstone.source_feed",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "tombstone.source_epoch",
+          "name": "tombstone.source_epoch",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "tombstone.source_position",
+          "name": "tombstone.source_position",
+          "kind": "field",
+          "scalarType": "integer",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "tombstone.source_cursor_json",
+          "name": "tombstone.source_cursor_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "tombstone.source_delivery_id",
+          "name": "tombstone.source_delivery_id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_manifest",
+          "name": "publication_manifest",
+          "kind": "record",
+          "members": [
+            {
+              "module": "runtime",
+              "element": "publication_manifest.publication_id"
+            },
+            {
+              "module": "runtime",
+              "element": "publication_manifest.profile_version"
+            },
+            {
+              "module": "runtime",
+              "element": "publication_manifest.table_versions_json"
+            },
+            {
+              "module": "runtime",
+              "element": "publication_manifest.source_progress_json"
+            },
+            {
+              "module": "runtime",
+              "element": "publication_manifest.schema_revisions_json"
+            },
+            {
+              "module": "runtime",
+              "element": "publication_manifest.validation_report_json"
+            },
+            {
+              "module": "runtime",
+              "element": "publication_manifest.recorded_at"
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "publication_manifest.publication_id",
+          "name": "publication_manifest.publication_id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_manifest.profile_version",
+          "name": "publication_manifest.profile_version",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_manifest.table_versions_json",
+          "name": "publication_manifest.table_versions_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_manifest.source_progress_json",
+          "name": "publication_manifest.source_progress_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_manifest.schema_revisions_json",
+          "name": "publication_manifest.schema_revisions_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_manifest.validation_report_json",
+          "name": "publication_manifest.validation_report_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_manifest.recorded_at",
+          "name": "publication_manifest.recorded_at",
+          "kind": "field",
+          "scalarType": "timestamp",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_attempt_phase",
+          "name": "publication_attempt_phase",
+          "kind": "record",
+          "members": [
+            {
+              "module": "runtime",
+              "element": "publication_attempt_phase.stream"
+            },
+            {
+              "module": "runtime",
+              "element": "publication_attempt_phase.batch_id"
+            },
+            {
+              "module": "runtime",
+              "element": "publication_attempt_phase.phase"
+            },
+            {
+              "module": "runtime",
+              "element": "publication_attempt_phase.request_digest"
+            },
+            {
+              "module": "runtime",
+              "element": "publication_attempt_phase.payload_json"
+            },
+            {
+              "module": "runtime",
+              "element": "publication_attempt_phase.payload_digest"
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "publication_attempt_phase.stream",
+          "name": "publication_attempt_phase.stream",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_attempt_phase.batch_id",
+          "name": "publication_attempt_phase.batch_id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_attempt_phase.phase",
+          "name": "publication_attempt_phase.phase",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_attempt_phase.request_digest",
+          "name": "publication_attempt_phase.request_digest",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_attempt_phase.payload_json",
+          "name": "publication_attempt_phase.payload_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "publication_attempt_phase.payload_digest",
+          "name": "publication_attempt_phase.payload_digest",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "whole_source_history",
+          "name": "whole_source_history",
+          "kind": "record",
+          "members": [
+            {
+              "module": "runtime",
+              "element": "whole_source_history.feed"
+            },
+            {
+              "module": "runtime",
+              "element": "whole_source_history.epoch"
+            },
+            {
+              "module": "runtime",
+              "element": "whole_source_history.delivery_id"
+            },
+            {
+              "module": "runtime",
+              "element": "whole_source_history.digest"
+            },
+            {
+              "module": "runtime",
+              "element": "whole_source_history.change_json"
+            },
+            {
+              "module": "runtime",
+              "element": "whole_source_history.raw_base64"
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "whole_source_history.feed",
+          "name": "whole_source_history.feed",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "whole_source_history.epoch",
+          "name": "whole_source_history.epoch",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "whole_source_history.delivery_id",
+          "name": "whole_source_history.delivery_id",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "whole_source_history.digest",
+          "name": "whole_source_history.digest",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "whole_source_history.change_json",
+          "name": "whole_source_history.change_json",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        },
+        {
+          "id": "whole_source_history.raw_base64",
+          "name": "whole_source_history.raw_base64",
+          "kind": "field",
+          "scalarType": "string",
+          "nullability": "unspecified",
+          "cardinality": "one",
+          "extensions": {}
+        }
+      ],
+      "relationships": [
+        {
+          "id": "edge-source",
+          "name": "source endpoint",
+          "source": [
+            {
+              "module": "runtime",
+              "element": "edge_current"
+            }
+          ],
+          "target": [
+            {
+              "module": "runtime",
+              "element": "object_current",
+              "key": "identity"
+            }
+          ],
+          "sourceMultiplicity": {
+            "min": 0,
+            "max": "*"
+          },
+          "targetMultiplicity": {
+            "min": 1,
+            "max": 1
+          },
+          "targetLifecycle": "independent",
+          "directed": true
+        },
+        {
+          "id": "edge-target",
+          "name": "target endpoint",
+          "source": [
+            {
+              "module": "runtime",
+              "element": "edge_current"
+            }
+          ],
+          "target": [
+            {
+              "module": "runtime",
+              "element": "object_current",
+              "key": "identity"
+            }
+          ],
+          "sourceMultiplicity": {
+            "min": 0,
+            "max": "*"
+          },
+          "targetMultiplicity": {
+            "min": 1,
+            "max": 1
+          },
+          "targetLifecycle": "independent",
+          "directed": true
+        }
+      ]
+    }
+  ]
+}
+

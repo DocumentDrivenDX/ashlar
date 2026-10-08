@@ -5,11 +5,15 @@ on:
     branches: [main]
     paths:
       - 'website/**'
+      - 'docs/helix/02-design/models/ashlar-delta-runtime/**'
+      - 'tools/generate_runtime_diagram.ts'
       - '.innsigle/**'
       - '.github/workflows/pages.yml'
   pull_request:
     paths:
       - 'website/**'
+      - 'docs/helix/02-design/models/ashlar-delta-runtime/**'
+      - 'tools/generate_runtime_diagram.ts'
       - '.innsigle/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -50,7 +54,9 @@ jobs:
           echo "$RUNNER_TEMP/hugo-bin" >> "$GITHUB_PATH"
       - name: Verify signed page sources
         run: node .tools/innsigle/src/cli.mjs verify --all
-      - name: Build production site
+      - name: Verify generated runtime model fingerprints
+        run: python3 website/scripts/check_runtime_model.py
+      - name: Build verified production site
         run: hugo --source website --destination public --cleanDestinationDir --panicOnWarning
       - name: Check links, navigation and seal coverage
         run: python3 website/scripts/check_site.py website/public --require-seals

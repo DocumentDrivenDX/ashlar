@@ -48,9 +48,13 @@ properties; historical hand-authored SQL and native receipts remain preserved.
 The runtime installer now consumes checked-in generated output and refuses stale
 model hashes. This change performs no native migration or retention setting change.
 
-The microsite must consume this model for its physical ER diagram, including
-explicit logical-reference semantics. That diagram integration remains pending;
-the existing manually drawn map must not be described as UMF-generated.
+The microsite now consumes this model for its runtime ER diagram and complete
+physical field lists. A separate authored UMF core 0.7.0 model supplies logical
+typed identity Keys and two edge endpoint Relationships. These are publisher
+requirements, not Delta FK enforcement; ideal value families do not replace
+native Delta types. Record-level relationships do not establish a reusable
+physical endpoint-column binding. The existing manually drawn conceptual map
+remains separately identified and must not be described as UMF-generated.
 Optional adjacency, degree, typed projections and coordination candidates in the
 broader schema package remain to be captured; the eight-carrier runtime model
 must not be described as covering those optional layouts.

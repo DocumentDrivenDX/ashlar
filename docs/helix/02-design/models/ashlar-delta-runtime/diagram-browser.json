@@ -1,0 +1,22 @@
+{
+  "browser": "153.0.8010.12",
+  "results": [
+    {
+      "viewport": "desktop",
+      "diagramLoaded": true,
+      "tables": 8,
+      "expandedObjectFields": 17,
+      "noPageOverflow": true,
+      "noPageErrors": true
+    },
+    {
+      "viewport": "mobile",
+      "diagramLoaded": true,
+      "tables": 8,
+      "expandedObjectFields": 17,
+      "noPageOverflow": true,
+      "noPageErrors": true
+    }
+  ],
+  "qualification": "Local Hugo output; actual image load, eight expandable tables, 17 object columns and whole-page overflow/page-error checks at desktop/mobile widths. Source seals remain unchanged; generated template/assets are outside their signature coverage."
+}

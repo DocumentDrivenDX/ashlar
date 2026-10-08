@@ -9,7 +9,13 @@ hugo server --source website --baseURL http://localhost:1313/ashlar/
 ```
 
 `content/` contains seven authored pages; shared layouts render the design system.
-The schema SVG is authored in its page source and has a text alternative. The
+The schema page adds a UMF-generated runtime ER diagram and complete expandable
+field lists through a shared template. Its input/output fingerprint check is
+`python3 website/scripts/check_runtime_model.py`; generation and actual-UMF
+integration commands are documented under
+`docs/helix/02-design/models/ashlar-delta-runtime/README.md`. The separately
+retained conceptual SVG is authored in the signed page source. Both have text
+alternatives; generated template/assets are outside source-signature coverage. The
 ecosystem examples link exact local evidence and distinguish deployment gaps.
 
 Innsigle signs each Markdown source, including embedded diagrams. Its Hugo

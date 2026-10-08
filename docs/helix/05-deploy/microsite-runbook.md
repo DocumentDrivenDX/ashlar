@@ -40,6 +40,16 @@ and CSS requests; the site has no client API, warehouse query or authentication
 flow. Web Vitals, real-user monitoring and page-error collection have no measured
 baseline and must not be represented as passing production targets.
 
+## Generated UMF runtime diagram
+
+Before building, run `python3 website/scripts/check_runtime_model.py`. The CI
+workflow refuses stale canonical model fingerprints or generated SVG/template
+fingerprints. Regenerate and review through the pinned UMF checkout using
+`tools/generate_runtime_diagram.ts`; the model README records exact commands
+and supported semantics. This is a stale-output guard, not a signature or
+native schema-enforcement claim. The shared template preserves the seven signed
+page sources; generated content remains outside those source signatures.
+
 ## Common Incident Procedures
 
 ### Stale or missing source attestation
