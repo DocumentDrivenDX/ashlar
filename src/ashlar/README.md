@@ -1,8 +1,9 @@
-# Publication resolver candidate
+# Ashlar toolkit components
 
 Python3.9+ standard-library core implementing the proposed
 [CONTRACT-004](../../docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md).
-No credentials, cloud SDK, writes or automatic deployment are included.
+The portable core uses no credentials or cloud SDK. Host deployment and transport
+tooling are separate, with explicit authenticated profiles and retained journals.
 
 resolve_publication requires an explicit trusted table/UUID inventory, supported
 profiles/revisions and a backend. It refuses missing/ambiguous descriptors,
@@ -189,3 +190,11 @@ client_dev fixtures inherit shared db-aidev-users MODIFY. Their process-local
 locks never establish ordinary remote writer exclusion. Dedicated development
 catalog ashlar_e2e_private_20261008 is now created with the authenticated owner
 and no explicit catalog grants; native table setup/policy wiring is next.
+
+Host tools/setup_native.py now installs the six baseline Delta carriers plus
+durable attempt and whole-source-history tables in an admitted existing catalog.
+Explicit catalog/schema/journal/output flags avoid global defaults. Authenticated
+owner and inherited grant checks run before setup, per table and at completion;
+all declared columns/types and retained native UUIDs are verified. Original DDL
+handles remain in the host journal. Native isolated eight-table setup passes;
+the tables remain empty candidates awaiting schema/feed/publication integration.

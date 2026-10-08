@@ -7,13 +7,13 @@ from urllib.parse import urlencode
 from databricks.sdk import WorkspaceClient
 WAREHOUSE='2439e1f2e37ac563'
 class Client:
- def __init__(self,out,observation_timeout=180,cancel_after=None,warehouse_id=WAREHOUSE):
+ def __init__(self,out,observation_timeout=180,cancel_after=None,warehouse_id=WAREHOUSE,profile='aidev-cus'):
   if not re.fullmatch(r"[0-9a-f]{16}",warehouse_id):raise ValueError("Invalid warehouse ID")
   self.warehouse_id=warehouse_id
   self.out=Path(out);self.out.mkdir(parents=True,exist_ok=True)
   self.observation_timeout=observation_timeout
   self.cancel_after=cancel_after
-  self.w=WorkspaceClient(profile='aidev-cus');self.records=[]
+  self.w=WorkspaceClient(profile=profile);self.records=[]
  def sql(self,label,statement,parameters=None):
   start=time.perf_counter();started=time.time()
   body={'warehouse_id':self.warehouse_id,'statement':statement,'wait_timeout':'10s','on_wait_timeout':'CONTINUE','disposition':'INLINE','format':'JSON_ARRAY','row_limit':1000}

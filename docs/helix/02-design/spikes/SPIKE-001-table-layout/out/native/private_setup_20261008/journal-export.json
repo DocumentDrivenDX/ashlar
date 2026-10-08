@@ -1,0 +1,101 @@
+{
+  "submissions": [
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime.edge_current:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime.edge_current (\\n  source_system STRING NOT NULL, rel_type_id BIGINT NOT NULL, id BIGINT NOT NULL,\\n  source_type BIGINT NOT NULL, source_id BIGINT NOT NULL,\\n  target_type BIGINT NOT NULL, target_id BIGINT NOT NULL,\\n  schema_revision STRING NOT NULL, entity_version BIGINT NOT NULL,\\n  props_json STRING NOT NULL, retained_json STRING NOT NULL, order_key STRING,\\n  source_feed STRING NOT NULL, source_epoch STRING NOT NULL,\\n  source_position BIGINT, published_at TIMESTAMP NOT NULL,\\n  lookup_hash STRING NOT NULL, apply_batch_id STRING,\\n  source_cursor_json STRING, source_delivery_id STRING\\n) USING DELTA CLUSTER BY (lookup_hash)\\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id',\\n'delta.targetFileSize'='67108864','delta.parquet.compression.codec'='zstd');\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "2406334b8c74e91303c8d9dd403a751273b8b86d1c23f445fb98ffaf47c3fc5b",
+      "handle": "01f1c2e3-dcc2-18d9-a59c-f14c03c8aae9",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2e3-dcc2-18d9-a59c-f14c03c8aae9\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime.object_current:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime.object_current (\\n  source_system STRING NOT NULL, type_id BIGINT NOT NULL, id BIGINT NOT NULL,\\n  logical_key_json STRING NOT NULL, schema_revision STRING NOT NULL,\\n  entity_version BIGINT NOT NULL, props_json STRING NOT NULL,\\n  retained_json STRING NOT NULL, root_id BIGINT,\\n  source_feed STRING NOT NULL, source_epoch STRING NOT NULL,\\n  source_position BIGINT, published_at TIMESTAMP NOT NULL,\\n  lookup_hash STRING NOT NULL, apply_batch_id STRING,\\n  source_cursor_json STRING, source_delivery_id STRING\\n) USING DELTA CLUSTER BY (lookup_hash)\\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='lookup_hash,source_system,type_id,id',\\n'delta.targetFileSize'='67108864','delta.parquet.compression.codec'='zstd');\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "6d94512d8e3b220474353d7a0e78f9cecb09fa470ea6683b7cc8180eed967fc8",
+      "handle": "01f1c2e3-d9bb-196f-a7ba-1bd59da999b4",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2e3-d9bb-196f-a7ba-1bd59da999b4\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime.property_journal:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime.property_journal (\\n  source_system STRING NOT NULL, entity_kind STRING NOT NULL,\\n  type_id BIGINT NOT NULL, id BIGINT NOT NULL, property_id BIGINT,\\n  entity_version BIGINT NOT NULL, operation STRING NOT NULL,\\n  old_present BOOLEAN NOT NULL, old_json STRING,\\n  new_present BOOLEAN NOT NULL, new_json STRING,\\n  schema_revision STRING NOT NULL, source_feed STRING NOT NULL,\\n  source_epoch STRING NOT NULL, source_position BIGINT,\\n  event_ordinal BIGINT NOT NULL, source_time_text STRING,\\n  published_at TIMESTAMP NOT NULL, apply_batch_id STRING,\\n  source_cursor_json STRING, source_delivery_id STRING\\n) USING DELTA CLUSTER BY (source_feed, source_epoch, source_position, id)\\n-- r100: batch statistics improve pinned-version journal file pruning;\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "9f3cc00aea64f97738d33d28cfd79f6aa112bfa8ce16c3d265ba1e185b6e4285",
+      "handle": "01f1c2e3-e05d-1efc-b412-c5fca27335b4",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2e3-e05d-1efc-b412-c5fca27335b4\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime.publication_attempt_phase:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime.publication_attempt_phase (stream STRING NOT NULL,batch_id STRING NOT NULL,phase STRING NOT NULL,request_digest STRING NOT NULL,payload_json STRING NOT NULL,payload_digest STRING NOT NULL) USING DELTA\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "82aeb51ec779b941861151337ab879e992ce21c0624bc80a661b3dc020807efe",
+      "handle": "01f1c2e3-e593-1da5-9638-9d50d88893d1",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2e3-e593-1da5-9638-9d50d88893d1\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime.publication_manifest:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime.publication_manifest (\\n  publication_id STRING NOT NULL, profile_version STRING NOT NULL,\\n  table_versions_json STRING NOT NULL, source_progress_json STRING NOT NULL,\\n  schema_revisions_json STRING NOT NULL, validation_report_json STRING NOT NULL,\\n  recorded_at TIMESTAMP NOT NULL\\n) USING DELTA;\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "5efdaa5d15bd3411020c8e458536a40055751262b3a3914109ee68648f42cc37",
+      "handle": "01f1c2e3-e3d0-19d3-934f-05a8754e413d",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2e3-e3d0-19d3-934f-05a8754e413d\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime.source_record:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime.source_record (\\n  source_feed STRING NOT NULL,\\n  source_epoch STRING NOT NULL,\\n  delivery_id STRING NOT NULL,\\n  record_kind STRING NOT NULL,\\n  source_cursor_json STRING NOT NULL,\\n  payload_json STRING NOT NULL,\\n  payload_digest STRING NOT NULL,\\n  schema_revision STRING,\\n  received_at TIMESTAMP NOT NULL,\\n  apply_batch_id STRING\\n) USING DELTA CLUSTER BY (source_feed, source_epoch, delivery_id)\\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='source_feed,source_epoch,delivery_id');\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "04228c27ad362b52d04f6266d04a861440911161148191ae0ab30acd9f84d27a",
+      "handle": "01f1c2e3-deae-194b-9d40-be517aa2103f",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2e3-deae-194b-9d40-be517aa2103f\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime.tombstone:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime.tombstone (\\n  source_system STRING NOT NULL, entity_kind STRING NOT NULL,\\n  type_id BIGINT NOT NULL, id BIGINT NOT NULL, entity_version BIGINT NOT NULL,\\n  source_feed STRING NOT NULL, source_epoch STRING NOT NULL,\\n  source_position BIGINT,\\n  source_cursor_json STRING, source_delivery_id STRING\\n) USING DELTA CLUSTER BY (source_system, type_id, id);\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "b6233c53ab7267752ae8803f0863bf1c097790b29129c306bc6f3dacf4ff3a1a",
+      "handle": "01f1c2e3-e221-1f29-8983-22a17eb01c18",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2e3-e221-1f29-8983-22a17eb01c18\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime.whole_source_history:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime.whole_source_history (feed STRING NOT NULL,epoch STRING NOT NULL,delivery_id STRING NOT NULL,digest STRING NOT NULL,change_json STRING NOT NULL,raw_base64 STRING NOT NULL) USING DELTA\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "249fef7e7217a078c93070715b7a7c078d4b780dfbfe8efc0ef8b6f2deec3ffd",
+      "handle": "01f1c2e3-e742-1b19-88dd-29312a7e0b2b",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2e3-e742-1b19-88dd-29312a7e0b2b\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime:schema",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE SCHEMA ashlar_e2e_private_20261008.runtime\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "97c7adf8d255c0e92eb069c0c4d5c0e1965f21b768d82b8e50e34f889e67a0dc",
+      "handle": "01f1c2e3-d904-1fcb-99d2-f4895b91518f",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2e3-d904-1fcb-99d2-f4895b91518f\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    }
+  ],
+  "installed_targets": [
+    {
+      "name": "ashlar_e2e_private_20261008.runtime.edge_current",
+      "uuid": "c32c5515-09d1-4b43-831e-47048b8b9d81"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime.object_current",
+      "uuid": "3e82843f-4afb-4d57-ad02-680033a0cb55"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime.property_journal",
+      "uuid": "d11c0961-9aa0-4a42-aee4-8fc26fc6c421"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime.publication_attempt_phase",
+      "uuid": "b4faa1fc-a28d-4812-8b2b-78fd71d07ad8"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime.publication_manifest",
+      "uuid": "c84f925c-ed3a-4ffb-903b-a8c555143595"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime.source_record",
+      "uuid": "59b8f028-a42f-4050-943b-f1f04df8148e"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime.tombstone",
+      "uuid": "747c6fa6-fea3-4089-b107-b2e6348c1b6b"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime.whole_source_history",
+      "uuid": "1085eb20-2d78-479a-ac08-0c6540d0162f"
+    }
+  ]
+}

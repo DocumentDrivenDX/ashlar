@@ -477,3 +477,24 @@ stopped and the supported SQL API was used. No data/retention changes or
 benchmark occurred. Next stand up the graph/manifest/attempt carriers in the
 dedicated catalog, renew table/ancestor grants and complete native snapshot/
 publication policy there. Truss acceptance/runtime/feed remains required.
+
+## Isolated native carrier deployment checkpoint
+
+The reusable setup_native.py command now installs all six proposed baseline
+carriers plus publication_attempt_phase and whole_source_history in an admitted
+existing catalog. Catalog/schema, journal, evidence output and host authentication
+are explicit; warehouse/profile retain the selected development defaults. Native
+DDL requests persist before submission and original handles/terminal responses
+remain available for recovery. Installed native UUIDs are retained and checked
+against later observations, rather than silently adopting recreated targets.
+
+Eight empty tables are installed in ashlar_e2e_private_20261008.runtime. Complete
+declared column/type comparisons, authenticated owners and fresh inherited
+permission inventories pass per table and for both ancestors. SDK0.102.0 was
+used; the shared SQL evidence transport now honors an explicit selected profile.
+Eighty-two existing local checks still pass. No graph data/manifest/checkpoint,
+retention property, cleanup or shared grant changed. These are ready development
+carriers, not accepted UMF/Truss schemas or a published graph. Next connect schema
+intake and admitted recoverable streaming/publication bodies to this namespace,
+then exercise the native resolver/singleton path. Truss acceptance/runtime/feed
+remains unfinished and required by the same goal.

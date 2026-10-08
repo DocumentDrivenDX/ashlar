@@ -225,3 +225,29 @@ host SQLite journal is `/private/tmp/ashlar-recoverable-graph-20261008.sqlite`;
 retain it for original-handle recovery rather than deleting it as temporary
 telemetry. The completed fixture refuses another setup/parity run. It verifies
 materialization and original-plan replay, not a Truss feed or read publication.
+
+## Isolated Unity Catalog setup
+
+The dedicated `ashlar_e2e_private_20261008.runtime` namespace now contains eight
+empty candidate graph/source/history/publication tables. Setup requires the
+Databricks SDK (tested0.102.0), a configured authenticated CLI/SDK profile and an
+existing catalog owned by that identity without unexpected inherited writers.
+From the Ashlar repository, the demonstrated command is:
+
+```sh
+python3 tools/setup_native.py \
+  --catalog ashlar_e2e_private_20261008 --schema runtime \
+  --profile aidev-cus --warehouse 2439e1f2e37ac563 \
+  --journal /private/tmp/ashlar-private-setup-20261008.sqlite \
+  --output docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_setup_20261008
+```
+
+Run it with the Python environment containing the SDK. The demonstrated journal
+is retained on this development machine; it is recovery state, not replaceable
+telemetry. For a new deployment, choose a persistent private journal path and a
+fresh schema, retaining the same arguments/path through retries. Setup has no
+overwrite, cleanup or blind resubmission. A pending returned statement resumes
+its original handle; a submission with no retained handle requires reconciliation.
+It verifies each original UUID/schema and renews owner/inherited grant admission.
+This command deploys empty carriers; actual UMF schema acceptance, Truss feed,
+streaming publication and user reads are still required by the end-to-end goal.
