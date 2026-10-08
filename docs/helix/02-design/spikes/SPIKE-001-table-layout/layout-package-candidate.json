@@ -2861,7 +2861,8 @@
     "out/native/ashlar_append_next_preflight_r687/summary.json": "a21ccbd1241629667384d0946ea491bb2673ad63e7fe879518712a12755a50c3",
     "append_edge_growth_r692.py": "933e771890a07ae30f8b2e22bb9112e64d24dcf928ec20e0903488acf019a638",
     "append_edge_growth_r693.py": "96ad7318113a1bc95ba735acbe24c7c82406f7535329c970eaa064efd16894ef",
-    "out/controller-stop-r692.json": "e0bcf4448dcb34b1cefbcd7d7d543c24faddb5660628027d660a224f61019a22"
+    "out/controller-stop-r692.json": "e0bcf4448dcb34b1cefbcd7d7d543c24faddb5660628027d660a224f61019a22",
+    "append_edge_growth_audit_r694.py": "7531c938bdb64b7f620ab55fd7a77898e637d01f10d3f1602c6e8628d63bf357"
   },
   "evidence": {
     "ddl": {
