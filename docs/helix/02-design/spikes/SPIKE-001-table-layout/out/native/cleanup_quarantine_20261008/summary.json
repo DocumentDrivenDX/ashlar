@@ -1,0 +1,19 @@
+{
+  "state": "passed",
+  "original_native_row": [
+    "metadata-only-quarantine-control-20261008",
+    "ashlar_e2e_private_20261008.runtime_outbox.object_current",
+    "6acb58c4-f660-4f38-8221-1edbb3248eb0",
+    "7b226b696e64223a226d657461646174612d6f6e6c792d636f6e74726f6c222c2272656d6f74655f616374696f6e223a226e6f6e65227d",
+    "7b226b696e64223a226d657461646174612d6f6e6c792d636f6e74726f6c2d636c6f736564222c2272656d6f74655f616374696f6e5f73746172746564223a66616c73657d"
+  ],
+  "checks": [
+    "committed pending custody survives connection close",
+    "exact pending repeat preserves original",
+    "pending UUID-wide custody refuses alias registration",
+    "maintenance role cannot close custody",
+    "separate recovery close retains exact terminal bytes",
+    "post-close control registration rolled back"
+  ],
+  "qualification": "Metadata-only ordinary-role quarantine controls; no remote action started, Delta query/cleanup, pin addition/release or retention change. Real cleanup terminal verifier/operator closure and live publication/read remain unqualified."
+}

@@ -1005,3 +1005,27 @@ All135 local checks pass. No data write, acknowledgement, publication or retenti
 change occurred. This completes observed fixture effect parity, not future file
 availability, active publication pins, full maintenance/operator containment or
 native Truss authority. Those remain predecessors of live publication/read.
+
+## Durable cleanup quarantine survives host connection close — 2026-10-08
+
+The isolated pin registry now persists original cleanup intent before remote work
+can begin and refuses new ordinary pins for every alias/version/scope of a pending
+UUID. Marker creation serializes with pin registration/release and refuses active
+UUID pins. Exact pending repeat preserves originals; closed operations cannot
+reopen. Only a distinct recovery role may retain immutable terminal bytes and
+close custody. CleanupQuarantine requires explicit scope/authority and independent
+actual native outcome verification; no default terminal verifier exists.
+
+Six actual native metadata-only controls pass, including committed marker custody
+across closed connections, alias registration refusal, maintenance-role close
+denial and exact original/terminal readback. The post-close registration control
+rolls back, so no pin was added/released. All137 local checks pass, including
+unverified terminal refusal before SQL and binary intent custody. Evidence:
+SPIKE-001-table-layout/out/native/cleanup_quarantine_20261008. No Delta query,
+cleanup, TTL or retention setting change occurred.
+
+This closes persistent uncertainty custody, not actual remote cleanup termination,
+all-operator/physical-target closure or retained snapshot availability. The one
+closed native operation is explicitly metadata-only with no remote action started;
+it must not qualify a real Delta cleanup receipt. Live publisher/read admission
+and protected Truss acceptance/feed remain unfinished.

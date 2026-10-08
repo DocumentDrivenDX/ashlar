@@ -156,3 +156,24 @@ remote cleanup requires quarantine/recovery; releasing the SQL guard does not
 prove remote termination. This new guard does not close those obligations or
 establish retained file availability. No TTL, pin release, VACUUM or retention
 policy change is performed by the implementation or native fixture checks.
+
+
+### Durable cleanup uncertainty quarantine
+
+The private registry additionally retains an immutable original cleanup operation,
+table/UUID and exact intent bytes before remote work may start. A pending marker
+blocks ordinary pin registration across every name/version/scope of the UUID,
+including renamed aliases, even after the registering host connection has closed.
+Marker creation refuses every existing active pin of that UUID and uses the same
+native pin-table lock as registration/release. No timeout or automatic expiry
+clears uncertainty.
+
+Only the separately granted recovery role may retain original terminal custody
+and close pending metadata; the maintenance role cannot close it. The host
+CleanupQuarantine port requires explicit current scope/authority admission and
+independent original native terminal/outcome verification before that close call.
+PostgreSQL preserves bytes and role separation; it cannot itself prove a remote
+Delta job terminated. Closed original operations cannot reopen; different original
+or terminal bytes conflict. Every cleanup operator and physical target must still
+participate, and actual remote verifier/containment qualification remains required.
+Metadata-only controls run no cleanup and are not evidence of Delta termination.
