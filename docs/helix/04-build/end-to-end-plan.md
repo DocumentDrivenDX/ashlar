@@ -1347,3 +1347,21 @@ This is a concrete bootstrap decoder dependency, not complete native inventory
 or installed Truss. Field-specific index/signature semantics, complete native
 array/JSON/dimension correspondence, required routine bodies/security and
 bootstrap/feed qualification remain unfinished. The end-to-end goal stays active.
+
+
+## Truss native array decoder prerequisite — 2026-10-08
+
+Truss candidate `codex/ashlar-runtime` is pushed at `1b64e6a`. Its ordinary
+text-array decoder preserves original text, native NULL/empty/null-element
+distinctions, quoted/escaped text, ordered rectangular nested shape and exact
+signed native bounds. It checks supplied dimensions and byte/node/depth limits.
+All eight original independent array vectors and additional controls pass; the
+combined package suite has seven tests and 88 assertions. Strict build and clean
+packed consumer checks pass. One small read-only local PostgreSQL 17.9 query
+retains seven original text/dimensions/JSON observations, all matching decoded
+elements exactly. Native evidence is in the candidate's inert-assembly directory.
+
+No cloud workload, mutations or setting changes occurred. Type/field-specific
+admission, ACL authority, aggregate native collector custody, complete bootstrap
+bodies/security and actual installed Truss/feed remain unfinished. This completes
+a decoder dependency and leaves the full end-to-end goal active.
