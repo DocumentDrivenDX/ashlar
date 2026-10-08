@@ -1454,3 +1454,22 @@ SQLSTATE mapping, full native result/resource admission and shared public-operat
 arbitration remain unfinished. Controlled port promises are not native confirmation;
 no complete Executor conformance or installed Truss is claimed. Native bootstrap
 and streaming remain open under the unchanged full end-to-end goal.
+
+
+## Actual native PostgreSQL executor bridge — 2026-10-08
+
+The Truss runtime candidate now connects its engine-owned executor to pinned
+pg 8.16.3 in a separate host package. Native text-format parsers preserve stored
+integer/decimal/temporal/JSON values as text; ordered native descriptions preserve
+duplicate names and empty-result columns. The actual read-only PostgreSQL 17.9
+probe through the executor verifies exact large numeric values, columns, savepoint
+operations and confirmed commit. This replaces inferring column metadata from
+Bun ordered results, which the native inspection found insufficient.
+
+Host strict typechecking, eighteen package tests/146 assertions, portable build
+and packed consumer pass. Compiler path resolution was corrected after a local
+build-path failure. Native evidence is `inert-assembly/pg-executor.json`. No
+persistent tables, cloud workload or settings changes occurred. The host package
+is source-only; caller adoption/cancellation, native uncertainty settlement, full
+parameter/resource/error/current-operation admission and complete Truss bootstrap
+remain unfinished. Actual Truss streaming and the full goal remain open.
