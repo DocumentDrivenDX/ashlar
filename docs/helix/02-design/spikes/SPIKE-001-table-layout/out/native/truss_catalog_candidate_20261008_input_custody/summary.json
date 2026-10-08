@@ -1,0 +1,143 @@
+{
+  "state": "verified_rollback_only",
+  "source_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+  "validator_revision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+  "acceptance_input_sha256": "797210a1e5a99cca50145e6db8c42a0bad2bf19578a7e04664d0163aeab3c4d7",
+  "input_profiles_registered": false,
+  "sql_sha256": "c55102b5ba2fbde47941a689c3fd6e908d7477c0f7f75d37b048248a3767ca5b",
+  "observed": [
+    {
+      "phase": "candidate",
+      "head": 0,
+      "original_request": {
+        "probe": "rollback-only",
+        "originalInputBase64": "ewogICJpbnRlcmZhY2VWZXJzaW9uIjogInRydXNzLWFjY2VwdGFuY2UtaW5wdXQvMC4xLjAiLAogICJsYXlvdXRQcm9maWxlIjogewogICAgImlkZW50aXR5IjogImFzaGxhci10cnVzcy1jYXRhbG9nLXByb2JlOmxheW91dCIsCiAgICAidmVyc2lvbiI6ICIwLjEiLAogICAgInNoYTI1NiI6ICJhMTQ2ZmE3YzkwMTE1ZDhmMWY5NTUyZTFlOTQxZjI1YzU2Y2JjMThjMTIyNTVlNjcwYzM1MWFjNWE2ZjBmZDY3IgogIH0sCiAgImFjY2VwdGFuY2VQcm9maWxlIjogewogICAgImlkZW50aXR5IjogImFzaGxhci10cnVzcy1jYXRhbG9nLXByb2JlOmFjY2VwdGFuY2UiLAogICAgInZlcnNpb24iOiAiMC4xIiwKICAgICJzaGEyNTYiOiAiMGMzZjI2ODc1YTE2MDBmZjlmMDNmYzZlYWE5MzdmNWQ1YWY1YjU2OWU2NGU2YmI4ODY5MWJhZDk4ODJlZWZjMyIKICB9LAogICJ2YWxpZGF0b3JQcm9maWxlIjogewogICAgImlkZW50aXR5IjogImFzaGxhci10cnVzcy1jYXRhbG9nLXByb2JlOnZhbGlkYXRvciIsCiAgICAidmVyc2lvbiI6ICIwLjEiLAogICAgInNoYTI1NiI6ICJhODQ4OTNlYTAwNDJmYzAxNTk2NzlhOTFjMDdmM2UyMDNmMDFlZDU1ZGFkMDAxZDU5M2FlYjc2YTFhOWE3NThiIgogIH0sCiAgInN1cHBvcnRQcm9maWxlIjogewogICAgImlkZW50aXR5IjogImFzaGxhci10cnVzcy1jYXRhbG9nLXByb2JlOnN1cHBvcnQiLAogICAgInZlcnNpb24iOiAiMC4xIiwKICAgICJzaGEyNTYiOiAiNDcxNTEzMzFkYmQxMjBkNDRjNGUyM2FiYzdlNDhkMWNhYmNiN2UyYTMzYjA0ZTQyMDgwMjM2NWYwZjhjMWQ2ZiIKICB9LAogICJkb2N1bWVudHMiOiBbCiAgICB7CiAgICAgICJkb2N1bWVudElkIjogInRydXNzLXdlZnQtc291cmNlLXJldmlldy1maXh0dXJlIiwKICAgICAgImRvY3VtZW50UmV2aXNpb24iOiAiMyIsCiAgICAgICJhcnRpZmFjdCI6IHsKICAgICAgICAiaWRlbnRpdHkiOiAib3JpZ2luYWwtc291cmNlOjYwZDQ0NjMxMGJhMWJkZWJmMzZhMWQwNjZhYWRlYjA5OTMzNmM3YTU1MWIzZTU2M2JkNTBhZTkzOGVlZmYwODUiLAogICAgICAgICJieXRlc0Jhc2U2NCI6ICJleUoxYldZaU9pSXdMamN1TUNJc0ltbGtJam9pZEhKMWMzTXRkMlZtZEMxemIzVnlZMlV0Y21WMmFXVjNMV1pwZUhSMWNtVWlMQ0oyYjJOaFluVnNZWEpwWlhNaU9udDlMQ0p0YjJSMWJHVnpJanBiZXlKcFpDSTZJbVpwZUhSMWNtVWlMQ0p1WVcxbGMzQmhZMlVpT2lKbWFYaDBkWEpsSWl3aVpXeGxiV1Z1ZEhNaU9sdDdJbWxrSWpvaWFYUmxiU0lzSW01aGJXVWlPaUpKZEdWdElpd2lhMmx1WkNJNkluSmxZMjl5WkNJc0ltMWxiV0psY25NaU9sdDdJbTF2WkhWc1pTSTZJbVpwZUhSMWNtVWlMQ0psYkdWdFpXNTBJam9pYkdGaVpXd2lmU3g3SW0xdlpIVnNaU0k2SW1acGVIUjFjbVVpTENKbGJHVnRaVzUwSWpvaVkyRndkR2x2YmlKOVhTd2laWGgwWlc1emFXOXVjeUk2ZTMxOUxIc2lhV1FpT2lKc1lXSmxiQ0lzSW01aGJXVWlPaUpzWVdKbGJDSXNJbXRwYm1RaU9pSm1hV1ZzWkNJc0luTmpZV3hoY2xSNWNHVWlPaUp6ZEhKcGJtY2lMQ0p1ZFd4c1lXSnBiR2wwZVNJNkluSmxjWFZwY21Wa0lpd2lZMkZ5WkdsdVlXeHBkSGtpT2lKdmJtVWlMQ0psZUhSbGJuTnBiMjV6SWpwN2ZYMHNleUpwWkNJNkltTmhjSFJwYjI0aUxDSnVZVzFsSWpvaVkyRndkR2x2YmlJc0ltdHBibVFpT2lKbWFXVnNaQ0lzSW5OallXeGhjbFI1Y0dVaU9pSnpkSEpwYm1jaUxDSnVkV3hzWVdKcGJHbDBlU0k2SW1GaWMyVnVkQzFoYkd4dmQyVmtJaXdpWTJGeVpHbHVZV3hwZEhraU9pSnZibVVpTENKbGVIUmxibk5wYjI1eklqcDdmWDFkZlYxOSIsCiAgICAgICAgInNoYTI1NiI6ICI2MGQ0NDYzMTBiYTFiZGViZjM2YTFkMDY2YWFkZWIwOTkzMzZjN2E1NTFiM2U1NjNiZDUwYWU5MzhlZWZmMDg1IgogICAgICB9LAogICAgICAidW1mUHJvZmlsZSI6IHsKICAgICAgICAiaWRlbnRpdHkiOiAiYXNobGFyLXRydXNzLWNhdGFsb2ctcHJvYmU6dW1mIiwKICAgICAgICAidmVyc2lvbiI6ICIwLjEiLAogICAgICAgICJzaGEyNTYiOiAiNmU1YTQwMGYzNTg3MmY4MDRiNmVlYWNlMzU4MzI0YmRjYzE2ZTBkOTJjZDk1NGYxY2EzZjQ4ODFkODc4YjA2MSIKICAgICAgfSwKICAgICAgImluZ3Jlc3MiOiB7CiAgICAgICAgImtpbmQiOiAibmF0aXZlIgogICAgICB9CiAgICB9CiAgXSwKICAiYmluZGluZyI6IHsKICAgICJzdGF0ZSI6ICJhYnNlbnQiCiAgfSwKICAicG9saWN5IjogewogICAgInVua25vd25FbmRwb2ludCI6ICJyZWplY3QiLAogICAgImxvc3MiOiAic3RyaWN0IiwKICAgICJwcm9maWxlIjogewogICAgICAiaWRlbnRpdHkiOiAiYXNobGFyLXRydXNzLWNhdGFsb2ctcHJvYmU6cG9saWN5IiwKICAgICAgInZlcnNpb24iOiAiMC4xIiwKICAgICAgInNoYTI1NiI6ICI4OWVjYjI0ZWZhYjE4NWJiYTI4YmE2NzMyZGUzNzY5Mjg4ZmM5NDIzZjNlZTBjOWFkMTllNDk4MjZhMDVlN2U3IgogICAgfQogIH0sCiAgInRyYW5zZm9ybXMiOiBbXQp9Cg==",
+        "acceptanceInputSha256": "797210a1e5a99cca50145e6db8c42a0bad2bf19578a7e04664d0163aeab3c4d7",
+        "acceptanceInputPreimageBase64": "dHJ1c3MtY2Fub25pY2FsLzAuMS4wCnRydXNzLWFjY2VwdGFuY2UtaW5wdXQvMC4xLjAKeyJhY2NlcHRhbmNlUHJvZmlsZSI6eyJpZGVudGl0eSI6ImFzaGxhci10cnVzcy1jYXRhbG9nLXByb2JlOmFjY2VwdGFuY2UiLCJzaGEyNTYiOiIwYzNmMjY4NzVhMTYwMGZmOWYwM2ZjNmVhYTkzN2Y1ZDVhZjViNTY5ZTY0ZTZiYjg4NjkxYmFkOTg4MmVlZmMzIiwidmVyc2lvbiI6IjAuMSJ9LCJiaW5kaW5nIjp7InN0YXRlIjoiYWJzZW50In0sImRvY3VtZW50cyI6W3siYXJ0aWZhY3QiOnsiYnl0ZXNCYXNlNjQiOiJleUoxYldZaU9pSXdMamN1TUNJc0ltbGtJam9pZEhKMWMzTXRkMlZtZEMxemIzVnlZMlV0Y21WMmFXVjNMV1pwZUhSMWNtVWlMQ0oyYjJOaFluVnNZWEpwWlhNaU9udDlMQ0p0YjJSMWJHVnpJanBiZXlKcFpDSTZJbVpwZUhSMWNtVWlMQ0p1WVcxbGMzQmhZMlVpT2lKbWFYaDBkWEpsSWl3aVpXeGxiV1Z1ZEhNaU9sdDdJbWxrSWpvaWFYUmxiU0lzSW01aGJXVWlPaUpKZEdWdElpd2lhMmx1WkNJNkluSmxZMjl5WkNJc0ltMWxiV0psY25NaU9sdDdJbTF2WkhWc1pTSTZJbVpwZUhSMWNtVWlMQ0psYkdWdFpXNTBJam9pYkdGaVpXd2lmU3g3SW0xdlpIVnNaU0k2SW1acGVIUjFjbVVpTENKbGJHVnRaVzUwSWpvaVkyRndkR2x2YmlKOVhTd2laWGgwWlc1emFXOXVjeUk2ZTMxOUxIc2lhV1FpT2lKc1lXSmxiQ0lzSW01aGJXVWlPaUpzWVdKbGJDSXNJbXRwYm1RaU9pSm1hV1ZzWkNJc0luTmpZV3hoY2xSNWNHVWlPaUp6ZEhKcGJtY2lMQ0p1ZFd4c1lXSnBiR2wwZVNJNkluSmxjWFZwY21Wa0lpd2lZMkZ5WkdsdVlXeHBkSGtpT2lKdmJtVWlMQ0psZUhSbGJuTnBiMjV6SWpwN2ZYMHNleUpwWkNJNkltTmhjSFJwYjI0aUxDSnVZVzFsSWpvaVkyRndkR2x2YmlJc0ltdHBibVFpT2lKbWFXVnNaQ0lzSW5OallXeGhjbFI1Y0dVaU9pSnpkSEpwYm1jaUxDSnVkV3hzWVdKcGJHbDBlU0k2SW1GaWMyVnVkQzFoYkd4dmQyVmtJaXdpWTJGeVpHbHVZV3hwZEhraU9pSnZibVVpTENKbGVIUmxibk5wYjI1eklqcDdmWDFkZlYxOSIsImlkZW50aXR5Ijoib3JpZ2luYWwtc291cmNlOjYwZDQ0NjMxMGJhMWJkZWJmMzZhMWQwNjZhYWRlYjA5OTMzNmM3YTU1MWIzZTU2M2JkNTBhZTkzOGVlZmYwODUiLCJzaGEyNTYiOiI2MGQ0NDYzMTBiYTFiZGViZjM2YTFkMDY2YWFkZWIwOTkzMzZjN2E1NTFiM2U1NjNiZDUwYWU5MzhlZWZmMDg1In0sImRvY3VtZW50SWQiOiJ0cnVzcy13ZWZ0LXNvdXJjZS1yZXZpZXctZml4dHVyZSIsImRvY3VtZW50UmV2aXNpb24iOiIzIiwiaW5ncmVzcyI6eyJraW5kIjoibmF0aXZlIn0sInVtZlByb2ZpbGUiOnsiaWRlbnRpdHkiOiJhc2hsYXItdHJ1c3MtY2F0YWxvZy1wcm9iZTp1bWYiLCJzaGEyNTYiOiI2ZTVhNDAwZjM1ODcyZjgwNGI2ZWVhY2UzNTgzMjRiZGNjMTZlMGQ5MmNkOTU0ZjFjYTNmNDg4MWQ4NzhiMDYxIiwidmVyc2lvbiI6IjAuMSJ9fV0sImludGVyZmFjZVZlcnNpb24iOiJ0cnVzcy1hY2NlcHRhbmNlLWlucHV0LzAuMS4wIiwibGF5b3V0UHJvZmlsZSI6eyJpZGVudGl0eSI6ImFzaGxhci10cnVzcy1jYXRhbG9nLXByb2JlOmxheW91dCIsInNoYTI1NiI6ImExNDZmYTdjOTAxMTVkOGYxZjk1NTJlMWU5NDFmMjVjNTZjYmMxOGMxMjI1NWU2NzBjMzUxYWM1YTZmMGZkNjciLCJ2ZXJzaW9uIjoiMC4xIn0sInBvbGljeSI6eyJsb3NzIjoic3RyaWN0IiwicHJvZmlsZSI6eyJpZGVudGl0eSI6ImFzaGxhci10cnVzcy1jYXRhbG9nLXByb2JlOnBvbGljeSIsInNoYTI1NiI6Ijg5ZWNiMjRlZmFiMTg1YmJhMjhiYTY3MzJkZTM3NjkyODhmYzk0MjNmM2VlMGM5YWQxOWU0OTgyNmEwNWU3ZTciLCJ2ZXJzaW9uIjoiMC4xIn0sInVua25vd25FbmRwb2ludCI6InJlamVjdCJ9LCJzdXBwb3J0UHJvZmlsZSI6eyJpZGVudGl0eSI6ImFzaGxhci10cnVzcy1jYXRhbG9nLXByb2JlOnN1cHBvcnQiLCJzaGEyNTYiOiI0NzE1MTMzMWRiZDEyMGQ0NGM0ZTIzYWJjN2U0OGQxY2FiY2I3ZTJhMzNiMDRlNDIwODAyMzY1ZjBmOGMxZDZmIiwidmVyc2lvbiI6IjAuMSJ9LCJ0cmFuc2Zvcm1zIjpbXSwidmFsaWRhdG9yUHJvZmlsZSI6eyJpZGVudGl0eSI6ImFzaGxhci10cnVzcy1jYXRhbG9nLXByb2JlOnZhbGlkYXRvciIsInNoYTI1NiI6ImE4NDg5M2VhMDA0MmZjMDE1OTY3OWE5MWMwN2YzZTIwM2YwMWVkNTVkYWQwMDFkNTkzYWViNzZhMWE5YTc1OGIiLCJ2ZXJzaW9uIjoiMC4xIn19"
+      },
+      "document": {
+        "doc_id": "truss-weft-source-review-fixture",
+        "doc_revision": "3",
+        "umf_version": "0.7.0",
+        "content_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+        "document": "{\"umf\":\"0.7.0\",\"id\":\"truss-weft-source-review-fixture\",\"vocabularies\":{},\"modules\":[{\"id\":\"fixture\",\"namespace\":\"fixture\",\"elements\":[{\"id\":\"item\",\"name\":\"Item\",\"kind\":\"record\",\"members\":[{\"module\":\"fixture\",\"element\":\"label\"},{\"module\":\"fixture\",\"element\":\"caption\"}],\"extensions\":{}},{\"id\":\"label\",\"name\":\"label\",\"kind\":\"field\",\"scalarType\":\"string\",\"nullability\":\"required\",\"cardinality\":\"one\",\"extensions\":{}},{\"id\":\"caption\",\"name\":\"caption\",\"kind\":\"field\",\"scalarType\":\"string\",\"nullability\":\"absent-allowed\",\"cardinality\":\"one\",\"extensions\":{}}]}]}",
+        "validation": {
+          "valid": true,
+          "complete": false,
+          "diagnostics": [
+            {
+              "code": "EXPERIMENTAL_CORE_NULLABILITY",
+              "path": "/umf",
+              "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+              "severity": "warning"
+            },
+            {
+              "code": "EXPERIMENTAL_CORE_CARDINALITY",
+              "path": "/umf",
+              "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+              "severity": "warning"
+            },
+            {
+              "code": "EXPERIMENTAL_CORE_FACETS",
+              "path": "/umf",
+              "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+              "severity": "warning"
+            },
+            {
+              "code": "EXPERIMENTAL_CORE_KEYS",
+              "path": "/umf",
+              "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+              "severity": "warning"
+            },
+            {
+              "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+              "path": "/umf",
+              "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+              "severity": "warning"
+            }
+          ]
+        }
+      },
+      "types": [
+        {
+          "document_id": "truss-weft-source-review-fixture",
+          "type_id": 1,
+          "module": "fixture",
+          "element": "item",
+          "kind": "record",
+          "since_rev": 1,
+          "doc_ord": 0,
+          "retired_rev": null,
+          "provisional": false,
+          "lineage_profile": "truss-type-lineage/0.1.0",
+          "lineage_hex": "74727573732d63616e6f6e6963616c2f302e312e300a74727573732d747970652d6c696e656167652f302e312e300a5b2274727573732d776566742d736f757263652d7265766965772d66697874757265222c2266697874757265222c226974656d225d",
+          "lineage_sha256": "a5abbde4caaf5b9517d01fc9b3c74c9a254c5e8fcc522e8278d3467118ec59ca",
+          "definition_source_kind": "accepted_document",
+          "definition_rev": 1,
+          "definition_doc_ord": 0,
+          "definition_document_id": "truss-weft-source-review-fixture",
+          "binding_source_rev": null,
+          "binding_source_pointer": null,
+          "binding_source_bytes": null
+        }
+      ],
+      "properties": [
+        {
+          "prop_id": 1,
+          "type_id": 1,
+          "element": "caption",
+          "name": "caption",
+          "scalar_type": "string",
+          "nullability": "absent-allowed",
+          "cardinality": "one",
+          "home": "json",
+          "since_rev": 1,
+          "doc_ord": 0,
+          "retired_rev": null,
+          "facets": null,
+          "item": null,
+          "definition_source_kind": "accepted_document",
+          "definition_rev": 1,
+          "definition_doc_ord": 0,
+          "definition_document_id": "truss-weft-source-review-fixture",
+          "binding_source_rev": null,
+          "binding_source_pointer": null,
+          "binding_source_bytes": null
+        },
+        {
+          "prop_id": 2,
+          "type_id": 1,
+          "element": "label",
+          "name": "label",
+          "scalar_type": "string",
+          "nullability": "required",
+          "cardinality": "one",
+          "home": "json",
+          "since_rev": 1,
+          "doc_ord": 0,
+          "retired_rev": null,
+          "facets": null,
+          "item": null,
+          "definition_source_kind": "accepted_document",
+          "definition_rev": 1,
+          "definition_doc_ord": 0,
+          "definition_document_id": "truss-weft-source-review-fixture",
+          "binding_source_rev": null,
+          "binding_source_pointer": null,
+          "binding_source_bytes": null
+        }
+      ],
+      "report_count": 0
+    },
+    {
+      "phase": "after_rollback",
+      "head": 0,
+      "revision_count": 1,
+      "document_count": 0,
+      "type_count": 0,
+      "property_count": 0,
+      "report_count": 0
+    }
+  ],
+  "qualification": "Actual selected UMF string-record candidate effects and exact native lineage/property/source readback under initial head lock, rolled back. No accepted revision/report, committed IDs, protected producer, ordinary-role closure, mutation/feed or full runtime readiness."
+}

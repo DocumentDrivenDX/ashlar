@@ -6,7 +6,7 @@ from ashlar.lineage import lineage_bytes, LineageError, TYPE, RELATIONSHIP
 
 class LineageTests(unittest.TestCase):
     def test_independent_truss_vectors(self):
-        files=list((Path(__file__).parent/'fixtures/truss-lineage').glob('*.json'))
+        files=list((Path(__file__).parent/'fixtures/truss-lineage').glob('*lineage-bytes*.json'))
         self.assertEqual(len(files),2)
         for file in files:
             fixture=json.loads(file.read_text())

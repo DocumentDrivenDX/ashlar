@@ -1,0 +1,55 @@
+{
+  "interfaceVersion": "truss-acceptance-input/0.1.0",
+  "layoutProfile": {
+    "identity": "ashlar-truss-catalog-probe:layout",
+    "version": "0.1",
+    "sha256": "a146fa7c90115d8f1f9552e1e941f25c56cbc18c12255e670c351ac5a6f0fd67"
+  },
+  "acceptanceProfile": {
+    "identity": "ashlar-truss-catalog-probe:acceptance",
+    "version": "0.1",
+    "sha256": "0c3f26875a1600ff9f03fc6eaa937f5d5af5b569e64e6bb88691bad9882eefc3"
+  },
+  "validatorProfile": {
+    "identity": "ashlar-truss-catalog-probe:validator",
+    "version": "0.1",
+    "sha256": "a84893ea0042fc0159679a91c07f3e203f01ed55dad001d593aeb76a1a9a758b"
+  },
+  "supportProfile": {
+    "identity": "ashlar-truss-catalog-probe:support",
+    "version": "0.1",
+    "sha256": "47151331dbd120d44c4e23abc7e48d1cabcb7e2a33b04e420802365f0f8c1d6f"
+  },
+  "documents": [
+    {
+      "documentId": "truss-weft-source-review-fixture",
+      "documentRevision": "3",
+      "artifact": {
+        "identity": "original-source:60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+        "bytesBase64": "eyJ1bWYiOiIwLjcuMCIsImlkIjoidHJ1c3Mtd2VmdC1zb3VyY2UtcmV2aWV3LWZpeHR1cmUiLCJ2b2NhYnVsYXJpZXMiOnt9LCJtb2R1bGVzIjpbeyJpZCI6ImZpeHR1cmUiLCJuYW1lc3BhY2UiOiJmaXh0dXJlIiwiZWxlbWVudHMiOlt7ImlkIjoiaXRlbSIsIm5hbWUiOiJJdGVtIiwia2luZCI6InJlY29yZCIsIm1lbWJlcnMiOlt7Im1vZHVsZSI6ImZpeHR1cmUiLCJlbGVtZW50IjoibGFiZWwifSx7Im1vZHVsZSI6ImZpeHR1cmUiLCJlbGVtZW50IjoiY2FwdGlvbiJ9XSwiZXh0ZW5zaW9ucyI6e319LHsiaWQiOiJsYWJlbCIsIm5hbWUiOiJsYWJlbCIsImtpbmQiOiJmaWVsZCIsInNjYWxhclR5cGUiOiJzdHJpbmciLCJudWxsYWJpbGl0eSI6InJlcXVpcmVkIiwiY2FyZGluYWxpdHkiOiJvbmUiLCJleHRlbnNpb25zIjp7fX0seyJpZCI6ImNhcHRpb24iLCJuYW1lIjoiY2FwdGlvbiIsImtpbmQiOiJmaWVsZCIsInNjYWxhclR5cGUiOiJzdHJpbmciLCJudWxsYWJpbGl0eSI6ImFic2VudC1hbGxvd2VkIiwiY2FyZGluYWxpdHkiOiJvbmUiLCJleHRlbnNpb25zIjp7fX1dfV19",
+        "sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085"
+      },
+      "umfProfile": {
+        "identity": "ashlar-truss-catalog-probe:umf",
+        "version": "0.1",
+        "sha256": "6e5a400f35872f804b6eeace358324bdcc16e0d92cd954f1ca3f4881d878b061"
+      },
+      "ingress": {
+        "kind": "native"
+      }
+    }
+  ],
+  "binding": {
+    "state": "absent"
+  },
+  "policy": {
+    "unknownEndpoint": "reject",
+    "loss": "strict",
+    "profile": {
+      "identity": "ashlar-truss-catalog-probe:policy",
+      "version": "0.1",
+      "sha256": "89ecb24efab185bba28ba6732de3769288fc9423f3ee0c9ad19e49826a05e7e7"
+    }
+  },
+  "transforms": []
+}

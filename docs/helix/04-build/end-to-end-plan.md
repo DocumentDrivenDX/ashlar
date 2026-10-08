@@ -611,3 +611,22 @@ publication, protected-role closure, Truss runtime or the end-to-end acceptance.
 Complete report construction/admission and protected persistence/ordinary-role
 inventory remain the next producer work. Do not use the probe's tentative IDs
 for Ashlar ingestion. All 97 local checks pass; no Databricks workload was run.
+
+## Complete acceptance input custody — 2026-10-08
+
+The native catalog candidate now retains the complete acceptance-input request:
+exact document bytes/revision, original layout/acceptance/validator/support/UMF
+and policy descriptor artifacts, absent binding and ordered transform inventory.
+Profiles are explicitly **unregistered candidates**. Original raw transport and
+full `truss-canonical/0.1.0` / `truss-acceptance-input/0.1.0` preimage round-trip
+with candidate catalog effects. Original-schema shape validation passes; four
+independent complete-wire vectors and drift/refusal controls verify the custody
+implementation. All 102 local checks pass; one small isolated native rollback
+probe passed and no Databricks workload ran.
+
+This supplies report construction's full input custody. It does not close original
+profile registration/recognition, authority, complete assertion inventory/actual
+enforcement evidence, native report encoder/persistence or accepted head publication.
+The head remains zero. Required next work remains the protected producer and its
+full report/effect correspondence; no ingestion may treat these candidate IDs as
+accepted. Receipts live in SPIKE-001-table-layout/out/native/truss_catalog_candidate_20261008_input_custody.

@@ -264,3 +264,20 @@ The source-completeness constraint rejected the initial missing-provenance attem
 its original SQL and error remain retained. The corrected native allocation run
 passes. This is a producer-development probe with admin custody, not a protected
 public acceptance producer or accepted catalog; candidate IDs have no authority.
+
+truss_input.py verifies complete candidate acceptance-input custody against
+original profile archives, UMF intake receipts and an explicitly supplied dependency
+order. It retains original transport and full domain-framed canonical bytes,
+verifies closed shapes/canonical base64/digests and refuses duplicate documents,
+unknown profiles/members, source/revision drift and host numeric transform values.
+Exact-repeat comparison uses complete preimages; outer JSON formatting is immaterial,
+while policy, binding and ordered transform changes remain distinct. Four original
+Truss complete-wire vectors independently verify tokens and domain-framed hashes.
+This is custody verification, not profile registration, current authority, target
+semantic admission, native report production or committed replay.
+
+The catalog probe now retains the complete request and unregistered profile
+archives, round-trips its original transport/canonical preimage with native
+candidate effects, and still rolls back. Its actual complete request passes
+Truss's original input schema using `tools/check_truss_input_schema.ts`; that
+shape check is independent of the Python custody checks.

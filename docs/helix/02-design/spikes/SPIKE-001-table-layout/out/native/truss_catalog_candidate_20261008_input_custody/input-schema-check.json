@@ -1,0 +1,7 @@
+{
+  "schema": "urn:truss:acceptance-input:0.1.0",
+  "schema_sha256": "0278cbbbde843091c005b688fd9c081a2fdff843b9adda006ba80fb87828d7cd",
+  "input_sha256": "ed8408fb914137f48cddbc54e976a41a18463e10cecdb77511047e4b16bc8b5c",
+  "valid": true,
+  "scope": "Original Draft 2020-12 schema shape only. Duplicate-member, artifact, profile, order and original native checks remain separate. No acceptance authority."
+}
