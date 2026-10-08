@@ -1172,3 +1172,20 @@ effective flags and safe terminal custody for already submitted operations. It
 does not alone prove log/data availability, all-operator closure or authorize
 publication. Other schema/canonical Truss work can continue independently while
 this policy decision remains pending. The full goal is not complete.
+
+## Full native CSV effect parity — 2026-10-08
+
+The original CSV now supplies an independent full-column oracle for the managed
+Delta fixture. No CSV adapter, apply planner or generated SQL rows are used to
+derive expected events/effects. Five exact snapshots pass schema/value/multiplicity
+comparison: final object, initial object, empty edges, tombstone and all four
+history rows. Original native SQL responses also pass the shared complete-result
+parser locally. Evidence: out/native/csv_delta_full_parity_20261008. The checker
+now uses that complete parser for subsequent observations. All152 local checks
+pass. Only bounded read-only fixture scans occurred; maintenance settings remain
+unchanged pending the earlier explicit policy authorization.
+
+This qualifies observed ingestion effects and exact-version readability, not
+future retention, active publication pins, native fencing or protected Truss IDs.
+The full goal remains open at Truss acceptance/feed and native publication/read
+admission; no source ACK was issued.

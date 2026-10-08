@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "original_responses": 24,
+  "complete_parser": "tools/databricks_transport.py:sql_result",
+  "qualification": "Original native response metadata/row completeness verified locally without replaying SQL."
+}

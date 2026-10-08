@@ -4,22 +4,21 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1];B=ROOT/'docs/helix/02-design/spikes/SPIKE-001-table-layout'
 sys.path.insert(0,str(ROOT/'src'));sys.path.insert(0,str(B))
 from ashlar.effect_validation import validate_effect_snapshot
-from ashlar.native import SQLResult
+from databricks_transport import sql_result
 from ashlar.source import jsonl_batches
 from persistent_sql import Client
 parser=argparse.ArgumentParser(description=__doc__)
-parser.add_argument('--source',choices=['local','outbox'],default='local')
+parser.add_argument('--source',choices=['local','outbox','csv'],default='local')
 args=parser.parse_args()
-N='ashlar_e2e_private_20261008.'+('runtime_outbox' if args.source=='outbox' else 'runtime')
-OUT=B/('out/native/outbox_delta_full_parity_20261008' if args.source=='outbox' else 'out/native/local_example_full_parity_20261008');c=Client(OUT)
-installation=json.loads((B/('out/native/outbox_setup_20261008/summary.json' if args.source=='outbox' else 'out/native/private_setup_20261008/summary.json')).read_text())
+N='ashlar_e2e_private_20261008.'+{'local':'runtime','outbox':'runtime_outbox','csv':'runtime_csv'}[args.source]
+OUT=B/('out/native/'+{'local':'local_example_full_parity_20261008','outbox':'outbox_delta_full_parity_20261008','csv':'csv_delta_full_parity_20261008'}[args.source]);c=Client(OUT)
+installation=json.loads((B/('out/native/'+{'local':'private_setup_20261008','outbox':'outbox_setup_20261008','csv':'csv_setup_20261008'}[args.source]+'/summary.json')).read_text())
 registered={table: value['uuid'] for table,value in installation['tables'].items()}
 if installation['namespace']!=N:raise ValueError('Private installation differs')
 class Transport:
     def query(self,sql,parameters):
-        rows=c.sql('complete-effect-parity',sql,parameters=[{'name':k,'type':'STRING','value':v} for k,v in parameters.items()] or None)
-        fields=c.records[-1]['response'].get('manifest',{}).get('schema',{}).get('columns',[])
-        return SQLResult([dict(zip([f['name'] for f in fields],r)) for r in rows],tuple((f['name'],f['type_text']) for f in fields))
+        c.sql('complete-effect-parity',sql,parameters=[{'name':k,'type':'STRING','value':v} for k,v in parameters.items()] or None)
+        return sql_result(c.records[-1]['response'])
 transport=Transport();columns={}
 baseline=(ROOT/'sql/ashlar-delta-v03/01-baseline.sql').read_text()
 for table in ['object_current','edge_current','tombstone']:
@@ -28,7 +27,26 @@ for table in ['object_current','edge_current','tombstone']:
 columns['whole_source_history']=tuple((k,'STRING') for k in ['feed','epoch','delivery_id','digest','change_json','raw_base64'])
 source=ROOT/('examples/end-to-end/schema-evolution-source.jsonl' if args.source=='outbox' else 'examples/end-to-end/local-string-source.jsonl')
 feed='native-evolution' if args.source=='outbox' else 'local-jsonl'
-batches=list(jsonl_batches(source.read_bytes().splitlines(keepends=True),feed=feed,epoch='example-1'))
+if args.source=='csv':
+    # Independent CSV oracle: no csv_batches, apply planner or generated SQL.
+    import csv
+    from ashlar.source import records_digest
+    source=ROOT/'examples/end-to-end/string-source.csv';feed='csv-example'
+    originals=source.read_bytes().splitlines(keepends=True)
+    header=next(csv.reader([originals[0].decode()],strict=True));batches=[]
+    def encode(value):return (json.dumps(value,ensure_ascii=False,separators=(',',':'))+'\n').encode()
+    for ordinal,raw in enumerate(originals[1:],1):
+        row=dict(zip(header,next(csv.reader([raw.decode()],strict=True))))
+        custody={'profile':'ashlar-single-line-csv/0.1','header_base64':base64.b64encode(originals[0]).decode(),'row_base64':base64.b64encode(raw).decode(),'row_ordinal':str(ordinal)}
+        event={'kind':'event','source_profile':'ashlar-whole-entity/0.1','source_system':'local-example','schema_revision':'3',
+            'delivery_id':json.dumps(custody,separators=(',',':')),'entity_kind':'object','type_id':'17','id':row['id'],'entity_version':row['entity_version'],'operation':row['operation'],
+            'props_json':json.dumps({'23':row['label'],'24':row['caption']},ensure_ascii=False,separators=(',',':')),
+            'retained_json':json.dumps({'source_profile':'ashlar-single-line-csv/0.1','unmapped_columns':{'future':row['future']}},ensure_ascii=False,separators=(',',':'))}
+        record=encode(event);ident='csv-row-'+str(ordinal)
+        transaction=[encode({'kind':'begin','batch_id':ident}),record,encode({'kind':'commit','batch_id':ident,'record_count':1,'records_sha256':records_digest([record])})]
+        batches.extend(jsonl_batches(transaction,feed=feed,epoch='immutable-example-1'))
+else:
+    batches=list(jsonl_batches(source.read_bytes().splitlines(keepends=True),feed=feed,epoch='example-1'))
 if args.source=='outbox':
     # PG contains independent exact transaction blobs; their inner offsets reset
     # to zero. Native group positions are separate retained source intent.
@@ -60,7 +78,7 @@ for batch in batches:
                'endpoints':None if kind=='object' else [typed_key('object',r['type_id'],r['id']) for r in event['endpoints']]}
         change={'feed':batch.feed,'epoch':batch.epoch,'delivery_id':record.delivery_id,'raw_digest':record.sha256,'operation':event['operation'],'state':state}
         history.append({'feed':batch.feed,'epoch':batch.epoch,'delivery_id':record.delivery_id,'digest':record.sha256,'change_json':json.dumps(change,separators=(',',':')),'raw_base64':base64.b64encode(record.raw).decode()})
-    if batch.batch_id in ('local-1','evolution-1'):first=dict(current)
+    if batch.batch_id in ('local-1','evolution-1','csv-row-1'):first=dict(current)
 expected={'object_current':[r for k,r in current.items() if k[0]=='object'],'edge_current':[], 'tombstone':deletes,'whole_source_history':history}
 reports=[];vector={}
 for short,rows in expected.items():

@@ -2901,7 +2901,7 @@
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "8640c6e45d7f81166dab4f125308426aed89433edf582a16479dfdf1ef3d35cf",
-    "../../../04-build/end-to-end-plan.md": "9bee73c9de3bdef85e5c059175c13c22cdbc1de0af92e481058f89c4499f6da4",
+    "../../../04-build/end-to-end-plan.md": "d49fe69cae5012a908ac2e80c6ea7c0108233364c17519a720f491610a713256",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3177,7 +3177,7 @@
     "out/native/local_example_replay_20261008/statements.jsonl": "a305cefbf13f1f600674ea0f369d26a7c6e89080027eb099a2b60f07d5aa6e82",
     "out/native/local_example_replay_20261008/original-journal.json": "5a0cdfba27ffcf72006dad2d0232e1c8a9ef9d86fcec97669e0f0947bbd130fa",
     "out/native/local_example_replay_20261008/live-statement.json": "675d28bcd4401a0c9bb93dd5025b936d52434b0f44e73d65072d7c5357fe8cfb",
-    "../../../../../tools/check_native_local_example.py": "bda9d58d5780f370a398b57f92bf70049bccbda5205a6c7d340b257d01471277",
+    "../../../../../tools/check_native_local_example.py": "3a57578b6391e3d93e96392058e063a9bc57be2d17d9ab483ec401c616cd66a3",
     "out/native/local_example_full_parity_20261008/summary.json": "eb596ac24636ab3640d6b88010098f605aa87de3b02261c5fd4ae85f6f212707",
     "out/native/local_example_full_parity_20261008/statements.jsonl": "9821f1ce5f22b7b47d2048cc347fef615760ea2d33c1a90d743dd3def0abfd49",
     "out/native/local_example_full_parity_20261008/live-statement.json": "6b54048cfdba4112847f29d4b50671c4f22699f3c185ceb21732538f3bca754c",
@@ -3266,7 +3266,11 @@
     "out/native/csv_setup_20261008/journal-export.json": "abebaa6e5f7018725f7b3393af19d6358481edbaf8a7049138f3e23b11e17799",
     "../../../../../tools/inspect_native_retention.py": "8421922aeaa1389a4ab615484ae7678e6337cdbb088927b4874ca794e42b29cf",
     "out/native/csv_retention_metadata_20261008/proposed-policy-change.json": "290a70daccae3ecfc90f5978818ea1889bd66fc6603938b3253e948a8be874a4",
-    "out/native/csv_retention_metadata_20261008/summary.json": "5d72d185e5c7ef18f14063fb3e63f46357677057124934c76ad48abb611c0298"
+    "out/native/csv_retention_metadata_20261008/summary.json": "5d72d185e5c7ef18f14063fb3e63f46357677057124934c76ad48abb611c0298",
+    "out/native/csv_delta_full_parity_20261008/summary.json": "358240f8857a0fd4acfbbbd44587510082fde40777a3f348fdbb7a2d6af375ac",
+    "out/native/csv_delta_full_parity_20261008/statements.jsonl": "b1febf1536af90f6ccf0adf937f493c9791ea9265b5c0b35ab89870070b91a3c",
+    "out/native/csv_delta_full_parity_20261008/transport-completeness.json": "c5e3f0bedc1c3433ee6fbfa032120ef822cd76988328c5c85060ab83fe9ac111",
+    "out/native/csv_delta_full_parity_20261008/live-statement.json": "efa4bb0c0fcf2cee7995a9a947cfcbfc291b258b366ae4816c76bbaef36a67c2"
   },
   "evidence": {
     "ddl": {
