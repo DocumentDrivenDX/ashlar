@@ -1,0 +1,5 @@
+id,entity_version,operation,label,caption,future
+1,1,create,first,,18446744073709551615
+2,1,create,second,,opaque
+1,2,replace,"updated, quoted",雪,18446744073709551615
+2,2,delete,second,,opaque

@@ -1105,3 +1105,20 @@ at out/native/manifest_read_20261008. No row was inserted, pin registered, sourc
 acknowledged or retention setting changed. This verifies transport and refusal,
 not a positive publication or retained-file admission. The full objective remains
 open at native publication/retention and protected Truss acceptance/feed.
+
+## Runnable additional CSV source — 2026-10-08
+
+csv_batches adds an incrementally consumed bounded UTF-8 single-line CSV source
+profile. Explicit source/epoch/schema/type/property mappings feed the existing
+whole-entity transaction adapter. Original header and row bytes are retained in
+the delivery identity; unmapped column strings remain in the entity carrier.
+The runnable four-row example uses actual UMF v3 intake and selected constraints,
+creates/replaces/deletes, preserves unknown content, and replays through original
+staging custody without changing graph state. The first generated batch consumes
+only header plus first row. Documentation specifies immutable epoch custody,
+separate outer ordinal versus inner offset, bounds, unsupported semantics and no
+ACK/native publication. All149 local checks pass. No cloud workload occurred.
+
+This completes a runnable local additional-source path, not its native published
+composition. Protected Truss acceptance/feed, native publication admission/retention
+and resolver-backed publication singleton use remain required by the full goal.

@@ -2900,8 +2900,8 @@
     "../../../../../README.md": "e809e372423f32184f20044cf51ea1e3ced565d6df4d176db6951c01332d6cc7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
-    "../../../../../examples/end-to-end/README.md": "d13632432471eca9d4bb465988483a3ab9f28205cbec2b9269cb3423dccedd50",
-    "../../../04-build/end-to-end-plan.md": "9806ba730c4f6b3f3552258e6f360616ab47e46c4f01e4089e30fc614ad215c1",
+    "../../../../../examples/end-to-end/README.md": "3d0b9013cc2a648274e7940fc51e5cb649aeff135e0a69006ce7ad31cd0b1a6a",
+    "../../../04-build/end-to-end-plan.md": "ad037a800c645cb86f3075e818b46dbc107bf6d03ed85b523ec41a89af82f48b",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3244,7 +3244,12 @@
     "../../../../../tools/check_native_manifest_read.py": "aaf9cc51e388ab44bbb5dc6eaab3c4055264059698b1ed4895da04d08d2b23c6",
     "out/native/manifest_read_20261008/live-statement.json": "4149e157692cd870f160e347c9fda3e1319bf9518f67c194c7f66f7596737567",
     "out/native/manifest_read_20261008/statements.jsonl": "03b1e9aa1f09636dacf60762d2de8071bb4ecf10da615904d9718af8e273325b",
-    "out/native/manifest_read_20261008/summary.json": "9bcc15433fa7834b83fd8b96e4ab5773cb8d17190b1481a2f913e4df3089a95c"
+    "out/native/manifest_read_20261008/summary.json": "9bcc15433fa7834b83fd8b96e4ab5773cb8d17190b1481a2f913e4df3089a95c",
+    "../../../../../src/ashlar/csv_source.py": "0a41b6c536fce15f2912ae9cbd873c3ed4677ae818e2439ce74395dfcd31de09",
+    "../../../../../examples/end-to-end/string-source.csv": "944b1ebb4c9c564ce4687a4a731c360cd6575d97aa9abfa4994203968f498e12",
+    "out/csv-source-example.json": "5ffa3e0a1843eea2be2700f4dd97856dff9abbae800d03e318780c42cc16b412",
+    "../../../../../tools/run_csv_example.py": "8faa71f85e983a851e34d80f6bcc3429d84e2922e5ef68935ec370f53b603aa6",
+    "../../../../../tests/test_csv_source.py": "e159876518940a2a80017f87d7e67296cb840832b131d770482aceace1286bde"
   },
   "evidence": {
     "ddl": {

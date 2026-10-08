@@ -440,3 +440,45 @@ one queried. The digest preserves original manifest JSON strings; rewriting equa
 JSON does not reuse existing pins. These helpers do not authorize registration or
 reads and do not qualify a retained-file or cleanup policy. NativeBackend returns
 manifest timestamps as exact microsecond text for this correspondence.
+
+### Additional source: single-line CSV
+
+```sh
+python tools/run_csv_example.py
+```
+
+This runnable local example uses `string-source.csv`, the actual v3 UMF intake
+and selected string policy. Four singleton transactions create two objects,
+replace one and delete the other; replay through retained staging leaves the
+complete graph unchanged. Fixture IDs remain development mappings, not accepted
+Truss IDs. This example does not write Delta or publish/acknowledge a source.
+
+For another CSV producer, call `ashlar.csv_source.csv_batches(binary_lines,
+feed=..., epoch=..., source_system=..., schema_revision=..., type_id=...,
+properties={column_name: property_id_text})`. Supply independently admitted source
+custody and mappings. Required columns are `id`, `entity_version`, `operation`;
+operations are create/replace/delete of complete objects. Property values remain
+strings, including empty strings; the downstream schema policy decides admission.
+Each complete physical line is one explicit transaction, with an ordinal batch
+ID. Its delivery ID contains the original header/row as base64 plus row ordinal,
+so exact provenance survives source staging and history. Unmapped columns remain
+strings in `retained_json`. Delete props and retained columns must match the
+previous object carrier as required by the existing apply contract.
+
+The selected CSV profile is UTF-8, comma-separated, single-line records with
+Python's strict CSV parser, LF or CRLF, unique nonempty headers, at most 1,000
+records and 65,536 bytes per input line. Embedded newlines, patches, edges, inferred
+versions, numeric coercion and implicit null interpretation are unsupported.
+Source epochs identify immutable ordered files; changed input must not reuse the
+epoch. Each emitted transaction's inner JSONL offset starts at zero: it is not a
+CSV resume watermark. Retained row ordinal plus independently verified original
+file custody are required for resume. Do not acknowledge CSV progress until an
+admitted immutable publication binds that outer custody; the adapter issues no ACK.
+
+The shared adapter interface is a stream of `SourceBatch` values with original
+begin/event/commit bytes, explicit feed/epoch, complete ordered digests and text
+cursors. Use `batch_row`/`batch_from_row` for custody and `changes_from_batch` then
+`plan_apply(..., schema_policy=...)` for this whole-entity subset. Native source
+checkpoints remain separate: PostgreSQL outbox positions and CSV ordinals must
+never be substituted for inner JSONL offsets. Additional schema meanings require
+a qualified policy rather than a permissive fallback.

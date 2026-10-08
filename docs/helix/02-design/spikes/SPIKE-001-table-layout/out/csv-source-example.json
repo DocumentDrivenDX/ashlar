@@ -1,0 +1,13 @@
+{
+  "source_profile": "ashlar-single-line-csv/0.1",
+  "batches": 4,
+  "events": 4,
+  "objects": 1,
+  "tombstones": 1,
+  "replay_unchanged": true,
+  "props_json": "{\"23\":\"updated, quoted\",\"24\":\"雪\"}",
+  "complete_interpretation": false,
+  "published": false,
+  "acknowledged": false,
+  "qualification": "Local additional source; exact CSV custody and UMF-backed selected string constraints. Fixture IDs only; not a Truss catalog or native publication."
+}
