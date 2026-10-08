@@ -2884,7 +2884,7 @@
     "../../../../../sql/ashlar-delta-v03/02-forward-adjacency.sql": "55da40832749f39f53f25ca90a2c85a868f5a7b3383cfb9651f50f74d706b325",
     "../../../../../sql/ashlar-delta-v03/01-baseline.sql": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060",
     "../../../../../sql/ashlar-delta-v03/03-reverse-adjacency.sql": "3c4575478efa7dd84d7545069a996c01e7d15a10b53fe52c9954a8c89ac066c9",
-    "../../../01-frame/prd.md": "4504fdc01a3615dfa3e7068d88fb463a333ec1956c28da8f90e941c0be734d58",
+    "../../../01-frame/prd.md": "ea3cdd3f8a7f762048554fcab4889c856b30bc528ff745c73c6212f1689bd40f",
     "../../../01-frame/features/FEAT-002-databricks-schema-package.md": "c9a13d863b094514cca9311959a262cdc33a78632660d931dc3953623f4c8f75",
     "../../../01-frame/features/FEAT-003-graph-query-path.md": "ba4d1118e93d8eb5ef5d84617be490a5ffe1410890dd1f95ccde2579caed42ac",
     "../../../03-test/consumer-conformance-plan.md": "81cba3df17f72687e230b689477fd171610eb55d5a4de02c9650f6b4f812bdcc",
@@ -2898,7 +2898,11 @@
     "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
     "../../contracts/CONTRACT-004-publication-resolver.md": "52492ad626cf046d2ff595d5aa91c20d086561c1aba0df3b6b70338bbd08514b",
     "../../../../../README.md": "11e0aaa10f67e008542066d293624bd5e195529dd5bc2c3f8ed75b960f22bda7",
-    "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52"
+    "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
+    "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
+    "../../../../../examples/end-to-end/README.md": "a515bf1cf72236da74e628f23c102c0773357e3ef616126dc67064e3479eebe5",
+    "../../../04-build/end-to-end-plan.md": "23f4dda508b21ffcf00caa951648d33c9c367d7e078d403de08e54e858030a4b",
+    "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f"
   },
   "evidence": {
     "ddl": {

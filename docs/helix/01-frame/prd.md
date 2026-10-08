@@ -49,6 +49,17 @@ source authority, concurrency fencing, authorization delegation, retention and
 external engine deployment remain requirements for their later delivery scopes;
 closing this milestone does not declare those scopes complete.
 
+## End-to-end owner direction —2026-10-08
+
+The next goal is a usable toolkit: run Truss, supply UMF schema/model definitions
+to both Truss and Ashlar, add/evolve Ashlar schemas, stream Truss data and
+additional sources into managed Delta, and query a completed publication through
+the resolver. UMF integration is now in scope for this goal; earlier deferral
+language remains historical for the closed physical-layout milestone. The
+[implementation plan](../04-build/end-to-end-plan.md) defines executable slices
+and full end-to-end acceptance. A local database alone is not a Truss runtime;
+small simulator results cannot close the live workflow.
+
 ## Problem and Goals
 
 ### Problem

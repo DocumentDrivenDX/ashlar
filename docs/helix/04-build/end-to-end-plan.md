@@ -1,0 +1,79 @@
+# End-to-end toolkit implementation plan
+
+Owner goal2026-10-08: stand up Truss, consume UMF in Truss and Ashlar, add/evolve
+Ashlar schemas, stream Truss and additional sources into UC managed Delta, and
+provide a runnable setup/publish/query workflow. This supersedes the earlier UMF
+deferral for this integration work. Existing meaning, identity, history and
+publication requirements remain binding. Use small examples, not scale benchmarks.
+
+## Deliverable and acceptance
+
+A clean user can follow one documented workflow to start the selected Truss
+runtime, submit a retained UMF document, write graph data, run the feed consumer,
+resolve a completed Ashlar publication and perform a native singleton lookup.
+A second schema revision and a second source can be applied without silently
+renumbering identities, dropping unknown content or bypassing revision barriers.
+
+Acceptance requires actual end-to-end execution, not a running PostgreSQL server,
+source-only DDL, local simulator or successful resolver metadata probe. Retain
+independent expected outputs and target/profile versions. Replay must preserve
+current/history/tombstones, same-identity/version conflicts must refuse, an
+interrupted publication must retain the previous descriptor, and source progress
+must advance only after the required complete publication/durable handoff.
+Demonstrate a create, property update, parallel edge, isolated node and delete.
+
+## Ordered slices
+
+1. **Local Truss deployment substrate and source selection.** Start isolated
+   PostgreSQL17.9 with1CPU/512MiB. Pin the Truss/UMF source revisions and reconcile
+   the current0.11 storage/installation inventory with accepted Truss decisions.
+   Install the selected runtime through its public host interfaces; do not
+   concatenate draft SQL fragments or substitute legacy0.2 silently. Native
+   roles/producers/feed registration and complete transaction boundaries belong
+   to the selected Truss profile. Server readiness alone is only infrastructure.
+2. **Shared UMF schema intake.** Use UMF's existing TypeScript APIs at a pinned
+   source/package/envelope version. Retain exact original documents and hashes;
+   report known supported constructs, unknown retained assertions and enforcement
+   classes. Compose stable catalog identity mappings for both consumers, keeping
+   Truss catalog IDs authoritative where imported. Add the Ashlar schema-registry
+   contract and revision compatibility/refusal rules before its implementation.
+3. **Small Truss producer/feed.** Implement the declared mutation and complete
+   feed boundary under Truss contracts. Register the consumer, reconstruct full
+   current carriers from the native property/lifecycle/revision records, and
+   preserve opaque source cursors/transaction boundaries. Do not replace the real
+   Truss source with invented whole-entity journal rows and call it equivalent.
+4. **Ashlar ingestion/publication.** Add a source-adapter port, staging/raw custody,
+   idempotent history/current/delete apply and serialized immutable publication.
+   Use small private UC tables on existing authorized compute. Wire the Python
+   resolver to authenticated native transport, effective policy and retained pin
+   custody. Preserve original source/revision/unknown bytes and source progress.
+5. **Other source adapters.** Add JSONL/stdin and a PostgreSQL transactional outbox
+   source profile, with declared key/version/replay/transaction semantics and
+   durable checkpoints. Both use the same ingestion boundary; neither claims
+   Truss-native semantics. Schema additions and an additive revision must run.
+6. **Runnable example and user packaging.** Supply setup commands, a shared UMF
+   fixture, producer changes, bounded consumer execution, native query and replay/
+   interrupted-publication examples. Record live evidence separately from local
+   tests and expose incomplete/unsupported outcomes. Keep secrets out of Git.
+
+## Current authoritative starting points
+
+Ashlar has candidate0.3 DDL and Python resolver/native-verifier ports under
+CONTRACT-001–004. Truss's current documentation records a0.11/46-table source
+packet but unstarted runtime and unfinished native installation/adoption. Its
+accepted TypeScript/Bun portable-core and PostgreSQL generic-catalog directions
+apply. UMF's checked-out source has implemented0.7 relationship APIs and earlier
+field/key/facet capabilities; exact package/API selection must be pinned when
+composing schema intake. Branches may evolve independently: retain per-step
+source hashes and do not mix incompatible profiles.
+
+## First execution
+
+The isolated container ashlar-e2e-truss-pg17 is healthy on PostgreSQL17.9,
+localhost15432, capped at512MiB/1CPU. tools/start_truss_sandbox.py creates/reuses
+only its labelled container and generates a private database password without
+printing it. No Truss layout, runtime or feed has yet been installed.
+Other running containers are untouched. Use docker exec for local administrative
+setup; design a least-privilege application role before the runtime integration.
+No production data, broad database grants, retention cleanup, warehouse resize
+or scale benchmark is part of this setup.

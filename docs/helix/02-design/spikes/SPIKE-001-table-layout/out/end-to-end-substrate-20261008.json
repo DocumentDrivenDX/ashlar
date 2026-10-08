@@ -1,0 +1,12 @@
+{
+  "state": "Isolated PostgreSQL substrate healthy",
+  "container": "ashlar-e2e-truss-pg17",
+  "server": "PostgreSQL17.9 Debian17.9-1.pgdg13+1 aarch64",
+  "memory_bytes": 536870912,
+  "nano_cpus": 1000000000,
+  "bound_port": "127.0.0.1:15432",
+  "truss_runtime_installed": false,
+  "umf_source": "b9082ee97d4114580d508e0a71557d9ebf56c931",
+  "truss_source_observed": "da28c8231ed8e452221f6bfe2aaf5fa6de853152",
+  "qualification": "Infrastructure readiness only; no layout, schema intake, feed, publisher or end-to-end qualification."
+}
