@@ -277,3 +277,19 @@ correspondence and keep required source retention. No automatic arbitrary-SQL
 capture or Truss-native feed is inferred. Native publication producer/recovery
 and Truss schema/runtime/feed remain active work; the private graph still has
 no completed publication.
+
+## Immutable manifest append checkpoint
+
+The native SQL manifest append component now accepts exact seven-field carrier
+rows, checks the trusted table UUID around mutation/readback, binds all values,
+and refuses changed original publication bytes. Writer serialization and
+independent complete publication admission are mandatory injected policies;
+complete validation flags alone cannot authorize publication. Its clock boundary
+is canonical UTC microseconds, converted to/from native TIMESTAMP. Fifty-nine
+focused local checks pass. SQL execution, real admission proof and resolver
+wiring are still required; the existing graph remains unpublished.
+
+Next connect the durable coordinator to real effect recovery and retained pin
+proof, then exercise one genuine publication and singleton lookup. Truss native
+acceptance/runtime/feed and broader UMF bindings remain required for the full
+end-to-end goal. This iteration ran locally and incurred no Databricks workload.

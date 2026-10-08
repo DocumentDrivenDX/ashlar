@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "tests": 59,
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q",
+  "scope": "Local manifest shape, transport, admission ordering, identity, replay and conflict checks; native SQL unexecuted and publication policy not implemented."
+}

@@ -97,3 +97,12 @@ PostgreSQL previous/position separately from its contained JSONL batch offsets.
 Protected development producer DDL and native role/rollback/replay evidence are
 available. Registered source authority/retention, application effect recovery
 and outer-cursor publication/acknowledgement integration remain mandatory.
+
+DeltaManifestStore in manifest.py provides bound immutable manifest append and
+exact original readback under mandatory writer and independent publication
+admission policies. A validation flag is insufficient: the policy must prove
+original effects, source progress, schemas, retained version pins and authority.
+recorded_at is a canonical UTC microsecond decimal string at this API boundary;
+the native carrier is TIMESTAMP. Fifty-nine focused local checks pass, including
+replay/conflict and pre-effect denial. Native execution and producer/resolver
+wiring remain unfinished; this component creates no default permissive policy.
