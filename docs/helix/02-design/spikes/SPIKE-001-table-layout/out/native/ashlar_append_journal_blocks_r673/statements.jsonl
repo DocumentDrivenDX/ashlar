@@ -1,0 +1,1 @@
+{"warehouse_id": "2439e1f2e37ac563", "label": "timeout", "sql": "SET STATEMENT_TIMEOUT=180", "cancel_requested": true, "parameters": null, "statement_id": "01f1c2bd-f669-1b33-8664-212c370aa010", "start_epoch": 1791425656.172904, "wall_ms": 192656.52383299998, "response": {"statement_id": "01f1c2bd-f669-1b33-8664-212c370aa010", "status": {"state": "CANCELED"}}}

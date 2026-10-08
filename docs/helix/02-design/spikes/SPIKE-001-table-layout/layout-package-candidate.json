@@ -2819,7 +2819,13 @@
     "out/native/ashlar_append_edge_growth_r665/statements.jsonl": "bf9910a16d99dc4a50a952ec08887e2d2546001b43ace0cab51267a7cab1be10",
     "out/native/ashlar_append_edge_growth_r665/summary.json": "12e8a5e633c49ab21646e7f126a6911061862672ba6df3317941c2268df1f6aa",
     "append_capacity_basis_r671.py": "415d111407f50b07e9a740176299bdfa43815796d5de583168c2edf2d3cfd03e",
-    "out/append-capacity-basis-r671.json": "55e26583b21375c7e333b33bd23aebee2d7215c0153afd1ca3543e5efd466ecf"
+    "out/append-capacity-basis-r671.json": "55e26583b21375c7e333b33bd23aebee2d7215c0153afd1ca3543e5efd466ecf",
+    "append_edge_blocks_r672.py": "a6504cdb2849d381a43a3730a4ce322cd1109c53159b21ff513a3e43c9dff307",
+    "append_journal_blocks_r673.py": "0b41e92750dfb28ab1989247e4e061e6d5440340053fa53429aac8404613ef1a",
+    "out/native/ashlar_append_journal_blocks_r673/audited-stop-r674.json": "0821e5a4c89304b7d037f387201ad16b36273e5838c8e7f5c99718c8c7cefc8f",
+    "out/native/ashlar_append_journal_blocks_r673/initial-observation-r674.json": "24bdd9926d1cfca4b4649d5dee58b8ac4cae3aee8b7320faf81e017f732f645c",
+    "out/native/ashlar_append_journal_blocks_r673/query-history.json": "50d89165b1fc0e916b0cbb5955b7ac4b289ab697005979efd8fb9fe9c1128bf0",
+    "out/native/ashlar_append_journal_blocks_r673/statements.jsonl": "425496499c84b2251bd62f01f043abe1fca3e17100c8d63f8ee3d17c715ed832"
   },
   "evidence": {
     "ddl": {

@@ -1,0 +1,12 @@
+{
+  "state": "Original setup terminal CANCELED; final cost metrics unavailable",
+  "statement_id": "01f1c2bd-f669-1b33-8664-212c370aa010",
+  "caller_ms": 192656.52383299998,
+  "native_history_is_final": false,
+  "costs": {
+    "read_bytes": null,
+    "write_remote_bytes": null,
+    "spill_to_disk_bytes": null
+  },
+  "qualification": "No data-verification statement submitted. Missing costs are unknown, not zero. Native history snapshot nonfinal despite terminal cancellation. Existing warehouse observation RUNNING/2X-Small; cause unknown. No SQL replay or resize."
+}

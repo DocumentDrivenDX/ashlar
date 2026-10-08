@@ -1,0 +1,15 @@
+{
+  "statement_id": "01f1c2bd-f669-1b33-8664-212c370aa010",
+  "status": {
+    "state": "PENDING"
+  },
+  "warehouse": {
+    "id": "2439e1f2e37ac563",
+    "name": "data-gateway",
+    "state": "RUNNING",
+    "cluster_size": "2X-Small",
+    "num_clusters": 1,
+    "min_num_clusters": 1,
+    "max_num_clusters": 1
+  }
+}
