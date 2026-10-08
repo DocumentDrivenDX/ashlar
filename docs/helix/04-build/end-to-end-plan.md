@@ -1686,3 +1686,18 @@ allocation, total heap/shared operation accounts, durable original transcripts,
 issuer/epoch/cut and unknown/refusal recovery remain unfinished. This supersedes
 probe-only integration without claiming the complete selected native producer,
 E06/protected bodies, bootstrap or actual Truss streaming. Goal stays active.
+
+
+## Original Truss control/transaction correspondence — 2026-10-08
+
+Native controls now require their exact original command plus one ReadyForQuery
+with expected state: BEGIN/savepoints stay T, COMMIT/whole rollback end I. Execute
+requires actual T rather than a local started flag. Mismatches quarantine original
+custody before guessed cleanup/release. Thirty-four tests/225 assertions, host
+build, packed consumer and existing small actual native executor checks pass.
+A synthetic COMMIT tag with active state cannot confirm durability. No persistent
+tables/cloud/deployment settings change occurs.
+
+Full issuer/epoch, durable transcript/recovery, shared resources, caller adoption/
+cancellation and protected producers/bootstrap/streaming remain unfinished. The
+unchanged full end-to-end goal remains active.
