@@ -403,3 +403,15 @@ and fresh-process replay passed with nine unchanged native mutation submissions.
 This writes the small graph and raw event history; it does not publish, pin,
 acknowledge the source or establish accepted Truss authority. Full-column evolved
 snapshot validation and publication/read composition are still unfinished.
+
+
+Verify every stored column of the evolved outbox stream at exact Delta versions:
+
+```sh
+python3 tools/check_native_local_example.py --source outbox
+```
+
+Actual checks pass for the four final carriers and initial object snapshot,
+including v1/v3 revision custody and independent inner cursors. The captured
+version vector is observed effect evidence, not an active retention pin or
+published descriptor. This is a read-only command on the existing warehouse.

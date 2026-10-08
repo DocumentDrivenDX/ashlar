@@ -986,3 +986,22 @@ additional-source-to-Delta development stream with explicit fixture IDs, not
 accepted Truss catalog/feed authority. Full-column evolved-table parity, qualified
 remote fencing/retention, durable publication and native resolver/read/source ACK
 remain required. No publication or acknowledgement was issued.
+
+## Complete evolved outbox Delta snapshot validation — 2026-10-08
+
+The independent native checker now selects the live outbox fixture and its
+separate runtime_outbox installation. It reconstructs expected carriers directly
+from original source events with independently zero-based contained transaction
+cursors, rather than SQL planner output or globally concatenated offsets. Five
+exact snapshots pass: final object (1row/17columns), initial v1 objects
+(2rows/17columns), empty edge (0rows/20columns), tombstone (1row/10columns) and
+complete original history (4rows/6columns). Original owner schema revisions1/3,
+source feed/epoch, exact JSON text, SQL NULL, native numeric text, lookup identities,
+materialization microseconds and event/delivery custody all agree.
+
+The complete version vector/source SHA and 24 original read-only SQL receipts are
+retained at SPIKE-001-table-layout/out/native/outbox_delta_full_parity_20261008.
+All135 local checks pass. No data write, acknowledgement, publication or retention
+change occurred. This completes observed fixture effect parity, not future file
+availability, active publication pins, full maintenance/operator containment or
+native Truss authority. Those remain predecessors of live publication/read.
