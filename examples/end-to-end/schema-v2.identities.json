@@ -1,0 +1,80 @@
+{
+  "format": "ashlar-authored-identity-inventory/0.1",
+  "sourceSha256": "59e4d58b5254df2291156a5b73ef0e04d4c74668b3818e8ecf630e4d104982d0",
+  "validatorRevision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+  "elements": [
+    {
+      "authoredIdentity": [
+        "truss-weft-source-review-fixture",
+        "fixture",
+        "item"
+      ],
+      "sourcePointer": "/modules/0/elements/0",
+      "kind": "record",
+      "displayName": "Item"
+    },
+    {
+      "authoredIdentity": [
+        "truss-weft-source-review-fixture",
+        "fixture",
+        "label"
+      ],
+      "sourcePointer": "/modules/0/elements/1",
+      "kind": "field",
+      "displayName": "label"
+    },
+    {
+      "authoredIdentity": [
+        "truss-weft-source-review-fixture",
+        "fixture",
+        "caption"
+      ],
+      "sourcePointer": "/modules/0/elements/2",
+      "kind": "field",
+      "displayName": "caption"
+    }
+  ],
+  "validation": {
+    "valid": true,
+    "complete": false,
+    "diagnostics": [
+      {
+        "code": "EXPERIMENTAL_CORE_NULLABILITY",
+        "path": "/umf",
+        "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_CARDINALITY",
+        "path": "/umf",
+        "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_FACETS",
+        "path": "/umf",
+        "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+        "severity": "warning"
+      },
+      {
+        "code": "UNKNOWN_NULLABILITY",
+        "path": "/modules/0/elements/2/nullability",
+        "message": "Availability label retained without interpretation",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_KEYS",
+        "path": "/umf",
+        "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+        "path": "/umf",
+        "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+        "severity": "warning"
+      }
+    ]
+  },
+  "qualification": "Original UMF element identity inventory only; no target binding, property ownership inference, relationship inventory, native ID allocation or acceptance"
+}

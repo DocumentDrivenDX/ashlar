@@ -34,3 +34,10 @@ an explicit document revision and trusted validator source pin. It retains the
 original source and diagnostic artifact, checks digests/identity/validation flag
 consistency and refuses malformed input. It does not authenticate the producer
 or perform target catalog acceptance; trust and admission are separate.
+
+plan_catalog_ids in catalog.py plans exact document/owner-qualified IDs from a
+complete admitted target inventory and trusted prior state. It preserves retired
+reservations and same-identity reactivation; allocation stays above supplied
+highwaters. Native acceptance must serialize/revalidate/persist the plan with
+its full semantic and report effects. Pure planning does not provide acceptance,
+authorization, field binding or a native allocator.

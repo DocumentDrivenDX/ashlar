@@ -1,0 +1,18 @@
+{
+  "state": "passed",
+  "tests": 18,
+  "new_catalog_cases": [
+    "preserve existing type/property IDs",
+    "qualified document/owner identities remain distinct",
+    "retirement retains reservation",
+    "same-identity reactivation preserves original ID",
+    "distinct incarnation allocates fresh ID",
+    "highwater gaps never reused",
+    "duplicate/missing owner/invalid mapping refuses",
+    "exhaustion refuses new IDs but permits existing identity"
+  ],
+  "source_identity_inventory": "examples/end-to-end/schema-v2.identities.json",
+  "validator_revision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+  "inventory_elements": 3,
+  "qualification": "Pure allocation and exact authored UMF inventory only. Test IDs 17/23 are synthetic independent cases, not installed accepted IDs. No native allocation, semantic binding or accepted catalog/head mutation. No Databricks workload in this iteration."
+}

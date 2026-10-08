@@ -82,3 +82,17 @@ PostgreSQL and UC Delta. Replay preserves exact original source/diagnostics; a
 different valid document under the same revision refuses on both. The Delta
 profile is one serialized development writer. No accepted schema, stable catalog
 IDs, application authority or data stream is inferred from this custody check.
+
+## Authored identity inventory
+
+```sh
+bun tools/project_umf_identities.ts /path/to/umf EXACT_GIT_REVISION examples/end-to-end/schema-v2.umf.json
+```
+
+The checked `schema-v2.identities.json` records original document/module/element
+identities and source positions using the pinned UMF reader. It is separate from
+a target binding: display names and document revisions cannot replace lineage.
+`src/ashlar/catalog.py` provides the pure stable-ID planner for the forthcoming
+complete admitted binding inventory and locked native acceptance. The planner
+retains retirement history and same-identity IDs, but does not persist or issue
+a catalog revision.

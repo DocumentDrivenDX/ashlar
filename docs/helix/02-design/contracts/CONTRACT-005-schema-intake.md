@@ -94,3 +94,42 @@ ALTER TABLE ADD CONSTRAINT statements. Original native statement/SQL receipts
 and the passed summary remain under the spike's out/native/schema_registry_20261008.
 The runner refuses silent IF NOT EXISTS reuse. A failed/uncertain future write
 requires inspection of its existing native handle/custody before any replay.
+
+## Stable identity planning boundary
+
+The proposed pure planner accepts a complete selected identity inventory, complete
+prior mappings, family highwaters and the expected native catalog head. Native
+acceptance must read these under exclusion, revalidate the resulting plan and
+persist allocation with the complete accepted semantic/catalog/report effects.
+A returned plan is not a committed allocation or acceptance token.
+
+Identity parts are exact opaque UTF8 strings; no case-folding or Unicode
+normalization occurs. Type identity is (document, module, authored element);
+property identity is (document, owning module, owning Record element, field
+module, field element); proposed relationship identity is (document, owning
+module, owning Record element, authored relationship). Display names, source
+ordinals and document revisions are definition provenance, not lineage. The
+relationship tuple remains subject to the selected Truss/UMF relationship
+extraction profile; this planner does not extract relationships or admit
+relationship semantics. Existing mappings must come from authoritative catalog
+custody, never from the synthetic Weft source-review IDs.
+
+Each family has a separate signed-int32 positive ID allocation range. Preserve
+all prior IDs, including retired identities; allocate fresh IDs strictly above
+the supplied highwater. Missing mappings do not authorize filling highwater
+gaps. Duplicate identity/ID mappings, invalid ranges, incomplete highwater
+inventory or active members without an active owning type refuse. A complete
+inventory omitting an active prior identity plans retirement; same qualified
+identity reactivation keeps its ID and never restores grants implicitly. A
+distinct authored identity gets a fresh ID. Exhaustion refuses a new allocation,
+but does not prohibit validation/reactivation of an existing identity.
+
+Source `src/ashlar/catalog.py` supplies this planner. It does not validate field
+meaning, key equality, schema compatibility, data transforms or native effects.
+Its caller must first admit those under the target profile and supply complete
+selected ownership. Host tool `tools/project_umf_identities.ts` invokes the
+pinned existing UMF reader/validator and records every authored element tuple
+with original source pointers and validation diagnostics. It retains source
+kind assertions verbatim and infers no type/property/relationship bindings.
+The additive example yields three authored elements; executable semantic
+projection and atomic catalog acceptance remain outstanding.

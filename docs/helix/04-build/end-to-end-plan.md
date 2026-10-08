@@ -124,3 +124,19 @@ contracts still mark native producers/guards/complete runtime unfinished. Do
 not replace these with a schema_doc insert or advance a data publication from
 raw registry custody. Additional-source adapters and publication wiring remain
 part of the same active end-to-end goal.
+
+## Stable identity planner checkpoint
+
+The pure ID planner now retains authoritative supplied IDs across unchanged
+identity, retirement and same-identity reactivation; distinct identity allocates
+above the family highwater. It refuses duplicate state, missing active owners
+and exhaustion, and preserves retired reservations. Eighteen focused local
+tests pass. A separate host projection uses the pinned real UMF reader to
+record all three original authored elements in the additive fixture with source
+positions/digest and original diagnostics. Neither synthetic test IDs nor that
+identity inventory are installed catalog acceptance.
+
+Next compose the complete target semantic inventory with these identities and
+locked native state, then persist it together with immutable acceptance report
+and complete original effects. No native catalog head is advanced by this
+planner. Source/feed and publication integration remain required.
