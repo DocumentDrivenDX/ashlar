@@ -1617,3 +1617,21 @@ transport enforcement and original issuer/epoch/cut authority remain unfinished.
 The frozen reviewed pg 8.23.0/pg-protocol 1.16.0 profile is not adopted by this
 component. Full arbitration/protected native producers, bootstrap and Truss
 streaming remain open under the unchanged active end-to-end goal.
+
+
+## Incremental Truss pre-parser component — 2026-10-08
+
+The host runtime now admits fragmented original response frames before parser
+forwarding, with bounded advertised frame size, total delivered bytes/frame count
+and DataRow descriptor/strict UTF8 correspondence. Oversized header and invalid
+text controls prevent forwarding, and refusal is sticky. Twenty-nine tests/208
+assertions, host build and packed consumer pass. The one-SELECT native probe now
+replaces exactly one private pg listener after startup and invokes its original
+parser only with admitted complete frames; the receipt records beforeParser=true
+and accounting. The original listener is restored afterward.
+
+This supersedes the prior post-parser capture only for that successful component
+probe. Production bridge adoption, other/error/notice/binary message coverage,
+transport allocation limits, original issuer/epoch and refusal settlement remain
+unqualified. Full arbitration/protected producers, bootstrap and Truss streaming
+remain unfinished. No mutations/cloud/deployment changes occur; goal stays active.
