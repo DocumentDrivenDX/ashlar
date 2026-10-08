@@ -1,0 +1,5 @@
+{
+  "state": "Local audit stopped before native operations",
+  "reason": "SQL statement API transports partitionColumns as JSON text [] rather than a Python list; initial truthiness assertion was incorrect",
+  "script_sha256": "73e5b4151240964c6e99088c1eebc038e6643a60dd50b18dab603bb99324ac0d"
+}

@@ -1,0 +1,53 @@
+{
+  "state": "All30 exact final native statements and seven private table version0 receipts audited",
+  "costs": {
+    "read_bytes": 3126248981,
+    "write_remote_bytes": 1451627639,
+    "spill_to_disk_bytes": 0
+  },
+  "profiles": {
+    "node_object_current": {
+      "files": 1,
+      "bytes": 80934147,
+      "rows": 100000
+    },
+    "node_source_record": {
+      "files": 1,
+      "bytes": 84618172,
+      "rows": 100000
+    },
+    "node_property_journal": {
+      "files": 1,
+      "bytes": 74040328,
+      "rows": 400000
+    },
+    "edge_edge_current": {
+      "files": 4,
+      "bytes": 407373867,
+      "rows": 500000
+    },
+    "edge_source_record": {
+      "files": 4,
+      "bytes": 429586545,
+      "rows": 500000
+    },
+    "edge_property_journal": {
+      "files": 4,
+      "bytes": 370070719,
+      "rows": 2000000
+    },
+    "edge_adjacency_forward": {
+      "files": 1,
+      "bytes": 5003861,
+      "rows": 500000
+    }
+  },
+  "active_bytes": 1451627639,
+  "wall_s": 156.741020459,
+  "source_sha256": {
+    "summary.json": "8618d2146b8164bf42701b88a411427e39ab4f35e2ef9108f77b71a17f5df800",
+    "statements.jsonl": "3608f8847d6838bb40eb1bc80ae901bc5a9ab8919539b6ba1b92ca80a7c70118",
+    "shared-history.json": "2de1d96a680cba656dce5b36157505cda3aa30b97cc7c25b70505d4d051651a1"
+  },
+  "qualification": "100k new nodes/500k new edges, all roles, full multiset comparison against SQL generator with independent boundary-sample Python parity. Not an independent full local oracle, published-vector growth, full endpoint closure, production ingest or scale admission. No cleanup, ACK, canonical mutation or compute resize. This audit verifies recorded statements/results/commit attribution, not independent whole-range generator correctness or a later physical-head observation. Cancellation/budget guards are observations, not hard billing caps."
+}
