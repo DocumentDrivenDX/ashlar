@@ -162,3 +162,12 @@ rollback/retention-refusal checks pass. This registry is not a resolver policy:
 trusted registration needs independent target availability proof, and every
 Delta retention operator must hold its guard transaction over the complete
 affected pin/file union. No external Delta retention guard is wired yet.
+
+PostgresPins in pins.py registers complete bounded PinVector scopes and holds
+all original active pins through a transactional read context. UUID/version,
+authority/scope and custody digest must match every expected row; missing,
+released, extra or altered pins refuse the vector. The host transaction adapter
+must retain one authenticated PostgreSQL transaction throughout yield. Policy
+authentication/registration admission is mandatory. Native four-pin registration
+and competing-release lock refusal pass; snapshot/retention policy integration
+is still required before using this as read publication authority.

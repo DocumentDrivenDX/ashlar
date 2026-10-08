@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "tests": 76,
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q",
+  "scope": "Full-vector shape, held transaction lifetime, partial/released/changed pin refusal and pre-effect admission denial."
+}

@@ -1,0 +1,3 @@
+ERROR:  canceling statement due to lock timeout
+CONTEXT:  SQL statement "LOCK TABLE ashlar_pins.pin IN SHARE ROW EXCLUSIVE MODE"
+PL/pgSQL function ashlar_pins.release(text,text,bytea) line 4 at SQL statement

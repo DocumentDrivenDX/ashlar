@@ -1,0 +1,13 @@
+{
+  "state": "passed",
+  "scope_id": "recoverable-graph-final",
+  "custody_digest": "b7383602c52689567258c45d36f9569ca6f2b1ef99af8dbdf2fa8488fe76c98b",
+  "pins": 4,
+  "checks": [
+    "full exact vector registered transactionally",
+    "four active read guards held in ordinary reader transaction",
+    "competing writer release hits native lock timeout",
+    "read transaction commits and every original pin remains active"
+  ],
+  "qualification": "Private recovery-fixture pin custody and read/release exclusion. Complete effect/read receipts observed; retention operator enforcement, native role-table fencing, protocol admission and publication are still unfinished. No automatic expiry or cleanup."
+}

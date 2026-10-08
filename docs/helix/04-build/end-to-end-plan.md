@@ -413,3 +413,23 @@ unqualified. No automatic TTL, purge, VACUUM, retention setting or Databricks
 workload occurred. Next connect full publication-vector registration/read custody
 and the authenticated snapshot policy, while preserving the external retention
 operator obligation. Actual Truss acceptance/runtime/feed remains unfinished.
+
+## Full-vector read pin custody checkpoint
+
+PinVector defensively retains the exact native UUID/version vector and original
+authority/scope/custody digest. PostgresPins registers every entry in one host
+transaction, validates the complete retained scope inventory and refuses
+partial/released/extra/changed entries. Stable pin IDs bind scope/table, so a
+changed version cannot silently allocate another original pin. Registration
+admission and current read authorization are mandatory policies.
+
+A protected assert_active function holds a SHARE lock throughout reader custody.
+Native checks register all four final graph recovery pins, hold their guards
+under the ordinary reader role and observe a competing ordinary writer release
+fail with native lock timeout. Committing the reader leaves all originals active.
+Seventy-six local checks pass. This qualifies read/release exclusion and recovery
+vector storage, not future Delta retention, protocol or publication authority.
+No Delta workload or cleanup occurred. Next connect authenticated snapshot policy
+and native resolver execution, retaining the separate requirement that every
+admitted Delta retention operator honor the complete affected pin/file union.
+Truss native acceptance/runtime/feed remains required by the active goal.

@@ -102,3 +102,14 @@ privileges are not yet wired through this guard. Registry presence alone is not
 proof of future retention or valid resolver policy; the existing mandatory
 validate_snapshot contract remains unchanged. Native private role/replay/conflict/
 rollback/retention-refusal checks pass; no purge or Delta retention change ran.
+
+PostgresPins/PinVector provide complete scoped vector registration and held
+read custody. assert_active validates every original field and holds native
+SHARE exclusion through resolution/execution; registration/release cannot
+commit against it. The injected host transaction adapter must preserve the
+transaction through context yield and roll back exceptions. Current read
+authorization is checked before and after consumption, while pin inventory is
+revalidated before release. Native four-pin guard versus competing release
+passes. This supplies one custody component of validate_snapshot; protocol,
+retained availability and effective external retention policy remain mandatory
+independent checks. It does not turn the recovery fixture into a publication.
