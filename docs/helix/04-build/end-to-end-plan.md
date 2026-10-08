@@ -2379,3 +2379,22 @@ and CLI help exposes both new compute arguments. No SQL or cloud mutation was
 run in this iteration. Fresh caller namespace execution and reusable native
 schema-registry setup remain unverified; no clean end-to-end installation claim
 is made. This closes one configuration gap while actual Truss remains required.
+
+
+### Reuse and renew native UMF registration admission — 2026-10-08
+
+Inspection found that register_umf.py already installs a same-namespace raw
+registry and retains caller-selected documents/revisions with durable original
+SQL handles. No second schema-registry installer was added. The remaining
+configuration/authority gap is now addressed in that command: complete current
+installation custody, fresh actor and owners, retained paginated effective
+permissions, managed-registry admission and original inspected source bytes
+are required before/after registration and before success. Exact registry UUID,
+columns and immutable revision conflict/readback rules remain mandatory.
+
+Two new authority checks, three existing effective-permission checks and two
+existing registry checks pass (seven unique tests). CLI help loads through the
+SDK environment. No warehouse SQL or cloud mutations were run. Native revised
+registration and a fresh setup/publish/query remain unverified. Historical v1/v3
+receipts retain their original scope. Actual Truss implementation/feed and remote
+schema/source acceptance remain necessary to complete the goal.

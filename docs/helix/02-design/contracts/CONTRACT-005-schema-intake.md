@@ -197,3 +197,29 @@ requires the interpretation’s exact source digest and pinned validator/revisio
 to match. A same-named source or altered receipt cannot instantiate the selected
 policy. This does not admit caller-supplied catalog mappings as native IDs: Truss
 acceptance report/head custody remains required, and its private head is still0.
+
+
+## Registration CLI admission renewal — 2026-10-08
+
+The existing register_umf.py command derives its namespace only after checking
+complete original installation/model/generator custody under the same rule as
+the native CSV runner. Its development owner lane MUST observe the current actor
+and independent catalog/schema/table owners, then obtain complete bounded
+paginated effective-permission observations, retaining raw pages before
+interpretation. Unknown/partial/inherited writer meaning refuses. SHOW GRANTS is
+not used as the complete inventory in this path. An admitted schema_intake table
+MUST be Unity Catalog MANAGED. Registry UUID and exact schema checks remain
+independent of these owner/permission observations.
+
+The supplied document bytes MUST still equal the actual inspected source on
+admission, before and after registration and before a retained summary is emitted.
+A failure after a native mutation does not prove rollback; retain the original
+journal/statement handle and reconcile without replacement submissions. The
+writer remains a same-host cooperating lock under trusted administrators;
+renewed observations are not remote fencing or accepted catalog authority.
+
+Two new local authority tests exercise paginated inherited observations, actor
+changes, external registries, foreign namespaces and untrusted writers. Existing
+three effective-permission and two raw-registry tests pass independently. These
+checks qualify host composition; the revised native command has not yet been
+executed and historical native receipts do not prove its new admission behavior.

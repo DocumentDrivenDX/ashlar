@@ -345,7 +345,7 @@ The command runs the actual pinned UMF reader/validator from a clean checkout:
 ```sh
 python3 tools/register_umf.py \
   --installation docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_setup_20261008/summary.json \
-  --umf-source /Users/erik/Projects/umf \
+  --umf-source /path/to/clean/pinned/umf \
   --validator-revision 16c35e8d943769ccfa7bb57d16785aa7159abe65 \
   --document examples/end-to-end/schema-v1.umf.json --revision 1 \
   --journal /private/tmp/ashlar-private-schema-20261008.sqlite \
@@ -353,7 +353,15 @@ python3 tools/register_umf.py \
 ```
 
 Requires the SDK-enabled Python environment, Bun on PATH (or --bun), and installed
-UMF checkout dependencies. Retain the journal. Native v1 and separate v3/revision3
+UMF checkout dependencies. The clean checkout must match the supplied exact Git
+revision; the owner's changing checkout is not an implicit source pin.
+Use your original `setup_native.py` installation summary and an authorized
+existing `--profile`/`--warehouse`. The command derives the registry namespace
+from the complete UMF-generated installation receipt. It retains raw paginated
+effective permissions in `effective-grants.jsonl` and checks fresh actor/owners,
+a managed registry, exact UUID/columns and unchanged inspected source bytes.
+The new authority composition has focused local evidence; its native rerun and
+fresh user installation remain unverified. Retain the journal. Native v1 and separate v3/revision3
 registration pass exact original bytes and diagnostic readback. For v3, change
 --document, --revision and --output; keep the registry journal. Unknown/partial
 interpretation is retained truthfully. This registers raw schema custody, not an
