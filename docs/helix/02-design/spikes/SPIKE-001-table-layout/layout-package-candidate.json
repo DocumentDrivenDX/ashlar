@@ -2848,7 +2848,17 @@
     "append_combined_oracle_r686.py": "10890088dc177dbbecda914bd2ddb30fe72c9dd5609f6f825cd01c16c7908299",
     "out/append-edge-oracle-r680.json": "3c98e8a8beee83ce3815f5151cb584cc6652378bbdb2e3780c5ccece6b45f357",
     "out/append-edge-oracle-audit-r685.json": "2e43871a3533c65e2b1212194c8feef6925708cc06c1b0769f40aed541eab6fe",
-    "out/combined-edge-oracle-r686.json": "c9faa1555662186f54bbd41ede255b2bed6955e799c781754bebb71157db4456"
+    "out/combined-edge-oracle-r686.json": "c9faa1555662186f54bbd41ede255b2bed6955e799c781754bebb71157db4456",
+    "append_next_preflight_r687.py": "7944e516b313a071b14b7de64617a7f3d35cbf3e7fa2111895fea44a4f7d8fe4",
+    "append_next_preflight_audit_r688.py": "c4796641035d1fd3efc8b58bdf2e2bcae107f35166604d9be85ef1bf874582b2",
+    "append_next_preflight_audit_r689.py": "3e3dcf100d606fff71d355d02074ff6442f84455c6a2b64dde432673e46c5c8a",
+    "out/next-edge-stage-budget-r690.json": "1035bf9780fffdc4ef1903e306290c9f39c6feae8f5bf3a8568343161317346f",
+    "next-edge-preflight-disposition-r691.md": "464126d069bc1a0b042802790bbe8050eb95f36686eecb08f11739d28f835231",
+    "out/native/ashlar_append_next_preflight_r687/audit-stop-r688.json": "d88c87233f5657c25343ced5f6da22b9eca5e764ca27c5083cd754eb20378135",
+    "out/native/ashlar_append_next_preflight_r687/audited-summary-r689.json": "5563cbfe4851e5299cbe50db80107c50422793dee8e8ce2c1695287d7786fce4",
+    "out/native/ashlar_append_next_preflight_r687/shared-history.json": "2ff7fc77e309ccedf6387e92349add227fec1ab471fcfaedc15645000c20f2ec",
+    "out/native/ashlar_append_next_preflight_r687/statements.jsonl": "69c3c4891470d149845eb5ba7e5e7e93e8c7a2d17a1541efab3dc90a2f60ae65",
+    "out/native/ashlar_append_next_preflight_r687/summary.json": "a21ccbd1241629667384d0946ea491bb2673ad63e7fe879518712a12755a50c3"
   },
   "evidence": {
     "ddl": {

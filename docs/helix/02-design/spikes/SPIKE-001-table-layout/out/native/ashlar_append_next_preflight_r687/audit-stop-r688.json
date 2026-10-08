@@ -1,0 +1,5 @@
+{
+  "state": "Local strict audit stopped on cached unchanged adjacency blocks",
+  "source_sha256": "c4796641035d1fd3efc8b58bdf2e2bcae107f35166604d9be85ef1bf874582b2",
+  "qualification": "No new native operations; changed heads were uncached, adjacency pin12 matches prior uncached complete evidence. Preserve strict failed assertion before scoped reconciliation."
+}

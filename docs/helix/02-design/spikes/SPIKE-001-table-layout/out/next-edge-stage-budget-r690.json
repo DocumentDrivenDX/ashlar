@@ -1,0 +1,49 @@
+{
+  "format": "ashlar-next-edge-stage-budget/2",
+  "sources": {
+    "out/append-capacity-basis-r671.json": "55e26583b21375c7e333b33bd23aebee2d7215c0153afd1ca3543e5efd466ecf",
+    "out/native/ashlar_append_journal_blocks_r676/audited-summary-r677.json": "67630d94b3449d5d729e8073c998ea449147036f9f0ced350de9f071619f89b5",
+    "out/native/ashlar_append_edge_growth_r665/audited-summary-r669.json": "7e57d6bdf5546a8f188d5d42fac3286f95725c78461f12985a8ce2cddf630a93",
+    "out/native/ashlar_append_other_blocks_r682/audited-summary-r683.json": "85f31bbd4ce5fb6bb1e2721f4fe8d8b64551b10b28025c16194562c4c655c3e0",
+    "out/native/ashlar_append_next_preflight_r687/audited-summary-r689.json": "5563cbfe4851e5299cbe50db80107c50422793dee8e8ce2c1695287d7786fce4",
+    "out/combined-edge-oracle-r686.json": "c9faa1555662186f54bbd41ede255b2bed6955e799c781754bebb71157db4456"
+  },
+  "existing_new_edges": 8000000,
+  "target_new_edges": 16000000,
+  "next_ordinal_range": [
+    48000000,
+    56000000
+  ],
+  "new_edges": 8000000,
+  "append_chunk_edges": 500000,
+  "bounds": {
+    "read_bytes": 85000000000,
+    "write_remote_bytes": 35000000000,
+    "spill_to_disk_bytes": 0,
+    "native_wall_s": 2700,
+    "local_oracle_wall_s": 1800,
+    "statement_cancel_s": 180,
+    "setup_cancel_s": 60
+  },
+  "sensitivity": {
+    "write_bytes": 28331454759.272728,
+    "read_bytes": 80409096109
+  },
+  "conditions": [
+    "Full independent next8M local oracle and prior8M oracle retained",
+    "Revalidate all four private UUID/head/schema states, explicitly reconcile maintenance advances",
+    "All four bounded verification branches qualified at current8M extent; complete local next8M oracle and fresh physical-head preflight still required before writes",
+    "Use whole-table membership/row counts plus disjoint digest blocks; do not hide filtered rows",
+    "Attribute every append and check exact row counts; stop on any spill or unexplained commit",
+    "Verify complete16M new-edge extent and32M endpoint references at explicit old-node6/new-node15 pins"
+  ],
+  "qualification": "Conditional resource basis, not native growth admission. No wall-rate extrapolation from interrupted R665. Prior canceled setup final costs remain unknown; this fresh-phase guard is not a complete billing/account ledger. Existing authorized compute only, no resize or publication change.16M new edges plus old published39.93M does not establish full80M or1B/5B scope. Updated read sensitivity uses observed maintained-head block costs, not earlier premaintenance file geometry.1.5x double-extent sensitivity plus10GB reserve also accommodates equivalent prior preflight reads; the next controller must explicitly charge R687 preflight costs to the85GB combined limit. No full wall-time forecast. Cached unchanged adjacency is qualified by prior uncached pin12 proof.",
+  "verified_block_read_bytes": 19425462936,
+  "observed_start_heads": {
+    "edge_current": 13,
+    "source_record": 13,
+    "property_journal": 14,
+    "adjacency_forward": 12
+  },
+  "preflight_read_bytes": 23469698703
+}

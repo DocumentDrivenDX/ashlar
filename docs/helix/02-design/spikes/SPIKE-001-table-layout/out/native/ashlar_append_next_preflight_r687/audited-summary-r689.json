@@ -1,0 +1,32 @@
+{
+  "state": "All30 exact final statements and320 full-field groups qualify observed maintenance heads",
+  "heads": {
+    "edge_current": 13,
+    "source_record": 13,
+    "property_journal": 14,
+    "adjacency_forward": 12
+  },
+  "maintenance_commits": {
+    "edge_current": 2,
+    "source_record": 2,
+    "property_journal": 3,
+    "adjacency_forward": 0
+  },
+  "costs": {
+    "read_bytes": 23469698703,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 163.150684917,
+  "cached_unchanged_blocks": [
+    "adjacency_forward-40000000",
+    "adjacency_forward-44000000"
+  ],
+  "sources": {
+    "out/append-edge-oracle-r656.json": "a959801b547267f70a4dce3015477cab19428c5a670a093e26088c1476ba6266",
+    "out/native/ashlar_append_next_preflight_r687/summary.json": "a21ccbd1241629667384d0946ea491bb2673ad63e7fe879518712a12755a50c3",
+    "out/native/ashlar_append_next_preflight_r687/statements.jsonl": "69c3c4891470d149845eb5ba7e5e7e93e8c7a2d17a1541efab3dc90a2f60ae65",
+    "out/native/ashlar_append_next_preflight_r687/shared-history.json": "2ff7fc77e309ccedf6387e92349add227fec1ab471fcfaedc15645000c20f2ec"
+  },
+  "qualification": "Complete current8M full-field/membership qualification at observed heads; maintenance advances explicitly recorded. No writes, next16M extent or publication/operational gate admission. Observations are not a writer fence. Changed-head content compared uncached with independent oracle; unchanged adjacency pin12 cache responses matched prior exact uncached evidence. No fresh adjacency I/O or cache-setting enforcement claim; raw Delta-log/DV actions and retention remain unqualified. Next writer must recheck heads; this is not a future-head guarantee."
+}
