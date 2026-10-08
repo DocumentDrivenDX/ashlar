@@ -335,3 +335,12 @@ inferring active registration. `tools/retain_profile_custody.py` has bounded ori
 files and complete submission limits. Its bundle is explicitly selected-source
 custody, not full transitive implementation recognition or accepted Truss support.
 Six candidate artifacts are durably retained; the accepted Truss head stays zero.
+
+StringRecordPolicy.from_truss_catalog takes an explicit positive canonical native
+catalog revision separately from the original owner's document revision. Truss
+feed rev maps to Ashlar schema_revision; owner-issued documentRevision must not
+be substituted for it. The policy keeps both domains and enforces the event's
+catalog revision. from_intake retains the raw document-source default and accepts
+an explicit source-schema revision for other admitted adapters. Neither path
+establishes acceptance authority: original report/IDs/source-revision admission
+remains the caller's independent obligation. The installed Truss head is still zero.

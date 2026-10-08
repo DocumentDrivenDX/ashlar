@@ -13,9 +13,11 @@ class SemanticPolicyError(ValueError):
 
 class StringRecordPolicy:
     @classmethod
-    def from_intake(cls,intake,interpretation,entries,*,source_system):
+    def from_intake(cls,intake,interpretation,entries,*,source_system,source_schema_revision=None):
         """Bind original intake custody to interpretation before host enforcement.
 
+        The default revision is the owner document revision for raw document sources.
+        A catalog source must supply its independently admitted event revision.
         This does not attest native catalog acceptance of supplied ID entries.
         """
         if not isinstance(intake,SchemaIntake):
@@ -25,9 +27,24 @@ class StringRecordPolicy:
         if recovered!=intake:
             raise SemanticPolicyError('Schema intake differs from original artifact')
         policy=cls(interpretation,entries,validator_revision=intake.validator_revision,
-                   source_system=source_system,schema_revision=intake.document_revision)
+                   source_system=source_system,schema_revision=intake.document_revision if source_schema_revision is None else source_schema_revision)
+        policy.document_revision=intake.document_revision
         if policy.source_sha256!=intake.source_sha256:
             raise SemanticPolicyError('Interpretation does not belong to retained original schema')
+        return policy
+
+    @classmethod
+    def from_truss_catalog(cls,intake,interpretation,entries,*,source_system,catalog_revision):
+        """Bind data's native accepted-catalog revision separately from owner revision.
+
+        Caller must independently admit the original report, IDs and positive
+        catalog revision. This method provides constraints, not that authority.
+        """
+        if type(catalog_revision) is not str or not 1<=len(catalog_revision)<=10 or not catalog_revision.isascii() or not catalog_revision.isdecimal() or str(int(catalog_revision))!=catalog_revision or not 0<int(catalog_revision)<2**31:
+            raise SemanticPolicyError('Explicit positive canonical native catalog revision required')
+        policy=cls.from_intake(intake,interpretation,entries,source_system=source_system,
+                               source_schema_revision=catalog_revision)
+        policy.catalog_revision=catalog_revision
         return policy
 
     def __init__(self,interpretation,entries,*,validator_revision,source_system,schema_revision):

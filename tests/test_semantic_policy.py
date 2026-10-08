@@ -29,6 +29,18 @@ class SemanticTests(unittest.TestCase):
         v1=SchemaIntake.read((ROOT/'examples/end-to-end/schema-v1.intake.json').read_bytes(),'1',trusted_validator_revision=PIN)
         with self.assertRaises(SemanticPolicyError):StringRecordPolicy.from_intake(v1,interpretation,ENTRIES,source_system='source')
         with self.assertRaises(SemanticPolicyError):StringRecordPolicy.from_intake(replace(v3,source=b'changed'),interpretation,ENTRIES,source_system='source')
+    def test_truss_catalog_revision_is_distinct_from_owner_document_revision(self):
+        interpretation=(ROOT/'examples/end-to-end/schema-v3.interpretation.json').read_bytes()
+        intake=SchemaIntake.read((ROOT/'examples/end-to-end/schema-v3.intake.json').read_bytes(),'3',trusted_validator_revision=PIN)
+        policy=StringRecordPolicy.from_truss_catalog(intake,interpretation,ENTRIES,source_system='source',catalog_revision='1')
+        change=self.change('{"23":"native catalog revision"}')
+        change=replace(change,state=replace(change.state,schema_revision='1'))
+        policy(change)
+        self.assertEqual((policy.document_revision,policy.catalog_revision,policy.schema_revision),('3','1','1'))
+        with self.assertRaises(SemanticPolicyError):policy(self.change('{"23":"wrong revision domain"}'))
+        for revision in ['0','01','-1',str(2**31),True]:
+            with self.assertRaises(SemanticPolicyError):StringRecordPolicy.from_truss_catalog(intake,interpretation,ENTRIES,source_system='source',catalog_revision=revision)
+
     def test_schema_or_source_drift_refuses(self):
         c=self.change('{"23":"x"}')
         for state in [replace(c.state,schema_revision='2'),replace(c.state,key=EntityKey('other','object',17,1))]:

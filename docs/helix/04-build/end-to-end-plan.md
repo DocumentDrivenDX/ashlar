@@ -705,3 +705,20 @@ installation. No activation/admission flag exists; the head remains zero. Comple
 report/context registration and protected persistence are still required before
 accepted IDs can authorize ingestion. Evidence: SPIKE-001-table-layout/out/native/profile_custody_20261008
 and profile_custody_replay_20261008.
+
+## Source revision domain correction — 2026-10-08
+
+The existing feed mapping assigns native Truss rev to Ashlar schema_revision.
+Owner-issued UMF document revisions and accepted catalog revisions are independent
+(e.g. owner revision3 accepted at catalog revision1). The selected policy now has
+an explicit Truss catalog source path that keeps both domains and checks events
+against the independently admitted positive native catalog revision. Genesis,
+noncanonical/out-of-range revisions and owner-version substitution refuse. Raw
+document sources retain their original default; other adapters may supply an
+explicit admitted source revision. All116 local checks pass; no native/cloud run.
+
+This prevents a future integration barrier mismatch, without manufacturing a
+positive accepted head or ID authority. Complete report/context registration and
+protected native acceptance/persistence remain unfinished. Existing immutable
+profile custody is unchanged; changed implementations require explicit new
+profile/version recognition rather than overwriting archived originals.
