@@ -454,3 +454,26 @@ checks, not a native completed publication or live policy claim. No Databricks
 workload occurred. Next connect actual immutable manifest/admission and protocol/
 retention snapshot policy to this path and demonstrate native execution. Truss
 native acceptance/runtime/feed and broader UMF bindings remain required.
+
+## Native permission inventory and isolated catalog checkpoint
+
+Read-only inventory found all four recoverable fixture tables inherit shared
+db-aidev-users MODIFY from client_dev, alongside other ALL PRIVILEGES/MANAGE
+grants. They cannot establish ordinary remote writer exclusion. Protocol is
+reader3/writer7 with deletionVectors/rowTracking/v2Checkpoint and other recorded
+features; native successful reads do not promote external-engine compatibility.
+The SDK catalog creation attempt refused a missing metastore storage root.
+Azure’s documented Default Storage SQL path on serverless compute succeeded:
+ashlar_e2e_private_20261008 is owned by the authenticated principal and currently
+has no explicit catalog grants. No existing shared grants were changed.
+See https://learn.microsoft.com/en-us/azure/databricks/storage/default-storage .
+
+The writer inventory checker now refuses unexpected owners/writers/delegators,
+incomplete metadata and unknown privilege types. Eighty-two local checks pass;
+saved native inventory admits the dedicated catalog and refuses all four shared
+fixtures. This is metadata admission, not a current writer fence or retained pin
+proof. Console automation was explicitly refused, so the browser path was
+stopped and the supported SQL API was used. No data/retention changes or
+benchmark occurred. Next stand up the graph/manifest/attempt carriers in the
+dedicated catalog, renew table/ancestor grants and complete native snapshot/
+publication policy there. Truss acceptance/runtime/feed remains required.

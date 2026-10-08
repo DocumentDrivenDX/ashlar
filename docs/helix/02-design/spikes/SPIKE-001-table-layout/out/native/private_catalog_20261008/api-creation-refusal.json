@@ -1,0 +1,6 @@
+{
+  "state": "refused",
+  "error_type": "InvalidState",
+  "reason": "Metastore storage root URL does not exist; Default Storage enabled.",
+  "resolution": "Verified catalog absent, then created through documented serverless SQL Default Storage path. No supplied storage path or shared grant changes."
+}

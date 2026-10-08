@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "tests": 82,
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q",
+  "scope": "Writer inventory owner, inherited MODIFY/MANAGE/ALL PRIVILEGES, unknown/incomplete metadata refusal; native current snapshots retained separately."
+}

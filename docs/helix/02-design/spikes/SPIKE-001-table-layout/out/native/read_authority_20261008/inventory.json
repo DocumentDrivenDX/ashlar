@@ -1,0 +1,1033 @@
+{
+  "state": "observed",
+  "authenticated_principal": "erik.labianca@synaptiq.ai",
+  "tables": [
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.object_current",
+      "detail": {
+        "format": "delta",
+        "id": "e420f55d-449f-4c21-b91b-460ffc6493e2",
+        "name": "client_dev.ashlar_recoverable_graph_20261008.object_current",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/de4eda0e-6529-4542-81b4-0971e48301b1",
+        "createdAt": "2026-10-08T06:21:16.801Z",
+        "lastModified": "2026-10-08T06:21:41.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"lookup_hash\"]",
+        "numFiles": "2",
+        "sizeInBytes": "11329",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,type_id,id\",\"io.unitycatalog.tableId\":\"de4eda0e-6529-4542-81b4-0971e48301b1\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-2fcd209c-0202-449c-94ce-3529e0fe7ab1\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-d4fc7d5c-b1dd-46c8-b401-7962d05db805\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"2\",\"numDeletionVectors\":\"1\"}",
+        "clusterByAuto": "false"
+      },
+      "grants": [
+        {
+          "Principal": "c9b93fc0-61bc-4abb-87b7-f73ae93a5591",
+          "ActionType": "ALL PRIVILEGES",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "a94a9ae5-ff5b-407c-b4f6-a9b00832e9a5",
+          "ActionType": "MANAGE",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "db-aidev-admins",
+          "ActionType": "ALL PRIVILEGES",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "db-aidev-users",
+          "ActionType": "MODIFY",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "db-aidev-users",
+          "ActionType": "SELECT",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        }
+      ],
+      "properties": [
+        {
+          "key": "clusteringColumns",
+          "value": "[[\"lookup_hash\"]]"
+        },
+        {
+          "key": "databricks.delta.expressionStats.selectedColumns",
+          "value": "upper(lookup_hash),lower(lookup_hash)"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsJson",
+          "value": "false"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsStruct",
+          "value": "true"
+        },
+        {
+          "key": "delta.checkpointPolicy",
+          "value": "v2"
+        },
+        {
+          "key": "delta.dataSkippingStatsColumns",
+          "value": "lookup_hash,source_system,type_id,id"
+        },
+        {
+          "key": "delta.enableDeletionVectors",
+          "value": "true"
+        },
+        {
+          "key": "delta.enableRowTracking",
+          "value": "true"
+        },
+        {
+          "key": "delta.feature.appendOnly",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.clustering",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.deletionVectors",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.domainMetadata",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.invariants",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.rowTracking",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.v2Checkpoint",
+          "value": "supported"
+        },
+        {
+          "key": "delta.minReaderVersion",
+          "value": "3"
+        },
+        {
+          "key": "delta.minWriterVersion",
+          "value": "7"
+        },
+        {
+          "key": "delta.parquet.compression.codec",
+          "value": "zstd"
+        },
+        {
+          "key": "delta.parquet.format.version",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.parquet.format.version.afe.internal",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowCommitVersionColumnName",
+          "value": "_row-commit-version-col-2fcd209c-0202-449c-94ce-3529e0fe7ab1"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowIdColumnName",
+          "value": "_row-id-col-d4fc7d5c-b1dd-46c8-b401-7962d05db805"
+        },
+        {
+          "key": "delta.targetFileSize",
+          "value": "67108864"
+        },
+        {
+          "key": "io.unitycatalog.tableId",
+          "value": "de4eda0e-6529-4542-81b4-0971e48301b1"
+        }
+      ],
+      "history": [
+        {
+          "version": "4",
+          "timestamp": "2026-10-08T06:21:41.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "WRITE",
+          "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"fast-path clustering triggered\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-864e-120a-a353-dc46388d6ac4",
+          "clusterId": null,
+          "readVersion": "3",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"1\",\"numOutputBytes\":\"5529\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        },
+        {
+          "version": "3",
+          "timestamp": "2026-10-08T06:21:40.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "MERGE",
+          "operationParameters": "{\"predicate\":\"[\\\"(((source_system#70731 = source_system#70749) AND (type_id#70732L = cast(type_id#70750 as bigint))) AND (id#70733L = cast(id#70751 as bigint)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"delete\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-8548-1559-8121-1d54482c40fe",
+          "clusterId": null,
+          "readVersion": "2",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "false",
+          "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"2\",\"numTargetFilesAdded\":\"0\",\"numTargetBytesAdded\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"1\",\"numTargetRowsMatchedUpdated\":\"0\",\"executionTimeMs\":\"944\",\"materializeSourceTimeMs\":\"100\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"2\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"590\",\"numTargetRowsUpdated\":\"0\",\"numOutputRows\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"0\",\"numSourceRows\":\"2\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"234\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        },
+        {
+          "version": "2",
+          "timestamp": "2026-10-08T06:21:28.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "WRITE",
+          "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"fast-path clustering triggered\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-7ea4-11aa-ba64-6d1a442cebb6",
+          "clusterId": null,
+          "readVersion": "1",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"3\",\"numOutputBytes\":\"5800\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        },
+        {
+          "version": "1",
+          "timestamp": "2026-10-08T06:21:27.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "MERGE",
+          "operationParameters": "{\"predicate\":\"[\\\"(((source_system#67231 = source_system#67249) AND (type_id#67232L = cast(type_id#67250 as bigint))) AND (id#67233L = cast(id#67251 as bigint)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"delete\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-7db6-1ce0-aa86-77ec9481b903",
+          "clusterId": null,
+          "readVersion": "0",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "false",
+          "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetFilesAdded\":\"0\",\"numTargetBytesAdded\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetRowsMatchedUpdated\":\"0\",\"executionTimeMs\":\"658\",\"materializeSourceTimeMs\":\"167\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"474\",\"numTargetRowsUpdated\":\"0\",\"numOutputRows\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"0\",\"numSourceRows\":\"3\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"0\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        },
+        {
+          "version": "0",
+          "timestamp": "2026-10-08T06:21:17.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "CREATE TABLE",
+          "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"databricks.delta.expressionStats.selectedColumns\\\":\\\"upper(lookup_hash),lower(lookup_hash)\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"delta.dataSkippingStatsColumns\\\":\\\"lookup_hash,source_system,type_id,id\\\",\\\"io.unitycatalog.tableId\\\":\\\"de4eda0e-6529-4542-81b4-0971e48301b1\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-d4fc7d5c-b1dd-46c8-b401-7962d05db805\\\",\\\"delta.targetFileSize\\\":\\\"67108864\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-2fcd209c-0202-449c-94ce-3529e0fe7ab1\\\"}\",\"statsOnLoad\":\"false\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-7795-13c8-94c8-d437bf38471e",
+          "clusterId": null,
+          "readVersion": null,
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ]
+    },
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.edge_current",
+      "detail": {
+        "format": "delta",
+        "id": "e5c10b7c-cc41-4136-8603-d774cadfb9e7",
+        "name": "client_dev.ashlar_recoverable_graph_20261008.edge_current",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/cb629cd0-84dc-4c59-af3f-57d1e7203a70",
+        "createdAt": "2026-10-08T06:21:18.241Z",
+        "lastModified": "2026-10-08T06:21:42.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"lookup_hash\"]",
+        "numFiles": "0",
+        "sizeInBytes": "0",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"delta.dataSkippingStatsColumns\":\"lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id\",\"io.unitycatalog.tableId\":\"cb629cd0-84dc-4c59-af3f-57d1e7203a70\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-65f1ecb1-0fad-43d9-b9bc-0ebcc19a6030\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-80119f51-39cc-40c3-a322-3ea868860177\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      },
+      "grants": [
+        {
+          "Principal": "c9b93fc0-61bc-4abb-87b7-f73ae93a5591",
+          "ActionType": "ALL PRIVILEGES",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "a94a9ae5-ff5b-407c-b4f6-a9b00832e9a5",
+          "ActionType": "MANAGE",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "db-aidev-admins",
+          "ActionType": "ALL PRIVILEGES",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "db-aidev-users",
+          "ActionType": "MODIFY",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "db-aidev-users",
+          "ActionType": "SELECT",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        }
+      ],
+      "properties": [
+        {
+          "key": "clusteringColumns",
+          "value": "[[\"lookup_hash\"]]"
+        },
+        {
+          "key": "databricks.delta.expressionStats.selectedColumns",
+          "value": "upper(lookup_hash),lower(lookup_hash)"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsJson",
+          "value": "false"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsStruct",
+          "value": "true"
+        },
+        {
+          "key": "delta.checkpointPolicy",
+          "value": "v2"
+        },
+        {
+          "key": "delta.dataSkippingStatsColumns",
+          "value": "lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id"
+        },
+        {
+          "key": "delta.enableDeletionVectors",
+          "value": "true"
+        },
+        {
+          "key": "delta.enableRowTracking",
+          "value": "true"
+        },
+        {
+          "key": "delta.feature.appendOnly",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.clustering",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.deletionVectors",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.domainMetadata",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.invariants",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.rowTracking",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.v2Checkpoint",
+          "value": "supported"
+        },
+        {
+          "key": "delta.minReaderVersion",
+          "value": "3"
+        },
+        {
+          "key": "delta.minWriterVersion",
+          "value": "7"
+        },
+        {
+          "key": "delta.parquet.compression.codec",
+          "value": "zstd"
+        },
+        {
+          "key": "delta.parquet.format.version",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.parquet.format.version.afe.internal",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowCommitVersionColumnName",
+          "value": "_row-commit-version-col-65f1ecb1-0fad-43d9-b9bc-0ebcc19a6030"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowIdColumnName",
+          "value": "_row-id-col-80119f51-39cc-40c3-a322-3ea868860177"
+        },
+        {
+          "key": "delta.targetFileSize",
+          "value": "67108864"
+        },
+        {
+          "key": "io.unitycatalog.tableId",
+          "value": "cb629cd0-84dc-4c59-af3f-57d1e7203a70"
+        }
+      ],
+      "history": [
+        {
+          "version": "3",
+          "timestamp": "2026-10-08T06:21:42.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "MERGE",
+          "operationParameters": "{\"predicate\":\"[\\\"(((source_system#71944 = source_system#71965) AND (rel_type_id#71945L = cast(type_id#71966 as bigint))) AND (id#71946L = cast(id#71967 as bigint)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"delete\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-8718-1833-bdba-93f2d7d05926",
+          "clusterId": null,
+          "readVersion": "2",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "false",
+          "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"2\",\"numTargetFilesAdded\":\"0\",\"numTargetBytesAdded\":\"0\",\"numTargetBytesRemoved\":\"6209\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetRowsMatchedUpdated\":\"0\",\"executionTimeMs\":\"633\",\"materializeSourceTimeMs\":\"99\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"2\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"514\",\"numTargetRowsUpdated\":\"0\",\"numOutputRows\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"0\",\"numSourceRows\":\"2\",\"numTargetFilesRemoved\":\"1\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"1\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        },
+        {
+          "version": "2",
+          "timestamp": "2026-10-08T06:21:31.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "WRITE",
+          "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"fast-path clustering triggered\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-8040-102d-9c9e-0c88b9a4b948",
+          "clusterId": null,
+          "readVersion": "1",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"2\",\"numOutputBytes\":\"6209\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        },
+        {
+          "version": "1",
+          "timestamp": "2026-10-08T06:21:30.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "MERGE",
+          "operationParameters": "{\"predicate\":\"[\\\"(((source_system#68287 = source_system#68308) AND (rel_type_id#68288L = cast(type_id#68309 as bigint))) AND (id#68289L = cast(id#68310 as bigint)))\\\"]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"matchedPredicates\":\"[{\\\"actionType\\\":\\\"delete\\\"}]\",\"statsOnLoad\":\"false\",\"notMatchedBySourcePredicates\":\"[]\",\"notMatchedPredicates\":\"[]\",\"clusteringOnWriteStatus\":null}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-7f85-1056-aff4-cc5b471ba715",
+          "clusterId": null,
+          "readVersion": "0",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "false",
+          "operationMetrics": "{\"numTargetRowsCopied\":\"0\",\"numTargetRowsDeleted\":\"0\",\"numTargetFilesAdded\":\"0\",\"numTargetBytesAdded\":\"0\",\"numTargetBytesRemoved\":\"0\",\"numTargetDeletionVectorsAdded\":\"0\",\"numTargetRowsMatchedUpdated\":\"0\",\"executionTimeMs\":\"454\",\"materializeSourceTimeMs\":\"102\",\"numTargetRowsInserted\":\"0\",\"numTargetRowsMatchedDeleted\":\"0\",\"numTargetDeletionVectorsUpdated\":\"0\",\"scanTimeMs\":\"330\",\"numTargetRowsUpdated\":\"0\",\"numOutputRows\":\"0\",\"numTargetDeletionVectorsRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceUpdated\":\"0\",\"numTargetChangeFilesAdded\":\"0\",\"numSourceRows\":\"2\",\"numTargetFilesRemoved\":\"0\",\"numTargetRowsNotMatchedBySourceDeleted\":\"0\",\"rewriteTimeMs\":\"0\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        },
+        {
+          "version": "0",
+          "timestamp": "2026-10-08T06:21:18.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "CREATE TABLE",
+          "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"databricks.delta.expressionStats.selectedColumns\\\":\\\"upper(lookup_hash),lower(lookup_hash)\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"delta.dataSkippingStatsColumns\\\":\\\"lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id\\\",\\\"io.unitycatalog.tableId\\\":\\\"cb629cd0-84dc-4c59-af3f-57d1e7203a70\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-80119f51-39cc-40c3-a322-3ea868860177\\\",\\\"delta.targetFileSize\\\":\\\"67108864\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-65f1ecb1-0fad-43d9-b9bc-0ebcc19a6030\\\"}\",\"statsOnLoad\":\"false\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-78a8-1b03-807c-526983315143",
+          "clusterId": null,
+          "readVersion": null,
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ]
+    },
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.tombstone",
+      "detail": {
+        "format": "delta",
+        "id": "dd4a9603-9299-4a2c-9bf7-4e3013d91366",
+        "name": "client_dev.ashlar_recoverable_graph_20261008.tombstone",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/50fae0b7-a7b5-44e7-958f-21fd90305409",
+        "createdAt": "2026-10-08T06:21:19.569Z",
+        "lastModified": "2026-10-08T06:21:45.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"source_system\",\"type_id\",\"id\"]",
+        "numFiles": "1",
+        "sizeInBytes": "3651",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_system),lower(source_system)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"50fae0b7-a7b5-44e7-958f-21fd90305409\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-9ee935f6-0f9e-4150-a1f7-60cbbadfb274\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-f2ab6fc1-ac28-493c-b8ea-5f911d9c2122\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      },
+      "grants": [
+        {
+          "Principal": "c9b93fc0-61bc-4abb-87b7-f73ae93a5591",
+          "ActionType": "ALL PRIVILEGES",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "a94a9ae5-ff5b-407c-b4f6-a9b00832e9a5",
+          "ActionType": "MANAGE",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "db-aidev-admins",
+          "ActionType": "ALL PRIVILEGES",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "db-aidev-users",
+          "ActionType": "MODIFY",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "db-aidev-users",
+          "ActionType": "SELECT",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        }
+      ],
+      "properties": [
+        {
+          "key": "clusteringColumns",
+          "value": "[[\"source_system\"],[\"type_id\"],[\"id\"]]"
+        },
+        {
+          "key": "databricks.delta.expressionStats.selectedColumns",
+          "value": "upper(source_system),lower(source_system)"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsJson",
+          "value": "false"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsStruct",
+          "value": "true"
+        },
+        {
+          "key": "delta.checkpointPolicy",
+          "value": "v2"
+        },
+        {
+          "key": "delta.enableDeletionVectors",
+          "value": "true"
+        },
+        {
+          "key": "delta.enableRowTracking",
+          "value": "true"
+        },
+        {
+          "key": "delta.feature.appendOnly",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.clustering",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.deletionVectors",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.domainMetadata",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.invariants",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.rowTracking",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.v2Checkpoint",
+          "value": "supported"
+        },
+        {
+          "key": "delta.minReaderVersion",
+          "value": "3"
+        },
+        {
+          "key": "delta.minWriterVersion",
+          "value": "7"
+        },
+        {
+          "key": "delta.parquet.compression.codec",
+          "value": "zstd"
+        },
+        {
+          "key": "delta.parquet.format.version",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.parquet.format.version.afe.internal",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowCommitVersionColumnName",
+          "value": "_row-commit-version-col-9ee935f6-0f9e-4150-a1f7-60cbbadfb274"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowIdColumnName",
+          "value": "_row-id-col-f2ab6fc1-ac28-493c-b8ea-5f911d9c2122"
+        },
+        {
+          "key": "io.unitycatalog.tableId",
+          "value": "50fae0b7-a7b5-44e7-958f-21fd90305409"
+        }
+      ],
+      "history": [
+        {
+          "version": "1",
+          "timestamp": "2026-10-08T06:21:45.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "WRITE",
+          "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-88a0-1f4e-abc2-b16ef29d61b3",
+          "clusterId": null,
+          "readVersion": "0",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"3\",\"numOutputBytes\":\"3651\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        },
+        {
+          "version": "0",
+          "timestamp": "2026-10-08T06:21:19.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "CREATE TABLE",
+          "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_system\\\",\\\"type_id\\\",\\\"id\\\"]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"databricks.delta.expressionStats.selectedColumns\\\":\\\"upper(source_system),lower(source_system)\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"50fae0b7-a7b5-44e7-958f-21fd90305409\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-9ee935f6-0f9e-4150-a1f7-60cbbadfb274\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-f2ab6fc1-ac28-493c-b8ea-5f911d9c2122\\\"}\",\"statsOnLoad\":\"false\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-7974-1792-b86f-0fae002254a9",
+          "clusterId": null,
+          "readVersion": null,
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ]
+    },
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.whole_source_history",
+      "detail": {
+        "format": "delta",
+        "id": "63846fb0-18ad-4a90-a934-61d21bcaf749",
+        "name": "client_dev.ashlar_recoverable_graph_20261008.whole_source_history",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/32aa765e-7249-4db9-99f4-c472ab5cfe73",
+        "createdAt": "2026-10-08T06:21:20.802Z",
+        "lastModified": "2026-10-08T06:21:44.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[]",
+        "numFiles": "2",
+        "sizeInBytes": "14374",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"32aa765e-7249-4db9-99f4-c472ab5cfe73\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-2e5924bd-b29d-402c-8c09-965129b78ea9\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-58eb4e1f-d3e8-4e46-a11c-63e64d7530e2\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      },
+      "grants": [
+        {
+          "Principal": "c9b93fc0-61bc-4abb-87b7-f73ae93a5591",
+          "ActionType": "ALL PRIVILEGES",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "a94a9ae5-ff5b-407c-b4f6-a9b00832e9a5",
+          "ActionType": "MANAGE",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "db-aidev-admins",
+          "ActionType": "ALL PRIVILEGES",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "db-aidev-users",
+          "ActionType": "MODIFY",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        },
+        {
+          "Principal": "db-aidev-users",
+          "ActionType": "SELECT",
+          "ObjectType": "CATALOG",
+          "ObjectKey": "client_dev"
+        }
+      ],
+      "properties": [
+        {
+          "key": "delta.checkpoint.writeStatsAsJson",
+          "value": "false"
+        },
+        {
+          "key": "delta.checkpoint.writeStatsAsStruct",
+          "value": "true"
+        },
+        {
+          "key": "delta.checkpointPolicy",
+          "value": "v2"
+        },
+        {
+          "key": "delta.enableDeletionVectors",
+          "value": "true"
+        },
+        {
+          "key": "delta.enableRowTracking",
+          "value": "true"
+        },
+        {
+          "key": "delta.feature.appendOnly",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.deletionVectors",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.domainMetadata",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.invariants",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.rowTracking",
+          "value": "supported"
+        },
+        {
+          "key": "delta.feature.v2Checkpoint",
+          "value": "supported"
+        },
+        {
+          "key": "delta.minReaderVersion",
+          "value": "3"
+        },
+        {
+          "key": "delta.minWriterVersion",
+          "value": "7"
+        },
+        {
+          "key": "delta.parquet.compression.codec",
+          "value": "zstd"
+        },
+        {
+          "key": "delta.parquet.format.version",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.parquet.format.version.afe.internal",
+          "value": "2.12.0"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowCommitVersionColumnName",
+          "value": "_row-commit-version-col-2e5924bd-b29d-402c-8c09-965129b78ea9"
+        },
+        {
+          "key": "delta.rowTracking.materializedRowIdColumnName",
+          "value": "_row-id-col-58eb4e1f-d3e8-4e46-a11c-63e64d7530e2"
+        },
+        {
+          "key": "io.unitycatalog.tableId",
+          "value": "32aa765e-7249-4db9-99f4-c472ab5cfe73"
+        }
+      ],
+      "history": [
+        {
+          "version": "2",
+          "timestamp": "2026-10-08T06:21:44.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "WRITE",
+          "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"true\",\"partitionBy\":\"[]\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-87f1-139c-87e4-700318257b99",
+          "clusterId": null,
+          "readVersion": "1",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"4\",\"numOutputBytes\":\"7270\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        },
+        {
+          "version": "1",
+          "timestamp": "2026-10-08T06:21:32.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "WRITE",
+          "operationParameters": "{\"mode\":\"Append\",\"statsOnLoad\":\"true\",\"partitionBy\":\"[]\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-810d-1458-b271-335697b0e7be",
+          "clusterId": null,
+          "readVersion": "0",
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{\"numFiles\":\"1\",\"numOutputRows\":\"5\",\"numOutputBytes\":\"7104\"}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        },
+        {
+          "version": "0",
+          "timestamp": "2026-10-08T06:21:21.000Z",
+          "userId": "3755468182769617",
+          "userName": "erik.labianca@synaptiq.ai",
+          "operation": "CREATE TABLE",
+          "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.checkpointPolicy\\\":\\\"v2\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"32aa765e-7249-4db9-99f4-c472ab5cfe73\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-2e5924bd-b29d-402c-8c09-965129b78ea9\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-58eb4e1f-d3e8-4e46-a11c-63e64d7530e2\\\"}\",\"statsOnLoad\":\"false\"}",
+          "job": null,
+          "notebook": null,
+          "queryHistoryStatementId": "01f1c2e0-7a32-1586-84cd-6a5ab9129631",
+          "clusterId": null,
+          "readVersion": null,
+          "isolationLevel": "WriteSerializable",
+          "isBlindAppend": "true",
+          "operationMetrics": "{}",
+          "userMetadata": null,
+          "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+        }
+      ]
+    }
+  ],
+  "ancestor_grants": {
+    "client_dev.ashlar_recoverable_graph_20261008": [
+      {
+        "Principal": "c9b93fc0-61bc-4abb-87b7-f73ae93a5591",
+        "ActionType": "ALL PRIVILEGES",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "a94a9ae5-ff5b-407c-b4f6-a9b00832e9a5",
+        "ActionType": "MANAGE",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-admins",
+        "ActionType": "ALL PRIVILEGES",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "SELECT",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "CREATE MATERIALIZED VIEW",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "CREATE VOLUME",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "USE SCHEMA",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "MODIFY",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "CREATE FUNCTION",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "CREATE TABLE",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "WRITE VOLUME",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "EXECUTE",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "READ VOLUME",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      }
+    ],
+    "client_dev": [
+      {
+        "Principal": "c9b93fc0-61bc-4abb-87b7-f73ae93a5591",
+        "ActionType": "ALL PRIVILEGES",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "a94a9ae5-ff5b-407c-b4f6-a9b00832e9a5",
+        "ActionType": "MANAGE",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "a94a9ae5-ff5b-407c-b4f6-a9b00832e9a5",
+        "ActionType": "USE CATALOG",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "8ff14ff5-53c6-4032-8c27-1c0e9fd8c7c8",
+        "ActionType": "USE CATALOG",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-admins",
+        "ActionType": "ALL PRIVILEGES",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "SELECT",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "CREATE MATERIALIZED VIEW",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "CREATE VOLUME",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "USE CATALOG",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "CREATE SCHEMA",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "USE SCHEMA",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "MODIFY",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "CREATE FUNCTION",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "CREATE TABLE",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "WRITE VOLUME",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "EXECUTE",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      },
+      {
+        "Principal": "db-aidev-users",
+        "ActionType": "READ VOLUME",
+        "ObjectType": "CATALOG",
+        "ObjectKey": "client_dev"
+      }
+    ]
+  },
+  "qualification": "Read-only native inventory. Current UUID/protocol/properties/grants/history observations do not certify future retention, hierarchy-wide writer exclusion or protocol compatibility with external engines. No grant/property/retention changes, publication or data writes."
+}

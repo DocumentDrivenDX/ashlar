@@ -1,0 +1,8 @@
+{
+  "catalog_type": "MANAGED_CATALOG",
+  "isolation_mode": "OPEN",
+  "metastore_id": "d0c158ef-7505-4643-880e-6652dbfa2329",
+  "name": "ashlar_e2e_private_20261008",
+  "owner": "erik.labianca@synaptiq.ai",
+  "storage_root": "abfss://unitycatalog@prdbjnoe9m6s8nystczyarex.dfs.core.windows.net/uc/996cf4c3-9831-4561-964c-08141715653e/d0c158ef-7505-4643-880e-6652dbfa2329"
+}

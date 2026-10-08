@@ -1,0 +1,24 @@
+{
+  "state": "passed",
+  "private_catalog": "ashlar_e2e_private_20261008",
+  "owner": "erik.labianca@synaptiq.ai",
+  "shared_table_refusals": [
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.object_current",
+      "reason": "Unadmitted native writer/delegator: c9b93fc0-61bc-4abb-87b7-f73ae93a5591"
+    },
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.edge_current",
+      "reason": "Unadmitted native writer/delegator: c9b93fc0-61bc-4abb-87b7-f73ae93a5591"
+    },
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.tombstone",
+      "reason": "Unadmitted native writer/delegator: c9b93fc0-61bc-4abb-87b7-f73ae93a5591"
+    },
+    {
+      "table": "client_dev.ashlar_recoverable_graph_20261008.whole_source_history",
+      "reason": "Unadmitted native writer/delegator: c9b93fc0-61bc-4abb-87b7-f73ae93a5591"
+    }
+  ],
+  "qualification": "Saved-inventory admission check, not renewed live writer fence. Dedicated catalog observed with no explicit grants; existing shared grants untouched. Platform admin trust and external retention still separate obligations."
+}

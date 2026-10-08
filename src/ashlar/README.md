@@ -180,3 +180,12 @@ and edge endpoints return as strings; original JSON text remains untouched.
 Duplicates refuse; absence still requires current row policy. Result escapes
 only after final pin custody and authorization checks. Seventy-nine local checks
 pass; real manifest/snapshot policy and native composed execution are required.
+
+validate_writer_inventory in authority.py refuses unexpected native owners,
+MODIFY/ALL PRIVILEGES/MANAGE/ownership holders, incomplete grant inventories and
+unqualified privilege types. Supply fresh complete inherited grants under the
+real writer lane; saved inventory is not a fence. Read-only audit found the
+client_dev fixtures inherit shared db-aidev-users MODIFY. Their process-local
+locks never establish ordinary remote writer exclusion. Dedicated development
+catalog ashlar_e2e_private_20261008 is now created with the authenticated owner
+and no explicit catalog grants; native table setup/policy wiring is next.

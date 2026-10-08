@@ -125,3 +125,16 @@ authorization run before returning; absence also undergoes row policy. The final
 read result is released only after the pin context’s closing checks. Resolution
 and execution failures return no partial singleton response. Native composed
 publication/policy evidence remains unqualified; local refusal controls pass.
+
+## Native permission observation boundary
+
+The current client_dev graph fixtures inherit MODIFY for a shared ordinary user
+group. Local cooperating-process locks and PostgreSQL pin records do not fence
+those remote writers. Do not claim full native publication authority from these
+fixtures. The dedicated ashlar_e2e_private_20261008 catalog has an authenticated
+owner and observed empty explicit grants; table setup and renewed inherited
+permission checks are still required. validate_writer_inventory refuses
+unexpected owners/writers/delegators, unknown privileges and incomplete grants.
+Inputs must be complete fresh native observations under the real authority lane;
+saved grants are evidence, not a lock. Platform administrative trust, retention
+operator enforcement and active-pin custody remain separate obligations.
