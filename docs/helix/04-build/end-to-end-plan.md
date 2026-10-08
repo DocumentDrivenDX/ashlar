@@ -1739,3 +1739,24 @@ native issuer/epoch, safe source ACK or full protected Truss bootstrap/streaming
 No cloud run or persistent native table change was needed. Full toolkit completion
 remains unproved; retained originals must next bind to connection/operation custody
 and explicit uncertainty handling before serving as recovery inputs.
+
+### Local original-query custody binding (2026-10-08)
+
+Truss candidate `2dd59e9` binds each retained request to the adapter's original
+pool checkout through a random local lease locator and a canonical decimal query
+ordinal from a bigint counter. Ordinary statements and controls share the same
+counter; checkout reuse generates a new locator. The journal refuses malformed
+custody before file creation/admission. Exact large ordinals survive persistence.
+
+The existing small native PostgreSQL probe passes. Independent offline reads
+validate 50 requests across nine checkout groups, each with consecutive ordinals
+starting at zero and no duplicates. Forty-seven response-complete observations
+and three original errors (23505/40P01/23503) remain preserved. Thirty-five local
+tests/232 assertions, host build and clean packed consumer checks pass. Older
+original files remain untouched; records lacking custody cannot satisfy this
+new grouping check.
+
+Local lease/ordinal provenance is not native xid, backend identity, issuer epoch
+or protected operation authority. Full uncertainty reconciliation and native
+protected producer/bootstrap/schema/feed paths remain incomplete. The full
+end-to-end goal stays active; no new cloud resources or scale runs were used.
