@@ -1026,6 +1026,8 @@ and both schema proofs remain bound throughout; source switching is forbidden.
 Fifteen focused local checks pass, including the explicit transition, original
 bytes, independent expected state, missing/foreign proof refusals and unchanged
 CSV/JSONL checkpoint behavior. Actual UMF checks cover both original schema
-revisions and existing values under v3. The native evolution path has **not yet
-been executed**. This remains the fixed string-Record example with development
+revisions and existing values under v3. Native evolution setup and both actual raw intake registrations now pass in
+`ashlar_e2e_private_20261008.runtime_schema_evolution`; original publisher is
+running the four-event sequence. Native publication/query success is **not yet
+verified**. This remains the fixed string-Record example with development
 IDs; broader schemas and actual Truss still require implementation.

@@ -2674,3 +2674,35 @@ module and was corrected; direct py_compile attempted a protected system cache,
 so CLI loading provided the syntax/import check instead. No admission relaxed.
 Native evolution setup/intake/publication/query remains pending; local tests do
 not establish cloud migration or Truss acceptance. Full goal remains active.
+
+
+### Native evolution setup/intakes passed; publisher live — 2026-10-08
+
+The independent runtime_schema_evolution installation completed, original process
+30527 exit 0. All nine original CREATE mutations are terminal SUCCEEDED; eight
+exact column/UUID inventories, initial zero-file details and closing native UUIDs
+match generated inputs. Setup used 24 warehouse reads and 53 permission pages.
+Both actual pinned UMF revisions 1 and 3 are retained in the same managed registry
+UUID through /private/tmp/ashlar-evolution-schema-20261008.sqlite. Original CREATE
+was recovered; only two independent MERGE mutations were added. Both complete raw
+rows equal original intake bytes. Each registration used five warehouse reads
+and eleven permission pages. Interpretation completeness remains false.
+
+Evidence: [setup](evidence/native-evolution-setup-20261008.json),
+[intakes](evidence/native-evolution-intakes-20261008.json), and
+[logical preflight](evidence/native-evolution-preflight-20261008.json).
+Actual UMF checker c45c72a2 verifies two original v1 records, one original v3 record,
+and two prior source values under v3 with optional caption absent.
+
+Publisher original process 59082 is live, --source evolution --limit 3, using
+/private/tmp/ashlar-evolution-stream-20261008.sqlite and receipts
+/private/tmp/ashlar-evolution-stream-20261008. The complete sequence has four
+events in three groups, actual source byte positions 805, 1318 and 1814.
+Native final publication, inventories, checkpoint and singleton remain unproved;
+observe the original handle rather than restarting on timeout. Existing private
+warehouse/catalog only; no compute/grants/predictive optimization changes.
+
+The updated authorized Truss capability request was delivered successfully after
+older requests returned terminal tool timeouts. Truss Impl confirms microsite
+work is not a runtime prerequisite, but still reports owner decision/authorization
+dependencies. No real Truss engine or accepted catalog IDs are inferred.

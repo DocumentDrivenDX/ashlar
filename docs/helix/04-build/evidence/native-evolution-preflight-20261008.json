@@ -1,0 +1,23 @@
+{
+  "state": "passed",
+  "ashlar_execution_revision": "2e00147e17090055b448cd1438379dd9ec8d7b9c",
+  "actual_record_checker_revision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+  "checks": {
+    "umf-record-check-1.json": {
+      "records": 2,
+      "source_sha256": "bc5357b1eb99bddac4f1d1d1ce6d9727dbc98d8ca3a56b644510d07117919aec",
+      "receipt_sha256": "2c0fcedc6d61eb3942243202f0c421f8a9482609a6e82fd3328ea428a7f3bd27"
+    },
+    "umf-record-check-3.json": {
+      "records": 1,
+      "source_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+      "receipt_sha256": "f02cb70cbb19c22b72d3180768a6721c16a552e44423c968f0889ef1c90ec378"
+    },
+    "existing-values-before-2.json": {
+      "records": 2,
+      "source_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+      "receipt_sha256": "efcea510a9675d64f5a518fe53757aaaad3fda04b5f77a0dc932624a6e6a7fc2"
+    }
+  },
+  "qualification": "Actual pinned UMF checks performed by native evolution runner before publication planning: original v1/v3 records and independently reconstructed prior source values under v3. Original document interpretation remains incomplete. These are logical Record checks, not evidence of native graph writes or migration."
+}

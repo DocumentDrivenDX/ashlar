@@ -1,0 +1,67 @@
+{
+  "state": "passed",
+  "ashlar_execution_revision": "2e00147e17090055b448cd1438379dd9ec8d7b9c",
+  "summaries": [
+    {
+      "state": "retained",
+      "table": "ashlar_e2e_private_20261008.runtime_schema_evolution.schema_intake",
+      "table_uuid": "4b73fd96-af3a-4ca6-bf39-9b6308a68204",
+      "document_id": "truss-weft-source-review-fixture",
+      "revision": "1",
+      "source_sha256": "bc5357b1eb99bddac4f1d1d1ce6d9727dbc98d8ca3a56b644510d07117919aec",
+      "artifact_sha256": "ad8a83360445c52aa7bc0c4d913ce4e44c5823b9b5f6c492580030ae11e1920d",
+      "validator_revision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+      "complete_interpretation": false,
+      "qualification": "Actual pinned UMF structural validation and exact raw native intake/readback only. Target semantic/schema/catalog acceptance, ID allocation, Truss head/runtime and feed are separate. Fresh actor/managed registry and complete paginated inherited grants plus original model custody and same-host lock; remote writer lifecycle remains unqualified."
+    },
+    {
+      "state": "retained",
+      "table": "ashlar_e2e_private_20261008.runtime_schema_evolution.schema_intake",
+      "table_uuid": "4b73fd96-af3a-4ca6-bf39-9b6308a68204",
+      "document_id": "truss-weft-source-review-fixture",
+      "revision": "3",
+      "source_sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+      "artifact_sha256": "f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1",
+      "validator_revision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+      "complete_interpretation": false,
+      "qualification": "Actual pinned UMF structural validation and exact raw native intake/readback only. Target semantic/schema/catalog acceptance, ID allocation, Truss head/runtime and feed are separate. Fresh actor/managed registry and complete paginated inherited grants plus original model custody and same-host lock; remote writer lifecycle remains unqualified."
+    }
+  ],
+  "original_mutations": [
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_schema_evolution.schema_intake:install",
+      "original_handle": "01f1c350-915d-13b9-a8bc-05d96b019ba8",
+      "request_sha256": "2b8b0b6bf050d34a25207d228a8161ff4c741ad9d22490bc443df043c994f853",
+      "response_sha256": "a025bf95ba67bb3a36c7b056c8057e929fb52bb9a203774d029e9c350cae5318",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "schema-intake:8dabf26a99c5027213ba6dccd45100472cebb960e3d4c34cfa6d7eb04254777f",
+      "original_handle": "01f1c350-93cf-159c-8521-083cfdfbfb85",
+      "request_sha256": "b79a3e766418d3cf3c91989a3905419f973f1dd7647cd28699138dc2b168ec06",
+      "response_sha256": "ddf2339de8bc118019dec919bb7841a935b6d4b23082789d3f8dbc5516bcb45f",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "schema-intake:9d5d98a5a287b890b41dae27965588af0689d85ddbe6b248d96809baef74a64d",
+      "original_handle": "01f1c350-b151-1e9d-ae04-bee2f4b807cd",
+      "request_sha256": "114925c654f42298f3ea55af10c72a8c51f13f58a6221272b5f7a925a96d1f5f",
+      "response_sha256": "cb96e86f8470e823f62ed88a652ffd8ff89221c455f908ec4e051e7e848f509b",
+      "state": "SUCCEEDED"
+    }
+  ],
+  "checks": {
+    "1": {
+      "reads": 5,
+      "permission_pages": 11,
+      "exact_raw_row_observations": 1
+    },
+    "3": {
+      "reads": 5,
+      "permission_pages": 11,
+      "exact_raw_row_observations": 1
+    }
+  },
+  "private_journal": "/private/tmp/ashlar-evolution-schema-20261008.sqlite",
+  "qualification": "Both actual pinned UMF source revisions retained with complete exact raw-row parity in one installed managed registry UUID. Original CREATE reused through the same journal; two independent MERGE mutations succeeded. Incomplete interpretation remains false. No accepted Truss catalog IDs or native evolution/publication established by intake."
+}
