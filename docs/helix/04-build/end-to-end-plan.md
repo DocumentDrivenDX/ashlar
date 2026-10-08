@@ -1217,3 +1217,20 @@ UMF-backed four-event replay remains unchanged. No cloud workload, policy settin
 or source ACK occurred. This supplies semantic correspondence to mandatory source
 admission; it does not prove file epoch authority or catalog/retention admission.
 Native publication and protected Truss integration remain required by the goal.
+
+## Automatic maintenance history inspected — 2026-10-08
+
+The real system.storage.predictive_optimization_operations_history schema is
+readable. A second bound query scoped only to ashlar_e2e_private_20261008.runtime_csv
+returned zero recorded operations, with a 128-row refusal bound and complete
+original response verification. Evidence: out/native/automatic_maintenance_history_20261008.
+The native column comments describe SUCCESSFUL/FAILED statuses; this history
+observation does not establish complete queued/running work custody. Do not use
+zero rows as safe-terminal or no-maintenance proof. Two small read-only SQL
+observations ran; no settings, source ACK, pins or publication changed.
+
+The earlier schema-only predictive-optimization disable proposal remains pending
+authorization. Even after that change, a trusted scheduling/termination observation
+or other qualified containment is required for previously submitted operations;
+this completed-operation table alone cannot provide it. Protected Truss runtime
+and native publication/read admission remain required by the full goal.

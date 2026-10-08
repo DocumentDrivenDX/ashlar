@@ -1,0 +1,7 @@
+{
+  "state": "observed",
+  "catalog": "ashlar_e2e_private_20261008",
+  "schema": "runtime_csv",
+  "operations": [],
+  "qualification": "Bounded system-history observation under authenticated current access. Zero rows does not prove no pending/running maintenance, complete scheduling inventory, publication pin participation or future retention. No settings changed."
+}

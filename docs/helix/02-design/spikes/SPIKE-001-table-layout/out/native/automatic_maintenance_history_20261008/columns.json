@@ -1,0 +1,82 @@
+[
+  {
+    "col_name": "account_id",
+    "data_type": "string",
+    "comment": "ID of the account."
+  },
+  {
+    "col_name": "workspace_id",
+    "data_type": "string",
+    "comment": "The ID of the workspace in which predictive optimization ran the operation."
+  },
+  {
+    "col_name": "start_time",
+    "data_type": "timestamp",
+    "comment": "The time at which the operation started. Timezone information is recorded at the end of the value with +00:00 representing UTC."
+  },
+  {
+    "col_name": "end_time",
+    "data_type": "timestamp",
+    "comment": "The time at which the operation ended. Timezone information is recorded at the end of the value with +00:00 representing UTC."
+  },
+  {
+    "col_name": "metastore_name",
+    "data_type": "string",
+    "comment": "The name of the metastore to which the optimized table belongs."
+  },
+  {
+    "col_name": "metastore_id",
+    "data_type": "string",
+    "comment": "The ID of the metastore to which the optimized table belongs."
+  },
+  {
+    "col_name": "catalog_name",
+    "data_type": "string",
+    "comment": "The name of the catalog to which the optimized table belongs."
+  },
+  {
+    "col_name": "schema_name",
+    "data_type": "string",
+    "comment": "The name of the schema to which the optimized table belongs."
+  },
+  {
+    "col_name": "table_name",
+    "data_type": "string",
+    "comment": "The name of the optimized table."
+  },
+  {
+    "col_name": "table_id",
+    "data_type": "string",
+    "comment": "The ID of the optimized table."
+  },
+  {
+    "col_name": "operation_type",
+    "data_type": "string",
+    "comment": "The optimization operation which was performed."
+  },
+  {
+    "col_name": "operation_id",
+    "data_type": "string",
+    "comment": "The ID for the optimization operation."
+  },
+  {
+    "col_name": "operation_status",
+    "data_type": "string",
+    "comment": "The status of the optimization operation. The value will be SUCCESSFUL or FAILED with a specific error type."
+  },
+  {
+    "col_name": "operation_metrics",
+    "data_type": "map<string,string>",
+    "comment": "Additional details about the specific optimization that was performed."
+  },
+  {
+    "col_name": "usage_unit",
+    "data_type": "string",
+    "comment": "The unit of usage that this operation incurred. "
+  },
+  {
+    "col_name": "usage_quantity",
+    "data_type": "decimal(38,18)",
+    "comment": "The amount of the usage unit that was used by this operation."
+  }
+]

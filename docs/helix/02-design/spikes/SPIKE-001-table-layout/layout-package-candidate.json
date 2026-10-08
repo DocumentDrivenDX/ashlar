@@ -2901,7 +2901,7 @@
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "65e6d2538879cb7ce0b0a0571f673bc08734edd1a0cd3ef6346f8ecf0b2a3724",
-    "../../../04-build/end-to-end-plan.md": "65d17dcbe15570a058b2f2fb7e5ce34e3bd77aa2f9612436c255f2d9cbc9b6f7",
+    "../../../04-build/end-to-end-plan.md": "86ff02d56c62423421e1c8ca8a8d70d465646d4c2f14b3f9059caad6c0055b87",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3271,7 +3271,11 @@
     "out/native/csv_delta_full_parity_20261008/statements.jsonl": "b1febf1536af90f6ccf0adf937f493c9791ea9265b5c0b35ab89870070b91a3c",
     "out/native/csv_delta_full_parity_20261008/transport-completeness.json": "c5e3f0bedc1c3433ee6fbfa032120ef822cd76988328c5c85060ab83fe9ac111",
     "out/native/csv_delta_full_parity_20261008/live-statement.json": "efa4bb0c0fcf2cee7995a9a947cfcbfc291b258b366ae4816c76bbaef36a67c2",
-    "out/csv-cli-installation.json": "2dcb4b4da0bdfe9b13bfd8efd0ac6fcc5fa331c28df30211388a7a56856d08b9"
+    "out/csv-cli-installation.json": "2dcb4b4da0bdfe9b13bfd8efd0ac6fcc5fa331c28df30211388a7a56856d08b9",
+    "out/native/automatic_maintenance_history_20261008/columns.json": "9529213da163a54a2558d23e1c30d4828be9503bf4cab74469288710f35cbf8c",
+    "out/native/automatic_maintenance_history_20261008/live-statement.json": "dfcde67bc5f818feb162f0d79f1e51536c30648e1e69a3cf41dcbbeea80721e6",
+    "out/native/automatic_maintenance_history_20261008/statements.jsonl": "0713dab6bf9f6d8384bd14f174760c9187f8cffee2a2b7943b2a13ebec24262d",
+    "out/native/automatic_maintenance_history_20261008/summary.json": "143c513daf3a7ab55296d2107abd143050b3085c60b9cfb6529968af7e51d709"
   },
   "evidence": {
     "ddl": {
