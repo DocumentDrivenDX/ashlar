@@ -2900,9 +2900,19 @@
     "../../../../../README.md": "11e0aaa10f67e008542066d293624bd5e195529dd5bc2c3f8ed75b960f22bda7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
-    "../../../../../examples/end-to-end/README.md": "a515bf1cf72236da74e628f23c102c0773357e3ef616126dc67064e3479eebe5",
-    "../../../04-build/end-to-end-plan.md": "23f4dda508b21ffcf00caa951648d33c9c367d7e078d403de08e54e858030a4b",
-    "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f"
+    "../../../../../examples/end-to-end/README.md": "2ab5b1a97a288e56504a2be1d823bc0cc60e8a1e683fa5a16013e3c230b39bdb",
+    "../../../04-build/end-to-end-plan.md": "f68eab851501b95129985def603fa1a2261dba8f9364db4497c7cf5f52ab1e0d",
+    "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
+    "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
+    "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
+    "../../contracts/CONTRACT-005-schema-intake.md": "fcb35581f7676029d31adbacd0237d81a283aa8eef4538014b311db638389313",
+    "out/schema-intake-local-20261008.json": "b765b8fe007907e20330a6e0f31b6d85e8f3752bca80d32f794f9eec3154aa78",
+    "../../../../../examples/end-to-end/schema-v2.umf.json": "59e4d58b5254df2291156a5b73ef0e04d4c74668b3818e8ecf630e4d104982d0",
+    "../../../../../examples/end-to-end/schema-v1.umf.json": "bc5357b1eb99bddac4f1d1d1ce6d9727dbc98d8ca3a56b644510d07117919aec",
+    "../../../../../examples/end-to-end/schema-v1.intake.json": "ad8a83360445c52aa7bc0c4d913ce4e44c5823b9b5f6c492580030ae11e1920d",
+    "../../../../../examples/end-to-end/schema-unknown.intake.json": "fae1dc5772974a64f1ed3c68030753b1b06281759e88af55f048edb4e765bd0d",
+    "../../../../../examples/end-to-end/schema-v2.intake.json": "f25dc242c74e93f4d86fab10ad1eecc952dc4efbfdb8478e7c5583bf5d065a76",
+    "../../../../../examples/end-to-end/schema-unknown.umf.json": "5221c59ad5c35bf25dda8b79e9de88b2ab096c003dc5bae74254a68b22c4d427"
   },
   "evidence": {
     "ddl": {

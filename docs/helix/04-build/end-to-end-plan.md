@@ -77,3 +77,13 @@ Other running containers are untouched. Use docker exec for local administrative
 setup; design a least-privilege application role before the runtime integration.
 No production data, broad database grants, retention cleanup, warehouse resize
 or scale benchmark is part of this setup.
+
+## Shared intake implementation checkpoint
+
+The pinned UMF16c35e8d reader/validator now produces exact-byte shared artifacts
+for the original Truss source-review model, an additive optional-string revision
+and an unknown-assertion variant. Six bounded integration checks pass against
+real APIs. UMF experimental warnings remain visible; no complete-interpretation
+or target-enforcement claim is manufactured. CONTRACT-005 defines the intake
+boundary. Next persist the same artifact in both native registries and implement
+the selected binding/catalog acceptance; no full Truss runtime/feed is delivered.

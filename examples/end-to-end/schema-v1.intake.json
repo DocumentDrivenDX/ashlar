@@ -1,0 +1,48 @@
+{
+  "format": "ashlar-schema-intake/0.1",
+  "sourceBase64": "eyJ1bWYiOiIwLjcuMCIsImlkIjoidHJ1c3Mtd2VmdC1zb3VyY2UtcmV2aWV3LWZpeHR1cmUiLCJ2b2NhYnVsYXJpZXMiOnt9LCJtb2R1bGVzIjpbeyJpZCI6ImZpeHR1cmUiLCJuYW1lc3BhY2UiOiJmaXh0dXJlIiwiZWxlbWVudHMiOlt7ImlkIjoiaXRlbSIsIm5hbWUiOiJJdGVtIiwia2luZCI6InJlY29yZCIsIm1lbWJlcnMiOlt7Im1vZHVsZSI6ImZpeHR1cmUiLCJlbGVtZW50IjoibGFiZWwifV0sImV4dGVuc2lvbnMiOnt9fSx7ImlkIjoibGFiZWwiLCJuYW1lIjoibGFiZWwiLCJraW5kIjoiZmllbGQiLCJzY2FsYXJUeXBlIjoic3RyaW5nIiwibnVsbGFiaWxpdHkiOiJyZXF1aXJlZCIsImNhcmRpbmFsaXR5Ijoib25lIiwiZXh0ZW5zaW9ucyI6e319XX1dfQ==",
+  "sourceSha256": "bc5357b1eb99bddac4f1d1d1ce6d9727dbc98d8ca3a56b644510d07117919aec",
+  "sourceBytes": 376,
+  "umfCoreVersion": "0.7.0",
+  "documentId": "truss-weft-source-review-fixture",
+  "validatorRevision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+  "validatedStructure": true,
+  "completeInterpretation": false,
+  "validation": {
+    "valid": true,
+    "complete": false,
+    "diagnostics": [
+      {
+        "code": "EXPERIMENTAL_CORE_NULLABILITY",
+        "path": "/umf",
+        "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_CARDINALITY",
+        "path": "/umf",
+        "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_FACETS",
+        "path": "/umf",
+        "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_KEYS",
+        "path": "/umf",
+        "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+        "path": "/umf",
+        "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+        "severity": "warning"
+      }
+    ]
+  },
+  "qualification": "UMF intake validation only; no target catalog acceptance or enforcement claim"
+}

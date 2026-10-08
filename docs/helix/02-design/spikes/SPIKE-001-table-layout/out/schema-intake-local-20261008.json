@@ -1,0 +1,13 @@
+{
+  "state": "Passed six bounded schema-intake integration checks",
+  "validatorRevision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+  "checks": [
+    "v1: valid UMF and exact retained bytes",
+    "v2: valid UMF and exact retained bytes",
+    "unknown: valid UMF and exact retained bytes",
+    "duplicate members refused",
+    "invalid UTF8 refused",
+    "wrong validator revision refused"
+  ],
+  "qualification": "Actual UMF reader/validator; no native registry, Truss runtime, feed or target enforcement claim"
+}

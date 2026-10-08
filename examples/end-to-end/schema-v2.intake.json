@@ -1,0 +1,54 @@
+{
+  "format": "ashlar-schema-intake/0.1",
+  "sourceBase64": "eyJ1bWYiOiIwLjcuMCIsImlkIjoidHJ1c3Mtd2VmdC1zb3VyY2UtcmV2aWV3LWZpeHR1cmUiLCJ2b2NhYnVsYXJpZXMiOnt9LCJtb2R1bGVzIjpbeyJpZCI6ImZpeHR1cmUiLCJuYW1lc3BhY2UiOiJmaXh0dXJlIiwiZWxlbWVudHMiOlt7ImlkIjoiaXRlbSIsIm5hbWUiOiJJdGVtIiwia2luZCI6InJlY29yZCIsIm1lbWJlcnMiOlt7Im1vZHVsZSI6ImZpeHR1cmUiLCJlbGVtZW50IjoibGFiZWwifSx7Im1vZHVsZSI6ImZpeHR1cmUiLCJlbGVtZW50IjoiY2FwdGlvbiJ9XSwiZXh0ZW5zaW9ucyI6e319LHsiaWQiOiJsYWJlbCIsIm5hbWUiOiJsYWJlbCIsImtpbmQiOiJmaWVsZCIsInNjYWxhclR5cGUiOiJzdHJpbmciLCJudWxsYWJpbGl0eSI6InJlcXVpcmVkIiwiY2FyZGluYWxpdHkiOiJvbmUiLCJleHRlbnNpb25zIjp7fX0seyJpZCI6ImNhcHRpb24iLCJuYW1lIjoiY2FwdGlvbiIsImtpbmQiOiJmaWVsZCIsInNjYWxhclR5cGUiOiJzdHJpbmciLCJudWxsYWJpbGl0eSI6Im9wdGlvbmFsIiwiY2FyZGluYWxpdHkiOiJvbmUiLCJleHRlbnNpb25zIjp7fX1dfV19Cg==",
+  "sourceSha256": "59e4d58b5254df2291156a5b73ef0e04d4c74668b3818e8ecf630e4d104982d0",
+  "sourceBytes": 550,
+  "umfCoreVersion": "0.7.0",
+  "documentId": "truss-weft-source-review-fixture",
+  "validatorRevision": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+  "validatedStructure": true,
+  "completeInterpretation": false,
+  "validation": {
+    "valid": true,
+    "complete": false,
+    "diagnostics": [
+      {
+        "code": "EXPERIMENTAL_CORE_NULLABILITY",
+        "path": "/umf",
+        "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_CARDINALITY",
+        "path": "/umf",
+        "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_FACETS",
+        "path": "/umf",
+        "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+        "severity": "warning"
+      },
+      {
+        "code": "UNKNOWN_NULLABILITY",
+        "path": "/modules/0/elements/2/nullability",
+        "message": "Availability label retained without interpretation",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_KEYS",
+        "path": "/umf",
+        "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+        "severity": "warning"
+      },
+      {
+        "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+        "path": "/umf",
+        "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+        "severity": "warning"
+      }
+    ]
+  },
+  "qualification": "UMF intake validation only; no target catalog acceptance or enforcement claim"
+}
