@@ -1,0 +1,15 @@
+{
+  "state": "passed",
+  "schema": "client_dev.ashlar_graph_apply_20261008",
+  "source_batches": 2,
+  "source_events": 9,
+  "checks": [
+    "real streamed complete source batches normalized with explicit whole-entity versions",
+    "canonical object/edge current and tombstone DDL",
+    "independent create/parallel-edge/isolated-node inventories",
+    "property replacement preserves explicit null and wide retained token",
+    "delete removes current, preserves three tombstones and all original source event bytes",
+    "native SQL lookup hash matches host encoder for surviving fixture objects; final edge set empty"
+  ],
+  "qualification": "Unpublished process-serialized synthetic whole-entity native apply experiment. No accepted Truss schema, native fencing, replay/recovery producer, property_journal reconstruction, immutable manifest or checkpoint. Intermediate table heads are not a read publication. Existing warehouse; nine small source events, no benchmark/resize."
+}

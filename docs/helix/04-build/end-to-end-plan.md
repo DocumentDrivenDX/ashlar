@@ -207,3 +207,21 @@ current/history/tombstone/delivery effects on Delta under serialized authority,
 then publish immutable validated pins. The Truss per-property adapter must
 reconstruct native complete state and journal independently; this whole-entity
 profile does not infer its version semantics or close the Truss runtime goal.
+
+## Stream-to-native graph materialization checkpoint
+
+The explicit whole-entity adapter now consumes actual complete JSONL source
+batches without inferring IDs/versions or executable meaning. A two-transaction,
+nine-event fixture ran on fresh private UC canonical0.3 current/tombstone tables
+and a full original-event history carrier. Independent inventories verify
+initial parallel edges/isolated node, replacement preserving null/wide retained
+text, final deletes, three tombstones and all nine original source byte records.
+Native final object lookup hashes match host encoding. Forty-two local checks
+pass. Original unsupported DELETE and verified-empty recovery are preserved.
+
+This native experiment is unpublished and process-serialized; its separate
+table writes do not establish atomic read publication, native source fencing
+or durable replay/recovery. Reusable version/delivery admission and native
+recovery must precede immutable manifest/checkpoint production. Truss native
+schema/runtime/feed, broader UMF bindings and PostgreSQL outbox remain required.
+No scale workload or warehouse resize occurred.

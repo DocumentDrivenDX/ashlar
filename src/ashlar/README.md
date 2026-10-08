@@ -68,3 +68,11 @@ and validates final typed endpoints while preserving parallel/isolated graph
 identities. Returned state is immutable and prior state remains unchanged on
 refusal. Native persistence/publication and Truss property-feed reconstruction
 are separate unfinished integration steps.
+
+changes_from_batch in whole_entity.py verifies original complete batch custody
+and consumes an explicit signed64 whole-entity event profile. It never guesses
+versions from property positions or aliases another source profile. Unknown
+executable fields block normalized admission. Use its Change values only with
+the mandatory target schema/constraint policy in plan_apply. The native nine-
+event example is unpublished materialization evidence, not durable production
+apply/recovery or a Truss property-feed adapter.

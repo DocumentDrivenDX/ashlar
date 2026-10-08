@@ -1041,3 +1041,50 @@ all-table parity and the publication contract. Source acknowledgement still
 follows a completed durable publication. Truss-native reconstruction, other
 value/key/relationship profiles and full end-to-end native execution remain
 required rather than being replaced by these synthetic whole-entity checks.
+
+## Explicit whole-entity JSONL and native apply experiment
+
+changes_from_batch composes complete raw transaction validation with an explicit
+ashlar-whole-entity/0.1 event profile. Required fields are kind=event, delivery_id,
+source_profile, source_system, entity_kind, type_id, id, entity_version,
+schema_revision, operation, props_json and retained_json. Edge events additionally
+require exactly two endpoints, each with type_id and id. Identity/version values
+are canonical signed64 decimal strings; nontext values, aliases, leading zeroes
+and narrowing refuse. Versions are source-authored whole-entity versions. No
+property-feed maximum, display-name mapping or hidden source default is used.
+Unknown or missing executable members block this profile while original raw
+source custody remains available separately. Exact JSON property/retained text
+is passed unchanged to the mandatory admitted apply planner.
+
+The graph-source.jsonl fixture carries two complete transactions and nine source
+events: three objects (including an isolated node), two parallel edges, one
+object replacement and three deletes. It uses synthetic fixture-schema-1 with
+explicit property IDs 23/24; this is not accepted Truss/UMF schema evidence. The
+replacement retains JSON null distinctly and a retained integer token beyond
+the signed64 range. No semantic support for that token is inferred
+from storing exact text.
+
+The bounded native experiment creates fresh private canonical0.3 object_current,
+edge_current and tombstone tables plus a whole_source_history carrier. It
+materializes only touched fixture identities with keyed MERGE DELETE then insert;
+this is intentionally unpublished intermediate state, not an atomic multi-table
+write, durable replay/recovery protocol or a reusable production applier.
+History retains each original event's full base64 bytes and source digest. The
+fixed synthetic admission policy validates only its declared fixture revision/
+source; it is not native schema acceptance or broad constraint enforcement.
+Proposed publication clock values in current rows do not constitute publication.
+
+Independent expected native inventories pass after both transactions: initial
+three nodes/two distinct edges, final two nodes/no edges, three exact tombstones
+and nine original history records. Surviving object lookup hashes agree with
+native SHA256/to_json encoding; final edge set is empty, so that final query
+does not qualify edge encoding. Original first DELETE failed terminally because
+Delta rejects multi-column IN; the resumed run verified all four tables empty
+and used keyed MERGE DELETE, preserving original receipts.
+
+Evidence is out/native/graph_apply_20261008. No manifest/checkpoint changed,
+no accepted Truss schema advanced, and no native caller fencing/retention/replay
+or property_journal/Truss feed reconstruction is qualified. Forty-two focused
+local checks cover explicit source profile/version admission and complete
+apply planning. The full toolkit still requires reusable native recovery,
+immutable publication, Truss acceptance/feed and the other source bindings.

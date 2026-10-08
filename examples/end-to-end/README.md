@@ -157,3 +157,25 @@ One two-event transaction stored/replayed correctly; a changed valid transaction
 with the same ID refused and original full bytes were recovered independently
 from Delta. Per-delivery apply/version conflicts, graph effects, immutable
 publication and durable checkpoints are still next.
+
+## Stream-to-native graph example checkpoint
+
+The separate `graph-source.jsonl` is an explicit versioned whole-entity source
+fixture; it contains two complete transactions and nine events. It does not
+claim Truss-native property feed or accepted UMF schema status. The reusable
+`changes_from_batch` adapter in `src/ashlar/whole_entity.py` requires its exact
+profile and authored identity/version text and blocks unbound executable fields.
+
+`tools/check_native_graph_apply.py` exercised that source on fresh private UC
+current/tombstone tables. Native evidence at
+`docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/graph_apply_20261008/summary.json`
+verifies creates, parallel edges, an isolated node, replacement, deletes and
+original exact history bytes. The fixed development setup is one-shot and
+refuses ordinary rerun; its recovery option applies only to a verified empty
+installation after the recorded initial DELETE failure.
+
+These table heads remain unpublished. The experiment writes tables separately
+and supplies no safe production replay/recovery, schema authority or source
+acknowledgement. The next integration must make these effects durable/replayable
+and publish one validated immutable version vector before users read or advance
+source checkpoints.
