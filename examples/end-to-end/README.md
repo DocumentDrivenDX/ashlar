@@ -38,8 +38,8 @@ warnings keep completeInterpretation false. Do not equate that flag with target
 catalog acceptance or silently remove warnings to make it true.
 
 [CONTRACT-005](../../docs/helix/02-design/contracts/CONTRACT-005-schema-intake.md)
-owns this shared intake boundary. Native Truss/Ashlar registry persistence,
-semantic binding, stable catalog allocation and schema evolution are next;
+owns this shared intake boundary. Native raw intake custody now runs on both stores; semantic binding, stable
+catalog allocation and accepted schema evolution are next;
 this inspection component does not yet claim to feed a running Truss engine.
 
 ## Native Truss storage checkpoint
@@ -65,3 +65,20 @@ match native byte conversion.
 This is storage installation evidence, not full catalog semantics or a working
 producer/feed. Application privileges, atomic schema acceptance and runtime
 operations are still required before the end-to-end workflow can run.
+
+## Native schema custody checkpoint
+
+`src/ashlar/schema.py` reads the shared artifact under an explicit revision and
+trusted validator source pin. It verifies source bytes/digest/identity and retains
+the complete original intake artifact. The small native runner is
+`tools/check_native_schema_registry.py`; it requires the Databricks SDK, profile
+`aidev-cus`, Docker and the isolated sandbox. It intentionally creates fixed
+private development tables once and refuses ordinary reruns; it is evidence
+tooling, not the finished user deployment command. Its passed receipt is
+`docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/schema_registry_20261008/summary.json`.
+
+Three documents (v1, additive v2 and unknown-assertion variant) are retained on
+PostgreSQL and UC Delta. Replay preserves exact original source/diagnostics; a
+different valid document under the same revision refuses on both. The Delta
+profile is one serialized development writer. No accepted schema, stable catalog
+IDs, application authority or data stream is inferred from this custody check.

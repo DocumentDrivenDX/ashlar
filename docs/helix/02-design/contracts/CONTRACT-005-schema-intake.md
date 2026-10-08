@@ -43,6 +43,54 @@ Same schema identity/revision with different source bytes is a conflict; origina
 bytes remain authoritative on replay. Additive compatibility, key/relationship
 changes and data conversion need explicit target-specific acceptance rules.
 
-This initial component produces a shared intake artifact through pinned source
-APIs. It does not yet persist a Truss schema_doc or an Ashlar UC schema registry.
+The intake reader and development custody check now retain these artifacts in
+a separate PostgreSQL intake store and a UC Delta intake table. Neither writes
+Truss schema_doc, accepted catalog head or an accepted Ashlar schema revision.
 Package distribution and signature/custody across machines remain future wiring.
+
+## Raw registry surface
+
+The proposed raw registry key is (document_id, document_revision), with explicit
+opaque nonempty revision supplied by the caller. Its eight required fields are
+document_id, document_revision, source_base64, artifact_base64, source_sha256,
+artifact_sha256, validator_revision and complete_interpretation. Base64 retains
+exact source and intake-artifact bytes; SHA256 is lowercase hexadecimal over
+those decoded bytes. Preserve the full diagnostic artifact, including unknown
+fields and validation warnings. validatedStructure and validation.valid must
+both be true; completeInterpretation must agree with validation.complete.
+The reader checks source identity/core version and exact byte length/digest.
+Duplicate JSON members, nonfinite numbers and malformed UTF8 refuse.
+
+An identical complete row replays without replacing the original. Any changed
+field under an existing qualified key refuses SCHEMA_INTAKE_CONFLICT and leaves
+the original intact. A later revision is a separate retained artifact, not an
+automatically compatible or accepted schema. For example revisions 1 and 2 of
+truss-weft-source-review-fixture retain the required label and additive optional
+caption respectively; neither advances an accepted catalog or publication.
+
+The caller must supply the trusted validator source pin and independently trust
+the original artifact producer/custody. Comparing an artifact's declared pin
+does not authenticate it or rerun UMF. This reader is a custody verifier, not an
+alternative UMF semantic validator. No signature or remote intake authority is
+claimed by the local development profile.
+
+## Native development evidence and boundaries
+
+The 2026-10-08 bounded native check stored three synthetic documents in
+ashlar_intake.document on the isolated PostgreSQL17.9 sandbox and
+client_dev.ashlar_layout_v03_20261006_r73.schema_intake_20261008 on UC Delta.
+Both enforce decoded-byte hashes natively and preserve exact artifact/source
+bytes through replay and a valid-digest conflict attempt. PostgreSQL uses a PK;
+Delta MERGE is qualified only with one serialized development writer and does
+not establish concurrent uniqueness. Application fencing/privileges and a
+production immutable registry are not delivered. The check uses administrative
+development authority, with PUBLIC access revoked on the PostgreSQL intake
+schema/table. Accepted catalog schema, stable binding IDs, constraint enforcement
+and runtime/feed operations remain separate outstanding work.
+
+The first Delta inline-CHECK DDL failed terminally with no table creation; the
+resumed check verified the empty PostgreSQL store and created Delta with separate
+ALTER TABLE ADD CONSTRAINT statements. Original native statement/SQL receipts
+and the passed summary remain under the spike's out/native/schema_registry_20261008.
+The runner refuses silent IF NOT EXISTS reuse. A failed/uncertain future write
+requires inspection of its existing native handle/custody before any replay.

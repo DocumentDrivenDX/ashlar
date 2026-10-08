@@ -1,0 +1,15 @@
+{
+  "state": "passed",
+  "postgres_table": "ashlar_intake.document",
+  "delta_table": "client_dev.ashlar_layout_v03_20261006_r73.schema_intake_20261008",
+  "documents": 3,
+  "checks": [
+    "exact source and diagnostic artifact bytes on both native stores",
+    "v1 and additive v2 separately retained",
+    "unknown assertions retained with incomplete interpretation",
+    "identical replay preserves original rows",
+    "same identity/revision different valid bytes refuses with unchanged originals",
+    "Truss accepted head remains zero"
+  ],
+  "qualification": "Raw intake custody only. Admin development profile; serialized Delta writer, no concurrent uniqueness/accepted schema/binding/catalog IDs/producer/feed claim. Three small rows; existing warehouse, no resize or benchmark."
+}

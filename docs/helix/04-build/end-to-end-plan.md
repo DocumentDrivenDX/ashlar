@@ -105,3 +105,22 @@ Next implement the selected atomic schema acceptance and stable binding, then
 mutation/feed operations; storing a raw UMF document alone must not advance the
 accepted catalog head. Application roles need their explicit privilege profile
 before user-facing runtime access.
+
+## Native shared schema custody checkpoint
+
+The raw shared artifact now persists in both the isolated PostgreSQL intake
+store and a private UC Delta intake table. Three synthetic documents retain
+exact source/diagnostic bytes; identical replay preserves originals and a
+same-key different valid document refuses without changing either store.
+The separate raw registry does not mutate accepted Truss head (still 0).
+Twelve focused local tests pass, including custody corruption/duplicate/unknown
+refusals. Native receipts preserve the initial rejected Delta inline-CHECK DDL
+and its terminal-state recovery through separate ALTER constraints.
+
+The next runtime boundary remains complete target binding and atomic accepted
+catalog persistence, including stable identity mapping and native report/effect
+accounting. Truss HEAD 3f578b2 was consulted for this iteration; its source
+contracts still mark native producers/guards/complete runtime unfinished. Do
+not replace these with a schema_doc insert or advance a data publication from
+raw registry custody. Additional-source adapters and publication wiring remain
+part of the same active end-to-end goal.

@@ -28,3 +28,9 @@ The suite covers refusal order, exact metadata, immutable pins, native UUID/vers
 mismatches and pinned schema checks. No live warehouse or Spark is used. Next wire
 an authenticated transport and qualified policy/custody provider into these ports;
 keep their integration claims separate from these simulated checks.
+
+SchemaIntake.read adds exact-byte shared UMF custody under CONTRACT-005. Supply
+an explicit document revision and trusted validator source pin. It retains the
+original source and diagnostic artifact, checks digests/identity/validation flag
+consistency and refuses malformed input. It does not authenticate the producer
+or perform target catalog acceptance; trust and admission are separate.
