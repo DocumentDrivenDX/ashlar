@@ -1968,3 +1968,29 @@ relationship/native enforcement, qualified validator isolation, protected instal
 accepted catalog IDs, source ACK or a complete stream. Native bindings/security,
 complete report/head and protected Truss-to-Delta workflow remain unfinished.
 The unchanged full objective stays active; no new cloud resources/scale runs.
+
+### Runnable Ashlar example consumes actual UMF Record checks (2026-10-08)
+
+The local user workflow now accepts --umf-source for the clean pinned UMF Record
+checker c45c72a2 and optional --umf-check-output for complete original producer
+results/upgrade receipts. A host runner invokes the actual upstream reader, explicit
+upgrade/verifier and Record checker, with clean source observed before/after.
+It refuses incomplete/invalid logical results before local source application.
+Complete original schema/request/source-record custody is compared by the caller;
+original intakes/interpretations and fixture mappings remain unchanged. The source
+request reader uses UMF's duplicate/Unicode/number-aware JSON reader rather than
+silently flattening duplicate members. No defaults are inserted or native IDs minted.
+
+The actual user command passes on the existing three create/replace records. Apply,
+delete/history and retained replay still yield one object, one tombstone, four history
+entries, unchanged replay, original Unicode and the exact opaque large numeric token.
+The small real-producer integration check verifies retained original bytes/upgrade
+and complete result inventory, and refuses missing required values/duplicate request
+members without successful output. The default dependency-free command also passes
+its focused unittest. The README documents a reproducible pinned checkout and both
+commands. Original document completeness and native acceptance remain false.
+
+This moves the reusable checker from a Truss integration probe into a runnable
+Ashlar consumer workflow. It remains a local development fixture path, not protected
+native Truss acceptance/streaming, dataset key/relationship proof, qualified validator
+isolation, publication or source ACK. Full goal remains active; no cloud/scale run.

@@ -18,6 +18,33 @@ not native Truss accepted IDs; this command issues no publication or source ACK.
 The input is local-string-source.jsonl; graph-source.jsonl is a different fixture
 and intentionally does not satisfy this selected UMF string-record policy.
 
+To run actual upstream logical Record checks as part of the same workflow, use
+Bun and the pushed UMF checker branch (currently unmerged). Create a clean pinned
+checkout without changing your existing UMF branch:
+
+```sh
+git -C ../umf fetch origin codex/core-record-value-check
+git -C ../umf worktree add --detach /tmp/ashlar-umf-record-check c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3
+python3 tools/run_local_example.py --umf-source /tmp/ashlar-umf-record-check --umf-check-output out/local-example/umf-record-check.json
+```
+
+The runner verifies the clean producer revision, explicitly upgrades the original
+0.7 schema to 0.8 through UMF, verifies its receipt, and checks all three original
+create/replace records through validateCoreRecordValues before application. It
+retains complete original results when --umf-check-output is supplied. Delete is
+a source operation. The result adds upstream_record_checks with three complete
+logical checks; original_document_complete and complete_interpretation stay false.
+Exact original record/schema/request hashes tie the development result to its
+inputs. Fixture IDs remain development mappings; these checks establish no native
+Truss acceptance, qualified validator isolation, key/relationship dataset proof,
+publication or source ACK. Original schema/intake/interpretation files remain intact.
+
+Repeat the small actual-producer integration check with:
+
+```sh
+python3 tools/check_local_umf_example.py /tmp/ashlar-umf-record-check
+```
+
 The isolated PostgreSQL substrate is also runnable:
 
 ```sh
