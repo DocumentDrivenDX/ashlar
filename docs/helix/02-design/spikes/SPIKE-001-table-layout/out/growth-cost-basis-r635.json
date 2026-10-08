@@ -1,0 +1,686 @@
+{
+  "format": "ashlar-growth-cost-basis/1",
+  "sources": {
+    "out/native/ashlar_scale_edges_r274/audited-summary.json": "9e746519e31eb1d6967761f376435c8be2171c943c46e363666dc12a3586d5ed",
+    "out/native/ashlar_scale_edges_r274/statements.jsonl": "16dc38389383a4a70a65ec26a16802dc55e70e6c58043d2fc588899ae5fe7559",
+    "out/native/ashlar_scale_edges_r274/shared-history.json": "8b82bd9bf5d10933b2452af89be534d3234dd7230cbe722cc7704146fbfc3839"
+  },
+  "graph": {
+    "nodes": 8000000,
+    "edges": 40000000
+  },
+  "new_edges": 8000000,
+  "wall_s": 1914.135064167,
+  "local_oracle_s": 667.863445709,
+  "phases": {
+    "control_metadata": {
+      "statements": [
+        {
+          "label": "timeout",
+          "statement_id": "01f1c244-af86-1210-9610-fe7ddaf6dc15",
+          "caller_ms": 9143.258875000014,
+          "engine_ms": 3378,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-object_current",
+          "statement_id": "01f1c244-b46a-1fd2-b595-c4695ca4b72a",
+          "caller_ms": 2952.54916600004,
+          "engine_ms": 574,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "maintenance-status-object_current",
+          "statement_id": "01f1c244-b632-15e4-8356-e785d4770eff",
+          "caller_ms": 1024.1134169999668,
+          "engine_ms": 451,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-source_record",
+          "statement_id": "01f1c244-ba1f-1250-a00c-a983d0ef1c26",
+          "caller_ms": 770.7277080000949,
+          "engine_ms": 259,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "maintenance-status-source_record",
+          "statement_id": "01f1c244-ba95-19bd-8ec6-a71a6b0de4f7",
+          "caller_ms": 618.9902919999213,
+          "engine_ms": 232,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "head-source_record",
+          "statement_id": "01f1c244-baf1-1bdc-a03e-3f80532b1913",
+          "caller_ms": 4243.454917000008,
+          "engine_ms": 3182,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-property_journal",
+          "statement_id": "01f1c244-c852-1301-aeb4-89306ece8608",
+          "caller_ms": 677.8157920000467,
+          "engine_ms": 266,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "maintenance-status-property_journal",
+          "statement_id": "01f1c244-c8b8-1754-8c7a-20ded08dff2d",
+          "caller_ms": 723.5882919999312,
+          "engine_ms": 311,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "head-property_journal",
+          "statement_id": "01f1c244-c925-196d-b0c9-3a857093d404",
+          "caller_ms": 1174.7844579999764,
+          "engine_ms": 501,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-edge_current",
+          "statement_id": "01f1c244-d616-1666-9ff5-b10efb7bd9a3",
+          "caller_ms": 687.1611249999887,
+          "engine_ms": 240,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "maintenance-status-edge_current",
+          "statement_id": "01f1c244-d681-13a8-a173-616cd47111ac",
+          "caller_ms": 558.9489999999842,
+          "engine_ms": 214,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "head-edge_current",
+          "statement_id": "01f1c244-d6db-1378-97f0-3caf9603a275",
+          "caller_ms": 1380.2313339999728,
+          "engine_ms": 630,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-adjacency_forward",
+          "statement_id": "01f1c244-e1e2-1707-a191-aa09a8ecb188",
+          "caller_ms": 664.2465409998977,
+          "engine_ms": 247,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "maintenance-status-adjacency_forward",
+          "statement_id": "01f1c244-e246-183b-b001-9a48d3f08560",
+          "caller_ms": 678.7562920000028,
+          "engine_ms": 273,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "head-adjacency_forward",
+          "statement_id": "01f1c244-e2ad-1f26-ae26-42fd2d18f8ac",
+          "caller_ms": 1184.723708999968,
+          "engine_ms": 464,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "commit-edge_current",
+          "statement_id": "01f1c245-061c-1d23-9b86-eac3b3663d16",
+          "caller_ms": 1333.9631249999684,
+          "engine_ms": 480,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-edge_current",
+          "statement_id": "01f1c245-06ea-1e9d-9bd2-177f1865cc26",
+          "caller_ms": 1514.6783750000168,
+          "engine_ms": 229,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "commit-edge_current",
+          "statement_id": "01f1c245-1fee-1fc6-a6b1-8df6e249886d",
+          "caller_ms": 1130.1110420000668,
+          "engine_ms": 493,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-edge_current",
+          "statement_id": "01f1c245-209d-10b1-917c-b88a8136799c",
+          "caller_ms": 708.4766670000135,
+          "engine_ms": 338,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "commit-source_record",
+          "statement_id": "01f1c245-c1da-16df-9d9f-e496fd25e8f6",
+          "caller_ms": 1545.976041999893,
+          "engine_ms": 585,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-source_record",
+          "statement_id": "01f1c245-c2c0-1cc4-88c5-0de369b69b39",
+          "caller_ms": 684.5230829999309,
+          "engine_ms": 293,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "commit-property_journal",
+          "statement_id": "01f1c246-9e9a-1ec5-966d-d2fa1ab3b6b6",
+          "caller_ms": 1307.1345410000959,
+          "engine_ms": 486,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-property_journal",
+          "statement_id": "01f1c246-9f72-146a-855f-63c5c78e4a64",
+          "caller_ms": 806.1783750001723,
+          "engine_ms": 338,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "commit-adjacency_forward",
+          "statement_id": "01f1c247-6167-1918-b7f1-d1a71dc41121",
+          "caller_ms": 1088.3633329999611,
+          "engine_ms": 421,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-adjacency_forward",
+          "statement_id": "01f1c247-6211-1aac-8820-82f5553cafef",
+          "caller_ms": 681.2830840001425,
+          "engine_ms": 332,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-object_current",
+          "statement_id": "01f1c247-91b5-1e65-afa4-c62f0128ab7b",
+          "caller_ms": 652.9026250000243,
+          "engine_ms": 219,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-source_record",
+          "statement_id": "01f1c247-9218-1999-8982-a443959d2365",
+          "caller_ms": 641.7533329999969,
+          "engine_ms": 209,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-property_journal",
+          "statement_id": "01f1c247-927c-1ab6-aad4-7dc083e97e1e",
+          "caller_ms": 579.5169170000918,
+          "engine_ms": 252,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-edge_current",
+          "statement_id": "01f1c247-92d3-1e14-984a-3cd5154506d6",
+          "caller_ms": 636.1171250000552,
+          "engine_ms": 232,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "detail-adjacency_forward",
+          "statement_id": "01f1c247-9336-11eb-9902-2651a8ae1812",
+          "caller_ms": 644.3297499999971,
+          "engine_ms": 267,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        }
+      ],
+      "caller_ms": 40438.65833500023,
+      "engine_ms": 16396,
+      "read_bytes": 0,
+      "write_remote_bytes": 0,
+      "spill_to_disk_bytes": 0
+    },
+    "validation": {
+      "statements": [
+        {
+          "label": "prior-object_current",
+          "statement_id": "01f1c244-b6c9-1a85-bb9e-bba9d707bee5",
+          "caller_ms": 2028.3422920000476,
+          "engine_ms": 395,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-source_record-count",
+          "statement_id": "01f1c244-bd77-102b-9054-4ef6342c3b3b",
+          "caller_ms": 658.6722920000057,
+          "engine_ms": 110,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-source_record-0",
+          "statement_id": "01f1c244-bff7-10d4-a030-86e503069db5",
+          "caller_ms": 812.24337499998,
+          "engine_ms": 86,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-source_record-100",
+          "statement_id": "01f1c244-c28c-1dfe-8996-188aa08aca60",
+          "caller_ms": 645.0209160000213,
+          "engine_ms": 63,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-source_record-200",
+          "statement_id": "01f1c244-c502-183d-9173-79008577a4b4",
+          "caller_ms": 732.5079160000314,
+          "engine_ms": 146,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-source_record-300",
+          "statement_id": "01f1c244-c5da-1501-90de-4776fd9008de",
+          "caller_ms": 724.1587080000045,
+          "engine_ms": 110,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-property_journal-count",
+          "statement_id": "01f1c244-c9d8-1a26-86dd-328ef36431ef",
+          "caller_ms": 597.2682079999458,
+          "engine_ms": 57,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-property_journal-0",
+          "statement_id": "01f1c244-cc3a-186f-a5d2-e3919e7de32f",
+          "caller_ms": 765.1873749999822,
+          "engine_ms": 71,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-property_journal-100",
+          "statement_id": "01f1c244-ceb3-111d-9e89-fe413f016598",
+          "caller_ms": 892.7224580000939,
+          "engine_ms": 63,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-property_journal-200",
+          "statement_id": "01f1c244-d143-123f-b4cc-6b65f0dd1a44",
+          "caller_ms": 701.0390829999551,
+          "engine_ms": 70,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-property_journal-300",
+          "statement_id": "01f1c244-d3ab-1a7d-b1c6-6c4106b8f347",
+          "caller_ms": 692.3951249999618,
+          "engine_ms": 62,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-edge_current-count",
+          "statement_id": "01f1c244-d7a8-1c4f-b2e1-ffd18320d482",
+          "caller_ms": 595.5473750000237,
+          "engine_ms": 58,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-edge_current-0",
+          "statement_id": "01f1c244-da0a-187f-ac36-72ce51928974",
+          "caller_ms": 624.8505830000113,
+          "engine_ms": 64,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-edge_current-100",
+          "statement_id": "01f1c244-dad2-155a-8d77-0bfcb0f6596d",
+          "caller_ms": 562.8660839998929,
+          "engine_ms": 60,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-edge_current-200",
+          "statement_id": "01f1c244-dd28-1f00-aefd-0b12014552bf",
+          "caller_ms": 565.8289589999868,
+          "engine_ms": 66,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-edge_current-300",
+          "statement_id": "01f1c244-df7f-1f29-8e59-05591b465b9c",
+          "caller_ms": 627.616167000042,
+          "engine_ms": 62,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-adjacency_forward-count",
+          "statement_id": "01f1c244-e362-1e29-8d6e-81fac989552e",
+          "caller_ms": 492.80783300002895,
+          "engine_ms": 56,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-adjacency_forward-0",
+          "statement_id": "01f1c244-e5b3-1f5b-be4a-79e5c97a541c",
+          "caller_ms": 553.4826659999226,
+          "engine_ms": 66,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-adjacency_forward-100",
+          "statement_id": "01f1c244-e7fe-17c1-8c42-3b01afd46fa2",
+          "caller_ms": 572.4332500000173,
+          "engine_ms": 60,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-adjacency_forward-200",
+          "statement_id": "01f1c244-ea41-159f-b192-cc59f1e2d6d4",
+          "caller_ms": 540.9022500000447,
+          "engine_ms": 59,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "prior-adjacency_forward-300",
+          "statement_id": "01f1c244-ec85-1cf0-9d96-ce3234063260",
+          "caller_ms": 574.5957499999577,
+          "engine_ms": 76,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-edge_current-count",
+          "statement_id": "01f1c245-210f-17ae-af4f-f24476ca3772",
+          "caller_ms": 1240.4510000000073,
+          "engine_ms": 260,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-edge_current-0",
+          "statement_id": "01f1c245-23cd-193a-92aa-84fff89519fc",
+          "caller_ms": 44493.92729200008,
+          "engine_ms": 43578,
+          "read_bytes": 12867426063,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-edge_current-100",
+          "statement_id": "01f1c245-3ec5-1d79-a320-f3a2aa090917",
+          "caller_ms": 41445.660957999964,
+          "engine_ms": 40617,
+          "read_bytes": 12842685513,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-edge_current-200",
+          "statement_id": "01f1c245-57e0-1574-84b3-b2db09c6f056",
+          "caller_ms": 42450.61624999994,
+          "engine_ms": 41712,
+          "read_bytes": 12840244400,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-edge_current-300",
+          "statement_id": "01f1c245-7192-14ed-8593-09e4bb14b255",
+          "caller_ms": 43182.38395799995,
+          "engine_ms": 42104,
+          "read_bytes": 9626603238,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-source_record-count",
+          "statement_id": "01f1c245-c326-19a0-bc35-6ce24494650f",
+          "caller_ms": 1683.669000000009,
+          "engine_ms": 279,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-source_record-0",
+          "statement_id": "01f1c245-c611-1c39-bde1-ac5bec2909d9",
+          "caller_ms": 56913.14691599996,
+          "engine_ms": 56203,
+          "read_bytes": 8525252614,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-source_record-100",
+          "statement_id": "01f1c245-e85a-1510-ac17-f3e64290d196",
+          "caller_ms": 56429.64504200018,
+          "engine_ms": 55702,
+          "read_bytes": 8549227036,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-source_record-200",
+          "statement_id": "01f1c246-0a6e-1e06-8344-a0bc41c1fb3c",
+          "caller_ms": 58058.72787499993,
+          "engine_ms": 57076,
+          "read_bytes": 16677703253,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-source_record-300",
+          "statement_id": "01f1c246-2d76-18b1-9794-b780039958f5",
+          "caller_ms": 59186.883500000025,
+          "engine_ms": 58329,
+          "read_bytes": 24879758754,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-source_record-400",
+          "statement_id": "01f1c246-512e-1a8d-a127-66321444912c",
+          "caller_ms": 47052.54820800019,
+          "engine_ms": 46146,
+          "read_bytes": 31439592924,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-property_journal-count",
+          "statement_id": "01f1c246-9fe6-143e-93f3-8db960824105",
+          "caller_ms": 1582.076625000127,
+          "engine_ms": 241,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-property_journal-0",
+          "statement_id": "01f1c246-a192-166d-a7fa-10cf7518c465",
+          "caller_ms": 67029.54262499997,
+          "engine_ms": 66062,
+          "read_bytes": 7782056030,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-property_journal-100",
+          "statement_id": "01f1c246-cbc4-1cd1-8b1c-bc7d69be61b7",
+          "caller_ms": 63807.270540999976,
+          "engine_ms": 62936,
+          "read_bytes": 7401617045,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-property_journal-200",
+          "statement_id": "01f1c246-f239-1674-a35c-378698975f0f",
+          "caller_ms": 62321.16979199986,
+          "engine_ms": 61433,
+          "read_bytes": 7359806197,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-property_journal-300",
+          "statement_id": "01f1c247-17d9-1a79-975e-ebe836fd6122",
+          "caller_ms": 62389.564583000036,
+          "engine_ms": 61457,
+          "read_bytes": 7383396504,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-property_journal-400",
+          "statement_id": "01f1c247-3d88-1323-a666-e6e643d8739a",
+          "caller_ms": 50333.17320900005,
+          "engine_ms": 49509,
+          "read_bytes": 5875627918,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-adjacency_forward-count",
+          "statement_id": "01f1c247-6279-1120-b440-2f9a88f0dee8",
+          "caller_ms": 960.9905419999905,
+          "engine_ms": 242,
+          "read_bytes": 0,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-adjacency_forward-0",
+          "statement_id": "01f1c247-6b38-1653-9b11-53682a2fc093",
+          "caller_ms": 9038.593708000008,
+          "engine_ms": 8440,
+          "read_bytes": 143743192,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-adjacency_forward-100",
+          "statement_id": "01f1c247-7197-16d0-a9ac-fd94cbaaf868",
+          "caller_ms": 12587.59162499996,
+          "engine_ms": 11987,
+          "read_bytes": 144245136,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-adjacency_forward-200",
+          "statement_id": "01f1c247-7982-1c32-9fb2-3cd0fc38d06d",
+          "caller_ms": 13093.85733299996,
+          "engine_ms": 12371,
+          "read_bytes": 146172679,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "complete-adjacency_forward-300",
+          "statement_id": "01f1c247-81eb-1894-96f4-6d80fe1cfaa5",
+          "caller_ms": 15907.03233399995,
+          "engine_ms": 15184,
+          "read_bytes": 143078242,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "edge-identities",
+          "statement_id": "01f1c247-8c4d-1f90-9cc4-0dd94ec89efd",
+          "caller_ms": 2592.0029579999664,
+          "engine_ms": 1985,
+          "read_bytes": 260643576,
+          "write_remote_bytes": 0
+        },
+        {
+          "label": "typed-endpoint-closure",
+          "statement_id": "01f1c247-8dd8-1ba2-a806-1f72451eae20",
+          "caller_ms": 6472.560458000089,
+          "engine_ms": 5478,
+          "read_bytes": 478879172,
+          "write_remote_bytes": 0
+        }
+      ],
+      "caller_ms": 835213.574997,
+      "engine_ms": 801191,
+      "read_bytes": 175367759486,
+      "write_remote_bytes": 0,
+      "spill_to_disk_bytes": 0
+    },
+    "write": {
+      "statements": [
+        {
+          "label": "append-edge_current-32000000",
+          "statement_id": "01f1c244-ef37-16e6-a6c3-d4cec6405fac",
+          "caller_ms": 38418.01358400005,
+          "engine_ms": 37508,
+          "read_bytes": 9651,
+          "write_remote_bytes": 3192274241
+        },
+        {
+          "label": "append-edge_current-36000000",
+          "statement_id": "01f1c245-0834-1937-af47-f5111a541c07",
+          "caller_ms": 39806.607915999964,
+          "engine_ms": 39201,
+          "read_bytes": 9651,
+          "write_remote_bytes": 3192317750
+        },
+        {
+          "label": "append-source_record",
+          "statement_id": "01f1c245-8c02-1553-836d-f82251cb7cef",
+          "caller_ms": 90242.53883300003,
+          "engine_ms": 89611,
+          "read_bytes": 6424804953,
+          "write_remote_bytes": 6592673433
+        },
+        {
+          "label": "append-property_journal",
+          "statement_id": "01f1c246-6dfb-1fdf-9398-567d2584e54d",
+          "caller_ms": 81588.61133300002,
+          "engine_ms": 80662,
+          "read_bytes": 5820513551,
+          "write_remote_bytes": 5846986246
+        },
+        {
+          "label": "append-adjacency_forward",
+          "statement_id": "01f1c247-5c5b-18a5-9c5b-28be427f0064",
+          "caller_ms": 8470.77920799984,
+          "engine_ms": 7832,
+          "read_bytes": 107888956,
+          "write_remote_bytes": 71300000
+        }
+      ],
+      "caller_ms": 258526.55087399992,
+      "engine_ms": 254814,
+      "read_bytes": 12353226762,
+      "write_remote_bytes": 18895551670,
+      "spill_to_disk_bytes": 0
+    }
+  },
+  "next_action": "Calibrate a separate append allocation profile locally before admitting native node-plus-edge growth. Preserve all existing published identities/endpoints and reconcile physical edge head12 separately.",
+  "qualification": "Historical bootstrap append costs, not current seven-batch ingest, next doubling bounds, billing estimates, or billion-scale admission. Phase labels classify SQL by leading verb. Caller sums do not establish parallel critical path or causal engine throughput. No native SQL executed."
+}
