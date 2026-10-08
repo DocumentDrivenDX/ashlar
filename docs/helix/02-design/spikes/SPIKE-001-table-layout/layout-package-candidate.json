@@ -2623,7 +2623,13 @@
     "out/native/ashlar_seventh_delta_stage_r593/completed-last-statement.json": "28e8d1c1182ee6c8a9e3057b1f1cc583fc6d6218e0828c7cba2fbf1f292cbac8",
     "out/native/ashlar_seventh_delta_stage_r593/shared-history.json": "806ebe224e01adc838baed7daf06c43e90180ac1e2e24fb7279557cbd30ca404",
     "out/native/ashlar_seventh_delta_stage_r593/statements.jsonl": "26c9de564d9a73d6a4be259b64f4145e5fdd5ff2f2c0af9ea0d66017b0451ab7",
-    "out/native/ashlar_seventh_delta_stage_r593/summary.json": "ee71eb378c20e03866eb80748a46f5923626a830dfaa94d6e6c95e319c84eb4d"
+    "out/native/ashlar_seventh_delta_stage_r593/summary.json": "ee71eb378c20e03866eb80748a46f5923626a830dfaa94d6e6c95e319c84eb4d",
+    "out/native/ashlar_seventh_publisher_preflight_r595/shared-history.json": "a86dcf2d40a6801c5e6e4081bbd335adb753000602043ba1067252ee95c3f681",
+    "out/native/ashlar_seventh_publisher_preflight_r595/statements.jsonl": "fa7d936f45def7e5083e9fc374f3089e1e87862e7f49c5ba95482c903326387b",
+    "out/native/ashlar_seventh_publisher_preflight_r595/summary.json": "4ae54958fe1033b3892abd8acbe975cf5e573ffd1d3566400c4b95f919abc632",
+    "out/seventh-preflight-audit-r599.json": "d08d81b8a669ed3139e5cb30c4341221469cb0e872d7a4dcdb11b1714b8a491f",
+    "out/seventh-publisher-budget-r594.json": "6ef44bd7a727ae45e09224c566023e16b372d63fd972ed198aa3e3ec89c6e409",
+    "seventh_preflight_audit_r599.py": "4c0c4979e9a93b68a236772eec76ae27d4146d35f3e3136d849fb3466f98fef4"
   },
   "evidence": {
     "ddl": {
