@@ -1,0 +1,29 @@
+{
+  "state": "applied",
+  "namespace": "ashlar_e2e_private_20261008.runtime",
+  "batches": [
+    {
+      "batch_id": "local-1",
+      "plan_digest": "8f0c59a1f5d0f7b85434a10d97641fb192361fb70cabffb4a66bf17277c2b858"
+    },
+    {
+      "batch_id": "local-2",
+      "plan_digest": "fe683091e6e18c24d5154811428984a89c4d524ce5ca3ce05ed2cbc912cf688d"
+    },
+    {
+      "batch_id": "local-3",
+      "plan_digest": "329b1421385c96bb986cffe79baaad4cf4b2e31b36247a7f6f11ef15d54f7aad"
+    }
+  ],
+  "objects": [
+    {
+      "id": "1",
+      "version": "2",
+      "props_json": "{\"23\":\"updated\",\"24\":\"\u96ea\"}",
+      "retained_json": "{\"future\":18446744073709551615}"
+    }
+  ],
+  "published": false,
+  "acknowledged": false,
+  "qualification": "Four-event UMF-backed fixture; explicit fixture IDs, original same-host SQL plan/handle recovery, owner/grant/UUID observations and selected final inventory. Full-column parity, remote fencing, retention and publication remain unqualified."
+}

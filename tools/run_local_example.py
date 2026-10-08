@@ -20,7 +20,7 @@ from ashlar.whole_entity import changes_from_batch
 PIN = '16c35e8d943769ccfa7bb57d16785aa7159abe65'
 
 
-def run():
+def fixture_inputs():
     example = ROOT / 'examples/end-to-end'
     intake = SchemaIntake.read((example / 'schema-v3.intake.json').read_bytes(),
                                '3', trusted_validator_revision=PIN)
@@ -33,6 +33,11 @@ def run():
         entries, source_system='local-example')
     with (example / 'local-string-source.jsonl').open('rb') as source:
         batches = tuple(jsonl_batches(source, feed='local-jsonl', epoch='example-1'))
+    return intake, policy, batches
+
+
+def run():
+    intake, policy, batches = fixture_inputs()
     state = empty_state()
     for batch in batches:
         state = plan_apply(state, changes_from_batch(batch), schema_policy=policy)

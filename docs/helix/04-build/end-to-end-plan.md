@@ -751,3 +751,21 @@ Databricks readbacks from source_stage_20261008 also reconstruct successfully;
 partial projections are not complete custody. This reused archived native evidence,
 not a fresh cloud run or restart/retention qualification. Native composition and
 protected Truss acceptance/mutations remain required.
+
+## Native local-fixture composition — 2026-10-08
+
+run_native_example.py now connects the actual retained v3 UMF/interpretation and
+selected host constraints to bounded original transaction recovery, whole-entity
+SQL planning and durable original native effect submissions. The existing private
+runtime received three transactions/four events. Final selected object version/
+payload/retained bytes and 0edges/1tombstone/4history counts passed, with renewed
+owner/inherited grant/target UUID observations. Fresh-process replay passed using
+the same nine original mutation submissions/three plans; no replacement writes.
+All118 local checks pass, including the user-facing local CLI. No scale/new compute.
+
+Evidence: SPIKE-001-table-layout/out/native/local_example_20261008 and
+local_example_replay_20261008. Journal exports preserve original effects/handles;
+exports were taken after replay. This remains an explicit fixture-ID development
+owner lane, not accepted Truss authority or remote/source fencing. Full-column
+parity, active retention/pins, immutable publication, native resolver read and
+Truss protected acceptance/mutations/feed remain required by the full goal.

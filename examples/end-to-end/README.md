@@ -313,3 +313,26 @@ registration pass exact original bytes and diagnostic readback. For v3, change
 interpretation is retained truthfully. This registers raw schema custody, not an
 accepted executable schema or stable native catalog IDs; graph ingestion must
 still await selected semantic admission.
+
+## Apply the selected local fixture to the private Delta sandbox
+
+The existing development installation can run this small example:
+
+```sh
+python3 tools/run_native_example.py --journal /tmp/ashlar-local-native.sqlite --output /tmp/ashlar-local-native-receipts
+```
+
+Requires the Databricks SDK, profile aidev-cus and the recorded existing private
+runtime installation. This command accepts only the fixed four-event fixture and
+private namespace. A fresh journal requires all four graph tables empty; rerun
+using the same original journal after an interrupted or completed attempt. Keep
+that journal permanently: a new journal cannot safely resume populated tables.
+Do not copy the example command's new journal path over an existing populated run.
+The actual completed run uses /private/tmp/ashlar-local-native-20261008.sqlite.
+
+Actual create/update/delete and fresh-process replay passed on the existing
+warehouse. Nine original mutation submissions and three plans were retained;
+replay reused them. Selected final object payload/version, edge/tombstone/history
+counts and renewed owner/grant/UUID observations passed. This is development
+owner custody with fixture IDs; full-column effects, remote fencing, source ACK,
+retained pins, immutable publication and resolver-backed read remain unfinished.
