@@ -2486,3 +2486,52 @@ fresh setup workflow, not a repeated four-row or scale benchmark. The guide
 provides the same-installation continuation and required pinned checker/service
 inputs. Actual Truss, schema evolution and supported wider source paths remain
 open under the original goal.
+
+
+### Fresh-installation one-row native publication completed — 2026-10-08
+
+Original process 80087 exited successfully at local consumer checkpoint 1.
+The fresh workflow now runs generated carrier setup, actual same-namespace UMF
+intake and one-row CSV stored publication. Its committed vector is object_current
+2, edge_current 0, tombstone 0 and whole_source_history 1. One complete object
+and one exact original history record are retained; no edge/delete was sent.
+Independent offline source reconstruction compares all 16 retained full-inventory
+observations (four per target) against original source bytes and materialization
+clock. All complete fields, SQL nulls and duplicate multiplicity match.
+
+The original checkpoint JSON SHA256, request digest and exact descriptor match.
+All nine original Delta mutation handles are terminal SUCCEEDED. Publication
+used 359 warehouse reads and 154 effective-permission pages; substantial metadata
+work remains, and this is correctness/setup evidence rather than latency proof.
+[evidence/native-clean-csv-publication-20261008.json](evidence/native-clean-csv-publication-20261008.json)
+retains original descriptors, checkpoint, handles/hashes and source/native receipt
+fingerprints. Execution started from clean Ashlar 0331374; later evidence-only
+commit ea3d95a does not change the executed tool source. Query-only process 54800
+was then started using that same journal, installation and intake proof, with
+entity ID 1 and no new ingestion. Its terminal singleton and closing custody
+remain unverified until the original query completes. Actual Truss, wider schema/
+source paths and remote admission remain open; no grants/compute/maintenance
+changes occurred.
+
+
+### Fresh-installation singleton completed with timestamp gap — 2026-10-08
+
+Original query process 54800 exited successfully. The fresh setup -> actual raw
+UMF registration -> one-row stored publication -> resolver-bound object lookup
+now executes on the new installation. It returned object 1 at entity version 1,
+with all non-timestamp fields independently matching source reconstruction.
+Exactly one parameterized native point query used object_current VERSION AS OF 2.
+The complete nine original Delta mutation request/response/handle records and
+original checkpoint remained unchanged. Query used 112 warehouse reads and 66
+retained effective-permission pages, with no new Delta mutation submissions.
+
+[evidence/native-clean-singleton-20261008.json](evidence/native-clean-singleton-20261008.json)
+records a material fidelity counterexample: raw TIMESTAMP JSON renders
+published_at as 2026-10-08T19:02:38.556Z, while the retained native effect/oracle
+value is exactly 1791486158556147 microseconds. Full pinned inventory checks use
+unix_micros and preserve that precision, but the singleton raw projection does
+not. Therefore complete singleton timestamp preservation is unproved; next fix
+its explicit output carrier and validate exact source precision rather than
+silently accepting millisecond truncation. This evidence is scoped as
+passed-with-timestamp-fidelity-gap, not complete support. Actual Truss and broader
+schema/source workflows remain open under the full goal.

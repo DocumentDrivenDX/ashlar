@@ -1,0 +1,153 @@
+{
+  "state": "passed",
+  "ashlar_execution_revision": "0331374b33e79651293d580aeba6d36770a11993",
+  "summary": {
+    "state": "published",
+    "namespace": "ashlar_e2e_private_20261008.runtime_clean_user",
+    "local_consumer_position": "1",
+    "published": [
+      {
+        "ordinal": 1,
+        "descriptor": {
+          "profile_version": "ashlar-delta/0.3",
+          "publication_id": "csv-stream-bd607649894bf47ae8a24cd06ae80ba7626f84a9be1d506e6c2ae08c2e75f246",
+          "recorded_at": "1791486207136810",
+          "schema_revisions_json": "{\"fixture\":\"3\"}",
+          "source_progress_json": "{\"csv-example\":{\"batch_id\":\"csv-row-1\",\"epoch\":\"immutable-example-1\",\"feed\":\"csv-example\",\"payload_digest\":\"1891c512dcc3d43453e388d7b49df7e2b51a10670b94ca0f24f1448efa0e444d\",\"position\":\"1\",\"previous\":\"0\",\"profile\":\"ashlar-single-line-csv/0.1\"}}",
+          "table_versions_json": "{\"ashlar_e2e_private_20261008.runtime_clean_user.edge_current\":0,\"ashlar_e2e_private_20261008.runtime_clean_user.object_current\":2,\"ashlar_e2e_private_20261008.runtime_clean_user.tombstone\":0,\"ashlar_e2e_private_20261008.runtime_clean_user.whole_source_history\":1}",
+          "validation_report_json": "{\"complete\":true,\"effect_parity\":[{\"columns\":20,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_clean_user.edge_current\",\"uuid\":\"fb2155f3-d055-4491-b49c-16bd1573009c\",\"version\":0},{\"columns\":17,\"rows\":1,\"table\":\"ashlar_e2e_private_20261008.runtime_clean_user.object_current\",\"uuid\":\"515a70f2-02e2-49db-82a7-c0ebe47b187e\",\"version\":2},{\"columns\":10,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_clean_user.tombstone\",\"uuid\":\"813c4555-265b-40cf-a9bc-1158c3fbfb2e\",\"version\":0},{\"columns\":6,\"rows\":1,\"table\":\"ashlar_e2e_private_20261008.runtime_clean_user.whole_source_history\",\"uuid\":\"02955e2f-fa10-46e9-9eb9-2bd95a4d3d9d\",\"version\":1}],\"intake_artifact_sha256\":\"f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1\",\"intake_source_sha256\":\"60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085\",\"qualification\":\"Private CSV fixture native publication; explicit local IDs and source custody, actual UMF logical checks. No accepted Truss IDs, remote source ACK or production remote fencing.\",\"request_digest\":\"bd607649894bf47ae8a24cd06ae80ba7626f84a9be1d506e6c2ae08c2e75f246\",\"retention\":{\"margin_us\":\"600000000\",\"profile\":\"ashlar-retention-window/0.1\",\"targets\":{\"ashlar_e2e_private_20261008.runtime_clean_user.edge_current\":{\"committed_at\":\"1791485995000000\",\"readable_until\":\"1792090195000000\",\"uuid\":\"fb2155f3-d055-4491-b49c-16bd1573009c\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_clean_user.object_current\":{\"committed_at\":\"1791486178000000\",\"readable_until\":\"1792090378000000\",\"uuid\":\"515a70f2-02e2-49db-82a7-c0ebe47b187e\",\"version\":2},\"ashlar_e2e_private_20261008.runtime_clean_user.tombstone\":{\"committed_at\":\"1791486008000000\",\"readable_until\":\"1792090208000000\",\"uuid\":\"813c4555-265b-40cf-a9bc-1158c3fbfb2e\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_clean_user.whole_source_history\":{\"committed_at\":\"1791486179000000\",\"readable_until\":\"1792090379000000\",\"uuid\":\"02955e2f-fa10-46e9-9eb9-2bd95a4d3d9d\",\"version\":1}}},\"source_groups\":1,\"source_sha256\":\"944b1ebb4c9c564ce4687a4a731c360cd6575d97aa9abfa4994203968f498e12\",\"upstream_record_check_revision\":\"c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3\"}"
+        }
+      }
+    ],
+    "query_only": false,
+    "singleton": null,
+    "query_publication_id": null,
+    "native_read_statements": 359,
+    "effective_permission_pages": 154,
+    "source_sha256": "944b1ebb4c9c564ce4687a4a731c360cd6575d97aa9abfa4994203968f498e12",
+    "materialized_at": "2026-10-08T19:02:38.556147+00:00",
+    "qualification": "Actual CSV fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload."
+  },
+  "native_inventory_checks": [
+    {
+      "table": "ashlar_e2e_private_20261008.runtime_clean_user.edge_current",
+      "version": 0,
+      "rows": 0,
+      "retained_full_inventory_observations": 4
+    },
+    {
+      "table": "ashlar_e2e_private_20261008.runtime_clean_user.object_current",
+      "version": 2,
+      "rows": 1,
+      "retained_full_inventory_observations": 4
+    },
+    {
+      "table": "ashlar_e2e_private_20261008.runtime_clean_user.tombstone",
+      "version": 0,
+      "rows": 0,
+      "retained_full_inventory_observations": 4
+    },
+    {
+      "table": "ashlar_e2e_private_20261008.runtime_clean_user.whole_source_history",
+      "version": 1,
+      "rows": 1,
+      "retained_full_inventory_observations": 4
+    }
+  ],
+  "original_mutations": [
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_clean_user:333412eb14b59dc88e81dec5f651a87d832f5aaf465d722c672e75e1041249f6",
+      "original_handle": "01f1c34a-d8c9-1b0e-9ff3-f2c91abc78b1",
+      "request_sha256": "8ca07e4b8423ad3f88922a850483eed3f821802dd6727c230d950e42c2de44c9",
+      "response_sha256": "7d1506241438172b63338db4c30a0281f34d8c7c9e538ae5a83cc6cfb9e82b50",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_clean_user:93c03cf6c45fa4c97b66438783e736660ef579fe044a8164dcbab5f696390654",
+      "original_handle": "01f1c34a-f272-1eff-9470-5fdb466bea13",
+      "request_sha256": "cb5904a98eb550451ec2d0c54a8be4d7b8a9216d669248b9d715c4b24fbc0d3a",
+      "response_sha256": "432da8f77e614648ab8739a224426c824c6fc28f834e490f03b16e79e789aaf2",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_clean_user:ab137d48caa3691b92f18ea035856d65502c575f80bf2427b94faa1566400628",
+      "original_handle": "01f1c34a-d623-1aa4-aebc-0aa370428de5",
+      "request_sha256": "339b600b91bb2a60d8cb634d313d0f67c8f78734553cabdb697e52b98ebeee6d",
+      "response_sha256": "7e06af233a3893d61212c05761d456b109553d921e0b20f4dba3408617807271",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_clean_user:b1445c602464e1d6e2e624bc6c1ac8758588669f38a3d531f6a66e9903c97088",
+      "original_handle": "01f1c34b-14c3-13f0-b85c-e4f224d424e1",
+      "request_sha256": "182af156c4633fdce21ffbc26eb67ba7d09fb046f29082078aeb9db7e27f6a81",
+      "response_sha256": "39be5bb8fc0a59bbfe313db946fa9c6142d932c3cf9176c2262d292edf11a19d",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_clean_user:d1ae12312e803342e4da3998781a07873f8312dbf849befca88bd2a301316551",
+      "original_handle": "01f1c34b-4b4a-1772-8136-402b6f7b9363",
+      "request_sha256": "98997339c8dc2ea949d700f36393d2e978989ebf7d052cde457d125db850f27b",
+      "response_sha256": "75c498addf0990be7e97bd62d8891f80c04895f5cf0df210514fc4be6ca9dd8b",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "effect:19dce74435f7151b3c2580c956c45e2b105411dd002e921f7b4de5b93bbf5c00:0",
+      "original_handle": "01f1c34a-ddc2-1514-94c1-ac6bec27d156",
+      "request_sha256": "35bcb89cab30fe2dfc356ad2f87cf55eb3647797bacca0441b8df0c418dc16aa",
+      "response_sha256": "e116fbcb7f66b0bb7ad6654114238e7253d67f9b6a30025a6a2affcefbce99bf",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "effect:19dce74435f7151b3c2580c956c45e2b105411dd002e921f7b4de5b93bbf5c00:1",
+      "original_handle": "01f1c34a-df13-1d9b-a11c-cdf0578c6aca",
+      "request_sha256": "9fb0e5478c38e889e05c3d361b111c03f7ee925265df86d72b22209a7b3d3a64",
+      "response_sha256": "cc6f86e6d7a10a76ccbdaf0e89a78609b2a1348f0ca5c4a422413c9b6f94dbd1",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "effect:19dce74435f7151b3c2580c956c45e2b105411dd002e921f7b4de5b93bbf5c00:2",
+      "original_handle": "01f1c34a-e0a4-1757-bf42-ae0d90eefdc8",
+      "request_sha256": "79aa242eaa2b09b9b372436b10990be98e3520f3e976124b9e5ed3212cb6268e",
+      "response_sha256": "b6bffd4643159bb0787ac79705d08d3e9d4fc12f4d8b3f9111facd488b08873e",
+      "terminal_state": "SUCCEEDED"
+    },
+    {
+      "operation": "stream-manifest:bd607649894bf47ae8a24cd06ae80ba7626f84a9be1d506e6c2ae08c2e75f246",
+      "original_handle": "01f1c34b-3a2e-16b8-ad0d-999893ea239a",
+      "request_sha256": "9a666586bb116701d12d23b1716ef5b7e181129f741ad0212a4409235bbbf63e",
+      "response_sha256": "0b1f291b720497de40a87f5041035e1b6a6014b38a8e009473e03d52e3accfa9",
+      "terminal_state": "SUCCEEDED"
+    }
+  ],
+  "checkpoint": {
+    "descriptor": {
+      "profile_version": "ashlar-delta/0.3",
+      "publication_id": "csv-stream-bd607649894bf47ae8a24cd06ae80ba7626f84a9be1d506e6c2ae08c2e75f246",
+      "recorded_at": "1791486207136810",
+      "schema_revisions_json": "{\"fixture\":\"3\"}",
+      "source_progress_json": "{\"csv-example\":{\"batch_id\":\"csv-row-1\",\"epoch\":\"immutable-example-1\",\"feed\":\"csv-example\",\"payload_digest\":\"1891c512dcc3d43453e388d7b49df7e2b51a10670b94ca0f24f1448efa0e444d\",\"position\":\"1\",\"previous\":\"0\",\"profile\":\"ashlar-single-line-csv/0.1\"}}",
+      "table_versions_json": "{\"ashlar_e2e_private_20261008.runtime_clean_user.edge_current\":0,\"ashlar_e2e_private_20261008.runtime_clean_user.object_current\":2,\"ashlar_e2e_private_20261008.runtime_clean_user.tombstone\":0,\"ashlar_e2e_private_20261008.runtime_clean_user.whole_source_history\":1}",
+      "validation_report_json": "{\"complete\":true,\"effect_parity\":[{\"columns\":20,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_clean_user.edge_current\",\"uuid\":\"fb2155f3-d055-4491-b49c-16bd1573009c\",\"version\":0},{\"columns\":17,\"rows\":1,\"table\":\"ashlar_e2e_private_20261008.runtime_clean_user.object_current\",\"uuid\":\"515a70f2-02e2-49db-82a7-c0ebe47b187e\",\"version\":2},{\"columns\":10,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_clean_user.tombstone\",\"uuid\":\"813c4555-265b-40cf-a9bc-1158c3fbfb2e\",\"version\":0},{\"columns\":6,\"rows\":1,\"table\":\"ashlar_e2e_private_20261008.runtime_clean_user.whole_source_history\",\"uuid\":\"02955e2f-fa10-46e9-9eb9-2bd95a4d3d9d\",\"version\":1}],\"intake_artifact_sha256\":\"f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1\",\"intake_source_sha256\":\"60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085\",\"qualification\":\"Private CSV fixture native publication; explicit local IDs and source custody, actual UMF logical checks. No accepted Truss IDs, remote source ACK or production remote fencing.\",\"request_digest\":\"bd607649894bf47ae8a24cd06ae80ba7626f84a9be1d506e6c2ae08c2e75f246\",\"retention\":{\"margin_us\":\"600000000\",\"profile\":\"ashlar-retention-window/0.1\",\"targets\":{\"ashlar_e2e_private_20261008.runtime_clean_user.edge_current\":{\"committed_at\":\"1791485995000000\",\"readable_until\":\"1792090195000000\",\"uuid\":\"fb2155f3-d055-4491-b49c-16bd1573009c\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_clean_user.object_current\":{\"committed_at\":\"1791486178000000\",\"readable_until\":\"1792090378000000\",\"uuid\":\"515a70f2-02e2-49db-82a7-c0ebe47b187e\",\"version\":2},\"ashlar_e2e_private_20261008.runtime_clean_user.tombstone\":{\"committed_at\":\"1791486008000000\",\"readable_until\":\"1792090208000000\",\"uuid\":\"813c4555-265b-40cf-a9bc-1158c3fbfb2e\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_clean_user.whole_source_history\":{\"committed_at\":\"1791486179000000\",\"readable_until\":\"1792090379000000\",\"uuid\":\"02955e2f-fa10-46e9-9eb9-2bd95a4d3d9d\",\"version\":1}}},\"source_groups\":1,\"source_sha256\":\"944b1ebb4c9c564ce4687a4a731c360cd6575d97aa9abfa4994203968f498e12\",\"upstream_record_check_revision\":\"c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3\"}"
+    },
+    "request": {
+      "batch_id": "csv-row-1",
+      "predecessor": "empty-native-csv-stream",
+      "request_digest": "bd607649894bf47ae8a24cd06ae80ba7626f84a9be1d506e6c2ae08c2e75f246",
+      "schema_revisions_json": "{\"fixture\":\"3\"}",
+      "source_batch_digest": "23223193c2d2c2b786bbae25808c321c6ac37283e722d97d72aaeb22d94663a7",
+      "source_batch_json": "{\"batch_id\":\"csv-row-1\",\"begin_base64\":\"eyJraW5kIjoiYmVnaW4iLCJiYXRjaF9pZCI6ImNzdi1yb3ctMSJ9Cg==\",\"commit_base64\":\"eyJraW5kIjoiY29tbWl0IiwiYmF0Y2hfaWQiOiJjc3Ytcm93LTEiLCJyZWNvcmRfY291bnQiOjEsInJlY29yZHNfc2hhMjU2IjoiNDExZTQyMTlkNWQ2YzBiNjJkNjZhNjE3MzgwM2M3YzY2MDY2MTFiZGFjMjlkMDBjYjBmOGM4NDZhYjJlNWJmYyJ9Cg==\",\"cursor_after\":\"806\",\"cursor_before\":\"0\",\"epoch\":\"immutable-example-1\",\"feed\":\"csv-example\",\"profile\":\"ashlar-jsonl-transactions/0.1\",\"records\":[{\"cursor\":\"664\",\"delivery_id\":\"{\\\"profile\\\":\\\"ashlar-single-line-csv/0.1\\\",\\\"header_base64\\\":\\\"aWQsZW50aXR5X3ZlcnNpb24sb3BlcmF0aW9uLGxhYmVsLGNhcHRpb24sZnV0dXJlCg==\\\",\\\"row_base64\\\":\\\"MSwxLGNyZWF0ZSxmaXJzdCwsMTg0NDY3NDQwNzM3MDk1NTE2MTUK\\\",\\\"row_ordinal\\\":\\\"1\\\"}\",\"raw_base64\":\"eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImxvY2FsLWV4YW1wbGUiLCJzY2hlbWFfcmV2aXNpb24iOiIzIiwiZGVsaXZlcnlfaWQiOiJ7XCJwcm9maWxlXCI6XCJhc2hsYXItc2luZ2xlLWxpbmUtY3N2LzAuMVwiLFwiaGVhZGVyX2Jhc2U2NFwiOlwiYVdRc1pXNTBhWFI1WDNabGNuTnBiMjRzYjNCbGNtRjBhVzl1TEd4aFltVnNMR05oY0hScGIyNHNablYwZFhKbENnPT1cIixcInJvd19iYXNlNjRcIjpcIk1Td3hMR055WldGMFpTeG1hWEp6ZEN3c01UZzBORFkzTkRRd056TTNNRGsxTlRFMk1UVUtcIixcInJvd19vcmRpbmFsXCI6XCIxXCJ9IiwiZW50aXR5X2tpbmQiOiJvYmplY3QiLCJ0eXBlX2lkIjoiMTciLCJpZCI6IjEiLCJlbnRpdHlfdmVyc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJjcmVhdGUiLCJwcm9wc19qc29uIjoie1wiMjNcIjpcImZpcnN0XCIsXCIyNFwiOlwiXCJ9IiwicmV0YWluZWRfanNvbiI6IntcInNvdXJjZV9wcm9maWxlXCI6XCJhc2hsYXItc2luZ2xlLWxpbmUtY3N2LzAuMVwiLFwidW5tYXBwZWRfY29sdW1uc1wiOntcImZ1dHVyZVwiOlwiMTg0NDY3NDQwNzM3MDk1NTE2MTVcIn19In0K\",\"sha256\":\"063abcc28bfcc9edd373810b77b8c5d8c94027d92db7c98b7fa5b3051c7d5bc1\"}],\"records_sha256\":\"411e4219d5d6c0b62d66a6173803c7c6606611bdac29d00cb0f8c846ab2e5bfc\"}",
+      "source_checkpoint_json": "{\"batch_id\":\"csv-row-1\",\"epoch\":\"immutable-example-1\",\"feed\":\"csv-example\",\"payload_digest\":\"1891c512dcc3d43453e388d7b49df7e2b51a10670b94ca0f24f1448efa0e444d\",\"position\":\"1\",\"previous\":\"0\",\"profile\":\"ashlar-single-line-csv/0.1\"}",
+      "stream": "native-csv-stream:ashlar_e2e_private_20261008.runtime_clean_user"
+    }
+  },
+  "checkpoint_digest": "6ea605368338ff8f29741ecbe0891ffaa332623b15916254b0db76685ceebb49",
+  "private_receipts": "/private/tmp/ashlar-clean-user-stream-20261008",
+  "private_journal": "/private/tmp/ashlar-clean-user-stream-20261008.sqlite",
+  "receipt_sha256": {
+    "summary.json": "d4193cf1e3343e821bba95a43ebc5b7d3ad50eb8862f6cd449de28f784fc8a03",
+    "statements.jsonl": "f196a706bd4a4b7323f12b0fd8c54fdf784e7dbef5ceacfc0fd3b653add7bd2b",
+    "effective-permissions.jsonl": "739f53ca32d853a9187991370b87fc74eebf10f33fd4ed4e97fd61f4261a675f",
+    "umf-record-check.json": "41ee2fcb4f6db224f3b80bf5412b2def52d38a6c029850d96e662edbea173d6d"
+  },
+  "qualification": "One native CSV row in fresh independently installed current generated carriers with same-namespace actual UMF registry. All four complete exact-version inventories independently reconstructed from original source and retained materialization clock. Nine original Delta mutations terminal SUCCEEDED; local checkpoint digest/request/descriptor match. Actual Truss/catalog IDs, remote fencing/ACK, schema evolution and additional-source integration remain open. Native singleton query is a separate live process, not claimed here."
+}

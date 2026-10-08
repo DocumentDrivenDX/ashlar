@@ -874,8 +874,12 @@ After successful terminal publication and checkpoint 1, the same command with
 `--query-only --entity-id 1` and another fresh output directory reads the object
 through the native singleton resolver. Do not substitute a new journal or old
 registry UUID, clear tables or infer success from pending effects. Native
-publication/query execution on this new installation is currently in progress;
-its full outcome remains unproved. The source and IDs remain synthetic fixture
+one-row publication has completed at checkpoint 1, with independent complete
+current/history/tombstone/edge parity at the stored vector. The native singleton
+query completed against the same stored publication without new Delta mutations.
+All non-timestamp fields match the independent source oracle. Its current raw
+TIMESTAMP output truncates published_at microseconds to milliseconds; exact
+singleton timestamp preservation remains an open fix. The source and IDs remain synthetic fixture
 inputs; actual Truss acceptance/feed is still required for the full toolkit.
 
 ## Stored native CSV publication and singleton query

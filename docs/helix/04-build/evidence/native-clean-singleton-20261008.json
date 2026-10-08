@@ -1,0 +1,59 @@
+{
+  "state": "passed-with-timestamp-fidelity-gap",
+  "ashlar_execution_revision": "ea3d95afa7d36d33a9868965d5e51d1a58724792",
+  "summary": {
+    "state": "queried",
+    "namespace": "ashlar_e2e_private_20261008.runtime_clean_user",
+    "local_consumer_position": "1",
+    "published": [],
+    "query_only": true,
+    "singleton": {
+      "source_system": "local-example",
+      "logical_key_json": "[]",
+      "schema_revision": "3",
+      "props_json": "{\"23\":\"first\",\"24\":\"\"}",
+      "retained_json": "{\"source_profile\":\"ashlar-single-line-csv/0.1\",\"unmapped_columns\":{\"future\":\"18446744073709551615\"}}",
+      "root_id": null,
+      "source_feed": "csv-example",
+      "source_epoch": "immutable-example-1",
+      "source_position": null,
+      "published_at": "2026-10-08T19:02:38.556Z",
+      "lookup_hash": "130425ac5264b46607cffbe83c741d069dcacc8d72cc4038c4049da15f7c5080",
+      "apply_batch_id": "csv-row-1",
+      "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"806\"}",
+      "source_delivery_id": "{\"profile\":\"ashlar-single-line-csv/0.1\",\"header_base64\":\"aWQsZW50aXR5X3ZlcnNpb24sb3BlcmF0aW9uLGxhYmVsLGNhcHRpb24sZnV0dXJlCg==\",\"row_base64\":\"MSwxLGNyZWF0ZSxmaXJzdCwsMTg0NDY3NDQwNzM3MDk1NTE2MTUK\",\"row_ordinal\":\"1\"}",
+      "type_id": "17",
+      "id": "1",
+      "entity_version": "1"
+    },
+    "query_publication_id": "csv-stream-bd607649894bf47ae8a24cd06ae80ba7626f84a9be1d506e6c2ae08c2e75f246",
+    "native_read_statements": 112,
+    "effective_permission_pages": 66,
+    "source_sha256": "944b1ebb4c9c564ce4687a4a731c360cd6575d97aa9abfa4994203968f498e12",
+    "materialized_at": "2026-10-08T19:02:38.556147+00:00",
+    "qualification": "Actual CSV fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload."
+  },
+  "checks": [
+    "original stored publication resolved under pin/retention authority",
+    "all non-timestamp singleton fields match independent original source oracle",
+    "one native parameterized point lookup at object_current version 2",
+    "all nine original Delta mutation handles/request/response hashes unchanged",
+    "original local checkpoint unchanged"
+  ],
+  "timestamp_fidelity_gap": {
+    "field": "published_at",
+    "original_native_microseconds": "1791486158556147",
+    "retained_materialization_clock": "2026-10-08T19:02:38.556147+00:00",
+    "observed_native_json_timestamp": "2026-10-08T19:02:38.556Z",
+    "status": "Native raw TIMESTAMP JSON query projection exposes milliseconds and does not preserve original microseconds; exact singleton projection required."
+  },
+  "private_receipts": "/private/tmp/ashlar-clean-user-query-20261008",
+  "private_journal": "/private/tmp/ashlar-clean-user-stream-20261008.sqlite",
+  "receipt_sha256": {
+    "summary.json": "ba3831e1c5749d4c54edc9793b85ccee0fa77a981a59a81d178e3681f38c5af5",
+    "statements.jsonl": "7d5aa4a438e31c26ab28b681ecf0d6cb413871b8cd74505ca5fe326560e0ac3e",
+    "effective-permissions.jsonl": "e685360c9834c5cff5860b7b92d10183beadf23d176e4c9b1454438a943a1745",
+    "umf-record-check.json": "41ee2fcb4f6db224f3b80bf5412b2def52d38a6c029850d96e662edbea173d6d"
+  },
+  "qualification": "Fresh generated setup -> actual raw UMF -> one CSV publication -> resolver singleton runs on native Databricks with PG pin service. Exact timestamp precision is not established by the raw point projection. Actual Truss, wider schemas/sources and remote fencing/ACK remain open. No new Delta mutation submissions or local progress advancement; 112 warehouse reads and 66 effective-permission pages, not latency admission."
+}
