@@ -1,7 +1,7 @@
 # Physical layout candidate and evidence status — 2026-10-07
 
 
-## Current qualification through r634
+## Current qualification through r671
 
 UC managed Delta remains selected; physical ashlar-delta/0.3 remains proposed.
 Latest logical vectorN6/E10/R7/J7/A8/T7 has8Mnodes/39.93Mliveedges; nodephysical8
@@ -19,6 +19,27 @@ measured current evidence and reconcile physical maintenance heads before any ne
 mutation. Earlier summaries below retain historical scope and do not define the
 current next action. ExactTrusskeys/values/unknowncontent/propertyhistory, bounded
 PuppyGraph/GraphFrames/Fabric mappings and deferredUMF remain intact.
+
+[New node extent R653](node-extent-disposition-r653.md) now passes independent
+full-field parity for8M new nodes,8M raw records and32M property events. The
+pinned old/new union has16M distinct typed identities. [New edge extent R670](edge-growth-disposition-r670.md)
+passes independent full-field parity for8M new edges,8M raw records,32M property
+events and8M adjacency records; all16M endpoint references resolve against the
+old-node6/new-node15 pins. New edge/raw/journal pins are11 and adjacency12.
+These are separate private physical extents; the selected publication is unchanged.
+They do not qualify singleton reads on one16M-node table or a full80M-edge graph.
+
+[Staged capacity basis R671](out/append-capacity-basis-r671.json) records37.808GB
+active across691 files. The remaining32M new-edge active footprint is conditionally
+76.192GB at the measured synthetic mix; retained/log/staged/export/maintenance
+storage remains excluded. The interrupted edge run's full wall time remains
+unqualified; final costs are19.539GB read/12.985GB written/zero spill and pending
+read-only recovery checks took101.445s. No wall-rate extrapolation is admitted.
+Next prepare bounded verification blocks before the16M-new-edge stage, revalidate
+owned physical heads, then generate the independent next8M oracle and append in
+measured chunks. Existing performance misses, Truss requirements, deferred UMF
+and scoped engine mappings remain unchanged. The earlier R634 next-action text
+is superseded by this milestone and does not authorize a full-scale run.
 
 This is a spike evidence index governed by CONTRACT-003 and proposed ADR-001, not approval or production support. [Package manifest](layout-package-candidate.json) hashes the design files and scoped native evidence.
 

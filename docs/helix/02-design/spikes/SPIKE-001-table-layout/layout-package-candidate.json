@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "acd1f1fb3bb2643da61fb8861e9c1943384c2f6a9eeda55bb5310ea9b4d78ed3",
+    "layout-status.md": "9a05020af38e92c2e635aff99cb9bf43bdba2434200b40cd6fe91f9544442253",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -2817,7 +2817,9 @@
     "out/native/ashlar_append_edge_growth_r665/same-handle-recovery-r667.json": "e4851219d2f82ad97bce8563aa712d4389f58cae94a74eb4afbcd09456074abe",
     "out/native/ashlar_append_edge_growth_r665/shared-history.json": "c7c09afbe3188bfd1265210e7374f36e537bac649f1110e1c20622313e58aa3a",
     "out/native/ashlar_append_edge_growth_r665/statements.jsonl": "bf9910a16d99dc4a50a952ec08887e2d2546001b43ace0cab51267a7cab1be10",
-    "out/native/ashlar_append_edge_growth_r665/summary.json": "12e8a5e633c49ab21646e7f126a6911061862672ba6df3317941c2268df1f6aa"
+    "out/native/ashlar_append_edge_growth_r665/summary.json": "12e8a5e633c49ab21646e7f126a6911061862672ba6df3317941c2268df1f6aa",
+    "append_capacity_basis_r671.py": "415d111407f50b07e9a740176299bdfa43815796d5de583168c2edf2d3cfd03e",
+    "out/append-capacity-basis-r671.json": "55e26583b21375c7e333b33bd23aebee2d7215c0153afd1ca3543e5efd466ecf"
   },
   "evidence": {
     "ddl": {

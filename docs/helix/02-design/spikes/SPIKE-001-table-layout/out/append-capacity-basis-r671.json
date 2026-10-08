@@ -1,0 +1,78 @@
+{
+  "format": "ashlar-staged-capacity-basis/1",
+  "sources": {
+    "out/native/ashlar_append_node_growth_r651/audited-summary-r652.json": "68031bbad402acfbca0ff8dc09644b3888a6a0598d27ff2a8c2e8806fd8637be",
+    "out/native/ashlar_append_edge_growth_r665/audited-summary-r669.json": "7e57d6bdf5546a8f188d5d42fac3286f95725c78461f12985a8ce2cddf630a93",
+    "out/full-role-capacity-r634.json": "a86b60c3e76e2a60f93debad526b105d7feda7c784143fc11ebd51c2272a08f1"
+  },
+  "profiles": {
+    "node_object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_node_object_current_r643",
+      "id": "67cb3fd1-5ec4-4f5e-be0f-bab0e9521b50",
+      "version": 15,
+      "rows": 8000000,
+      "files": 105,
+      "bytes": 6366428180
+    },
+    "node_source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_node_source_record_r643",
+      "id": "0a5099b1-d33a-4c26-bdef-328b01772391",
+      "version": 15,
+      "rows": 8000000,
+      "files": 124,
+      "bytes": 6549369968
+    },
+    "node_property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_node_property_journal_r643",
+      "id": "28f5c813-9c96-4869-87be-d60e1d7b5143",
+      "version": 15,
+      "rows": 32000000,
+      "files": 123,
+      "bytes": 5843885272
+    },
+    "edge_edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_edge_current_r643",
+      "id": "34385705-21a3-4f8e-bea9-5a399b4ab286",
+      "version": 11,
+      "rows": 8000000,
+      "files": 104,
+      "bytes": 6427536483
+    },
+    "edge_source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_source_record_r643",
+      "id": "ebff4b7c-07f1-42ba-bd52-2c7df855985c",
+      "version": 11,
+      "rows": 8000000,
+      "files": 120,
+      "bytes": 6686689798
+    },
+    "edge_property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_property_journal_r643",
+      "id": "73fd68f5-f4cb-468f-b39c-ae6827474fd1",
+      "version": 11,
+      "rows": 32000000,
+      "files": 103,
+      "bytes": 5864012791
+    },
+    "edge_adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_adjacency_forward_r643",
+      "id": "fc7f1833-1cdc-433f-8a69-9944ca497d69",
+      "version": 12,
+      "rows": 8000000,
+      "files": 12,
+      "bytes": 69692119
+    }
+  },
+  "measured_new_node_active_bytes": 18759683420,
+  "measured_first8M_edge_active_bytes": 19047931191,
+  "measured_staged_active_bytes": 37807614611,
+  "measured_staged_active_files": 691,
+  "conditional_remaining32M_edge_active_bytes": 76191724764,
+  "conditional_full_new40M_edge_active_bytes": 95239655955,
+  "next8M_native_cost_sensitivity": {
+    "write_bytes": 28331454759.272728,
+    "read_bytes": 68616961417.0
+  },
+  "next_action": "Prepare bounded verification blocks before native16M-new-edge admission: current32M-journal full digest may exceed180s if simply doubled. Revalidate private physical heads; preserve selected pins. Then independent local next8M oracle and chunked appends.",
+  "qualification": "Measured separate private7-role active extents, not a unified publication or new production storage total. Conditional32M remainder assumes same synthetic entropy/history ratio and compression; excludes retained versions/logs/orphans/staged inputs/control/export/maintenance peaks. Native write sensitivity uses actual5.5M appends, read sensitivity covers prior8M validation at double extent with1.5x headroom plus10GB reserve. It is not native admission, hard billing cap, concurrency or sustained rate evidence. Interrupted full controller wall time is unqualified; no wall-rate extrapolation. Old R634 six-role footprint remains separately scoped to its recorded heads."
+}
