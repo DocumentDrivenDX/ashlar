@@ -11,6 +11,8 @@ import hashlib
 import json
 from pathlib import Path
 import sys
+import subprocess
+import importlib
 import time
 ROOT=Path(__file__).resolve().parents[1]
 B=ROOT/'docs/helix/02-design/spikes/SPIKE-001-table-layout'
@@ -31,9 +33,13 @@ from ashlar.retention_policy import SQLRetentionProvider,RetentionGate
 from ashlar.source_checkpoint import csv_checkpoint,jsonl_checkpoint
 from ashlar.source import jsonl_batches
 from ashlar.singleton import read_singleton
+from ashlar.weft_query import read_weft
+from ashlar.weft_binding import string_compile_request,WEFT_REVISION,LAYOUT_SHA256
+from ashlar.weft_decode import decode_string_column
 from ashlar.staging import batch_row
 from ashlar.stored_publisher import StoredPublisherBackend
-from databricks_transport import DatabricksTransport,sql_result
+from databricks_transport import DatabricksTransport,CompiledWeftTransport,sql_result
+from weft_native_profile import observe_native_profile
 from durable_effects import DurableEffects
 from durable_sql import DurableSQL,SQLPending
 from effective_grants import effective_grants
@@ -73,10 +79,15 @@ def main():
     parser.add_argument('--additional-intake-proof',type=Path,action='append',default=[],help='Evolution only: original revision-1 proof; primary proof is revision 3')
     parser.add_argument('--limit',type=int,choices=range(1,5),default=1,help='Process through this original source batch ordinal; default one batch')
     parser.add_argument('--query-only',action='store_true',help='Read the last retained publication; no ingestion, publication or progress advancement')
+    parser.add_argument('--weft-sql',help='Query-only: compile a Weft query against the exact retained model/publication')
+    parser.add_argument('--weft-python',type=Path,help='Verified pinned wheel installation directory')
+    parser.add_argument('--weft-source',type=Path,help='Clean source checkout at the admitted Weft revision')
     parser.add_argument('--entity-id',type=int,default=1,help='Signed 64-bit local-example object identity for query-only mode')
     parser.add_argument('--profile',default='aidev-cus',help='Authorized existing Databricks CLI profile')
     parser.add_argument('--warehouse',default='2439e1f2e37ac563',help='Authorized existing SQL warehouse')
     args=parser.parse_args()
+    if args.weft_sql and (not args.query_only or not args.weft_python or not args.weft_source):parser.error('Weft requires query-only and both pinned compiler paths')
+    if not args.weft_sql and (args.weft_python or args.weft_source):parser.error('Compiler paths require a Weft query')
     if args.query_only and not args.journal.is_file():parser.error('Query-only requires the original retained publication journal')
     if not -(2**63)<=args.entity_id<2**63:parser.error('Entity identity must fit signed 64 bits')
     if args.output.exists():parser.error('Fresh output directory required; preserve previous receipts')
@@ -369,7 +380,7 @@ def main():
             else:
                 progress=JournaledJsonlProgress(journal,source,source_sha,ProgressPolicy(),native_resolution,stream=STREAM,feed=feed,epoch=epoch)
             start=progress.completed_batches();results=[]
-            singleton=None
+            singleton=None;weft_result=None
             if args.query_only:
                 if start==0 or start!=args.limit:raise PublicationError('Query-only requires the exact last retained source batch ordinal')
                 active=specs[start-1]
@@ -379,10 +390,61 @@ def main():
                 pin_vector=manifest_pin_vector(dict(current.raw),{t:uuids[t] for t in tables.values()},authority=user.user_name)
                 targets=loaded_targets(active['request']);policy=ReadPolicy()
                 backend=NativeBackend(transport,policy,manifest_table,uuids[manifest_table],{table:columns[table.rsplit('.',1)[1]] for table in tables.values()})
-                row=read_singleton(transport,backend,QueryPins(),pin_vector,policy,publication_id=current.publication_id,
-                    table=tables['object_current'],kind='object',source='local-example',type_id=17,entity_id=args.entity_id,context=context,
-                    supported_profiles=['ashlar-delta/0.3'],supported_revisions=supported_revisions)
-                singleton=dict(row) if row is not None else None
+                if args.weft_sql:
+                    def compiler_custody():
+                        for command,expected in [(['rev-parse','HEAD'],WEFT_REVISION),(['status','--porcelain'],'')]:
+                            if subprocess.check_output(['git','-C',str(args.weft_source),*command],text=True).strip()!=expected:
+                                raise PublicationError('Original clean pinned Weft source required')
+                        expected=json.loads((ROOT/'docs/helix/04-build/evidence/weft-pinned-compiler-20261008.json').read_bytes())
+                        binary=args.weft_python/'weft/weft.abi3.so'
+                        if hashlib.sha256(binary.read_bytes()).hexdigest()!=expected['loaded_extension_sha256']:
+                            raise PublicationError('Original built Weft extension differs')
+                        if (args.weft_python/'weft/__init__.py').read_bytes()!=b'from .weft import *\n\n__doc__ = weft.__doc__\nif hasattr(weft, "__all__"):\n    __all__ = weft.__all__':
+                            raise PublicationError('Original wheel entrypoint differs')
+                    compiler_custody()
+                    sys.path.insert(0,str(args.weft_python.resolve()))
+                    compiler=importlib.import_module('weft')
+                    if Path(compiler.weft.__file__).resolve()!=(args.weft_python/'weft/weft.abi3.so').resolve():
+                        raise PublicationError('Actually loaded compiler path differs')
+                    selected_intake,selected_policy,_=fixture_inputs()
+                    layout=ROOT/'docs/helix/02-design/spikes/SPIKE-001-table-layout/sql/delta-layout-v03.sql'
+                    if hashlib.sha256(layout.read_bytes()).hexdigest()!=LAYOUT_SHA256:
+                        raise PublicationError('Qualified original layout differs')
+                    query_request=string_compile_request(args.weft_sql,selected_intake,selected_policy,current,
+                        schema_alias='fixture-v3' if args.source=='evolution' else 'fixture',
+                        table_uuids={t:uuids[t] for t in tables.values()},manifest_uuid=uuids[manifest_table],layout_sha256=LAYOUT_SHA256)
+                    compiled=json.loads(compiler.compile_json(encoded(query_request)))
+                    (args.output/'weft-compile.json').write_text(json.dumps({'request':query_request,'response':compiled},indent=2)+'\n')
+                    class WeftPolicy(ReadPolicy):
+                        def admit_artifact(self,request,artifact,value,supplied):
+                            self.bind_descriptor(value,pin_vector,supplied);compiler_custody()
+                            fresh=string_compile_request(args.weft_sql,selected_intake,selected_policy,value,
+                                schema_alias='fixture-v3' if args.source=='evolution' else 'fixture',
+                                table_uuids={t:uuids[t] for t in tables.values()},manifest_uuid=uuids[manifest_table],layout_sha256=hashlib.sha256(layout.read_bytes()).hexdigest())
+                            if request!=fresh or artifact!=json.loads(compiler.compile_json(encoded(fresh))):
+                                raise PublicationError('Exact original owner request and recompiled artifact required')
+                            if targets[tables['object_current']]['columns']!=[list(c) for c in columns['object_current']]:
+                                raise PublicationError('Qualified consumed native carrier differs')
+                        def verify_native_profile(self,required,supplied):
+                            if supplied is not context:raise PermissionError('Original native profile context required')
+                            observe_native_profile(client,required)
+                        def authorize_query(self,request,value,supplied):
+                            self.bind_descriptor(value,pin_vector,supplied);authority();source_schema()
+                        def decode_result(self,column,value,request,supplied):
+                            if supplied is not context:raise PermissionError('Original result model context required')
+                            return decode_string_column(column,value,selected_policy,selected_intake)
+                        def authorize_result(self,rows,value,supplied):
+                            self.authorize_query(query_request,value,supplied)
+                    rows=read_weft(CompiledWeftTransport(transport,compiled),backend,QueryPins(),pin_vector,WeftPolicy(),
+                        request=query_request,artifact=compiled,context=context,supported_profiles=['ashlar-delta/0.3'],supported_revisions=supported_revisions)
+                    weft_result={'columns':[c['outputName'] for c in compiled['columns']],
+                        'rows':[[dict(cell) if hasattr(cell,'items') else cell for cell in row] for row in rows],
+                        'compiler_revision':WEFT_REVISION,'qualification':'Original model/publication, mandatory integrity checks, exact string/presence decoding and closing pin/authority checks. Profile observations are separate statements before execution and release, not same-statement settings proof.'}
+                else:
+                    row=read_singleton(transport,backend,QueryPins(),pin_vector,policy,publication_id=current.publication_id,
+                        table=tables['object_current'],kind='object',source='local-example',type_id=17,entity_id=args.entity_id,context=context,
+                        supported_profiles=['ashlar-delta/0.3'],supported_revisions=supported_revisions)
+                    singleton=dict(row) if row is not None else None
             for active in ([] if args.query_only else specs[start:args.limit]):
                 try:
                     with ExitStack() as publication_scope:
@@ -407,11 +469,11 @@ def main():
                 results.append({'ordinal':active['ordinal'],'descriptor':dict(value.raw)})
             authority();source_schema()
             summary={'state':'queried' if args.query_only else 'published','namespace':NAMESPACE,'local_consumer_position':progress.position(),'published':results,
-                'source_kind':args.source,'local_completed_batches':progress.completed_batches(),'query_only':args.query_only,'singleton':singleton,'query_publication_id':current.publication_id if args.query_only else None,
+                'source_kind':args.source,'local_completed_batches':progress.completed_batches(),'query_only':args.query_only,'singleton':singleton,'weft':weft_result,'query_publication_id':current.publication_id if args.query_only else None,
                 'native_read_statements':len(client.records),'effective_permission_pages':len(permission_reads),'source_sha256':source_sha,'materialized_at':clock,
                 'qualification':'Actual '+args.source.upper()+' fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload.'}
             (args.output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
-            print('Native '+args.source.upper()+' singleton query completed.' if args.query_only else 'Native '+args.source.upper()+' stream reached local consumer position '+progress.position()+'.')
+            print('Native '+args.source.upper()+(' Weft query completed.' if args.weft_sql else ' singleton query completed.') if args.query_only else 'Native '+args.source.upper()+' stream reached local consumer position '+progress.position()+'.')
     finally:held=False;journal.close()
 
 if __name__=='__main__':main()

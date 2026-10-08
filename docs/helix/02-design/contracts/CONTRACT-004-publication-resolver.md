@@ -450,3 +450,18 @@ The initial decoder admits qualified string scalars and explicit absent/value
 string envelopes bound to original Field identities; native null, duplicate JSON
 members, unpaired Unicode, NUL, extra states and numeric substitution refuse.
 Numeric/recursive/entity/relationship decoder handlers remain unfinished.
+
+### Native Weft development host integration — 2026-10-08
+
+The native immutable-source runner may compile query-only Weft requests from the
+original retained model/publication using the pinned qualified wheel. Host
+admission MUST verify the clean source revision, loaded extension digest/path,
+original entrypoint, layout digest, regenerated owner request and complete
+recompiled artifact. Existing native inventory/authority/schema/retention/pin
+checks remain mandatory. Exact warehouse release/build and ANSI setting MUST be
+observed before execution and buffered release; observation mismatch refuses
+without settings changes or profile fallback. These separate statements do not
+establish same-statement settings evidence. Current decoding remains scoped to
+strings and explicit string presence envelopes; unsupported families refuse.
+This private development host does not establish production authorization or
+complete Weft conformance. Query-only MUST NOT advance graph/source progress.

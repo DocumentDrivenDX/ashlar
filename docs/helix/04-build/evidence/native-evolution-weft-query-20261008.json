@@ -1,0 +1,1272 @@
+{
+  "state": "passed-scoped-native-query",
+  "execution_base_revision": "8b1919e",
+  "summary": {
+    "state": "queried",
+    "namespace": "ashlar_e2e_private_20261008.runtime_schema_evolution",
+    "local_consumer_position": "1814",
+    "published": [],
+    "source_kind": "evolution",
+    "local_completed_batches": 3,
+    "query_only": true,
+    "singleton": null,
+    "weft": {
+      "columns": [
+        "label",
+        "caption"
+      ],
+      "rows": [
+        [
+          "updated",
+          {
+            "state": "value",
+            "value": "雪"
+          }
+        ]
+      ],
+      "compiler_revision": "2744531735c2a771fbe7ed24a7f67e3afc851b25",
+      "qualification": "Original model/publication, mandatory integrity checks, exact string/presence decoding and closing pin/authority checks. Profile observations are separate statements before execution and release, not same-statement settings proof."
+    },
+    "query_publication_id": "evolution-stream-12dc138752201514d365a56a045f0e4fdd7ff1f03f28336af47ff4cd2fb36ea5",
+    "native_read_statements": 140,
+    "effective_permission_pages": 99,
+    "source_sha256": "b82a85055d47896499291f47c7c50c248153e08ef6cc8579a92bed3c8b662a6d",
+    "materialized_at": "2026-10-08T19:45:27.833106+00:00",
+    "qualification": "Actual EVOLUTION fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload."
+  },
+  "independent_expected_rows": [
+    [
+      "updated",
+      {
+        "state": "value",
+        "value": "雪"
+      }
+    ]
+  ],
+  "original_mutations_unchanged": 27,
+  "original_checkpoints_unchanged": [
+    805,
+    1318,
+    1814
+  ],
+  "compiler": {
+    "request": {
+      "interfaceVersion": "weft-compile/0.2.0",
+      "dialect": "weft-sql/0.2.0",
+      "sql": "SELECT i.label, i.caption FROM Item i",
+      "modules": [
+        {
+          "documentJson": "{\"umf\":\"0.7.0\",\"id\":\"truss-weft-source-review-fixture\",\"vocabularies\":{},\"modules\":[{\"id\":\"fixture\",\"namespace\":\"fixture\",\"elements\":[{\"id\":\"item\",\"name\":\"Item\",\"kind\":\"record\",\"members\":[{\"module\":\"fixture\",\"element\":\"label\"},{\"module\":\"fixture\",\"element\":\"caption\"}],\"extensions\":{}},{\"id\":\"label\",\"name\":\"label\",\"kind\":\"field\",\"scalarType\":\"string\",\"nullability\":\"required\",\"cardinality\":\"one\",\"extensions\":{}},{\"id\":\"caption\",\"name\":\"caption\",\"kind\":\"field\",\"scalarType\":\"string\",\"nullability\":\"absent-allowed\",\"cardinality\":\"one\",\"extensions\":{}}]}]}",
+          "pin": {
+            "documentId": "truss-weft-source-review-fixture",
+            "revision": "3",
+            "umfVersion": "0.7.0",
+            "sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085"
+          },
+          "selectedModuleIds": [
+            "fixture"
+          ]
+        }
+      ],
+      "target": {
+        "backendId": "ashlar.databricks",
+        "backendVersion": "0.1.0-qualified",
+        "targetProfile": "dbsql2026.39-qualified",
+        "bindingJson": "{\"layoutRevision\":\"ashlar-delta/0.3\",\"layoutSha256\":\"ad4a264508c971aefcd94e3ae90f8f74dcf119b7d767f6060c638f4abde3284e\",\"modelPins\":[{\"documentId\":\"truss-weft-source-review-fixture\",\"revision\":\"3\",\"sha256\":\"60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085\",\"umfVersion\":\"0.7.0\"}],\"profile\":\"ashlar-databricks-candidate/0.1.0\",\"publication\":{\"id\":\"evolution-stream-12dc138752201514d365a56a045f0e4fdd7ff1f03f28336af47ff4cd2fb36ea5\",\"manifestUuid\":\"1c69c7b4-e621-45ae-9d88-092904c3ff33\",\"tables\":[{\"name\":[\"ashlar_e2e_private_20261008\",\"runtime_schema_evolution\",\"edge_current\"],\"uuid\":\"11d58763-8f7f-4a11-bc90-de38db2bbc42\",\"version\":0},{\"name\":[\"ashlar_e2e_private_20261008\",\"runtime_schema_evolution\",\"object_current\"],\"uuid\":\"89188ca8-5532-40a2-9194-97e5e039137e\",\"version\":5},{\"name\":[\"ashlar_e2e_private_20261008\",\"runtime_schema_evolution\",\"tombstone\"],\"uuid\":\"d35c4308-ad65-4b34-a7cf-deb091d2baff\",\"version\":1},{\"name\":[\"ashlar_e2e_private_20261008\",\"runtime_schema_evolution\",\"whole_source_history\"],\"uuid\":\"4807e7e0-ebaf-4495-aaa2-b94a9ba378c5\",\"version\":3}]},\"records\":[{\"kind\":\"object\",\"logical\":{\"documentId\":\"truss-weft-source-review-fixture\",\"element\":\"item\",\"module\":\"fixture\",\"revision\":\"3\"},\"properties\":[{\"home\":{\"kind\":\"props\",\"propertyId\":\"23\"},\"logical\":{\"documentId\":\"truss-weft-source-review-fixture\",\"element\":\"label\",\"module\":\"fixture\",\"revision\":\"3\"}},{\"home\":{\"kind\":\"props\",\"propertyId\":\"24\"},\"logical\":{\"documentId\":\"truss-weft-source-review-fixture\",\"element\":\"caption\",\"module\":\"fixture\",\"revision\":\"3\"}}],\"schemaRevision\":\"3\",\"sourceSystem\":\"local-example\",\"table\":1,\"typeId\":\"17\"}]}",
+        "bindingSha256": "8dc0ddb4a4349ae2f87778d940be8311bd7e07e3e16fa635e5224c4f3838e751"
+      },
+      "options": {
+        "allowCandidate": false
+      }
+    },
+    "response": {
+      "backend": {
+        "backendId": "ashlar.databricks",
+        "backendVersion": "0.1.0-qualified",
+        "interfaceVersion": "weft-backend/0.2.0",
+        "targetProfile": "dbsql2026.39-qualified"
+      },
+      "bindingSha256": "8dc0ddb4a4349ae2f87778d940be8311bd7e07e3e16fa635e5224c4f3838e751",
+      "columns": [
+        {
+          "nullable": false,
+          "outputName": "label",
+          "position": 1,
+          "representation": {
+            "carrier": "text",
+            "decoder": "text",
+            "kind": "scalar",
+            "logicalType": {
+              "facets": {},
+              "family": "string",
+              "nullable": false
+            }
+          },
+          "sourceIdentities": [
+            {
+              "documentId": "truss-weft-source-review-fixture",
+              "element": "label",
+              "module": "fixture",
+              "revision": "3"
+            }
+          ]
+        },
+        {
+          "nullable": false,
+          "outputName": "caption",
+          "position": 2,
+          "representation": {
+            "descriptor": {
+              "documentId": "truss-weft-source-review-fixture",
+              "element": "caption",
+              "module": "fixture",
+              "revision": "3"
+            },
+            "kind": "value",
+            "nativeNull": false
+          },
+          "sourceIdentities": [
+            {
+              "documentId": "truss-weft-source-review-fixture",
+              "element": "caption",
+              "module": "fixture",
+              "revision": "3"
+            }
+          ]
+        }
+      ],
+      "compilerVersion": "weft/0.1.0",
+      "diagnostics": [],
+      "dialect": "weft-sql/0.2.0",
+      "interfaceVersion": "weft-compile/0.2.0",
+      "logicalPlan": {
+        "aggregate": false,
+        "filters": [],
+        "groups": [],
+        "irVersion": "weft-ir/0.2.0",
+        "joins": [],
+        "limit": null,
+        "modulePins": [
+          {
+            "documentId": "truss-weft-source-review-fixture",
+            "revision": "3",
+            "sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+            "umfVersion": "0.7.0"
+          }
+        ],
+        "order": [],
+        "outputs": [
+          {
+            "expression": {
+              "identity": {
+                "documentId": "truss-weft-source-review-fixture",
+                "element": "label",
+                "module": "fixture",
+                "revision": "3"
+              },
+              "op": "field",
+              "scan": "s0"
+            },
+            "name": "label"
+          },
+          {
+            "expression": {
+              "identity": {
+                "documentId": "truss-weft-source-review-fixture",
+                "element": "caption",
+                "module": "fixture",
+                "revision": "3"
+              },
+              "op": "field",
+              "scan": "s0"
+            },
+            "name": "caption"
+          }
+        ],
+        "pageKey": null,
+        "readProfile": null,
+        "requiredCapabilities": [
+          "project",
+          "scan",
+          "type.string",
+          "value.presence"
+        ],
+        "source": {
+          "occurrence": "s0",
+          "pin": {
+            "documentId": "truss-weft-source-review-fixture",
+            "revision": "3",
+            "sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+            "umfVersion": "0.7.0"
+          },
+          "record": {
+            "documentId": "truss-weft-source-review-fixture",
+            "element": "item",
+            "module": "fixture",
+            "revision": "3"
+          }
+        },
+        "typeGraph": [
+          {
+            "availability": "required",
+            "identity": {
+              "documentId": "truss-weft-source-review-fixture",
+              "element": "label",
+              "module": "fixture",
+              "revision": "3"
+            },
+            "kind": "scalar",
+            "type": {
+              "facets": {},
+              "family": "string",
+              "nullable": false
+            }
+          },
+          {
+            "availability": "absent-allowed",
+            "identity": {
+              "documentId": "truss-weft-source-review-fixture",
+              "element": "caption",
+              "module": "fixture",
+              "revision": "3"
+            },
+            "kind": "scalar",
+            "type": {
+              "facets": {},
+              "family": "string",
+              "nullable": false
+            }
+          }
+        ]
+      },
+      "modelPins": [
+        {
+          "documentId": "truss-weft-source-review-fixture",
+          "revision": "3",
+          "sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+          "umfVersion": "0.7.0"
+        }
+      ],
+      "obligations": [
+        {
+          "failureCode": "WFT-OBLIGATION",
+          "id": "ashlar.candidate.publication",
+          "owner": "host",
+          "parameters": {
+            "layoutRevision": "ashlar-delta/0.3",
+            "layoutSha256": "ad4a264508c971aefcd94e3ae90f8f74dcf119b7d767f6060c638f4abde3284e",
+            "modelPins": [
+              {
+                "documentId": "truss-weft-source-review-fixture",
+                "revision": "3",
+                "sha256": "60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085",
+                "umfVersion": "0.7.0"
+              }
+            ],
+            "nativeProfile": {
+              "arithmetic": "ANSI exact-or-error",
+              "comparison": "UTF8_BINARY",
+              "warehouseRelease": "unqualified"
+            },
+            "payloadValidation": [
+              "exact validated JSON text with duplicate-key refusal",
+              "well-formed Unicode scalar strings with no NUL",
+              "registered fixed-base-ten numeric carrier; exponent/DOUBLE representations refuse",
+              "no rounding, coercion, missing/null substitution or hidden corrupt inputs"
+            ],
+            "publication": {
+              "id": "evolution-stream-12dc138752201514d365a56a045f0e4fdd7ff1f03f28336af47ff4cd2fb36ea5",
+              "manifestUuid": "1c69c7b4-e621-45ae-9d88-092904c3ff33",
+              "tables": [
+                {
+                  "name": [
+                    "ashlar_e2e_private_20261008",
+                    "runtime_schema_evolution",
+                    "edge_current"
+                  ],
+                  "uuid": "11d58763-8f7f-4a11-bc90-de38db2bbc42",
+                  "version": 0
+                },
+                {
+                  "name": [
+                    "ashlar_e2e_private_20261008",
+                    "runtime_schema_evolution",
+                    "object_current"
+                  ],
+                  "uuid": "89188ca8-5532-40a2-9194-97e5e039137e",
+                  "version": 5
+                },
+                {
+                  "name": [
+                    "ashlar_e2e_private_20261008",
+                    "runtime_schema_evolution",
+                    "tombstone"
+                  ],
+                  "uuid": "d35c4308-ad65-4b34-a7cf-deb091d2baff",
+                  "version": 1
+                },
+                {
+                  "name": [
+                    "ashlar_e2e_private_20261008",
+                    "runtime_schema_evolution",
+                    "whole_source_history"
+                  ],
+                  "uuid": "4807e7e0-ebaf-4495-aaa2-b94a9ba378c5",
+                  "version": 3
+                }
+              ]
+            },
+            "publicationPhase": "after-complete-buffer-and-context-recheck",
+            "requirements": [
+              "authenticate effective caller and establish complete authorized input view",
+              "verify one complete immutable manifest with trusted UUID and all schema revisions/projection dependencies",
+              "verify every consumed native schema, table UUID, version and retained data-file custody",
+              "verify source/type/id uniqueness, typed endpoint integrity and complete serving projection coverage at this publication",
+              "check policy and pin custody before execution and again before buffered result publication",
+              "refuse unknown obligations or unavailable evidence; no latest version or broader principal fallback",
+              "validate original mapping correspondence independently; identifiers and physical IDs are not logical identity"
+            ],
+            "visibility": "hidden input is not evidence of absence or integrity"
+          }
+        },
+        {
+          "failureCode": "WFT-NUMERIC-DOMAIN",
+          "id": "ashlar.candidate.scalarIntegrity",
+          "owner": "host",
+          "parameters": {
+            "checks": [
+              {
+                "failureCode": "WFT-NUMERIC-DOMAIN",
+                "field": {
+                  "documentId": "truss-weft-source-review-fixture",
+                  "element": "caption",
+                  "module": "fixture",
+                  "revision": "3"
+                },
+                "record": {
+                  "documentId": "truss-weft-source-review-fixture",
+                  "element": "item",
+                  "module": "fixture",
+                  "revision": "3"
+                },
+                "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `ashlar_e2e_private_20261008`.`runtime_schema_evolution`.`object_current` VERSION AS OF 5 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(parse_json(r.props_json)) RLIKE '^OBJECT' AND ((variant_get(parse_json(r.props_json), :p4) IS NULL) OR (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'STRING' AND instr(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING), char(0)) = 0))) THEN FALSE ELSE TRUE END"
+              },
+              {
+                "failureCode": "WFT-NUMERIC-DOMAIN",
+                "field": {
+                  "documentId": "truss-weft-source-review-fixture",
+                  "element": "label",
+                  "module": "fixture",
+                  "revision": "3"
+                },
+                "record": {
+                  "documentId": "truss-weft-source-review-fixture",
+                  "element": "item",
+                  "module": "fixture",
+                  "revision": "3"
+                },
+                "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `ashlar_e2e_private_20261008`.`runtime_schema_evolution`.`object_current` VERSION AS OF 5 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p5)) = 'STRING' AND instr(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING), char(0)) = 0) THEN FALSE ELSE TRUE END"
+              }
+            ],
+            "noPartialPublication": true,
+            "parameters": "same emitted ordered slots; values never interpolated",
+            "phase": "before-user-query",
+            "samePublicationRequired": true,
+            "success": "one exact STRING count equal to 0 per check"
+          }
+        },
+        {
+          "failureCode": "WFT-OBLIGATION",
+          "id": "ashlar.nativeProfile",
+          "owner": "host",
+          "parameters": {
+            "engineVersion": "2026.39",
+            "qualification": "evidence-qualified compiler semantics; host execution and publication remain conditional",
+            "requirements": [
+              "verify the exact executing native engine and relevant settings before any integrity or user SQL",
+              "retain the same admitted catalog/publication context across checks and buffered result publication",
+              "refuse mismatched or unavailable profile evidence; never silently choose a newer engine or another profile"
+            ],
+            "settings": {
+              "ansi_mode": true,
+              "arithmetic": "ANSI exact-or-error",
+              "comparison": "explicit UTF8_BINARY",
+              "resultTransport": "JSON_ARRAY exact STRING",
+              "warehouseBuild": {
+                "r_build_hash": "3909d148af5cb6b560624c9255f5a727f7a17a4c",
+                "u_build_hash": "15b447529a1f55ca1ad8c73a89b8d196f6ed4904"
+              }
+            },
+            "targetProfile": "dbsql2026.39-qualified"
+          }
+        }
+      ],
+      "parameters": [
+        {
+          "logicalType": {
+            "facets": {},
+            "family": "string",
+            "nullable": false
+          },
+          "origin": {
+            "kind": "sourceDiscriminator",
+            "record": {
+              "documentId": "truss-weft-source-review-fixture",
+              "element": "item",
+              "module": "fixture",
+              "revision": "3"
+            }
+          },
+          "position": 1,
+          "value": "local-example"
+        },
+        {
+          "logicalType": {
+            "facets": {
+              "integerWidth": {
+                "bits": 64,
+                "signed": true
+              }
+            },
+            "family": "integer",
+            "nullable": false
+          },
+          "origin": {
+            "kind": "typeDiscriminator",
+            "record": {
+              "documentId": "truss-weft-source-review-fixture",
+              "element": "item",
+              "module": "fixture",
+              "revision": "3"
+            }
+          },
+          "position": 2,
+          "value": "17"
+        },
+        {
+          "logicalType": {
+            "facets": {},
+            "family": "string",
+            "nullable": false
+          },
+          "origin": {
+            "kind": "schemaRevision",
+            "record": {
+              "documentId": "truss-weft-source-review-fixture",
+              "element": "item",
+              "module": "fixture",
+              "revision": "3"
+            }
+          },
+          "position": 3,
+          "value": "3"
+        },
+        {
+          "logicalType": {
+            "facets": {},
+            "family": "string",
+            "nullable": false
+          },
+          "origin": {
+            "field": {
+              "documentId": "truss-weft-source-review-fixture",
+              "element": "caption",
+              "module": "fixture",
+              "revision": "3"
+            },
+            "kind": "propertyPath"
+          },
+          "position": 4,
+          "value": "$.24"
+        },
+        {
+          "logicalType": {
+            "facets": {},
+            "family": "string",
+            "nullable": false
+          },
+          "origin": {
+            "field": {
+              "documentId": "truss-weft-source-review-fixture",
+              "element": "label",
+              "module": "fixture",
+              "revision": "3"
+            },
+            "kind": "propertyPath"
+          },
+          "position": 5,
+          "value": "$.23"
+        }
+      ],
+      "qualification": {
+        "assumptions": [],
+        "evidence": [
+          "weft-native-qualification/ashlar/0.1.0#sha256:b5a3675c3bf0b10301ce1411368b80491446d8bbfb128f089fd431ea1eff3d6b"
+        ],
+        "operations": [
+          {
+            "assessment": {
+              "evidence": [
+                "weft-native-qualification/ashlar/0.1.0#sha256:b5a3675c3bf0b10301ce1411368b80491446d8bbfb128f089fd431ea1eff3d6b"
+              ],
+              "id": "project",
+              "obligations": [],
+              "status": "supported"
+            },
+            "declaration": {
+              "constraints": [
+                "Only binding-admitted versioned logical/storage domains in the hashed qualification record",
+                "Host must verify native profile, integrity, authorization and one admitted read context before buffered publication; no engine fallback",
+                "Native-tested compiler semantics do not attest existing application data or installed storage runtime adoption"
+              ],
+              "evidence": [
+                "weft-native-qualification/ashlar/0.1.0#sha256:b5a3675c3bf0b10301ce1411368b80491446d8bbfb128f089fd431ea1eff3d6b"
+              ],
+              "id": "project",
+              "languageProfiles": [
+                {
+                  "dialectProfile": "weft-sql/0.1.0",
+                  "irVersion": "weft-ir/0.1.0"
+                },
+                {
+                  "dialectProfile": "weft-sql/0.2.0",
+                  "irVersion": "weft-ir/0.2.0"
+                }
+              ],
+              "logicalDomain": {
+                "subset": "required scalar relational/application operations with admitted exact homes"
+              },
+              "obligations": [
+                {
+                  "failureCode": "WFT-OBLIGATION",
+                  "id": "ashlar.nativeProfile",
+                  "owner": "host",
+                  "parameters": {
+                    "engineVersion": "2026.39",
+                    "qualification": "evidence-qualified compiler semantics; host execution and publication remain conditional",
+                    "requirements": [
+                      "verify the exact executing native engine and relevant settings before any integrity or user SQL",
+                      "retain the same admitted catalog/publication context across checks and buffered result publication",
+                      "refuse mismatched or unavailable profile evidence; never silently choose a newer engine or another profile"
+                    ],
+                    "settings": {
+                      "ansi_mode": true,
+                      "arithmetic": "ANSI exact-or-error",
+                      "comparison": "explicit UTF8_BINARY",
+                      "resultTransport": "JSON_ARRAY exact STRING",
+                      "warehouseBuild": {
+                        "r_build_hash": "3909d148af5cb6b560624c9255f5a727f7a17a4c",
+                        "u_build_hash": "15b447529a1f55ca1ad8c73a89b8d196f6ed4904"
+                      }
+                    },
+                    "targetProfile": "dbsql2026.39-qualified"
+                  }
+                }
+              ],
+              "resultDomain": {
+                "carrier": "exact text",
+                "sumCount": "finite DECIMAL38 or error; empty count zero"
+              },
+              "status": "supported",
+              "targetProfiles": [
+                "dbsql2026.39-qualified"
+              ]
+            }
+          },
+          {
+            "assessment": {
+              "evidence": [
+                "weft-native-qualification/ashlar/0.1.0#sha256:b5a3675c3bf0b10301ce1411368b80491446d8bbfb128f089fd431ea1eff3d6b"
+              ],
+              "id": "scan",
+              "obligations": [],
+              "status": "supported"
+            },
+            "declaration": {
+              "constraints": [
+                "Only binding-admitted versioned logical/storage domains in the hashed qualification record",
+                "Host must verify native profile, integrity, authorization and one admitted read context before buffered publication; no engine fallback",
+                "Native-tested compiler semantics do not attest existing application data or installed storage runtime adoption"
+              ],
+              "evidence": [
+                "weft-native-qualification/ashlar/0.1.0#sha256:b5a3675c3bf0b10301ce1411368b80491446d8bbfb128f089fd431ea1eff3d6b"
+              ],
+              "id": "scan",
+              "languageProfiles": [
+                {
+                  "dialectProfile": "weft-sql/0.1.0",
+                  "irVersion": "weft-ir/0.1.0"
+                },
+                {
+                  "dialectProfile": "weft-sql/0.2.0",
+                  "irVersion": "weft-ir/0.2.0"
+                }
+              ],
+              "logicalDomain": {
+                "subset": "required scalar relational/application operations with admitted exact homes"
+              },
+              "obligations": [
+                {
+                  "failureCode": "WFT-OBLIGATION",
+                  "id": "ashlar.nativeProfile",
+                  "owner": "host",
+                  "parameters": {
+                    "engineVersion": "2026.39",
+                    "qualification": "evidence-qualified compiler semantics; host execution and publication remain conditional",
+                    "requirements": [
+                      "verify the exact executing native engine and relevant settings before any integrity or user SQL",
+                      "retain the same admitted catalog/publication context across checks and buffered result publication",
+                      "refuse mismatched or unavailable profile evidence; never silently choose a newer engine or another profile"
+                    ],
+                    "settings": {
+                      "ansi_mode": true,
+                      "arithmetic": "ANSI exact-or-error",
+                      "comparison": "explicit UTF8_BINARY",
+                      "resultTransport": "JSON_ARRAY exact STRING",
+                      "warehouseBuild": {
+                        "r_build_hash": "3909d148af5cb6b560624c9255f5a727f7a17a4c",
+                        "u_build_hash": "15b447529a1f55ca1ad8c73a89b8d196f6ed4904"
+                      }
+                    },
+                    "targetProfile": "dbsql2026.39-qualified"
+                  }
+                }
+              ],
+              "resultDomain": {
+                "carrier": "exact text",
+                "sumCount": "finite DECIMAL38 or error; empty count zero"
+              },
+              "status": "supported",
+              "targetProfiles": [
+                "dbsql2026.39-qualified"
+              ]
+            }
+          },
+          {
+            "assessment": {
+              "evidence": [
+                "weft-native-qualification/ashlar/0.1.0#sha256:b5a3675c3bf0b10301ce1411368b80491446d8bbfb128f089fd431ea1eff3d6b"
+              ],
+              "id": "type.string",
+              "obligations": [],
+              "status": "supported"
+            },
+            "declaration": {
+              "constraints": [
+                "Only binding-admitted versioned logical/storage domains in the hashed qualification record",
+                "Host must verify native profile, integrity, authorization and one admitted read context before buffered publication; no engine fallback",
+                "Native-tested compiler semantics do not attest existing application data or installed storage runtime adoption"
+              ],
+              "evidence": [
+                "weft-native-qualification/ashlar/0.1.0#sha256:b5a3675c3bf0b10301ce1411368b80491446d8bbfb128f089fd431ea1eff3d6b"
+              ],
+              "id": "type.string",
+              "languageProfiles": [
+                {
+                  "dialectProfile": "weft-sql/0.1.0",
+                  "irVersion": "weft-ir/0.1.0"
+                },
+                {
+                  "dialectProfile": "weft-sql/0.2.0",
+                  "irVersion": "weft-ir/0.2.0"
+                }
+              ],
+              "logicalDomain": {
+                "subset": "required scalar relational/application operations with admitted exact homes"
+              },
+              "obligations": [
+                {
+                  "failureCode": "WFT-OBLIGATION",
+                  "id": "ashlar.nativeProfile",
+                  "owner": "host",
+                  "parameters": {
+                    "engineVersion": "2026.39",
+                    "qualification": "evidence-qualified compiler semantics; host execution and publication remain conditional",
+                    "requirements": [
+                      "verify the exact executing native engine and relevant settings before any integrity or user SQL",
+                      "retain the same admitted catalog/publication context across checks and buffered result publication",
+                      "refuse mismatched or unavailable profile evidence; never silently choose a newer engine or another profile"
+                    ],
+                    "settings": {
+                      "ansi_mode": true,
+                      "arithmetic": "ANSI exact-or-error",
+                      "comparison": "explicit UTF8_BINARY",
+                      "resultTransport": "JSON_ARRAY exact STRING",
+                      "warehouseBuild": {
+                        "r_build_hash": "3909d148af5cb6b560624c9255f5a727f7a17a4c",
+                        "u_build_hash": "15b447529a1f55ca1ad8c73a89b8d196f6ed4904"
+                      }
+                    },
+                    "targetProfile": "dbsql2026.39-qualified"
+                  }
+                }
+              ],
+              "resultDomain": {
+                "carrier": "exact text",
+                "sumCount": "finite DECIMAL38 or error; empty count zero"
+              },
+              "status": "supported",
+              "targetProfiles": [
+                "dbsql2026.39-qualified"
+              ]
+            }
+          },
+          {
+            "assessment": {
+              "evidence": [
+                "weft-native-qualification/ashlar/0.1.0#sha256:b5a3675c3bf0b10301ce1411368b80491446d8bbfb128f089fd431ea1eff3d6b"
+              ],
+              "id": "value.presence",
+              "obligations": [],
+              "status": "supported"
+            },
+            "declaration": {
+              "constraints": [
+                "Only binding-admitted versioned logical/storage domains in the hashed qualification record",
+                "Host must verify native profile, integrity, authorization and one admitted read context before buffered publication; no engine fallback",
+                "Native-tested compiler semantics do not attest existing application data or installed storage runtime adoption"
+              ],
+              "evidence": [
+                "weft-native-qualification/ashlar/0.1.0#sha256:b5a3675c3bf0b10301ce1411368b80491446d8bbfb128f089fd431ea1eff3d6b"
+              ],
+              "id": "value.presence",
+              "languageProfiles": [
+                {
+                  "dialectProfile": "weft-sql/0.1.0",
+                  "irVersion": "weft-ir/0.1.0"
+                },
+                {
+                  "dialectProfile": "weft-sql/0.2.0",
+                  "irVersion": "weft-ir/0.2.0"
+                }
+              ],
+              "logicalDomain": {
+                "subset": "optional scalar or compound envelopes; absent or exact value; explicit native null refuses"
+              },
+              "obligations": [
+                {
+                  "failureCode": "WFT-OBLIGATION",
+                  "id": "ashlar.nativeProfile",
+                  "owner": "host",
+                  "parameters": {
+                    "engineVersion": "2026.39",
+                    "qualification": "evidence-qualified compiler semantics; host execution and publication remain conditional",
+                    "requirements": [
+                      "verify the exact executing native engine and relevant settings before any integrity or user SQL",
+                      "retain the same admitted catalog/publication context across checks and buffered result publication",
+                      "refuse mismatched or unavailable profile evidence; never silently choose a newer engine or another profile"
+                    ],
+                    "settings": {
+                      "ansi_mode": true,
+                      "arithmetic": "ANSI exact-or-error",
+                      "comparison": "explicit UTF8_BINARY",
+                      "resultTransport": "JSON_ARRAY exact STRING",
+                      "warehouseBuild": {
+                        "r_build_hash": "3909d148af5cb6b560624c9255f5a727f7a17a4c",
+                        "u_build_hash": "15b447529a1f55ca1ad8c73a89b8d196f6ed4904"
+                      }
+                    },
+                    "targetProfile": "dbsql2026.39-qualified"
+                  }
+                }
+              ],
+              "resultDomain": {
+                "carrier": "exact text",
+                "sumCount": "finite DECIMAL38 or error; empty count zero"
+              },
+              "status": "supported",
+              "targetProfiles": [
+                "dbsql2026.39-qualified"
+              ]
+            }
+          }
+        ],
+        "status": "conformance-verified"
+      },
+      "sql": "WITH `s0` AS (SELECT (CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f0`, (variant_get(parse_json(r.props_json), :p4) IS NOT NULL) AS `p1`, (CAST(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f2` FROM `ashlar_e2e_private_20261008`.`runtime_schema_evolution`.`object_current` VERSION AS OF 5 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)) SELECT CAST((`s0`.`f2` COLLATE UTF8_BINARY) AS STRING) AS `label`, CASE WHEN NOT (`s0`.`p1`) THEN to_json(named_struct('state', 'absent')) ELSE to_json(named_struct('state', 'value', 'value', CAST((`s0`.`f0` COLLATE UTF8_BINARY) AS STRING))) END AS `caption` FROM `s0`",
+      "status": "compiled",
+      "targetContext": {
+        "engine": "databricks-sql",
+        "engineVersion": "2026.39",
+        "id": "dbsql2026.39-qualified",
+        "publicationRevision": "host-verified-native-qualified/0.1",
+        "sessionSettings": {
+          "ansi_mode": true,
+          "arithmetic": "ANSI exact-or-error",
+          "comparison": "explicit UTF8_BINARY",
+          "resultTransport": "JSON_ARRAY exact STRING",
+          "warehouseBuild": {
+            "r_build_hash": "3909d148af5cb6b560624c9255f5a727f7a17a4c",
+            "u_build_hash": "15b447529a1f55ca1ad8c73a89b8d196f6ed4904"
+          }
+        },
+        "storageLayoutRevision": "ashlar-delta/0.3"
+      }
+    }
+  },
+  "weft_native_statements": [
+    {
+      "warehouse_id": "2439e1f2e37ac563",
+      "label": "weft-compiled-read",
+      "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `ashlar_e2e_private_20261008`.`runtime_schema_evolution`.`object_current` VERSION AS OF 5 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(parse_json(r.props_json)) RLIKE '^OBJECT' AND ((variant_get(parse_json(r.props_json), :p4) IS NULL) OR (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'STRING' AND instr(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING), char(0)) = 0))) THEN FALSE ELSE TRUE END",
+      "cancel_requested": false,
+      "parameters": [
+        {
+          "name": "p1",
+          "type": "STRING",
+          "value": "local-example"
+        },
+        {
+          "name": "p2",
+          "type": "STRING",
+          "value": "17"
+        },
+        {
+          "name": "p3",
+          "type": "STRING",
+          "value": "3"
+        },
+        {
+          "name": "p4",
+          "type": "STRING",
+          "value": "$.24"
+        },
+        {
+          "name": "p5",
+          "type": "STRING",
+          "value": "$.23"
+        }
+      ],
+      "statement_id": "01f1c356-60b7-1681-899a-8d513d6fa368",
+      "start_epoch": 1791491118.1700008,
+      "wall_ms": 9241.974583000001,
+      "response": {
+        "statement_id": "01f1c356-60b7-1681-899a-8d513d6fa368",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 1,
+            "columns": [
+              {
+                "name": "violations",
+                "type_text": "STRING",
+                "type_name": "STRING",
+                "position": 0
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "0"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "warehouse_id": "2439e1f2e37ac563",
+      "label": "weft-compiled-read",
+      "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `ashlar_e2e_private_20261008`.`runtime_schema_evolution`.`object_current` VERSION AS OF 5 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p5)) = 'STRING' AND instr(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING), char(0)) = 0) THEN FALSE ELSE TRUE END",
+      "cancel_requested": false,
+      "parameters": [
+        {
+          "name": "p1",
+          "type": "STRING",
+          "value": "local-example"
+        },
+        {
+          "name": "p2",
+          "type": "STRING",
+          "value": "17"
+        },
+        {
+          "name": "p3",
+          "type": "STRING",
+          "value": "3"
+        },
+        {
+          "name": "p4",
+          "type": "STRING",
+          "value": "$.24"
+        },
+        {
+          "name": "p5",
+          "type": "STRING",
+          "value": "$.23"
+        }
+      ],
+      "statement_id": "01f1c356-663d-1fb5-9acd-7bf199a43ffa",
+      "start_epoch": 1791491127.412408,
+      "wall_ms": 1069.8398749999997,
+      "response": {
+        "statement_id": "01f1c356-663d-1fb5-9acd-7bf199a43ffa",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 1,
+            "columns": [
+              {
+                "name": "violations",
+                "type_text": "STRING",
+                "type_name": "STRING",
+                "position": 0
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "0"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "warehouse_id": "2439e1f2e37ac563",
+      "label": "weft-compiled-read",
+      "sql": "WITH `s0` AS (SELECT (CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f0`, (variant_get(parse_json(r.props_json), :p4) IS NOT NULL) AS `p1`, (CAST(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f2` FROM `ashlar_e2e_private_20261008`.`runtime_schema_evolution`.`object_current` VERSION AS OF 5 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)) SELECT CAST((`s0`.`f2` COLLATE UTF8_BINARY) AS STRING) AS `label`, CASE WHEN NOT (`s0`.`p1`) THEN to_json(named_struct('state', 'absent')) ELSE to_json(named_struct('state', 'value', 'value', CAST((`s0`.`f0` COLLATE UTF8_BINARY) AS STRING))) END AS `caption` FROM `s0`",
+      "cancel_requested": false,
+      "parameters": [
+        {
+          "name": "p1",
+          "type": "STRING",
+          "value": "local-example"
+        },
+        {
+          "name": "p2",
+          "type": "STRING",
+          "value": "17"
+        },
+        {
+          "name": "p3",
+          "type": "STRING",
+          "value": "3"
+        },
+        {
+          "name": "p4",
+          "type": "STRING",
+          "value": "$.24"
+        },
+        {
+          "name": "p5",
+          "type": "STRING",
+          "value": "$.23"
+        }
+      ],
+      "statement_id": "01f1c356-66ea-15e4-9d93-0feb85a976d7",
+      "start_epoch": 1791491128.514678,
+      "wall_ms": 1149.5075839999913,
+      "response": {
+        "statement_id": "01f1c356-66ea-15e4-9d93-0feb85a976d7",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 2,
+            "columns": [
+              {
+                "name": "label",
+                "type_text": "STRING",
+                "type_name": "STRING",
+                "position": 0
+              },
+              {
+                "name": "caption",
+                "type_text": "STRING",
+                "type_name": "STRING",
+                "position": 1
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "updated",
+              "{\"state\":\"value\",\"value\":\"雪\"}"
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "native_profile_observations": [
+    {
+      "warehouse_id": "2439e1f2e37ac563",
+      "label": "weft-profile-engine",
+      "sql": "SELECT to_json(current_version(), map('ignoreNullFields','false')) AS __weft_warehouse",
+      "cancel_requested": false,
+      "parameters": null,
+      "statement_id": "01f1c356-5d68-1a20-a01e-c7a7a5c39b1b",
+      "start_epoch": 1791491112.607338,
+      "wall_ms": 508.6805839999897,
+      "response": {
+        "statement_id": "01f1c356-5d68-1a20-a01e-c7a7a5c39b1b",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 1,
+            "columns": [
+              {
+                "name": "__weft_warehouse",
+                "type_text": "STRING",
+                "type_name": "STRING",
+                "position": 0
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "{\"dbr_version\":null,\"dbsql_version\":\"2026.39\",\"u_build_hash\":\"15b447529a1f55ca1ad8c73a89b8d196f6ed4904\",\"r_build_hash\":\"3909d148af5cb6b560624c9255f5a727f7a17a4c\"}"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "warehouse_id": "2439e1f2e37ac563",
+      "label": "weft-profile-ansi-read",
+      "sql": "SET ANSI_MODE",
+      "cancel_requested": false,
+      "parameters": null,
+      "statement_id": "01f1c356-5db7-154b-8e58-627105a50870",
+      "start_epoch": 1791491113.124129,
+      "wall_ms": 458.1054579999915,
+      "response": {
+        "statement_id": "01f1c356-5db7-154b-8e58-627105a50870",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 2,
+            "columns": [
+              {
+                "name": "key",
+                "type_text": "STRING",
+                "type_name": "STRING",
+                "position": 0
+              },
+              {
+                "name": "value",
+                "type_text": "STRING",
+                "type_name": "STRING",
+                "position": 1
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "ANSI_MODE",
+              "true"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "warehouse_id": "2439e1f2e37ac563",
+      "label": "weft-profile-engine",
+      "sql": "SELECT to_json(current_version(), map('ignoreNullFields','false')) AS __weft_warehouse",
+      "cancel_requested": false,
+      "parameters": null,
+      "statement_id": "01f1c356-7833-1e53-a5cb-fd1f7a189734",
+      "start_epoch": 1791491157.5688908,
+      "wall_ms": 590.5825419999928,
+      "response": {
+        "statement_id": "01f1c356-7833-1e53-a5cb-fd1f7a189734",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 1,
+            "columns": [
+              {
+                "name": "__weft_warehouse",
+                "type_text": "STRING",
+                "type_name": "STRING",
+                "position": 0
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "{\"dbr_version\":null,\"dbsql_version\":\"2026.39\",\"u_build_hash\":\"15b447529a1f55ca1ad8c73a89b8d196f6ed4904\",\"r_build_hash\":\"3909d148af5cb6b560624c9255f5a727f7a17a4c\"}"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "warehouse_id": "2439e1f2e37ac563",
+      "label": "weft-profile-ansi-read",
+      "sql": "SET ANSI_MODE",
+      "cancel_requested": false,
+      "parameters": null,
+      "statement_id": "01f1c356-7894-1a4b-a906-07821ea08e6e",
+      "start_epoch": 1791491158.20843,
+      "wall_ms": 509.58775000000855,
+      "response": {
+        "statement_id": "01f1c356-7894-1a4b-a906-07821ea08e6e",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 2,
+            "columns": [
+              {
+                "name": "key",
+                "type_text": "STRING",
+                "type_name": "STRING",
+                "position": 0
+              },
+              {
+                "name": "value",
+                "type_text": "STRING",
+                "type_name": "STRING",
+                "position": 1
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "ANSI_MODE",
+              "true"
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "receipt_sha256": {
+    "summary.json": "f70b3e9d67e315f036a8174ebb9d67d24cb49a0e95ed09f392c9faddf9ca1163",
+    "weft-compile.json": "a04493296e5357bf14ba47cb739b6a233abf356ee4fa7ba95348910783105bfd",
+    "existing-values-before-2.json": "efcea510a9675d64f5a518fe53757aaaad3fda04b5f77a0dc932624a6e6a7fc2",
+    "statements.jsonl": "bac304abe75261085980dc0fb5a48ca555ddf95ce6a1941b926f64eb90fb7b3a",
+    "umf-record-check-3.json": "f02cb70cbb19c22b72d3180768a6721c16a552e44423c968f0889ef1c90ec378",
+    "effective-permissions.jsonl": "7e2ab35ef4fd36db412d5c9136f46370ec93e6264f4311f08678713811ae508c",
+    "umf-record-check-1.json": "2c0fcedc6d61eb3942243202f0c421f8a9482609a6e82fd3328ea428a7f3bd27",
+    "live-statement.json": "e236e2129f0bb87490a09ce02e556b0620af9c45a103a0cf24faf91eb961b1a3"
+  },
+  "private_receipts": "/private/tmp/ashlar-evolution-weft-query-20261008",
+  "qualification": "Actual original evolved publication queried using pinned qualified Weft compiler. Both scalar checks return exact STRING zero; label and explicit Unicode caption value match independent original source. Buffered resolver/pin/authority closure passed. No graph effects or source progress advanced. Separate engine/build/ANSI observations before execution and release; no same-statement settings proof or full query-language/native conformance. Private development owner fixture, not actual Truss catalog/feed or production authority."
+}

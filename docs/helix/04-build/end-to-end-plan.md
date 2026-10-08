@@ -2858,3 +2858,34 @@ verify original artifact custody, then execute queries against the completed
 native evolution publication. Numeric/recursive/typed-home/join/aggregate/key/
 relationship support and broader source/Truss paths remain unfinished. Full goal
 is active; a callback boundary alone does not satisfy native Weft integration.
+
+### Actual native Weft string/presence query — 2026-10-08
+
+The source runner now exposes query-only `--weft-sql` with explicit clean pinned
+Weft source and verified wheel paths. Native host admission checks the actually
+loaded extension, original entrypoint, qualified layout, regenerated owner request
+and full recompiled artifact. Existing retained publication schema/source/full
+inventory/grants/UUID/protocol/finite-retention/PG pin checks remain active.
+Native release/build and ANSI mode are observed before execution and release,
+without setting or resetting configuration. Separate observations do not establish
+same-statement settings evidence; broader qualification remains open.
+
+The actual final evolution publication passes `SELECT i.label, i.caption FROM
+Item i`. Both original emitted scalar integrity queries return exact STRING zero;
+the buffered result is `updated` and the explicit caption value `雪`, matching
+independent original-source reconstruction. Closing admission/pin checks pass.
+All 27 original mutation handles/request/response hashes and all three checkpoint
+originals/digests remain unchanged. The small read-only run has 140 warehouse
+statements and 99 permission pages, with no graph writes or source advancement.
+[Native evidence](evidence/native-evolution-weft-query-20261008.json) retains the
+actual compiler artifact, parameters, SQL responses, profile observations and
+receipt hashes. Twelve focused local checks pass, including engine/build/ANSI
+profile drift and duplicate identity refusal. The only SET statement reads
+ANSI_MODE; it contains no assignment. The documented read-only syntax is
+[Databricks SET](https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/sql-ref-syntax-aux-conf-mgmt-set),
+inspected 2026-10-08. Predictive optimization/grants/compute settings unchanged.
+
+This is a private development owner fixture string/presence query, not complete
+native Weft language conformance or production authorization. Exact per-execution
+settings proof, numeric/recursive/typed homes, joins/aggregates/keys/relationships
+and the actual Truss catalog/producer/feed remain unfinished. Goal stays active.

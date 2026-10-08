@@ -1086,3 +1086,20 @@ including WITH. `decode_string_column` supports exact selected string scalars
 and explicit absent/value envelopes. Local boundary/refusal checks pass; concrete
 native policy/profile verification and execution remain pending. Wider numeric,
 recursive, typed-column and relationship handlers must be added explicitly.
+
+### Query a retained publication with Weft
+
+The native source runner accepts `--query-only --weft-sql 'SELECT i.label,
+i.caption FROM Item i'` with `--weft-source` pointing to a clean checkout at
+2744531735c2a771fbe7ed24a7f67e3afc851b25 and `--weft-python` pointing to the
+verified qualified wheel installation recorded in the compiler evidence. Keep
+all original installation/intake/journal/source arguments; use a fresh output
+directory. Evolution additionally requires its original revision-1 intake proof
+and `--source evolution --limit 3`. The query does not advance source progress.
+
+The current host decodes string scalar/presence results and executes mandatory
+scalar checks. It refuses other result representations or obligation families.
+Only existing props homes are mapped. Native profile observations read the exact
+engine/build and ANSI setting before execution and release without changing them;
+these separate observations do not prove same-statement session settings. Broader
+numeric/recursive/typed-home/join/relationship qualification remains unfinished.
