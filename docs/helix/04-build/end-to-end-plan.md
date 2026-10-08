@@ -2300,3 +2300,28 @@ changes require the cooperating profile. Native corruption or uncoordinated
 administration is outside this qualified private fixture result. Actual Truss,
 later source ordinals, schema evolution through this runner, clean setup and
 remote source/fencing semantics remain open for the end-to-end goal.
+
+### Publication-to-checkpoint pin interval — 2026-10-08
+
+The native CSV runner now opens one complete read-pin interval immediately after
+the initial full artifact validation and native pin registration, retaining it
+through manifest commit, immutable committed phase, resolver admission and local
+checkpoint handoff. The first validation inside that interval still performs
+full parity; subsequent calls renew the existing qualified pinned admission.
+Original request/artifact bytes and independently retained target expectations
+must match. Graph effects precede this interval; consumed snapshots are unchanged
+inside it. No missing proposal or original native handle is replaced.
+
+Each batch owns its own ExitStack; closing releases the actual native pin guards
+before the next batch starts. A closure failure after local progress is observed
+raises LocalProgressOutcomeUnknown and requires original-receipt reconciliation.
+It must not be reported as checkpoint rollback or license replacement effects.
+Eleven focused pin-interval, connected publisher and checkpoint checks pass.
+
+The original four-row CSV continuation was started from retained position 1 with
+--limit 4, using the original journal and existing private tables/compute. Its
+native run is still in progress; create/update/delete progression remains
+unproved until original terminal receipts, descriptor chain, full current/history/
+tombstone parity and closing custody are inspected. Original receipts remain in
+/private/tmp/ashlar-csv-stream-complete-20261008. This extends the small runnable
+fixture and does not supply actual Truss producer/catalog IDs or remote ACK.

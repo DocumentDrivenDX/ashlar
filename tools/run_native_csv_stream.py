@@ -4,7 +4,7 @@ Fixed development source/mapping only, on existing compute in a private namespac
 Trusted administrators and same-host cooperating writers; no remote Truss ACK.
 """
 import argparse
-from contextlib import contextmanager
+from contextlib import contextmanager,ExitStack,nullcontext
 import datetime
 import fcntl
 import hashlib
@@ -38,7 +38,7 @@ from durable_sql import DurableSQL,SQLPending
 from effective_grants import effective_grants
 from fixture_oracle import fixture_batches,fixture_columns,fixture_inventory
 from journaled_attempts import JournaledAttemptExecutor
-from journaled_csv_progress import JournaledCsvProgress
+from journaled_csv_progress import JournaledCsvProgress,LocalProgressOutcomeUnknown
 from journaled_manifest import JournaledManifestStore
 from journaled_publisher_driver import JournaledPublisherDriver
 from journaled_snapshot_artifacts import JournaledSnapshotArtifacts
@@ -91,7 +91,7 @@ def main():
     tables={role:NAMESPACE+'.'+role for role in ('object_current','edge_current','tombstone','whole_source_history')}
     uuids={name:entry['uuid'] for name,entry in installation['tables'].items()}
     manifest_table=NAMESPACE+'.publication_manifest';phase_table=NAMESPACE+'.publication_attempt_phase'
-    context=object();held=False;active=None;current=None;pin_vector=None;pin_held=False;targets=None;read_interval=None
+    context=object();held=False;active=None;current=None;pin_vector=None;pin_held=False;targets=None;read_interval=None;publication_scope=None
     permission_reads=[]
     def custody():
         if not held or hashlib.sha256(source.read_bytes()).hexdigest()!=source_sha:raise PermissionError('Original admitted CSV writer/source lane required')
@@ -211,6 +211,8 @@ def main():
         current=value;pin_vector=manifest_pin_vector(dict(value.raw),{t:uuids[t] for t in tables.values()},authority=user.user_name)
         targets=loaded_targets(active['request'])
         pins_writer.register(pin_vector,context=context)
+        if publication_scope is not None:
+            publication_scope.enter_context(QueryPins().hold(pin_vector,context=context))
     def loaded_targets(request):
         operation='stream-artifact:'+request['request_digest']
         raw=journal.db.execute('SELECT targets_json FROM snapshot_artifact WHERE operation=?',(operation,)).fetchone()
@@ -218,6 +220,11 @@ def main():
         return json.loads(raw[0])
     def validator(request,text,value,supplied):
         original_request(request)
+        if read_interval is not None:
+            from ashlar.stored_publisher import _artifact
+            _,original=_artifact(text,request)
+            if value!=original:raise PublicationError('Original request-bound pinned artifact required')
+            return ReadPolicy().validate_descriptor(value,supplied)
         service=NativeArtifactValidator(transport,loaded_targets(request),SourcePolicy(),gate,pin_admission,
             reader_profile=PROFILE,manifest_table=manifest_table,manifest_uuid=uuids[manifest_table])
         service(request,text,value,supplied)
@@ -273,19 +280,17 @@ def main():
                 finally:pin_held=False;read_interval=None
     @contextmanager
     def native_resolution(value,supplied):
-        nonlocal current,pin_vector,targets,pin_held
+        nonlocal current,pin_vector,targets
         current=value;pin_vector=manifest_pin_vector(dict(value.raw),{t:uuids[t] for t in tables.values()},authority=user.user_name)
         targets=loaded_targets(active['request'])
-        with QueryPins().hold(pin_vector,context=context):
-            pin_held=True
-            try:
-                backend=NativeBackend(transport,ReadPolicy(),manifest_table,uuids[manifest_table],{table:columns[table.rsplit('.',1)[1]] for table in tables.values()})
-                resolved=resolve_publication(backend,value.publication_id,{t:uuids[t] for t in tables.values()},context=context,
-                    supported_profiles=['ashlar-delta/0.3'],supported_revisions={'fixture':['3']})
-                if resolved.descriptor!=value:raise PublicationError('Original committed native manifest differs')
-                yield resolved.descriptor
-                ReadPolicy().validate_descriptor(value,supplied)
-            finally:pin_held=False
+        if read_interval is not None and read_interval.vector!=pin_vector:raise PublicationError('Original publication differs from continuously held pins')
+        with (nullcontext() if read_interval is not None else QueryPins().hold(pin_vector,context=context)):
+            backend=NativeBackend(transport,ReadPolicy(),manifest_table,uuids[manifest_table],{table:columns[table.rsplit('.',1)[1]] for table in tables.values()})
+            resolved=resolve_publication(backend,value.publication_id,{t:uuids[t] for t in tables.values()},context=context,
+                supported_profiles=['ashlar-delta/0.3'],supported_revisions={'fixture':['3']})
+            if resolved.descriptor!=value:raise PublicationError('Original committed native manifest differs')
+            yield resolved.descriptor
+            ReadPolicy().validate_descriptor(value,supplied)
     class ProgressPolicy:
         def admit(self,request,value,supplied):
             if supplied is not context or not pin_held and current is not None and value!=current:raise PermissionError('Original local progress scope required')
@@ -339,19 +344,26 @@ def main():
                     supported_profiles=['ashlar-delta/0.3'],supported_revisions={'fixture':['3']})
                 singleton=dict(row) if row is not None else None
             for active in ([] if args.query_only else specs[start:args.limit]):
-                driver=JournaledPublisherDriver(DurableEffects(journal,EffectPolicy()),lane_policy,lambda request,supplied:active['steps'],
-                    artifacts,validator,progress.acknowledge,namespace=NAMESPACE)
-                attempts=DeltaAttemptStore(JournaledAttemptExecutor(transport,namespace=NAMESPACE),lane_policy,phase_table,uuids[phase_table])
-                backend=StoredPublisherBackend(attempts,driver,lambda request,supplied:JournaledManifestStore(transport,ManifestPolicy(),manifest_table,uuids[manifest_table],operation='stream-manifest:'+request['request_digest']))
-                deadline=time.monotonic()+180
-                while True:
-                    try:
-                        value=publish_batch(backend,STREAM,active['batch'],predecessor=active['request']['predecessor'],schema_revisions_json='{"fixture":"3"}',
-                            source_checkpoint_json=active['request']['source_checkpoint_json'],context=context)
-                        break
-                    except SQLPending:
-                        if time.monotonic()>=deadline:raise
-                        time.sleep(.2)
+                try:
+                    with ExitStack() as publication_scope:
+                        driver=JournaledPublisherDriver(DurableEffects(journal,EffectPolicy()),lane_policy,lambda request,supplied:active['steps'],
+                            artifacts,validator,progress.acknowledge,namespace=NAMESPACE)
+                        attempts=DeltaAttemptStore(JournaledAttemptExecutor(transport,namespace=NAMESPACE),lane_policy,phase_table,uuids[phase_table])
+                        backend=StoredPublisherBackend(attempts,driver,lambda request,supplied:JournaledManifestStore(transport,ManifestPolicy(),manifest_table,uuids[manifest_table],operation='stream-manifest:'+request['request_digest']))
+                        deadline=time.monotonic()+180
+                        while True:
+                            try:
+                                value=publish_batch(backend,STREAM,active['batch'],predecessor=active['request']['predecessor'],schema_revisions_json='{"fixture":"3"}',
+                                    source_checkpoint_json=active['request']['source_checkpoint_json'],context=context)
+                                break
+                            except SQLPending:
+                                if time.monotonic()>=deadline:raise
+                                time.sleep(.2)
+                except Exception as error:
+                    if progress.position()==str(active['ordinal']):
+                        raise LocalProgressOutcomeUnknown('Native publication pin/source closure failed after local progress; reconcile original receipts') from error
+                    raise
+                finally:publication_scope=None
                 results.append({'ordinal':active['ordinal'],'descriptor':dict(value.raw)})
             authority();source_schema()
             summary={'state':'queried' if args.query_only else 'published','namespace':NAMESPACE,'local_consumer_position':progress.position(),'published':results,
