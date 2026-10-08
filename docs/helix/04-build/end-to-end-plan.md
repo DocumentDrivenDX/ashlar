@@ -1136,3 +1136,21 @@ positions/epoch/digest/profile refusal before writer and rehashed request refusa
 No cloud workload or source ACK occurred. File identity/semantic mapping authority
 and positive native publication/retention remain external mandatory admission,
 not claims established by digest correspondence. The full goal remains active.
+
+## CSV source applied to native managed Delta — 2026-10-08
+
+run_native_example --source csv now connects the bounded additional-source
+adapter to the actual native graph SQL/effect journal. A separate runtime_csv
+namespace was installed in the existing private catalog with eight candidate
+carriers; no compute/grant/retention setting changed. Four original checkpoint
+intents were retained before twelve graph mutations. The selected final object
+has version 2, quoted label/Unicode caption and the large unknown value retained
+as its original CSV string. Edge count 0, tombstone count 1 and history count 4
+were verified. Fresh-process replay preserved complete original mutation/effect/
+source journals and final summary exactly. Evidence: out/native/csv_setup_20261008,
+csv_apply_20261008 and csv_replay_20261008. All152 local checks pass.
+
+This is real additional-source managed Delta ingestion/replay, not full-column
+parity, remote fencing, native publication/pin/retention admission or source ACK.
+The full goal still requires protected Truss acceptance/feed and composed native
+publication/resolver singleton use.

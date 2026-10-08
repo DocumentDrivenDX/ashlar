@@ -1,0 +1,8 @@
+{
+  "state": "passed",
+  "fresh_process": true,
+  "original_journal_unchanged": true,
+  "original_mutations": 12,
+  "source_intents": 4,
+  "qualification": "Same-host original SQL custody replay and selected final inventory. No positive publication, retention admission or Truss acceptance."
+}

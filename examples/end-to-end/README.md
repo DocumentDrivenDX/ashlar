@@ -491,3 +491,22 @@ for descriptor correspondence. The older `bind_outbox_descriptor` remains
 outbox-only. This correspondence does not prove original immutable file custody,
 source permission or the semantic column mapping; the host must independently
 admit these before source ACK, alongside manifest/effect/pin/retention admission.
+
+The CSV example also runs against the isolated managed Delta development
+namespace. With the existing host SDK environment/profile and installation:
+
+```sh
+python tools/run_native_example.py --source csv \
+  --installation docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/csv_setup_20261008/summary.json \
+  --journal /private/tmp/ashlar-csv-apply-20261008.sqlite \
+  --output /tmp/ashlar-csv-native-observation
+```
+
+Keep the original journal permanently; a new journal refuses a nonempty graph.
+The runner retains original CSV checkpoints before effects, uses exact original
+SQL submission handles, verifies current owner/grants/UUIDs and checks the final
+selected object plus edge/tombstone/history counts. Four transactions and twelve
+mutations were applied; fresh-process replay preserved all original receipts and
+source intents. This is a candidate development apply workflow. Full-column
+parity, remote fencing, native retention/publication and source ACK remain
+unqualified; no manifest is produced by this command.

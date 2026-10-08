@@ -33,11 +33,11 @@ def main():
     parser.add_argument('--journal', required=True)
     parser.add_argument('--output', required=True)
     parser.add_argument('--installation', default=str(B / 'out/native/private_setup_20261008/summary.json'))
-    parser.add_argument('--source', choices=['local', 'outbox'], default='local')
+    parser.add_argument('--source', choices=['local', 'outbox', 'csv'], default='local')
     args = parser.parse_args()
     # Fixed fixture/deployment only; never generalize its initial-state authority.
     installation = json.loads(Path(args.installation).read_text())
-    namespace = 'ashlar_e2e_private_20261008.' + ('runtime_outbox' if args.source == 'outbox' else 'runtime')
+    namespace = 'ashlar_e2e_private_20261008.' + {'local':'runtime','outbox':'runtime_outbox','csv':'runtime_csv'}[args.source]
     if installation['namespace'] != namespace:
         raise ValueError('Wrong private development installation')
     intake, policy, batches = fixture_inputs()
@@ -67,6 +67,14 @@ def main():
             checkpoints[transaction.batch.batch_id] = outbox_checkpoint(transaction)
         batches = tuple(transaction.batch for transaction in transactions)
         operation_prefix = 'outbox-example:'
+    if args.source == 'csv':
+        from ashlar.csv_source import csv_batches
+        from ashlar.source_checkpoint import csv_checkpoint
+        with (ROOT / 'examples/end-to-end/string-source.csv').open('rb') as source:
+            batches = tuple(csv_batches(source,feed='csv-example',epoch='immutable-example-1',
+                source_system='local-example',schema_revision='3',type_id='17',properties={'label':'23','caption':'24'}))
+        checkpoints = {batch.batch_id:csv_checkpoint(batch) for batch in batches}
+        operation_prefix = 'csv-example:'
     batches = tuple(batch_from_row(batch_row(batch)) for batch in batches)
     tables = {key: namespace + '.' + key for key in
               ['object_current', 'edge_current', 'tombstone', 'whole_source_history']}
@@ -125,7 +133,7 @@ def main():
             for batch, expected_steps in plans:
                 row = batch_row(batch)
                 digest = hashlib.sha256(row['batch_json'].encode()).hexdigest()
-                if args.source == 'outbox':
+                if args.source in ('outbox','csv'):
                     intent = json.dumps({'batch_row': row, 'source_checkpoint_json': checkpoints[batch.batch_id]},
                                         sort_keys=True, separators=(',', ':'))
                     digest = hashlib.sha256(intent.encode()).hexdigest()
@@ -146,8 +154,12 @@ def main():
                         time.sleep(.2)
                 results.append({'batch_id': batch.batch_id, 'plan_digest': result['plan_digest']})
             observed = transport.query('SELECT cast(id AS STRING) AS id,cast(entity_version AS STRING) AS version,props_json,retained_json FROM ' + tables['object_current'], {}).rows
-            if observed != [{'id': '1', 'version': '2', 'props_json': '{"23":"updated","24":"雪"}',
-                             'retained_json': '{"future":18446744073709551615}'}]:
+            expected_props = '{"23":"updated","24":"雪"}'
+            expected_retained = '{"future":18446744073709551615}'
+            if args.source == 'csv':
+                expected_props = '{"23":"updated, quoted","24":"雪"}'
+                expected_retained = '{"source_profile":"ashlar-single-line-csv/0.1","unmapped_columns":{"future":"18446744073709551615"}}'
+            if observed != [{'id':'1','version':'2','props_json':expected_props,'retained_json':expected_retained}]:
                 raise ValueError('Final selected object inventory differs')
             for key, count in [('edge_current', '0'), ('tombstone', '1'), ('whole_source_history', '4')]:
                 if transport.query('SELECT count(*) AS n FROM ' + tables[key], {}).rows != [{'n': count}]:
@@ -161,10 +173,10 @@ def main():
             journal.db.row_factory = __import__('sqlite3').Row
             custody = {table: [dict(row) for row in journal.db.execute('SELECT * FROM ' + table)]
                        for table in ['effect_plan', 'submission']}
-            if args.source == 'outbox':
+            if args.source in ('outbox','csv'):
                 custody['source_intent'] = [dict(row) for row in journal.db.execute('SELECT * FROM source_intent')]
             (Path(args.output) / 'original-journal.json').write_text(json.dumps(custody, indent=2) + '\n')
-            print('Applied 3 fixture transactions; no publication or acknowledgement')
+            print('Applied '+str(len(batches))+' fixture transactions; no publication or acknowledgement')
     finally:
         journal.close()
 

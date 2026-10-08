@@ -1,0 +1,101 @@
+{
+  "submissions": [
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_csv.edge_current:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime_csv.edge_current (\\n  source_system STRING NOT NULL, rel_type_id BIGINT NOT NULL, id BIGINT NOT NULL,\\n  source_type BIGINT NOT NULL, source_id BIGINT NOT NULL,\\n  target_type BIGINT NOT NULL, target_id BIGINT NOT NULL,\\n  schema_revision STRING NOT NULL, entity_version BIGINT NOT NULL,\\n  props_json STRING NOT NULL, retained_json STRING NOT NULL, order_key STRING,\\n  source_feed STRING NOT NULL, source_epoch STRING NOT NULL,\\n  source_position BIGINT, published_at TIMESTAMP NOT NULL,\\n  lookup_hash STRING NOT NULL, apply_batch_id STRING,\\n  source_cursor_json STRING, source_delivery_id STRING\\n) USING DELTA CLUSTER BY (lookup_hash)\\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='lookup_hash,source_system,rel_type_id,id,entity_version,apply_batch_id',\\n'delta.targetFileSize'='67108864','delta.parquet.compression.codec'='zstd');\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "3e62610aaf4e63937392addd24a9c1b52e9dc549e0123a16844b59715d8bbe9d",
+      "handle": "01f1c2ff-9d76-1d21-9719-79200b2809b0",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2ff-9d76-1d21-9719-79200b2809b0\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_csv.object_current:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime_csv.object_current (\\n  source_system STRING NOT NULL, type_id BIGINT NOT NULL, id BIGINT NOT NULL,\\n  logical_key_json STRING NOT NULL, schema_revision STRING NOT NULL,\\n  entity_version BIGINT NOT NULL, props_json STRING NOT NULL,\\n  retained_json STRING NOT NULL, root_id BIGINT,\\n  source_feed STRING NOT NULL, source_epoch STRING NOT NULL,\\n  source_position BIGINT, published_at TIMESTAMP NOT NULL,\\n  lookup_hash STRING NOT NULL, apply_batch_id STRING,\\n  source_cursor_json STRING, source_delivery_id STRING\\n) USING DELTA CLUSTER BY (lookup_hash)\\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='lookup_hash,source_system,type_id,id',\\n'delta.targetFileSize'='67108864','delta.parquet.compression.codec'='zstd');\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "981a7e581e84a398e9ec887ea4d476785bdf8e9a3f897a301bbb9634060ca8ef",
+      "handle": "01f1c2ff-9a7e-10e7-9399-52c764f9c9d2",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2ff-9a7e-10e7-9399-52c764f9c9d2\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_csv.property_journal:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime_csv.property_journal (\\n  source_system STRING NOT NULL, entity_kind STRING NOT NULL,\\n  type_id BIGINT NOT NULL, id BIGINT NOT NULL, property_id BIGINT,\\n  entity_version BIGINT NOT NULL, operation STRING NOT NULL,\\n  old_present BOOLEAN NOT NULL, old_json STRING,\\n  new_present BOOLEAN NOT NULL, new_json STRING,\\n  schema_revision STRING NOT NULL, source_feed STRING NOT NULL,\\n  source_epoch STRING NOT NULL, source_position BIGINT,\\n  event_ordinal BIGINT NOT NULL, source_time_text STRING,\\n  published_at TIMESTAMP NOT NULL, apply_batch_id STRING,\\n  source_cursor_json STRING, source_delivery_id STRING\\n) USING DELTA CLUSTER BY (source_feed, source_epoch, source_position, id)\\n-- r100: batch statistics improve pinned-version journal file pruning;\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "386078b9ef87a172dda25a8f0208cc0736a91f5d67fbcb54322bb3cb939edc13",
+      "handle": "01f1c2ff-a198-1b1e-9256-678df2e9ec14",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2ff-a198-1b1e-9256-678df2e9ec14\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_csv.publication_attempt_phase:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime_csv.publication_attempt_phase (stream STRING NOT NULL,batch_id STRING NOT NULL,phase STRING NOT NULL,request_digest STRING NOT NULL,payload_json STRING NOT NULL,payload_digest STRING NOT NULL) USING DELTA\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "86d8fd49d469b9dc925dd3ecb14fa3d3ab466add16dc979b15367b40d7a9e70a",
+      "handle": "01f1c2ff-a777-1936-9a24-a16115b22793",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2ff-a777-1936-9a24-a16115b22793\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime_csv.publication_manifest (\\n  publication_id STRING NOT NULL, profile_version STRING NOT NULL,\\n  table_versions_json STRING NOT NULL, source_progress_json STRING NOT NULL,\\n  schema_revisions_json STRING NOT NULL, validation_report_json STRING NOT NULL,\\n  recorded_at TIMESTAMP NOT NULL\\n) USING DELTA;\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "0f5667f334e5b0433093eef52d5b9789823e0e189d28dc93ba6e5b11feab0f6a",
+      "handle": "01f1c2ff-a59b-12f3-a570-eda6921c9fbd",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2ff-a59b-12f3-a570-eda6921c9fbd\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_csv.source_record:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime_csv.source_record (\\n  source_feed STRING NOT NULL,\\n  source_epoch STRING NOT NULL,\\n  delivery_id STRING NOT NULL,\\n  record_kind STRING NOT NULL,\\n  source_cursor_json STRING NOT NULL,\\n  payload_json STRING NOT NULL,\\n  payload_digest STRING NOT NULL,\\n  schema_revision STRING,\\n  received_at TIMESTAMP NOT NULL,\\n  apply_batch_id STRING\\n) USING DELTA CLUSTER BY (source_feed, source_epoch, delivery_id)\\nTBLPROPERTIES ('delta.dataSkippingStatsColumns'='source_feed,source_epoch,delivery_id');\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "6a487988b0553247434262f29b94ca3ecfe5a452ed52b09bfc0c26b392c6b3e2",
+      "handle": "01f1c2ff-9f90-1da4-bb54-90a1b333fa0b",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2ff-9f90-1da4-bb54-90a1b333fa0b\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_csv.tombstone:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime_csv.tombstone (\\n  source_system STRING NOT NULL, entity_kind STRING NOT NULL,\\n  type_id BIGINT NOT NULL, id BIGINT NOT NULL, entity_version BIGINT NOT NULL,\\n  source_feed STRING NOT NULL, source_epoch STRING NOT NULL,\\n  source_position BIGINT,\\n  source_cursor_json STRING, source_delivery_id STRING\\n) USING DELTA CLUSTER BY (source_system, type_id, id);\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "eb5f40e7b7b3a8b499d977567841b66b7624bab812f8d58424fe353d86deae88",
+      "handle": "01f1c2ff-a393-1875-b24c-1cdc1087df42",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2ff-a393-1875-b24c-1cdc1087df42\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history:install",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE TABLE ashlar_e2e_private_20261008.runtime_csv.whole_source_history (feed STRING NOT NULL,epoch STRING NOT NULL,delivery_id STRING NOT NULL,digest STRING NOT NULL,change_json STRING NOT NULL,raw_base64 STRING NOT NULL) USING DELTA\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "e19eb90602e8b1026c6b3b1d1ed8fb0087223120e3fb1105890bc56088961f54",
+      "handle": "01f1c2ff-a95f-123d-aa74-9e7662412751",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2ff-a95f-123d-aa74-9e7662412751\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    },
+    {
+      "operation": "ashlar_e2e_private_20261008.runtime_csv:schema",
+      "request": "{\"authority\":\"3755468182769617\",\"body\":{\"disposition\":\"INLINE\",\"format\":\"JSON_ARRAY\",\"on_wait_timeout\":\"CONTINUE\",\"parameters\":[],\"row_limit\":1000,\"statement\":\"CREATE SCHEMA ashlar_e2e_private_20261008.runtime_csv\",\"wait_timeout\":\"10s\",\"warehouse_id\":\"2439e1f2e37ac563\"}}",
+      "digest": "25346c80124ca5b02ca8e61da9214a38be51cead1d2feaddebfc6dfd1debe25e",
+      "handle": "01f1c2ff-99a3-14c3-89a2-f784f0b2a1e5",
+      "response": "{\"manifest\":{\"format\":\"JSON_ARRAY\",\"schema\":{\"column_count\":0},\"total_chunk_count\":0,\"total_row_count\":0,\"truncated\":false},\"result\":{},\"statement_id\":\"01f1c2ff-99a3-14c3-89a2-f784f0b2a1e5\",\"status\":{\"state\":\"SUCCEEDED\"}}"
+    }
+  ],
+  "installed_targets": [
+    {
+      "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+      "uuid": "e526a055-38ef-4b0a-9e4c-d09a3b6fc14b"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+      "uuid": "422020e6-aa98-4b2d-91eb-e2221edcc13b"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime_csv.property_journal",
+      "uuid": "4e01a7a0-3056-4306-a500-6b948fa26708"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime_csv.publication_attempt_phase",
+      "uuid": "f7952e99-76cc-456a-9231-7b6322ff981e"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+      "uuid": "ce776713-c52d-4e3d-a3c2-bcd6add7c566"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime_csv.source_record",
+      "uuid": "cec4ede9-4894-43ee-baae-3e004d4dbe3c"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+      "uuid": "8864d8b0-aca2-4df4-acc5-03ddf853a6dc"
+    },
+    {
+      "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+      "uuid": "2f64b8dc-dd2b-4887-a635-3f54b99bbb99"
+    }
+  ]
+}

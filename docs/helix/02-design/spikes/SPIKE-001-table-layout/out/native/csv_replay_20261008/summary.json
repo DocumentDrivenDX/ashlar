@@ -1,0 +1,40 @@
+{
+  "state": "applied",
+  "namespace": "ashlar_e2e_private_20261008.runtime_csv",
+  "batches": [
+    {
+      "batch_id": "csv-row-1",
+      "plan_digest": "f0a7a547880a283c75ea5a9f946797ee73cd3566c1d5b1c651fac543852a3a7f"
+    },
+    {
+      "batch_id": "csv-row-2",
+      "plan_digest": "38f6d731136f874620f383710d58db1e5e8d1e05d0330298951d263584d3ae19"
+    },
+    {
+      "batch_id": "csv-row-3",
+      "plan_digest": "f8d3e3777b9c0a2705ef6568f385a1114890126ae186bd7511206a4a21c45c8a"
+    },
+    {
+      "batch_id": "csv-row-4",
+      "plan_digest": "6f7b114fd65a53fc59875111c09028314fe3fe46c20a0f9063948f01dce855cb"
+    }
+  ],
+  "source": "csv",
+  "source_checkpoints": {
+    "csv-row-1": "{\"batch_id\":\"csv-row-1\",\"epoch\":\"immutable-example-1\",\"feed\":\"csv-example\",\"payload_digest\":\"1891c512dcc3d43453e388d7b49df7e2b51a10670b94ca0f24f1448efa0e444d\",\"position\":\"1\",\"previous\":\"0\",\"profile\":\"ashlar-single-line-csv/0.1\"}",
+    "csv-row-2": "{\"batch_id\":\"csv-row-2\",\"epoch\":\"immutable-example-1\",\"feed\":\"csv-example\",\"payload_digest\":\"86eaf82d9daf8d382e4fe277637d5732c69c1eeb929e8a70a6b738cfe9859915\",\"position\":\"2\",\"previous\":\"1\",\"profile\":\"ashlar-single-line-csv/0.1\"}",
+    "csv-row-3": "{\"batch_id\":\"csv-row-3\",\"epoch\":\"immutable-example-1\",\"feed\":\"csv-example\",\"payload_digest\":\"422657e66cd2b781d3cfb752f8744e8681e71bf227bd9e5204f158913f754563\",\"position\":\"3\",\"previous\":\"2\",\"profile\":\"ashlar-single-line-csv/0.1\"}",
+    "csv-row-4": "{\"batch_id\":\"csv-row-4\",\"epoch\":\"immutable-example-1\",\"feed\":\"csv-example\",\"payload_digest\":\"df1620b5d9215bbd079bbcd315c1f5aff8dacd1d4a9b78691d975f6ca5823f61\",\"position\":\"4\",\"previous\":\"3\",\"profile\":\"ashlar-single-line-csv/0.1\"}"
+  },
+  "objects": [
+    {
+      "id": "1",
+      "version": "2",
+      "props_json": "{\"23\":\"updated, quoted\",\"24\":\"\u96ea\"}",
+      "retained_json": "{\"source_profile\":\"ashlar-single-line-csv/0.1\",\"unmapped_columns\":{\"future\":\"18446744073709551615\"}}"
+    }
+  ],
+  "published": false,
+  "acknowledged": false,
+  "qualification": "Four-event UMF-backed fixture; explicit fixture IDs, original same-host SQL plan/handle recovery, owner/grant/UUID observations and selected final inventory. Full-column parity, remote fencing, retention and publication remain unqualified."
+}
