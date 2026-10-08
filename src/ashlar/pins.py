@@ -52,6 +52,10 @@ class PostgresPins:
     def __init__(self,executor,policy):
         self.executor=executor;self.policy=policy
     @staticmethod
+    def _available(session,vector):
+        for uuid in sorted({target[0] for target in vector.targets.values()}):
+            session.query('SELECT ashlar_pins.assert_uuid_available(:uuid)',{'uuid':uuid})
+    @staticmethod
     def _call(session,function,vector,table):
         parameters=vector.parameters(table)
         session.query('SELECT ashlar_pins.'+function+'(:id,:authority,:kind,:scope,:table,:uuid,CAST(:version AS bigint),decode(:digest,\'hex\'))',parameters)
@@ -75,12 +79,14 @@ class PostgresPins:
             raise PinError('Pin registration admission incomplete')
         with self.executor.transaction(context) as session:
             for table in sorted(vector.targets):self._call(session,'register',vector,table)
+            self._available(session,vector)
             self._inventory(session,vector)
     @contextmanager
     def hold(self,vector,*,context):
         if self.policy.authorize_read(vector,context) is not None:
             raise PinError('Pin read authorization incomplete')
         with self.executor.transaction(context) as session:
+            self._available(session,vector)
             for table in sorted(vector.targets):self._call(session,'assert_active',vector,table)
             self._inventory(session,vector)
             yield vector
@@ -88,4 +94,5 @@ class PostgresPins:
             # change independently from pin rows and must be renewed as well.
             if self.policy.authorize_read(vector,context) is not None:
                 raise PinError('Pin read authorization expired')
+            self._available(session,vector)
             self._inventory(session,vector)

@@ -7,7 +7,7 @@ class Policy:
         if c!='admitted':raise PermissionError('Denied')
     authorize_read=admit_registration
 class Executor:
-    def __init__(self):self.rows=[];self.open=False;self.calls=[]
+    def __init__(self):self.rows=[];self.open=False;self.calls=[];self.quarantined=False
     @contextmanager
     def transaction(self,c):
         prior=list(self.rows);self.open=True
@@ -16,6 +16,9 @@ class Executor:
         finally:self.open=False
     def query(self,sql,p):
         assert self.open;self.calls.append(sql)
+        if 'assert_uuid_available(' in sql:
+            if self.quarantined:raise PinError('Unresolved cleanup')
+            return SQLResult([])
         if 'ashlar_pins.register(' in sql:
             self.rows.append({'table_name':p['table'],'table_uuid':p['uuid'],'version':p['version'],'digest':p['digest'],'released':False})
         elif 'assert_active(' in sql:
@@ -23,6 +26,11 @@ class Executor:
         else:return SQLResult(self.rows)
         return SQLResult([])
 class PinTests(unittest.TestCase):
+    def test_pending_cleanup_refuses_held_read_before_yield(self):
+        e=Executor();p=PostgresPins(e,Policy());v=self.vector();p.register(v,context='admitted');e.quarantined=True
+        with self.assertRaises(PinError):
+            with p.hold(v,context='admitted'):self.fail('Quarantined read admitted')
+        self.assertFalse(e.open)
     def vector(self):return PinVector('authority','manifest','p','a'*64,{'c.s.a':('ua',1),'c.s.b':('ub',2)})
     def test_complete_register_and_read_scope_holds_transaction(self):
         e=Executor();p=PostgresPins(e,Policy());v=self.vector();p.register(v,context='admitted')

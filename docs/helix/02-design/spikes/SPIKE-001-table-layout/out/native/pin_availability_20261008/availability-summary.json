@@ -1,0 +1,10 @@
+{
+  "state": "passed",
+  "operation": "metadata-only-availability-control-20261008",
+  "uuid": "6acb58c4-f660-4f38-8221-1edbb3248eb0",
+  "checks": [
+    "native pending UUID refuses availability",
+    "closed metadata-only control admits availability"
+  ],
+  "qualification": "Metadata-only control; no remote action started or pin changes; not Delta file availability or terminal verification qualification."
+}

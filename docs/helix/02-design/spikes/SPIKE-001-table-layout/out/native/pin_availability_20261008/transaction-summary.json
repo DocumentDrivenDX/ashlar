@@ -1,0 +1,50 @@
+{
+  "state": "passed",
+  "driver": "psycopg/3.2.13",
+  "scope": "recoverable-graph-final",
+  "pins": 4,
+  "native_reader": [
+    {
+      "role": "ashlar_pin_reader",
+      "version": "17.9 (Debian 17.9-1.pgdg13+1)",
+      "xid": "806"
+    }
+  ],
+  "native_inventory": [
+    {
+      "table_name": "client_dev.ashlar_recoverable_graph_20261008.edge_current",
+      "table_uuid": "e5c10b7c-cc41-4136-8603-d774cadfb9e7",
+      "version": "3",
+      "digest": "b7383602c52689567258c45d36f9569ca6f2b1ef99af8dbdf2fa8488fe76c98b",
+      "released": false
+    },
+    {
+      "table_name": "client_dev.ashlar_recoverable_graph_20261008.object_current",
+      "table_uuid": "e420f55d-449f-4c21-b91b-460ffc6493e2",
+      "version": "4",
+      "digest": "b7383602c52689567258c45d36f9569ca6f2b1ef99af8dbdf2fa8488fe76c98b",
+      "released": false
+    },
+    {
+      "table_name": "client_dev.ashlar_recoverable_graph_20261008.tombstone",
+      "table_uuid": "dd4a9603-9299-4a2c-9bf7-4e3013d91366",
+      "version": "1",
+      "digest": "b7383602c52689567258c45d36f9569ca6f2b1ef99af8dbdf2fa8488fe76c98b",
+      "released": false
+    },
+    {
+      "table_name": "client_dev.ashlar_recoverable_graph_20261008.whole_source_history",
+      "table_uuid": "63846fb0-18ad-4a90-a934-61d21bcaf749",
+      "version": "2",
+      "digest": "b7383602c52689567258c45d36f9569ca6f2b1ef99af8dbdf2fa8488fe76c98b",
+      "released": false
+    }
+  ],
+  "checks": [
+    "competing release blocked",
+    "actual ordinary reader role",
+    "ended session refused",
+    "injected exception releases transaction lock"
+  ],
+  "qualification": "Actual PostgresPins hold through host transaction adapter on existing recovery pins. No pin registration/release, Delta file availability, retention-operator authority, publication or native singleton claim."
+}

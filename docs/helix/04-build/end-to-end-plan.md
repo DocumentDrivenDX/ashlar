@@ -1045,3 +1045,20 @@ CH-02/03 body/bootstrap dependencies and CH-05 package work remain open. That
 absence is not a completed Truss integration or a goal-completion basis. Live
 Ashlar native publication/read admission and protected Truss acceptance/feed
 remain required by the full objective.
+
+## Pin admission checks durable cleanup uncertainty — 2026-10-08
+
+PostgresPins now checks every distinct UUID for pending cleanup under its native
+transaction during registration and before/after held reads. Registration checks
+follow the existing exclusive registration lock, avoiding a SHARE-to-exclusive
+upgrade race between competing registrars. The UUID-wide guard retains SHARE
+custody through reads and rejects unresolved cleanup across aliases.
+
+All140 local checks pass. Actual PostgresPins transaction controls continue to
+pass; a separate native metadata-only pending/closed control refuses/admitted
+availability as expected. Evidence: SPIKE-001-table-layout/out/native/pin_availability_20261008.
+The earlier transaction receipt was restored byte-for-byte after saving the new
+observation separately; existing native evidence is preserved. No cloud query,
+remote cleanup, retained pin changes, TTL or retention setting changes occurred.
+UUID availability here means no pending cleanup, not Delta file availability.
+Native publication/read and protected Truss acceptance/feed remain unfinished.

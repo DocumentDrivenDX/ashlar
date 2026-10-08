@@ -2901,7 +2901,7 @@
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "3104502e49c985191bfced4d8377dfd6c6c0932aa6a28b566704ddcdcb4d0063",
-    "../../../04-build/end-to-end-plan.md": "6345a20a7ec79c773c8447fce8616b38109ddea0d403b731d1b145ab0ecb91ef",
+    "../../../04-build/end-to-end-plan.md": "cd83fd4f29b499c095c62af99b4ad07aa6b2bcd3b056a7d6ceb344d727cacac5",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3008,8 +3008,8 @@
     "../../../../../tools/check_native_pins.py": "e6a2f3eb4d5f3cbe4fe781afd724fc4b82e194c7df285f6b9796463f11706ee3",
     "out/native/pins_20261008/summary.json": "1e5a6278db75c6a8a6066999ff70cadd69b0743a7b5798f74425f0422ab325a3",
     "out/native/pins_20261008/check-output.txt": "bbd1c48c5530bff4036fdcfe3cf40ac7f87b1068e51ef2b9eaea5330509be52d",
-    "../../../../../src/ashlar/pins.py": "7966a5d05f77513b41122e9892bfec40d6438fc8d4b0fe105f4b28ba53c4137b",
-    "../../../../../tests/test_pins.py": "ecbbd0ce1ea635b3b756b6b845d6a4652c32d079420c1b9add8882239239fe1e",
+    "../../../../../src/ashlar/pins.py": "775b13bf11f203ca373870ad7f6155fcf4b700e0ec75416c39065bad0950cb37",
+    "../../../../../tests/test_pins.py": "10dd426a03d52121a32aede45adc54e7ddf0095b2e0db0cfd693753e64b125c2",
     "../../../../../sql/ashlar-pins/03-read-guard.sql": "2375285850541023bd27ce4f8197e640c31c9c07b82a9f1e75180614670600fe",
     "../../../../../tools/check_native_pin_vector.py": "8abf4007c10899da3312ba2137c4f9ac6307a71009b091c17e56d57b54c978cc",
     "out/pin-vector-local-20261008.json": "17bfd3d2fc0e06c7487bb700e405ea651550bf85af9f5b532c458c8115ee0aac",
@@ -3232,7 +3232,10 @@
     "../../../../../tools/check_native_cleanup_quarantine.py": "4ca264ba903029e00c99bdcaafbdec25c1414c9a97ad413cd5607e54ea599791",
     "../../../../../tests/test_quarantine.py": "1afa59b9f13f7e25f3e577ea2c082efdbbed7c55f2cf8d37c1bcf40f1c321e75",
     "out/native/cleanup_quarantine_20261008/summary.json": "b5564f29f6676a787d0207d62d962101b13042669488f0ecfa8b6606685b74a5",
-    "../../../../../tests/test_descriptor_checkpoint.py": "b8f097203506eb1a5d9b93dcc5ebb371f5e8f99b7d6c38f6ab3f2799dd56b690"
+    "../../../../../tests/test_descriptor_checkpoint.py": "b8f097203506eb1a5d9b93dcc5ebb371f5e8f99b7d6c38f6ab3f2799dd56b690",
+    "../../../../../sql/ashlar-pins/06-availability-guard.sql": "76a361114fe92cbc9da63984d4190ef720b1576f0765fd35e60a1e0e2509ee29",
+    "out/native/pin_availability_20261008/transaction-summary.json": "22c67f6762bda3491819d6f5fc89d3e53b23839bc9eeb9e88046eccec379b577",
+    "out/native/pin_availability_20261008/availability-summary.json": "e1413b241ad42c6c6aa382eb2b76dd44cea643c1ebee49a25c89658228cce35d"
   },
   "evidence": {
     "ddl": {
