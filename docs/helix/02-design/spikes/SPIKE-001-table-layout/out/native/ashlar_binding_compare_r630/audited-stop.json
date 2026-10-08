@@ -1,0 +1,10 @@
+{
+  "state": "Four native setup receipts terminal; local oracle key error before anypointread",
+  "error": "'parameter'",
+  "costs": {
+    "read_bytes": 0,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "qualification": "No carrier queries, writes or benchmark result. R630 frozen; R631 corrects local key and validates32oracles first."
+}

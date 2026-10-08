@@ -1,0 +1,886 @@
+{
+  "state": "All128 matched binding-comparison full-carrier direct reads pass",
+  "source_sha256": "192cdaf23e8f105c1329d4b34cf594c4b10a162ef0160e376bfb33892a4d3feb",
+  "old": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 12
+  },
+  "new": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 12
+  },
+  "indices": [
+    162,
+    328,
+    435,
+    438,
+    682,
+    894,
+    996,
+    1154,
+    1172,
+    1365,
+    1408,
+    1414,
+    410,
+    1310,
+    1390,
+    2880,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11,
+    12,
+    13,
+    0,
+    10,
+    20,
+    30
+  ],
+  "reads": [
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 162,
+      "statement_id": "01f1c2b1-03af-190c-9fc8-4de6b9fa4d7b"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 162,
+      "statement_id": "01f1c2b1-03ed-101b-ba9f-745f25af9c49"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 328,
+      "statement_id": "01f1c2b1-042c-1fc5-8b41-3538bdb1e505"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 328,
+      "statement_id": "01f1c2b1-046a-1ce3-99c4-1b7bf68417b3"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 435,
+      "statement_id": "01f1c2b1-04a5-19d9-a6ea-777ae5b8dced"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 435,
+      "statement_id": "01f1c2b1-04e0-1ba4-83d8-b7a578985c6e"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 438,
+      "statement_id": "01f1c2b1-051b-18ca-8b81-b2f1710adb09"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 438,
+      "statement_id": "01f1c2b1-055a-14fb-a69b-d537e1ee311d"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 682,
+      "statement_id": "01f1c2b1-0595-1a06-9aaa-0b6b562b5e54"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 682,
+      "statement_id": "01f1c2b1-05d0-1618-8d2b-79299348c35e"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 894,
+      "statement_id": "01f1c2b1-060b-165d-88b8-bce2e15aaffb"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 894,
+      "statement_id": "01f1c2b1-064b-1521-bb3a-b85a978ebd2c"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 996,
+      "statement_id": "01f1c2b1-0689-1b10-95e2-225284261ea4"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 996,
+      "statement_id": "01f1c2b1-06c9-15b4-862f-14ce6b8bcf42"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 1154,
+      "statement_id": "01f1c2b1-0708-1713-937d-1d78b3e2538b"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 1154,
+      "statement_id": "01f1c2b1-0743-1429-a457-1ce90215a78d"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 1172,
+      "statement_id": "01f1c2b1-077d-18b7-ac3f-3a2efdf7bf48"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 1172,
+      "statement_id": "01f1c2b1-07bd-183a-9357-9e2ae2d1ba4d"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 1365,
+      "statement_id": "01f1c2b1-07f9-1f30-a275-675460ce194b"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 1365,
+      "statement_id": "01f1c2b1-0837-14a8-91d4-1d3eace7f4c4"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 1408,
+      "statement_id": "01f1c2b1-0875-1124-ab74-899ed9f87812"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 1408,
+      "statement_id": "01f1c2b1-08b1-184b-a81a-49bc960dba8a"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 1414,
+      "statement_id": "01f1c2b1-08ee-14d6-ba66-1d4b270c959b"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 1414,
+      "statement_id": "01f1c2b1-0929-189d-82ec-2c9cf9bedbd5"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 410,
+      "statement_id": "01f1c2b1-096f-1435-a51b-8094ae3f6340"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 410,
+      "statement_id": "01f1c2b1-09ac-1d6e-98bb-5999b5be3096"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 1310,
+      "statement_id": "01f1c2b1-09e6-1716-b3aa-4224d3175530"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 1310,
+      "statement_id": "01f1c2b1-0a20-144d-a807-51ac8c02c827"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 1390,
+      "statement_id": "01f1c2b1-0a5a-19d8-a92b-cef055e88faa"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 1390,
+      "statement_id": "01f1c2b1-0a95-157f-88fc-cbb2ecaf898e"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 2880,
+      "statement_id": "01f1c2b1-0ace-1a9e-91f4-835f9cd20651"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 2880,
+      "statement_id": "01f1c2b1-0b08-1161-9184-f8c1f10f4e72"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 1,
+      "statement_id": "01f1c2b1-0b45-1129-8dfe-d2eda0f5e3a2"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 1,
+      "statement_id": "01f1c2b1-0b80-1020-bec4-da6f0b5dbca6"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 2,
+      "statement_id": "01f1c2b1-0bc0-1e43-9b00-e22a67b2ced9"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 2,
+      "statement_id": "01f1c2b1-0c01-1e4f-80db-c0aef4b56290"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 3,
+      "statement_id": "01f1c2b1-0c3f-13e1-a11b-597d51418bc4"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 3,
+      "statement_id": "01f1c2b1-0c7d-1749-9b81-474caa68707b"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 4,
+      "statement_id": "01f1c2b1-0cba-1c45-a675-f8481f4b8524"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 4,
+      "statement_id": "01f1c2b1-0cfb-170f-a335-e3918c6b0507"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 5,
+      "statement_id": "01f1c2b1-0d3b-18e8-b850-713fbbcd8a6e"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 5,
+      "statement_id": "01f1c2b1-0d85-178a-9936-875b4836eac8"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 6,
+      "statement_id": "01f1c2b1-0dc7-1382-bc9f-178d8d57a4d1"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 6,
+      "statement_id": "01f1c2b1-0e06-12c9-bb68-23d375561bba"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 7,
+      "statement_id": "01f1c2b1-0e41-1f6f-b3ca-515596c25f8a"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 7,
+      "statement_id": "01f1c2b1-0e8f-1337-bac3-5ce34928957c"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 8,
+      "statement_id": "01f1c2b1-0ecc-1d0e-976b-6472aa7094f6"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 8,
+      "statement_id": "01f1c2b1-0f0a-1612-a7d6-b595736abfeb"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 9,
+      "statement_id": "01f1c2b1-0f48-1051-8e95-a3d9c93e72bb"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 9,
+      "statement_id": "01f1c2b1-0f87-10dc-bed3-f21d8988593a"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 11,
+      "statement_id": "01f1c2b1-0fc7-19df-a837-cb03044a6dca"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 11,
+      "statement_id": "01f1c2b1-1007-119d-aafe-78dca4ca748a"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 12,
+      "statement_id": "01f1c2b1-1045-1092-b7ff-d4a4f52975ea"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 12,
+      "statement_id": "01f1c2b1-1082-1762-983f-c6d300511126"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 13,
+      "statement_id": "01f1c2b1-10c3-173a-86fa-6c56112b2e86"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 13,
+      "statement_id": "01f1c2b1-1100-17a9-98c2-14fc7aa4c782"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 0,
+      "statement_id": "01f1c2b1-1141-1ab3-845d-959d28b936c1"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 0,
+      "statement_id": "01f1c2b1-117c-1f9c-a333-8f4cd9f9ed8b"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 10,
+      "statement_id": "01f1c2b1-11b8-1b0f-8b1d-1a47ba621166"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 10,
+      "statement_id": "01f1c2b1-11f5-19e4-9fc6-c26be3789bc4"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 20,
+      "statement_id": "01f1c2b1-122e-10e3-adc0-7700010232fd"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 20,
+      "statement_id": "01f1c2b1-1268-10df-a61e-cbda4733a46b"
+    },
+    {
+      "family": "literal",
+      "phase": 0,
+      "index": 30,
+      "statement_id": "01f1c2b1-129f-1631-aa0d-0139958101c9"
+    },
+    {
+      "family": "parameter",
+      "phase": 0,
+      "index": 30,
+      "statement_id": "01f1c2b1-12db-1ad7-b7cc-27997c81ad5a"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 162,
+      "statement_id": "01f1c2b1-1535-1453-aed7-eb39726ee5b6"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 162,
+      "statement_id": "01f1c2b1-1571-172e-a272-4b5613d5936f"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 328,
+      "statement_id": "01f1c2b1-15ab-173d-a86f-d12a84222316"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 328,
+      "statement_id": "01f1c2b1-15e6-1249-9ef6-758d58f3a319"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 435,
+      "statement_id": "01f1c2b1-161f-13ce-96ba-0c7a03ad091e"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 435,
+      "statement_id": "01f1c2b1-1660-18b4-801b-b29c9454fb04"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 438,
+      "statement_id": "01f1c2b1-169d-1a7b-abae-d4c064fb884b"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 438,
+      "statement_id": "01f1c2b1-16eb-1890-ba97-0cd18c43fd5e"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 682,
+      "statement_id": "01f1c2b1-1728-1525-96d1-28d6254917fc"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 682,
+      "statement_id": "01f1c2b1-1762-1135-99fc-fbe3c7a83cb6"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 894,
+      "statement_id": "01f1c2b1-17b3-1202-8154-e1c4d2b76382"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 894,
+      "statement_id": "01f1c2b1-17f1-1890-a47a-42f6b675a30e"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 996,
+      "statement_id": "01f1c2b1-182d-1c08-abbe-c3e7acafa905"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 996,
+      "statement_id": "01f1c2b1-186b-1bae-b90a-66561273adee"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 1154,
+      "statement_id": "01f1c2b1-18a9-14a8-b9b2-f37435fb36a4"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 1154,
+      "statement_id": "01f1c2b1-18e7-147f-9cc7-b031d10f5138"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 1172,
+      "statement_id": "01f1c2b1-1932-176d-9262-cdf1997aa14d"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 1172,
+      "statement_id": "01f1c2b1-196a-1573-b064-d791968d2093"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 1365,
+      "statement_id": "01f1c2b1-19a8-163e-9d13-7ba4d0bb4390"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 1365,
+      "statement_id": "01f1c2b1-19e3-16e4-a9d1-e7f0dbeca0d8"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 1408,
+      "statement_id": "01f1c2b1-1a1d-1279-83aa-809aecdf19e9"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 1408,
+      "statement_id": "01f1c2b1-1a57-18a9-a15c-2beef08a1005"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 1414,
+      "statement_id": "01f1c2b1-1a90-15d3-9298-84768703e779"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 1414,
+      "statement_id": "01f1c2b1-1ac9-1f3e-b8bc-d023767ea4b3"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 410,
+      "statement_id": "01f1c2b1-1b05-13d5-a9fa-ab8f5c7b7db5"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 410,
+      "statement_id": "01f1c2b1-1b3b-1e28-a81d-0093ee897710"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 1310,
+      "statement_id": "01f1c2b1-1b75-16d7-ba18-5213d4d1b2c0"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 1310,
+      "statement_id": "01f1c2b1-1baf-1350-98c5-698c4609d0b6"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 1390,
+      "statement_id": "01f1c2b1-1be5-18e0-bdde-7b05e94b3022"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 1390,
+      "statement_id": "01f1c2b1-1c3d-1bfc-b734-d12b80f9b936"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 2880,
+      "statement_id": "01f1c2b1-1c75-1677-b0f7-c3b10856d463"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 2880,
+      "statement_id": "01f1c2b1-1caf-156a-8010-bbb4e8b73f7e"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 1,
+      "statement_id": "01f1c2b1-1ce8-1ba0-a0a6-b894991a4189"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 1,
+      "statement_id": "01f1c2b1-1d23-1187-b8ff-ee7989bb646d"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 2,
+      "statement_id": "01f1c2b1-1d5e-1a27-b1a3-3acd073b5625"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 2,
+      "statement_id": "01f1c2b1-1d9b-15a0-bf4f-3ae55a41e8b8"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 3,
+      "statement_id": "01f1c2b1-1dd5-139c-b562-4c3bcc41a978"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 3,
+      "statement_id": "01f1c2b1-1e0f-189a-885a-99629d3a0b99"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 4,
+      "statement_id": "01f1c2b1-1e4b-1386-a5c4-36aa07c2ba20"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 4,
+      "statement_id": "01f1c2b1-1e88-11b1-baa0-8d6406169245"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 5,
+      "statement_id": "01f1c2b1-1ec2-1209-b4c0-ce96af0788a5"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 5,
+      "statement_id": "01f1c2b1-1efe-1aea-83ea-fd5ff2b1288e"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 6,
+      "statement_id": "01f1c2b1-1f38-11a4-aa91-e8fcec46bb8b"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 6,
+      "statement_id": "01f1c2b1-1f72-179e-b8d9-a5462f3e4617"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 7,
+      "statement_id": "01f1c2b1-1fb0-189b-bfd4-5c758a21f84f"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 7,
+      "statement_id": "01f1c2b1-1fea-1b43-b248-4de1c0b5024d"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 8,
+      "statement_id": "01f1c2b1-2024-17d8-b9c9-67a25f267091"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 8,
+      "statement_id": "01f1c2b1-205d-166f-8ceb-6ddfbca40a26"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 9,
+      "statement_id": "01f1c2b1-2095-1381-a62e-5b1b75dccc44"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 9,
+      "statement_id": "01f1c2b1-20d1-16b4-9c39-924a8b47ab10"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 11,
+      "statement_id": "01f1c2b1-210c-12a0-87a6-f93fa7272921"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 11,
+      "statement_id": "01f1c2b1-2145-1beb-a03e-a827d0c3007c"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 12,
+      "statement_id": "01f1c2b1-2181-1237-9f8e-9dd84776151a"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 12,
+      "statement_id": "01f1c2b1-21b9-1d72-af8a-f08b4c6f0055"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 13,
+      "statement_id": "01f1c2b1-21f2-13e8-a679-f6e9dad46f4a"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 13,
+      "statement_id": "01f1c2b1-222b-1bb4-87c2-8f5f27989f45"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 0,
+      "statement_id": "01f1c2b1-2265-1d42-b3cb-8fab296cc785"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 0,
+      "statement_id": "01f1c2b1-229e-16bc-9257-7b6180f7339f"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 10,
+      "statement_id": "01f1c2b1-22da-101d-bc14-4805720d77ab"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 10,
+      "statement_id": "01f1c2b1-2312-1076-9a4a-6cd255b78437"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 20,
+      "statement_id": "01f1c2b1-234a-1d49-b5f9-70ef37a97822"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 20,
+      "statement_id": "01f1c2b1-2382-12d0-921f-6b66b4cac056"
+    },
+    {
+      "family": "parameter",
+      "phase": 1,
+      "index": 30,
+      "statement_id": "01f1c2b1-23b8-14a9-951f-1bd871fe3584"
+    },
+    {
+      "family": "literal",
+      "phase": 1,
+      "index": 30,
+      "statement_id": "01f1c2b1-23ef-184e-894f-266cfb2fe3ba"
+    }
+  ],
+  "bounds": {
+    "read_bytes": 25000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 300
+  },
+  "code_sha256": {
+    "binding_compare_r631.py": "e7bcb9f4b0028b7e83f22eabd01636caec99cdff1b55058326fcc705b0885936",
+    "seventh_changes_r589.py": "98a0361d7c34a1cc927483f6564dbd6340fcbcd00c9fa088a20b3e123d2e93af",
+    "overlay_sql_r395.py": "a4c43eba6a12842e0f74f10c123d59055f4214145491bf47923f291e5144452c"
+  },
+  "qualification": "Exact32key R626 cohort atE12, parameter/literal full20field queries alternate in two passes. Literals UTF8hex encode strings and canonicalize integer typedkeys; semantic predicates/values unchanged. No SQL resultcache, no cold/sustained/concurrency/freshness/billion admission; fixed text perkey does not establish generic plan reuse.",
+  "queries": {
+    "parameter": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 12 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)",
+    "literal": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 12 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)"
+  },
+  "costs": {
+    "read_bytes": 17722824152,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "per_family": {
+    "parameter": {
+      "queries": 64,
+      "caller_p95_ms": 483.21158300000275,
+      "engine_p95_ms": 113,
+      "compile_p95_ms": 198,
+      "remote_queries": 0
+    },
+    "literal": {
+      "queries": 64,
+      "caller_p95_ms": 425.9561669999989,
+      "engine_p95_ms": 115,
+      "compile_p95_ms": 195,
+      "remote_queries": 0
+    }
+  },
+  "per_family_phase": {
+    "parameter-0": {
+      "queries": 32,
+      "caller_p95_ms": 483.21158300000275,
+      "engine_p95_ms": 117,
+      "compile_p95_ms": 267,
+      "remote_queries": 0
+    },
+    "parameter-1": {
+      "queries": 32,
+      "caller_p95_ms": 510.7220420000047,
+      "engine_p95_ms": 110,
+      "compile_p95_ms": 192,
+      "remote_queries": 0
+    },
+    "literal-0": {
+      "queries": 32,
+      "caller_p95_ms": 423.4241670000003,
+      "engine_p95_ms": 122,
+      "compile_p95_ms": 195,
+      "remote_queries": 0
+    },
+    "literal-1": {
+      "queries": 32,
+      "caller_p95_ms": 488.73341699999884,
+      "engine_p95_ms": 108,
+      "compile_p95_ms": 282,
+      "remote_queries": 0
+    }
+  },
+  "wall_s": 64.59246883399999
+}

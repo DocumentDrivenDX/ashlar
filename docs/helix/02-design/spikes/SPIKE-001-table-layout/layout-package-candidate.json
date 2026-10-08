@@ -2723,7 +2723,21 @@
     "out/native/ashlar_maintained_concurrent_r626/reader-3/completed-last-request.json": "c0d761ace9e11c000bf31bdc1c0629d89a98bc89b037d0388799c831fd9bd38d",
     "out/native/ashlar_maintained_concurrent_r626/reader-3/statements.jsonl": "405dbda58f6bb16636781ba5a14565cc13da46edf1eb4c7a3c97bf801b0df487",
     "out/native/ashlar_maintained_concurrent_r626/shared-history.json": "e5c5999e544b6f05a675f8c5040c3dd28ba193e1c247b84ad6c7bdcfec6a34cf",
-    "out/native/ashlar_maintained_concurrent_r626/summary.json": "30abc1712584f5d42dbd30e55bddbc21472be051b109fd6dbec623474f6ab007"
+    "out/native/ashlar_maintained_concurrent_r626/summary.json": "30abc1712584f5d42dbd30e55bddbc21472be051b109fd6dbec623474f6ab007",
+    "binding-disposition-r633.md": "72c2fbe7fccd257ecf2e096ab2d2ac5024e0420ee36c431b666446e6c759eb3f",
+    "binding_compare_audit_r632.py": "5bf096a2a3c8d3dd3b7d511fdafd2be5de433d94db9ca4ec4daf2b164e8445ac",
+    "binding_compare_r630.py": "d21ff2ceffc79c0d3173aa2efef0bad1ed2627cfa1d2ecf4e5b67d21699bea9d",
+    "binding_compare_r631.py": "e7bcb9f4b0028b7e83f22eabd01636caec99cdff1b55058326fcc705b0885936",
+    "out/native/ashlar_binding_compare_r630/audited-stop.json": "9811dc13efe2c5b5abce79ab3491ad525ee6ea485b510ec3311ce19fe74bec61",
+    "out/native/ashlar_binding_compare_r630/completed-last-request.json": "d265d2ca423ea9acbd53269aa459b149ccbf59da70879937e402ae55aeb6e387",
+    "out/native/ashlar_binding_compare_r630/shared-history.json": "c686c774a4545a804127b27991e58a69487955c24afb0e246512940104df6573",
+    "out/native/ashlar_binding_compare_r630/statements.jsonl": "5c4fc3e75001f0f75dc0d560d19a803d483d87a49d78c7d17d2fc291144714db",
+    "out/native/ashlar_binding_compare_r630/summary.json": "ce530ebe492b3c673a32ce7f180f0281979115035bd4399f7a48b270bf79a05b",
+    "out/native/ashlar_binding_compare_r631/audited-summary.json": "7a34116087df15d493ffd8177f790d1abd2f6c6817651fa3c68743ff9b2637b4",
+    "out/native/ashlar_binding_compare_r631/completed-last-request.json": "fbde36d311b5b32aaedaf13f859ae6df2f85f4fcb8a6a05afd9a0a0e142fdb5a",
+    "out/native/ashlar_binding_compare_r631/shared-history.json": "373393e1fa6620b5bc4a8dd070d07dc24dc3d8b24bc7e51542a4d84e3edfe186",
+    "out/native/ashlar_binding_compare_r631/statements.jsonl": "4b97f53c10f4df4ee5ea7325b24b2e5641726bdcdbafcb94e24e9e505bf85642",
+    "out/native/ashlar_binding_compare_r631/summary.json": "ed56093e85415c8e2df291069a4a470a109e5f2da3d4383226eaf9a173fbe69f"
   },
   "evidence": {
     "ddl": {

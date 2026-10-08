@@ -1,0 +1,66 @@
+{
+  "state": "Stopped; inspect same driver handles, no read replay",
+  "source_sha256": "192cdaf23e8f105c1329d4b34cf594c4b10a162ef0160e376bfb33892a4d3feb",
+  "old": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 12
+  },
+  "new": {
+    "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+    "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+    "version": 12
+  },
+  "indices": [
+    162,
+    328,
+    435,
+    438,
+    682,
+    894,
+    996,
+    1154,
+    1172,
+    1365,
+    1408,
+    1414,
+    410,
+    1310,
+    1390,
+    2880,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11,
+    12,
+    13,
+    0,
+    10,
+    20,
+    30
+  ],
+  "reads": [],
+  "bounds": {
+    "read_bytes": 25000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 300
+  },
+  "code_sha256": {
+    "binding_compare_r630.py": "d21ff2ceffc79c0d3173aa2efef0bad1ed2627cfa1d2ecf4e5b67d21699bea9d",
+    "seventh_changes_r589.py": "98a0361d7c34a1cc927483f6564dbd6340fcbcd00c9fa088a20b3e123d2e93af",
+    "overlay_sql_r395.py": "a4c43eba6a12842e0f74f10c123d59055f4214145491bf47923f291e5144452c"
+  },
+  "qualification": "Exact32key R626 cohort atE12, parameter/literal full20field queries alternate in two passes. Literals UTF8hex encode strings and canonicalize integer typedkeys; semantic predicates/values unchanged. No SQL resultcache, no cold/sustained/concurrency/freshness/billion admission; fixed text perkey does not establish generic plan reuse.",
+  "queries": {
+    "parameter": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 12 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)",
+    "literal": "SELECT source_system,rel_type_id,id,source_type,source_id,target_type,target_id,order_key,schema_revision,entity_version,props_json,retained_json,source_feed,source_epoch,source_position,CAST(published_at AS STRING) AS published_at,apply_batch_id,source_cursor_json,source_delivery_id,lookup_hash FROM client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337 VERSION AS OF 12 WHERE lookup_hash=:hash AND source_system=:source AND rel_type_id=CAST(:type AS BIGINT) AND id=CAST(:id AS BIGINT)"
+  },
+  "error": "'parameter'"
+}
