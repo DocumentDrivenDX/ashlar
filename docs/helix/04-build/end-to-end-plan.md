@@ -1760,3 +1760,23 @@ Local lease/ordinal provenance is not native xid, backend identity, issuer epoch
 or protected operation authority. Full uncertainty reconciliation and native
 protected producer/bootstrap/schema/feed paths remain incomplete. The full
 end-to-end goal stays active; no new cloud resources or scale runs were used.
+
+### Actual committed effect with lost driver completion (2026-10-08)
+
+Truss candidate `dd588bf` adds a repeatable isolated native uncertainty probe on
+existing local PostgreSQL 17.9. The explicit journal retains the server's actual
+COMMIT CommandComplete before injected forwarding failure destroys the transport.
+The executor reports `commit_unknown` with retryScope none, withholds callback
+result, retains one quarantined checkout and refuses ordinary close. A separate
+native connection independently observes exactly one committed fixture row.
+Original private records prove a single local checkout with ordinals zero/two
+inclusive: BEGIN, INSERT and one COMMIT; no guessed ROLLBACK or repeated write.
+The retained COMMIT response is exactly the original CommandComplete frame; the
+journal outcome remains uncertain rather than granting durability from that frame.
+
+The uniquely named small fixture table is removed in finally. The isolated child
+then exits with unresolved host bookkeeping, not via a library recovery/settlement
+API. This is deliberate completion-loss containment evidence, not natural packet
+loss, crash recovery, native protected operation identity/issuer/epoch, full Truss
+bootstrap/feed or source ACK authority. It closes a native evidence gap previously
+covered only by controlled ports. The complete end-to-end goal remains active.
