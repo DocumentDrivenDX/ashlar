@@ -9,6 +9,7 @@ from ashlar.semantic_policy import StringRecordPolicy
 from ashlar.source import jsonl_batches
 from ashlar.staging import batch_row, batch_from_row
 from ashlar.whole_entity import changes_from_batch
+from ashlar.recovery import recover_whole_entity_state
 
 
 def inputs():
@@ -43,9 +44,11 @@ def run():
         state = plan_apply(state, changes_from_batch(batch), schema_policy=policies,
                            schema_transition_policy=transition)
     original = state
-    for row in json.loads(json.dumps([batch_row(batch) for batch in batches])):
-        state = plan_apply(state, changes_from_batch(batch_from_row(row)),
-                           schema_policy=policies, schema_transition_policy=transition)
+    rows = json.loads(json.dumps([batch_row(batch) for batch in batches]))
+    recovered = recover_whole_entity_state(rows, prior=empty_state(), feed='local-evolution',
+        epoch='example-1', cursor_before='0', cursor_after=batches[-1].cursor_after,
+        schema_policy=policies, schema_transition_policy=transition)
+    state = recovered.state
     if state != original:
         raise ValueError('Schema evolution replay changed retained state')
     return {'scope': 'local admitted fixture schema transition; not Truss acceptance',

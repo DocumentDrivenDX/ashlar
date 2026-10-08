@@ -370,3 +370,14 @@ The bounded command emits complete committed transactions with original bytes,
 exact digest and text cursors. A truncated first transaction emits no batch and
 fails. Each completed transaction is independent; a later stream failure does not
 undo earlier emitted custody. Output never authorizes source acknowledgement.
+
+
+recover_whole_entity_state supplies bounded whole-entity reconstruction from
+complete retained stage rows. Pass an admitted source/epoch interval, exact start
+and terminal cursor, trusted prior ApplyState and schema/transition policies. It
+checks contiguous original transaction custody, preserves complete retained
+history/tombstones/deliveries and returns an ordered original-artifact digest.
+Native table/snapshot/order/interval authority is external; the result is neither
+source ACK nor publication and must not replace original-handle effect recovery.
+The schema-evolution example exercises complete reconstruction and checks equality
+against the directly applied source stream.

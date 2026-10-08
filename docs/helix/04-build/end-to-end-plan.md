@@ -848,3 +848,22 @@ local development artifact, not a published release; this evidence covers that
 original wheel's code and metadata before the subsequent documentation update.
 No native/cloud workload ran. Truss acceptance/feed, qualified native providers,
 retention and immutable publication/read remain required for the full goal.
+
+## Ordered interval graph recovery — 2026-10-08
+
+recover_whole_entity_state now rebuilds exact graph/current/history/tombstone/
+delivery state from complete verified staged transaction rows under explicitly
+supplied source scope, trusted prior state, both admitted checkpoint boundaries,
+schema and transition policies. It refuses gaps, order/overlap/source mismatch,
+duplicate batch identities, incomplete terminal progress and finite batch/event/
+artifact budget overflow. It never sorts, guesses missing state, acknowledges a
+source or repairs unresolved native effects. The ordered artifact digest frames
+full original retained batch bytes with exact lengths.
+
+The schema-evolution example now reconstructs from retained serialized source
+rows starting at the empty initial state and matches its independently applied
+state. A partial restart from an exact trusted prior/cursor also matches full
+recovery. All128 local checks pass. No native/cloud workload ran. Native stage
+UUID/snapshot/full-scope ordering and checkpoint authority are still caller
+admission obligations, and original-handle native effect recovery stays separate.
+This is necessary restart wiring, not a completed live publisher/Truss feed.
