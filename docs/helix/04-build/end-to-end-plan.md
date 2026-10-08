@@ -885,3 +885,22 @@ native outbox installation/reader evidence remains separately scoped; actual
 protected source append through this bridge and Delta publisher/checkpoint
 composition remain required. This is a PostgreSQL whole-entity outbox adapter,
 not an alias for the unfinished Truss property-feed reconstruction.
+
+## Live PostgreSQL schema-evolution source — 2026-10-08
+
+run_outbox_example.py now appends the three original v1-to-v3 fixture transactions
+through the existing protected ordinary outbox writer, reads exact committed
+groups through PostgresOutbox on the real host transaction adapter/ordinary reader,
+and composes them through explicit schema/transition policies. Native positions
+3–5 and complete original payloads match the fixture. Independent contained byte
+cursors reset to0; native page resume from3 produces the same complete graph
+(1live object/4history/1tombstone), and reading after5 observes the source head.
+Fresh-process exact repeat preserves all original positions/head/payloads.
+
+All130 local checks pass. Evidence: SPIKE-001-table-layout/out/native/outbox_evolution_20261008.
+Original outer positions/digests and complete inner stage rows are retained together.
+Only three groups/four events were added to the isolated PG source; no cloud,
+retention or source ACK occurred. This is the actual additional whole-entity source
+boundary, not Truss property reconstruction or completed native Delta publication.
+The factory authenticates the trusted isolated admin session into ordinary roles;
+ordinary-role scope does not establish separate production identity/role fencing.

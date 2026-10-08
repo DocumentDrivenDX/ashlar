@@ -1,0 +1,36 @@
+{
+  "state": "applied",
+  "source_profile": "ashlar-postgresql-outbox/0.1",
+  "previous": "2",
+  "position": "5",
+  "groups": [
+    {
+      "batch_id": "evolution-1",
+      "position": "3",
+      "payload_sha256": "7622361599f9fa4eeb547fe3121290e77e938f85570045ee49f4f47ba87c7b46"
+    },
+    {
+      "batch_id": "evolution-2",
+      "position": "4",
+      "payload_sha256": "8b98cb7960df77ebfec15005c2ba8f69fa0b7b7b8aebbc8eb6dcfa91cf9c35c7"
+    },
+    {
+      "batch_id": "evolution-3",
+      "position": "5",
+      "payload_sha256": "7f723e87aca8a2284bc6e449b84f68399f0376f418c66d2847d732c07b3369e6"
+    }
+  ],
+  "native_reader": [
+    {
+      "role": "ashlar_outbox_reader"
+    }
+  ],
+  "objects": 1,
+  "history": 4,
+  "tombstones": 1,
+  "native_page_resume_equal": true,
+  "published": false,
+  "acknowledged": false,
+  "qualification": "Actual protected private PG outbox append/read and schema-evolved graph reconstruction; fixture IDs, isolated admin-authenticated ordinary roles. Not Truss property feed, Delta publication or source ACK.",
+  "fresh_process_repeat_passed": true
+}

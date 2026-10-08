@@ -364,3 +364,20 @@ and transitions without an explicit admission refuse; no latest-schema fallback
 exists. Both original experimental interpretation flags remain false. This runs
 locally and does not mutate the existing native example or establish Truss catalog
 acceptance/publication. schema-evolution-source.jsonl is a separate source fixture.
+
+
+## Run the live PostgreSQL additional-source example
+
+```sh
+python3 tools/run_outbox_example.py
+```
+
+Requires Docker, psycopg3.2.13 and the existing isolated sandbox/outbox containing
+its initial two source groups. This fixed development runner appends three exact
+schema-evolution transactions idempotently and requires their original native
+positions3–5. It refuses a different source layout/position. Re-running preserves
+positions and original bytes. The ordinary reader reconstructs the evolved graph
+and proves a page resume has equal state. Complete native positions and contained
+source artifacts are retained together in out/native/outbox_evolution_20261008.
+No Delta write, publication or source acknowledgement is issued. The source is
+an explicit PostgreSQL whole-entity outbox, not the unfinished Truss property feed.

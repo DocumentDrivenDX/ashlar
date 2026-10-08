@@ -2900,8 +2900,8 @@
     "../../../../../README.md": "e809e372423f32184f20044cf51ea1e3ced565d6df4d176db6951c01332d6cc7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
-    "../../../../../examples/end-to-end/README.md": "1a8051aaca16b4389e39f9895abcc940aa2f6f9a033595a848be213ae171b0c8",
-    "../../../04-build/end-to-end-plan.md": "dbec14c9f1f39d9a1ce4cb0563776d2aab065a193f5b80d3c0608ee24ee855fd",
+    "../../../../../examples/end-to-end/README.md": "6de1e160f765b0b6b38187ed28ebda76a7332e26e1aff8198e1e166f0b2a6c7f",
+    "../../../04-build/end-to-end-plan.md": "ff36555402817f85e71a8769ed5f2fa3e9456675a5c49c338e2026e1527f8e43",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3197,7 +3197,11 @@
     "out/local/toolkit_install_20261008/summary.json": "fb5396251fe23829c88beec595977f70460b128369c5464c119a138c54913b7c",
     "../../../../../src/ashlar/recovery.py": "2a87e8bd3e8378f18aa713f0a8bc43274054a472b592a8b1d0361edd25cfa841",
     "../../../../../tests/test_recovery.py": "70fa26a2d5e1b0f7a0e6367a13d50c3768ee183e996a6945b626c9ca546b4ed9",
-    "../../../../../tests/test_outbox_apply.py": "4375074cb40fde6c389af795c3a7d614c45652cdc8d1c3f78f4ee7e0bf17a6c9"
+    "../../../../../tests/test_outbox_apply.py": "4375074cb40fde6c389af795c3a7d614c45652cdc8d1c3f78f4ee7e0bf17a6c9",
+    "../../../../../tools/sandbox_postgres.py": "177395c9eabd9443401a5c06fed0ea6ab496383d5a37ef8883493997755774a2",
+    "../../../../../tools/run_outbox_example.py": "b076a8cb86f3f422956d107366fe5d0345a87ad152084d2ed3b83f3d426ce00e",
+    "out/native/outbox_evolution_20261008/summary.json": "2c4967c5888c3e3268f54cf1328d9a449082fc02fbfc10735f536599da3c30de",
+    "out/native/outbox_evolution_20261008/original-transactions.json": "e3a714bd85bff0399a0324b958c62a6758fb2880534a91e5fc2352d6d24e65dc"
   },
   "evidence": {
     "ddl": {
