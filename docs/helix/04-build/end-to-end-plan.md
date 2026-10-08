@@ -1819,3 +1819,26 @@ exact bytes, while independently observing committed effect and preserving unkno
 classification. No recovery SQL or cloud call is added. Full issuer/epoch, protected
 producer/installation, UMF acceptance and Truss-to-Delta feed remain incomplete.
 The full end-to-end objective stays active.
+
+### Real UMF example bytes through Truss integrity ingress (2026-10-08)
+
+Truss candidate `a4561f6` adds the first CONTRACT-003 original-artifact ingress
+primitive, `verifyExactArtifacts`. Complete input-count/single-byte/shared-byte
+bounds, canonical base64, scalar identity and SHA-256 correspondence precede
+successful immutable carrier return. Own data snapshots are captured before
+asynchronous hashing; caller mutation cannot replace checked originals. Unknown
+carrier fields/accessors refuse. Raw artifact bytes are not JSON-parsed or converted,
+so unknown UMF extensions and original numeric spelling remain intact.
+
+The built public Truss package processes Ashlar's actual v1/v2/v3/unknown UMF
+example files unchanged, comparing Web Crypto SHA-256 against Bun CryptoHasher.
+The exact source hashes/byte counts are retained in the candidate evidence receipt.
+Thirty-eight local tests/252 assertions, portable/host builds and clean packed
+portable consumer checks pass. The browser-target build passes; actual browser
+execution of this new primitive remains unverified.
+
+This establishes bounded byte integrity, not UMF semantic validation/completeness,
+version/support compatibility, dependency ordering, authority, native acceptance,
+accepted catalog IDs or schema evolution effects. Those remain required next
+compositions before the full Truss-to-Ashlar workflow can be claimed. No database
+submission/cloud run occurred; the full objective remains active.
