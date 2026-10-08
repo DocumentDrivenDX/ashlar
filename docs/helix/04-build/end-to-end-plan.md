@@ -1842,3 +1842,27 @@ version/support compatibility, dependency ordering, authority, native acceptance
 accepted catalog IDs or schema evolution effects. Those remain required next
 compositions before the full Truss-to-Ashlar workflow can be claimed. No database
 submission/cloud run occurred; the full objective remains active.
+
+### Actual UMF semantic producer exposes required-check compatibility gap (2026-10-08)
+
+Truss candidate `a87c6d3` builds the actual readDocument/validateDocument producer
+from clean UMF commit fac1497a and runs all four original Ashlar example schemas
+after the public byte-integrity ingress. Original validation results and every
+diagnostic are committed with source/bundle/input hashes. All four are valid=true,
+complete=false. Experimental core nullability/cardinality/facets/keys/relationships
+warnings remain; v2 additionally reports UNKNOWN_NULLABILITY and the unknown
+example UNKNOWN_CORE_FIELD. Its assertion is independently checked as preserved.
+
+CONTRACT-003's required-check route demands valid and complete, so these actual
+inputs cannot presently qualify that writable acceptance route. Shape validity,
+byte integrity or removal of warnings cannot fill this gap. A browser-target
+producer bundle was executed in Bun; real-browser execution and qualified bounded
+validator isolation/authority remain separate. No native catalog IDs or acceptance
+are manufactured, and no database/cloud call was needed.
+
+The owner-authorized Truss Impl chat has been sent the exact results and requested
+supported profile/acceptance composition within its existing planning scope. This
+new evidence changes the next action: resolve original semantic completeness and
+support correspondence before implementing writable acceptance for these models.
+Native protected installation/feed also remain incomplete. The unchanged full goal
+is active; this is its first newly verified required-check compatibility finding.
