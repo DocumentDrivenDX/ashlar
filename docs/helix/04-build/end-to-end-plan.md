@@ -2754,3 +2754,32 @@ Original native evolution publisher 59082 is still live and now has committed
 checkpoints 805 and 1318. The second checkpoint follows the explicit revision-3
 replacement. Final delete/checkpoint 1814 and singleton remain pending; full
 independent final receipt comparisons will follow terminal completion.
+
+
+### Complete native schema-evolution publication verified — 2026-10-08
+
+Original publisher 59082 terminated exit 0 at byte checkpoint 1814 after all
+three groups/four original events. Complete local positions are 805, 1318 and
+1814, each independently matched to the original complete transaction bytes and
+request/descriptor source bindings. All 27 original native mutations succeeded;
+the first nine handles and complete request/response hashes remain unchanged.
+
+All twelve ordinal/table exact-version full inventories independently equal
+source-to-row reconstruction. Final object_current version 5 contains only
+object 1 at entity version 2/schema revision 3 with updated label and Unicode
+caption. Object 2 is absent, tombstone version 1 contains its revision-1 delete,
+and whole_source_history version 3 preserves all four original records across
+both schema revisions. edge_current remains version 0/empty. Publication used
+1145 warehouse reads and 418 effective-permission pages; this is small correctness
+integration evidence, not performance or scale evidence.
+
+[Complete publication evidence](evidence/native-evolution-publication-complete-20261008.json)
+retains all original checkpoint requests/descriptors, mutation custody and full
+inventory read handles. Independent comparison submitted no additional warehouse
+queries. A final query-only survivor read was started as original process 50926,
+receipts /private/tmp/ashlar-evolution-query-20261008, using the same original
+stream journal and both intake proofs. Singleton success remains unproved until
+that original process and complete oracle/unchanged-receipt checks finish.
+Native exact-repeat remains untested. No real Truss catalog/producer, arbitrary
+schemas, combined-source state or remote ACK/fencing is established. Existing
+warehouse/catalog only, no predictive optimization/grant changes; full goal active.

@@ -1026,10 +1026,13 @@ and both schema proofs remain bound throughout; source switching is forbidden.
 Fifteen focused local checks pass, including the explicit transition, original
 bytes, independent expected state, missing/foreign proof refusals and unchanged
 CSV/JSONL checkpoint behavior. Actual UMF checks cover both original schema
-revisions and existing values under v3. Native evolution setup and both actual raw intake registrations now pass in
-`ashlar_e2e_private_20261008.runtime_schema_evolution`; original publisher is
-running the four-event sequence. Native publication/query success is **not yet
-verified**. This remains the fixed string-Record example with development
+revisions and existing values under v3. Native setup, both original raw UMF intakes and the complete four-event
+publication now pass in `ashlar_e2e_private_20261008.runtime_schema_evolution`.
+Byte checkpoints are 805, 1318 and 1814. Final publication retains one v3 object,
+all four original history records across both revisions, and one v1 delete
+in the tombstone carrier. All twelve exact-version inventories match independent
+source reconstruction. A survivor query-only check is running; its success and
+native exact-repeat remain **unverified**. This remains the fixed string-Record example with development
 IDs; broader schemas and actual Truss still require implementation.
 
 
