@@ -238,3 +238,10 @@ and incomplete/ambiguous ID bindings. Retained JSON stays opaque exact custody.
 This is executable host constraint policy for the selected profile, not native
 catalog acceptance or proof that supplied bindings came from an accepted head.
 Relationships and broader value/key/facet bindings remain required.
+
+StringRecordPolicy.from_intake binds enforcement to the complete retained
+SchemaIntake artifact, exact original source SHA256, pinned validator and owner
+revision. It reparses the original intake and refuses mismatched interpretation
+source or altered custody before returning a policy. Native ID/revision acceptance
+is still a separate requirement; a local fixture MappingEntry is not Truss
+acceptance authority. The installed private Truss head remains revision0.

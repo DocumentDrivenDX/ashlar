@@ -575,3 +575,21 @@ consumption. The existing nine-event graph fixture has independent synthetic
 schema/IDs and is not retroactively admitted by this string-only model. Truss
 acceptance/runtime/feed and full native publication remain required. No Databricks
 workload occurred this iteration.
+
+## Original intake-to-meaning barrier checkpoint
+
+The executable selected policy can now bind directly to a complete original
+SchemaIntake: it reparses and compares the original artifact, requires identical
+interpretation source SHA256 and uses its pinned validator/revision. It refuses
+same-named but different source interpretation and tampered custody. Ninety-two
+local checks pass. Fixture IDs remain explicitly unaccepted native bindings.
+
+Truss inspection at958f0ee confirms source layout0.11 remains the original
+1ac7cc82405ff581072d45ad586f54d8c48343eaecc7c011195535ed359e37f9
+declaration, while its current implementation handoff requires protected complete
+acceptance reports and installer readiness. It has no runtime source; private
+native schema_head is still0. Do not invent an independent accepted Ashlar
+catalog that conflicts with its authoritative IDs/revision boundary. Next
+implement the protected Truss acceptance producer/report path and then consume
+its admitted identity custody at Ashlar’s schema barrier; broader bindings and
+mutation/feed/publication remain required. No Databricks workload this iteration.

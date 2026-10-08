@@ -1,0 +1,12 @@
+{
+  "state": "passed",
+  "tests": 92,
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q",
+  "scope": "Original intake/meaning source and validator/revision correspondence; matching v3, v1/v3 mismatch and altered-custody controls. Native catalogue authority not admitted.",
+  "truss_observation": {
+    "source_revision": "958f0ee",
+    "layout_sha256": "1ac7cc82405ff581072d45ad586f54d8c48343eaecc7c011195535ed359e37f9",
+    "private_schema_head": "0",
+    "command": "docker exec ashlar-e2e-truss-pg17 psql -U postgres -d truss_e2e -At -c SELECT rev FROM truss.schema_head WHERE id=1;"
+  }
+}

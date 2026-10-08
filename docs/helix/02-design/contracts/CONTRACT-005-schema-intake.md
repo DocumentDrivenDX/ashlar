@@ -191,3 +191,9 @@ properties and source/revision drift refuse. Actual native acceptance must prove
 the supplied IDs/revision against retained catalog authority; test fixture IDs
 do not establish that authority. Relationships, broader values/facets/keys and
 Truss native enforcement are still unimplemented requirements.
+
+The original intake-to-meaning barrier reparses full retained intake custody and
+requires the interpretation’s exact source digest and pinned validator/revision
+to match. A same-named source or altered receipt cannot instantiate the selected
+policy. This does not admit caller-supplied catalog mappings as native IDs: Truss
+acceptance report/head custody remains required, and its private head is still0.

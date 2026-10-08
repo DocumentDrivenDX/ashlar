@@ -6,12 +6,30 @@ ID bindings supplied by a trusted catalog authority. No IDs are inferred here.
 from types import MappingProxyType
 from .binding import plan_string_record_binding,BindingError
 from .catalog import Identity,MappingEntry
-from .schema import _json
+from .schema import _json,SchemaIntake
 
 class SemanticPolicyError(ValueError):
     pass
 
 class StringRecordPolicy:
+    @classmethod
+    def from_intake(cls,intake,interpretation,entries,*,source_system):
+        """Bind original intake custody to interpretation before host enforcement.
+
+        This does not attest native catalog acceptance of supplied ID entries.
+        """
+        if not isinstance(intake,SchemaIntake):
+            raise SemanticPolicyError('Complete original schema intake required')
+        recovered=SchemaIntake.read(intake.artifact,intake.document_revision,
+                                   trusted_validator_revision=intake.validator_revision)
+        if recovered!=intake:
+            raise SemanticPolicyError('Schema intake differs from original artifact')
+        policy=cls(interpretation,entries,validator_revision=intake.validator_revision,
+                   source_system=source_system,schema_revision=intake.document_revision)
+        if policy.source_sha256!=intake.source_sha256:
+            raise SemanticPolicyError('Interpretation does not belong to retained original schema')
+        return policy
+
     def __init__(self,interpretation,entries,*,validator_revision,source_system,schema_revision):
         if any(not isinstance(s,str) or not s or '\x00' in s for s in [source_system,schema_revision]):
             raise SemanticPolicyError('Explicit admitted source/revision required')
