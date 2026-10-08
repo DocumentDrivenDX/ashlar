@@ -2854,5 +2854,6 @@
   ],
   "executed_baseline": "ashlar-delta/0.2",
   "common_carriers_remaining_audit_r625.py": "da8c8d326983e7c8153246a8e65b0cd86813bcd11d6e193d8e0525d148d398c9",
-  "maintained_concurrent_r626.py": "206e6bc02c2f75e1f58e0a23b602f5c70b47bcca8a4b713ea1605e2eddfc07a1"
+  "maintained_concurrent_r626.py": "206e6bc02c2f75e1f58e0a23b602f5c70b47bcca8a4b713ea1605e2eddfc07a1",
+  "maintained_concurrent_audit_r627.py": "c255d8cffbb04c41caa44a766c3370298404a585125344261e4a3a91d192c4d7"
 }
