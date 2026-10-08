@@ -32,13 +32,41 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--journal', required=True)
     parser.add_argument('--output', required=True)
+    parser.add_argument('--installation', default=str(B / 'out/native/private_setup_20261008/summary.json'))
+    parser.add_argument('--source', choices=['local', 'outbox'], default='local')
     args = parser.parse_args()
     # Fixed fixture/deployment only; never generalize its initial-state authority.
-    installation = json.loads((B / 'out/native/private_setup_20261008/summary.json').read_text())
-    namespace = 'ashlar_e2e_private_20261008.runtime'
+    installation = json.loads(Path(args.installation).read_text())
+    namespace = 'ashlar_e2e_private_20261008.' + ('runtime_outbox' if args.source == 'outbox' else 'runtime')
     if installation['namespace'] != namespace:
         raise ValueError('Wrong private development installation')
     intake, policy, batches = fixture_inputs()
+    transition = None
+    checkpoints = {}
+    operation_prefix = 'local-example:'
+    if args.source == 'outbox':
+        from run_schema_evolution import inputs
+        from sandbox_postgres import connect
+        from postgres_transactions import PostgresTransactions
+        from ashlar.outbox import PostgresOutbox
+        from ashlar.source_checkpoint import outbox_checkpoint
+        _, policy, transition, originals = inputs()
+        pg_context = object()
+        def factory(context):
+            if context is not pg_context:
+                raise PermissionError('Wrong private source context')
+            return connect('ashlar_outbox_reader')
+        with PostgresTransactions(factory).transaction(pg_context) as session:
+            transactions = PostgresOutbox(session, feed='native-evolution', epoch='example-1').read('2', limit=3)
+        if len(transactions) != 3:
+            raise ValueError('Incomplete native source interval')
+        for position, transaction, original in zip(range(3, 6), transactions, originals):
+            blob = lambda batch: batch.begin + b''.join(record.raw for record in batch.records) + batch.commit
+            if transaction.position != str(position) or blob(transaction.batch) != blob(original):
+                raise ValueError('Native source interval differs from original fixture')
+            checkpoints[transaction.batch.batch_id] = outbox_checkpoint(transaction)
+        batches = tuple(transaction.batch for transaction in transactions)
+        operation_prefix = 'outbox-example:'
     batches = tuple(batch_from_row(batch_row(batch)) for batch in batches)
     tables = {key: namespace + '.' + key for key in
               ['object_current', 'edge_current', 'tombstone', 'whole_source_history']}
@@ -46,7 +74,8 @@ def main():
     plans = []
     for batch in batches:
         state, steps = graph_sql_plan(state, batch, tables,
-            materialized_at='2026-10-08T17:00:00+00:00', schema_policy=policy)
+            materialized_at='2026-10-08T17:00:00+00:00', schema_policy=policy,
+            schema_transition_policy=transition)
         plans.append((batch, steps))
     w = WorkspaceClient(profile='aidev-cus')
     user = w.current_user.me()
@@ -86,7 +115,7 @@ def main():
             admit_targets()
             runner = DurableEffects(journal, Policy())
             operations = {row[0] for row in journal.db.execute('SELECT operation FROM effect_plan')}
-            if not operations <= {'local-example:' + batch.batch_id for batch in batches}:
+            if not operations <= {operation_prefix + batch.batch_id for batch in batches}:
                 raise ValueError('Journal contains a different workload')
             if not operations:
                 for table in tables.values():
@@ -96,10 +125,20 @@ def main():
             for batch, expected_steps in plans:
                 row = batch_row(batch)
                 digest = hashlib.sha256(row['batch_json'].encode()).hexdigest()
+                if args.source == 'outbox':
+                    intent = json.dumps({'batch_row': row, 'source_checkpoint_json': checkpoints[batch.batch_id]},
+                                        sort_keys=True, separators=(',', ':'))
+                    digest = hashlib.sha256(intent.encode()).hexdigest()
+                    with journal.db:
+                        journal.db.execute('CREATE TABLE IF NOT EXISTS source_intent (operation TEXT PRIMARY KEY,original_json TEXT NOT NULL,digest TEXT NOT NULL)')
+                        operation = operation_prefix + batch.batch_id
+                        journal.db.execute('INSERT OR IGNORE INTO source_intent VALUES (?,?,?)', (operation, intent, digest))
+                        if journal.db.execute('SELECT original_json,digest FROM source_intent WHERE operation=?', (operation,)).fetchone() != (intent, digest):
+                            raise ValueError('Original native source intent conflict')
                 deadline = time.monotonic() + 180
                 while True:
                     try:
-                        result = runner.run('local-example:' + batch.batch_id, digest, expected_steps, context=lock)
+                        result = runner.run(operation_prefix + batch.batch_id, digest, expected_steps, context=lock)
                         break
                     except SQLPending:
                         if time.monotonic() > deadline:
@@ -115,12 +154,15 @@ def main():
                     raise ValueError('Final fixture inventory differs: ' + key)
             admit_targets()
             summary = {'state': 'applied', 'namespace': namespace, 'batches': results,
+                       'source': args.source, 'source_checkpoints': checkpoints,
                        'objects': observed, 'published': False, 'acknowledged': False,
                        'qualification': 'Four-event UMF-backed fixture; explicit fixture IDs, original same-host SQL plan/handle recovery, owner/grant/UUID observations and selected final inventory. Full-column parity, remote fencing, retention and publication remain unqualified.'}
             (Path(args.output) / 'summary.json').write_text(json.dumps(summary, indent=2) + '\n')
             journal.db.row_factory = __import__('sqlite3').Row
             custody = {table: [dict(row) for row in journal.db.execute('SELECT * FROM ' + table)]
                        for table in ['effect_plan', 'submission']}
+            if args.source == 'outbox':
+                custody['source_intent'] = [dict(row) for row in journal.db.execute('SELECT * FROM source_intent')]
             (Path(args.output) / 'original-journal.json').write_text(json.dumps(custody, indent=2) + '\n')
             print('Applied 3 fixture transactions; no publication or acknowledgement')
     finally:

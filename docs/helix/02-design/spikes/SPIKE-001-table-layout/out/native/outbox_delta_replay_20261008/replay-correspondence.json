@@ -1,0 +1,9 @@
+{
+  "state": "passed",
+  "original_journal_sha256": "5d894de69f9349281f5ca6d301b8067555ee74d8ecd6e91c516fe304c31b2c0e",
+  "replay_journal_sha256": "5d894de69f9349281f5ca6d301b8067555ee74d8ecd6e91c516fe304c31b2c0e",
+  "original_native_submissions": 9,
+  "original_source_intents": 3,
+  "complete_original_journal_equal": true,
+  "qualification": "Fresh-process source/plan/handle replay and selected inventory only; no publication/ACK."
+}

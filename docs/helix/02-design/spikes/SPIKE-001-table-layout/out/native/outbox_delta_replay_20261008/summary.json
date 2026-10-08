@@ -1,0 +1,35 @@
+{
+  "state": "applied",
+  "namespace": "ashlar_e2e_private_20261008.runtime_outbox",
+  "batches": [
+    {
+      "batch_id": "evolution-1",
+      "plan_digest": "70b884876fde3d0df64c34e93a5b2a5a2a55ecc9f4c2da499248535a79e02ca8"
+    },
+    {
+      "batch_id": "evolution-2",
+      "plan_digest": "892f35620b234f13c097a3f555ae5a93a9b846facbc50b26cb2cbbd10fb40ae3"
+    },
+    {
+      "batch_id": "evolution-3",
+      "plan_digest": "96eeccb360bb2aab918a278eeea9a992ec334d27f7dacb1e9618dbecf2405902"
+    }
+  ],
+  "source": "outbox",
+  "source_checkpoints": {
+    "evolution-1": "{\"batch_id\":\"evolution-1\",\"epoch\":\"example-1\",\"feed\":\"native-evolution\",\"payload_digest\":\"7622361599f9fa4eeb547fe3121290e77e938f85570045ee49f4f47ba87c7b46\",\"position\":\"3\",\"previous\":\"2\",\"profile\":\"ashlar-postgresql-outbox/0.1\"}",
+    "evolution-2": "{\"batch_id\":\"evolution-2\",\"epoch\":\"example-1\",\"feed\":\"native-evolution\",\"payload_digest\":\"8b98cb7960df77ebfec15005c2ba8f69fa0b7b7b8aebbc8eb6dcfa91cf9c35c7\",\"position\":\"4\",\"previous\":\"3\",\"profile\":\"ashlar-postgresql-outbox/0.1\"}",
+    "evolution-3": "{\"batch_id\":\"evolution-3\",\"epoch\":\"example-1\",\"feed\":\"native-evolution\",\"payload_digest\":\"7f723e87aca8a2284bc6e449b84f68399f0376f418c66d2847d732c07b3369e6\",\"position\":\"5\",\"previous\":\"4\",\"profile\":\"ashlar-postgresql-outbox/0.1\"}"
+  },
+  "objects": [
+    {
+      "id": "1",
+      "version": "2",
+      "props_json": "{\"23\":\"updated\",\"24\":\"\u96ea\"}",
+      "retained_json": "{\"future\":18446744073709551615}"
+    }
+  ],
+  "published": false,
+  "acknowledged": false,
+  "qualification": "Four-event UMF-backed fixture; explicit fixture IDs, original same-host SQL plan/handle recovery, owner/grant/UUID observations and selected final inventory. Full-column parity, remote fencing, retention and publication remain unqualified."
+}

@@ -961,3 +961,28 @@ Current physical-target/operator closure, remote lost-lock/outcome quarantine an
 complete file availability remain unfinished. The new guard is an integration
 boundary, not evidence that every Delta maintenance path already participates;
 published/readable pin admission still requires those independent obligations.
+
+## Live PostgreSQL-to-Delta schema evolution — 2026-10-08
+
+The native example now selects the actual committed PostgreSQL groups3–5,
+verifies every original transaction against the fixed UMF evolution source and
+runs explicit multi-revision/transition admission before planning Delta writes.
+A separate runtime_outbox namespace in the existing private catalog contains the
+unchanged eight-carrier candidate baseline. No existing example tables changed.
+
+Three groups/four events applied: selected final object payload/version, empty
+edge inventory, one tombstone and four history rows passed. Complete source rows
+and native checkpoint text are retained in immutable original source_intent rows
+before native effects. Fresh-process replay reuses the same nine mutation
+submissions/three effect plans/three original source intents; complete original
+journals and selected summaries remain equal. All135 local checks pass. Existing
+warehouse only; no scale, new compute, grants or retention changes.
+
+Evidence: SPIKE-001-table-layout/out/native/outbox_setup_20261008,
+outbox_delta_20261008 and outbox_delta_replay_20261008. Keep original journals
+/private/tmp/ashlar-outbox-setup-20261008.sqlite and
+/private/tmp/ashlar-outbox-graph-20261008.sqlite for recovery. This is a live
+additional-source-to-Delta development stream with explicit fixture IDs, not
+accepted Truss catalog/feed authority. Full-column evolved-table parity, qualified
+remote fencing/retention, durable publication and native resolver/read/source ACK
+remain required. No publication or acknowledgement was issued.

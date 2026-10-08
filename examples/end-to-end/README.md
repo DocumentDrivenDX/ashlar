@@ -381,3 +381,25 @@ and proves a page resume has equal state. Complete native positions and containe
 source artifacts are retained together in out/native/outbox_evolution_20261008.
 No Delta write, publication or source acknowledgement is issued. The source is
 an explicit PostgreSQL whole-entity outbox, not the unfinished Truss property feed.
+
+
+## Stream the live outbox into the private Delta example
+
+The completed run uses the separate runtime_outbox installation:
+
+```sh
+python3 tools/run_native_example.py --source outbox --installation docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/outbox_setup_20261008/summary.json --journal /private/tmp/ashlar-outbox-graph-20261008.sqlite --output /tmp/ashlar-outbox-delta-receipts
+```
+
+Requires the live outbox example, Databricks SDK/profile aidev-cus, psycopg and
+Docker. Keep and reuse the original graph journal: a new journal refuses populated
+tables and cannot substitute for original outcome custody. The separate installation
+was created with setup_native.py in the existing private catalog; its original
+setup journal is /private/tmp/ashlar-outbox-setup-20261008.sqlite.
+
+Native source positions3–5, complete original transaction bytes and selected
+schema evolution are retained before ordered Delta effects. Actual application
+and fresh-process replay passed with nine unchanged native mutation submissions.
+This writes the small graph and raw event history; it does not publish, pin,
+acknowledge the source or establish accepted Truss authority. Full-column evolved
+snapshot validation and publication/read composition are still unfinished.
