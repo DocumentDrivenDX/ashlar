@@ -73,12 +73,17 @@ def _change(change):
     elif state.endpoints is not None:raise ApplyError('Object cannot have edge endpoints')
 
 
-def plan_apply(prior:ApplyState,changes,*,schema_policy):
+def plan_apply(prior:ApplyState,changes,*,schema_policy,schema_transition_policy=None):
     """Plan a complete source transaction; return defensive immutable state.
 
     schema_policy(change) must authorize/admit the exact schema, identity,
     operation and carrier/endpoint constraints, returning None or raising.
     It must be independently qualified; there is no permissive default.
+    Replacing/deleting an existing entity across schema revisions additionally
+    requires schema_transition_policy(previous, change), returning None. Revision
+    strings are opaque; no numeric ordering or compatibility is inferred. Exact
+    delivery replay validates current schema admission but does not reexecute
+    an already retained transition.
     prior is a trusted complete retained state snapshot. Native integration
     must serialize, revalidate and persist all effects before publication.
     """
@@ -95,6 +100,11 @@ def plan_apply(prior:ApplyState,changes,*,schema_policy):
         previous=current.get(key);deleted=tombstones.get(key)
         high=previous.version if previous is not None else deleted.state.version if deleted is not None else -1
         if change.state.version<=high:raise ApplyError('Stale or conflicting entity version')
+        if previous is not None and previous.schema_revision != change.state.schema_revision:
+            if schema_transition_policy is None:
+                raise ApplyError('Explicit schema transition admission required')
+            if schema_transition_policy(previous,change) is not None:
+                raise ApplyError('Schema transition admission did not complete')
         if change.operation=='create':
             if previous is not None or deleted is not None:raise ApplyError('Create cannot overwrite or resurrect an existing identity')
             current[key]=change.state

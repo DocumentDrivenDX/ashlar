@@ -1,0 +1,10 @@
+{"kind":"begin","batch_id":"evolution-1"}
+{"kind":"event","source_profile":"ashlar-whole-entity/0.1","source_system":"local-example","schema_revision":"1","retained_json":"{\"future\":18446744073709551615}","delivery_id":"1-1","entity_kind":"object","type_id":"17","id":"1","entity_version":"1","operation":"create","props_json":"{\"23\":\"first\"}"}
+{"kind":"event","source_profile":"ashlar-whole-entity/0.1","source_system":"local-example","schema_revision":"1","retained_json":"{\"future\":18446744073709551615}","delivery_id":"2-1","entity_kind":"object","type_id":"17","id":"2","entity_version":"1","operation":"create","props_json":"{\"23\":\"second\"}"}
+{"kind":"commit","batch_id":"evolution-1","record_count":2,"records_sha256":"0b7a4b6a9b022ffe64c6b272480dbce97700af2c02485666f38773a04d9e3890"}
+{"kind":"begin","batch_id":"evolution-2"}
+{"kind":"event","source_profile":"ashlar-whole-entity/0.1","source_system":"local-example","schema_revision":"3","retained_json":"{\"future\":18446744073709551615}","delivery_id":"1-2","entity_kind":"object","type_id":"17","id":"1","entity_version":"2","operation":"replace","props_json":"{\"23\":\"updated\",\"24\":\"雪\"}"}
+{"kind":"commit","batch_id":"evolution-2","record_count":1,"records_sha256":"d13330cf53ca0e48f405c652d014f9540e40f589304e794fdf899676f4b79ff3"}
+{"kind":"begin","batch_id":"evolution-3"}
+{"kind":"event","source_profile":"ashlar-whole-entity/0.1","source_system":"local-example","schema_revision":"1","retained_json":"{\"future\":18446744073709551615}","delivery_id":"2-2","entity_kind":"object","type_id":"17","id":"2","entity_version":"2","operation":"delete","props_json":"{\"23\":\"second\"}"}
+{"kind":"commit","batch_id":"evolution-3","record_count":1,"records_sha256":"c34caa2d1dba8803a48805c2660a358dae55d32db605d8646fc868f1a5571b69"}

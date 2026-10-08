@@ -348,3 +348,19 @@ It checks four final table snapshots and the initial object snapshot against
 independently derived complete original-event expectations. The retained evidence
 includes the observed version vector; do not treat it as an active retention pin
 or published manifest. The command reads existing data and does not change it.
+
+
+## Evolve the selected local schema
+
+```sh
+python3 tools/run_schema_evolution.py
+```
+
+The command uses original v1 and v3 UMF intake/interpretation receipts and stable
+fixture type/label IDs. It explicitly admits the additive replacement from v1 to
+v3, adds caption and retains both revisions in history. Deleting the other object
+uses its original v1 schema. Replay preserves complete state. Unknown revisions
+and transitions without an explicit admission refuse; no latest-schema fallback
+exists. Both original experimental interpretation flags remain false. This runs
+locally and does not mutate the existing native example or establish Truss catalog
+acceptance/publication. schema-evolution-source.jsonl is a separate source fixture.

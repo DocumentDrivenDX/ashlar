@@ -16,7 +16,7 @@ from ashlar.whole_entity import changes_from_batch
 TABLES={'object_current','edge_current','tombstone','whole_source_history'}
 
 
-def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy):
+def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy, schema_transition_policy=None):
     if set(tables)!=TABLES or len(set(tables.values()))!=4:
         raise ValueError('Four distinct complete graph target names required')
     quoted={k:_quoted(v) for k,v in tables.items()}
@@ -24,7 +24,7 @@ def graph_sql_plan(prior, batch, tables, *, materialized_at, schema_policy):
     if stamp.tzinfo is None or stamp.utcoffset()!=datetime.timedelta(0):
         raise ValueError('Explicit UTC materialization metadata clock required')
     changes=changes_from_batch(batch)
-    after=plan_apply(prior,changes,schema_policy=schema_policy)
+    after=plan_apply(prior,changes,schema_policy=schema_policy,schema_transition_policy=schema_transition_policy)
     fresh=[x for x in changes if (x.feed,x.epoch,x.delivery_id) not in prior.deliveries]
     steps=[]
     def insert(table,rows,types):

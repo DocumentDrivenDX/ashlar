@@ -809,3 +809,23 @@ This closes transaction execution wiring, not Delta file availability, maintenan
 operator enforcement, registration admission or publication/read composition.
 The existing recovery scope is used only to test the adapter; it is not the new
 local-example publication scope and must not authorize that example's snapshots.
+
+## Explicit multi-revision schema evolution — 2026-10-08
+
+SchemaPolicies dispatches an explicitly supplied bounded source/revision inventory
+without latest/default fallback. Complete apply and native SQL planning now refuse
+replacement/deletion across schema revisions without explicit transition admission
+against the prior entity and new change. Revision strings remain opaque; no numeric
+ordering or compatibility is inferred. Exact delivery replay still invokes current
+schema admission but never reexecutes a previously retained transition.
+
+run_schema_evolution.py demonstrates v1-created objects and the explicitly admitted
+v1-to-v3 fixture replacement adding caption, followed by deletion of the other
+object under its original v1 schema. It retains both original schema revisions in
+history and preserves completeInterpretation=false. The v1 interpretation was
+obtained from the actual clean pinned UMF source/API, not synthesized. All122 local
+checks pass, including unknown/unsupported revision, v1 new-field refusal, missing/
+noncompleting transition, prior-state preservation and native-planner propagation.
+No native/cloud workload ran this iteration. This is selected local fixture
+schema-evolution wiring, not accepted native Truss IDs/catalog evolution or a
+published evolved Delta stream; those remain required by the full goal.
