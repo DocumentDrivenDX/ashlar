@@ -50,7 +50,7 @@ settings are experiment candidates, not approved compatibility claims. UMF
 binding and source catalog schemas remain deferred. Truss's catalog IDs and
 source-local object/edge IDs are retained without renumbering.
 
-## Current qualification summary (non-normative, through r616)
+## Current qualification summary (non-normative, through r634)
 
 The latest [complete seventh publication](../spikes/SPIKE-001-table-layout/seventh-publication-disposition-r602.md)
 selects N6/E10/R7/J7/A8/T7 for the named private tables in its immutable vector.
@@ -87,8 +87,11 @@ observations remain distinct from a production writer fence.
 The [sparse maintenance experiment](../spikes/SPIKE-001-table-layout/sparse-maintenance-disposition-r612.md)
 rewrites ten broad-overlap files into six in21.722s, with two same-SID OPTIMIZE
 commits11/12. Every removed/added full20field multiset matches bidirectionally;
-common file path/size/livecount/extrema remain unchanged. Independent Delta-log
-deletion-vector action custody for common files is not proved. Existing E10
+common file path/size/livecount/extrema remain unchanged. [Complete common-file preservation](../spikes/SPIKE-001-table-layout/common-preservation-disposition-r628.md)
+now checks all39.48M common-file live carriers; combined with450k rewritten-file
+carriers, all39.93M live snapshot contents match, including deletion-vector
+filtering. Independent raw Delta-log action custody and producer fencing remain
+separate unproved obligations. Existing E10
 publication remains pinned; no maintenance manifest or source progress advances.
 The complete maintenance/preservation experiment takes51.970s/4.615GB read/
 0.363GB write, separately from17.435s baseline preparation.
@@ -104,6 +107,25 @@ blind range sweeps or a promised per-batch60s cleanup. Current physical heads
 must be reconciled independently of selected publication pins before new writes.
 Controlled cold/concurrent service and actual1B-node/5B-edge admission remain open.
 Unity Catalog Delta stays selected independently of those misses.
+
+
+[Broader maintained read evidence](../spikes/SPIKE-001-table-layout/maintained-concurrent-disposition-r629.md)
+checks64 full-carrier/absence responses with four synchronized readers and all16
+native request windows overlapping. Repeated caller423ms/engine135ms misses both
+targets. The [same32-key binding comparison](../spikes/SPIKE-001-table-layout/binding-disposition-r633.md)
+also misses them on one client: parameters511ms/110ms, literals489ms/108ms.
+Read bytes are identical and compilation shows no reproducible winner. Keep bound
+parameters. The earlier8-key engine96ms pass is narrowly scoped and does not
+qualify the larger cohort, sustained service, cold data or caller250ms.
+
+[All-six-role active capacity sensitivity](../spikes/SPIKE-001-table-layout/out/full-role-capacity-r634.json)
+uses115.765GB measured active bytes across nodes/currentedges/raw/journal/forward/
+tombstones. Freezing this synthetic history mix projects14.495TB active roles at
+1B nodes/5B edges, excluding retained versions, staged inputs, logs, failed-work
+storage and additional projections. This is arithmetic, not native admission,
+pricing or a production producer history profile. Doubling the current graph
+models231.530GB active roles, before validation/retention/peak storage. Scale
+writes still require measured full-role generation and explicit phase bounds.
 
 [File geometry](../spikes/SPIKE-001-table-layout/file-overlap-disposition-r488.md)
 and [throughput envelope](../spikes/SPIKE-001-table-layout/throughput-envelope-disposition-r489.md)

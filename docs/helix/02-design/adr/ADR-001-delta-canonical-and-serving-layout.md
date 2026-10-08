@@ -154,8 +154,9 @@ The generated-column2.5M fixture also has distinct interoperability obligations.
 file overlap over blindly visiting every hash range. The [E10 sparse pilot](../spikes/SPIKE-001-table-layout/sparse-maintenance-disposition-r612.md)
 removes allten wide-domain files and adds six in21.722s; total preservation/custody
 work is51.970s. Changed-file complete values pass exact EXCEPT ALL in both
-directions. Common-file physical custody is scoped; independent deletion-vector
-log custody remains open. No maintenance manifest or production fence is proved.
+directions. [Full live snapshot preservation](../spikes/SPIKE-001-table-layout/common-preservation-disposition-r628.md)
+now covers all39.93M carriers, including common-file deletion-vector filtering;
+independent rawlog action custody and producer fencing remain open. No maintenance manifest or production fence is proved.
 
 The [matched reads](../spikes/SPIKE-001-table-layout/sparse-read-disposition-r616.md)
 show median files11.5→2.5 and73.8% less read bytes. Repeated E12 engine96ms meets
@@ -179,6 +180,25 @@ Source-only digest timing, command-only MERGE EXPLAIN and the unchanged broadcas
 join plan do not establish a faster guarded mutation. Preserve missing-key and
 full predecessor protections. Selected publication pins are not physical heads;
 subsequent mutation admission must reconcile the bounded maintenance commits.
+
+
+[Broader maintained read evidence](../spikes/SPIKE-001-table-layout/maintained-concurrent-disposition-r629.md)
+checks64 full-carrier/absence responses with four synchronized readers and all16
+native request windows overlapping. Repeated caller423ms/engine135ms misses both
+targets. The [same32-key binding comparison](../spikes/SPIKE-001-table-layout/binding-disposition-r633.md)
+also misses them on one client: parameters511ms/110ms, literals489ms/108ms.
+Read bytes are identical and compilation shows no reproducible winner. Keep bound
+parameters. The earlier8-key engine96ms pass is narrowly scoped and does not
+qualify the larger cohort, sustained service, cold data or caller250ms.
+
+[All-six-role active capacity sensitivity](../spikes/SPIKE-001-table-layout/out/full-role-capacity-r634.json)
+uses115.765GB measured active bytes across nodes/currentedges/raw/journal/forward/
+tombstones. Freezing this synthetic history mix projects14.495TB active roles at
+1B nodes/5B edges, excluding retained versions, staged inputs, logs, failed-work
+storage and additional projections. This is arithmetic, not native admission,
+pricing or a production producer history profile. Doubling the current graph
+models231.530GB active roles, before validation/retention/peak storage. Scale
+writes still require measured full-role generation and explicit phase bounds.
 
 Keep64-range scheduling rejected by its full100k129.676s/83.651GB result versus
 prior39.279s/33.261GB; one pruned range does not overturn the whole-batch cost.

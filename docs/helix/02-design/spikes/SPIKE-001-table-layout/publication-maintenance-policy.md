@@ -3,7 +3,7 @@
 Draft physical policy under CONTRACT-001, CONTRACT-002, CONTRACT-003 and ADR-001.
 No producer wire format, UMF binding or new support claim is selected here.
 
-## Current qualification through r616
+## Current qualification through r634
 
 The [seventh publication](seventh-publication-disposition-r602.md) selects
 N6/E10/R7/J7/A8/T7, with8M nodes/39.93M live edges. Its full ready-input clock is
@@ -30,6 +30,23 @@ Actual optimizer selection and I/O must be measured; live extrema are not persis
 statistics. Admit a future batch only after physical head12 is reconciled with
 publishedE10 and complete custody is retained. No writer or throughput admission
 follows from the current pilot.
+
+[Complete live-carrier preservation](common-preservation-disposition-r628.md)
+now covers all39.93M live edges E10/E12:39.48M common-file full20field multisets
+plus450k changed-file exact bidirectional parity. This closes common live-row
+content preservation, including actual deletion-vector filtering, while rawlog
+inventory/action custody and production fencing stay separate. Qualification cost
+including the failed scan is99.911GB read; it is not publication freshness.
+
+[Four-reader checks](maintained-concurrent-disposition-r629.md) pass all64exact
+responses/16overlapping request quartets but repeat423mscaller/135msengine fails.
+[One-client32key binding comparison](binding-disposition-r633.md) fails with both
+parameters511ms/110ms and literals489ms/108ms; keep parameters. Don't repeat
+equivalent binding trials or promote a servicewide engine pass from the8key pilot.
+[Full-role capacity sensitivity](out/full-role-capacity-r634.json) includes raw/
+journal/forward/tombstone storage:115.765GB active now/conditional14.495TB at
+1B/5B, excluding retained/version/staged/export/failed-work overhead. It is not
+measured capacity or pricing; next growth must budget allroles and preservation.
 
 ## Historical second-batch maintenance evidence
 

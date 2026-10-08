@@ -1,5 +1,25 @@
 # Physical layout candidate and evidence status — 2026-10-07
 
+
+## Current qualification through r634
+
+UC managed Delta remains selected; physical ashlar-delta/0.3 remains proposed.
+Latest logical vectorN6/E10/R7/J7/A8/T7 has8Mnodes/39.93Mliveedges; nodephysical8
+and edgephysical12 remain distinct from selectedpins. [R628](common-preservation-disposition-r628.md)
+proves all39.93M live E10/E12 carriers preserved by sparse maintenance; production
+fencing/rawlogaction/real-source authority remain unqualified. [Four-reader R629](maintained-concurrent-disposition-r629.md)
+repeat423mscaller/135msengine and [one-client binding R633](binding-disposition-r633.md)
+parameters511ms/110ms both miss250/100ms. Seventh fullpublication213.056s misses60s;
+source-arrival/sustainedrate/cold/concurrentingest and actual1B/5B stay unproved.
+
+[Full-role footprint R634](out/full-role-capacity-r634.json) measures115.765GB active
+roles and conditionally models14.495TB at1B/5B before retained/staged/log/export
+storage. It authorizes no growth or pricing claim. Next budget fullrole scale from
+measured current evidence and reconcile physical maintenance heads before any new
+mutation. Earlier summaries below retain historical scope and do not define the
+current next action. ExactTrusskeys/values/unknowncontent/propertyhistory, bounded
+PuppyGraph/GraphFrames/Fabric mappings and deferredUMF remain intact.
+
 This is a spike evidence index governed by CONTRACT-003 and proposed ADR-001, not approval or production support. [Package manifest](layout-package-candidate.json) hashes the design files and scoped native evidence.
 
 The proposed 0.3 schema now adds source_record and direct source cursor/origin references; complete 0.3 native DDL execution passes; synthetic reference validation now passes; real producer and recovery remain pending. Existing 0.2 evidence remains scoped to its original schema. The owner selected Unity Catalog Delta. Current-state tables use native typed identities and exact property/retained JSON text; derived identity hashes provide lookup pruning without replacing full identity checks. Liquid clustering with a 64MiB target is the initial tuning candidate. Optional forward/reverse adjacency and degree tables support structural queries without duplicating full bags. Every consumed table is bound to an actual-version publication vector. Typed engine releases are separate rebuildable projections. UMF bindings remain deferred.

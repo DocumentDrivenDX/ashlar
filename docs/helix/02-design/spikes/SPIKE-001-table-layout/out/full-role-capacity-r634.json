@@ -1,0 +1,108 @@
+{
+  "state": "Complete six-role active footprint modeled at owner1B-node/5B-edge target",
+  "source_sha256": "c42c7a9682c948186e1e30a6214cde5c272ca7aa39321008a4ecb2cf0aaa5f57",
+  "roles": {
+    "object_current": {
+      "observed_rows": 8000000,
+      "observed_active_files": 121,
+      "observed_active_bytes": 6379382062,
+      "selected_pin": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.growth_object_current_r236",
+        "id": "ea6b0cbe-28fc-426c-a52b-15844ef14e91",
+        "version": 6,
+        "rows": 8000000
+      },
+      "conditional_factor": 125.0,
+      "conditional_rows": 1000000000.0,
+      "conditional_active_bytes": 797422757750.0,
+      "conditional_active_files": 15125.0
+    },
+    "edge_current": {
+      "observed_rows": 39930000,
+      "observed_active_files": 610,
+      "observed_active_bytes": 32463439448,
+      "selected_pin": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.lc_second_edge_current_r337",
+        "id": "2d2672c4-8618-4b10-af9c-477d2c1fcc80",
+        "version": 10
+      },
+      "conditional_factor": 125.2191334835963,
+      "conditional_rows": 5000000000.0,
+      "conditional_active_bytes": 4065043757575.758,
+      "conditional_active_files": 76383.67142499374
+    },
+    "source_record": {
+      "observed_rows": 48700000,
+      "observed_active_files": 733,
+      "observed_active_bytes": 40563211583,
+      "selected_pin": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.mixed_source_record_r332",
+        "id": "dc895abb-e861-4f5c-ac9b-c4f06d5e9b8a",
+        "version": 7
+      },
+      "conditional_factor": 125.2191334835963,
+      "conditional_rows": 6098171800.651139,
+      "conditional_active_bytes": 5079290205735.036,
+      "conditional_active_files": 91785.62484347608
+    },
+    "property_journal": {
+      "observed_rows": 193516667,
+      "observed_active_files": 638,
+      "observed_active_bytes": 35994330803,
+      "selected_pin": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.mixed_property_journal_r332",
+        "id": "8954e4b8-0255-4d24-adf7-508ded56b61c",
+        "version": 7
+      },
+      "conditional_factor": 125.2191334835963,
+      "conditional_rows": 24231989356.373653,
+      "conditional_active_bytes": 4507178913473.579,
+      "conditional_active_files": 79889.80716253443
+    },
+    "adjacency_forward": {
+      "observed_rows": 39930000,
+      "observed_active_files": 13,
+      "observed_active_bytes": 364344442,
+      "selected_pin": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.mixed_adjacency_forward_r332",
+        "id": "4fc3692a-32b2-455a-b9a2-2a1e5f9eb792",
+        "version": 8
+      },
+      "conditional_factor": 125.2191334835963,
+      "conditional_rows": 5000000000.0,
+      "conditional_active_bytes": 45622895316.804405,
+      "conditional_active_files": 1627.848735286752
+    },
+    "tombstone": {
+      "observed_rows": 70000,
+      "observed_active_files": 7,
+      "observed_active_bytes": 329857,
+      "selected_pin": {
+        "table": "client_dev.ashlar_entropy_20261006_r86.mixed_tombstone_r332",
+        "id": "c6db7de7-4b17-4837-83de-8667cd69e892",
+        "version": 7
+      },
+      "conditional_factor": 125.2191334835963,
+      "conditional_rows": 8765339.343851741,
+      "conditional_active_bytes": 41304407.71349862,
+      "conditional_active_files": 876.533934385174
+    }
+  },
+  "observed_active_total_bytes": 115765038195,
+  "conditional_active_total_bytes": 14494599834258.889,
+  "next_double_graph_sensitivity": {
+    "node_rows": 16000000,
+    "live_edge_rows": 79860000,
+    "active_role_bytes": 231530076390
+  },
+  "not_counted": [
+    "retained Delta versions and deletion-vector/log inventory",
+    "all prior canceled-attempt/orphan storage",
+    "local/upload/staged input duplicates",
+    "reverse adjacency/type-serving/export tables",
+    "production control/source-index/fence/manifest/receipt growth",
+    "real source retention/event fanout/skew/payload entropy",
+    "maintenance peak/coexistent rewritten files"
+  ],
+  "qualification": "Arithmetic only, no native growth or capacity/throughput claim. Profiles are actual post-seventh active heads (node physical8/selected6), not guaranteed size of each retained selected pin. EdgeE10 precedes separately evidenced physicalE12 maintenance. Graph mix/history-to-live ratio is frozen from seven synthetic100k batches; nodes scale125x and edge-associated roles scale5B/39.93M, not a real producer history profile. File counts scale continuously as sensitivity, not realizable count or scheduler admission. Complete storage/cost is larger/unknown; no dollar estimate/account pricing or bill supplied. No latency-gate failure reopens UCDelta."
+}
