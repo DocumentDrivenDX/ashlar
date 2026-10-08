@@ -1,0 +1,2861 @@
+{
+  "state": "Complete independent8M native new-node extent parity",
+  "bounds": {
+    "read_bytes": 80000000000,
+    "write_remote_bytes": 35000000000,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 2700,
+    "statement_cancel_s": 180
+  },
+  "oracle_sha256": "c71700ecb6672070235aa49b4e4c4fa9c3c5897e182fee29fddbae7bcf230331",
+  "tables": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_node_object_current_r643",
+      "id": "67cb3fd1-5ec4-4f5e-be0f-bab0e9521b50",
+      "head": {
+        "version": "0",
+        "timestamp": "2026-10-08T00:56:48.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "CREATE TABLE AS SELECT",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"databricks.delta.expressionStats.selectedColumns\\\":\\\"upper(lookup_hash),lower(lookup_hash)\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"568cdf0e-44a3-4a50-8683-f09a700f4036\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-ca4d495e-7bac-4933-b087-510d37228e34\\\",\\\"delta.targetFileSize\\\":\\\"67108864\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-601e9ed7-d7f8-412e-88b1-7120a5f97e1e\\\"}\",\"statsOnLoad\":\"true\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b3-1cce-1479-b32d-18dc57921b21",
+        "clusterId": null,
+        "readVersion": null,
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"4\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"405634961\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      },
+      "detail": {
+        "format": "delta",
+        "id": "67cb3fd1-5ec4-4f5e-be0f-bab0e9521b50",
+        "name": "client_dev.ashlar_entropy_20261006_r86.append_node_object_current_r643",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/568cdf0e-44a3-4a50-8683-f09a700f4036",
+        "createdAt": "2026-10-08T00:56:38.003Z",
+        "lastModified": "2026-10-08T00:56:48.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"lookup_hash\"]",
+        "numFiles": "4",
+        "sizeInBytes": "405634961",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"568cdf0e-44a3-4a50-8683-f09a700f4036\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-601e9ed7-d7f8-412e-88b1-7120a5f97e1e\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-ca4d495e-7bac-4933-b087-510d37228e34\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      },
+      "schema": [
+        {
+          "name": "source_system",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 0
+        },
+        {
+          "name": "type_id",
+          "type_text": "BIGINT",
+          "type_name": "LONG",
+          "position": 1
+        },
+        {
+          "name": "id",
+          "type_text": "BIGINT",
+          "type_name": "LONG",
+          "position": 2
+        },
+        {
+          "name": "logical_key_json",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 3
+        },
+        {
+          "name": "root_id",
+          "type_text": "BIGINT",
+          "type_name": "LONG",
+          "position": 4
+        },
+        {
+          "name": "schema_revision",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 5
+        },
+        {
+          "name": "entity_version",
+          "type_text": "BIGINT",
+          "type_name": "LONG",
+          "position": 6
+        },
+        {
+          "name": "props_json",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 7
+        },
+        {
+          "name": "retained_json",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 8
+        },
+        {
+          "name": "source_feed",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 9
+        },
+        {
+          "name": "source_epoch",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 10
+        },
+        {
+          "name": "source_position",
+          "type_text": "BIGINT",
+          "type_name": "LONG",
+          "position": 11
+        },
+        {
+          "name": "published_at",
+          "type_text": "TIMESTAMP",
+          "type_name": "TIMESTAMP",
+          "position": 12
+        },
+        {
+          "name": "apply_batch_id",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 13
+        },
+        {
+          "name": "source_cursor_json",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 14
+        },
+        {
+          "name": "source_delivery_id",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 15
+        },
+        {
+          "name": "lookup_hash",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 16
+        }
+      ],
+      "closing_detail": {
+        "format": "delta",
+        "id": "67cb3fd1-5ec4-4f5e-be0f-bab0e9521b50",
+        "name": "client_dev.ashlar_entropy_20261006_r86.append_node_object_current_r643",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/568cdf0e-44a3-4a50-8683-f09a700f4036",
+        "createdAt": "2026-10-08T00:56:38.003Z",
+        "lastModified": "2026-10-08T01:30:07.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"lookup_hash\"]",
+        "numFiles": "105",
+        "sizeInBytes": "6366428180",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(lookup_hash),lower(lookup_hash)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"568cdf0e-44a3-4a50-8683-f09a700f4036\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-601e9ed7-d7f8-412e-88b1-7120a5f97e1e\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-ca4d495e-7bac-4933-b087-510d37228e34\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      },
+      "closing_head": {
+        "version": "15",
+        "timestamp": "2026-10-08T01:30:07.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-c6d2-1cff-a3e1-552b3d936eab",
+        "clusterId": null,
+        "readVersion": "14",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"6\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397302086\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_node_source_record_r643",
+      "id": "0a5099b1-d33a-4c26-bdef-328b01772391",
+      "head": {
+        "version": "0",
+        "timestamp": "2026-10-08T00:57:16.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "CREATE TABLE AS SELECT",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"databricks.delta.expressionStats.selectedColumns\\\":\\\"upper(delivery_id),lower(delivery_id)\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"0fc0fc35-a991-4e9b-91cb-fd6b36657cb4\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-7b6f94e1-d15b-4cb4-9b71-6cc609658d59\\\",\\\"delta.targetFileSize\\\":\\\"67108864\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-ff68bd4a-231e-4132-87aa-a46130ed7054\\\"}\",\"statsOnLoad\":\"true\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b3-2d68-1878-9f89-72df7cdca89d",
+        "clusterId": null,
+        "readVersion": null,
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"4\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"423983240\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      },
+      "detail": {
+        "format": "delta",
+        "id": "0a5099b1-d33a-4c26-bdef-328b01772391",
+        "name": "client_dev.ashlar_entropy_20261006_r86.append_node_source_record_r643",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0fc0fc35-a991-4e9b-91cb-fd6b36657cb4",
+        "createdAt": "2026-10-08T00:57:05.588Z",
+        "lastModified": "2026-10-08T00:57:16.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"delivery_id\"]",
+        "numFiles": "4",
+        "sizeInBytes": "423983240",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(delivery_id),lower(delivery_id)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"0fc0fc35-a991-4e9b-91cb-fd6b36657cb4\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-ff68bd4a-231e-4132-87aa-a46130ed7054\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-7b6f94e1-d15b-4cb4-9b71-6cc609658d59\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      },
+      "schema": [
+        {
+          "name": "source_feed",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 0
+        },
+        {
+          "name": "source_epoch",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 1
+        },
+        {
+          "name": "delivery_id",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 2
+        },
+        {
+          "name": "record_kind",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 3
+        },
+        {
+          "name": "source_cursor_json",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 4
+        },
+        {
+          "name": "payload_json",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 5
+        },
+        {
+          "name": "payload_digest",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 6
+        },
+        {
+          "name": "schema_revision",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 7
+        },
+        {
+          "name": "received_at",
+          "type_text": "TIMESTAMP",
+          "type_name": "TIMESTAMP",
+          "position": 8
+        },
+        {
+          "name": "apply_batch_id",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 9
+        }
+      ],
+      "closing_detail": {
+        "format": "delta",
+        "id": "0a5099b1-d33a-4c26-bdef-328b01772391",
+        "name": "client_dev.ashlar_entropy_20261006_r86.append_node_source_record_r643",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/0fc0fc35-a991-4e9b-91cb-fd6b36657cb4",
+        "createdAt": "2026-10-08T00:57:05.588Z",
+        "lastModified": "2026-10-08T01:30:23.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"delivery_id\"]",
+        "numFiles": "124",
+        "sizeInBytes": "6549369968",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(delivery_id),lower(delivery_id)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"0fc0fc35-a991-4e9b-91cb-fd6b36657cb4\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-ff68bd4a-231e-4132-87aa-a46130ed7054\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-7b6f94e1-d15b-4cb4-9b71-6cc609658d59\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      },
+      "closing_head": {
+        "version": "15",
+        "timestamp": "2026-10-08T01:30:23.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-cfb6-1ab9-84f0-94c564e97d1d",
+        "clusterId": null,
+        "readVersion": "14",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408414544\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_node_property_journal_r643",
+      "id": "28f5c813-9c96-4869-87be-d60e1d7b5143",
+      "head": {
+        "version": "0",
+        "timestamp": "2026-10-08T00:57:44.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "CREATE TABLE AS SELECT",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"description\":null,\"isManaged\":\"true\",\"properties\":\"{\\\"delta.parquet.compression.codec\\\":\\\"zstd\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version.afe.internal\\\":\\\"2.12.0\\\",\\\"delta.enableDeletionVectors\\\":\\\"true\\\",\\\"databricks.delta.expressionStats.selectedColumns\\\":\\\"upper(source_delivery_id),lower(source_delivery_id)\\\",\\\"delta.checkpoint.writeStatsAsStruct\\\":\\\"true\\\",\\\"databricks.internal.autoUpgrades.delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.parquet.format.version\\\":\\\"2.12.0\\\",\\\"delta.enableRowTracking\\\":\\\"true\\\",\\\"delta.checkpointPolicy\\\":\\\"v2\\\",\\\"delta.checkpoint.writeStatsAsJson\\\":\\\"false\\\",\\\"io.unitycatalog.tableId\\\":\\\"9c492f58-d026-4bd6-8c36-ba431cfa23e1\\\",\\\"delta.rowTracking.materializedRowIdColumnName\\\":\\\"_row-id-col-99ded6bd-8cee-40d9-8af3-3edb4707f59b\\\",\\\"delta.targetFileSize\\\":\\\"67108864\\\",\\\"delta.rowTracking.materializedRowCommitVersionColumnName\\\":\\\"_row-commit-version-col-87e3e36f-657e-4732-85b7-a818524422b6\\\"}\",\"statsOnLoad\":\"true\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b3-3dcf-10a2-a148-76e4f87f86c9",
+        "clusterId": null,
+        "readVersion": null,
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"4\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"370096775\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      },
+      "detail": {
+        "format": "delta",
+        "id": "28f5c813-9c96-4869-87be-d60e1d7b5143",
+        "name": "client_dev.ashlar_entropy_20261006_r86.append_node_property_journal_r643",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/9c492f58-d026-4bd6-8c36-ba431cfa23e1",
+        "createdAt": "2026-10-08T00:57:33.188Z",
+        "lastModified": "2026-10-08T00:57:44.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"source_delivery_id\"]",
+        "numFiles": "4",
+        "sizeInBytes": "370096775",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_delivery_id),lower(source_delivery_id)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"9c492f58-d026-4bd6-8c36-ba431cfa23e1\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-87e3e36f-657e-4732-85b7-a818524422b6\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-99ded6bd-8cee-40d9-8af3-3edb4707f59b\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      },
+      "schema": [
+        {
+          "name": "source_system",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 0
+        },
+        {
+          "name": "entity_kind",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 1
+        },
+        {
+          "name": "type_id",
+          "type_text": "BIGINT",
+          "type_name": "LONG",
+          "position": 2
+        },
+        {
+          "name": "id",
+          "type_text": "BIGINT",
+          "type_name": "LONG",
+          "position": 3
+        },
+        {
+          "name": "property_id",
+          "type_text": "BIGINT",
+          "type_name": "LONG",
+          "position": 4
+        },
+        {
+          "name": "entity_version",
+          "type_text": "BIGINT",
+          "type_name": "LONG",
+          "position": 5
+        },
+        {
+          "name": "operation",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 6
+        },
+        {
+          "name": "old_present",
+          "type_text": "BOOLEAN",
+          "type_name": "BOOLEAN",
+          "position": 7
+        },
+        {
+          "name": "old_json",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 8
+        },
+        {
+          "name": "new_present",
+          "type_text": "BOOLEAN",
+          "type_name": "BOOLEAN",
+          "position": 9
+        },
+        {
+          "name": "new_json",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 10
+        },
+        {
+          "name": "schema_revision",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 11
+        },
+        {
+          "name": "source_feed",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 12
+        },
+        {
+          "name": "source_epoch",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 13
+        },
+        {
+          "name": "source_position",
+          "type_text": "BIGINT",
+          "type_name": "LONG",
+          "position": 14
+        },
+        {
+          "name": "event_ordinal",
+          "type_text": "BIGINT",
+          "type_name": "LONG",
+          "position": 15
+        },
+        {
+          "name": "source_time_text",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 16
+        },
+        {
+          "name": "published_at",
+          "type_text": "TIMESTAMP",
+          "type_name": "TIMESTAMP",
+          "position": 17
+        },
+        {
+          "name": "apply_batch_id",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 18
+        },
+        {
+          "name": "source_cursor_json",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 19
+        },
+        {
+          "name": "source_delivery_id",
+          "type_text": "STRING",
+          "type_name": "STRING",
+          "position": 20
+        }
+      ],
+      "closing_detail": {
+        "format": "delta",
+        "id": "28f5c813-9c96-4869-87be-d60e1d7b5143",
+        "name": "client_dev.ashlar_entropy_20261006_r86.append_node_property_journal_r643",
+        "description": null,
+        "location": "abfss://client-dev-root@staidevcusclientdev.dfs.core.windows.net/__unitystorage/catalogs/dd9a092b-3a11-48fe-8cee-f0f7867a4112/tables/9c492f58-d026-4bd6-8c36-ba431cfa23e1",
+        "createdAt": "2026-10-08T00:57:33.188Z",
+        "lastModified": "2026-10-08T01:30:39.000Z",
+        "partitionColumns": "[]",
+        "clusteringColumns": "[\"source_delivery_id\"]",
+        "numFiles": "123",
+        "sizeInBytes": "5843885272",
+        "properties": "{\"delta.parquet.compression.codec\":\"zstd\",\"delta.parquet.format.version.afe.internal\":\"2.12.0\",\"delta.enableDeletionVectors\":\"true\",\"databricks.delta.expressionStats.selectedColumns\":\"upper(source_delivery_id),lower(source_delivery_id)\",\"delta.checkpoint.writeStatsAsStruct\":\"true\",\"delta.parquet.format.version\":\"2.12.0\",\"delta.enableRowTracking\":\"true\",\"delta.checkpointPolicy\":\"v2\",\"delta.checkpoint.writeStatsAsJson\":\"false\",\"io.unitycatalog.tableId\":\"9c492f58-d026-4bd6-8c36-ba431cfa23e1\",\"delta.targetFileSize\":\"67108864\",\"delta.rowTracking.materializedRowCommitVersionColumnName\":\"_row-commit-version-col-87e3e36f-657e-4732-85b7-a818524422b6\",\"delta.rowTracking.materializedRowIdColumnName\":\"_row-id-col-99ded6bd-8cee-40d9-8af3-3edb4707f59b\"}",
+        "minReaderVersion": "3",
+        "minWriterVersion": "7",
+        "tableFeatures": "[\"appendOnly\",\"clustering\",\"deletionVectors\",\"domainMetadata\",\"invariants\",\"rowTracking\",\"v2Checkpoint\"]",
+        "statistics": "{\"numRowsDeletedByDeletionVectors\":\"0\",\"numDeletionVectors\":\"0\"}",
+        "clusterByAuto": "false"
+      },
+      "closing_head": {
+        "version": "15",
+        "timestamp": "2026-10-08T01:30:39.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-d931-11f5-9e80-706d96da75e9",
+        "clusterId": null,
+        "readVersion": "14",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364983486\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    }
+  },
+  "versions": {
+    "object_current": 15,
+    "source_record": 15,
+    "property_journal": 15
+  },
+  "commits": [
+    {
+      "role": "object_current",
+      "start": 8500000,
+      "end": 9000000,
+      "statement_id": "01f1c2b6-2c62-13a7-9389-ab0dfb27c34a",
+      "history": {
+        "version": "1",
+        "timestamp": "2026-10-08T01:18:46.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-2c62-13a7-9389-ab0dfb27c34a",
+        "clusterId": null,
+        "readVersion": "0",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"7\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397464409\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 8500000,
+      "end": 9000000,
+      "statement_id": "01f1c2b6-3a01-1b86-9c45-a7a1f74d9f8c",
+      "history": {
+        "version": "1",
+        "timestamp": "2026-10-08T01:19:05.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-3a01-1b86-9c45-a7a1f74d9f8c",
+        "clusterId": null,
+        "readVersion": "0",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408390845\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 8500000,
+      "end": 9000000,
+      "statement_id": "01f1c2b6-452e-1dc2-90ca-a7982f8263b2",
+      "history": {
+        "version": "1",
+        "timestamp": "2026-10-08T01:19:24.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-452e-1dc2-90ca-a7982f8263b2",
+        "clusterId": null,
+        "readVersion": "0",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364963831\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 9000000,
+      "end": 9500000,
+      "statement_id": "01f1c2b6-5085-15aa-914a-1bc9795ddd38",
+      "history": {
+        "version": "2",
+        "timestamp": "2026-10-08T01:19:41.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-5085-15aa-914a-1bc9795ddd38",
+        "clusterId": null,
+        "readVersion": "1",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"7\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397422365\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 9000000,
+      "end": 9500000,
+      "statement_id": "01f1c2b6-5a16-1c25-bab4-8add152bb170",
+      "history": {
+        "version": "2",
+        "timestamp": "2026-10-08T01:19:57.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-5a16-1c25-bab4-8add152bb170",
+        "clusterId": null,
+        "readVersion": "1",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408398623\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 9000000,
+      "end": 9500000,
+      "statement_id": "01f1c2b6-643d-124d-abff-6412f0706181",
+      "history": {
+        "version": "2",
+        "timestamp": "2026-10-08T01:20:14.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-643d-124d-abff-6412f0706181",
+        "clusterId": null,
+        "readVersion": "1",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364895372\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 9500000,
+      "end": 10000000,
+      "statement_id": "01f1c2b6-6e39-130d-adc1-8eb9bcb5bee1",
+      "history": {
+        "version": "3",
+        "timestamp": "2026-10-08T01:20:30.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-6e39-130d-adc1-8eb9bcb5bee1",
+        "clusterId": null,
+        "readVersion": "2",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"7\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397401806\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 9500000,
+      "end": 10000000,
+      "statement_id": "01f1c2b6-77d3-1efa-ba7d-d122ca2e31b1",
+      "history": {
+        "version": "3",
+        "timestamp": "2026-10-08T01:20:47.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-77d3-1efa-ba7d-d122ca2e31b1",
+        "clusterId": null,
+        "readVersion": "2",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408349185\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 9500000,
+      "end": 10000000,
+      "statement_id": "01f1c2b6-81ca-1df4-81b6-e66b90480881",
+      "history": {
+        "version": "3",
+        "timestamp": "2026-10-08T01:21:03.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-81ca-1df4-81b6-e66b90480881",
+        "clusterId": null,
+        "readVersion": "2",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364848256\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 10000000,
+      "end": 10500000,
+      "statement_id": "01f1c2b6-8bd5-1888-aa58-466a85726a36",
+      "history": {
+        "version": "4",
+        "timestamp": "2026-10-08T01:21:20.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-8bd5-1888-aa58-466a85726a36",
+        "clusterId": null,
+        "readVersion": "3",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"6\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397387645\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 10000000,
+      "end": 10500000,
+      "statement_id": "01f1c2b6-9668-19d3-958c-4f259e5fa0f2",
+      "history": {
+        "version": "4",
+        "timestamp": "2026-10-08T01:21:39.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-9668-19d3-958c-4f259e5fa0f2",
+        "clusterId": null,
+        "readVersion": "3",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408399745\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 10000000,
+      "end": 10500000,
+      "statement_id": "01f1c2b6-a0f5-1413-966e-fa735b1cee25",
+      "history": {
+        "version": "4",
+        "timestamp": "2026-10-08T01:21:57.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-a0f5-1413-966e-fa735b1cee25",
+        "clusterId": null,
+        "readVersion": "3",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"7\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364759976\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 10500000,
+      "end": 11000000,
+      "statement_id": "01f1c2b6-abb1-18a0-b034-66ac7997ffc1",
+      "history": {
+        "version": "5",
+        "timestamp": "2026-10-08T01:22:13.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-abb1-18a0-b034-66ac7997ffc1",
+        "clusterId": null,
+        "readVersion": "4",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"6\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397348437\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 10500000,
+      "end": 11000000,
+      "statement_id": "01f1c2b6-b57d-12e7-b878-7983333f1800",
+      "history": {
+        "version": "5",
+        "timestamp": "2026-10-08T01:22:30.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-b57d-12e7-b878-7983333f1800",
+        "clusterId": null,
+        "readVersion": "4",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408272344\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 10500000,
+      "end": 11000000,
+      "statement_id": "01f1c2b6-bf8c-1565-9faf-febaaf2cd8d6",
+      "history": {
+        "version": "5",
+        "timestamp": "2026-10-08T01:22:47.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-bf8c-1565-9faf-febaaf2cd8d6",
+        "clusterId": null,
+        "readVersion": "4",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"365072377\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 11000000,
+      "end": 11500000,
+      "statement_id": "01f1c2b6-c98c-1634-bf79-62dd1a02cae6",
+      "history": {
+        "version": "6",
+        "timestamp": "2026-10-08T01:23:03.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-c98c-1634-bf79-62dd1a02cae6",
+        "clusterId": null,
+        "readVersion": "5",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"7\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397415064\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 11000000,
+      "end": 11500000,
+      "statement_id": "01f1c2b6-d2ab-1381-bb02-8ddef7c0110f",
+      "history": {
+        "version": "6",
+        "timestamp": "2026-10-08T01:23:19.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-d2ab-1381-bb02-8ddef7c0110f",
+        "clusterId": null,
+        "readVersion": "5",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408350403\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 11000000,
+      "end": 11500000,
+      "statement_id": "01f1c2b6-dc15-124e-9127-f2f356e73657",
+      "history": {
+        "version": "6",
+        "timestamp": "2026-10-08T01:23:35.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-dc15-124e-9127-f2f356e73657",
+        "clusterId": null,
+        "readVersion": "5",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364945601\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 11500000,
+      "end": 12000000,
+      "statement_id": "01f1c2b6-e583-1fb4-8289-e490144165f9",
+      "history": {
+        "version": "7",
+        "timestamp": "2026-10-08T01:23:50.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-e583-1fb4-8289-e490144165f9",
+        "clusterId": null,
+        "readVersion": "6",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"7\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397371177\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 11500000,
+      "end": 12000000,
+      "statement_id": "01f1c2b6-ee95-1e56-a44a-0a491cc84339",
+      "history": {
+        "version": "7",
+        "timestamp": "2026-10-08T01:24:06.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-ee95-1e56-a44a-0a491cc84339",
+        "clusterId": null,
+        "readVersion": "6",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408382811\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 11500000,
+      "end": 12000000,
+      "statement_id": "01f1c2b6-f810-1b7b-9e04-2de43175c5c3",
+      "history": {
+        "version": "7",
+        "timestamp": "2026-10-08T01:24:21.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-f810-1b7b-9e04-2de43175c5c3",
+        "clusterId": null,
+        "readVersion": "6",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"365035870\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 12000000,
+      "end": 12500000,
+      "statement_id": "01f1c2b6-ffd4-1795-9e12-c1e1e43a8b56",
+      "history": {
+        "version": "8",
+        "timestamp": "2026-10-08T01:24:34.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b6-ffd4-1795-9e12-c1e1e43a8b56",
+        "clusterId": null,
+        "readVersion": "7",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"7\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397367228\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 12000000,
+      "end": 12500000,
+      "statement_id": "01f1c2b7-0936-1a43-b0f0-02388343fd30",
+      "history": {
+        "version": "8",
+        "timestamp": "2026-10-08T01:24:50.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-0936-1a43-b0f0-02388343fd30",
+        "clusterId": null,
+        "readVersion": "7",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408297287\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 12000000,
+      "end": 12500000,
+      "statement_id": "01f1c2b7-12a4-13d9-9371-38c0d581e3db",
+      "history": {
+        "version": "8",
+        "timestamp": "2026-10-08T01:25:06.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-12a4-13d9-9371-38c0d581e3db",
+        "clusterId": null,
+        "readVersion": "7",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364921764\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 12500000,
+      "end": 13000000,
+      "statement_id": "01f1c2b7-1c59-1a63-9855-080c9f741703",
+      "history": {
+        "version": "9",
+        "timestamp": "2026-10-08T01:25:22.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-1c59-1a63-9855-080c9f741703",
+        "clusterId": null,
+        "readVersion": "8",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"7\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397398113\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 12500000,
+      "end": 13000000,
+      "statement_id": "01f1c2b7-2559-19b6-8a7b-7e01ce549685",
+      "history": {
+        "version": "9",
+        "timestamp": "2026-10-08T01:25:38.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-2559-19b6-8a7b-7e01ce549685",
+        "clusterId": null,
+        "readVersion": "8",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408346002\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 12500000,
+      "end": 13000000,
+      "statement_id": "01f1c2b7-2f39-1274-bef6-ea2717118c42",
+      "history": {
+        "version": "9",
+        "timestamp": "2026-10-08T01:25:55.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-2f39-1274-bef6-ea2717118c42",
+        "clusterId": null,
+        "readVersion": "8",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364810498\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 13000000,
+      "end": 13500000,
+      "statement_id": "01f1c2b7-394a-1cfb-b8ff-2c3a36a2d53c",
+      "history": {
+        "version": "10",
+        "timestamp": "2026-10-08T01:26:11.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-394a-1cfb-b8ff-2c3a36a2d53c",
+        "clusterId": null,
+        "readVersion": "9",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"7\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397319447\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 13000000,
+      "end": 13500000,
+      "statement_id": "01f1c2b7-42b6-1a1d-ac67-247fea6e0d00",
+      "history": {
+        "version": "10",
+        "timestamp": "2026-10-08T01:26:28.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-42b6-1a1d-ac67-247fea6e0d00",
+        "clusterId": null,
+        "readVersion": "9",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408365281\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 13000000,
+      "end": 13500000,
+      "statement_id": "01f1c2b7-4d15-1eef-b29c-b434d1872ec9",
+      "history": {
+        "version": "10",
+        "timestamp": "2026-10-08T01:26:44.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-4d15-1eef-b29c-b434d1872ec9",
+        "clusterId": null,
+        "readVersion": "9",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364792958\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 13500000,
+      "end": 14000000,
+      "statement_id": "01f1c2b7-56c4-1930-b4cd-4f3ebd50e433",
+      "history": {
+        "version": "11",
+        "timestamp": "2026-10-08T01:27:00.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-56c4-1930-b4cd-4f3ebd50e433",
+        "clusterId": null,
+        "readVersion": "10",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"7\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397395338\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 13500000,
+      "end": 14000000,
+      "statement_id": "01f1c2b7-5fdc-123d-805f-524619bf774f",
+      "history": {
+        "version": "11",
+        "timestamp": "2026-10-08T01:27:16.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-5fdc-123d-805f-524619bf774f",
+        "clusterId": null,
+        "readVersion": "10",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408357581\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 13500000,
+      "end": 14000000,
+      "statement_id": "01f1c2b7-6996-1fe9-8ebd-8f041c7fa4bb",
+      "history": {
+        "version": "11",
+        "timestamp": "2026-10-08T01:27:32.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-6996-1fe9-8ebd-8f041c7fa4bb",
+        "clusterId": null,
+        "readVersion": "10",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364934665\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 14000000,
+      "end": 14500000,
+      "statement_id": "01f1c2b7-72d5-157b-bf36-fe37b41fc86f",
+      "history": {
+        "version": "12",
+        "timestamp": "2026-10-08T01:27:47.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-72d5-157b-bf36-fe37b41fc86f",
+        "clusterId": null,
+        "readVersion": "11",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"7\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397441574\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 14000000,
+      "end": 14500000,
+      "statement_id": "01f1c2b7-7be4-1a34-a940-63c5af3786be",
+      "history": {
+        "version": "12",
+        "timestamp": "2026-10-08T01:28:03.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-7be4-1a34-a940-63c5af3786be",
+        "clusterId": null,
+        "readVersion": "11",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408355334\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 14000000,
+      "end": 14500000,
+      "statement_id": "01f1c2b7-8550-1608-9248-ce7de3999635",
+      "history": {
+        "version": "12",
+        "timestamp": "2026-10-08T01:28:19.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-8550-1608-9248-ce7de3999635",
+        "clusterId": null,
+        "readVersion": "11",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364979400\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 14500000,
+      "end": 15000000,
+      "statement_id": "01f1c2b7-8ecf-1870-aa0f-170513b79601",
+      "history": {
+        "version": "13",
+        "timestamp": "2026-10-08T01:28:34.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-8ecf-1870-aa0f-170513b79601",
+        "clusterId": null,
+        "readVersion": "12",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"7\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397409208\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 14500000,
+      "end": 15000000,
+      "statement_id": "01f1c2b7-9822-18f4-9672-b3e30f90013c",
+      "history": {
+        "version": "13",
+        "timestamp": "2026-10-08T01:28:51.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-9822-18f4-9672-b3e30f90013c",
+        "clusterId": null,
+        "readVersion": "12",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408314596\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 14500000,
+      "end": 15000000,
+      "statement_id": "01f1c2b7-a220-1383-a1ba-f80f48dc4786",
+      "history": {
+        "version": "13",
+        "timestamp": "2026-10-08T01:29:07.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-a220-1383-a1ba-f80f48dc4786",
+        "clusterId": null,
+        "readVersion": "12",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364938537\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 15000000,
+      "end": 15500000,
+      "statement_id": "01f1c2b7-ab79-1ac3-881b-3a807bc6ac6c",
+      "history": {
+        "version": "14",
+        "timestamp": "2026-10-08T01:29:22.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-ab79-1ac3-881b-3a807bc6ac6c",
+        "clusterId": null,
+        "readVersion": "13",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"6\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397349322\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 15000000,
+      "end": 15500000,
+      "statement_id": "01f1c2b7-b4a6-1ab2-aea1-ad98bc04f08c",
+      "history": {
+        "version": "14",
+        "timestamp": "2026-10-08T01:29:37.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-b4a6-1ab2-aea1-ad98bc04f08c",
+        "clusterId": null,
+        "readVersion": "13",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408392147\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 15000000,
+      "end": 15500000,
+      "statement_id": "01f1c2b7-bdbe-1ac7-967b-ca5824a4bdfe",
+      "history": {
+        "version": "14",
+        "timestamp": "2026-10-08T01:29:52.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-bdbe-1ac7-967b-ca5824a4bdfe",
+        "clusterId": null,
+        "readVersion": "13",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364905906\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "object_current",
+      "start": 15500000,
+      "end": 16000000,
+      "statement_id": "01f1c2b7-c6d2-1cff-a3e1-552b3d936eab",
+      "history": {
+        "version": "15",
+        "timestamp": "2026-10-08T01:30:07.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"lookup_hash\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-c6d2-1cff-a3e1-552b3d936eab",
+        "clusterId": null,
+        "readVersion": "14",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"6\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"397302086\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "source_record",
+      "start": 15500000,
+      "end": 16000000,
+      "statement_id": "01f1c2b7-cfb6-1ab9-84f0-94c564e97d1d",
+      "history": {
+        "version": "15",
+        "timestamp": "2026-10-08T01:30:23.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-cfb6-1ab9-84f0-94c564e97d1d",
+        "clusterId": null,
+        "readVersion": "14",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"500000\",\"numOutputBytes\":\"408414544\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    },
+    {
+      "role": "property_journal",
+      "start": 15500000,
+      "end": 16000000,
+      "statement_id": "01f1c2b7-d931-11f5-9e80-706d96da75e9",
+      "history": {
+        "version": "15",
+        "timestamp": "2026-10-08T01:30:39.000Z",
+        "userId": "3755468182769617",
+        "userName": "erik.labianca@synaptiq.ai",
+        "operation": "WRITE",
+        "operationParameters": "{\"partitionBy\":\"[]\",\"clusterBy\":\"[\\\"source_delivery_id\\\"]\",\"statsOnLoad\":\"true\",\"mode\":\"Append\",\"clusteringOnWriteStatus\":\"late-stage clustering triggered\"}",
+        "job": null,
+        "notebook": null,
+        "queryHistoryStatementId": "01f1c2b7-d931-11f5-9e80-706d96da75e9",
+        "clusterId": null,
+        "readVersion": "14",
+        "isolationLevel": "WriteSerializable",
+        "isBlindAppend": "true",
+        "operationMetrics": "{\"numFiles\":\"8\",\"numOutputRows\":\"2000000\",\"numOutputBytes\":\"364983486\"}",
+        "userMetadata": null,
+        "engineInfo": "Databricks-Runtime/19.9.x-aarch64-photon-scala2.13"
+      }
+    }
+  ],
+  "checks": {
+    "object_current": {
+      "version": 15,
+      "groups": [
+        [
+          "0",
+          "100000",
+          "ed7e1f5c2bfcd5ffbf9ae8d70043a03fb27db890f824e02af4adedbb5726ff99"
+        ],
+        [
+          "1",
+          "100000",
+          "981dfdcb6e4c60691abc6802e61294c7a0538472d9e8164ebff56ae162df5a56"
+        ],
+        [
+          "2",
+          "100000",
+          "dce13e9d050c1d6ece869d5e5f733408b3699935a9a28a8c27f5916f5a6a76b7"
+        ],
+        [
+          "3",
+          "100000",
+          "fdbdebc918c306218e24375cb2c190c878e48a19d78c640578dbab54bd4571dc"
+        ],
+        [
+          "4",
+          "100000",
+          "5f9ecf44391d55283c385f9290bbc5836a80a58e6c8dd6dc5c22cd7667973260"
+        ],
+        [
+          "5",
+          "100000",
+          "31a82075c623ebc1b490ebed55c15d45c6597607106e5ba750dbca8c914a54d3"
+        ],
+        [
+          "6",
+          "100000",
+          "3f3d84fe484ce3d29f1c894c80657d59abb45d4e2da71711143e18e5ff43756f"
+        ],
+        [
+          "7",
+          "100000",
+          "c04def3c1ae189dcfd50f894e96bf92f0028e3ea502d614431351b1b50ef7e74"
+        ],
+        [
+          "8",
+          "100000",
+          "1ca073a87850811f82fe621671528469d3e048781e4af9293f75cd67ac524588"
+        ],
+        [
+          "9",
+          "100000",
+          "ad08f0c533c888fdf97512b1afacfcffdf5e83a039ee592a5477fe14b6753a62"
+        ],
+        [
+          "10",
+          "100000",
+          "d10998fa2f4f28d795bda3357b265d5787a34b08afa4ae719e0d9ca78da6172a"
+        ],
+        [
+          "11",
+          "100000",
+          "636987cbcd83615955a6b93f35507d98b1ecb1ea289b692e944eabaf2535da6c"
+        ],
+        [
+          "12",
+          "100000",
+          "b236d77e2062465d4f12d814789d803d28056038203f8f6d9d1f4c9c6d60c5a9"
+        ],
+        [
+          "13",
+          "100000",
+          "5c25ce8691b4699d9aa9f77ea33a81d641e40dfc584fab5684cb616f6e22658f"
+        ],
+        [
+          "14",
+          "100000",
+          "8fb809f5112efd1835bd03be5c6b00374bda6ba057c746be7098f599ba300514"
+        ],
+        [
+          "15",
+          "100000",
+          "5e3313c6d3c81401a56c9e26f982d9e06bc67b6d4d325c4319f1eb49bd0e388a"
+        ],
+        [
+          "16",
+          "100000",
+          "8820517cb449ed9b5cd28677ccb2a265740ed9e64441d8dd17e3ccfc6397669b"
+        ],
+        [
+          "17",
+          "100000",
+          "e9ec3011e068e54221e68c3ad8edfde983b9681a762393f5458fecd39da94300"
+        ],
+        [
+          "18",
+          "100000",
+          "4ebae87a85988d857057a3678044073709dacbdd0879526c1d588b6af6a0f80e"
+        ],
+        [
+          "19",
+          "100000",
+          "9994e982a1470e41c80034b0c68bb071b9b784b970d9a9a1dad525d839c562c6"
+        ],
+        [
+          "20",
+          "100000",
+          "aa28f75dfe62481ba5762ca5af8b46eff40af64b245ff4c0b312149cf2375558"
+        ],
+        [
+          "21",
+          "100000",
+          "b87a6a72614e130efd50e0f0929199ec826256b92b6cf7173f9fabdb5d8d0cce"
+        ],
+        [
+          "22",
+          "100000",
+          "8134651ba722ff5c189ed05f38542121ef487eff73d04b33d8d5dd29e5d75418"
+        ],
+        [
+          "23",
+          "100000",
+          "ce194b33ffbeb508e0191870269336e99b39c1cb23f8a9118770e7b4d71c0e55"
+        ],
+        [
+          "24",
+          "100000",
+          "6f4946f4860f42f825eae5f324630331fe25c82cea096f6bdab0a69dfac13d2e"
+        ],
+        [
+          "25",
+          "100000",
+          "249673231b3b57395c02699f0da8f7a4cbcce9debcfad37b5566396189d0fcc6"
+        ],
+        [
+          "26",
+          "100000",
+          "fbc46097a92de9cebf2c670f84fa457ac369f04e7a9fc0b7d17f2bb6fe1a0cad"
+        ],
+        [
+          "27",
+          "100000",
+          "adb69b596fe3395dec0da9734d3b8e6eb111f432c4e476eb5beec08385849633"
+        ],
+        [
+          "28",
+          "100000",
+          "c77a2b2e558342ad131b314abd20e2baa8888812a4888735c8e91f5c8224ab81"
+        ],
+        [
+          "29",
+          "100000",
+          "7b03c3b909684d63e126e1358b89aca0360c9084408301a520926c1cff209472"
+        ],
+        [
+          "30",
+          "100000",
+          "063a811d5afc4010db0a7e9432064bee62b56da4d0e2be6c8c8f845d77ea7b60"
+        ],
+        [
+          "31",
+          "100000",
+          "54168014aebf3a336d51abb52323218a8c9173cdd0fc22d639e615872bc64516"
+        ],
+        [
+          "32",
+          "100000",
+          "4aec7e3b9810bfc2f28241c18e611819c5d539cc734e9b0fe0ff0a30736a5d70"
+        ],
+        [
+          "33",
+          "100000",
+          "c168383e51f88a974e8a14a2aa54d8425577609aeff2795aca61be1f72b1d630"
+        ],
+        [
+          "34",
+          "100000",
+          "f0cc055eb01e53ad8cb245117e4b88b8db5c5df78048a50bea360e0e7e2e04c9"
+        ],
+        [
+          "35",
+          "100000",
+          "0e3fe78d036ae8d877b11863d6e51c7a443d194c6bef7693f09ba8a0eefee441"
+        ],
+        [
+          "36",
+          "100000",
+          "37f7c7fadb8d66c1e22ca23c57b241b0e5624771574d6f54dc918c10c9dd94c3"
+        ],
+        [
+          "37",
+          "100000",
+          "7f4b606ab06dde908dd8eb6b46dbef8ae9e3f0eb56a4aae7ebf9f678fe7ce76f"
+        ],
+        [
+          "38",
+          "100000",
+          "f4fedb8784242b6b9f79de0b348ec139f496992133fb730d3100310e8f2f65e7"
+        ],
+        [
+          "39",
+          "100000",
+          "06f6dbb53e94f4436ec4cd1e350b4a0e769c71dc2a542491ba98a8bcaaf51564"
+        ],
+        [
+          "40",
+          "100000",
+          "33d25edf50aaa0510a9bdd9f983c40df62e2eea39f12d3a85a6cc3f860662a78"
+        ],
+        [
+          "41",
+          "100000",
+          "d39d001b4a3eafa89d2f9a0e00da0b203bf8241815948eebddaf6778b13f546a"
+        ],
+        [
+          "42",
+          "100000",
+          "60dd5468d3d8429697b63496b4b776b21d4e73128638493371fa7559a11e5969"
+        ],
+        [
+          "43",
+          "100000",
+          "80692ed1ff199c406b235f4950014189422a3480dd8da665b80a9529f2c405f3"
+        ],
+        [
+          "44",
+          "100000",
+          "4ce46957ca8bd583b9d332c1b4fdc318e750d396759064b7f2eb2e35f73b9d45"
+        ],
+        [
+          "45",
+          "100000",
+          "4e5c17bb31d29c5544b4fe6166d975515e6ad2117c1ea9394381f18aa1e4fa64"
+        ],
+        [
+          "46",
+          "100000",
+          "9ba3a66cee08b7de290087e54e701f990e95d0cdd0e28e5b4a7c02a700202c32"
+        ],
+        [
+          "47",
+          "100000",
+          "9e34d058f1414354304cf597590c2ff46a6cedcdaaac09cfac6e29932eb70066"
+        ],
+        [
+          "48",
+          "100000",
+          "77edc110fb6dbfaa2322a6c8df0cfb8f3101eb678ef853eb9818f892b947f873"
+        ],
+        [
+          "49",
+          "100000",
+          "95f2a597d40f2dfb41a7e7fd51bb739c43af41cb60670eb2d23375d3c5c18bb8"
+        ],
+        [
+          "50",
+          "100000",
+          "fcd33f3a785a4756cf9262eb99c8df41d40bc490388673319084adae450a7215"
+        ],
+        [
+          "51",
+          "100000",
+          "35a315bd4464e43ecac0c635dc63f2c73ebd44b7e4df319425ecf3696b547c6b"
+        ],
+        [
+          "52",
+          "100000",
+          "72cf507ac169421eaeeaaa36e4821a3bd57920d48dfa03c1833121e4124c891a"
+        ],
+        [
+          "53",
+          "100000",
+          "98bae20000c7fb756b6950da763ba537a066a30e478fefaa1b77852ed71d271b"
+        ],
+        [
+          "54",
+          "100000",
+          "eab8ddc93bca5d38556c6306b5b880dcb38f0e8614ddc860f08b79cee4d440d7"
+        ],
+        [
+          "55",
+          "100000",
+          "aeb37668ee8857d5f1eacbb3d80fb6753e2ed0efb9799bc42fb0758919b56a4d"
+        ],
+        [
+          "56",
+          "100000",
+          "758d9311bcced4f63318e6d1f8c679c476dade7a7e7b3281b8cf4448f2918b73"
+        ],
+        [
+          "57",
+          "100000",
+          "dc2367534058c984b7fa058081c5634d9c9e1d6aa2354f4056e78483116e24b2"
+        ],
+        [
+          "58",
+          "100000",
+          "46e816f55102cec39eb80748f7ac6c502b511ab757f38355d5d3500735febfb7"
+        ],
+        [
+          "59",
+          "100000",
+          "7687f2170d6eedf3ebf4130fc464c6c1138a623142e13b55bffaaa59b45049a6"
+        ],
+        [
+          "60",
+          "100000",
+          "24e79fa433a0d9da0373b232e32d04c59055a8df3125812b528cbef39bb77ae6"
+        ],
+        [
+          "61",
+          "100000",
+          "d5573f7a9fc48e3fdc244f4cc62457e55b36f687416fd6409419ec45b9a03b8a"
+        ],
+        [
+          "62",
+          "100000",
+          "0dc99ae33ba4a2a4d3cd7094f154c957cbfc9ce8d44cb78e4e01687373da5bcc"
+        ],
+        [
+          "63",
+          "100000",
+          "8420efad20181baa7cd7c494ad4ba8b3dcbb53965d2bbd3fe6ca73456438e4a4"
+        ],
+        [
+          "64",
+          "100000",
+          "685d6ddc127008d74e7e888fee32827d88439ffb3159914d726937d0781caffc"
+        ],
+        [
+          "65",
+          "100000",
+          "3a3c21ac0bb4bac28da0d91e2dcc4ebf03820598f0c7028dd6635509b91a1465"
+        ],
+        [
+          "66",
+          "100000",
+          "0cccd6fcbe2a60eb602bc33d14c7bd985b7b111229d2a57b2adae47110ada0a2"
+        ],
+        [
+          "67",
+          "100000",
+          "f81ffc23d1725def32442eaed1168bb3bdf21d4a6953abdfc82086382760578a"
+        ],
+        [
+          "68",
+          "100000",
+          "999f2ebf9fdbe0407560f43ab2aef8ae72db1c021a01b60b346a186f8790e2e4"
+        ],
+        [
+          "69",
+          "100000",
+          "3c6f662d37df02bcd4b7e0cbc2334080aed00818a88dc0ef97810f544e976af7"
+        ],
+        [
+          "70",
+          "100000",
+          "f96babcfb59e66b3f9c57c62e1bee1e0dbb27e6bca668ac1468148e7c4b0b28a"
+        ],
+        [
+          "71",
+          "100000",
+          "877e956271162efcbeb8e27f7d7efefbd0d8e0aae0992e238ee185b9101ad100"
+        ],
+        [
+          "72",
+          "100000",
+          "85884b86c6d1d25b7cb3e992ebef0148c46a97c9517f6ceab90348b1a2acdec6"
+        ],
+        [
+          "73",
+          "100000",
+          "76de0d69a48d4436c8453bfccf10cf08710faea557661c9dbd74eba10148743f"
+        ],
+        [
+          "74",
+          "100000",
+          "cad6e06988843dafd7f1818841e77705cb294c4323c7898ac1197b149bb070a2"
+        ],
+        [
+          "75",
+          "100000",
+          "db222db8802f2a0d94637f3f3e7b2ec4bafa550c7e6fa572eb35f72a747ae2a5"
+        ],
+        [
+          "76",
+          "100000",
+          "a8385325546b0dfdb3cf27a052c2b807e8e6af444a8c8fbc76b1d0395d107690"
+        ],
+        [
+          "77",
+          "100000",
+          "530db36fb315d95a68ef71339b898fa3a159d484fcbf8fedb7ee078f241ef89e"
+        ],
+        [
+          "78",
+          "100000",
+          "325ba7e9e17567b801d5aa17536278a7787b1662820b4b0f3bf0543470133876"
+        ],
+        [
+          "79",
+          "100000",
+          "b3a398573d7198d2802fff18364d08f02d3f034a21c2ffd923cfb2153fc25ca4"
+        ]
+      ],
+      "rows": 8000000,
+      "all_fields": true,
+      "invalid_membership": 0
+    },
+    "source_record": {
+      "version": 15,
+      "groups": [
+        [
+          "0",
+          "100000",
+          "f6d5266b19f4f2c59562fa0532b868aa27831b4b55355a345008531cfd7b4c41"
+        ],
+        [
+          "1",
+          "100000",
+          "a08a8a14d53b8f1f04d9632a5bacd1ec063722fe81a1e814584b61d0d7fbee4e"
+        ],
+        [
+          "2",
+          "100000",
+          "c82e426ed88f20daf40295ddf6bf5fc5c3f0d09fa57fc3edd02319ad12dbcca0"
+        ],
+        [
+          "3",
+          "100000",
+          "5f606e6ad10485dca3d2b2ca1fe566879937886ac6b39648c1c7dc10e8ae95c6"
+        ],
+        [
+          "4",
+          "100000",
+          "1ddf90b926f03b53a1f1234ea64a139f8a3cb6dcf93ce7a2e5a74a19c040541c"
+        ],
+        [
+          "5",
+          "100000",
+          "9847b1e99568e342830311c254a0759aac4f71ebc94ddeff4b04f73690cdca8b"
+        ],
+        [
+          "6",
+          "100000",
+          "061fffed51b174521f5dc5ee9dfa3adc4e3e482f5f4bdafb359d8e640059af22"
+        ],
+        [
+          "7",
+          "100000",
+          "ace55e8a60b5738adb6f43b0d3464f82a56085f9374200084a79f24afa948782"
+        ],
+        [
+          "8",
+          "100000",
+          "7d7db83d68e4dbb75b15537cf05e257810adea8cfb4fb899cc2f6e20970c0652"
+        ],
+        [
+          "9",
+          "100000",
+          "19c517f4ee206ffca9539ee8238cc8ff010065c2e47fe53eac3f9a240921878b"
+        ],
+        [
+          "10",
+          "100000",
+          "c08a30624504b42d1d9055a65d6eabb3764a7a9e108485d5f286408d9ab55fd6"
+        ],
+        [
+          "11",
+          "100000",
+          "f9f571a0baa53054f1361d14d21eea2c29b7cba5ae841afe307d66017fbf6886"
+        ],
+        [
+          "12",
+          "100000",
+          "47719f63f071f91bbeee1895ff64653a9997652094eecef37aad201e4c84ade5"
+        ],
+        [
+          "13",
+          "100000",
+          "fc230b9e5f09b58527ab649241c33dac1c927b3464c918be1aaa808f4e3fa0fd"
+        ],
+        [
+          "14",
+          "100000",
+          "971be9e6d60918052264796ebef4988dc42b64ef248dcf1212ffd73880e63ef7"
+        ],
+        [
+          "15",
+          "100000",
+          "e941432d6864cc39add3913e64b4d1c025a4edc8788e392c3e6ee3c47062bf84"
+        ],
+        [
+          "16",
+          "100000",
+          "185d6cc979f9f741e2987966536f2991c355e6a1eac239fd09ef9fe6c67aa768"
+        ],
+        [
+          "17",
+          "100000",
+          "2ca1d7099c1eb17802c005629a39fd7c86a1e27cefd8a0d4251eeb3e75d91e59"
+        ],
+        [
+          "18",
+          "100000",
+          "d6e5f85996f2c9cd7f907fca00cea1ec2b18e087e5bf1806cbc4e01ae249c8a0"
+        ],
+        [
+          "19",
+          "100000",
+          "9c7557dd854cb042255608dd70041f7669f3bcefc7c64e60a8a357c109655040"
+        ],
+        [
+          "20",
+          "100000",
+          "2146f460a26be11fdc34e8838022e3e6d8b4603a7285e58e776f9254e34f89b4"
+        ],
+        [
+          "21",
+          "100000",
+          "039986a5967182dfa4558afe57eb29262e9691d9a8a211db67ac1e28c6a34cfb"
+        ],
+        [
+          "22",
+          "100000",
+          "498f1d259c3911990e316abda6caeea906e812a8e88660cffe0bbef6f1f251fe"
+        ],
+        [
+          "23",
+          "100000",
+          "5eb68a297950cc95fd9222744245f626bbca09b63a62226298b1a03e691585b7"
+        ],
+        [
+          "24",
+          "100000",
+          "2ef8a47fce774d576c5425a513fb0744f77bcb488ecf770eb45da1f90375bbb9"
+        ],
+        [
+          "25",
+          "100000",
+          "bae2207bcce048ef92db8ea6ae049c76205d7025447ac4faf1c5ec22a471d200"
+        ],
+        [
+          "26",
+          "100000",
+          "0bc3e150fdb7ae8ede83293b129e828d60f4a8a54bdedb4ae2d896405b63e477"
+        ],
+        [
+          "27",
+          "100000",
+          "a3e16952bfb97f2b61345459957ffc4101661eac4b1a4f8791893fe4d7e44177"
+        ],
+        [
+          "28",
+          "100000",
+          "6a35e99720d3ac7789deb62bcba240c217a2fc4202846acdb2a702f2f24653e1"
+        ],
+        [
+          "29",
+          "100000",
+          "c01e1a603b0e7225d0c642f27eeebae87ab9fe71b2d1eb4659c42a3128e2a310"
+        ],
+        [
+          "30",
+          "100000",
+          "937792800394b3270b8a5c22c64b8fa965cda9033b1840e69e2aad047fada189"
+        ],
+        [
+          "31",
+          "100000",
+          "5a9784c88b3540e20de9d72529835427cf5c4ed7c2f47da9a5f67fc625e6a731"
+        ],
+        [
+          "32",
+          "100000",
+          "1225a20d4b82de85fe0ed18909eafcbd9dad988356fdc53e28749647f63619b5"
+        ],
+        [
+          "33",
+          "100000",
+          "44f9afdea211134cbd64cd3483748a327b928dc34f4bb8ce3066fc6f38ad5d72"
+        ],
+        [
+          "34",
+          "100000",
+          "fdcba80f742d15b75db366ef6cb373cc0f1406c4b133ff072e1d8b69d86d39cf"
+        ],
+        [
+          "35",
+          "100000",
+          "4a06b24cf91a1b87015df82b2541d4b6e42716b43dbf1ecac690f0865769757f"
+        ],
+        [
+          "36",
+          "100000",
+          "21589335c789886dd4f0a164a545c18ed19d006490dfe4dc35324acb1dd96a75"
+        ],
+        [
+          "37",
+          "100000",
+          "738626f133d2e9c83efd7f96552d729da6314cc2a86e99ef01899371aab5dbe5"
+        ],
+        [
+          "38",
+          "100000",
+          "92176f6a5a15d2dae9ddc9743bf886962b1f213af2b1fadcd135df65f49390cc"
+        ],
+        [
+          "39",
+          "100000",
+          "39b54f649865fed338115088f0242c8b0306dd32cf35011d0069478d879427dc"
+        ],
+        [
+          "40",
+          "100000",
+          "23b82dd829826a166cf453bbb5d1f713d55f69d39ce42e75acedfd021ccb39fa"
+        ],
+        [
+          "41",
+          "100000",
+          "30e12578bf211ae09bdf37b5e49ff4e21b05531d41eb37432449ce2818ec3b97"
+        ],
+        [
+          "42",
+          "100000",
+          "1b0a0aa9c16da815f29396c07d0f2473c42fe939e69cd79f3d5eb2ecfd333101"
+        ],
+        [
+          "43",
+          "100000",
+          "e456b640541cc6898b9993a47b0415cbc2f0a455d83277c557c63aefcafc760c"
+        ],
+        [
+          "44",
+          "100000",
+          "9d09267582cd5e9333166f945056b5cba1a98a9504ca62ce00b5129ea26a3e31"
+        ],
+        [
+          "45",
+          "100000",
+          "272fd518e14d29cf70f867879c6ba92d38c32843b49de345f5bae566d33e7214"
+        ],
+        [
+          "46",
+          "100000",
+          "8b34f91e6ce676df97c9e1371befa2ccc313e3ac94259ef4e2ecd217e39f2b55"
+        ],
+        [
+          "47",
+          "100000",
+          "48e1421f0be01b582c03bb8d1eabc614644dedcd6e18164a2cf9f79b73264356"
+        ],
+        [
+          "48",
+          "100000",
+          "f847bc154c4bb1a3ecb32393d798f5a5cd36c61bf914660294b004b70c573da5"
+        ],
+        [
+          "49",
+          "100000",
+          "094ff3a7901e417ab37eeaa49f2168192f4a6db80ece34a5ec6661c52cf69343"
+        ],
+        [
+          "50",
+          "100000",
+          "063b6413ae7cc3c45a7e6f8439e8be3c1306e40b29c77340fe16df71f498ce28"
+        ],
+        [
+          "51",
+          "100000",
+          "724f3276350bb4b68fb790424b5fbe856a260e280963b77f451e3942490c6470"
+        ],
+        [
+          "52",
+          "100000",
+          "d8f368149c472d3ff55838f3a3885bdd0e599e2315bc574850f2e4fa00295f71"
+        ],
+        [
+          "53",
+          "100000",
+          "4b44661343a90d58bb59f1f7b830122cbcbfc947ac9bdc3a316e957c7a73067e"
+        ],
+        [
+          "54",
+          "100000",
+          "026cf7e55f4faeb8c78002c0f5b70d7fb53a91c7ef68fe69a0609bee43406725"
+        ],
+        [
+          "55",
+          "100000",
+          "587ba201ef1ed4e7e224b04cfae0246d9dc1ace41dcb3538300cf276db3af038"
+        ],
+        [
+          "56",
+          "100000",
+          "a4f41b4733af880a693dfdb3a9271e0f7066c8cd2fe96aa4ffd8ca166d5c6d4f"
+        ],
+        [
+          "57",
+          "100000",
+          "66473829027388ff308b6d86e4fe566bdb368619fc3d6fc7f6f5ab93f01cef6f"
+        ],
+        [
+          "58",
+          "100000",
+          "05c66db818c58b7c9bae77cc49f8871646492fde975e5004cca0b16357b3fd99"
+        ],
+        [
+          "59",
+          "100000",
+          "fd0b8338ca4024c0243978e6e7c9d586c3128bd2d6121cf501675a00283de0ff"
+        ],
+        [
+          "60",
+          "100000",
+          "20631b522e7bef763761c4bcf363d9bb565f87c95db70e6234650bf9ae863a66"
+        ],
+        [
+          "61",
+          "100000",
+          "4838f16a960d66ea75c624ce334d7794e1da05381639bcd0918b3c5fdab67f00"
+        ],
+        [
+          "62",
+          "100000",
+          "154defe4d26679bf813d452583f88167e21ab052a78ceb4bd8a113beae3aa695"
+        ],
+        [
+          "63",
+          "100000",
+          "f41d0c56605687dfff39d70f5c4ad818086ea75193ab1b244212b82715a443da"
+        ],
+        [
+          "64",
+          "100000",
+          "256bcd7acd2933df82cfc80f2b3bf34f08f1193279606e166489e1f5c3523a78"
+        ],
+        [
+          "65",
+          "100000",
+          "0c6140b4f08807f67cbcf2d4bf7b1c49470aa6f2af88b705f367a563d30a3a2c"
+        ],
+        [
+          "66",
+          "100000",
+          "359baac7d2b177aa4f5d3b9fbd9400110512216233a61fe678c621fb9a51db53"
+        ],
+        [
+          "67",
+          "100000",
+          "af38fa57dfd329bd2994b5d2dc5de92509cafcb7ac096b5927651beefb5bd5f5"
+        ],
+        [
+          "68",
+          "100000",
+          "c33fb82463ba089911f08cf3c3fa79ed8ffa4db54d221788acb213ee6b4f876c"
+        ],
+        [
+          "69",
+          "100000",
+          "c18ce252a008411e5cd9f91d36c57d31a06784c21136eb8609986cf1cd0d1e45"
+        ],
+        [
+          "70",
+          "100000",
+          "07f173739ef9fbf901265a0b3c33efe1fac46ad445d1d523e020fec0e1137986"
+        ],
+        [
+          "71",
+          "100000",
+          "792b97401bcbfd1c63e785b0ec140eb7630aa17ef3ec69ca0d941f38cd1d41b0"
+        ],
+        [
+          "72",
+          "100000",
+          "eef99f35d115f63a33cd68d0caf75c3a6c40215bbeaeaf705a43a123151596eb"
+        ],
+        [
+          "73",
+          "100000",
+          "3a63c763d2badb08b3ddbf8749f35da91607201b16c28fc99ce1cc2635c9d490"
+        ],
+        [
+          "74",
+          "100000",
+          "dc9bcd4fa04827fb84f8ce31776391b97edd5126364bd2c4faa3fd4c55249a83"
+        ],
+        [
+          "75",
+          "100000",
+          "99c6bfc952d68ca864e73121601ec7be38ecd2231e06ffb6584acf3f7bfaa23d"
+        ],
+        [
+          "76",
+          "100000",
+          "2fc80153ae15bce26e5cab9313677554af014488b6ec6f19bd94715c0c2056f9"
+        ],
+        [
+          "77",
+          "100000",
+          "bfbecba787294e619eb788238ef1b506282b6c68f1680b8f256bea54caa5bb45"
+        ],
+        [
+          "78",
+          "100000",
+          "8b53550ec959b973330692b4592caaf10d5e483f4f97c298b44c35a4217b3ba7"
+        ],
+        [
+          "79",
+          "100000",
+          "7f34b4644a5cc4831e192efd81fabbf79cbf074971cc34e5ee5a0c27e31c7485"
+        ]
+      ],
+      "rows": 8000000,
+      "all_fields": true,
+      "invalid_membership": 0
+    },
+    "property_journal": {
+      "version": 15,
+      "groups": [
+        [
+          "0",
+          "400000",
+          "e7d2eba5b601c05a66f179ec9fb255ec3abbc69b614050f4faf6c4e79d7f4eb4"
+        ],
+        [
+          "1",
+          "400000",
+          "9c25ba1367bfd7bae376cf4023cf0afe2674e59ea3d0c94d7c89d28ed910928d"
+        ],
+        [
+          "2",
+          "400000",
+          "2480919f8321a8ae827294760c80cac2b64f96462989b2857fc74f6154a6854f"
+        ],
+        [
+          "3",
+          "400000",
+          "4571d3460c668f249de3c573527beb651a2579d3162eaf081333c14a90767a86"
+        ],
+        [
+          "4",
+          "400000",
+          "c38e64cacb4a8032f6f230ee1034a0ba78a002c4aea6dbc024683a57b95c4a06"
+        ],
+        [
+          "5",
+          "400000",
+          "f0f75c7c4093e80905f08a9d19f2bdd6c8582e4eac3238b0fb3fec4943c4e9cb"
+        ],
+        [
+          "6",
+          "400000",
+          "859e02c7d02f3d8b4512e9a04eba58131e7089237e3a77239a46d0f8bd28d0bd"
+        ],
+        [
+          "7",
+          "400000",
+          "a37b556177e1073e77327f5641a90a3e11e96fca3bd7f3bd37eea84a03f8abd0"
+        ],
+        [
+          "8",
+          "400000",
+          "386938a20838062376c14119c95444829eae25dc92e76bcb16197ca756969023"
+        ],
+        [
+          "9",
+          "400000",
+          "196787c45775dc6022598d455481e5e6cf71d92a33eabae25cf8c4fc917fa511"
+        ],
+        [
+          "10",
+          "400000",
+          "cbf3a1b5c629d7f1510de607f3a62c479626f3f66cbb575d5882a1d11df219ee"
+        ],
+        [
+          "11",
+          "400000",
+          "601f1c9af6eb855c1cb086ba7d23f7f85354486f1cca008ea91975c7ceeb7a4f"
+        ],
+        [
+          "12",
+          "400000",
+          "812ed6548de67afd11312722f65e7a6de10a9141a64eee7531537d8ffe055b31"
+        ],
+        [
+          "13",
+          "400000",
+          "836b1cc37c46194a28febad5ae07de40e3a93e2f1941f84a13fbcd3f8e56af73"
+        ],
+        [
+          "14",
+          "400000",
+          "68190b53f60fbd6eda0f4d6daa7b2283a04433296f8fbeaff2e5a1cb9e51351e"
+        ],
+        [
+          "15",
+          "400000",
+          "a0c7527dadf7615dbcfc9a12a934e93dc2f6d515054ef4887785e98ead66e9c7"
+        ],
+        [
+          "16",
+          "400000",
+          "55f98ec58337aca3923b00eee16671789f3561521334655a68b0bb7bd065e9d1"
+        ],
+        [
+          "17",
+          "400000",
+          "d36703b2d36064096e0157815e08895c5df78f98bf6c7027b1f2bf451298e3d0"
+        ],
+        [
+          "18",
+          "400000",
+          "4d574782265629c6778e4d3e4c86f35679b983407b9695b4701a7292a405bd64"
+        ],
+        [
+          "19",
+          "400000",
+          "216d98b3a1dc1963cc4831565ffaa9a871de77d2c49840dbb9e109e4da1be97d"
+        ],
+        [
+          "20",
+          "400000",
+          "5d002dc41289eaa5b78dbb31d2c802c90194511b323eda8ebbce7a164de6a898"
+        ],
+        [
+          "21",
+          "400000",
+          "d8fc06c15287b5ee7692c7ce5e187e8f7be69118221a41be25b7bce3c1720a4f"
+        ],
+        [
+          "22",
+          "400000",
+          "3fcace1067e68205e178e450617993b8b6e2586ecc328921d43bac388c829ac5"
+        ],
+        [
+          "23",
+          "400000",
+          "b3fb1873e21345bae7ff441c51724cc18adf36b09a11b32b5a84c60e2fb3b3e0"
+        ],
+        [
+          "24",
+          "400000",
+          "29feb700919972bdfb4c41e544bac37f18a7e91eb788d2c31246fbb5491dfec2"
+        ],
+        [
+          "25",
+          "400000",
+          "242daa518131371ee3ca7e4900b39ceec11a4fec04f764377d57d55861c6806b"
+        ],
+        [
+          "26",
+          "400000",
+          "b1951cdfd3274fe84983356cf523b881fc9a8b3faa832d201ab3067cf15d11bd"
+        ],
+        [
+          "27",
+          "400000",
+          "75630147e89c4c387dd9f3053378c45013cccd6a44812f69e56101ea1758423c"
+        ],
+        [
+          "28",
+          "400000",
+          "ee967230d4d967ceaf611b0fefcbf1c82385590d063aa5d3854134930cadb584"
+        ],
+        [
+          "29",
+          "400000",
+          "2370f46ac040619a4e9cf635cf48a2535fa724231674dc65a68011c8570ecd69"
+        ],
+        [
+          "30",
+          "400000",
+          "d4b9b0f8476d1da283a7cd1b68a5c4b72620da8fcc5b87fe0c65c5e501ebe4bf"
+        ],
+        [
+          "31",
+          "400000",
+          "feb9a8b77ceb959d35f82a24637f15198d4d85656c61108eb044a6af88d3c272"
+        ],
+        [
+          "32",
+          "400000",
+          "0d3a9da45ae3e5071526fdebeae7919bb80e19d463ca72a54b3ce425e0ace72a"
+        ],
+        [
+          "33",
+          "400000",
+          "47e38dbc5ae7bc97b8f203f00870ad0c58fa78b8e53d9e66a60dcb352130aeb4"
+        ],
+        [
+          "34",
+          "400000",
+          "5f62873e840141dd94e7b349934775b7adabf02fa51567de20777623ecd8ae16"
+        ],
+        [
+          "35",
+          "400000",
+          "5250e2ff045de9c90336f2387dc1e58be25c8d42ee17a167f487fc30ee4a4529"
+        ],
+        [
+          "36",
+          "400000",
+          "1436f542d1ec3413f66c4beb73833413f51ad495f8d1ad5b5f6e96196f72cdcd"
+        ],
+        [
+          "37",
+          "400000",
+          "ac7f781b831ce696b04a79f6dd525c99121589f729301369ffc8473fcef56d59"
+        ],
+        [
+          "38",
+          "400000",
+          "bbaa6a879d30e33496fe12f7fa3e3384afa6941599c8739ba68ab76df66a0415"
+        ],
+        [
+          "39",
+          "400000",
+          "b520b7c1df08e33c26173bcc5cd4ea0561e6cd5b1ed491a2c32fb08d5c7372f2"
+        ],
+        [
+          "40",
+          "400000",
+          "f4ff382c66e9a090dd112f73866574c38369e0e483e478e9fc3c33af32e817ac"
+        ],
+        [
+          "41",
+          "400000",
+          "ec76e5e801b03e61162264589573880ff380c658f7cec95c266380fd003284c9"
+        ],
+        [
+          "42",
+          "400000",
+          "02f0d2b3fb534468fa82bb3da2d2c2dd2738dff713f79a619488f64eef53d664"
+        ],
+        [
+          "43",
+          "400000",
+          "2528167831e6c5a2164cf6fb984025af8a7b39c9711f491cedc076cb045e1b52"
+        ],
+        [
+          "44",
+          "400000",
+          "8cb3df5ed9802534306d80d1f5abbd8556169113767acd750629eaf5b369a1ad"
+        ],
+        [
+          "45",
+          "400000",
+          "b3d580c020d14a66b22934bd66b6dc9551b9048c324dda8f2ae888c5bfb4d7da"
+        ],
+        [
+          "46",
+          "400000",
+          "701cfb284afdf4d2a7bf0125ecccaca07b4c4a2f09aef6baf09f24e85453dcdb"
+        ],
+        [
+          "47",
+          "400000",
+          "b9959b996aced2e59b795bf1a84b50b237fb3ded8bc98eecb9d960af90aad174"
+        ],
+        [
+          "48",
+          "400000",
+          "0c1acba2a938b62f721b0b4c8764b175c70636a5497b4ed875e1e2ae6b05387f"
+        ],
+        [
+          "49",
+          "400000",
+          "ae05a918363ed26d4749a237b888baa27835acf9e076f749f2acb43e4817ece7"
+        ],
+        [
+          "50",
+          "400000",
+          "76ff6c6110bbc7d2710768491156424c4a7d9f25d065a647fa41e17bdec78fa4"
+        ],
+        [
+          "51",
+          "400000",
+          "0691ab96f66c0a9e81ae7ece8a9535d7a2f2022f7f9f7ae4845d89c0a0787d58"
+        ],
+        [
+          "52",
+          "400000",
+          "b18692f7897b739abeb47a5ec5a35ab67bf0844a67ed37810d184f06f05d7984"
+        ],
+        [
+          "53",
+          "400000",
+          "4e7c34e31bf42c1667ec8989d376dd39d79d80166928a15daa7f80488b677f56"
+        ],
+        [
+          "54",
+          "400000",
+          "9efcf2d1402e1adff33751d23f65925b1f9abf0aa64709c8e469d54bb01e27e5"
+        ],
+        [
+          "55",
+          "400000",
+          "ed5e826d0e17f91ff5a4a8a6c09bc8e4d31877a4bbd650ce1d12a8a4c6efda53"
+        ],
+        [
+          "56",
+          "400000",
+          "e06561a1dc59afc8163872b9a6c0da6de5597aff438c8e8731cf0bf3b84c4bda"
+        ],
+        [
+          "57",
+          "400000",
+          "19303dbb7842ef08a4d18ad8509c40694f36df66e336558b9e51d7b883d6b651"
+        ],
+        [
+          "58",
+          "400000",
+          "f5e0d3f8e47a70f8a57bcb6ea9ebcb6dd5a26616de41c69dc503f33a5be23371"
+        ],
+        [
+          "59",
+          "400000",
+          "0c47e3e93c62ba12fc20b1d476a480788de1349b329ae60a885684d380f0d2f1"
+        ],
+        [
+          "60",
+          "400000",
+          "c70cec5c87c16de3f13b0daa5df444513f019decd3b7ce43aaad45dbb78b3e34"
+        ],
+        [
+          "61",
+          "400000",
+          "0617cf2008685c59c6fd0037c3b2a708d5846d9642d8ae8e7b6cbbaa13beb11c"
+        ],
+        [
+          "62",
+          "400000",
+          "50c458601b4f94ff0d51a21976a93f049e6e91661470981e790e61ed791c59bb"
+        ],
+        [
+          "63",
+          "400000",
+          "c9f3f6d1972ace7ec72c9a4635ed2684a3aea3d71af1b643b85501dc6915d08f"
+        ],
+        [
+          "64",
+          "400000",
+          "c47323baf96442cbd02f3752c71bb391c250c5cbeeed946b001e278afc3c5454"
+        ],
+        [
+          "65",
+          "400000",
+          "9371418ef07ef6047aeabfab429ca820a727c8819ebf45a17a6b804319eb9106"
+        ],
+        [
+          "66",
+          "400000",
+          "b6f8f78e5ebe6e38b5327443f5a93ede962a1d784c148166e5d160791aa9fddb"
+        ],
+        [
+          "67",
+          "400000",
+          "898279e39064da3eb011eff24331634437ccf2c7433a0f1695a7e5f33c4f8da1"
+        ],
+        [
+          "68",
+          "400000",
+          "45f55c96f62d03bf5c80649fc63c14b782a55f2f08034e477107579c60e42928"
+        ],
+        [
+          "69",
+          "400000",
+          "f5cf3ffdbbc6d9e65615e4cb59e177d9241dc9db570a3eceaa67d282c55ae219"
+        ],
+        [
+          "70",
+          "400000",
+          "b64ab368175be5e01c784b0fc78869a24c96d55a3c75a1632b5635fb9013f1ad"
+        ],
+        [
+          "71",
+          "400000",
+          "6fe49dd9493ccfc7dbfb4789c68672c3ce0a59b8be4a14267bb75563704ae635"
+        ],
+        [
+          "72",
+          "400000",
+          "88ae3ed947499b77d5912ca3a7df1bb0820d72ff58b7d0bd0fdf0ccaa2412bc4"
+        ],
+        [
+          "73",
+          "400000",
+          "bf6b59ccd3339ba51308f58f9bf52bb54548634e10be258a6a8663bae458805d"
+        ],
+        [
+          "74",
+          "400000",
+          "289b29d8d28d4d840dceecf507ef8a347e297d1af7c199018f8e916a8bf0b885"
+        ],
+        [
+          "75",
+          "400000",
+          "55a02baab143ec7325c7557c02a194176241182ebe6d20ff21996f0b93b30c39"
+        ],
+        [
+          "76",
+          "400000",
+          "541d0f6cf28a460a2dad8cb350882b91aff1fec08669f817357fe170db20e649"
+        ],
+        [
+          "77",
+          "400000",
+          "e98eff7b4a585553fb3f6828421e8469e927bc395b739076fd0896738275c31d"
+        ],
+        [
+          "78",
+          "400000",
+          "399170c17330bb26d2e123b13103bbab255171d8ed8ed00d7ecea46f36a59b83"
+        ],
+        [
+          "79",
+          "400000",
+          "46455ced49af95cc4abe3f257e657d3069e2f32e36e742233fbef1b7999d2c44"
+        ]
+      ],
+      "rows": 32000000,
+      "all_fields": true,
+      "invalid_membership": 0
+    }
+  },
+  "qualification": "Private8M new-node extent with associated raw records/property events; independent all-field local oracle. Existing published8M nodes and all edges untouched. No publication, ACK, graph-wide endpoint closure, complete16M/80M graph, billion-scale, ingest or singleton performance admission. Partial commits survive a stop and must be inspected; never replay automatically.",
+  "wall_s": 924.378466625,
+  "costs": {
+    "read_bytes": 18847786864,
+    "write_remote_bytes": 17559968444,
+    "spill_to_disk_bytes": 0
+  }
+}

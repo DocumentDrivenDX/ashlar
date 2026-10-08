@@ -1,0 +1,42 @@
+{
+  "state": "All155 exact final native statements,45 attributed appends and240 independent full-field digest groups audited",
+  "costs": {
+    "read_bytes": 18847786864,
+    "write_remote_bytes": 17559968444,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 924.378466625,
+  "oracle_sha256": "c71700ecb6672070235aa49b4e4c4fa9c3c5897e182fee29fddbae7bcf230331",
+  "profiles": {
+    "object_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_node_object_current_r643",
+      "id": "67cb3fd1-5ec4-4f5e-be0f-bab0e9521b50",
+      "version": 15,
+      "rows": 8000000,
+      "files": 105,
+      "bytes": 6366428180
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_node_source_record_r643",
+      "id": "0a5099b1-d33a-4c26-bdef-328b01772391",
+      "version": 15,
+      "rows": 8000000,
+      "files": 124,
+      "bytes": 6549369968
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_node_property_journal_r643",
+      "id": "28f5c813-9c96-4869-87be-d60e1d7b5143",
+      "version": 15,
+      "rows": 32000000,
+      "files": 123,
+      "bytes": 5843885272
+    }
+  },
+  "sources": {
+    "summary.json": "8ca214d98b426d2af6e69accfce35afc3826eb9d4057589921bda2e3b2b37668",
+    "shared-history.json": "be7366ee5a3d5377b319655abeabc6fc639601787f6dacf23cfa495890448e81",
+    "statements.jsonl": "5cd7cc0df35c0b0ca2997b15afa1923408b35d679eb1b74f0610cfac913bc4dc"
+  },
+  "qualification": "Private8M new-node extent with associated raw records/property events; independent all-field local oracle. Existing published8M nodes and all edges untouched. No publication, ACK, graph-wide endpoint closure, complete16M/80M graph, billion-scale, ingest or singleton performance admission. Partial commits survive a stop and must be inspected; never replay automatically. Every live row belongs to a verified100k-entity bucket; SHA256 collision assumption. Closing observations are not source authority, concurrency fence or retention proof."
+}
