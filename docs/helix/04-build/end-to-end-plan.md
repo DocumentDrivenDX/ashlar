@@ -2706,3 +2706,29 @@ The updated authorized Truss capability request was delivered successfully after
 older requests returned terminal tool timeouts. Truss Impl confirms microsite
 work is not a runtime prerequisite, but still reports owner decision/authorization
 dependencies. No real Truss engine or accepted catalog IDs are inferred.
+
+
+### Native evolution first group published; remaining groups live — 2026-10-08
+
+Original publisher 59082 remains live. Its first complete revision-1 group has
+committed byte checkpoint 805, covering exactly the original begin/two-event/
+commit bytes. First nine chronological native mutations are terminal SUCCEEDED.
+Complete exact-version observations for all four targets independently match
+original-source reconstruction: object_current version 2 has two rows,
+whole_source_history version 1 has two exact original records, and edge_current/
+tombstone version 0 are empty. The stored artifact manifest equals the committed
+checkpoint descriptor and explicitly retains both admitted revision aliases.
+
+[First-group evidence](evidence/native-evolution-publication-first-20261008.json)
+retains original mutation handles/request/response hashes, full inventory handles
+and complete checkpoint custody. The offline check initially selected next-group
+attempts through their predecessor digest; it was corrected to the first nine
+chronological original mutations. No admission or native effects changed.
+The revision-3 replacement, revision-1 delete, final byte checkpoint 1814 and
+singleton remain unverified while the original publisher continues. No extra
+warehouse queries were submitted for this independent receipt comparison.
+
+Truss Impl's returned clarification at 0ad0b4c separates the microsite from the
+runtime path. Protected orchestration, atomic acceptance and feed fencing have
+design direction; exact runtime profiles and native engine implementation remain
+unfinished. This is a dependency clarification, not evidence of a running Truss.
