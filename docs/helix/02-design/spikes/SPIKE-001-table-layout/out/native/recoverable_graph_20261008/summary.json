@@ -1,0 +1,20 @@
+{
+  "state": "passed",
+  "schema": "client_dev.ashlar_recoverable_graph_20261008",
+  "table_uuids": {
+    "client_dev.ashlar_recoverable_graph_20261008.object_current": "e420f55d-449f-4c21-b91b-460ffc6493e2",
+    "client_dev.ashlar_recoverable_graph_20261008.edge_current": "e5c10b7c-cc41-4136-8603-d774cadfb9e7",
+    "client_dev.ashlar_recoverable_graph_20261008.tombstone": "dd4a9603-9299-4a2c-9bf7-4e3013d91366",
+    "client_dev.ashlar_recoverable_graph_20261008.whole_source_history": "63846fb0-18ad-4a90-a934-61d21bcaf749"
+  },
+  "source_events": 9,
+  "source_batches": 2,
+  "checks": [
+    "admitted exact SQL plans retained before effects",
+    "original native handle/terminal receipts for ordered writes",
+    "fresh connection replay emits no new statements",
+    "independent create/update/delete/parallel/isolated inventories",
+    "exact original source bytes and three tombstones"
+  ],
+  "qualification": "Private admin whole-entity fixture; local cooperating-process lock, no remote/native fencing or immutable grants. Replay qualified for retained same-host journal and exact plans; interrupted native mutation not injected. No accepted Truss schema/feed, complete all-column effect validation, retained pin proof, publication or acknowledgement. No scale/resize."
+}

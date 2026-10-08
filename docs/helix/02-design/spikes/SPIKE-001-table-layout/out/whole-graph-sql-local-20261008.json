@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "tests": 70,
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q",
+  "scope": "Whole graph SQL plans preserve exact carrier strings, suppress original replay effects and refuse unsafe targets/clock; broader suite checks source/schema/durable custody."
+}

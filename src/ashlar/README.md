@@ -132,3 +132,15 @@ prove source/schema/target UUID/prior-state correspondence. Recovery uses each
 step’s retained original SQL handle/terminal response. Successful statements do
 not prove graph parity, retained pins or publication. Graph SQL-plan generation
 and full native effect-provider wiring remain unfinished.
+
+Host whole_graph_sql.graph_sql_plan consumes the original verified whole-entity
+batch plus a trusted complete prior state and mandatory schema policy, producing
+ordered canonical current/history/tombstone SQL. It binds source identity in
+deletes, preserves exact property/retained carriers, uses explicit signed64 IDs
+and versions, and emits no effects for already retained original deliveries.
+The clock is explicit materialization metadata; it does not declare publication.
+Persist plans with DurableEffects before writes. The nine-event native fixture
+now passes fresh-journal replay with zero new effect statements, independent
+selected-field inventories, all source event bytes and tombstone checks.
+Complete all-column parity, native interruption recovery and publication/pin
+authority remain unfinished.

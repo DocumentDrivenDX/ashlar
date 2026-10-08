@@ -216,3 +216,12 @@ write transaction and retain original commit recovery. Registered source identit
 retention and outer-cursor publication/checkpoint integration are still required.
 The development roles have no login; application credentials/service authority
 are not provisioned by this example.
+
+The recoverable native graph fixture is implemented in
+`tools/check_native_recoverable_graph.py`; it uses nine events and a private
+fixed development schema on the existing warehouse. Completed native evidence
+is under `out/native/recoverable_graph_20261008` in the layout spike. The retained
+host SQLite journal is `/private/tmp/ashlar-recoverable-graph-20261008.sqlite`;
+retain it for original-handle recovery rather than deleting it as temporary
+telemetry. The completed fixture refuses another setup/parity run. It verifies
+materialization and original-plan replay, not a Truss feed or read publication.

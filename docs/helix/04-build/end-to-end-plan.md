@@ -349,3 +349,28 @@ Next replace the one-shot graph fixture’s direct writes with generated admitte
 plans and independent native current/history/tombstone validation; connect the
 result to DurablePublisher before producing a genuine manifest. Truss native
 acceptance/runtime/feed and broader UMF schema bindings remain required.
+
+## Recoverable native graph materialization checkpoint
+
+The whole-entity planner now generates ordered parameterized current deletion/
+insertion, source-history and tombstone steps from verified original batches,
+trusted complete prior state and mandatory schema admission. Deletes bind the
+complete source/typed identity; exact properties/unknown retained text survive.
+Replayed already retained deliveries produce no new SQL plan steps. Metadata
+clock is supplied explicitly and is not a completed publication declaration.
+
+The fresh private UC schema client_dev.ashlar_recoverable_graph_20261008 ran
+two source batches/nine events through immutable admitted plans and original
+statement handles. Fifteen setup/effect statements retain terminal responses.
+Reopening the SQLite transport and replaying each plan emits zero new effect
+statements. Independent inventories verify create/update/delete, parallel edges
+and isolated nodes, exact original source event bytes and three tombstones.
+Seventy local checks pass; native receipts and exported original journal custody
+are retained. This is private admin/local cooperating-process serialization;
+remote/native fencing, ordinary-role immutable grants and injected interrupted
+native mutation are unqualified. This is still unpublished materialization.
+
+Next extend effect validation to complete all-column correspondence and retained
+version/pin custody, connect results to DurablePublisher and exercise a genuine
+manifest/resolver/singleton path. Actual Truss schema acceptance/runtime/feed
+and broader UMF bindings remain required. No benchmark or resize occurred.

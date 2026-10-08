@@ -1,0 +1,540 @@
+[
+  {
+    "intent_digest": "e28649f0793ef2eb34829a645447258647cfaf7a6085fba74403abe62bf91826",
+    "plan_digest": "550d6c9dc62c77d89361cfe063dc2d2049c96db83fc90b23029d17acba2d1801",
+    "responses": [
+      {
+        "statement_id": "01f1c2e0-7db6-1ce0-aa86-77ec9481b903",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 4,
+            "columns": [
+              {
+                "name": "num_affected_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 0
+              },
+              {
+                "name": "num_updated_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 1
+              },
+              {
+                "name": "num_deleted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 2
+              },
+              {
+                "name": "num_inserted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 3
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          ]
+        }
+      },
+      {
+        "statement_id": "01f1c2e0-7ea4-11aa-ba64-6d1a442cebb6",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 2,
+            "columns": [
+              {
+                "name": "num_affected_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 0
+              },
+              {
+                "name": "num_inserted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 1
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "3",
+              "3"
+            ]
+          ]
+        }
+      },
+      {
+        "statement_id": "01f1c2e0-7f85-1056-aff4-cc5b471ba715",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 4,
+            "columns": [
+              {
+                "name": "num_affected_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 0
+              },
+              {
+                "name": "num_updated_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 1
+              },
+              {
+                "name": "num_deleted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 2
+              },
+              {
+                "name": "num_inserted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 3
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "0",
+              "0",
+              "0",
+              "0"
+            ]
+          ]
+        }
+      },
+      {
+        "statement_id": "01f1c2e0-8040-102d-9c9e-0c88b9a4b948",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 2,
+            "columns": [
+              {
+                "name": "num_affected_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 0
+              },
+              {
+                "name": "num_inserted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 1
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "2",
+              "2"
+            ]
+          ]
+        }
+      },
+      {
+        "statement_id": "01f1c2e0-810d-1458-b271-335697b0e7be",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 2,
+            "columns": [
+              {
+                "name": "num_affected_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 0
+              },
+              {
+                "name": "num_inserted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 1
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "5",
+              "5"
+            ]
+          ]
+        }
+      }
+    ]
+  },
+  {
+    "intent_digest": "6eceadcdfb52916b124a25f64793de0a2d5ad833375af3865948ed9b59a6b0da",
+    "plan_digest": "ae17054ee6d5c5e4bbcaaefd5c84455fb7cd3f164cdfcaa9a16502c81633b08e",
+    "responses": [
+      {
+        "statement_id": "01f1c2e0-8548-1559-8121-1d54482c40fe",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 4,
+            "columns": [
+              {
+                "name": "num_affected_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 0
+              },
+              {
+                "name": "num_updated_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 1
+              },
+              {
+                "name": "num_deleted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 2
+              },
+              {
+                "name": "num_inserted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 3
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "2",
+              "0",
+              "2",
+              "0"
+            ]
+          ]
+        }
+      },
+      {
+        "statement_id": "01f1c2e0-864e-120a-a353-dc46388d6ac4",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 2,
+            "columns": [
+              {
+                "name": "num_affected_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 0
+              },
+              {
+                "name": "num_inserted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 1
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "1",
+              "1"
+            ]
+          ]
+        }
+      },
+      {
+        "statement_id": "01f1c2e0-8718-1833-bdba-93f2d7d05926",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 4,
+            "columns": [
+              {
+                "name": "num_affected_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 0
+              },
+              {
+                "name": "num_updated_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 1
+              },
+              {
+                "name": "num_deleted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 2
+              },
+              {
+                "name": "num_inserted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 3
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "2",
+              "0",
+              "2",
+              "0"
+            ]
+          ]
+        }
+      },
+      {
+        "statement_id": "01f1c2e0-87f1-139c-87e4-700318257b99",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 2,
+            "columns": [
+              {
+                "name": "num_affected_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 0
+              },
+              {
+                "name": "num_inserted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 1
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "4",
+              "4"
+            ]
+          ]
+        }
+      },
+      {
+        "statement_id": "01f1c2e0-88a0-1f4e-abc2-b16ef29d61b3",
+        "status": {
+          "state": "SUCCEEDED"
+        },
+        "manifest": {
+          "format": "JSON_ARRAY",
+          "schema": {
+            "column_count": 2,
+            "columns": [
+              {
+                "name": "num_affected_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 0
+              },
+              {
+                "name": "num_inserted_rows",
+                "type_text": "BIGINT",
+                "type_name": "LONG",
+                "position": 1
+              }
+            ]
+          },
+          "total_chunk_count": 1,
+          "chunks": [
+            {
+              "chunk_index": 0,
+              "row_offset": 0,
+              "row_count": 1
+            }
+          ],
+          "total_row_count": 1,
+          "truncated": false
+        },
+        "result": {
+          "chunk_index": 0,
+          "row_offset": 0,
+          "row_count": 1,
+          "data_array": [
+            [
+              "3",
+              "3"
+            ]
+          ]
+        }
+      }
+    ]
+  }
+]
