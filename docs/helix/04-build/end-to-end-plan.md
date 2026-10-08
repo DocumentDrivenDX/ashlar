@@ -2159,3 +2159,29 @@ retains source hashes, original statement handles and response hashes; original
 read receipts remain in the named private output directory. This verifies the
 new native descriptor-checking service, not full native stored-publisher phases
 or actual Truss acceptance/mutation/feed. Those remain required.
+
+
+### Descriptor-bound local CSV consumer progress — 2026-10-08
+
+JournaledCsvProgress supplies a concrete local consumer checkpoint service for
+the forthcoming native CSV publication runner. Its scope retains immutable full
+file SHA-256 and exact CSV/source/schema mapping for the original stream/feed/
+epoch; reuse with different file contents or mapping refuses. Original rows,
+requests/checkpoints and complete descriptor bytes are retained, with contiguous
+positions and publication predecessor checks. Exact repeat cannot regress progress.
+
+Native committed descriptor resolution under full pin/read admission and held
+source/writer authority is mandatory via injected services; no default supplies
+authority. The native resolver interval encloses the local durable transaction.
+Closing source refusal before COMMIT rolls back the new row. A lost local COMMIT
+receipt or resolver closure failure after COMMIT is explicitly outcome-unknown,
+not rollback; the original durable checkpoint must be reconciled. This records
+local immutable-file consumer progress only, never remote producer/Truss ACK.
+
+Five focused progress tests and three connected host-pipeline tests pass. The
+connected pipeline now uses actual SQLite CSV progress through reopening, with
+the original committed test-transport manifest required before advancement.
+Scope change, gaps, wrong predecessor, missing native resolution, precommit
+refusal and both postcommit uncertainty modes are exercised. No new cloud
+workload or native ACK was issued. Full native phase wiring and actual Truss
+installation/acceptance/mutation/feed remain required.

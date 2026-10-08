@@ -1,3 +1,5 @@
+from contextlib import contextmanager
+import hashlib
 import json
 from pathlib import Path
 import sys
@@ -7,6 +9,7 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'tools'))
 from durable_effects import DurableEffects,EffectPlanError
 from durable_sql import DurableSQL,SQLPending
 from journaled_publisher_driver import JournaledPublisherDriver
+from journaled_csv_progress import JournaledCsvProgress
 from journaled_snapshot_artifacts import JournaledSnapshotArtifacts
 from native_artifact_validation import NativeArtifactValidator
 from test_native_artifact_validation import NativeExecutor,Gate
@@ -49,6 +52,8 @@ class JournaledDriverTests(unittest.TestCase):
                         return self.manifest.do(method,path,**kwargs)
                     return super().do(method,path,**kwargs)
             api=CombinedAPI();path=str(Path(temporary)/'original.sqlite');phases=PhaseExecutor()
+            csv_source=Path(temporary)/'source.csv'
+            csv_source.write_bytes(b'id,entity_version,operation,label,caption,future\n1,1,create,label,,opaque\n')
             snapshot_executor=Executor();acks=[];validations=[]
             for iteration in range(2):
                 journal=DurableSQL(path,api,'2439e1f2e37ac563','actor')
@@ -70,13 +75,26 @@ class JournaledDriverTests(unittest.TestCase):
                         {'c.s.object_current':{'uuid':'uuid','version':7,'columns':COLS,'rows':[ROW]}},
                         SourceAdmission(),Gate(),lambda *args:None,
                         reader_profile=ReaderProtocolProfile('test',(3,),(7,),()),manifest_table='c.s.manifest',manifest_uuid='manifest-uuid')
+                    class LocalSourceAdmission:
+                        def admit(self,request,descriptor,context):
+                            if context!='admitted':raise PermissionError('Local test source custody denied')
+                    @contextmanager
+                    def resolved(descriptor,context):
+                        if api.manifest.rows!=[dict(descriptor.raw)]:raise PermissionError('Original committed test manifest missing')
+                        yield descriptor
+                    progress=JournaledCsvProgress(journal,csv_source,hashlib.sha256(csv_source.read_bytes()).hexdigest(),
+                        LocalSourceAdmission(),resolved,stream='stream',feed='csv',epoch='original',source_system='example',
+                        schema_revision='3',type_id='17',properties={'label':'23','caption':'24'})
+                    def acknowledge(request,descriptor,context):
+                        progress.acknowledge(request,descriptor,context)
+                        acks.append(request['request_digest'])
                     driver=JournaledPublisherDriver(DurableEffects(journal,Policy()),ManifestPolicy(),
-                        lambda request,context:STEPS,artifacts,validator,
-                        lambda *args:acks.append(args[0]['request_digest']),namespace='test')
+                        lambda request,context:STEPS,artifacts,validator,acknowledge,namespace='test')
                     transport=Transport(journal,api.manifest)
                     backend=helper.backend(phases,driver,transport,ManifestPolicy())
                     descriptor=helper.publish(backend,'admitted')
                     self.assertTrue(descriptor.validation_report['complete'])
+                    self.assertEqual(progress.position(),'1')
                     self.assertEqual(journal.db.execute('SELECT count(*) FROM snapshot_artifact').fetchone()[0],1)
                 finally:journal.close()
             self.assertEqual(len(snapshot_executor.calls),4)

@@ -786,3 +786,28 @@ The same validator is callable from `JournaledPublisherDriver` for new
 request-bound artifacts. The earlier CSV descriptor has no publisher request
 digest and is checked through the retained-descriptor surface, without relabeling
 it as a native stored-publisher execution. Full native phase wiring remains open.
+
+
+## Bind local CSV consumer progress to publication
+
+`tools.journaled_csv_progress.JournaledCsvProgress` is the host driver's concrete
+local CSV checkpoint component. Supply the original journal/file/SHA-256, exact
+stream/feed/epoch and CSV/schema mapping, held source/writer admission policy,
+and a native resolver context that yields the exact committed descriptor while
+holding the complete pin/read interval. Its `acknowledge` method can be supplied
+to the publisher driver; `position()` observes retained local progress only.
+
+The file must be bounded, owned by the local user, non-symlink and not writable
+by group/other. The source authority still comes from the admitted immutable
+epoch and held writer policy. Reusing that epoch with different full file bytes
+or mapping refuses. Positions advance contiguously, bind exact original rows and
+native descriptors, and preserve predecessor custody. Earlier exact repeats are
+idempotent. This is local consumer progress, not a remote source or Truss ACK.
+
+A source admission failure before COMMIT rolls back the new checkpoint. A lost
+COMMIT receipt or native resolver closure refusal after COMMIT raises
+`LocalProgressOutcomeUnknown`; retain and reconcile the original checkpoint.
+Callbacks must not close the component's local database transaction. No new
+publication or replacement source epoch is licensed by uncertainty. This
+component has connected test-transport evidence; native phase execution remains
+the next integration step.
