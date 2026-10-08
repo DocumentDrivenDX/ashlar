@@ -940,3 +940,24 @@ No fresh native/cloud query ran; this evidence is archived correspondence only,
 not a custom Delta file-reader claim, retained availability/pins or complete
 publication admission. Snapshot/file/schema/authority checks remain independent
 mandatory native policy obligations; the full goal remains unfinished.
+
+## Whole-table pin exclusion for cleanup integration — 2026-10-08
+
+The isolated native registry now provides assert_table_unpinned and the portable
+PostgresTableGuard transaction/authorization port. Every active scope/authority/
+version of the exact table UUID refuses whole-table cleanup; held SHARE custody
+excludes competing registration/release. It submits no native cleanup and supplies
+no permissive authority policy.
+
+Actual ordinary maintenance-role checks passed: the older exact-version guard
+allows an unrelated version, while the new whole-table guard refuses the same
+pinned table; a held guard for the unregistered private example table blocks a
+competing ordinary registration, whose control transaction rolls back. Native
+source/body/security-setting correspondence is retained. All135 local checks pass.
+Evidence: SPIKE-001-table-layout/out/native/table_guard_20261008. No pins added or
+released, Delta query/cleanup, TTL or retention setting changed.
+
+Current physical-target/operator closure, remote lost-lock/outcome quarantine and
+complete file availability remain unfinished. The new guard is an integration
+boundary, not evidence that every Delta maintenance path already participates;
+published/readable pin admission still requires those independent obligations.

@@ -6,7 +6,7 @@ import psycopg
 
 def connect(role):
     if role not in {'ashlar_outbox_reader', 'ashlar_outbox_writer',
-                    'ashlar_pin_reader', 'ashlar_pin_writer'}:
+                    'ashlar_pin_reader', 'ashlar_pin_writer', 'ashlar_pin_maintenance'}:
         raise PermissionError('Explicit ordinary sandbox role required')
     container = json.loads(subprocess.check_output(
         ['/usr/local/bin/docker', 'inspect', 'ashlar-e2e-truss-pg17']))[0]

@@ -138,3 +138,21 @@ unexpected owners/writers/delegators, unknown privileges and incomplete grants.
 Inputs must be complete fresh native observations under the real authority lane;
 saved grants are evidence, not a lock. Platform administrative trust, retention
 operator enforcement and active-pin custody remain separate obligations.
+
+
+### Conservative whole-table cleanup guard
+
+assert_table_unpinned checks every active pin authority/scope/version for an exact
+native table name/UUID and holds the registry SHARE lock through the transaction.
+It refuses whole-table cleanup when any such pin is active. This conservative
+boundary avoids substituting one caller-selected unpinned version for the complete
+affected pin/file union. PostgresTableGuard supplies the required authenticated
+transaction and explicit guard authorization port; it submits no Delta cleanup.
+
+A host must independently bind actual physical cleanup targets/UUIDs and every
+operator to the guard, retain locks throughout confirmed terminal work and keep
+original remote outcome/containment custody. A lost transaction or uncertain
+remote cleanup requires quarantine/recovery; releasing the SQL guard does not
+prove remote termination. This new guard does not close those obligations or
+establish retained file availability. No TTL, pin release, VACUUM or retention
+policy change is performed by the implementation or native fixture checks.

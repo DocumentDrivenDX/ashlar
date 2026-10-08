@@ -1,0 +1,23 @@
+{
+  "state": "passed",
+  "native_role": [
+    {
+      "role": "ashlar_pin_maintenance",
+      "version": "17.9 (Debian 17.9-1.pgdg13+1)"
+    }
+  ],
+  "source_sha256": "690debb6483993d13ff91a516bf2fc85f611a434c91aaa488367f4bd07f7a9db",
+  "native_definition": [
+    {
+      "body": "\nBEGIN\n  LOCK TABLE ashlar_pins.pin IN SHARE MODE;\n  IF p_table IS NULL OR p_uuid IS NULL OR octet_length(p_uuid) NOT BETWEEN 1 AND 1024\n     OR p_table !~ '^[A-Za-z_][A-Za-z0-9_]*\\.[A-Za-z_][A-Za-z0-9_]*\\.[A-Za-z_][A-Za-z0-9_]*$' THEN\n    RAISE EXCEPTION 'Explicit cleanup table identity required';\n  END IF;\n  -- Check every authority/scope/version, not a caller-selected single version.\n  IF EXISTS (SELECT 1 FROM ashlar_pins.pin WHERE table_name=p_table\n             AND table_uuid=p_uuid AND NOT released) THEN\n    RAISE EXCEPTION 'Active table pin refuses cleanup';\n  END IF;\nEND ",
+      "security_definer": true,
+      "settings": "{\"search_path=pg_catalog, pg_temp\"}"
+    }
+  ],
+  "checks": [
+    "exact-version-only guard permits unrelated version",
+    "whole-table guard refuses active pin at any version/scope",
+    "held guard blocks competing registration"
+  ],
+  "qualification": "Native ordinary-role pin exclusion only. No pins added/released, Delta cleanup, operator closure, file availability or uncertain remote outcome containment qualification."
+}

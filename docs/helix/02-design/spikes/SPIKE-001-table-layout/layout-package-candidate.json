@@ -2896,12 +2896,12 @@
     "../../../../../src/ashlar/publication.py": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
     "../../../../../src/ashlar/README.md": "3909a116d8449be3d152db303e3e3d99117a790a87b2628cf6be70508d8133a3",
     "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
-    "../../contracts/CONTRACT-004-publication-resolver.md": "24355c20e375474d8a30c421744397de2e6d5beac7f79f085e3a0b4ecf20b25e",
+    "../../contracts/CONTRACT-004-publication-resolver.md": "4c3694fbdaa78f4dd3674273b682844ed546c93ca6d0e0ccc6224693d3752b7a",
     "../../../../../README.md": "e809e372423f32184f20044cf51ea1e3ced565d6df4d176db6951c01332d6cc7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "6de1e160f765b0b6b38187ed28ebda76a7332e26e1aff8198e1e166f0b2a6c7f",
-    "../../../04-build/end-to-end-plan.md": "77d57313fb4f2ecd7166e8b234bee096f09184aab75c1460dfcc3ea7cdddff41",
+    "../../../04-build/end-to-end-plan.md": "827a2eb3a615c5d088070c8e39a19677f14311b6114c12bd8477dfd9cd7cc4be",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3198,7 +3198,7 @@
     "../../../../../src/ashlar/recovery.py": "2a87e8bd3e8378f18aa713f0a8bc43274054a472b592a8b1d0361edd25cfa841",
     "../../../../../tests/test_recovery.py": "70fa26a2d5e1b0f7a0e6367a13d50c3768ee183e996a6945b626c9ca546b4ed9",
     "../../../../../tests/test_outbox_apply.py": "4375074cb40fde6c389af795c3a7d614c45652cdc8d1c3f78f4ee7e0bf17a6c9",
-    "../../../../../tools/sandbox_postgres.py": "177395c9eabd9443401a5c06fed0ea6ab496383d5a37ef8883493997755774a2",
+    "../../../../../tools/sandbox_postgres.py": "5f0e2a004122ab562a5ea086dba58ecffe5b0d522077452a18e44f8afbb02651",
     "../../../../../tools/run_outbox_example.py": "b076a8cb86f3f422956d107366fe5d0345a87ad152084d2ed3b83f3d426ce00e",
     "out/native/outbox_evolution_20261008/summary.json": "2c4967c5888c3e3268f54cf1328d9a449082fc02fbfc10735f536599da3c30de",
     "out/native/outbox_evolution_20261008/original-transactions.json": "e3a714bd85bff0399a0324b958c62a6758fb2880534a91e5fc2352d6d24e65dc",
@@ -3206,7 +3206,11 @@
     "../../../../../tests/test_source_checkpoint.py": "5e6e852c7fa0110ed2a33a86612bc910e2e453ccaa6479030140c5ffa4ff2821",
     "../../../../../src/ashlar/protocol.py": "aefdf8cb058cfe2b47d98f70d28c59a08d2865731c32004a7cc7c793d7cd8aae",
     "../../../../../tests/test_protocol.py": "ad15b53eee9f820bbd0988c10911bcd084d365a04824211aa0141ae440ac3aba",
-    "out/local/reader_protocol_20261008/summary.json": "32c289cba8cd0901bdf9e8f796a5d8dbf4f55b1186e905b6ee8d14a76b486a29"
+    "out/local/reader_protocol_20261008/summary.json": "32c289cba8cd0901bdf9e8f796a5d8dbf4f55b1186e905b6ee8d14a76b486a29",
+    "../../../../../sql/ashlar-pins/04-table-guard.sql": "690debb6483993d13ff91a516bf2fc85f611a434c91aaa488367f4bd07f7a9db",
+    "../../../../../src/ashlar/maintenance.py": "9058dfd21e2052175e4960bd2f45f59906de200edd645a9a5ad6993475b2e433",
+    "../../../../../tools/check_native_table_guard.py": "ffb028802cd22a21d7bb42ef649411c6b0e0d08ad946c80bf18bba1ad9e20fc8",
+    "out/native/table_guard_20261008/summary.json": "cd3f0f40948601d6d110d0f49ab2c76dd152c00d8df90fa04f5de88b56c28bec"
   },
   "evidence": {
     "ddl": {
