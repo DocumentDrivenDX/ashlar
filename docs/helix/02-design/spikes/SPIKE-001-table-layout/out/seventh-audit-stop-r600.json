@@ -1,0 +1,6 @@
+{
+  "state": "Offline strict audit stopped at cross-transport full history dictionary equality",
+  "audit": "seventh_guard_publish_audit_r600.py",
+  "error": "AssertionError at unchanged closing head == SDK eligibility head",
+  "qualification": "Publication already terminal; no SQL/mutation replay. R601 retains complete native heads and independently binds version and SQL commit identity, qualifying SDK/SQL-connector serialization differences."
+}
