@@ -50,7 +50,7 @@ settings are experiment candidates, not approved compatibility claims. UMF
 binding and source catalog schemas remain deferred. Truss's catalog IDs and
 source-local object/edge IDs are retained without renumbering.
 
-## Current qualification summary (non-normative, through r634)
+## Current qualification summary (non-normative, through r691)
 
 The latest [complete seventh publication](../spikes/SPIKE-001-table-layout/seventh-publication-disposition-r602.md)
 selects N6/E10/R7/J7/A8/T7 for the named private tables in its immutable vector.
@@ -126,6 +126,22 @@ storage and additional projections. This is arithmetic, not native admission,
 pricing or a production producer history profile. Doubling the current graph
 models231.530GB active roles, before validation/retention/peak storage. Scale
 writes still require measured full-role generation and explicit phase bounds.
+
+The [independent append extents](../spikes/SPIKE-001-table-layout/edge-growth-disposition-r670.md)
+now preserve 8M new nodes and 8M new edges with their complete raw records,
+property events and forward adjacency. The pinned old/new node union contains
+16M distinct typed identities; all 16M new-edge endpoint references resolve.
+These private extents preserve historical IDs using a disjoint allocation profile,
+rather than regenerating old carriers with a larger node-count parameter.
+They leave the selected publication unchanged and do not establish one 16M-node
+serving table or the complete 80M-edge target. [Observed-head preflight](../spikes/SPIKE-001-table-layout/next-edge-preflight-disposition-r691.md)
+reconciles seven background maintenance commits through edge13/raw13/journal14/
+adjacency12 with full-field parity. The two unchanged adjacency blocks reuse
+explicitly matched cached results; all changed-head digest blocks were uncached.
+This is content preservation evidence, not a production writer fence or retention
+proof. The next 8M-edge growth stage has a completed independent local oracle
+and combined preflight/growth bounds of 85GB reads, 35GB writes and zero spill.
+Its execution must be audited before any larger-scale or throughput claim.
 
 [File geometry](../spikes/SPIKE-001-table-layout/file-overlap-disposition-r488.md)
 and [throughput envelope](../spikes/SPIKE-001-table-layout/throughput-envelope-disposition-r489.md)

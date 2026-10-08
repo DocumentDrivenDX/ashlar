@@ -1,7 +1,7 @@
 # Physical layout candidate and evidence status — 2026-10-07
 
 
-## Current qualification through r671
+## Current qualification through r691
 
 UC managed Delta remains selected; physical ashlar-delta/0.3 remains proposed.
 Latest logical vectorN6/E10/R7/J7/A8/T7 has8Mnodes/39.93Mliveedges; nodephysical8
@@ -35,11 +35,19 @@ active across691 files. The remaining32M new-edge active footprint is conditiona
 storage remains excluded. The interrupted edge run's full wall time remains
 unqualified; final costs are19.539GB read/12.985GB written/zero spill and pending
 read-only recovery checks took101.445s. No wall-rate extrapolation is admitted.
-Next prepare bounded verification blocks before the16M-new-edge stage, revalidate
-owned physical heads, then generate the independent next8M oracle and append in
-measured chunks. Existing performance misses, Truss requirements, deferred UMF
-and scoped engine mappings remain unchanged. The earlier R634 next-action text
-is superseded by this milestone and does not authorize a full-scale run.
+[Bounded verification R684](all-role-block-disposition-r684.md) qualifies all four
+roles using whole-table membership counts and disjoint full-field digest blocks.
+The next8M local oracle is complete and composed with the prior oracle into160
+contiguous100k groups covering16M new edges. [Fresh preflight R691](next-edge-preflight-disposition-r691.md)
+reconciles seven maintenance commits at edge13/raw13/journal14/adjacency12.
+Changed-head blocks were uncached; unchanged adjacency results were explicitly
+matched to prior uncached pin12 evidence. The preflight reads23.470GB in163.151s,
+with zero writes/spill. [R690 bounds](out/next-edge-stage-budget-r690.json) charge
+that preflight to the combined85GB read/35GB write/zero spill growth budget.
+Next finish and independently audit the bounded16M-new-edge growth stage before
+using its larger physical extent for further performance comparisons. Existing
+performance misses, Truss requirements, deferred UMF and scoped engine mappings
+remain unchanged. These receipts do not authorize a full1B/5B run.
 
 This is a spike evidence index governed by CONTRACT-003 and proposed ADR-001, not approval or production support. [Package manifest](layout-package-candidate.json) hashes the design files and scoped native evidence.
 
