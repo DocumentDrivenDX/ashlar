@@ -1562,3 +1562,22 @@ No native/cloud workload or deployment change occurred. This closes the clean
 packed-consumer gap; publication, full native bootstrap, protected routine bodies,
 adoption/cancellation/recovery and actual Truss streaming remain unfinished. The
 unchanged full end-to-end goal remains active.
+
+
+## Original Truss operation-registry decoder — 2026-10-08
+
+The runtime now validates the original sixteen-column registry observation before
+using it: exact descriptor/count/xid correspondence, unique identities, native
+integer bounds, phase/generation/null rules and immutable original hex fields.
+Twenty-three tests/181 assertions, package builds and packed consumers pass.
+A temporary copy of the original table with actual native xid and opaque fixture
+bytes passes the original query/decoder through the built executor. Original
+DDL/query hashes and results are retained in pg-executor.json; the fixture is
+dropped before commit. A source-comment semicolon extraction mistake initially
+refused and rolled back; exact known SELECT locators corrected the probe.
+
+This is a required observer-body dependency, not original protected admission:
+fixture bytes do not qualify context/effect/group meaning or roles. Full native
+producer/security/body composition, bootstrap and streaming remain unfinished.
+No partial selected layout, persistent tables, cloud workload or deployment
+settings change occurs. The full end-to-end goal remains active.
