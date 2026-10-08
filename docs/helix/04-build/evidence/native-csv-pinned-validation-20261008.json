@@ -1,0 +1,72 @@
+{
+  "summary": {
+    "state": "queried",
+    "namespace": "ashlar_e2e_private_20261008.runtime_csv_stream",
+    "local_consumer_position": "1",
+    "published": [],
+    "query_only": true,
+    "singleton": {
+      "source_system": "local-example",
+      "logical_key_json": "[]",
+      "schema_revision": "3",
+      "props_json": "{\"23\":\"first\",\"24\":\"\"}",
+      "retained_json": "{\"source_profile\":\"ashlar-single-line-csv/0.1\",\"unmapped_columns\":{\"future\":\"18446744073709551615\"}}",
+      "root_id": null,
+      "source_feed": "csv-example",
+      "source_epoch": "immutable-example-1",
+      "source_position": null,
+      "published_at": "2026-10-08T17:58:09.090Z",
+      "lookup_hash": "130425ac5264b46607cffbe83c741d069dcacc8d72cc4038c4049da15f7c5080",
+      "apply_batch_id": "csv-row-1",
+      "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"806\"}",
+      "source_delivery_id": "{\"profile\":\"ashlar-single-line-csv/0.1\",\"header_base64\":\"aWQsZW50aXR5X3ZlcnNpb24sb3BlcmF0aW9uLGxhYmVsLGNhcHRpb24sZnV0dXJlCg==\",\"row_base64\":\"MSwxLGNyZWF0ZSxmaXJzdCwsMTg0NDY3NDQwNzM3MDk1NTE2MTUK\",\"row_ordinal\":\"1\"}",
+      "type_id": "17",
+      "id": "1",
+      "entity_version": "1"
+    },
+    "query_publication_id": "csv-stream-e4d9dd8f3ad4794e843d53e642ec30a5feadbc96fdf5428ec205f056c02d4a97",
+    "native_read_statements": 112,
+    "effective_permission_pages": 66,
+    "source_sha256": "944b1ebb4c9c564ce4687a4a731c360cd6575d97aa9abfa4994203968f498e12",
+    "materialized_at": "2026-10-08T17:58:09.090776+00:00",
+    "qualification": "Actual CSV fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload."
+  },
+  "original_mutations_unchanged": true,
+  "all_new_statements_read_only": true,
+  "full_inventory_scans": 4,
+  "prior_native_read_count": 128,
+  "new_native_read_count": 112,
+  "prior_receipt": "native-csv-stream-singleton-20261008.json",
+  "same_original_singleton": true,
+  "source_hashes": {
+    "tools/run_native_csv_stream.py": "719f4e8ac959b8a8c8a59017ac4d3667cc8546deea7c854698801ac2de6adeb7",
+    "tools/native_artifact_validation.py": "c867453c59cc77493c2b2aa435737a06789f39eb39ae931cec02a49a58d47d09",
+    "tools/pinned_artifact_validation.py": "743325934d248cb4138b10642ec391e95a6250051e5864215b8d1c057f09baba"
+  },
+  "private_receipts": [
+    {
+      "path": "/private/tmp/ashlar-csv-stream-query-pinned-20261008/summary.json",
+      "sha256": "09b42d97afd08acc15cdd6a9dd17627e005905a3b7bb5b050f92c1f3dfb27d46"
+    },
+    {
+      "path": "/private/tmp/ashlar-csv-stream-query-pinned-20261008/statements.jsonl",
+      "sha256": "472b58a8ed30cec41fbcd98f609c79ebc228b5ce217c687c3370ab098a5b67c7"
+    },
+    {
+      "path": "/private/tmp/ashlar-csv-stream-query-pinned-20261008/effective-permissions.jsonl",
+      "sha256": "0f9e360cd10b74f2ff555d586b063851db664d341afdb1ca21b7609766db89a8"
+    },
+    {
+      "path": "/private/tmp/ashlar-csv-stream-query-pinned-20261008/umf-record-check.json",
+      "sha256": "41ee2fcb4f6db224f3b80bf5412b2def52d38a6c029850d96e662edbea173d6d"
+    }
+  ],
+  "local_checks": {
+    "pinned_interval": 3,
+    "native_validator": 3,
+    "singleton": 4,
+    "unique_tests": 10,
+    "failures": 0
+  },
+  "qualification": "One existing fixture singleton, complete native PG pin interval, full parity once for each of four immutable snapshots and renewed source/authority/retention/protocol/UUID checks. Read-count reduction is scoped integration evidence, not a latency benchmark or production-scale admission. No ingest/publication mutation, checkpoint advancement, grants/settings change, Truss producer/catalog or remote ACK/fencing."
+}

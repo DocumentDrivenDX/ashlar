@@ -44,6 +44,7 @@ from journaled_publisher_driver import JournaledPublisherDriver
 from journaled_snapshot_artifacts import JournaledSnapshotArtifacts
 from materialization_clock import materialization_clock
 from native_artifact_validation import NativeArtifactValidator
+from pinned_artifact_validation import PinnedArtifactValidation
 from persistent_sql import Client
 from run_local_example import fixture_inputs,check_original_records
 from sandbox_pins import PrivatePinTransactions
@@ -90,7 +91,7 @@ def main():
     tables={role:NAMESPACE+'.'+role for role in ('object_current','edge_current','tombstone','whole_source_history')}
     uuids={name:entry['uuid'] for name,entry in installation['tables'].items()}
     manifest_table=NAMESPACE+'.publication_manifest';phase_table=NAMESPACE+'.publication_attempt_phase'
-    context=object();held=False;active=None;current=None;pin_vector=None;pin_held=False;targets=None
+    context=object();held=False;active=None;current=None;pin_vector=None;pin_held=False;targets=None;read_interval=None
     permission_reads=[]
     def custody():
         if not held or hashlib.sha256(source.read_bytes()).hexdigest()!=source_sha:raise PermissionError('Original admitted CSV writer/source lane required')
@@ -228,6 +229,9 @@ def main():
             nonlocal current,pin_vector,targets
             current=value;pin_vector=manifest_pin_vector(dict(value.raw),{t:uuids[t] for t in tables.values()},authority=user.user_name)
             targets=loaded_targets(active['request'])
+            if read_interval is not None:
+                if targets!=json.loads(read_interval.inventory):raise PublicationError('Original retained snapshot expectations changed during read')
+                return read_interval.validate_descriptor(value,supplied)
             def held_pins(value,supplied):
                 if not pin_held:raise PermissionError('Actual original pin guards required')
                 bind_manifest_pins(value,pin_vector,{t:uuids[t] for t in tables.values()},authority=user.user_name)
@@ -255,17 +259,24 @@ def main():
     class QueryPins:
         @contextmanager
         def hold(self,vector,*,context):
-            nonlocal pin_held
-            with pins_reader.hold(vector,context=context):
+            nonlocal pin_held,read_interval
+            def held_pins(value,supplied):
+                if not pin_held:raise PermissionError('Actual original pin guards required')
+                bind_manifest_pins(value,vector,{t:uuids[t] for t in tables.values()},authority=user.user_name)
+            service=NativeArtifactValidator(transport,targets,SourcePolicy(),gate,held_pins,
+                reader_profile=PROFILE,manifest_table=manifest_table,manifest_uuid=uuids[manifest_table])
+            interval=PinnedArtifactValidation(pins_reader,vector,service,context)
+            with interval.hold(vector,context=context):
                 pin_held=True
+                read_interval=interval
                 try:yield
-                finally:pin_held=False
+                finally:pin_held=False;read_interval=None
     @contextmanager
     def native_resolution(value,supplied):
         nonlocal current,pin_vector,targets,pin_held
         current=value;pin_vector=manifest_pin_vector(dict(value.raw),{t:uuids[t] for t in tables.values()},authority=user.user_name)
         targets=loaded_targets(active['request'])
-        with pins_reader.hold(pin_vector,context=context):
+        with QueryPins().hold(pin_vector,context=context):
             pin_held=True
             try:
                 backend=NativeBackend(transport,ReadPolicy(),manifest_table,uuids[manifest_table],{table:columns[table.rsplit('.',1)[1]] for table in tables.values()})

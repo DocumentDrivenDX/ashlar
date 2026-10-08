@@ -217,6 +217,33 @@ need not consult Ashlar's PostgreSQL pins for this finite profile; pins do not
 supply an indefinite retention promise. Manual destructive/configuration changes
 remain governed by the effective policy and availability checks.
 
+### Parity reuse inside one read interval
+
+A host MAY reuse successful full-row parity for the same immutable Delta
+UUID/version vector only within one continuously held, complete native pin
+interval. The original raw descriptor, independent target expectations, current
+source/writer authority and supported native snapshot semantics MUST remain
+bound to that interval. The first validation MUST perform full availability and
+parity checks. Reopening an interval MUST repeat those checks; a retained flag,
+previous process receipt or prior query result MUST NOT establish a new interval.
+
+Every renewal MUST still validate original descriptor/vector binding, current
+source/schema/owner/effective permissions, manifest and target UUID/protocol,
+actual complete pin custody and finite retention before and after admission.
+Any refusal or changed descriptor/expectations MUST invalidate reuse for the
+rest of that interval, even when a caller catches the exception. Closing pin
+refusal MUST return no query result. The host MUST close reuse before releasing
+the native pin guards. Historical schema/data immutability and exclusion of
+manual destructive/configuration changes are qualified profile requirements.
+
+This permission does not extend a retention deadline or require predictive
+optimization to consult PostgreSQL pins. Autonomous maintenance remains bounded
+by the freshly checked finite Delta window; manual maintenance follows the
+admitted cooperating authority. Unpinned publication validation retains its full
+checks. Native corruption, uncoordinated destructive administration and wider
+read-policy semantics require independent evidence and MUST NOT be inferred
+from fixture parity reuse.
+
 
 ## Native finite-window observation (non-normative)
 

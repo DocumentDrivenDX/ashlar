@@ -854,3 +854,12 @@ untested. Output includes the original publication ID, singleton and local
 consumer position. Repeated metadata checks still dominate runtime; this is
 integration evidence rather than a latency benchmark. Predictive optimization
 and grants remain unchanged.
+
+Within one complete native pin hold, the first validation checks all fixture
+rows. Later admission in that same hold reuses the immutable rows and renews
+source/schema/permissions, UUID/protocol, descriptor/pin binding and finite
+retention. Closing clears reuse; a fresh query scans again. Any refusal prevents
+reuse even if caught. The qualified cooperating maintenance profile still applies,
+and predictive optimization remains bounded by the finite retention window.
+The demonstrated query issued 112 warehouse reads instead of the earlier 128;
+this reduces duplicate fixture scans but is not a latency or scale claim.

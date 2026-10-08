@@ -2266,3 +2266,37 @@ exercised the permission helper's explicit paginated requests; multi-page native
 privilege evidence remains open. No grant or predictive optimization setting was
 changed. Actual Truss acceptance/feed, remote source ACK/fencing and clean setup
 remain required for the overall goal.
+
+### Continuously pinned parity reuse — 2026-10-08
+
+PinnedArtifactValidation now owns a real complete pin hold before reusing any
+parity result. Its first descriptor check performs the existing full native
+validation. Renewals in that same hold retain current source/schema/writer,
+owner/effective grants, UUID/protocol, descriptor/vector/pin binding and finite
+retention checks, while reusing the already proven immutable snapshot rows.
+Descriptor/expectation change or any refusal poisons reuse until the interval
+closes. Reopening forces full parity. No persisted flag admits a new interval.
+The native CSV read path uses this service; unpinned publication validation
+continues to scan full inventories. CONTRACT-004 records the qualified boundary.
+
+Three new interval tests, three native-validator regression tests and four
+singleton tests pass. The new interval checks exercise expiry, unknown protocol,
+source refusal, changed expectations, rejected native pin admission, nonreentrant
+holds, closing custody failure and full parity on reopening.
+
+A single native query of the existing stored publication passed with the exact
+same singleton and checkpoint position 1. It issued 112 read statements versus
+the prior 128, with one full inventory scan per each of four snapshots. Original
+nine mutation receipts were unchanged. This is scoped integration evidence;
+metadata work remains substantial and does not establish latency targets or
+production-scale admission. No new ingest, publication, source ACK, grant,
+predictive optimization setting or compute resource was changed.
+
+[evidence/native-csv-pinned-validation-20261008.json](evidence/native-csv-pinned-validation-20261008.json)
+retains source/private receipt hashes, original outcome comparison and scan
+counts. The finite retention window continues to bound autonomous maintenance;
+PostgreSQL pins supply no indefinite promise. Manual destructive/configuration
+changes require the cooperating profile. Native corruption or uncoordinated
+administration is outside this qualified private fixture result. Actual Truss,
+later source ordinals, schema evolution through this runner, clean setup and
+remote source/fencing semantics remain open for the end-to-end goal.
