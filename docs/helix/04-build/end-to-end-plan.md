@@ -2078,3 +2078,29 @@ qualifies this as offline receipt recovery, not current native authority/admissi
 No cloud workload, original journal rewrite, publication or source ACK occurred.
 The Truss coordination tool operation is still live without a delivery result;
 it has not been retried or interpreted as accepted owner work.
+
+
+### Journaled effect-to-publisher host driver — 2026-10-08
+
+`tools/journaled_publisher_driver.py` connects actual DurableEffects execution and
+recovery to StoredPublisherBackend's driver interface. Original publication
+request/ordered steps are retained before effects, and one exact effect-bearing
+artifact is retained before returning applied. Restart recovery requires original
+plan custody; known artifact bytes/digest cannot change. When original artifact
+observations remain unresolved after effects, the supplied recovery producer
+must reconcile them; the driver does not generate a replacement proposal.
+
+Writer/source admission, complete native parity/retention/pin validation, artifact
+capture/recovery and descriptor-bound ACK remain explicit mandatory injected
+services. The driver supplies neither permissive implementations nor SQL/schema
+generation. Original effects are bound to the actual publication request digest
+(including its original native source checkpoint). Existing legacy effect intents
+are not relabeled as new publication requests.
+
+Three new focused composition checks and nine existing effect/stored-publisher
+checks pass. They exercise reopen/replay with one original manifest submission,
+original-handle effect resume, missing artifact reconciliation, missing plan
+refusal, native validation denial before manifest/ACK, context mismatch and
+corrupt artifact refusal. These use a test transport; full native phase execution
+is still unproved. No cloud job or source ACK was performed. Concrete native
+artifact/validation/source policies and the actual Truss producer remain next.

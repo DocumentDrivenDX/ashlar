@@ -723,3 +723,26 @@ replace them to restart a pending operation. Native replay uses an explicit
 recovery entry point for already-retained plans and refuses lost plan custody.
 This offline check does not authenticate current authority, admit a source,
 execute native effects, publish a descriptor or acknowledge progress.
+
+
+## Connect native effects to the stored publisher
+
+The host composition now provides `tools.journaled_publisher_driver.JournaledPublisherDriver`
+for `StoredPublisherBackend`. Supply the existing `DurableEffects` instance,
+a writer policy holding the complete source/target admission interval, an
+original-request planner, artifact `capture` and `recover` producers, complete
+native validator and descriptor-bound source acknowledger, and a unique admitted
+operation namespace. All services are required; none defaults to acceptance.
+
+The driver retains exact original request/steps before effects and the original
+applied artifact before advancing the publisher. Recovery refuses missing plan
+custody. Unresolved original artifact observations must be reconciled by the
+recovery producer. A known proposed descriptor is never replaced. Artifact
+validation checks exact original response/descriptor correspondence before the
+injected native validator; source ACK still requires the stored publisher's
+committed descriptor and the supplied current source policy.
+
+This host composition has focused test-transport evidence. The development
+CSV snapshot's earlier native publication does not establish that this complete
+stored-publisher path has run natively. Concrete native capture, validation and
+source policies remain required; this is not a ready production CLI.
