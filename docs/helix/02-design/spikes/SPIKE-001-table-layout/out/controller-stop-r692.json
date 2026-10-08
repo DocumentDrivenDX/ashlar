@@ -1,0 +1,8 @@
+{
+  "state": "Local preparation stopped before SQL submission",
+  "error": "KeyError: oracle_sha256 in result initialization; R689 audit has source hashes rather than this top-level field",
+  "script_sha256": "933e771890a07ae30f8b2e22bb9112e64d24dcf928ec20e0903488acf019a638",
+  "native_statements_submitted": 0,
+  "durable_commits": 0,
+  "correction": "append_edge_growth_r693.py hashes the already source-verified combined oracle directly; distinct output directory prevents replay"
+}

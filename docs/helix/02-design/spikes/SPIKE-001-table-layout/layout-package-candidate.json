@@ -2858,7 +2858,10 @@
     "out/native/ashlar_append_next_preflight_r687/audited-summary-r689.json": "5563cbfe4851e5299cbe50db80107c50422793dee8e8ce2c1695287d7786fce4",
     "out/native/ashlar_append_next_preflight_r687/shared-history.json": "2ff7fc77e309ccedf6387e92349add227fec1ab471fcfaedc15645000c20f2ec",
     "out/native/ashlar_append_next_preflight_r687/statements.jsonl": "69c3c4891470d149845eb5ba7e5e7e93e8c7a2d17a1541efab3dc90a2f60ae65",
-    "out/native/ashlar_append_next_preflight_r687/summary.json": "a21ccbd1241629667384d0946ea491bb2673ad63e7fe879518712a12755a50c3"
+    "out/native/ashlar_append_next_preflight_r687/summary.json": "a21ccbd1241629667384d0946ea491bb2673ad63e7fe879518712a12755a50c3",
+    "append_edge_growth_r692.py": "933e771890a07ae30f8b2e22bb9112e64d24dcf928ec20e0903488acf019a638",
+    "append_edge_growth_r693.py": "96ad7318113a1bc95ba735acbe24c7c82406f7535329c970eaa064efd16894ef",
+    "out/controller-stop-r692.json": "e0bcf4448dcb34b1cefbcd7d7d543c24faddb5660628027d660a224f61019a22"
   },
   "evidence": {
     "ddl": {
