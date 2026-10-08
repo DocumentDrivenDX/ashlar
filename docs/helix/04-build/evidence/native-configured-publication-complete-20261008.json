@@ -1,0 +1,586 @@
+{
+  "state": "passed-recorded-native-configured-publication",
+  "summary": {
+    "state": "published",
+    "namespace": "ashlar_e2e_private_20261008.runtime_configured_jsonl",
+    "local_consumer_position": "1828",
+    "published": [
+      {
+        "ordinal": 1,
+        "descriptor": {
+          "profile_version": "ashlar-delta/0.3",
+          "publication_id": "configured-jsonl-stream-937b95b226296e3e09ecfe0a8cbbbbc3ec0a0b0f0e71e000d5c1f28c41412bc4",
+          "recorded_at": "1791491873839628",
+          "schema_revisions_json": "{\"configured-items\":\"3\"}",
+          "source_progress_json": "{\"configured-jsonl\":{\"batch_id\":\"local-1\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"payload_digest\":\"c0b1120c92e38718da034482c5d6e42e39c65b76a50aedaa89bdfd46b8139734\",\"position\":\"815\",\"previous\":\"0\",\"profile\":\"ashlar-immutable-jsonl/0.1\"}}",
+          "table_versions_json": "{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":0,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":2,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":0,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":1}",
+          "validation_report_json": "{\"complete\":true,\"effect_parity\":[{\"columns\":20,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},{\"columns\":17,\"rows\":2,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":2},{\"columns\":10,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":0},{\"columns\":6,\"rows\":2,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":1}],\"intake_artifact_sha256\":\"f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1\",\"intake_source_sha256\":\"60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085\",\"qualification\":\"Private CONFIGURED-JSONL fixture native publication; explicit local IDs and source custody, actual UMF logical checks. No accepted Truss IDs, remote source ACK or production remote fencing.\",\"request_digest\":\"937b95b226296e3e09ecfe0a8cbbbbc3ec0a0b0f0e71e000d5c1f28c41412bc4\",\"retention\":{\"margin_us\":\"600000000\",\"profile\":\"ashlar-retention-window/0.1\",\"targets\":{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":{\"committed_at\":\"1791491717000000\",\"readable_until\":\"1792095917000000\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":{\"committed_at\":\"1791491844000000\",\"readable_until\":\"1792096044000000\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":2},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":{\"committed_at\":\"1791491729000000\",\"readable_until\":\"1792095929000000\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":{\"committed_at\":\"1791491846000000\",\"readable_until\":\"1792096046000000\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":1}}},\"source_groups\":1,\"source_sha256\":\"f76ecd69ec2939017ac427136c742544837e4068e8a161dd90e72eb8740dd585\",\"upstream_record_check_revision\":\"c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3\"}"
+        }
+      },
+      {
+        "ordinal": 2,
+        "descriptor": {
+          "profile_version": "ashlar-delta/0.3",
+          "publication_id": "configured-jsonl-stream-a137be0c937c4e030175844d0e8a7288d4f6ff46cf6b55045897e5952594307c",
+          "recorded_at": "1791492134450164",
+          "schema_revisions_json": "{\"configured-items\":\"3\"}",
+          "source_progress_json": "{\"configured-jsonl\":{\"batch_id\":\"local-2\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"payload_digest\":\"11029774ebbc2986322c79a91530b14731a22a85e62e6d1ab63b379cb3965236\",\"position\":\"1331\",\"previous\":\"815\",\"profile\":\"ashlar-immutable-jsonl/0.1\"}}",
+          "table_versions_json": "{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":0,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":4,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":0,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":2}",
+          "validation_report_json": "{\"complete\":true,\"effect_parity\":[{\"columns\":20,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},{\"columns\":17,\"rows\":2,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":4},{\"columns\":10,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":0},{\"columns\":6,\"rows\":3,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":2}],\"intake_artifact_sha256\":\"f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1\",\"intake_source_sha256\":\"60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085\",\"qualification\":\"Private CONFIGURED-JSONL fixture native publication; explicit local IDs and source custody, actual UMF logical checks. No accepted Truss IDs, remote source ACK or production remote fencing.\",\"request_digest\":\"a137be0c937c4e030175844d0e8a7288d4f6ff46cf6b55045897e5952594307c\",\"retention\":{\"margin_us\":\"600000000\",\"profile\":\"ashlar-retention-window/0.1\",\"targets\":{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":{\"committed_at\":\"1791491717000000\",\"readable_until\":\"1792095917000000\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":{\"committed_at\":\"1791492108000000\",\"readable_until\":\"1792096308000000\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":4},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":{\"committed_at\":\"1791491729000000\",\"readable_until\":\"1792095929000000\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":{\"committed_at\":\"1791492110000000\",\"readable_until\":\"1792096310000000\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":2}}},\"source_groups\":2,\"source_sha256\":\"f76ecd69ec2939017ac427136c742544837e4068e8a161dd90e72eb8740dd585\",\"upstream_record_check_revision\":\"c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3\"}"
+        }
+      },
+      {
+        "ordinal": 3,
+        "descriptor": {
+          "profile_version": "ashlar-delta/0.3",
+          "publication_id": "configured-jsonl-stream-5c536402364c2f09e69d8e3af1f5c8c1d11a164811f256a2d8c857ea15632b0f",
+          "recorded_at": "1791492425648106",
+          "schema_revisions_json": "{\"configured-items\":\"3\"}",
+          "source_progress_json": "{\"configured-jsonl\":{\"batch_id\":\"local-3\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"payload_digest\":\"8d52783fe0ab58ea07711893ad149249b5d3d076da38cc2147f0358cb370fb80\",\"position\":\"1828\",\"previous\":\"1331\",\"profile\":\"ashlar-immutable-jsonl/0.1\"}}",
+          "table_versions_json": "{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":0,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":5,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":1,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":3}",
+          "validation_report_json": "{\"complete\":true,\"effect_parity\":[{\"columns\":20,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},{\"columns\":17,\"rows\":1,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":5},{\"columns\":10,\"rows\":1,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":1},{\"columns\":6,\"rows\":4,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":3}],\"intake_artifact_sha256\":\"f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1\",\"intake_source_sha256\":\"60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085\",\"qualification\":\"Private CONFIGURED-JSONL fixture native publication; explicit local IDs and source custody, actual UMF logical checks. No accepted Truss IDs, remote source ACK or production remote fencing.\",\"request_digest\":\"5c536402364c2f09e69d8e3af1f5c8c1d11a164811f256a2d8c857ea15632b0f\",\"retention\":{\"margin_us\":\"600000000\",\"profile\":\"ashlar-retention-window/0.1\",\"targets\":{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":{\"committed_at\":\"1791491717000000\",\"readable_until\":\"1792095917000000\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":{\"committed_at\":\"1791492391000000\",\"readable_until\":\"1792096591000000\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":5},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":{\"committed_at\":\"1791492395000000\",\"readable_until\":\"1792096595000000\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":1},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":{\"committed_at\":\"1791492393000000\",\"readable_until\":\"1792096593000000\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":3}}},\"source_groups\":3,\"source_sha256\":\"f76ecd69ec2939017ac427136c742544837e4068e8a161dd90e72eb8740dd585\",\"upstream_record_check_revision\":\"c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3\"}"
+        }
+      }
+    ],
+    "source_kind": "configured-jsonl",
+    "local_completed_batches": 3,
+    "query_only": false,
+    "singleton": null,
+    "weft": null,
+    "query_publication_id": null,
+    "native_read_statements": 1069,
+    "effective_permission_pages": 418,
+    "source_sha256": "f76ecd69ec2939017ac427136c742544837e4068e8a161dd90e72eb8740dd585",
+    "materialized_at": "2026-10-08T20:37:05.709841+00:00",
+    "qualification": "Actual CONFIGURED-JSONL fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload."
+  },
+  "inventory_checks": [
+    {
+      "ordinal": 1,
+      "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current",
+      "version": 0,
+      "rows": 0,
+      "original_handles": [
+        "01f1c358-18bc-13d8-a700-1ab162124ee4",
+        "01f1c358-2ea7-167b-a6f2-ef939754241e",
+        "01f1c358-353c-1b49-9553-807dcca3aa2f",
+        "01f1c358-5008-111f-8612-90a6a2c63baa",
+        "01f1c358-b529-1c8b-b4f9-fcb8cdb34fd9",
+        "01f1c358-c8f3-14e9-b806-101414ef3c78",
+        "01f1c358-d04e-1432-a660-4e0a720fed0b",
+        "01f1c358-ea98-1852-952e-7b650f6db8b1",
+        "01f1c359-6296-13cb-986b-1b4e33327f5c",
+        "01f1c359-764b-1f06-b566-a7f727f33684",
+        "01f1c359-7cb3-110a-be4c-8b5041297dd9",
+        "01f1c359-97d2-126f-9e56-15c177fbfade"
+      ]
+    },
+    {
+      "ordinal": 1,
+      "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current",
+      "version": 2,
+      "rows": 2,
+      "original_handles": [
+        "01f1c358-1a4e-130b-8ccb-795000328bd2",
+        "01f1c358-3038-131f-9bf9-d5c03a524753",
+        "01f1c358-36cc-1a56-8f25-6b326e9822c1",
+        "01f1c358-51a0-169a-b6cc-86f65dd87fdf"
+      ]
+    },
+    {
+      "ordinal": 1,
+      "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone",
+      "version": 0,
+      "rows": 0,
+      "original_handles": [
+        "01f1c358-1c0d-113e-8b44-d232058d03e8",
+        "01f1c358-31d9-1c5f-b9b5-ee7ab883f948",
+        "01f1c358-3863-1d43-9133-3f75bb020f79",
+        "01f1c358-534f-184d-8ead-54967eb87b09",
+        "01f1c358-b809-10d9-b792-d590499d58c9",
+        "01f1c358-cc16-100d-974a-7550e2fa6ec9",
+        "01f1c358-d36e-1216-8ae0-b87c53b63a5d",
+        "01f1c358-edbe-1ac3-804f-cf24110d8515"
+      ]
+    },
+    {
+      "ordinal": 1,
+      "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history",
+      "version": 1,
+      "rows": 2,
+      "original_handles": [
+        "01f1c358-1da1-1840-bf14-b22be732466e",
+        "01f1c358-338d-1764-8463-e976ffbe40bb",
+        "01f1c358-3a08-1af6-8eb3-c3765d442967",
+        "01f1c358-54dd-13c4-8122-df90d51ee93e"
+      ]
+    },
+    {
+      "ordinal": 2,
+      "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current",
+      "version": 0,
+      "rows": 0,
+      "original_handles": [
+        "01f1c358-18bc-13d8-a700-1ab162124ee4",
+        "01f1c358-2ea7-167b-a6f2-ef939754241e",
+        "01f1c358-353c-1b49-9553-807dcca3aa2f",
+        "01f1c358-5008-111f-8612-90a6a2c63baa",
+        "01f1c358-b529-1c8b-b4f9-fcb8cdb34fd9",
+        "01f1c358-c8f3-14e9-b806-101414ef3c78",
+        "01f1c358-d04e-1432-a660-4e0a720fed0b",
+        "01f1c358-ea98-1852-952e-7b650f6db8b1",
+        "01f1c359-6296-13cb-986b-1b4e33327f5c",
+        "01f1c359-764b-1f06-b566-a7f727f33684",
+        "01f1c359-7cb3-110a-be4c-8b5041297dd9",
+        "01f1c359-97d2-126f-9e56-15c177fbfade"
+      ]
+    },
+    {
+      "ordinal": 2,
+      "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current",
+      "version": 4,
+      "rows": 2,
+      "original_handles": [
+        "01f1c358-b677-1a48-bad8-6aac7389e2cb",
+        "01f1c358-ca7a-1e9c-9df4-7742a52ada61",
+        "01f1c358-d1e2-16f1-a43c-a8b6aedc1263",
+        "01f1c358-ec27-112d-9ec5-f35dd629ebd1"
+      ]
+    },
+    {
+      "ordinal": 2,
+      "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone",
+      "version": 0,
+      "rows": 0,
+      "original_handles": [
+        "01f1c358-1c0d-113e-8b44-d232058d03e8",
+        "01f1c358-31d9-1c5f-b9b5-ee7ab883f948",
+        "01f1c358-3863-1d43-9133-3f75bb020f79",
+        "01f1c358-534f-184d-8ead-54967eb87b09",
+        "01f1c358-b809-10d9-b792-d590499d58c9",
+        "01f1c358-cc16-100d-974a-7550e2fa6ec9",
+        "01f1c358-d36e-1216-8ae0-b87c53b63a5d",
+        "01f1c358-edbe-1ac3-804f-cf24110d8515"
+      ]
+    },
+    {
+      "ordinal": 2,
+      "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history",
+      "version": 2,
+      "rows": 3,
+      "original_handles": [
+        "01f1c358-b94a-1f83-9846-0942bed04595",
+        "01f1c358-cda4-1364-82f8-4bb757d69990",
+        "01f1c358-d505-12de-b132-c4b2ab953bb5",
+        "01f1c358-ef81-133a-a115-6ef6f7129663"
+      ]
+    },
+    {
+      "ordinal": 3,
+      "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current",
+      "version": 0,
+      "rows": 0,
+      "original_handles": [
+        "01f1c358-18bc-13d8-a700-1ab162124ee4",
+        "01f1c358-2ea7-167b-a6f2-ef939754241e",
+        "01f1c358-353c-1b49-9553-807dcca3aa2f",
+        "01f1c358-5008-111f-8612-90a6a2c63baa",
+        "01f1c358-b529-1c8b-b4f9-fcb8cdb34fd9",
+        "01f1c358-c8f3-14e9-b806-101414ef3c78",
+        "01f1c358-d04e-1432-a660-4e0a720fed0b",
+        "01f1c358-ea98-1852-952e-7b650f6db8b1",
+        "01f1c359-6296-13cb-986b-1b4e33327f5c",
+        "01f1c359-764b-1f06-b566-a7f727f33684",
+        "01f1c359-7cb3-110a-be4c-8b5041297dd9",
+        "01f1c359-97d2-126f-9e56-15c177fbfade"
+      ]
+    },
+    {
+      "ordinal": 3,
+      "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current",
+      "version": 5,
+      "rows": 1,
+      "original_handles": [
+        "01f1c359-63d9-16c5-8d50-fdb74138b913",
+        "01f1c359-77d5-1483-a9e6-2d1ca06f42c0",
+        "01f1c359-7e49-10f8-9e4d-a383f4c3317b",
+        "01f1c359-9967-1a14-a749-e2cdb7c99791"
+      ]
+    },
+    {
+      "ordinal": 3,
+      "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone",
+      "version": 1,
+      "rows": 1,
+      "original_handles": [
+        "01f1c359-6550-17b9-afb7-51f4eaffec53",
+        "01f1c359-7960-1ba2-aa12-141dd6e979ca",
+        "01f1c359-7fd7-1fc1-8028-4ea2b12a7831",
+        "01f1c359-9b0c-14e1-92e1-a9d3978d1113"
+      ]
+    },
+    {
+      "ordinal": 3,
+      "table": "ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history",
+      "version": 3,
+      "rows": 4,
+      "original_handles": [
+        "01f1c359-66cc-14d5-a8d7-18485589078f",
+        "01f1c359-7b16-1d26-a314-2a0dc4b52938",
+        "01f1c359-817d-1294-8f8d-e84ed08ccda0",
+        "01f1c359-9cc2-142c-a17f-cfacddba6076"
+      ]
+    }
+  ],
+  "original_mutations": [
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:6e8be96aaa164335aee6909c45d59aa5ccffb937a85b36bb7c49762039ff6db7",
+      "original_handle": "01f1c358-080a-10f8-8e2c-8c13d9e91f87",
+      "request_sha256": "dfdcc6b1036591ae1b5ac815f0f53c0a6a7b8925e26ad325aec4064e950df96c",
+      "response_sha256": "a611df113b0e255e1ae40f86b1e944f13641e401d9d13a3cc146e3c5779c9b4f",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:26a1dc60dfc2b26eff38289c2a49c3c23f0eda257ba67cfc1b85561e49b28a5d",
+      "original_handle": "01f1c358-0a8f-10e8-9999-105d9756687c",
+      "request_sha256": "d5ddeefa5158ddd2ab07cbb604bf03b51f8d328ec29326e37fc0459e9179956f",
+      "response_sha256": "bd498a505ac29aebd359c8cdc5407861e94d37631a45135e22373275347ce702",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "effect:2dccf42034e2e15436cd0a0c151090f2b5aaf8ba28149dbdf404767cc8652bb5:0",
+      "original_handle": "01f1c358-0f17-1722-99c5-24ed69881493",
+      "request_sha256": "5e54e37b0a60a3e62a33dec9722325ea550fad47663630427d65cbcbff91727c",
+      "response_sha256": "7d33de733330d1a83c95cad582ddb4ad33578f891ba4814fa1c9978f9a7eb6e0",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "effect:2dccf42034e2e15436cd0a0c151090f2b5aaf8ba28149dbdf404767cc8652bb5:1",
+      "original_handle": "01f1c358-1077-148e-81b3-66cb5ff6fc16",
+      "request_sha256": "c8796f2abda2aea8f372596a331da1faa51240dc19ce6c4f4dccb8a8dc685222",
+      "response_sha256": "46b6998ce177159cd9d0119ac07c61bb466df8f26b40d3f96f27dfceadc5f240",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "effect:2dccf42034e2e15436cd0a0c151090f2b5aaf8ba28149dbdf404767cc8652bb5:2",
+      "original_handle": "01f1c358-11f9-1538-b155-0ac2a6224216",
+      "request_sha256": "c00518bd9d1e6bcbccf55fa86d9da3be02a43413af338a465461b2a9fd05a4c6",
+      "response_sha256": "a801fe37dee192000849bd48bc9eb0f188ebe3f71d717eac691b87e349f0f498",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:12340c33cc0e85cbe7880a0ded574727d209225b898bed41d947238c72d031fe",
+      "original_handle": "01f1c358-23f0-112a-847a-6910793f328a",
+      "request_sha256": "fa94c859a9e3f2536ff086aa0f21faf51acc6f2e2bdfaf2e9c1df26ad7b0371e",
+      "response_sha256": "3b8691a74652c8a390398e205c1b4d0e97fd0765f9a514ed08bea1b738f95efa",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:05af20a395e8325e838f18ec456e4c05b845b912d64602a7c292422a5e56ea42",
+      "original_handle": "01f1c358-4614-1242-bb3b-3ac2ed8feac6",
+      "request_sha256": "bd61fa948091de26c5dff9575ec01c5fef3f3378857519eb887bb0092e549545",
+      "response_sha256": "e4dc0bdb6e2b1a438ac3d756e99c165d7538706035a87159649800c29bfe25b4",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "stream-manifest:937b95b226296e3e09ecfe0a8cbbbbc3ec0a0b0f0e71e000d5c1f28c41412bc4",
+      "original_handle": "01f1c358-6cc2-1b46-88b7-115a96304e00",
+      "request_sha256": "de8ba4ed72c5e9af365a4977ff5bd7fef0ea3555525bbf3eadef5c906b0333ee",
+      "response_sha256": "0d829eb41f14f44973915fc6137ff26534095553f7cb3f4c6c382feff044e053",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:c6fba8e5127faa6865a29768893b72153939c24cfd0b1776bf3ba300ea9adca8",
+      "original_handle": "01f1c358-7dc1-1d62-9c4a-9d2fb2633ba2",
+      "request_sha256": "2004b50956d6fde3c3b97b4f1198aee64820662bb2b66e64ff88e1d0e22d3ecc",
+      "response_sha256": "70907b75ed3c555ecd32d78b7af36013c02a0752bd02dc2df055136671f86e76",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:55d4ba540c2eee5e4c17e2a554fba49e8157c8dd060e850cf2581ad9fa8cc4d8",
+      "original_handle": "01f1c358-a571-16b6-9935-6c848a6bccbe",
+      "request_sha256": "ca2fa52b65e4396057a8f9cf41a5ee73b1aec7520a63e3e2fa5dd5d6be2f4688",
+      "response_sha256": "5e02110542953f03c5117b980a6d92e23eeb7218ef8bb4c02f1c95cd7168a9de",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:59dfc8451fc3702ff1dc2d5428087a86d47ba19040fec23355cdd5bdff7360a4",
+      "original_handle": "01f1c358-a7d7-1730-a916-e6f23a1841e1",
+      "request_sha256": "796f5911bf34c4497f4f12ec498beed44e390ca263042fe22930a40387c8e485",
+      "response_sha256": "ee50daabb4975ba1778e4552a51f602023caec1c7d21be88daaba28f846a8af2",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "effect:d4a0a984dfb5679a4d211474d997e2f6f87461b524e3ce40c2df1bd5ea8d633d:0",
+      "original_handle": "01f1c358-ac8b-1596-9e28-217cf1b960c0",
+      "request_sha256": "2e39821edbfcaa64ccc9abfc009a1f78e6d2cca164f7318ad24680006119b8ee",
+      "response_sha256": "6a79642443c49aeec1e8708210f4196d5c4fc141050cc24fdd55142d122e3cad",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "effect:d4a0a984dfb5679a4d211474d997e2f6f87461b524e3ce40c2df1bd5ea8d633d:1",
+      "original_handle": "01f1c358-ae82-15bb-9eeb-b4d2b361a739",
+      "request_sha256": "45afd4f8918873eff4c90c1fbf9babe5dcb9a54a4646d391ae4e2ab8d407666b",
+      "response_sha256": "406bd66b3f25bbd5d9777833086c662391b41c3aa8b7e57befc8cfe243628041",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "effect:d4a0a984dfb5679a4d211474d997e2f6f87461b524e3ce40c2df1bd5ea8d633d:2",
+      "original_handle": "01f1c358-af7c-184b-b0f5-4cfd8015078d",
+      "request_sha256": "94390a7391c6771499469ae5d67d6b83d088a1a6719ef5df5d2f49b72146b771",
+      "response_sha256": "2e47b4e3c2e082c5d97e3b7114f885d6b4ee4ce2890cccfb27d0b658856b724b",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:e8fa8bc244993506a12204b85814f43bfa6feaa693ef87c5cd6a5a81d31809ed",
+      "original_handle": "01f1c358-bf33-1dfc-8c67-094994906080",
+      "request_sha256": "e58d6bd6c2c5fa84f3b80eaae74b367575226e9dabdc1d0799c1e05bdf4ccf4b",
+      "response_sha256": "c6ebb24658cc820a83faf3f19953c48cf705a18c3868eabf5f1ff1917cf09e5f",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:559859982eecfd992dee6d265f05660474d825ee101ecea92369a0da5050be4e",
+      "original_handle": "01f1c358-e0c6-1122-a10a-b6afc6ed9066",
+      "request_sha256": "5de931b5a5a7b7e802cb7d4ab313238ec7884f3e9f4f6f00b575a277800096e4",
+      "response_sha256": "54efdd83dd06660595b5cd9540ae27c201758fd7bc5954eb836e35bd1df13b7a",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "stream-manifest:a137be0c937c4e030175844d0e8a7288d4f6ff46cf6b55045897e5952594307c",
+      "original_handle": "01f1c359-0550-1344-9c08-3500decf673b",
+      "request_sha256": "2c524d7b9d610f454f7e382f2caaba35c679d35822e28f9bc1694e134116589d",
+      "response_sha256": "7e8c72687c1acf7763c8d8baf884905eb5948c36df0ab58a0c8a7eee96aeed70",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:18ebeb7939805d3963991b1a787c609d473f628aa621e137d8b3c5e1c8ac6982",
+      "original_handle": "01f1c359-1808-1a09-bff6-d9e22851aa28",
+      "request_sha256": "a20af1fdc4939c7b441173c5c349373b27cb1954e47f8b7ee9379a7e9e385c67",
+      "response_sha256": "e8d23739aeb57349edc445c71f0c5b7d0f377f3f6ad35f2741cbe775a97bd8e5",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:03bab410af134d9074d935216f89825a9aa7d7efc9bcb12eea3e750bfdd043cf",
+      "original_handle": "01f1c359-501f-1993-b93b-a21bfe5ed86b",
+      "request_sha256": "5961cbca905b393459ff58f251ea9e5a3a4c3157abf77fe74b0c928559d5e758",
+      "response_sha256": "e60fba1d723d7cc962226a9c6f7204b448c7974f1971408d90676bfe20e0f34f",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:4c67a81db2827f524dd97ba955620567a5f3592acf80736c71c1e174af76252e",
+      "original_handle": "01f1c359-527d-1bfc-ba01-b3e7c77cb866",
+      "request_sha256": "72b5a0d820a676ae61b8d7b47a4a286969cf974fbc335c3ebaf28e7a0f6216d4",
+      "response_sha256": "b07d4dcbfb736b234a535ce6b0396243a497c2add77c44895e30dd92afb48447",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "effect:77d5cd3fbacbbf73765b3e813f20cc5483b1de6f0fd7cc0b460c2b6842287263:0",
+      "original_handle": "01f1c359-56f8-1594-8764-b71a09747e5e",
+      "request_sha256": "18e250b34ba225e91dde9df967697eab09acf90c1f0dde3ac3a4fadf0c00c058",
+      "response_sha256": "44ee5c5fbba6b5bb11eda0981a7c18c74185b28021357158dbde2e62e06ccdd2",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "effect:77d5cd3fbacbbf73765b3e813f20cc5483b1de6f0fd7cc0b460c2b6842287263:1",
+      "original_handle": "01f1c359-580f-1904-b092-28a883e1570f",
+      "request_sha256": "7dd517ca6e0d89b7afdf71c53506809474b15c9430d0f7011ca86c3afc74503e",
+      "response_sha256": "dc5342f57304f9b151b111d06dd8474ec5ab9f4c79e0dd60c528ce74f0737b70",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "effect:77d5cd3fbacbbf73765b3e813f20cc5483b1de6f0fd7cc0b460c2b6842287263:2",
+      "original_handle": "01f1c359-58d8-101c-a85a-a2579413f485",
+      "request_sha256": "a903b8c271352ebc6cd8563b73efb53d7004a31a3b398fdf2855af6b988f33be",
+      "response_sha256": "117aa5e63a9deb805f268db457b23e21e8a7858db3f97c7031f436adecde59e9",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:c1f24a9f5961d0e99bb76047b9b89307de26ed739d6af0b0b03d0ba59c66a4ed",
+      "original_handle": "01f1c359-6cc8-18de-8cc7-c06150de8a1b",
+      "request_sha256": "881e3d8d128c45a676ec2a8b6d892fa5aff4842ed1027420c0c64da7ac5a5e9c",
+      "response_sha256": "39bc1238cf92d882d13ca99eae701189caf84f46e76440da28bb78be92f7e284",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:102f5d6a70c0f9f92ad063446c71f1912afa8d5203ebe7b3d95ca42d475230a5",
+      "original_handle": "01f1c359-8d6c-1673-a03c-395b85acdcc0",
+      "request_sha256": "6bc0ec454912abe38078698f6f25f08a79fc634c7a141a44e3079f99edbafc07",
+      "response_sha256": "fa012742e17eaf54cf507ab68cf101ddabc5b8b00903c5f104126a3a41225773",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "stream-manifest:5c536402364c2f09e69d8e3af1f5c8c1d11a164811f256a2d8c857ea15632b0f",
+      "original_handle": "01f1c359-b2c7-1210-a427-534c7dd23dda",
+      "request_sha256": "d23e1fed28a6cc3c9a153f2e498e27cc36cef880d88e225f8f0ad0d7836ef186",
+      "response_sha256": "8a65d5552b72ea5bd82556fde1f4f7e84c69fbf0159dddd27cf63610c6d4ef5c",
+      "state": "SUCCEEDED"
+    },
+    {
+      "operation": "attempt:ashlar_e2e_private_20261008.runtime_configured_jsonl:af02ca758d37f9e9bb1f0da7a8230fb90775053a470fdfe0f84c7496e6821e67",
+      "original_handle": "01f1c359-c36a-1fcb-a469-1da1637ae2c7",
+      "request_sha256": "4d4966f3c0a901196de260e1ee8ded87f5153620e28519b02238335a5c861bfe",
+      "response_sha256": "310ee37501a3bb77c7e32f58109857272be9593eeed8fa8ecdf6752c406e827a",
+      "state": "SUCCEEDED"
+    }
+  ],
+  "checkpoints": [
+    {
+      "position": 815,
+      "original": {
+        "descriptor": {
+          "profile_version": "ashlar-delta/0.3",
+          "publication_id": "configured-jsonl-stream-937b95b226296e3e09ecfe0a8cbbbbc3ec0a0b0f0e71e000d5c1f28c41412bc4",
+          "recorded_at": "1791491873839628",
+          "schema_revisions_json": "{\"configured-items\":\"3\"}",
+          "source_progress_json": "{\"configured-jsonl\":{\"batch_id\":\"local-1\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"payload_digest\":\"c0b1120c92e38718da034482c5d6e42e39c65b76a50aedaa89bdfd46b8139734\",\"position\":\"815\",\"previous\":\"0\",\"profile\":\"ashlar-immutable-jsonl/0.1\"}}",
+          "table_versions_json": "{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":0,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":2,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":0,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":1}",
+          "validation_report_json": "{\"complete\":true,\"effect_parity\":[{\"columns\":20,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},{\"columns\":17,\"rows\":2,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":2},{\"columns\":10,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":0},{\"columns\":6,\"rows\":2,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":1}],\"intake_artifact_sha256\":\"f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1\",\"intake_source_sha256\":\"60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085\",\"qualification\":\"Private CONFIGURED-JSONL fixture native publication; explicit local IDs and source custody, actual UMF logical checks. No accepted Truss IDs, remote source ACK or production remote fencing.\",\"request_digest\":\"937b95b226296e3e09ecfe0a8cbbbbc3ec0a0b0f0e71e000d5c1f28c41412bc4\",\"retention\":{\"margin_us\":\"600000000\",\"profile\":\"ashlar-retention-window/0.1\",\"targets\":{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":{\"committed_at\":\"1791491717000000\",\"readable_until\":\"1792095917000000\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":{\"committed_at\":\"1791491844000000\",\"readable_until\":\"1792096044000000\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":2},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":{\"committed_at\":\"1791491729000000\",\"readable_until\":\"1792095929000000\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":{\"committed_at\":\"1791491846000000\",\"readable_until\":\"1792096046000000\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":1}}},\"source_groups\":1,\"source_sha256\":\"f76ecd69ec2939017ac427136c742544837e4068e8a161dd90e72eb8740dd585\",\"upstream_record_check_revision\":\"c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3\"}"
+        },
+        "request": {
+          "batch_id": "local-1",
+          "predecessor": "empty-native-configured-jsonl-stream",
+          "request_digest": "937b95b226296e3e09ecfe0a8cbbbbc3ec0a0b0f0e71e000d5c1f28c41412bc4",
+          "schema_revisions_json": "{\"configured-items\":\"3\"}",
+          "source_batch_digest": "7596f9d4f3728d3afb6ddcc1ff50fcc40766356d43ddce40989d4565a2fe340b",
+          "source_batch_json": "{\"batch_id\":\"local-1\",\"begin_base64\":\"eyJraW5kIjoiYmVnaW4iLCJiYXRjaF9pZCI6ImxvY2FsLTEifQo=\",\"commit_base64\":\"eyJraW5kIjoiY29tbWl0IiwiYmF0Y2hfaWQiOiJsb2NhbC0xIiwicmVjb3JkX2NvdW50IjoyLCJyZWNvcmRzX3NoYTI1NiI6ImY4OTc3MDVhYTFmYzA3YWYxMzMwYTQ5MDM1MTI5NGI4YmI1ZDhjOGU1MjBhODcwYTRkZmU3Mzg1ZDI1YmEzMDAifQo=\",\"cursor_after\":\"815\",\"cursor_before\":\"0\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"profile\":\"ashlar-jsonl-transactions/0.1\",\"records\":[{\"cursor\":\"356\",\"delivery_id\":\"1-1\",\"raw_base64\":\"eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImNvbmZpZ3VyZWQtZXhhbXBsZSIsInNjaGVtYV9yZXZpc2lvbiI6IjMiLCJyZXRhaW5lZF9qc29uIjoie1wiZnV0dXJlXCI6MTg0NDY3NDQwNzM3MDk1NTE2MTV9IiwiZGVsaXZlcnlfaWQiOiIxLTEiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxMDE3IiwiaWQiOiIxIiwiZW50aXR5X3ZlcnNpb24iOiIxIiwib3BlcmF0aW9uIjoiY3JlYXRlIiwicHJvcHNfanNvbiI6IntcIjEwMjNcIjpcImZpcnN0XCJ9In0K\",\"sha256\":\"2e28d807cd6fe778223d3c57d4a0dcb8b76b98fe8023681863bd53363c24ef2d\"},{\"cursor\":\"675\",\"delivery_id\":\"2-1\",\"raw_base64\":\"eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImNvbmZpZ3VyZWQtZXhhbXBsZSIsInNjaGVtYV9yZXZpc2lvbiI6IjMiLCJyZXRhaW5lZF9qc29uIjoie1wiZnV0dXJlXCI6MTg0NDY3NDQwNzM3MDk1NTE2MTV9IiwiZGVsaXZlcnlfaWQiOiIyLTEiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxMDE3IiwiaWQiOiIyIiwiZW50aXR5X3ZlcnNpb24iOiIxIiwib3BlcmF0aW9uIjoiY3JlYXRlIiwicHJvcHNfanNvbiI6IntcIjEwMjNcIjpcInNlY29uZFwifSJ9Cg==\",\"sha256\":\"634aa8ba4c7c246a3caa3abda605d8742b564aa1a846679f0d252a19a04777d1\"}],\"records_sha256\":\"f897705aa1fc07af1330a490351294b8bb5d8c8e520a870a4dfe7385d25ba300\"}",
+          "source_checkpoint_json": "{\"batch_id\":\"local-1\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"payload_digest\":\"c0b1120c92e38718da034482c5d6e42e39c65b76a50aedaa89bdfd46b8139734\",\"position\":\"815\",\"previous\":\"0\",\"profile\":\"ashlar-immutable-jsonl/0.1\"}",
+          "stream": "native-configured-jsonl-stream:ashlar_e2e_private_20261008.runtime_configured_jsonl"
+        }
+      },
+      "digest": "6d9c4d7a93fa4c64d41eb8cdff85080fc2d3a394a4de404f9789c793999024e4"
+    },
+    {
+      "position": 1331,
+      "original": {
+        "descriptor": {
+          "profile_version": "ashlar-delta/0.3",
+          "publication_id": "configured-jsonl-stream-a137be0c937c4e030175844d0e8a7288d4f6ff46cf6b55045897e5952594307c",
+          "recorded_at": "1791492134450164",
+          "schema_revisions_json": "{\"configured-items\":\"3\"}",
+          "source_progress_json": "{\"configured-jsonl\":{\"batch_id\":\"local-2\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"payload_digest\":\"11029774ebbc2986322c79a91530b14731a22a85e62e6d1ab63b379cb3965236\",\"position\":\"1331\",\"previous\":\"815\",\"profile\":\"ashlar-immutable-jsonl/0.1\"}}",
+          "table_versions_json": "{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":0,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":4,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":0,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":2}",
+          "validation_report_json": "{\"complete\":true,\"effect_parity\":[{\"columns\":20,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},{\"columns\":17,\"rows\":2,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":4},{\"columns\":10,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":0},{\"columns\":6,\"rows\":3,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":2}],\"intake_artifact_sha256\":\"f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1\",\"intake_source_sha256\":\"60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085\",\"qualification\":\"Private CONFIGURED-JSONL fixture native publication; explicit local IDs and source custody, actual UMF logical checks. No accepted Truss IDs, remote source ACK or production remote fencing.\",\"request_digest\":\"a137be0c937c4e030175844d0e8a7288d4f6ff46cf6b55045897e5952594307c\",\"retention\":{\"margin_us\":\"600000000\",\"profile\":\"ashlar-retention-window/0.1\",\"targets\":{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":{\"committed_at\":\"1791491717000000\",\"readable_until\":\"1792095917000000\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":{\"committed_at\":\"1791492108000000\",\"readable_until\":\"1792096308000000\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":4},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":{\"committed_at\":\"1791491729000000\",\"readable_until\":\"1792095929000000\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":{\"committed_at\":\"1791492110000000\",\"readable_until\":\"1792096310000000\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":2}}},\"source_groups\":2,\"source_sha256\":\"f76ecd69ec2939017ac427136c742544837e4068e8a161dd90e72eb8740dd585\",\"upstream_record_check_revision\":\"c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3\"}"
+        },
+        "request": {
+          "batch_id": "local-2",
+          "predecessor": "configured-jsonl-stream-937b95b226296e3e09ecfe0a8cbbbbc3ec0a0b0f0e71e000d5c1f28c41412bc4",
+          "request_digest": "a137be0c937c4e030175844d0e8a7288d4f6ff46cf6b55045897e5952594307c",
+          "schema_revisions_json": "{\"configured-items\":\"3\"}",
+          "source_batch_digest": "89c658910aaa5748a92ce52467bf7052f16665f812e9b21c1ddf5ffc848a9f95",
+          "source_batch_json": "{\"batch_id\":\"local-2\",\"begin_base64\":\"eyJraW5kIjoiYmVnaW4iLCJiYXRjaF9pZCI6ImxvY2FsLTIifQo=\",\"commit_base64\":\"eyJraW5kIjoiY29tbWl0IiwiYmF0Y2hfaWQiOiJsb2NhbC0yIiwicmVjb3JkX2NvdW50IjoxLCJyZWNvcmRzX3NoYTI1NiI6ImY4Y2VkODc4ZjFhNDk4ZGM1YzBmNzgyMWU5OTY0MjQwZjRhNWI5NGY5NTY4Mjc1NTIzZGYwMDZiMGM5N2Y2MTAifQo=\",\"cursor_after\":\"1331\",\"cursor_before\":\"815\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"profile\":\"ashlar-jsonl-transactions/0.1\",\"records\":[{\"cursor\":\"1191\",\"delivery_id\":\"1-2\",\"raw_base64\":\"eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImNvbmZpZ3VyZWQtZXhhbXBsZSIsInNjaGVtYV9yZXZpc2lvbiI6IjMiLCJyZXRhaW5lZF9qc29uIjoie1wiZnV0dXJlXCI6MTg0NDY3NDQwNzM3MDk1NTE2MTV9IiwiZGVsaXZlcnlfaWQiOiIxLTIiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxMDE3IiwiaWQiOiIxIiwiZW50aXR5X3ZlcnNpb24iOiIyIiwib3BlcmF0aW9uIjoicmVwbGFjZSIsInByb3BzX2pzb24iOiJ7XCIxMDIzXCI6XCJ1cGRhdGVkXCIsXCIxMDI0XCI6XCLpm6pcIn0ifQo=\",\"sha256\":\"b4b6255b8f4c0a898b2e7fe5c6ac36f708af0f98637cd66fe142699710e82a98\"}],\"records_sha256\":\"f8ced878f1a498dc5c0f7821e9964240f4a5b94f9568275523df006b0c97f610\"}",
+          "source_checkpoint_json": "{\"batch_id\":\"local-2\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"payload_digest\":\"11029774ebbc2986322c79a91530b14731a22a85e62e6d1ab63b379cb3965236\",\"position\":\"1331\",\"previous\":\"815\",\"profile\":\"ashlar-immutable-jsonl/0.1\"}",
+          "stream": "native-configured-jsonl-stream:ashlar_e2e_private_20261008.runtime_configured_jsonl"
+        }
+      },
+      "digest": "559368edb3d48ba9656a4f42627fb2916efaabb15ca2dcefd13c1d0847077b3a"
+    },
+    {
+      "position": 1828,
+      "original": {
+        "descriptor": {
+          "profile_version": "ashlar-delta/0.3",
+          "publication_id": "configured-jsonl-stream-5c536402364c2f09e69d8e3af1f5c8c1d11a164811f256a2d8c857ea15632b0f",
+          "recorded_at": "1791492425648106",
+          "schema_revisions_json": "{\"configured-items\":\"3\"}",
+          "source_progress_json": "{\"configured-jsonl\":{\"batch_id\":\"local-3\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"payload_digest\":\"8d52783fe0ab58ea07711893ad149249b5d3d076da38cc2147f0358cb370fb80\",\"position\":\"1828\",\"previous\":\"1331\",\"profile\":\"ashlar-immutable-jsonl/0.1\"}}",
+          "table_versions_json": "{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":0,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":5,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":1,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":3}",
+          "validation_report_json": "{\"complete\":true,\"effect_parity\":[{\"columns\":20,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},{\"columns\":17,\"rows\":1,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":5},{\"columns\":10,\"rows\":1,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":1},{\"columns\":6,\"rows\":4,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":3}],\"intake_artifact_sha256\":\"f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1\",\"intake_source_sha256\":\"60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085\",\"qualification\":\"Private CONFIGURED-JSONL fixture native publication; explicit local IDs and source custody, actual UMF logical checks. No accepted Truss IDs, remote source ACK or production remote fencing.\",\"request_digest\":\"5c536402364c2f09e69d8e3af1f5c8c1d11a164811f256a2d8c857ea15632b0f\",\"retention\":{\"margin_us\":\"600000000\",\"profile\":\"ashlar-retention-window/0.1\",\"targets\":{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":{\"committed_at\":\"1791491717000000\",\"readable_until\":\"1792095917000000\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":{\"committed_at\":\"1791492391000000\",\"readable_until\":\"1792096591000000\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":5},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":{\"committed_at\":\"1791492395000000\",\"readable_until\":\"1792096595000000\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":1},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":{\"committed_at\":\"1791492393000000\",\"readable_until\":\"1792096593000000\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":3}}},\"source_groups\":3,\"source_sha256\":\"f76ecd69ec2939017ac427136c742544837e4068e8a161dd90e72eb8740dd585\",\"upstream_record_check_revision\":\"c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3\"}"
+        },
+        "request": {
+          "batch_id": "local-3",
+          "predecessor": "configured-jsonl-stream-a137be0c937c4e030175844d0e8a7288d4f6ff46cf6b55045897e5952594307c",
+          "request_digest": "5c536402364c2f09e69d8e3af1f5c8c1d11a164811f256a2d8c857ea15632b0f",
+          "schema_revisions_json": "{\"configured-items\":\"3\"}",
+          "source_batch_digest": "0fc17735d0576f2830e87295bd7291f006a993dd008e261a845096b8f28872fb",
+          "source_batch_json": "{\"batch_id\":\"local-3\",\"begin_base64\":\"eyJraW5kIjoiYmVnaW4iLCJiYXRjaF9pZCI6ImxvY2FsLTMifQo=\",\"commit_base64\":\"eyJraW5kIjoiY29tbWl0IiwiYmF0Y2hfaWQiOiJsb2NhbC0zIiwicmVjb3JkX2NvdW50IjoxLCJyZWNvcmRzX3NoYTI1NiI6ImZjNjllZjRhMTE4NDNjY2ZmZjAzMTZjMzRiYzhjZjJlNWU4YWE0MmU2NWViNmY1ODEzOTM5YTUzMGNmMjZmMDMifQo=\",\"cursor_after\":\"1828\",\"cursor_before\":\"1331\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"profile\":\"ashlar-jsonl-transactions/0.1\",\"records\":[{\"cursor\":\"1688\",\"delivery_id\":\"2-2\",\"raw_base64\":\"eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImNvbmZpZ3VyZWQtZXhhbXBsZSIsInNjaGVtYV9yZXZpc2lvbiI6IjMiLCJyZXRhaW5lZF9qc29uIjoie1wiZnV0dXJlXCI6MTg0NDY3NDQwNzM3MDk1NTE2MTV9IiwiZGVsaXZlcnlfaWQiOiIyLTIiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxMDE3IiwiaWQiOiIyIiwiZW50aXR5X3ZlcnNpb24iOiIyIiwib3BlcmF0aW9uIjoiZGVsZXRlIiwicHJvcHNfanNvbiI6IntcIjEwMjNcIjpcInNlY29uZFwifSJ9Cg==\",\"sha256\":\"18740e2561384106d5a68c7defc639fc00d1ce0c923f0b736c18052bc084fc22\"}],\"records_sha256\":\"fc69ef4a11843ccfff0316c34bc8cf2e5e8aa42e65eb6f5813939a530cf26f03\"}",
+          "source_checkpoint_json": "{\"batch_id\":\"local-3\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"payload_digest\":\"8d52783fe0ab58ea07711893ad149249b5d3d076da38cc2147f0358cb370fb80\",\"position\":\"1828\",\"previous\":\"1331\",\"profile\":\"ashlar-immutable-jsonl/0.1\"}",
+          "stream": "native-configured-jsonl-stream:ashlar_e2e_private_20261008.runtime_configured_jsonl"
+        }
+      },
+      "digest": "11cdab20d28361856ed61bf370091a0243a89a7caa38483542033a380da8417a"
+    }
+  ],
+  "final_independent_inventory": {
+    "object_current": [
+      {
+        "source_system": "configured-example",
+        "type_id": "1017",
+        "id": "1",
+        "logical_key_json": "[]",
+        "schema_revision": "3",
+        "entity_version": "2",
+        "props_json": "{\"1023\":\"updated\",\"1024\":\"\u96ea\"}",
+        "retained_json": "{\"future\":18446744073709551615}",
+        "root_id": null,
+        "source_feed": "configured-jsonl",
+        "source_epoch": "configured-1",
+        "source_position": null,
+        "published_at": "1791491825709841",
+        "lookup_hash": "ff7d42f4711722405c29a11bad9e2a433ece85416b17f003d9c81e144f53dea3",
+        "apply_batch_id": "local-2",
+        "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"1331\"}",
+        "source_delivery_id": "1-2"
+      }
+    ],
+    "edge_current": [],
+    "tombstone": [
+      {
+        "source_system": "configured-example",
+        "entity_kind": "object",
+        "type_id": "1017",
+        "id": "2",
+        "entity_version": "2",
+        "source_feed": "configured-jsonl",
+        "source_epoch": "configured-1",
+        "source_position": null,
+        "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"1828\"}",
+        "source_delivery_id": "2-2"
+      }
+    ],
+    "whole_source_history": [
+      {
+        "feed": "configured-jsonl",
+        "epoch": "configured-1",
+        "delivery_id": "1-1",
+        "digest": "2e28d807cd6fe778223d3c57d4a0dcb8b76b98fe8023681863bd53363c24ef2d",
+        "change_json": "{\"feed\":\"configured-jsonl\",\"epoch\":\"configured-1\",\"delivery_id\":\"1-1\",\"raw_digest\":\"2e28d807cd6fe778223d3c57d4a0dcb8b76b98fe8023681863bd53363c24ef2d\",\"operation\":\"create\",\"state\":{\"key\":{\"source\":\"configured-example\",\"kind\":\"object\",\"type_id\":1017,\"id\":1},\"version\":1,\"schema_revision\":\"3\",\"props_json\":\"{\\\"1023\\\":\\\"first\\\"}\",\"retained_json\":\"{\\\"future\\\":18446744073709551615}\",\"endpoints\":null}}",
+        "raw_base64": "eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImNvbmZpZ3VyZWQtZXhhbXBsZSIsInNjaGVtYV9yZXZpc2lvbiI6IjMiLCJyZXRhaW5lZF9qc29uIjoie1wiZnV0dXJlXCI6MTg0NDY3NDQwNzM3MDk1NTE2MTV9IiwiZGVsaXZlcnlfaWQiOiIxLTEiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxMDE3IiwiaWQiOiIxIiwiZW50aXR5X3ZlcnNpb24iOiIxIiwib3BlcmF0aW9uIjoiY3JlYXRlIiwicHJvcHNfanNvbiI6IntcIjEwMjNcIjpcImZpcnN0XCJ9In0K"
+      },
+      {
+        "feed": "configured-jsonl",
+        "epoch": "configured-1",
+        "delivery_id": "2-1",
+        "digest": "634aa8ba4c7c246a3caa3abda605d8742b564aa1a846679f0d252a19a04777d1",
+        "change_json": "{\"feed\":\"configured-jsonl\",\"epoch\":\"configured-1\",\"delivery_id\":\"2-1\",\"raw_digest\":\"634aa8ba4c7c246a3caa3abda605d8742b564aa1a846679f0d252a19a04777d1\",\"operation\":\"create\",\"state\":{\"key\":{\"source\":\"configured-example\",\"kind\":\"object\",\"type_id\":1017,\"id\":2},\"version\":1,\"schema_revision\":\"3\",\"props_json\":\"{\\\"1023\\\":\\\"second\\\"}\",\"retained_json\":\"{\\\"future\\\":18446744073709551615}\",\"endpoints\":null}}",
+        "raw_base64": "eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImNvbmZpZ3VyZWQtZXhhbXBsZSIsInNjaGVtYV9yZXZpc2lvbiI6IjMiLCJyZXRhaW5lZF9qc29uIjoie1wiZnV0dXJlXCI6MTg0NDY3NDQwNzM3MDk1NTE2MTV9IiwiZGVsaXZlcnlfaWQiOiIyLTEiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxMDE3IiwiaWQiOiIyIiwiZW50aXR5X3ZlcnNpb24iOiIxIiwib3BlcmF0aW9uIjoiY3JlYXRlIiwicHJvcHNfanNvbiI6IntcIjEwMjNcIjpcInNlY29uZFwifSJ9Cg=="
+      },
+      {
+        "feed": "configured-jsonl",
+        "epoch": "configured-1",
+        "delivery_id": "1-2",
+        "digest": "b4b6255b8f4c0a898b2e7fe5c6ac36f708af0f98637cd66fe142699710e82a98",
+        "change_json": "{\"feed\":\"configured-jsonl\",\"epoch\":\"configured-1\",\"delivery_id\":\"1-2\",\"raw_digest\":\"b4b6255b8f4c0a898b2e7fe5c6ac36f708af0f98637cd66fe142699710e82a98\",\"operation\":\"replace\",\"state\":{\"key\":{\"source\":\"configured-example\",\"kind\":\"object\",\"type_id\":1017,\"id\":1},\"version\":2,\"schema_revision\":\"3\",\"props_json\":\"{\\\"1023\\\":\\\"updated\\\",\\\"1024\\\":\\\"\\u96ea\\\"}\",\"retained_json\":\"{\\\"future\\\":18446744073709551615}\",\"endpoints\":null}}",
+        "raw_base64": "eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImNvbmZpZ3VyZWQtZXhhbXBsZSIsInNjaGVtYV9yZXZpc2lvbiI6IjMiLCJyZXRhaW5lZF9qc29uIjoie1wiZnV0dXJlXCI6MTg0NDY3NDQwNzM3MDk1NTE2MTV9IiwiZGVsaXZlcnlfaWQiOiIxLTIiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxMDE3IiwiaWQiOiIxIiwiZW50aXR5X3ZlcnNpb24iOiIyIiwib3BlcmF0aW9uIjoicmVwbGFjZSIsInByb3BzX2pzb24iOiJ7XCIxMDIzXCI6XCJ1cGRhdGVkXCIsXCIxMDI0XCI6XCLpm6pcIn0ifQo="
+      },
+      {
+        "feed": "configured-jsonl",
+        "epoch": "configured-1",
+        "delivery_id": "2-2",
+        "digest": "18740e2561384106d5a68c7defc639fc00d1ce0c923f0b736c18052bc084fc22",
+        "change_json": "{\"feed\":\"configured-jsonl\",\"epoch\":\"configured-1\",\"delivery_id\":\"2-2\",\"raw_digest\":\"18740e2561384106d5a68c7defc639fc00d1ce0c923f0b736c18052bc084fc22\",\"operation\":\"delete\",\"state\":{\"key\":{\"source\":\"configured-example\",\"kind\":\"object\",\"type_id\":1017,\"id\":2},\"version\":2,\"schema_revision\":\"3\",\"props_json\":\"{\\\"1023\\\":\\\"second\\\"}\",\"retained_json\":\"{\\\"future\\\":18446744073709551615}\",\"endpoints\":null}}",
+        "raw_base64": "eyJraW5kIjoiZXZlbnQiLCJzb3VyY2VfcHJvZmlsZSI6ImFzaGxhci13aG9sZS1lbnRpdHkvMC4xIiwic291cmNlX3N5c3RlbSI6ImNvbmZpZ3VyZWQtZXhhbXBsZSIsInNjaGVtYV9yZXZpc2lvbiI6IjMiLCJyZXRhaW5lZF9qc29uIjoie1wiZnV0dXJlXCI6MTg0NDY3NDQwNzM3MDk1NTE2MTV9IiwiZGVsaXZlcnlfaWQiOiIyLTIiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxMDE3IiwiaWQiOiIyIiwiZW50aXR5X3ZlcnNpb24iOiIyIiwib3BlcmF0aW9uIjoiZGVsZXRlIiwicHJvcHNfanNvbiI6IntcIjEwMjNcIjpcInNlY29uZFwifSJ9Cg=="
+      }
+    ]
+  },
+  "configuration_sha256": "cec472a462dc6306798aade3b29928b55dd8d39731e767fb86dc6fc86c7c5217",
+  "receipt_sha256": {
+    "summary.json": "45bb0af581df6fc57cb98e7182ed7693194ae94c1c74f07e4c94dae5e086041a",
+    "statements.jsonl": "990fcd9778aa027e02bc01bd63d57939c3e37db0a3d2e4cdea7f9cec5a656703",
+    "effective-permissions.jsonl": "787d4d56549be2cb4c87f66e44105d2fed444324d870d599434255c3f2dc0964",
+    "live-statement.json": "5a1dec79aed92ef0a480b7170c887ed9bf58e696e353f157466ec143d18fb573",
+    "umf-record-check-3/record-1.json": "76d49070046819452f07619a0dd8d5e110a790a32c44ebc5eae1907ccc8b55fe"
+  },
+  "qualification": "Offline recorded original configured JSONL publication verification: pinned configuration/model/installation journal scope, exact complete transaction progress, all published native version inventories and terminal original mutations. No fresh authority/readability renewal, accepted Truss IDs, remote fencing/ACK or complete toolkit claim.",
+  "ashlar_execution_revision": "acaf6d4",
+  "first_original_mutations_unchanged": 9
+}

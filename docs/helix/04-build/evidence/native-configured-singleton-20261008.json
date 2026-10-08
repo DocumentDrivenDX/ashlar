@@ -1,0 +1,255 @@
+{
+  "state": "passed-native-configured-singleton",
+  "ashlar_execution_revision": "cf2e2a9",
+  "summary": {
+    "state": "queried",
+    "namespace": "ashlar_e2e_private_20261008.runtime_configured_jsonl",
+    "local_consumer_position": "1828",
+    "published": [],
+    "source_kind": "configured-jsonl",
+    "local_completed_batches": 3,
+    "query_only": true,
+    "singleton": {
+      "source_system": "configured-example",
+      "logical_key_json": "[]",
+      "schema_revision": "3",
+      "props_json": "{\"1023\":\"updated\",\"1024\":\"\u96ea\"}",
+      "retained_json": "{\"future\":18446744073709551615}",
+      "root_id": null,
+      "source_feed": "configured-jsonl",
+      "source_epoch": "configured-1",
+      "source_position": null,
+      "lookup_hash": "ff7d42f4711722405c29a11bad9e2a433ece85416b17f003d9c81e144f53dea3",
+      "apply_batch_id": "local-2",
+      "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"1331\"}",
+      "source_delivery_id": "1-2",
+      "type_id": "1017",
+      "id": "1",
+      "entity_version": "2",
+      "published_at": "1791491825709841"
+    },
+    "weft": null,
+    "query_publication_id": "configured-jsonl-stream-5c536402364c2f09e69d8e3af1f5c8c1d11a164811f256a2d8c857ea15632b0f",
+    "native_read_statements": 112,
+    "effective_permission_pages": 66,
+    "source_sha256": "f76ecd69ec2939017ac427136c742544837e4068e8a161dd90e72eb8740dd585",
+    "materialized_at": "2026-10-08T20:37:05.709841+00:00",
+    "qualification": "Actual CONFIGURED-JSONL fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload."
+  },
+  "independent_expected": {
+    "source_system": "configured-example",
+    "type_id": "1017",
+    "id": "1",
+    "logical_key_json": "[]",
+    "schema_revision": "3",
+    "entity_version": "2",
+    "props_json": "{\"1023\":\"updated\",\"1024\":\"\u96ea\"}",
+    "retained_json": "{\"future\":18446744073709551615}",
+    "root_id": null,
+    "source_feed": "configured-jsonl",
+    "source_epoch": "configured-1",
+    "source_position": null,
+    "published_at": "1791491825709841",
+    "lookup_hash": "ff7d42f4711722405c29a11bad9e2a433ece85416b17f003d9c81e144f53dea3",
+    "apply_batch_id": "local-2",
+    "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"1331\"}",
+    "source_delivery_id": "1-2"
+  },
+  "original_mutations_unchanged": 27,
+  "original_checkpoints_unchanged": [
+    815,
+    1331,
+    1828
+  ],
+  "native_point_lookup": {
+    "warehouse_id": "2439e1f2e37ac563",
+    "label": "authenticated-read",
+    "sql": "SELECT * EXCEPT (type_id,id,entity_version,published_at),cast(type_id AS STRING) AS type_id,cast(id AS STRING) AS id,cast(entity_version AS STRING) AS entity_version,cast(unix_micros(published_at) AS STRING) AS published_at FROM `ashlar_e2e_private_20261008`.`runtime_configured_jsonl`.`object_current` VERSION AS OF 5 WHERE lookup_hash=:hash AND source_system=:source AND type_id=cast(:type AS BIGINT) AND id=cast(:id AS BIGINT) LIMIT 2",
+    "cancel_requested": false,
+    "parameters": [
+      {
+        "name": "hash",
+        "type": "STRING",
+        "value": "ff7d42f4711722405c29a11bad9e2a433ece85416b17f003d9c81e144f53dea3"
+      },
+      {
+        "name": "source",
+        "type": "STRING",
+        "value": "configured-example"
+      },
+      {
+        "name": "type",
+        "type": "STRING",
+        "value": "1017"
+      },
+      {
+        "name": "id",
+        "type": "STRING",
+        "value": "1"
+      }
+    ],
+    "statement_id": "01f1c35a-370c-1090-97e6-5a1c68b5a5e2",
+    "start_epoch": 1791492766.230239,
+    "wall_ms": 716.507374999999,
+    "response": {
+      "statement_id": "01f1c35a-370c-1090-97e6-5a1c68b5a5e2",
+      "status": {
+        "state": "SUCCEEDED"
+      },
+      "manifest": {
+        "format": "JSON_ARRAY",
+        "schema": {
+          "column_count": 17,
+          "columns": [
+            {
+              "name": "source_system",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 0
+            },
+            {
+              "name": "logical_key_json",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 1
+            },
+            {
+              "name": "schema_revision",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 2
+            },
+            {
+              "name": "props_json",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 3
+            },
+            {
+              "name": "retained_json",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 4
+            },
+            {
+              "name": "root_id",
+              "type_text": "BIGINT",
+              "type_name": "LONG",
+              "position": 5
+            },
+            {
+              "name": "source_feed",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 6
+            },
+            {
+              "name": "source_epoch",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 7
+            },
+            {
+              "name": "source_position",
+              "type_text": "BIGINT",
+              "type_name": "LONG",
+              "position": 8
+            },
+            {
+              "name": "lookup_hash",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 9
+            },
+            {
+              "name": "apply_batch_id",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 10
+            },
+            {
+              "name": "source_cursor_json",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 11
+            },
+            {
+              "name": "source_delivery_id",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 12
+            },
+            {
+              "name": "type_id",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 13
+            },
+            {
+              "name": "id",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 14
+            },
+            {
+              "name": "entity_version",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 15
+            },
+            {
+              "name": "published_at",
+              "type_text": "STRING",
+              "type_name": "STRING",
+              "position": 16
+            }
+          ]
+        },
+        "total_chunk_count": 1,
+        "chunks": [
+          {
+            "chunk_index": 0,
+            "row_offset": 0,
+            "row_count": 1
+          }
+        ],
+        "total_row_count": 1,
+        "truncated": false
+      },
+      "result": {
+        "chunk_index": 0,
+        "row_offset": 0,
+        "row_count": 1,
+        "data_array": [
+          [
+            "configured-example",
+            "[]",
+            "3",
+            "{\"1023\":\"updated\",\"1024\":\"\u96ea\"}",
+            "{\"future\":18446744073709551615}",
+            null,
+            "configured-jsonl",
+            "configured-1",
+            null,
+            "ff7d42f4711722405c29a11bad9e2a433ece85416b17f003d9c81e144f53dea3",
+            "local-2",
+            "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"1331\"}",
+            "1-2",
+            "1017",
+            "1",
+            "2",
+            "1791491825709841"
+          ]
+        ]
+      }
+    }
+  },
+  "receipt_sha256": {
+    "summary.json": "8eaa3b63b6919f8e7be05087aed7cdf5a239f4ff7364e1a82ea0eed8b519fe90",
+    "statements.jsonl": "ff89f833379b0b2d7fc9720af1e8f7c2d04fba714d2841c8d072053f8e96fbba",
+    "effective-permissions.jsonl": "f5d1356540ff5a2b1dd60e4e4c9a4b52278fee49d9d9b71547301d2b2a0da4f8",
+    "live-statement.json": "11fba2e1d1810c9e646d764d40e4ee935d59d8e78ba95c4e77ade0db77ad15a4",
+    "umf-record-check-3/record-1.json": "76d49070046819452f07619a0dd8d5e110a790a32c44ebc5eae1907ccc8b55fe"
+  },
+  "qualification": "Actual resolver-bound singleton on final configured publication using configured source and sole explicitly bound type1017. All17 original fields, exact microseconds, props/opaque retained JSON and cursor match independent source expectations. Original27 mutation handles/hashes and three complete checkpoints unchanged. Private owner/ordinary PG pin roles/finite retention; no accepted Truss IDs/feed/ACK or production remote fencing."
+}

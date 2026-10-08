@@ -3008,3 +3008,36 @@ Original native configured publisher process5165 remains active; its update
 checkpoint1331 is present alongside815. Final delete/publication/query and complete
 receipt parity remain pending. The portable-code move does not restart or alter
 that process's retained configuration/model/source bytes or original journal.
+
+### Complete configured native publication and singleton — 2026-10-08
+
+Original publisher process5165 is terminal exit0 and has consumed all1828 source
+bytes through three original checkpoints815/1331/1828. All twelve ordinal/table
+exact-version complete inventories equal independent original-source reconstruction.
+All27 native mutation requests/handles/responses are terminal SUCCEEDED; the first
+nine exactly match the prior committed first-publication evidence. Final state is
+one configured-example/type1017 object at entity version2, one delete/tombstone
+for entity2, four original whole-source history records and empty edges. Original
+configuration/model/installation journal scope is checked. The complete offline
+verifier now runs as tools/verify_configured_publication.py, issuing no new SQL.
+[Complete configured publication](evidence/native-configured-publication-complete-20261008.json)
+retains original proofs and inventory handles. Publication issued1069 read statements
+and retained permission observations; these are custody overhead for four events,
+not a scale/performance benchmark or architecture gate.
+
+The configured singleton process49952 is also terminal exit0. It reads the final
+original publication using configured source and the sole explicit bound type1017.
+All17 fields equal the independent original-source oracle, including exact epoch
+microseconds, Unicode props, opaque retained large-integer JSON and byte cursor.
+All27 original mutation handles/hashes and three checkpoint originals/digests remain
+unchanged. It uses112 read statements and66 permission pages; no effects/progress
+are advanced. [Configured singleton](evidence/native-configured-singleton-20261008.json)
+retains original query/parameters, response and hashes. Existing compute, grants
+and predictive optimization unchanged.
+
+Configured immutable JSONL setup/intake/publication/update/delete/history/singleton
+now has scoped actual execution evidence in a fresh private namespace. Local exact
+replay is verified; native exact-repeat and configured Weft queries remain separate
+unexecuted checks. Actual Truss acceptance/catalog/producer/feed, broader semantic
+models, combined source orchestration and production remote fencing/ACK remain
+unfinished. Full goal remains active.

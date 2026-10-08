@@ -1167,3 +1167,25 @@ This dependency-free installed command checks the entire configured source and
 local exact replay before emitting a summary. It does not issue database I/O or
 invoke a fresh upstream UMF logical-value check; use the host preflight for that
 additional evidence. A fresh wheel installation outside the checkout is verified.
+
+The complete configured native example now passes all three publications through
+byte `1828`, including update/delete/history/tombstone, and its final resolver-bound
+singleton matches all 17 original fields. Local exact replay is also verified.
+The native singleton uses `configured-example` and the explicit type `1017` from
+the configuration. Actual Truss acceptance/feed, remote ACK/fencing, native exact
+repeat and configured Weft queries remain outside this demonstrated result.
+
+The publication receipts can be verified offline without additional SQL:
+
+```sh
+PYTHONPATH=src:tools python3 -B tools/verify_configured_publication.py \
+  --source-config examples/end-to-end/configured-source.json \
+  --installation /private/tmp/ashlar-configured-setup-20261008/summary.json \
+  --intake-proof /private/tmp/ashlar-configured-schema-20261008/summary.json \
+  --journal /private/tmp/ashlar-configured-stream-20261008.sqlite \
+  --receipts /private/tmp/ashlar-configured-stream-20261008 \
+  --output /fresh/path/configured-publication-verification.json
+```
+
+Use your own retained paths for another run. This checks recorded parity and
+original custody; it does not renew present-day native permissions or retention.
