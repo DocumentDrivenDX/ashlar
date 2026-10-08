@@ -1,0 +1,8 @@
+{
+  "state": "original-manifest-submission-pending-at-tool-exit",
+  "executed_tool_sha256": "28cdd6f703299602136f849a9990da0781bac97004a5edd52515aa156f203c19",
+  "original_operation": "csv-fixture-manifest:csv-fixture-publication-20261008",
+  "original_handle": "01f1c324-be02-14c1-af7e-2133f7740ef8",
+  "native_read_receipts": 72,
+  "qualification": "Original handle persisted before tool refusal. Four pins registered; no resolver success, source ACK, replacement submission or settings/grants change. A later terminal outcome must be recovered from this handle."
+}

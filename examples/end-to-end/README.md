@@ -597,3 +597,38 @@ Omitting the clock uses the historical fixture timestamp. Existing evidence
 directories are refused rather than overwritten. The checker still requires
 the recorded private installation and independently derives all expected rows
 from original source events; no Truss acceptance or publication is inferred.
+
+## Publish and resolve the existing native CSV fixture
+
+The private four-event CSV snapshot has a demonstrated immutable manifest and
+native publication-resolver singleton. Use the SDK-enabled Python environment,
+existing warehouse/profile and private PostgreSQL container:
+
+```sh
+/private/tmp/ashlar-db-client/bin/python -B tools/publish_native_csv_example.py \
+  --journal /private/tmp/ashlar-csv-publication-20261008.sqlite \
+  --output /private/tmp/ashlar-csv-publication-new-observations
+```
+
+For this existing publication, **retain and reuse that original journal**. Every
+run needs a fresh output directory. The tool preserves the original proposal,
+manifest clock, complete snapshot vector and native statement handle; it never
+advances a source ACK or changes predictive optimization, grants or settings. A
+lost handle or missing original journal requires reconciliation. Do not replace
+the journal or choose a fresh clock for the same publication ID.
+
+The successful retained evidence is
+`docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/csv_publication_20261008_recovery/`.
+It proves one original manifest submission, four active pin guards and an actual
+resolver result for object 1 / entity version 2 / schema revision 3. All complete
+row inventories, raw intake, configured retention and current permissions are
+checked. Repeated checks make this a slow development example; it is not the
+production latency path. Original receipts include the pin-role refusal and
+pending-handle recovery, rather than hiding those attempts.
+
+The fixture IDs are explicit development mappings, not accepted Truss IDs. This
+publishes a previously applied CSV snapshot; streaming through the complete
+native publisher phase path and real Truss runtime remains unfinished. The
+private pin role adapter relies on the existing trusted administrative login
+while executing functions/inventory under ordinary roles. It changes no grants
+and must not be used as production authentication.

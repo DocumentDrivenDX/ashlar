@@ -490,3 +490,10 @@ submission custody; missing submission/handle refuses for reconciliation.
 
 All 192 tests pass, including local composed-store recovery. Actual native
 publication/resolver success and runnable Truss integration remain unfinished.
+
+The private already-applied CSV fixture now has native immutable-manifest and
+publication-resolver evidence under full PostgreSQL pin guards and finite
+configured retention. See the example README and CONTRACT-004 for exact runtime,
+source hashes, versions, original-handle recovery, initial refusal and limitations.
+All 195 local tests pass. Full native publisher phase/ACK integration, real Truss
+and production authority/latency remain unfinished.

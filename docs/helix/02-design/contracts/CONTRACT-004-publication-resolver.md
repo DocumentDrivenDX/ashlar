@@ -296,3 +296,54 @@ refusal before effects, actual retention-gate expiry after a singleton fetch,
 and bounded SQL observation/margin refusal. These are component checks, not
 native manifest publication or end-to-end Truss evidence. No cloud run or renewed
 benchmark was performed for this iteration.
+
+## Private CSV publication/resolver evidence — 2026-10-08
+
+The existing four-event CSV fixture now has an actual immutable Delta manifest
+`csv-fixture-publication-20261008` in the private runtime_csv namespace. The
+resolver returned object 1 / whole-entity version 2 / schema revision 3 while
+ordinary PostgreSQL read guards held all four exact original graph snapshots.
+The vector covers object_current v7, edge_current v0, tombstone v1 and
+whole_source_history v4; one actual original manifest submission is retained.
+
+Admission independently checks the immutable source digest/permissions, declared
+StringRecord fixture semantics, exact raw UMF intake in the native registry,
+current paginated effective grants/owners, original Delta UUID/version/schema
+vector, conservative Reader 3 / Writer 7 feature recognition, complete native
+row multisets and configured finite retention. Original commit anchors remain
+unchanged. The publication reserves a 600-second margin and uses bounded
+180-second serial configuration observations; predictive optimization remains
+unchanged. This is a development policy with repeated full checks, not a
+production low-latency policy or remote writer fence. Platform/local administrators
+and same-host cooperating writer exclusion remain explicit trust boundaries.
+
+The first attempt refused before manifest submission because the ordinary pin
+writer cannot SELECT the inventory. Its PostgreSQL transaction rolled back and
+zero scope pins were independently observed. The private host adapter now uses
+the existing ordinary reader role only for the exact inventory SELECT, then
+restores writer role within the same transaction. It verifies actual current_user
+and preserves transaction locks; no role grants changed. This relies on the
+existing trusted private postgres login and is not production authentication.
+
+The next attempt registered four pins and retained a pending original manifest
+handle. Original-handle GET later observed SUCCEEDED; no replacement POST occurred.
+A new-process recovery renewed all admission and completed immutable readback
+and resolver access. The final run recorded 188 native SQL reads and one point
+query (994 ms observed SDK round trip). This single round trip is not engine
+latency, a benchmark or an architecture gate. Earlier attempts additionally
+recorded 46 and 72 reads. No further cloud test was run after success.
+
+Evidence: out/native/csv_publication_20261008/failure.json,
+out/native/csv_publication_20261008_resume/pending.json and
+out/native/csv_publication_20261008_recovery/{summary,original-journal,
+execution-proof}.json plus their original statements.jsonl files. Execution proof
+records exact uncommitted source hashes and original request/response/proposal
+correspondence. Subsequent local source hardening reconstructs fresh proposed
+rows from the same retained JSON ordering used on restart, and independently
+checks source/vector/schema/commit-anchor correspondence on every proposal
+admission; those fresh-submit paths were not rerun natively.
+
+This proves a private snapshot-publication/resolver component using an already
+applied CSV fixture. Fixture IDs 17/23/24 are not accepted Truss catalog IDs.
+No native publisher phase path, real Truss stream, source ACK, production
+authority or full end-to-end toolkit completion is claimed.

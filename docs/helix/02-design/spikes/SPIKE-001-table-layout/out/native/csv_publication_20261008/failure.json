@@ -1,0 +1,10 @@
+{
+  "state": "refused-before-manifest-submission",
+  "executed_tool_sha256": "490531244998d20ba76c9ffad122a46cc47c281c76ecd906334078a9db9751ef",
+  "native_read_receipts": 46,
+  "original_proposal_sha256": "fae6955956939b19fdb05b8436824ba6f31f238c8d34e1bcea2f1765cea499bb",
+  "manifest_submissions": 0,
+  "committed_scope_pins": 0,
+  "reason": "Ordinary ashlar_pin_writer lacks SELECT on pin inventory; registration transaction rolled back. Verified native role grants and zero pins after refusal.",
+  "qualification": "No manifest write, source ACK or settings/grants changes. Preserve original proposal and receipts for recovery."
+}

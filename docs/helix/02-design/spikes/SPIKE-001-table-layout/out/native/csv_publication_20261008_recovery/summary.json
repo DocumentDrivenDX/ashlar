@@ -1,0 +1,751 @@
+{
+  "state": "published-and-resolved",
+  "publication_id": "csv-fixture-publication-20261008",
+  "manifest": {
+    "profile_version": "ashlar-delta/0.3",
+    "publication_id": "csv-fixture-publication-20261008",
+    "recorded_at": "1791469586218659",
+    "schema_revisions_json": "{\"fixture\":\"3\"}",
+    "source_progress_json": "{\"csv-example\":{\"batch_id\":\"csv-row-4\",\"epoch\":\"immutable-example-1\",\"feed\":\"csv-example\",\"payload_digest\":\"df1620b5d9215bbd079bbcd315c1f5aff8dacd1d4a9b78691d975f6ca5823f61\",\"position\":\"4\",\"previous\":\"3\",\"profile\":\"ashlar-single-line-csv/0.1\"}}",
+    "table_versions_json": "{\"ashlar_e2e_private_20261008.runtime_csv.edge_current\":0,\"ashlar_e2e_private_20261008.runtime_csv.object_current\":7,\"ashlar_e2e_private_20261008.runtime_csv.tombstone\":1,\"ashlar_e2e_private_20261008.runtime_csv.whole_source_history\":4}",
+    "validation_report_json": "{\"complete\":true,\"intake_artifact_sha256\":\"f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1\",\"intake_source_sha256\":\"60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085\",\"qualification\":\"Private already-applied four-event CSV fixture; declared StringRecord fixture IDs, original commit anchors, complete native parity and current admission; not accepted Truss identities or remote writer fencing.\",\"retention\":{\"margin_us\":\"600000000\",\"profile\":\"ashlar-retention-window/0.1\",\"targets\":{\"ashlar_e2e_private_20261008.runtime_csv.edge_current\":{\"committed_at\":\"1791453855000000\",\"readable_until\":\"1792058055000000\",\"uuid\":\"e526a055-38ef-4b0a-9e4c-d09a3b6fc14b\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_csv.object_current\":{\"committed_at\":\"1791453920000000\",\"readable_until\":\"1792058120000000\",\"uuid\":\"422020e6-aa98-4b2d-91eb-e2221edcc13b\",\"version\":7},\"ashlar_e2e_private_20261008.runtime_csv.tombstone\":{\"committed_at\":\"1791453924000000\",\"readable_until\":\"1792058124000000\",\"uuid\":\"8864d8b0-aca2-4df4-acc5-03ddf853a6dc\",\"version\":1},\"ashlar_e2e_private_20261008.runtime_csv.whole_source_history\":{\"committed_at\":\"1791453921000000\",\"readable_until\":\"1792058121000000\",\"uuid\":\"2f64b8dc-dd2b-4887-a635-3f54b99bbb99\",\"version\":4}}},\"source_groups\":4,\"source_sha256\":\"944b1ebb4c9c564ce4687a4a731c360cd6575d97aa9abfa4994203968f498e12\"}"
+  },
+  "manifest_uuid": "ce776713-c52d-4e3d-a3c2-bcd6add7c566",
+  "table_uuids": {
+    "ashlar_e2e_private_20261008.runtime_csv.object_current": "422020e6-aa98-4b2d-91eb-e2221edcc13b",
+    "ashlar_e2e_private_20261008.runtime_csv.edge_current": "e526a055-38ef-4b0a-9e4c-d09a3b6fc14b",
+    "ashlar_e2e_private_20261008.runtime_csv.tombstone": "8864d8b0-aca2-4df4-acc5-03ddf853a6dc",
+    "ashlar_e2e_private_20261008.runtime_csv.whole_source_history": "2f64b8dc-dd2b-4887-a635-3f54b99bbb99"
+  },
+  "version_vector": {
+    "ashlar_e2e_private_20261008.runtime_csv.object_current": 7,
+    "ashlar_e2e_private_20261008.runtime_csv.edge_current": 0,
+    "ashlar_e2e_private_20261008.runtime_csv.tombstone": 1,
+    "ashlar_e2e_private_20261008.runtime_csv.whole_source_history": 4
+  },
+  "singleton": {
+    "source_system": "local-example",
+    "logical_key_json": "[]",
+    "schema_revision": "3",
+    "props_json": "{\"23\":\"updated, quoted\",\"24\":\"雪\"}",
+    "retained_json": "{\"source_profile\":\"ashlar-single-line-csv/0.1\",\"unmapped_columns\":{\"future\":\"18446744073709551615\"}}",
+    "root_id": null,
+    "source_feed": "csv-example",
+    "source_epoch": "immutable-example-1",
+    "source_position": null,
+    "published_at": "2026-10-08T17:00:00.000Z",
+    "lookup_hash": "130425ac5264b46607cffbe83c741d069dcacc8d72cc4038c4049da15f7c5080",
+    "apply_batch_id": "csv-row-3",
+    "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"844\"}",
+    "source_delivery_id": "{\"profile\":\"ashlar-single-line-csv/0.1\",\"header_base64\":\"aWQsZW50aXR5X3ZlcnNpb24sb3BlcmF0aW9uLGxhYmVsLGNhcHRpb24sZnV0dXJlCg==\",\"row_base64\":\"MSwyLHJlcGxhY2UsInVwZGF0ZWQsIHF1b3RlZCIs6ZuqLDE4NDQ2NzQ0MDczNzA5NTUxNjE1Cg==\",\"row_ordinal\":\"3\"}",
+    "type_id": "17",
+    "id": "1",
+    "entity_version": "2"
+  },
+  "active_pin_count": 4,
+  "source_acknowledged": false,
+  "sql_read_statements": 188,
+  "authority_observations": [
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ],
+    [
+      {
+        "kind": "catalog",
+        "name": "ashlar_e2e_private_20261008",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "schema",
+        "name": "ashlar_e2e_private_20261008.runtime_csv",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.object_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.edge_current",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.tombstone",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.whole_source_history",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime_csv.publication_manifest",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      },
+      {
+        "kind": "table",
+        "name": "ashlar_e2e_private_20261008.runtime.schema_intake",
+        "owner": "erik.labianca@synaptiq.ai",
+        "grants": []
+      }
+    ]
+  ],
+  "qualification": "Actual private four-event CSV snapshot manifest and resolver singleton under complete ordinary PostgreSQL pin guards, exact raw UMF intake, declared StringRecord fixture semantics, current effective grants, protocol recognition, complete pinned inventory reads and configured finite retention. Trusted platform/local administrators and same-host cooperating writer lane; no real Truss runtime, remote writer fence, native publisher phase demonstration or source ACK. Predictive optimization unchanged."
+}

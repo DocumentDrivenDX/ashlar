@@ -1,0 +1,19 @@
+{
+  "state": "passed",
+  "original_handle": "01f1c324-be02-14c1-af7e-2133f7740ef8",
+  "original_operation": "csv-fixture-manifest:csv-fixture-publication-20261008",
+  "original_request_digest": "1a44921485d8b89e37769df85a2cb3ee5e0bbd93e24483f59d523d161ea4b503",
+  "manifest_submissions": 1,
+  "proposal_reused_without_change": true,
+  "native_read_statements": 188,
+  "point_read_count": 1,
+  "point_read_roundtrip_wall_ms": 994.021458000006,
+  "executed_source_sha256": {
+    "tools/publish_native_csv_example.py": "899246008a7c0fea33b3781c91dc598257dbc4784469aa6a7f407ce67380d0a5",
+    "tools/fixture_oracle.py": "d1b3adec24136096a116e7cde21e49013e325ff758245d16953ccd1bc2b8d07b",
+    "tools/sandbox_pins.py": "7425e6bd941aa03c91656ba911ba2fa8ae564ab719dcb6a63745f72d1449e0b6",
+    "src/ashlar/pins.py": "6bed2f6ae9dd937bc08e4fb67504052d8036a0952c3cff3477c2c39019a88ad8"
+  },
+  "pre_execution_base_revision": "f6ed1ef3a317a07381c0d766a89668b036978ed5",
+  "qualification": "Original durable native submission/request/response and immutable proposal correspond exactly to the actual manifest/resolver summary. Point timing is one observed SDK SQL round trip, not engine latency, a benchmark or a production admission target. Execution used uncommitted source hashes recorded here. No real Truss, native publisher phase path or source ACK."
+}

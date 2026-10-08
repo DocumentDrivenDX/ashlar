@@ -336,3 +336,14 @@ operation upsert; correcting it to supported create allowed all cases to reach
 the intended boundaries. The full suite passes 192 tests. These are local
 composition/recovery checks, not actual Databricks publication, production
 authority, retained-file proof or real Truss integration evidence.
+
+### Native snapshot publication component — 2026-10-08
+
+The already-applied private CSV fixture now has an actual immutable manifest and
+resolver singleton under complete ordinary PostgreSQL pin custody. See the
+qualified [resolver evidence](CONTRACT-004-publication-resolver.md#private-csv-publicationresolver-evidence--2026-10-08).
+One original manifest POST/handle is retained through a pending response and
+new-process recovery. Initial pin-role refusal, rollback and subsequent admission
+remain explicit evidence. Predictive optimization and all grants/settings are
+unchanged. This component demonstration does not qualify StoredPublisherBackend's
+full native phase/apply/ACK path or stand up real Truss; the goal remains open.
