@@ -1383,3 +1383,22 @@ was rolled back, leaving no installed probe or Truss trigger.
 No cloud workload or configuration changes occurred. Complete native trigger
 definition/WHEN/dependency admission, full bootstrap bodies/security, installed
 Truss and streaming remain unfinished. The end-to-end goal remains active.
+
+
+## Actual Truss routine carrier composition — 2026-10-08
+
+The Truss runtime candidate now composes its native decoders against the original
+CONTRACT-008 routine observation query. One temporary PostgreSQL 17.9 routine
+supplies actual catalog carriers: input count/zero-based vector bounds and
+text-array names/modes/settings agree with original same-row JSON projections.
+The complete original catalog row remains opaque text, preserving unknown
+content and avoiding numeric reinterpretation. The exact original query hash,
+executed SQL/stdout and decoded values are retained in `native-routine.json`
+under the candidate's inert-assembly evidence. The entire native probe rolled
+back. Eleven package tests, 124 assertions, strict build and packed consumer pass.
+
+This composes carrier prerequisites rather than installing Truss. Full routine
+field/type/ACL/dependency/security admission and aggregate collector resource/cut
+custody remain required. No cloud workload, persistent probe or settings changes
+occurred. Native bootstrap and actual Truss streaming are still unfinished; the
+full end-to-end goal remains active.
