@@ -510,3 +510,19 @@ mutations were applied; fresh-process replay preserved all original receipts and
 source intents. This is a candidate development apply workflow. Full-column
 parity, remote fencing, native retention/publication and source ACK remain
 unqualified; no manifest is produced by this command.
+
+The installed toolkit also accepts your CSV on stdin:
+
+```sh
+ashlar inspect-csv --feed csv-example --epoch immutable-example-1 \
+  --source-system local-example --schema-revision 3 --type-id 17 \
+  --properties-json '{"label":"23","caption":"24"}' < string-source.csv
+```
+
+Each output line carries `batch_row` (recover with `batch_from_row`) and exact
+`source_checkpoint_json` (pass to the publication coordinator after independent
+admission). This command performs custody adaptation only. Source identity, epoch,
+IDs and column mapping are explicit caller inputs, not inferred catalog acceptance;
+it does not apply a schema policy, publish or ACK. Invalid mappings and malformed
+rows refuse; a later failure leaves earlier complete emitted batches intact and
+unacknowledged. The fresh isolated wheel installation passed outside the checkout.

@@ -1,0 +1,13 @@
+{
+  "state": "passed",
+  "wheel_sha256": "5f9fb82c46ff0cfa81d348d365642b99c80059720478533a2e4313fb4398e6e9",
+  "installed_module": "/private/tmp/ashlar-csv-cli-clean-20261008/lib/python3.9/site-packages/ashlar/__init__.py",
+  "outside_checkout": true,
+  "wheel_sources_match": true,
+  "original_output_sha256": "eb6cbda9896858b5b0c0d3d9d41fc8271d7aba4981325b8c0f2c9e806b35556c",
+  "batches": 4,
+  "objects": 1,
+  "tombstones": 1,
+  "history": 4,
+  "qualification": "Actual installed entrypoint from isolated environment outside checkout; complete custody/checkpoint and selected UMF policy apply. No native publication or source ACK."
+}

@@ -34,3 +34,25 @@ class CLITests(unittest.TestCase):
         result = self.invoke(b'{"kind":"begin","batch_id":"incomplete"}\n')
         self.assertNotEqual(result.returncode, 0)
         self.assertEqual(result.stdout, b'')
+
+class CSVCLITests(unittest.TestCase):
+    def invoke(self,raw,mapping='{"label":"23","caption":"24"}'):
+        return subprocess.run([sys.executable,'-m','ashlar','inspect-csv','--feed','csv-example','--epoch','immutable-example-1','--source-system','local-example','--schema-revision','3','--type-id','17','--properties-json',mapping],input=raw,capture_output=True,cwd=ROOT)
+    def test_user_input_custody_is_directly_recoverable_with_outer_checkpoint(self):
+        from ashlar.csv_source import csv_batches
+        from ashlar.staging import batch_from_row
+        from ashlar.source_checkpoint import csv_checkpoint
+        raw=(ROOT/'examples/end-to-end/string-source.csv').read_bytes()
+        result=self.invoke(raw);self.assertEqual(result.returncode,0,result.stderr)
+        values=[json.loads(line) for line in result.stdout.splitlines()]
+        originals=tuple(csv_batches(raw.splitlines(keepends=True),feed='csv-example',epoch='immutable-example-1',source_system='local-example',schema_revision='3',type_id='17',properties={'label':'23','caption':'24'}))
+        self.assertEqual(len(values),4)
+        for value,batch in zip(values,originals):
+            self.assertEqual(value['format'],'ashlar-csv-source-custody/0.1')
+            self.assertEqual(batch_from_row(value['batch_row']),batch)
+            self.assertEqual(value['source_checkpoint_json'],csv_checkpoint(batch))
+    def test_invalid_or_duplicate_mapping_cannot_emit_custody(self):
+        raw=(ROOT/'examples/end-to-end/string-source.csv').read_bytes()
+        for mapping in ['{"label":23}','{"label":"23","label":"24"}','[]']:
+            result=self.invoke(raw,mapping);self.assertNotEqual(result.returncode,0)
+            self.assertEqual(result.stdout,b'')

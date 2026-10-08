@@ -1189,3 +1189,18 @@ This qualifies observed ingestion effects and exact-version readability, not
 future retention, active publication pins, native fencing or protected Truss IDs.
 The full goal remains open at Truss acceptance/feed and native publication/read
 admission; no source ACK was issued.
+
+## Installed CSV source workflow — 2026-10-08
+
+ashlar inspect-csv now accepts arbitrary bounded stdin with explicit source/epoch/
+schema/type/property mapping and emits recoverable original batch rows plus outer
+checkpoint text. Duplicate/non-string mappings refuse before output. All154 local
+checks pass. A fresh wheel was built and installed without runtime dependencies
+into a new isolated environment; its actual ashlar entrypoint ran outside the
+checkout. All packaged source bytes match current source. Four emitted custody
+rows/checkpoints recovered and applied under the actual selected UMF policy,
+leaving one object, one tombstone and four history records. Receipt: out/csv-cli-installation.json.
+Truss HEADadd84ce remains specification/source review without src/packages runtime.
+No maintenance setting, cloud workload or publication/ACK changed. The earlier
+maintenance-policy authorization remains pending; native publication and protected
+Truss integration remain required by the full goal.
