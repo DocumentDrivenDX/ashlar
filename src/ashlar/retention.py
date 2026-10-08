@@ -1,22 +1,73 @@
-"""Narrow native automatic-maintenance exclusion check; not retention admission.
+"""Finite publication readability from verified native data/log retention.
 
-Observations must be fresh authenticated native metadata for independently bound
-physical targets. Disabling scheduling does not terminate existing operations,
-fence other operators, preserve data/log files or qualify active pins.
+Predictive optimization may remain enabled. Fresh native settings, snapshot
+commit timestamps and real snapshot availability require independent host
+admission; this arithmetic does not promise files exist or fence maintenance.
 """
+import re
+from collections.abc import Mapping
+from .publication import _name
 class RetentionError(ValueError):pass
 
 
-def validate_predictive_optimization_disabled(setting,effective_flag):
-    """Refuse missing, enabled, contradictory or unrecognized native settings.
+def interval_microseconds(text):
+    """Selected fixed-duration native interval subset; no calendar guesses."""
+    if not isinstance(text,str):raise RetentionError('Explicit verified retention interval required')
+    match=re.fullmatch(r'(?:interval )?([1-9][0-9]{0,9}) (seconds?|minutes?|hours?|days?|weeks?)',text.strip().lower())
+    if not match:raise RetentionError('Unsupported retention interval')
+    units={'second':1,'minute':60,'hour':3600,'day':86400,'week':604800}
+    result=int(match[1])*units[match[2].rstrip('s')]*1000000
+    if result>=2**63:raise RetentionError('Retention interval outside signed64')
+    return result
 
-    INHERIT is admitted only when the complete effective native flag explicitly
-    says DISABLE. The caller still needs target identity, all-operator/outstanding
-    work containment, retained-file and pin admission. No TTL/default inference.
+
+def _micros(value):
+    if not isinstance(value,str) or not value.isascii() or not value.isdecimal() or len(value)>19 or str(int(value))!=value or int(value)>=2**63:raise RetentionError('Canonical native microsecond text required')
+    return int(value)
+
+
+def _duration(configuration):
+    if not isinstance(configuration,Mapping) or set(configuration)!={'data_retention','log_retention'}:raise RetentionError('Verified data and log retention configuration required')
+    return min(interval_microseconds(configuration['data_retention']),interval_microseconds(configuration['log_retention']))
+
+
+def publication_retention_report(snapshots,configurations,*,margin_us):
+    """Immutable expiry ceiling anchored to each original native snapshot commit.
+
+    snapshots: table -> {uuid, version, committed_at}, all independently verified.
+    The margin reserves read/clock/configuration observation budget. Never anchor
+    old snapshots to a new publication clock or extend expiry on replay.
     """
-    if setting not in ('DISABLE','INHERIT'):
-        raise RetentionError('Explicit native predictive optimization exclusion required')
-    if not isinstance(effective_flag,dict) or effective_flag.get('value')!='DISABLE':
-        raise RetentionError('Native automatic maintenance remains enabled or unknown')
-    if setting=='INHERIT' and (not isinstance(effective_flag.get('inherited_from_name'),str) or not effective_flag['inherited_from_name']):
-        raise RetentionError('Original inherited exclusion source required')
+    if type(margin_us) is not int or margin_us<0:raise RetentionError('Explicit nonnegative retention margin required')
+    if not isinstance(snapshots,Mapping) or not 1<=len(snapshots)<=128 or set(snapshots)!=set(configurations):raise RetentionError('Complete bounded retention vector required')
+    targets={}
+    for table,snapshot in snapshots.items():
+        _name(table)
+        if not isinstance(snapshot,Mapping) or set(snapshot)!={'uuid','version','committed_at'} or not isinstance(snapshot['uuid'],str) or not snapshot['uuid'] or type(snapshot['version']) is not int or not 0<=snapshot['version']<2**63:raise RetentionError('Exact original snapshot identity required')
+        duration=_duration(configurations[table]);commit=_micros(snapshot['committed_at'])
+        if duration<=margin_us or commit+duration>=2**63:raise RetentionError('No usable retention window')
+        targets[table]=dict(snapshot,readable_until=str(commit+duration-margin_us))
+    return {'profile':'ashlar-retention-window/0.1','margin_us':str(margin_us),'targets':targets}
+
+
+def validate_publication_retention(descriptor,configurations,*,now_us,table_uuids):
+    """Refuse expired/unknown retention before AND after native consumption.
+
+    Use in mandatory validate_descriptor admission; native files/logs, schema,
+    protocol, current permission and identity remain independent checks. Current
+    shorter settings tighten the original expiry; longer settings never extend
+    it. Expiry does not delete history, release pins or acknowledge a source.
+    """
+    report=descriptor.validation_report.get('retention')
+    if not isinstance(report,Mapping) or set(report)!={'profile','margin_us','targets'} or report['profile']!='ashlar-retention-window/0.1':raise RetentionError('Explicit publication retention profile required')
+    now=_micros(now_us);margin=_micros(report['margin_us']);targets=report['targets']
+    if not isinstance(targets,Mapping) or not 1<=len(targets)<=128 or set(targets)!=set(descriptor.versions) or set(configurations)!=set(targets) or set(table_uuids)!=set(targets):raise RetentionError('Complete current retention configuration required')
+    deadline=None
+    for table,target in targets.items():
+        if not isinstance(target,Mapping) or set(target)!={'uuid','version','committed_at','readable_until'} or not isinstance(target['uuid'],str) or not target['uuid'] or type(target['version']) is not int or target['version']!=descriptor.versions[table] or target['uuid']!=table_uuids[table]:raise RetentionError('Retention snapshot differs from original vector')
+        commit=_micros(target['committed_at']);original=_micros(target['readable_until']);duration=_duration(configurations[table])
+        if commit>now or original<=commit or duration<=margin:raise RetentionError('Invalid or unusable native retention window')
+        effective=min(original,commit+duration-margin)
+        if now>=effective:raise RetentionError('Publication snapshot retention window expired')
+        deadline=effective if deadline is None else min(deadline,effective)
+    return str(deadline)

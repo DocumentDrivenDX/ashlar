@@ -560,11 +560,17 @@ public runtime here. The 0.2 transition-capable manifest is unsupported and
 refuses; do not rewrite it as 0.1 or treat journal-only `(xid, seq)` progress as a
 complete transaction. It does not reconstruct property changes into object state.
 
-For a deployment that excludes native automatic predictive optimization, use
-`ashlar.retention.validate_predictive_optimization_disabled(setting, effective_flag)`
-with fresh authenticated UC metadata for each independently bound physical target.
-Unknown/missing/effective enabled settings refuse. Inherited exclusion requires
-explicit effective DISABLE and its original inheritance source. The native
-inspection tool now reports this check. This is one exclusion condition, not
-retention admission: outstanding work, other operators, data/log availability
-and active pin custody still need independently verified policies.
+Predictive optimization stays enabled. The selected publication policy is finite
+readability based on verified effective data/log retention. Use
+`publication_retention_report(snapshots, configurations, margin_us=...)` to retain
+original snapshot commit times and immutable expiry ceilings in the validation
+report's `retention` member. Configurations contain explicit `data_retention` and
+`log_retention` interval strings for every table. Host admission calls
+`validate_publication_retention(descriptor, fresh_configurations, now_us=...,
+table_uuids=...)` before and after native consumption. Its returned text is the
+effective earliest deadline; policy methods must still return None after all
+admission checks. Unsupported/unknown settings and expired snapshots refuse.
+Longer settings cannot renew original expiry. Shorter settings tighten it. Real
+file/log availability, authenticated configuration/clock/UUID observations, schema,
+protocol and permissions remain mandatory. No retention setting or pin lifecycle
+is changed by these functions. The earlier disable requirement is superseded.

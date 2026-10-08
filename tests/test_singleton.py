@@ -56,3 +56,16 @@ class SingletonTests(unittest.TestCase):
             with self.assertRaises((PermissionError,ResolutionError)):self.read(p,e,b,policy,7 if fail=='version' else 6)
             self.assertFalse(p.active)
 if __name__=='__main__':unittest.main()
+
+class ExpiringSingletonTests(unittest.TestCase):
+    setup=SingletonTests.setup
+    read=SingletonTests.read
+    def test_expiry_during_query_returns_no_result(self):
+        p,e,b,policy=self.setup();original=b.validate_descriptor;calls=[]
+        def validate(d,c):
+            calls.append(1)
+            if len(calls)>1:raise PermissionError('Retention window expired during query')
+            return original(d,c)
+        b.validate_descriptor=validate
+        with self.assertRaises(PermissionError):self.read(p,e,b,policy)
+        self.assertFalse(p.active);self.assertEqual(len(calls),2)

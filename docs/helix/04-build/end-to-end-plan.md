@@ -1285,3 +1285,21 @@ records, outstanding operation termination, all-operator fencing, native file/lo
 availability or active publication pins. The pending maintenance-policy proposal
 remains unexecuted. Native Truss integration and positive publication/resolver
 composition remain required by the active full goal.
+
+## Owner-selected finite publication readability — 2026-10-08
+
+The owner chose to retain predictive optimization and make readability depend on
+its effective retention configuration. This supersedes the blanket DISABLE gate
+and its pending change request; no maintenance-policy alteration is needed for
+that gate. The exclusion helper was replaced with bounded fixed-interval parsing,
+immutable per-snapshot expiry reporting and current-configuration validation.
+Original expiry uses native snapshot commit time, shorter data/log duration and
+an explicit margin; fresh shorter settings tighten it, longer settings cannot
+renew it. Complete UUID/version/configuration correspondence and trusted clocks
+are required. Singleton admission now repeats after execution before returning.
+All171 local checks pass, including exact deadline, tightened config, no original
+extension, wrong UUID/version, unknown/future configuration and mid-query expiry
+refusal. No cloud workload or setting changes occurred. Governing CONTRACT-004
+and the user-facing workflow now describe this finite profile. Existing historical
+receipts remain unchanged. Native configuration/default/availability admission and
+Truss runtime integration are still required for the full end-to-end demonstration.

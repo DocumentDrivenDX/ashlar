@@ -4,7 +4,6 @@ from pathlib import Path
 from databricks.sdk import WorkspaceClient
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'src'))
-from ashlar.retention import RetentionError,validate_predictive_optimization_disabled
 
 def main():
     p=argparse.ArgumentParser(description=__doc__)
@@ -16,12 +15,7 @@ def main():
     catalog='ashlar_e2e_private_20261008';schema=catalog+'.runtime_csv'
     def observation(kind,name,value):
         full=value.as_dict()
-        try:
-            validate_predictive_optimization_disabled(full.get('enable_predictive_optimization'),full.get('effective_predictive_optimization_flag'))
-            exclusion={'outcome':'observed_disabled','qualification':'Narrow scheduling exclusion only; outstanding operations and retained files remain unqualified.'}
-        except RetentionError as exc:
-            exclusion={'outcome':'refused','reason':str(exc)}
-        return {'kind':kind,'name':name,'owner':full.get('owner'),'predictive_optimization_exclusion':exclusion,
+        return {'kind':kind,'name':name,'owner':full.get('owner'),
             'enable_predictive_optimization':full.get('enable_predictive_optimization'),
             'effective_predictive_optimization_flag':full.get('effective_predictive_optimization_flag'),
             'retention_properties':{k:v for k,v in (full.get('properties') or {}).items() if k in ('delta.deletedFileRetentionDuration','delta.logRetentionDuration','delta.enableExpiredLogCleanup')},

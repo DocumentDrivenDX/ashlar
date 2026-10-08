@@ -48,6 +48,10 @@ def read_singleton(executor, backend, pins, vector, policy, *, publication_id,
         if row is not None and any(row.get(k)!=v for k,v in {'source_system':source,typed:str(type_id),'id':str(entity_id),'lookup_hash':hashed}.items()):
             raise ResolutionError('Native singleton identity carrier mismatch')
         identity_check()
+        # Revalidate current retention/descriptor policy after execution too:
+        # a read crossing expiry or a shortened configuration returns nothing.
+        if backend.validate_descriptor(resolved.descriptor,context) is not None:
+            raise ResolutionError('Current publication admission expired')
         if backend.authorize(context,publication_id,tuple(vector.targets)) is not None:
             raise ResolutionError('Current read authority incomplete')
         if policy.authorize_row(resolved.descriptor,table,row,context) is not None:

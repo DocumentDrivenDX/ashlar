@@ -88,7 +88,8 @@ The private PostgreSQL ashlar_pins registry retains immutable pin identity,
 authority, manifest/cursor/recovery/release scope, native table name/UUID/version
 and original custody digest. Explicit release retains the original row; exact
 registration replay preserves it and released identities cannot reactivate.
-No TTL or automatic expiry is selected. Ordinary writer/reader/maintenance roles
+Pin rows have no automatic release; publication readability now follows the finite
+configuration-based window below. Ordinary writer/reader/maintenance roles
 have scoped function/read permissions, with no direct table mutation.
 
 Registration and release share a native table lock. assert_unpinned holds a
@@ -177,3 +178,41 @@ Delta job terminated. Closed original operations cannot reopen; different origin
 or terminal bytes conflict. Every cleanup operator and physical target must still
 participate, and actual remote verifier/containment qualification remains required.
 Metadata-only controls run no cleanup and are not evidence of Delta termination.
+
+## Configuration-based publication readability
+
+Owner-selected on 2026-10-08: predictive optimization remains enabled. Its
+DISABLE state is not a publication prerequisite. The previous blanket exclusion
+proposal and pending authorization request are superseded.
+
+Proposed ashlar-retention-window/0.1 stores complete per-table UUID/version, original
+native snapshot committed_at microseconds and readable_until microseconds in
+validation_report.retention, together with the original explicit safety margin.
+The ceiling for each table is snapshot commit time plus the shorter verified
+data-file/log retention duration minus that margin. Publication time cannot renew
+an old snapshot. The complete vector's earliest ceiling bounds readability.
+
+Admission uses fresh authenticated effective configurations for every published
+table, verified native UUIDs, original snapshot commit timestamps and a trusted
+current clock. It caps each original ceiling by the current shorter configuration.
+Longer current settings cannot extend the immutable original ceiling. At or beyond
+the effective deadline the publication refuses; no latest fallback occurs. Unknown
+settings, unsupported intervals, mismatched UUID/version, future snapshot times
+and insufficient margin/window refuse. Native defaults require an explicitly
+qualified platform profile; absent properties alone do not prove settings.
+
+Fixed integral seconds/minutes/hours/days/weeks are the selected parser subset.
+Calendar/decimal/negative intervals are unsupported. Host policy must independently
+verify native data/log availability, schema/protocol and current permissions;
+configured retention does not prove that manual cleanup or an earlier shorter
+configuration has not already removed files. Recheck descriptor admission after
+query execution under held read custody; crossing expiry returns no response.
+The host must reserve a margin appropriate to clock error, observation age and
+read duration and refuse when that budget cannot be met.
+
+Expiry changes readability only: manifests/source history remain immutable, no
+source checkpoint is advanced, and no pin is automatically released. Explicit
+pin retirement/cleanup accounting is separate. Autonomous predictive maintenance
+need not consult Ashlar's PostgreSQL pins for this finite profile; pins do not
+supply an indefinite retention promise. Manual destructive/configuration changes
+remain governed by the effective policy and availability checks.
