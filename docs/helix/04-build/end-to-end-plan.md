@@ -3083,3 +3083,28 @@ for the tested script mechanism, not the end-to-end goal.
 Syntax sources inspected: [compound statement](https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/control-flow/compound-stmt),
 [SQL scripting](https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/sql-ref-scripting)
 and [SIGNAL](https://learn.microsoft.com/en-us/azure/databricks/sql/language-manual/control-flow/signal-stmt).
+
+
+## Configured source guarded Weft query — 2026-10-08
+
+Actual execution at Ashlar `320a6e7` now closes the preceding full guarded-query
+verification item for the configured string/presence example. The original
+configured model, explicit type1017/props1023+1024 and completed final publication
+were compiled by the pinned qualified Weft build. Both original integrity queries
+returned exact zero STRING counts; the user query decoded `updated` and a present
+Unicode caption `雪`, exactly matching the independent original source oracle.
+Every original compiled statement/ordered parameter matches its retained guarded
+native receipt. Closing resolver/pin/authority/source/retention admission completed
+before release. The run used 122 native reads and 99 permission pages; these are
+workflow admission checks, not a latency benchmark.
+
+All 27 original mutation handles and request/response hashes and all three
+original checkpoint bytes/digests (815,1331,1828) remain unchanged. The initial
+offline verification counted journaled metadata reads as writes; correcting that
+classification required no SQL rerun. Original receipts and compiler request are
+retained in [the query evidence](evidence/native-configured-guarded-weft-query-20261008.json).
+The user guide now includes the runnable command. This does not establish native
+exact replay, wider numeric/recursive/join/key/relationship families or real Truss
+acceptance/feed/ACK. The end-to-end goal remains active; the Truss owner explicitly
+requests human authorization to expand that chat from design/Weft integration to
+full runtime implementation, and that scope question is pending.

@@ -1105,7 +1105,8 @@ each compiled integrity check and user query additionally runs inside a read-onl
 SQL script. The script catches the required ANSI cast error and checks the exact
 engine/build before executing the original SQL, even for an empty result. Caller
 values retain named parameter markers. Three small native guard probes pass; the
-full compiled workflow with this new wrapper remains to be rerun. Broader
+configured string/presence compiled workflow now also passes through the full
+resolver/pin/authority boundary, as recorded below. Broader
 numeric/recursive/typed-home/join/relationship qualification remains unfinished.
 
 The native runner's logical preflight now uses the admitted binding helper above,
@@ -1147,7 +1148,7 @@ complete original publication/fencing/retention checks. Query-only singleton use
 the configured source and sole bound type, or explicit `--type-id` for multiple
 bound Records. Weft queries also consume the configured model/bindings.
 Configuration alone does not establish native admission, Truss acceptance, remote
-ACK or automatic schema evolution. Native configured-source execution is pending.
+ACK or automatic schema evolution. The native evidence below qualifies the supplied configured example.
 
 The configured example's fresh native setup and raw intake now pass in
 `ashlar_e2e_private_20261008.runtime_configured_jsonl`. Original setup receipts are
@@ -1176,8 +1177,8 @@ The complete configured native example now passes all three publications through
 byte `1828`, including update/delete/history/tombstone, and its final resolver-bound
 singleton matches all 17 original fields. Local exact replay is also verified.
 The native singleton uses `configured-example` and the explicit type `1017` from
-the configuration. Actual Truss acceptance/feed, remote ACK/fencing, native exact
-repeat and configured Weft queries remain outside this demonstrated result.
+the configuration. Actual Truss acceptance/feed, remote ACK/fencing and native exact repeat remain
+outside this demonstrated result. The configured Weft query is qualified below.
 
 The publication receipts can be verified offline without additional SQL:
 
@@ -1193,3 +1194,32 @@ PYTHONPATH=src:tools python3 -B tools/verify_configured_publication.py \
 
 Use your own retained paths for another run. This checks recorded parity and
 original custody; it does not renew present-day native permissions or retention.
+
+
+The configured Weft query now runs against that same completed publication:
+
+```sh
+python3 tools/run_native_source_stream.py \
+  --source configured-jsonl \
+  --source-config examples/end-to-end/configured-source.json \
+  --limit 3 --query-only \
+  --weft-sql 'SELECT i.label, i.caption FROM Item i' \
+  --weft-source /path/to/clean/weft-2744531735c2 \
+  --weft-python /path/to/verified/qualified-wheel-installation \
+  --installation /private/tmp/ashlar-configured-setup-20261008/summary.json \
+  --intake-proof /private/tmp/ashlar-configured-schema-20261008/summary.json \
+  --journal /private/tmp/ashlar-configured-stream-20261008.sqlite \
+  --umf-source /path/to/pinned/umf-record-check \
+  --output /fresh/path/configured-weft-query
+```
+
+Use the host Python environment with the Databricks SDK and the original retained
+proof/journal paths for your installation. The verified result is `updated` and
+`{"state":"value","value":"雪"}`. Two scalar integrity checks return exact
+STRING zero counts. All three compiled statements run with the same-execution
+engine/ANSI guards; final result release follows the closing resolver, pins,
+source/model custody, permission and finite-retention checks. This run made no
+new writes or progress changes. See
+[the exact query evidence](../../docs/helix/04-build/evidence/native-configured-guarded-weft-query-20261008.json).
+It demonstrates configured string/presence queries, not broader Weft families or
+an accepted Truss stream. Exact engine drift refuses; no profile fallback.
