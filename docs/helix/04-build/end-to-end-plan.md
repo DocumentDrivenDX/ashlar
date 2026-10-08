@@ -1526,3 +1526,20 @@ retained in pg-executor.json.
 Native commit-time serialization, lost-transport containment/recovery, caller
 adoption/cancellation, complete resources and full bootstrap remain unfinished.
 Actual Truss feed integration and the full end-to-end goal remain open.
+
+
+## Built Truss PostgreSQL runtime package — 2026-10-08
+
+The separate host package now builds public ESM/declaration exports against
+canonical named Truss types. Dependencies/workspace links are locked; private
+source-relative declaration paths refuse. After correcting an initial missing
+root workspace link, the native executor probe passes through both built public
+package imports, including exact cells/columns, writes, rollback, deadlock and
+deferred-COMMIT settlement. Build evidence hashes are retained in the host dist.
+
+This supersedes source-only delivery status but does not establish published
+release, clean packed-host consumption, Node/pooler or complete native bootstrap.
+Required routine bodies still need protected original-operation producer/security
+composition; observation SQL cannot substitute. Existing full bootstrap/feed
+readiness remains unavailable. No persistent tables, cloud workload or deployment
+settings change occurred; the full end-to-end goal remains active.
