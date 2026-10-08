@@ -2757,7 +2757,14 @@
     "out/native/ashlar_append_write_r639/audited-summary-r641.json": "88a18c4e520a976ee8ac706c19dda3ee261f86f147dbae7cb0abd067e701ab6d",
     "out/native/ashlar_append_write_r639/shared-history.json": "2de1d96a680cba656dce5b36157505cda3aa30b97cc7c25b70505d4d051651a1",
     "out/native/ashlar_append_write_r639/statements.jsonl": "3608f8847d6838bb40eb1bc80ae901bc5a9ab8919539b6ba1b92ca80a7c70118",
-    "out/native/ashlar_append_write_r639/summary.json": "8618d2146b8164bf42701b88a411427e39ab4f35e2ef9108f77b71a17f5df800"
+    "out/native/ashlar_append_write_r639/summary.json": "8618d2146b8164bf42701b88a411427e39ab4f35e2ef9108f77b71a17f5df800",
+    "append_write_r643.py": "689eb9a5774fcf70e6ab11ff500d100d7b672747eb936c624583846397a88491",
+    "append_write_audit_r644.py": "cab32d913ec489d674a8ca7e80e03aa95e3e8f179e6d3098c569f98436b2d0fb",
+    "out/append-stage-budget-r642.json": "7103219ea1460edbc3c9c049ea11622ac9388b6f70011472a1bc0c545c55fa76",
+    "out/native/ashlar_append_write_r643/audited-summary-r644.json": "d3d87abf6b3b3917588d095ed142798dbb7b78c632aaa54e0b84d0df556e9058",
+    "out/native/ashlar_append_write_r643/shared-history.json": "20299d9dc87c2fbde031cc5b5ea34eef70b605fee6496331deb923eee02741c9",
+    "out/native/ashlar_append_write_r643/statements.jsonl": "bb3fef8a1c645f11c87149df1ce51835d773d81fcfd71e74ebc505a492a0de27",
+    "out/native/ashlar_append_write_r643/summary.json": "c7809fc9e4c0a17d7ae1b49328a3b7a4fe62565e9799c3fe826bd1edbf811049"
   },
   "evidence": {
     "ddl": {

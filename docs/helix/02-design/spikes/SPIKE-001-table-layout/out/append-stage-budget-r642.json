@@ -1,0 +1,21 @@
+{
+  "format": "ashlar-append-stage-budget/1",
+  "source_sha256": "88a18c4e520a976ee8ac706c19dda3ee261f86f147dbae7cb0abd067e701ab6d",
+  "source": "out/native/ashlar_append_write_r639/audited-summary-r641.json",
+  "nodes": 500000,
+  "edges": 2500000,
+  "factor": 5,
+  "sensitivity": {
+    "read_bytes": 23446867357.5,
+    "write_remote_bytes": 10887207292.5,
+    "spill_to_disk_bytes": 0.0
+  },
+  "bounds": {
+    "read_bytes": 25000000000,
+    "write_remote_bytes": 12000000000,
+    "spill_to_disk_bytes": 0,
+    "wall_s": 1800,
+    "statement_cancel_s": 180
+  },
+  "qualification": "Fivefold staged append slice, not full16M/80M admission. 1.5x byte sensitivity based on complete all-role calibration; statement and wall guards include metadata/validation, not guaranteed cancellation or billing caps. No zero-spill prediction. Existing compute only; no publication/canonical changes."
+}
