@@ -44,7 +44,13 @@ owner selected 1B nodes with more edges; Fabric mappings are bounded projections
 liquid clustering includes ingest cost. Exhaustive maintenance parity passes
 all 10,019,981 edge rows, complete fields, hidden metadata and unique typed keys.
 
-**Next action:** Prioritize actual source/runtime integration using the [full-scope audit](02-design/spikes/SPIKE-001-table-layout/out/goal-completion-audit-20261006.json), [layout status](02-design/spikes/SPIKE-001-table-layout/layout-status.md) and [candidate package](02-design/spikes/SPIKE-001-table-layout/layout-package-candidate.json). Native 0.3 varied-carrier and exact hash evidence now pass, as do scoped serialized recovery/receipt controls. Real Truss complete-boundary/authority implementation, full publication protocol and actual graph-engine execution remain unqualified. Local Spark 3.5.3 / Delta 3.2.1 / GraphFrames 0.12.3 integration now passes the scoped pinned-release checks. PuppyGraph/Fabric and direct UC reader-feature interoperability remain unqualified. The authorized larger local/Databricks physical comparison is described in the [scale plan](02-design/spikes/SPIKE-001-table-layout/scale-experiment-plan.md).
+**Next action:** Implement the reviewable schema-package slice described in the
+[table design handoff](02-design/spikes/SPIKE-001-table-layout/table-design-handoff.md).
+The owner stopped further testing; reuse the completed evidence and keep measured
+limits explicit. Baseline canonical/raw/history/delete/publication tables are
+separate from optional adjacency, typed examples and coordination candidates.
+Production source authority, fencing and runtime selection remain open. UMF is
+deferred; native singleton reads use Unity Catalog Delta independently of Fabric.
 
 **Historical spike status (superseded as a work plan):** The maintenance-inclusive comparisons below now fail.
 Final verification passes on both layouts, including 9,419,981 untouched carriers,

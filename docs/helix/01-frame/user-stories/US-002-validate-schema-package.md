@@ -50,7 +50,7 @@ exact interface and schema surfaces belong in the forthcoming design Contracts.
 - [ ] **US-002-AC5** — Given informational key declarations and governance tags, when I inspect the package, then they are distinguished from validated or enforced rules with evidence.
 
 - [ ] **US-002-AC6** — Given a Truss-shaped fixture, its canonical and graph-serving representations preserve source IDs, property missing/null distinctions, exact values, typed endpoints, independent edge identities and retained content, or explicitly refuse/report an unsupported projection.
-- [ ] **US-002-AC7** — Given the selected native Delta layout, singleton lookup runs without Fabric and meets the reviewed cold/warm budgets on the pinned target; graph adapter mappings preserve isolated nodes and parallel paths with explicit target limits.
+- [ ] **US-002-AC7** — Given the selected native Delta layout, singleton lookup runs without Fabric and reports measured cold/warm results against the provisional budgets on the pinned target, with misses informing tuning rather than gating the Unity Catalog Delta architecture; graph adapter mappings preserve isolated nodes and parallel paths with explicit target limits.
 
 ## Edge Cases
 

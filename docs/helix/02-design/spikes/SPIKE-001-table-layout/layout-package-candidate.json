@@ -2871,7 +2871,10 @@
     "out/native/ashlar_billing_inspection_r695/statements.jsonl": "07c314a6b9d462c6c9ae5547956e3ea95a496488a7892e91a6e34b59cc24bea3",
     "out/native/ashlar_billing_inspection_r695/billing-result.json": "575c529c385d64d42e8d6a2f4b75a53ec7464efc24b16c158ee91265fb276cc2",
     "out/native/ashlar_billing_prices_r697/statements.jsonl": "5b06d547db8d1bb86f83d9f27e22886d7341d7d3534840503a240b21cc67a152",
-    "out/native/ashlar_billing_prices_r697/billing-result.json": "8df943d8e352ffd41516fce237d431df5beb0e1ea6ebe62cc2b7b4511fa97617"
+    "out/native/ashlar_billing_prices_r697/billing-result.json": "8df943d8e352ffd41516fce237d431df5beb0e1ea6ebe62cc2b7b4511fa97617",
+    "table-design-handoff.md": "3a76a2b952df773b9dbec99120fee84f21642f9d6c0a737bd0973e1df426735f",
+    "../../../01-frame/user-stories/US-002-validate-schema-package.md": "0a588b9e5cc416734018512c1ee04f5a7a550aa70a486e64e4c1dedbf3dcbd61",
+    "../../../README.md": "f768808ee881e2bd3600edf2cc90778a06f4d28acd3dda97e8955e74ac5cd23a"
   },
   "evidence": {
     "ddl": {
