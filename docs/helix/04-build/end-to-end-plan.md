@@ -904,3 +904,20 @@ retention or source ACK occurred. This is the actual additional whole-entity sou
 boundary, not Truss property reconstruction or completed native Delta publication.
 The factory authenticates the trusted isolated admin session into ordinary roles;
 ordinary-role scope does not establish separate production identity/role fencing.
+
+## Durable publication intent binds native source progress — 2026-10-08
+
+publish_outbox_transaction now carries exact original native checkpoint text into
+the publisher's immutable request/digest and all durable phases. It binds the
+original source profile/feed/epoch/previous-position/position/payload bytes/batch
+identity separately from the contained JSONL byte cursor. Phase readers support
+this explicitly closed added carrier and revalidate the complete original inner
+source artifact. Legacy JSONL-only request bytes/digests remain unchanged.
+
+All133 local checks pass: exact committed replay avoids apply, same inner bytes
+at a changed native group position conflict, malformed bindings refuse before
+writer/effects, and rehashed phase requests cannot hide mismatched native source
+identity/digest/profile. No native/cloud workload ran. CONTRACT-001 records the
+handoff: backend descriptor progress/ACK admission must bind this original native
+checkpoint; the new carrier grants no authority by itself. Qualified native
+publisher/retention/read and Truss producer remain required for the full goal.

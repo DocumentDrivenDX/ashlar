@@ -27,6 +27,20 @@ class OutboxApplyResult:
     transactions: int
 
 
+def publish_outbox_transaction(backend,stream,transaction,*,predecessor,schema_revisions_json,context):
+    """Retain the original native checkpoint in every publication phase.
+
+    The backend must bind descriptor progress and ACK to this exact group under
+    current native source authority; this wrapper supplies no permissive backend.
+    """
+    if not isinstance(transaction,OutboxTransaction):raise OutboxError('Original committed outbox group required')
+    from .source_checkpoint import outbox_checkpoint
+    from .publisher import publish_batch
+    return publish_batch(backend,stream,transaction.batch,predecessor=predecessor,
+        schema_revisions_json=schema_revisions_json,context=context,
+        source_checkpoint_json=outbox_checkpoint(transaction))
+
+
 def apply_outbox_transactions(transactions, *, prior, feed, epoch, after,
                               expected_position, schema_policy, schema_transition_policy=None):
     """Apply an admitted committed page using native group positions, never byte offsets.

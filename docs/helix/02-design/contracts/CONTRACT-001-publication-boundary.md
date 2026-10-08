@@ -245,3 +245,24 @@ qualified only that experiment; existing graph tables remain unpublished.
 Evidence: out/native/attempt_store_20261008. Fifty-one focused local checks pass.
 Complete native producer/recovery/pin/manifest/checkpoint integration remains
 required before the full toolkit can be claimed usable.
+
+
+### Native outbox checkpoint custody
+
+The candidate outbox wrapper additionally retains exact source_checkpoint_json in
+the immutable original request. Its closed ashlar-postgresql-outbox/0.1 carrier
+contains feed, epoch, previous native group position, position, original UTF-8
+payload digest and contained batch identity. Canonical nonnegative signed64
+positions must be contiguous. Exact original inner transaction bytes/profile/
+feed/epoch/identity and independently zero-based inner byte cursor must agree.
+The full original checkpoint text participates in the request digest and every
+phase retains it unchanged. Phase readback revalidates it against the original
+contained source artifact, not merely a recomputed request hash.
+
+Legacy JSONL-only requests preserve their original shape/digest. An outbox producer
+must use the wrapper; an inner JSONL byte offset cannot substitute for its native
+position. The native backend must independently bind the descriptor's progress
+and acknowledgement to this original native group under current source authority.
+Checkpoint-shaped text, wrapper success or retained phase custody alone grants no
+native authority or source ACK. Changed outer position under an existing attempt
+is a different original request and refuses instead of committed replay.

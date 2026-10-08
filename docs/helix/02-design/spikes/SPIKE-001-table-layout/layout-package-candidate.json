@@ -2901,7 +2901,7 @@
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "6de1e160f765b0b6b38187ed28ebda76a7332e26e1aff8198e1e166f0b2a6c7f",
-    "../../../04-build/end-to-end-plan.md": "ff36555402817f85e71a8769ed5f2fa3e9456675a5c49c338e2026e1527f8e43",
+    "../../../04-build/end-to-end-plan.md": "7ec9ffc9fc6b80e8499f9c97df186f99867ea30da14ef2ef9c53dcbad54e49b4",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -2960,15 +2960,15 @@
     "../../../../../examples/end-to-end/graph-source.jsonl": "8675a792e9b30362f1937534a93b0c2b5366bedf490eea761b83d1469b6d46c9",
     "out/native/graph_apply_20261008/summary.json": "1a8012c77e460e43e45580f183f5f0ceaac4e98e3d29888988625c7c0f17c7a1",
     "out/native/graph_apply_20261008/statements.jsonl": "a4d9b536ae720e1fcc181c814d7f47bad7b2c7e2484c4ca6a3b7f468e6e455e9",
-    "../../../../../src/ashlar/publisher.py": "491a8f4b99c30b4198a7b770ac99cd5ab482d258893123a1072cd21fa2141bb0",
+    "../../../../../src/ashlar/publisher.py": "949018bea80c2235ede2350ddc62b22268eda0a99d8682c532b83be2a6c75cf7",
     "../../../../../tests/test_publisher.py": "6ab699eea8227cff4810c687224bdc7dbd6adf46decd5636ca775c51a4c317eb",
     "out/publisher-coordinator-local-20261008.json": "02e7b51ee8a29c85c6ced7a846913566c62fc3b424525980a63aa7be07812b0c",
-    "../../../../../src/ashlar/attempt_store.py": "c9dd83bfcaa85aaa9ab21e5d76769cda2429ee80626d1f2f16b0708289eb0179",
+    "../../../../../src/ashlar/attempt_store.py": "836a1cebf179efe27e5d578b903b3e7fa3514f991aff0dde49ec47991b077a44",
     "../../../../../tests/test_attempt_store.py": "57cbc96f1d7a1385553541c31c51b8735ff67d0e8c834c142331956664759ecb",
     "../../../../../tools/check_native_attempt_store.py": "7953c5998ac6031a978e1812e90cbbbb67fe5ba5455f3d7a176dbf9ac4237ec5",
     "out/native/attempt_store_20261008/summary.json": "f67683189545b55b738b4cd91343b4318fe3dc8a43a0dc49597e1ea44f0a5734",
     "out/native/attempt_store_20261008/statements.jsonl": "77b71a5e20118a748a863df14ede9ca4a52211aaf910fb397fb5d46871df2f95",
-    "../../../../../src/ashlar/outbox.py": "0cdbe82ecc1bd7d98fcc1e622a348ba6e034a90ad11f5a2ff2730fc6176cc3e9",
+    "../../../../../src/ashlar/outbox.py": "6277185048c05afbafdce2229b0cccd8d28dfe334b748f9a6aa14274b9f399a4",
     "../../../../../tests/test_outbox.py": "ae0949063a0cacbdc3a9e6929cb94620bd529e7a51097ca0278c45c94d509a1e",
     "../../../../../tools/check_native_outbox.py": "57cf65c5c5feebec72d63b4676a74d473bee972ae2afeed40ffdbbcbaaebcac0",
     "../../../../../sql/ashlar-outbox/01-postgresql.sql": "3d120a63c1afebf0f8a057ce4b66301fc837eb34220adb340227c4dc339be739",
@@ -3201,7 +3201,9 @@
     "../../../../../tools/sandbox_postgres.py": "177395c9eabd9443401a5c06fed0ea6ab496383d5a37ef8883493997755774a2",
     "../../../../../tools/run_outbox_example.py": "b076a8cb86f3f422956d107366fe5d0345a87ad152084d2ed3b83f3d426ce00e",
     "out/native/outbox_evolution_20261008/summary.json": "2c4967c5888c3e3268f54cf1328d9a449082fc02fbfc10735f536599da3c30de",
-    "out/native/outbox_evolution_20261008/original-transactions.json": "e3a714bd85bff0399a0324b958c62a6758fb2880534a91e5fc2352d6d24e65dc"
+    "out/native/outbox_evolution_20261008/original-transactions.json": "e3a714bd85bff0399a0324b958c62a6758fb2880534a91e5fc2352d6d24e65dc",
+    "../../../../../src/ashlar/source_checkpoint.py": "9d1699e901f3f9eea4f9b347aefd588a677c9a0f935e78f687b1deb9f0b7f0ff",
+    "../../../../../tests/test_source_checkpoint.py": "5e6e852c7fa0110ed2a33a86612bc910e2e453ccaa6479030140c5ffa4ff2821"
   },
   "evidence": {
     "ddl": {

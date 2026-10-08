@@ -21,11 +21,15 @@ class PhaseRecord:
 
 def _request_digest(request):
     keys={'stream','batch_id','predecessor','schema_revisions_json','source_batch_json','source_batch_digest','request_digest'}
-    if not isinstance(request,dict) or set(request)!=keys or any(not isinstance(x,str) or not x for x in request.values()):
+    if not isinstance(request,dict) or set(request) not in (keys,keys|{'source_checkpoint_json'}) or any(not isinstance(x,str) or not x for x in request.values()):
         raise AttemptStoreError('Complete original request strings required')
     content={k:v for k,v in request.items() if k!='request_digest'}
     digest=hashlib.sha256(json.dumps(content,separators=(',',':'),sort_keys=True).encode()).hexdigest()
     if request['request_digest']!=digest:raise AttemptStoreError('Original request digest mismatch')
+    if 'source_checkpoint_json' in request:
+        from .source_checkpoint import validate_checkpoint_request
+        try:validate_checkpoint_request(request)
+        except ValueError as exc:raise AttemptStoreError('Invalid original native source checkpoint') from exc
     return digest
 
 def _phase_records(stream,batch_id,rows):
