@@ -1,0 +1,60 @@
+{
+  "state": "passed",
+  "base_revision": "d60868b13f6273c7dcfe4804df632ec142431677",
+  "tested_source_sha256": {
+    "src/ashlar/singleton.py": "318342c4449fc331d0f9289b065cdc530f57ae549ad93420cd7e365d2bb8dc41"
+  },
+  "summary": {
+    "state": "queried",
+    "namespace": "ashlar_e2e_private_20261008.runtime_clean_user",
+    "local_consumer_position": "1",
+    "published": [],
+    "query_only": true,
+    "singleton": {
+      "source_system": "local-example",
+      "logical_key_json": "[]",
+      "schema_revision": "3",
+      "props_json": "{\"23\":\"first\",\"24\":\"\"}",
+      "retained_json": "{\"source_profile\":\"ashlar-single-line-csv/0.1\",\"unmapped_columns\":{\"future\":\"18446744073709551615\"}}",
+      "root_id": null,
+      "source_feed": "csv-example",
+      "source_epoch": "immutable-example-1",
+      "source_position": null,
+      "lookup_hash": "130425ac5264b46607cffbe83c741d069dcacc8d72cc4038c4049da15f7c5080",
+      "apply_batch_id": "csv-row-1",
+      "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"806\"}",
+      "source_delivery_id": "{\"profile\":\"ashlar-single-line-csv/0.1\",\"header_base64\":\"aWQsZW50aXR5X3ZlcnNpb24sb3BlcmF0aW9uLGxhYmVsLGNhcHRpb24sZnV0dXJlCg==\",\"row_base64\":\"MSwxLGNyZWF0ZSxmaXJzdCwsMTg0NDY3NDQwNzM3MDk1NTE2MTUK\",\"row_ordinal\":\"1\"}",
+      "type_id": "17",
+      "id": "1",
+      "entity_version": "1",
+      "published_at": "1791486158556147"
+    },
+    "query_publication_id": "csv-stream-bd607649894bf47ae8a24cd06ae80ba7626f84a9be1d506e6c2ae08c2e75f246",
+    "native_read_statements": 112,
+    "effective_permission_pages": 66,
+    "source_sha256": "944b1ebb4c9c564ce4687a4a731c360cd6575d97aa9abfa4994203968f498e12",
+    "materialized_at": "2026-10-08T19:02:38.556147+00:00",
+    "qualification": "Actual CSV fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload."
+  },
+  "checks": [
+    "same original stored publication resolved under complete pin/retention authority",
+    "every singleton field matches independent original source oracle",
+    "published_at exact native epoch-microseconds 1791486158556147 preserved",
+    "one parameterized native point lookup at object_current version 2",
+    "all nine original Delta mutation handles/request/response hashes unchanged",
+    "original local checkpoint unchanged"
+  ],
+  "point_query": {
+    "original_statement_id": "01f1c34c-259d-18c4-8385-d56c7ebb0d30",
+    "response_sha256": "55ea7fc6fdf30f9d53fb3677ef7419c0abd1f41ba570f394b600b7cdcb22c3b4"
+  },
+  "private_receipts": "/private/tmp/ashlar-clean-user-query-micros-20261008",
+  "private_journal": "/private/tmp/ashlar-clean-user-stream-20261008.sqlite",
+  "receipt_sha256": {
+    "summary.json": "b065f92d6bb8336572bbf8c1725e64a880dd3b5c3c541d7b2af0d21bbbf1a95d",
+    "statements.jsonl": "655efe78b976674c6e9fb51b01a272333e2d4de38b7abf4c037502dcb2e400fe",
+    "effective-permissions.jsonl": "e685360c9834c5cff5860b7b92d10183beadf23d176e4c9b1454438a943a1745",
+    "umf-record-check.json": "41ee2fcb4f6db224f3b80bf5412b2def52d38a6c029850d96e662edbea173d6d"
+  },
+  "qualification": "Native singleton fidelity correction on the existing fresh one-row CSV publication. Complete field equality includes microsecond timestamp text and opaque original source content; source/table storage unchanged. Six local tests separately cover null, negative and signed64 boundaries; no native boundary/edge/null case claimed. Actual Truss, broader schema/source profiles and remote fencing/ACK remain open. No new Delta mutation submissions/checkpoint advancement/compute/grants/maintenance changes. Tested edited singleton snapshot on base revision is fingerprinted; execution is not backdated to its later commit."
+}

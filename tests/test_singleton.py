@@ -9,7 +9,7 @@ from test_publication import FakeBackend,TABLE
 
 SOURCE='snow 雪'
 HASH=hashlib.sha256(json.dumps({'source_system':SOURCE,'type_id':1,'id':9223372036854775807},ensure_ascii=False,separators=(',',':')).encode()).hexdigest()
-ROW={'source_system':SOURCE,'type_id':'1','id':'9223372036854775807','lookup_hash':HASH,'props_json':'{"wide":18446744073709551615}','entity_version':'2'}
+ROW={'source_system':SOURCE,'type_id':'1','id':'9223372036854775807','lookup_hash':HASH,'props_json':'{"wide":18446744073709551615}','entity_version':'2','published_at':'1791486158556147'}
 class Pins:
     def __init__(self):self.active=False;self.fail_exit=False
     @contextmanager
@@ -41,7 +41,20 @@ class SingletonTests(unittest.TestCase):
         self.assertEqual(r['props_json'],ROW['props_json']);self.assertFalse(p.active)
         sql,params=e.calls[1];self.assertIn('VERSION AS OF 6',sql);self.assertIn('LIMIT 2',sql)
         self.assertNotIn(SOURCE,sql);self.assertEqual(params['hash'],HASH)
+        self.assertIn('cast(unix_micros(published_at) AS STRING) AS published_at',sql)
+        self.assertEqual(r['published_at'],'1791486158556147')
         with self.assertRaises(TypeError):r['id']='changed'
+    def test_timestamp_null_negative_and_signed64_precision_preserved(self):
+        for value in [None,'0','-1','9223372036854775807','-9223372036854775808']:
+            p,e,b,policy=self.setup();e.rows=[dict(ROW,published_at=value)]
+            self.assertEqual(self.read(p,e,b,policy)['published_at'],value)
+    def test_truncated_missing_noncanonical_or_narrowed_timestamp_refuses(self):
+        for value in ['2026-10-08T19:02:38.556Z','-0','01','1791486158556147.0',1791486158556147,True,'9223372036854775808']:
+            p,e,b,policy=self.setup();e.rows=[dict(ROW,published_at=value)]
+            with self.assertRaises(ResolutionError):self.read(p,e,b,policy)
+            self.assertFalse(p.active)
+        p,e,b,policy=self.setup();e.rows=[{k:v for k,v in ROW.items() if k!='published_at'}]
+        with self.assertRaises(ResolutionError):self.read(p,e,b,policy)
     def test_absence_and_duplicate_identity(self):
         p,e,b,policy=self.setup();e.rows=[];self.assertIsNone(self.read(p,e,b,policy))
         e.rows=[ROW,ROW]

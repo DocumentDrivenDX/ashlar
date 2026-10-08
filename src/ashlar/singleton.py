@@ -1,5 +1,5 @@
 """Resolver-bound singleton reads under complete active pin custody."""
-import hashlib,json
+import hashlib,json,re
 from types import MappingProxyType
 from .native import _quoted
 from .publication import resolve_publication,ResolutionError
@@ -39,7 +39,10 @@ def read_singleton(executor, backend, pins, vector, policy, *, publication_id,
                 raise ResolutionError('Singleton target replaced')
         identity_check()
         integers=[typed,'id','entity_version']+(['source_type','source_id','target_type','target_id'] if kind=='edge' else [])
-        projection='* EXCEPT ('+','.join(integers)+'),'+','.join('cast('+c+' AS STRING) AS '+c for c in integers)
+        # Native TIMESTAMP JSON responses can truncate fractional precision.
+        # Preserve the instant as signed epoch-microsecond text, independent of
+        # session timezone and floating-point/Date conversions.
+        projection='* EXCEPT ('+','.join(integers+['published_at'])+'),'+','.join('cast('+c+' AS STRING) AS '+c for c in integers)+',cast(unix_micros(published_at) AS STRING) AS published_at'
         rows=executor.query('SELECT '+projection+' FROM '+quoted+' VERSION AS OF '+str(snapshot.version)
             +' WHERE lookup_hash=:hash AND source_system=:source AND '+typed+'=cast(:type AS BIGINT) AND id=cast(:id AS BIGINT) LIMIT 2',
             {'hash':hashed,'source':source,'type':str(type_id),'id':str(entity_id)}).rows
@@ -47,6 +50,11 @@ def read_singleton(executor, backend, pins, vector, policy, *, publication_id,
         row=dict(rows[0]) if rows else None
         if row is not None and any(row.get(k)!=v for k,v in {'source_system':source,typed:str(type_id),'id':str(entity_id),'lookup_hash':hashed}.items()):
             raise ResolutionError('Native singleton identity carrier mismatch')
+        if row is not None:
+            if 'published_at' not in row:raise ResolutionError('Missing exact timestamp carrier')
+            stamp=row['published_at']
+            if stamp is not None and (not isinstance(stamp,str) or len(stamp)>20 or not re.fullmatch(r'0|-?[1-9][0-9]*',stamp) or not -(2**63)<=int(stamp)<2**63):
+                raise ResolutionError('Timestamp requires canonical signed64 epoch-microsecond text')
         identity_check()
         # Revalidate current retention/descriptor policy after execution too:
         # a read crossing expiry or a shortened configuration returns nothing.

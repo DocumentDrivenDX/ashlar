@@ -2535,3 +2535,31 @@ its explicit output carrier and validate exact source precision rather than
 silently accepting millisecond truncation. This evidence is scoped as
 passed-with-timestamp-fidelity-gap, not complete support. Actual Truss and broader
 schema/source workflows remain open under the full goal.
+
+
+### Singleton microsecond fidelity corrected — 2026-10-08
+
+read_singleton now excludes raw published_at from the wildcard and explicitly
+projects cast(unix_micros(published_at) AS STRING) under the original field name.
+Its output carrier is documented as canonical signed epoch-microsecond text or
+SQL NULL; missing, malformed, noncanonical, narrowed and out-of-range values
+refuse. Schema/storage remain TIMESTAMP. This is an explicit experimental API
+output interpretation change from earlier ISO datetime text; original precision
+loss evidence remains retained rather than rewritten.
+
+Six focused singleton checks pass, covering microsecond text, null, negative
+values, both signed64 bounds and original custody/retention refusal controls.
+A corrected query-only native process exited successfully on the same original
+publication and object_current version 2. Independent offline reconstruction
+matches every returned field, including published_at 1791486158556147 exactly.
+All nine original Delta mutation handles/request/response records and local
+checkpoint are unchanged. The run used 112 warehouse reads and 66 effective
+permission pages with one parameterized point SELECT and no new Delta mutations.
+
+[evidence/native-clean-singleton-micros-20261008.json](evidence/native-clean-singleton-micros-20261008.json)
+retains corrected original query/response fingerprints, tested singleton source
+hash and source/base-revision qualification. Native null/negative/boundary/edge
+cases are not claimed; those are local tests. This closes the observed timestamp
+fidelity gap for the fresh one-row workflow. Actual Truss runtime/catalog/feed,
+wider schema/source integration, remote fencing and ACK remain open. No compute,
+grants, predictive optimization or native source/table data changes occurred.

@@ -877,9 +877,12 @@ registry UUID, clear tables or infer success from pending effects. Native
 one-row publication has completed at checkpoint 1, with independent complete
 current/history/tombstone/edge parity at the stored vector. The native singleton
 query completed against the same stored publication without new Delta mutations.
-All non-timestamp fields match the independent source oracle. Its current raw
-TIMESTAMP output truncates published_at microseconds to milliseconds; exact
-singleton timestamp preservation remains an open fix. The source and IDs remain synthetic fixture
+All non-timestamp fields match the independent source oracle. The original raw
+TIMESTAMP projection truncated published_at microseconds to milliseconds. The
+corrected projection returns this field as canonical signed epoch-microsecond
+text (or null). Corrected native verification matches every source-oracle field,
+including exact 1791486158556147 microseconds; original publication, checkpoint
+and Delta mutation receipts remain unchanged. The source and IDs remain synthetic fixture
 inputs; actual Truss acceptance/feed is still required for the full toolkit.
 
 ## Stored native CSV publication and singleton query
@@ -927,7 +930,8 @@ holds all four PostgreSQL pin guards, renews native authority/protocol/retention
 and full snapshot parity, and binds the lookup to the descriptor's Delta version.
 The lookup uses bound source/type/object identity and its lookup hash. A missing
 object returns `singleton: null`; duplicate identity or failed admission returns
-no result. Original timestamp text and retained unknown source content survive.
+no result. The published_at output is exact signed epoch-microsecond text (or null),
+not ISO datetime text. Retained unknown source content survives.
 The mode creates no graph effects, manifest, attempt phase or consumer progress.
 
 Omit `--query-only` for the original bounded publisher workflow. Its default

@@ -178,6 +178,11 @@ and native lookup. It binds the original descriptor via a mandatory policy,
 requires exact vector versions, uses UTF-8 canonical lookup hash plus complete
 typed predicates and checks UUID before/after execution. BIGINT identity/version
 and edge endpoints return as strings; original JSON text remains untouched.
+published_at returns canonical signed epoch-microsecond text (or null), using
+unix_micros rather than raw TIMESTAMP JSON that truncated precision. This changes
+the experimental output interpretation from ISO datetime text. Six focused
+checks and corrected native one-row singleton evidence cover the fix; native
+negative/null/boundary/edge timestamp cases remain untested.
 Duplicates refuse; absence still requires current row policy. Result escapes
 only after final pin custody and authorization checks. Seventy-nine local checks
 pass; real manifest/snapshot policy and native composed execution are required.

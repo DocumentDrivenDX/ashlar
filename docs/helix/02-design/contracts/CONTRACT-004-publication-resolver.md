@@ -127,6 +127,31 @@ read result is released only after the pin context’s closing checks. Resolutio
 and execution failures return no partial singleton response. Native composed
 publication/policy evidence remains unqualified; local refusal controls pass.
 
+## Singleton timestamp output carrier
+
+For the selected ashlar-delta/0.3 object/edge layout, read_singleton MUST project
+published_at with cast(unix_micros(published_at) AS STRING) and exclude the raw
+TIMESTAMP field from the wildcard. The returned published_at is either SQL NULL
+or canonical signed-int64 decimal text of microseconds since the Unix epoch.
+It is not ISO datetime text, milliseconds, a float or a JavaScript/Python date.
+Positive zero is "0"; negative zero, leading zeros, decimals, missing fields,
+non-string values and out-of-range integers MUST refuse. At most 20 characters
+are interpreted. This carrier is independent of session timezone and preserves
+all six fractional digits of the native TIMESTAMP instant. The input/native
+schema remains TIMESTAMP; generation/storage are not changed. Other fields and
+opaque source JSON remain original retained text.
+
+This corrects the experimental singleton's earlier raw TIMESTAMP response;
+consumers MUST update their published_at interpretation to epoch-microsecond text.
+The previous native millisecond response is retained as a counterexample, not
+silently recast as precision evidence. Six focused tests pass, including null,
+negative and signed64 boundaries, malformed/truncated values and existing
+custody/retention refusals. Corrected native execution now passes on the same fresh-installation publication:
+every singleton field equals the independent source oracle, including
+1791486158556147 microseconds. Original checkpoint and all nine Delta mutation
+receipts remain unchanged. See [native microsecond evidence](../../04-build/evidence/native-clean-singleton-micros-20261008.json).
+Native null/negative/boundary/edge values remain untested; their checks are local.
+
 ## Native permission observation boundary
 
 The current client_dev graph fixtures inherit MODIFY for a shared ordinary user
