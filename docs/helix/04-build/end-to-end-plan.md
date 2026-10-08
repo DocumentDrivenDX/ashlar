@@ -1866,3 +1866,28 @@ new evidence changes the next action: resolve original semantic completeness and
 support correspondence before implementing writable acceptance for these models.
 Native protected installation/feed also remain incomplete. The unchanged full goal
 is active; this is its first newly verified required-check compatibility finding.
+
+### Real browser ingress and selected-check qualification correction (2026-10-08)
+
+Truss candidate `1b473e2` records actual Chromium 153.0.8010.12 execution of the
+built portable Truss artifact ingress and identical pinned UMF producer. All four
+original Ashlar inputs remain exact; original validity/completeness and every
+diagnostic match Bun. Unknown assertion preservation, corrupt digest/shared byte
+overflow/noncanonical base64 refusal and absence of Node globals are verified.
+The repeatable browser probe retains exact Truss/UMF bundle hashes and diagnostics.
+
+Correction to the preceding compatibility conclusion: CONTRACT-003 requires valid,
+complete original results for separately selected semantic checks. Aggregate
+validateDocument.complete=false alone is not the writable-readiness rule. Truss
+Impl's active review clarified this distinction; the probe now labels its result
+aggregateValidationCondition and separately records writable acceptance unavailable
+because no qualified semantic-check composition has been supplied. It does not
+convert aggregate warnings into either accepted/native authority or an absolute
+ban on qualifying a separately selected supported subset. Original diagnostics
+remain unchanged; none is suppressed to manufacture completeness.
+
+Actual browser execution is now proved for this narrow ingress/producer subset.
+Qualified semantic-check composition, native acceptance/installation, original
+producer authority and streaming still remain required. The owner-authorized
+Truss review is active; full end-to-end goal remains active. No cloud/scale run or
+native installation occurs in this iteration.
