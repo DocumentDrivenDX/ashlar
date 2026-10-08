@@ -44,14 +44,13 @@ from journaled_publisher_driver import JournaledPublisherDriver
 from journaled_snapshot_artifacts import JournaledSnapshotArtifacts
 from materialization_clock import materialization_clock
 from native_artifact_validation import NativeArtifactValidator
+from native_csv_configuration import installation_namespace
 from pinned_artifact_validation import PinnedArtifactValidation
 from persistent_sql import Client
 from run_local_example import fixture_inputs,check_original_records
 from sandbox_pins import PrivatePinTransactions
 from whole_graph_sql import graph_sql_plan
 
-NAMESPACE='ashlar_e2e_private_20261008.runtime_csv_stream'
-STREAM='native-csv-stream:'+NAMESPACE
 PROFILE=ReaderProtocolProfile('private-databricks-sql-fixture/2026-10-08',(3,),(7,),
     {'appendOnly','clustering','deletionVectors','domainMetadata','invariants','rowTracking','v2Checkpoint'})
 
@@ -68,12 +67,15 @@ def main():
     parser.add_argument('--limit',type=int,choices=range(1,5),default=1,help='Process through this original CSV ordinal; default one row')
     parser.add_argument('--query-only',action='store_true',help='Read the last retained publication; no ingestion, publication or progress advancement')
     parser.add_argument('--entity-id',type=int,default=1,help='Signed 64-bit local-example object identity for query-only mode')
+    parser.add_argument('--profile',default='aidev-cus',help='Authorized existing Databricks CLI profile')
+    parser.add_argument('--warehouse',default='2439e1f2e37ac563',help='Authorized existing SQL warehouse')
     args=parser.parse_args()
     if args.query_only and not args.journal.is_file():parser.error('Query-only requires the original retained publication journal')
     if not -(2**63)<=args.entity_id<2**63:parser.error('Entity identity must fit signed 64 bits')
     if args.output.exists():parser.error('Fresh output directory required; preserve previous receipts')
     installation=json.loads(args.installation.read_bytes());intake_proof=json.loads(args.intake_proof.read_bytes())
-    if installation['namespace']!=NAMESPACE:raise PublicationError('Only the fresh private CSV streaming namespace is admitted')
+    NAMESPACE=installation_namespace(installation,ROOT)
+    STREAM='native-csv-stream:'+NAMESPACE
     intake,semantic_policy,_=fixture_inputs()
     if (intake.source_sha256,intake.artifact_sha256,intake.document_revision,intake.validator_revision)!=(
         intake_proof['source_sha256'],intake_proof['artifact_sha256'],intake_proof['revision'],intake_proof['validator_revision']):
@@ -84,7 +86,7 @@ def main():
     if tuple(oracle_batches)!=batches or len(batches)!=4:raise PublicationError('Independent original CSV custody differs')
     args.output.mkdir(parents=True)
     umf=check_original_records(args.umf_source,intake,batches,args.output/'umf-record-check.json')
-    client=Client(args.output,profile='aidev-cus',warehouse_id='2439e1f2e37ac563');user=client.w.current_user.me()
+    client=Client(args.output,profile=args.profile,warehouse_id=args.warehouse);user=client.w.current_user.me()
     if user.user_name!=installation['authenticated_owner']:raise PermissionError('Original private installation owner differs')
     journal=DurableSQL(str(args.journal),client.w.api_client,client.warehouse_id,user.id)
     transport=DatabricksTransport(client,journal)
@@ -100,7 +102,11 @@ def main():
     def authority():
         custody();catalog,schema=NAMESPACE.split('.')
         resources=[('catalog',catalog,client.w.catalogs.get(name=catalog).owner),('schema',NAMESPACE,client.w.schemas.get(full_name=NAMESPACE).owner)]
-        for name in [*uuids,intake_proof['table']]:resources.append(('table',name,client.w.tables.get(full_name=name).owner))
+        for name in [*uuids,intake_proof['table']]:
+            native=client.w.tables.get(full_name=name)
+            if name in uuids and getattr(native.table_type,'value',None)!='MANAGED':
+                raise PublicationError('Current Unity Catalog managed carrier required')
+            resources.append(('table',name,native.owner))
         for kind,name,owner in resources:
             def retain(page,ordinal):
                 observation={'kind':kind,'name':name,'ordinal':ordinal,'page':page}

@@ -815,10 +815,11 @@ stored-publisher run. Multi-row continuation/recovery remains to be demonstrated
 
 ## Stored native CSV publication and singleton query
 
-`tools/run_native_csv_stream.py` is a fixed private development workflow for
-`ashlar_e2e_private_20261008.runtime_csv_stream`. It requires the existing
-eight-carrier installation summary, actual v3 schema-intake proof, authorized
-`aidev-cus` Databricks profile, existing warehouse, local PostgreSQL pin service,
+`tools/run_native_csv_stream.py` is a bounded development workflow for the
+supplied four-row CSV and its fixed mapping. It derives the catalog/schema from
+the original eight-carrier installation summary. It requires an actual v3
+schema-intake proof, an authorized Databricks profile and existing warehouse,
+a local PostgreSQL pin service,
 and clean pinned UMF checker checkout described above. It uses fixture catalog
 IDs and a same-host cooperating writer lane. A clean Truss deployment and remote
 producer ACK/fencing remain separate integration work.
@@ -834,9 +835,21 @@ python3 tools/run_native_csv_stream.py \
   --intake-proof docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_schema_v3_20261008/summary.json \
   --journal /private/tmp/ashlar-csv-stream-20261008.sqlite \
   --output out/native-csv-query \
+  --profile aidev-cus --warehouse 2439e1f2e37ac563 \
   --umf-source /path/to/pinned/umf-record-check \
   --limit 4 --query-only --entity-id 1
 ```
+
+Use `--profile` and `--warehouse` to select existing authorized compute; the
+example defaults remain the previously demonstrated development settings.
+The installation receipt must match the current UMF-generated model fingerprints,
+generator provenance, all eight carrier names, ordered column types and distinct
+canonical native UUIDs. Fresh native actor/owner/grant, managed-table, UUID and
+protocol checks remain mandatory; the receipt does not grant authority.
+The demonstrated namespace remains `ashlar_e2e_private_20261008.runtime_csv_stream`.
+Caller-provided namespaces pass focused local configuration checks; a fresh
+namespace and its native schema-registry setup have not yet been demonstrated.
+Keep each installation's original journals and use a new output directory.
 
 Use the SDK/psycopg-enabled Python environment documented for the native checks.
 `--query-only` requires an existing original journal and the exact last retained

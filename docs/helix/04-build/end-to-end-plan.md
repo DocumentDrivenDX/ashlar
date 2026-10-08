@@ -2354,3 +2354,28 @@ descriptors are retained and source ACK remains local consumer progress only.
 Actual Truss acceptance/feed, native schema evolution through this runner, clean
 setup and remote source/fencing semantics remain open. Predictive optimization,
 grants and compute settings were unchanged.
+
+
+### Native CSV installation configuration — 2026-10-08
+
+The bounded CSV runner now derives catalog/schema and stream identity from the
+original installation receipt instead of a hardcoded namespace, and accepts
+explicit existing Databricks profile/warehouse arguments. The source remains the
+four-row synthetic CSV with fixture type/property IDs; this is not a generic
+source mapper or real Truss acceptance. The existing namespace retains exactly
+the same stream identity and journal workload scope.
+
+Configuration admission requires current UMF model fingerprints and generator
+provenance, a complete same-namespace eight-carrier inventory, exact ordered
+columns and distinct canonical native UUIDs. Receipt fields are not mutated.
+Fresh native authority observations also require every carrier to be a current
+Unity Catalog MANAGED table; original UUID/protocol, permissions, schema,
+retention and source checks remain independently mandatory before effects.
+
+Two focused local tests pass, including stale model, altered generator, unsafe
+namespace, missing/foreign carrier, columns, duplicate UUID and owner refusals.
+The original actual installation receipt passes the same configuration helper,
+and CLI help exposes both new compute arguments. No SQL or cloud mutation was
+run in this iteration. Fresh caller namespace execution and reusable native
+schema-registry setup remain unverified; no clean end-to-end installation claim
+is made. This closes one configuration gap while actual Truss remains required.
