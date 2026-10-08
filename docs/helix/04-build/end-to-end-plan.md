@@ -1914,3 +1914,28 @@ bundle hashes anchor both receipts. This advances the required profile compositi
 without claiming writable acceptance, actual native installation or a Truss source
 stream. Complete selected-check producers and original native bindings remain the
 next implementation dependencies. Full goal remains active; no cloud/scale run.
+
+### Existing complete UMF field-value producer with explicit upgrade (2026-10-08)
+
+Current-state inspection of the newer sibling UMF checkout found an existing
+producer: validateCoreFieldValue at source 16c35e8d, for experimental core 0.8.
+Truss candidate `28bc152` uses actual upstream explicit 0.7→0.8 upgrade/verification/
+rollback operations against all original Ashlar examples, retaining original bytes
+and complete receipts. Direct legacy 0.7 value checking refuses; no silent version
+relabeling replaces an original schema. Unknown document content stays preserved.
+
+Four actual present string values selected from local-string-source.jsonl through
+explicit fixture property mappings receive original valid=true/complete=true checks.
+Required nulls and wrong scalar-family probes refuse; v3's explicitly absent-allowed
+caption accepts null. All source/value/upgrade/rollback results agree between Bun
+and actual Chromium 153.0.8010.12. Original source hashes and exact producer bundle
+hash are recorded. Existing fixture schema/mappings are not rewritten or turned
+into native accepted IDs. Truss Impl was sent the actual producer evidence for
+incorporation into its owner-authorized compatibility/profile planning review.
+
+This closes one previously unidentified producer slot for selected present values,
+not the entire required-check composition. V2's unknown availability and the unknown
+document assertion remain unresolved even when a present string check passes;
+whole-record/key/relationship constraints, native bindings/security, complete report/
+head, protected installation and feed are still required. No qualified writable
+profile or native acceptance is claimed. Full goal remains active; no cloud run.
