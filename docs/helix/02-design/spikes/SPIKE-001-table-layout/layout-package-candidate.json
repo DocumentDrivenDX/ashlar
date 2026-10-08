@@ -114,7 +114,7 @@
     "out/native/ashlar_entropy_20261006_r86/summary.json": "75c267234ea05b5d476ad20f382cfd472a97796f8e0312c7c93737492bd8480c",
     "entropy_reads.py": "c61c10c823634c1df9b81855ce39308d8283d0d26b9267efbc80f8e59cbcffb4",
     "entropy_reads_audit.py": "675be2647fafe75e6f631e386a9c13a0271986d31e7a73967fe8af58ce00952f",
-    "layout-status.md": "5bdf0e11498b0884770d05d3fe8b7f622a29d2cfb96c965354d7e0227e1f63b6",
+    "layout-status.md": "eb8662af8f59b7681c3033cc735f92c0400cdb567efa608ff0980386620c7772",
     "out/native/ashlar_entropy_reads_20261006_r88/summary.json": "f55c9bd051a1d74e70f482d2d8668c5e681f2c8525ed7721b3dfa249ec823f84",
     "out/native/ashlar_entropy_reads_20261006_r88/audited-summary.json": "6d73b2d82741da3fa3c283d537b907c1c2ec24b1bd3d17aad92971c1e9be0604",
     "out/native/ashlar_entropy_reads_20261006_r88/client-1/statements.jsonl": "008638c88fa483e68b8c7f5e30a37c9cf05586e71a8cc5aa287eb99e1ab0dae0",
@@ -2862,7 +2862,16 @@
     "append_edge_growth_r692.py": "933e771890a07ae30f8b2e22bb9112e64d24dcf928ec20e0903488acf019a638",
     "append_edge_growth_r693.py": "96ad7318113a1bc95ba735acbe24c7c82406f7535329c970eaa064efd16894ef",
     "out/controller-stop-r692.json": "e0bcf4448dcb34b1cefbcd7d7d543c24faddb5660628027d660a224f61019a22",
-    "append_edge_growth_audit_r694.py": "7531c938bdb64b7f620ab55fd7a77898e637d01f10d3f1602c6e8628d63bf357"
+    "append_edge_growth_audit_r694.py": "7531c938bdb64b7f620ab55fd7a77898e637d01f10d3f1602c6e8628d63bf357",
+    "scale-testing-disposition-r696.md": "37726910ea81b4ba9f57a1bcfc55e150e14b85ef2909650eea9007c0649eef2b",
+    "out/native/ashlar_append_edge_growth_r693/summary.json": "7d2583711fbed10f5a76d2722d44571dee549643bb2dbb219d7731086b1f1da7",
+    "out/native/ashlar_append_edge_growth_r693/shared-history.json": "691b683a08acf815c2a2d7f3987123a9241fe89f8acae5b41471536c92a62d5d",
+    "out/native/ashlar_append_edge_growth_r693/audited-summary-r694.json": "2bb68cdfefc4d6c8ad50b7ff7e26ef115fcc48d63adcf2437e0b1650db847e02",
+    "out/native/ashlar_append_edge_growth_r693/statements.jsonl": "e0f09d380b517a3343bb123b39add28a701202b85f189b68dd66a67e3b003ddc",
+    "out/native/ashlar_billing_inspection_r695/statements.jsonl": "07c314a6b9d462c6c9ae5547956e3ea95a496488a7892e91a6e34b59cc24bea3",
+    "out/native/ashlar_billing_inspection_r695/billing-result.json": "575c529c385d64d42e8d6a2f4b75a53ec7464efc24b16c158ee91265fb276cc2",
+    "out/native/ashlar_billing_prices_r697/statements.jsonl": "5b06d547db8d1bb86f83d9f27e22886d7341d7d3534840503a240b21cc67a152",
+    "out/native/ashlar_billing_prices_r697/billing-result.json": "8df943d8e352ffd41516fce237d431df5beb0e1ea6ebe62cc2b7b4511fa97617"
   },
   "evidence": {
     "ddl": {

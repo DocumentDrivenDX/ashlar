@@ -1,0 +1,21 @@
+{
+  "rows": [
+    [
+      "PREMIUM_SERVERLESS_REAL_TIME_INFERENCE_US_CENTRAL",
+      "DBU",
+      "0.962842051349999997",
+      "0.079000000000000000",
+      "0.079000000000000000",
+      "0.076062"
+    ],
+    [
+      "PREMIUM_SERVERLESS_SQL_COMPUTE_US_CENTRAL",
+      "DBU",
+      "167.584974444444444445",
+      "0.700000000000000000",
+      "0.700000000000000000",
+      "117.309484"
+    ]
+  ],
+  "scope": "Whole shared warehouse since2026-10-05; USD list price, not invoice/discounted or exclusively Ashlar cost; delayed billing may omit recent usage"
+}

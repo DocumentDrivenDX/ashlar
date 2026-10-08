@@ -1,7 +1,13 @@
 # Physical layout candidate and evidence status — 2026-10-07
 
 
-## Current qualification through r691
+## Current qualification through r694; testing stopped by owner
+
+[Owner testing stop and design handoff R696](scale-testing-disposition-r696.md)
+supersedes all historical next-test instructions. R693 completed before the stop;
+R694's offline audit passes16M private new edges and all related roles/endpoints.
+Next consolidate the existing table design and implementation boundary. No
+further scale or performance testing; unresolved measurements remain explicit.
 
 UC managed Delta remains selected; physical ashlar-delta/0.3 remains proposed.
 Latest logical vectorN6/E10/R7/J7/A8/T7 has8Mnodes/39.93Mliveedges; nodephysical8

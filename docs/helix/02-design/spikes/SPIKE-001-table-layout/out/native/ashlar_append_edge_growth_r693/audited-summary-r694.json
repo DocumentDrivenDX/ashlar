@@ -1,0 +1,60 @@
+{
+  "state": "All237 exact final native statements,64 attributed appends and640 independent full-field digest groups audited",
+  "costs": {
+    "read_bytes": 66981413270,
+    "write_remote_bytes": 18887565054,
+    "spill_to_disk_bytes": 0
+  },
+  "phase_costs": {
+    "read_bytes": 43511714567,
+    "write_remote_bytes": 18887565054,
+    "spill_to_disk_bytes": 0
+  },
+  "charged_preflight_costs": {
+    "read_bytes": 23469698703,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "wall_s": 1254.687309917,
+  "oracle_sha256": "c9faa1555662186f54bbd41ede255b2bed6955e799c781754bebb71157db4456",
+  "profiles": {
+    "edge_current": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_edge_current_r643",
+      "id": "34385705-21a3-4f8e-bea9-5a399b4ab286",
+      "version": 29,
+      "rows": 16000000,
+      "files": 205,
+      "bytes": 12816887809
+    },
+    "source_record": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_source_record_r643",
+      "id": "ebff4b7c-07f1-42ba-bd52-2c7df855985c",
+      "version": 29,
+      "rows": 16000000,
+      "files": 251,
+      "bytes": 13287053854
+    },
+    "property_journal": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_property_journal_r643",
+      "id": "73fd68f5-f4cb-468f-b39c-ae6827474fd1",
+      "version": 30,
+      "rows": 64000000,
+      "files": 227,
+      "bytes": 11710942468
+    },
+    "adjacency_forward": {
+      "table": "client_dev.ashlar_entropy_20261006_r86.append_edge_adjacency_forward_r643",
+      "id": "fc7f1833-1cdc-433f-8a69-9944ca497d69",
+      "version": 28,
+      "rows": 16000000,
+      "files": 28,
+      "bytes": 136874245
+    }
+  },
+  "sources": {
+    "summary.json": "7d2583711fbed10f5a76d2722d44571dee549643bb2dbb219d7731086b1f1da7",
+    "shared-history.json": "691b683a08acf815c2a2d7f3987123a9241fe89f8acae5b41471536c92a62d5d",
+    "statements.jsonl": "e0f09d380b517a3343bb123b39add28a701202b85f189b68dd66a67e3b003ddc"
+  },
+  "qualification": "Private16M new-edge extent with associated raw records/property events/adjacency; independent all-field local oracle. Existing published nodes and edges untouched; new node extent pinned15. No publication, ACK, graph-wide endpoint closure, complete16M/80M graph, billion-scale, ingest or singleton performance admission. Partial commits survive a stop and must be inspected; never replay automatically. Every live row belongs to a verified100k-entity bucket; SHA256 collision assumption. Closing observations are not source authority, concurrency fence or retention proof."
+}
