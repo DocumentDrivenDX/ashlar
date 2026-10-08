@@ -785,7 +785,8 @@ in the output directory.
 The same validator is callable from `JournaledPublisherDriver` for new
 request-bound artifacts. The earlier CSV descriptor has no publisher request
 digest and is checked through the retained-descriptor surface, without relabeling
-it as a native stored-publisher execution. Full native phase wiring remains open.
+it as a native stored-publisher execution. A separate one-row stored-publisher
+run now demonstrates native phases and local progress; see the workflow below.
 
 
 ## Bind local CSV consumer progress to publication
@@ -809,5 +810,47 @@ COMMIT receipt or native resolver closure refusal after COMMIT raises
 `LocalProgressOutcomeUnknown`; retain and reconcile the original checkpoint.
 Callbacks must not close the component's local database transaction. No new
 publication or replacement source epoch is licensed by uncertainty. This
-component has connected test-transport evidence; native phase execution remains
-the next integration step.
+component has connected test-transport evidence and a demonstrated one-row native
+stored-publisher run. Multi-row continuation/recovery remains to be demonstrated.
+
+## Stored native CSV publication and singleton query
+
+`tools/run_native_csv_stream.py` is a fixed private development workflow for
+`ashlar_e2e_private_20261008.runtime_csv_stream`. It requires the existing
+eight-carrier installation summary, actual v3 schema-intake proof, authorized
+`aidev-cus` Databricks profile, existing warehouse, local PostgreSQL pin service,
+and clean pinned UMF checker checkout described above. It uses fixture catalog
+IDs and a same-host cooperating writer lane. A clean Truss deployment and remote
+producer ACK/fencing remain separate integration work.
+
+The original one-row run has already completed. Keep its tables and original
+journal; never reinstall, clear phases or replace the journal to retry an
+uncertain outcome. A fresh output directory retains each new observation:
+
+```sh
+python3 tools/run_native_csv_stream.py \
+  --installation /private/tmp/ashlar-csv-stream-setup-20261008/summary.json \
+  --intake-proof docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_schema_v3_20261008/summary.json \
+  --journal /private/tmp/ashlar-csv-stream-20261008.sqlite \
+  --output out/native-csv-query \
+  --umf-source /path/to/pinned/umf-record-check \
+  --limit 1 --query-only --entity-id 1
+```
+
+Use the SDK/psycopg-enabled Python environment documented for the native checks.
+`--query-only` requires an existing original journal and the exact last retained
+ordinal. It reads the original committed descriptor through `read_singleton`,
+holds all four PostgreSQL pin guards, renews native authority/protocol/retention
+and full snapshot parity, and binds the lookup to the descriptor's Delta version.
+The lookup uses bound source/type/object identity and its lookup hash. A missing
+object returns `singleton: null`; duplicate identity or failed admission returns
+no result. Original timestamp text and retained unknown source content survive.
+The mode creates no graph effects, manifest, attempt phase or consumer progress.
+
+Omit `--query-only` for the original bounded publisher workflow. Its default
+`--limit 1` processes through ordinal 1; already checkpointed rows are skipped.
+Later ordinals are selectable through 4 but their native progression remains
+untested. Output includes the original publication ID, singleton and local
+consumer position. Repeated metadata checks still dominate runtime; this is
+integration evidence rather than a latency benchmark. Predictive optimization
+and grants remain unchanged.

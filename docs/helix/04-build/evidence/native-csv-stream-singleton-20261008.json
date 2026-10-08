@@ -1,0 +1,65 @@
+{
+  "summary": {
+    "state": "queried",
+    "namespace": "ashlar_e2e_private_20261008.runtime_csv_stream",
+    "local_consumer_position": "1",
+    "published": [],
+    "query_only": true,
+    "singleton": {
+      "source_system": "local-example",
+      "logical_key_json": "[]",
+      "schema_revision": "3",
+      "props_json": "{\"23\":\"first\",\"24\":\"\"}",
+      "retained_json": "{\"source_profile\":\"ashlar-single-line-csv/0.1\",\"unmapped_columns\":{\"future\":\"18446744073709551615\"}}",
+      "root_id": null,
+      "source_feed": "csv-example",
+      "source_epoch": "immutable-example-1",
+      "source_position": null,
+      "published_at": "2026-10-08T17:58:09.090Z",
+      "lookup_hash": "130425ac5264b46607cffbe83c741d069dcacc8d72cc4038c4049da15f7c5080",
+      "apply_batch_id": "csv-row-1",
+      "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"806\"}",
+      "source_delivery_id": "{\"profile\":\"ashlar-single-line-csv/0.1\",\"header_base64\":\"aWQsZW50aXR5X3ZlcnNpb24sb3BlcmF0aW9uLGxhYmVsLGNhcHRpb24sZnV0dXJlCg==\",\"row_base64\":\"MSwxLGNyZWF0ZSxmaXJzdCwsMTg0NDY3NDQwNzM3MDk1NTE2MTUK\",\"row_ordinal\":\"1\"}",
+      "type_id": "17",
+      "id": "1",
+      "entity_version": "1"
+    },
+    "query_publication_id": "csv-stream-e4d9dd8f3ad4794e843d53e642ec30a5feadbc96fdf5428ec205f056c02d4a97",
+    "native_read_statements": 128,
+    "effective_permission_pages": 66,
+    "source_sha256": "944b1ebb4c9c564ce4687a4a731c360cd6575d97aa9abfa4994203968f498e12",
+    "materialized_at": "2026-10-08T17:58:09.090776+00:00",
+    "qualification": "Actual CSV fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload."
+  },
+  "native_point_query": {
+    "statement_id": "01f1c343-2108-1485-a9d2-b2dfccfff71b",
+    "sql": "SELECT * EXCEPT (type_id,id,entity_version),cast(type_id AS STRING) AS type_id,cast(id AS STRING) AS id,cast(entity_version AS STRING) AS entity_version FROM `ashlar_e2e_private_20261008`.`runtime_csv_stream`.`object_current` VERSION AS OF 2 WHERE lookup_hash=:hash AND source_system=:source AND type_id=cast(:type AS BIGINT) AND id=cast(:id AS BIGINT) LIMIT 2",
+    "response_sha256": "56b5616facabce0794ae26f46bbfad3f8b8f1287c3d35d2046780b7464ae2499"
+  },
+  "original_nine_mutation_receipts_unchanged": true,
+  "all_128_new_warehouse_statements_read_only": true,
+  "local_singleton_tests": {
+    "passed": 4,
+    "failed": 0
+  },
+  "private_receipts": [
+    {
+      "path": "/private/tmp/ashlar-csv-stream-query-20261008/summary.json",
+      "sha256": "ebb18bfaa7c95176b3359b4a11adcd044b19cc44370597f249d352fc66c5c339"
+    },
+    {
+      "path": "/private/tmp/ashlar-csv-stream-query-20261008/statements.jsonl",
+      "sha256": "5c654a0767b5af790ce39f19ae8990b04db87e47cc23feacb840188e7bbd8363"
+    },
+    {
+      "path": "/private/tmp/ashlar-csv-stream-query-20261008/effective-permissions.jsonl",
+      "sha256": "0f9e360cd10b74f2ff555d586b063851db664d341afdb1ca21b7609766db89a8"
+    },
+    {
+      "path": "/private/tmp/ashlar-csv-stream-query-20261008/umf-record-check.json",
+      "sha256": "41ee2fcb4f6db224f3b80bf5412b2def52d38a6c029850d96e662edbea173d6d"
+    }
+  ],
+  "runner_sha256": "4e42d4b76a21c2bc944eb579e9904fe713f8c6cd2945a80a9244208e78736b63",
+  "qualification": "One native object read at the original stored publication version, complete held PG pins, actual UMF/raw intake, current paginated effective privileges, UUID/protocol and finite retention/full snapshot parity. Original nine mutation receipts and consumer position unchanged. Fixture IDs, trusted admins and same-host cooperating lane; no Truss-native producer/catalog, remote ACK/fencing or production latency claim. Later source ordinals and absent/deleted native singleton remain untested."
+}

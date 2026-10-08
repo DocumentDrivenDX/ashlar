@@ -29,6 +29,7 @@ from ashlar.publisher import publish_batch,PublicationError
 from ashlar.retention import publication_retention_report
 from ashlar.retention_policy import SQLRetentionProvider,RetentionGate
 from ashlar.source_checkpoint import csv_checkpoint
+from ashlar.singleton import read_singleton
 from ashlar.staging import batch_row
 from ashlar.stored_publisher import StoredPublisherBackend
 from databricks_transport import DatabricksTransport,sql_result
@@ -64,7 +65,11 @@ def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for name in ('installation','intake-proof','journal','output','umf-source'):parser.add_argument('--'+name,type=Path,required=True)
     parser.add_argument('--limit',type=int,choices=range(1,5),default=1,help='Process through this original CSV ordinal; default one row')
+    parser.add_argument('--query-only',action='store_true',help='Read the last retained publication; no ingestion, publication or progress advancement')
+    parser.add_argument('--entity-id',type=int,default=1,help='Signed 64-bit local-example object identity for query-only mode')
     args=parser.parse_args()
+    if args.query_only and not args.journal.is_file():parser.error('Query-only requires the original retained publication journal')
+    if not -(2**63)<=args.entity_id<2**63:parser.error('Entity identity must fit signed 64 bits')
     if args.output.exists():parser.error('Fresh output directory required; preserve previous receipts')
     installation=json.loads(args.installation.read_bytes());intake_proof=json.loads(args.intake_proof.read_bytes())
     if installation['namespace']!=NAMESPACE:raise PublicationError('Only the fresh private CSV streaming namespace is admitted')
@@ -232,6 +237,29 @@ def main():
             target=targets[table]
             if (uuid,version,tuple(actual_columns))!=(target['uuid'],target['version'],tuple(tuple(c) for c in target['columns'])):raise PublicationError('Original resolver snapshot differs')
             inspect_protocol(transport,table,uuid,profile=PROFILE)
+        def bind_descriptor(self,value,vector,supplied):
+            if supplied is not context or not pin_held:raise PermissionError('Actual complete query pin interval required')
+            bind_manifest_pins(value,vector,{t:uuids[t] for t in tables.values()},authority=user.user_name)
+            custody()
+        def authorize_row(self,value,table,row,supplied):
+            self.bind_descriptor(value,pin_vector,supplied)
+            if table!=tables['object_current']:raise PermissionError('Only the admitted fixture object carrier is queryable')
+            expected=[item for item in active['expected']['object_current'] if item['id']==str(args.entity_id)]
+            if len(expected)>1 or (row is None)!=(not expected):raise PublicationError('Independent singleton presence differs')
+            if row is not None:
+                # The full pinned inventory checks both timestamps and all other
+                # fields. Preserve the query's original native timestamp text.
+                names={name for name,kind in columns['object_current']}
+                if set(row)!=names or any(row[name]!=expected[0][name] for name,kind in columns['object_current'] if kind!='TIMESTAMP'):
+                    raise PublicationError('Independent singleton carrier differs')
+    class QueryPins:
+        @contextmanager
+        def hold(self,vector,*,context):
+            nonlocal pin_held
+            with pins_reader.hold(vector,context=context):
+                pin_held=True
+                try:yield
+                finally:pin_held=False
     @contextmanager
     def native_resolution(value,supplied):
         nonlocal current,pin_vector,targets,pin_held
@@ -285,7 +313,21 @@ def main():
             progress=JournaledCsvProgress(journal,source,source_sha,ProgressPolicy(),native_resolution,stream=STREAM,feed='csv-example',epoch='immutable-example-1',
                 source_system='local-example',schema_revision='3',type_id='17',properties={'label':'23','caption':'24'})
             start=int(progress.position());results=[]
-            for active in specs[start:args.limit]:
+            singleton=None
+            if args.query_only:
+                if start==0 or start!=args.limit:raise PublicationError('Query-only requires the exact last retained CSV ordinal')
+                active=specs[start-1]
+                original=journal.db.execute('SELECT original_json FROM csv_consumer_progress WHERE stream=? AND feed=? AND epoch=? AND position=?',
+                    (STREAM,'csv-example','immutable-example-1',start)).fetchone()
+                current=descriptor(json.loads(original[0])['descriptor'])
+                pin_vector=manifest_pin_vector(dict(current.raw),{t:uuids[t] for t in tables.values()},authority=user.user_name)
+                targets=loaded_targets(active['request']);policy=ReadPolicy()
+                backend=NativeBackend(transport,policy,manifest_table,uuids[manifest_table],{table:columns[table.rsplit('.',1)[1]] for table in tables.values()})
+                row=read_singleton(transport,backend,QueryPins(),pin_vector,policy,publication_id=current.publication_id,
+                    table=tables['object_current'],kind='object',source='local-example',type_id=17,entity_id=args.entity_id,context=context,
+                    supported_profiles=['ashlar-delta/0.3'],supported_revisions={'fixture':['3']})
+                singleton=dict(row) if row is not None else None
+            for active in ([] if args.query_only else specs[start:args.limit]):
                 driver=JournaledPublisherDriver(DurableEffects(journal,EffectPolicy()),lane_policy,lambda request,supplied:active['steps'],
                     artifacts,validator,progress.acknowledge,namespace=NAMESPACE)
                 attempts=DeltaAttemptStore(JournaledAttemptExecutor(transport,namespace=NAMESPACE),lane_policy,phase_table,uuids[phase_table])
@@ -301,11 +343,12 @@ def main():
                         time.sleep(.2)
                 results.append({'ordinal':active['ordinal'],'descriptor':dict(value.raw)})
             authority();source_schema()
-            summary={'state':'published','namespace':NAMESPACE,'local_consumer_position':progress.position(),'published':results,
+            summary={'state':'queried' if args.query_only else 'published','namespace':NAMESPACE,'local_consumer_position':progress.position(),'published':results,
+                'query_only':args.query_only,'singleton':singleton,'query_publication_id':current.publication_id if args.query_only else None,
                 'native_read_statements':len(client.records),'effective_permission_pages':len(permission_reads),'source_sha256':source_sha,'materialized_at':clock,
                 'qualification':'Actual CSV fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload.'}
             (args.output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
-            print('Native CSV stream reached local consumer position '+progress.position()+'.')
+            print('Native CSV singleton query completed.' if args.query_only else 'Native CSV stream reached local consumer position '+progress.position()+'.')
     finally:held=False;journal.close()
 
 if __name__=='__main__':main()

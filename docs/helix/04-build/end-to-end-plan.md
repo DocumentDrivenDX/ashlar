@@ -2237,3 +2237,32 @@ Later ordinal progression remains untested. This run uses explicit fixture IDs
 and same-host cooperating writer/source custody. Actual Truss acceptance/feed,
 remote producer ACK/fencing, a clean setup workflow and a singleton point query
 through this runner remain open. Predictive optimization was unchanged.
+
+### Singleton from the stored CSV publication — 2026-10-08
+
+The native runner's --query-only mode now resolves the last retained CSV
+publication through the existing read_singleton API. It holds the complete
+four-table PG pin vector, renews authority/raw schema/protocol/finite retention
+and complete fixture inventory checks, and executes the bound lookup at the
+descriptor's exact Delta version. Original source timestamps and unknown bytes
+remain in the returned carrier. Missing/duplicate identity and failed current
+admission follow the existing resolver boundary. The exact retained ordinal and
+original journal are required; this mode advances no source progress.
+
+An actual --limit 1 --query-only --entity-id 1 run exited successfully with
+object 1 at entity version 1 from object_current VERSION AS OF 2. All 128 new
+warehouse statements were reads; the original nine native mutation receipts
+(handles, requests and responses) were unchanged, and local consumer position
+remained 1. Four focused singleton tests pass, including absence/duplicates,
+wrong UUID/version, final custody refusal and expiry during execution. Native
+absence/deletion and later CSV ordinals remain untested. Metadata redundancy
+still requires improvement; this is not a latency benchmark.
+
+[evidence/native-csv-stream-singleton-20261008.json](evidence/native-csv-stream-singleton-20261008.json)
+retains the original query handle, exact-version SQL, response/private receipt
+hashes and runner hash. [The example guide](../../../examples/end-to-end/README.md#stored-native-csv-publication-and-singleton-query)
+documents the command and existing private prerequisites. This native run also
+exercised the permission helper's explicit paginated requests; multi-page native
+privilege evidence remains open. No grant or predictive optimization setting was
+changed. Actual Truss acceptance/feed, remote source ACK/fencing and clean setup
+remain required for the overall goal.
