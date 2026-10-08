@@ -431,3 +431,12 @@ original native responses. Object 1 currently carries version 2, schema revision
 3, the updated label and Unicode caption. This is an unpublished diagnostic
 under current Unity Catalog permissions. It does not establish manifest admission,
 active publication pins, future retained-file availability or source acknowledgement.
+
+Publication hosts can use `ashlar.manifest.manifest_pin_vector(original_row,
+trusted_table_uuids, authority=...)` after independent manifest/identity admission,
+and `bind_manifest_pins(descriptor, held_vector, trusted_table_uuids, authority=...)`
+in their mandatory singleton policy. Supply every published table, not only the
+one queried. The digest preserves original manifest JSON strings; rewriting equal
+JSON does not reuse existing pins. These helpers do not authorize registration or
+reads and do not qualify a retained-file or cleanup policy. NativeBackend returns
+manifest timestamps as exact microsecond text for this correspondence.

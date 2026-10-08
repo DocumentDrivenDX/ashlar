@@ -49,7 +49,7 @@ class NativeBackend:
             raise ResolutionError('Manifest table replaced')
         rows = self.executor.query(
             'SELECT publication_id, profile_version, table_versions_json, source_progress_json, '
-            'schema_revisions_json, validation_report_json, recorded_at FROM '
+            'schema_revisions_json, validation_report_json, cast(unix_micros(recorded_at) AS STRING) AS recorded_at FROM '
             + _quoted(self.manifest_table) + ' WHERE publication_id = :publication_id',
             {'publication_id': publication_id}).rows
         if self._uuid(self.manifest_table) != self.manifest_uuid:

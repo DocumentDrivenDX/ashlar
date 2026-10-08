@@ -1074,3 +1074,21 @@ opaque extension integer. Original receipts: out/native/singleton_diagnostic_202
 No write, pin, publication or source ACK occurred. The command is documented in
 examples/end-to-end/README.md. Protected Truss acceptance/feed and composed
 manifest/resolver/pin admission remain required for the full end-to-end goal.
+
+## Exact manifest-to-pin resolver binding — 2026-10-08
+
+manifest_pin_vector binds every original manifest field (including unchanged JSON
+strings and clock) to the complete independently admitted table UUID/version
+inventory and manifest scope. bind_manifest_pins verifies both parsed resolver
+fields and the complete held vector against that original custody. These functions
+provide correspondence for mandatory admission policies, not authorization or
+retained-file proof. NativeBackend now projects recorded_at through unix_micros
+to canonical text, matching immutable writer/readback custody without a host Date
+conversion. Five additional focused checks cover full UUID inventory, changed
+original bytes, scope/version substitution, parsed descriptor substitution, nested
+progress and composition with singleton reads. Altered custody refuses before
+object SQL. All145 local checks pass; no cloud workload occurred.
+
+Truss HEAD4a8d8d6 was inspected: still no src/packages runtime paths. Its concurrent
+spec work is preserved. Actual protected acceptance/feed and native publication
+admission/retention/read composition remain open under the full goal.

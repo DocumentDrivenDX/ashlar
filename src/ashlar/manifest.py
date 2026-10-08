@@ -49,3 +49,45 @@ class DeltaManifestStore:
             if len(actual)!=1 or dict(actual[0])!=row:raise ManifestError('Ambiguous or mismatched original manifest')
             self._identity()
         return row
+
+
+def manifest_pin_vector(row, table_uuids, *, authority):
+    """Bind the complete original manifest to independently admitted UUIDs.
+
+    This is correspondence, not retention or authorization admission. The caller
+    must establish original native manifest custody and trusted table identities
+    before registering this vector through PostgresPins' mandatory policy.
+    Original JSON strings are hashed without semantic normalization.
+    """
+    import hashlib, json
+    from .pins import PinVector
+    row=dict(row)
+    validate_manifest_row(row)
+    versions=_json(row['table_versions_json'].encode('utf-8'))
+    uuids=dict(table_uuids)
+    if set(uuids)!=set(versions):raise ManifestError('Complete independently admitted UUID inventory required')
+    original=json.dumps(row,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode('utf-8')
+    digest=hashlib.sha256(original).hexdigest()
+    return PinVector(authority,'manifest',row['publication_id'],digest,
+                     {table:(uuids[table],version) for table,version in versions.items()})
+
+
+def bind_manifest_pins(descriptor, vector, table_uuids, *, authority):
+    """Check resolver descriptor and all held pins against original manifest bytes.
+
+    Use from policy.bind_descriptor after independently authenticating admission.
+    It provides no permissive read policy and does not inspect retained files.
+    """
+    from .publication import Descriptor, _decode, _freeze
+    from .pins import PinVector
+    if not isinstance(descriptor,Descriptor) or not isinstance(vector,PinVector):
+        raise ManifestError('Resolved descriptor and original pin vector required')
+    row=dict(descriptor.raw)
+    expected=manifest_pin_vector(row,table_uuids,authority=authority)
+    if (descriptor.publication_id!=row['publication_id'] or descriptor.profile!=row['profile_version']
+        or descriptor.versions!=_freeze(_decode(row['table_versions_json']))
+        or descriptor.revisions!=_freeze(_decode(row['schema_revisions_json']))
+        or descriptor.source_progress!=_freeze(_decode(row['source_progress_json']))
+        or descriptor.validation_report!=_freeze(_decode(row['validation_report_json']))):
+        raise ManifestError('Resolved descriptor differs from original manifest')
+    if vector!=expected:raise ManifestError('Held pins differ from complete original manifest custody')
