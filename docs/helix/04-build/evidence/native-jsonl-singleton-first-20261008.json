@@ -1,0 +1,73 @@
+{
+  "state": "passed",
+  "ashlar_execution_revision": "05bf0b5ed9debe0a8c26c218340da4f9ed796b72",
+  "summary": {
+    "state": "queried",
+    "namespace": "ashlar_e2e_private_20261008.runtime_jsonl_stream",
+    "local_consumer_position": "797",
+    "published": [],
+    "source_kind": "jsonl",
+    "local_completed_batches": 1,
+    "query_only": true,
+    "singleton": {
+      "source_system": "local-example",
+      "logical_key_json": "[]",
+      "schema_revision": "3",
+      "props_json": "{\"23\":\"first\"}",
+      "retained_json": "{\"future\":18446744073709551615}",
+      "root_id": null,
+      "source_feed": "local-jsonl",
+      "source_epoch": "example-1",
+      "source_position": null,
+      "lookup_hash": "130425ac5264b46607cffbe83c741d069dcacc8d72cc4038c4049da15f7c5080",
+      "apply_batch_id": "local-1",
+      "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"797\"}",
+      "source_delivery_id": "1-1",
+      "type_id": "17",
+      "id": "1",
+      "entity_version": "1",
+      "published_at": "1791487563457518"
+    },
+    "query_publication_id": "jsonl-stream-316e900dd2e0f1f083f5a645cd8dca77c26f8711af061d4810c9c8883be0ef26",
+    "native_read_statements": 112,
+    "effective_permission_pages": 66,
+    "source_sha256": "fa28ecead66f0f8a6b1dfd50dc26c89b4f129ff0dcbd7d94010e34bd3e9b460d",
+    "materialized_at": "2026-10-08T19:26:03.457518+00:00",
+    "qualification": "Actual JSONL fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload."
+  },
+  "independent_singleton": {
+    "source_system": "local-example",
+    "type_id": "17",
+    "id": "1",
+    "logical_key_json": "[]",
+    "schema_revision": "3",
+    "entity_version": "1",
+    "props_json": "{\"23\":\"first\"}",
+    "retained_json": "{\"future\":18446744073709551615}",
+    "root_id": null,
+    "source_feed": "local-jsonl",
+    "source_epoch": "example-1",
+    "source_position": null,
+    "published_at": "1791487563457518",
+    "lookup_hash": "130425ac5264b46607cffbe83c741d069dcacc8d72cc4038c4049da15f7c5080",
+    "apply_batch_id": "local-1",
+    "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"797\"}",
+    "source_delivery_id": "1-1"
+  },
+  "complete_fields": 17,
+  "original_mutations_unchanged": 9,
+  "checkpoint_unchanged": {
+    "position": 797,
+    "digest": "adfc914846c97b79706f79e3a61c747d54aae4d5b239fb001042c56421863416"
+  },
+  "point_lookup_sql": "SELECT * EXCEPT (type_id,id,entity_version,published_at),cast(type_id AS STRING) AS type_id,cast(id AS STRING) AS id,cast(entity_version AS STRING) AS entity_version,cast(unix_micros(published_at) AS STRING) AS published_at FROM `ashlar_e2e_private_20261008`.`runtime_jsonl_stream`.`object_current` VERSION AS OF 2 WHERE lookup_hash=:hash AND source_system=:source AND type_id=cast(:type AS BIGINT) AND id=cast(:id AS BIGINT) LIMIT 2",
+  "private_receipts": "/private/tmp/ashlar-jsonl-query-first-20261008",
+  "receipt_sha256": {
+    "summary.json": "e5626a9db5ec465965abda0bff786e8e90f1849322aed385487ab1b5a8acc175",
+    "umf-record-check.json": "168ad8cb845b670be493690638efb1e3a9495832499cec72eb3eb1070a94a657",
+    "statements.jsonl": "7442d8f0dfa58f524530a6c9a941ec95e8242b1d28e1c0581e55d9bf5514b5b8",
+    "effective-permissions.jsonl": "927936e4097873fe41aab822c83883b974b510a11fd946b366161e0f99f36872",
+    "live-statement.json": "95af0532c5756b6a12c6cf836394161abfa8b969183be330e58df1d9e2e7bc86"
+  },
+  "qualification": "Actual first immutable JSONL group singleton through the stored publication resolver at object version 2. Complete 17-field independent original-source oracle equality, including exact epoch microseconds and opaque content. Nine original mutation handles/requests/responses and byte checkpoint 797 unchanged. No native later-group replay/delete, actual Truss, arbitrary schemas, combined sources or remote fencing/ACK claim. Existing compute; predictive optimization and grants unchanged."
+}

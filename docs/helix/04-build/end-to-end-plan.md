@@ -2627,3 +2627,29 @@ receipts/closure checks pass. Do not restart or replace this journal/epoch based
 on an observation timeout. No source graph rows were written during setup/intake;
 any later effects belong to that still-live publication. Actual Truss, wider
 schemas and combined multi-source/remote fencing semantics remain open.
+
+
+### Native JSONL first publication and singleton completed — 2026-10-08
+
+Original publisher process 53121 and query process 4638 both terminated with exit
+0. First complete JSONL group published two current objects and two complete
+original history records; edge and tombstone inventories remain empty. Four
+full observations of each exact-version inventory agree with the independent
+original-source oracle. Nine original Delta mutations are terminal SUCCEEDED.
+Actual byte checkpoint 797 covers the original complete transaction bytes;
+completed-group count 1 is separate. Publication used 359 warehouse reads and
+154 retained permission pages.
+
+Query-only object 1 reads the original publication at object-table version 2.
+All 17 fields equal the independent original-source reconstruction, including
+exact signed epoch microseconds and opaque retained content. The nine original
+mutation handles, request/response hashes and complete checkpoint request/
+descriptor/digest remain unchanged. Query used 112 warehouse reads and 66
+permission pages; it is integration evidence, not latency evidence.
+
+Evidence: [first publication](evidence/native-jsonl-publication-first-20261008.json)
+and [singleton](evidence/native-jsonl-singleton-first-20261008.json).
+No new compute, grants or predictive optimization changes occurred. Native later
+JSONL groups/replay/deletes, actual Truss engine/catalog/feed/ACK, wider schema
+admission/evolution and combined multi-source state remain open. Full end-to-end
+goal remains active; synthetic source IDs are not accepted Truss catalog IDs.

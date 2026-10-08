@@ -4,6 +4,14 @@
 
 **Iteration policy (2026-10-06):** The owner now explicitly requests a large local test followed by Databricks. The active phase is 4M nodes / 20M edges / 200k scattered updates. Commit and push each completed iteration. Billion-node/runtime admission remains unproved.
 
+**Current end-to-end work (2026-10-08):** Use the
+[active toolkit plan](04-build/end-to-end-plan.md) and
+[runnable example](../../examples/end-to-end/README.md). Native generated managed
+Delta setup, raw UMF intake, CSV publication/update/delete and first JSONL
+publication/singleton have scoped evidence. Actual Truss and broader schema/
+combined-source paths remain incomplete. The owner superseded the historical
+scale-test policy below: keep checks small; no renewed scale benchmarks.
+
 **State (2026-10-05):** Focused HELIX framing drafts exist. Owner direction is a
 open-source, domain-independent property-graph toolkit integrating UMF, with
 Databricks gold Delta as its first target. The first

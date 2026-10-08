@@ -990,8 +990,15 @@ pin/retention interval, with post-COMMIT uncertainty explicitly retained.
 
 Three JSONL and five CSV local handoff tests pass. Copies of original native CSV
 journals still recover their retained positions. Native setup and exact raw UMF intake passed in
-`ashlar_e2e_private_20261008.runtime_jsonl_stream`. Its original first publication
-is running with two source records and expected byte checkpoint 797. Native
-JSONL publication/checkpoint/singleton success remains unverified, and this runner cannot combine sources into an existing installation;
+`ashlar_e2e_private_20261008.runtime_jsonl_stream`. Its first complete group
+published two objects and two original history rows, with no edges or tombstones,
+and advanced the actual byte checkpoint to 797 (one completed group). All four
+exact-version inventories match independent original-source reconstruction.
+Query-only object 1 matches all 17 fields, including exact epoch microseconds,
+through the stored publication at object-table version 2. Original nine mutation
+receipts and checkpoint remain unchanged. Publication used 359 warehouse reads
+and 154 permission pages; query used 112 reads and 66 pages. These are integration
+checks, not singleton latency measurements. Native later-group replay/update/delete
+for JSONL remains unverified. This runner cannot combine sources into an existing installation;
 source switching must not clear existing tables/phases or manufacture new epochs.
 Broader source/schema support and actual Truss remain required for the full goal.
