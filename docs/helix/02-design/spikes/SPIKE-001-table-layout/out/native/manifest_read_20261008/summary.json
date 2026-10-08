@@ -1,0 +1,8 @@
+{
+  "state": "passed",
+  "manifest_uuid": "468b756d-0c99-42c5-b9b0-1072158c46d0",
+  "absent_publication_refused": true,
+  "recorded_at": "1791450000123456",
+  "original_statements": 4,
+  "qualification": "Actual empty native manifest read and lossless SQL timestamp conversion only. No manifest write, admitted descriptor, pin registration, retention proof, source ACK or composed native singleton publication."
+}

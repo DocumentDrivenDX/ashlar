@@ -1092,3 +1092,16 @@ object SQL. All145 local checks pass; no cloud workload occurred.
 Truss HEAD4a8d8d6 was inspected: still no src/packages runtime paths. Its concurrent
 spec work is preserved. Actual protected acceptance/feed and native publication
 admission/retention/read composition remain open under the full goal.
+
+## Native manifest reader transport verified — 2026-10-08
+
+check_native_manifest_read.py now exercises the actual NativeBackend against the
+private runtime_outbox manifest UUID. Its absent-publication control refuses
+through resolve_publication before descriptor/snapshot admission. A separate
+parameterized SQL expression round-trips 1791450000123456 microseconds to exact
+STRING, verifying subsecond custody through the real SQLResult transport. Four
+read-only statements ran on the existing warehouse. Original receipts are retained
+at out/native/manifest_read_20261008. No row was inserted, pin registered, source
+acknowledged or retention setting changed. This verifies transport and refusal,
+not a positive publication or retained-file admission. The full objective remains
+open at native publication/retention and protected Truss acceptance/feed.

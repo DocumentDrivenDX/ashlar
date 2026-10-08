@@ -2901,7 +2901,7 @@
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "d13632432471eca9d4bb465988483a3ab9f28205cbec2b9269cb3423dccedd50",
-    "../../../04-build/end-to-end-plan.md": "3f00e44e3358ea111f4a6d549caabe39873ff8fcf02adc60ee0dc3c6ed87950e",
+    "../../../04-build/end-to-end-plan.md": "9806ba730c4f6b3f3552258e6f360616ab47e46c4f01e4089e30fc614ad215c1",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3240,7 +3240,11 @@
     "out/native/singleton_diagnostic_20261008/live-statement.json": "55d713623cef35a46196881d9fcfdb99ca9f3e6a7f990001d43f70a47ffa3fc6",
     "out/native/singleton_diagnostic_20261008/statements.jsonl": "7bc6a0f041ada39108ccb5223ab62cd05bf3143a1cf13401d98f05ff02646976",
     "out/native/singleton_diagnostic_20261008/summary.json": "5889b62f1f7212db0ffb2f0025f37140c31ca4337fc73f65a607fa148fc6c2d5",
-    "../../../../../tests/test_manifest_pins.py": "ee5fcc2f9ce6e6370361d2298e9182a6471942d589f7fcf2cde60e3cb9b87407"
+    "../../../../../tests/test_manifest_pins.py": "ee5fcc2f9ce6e6370361d2298e9182a6471942d589f7fcf2cde60e3cb9b87407",
+    "../../../../../tools/check_native_manifest_read.py": "aaf9cc51e388ab44bbb5dc6eaab3c4055264059698b1ed4895da04d08d2b23c6",
+    "out/native/manifest_read_20261008/live-statement.json": "4149e157692cd870f160e347c9fda3e1319bf9518f67c194c7f66f7596737567",
+    "out/native/manifest_read_20261008/statements.jsonl": "03b1e9aa1f09636dacf60762d2de8071bb4ecf10da615904d9718af8e273325b",
+    "out/native/manifest_read_20261008/summary.json": "9bcc15433fa7834b83fd8b96e4ab5773cb8d17190b1481a2f913e4df3089a95c"
   },
   "evidence": {
     "ddl": {
