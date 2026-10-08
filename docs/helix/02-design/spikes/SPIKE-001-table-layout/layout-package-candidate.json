@@ -1364,7 +1364,7 @@
     "capacity_observed_r268.py": "aa4504fa25e8403df49d8610ced3d31ae08cf6c37b73a2644fd58095327317b4",
     "out/capacity-observed-r268.json": "094314e2ea3b24b2b2b13fb4af32c012e1da956679ed6de39b92662e8de1e9df",
     "../../adr/ADR-001-delta-canonical-and-serving-layout.md": "ead7e43df4a3f2ec4f48a6e7acb93953cc5e3117ef68553d70fc6242e15394a7",
-    "../../contracts/CONTRACT-003-delta-graph-tables.md": "d9a7c8e868b156e9e2847b39143870191cd39877fe34e8a5ce01eefd165e9bae",
+    "../../contracts/CONTRACT-003-delta-graph-tables.md": "f47cc99743027c8b4bffd7076ae92cb68630387a35c059f9fac502208d321c52",
     "out/native/ashlar_scale_edges_r261/summary.json": "1d3a9b028d95fca1c07420b27265d1a940efc873fa568e36fdd7100bc1b82899",
     "out/native/ashlar_scale_edges_r261/shared-history.json": "7b17e657cc32d95c335728d01295b650bb0ce782641e7664c068ba58ddf2ff7d",
     "out/native/ashlar_scale_edges_r261/statements.jsonl": "8f7562a5a308cb97c845d2a0383fcb7e67172e5b3059cedc6f4d9f5b7840fc42",
@@ -2894,14 +2894,14 @@
     "../../../../../src/ashlar/__init__.py": "8f20eb9aa449f5817f8200eb8a8ce05922a65c6fc4ad56312027bca14615e9aa",
     "../../../../../src/ashlar/native.py": "2a95c50ba63be357b65a279e8a5c7d06aaf487e6d0e55dc4006b7c68fa16a78c",
     "../../../../../src/ashlar/publication.py": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
-    "../../../../../src/ashlar/README.md": "54c8c5ff41d1219e32b6ba64722cbb91567220c9dbf8bae0c2590b6ff041704f",
+    "../../../../../src/ashlar/README.md": "1810d1e4c361c1e66e8da4a7ec3138e36389726d5f36dab974391878d1907604",
     "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
     "../../contracts/CONTRACT-004-publication-resolver.md": "52492ad626cf046d2ff595d5aa91c20d086561c1aba0df3b6b70338bbd08514b",
     "../../../../../README.md": "11e0aaa10f67e008542066d293624bd5e195529dd5bc2c3f8ed75b960f22bda7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "26355ef9573c9a974e6eef33b8947b456103bf0166fb81db35a9438416b37f47",
-    "../../../04-build/end-to-end-plan.md": "482e46ea89b6627bbf8de0bfb1f7aadbd299f5104cee2ba19c4ae5f3c79322a0",
+    "../../../04-build/end-to-end-plan.md": "ec78fb72d3ad26654323f6e0a6538f63ac6f9e593b58766a01e356be2e433156",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -2950,7 +2950,10 @@
     "../../../../../tests/test_staging.py": "875b274c38503e2256830bb72f8c88cb1acbaef68b6f9bcd514efc1079250ad0",
     "../../../../../tools/check_native_source_stage.py": "aa9b9fcdb03b74e10de98d2f1816ce1b074243fa435d9df57576296ce8b3494a",
     "out/native/source_stage_20261008/summary.json": "8fa1d4de9fddee3e59ff258ccf1dfac4566be27c3b19c681ee394771cd287e0e",
-    "out/native/source_stage_20261008/statements.jsonl": "9955b26bb79002fe8ed0f1a70fb8e620106112a492adcf5b9946b9b5ec737b9e"
+    "out/native/source_stage_20261008/statements.jsonl": "9955b26bb79002fe8ed0f1a70fb8e620106112a492adcf5b9946b9b5ec737b9e",
+    "../../../../../src/ashlar/apply.py": "0cdf747f935e018eb1166c6a7950573697c37c3c33de0afe5f78e3f01324a6d8",
+    "../../../../../tests/test_apply.py": "07735b6b42a9d5293fcd6ac164c7da57fe244b5d3c25fb1014d3ee50a2bda598",
+    "out/apply-planner-local-20261008.json": "98bea04f56d31c0dde50de10f27e346641deed71f00543cd52bf9d9e024974bb"
   },
   "evidence": {
     "ddl": {

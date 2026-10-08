@@ -191,3 +191,19 @@ tombstone apply, followed by serialized immutable publication and checkpoint
 admission. Raw batch stage custody is not semantic support or a source progress
 receipt. Native Truss acceptance/feed, broader schema binding and the outbox
 source remain required for the full end-to-end goal.
+
+## Graph apply planning checkpoint
+
+The pure explicitly-versioned whole-entity apply boundary now handles create,
+replace, delete, exact delivery replay, immutable original history and tombstones.
+It refuses changed delivery/version custody, stale changes, overwrite/resurrection
+and incomplete typed endpoint state, retaining unchanged prior state on failure.
+Independent cases cover parallel edges, an isolated node, endpoints created later
+in the same transaction and node/incident-edge deletion ordering. Thirty-nine
+focused local checks pass. No native mutation or source progress occurred.
+
+Next normalize complete admitted source records into this boundary and persist
+current/history/tombstone/delivery effects on Delta under serialized authority,
+then publish immutable validated pins. The Truss per-property adapter must
+reconstruct native complete state and journal independently; this whole-entity
+profile does not infer its version semantics or close the Truss runtime goal.

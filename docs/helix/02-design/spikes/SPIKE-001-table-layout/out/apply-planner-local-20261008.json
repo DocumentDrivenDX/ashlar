@@ -1,0 +1,13 @@
+{
+  "state": "passed",
+  "local_tests": 39,
+  "new_apply_checks": [
+    "create/parallel edges/isolated node/later endpoint within transaction",
+    "replacement/delete preserve original exact history and tombstone",
+    "complete original replay is idempotent",
+    "changed delivery/version/stale/overwrite refuses without prior mutation",
+    "typed endpoint and incident node deletion completeness",
+    "required schema policy and nonconforming false result refuse"
+  ],
+  "qualification": "Pure whole-entity apply planning with synthetic schema/digest inputs. No Truss accepted catalog, native graph mutation, property feed reconstruction, publication or source checkpoint. No Databricks run."
+}

@@ -995,3 +995,49 @@ the original full source transaction. No checkpoint or published graph changed.
 The native receipts are under out/native/source_stage_20261008. Thirty-four
 focused local checks include refusal before native effects on denied or
 nonconforming policy, table replacement and forged batch metadata.
+
+## Whole-entity apply planning boundary
+
+The proposed pure planner consumes an explicitly admitted whole-entity source
+profile, not Truss's per-property change feed. EntityKey is the complete
+(source, object-or-edge kind, type_id, id); IDs use the selected signed64 range.
+EntityState contains exact entity version, schema revision, property/retained
+JSON object text and, for an edge, two same-source typed object endpoint keys.
+Change adds feed, epoch, original delivery ID/digest and create/replace/delete.
+Native source normalization must verify original raw custody and the exact
+version/carrier semantics before supplying these values; taking a maximum
+property position or guessing a whole-entity version is forbidden.
+
+ApplyState retains current, immutable original history keyed by entity/version,
+tombstones and original delivery claims keyed by feed/epoch/delivery. A trusted
+complete prior state and explicit schema_policy are mandatory. That policy must
+authorize and validate the exact revision, carrier/operation, identity and
+relationship constraints for every change, including replay; success returns
+None. The pure planner installs no schema/constraint/authority and supplies no
+permissive policy. Test schema accepted-1 and digest a*64 are synthetic independent
+planner inputs, not actual accepted Truss revision or source custody evidence.
+
+Identical original delivery replay changes no state. Changed original delivery,
+entity/version assigned to a different original delivery or non-increasing
+version refuses. Create cannot overwrite or resurrect an existing identity;
+replace/delete require a live entity. Delete must carry exact prior property,
+retained and endpoint meaning with its new version/revision; it removes current
+but preserves the original delete in history/tombstones. Every accepted distinct
+change remains in original history. A later source lifecycle allowing identity
+resurrection needs an explicitly different admitted profile.
+
+Complete boundary validation requires every remaining edge endpoint to resolve
+to the exact live typed object. Endpoint creation later in the same transaction
+is permitted; a node deletion leaving an incident edge refuses. Parallel edge
+IDs and isolated nodes remain distinct. The planner copies prior containers and
+returns immutable defensive mappings only after the entire transaction passes;
+a refusal leaves prior state unchanged.
+
+This is current/history/tombstone planning, not native table apply, property_journal
+derivation, immutable manifest publication or checkpoint advancement. Persisting
+its effects requires serialized native state revalidation, retained delivery and
+version claims, per-property/native source obligations where applicable, complete
+all-table parity and the publication contract. Source acknowledgement still
+follows a completed durable publication. Truss-native reconstruction, other
+value/key/relationship profiles and full end-to-end native execution remain
+required rather than being replaced by these synthetic whole-entity checks.

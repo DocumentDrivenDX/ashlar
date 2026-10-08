@@ -60,3 +60,11 @@ UUID before/after, exact full readback and identical replay/conflict semantics.
 StagedBatch is raw custody only; it authorizes no source acknowledgement. The
 local development policy in the native checker does not qualify remote/native
 fencing, application grants, graph apply or publication.
+
+plan_apply in apply.py plans one complete explicitly-versioned whole-entity
+transaction against trusted prior state and mandatory schema admission policy.
+It retains history/tombstones/delivery claims, refuses conflicts/stale changes
+and validates final typed endpoints while preserving parallel/isolated graph
+identities. Returned state is immutable and prior state remains unchanged on
+refusal. Native persistence/publication and Truss property-feed reconstruction
+are separate unfinished integration steps.
