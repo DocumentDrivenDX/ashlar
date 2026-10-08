@@ -1939,3 +1939,32 @@ document assertion remain unresolved even when a present string check passes;
 whole-record/key/relationship constraints, native bindings/security, complete report/
 head, protected installation and feed are still required. No qualified writable
 profile or native acceptance is claimed. Full goal remains active; no cloud run.
+
+### Reusable UMF logical Record checker and actual source integration (2026-10-08)
+
+UMF now owns validateCoreRecordValues on pushed branch codex/core-record-value-check,
+commit `c45c72a2`. CONTRACT-049 defines explicit core0.8 qualified membership and
+absent/present typed values, composed with the original Field checker. Original
+incomplete envelope diagnostics remain separate. Required absence, invalid values,
+duplicate/unregistered entries fail; unknown source/availability, missing member
+inventory and dataset key/relationship context remain incomplete. Defaults are
+never inserted and old versions require explicit upgrade. The new managed UMF
+worktree isolates this code from the existing DDL/owner checkouts; the branch is
+not merged. Four new tests plus existing schema-property regression pass (33 tests,
+97 assertions), as do library typecheck and real Chromium public-API checks.
+
+Truss candidate `8af84f7` consumes that exact clean UMF source with verified explicit
+upgrade/rollback receipts. Three actual create/replace records from the original
+local source receive complete logical Record results, agreeing across Bun and real
+Chromium. Unknown v2 availability and the unknown assertion remain incomplete; all
+original schema/producer/value results remain retained. Explicit fixture property
+mappings remain development IDs. Delete is a separate source operation, not a
+Record-value input. Truss Impl was sent this new original producer evidence for
+its owner-authorized planning/profile integration.
+
+This adds a real reusable upstream checker and closes the membership/required-value
+producer gap for the exercised known logical subset. It is not dataset uniqueness,
+relationship/native enforcement, qualified validator isolation, protected installation,
+accepted catalog IDs, source ACK or a complete stream. Native bindings/security,
+complete report/head and protected Truss-to-Delta workflow remain unfinished.
+The unchanged full objective stays active; no new cloud resources/scale runs.
