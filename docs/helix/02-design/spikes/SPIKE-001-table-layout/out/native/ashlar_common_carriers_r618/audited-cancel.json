@@ -1,0 +1,63 @@
+{
+  "state": "Canceled common-file whole audit is native-terminal; preservation not proved",
+  "same_sid": "01f1c2ae-2aab-156d-9de9-7bb75a292dc0",
+  "same_handle_status": "CANCELED",
+  "final_statements": 3,
+  "costs": {
+    "read_bytes": 33424291972,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 0
+  },
+  "bounds_as_submitted": {
+    "read_bytes": 100000000000,
+    "write_remote_bytes": 0,
+    "spill_to_disk_bytes": 1000000000,
+    "wall_s": 600
+  },
+  "within_byte_bounds": true,
+  "caller_ms": 132792.924125,
+  "canceled_metrics": {
+    "total_time_ms": 132312,
+    "read_bytes": 33424291972,
+    "rows_produced_count": 0,
+    "compilation_time_ms": 689,
+    "execution_time_ms": 131589,
+    "read_remote_bytes": 27773368460,
+    "write_remote_bytes": 0,
+    "read_cache_bytes": 5650923512,
+    "spill_to_disk_bytes": 0,
+    "task_total_time_ms": 881238,
+    "read_files_count": 1200,
+    "read_partitions_count": 0,
+    "photon_total_time_ms": 756312,
+    "rows_read_count": 39668543,
+    "result_fetch_time_ms": 0,
+    "network_sent_bytes": 0,
+    "result_from_cache": false,
+    "pruned_bytes": 0,
+    "pruned_files_count": 0,
+    "query_compilation_start_timestamp": 1791418872188,
+    "metadata_time_ms": 0,
+    "query_execution_time_ms": 132278,
+    "bytes_read_from_cache_percentage": 13.0,
+    "write_remote_rows": 0,
+    "write_remote_files": 0,
+    "queue_end_time_ms": 1791418872156,
+    "read_files_bytes": 64201092092,
+    "rows_scanned": 40358059,
+    "cloud_storage_retry_duration_ms": 0,
+    "task_progress": {
+      "planned_task_count": 1314,
+      "completed_task_count": 367,
+      "completed_partition_count": 367,
+      "pending_task_count": 939,
+      "failed_task_count": 0
+    }
+  },
+  "source_sha256": {
+    "summary.json": "319a07acf48f161105b98d74af8caddb317a9870035bc5e396910daeb57383ce",
+    "statements.jsonl": "b4d4e538aadcd21429f9ee9f738160a6e0fc5643cf64b66f16d85c21899978ef",
+    "query-history.json": "69415f563fdf74103b8f3639e7fcb6e91aec4d9948740c1ad4ea664e92fa81bf"
+  },
+  "qualification": "No common-file result and no E12 query submitted. Exact rewritten-file proof R611 remains scoped. Captures complete canceled attempt costs; no query replay, mutation, architecture/gate change or source/fence proof. Partition verification work only with a new material plan/cost bound."
+}

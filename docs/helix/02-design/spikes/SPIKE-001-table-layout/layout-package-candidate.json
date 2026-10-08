@@ -2689,7 +2689,15 @@
     "sparse_read_groups_r615.py": "829609ce5c72edcbe8250d09fcf6120130dcf6e451d2f48b7fb3ed5c29a69d4e",
     "out/design-policy-reconciliation-r617.json": "e95b1e20ca63e098adcc24306beff75295895c1e912de55b5bf498d884985f37",
     "common_carriers_r618.py": "b5a8dc74b9e5e0a244be112d49079b36ab02511b458c54f77c476ea414bcaed8",
-    "common_carriers_audit_r619.py": "ed3454e50864f427a0e404a59ff93c5a016c4665fa68cd7e5b02c3c66e730edd"
+    "common_carriers_audit_r619.py": "ed3454e50864f427a0e404a59ff93c5a016c4665fa68cd7e5b02c3c66e730edd",
+    "out/native/ashlar_common_carriers_r618/summary.json": "319a07acf48f161105b98d74af8caddb317a9870035bc5e396910daeb57383ce",
+    "out/native/ashlar_common_carriers_r618/completed-canceled-statement.json": "091653cd4701869956b3a5513cddfc05776568317921a93b0ad56e78a9618588",
+    "out/native/ashlar_common_carriers_r618/statements.jsonl": "b4d4e538aadcd21429f9ee9f738160a6e0fc5643cf64b66f16d85c21899978ef",
+    "out/native/ashlar_common_carriers_r618/query-history.json": "69415f563fdf74103b8f3639e7fcb6e91aec4d9948740c1ad4ea664e92fa81bf",
+    "out/native/ashlar_common_carriers_r618/audited-cancel.json": "2595ee1e9cafb692bc5276eeb91bb90d7998f951b1c9c4b45a0ef3a2620eff04",
+    "common_carriers_cancel_audit_r620.py": "686d9f6863587ebc9502f3a994d4b383376210bb97340a41e4ca069d73bd5d41",
+    "common_carriers_pilot_r621.py": "ce2f56f5e65783d0b37ca3da21fbb93a53e287ab97c8fd63e10f22fbe52d8a67",
+    "common_carriers_pilot_audit_r622.py": "325c21053f4fb7a609f2bfd72fd3aff61025b53672bab19921db8a791f9ea8a4"
   },
   "evidence": {
     "ddl": {
