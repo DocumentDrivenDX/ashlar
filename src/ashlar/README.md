@@ -106,3 +106,11 @@ recorded_at is a canonical UTC microsecond decimal string at this API boundary;
 the native carrier is TIMESTAMP. Fifty-nine focused local checks pass, including
 replay/conflict and pre-effect denial. Native execution and producer/resolver
 wiring remain unfinished; this component creates no default permissive policy.
+
+DurablePublisher in durable_publisher.py connects publish_batch to the Delta
+attempt store. Fresh instances reload original request/result/descriptor bytes
+and resume uncertain phases through mandatory effect recovery. The effects
+provider owns native operations, complete pin/admission proof and source
+acknowledgement; it must return exact JSON strings for result/descriptor custody.
+There is no default effect provider. Sixty-two local checks pass; native composed
+execution remains unfinished.

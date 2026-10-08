@@ -293,3 +293,19 @@ Next connect the durable coordinator to real effect recovery and retained pin
 proof, then exercise one genuine publication and singleton lookup. Truss native
 acceptance/runtime/feed and broader UMF bindings remain required for the full
 end-to-end goal. This iteration ran locally and incurred no Databricks workload.
+
+## Durable coordinator integration checkpoint
+
+DurablePublisher now bridges the reusable coordinator to DeltaAttemptStore,
+retaining exact JSON effect and descriptor artifacts without reserialization.
+Its writer scope nests explicit source/effect authority and attempt-store
+authority. Fresh coordinator/store instances resume applying/committing phases
+through original recovery ports, committed replay only acknowledges the original
+descriptor, and failed validation retains applied custody without committing.
+Sixty-two local tests pass. These integration checks use an in-memory SQL
+transport, not native effect or publication proof. No Databricks run occurred.
+
+Next implement the qualified native effect provider and retained-pin proof,
+then exercise the composed publication/resolver/singleton workflow. Truss still
+has design/reference artifacts and no runtime source at inspected commit
+29bde23; actual Truss acceptance/mutation/feed remains required by the goal.

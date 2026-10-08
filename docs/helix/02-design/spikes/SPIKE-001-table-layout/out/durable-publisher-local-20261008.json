@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "tests": 62,
+  "scope": "Coordinator plus real phase-store code against in-memory SQL transport; fresh instance recovery/replay, exact artifacts, changed intent and validation refusal. Native effects and pin proof unfinished.",
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q"
+}
