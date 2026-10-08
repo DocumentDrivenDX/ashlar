@@ -1799,3 +1799,23 @@ Thirty-five local tests/232 assertions, host build and clean packed consumer che
 pass. Local socket closure is not native backend termination, transaction settlement,
 source fencing or replay authority; full original recovery/protected native
 producer/installation/schema/feed work remains incomplete. The full goal stays active.
+
+### Public bounded original-journal inspection (2026-10-08)
+
+Truss candidate `2669fd4` exposes `inspectOriginalQueryFile(path, {maxBytes})`
+through the built host package. Explicit file bounds, private ownership, no symlink,
+exact observed size and strict UTF-8/wire admission protect the offline reader.
+Exact original bytes remain available as hex even when torn or unknown content
+cannot be interpreted. Immutable supported request/custody/frame snapshots separate
+complete response observation, uncertain, incomplete and invalid states. No state
+provides native outcome, nonexecution proof or permission to retry. Unknown fields
+refuse interpretation rather than silently disappearing. Old records lacking new
+custody are still preserved as originals; no migration manufactures that custody.
+
+Thirty-six local tests/241 assertions pass; final focused journal rerun also passes.
+Host build, fresh packed consumer and actual native lost-COMMIT probe pass. The
+latter reads its actual retained original files through this public API, comparing
+exact bytes, while independently observing committed effect and preserving unknown
+classification. No recovery SQL or cloud call is added. Full issuer/epoch, protected
+producer/installation, UMF acceptance and Truss-to-Delta feed remain incomplete.
+The full end-to-end objective stays active.
