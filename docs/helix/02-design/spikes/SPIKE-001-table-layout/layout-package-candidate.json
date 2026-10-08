@@ -2894,14 +2894,14 @@
     "../../../../../src/ashlar/__init__.py": "8f20eb9aa449f5817f8200eb8a8ce05922a65c6fc4ad56312027bca14615e9aa",
     "../../../../../src/ashlar/native.py": "2a95c50ba63be357b65a279e8a5c7d06aaf487e6d0e55dc4006b7c68fa16a78c",
     "../../../../../src/ashlar/publication.py": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
-    "../../../../../src/ashlar/README.md": "9afb9642b6fdb91260cbe95461fdef3595265e978cac1c3f8ee751abec0c3c76",
+    "../../../../../src/ashlar/README.md": "24e603929412ed662dff8a2a9c62f7a39b4d9b7735c4b3fee3c6a4a44da540d4",
     "../../../../../tests/test_publication.py": "7df44e0a064550b095826c96ea80677d52eaed9605689dae683bde637a589433",
     "../../contracts/CONTRACT-004-publication-resolver.md": "52492ad626cf046d2ff595d5aa91c20d086561c1aba0df3b6b70338bbd08514b",
     "../../../../../README.md": "11e0aaa10f67e008542066d293624bd5e195529dd5bc2c3f8ed75b960f22bda7",
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "124006fd6fadfd473bf3328f48de1cc669178d9df399e05b28fa6f97e3d6b6ab",
-    "../../../04-build/end-to-end-plan.md": "84aaff4964eb4882583e99bd9f689d997ef9e037c3a1adb398bdae23e10d2d01",
+    "../../../04-build/end-to-end-plan.md": "431ce142fab3c9e6c0954f4a96a1280a5b2b6419472d5d16f09851d5bd6859ba",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -2985,7 +2985,10 @@
     "../../../../../tests/test_durable_sql.py": "77c58c5f4958fa438af3e3225d2e3c6246d13c816b37addc7c0a01c0944d2c52",
     "out/durable-sql-local-20261008.json": "7324e16bc08475f791ea6f9a3eb9afc915540363f077613d5af94eb79c5b5299",
     "out/native/durable_sql_20261008/summary.json": "713a8bb0dae8a38314246eaba63696b61a5b7621b0e1d640a0c6a585b662c81b",
-    "out/native/durable_sql_20261008/terminal-response.json": "f6a39e0d5b32ceda1ba23ede69f35bef508a712d8021c9d91e2279d92c973056"
+    "out/native/durable_sql_20261008/terminal-response.json": "f6a39e0d5b32ceda1ba23ede69f35bef508a712d8021c9d91e2279d92c973056",
+    "../../../../../tools/durable_effects.py": "80c84c9f6e6ca24593df7bd4e164529fe1ed650d772badf139bb378bb3e3df91",
+    "../../../../../tests/test_durable_effects.py": "e6767d589626124e89e15501570c77c73ba507d3732ff9e77e5f2bf4b2275cdf",
+    "out/durable-effects-local-20261008.json": "44b3d581ee57c8def05ff06d249f635a323236abe859fbcce0b28bf7e8774c23"
   },
   "evidence": {
     "ddl": {

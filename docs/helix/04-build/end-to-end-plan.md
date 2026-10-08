@@ -329,3 +329,23 @@ and operation. An unknown no-handle submission requires native reconciliation.
 Next use these original handles in the real effect provider, retain admitted
 plans before graph writes, and qualify complete effect/schema/source/pin parity
 before manifest publication. Truss acceptance/runtime/feed remains unfinished.
+
+## Immutable ordered effect plan checkpoint
+
+The host effect runner now retains the complete ordered SQL/parameter plan
+before native statements, binding the original publication request digest,
+authenticated authority and warehouse. Each step has a stable digest/ordinal
+operation identity in the original-handle journal. Resuming completed steps
+replays their original terminal receipts; a pending step GETs its original
+handle. Changed plans cannot replace the retained original, and an unadmitted
+plan writes neither intent nor effects. Whole-plan writer/admission is required.
+
+Sixty-eight local checks pass, including a two-step interruption followed by
+fresh journal/runner recovery with two POSTs total and one original-handle GET.
+No native workload occurred this iteration. Successful SQL remains effect
+evidence, not complete graph/source/schema parity or retained-pin proof.
+
+Next replace the one-shot graph fixture’s direct writes with generated admitted
+plans and independent native current/history/tombstone validation; connect the
+result to DurablePublisher before producing a genuine manifest. Truss native
+acceptance/runtime/feed and broader UMF schema bindings remain required.

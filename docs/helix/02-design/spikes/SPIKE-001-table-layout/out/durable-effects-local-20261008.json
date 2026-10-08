@@ -1,0 +1,6 @@
+{
+  "state": "passed",
+  "tests": 68,
+  "command": "PYTHONPATH=src python3 -m unittest discover -s tests -q",
+  "scope": "Immutable ordered effect plan, denied-plan absence, fresh-journal interrupted recovery and changed-plan refusal; native graph execution not yet wired."
+}

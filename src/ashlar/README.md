@@ -124,3 +124,11 @@ binds exact SQL/parameters, warehouse and explicit authenticated authority.
 Retain the private journal; it is recovery state, not expendable telemetry.
 This host module is outside the portable core and does not establish source
 fencing, effect parity or publication authority. One native SELECT/reload passes.
+
+Host tools/durable_effects.py retains an immutable bounded ordered SQL effect
+plan bound to publication request digest, authenticated authority and warehouse
+before executing any steps. Mandatory whole-plan writer/admission policies must
+prove source/schema/target UUID/prior-state correspondence. Recovery uses each
+step’s retained original SQL handle/terminal response. Successful statements do
+not prove graph parity, retained pins or publication. Graph SQL-plan generation
+and full native effect-provider wiring remain unfinished.
