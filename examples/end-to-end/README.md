@@ -115,3 +115,26 @@ refusal under 0.7.0 remains in the report.
 correspondence and prepares qualified type/property identities. It blocks unbound
 assertions and reports engine enforcement as unimplemented. This is the planning
 component before native acceptance, not a working mutation or streaming command.
+
+## Stream another source through stdin
+
+```sh
+python3 tools/read_jsonl_source.py synthetic-jsonl epoch-1 < examples/end-to-end/source.jsonl
+```
+
+This runnable reader emits a complete transaction custody batch: feed/epoch,
+original batch identity, byte-offset cursor strings, exact begin/event/commit
+bytes in base64, ordered record digest and exact delivery identities. It verifies
+explicit commit count/digest before emitting. The default limits are 1000 events
+and 1MiB for the entire transaction, including control lines; stdin reads are
+bounded before parsing. Truncated transactions, duplicate delivery IDs, malformed
+JSON and unknown control envelopes refuse. Event payload content remains opaque.
+The synthetic example includes original unknown origin content and a large
+numeric token; no conversion to host float or narrowed SQL integer occurs.
+
+This reader supplies the adapter batch boundary; it has not applied the create/
+update payloads or produced an Ashlar publication. It does not acknowledge source
+progress. Host file/feed/epoch custody, authorized semantic/schema admission,
+durable stage replay and completed publication/checkpoint are the next pieces.
+The same boundary will receive the Truss native feed and PostgreSQL outbox under
+their own qualified profiles. JSONL does not claim Truss-native semantics.

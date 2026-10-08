@@ -47,3 +47,9 @@ UMF interpretation custody for core0.7 singleton string Records, retaining the
 full original report. It emits candidate identities or source-qualified blocked
 assertions; engine enforcement remains unimplemented. The host interpretation
 CLI calls actual pinned UMF APIs rather than defining private UMF meanings.
+
+jsonl_batches in source.py emits immutable transaction-complete raw custody from
+a bounded positioned binary stream under an explicit feed/epoch. The stdin CLI
+is tools/read_jsonl_source.py. It preserves original bytes and verifies commit
+count/digest; it neither interprets operations nor acknowledges progress. Durable
+stage/replay, admitted schemas and complete publication remain required.

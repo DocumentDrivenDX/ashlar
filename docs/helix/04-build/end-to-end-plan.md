@@ -158,3 +158,19 @@ receipts and mismatched source custody. Twenty-two focused local tests pass.
 Engine enforcement, broader value/key/relationship bindings and complete native
 acceptance remain required; candidate plans cannot advance any accepted head.
 No Databricks workload occurred in this iteration.
+
+## Streaming source adapter checkpoint
+
+The binary JSONL/stdin adapter now produces transaction-complete custody batches
+with exact byte offsets, original control/event bytes and independently checked
+ordered count/digest. One small synthetic create/update transaction runs through
+the CLI; its output reconstructs the complete source byte-for-byte. Twenty-eight
+local tests pass, including truncation, duplicate delivery, malformed control,
+wide cursor and bounded transaction refusals. This supplies the common batch
+boundary without claiming event interpretation or Truss-native semantics.
+
+Next connect durable raw staging and replay/conflict custody to serialized apply/
+publish, then add PostgreSQL outbox and the complete qualified Truss feed. The
+reader exposes no acknowledgement and no checkpoint advance; publication remains
+required before source progress. Native schema acceptance and the remaining
+bindings remain active work. No Databricks workload ran in this iteration.

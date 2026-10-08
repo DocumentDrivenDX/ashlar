@@ -1,0 +1,4 @@
+{"kind":"begin","batch_id":"fixture-tx-1"}
+{"kind":"event","delivery_id":"item-1-create","operation":"create","entity":"object","id":"1","schema_revision":"1","props":{"label":"first"},"unknown_origin":{"clock":18446744073709551615}}
+{"kind":"event","delivery_id":"item-1-update","operation":"update","entity":"object","id":"1","schema_revision":"3","props":{"label":"updated","caption":"added"}}
+{"kind":"commit","batch_id":"fixture-tx-1","record_count":2,"records_sha256":"2d800f1fee93e342df36c36fab9c65a5f771b1270ac3e4d04edd526a2eb0dbb5"}

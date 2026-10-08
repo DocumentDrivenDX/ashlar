@@ -902,3 +902,49 @@ On fresh owned clones with the same immutable input, raw/journal writes precede 
 ### Matched published-snapshot reads r201–r203
 
 Two20-key warm passes at verified private publication1 show serial-current engine p9595/96ms (scoped100ms screen passes), caller348.750/340.264ms (250ms fails),3files/142.939MB; overlap129/101ms,416.120/410.620ms,18files/414.851MB. All80 complete20-field results match immutable stage0. Combine with publisher age p9571.973s serial/69.386s overlap: both60s targets fail, so optional serialization is a measured read/freshness tradeoff, not a complete solution. Background Predictive Optimization advanced physical heads; reader verifies original version1 MERGE IDs and unchanged manifest vectors, then reads exact VERSION AS OF1. Never require publication==latest head or silently use a newer head. Evidence: [matched reads](../spikes/SPIKE-001-table-layout/out/native/ashlar_publication_reads_r202/summary.json). No cold, service, sustained/burst or1B/5B admission follows; UC Delta/hash LC remains selected/proposed and UMF deferred.
+
+## JSONL streaming adapter development profile
+
+Proposed ashlar-jsonl-transactions/0.1 admits exact-byte raw source batches,
+separately from event interpretation, current/history apply and publication.
+The binary stream contains begin, zero or more event lines and commit, each
+with exactly one LF-terminated UTF8 JSON object. Reject duplicate JSON members,
+nonfinite numbers, incomplete lines and unknown/nested control. Unknown event
+payload members are retained verbatim and are not executable graph semantics.
+
+Begin is exactly kind=begin and nonempty opaque batch_id. Event requires
+kind=event and a nonempty delivery_id unique within that transaction; arbitrary
+additional payload is retained. Commit is exactly kind=commit, matching batch_id,
+integer record_count and records_sha256. The digest is SHA256 over the ordered
+event lines, each preceded by its exact uint64 big-endian byte length; original
+LF bytes are included. Matching count/digest proves membership for this explicit
+source profile, not producer authority, source retention or safe Truss watermark.
+No per-event checkpoint is admitted. Empty transactions have the SHA256 empty
+input digest and a zero count; they still require explicit begin/commit custody.
+
+SourceBatch contains profile, feed, epoch, batch_id, cursor_before, cursor_after,
+ordered SourceRecords, exact begin/commit bytes and records_sha256. Each record
+contains delivery_id, exact line bytes/digest and its ending byte offset as
+canonical nonnegative decimal text. Feed/epoch and positioned cursor are trusted
+host inputs. Different files must not be assigned the same immutable feed/epoch
+without original producer/replay correspondence. Resume requires positioning at
+the previously published complete boundary and retaining the original source;
+a claimed cursor alone is not custody proof. Never infer XID or graph version
+from a byte offset.
+
+The reader defaults to 1000 records and 1MiB total transaction bytes, including
+control lines. It refuses before yielding an over-limit/partial batch. Hosts
+bound line reads before allocation; the supplied stdin CLI reads at most 1MiB+1
+bytes at a time. Prior completed batches may be yielded before a later malformed
+transaction; that later failure never admits progress into its partial contents.
+Exact replay has the same namespace/batch/delivery/cursor/raw/digest values. The
+durable consumer must reject same-key changed bytes and preserve original raw
+custody, not merely parsed payloads.
+
+No acknowledgement API is supplied in this reader. Durable staging, source
+fencing, schema/operation interpretation, apply validation and immutable complete
+publication must precede checkpoint/acknowledgement. Unknown operations retain
+raw custody but block dependent current-state publication. This development
+profile is distinct from Truss's native transactional feed and PostgreSQL outbox;
+their bootstrap, authority, transaction/version and recovery contracts remain
+required. The full end-to-end goal includes all three source paths.

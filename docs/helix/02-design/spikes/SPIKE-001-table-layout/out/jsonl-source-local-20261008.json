@@ -1,0 +1,18 @@
+{
+  "state": "passed",
+  "local_tests": 28,
+  "cli": "python3 tools/read_jsonl_source.py synthetic-jsonl epoch-1 < examples/end-to-end/source.jsonl",
+  "batch_count": 1,
+  "record_count": 2,
+  "source_sha256": "4d5e4b043d260e4ecc77f2ddc6ed051cb85cb75381d308da981ac1e2ea09c3de",
+  "checks": [
+    "CLI custody reconstructs exact full source bytes",
+    "complete manifest independent length-framed SHA256 digest",
+    "malformed/truncated/nested/duplicate control refuses",
+    "limits before emission",
+    "unsigned-wide cursor retains exact text",
+    "identical source replay retains same batch",
+    "original unknown-origin integer token retained"
+  ],
+  "qualification": "JSONL raw transaction adapter and runnable stdin reader only; event operations not yet interpreted/applied, no native Truss equivalence, publication, source acknowledgement or durable checkpoint. No Databricks run."
+}
