@@ -788,3 +788,24 @@ The result proves complete observed fixture effects at those snapshots, not futu
 file availability, active pins, protocol/read policy or complete Truss authority.
 Native publication still requires those independent obligations and original
 source checkpoint binding. All118 local checks continue to pass.
+
+## Native transaction adapter for read pins — 2026-10-08
+
+The host psycopg transaction adapter now supplies the real PostgresPins interface:
+one fresh authenticated non-autocommit connection throughout held custody,
+bound named string parameters, bounded native row inventories, explicit commit/
+rollback/close and rejection of nested/stale sessions. Factory and authorization/
+retention policy remain explicit required ports; no permissive connection exists.
+
+Actual PostgresPins.hold on the existing four recovery pins passed. A competing
+ordinary writer release hit native lock_timeout while every read guard was held;
+no pin was released. Actual ordinary reader role/PostgreSQL17.9/xid and complete
+four-pin UUID/version/digest/active inventory are retained. Ended session refusal
+and injected rollback/advisory-lock release pass with psycopg3.2.13. All118 local
+checks remain green. No cloud query, new pin, cleanup or retention change occurred.
+Evidence: SPIKE-001-table-layout/out/native/postgres_transactions_20261008.
+
+This closes transaction execution wiring, not Delta file availability, maintenance
+operator enforcement, registration admission or publication/read composition.
+The existing recovery scope is used only to test the adapter; it is not the new
+local-example publication scope and must not authorize that example's snapshots.

@@ -2901,7 +2901,7 @@
     "out/publication-resolver-local.json": "dc64ee7528cc46981c7f8a3e43f5620e2edc1c01706294088a4bd85815839a52",
     "../../../../../tools/start_truss_sandbox.py": "38f853322064f29e7c9a908034a77136a2e7c6d03d8dc717404eec7cf1f65693",
     "../../../../../examples/end-to-end/README.md": "b77bff4256b2012d4a3b80389fb181315c4bd235b460dd13345620748b7df117",
-    "../../../04-build/end-to-end-plan.md": "1e74871c6dc4e43247f3f56ac7a62abef5115b7df62c09fb51af2f1a81b9084d",
+    "../../../04-build/end-to-end-plan.md": "187a2a6e33677364ac907cd562c8d554fcbfd472ee7131b189d81ca1f801a255",
     "out/end-to-end-substrate-20261008.json": "5ba6faf44d046ef649827fae975cd6052f200653aa7c8b02b96bb71985e9598f",
     "../../../../../tools/inspect_umf.ts": "54127c5861a5f948817d25bdbfb0aa044a01e264c76cc73753c18f7d9f471d63",
     "../../../../../tools/check_schema_intake.py": "3156807c7fe5713fb491401a9e485186e3bf2698c785e5231e4ca9e3ef1d9e57",
@@ -3181,7 +3181,10 @@
     "out/native/local_example_full_parity_20261008/summary.json": "eb596ac24636ab3640d6b88010098f605aa87de3b02261c5fd4ae85f6f212707",
     "out/native/local_example_full_parity_20261008/statements.jsonl": "9821f1ce5f22b7b47d2048cc347fef615760ea2d33c1a90d743dd3def0abfd49",
     "out/native/local_example_full_parity_20261008/live-statement.json": "6b54048cfdba4112847f29d4b50671c4f22699f3c185ceb21732538f3bca754c",
-    "out/native/local_example_full_parity_20261008/source-correspondence.json": "16d16733bfa5183722d2bdca1e4548512b6893e39b14a5aa7ed7cf29745184ff"
+    "out/native/local_example_full_parity_20261008/source-correspondence.json": "16d16733bfa5183722d2bdca1e4548512b6893e39b14a5aa7ed7cf29745184ff",
+    "../../../../../tools/postgres_transactions.py": "3fd105abee30c212a48ef33a33f727a3af6abf9b725b4b21295fd911e5719a9b",
+    "../../../../../tools/check_native_postgres_transactions.py": "1169f665eb7d493a2c2f2d53be9003bfea6ba233dba3b35328c59f625ba82a59",
+    "out/native/postgres_transactions_20261008/summary.json": "147b400860ebed78771c4505b6a3c7efa48a662178615fedc50bba0e697b9e96"
   },
   "evidence": {
     "ddl": {
