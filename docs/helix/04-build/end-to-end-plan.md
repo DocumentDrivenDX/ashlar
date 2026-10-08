@@ -769,3 +769,22 @@ exports were taken after replay. This remains an explicit fixture-ID development
 owner lane, not accepted Truss authority or remote/source fencing. Full-column
 parity, active retention/pins, immutable publication, native resolver read and
 Truss protected acceptance/mutations/feed remain required by the full goal.
+
+## Complete native local-fixture effects — 2026-10-08
+
+The independent source-to-carrier checker now verifies five exact-version native
+inventories: final object_current (1row/17columns), initial object_current
+(2rows/17columns), final edge_current (0rows/20columns), tombstone (1row/10columns)
+and whole_source_history (4rows/6columns). It derives expectations directly from
+original events rather than SQL planner rows. Exact schemas, SQL NULL versus text,
+lookup identities, timestamp microseconds, source cursors/deliveries, raw event
+bytes and complete multiset multiplicity pass. The immutable observed version
+vector and source/checker/summary correspondence receipt are retained for subsequent
+publication work. This was 24 read-only SQL statements on existing compute; no
+writes, scale tests, retention changes or publication/ACK occurred.
+
+Evidence: SPIKE-001-table-layout/out/native/local_example_full_parity_20261008.
+The result proves complete observed fixture effects at those snapshots, not future
+file availability, active pins, protocol/read policy or complete Truss authority.
+Native publication still requires those independent obligations and original
+source checkpoint binding. All118 local checks continue to pass.

@@ -1,0 +1,13 @@
+{
+  "scope": "read-only complete local fixture parity; no retention/publication authority",
+  "source_sha256": "fa28ecead66f0f8a6b1dfd50dc26c89b4f129ff0dcbd7d94010e34bd3e9b460d",
+  "source_bytes": 1790,
+  "checker_sha256": "02e217a6a4326f24bbe35bcac8484decbb7dee72285f25c8b030e5d6e697868d",
+  "native_summary_sha256": "eb596ac24636ab3640d6b88010098f605aa87de3b02261c5fd4ae85f6f212707",
+  "version_vector": {
+    "ashlar_e2e_private_20261008.runtime.object_current": 5,
+    "ashlar_e2e_private_20261008.runtime.edge_current": 0,
+    "ashlar_e2e_private_20261008.runtime.tombstone": 1,
+    "ashlar_e2e_private_20261008.runtime.whole_source_history": 3
+  }
+}

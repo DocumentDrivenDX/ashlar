@@ -336,3 +336,15 @@ replay reused them. Selected final object payload/version, edge/tombstone/histor
 counts and renewed owner/grant/UUID observations passed. This is development
 owner custody with fixture IDs; full-column effects, remote fencing, source ACK,
 retained pins, immutable publication and resolver-backed read remain unfinished.
+
+
+For read-only complete effect verification of the completed native fixture:
+
+```sh
+python3 tools/check_native_local_example.py
+```
+
+It checks four final table snapshots and the initial object snapshot against
+independently derived complete original-event expectations. The retained evidence
+includes the observed version vector; do not treat it as an active retention pin
+or published manifest. The command reads existing data and does not change it.

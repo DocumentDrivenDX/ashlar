@@ -1,0 +1,47 @@
+{
+  "state": "passed",
+  "version_vector": {
+    "ashlar_e2e_private_20261008.runtime.object_current": 5,
+    "ashlar_e2e_private_20261008.runtime.edge_current": 0,
+    "ashlar_e2e_private_20261008.runtime.tombstone": 1,
+    "ashlar_e2e_private_20261008.runtime.whole_source_history": 3
+  },
+  "reports": [
+    {
+      "table": "ashlar_e2e_private_20261008.runtime.object_current",
+      "uuid": "3e82843f-4afb-4d57-ad02-680033a0cb55",
+      "version": 5,
+      "rows": 1,
+      "columns": 17
+    },
+    {
+      "table": "ashlar_e2e_private_20261008.runtime.object_current",
+      "uuid": "3e82843f-4afb-4d57-ad02-680033a0cb55",
+      "version": 2,
+      "rows": 2,
+      "columns": 17
+    },
+    {
+      "table": "ashlar_e2e_private_20261008.runtime.edge_current",
+      "uuid": "c32c5515-09d1-4b43-831e-47048b8b9d81",
+      "version": 0,
+      "rows": 0,
+      "columns": 20
+    },
+    {
+      "table": "ashlar_e2e_private_20261008.runtime.tombstone",
+      "uuid": "747c6fa6-fea3-4089-b107-b2e6348c1b6b",
+      "version": 1,
+      "rows": 1,
+      "columns": 10
+    },
+    {
+      "table": "ashlar_e2e_private_20261008.runtime.whole_source_history",
+      "uuid": "1085eb20-2d78-479a-ac08-0c6540d0162f",
+      "version": 3,
+      "rows": 4,
+      "columns": 6
+    }
+  ],
+  "qualification": "Bounded fixture all-column schema/value/multiplicity parity and successful exact-version data reads. Expectations derived directly from original events rather than generated SQL. Historical initial object carrier included; initial edge table remains empty. Does not establish future retained-data availability, protocol policy, active pins, native fencing, publication or accepted Truss schema."
+}
