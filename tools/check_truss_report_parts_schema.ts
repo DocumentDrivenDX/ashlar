@@ -14,7 +14,7 @@ for(const name of new Bun.Glob('*.schema.json').scanSync(resolve(source,'docs/he
 }
 const raw=new Uint8Array(await Bun.file(input).arrayBuffer());
 const value=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(raw));
-if(value.format!=='ashlar-truss-initial-report-parts/0.1')throw Error('Wrong candidate report parts');
+if(value.format!=='ashlar-truss-initial-report-parts/0.2')throw Error('Wrong candidate report parts');
 const checked=[];
 for(const field of ['documents','diagnostics','documentInterpretations','counts']){
   const id='urn:truss:draft:acceptance-report:0.1.0#/properties/'+field;
@@ -22,5 +22,14 @@ for(const field of ['documents','diagnostics','documentInterpretations','counts'
   if(!validate(value[field]))throw Error(field+': '+JSON.stringify(validate.errors));
   checked.push(id);
 }
+for(const [field,fragment] of [
+  ['origin',{asserted:value.originParts.assertedOrigin,databaseRole:value.originParts.databaseRole}],
+  ['journalOrigin',value.originParts.journalOrigin],
+  ['originMappingProfile',value.originParts.originMappingProfile],
+] as const){
+  const id='urn:truss:draft:acceptance-report:0.1.0#/properties/originalExecution/properties/'+field;
+  const validate=ajv.getSchema(id);if(!validate||!validate(fragment))throw Error('Invalid original origin fragment '+field);
+  checked.push(id);
+}
 await Bun.write(output,JSON.stringify({checked,inputSha256:createHash('sha256').update(raw).digest('hex'),originalSources:originalSources.sort((a,b)=>a.name.localeCompare(b.name)),valid:true,qualification:'Original report fragment shapes only. Not complete accepted-report validation, original profile/authority admission or native persistence.'},null,2)+'\n');
-console.log('Candidate parts match all four original report fragment schemas');
+console.log('Candidate parts and origin match original report fragment schemas');

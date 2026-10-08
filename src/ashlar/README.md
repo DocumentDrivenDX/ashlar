@@ -305,3 +305,21 @@ These parts lack execution/origin/report/lifecycle registration and protected
 persistence, so they deliberately have no accepted-report interface/revision.
 `tools/check_truss_report_parts_schema.ts` verifies four original fragment schemas
 without treating fragments as a complete accepted report.
+
+origin.py maps the bounded canonical-tree asserted origin to an ExactValue
+representation without treating tag-looking objects or numeric text as values
+of another family. It preserves null, booleans, strings, arrays, objects and
+empty-container distinctions; duplicate members, host numbers, NUL, surrogates,
+unknown mapped variants and resource overflow refuse. Restoring the mapped
+representation reproduces the canonical asserted tree. The profile is explicitly
+unregistered, and mapping authenticates no database role.
+
+The initial catalog probe now requires `--origin`, captures actual current_user,
+session_user and exact xid8 text on the held original transaction, and separately
+round-trips asserted/mapped origin with the candidate effects. The development
+profile is direct PostgreSQL admin custody only. Caller `db_role` text remains
+asserted metadata while the captured database role remains postgres. Report
+parts version0.2 checks this correspondence and the original report schemas'
+three origin fragments; it still lacks registered installation/epoch/capture
+and complete protected report/head persistence. Older candidate parts are not
+relabelled as the new version.

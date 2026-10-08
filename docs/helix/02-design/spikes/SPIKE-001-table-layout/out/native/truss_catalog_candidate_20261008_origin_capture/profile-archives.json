@@ -1,0 +1,32 @@
+{
+  "layout": {
+    "identity": "ashlar-truss-catalog-probe:layout",
+    "bytesBase64": "eyJsYXlvdXQiOiJ0cnVzcy13ZWZ0LXJldmlldy0wLjExIiwib3JpZ2luYWxfc3FsX3NoYTI1NiI6IjFhYzdjYzgyNDA1ZmY1ODEwNzJkNDVhZDU4NmY1NGQ4YzQ4MzQzZWFlY2M3YzAxMTE5NTUzNWVkMzU5ZTM3ZjkiLCJzdGF0dXMiOiJ1bnJlZ2lzdGVyZWQgY2FuZGlkYXRlOyBub3QgYWNjZXB0YW5jZSBhdXRob3JpdHkifQ==",
+    "sha256": "a146fa7c90115d8f1f9552e1e941f25c56cbc18c12255e670c351ac5a6f0fd67"
+  },
+  "acceptance": {
+    "identity": "ashlar-truss-catalog-probe:acceptance",
+    "bytesBase64": "eyJib2R5X3NoYTI1NiI6ImY5YmMwZjZjYTY4Y2YwMTU0YzZlN2Y1YzIwMTUyMjFjNTM4NGQ2YjJiNzNlNzIyN2Q2MjNjNzJjMmVmOTAyM2MiLCJtb2RlIjoiaW5pdGlhbC1jYXRhbG9nLXJvbGxiYWNrLW9ubHkiLCJvcmlnaW5fbWFwcGluZ19wcm9maWxlIjp7ImlkZW50aXR5IjoiYXNobGFyLXRydXNzLWNhbm9uaWNhbC10cmVlLW9yaWdpbiIsInNoYTI1NiI6IjhjZWJiODgwMWE1MDhlNGNlYmM4OTJhMjI4YzlhMTRhMmQ0NTgxYzAyYTFlNzlkMTEwM2ZkNzZkM2VhYjc3MzEiLCJ2ZXJzaW9uIjoiMC4xIn0sInN0YXR1cyI6InVucmVnaXN0ZXJlZCBjYW5kaWRhdGU7IG5vdCBhY2NlcHRhbmNlIGF1dGhvcml0eSJ9",
+    "sha256": "ab95fca2a87667c55c72113bd2ba32d091685cb0ac8d331c5c34ce1c669e8836"
+  },
+  "validator": {
+    "identity": "ashlar-truss-catalog-probe:validator",
+    "bytesBase64": "eyJpbnNwZWN0aW9uX3NoYTI1NiI6IjU0MTI3YzU4NjFhNWY5NDg4MTdkMjViZGJmYjBhYTA0NGEwMWUyNjRjNzZjYzczNzUzYzE4ZjdkOWY0NzFkNjMiLCJzdGF0dXMiOiJ1bnJlZ2lzdGVyZWQgY2FuZGlkYXRlOyBub3QgYWNjZXB0YW5jZSBhdXRob3JpdHkiLCJ1bWZfZ2l0X3JldmlzaW9uIjoiMTZjMzVlOGQ5NDM3NjljY2ZhN2JiNTdkMTY3ODVhYTcxNTlhYmU2NSJ9",
+    "sha256": "a84893ea0042fc0159679a91c07f3e203f01ed55dad001d593aeb76a1a9a758b"
+  },
+  "support": {
+    "identity": "ashlar-truss-catalog-probe:support",
+    "bytesBase64": "eyJib2R5X3NoYTI1NiI6IjYxZmRhN2M4NTA3ZWY1MTg1NmVlM2E3Zjc1YzA5MmI0YzJlMjYxMTc1ZWRlMDRkMGQ5ZDIyMzQ2NzNmNTI2YzEiLCJzY29wZSI6Im9uZS1kb2N1bWVudCBsb2NhbCBSZWNvcmQvc2luZ2xldG9uIHN0cmluZyBGaWVsZCByZXF1aXJlZCBvciBhYnNlbnQtYWxsb3dlZDsgbm8ga2V5cy9mYWNldHMvcmVsYXRpb25zaGlwcyIsInN0YXR1cyI6InVucmVnaXN0ZXJlZCBjYW5kaWRhdGU7IG5vdCBhY2NlcHRhbmNlIGF1dGhvcml0eSJ9",
+    "sha256": "47151331dbd120d44c4e23abc7e48d1cabcb7e2a33b04e420802365f0f8c1d6f"
+  },
+  "policy": {
+    "identity": "ashlar-truss-catalog-probe:policy",
+    "bytesBase64": "eyJsb3NzIjoic3RyaWN0Iiwic3RhdHVzIjoidW5yZWdpc3RlcmVkIGNhbmRpZGF0ZTsgbm90IGFjY2VwdGFuY2UgYXV0aG9yaXR5IiwidW5rbm93bkVuZHBvaW50IjoicmVqZWN0In0=",
+    "sha256": "89ecb24efab185bba28ba6732de3769288fc9423f3ee0c9ad19e49826a05e7e7"
+  },
+  "umf": {
+    "identity": "ashlar-truss-catalog-probe:umf",
+    "bytesBase64": "eyJjb3JlX3ZlcnNpb24iOiIwLjcuMCIsInN0YXR1cyI6InVucmVnaXN0ZXJlZCBjYW5kaWRhdGU7IG5vdCBhY2NlcHRhbmNlIGF1dGhvcml0eSIsInVtZl9naXRfcmV2aXNpb24iOiIxNmMzNWU4ZDk0Mzc2OWNjZmE3YmI1N2QxNjc4NWFhNzE1OWFiZTY1In0=",
+    "sha256": "6e5a400f35872f804b6eeace358324bdcc16e0d92cd954f1ca3f4881d878b061"
+  }
+}

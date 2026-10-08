@@ -12,6 +12,7 @@ from .catalog import Identity, MappingEntry
 from .lineage import lineage_bytes, TYPE
 from .schema import _json
 from .semantic_policy import StringRecordPolicy
+from .origin import map_acceptance_origin, PROFILE_PIN as ORIGIN_PROFILE, PROFILE_BYTES as ORIGIN_PROFILE_BYTES
 from .truss_input import AcceptanceInputCustody, artifact
 
 class ReportPartsError(ValueError):
@@ -21,7 +22,7 @@ DIAGNOSTIC_PROFILE_BYTES=b'{"status":"unregistered candidate","scope":"one upstr
 DIAGNOSTIC_PROFILE={'identity':'ashlar-umf-original-validation-receipt','version':'0.1','sha256':hashlib.sha256(DIAGNOSTIC_PROFILE_BYTES).hexdigest()}
 INTERPRETATION_PROFILE_BYTES=b'{"status":"unregistered candidate","scope":"complete original ashlar-umf-interpretation/0.1 artifact; completeness is the original validation.complete flag; retain unavailable API diagnostics without relabeling them as invalid source"}'
 INTERPRETATION_PROFILE={'identity':'ashlar-umf-original-interpretation-receipt','version':'0.1','sha256':hashlib.sha256(INTERPRETATION_PROFILE_BYTES).hexdigest()}
-NATIVE_FIELDS={'phase','head','original_request','document','types','properties','other_counts','report_count'}
+NATIVE_FIELDS={'phase','head','origin_capture','original_request','document','types','properties','other_counts','report_count'}
 OTHER={'keys','relationships','endpoints','schema_changes','journal','objects','edges'}
 TYPE_FIELDS={'document_id','type_id','module','element','kind','since_rev','doc_ord','retired_rev','provisional','lineage_profile','lineage_hex','lineage_sha256','definition_source_kind','definition_rev','definition_doc_ord','definition_document_id','binding_source_rev','binding_source_pointer','binding_source_bytes'}
 PROP_FIELDS={'prop_id','type_id','element','name','scalar_type','nullability','cardinality','home','since_rev','doc_ord','retired_rev','facets','item','definition_source_kind','definition_rev','definition_doc_ord','definition_document_id','binding_source_rev','binding_source_pointer','binding_source_bytes'}
@@ -53,6 +54,16 @@ def initial_candidate_report_parts(intake,interpretation,request,native):
     original=native.get('original_request',{})
     if not _exact(original,{'probe':'rollback-only','acceptanceInputSha256':request.sha256,'acceptanceInputPreimageBase64':base64.b64encode(request.canonical_preimage).decode('ascii'),'originalInputBase64':base64.b64encode(request.original).decode('ascii')}):
         raise ReportPartsError('Native original request correspondence differs')
+    capture=native['origin_capture']
+    if type(capture) is not dict or set(capture)!={'database_role','session_role','xid','asserted_original','asserted_origin','journal_origin','mapping_profile'} or capture['database_role']!='postgres' or capture['session_role']!='postgres':
+        raise ReportPartsError('Actual selected native role capture unavailable')
+    xid=capture['xid']
+    if type(xid) is not str or not xid.isascii() or not xid.isdecimal() or str(int(xid))!=xid or not 0<int(xid)<2**64:
+        raise ReportPartsError('Exact native xid8 capture required')
+    if type(capture['asserted_original']) is not str:raise ReportPartsError('Original asserted-origin transport required')
+    mapped=map_acceptance_origin(capture['asserted_original'].encode('utf-8'))
+    if not _exact(capture['asserted_origin'],_json(mapped.original)) or not _exact(capture['journal_origin'],_json(mapped.mapped_artifact)) or not _exact(capture['mapping_profile'],dict(ORIGIN_PROFILE)):
+        raise ReportPartsError('Actual native origin mapping correspondence differs')
     validation=_json(intake.artifact)['validation']
     if not _exact(_json(interpretation)['validation'],validation):raise ReportPartsError('Producer validation/diagnostic inventories disagree')
     expected_doc={'doc_id':intake.document_id,'doc_revision':intake.document_revision,'umf_version':'0.7.0','content_sha256':intake.source_sha256,'document':intake.source.decode('utf-8'),'validation':validation}
@@ -87,7 +98,8 @@ def initial_candidate_report_parts(intake,interpretation,request,native):
         entries.append(MappingEntry(Identity('property',tuple(prop['identity'])),pid,True))
     StringRecordPolicy.from_intake(intake,interpretation,entries,source_system='truss-native-candidate')
     source=artifact('original-source:'+intake.source_sha256,intake.source)
-    return {'format':'ashlar-truss-initial-report-parts/0.1','status':'unregistered candidate; unpublished',
+    return {'format':'ashlar-truss-initial-report-parts/0.2','status':'unregistered candidate; unpublished',
+        'originParts':{'assertedOrigin':capture['asserted_origin'],'journalOrigin':{'asserted':capture['journal_origin'],'databaseRole':capture['database_role']},'databaseRole':capture['database_role'],'sessionRole':capture['session_role'],'xid':xid,'originMappingProfile':dict(ORIGIN_PROFILE),'originalOrigin':artifact('original-asserted-origin',mapped.original),'profileArtifact':artifact(ORIGIN_PROFILE['identity'],ORIGIN_PROFILE_BYTES)},
         'documents':[{'doc_id':intake.document_id,'doc_revision':intake.document_revision,'content_sha256':intake.source_sha256,'ord':'0'}],
         'diagnostics':[{'classification':'upstream_validation','source':{'kind':'document','artifact':source,'sourcePointer':''},'diagnosticProfile':dict(DIAGNOSTIC_PROFILE),'diagnostic':artifact('original-umf-validation-receipt',intake.artifact)}],
         'documentInterpretations':[{'documentId':intake.document_id,'contentSha256':intake.source_sha256,'interpretationProfile':dict(INTERPRETATION_PROFILE),'completeness':'complete' if intake.complete_interpretation else 'partial','evidence':artifact('original-umf-interpretation-receipt',interpretation)}],

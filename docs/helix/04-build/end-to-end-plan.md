@@ -667,3 +667,22 @@ registration and complete protected persistence are still required before a
 positive accepted head or ingestion authority. The goal's schema evolution, real
 Truss mutation/feed and composed Ashlar publication/read remain unfinished.
 Evidence: SPIKE-001-table-layout/out/native/truss_catalog_candidate_20261008_report_parts.
+
+## Origin mapping and native capture — 2026-10-08
+
+The candidate mapper losslessly preserves the acceptance canonical-tree origin
+in the journal ExactValue carrier, including nested empty collections, literal
+tag-looking objects and exact numeric text. Finite bytes/nodes/depth and malformed
+value/refusal cases are enforced. It grants no authenticated role or registration.
+The native rollback probe separately captures current_user/session_user and exact
+xid8 text on the original held transaction; asserted `db_role=asserted-admin`
+remains metadata and captured databaseRole is postgres. Both original and mapped
+origin representations round-trip and match the original Truss origin fragments.
+All113 local checks pass; one small PostgreSQL rollback probe passed and no cloud
+workload ran.
+
+Report-parts wire0.2 adds the checked origin fragments. The development capture
+is direct isolated admin custody, not qualified ordinary-role/driver/authorization
+or original installation/epoch registration. Complete report/context registration
+and protected persistence remain required; the head stays zero and candidate IDs
+cannot authorize ingestion. Evidence: SPIKE-001-table-layout/out/native/truss_catalog_candidate_20261008_origin_capture.

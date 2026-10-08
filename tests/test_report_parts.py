@@ -9,7 +9,7 @@ from ashlar.truss_input import verify_acceptance_input_custody
 from ashlar.report_parts import initial_candidate_report_parts, ReportPartsError
 
 ROOT=Path(__file__).resolve().parents[1]
-B=ROOT/'docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/truss_catalog_candidate_20261008_report_parts'
+B=ROOT/'docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/truss_catalog_candidate_20261008_origin_capture'
 PIN='16c35e8d943769ccfa7bb57d16785aa7159abe65'
 
 class ReportPartsTests(unittest.TestCase):
@@ -24,6 +24,9 @@ class ReportPartsTests(unittest.TestCase):
         result=initial_candidate_report_parts(self.intake,self.interpretation,self.request,self.native)
         self.assertEqual(result['counts'],{'typesAdded':'1','propertiesAdded':'2','keysAdded':'0','relationshipsAdded':'0','endpointsAdded':'0','elementsRetired':'0'})
         self.assertEqual(result['documentInterpretations'][0]['completeness'],'partial')
+        self.assertEqual(result['originParts']['databaseRole'],'postgres')
+        self.assertEqual(result['originParts']['assertedOrigin']['db_role'],'asserted-admin')
+        self.assertEqual(result['originParts']['journalOrigin']['databaseRole'],'postgres')
         self.assertEqual(base64.b64decode(result['diagnostics'][0]['diagnostic']['bytesBase64']),self.intake.artifact)
         self.assertEqual(base64.b64decode(result['documentInterpretations'][0]['evidence']['bytesBase64']),self.interpretation)
         self.assertNotIn('acceptedRevision',result)
@@ -40,6 +43,12 @@ class ReportPartsTests(unittest.TestCase):
             n=copy.deepcopy(self.native);mutate(n)
             with self.subTest(native=str(n)[:80]):
                 with self.assertRaises(ReportPartsError):initial_candidate_report_parts(self.intake,self.interpretation,self.request,n)
+    def test_origin_capture_and_mapping_drift_refuse(self):
+        mutations=[lambda n:n['origin_capture'].update(database_role='asserted-admin'),lambda n:n['origin_capture'].update(xid=1),lambda n:n['origin_capture'].update(journal_origin={'kind':'null'})]
+        for mutate in mutations:
+            n=copy.deepcopy(self.native);mutate(n)
+            with self.assertRaises(ReportPartsError):initial_candidate_report_parts(self.intake,self.interpretation,self.request,n)
+
     def test_rejects_original_request_drift(self):
         n=copy.deepcopy(self.native);n['original_request']['acceptanceInputSha256']='0'*64
         with self.assertRaises(ReportPartsError):initial_candidate_report_parts(self.intake,self.interpretation,self.request,n)
