@@ -1652,3 +1652,19 @@ producer/issuer/resource/settlement admission and bridge adoption remain open.
 ReadyForQuery does not independently authorize quarantined-resource release.
 Protected producers, bootstrap and actual Truss streaming remain unfinished;
 the unchanged full end-to-end goal remains active.
+
+
+## Original Truss failed-response completion — 2026-10-08
+
+The pre-parser component now retains ordered ErrorResponse/NoticeResponse fields
+with exact SQLSTATE, unique tags and terminal framing. Error completion requires
+original ReadyForQuery; notices cannot replace a command. Thirty-two tests/218
+assertions, host build and packed consumer pass. Actual SELECT 1/0 inside BEGIN
+produces original 22012/E response frames before parser forwarding; the probe
+waits for ReadyForQuery after rejection and confirms following ROLLBACK. Original
+bytes/status and scope are retained in native-wire-error.json. Notice evidence
+is synthetic only. No table/cloud/deployment changes occur.
+
+Production integration, remaining protocol kinds, original issuer/resource/
+refusal-settlement authority, protected producers, bootstrap and actual Truss
+streaming remain unfinished under the unchanged active full goal.
