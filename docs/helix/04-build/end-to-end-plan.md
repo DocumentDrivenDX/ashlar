@@ -2783,3 +2783,28 @@ that original process and complete oracle/unchanged-receipt checks finish.
 Native exact-repeat remains untested. No real Truss catalog/producer, arbitrary
 schemas, combined-source state or remote ACK/fencing is established. Existing
 warehouse/catalog only, no predictive optimization/grant changes; full goal active.
+
+
+### Native evolved singleton completed; Weft integration requested — 2026-10-08
+
+Original query-only process 50926 terminated exit 0. Surviving object 1 reads
+through the original final publication at object_current version 5. All 17 fields
+match independent original-source reconstruction, including revision 3, entity
+version 2, Unicode optional caption and exact epoch microseconds. All 27 original
+mutation handles/request/response hashes and complete byte checkpoints
+805/1318/1814 remain unchanged. Query used 124 warehouse reads and 66 permission
+pages. [Singleton evidence](evidence/native-evolution-singleton-20261008.json)
+retains complete parity, original SQL and fingerprints. Native exact-repeat and
+deleted-entity point lookup remain separately untested; full inventories already
+prove the original delete and tombstone. No new compute/grants/PO changes.
+
+A delegated explicit human request now authorizes integrating Weft as the query
+engine. Preserve this completed publication workflow. Use merged Weft commit
+2744531735c2a771fbe7ed24a7f67e3afc851b25, qualified ashlar-databricks feature,
+backend 0.1.0-qualified / dbsql2026.39-qualified, and actual model/storage bindings.
+Owner checkout contains unrelated uncommitted B-008 security work; do not alter
+or build from it. Read contracts, exact profiles and support inventory from the
+pinned committed source. Native engine/settings/layout, integrity, authorization,
+publication/schema context and exact decoding must be admitted and rechecked
+before releasing buffered results. Unfinished security work is not included.
+The requested native Weft integration is not yet implemented or qualified.

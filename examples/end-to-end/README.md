@@ -1031,8 +1031,11 @@ publication now pass in `ashlar_e2e_private_20261008.runtime_schema_evolution`.
 Byte checkpoints are 805, 1318 and 1814. Final publication retains one v3 object,
 all four original history records across both revisions, and one v1 delete
 in the tombstone carrier. All twelve exact-version inventories match independent
-source reconstruction. A survivor query-only check is running; its success and
-native exact-repeat remain **unverified**. This remains the fixed string-Record example with development
+source reconstruction. The survivor query-only check also passes: all 17 fields, including the v3
+Unicode caption and exact microseconds, match source reconstruction through
+object-table version 5. Original 27 mutation receipts and all three checkpoints
+remain unchanged. Native exact-repeat and deleted-object point lookup remain
+**unverified**; complete inventories already verify the deletion. This remains the fixed string-Record example with development
 IDs; broader schemas and actual Truss still require implementation.
 
 
