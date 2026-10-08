@@ -1,0 +1,84 @@
+{
+  "state": "passed",
+  "original_native_receipts_sha256": "9821f1ce5f22b7b47d2048cc347fef615760ea2d33c1a90d743dd3def0abfd49",
+  "profile": {
+    "identity": "ashlar-private-sql-reader/0.1",
+    "reader_versions": [
+      3
+    ],
+    "writer_versions": [
+      7
+    ],
+    "features": [
+      "appendOnly",
+      "clustering",
+      "deletionVectors",
+      "domainMetadata",
+      "invariants",
+      "rowTracking",
+      "v2Checkpoint"
+    ]
+  },
+  "observations": {
+    "DESCRIBE DETAIL `ashlar_e2e_private_20261008`.`runtime`.`object_current`": {
+      "uuid": "3e82843f-4afb-4d57-ad02-680033a0cb55",
+      "profile": "ashlar-private-sql-reader/0.1",
+      "reader_version": 3,
+      "writer_version": 7,
+      "features": [
+        "appendOnly",
+        "clustering",
+        "deletionVectors",
+        "domainMetadata",
+        "invariants",
+        "rowTracking",
+        "v2Checkpoint"
+      ]
+    },
+    "DESCRIBE DETAIL `ashlar_e2e_private_20261008`.`runtime`.`edge_current`": {
+      "uuid": "c32c5515-09d1-4b43-831e-47048b8b9d81",
+      "profile": "ashlar-private-sql-reader/0.1",
+      "reader_version": 3,
+      "writer_version": 7,
+      "features": [
+        "appendOnly",
+        "clustering",
+        "deletionVectors",
+        "domainMetadata",
+        "invariants",
+        "rowTracking",
+        "v2Checkpoint"
+      ]
+    },
+    "DESCRIBE DETAIL `ashlar_e2e_private_20261008`.`runtime`.`tombstone`": {
+      "uuid": "747c6fa6-fea3-4089-b107-b2e6348c1b6b",
+      "profile": "ashlar-private-sql-reader/0.1",
+      "reader_version": 3,
+      "writer_version": 7,
+      "features": [
+        "appendOnly",
+        "clustering",
+        "deletionVectors",
+        "domainMetadata",
+        "invariants",
+        "rowTracking",
+        "v2Checkpoint"
+      ]
+    },
+    "DESCRIBE DETAIL `ashlar_e2e_private_20261008`.`runtime`.`whole_source_history`": {
+      "uuid": "1085eb20-2d78-479a-ac08-0c6540d0162f",
+      "profile": "ashlar-private-sql-reader/0.1",
+      "reader_version": 3,
+      "writer_version": 7,
+      "features": [
+        "appendOnly",
+        "deletionVectors",
+        "domainMetadata",
+        "invariants",
+        "rowTracking",
+        "v2Checkpoint"
+      ]
+    }
+  },
+  "qualification": "Explicit conservative SQL reader profile correspondence against four archived original native protocol observations and their separately retained successful exact-snapshot reads. Not a fresh observation, custom Delta file-reader compatibility, retained file availability, active pins or publication admission."
+}

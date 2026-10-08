@@ -921,3 +921,22 @@ identity/digest/profile. No native/cloud workload ran. CONTRACT-001 records the
 handoff: backend descriptor progress/ACK admission must bind this original native
 checkpoint; the new carrier grants no authority by itself. Qualified native
 publisher/retention/read and Truss producer remain required for the full goal.
+
+## Explicit SQL reader protocol boundary — 2026-10-08
+
+ReaderProtocolProfile now requires explicit recognized reader/writer versions and
+advertised table features. validate_protocol_detail refuses changed UUID/format,
+unknown/noncanonical/numeric-alias versions, missing/malformed/duplicate feature
+inventories and every unrecognized advertised feature. inspect_protocol provides
+a fresh authenticated DESCRIBE DETAIL observation through the required executor;
+no default compatible profile is inferred. The conservative table-level boundary
+recognizes writer features too, avoiding a guess that unknown features are harmless.
+
+Four original native observations from the full local-fixture parity receipts
+match the explicitly selected reader3/writer7/seven-feature candidate SQL-reader
+profile. Those same original receipts include successful exact-version full reads.
+All135 local checks pass. Evidence: SPIKE-001-table-layout/out/local/reader_protocol_20261008.
+No fresh native/cloud query ran; this evidence is archived correspondence only,
+not a custom Delta file-reader claim, retained availability/pins or complete
+publication admission. Snapshot/file/schema/authority checks remain independent
+mandatory native policy obligations; the full goal remains unfinished.

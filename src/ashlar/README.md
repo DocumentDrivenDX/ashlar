@@ -400,3 +400,13 @@ never grants source ACK. Advance a durable source checkpoint only after the
 publisher independently binds the original group interval to a committed descriptor.
 The event profile must be ashlar-whole-entity/0.1; opaque events or Truss property
 journals require their own semantic adapter and cannot be relabelled.
+
+
+protocol.ReaderProtocolProfile supplies explicit conservative SQL-reader protocol
+recognition. validate_protocol_detail checks the exact original table UUID, delta
+format, canonical reader/writer versions and complete advertised feature inventory.
+inspect_protocol performs a fresh authenticated native observation. Unknown
+features or versions refuse; the library supplies no permissive profile. Qualify
+the host SQL engine independently for the chosen feature set. This table-level
+observation neither proves pinned files remain available nor replaces schema,
+active pin, descriptor and authorization checks in NativeBackend.Policy.
