@@ -55,6 +55,63 @@ def exact_expected(rows):
     return result
 
 
+def exact_decimal_coefficient(text,facets):
+    """Exact equality at authored scale, with every original lexical string retained."""
+    import re
+    if (type(text)is not str or len(text)>128 or not re.fullmatch('-?[0-9]+(?:\.[0-9]+)?',text)
+        or type(facets)is not dict or set(facets)!={'precision','scale'}
+        or type(facets['precision'])is not int or type(facets['scale'])is not int
+        or not 1<=facets['precision']<=38 or not 0<=facets['scale']<=facets['precision']):
+        raise ValueError('Exact original fixed Decimal descriptor/text required')
+    whole,_,fraction=text.lstrip('-').partition('.')
+    scale=facets['scale']
+    if any(digit!='0'for digit in fraction[scale:]):
+        raise ValueError('Decimal cannot be represented exactly at authored scale')
+    digits=whole+fraction[:scale]+'0'*max(0,scale-len(fraction))
+    if len(digits.lstrip('0')or'0')>facets['precision']:
+        raise ValueError('Decimal exceeds original authored precision')
+    return (-1 if text.startswith('-')else 1)*int(digits)
+
+
+def compare_original_bag(artifact,actual,expected):
+    """Compare only known optional Decimal values numerically; keep both raw bags.
+
+    Decimal18,2 text 0.1 and 0.10 represent the same exact coefficient. Source
+    tokens are never rewritten; signed-zero lexical custody remains explicit
+    even though the declared mathematical Decimal equality equates zero signs.
+    Every other scalar/state and every row occurrence remain exact.
+    """
+    columns=artifact['columns'];decimal={}
+    for position,column in enumerate(columns):
+        rep=column['representation']
+        if rep.get('kind')!='value':continue
+        descriptors=[d for d in artifact['logicalPlan']['typeGraph']if d['identity']==rep['descriptor']]
+        if len(descriptors)!=1 or rep.get('nativeNull')is not True:raise ValueError('Exact optional descriptor required')
+        descriptor=descriptors[0]
+        if descriptor['type']['family']=='decimal':
+            if descriptor['availability']!='absent-allowed' or descriptor['kind']!='scalar' or descriptor['type']['nullable']is not False:
+                raise ValueError('Original optional ideal Decimal required')
+            exact_decimal_coefficient('0',descriptor['type']['facets'])
+            decimal[position]=descriptor
+    def bag(rows):
+        if type(rows)is not list or any(type(row)is not list or len(row)!=len(columns)for row in rows):raise ValueError('Complete original row/cell bag required')
+        result=[];witness=[]
+        for ordinal,row in enumerate(rows):
+            normalized=list(row)
+            for position,descriptor in decimal.items():
+                cell=row[position]
+                if type(cell)is not dict or cell.get('state')not in ('null','value') or set(cell)!=({'state'}if cell.get('state')=='null'else{'state','value'}):raise ValueError('Exact original optional state required')
+                if cell['state']=='value':
+                    coefficient=exact_decimal_coefficient(cell['value'],descriptor['type']['facets'])
+                    normalized[position]={'state':'value','exactDecimalCoefficient':str(coefficient),'declaredScale':descriptor['type']['facets']['scale']}
+                    witness.append({'rowOrdinal':ordinal,'columnPosition':position+1,'originalLexicalText':cell['value'],'originalDescriptor':descriptor,'exactCoefficient':str(coefficient)})
+            result.append(normalized)
+        return result,witness
+    actual_values,actual_witness=bag(actual);expected_values,expected_witness=bag(expected)
+    equal=sorted(map(encoded,actual_values))==sorted(map(encoded,expected_values))
+    return {'exactBagEqual':equal,'actualExactCoefficientWitnesses':actual_witness,'originalGraphExactCoefficientWitnesses':expected_witness}
+
+
 def run(publications,output,jars,compiler,source_guard,umf):
     from run_local_weft_typed_spark4 import JAR_SHA
     from pyspark.sql import SparkSession
@@ -96,8 +153,9 @@ def run(publications,output,jars,compiler,source_guard,umf):
                     result=execute_guarded(provider,request,artifact,context=context,public_source=lambda r,a,c:admit_public_source(source_guard,umf,r,a,c),positioned_outputs=positioned,native_null=True)
                     result['closed_interval_custody']=provider.closed_interval_custody(context)
                     rows=decode_rows(artifact,result['rows'],positioned=positioned,native_schema=result.get('native_schema'),ordered_rows=result.get('ordered_rows'),native_null=True);expected=tagged_expected(case['original_graph_expected'],artifact)
-                    if sorted(rows,key=encoded)!=sorted(expected,key=encoded):raise ValueError('Independent original graph bag differs: '+original['id'])
-                    queries.append({'case':case,'result':result,'exact_text_rows':rows,'independent_expected_text':expected})
+                    comparison=compare_original_bag(artifact,rows,expected)
+                    if not comparison['exactBagEqual']:raise ValueError('Independent original graph bag differs: '+encoded({'case':original['id'],'actualTaggedRows':rows,'expectedOriginalGraphRows':expected,'originalColumns':artifact['columns'],'originalTypeGraph':artifact['logicalPlan']['typeGraph']}))
+                    queries.append({'case':case,'result':result,'exact_text_rows':rows,'independent_expected_text':expected,'exact_logical_value_comparison':comparison})
                     prefix=pack+'-'+original['id'];pending[prefix+'-request.json']=encoded(request)+'\n';pending[prefix+'-artifact.json']=encoded(artifact)+'\n'
                 if {q['case']['original_scenario']['id']for q in queries}!=set(CASES[pack]):raise ValueError('Complete named native field corpus required')
                 # Separately authored control: incorrect schema selection must
