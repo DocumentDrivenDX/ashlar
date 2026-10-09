@@ -108,3 +108,18 @@ not accepted Truss catalog identities. Retained payloads preserve each original
 row and the model/graph hashes. Run the public dataset admission above separately;
 a complete source transaction still requires trusted source authority, schema
 binding, writer fencing and publication admission before ingestion or ACK.
+
+## Every pinned pack model
+
+Run the public document validator over every original ontology in the inventory:
+
+```sh
+bun tools/check_domain_pack_models.ts /path/to/clean/umf-c7c95e1c \
+  /path/to/umf-containing-1f7b5f5 /tmp/ashlar-pack-model-results-new.json
+```
+
+The consumer reads exact pinned Git objects, checks their inventory hashes, and
+retains the original model bytes with each public result. Packs without a declared
+UMF ontology get an explicit absence result. Document validation establishes
+model semantics only; Record values, finite datasets, storage bindings, ingestion
+and engine queries require separate admission and execution.
