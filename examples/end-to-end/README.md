@@ -1004,7 +1004,7 @@ source switching must not clear existing tables/phases or manufacture new epochs
 Broader source/schema support and actual Truss remain required for the full goal.
 
 
-## Stored schema-evolution source (native verification pending)
+## Stored schema-evolution source (scoped native verification)
 
 The source runner now accepts `--source evolution --limit 3` for
 `schema-evolution-source.jsonl`: revision-1 creates, an explicitly admitted
@@ -1058,7 +1058,7 @@ that the helper no longer assumes the example IDs. It does not qualify arbitrary
 schemas or accepted Truss IDs, and the native runner still selects its documented
 fixed sources. The helper does not write graph data or acknowledge a source.
 
-## Weft query engine integration (host execution pending)
+## Weft query engine integration (qualified string/presence execution)
 
 The pinned Weft source build uses commit
 2744531735c2a771fbe7ed24a7f67e3afc851b25 and explicit feature
@@ -1074,17 +1074,18 @@ pin is the retained full owner v0.3 design SQL. Compilation of
 passes, with original model bytes and exact table versions. It returns compiler
 SQL, parameters, result descriptors and mandatory obligations; it does not execute.
 
-The next host layer must admit the exact engine/settings/build, enforce caller
-policy and every integrity check, decode exact results and hold/recheck the
-immutable publication before releasing buffered rows. Native Weft query execution
-has not yet been demonstrated. Existing singleton workflow remains available.
+The host admits the exact engine/settings/build, enforces caller policy and
+scalar integrity checks, decodes string/presence results, and rechecks the
+immutable publication before releasing buffered rows. The configured native
+workflow below demonstrates this selected path. Existing singleton workflow
+remains available; broader result and obligation families remain unsupported.
 
 The core `ashlar.weft_query.read_weft` boundary now handles one pinned buffered
 read with mandatory trusted host policies and scalar-integrity/native-profile
 obligations. `CompiledWeftTransport` executes its exact compiler statements,
 including WITH. `decode_string_column` supports exact selected string scalars
-and explicit absent/value envelopes. Local boundary/refusal checks pass; concrete
-native policy/profile verification and execution remain pending. Wider numeric,
+and explicit absent/value envelopes. Local boundary/refusal checks and the configured native policy/profile
+verification and execution below pass. Wider numeric,
 recursive, typed-column and relationship handlers must be added explicitly.
 
 ### Query a retained publication with Weft
@@ -1158,9 +1159,9 @@ are separate checks; raw intake is not native catalog acceptance.
 
 The first configured native transaction now passes at byte checkpoint `815`:
 two custom-bound objects and two original history records, with all four exact
-native inventories checked. Its nine original mutations succeeded. Later source
-transactions and native query remain separate pending checks; this first result
-does not prove the entire configured-source stream.
+native inventories checked. Its nine original mutations succeeded. This first result covered only the initial transaction. The complete
+three-publication stream, singleton, guarded Weft query and committed replay
+were subsequently verified, as recorded below.
 
 After installing the toolkit, the configuration inspection also runs directly:
 
