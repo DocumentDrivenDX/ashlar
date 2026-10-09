@@ -1,0 +1,17 @@
+{
+  "format": "ashlar-medical-installed-wheel/0.1",
+  "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+  "installed_module": "/private/tmp/ashlar-medical-cli-clean-20261009/lib/python3.11/site-packages/ashlar/__init__.py",
+  "wheel_sha256": "8784dc81ae76f3cef3f88bcc74554adc9e714c5db7d35c2322a35e7390a4cca3",
+  "outside_repository": true,
+  "pythonpath_absent": true,
+  "complete_original_candidate_parity": true,
+  "records": 113,
+  "properties": 48,
+  "existing_output_unchanged": true,
+  "prewrite_refusals": [
+    "--ontology",
+    "--graph",
+    "--public-admission"
+  ]
+}

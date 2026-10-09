@@ -28,7 +28,16 @@ def main():
         command=commands.add_parser(pack+'-source',help='Build an exact original '+pack+' candidate with development bindings')
         for name in ('ontology','graph','output','source-system'):
             command.add_argument('--'+name,required=True)
+    medical=commands.add_parser('medical-source',help='Build an exact historical medical candidate using explicit public admission')
+    for name in ('ontology','graph','public-admission','output','source-system'):
+        medical.add_argument('--'+name,required=True)
+    medical.add_argument('--binding-profile',required=True,choices=['ashlar-medical-development-bindings/0.2'])
     args = parser.parse_args()
+    if args.command=='medical-source':
+        from .medical_source import write_candidate
+        batch,_=write_candidate(args.ontology,args.graph,args.public_admission,args.output,source_system=args.source_system,binding_profile=args.binding_profile)
+        print('Created candidate historical medical transaction: '+str(len(batch.records))+' events; development bindings only; native host must recompute public admission')
+        return
     if args.command in ('archaeology-source','ecology-source'):
         if args.command=='archaeology-source':
             from .archaeology_source import write_candidate

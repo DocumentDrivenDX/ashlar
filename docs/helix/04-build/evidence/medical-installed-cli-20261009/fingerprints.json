@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "path": "src/ashlar/cli.py",
+      "sha256": "60dbabb7889e7b91a23773e8f5bf7c1cab117aef1e60d173e696a538e0626829"
+    },
+    {
+      "path": "tests/test_cli.py",
+      "sha256": "543324fc2175dddbe1b1af0c50625eeb9e0be185a2aaf07f1ebdf0e60ed67b1d"
+    },
+    {
+      "path": "README.md",
+      "sha256": "89fce31284046b578c8d3926c4e38b9956b6b333ccc99ae485574d5897549f14"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-installed-cli-20261009/README.md",
+      "sha256": "fb2932bdcaf8cc139a8cea3d5750c5b66b4e6e9424b28cdb30e53174fb2b637f"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-installed-cli-20261009/installed-wheel.json",
+      "sha256": "8c550176216e62adcb6db0db5bb82444c5bd75a7c9506a8cbaf88ab9b1cd8351"
+    }
+  ]
+}

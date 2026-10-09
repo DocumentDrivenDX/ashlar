@@ -10,6 +10,8 @@ components, local Delta ingest and protected PostgreSQL outbox ACK, and
 publication-bound commerce count, decimal/string and supplier-join queries.
 Original UMF0.8 admission, [four exact commerce arithmetic scenarios](docs/helix/04-build/evidence/commerce-arithmetic-weft-20261009/README.md),
 and Python/browser compiler parity have scoped local finite evidence.
+Original medical publication (51 objects, 62 edges, 113 history rows) and six
+publication-bound archaeology/ecology Weft field reads pass locally.
 Real Truss integration, Fabric GQL and the remaining domain/query corpus are
 unfinished. Native profiles and production authority require their own qualification.
 
@@ -34,6 +36,17 @@ Use `ashlar archaeology-source` or `ashlar ecology-source` with the same argumen
 and the matching original ontology and graph under `examples/domain-packs/`.
 They produce 85 and 94 events respectively, retaining original field values,
 nulls and relationships with explicit development bindings.
+
+Build the original historical medical candidate with its explicit reviewed public receipt:
+
+```sh
+ashlar medical-source --ontology examples/domain-packs/medical/historical/archive/schemas/ontology.json --graph examples/domain-packs/medical/upstream/graph/fixture.json --public-admission docs/helix/04-build/evidence/medical-historical-admission-20261009/public-receipt.json --source-system medical-example --binding-profile ashlar-medical-development-bindings/0.2 --output medical-candidate
+```
+
+This requires exact original input and receipt bytes, emits 113 events and 48
+development property bindings, and retains original Boolean tokens separately
+from typed values. Native hosts must recompute public admission before runtime
+acquisition; this command establishes no publication or ACK authority.
 
 Inspect an explicitly configured source with the installed command:
 

@@ -117,3 +117,34 @@ class AdditionalPackCLITests(unittest.TestCase):
                 refused=Path(directory)/'refused';command[command.index('--ontology')+1]=str(changed);command[command.index('--output')+1]=str(refused)
                 self.assertNotEqual(subprocess.run(command,capture_output=True,cwd=directory,env=env).returncode,0)
                 self.assertFalse(refused.exists())
+
+class MedicalCLITests(unittest.TestCase):
+    def test_explicit_receipt_original_sources_and_fresh_output_outside_repository(self):
+        import tempfile,os
+        from ashlar.medical_source import build_transaction
+        source=ROOT/'examples/domain-packs/medical/historical/archive/schemas/ontology.json'
+        graph=ROOT/'examples/domain-packs/medical/upstream/graph/fixture.json'
+        receipt=ROOT/'docs/helix/04-build/evidence/medical-historical-admission-20261009/public-receipt.json'
+        with tempfile.TemporaryDirectory() as directory:
+            env=dict(os.environ);env['PYTHONPATH']=str(ROOT/'src')
+            output=Path(directory)/'candidate'
+            command=[sys.executable,'-m','ashlar','medical-source','--ontology',str(source),'--graph',str(graph),'--public-admission',str(receipt),'--output',str(output),'--source-system','cli-medical','--binding-profile','ashlar-medical-development-bindings/0.2']
+            result=subprocess.run(command,capture_output=True,cwd=directory,env=env)
+            self.assertEqual(result.returncode,0,result.stderr)
+            batch,binding=build_transaction(source.read_bytes(),graph.read_bytes(),receipt.read_bytes(),source_system='cli-medical')
+            self.assertEqual(len(batch.records),113)
+            self.assertEqual((output/'source.jsonl').read_bytes(),batch.begin+b''.join(r.raw for r in batch.records)+batch.commit)
+            self.assertEqual(json.loads((output/'bindings.json').read_bytes()),binding)
+            originals={p.name:p.read_bytes() for p in output.iterdir()}
+            self.assertNotEqual(subprocess.run(command,capture_output=True,cwd=directory,env=env).returncode,0)
+            self.assertEqual({p.name:p.read_bytes() for p in output.iterdir()},originals)
+            for argument,original in [('--ontology',source),('--graph',graph),('--public-admission',receipt)]:
+                changed=Path(directory)/('changed-'+argument[2:]+'.json');changed.write_bytes(original.read_bytes()+b' ')
+                refused=Path(directory)/('refused-'+argument[2:])
+                invalid=list(command);invalid[invalid.index(argument)+1]=str(changed);invalid[invalid.index('--output')+1]=str(refused)
+                result=subprocess.run(invalid,capture_output=True,cwd=directory,env=env)
+                self.assertNotEqual(result.returncode,0);self.assertEqual(result.stdout,b'');self.assertFalse(refused.exists())
+            invalid=list(command);invalid[invalid.index('--binding-profile')+1]='unknown'
+            invalid[invalid.index('--output')+1]=str(Path(directory)/'unknown-binding')
+            self.assertNotEqual(subprocess.run(invalid,capture_output=True,cwd=directory,env=env).returncode,0)
+            self.assertFalse((Path(directory)/'unknown-binding').exists())
