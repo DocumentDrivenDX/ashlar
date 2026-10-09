@@ -11,13 +11,16 @@ class Tests(unittest.TestCase):
         batch,binding=build_transaction(self.source,self.graph,source_system='commerce-fixture')
         changes=changes_from_batch(batch);self.assertEqual(len(changes),21)
         original=json.loads(self.graph);objects=original['objects'];edges=original['edges']
+        by_property={b['property_id']:b['identity'][2] for b in binding['properties']}
+        self.assertEqual(len(by_property),len(binding['properties']))
+        self.assertTrue(all(str(int(key))==key and 0<int(key)<2**63 for key in by_property))
         by_original={b['originalKey']:c.state.key for b,c in zip(binding['entities'],changes)}
         for row,change in zip(objects+edges,changes):
             self.assertEqual(json.loads(change.state.retained_json)['original'],row)
             if 'values' in row:
                 props=json.loads(change.state.props_json,parse_float=Decimal)
                 for key,value in props.items():
-                    self.assertEqual(str(value),row['values'][key])
+                    self.assertEqual(str(value),row['values'][by_property[key]])
             else:self.assertEqual(change.state.endpoints,tuple(by_original[row[k]] for k in ('source','target')))
     def test_deterministic_complete_transaction_and_source_isolation(self):
         a,ab=build_transaction(self.source,self.graph,source_system='A')
@@ -47,3 +50,11 @@ class Tests(unittest.TestCase):
         self.assertEqual(state,again);self.assertEqual(replay,[])
         history=json.loads(next(step['parameters']['rows'] for step in steps if 'whole_source_history' in step['statement']))
         self.assertEqual(len(history),21)
+
+    def test_legacy_named_property_fixture_is_explicit_and_original_rows_remain_equal(self):
+        current,binding=build_transaction(self.source,self.graph,source_system='A')
+        old,legacy=build_transaction(self.source,self.graph,source_system='A',binding_profile='ashlar-commerce-development-bindings/0.1')
+        self.assertNotIn('properties',legacy)
+        self.assertEqual([json.loads(r.raw)['retained_json'].split('"original":',1)[1] for r in current.records],
+                         [json.loads(r.raw)['retained_json'].split('"original":',1)[1] for r in old.records])
+        with self.assertRaises(ValueError):build_transaction(self.source,self.graph,source_system='A',binding_profile='unknown')

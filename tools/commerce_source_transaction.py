@@ -18,13 +18,16 @@ def encode(value):
     return json.dumps(value,ensure_ascii=False,separators=(',',':'))
 
 
-def build_transaction(source_bytes,graph_bytes,*,source_system):
+def build_transaction(source_bytes,graph_bytes,*,source_system,binding_profile='ashlar-commerce-development-bindings/0.2'):
+    if binding_profile not in ('ashlar-commerce-development-bindings/0.1','ashlar-commerce-development-bindings/0.2'):
+        raise ValueError('Explicit supported development binding profile required')
     if not isinstance(source_system,str) or not source_system or '\x00' in source_system:
         raise ValueError('Explicit development source namespace required')
     if hashlib.sha256(source_bytes).hexdigest()!=SOURCE_SHA or hashlib.sha256(graph_bytes).hexdigest()!=GRAPH_SHA:
         raise ValueError('Exact original commerce bytes required')
     source=json.loads(source_bytes);graph=json.loads(graph_bytes)
     elements={(m['id'],e['id']):e for m in source['modules'] for e in m['elements']}
+    field_ids={identity:str(i+1) for i,identity in enumerate(sorted(k for k,e in elements.items() if e['kind']=='field'))}
     identities=sorted({('object',o['type']['module'],o['type']['element']) for o in graph['objects']}|
                       {('edge',e['relationship']['module'],e['relationship']['id']) for e in graph['edges']})
     types={identity:str(i+1) for i,identity in enumerate(identities)}
@@ -47,12 +50,13 @@ def build_transaction(source_bytes,graph_bytes,*,source_system):
                     elif family=='integer' and re.fullmatch(r'-?(?:0|[1-9][0-9]*)',token):value=token
                     elif family=='decimal' and re.fullmatch(r'-?(?:0|[1-9][0-9]*)(?:\.[0-9]+)?',token):value=token
                     else:raise ValueError('Source token lacks exact JSON carrier')
-                    fields.append(encode(ref['element'])+':'+value)
+                    property_id=field_ids[(ref['module'],ref['element'])] if binding_profile.endswith('/0.2') else ref['element']
+                    fields.append(encode(property_id)+':'+value)
             event={'kind':'event','delivery_id':kind+':'+str(i+1),'source_profile':'ashlar-whole-entity/0.1',
                    'source_system':source_system,'entity_kind':kind,'type_id':type_id,'id':entity_id,
                    'entity_version':'1','schema_revision':SOURCE_SHA,'operation':'create',
                    'props_json':'{'+','.join(fields)+'}',
-                   'retained_json':encode({'profile':'ashlar-commerce-development-bindings/0.1',
+                   'retained_json':encode({'profile':binding_profile,
                                           'sourceSha256':SOURCE_SHA,'graphSha256':GRAPH_SHA,'original':row})}
             if kind=='edge':event['endpoints']=[dict(zip(('type_id','id'),objects[row[end]])) for end in ('source','target')]
             events.append((encode(event)+'\n').encode())
@@ -62,17 +66,20 @@ def build_transaction(source_bytes,graph_bytes,*,source_system):
     commit=(encode({'kind':'commit','batch_id':batch_id,'record_count':len(events),'records_sha256':records_digest(events)})+'\n').encode()
     lines=(begin,*events,commit)
     batch,=jsonl_batches(lines,feed=source_system,epoch='original-commerce-v1')
-    return batch,{'profile':'ashlar-commerce-development-bindings/0.1','types':[{'identity':list(k),'type_id':v} for k,v in types.items()],
+    binding={'profile':binding_profile,'types':[{'identity':list(k),'type_id':v} for k,v in types.items()],
                   'entities':bindings,'qualification':'Candidate source transaction only; no accepted catalog IDs, semantic admission, publication or ACK authority.'}
+    if binding_profile.endswith('/0.2'):binding['properties']=[{'identity':[source['id'],module,element],'property_id':identity} for (module,element),identity in field_ids.items()]
+    return batch,binding
 
 
 def main():
     import argparse
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--source-system',required=True)
+    parser.add_argument('--binding-profile',choices=['ashlar-commerce-development-bindings/0.1','ashlar-commerce-development-bindings/0.2'],default='ashlar-commerce-development-bindings/0.2')
     parser.add_argument('--output',type=Path,required=True,help='Fresh candidate fixture directory')
     args=parser.parse_args()
-    batch,binding=build_transaction((ROOT/'ontology.json').read_bytes(),(ROOT/'graph/fixture.json').read_bytes(),source_system=args.source_system)
+    batch,binding=build_transaction((ROOT/'ontology.json').read_bytes(),(ROOT/'graph/fixture.json').read_bytes(),source_system=args.source_system,binding_profile=args.binding_profile)
     args.output.mkdir(parents=False,exist_ok=False)
     (args.output/'source.jsonl').write_bytes(batch.begin+b''.join(r.raw for r in batch.records)+batch.commit)
     (args.output/'bindings.json').write_text(encode(binding)+'\n',encoding='utf-8')

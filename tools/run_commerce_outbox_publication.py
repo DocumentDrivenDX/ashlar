@@ -44,7 +44,7 @@ class CommerceAdmission:
         expected_edges={r['key']:(r['source'],r['target']) for r in graph['edges']}
         actual_edges={r['instanceId']:(r['sourceInstanceId'],r['targetInstanceId']) for r in receipt['relationships']}
         if len(receipt['relationships'])!=len(expected_edges) or actual_edges!=expected_edges:raise PermissionError('Original public relationship occurrence endpoints differ')
-        rebuilt,expected_bindings=build_transaction(model_bytes,graph_bytes,source_system=batch.feed)
+        rebuilt,expected_bindings=build_transaction(model_bytes,graph_bytes,source_system=batch.feed,binding_profile=bindings['profile'])
         if rebuilt!=batch or expected_bindings!=bindings or any(c.operation!='create' or c.state.schema_revision!=SOURCE_SHA for c in self.changes):raise PermissionError('Original fresh development source projection differs')
         self.facts={'profile':'ashlar-original-commerce-public-dataset-admission/0.1','qualification':__doc__,'umf_revision':UMF_PIN,'declared_umf':'0.8.0','source_sha256':SOURCE_SHA,'graph_sha256':GRAPH_SHA,
                     'public_receipt_sha256':hashlib.sha256(receipt_bytes).hexdigest(),'public_receipt_path':str(paths[3]),'public_provenance':receipt['provenance'],'dataset_validation':receipt['datasetValidation'],'finite_scope':receipt['input']['scope'],'receipt_scope':receipt['scope'],
@@ -67,6 +67,10 @@ def original_commerce_oracle(model_bytes,graph_bytes,bindings,batch,columns):
     """
     if hashlib.sha256(model_bytes).hexdigest()!=SOURCE_SHA or hashlib.sha256(graph_bytes).hexdigest()!=GRAPH_SHA:raise ValueError('Exact original oracle bytes required')
     model=json.loads(model_bytes);graph=json.loads(graph_bytes);elements={(m['id'],e['id']):e for m in model['modules'] for e in m['elements']}
+    if bindings['profile']=='ashlar-commerce-development-bindings/0.2':
+        properties=bindings['properties'];expected_fields={(model['id'],m,e) for (m,e),field in elements.items() if field['kind']=='field'}
+        if len(properties)!=len(expected_fields) or {tuple(p['identity']) for p in properties}!=expected_fields or len({p['property_id'] for p in properties})!=len(properties) or any(str(int(p['property_id']))!=p['property_id'] or not 0<int(p['property_id'])<2**63 for p in properties):raise ValueError('Injective complete canonical development Field binding required')
+    elif bindings['profile']!='ashlar-commerce-development-bindings/0.1':raise ValueError('Unknown development binding profile')
     assigned={(b['kind'],b['originalKey']):b for b in bindings['entities']}
     if len(assigned)!=21 or {(k,key) for k,key in assigned}!={('object',o['key']) for o in graph['objects']}|{('edge',e['key']) for e in graph['edges']}:raise ValueError('Injective complete original binding inventory required')
     if len({(b['kind'],b['type_id'],b['id']) for b in bindings['entities']})!=21:raise ValueError('Distinct development carrier identities required')
@@ -83,9 +87,14 @@ def original_commerce_oracle(model_bytes,graph_bytes,bindings,batch,columns):
                 record=elements[(original['type']['module'],original['type']['element'])]
                 for ref in record['members']:
                     field=elements[(ref['module'],ref['element'])];lexical=original['values'][ref['element']]
-                    props.append(text(ref['element'])+':'+(text(lexical) if field['scalarType']=='string' else lexical))
+                    property_key=ref['element']
+                    if bindings['profile']=='ashlar-commerce-development-bindings/0.2':
+                        candidates=[p for p in bindings['properties'] if p['identity']==[model['id'],ref['module'],ref['element']]]
+                        if len(candidates)!=1:raise ValueError('Exact original qualified Field binding required')
+                        property_key=candidates[0]['property_id']
+                    props.append(text(property_key)+':'+(text(lexical) if field['scalarType']=='string' else lexical))
             props_json='{'+','.join(props)+'}'
-            retained=text({'profile':'ashlar-commerce-development-bindings/0.1','sourceSha256':SOURCE_SHA,'graphSha256':GRAPH_SHA,'original':original})
+            retained=text({'profile':bindings['profile'],'sourceSha256':SOURCE_SHA,'graphSha256':GRAPH_SHA,'original':original})
             delivery=kind+':'+str(ordinal);raw=original_records[delivery]
             row={name:None for name,_ in columns[role]};row.update({k:str(v) for k,v in identity.items()})
             row.update(schema_revision=SOURCE_SHA,entity_version='1',props_json=props_json,retained_json=retained,source_feed=batch.feed,source_epoch=batch.epoch,source_cursor_json=cursor,source_delivery_id=delivery,published_at=stamp,lookup_hash=hashlib.sha256(text(identity).encode()).hexdigest(),apply_batch_id=batch.batch_id)

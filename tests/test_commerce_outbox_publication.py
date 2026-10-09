@@ -27,6 +27,14 @@ class Tests(unittest.TestCase):
         admission.admit(admission.changes[0])
         changed=replace(admission.changes[0],state=replace(admission.changes[0].state,props_json='{"forged":true}'))
         with self.assertRaises(PermissionError):admission.admit(changed)
+    def test_legacy_named_profile_and_numeric_field_mapping_are_distinct(self):
+        legacy,bindings=build_transaction(self.model,self.graph,source_system=SOURCE_SYSTEM,binding_profile='ashlar-commerce-development-bindings/0.1')
+        original_commerce_oracle(self.model,self.graph,bindings,legacy,fixture_columns(ROOT))
+        self.assertNotIn('properties',bindings)
+        self.assertEqual({p['identity'][2] for p in self.bindings['properties']},{e['id'] for m in json.loads(self.model)['modules'] for e in m['elements'] if e['kind']=='field'})
+        broken=json.loads(encoded(self.bindings));broken['properties'][1]['property_id']=broken['properties'][0]['property_id']
+        with self.assertRaises(ValueError):original_commerce_oracle(self.model,self.graph,broken,self.batch,fixture_columns(ROOT))
+
     def test_changed_custody_or_incomplete_dataset_refuses(self):
         admission,paths=self.admission();paths[3].write_bytes(paths[3].read_bytes()+b' ')
         with self.assertRaises(PermissionError):admission.metadata()
@@ -37,7 +45,8 @@ class Tests(unittest.TestCase):
         graph=json.loads(self.graph);assigned={(b['kind'],b['originalKey']):b for b in self.bindings['entities']}
         for original,row in zip(graph['objects'],oracle['object_current']):
             props=json.loads(row['props_json'],parse_float=Decimal)
-            self.assertEqual({k:str(v) for k,v in props.items()},original['values'])
+            inverse={p['property_id']:p['identity'][2] for p in self.bindings['properties']}
+            self.assertEqual({inverse[k]:str(v) for k,v in props.items()},original['values'])
             self.assertEqual(json.loads(row['retained_json'])['original'],original)
         for original,row in zip(graph['edges'],oracle['edge_current']):
             source=assigned[('object',original['source'])];target=assigned[('object',original['target'])]
