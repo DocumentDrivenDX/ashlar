@@ -1,0 +1,1724 @@
+{
+  "format": "ashlar-original-archaeology-graph-oracle/0.1",
+  "source_sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+  "graph_sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52",
+  "objects": [
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"projects\",[\"[42,0,\\\"P1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "projects"
+      },
+      "values": {
+        "projects.id": "[42,0,\"P1\"]",
+        "projects.name": "Synthetic excavation; not Madaba Plains records"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"sites\",[\"[42,0,\\\"S1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "sites"
+      },
+      "values": {
+        "sites.id": "[42,0,\"S1\"]",
+        "sites.project_id": "[42,0,\"P1\"]",
+        "sites.name": "Synthetic tell"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"seasons\",[\"[42,0,\\\"SE1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "seasons"
+      },
+      "values": {
+        "seasons.id": "[42,0,\"SE1\"]",
+        "seasons.site_id": "[42,0,\"S1\"]",
+        "seasons.excavation_year": "2026"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"areas\",[\"[42,0,\\\"A1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "areas"
+      },
+      "values": {
+        "areas.id": "[42,0,\"A1\"]",
+        "areas.season_id": "[42,0,\"SE1\"]",
+        "areas.native_code": "Field A"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"squares\",[\"[42,0,\\\"SQ1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "squares"
+      },
+      "values": {
+        "squares.id": "[42,0,\"SQ1\"]",
+        "squares.area_id": "[42,0,\"A1\"]",
+        "squares.native_code": "1",
+        "squares.grid": "local-excavation-grid",
+        "squares.datum": "local-datum"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "contexts"
+      },
+      "values": {
+        "contexts.id": "[42,0,\"C1\"]",
+        "contexts.square_id": "[42,0,\"SQ1\"]",
+        "contexts.native_locus": "1",
+        "contexts.material": "soil"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "contexts"
+      },
+      "values": {
+        "contexts.id": "[42,0,\"C2\"]",
+        "contexts.square_id": "[42,0,\"SQ1\"]",
+        "contexts.native_locus": "2",
+        "contexts.material": "fill"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"excavation_activities\",[\"[42,0,\\\"EA1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "excavation_activities"
+      },
+      "values": {
+        "excavation_activities.id": "[42,0,\"EA1\"]",
+        "excavation_activities.context_id": "[42,0,\"C1\"]",
+        "excavation_activities.recorded_at": "2026-01-01",
+        "excavation_activities.action": "excavate"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_assertions\",[\"[42,0,\\\"ST1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "stratigraphic_assertions"
+      },
+      "values": {
+        "stratigraphic_assertions.id": "[42,0,\"ST1\"]",
+        "stratigraphic_assertions.source_context_id": "[42,0,\"C1\"]",
+        "stratigraphic_assertions.target_context_id": "[42,0,\"C2\"]",
+        "stratigraphic_assertions.relation": "above",
+        "stratigraphic_assertions.author": "Synthetic analyst",
+        "stratigraphic_assertions.evidence": "field-sheet-1",
+        "stratigraphic_assertions.status": "observed"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_assertions\",[\"[42,0,\\\"ST2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "stratigraphic_assertions"
+      },
+      "values": {
+        "stratigraphic_assertions.id": "[42,0,\"ST2\"]",
+        "stratigraphic_assertions.source_context_id": "[42,0,\"C2\"]",
+        "stratigraphic_assertions.target_context_id": "[42,0,\"C1\"]",
+        "stratigraphic_assertions.relation": "above",
+        "stratigraphic_assertions.author": "Synthetic analyst",
+        "stratigraphic_assertions.evidence": "field-sheet-2",
+        "stratigraphic_assertions.status": "disputed"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"find_lots\",[\"[42,0,\\\"FL1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "find_lots"
+      },
+      "values": {
+        "find_lots.id": "[42,0,\"FL1\"]",
+        "find_lots.context_id": "[42,0,\"C1\"]",
+        "find_lots.basket_code": "B1"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"objects\",[\"[42,0,\\\"O1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "objects"
+      },
+      "values": {
+        "objects.id": "[42,0,\"O1\"]",
+        "objects.lot_id": "[42,0,\"FL1\"]",
+        "objects.material": "pottery",
+        "objects.object_kind": "fragment"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"samples\",[\"[42,0,\\\"SA1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "samples"
+      },
+      "values": {
+        "samples.id": "[42,0,\"SA1\"]",
+        "samples.context_id": "[42,0,\"C1\"]",
+        "samples.material": "sediment",
+        "samples.parent_id": null
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"samples\",[\"[42,0,\\\"SA2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "samples"
+      },
+      "values": {
+        "samples.id": "[42,0,\"SA2\"]",
+        "samples.context_id": "[42,0,\"C1\"]",
+        "samples.material": "fauna",
+        "samples.parent_id": "[42,0,\"SA1\"]"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"analyses\",[\"[42,0,\\\"AN1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "analyses"
+      },
+      "values": {
+        "analyses.id": "[42,0,\"AN1\"]",
+        "analyses.sample_id": "[42,0,\"SA1\"]",
+        "analyses.method": "sieve",
+        "analyses.analyst": "Synthetic analyst"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"analyses\",[\"[42,0,\\\"AN2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "analyses"
+      },
+      "values": {
+        "analyses.id": "[42,0,\"AN2\"]",
+        "analyses.sample_id": "[42,0,\"SA2\"]",
+        "analyses.method": "visual-fauna",
+        "analyses.analyst": "Synthetic analyst"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"pottery_results\",[\"[42,0,\\\"PR1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "pottery_results"
+      },
+      "values": {
+        "pottery_results.id": "[42,0,\"PR1\"]",
+        "pottery_results.object_id": "[42,0,\"O1\"]",
+        "pottery_results.form": "bowl",
+        "pottery_results.fabric": "synthetic-fabric",
+        "pottery_results.sherd_count": "3",
+        "pottery_results.estimated_vessels": "1",
+        "pottery_results.weight": "2E+1",
+        "pottery_results.unit": "g"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"soil_results\",[\"[42,0,\\\"SR1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "soil_results"
+      },
+      "values": {
+        "soil_results.id": "[42,0,\"SR1\"]",
+        "soil_results.analysis_id": "[42,0,\"AN1\"]",
+        "soil_results.property": "sand_fraction",
+        "soil_results.value": "4E+1",
+        "soil_results.unit": "percent",
+        "soil_results.preparation": "dry-sieve"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"fauna_results\",[\"[42,0,\\\"FR1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "fauna_results"
+      },
+      "values": {
+        "fauna_results.id": "[42,0,\"FR1\"]",
+        "fauna_results.analysis_id": "[42,0,\"AN2\"]",
+        "fauna_results.taxon": "synthetic-ungulate",
+        "fauna_results.element": "bone",
+        "fauna_results.nisp": "5",
+        "fauna_results.mni": "2",
+        "fauna_results.method": "paired-elements"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"observations\",[\"[42,0,\\\"OB1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "observations"
+      },
+      "values": {
+        "observations.id": "[42,0,\"OB1\"]",
+        "observations.context_id": "[42,0,\"C1\"]",
+        "observations.property": "depth",
+        "observations.value": "1.20",
+        "observations.unit": "m"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations\",[\"[42,0,\\\"IT1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "interpretations"
+      },
+      "values": {
+        "interpretations.id": "[42,0,\"IT1\"]",
+        "interpretations.context_id": "[42,0,\"C1\"]",
+        "interpretations.phase": "phase-a",
+        "interpretations.earliest": "-800",
+        "interpretations.latest": "-700",
+        "interpretations.calendar": "proleptic-year-label",
+        "interpretations.author": "Author A",
+        "interpretations.evidence": "PR1",
+        "interpretations.basis": "pottery typology",
+        "interpretations.supersedes_id": null
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations\",[\"[42,0,\\\"IT2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "interpretations"
+      },
+      "values": {
+        "interpretations.id": "[42,0,\"IT2\"]",
+        "interpretations.context_id": "[42,0,\"C1\"]",
+        "interpretations.phase": "phase-b",
+        "interpretations.earliest": "-750",
+        "interpretations.latest": "-650",
+        "interpretations.calendar": "proleptic-year-label",
+        "interpretations.author": "Author B",
+        "interpretations.evidence": "FR1",
+        "interpretations.basis": "fauna assemblage",
+        "interpretations.supersedes_id": "[42,0,\"IT1\"]"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "assets"
+      },
+      "values": {
+        "assets.id": "[42,0,\"AS1\"]",
+        "assets.kind": "field-report",
+        "assets.reference": "assets/report.txt",
+        "assets.availability": "included",
+        "assets.caption": "Synthetic field report",
+        "assets.scale": "not-applicable",
+        "assets.orientation": "not-applicable",
+        "assets.source_id": "asset_report_txt",
+        "assets.revision": "1.0.0",
+        "assets.sha256": "197b6ad719c4b4af78ebecd1f97148e0662367d1cbaba25d37646bcccd6b4842"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "assets"
+      },
+      "values": {
+        "assets.id": "[42,0,\"AS2\"]",
+        "assets.kind": "photo",
+        "assets.reference": "assets/photo.svg",
+        "assets.availability": "included",
+        "assets.caption": "Synthetic illustration, not a photograph",
+        "assets.scale": "not-applicable",
+        "assets.orientation": "north",
+        "assets.source_id": "asset_photo_svg",
+        "assets.revision": "1.0.0",
+        "assets.sha256": "abb051a6748c1c8e630d42907d0e45856dd7d0112f18dbb94cdc836885e4a290"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS3\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "assets"
+      },
+      "values": {
+        "assets.id": "[42,0,\"AS3\"]",
+        "assets.kind": "map",
+        "assets.reference": "assets/map.svg",
+        "assets.availability": "included",
+        "assets.caption": "Synthetic map",
+        "assets.scale": "1:100",
+        "assets.orientation": "north",
+        "assets.source_id": "asset_map_svg",
+        "assets.revision": "1.0.0",
+        "assets.sha256": "f8c9edabbef94948863c787f236c85700f74cfca43f321e57bd48f5837c1a73a"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS4\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "assets"
+      },
+      "values": {
+        "assets.id": "[42,0,\"AS4\"]",
+        "assets.kind": "square-drawing",
+        "assets.reference": "assets/square.svg",
+        "assets.availability": "included",
+        "assets.caption": "Synthetic square plan",
+        "assets.scale": "1:20",
+        "assets.orientation": "north",
+        "assets.source_id": "asset_square_svg",
+        "assets.revision": "1.0.0",
+        "assets.sha256": "0b9240d4c6db480425dd004aa6b978221357917b2a69a1dcff601a88df59335f"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS5\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "assets"
+      },
+      "values": {
+        "assets.id": "[42,0,\"AS5\"]",
+        "assets.kind": "object-drawing",
+        "assets.reference": "assets/object.svg",
+        "assets.availability": "included",
+        "assets.caption": "Synthetic object drawing",
+        "assets.scale": "1:1",
+        "assets.orientation": "not-georeferenced",
+        "assets.source_id": "asset_object_svg",
+        "assets.revision": "1.0.0",
+        "assets.sha256": "f760b9b0d93e54f2785d956e32c4977bd5aadcec56bc07ce4fee42fd9d6840f9"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS6\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "assets"
+      },
+      "values": {
+        "assets.id": "[42,0,\"AS6\"]",
+        "assets.kind": "section-drawing",
+        "assets.reference": "https://example.invalid/section",
+        "assets.availability": "external",
+        "assets.caption": "Reference-only missing section",
+        "assets.scale": "unknown",
+        "assets.orientation": "unknown",
+        "assets.source_id": null,
+        "assets.revision": null,
+        "assets.sha256": null
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX4\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "asset_subjects"
+      },
+      "values": {
+        "asset_subjects.id": "[42,0,\"AX4\"]",
+        "asset_subjects.asset_id": "[42,0,\"AS1\"]",
+        "asset_subjects.context_id": "[42,0,\"C1\"]",
+        "asset_subjects.object_id": null,
+        "asset_subjects.region": "whole"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX5\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "asset_subjects"
+      },
+      "values": {
+        "asset_subjects.id": "[42,0,\"AX5\"]",
+        "asset_subjects.asset_id": "[42,0,\"AS2\"]",
+        "asset_subjects.context_id": "[42,0,\"C1\"]",
+        "asset_subjects.object_id": null,
+        "asset_subjects.region": "whole"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX6\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "asset_subjects"
+      },
+      "values": {
+        "asset_subjects.id": "[42,0,\"AX6\"]",
+        "asset_subjects.asset_id": "[42,0,\"AS3\"]",
+        "asset_subjects.context_id": "[42,0,\"C1\"]",
+        "asset_subjects.object_id": null,
+        "asset_subjects.region": "whole"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "asset_subjects"
+      },
+      "values": {
+        "asset_subjects.id": "[42,0,\"AX1\"]",
+        "asset_subjects.asset_id": "[42,0,\"AS4\"]",
+        "asset_subjects.context_id": "[42,0,\"C1\"]",
+        "asset_subjects.object_id": null,
+        "asset_subjects.region": "whole"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "asset_subjects"
+      },
+      "values": {
+        "asset_subjects.id": "[42,0,\"AX2\"]",
+        "asset_subjects.asset_id": "[42,0,\"AS4\"]",
+        "asset_subjects.context_id": "[42,0,\"C2\"]",
+        "asset_subjects.object_id": null,
+        "asset_subjects.region": "whole"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX3\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "asset_subjects"
+      },
+      "values": {
+        "asset_subjects.id": "[42,0,\"AX3\"]",
+        "asset_subjects.asset_id": "[42,0,\"AS5\"]",
+        "asset_subjects.context_id": null,
+        "asset_subjects.object_id": "[42,0,\"O1\"]",
+        "asset_subjects.region": "figure-1"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretation_evidence\",[\"[42,0,\\\"IE1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "interpretation_evidence"
+      },
+      "values": {
+        "interpretation_evidence.id": "[42,0,\"IE1\"]",
+        "interpretation_evidence.interpretation_id": "[42,0,\"IT1\"]",
+        "interpretation_evidence.pottery_result_id": "[42,0,\"PR1\"]",
+        "interpretation_evidence.fauna_result_id": null
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretation_evidence\",[\"[42,0,\\\"IE2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "interpretation_evidence"
+      },
+      "values": {
+        "interpretation_evidence.id": "[42,0,\"IE2\"]",
+        "interpretation_evidence.interpretation_id": "[42,0,\"IT2\"]",
+        "interpretation_evidence.pottery_result_id": null,
+        "interpretation_evidence.fauna_result_id": "[42,0,\"FR1\"]"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_evidence\",[\"[42,0,\\\"SEV1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "stratigraphic_evidence"
+      },
+      "values": {
+        "stratigraphic_evidence.id": "[42,0,\"SEV1\"]",
+        "stratigraphic_evidence.assertion_id": "[42,0,\"ST1\"]",
+        "stratigraphic_evidence.asset_id": "[42,0,\"AS1\"]"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_evidence\",[\"[42,0,\\\"SEV2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "stratigraphic_evidence"
+      },
+      "values": {
+        "stratigraphic_evidence.id": "[42,0,\"SEV2\"]",
+        "stratigraphic_evidence.assertion_id": "[42,0,\"ST2\"]",
+        "stratigraphic_evidence.asset_id": "[42,0,\"AS1\"]"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"provenance\",[\"[42,0,\\\"PV1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "element": "provenance"
+      },
+      "values": {
+        "provenance.id": "[42,0,\"PV1\"]",
+        "provenance.project_id": "[42,0,\"P1\"]",
+        "provenance.native_subject_id": "P1",
+        "provenance.publisher": "UMF synthetic fixture",
+        "provenance.native_reference": "fixture-only",
+        "provenance.transformation": "authored; no MPP rows"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"sites.project_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"sites\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"projects\\\",[\\\"[42,0,\\\\\\\"P1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "sites.project_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"sites\",[\"[42,0,\\\"S1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"projects\",[\"[42,0,\\\"P1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"seasons.site_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"seasons\\\",[\\\"[42,0,\\\\\\\"SE1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"sites\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "seasons.site_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"seasons\",[\"[42,0,\\\"SE1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"sites\",[\"[42,0,\\\"S1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"areas.season_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"areas\\\",[\\\"[42,0,\\\\\\\"A1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"seasons\\\",[\\\"[42,0,\\\\\\\"SE1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "areas.season_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"areas\",[\"[42,0,\\\"A1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"seasons\",[\"[42,0,\\\"SE1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"squares.area_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"squares\\\",[\\\"[42,0,\\\\\\\"SQ1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"areas\\\",[\\\"[42,0,\\\\\\\"A1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "squares.area_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"squares\",[\"[42,0,\\\"SQ1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"areas\",[\"[42,0,\\\"A1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts.square_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"squares\\\",[\\\"[42,0,\\\\\\\"SQ1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "contexts.square_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"squares\",[\"[42,0,\\\"SQ1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts.square_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"squares\\\",[\\\"[42,0,\\\\\\\"SQ1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "contexts.square_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"squares\",[\"[42,0,\\\"SQ1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"excavation_activities.context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"excavation_activities\\\",[\\\"[42,0,\\\\\\\"EA1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "excavation_activities.context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"excavation_activities\",[\"[42,0,\\\"EA1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_assertions.source_context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"stratigraphic_assertions\\\",[\\\"[42,0,\\\\\\\"ST1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "stratigraphic_assertions.source_context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_assertions\",[\"[42,0,\\\"ST1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_assertions.target_context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"stratigraphic_assertions\\\",[\\\"[42,0,\\\\\\\"ST1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "stratigraphic_assertions.target_context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_assertions\",[\"[42,0,\\\"ST1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_assertions.source_context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"stratigraphic_assertions\\\",[\\\"[42,0,\\\\\\\"ST2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "stratigraphic_assertions.source_context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_assertions\",[\"[42,0,\\\"ST2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_assertions.target_context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"stratigraphic_assertions\\\",[\\\"[42,0,\\\\\\\"ST2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "stratigraphic_assertions.target_context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_assertions\",[\"[42,0,\\\"ST2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"find_lots.context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"find_lots\\\",[\\\"[42,0,\\\\\\\"FL1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "find_lots.context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"find_lots\",[\"[42,0,\\\"FL1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"objects.lot_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"objects\\\",[\\\"[42,0,\\\\\\\"O1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"find_lots\\\",[\\\"[42,0,\\\\\\\"FL1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "objects.lot_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"objects\",[\"[42,0,\\\"O1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"find_lots\",[\"[42,0,\\\"FL1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"samples.context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "samples.context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"samples\",[\"[42,0,\\\"SA1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"samples.context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "samples.context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"samples\",[\"[42,0,\\\"SA2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"samples.parent_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "samples.parent_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"samples\",[\"[42,0,\\\"SA2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"samples\",[\"[42,0,\\\"SA1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"analyses.sample_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"analyses\\\",[\\\"[42,0,\\\\\\\"AN1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "analyses.sample_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"analyses\",[\"[42,0,\\\"AN1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"samples\",[\"[42,0,\\\"SA1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"analyses.sample_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"analyses\\\",[\\\"[42,0,\\\\\\\"AN2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "analyses.sample_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"analyses\",[\"[42,0,\\\"AN2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"samples\",[\"[42,0,\\\"SA2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"pottery_results.object_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"pottery_results\\\",[\\\"[42,0,\\\\\\\"PR1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"objects\\\",[\\\"[42,0,\\\\\\\"O1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "pottery_results.object_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"pottery_results\",[\"[42,0,\\\"PR1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"objects\",[\"[42,0,\\\"O1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"soil_results.analysis_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"soil_results\\\",[\\\"[42,0,\\\\\\\"SR1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"analyses\\\",[\\\"[42,0,\\\\\\\"AN1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "soil_results.analysis_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"soil_results\",[\"[42,0,\\\"SR1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"analyses\",[\"[42,0,\\\"AN1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"fauna_results.analysis_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"fauna_results\\\",[\\\"[42,0,\\\\\\\"FR1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"analyses\\\",[\\\"[42,0,\\\\\\\"AN2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "fauna_results.analysis_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"fauna_results\",[\"[42,0,\\\"FR1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"analyses\",[\"[42,0,\\\"AN2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"observations.context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"OB1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "observations.context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"observations\",[\"[42,0,\\\"OB1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations.context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"interpretations\\\",[\\\"[42,0,\\\\\\\"IT1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "interpretations.context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations\",[\"[42,0,\\\"IT1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations.context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"interpretations\\\",[\\\"[42,0,\\\\\\\"IT2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "interpretations.context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations\",[\"[42,0,\\\"IT2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations.supersedes_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"interpretations\\\",[\\\"[42,0,\\\\\\\"IT2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"interpretations\\\",[\\\"[42,0,\\\\\\\"IT1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "interpretations.supersedes_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations\",[\"[42,0,\\\"IT2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations\",[\"[42,0,\\\"IT1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects.asset_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"asset_subjects\\\",[\\\"[42,0,\\\\\\\"AX4\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"assets\\\",[\\\"[42,0,\\\\\\\"AS1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "asset_subjects.asset_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX4\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects.context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"asset_subjects\\\",[\\\"[42,0,\\\\\\\"AX4\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "asset_subjects.context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX4\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects.asset_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"asset_subjects\\\",[\\\"[42,0,\\\\\\\"AX5\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"assets\\\",[\\\"[42,0,\\\\\\\"AS2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "asset_subjects.asset_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX5\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects.context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"asset_subjects\\\",[\\\"[42,0,\\\\\\\"AX5\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "asset_subjects.context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX5\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects.asset_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"asset_subjects\\\",[\\\"[42,0,\\\\\\\"AX6\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"assets\\\",[\\\"[42,0,\\\\\\\"AS3\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "asset_subjects.asset_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX6\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS3\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects.context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"asset_subjects\\\",[\\\"[42,0,\\\\\\\"AX6\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "asset_subjects.context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX6\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects.asset_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"asset_subjects\\\",[\\\"[42,0,\\\\\\\"AX1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"assets\\\",[\\\"[42,0,\\\\\\\"AS4\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "asset_subjects.asset_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS4\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects.context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"asset_subjects\\\",[\\\"[42,0,\\\\\\\"AX1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "asset_subjects.context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects.asset_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"asset_subjects\\\",[\\\"[42,0,\\\\\\\"AX2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"assets\\\",[\\\"[42,0,\\\\\\\"AS4\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "asset_subjects.asset_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS4\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects.context_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"asset_subjects\\\",[\\\"[42,0,\\\\\\\"AX2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"contexts\\\",[\\\"[42,0,\\\\\\\"C2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "asset_subjects.context_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"contexts\",[\"[42,0,\\\"C2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects.asset_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"asset_subjects\\\",[\\\"[42,0,\\\\\\\"AX3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"assets\\\",[\\\"[42,0,\\\\\\\"AS5\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "asset_subjects.asset_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS5\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects.object_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"asset_subjects\\\",[\\\"[42,0,\\\\\\\"AX3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"objects\\\",[\\\"[42,0,\\\\\\\"O1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "asset_subjects.object_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"asset_subjects\",[\"[42,0,\\\"AX3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"objects\",[\"[42,0,\\\"O1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretation_evidence.interpretation_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"interpretation_evidence\\\",[\\\"[42,0,\\\\\\\"IE1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"interpretations\\\",[\\\"[42,0,\\\\\\\"IT1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "interpretation_evidence.interpretation_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretation_evidence\",[\"[42,0,\\\"IE1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations\",[\"[42,0,\\\"IT1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretation_evidence.pottery_result_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"interpretation_evidence\\\",[\\\"[42,0,\\\\\\\"IE1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"pottery_results\\\",[\\\"[42,0,\\\\\\\"PR1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "interpretation_evidence.pottery_result_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretation_evidence\",[\"[42,0,\\\"IE1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"pottery_results\",[\"[42,0,\\\"PR1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretation_evidence.interpretation_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"interpretation_evidence\\\",[\\\"[42,0,\\\\\\\"IE2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"interpretations\\\",[\\\"[42,0,\\\\\\\"IT2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "interpretation_evidence.interpretation_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretation_evidence\",[\"[42,0,\\\"IE2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretations\",[\"[42,0,\\\"IT2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretation_evidence.fauna_result_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"interpretation_evidence\\\",[\\\"[42,0,\\\\\\\"IE2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"fauna_results\\\",[\\\"[42,0,\\\\\\\"FR1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "interpretation_evidence.fauna_result_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"interpretation_evidence\",[\"[42,0,\\\"IE2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"fauna_results\",[\"[42,0,\\\"FR1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_evidence.assertion_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"stratigraphic_evidence\\\",[\\\"[42,0,\\\\\\\"SEV1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"stratigraphic_assertions\\\",[\\\"[42,0,\\\\\\\"ST1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "stratigraphic_evidence.assertion_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_evidence\",[\"[42,0,\\\"SEV1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_assertions\",[\"[42,0,\\\"ST1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_evidence.asset_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"stratigraphic_evidence\\\",[\\\"[42,0,\\\\\\\"SEV1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"assets\\\",[\\\"[42,0,\\\\\\\"AS1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "stratigraphic_evidence.asset_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_evidence\",[\"[42,0,\\\"SEV1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_evidence.assertion_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"stratigraphic_evidence\\\",[\\\"[42,0,\\\\\\\"SEV2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"stratigraphic_assertions\\\",[\\\"[42,0,\\\\\\\"ST2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "stratigraphic_evidence.assertion_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_evidence\",[\"[42,0,\\\"SEV2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_assertions\",[\"[42,0,\\\"ST2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_evidence.asset_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"stratigraphic_evidence\\\",[\\\"[42,0,\\\\\\\"SEV2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"assets\\\",[\\\"[42,0,\\\\\\\"AS1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "stratigraphic_evidence.asset_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"stratigraphic_evidence\",[\"[42,0,\\\"SEV2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"assets\",[\"[42,0,\\\"AS1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:archaeology\",\"domain\",\"provenance.project_id\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"provenance\\\",[\\\"[42,0,\\\\\\\"PV1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:archaeology\\\",\\\"domain\\\",\\\"projects\\\",[\\\"[42,0,\\\\\\\"P1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:archaeology",
+        "module": "domain",
+        "id": "provenance.project_id"
+      },
+      "source": "[\"urn:umf:domain:archaeology\",\"domain\",\"provenance\",[\"[42,0,\\\"PV1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:archaeology\",\"domain\",\"projects\",[\"[42,0,\\\"P1\\\"]\"]]"
+    }
+  ],
+  "source_metadata": {
+    "asset_map_svg": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "f8c9edabbef94948863c787f236c85700f74cfca43f321e57bd48f5837c1a73a"
+      },
+      "data_kind": "fabricated",
+      "format": "svg",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF authored synthetic illustration",
+        "redistribution": "allowed"
+      },
+      "reference": "assets/map.svg",
+      "revision": "1.0.0"
+    },
+    "asset_object_svg": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "f760b9b0d93e54f2785d956e32c4977bd5aadcec56bc07ce4fee42fd9d6840f9"
+      },
+      "data_kind": "fabricated",
+      "format": "svg",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF authored synthetic illustration",
+        "redistribution": "allowed"
+      },
+      "reference": "assets/object.svg",
+      "revision": "1.0.0"
+    },
+    "asset_photo_svg": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "abb051a6748c1c8e630d42907d0e45856dd7d0112f18dbb94cdc836885e4a290"
+      },
+      "data_kind": "fabricated",
+      "format": "svg",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF authored synthetic illustration",
+        "redistribution": "allowed"
+      },
+      "reference": "assets/photo.svg",
+      "revision": "1.0.0"
+    },
+    "asset_report_txt": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "197b6ad719c4b4af78ebecd1f97148e0662367d1cbaba25d37646bcccd6b4842"
+      },
+      "data_kind": "fabricated",
+      "format": "text",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF authored synthetic illustration",
+        "redistribution": "allowed"
+      },
+      "reference": "assets/report.txt",
+      "revision": "1.0.0"
+    },
+    "asset_square_svg": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "0b9240d4c6db480425dd004aa6b978221357917b2a69a1dcff601a88df59335f"
+      },
+      "data_kind": "fabricated",
+      "format": "svg",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF authored synthetic illustration",
+        "redistribution": "allowed"
+      },
+      "reference": "assets/square.svg",
+      "revision": "1.0.0"
+    },
+    "scenario_replay_output": {
+      "data_kind": "fabricated",
+      "generator": {
+        "id": "tablespec.scenario-replay",
+        "version": "1.0.0"
+      },
+      "kind": "synthetic",
+      "parameters": {
+        "components": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "source_ids": [
+          "asset_map_svg",
+          "asset_object_svg",
+          "asset_photo_svg",
+          "asset_report_txt",
+          "asset_square_svg",
+          "template_analyses",
+          "template_areas",
+          "template_asset_subjects",
+          "template_assets",
+          "template_contexts",
+          "template_excavation_activities",
+          "template_fauna_results",
+          "template_find_lots",
+          "template_interpretation_evidence",
+          "template_interpretations",
+          "template_objects",
+          "template_observations",
+          "template_pottery_results",
+          "template_projects",
+          "template_provenance",
+          "template_samples",
+          "template_seasons",
+          "template_sites",
+          "template_soil_results",
+          "template_squares",
+          "template_stratigraphic_assertions",
+          "template_stratigraphic_evidence"
+        ],
+        "transformations": [
+          "Trusted independent-component replay with consistent identity remapping; source values unchanged."
+        ]
+      }
+    },
+    "template_analyses": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "6595b10f23bb01bb312125a05dbd396a946178f3cbf41196df887b1bbc0cc446"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/analyses.csv",
+      "revision": "1.0.0"
+    },
+    "template_areas": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "360029d3c7d8a903d561339b00a08bc18b05e01feee05cbd1d19aedda4893ecb"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/areas.csv",
+      "revision": "1.0.0"
+    },
+    "template_asset_subjects": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "bf93472d6db2731ef395d2ee2799be99741a72666cd0091fb8241fe3f6c60008"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/asset_subjects.csv",
+      "revision": "1.0.0"
+    },
+    "template_assets": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "37a5201bde0734588fe9bc7521fb5259e2158f6a7c3613dbebe418b0ac3dfcae"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/assets.csv",
+      "revision": "1.0.0"
+    },
+    "template_contexts": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "b409db09696067006c731441c12a22227229dd50b64a879c28a6f154f05e1009"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/contexts.csv",
+      "revision": "1.0.0"
+    },
+    "template_excavation_activities": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "cb5728c63f854008efabe6fae7b339516e9c7d3ee800baa685627a064e41534d"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/excavation_activities.csv",
+      "revision": "1.0.0"
+    },
+    "template_fauna_results": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "69305ae869423b418547dcc85e48db825d19fc69be807773379be9c4ac113d2d"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/fauna_results.csv",
+      "revision": "1.0.0"
+    },
+    "template_find_lots": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "9754249c056086a96f5892ef10f55771841b3d6bab7cf3f4562cd5662f65545d"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/find_lots.csv",
+      "revision": "1.0.0"
+    },
+    "template_interpretation_evidence": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "adf5c5e1763780196a8c4cc8a350df1c8cfa8065ddc613fc9f6ddc05025edcbd"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/interpretation_evidence.csv",
+      "revision": "1.0.0"
+    },
+    "template_interpretations": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "c166b71c3e2b5a532760fbe732b7c6650307ceac023ba89c253e840e85a78710"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/interpretations.csv",
+      "revision": "1.0.0"
+    },
+    "template_objects": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "b8badfa08bc402b929b56e17f2828765bbb135c074a29b0c2cbf092a57c2ab6d"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/objects.csv",
+      "revision": "1.0.0"
+    },
+    "template_observations": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "4b74f161c72c7196d4930684113942785bf5d1b5dbb5801b18b870d5d1767cd5"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/observations.csv",
+      "revision": "1.0.0"
+    },
+    "template_pottery_results": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "20dd1cc76b6f5bfec4f45140677c33c96a3c4707a2d139d451391c9a7136884f"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/pottery_results.csv",
+      "revision": "1.0.0"
+    },
+    "template_projects": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "ef9675fad71a4aebf98db0425fd0adfed2760e65261a9e527708b91838f7a056"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/projects.csv",
+      "revision": "1.0.0"
+    },
+    "template_provenance": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "22b89d0e9598c896f73bfaa8df5c51cc63bbefeaa4b6fd750f0d03d9f922c064"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/provenance.csv",
+      "revision": "1.0.0"
+    },
+    "template_samples": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "49daffa7a0338f79b2a9208eaa84d6f5595b6731be990c4e666538d61b98a492"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/samples.csv",
+      "revision": "1.0.0"
+    },
+    "template_seasons": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "9a48dd1201910aa37d8c9163225e4082f1071339292bca6ad934033e741e159d"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/seasons.csv",
+      "revision": "1.0.0"
+    },
+    "template_sites": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "35b71ebb38865dce87d4501d4bbb158cb2831b9bf8cc45a1c421fde7d839104d"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/sites.csv",
+      "revision": "1.0.0"
+    },
+    "template_soil_results": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "e626b5028b71173aa7269726522bca091e31a02a9de9c80a7f25d232991e8a65"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/soil_results.csv",
+      "revision": "1.0.0"
+    },
+    "template_squares": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "d0e96cd9b5a75d3c7589546d5debd8a01ad27c2294eb1b247a7b61f94f5d90fd"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/squares.csv",
+      "revision": "1.0.0"
+    },
+    "template_stratigraphic_assertions": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "10c04981fcbf4bbaa5fa720295e5e69bd3880460d4aa12f56d36afd51e73941d"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/stratigraphic_assertions.csv",
+      "revision": "1.0.0"
+    },
+    "template_stratigraphic_evidence": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "c0e600a1a7891e39151a70256682f0bd020f7f25f7a369ba52d8e027281f3d4d"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/stratigraphic_evidence.csv",
+      "revision": "1.0.0"
+    }
+  },
+  "qualification": "Schema-targeted candidate. Values retain CSV lexical text, not UMF canonical Value carriers or native storage IDs. No graph consumer acceptance or OWL reasoning.",
+  "scenarios": {
+    "cycle": [
+      [
+        "[42,0,\"ST1\"]",
+        "[42,0,\"ST2\"]"
+      ]
+    ],
+    "dating": [
+      [
+        "Author A",
+        "Author B"
+      ]
+    ],
+    "media": [
+      [
+        "[42,0,\"AS4\"]",
+        "2"
+      ]
+    ],
+    "missing-media": [
+      [
+        "[42,0,\"AS6\"]"
+      ]
+    ],
+    "specialists": [
+      [
+        "5",
+        "2",
+        "3",
+        "1"
+      ]
+    ],
+    "lineage": [
+      [
+        "[42,0,\"O1\"]",
+        "1"
+      ]
+    ],
+    "evidence-links": [
+      [
+        "Author A",
+        "bowl",
+        null
+      ],
+      [
+        "Author B",
+        null,
+        "synthetic-ungulate"
+      ]
+    ],
+    "sample": [
+      [
+        "[42,0,\"SA1\"]",
+        "dry-sieve"
+      ]
+    ]
+  },
+  "oracle_scope": "Direct original graph lexical field joins; exact seeded graph identifiers retained. No ID decoding, event/table/SQL/receipt inputs or semantic/native execution claim."
+}

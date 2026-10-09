@@ -1,0 +1,236 @@
+{
+  "format": "ashlar-original-archaeology-compact-admission-custody/0.1",
+  "producerRevision": "a95c3ec18a8f904decde884a4fa252988d2a5b0f",
+  "producerClean": true,
+  "originalFixtureRevision": "1f7b5f5d2a355c4b476e3a96b289b9048f03f567",
+  "files": {
+    "tools/check_archaeology_dataset_compact.ts": {
+      "sha256": "5b7edb81e50a96ab9e3da265a3f73b937c7f2a629cba9499b4ed84f419028e2e",
+      "bytes": 6522
+    },
+    "docs/helix/04-build/evidence/archaeology-public-dataset-compact-20261009.json": {
+      "sha256": "fb12d9ce4a4967e3f1ca36adeb758c41c5df314c61560a745acf1b6dd27b96c9",
+      "bytes": 1106521
+    },
+    "examples/domain-packs/archaeology/custody.json": {
+      "sha256": "6b7cc991849c43c0326923386432548ff2bb26f7ff7b5794546c135f3bd57af1",
+      "bytes": 12586
+    },
+    "examples/domain-packs/archaeology/upstream/README.md": {
+      "sha256": "0b905dabee2ffa0f1e059b72ce3bb3eeaeafe1e637a76c2cb848b0a0aa8661cc",
+      "bytes": 3396
+    },
+    "examples/domain-packs/archaeology/upstream/assets/map.svg": {
+      "sha256": "f8c9edabbef94948863c787f236c85700f74cfca43f321e57bd48f5837c1a73a",
+      "bytes": 209
+    },
+    "examples/domain-packs/archaeology/upstream/assets/object.svg": {
+      "sha256": "f760b9b0d93e54f2785d956e32c4977bd5aadcec56bc07ce4fee42fd9d6840f9",
+      "bytes": 212
+    },
+    "examples/domain-packs/archaeology/upstream/assets/photo.svg": {
+      "sha256": "abb051a6748c1c8e630d42907d0e45856dd7d0112f18dbb94cdc836885e4a290",
+      "bytes": 211
+    },
+    "examples/domain-packs/archaeology/upstream/assets/report.txt": {
+      "sha256": "197b6ad719c4b4af78ebecd1f97148e0662367d1cbaba25d37646bcccd6b4842",
+      "bytes": 100
+    },
+    "examples/domain-packs/archaeology/upstream/assets/square.svg": {
+      "sha256": "0b9240d4c6db480425dd004aa6b978221357917b2a69a1dcff601a88df59335f",
+      "bytes": 212
+    },
+    "examples/domain-packs/archaeology/upstream/data/analyses.csv": {
+      "sha256": "6595b10f23bb01bb312125a05dbd396a946178f3cbf41196df887b1bbc0cc446",
+      "bytes": 123
+    },
+    "examples/domain-packs/archaeology/upstream/data/areas.csv": {
+      "sha256": "360029d3c7d8a903d561339b00a08bc18b05e01feee05cbd1d19aedda4893ecb",
+      "bytes": 52
+    },
+    "examples/domain-packs/archaeology/upstream/data/asset_subjects.csv": {
+      "sha256": "bf93472d6db2731ef395d2ee2799be99741a72666cd0091fb8241fe3f6c60008",
+      "bytes": 233
+    },
+    "examples/domain-packs/archaeology/upstream/data/assets.csv": {
+      "sha256": "37a5201bde0734588fe9bc7521fb5259e2158f6a7c3613dbebe418b0ac3dfcae",
+      "bytes": 1201
+    },
+    "examples/domain-packs/archaeology/upstream/data/contexts.csv": {
+      "sha256": "b409db09696067006c731441c12a22227229dd50b64a879c28a6f154f05e1009",
+      "bytes": 87
+    },
+    "examples/domain-packs/archaeology/upstream/data/excavation_activities.csv": {
+      "sha256": "cb5728c63f854008efabe6fae7b339516e9c7d3ee800baa685627a064e41534d",
+      "bytes": 76
+    },
+    "examples/domain-packs/archaeology/upstream/data/fauna_results.csv": {
+      "sha256": "69305ae869423b418547dcc85e48db825d19fc69be807773379be9c4ac113d2d",
+      "bytes": 125
+    },
+    "examples/domain-packs/archaeology/upstream/data/find_lots.csv": {
+      "sha256": "9754249c056086a96f5892ef10f55771841b3d6bab7cf3f4562cd5662f65545d",
+      "bytes": 48
+    },
+    "examples/domain-packs/archaeology/upstream/data/interpretation_evidence.csv": {
+      "sha256": "adf5c5e1763780196a8c4cc8a350df1c8cfa8065ddc613fc9f6ddc05025edcbd",
+      "bytes": 109
+    },
+    "examples/domain-packs/archaeology/upstream/data/interpretations.csv": {
+      "sha256": "c166b71c3e2b5a532760fbe732b7c6650307ceac023ba89c253e840e85a78710",
+      "bytes": 300
+    },
+    "examples/domain-packs/archaeology/upstream/data/objects.csv": {
+      "sha256": "b8badfa08bc402b929b56e17f2828765bbb135c074a29b0c2cbf092a57c2ab6d",
+      "bytes": 71
+    },
+    "examples/domain-packs/archaeology/upstream/data/observations.csv": {
+      "sha256": "4b74f161c72c7196d4930684113942785bf5d1b5dbb5801b18b870d5d1767cd5",
+      "bytes": 74
+    },
+    "examples/domain-packs/archaeology/upstream/data/pottery_results.csv": {
+      "sha256": "20dd1cc76b6f5bfec4f45140677c33c96a3c4707a2d139d451391c9a7136884f",
+      "bytes": 140
+    },
+    "examples/domain-packs/archaeology/upstream/data/projects.csv": {
+      "sha256": "ef9675fad71a4aebf98db0425fd0adfed2760e65261a9e527708b91838f7a056",
+      "bytes": 67
+    },
+    "examples/domain-packs/archaeology/upstream/data/provenance.csv": {
+      "sha256": "22b89d0e9598c896f73bfaa8df5c51cc63bbefeaa4b6fd750f0d03d9f922c064",
+      "bytes": 165
+    },
+    "examples/domain-packs/archaeology/upstream/data/samples.csv": {
+      "sha256": "49daffa7a0338f79b2a9208eaa84d6f5595b6731be990c4e666538d61b98a492",
+      "bytes": 93
+    },
+    "examples/domain-packs/archaeology/upstream/data/seasons.csv": {
+      "sha256": "9a48dd1201910aa37d8c9163225e4082f1071339292bca6ad934033e741e159d",
+      "bytes": 51
+    },
+    "examples/domain-packs/archaeology/upstream/data/sites.csv": {
+      "sha256": "35b71ebb38865dce87d4501d4bbb158cb2831b9bf8cc45a1c421fde7d839104d",
+      "bytes": 52
+    },
+    "examples/domain-packs/archaeology/upstream/data/soil_results.csv": {
+      "sha256": "e626b5028b71173aa7269726522bca091e31a02a9de9c80a7f25d232991e8a65",
+      "bytes": 117
+    },
+    "examples/domain-packs/archaeology/upstream/data/squares.csv": {
+      "sha256": "d0e96cd9b5a75d3c7589546d5debd8a01ad27c2294eb1b247a7b61f94f5d90fd",
+      "bytes": 97
+    },
+    "examples/domain-packs/archaeology/upstream/data/stratigraphic_assertions.csv": {
+      "sha256": "10c04981fcbf4bbaa5fa720295e5e69bd3880460d4aa12f56d36afd51e73941d",
+      "bytes": 227
+    },
+    "examples/domain-packs/archaeology/upstream/data/stratigraphic_evidence.csv": {
+      "sha256": "c0e600a1a7891e39151a70256682f0bd020f7f25f7a369ba52d8e027281f3d4d",
+      "bytes": 69
+    },
+    "examples/domain-packs/archaeology/upstream/graph/fixture.json": {
+      "sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52",
+      "bytes": 81564
+    },
+    "examples/domain-packs/archaeology/upstream/ontology.json": {
+      "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+      "bytes": 83068
+    },
+    "examples/domain-packs/archaeology/upstream/pack.json": {
+      "sha256": "401c0743e6aa8eddf541c49bb719c35e7fa67fb31113f494e94d09766d9b124f",
+      "bytes": 28986
+    },
+    "examples/domain-packs/archaeology/upstream/umf/analyses.json": {
+      "sha256": "5e4d85253ec842523b5248caaf688ef56c763d5ff78ce7d8f398f71651478936",
+      "bytes": 1068
+    },
+    "examples/domain-packs/archaeology/upstream/umf/areas.json": {
+      "sha256": "a9be4601cdc3f4dadaf0bbc0320e4031e0fae5cc3bf357b7d9a399c9b1e2ae83",
+      "bytes": 890
+    },
+    "examples/domain-packs/archaeology/upstream/umf/asset_subjects.json": {
+      "sha256": "6ae375d0244c728accf37d6f1a1ed6d99c1044e2f1ab7ec303e04eccb4d3213e",
+      "bytes": 1531
+    },
+    "examples/domain-packs/archaeology/upstream/umf/assets.json": {
+      "sha256": "0804429650cc09c92dba2c2e871bd23a9ecb28de7e34c42bafbc7bcae30b5647",
+      "bytes": 1919
+    },
+    "examples/domain-packs/archaeology/upstream/umf/contexts.json": {
+      "sha256": "d89ed2797e430d213424724e170d5866dce6453664d4bcf483a0d9e6b22c96aa",
+      "bytes": 1082
+    },
+    "examples/domain-packs/archaeology/upstream/umf/excavation_activities.json": {
+      "sha256": "ba172283abfd3a351bebedcc55f9d19b088a052e620e78111d1bd7840a924a70",
+      "bytes": 1158
+    },
+    "examples/domain-packs/archaeology/upstream/umf/fauna_results.json": {
+      "sha256": "7aa0ffcc7a9c77afedb7ac74e8d3835459b212bd2ab652a5f3ad478f90c2c2b8",
+      "bytes": 1621
+    },
+    "examples/domain-packs/archaeology/upstream/umf/find_lots.json": {
+      "sha256": "7282226f338d091261048eaa828624aebfe114f6d06df51094346262dd821738",
+      "bytes": 914
+    },
+    "examples/domain-packs/archaeology/upstream/umf/interpretation_evidence.json": {
+      "sha256": "b5c05c8e240fb8aef6e369cf0af74029e07a56cba64d4fb36c814b8c69feeaed",
+      "bytes": 1496
+    },
+    "examples/domain-packs/archaeology/upstream/umf/interpretations.json": {
+      "sha256": "3fe80063e305bd3063a7916839c12fdf187067d71365f0968aed724ce5efcb5d",
+      "bytes": 2334
+    },
+    "examples/domain-packs/archaeology/upstream/umf/objects.json": {
+      "sha256": "69c04031d8de2e61b837b8786d3544242ba678a54834a1aed5d5e5f58755e25c",
+      "bytes": 1067
+    },
+    "examples/domain-packs/archaeology/upstream/umf/observations.json": {
+      "sha256": "88ef1b1a3eed9a3185dfb663037d40e01d5b27165e00c442198a2f8d9fcd81f3",
+      "bytes": 1267
+    },
+    "examples/domain-packs/archaeology/upstream/umf/pottery_results.json": {
+      "sha256": "7839ada8a03f613a08c95561a483d691343685803d23261b4297f23180e6fea2",
+      "bytes": 1885
+    },
+    "examples/domain-packs/archaeology/upstream/umf/projects.json": {
+      "sha256": "174d743f3c0ef9892e6ac9fc8c32a95b6b0f6d30edab121ddc1817ceb0642eec",
+      "bytes": 540
+    },
+    "examples/domain-packs/archaeology/upstream/umf/provenance.json": {
+      "sha256": "e76dc558e2fb025613ea4e370997135a47a8ce045ad551b57d43ba47f60ee691",
+      "bytes": 1492
+    },
+    "examples/domain-packs/archaeology/upstream/umf/samples.json": {
+      "sha256": "d452a0d29b09e66a710fcda2957dd6454345a9c6b57625356bca499da556af97",
+      "bytes": 1194
+    },
+    "examples/domain-packs/archaeology/upstream/umf/seasons.json": {
+      "sha256": "94cd5f7eafebf9f7c6c5bdca4b139398176421bdfb0b632c376ef3d6729cef65",
+      "bytes": 900
+    },
+    "examples/domain-packs/archaeology/upstream/umf/sites.json": {
+      "sha256": "2cf077e2c4e9d74692137cd4860d75e4ee2443d7f773dba7f81f8356499868d9",
+      "bytes": 880
+    },
+    "examples/domain-packs/archaeology/upstream/umf/soil_results.json": {
+      "sha256": "b96145f7134a8a184dc57c7d7d89ccbb166e3fc42765cad05f07f0e7c13cb3b4",
+      "bytes": 1496
+    },
+    "examples/domain-packs/archaeology/upstream/umf/squares.json": {
+      "sha256": "05fe08368c62b5ac1ad76e050340c7d9fb8bf27b8cb5b32c4b31664af9e21d88",
+      "bytes": 1226
+    },
+    "examples/domain-packs/archaeology/upstream/umf/stratigraphic_assertions.json": {
+      "sha256": "93dc91e2ffa46b42ceeb6f2de18b252d678e3b8bda4e5141ca7609978a5210a4",
+      "bytes": 1908
+    },
+    "examples/domain-packs/archaeology/upstream/umf/stratigraphic_evidence.json": {
+      "sha256": "8474b3bec465711fe819b6ce6c5e76d9363532113a617e09117919196dd0f306",
+      "bytes": 1114
+    }
+  },
+  "commands": [
+    "bun tools/check_archaeology_dataset_compact.ts CLEAN_UMF_A95_SOURCE FRESH_OUTPUT"
+  ],
+  "qualification": "Original UMF0.8 source and original finite graph fixture public compact dataset admission and independent source graph oracle. Individual Record context warnings remain; complete finite dataset closure is separate. Three altered inputs are refused and independently recomputed by public compact verifier. No native storage, publication, ACK, Weft or engine claim. Original fc78 full-API refusals are retained unchanged."
+}

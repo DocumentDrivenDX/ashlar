@@ -1,0 +1,1629 @@
+{
+  "format": "ashlar-original-ecology-graph-oracle/0.1",
+  "source_sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee",
+  "graph_sha256": "cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668",
+  "objects": [
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"watersheds\",[\"[42,0,\\\"W1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "watersheds"
+      },
+      "values": {
+        "watersheds.id": "[42,0,\"W1\"]",
+        "watersheds.name": "Synthetic watershed",
+        "watersheds.geometry": "POLYGON((0 0,2 0,2 2,0 0))",
+        "watersheds.crs": "synthetic-local-grid"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"catchments\",[\"[42,0,\\\"C1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "catchments"
+      },
+      "values": {
+        "catchments.id": "[42,0,\"C1\"]",
+        "catchments.watershed_id": "[42,0,\"W1\"]",
+        "catchments.area": "1",
+        "catchments.area_unit": "km2"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"reaches\",[\"[42,0,\\\"R1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "reaches"
+      },
+      "values": {
+        "reaches.id": "[42,0,\"R1\"]",
+        "reaches.catchment_id": "[42,0,\"C1\"]",
+        "reaches.native_framework": "synthetic-network"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"reaches\",[\"[42,0,\\\"R2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "reaches"
+      },
+      "values": {
+        "reaches.id": "[42,0,\"R2\"]",
+        "reaches.catchment_id": "[42,0,\"C1\"]",
+        "reaches.native_framework": "synthetic-network"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"network_links\",[\"[42,0,\\\"NL1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "network_links"
+      },
+      "values": {
+        "network_links.id": "[42,0,\"NL1\"]",
+        "network_links.upstream_id": "[42,0,\"R1\"]",
+        "network_links.downstream_id": "[42,0,\"R2\"]"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites\",[\"[42,0,\\\"S1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "monitoring_sites"
+      },
+      "values": {
+        "monitoring_sites.id": "[42,0,\"S1\"]",
+        "monitoring_sites.reach_id": "[42,0,\"R1\"]",
+        "monitoring_sites.native_id": "SITE1",
+        "monitoring_sites.publisher": "synthetic"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites\",[\"[42,0,\\\"S2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "monitoring_sites"
+      },
+      "values": {
+        "monitoring_sites.id": "[42,0,\"S2\"]",
+        "monitoring_sites.reach_id": "[42,0,\"R2\"]",
+        "monitoring_sites.native_id": "SITE2",
+        "monitoring_sites.publisher": "synthetic"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"projects\",[\"[42,0,\\\"P1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "projects"
+      },
+      "values": {
+        "projects.id": "[42,0,\"P1\"]",
+        "projects.name": "Synthetic watershed study"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"methods\",[\"[42,0,\\\"M1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "methods"
+      },
+      "values": {
+        "methods.id": "[42,0,\"M1\"]",
+        "methods.name": "Synthetic filtered assay",
+        "methods.matrix": "water",
+        "methods.fraction": "dissolved"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"methods\",[\"[42,0,\\\"M2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "methods"
+      },
+      "values": {
+        "methods.id": "[42,0,\"M2\"]",
+        "methods.name": "Synthetic probe",
+        "methods.matrix": "water",
+        "methods.fraction": "in-situ"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"methods\",[\"[42,0,\\\"M3\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "methods"
+      },
+      "values": {
+        "methods.id": "[42,0,\"M3\"]",
+        "methods.name": "Synthetic kick-net",
+        "methods.matrix": "benthos",
+        "methods.fraction": "whole"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observed_properties\",[\"[42,0,\\\"OP1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "observed_properties"
+      },
+      "values": {
+        "observed_properties.id": "[42,0,\"OP1\"]",
+        "observed_properties.name": "nitrate"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observed_properties\",[\"[42,0,\\\"OP2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "observed_properties"
+      },
+      "values": {
+        "observed_properties.id": "[42,0,\"OP2\"]",
+        "observed_properties.name": "temperature"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observed_properties\",[\"[42,0,\\\"OP3\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "observed_properties"
+      },
+      "values": {
+        "observed_properties.id": "[42,0,\"OP3\"]",
+        "observed_properties.name": "dissolved-oxygen"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "sampling_events"
+      },
+      "values": {
+        "sampling_events.id": "[42,0,\"E1\"]",
+        "sampling_events.site_id": "[42,0,\"S1\"]",
+        "sampling_events.project_id": "[42,0,\"P1\"]",
+        "sampling_events.method_id": "[42,0,\"M1\"]",
+        "sampling_events.event_time": "2026-01-01T10:00Z"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "sampling_events"
+      },
+      "values": {
+        "sampling_events.id": "[42,0,\"E2\"]",
+        "sampling_events.site_id": "[42,0,\"S2\"]",
+        "sampling_events.project_id": "[42,0,\"P1\"]",
+        "sampling_events.method_id": "[42,0,\"M1\"]",
+        "sampling_events.event_time": "2026-01-01T10:00Z"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E3\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "sampling_events"
+      },
+      "values": {
+        "sampling_events.id": "[42,0,\"E3\"]",
+        "sampling_events.site_id": "[42,0,\"S1\"]",
+        "sampling_events.project_id": "[42,0,\"P1\"]",
+        "sampling_events.method_id": "[42,0,\"M2\"]",
+        "sampling_events.event_time": "2026-01-01T10:00Z"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E4\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "sampling_events"
+      },
+      "values": {
+        "sampling_events.id": "[42,0,\"E4\"]",
+        "sampling_events.site_id": "[42,0,\"S2\"]",
+        "sampling_events.project_id": "[42,0,\"P1\"]",
+        "sampling_events.method_id": "[42,0,\"M2\"]",
+        "sampling_events.event_time": "2026-01-01T10:00Z"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E5\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "sampling_events"
+      },
+      "values": {
+        "sampling_events.id": "[42,0,\"E5\"]",
+        "sampling_events.site_id": "[42,0,\"S1\"]",
+        "sampling_events.project_id": "[42,0,\"P1\"]",
+        "sampling_events.method_id": "[42,0,\"M3\"]",
+        "sampling_events.event_time": "2026-01-01T10:00Z"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "samples"
+      },
+      "values": {
+        "samples.id": "[42,0,\"SA1\"]",
+        "samples.event_id": "[42,0,\"E1\"]",
+        "samples.matrix": "water"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "samples"
+      },
+      "values": {
+        "samples.id": "[42,0,\"SA2\"]",
+        "samples.event_id": "[42,0,\"E2\"]",
+        "samples.matrix": "water"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA3\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "samples"
+      },
+      "values": {
+        "samples.id": "[42,0,\"SA3\"]",
+        "samples.event_id": "[42,0,\"E3\"]",
+        "samples.matrix": "water"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA4\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "samples"
+      },
+      "values": {
+        "samples.id": "[42,0,\"SA4\"]",
+        "samples.event_id": "[42,0,\"E4\"]",
+        "samples.matrix": "water"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "observations"
+      },
+      "values": {
+        "observations.id": "[42,0,\"O1\"]",
+        "observations.sample_id": "[42,0,\"SA1\"]",
+        "observations.property_id": "[42,0,\"OP1\"]",
+        "observations.value": "1.2",
+        "observations.threshold": null,
+        "observations.unit": "mg/L",
+        "observations.result_kind": "measured",
+        "observations.qualifier": "accepted"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "observations"
+      },
+      "values": {
+        "observations.id": "[42,0,\"O2\"]",
+        "observations.sample_id": "[42,0,\"SA1\"]",
+        "observations.property_id": "[42,0,\"OP1\"]",
+        "observations.value": null,
+        "observations.threshold": "0.1",
+        "observations.unit": "mg/L",
+        "observations.result_kind": "censored",
+        "observations.qualifier": "below-detection"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O3\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "observations"
+      },
+      "values": {
+        "observations.id": "[42,0,\"O3\"]",
+        "observations.sample_id": "[42,0,\"SA3\"]",
+        "observations.property_id": "[42,0,\"OP2\"]",
+        "observations.value": "18",
+        "observations.threshold": null,
+        "observations.unit": "Cel",
+        "observations.result_kind": "measured",
+        "observations.qualifier": "accepted"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O4\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "observations"
+      },
+      "values": {
+        "observations.id": "[42,0,\"O4\"]",
+        "observations.sample_id": "[42,0,\"SA3\"]",
+        "observations.property_id": "[42,0,\"OP3\"]",
+        "observations.value": "8",
+        "observations.threshold": null,
+        "observations.unit": "mg/L",
+        "observations.result_kind": "measured",
+        "observations.qualifier": "accepted"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O5\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "observations"
+      },
+      "values": {
+        "observations.id": "[42,0,\"O5\"]",
+        "observations.sample_id": "[42,0,\"SA4\"]",
+        "observations.property_id": "[42,0,\"OP2\"]",
+        "observations.value": "19",
+        "observations.threshold": null,
+        "observations.unit": "Cel",
+        "observations.result_kind": "measured",
+        "observations.qualifier": "accepted"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O6\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "observations"
+      },
+      "values": {
+        "observations.id": "[42,0,\"O6\"]",
+        "observations.sample_id": "[42,0,\"SA4\"]",
+        "observations.property_id": "[42,0,\"OP3\"]",
+        "observations.value": "7.5",
+        "observations.threshold": null,
+        "observations.unit": "mg/L",
+        "observations.result_kind": "measured",
+        "observations.qualifier": "accepted"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"taxa\",[\"[42,0,\\\"T1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "taxa"
+      },
+      "values": {
+        "taxa.id": "[42,0,\"T1\"]",
+        "taxa.name": "Synthetic mayfly",
+        "taxa.rank": "family",
+        "taxa.concept_version": "fixture-1"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"identifications\",[\"[42,0,\\\"ID1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "identifications"
+      },
+      "values": {
+        "identifications.id": "[42,0,\"ID1\"]",
+        "identifications.taxon_id": "[42,0,\"T1\"]",
+        "identifications.confidence": "family-only",
+        "identifications.life_stage": "larva"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"effort\",[\"[42,0,\\\"EF1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "effort"
+      },
+      "values": {
+        "effort.id": "[42,0,\"EF1\"]",
+        "effort.event_id": "[42,0,\"E5\"]",
+        "effort.amount": "1",
+        "effort.unit": "m2",
+        "effort.method": "benthic"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"effort\",[\"[42,0,\\\"EF2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "effort"
+      },
+      "values": {
+        "effort.id": "[42,0,\"EF2\"]",
+        "effort.event_id": "[42,0,\"E5\"]",
+        "effort.amount": null,
+        "effort.unit": "unknown",
+        "effort.method": "sighting"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "occurrences"
+      },
+      "values": {
+        "occurrences.id": "[42,0,\"OC1\"]",
+        "occurrences.event_id": "[42,0,\"E5\"]",
+        "occurrences.identification_id": "[42,0,\"ID1\"]",
+        "occurrences.effort_id": "[42,0,\"EF1\"]",
+        "occurrences.count": "3",
+        "occurrences.detection": "detected"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "occurrences"
+      },
+      "values": {
+        "occurrences.id": "[42,0,\"OC2\"]",
+        "occurrences.event_id": "[42,0,\"E5\"]",
+        "occurrences.identification_id": "[42,0,\"ID1\"]",
+        "occurrences.effort_id": "[42,0,\"EF1\"]",
+        "occurrences.count": "0",
+        "occurrences.detection": "not-detected"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC3\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "occurrences"
+      },
+      "values": {
+        "occurrences.id": "[42,0,\"OC3\"]",
+        "occurrences.event_id": "[42,0,\"E5\"]",
+        "occurrences.identification_id": "[42,0,\"ID1\"]",
+        "occurrences.effort_id": "[42,0,\"EF2\"]",
+        "occurrences.count": "1",
+        "occurrences.detection": "detected"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"habitat_metrics\",[\"[42,0,\\\"HM1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "habitat_metrics"
+      },
+      "values": {
+        "habitat_metrics.id": "[42,0,\"HM1\"]",
+        "habitat_metrics.catchment_id": "[42,0,\"C1\"]",
+        "habitat_metrics.value": "1E+1",
+        "habitat_metrics.unit": "percent",
+        "habitat_metrics.basis": "local-catchment",
+        "habitat_metrics.algorithm": "fixture-landcover-1"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"management_interventions\",[\"[42,0,\\\"MI1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "management_interventions"
+      },
+      "values": {
+        "management_interventions.id": "[42,0,\"MI1\"]",
+        "management_interventions.reach_id": "[42,0,\"R2\"]",
+        "management_interventions.action": "synthetic-restoration",
+        "management_interventions.event_time": "2026-01-02"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"fishing_events\",[\"[42,0,\\\"FE1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "fishing_events"
+      },
+      "values": {
+        "fishing_events.id": "[42,0,\"FE1\"]",
+        "fishing_events.site_id": "[42,0,\"S2\"]",
+        "fishing_events.effort": "2",
+        "fishing_events.effort_unit": "angler-hour",
+        "fishing_events.catch_count": "1"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"site_matches\",[\"[42,0,\\\"SM1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "element": "site_matches"
+      },
+      "values": {
+        "site_matches.id": "[42,0,\"SM1\"]",
+        "site_matches.site_id": "[42,0,\"S1\"]",
+        "site_matches.candidate_native_id": "nearby-site",
+        "site_matches.evidence": "coordinate-proximity-only",
+        "site_matches.resolution": "unresolved"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"catchments.watershed_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"catchments\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"watersheds\\\",[\\\"[42,0,\\\\\\\"W1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "catchments.watershed_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"catchments\",[\"[42,0,\\\"C1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"watersheds\",[\"[42,0,\\\"W1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"reaches.catchment_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"reaches\\\",[\\\"[42,0,\\\\\\\"R1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"catchments\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "reaches.catchment_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"reaches\",[\"[42,0,\\\"R1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"catchments\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"reaches.catchment_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"reaches\\\",[\\\"[42,0,\\\\\\\"R2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"catchments\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "reaches.catchment_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"reaches\",[\"[42,0,\\\"R2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"catchments\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"network_links.upstream_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"network_links\\\",[\\\"[42,0,\\\\\\\"NL1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"reaches\\\",[\\\"[42,0,\\\\\\\"R1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "network_links.upstream_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"network_links\",[\"[42,0,\\\"NL1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"reaches\",[\"[42,0,\\\"R1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"network_links.downstream_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"network_links\\\",[\\\"[42,0,\\\\\\\"NL1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"reaches\\\",[\\\"[42,0,\\\\\\\"R2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "network_links.downstream_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"network_links\",[\"[42,0,\\\"NL1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"reaches\",[\"[42,0,\\\"R2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites.reach_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"monitoring_sites\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"reaches\\\",[\\\"[42,0,\\\\\\\"R1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "monitoring_sites.reach_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites\",[\"[42,0,\\\"S1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"reaches\",[\"[42,0,\\\"R1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites.reach_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"monitoring_sites\\\",[\\\"[42,0,\\\\\\\"S2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"reaches\\\",[\\\"[42,0,\\\\\\\"R2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "monitoring_sites.reach_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites\",[\"[42,0,\\\"S2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"reaches\",[\"[42,0,\\\"R2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.site_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"monitoring_sites\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.site_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites\",[\"[42,0,\\\"S1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.project_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"projects\\\",[\\\"[42,0,\\\\\\\"P1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.project_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"projects\",[\"[42,0,\\\"P1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.method_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"methods\\\",[\\\"[42,0,\\\\\\\"M1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.method_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"methods\",[\"[42,0,\\\"M1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.site_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"monitoring_sites\\\",[\\\"[42,0,\\\\\\\"S2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.site_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites\",[\"[42,0,\\\"S2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.project_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"projects\\\",[\\\"[42,0,\\\\\\\"P1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.project_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"projects\",[\"[42,0,\\\"P1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.method_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"methods\\\",[\\\"[42,0,\\\\\\\"M1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.method_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"methods\",[\"[42,0,\\\"M1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.site_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"monitoring_sites\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.site_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites\",[\"[42,0,\\\"S1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.project_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"projects\\\",[\\\"[42,0,\\\\\\\"P1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.project_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"projects\",[\"[42,0,\\\"P1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.method_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"methods\\\",[\\\"[42,0,\\\\\\\"M2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.method_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"methods\",[\"[42,0,\\\"M2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.site_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E4\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"monitoring_sites\\\",[\\\"[42,0,\\\\\\\"S2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.site_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E4\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites\",[\"[42,0,\\\"S2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.project_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E4\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"projects\\\",[\\\"[42,0,\\\\\\\"P1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.project_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E4\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"projects\",[\"[42,0,\\\"P1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.method_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E4\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"methods\\\",[\\\"[42,0,\\\\\\\"M2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.method_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E4\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"methods\",[\"[42,0,\\\"M2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.site_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E5\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"monitoring_sites\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.site_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E5\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites\",[\"[42,0,\\\"S1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.project_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E5\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"projects\\\",[\\\"[42,0,\\\\\\\"P1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.project_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E5\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"projects\",[\"[42,0,\\\"P1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events.method_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E5\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"methods\\\",[\\\"[42,0,\\\\\\\"M3\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "sampling_events.method_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E5\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"methods\",[\"[42,0,\\\"M3\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"samples.event_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "samples.event_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"samples.event_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "samples.event_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"samples.event_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E3\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "samples.event_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E3\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"samples.event_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA4\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E4\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "samples.event_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA4\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E4\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations.sample_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"O1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "observations.sample_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations.property_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"O1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observed_properties\\\",[\\\"[42,0,\\\\\\\"OP1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "observations.property_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"observed_properties\",[\"[42,0,\\\"OP1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations.sample_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"O2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "observations.sample_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations.property_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"O2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observed_properties\\\",[\\\"[42,0,\\\\\\\"OP1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "observations.property_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"observed_properties\",[\"[42,0,\\\"OP1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations.sample_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"O3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA3\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "observations.sample_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA3\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations.property_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"O3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observed_properties\\\",[\\\"[42,0,\\\\\\\"OP2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "observations.property_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"observed_properties\",[\"[42,0,\\\"OP2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations.sample_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"O4\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA3\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "observations.sample_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O4\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA3\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations.property_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"O4\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observed_properties\\\",[\\\"[42,0,\\\\\\\"OP3\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "observations.property_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O4\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"observed_properties\",[\"[42,0,\\\"OP3\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations.sample_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"O5\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA4\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "observations.sample_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O5\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA4\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations.property_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"O5\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observed_properties\\\",[\\\"[42,0,\\\\\\\"OP2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "observations.property_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O5\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"observed_properties\",[\"[42,0,\\\"OP2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations.sample_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"O6\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"samples\\\",[\\\"[42,0,\\\\\\\"SA4\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "observations.sample_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O6\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"samples\",[\"[42,0,\\\"SA4\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"observations.property_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observations\\\",[\\\"[42,0,\\\\\\\"O6\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"observed_properties\\\",[\\\"[42,0,\\\\\\\"OP3\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "observations.property_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"observations\",[\"[42,0,\\\"O6\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"observed_properties\",[\"[42,0,\\\"OP3\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"identifications.taxon_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"identifications\\\",[\\\"[42,0,\\\\\\\"ID1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"taxa\\\",[\\\"[42,0,\\\\\\\"T1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "identifications.taxon_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"identifications\",[\"[42,0,\\\"ID1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"taxa\",[\"[42,0,\\\"T1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"effort.event_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"effort\\\",[\\\"[42,0,\\\\\\\"EF1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E5\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "effort.event_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"effort\",[\"[42,0,\\\"EF1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E5\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"effort.event_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"effort\\\",[\\\"[42,0,\\\\\\\"EF2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E5\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "effort.event_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"effort\",[\"[42,0,\\\"EF2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E5\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences.event_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"occurrences\\\",[\\\"[42,0,\\\\\\\"OC1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E5\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "occurrences.event_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E5\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences.identification_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"occurrences\\\",[\\\"[42,0,\\\\\\\"OC1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"identifications\\\",[\\\"[42,0,\\\\\\\"ID1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "occurrences.identification_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"identifications\",[\"[42,0,\\\"ID1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences.effort_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"occurrences\\\",[\\\"[42,0,\\\\\\\"OC1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"effort\\\",[\\\"[42,0,\\\\\\\"EF1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "occurrences.effort_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"effort\",[\"[42,0,\\\"EF1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences.event_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"occurrences\\\",[\\\"[42,0,\\\\\\\"OC2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E5\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "occurrences.event_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E5\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences.identification_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"occurrences\\\",[\\\"[42,0,\\\\\\\"OC2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"identifications\\\",[\\\"[42,0,\\\\\\\"ID1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "occurrences.identification_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"identifications\",[\"[42,0,\\\"ID1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences.effort_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"occurrences\\\",[\\\"[42,0,\\\\\\\"OC2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"effort\\\",[\\\"[42,0,\\\\\\\"EF1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "occurrences.effort_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"effort\",[\"[42,0,\\\"EF1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences.event_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"occurrences\\\",[\\\"[42,0,\\\\\\\"OC3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"sampling_events\\\",[\\\"[42,0,\\\\\\\"E5\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "occurrences.event_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"sampling_events\",[\"[42,0,\\\"E5\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences.identification_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"occurrences\\\",[\\\"[42,0,\\\\\\\"OC3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"identifications\\\",[\\\"[42,0,\\\\\\\"ID1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "occurrences.identification_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"identifications\",[\"[42,0,\\\"ID1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences.effort_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"occurrences\\\",[\\\"[42,0,\\\\\\\"OC3\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"effort\\\",[\\\"[42,0,\\\\\\\"EF2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "occurrences.effort_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"occurrences\",[\"[42,0,\\\"OC3\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"effort\",[\"[42,0,\\\"EF2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"habitat_metrics.catchment_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"habitat_metrics\\\",[\\\"[42,0,\\\\\\\"HM1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"catchments\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "habitat_metrics.catchment_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"habitat_metrics\",[\"[42,0,\\\"HM1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"catchments\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"management_interventions.reach_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"management_interventions\\\",[\\\"[42,0,\\\\\\\"MI1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"reaches\\\",[\\\"[42,0,\\\\\\\"R2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "management_interventions.reach_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"management_interventions\",[\"[42,0,\\\"MI1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"reaches\",[\"[42,0,\\\"R2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"fishing_events.site_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"fishing_events\\\",[\\\"[42,0,\\\\\\\"FE1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"monitoring_sites\\\",[\\\"[42,0,\\\\\\\"S2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "fishing_events.site_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"fishing_events\",[\"[42,0,\\\"FE1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites\",[\"[42,0,\\\"S2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:ecology\",\"domain\",\"site_matches.site_id\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"site_matches\\\",[\\\"[42,0,\\\\\\\"SM1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:ecology\\\",\\\"domain\\\",\\\"monitoring_sites\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:ecology",
+        "module": "domain",
+        "id": "site_matches.site_id"
+      },
+      "source": "[\"urn:umf:domain:ecology\",\"domain\",\"site_matches\",[\"[42,0,\\\"SM1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:ecology\",\"domain\",\"monitoring_sites\",[\"[42,0,\\\"S1\\\"]\"]]"
+    }
+  ],
+  "source_metadata": {
+    "scenario_replay_output": {
+      "data_kind": "fabricated",
+      "generator": {
+        "id": "tablespec.scenario-replay",
+        "version": "1.0.0"
+      },
+      "kind": "synthetic",
+      "parameters": {
+        "components": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "source_ids": [
+          "template_catchments",
+          "template_effort",
+          "template_fishing_events",
+          "template_habitat_metrics",
+          "template_identifications",
+          "template_management_interventions",
+          "template_methods",
+          "template_monitoring_sites",
+          "template_network_links",
+          "template_observations",
+          "template_observed_properties",
+          "template_occurrences",
+          "template_projects",
+          "template_reaches",
+          "template_samples",
+          "template_sampling_events",
+          "template_site_matches",
+          "template_taxa",
+          "template_watersheds"
+        ],
+        "transformations": [
+          "Trusted independent-component replay with consistent identity remapping; source values unchanged."
+        ]
+      }
+    },
+    "template_catchments": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "1b510442a0bcdaa89fa62b392e01e1db58ed6506b05d8b3556ca31012a1ca322"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/catchments.csv",
+      "revision": "1.0.0"
+    },
+    "template_effort": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "c5b17c91dd68e7bd0c5d493e588114f2aa6191ba8d958003d250aa3dc9b0c2c0"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/effort.csv",
+      "revision": "1.0.0"
+    },
+    "template_fishing_events": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "4c73a39d94d83aee3c3d2ba49747cc95d1d220e1cce77d15c538a4a7fade1bb0"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/fishing_events.csv",
+      "revision": "1.0.0"
+    },
+    "template_habitat_metrics": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "344372a580f993bbf78ce5b814ae00a7d94d016549195071e32aab41983c2a3c"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/habitat_metrics.csv",
+      "revision": "1.0.0"
+    },
+    "template_identifications": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "1b6185a721e17f36fc6b2542ac478898c56d04d87aca193289806c47f9ea5d92"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/identifications.csv",
+      "revision": "1.0.0"
+    },
+    "template_management_interventions": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "c4e019a656bdc74c1531d45ae5af7ec380c9ceb3b7376c293ec7590ad1d692be"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/management_interventions.csv",
+      "revision": "1.0.0"
+    },
+    "template_methods": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "e13d17e2d644b1f9f4ed8a6b57d12b7a81eb1416b5f4caf412602126e8c086b8"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/methods.csv",
+      "revision": "1.0.0"
+    },
+    "template_monitoring_sites": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "7bed40cb21ab4ff39e05c0b1ddf95511c8feae0fe3458acc73feb20fb5da9ec7"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/monitoring_sites.csv",
+      "revision": "1.0.0"
+    },
+    "template_network_links": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "40a7b970dd7e68520e9f2170cabc2ba93b9f0653fb4aa174d7b19cd4989e7088"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/network_links.csv",
+      "revision": "1.0.0"
+    },
+    "template_observations": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "e3bb377a8cfa33b16ede1bb02cf8e1ee57b5bcf0ca6a6aa01d14f42ea7fd89c9"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/observations.csv",
+      "revision": "1.0.0"
+    },
+    "template_observed_properties": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "7508b3b25c4ef26cc26ad7630a68c768ade2073b9cbe328ab009b734162c4691"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/observed_properties.csv",
+      "revision": "1.0.0"
+    },
+    "template_occurrences": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "083287d9c0c93cf89daa2a627f6aec1879a925f4b997eba9ac8a68cd7388f414"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/occurrences.csv",
+      "revision": "1.0.0"
+    },
+    "template_projects": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "1708f240a86730d1bf85ebfb0ffbc5da27ba99382caab5d1fda24794bb8c38dd"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/projects.csv",
+      "revision": "1.0.0"
+    },
+    "template_reaches": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "a99078ad156afa46480ec312d4069121f2a3b2a26279fe2a77b5c425bdfe5b4c"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/reaches.csv",
+      "revision": "1.0.0"
+    },
+    "template_samples": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "a9572b9b785778626e107102d2753dc45ad89b8c4714624993198daa7e418533"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/samples.csv",
+      "revision": "1.0.0"
+    },
+    "template_sampling_events": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "8ddf6e58ed86126aa46044728b636ee26dc5c21178a37de82543e28dffa1d3ac"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/sampling_events.csv",
+      "revision": "1.0.0"
+    },
+    "template_site_matches": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "5bfb28fdaecf3f88b8eec941578aef60ae2d877e190a7e416ddbb9776137a1f6"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/site_matches.csv",
+      "revision": "1.0.0"
+    },
+    "template_taxa": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "e03c8d8d6c8bbc044571dafb95c05250faf1b92f55363483cba2b431d0da3f4d"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/taxa.csv",
+      "revision": "1.0.0"
+    },
+    "template_watersheds": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "91f4cbca689ddc03afaf4fa1f408d494664660e9fb05a89cd0dd2de1612c2db2"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/watersheds.csv",
+      "revision": "1.0.0"
+    }
+  },
+  "qualification": "Schema-targeted candidate. Values retain CSV lexical text, not UMF canonical Value carriers or native storage IDs. No graph consumer acceptance or OWL reasoning.",
+  "scenarios": {
+    "effort-event": [],
+    "connected-measurements": [
+      [
+        "dissolved-oxygen",
+        "2"
+      ],
+      [
+        "temperature",
+        "2"
+      ]
+    ],
+    "censor": [
+      [
+        "[42,0,\"O2\"]",
+        "0.1",
+        "below-detection"
+      ]
+    ],
+    "match": [
+      [
+        "[42,0,\"SM1\"]"
+      ]
+    ],
+    "effort": [
+      [
+        "[42,0,\"OC3\"]"
+      ]
+    ],
+    "zero": [
+      [
+        "[42,0,\"OC2\"]"
+      ]
+    ],
+    "network": [
+      [
+        "[42,0,\"R1\"]",
+        "[42,0,\"R2\"]"
+      ]
+    ],
+    "comparability": [
+      [
+        "benthos",
+        "whole",
+        "family"
+      ]
+    ],
+    "fishing": [
+      [
+        "angler-hour"
+      ]
+    ]
+  },
+  "oracle_scope": "Direct original graph lexical field joins; exact seeded graph identifiers retained. No ID decoding, event/table/SQL/receipt inputs or semantic/native execution claim."
+}

@@ -1,0 +1,45 @@
+{
+  "format": "ashlar-original-graph-oracle-custody-correction/0.1",
+  "pack": "ecology",
+  "historical_admission_attempt": {
+    "path": "docs/helix/04-build/evidence/ecology-admission-attempt-20261009.json",
+    "sha256": "605c2fb59833786eb370ad6cc38cff047fd77c3f1bf42b52a9de0529ab23273e",
+    "bytes": 11801
+  },
+  "historical_oracle_artifact_entries": [
+    {
+      "bytes": 4014,
+      "path": "/Users/erik/Projects/ashlar/tools/ecology_graph_oracle.py",
+      "sha256": "6bfbd76c4bcf5ca3ab77a1e5b96abcfab5816f7743ce42523fb8983c46107705"
+    },
+    {
+      "bytes": 1111,
+      "path": "/Users/erik/Projects/ashlar/tests/test_ecology_graph_oracle.py",
+      "sha256": "bdd33775415d79da2799e8c30277028e0b0ae2d639d5bcf1bceee051424a3779"
+    },
+    {
+      "bytes": 56557,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/ecology-original-graph-oracle-20261009.json",
+      "sha256": "801182203c6af56ead5576c82e47715e50a3f9feb5d942bc5ed207b7e4fdeb00"
+    }
+  ],
+  "current_oracle_artifacts": [
+    {
+      "path": "tools/ecology_graph_oracle.py",
+      "sha256": "d599d85db7adb6abc1d2e2f07883a6b8fa3ec5fa3c238c82cbd73a4523820350",
+      "bytes": 4011
+    },
+    {
+      "path": "tests/test_ecology_graph_oracle.py",
+      "sha256": "03b6cd78b763f00de2056995e8d235dcc3dd92252958678a3127ea10d4b16316",
+      "bytes": 1171
+    },
+    {
+      "path": "docs/helix/04-build/evidence/ecology-original-graph-oracle-20261009.json",
+      "sha256": "cc00b085f4d9e9f76ce467a12eb25ad3069e063c78f923dc9108f3b3dca90ddd",
+      "bytes": 70164
+    }
+  ],
+  "correction": "Original fixtures use source_metadata. The oracle now retains that exact original value rather than querying the absent sourceMetadata property. Original object/edge bags and scenario computations remain unchanged. Historical full-API LIMIT attempt and its original artifact hashes are retained unchanged and describe the earlier observation, not current corrected oracle files.",
+  "scope": "Independent original graph/source oracle only. Current public compact admission is separately recorded; no native ingestion or query claim."
+}

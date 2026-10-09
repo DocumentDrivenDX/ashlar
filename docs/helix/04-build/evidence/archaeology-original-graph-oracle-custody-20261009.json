@@ -1,0 +1,45 @@
+{
+  "format": "ashlar-original-graph-oracle-custody-correction/0.1",
+  "pack": "archaeology",
+  "historical_admission_attempt": {
+    "path": "docs/helix/04-build/evidence/archaeology-admission-attempt-20261009.json",
+    "sha256": "ecd11ffa8d936263b2b1ae9fa665062e5587b928f0f1c6f13b10550f0fff34a3",
+    "bytes": 14466
+  },
+  "historical_oracle_artifact_entries": [
+    {
+      "bytes": 4310,
+      "path": "/Users/erik/Projects/ashlar/tools/archaeology_graph_oracle.py",
+      "sha256": "840778ae1ed2a52f31e2d47a21a344983425f9e72b5ebba59e6f96f16188527c"
+    },
+    {
+      "bytes": 1283,
+      "path": "/Users/erik/Projects/ashlar/tests/test_archaeology_graph_oracle.py",
+      "sha256": "0c5e1e1acb93b8c8e37801a37b9db1124f9ff9ccbe6b8d57a84f264b845dc1e8"
+    },
+    {
+      "bytes": 54760,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/archaeology-original-graph-oracle-20261009.json",
+      "sha256": "7429c54646399e1dc567a796069a95cfd7fe4845d4e53febad9d96a7a860c6c2"
+    }
+  ],
+  "current_oracle_artifacts": [
+    {
+      "path": "tools/archaeology_graph_oracle.py",
+      "sha256": "da854f9289d235b32f450aaf7211dcb7119bccaf58488dd50510b010daaf36ca",
+      "bytes": 4307
+    },
+    {
+      "path": "tests/test_archaeology_graph_oracle.py",
+      "sha256": "74daa81f45532d3b1c737af22bca9e3353a8f7fcd8356c71146e82cc03cd59d5",
+      "bytes": 1343
+    },
+    {
+      "path": "docs/helix/04-build/evidence/archaeology-original-graph-oracle-20261009.json",
+      "sha256": "4703cb5678c190c0a05790a74e35f742b2199bae02dff4f1919b9a96a000e0d6",
+      "bytes": 72825
+    }
+  ],
+  "correction": "Original fixtures use source_metadata. The oracle now retains that exact original value rather than querying the absent sourceMetadata property. Original object/edge bags and scenario computations remain unchanged. Historical full-API LIMIT attempt and its original artifact hashes are retained unchanged and describe the earlier observation, not current corrected oracle files.",
+  "scope": "Independent original graph/source oracle only. Current public compact admission is separately recorded; no native ingestion or query claim."
+}

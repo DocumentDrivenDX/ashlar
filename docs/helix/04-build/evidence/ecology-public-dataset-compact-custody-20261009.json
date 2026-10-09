@@ -1,0 +1,192 @@
+{
+  "format": "ashlar-original-ecology-compact-admission-custody/0.1",
+  "producerRevision": "a95c3ec18a8f904decde884a4fa252988d2a5b0f",
+  "producerClean": true,
+  "originalFixtureRevision": "1f7b5f5d2a355c4b476e3a96b289b9048f03f567",
+  "files": {
+    "tools/check_ecology_dataset_compact.ts": {
+      "sha256": "a71c49f1db6094ed845aaa3bab0b43770ddabd3cf234c6c64f6f4767a443c392",
+      "bytes": 6485
+    },
+    "docs/helix/04-build/evidence/ecology-public-dataset-compact-20261009.json": {
+      "sha256": "6567530f3ecf12189e1c85d16c282df2734ab7635ddd6d294c1987073914906c",
+      "bytes": 1035156
+    },
+    "examples/domain-packs/ecology/custody.json": {
+      "sha256": "1c763f2e88f8fb73eccf7fc35975d14c37e3216e560f7c940a3eca7f79b45a3b",
+      "bytes": 9908
+    },
+    "examples/domain-packs/ecology/upstream/README.md": {
+      "sha256": "b24268d51f783e6e4cfd1070a803aa195250c377d2c5746b7c3e85910389a6f4",
+      "bytes": 3034
+    },
+    "examples/domain-packs/ecology/upstream/data/catchments.csv": {
+      "sha256": "1b510442a0bcdaa89fa62b392e01e1db58ed6506b05d8b3556ca31012a1ca322",
+      "bytes": 62
+    },
+    "examples/domain-packs/ecology/upstream/data/effort.csv": {
+      "sha256": "c5b17c91dd68e7bd0c5d493e588114f2aa6191ba8d958003d250aa3dc9b0c2c0",
+      "bytes": 111
+    },
+    "examples/domain-packs/ecology/upstream/data/fishing_events.csv": {
+      "sha256": "4c73a39d94d83aee3c3d2ba49747cc95d1d220e1cce77d15c538a4a7fade1bb0",
+      "bytes": 88
+    },
+    "examples/domain-packs/ecology/upstream/data/habitat_metrics.csv": {
+      "sha256": "344372a580f993bbf78ce5b814ae00a7d94d016549195071e32aab41983c2a3c",
+      "bytes": 124
+    },
+    "examples/domain-packs/ecology/upstream/data/identifications.csv": {
+      "sha256": "1b6185a721e17f36fc6b2542ac478898c56d04d87aca193289806c47f9ea5d92",
+      "bytes": 75
+    },
+    "examples/domain-packs/ecology/upstream/data/management_interventions.csv": {
+      "sha256": "c4e019a656bdc74c1531d45ae5af7ec380c9ceb3b7376c293ec7590ad1d692be",
+      "bytes": 86
+    },
+    "examples/domain-packs/ecology/upstream/data/methods.csv": {
+      "sha256": "e13d17e2d644b1f9f4ed8a6b57d12b7a81eb1416b5f4caf412602126e8c086b8",
+      "bytes": 169
+    },
+    "examples/domain-packs/ecology/upstream/data/monitoring_sites.csv": {
+      "sha256": "7bed40cb21ab4ff39e05c0b1ddf95511c8feae0fe3458acc73feb20fb5da9ec7",
+      "bytes": 100
+    },
+    "examples/domain-packs/ecology/upstream/data/network_links.csv": {
+      "sha256": "40a7b970dd7e68520e9f2170cabc2ba93b9f0653fb4aa174d7b19cd4989e7088",
+      "bytes": 51
+    },
+    "examples/domain-packs/ecology/upstream/data/observations.csv": {
+      "sha256": "e3bb377a8cfa33b16ede1bb02cf8e1ee57b5bcf0ca6a6aa01d14f42ea7fd89c9",
+      "bytes": 439
+    },
+    "examples/domain-packs/ecology/upstream/data/observed_properties.csv": {
+      "sha256": "7508b3b25c4ef26cc26ad7630a68c768ade2073b9cbe328ab009b734162c4691",
+      "bytes": 73
+    },
+    "examples/domain-packs/ecology/upstream/data/occurrences.csv": {
+      "sha256": "083287d9c0c93cf89daa2a627f6aec1879a925f4b997eba9ac8a68cd7388f414",
+      "bytes": 186
+    },
+    "examples/domain-packs/ecology/upstream/data/projects.csv": {
+      "sha256": "1708f240a86730d1bf85ebfb0ffbc5da27ba99382caab5d1fda24794bb8c38dd",
+      "bytes": 45
+    },
+    "examples/domain-packs/ecology/upstream/data/reaches.csv": {
+      "sha256": "a99078ad156afa46480ec312d4069121f2a3b2a26279fe2a77b5c425bdfe5b4c",
+      "bytes": 99
+    },
+    "examples/domain-packs/ecology/upstream/data/samples.csv": {
+      "sha256": "a9572b9b785778626e107102d2753dc45ad89b8c4714624993198daa7e418533",
+      "bytes": 101
+    },
+    "examples/domain-packs/ecology/upstream/data/sampling_events.csv": {
+      "sha256": "8ddf6e58ed86126aa46044728b636ee26dc5c21178a37de82543e28dffa1d3ac",
+      "bytes": 253
+    },
+    "examples/domain-packs/ecology/upstream/data/site_matches.csv": {
+      "sha256": "5bfb28fdaecf3f88b8eec941578aef60ae2d877e190a7e416ddbb9776137a1f6",
+      "bytes": 127
+    },
+    "examples/domain-packs/ecology/upstream/data/taxa.csv": {
+      "sha256": "e03c8d8d6c8bbc044571dafb95c05250faf1b92f55363483cba2b431d0da3f4d",
+      "bytes": 82
+    },
+    "examples/domain-packs/ecology/upstream/data/watersheds.csv": {
+      "sha256": "91f4cbca689ddc03afaf4fa1f408d494664660e9fb05a89cd0dd2de1612c2db2",
+      "bytes": 108
+    },
+    "examples/domain-packs/ecology/upstream/graph/fixture.json": {
+      "sha256": "cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668",
+      "bytes": 77070
+    },
+    "examples/domain-packs/ecology/upstream/ontology.json": {
+      "sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee",
+      "bytes": 62701
+    },
+    "examples/domain-packs/ecology/upstream/pack.json": {
+      "sha256": "353f4fedbcd2f3d1a8ee13ad22b1bf496b430dcd766c5d0b1c6fb94d3e0e7481",
+      "bytes": 23485
+    },
+    "examples/domain-packs/ecology/upstream/umf/catchments.json": {
+      "sha256": "6aaa26c67d7481d477809cae58aa5e9e200c016416c3a0eaf9a61e07342e5d58",
+      "bytes": 1133
+    },
+    "examples/domain-packs/ecology/upstream/umf/effort.json": {
+      "sha256": "55b3abd7f326af65974ecdb84171c66e14ff75761f646ec8db900a0042a2f2cc",
+      "bytes": 1264
+    },
+    "examples/domain-packs/ecology/upstream/umf/fishing_events.json": {
+      "sha256": "12b32a3560f86715512df205834398ba2eec3bde34fd6d257f473d05e46f6ef6",
+      "bytes": 1343
+    },
+    "examples/domain-packs/ecology/upstream/umf/habitat_metrics.json": {
+      "sha256": "0c9f973e46adc6545afb3cdae4e14ce435c7effa91406ea5da15e109092a3a03",
+      "bytes": 1515
+    },
+    "examples/domain-packs/ecology/upstream/umf/identifications.json": {
+      "sha256": "ce7c0f3ce6e3dd40d9c417ca462c301ca1061930314bff2da51b7f7a4522adcd",
+      "bytes": 1118
+    },
+    "examples/domain-packs/ecology/upstream/umf/management_interventions.json": {
+      "sha256": "48df0789f9219efdd01ed27d63a03b3ed459214c0f882d9aed89e92cd20eb23a",
+      "bytes": 1167
+    },
+    "examples/domain-packs/ecology/upstream/umf/methods.json": {
+      "sha256": "ba6708d6c437607211b67d764db8912f92ccbed16dbda3aae65d9f5e3706b95c",
+      "bytes": 880
+    },
+    "examples/domain-packs/ecology/upstream/umf/monitoring_sites.json": {
+      "sha256": "ddf5633d5ca2c2d03b09c26134d47745cb93481e1fe5cf0dddda48d8a88d9569",
+      "bytes": 1123
+    },
+    "examples/domain-packs/ecology/upstream/umf/network_links.json": {
+      "sha256": "ee1fafdc9be8ef9f1dee0ec495ae6a5671ef8e193a0cbfc684442b9d35fb77d1",
+      "bytes": 1065
+    },
+    "examples/domain-packs/ecology/upstream/umf/observations.json": {
+      "sha256": "776e94cd354878555e7bde3474c0bd2e58e516fc20a454cd7bca7b2af2eb2141",
+      "bytes": 2031
+    },
+    "examples/domain-packs/ecology/upstream/umf/observed_properties.json": {
+      "sha256": "5091b9adfdacdb54329cc4df92950914fc4f350318f7fe5615759ccbdaa9cb66",
+      "bytes": 584
+    },
+    "examples/domain-packs/ecology/upstream/umf/occurrences.json": {
+      "sha256": "cb8386643209dfab64d22c215f15f16bedf52d799341c21890afe3298c477fbe",
+      "bytes": 1726
+    },
+    "examples/domain-packs/ecology/upstream/umf/projects.json": {
+      "sha256": "174d743f3c0ef9892e6ac9fc8c32a95b6b0f6d30edab121ddc1817ceb0642eec",
+      "bytes": 540
+    },
+    "examples/domain-packs/ecology/upstream/umf/reaches.json": {
+      "sha256": "708f8eadd6ba46b5d9ecac1bffd88341a0d1b13d20c1434d9443a4687086f64f",
+      "bytes": 922
+    },
+    "examples/domain-packs/ecology/upstream/umf/samples.json": {
+      "sha256": "4d2a107cdf61056ff702831f50790c07de2c4167f6315990040e60f34740dee7",
+      "bytes": 895
+    },
+    "examples/domain-packs/ecology/upstream/umf/sampling_events.json": {
+      "sha256": "0707da4e6f558dd7672f9f9ed3e9d2f5978b28dfd525dbf527bfc80a7a2d1f09",
+      "bytes": 1555
+    },
+    "examples/domain-packs/ecology/upstream/umf/site_matches.json": {
+      "sha256": "8805245db3de04fb3058efb8e144f5163b4ef23e268cc0cb1470bcec08bd5223",
+      "bytes": 1306
+    },
+    "examples/domain-packs/ecology/upstream/umf/taxa.json": {
+      "sha256": "7bf341804f7c2f643bb540f459bf4148cf23cccd573ccee8009cf431fd3b2efb",
+      "bytes": 872
+    },
+    "examples/domain-packs/ecology/upstream/umf/watersheds.json": {
+      "sha256": "da18325d961fc9a9a42e3cdc429c8235e81f0a691b5894c0ba5caf9885cf3b30",
+      "bytes": 892
+    }
+  },
+  "commands": [
+    "bun tools/check_ecology_dataset_compact.ts CLEAN_UMF_A95_SOURCE FRESH_OUTPUT"
+  ],
+  "qualification": "Original UMF0.8 source and original finite graph fixture public compact dataset admission and independent source graph oracle. Individual Record context warnings remain; complete finite dataset closure is separate. Three altered inputs are refused and independently recomputed by public compact verifier. No native storage, publication, ACK, Weft or engine claim. Original fc78 full-API refusals are retained unchanged."
+}
