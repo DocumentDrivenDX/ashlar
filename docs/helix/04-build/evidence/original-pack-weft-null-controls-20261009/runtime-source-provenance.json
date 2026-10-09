@@ -1,0 +1,23 @@
+{
+  "ashlarBaseRevision": "3e0077eac2fc201f1975663b8a3addb06a6722b4",
+  "qualification": "The eight reviewed changed host/kernel files plus this committed base reproduce existing shared modules. The separately retained approved diagnostic-only imported canonical runner supersedes that base file for COMPILER_SHA import. Actual kernel did not invoke canonical runner functions.",
+  "sharedModuleSha256": {
+    "tools/local_delta_custody.py": "b4842277c1c53320b75a641074f1efa1a16420920f952b3bdd63506249a3dd12",
+    "tools/run_local_weft_typed_spark4.py": "db27d10f38ea6db61296cb11a849b31f22d87d9238c246a95546fd6b31ab7612"
+  },
+  "runtime": "Existing Python3.9 pure Spark4 bridge / Spark4.0.1 / Delta4.0.0 / JDK21 / local[1]512MiB",
+  "jars": [
+    {
+      "name": "delta-spark_2.13-4.0.0.jar",
+      "bytes": 7727374,
+      "sha256": "538511702aae0ef6973a6a70af3d4543c9009f8edbed786a00737e2d3cd7f04e"
+    },
+    {
+      "name": "delta-storage-4.0.0.jar",
+      "bytes": 69732,
+      "sha256": "9bdb9fb450f1e119eba53feb427f331b0d09072d26485b8273883ad72c9a2e1d"
+    }
+  ],
+  "jarGuardSource": "tools/run_local_weft_typed_spark4.py at Ashlar base revision; driver checked exact JAR_SHA before Spark",
+  "relatedExistingRuntimeEvidence": "../original-pack-weft-nine-native-20261009/README.md"
+}

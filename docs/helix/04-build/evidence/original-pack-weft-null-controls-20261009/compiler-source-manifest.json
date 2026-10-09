@@ -1,0 +1,77 @@
+{
+  "originalManifestSha256": "e1591c0b588aa716fdb8a8286dc23c5091c3fbaf3bf5df0ddf8c448d04242389",
+  "originalManifest": {
+    "base": "1a1c0ad2c26d0cdd7aa6fb7f415abbaa44ab2842",
+    "files": [
+      {
+        "path": "crates/weft-core/src/application_scope.rs",
+        "sha256": "89fbb5d278b0e32a97ea2199d4a6b281a87df7cfb7c1280447dac3c086953e65"
+      },
+      {
+        "path": "crates/weft-core/src/arithmetic_application_resolve.rs",
+        "sha256": "6543b84cb9bf2997575e1c7e1b1b28fbde3b7acce3b7b3a5e1fca2904c450cb9"
+      },
+      {
+        "path": "crates/weft-core/src/arithmetic_plan.rs",
+        "sha256": "13af6d4f2bd27626cdd3745b146805ff1e2f10db7ecd98264c0e018bb686de0e"
+      },
+      {
+        "path": "crates/weft-core/src/arithmetic_query.rs",
+        "sha256": "03dbea6797b627f50baea6ca367ae109e3139add11465ae92770b393cb6852b9"
+      },
+      {
+        "path": "crates/weft-core/src/backend.rs",
+        "sha256": "5d035cd39c83763d1e4f10aeb7d33ba2cd461cf5a1b312962fa816aef1a430ef"
+      },
+      {
+        "path": "crates/weft-core/src/model.rs",
+        "sha256": "bd461122697e480dc87931bc0bf39fae46c28b10e457f03e4ec4861bf8b09cf0"
+      },
+      {
+        "path": "crates/weft-databricks/src/arithmetic.rs",
+        "sha256": "c825f34e74e50a7ebbaa91d8732f484399f3c41a210cb1de6b02d5b252f65822"
+      },
+      {
+        "path": "crates/weft-databricks/src/binding.rs",
+        "sha256": "823f9be9457f69c9fde689b1f3ee0b6546dceec230038ee65321cbc16ed07479"
+      },
+      {
+        "path": "crates/weft-databricks/src/candidate.rs",
+        "sha256": "9566f3ab00624c4b05e27d3108da8bc8f53f2fccf3345fd8c314ff5310235872"
+      },
+      {
+        "path": "crates/weft-databricks/src/candidate/arithmetic.rs",
+        "sha256": "e967b899b7be05b664547f2fff4d8de5290d74c69e29bffa2b33d5bed16b9f97"
+      },
+      {
+        "path": "docs/helix/02-design/contracts/exact-arithmetic-v0.3.md",
+        "sha256": "8073a90fadcf00785542a6f600d0150d14274056b1643dfae52b0969efcb97c2"
+      },
+      {
+        "path": "docs/helix/02-design/contracts/logical-plan-v0.3.schema.json",
+        "sha256": "0578efdde43a2b8395adb1cd6cc41a548ef00f1cd6e452deb21405c3c8cd6507"
+      },
+      {
+        "path": "tests/ashlar-databricks/compiler.rs",
+        "sha256": "3686660b6369924ee7efbc77a865726999f093b11871abbd0821e18eb6bfe771"
+      },
+      {
+        "path": "tests/nullable03/compile-original.py",
+        "sha256": "3ca6a10fbb59fd09fe1c23f21b8841a4bb7f698d86ace12ec8f9f2cb9aa8ac52"
+      },
+      {
+        "path": "tests/nullable03/schema-check.ts",
+        "sha256": "8bb1e9418f75d12ce9af777688f49676d39f4369ae39b1bd0963e20e8018c24d"
+      },
+      {
+        "path": "tests/nullable03/verify-public-presence.ts",
+        "sha256": "fa5dffd593677b3e15abd3529233f3bb1cff37015bb40d69ca17330a94f36b34"
+      }
+    ],
+    "compiler": "/private/tmp/ashlar-weft-null-build/debug/weft-runtime",
+    "compilerSha256": "22148789dd5b7c20fdccf9c841311cfed268a1fa62d5b8314f0e927b3fcf5a3a"
+  },
+  "immutableCompilerPath": "/private/tmp/ashlar-weft-null-final-20261009/weft-runtime",
+  "immutableCompilerSha256": "22148789dd5b7c20fdccf9c841311cfed268a1fa62d5b8314f0e927b3fcf5a3a",
+  "qualification": "Exact copies of approved source/CLI bytes; no rebuild"
+}

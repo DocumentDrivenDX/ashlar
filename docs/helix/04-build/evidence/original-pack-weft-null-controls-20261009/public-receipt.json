@@ -1,0 +1,1874 @@
+{
+  "format": "ashlar-unpublished-null-controls-public-source/0.1",
+  "umfRevision": "a95c3ec18a8f904decde884a4fa252988d2a5b0f",
+  "originalRequestText": "{\"controls\":[{\"expectedDisposition\":\"pass\",\"name\":\"zero-false-empty\",\"originalPropsJson\":\"{\\\"amount\\\":0,\\\"flag\\\":false,\\\"id\\\":\\\"original-control\\\",\\\"text\\\":\\\"\\\",\\\"zero\\\":0}\",\"sql\":\"SELECT id,text,amount,flag,zero FROM Item WHERE amount IS NOT NULL\"},{\"expectedDisposition\":\"pass\",\"name\":\"explicit-null\",\"originalPropsJson\":\"{\\\"amount\\\":null,\\\"flag\\\":null,\\\"id\\\":\\\"original-control\\\",\\\"text\\\":null,\\\"zero\\\":0}\",\"sql\":\"SELECT id,text,amount,flag FROM Item WHERE amount IS NULL\"},{\"expectedDisposition\":\"capability\",\"name\":\"missing-optional\",\"originalPropsJson\":\"{\\\"flag\\\":false,\\\"id\\\":\\\"original-control\\\",\\\"text\\\":\\\"\\\",\\\"zero\\\":0}\",\"sql\":\"SELECT id FROM Item WHERE amount IS NULL\"},{\"expectedDisposition\":\"source-invalid\",\"name\":\"required-null\",\"originalPropsJson\":\"{\\\"amount\\\":0,\\\"flag\\\":false,\\\"id\\\":null,\\\"text\\\":\\\"\\\",\\\"zero\\\":0}\",\"sql\":\"SELECT id FROM Item WHERE amount IS NULL\"},{\"expectedDisposition\":\"source-invalid\",\"name\":\"malformed-nonnull\",\"originalPropsJson\":\"{\\\"amount\\\":\\\"not-a-decimal\\\",\\\"flag\\\":false,\\\"id\\\":\\\"original-control\\\",\\\"text\\\":\\\"\\\",\\\"zero\\\":0}\",\"sql\":\"SELECT id FROM Item WHERE amount IS NULL\"},{\"expectedDisposition\":\"pass-empty\",\"name\":\"null-null-join\",\"originalPropsJson\":\"{\\\"amount\\\":0,\\\"flag\\\":false,\\\"id\\\":\\\"original-control\\\",\\\"text\\\":null,\\\"zero\\\":0}\",\"sql\":\"SELECT a.id AS left_id,b.id AS right_id FROM Item a JOIN Item b ON a.text=b.text\"}],\"model\":{\"extensions\":{},\"id\":\"urn:ashlar:authored:native-null-kernel:1\",\"modules\":[{\"elements\":[{\"extensions\":{},\"id\":\"Item\",\"kind\":\"record\",\"members\":[{\"element\":\"id\",\"module\":\"control\"},{\"element\":\"text\",\"module\":\"control\"},{\"element\":\"amount\",\"module\":\"control\"},{\"element\":\"flag\",\"module\":\"control\"},{\"element\":\"zero\",\"module\":\"control\"}],\"name\":\"Item\"},{\"cardinality\":\"one\",\"extensions\":{},\"facets\":{},\"id\":\"id\",\"kind\":\"field\",\"name\":\"id\",\"nullability\":\"required\",\"scalarType\":\"string\"},{\"cardinality\":\"one\",\"extensions\":{},\"facets\":{},\"id\":\"text\",\"kind\":\"field\",\"name\":\"text\",\"nullability\":\"absent-allowed\",\"scalarType\":\"string\"},{\"cardinality\":\"one\",\"extensions\":{},\"facets\":{\"precision\":18,\"scale\":2},\"id\":\"amount\",\"kind\":\"field\",\"name\":\"amount\",\"nullability\":\"absent-allowed\",\"scalarType\":\"decimal\"},{\"cardinality\":\"one\",\"extensions\":{},\"facets\":{},\"id\":\"flag\",\"kind\":\"field\",\"name\":\"flag\",\"nullability\":\"absent-allowed\",\"scalarType\":\"boolean\"},{\"cardinality\":\"one\",\"extensions\":{},\"facets\":{\"integerWidth\":{\"bits\":64,\"signed\":true}},\"id\":\"zero\",\"kind\":\"field\",\"name\":\"zero\",\"nullability\":\"required\",\"scalarType\":\"integer\"}],\"id\":\"control\",\"namespace\":\"urn:ashlar:authored:native-null-kernel\"}],\"umf\":\"0.8.0\",\"vocabularies\":{}}}\n",
+  "originalRequestSha256": "9f37dadbcc89cf9108ae149d9e9506333a04db704164411b8387cca191a34c8d",
+  "receipts": [
+    {
+      "control": {
+        "expectedDisposition": "pass",
+        "name": "zero-false-empty",
+        "originalPropsJson": "{\"amount\":0,\"flag\":false,\"id\":\"original-control\",\"text\":\"\",\"zero\":0}",
+        "sql": "SELECT id,text,amount,flag,zero FROM Item WHERE amount IS NOT NULL"
+      },
+      "originalRecordReceipt": {
+        "operation": "validate-core-record-values",
+        "version": "1.0.0",
+        "source": {
+          "extensions": {},
+          "id": "urn:ashlar:authored:native-null-kernel:1",
+          "modules": [
+            {
+              "elements": [
+                {
+                  "extensions": {},
+                  "id": "Item",
+                  "kind": "record",
+                  "members": [
+                    {
+                      "element": "id",
+                      "module": "control"
+                    },
+                    {
+                      "element": "text",
+                      "module": "control"
+                    },
+                    {
+                      "element": "amount",
+                      "module": "control"
+                    },
+                    {
+                      "element": "flag",
+                      "module": "control"
+                    },
+                    {
+                      "element": "zero",
+                      "module": "control"
+                    }
+                  ],
+                  "name": "Item"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "id",
+                  "kind": "field",
+                  "name": "id",
+                  "nullability": "required",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "text",
+                  "kind": "field",
+                  "name": "text",
+                  "nullability": "absent-allowed",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {
+                    "precision": 18,
+                    "scale": 2
+                  },
+                  "id": "amount",
+                  "kind": "field",
+                  "name": "amount",
+                  "nullability": "absent-allowed",
+                  "scalarType": "decimal"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "flag",
+                  "kind": "field",
+                  "name": "flag",
+                  "nullability": "absent-allowed",
+                  "scalarType": "boolean"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {
+                    "integerWidth": {
+                      "bits": 64,
+                      "signed": true
+                    }
+                  },
+                  "id": "zero",
+                  "kind": "field",
+                  "name": "zero",
+                  "nullability": "required",
+                  "scalarType": "integer"
+                }
+              ],
+              "id": "control",
+              "namespace": "urn:ashlar:authored:native-null-kernel"
+            }
+          ],
+          "umf": "0.8.0",
+          "vocabularies": {}
+        },
+        "identity": {
+          "module": "control",
+          "element": "Item"
+        },
+        "values": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "value": {
+              "string": "original-control"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "text"
+            },
+            "state": "present",
+            "value": {
+              "string": ""
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "amount"
+            },
+            "state": "present",
+            "value": {
+              "decimalToken": "0"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "flag"
+            },
+            "state": "present",
+            "value": {
+              "boolean": false
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "zero"
+            },
+            "state": "present",
+            "value": {
+              "integerToken": "0"
+            }
+          }
+        ],
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "validation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "fields": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "text"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "amount"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "flag"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "zero"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          }
+        ]
+      },
+      "selectedFields": [
+        {
+          "field": {
+            "module": "control",
+            "element": "id"
+          },
+          "supplied": true,
+          "original": "original-control",
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "text"
+          },
+          "supplied": true,
+          "original": "",
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "amount"
+          },
+          "supplied": true,
+          "original": 0,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "flag"
+          },
+          "supplied": true,
+          "original": false,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "zero"
+          },
+          "supplied": true,
+          "original": 0,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        }
+      ],
+      "sourceDisposition": "valid"
+    },
+    {
+      "control": {
+        "expectedDisposition": "pass",
+        "name": "explicit-null",
+        "originalPropsJson": "{\"amount\":null,\"flag\":null,\"id\":\"original-control\",\"text\":null,\"zero\":0}",
+        "sql": "SELECT id,text,amount,flag FROM Item WHERE amount IS NULL"
+      },
+      "originalRecordReceipt": {
+        "operation": "validate-core-record-values",
+        "version": "1.0.0",
+        "source": {
+          "extensions": {},
+          "id": "urn:ashlar:authored:native-null-kernel:1",
+          "modules": [
+            {
+              "elements": [
+                {
+                  "extensions": {},
+                  "id": "Item",
+                  "kind": "record",
+                  "members": [
+                    {
+                      "element": "id",
+                      "module": "control"
+                    },
+                    {
+                      "element": "text",
+                      "module": "control"
+                    },
+                    {
+                      "element": "amount",
+                      "module": "control"
+                    },
+                    {
+                      "element": "flag",
+                      "module": "control"
+                    },
+                    {
+                      "element": "zero",
+                      "module": "control"
+                    }
+                  ],
+                  "name": "Item"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "id",
+                  "kind": "field",
+                  "name": "id",
+                  "nullability": "required",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "text",
+                  "kind": "field",
+                  "name": "text",
+                  "nullability": "absent-allowed",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {
+                    "precision": 18,
+                    "scale": 2
+                  },
+                  "id": "amount",
+                  "kind": "field",
+                  "name": "amount",
+                  "nullability": "absent-allowed",
+                  "scalarType": "decimal"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "flag",
+                  "kind": "field",
+                  "name": "flag",
+                  "nullability": "absent-allowed",
+                  "scalarType": "boolean"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {
+                    "integerWidth": {
+                      "bits": 64,
+                      "signed": true
+                    }
+                  },
+                  "id": "zero",
+                  "kind": "field",
+                  "name": "zero",
+                  "nullability": "required",
+                  "scalarType": "integer"
+                }
+              ],
+              "id": "control",
+              "namespace": "urn:ashlar:authored:native-null-kernel"
+            }
+          ],
+          "umf": "0.8.0",
+          "vocabularies": {}
+        },
+        "identity": {
+          "module": "control",
+          "element": "Item"
+        },
+        "values": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "value": {
+              "string": "original-control"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "text"
+            },
+            "state": "present",
+            "value": null
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "amount"
+            },
+            "state": "present",
+            "value": null
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "flag"
+            },
+            "state": "present",
+            "value": null
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "zero"
+            },
+            "state": "present",
+            "value": {
+              "integerToken": "0"
+            }
+          }
+        ],
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "validation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "fields": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "text"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "amount"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "flag"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "zero"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          }
+        ]
+      },
+      "selectedFields": [
+        {
+          "field": {
+            "module": "control",
+            "element": "id"
+          },
+          "supplied": true,
+          "original": "original-control",
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "text"
+          },
+          "supplied": true,
+          "original": null,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "amount"
+          },
+          "supplied": true,
+          "original": null,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "flag"
+          },
+          "supplied": true,
+          "original": null,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "zero"
+          },
+          "supplied": true,
+          "original": 0,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        }
+      ],
+      "sourceDisposition": "valid"
+    },
+    {
+      "control": {
+        "expectedDisposition": "capability",
+        "name": "missing-optional",
+        "originalPropsJson": "{\"flag\":false,\"id\":\"original-control\",\"text\":\"\",\"zero\":0}",
+        "sql": "SELECT id FROM Item WHERE amount IS NULL"
+      },
+      "originalRecordReceipt": {
+        "operation": "validate-core-record-values",
+        "version": "1.0.0",
+        "source": {
+          "extensions": {},
+          "id": "urn:ashlar:authored:native-null-kernel:1",
+          "modules": [
+            {
+              "elements": [
+                {
+                  "extensions": {},
+                  "id": "Item",
+                  "kind": "record",
+                  "members": [
+                    {
+                      "element": "id",
+                      "module": "control"
+                    },
+                    {
+                      "element": "text",
+                      "module": "control"
+                    },
+                    {
+                      "element": "amount",
+                      "module": "control"
+                    },
+                    {
+                      "element": "flag",
+                      "module": "control"
+                    },
+                    {
+                      "element": "zero",
+                      "module": "control"
+                    }
+                  ],
+                  "name": "Item"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "id",
+                  "kind": "field",
+                  "name": "id",
+                  "nullability": "required",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "text",
+                  "kind": "field",
+                  "name": "text",
+                  "nullability": "absent-allowed",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {
+                    "precision": 18,
+                    "scale": 2
+                  },
+                  "id": "amount",
+                  "kind": "field",
+                  "name": "amount",
+                  "nullability": "absent-allowed",
+                  "scalarType": "decimal"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "flag",
+                  "kind": "field",
+                  "name": "flag",
+                  "nullability": "absent-allowed",
+                  "scalarType": "boolean"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {
+                    "integerWidth": {
+                      "bits": 64,
+                      "signed": true
+                    }
+                  },
+                  "id": "zero",
+                  "kind": "field",
+                  "name": "zero",
+                  "nullability": "required",
+                  "scalarType": "integer"
+                }
+              ],
+              "id": "control",
+              "namespace": "urn:ashlar:authored:native-null-kernel"
+            }
+          ],
+          "umf": "0.8.0",
+          "vocabularies": {}
+        },
+        "identity": {
+          "module": "control",
+          "element": "Item"
+        },
+        "values": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "value": {
+              "string": "original-control"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "text"
+            },
+            "state": "present",
+            "value": {
+              "string": ""
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "flag"
+            },
+            "state": "present",
+            "value": {
+              "boolean": false
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "zero"
+            },
+            "state": "present",
+            "value": {
+              "integerToken": "0"
+            }
+          }
+        ],
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "validation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "fields": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "text"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "amount"
+            },
+            "state": "absent",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "flag"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "zero"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          }
+        ]
+      },
+      "selectedFields": [
+        {
+          "field": {
+            "module": "control",
+            "element": "id"
+          },
+          "supplied": true,
+          "original": "original-control",
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "text"
+          },
+          "supplied": true,
+          "original": "",
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "amount"
+          },
+          "supplied": false,
+          "validation": null
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "flag"
+          },
+          "supplied": true,
+          "original": false,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "zero"
+          },
+          "supplied": true,
+          "original": 0,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        }
+      ],
+      "sourceDisposition": "valid"
+    },
+    {
+      "control": {
+        "expectedDisposition": "source-invalid",
+        "name": "required-null",
+        "originalPropsJson": "{\"amount\":0,\"flag\":false,\"id\":null,\"text\":\"\",\"zero\":0}",
+        "sql": "SELECT id FROM Item WHERE amount IS NULL"
+      },
+      "originalRecordReceipt": {
+        "operation": "validate-core-record-values",
+        "version": "1.0.0",
+        "source": {
+          "extensions": {},
+          "id": "urn:ashlar:authored:native-null-kernel:1",
+          "modules": [
+            {
+              "elements": [
+                {
+                  "extensions": {},
+                  "id": "Item",
+                  "kind": "record",
+                  "members": [
+                    {
+                      "element": "id",
+                      "module": "control"
+                    },
+                    {
+                      "element": "text",
+                      "module": "control"
+                    },
+                    {
+                      "element": "amount",
+                      "module": "control"
+                    },
+                    {
+                      "element": "flag",
+                      "module": "control"
+                    },
+                    {
+                      "element": "zero",
+                      "module": "control"
+                    }
+                  ],
+                  "name": "Item"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "id",
+                  "kind": "field",
+                  "name": "id",
+                  "nullability": "required",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "text",
+                  "kind": "field",
+                  "name": "text",
+                  "nullability": "absent-allowed",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {
+                    "precision": 18,
+                    "scale": 2
+                  },
+                  "id": "amount",
+                  "kind": "field",
+                  "name": "amount",
+                  "nullability": "absent-allowed",
+                  "scalarType": "decimal"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "flag",
+                  "kind": "field",
+                  "name": "flag",
+                  "nullability": "absent-allowed",
+                  "scalarType": "boolean"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {
+                    "integerWidth": {
+                      "bits": 64,
+                      "signed": true
+                    }
+                  },
+                  "id": "zero",
+                  "kind": "field",
+                  "name": "zero",
+                  "nullability": "required",
+                  "scalarType": "integer"
+                }
+              ],
+              "id": "control",
+              "namespace": "urn:ashlar:authored:native-null-kernel"
+            }
+          ],
+          "umf": "0.8.0",
+          "vocabularies": {}
+        },
+        "identity": {
+          "module": "control",
+          "element": "Item"
+        },
+        "values": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "value": null
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "text"
+            },
+            "state": "present",
+            "value": {
+              "string": ""
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "amount"
+            },
+            "state": "present",
+            "value": {
+              "decimalToken": "0"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "flag"
+            },
+            "state": "present",
+            "value": {
+              "boolean": false
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "zero"
+            },
+            "state": "present",
+            "value": {
+              "integerToken": "0"
+            }
+          }
+        ],
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "validation": {
+          "valid": false,
+          "complete": false,
+          "diagnostics": [
+            {
+              "code": "CORE_SCHEMA_PROPERTIES",
+              "path": "/members/control/id",
+              "message": "Null requires explicit absent-allowed",
+              "severity": "error"
+            }
+          ]
+        },
+        "fields": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "validation": {
+              "valid": false,
+              "complete": false,
+              "diagnostics": [
+                {
+                  "code": "CORE_SCHEMA_PROPERTIES",
+                  "path": "/members/control/id",
+                  "message": "Null requires explicit absent-allowed",
+                  "severity": "error"
+                }
+              ]
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "text"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "amount"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "flag"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "zero"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          }
+        ]
+      },
+      "selectedFields": [
+        {
+          "field": {
+            "module": "control",
+            "element": "id"
+          },
+          "supplied": true,
+          "original": null,
+          "validation": {
+            "valid": false,
+            "complete": false,
+            "diagnostics": [
+              {
+                "code": "CORE_SCHEMA_PROPERTIES",
+                "path": "",
+                "message": "Null requires explicit absent-allowed",
+                "severity": "error"
+              }
+            ]
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "text"
+          },
+          "supplied": true,
+          "original": "",
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "amount"
+          },
+          "supplied": true,
+          "original": 0,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "flag"
+          },
+          "supplied": true,
+          "original": false,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "zero"
+          },
+          "supplied": true,
+          "original": 0,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        }
+      ],
+      "sourceDisposition": "invalid"
+    },
+    {
+      "control": {
+        "expectedDisposition": "source-invalid",
+        "name": "malformed-nonnull",
+        "originalPropsJson": "{\"amount\":\"not-a-decimal\",\"flag\":false,\"id\":\"original-control\",\"text\":\"\",\"zero\":0}",
+        "sql": "SELECT id FROM Item WHERE amount IS NULL"
+      },
+      "originalRecordReceipt": {
+        "operation": "validate-core-record-values",
+        "version": "1.0.0",
+        "source": {
+          "extensions": {},
+          "id": "urn:ashlar:authored:native-null-kernel:1",
+          "modules": [
+            {
+              "elements": [
+                {
+                  "extensions": {},
+                  "id": "Item",
+                  "kind": "record",
+                  "members": [
+                    {
+                      "element": "id",
+                      "module": "control"
+                    },
+                    {
+                      "element": "text",
+                      "module": "control"
+                    },
+                    {
+                      "element": "amount",
+                      "module": "control"
+                    },
+                    {
+                      "element": "flag",
+                      "module": "control"
+                    },
+                    {
+                      "element": "zero",
+                      "module": "control"
+                    }
+                  ],
+                  "name": "Item"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "id",
+                  "kind": "field",
+                  "name": "id",
+                  "nullability": "required",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "text",
+                  "kind": "field",
+                  "name": "text",
+                  "nullability": "absent-allowed",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {
+                    "precision": 18,
+                    "scale": 2
+                  },
+                  "id": "amount",
+                  "kind": "field",
+                  "name": "amount",
+                  "nullability": "absent-allowed",
+                  "scalarType": "decimal"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "flag",
+                  "kind": "field",
+                  "name": "flag",
+                  "nullability": "absent-allowed",
+                  "scalarType": "boolean"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {
+                    "integerWidth": {
+                      "bits": 64,
+                      "signed": true
+                    }
+                  },
+                  "id": "zero",
+                  "kind": "field",
+                  "name": "zero",
+                  "nullability": "required",
+                  "scalarType": "integer"
+                }
+              ],
+              "id": "control",
+              "namespace": "urn:ashlar:authored:native-null-kernel"
+            }
+          ],
+          "umf": "0.8.0",
+          "vocabularies": {}
+        },
+        "identity": {
+          "module": "control",
+          "element": "Item"
+        },
+        "values": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "value": {
+              "string": "original-control"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "text"
+            },
+            "state": "present",
+            "value": {
+              "string": ""
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "amount"
+            },
+            "state": "present",
+            "value": {
+              "string": "not-a-decimal"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "flag"
+            },
+            "state": "present",
+            "value": {
+              "boolean": false
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "zero"
+            },
+            "state": "present",
+            "value": {
+              "integerToken": "0"
+            }
+          }
+        ],
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "validation": {
+          "valid": false,
+          "complete": false,
+          "diagnostics": [
+            {
+              "code": "CORE_SCHEMA_PROPERTIES",
+              "path": "/members/control/amount",
+              "message": "Literal does not match scalar family",
+              "severity": "error"
+            }
+          ]
+        },
+        "fields": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "text"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "amount"
+            },
+            "state": "present",
+            "validation": {
+              "valid": false,
+              "complete": false,
+              "diagnostics": [
+                {
+                  "code": "CORE_SCHEMA_PROPERTIES",
+                  "path": "/members/control/amount",
+                  "message": "Literal does not match scalar family",
+                  "severity": "error"
+                }
+              ]
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "flag"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "zero"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          }
+        ]
+      },
+      "selectedFields": [
+        {
+          "field": {
+            "module": "control",
+            "element": "id"
+          },
+          "supplied": true,
+          "original": "original-control",
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "text"
+          },
+          "supplied": true,
+          "original": "",
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "amount"
+          },
+          "supplied": true,
+          "original": "not-a-decimal",
+          "validation": {
+            "valid": false,
+            "complete": false,
+            "diagnostics": [
+              {
+                "code": "CORE_SCHEMA_PROPERTIES",
+                "path": "",
+                "message": "Literal does not match scalar family",
+                "severity": "error"
+              }
+            ]
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "flag"
+          },
+          "supplied": true,
+          "original": false,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "zero"
+          },
+          "supplied": true,
+          "original": 0,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        }
+      ],
+      "sourceDisposition": "invalid"
+    },
+    {
+      "control": {
+        "expectedDisposition": "pass-empty",
+        "name": "null-null-join",
+        "originalPropsJson": "{\"amount\":0,\"flag\":false,\"id\":\"original-control\",\"text\":null,\"zero\":0}",
+        "sql": "SELECT a.id AS left_id,b.id AS right_id FROM Item a JOIN Item b ON a.text=b.text"
+      },
+      "originalRecordReceipt": {
+        "operation": "validate-core-record-values",
+        "version": "1.0.0",
+        "source": {
+          "extensions": {},
+          "id": "urn:ashlar:authored:native-null-kernel:1",
+          "modules": [
+            {
+              "elements": [
+                {
+                  "extensions": {},
+                  "id": "Item",
+                  "kind": "record",
+                  "members": [
+                    {
+                      "element": "id",
+                      "module": "control"
+                    },
+                    {
+                      "element": "text",
+                      "module": "control"
+                    },
+                    {
+                      "element": "amount",
+                      "module": "control"
+                    },
+                    {
+                      "element": "flag",
+                      "module": "control"
+                    },
+                    {
+                      "element": "zero",
+                      "module": "control"
+                    }
+                  ],
+                  "name": "Item"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "id",
+                  "kind": "field",
+                  "name": "id",
+                  "nullability": "required",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "text",
+                  "kind": "field",
+                  "name": "text",
+                  "nullability": "absent-allowed",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {
+                    "precision": 18,
+                    "scale": 2
+                  },
+                  "id": "amount",
+                  "kind": "field",
+                  "name": "amount",
+                  "nullability": "absent-allowed",
+                  "scalarType": "decimal"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "flag",
+                  "kind": "field",
+                  "name": "flag",
+                  "nullability": "absent-allowed",
+                  "scalarType": "boolean"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {
+                    "integerWidth": {
+                      "bits": 64,
+                      "signed": true
+                    }
+                  },
+                  "id": "zero",
+                  "kind": "field",
+                  "name": "zero",
+                  "nullability": "required",
+                  "scalarType": "integer"
+                }
+              ],
+              "id": "control",
+              "namespace": "urn:ashlar:authored:native-null-kernel"
+            }
+          ],
+          "umf": "0.8.0",
+          "vocabularies": {}
+        },
+        "identity": {
+          "module": "control",
+          "element": "Item"
+        },
+        "values": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "value": {
+              "string": "original-control"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "text"
+            },
+            "state": "present",
+            "value": null
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "amount"
+            },
+            "state": "present",
+            "value": {
+              "decimalToken": "0"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "flag"
+            },
+            "state": "present",
+            "value": {
+              "boolean": false
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "zero"
+            },
+            "state": "present",
+            "value": {
+              "integerToken": "0"
+            }
+          }
+        ],
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "validation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "fields": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "text"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "amount"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "flag"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "zero"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          }
+        ]
+      },
+      "selectedFields": [
+        {
+          "field": {
+            "module": "control",
+            "element": "id"
+          },
+          "supplied": true,
+          "original": "original-control",
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "text"
+          },
+          "supplied": true,
+          "original": null,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "amount"
+          },
+          "supplied": true,
+          "original": 0,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "flag"
+          },
+          "supplied": true,
+          "original": false,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        },
+        {
+          "field": {
+            "module": "control",
+            "element": "zero"
+          },
+          "supplied": true,
+          "original": 0,
+          "validation": {
+            "valid": true,
+            "complete": true,
+            "diagnostics": []
+          }
+        }
+      ],
+      "sourceDisposition": "valid"
+    }
+  ],
+  "qualification": "Separately authored experimental source; original public receipts retained. No canonical publication/ACK or original pack admission claim."
+}

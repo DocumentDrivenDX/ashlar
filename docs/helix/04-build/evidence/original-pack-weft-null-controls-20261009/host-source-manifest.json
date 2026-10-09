@@ -1,0 +1,37 @@
+{
+  "qualification": "Host and unpublished kernel source review only; no native null qualification",
+  "files": [
+    {
+      "path": "tools/weft_field_plan.py",
+      "sha256": "60d8d6869f265eee5e38df964b67e08c3715f826f656a0ac0bea1a4b8480af7c"
+    },
+    {
+      "path": "tools/run_commerce_arithmetic_weft.py",
+      "sha256": "8c6d725b668dfd49ffe56b519e804781991e9db6fc17ac644ac1e43e1442f863"
+    },
+    {
+      "path": "tools/run_pack_null_weft.py",
+      "sha256": "84abc919309d9a815c648e8391cb0ff8259c3a040b776cff667911b417d46404"
+    },
+    {
+      "path": "tests/test_weft_native_null.py",
+      "sha256": "d9d386b7addb0e7475ef0b4bd97206ac7aa076acd659bb38c0ec6b887516103c"
+    },
+    {
+      "path": "tools/prepare_native_null_controls.py",
+      "sha256": "f71a3cf38c3d071caef85c5e8169443dc7ad0f74f9f0d759e3b4d59c572e2fe4"
+    },
+    {
+      "path": "tools/check_native_null_control_source.ts",
+      "sha256": "dc2cf86108829c4bdfdb91ac956aae3276e4ba2ac7da7dfc237168ce1ccf25be"
+    },
+    {
+      "path": "tools/run_native_null_controls.py",
+      "sha256": "572b8496b149f6e0e60e68a2854289feded3284aebc3a6fba6865d9204ad2eef"
+    },
+    {
+      "path": "tests/test_native_null_controls.py",
+      "sha256": "b0b1a251295e38cf958fd68e95e8b0a402d73d2a1b1a9940986f6b13208fcfea"
+    }
+  ]
+}
