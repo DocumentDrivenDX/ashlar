@@ -1,0 +1,39 @@
+{
+  "containerId": "b042fec62378d429d3c6b82165813da63710acde43adf26e31151811e7138997",
+  "cpuLimit": 2000000000,
+  "image": "sha256:6d016d5a7e3eab0a57bd4d23c4e218467d00c7661fcda215ea2a429941a68cee",
+  "memoryLimit": 3221225472,
+  "ports": {
+    "7687/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "17887"
+      }
+    ],
+    "8081/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "18881"
+      }
+    ],
+    "8182/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "18182"
+      }
+    ]
+  },
+  "state": {
+    "Dead": false,
+    "Error": "",
+    "ExitCode": 137,
+    "FinishedAt": "2026-10-09T23:44:57.28281947Z",
+    "OOMKilled": false,
+    "Paused": false,
+    "Pid": 0,
+    "Restarting": false,
+    "Running": false,
+    "StartedAt": "2026-10-09T23:34:26.459270406Z",
+    "Status": "exited"
+  }
+}

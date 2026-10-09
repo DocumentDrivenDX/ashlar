@@ -1,0 +1,26 @@
+[
+  {
+    "pack": "archaeology",
+    "release": "/private/tmp/ashlar-archaeology-graph-release-20261009-a/release.graph.json",
+    "custody": "/private/tmp/ashlar-archaeology-graph-release-20261009-a/custody.json",
+    "release_sha256": "e43a36357d90fb8fc8854a0b03e9ce34d58f4d186429009518f8cfe761202155",
+    "custody_sha256": "a7e086e15add908c9c9b44d6aedd760c798fd7fec6dff07add534cdf64fe3fbe",
+    "publication": "/private/tmp/ashlar-archaeology-native-publication-20261009-a"
+  },
+  {
+    "pack": "ecology",
+    "release": "/private/tmp/ashlar-ecology-graph-release-20261009-a/release.graph.json",
+    "custody": "/private/tmp/ashlar-ecology-graph-release-20261009-a/custody.json",
+    "release_sha256": "5ac40fe122b8fa01e7930d5251176818d600bb4447e49f7ed8c152cce9470590",
+    "custody_sha256": "c3c175ce706d5799cdb757052cde59b9b9dece5322c4a95645ee373694041add",
+    "publication": "/private/tmp/ashlar-ecology-native-publication-20261009-a"
+  },
+  {
+    "pack": "medical",
+    "release": "/private/tmp/ashlar-medical-graph-release-20261009-a/release.graph.json",
+    "custody": "/private/tmp/ashlar-medical-graph-release-20261009-a/custody.json",
+    "release_sha256": "59f15cd20b36c8816d179221dadb7f1dcf8890e7457a6f43dd4456252ca231f4",
+    "custody_sha256": "e7b9bbdea0e3af9faf7d2ffa228e8856df34abc3c446ea15ed1b605119b28b98",
+    "publication": "/private/tmp/ashlar-medical-outbox-publication-20261009-b"
+  }
+]

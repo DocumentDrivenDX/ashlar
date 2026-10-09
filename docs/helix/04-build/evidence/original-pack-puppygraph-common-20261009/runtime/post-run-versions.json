@@ -1,0 +1,11 @@
+{
+  "PYTHONPATH": "src:tools:/private/tmp/ashlar-gremlin-python",
+  "executable": "/private/tmp/ashlar-db-client/bin/python",
+  "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "scope": "Post-run read-only versions; Gremlin import preflight retained separately before c. No claimed during-query import fingerprint.",
+  "versions": {
+    "duckdb": "1.4.1",
+    "gremlinpython": "3.7.3",
+    "neo4j": "5.28.2"
+  }
+}

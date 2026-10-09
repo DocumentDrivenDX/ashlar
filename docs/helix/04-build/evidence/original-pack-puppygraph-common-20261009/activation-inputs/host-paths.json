@@ -1,0 +1,7 @@
+{
+  "/tmp/augmentations.duckdb": "/private/tmp/ashlar-shared-puppy-prepared-20261009-b/augmentations.duckdb",
+  "/tmp/commerce-exact.duckdb": "/private/tmp/ashlar-commerce-exact-puppy-prepared-20261009-b/commerce-exact.duckdb",
+  "/tmp/commerce.duckdb": "/private/tmp/ashlar-commerce-puppy-prepared-20261009-b/commerce.duckdb",
+  "/tmp/packs.duckdb": "/private/tmp/ashlar-three-pack-puppy-preparation-20261009-b/packs.duckdb",
+  "/tmp/releases.duckdb": "/private/tmp/ashlar-puppy-release-carrier-20261009-b/releases.duckdb"
+}

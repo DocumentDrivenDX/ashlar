@@ -1,0 +1,38 @@
+{
+  "catalog_observed": false,
+  "container": {
+    "id": "b042fec62378d429d3c6b82165813da63710acde43adf26e31151811e7138997",
+    "image": "sha256:6d016d5a7e3eab0a57bd4d23c4e218467d00c7661fcda215ea2a429941a68cee",
+    "memory": 3221225472,
+    "nano_cpus": 2000000000,
+    "ports": {
+      "7687/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "17887"
+        }
+      ],
+      "8081/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "18881"
+        }
+      ],
+      "8182/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "18182"
+        }
+      ]
+    }
+  },
+  "databases": {
+    "/tmp/augmentations.duckdb": "926e9de45d0a0409a6a9be88e933b63332d81fa2316e6a19f0303700eafdfb71",
+    "/tmp/commerce-exact.duckdb": "505e1bfa9cc013a3bfb9024151eed8af537dddf2ff3b4d36471ba91e1034d16e",
+    "/tmp/commerce.duckdb": "f9c4e8d4ec7edf3c6943eb6187db6d1a54f0ba85e480988ee4e8cdfd229278e4",
+    "/tmp/packs.duckdb": "d811d29b8c119bde47dc17c89e23da6618d9cdb689e72f010a49bbddef99beb7",
+    "/tmp/releases.duckdb": "5d69ce5c13549053e3691e689e3f135f09baf7427b9d1d93ee7a42d8aa9ed989"
+  },
+  "observed_model_sha256": "cf2d42bba9f284088025934b92bc8d7b4cf822ca3b698bd1effbf1cb8e67cde1",
+  "requested_model_sha256": "b56d28a5190b0371b5b870d6c7433862700a62480e9b23f557765547c8d3d314"
+}

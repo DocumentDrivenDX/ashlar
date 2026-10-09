@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tools/check_pack_puppygraph.py", line 255, in <module>
+    report=check(admitted,a.language,a.endpoint,model,databases,os.environ['ASHLAR_PUPPY_USER'],os.environ['ASHLAR_PUPPY_PASSWORD'])
+  File "/Users/erik/Projects/ashlar/tools/check_pack_puppygraph.py", line 229, in check
+    from gremlin_python.driver import client,serializer
+ModuleNotFoundError: No module named 'gremlin_python'

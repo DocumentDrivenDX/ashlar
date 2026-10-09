@@ -1,0 +1,34 @@
+
+Received error message '{'requestId': '0b02f83e-3b3d-4fc0-8429-437cb646665d', 'status': {'message': 'The [eval] message supplies one or more invalid parameters key of [[key]] - these are reserved names.', 'code': 499, 'attributes': {}}, 'result': {'data': None, 'meta': {}}}'
+
+With results dictionary '{'0b02f83e-3b3d-4fc0-8429-437cb646665d': <gremlin_python.driver.resultset.ResultSet object at 0x108bb2730>}'
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tools/check_pack_puppygraph.py", line 255, in <module>
+    report=check(admitted,a.language,a.endpoint,model,databases,os.environ['ASHLAR_PUPPY_USER'],os.environ['ASHLAR_PUPPY_PASSWORD'])
+  File "/Users/erik/Projects/ashlar/tools/check_pack_puppygraph.py", line 231, in check
+    try:report=run_held(prepared,language,lambda script,bindings:remote.submit(script,bindings=bindings).all().result(timeout=20),observe)
+  File "/Users/erik/Projects/ashlar/tools/check_pack_puppygraph.py", line 152, in run_held
+    reports=[execute_pack(language,p['pack'],p['value'],p['graph'],p['nodes'],p['edges'],p['admission'],p['expected'],query)for p in frozen]
+  File "/Users/erik/Projects/ashlar/tools/check_pack_puppygraph.py", line 152, in <listcomp>
+    reports=[execute_pack(language,p['pack'],p['value'],p['graph'],p['nodes'],p['edges'],p['admission'],p['expected'],query)for p in frozen]
+  File "/Users/erik/Projects/ashlar/tools/check_pack_puppygraph.py", line 126, in execute_pack
+    raw=query(script,params if name in ('singleton','filtered-limit','filtered-total')else {})
+  File "/Users/erik/Projects/ashlar/tools/check_pack_puppygraph.py", line 231, in <lambda>
+    try:report=run_held(prepared,language,lambda script,bindings:remote.submit(script,bindings=bindings).all().result(timeout=20),observe)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/_base.py", line 445, in result
+    return self.__get_result()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/private/tmp/ashlar-gremlin-python/gremlin_python/driver/resultset.py", line 90, in cb
+    f.result()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/_base.py", line 438, in result
+    return self.__get_result()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/_base.py", line 390, in __get_result
+    raise self._exception
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/concurrent/futures/thread.py", line 52, in run
+    result = self.fn(*self.args, **self.kwargs)
+  File "/private/tmp/ashlar-gremlin-python/gremlin_python/driver/connection.py", line 90, in _receive
+    status_code = self._protocol.data_received(data, self._results)
+  File "/private/tmp/ashlar-gremlin-python/gremlin_python/driver/protocol.py", line 140, in data_received
+    raise GremlinServerError(message['status'])
+gremlin_python.driver.protocol.GremlinServerError: 499: The [eval] message supplies one or more invalid parameters key of [[key]] - these are reserved names.

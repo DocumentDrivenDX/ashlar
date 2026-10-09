@@ -1,0 +1,11 @@
+{
+  "files": {
+    "databases.json": "2c24dd5751c6380d45a23777c114d562b633acc90f882056328ab632cb5c2ab2",
+    "host-paths.json": "be3f96ed48d88ae68f774773162d7b976611e633d817bac6bbac5f25d98dcc35",
+    "model.json": "7d545345b68b4b7353a7da5824d0cd8c64efcc65fb5880aec44425f6f350a0a6",
+    "trusted-prepared.json": "bf6b577f34cc2e4e93f7c491bed423998ba3106b9bf7c7dde2d6f53567f2a52f"
+  },
+  "original_addition_model_sha256": "c35d1461f62dee7767e8805e26a9b08560f8bfc8eada980bbb9ddef2ff91fe55",
+  "original_prior_model_sha256": "b56d28a5190b0371b5b870d6c7433862700a62480e9b23f557765547c8d3d314",
+  "scope": "Read-only host verification and complete activation inputs only; no container/model mutation or engine execution."
+}

@@ -1,0 +1,12 @@
+{
+  "files": {
+    "tests/test_pack_puppygraph.py": "60af075d239c9ba328a4d262ab566fa804943ffc105d9464897670e3dfd8bf50",
+    "tools/check_pack_puppygraph.py": "013da42b4b0be00fe7a973db7ff7e7efe0c8f295704f027b160649041e5766e3"
+  },
+  "prepared": {
+    "model.json": "c35d1461f62dee7767e8805e26a9b08560f8bfc8eada980bbb9ddef2ff91fe55",
+    "packs.duckdb": "d811d29b8c119bde47dc17c89e23da6618d9cdb689e72f010a49bbddef99beb7",
+    "receipt.json": "294aba2c28822f881e68803b26f2ef45ddf51108148a3df3be78ba18d4aa2bd5"
+  },
+  "scope": "Pre-run code and actual original source/prepared database preflight only; no container activation or query execution."
+}

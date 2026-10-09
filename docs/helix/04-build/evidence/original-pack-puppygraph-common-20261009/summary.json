@@ -1,0 +1,37 @@
+{
+  "additional_controls": [
+    "native-filtered-total",
+    "native-isolates"
+  ],
+  "common_cases_per_protocol": 21,
+  "counts": {
+    "archaeology": [
+      39,
+      46
+    ],
+    "ecology": [
+      40,
+      54
+    ],
+    "medical": [
+      51,
+      62
+    ]
+  },
+  "cypher_source_commit": "e90482f",
+  "format": "ashlar-original-pack-puppygraph-common-evidence/0.1",
+  "gremlin_source_commit": "3b6057ba31355fcebacd89ff4add8e08eab8447e",
+  "original17_authored_scenarios_qualified": false,
+  "preparation_evidence": "docs/helix/04-build/evidence/original-pack-puppy-preparation-20261009",
+  "prior_preservation_groups": [
+    "authored-cypher",
+    "authored-gremlin",
+    "commerce-cypher",
+    "commerce-gremlin",
+    "exact-cypher",
+    "exact-gremlin",
+    "releases"
+  ],
+  "qualification": "Actual bounded local PuppyGraph1.13 Cypher/Gremlin original immutable String/null carriers and topology. Complete paired source/public admission recomputed before query clients; five sealed DB hashes and requested/observed model qualified separately. No scalar promotion, UC/Truss authority, atomic activation or continued lease. Engine stopped after closing preservation replay.",
+  "source_export_evidence": "docs/helix/04-build/evidence/original-pack-graph-exports-20261009"
+}

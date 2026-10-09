@@ -1,0 +1,7 @@
+{
+  "files": {
+    "tests/test_pack_puppygraph.py": "452fbcbc234000d2f9bc08c3a8c893498d0f29870bdc712d7255726f37674bfd",
+    "tools/check_pack_puppygraph.py": "b947e153e242402bf7e0fb128c4193d2f45ac08d3777a3c594ed703c5ca090f9"
+  },
+  "scope": "Reserved Gremlin key binding renamed ashlarSingletonKey; exact singleton value unchanged, no interpolation."
+}
