@@ -1,0 +1,53 @@
+{
+  "format": "ashlar-medical-native-evidence/0.1",
+  "files": [
+    {
+      "path": "docs/helix/04-build/evidence/medical-native-publication-20261009/README.md",
+      "sha256": "295d7ce8002010e56dfb0081e7c41d8dc8a4997526911174ed6b55ca55ddbcea"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-native-publication-20261009/development-bindings.json",
+      "sha256": "743fda730110929b66daf5c5ce4d2ad315a9c9447f609dd6dae195a04477af2c"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-native-publication-20261009/frozen-source.json",
+      "sha256": "6903709d27c1843493e8a136679b3d26e8287f64a96b675ec43ae8c420319803"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-native-publication-20261009/journal-snapshot.json",
+      "sha256": "1e5a49dcc4dad5e7c5ef001192977c437ca42ff5a69d4fd847cf71525bcc8577"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-native-publication-20261009/native-b.log",
+      "sha256": "e92bc329391ece49465560661d3e253007099f65e7f21b1cd5994aac4f623420"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-native-publication-20261009/native-files.json",
+      "sha256": "98e5edca756a1283a0e0733a3671a83d42791df67f5b8640bb6c85470ca1fc39"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-native-publication-20261009/operations-snapshot.sqlite.gz",
+      "sha256": "235fa1ee33900c1cd8911e3883c7222da102513c1669f4e686753faffc5e507e"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-native-publication-20261009/original-archive-oracle.json",
+      "sha256": "8afdddd0e30bfb06d27ca5f30ece8271abd75dfc519cfb9de6e463a12755b508"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-native-publication-20261009/public-dataset-call.json",
+      "sha256": "53a74a42a3c80c1486842338e9d4d0843995ee64f1c5fee208de0c9441288c48"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-native-publication-20261009/public-dataset.json",
+      "sha256": "1400eebbca3b082f19fd7699e74c708dfbd69e5ed21f7d3f5e77bd6f4e46b20e"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-native-publication-20261009/report.json",
+      "sha256": "7e76edf742885cfe34bb42f7b8bb76931d3ced46b168f250af744770f8642e03"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-native-publication-20261009/source.jsonl",
+      "sha256": "99f7b711028f4ccd982381a3feb9667751e014c2f30bfae462d0673cf56d153a"
+    }
+  ]
+}

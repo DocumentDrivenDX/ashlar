@@ -1,0 +1,14 @@
+{
+  "format": "ashlar-local-journal-snapshot/0.1",
+  "original": "/private/tmp/ashlar-medical-outbox-publication-20261009-b/operations.sqlite",
+  "method": "SQLite online backup from mode=ro connection after producer close; consistent committed snapshot",
+  "snapshot_sha256": "9229727528863f20952afd8f5f5487777372a3cc799a6f45b3ee33f8bf08578a",
+  "snapshot_bytes": 57020416,
+  "compressed_sha256": "235fa1ee33900c1cd8911e3883c7222da102513c1669f4e686753faffc5e507e",
+  "original_native_files_observation_preserved": true,
+  "transient_files": [
+    "operations.sqlite-shm",
+    "operations.sqlite-wal"
+  ],
+  "qualification": "SHM/WAL sidecars are transient SQLite coordination files and may change on legitimate readonly opens. Original observed hashes remain historical; stable file parity excludes only those sidecars. The consistent snapshot preserves complete original journal records for recomputation."
+}

@@ -1,0 +1,33 @@
+{
+  "format": "ashlar-reviewed-medical-capacity-files/0.1",
+  "files": [
+    {
+      "path": "src/ashlar/medical_source.py",
+      "sha256": "dd02f4214e42019f3f85938ad79987f3510938b37ccb5aeed6f1111a86623978"
+    },
+    {
+      "path": "tools/medical_source_transaction.py",
+      "sha256": "057275ffa943d128d8a6065d3ad642eb44fe6aac435a79314a649d0466a11c43"
+    },
+    {
+      "path": "tools/run_medical_outbox_publication.py",
+      "sha256": "4ac0b2d075c9e061f661bff66ea62431ac554196e48ddcd24fcba792bd6b81d6"
+    },
+    {
+      "path": "tests/test_medical_source.py",
+      "sha256": "1adf08a41f5bab2a7509d928de03b578864bd30fee2207da344be464fbfa2bc1"
+    },
+    {
+      "path": "tools/local_delta_custody.py",
+      "sha256": "b4842277c1c53320b75a641074f1efa1a16420920f952b3bdd63506249a3dd12"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+      "sha256": "492a1b92e32ffa22de8439bd4b066075f9acb22555e2f22a60dd924d1390ed27"
+    },
+    {
+      "path": "tests/test_local_delta_capacity.py",
+      "sha256": "e5099e96148414f9b8e2ff870948a9629d9fd46aff100172720b9573c09123ec"
+    }
+  ]
+}
