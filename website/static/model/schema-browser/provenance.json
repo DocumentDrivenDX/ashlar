@@ -2,7 +2,7 @@
   "profile": "ashlar-umf-schema-browser/0.1",
   "upstream": {
     "project": "UMF",
-    "revision": "c7c95e1c4ea5b72541f47fa0350ca467ff02f395",
+    "revision": "de11e172c1eb11e7082b605421ad146ae4740a0d",
     "path": "docs/helix/05-deploy/microsite/dist/",
     "assets": {
       "explorer.js": "53ae28d5e07ae55fb3cc914cc9d992e2227823f6309abb96f1210e6722e6bb21",
@@ -21,7 +21,7 @@
     "docs/helix/02-design/models/ashlar-delta-runtime/whole_source_history.umf.json": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926",
     "docs/helix/02-design/models/ashlar-delta-runtime/index.json": "3905d10dc5ec5e7bc7297004e9e73e6786e53dbf4d2533ecdd351c0b38ba7679"
   },
-  "generator_sha256": "3ac0f5190a0a1a0d97bdeefe4ebfc97079de37b88d7ed99d862b1a16eede57b3",
+  "generator_sha256": "914b1968d04d6cc20a7b58c32f460eeb402039ce6f84815f875aa9de6b4b1af3",
   "outputs": {
     "explorer.js": "53ae28d5e07ae55fb3cc914cc9d992e2227823f6309abb96f1210e6722e6bb21",
     "explorer.css": "479073250e24e40c180a37d4f55207cd7f672612acc61965c10156249d7cb6e0",

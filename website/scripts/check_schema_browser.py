@@ -5,7 +5,7 @@ root=Path(__file__).resolve().parents[2];folder=root/'website/static/model/schem
 proof=json.loads((folder/'provenance.json').read_text())
 sha=lambda data:hashlib.sha256(data).hexdigest()
 assert proof['profile']=='ashlar-umf-schema-browser/0.1'
-assert proof['upstream']['revision']=='c7c95e1c4ea5b72541f47fa0350ca467ff02f395'
+assert proof['upstream']['revision']=='de11e172c1eb11e7082b605421ad146ae4740a0d'
 assert proof['generator_sha256']==sha((root/'tools/build_schema_browser.py').read_bytes())
 expected={'explorer.js','explorer.css','index.html','host.css','schema-catalog.json'}
 assert set(proof['outputs'])==expected
