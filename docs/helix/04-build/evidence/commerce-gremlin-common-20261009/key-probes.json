@@ -1,0 +1,27 @@
+[
+  {
+    "bindings": {
+      "originalKey": "[\"urn:umf:domain:commerce\",\"domain\",\"customers\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    "rows": [
+      "[\"urn:umf:domain:commerce\",\"domain\",\"customers\",[\"[42,0,\\\"C1\\\"]\"]]"
+    ],
+    "script": "g.V().hasLabel('CommerceNode').filter(__.values('original_key').is(originalKey)).values('original_key')"
+  },
+  {
+    "bindings": {
+      "originalKey": "[\"urn:umf:domain:commerce\",\"domain\",\"customers\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    "rows": [
+      "[\"urn:umf:domain:commerce\",\"domain\",\"customers\",[\"[42,0,\\\"C1\\\"]\"]]"
+    ],
+    "script": "g.V().hasLabel('CommerceNode').filter{ it.get().value('original_key').equals(originalKey) }.values('original_key')"
+  },
+  {
+    "bindings": {
+      "originalKey": "[\"urn:umf:domain:commerce\",\"domain\",\"customers\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    "rows": [],
+    "script": "g.V().hasLabel('CommerceNode').has('original_key','[\"urn:umf:domain:commerce\",\"domain\",\"customers\",[\"[42,0,\\\\\"C1\\\\\"]\"]]').values('original_key')"
+  }
+]
