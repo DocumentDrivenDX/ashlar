@@ -183,6 +183,28 @@ text plus a separate evidenced analytic cast. Native typed columns remain bounde
 by their declared precision/range. JSON strings are preservation carriers, not
 proof that every graph consumer can interpret their contents.
 
+### Exact commerce graph arithmetic projection
+
+The opt-in `ashlar-commerce-exact-graph-arithmetic/0.1` profile MAY project
+original quantity values to signed-64 integer columns and authored scale-2 money
+values to signed-64 integer coefficients. These are finite native carriers:
+quantity's logical mathematical Integer domain remains unbounded, and the money
+coefficient is not the logical Decimal value. The adapter MUST retain the full
+original value and presence carriers, exact money tokens (including negative
+zero), authored scale, and an explicit coefficient-to-value mapping. It MUST NOT
+use floating-point conversion or infer source validity from native capacity.
+
+Public UMF source admission MUST precede this projection. The adapter MUST check
+native representability separately for every consumed source value and every
+intermediate subtraction, addition and multiplication over the complete
+unfiltered candidate bags, using arbitrary-precision arithmetic. Bounds checks
+MUST precede native execution and MUST NOT be hidden by filtering, cancellation,
+ordering or limits. Native results MUST independently match exact original-source
+oracles, including multiplicities. Overflow or any unsupported expression MUST
+refuse the complete query before releasing results. The profile's finite carrier
+capacity MUST NOT narrow the original schema or qualify an engine's general
+support for unbounded integer or decimal arithmetic.
+
 ### Publication and lookup
 
 Publication MUST write/validate each table, capture its Delta version, then append
