@@ -1,0 +1,56 @@
+{
+  "custodySha256": "667f5c8260fe6a37c1838495434c08aaa5ee1331aad507b8a65bac6167c731f8",
+  "defaultRetentionPathRefused": true,
+  "edges": 10,
+  "nodes": 11,
+  "observedHeads": [
+    "1",
+    "1"
+  ],
+  "ordinarySessions": [
+    {
+      "backend_pid": "483493",
+      "connection_route": "private-local-postgresql",
+      "current_user": "ashlar_ack_operator_78ac03898363",
+      "database": "truss_e2e",
+      "server_address": "192.168.215.3/32",
+      "server_port": "5432",
+      "session_user": "ashlar_ack_operator_78ac03898363",
+      "source_schema": "ashlar_ack_source_78ac03898363_commerce",
+      "source_signature_sha256": "8188e8a6e4b87a86748e0b7c72f098abbd0801690b6a19d13690b618f829adee"
+    },
+    {
+      "backend_pid": "483493",
+      "connection_route": "private-local-postgresql",
+      "current_user": "ashlar_ack_operator_78ac03898363",
+      "database": "truss_e2e",
+      "server_address": "192.168.215.3/32",
+      "server_port": "5432",
+      "session_user": "ashlar_ack_operator_78ac03898363",
+      "source_schema": "ashlar_ack_source_78ac03898363_commerce",
+      "source_signature_sha256": "8188e8a6e4b87a86748e0b7c72f098abbd0801690b6a19d13690b618f829adee"
+    }
+  ],
+  "originalNativeFilesUnchanged": true,
+  "originalRequestedPosition": "1",
+  "releaseSha256": "eeef228c5fa69720ac082dc3e19adbd63cebe17d1cdf877af250c8a9908aaed6",
+  "scope": "Read-only revalidation of original immutable export, later canonical ACK-head guard and explicit private loader. No new native/source operation.",
+  "snapshots": {
+    "local.commerce.edge_current": {
+      "uuid": "34ce3a5a-9618-441d-a60f-d7db48139e3f",
+      "version": 2
+    },
+    "local.commerce.object_current": {
+      "uuid": "f7838bf4-519c-4c45-8665-3e24df563766",
+      "version": 2
+    },
+    "local.commerce.tombstone": {
+      "uuid": "117541f3-d1a0-4877-b183-3219afce241b",
+      "version": 1
+    },
+    "local.commerce.whole_source_history": {
+      "uuid": "d90da607-3884-4d31-bbd8-c17cc8cc217a",
+      "version": 2
+    }
+  }
+}

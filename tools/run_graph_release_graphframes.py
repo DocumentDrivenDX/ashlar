@@ -22,7 +22,7 @@ def _object(pairs):
         result[key]=value
     return result
 
-def _lineage(value):
+def _lineage(value,*,private_custody_admitted=False):
     if type(value) is not dict or set(value)!={'format','publication','snapshots','roles','nodes','edges','mapping'}:
         raise ValueError('Closed complete release envelope required')
     publication=value['publication'];snapshots=value['snapshots'];roles=value['roles'];mapping=value['mapping']
@@ -47,13 +47,14 @@ def _lineage(value):
             raise ValueError('Native table UUID required')
         if type(snapshot['version']) is not int or not 0<=snapshot['version']<2**63 or type(versions[table]) is not int or versions[table]!=snapshot['version']:
             raise ValueError('Original manifest snapshot version mismatch')
-    retention=decoded['validation_report_json'].get('retention',{}).get('targets')
-    if type(retention) is not dict or set(retention)!=set(snapshots):
-        raise ValueError('Original manifest UUID/version custody inventory required')
-    for table,snapshot in snapshots.items():
-        target=retention[table]
-        if type(target) is not dict or target.get('uuid')!=snapshot['uuid'] or type(target.get('version')) is not int or target['version']!=snapshot['version']:
-            raise ValueError('Original manifest UUID/version custody differs')
+    if not private_custody_admitted:
+        retention=decoded['validation_report_json'].get('retention',{}).get('targets')
+        if type(retention) is not dict or set(retention)!=set(snapshots):
+            raise ValueError('Original manifest UUID/version custody inventory required')
+        for table,snapshot in snapshots.items():
+            target=retention[table]
+            if type(target) is not dict or target.get('uuid')!=snapshot['uuid'] or type(target.get('version')) is not int or target['version']!=snapshot['version']:
+                raise ValueError('Original manifest UUID/version custody differs')
     if type(roles) is not dict or set(roles)!={'nodes','edges'} or any(type(t) is not str or t not in snapshots for t in roles.values()) or roles['nodes']==roles['edges']:
         raise ValueError('Distinct original snapshot graph roles required')
     expected={'reversibleIdentity':True,'independentEdges':True,'isolatedNodes':True,'exactCanonicalText':True,'selectedScalarPromotion':False,'nativeReleaseMaterialization':False,'engineExecution':False}
@@ -65,12 +66,17 @@ def _lineage(value):
     if type(capabilities) is not dict or capabilities!=expected or any(type(v) is not bool for v in capabilities.values()) or mapping['losses']!=[] or mapping['engineSupport']!=[]:
         raise ValueError('Supported lossless unexecuted release capability inventory required')
 
-def load_release(payload, trusted_sha256):
+def load_release(payload, trusted_sha256,*,custody_profile=None,custody_payload=None,trusted_custody_sha256=None):
     if not re.fullmatch('[0-9a-f]{64}',trusted_sha256) or hashlib.sha256(payload).hexdigest()!=trusted_sha256:
         raise ValueError('Trusted release byte digest mismatch')
     value=json.loads(payload.decode('utf-8'),object_pairs_hook=_object,
                     parse_constant=lambda x: (_ for _ in ()).throw(ValueError('Nonfinite JSON')))
-    _lineage(value)
+    private=False
+    if any(x is not None for x in (custody_profile,custody_payload,trusted_custody_sha256)):
+        from private_graph_custody import PROFILE,admit_private_custody
+        if custody_profile!=PROFILE or custody_payload is None or trusted_custody_sha256 is None:raise ValueError('Explicit complete separately trusted private custody required')
+        admit_private_custody(value,custody_payload,trusted_custody_sha256,trusted_sha256);private=True
+    _lineage(value,private_custody_admitted=private)
     if value.get('format')!=FORMAT or value.get('mapping',{}).get('identity')!='ashlar-key/1':
         raise ValueError('Unsupported named release/identity encoding')
     if (json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)+'\n').encode()!=payload:
@@ -106,8 +112,8 @@ def oracle(value):
 def row_bag(rows):
     return Counter(json.dumps(dict(row),ensure_ascii=False,sort_keys=True,separators=(',',':')) for row in rows)
 
-def run(payload, trusted_sha256, output, jars):
-    value=load_release(payload,trusted_sha256)
+def run(payload, trusted_sha256, output, jars,*,custody_profile=None,custody_payload=None,trusted_custody_sha256=None):
+    value=load_release(payload,trusted_sha256,custody_profile=custody_profile,custody_payload=custody_payload,trusted_custody_sha256=trusted_custody_sha256)
     output=Path(output)
     if output.exists():raise ValueError('Fresh output directory required')
     versions={p:importlib.metadata.version(p) for p in VERSIONS}
@@ -167,4 +173,5 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--release',required=True);p.add_argument('--sha256',required=True)
     p.add_argument('--output',required=True);p.add_argument('--jars',required=True)
-    a=p.parse_args();print(json.dumps(run(Path(a.release).read_bytes(),a.sha256,a.output,a.jars),sort_keys=True))
+    p.add_argument('--custody-profile');p.add_argument('--custody',type=Path);p.add_argument('--custody-sha256')
+    a=p.parse_args();print(json.dumps(run(Path(a.release).read_bytes(),a.sha256,a.output,a.jars,custody_profile=a.custody_profile,custody_payload=a.custody.read_bytes() if a.custody is not None else None,trusted_custody_sha256=a.custody_sha256),sort_keys=True))

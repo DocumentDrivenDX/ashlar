@@ -69,3 +69,76 @@ class Tests(unittest.TestCase):
         provider=PublicationProvider(None,{},None,b'request',b'manifest',binding,context=context)
         provider.active=True;binding['records'][0]['sourceSystem']='forged'
         with self.assertRaisesRegex(ValueError,'binding changed'):provider.admit_binding(binding,None,context)
+
+class LifecycleTests(unittest.TestCase):
+    def provider(self):
+        from protected_outbox_ack import AckScope
+        from unittest.mock import Mock
+        context=object();driver=Mock();driver.policy.active={'manifest':{'table_versions_json':'{"local.graph.object_current":2}'}}
+        driver.transport.targets={'local.graph.object_current':SimpleNamespace(uuid='uuid')}
+        @contextmanager
+        def held(*args,**kwargs):yield
+        driver.writer=held;driver.hold=held
+        scope=AckScope('ashlar_ack_fixture','11111111-1111-4111-8111-111111111111','22222222-2222-4222-8222-222222222222','consumer','feed','epoch')
+        provider=PublicationProvider(driver,{},dict(scope=scope,source='ashlar_ack_source_fixture',signature='signature',role='ashlar_ack_operator_fixture'),b'request',b'manifest',{},context=context)
+        provider._ack=Mock(side_effect=[{'session':{'backend_pid':'41'},'observation':{'position':'1'}},{'session':{'backend_pid':'41'},'observation':{'position':'1'}}])
+        return provider,driver,context
+    def interval_patches(self):
+        from unittest.mock import patch,Mock
+        from contextlib import ExitStack
+        stack=ExitStack();connection=Mock()
+        stack.enter_context(patch('ashlar.manifest.manifest_pin_vector',return_value='vector'))
+        stack.enter_context(patch('local_outbox_connection.connect',return_value=connection))
+        stack.enter_context(patch('postgres_transactions.Session',return_value='actual-session-port'))
+        return stack,connection
+    def test_complete_native_pin_and_pg_closure_precedes_immutable_custody(self):
+        provider,driver,context=self.provider()
+        with self.interval_patches()[0]:
+            with provider.interval(context):
+                self.assertTrue(provider.active)
+                with self.assertRaises(PermissionError):provider.closed_interval_custody(context)
+            receipt=provider.closed_interval_custody(context)
+        self.assertEqual(provider._ack.call_count,2);self.assertEqual(receipt['opening_ack']['session']['backend_pid'],'41')
+        receipt['closing_ack']['observation']['position']='forged'
+        self.assertEqual(provider.closed_interval_custody(context)['closing_ack']['observation']['position'],'1')
+        with self.assertRaises(PermissionError):provider.closed_interval_custody(object())
+    def test_closing_whole_vector_or_pg_failure_discards_custody(self):
+        from unittest.mock import Mock
+        for failure in ('native-vector','pg-closing'):
+            provider,driver,context=self.provider()
+            if failure=='native-vector':
+                @contextmanager
+                def changed(*args,**kwargs):
+                    yield
+                    raise ValueError('closing whole-vector failure')
+                driver.hold=changed
+            else:provider._ack=Mock(side_effect=[{'observation':'opening'},ValueError('closing PG changed')])
+            with self.interval_patches()[0]:
+                with self.assertRaises(ValueError):
+                    with provider.interval(context):pass
+            with self.assertRaises(PermissionError):provider.closed_interval_custody(context)
+    def test_stale_custody_is_reset_and_closed_reader_cannot_reenter(self):
+        provider,driver,context=self.provider()
+        with self.interval_patches()[0]:
+            with provider.interval(context):pass
+            provider._ack.side_effect=ValueError('new opening failed')
+            with self.assertRaises(ValueError):
+                with provider.interval(context):pass
+            with self.assertRaises(PermissionError):provider.closed_interval_custody(context)
+        provider._reader_closed=True
+        with self.assertRaises(PermissionError):
+            with provider.interval(context):pass
+    def test_connection_cleanup_failure_withholds_buffered_rows_and_custody(self):
+        from unittest.mock import Mock
+        for cleanup in ('rollback','close'):
+            provider,driver,context=self.provider();stack,connection=self.interval_patches()
+            getattr(connection,cleanup).side_effect=ValueError('native '+cleanup+' failed')
+            provider.resolve=Mock(return_value=SimpleNamespace(descriptor=SimpleNamespace(raw={'original':'manifest'}),snapshots={'node':('uuid',2)}))
+            provider.admit_binding=Mock();provider.runtime=Mock()
+            provider.sql=Mock(side_effect=[[{'violations':'0'}],[{'n':'2'}]])
+            request,artifact=Tests().fixture()
+            with stack:
+                with self.assertRaises(ValueError):execute_guarded(provider,request,artifact,context=context)
+            self.assertEqual(provider.sql.call_count,2)
+            with self.assertRaises(PermissionError):provider.closed_interval_custody(context)
+            connection.close.assert_called_once()
