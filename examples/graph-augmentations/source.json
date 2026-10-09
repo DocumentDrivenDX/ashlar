@@ -1,0 +1,1374 @@
+{
+  "corpusSha256": "0af6fb22dcdb4dd5ad91aa91c9444c967b82cd92910e9a764afd66ae83908d9d",
+  "edges": [
+    {
+      "key": "E1",
+      "source": "A1",
+      "target": "B1"
+    },
+    {
+      "key": "E2",
+      "source": "A1",
+      "target": "B1"
+    },
+    {
+      "key": "E3",
+      "source": "B1",
+      "target": "C1"
+    },
+    {
+      "key": "E4",
+      "source": "B1",
+      "target": "C2"
+    },
+    {
+      "key": "E5",
+      "source": "B1",
+      "target": "A1"
+    },
+    {
+      "key": "E6",
+      "source": "B1",
+      "target": "B1"
+    }
+  ],
+  "format": "ashlar-authored-graph-augmentations/0.1",
+  "nodes": [
+    {
+      "case": "A-TOPOLOGY",
+      "key": "A0",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "A0"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-TOPOLOGY",
+      "key": "A1",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "A1"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-TOPOLOGY",
+      "key": "B1",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "B1"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-TOPOLOGY",
+      "key": "C1",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "C1"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-TOPOLOGY",
+      "key": "C2",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "C2"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-text-0",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-text-0"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": ""
+          }
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-text-1",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-text-1"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "雪"
+          }
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-text-2",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-text-2"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "é"
+          }
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-text-3",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-text-3"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "é"
+          }
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-boolean-0",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-boolean-0"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "boolean": true
+          }
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-boolean-1",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-boolean-1"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "boolean": false
+          }
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-integer-0",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-integer-0"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "integerToken": "-9007199254740993"
+          }
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-integer-1",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-integer-1"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "integerToken": "-9007199254740992"
+          }
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-integer-2",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-integer-2"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "integerToken": "-1"
+          }
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-integer-3",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-integer-3"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "integerToken": "0"
+          }
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-integer-4",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-integer-4"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "integerToken": "9007199254740991"
+          }
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-integer-5",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-integer-5"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "integerToken": "9007199254740992"
+          }
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-integer-6",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-integer-6"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "integerToken": "9007199254740993"
+          }
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-decimal-0",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-decimal-0"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "decimalToken": "-0.00"
+          }
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-decimal-1",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-decimal-1"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "decimalToken": "12.50"
+          }
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-SCALAR",
+      "key": "scalar-decimal-2",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "scalar-decimal-2"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "decimalToken": "9999999999999999.99"
+          }
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-PRESENCE",
+      "key": "presence-absent",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "presence-absent"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-PRESENCE",
+      "key": "presence-null",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "presence-null"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": null
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-PRESENCE",
+      "key": "presence-present-empty-string",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "presence-present-empty-string"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": ""
+          }
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-PRESENCE",
+      "key": "presence-present-zero",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "presence-present-zero"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "integerToken": "0"
+          }
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "absent"
+        }
+      ]
+    },
+    {
+      "case": "A-PRESENCE",
+      "key": "presence-present-false",
+      "values": [
+        {
+          "field": {
+            "element": "id",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "string": "presence-present-false"
+          }
+        },
+        {
+          "field": {
+            "element": "text",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "integer",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "decimal",
+            "module": "fixture"
+          },
+          "state": "absent"
+        },
+        {
+          "field": {
+            "element": "boolean",
+            "module": "fixture"
+          },
+          "state": "present",
+          "value": {
+            "boolean": false
+          }
+        }
+      ]
+    }
+  ],
+  "originalAugmentations": [
+    {
+      "edges": [
+        [
+          "E1",
+          "A1",
+          "B1"
+        ],
+        [
+          "E2",
+          "A1",
+          "B1"
+        ],
+        [
+          "E3",
+          "B1",
+          "C1"
+        ],
+        [
+          "E4",
+          "B1",
+          "C2"
+        ],
+        [
+          "E5",
+          "B1",
+          "A1"
+        ],
+        [
+          "E6",
+          "B1",
+          "B1"
+        ]
+      ],
+      "id": "A-TOPOLOGY",
+      "nodes": [
+        "A0",
+        "A1",
+        "B1",
+        "C1",
+        "C2"
+      ],
+      "oneHopEdgeIds": [
+        "E1",
+        "E2"
+      ],
+      "qualification": "Separately authored generic directed multigraph; requires its own admitted UMF model and source binding. No domain pack is mutated.",
+      "queryStart": "A1",
+      "twoHopDistinctDestinations": [
+        "A1",
+        "B1",
+        "C1",
+        "C2"
+      ],
+      "twoHopEdgePaths": [
+        [
+          "E1",
+          "E3"
+        ],
+        [
+          "E1",
+          "E4"
+        ],
+        [
+          "E1",
+          "E5"
+        ],
+        [
+          "E1",
+          "E6"
+        ],
+        [
+          "E2",
+          "E3"
+        ],
+        [
+          "E2",
+          "E4"
+        ],
+        [
+          "E2",
+          "E5"
+        ],
+        [
+          "E2",
+          "E6"
+        ]
+      ]
+    },
+    {
+      "booleans": [
+        true,
+        false
+      ],
+      "fixedDecimalTokens": [
+        "-0.00",
+        "12.50",
+        "9999999999999999.99"
+      ],
+      "id": "A-SCALAR",
+      "integerTokens": [
+        "-9007199254740993",
+        "-9007199254740992",
+        "-1",
+        "0",
+        "9007199254740991",
+        "9007199254740992",
+        "9007199254740993"
+      ],
+      "qualification": "Separately authored exact scalar/presence declarations. Each original lexical token is retained; public UMF defines validity and any logical canonicalization.",
+      "strings": [
+        "",
+        "雪",
+        "é",
+        "é"
+      ]
+    },
+    {
+      "id": "A-PRESENCE",
+      "invalidControls": [
+        "absent value for required field",
+        "explicit null for null-excluded field"
+      ],
+      "qualification": "Author and pin separate public UMF field declarations that explicitly permit each tested state before execution. All five valid declared states must survive distinctly; this is a required positive fixture, not a capability-refusal classification. No mapping from CSV null to logical absence is implicit.",
+      "states": [
+        "absent",
+        "null",
+        "present-empty-string",
+        "present-zero",
+        "present-false"
+      ]
+    }
+  ],
+  "qualification": "Separately authored fixture; explicit development original key identities. PublicUMF admission required; no catalog/publication/ACK authority."
+}

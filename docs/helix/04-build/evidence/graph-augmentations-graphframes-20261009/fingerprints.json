@@ -1,0 +1,10 @@
+{
+  "docs/helix/04-build/evidence/graph-augmentations-graphframes-20261009/README.md": "95cec0b7ad4f3deee81cc7cb4991157b198335c412a7257e03c0cd41e7b4e206",
+  "docs/helix/04-build/evidence/graph-augmentations-graphframes-20261009/public-receipt.json": "cef9f37398c72d6469e6f50972a7ad368384b022fe9ca192821a9da0f9707461",
+  "docs/helix/04-build/evidence/graph-augmentations-graphframes-20261009/report.json": "a649535c66d4f1737b98a8d11bcab30f2c904cd20e21abd52140b49c90da8ef1",
+  "examples/graph-augmentations/model.umf.json": "3e15e35016e1ab65801b00c1b0370b23eaecfc66ad25d99820c8843350e0ad88",
+  "examples/graph-augmentations/source.json": "d1858d36573a39aa8585ad98ca2e05a02faa0c38e410a8ae9599a56a31d9ccd0",
+  "tests/test_graph_augmentations.py": "38997292e38d1ff3d2696e09fd73634c98fa5409ec1edd75c6a87d5cee20b06b",
+  "tools/check_graph_augmentations.ts": "a6849e760c165435fdc11a298bfcf1d4efed4b7ad663f8496241b33530b614dc",
+  "tools/run_graph_augmentations_graphframes.py": "a7cc7506166faf9d466e528e0a35302f86e25e182ac34d6eaf730e4ca3450495"
+}

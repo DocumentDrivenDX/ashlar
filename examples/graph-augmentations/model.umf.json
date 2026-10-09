@@ -1,0 +1,133 @@
+{
+  "extensions": {},
+  "id": "urn:ashlar:authored:graph-augmentations:1",
+  "modules": [
+    {
+      "elements": [
+        {
+          "extensions": {},
+          "id": "Item",
+          "keys": [
+            {
+              "fields": [
+                {
+                  "element": "id",
+                  "module": "fixture"
+                }
+              ],
+              "id": "identity",
+              "name": "identity",
+              "primary": true
+            }
+          ],
+          "kind": "record",
+          "members": [
+            {
+              "element": "id",
+              "module": "fixture"
+            },
+            {
+              "element": "text",
+              "module": "fixture"
+            },
+            {
+              "element": "integer",
+              "module": "fixture"
+            },
+            {
+              "element": "decimal",
+              "module": "fixture"
+            },
+            {
+              "element": "boolean",
+              "module": "fixture"
+            }
+          ]
+        },
+        {
+          "cardinality": "one",
+          "extensions": {},
+          "id": "id",
+          "kind": "field",
+          "nullability": "required",
+          "scalarType": "string"
+        },
+        {
+          "cardinality": "one",
+          "extensions": {},
+          "id": "text",
+          "kind": "field",
+          "nullability": "absent-allowed",
+          "scalarType": "string"
+        },
+        {
+          "cardinality": "one",
+          "extensions": {},
+          "facets": {
+            "integerWidth": {
+              "bits": 64,
+              "signed": true
+            }
+          },
+          "id": "integer",
+          "kind": "field",
+          "nullability": "absent-allowed",
+          "scalarType": "integer"
+        },
+        {
+          "cardinality": "one",
+          "extensions": {},
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          },
+          "id": "decimal",
+          "kind": "field",
+          "nullability": "absent-allowed",
+          "scalarType": "decimal"
+        },
+        {
+          "cardinality": "one",
+          "extensions": {},
+          "id": "boolean",
+          "kind": "field",
+          "nullability": "absent-allowed",
+          "scalarType": "boolean"
+        }
+      ],
+      "id": "fixture",
+      "namespace": "urn:ashlar:fixture:",
+      "relationships": [
+        {
+          "directed": true,
+          "id": "link",
+          "name": "link",
+          "source": [
+            {
+              "element": "Item",
+              "module": "fixture"
+            }
+          ],
+          "sourceMultiplicity": {
+            "max": "*",
+            "min": 0
+          },
+          "target": [
+            {
+              "element": "Item",
+              "key": "identity",
+              "module": "fixture"
+            }
+          ],
+          "targetLifecycle": "independent",
+          "targetMultiplicity": {
+            "max": "*",
+            "min": 0
+          }
+        }
+      ]
+    }
+  ],
+  "umf": "0.8.0",
+  "vocabularies": {}
+}
