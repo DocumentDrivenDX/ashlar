@@ -1,0 +1,951 @@
+{
+  "format": "umf.domain-graph",
+  "version": "1.0.0",
+  "schema": {
+    "id": "urn:umf:domain:supply-chain",
+    "revision": "1.0.0",
+    "sha256": "53ae68617d313548bf6c4b3c507c5fc33632c2e8527f88c310927652f635fe9a"
+  },
+  "qualification": "Schema-targeted candidate. Values retain CSV lexical text, not UMF canonical Value carriers or native storage IDs. No graph consumer acceptance or OWL reasoning.",
+  "pack": {
+    "id": "supply-chain",
+    "version": "1.0.0",
+    "sha256": "baf888ab976749e589df385c76900ebf146959b61eaa4b55ab840e142b54ae22"
+  },
+  "source_metadata": {
+    "scenario_replay_output": {
+      "data_kind": "fabricated",
+      "generator": {
+        "id": "tablespec.scenario-replay",
+        "version": "1.0.0"
+      },
+      "kind": "synthetic",
+      "parameters": {
+        "components": 1,
+        "seed": 42
+      },
+      "provenance": {
+        "source_ids": [
+          "template_containers",
+          "template_containment",
+          "template_events",
+          "template_facilities",
+          "template_items",
+          "template_lots",
+          "template_organizations",
+          "template_products",
+          "template_sensor_readings",
+          "template_shipment_items",
+          "template_shipments",
+          "template_source_events"
+        ],
+        "transformations": [
+          "Trusted independent-component replay with consistent identity remapping; source values unchanged."
+        ]
+      }
+    },
+    "template_containers": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "24c748dcf459a98ede6273053e3faa01a000489e33211625c8236627bb9ecc7a"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/containers.csv",
+      "revision": "1.0.0"
+    },
+    "template_containment": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "530c59ed5d61b4d5258043d0b81c486034e3fe01a24229deed78795b9dfd382f"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/containment.csv",
+      "revision": "1.0.0"
+    },
+    "template_events": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "bf42a6ea9ddf9e2a3accf7c794a4bc1fb0517351fbd401c1e13fbf350b23661c"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/events.csv",
+      "revision": "1.0.0"
+    },
+    "template_facilities": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "90351b0f73e163a6b3209ab6938714a539b4772e950f7077ae7c0cdd1497111a"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/facilities.csv",
+      "revision": "1.0.0"
+    },
+    "template_items": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "53c3295ab70166ce3ade8c631138ab481f26d4c51717c18a3157472778b03e9a"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/items.csv",
+      "revision": "1.0.0"
+    },
+    "template_lots": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "b8e3cbda776d6e582791ce8b2eb2afc63e00a5a1492d9e632b8728bf80fa94e7"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/lots.csv",
+      "revision": "1.0.0"
+    },
+    "template_organizations": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "d722ece09b4ebee41598a83e1e96743e23f10ee87ccc082caad270e949c19e9f"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/organizations.csv",
+      "revision": "1.0.0"
+    },
+    "template_products": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "58cfb7dc4757a3b9f6516e82083ff23610c40a32abda039dde60b56d63519282"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/products.csv",
+      "revision": "1.0.0"
+    },
+    "template_sensor_readings": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "3361b0b77cab5652667dea8a16bbdf4176b64459774bed437eb8c53bf8f83225"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/sensor_readings.csv",
+      "revision": "1.0.0"
+    },
+    "template_shipment_items": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "ae3e1035b371301e56614be26aeda63a81cf0223730de3f2c2e47de92cfd49c8"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/shipment_items.csv",
+      "revision": "1.0.0"
+    },
+    "template_shipments": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "910cf3c1093cf98e4c9d7bd39f7f8e98df3747324209c7c746c9ba10d4383e89"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/shipments.csv",
+      "revision": "1.0.0"
+    },
+    "template_source_events": {
+      "checksum": {
+        "algorithm": "sha256",
+        "value": "442dfc599760385ee7c958edda596b6bccd34d0cb5fb7b53dec569b5a84290e4"
+      },
+      "data_kind": "fabricated",
+      "format": "csv",
+      "kind": "external",
+      "license": {
+        "attribution": "UMF project, authored synthetic fixture",
+        "redistribution": "allowed"
+      },
+      "provenance": {
+        "publisher": "UMF project",
+        "transformations": [
+          "Authored synthetic fixture; no real records or imported standard dataset."
+        ]
+      },
+      "reference": "data/source_events.csv",
+      "revision": "1.0.0"
+    }
+  },
+  "source_bindings": [
+    {
+      "role": "rows",
+      "schema_id": "organizations",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "facilities",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "products",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "lots",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "items",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "containers",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "shipments",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "source_events",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "events",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "sensor_readings",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "containment",
+      "source_id": "scenario_replay_output"
+    },
+    {
+      "role": "rows",
+      "schema_id": "shipment_items",
+      "source_id": "scenario_replay_output"
+    }
+  ],
+  "run": {
+    "components": 1,
+    "generator": {
+      "id": "tablespec.scenario-replay",
+      "version": "1.0.0"
+    },
+    "input_hashes": {
+      "template_containers": {
+        "algorithm": "sha256",
+        "value": "24c748dcf459a98ede6273053e3faa01a000489e33211625c8236627bb9ecc7a"
+      },
+      "template_containment": {
+        "algorithm": "sha256",
+        "value": "530c59ed5d61b4d5258043d0b81c486034e3fe01a24229deed78795b9dfd382f"
+      },
+      "template_events": {
+        "algorithm": "sha256",
+        "value": "bf42a6ea9ddf9e2a3accf7c794a4bc1fb0517351fbd401c1e13fbf350b23661c"
+      },
+      "template_facilities": {
+        "algorithm": "sha256",
+        "value": "90351b0f73e163a6b3209ab6938714a539b4772e950f7077ae7c0cdd1497111a"
+      },
+      "template_items": {
+        "algorithm": "sha256",
+        "value": "53c3295ab70166ce3ade8c631138ab481f26d4c51717c18a3157472778b03e9a"
+      },
+      "template_lots": {
+        "algorithm": "sha256",
+        "value": "b8e3cbda776d6e582791ce8b2eb2afc63e00a5a1492d9e632b8728bf80fa94e7"
+      },
+      "template_organizations": {
+        "algorithm": "sha256",
+        "value": "d722ece09b4ebee41598a83e1e96743e23f10ee87ccc082caad270e949c19e9f"
+      },
+      "template_products": {
+        "algorithm": "sha256",
+        "value": "58cfb7dc4757a3b9f6516e82083ff23610c40a32abda039dde60b56d63519282"
+      },
+      "template_sensor_readings": {
+        "algorithm": "sha256",
+        "value": "3361b0b77cab5652667dea8a16bbdf4176b64459774bed437eb8c53bf8f83225"
+      },
+      "template_shipment_items": {
+        "algorithm": "sha256",
+        "value": "ae3e1035b371301e56614be26aeda63a81cf0223730de3f2c2e47de92cfd49c8"
+      },
+      "template_shipments": {
+        "algorithm": "sha256",
+        "value": "910cf3c1093cf98e4c9d7bd39f7f8e98df3747324209c7c746c9ba10d4383e89"
+      },
+      "template_source_events": {
+        "algorithm": "sha256",
+        "value": "442dfc599760385ee7c958edda596b6bccd34d0cb5fb7b53dec569b5a84290e4"
+      }
+    },
+    "origin": "synthetic",
+    "scale": "small",
+    "schema_hashes": {
+      "ontology.json": "53ae68617d313548bf6c4b3c507c5fc33632c2e8527f88c310927652f635fe9a",
+      "umf/containers.json": "a413d64c1f33f97ad4e52086b2b58db84041beea7e765b531b6bcb0ecf9abd29",
+      "umf/containment.json": "a45f72942249bd378f095de72f7c2586384eeaf9a2306488b758466f0fe3a300",
+      "umf/events.json": "f8e4e75cba46fef75e6939a060a80cb4556255a4c2fdae279b7c5d894fbc7792",
+      "umf/facilities.json": "4a36a09f4cc099a0fd0bbd9c4c8bf8a301fbb2367fc6bc1bc6e199384fec4623",
+      "umf/items.json": "4f464573fa346a0e6298204393720b5cd447c30a0397213674c888fa2e7b2551",
+      "umf/lots.json": "9483278676adc2c307a0d7c68d79d414eae1abd40f1b531047e52a7a890c7030",
+      "umf/organizations.json": "ea41a76283cbe532bb114edd7bd408160fe979a4524837d6adbfd56ea0cc656d",
+      "umf/products.json": "6bdc3eec5b1da9ea0ac5212d27d03dee708d67e764d5343fe1ee35de5a9217ed",
+      "umf/sensor_readings.json": "3f669ac6b05ea2056b547bf54b4c56598e7f37fdb99c72594648c6ea96cccc4a",
+      "umf/shipment_items.json": "0e8d295fe08160eba2b5598ca73a49382ad00a4f58755325015387d295d57d34",
+      "umf/shipments.json": "c7181f993c3970e9540cec4ee099a3d583474cff8dbb2539359b7e0a31646468",
+      "umf/source_events.json": "3375ff4d63d79bd01ce048a23b8923aab6a1a7421304a8d5fba88be2726b05d0"
+    },
+    "seed": 42,
+    "source_pack": {
+      "id": "supply-chain",
+      "sha256": "baf888ab976749e589df385c76900ebf146959b61eaa4b55ab840e142b54ae22",
+      "version": "1.0.0"
+    }
+  },
+  "dataset": {
+    "archive_sha256": "ab111f329c5628f303b02b2a35e6f61b050e5866a243c660009fb6de577656ad",
+    "origin": "synthetic",
+    "seed": 42
+  },
+  "objects": [
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"organizations\",[\"[42,0,\\\"O1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "organizations"
+      },
+      "values": {
+        "organizations.id": "[42,0,\"O1\"]",
+        "organizations.name": "Synthetic carrier"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"facilities\",[\"[42,0,\\\"F1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "facilities"
+      },
+      "values": {
+        "facilities.id": "[42,0,\"F1\"]",
+        "facilities.organization_id": "[42,0,\"O1\"]",
+        "facilities.name": "Depot"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"products\",[\"[42,0,\\\"P1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "products"
+      },
+      "values": {
+        "products.id": "[42,0,\"P1\"]",
+        "products.sku": "SKU1"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"lots\",[\"[42,0,\\\"L1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "lots"
+      },
+      "values": {
+        "lots.id": "[42,0,\"L1\"]",
+        "lots.product_id": "[42,0,\"P1\"]",
+        "lots.lot_code": "LOT1"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"items\",[\"[42,0,\\\"I1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "items"
+      },
+      "values": {
+        "items.id": "[42,0,\"I1\"]",
+        "items.lot_id": "[42,0,\"L1\"]",
+        "items.serial": "SER1"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"items\",[\"[42,0,\\\"I2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "items"
+      },
+      "values": {
+        "items.id": "[42,0,\"I2\"]",
+        "items.lot_id": "[42,0,\"L1\"]",
+        "items.serial": "SER2"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containers\",[\"[42,0,\\\"C1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "containers"
+      },
+      "values": {
+        "containers.id": "[42,0,\"C1\"]",
+        "containers.parent_id": null,
+        "containers.kind": "pallet"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containers\",[\"[42,0,\\\"C2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "containers"
+      },
+      "values": {
+        "containers.id": "[42,0,\"C2\"]",
+        "containers.parent_id": "[42,0,\"C1\"]",
+        "containers.kind": "case"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containers\",[\"[42,0,\\\"C3\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "containers"
+      },
+      "values": {
+        "containers.id": "[42,0,\"C3\"]",
+        "containers.parent_id": null,
+        "containers.kind": "case"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments\",[\"[42,0,\\\"S1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "shipments"
+      },
+      "values": {
+        "shipments.id": "[42,0,\"S1\"]",
+        "shipments.container_id": "[42,0,\"C1\"]",
+        "shipments.facility_id": "[42,0,\"F1\"]",
+        "shipments.status": "received"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments\",[\"[42,0,\\\"S2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "shipments"
+      },
+      "values": {
+        "shipments.id": "[42,0,\"S2\"]",
+        "shipments.container_id": "[42,0,\"C3\"]",
+        "shipments.facility_id": "[42,0,\"F1\"]",
+        "shipments.status": "received"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"source_events\",[\"[42,0,\\\"SOURCE1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "source_events"
+      },
+      "values": {
+        "source_events.id": "[42,0,\"SOURCE1\"]",
+        "source_events.publisher": "synthetic-carrier",
+        "source_events.native_id": "SOURCE1"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"events\",[\"[42,0,\\\"E1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "events"
+      },
+      "values": {
+        "events.id": "[42,0,\"E1\"]",
+        "events.shipment_id": "[42,0,\"S1\"]",
+        "events.upstream_event_id": "[42,0,\"SOURCE1\"]",
+        "events.event_time": "2026-01-01T10:00Z",
+        "events.action": "receive"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"events\",[\"[42,0,\\\"E2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "events"
+      },
+      "values": {
+        "events.id": "[42,0,\"E2\"]",
+        "events.shipment_id": "[42,0,\"S1\"]",
+        "events.upstream_event_id": "[42,0,\"SOURCE1\"]",
+        "events.event_time": "2026-01-01T10:00Z",
+        "events.action": "receive"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"sensor_readings\",[\"[42,0,\\\"M1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "sensor_readings"
+      },
+      "values": {
+        "sensor_readings.id": "[42,0,\"M1\"]",
+        "sensor_readings.container_id": "[42,0,\"C2\"]",
+        "sensor_readings.value": "4",
+        "sensor_readings.unit": "Cel",
+        "sensor_readings.method": "probe",
+        "sensor_readings.upper_limit": "8"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"sensor_readings\",[\"[42,0,\\\"M2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "sensor_readings"
+      },
+      "values": {
+        "sensor_readings.id": "[42,0,\"M2\"]",
+        "sensor_readings.container_id": "[42,0,\"C3\"]",
+        "sensor_readings.value": "17",
+        "sensor_readings.unit": "Cel",
+        "sensor_readings.method": "probe",
+        "sensor_readings.upper_limit": "8"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containment\",[\"[42,0,\\\"A1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "containment"
+      },
+      "values": {
+        "containment.id": "[42,0,\"A1\"]",
+        "containment.item_id": "[42,0,\"I1\"]",
+        "containment.container_id": "[42,0,\"C2\"]"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containment\",[\"[42,0,\\\"A2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "containment"
+      },
+      "values": {
+        "containment.id": "[42,0,\"A2\"]",
+        "containment.item_id": "[42,0,\"I2\"]",
+        "containment.container_id": "[42,0,\"C3\"]"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipment_items\",[\"[42,0,\\\"SI1\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "shipment_items"
+      },
+      "values": {
+        "shipment_items.id": "[42,0,\"SI1\"]",
+        "shipment_items.shipment_id": "[42,0,\"S1\"]",
+        "shipment_items.item_id": "[42,0,\"I1\"]"
+      }
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipment_items\",[\"[42,0,\\\"SI2\\\"]\"]]",
+      "type": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "element": "shipment_items"
+      },
+      "values": {
+        "shipment_items.id": "[42,0,\"SI2\"]",
+        "shipment_items.shipment_id": "[42,0,\"S2\"]",
+        "shipment_items.item_id": "[42,0,\"I2\"]"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"facilities.organization_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"facilities\\\",[\\\"[42,0,\\\\\\\"F1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"organizations\\\",[\\\"[42,0,\\\\\\\"O1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "facilities.organization_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"facilities\",[\"[42,0,\\\"F1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"organizations\",[\"[42,0,\\\"O1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"lots.product_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"lots\\\",[\\\"[42,0,\\\\\\\"L1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"products\\\",[\\\"[42,0,\\\\\\\"P1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "lots.product_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"lots\",[\"[42,0,\\\"L1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"products\",[\"[42,0,\\\"P1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"items.lot_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"items\\\",[\\\"[42,0,\\\\\\\"I1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"lots\\\",[\\\"[42,0,\\\\\\\"L1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "items.lot_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"items\",[\"[42,0,\\\"I1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"lots\",[\"[42,0,\\\"L1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"items.lot_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"items\\\",[\\\"[42,0,\\\\\\\"I2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"lots\\\",[\\\"[42,0,\\\\\\\"L1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "items.lot_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"items\",[\"[42,0,\\\"I2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"lots\",[\"[42,0,\\\"L1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containers.parent_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"containers\\\",[\\\"[42,0,\\\\\\\"C2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"containers\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "containers.parent_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containers\",[\"[42,0,\\\"C2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containers\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments.container_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"shipments\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"containers\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "shipments.container_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments\",[\"[42,0,\\\"S1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containers\",[\"[42,0,\\\"C1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments.facility_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"shipments\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"facilities\\\",[\\\"[42,0,\\\\\\\"F1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "shipments.facility_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments\",[\"[42,0,\\\"S1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"facilities\",[\"[42,0,\\\"F1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments.container_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"shipments\\\",[\\\"[42,0,\\\\\\\"S2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"containers\\\",[\\\"[42,0,\\\\\\\"C3\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "shipments.container_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments\",[\"[42,0,\\\"S2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containers\",[\"[42,0,\\\"C3\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments.facility_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"shipments\\\",[\\\"[42,0,\\\\\\\"S2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"facilities\\\",[\\\"[42,0,\\\\\\\"F1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "shipments.facility_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments\",[\"[42,0,\\\"S2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"facilities\",[\"[42,0,\\\"F1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"events.shipment_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"events\\\",[\\\"[42,0,\\\\\\\"E1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"shipments\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "events.shipment_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"events\",[\"[42,0,\\\"E1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments\",[\"[42,0,\\\"S1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"events.upstream_event_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"events\\\",[\\\"[42,0,\\\\\\\"E1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"source_events\\\",[\\\"[42,0,\\\\\\\"SOURCE1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "events.upstream_event_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"events\",[\"[42,0,\\\"E1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"source_events\",[\"[42,0,\\\"SOURCE1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"events.shipment_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"events\\\",[\\\"[42,0,\\\\\\\"E2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"shipments\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "events.shipment_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"events\",[\"[42,0,\\\"E2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments\",[\"[42,0,\\\"S1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"events.upstream_event_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"events\\\",[\\\"[42,0,\\\\\\\"E2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"source_events\\\",[\\\"[42,0,\\\\\\\"SOURCE1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "events.upstream_event_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"events\",[\"[42,0,\\\"E2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"source_events\",[\"[42,0,\\\"SOURCE1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"sensor_readings.container_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"sensor_readings\\\",[\\\"[42,0,\\\\\\\"M1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"containers\\\",[\\\"[42,0,\\\\\\\"C2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "sensor_readings.container_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"sensor_readings\",[\"[42,0,\\\"M1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containers\",[\"[42,0,\\\"C2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"sensor_readings.container_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"sensor_readings\\\",[\\\"[42,0,\\\\\\\"M2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"containers\\\",[\\\"[42,0,\\\\\\\"C3\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "sensor_readings.container_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"sensor_readings\",[\"[42,0,\\\"M2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containers\",[\"[42,0,\\\"C3\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containment.item_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"containment\\\",[\\\"[42,0,\\\\\\\"A1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"items\\\",[\\\"[42,0,\\\\\\\"I1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "containment.item_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containment\",[\"[42,0,\\\"A1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"items\",[\"[42,0,\\\"I1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containment.container_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"containment\\\",[\\\"[42,0,\\\\\\\"A1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"containers\\\",[\\\"[42,0,\\\\\\\"C2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "containment.container_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containment\",[\"[42,0,\\\"A1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containers\",[\"[42,0,\\\"C2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containment.item_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"containment\\\",[\\\"[42,0,\\\\\\\"A2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"items\\\",[\\\"[42,0,\\\\\\\"I2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "containment.item_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containment\",[\"[42,0,\\\"A2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"items\",[\"[42,0,\\\"I2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containment.container_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"containment\\\",[\\\"[42,0,\\\\\\\"A2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"containers\\\",[\\\"[42,0,\\\\\\\"C3\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "containment.container_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containment\",[\"[42,0,\\\"A2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"containers\",[\"[42,0,\\\"C3\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipment_items.shipment_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"shipment_items\\\",[\\\"[42,0,\\\\\\\"SI1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"shipments\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "shipment_items.shipment_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipment_items\",[\"[42,0,\\\"SI1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments\",[\"[42,0,\\\"S1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipment_items.item_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"shipment_items\\\",[\\\"[42,0,\\\\\\\"SI1\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"items\\\",[\\\"[42,0,\\\\\\\"I1\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "shipment_items.item_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipment_items\",[\"[42,0,\\\"SI1\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"items\",[\"[42,0,\\\"I1\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipment_items.shipment_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"shipment_items\\\",[\\\"[42,0,\\\\\\\"SI2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"shipments\\\",[\\\"[42,0,\\\\\\\"S2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "shipment_items.shipment_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipment_items\",[\"[42,0,\\\"SI2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipments\",[\"[42,0,\\\"S2\\\"]\"]]"
+    },
+    {
+      "key": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipment_items.item_id\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"shipment_items\\\",[\\\"[42,0,\\\\\\\"SI2\\\\\\\"]\\\"]]\",\"[\\\"urn:umf:domain:supply-chain\\\",\\\"domain\\\",\\\"items\\\",[\\\"[42,0,\\\\\\\"I2\\\\\\\"]\\\"]]\"]",
+      "relationship": {
+        "document": "urn:umf:domain:supply-chain",
+        "module": "domain",
+        "id": "shipment_items.item_id"
+      },
+      "source": "[\"urn:umf:domain:supply-chain\",\"domain\",\"shipment_items\",[\"[42,0,\\\"SI2\\\"]\"]]",
+      "target": "[\"urn:umf:domain:supply-chain\",\"domain\",\"items\",[\"[42,0,\\\"I2\\\"]\"]]"
+    }
+  ]
+}
