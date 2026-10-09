@@ -1,0 +1,12 @@
+{
+  "original_output": "/private/tmp/ashlar-local-delta-custody-20261009-b",
+  "report_sha256": "5995067680095da46a1c75f115dfa61def177d31f4d774210750d12ce1d88379",
+  "artifacts": {
+    "report.json": "5995067680095da46a1c75f115dfa61def177d31f4d774210750d12ce1d88379",
+    "items/.ashlar-local-installation-reservation.json": "be4685d32b4c1e80b026b508d4b49f2e009dbab83c3fee9b46084d8e5eeaee94",
+    "items/_delta_log/00000000000000000001.json": "babd53aff557c50d6f04ef0a35c320189fcf6c9445c7c6f30d7155a11c0aeea2",
+    "items/_delta_log/00000000000000000000.json": "57991a9edf74c1461e8f177d69e868d019c6da1d8fa60f43947e93ff244f7b01",
+    "items/_delta_log/00000000000000000002.json": "706000d0dbcd8b54d9e420aceea2c7b12f127a6bcff126c719cfe9b28d0528f4"
+  },
+  "qualification": "Bounded actual private local Delta original-operation custody/recovery proof. No full publisher, source ACK, two-source or UC-managed runtime claim. Final extra closing initialization UUID guard added after run; supplied callback was nonmutating."
+}
