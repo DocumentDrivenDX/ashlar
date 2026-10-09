@@ -68,3 +68,29 @@ class ConfiguredCLITests(unittest.TestCase):
         self.assertEqual(value['feed'],'configured-jsonl')
         self.assertTrue(value['exact_replay_unchanged'])
         self.assertNotIn('published',value)
+
+class CommerceCLITests(unittest.TestCase):
+    def test_explicit_original_inputs_preserve_candidate_and_refuse_changed_source(self):
+        import tempfile,os
+        from ashlar.commerce_source import build_transaction
+        source=ROOT/'examples/domain-packs/commerce/upstream/ontology.json'
+        graph=ROOT/'examples/domain-packs/commerce/upstream/graph/fixture.json'
+        with tempfile.TemporaryDirectory() as directory:
+            env=dict(os.environ);env['PYTHONPATH']=str(ROOT/'src')+os.pathsep+env.get('PYTHONPATH','')
+            output=Path(directory)/'candidate'
+            command=[sys.executable,'-m','ashlar','commerce-source','--ontology',str(source),
+                '--graph',str(graph),'--output',str(output),'--source-system','cli-commerce']
+            result=subprocess.run(command,capture_output=True,cwd=directory,env=env)
+            self.assertEqual(result.returncode,0,result.stderr)
+            batch,bindings=build_transaction(source.read_bytes(),graph.read_bytes(),source_system='cli-commerce')
+            self.assertEqual((output/'source.jsonl').read_bytes(),batch.begin+b''.join(r.raw for r in batch.records)+batch.commit)
+            self.assertEqual(json.loads((output/'bindings.json').read_bytes()),bindings)
+            repeated=subprocess.run(command,capture_output=True,cwd=directory,env=env)
+            self.assertNotEqual(repeated.returncode,0)
+            changed=Path(directory)/'changed.json';changed.write_bytes(source.read_bytes()+b' ')
+            refused=Path(directory)/'refused'
+            command[command.index('--ontology')+1]=str(changed)
+            command[command.index('--output')+1]=str(refused)
+            result=subprocess.run(command,capture_output=True,cwd=directory,env=env)
+            self.assertNotEqual(result.returncode,0)
+            self.assertFalse(refused.exists())

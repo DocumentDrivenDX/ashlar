@@ -18,6 +18,16 @@ python3 -m pip install .
 ashlar inspect-source --feed example --epoch one < examples/end-to-end/local-string-source.jsonl
 ```
 
+Build a candidate transaction from the original commerce domain-pack inputs:
+
+```sh
+ashlar commerce-source --ontology examples/domain-packs/commerce/upstream/ontology.json --graph examples/domain-packs/commerce/upstream/graph/fixture.json --source-system commerce-example --output commerce-candidate
+```
+
+The fresh output contains `source.jsonl` and explicit development bindings for
+11 objects, 10 edges and 34 qualified fields. Exact original input hashes are
+required. Public UMF validation and host publication remain separate steps.
+
 Inspect an explicitly configured source with the installed command:
 
 ```sh

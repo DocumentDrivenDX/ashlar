@@ -1,0 +1,44 @@
+{
+  "profile": "ashlar-installed-commerce-source/0.1",
+  "python": "3.9.6",
+  "packaging": {
+    "setuptools": "80.9.0",
+    "wheel": "0.45.1"
+  },
+  "installed_distribution": "ashlar-graph-toolkit==0.1.0.dev0",
+  "execution_cwd": "/private/tmp",
+  "source_system": "installed-commerce",
+  "binding_profile": "ashlar-commerce-development-bindings/0.2",
+  "objects": 11,
+  "edges": 10,
+  "qualified_fields": 34,
+  "exact_candidate_parity": true,
+  "artifacts": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/commerce_source.py",
+      "sha256": "4b50f2a8531e05f087b535ccfdd2e3ffa8292e5f47302b1e4b569e58f732a746",
+      "bytes": 5680
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/cli.py",
+      "sha256": "6ce9a70991e18cf53603d0977314343d006825700eb138db3a273427defcab51",
+      "bytes": 3807
+    },
+    {
+      "path": "/private/tmp/ashlar-commerce-cli-wheel-qualified/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "b6e3cca3e0d81acc7db4417c3b8ab3f041eaa8109265a30c6490e17746ab6df0",
+      "bytes": 94704
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-20261009-a/source.jsonl",
+      "sha256": "fdbaaf2e40299f2068a140cd45ca56dda0ef3b6b6b6e2ddbda1cf28e6547ca4f",
+      "bytes": 25232
+    },
+    {
+      "path": "/private/tmp/ashlar-installed-commerce-20261009-a/bindings.json",
+      "sha256": "f11f852b5bc1e776e399c5c42b2f3700acaf854505ba8a551728a6e68edc2b6e",
+      "bytes": 9226
+    }
+  ],
+  "qualification": "Actual isolated wheel install and console command outside repository; explicit original input paths. Candidate only; no semantic admission/publication/ACK. System setuptools58 unsupported build produced UNKNOWN0.0.0 wheel; discarded, never installed. Qualified build uses isolated supported dependencies."
+}

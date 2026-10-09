@@ -19,7 +19,17 @@ def main():
         csv.add_argument('--'+name,required=True)
     configured=commands.add_parser('inspect-configured-source',help='Inspect pinned model/ID/source configuration and local replay; no database I/O')
     configured.add_argument('configuration')
+    commerce=commands.add_parser('commerce-source',help='Build an exact original commerce candidate with development bindings')
+    for name in ('ontology','graph','output'):
+        commerce.add_argument('--'+name,required=True)
+    commerce.add_argument('--source-system',required=True)
+    commerce.add_argument('--binding-profile',choices=['ashlar-commerce-development-bindings/0.1','ashlar-commerce-development-bindings/0.2'],default='ashlar-commerce-development-bindings/0.2')
     args = parser.parse_args()
+    if args.command=='commerce-source':
+        from .commerce_source import write_candidate
+        write_candidate(args.ontology,args.graph,args.output,source_system=args.source_system,binding_profile=args.binding_profile)
+        print('Created candidate commerce transaction: 11 objects, 10 edges; development bindings only')
+        return
     if args.command=='inspect-configured-source':
         from .source_config import load_jsonl_configuration,inspect_configured_source
         print(json.dumps(inspect_configured_source(load_jsonl_configuration(args.configuration)),separators=(',',':')))
