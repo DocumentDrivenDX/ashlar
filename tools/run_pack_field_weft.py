@@ -13,9 +13,9 @@ from run_pack_publication_weft import PACKS,compiler_request,open_pack_reader
 from run_commerce_arithmetic_weft import (compile_original,execute_guarded,
     admit_public_source,decode_rows,persist_after_stop,NativeGuardRefusal)
 
-COMPILER_SHA='000796dfa959deb299cb20e74af84e1c2a4e285fc3c7ab1c1b138702383a4761'
-CASES={'archaeology':('missing-media','specialists','lineage'),
-       'ecology':('match','network','fishing')}
+COMPILER_SHA='7ab1c28ae04d3449b270ede87152a1e5e0506bb15a5aa642c04dd7d6cba2a7d3'
+CASES={'archaeology':('missing-media','specialists','lineage','cycle','dating'),
+       'ecology':('match','network','fishing','effort-event')}
 
 
 def exact_expected(rows):
@@ -66,9 +66,10 @@ def run(publications,output,jars,compiler,source_guard,umf):
                     request=compiler_request(pack,original['sql'],opened.model,opened.graph,opened.bindings,opened.manifest,opened.original_report['table_registry'],opened.aliases)
                     provider.expected_binding=request['target']['bindingJson']
                     artifact=compile_original(compiler,request,COMPILER_SHA)
-                    result=execute_guarded(provider,request,artifact,context=context,public_source=lambda r,a,c:admit_public_source(source_guard,umf,r,a,c))
+                    positioned=any(o['id']=='weft.output.positioned'for o in artifact['obligations'])
+                    result=execute_guarded(provider,request,artifact,context=context,public_source=lambda r,a,c:admit_public_source(source_guard,umf,r,a,c),positioned_outputs=positioned)
                     result['closed_interval_custody']=provider.closed_interval_custody(context)
-                    rows=decode_rows(artifact,result['rows']);expected=exact_expected(case['original_graph_expected'])
+                    rows=decode_rows(artifact,result['rows'],positioned=positioned,native_schema=result.get('native_schema'),ordered_rows=result.get('ordered_rows'));expected=exact_expected(case['original_graph_expected'])
                     if sorted(rows,key=encoded)!=sorted(expected,key=encoded):raise ValueError('Independent original graph bag differs: '+original['id'])
                     queries.append({'case':case,'result':result,'exact_text_rows':rows,'independent_expected_text':expected})
                     prefix=pack+'-'+original['id'];pending[prefix+'-request.json']=encoded(request)+'\n';pending[prefix+'-artifact.json']=encoded(artifact)+'\n'
@@ -103,9 +104,9 @@ def run(publications,output,jars,compiler,source_guard,umf):
         if not completed:spark.stop()
     if not completed:raise ValueError('Suppressed reader failure')
     report={'format':'ashlar-original-pack-weft-field-reads/0.1','qualification':__doc__,
-        'compiler_sha256':COMPILER_SHA,'official_weft_revision':'86de1fd1b2da84b9a698137f489f938f9a82f2b2',
+        'compiler_sha256':COMPILER_SHA,'official_weft_revision':'1a1c0ad2c26d0cdd7aa6fb7f415abbaa44ab2842',
         'runtime':'Spark4.0.1/Delta4.0.0','elapsed_before_cleanup_seconds':time.monotonic()-started,
-        'reports':reports,'remaining_original_queries':11}
+        'reports':reports,'remaining_original_queries':17-sum(len(v)for v in CASES.values())}
     pending['report.json']=encoded(report)+'\n';persist_after_stop(spark,pending,output)
     return report
 

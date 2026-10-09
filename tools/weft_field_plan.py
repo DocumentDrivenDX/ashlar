@@ -7,7 +7,7 @@ closed; this proof does not admit aggregates or numerical predicates.
 import hashlib,json
 
 
-def admit_field_plan(artifact, binding, modules):
+def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False):
     def closed(value, keys):
         if type(value) is not dict or set(value) != set(keys):
             raise ValueError('Unknown field-plan structure')
@@ -49,7 +49,9 @@ def admit_field_plan(artifact, binding, modules):
         raise ValueError('Empty arithmetic checks require a complete field-only row plan')
     allowed = {'project', 'scan', 'filter', 'equal', 'innerJoin', 'order.asc', 'and',
                'parameter.named', 'type.integer', 'type.integer.unbounded',
-               'type.string', 'type.boolean', 'type.decimal'}
+               'type.string', 'type.boolean', 'type.decimal', 'compare.notEqual',
+               'project.positionedOutputs', 'compare.less', 'compare.lessEqual',
+               'compare.greaterEqual', 'compare.scalarJoin'}
     if type(plan['requiredCapabilities']) is not list or any(
             type(c) is not str or c not in allowed for c in plan['requiredCapabilities']):
         raise ValueError('Unproved field-plan capability')
@@ -157,7 +159,18 @@ def admit_field_plan(artifact, binding, modules):
         if not any(p['origin'] == origin and p['value'] == value['value'] and p['logicalType'] == value['type'] for p in parameters):
             raise ValueError('Original exact comparison slot required')
 
-    def predicate(value, visible):
+    comparison_caps=set()
+    def predicate(value, visible, *, join=False):
+        if type(value) is dict and value.get('op') == 'scalarCompare':
+            closed(value, ('op', 'operator', 'left', 'right'))
+            operators={'notEqual':'compare.notEqual','less':'compare.less','lessEqual':'compare.lessEqual','greaterEqual':'compare.greaterEqual'}
+            if value['operator'] not in operators or operators[value['operator']] not in plan['requiredCapabilities'] or (join and 'compare.scalarJoin' not in plan['requiredCapabilities']):
+                raise ValueError('Only explicitly admitted closed String comparison needs no arithmetic checks')
+            comparison_caps.add(operators[value['operator']])
+            if join:comparison_caps.add('compare.scalarJoin')
+            field(value['left'], visible, string_only=True)
+            operand(value['right'], visible)
+            return
         closed(value, ('op', 'predicate'))
         if value['op'] != 'legacy':
             raise ValueError('Arithmetic/unknown predicates require independent checks')
@@ -175,16 +188,23 @@ def admit_field_plan(artifact, binding, modules):
         if type(join['on']) is not list or not join['on']:
             raise ValueError('Original nonempty INNER JOIN predicate required')
         for p in join['on']:
-            predicate(p, visible)
+            if not positioned_output_only:predicate(p, visible, join=True)
     for p in plan['filters']:
-        predicate(p, visible)
+        if not positioned_output_only:predicate(p, visible)
+    if not positioned_output_only and ({c for c in plan['requiredCapabilities'] if c.startswith('compare.')} != comparison_caps):
+        raise ValueError('Exact String predicate/capability correspondence required')
     for f in plan['order']:
         field(f, visible)
     columns = artifact.get('columns')
     if type(columns) is not list or not plan['outputs'] or len(plan['outputs']) != len(columns):
         raise ValueError('Complete original output descriptors required')
-    if len({o.get('name') for o in plan['outputs']}) != len(plan['outputs']):
-        raise ValueError('Unique original output names required')
+    positioned = 'project.positionedOutputs' in plan['requiredCapabilities']
+    if positioned_output_only and not positioned:
+        raise ValueError('Separate output-only proof is restricted to positioned descriptors')
+    if (len({o.get('name') for o in plan['outputs']}) != len(plan['outputs'])) != positioned:
+        raise ValueError('Exact original repeated-output capability required')
+    if positioned:
+        admit_positioned_outputs(artifact)
     graph_ids = set()
     for d in plan['typeGraph']:
         closed(d, ('identity', 'availability', 'kind', 'type'))
@@ -196,7 +216,7 @@ def admit_field_plan(artifact, binding, modules):
         raise ValueError('Exact original output type graph required')
     for index, (output, column) in enumerate(zip(plan['outputs'], columns), 1):
         closed(output, ('name', 'expression'))
-        closed(column, ('outputName', 'position', 'sourceIdentities', 'nullable', 'representation'))
+        closed(column, ('outputName', 'position', 'sourceIdentities', 'nullable', 'representation') + (('carrierName',) if positioned else ()))
         key = field(output['expression'], visible, typed=False)
         if column.get('outputName') != output['name'] or type(column.get('position')) is not int or column['position'] != index:
             raise ValueError('Original output order differs')
@@ -229,3 +249,78 @@ def admit_field_plan(artifact, binding, modules):
         guarded = {(identity(c['record']), identity(c['field'])) for c in checks if c.get(flag) is True}
         if not integer_checks <= guarded:
             raise ValueError('Original integer Fields require separate public source and native capacity checks')
+
+
+_POSITIONED_TEXT = {
+    'profile': 'weft-positioned-output/0.3.0',
+    'decoding': 'exact ordered row arrays; complete output count/order and unique physical names; no logical-name dictionary',
+    'lineage': 'each ordinal binds the original logicalPlan output, including scan occurrence',
+    'host': 'explicit opt-in before SQL; reject unknown carrierName/obligations; buffer and preserve all cells',
+}
+
+
+def admit_positioned_outputs(artifact):
+    """Closed descriptor correspondence, not an independent SQL semantics proof.
+
+    Caller must first admit exact original compiler/model/source bytes and hold
+    the complete publication. Native rows must subsequently use ordered cells.
+    """
+    plan = artifact.get('logicalPlan', {})
+    columns, outputs = artifact.get('columns'), plan.get('outputs')
+    if (plan.get('irVersion') != 'weft-ir/0.3.0'
+            or type(columns) is not list or type(outputs) is not list or not outputs
+            or len(columns) != len(outputs)
+            or 'project.positionedOutputs' not in plan.get('requiredCapabilities', [])
+            or len({o.get('name') for o in outputs}) == len(outputs)):
+        raise ValueError('Complete explicitly positioned original outputs required')
+    all_obligations=artifact.get('obligations', [])
+    expected_obligations={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.arithmetic.exact','weft.output.positioned'}
+    if type(all_obligations) is not list or len(all_obligations)!=4 or any(type(o) is not dict for o in all_obligations) or {o.get('id')for o in all_obligations}!=expected_obligations:
+        raise ValueError('Unknown or duplicate positioned query obligation')
+    obligations = [o for o in all_obligations if o.get('id') == 'weft.output.positioned']
+    if len(obligations) != 1:
+        raise ValueError('One original positioned obligation required')
+    obligation = obligations[0]
+    if (set(obligation) != {'id', 'owner', 'failureCode', 'parameters'}
+            or obligation['owner'] != 'host' or obligation['failureCode'] != 'WFT-OBLIGATION'):
+        raise ValueError('Original positioned host obligation required')
+    names, mapping, lineage = set(), [], []
+    scans = {plan['source']['occurrence']: plan['source']}
+    for join in plan['joins']:
+        right = join['right']
+        if right['occurrence'] in scans:
+            raise ValueError('Original unique scan occurrences required')
+        scans[right['occurrence']] = right
+    for position, (column, output) in enumerate(zip(columns, outputs), 1):
+        if set(column) != {'position', 'outputName', 'carrierName', 'sourceIdentities', 'nullable', 'representation'} or set(output) != {'name', 'expression'}:
+            raise ValueError('Closed original positioned descriptors required')
+        expression = output['expression']
+        if (set(expression) != {'op', 'scan', 'identity'} or expression['op'] != 'field'
+                or expression['scan'] not in scans or type(column['position']) is not int
+                or column['position'] != position or column['outputName'] != output['name']
+                or column['sourceIdentities'] != [expression['identity']]):
+            raise ValueError('Original ordered Field lineage and scan required')
+        name = column['carrierName']
+        if type(name) is not str or not name or len(name.encode('utf-8')) > 128 or '\0' in name or name in names:
+            raise ValueError('Unique bounded physical carrier names required')
+        names.add(name)
+        mapping.append({k: column[k] for k in ('position', 'outputName', 'carrierName', 'sourceIdentities')})
+        lineage.append({'position': position, 'scan': expression['scan'], 'identity': expression['identity']})
+    if obligation['parameters'] != {**_POSITIONED_TEXT, 'columns': mapping}:
+        raise ValueError('Exact original positioned obligation map required')
+    return {'columns': mapping, 'lineage': lineage}
+
+
+def admit_positioned_cells(artifact, result):
+    """Verify actual native schema and complete ordered cells, never a dict."""
+    disposition = admit_positioned_outputs(artifact)
+    if type(result) is not dict or set(result) != {'schema', 'rows'}:
+        raise ValueError('Explicit original native ordered result required')
+    schema, rows = result['schema'], result['rows']
+    expected = [[c['carrierName'], 'STRING'] for c in artifact['columns']]
+    if type(schema) is not list or schema != expected:
+        raise ValueError('Native positioned column count/order/names/types differ')
+    if type(rows) is not list or any(type(row) is not list or len(row) != len(expected)
+            or any(type(cell) is not str for cell in row) for row in rows):
+        raise ValueError('Complete required exact String carrier cell arrays required')
+    return {'schema': schema, 'rows': rows, **disposition}

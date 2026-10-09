@@ -1,0 +1,79 @@
+{
+  "compiler_sha256": "7ab1c28ae04d3449b270ede87152a1e5e0506bb15a5aa642c04dd7d6cba2a7d3",
+  "source_manifest_sha256": "0c6193fb995d3009728dbfb0627bf1a513c0b3a8735c2dd6de6dea3639755425",
+  "scope": "Original nine unchanged authored query compilations; compiler fixtures only, no native result claim",
+  "files": [
+    {
+      "file": "archaeology-cycle-stdout.json",
+      "sha256": "c59d95f191293685e295a3207126984d658eb6382ab9aaef4a54988d46d61777"
+    },
+    {
+      "file": "archaeology-cycle-request.json",
+      "sha256": "ee881e40c2ab2bcc77a78ccddc87d8027b2e6ad1af12e174d7f3369d94dd2b08"
+    },
+    {
+      "file": "archaeology-dating-stdout.json",
+      "sha256": "042f03b4ea4d9d22b4acb645ba288bdfcb669e06c06eaa95beff9fb09643aa11"
+    },
+    {
+      "file": "archaeology-dating-request.json",
+      "sha256": "4c277a3147208cde5a9c06707054c538931c7d4d196b19abeea461c5e933322f"
+    },
+    {
+      "file": "archaeology-lineage-stdout.json",
+      "sha256": "2172e51fbd7a0d88e2aa2473745cce246f00355e4870fa70e2d9ad527b657b26"
+    },
+    {
+      "file": "archaeology-lineage-request.json",
+      "sha256": "6ef09c318d7ca0cdbc4c4a3396de4d6d0e3ca9eb010042f56fbd41ea1823cda1"
+    },
+    {
+      "file": "archaeology-missing-media-stdout.json",
+      "sha256": "87e2cb1e76ba2c034c128cda831fee85bbeb5602e8e01a33002b04e7daa4c25b"
+    },
+    {
+      "file": "archaeology-missing-media-request.json",
+      "sha256": "020032820f65bff96290e15bd364c25e5765f020658a9220455d05040f1d83c5"
+    },
+    {
+      "file": "archaeology-specialists-stdout.json",
+      "sha256": "d4077e6d11c4b5c2260e2c23e7b361db9fdb7c34170f1e98960650bb77aeaca3"
+    },
+    {
+      "file": "archaeology-specialists-request.json",
+      "sha256": "a468a872bbde9933cfd94ae29d7587f056b225044f25d551a8ea22f8b6f2a742"
+    },
+    {
+      "file": "ecology-effort-event-stdout.json",
+      "sha256": "85198f2e83e57778aac2dc2ff70e929462fdebced1a9946ec5d80ecfeafa66c5"
+    },
+    {
+      "file": "ecology-effort-event-request.json",
+      "sha256": "03e6771fc55555873a36ffd1c9ea84938456d4b22311f8cb38ab3c6bfaedb8e9"
+    },
+    {
+      "file": "ecology-fishing-stdout.json",
+      "sha256": "75f649133a7817caa8d10c0e45da250fb79c8ed1874e6d15342e692fff2b8320"
+    },
+    {
+      "file": "ecology-fishing-request.json",
+      "sha256": "6140ffaab1ee06c93cd94346b6b64d3bf48a207e79bfbdc238e7338cb6a34d4a"
+    },
+    {
+      "file": "ecology-match-stdout.json",
+      "sha256": "9ba14e41a6e11f09cd66ccdd89bcce37d40cbedbb9a5fcafa23d213fe2e28a5f"
+    },
+    {
+      "file": "ecology-match-request.json",
+      "sha256": "cfec44c56578cc88a07ebba0f46845056968667ac49a3768688121cebcd709ac"
+    },
+    {
+      "file": "ecology-network-stdout.json",
+      "sha256": "6d1666fd76c92c6ca606e25c607e8cd33f6d49e8a76e7bc1d705a4ccad9622a9"
+    },
+    {
+      "file": "ecology-network-request.json",
+      "sha256": "2e942cf0263bb2f6597de8aacfe7d4a7ace21452a71259e2eb9c60bb10fda90a"
+    }
+  ]
+}

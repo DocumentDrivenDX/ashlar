@@ -93,7 +93,7 @@ def execute_guarded(provider,request,artifact,*,context):
 class ReadOnlyTransport:
     """Construct the reviewed native reader with an original read-only journal."""
     @staticmethod
-    def open(spark,journal,installation,targets,policy):
+    def open(spark,journal,installation,targets,policy,*,capacity=None):
         import sqlite3
         from urllib.parse import quote
         from local_delta_custody import LocalDeltaTransport,LocalDeltaError
@@ -104,7 +104,7 @@ class ReadOnlyTransport:
                 if self.db.execute('SELECT original FROM local_installation WHERE id=1').fetchall()!=[(registry,)]:raise LocalDeltaError('Original journal registration differs')
             def mutation(self,*args,**kwargs):raise LocalDeltaError('Read-only publication consumer')
             def recover(self,*args,**kwargs):raise LocalDeltaError('Read-only publication consumer')
-        return Reader(spark,journal,installation,targets,policy)
+        return Reader(spark,journal,installation,targets,policy,capacity=capacity)
 
 class PublicationProvider:
     def __init__(self,driver,aliases,scope_port,request_bytes,manifest_bytes,expected_binding,*,context):
@@ -170,6 +170,11 @@ class PublicationProvider:
     def sql(self,sql,params):
         if not self.active:raise PermissionError('No user SQL outside full held native publication')
         return [r.asDict() for r in self.driver.transport.spark.sql(sql,args=params).collect()]
+    def sql_ordered(self,sql,params):
+        if not self.active:raise PermissionError('No user SQL outside full held native publication')
+        frame=self.driver.transport.spark.sql(sql,args=params)
+        schema=[[f.name,f.dataType.simpleString().upper()] for f in frame.schema.fields]
+        return {'schema':schema,'rows':[list(row) for row in frame.collect()]}
 
 @contextmanager
 def open_commerce_reader(spark,publication):

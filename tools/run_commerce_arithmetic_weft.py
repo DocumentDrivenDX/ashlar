@@ -3,7 +3,7 @@
 This host submits compiler SQL/checks unchanged. It grants no production/UC
 qualification, and releases no evidence before all native/ACK reader closes.
 """
-import hashlib,json,subprocess,re,tempfile
+import hashlib,json,subprocess,re,tempfile,copy
 from decimal import Decimal
 from run_commerce_publication_weft import compiler_request as old_request,encoded,SOURCE_SHA
 from check_commerce_graphframes_scenarios import scenario_oracle
@@ -99,11 +99,25 @@ class NativeGuardRefusal(ValueError):
         super().__init__('Original native '+obligation+' refused before user query')
         self.evidence={'obligation':obligation,'check':check,'rows':rows,'priorChecks':prior_checks,'userSqlExecuted':False,'resultReleased':False}
 
-def execute_guarded(provider,request,artifact,*,context,public_source=None):
+def execute_guarded(provider,request,artifact,*,context,public_source=None,positioned_outputs=False):
+    # Private snapshots precede every admission callback and native action.
+    request,artifact=copy.deepcopy(request),copy.deepcopy(artifact)
     binding=json.loads(request['target']['bindingJson'])
     if request['target']!={**BACKEND,'bindingJson':request['target']['bindingJson'],'bindingSha256':hashlib.sha256(request['target']['bindingJson'].encode()).hexdigest()} or artifact.get('status')!='compiled' or artifact.get('bindingSha256')!=request['target']['bindingSha256'] or artifact.get('modelPins')!=binding['modelPins']:raise ValueError('Exact compiler/binding custody required')
     obligations=artifact.get('obligations',[])
-    if len(obligations)!=3 or {o['id'] for o in obligations}!=OBLIGATIONS:raise ValueError('All and only original required obligations must be fulfilled')
+    positioned = any(o.get('id')=='weft.output.positioned' for o in obligations)
+    expected_obligations=OBLIGATIONS | ({'weft.output.positioned'} if positioned else set())
+    if len(obligations)!=len(expected_obligations) or {o['id'] for o in obligations}!=expected_obligations:raise ValueError('All and only original required obligations must be fulfilled')
+    from weft_field_plan import admit_positioned_outputs,admit_positioned_cells
+    if type(positioned_outputs) is not bool:raise ValueError('Explicit positioned host opt-in must be Boolean')
+    if positioned:
+        if not positioned_outputs:raise ValueError('Positioned outputs require explicit host opt-in')
+        admit_positioned_outputs(artifact)
+        from weft_field_plan import admit_field_plan
+        admit_field_plan(artifact,binding,request['modules'],positioned_output_only=True)
+        if not callable(getattr(provider,'sql_ordered',None)):raise ValueError('Explicit native ordered transport required')
+    elif any('carrierName' in c for c in artifact.get('columns',[])) or 'project.positionedOutputs' in artifact.get('logicalPlan',{}).get('requiredCapabilities',[]):
+        raise ValueError('Positioned descriptor requires explicit obligation handler')
     params_by_id={o['id']:o['parameters'] for o in obligations};publication=params_by_id['ashlar.candidate.publication']
     if any(publication[k]!=binding[k] for k in ['publication','modelPins','layoutRevision','layoutSha256']):raise ValueError('Full publication obligation differs')
     for name in ['ashlar.candidate.scalarIntegrity','ashlar.arithmetic.exact']:
@@ -136,11 +150,15 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None):
                     if len(rows)==1 and set(rows[0])=={'violations'} and type(rows[0]['violations'])is str and re.fullmatch('[0-9]+',rows[0]['violations']) and int(rows[0]['violations'])>0:raise NativeGuardRefusal(name,check,rows,checks)
                     raise ValueError('Malformed original native violation count')
                 checks.append({'obligation':name,'check':check,'rows':rows,'publicSourceReceipt':public_receipt})
-        rows=provider.sql(artifact['sql'],params);provider.runtime(context);closing=provider.resolve(context);provider.admit_binding(binding,closing,context)
+        ordered=None
+        if positioned:
+            ordered=admit_positioned_cells(artifact,provider.sql_ordered(artifact['sql'],params));rows=ordered['rows']
+        else:rows=provider.sql(artifact['sql'],params)
+        provider.runtime(context);closing=provider.resolve(context);provider.admit_binding(binding,closing,context)
         if dict(opening.descriptor.raw)!=dict(closing.descriptor.raw) or opening.snapshots!=closing.snapshots:raise ValueError('Whole publication changed before release')
         completed=True
     if not completed:raise ValueError('Suppressed interval failure')
-    return {'rows':rows,'checks':checks}
+    return {'rows':rows,'checks':checks,**({'positioned':ordered,'native_schema':ordered['schema'],'ordered_rows':ordered['rows']} if positioned else {})}
 
 def admit_public_source(script,umf,request,artifact,checks):
     from pathlib import Path
@@ -239,17 +257,26 @@ def persist_after_stop(spark,pending,output):
     spark.stop()
     for name,raw in pending.items():(output/name).write_text(raw)
 
-def decode_rows(artifact,rows):
+def decode_rows(artifact,rows,*,positioned=False,native_schema=None,ordered_rows=None):
     columns=artifact.get('columns')
     if type(columns)is not list or not columns:raise ValueError('Original output columns required')
+    if type(positioned)is not bool:raise ValueError('Explicit positioned decoder opt-in must be Boolean')
     names=[c['outputName'] for c in columns]
-    if len(set(names))!=len(names) or [c['position']for c in columns]!=list(range(1,len(columns)+1)):raise ValueError('Original ordered injective outputs required')
+    if positioned:
+        from weft_field_plan import admit_positioned_cells
+        result=admit_positioned_cells(artifact,{'schema':native_schema,'rows':ordered_rows})
+        if rows!=ordered_rows:raise ValueError('Original returned row arrays differ from captured native cells')
+        cell_rows=result['rows']
+    else:
+        if native_schema is not None or ordered_rows is not None or any('carrierName'in c for c in columns) or any(o.get('id')=='weft.output.positioned'for o in artifact.get('obligations',[])):raise ValueError('Unknown positioned decoding requires explicit handler')
+        if len(set(names))!=len(names) or [c['position']for c in columns]!=list(range(1,len(columns)+1)):raise ValueError('Original ordered injective outputs required')
+        if type(rows)is not list or any(type(row)is not dict or set(row)!=set(names)for row in rows):raise ValueError('Exact original output cell inventory required')
+        cell_rows=[[row[name]for name in names]for row in rows]
     decoded=[]
-    for row in rows:
-        if type(row)is not dict or set(row)!=set(names):raise ValueError('Exact original output cell inventory required')
+    for row in cell_rows:
         values=[]
-        for column in columns:
-            rep=column['representation'];logical=rep['logicalType'];value=row[column['outputName']]
+        for column,value in zip(columns,row):
+            rep=column['representation'];logical=rep['logicalType']
             if set(rep)!={'kind','logicalType','carrier','decoder'} or rep['kind']!='scalar' or rep['carrier']!='text' or set(logical)!={'family','facets','nullable'} or logical['nullable']is not False or column['nullable']is not False or type(value)is not str:raise ValueError('Exact nonnull public scalar text required')
             family=logical['family'];facets=logical['facets']
             if type(facets)is not dict:raise ValueError('Original facets required')
