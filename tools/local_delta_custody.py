@@ -18,6 +18,50 @@ from ashlar.publication import _name
 class LocalDeltaError(ValueError):pass
 class LocalDeltaUncertain(LocalDeltaError):pass
 
+LOCAL_OPERATION_CAPACITY_8M=MappingProxyType({'profile':'ashlar-private-local-operation-capacity/0.1','max_intent_bytes':8*1024*1024})
+def operation_capacity(value):
+    if value is None:return None
+    if type(value) not in (dict,MappingProxyType) or set(value)!=set(LOCAL_OPERATION_CAPACITY_8M) or value.get('profile')!=LOCAL_OPERATION_CAPACITY_8M['profile'] or type(value.get('max_intent_bytes')) is not int or value['max_intent_bytes']!=LOCAL_OPERATION_CAPACITY_8M['max_intent_bytes']:
+        raise LocalDeltaError('Explicit supported closed private local operation capacity required')
+    return MappingProxyType(dict(value))
+
+def bounded_local_json_bytes(value,maximum):
+    # Exact ensure_ascii=False JSON UTF8 length; stop before oversized serialization.
+    total=0
+    def add(count):
+        nonlocal total
+        total+=count
+        if total>maximum:raise LocalDeltaError('Bounded original local operation required')
+    def string(text):
+        add(2)
+        for character in text:
+            point=ord(character)
+            if character in ('\\','"'):add(2)
+            elif point<32:add(2 if point in (8,9,10,12,13) else 6)
+            elif 0xd800<=point<=0xdfff:raise LocalDeltaError('Exact UTF8 operation text required')
+            else:add(1 if point<128 else 2 if point<2048 else 3 if point<65536 else 4)
+    def visit(item):
+        if type(item)is str:string(item)
+        elif item is None:add(4)
+        elif type(item)is bool:add(4 if item else 5)
+        elif type(item)is int:add(len(str(item)))
+        elif type(item)is dict:
+            add(2+max(0,len(item)-1))
+            for key,child in item.items():string(key);add(1);visit(child)
+        elif type(item)is list:
+            add(2+max(0,len(item)-1))
+            for child in item:visit(child)
+        else:raise LocalDeltaError('Closed exact operation JSON required')
+    visit(value);return total
+
+def original_operation_intent(installation_id,operation,intent_digest,sql,parameters,target,capacity=None):
+    body={'profile':'ashlar-local-delta-operation/0.1','installation_id':installation_id,'operation':operation,'request_digest':intent_digest,'statement':sql,'parameters':parameters,'table':target.table,'path':str(target.path),'uuid':target.uuid}
+    capacity=operation_capacity(capacity)
+    if capacity is not None:body['operation_capacity']=dict(capacity)
+    bounded_local_json_bytes(body,capacity['max_intent_bytes'] if capacity is not None else 4194304)
+    return encoded(body)
+
+
 def encoded(value):return json.dumps(value,ensure_ascii=False,sort_keys=True,separators=(',',':'),allow_nan=False)
 def sha(value):return hashlib.sha256(value.encode()).hexdigest()
 def child_operation(operation,statement,parameters):return operation+':'+sha(encoded({'statement':statement,'parameters':parameters}))
@@ -34,20 +78,23 @@ class DeltaTarget:
         object.__setattr__(self,'path',path)
 
 class LocalDeltaTransport:
-    def __init__(self,spark,journal_path,installation_id,targets,policy):
-        self._open(spark,journal_path,installation_id,targets,policy,create=False,context=None)
+    def __init__(self,spark,journal_path,installation_id,targets,policy,*,capacity=None):
+        self._open(spark,journal_path,installation_id,targets,policy,create=False,context=None,capacity=capacity)
     @classmethod
-    def initialize(cls,spark,journal_path,installation_id,targets,policy,*,context):
+    def initialize(cls,spark,journal_path,installation_id,targets,policy,*,context,capacity=None):
         result=cls.__new__(cls)
-        result._open(spark,journal_path,installation_id,targets,policy,create=True,context=context)
+        result._open(spark,journal_path,installation_id,targets,policy,create=True,context=context,capacity=capacity)
         return result
-    def _open(self,spark,journal_path,installation_id,targets,policy,*,create,context):
+    def _open(self,spark,journal_path,installation_id,targets,policy,*,create,context,capacity):
+        self.operation_capacity=operation_capacity(capacity)
         if type(installation_id) is not str or not re.fullmatch('[A-Za-z0-9][A-Za-z0-9:_-]{0,1023}',installation_id) or not targets:raise LocalDeltaError('Explicit original installation/table registry required')
         if not callable(getattr(policy,'writer',None)) or not callable(getattr(policy,'admit',None)):raise LocalDeltaError('Mandatory current local writer/intent policy required')
         self.spark=spark;self.policy=policy;self.installation_id=installation_id;self.targets=MappingProxyType({t.table:t for t in targets});self.journal_path=Path(journal_path).absolute();self._registered=False
         if len(self.targets)!=len(targets) or len({t.path for t in targets})!=len(targets):raise LocalDeltaError('Closed distinct native table registry required')
         if self.journal_path.is_symlink():raise LocalDeltaError('Private non-symlink original journal required')
-        registry=encoded({'installation':installation_id,'targets':[{'table':t.table,'path':str(t.path),'uuid':t.uuid} for t in sorted(targets,key=lambda t:t.table)]})
+        registry_body={'installation':installation_id,'targets':[{'table':t.table,'path':str(t.path),'uuid':t.uuid} for t in sorted(targets,key=lambda t:t.table)]}
+        if self.operation_capacity is not None:registry_body['operation_capacity']=dict(self.operation_capacity)
+        registry=encoded(registry_body)
         self.registry_sha=sha(registry);self.journal_sha=sha(str(self.journal_path.resolve()))
         self.reservation=encoded({'profile':'ashlar-private-native-installation-reservation/0.1','registry':json.loads(registry),'original_journal_path':str(self.journal_path.resolve())})+'\n'
         self._profile()
@@ -171,8 +218,8 @@ class LocalDeltaTransport:
     def _execute(self,operation,sql,parameters,intent_digest,context,*,recovery):
         self._parameters(parameters);target=self._target(sql)
         if not isinstance(operation,str) or not operation or len(operation)>1024 or not isinstance(intent_digest,str) or not re.fullmatch('[0-9a-f]{64}',intent_digest):raise LocalDeltaError('Original operation/request digest required')
-        intent=encoded({'profile':'ashlar-local-delta-operation/0.1','installation_id':self.installation_id,'operation':operation,'request_digest':intent_digest,'statement':sql,'parameters':parameters,'table':target.table,'path':str(target.path),'uuid':target.uuid})
-        if len(intent.encode())>4194304:raise LocalDeltaError('Bounded original local operation required')
+        intent=original_operation_intent(self.installation_id,operation,intent_digest,sql,parameters,target,self.operation_capacity)
+        if len(intent.encode())>(self.operation_capacity['max_intent_bytes'] if self.operation_capacity is not None else 4194304):raise LocalDeltaError('Bounded original local operation required')
         frozen=json.loads(intent);sql=frozen['statement'];parameters=frozen['parameters']
         body_sha=sha(intent);metadata=encoded({'profile':'ashlar-local-delta-commit/0.1','installation_id':self.installation_id,'operation':operation,'operation_sha256':body_sha,'request_digest':intent_digest})
         result=None

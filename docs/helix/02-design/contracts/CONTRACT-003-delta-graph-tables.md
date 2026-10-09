@@ -553,6 +553,33 @@ Lost acknowledgement returns the same manifest and never appends new source
 history. The source's trusted downstream-application proof remains independently
 required where its worker profile demands it.
 
+### Explicit private local operation capacity
+
+Private local Delta transport MUST retain the 4MiB serialized UTF8 operation
+intent default. An explicitly selected `ashlar-private-local-operation-capacity/0.1`
+profile MAY permit exactly 8MiB for a bounded original fixture whose retained
+complete operation genuinely requires it. The closed profile has only `profile`
+and integer `max_intent_bytes` equal to 8388608; unknown versions, limits, fields,
+Boolean numeric flags and implicit selection MUST refuse before effects.
+
+The nondefault capacity MUST bind the original installation registry,
+reservation, journal and every operation intent/digest. Reopening an installation
+under missing or changed capacity MUST refuse; it MUST NOT rescue a lost original
+journal, authorize replacement mutations or alter unknown-outcome recovery.
+Default original registry and operation bytes/identities MUST remain unchanged.
+Complete UTF8 operation size MUST be preflighted before journal intent submission
+and native effects; exceeding the selected finite capacity MUST refuse without
+truncation. The separate core publication phase payload ceiling remains 4MiB.
+An outer transport framing allowance MUST NOT enlarge logical source domains,
+change original values, substitute incomplete source/effect inventories, claim
+remote fencing or turn a provisional applied state into a publication or ACK.
+
+Acceptance coverage MUST exercise exact default/nondefault boundaries, malformed
+profile refusal, unchanged default bytes, mismatched reopen without new effects,
+complete original payload retention and default refusal before journal/native
+mutation. A consumer claiming a completed publication MUST retain closure and
+original manifest/ACK evidence separately from interrupted native effects.
+
 ### Private local export custody
 
 A private local host MAY export an immutable graph release using a separately
