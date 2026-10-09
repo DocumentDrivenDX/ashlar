@@ -1,0 +1,28 @@
+{
+  "original_output": "/private/tmp/ashlar-local-graph-refresh-20261009-a",
+  "original_report_sha256": "08e62c04f301eb99ddc17f00e3accfb5f79849be547026b95c29424ad9763006",
+  "artifacts": {
+    "report.json": "08e62c04f301eb99ddc17f00e3accfb5f79849be547026b95c29424ad9763006",
+    "source-profile.json": "05dc7ef72768bd2e246e2dbd250331eabfcc1b696ea86ff24b449ae51b46ff85",
+    "final-guard-readonly.json": "e84a824f95e19b5fa5ee1af513abce7bcc52da81964dde9188d3b0fb1ef3d0ba",
+    "source/R2.manifest.json": "f3a67f4f6e6f6a42803f1fe7cc1f94b80e7af241039a259b8eaff11992535406",
+    "source/R1.manifest.json": "269c5d847934d612f93f1bbc00a954b29406c9050d41fb71ca870419d1a7d8b7",
+    "source/ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7.graph.json": "ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7",
+    "source/a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a.graph.json": "a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a",
+    "source/nodes/_delta_log/00000000000000000001.json": "d06c09507056b003e75a9524b86c912ca8551933673d76bc0fb6a0905b17b768",
+    "source/nodes/_delta_log/00000000000000000000.json": "a8a59b3aa2066de90947464316f157ec8a0b9d7c3351601ff52f694c2fc53405",
+    "source/edges/_delta_log/00000000000000000001.json": "4a7087f39ea5a92831d825e902bee657f47e8abb1ab2d88d4baa22d9197332a7",
+    "source/edges/_delta_log/00000000000000000000.json": "599a9043c6af217c8cb34fe73715c22a612aec0a83ad6468319533b254f666f1",
+    "failed/a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a/nodes/_delta_log/00000000000000000000.json": "af6ba49a93ecbb3b9ed94a946c6c725ecab32e1351da3f111c5250de34b20779",
+    "materialized/ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7/nodes/_delta_log/00000000000000000000.json": "775e0143a7854c0a7a61fc30d3e8f04286b9987f2c9ac8fb10b533eca2dbb1ed",
+    "materialized/ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7/edges/_delta_log/00000000000000000000.json": "2bd3113a158d7498de483de27c7d1b833c23c9b5e653dc4e361abb0cd1cf4fb1",
+    "materialized/a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a/nodes/_delta_log/00000000000000000000.json": "74cb89e8d0de4f77cd92ac3473f15e7b87db9ebbcfb2591fab1ca285ca7731e8",
+    "materialized/a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a/edges/_delta_log/00000000000000000000.json": "60861e170e892ea6c01286dc1619bbe5f92791894575129006c8dd42080e04d8"
+  },
+  "qualification": "Actual local Delta R1/R2 exports and process-local GraphFrames activation. Complete native UUID closing guard added after first run; final read-only execution against original materializations verifies both releases. No UC, Truss, full UMF source admission, remote fencing or durable activation qualification.",
+  "independent_review": {
+    "reviewer": "Astra Ultra",
+    "result": "approved; closing-vector finding resolved",
+    "checks": "Five focused tests; source Delta versions and rematerialized Parquet exact R1/R2 rows, UUIDs, timestamp -1 and signed64 maximum; original final-guard receipt and all custody hashes."
+  }
+}
