@@ -1,0 +1,18 @@
+{
+  "format": "ashlar-original-pack-nine-native-summary/0.1",
+  "qualification": "Bounded private-local Spark4/Delta4, original Weft-generated SQL on held publications. No UC, Truss accepted identities, production source or scale claim. Independent final review pending.",
+  "report": "report.json.gz",
+  "original_report_sha256": "154c46db723c9af05ff5cce408d560090921af34c72ba8da6f066c52b5e5eae9",
+  "original_report_bytes": 39497490,
+  "compiler_sha256": "7ab1c28ae04d3449b270ede87152a1e5e0506bb15a5aa642c04dd7d6cba2a7d3",
+  "official_weft_revision": "1a1c0ad2c26d0cdd7aa6fb7f415abbaa44ab2842",
+  "ashlar_commit": "78067c2676b7fdbcdf928b264cacb385c9493edf",
+  "query_counts": {
+    "archaeology": 5,
+    "ecology": 4
+  },
+  "total_queries": 9,
+  "remaining_original_queries": 8,
+  "native_original_file_hashes_verified": 132,
+  "failed_attempt_a": "Original terminal failure log retained; no success report; source publications unchanged."
+}

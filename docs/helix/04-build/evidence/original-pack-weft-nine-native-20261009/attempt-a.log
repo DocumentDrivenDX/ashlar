@@ -1,0 +1,13 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/09 18:54:41 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tools/run_pack_field_weft.py", line 118, in <module>
+    a=p.parse_args();r=run({'archaeology':a.archaeology,'ecology':a.ecology},a.output,a.jars,a.compiler,a.source_guard,a.umf)
+  File "/Users/erik/Projects/ashlar/tools/run_pack_field_weft.py", line 84, in run
+    try:execute_guarded(provider,request,artifact,context=context,public_source=lambda r,a,c:admit_public_source(source_guard,umf,r,a,c))
+  File "/Users/erik/Projects/ashlar/tools/run_commerce_arithmetic_weft.py", line 114, in execute_guarded
+    if not positioned_outputs:raise ValueError('Positioned outputs require explicit host opt-in')
+ValueError: Positioned outputs require explicit host opt-in

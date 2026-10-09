@@ -1,0 +1,21 @@
+{
+  "scope": "Retained runtime input fingerprints, not reconstructed process state",
+  "jars": [
+    {
+      "path": "/private/tmp/ashlar-delta4-jars/delta-spark_2.13-4.0.0.jar",
+      "sha256": "538511702aae0ef6973a6a70af3d4543c9009f8edbed786a00737e2d3cd7f04e",
+      "bytes": 7727374
+    },
+    {
+      "path": "/private/tmp/ashlar-delta4-jars/delta-storage-4.0.0.jar",
+      "sha256": "9bdb9fb450f1e119eba53feb427f331b0d09072d26485b8273883ad72c9a2e1d",
+      "bytes": 69732
+    }
+  ],
+  "compiler_path": "/private/tmp/ashlar-weft-positioned-scalar-final/weft-runtime",
+  "compiler_sha256": "7ab1c28ae04d3449b270ede87152a1e5e0506bb15a5aa642c04dd7d6cba2a7d3",
+  "source_guard_path": "/private/tmp/ashlar-weft-land-5856/scripts/local/public_integer_source.ts",
+  "source_guard_sha256": "68f0ad41a4cd090281a0ce5e89d6ab8c93873d882a698a593e21d68c7dbf2577",
+  "semantic_producer_path": "/private/tmp/ashlar-umf-dataset-45473",
+  "semantic_producer_git_head": "c7c95e1c4ea5b72541f47fa0350ca467ff02f395"
+}

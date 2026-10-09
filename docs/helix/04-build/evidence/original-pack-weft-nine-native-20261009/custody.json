@@ -1,0 +1,558 @@
+{
+  "format": "ashlar-original-pack-nine-native-custody/0.1",
+  "ashlar_commit": "78067c2676b7fdbcdf928b264cacb385c9493edf",
+  "scope": "Actual bounded private-local Spark original Weft-generated query run; independent review pending, no UC/Truss/scale claim",
+  "original_report_sha256": "154c46db723c9af05ff5cce408d560090921af34c72ba8da6f066c52b5e5eae9",
+  "original_report_bytes": 39497490,
+  "report_encoding": "gzip lossless mtime0",
+  "failed_attempt_a": "Terminal failure; original log retained, no success report, no retry of source mutations",
+  "entries": [
+    {
+      "path": "report.json.gz",
+      "sha256": "9e08eed57dec4f444f6240fdb8f1e818b135e426ec1e7eb9e49f2795905cbf50",
+      "bytes": 2357678,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/report.json"
+    },
+    {
+      "path": "requests-and-artifacts/archaeology-cycle-artifact.json",
+      "sha256": "c59d95f191293685e295a3207126984d658eb6382ab9aaef4a54988d46d61777",
+      "bytes": 29205,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-cycle-artifact.json"
+    },
+    {
+      "path": "requests-and-artifacts/archaeology-cycle-request.json",
+      "sha256": "ee881e40c2ab2bcc77a78ccddc87d8027b2e6ad1af12e174d7f3369d94dd2b08",
+      "bytes": 131588,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-cycle-request.json"
+    },
+    {
+      "path": "requests-and-artifacts/archaeology-dating-artifact.json",
+      "sha256": "042f03b4ea4d9d22b4acb645ba288bdfcb669e06c06eaa95beff9fb09643aa11",
+      "bytes": 48329,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-dating-artifact.json"
+    },
+    {
+      "path": "requests-and-artifacts/archaeology-dating-request.json",
+      "sha256": "4c277a3147208cde5a9c06707054c538931c7d4d196b19abeea461c5e933322f",
+      "bytes": 131570,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-dating-request.json"
+    },
+    {
+      "path": "requests-and-artifacts/archaeology-lineage-artifact.json",
+      "sha256": "2172e51fbd7a0d88e2aa2473745cce246f00355e4870fa70e2d9ad527b657b26",
+      "bytes": 25809,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-lineage-artifact.json"
+    },
+    {
+      "path": "requests-and-artifacts/archaeology-lineage-request.json",
+      "sha256": "6ef09c318d7ca0cdbc4c4a3396de4d6d0e3ca9eb010042f56fbd41ea1823cda1",
+      "bytes": 131517,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-lineage-request.json"
+    },
+    {
+      "path": "requests-and-artifacts/archaeology-missing-media-artifact.json",
+      "sha256": "87e2cb1e76ba2c034c128cda831fee85bbeb5602e8e01a33002b04e7daa4c25b",
+      "bytes": 14830,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-missing-media-artifact.json"
+    },
+    {
+      "path": "requests-and-artifacts/archaeology-missing-media-request.json",
+      "sha256": "020032820f65bff96290e15bd364c25e5765f020658a9220455d05040f1d83c5",
+      "bytes": 131456,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-missing-media-request.json"
+    },
+    {
+      "path": "requests-and-artifacts/archaeology-specialists-artifact.json",
+      "sha256": "d4077e6d11c4b5c2260e2c23e7b361db9fdb7c34170f1e98960650bb77aeaca3",
+      "bytes": 56260,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-specialists-artifact.json"
+    },
+    {
+      "path": "requests-and-artifacts/archaeology-specialists-request.json",
+      "sha256": "a468a872bbde9933cfd94ae29d7587f056b225044f25d551a8ea22f8b6f2a742",
+      "bytes": 131673,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-specialists-request.json"
+    },
+    {
+      "path": "requests-and-artifacts/archaeology-wrong-schema-artifact.json",
+      "sha256": "efe36727488b704bf3b2909eecc05e2e27f9cb5fff73baec00bf0a1c18a61faf",
+      "bytes": 29137,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-wrong-schema-artifact.json"
+    },
+    {
+      "path": "requests-and-artifacts/archaeology-wrong-schema-request.json",
+      "sha256": "5994abc75aea67b8c1572db57ada57b0a9a5d98c56dd77d22053221aa28e3aea",
+      "bytes": 130840,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-wrong-schema-request.json"
+    },
+    {
+      "path": "requests-and-artifacts/ecology-effort-event-artifact.json",
+      "sha256": "85198f2e83e57778aac2dc2ff70e929462fdebced1a9946ec5d80ecfeafa66c5",
+      "bytes": 22939,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-effort-event-artifact.json"
+    },
+    {
+      "path": "requests-and-artifacts/ecology-effort-event-request.json",
+      "sha256": "03e6771fc55555873a36ffd1c9ea84938456d4b22311f8cb38ab3c6bfaedb8e9",
+      "bytes": 99608,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-effort-event-request.json"
+    },
+    {
+      "path": "requests-and-artifacts/ecology-fishing-artifact.json",
+      "sha256": "75f649133a7817caa8d10c0e45da250fb79c8ed1874e6d15342e692fff2b8320",
+      "bytes": 11250,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-fishing-artifact.json"
+    },
+    {
+      "path": "requests-and-artifacts/ecology-fishing-request.json",
+      "sha256": "6140ffaab1ee06c93cd94346b6b64d3bf48a207e79bfbdc238e7338cb6a34d4a",
+      "bytes": 99553,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-fishing-request.json"
+    },
+    {
+      "path": "requests-and-artifacts/ecology-match-artifact.json",
+      "sha256": "9ba14e41a6e11f09cd66ccdd89bcce37d40cbedbb9a5fcafa23d213fe2e28a5f",
+      "bytes": 14804,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-match-artifact.json"
+    },
+    {
+      "path": "requests-and-artifacts/ecology-match-request.json",
+      "sha256": "cfec44c56578cc88a07ebba0f46845056968667ac49a3768688121cebcd709ac",
+      "bytes": 99572,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-match-request.json"
+    },
+    {
+      "path": "requests-and-artifacts/ecology-network-artifact.json",
+      "sha256": "6d1666fd76c92c6ca606e25c607e8cd33f6d49e8a76e7bc1d705a4ccad9622a9",
+      "bytes": 13719,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-network-artifact.json"
+    },
+    {
+      "path": "requests-and-artifacts/ecology-network-request.json",
+      "sha256": "2e942cf0263bb2f6597de8aacfe7d4a7ace21452a71259e2eb9c60bb10fda90a",
+      "bytes": 99566,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-network-request.json"
+    },
+    {
+      "path": "requests-and-artifacts/ecology-wrong-schema-artifact.json",
+      "sha256": "329a9b439077eae3a37f5dec1398c9e79fec9147a7e531efec57bbee4d289dda",
+      "bytes": 22871,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-wrong-schema-artifact.json"
+    },
+    {
+      "path": "requests-and-artifacts/ecology-wrong-schema-request.json",
+      "sha256": "064bf6643a5aa8d7652a881855cdec4e0d602f8680ddd9d4efd6b4e3d6fea384",
+      "bytes": 98962,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-wrong-schema-request.json"
+    },
+    {
+      "path": "attempt-a.log",
+      "sha256": "4c0da87f4963de5699769b773627dc0f4546543e038982dbddf9e7a0d5a93980",
+      "bytes": 1143,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-a.log"
+    },
+    {
+      "path": "attempt-b.log",
+      "sha256": "5f5bc2d687e4a5d356f04771bbe12d1c57f7bf123572a66a209d87a4fd7246c1",
+      "bytes": 450,
+      "original": "/private/tmp/ashlar-pack-positioned-weft-20261009-b.log"
+    },
+    {
+      "path": "compiler/source-manifest.json",
+      "sha256": "0c6193fb995d3009728dbfb0627bf1a513c0b3a8735c2dd6de6dea3639755425",
+      "bytes": 3189,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/manifest.json"
+    },
+    {
+      "path": "compiler/build-checks.json",
+      "sha256": "89510696bd3981c7e054bb881956905be984d4012dd1ebd93e94ac39e290dd8a",
+      "bytes": 2751,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/final-checks.json"
+    },
+    {
+      "path": "compiler/source/crates/weft-core/src/arithmetic_application_resolve.rs",
+      "sha256": "1d2fa5940d305e3fb4791c51cabd809b17a8a93d84e33338cc44663245b5ebe0",
+      "bytes": 22141,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/crates/weft-core/src/arithmetic_application_resolve.rs"
+    },
+    {
+      "path": "compiler/source/crates/weft-core/src/backend.rs",
+      "sha256": "9b2c790f741f43a3467f2f9b3db5bdad9105241854eafa5ffafe95f847b815e1",
+      "bytes": 34426,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/crates/weft-core/src/backend.rs"
+    },
+    {
+      "path": "compiler/source/crates/weft-core/src/backend_emission.rs",
+      "sha256": "6635a82b85b6fe23ac91801c0621804e8823e2d548ca3ab9c7d87c4ec7ab59c4",
+      "bytes": 37245,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/crates/weft-core/src/backend_emission.rs"
+    },
+    {
+      "path": "compiler/source/crates/weft-databricks/src/arithmetic.rs",
+      "sha256": "97aaf98df7d391a898316218f58cbe5e02c6e674b92ebed77e36a9bda1d12c19",
+      "bytes": 6018,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/crates/weft-databricks/src/arithmetic.rs"
+    },
+    {
+      "path": "compiler/source/crates/weft-databricks/src/candidate.rs",
+      "sha256": "be18be0d14a556c1202d64a13d0dab70daa8173f322ae7b5c4ded295029d5fa1",
+      "bytes": 29585,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/crates/weft-databricks/src/candidate.rs"
+    },
+    {
+      "path": "compiler/source/crates/weft-databricks/src/candidate/application.rs",
+      "sha256": "378fbe21bcaf53bec4b0ff1cd039044b627b9eb6e695cf4df01dc27fb6f24d53",
+      "bytes": 16824,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/crates/weft-databricks/src/candidate/application.rs"
+    },
+    {
+      "path": "compiler/source/crates/weft-databricks/src/candidate/arithmetic.rs",
+      "sha256": "162a7d1a5d10b4bdb8106d6d0a5dcb0e1b314dcd5bc777f4c79704486918166c",
+      "bytes": 24461,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/crates/weft-databricks/src/candidate/arithmetic.rs"
+    },
+    {
+      "path": "compiler/source/crates/weft-postgresql/src/candidate.rs",
+      "sha256": "2102791e1e76ebcc99d2fac6392ec9d9172bdab6f0665b328ed45c6cf77b2687",
+      "bytes": 27582,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/crates/weft-postgresql/src/candidate.rs"
+    },
+    {
+      "path": "compiler/source/crates/weft-postgresql/src/candidate/application.rs",
+      "sha256": "2f2576a23cf0982c7c4f1cfe9ea4203c363cb67abaef1b4386aaf60cc9bd8915",
+      "bytes": 36487,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/crates/weft-postgresql/src/candidate/application.rs"
+    },
+    {
+      "path": "compiler/source/crates/weft-postgresql/src/result_definition.rs",
+      "sha256": "b17d701d234c9b3f1c200e38df7737681eca8e997395af22ea0c7e98da1e33d5",
+      "bytes": 30905,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/crates/weft-postgresql/src/result_definition.rs"
+    },
+    {
+      "path": "compiler/source/docs/helix/02-design/contracts/compile-response-v0.3.schema.json",
+      "sha256": "01db3a5805824a55d92a5f3bcad1fb312c79327549fb32add450ab2136a7fcff",
+      "bytes": 32785,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/docs/helix/02-design/contracts/compile-response-v0.3.schema.json"
+    },
+    {
+      "path": "compiler/source/docs/helix/02-design/contracts/exact-arithmetic-v0.3.md",
+      "sha256": "a62f7516cded94412a197072f12a2ca63997073a9a293f1c4b8da48b5c965867",
+      "bytes": 12272,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/docs/helix/02-design/contracts/exact-arithmetic-v0.3.md"
+    },
+    {
+      "path": "compiler/source/tests/ashlar-databricks/compiler.rs",
+      "sha256": "63e3116ea1b398fdd790e0c7890cb1fb190d576c327e9ddf4d40eace5e574ac5",
+      "bytes": 41905,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/tests/ashlar-databricks/compiler.rs"
+    },
+    {
+      "path": "compiler/source/tests/register-backend/fixture.rs",
+      "sha256": "77920a2852be07644c2153416d43175890098d48cf95f17c31339df297c95a00",
+      "bytes": 12040,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/tests/register-backend/fixture.rs"
+    },
+    {
+      "path": "compiler/source/tests/compile/positioned-v0.3-check.ts",
+      "sha256": "77626647cd459d4ff695fd157c280499fa2d74defecced9eb121f1bc6e0d53df",
+      "bytes": 1913,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/tests/compile/positioned-v0.3-check.ts"
+    },
+    {
+      "path": "compiler/source/tests/compile/positioned-browser-parity.ts",
+      "sha256": "b932f768664dcb7976aba3ae450233afd4270ff434096b13f66056bcd8da4d13",
+      "bytes": 2985,
+      "original": "/private/tmp/ashlar-weft-positioned-scalar-final/source/tests/compile/positioned-browser-parity.ts"
+    },
+    {
+      "path": "runtime/public_integer_source.ts",
+      "sha256": "68f0ad41a4cd090281a0ce5e89d6ab8c93873d882a698a593e21d68c7dbf2577",
+      "bytes": 3967,
+      "original": "/private/tmp/ashlar-weft-land-5856/scripts/local/public_integer_source.ts"
+    },
+    {
+      "path": "runtime/input-fingerprints.json",
+      "sha256": "29e1fc38244b760d9ce645987328c671136aa1d91dbadc3f636210f69209bb2e",
+      "bytes": 1000,
+      "original": "post-run read-only input fingerprints"
+    },
+    {
+      "path": "ashlar-source/tools/run_pack_field_weft.py",
+      "sha256": "430f7111433fdbb6262208d162277ff0d0b457d0ae9e8748e8f064a6718891e8",
+      "bytes": 9399,
+      "original": "git:78067c2:tools/run_pack_field_weft.py"
+    },
+    {
+      "path": "ashlar-source/tools/run_local_weft_typed_spark4.py",
+      "sha256": "db27d10f38ea6db61296cb11a849b31f22d87d9238c246a95546fd6b31ab7612",
+      "bytes": 10076,
+      "original": "git:78067c2:tools/run_local_weft_typed_spark4.py"
+    },
+    {
+      "path": "ashlar-source/tools/run_local_weft_typed_probe.py",
+      "sha256": "3b367077c0a744c05a5203a4b51bcc6f82573e135a6a0d18c25b4fc72f37782d",
+      "bytes": 11815,
+      "original": "git:78067c2:tools/run_local_weft_typed_probe.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/typed_source_policy.py",
+      "sha256": "ae913e9b3ae4e64e8b7eef568d2038ff53476ef307bb8af75e0052b7d1da2cf0",
+      "bytes": 9678,
+      "original": "git:78067c2:src/ashlar/typed_source_policy.py"
+    },
+    {
+      "path": "ashlar-source/tools/run_commerce_arithmetic_weft.py",
+      "sha256": "37cb065a57b752c515f4a00bd027b6ba96bfb4d834e88b62f46358d35cf26da5",
+      "bytes": 28454,
+      "original": "git:78067c2:tools/run_commerce_arithmetic_weft.py"
+    },
+    {
+      "path": "ashlar-source/tools/commerce_source_transaction.py",
+      "sha256": "8b8b185c4ed3cadb554ce0415d8029bb1c3a98b354505d8b01debcba6af17db7",
+      "bytes": 1047,
+      "original": "git:78067c2:tools/commerce_source_transaction.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/commerce_source.py",
+      "sha256": "4b50f2a8531e05f087b535ccfdd2e3ffa8292e5f47302b1e4b569e58f732a746",
+      "bytes": 5680,
+      "original": "git:78067c2:src/ashlar/commerce_source.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/source.py",
+      "sha256": "d707482f3512fbbf4be02469208aa0bd10e7bca7e2bf6ed4f4b03c33948a91f2",
+      "bytes": 4356,
+      "original": "git:78067c2:src/ashlar/source.py"
+    },
+    {
+      "path": "ashlar-source/tools/weft_field_plan.py",
+      "sha256": "21ead24b6301ff68714f39c484bf1dca660d0bbb4e9ce80f5d4d955337f9e19e",
+      "bytes": 20340,
+      "original": "git:78067c2:tools/weft_field_plan.py"
+    },
+    {
+      "path": "ashlar-source/tools/run_commerce_publication_weft.py",
+      "sha256": "7bcd5b31cba46ed92ec3e4b2877a176505b7b787c635abd7df1439a022271815",
+      "bytes": 26864,
+      "original": "git:78067c2:tools/run_commerce_publication_weft.py"
+    },
+    {
+      "path": "ashlar-source/tools/postgres_transactions.py",
+      "sha256": "3fd105abee30c212a48ef33a33f727a3af6abf9b725b4b21295fd911e5719a9b",
+      "bytes": 3339,
+      "original": "git:78067c2:tools/postgres_transactions.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/native.py",
+      "sha256": "fc54aef7407242fe8b8811ff0da7ceb7fc5030a1be1b178b4fe0be9e3f0fcec4",
+      "bytes": 3947,
+      "original": "git:78067c2:src/ashlar/native.py"
+    },
+    {
+      "path": "ashlar-source/tools/local_outbox_connection.py",
+      "sha256": "1e9cff1bea23185aa640789e7c684b1c8474293f06f90f2cc6f2ca3d30fdd555",
+      "bytes": 2117,
+      "original": "git:78067c2:tools/local_outbox_connection.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/manifest.py",
+      "sha256": "7951cec41e3f5ca19f0a53ed80b60f2bae3a1835effc77dccaf49113a3db9e9c",
+      "bytes": 6578,
+      "original": "git:78067c2:src/ashlar/manifest.py"
+    },
+    {
+      "path": "ashlar-source/tools/protected_outbox_ack.py",
+      "sha256": "acfa8f19d0288ccda7119aafd6ae6ff7e4fc0aa58e85fa1271ffece6982d1791",
+      "bytes": 11649,
+      "original": "git:78067c2:tools/protected_outbox_ack.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/source_checkpoint.py",
+      "sha256": "0ef05a0eecf85d8989ae5245c45812c4936fe6e02372b37838a794e170996625",
+      "bytes": 9270,
+      "original": "git:78067c2:src/ashlar/source_checkpoint.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/schema.py",
+      "sha256": "cbec6dd4aaa3e6cdbd29383f169855d63470d6ed468a3faff159afac0252273f",
+      "bytes": 3949,
+      "original": "git:78067c2:src/ashlar/schema.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/publication.py",
+      "sha256": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a",
+      "bytes": 5977,
+      "original": "git:78067c2:src/ashlar/publication.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/attempt_store.py",
+      "sha256": "836a1cebf179efe27e5d578b903b3e7fa3514f991aff0dde49ec47991b077a44",
+      "bytes": 7664,
+      "original": "git:78067c2:src/ashlar/attempt_store.py"
+    },
+    {
+      "path": "ashlar-source/tools/local_delta_custody.py",
+      "sha256": "b4842277c1c53320b75a641074f1efa1a16420920f952b3bdd63506249a3dd12",
+      "bytes": 26838,
+      "original": "git:78067c2:tools/local_delta_custody.py"
+    },
+    {
+      "path": "ashlar-source/tools/run_local_outbox_publication.py",
+      "sha256": "7ba69cc14d390c8a1f2a681de1251ef8b4760ef0887d268cf47001d6803026a5",
+      "bytes": 41169,
+      "original": "git:78067c2:tools/run_local_outbox_publication.py"
+    },
+    {
+      "path": "ashlar-source/tools/whole_graph_sql.py",
+      "sha256": "e599fba56cdb0d4259942f4855a4a3bca4e0a96cbadc2d88f87ebfd92105cff3",
+      "bytes": 4866,
+      "original": "git:78067c2:tools/whole_graph_sql.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/whole_entity.py",
+      "sha256": "4f2102505851e7bc916df91b625f7a99677d11c79828603c01395f1d7648424f",
+      "bytes": 2019,
+      "original": "git:78067c2:src/ashlar/whole_entity.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/apply.py",
+      "sha256": "3b1bcdff055a67744f738508363914efa68a3711aeb084d7f221579cd68082d1",
+      "bytes": 6553,
+      "original": "git:78067c2:src/ashlar/apply.py"
+    },
+    {
+      "path": "ashlar-source/tools/run_local_example.py",
+      "sha256": "5c73ca7c680742269605315d7677f1dca4a9d41555691fa81a4f45a3f4d8032c",
+      "bytes": 8371,
+      "original": "git:78067c2:tools/run_local_example.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/staging.py",
+      "sha256": "b2807c11bf2703f47646765e5e8d9a43af4863cce8ad6a3909b25d89c0058545",
+      "bytes": 7338,
+      "original": "git:78067c2:src/ashlar/staging.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/semantic_policy.py",
+      "sha256": "74c0e18967f4677927a13cdf7bb8705c50265ef278d2b340a5fa617ecf09cfb8",
+      "bytes": 7593,
+      "original": "git:78067c2:src/ashlar/semantic_policy.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/catalog.py",
+      "sha256": "2eaa107b2898f210bb7ae8cdba38a2c4d50f4169bc637de9633ca6708bca9e3f",
+      "bytes": 4926,
+      "original": "git:78067c2:src/ashlar/catalog.py"
+    },
+    {
+      "path": "ashlar-source/tools/run_graph_release_graphframes.py",
+      "sha256": "3264587cfe01b915780995c518a7fb357852ec99fe8d781e3432c14c50dbb23f",
+      "bytes": 13106,
+      "original": "git:78067c2:tools/run_graph_release_graphframes.py"
+    },
+    {
+      "path": "ashlar-source/tools/private_graph_custody.py",
+      "sha256": "3c5c0da967cc67e30fee5d996d7497f8be970b621d6d4238c675ca9eccd82ff8",
+      "bytes": 7691,
+      "original": "git:78067c2:tools/private_graph_custody.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/graph_release.py",
+      "sha256": "f1481f4e1cd261893dfb5c613cb31823168e72dbc11e57aef8d4708ff6be33b3",
+      "bytes": 10985,
+      "original": "git:78067c2:src/ashlar/graph_release.py"
+    },
+    {
+      "path": "ashlar-source/tools/fixture_oracle.py",
+      "sha256": "f98002ddb99e7f6c9c8dc255e4fe26f3e422285b77fa91626d244656d138a234",
+      "bytes": 7124,
+      "original": "git:78067c2:tools/fixture_oracle.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/stored_publisher.py",
+      "sha256": "36f50d738335c511dafc987a7f73fc8eec9d7c417a60a2b0dd4d6204aade2202",
+      "bytes": 9299,
+      "original": "git:78067c2:src/ashlar/stored_publisher.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/outbox.py",
+      "sha256": "6277185048c05afbafdce2229b0cccd8d28dfe334b748f9a6aa14274b9f399a4",
+      "bytes": 6525,
+      "original": "git:78067c2:src/ashlar/outbox.py"
+    },
+    {
+      "path": "ashlar-source/tools/run_commerce_outbox_publication.py",
+      "sha256": "6d726f9bf88abd6790072b0271dfdd71154f6b73c807a21dcbdb8909aae27308",
+      "bytes": 19319,
+      "original": "git:78067c2:tools/run_commerce_outbox_publication.py"
+    },
+    {
+      "path": "ashlar-source/tools/check_commerce_graphframes_scenarios.py",
+      "sha256": "2a8d80b051d54ec810a21dc290caf9dd9eda533c4aee9bd11835cb9804192283",
+      "bytes": 12258,
+      "original": "git:78067c2:tools/check_commerce_graphframes_scenarios.py"
+    },
+    {
+      "path": "ashlar-source/tools/run_commerce_release_graphframes.py",
+      "sha256": "b3c224a8da693997ecdba4ac89f6aca73adb5fe1eb506aaf6a94fdd3db3551f2",
+      "bytes": 9385,
+      "original": "git:78067c2:tools/run_commerce_release_graphframes.py"
+    },
+    {
+      "path": "ashlar-source/tools/commerce_graph_oracle.py",
+      "sha256": "42b0990893157cab36b6d633d6cbcf6b6968cfc6d5abf21802d46dd79489fe8e",
+      "bytes": 11421,
+      "original": "git:78067c2:tools/commerce_graph_oracle.py"
+    },
+    {
+      "path": "ashlar-source/tools/prepare_commerce_values.py",
+      "sha256": "2f066eb47c373b6196d2a7fdb4269feb9ae7253073bddb923a9caa9740cb8ba5",
+      "bytes": 9534,
+      "original": "git:78067c2:tools/prepare_commerce_values.py"
+    },
+    {
+      "path": "ashlar-source/tools/domain_pack_inventory.py",
+      "sha256": "b664d0df6e2e82dbaf1802544fb14fb824d2f8f91f19a021d6dbb197cee59b2c",
+      "bytes": 11108,
+      "original": "git:78067c2:tools/domain_pack_inventory.py"
+    },
+    {
+      "path": "ashlar-source/tools/run_pack_publication_weft.py",
+      "sha256": "ceada2f24c682246302bd1d172b9e1dee52d50e5fbf7cee0fd44db6f716c909c",
+      "bytes": 15725,
+      "original": "git:78067c2:tools/run_pack_publication_weft.py"
+    },
+    {
+      "path": "ashlar-source/tools/prepare_pack_query_cases.py",
+      "sha256": "8e8bcfa08c3ba14e2e0b6f54722cb59a9280b7754600882956d30c720d99751e",
+      "bytes": 3418,
+      "original": "git:78067c2:tools/prepare_pack_query_cases.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/pins.py",
+      "sha256": "6bed2f6ae9dd937bc08e4fb67504052d8036a0952c3cff3477c2c39019a88ad8",
+      "bytes": 5478,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:src/ashlar/pins.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/binding.py",
+      "sha256": "675384f08081f33c5e32f03ea6a9a988c3559b24dc9901ba65431fb9592b7b3b",
+      "bytes": 6813,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:src/ashlar/binding.py"
+    },
+    {
+      "path": "ashlar-source/src/ashlar/publisher.py",
+      "sha256": "7d14fbe76b280615e548694bebcd97e2f9c22a9113ba0a5f20bd9912a7385b1c",
+      "bytes": 6750,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:src/ashlar/publisher.py"
+    },
+    {
+      "path": "summary.json",
+      "sha256": "a450edf213bbfae67aa7cde048ea49be8adb07f4bfdf75a086cc49866134d25d",
+      "bytes": 944,
+      "original": "Derived index only; complete original report remains losslessly retained"
+    }
+  ],
+  "source_retention": "Static absolute and relative project import closure at original committed78067c2; runtime identity confirmed by run owner; subsequent workspace edits are not substituted."
+}

@@ -1,0 +1,76 @@
+{
+  "base": "6e05a66412a446dac018258a02a638e5b970a20e",
+  "executable": "/private/tmp/ashlar-weft-positioned-scalar-final/weft-runtime",
+  "executable_sha256": "7ab1c28ae04d3449b270ede87152a1e5e0506bb15a5aa642c04dd7d6cba2a7d3",
+  "files": [
+    {
+      "path": "crates/weft-core/src/arithmetic_application_resolve.rs",
+      "sha256": "1d2fa5940d305e3fb4791c51cabd809b17a8a93d84e33338cc44663245b5ebe0"
+    },
+    {
+      "path": "crates/weft-core/src/backend.rs",
+      "sha256": "9b2c790f741f43a3467f2f9b3db5bdad9105241854eafa5ffafe95f847b815e1"
+    },
+    {
+      "path": "crates/weft-core/src/backend_emission.rs",
+      "sha256": "6635a82b85b6fe23ac91801c0621804e8823e2d548ca3ab9c7d87c4ec7ab59c4"
+    },
+    {
+      "path": "crates/weft-databricks/src/arithmetic.rs",
+      "sha256": "97aaf98df7d391a898316218f58cbe5e02c6e674b92ebed77e36a9bda1d12c19"
+    },
+    {
+      "path": "crates/weft-databricks/src/candidate.rs",
+      "sha256": "be18be0d14a556c1202d64a13d0dab70daa8173f322ae7b5c4ded295029d5fa1"
+    },
+    {
+      "path": "crates/weft-databricks/src/candidate/application.rs",
+      "sha256": "378fbe21bcaf53bec4b0ff1cd039044b627b9eb6e695cf4df01dc27fb6f24d53"
+    },
+    {
+      "path": "crates/weft-databricks/src/candidate/arithmetic.rs",
+      "sha256": "162a7d1a5d10b4bdb8106d6d0a5dcb0e1b314dcd5bc777f4c79704486918166c"
+    },
+    {
+      "path": "crates/weft-postgresql/src/candidate.rs",
+      "sha256": "2102791e1e76ebcc99d2fac6392ec9d9172bdab6f0665b328ed45c6cf77b2687"
+    },
+    {
+      "path": "crates/weft-postgresql/src/candidate/application.rs",
+      "sha256": "2f2576a23cf0982c7c4f1cfe9ea4203c363cb67abaef1b4386aaf60cc9bd8915"
+    },
+    {
+      "path": "crates/weft-postgresql/src/result_definition.rs",
+      "sha256": "b17d701d234c9b3f1c200e38df7737681eca8e997395af22ea0c7e98da1e33d5"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/compile-response-v0.3.schema.json",
+      "sha256": "01db3a5805824a55d92a5f3bcad1fb312c79327549fb32add450ab2136a7fcff"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/exact-arithmetic-v0.3.md",
+      "sha256": "a62f7516cded94412a197072f12a2ca63997073a9a293f1c4b8da48b5c965867"
+    },
+    {
+      "path": "tests/ashlar-databricks/compiler.rs",
+      "sha256": "63e3116ea1b398fdd790e0c7890cb1fb190d576c327e9ddf4d40eace5e574ac5"
+    },
+    {
+      "path": "tests/register-backend/fixture.rs",
+      "sha256": "77920a2852be07644c2153416d43175890098d48cf95f17c31339df297c95a00"
+    },
+    {
+      "path": "tests/compile/positioned-v0.3-check.ts",
+      "sha256": "77626647cd459d4ff695fd157c280499fa2d74defecced9eb121f1bc6e0d53df"
+    },
+    {
+      "path": "tests/compile/positioned-browser-parity.ts",
+      "sha256": "b932f768664dcb7976aba3ae450233afd4270ff434096b13f66056bcd8da4d13"
+    }
+  ],
+  "prior_manifest": {
+    "path": "/private/tmp/ashlar-weft-positioned-20261009-final/manifest.json",
+    "sha256": "e7303d8b0598140f3a80873076017ba78ded000d523f23a26bdafc91f39a153c"
+  },
+  "qualification": "Final scalar-only implicit-repeat eligibility and independently exercised column guards. Fresh executable; all17 prior positioned query artifacts JSON-identical. Transport rebuild pending separately."
+}

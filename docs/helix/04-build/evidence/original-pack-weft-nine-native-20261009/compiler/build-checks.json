@@ -1,0 +1,72 @@
+{
+  "format": "weft-positioned-final-checks/0.1",
+  "source_manifest_sha256": "0c6193fb995d3009728dbfb0627bf1a513c0b3a8735c2dd6de6dea3639755425",
+  "rust_tests_passed": 63,
+  "compiled_cases": 9,
+  "refused_cases": 8,
+  "python_browser_requests": 17,
+  "prior_compiled_json_identical": 24,
+  "native_execution": false,
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-weft-positioned-scalar-final/manifest.json",
+      "sha256": "0c6193fb995d3009728dbfb0627bf1a513c0b3a8735c2dd6de6dea3639755425",
+      "bytes": 3189
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-positioned-scalar-final/weft-runtime",
+      "sha256": "7ab1c28ae04d3449b270ede87152a1e5e0506bb15a5aa642c04dd7d6cba2a7d3",
+      "bytes": 12890416
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-positioned-scalar-final/compatibility.json",
+      "sha256": "ef82c3af9ffb82f859f4dc8b71e82cb254c8ef5e76f079c2b97e662047984fa7",
+      "bytes": 11141
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-positioned-scalar-final/parity.json",
+      "sha256": "6974f5c1052fbe5b40e86c5a4d73d91751ab381476cdc62c1ab18319667812be",
+      "bytes": 833
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-positioned-scalar-final-tests.log",
+      "sha256": "c0a2df9e0f20b2a05e1094577fe66dd53fa7a8fe233edf42d15afb8481f1cfcb",
+      "bytes": 10578
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-positioned-scalar-python/parity.json",
+      "sha256": "bc8762d6b49151e9573f2226db04671c07fdde6081e263ff5ad171340f3c2ffe",
+      "bytes": 742
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-positioned-scalar-python/weft/weft.abi3.so",
+      "sha256": "c9dd5255df7f4edb4392b09a85792fe9f2def781e9c540f495ae6182c9fc8acd",
+      "bytes": 12523200
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-positioned-scalar-browser/report.json",
+      "sha256": "a9bfeb7ca4a80c2743e939d46475070f56f3610e029c430f0dbafe452b556dc0",
+      "bytes": 3015
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-positioned-scalar-browser/pkg/weft_wasm.d.ts",
+      "sha256": "6fbf4309fbc1465604c02d59cddae80271e1adfc4fce94356c8bfa28787b1b8c",
+      "bytes": 1491
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-positioned-scalar-browser/pkg/weft_wasm.js",
+      "sha256": "48f2597d68d0045818b5d7bc5d0d65cf8b3f365599d05932f62864ac23e3ea66",
+      "bytes": 6559
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-positioned-scalar-browser/pkg/weft_wasm_bg.wasm",
+      "sha256": "5b7c76c9ec8f8d65093f030d613f119107fcc0c6732516514b6812c5fd0dfa85",
+      "bytes": 11188587
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-positioned-scalar-browser/pkg/weft_wasm_bg.wasm.d.ts",
+      "sha256": "bb600deaf3d9ced4a6a741f5079ca1485dd1c7225ed87f84d3b06fa7951eea28",
+      "bytes": 480
+    }
+  ]
+}
