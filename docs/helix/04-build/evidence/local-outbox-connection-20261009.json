@@ -1,0 +1,10 @@
+{
+  "profile": "ashlar-local-ordinary-session-connection/0.1",
+  "role": "ashlar_ack_operator_0f063664a091",
+  "initial_transaction_status": 0,
+  "session_user": "ashlar_ack_operator_0f063664a091",
+  "current_user": "ashlar_ack_operator_0f063664a091",
+  "rollback_transaction_status": 0,
+  "autocommit": false,
+  "qualification": "Read-only connection/authentication check against existing private ACK fixture; no source ACK or Delta publication."
+}
