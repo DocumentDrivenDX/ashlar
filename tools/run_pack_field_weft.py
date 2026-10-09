@@ -81,7 +81,7 @@ def run(publications,output,jars,compiler,source_guard,umf):
                 for record in binding['records']:record['schemaRevision']='wrong-original-schema-revision'
                 request['target']['bindingJson']=encoded(binding);request['target']['bindingSha256']=hashlib.sha256(encoded(binding).encode()).hexdigest()
                 provider.expected_binding=request['target']['bindingJson'];artifact=compile_original(compiler,request,COMPILER_SHA)
-                try:execute_guarded(provider,request,artifact,context=context,public_source=lambda r,a,c:admit_public_source(source_guard,umf,r,a,c))
+                try:execute_guarded(provider,request,artifact,context=context,public_source=lambda r,a,c:admit_public_source(source_guard,umf,r,a,c),positioned_outputs=any(o['id']=='weft.output.positioned'for o in artifact['obligations']))
                 except NativeGuardRefusal as refused:
                     if refused.evidence['obligation']!='ashlar.candidate.scalarIntegrity':raise
                     controls.append({'name':'wrong-schema-revision','actual':refused.evidence})
