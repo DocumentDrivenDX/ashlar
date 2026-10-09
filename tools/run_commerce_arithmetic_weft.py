@@ -110,7 +110,12 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None):
         p=params_by_id[name]
         if p['phase']!='before-user-query' or p['samePublicationRequired']is not True or p['noPartialPublication']is not True or type(p['checks'])is not list or (name=='ashlar.candidate.scalarIntegrity' and not p['checks']):raise ValueError('Mandatory complete before-query checks required')
     arithmetic=params_by_id['ashlar.arithmetic.exact']
-    if not arithmetic['checks']:admit_operator_free_plan(artifact,binding)
+    if not arithmetic['checks']:
+        plan=artifact.get('logicalPlan',{})
+        if any(plan.get(k) for k in ('filters','joins','order')):
+            from weft_field_plan import admit_field_plan
+            admit_field_plan(artifact,binding,request['modules'])
+        else:admit_operator_free_plan(artifact,binding)
     if arithmetic.get('nativeRepresentation')!='DECIMAL(38,0) coefficients' or type(arithmetic.get('maxScale'))is not int or arithmetic['maxScale']!=18:raise ValueError('Exact native arithmetic profile required')
     if any(c.get('phase')not in ('join-candidates','where-candidates','projection-survivors') for c in arithmetic['checks']):raise ValueError('Original arithmetic evaluation phases required')
     for check in params_by_id['ashlar.candidate.scalarIntegrity']['checks']:

@@ -1,0 +1,88 @@
+{
+  "qualification": "Exact six previously reviewed actual final-d compilation/request bytes. Host IR-admission tests only; no new native execution or source validation claim. Named string parameter fixture is a separately authored augmentation compiled by the same frozen CLI; original seventeen SQL unchanged.",
+  "compiler_sha256": "000796dfa959deb299cb20e74af84e1c2a4e285fc3c7ab1c1b138702383a4761",
+  "official_weft_revision": "86de1fd1b2da84b9a698137f489f938f9a82f2b2",
+  "inventory_sha256": "7b059ee552e3693d02e41d64273fc09ae45dcc185b6f89e9be8f00a90b705869",
+  "files": [
+    {
+      "file": "archaeology-missing-media-stdout.json",
+      "sha256": "87e2cb1e76ba2c034c128cda831fee85bbeb5602e8e01a33002b04e7daa4c25b",
+      "original_path": "/private/tmp/ashlar-original-pack-unqualified-compiler-20261009-d/archaeology-missing-media-stdout.json"
+    },
+    {
+      "file": "archaeology-missing-media-request.json",
+      "sha256": "020032820f65bff96290e15bd364c25e5765f020658a9220455d05040f1d83c5",
+      "original_path": "/private/tmp/ashlar-original-pack-unqualified-compiler-20261009-d/archaeology-missing-media-request.json"
+    },
+    {
+      "file": "archaeology-specialists-stdout.json",
+      "sha256": "d4077e6d11c4b5c2260e2c23e7b361db9fdb7c34170f1e98960650bb77aeaca3",
+      "original_path": "/private/tmp/ashlar-original-pack-unqualified-compiler-20261009-d/archaeology-specialists-stdout.json"
+    },
+    {
+      "file": "archaeology-specialists-request.json",
+      "sha256": "a468a872bbde9933cfd94ae29d7587f056b225044f25d551a8ea22f8b6f2a742",
+      "original_path": "/private/tmp/ashlar-original-pack-unqualified-compiler-20261009-d/archaeology-specialists-request.json"
+    },
+    {
+      "file": "archaeology-lineage-stdout.json",
+      "sha256": "2172e51fbd7a0d88e2aa2473745cce246f00355e4870fa70e2d9ad527b657b26",
+      "original_path": "/private/tmp/ashlar-original-pack-unqualified-compiler-20261009-d/archaeology-lineage-stdout.json"
+    },
+    {
+      "file": "archaeology-lineage-request.json",
+      "sha256": "6ef09c318d7ca0cdbc4c4a3396de4d6d0e3ca9eb010042f56fbd41ea1823cda1",
+      "original_path": "/private/tmp/ashlar-original-pack-unqualified-compiler-20261009-d/archaeology-lineage-request.json"
+    },
+    {
+      "file": "ecology-match-stdout.json",
+      "sha256": "9ba14e41a6e11f09cd66ccdd89bcce37d40cbedbb9a5fcafa23d213fe2e28a5f",
+      "original_path": "/private/tmp/ashlar-original-pack-unqualified-compiler-20261009-d/ecology-match-stdout.json"
+    },
+    {
+      "file": "ecology-match-request.json",
+      "sha256": "cfec44c56578cc88a07ebba0f46845056968667ac49a3768688121cebcd709ac",
+      "original_path": "/private/tmp/ashlar-original-pack-unqualified-compiler-20261009-d/ecology-match-request.json"
+    },
+    {
+      "file": "ecology-network-stdout.json",
+      "sha256": "6d1666fd76c92c6ca606e25c607e8cd33f6d49e8a76e7bc1d705a4ccad9622a9",
+      "original_path": "/private/tmp/ashlar-original-pack-unqualified-compiler-20261009-d/ecology-network-stdout.json"
+    },
+    {
+      "file": "ecology-network-request.json",
+      "sha256": "2e942cf0263bb2f6597de8aacfe7d4a7ace21452a71259e2eb9c60bb10fda90a",
+      "original_path": "/private/tmp/ashlar-original-pack-unqualified-compiler-20261009-d/ecology-network-request.json"
+    },
+    {
+      "file": "ecology-fishing-stdout.json",
+      "sha256": "75f649133a7817caa8d10c0e45da250fb79c8ed1874e6d15342e692fff2b8320",
+      "original_path": "/private/tmp/ashlar-original-pack-unqualified-compiler-20261009-d/ecology-fishing-stdout.json"
+    },
+    {
+      "file": "ecology-fishing-request.json",
+      "sha256": "6140ffaab1ee06c93cd94346b6b64d3bf48a207e79bfbdc238e7338cb6a34d4a",
+      "original_path": "/private/tmp/ashlar-original-pack-unqualified-compiler-20261009-d/ecology-fishing-request.json"
+    },
+    {
+      "file": "named-string-request.json",
+      "sha256": "e8246bb33541581c7d1bdbcaf75a6e8dccf4af717810aae3e2dc275b8a67313c",
+      "original_path": null
+    },
+    {
+      "file": "named-string-stdout.json",
+      "sha256": "527f8ac5e2d81375e1faa1c6de201a579d59b047d77df65fb78ecb2ac5ac35d6",
+      "original_path": null
+    },
+    {
+      "file": "named-string-and-order-request.json",
+      "sha256": "275cdb2221a57735472253ddd1c31b747b8b6df0a9d2b4baa71c94feeff7f7fc",
+      "original_path": null
+    },
+    {
+      "file": "named-string-and-order-stdout.json",
+      "sha256": "477cc8bb11b1d02582715e0b5eb9b4cd4ad850fb11a71f0350250a8fc8f34f1b",
+      "original_path": null
+    }
+  ]
+}
