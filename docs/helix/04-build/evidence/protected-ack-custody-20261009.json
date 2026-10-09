@@ -1,0 +1,16 @@
+{
+  "original_output": "/private/tmp/ashlar-protected-ack-sql-20261009-e",
+  "original_artifact_sha256": {
+    "report.json": "88b814805690a0c41093183bbcc48920fac5dc70e27a5df06a4f7e640b08b7ed",
+    "observations.json": "eeb0f37a108ee0dfe5f4d9217ec1889578aa2674b55d4a4f3f2460731051f3b2"
+  },
+  "earlier_terminal_failure": "/private/tmp/ashlar-protected-ack-sql-20261009-a/failure.json",
+  "earlier_limited_probe": "/private/tmp/ashlar-protected-ack-sql-20261009-b; SET ROLE ACL checks did not qualify session-user membership. Final c uses SET SESSION AUTHORIZATION and observes ordinary session/current user.",
+  "qualification": "Protected native PG SQL ACK storage service and focused injected host-adapter tests only. Test manifest is explicit synthetic carrier. No actual Delta-bound publication/ACK integration, source Truss authority, complete recovery or two-source workflow claimed.",
+  "earlier_permission_probe": "/private/tmp/ashlar-protected-ack-sql-20261009-d/observations.json: terminal failure lacked schema USAGE, so membership check was not reached. Final e grants/revokes only dedicated service USAGE plus exact function EXECUTE and verifies explicit caller refusal.",
+  "independent_review": {
+    "reviewer": "Astra Ultra",
+    "result": "approved; all findings resolved",
+    "checks": "14 host-adapter tests; actual e ordinary-session membership independent of function ACL, exact rendered DDL and original artifact hashes; P09 explicit-wheel-path four retained-run tests."
+  }
+}

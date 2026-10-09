@@ -32,7 +32,8 @@ PYTHONPATH=src:tools "$PYSPARK_PYTHON" -B tools/run_local_weft_typed_spark4.py \
   --wheel /path/to/pinned/weft-wheel \
   --jars /path/to/delta4-jars \
   --output /tmp/ashlar-typed-spark4-new
-ASHLAR_LOCAL_WEFT_SPARK4=/tmp/ashlar-typed-spark4-new \
+ASHLAR_WEFT_WHEEL=/path/to/pinned/weft-wheel \
+  ASHLAR_LOCAL_WEFT_SPARK4=/tmp/ashlar-typed-spark4-new \
   PYTHONPATH=src:tools:tests python3 -B -m unittest test_local_weft_typed_spark4
 ```
 

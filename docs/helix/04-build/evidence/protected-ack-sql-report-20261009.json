@@ -1,0 +1,25 @@
+{
+  "format": "ashlar-protected-ack-sql-check/0.1",
+  "source": "ashlar_ack_source_0f063664a091",
+  "service": "ashlar_ack_service_0f063664a091",
+  "scope": {
+    "service_schema": "ashlar_ack_service_0f063664a091",
+    "scope_id": "6716d074-af17-479f-8ec4-616698d6e096",
+    "installation_id": "903b5309-24c5-4882-abb0-12c546b51729",
+    "consumer": "isolated-sql-check",
+    "feed": "sql-source",
+    "epoch": "epoch-one"
+  },
+  "checks": [
+    "ordinary reader cannot ACK",
+    "execute permission alone cannot grant caller membership",
+    "ACK role cannot direct DML",
+    "missing checkpoint refuses",
+    "rollback leaves head zero",
+    "commit and exact replay preserve one receipt",
+    "changed receipt bytes refuse",
+    "source ACL drift refuses"
+  ],
+  "qualification": "Bounded native SQL-service checks on fresh private PostgreSQL namespaces.\n\nThis checks protected source ACK storage only. Manifests are explicit test\ncarriers; no Delta publication, resolver authority or Truss integration claim.\n",
+  "ddl_sha256": "0e49ca43df41de0d3fad81b2134c432bfa3dadfb705783a4adf8be607e1c8b43"
+}

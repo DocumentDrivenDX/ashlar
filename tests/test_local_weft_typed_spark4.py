@@ -15,10 +15,13 @@ class ActualTypedSpark4Tests(unittest.TestCase):
     def setUpClass(cls):
         location=os.environ.get('ASHLAR_LOCAL_WEFT_SPARK4')
         if not location:raise unittest.SkipTest('Set ASHLAR_LOCAL_WEFT_SPARK4 to actual retained local run; no runtime proof from skip')
+        wheel=os.environ.get('ASHLAR_WEFT_WHEEL')
+        if not wheel:raise ValueError('Set ASHLAR_WEFT_WHEEL to the exact compiler wheel used by the retained run')
+        cls.wheel=Path(wheel)
         cls.root=Path(location);cls.report=json.loads((cls.root/'summary.json').read_bytes())
 
     def test_original_compiler_artifact_reproduction(self):
-        wheel=Path('/private/tmp/ashlar-weft-python')
+        wheel=self.wheel
         self.assertEqual(hashlib.sha256((wheel/'weft/weft.abi3.so').read_bytes()).hexdigest(),EXTENSION_SHA)
         sys.path.insert(0,str(wheel));import weft
         for name in ['select','filter','group-count','join','count','refusal-quantity','refusal-amount','refusal-active']:
