@@ -1,0 +1,681 @@
+{
+  "profile": "ashlar-puppygraph-release-query/0.1",
+  "releases": {
+    "R1": "ca4b40f78b1a27e3d6df50eb17816ec49e30f0f70d6ff7dabc195307c07642e7",
+    "R2": "a6a4cb268f6bb3f8d193b35289d5b593ad08e33d8fc561e29487919fd1502e3a"
+  },
+  "records": [
+    {
+      "release": "R1",
+      "language": "Cypher",
+      "query": "MATCH (x:R1Node) RETURN x.type_id AS type_id,x.carrier_id AS id,x.entity_version AS entity_version,x.root_id AS root_id,x.source_position AS source_position,x.source_system AS source_system,x.logical_key_json AS logical_key_json,x.schema_revision AS schema_revision,x.props_json AS props_json,x.retained_json AS retained_json,x.source_feed AS source_feed,x.source_epoch AS source_epoch,x.lookup_hash AS lookup_hash,x.apply_batch_id AS apply_batch_id,x.source_cursor_json AS source_cursor_json,x.source_delivery_id AS source_delivery_id,x.published_at AS published_at,x.carrier_key AS graph_id,id(x) AS native_id",
+      "rows": [
+        {
+          "type_id": "1",
+          "id": "1",
+          "entity_version": "1",
+          "root_id": null,
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "logical_key_json": "exact",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "3a63de70cc3fb6628583c924140ddb12417e94357fa333026b73fe0d804ef97d",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd"
+        },
+        {
+          "type_id": "1",
+          "id": "2",
+          "entity_version": "1",
+          "root_id": null,
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "logical_key_json": "exact",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "de966a3f7c30efe2340aeae8d43b07e518abefc382cb5612fc25f48ffb28ae97",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd"
+        },
+        {
+          "type_id": "1",
+          "id": "3",
+          "entity_version": "1",
+          "root_id": null,
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "logical_key_json": "exact",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "05abc5fcccbbf6b6eca23777e37f370d00f862677935ac6ea8fe8c8ee48a639e",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMyJd"
+        }
+      ],
+      "fullParity": true,
+      "nativeIdentityParity": true
+    },
+    {
+      "release": "R1",
+      "language": "Cypher",
+      "query": "MATCH ()-[x:R1Edge]->() RETURN x.rel_type_id AS rel_type_id,x.carrier_id AS id,x.source_type AS source_type,x.source_id AS source_id,x.target_type AS target_type,x.target_id AS target_id,x.entity_version AS entity_version,x.source_position AS source_position,x.source_system AS source_system,x.schema_revision AS schema_revision,x.props_json AS props_json,x.retained_json AS retained_json,x.order_key AS order_key,x.source_feed AS source_feed,x.source_epoch AS source_epoch,x.lookup_hash AS lookup_hash,x.apply_batch_id AS apply_batch_id,x.source_cursor_json AS source_cursor_json,x.source_delivery_id AS source_delivery_id,x.published_at AS published_at,x.carrier_key AS graph_id,x.src AS src,x.dst AS dst,id(x) AS native_id",
+      "rows": [
+        {
+          "rel_type_id": "1",
+          "id": "7",
+          "source_type": "1",
+          "source_id": "1",
+          "target_type": "1",
+          "target_id": "2",
+          "entity_version": "1",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "order_key": null,
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "3e42fbe1233cb18bc145a7f135f7966f1fdc1d9968f6ec515c78db9ba8d2f754",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiNyJd",
+          "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd"
+        },
+        {
+          "rel_type_id": "1",
+          "id": "8",
+          "source_type": "1",
+          "source_id": "1",
+          "target_type": "1",
+          "target_id": "2",
+          "entity_version": "1",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "order_key": null,
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "0b400e6bbc1c5534110c7d3ad7c1077490283e12bdf884dcc21cbe47dd1a8999",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOCJd",
+          "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd"
+        },
+        {
+          "rel_type_id": "1",
+          "id": "9",
+          "source_type": "1",
+          "source_id": "1",
+          "target_type": "1",
+          "target_id": "1",
+          "entity_version": "1",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "order_key": null,
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "a79e1f37cfbd4d4a485088f480ece7191c01c1afca0764d8b5af0cc9e49986ce",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOSJd",
+          "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd"
+        }
+      ],
+      "fullParity": true,
+      "nativeIdentityParity": true
+    },
+    {
+      "release": "R1",
+      "language": "Cypher",
+      "control": "nodes",
+      "query": "MATCH (n:R1Node) RETURN count(n) AS value",
+      "rows": [
+        {
+          "value": 3
+        }
+      ],
+      "passed": true
+    },
+    {
+      "release": "R1",
+      "language": "Cypher",
+      "control": "edges",
+      "query": "MATCH ()-[e:R1Edge]->() RETURN count(e) AS value",
+      "rows": [
+        {
+          "value": 3
+        }
+      ],
+      "passed": true
+    },
+    {
+      "release": "R1",
+      "language": "Cypher",
+      "control": "isolates",
+      "query": "MATCH (n:R1Node) WHERE NOT (n)--() RETURN count(n) AS value",
+      "rows": [
+        {
+          "value": 1
+        }
+      ],
+      "passed": true
+    },
+    {
+      "release": "R1",
+      "language": "Cypher",
+      "control": "two_hop",
+      "query": "MATCH (a:R1Node)-[e1:R1Edge]->(b:R1Node) MATCH (b)-[e2:R1Edge]->(c:R1Node) RETURN count(*) AS value",
+      "rows": [
+        {
+          "value": 3
+        }
+      ],
+      "passed": true
+    },
+    {
+      "release": "R1",
+      "language": "Gremlin",
+      "control": "nodes",
+      "query": "g.V().hasLabel('R1Node').count()",
+      "rows": [
+        3
+      ],
+      "passed": true
+    },
+    {
+      "release": "R1",
+      "language": "Gremlin",
+      "control": "edges",
+      "query": "g.E().hasLabel('R1Edge').count()",
+      "rows": [
+        3
+      ],
+      "passed": true
+    },
+    {
+      "release": "R1",
+      "language": "Gremlin",
+      "control": "two_hop",
+      "query": "g.V().hasLabel('R1Node').outE('R1Edge').inV().outE('R1Edge').inV().count()",
+      "rows": [
+        3
+      ],
+      "passed": true
+    },
+    {
+      "release": "R1",
+      "language": "Gremlin",
+      "query": "g.V().hasLabel('R1Node').project('native_id','graph_id','props_json').by(__.id()).by('carrier_key').by('props_json')",
+      "rows": [
+        {
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} "
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} "
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMyJd",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} "
+        }
+      ],
+      "identityValueParity": true,
+      "nativeIdentityRows": [
+        {
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R1Node[ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd]"
+          }
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R1Node[ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMiJd]"
+          }
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMyJd",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R1Node[ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMyJd]"
+          }
+        }
+      ]
+    },
+    {
+      "release": "R1",
+      "language": "Gremlin",
+      "query": "g.E().hasLabel('R1Edge').project('native_id','graph_id','props_json').by(__.id()).by('carrier_key').by('props_json')",
+      "rows": [
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiNyJd",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} "
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOCJd",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} "
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOSJd",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} "
+        }
+      ],
+      "identityValueParity": true,
+      "nativeIdentityRows": [
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiNyJd",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R1Edge[ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiNyJd]"
+          }
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOCJd",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R1Edge[ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOCJd]"
+          }
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOSJd",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R1Edge[ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOSJd]"
+          }
+        }
+      ]
+    },
+    {
+      "release": "R2",
+      "language": "Cypher",
+      "query": "MATCH (x:R2Node) RETURN x.type_id AS type_id,x.carrier_id AS id,x.entity_version AS entity_version,x.root_id AS root_id,x.source_position AS source_position,x.source_system AS source_system,x.logical_key_json AS logical_key_json,x.schema_revision AS schema_revision,x.props_json AS props_json,x.retained_json AS retained_json,x.source_feed AS source_feed,x.source_epoch AS source_epoch,x.lookup_hash AS lookup_hash,x.apply_batch_id AS apply_batch_id,x.source_cursor_json AS source_cursor_json,x.source_delivery_id AS source_delivery_id,x.published_at AS published_at,x.carrier_key AS graph_id,id(x) AS native_id",
+      "rows": [
+        {
+          "type_id": "1",
+          "id": "1",
+          "entity_version": "2",
+          "root_id": null,
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "logical_key_json": "exact",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"value\":\"successor café 雪\",\"decimal\":12.5000} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "3a63de70cc3fb6628583c924140ddb12417e94357fa333026b73fe0d804ef97d",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd"
+        },
+        {
+          "type_id": "1",
+          "id": "3",
+          "entity_version": "1",
+          "root_id": null,
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "logical_key_json": "exact",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "05abc5fcccbbf6b6eca23777e37f370d00f862677935ac6ea8fe8c8ee48a639e",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMyJd"
+        },
+        {
+          "type_id": "1",
+          "id": "9223372036854775807",
+          "entity_version": "1",
+          "root_id": null,
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "logical_key_json": "exact",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "c7cc0792e0205a3719efea751ffe75e951fd76b246f61109afec90bc11fb85a1",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOTIyMzM3MjAzNjg1NDc3NTgwNyJd"
+        }
+      ],
+      "fullParity": true,
+      "nativeIdentityParity": true
+    },
+    {
+      "release": "R2",
+      "language": "Cypher",
+      "query": "MATCH ()-[x:R2Edge]->() RETURN x.rel_type_id AS rel_type_id,x.carrier_id AS id,x.source_type AS source_type,x.source_id AS source_id,x.target_type AS target_type,x.target_id AS target_id,x.entity_version AS entity_version,x.source_position AS source_position,x.source_system AS source_system,x.schema_revision AS schema_revision,x.props_json AS props_json,x.retained_json AS retained_json,x.order_key AS order_key,x.source_feed AS source_feed,x.source_epoch AS source_epoch,x.lookup_hash AS lookup_hash,x.apply_batch_id AS apply_batch_id,x.source_cursor_json AS source_cursor_json,x.source_delivery_id AS source_delivery_id,x.published_at AS published_at,x.carrier_key AS graph_id,x.src AS src,x.dst AS dst,id(x) AS native_id",
+      "rows": [
+        {
+          "rel_type_id": "1",
+          "id": "10",
+          "source_type": "1",
+          "source_id": "9223372036854775807",
+          "target_type": "1",
+          "target_id": "1",
+          "entity_version": "1",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "order_key": null,
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "7476f49e1789e55107eda35e10f4b92ef69291c1f34ef4b0728b55a32781dfdf",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMTAiXQ",
+          "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOTIyMzM3MjAzNjg1NDc3NTgwNyJd",
+          "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd"
+        },
+        {
+          "rel_type_id": "1",
+          "id": "7",
+          "source_type": "1",
+          "source_id": "1",
+          "target_type": "1",
+          "target_id": "1",
+          "entity_version": "2",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "order_key": null,
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "3e42fbe1233cb18bc145a7f135f7966f1fdc1d9968f6ec515c78db9ba8d2f754",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiNyJd",
+          "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd"
+        },
+        {
+          "rel_type_id": "1",
+          "id": "8",
+          "source_type": "1",
+          "source_id": "1",
+          "target_type": "1",
+          "target_id": "9223372036854775807",
+          "entity_version": "2",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "order_key": null,
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "0b400e6bbc1c5534110c7d3ad7c1077490283e12bdf884dcc21cbe47dd1a8999",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOCJd",
+          "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOTIyMzM3MjAzNjg1NDc3NTgwNyJd"
+        },
+        {
+          "rel_type_id": "1",
+          "id": "9",
+          "source_type": "1",
+          "source_id": "1",
+          "target_type": "1",
+          "target_id": "1",
+          "entity_version": "1",
+          "source_position": null,
+          "source_system": "local refresh 雪",
+          "schema_revision": "synthetic-1",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} ",
+          "retained_json": "{\"opaque\":18446744073709551615}",
+          "order_key": null,
+          "source_feed": "local-fixture",
+          "source_epoch": "one",
+          "lookup_hash": "a79e1f37cfbd4d4a485088f480ece7191c01c1afca0764d8b5af0cc9e49986ce",
+          "apply_batch_id": null,
+          "source_cursor_json": null,
+          "source_delivery_id": null,
+          "published_at": "-1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOSJd",
+          "src": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "dst": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd"
+        }
+      ],
+      "fullParity": true,
+      "nativeIdentityParity": true
+    },
+    {
+      "release": "R2",
+      "language": "Cypher",
+      "control": "nodes",
+      "query": "MATCH (n:R2Node) RETURN count(n) AS value",
+      "rows": [
+        {
+          "value": 3
+        }
+      ],
+      "passed": true
+    },
+    {
+      "release": "R2",
+      "language": "Cypher",
+      "control": "edges",
+      "query": "MATCH ()-[e:R2Edge]->() RETURN count(e) AS value",
+      "rows": [
+        {
+          "value": 4
+        }
+      ],
+      "passed": true
+    },
+    {
+      "release": "R2",
+      "language": "Cypher",
+      "control": "isolates",
+      "query": "MATCH (n:R2Node) WHERE NOT (n)--() RETURN count(n) AS value",
+      "rows": [
+        {
+          "value": 1
+        }
+      ],
+      "passed": true
+    },
+    {
+      "release": "R2",
+      "language": "Cypher",
+      "control": "two_hop",
+      "query": "MATCH (a:R2Node)-[e1:R2Edge]->(b:R2Node) MATCH (b)-[e2:R2Edge]->(c:R2Node) RETURN count(*) AS value",
+      "rows": [
+        {
+          "value": 10
+        }
+      ],
+      "passed": true
+    },
+    {
+      "release": "R2",
+      "language": "Gremlin",
+      "control": "nodes",
+      "query": "g.V().hasLabel('R2Node').count()",
+      "rows": [
+        3
+      ],
+      "passed": true
+    },
+    {
+      "release": "R2",
+      "language": "Gremlin",
+      "control": "edges",
+      "query": "g.E().hasLabel('R2Edge').count()",
+      "rows": [
+        4
+      ],
+      "passed": true
+    },
+    {
+      "release": "R2",
+      "language": "Gremlin",
+      "control": "two_hop",
+      "query": "g.V().hasLabel('R2Node').outE('R2Edge').inV().outE('R2Edge').inV().count()",
+      "rows": [
+        10
+      ],
+      "passed": true
+    },
+    {
+      "release": "R2",
+      "language": "Gremlin",
+      "query": "g.V().hasLabel('R2Node').project('native_id','graph_id','props_json').by(__.id()).by('carrier_key').by('props_json')",
+      "rows": [
+        {
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "props_json": " {\"value\":\"successor café 雪\",\"decimal\":12.5000} "
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMyJd",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} "
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOTIyMzM3MjAzNjg1NDc3NTgwNyJd",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} "
+        }
+      ],
+      "identityValueParity": true,
+      "nativeIdentityRows": [
+        {
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R2Node[ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMSJd]"
+          }
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMyJd",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R2Node[ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMyJd]"
+          }
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOTIyMzM3MjAzNjg1NDc3NTgwNyJd",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R2Node[ashlar-key/1:WyJub2RlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOTIyMzM3MjAzNjg1NDc3NTgwNyJd]"
+          }
+        }
+      ]
+    },
+    {
+      "release": "R2",
+      "language": "Gremlin",
+      "query": "g.E().hasLabel('R2Edge').project('native_id','graph_id','props_json').by(__.id()).by('carrier_key').by('props_json')",
+      "rows": [
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMTAiXQ",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} "
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiNyJd",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} "
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOCJd",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} "
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOSJd",
+          "props_json": " {\"exact\":9007199254740993,\"decimal\":-0.00} "
+        }
+      ],
+      "identityValueParity": true,
+      "nativeIdentityRows": [
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMTAiXQ",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R2Edge[ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiMTAiXQ]"
+          }
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiNyJd",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R2Edge[ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiNyJd]"
+          }
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOCJd",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R2Edge[ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOCJd]"
+          }
+        },
+        {
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOSJd",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "R2Edge[ashlar-key/1:WyJlZGdlIiwibG9jYWwgcmVmcmVzaCDpm6oiLCIxIiwiOSJd]"
+          }
+        }
+      ]
+    }
+  ],
+  "allPassed": true,
+  "qualification": "Actual local immutable release-label queries; source carrier export via DuckDB, no direct UC protocol, remote atomic activation or Truss authority claim."
+}
