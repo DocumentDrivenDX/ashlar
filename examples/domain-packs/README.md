@@ -70,3 +70,24 @@ The original commerce scenario expectations use template IDs, whereas the graph
 fixture is seeded independent-component replay with tuple IDs. Independent query
 oracles must account for this distinction. Additional graph controls and lifecycle
 mutations belong to a separate explicit augmentation, preserving the originals.
+
+## Original commerce dataset admission
+
+Use the public UMF finite-dataset operation to admit the original 0.8 ontology
+and candidate lexical values without changing their declared domains:
+
+```sh
+bun tools/check_commerce_dataset.ts /path/to/clean/umf-c7c95e1c \
+  /tmp/ashlar-commerce-dataset-new.json
+python3 -m unittest discover -s tests -p test_commerce_public_dataset.py
+```
+
+The consumer requires exact UMF revision
+`c7c95e1c4ea5b72541f47fa0350ca467ff02f395` and original model/graph hashes.
+Keep Record receipts and their context warnings separate from the supplied
+dataset's key and relationship results. This operation checks the explicitly
+supplied finite dataset; source authority, native identities, publication, query
+execution and acknowledgment require their own admission. The output preserves
+the original source and public receipts, resolved endpoints and three separately
+authored negative controls. The Python check verifies retained checked-in evidence;
+regenerate with the Bun command to exercise the public API.
