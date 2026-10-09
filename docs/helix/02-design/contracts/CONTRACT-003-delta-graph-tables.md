@@ -924,6 +924,42 @@ immutable administrator restrictions, publication readability or accepted schema
 It changes no grants, predictive optimization or table retention settings beyond
 explicit original UMF-generated CREATE intent.
 
+## Original-pack relational vertex projection
+
+The named experimental profile
+`ashlar-original-pack-relational-vertex-profile/0.1` MAY expose additional
+source-qualified Field columns over an immutable publication-derived graph
+release for the original archaeology and ecology relational scenarios. Public
+UMF admission at the original declared version MUST precede representation.
+The profile MUST retain every canonical carrier cell, original model/graph byte,
+Field identity and lexical token, and independent edge identity/incidence.
+
+Each projected Field MUST have an injective explicit column binding and a
+separate presence carrier. A nonmember Field, present null and present value
+MUST remain distinct. This finite profile requires complete original Record
+member presence; absent members MUST refuse before engine acquisition rather
+than becoming null. Unsupported native scalar mappings MUST report capability
+loss without changing the original UMF declaration.
+
+Only archaeology interpretation `earliest`/`latest` and ecology occurrence
+`count` MAY additionally use signed64 analytic columns. Their exact canonical
+Integer tokens MUST fit signed64 without rounding, floating-point conversion or
+coercion. These columns qualify a finite engine representation; the original
+unbounded Integer declarations and source tokens MUST remain authoritative.
+Out-of-capacity values MUST refuse this projection, not narrow the UMF schema.
+
+Engine translations MUST reproduce each original authored query's complete
+relational result bag using native property equality, exact comparisons,
+distinct/group/optional-join semantics and observable bounds as applicable.
+An unmatched right row MUST be distinguished from a source null. Edge traversal
+MUST NOT replace a relational join without a separately proved correspondence
+of identities and multiplicities. Host postprocessing MUST NOT repair native
+query semantics or conceal unsupported constructs. Qualification requires the
+unchanged original query and independent original-graph expected bag, native
+rows/schema, engine version and complete opening/closing release custody.
+Each engine and each named original scenario requires its own actual evidence;
+common traversal cases do not qualify these relational scenarios.
+
 ## Execution evidence
 
 Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).
