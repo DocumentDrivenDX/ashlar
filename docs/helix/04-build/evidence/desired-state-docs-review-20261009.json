@@ -1,0 +1,22 @@
+{
+  "reviewer": "Astra Ultra and independent domain/implementation reviewers",
+  "disposition": "approved",
+  "scope": [
+    "ADR-001",
+    "ADR-002",
+    "CONTRACT-001",
+    "CONTRACT-003",
+    "CONTRACT-004",
+    "CONTRACT-005",
+    "FEAT-002"
+  ],
+  "checks": [
+    "Frontmatter byte-equivalent",
+    "Requirements retained; fixed zero-offset timestamp interpretation restored",
+    "Active relative links resolve",
+    "Original bytes archived with SHA-256 and link bases",
+    "Cleanup provenance current hashes verify",
+    "Whitespace checks pass"
+  ],
+  "purpose": "Specifications describe desired behavior; historical execution narratives preserved as evidence."
+}

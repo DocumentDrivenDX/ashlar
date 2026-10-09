@@ -1,0 +1,6 @@
+{
+  "original_path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+  "sha256": "ead7e43df4a3f2ec4f48a6e7acb93953cc5e3117ef68553d70fc6242e15394a7",
+  "original_link_base": "docs/helix/02-design/adr/",
+  "purpose": "Historical measurement and implementation narrative removed from desired-state ADR; original bytes retained."
+}

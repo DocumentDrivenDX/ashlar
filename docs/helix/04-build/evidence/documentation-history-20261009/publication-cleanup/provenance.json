@@ -1,0 +1,7 @@
+{
+  "source": "docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md",
+  "archive": "docs/helix/04-build/evidence/documentation-history-20261009/publication-cleanup/docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md.original.txt",
+  "sourceSha256": "3de2b77ed4e0997dd0ab4490bd84d974645993745b37ae44e9c70b7b2d9262b0",
+  "cleanedSha256": "9f119ab155c9c8f0f12f152acad36c079626bb2c39342bf732ddab9938582320",
+  "scope": "Remove implementation/run diaries while retaining normative publication/recovery/source obligations."
+}

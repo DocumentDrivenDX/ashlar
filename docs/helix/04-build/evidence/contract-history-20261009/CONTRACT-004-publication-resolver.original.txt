@@ -78,9 +78,9 @@ ResolvedPublication is an immutable plan input, not a durable lease or final
 read response. Before consuming it, the execution adapter must preserve/recheck
 pin custody and effective authorization; namespace replacement or policy change
 between resolution and execution must refuse or require renewed resolution.
-Simulated backend checks cannot qualify live authentication, retention, data-file
-custody, native execution or concurrency. UMF schema meaning requires its pinned
-shared producer and independent target admission.
+The local suite uses simulated backends. It does not qualify live authentication,
+retention, data-file custody, native execution or concurrency. No Spark/Databricks
+benchmark is needed for this implementation iteration. UMF remains deferred.
 
 ## Active-pin registry substrate
 
@@ -88,7 +88,7 @@ The private PostgreSQL ashlar_pins registry retains immutable pin identity,
 authority, manifest/cursor/recovery/release scope, native table name/UUID/version
 and original custody digest. Explicit release retains the original row; exact
 registration replay preserves it and released identities cannot reactivate.
-Pin rows have no automatic release; publication readability follows the finite
+Pin rows have no automatic release; publication readability now follows the finite
 configuration-based window below. Ordinary writer/reader/maintenance roles
 have scoped function/read permissions, with no direct table mutation.
 
@@ -98,9 +98,11 @@ version. Registration must independently prove the target/source/custody and
 retained data availability before committing. A maintenance operator must hold
 the guard transaction throughout retention and check every affected version/file
 in the complete union of all pin scopes. One checked version cannot authorize
-removing files required by another version. Every external Delta maintenance path and privilege must be bound to the guard. Registry presence alone is not
+removing files required by another version. External Delta maintenance and
+privileges are not yet wired through this guard. Registry presence alone is not
 proof of future retention or valid resolver policy; the existing mandatory
-validate_snapshot contract remains unchanged. Require native role, replay/conflict, rollback and retention-refusal controls.
+validate_snapshot contract remains unchanged. Native private role/replay/conflict/
+rollback/retention-refusal checks pass; no purge or Delta retention change ran.
 
 PostgresPins/PinVector provide complete scoped vector registration and held
 read custody. assert_active validates every original field and holds native
@@ -108,7 +110,8 @@ SHARE exclusion through resolution/execution; registration/release cannot
 commit against it. The injected host transaction adapter must preserve the
 transaction through context yield and roll back exceptions. Current read
 authorization is checked before and after consumption, while pin inventory is
-revalidated before release. Competing release MUST be tested against the held complete native vector. This supplies one custody component of validate_snapshot; protocol,
+revalidated before release. Native four-pin guard versus competing release
+passes. This supplies one custody component of validate_snapshot; protocol,
 retained availability and effective external retention policy remain mandatory
 independent checks. It does not turn the recovery fixture into a publication.
 
@@ -121,7 +124,8 @@ A bound lookup_hash improves pruning but complete source/typed identity predicat
 remain authoritative. Duplicate native identities refuse. UUID checks and current
 authorization run before returning; absence also undergoes row policy. The final
 read result is released only after the pin context’s closing checks. Resolution
-and execution failures return no partial singleton response. Native composed publication and policy support require cited execution evidence.
+and execution failures return no partial singleton response. Native composed
+publication/policy evidence remains unqualified; local refusal controls pass.
 
 ## Singleton timestamp output carrier
 
@@ -137,19 +141,30 @@ all six fractional digits of the native TIMESTAMP instant. The input/native
 schema remains TIMESTAMP; generation/storage are not changed. Other fields and
 opaque source JSON remain original retained text.
 
-Consumer timestamp interpretation MUST use epoch-microsecond text consistently;
-historical millisecond responses cannot establish precision. Qualify null,
-negative, signed64-boundary and edge timestamp carriers independently.
+This corrects the experimental singleton's earlier raw TIMESTAMP response;
+consumers MUST update their published_at interpretation to epoch-microsecond text.
+The previous native millisecond response is retained as a counterexample, not
+silently recast as precision evidence. Six focused tests pass, including null,
+negative and signed64 boundaries, malformed/truncated values and existing
+custody/retention refusals. Corrected native execution now passes on the same fresh-installation publication:
+every singleton field equals the independent source oracle, including
+1791486158556147 microseconds. Original checkpoint and all nine Delta mutation
+receipts remain unchanged. See [native microsecond evidence](../../04-build/evidence/native-clean-singleton-micros-20261008.json).
+Native null/negative/boundary/edge values remain untested; their checks are local.
 
 ## Native permission observation boundary
 
-Current native observations MUST verify owner and complete effective permissions
-for every target. validate_writer_inventory must refuse unexpected owners,
-writers/delegators, unknown privileges and incomplete grants. Saved grant pages
-are evidence, not a lock. Local cooperating-process locks and PostgreSQL pin
-rows do not fence arbitrary remote Delta writers. Production publication claims
-require an independently admitted authority lane; administrative trust, retention
+The current client_dev graph fixtures inherit MODIFY for a shared ordinary user
+group. Local cooperating-process locks and PostgreSQL pin records do not fence
+those remote writers. Do not claim full native publication authority from these
+fixtures. The dedicated ashlar_e2e_private_20261008 catalog has an authenticated
+owner and observed empty explicit grants; table setup and renewed inherited
+permission checks are still required. validate_writer_inventory refuses
+unexpected owners/writers/delegators, unknown privileges and incomplete grants.
+Inputs must be complete fresh native observations under the real authority lane;
+saved grants are evidence, not a lock. Platform administrative trust, retention
 operator enforcement and active-pin custody remain separate obligations.
+
 
 ### Conservative whole-table cleanup guard
 
@@ -191,8 +206,9 @@ Metadata-only controls run no cleanup and are not evidence of Delta termination.
 
 ## Configuration-based publication readability
 
-Predictive optimization remains enabled. DISABLE is not a publication
-prerequisite; readability follows the observed configuration and finite window.
+Owner-selected on 2026-10-08: predictive optimization remains enabled. Its
+DISABLE state is not a publication prerequisite. The previous blanket exclusion
+proposal and pending authorization request are superseded.
 
 Proposed ashlar-retention-window/0.1 stores complete per-table UUID/version, original
 native snapshot committed_at microseconds and readable_until microseconds in
@@ -209,11 +225,6 @@ the effective deadline the publication refuses; no latest fallback occurs. Unkno
 settings, unsupported intervals, mismatched UUID/version, future snapshot times
 and insufficient margin/window refuse. Native defaults require an explicitly
 qualified platform profile; absent properties alone do not prove settings.
-
-The selected SQL timestamp observer admits only fixed zero-offset UTC/Etc/UTC
-spellings; unsupported or ambiguous timezone interpretations MUST refuse. Retain
-original observations and request/response custody. Offline replay of original
-observations MUST NOT be represented as fresh native evidence.
 
 Fixed integral seconds/minutes/hours/days/weeks are the selected parser subset.
 Calendar/decimal/negative intervals are unsupported. Host policy must independently
@@ -259,6 +270,34 @@ read-policy semantics require independent evidence and MUST NOT be inferred
 from fixture parity reuse.
 
 
+## Native finite-window observation (non-normative)
+
+[Original read-only receipts](../spikes/SPIKE-001-table-layout/out/native/csv_retention_window_20261008/statements.jsonl)
+cover UUIDs, explicit/absent retention properties and exact selected snapshot
+commit timestamps for the four previously verified CSV tables. The initial host
+check refused the `Etc/UTC` spelling after all 17 SQL statements succeeded; the
+[refusal disposition](../spikes/SPIKE-001-table-layout/out/native/csv_retention_window_20261008/initial-refusal.json)
+and [local recovery](../spikes/SPIKE-001-table-layout/out/native/csv_retention_window_20261008/recovery-summary.json)
+retain that distinction. Recovery binds exact original SQL/parameters and
+complete responses; it issues no new native requests and does not make old
+observations fresh. The tool accepts only the fixed zero-offset `UTC`/`Etc/UTC`
+spellings for its selected SQL timestamp interpretation.
+
+As of the retained clock **2026-10-08 12:52:54.711244 UTC**, the configured finite
+ceiling is **2026-10-15 10:03:15 UTC** for the earliest selected snapshot, using
+explicitly qualified documented defaults (7-day data/30-day logs) and a 60-second
+development margin. This is a configuration-based ceiling, not a guarantee of
+file availability. Current configuration, file/log availability, protocol, UUID
+and permissions remain required before and after a real read. No publication,
+ACK, pin retirement, predictive optimization or retention-setting mutation ran.
+
+`python3 tools/check_native_retention_window.py --replay-original` recovers the
+original receipts offline. Fresh observations require a new `--output` directory.
+The native observer distinguishes explicit properties from qualified defaults
+and refuses identity changes, ambiguous properties or unsupported intervals.
+All 175 small local tests pass; no scale or renewed cloud test was run.
+
+
 ## Finite-retention policy composition
 
 `RetentionGate(provider, minimum_margin_us=...)` MUST be constructed with an
@@ -302,7 +341,66 @@ separately qualified metadata batching/cache provider whose observation age and
 configuration-change policy fit the reserved margin. Predictive optimization
 remains enabled; no setting mutation or performance acceptance claim is implied.
 
-## Weft query integration boundary
+Non-normative implementation evidence: all 180 small local tests pass, including
+successful manifest replay with fresh opening/closing admission, expired closing
+admission retaining the already-written manifest, independent source-admission
+refusal before effects, actual retention-gate expiry after a singleton fetch,
+and bounded SQL observation/margin refusal. These are component checks, not
+native manifest publication or end-to-end Truss evidence. No cloud run or renewed
+benchmark was performed for this iteration.
+
+## Private CSV publication/resolver evidence — 2026-10-08
+
+The existing four-event CSV fixture now has an actual immutable Delta manifest
+`csv-fixture-publication-20261008` in the private runtime_csv namespace. The
+resolver returned object 1 / whole-entity version 2 / schema revision 3 while
+ordinary PostgreSQL read guards held all four exact original graph snapshots.
+The vector covers object_current v7, edge_current v0, tombstone v1 and
+whole_source_history v4; one actual original manifest submission is retained.
+
+Admission independently checks the immutable source digest/permissions, declared
+StringRecord fixture semantics, exact raw UMF intake in the native registry,
+current paginated effective grants/owners, original Delta UUID/version/schema
+vector, conservative Reader 3 / Writer 7 feature recognition, complete native
+row multisets and configured finite retention. Original commit anchors remain
+unchanged. The publication reserves a 600-second margin and uses bounded
+180-second serial configuration observations; predictive optimization remains
+unchanged. This is a development policy with repeated full checks, not a
+production low-latency policy or remote writer fence. Platform/local administrators
+and same-host cooperating writer exclusion remain explicit trust boundaries.
+
+The first attempt refused before manifest submission because the ordinary pin
+writer cannot SELECT the inventory. Its PostgreSQL transaction rolled back and
+zero scope pins were independently observed. The private host adapter now uses
+the existing ordinary reader role only for the exact inventory SELECT, then
+restores writer role within the same transaction. It verifies actual current_user
+and preserves transaction locks; no role grants changed. This relies on the
+existing trusted private postgres login and is not production authentication.
+
+The next attempt registered four pins and retained a pending original manifest
+handle. Original-handle GET later observed SUCCEEDED; no replacement POST occurred.
+A new-process recovery renewed all admission and completed immutable readback
+and resolver access. The final run recorded 188 native SQL reads and one point
+query (994 ms observed SDK round trip). This single round trip is not engine
+latency, a benchmark or an architecture gate. Earlier attempts additionally
+recorded 46 and 72 reads. No further cloud test was run after success.
+
+Evidence: out/native/csv_publication_20261008/failure.json,
+out/native/csv_publication_20261008_resume/pending.json and
+out/native/csv_publication_20261008_recovery/{summary,original-journal,
+execution-proof}.json plus their original statements.jsonl files. Execution proof
+records exact uncommitted source hashes and original request/response/proposal
+correspondence. Subsequent local source hardening reconstructs fresh proposed
+rows from the same retained JSON ordering used on restart, and independently
+checks source/vector/schema/commit-anchor correspondence on every proposal
+admission; those fresh-submit paths were not rerun natively.
+
+This proves a private snapshot-publication/resolver component using an already
+applied CSV fixture. Fixture IDs 17/23/24 are not accepted Truss catalog IDs.
+No native publisher phase path, real Truss stream, source ACK, production
+authority or full end-to-end toolkit completion is claimed.
+
+## Weft query integration boundary (implementation in progress)
 
 Owner-authored `weft_binding.string_compile_request` binds retained UMF 0.7
 source bytes and explicit string Record IDs to the original publication and
@@ -330,10 +428,10 @@ representations without numeric coercion, and renew context/policy before releas
 Refuse unknown obligations, failed checks, partial transport, profile drift or
 unsupported meanings. The nativeProfile obligation requires engine 2026.39 and
 both exact build hashes from pinned Weft; no newer-engine fallback is allowed.
-Compiler support MUST NOT be inferred from uncommitted security changes or
-compiler success alone; host/native execution requires separate evidence.
+Merged B-007 does not include the owner's uncommitted B-008 security changes.
+This integration's local compilation is verified; host/native execution is pending.
 
-`weft_query.read_weft` supplies the buffered execution boundary. It MUST hold
+`weft_query.read_weft` now supplies the buffered execution boundary. It MUST hold
 the complete pin vector across resolver admission, every emitted scalar-integrity
 check, exact ordered-parameter execution, decoding and final authorization/context
 checks. The pin context MUST close successfully before rows return. The selected
@@ -351,10 +449,9 @@ carriers refuse. No numeric parameter or result conversion through floats occurs
 The initial decoder admits qualified string scalars and explicit absent/value
 string envelopes bound to original Field identities; native null, duplicate JSON
 members, unpaired Unicode, NUL, extra states and numeric substitution refuse.
-Numeric/recursive/entity/relationship result support requires explicit admitted
-handlers and separate evidence; unsupported families MUST refuse.
+Numeric/recursive/entity/relationship decoder handlers remain unfinished.
 
-### Native Weft host integration
+### Native Weft development host integration — 2026-10-08
 
 The native immutable-source runner may compile query-only Weft requests from the
 original retained model/publication using the pinned qualified wheel. Host
@@ -363,16 +460,8 @@ original entrypoint, layout digest, regenerated owner request and complete
 recompiled artifact. Existing native inventory/authority/schema/retention/pin
 checks remain mandatory. Exact warehouse release/build and ANSI setting MUST be
 observed before execution and buffered release; observation mismatch refuses
-without settings changes or profile fallback. The executing compiled statement MUST also enforce the admitted engine/build
-and ANSI profile before its actual integrity/user SQL. Separate earlier metadata
-observations cannot establish same-statement settings. String/presence and proved
-COUNT decoding require their selected original descriptors and model/source
-correspondence; unsupported families refuse.
+without settings changes or profile fallback. These separate statements do not
+establish same-statement settings evidence. Current decoding remains scoped to
+strings and explicit string presence envelopes; unsupported families refuse.
 This private development host does not establish production authorization or
 complete Weft conformance. Query-only MUST NOT advance graph/source progress.
-
-## Execution evidence
-
-Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).
-The [original contract text](../../04-build/evidence/contract-history-20261009/CONTRACT-004-publication-resolver.original.txt)
-preserves prior execution diaries verbatim; those results do not amend this contract.

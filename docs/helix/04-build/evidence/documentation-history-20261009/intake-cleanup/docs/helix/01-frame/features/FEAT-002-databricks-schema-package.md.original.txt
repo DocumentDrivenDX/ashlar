@@ -97,8 +97,9 @@ keys do not close those gaps.
 
 ## Schema-package milestone acceptance
 
-Physical schema-package acceptance requires the six checks in the [milestone acceptance record](../../02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md)
-to be supported by bounded native evidence and exact local package review.
+For the owner-revised physical design milestone, accept the candidate when the
+six checks in the [milestone acceptance record](../../02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md)
+are supported by bounded native evidence and exact local package review. Existing
 SCHEMA-01–SCHEMA-09 remain governing product requirements. Full production/source
 and external-engine qualification belong to their implementation milestones.
 Timing and1B/5B runtime targets do not block packaging or the next build slice;
@@ -123,10 +124,9 @@ and negative fixture outcomes without private naming or coercion conventions.
 
 ## Constraints and Assumptions
 
-Use Unity Catalog managed Delta. Each storage profile must define its layout,
-partitioning or clustering, retained history and ingestion mechanism under
-[CONTRACT-003](../../02-design/contracts/CONTRACT-003-delta-graph-tables.md).
-Specify exact columns, data types, keys and DDL, governed by PRD Q2–Q4 and Q7.
+Gold Delta is selected; layout, partition/clustering, history, and ingestion
+mechanism are undecided. Exact columns, data types, keys, and DDL belong in a
+subsequent Contract, governed by PRD Q2–Q4 and Q7.
 
 ## Dependencies
 

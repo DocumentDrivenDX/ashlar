@@ -15,224 +15,106 @@ ddx:
 
 # ADR-001: Generic Delta canonical tables with typed serving projections
 
-| Date | Status | Deciders | Confidence |
-| --- | --- | --- | --- |
-| 2026-10-06 | Physical design proposed; Unity Catalog Delta selected by owner | Ashlar owner | Exact preservation and bounded native workload evidence; billion-node capacity unmeasured |
-
 ## Context
 
-The owner requires native Databricks singleton reads, a 1B-node graph with more
-edges, proximity to Truss, and straightforward PuppyGraph, GraphFrames and
-Microsoft Fabric Graph mappings. Exact UMF capabilities are deferred. Truss's
-accepted generic layout uses canonical objects with property-ID maps, typed
-edge endpoints, separate retained data and a property journal. Its PostgreSQL
-partition/index/FK mechanisms do not transfer to Delta.
+Ashlar must support low-latency singleton lookup directly on Databricks and a
+planning graph of 1B nodes with more edges. The physical layout should remain
+close to Truss while mapping explicitly to PuppyGraph, GraphFrames and Microsoft
+Fabric Graph. Truss-style property-ID maps, typed endpoints, retained content and
+property history must survive replication. PostgreSQL indexes, foreign keys and
+partition mechanisms do not transfer automatically to Delta.
 
 ## Decision
 
-The owner selects Unity Catalog managed Delta as the storage architecture.
-Latency is measured for tuning and capacity planning; missing a provisional
-benchmark does not reopen that choice or block table-design work.
+Use Unity Catalog managed Delta tables as canonical storage. Performance
+measurements guide physical tuning and capacity planning; they do not determine
+whether this storage architecture is used.
 
-Propose generic `object_current` and `edge_current` Delta tables as canonical
-current state, preserving source catalog IDs and exact property/retained text.
-Add rebuildable per-type/per-relationship scalar-column serving tables where
-workload or graph mapping requires them. Native singleton lookup reads canonical
-Delta directly at an evidenced publication boundary.
+Use generic `object_current` and `edge_current` carriers, preserving native
+source/type/entity identities, exact property values and uninterpreted retained
+content. Add rebuildable typed scalar projections for selected workloads and
+engine mappings. Native singleton lookup reads canonical Delta at a pinned,
+readable publication boundary, independently of external graph refresh.
 
-Use identity-oriented liquid clustering for canonical singleton access. The
-current measured implementation candidate computes a SHA-256 `lookup_hash`
-from the exact source/type/id tuple and clusters by that value; the native tuple
-remains the semantic key and an exact SQL predicate. The hash is rebuildable
-physical metadata, never identity, uniqueness enforcement or endpoint authority.
-For edges use relationship/id identity, not endpoint-only clustering. Endpoint
-access belongs in a narrow, rebuildable adjacency projection carrying edge IDs
-and both typed endpoint tuples; reverse access is a separately justified layout.
+### Physical access and maintenance
 
-Start with no explicit canonical partition directories. The four-bucket
-partition/Z-order comparison does not justify a universal billion-scale bucket
-count and has higher measured cleanup cost in the paired fixture. A 64MiB target
-is a reasonable initial hash-clustered tuning candidate for fewer files, not a
-normative file-size bound or a proved ingest winner. Record actual file sizes,
-pruning, deletion vectors and total storage; preserve the 16MiB comparison for
-workloads where smaller reads matter. Change these settings without changing the
-logical contract. Do not schedule full cleanup after every batch: measured
-maintenance costs require an independently tuned policy.
+Start canonical tables without explicit partition directories and use
+identity-oriented liquid clustering. Derive `lookup_hash` with SHA-256 from the
+exact source/type/id tuple; retain the complete tuple as the semantic key and
+exact lookup predicate. Hashes provide pruning, never identity, uniqueness or
+endpoint authority. Edge identity includes relationship and edge ID; endpoints
+alone cannot identify parallel edges. Use bound query parameters.
 
-The proposed ashlar-delta/0.3 DDL now includes derived identity hashes, optional
-adjacency/degree tables, raw source records and direct cursor references. All 13
-table CREATEs have scoped native structural evidence. Later edge-statistics tuning
-is evidenced on existing native tables; the revised complete DDL has not been
-re-executed as a package. The 0.2 and 0.1 DDL remain historical
-baselines; production source, recovery and graph-engine qualification are open.
-The 13-table spike inventory is a reference surface, not a requirement to deploy
-all projection examples or rewrite every table for every source batch.
+Use 64MiB as an initial file-size tuning target, not a correctness constraint.
+Select partitioning, Z-order alternatives, file targets and statistics from
+whole-workload costs, including reads, ingest, maintenance and retained storage.
+Include journal batch IDs and identity columns in data-skipping statistics.
+Trigger maintenance from file overlap and read amplification rather than running
+full cleanup after every batch or blindly visiting every hash range.
 
-Include the journal batch ID in data-skipping statistics alongside its origin/id
-columns. Native r100 backfill preserves all 900k rows and protocol/file layout,
-and reduces paired validation file reads from 100 to 26. It does not materially
-reduce measured bytes or latency. Keep statistics backfill cost and actual pinned
-versions explicit; old manifests do not gain the new snapshot automatically.
-This physical tuning does not change the logical journal or qualify freshness.
+Preserve predictive optimization. Publication readability must depend on the
+actual optimization configuration and retained snapshot guarantees. Physical
+maintenance cannot repoint an existing immutable publication: exposing a
+maintained snapshot requires a separately validated publication.
 
-The [publication and maintenance policy candidate](../spikes/SPIKE-001-table-layout/publication-maintenance-policy.md)
-separates physical cleanup from logical progress and records the measured publisher
-capacity gap. Its maintenance-manifest mode and queue experiment remain unqualified;
-existing immutable publication vectors must not be repointed.
+### Table roles and source preservation
 
-The complete intermediate synthetic graph now has scoped native evidence:
-8M nodes,40M edges,48M raw records,192M bootstrap property events and40M forward
-adjacency rows. The [r274 audit](../spikes/SPIKE-001-table-layout/out/native/ashlar_scale_edges_r274/audited-summary.json) checks every known field in bounded groups,
-unique edge identities and both typed endpoint tuples. Qualified Delta versions
-are object6/edge8/raw15/journal17/forward8, bound to native UUIDs and statement
-receipts. The final8M-edge iteration took1914.135s including667.863s local oracle
-preparation, read187.721GB and wrote18.896GB with zero reported spill. Sequential
-active metadata totals113.297GB across2087files; it is not a retained physical
-inventory. Two4M generation commits are an experimental scheduling choice, not
-an isolated causal performance comparison. Growth CTAS tables omit some full
-canonical constraints and do not establish the proposed64MiB target, real Truss
-producer authority, publication freshness, singleton/cold/concurrency targets
-or1B-node/5B-edge admission. The100k-change input/publisher test remains separate.
+The durable data roles are `object_current`, `edge_current`, `property_journal`,
+`source_record`, `tombstone` and `publication_manifest`. Complete raw source
+records and accepted semantic journal events preserve different information;
+neither substitutes for the other. Preserve transport envelopes, source cursors,
+revision documents, provenance and uninterpreted operations. An unknown operation
+that can affect current-state interpretation stops publication.
 
-The subsequent [r281 publication audit](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_publish_r281/audited-summary.json)
-applies90k updates/10k deletes from four exact pinned input roles. Final state is
-8M nodes,39.99M edges/forward rows,48.1M raw records,192,216,667 journal events
-and10k versioned tombstones. Full inherited/change field digests preserve
-multiplicity; global identities, deletions and typed endpoints pass. The descriptor
-contains exact native UUID/version inputs, actual revision map and canonical
-recorded_at. This is synthetic profile qualification, not a real producer fence.
-Apply-only took49.209s; ready-input processing through full validation/descriptor
-readback took922.120s, failing60s freshness. Whole run1229.906s includes301.023s
-clone/reference preparation. Earlier357.215s transfer,92.411s input staging and
-44.096s predecessor qualification are separately reported preparation costs.
-The run read372.920GB/wrote354.291MB with zero reported spill. Current merge
-updates90k/deletes10k without copying unaffected rows, adds11files/72.709MB and
-603deletion vectors; forward adds6files/0.9998MB and6deletion vectors. Active
-shallow-clone metadata113.651GB/2107files is not retained physical inventory.
-The [r284 sensitivity](../spikes/SPIKE-001-table-layout/out/publication-capacity-r284.json)
-shows even apply-only service exceeds the10s modeled arrival interval at10k/s.
-No sustained throughput, service p95, cold/concurrent singleton or billion admission.
+Raw-record idempotence uses qualified feed/epoch/delivery identity with byte-exact
+cursor/kind/payload/revision conflict detection. Delta MERGE is not a concurrency
+safe unique constraint. Require serialized, fenced writer authority or another
+independently proved protocol. Advance source checkpoints only after the relevant
+publication is durable; remote acknowledgement requires its own recovery proof.
 
-The [r282 post-ingest native singleton cohort](../spikes/SPIKE-001-table-layout/out/native/ashlar_growth_pruning_r282/audited-summary.json)
-passes64 exact full-carrier/absence queries on the39.99M-edge published snapshot.
-This deliberately stratified warm cohort has4deleted/12updated/16unchanged keys,
-repeated twice. Combined engine p95 is119ms/caller430.197ms, compilation177ms,
-read189.352MB/12files; both warm latency targets miss. No remote data reads were
-reported. Separate pass caller p95 values430.197/503.759ms show the small sample
-is not robust service-tail evidence.614livefiles total32.038GB, including11files
-with hash spans above99% of the domain. Scattered changes, deletion vectors and
-wide-span emitted files motivate a separately bounded maintenance comparison,
-not a claim that cleanup will meet caller latency. No controlled cold or concurrent
-service result follows from the warmed scan. The [incremental-custody candidate](../spikes/SPIKE-001-table-layout/incremental-custody-cdf-candidate.md)
-keeps full changed-image and inherited snapshot proof requirements explicit;
-native CDF qualification is separate from source semantic history and publisher
-freshness. Unity Catalog Delta remains selected independent of benchmark misses.
+Optional structural roles are forward adjacency, reverse adjacency and degree
+summaries. Choose direction and relationship coverage from query requirements.
+An unavailable projection means an unsupported capability, never zero edges.
+Typed node/edge projections carry independent edge IDs and complete typed endpoint
+keys, retaining isolated nodes, self-loops and parallel edges.
 
-## Current measured qualification and consequence
+Publisher authority and apply receipts must be durable, with complete predecessor,
+input and output bindings, even if the chosen mechanism stores them outside Delta.
+Enforce semantic uniqueness, relationship validity and final-boundary endpoint
+integrity through the publisher; descriptive model constraints are insufficient.
 
-The [seventh complete synthetic publication](../spikes/SPIKE-001-table-layout/seventh-publication-disposition-r602.md)
-preserves8M nodes/39.93M live edges after seven disjoint100k batches. Its exact
-vector is N6/E10/R7/J7/A8/T7. Node physical head8 and edge physical head12
-remain distinct from selected node6/edge10; maintenance has not advanced publication.
-Retain generic exact carriers, unpartitioned identity-hash liquid clustering,
-full tuple predicates and independent raw/journal/tombstone evidence. CTAS
-fixture success does not qualify every canonical DDL constraint or real source.
+### Publication and write amplification
 
-**File policy:** Keep64MiB as the initial target. The [256MiB pilot](../spikes/SPIKE-001-table-layout/file256-disposition-r573.md)
-preserves all2,498,646 complete carriers and reduces32 files to16; it does not
-produce uniformly256MiB files. Matched full-field guarded ingest measures engine
-7.232s at64 versus5.553s at256 with nearly equal read bytes. The [changed-key read
-comparison](../spikes/SPIKE-001-table-layout/file-target-post-disposition-r583.md)
-then measures94ms engine/398ms caller repeat p95 at64 versus111ms/421ms at256,
-with95.32% more read bytes at256. Prior256 maintenance adds21.108s engine and
-1.504GB writes. Do not promote256 from a single faster MERGE or unchanged-key
-cohort. Fixed order/cache/compiled versions prevent causal claims; retain the
-candidate for separately justified workloads rather than repeat it unchanged.
-The generated-column2.5M fixture also has distinct interoperability obligations.
+Bind every consumed table by native identity and committed version in an immutable
+publication vector. Table versions need not share numbers or commit times. Rewrite
+only changed roles: a property-only update need not rewrite unchanged adjacency,
+degree or unrelated projections. An unchanged role may reuse its previously
+validated committed version.
 
-**Maintenance policy:** Prefer a separately admitted rewrite triggered by broad
-file overlap over blindly visiting every hash range. The [E10 sparse pilot](../spikes/SPIKE-001-table-layout/sparse-maintenance-disposition-r612.md)
-removes allten wide-domain files and adds six in21.722s; total preservation/custody
-work is51.970s. Changed-file complete values pass exact EXCEPT ALL in both
-directions. [Full live snapshot preservation](../spikes/SPIKE-001-table-layout/common-preservation-disposition-r628.md)
-now covers all39.93M carriers, including common-file deletion-vector filtering;
-independent rawlog action custody and producer fencing remain open. No maintenance manifest or production fence is proved.
+Use immutable validated predecessors and complete authoritative change sets for
+incremental publication. Replacing exhaustive comparison requires proof of source
+completeness, writer authority, affected-row preservation and projection coverage.
+Use exhaustive bootstrap and periodic audits without making full-graph comparison
+a requirement for every batch.
 
-The [matched reads](../spikes/SPIKE-001-table-layout/sparse-read-disposition-r616.md)
-show median files11.5→2.5 and73.8% less read bytes. Repeated E12 engine96ms meets
-the scoped100ms target, while caller374ms misses250ms. Four keys inside and four
-outside the range include full values and deletion absence; cached-data serial
-observations do not establish service p95, cold behavior or concurrency. Include
-maintenance, validation and preparation costs when judging the operational envelope.
-Reconsider this policy if broader workloads or later ingest erase the benefit.
+### Engine releases and scale
 
-**Publisher integration:** The seventh full publication now integrates concurrent
-complete ten-table UUID/schema/protocol/profile/commit closing custody with closed
-write intervals, all15 uncached post-commit validations, manifest readback and
-final telemetry. All151 statements qualify. Complete ready-input processing is
-213.056s versus prior221.826s; this ordered pair is not a causal improvement claim.
-Current MERGE alone is70.787s caller/69.648s engine, exceeding60s. Its nested
-metadata-time metric is not standalone catalog overhead. Production writer
-fencing, real source authority and non-SQL commit identity remain open.
+Publish engine-specific immutable releases with explicit publication bindings,
+identity mappings, scalar casts, residual content and Delta feature compatibility.
+GraphFrames consumes pinned Spark frames. PuppyGraph and Fabric require independent
+release activation, readback, rollback and refresh semantics. Export compatible
+snapshots when a reader cannot consume canonical Delta features directly.
 
-**Performance and capacity:** Caller250ms and full60s freshness remain unmet.
-Source-only digest timing, command-only MERGE EXPLAIN and the unchanged broadcast
-join plan do not establish a faster guarded mutation. Preserve missing-key and
-full predecessor protections. Selected publication pins are not physical heads;
-subsequent mutation admission must reconcile the bounded maintenance commits.
+Keep Fabric exports within the actual target's supported element and capability
+limits; do not assume a bounded export supports the full planning graph. External
+releases may refresh less often than native publications, but must expose the
+publication they represent.
 
-
-[Broader maintained read evidence](../spikes/SPIKE-001-table-layout/maintained-concurrent-disposition-r629.md)
-checks64 full-carrier/absence responses with four synchronized readers and all16
-native request windows overlapping. Repeated caller423ms/engine135ms misses both
-targets. The [same32-key binding comparison](../spikes/SPIKE-001-table-layout/binding-disposition-r633.md)
-also misses them on one client: parameters511ms/110ms, literals489ms/108ms.
-Read bytes are identical and compilation shows no reproducible winner. Keep bound
-parameters. The earlier8-key engine96ms pass is narrowly scoped and does not
-qualify the larger cohort, sustained service, cold data or caller250ms.
-
-[All-six-role active capacity sensitivity](../spikes/SPIKE-001-table-layout/out/full-role-capacity-r634.json)
-uses115.765GB measured active bytes across nodes/currentedges/raw/journal/forward/
-tombstones. Freezing this synthetic history mix projects14.495TB active roles at
-1B nodes/5B edges, excluding retained versions, staged inputs, logs, failed-work
-storage and additional projections. This is arithmetic, not native admission,
-pricing or a production producer history profile. Doubling the current graph
-models231.530GB active roles, before validation/retention/peak storage. Scale
-writes still require measured full-role generation and explicit phase bounds.
-
-The [independent append extents](../spikes/SPIKE-001-table-layout/edge-growth-disposition-r670.md)
-now preserve 8M new nodes and 8M new edges with their complete raw records,
-property events and forward adjacency. The pinned old/new node union contains
-16M distinct typed identities; all 16M new-edge endpoint references resolve.
-These private extents preserve historical IDs using a disjoint allocation profile,
-rather than regenerating old carriers with a larger node-count parameter.
-They leave the selected publication unchanged and do not establish one 16M-node
-serving table or the complete 80M-edge target. [Observed-head preflight](../spikes/SPIKE-001-table-layout/next-edge-preflight-disposition-r691.md)
-reconciles seven background maintenance commits through edge13/raw13/journal14/
-adjacency12 with full-field parity. The two unchanged adjacency blocks reuse
-explicitly matched cached results; all changed-head digest blocks were uncached.
-This is content preservation evidence, not a production writer fence or retention
-proof. The next 8M-edge growth stage has a completed independent local oracle
-and combined preflight/growth bounds of 85GB reads, 35GB writes and zero spill.
-Its execution must be audited before any larger-scale or throughput claim.
-
-Keep64-range scheduling rejected by its full100k129.676s/83.651GB result versus
-prior39.279s/33.261GB; one pruned range does not overturn the whole-batch cost.
-Typed mutation caching has no demonstrated total speed advantage. Further work
-must change a material variable or complete the publisher integration with a
-bounded clock, not repeat an equivalent batch and infer admission. A shared
-compute resize remains pending explicit approval; no settings change or budget
-relaxation is implied by this ADR.
-
-Conditional5B-edge file/storage and scattered-change coverage arithmetic in the
-[throughput envelope](../spikes/SPIKE-001-table-layout/throughput-envelope-disposition-r489.md)
-is not native5B throughput or a hardware lower bound. Complete capacity must
-also account for nodes/raw/journal/tombstones/projections/staging/retained versions
-and failed work. Controlled cold/concurrent caller, sustained10k/s,100k/s burst,
-real producer authority, production fencing, full1B/5B load and external graph
-reader profiles remain separate unproved obligations. Fabric stays a bounded
-projection within the recorded2B-element limit; canonical6B planning scale is
-not a Fabric claim. UC Delta stays selected and UMF binding deferred.
+Account for canonical data, raw records, journal fanout, tombstones, forward/reverse
+adjacency, typed releases, retained versions, staging, logs and failed work in
+capacity and cost estimates. The 5B-edge planning assumption is not a measured
+production history profile. Retention and expiry require reader-pin and recovery
+proof; capacity estimates cannot authorize destructive cleanup.
 
 ## Alternatives
 
@@ -240,22 +122,17 @@ not a Fabric claim. UC Delta stays selected and UMF binding deferred.
 | --- | --- | --- | --- |
 | Generic property bags only | Closest fixed table surface to Truss | JSON parsing and poor property statistics; awkward scalar graph mapping | Keep as canonical, not sole analytic surface |
 | Typed canonical tables for every type | Native scalar filtering and direct graph mapping | Canonical schema migration per type; diverges from Truss | Not proposed as canonical |
-| Shared canonical plus scalar serving projections | Preserves Truss semantics; selected types map cleanly | Extra storage, synchronization and revision checks | Proposed, pending native evidence |
-| Shared promoted columns only | Fewer serving tables | Global wide sparse schema, unrelated-type evolution | Benchmark alternative, not default |
-| Property EAV as canonical Delta | Property journal resemblance | Reassembly and join amplification for object reads | Journal only initially; not benchmarked as canonical |
+| Shared canonical plus scalar serving projections | Preserves Truss semantics; selected types map cleanly | Extra storage, synchronization and revision checks | Proposed physical layout |
+| Shared promoted columns only | Fewer serving tables | Global wide sparse schema, unrelated-type evolution | Optional workload-specific projection |
+| Property EAV as canonical Delta | Property journal resemblance | Reassembly and join amplification for object reads | Use for semantic history |
 
 ## Consequences
 
-Canonical schema evolution remains generic. Hot analytical properties incur
-versioned projection columns and validation; unknown data remains in canonical
-retained text. Typed projections carry independent edge IDs and typed endpoint
-keys, so parallel edges and isolated nodes survive. Projection inventory and
-publication manifest add operational overhead.
-
-Native Databricks reads remain independent of external graph-engine refresh.
-Fabric is a bounded optional export: its documented approximately 2B total graph
-elements cannot substantiate the full 1B-node-plus-more-edges target. A full graph
-may use native SQL/PuppyGraph/Spark only after their independent scale evidence.
+Canonical schema evolution remains generic. Selected analytical properties add
+versioned scalar columns and projection validation. Unknown content remains
+preserved in canonical retained text. The publication manifest and engine releases
+add synchronization and storage costs in exchange for explicit, reproducible
+query boundaries.
 
 ## Risks
 
@@ -269,385 +146,19 @@ may use native SQL/PuppyGraph/Spark only after their independent scale evidence.
 
 ## Validation
 
-[Native evidence](../spikes/native-layout-evidence.md) records successful DDL,
-carrier/version probes and bounded uncached query measurements. The initial
-provisional singleton latency gate is not satisfied on the measured path; this
-record remains proposed for its physical/schema details; Unity Catalog Delta
-is already selected by the owner.
+Verify complete carrier, identity, endpoint and multiplicity preservation;
+source replay/conflict handling; interrupted publication recovery; pinned reads;
+retention; and engine-specific release behavior. Measure singleton, traversal,
+ingest and maintenance performance with workload, compute and cost scope. Keep
+new checks small and reuse existing measurements. Connector support requires
+actual connector-specific execution evidence.
 
-
-[SPIKE-001](../spikes/SPIKE-001-table-layout.md) supplies local result-parity and
-columnar screening. [CONTRACT-003](../contracts/CONTRACT-003-delta-graph-tables.md)
-defines the proposed table surface. Complete the table design through versioned DDL, publication failure semantics,
-source fidelity and explicit engine mapping contracts. Record latency, ingest,
-maintenance and scale measurements with their workload/compute scope; they
-inform tuning and resource sizing rather than veto the storage architecture.
-External connector support is claimed only after connector-specific evidence.
-Reconsider projection inventory and maintenance policy when their costs grow.
-
-## Concern Impact
-
-The large higher-entropy update now has [routine maintenance evidence](../spikes/SPIKE-001-table-layout/out/native/ashlar_entropy_maintenance_20261006_r91/audited-summary.json):
-13 seconds rewrites only the 333MB update layer, retains baseline deletion
-vectors, and passes exact parity across all 20M edges. [Maintained reads](../spikes/SPIKE-001-table-layout/out/native/ashlar_entropy_maintained_reads_20261006_r92/audited-summary.json)
-prune two files instead of seventeen. This supports evaluating routine
-incremental clustering before full cleanup, with overlap/read-amplification
-and retained-storage measurements; it does not establish a universal threshold
-or per-batch policy. Existing descriptors retain their old versions. A consumer
-needs a new validated descriptor to benefit from the maintained snapshot.
-
-The [incremental publication validation candidate](../spikes/SPIKE-001-table-layout/incremental-publication-design.md)
-proposes validated immutable predecessors plus complete authoritative change sets
-for routine batches, with exhaustive bootstrap/periodic audits. It does not make
-a full-graph comparison a per-batch requirement at 1B/5B scale. Replacing an
-exhaustive check requires independent proof of source completeness, writer
-authority, affected-row preservation and projection coverage. The synthetic
-large baseline lacks retained raw origins, so changed-row origin evidence cannot
-promote it to a fully qualified production publication.
-
-Preservation requires exact bags, retained content and projection residuals.
-Enforcement remains explicit: Delta semantic keys/relationships are publisher
-checks. Scope stays on storage/query proof; UMF authoring and production resource
-provisioning remain separate. No Truss language or runtime ADR is inherited.
+The table contract is [CONTRACT-003](../contracts/CONTRACT-003-delta-graph-tables.md).
+Historical measurements and implementation observations are retained in
+[build evidence](../../04-build/evidence/documentation-history-20261009/ADR-001.original.txt).
 
 ## References
 
 - [Truss ADR-002](/Users/erik/Projects/truss/docs/helix/02-design/adr/ADR-002-storage-strategy.md)
 - [Databricks clustering](https://docs.databricks.com/aws/en/tables/clustering)
 - [Fabric limitations](https://learn.microsoft.com/en-us/fabric/graph/limitations)
-
-## Additional experiment evidence
-
-The following records preserve historical measurements and candidate evaluations.
-Their earlier latency-gate and next-experiment language is superseded by the
-2026-10-06 owner direction and delivery sequence in this ADR.
-
-The [REST controls](../spikes/native-latency-floor-evidence.md) fail both warm latency budgets on that execution path. Subsequent [SQL-driver evidence](../spikes/native-driver-evidence.md) reaches uncached warm engine p95 76–96ms on the bounded 1M-object fixtures; caller p95 remains above 250ms. A transport/query-shape matrix confirms that UUID alone does not explain the difference. The [multi-file comparison](../spikes/native-pruning-evidence.md) validates real id pruning, including 31 of 32 liquid files, while exact carriers remain equal. Keep this ADR proposed: caller, driver cold/concurrent reads, ingest and billion-node/cost admission remain open. Diagnostic routing buckets are not part of the proposed canonical contract.
-
-The [catalog-commit probe](../spikes/native-atomic-evidence.md) confirms native two-table commit and intentional rollback with exact stored carriers. This is a separate experimental publication candidate, absent from the existing canonical DDL. Its full progress/version-vector recovery and external-reader compatibility must be proved before adoption; no workspace preview setting changed.
-
-[10M-node canonical evidence](../spikes/native-10m-scale-evidence.md) now proves
-full stored-carrier and identity parity with source/type/id clustering in 419
-files. Repeated-key driver controls reach engine p95 93–94ms with zero remote
-bytes and zero result-cache hits; caller p95 remains 331–337ms. This supports
-continued evaluation of small liquid files without accepting a production
-layout. The source/type distribution, concurrent readers, edge identity and
-adjacency workloads, incremental publication, and billion-node file-count
-behavior remain unproved at this scale. Catalog-managed tables were slower in
-the paired singleton test, so their potential atomicity benefit must be judged
-separately from read latency.
-
-[Canonical edge comparison](../spikes/native-edge-layout-evidence.md) now favors
-evaluating source/relationship/id clustering for canonical edge singletons,
-with selective narrow endpoint adjacency for traversal. In the bounded 1M-edge
-fixture it prunes 17 of 18 files rather than scanning all nine endpoint-clustered
-files, preserves exact carriers and parallel-edge identity, and reduces median
-singleton bytes about 17.6x. Both layouts still miss caller latency. This refines
-the next experimental candidate, not the accepted design or normative DDL;
-edge publication, multi-file adjacency, degree skew and billion-edge admission
-must be demonstrated before selection.
-
-[Concurrent publication reads](../spikes/native-publication-reader-evidence.md)
-now contradict combined-workload latency admission on current compute: exact
-old snapshots remain intact and bounded ingest freshness stays below 54s, but
-no-remote reads overlapping catalog-managed writes reach 151ms engine p95 and
-552ms caller p95. Keep the ADR proposed. Compare manifest-published ordinary
-Delta operations and explicitly bounded compute separation before choosing a
-publication mechanism; small idle read results cannot close this gate.
-
-
-## Delivery sequence after the spike
-
-1. Qualify the proposed CONTRACT-003/0.3 surface against the real source profile.
-   The versioned DDL and tiny native fixtures exist; complete extraction,
-   interpretation and recovery are still pending. Keep publisher receipts/fences
-   separate from producer origins.
-2. Implement one bounded publisher/read path with exact carrier validation,
-   actual committed version resolution, durable recovery and pinned snapshots.
-   Use the proven controls as evidence, not a claim that real Truss feed ordering
-   or production permissions are already solved.
-3. Specify per-engine node/edge mapping, exact keys, scalar casts/residuals,
-   publication binding and supported Delta feature profile. GraphFrames consumes
-   pinned Spark frames; PuppyGraph and Fabric need their own evidenced release
-   adapters. Fabric remains a bounded export.
-4. Publish an operational measurement sheet for singleton/traversal, ingest,
-   maintenance, bytes/files and capacity sensitivities at 1B nodes/5B edges.
-   Separate observed results, estimates and unmeasured scale; avoid further
-   latency-only loops or optional Real-Time provisioning as prerequisites.
-
-
-## Draft Truss feed coverage discovered after 0.2
-
-The Truss draft feed/journal contracts at `spec/change-feed-and-groups`, `6d87fce`, carry origin metadata, revision documents, provenance and reservations in addition to property events. The 0.2 Delta journal is insufficient as the sole replication record. Propose a supplemental exact source-record carrier (CONTRACT-003), separately versioned before adoption, preserving complete transport envelopes and native tuple cursors. Current tables stay canonical serving state; raw feed retention preserves uninterpreted input and does not imply that every operation can be applied. Unknown operations that affect current-state interpretation stop publication rather than being silently skipped. UMF binding remains deferred.
-
-Raw-record idempotence is keyed by a qualified feed/epoch/delivery ID, with byte-exact cursor/kind/payload/revision conflict detection. A single-table Delta MERGE is a candidate append/refusal operation, not a concurrency-safe unique constraint. A serialized/fenced writer or independently proved protocol is required before production replay safety; cross-table current/history/manifest publication remains its own protocol. Source checkpoints advance only after the relevant publication is durable.
-
-
-## Deployment inventory and write amplification
-
-The logical graph uses six durable table roles: object_current, edge_current,
-property_journal, source_record, tombstone and publication_manifest. source_record
-is required for the proposed native feed profile's complete envelope retention;
-legacy fixtures have separately scoped semantics. Journal and raw capture preserve
-different information and neither substitutes for the other. Empty tombstone or
-journal tables still participate when the chosen publication/read profile uses them.
-
-Three structural tables are optional: adjacency_forward, adjacency_reverse and
-degree_summary. Select direction and relationship coverage from actual workloads;
-a missing projection is an unsupported query capability, not evidence of zero
-edges. The two node_type_a/edge_ab tables are illustrative typed projections.
-Deploy versioned per-engine releases only for the selected graph subset and cast
-profile. External releases may refresh less often than native publications, but
-must expose the publication they actually represent.
-
-publisher_fence and apply_receipt are two coordination examples. A recoverable
-publisher needs durable authority and application evidence even when its selected
-mechanism stores them elsewhere. The 0.3 receipt lacks complete predecessor/output
-bindings; r78 uses an isolated supplemental record and does not qualify that DDL
-as a complete recovery protocol. Initial experiments remain serialized with no
-automatic writer takeover.
-
-Rewrite only tables whose data changed. Every consumed table still appears in the
-publication vector. A property-only update writes its canonical
-carrier, accepted journal events and raw input; it need not rewrite unchanged
-adjacency or degree rows. Endpoint or lifecycle changes require structural updates
-and endpoint validation at the final source boundary. Typed projections change
-only when their selected content or schema changes. A manifest may reuse an
-unchanged table's prior committed version after validation; versions across tables
-need not have equal numbers or commit times.
-
-This limits avoidable copying at the 1B-node/5B-edge planning scale while retaining
-complete canonical and source evidence. It does not reduce the required history or
-prove throughput. Raw feed, journal fanout, old pinned versions, reverse adjacency
-and engine release copies must all enter capacity estimates. No expiry/VACUUM or
-full-scale admission follows from the current estimates. Tuple-native sources
-leave source_position null; the existing journal clustering consequently has an
-unused component for that profile. Delivery-ID/source-cursor clustering needs a
-separate workload comparison before changing the executed DDL.
-
-
-## Billion-scale file and history sensitivity
-
-[Capacity sensitivity 0.3](../spikes/SPIKE-001-table-layout/out/capacity-planning-v03.json)
-separately rounds estimated files for each physical table. At 1B objects/5B edges,
-assumed compressed current carriers of 512–2,048 bytes, 96-byte adjacency rows,
-two adjacency copies and a full 64MiB mean file imply 60,083–197,412 active files
-for those four tables. Half-full files or a 16MiB target increase that inventory.
-This excludes Delta logs/checkpoints, old pinned versions, history and releases;
-the target property does not guarantee the assumed mean size.
-
-At continuous 10k changed entities/s for 30 days, assuming one 1KiB compressed
-raw envelope per entity and 1/4/10 separate 1KiB property events per entity gives
-53.084/132.710/291.963 decimal TB for journal plus raw capture. The corresponding
-estimated full-64MiB file counts are 791,016/1,977,540/4,350,587. Real feed records,
-revision documents and retained versions can add more. These assumptions are not
-observed compression, an adopted retention horizon or a spending authorization.
-Journal fanout and source record cardinality must come from the qualified feed.
-
-The model also shows a scattered-update sensitivity: 300k independently uniform
-edge changes touch an expected 99.96%/86.00% of baseline edge file groups in the
-512/2,048-byte full-64MiB scenarios. This is a mathematical occupancy estimate;
-it says nothing about deletion-vector cost or how many files Delta rewrites.
-Identity clustering may prune singleton reads while dispersed updates still
-visit many files. Larger experiments should measure this distinction and metadata
-planning cost instead of inferring ingest scalability from small selective reads.
-No billion-scale runtime admission or history expiry follows from this model.
-
-
-## Authorized 24M-carrier local/native comparison
-
-[Scale comparison](../spikes/SPIKE-001-table-layout/scale-comparison.md) measures
-4M objects / 20M edges and 200k scattered updates. Native DVs avoid the OSS
-100x output-row amplification (zero unchanged copies versus 19.8M). Retain that
-capability in the native candidate; consumer compatibility belongs to the
-separately qualified release. A FULL optimization changed no files/version, so
-maintenance effectiveness must be observed rather than promised. Corrected
-property-map version-2 uncached reads fail provisional warm budgets: serial
-218ms engine/525ms caller, four-client 247ms/570ms. Architecture remains UC Delta.
-The complete current-carrier column surface and endpoint closure are measured;
-real source/history/publication, realistic entropy and billion-scale admission
-remain open. CTAS here does not prove production constraint enforcement.
-
-## Subsequent scale and consumer findings
-
-The higher-entropy iteration measures about 41 GB for 4M nodes / 20M edges both
-locally and natively, with full-field preservation and typed closure. Native
-100k large-token publication and singleton overlap are now evidenced; their
-strict provisional budgets remain unsatisfied.
-[r103](../spikes/SPIKE-001-table-layout/out/native/ashlar_maintained_contention_20261007_r103/audited-summary.json)
-keeps the reader at three files at p95 after maintenance, yet publication overlap
-increases caller p95 to about 1.10 s; quiet new-publication reads are about 374 ms.
-Its finite pre-staged batch takes about 64 s after complete input readiness,
-excluding source preparation. This does not admit sustained 10k/s or burst rates.
-Further layout pruning alone is insufficient evidence for shared-compute latency.
-The next performance comparison should isolate reader and publisher resources
-or measure a declared larger compute profile, with explicit cost bounds and the
-same exact-carrier workload; no resource change is implied by this document.
-
-Actual PuppyGraph 1.13.0 mapping passes locally via an immutable DuckDB carrier
-fixture. It requires ordinary-property aliases for identity carriers. Those
-aliases are serving-only and leave canonical Truss-like tables unchanged.
-Its observed rejection of an in-place model/catalog change means release
-activation must be independently qualified. Direct UC access currently fails
-the metastore external-access prerequisite. Keep canonical DV/row-tracking
-features; neither a DuckDB success nor a permission failure establishes Delta
-feature compatibility. GraphFrames already executes the 24M-element local
-release; bounded Fabric and direct UC graph-engine tests remain open.
-
-[r108 high-degree adjacency sensitivity](../spikes/SPIKE-001-table-layout/out/native/ashlar_hub_adjacency_r108/audited-summary.json)
-adds measured support for a separate narrow endpoint-clustered candidate:
-20M synthetic edges in240MB/8files, with900004/100004-edge hubs pruning to one
-file for count and first100-row page. Typed closure, unique IDs, unique relationship
-endpoint pairs and full projection equality pass. First-page reads still consume
-37.4/5.1MB and do not prove deep-page ordering/cost. This is an altered synthetic
-graph, not a published canonical projection or billion-scale support. Keep
-identity clustering on canonical edges and evaluate endpoint/query ordering on
-the optional adjacency surface separately.
-
-### Adjacency ordering qualification boundary
-
-[r112 native relationship-first pages](../spikes/SPIKE-001-table-layout/out/native/ashlar_hub_contract_pages_r112/audited-summary.json)
-preserve `(rel_type_id,edge_id)` continuation exactly on the synthetic20M-edge
-hub graph. Both eight-file layouts scan all8files at each tested relationship
-cursor. Earlier edge-ID-only8/4/1file pruning is not evidence for the contractual
-order. Keep relationship-first semantics and native edge identities; source/type/
-endpoint clustering and optional relationship clustering must be evaluated on
-that query shape. The seven-column fixture omits structural_version and does not
-qualify the complete reference adjacency DDL or published structural coverage.
-No canonical identity-layout change, cursor-order change or billion-scale
-admission follows. The proposed reference DDL remains unchanged.
-
-[r113 full-shape forward adjacency](../spikes/SPIKE-001-table-layout/out/native/ashlar_hub_contract_pages_r113/audited-summary.json)
-adds20M-row eight-column parity, including a constant synthetic structural version,
-and36 exact contractual page checks. Relationship-range writes with the proposed
-forward clustering prune8/4/1files at successive relationship cursors; the
-edge-range control stays at8files. This supports matching writer file statistics
-to `(rel_type_id,edge_id)` order, not a universal partition count or batch width.
-Keep reference DDL and canonical identity clustering unchanged. The explicit
-range-batch mechanism, exceptionally low entropy, different control column count,
-CTAS constraints, unbound synthetic structural revision and noisy caller timings
-limit the evidence. Automatic maintenance, scattered updates, reverse access
-and real source/publication authority still require qualification.
-
-
-### Full20M optional bucket-copy preservation evidence
-
-[r167–r169 audited parity](../spikes/SPIKE-001-table-layout/out/native/ashlar_bucket_parity_r169/audited-summary.json) proves all20 logical fields of canonical E23 equal all20M rows in the owned64-bucket table at version4. Every text field uses UTF8 binary equality; null-safe typed comparison covers the other fields. Global nonnull uniqueness and exact disjoint joined counts establish complete membership, with25 native changed-value refusals and two membership/duplicate counterexamples. This closes the initial copy's wide-value obligation for that fixed snapshot. It does not replace canonical hash liquid clustering, qualify the CTAS constraint surface as canonical DDL, select a billion-scale bucket count, prove later maintenance/update preservation, or improve any measured singleton/ingest gate. The owned copy remains unpublished and retained for the next bounded physical comparison; Truss-compatible logical identities and maps remain unchanged, with UMF deferred.
-
-
-### Full-size bucket/ZORDER comparison remains experimental
-
-[r170–r175 comparison](../spikes/SPIKE-001-table-layout/out/native/ashlar_bucket_full_reads_r175/comparison-summary.json) now measures the full20M owned bucket copy before and after actual partition-local ZORDER:528 files become448, point-read file p95 becomes2→1, and28 no-remote post-repeat reads have engine p9599ms/caller416.783ms. The all30 post-repeat sample has engine151ms and2 remote reads. Caller latency still misses the provisional250ms target, and cache/load differences prevent a causal partitioning claim. A33.156GB physical rewrite is a distinct maintenance cost; its native read telemetry is incomplete. Initial copy4 is exhaustively value-equal to E23; wide parity at rewritten8 remains pending. Retain canonical hash liquid clustering and the close-to-Truss logical surface;64 buckets and64MiB are experiment settings, not a1B/5B selection.
-
-
-### Full20M update cost favors retaining the canonical LC candidate
-
-[r176/r177](../spikes/SPIKE-001-table-layout/out/native/ashlar_bucket_update_r176/audited-summary.json) applies one same-length wide100k property update: LC clone MERGE4.110s/326.515MB/0 copied rows, maintained bucket MERGE37.018s/5.254GB/2,987,212 unchanged copied rows plus381DVs. Both changed-carrier20-field checks and20M global IDs pass;0 inserts/deletes. Differing file histories prevent a partition-only causal claim, but the measured write amplification keeps bucket64 experimental and canonical hash LC unchanged. The75GB/4GB local cost guard stopped after77.071GB reads/6.244GB writes, before point reads; no native failure or replay occurred. Final bucket-wide preservation (including preceding ZORDER) remains required; copied rows cannot be justified by unchanged physical-file custody. Single-MERGE cost is not publisher/sustained-rate admission, and no UMF binding is added.
-
-
-### Final preservation evidence r178–r180
-
-The final bucket version9 now passes full20M/20-field exact equality against E23 plus intended stage0 after ZORDER and the100k update, including copied unchanged rows. The LC clone0/MERGE1 passes19.9M unchanged identity/file/row-position custody, combined with prior exact100k changed-output checks. The bucket wide validation exceeded its140GB read plan at177.558GB; the preserved controller stop is a cost failure, while all four native comparisons passed. LC custody used4.273GB reads. No SQL was replayed, no canonical publication changed, and no latency, sustained-rate or billion-scale admission follows. Canonical hash LC remains proposed and bucket64 experimental. Evidence: [bucket audit](../spikes/SPIKE-001-table-layout/out/native/ashlar_bucket_final_parity_r178/audited-summary.json), [LC custody](../spikes/SPIKE-001-table-layout/out/native/ashlar_bucket_lc_custody_r179/summary.json).
-
-
-### Range-aligned hot-output candidate r187–r188
-
-A fresh owned20M LC clone applies the same100k wide stage with a6-range lookup_hash input hint, preserving all20 changed fields,19.9M unchanged physical custody and20M unique identities. Actual six hot-file ranges narrow to16–18% each; same20-key operational read p95 improves from8files/403.803MB/179ms engine/433.354ms caller to3files/139.231MB/104ms/365.700ms. MERGE writes326.548MB,0 copied rows, caller6.903s; whole run stays within budget. Canonical publication is unchanged. This supports a range-aligned writer tuning candidate, not a production range count, randomized causal SLO claim or revised architecture. Both warm gates, integrated sustained/burst publication, cold and1B/5B remain unproved. Evidence: [owned native audit](../spikes/SPIKE-001-table-layout/out/native/ashlar_lc_range_update_r187/audited-summary.json). Qualify final file shape rather than assuming a source hint controls every writer path; UMF binding remains deferred.
-
-
-### Integrated range-input qualification limit r191–r194
-
-A resumed isolated100k publisher passes exact raw/wire/origin/current20-field/journal/20M structural and identity checks plus19.9M unchanged physical custody; its owned manifest is verified, canonical publication unchanged. Measured processing59.883s and modeled record-age p9569.386s fail the60s freshness target for this finite controller run; no sustained-rate admission follows. The6-range MERGE source hint produces16 nearly global hot-file ranges in the integrated path, unlike standalone r187. Thus the hint is not a reproducible writer-output contract and the earlier singleton improvement cannot be advertised for this publication. Canonical UC Delta/hash LC remains selected/proposed; range shaping remains experimental pending writer-behavior qualification. Evidence: [publication audit](../spikes/SPIKE-001-table-layout/out/native/ashlar_queue_resume_r192/audited-summary.json), [actual output shape](../spikes/SPIKE-001-table-layout/out/native/ashlar_publication_shape_r194/summary.json). UMF binding and full performance/scale gates remain open.
-
-
-### Writer isolation evidence r195–r196
-
-Two new sequential E23 shallow clones apply the prior eight-file and fresh four-file100k inputs, both producing6 disjoint narrow live hash ranges. Exact20-field changed values,19.9M unchanged physical custody and20M unique IDs pass; cross-stage native identities/endpoints/hashes match. Four source files alone do not explain the integrated16 broad files, but concurrency causation and writer determinism remain unproved. Canonical UC Delta/hash LC remains selected/proposed and range hints experimental. Next compare isolated current emission after raw/journal writes, preserving the full validation/manifest barrier and measuring its freshness cost. Evidence: [writer isolation audit](../spikes/SPIKE-001-table-layout/out/native/ashlar_lc_writer_isolation_r195/audited-summary.json). No singleton, sustained, cold or1B/5B qualification transfers from this write-only comparison; UMF binding remains deferred.
-
-
-### Serial-current scheduling tradeoff r197–r200
-
-On fresh owned clones with the same immutable input, raw/journal writes precede current MERGE with0 native statement-window overlap. Actual output is6 narrow hot-file ranges; all raw/wire/origin/current20-field/journal/20M structural and identity plus19.9M physical custody checks and manifest readback pass. Measured controller62.468s gives modeled record-age p9571.973s, worse than69.386s for three overlapping writes. Keep isolated current emission as an experimental optional tuning profile, not a required freshness path or guaranteed writer layout. Canonical UC Delta/hash LC remains selected/proposed; semantic publication validation stays mandatory and no standalone singleton result transfers without measurement. Evidence: [publication audit](../spikes/SPIKE-001-table-layout/out/native/ashlar_queue_serial_r197/audited-summary.json), [native schedule comparison](../spikes/SPIKE-001-table-layout/out/native/ashlar_queue_serial_r197/schedule-comparison.json), [actual shape](../spikes/SPIKE-001-table-layout/out/native/ashlar_publication_shape_r199/summary.json). Full performance/scale and UMF obligations remain open/deferred.
-
-
-### Matched published-snapshot reads r201–r203
-
-Two20-key warm passes at verified private publication1 show serial-current engine p9595/96ms (scoped100ms screen passes), caller348.750/340.264ms (250ms fails),3files/142.939MB; overlap129/101ms,416.120/410.620ms,18files/414.851MB. All80 complete20-field results match immutable stage0. Combine with publisher age p9571.973s serial/69.386s overlap: both60s targets fail, so optional serialization is a measured read/freshness tradeoff, not a complete solution. Background Predictive Optimization advanced physical heads; reader verifies original version1 MERGE IDs and unchanged manifest vectors, then reads exact VERSION AS OF1. Never require publication==latest head or silently use a newer head. Evidence: [matched reads](../spikes/SPIKE-001-table-layout/out/native/ashlar_publication_reads_r202/summary.json). No cold, service, sustained/burst or1B/5B admission follows; UC Delta/hash LC remains selected/proposed and UMF deferred.
-
-
-### Consolidated complete-role disposition r226–r235
-
-Retain shared generic current tables with hash liquid clustering as the physical
-candidate. Exact source envelopes and property history are independent retained
-roles, not optional payload reductions. Keep bucket64/Z-order experimental:
-its prior hot-update write amplification was16.09× LC. Range-shaped emission is
-optional and must be verified in the actual publisher; neither a source hint nor
-latest physical head guarantees published file shape.
-
-The complete mixed bootstrap and2,048-edge update/delete publication now have
-independent all-row preservation/identity/endpoint evidence. Journal
-source-delivery clustering in this small experiment is a candidate for origins
-with null scalar position, not approval to replace the full DDL's position
-profile. Tombstone0.3 declares direct entity_version BIGINT NOT NULL and resolves accepted
-deletion meaning through qualified lifecycle/source evidence. The r73 native DDL
-created that column; the small r232 CTAS sample omitted it and does not qualify
-the full schema. Real resurrection/fencing proof is not claimed. Insert column binding and descriptor revision validation are
-required implementation safeguards exposed by the retained failure/repair.
-
-Original mixed descriptor processing35.473s omitted schema metadata; corrected
-readback134.907s includes diagnostics/repair under a host wall clock. Neither
-admits complete60s freshness. Complete mixed bootstrap storage sensitivity at
-8M/40M is115.681GB, before unresolved reserves. Native per-role change accounting
-makes the140GB proposal insufficiently justified for sustained retention; no
-role omission or silent expiry closes that gap. Continue staged complete-role
-resource/cost validation on existing compute, retaining original1B/5B and
-read/ingest gates. UMF deferred and external-engine limits unchanged.
-
-Evidence: [role cost calculator](../spikes/SPIKE-001-table-layout/out/mixed-role-costs-r235.json),
-[full native apply](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_apply_r232/summary.json),
-[corrected descriptor](../spikes/SPIKE-001-table-layout/out/native/ashlar_mixed_descriptor_r234/summary.json).
-
-
-### Observed complete-role growth, singleton limits and final-scale capacity r248–r268
-
-The same hash-liquid-clustered staging family now preserves8M nodes/24M edges
-with independent full-field/count/identity/typed-endpoint proof, including32M
-raw records and128M bootstrap journal events. Exact qualified vector N6/E4/R13/
-J15/A6 is not interchangeable with physical heads. Runtime19.9/SQL2026.39;15
-prior-prefix results were cached, expanded-role verification uncached. This is
-synthetic bootstrap evidence; staging CTAS lacks some complete production DDL
-constraints and the64MiB target, so it does not qualify the complete profile.
-
-Native repeated singleton cohorts preserve all17 node/20 edge fields:8M-node
-caller/engine p95567/113ms,16M-edge404/114ms. Both miss provisional250/100ms,
-with p95 one file touched and zero remote reads. These small warmed cohorts do
-not qualify cold/service/concurrency tails. UC Delta remains selected; measured
-limits guide tuning. Keep the exact identity predicates and complete props/
-retained values; no external engine is required for these native reads.
-
-[Source-bound capacity arithmetic](../spikes/SPIKE-001-table-layout/out/capacity-observed-r268.json)
-projects the original1B-node/5B-edge synthetic shape to14.17TB active tables,
-about246938 linearly emitted files, or211134 idealized64MiB files. A1.5×size
-sensitivity is21.25TB. This is not load/performance admission: actual file
-planning, real property density/entropy, history retention, logs, retained
-versions, candidate copies, tombstones, serving copies and spill are additional
-or unmeasured. Node and edge raw/history components are modeled separately to
-avoid extrapolating the smaller graph’s node/edge mix.
-
-The100k-change local oracle yields90k updates/10k deletes with exact token/
-retained-content replay and typed endpoints. Normalized uncompressed role inputs
-are1.10GB per batch: about110MB/s at10k changes/s,1.10GB/s at100k changes/s.
-These are payload arithmetic, not measured compressed native ingest capacity.
-Small UC file byte roundtrips and native TEXT/typed-field conformance pass;
-100k native staging/apply/publication remains unproved. Volume overwrite=false
-is a client policy, not source immutability: verified Delta input versions must
-be pinned before apply. No weaker publication-validation clock is substituted
-for the full stated barrier. UMF deferred; PuppyGraph/GraphFrames/bounded Fabric
-mapping limits unchanged.
-
-Evidence: [24M growth audit](../spikes/SPIKE-001-table-layout/out/native/ashlar_scale_edges_r261/audited-summary.json),
-[node points](../spikes/SPIKE-001-table-layout/out/native/ashlar_growth_pruning_r258/audited-summary.json),
-[edge points](../spikes/SPIKE-001-table-layout/out/native/ashlar_growth_pruning_r259/audited-summary.json),
-[100k local changes](../spikes/SPIKE-001-table-layout/out/mixed-batch-oracle-r262.json),
-[native file reader](../spikes/SPIKE-001-table-layout/out/native/ashlar_input_volume_read_r267/audited-summary.json),
-and [original native tombstone DDL](../spikes/SPIKE-001-table-layout/out/native/ashlar_layout_v03_ddl_20261006_r73_resume/statements.jsonl).

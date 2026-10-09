@@ -135,9 +135,9 @@ cannot restore it.
 
 ## Non-Normative Notes
 
-Every producer mapping MUST identify exact native-to-boundary loss and preserve
-original source evidence. Boundary conformance, Databricks compatibility and
-producer-adapter qualification require independent evidence.
+The boundary can be exercised before UMF merges. Later mapping must identify
+exact native-to-boundary loss and preserve source evidence. This is a proposed
+contract, not Databricks compatibility or producer-adapter evidence.
 
 ## Durable publication coordinator boundary
 
@@ -183,15 +183,23 @@ No receipt from an earlier phase permits acknowledgement. False/non-None policy
 or acknowledgement completion refuses. Unknown commit/ack outcome retains the
 original recovery custody and cannot create a replacement publication.
 
-Native publication production MUST connect staging/apply/resolver ports to
-complete durable attempt stores and recovery procedures. A materialized graph
-fixture MUST NOT be promoted solely from coordinator unit checks; original
-effect, authority, retention, manifest and source-checkpoint obligations remain
-mandatory for every supported producer profile.
+Forty-eight focused local tests include original-handle recovery after uncertain
+apply, incomplete validation retaining previous publication/progress, original
+descriptor recovery after uncertain commit and lost acknowledgement, conflicting
+intent refusal, malformed revisions and denied writer before metadata effects.
+Those tests use an explicit in-memory backend to exercise coordinator order only;
+no native durability, fencing, retention, complete effect parity, immutable
+manifest or actual source checkpoint is established by the mock.
+
+Native implementation must connect the existing Delta staging/apply/resolver
+ports to complete durable attempt stores and recovery procedures. The currently
+materialized private graph fixture remains unpublished and cannot be promoted
+merely because coordinator unit tests pass. Full Truss acceptance/feed and the
+additional source/schema paths remain required by the active toolkit goal.
 
 ## Native attempt phase custody store
 
-DeltaAttemptStore MUST implement the serialized original-phase carrier.
+DeltaAttemptStore implements the proposed serialized original-phase carrier.
 Its six nonnull STRING columns are stream, batch_id, phase, request_digest,
 payload_json and payload_digest; the logical key is (stream,batch_id,phase).
 Native SHA256 checks bind payload_digest to exact payload_json UTF8 bytes.
@@ -227,6 +235,17 @@ phase label alone never proves semantic completion or actual outer commit.
 The qualified publisher backend must independently verify original effect/
 descriptor provenance and current authority. Client state-machine checks and
 MERGE replay do not establish remote/adversarial uniqueness or direct-DML denial.
+
+The small 2026-10-08 native check stored five phase rows under a separate
+native-attempt-storage-fixture stream, verified exact replay/conflict and
+fresh-object/session reload from UC Delta. Result/descriptor explicitly state
+they are synthetic storage artifacts with no graph-effect/publication proof.
+Administrative development authority plus a local cooperating-process lock
+qualified only that experiment; existing graph tables remain unpublished.
+Evidence: out/native/attempt_store_20261008. Fifty-one focused local checks pass.
+Complete native producer/recovery/pin/manifest/checkpoint integration remains
+required before the full toolkit can be claimed usable.
+
 
 ### Native outbox checkpoint custody
 
@@ -265,9 +284,9 @@ backend must independently resolve immutable original manifest/effects/pins and
 current source/checkpoint permission before acknowledging. It cannot call this
 helper with a caller-created Descriptor and infer authoritative native custody.
 
-## Stored publisher composition
+## Stored publisher composition — 2026-10-08
 
-StoredPublisherBackend MUST connect publish_batch to a held DeltaAttemptStore
+StoredPublisherBackend connects publish_batch to a held DeltaAttemptStore
 session, a mandatory native effect/source driver and a mandatory manifest-store
 factory. Its session is single-use, nonreentrant and invalid outside the held
 stream/context. Phase reads retain original request bytes, complete result text
@@ -307,7 +326,30 @@ It does not establish exclusive writers, source authority or immutable grants.
 The namespace and journal must be independently bound to the original installation
 and authority; replacing a journal cannot establish absence or recovery.
 
-## Immutable JSONL source checkpoint
+Nine focused checks exercise composed real library stores and a real temporary
+SQLite journal using controlled native transport doubles: full phase sequence,
+new-backend descriptor replay, interrupted apply, lost ACK, reopened-journal
+pending manifest/phase recovery, postcommit admission refusal, no-handle/missing
+submission refusal, changed source progress, incomplete admission, changed phase
+payload and changed authority. The first test fixture used unsupported CSV
+operation upsert; correcting it to supported create allowed all cases to reach
+the intended boundaries. The full suite passes 192 tests. These are local
+composition/recovery checks, not actual Databricks publication, production
+authority, retained-file proof or real Truss integration evidence.
+
+### Native snapshot publication component — 2026-10-08
+
+The already-applied private CSV fixture now has an actual immutable manifest and
+resolver singleton under complete ordinary PostgreSQL pin custody. See the
+qualified [resolver evidence](CONTRACT-004-publication-resolver.md#private-csv-publicationresolver-evidence--2026-10-08).
+One original manifest POST/handle is retained through a pending response and
+new-process recovery. Initial pin-role refusal, rollback and subsequent admission
+remain explicit evidence. Predictive optimization and all grants/settings are
+unchanged. This component demonstration does not qualify StoredPublisherBackend's
+full native phase/apply/ACK path or stand up real Truss; the goal remains open.
+
+
+## Immutable JSONL source checkpoint — 2026-10-08
 
 The additional ashlar-immutable-jsonl/0.1 checkpoint profile binds an admitted
 ashlar-jsonl-transactions/0.1 SourceBatch. Its exact fields are profile, feed,
@@ -336,12 +378,12 @@ retention checks. A post-COMMIT closure failure remains explicit
 LocalProgressOutcomeUnknown and licenses only original-receipt reconciliation.
 This is local consumer progress, never native Truss registration or remote ACK.
 
-The host source runner MUST select CSV or JSONL through the same admitted
-stored-publisher boundary. Each selected schema/value/source profile requires
-explicit binding and authority; fixture IDs MUST NOT become accepted native IDs.
-The CSV wrapper MUST preserve its original stream, publication and row-ordinal
-checkpoint meanings when delegating to the shared runner.
-
-Source switching requires its own admitted empty installation and original
-journal. It MUST NOT overwrite an existing publication or treat distinct feeds
-as one state without an explicitly admitted combined-source profile.
+The host run_native_source_stream.py now selects supplied CSV or JSONL fixtures
+using this same stored-publisher path. JSONL fixture support is three complete
+object create/update/delete groups under the retained revision-3 StringRecord
+mapping; arbitrary schemas, relationships and real Truss IDs/feed are not admitted.
+The existing run_native_csv_stream.py delegates with CSV default. Existing stream,
+publication ID and checkpoint meanings remain unchanged for that default. Source
+switching requires its own admitted empty installation and original journal; it
+MUST NOT overwrite an existing publication or pretend multiple feeds share an
+unimplemented combined state. Native JSONL execution remains unverified.

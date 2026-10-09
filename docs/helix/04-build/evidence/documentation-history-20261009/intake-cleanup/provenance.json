@@ -1,0 +1,23 @@
+{
+  "scope": "Normative intake/milestone/microsite documentation cleanup; exact pre-edit originals retained.",
+  "files": [
+    {
+      "source": "docs/helix/02-design/contracts/CONTRACT-005-schema-intake.md",
+      "archive": "docs/helix/04-build/evidence/documentation-history-20261009/intake-cleanup/docs/helix/02-design/contracts/CONTRACT-005-schema-intake.md.original.txt",
+      "sourceSha256": "7c0196056696eefd9bb469dfe5b4fc1a7f3bd563be766b9c451a24795feaa3e6",
+      "cleanedSha256": "9ad465ef681409e760ccf60c5dcdeb16a88fe47960e13d155b2d7df7b449a2e9"
+    },
+    {
+      "source": "docs/helix/01-frame/features/FEAT-002-databricks-schema-package.md",
+      "archive": "docs/helix/04-build/evidence/documentation-history-20261009/intake-cleanup/docs/helix/01-frame/features/FEAT-002-databricks-schema-package.md.original.txt",
+      "sourceSha256": "52ff678c25e9c094f69dc6255f0bae37273eddcc0692056546a5e35a942ab588",
+      "cleanedSha256": "e630ca0f0ca6416aeaa45d9b711ba950ab24629ae1203ad12473ddc5f8fadb6a"
+    },
+    {
+      "source": "docs/helix/02-design/adr/ADR-002-signed-static-microsite.md",
+      "archive": "docs/helix/04-build/evidence/documentation-history-20261009/intake-cleanup/docs/helix/02-design/adr/ADR-002-signed-static-microsite.md.original.txt",
+      "sourceSha256": "ef2c5c96c75eeb59c5ea1f0b33fc95bc2702b7d8792dc322289a4aad0e19e4be",
+      "cleanedSha256": "21353bb2ebb434843d1501b94c53a5533f13b97aec1393f4bda990cbeb0fa4f1"
+    }
+  ]
+}

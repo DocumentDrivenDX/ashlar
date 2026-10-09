@@ -43,10 +43,10 @@ Same schema identity/revision with different source bytes is a conflict; origina
 bytes remain authoritative on replay. Additive compatibility, key/relationship
 changes and data conversion need explicit target-specific acceptance rules.
 
-Raw intake artifacts MUST be retained independently from accepted catalogs.
-Raw registration MUST NOT write Truss schema_doc, accepted catalog head or an
-accepted Ashlar schema revision. Cross-machine distribution MUST independently
-establish original producer identity and artifact custody.
+The intake reader and development custody check now retain these artifacts in
+a separate PostgreSQL intake store and a UC Delta intake table. Neither writes
+Truss schema_doc, accepted catalog head or an accepted Ashlar schema revision.
+Package distribution and signature/custody across machines remain future wiring.
 
 ## Raw registry surface
 
@@ -74,21 +74,26 @@ does not authenticate it or rerun UMF. This reader is a custody verifier, not an
 alternative UMF semantic validator. No signature or remote intake authority is
 claimed by the local development profile.
 
-## Raw-store mutation and recovery boundary
+## Native development evidence and boundaries
 
-Decoded-byte hashes and complete original source/artifact bytes MUST survive
-native storage and replay. Qualified-key uniqueness MUST be enforced under the
-selected concurrency profile. A serialized development Delta writer does not
-establish concurrent uniqueness. Native constraints, application fencing and
-privileges require independent verification; administrator authority MUST NOT
-be presented as production immutable-registry enforcement.
+The 2026-10-08 bounded native check stored three synthetic documents in
+ashlar_intake.document on the isolated PostgreSQL17.9 sandbox and
+client_dev.ashlar_layout_v03_20261006_r73.schema_intake_20261008 on UC Delta.
+Both enforce decoded-byte hashes natively and preserve exact artifact/source
+bytes through replay and a valid-digest conflict attempt. PostgreSQL uses a PK;
+Delta MERGE is qualified only with one serialized development writer and does
+not establish concurrent uniqueness. Application fencing/privileges and a
+production immutable registry are not delivered. The check uses administrative
+development authority, with PUBLIC access revoked on the PostgreSQL intake
+schema/table. Accepted catalog schema, stable binding IDs, constraint enforcement
+and runtime/feed operations remain separate outstanding work.
 
-Installation MUST refuse silent IF NOT EXISTS reuse. Failed or uncertain writes
-MUST retain the original native statement handle and custody, inspect their
-outcome and reconcile before any replay or replacement submission. A failed
-post-mutation check MUST NOT be reported as rollback. Store registration remains
-separate from accepted schemas, stable binding allocation, constraint enforcement
-and runtime/feed operations.
+The first Delta inline-CHECK DDL failed terminally with no table creation; the
+resumed check verified the empty PostgreSQL store and created Delta with separate
+ALTER TABLE ADD CONSTRAINT statements. Original native statement/SQL receipts
+and the passed summary remain under the spike's out/native/schema_registry_20261008.
+The runner refuses silent IF NOT EXISTS reuse. A failed/uncertain future write
+requires inspection of its existing native handle/custody before any replay.
 
 ## Stable identity planning boundary
 
@@ -119,13 +124,15 @@ identity reactivation keeps its ID and never restores grants implicitly. A
 distinct authored identity gets a fresh ID. Exhaustion refuses a new allocation,
 but does not prohibit validation/reactivation of an existing identity.
 
-The identity planner MUST NOT infer field meaning, key equality, schema
-compatibility, data transforms or native effects. Its caller MUST admit those
-under the target profile and supply complete selected ownership. Authored identity
-projection MUST use the pinned UMF reader/validator, retaining every original
-element tuple, source pointer, kind assertion and validation diagnostic. Such
-projection MUST NOT infer executable type/property/relationship bindings or
-replace atomic native semantic/catalog acceptance.
+Source `src/ashlar/catalog.py` supplies this planner. It does not validate field
+meaning, key equality, schema compatibility, data transforms or native effects.
+Its caller must first admit those under the target profile and supply complete
+selected ownership. Host tool `tools/project_umf_identities.ts` invokes the
+pinned existing UMF reader/validator and records every authored element tuple
+with original source pointers and validation diagnostics. It retains source
+kind assertions verbatim and infers no type/property/relationship bindings.
+The additive example yields three authored elements; executable semantic
+projection and atomic catalog acceptance remain outstanding.
 
 ## UMF interpretation and selected binding planner
 
@@ -134,11 +141,9 @@ existing kind, nullability, cardinality, facets, keys, relationship and schema-
 property interpretation APIs. The report retains exact source bytes/digest and
 original complete inspection receipts. Unknown and legacy meanings stay as UMF
 returned them; no consumer token alias or invented author receipt is introduced.
-Each interpretation API MUST be qualified for its selected core and result
-versions. A version refusal and its original error MUST remain explicit; missing
-schema properties MUST NOT be presented as complete interpretation. Current 0.8
-metadata selection and property inspection MUST retain their own original result
-shapes; they MUST NOT be recast as historical 0.7 operation receipts.
+Schema-property inspection at the selected source requires core 0.8.0 and
+refuses 0.7.0. Preserve that actual unavailable result and original error rather
+than presenting missing schema properties as a complete interpretation.
 
 Proposed ashlar-string-record-binding-plan/0.1 is a target consumer planning
 profile for explicit core 0.7 singleton string Record members. It checks complete
@@ -153,43 +158,50 @@ a declared validator pin is not authentication or UMF receipt recomputation.
 Unsupported kind/value shape, unresolved/duplicate member, unknown availability,
 facets, keys, extension meaning, relationship or other unbound assertion blocks
 this selected executable profile with source pointers and none enforcement.
-Each supported member MUST distinguish intended engine checks from verified
-database enforcement and retain the corresponding evidence.
+Known supported members are marked engine-unimplemented, not database-enforced.
 No candidate plan grants data-write authority or advances schema/head/publication.
-Broader values, keys and relationships require their own qualified bindings;
-the singleton string profile MUST NOT replace those requirements.
+This first binding profile does not reduce the end-to-end goal: broader values,
+keys and relationships remain required bindings rather than omitted requirements.
 The native accepted profile must compose their original semantic and effect
 obligations before claiming complete runtime support.
 
-Unknown nullability tokens and newer or unknown assertions MUST remain as the
-pinned UMF APIs interpreted them. An independently authored replacement fixture
-or later document revision MUST NOT reinterpret retained earlier source bytes.
-Structural validity and presence of a source Field do not establish executable
-binding or accepted catalog authority.
+The original revision-2 example caption asserts optional; the real pinned UMF
+nullability inspector returns unknown/value optional. Its binding plan therefore
+blocks at the original caption nullability pointer. A separate revision-3 fixture
+explicitly asserts absent-allowed and yields a candidate binding plan. It is a
+new authored example, not reinterpretation or rewriting of retained revision 2.
+Neither fixture has native accepted catalog status. Unknown root assertions and
+newer schema properties remain retained and block this selected binding when
+present; supported target interpretation cannot be inferred from structural
+validity or the presence of a source field.
 
-Raw registration MUST retain exact documents and complete receipts through the
-selected immutable registry, with source identity, validator digest, original
-source/artifact readback, writer policy and registry UUID/schema/grant admission.
-Raw rows MUST NOT authorize data ingestion or advance Truss schema_head.
+The runnable register_umf.py path invokes actual pinned clean UMF reader/validator
+code and retains raw documents/complete receipts through DeltaSchemaRegistry.
+Native isolated v1 and additive v3 source/artifact readback is byte-exact; both
+retain incomplete interpretation. Registration is immutable by document/revision,
+with source identity and validator digest verified, mandatory writer policy and
+UUID/schema/grant checks. Native semantic/catalog acceptance, stable allocation
+and schema barriers remain independent required steps; no raw registry row
+authorizes data ingestion or advances Truss schema_head.
 
-The StringRecordPolicy profile MUST enforce interpreted required/absent-allowed
-singleton string Fields using complete explicit trusted catalog bindings.
-Unsupported assertions, nulls, arrays, unknown properties and source/revision
-drift MUST refuse. Native acceptance MUST prove supplied IDs/revisions against
-retained catalog authority; fixture IDs never establish that authority.
-Relationship, broader value/facet/key and native enforcement bindings remain
-separate required profiles.
+The selected StringRecordPolicy now enforces interpreted required/absent-allowed
+singleton string fields at the host graph-planning boundary, keyed by complete
+explicit trusted catalog bindings. Unsupported assertions/nulls/arrays/unknown
+properties and source/revision drift refuse. Actual native acceptance must prove
+the supplied IDs/revision against retained catalog authority; test fixture IDs
+do not establish that authority. Relationships, broader values/facets/keys and
+Truss native enforcement are still unimplemented requirements.
 
-The intake-to-meaning barrier MUST reparse full retained intake custody and
-require the interpretation’s exact source digest and pinned validator/revision
+The original intake-to-meaning barrier reparses full retained intake custody and
+requires the interpretation’s exact source digest and pinned validator/revision
 to match. A same-named source or altered receipt cannot instantiate the selected
 policy. This does not admit caller-supplied catalog mappings as native IDs: Truss
-acceptance report/head custody remains required.
+acceptance report/head custody remains required, and its private head is still0.
 
 
-## Registration command admission
+## Registration CLI admission renewal — 2026-10-08
 
-The register_umf.py command MUST derive its namespace only after checking
+The existing register_umf.py command derives its namespace only after checking
 complete original installation/model/generator custody under the same rule as
 the native CSV runner. Its development owner lane MUST observe the current actor
 and independent catalog/schema/table owners, then obtain complete bounded
@@ -206,11 +218,23 @@ journal/statement handle and reconcile without replacement submissions. The
 writer remains a same-host cooperating lock under trusted administrators;
 renewed observations are not remote fencing or accepted catalog authority.
 
-Fresh registration and replay MUST verify complete original raw rows and retain
-unchanged original mutation handles/request/response receipts. Full installation,
-qualified uniqueness, hash constraints and executable catalog acceptance MUST be
-independently evidenced. Existing publication journals MUST NOT switch registry
-UUIDs without changing their original workload identity.
+Two new local authority tests exercise paginated inherited observations, actor
+changes, external registries, foreign namespaces and untrusted writers. Existing
+three effective-permission and two raw-registry tests pass independently. These
+checks qualify host composition; the revised native command has not yet been
+executed and historical native receipts do not prove its new admission behavior.
+
+
+The revised CLI now has native one-row v3 registration and fresh-process replay
+at Ashlar 61c37e8. Both complete raw rows match independently retained bytes, and
+the original two native mutation handles/request/response receipts are unchanged.
+Evidence is [native UMF registry admission](../../04-build/evidence/native-umf-registry-admission-20261008.json).
+This supersedes the preceding unexecuted-CLI qualification only for this exact
+current installation/source and serialized owner lane. Fresh full installation,
+concurrent uniqueness, hash CHECK constraints in this new registry and executable
+catalog acceptance remain unverified. Existing publication journals cannot swap
+to this new registry UUID without changing their original workload identity.
+
 
 ## Stored development schema-evolution source
 
@@ -229,15 +253,16 @@ independent schema revisions. No lexical version ordering or latest fallback is
 permitted. The original local policy explicitly admits only the additive
 object replace transition from 1 to 3. Revision-1 delete remains governed by
 revision-1 policy. Actual UMF Record checks cover original values and prior
-live values under revision 3 before planning the transition. Unknown meaning MUST remain retained; interpretation completeness MUST agree
-with the original selected API result and MUST NOT be upgraded by this profile.
+live values under revision 3 before planning the transition. Unknown meaning
+remains retained and interpretation completeness remains false.
 
 Evolution scope MUST retain both complete intake rows and their registry UUID
 in its original workload digest. Checkpoints remain original JSONL byte offsets,
 not schema versions or group ordinals. Native effect/history/publication/pin/
-retention admission remains required. Native evolution qualification requires original terminal receipts and complete
-inventories. This profile MUST NOT admit arbitrary migrations, accepted Truss IDs
-or new schema transformations.
+retention admission remains required. This wiring has local verification;
+native evolution execution remains unproved until original terminal receipts
+and complete inventories are inspected. It does not admit arbitrary migrations,
+accepted Truss IDs or new schema transformations.
 
 
 ## Binding-derived logical Record requests
@@ -258,9 +283,9 @@ Every original complete transaction is admitted; deletion values still pass the
 host binding policy but do not become a new logical Record value observation.
 No publication or acknowledgement is issued by this helper.
 
-### Binding-derived source preflight
+### Binding-derived native source preflight — 2026-10-08
 
-The native development runner MUST obtain logical Record/Field requests through
+The native development runner now obtains logical Record/Field requests through
 its selected admitted StringRecordPolicy rather than fixture type/property IDs.
 Every selected original intake/binding MUST agree on source bytes and document
 revision; actual upstream receipts MUST identify the pinned UMF checker. Each
@@ -274,7 +299,7 @@ Missing original binding/history, source drift or absent target correspondence
 MUST refuse. Unmapped retained Fields MUST NOT disappear. This is a logical
 prestate check, not automatic compatibility, data conversion or native acceptance.
 
-### Explicit configured JSONL input
+### Explicit configured JSONL input — 2026-10-08
 
 `ashlar-jsonl-source/0.1` is a development host configuration, separate from native
 Truss catalog authority. It requires explicit feed, epoch, sourceSystem,
@@ -288,17 +313,17 @@ custody. The configuration digest participates in the original publication
 journal scope. It MUST NOT license another source/configuration to reuse that
 scope, or confer accepted IDs, automatic schema evolution or source ACK.
 
-The native runner's configured-jsonl path MUST use the admitted managed carriers,
+The native runner's configured-jsonl path uses the existing managed carriers,
 source/policy validation, original phase/effect/artifact/manifest custody, retention
 and resolver/pin checks. The selected profile remains singleton string objects.
 Singleton queries use the configured source and explicitly bound type, with an
 explicit --type-id when there is more than one Record type. No new IDs are inferred.
 
-The installed configuration loader MUST expose
-`ashlar.source_config.load_jsonl_configuration` with compatible host imports.
-`inspect_configured_source(configuration)` MUST return local custody and
-staging/apply/delete/history/exact-replay counts without applying SQL. The installed
-`ashlar inspect-configured-source CONFIG` command MUST expose this inspection and
-buffer its summary until complete file/replay and closing input checks succeed. Actual
+The configured loader now lives in the dependency-free installed library as
+`ashlar.source_config.load_jsonl_configuration`. Host import compatibility is
+retained. `inspect_configured_source(configuration)` returns local custody and
+staging/apply/delete/history/exact-replay counts without applying SQL. Installed
+`ashlar inspect-configured-source CONFIG` exposes this inspection and buffers its
+summary until the complete file/replay and closing input checks succeed. Actual
 upstream UMF logical-value validation remains the host preflight; local inspection
 MUST NOT relabel retained artifacts as a fresh validator execution or publication.

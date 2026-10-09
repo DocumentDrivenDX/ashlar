@@ -15,7 +15,7 @@ ddx:
 
 | Date | Status | Deciders | Confidence |
 | --- | --- | --- | --- |
-| 2026-10-08 | Accepted direction; signing declaration approved | Ashlar owner selects full microsite, Innsigle and GitHub Pages | Selected direction; source signing and deployment require independent evidence |
+| 2026-10-08 | Accepted direction; signing declaration approved | Ashlar owner selects full microsite, Innsigle and GitHub Pages | Local Hugo build and source integration inspected; live deployment still to verify |
 
 ## Context
 
@@ -74,9 +74,10 @@ separate from product support, evidence correctness and production security.
 | Mobile schema labels become unreadable | High / poor usability | Scrollable diagram panel, text alternative and mobile browser inspection |
 | Source/runtime claims drift | Medium / misleading readers | Link exact qualified evidence; review pages with governing changes |
 
-Deployment qualification MUST verify GitHub Pages configuration, repository
-visibility, administrator/push authority, local build/routes, source signing
-and live published output. Retain independent evidence before claiming support.
+GitHub Pages configuration and successful live deployment are not assumed.
+Repository visibility and administrator/push permissions were read through the
+GitHub API. Local build and route checks pass; record signing/live verification
+in the deployment evidence before claiming completion.
 
 ## Concern Impact
 
