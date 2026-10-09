@@ -7,9 +7,11 @@ closed; this proof does not admit aggregates or numerical predicates.
 import hashlib,json
 
 
-def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False, native_null=False):
+def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False, native_null=False, distinct=False):
     if type(native_null) is not bool:
         raise ValueError('Explicit native-null opt-in must be Boolean')
+    if type(distinct) is not bool or (distinct and native_null):
+        raise ValueError("Explicit separate DISTINCT host opt-in required")
     native_null_ids = set()
     native_null_graph_ids = set()
 
@@ -52,9 +54,10 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
     plan = artifact.get('logicalPlan')
     closed(plan, ('aggregate', 'filters', 'groups', 'irVersion', 'joins', 'limit',
                   'modulePins', 'order', 'outputs', 'pageKey', 'readProfile',
-                  'requiredCapabilities', 'source', 'typeGraph'))
+                  'requiredCapabilities', 'source', 'typeGraph') + (('distinct',) if distinct else ()))
     if (plan['irVersion'] != 'weft-ir/0.3.0' or plan['aggregate'] is not False
-            or plan['groups'] != [] or any(plan[k] is not None for k in ('limit', 'pageKey', 'readProfile'))
+            or plan['groups'] != [] or any(plan[k] is not None for k in ('pageKey', 'readProfile'))
+            or (plan['limit'] is not None and (not distinct or type(plan['limit']) is not int or not 1 <= plan['limit'] <= 1000))
             or plan['modulePins'] != binding['modelPins']):
         raise ValueError('Empty arithmetic checks require a complete field-only row plan')
     allowed = {'project', 'scan', 'filter', 'equal', 'innerJoin', 'order.asc', 'and',
@@ -62,6 +65,14 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
                'type.string', 'type.boolean', 'type.decimal', 'compare.notEqual',
                'project.positionedOutputs', 'compare.less', 'compare.lessEqual',
                'compare.greaterEqual', 'compare.scalarJoin'}
+    if distinct:
+        if (plan['distinct'] is not True or 'project.distinct' not in plan['requiredCapabilities']
+                or 'type.string' not in plan['requiredCapabilities']
+                or len(set(plan['requiredCapabilities'])) != len(plan['requiredCapabilities'])
+                or ('limit' in plan['requiredCapabilities']) != (plan['limit'] is not None)
+                or ('order.asc' in plan['requiredCapabilities']) != bool(plan['order'])):
+            raise ValueError('Exact DISTINCT member and capability required')
+        allowed |= {'project.distinct', 'limit'}
     if native_null:
         allowed |= {'predicate.nativeNull', 'compare.nullAwareStringEqual', 'value.nativeNull', 'value.presence'}
     if type(plan['requiredCapabilities']) is not list or any(
@@ -293,6 +304,13 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         decoders = {'string': 'text', 'integer': 'exact-integer', 'decimal': 'exact-decimal', 'boolean': 'boolean'}
         if representation['kind'] != 'scalar' or representation['carrier'] != 'text' or representation['logicalType'] != d['type'] or representation['decoder'] != decoders[d['type']['family']]:
             raise ValueError('Original exact output carrier differs')
+    if distinct:
+        projected = {(o['expression']['scan'], identity(o['expression']['identity'])) for o in plan['outputs']}
+        if any((f['scan'], identity(f['identity'])) not in projected for f in plan['order']):
+            raise ValueError('DISTINCT order requires exact projected scan and Field identity')
+        for column in columns:
+            if column['representation'] != {'kind':'scalar','carrier':'text','logicalType':{'family':'string','facets':{},'nullable':False},'decoder':'text'}:
+                raise ValueError('DISTINCT requires required exact String tuple cells')
     obligations = [o for o in artifact.get('obligations', []) if o.get('id') == 'ashlar.candidate.scalarIntegrity']
     if len(obligations) != 1:
         raise ValueError('Original source-integrity obligation required')

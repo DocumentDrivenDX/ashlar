@@ -99,11 +99,18 @@ class NativeGuardRefusal(ValueError):
         super().__init__('Original native '+obligation+' refused before user query')
         self.evidence={'obligation':obligation,'check':check,'rows':rows,'priorChecks':prior_checks,'userSqlExecuted':False,'resultReleased':False}
 
-def execute_guarded(provider,request,artifact,*,context,public_source=None,positioned_outputs=False,native_null=False):
+def execute_guarded(provider,request,artifact,*,context,public_source=None,positioned_outputs=False,native_null=False,distinct=False):
     # Private snapshots precede every admission callback and native action.
     request,artifact=copy.deepcopy(request),copy.deepcopy(artifact)
     binding=json.loads(request['target']['bindingJson'])
     if request['target']!={**BACKEND,'bindingJson':request['target']['bindingJson'],'bindingSha256':hashlib.sha256(request['target']['bindingJson'].encode()).hexdigest()} or artifact.get('status')!='compiled' or artifact.get('bindingSha256')!=request['target']['bindingSha256'] or artifact.get('modelPins')!=binding['modelPins']:raise ValueError('Exact compiler/binding custody required')
+    plan = artifact.get('logicalPlan',{})
+    uses_distinct = 'distinct' in plan or 'project.distinct' in plan.get('requiredCapabilities',[])
+    if type(distinct) is not bool or (uses_distinct and not distinct) or (distinct and native_null):
+        raise ValueError('Explicit separate DISTINCT host opt-in required before callbacks')
+    if distinct:
+        from weft_field_plan import admit_field_plan
+        admit_field_plan(artifact,binding,request['modules'],distinct=True)
     null_caps = {'predicate.nativeNull','compare.nullAwareStringEqual','value.nativeNull'}
     uses_null = bool(null_caps & set(artifact.get('logicalPlan',{}).get('requiredCapabilities',[])))
     uses_null = uses_null or any(p.get('home',{}).get('encoding')=='ashlar-weft-json-native-null/0.1-candidate' for r in binding.get('records',[]) for p in r.get('properties',[]))
@@ -122,7 +129,7 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
         if not positioned_outputs:raise ValueError('Positioned outputs require explicit host opt-in')
         admit_positioned_outputs(artifact)
         from weft_field_plan import admit_field_plan
-        admit_field_plan(artifact,binding,request['modules'],positioned_output_only=True)
+        admit_field_plan(artifact,binding,request['modules'],positioned_output_only=True,distinct=distinct)
         if not callable(getattr(provider,'sql_ordered',None)):raise ValueError('Explicit native ordered transport required')
     elif any('carrierName' in c for c in artifact.get('columns',[])) or 'project.positionedOutputs' in artifact.get('logicalPlan',{}).get('requiredCapabilities',[]):
         raise ValueError('Positioned descriptor requires explicit obligation handler')
@@ -134,11 +141,11 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
     arithmetic=params_by_id['ashlar.arithmetic.exact']
     if not arithmetic['checks']:
         plan=artifact.get('logicalPlan',{})
-        if native_null:
-            pass  # complete explicit original null-aware field proof above
+        if native_null or distinct:
+            pass  # complete explicit original optional/distinct field proof above
         elif any(plan.get(k) for k in ('filters','joins','order')):
             from weft_field_plan import admit_field_plan
-            admit_field_plan(artifact,binding,request['modules'])
+            admit_field_plan(artifact,binding,request['modules'],distinct=distinct)
         else:admit_operator_free_plan(artifact,binding)
     if arithmetic.get('nativeRepresentation')!='DECIMAL(38,0) coefficients' or type(arithmetic.get('maxScale'))is not int or arithmetic['maxScale']!=18:raise ValueError('Exact native arithmetic profile required')
     if any(c.get('phase')not in ('join-candidates','where-candidates','projection-survivors') for c in arithmetic['checks']):raise ValueError('Original arithmetic evaluation phases required')
