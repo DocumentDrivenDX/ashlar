@@ -1,0 +1,161 @@
+{
+  "format": "umf.graph-candidate-provenance-audit",
+  "version": "1.0.0",
+  "candidates": [
+    {
+      "pack": "archaeology",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "401c0743e6aa8eddf541c49bb719c35e7fa67fb31113f494e94d09766d9b124f",
+      "fixture": "spec/domain-packs/archaeology/graph/fixture.json",
+      "archive": "fixtures/domain-packs/archaeology-1.0.0.zip"
+    },
+    {
+      "pack": "commerce",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "1a03b93174be64e83f8b9e79b115570fe5950e2277780041553f3ef0a782ef1a",
+      "fixture": "spec/domain-packs/commerce/graph/fixture.json",
+      "archive": "fixtures/domain-packs/commerce-1.0.0.zip"
+    },
+    {
+      "pack": "construction",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "5b3e687f25d1bdbb8dda3dfebc75b81fd8c7a4c1ec71f046a0f199d86619e3cc",
+      "fixture": "spec/domain-packs/construction/graph/fixture.json",
+      "archive": "fixtures/domain-packs/construction-1.0.0.zip"
+    },
+    {
+      "pack": "cybersecurity",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "778d70a2a1b9b48d558e85a89e3a3ddbe4177fcf1123ace7657134c83ec03b15",
+      "fixture": "spec/domain-packs/cybersecurity/graph/fixture.json",
+      "archive": "fixtures/domain-packs/cybersecurity-1.0.0.zip"
+    },
+    {
+      "pack": "ecology",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "353f4fedbcd2f3d1a8ee13ad22b1bf496b430dcd766c5d0b1c6fb94d3e0e7481",
+      "fixture": "spec/domain-packs/ecology/graph/fixture.json",
+      "archive": "fixtures/domain-packs/ecology-1.0.0.zip"
+    },
+    {
+      "pack": "education",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "9c47e41afbca14a7f240ff827c7ae5abe4f64b6560f662773bc82a26fb800ae8",
+      "fixture": "spec/domain-packs/education/graph/fixture.json",
+      "archive": "fixtures/domain-packs/education-1.0.0.zip"
+    },
+    {
+      "pack": "energy",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "038a91d10c3d9e2da113ad95014ac23abca9229f6a46b0ed191a6a73b54996e5",
+      "fixture": "spec/domain-packs/energy/graph/fixture.json",
+      "archive": "fixtures/domain-packs/energy-1.0.0.zip"
+    },
+    {
+      "pack": "hr",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "8ff57cfa779e917860e650f60a1394a3689020adb49448c9acf21ed9eeaf1f22",
+      "fixture": "spec/domain-packs/hr/graph/fixture.json",
+      "archive": "fixtures/domain-packs/hr-1.0.0.zip"
+    },
+    {
+      "pack": "legal",
+      "classification": "historical-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.1.0",
+      "source_sha256": "2c8809b23b115947eef46e026f7b2c2d854fdd50baaddf3c7725fc3c07cd6745",
+      "fixture": "spec/domain-packs/legal/graph/fixture.json",
+      "archive": "fixtures/domain-packs/legal-1.0.0.zip"
+    },
+    {
+      "pack": "manufacturing",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "0de0757f33542e35c3e7c08e26b1766e016ef436490b759e5934c5117caf3388",
+      "fixture": "spec/domain-packs/manufacturing/graph/fixture.json",
+      "archive": "fixtures/domain-packs/manufacturing-1.0.0.zip"
+    },
+    {
+      "pack": "martech",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "762ec32fb7d3d2f42a5878359bb98341cecc3730cec20e11e64939d431ab2404",
+      "fixture": "spec/domain-packs/martech/graph/fixture.json",
+      "archive": "fixtures/domain-packs/martech-1.0.0.zip"
+    },
+    {
+      "pack": "medical",
+      "classification": "historical-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.1.0",
+      "source_sha256": "bc0ab3389b3abd8a54e48b2752e6e08a6b0abfb027c54bf3b9b08c6126bd2e39",
+      "fixture": "spec/domain-packs/medical/graph/fixture.json",
+      "archive": "fixtures/domain-packs/medical-1.0.0.zip"
+    },
+    {
+      "pack": "payments",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "bbb60df8dbe85d745bf6184d83f82e7b037253d63deb43ef072399807ff8c9ee",
+      "fixture": "spec/domain-packs/payments/graph/fixture.json",
+      "archive": "fixtures/domain-packs/payments-1.0.0.zip"
+    },
+    {
+      "pack": "real-estate",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "ce89d38ba5764ff5cbb76193c5e016c48ef6a1883c625d04d9b12daffc7549a4",
+      "fixture": "spec/domain-packs/real-estate/graph/fixture.json",
+      "archive": "fixtures/domain-packs/real-estate-1.0.0.zip"
+    },
+    {
+      "pack": "supply-chain",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "baf888ab976749e589df385c76900ebf146959b61eaa4b55ab840e142b54ae22",
+      "fixture": "spec/domain-packs/supply-chain/graph/fixture.json",
+      "archive": "fixtures/domain-packs/supply-chain-1.0.0.zip"
+    },
+    {
+      "pack": "transit",
+      "classification": "current-pack",
+      "source_version": "1.0.0",
+      "current_version": "1.0.0",
+      "source_sha256": "327d24df68a9f33b1c2668357357586999d3d62919656590bf73ec9b5c1d0a0d",
+      "fixture": "spec/domain-packs/transit/graph/fixture.json",
+      "archive": "fixtures/domain-packs/transit-1.0.0.zip"
+    }
+  ],
+  "without_candidate": [
+    "gtfs-schedule",
+    "medical-carrier",
+    "medical-epidemiology",
+    "medical-imaging",
+    "medical-terminology",
+    "movielens",
+    "noaa-ghcn-daily",
+    "nyc-tlc"
+  ],
+  "qualification": "Artifact provenance only. Historical candidates do not qualify current pack revisions; absent candidate data does not negate schema-only graph targets. No native graph admission."
+}

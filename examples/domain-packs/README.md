@@ -55,12 +55,16 @@ keys need an explicit injective storage binding. Existing Ashlar UMF 0.7 evidenc
 cannot qualify these 0.8 ontologies. Use UMF-owned validation/interpretation and
 retain unknown extension bytes before executable admission.
 
-Two observed custody gaps remain: the legal and medical graph fixtures' declared
-pack SHA-256 differs from their pinned `pack.json`; their ontology SHA-256 matches.
-The inventory reports both mismatches. Neither source is silently repinned or
-accepted for execution. Medical's required stage remains outstanding and must
-resolve its binding provenance, preserve source notices, and avoid clinical
-inference. Commerce's graph pack and ontology digests both match.
+Graph candidates must retain the pack revision that created them. Legal and
+medical candidates reference historical 1.0 packs; current pack metadata is 1.1.
+Their original source-pack bytes are now retained and verified by UMF's
+[graph provenance audit](../../docs/helix/04-build/evidence/umf-graph-provenance-20261009.json)
+at commit `45473e71d5dfe9aa80abe3e346243b8efcbf1a37`. It distinguishes 14 current
+candidates, two historical candidates and eight packs without candidate datasets.
+The original pinned inventory remains unchanged: its mismatch observations refer
+to current metadata, not missing historical provenance. Historical candidates
+must not be repinned to current models or treated as current-model execution.
+Medical admission must preserve source notices and avoid clinical inference.
 
 The original commerce scenario expectations use template IDs, whereas the graph
 fixture is seeded independent-component replay with tuple IDs. Independent query

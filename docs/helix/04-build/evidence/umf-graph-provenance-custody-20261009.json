@@ -1,0 +1,7 @@
+{
+  "upstream_revision": "45473e71d5dfe9aa80abe3e346243b8efcbf1a37",
+  "script_sha256": "4a6603af568bdd8f248b3e3c6e281bc0e7ba32c21893098b1dd5863861d50e42",
+  "report_sha256": "02ca165c680e350a4dba56dd32cf01fe57ccf20432e0e8c636de80a07c818ef1",
+  "original_inventory_revision": "1f7b5f5d2a355c4b476e3a96b289b9048f03f567",
+  "qualification": "Upstream artifact-provenance audit only; historical legal/medical 1.0 candidates do not qualify current 1.1 models or native graph execution."
+}
