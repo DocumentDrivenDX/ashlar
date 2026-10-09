@@ -119,3 +119,28 @@ class Tests(unittest.TestCase):
         driver.transport=SimpleNamespace(targets={table:target},_detail=detail,query=select)
         with self.assertRaises(LocalDeltaError):driver.descriptors('original-publication')
         self.assertEqual(native['checks'],2)
+    def test_explicit_source_port_required_and_metadata_cannot_change(self):
+        from types import SimpleNamespace
+        from run_local_outbox_publication import NativeDriver
+        class Admission:
+            facts={'profile':'explicit-test-only','qualification':'Finite test profile'}
+            def metadata(self):return dict(self.facts)
+            def admit(self,change):return None
+        admission=Admission();driver=NativeDriver.__new__(NativeDriver);driver.source_admission=admission;driver.original_admission=encoded(admission.metadata());driver.allowed_changes=('original',)
+        driver.schema_admit('original')
+        with self.assertRaises(PermissionError):driver.schema_admit('commerce-replacement')
+        admission.facts={**admission.facts,'profile':'replacement'}
+        with self.assertRaises(PermissionError):driver.schema_admit('original')
+        with self.assertRaises(TypeError):NativeDriver(None,None,None,None,None,None,None)
+    def test_incomplete_or_reused_current_core_receipt_cannot_admit_other_source(self):
+        import hashlib
+        from run_local_outbox_publication import FixedStringAdmission,RECORD_CHECK_PIN
+        changes=tuple(c for f in fixture() for _,b in f['batches'] for c in changes_from_batch(b))
+        records=[{'deliveryId':c.delivery_id,'recordSha256':c.raw_digest,'result':{'validation':{'valid':True,'complete':True}}} for c in changes if c.state.key.kind=='object' and c.operation!='delete']
+        receipt={'producerRevision':RECORD_CHECK_PIN,'sourceSha256':hashlib.sha256((ROOT/'examples/end-to-end/schema-v3.umf.json').read_bytes()).hexdigest(),'requestSha256':'a'*64,'records':records}
+        admission=FixedStringAdmission(changes,receipt,receipt_bytes=encoded(receipt).encode());admission.admit(changes[0])
+        wrong={**receipt,'records':records[:-1]}
+        with self.assertRaises(PermissionError):FixedStringAdmission(changes,wrong,receipt_bytes=encoded(wrong).encode())
+        from dataclasses import replace
+        changed=replace(changes[0],state=replace(changes[0].state,key=replace(changes[0].state.key,type_id=1)))
+        with self.assertRaises(PermissionError):FixedStringAdmission((changed,)+changes[1:],receipt,receipt_bytes=encoded(receipt).encode())

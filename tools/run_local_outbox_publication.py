@@ -24,7 +24,7 @@ from local_outbox_connection import connect, CONTAINER
 from postgres_transactions import Session
 from protected_outbox_ack import AckScope, ProtectedOutboxAck, AckOutcomeUncertain, render_ddl
 from run_graph_release_graphframes import JARS, VERSIONS
-from run_local_example import fixture_inputs, check_value_request, fixture_value_entries
+from run_local_example import fixture_inputs, check_value_request, fixture_value_entries, RECORD_CHECK_PIN
 from whole_graph_sql import graph_sql_plan
 ROOT=Path(__file__).resolve().parents[1]
 CLOCK='2026-10-09T12:00:00+00:00'
@@ -154,9 +154,28 @@ class ManifestPort:
         store=DeltaManifestStore(RecoveryExecutor(self.executor),self.store.policy,self.store.table,self.store.uuid)
         return store.commit(row,context=context)
 
+class FixedStringAdmission:
+    """Explicit finite current-core Record plus declared fixture edge control."""
+    def __init__(self,changes,receipt,*,receipt_bytes):
+        self.changes=tuple(changes)
+        if type(receipt_bytes)is not bytes or json.loads(receipt_bytes)!=receipt:raise PermissionError('Original public receipt bytes required')
+        positives=[(c.delivery_id,c.raw_digest) for c in self.changes if c.state.key.kind=='object' and c.operation!='delete']
+        if [(r['deliveryId'],r['recordSha256']) for r in receipt['records']]!=positives or receipt['sourceSha256']!=hashlib.sha256((ROOT/'examples/end-to-end/schema-v3.umf.json').read_bytes()).hexdigest():raise PermissionError('Original fixed-string Record receipt custody differs')
+        if any(c.state.key.kind=='object' and c.state.key.type_id!=17 or c.state.schema_revision!='3' for c in self.changes):raise PermissionError('Original fixed-string source binding required')
+        if receipt['producerRevision']!=RECORD_CHECK_PIN or any(r['result']['validation']['valid'] is not True or r['result']['validation']['complete'] is not True for r in receipt['records']):raise PermissionError('Actual pinned fixed-string Record receipt required')
+        self.facts={'profile':'ashlar-fixed-string-and-finite-edge-admission/0.1','qualification':__doc__,'umf_revision':receipt['producerRevision'],'model_sha256':receipt['sourceSha256'],'public_record_request_sha256':receipt['requestSha256'],'public_record_receipt_sha256':hashlib.sha256(receipt_bytes).hexdigest(),
+                    'record_deliveries':[{'delivery_id':r['deliveryId'],'record_sha256':r['recordSha256']} for r in receipt['records']],'edge_scope':'Separately declared exact finite fixture changes; no UMF relationship support claim'}
+    def admit(self,change):
+        if change not in self.changes:raise PermissionError('Original finite string/edge source change not admitted')
+    def metadata(self):return json.loads(encoded(self.facts))
+
 class NativeDriver:
-    def __init__(self,transport,policy,context,tables,scope_ports,allowed_changes,columns):
+    def __init__(self,transport,policy,context,tables,scope_ports,allowed_changes,columns,*,source_admission):
         self.transport=transport;self.policy=policy;self.context=context;self.tables=tables;self.scope_ports=scope_ports;self.allowed_changes=allowed_changes;self.columns=columns
+        if not callable(getattr(source_admission,'admit',None)) or not callable(getattr(source_admission,'metadata',None)):raise PermissionError('Explicit admitted source profile required')
+        self.source_admission=source_admission;self.original_admission=encoded(source_admission.metadata())
+        facts=json.loads(self.original_admission)
+        if type(facts)is not dict or not isinstance(facts.get('profile'),str) or not facts['profile'] or not isinstance(facts.get('qualification'),str) or not facts['qualification'] or len(self.original_admission.encode())>1048576:raise PermissionError('Bounded explicit immutable source profile facts required')
         self.held=False;self.pin_held=False;self.lose_manifest=False;self.lose_ack=False;self.acks=[]
         if not transport.db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='local_publication_artifact'").fetchone():
             if transport.db.execute('SELECT 1 FROM local_plan LIMIT 1').fetchone():raise LocalDeltaError('Original artifact custody table absent after effects; no recreation')
@@ -164,6 +183,9 @@ class NativeDriver:
         if not transport.db.execute("SELECT 1 FROM sqlite_master WHERE type='table' AND name='local_source_plan'").fetchone():
             if transport.db.execute('SELECT 1 FROM local_plan LIMIT 1').fetchone():raise LocalDeltaError('Original source plan custody missing; no recreation')
             with transport.db:transport.db.execute('CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)')
+    def admission_facts(self):
+        if encoded(self.source_admission.metadata())!=self.original_admission:raise PermissionError('Original admitted source profile metadata changed')
+        return json.loads(self.original_admission)
     def require(self,context):
         if context is not self.context or not self.held:raise PermissionError('Original private writer interval required')
     @contextmanager
@@ -174,8 +196,12 @@ class NativeDriver:
             try:yield
             finally:self.held=False;fcntl.flock(gate,fcntl.LOCK_UN)
     def schema_admit(self,change):
+        self.admission_facts()
         if change not in self.allowed_changes:raise PermissionError('No independently admitted original source change')
+        if self.source_admission.admit(change) is not None:raise PermissionError('Original source semantic admission incomplete')
+        self.admission_facts()
     def source_admit(self,request):
+        self.admission_facts()
         checkpoint=json.loads(request['source_checkpoint_json']);port=self.scope_ports[checkpoint['feed']]
         connection=connect(port['reader'])
         try:
@@ -218,7 +244,7 @@ class NativeDriver:
             versions[target.table]=version;parity[role]=snapshot['row_sha256']
         proof={**proof,'original_generated_steps':active['generated_steps'],'zero_match_elisions':active['elisions'],'original_source_plan_sha256':sha(original_plan),'observed_native_prior':json.loads(original_plan)['observed_native_prior']}
         manifest={'publication_id':active['publication_id'],'profile_version':PROFILE,'table_versions_json':encoded(versions),'schema_revisions_json':request['schema_revisions_json'],'source_progress_json':encoded(active['progress']),
-                  'validation_report_json':encoded({'complete':True,'request_digest':request['request_digest'],'predecessor':request['predecessor'],'effect_parity':parity,'original_source_plan_sha256':sha(original_plan),'zero_match_elisions':active['elisions'],'source_oracle_sha256':sha(encoded(active['expected'])),'scope':__doc__}),'recorded_at':'1791547200000000'}
+                  'validation_report_json':encoded({'complete':True,'request_digest':request['request_digest'],'predecessor':request['predecessor'],'effect_parity':parity,'original_source_plan_sha256':sha(original_plan),'zero_match_elisions':active['elisions'],'source_oracle_sha256':sha(encoded(active['expected'])),'source_admission':self.admission_facts(),'scope':self.admission_facts()['qualification']}),'recorded_at':'1791547200000000'}
         active['manifest']=manifest;artifact=encoded({'effects':proof,'manifest':manifest})
         with self.transport.db:self.transport.db.execute('INSERT INTO local_publication_artifact VALUES(?,?,?)',(request['request_digest'],encoded(request),artifact))
         self.validate_manifest(manifest,context);return artifact
@@ -227,6 +253,7 @@ class NativeDriver:
     def validate_manifest(self,row,context):
         self.require(context);active=self.policy.active
         if row!=active['manifest']:raise PermissionError('Immutable original manifest differs')
+        if json.loads(row['validation_report_json']).get('source_admission')!=self.admission_facts():raise PermissionError('Manifest original admitted source profile differs')
         validate_union(active['previous_progress'],active['request'],row)
         self.source_admit(active['request'])
         for role,expected in active['expected'].items():
@@ -283,7 +310,7 @@ class NativeDriver:
                 def __getattr__(self,name):return getattr(connection,name)
                 def commit(self):connection.commit();raise OSError('Injected response loss after actual PostgreSQL COMMIT')
             return LostCommit()
-        ack=ProtectedOutboxAck(factory,self,self,self,port['scope'],supported_profiles=[PROFILE],supported_revisions={k:['3'] for k in json.loads(request['schema_revisions_json'])})
+        ack=ProtectedOutboxAck(factory,self,self,self,port['scope'],supported_profiles=[PROFILE],supported_revisions={k:[v] for k,v in json.loads(request['schema_revisions_json']).items()})
         raw_request=encoded(request).encode();raw_manifest=encoded(row).encode()
         try:receipt=ack.acknowledge(raw_request,raw_manifest,vector,context=context)
         except AckOutcomeUncertain:
@@ -344,7 +371,8 @@ def run(output,jars,umf_source):
             for record in batch.records:
                 event=json.loads(record.raw)
                 if event['entity_kind']=='object' and event['operation']!='delete':records.append({'deliveryId':record.delivery_id,'recordSha256':record.sha256,'values':fixture_value_entries(json.loads(event['props_json']))})
-    check_value_request(umf_source,intake,records,output/'umf-record-check.json')
+    record_receipt=check_value_request(umf_source,intake,records,output/'umf-record-check.json')
+    admission=FixedStringAdmission(tuple(allowed_changes),record_receipt,receipt_bytes=(output/'umf-record-check.json').read_bytes())
     from pyspark.sql import SparkSession
     spark=(SparkSession.builder.master('local[1]').appName('Ashlar small private publication ACK').config('spark.driver.memory','512m').config('spark.sql.shuffle.partitions','1').config('spark.databricks.delta.snapshotPartitions','1').config('spark.ui.enabled','false').config('spark.sql.session.timeZone','UTC').config('spark.sql.ansi.enabled','true').config('spark.jars',','.join(str(p) for p in jar_paths)).config('spark.sql.extensions','io.delta.sql.DeltaSparkSessionExtension').config('spark.sql.catalog.spark_catalog','org.apache.spark.sql.delta.catalog.DeltaCatalog').getOrCreate())
     transport=None
@@ -365,7 +393,7 @@ def run(output,jars,umf_source):
                     if position!=ordinal:raise ValueError('Fresh native source did not start at original position0')
                     connection.commit()
             finally:connection.close()
-        driver=NativeDriver(transport,policy,context,tables,ports,tuple(allowed_changes),{k:columns[k] for k in ('object_current','edge_current','tombstone','whole_source_history')})
+        driver=NativeDriver(transport,policy,context,tables,ports,tuple(allowed_changes),{k:columns[k] for k in ('object_current','edge_current','tombstone','whole_source_history')},source_admission=admission)
         def backend():
             target=driver.transport.targets[tables['attempts']]
             return StoredPublisherBackend(DeltaAttemptStore(AttemptExecutor(driver),CarrierPolicy(driver,'attempts'),target.table,target.uuid),driver,lambda request,supplied:ManifestPort(driver,request))
@@ -394,7 +422,7 @@ def run(output,jars,umf_source):
                 # New journal/transport/backend objects inspect original actual commits.
                 transport.close();context=object();policy=PrivatePolicy(context,tuple(targets));policy.initializing=False;policy.active=json.loads(encoded(active));policy.active.pop('manifest',None)
                 transport=LocalDeltaTransport(spark,output/'operations.sqlite','private-publication-pipeline',tuple(targets),policy)
-                driver=NativeDriver(transport,policy,context,tables,ports,tuple(allowed_changes),{k:columns[k] for k in ('object_current','edge_current','tombstone','whole_source_history')})
+                driver=NativeDriver(transport,policy,context,tables,ports,tuple(allowed_changes),{k:columns[k] for k in ('object_current','edge_current','tombstone','whole_source_history')},source_admission=admission)
                 descriptor=publish_outbox_transaction(backend(),'private-global-pipeline',transaction,predecessor=predecessor,schema_revisions_json=encoded(revisions),context=context)
             publications.append(dict(descriptor.raw));progress=next_progress;predecessor=descriptor.publication_id
             if ordinal==1:first_rows=expected;first_versions=dict(descriptor.versions)
