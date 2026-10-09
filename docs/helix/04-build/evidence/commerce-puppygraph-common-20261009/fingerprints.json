@@ -1,0 +1,18 @@
+{
+  "docs/helix/04-build/evidence/commerce-puppygraph-common-20261009/README.md": "452fbddd280a4ce72223f1ead37316c73eb05c550eab8df4309e09e33eb2ebec",
+  "docs/helix/04-build/evidence/commerce-puppygraph-common-20261009/activation-after.json": "1a032aa2f02bf4417cf19d076b94f778add5c7aeb9b2bce71eb98c41aea5302c",
+  "docs/helix/04-build/evidence/commerce-puppygraph-common-20261009/activation-before.json": "fcece4829c9b8dc7fe8fc8b05bcae4983e2567a4587b16ff62634e1323ab23a4",
+  "docs/helix/04-build/evidence/commerce-puppygraph-common-20261009/activation-request.json": "c8b3d1002655a1871a5b44116b12084cf4ed0657140fe43205827e70be247f95",
+  "docs/helix/04-build/evidence/commerce-puppygraph-common-20261009/activation-upload.json": "48f12b5c5aaa8db13bd50b0f4a602670cfc5fbe1db5bbfe7b33254887fec2461",
+  "docs/helix/04-build/evidence/commerce-puppygraph-common-20261009/model.json": "3c571cffc9ccfad13dfe5a51b3213f4c86ee0a2daa3a826afd6db7a009300833",
+  "docs/helix/04-build/evidence/commerce-puppygraph-common-20261009/predicate-observation.json": "4feb68cdf3b5d7b9d63ca9e81824a817dd523c0e88214234a0face839c0e2de3",
+  "docs/helix/04-build/evidence/commerce-puppygraph-common-20261009/prior-release-parity.json": "204d1c16087c7ae19c0052d44fbc5eee911b1ac1326a8f796c37acd2138479cc",
+  "docs/helix/04-build/evidence/commerce-puppygraph-common-20261009/queries.json": "d00b48b78d75bd5b9ab6c61f1a6fee95fdeef258ae5f0d3772848ea801e246ca",
+  "docs/helix/04-build/evidence/commerce-puppygraph-common-20261009/query-report.json": "f7d86bcdf998355625fce1d4ca75a76afc4f46a482ed1a8d46d426b2a7114950",
+  "docs/helix/04-build/evidence/commerce-puppygraph-common-20261009/receipt.json": "64e0d9a05c1ecd704706b47a9535acbb628d26ceb0c728eae3581324f83f80d0",
+  "docs/helix/04-build/evidence/commerce-puppygraph-common-20261009/runtime-custody.json": "bc25b5774d859ba2f4e20b4b8bd3491cc3d994ffd2232a4b181349246f28a37f",
+  "tests/test_commerce_puppygraph.py": "09f9e1504b6a24b0c22c0a87a66a11021d50c3bb521f7e4eba7269dbb5f82b63",
+  "tools/activate_commerce_puppygraph.py": "ae60ee27f6705b81606ba6eb031c68ad6d18ac2cda470cc306bf3e1b919d77ac",
+  "tools/check_commerce_puppygraph.py": "282619815d368a638dd999e9131aa94c88d3be5e0f669639d0fef5dbbf76d9cd",
+  "tools/prepare_commerce_puppygraph.py": "03ef643f979c7a64f825c3b35a85fd7b0cb30c4f378a0e071cc9be63d88b1e34"
+}

@@ -1,0 +1,13 @@
+{
+  "literal_query": "MATCH (n:CommerceNode) WHERE n.original_key = \"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"customers\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\" RETURN n.original_key AS key",
+  "literal_rows": [],
+  "native_ordered_key": [
+    {
+      "key": "[\"urn:umf:domain:commerce\",\"domain\",\"customers\",[\"[42,0,\\\"C1\\\"]\"]]"
+    }
+  ],
+  "original_key": "[\"urn:umf:domain:commerce\",\"domain\",\"customers\",[\"[42,0,\\\"C1\\\"]\"]]",
+  "parameter_query": "MATCH (n:CommerceNode) WHERE n.original_key = $key RETURN n.original_key AS key",
+  "parameter_rows": [],
+  "scope": "Observed exact lexical predicate incompatibility; successful singleton uses original-key order and native limit. No general literal/parameter support claim."
+}
