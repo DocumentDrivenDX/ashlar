@@ -1,0 +1,41 @@
+{
+  "format": "ashlar-commerce-template-oracle/0.1",
+  "inventory_sha256": "795261c25448998fdd1bf80fe42cd7df25dff72f7aca0e4149501ffc82fbe8a2",
+  "table_counts": {
+    "customers": 1,
+    "fulfillments": 2,
+    "invoices": 1,
+    "order_lines": 1,
+    "orders": 1,
+    "payments": 1,
+    "products": 1,
+    "refunds": 1,
+    "returns": 1,
+    "suppliers": 1
+  },
+  "scenarios": {
+    "partial-return": [
+      [
+        6,
+        2,
+        6
+      ]
+    ],
+    "fulfillment": [
+      [
+        "F2"
+      ]
+    ],
+    "settlement": [
+      [
+        "PAY1"
+      ]
+    ],
+    "refund": [
+      [
+        "RF1"
+      ]
+    ]
+  },
+  "qualification": "Independent original template-CSV expected results using exact integer/decimal arithmetic; no SQL execution, graph replay-key mapping, UMF admission or engine support proof."
+}

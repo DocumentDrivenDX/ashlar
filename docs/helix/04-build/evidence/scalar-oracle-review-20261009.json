@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-09",
+  "reviewer": "Astra Ultra",
+  "verdict": "approved-for-landing",
+  "blocking_findings": [],
+  "scope": "P05 exact scalar decoder and independent commerce template oracle foundations",
+  "files": {
+    "src/ashlar/weft_decode.py": "27d66d744ee129fdfecd045bff6af25935fcd7ade8dec30cd8489bb17257c532",
+    "tests/test_weft_decode.py": "c41e1a24fc94ec370bfd6d988ba8a4b8a897f42643a92485974ecae25a5a1626",
+    "tools/commerce_oracle.py": "d6342169e1749e9ed001faeb66ce6af4ca7ef63c9322a9ab99c04ea28f54122f",
+    "tests/test_commerce_oracle.py": "577e056bbbb3767f0c1e6ccf7f786f08a7a08968e012202dc16bc48e81a78ebe",
+    "docs/helix/04-build/evidence/commerce-template-oracle-20261009.json": "24401b3a521aa57afeb40dabf2d2a3745dce2a4bf81916139d6d81dc9a2da802"
+  },
+  "checks": [
+    "14 combined decoder/query/binding/oracle tests pass",
+    "Weft scalar ABI source pin2744531735c2a771fbe7ed24a7f67e3afc851b25 verified",
+    "Independent original CSV arithmetic matches explicit expected outcomes; tampering and symlinks refuse"
+  ],
+  "qualification": "No numeric/relationship field binding, UMF0.8 Weft admission or native numeric query support implied."
+}
