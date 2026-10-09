@@ -1,0 +1,186 @@
+{
+  "format": "ashlar-local-weft-typed-probe/0.1",
+  "state": "public-typed-pass-local-compatibility-screened",
+  "engine_profile": "experimental-local-spark3.5.3-delta3.2.1",
+  "jar_sha256": {
+    "io.delta_delta-spark_2.12-3.2.1.jar": "088e187da689a347a6a8556dcb22318e3dfcfb995d807f5e2c19b4d0a7ee9499",
+    "io.delta_delta-storage-3.2.1.jar": "4dcc179fc4076bda5060a4038f979c53e1f5916cf04971e28f9441db390763c7"
+  },
+  "compiler_revision": "2744531735c2a771fbe7ed24a7f67e3afc851b25",
+  "extension_sha256": "4eaadc7b9512c904665b9f554296c2a0ef03ad08d2587748b1e6292ae9a34004",
+  "umf_revision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+  "source_sha256": "4cab993ea0b909e2353c32605edc558db1229fe51a6d8deb2291c9fc422c7153",
+  "rows": 2,
+  "public_record_passes": 2,
+  "public_field_passes": 8,
+  "local_original_props_roundtrip": true,
+  "table": {
+    "name": [
+      "spark_catalog",
+      "default",
+      "object_current"
+    ],
+    "uuid": "13050ccd-0847-4386-b7f9-04bc62515197",
+    "version": 2
+  },
+  "probes": [
+    {
+      "name": "select",
+      "status": "compiled",
+      "published": false,
+      "profile_admitted": false,
+      "obligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.nativeProfile"
+      ],
+      "publication_guard": "refused: no immutable publication/authorization/pin custody; local table UUID is not a manifest UUID",
+      "native_profile_guard": "refused: Spark3.5.3 is not dbsql2026.39-qualified",
+      "screening": [
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 318)\n\n== SQL ==\nSELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BOOLEAN') THEN FALSE ELSE TRUE END\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        },
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 318)\n\n== SQL ==\nSELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p5)) = 'BIGINT' OR (schema_of_variant(variant_get(parse_json(r.props_json), :p5)) RLIKE '^DECIMAL\\\\([0-9]+,[0-9]+\\\\)$' AND coalesce(try_cast(regexp_extract(schema_of_variant(variant_get(parse_json(r.props_json), :p5)), ',([0-9]+)\\\\)$', 1) AS INT), 0) <= 2)) AND try_cast(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS DECIMAL(18,2)) IS NOT NULL) THEN FALSE ELSE TRUE END\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        },
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 318)\n\n== SQL ==\nSELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p6)) = 'STRING' AND instr(CAST(variant_get(parse_json(r.props_json), :p6) AS STRING), char(0)) = 0) THEN FALSE ELSE TRUE END\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        },
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 318)\n\n== SQL ==\nSELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p7)) = 'BIGINT' OR schema_of_variant(variant_get(parse_json(r.props_json), :p7)) RLIKE '^DECIMAL\\\\([0-9]+,0\\\\)$') AND try_cast(CAST(variant_get(parse_json(r.props_json), :p7) AS STRING) AS DECIMAL(38,0)) BETWEEN -9223372036854775808 AND 9223372036854775807) THEN FALSE ELSE TRUE END\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        },
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 281)\n\n== SQL ==\nWITH `s0` AS (SELECT CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS BOOLEAN) AS `f0`, CAST(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS DECIMAL(38,2)) AS `f1`, (CAST(CAST(variant_get(parse_json(r.props_json), :p6) AS STRING) AS STRING) COLLATE UTF8_BINARY) AS `f2`, CAST(CAST(variant_get(parse_json(r.props_json), :p7) AS STRING) AS DECIMAL(38,0)) AS `f3` FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)) SELECT CAST(`s0`.`f3` AS STRING) AS `quantity`, CAST(`s0`.`f1` AS STRING) AS `amount`, CAST(`s0`.`f0` AS STRING) AS `active`, CAST((`s0`.`f2` COLLATE UTF8_BINARY) AS STRING) AS `label` FROM `s0` ORDER BY `s0`.`f3` ASC LIMIT 10\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        }
+      ]
+    },
+    {
+      "name": "filter",
+      "status": "compiled",
+      "published": false,
+      "profile_admitted": false,
+      "obligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.nativeProfile"
+      ],
+      "publication_guard": "refused: no immutable publication/authorization/pin custody; local table UUID is not a manifest UUID",
+      "native_profile_guard": "refused: Spark3.5.3 is not dbsql2026.39-qualified",
+      "screening": [
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 318)\n\n== SQL ==\nSELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BOOLEAN') THEN FALSE ELSE TRUE END\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        },
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 318)\n\n== SQL ==\nSELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p5)) = 'BIGINT' OR (schema_of_variant(variant_get(parse_json(r.props_json), :p5)) RLIKE '^DECIMAL\\\\([0-9]+,[0-9]+\\\\)$' AND coalesce(try_cast(regexp_extract(schema_of_variant(variant_get(parse_json(r.props_json), :p5)), ',([0-9]+)\\\\)$', 1) AS INT), 0) <= 2)) AND try_cast(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS DECIMAL(18,2)) IS NOT NULL) THEN FALSE ELSE TRUE END\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        },
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 318)\n\n== SQL ==\nSELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p6)) = 'BIGINT' OR schema_of_variant(variant_get(parse_json(r.props_json), :p6)) RLIKE '^DECIMAL\\\\([0-9]+,0\\\\)$') AND try_cast(CAST(variant_get(parse_json(r.props_json), :p6) AS STRING) AS DECIMAL(38,0)) BETWEEN -9223372036854775808 AND 9223372036854775807) THEN FALSE ELSE TRUE END\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        },
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 384)\n\n== SQL ==\nWITH `s0` AS (SELECT CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS BOOLEAN) AS `f0`, CAST(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS DECIMAL(38,2)) AS `f1`, CAST(CAST(variant_get(parse_json(r.props_json), :p6) AS STRING) AS DECIMAL(38,0)) AS `f2` FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)) SELECT CAST(`s0`.`f2` AS STRING) AS `quantity`, CAST(`s0`.`f1` AS STRING) AS `amount` FROM `s0` WHERE (`s0`.`f0` = CAST(:p7 AS BOOLEAN)) ORDER BY `s0`.`f2` ASC LIMIT 10\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        }
+      ]
+    },
+    {
+      "name": "group-count",
+      "status": "compiled",
+      "published": false,
+      "profile_admitted": false,
+      "obligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.nativeProfile"
+      ],
+      "publication_guard": "refused: no immutable publication/authorization/pin custody; local table UUID is not a manifest UUID",
+      "native_profile_guard": "refused: Spark3.5.3 is not dbsql2026.39-qualified",
+      "screening": [
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 318)\n\n== SQL ==\nSELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BOOLEAN') THEN FALSE ELSE TRUE END\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        },
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 202)\n\n== SQL ==\nWITH `s0` AS (SELECT CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS BOOLEAN) AS `f0` FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)) SELECT CAST(`s0`.`f0` AS STRING) AS `active`, CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS `n` FROM `s0` GROUP BY `s0`.`f0` ORDER BY `s0`.`f0` ASC LIMIT 10\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        }
+      ]
+    },
+    {
+      "name": "join",
+      "status": "compiled",
+      "published": false,
+      "profile_admitted": false,
+      "obligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.nativeProfile"
+      ],
+      "publication_guard": "refused: no immutable publication/authorization/pin custody; local table UUID is not a manifest UUID",
+      "native_profile_guard": "refused: Spark3.5.3 is not dbsql2026.39-qualified",
+      "screening": [
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 318)\n\n== SQL ==\nSELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BIGINT' OR schema_of_variant(variant_get(parse_json(r.props_json), :p4)) RLIKE '^DECIMAL\\\\([0-9]+,0\\\\)$') AND try_cast(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS DECIMAL(38,0)) BETWEEN -9223372036854775808 AND 9223372036854775807) THEN FALSE ELSE TRUE END\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        },
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 318)\n\n== SQL ==\nSELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p5 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p6 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p7 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p8)) = 'BIGINT' OR schema_of_variant(variant_get(parse_json(r.props_json), :p8)) RLIKE '^DECIMAL\\\\([0-9]+,0\\\\)$') AND try_cast(CAST(variant_get(parse_json(r.props_json), :p8) AS STRING) AS DECIMAL(38,0)) BETWEEN -9223372036854775808 AND 9223372036854775807) THEN FALSE ELSE TRUE END\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        },
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 208)\n\n== SQL ==\nWITH `s0` AS (SELECT CAST(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS DECIMAL(38,0)) AS `f0` FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)), `s1` AS (SELECT CAST(CAST(variant_get(parse_json(r.props_json), :p8) AS STRING) AS DECIMAL(38,0)) AS `f0` FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p5 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p6 AS BIGINT)) SELECT CAST(`s0`.`f0` AS STRING) AS `left_quantity`, CAST(`s1`.`f0` AS STRING) AS `right_quantity` FROM (`s0` INNER JOIN `s1` ON (`s0`.`f0` = `s1`.`f0`)) ORDER BY `s0`.`f0` ASC LIMIT 10\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        }
+      ]
+    },
+    {
+      "name": "count",
+      "status": "compiled",
+      "published": false,
+      "profile_admitted": false,
+      "obligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.nativeProfile"
+      ],
+      "publication_guard": "refused: no immutable publication/authorization/pin custody; local table UUID is not a manifest UUID",
+      "native_profile_guard": "refused: Spark3.5.3 is not dbsql2026.39-qualified",
+      "screening": [
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 318)\n\n== SQL ==\nSELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) THEN FALSE ELSE TRUE END\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        },
+        {
+          "state": "unsupported-original-sql",
+          "exception": "ParseException",
+          "message": "\n[PARSE_SYNTAX_ERROR] Syntax error at or near 'UTF8_BINARY'.(line 1, pos 129)\n\n== SQL ==\nWITH `s0` AS (SELECT 1 AS __row FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT)) SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS `n` FROM `s0`\n---------------------------------------------------------------------------------------------------------------------------------^^^\n"
+        }
+      ]
+    }
+  ],
+  "published": false,
+  "acknowledged": false,
+  "qualification": "Separately authored core0.7 typed model, public explicit core0.8 upgrade and field/Record checks, actual pinned Weft artifacts, unchanged emitted SQL screening on independent local Spark. No dbsql profile, native publication, accepted IDs or query runtime qualification."
+}

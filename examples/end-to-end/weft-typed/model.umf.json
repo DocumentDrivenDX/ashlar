@@ -1,0 +1,83 @@
+{
+  "umf": "0.7.0",
+  "id": "ashlar-independent-weft-typed-local",
+  "vocabularies": {},
+  "modules": [
+    {
+      "id": "typed",
+      "namespace": "urn:ashlar:independent:weft-typed",
+      "elements": [
+        {
+          "id": "item",
+          "name": "Item",
+          "kind": "record",
+          "members": [
+            {
+              "module": "typed",
+              "element": "quantity"
+            },
+            {
+              "module": "typed",
+              "element": "amount"
+            },
+            {
+              "module": "typed",
+              "element": "active"
+            },
+            {
+              "module": "typed",
+              "element": "label"
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "quantity",
+          "name": "quantity",
+          "kind": "field",
+          "scalarType": "integer",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {},
+          "facets": {
+            "integerWidth": {
+              "bits": 64,
+              "signed": true
+            }
+          }
+        },
+        {
+          "id": "amount",
+          "name": "amount",
+          "kind": "field",
+          "scalarType": "decimal",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {},
+          "facets": {
+            "precision": 18,
+            "scale": 2
+          }
+        },
+        {
+          "id": "active",
+          "name": "active",
+          "kind": "field",
+          "scalarType": "boolean",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {}
+        },
+        {
+          "id": "label",
+          "name": "label",
+          "kind": "field",
+          "scalarType": "string",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {}
+        }
+      ]
+    }
+  ]
+}

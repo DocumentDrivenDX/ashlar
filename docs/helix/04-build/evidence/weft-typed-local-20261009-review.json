@@ -1,0 +1,27 @@
+{
+  "reviewer": "Astra Ultra",
+  "result": "approved; no blocking findings",
+  "focused_tests": 7,
+  "original_output": "/private/tmp/ashlar-weft-typed-local-20261009-c",
+  "original_report_sha256": "4f68901cfae3ae2a3425c3c78cf21b920c5a709e35e654e41c8141b56a7a7607",
+  "artifacts": {
+    "summary.json": "4f68901cfae3ae2a3425c3c78cf21b920c5a709e35e654e41c8141b56a7a7607",
+    "count-request.json": "2ee8ea71766fcd75411828af2eb3a5ccdbb207d6b1490ca9ada56c7ae391c1ab",
+    "umf-request.json": "18e96f36faad56f1983f9beaaba99445cab9ddef08d06283acc47b9c2c0b0f9b",
+    "local-table.json": "e73b052e977f9d132021205f263d9b900657f68c120022c0be8e6618eb9b13af",
+    "group-count-request.json": "0355b51e9ca877ec794c8f85513a67fa0bc9638a5da2fb7adf3c67952b5c1d23",
+    "count-artifact.json": "903857586af62e57da0ece7bba397d4d0caf66e868fa3b6aff40e50529a89d5a",
+    "group-count-artifact.json": "cac77825b59bb51d3af34eef9c7e38f68ab2ee9a4500eb650d9affcd9efb36f0",
+    "select-artifact.json": "969feab4fbc981bafa9bc404f91d97b45958dbfab5819b0827e7f111bc3d7c85",
+    "umf-receipt.json": "76d92548c074d19521e702e923e0bb9e1a9def3792722897b0d799907a631197",
+    "select-request.json": "99b9b48c1a71fbe10ae0d70f84b280a6900f2cf871ff9c59df1e7a572f726bbb",
+    "filter-artifact.json": "e029c5ebec14ff0f2c5f521970d43ac2acfb8b4ddd98454cc176ccb001fe5095",
+    "filter-request.json": "cba56e7d4a8bf3e6221ca1ae249e17ad2bb82f7ee10fa2f9a356dfdc7755f745",
+    "join-artifact.json": "24ce8c105caecbdd3d67935ad4226a5d2052c7c0c446a44494bc402bf3938612",
+    "join-request.json": "c37c7be11a3cf3b10142000b2a1793f2f3483dafe97be5fbb01da3c5d976a4e9",
+    "object_current/_delta_log/00000000000000000001.json": "4d1b197247d9674ec5aa0eddc0b4e13b8cf4e84d7239702d80a3308229b6014c",
+    "object_current/_delta_log/00000000000000000000.json": "095635bd827bdf5afb02c837bad71b76d654010d3c0a306ffd7d943484dda647",
+    "object_current/_delta_log/00000000000000000002.json": "1f9537892ff04ac4d4c6dce81e9c7d38a665c78ce5face1807a3a28308340332"
+  },
+  "qualification": "Commerce full Delta rows and four scenarios independently verified. Weft original SQL fails Spark3.5 collation parsing; no successful query runtime or publication claim. Local compute only."
+}

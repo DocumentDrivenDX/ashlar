@@ -1,0 +1,22 @@
+[
+  {
+    "name": "select",
+    "sql": "SELECT i.quantity, i.amount, i.active, i.label FROM Item i ORDER BY i.quantity LIMIT 10"
+  },
+  {
+    "name": "filter",
+    "sql": "SELECT i.quantity, i.amount FROM Item i WHERE i.active = TRUE ORDER BY i.quantity LIMIT 10"
+  },
+  {
+    "name": "group-count",
+    "sql": "SELECT i.active, COUNT(*) AS n FROM Item i GROUP BY i.active ORDER BY i.active LIMIT 10"
+  },
+  {
+    "name": "join",
+    "sql": "SELECT i.quantity AS left_quantity, j.quantity AS right_quantity FROM Item i INNER JOIN Item j ON i.quantity = j.quantity ORDER BY i.quantity LIMIT 10"
+  },
+  {
+    "name": "count",
+    "sql": "SELECT COUNT(*) AS n FROM Item i"
+  }
+]

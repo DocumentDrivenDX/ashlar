@@ -1,0 +1,56 @@
+{
+  "counts": {
+    "edges": 10,
+    "isolates": 0,
+    "nodes": 11,
+    "one_hop": 10,
+    "two_hop": 11
+  },
+  "exact_full_row_parity": true,
+  "field_receipts": 37,
+  "format": "ashlar-commerce-graphframes-check/0.1",
+  "jar_sha256": {
+    "io.delta_delta-spark_2.12-3.2.1.jar": "088e187da689a347a6a8556dcb22318e3dfcfb995d807f5e2c19b4d0a7ee9499",
+    "io.delta_delta-storage-3.2.1.jar": "4dcc179fc4076bda5060a4038f979c53e1f5916cf04971e28f9441db390763c7",
+    "io.graphframes_graphframes-graphx-spark3_2.12-0.12.3.jar": "8bbd2bbb4c7a3b137e51b4f32f49a30a2ccf70eeb07b452cffa20090dd481b96",
+    "io.graphframes_graphframes-spark3_2.12-0.12.3.jar": "69d7909628caf42bcbe1c7e6e5a5a0901040d00583738d931af41bd72af1d3dc"
+  },
+  "key_receipts": 21,
+  "local_delta_versions": {
+    "edges": 0,
+    "nodes": 0
+  },
+  "oracle_sha256": "ecefcc260c9fdbbe44651035a71f64b8929c15540cac3a78181c0d31f1ae1140",
+  "qualification": "Original commerce CSV source-profile identities and relationship bindings only. Fresh public UMF selected field/key receipts; no complete Record/relationship-instance admission, accepted Truss IDs, native publication or direct UC access.",
+  "scenarios": {
+    "fulfillment": [
+      [
+        "F2"
+      ]
+    ],
+    "partial-return": [
+      [
+        6,
+        2,
+        6
+      ]
+    ],
+    "refund": [
+      [
+        "RF1"
+      ]
+    ],
+    "settlement": [
+      [
+        "PAY1"
+      ]
+    ]
+  },
+  "source_profile": "original-commerce-csv-public-field-key/0.1",
+  "upstream_commit": "1f7b5f5d2a355c4b476e3a96b289b9048f03f567",
+  "versions": {
+    "delta-spark": "3.2.1",
+    "graphframes-py": "0.12.3",
+    "pyspark": "3.5.3"
+  }
+}

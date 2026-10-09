@@ -1,0 +1,16 @@
+{
+  "reviewer": "Astra Ultra",
+  "result": "approved; no blocking findings",
+  "focused_tests": 7,
+  "original_output": "/private/tmp/ashlar-commerce-graphframes-20261009-c",
+  "original_report_sha256": "ff7db9bf4243a78b6181857d3a5803a92197a3b881622501804882d16b044c01",
+  "artifacts": {
+    "report.json": "ff7db9bf4243a78b6181857d3a5803a92197a3b881622501804882d16b044c01",
+    "original-commerce-oracle.json": "ecefcc260c9fdbbe44651035a71f64b8929c15540cac3a78181c0d31f1ae1140",
+    "umf-check.log": "05d35a7caa7fddafd59934740bc39c31a31a17385cd8a45817a2a68930bc38ef",
+    "scenario-observations.json": "0849adafb8af8d3fe890233fc156b3b2a477cbd5364dd820fa3c539e9ad06f8b",
+    "nodes/_delta_log/00000000000000000000.json": "e034df8a676c02f64e56d2b01924bb807b42281ebaecc8e7ed9b2fb09a0dffb9",
+    "edges/_delta_log/00000000000000000000.json": "250dbd89999fad744df88e624dc549bfc76b8d722f1d48d2198d10a8f8988905"
+  },
+  "qualification": "Commerce full Delta rows and four scenarios independently verified. Weft original SQL fails Spark3.5 collation parsing; no successful query runtime or publication claim. Local compute only."
+}
