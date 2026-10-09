@@ -5,15 +5,12 @@ A standard graph data model for Databricks.
 Ashlar starts with a shared structure for graph nodes on Databricks. Its name
 comes from precisely shaped stones that fit together into a larger structure.
 
-**Status:** Development toolkit with Unity Catalog Delta schema/publication
-components, local Delta ingest and protected PostgreSQL outbox ACK, and
-publication-bound commerce count, decimal/string and supplier-join queries.
-Original UMF0.8 admission, [four exact commerce arithmetic scenarios](docs/helix/04-build/evidence/commerce-arithmetic-weft-20261009/README.md),
-and Python/browser compiler parity have scoped local finite evidence.
-Original medical publication (51 objects, 62 edges, 113 history rows) and six
-publication-bound archaeology/ecology Weft field reads pass locally.
-Real Truss integration, Fabric GQL and the remaining domain/query corpus are
-unfinished. Native profiles and production authority require their own qualification.
+**Implementation status:** Development toolkit with local Delta ingest,
+protected PostgreSQL outbox ACK, publication-bound Weft queries, and immutable
+GraphFrames/PuppyGraph projections. See the [qualified query evidence](docs/helix/04-build/evidence/original-pack-weft-null-native-20261009/README.md)
+and [delivery scope](docs/helix/04-build/toolkit-delivery-plan.md) for exact subsets.
+Real Truss integration, Fabric GQL and the remaining query corpus are unfinished.
+Native profiles and production authority require their own qualification.
 
 Install the candidate toolkit locally (Python3.9+):
 
@@ -85,9 +82,9 @@ The bootstrap used HELIX 0.14.1. Resolve its graph, templates, and prompts from
 the installed plugin; the methodology catalog is not vendored here.
 
 Continue with the [runnable setup/source/query workflow](examples/end-to-end/README.md).
-The active goal still requires the real Truss catalog/producer/feed and completion
-of the caller-configured native source path. Native reads retain explicit identity,
-permissions, schema, finite-retention and pin checks. No scale benchmarks are scheduled.
+Native reads require explicit identity, permissions, schema, finite-retention
+and publication pin checks. Production Truss source registration requires an
+accepted catalog and a configured producer/feed.
 
 ## Naming
 
