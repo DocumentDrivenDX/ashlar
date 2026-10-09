@@ -5,11 +5,12 @@ A standard graph data model for Databricks.
 Ashlar starts with a shared structure for graph nodes on Databricks. Its name
 comes from precisely shaped stones that fit together into a larger structure.
 
-**Status:** Development toolkit with Unity Catalog managed Delta, immutable
-publication resolution, UMF-backed selected string-Record bindings and native
-singleton reads. Private CSV/JSONL and schema-evolution publication/read workflows
-have scoped native evidence; a Weft string/presence query also runs. Real Truss
-acceptance/producer/feed and production source fencing remain unfinished.
+**Status:** Development toolkit with Unity Catalog Delta schema/publication
+components, local Delta ingest and protected PostgreSQL outbox ACK, and
+publication-bound commerce count, decimal/string and supplier-join queries.
+Original UMF0.8 admission and exact integer queries have scoped local evidence.
+Real Truss integration, Fabric GQL and the remaining domain/query corpus are
+unfinished. Native profiles and production authority require their own qualification.
 
 Install the candidate toolkit locally (Python3.9+):
 
