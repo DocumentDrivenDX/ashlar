@@ -24,25 +24,41 @@ Delta tables representing a labeled property graph, then to bounded graph
 queries. Nodes and edges have types and properties; RDF triples and an RDF
 runtime are excluded. Delta is the warehouse storage format selected by the owner.
 
-The deliverable is an end-to-end toolkit: UMF definitions drive admitted graph
-schemas and UMF-generated Delta DDL; users ingest Truss and additional sources,
-evolve schemas and query immutable publications. Domain-pack examples must show
-exact typed values, relationships and source lineage through Weft and bounded
-releases to Microsoft Fabric Graph, GraphFrames and PuppyGraph. A source or engine
-that lacks a usable external interface must not prevent independent lanes.
+The immediate deliverable is a designed schema package: pinned logical profile,
+physical table contract and data definition language (DDL), integrity rules,
+synthetic examples, and a query feasibility decision. This framing pass defines
+those outcomes; it does not claim that the schemas or query tools exist yet.
+Success requires zero unexplained mapping loss, valid table creation on one
+pinned Databricks target, and exact expected results for the agreed query corpus.
 
-Success requires zero unexplained mapping loss, valid table creation on a pinned
-Databricks target, correct replay/deletes/history/publication boundaries and exact
-expected results for the supported query corpus. Real Truss acceptance/feed/ACK
-and native engine execution require their own evidence; a local database,
-simulator, export or model validation cannot substitute for those workflows.
+## Current milestone acceptance — owner revision2026-10-08
 
-Latency, freshness, throughput and the 1B-node/assumed 5B-edge planning scale are
-operational qualification targets, not architecture gates. Reuse existing
-measurements and keep new checks small. Production source authority, fencing,
-authorization and retention requirements remain mandatory for the corresponding
-support claim. Implementation status and results belong in the
-[execution plan](../04-build/end-to-end-plan.md) and build evidence.
+Close the physical-layout/schema-package milestone using the existing bounded
+synthetic evidence and local package review. Its required outcomes are concrete
+Delta definitions, native structural evidence, exact identity/value/unknown-content
+preservation, explicit integrity/enforcement responsibilities, pinned publication
+and native lookup evidence, and scoped graph-tool mappings. UMF binding is deferred.
+The [milestone acceptance record](../02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md)
+identifies the required evidence and its limits.
+
+Provisional latency, publication freshness, sustained/burst throughput and1B-node/
+5B-edge capacity are operational qualification targets, not gates for this design
+milestone or prerequisites to implementation. Record misses and unknowns without
+asserting performance support. No further scale benchmark is required. Production
+source authority, concurrency fencing, authorization delegation, retention and
+external engine deployment remain requirements for their later delivery scopes;
+closing this milestone does not declare those scopes complete.
+
+## End-to-end owner direction —2026-10-08
+
+The next goal is a usable toolkit: run Truss, supply UMF schema/model definitions
+to both Truss and Ashlar, add/evolve Ashlar schemas, stream Truss data and
+additional sources into managed Delta, and query a completed publication through
+the resolver. UMF integration is now in scope for this goal; earlier deferral
+language remains historical for the closed physical-layout milestone. The
+[implementation plan](../04-build/end-to-end-plan.md) defines executable slices
+and full end-to-end acceptance. A local database alone is not a Truss runtime;
+small simulator results cannot close the live workflow.
 
 ## Problem and Goals
 
@@ -63,21 +79,21 @@ have not been measured with a first user.
 
 ### Success Metrics
 
-Required acceptance targets; observations and support limits are recorded in build evidence.
+Proposed milestone acceptance targets; none is an observed result.
 
 | Metric | Target | Baseline | Measurement Method | Cadence |
 | --- | --- | --- | --- | --- |
-| Semantic accountability | 100% selected constructs mapped, rejected, or explicitly reported; zero unexplained losses | Evidence scoped per profile | Reviewed source/target/recovery corpus | Each profile revision |
-| Schema usability | 100% example DDL creates and loads valid fixtures on one pinned target | Evidence scoped per target | Databricks execution records | Each schema revision |
-| Query correctness | 100% expected result identities and multiplicities match | Evidence scoped per query subset | Synthetic result-set oracle | Each query/layout revision |
-| Invalid-data detection | 100% authored integrity counterexamples detected | Evidence scoped per validation subset | Negative corpus | Each validation revision |
+| Semantic accountability | 100% selected constructs mapped, rejected, or explicitly reported; zero unexplained losses | No Ashlar mapping | Reviewed source/target/recovery corpus | Each profile revision |
+| Schema usability | 100% example DDL creates and loads valid fixtures on one pinned target | No Ashlar DDL | Databricks execution records | Each schema revision |
+| Query correctness | 100% expected result identities and multiplicities match | No query proof | Synthetic result-set oracle | Each query/layout revision |
+| Invalid-data detection | 100% authored integrity counterexamples detected | No checks | Negative corpus | Each validation revision |
 
-Latency, freshness, throughput and cost support claims require explicit
-budgets and measured evidence agreed with the pilot owner. The owner selected a 1B-node planning target with more edges on 2026-10-05 and
+Latency, freshness, throughput, and cost budgets must be selected with the pilot
+owner before performance acceptance. The owner selected a 1B-node planning target with more edges on 2026-10-05 and
 asked for fast singleton lookup directly on Databricks. Provisional experiment
 budgets are recorded in SPIKE-001: warm native engine p95 100 ms and caller p95
 250 ms for singleton lookup, with cold-data caller p95 1 s on running compute.
-They are design targets; measured results and hardware/cost limits must be reported separately.
+They are design targets pending native evidence and hardware/cost review.
 The planning graph uses 5B edges as an explicit assumption, not measured input.
 
 ### Open-source scope
@@ -91,13 +107,10 @@ release; this draft does not select a license or claim public availability.
 
 ### Non-Goals
 
-Implementing transactional engines, production Postgres/Lakebase hosting,
-Truss/Axon convergence, unrelated UMF core cleanup, action execution,
-compensation/sagas, generated GraphQL, MCP, admin UI, production graph-service
-operation, RDF/SPARQL/OWL runtime and automated entity resolution are deferred.
-Standing up the selected Truss runtime and bounded graph-engine integration
-experiments are required toolkit workflows. Broad graph-algorithm service
-guarantees remain outside this scope. Exact future boundaries and
+Transactional engines, Postgres/Lakebase deployment, Truss/Axon convergence,
+UMF core cleanup, action execution, compensation/sagas, generated GraphQL,
+MCP, admin UI, production Fabric/Neo4j projection deployment, RDF/SPARQL/OWL runtime, graph algorithms,
+and automated entity resolution are deferred. Exact future boundaries and
 re-entry conditions are recorded in the scope disposition in `research.md`
 under Discover. A full ontology product is not required to prove the schemas.
 
@@ -121,18 +134,16 @@ owners must be named before production adoption.
 | Future operational systems | User-defined entities and relationships | Owner to identify | High change rate in brief; unmeasured | Unknown |
 | Future curated source | User-defined curated types and relationships | Transactional owner to identify | Unknown | Unknown |
 
-Use bounded synthetic fixtures, pinned UMF domain-pack datasets and documented
-additional-source adapters for reproducible proof. Retain original model/data
-bytes, hashes, notices and semantic mapping decisions. Existing source systems
-remain the write owners. Ashlar must implement incremental publication, replay,
-deletion and visibility semantics without implementing a transactional engine.
+Only the synthetic source is in the initial proof. A replayable synthetic change feed
+represents the potential consumer’s hot-store publication scenario. Existing systems remain the
+write owners. Ashlar must describe incremental publication, replay, deletion,
+and visibility semantics without implementing a transactional engine.
 
 ## Requirements
 
-P0 consists of FR-1 through FR-4 below. The supported Weft query path and bounded
-Fabric Graph, GraphFrames and PuppyGraph integration experiments are required.
-An unavailable engine must have an explicit lane-specific prerequisite and must
-not block the remaining source/schema/query work.
+P0 consists of FR-1 through FR-4 below. No P1/P2 product surfaces are required
+for this milestone. Optional query tools may be rejected after evaluation;
+the supported query path itself is mandatory.
 
 ## Functional Requirements
 
@@ -180,9 +191,7 @@ of every proposed identity or enforcement rule. Ashlar publication and read
 behavior can be specified using opaque logical identities, revisions and source
 positions while UMF (DocumentDrivenDX’s metamodel and schema interchange fabric)
 evolves. Exact UMF constructs, extension vocabulary, serialized feed formats,
-physical columns and platform mechanisms are governed by pinned downstream
-contracts and compatibility profiles; unsupported meaning requires explicit
-retention/loss or refusal.
+physical columns, and platform mechanisms remain downstream decisions.
 
 P2’s single-edge triple is a candidate producer profile. It does not establish a
 universal Ashlar identity rule or permit loss of distinguishable parallel edges.
@@ -219,8 +228,8 @@ using measured partitioning/Z-order or liquid-clustering settings. Mapping
 experiments are in scope; full production graph deployments remain deferred.
 
 The full 1B-node graph and a bounded external projection are separate support
-claims. A bounded Fabric release cannot establish
-support for the complete 1B-node graph plus more edges. Source meaning and omitted cross-scope
+claims. Fabric’s current approximate 2B total-elements limit cannot establish
+support for 1B nodes plus more edges. Source meaning and omitted cross-scope
 relationships must be accounted for in every projection.
 
 ## Technical Context
@@ -229,10 +238,9 @@ Databricks gold Delta and UMF integration are owner constraints; physical layout
 and execution libraries remain design choices. [Current research](../00-discover/research.md)
 records SQL, recursive SQL, and GraphFrames candidates and source limits.
 
-Every qualified deployment must explicitly pin cloud, catalog/schema names,
-Unity Catalog policy configuration, SQL warehouse or cluster tier, runtime,
-Delta protocol/features, language and budget. Bronze/silver ingestion and hot
-transactional writes are upstream.
+Cloud, catalog/schema names, Unity Catalog policy configuration, SQL warehouse
+or cluster tier, runtime, Delta protocol/features, language, and budget are
+unselected. Bronze/silver ingestion and hot transactional writes are upstream.
 Gold publication may be incremental; no event-to-gold freshness promise follows
 from selecting a hot database. Retention and audit duration remain open.
 
@@ -245,8 +253,7 @@ from selecting a hot database. Retention and audit duration remain open.
   carry the main analytic filters. Validate in design and the pilot.
 - **Dependencies:** a pinned UMF core/binding subset, a selected Databricks
   environment for proof, and owner decisions on identity and publication policy.
-  Real Truss integration is required for its source lane; other adapters and
-  engine releases must proceed independently of Truss availability.
+  Related projects are context, not mandatory runtime dependencies.
 
 ## Risks
 
@@ -257,7 +264,7 @@ from selecting a hot database. Retention and audit duration remain open.
 | High-degree nodes cause query explosion | Medium | High | Test selective starts, skew, edge multiplicity, property width and result limits |
 | Cross-table publication yields mixed revisions | Medium | High | Design an explicit publication/read policy and test interrupted updates |
 | Visibility/provenance metadata mistaken for protection | Medium | High | Preserve metadata; require policy enforcement evidence before real data |
-| External service unavailable | High | Medium | Isolate source/engine lanes; finish independent work and record exact access prerequisites |
+| Broad brief diverts work into engine/UI | High | High | Only four capabilities in this milestone; reopen deferred scope explicitly |
 
 ## Open Questions
 
@@ -282,26 +289,19 @@ from selecting a hot database. Retention and audit duration remain open.
 
 Q2 retains identity scope and parallel-edge decisions; Q3 retains history and
 publication decisions. Consumer proposals inform those questions without closing
-them. Each deployment must resolve Q1 through a pinned supported UMF profile; an
-unavailable source/engine must not block independent model/query work.
+them. Q1 blocks UMF binding, not model-independent behavior specifications.
 
 ## Success Criteria
 
-The toolkit delivery is complete when FR-1–FR-4 have traceable contracts, reviewed
-design decisions and runnable source/schema/publication/query workflows. Domain
-pack data must be ingested and queried through evidenced Weft paths and bounded
-engine releases, with exact values, original node/edge identities, multiplicity,
-updates/deletes, replay and schema evolution verified. Actual Truss acceptance
-and streaming remain required for that lane. External prerequisites must be
-reported explicitly; they are not fabricated execution passes.
+The milestone is complete when FR-1–FR-4 have traceable contracts, recorded
+design decisions, reproducible schema/query evidence and reviewed limits.
 Every support statement names platform/runtime, model/format revision, subset,
 and evidence. A draft spec or local simulation alone cannot satisfy that gate.
 
-## Review Requirements
+## Review Checklist
 
-Review must confirm FR-1–FR-4 traceability, decision ownership, supported target
-versions and schema contracts, cited execution of US-001–US-004 criteria, and
-explicit owner approval. No unchecked status box in this requirement document
-substitutes for the current evidence ledger. The
-[pre-cleanup PRD](../04-build/evidence/documentation-history-20261009/docs/helix/01-frame/prd.original.txt)
-preserves its historical milestone/status text verbatim.
+- [x] Four scoped capabilities, acceptance sketches, and upstream traceability.
+- [x] Open decisions have owners and consequences; no fabricated benchmarks.
+- [ ] Target versions, schema contracts, and design decisions finalized.
+- [ ] US-001–US-004 acceptance criteria exercised by cited tests.
+- [ ] Owner review/approval.

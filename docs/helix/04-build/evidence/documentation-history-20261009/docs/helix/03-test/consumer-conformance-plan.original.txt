@@ -17,14 +17,23 @@ ddx:
 
 # Consumer conformance test plan
 
+## Current physical-layout milestone
+
+The owner revised acceptance on2026-10-08 to close the design/schema-package
+milestone using existing evidence plus a quick local package review. Its scope
+and passed checks are recorded in [layout milestone acceptance](../02-design/spikes/SPIKE-001-table-layout/layout-milestone-acceptance.md).
+No Spark, Databricks benchmark or enlarged corpus is required to move to build.
+The broader consumer-conformance strategy below continues to govern later
+behavior/security/production claims; it is not a gate for this bounded handoff.
+Original latency/freshness/scale shortfalls remain measured limits, not passes.
+
 ## Testing Strategy
 
 Prove deterministic publication and bounded authorized reads using
 [consumer-conformance.json](fixtures/consumer-conformance.json). Expected state
-is authored fixture data, not derived from a publisher implementation. A
-criterion is covered only when an implementation actually runs it with cited
-acceptance IDs and evidence. This plan scopes consumer, domain-model and engine
-conformance; implementation status belongs in build evidence.
+is authored fixture data, not derived from a publisher implementation. All
+behavior criteria remain UNTESTED until an implementation runs them with cited
+acceptance IDs. This plan scopes the consumer work, not all Ashlar acceptance.
 
 | Level | Coverage target | Gate |
 | --- | --- | --- |
@@ -33,9 +42,8 @@ conformance; implementation status belongs in build evidence.
 | Platform integration | Real table publication failure/recovery, policy delegation and progress visibility | Before Databricks support claim |
 | Query feasibility | Workload, plans, runtime and measurements for US-003-AC5 | Before performance acceptance |
 
-Run portable Python checks with the standard-library unittest runner and native
-checks on explicitly pinned runtime profiles. Schema/corpus validation is distinct
-from behavioral execution. A passing local simulator
+No language, framework, CI service or runtime is selected. Schema/corpus
+validation is distinct from behavioral execution. A passing local simulator
 cannot establish Databricks transaction or access-control guarantees.
 
 ## Test Data
@@ -70,7 +78,7 @@ an earlier cursor binding. `hiddenIdentities` suppresses incident edges and
 
 ## Coverage Requirements
 
-100% of fixture cases must pass with no unexplained differences. Every P0 and other in-scope
+Every fixture case must pass with no unexplained differences. Every in-scope
 criterion needs a covering executable test with `@covers US-nnn-ACm` and recorded
 pass/fail evidence. Fixture metadata `covers` records planned coverage only.
 
@@ -87,9 +95,8 @@ specific examples; they do not exhaust each criterion. Add cases for publication
 revision recovery, position conflict, node-plus-edge atomic deletion, missing/null
 count groups, valid continuation across unchanged context, expired publication,
 epoch mismatch, source-time measurement and protection in historical reads before
-claiming complete boundary coverage. Story test plans own the per-criterion
-executable case matrix and must reference the selected execution interfaces and
-platform mechanics.
+claiming complete boundary coverage. STP-003/STP-004 and technical designs remain
+unwritten until execution interfaces and platform mechanics are selected.
 
 ## Implementation Order
 
@@ -98,9 +105,7 @@ platform mechanics.
 2. Specify an adapter-independent execution harness and story test plans.
 3. Exercise publication and read boundaries against an independent implementation.
 4. Select and prove physical publication/read mechanisms on a pinned target.
-5. Bind pinned supported UMF capabilities, with explicit loss and preservation tests.
-6. Load small domain-pack publications and verify Weft queries and engine parity.
-   Source/engine availability affects only the relevant lane.
+5. Bind exact UMF capabilities after merge, with explicit loss and preservation tests.
 
 ## Infrastructure
 
@@ -117,59 +122,37 @@ principals and failure injection. No production data is authorized by this plan.
 | Expected data follows implementation assumptions | Correlated mistakes | Review corpus independently with producer/consumer |
 | Retention allows stale resurrection | Incorrect state | Retain tombstones until reconciled expiry is proven |
 
-## Domain-pack and query conformance
+## Table-design spike evidence
 
-Retain original pinned UMF model/data bytes, hashes and notices. Test typed
-records, relationships, exact decimals/integers, absence/null/value states and
-unknown extensions through shared UMF interpretation and validation; no private
-Ashlar validator may redefine their meaning. Include isolated nodes, parallel
-edges, typed endpoint failures, updates/deletes and schema evolution.
-
-Weft-generated query tests must compare independently authored expected results
-against immutable publication data. Cover singleton/list filters, relationships,
-joins, bounded one/two-hop traversal and aggregates. Record numeric
-precision/scale, result identities, multiplicities and unsupported-query refusals.
-Every emitted integrity obligation and closing source/pin/authorization/retention
-check must execute before releasing results. Do not use compiler output as the
-expected-result oracle.
-
-Fabric Graph GQL, GraphFrames and PuppyGraph Cypher/Gremlin experiments must
-execute against releases derived from a complete publication. Record engine
-version, release identity, refresh/snapshot behavior, original composite node and
-unique edge identities, query corpus and access limits. Export/model validation
-alone cannot prove engine execution. Test canonical parity and explicit omitted
-scope; managed-UC compatibility must be demonstrated, not assumed.
-
-## Evidence and performance policy
-
-Fixture, simulated contract, native target and engine execution evidence are
-separate layers. A small local simulator cannot prove native atomic visibility,
-source fencing, authorization delegation, retained data availability or complete
-consumer-corpus coverage. Require original operation/handle custody for uncertain
-recovery and original descriptor replay; do not fabricate accepted IDs or ACKs.
-
-Reuse the existing [table-design measurements](../02-design/spikes/SPIKE-001-table-layout.md).
-New checks remain small and do not renew scale benchmarks. Latency/freshness/
-throughput are measured qualification limits; misses do not change the Unity
-Catalog Delta architecture. Do not disable predictive optimization or alter
-retention, grants or paid capacity to make checks pass. Record readability under
-the observed configuration.
+SPIKE-001 locally compares generic bags, shared promoted columns and typed
+serving tables with matching query-result digests. Adapter fixture shape checks
+retain isolated A0 and four parallel two-hop paths. This is screening evidence,
+not acceptance of US-002-AC6/AC7 or US-003-AC5: exact scalar corpus, native
+Databricks lookup/query evidence and external engine execution remain required
+for the corresponding full support claims, rather than the bounded design handoff.
+Native DDL, exact-carrier and version-pinned read probes now pass on dbw-aidev-cus.
+Bounded native query results are recorded in the native spike evidence, with the
+singleton latency targets still missed or unproved in their recorded scopes. CONTRACT-003 supplies the physical surface. No full platform story criterion is marked covered by a local simulator.
 
 ## Build Handoff
 
-Run portable component checks from the repository root:
+The corpus is specification data. No implementation or behavioral test command
+exists yet. Contracts are drafts; physical design, platform selection and UMF
+integration remain explicit gates. All story checkboxes remain unchecked.
 
-```sh
-PYTHONPATH=src:tools python3 -B -m unittest discover -s tests
-```
 
-Use the [runnable example](../../../examples/end-to-end/README.md) for explicitly
-configured native commands. Complete claims require cited execution at the same
-scope as the requirement; synthetic fixture metadata, exports and authored plans
-are insufficient. Full accepted Truss catalog/mutation/feed/ACK proof remains a
-requirement for the Truss source lane. Continue independent source, schema,
-Weft and engine work when an external prerequisite is unavailable.
+## Native layout evidence disposition — 2026-10-06
 
-The [execution plan](../04-build/end-to-end-plan.md) owns results and pending
-work. The [pre-cleanup test plan](../04-build/evidence/documentation-history-20261009/docs/helix/03-test/consumer-conformance-plan.original.txt)
-preserves historical execution/status notes verbatim.
+The [candidate package](../02-design/spikes/SPIKE-001-table-layout/layout-package-candidate.json) and [local audit](../02-design/spikes/SPIKE-001-table-layout/out/layout-package-audit.json) identify scoped native evidence. They do not mark this consumer corpus executed.
+
+| Scope | Evidence | Disposition |
+| --- | --- | --- |
+| 0.2 / 0.3 table DDL | r65/r73 | Native executable shapes; no semantic-key enforcement claim |
+| Typed identity, exact carriers, structural fixture | r66 | Tiny synthetic correctness; no real producer or billion-node claim |
+| Pinned export/release projections | r67/r68 | Exact native projection parity; external engines unexecuted |
+| Property tokens and complete uninterpreted raw kinds | r69/r71 | Exact synthetic storage; source semantics unqualified |
+| Raw replay and conflict refusal | r72 | Single-table atomic MERGE control; concurrent uniqueness unproved |
+| 0.3 cursor/reference publication | r74 | Actual invalid references detected before publication; not crash recovery |
+| Native singleton and paged adjacency builders | r75/r76 | Generated bound query correctness; no new latency or service authorization claim |
+
+Mandatory remaining integration evidence includes trusted complete-feed manifest coverage, bootstrap consistency, generation/registration fencing, source acknowledgement custody, concurrency/crash recovery, policy delegation and actual graph-engine releases. Historical performance shortfalls remain recorded measurements under the owner's fixed Unity Catalog Delta direction. No small fixture substitutes for the full corpus or full-scale admission.

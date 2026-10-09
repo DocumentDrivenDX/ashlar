@@ -1,0 +1,21 @@
+{
+  "umfRevision": "1f7b5f5d2a355c4b476e3a96b289b9048f03f567",
+  "sourceSha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+  "umfVersion": "0.8.0",
+  "identity": {
+    "module": "domain",
+    "element": "customers"
+  },
+  "validation": {
+    "valid": true,
+    "complete": true,
+    "diagnostics": []
+  },
+  "kindInspection": {
+    "status": "refused",
+    "code": "CORE_KIND_RESULT",
+    "path": "",
+    "message": "[{\"instancePath\":\"/source/umf\",\"schemaPath\":\"#/properties/umf/const\",\"keyword\":\"const\",\"params\":{},\"message\":\"must pass \\\"const\\\" keyword validation\"},{\"instancePath\":\"/source/umf\",\"schemaPath\":\"#/properties/umf/const\",\"keyword\":\"const\",\"params\":{},\"message\":\"must pass \\\"const\\\" keyword validation\"},{\"instancePath\":\"/source\",\"schemaPath\":\"#/oneOf\",\"keyword\":\"oneOf\",\"params\":{\"passingSchemas\":null},\"message\":\"must match exactly one schema in oneOf\"},{\"instancePath\":\"\",\"schemaPath\":\"#/required\",\"keyword\":\"required\",\"params\":{\"missingProperty\":\"target\"},\"message\":\"must have required property 'target'\"},{\"instancePath\":\"\",\"schemaPath\":\"#/additionalProperties\",\"keyword\":\"additionalProperties\",\"params\":{\"additionalProperty\":\"path\"},\"message\":\"must NOT have additional properties\"},{\"instancePath\":\"\",\"schemaPath\":\"#/additionalProperties\",\"keyword\":\"additionalProperties\",\"params\":{\"additionalProperty\":\"meaning\"},\"message\":\"must NOT have additional properties\"},{\"instancePath\":\"/operation\",\"schemaPath\":\"#/properties/operation/const\",\"keyword\":\"const\",\"params\":{},\"message\":\"must pass \\\"const\\\" keyword validation\"},{\"instancePath\":\"/source/umf\",\"schemaPath\":\"#/properties/umf/const\",\"keyword\":\"const\",\"params\":{},\"message\":\"must pass \\\"const\\\" keyword validation\"},{\"instancePath\":\"/provenance\",\"schemaPath\":\"#/properties/provenance/type\",\"keyword\":\"type\",\"params\":{\"type\":\"object\"},\"message\":\"must be object\"},{\"instancePath\":\"\",\"schemaPath\":\"#/oneOf\",\"keyword\":\"oneOf\",\"params\":{\"passingSchemas\":null},\"message\":\"must match exactly one schema in oneOf\"}]"
+  },
+  "qualification": "Actual public UMF APIs on exact original model; no target binding, canonical value reinterpretation or ingest authority."
+}
