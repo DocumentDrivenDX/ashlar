@@ -1,5 +1,5 @@
 """Nine-event recoverable native fixture; no completed read publication."""
-import base64,fcntl,hashlib,json,re,sys,time
+import argparse,base64,fcntl,hashlib,json,re,sys,time
 from contextlib import contextmanager
 from pathlib import Path
 from databricks.sdk import WorkspaceClient
@@ -12,16 +12,25 @@ from durable_sql import DurableSQL,SQLPending
 from durable_effects import DurableEffects
 from whole_graph_sql import graph_sql_plan
 from persistent_sql import Client
+def _endpoint(value):
+    if not value.strip():raise argparse.ArgumentTypeError('Explicit nonempty dedicated endpoint required')
+    return value
+
+
+parser=argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--profile',type=_endpoint,required=True)
+parser.add_argument('--warehouse',type=_endpoint,required=True)
+args=parser.parse_args()
 N='client_dev.ashlar_recoverable_graph_20261008';OUT=B/'out/native/recoverable_graph_20261008'
 if (OUT/'summary.json').exists():raise SystemExit('Completed fixture retained; inspect evidence instead of rerunning setup/parity. Retain original journal for recovery.')
 JOURNAL='/private/tmp/ashlar-recoverable-graph-20261008.sqlite'
-w=WorkspaceClient(profile='aidev-cus');authority=w.current_user.me().id
+w=WorkspaceClient(profile=args.profile);authority=w.current_user.me().id
 class CountAPI:
     def __init__(self):self.posts=0
     def do(self,method,path,**kwargs):
         if method=='POST':self.posts+=1
         return w.api_client.do(method,path,**kwargs)
-api=CountAPI();transport=DurableSQL(JOURNAL,api,'2439e1f2e37ac563',authority)
+api=CountAPI();transport=DurableSQL(JOURNAL,api,args.warehouse,authority)
 def query(operation,sql,params):
     deadline=time.monotonic()+180
     while True:
@@ -36,7 +45,7 @@ for k in ['object_current','edge_current','tombstone']:
     ddl=re.search(r'CREATE TABLE '+k+r' \(.*?;',baseline,re.S).group(0)
     query('setup-'+k,ddl.replace('CREATE TABLE '+k,'CREATE TABLE '+tables[k],1),{})
 query('setup-history','CREATE TABLE '+tables['whole_source_history']+' (feed STRING NOT NULL,epoch STRING NOT NULL,delivery_id STRING NOT NULL,digest STRING NOT NULL,change_json STRING NOT NULL,raw_base64 STRING NOT NULL) USING DELTA',{})
-c=Client(OUT)
+c=Client(OUT,profile=args.profile,warehouse_id=args.warehouse)
 uuids={}
 for table in tables.values():
     rows=c.sql('register-target','DESCRIBE DETAIL '+table)
@@ -73,7 +82,7 @@ for ordinal,batch in enumerate(batches):
             if time.monotonic()>deadline:raise
             time.sleep(.2)
     results.append(result)
-    before=api.posts;transport.close();transport=DurableSQL(JOURNAL,api,'2439e1f2e37ac563',authority)
+    before=api.posts;transport.close();transport=DurableSQL(JOURNAL,api,args.warehouse,authority)
     assert DurableEffects(transport,Policy(steps)).run(batch.batch_id,digest,steps,context='private-fixture')==result
     assert api.posts==before
     objects=c.sql('object-parity','SELECT cast(type_id AS STRING),cast(id AS STRING),cast(entity_version AS STRING),props_json,retained_json FROM '+tables['object_current']+' ORDER BY type_id,id')

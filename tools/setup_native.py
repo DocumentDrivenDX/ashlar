@@ -13,11 +13,16 @@ from durable_sql import DurableSQL,SQLPending
 from persistent_sql import Client
 from generated_carriers import load_generated_carriers
 
+def _endpoint(value):
+    if not value.strip():raise argparse.ArgumentTypeError('Explicit nonempty dedicated endpoint required')
+    return value
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     p.add_argument('--catalog',required=True);p.add_argument('--schema',required=True)
     p.add_argument('--journal',required=True);p.add_argument('--output',required=True)
-    p.add_argument('--profile',default='aidev-cus');p.add_argument('--warehouse',default='2439e1f2e37ac563')
+    p.add_argument('--profile',type=_endpoint,required=True);p.add_argument('--warehouse',type=_endpoint,required=True)
     args=p.parse_args()
     for name in [args.catalog,args.schema]:
         if not re.fullmatch('[A-Za-z_][A-Za-z0-9_]*',name):p.error('Safe catalog/schema identifiers required')

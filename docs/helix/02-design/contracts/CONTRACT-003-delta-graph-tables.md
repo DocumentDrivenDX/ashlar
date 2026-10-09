@@ -157,6 +157,24 @@ base-10 without leading zeros. This encoding is injective in the selected
 profile; it is not a truncated hash. src/dst are node keys of typed endpoints.
 Non-ASCII source names require an explicit encoding revision, not locale coercion.
 
+The `ashlar-graph-release/0.1` profile uses the separately named `ashlar-key/1`
+encoding for Unicode sources. Its key is `ashlar-key/1:` followed by unpadded
+base64url of UTF-8 compact JSON `[kind,source,type,id]`. Kind is `node` or `edge`;
+source preserves Unicode scalar spelling without normalization; type and ID are
+canonical signed-64 decimal strings. Decode must reproduce the exact canonical
+encoding. This profile does not relabel earlier ASCII keys or infer storage IDs.
+
+A complete release binds original manifest carriers and all consumed native
+UUID/version pairs. It preserves isolated nodes, independent edge IDs, self-loops,
+parallel edges and typed endpoints. Duplicate identity, missing endpoints,
+unsupported native carriers or exceeded explicit row budgets refuse the entire
+release. Budgets never authorize truncation. Exact canonical props/retained text
+remains available alongside an explicit capability/loss inventory: preserving
+text does not imply selected scalar interpretation or any engine compatibility.
+Source semantic admission, reader authorization, retention and pin custody must
+hold until complete result release. External materialization, activation, refresh
+and rollback require their own engine-specific validation.
+
 Serving tables keep exact props/retained text plus explicitly selected scalar
 columns and boolean presence flags. Conversion failure MUST block projection or
 produce a named residual; it MUST NOT convert unsupported values to null silently.

@@ -41,10 +41,17 @@ DEFAULT_PROFILE = 'azure-databricks-delta-documented-defaults/2026-09-11'
 MARGIN = 600_000_000
 
 
+def _endpoint(value):
+    if not value.strip():raise argparse.ArgumentTypeError('Explicit nonempty dedicated endpoint required')
+    return value
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--journal', required=True)
     parser.add_argument('--output', type=Path, required=True)
+    parser.add_argument('--profile', type=_endpoint, required=True, help='Explicit dedicated Databricks profile')
+    parser.add_argument('--warehouse', type=_endpoint, required=True, help='Explicit dedicated SQL warehouse ID')
     args = parser.parse_args()
     if args.output.exists():parser.error('Fresh output directory required; preserve original receipts')
     from databricks.sdk import WorkspaceClient
@@ -78,10 +85,10 @@ def main():
     state = empty_state()
     for batch in batches:state = plan_apply(state, changes_from_batch(batch), schema_policy=semantic_policy)
     if (len(state.current), len(state.tombstones), len(state.history)) != (1, 1, 4):raise ValueError('Fixture semantics differ')
-    w = WorkspaceClient(profile='aidev-cus')
+    w = WorkspaceClient(profile=args.profile)
     user = w.current_user.me()
     if user.user_name != installation['authenticated_owner']:raise PermissionError('Original private owner differs')
-    client = Client(args.output, warehouse_id='2439e1f2e37ac563', profile='aidev-cus')
+    client = Client(args.output, warehouse_id=args.warehouse, profile=args.profile)
     client.w = w
     journal = DurableSQL(args.journal, w.api_client, client.warehouse_id, user.id)
     transport = DatabricksTransport(client, journal)

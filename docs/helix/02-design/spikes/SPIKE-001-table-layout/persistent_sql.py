@@ -5,10 +5,10 @@ import json,time,re
 from pathlib import Path
 from urllib.parse import urlencode
 from databricks.sdk import WorkspaceClient
-WAREHOUSE='2439e1f2e37ac563'
 class Client:
- def __init__(self,out,observation_timeout=180,cancel_after=None,warehouse_id=WAREHOUSE,profile='aidev-cus'):
-  if not re.fullmatch(r"[0-9a-f]{16}",warehouse_id):raise ValueError("Invalid warehouse ID")
+ def __init__(self,out,observation_timeout=180,cancel_after=None,*,warehouse_id,profile):
+  if type(warehouse_id) is not str or not re.fullmatch(r"[0-9a-f]{16}",warehouse_id):raise ValueError("Explicit dedicated warehouse ID required")
+  if type(profile) is not str or not profile.strip():raise ValueError("Explicit authenticated profile required")
   self.warehouse_id=warehouse_id
   self.out=Path(out);self.out.mkdir(parents=True,exist_ok=True)
   self.observation_timeout=observation_timeout

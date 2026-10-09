@@ -16,10 +16,15 @@ from durable_sql import DurableSQL,SQLPending
 from databricks_transport import DatabricksTransport,OperationExecutor
 from persistent_sql import Client
 
+def _endpoint(value):
+    if not value.strip():raise argparse.ArgumentTypeError('Explicit nonempty dedicated endpoint required')
+    return value
+
+
 def main():
     p=argparse.ArgumentParser(description=__doc__)
     for key in ['installation','umf-source','validator-revision','document','revision','journal','output']:p.add_argument('--'+key,required=True)
-    p.add_argument('--bun',default='bun');p.add_argument('--profile',default='aidev-cus');p.add_argument('--warehouse',default='2439e1f2e37ac563')
+    p.add_argument('--bun',default='bun');p.add_argument('--profile',type=_endpoint,required=True);p.add_argument('--warehouse',type=_endpoint,required=True)
     a=p.parse_args();installation=json.loads(Path(a.installation).read_text());namespace=installation_namespace(installation,ROOT)
     # Actual pinned clean UMF code, not caller-authored validation flags.
     result=subprocess.run([a.bun,str(ROOT/'tools/inspect_umf.ts'),a.umf_source,a.validator_revision,a.document],capture_output=True,timeout=60)

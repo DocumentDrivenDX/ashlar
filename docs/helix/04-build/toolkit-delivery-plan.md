@@ -42,7 +42,9 @@ adapters to their public contracts, not shadow validators or compiler rewrites.
 Current-core fixtures are separately authored; original UMF 0.8 pack documents
 must be admitted at their declared version, never relabeled 0.7 for a compiler.
 
-Use tiny synthetic pack fixtures and existing compute. No renewed scale benchmark,
+Use tiny synthetic pack fixtures on local Spark, Sail or DuckDB. Shared/default
+Databricks compute must not be used. Any future Databricks run requires an explicit
+dedicated Ashlar query endpoint. No renewed scale benchmark,
 new paid capacity, broad grants, destructive migrations or fabricated accepted
 Truss IDs. Measure duration/cost of functional runs without turning speed into an
 architecture gate. Engine access failures are explicit per-engine dependencies.

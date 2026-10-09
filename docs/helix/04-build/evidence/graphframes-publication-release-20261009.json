@@ -1,0 +1,60 @@
+{
+  "state": "passed-small-local-rematerialization",
+  "report": {
+    "counts": {
+      "edges": 0,
+      "isolates": 1,
+      "nodes": 1,
+      "one_hop": 0,
+      "two_hop": 0
+    },
+    "format": "ashlar-graphframes-local-check/0.1",
+    "full_row_parity": true,
+    "jar_sha256": {
+      "io.delta_delta-spark_2.12-3.2.1.jar": "088e187da689a347a6a8556dcb22318e3dfcfb995d807f5e2c19b4d0a7ee9499",
+      "io.delta_delta-storage-3.2.1.jar": "4dcc179fc4076bda5060a4038f979c53e1f5916cf04971e28f9441db390763c7",
+      "io.graphframes_graphframes-graphx-spark3_2.12-0.12.3.jar": "8bbd2bbb4c7a3b137e51b4f32f49a30a2ccf70eeb07b452cffa20090dd481b96",
+      "io.graphframes_graphframes-spark3_2.12-0.12.3.jar": "69d7909628caf42bcbe1c7e6e5a5a0901040d00583738d931af41bd72af1d3dc"
+    },
+    "local_delta_versions": {
+      "edges": 0,
+      "nodes": 0
+    },
+    "original_roles": {
+      "edges": "ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current",
+      "nodes": "ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current"
+    },
+    "original_snapshots": {
+      "ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current": {
+        "uuid": "1d70e048-260f-4e84-8cfe-0da7dbd097a1",
+        "version": 0
+      },
+      "ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current": {
+        "uuid": "65498593-9f3f-4931-aa77-67cb34d45d66",
+        "version": 5
+      },
+      "ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone": {
+        "uuid": "7f08db08-7942-475a-a639-ffbdfc74006e",
+        "version": 1
+      },
+      "ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history": {
+        "uuid": "3915704a-e6cf-410a-9a03-25f474073f4e",
+        "version": 3
+      }
+    },
+    "release_sha256": "cff145b9fc31b898c8866a10ef004a0bb0d379cd5136f76c74a871f9a33ca0b9",
+    "scope": "Local exact release rematerialization; no direct Unity Catalog access or source semantic admission",
+    "unpublished_append": {
+      "pinned_r1_unchanged": true,
+      "role": "nodes"
+    },
+    "versions": {
+      "delta-spark": "3.2.1",
+      "graphframes-py": "0.12.3",
+      "pyspark": "3.5.3"
+    }
+  },
+  "report_sha256": "d876b70e7d70d4731a41bec3b81e40bfe7e969a7c318a1ebcc0fff4e93289932",
+  "log_sha256": "1f44a1f3a141ff73f915777b851801ca228548707b01ce90b2e9c372761c49a4",
+  "qualification": "Actual existing local Spark3.5.3 Delta3.2.1 GraphFrames0.12.3; exact complete single-node/zero-edge native release read, local pinnedDelta0 excludes private unpublished append. Four structural tests separately cover nonempty multigraph. No direct UC, nonempty runtime traversal or R1/R2 activation claim. SnapshotPartitions1 setting and linear oracle were added after this run; their behavior remains scoped to local code tests, not this actual runtime."
+}

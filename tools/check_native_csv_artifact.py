@@ -27,10 +27,17 @@ from sandbox_pins import PrivatePinTransactions
 from persistent_sql import Client
 
 
+def _endpoint(value):
+    if not value.strip():raise argparse.ArgumentTypeError('Explicit nonempty dedicated endpoint required')
+    return value
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--journal',type=Path,required=True,help='Original CSV publication journal, opened read-only')
     parser.add_argument('--output',type=Path,required=True)
+    parser.add_argument('--profile', type=_endpoint, required=True, help='Explicit dedicated Databricks profile')
+    parser.add_argument('--warehouse', type=_endpoint, required=True, help='Explicit dedicated SQL warehouse ID')
     args=parser.parse_args()
     if args.output.exists():parser.error('Fresh output directory required')
     receipt=json.loads((B/'out/native/csv_publication_20261008_recovery/summary.json').read_text())
@@ -48,7 +55,7 @@ def main():
     source_sha=hashlib.sha256(source.read_bytes()).hexdigest()
     if source_sha!=descriptor.validation_report['source_sha256']:raise ValueError('Original source differs')
     intake,_,_=fixture_inputs()
-    client=Client(args.output,warehouse_id='2439e1f2e37ac563',profile='aidev-cus')
+    client=Client(args.output,warehouse_id=args.warehouse,profile=args.profile)
     user=client.w.current_user.me()
     if user.user_name!=installation['authenticated_owner']:raise PermissionError('Original private owner differs')
     transport=DatabricksTransport(client,SimpleNamespace(warehouse=client.warehouse_id,api=client.w.api_client))

@@ -18,10 +18,15 @@ from databricks_transport import DatabricksTransport,OperationExecutor
 from persistent_sql import Client
 FIELDS=['source_profile','feed','epoch','batch_id','cursor_before','cursor_after','records_digest','batch_json','batch_digest']
 
+def _endpoint(value):
+    if not value.strip():raise argparse.ArgumentTypeError('Explicit nonempty dedicated endpoint required')
+    return value
+
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     for key in ['installation','input','feed','epoch','journal','output']:parser.add_argument('--'+key,required=True)
-    parser.add_argument('--cursor-before',default='0');parser.add_argument('--profile',default='aidev-cus');parser.add_argument('--warehouse',default='2439e1f2e37ac563')
+    parser.add_argument('--cursor-before',default='0');parser.add_argument('--profile',type=_endpoint,required=True);parser.add_argument('--warehouse',type=_endpoint,required=True)
     args=parser.parse_args();installation=json.loads(Path(args.installation).read_text());namespace=installation['namespace']
     if not re.fullmatch('[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*',namespace):parser.error('Safe installed namespace required')
     w=WorkspaceClient(profile=args.profile);user=w.current_user.me();actor=user.user_name

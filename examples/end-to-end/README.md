@@ -1,3 +1,5 @@
+Native examples require an explicitly selected dedicated Databricks profile and SQL warehouse. Set `ASHLAR_DATABRICKS_PROFILE` and `ASHLAR_SQL_WAREHOUSE_ID` to your dedicated endpoint before using a native command; there is no shared endpoint default. Local DuckDB/Spark/Sail work requires no Databricks endpoint.
+
 # End-to-end example — under construction
 
 Run the local schema-to-source-to-state workflow first:
@@ -137,7 +139,7 @@ operations are still required before the end-to-end workflow can run.
 trusted validator source pin. It verifies source bytes/digest/identity and retains
 the complete original intake artifact. The small native runner is
 `tools/check_native_schema_registry.py`; it requires the Databricks SDK, profile
-`aidev-cus`, Docker and the isolated sandbox. It intentionally creates fixed
+explicitly selected dedicated credentials, Docker and the isolated sandbox. It intentionally creates fixed
 private development tables once and refuses ordinary reruns; it is evidence
 tooling, not the finished user deployment command. Its passed receipt is
 `docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/schema_registry_20261008/summary.json`.
@@ -301,7 +303,7 @@ From the Ashlar repository, the demonstrated command is:
 ```sh
 python3 tools/setup_native.py \
   --catalog ashlar_e2e_private_20261008 --schema runtime_clean_user \
-  --profile aidev-cus --warehouse 2439e1f2e37ac563 \
+  --profile "$ASHLAR_DATABRICKS_PROFILE" --warehouse "$ASHLAR_SQL_WAREHOUSE_ID" \
   --journal /private/tmp/ashlar-clean-user-setup-20261008.sqlite \
   --output /private/tmp/ashlar-clean-user-setup-20261008
 ```
@@ -333,7 +335,7 @@ the earlier native CSV sequence belongs to its original installation.
 After native setup, this command streams the supplied nine-event JSONL fixture:
 
 ```sh
-python3 tools/stage_source.py \
+python3 tools/stage_source.py --profile "$ASHLAR_DATABRICKS_PROFILE" --warehouse "$ASHLAR_SQL_WAREHOUSE_ID" \
   --installation docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_setup_20261008/summary.json \
   --input examples/end-to-end/graph-source.jsonl \
   --feed whole-entity-fixture --epoch epoch-1 \
@@ -355,7 +357,7 @@ registration. Other adapters must preserve their outer cursor independently.
 The command runs the actual pinned UMF reader/validator from a clean checkout:
 
 ```sh
-python3 tools/register_umf.py \
+python3 tools/register_umf.py --profile "$ASHLAR_DATABRICKS_PROFILE" --warehouse "$ASHLAR_SQL_WAREHOUSE_ID" \
   --installation /private/tmp/ashlar-csv-stream-setup-20261008/summary.json \
   --umf-source /path/to/clean/pinned/umf \
   --validator-revision 16c35e8d943769ccfa7bb57d16785aa7159abe65 \
@@ -396,10 +398,10 @@ actual Truss acceptance/feed remain required for a clean end-to-end workflow.
 The existing development installation can run this small example:
 
 ```sh
-python3 tools/run_native_example.py --journal /tmp/ashlar-local-native.sqlite --output /tmp/ashlar-local-native-receipts
+python3 tools/run_native_example.py --journal /tmp/ashlar-local-native.sqlite --output /tmp/ashlar-local-native-receipts --profile "$ASHLAR_DATABRICKS_PROFILE" --warehouse "$ASHLAR_SQL_WAREHOUSE_ID"
 ```
 
-Requires the Databricks SDK, profile aidev-cus and the recorded existing private
+Requires the Databricks SDK, an explicitly selected dedicated profile and the recorded existing private
 runtime installation. This command accepts only the fixed four-event fixture and
 private namespace. A fresh journal requires all four graph tables empty; rerun
 using the same original journal after an interrupted or completed attempt. Keep
@@ -476,10 +478,10 @@ an explicit PostgreSQL whole-entity outbox, not the unfinished Truss property fe
 The completed run uses the separate runtime_outbox installation:
 
 ```sh
-python3 tools/run_native_example.py --source outbox --installation docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/outbox_setup_20261008/summary.json --journal /private/tmp/ashlar-outbox-graph-20261008.sqlite --output /tmp/ashlar-outbox-delta-receipts
+python3 tools/run_native_example.py --source outbox --installation docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/outbox_setup_20261008/summary.json --journal /private/tmp/ashlar-outbox-graph-20261008.sqlite --output /tmp/ashlar-outbox-delta-receipts --profile "$ASHLAR_DATABRICKS_PROFILE" --warehouse "$ASHLAR_SQL_WAREHOUSE_ID"
 ```
 
-Requires the live outbox example, Databricks SDK/profile aidev-cus, psycopg and
+Requires the live outbox example, Databricks SDK/an explicitly selected dedicated profile, psycopg and
 Docker. Keep and reuse the original graph journal: a new journal refuses populated
 tables and cannot substitute for original outcome custody. The separate installation
 was created with setup_native.py in the existing private catalog; its original
@@ -507,7 +509,7 @@ published descriptor. This is a read-only command on the existing warehouse.
 ### Read the streamed development object
 
 After the outbox native example, use the host environment with Databricks SDK
-and profile `aidev-cus`:
+and an explicitly selected dedicated profile:
 
 ```sh
 python tools/lookup_native_example.py --version 5 --id 1 --output /tmp/ashlar-point-read-new
@@ -602,7 +604,7 @@ The CSV example also runs against the isolated managed Delta development
 namespace. With the existing host SDK environment/profile and installation:
 
 ```sh
-python tools/run_native_example.py --source csv \
+python tools/run_native_example.py --source csv --profile "$ASHLAR_DATABRICKS_PROFILE" --warehouse "$ASHLAR_SQL_WAREHOUSE_ID" \
   --installation docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/csv_setup_20261008/summary.json \
   --journal /private/tmp/ashlar-csv-apply-20261008.sqlite \
   --output /tmp/ashlar-csv-native-observation
@@ -711,7 +713,7 @@ native publication-resolver singleton. Use the SDK-enabled Python environment,
 existing warehouse/profile and private PostgreSQL container:
 
 ```sh
-/private/tmp/ashlar-db-client/bin/python -B tools/publish_native_csv_example.py \
+/private/tmp/ashlar-db-client/bin/python -B tools/publish_native_csv_example.py --profile "$ASHLAR_DATABRICKS_PROFILE" --warehouse "$ASHLAR_SQL_WAREHOUSE_ID" \
   --journal /private/tmp/ashlar-csv-publication-20261008.sqlite \
   --output /private/tmp/ashlar-csv-publication-new-observations
 ```
@@ -800,7 +802,7 @@ With the documented SDK/psycopg environment, existing local PostgreSQL sandbox,
 original CSV publication journal and authorized Databricks profile:
 
 ```sh
-python3 tools/check_native_csv_artifact.py --journal /private/tmp/ashlar-csv-publication-20261008.sqlite --output out/native-artifact-check
+python3 tools/check_native_csv_artifact.py --journal /private/tmp/ashlar-csv-publication-20261008.sqlite --output out/native-artifact-check --profile "$ASHLAR_DATABRICKS_PROFILE" --warehouse "$ASHLAR_SQL_WAREHOUSE_ID"
 ```
 
 The output directory must be fresh. This reads the original journal and immutable
@@ -863,7 +865,7 @@ python3 tools/run_native_csv_stream.py \
   --journal /private/tmp/ashlar-clean-user-stream-20261008.sqlite \
   --output out/clean-user-publication \
   --umf-source /path/to/clean/umf-record-check \
-  --profile aidev-cus --warehouse 2439e1f2e37ac563 --limit 1
+  --profile "$ASHLAR_DATABRICKS_PROFILE" --warehouse "$ASHLAR_SQL_WAREHOUSE_ID" --limit 1
 ```
 
 The record-checker checkout must be clean at
@@ -907,7 +909,7 @@ python3 tools/run_native_csv_stream.py \
   --intake-proof docs/helix/02-design/spikes/SPIKE-001-table-layout/out/native/private_schema_v3_20261008/summary.json \
   --journal /private/tmp/ashlar-csv-stream-20261008.sqlite \
   --output out/native-csv-query \
-  --profile aidev-cus --warehouse 2439e1f2e37ac563 \
+  --profile "$ASHLAR_DATABRICKS_PROFILE" --warehouse "$ASHLAR_SQL_WAREHOUSE_ID" \
   --umf-source /path/to/pinned/umf-record-check \
   --limit 4 --query-only --entity-id 1
 ```
@@ -976,7 +978,7 @@ python3 tools/run_native_source_stream.py \
   --journal /private/tmp/ashlar-jsonl-stream-20261008.sqlite \
   --output out/native-jsonl-first \
   --umf-source /path/to/clean/umf-record-check \
-  --profile aidev-cus --warehouse 2439e1f2e37ac563
+  --profile "$ASHLAR_DATABRICKS_PROFILE" --warehouse "$ASHLAR_SQL_WAREHOUSE_ID"
 ```
 
 `--limit` counts complete source groups. JSONL's local_consumer_position and

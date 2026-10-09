@@ -29,12 +29,19 @@ from run_local_example import fixture_inputs
 from whole_graph_sql import graph_sql_plan
 
 
+def _endpoint(value):
+    if not value.strip():raise argparse.ArgumentTypeError('Explicit nonempty dedicated endpoint required')
+    return value
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--journal', required=True)
     parser.add_argument('--output', required=True)
     parser.add_argument('--installation', default=str(B / 'out/native/private_setup_20261008/summary.json'))
     parser.add_argument('--source', choices=['local', 'outbox', 'csv'], default='local')
+    parser.add_argument('--profile', type=_endpoint, required=True, help='Explicit dedicated Databricks profile')
+    parser.add_argument('--warehouse', type=_endpoint, required=True, help='Explicit dedicated SQL warehouse ID')
     args = parser.parse_args()
     # Fixed fixture/deployment only; never generalize its initial-state authority.
     installation = json.loads(Path(args.installation).read_text())
@@ -81,12 +88,12 @@ def main():
     batches = tuple(batch_from_row(batch_row(batch)) for batch in batches)
     tables = {key: namespace + '.' + key for key in
               ['object_current', 'edge_current', 'tombstone', 'whole_source_history']}
-    w = WorkspaceClient(profile='aidev-cus')
+    w = WorkspaceClient(profile=args.profile)
     user = w.current_user.me()
     actor = user.user_name
     if actor != installation['authenticated_owner']:
         raise PermissionError('Private installed owner differs')
-    client = Client(Path(args.output), warehouse_id='2439e1f2e37ac563', profile='aidev-cus')
+    client = Client(Path(args.output), warehouse_id=args.warehouse, profile=args.profile)
     client.w = w
     journal = DurableSQL(args.journal, w.api_client, client.warehouse_id, user.id)
     transport = DatabricksTransport(client, journal)

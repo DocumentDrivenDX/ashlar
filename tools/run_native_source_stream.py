@@ -33,6 +33,7 @@ from ashlar.retention_policy import SQLRetentionProvider,RetentionGate
 from ashlar.source_checkpoint import csv_checkpoint,jsonl_checkpoint
 from ashlar.source import jsonl_batches
 from ashlar.singleton import read_singleton
+from ashlar.graph_release import read_graph_release, persist_graph_release
 from ashlar.weft_query import read_weft
 from ashlar.weft_binding import string_compile_request,WEFT_REVISION,LAYOUT_SHA256
 from ashlar.weft_decode import decode_compiled_column, admit_compiled_count, admit_count_rows, ExactScalar
@@ -84,14 +85,18 @@ def main():
     parser.add_argument('--limit',type=int,choices=range(1,5),default=1,help='Process through this original source batch ordinal; default one batch')
     parser.add_argument('--query-only',action='store_true',help='Read the last retained publication; no ingestion, publication or progress advancement')
     parser.add_argument('--replay-last',action='store_true',help='Re-admit the last completed original batch through its committed attempt; no new batch')
+    parser.add_argument('--graph-release',action='store_true',help='Query-only: export complete exact graph carriers from retained publication')
+    parser.add_argument('--graph-budget',type=int,default=1000,help='Maximum complete nodes and edges in this small functional release')
     parser.add_argument('--weft-sql',help='Query-only: compile a Weft query against the exact retained model/publication')
     parser.add_argument('--weft-python',type=Path,help='Verified pinned wheel installation directory')
     parser.add_argument('--weft-source',type=Path,help='Clean source checkout at the admitted Weft revision')
     parser.add_argument('--type-id',type=int,help='Query-only: select an explicitly bound Record type; defaults to the sole admitted type')
     parser.add_argument('--entity-id',type=int,default=1,help='Signed 64-bit local-example object identity for query-only mode')
-    parser.add_argument('--profile',default='aidev-cus',help='Authorized existing Databricks CLI profile')
-    parser.add_argument('--warehouse',default='2439e1f2e37ac563',help='Authorized existing SQL warehouse')
+    parser.add_argument('--profile',required=True,help='Explicit Databricks CLI profile for dedicated Ashlar compute')
+    parser.add_argument('--warehouse',required=True,help='Explicit dedicated Ashlar SQL endpoint; shared compute has no default')
     args=parser.parse_args()
+    if args.graph_release and (not args.query_only or args.weft_sql):parser.error('Graph release requires query-only and excludes a Weft query')
+    if not 0<=args.graph_budget<=1000000:parser.error('Graph budget must be between zero and one million rows per role')
     if args.replay_last and (args.query_only or args.weft_sql):parser.error('Replay-last and query modes are separate')
     if args.replay_last and not args.journal.is_file():parser.error('Replay-last requires the original retained publication journal')
     if (args.source=='configured-jsonl')!=(args.source_config is not None):parser.error('Configured JSONL requires --source-config; other sources do not accept it')
@@ -128,7 +133,7 @@ def main():
     query_source=primary_policy.source_system
     query_type_id=args.type_id
     if query_type_id is None and len(primary_policy.types)==1:query_type_id=next(iter(primary_policy.types))
-    if args.query_only and not args.weft_sql and query_type_id not in primary_policy.types:parser.error('Singleton requires one explicitly admitted Record type')
+    if args.query_only and not args.weft_sql and not args.graph_release and query_type_id not in primary_policy.types:parser.error('Singleton requires one explicitly admitted Record type')
     bound_intakes=bind_intake_proofs(intakes,proofs,NAMESPACE)
     if configuration is not None:
         source=configuration.source;oracle_batches=tuple(jsonl_batches(source.read_bytes().splitlines(keepends=True),feed=configuration.feed,epoch=configuration.epoch))
@@ -418,7 +423,7 @@ def main():
             start=progress.completed_batches();results=[]
             if args.replay_last and (start==0 or start!=args.limit):
                 raise PublicationError('Replay-last requires the exact last completed source batch ordinal')
-            singleton=None;weft_result=None
+            singleton=None;weft_result=None;graph_result=None
             if args.query_only:
                 if start==0 or start!=args.limit:raise PublicationError('Query-only requires the exact last retained source batch ordinal')
                 active=specs[start-1]
@@ -428,7 +433,28 @@ def main():
                 pin_vector=manifest_pin_vector(dict(current.raw),{t:uuids[t] for t in tables.values()},authority=user.user_name)
                 targets=loaded_targets(active['request']);policy=ReadPolicy()
                 backend=NativeBackend(transport,policy,manifest_table,uuids[manifest_table],{table:columns[table.rsplit('.',1)[1]] for table in tables.values()})
-                if args.weft_sql:
+                if args.graph_release:
+                    class GraphPolicy(ReadPolicy):
+                        def authorize_graph_row(self,value,table,row,supplied):
+                            if supplied is not context or not pin_held:raise PermissionError('Original graph read interval required')
+                            role=table.rsplit('.',1)[1]
+                            if role not in ('object_current','edge_current') or dict(row) not in active['expected'][role]:
+                                raise PublicationError('Independent complete graph carrier differs')
+                        def authorize_graph_result(self,value,nodes,edges,supplied):
+                            from collections import Counter
+                            if supplied is not context or not pin_held:raise PermissionError('Original graph closing interval required')
+                            for role,rows in [('object_current',nodes),('edge_current',edges)]:
+                                canonical=[{k:v for k,v in row.items() if k not in ('graph_id','src','dst')} for row in rows]
+                                if Counter(encoded(r) for r in canonical)!=Counter(encoded(r) for r in active['expected'][role]):
+                                    raise PublicationError('Independent complete graph coverage differs')
+                            self.bind_descriptor(value,pin_vector,supplied);authority();source_schema()
+                    release=read_graph_release(transport,backend,QueryPins(),pin_vector,GraphPolicy(),
+                        publication_id=current.publication_id,node_table=tables['object_current'],edge_table=tables['edge_current'],
+                        context=context,supported_profiles=['ashlar-delta/0.3'],supported_revisions=supported_revisions,
+                        max_nodes=args.graph_budget,max_edges=args.graph_budget)
+                    path=persist_graph_release(args.output,release)
+                    graph_result={'file':path.name,'sha256':release.sha256,'qualification':'Exact bounded publication-derived native carriers with independently checked complete values and identity closure; engine activation remains separate.'}
+                elif args.weft_sql:
                     def compiler_custody():
                         for command,expected in [(['rev-parse','HEAD'],WEFT_REVISION),(['status','--porcelain'],'')]:
                             if subprocess.check_output(['git','-C',str(args.weft_source),*command],text=True).strip()!=expected:
@@ -523,12 +549,12 @@ def main():
                 results.append({'ordinal':active['ordinal'],'descriptor':dict(value.raw)})
             authority();source_schema()
             summary={'state':'queried' if args.query_only else ('replayed' if args.replay_last else 'published'),'namespace':NAMESPACE,'local_consumer_position':progress.position(),'published':results,
-                'source_kind':args.source,'local_completed_batches':progress.completed_batches(),'query_only':args.query_only,'singleton':singleton,'weft':weft_result,'query_publication_id':current.publication_id if args.query_only else None,
+                'source_kind':args.source,'local_completed_batches':progress.completed_batches(),'query_only':args.query_only,'singleton':singleton,'weft':weft_result,'graph_release':graph_result,'query_publication_id':current.publication_id if args.query_only else None,
                 'replay_last':args.replay_last,
                 'native_read_statements':len(client.records),'effective_permission_pages':len(permission_reads),'source_sha256':source_sha,'materialized_at':clock,
                 'qualification':'Actual '+args.source.upper()+' fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload.'}
             (args.output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')
-            print('Native '+args.source.upper()+(' Weft query completed.' if args.weft_sql else ' singleton query completed.') if args.query_only else 'Native '+args.source.upper()+' stream reached local consumer position '+progress.position()+'.')
+            print('Native '+args.source.upper()+(' graph release completed.' if args.graph_release else ' Weft query completed.' if args.weft_sql else ' singleton query completed.') if args.query_only else 'Native '+args.source.upper()+' stream reached local consumer position '+progress.position()+'.')
     finally:held=False;journal.close()
 
 if __name__=='__main__':main()

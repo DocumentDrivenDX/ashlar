@@ -1,0 +1,13 @@
+{
+  "reviewer": "gpt-6-astra ultra + domain_engine_audit",
+  "disposition": "approved",
+  "constraint": "Local Spark/Sail/DuckDB work; never use shared/default Databricks compute. Future Databricks run requires explicit dedicated endpoint.",
+  "checks": [
+    "PersistentSQL rejects missing/invalid profile or endpoint before SDKclient or output",
+    "Eight revised native tools help/missingarguments construct zeroSDKclients",
+    "Native source CLI requires explicitprofile/warehouse",
+    "Native documented commands use dedicatedendpoint placeholders"
+  ],
+  "original_trap_sha256": "6590cdec97455ab0afd0140dae8d57f5d27c19644627618d4f15eececff79df9",
+  "databricks_calls_during_checks": 0
+}
