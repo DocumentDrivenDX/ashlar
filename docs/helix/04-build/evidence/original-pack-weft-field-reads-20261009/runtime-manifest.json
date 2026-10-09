@@ -1,0 +1,14 @@
+{
+  "qualification": "Preloads exact committed reviewed default4MiB custody module while separate medical8MiB work is uncommitted; new runner/host source matches approved g freeze. No SQL or source semantics substitution.",
+  "commit": "9737f92a1060cdda9e7f6eb519e89a76219aa48d",
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-pack-field-runtime-20261009-b/local_delta_custody.py",
+      "sha256": "da3bbdf16dc21466543a306e0a4e21f1e6a1c09ba77bdfb34cbd04072eef0f52"
+    },
+    {
+      "path": "/private/tmp/ashlar-pack-field-runtime-20261009-b/run.py",
+      "sha256": "475f96014233026341f33644ae85753d1767dcb638ef831c598fc14bc63f1a4b"
+    }
+  ]
+}
