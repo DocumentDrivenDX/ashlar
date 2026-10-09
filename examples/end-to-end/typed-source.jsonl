@@ -1,0 +1,10 @@
+{"kind":"begin","batch_id":"typed-1"}
+{"kind":"event","delivery_id":"typed-create-1","source_profile":"ashlar-whole-entity/0.1","source_system":"typed-source","entity_kind":"object","type_id":"17","id":"1","entity_version":"1","schema_revision":"1","operation":"create","props_json":"{\"21\":18446744073709551615,\"22\":12.5000,\"23\":true}","retained_json":"{\"unknown\":{\"original\":18446744073709551615}}"}
+{"kind":"event","delivery_id":"typed-create-2","source_profile":"ashlar-whole-entity/0.1","source_system":"typed-source","entity_kind":"object","type_id":"17","id":"2","entity_version":"1","schema_revision":"1","operation":"create","props_json":"{\"21\":9007199254740993,\"22\":-0.00,\"23\":false,\"24\":null}","retained_json":"{\"unknown\":{\"original\":18446744073709551615}}"}
+{"kind":"commit","batch_id":"typed-1","record_count":2,"records_sha256":"6e21cbe1eae7bce6c3d293b7816539ec171aa92210548e238001f214f52bd408"}
+{"kind":"begin","batch_id":"typed-2"}
+{"kind":"event","delivery_id":"typed-update-1","source_profile":"ashlar-whole-entity/0.1","source_system":"typed-source","entity_kind":"object","type_id":"17","id":"1","entity_version":"2","schema_revision":"1","operation":"replace","props_json":"{\"21\":9007199254740994,\"22\":40.00,\"23\":false,\"24\":\"雪\"}","retained_json":"{\"unknown\":{\"original\":18446744073709551615}}"}
+{"kind":"commit","batch_id":"typed-2","record_count":1,"records_sha256":"f27097caa9fa54b1803b10ee5fb6552eedd83bb91602b48157ea42b625ff32a4"}
+{"kind":"begin","batch_id":"typed-3"}
+{"kind":"event","delivery_id":"typed-delete-2","source_profile":"ashlar-whole-entity/0.1","source_system":"typed-source","entity_kind":"object","type_id":"17","id":"2","entity_version":"2","schema_revision":"1","operation":"delete","props_json":"{\"21\":9007199254740993,\"22\":-0.00,\"23\":false,\"24\":null}","retained_json":"{\"unknown\":{\"original\":18446744073709551615}}"}
+{"kind":"commit","batch_id":"typed-3","record_count":1,"records_sha256":"6af81f65f5fe0612237eba273104834e3ac11e0a75e725ab606e4b19fbb2717b"}

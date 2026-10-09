@@ -1,0 +1,1495 @@
+{
+  "state": "passed-actual-local-typed-ingest",
+  "summary": {
+    "state": "passed-local-typed-ingest",
+    "umf_producer_revision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+    "model_sha256": "4ba44fb79b5b73ea001746b36a63b87e4cedb8d27d73b513d416b155a423503b",
+    "source_sha256": "fe8618cbb8a2624e9483f658e2f7d46c943ede7c30d51fd35363c66aaf396b67",
+    "transactions": 3,
+    "events": 4,
+    "current": [
+      {
+        "id": 1,
+        "entity_version": 2,
+        "props_json": "{\"21\":9007199254740994,\"22\":40.00,\"23\":false,\"24\":\"雪\"}"
+      }
+    ],
+    "history_events": 4,
+    "tombstones": 1,
+    "replay_unchanged": true,
+    "native_original_history_verified": true,
+    "native_transaction_snapshots_verified": true,
+    "replay_native_writes": 0,
+    "duckdb_version": "v1.5.6 (Variegata) 069cc9f9b5",
+    "native_rows": [
+      {
+        "id": "1",
+        "props_json": "{\"21\":9007199254740994,\"22\":40.00,\"23\":false,\"24\":\"雪\"}",
+        "retained_json": "{\"unknown\":{\"original\":18446744073709551615}}",
+        "quantity": "9007199254740994",
+        "amount": "40.00",
+        "active": false,
+        "note": "雪",
+        "history_events": 4,
+        "tombstones": 1
+      }
+    ],
+    "qualification": "Authored core0.8 singleton scalar model, original public UMF Record checks and actual DuckDB screening tables/queries. Explicit development IDs; no Delta, Weft, keys/relationships, native Truss authority, immutable publication or source ACK claim."
+  },
+  "artifacts": {
+    "request.json": {
+      "records": [
+        {
+          "deliveryId": "typed-create-1",
+          "recordSha256": "0539805e0912992ed717dc3abc801c3be08ac6adb961a97671dc689a3389e06c",
+          "typeId": 17,
+          "propsSha256": "b00c89264c2c77c7b770f54f930704f16765f5e56fba6bf7fd121a1b506d505f",
+          "identity": {
+            "module": "m",
+            "element": "Item"
+          },
+          "values": [
+            {
+              "field": {
+                "module": "m",
+                "element": "quantity"
+              },
+              "state": "present",
+              "value": {
+                "integerToken": "18446744073709551615"
+              }
+            },
+            {
+              "field": {
+                "module": "m",
+                "element": "amount"
+              },
+              "state": "present",
+              "value": {
+                "decimalToken": "12.5000"
+              }
+            },
+            {
+              "field": {
+                "module": "m",
+                "element": "active"
+              },
+              "state": "present",
+              "value": {
+                "boolean": true
+              }
+            }
+          ]
+        },
+        {
+          "deliveryId": "typed-create-2",
+          "recordSha256": "2607818af971649703d2d123a8d5c55d09c28851a001197a85660c0d047cf705",
+          "typeId": 17,
+          "propsSha256": "035a2968e552e7ec314d0bb76c9f99c15ea0fb7805f1857bfb71316d370d1490",
+          "identity": {
+            "module": "m",
+            "element": "Item"
+          },
+          "values": [
+            {
+              "field": {
+                "module": "m",
+                "element": "quantity"
+              },
+              "state": "present",
+              "value": {
+                "integerToken": "9007199254740993"
+              }
+            },
+            {
+              "field": {
+                "module": "m",
+                "element": "amount"
+              },
+              "state": "present",
+              "value": {
+                "decimalToken": "-0.00"
+              }
+            },
+            {
+              "field": {
+                "module": "m",
+                "element": "active"
+              },
+              "state": "present",
+              "value": {
+                "boolean": false
+              }
+            },
+            {
+              "field": {
+                "module": "m",
+                "element": "note"
+              },
+              "state": "present",
+              "value": null
+            }
+          ]
+        },
+        {
+          "deliveryId": "typed-update-1",
+          "recordSha256": "5db5314e3098ec86cdb78b177cf1a3199afbb091e229e3e7aca942701bf728fc",
+          "typeId": 17,
+          "propsSha256": "f34c51ea20b11d207785b601ef3fcc901635c2c12fb2555e95631175b7b0b630",
+          "identity": {
+            "module": "m",
+            "element": "Item"
+          },
+          "values": [
+            {
+              "field": {
+                "module": "m",
+                "element": "quantity"
+              },
+              "state": "present",
+              "value": {
+                "integerToken": "9007199254740994"
+              }
+            },
+            {
+              "field": {
+                "module": "m",
+                "element": "amount"
+              },
+              "state": "present",
+              "value": {
+                "decimalToken": "40.00"
+              }
+            },
+            {
+              "field": {
+                "module": "m",
+                "element": "active"
+              },
+              "state": "present",
+              "value": {
+                "boolean": false
+              }
+            },
+            {
+              "field": {
+                "module": "m",
+                "element": "note"
+              },
+              "state": "present",
+              "value": {
+                "string": "雪"
+              }
+            }
+          ]
+        },
+        {
+          "deliveryId": "typed-delete-2",
+          "recordSha256": "b49651a9f1f98fb1fa5f6d129eb2ab9d42475851ef0451d8a60b8490c53ceab3",
+          "typeId": 17,
+          "propsSha256": "035a2968e552e7ec314d0bb76c9f99c15ea0fb7805f1857bfb71316d370d1490",
+          "identity": {
+            "module": "m",
+            "element": "Item"
+          },
+          "values": [
+            {
+              "field": {
+                "module": "m",
+                "element": "quantity"
+              },
+              "state": "present",
+              "value": {
+                "integerToken": "9007199254740993"
+              }
+            },
+            {
+              "field": {
+                "module": "m",
+                "element": "amount"
+              },
+              "state": "present",
+              "value": {
+                "decimalToken": "-0.00"
+              }
+            },
+            {
+              "field": {
+                "module": "m",
+                "element": "active"
+              },
+              "state": "present",
+              "value": {
+                "boolean": false
+              }
+            },
+            {
+              "field": {
+                "module": "m",
+                "element": "note"
+              },
+              "state": "present",
+              "value": null
+            }
+          ]
+        }
+      ]
+    },
+    "summary.json": {
+      "state": "passed-local-typed-ingest",
+      "umf_producer_revision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+      "model_sha256": "4ba44fb79b5b73ea001746b36a63b87e4cedb8d27d73b513d416b155a423503b",
+      "source_sha256": "fe8618cbb8a2624e9483f658e2f7d46c943ede7c30d51fd35363c66aaf396b67",
+      "transactions": 3,
+      "events": 4,
+      "current": [
+        {
+          "id": 1,
+          "entity_version": 2,
+          "props_json": "{\"21\":9007199254740994,\"22\":40.00,\"23\":false,\"24\":\"雪\"}"
+        }
+      ],
+      "history_events": 4,
+      "tombstones": 1,
+      "replay_unchanged": true,
+      "native_original_history_verified": true,
+      "native_transaction_snapshots_verified": true,
+      "replay_native_writes": 0,
+      "duckdb_version": "v1.5.6 (Variegata) 069cc9f9b5",
+      "native_rows": [
+        {
+          "id": "1",
+          "props_json": "{\"21\":9007199254740994,\"22\":40.00,\"23\":false,\"24\":\"雪\"}",
+          "retained_json": "{\"unknown\":{\"original\":18446744073709551615}}",
+          "quantity": "9007199254740994",
+          "amount": "40.00",
+          "active": false,
+          "note": "雪",
+          "history_events": 4,
+          "tombstones": 1
+        }
+      ],
+      "qualification": "Authored core0.8 singleton scalar model, original public UMF Record checks and actual DuckDB screening tables/queries. Explicit development IDs; no Delta, Weft, keys/relationships, native Truss authority, immutable publication or source ACK claim."
+    },
+    "umf-record-check.json": {
+      "format": "ashlar-typed-record-check/0.1",
+      "producerRevision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+      "sourceBase64": "eyJ1bWYiOiIwLjguMCIsImlkIjoidHlwZWQtc291cmNlLWV4YW1wbGUiLCJ2b2NhYnVsYXJpZXMiOnt9LCJtb2R1bGVzIjpbeyJpZCI6Im0iLCJuYW1lc3BhY2UiOiJ1cm46dHlwZWQ6IiwiZWxlbWVudHMiOlt7ImlkIjoiSXRlbSIsImtpbmQiOiJyZWNvcmQiLCJtZW1iZXJzIjpbeyJtb2R1bGUiOiJtIiwiZWxlbWVudCI6InF1YW50aXR5In0seyJtb2R1bGUiOiJtIiwiZWxlbWVudCI6ImFtb3VudCJ9LHsibW9kdWxlIjoibSIsImVsZW1lbnQiOiJhY3RpdmUifSx7Im1vZHVsZSI6Im0iLCJlbGVtZW50Ijoibm90ZSJ9XSwiZXh0ZW5zaW9ucyI6e319LHsiaWQiOiJxdWFudGl0eSIsImtpbmQiOiJmaWVsZCIsInNjYWxhclR5cGUiOiJpbnRlZ2VyIiwiY2FyZGluYWxpdHkiOiJvbmUiLCJudWxsYWJpbGl0eSI6InJlcXVpcmVkIiwiZmFjZXRzIjp7ImludGVnZXJXaWR0aCI6eyJiaXRzIjo2NCwic2lnbmVkIjpmYWxzZX19LCJleHRlbnNpb25zIjp7fX0seyJpZCI6ImFtb3VudCIsImtpbmQiOiJmaWVsZCIsInNjYWxhclR5cGUiOiJkZWNpbWFsIiwiY2FyZGluYWxpdHkiOiJvbmUiLCJudWxsYWJpbGl0eSI6InJlcXVpcmVkIiwiZmFjZXRzIjp7InByZWNpc2lvbiI6MTgsInNjYWxlIjoyfSwiZXh0ZW5zaW9ucyI6e319LHsiaWQiOiJhY3RpdmUiLCJraW5kIjoiZmllbGQiLCJzY2FsYXJUeXBlIjoiYm9vbGVhbiIsImNhcmRpbmFsaXR5Ijoib25lIiwibnVsbGFiaWxpdHkiOiJyZXF1aXJlZCIsImV4dGVuc2lvbnMiOnt9fSx7ImlkIjoibm90ZSIsImtpbmQiOiJmaWVsZCIsInNjYWxhclR5cGUiOiJzdHJpbmciLCJjYXJkaW5hbGl0eSI6Im9uZSIsIm51bGxhYmlsaXR5IjoiYWJzZW50LWFsbG93ZWQiLCJleHRlbnNpb25zIjp7fX1dfV19Cg==",
+      "sourceSha256": "4ba44fb79b5b73ea001746b36a63b87e4cedb8d27d73b513d416b155a423503b",
+      "requestBase64": "eyJyZWNvcmRzIjpbeyJkZWxpdmVyeUlkIjoidHlwZWQtY3JlYXRlLTEiLCJyZWNvcmRTaGEyNTYiOiIwNTM5ODA1ZTA5MTI5OTJlZDcxN2RjM2FiYzgwMWMzYmUwOGFjNmFkYjk2MWE5NzY3MWRjNjg5YTMzODllMDZjIiwidHlwZUlkIjoxNywicHJvcHNTaGEyNTYiOiJiMDBjODkyNjRjMmM3N2M3Yjc3MGY1NGY5MzA3MDRmMTY3NjVmNWU1NmZiYTZiZjdmZDEyMWExYjUwNmQ1MDVmIiwiaWRlbnRpdHkiOnsibW9kdWxlIjoibSIsImVsZW1lbnQiOiJJdGVtIn0sInZhbHVlcyI6W3siZmllbGQiOnsibW9kdWxlIjoibSIsImVsZW1lbnQiOiJxdWFudGl0eSJ9LCJzdGF0ZSI6InByZXNlbnQiLCJ2YWx1ZSI6eyJpbnRlZ2VyVG9rZW4iOiIxODQ0Njc0NDA3MzcwOTU1MTYxNSJ9fSx7ImZpZWxkIjp7Im1vZHVsZSI6Im0iLCJlbGVtZW50IjoiYW1vdW50In0sInN0YXRlIjoicHJlc2VudCIsInZhbHVlIjp7ImRlY2ltYWxUb2tlbiI6IjEyLjUwMDAifX0seyJmaWVsZCI6eyJtb2R1bGUiOiJtIiwiZWxlbWVudCI6ImFjdGl2ZSJ9LCJzdGF0ZSI6InByZXNlbnQiLCJ2YWx1ZSI6eyJib29sZWFuIjp0cnVlfX1dfSx7ImRlbGl2ZXJ5SWQiOiJ0eXBlZC1jcmVhdGUtMiIsInJlY29yZFNoYTI1NiI6IjI2MDc4MThhZjk3MTY0OTcwM2QyZDEyM2E4ZDVjNTVkMDljMjg4NTFhMDAxMTk3YTg1NjYwYzBkMDQ3Y2Y3MDUiLCJ0eXBlSWQiOjE3LCJwcm9wc1NoYTI1NiI6IjAzNWEyOTY4ZTU1MmU3ZWMzMTRkMGJiNzZjOWY5OWMxNWVhMGZiNzgwNWYxODU3YmZiNzEzMTZkMzcwZDE0OTAiLCJpZGVudGl0eSI6eyJtb2R1bGUiOiJtIiwiZWxlbWVudCI6Ikl0ZW0ifSwidmFsdWVzIjpbeyJmaWVsZCI6eyJtb2R1bGUiOiJtIiwiZWxlbWVudCI6InF1YW50aXR5In0sInN0YXRlIjoicHJlc2VudCIsInZhbHVlIjp7ImludGVnZXJUb2tlbiI6IjkwMDcxOTkyNTQ3NDA5OTMifX0seyJmaWVsZCI6eyJtb2R1bGUiOiJtIiwiZWxlbWVudCI6ImFtb3VudCJ9LCJzdGF0ZSI6InByZXNlbnQiLCJ2YWx1ZSI6eyJkZWNpbWFsVG9rZW4iOiItMC4wMCJ9fSx7ImZpZWxkIjp7Im1vZHVsZSI6Im0iLCJlbGVtZW50IjoiYWN0aXZlIn0sInN0YXRlIjoicHJlc2VudCIsInZhbHVlIjp7ImJvb2xlYW4iOmZhbHNlfX0seyJmaWVsZCI6eyJtb2R1bGUiOiJtIiwiZWxlbWVudCI6Im5vdGUifSwic3RhdGUiOiJwcmVzZW50IiwidmFsdWUiOm51bGx9XX0seyJkZWxpdmVyeUlkIjoidHlwZWQtdXBkYXRlLTEiLCJyZWNvcmRTaGEyNTYiOiI1ZGI1MzE0ZTMwOThlYzg2Y2RiNzhiMTc3Y2YxYTMxOTlhZmJiMDkxZTIyOWUzZTdhY2E5NDI3MDFiZjcyOGZjIiwidHlwZUlkIjoxNywicHJvcHNTaGEyNTYiOiJmMzRjNTFlYTIwYjExZDIwNzc4NWI2MDFlZjNmY2M5MDE2MzVjMmMxMmZiMjU1NWU5NTYzMTE3NWI3YjBiNjMwIiwiaWRlbnRpdHkiOnsibW9kdWxlIjoibSIsImVsZW1lbnQiOiJJdGVtIn0sInZhbHVlcyI6W3siZmllbGQiOnsibW9kdWxlIjoibSIsImVsZW1lbnQiOiJxdWFudGl0eSJ9LCJzdGF0ZSI6InByZXNlbnQiLCJ2YWx1ZSI6eyJpbnRlZ2VyVG9rZW4iOiI5MDA3MTk5MjU0NzQwOTk0In19LHsiZmllbGQiOnsibW9kdWxlIjoibSIsImVsZW1lbnQiOiJhbW91bnQifSwic3RhdGUiOiJwcmVzZW50IiwidmFsdWUiOnsiZGVjaW1hbFRva2VuIjoiNDAuMDAifX0seyJmaWVsZCI6eyJtb2R1bGUiOiJtIiwiZWxlbWVudCI6ImFjdGl2ZSJ9LCJzdGF0ZSI6InByZXNlbnQiLCJ2YWx1ZSI6eyJib29sZWFuIjpmYWxzZX19LHsiZmllbGQiOnsibW9kdWxlIjoibSIsImVsZW1lbnQiOiJub3RlIn0sInN0YXRlIjoicHJlc2VudCIsInZhbHVlIjp7InN0cmluZyI6IumbqiJ9fV19LHsiZGVsaXZlcnlJZCI6InR5cGVkLWRlbGV0ZS0yIiwicmVjb3JkU2hhMjU2IjoiYjQ5NjUxYTlmMWY5OGZiMWZhNWY2ZDEyOWViMmFiOWQ0MjQ3NTg1MWVmMDQ1MWQ4YTYwYjg0OTBjNTNjZWFiMyIsInR5cGVJZCI6MTcsInByb3BzU2hhMjU2IjoiMDM1YTI5NjhlNTUyZTdlYzMxNGQwYmI3NmM5Zjk5YzE1ZWEwZmI3ODA1ZjE4NTdiZmI3MTMxNmQzNzBkMTQ5MCIsImlkZW50aXR5Ijp7Im1vZHVsZSI6Im0iLCJlbGVtZW50IjoiSXRlbSJ9LCJ2YWx1ZXMiOlt7ImZpZWxkIjp7Im1vZHVsZSI6Im0iLCJlbGVtZW50IjoicXVhbnRpdHkifSwic3RhdGUiOiJwcmVzZW50IiwidmFsdWUiOnsiaW50ZWdlclRva2VuIjoiOTAwNzE5OTI1NDc0MDk5MyJ9fSx7ImZpZWxkIjp7Im1vZHVsZSI6Im0iLCJlbGVtZW50IjoiYW1vdW50In0sInN0YXRlIjoicHJlc2VudCIsInZhbHVlIjp7ImRlY2ltYWxUb2tlbiI6Ii0wLjAwIn19LHsiZmllbGQiOnsibW9kdWxlIjoibSIsImVsZW1lbnQiOiJhY3RpdmUifSwic3RhdGUiOiJwcmVzZW50IiwidmFsdWUiOnsiYm9vbGVhbiI6ZmFsc2V9fSx7ImZpZWxkIjp7Im1vZHVsZSI6Im0iLCJlbGVtZW50Ijoibm90ZSJ9LCJzdGF0ZSI6InByZXNlbnQiLCJ2YWx1ZSI6bnVsbH1dfV19",
+      "requestSha256": "8b72878e95535a9a5a3443307f19c1c69d96d771f6f1ae64e70f2b16159a003c",
+      "records": [
+        {
+          "request": {
+            "deliveryId": "typed-create-1",
+            "recordSha256": "0539805e0912992ed717dc3abc801c3be08ac6adb961a97671dc689a3389e06c",
+            "typeId": 17,
+            "propsSha256": "b00c89264c2c77c7b770f54f930704f16765f5e56fba6bf7fd121a1b506d505f",
+            "identity": {
+              "module": "m",
+              "element": "Item"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "value": {
+                  "integerToken": "18446744073709551615"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "amount"
+                },
+                "state": "present",
+                "value": {
+                  "decimalToken": "12.5000"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "active"
+                },
+                "state": "present",
+                "value": {
+                  "boolean": true
+                }
+              }
+            ]
+          },
+          "result": {
+            "operation": "validate-core-record-values",
+            "version": "1.0.0",
+            "source": {
+              "umf": "0.8.0",
+              "id": "typed-source-example",
+              "vocabularies": {},
+              "modules": [
+                {
+                  "id": "m",
+                  "namespace": "urn:typed:",
+                  "elements": [
+                    {
+                      "id": "Item",
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "quantity"
+                        },
+                        {
+                          "module": "m",
+                          "element": "amount"
+                        },
+                        {
+                          "module": "m",
+                          "element": "active"
+                        },
+                        {
+                          "module": "m",
+                          "element": "note"
+                        }
+                      ],
+                      "extensions": {}
+                    },
+                    {
+                      "id": "quantity",
+                      "kind": "field",
+                      "scalarType": "integer",
+                      "cardinality": "one",
+                      "nullability": "required",
+                      "facets": {
+                        "integerWidth": {
+                          "bits": 64,
+                          "signed": false
+                        }
+                      },
+                      "extensions": {}
+                    },
+                    {
+                      "id": "amount",
+                      "kind": "field",
+                      "scalarType": "decimal",
+                      "cardinality": "one",
+                      "nullability": "required",
+                      "facets": {
+                        "precision": 18,
+                        "scale": 2
+                      },
+                      "extensions": {}
+                    },
+                    {
+                      "id": "active",
+                      "kind": "field",
+                      "scalarType": "boolean",
+                      "cardinality": "one",
+                      "nullability": "required",
+                      "extensions": {}
+                    },
+                    {
+                      "id": "note",
+                      "kind": "field",
+                      "scalarType": "string",
+                      "cardinality": "one",
+                      "nullability": "absent-allowed",
+                      "extensions": {}
+                    }
+                  ]
+                }
+              ]
+            },
+            "identity": {
+              "module": "m",
+              "element": "Item"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "value": {
+                  "integerToken": "18446744073709551615"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "amount"
+                },
+                "state": "present",
+                "value": {
+                  "decimalToken": "12.5000"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "active"
+                },
+                "state": "present",
+                "value": {
+                  "boolean": true
+                }
+              }
+            ],
+            "documentValidation": {
+              "valid": true,
+              "complete": false,
+              "diagnostics": [
+                {
+                  "code": "EXPERIMENTAL_CORE_NULLABILITY",
+                  "path": "/umf",
+                  "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_CARDINALITY",
+                  "path": "/umf",
+                  "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_FACETS",
+                  "path": "/umf",
+                  "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_KEYS",
+                  "path": "/umf",
+                  "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+                  "path": "/umf",
+                  "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_SCHEMA_PROPERTIES",
+                  "path": "/umf",
+                  "message": "Experimental 0.8.0 properties; native enforcement/admission not implied",
+                  "severity": "warning"
+                }
+              ]
+            },
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            },
+            "fields": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "amount"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "active"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "note"
+                },
+                "state": "absent",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              }
+            ]
+          }
+        },
+        {
+          "request": {
+            "deliveryId": "typed-create-2",
+            "recordSha256": "2607818af971649703d2d123a8d5c55d09c28851a001197a85660c0d047cf705",
+            "typeId": 17,
+            "propsSha256": "035a2968e552e7ec314d0bb76c9f99c15ea0fb7805f1857bfb71316d370d1490",
+            "identity": {
+              "module": "m",
+              "element": "Item"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "value": {
+                  "integerToken": "9007199254740993"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "amount"
+                },
+                "state": "present",
+                "value": {
+                  "decimalToken": "-0.00"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "active"
+                },
+                "state": "present",
+                "value": {
+                  "boolean": false
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "note"
+                },
+                "state": "present",
+                "value": null
+              }
+            ]
+          },
+          "result": {
+            "operation": "validate-core-record-values",
+            "version": "1.0.0",
+            "source": {
+              "umf": "0.8.0",
+              "id": "typed-source-example",
+              "vocabularies": {},
+              "modules": [
+                {
+                  "id": "m",
+                  "namespace": "urn:typed:",
+                  "elements": [
+                    {
+                      "id": "Item",
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "quantity"
+                        },
+                        {
+                          "module": "m",
+                          "element": "amount"
+                        },
+                        {
+                          "module": "m",
+                          "element": "active"
+                        },
+                        {
+                          "module": "m",
+                          "element": "note"
+                        }
+                      ],
+                      "extensions": {}
+                    },
+                    {
+                      "id": "quantity",
+                      "kind": "field",
+                      "scalarType": "integer",
+                      "cardinality": "one",
+                      "nullability": "required",
+                      "facets": {
+                        "integerWidth": {
+                          "bits": 64,
+                          "signed": false
+                        }
+                      },
+                      "extensions": {}
+                    },
+                    {
+                      "id": "amount",
+                      "kind": "field",
+                      "scalarType": "decimal",
+                      "cardinality": "one",
+                      "nullability": "required",
+                      "facets": {
+                        "precision": 18,
+                        "scale": 2
+                      },
+                      "extensions": {}
+                    },
+                    {
+                      "id": "active",
+                      "kind": "field",
+                      "scalarType": "boolean",
+                      "cardinality": "one",
+                      "nullability": "required",
+                      "extensions": {}
+                    },
+                    {
+                      "id": "note",
+                      "kind": "field",
+                      "scalarType": "string",
+                      "cardinality": "one",
+                      "nullability": "absent-allowed",
+                      "extensions": {}
+                    }
+                  ]
+                }
+              ]
+            },
+            "identity": {
+              "module": "m",
+              "element": "Item"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "value": {
+                  "integerToken": "9007199254740993"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "amount"
+                },
+                "state": "present",
+                "value": {
+                  "decimalToken": "-0.00"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "active"
+                },
+                "state": "present",
+                "value": {
+                  "boolean": false
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "note"
+                },
+                "state": "present",
+                "value": null
+              }
+            ],
+            "documentValidation": {
+              "valid": true,
+              "complete": false,
+              "diagnostics": [
+                {
+                  "code": "EXPERIMENTAL_CORE_NULLABILITY",
+                  "path": "/umf",
+                  "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_CARDINALITY",
+                  "path": "/umf",
+                  "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_FACETS",
+                  "path": "/umf",
+                  "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_KEYS",
+                  "path": "/umf",
+                  "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+                  "path": "/umf",
+                  "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_SCHEMA_PROPERTIES",
+                  "path": "/umf",
+                  "message": "Experimental 0.8.0 properties; native enforcement/admission not implied",
+                  "severity": "warning"
+                }
+              ]
+            },
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            },
+            "fields": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "amount"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "active"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "note"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              }
+            ]
+          }
+        },
+        {
+          "request": {
+            "deliveryId": "typed-update-1",
+            "recordSha256": "5db5314e3098ec86cdb78b177cf1a3199afbb091e229e3e7aca942701bf728fc",
+            "typeId": 17,
+            "propsSha256": "f34c51ea20b11d207785b601ef3fcc901635c2c12fb2555e95631175b7b0b630",
+            "identity": {
+              "module": "m",
+              "element": "Item"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "value": {
+                  "integerToken": "9007199254740994"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "amount"
+                },
+                "state": "present",
+                "value": {
+                  "decimalToken": "40.00"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "active"
+                },
+                "state": "present",
+                "value": {
+                  "boolean": false
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "note"
+                },
+                "state": "present",
+                "value": {
+                  "string": "雪"
+                }
+              }
+            ]
+          },
+          "result": {
+            "operation": "validate-core-record-values",
+            "version": "1.0.0",
+            "source": {
+              "umf": "0.8.0",
+              "id": "typed-source-example",
+              "vocabularies": {},
+              "modules": [
+                {
+                  "id": "m",
+                  "namespace": "urn:typed:",
+                  "elements": [
+                    {
+                      "id": "Item",
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "quantity"
+                        },
+                        {
+                          "module": "m",
+                          "element": "amount"
+                        },
+                        {
+                          "module": "m",
+                          "element": "active"
+                        },
+                        {
+                          "module": "m",
+                          "element": "note"
+                        }
+                      ],
+                      "extensions": {}
+                    },
+                    {
+                      "id": "quantity",
+                      "kind": "field",
+                      "scalarType": "integer",
+                      "cardinality": "one",
+                      "nullability": "required",
+                      "facets": {
+                        "integerWidth": {
+                          "bits": 64,
+                          "signed": false
+                        }
+                      },
+                      "extensions": {}
+                    },
+                    {
+                      "id": "amount",
+                      "kind": "field",
+                      "scalarType": "decimal",
+                      "cardinality": "one",
+                      "nullability": "required",
+                      "facets": {
+                        "precision": 18,
+                        "scale": 2
+                      },
+                      "extensions": {}
+                    },
+                    {
+                      "id": "active",
+                      "kind": "field",
+                      "scalarType": "boolean",
+                      "cardinality": "one",
+                      "nullability": "required",
+                      "extensions": {}
+                    },
+                    {
+                      "id": "note",
+                      "kind": "field",
+                      "scalarType": "string",
+                      "cardinality": "one",
+                      "nullability": "absent-allowed",
+                      "extensions": {}
+                    }
+                  ]
+                }
+              ]
+            },
+            "identity": {
+              "module": "m",
+              "element": "Item"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "value": {
+                  "integerToken": "9007199254740994"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "amount"
+                },
+                "state": "present",
+                "value": {
+                  "decimalToken": "40.00"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "active"
+                },
+                "state": "present",
+                "value": {
+                  "boolean": false
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "note"
+                },
+                "state": "present",
+                "value": {
+                  "string": "雪"
+                }
+              }
+            ],
+            "documentValidation": {
+              "valid": true,
+              "complete": false,
+              "diagnostics": [
+                {
+                  "code": "EXPERIMENTAL_CORE_NULLABILITY",
+                  "path": "/umf",
+                  "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_CARDINALITY",
+                  "path": "/umf",
+                  "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_FACETS",
+                  "path": "/umf",
+                  "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_KEYS",
+                  "path": "/umf",
+                  "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+                  "path": "/umf",
+                  "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_SCHEMA_PROPERTIES",
+                  "path": "/umf",
+                  "message": "Experimental 0.8.0 properties; native enforcement/admission not implied",
+                  "severity": "warning"
+                }
+              ]
+            },
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            },
+            "fields": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "amount"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "active"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "note"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              }
+            ]
+          }
+        },
+        {
+          "request": {
+            "deliveryId": "typed-delete-2",
+            "recordSha256": "b49651a9f1f98fb1fa5f6d129eb2ab9d42475851ef0451d8a60b8490c53ceab3",
+            "typeId": 17,
+            "propsSha256": "035a2968e552e7ec314d0bb76c9f99c15ea0fb7805f1857bfb71316d370d1490",
+            "identity": {
+              "module": "m",
+              "element": "Item"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "value": {
+                  "integerToken": "9007199254740993"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "amount"
+                },
+                "state": "present",
+                "value": {
+                  "decimalToken": "-0.00"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "active"
+                },
+                "state": "present",
+                "value": {
+                  "boolean": false
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "note"
+                },
+                "state": "present",
+                "value": null
+              }
+            ]
+          },
+          "result": {
+            "operation": "validate-core-record-values",
+            "version": "1.0.0",
+            "source": {
+              "umf": "0.8.0",
+              "id": "typed-source-example",
+              "vocabularies": {},
+              "modules": [
+                {
+                  "id": "m",
+                  "namespace": "urn:typed:",
+                  "elements": [
+                    {
+                      "id": "Item",
+                      "kind": "record",
+                      "members": [
+                        {
+                          "module": "m",
+                          "element": "quantity"
+                        },
+                        {
+                          "module": "m",
+                          "element": "amount"
+                        },
+                        {
+                          "module": "m",
+                          "element": "active"
+                        },
+                        {
+                          "module": "m",
+                          "element": "note"
+                        }
+                      ],
+                      "extensions": {}
+                    },
+                    {
+                      "id": "quantity",
+                      "kind": "field",
+                      "scalarType": "integer",
+                      "cardinality": "one",
+                      "nullability": "required",
+                      "facets": {
+                        "integerWidth": {
+                          "bits": 64,
+                          "signed": false
+                        }
+                      },
+                      "extensions": {}
+                    },
+                    {
+                      "id": "amount",
+                      "kind": "field",
+                      "scalarType": "decimal",
+                      "cardinality": "one",
+                      "nullability": "required",
+                      "facets": {
+                        "precision": 18,
+                        "scale": 2
+                      },
+                      "extensions": {}
+                    },
+                    {
+                      "id": "active",
+                      "kind": "field",
+                      "scalarType": "boolean",
+                      "cardinality": "one",
+                      "nullability": "required",
+                      "extensions": {}
+                    },
+                    {
+                      "id": "note",
+                      "kind": "field",
+                      "scalarType": "string",
+                      "cardinality": "one",
+                      "nullability": "absent-allowed",
+                      "extensions": {}
+                    }
+                  ]
+                }
+              ]
+            },
+            "identity": {
+              "module": "m",
+              "element": "Item"
+            },
+            "values": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "value": {
+                  "integerToken": "9007199254740993"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "amount"
+                },
+                "state": "present",
+                "value": {
+                  "decimalToken": "-0.00"
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "active"
+                },
+                "state": "present",
+                "value": {
+                  "boolean": false
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "note"
+                },
+                "state": "present",
+                "value": null
+              }
+            ],
+            "documentValidation": {
+              "valid": true,
+              "complete": false,
+              "diagnostics": [
+                {
+                  "code": "EXPERIMENTAL_CORE_NULLABILITY",
+                  "path": "/umf",
+                  "message": "Nullability envelope is experimental; no native absence encoding or default execution is implied",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_CARDINALITY",
+                  "path": "/umf",
+                  "message": "Cardinality envelope is experimental; native shape and item semantics require explicit bindings",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_FACETS",
+                  "path": "/umf",
+                  "message": "Facet envelope is experimental; bounds do not establish native enforcement or value conversion",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_KEYS",
+                  "path": "/umf",
+                  "message": "Candidate key profile; native uniqueness and author provenance are not inferred",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_RELATIONSHIPS",
+                  "path": "/umf",
+                  "message": "Candidate authored relationship profile; native enforcement and storage are not inferred",
+                  "severity": "warning"
+                },
+                {
+                  "code": "EXPERIMENTAL_CORE_SCHEMA_PROPERTIES",
+                  "path": "/umf",
+                  "message": "Experimental 0.8.0 properties; native enforcement/admission not implied",
+                  "severity": "warning"
+                }
+              ]
+            },
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            },
+            "fields": [
+              {
+                "field": {
+                  "module": "m",
+                  "element": "quantity"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "amount"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "active"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              },
+              {
+                "field": {
+                  "module": "m",
+                  "element": "note"
+                },
+                "state": "present",
+                "validation": {
+                  "valid": true,
+                  "complete": true,
+                  "diagnostics": []
+                }
+              }
+            ]
+          }
+        }
+      ],
+      "qualification": "Original public core0.8 Record value/presence checks; no native catalog authority, dataset keys/relationships, query carrier admission, publication or ACK."
+    },
+    "history-readback.json": [
+      {
+        "delivery_id": "typed-create-1",
+        "raw_digest": "0539805e0912992ed717dc3abc801c3be08ac6adb961a97671dc689a3389e06c",
+        "raw_base64": "eyJraW5kIjoiZXZlbnQiLCJkZWxpdmVyeV9pZCI6InR5cGVkLWNyZWF0ZS0xIiwic291cmNlX3Byb2ZpbGUiOiJhc2hsYXItd2hvbGUtZW50aXR5LzAuMSIsInNvdXJjZV9zeXN0ZW0iOiJ0eXBlZC1zb3VyY2UiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxNyIsImlkIjoiMSIsImVudGl0eV92ZXJzaW9uIjoiMSIsInNjaGVtYV9yZXZpc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJjcmVhdGUiLCJwcm9wc19qc29uIjoie1wiMjFcIjoxODQ0Njc0NDA3MzcwOTU1MTYxNSxcIjIyXCI6MTIuNTAwMCxcIjIzXCI6dHJ1ZX0iLCJyZXRhaW5lZF9qc29uIjoie1widW5rbm93blwiOntcIm9yaWdpbmFsXCI6MTg0NDY3NDQwNzM3MDk1NTE2MTV9fSJ9Cg=="
+      },
+      {
+        "delivery_id": "typed-create-2",
+        "raw_digest": "2607818af971649703d2d123a8d5c55d09c28851a001197a85660c0d047cf705",
+        "raw_base64": "eyJraW5kIjoiZXZlbnQiLCJkZWxpdmVyeV9pZCI6InR5cGVkLWNyZWF0ZS0yIiwic291cmNlX3Byb2ZpbGUiOiJhc2hsYXItd2hvbGUtZW50aXR5LzAuMSIsInNvdXJjZV9zeXN0ZW0iOiJ0eXBlZC1zb3VyY2UiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxNyIsImlkIjoiMiIsImVudGl0eV92ZXJzaW9uIjoiMSIsInNjaGVtYV9yZXZpc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJjcmVhdGUiLCJwcm9wc19qc29uIjoie1wiMjFcIjo5MDA3MTk5MjU0NzQwOTkzLFwiMjJcIjotMC4wMCxcIjIzXCI6ZmFsc2UsXCIyNFwiOm51bGx9IiwicmV0YWluZWRfanNvbiI6IntcInVua25vd25cIjp7XCJvcmlnaW5hbFwiOjE4NDQ2NzQ0MDczNzA5NTUxNjE1fX0ifQo="
+      },
+      {
+        "delivery_id": "typed-delete-2",
+        "raw_digest": "b49651a9f1f98fb1fa5f6d129eb2ab9d42475851ef0451d8a60b8490c53ceab3",
+        "raw_base64": "eyJraW5kIjoiZXZlbnQiLCJkZWxpdmVyeV9pZCI6InR5cGVkLWRlbGV0ZS0yIiwic291cmNlX3Byb2ZpbGUiOiJhc2hsYXItd2hvbGUtZW50aXR5LzAuMSIsInNvdXJjZV9zeXN0ZW0iOiJ0eXBlZC1zb3VyY2UiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxNyIsImlkIjoiMiIsImVudGl0eV92ZXJzaW9uIjoiMiIsInNjaGVtYV9yZXZpc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJkZWxldGUiLCJwcm9wc19qc29uIjoie1wiMjFcIjo5MDA3MTk5MjU0NzQwOTkzLFwiMjJcIjotMC4wMCxcIjIzXCI6ZmFsc2UsXCIyNFwiOm51bGx9IiwicmV0YWluZWRfanNvbiI6IntcInVua25vd25cIjp7XCJvcmlnaW5hbFwiOjE4NDQ2NzQ0MDczNzA5NTUxNjE1fX0ifQo="
+      },
+      {
+        "delivery_id": "typed-update-1",
+        "raw_digest": "5db5314e3098ec86cdb78b177cf1a3199afbb091e229e3e7aca942701bf728fc",
+        "raw_base64": "eyJraW5kIjoiZXZlbnQiLCJkZWxpdmVyeV9pZCI6InR5cGVkLXVwZGF0ZS0xIiwic291cmNlX3Byb2ZpbGUiOiJhc2hsYXItd2hvbGUtZW50aXR5LzAuMSIsInNvdXJjZV9zeXN0ZW0iOiJ0eXBlZC1zb3VyY2UiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxNyIsImlkIjoiMSIsImVudGl0eV92ZXJzaW9uIjoiMiIsInNjaGVtYV9yZXZpc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJyZXBsYWNlIiwicHJvcHNfanNvbiI6IntcIjIxXCI6OTAwNzE5OTI1NDc0MDk5NCxcIjIyXCI6NDAuMDAsXCIyM1wiOmZhbHNlLFwiMjRcIjpcIumbqlwifSIsInJldGFpbmVkX2pzb24iOiJ7XCJ1bmtub3duXCI6e1wib3JpZ2luYWxcIjoxODQ0Njc0NDA3MzcwOTU1MTYxNX19In0K"
+      }
+    ],
+    "replay-history-readback.json": [
+      {
+        "delivery_id": "typed-create-1",
+        "raw_digest": "0539805e0912992ed717dc3abc801c3be08ac6adb961a97671dc689a3389e06c",
+        "raw_base64": "eyJraW5kIjoiZXZlbnQiLCJkZWxpdmVyeV9pZCI6InR5cGVkLWNyZWF0ZS0xIiwic291cmNlX3Byb2ZpbGUiOiJhc2hsYXItd2hvbGUtZW50aXR5LzAuMSIsInNvdXJjZV9zeXN0ZW0iOiJ0eXBlZC1zb3VyY2UiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxNyIsImlkIjoiMSIsImVudGl0eV92ZXJzaW9uIjoiMSIsInNjaGVtYV9yZXZpc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJjcmVhdGUiLCJwcm9wc19qc29uIjoie1wiMjFcIjoxODQ0Njc0NDA3MzcwOTU1MTYxNSxcIjIyXCI6MTIuNTAwMCxcIjIzXCI6dHJ1ZX0iLCJyZXRhaW5lZF9qc29uIjoie1widW5rbm93blwiOntcIm9yaWdpbmFsXCI6MTg0NDY3NDQwNzM3MDk1NTE2MTV9fSJ9Cg=="
+      },
+      {
+        "delivery_id": "typed-create-2",
+        "raw_digest": "2607818af971649703d2d123a8d5c55d09c28851a001197a85660c0d047cf705",
+        "raw_base64": "eyJraW5kIjoiZXZlbnQiLCJkZWxpdmVyeV9pZCI6InR5cGVkLWNyZWF0ZS0yIiwic291cmNlX3Byb2ZpbGUiOiJhc2hsYXItd2hvbGUtZW50aXR5LzAuMSIsInNvdXJjZV9zeXN0ZW0iOiJ0eXBlZC1zb3VyY2UiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxNyIsImlkIjoiMiIsImVudGl0eV92ZXJzaW9uIjoiMSIsInNjaGVtYV9yZXZpc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJjcmVhdGUiLCJwcm9wc19qc29uIjoie1wiMjFcIjo5MDA3MTk5MjU0NzQwOTkzLFwiMjJcIjotMC4wMCxcIjIzXCI6ZmFsc2UsXCIyNFwiOm51bGx9IiwicmV0YWluZWRfanNvbiI6IntcInVua25vd25cIjp7XCJvcmlnaW5hbFwiOjE4NDQ2NzQ0MDczNzA5NTUxNjE1fX0ifQo="
+      },
+      {
+        "delivery_id": "typed-delete-2",
+        "raw_digest": "b49651a9f1f98fb1fa5f6d129eb2ab9d42475851ef0451d8a60b8490c53ceab3",
+        "raw_base64": "eyJraW5kIjoiZXZlbnQiLCJkZWxpdmVyeV9pZCI6InR5cGVkLWRlbGV0ZS0yIiwic291cmNlX3Byb2ZpbGUiOiJhc2hsYXItd2hvbGUtZW50aXR5LzAuMSIsInNvdXJjZV9zeXN0ZW0iOiJ0eXBlZC1zb3VyY2UiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxNyIsImlkIjoiMiIsImVudGl0eV92ZXJzaW9uIjoiMiIsInNjaGVtYV9yZXZpc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJkZWxldGUiLCJwcm9wc19qc29uIjoie1wiMjFcIjo5MDA3MTk5MjU0NzQwOTkzLFwiMjJcIjotMC4wMCxcIjIzXCI6ZmFsc2UsXCIyNFwiOm51bGx9IiwicmV0YWluZWRfanNvbiI6IntcInVua25vd25cIjp7XCJvcmlnaW5hbFwiOjE4NDQ2NzQ0MDczNzA5NTUxNjE1fX0ifQo="
+      },
+      {
+        "delivery_id": "typed-update-1",
+        "raw_digest": "5db5314e3098ec86cdb78b177cf1a3199afbb091e229e3e7aca942701bf728fc",
+        "raw_base64": "eyJraW5kIjoiZXZlbnQiLCJkZWxpdmVyeV9pZCI6InR5cGVkLXVwZGF0ZS0xIiwic291cmNlX3Byb2ZpbGUiOiJhc2hsYXItd2hvbGUtZW50aXR5LzAuMSIsInNvdXJjZV9zeXN0ZW0iOiJ0eXBlZC1zb3VyY2UiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxNyIsImlkIjoiMSIsImVudGl0eV92ZXJzaW9uIjoiMiIsInNjaGVtYV9yZXZpc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJyZXBsYWNlIiwicHJvcHNfanNvbiI6IntcIjIxXCI6OTAwNzE5OTI1NDc0MDk5NCxcIjIyXCI6NDAuMDAsXCIyM1wiOmZhbHNlLFwiMjRcIjpcIumbqlwifSIsInJldGFpbmVkX2pzb24iOiJ7XCJ1bmtub3duXCI6e1wib3JpZ2luYWxcIjoxODQ0Njc0NDA3MzcwOTU1MTYxNX19In0K"
+      }
+    ],
+    "native-result.json": [
+      {
+        "id": "1",
+        "props_json": "{\"21\":9007199254740994,\"22\":40.00,\"23\":false,\"24\":\"雪\"}",
+        "retained_json": "{\"unknown\":{\"original\":18446744073709551615}}",
+        "quantity": "9007199254740994",
+        "amount": "40.00",
+        "active": false,
+        "note": "雪",
+        "history_events": 4,
+        "tombstones": 1
+      }
+    ],
+    "replay-readback.json": [
+      {
+        "id": "1",
+        "props_json": "{\"21\":9007199254740994,\"22\":40.00,\"23\":false,\"24\":\"雪\"}",
+        "retained_json": "{\"unknown\":{\"original\":18446744073709551615}}",
+        "quantity": "9007199254740994",
+        "amount": "40.00",
+        "active": false,
+        "note": "雪",
+        "history_events": 4,
+        "tombstones": 1
+      }
+    ],
+    "ingest.sql": "CREATE TABLE object_current(source_system VARCHAR,type_id BIGINT,id BIGINT,entity_version BIGINT,schema_revision VARCHAR,props_json VARCHAR,retained_json VARCHAR); CREATE TABLE whole_source_history(delivery_id VARCHAR,raw_digest VARCHAR,raw_base64 VARCHAR); CREATE TABLE tombstone(id BIGINT,entity_version BIGINT); CREATE TABLE source_snapshots(ordinal BIGINT,id BIGINT,props_json VARCHAR);\nBEGIN; DELETE FROM object_current; DELETE FROM tombstone;\nINSERT INTO object_current VALUES ('typed-source',17,1,1,'1','{\"21\":18446744073709551615,\"22\":12.5000,\"23\":true}','{\"unknown\":{\"original\":18446744073709551615}}');\nINSERT INTO object_current VALUES ('typed-source',17,2,1,'1','{\"21\":9007199254740993,\"22\":-0.00,\"23\":false,\"24\":null}','{\"unknown\":{\"original\":18446744073709551615}}');\nINSERT INTO whole_source_history VALUES ('typed-create-1','0539805e0912992ed717dc3abc801c3be08ac6adb961a97671dc689a3389e06c','eyJraW5kIjoiZXZlbnQiLCJkZWxpdmVyeV9pZCI6InR5cGVkLWNyZWF0ZS0xIiwic291cmNlX3Byb2ZpbGUiOiJhc2hsYXItd2hvbGUtZW50aXR5LzAuMSIsInNvdXJjZV9zeXN0ZW0iOiJ0eXBlZC1zb3VyY2UiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxNyIsImlkIjoiMSIsImVudGl0eV92ZXJzaW9uIjoiMSIsInNjaGVtYV9yZXZpc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJjcmVhdGUiLCJwcm9wc19qc29uIjoie1wiMjFcIjoxODQ0Njc0NDA3MzcwOTU1MTYxNSxcIjIyXCI6MTIuNTAwMCxcIjIzXCI6dHJ1ZX0iLCJyZXRhaW5lZF9qc29uIjoie1widW5rbm93blwiOntcIm9yaWdpbmFsXCI6MTg0NDY3NDQwNzM3MDk1NTE2MTV9fSJ9Cg==');\nINSERT INTO whole_source_history VALUES ('typed-create-2','2607818af971649703d2d123a8d5c55d09c28851a001197a85660c0d047cf705','eyJraW5kIjoiZXZlbnQiLCJkZWxpdmVyeV9pZCI6InR5cGVkLWNyZWF0ZS0yIiwic291cmNlX3Byb2ZpbGUiOiJhc2hsYXItd2hvbGUtZW50aXR5LzAuMSIsInNvdXJjZV9zeXN0ZW0iOiJ0eXBlZC1zb3VyY2UiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxNyIsImlkIjoiMiIsImVudGl0eV92ZXJzaW9uIjoiMSIsInNjaGVtYV9yZXZpc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJjcmVhdGUiLCJwcm9wc19qc29uIjoie1wiMjFcIjo5MDA3MTk5MjU0NzQwOTkzLFwiMjJcIjotMC4wMCxcIjIzXCI6ZmFsc2UsXCIyNFwiOm51bGx9IiwicmV0YWluZWRfanNvbiI6IntcInVua25vd25cIjp7XCJvcmlnaW5hbFwiOjE4NDQ2NzQ0MDczNzA5NTUxNjE1fX0ifQo=');\nINSERT INTO source_snapshots SELECT 1,id,props_json FROM object_current; COMMIT;\nBEGIN; DELETE FROM object_current; DELETE FROM tombstone;\nINSERT INTO object_current VALUES ('typed-source',17,1,2,'1','{\"21\":9007199254740994,\"22\":40.00,\"23\":false,\"24\":\"雪\"}','{\"unknown\":{\"original\":18446744073709551615}}');\nINSERT INTO object_current VALUES ('typed-source',17,2,1,'1','{\"21\":9007199254740993,\"22\":-0.00,\"23\":false,\"24\":null}','{\"unknown\":{\"original\":18446744073709551615}}');\nINSERT INTO whole_source_history VALUES ('typed-update-1','5db5314e3098ec86cdb78b177cf1a3199afbb091e229e3e7aca942701bf728fc','eyJraW5kIjoiZXZlbnQiLCJkZWxpdmVyeV9pZCI6InR5cGVkLXVwZGF0ZS0xIiwic291cmNlX3Byb2ZpbGUiOiJhc2hsYXItd2hvbGUtZW50aXR5LzAuMSIsInNvdXJjZV9zeXN0ZW0iOiJ0eXBlZC1zb3VyY2UiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxNyIsImlkIjoiMSIsImVudGl0eV92ZXJzaW9uIjoiMiIsInNjaGVtYV9yZXZpc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJyZXBsYWNlIiwicHJvcHNfanNvbiI6IntcIjIxXCI6OTAwNzE5OTI1NDc0MDk5NCxcIjIyXCI6NDAuMDAsXCIyM1wiOmZhbHNlLFwiMjRcIjpcIumbqlwifSIsInJldGFpbmVkX2pzb24iOiJ7XCJ1bmtub3duXCI6e1wib3JpZ2luYWxcIjoxODQ0Njc0NDA3MzcwOTU1MTYxNX19In0K');\nINSERT INTO source_snapshots SELECT 2,id,props_json FROM object_current; COMMIT;\nBEGIN; DELETE FROM object_current; DELETE FROM tombstone;\nINSERT INTO object_current VALUES ('typed-source',17,1,2,'1','{\"21\":9007199254740994,\"22\":40.00,\"23\":false,\"24\":\"雪\"}','{\"unknown\":{\"original\":18446744073709551615}}');\nINSERT INTO tombstone VALUES (2,2);\nINSERT INTO whole_source_history VALUES ('typed-delete-2','b49651a9f1f98fb1fa5f6d129eb2ab9d42475851ef0451d8a60b8490c53ceab3','eyJraW5kIjoiZXZlbnQiLCJkZWxpdmVyeV9pZCI6InR5cGVkLWRlbGV0ZS0yIiwic291cmNlX3Byb2ZpbGUiOiJhc2hsYXItd2hvbGUtZW50aXR5LzAuMSIsInNvdXJjZV9zeXN0ZW0iOiJ0eXBlZC1zb3VyY2UiLCJlbnRpdHlfa2luZCI6Im9iamVjdCIsInR5cGVfaWQiOiIxNyIsImlkIjoiMiIsImVudGl0eV92ZXJzaW9uIjoiMiIsInNjaGVtYV9yZXZpc2lvbiI6IjEiLCJvcGVyYXRpb24iOiJkZWxldGUiLCJwcm9wc19qc29uIjoie1wiMjFcIjo5MDA3MTk5MjU0NzQwOTkzLFwiMjJcIjotMC4wMCxcIjIzXCI6ZmFsc2UsXCIyNFwiOm51bGx9IiwicmV0YWluZWRfanNvbiI6IntcInVua25vd25cIjp7XCJvcmlnaW5hbFwiOjE4NDQ2NzQ0MDczNzA5NTUxNjE1fX0ifQo=');\nINSERT INTO source_snapshots SELECT 3,id,props_json FROM object_current; COMMIT;\nSELECT CAST(id AS VARCHAR) AS id,props_json,retained_json,\nCAST(CAST(json_extract_string(props_json,'$.\"21\"') AS UBIGINT) AS VARCHAR) AS quantity,\nCAST(CAST(json_extract_string(props_json,'$.\"22\"') AS DECIMAL(18,2)) AS VARCHAR) AS amount,\nCAST(json_extract_string(props_json,'$.\"23\"') AS BOOLEAN) AS active,\njson_extract_string(props_json,'$.\"24\"') AS note,\n(SELECT count(*) FROM whole_source_history) AS history_events,\n(SELECT count(*) FROM tombstone) AS tombstones FROM object_current ORDER BY id;",
+    "snapshots-readback.json": [
+      {
+        "ordinal": 1,
+        "id": 1,
+        "props_json": "{\"21\":18446744073709551615,\"22\":12.5000,\"23\":true}"
+      },
+      {
+        "ordinal": 1,
+        "id": 2,
+        "props_json": "{\"21\":9007199254740993,\"22\":-0.00,\"23\":false,\"24\":null}"
+      },
+      {
+        "ordinal": 2,
+        "id": 1,
+        "props_json": "{\"21\":9007199254740994,\"22\":40.00,\"23\":false,\"24\":\"雪\"}"
+      },
+      {
+        "ordinal": 2,
+        "id": 2,
+        "props_json": "{\"21\":9007199254740993,\"22\":-0.00,\"23\":false,\"24\":null}"
+      },
+      {
+        "ordinal": 3,
+        "id": 1,
+        "props_json": "{\"21\":9007199254740994,\"22\":40.00,\"23\":false,\"24\":\"雪\"}"
+      }
+    ]
+  },
+  "artifact_sha256": {
+    "request.json": "8b72878e95535a9a5a3443307f19c1c69d96d771f6f1ae64e70f2b16159a003c",
+    "summary.json": "95061ea4c82384312744c2a454738617976409e1997f381dd167349ac7f44756",
+    "umf-record-check.json": "9fed2336f69e53a4dc81264639f00897dcf8ad7f6b30e276b0432b6621b6cd9e",
+    "history-readback.json": "53b33387c80c797b7d5058dfdfee1be7ed81899277415fe9ef258c6bd5c919be",
+    "replay-history-readback.json": "53b33387c80c797b7d5058dfdfee1be7ed81899277415fe9ef258c6bd5c919be",
+    "native-result.json": "c297877879fe18184ed5226b6f3a91a984cb63dc42c5fc387ba398480b276baa",
+    "replay-readback.json": "c297877879fe18184ed5226b6f3a91a984cb63dc42c5fc387ba398480b276baa",
+    "ingest.sql": "8054979257f9dabef05f2c2ad8c0eba1107b6a8a0ac881763b73bf5389ba1b54",
+    "snapshots-readback.json": "9d1297b6bddbcc20a62b52f92edc43372eb87314006adc550404e4ede2920ae3"
+  },
+  "review": {
+    "independent_reviewer": "domain_engine_audit",
+    "tests_passed": 6,
+    "refusals": [
+      "Incomplete original ordered field receipts",
+      "Wrong field identity/state",
+      "Missing/reordered/duplicate field observations",
+      "JSON numeric1 validationflags",
+      "Public numeric overflow/rounding/type/presence/key/extension incompleteness"
+    ]
+  },
+  "qualification": "Final original public pinned UMF receipt, source transaction and actual DuckDB query/history/snapshot/replay evidence. No Databricks calls. Local scalar singleton development profile only; managed Delta, Weft typed fields and relationships remain required separate integrations."
+}

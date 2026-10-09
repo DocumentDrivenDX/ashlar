@@ -1,0 +1,35 @@
+{
+  "profile": "ashlar-authored-typed-source/0.1",
+  "document_revision": "1",
+  "source_system": "typed-source",
+  "type_id": 17,
+  "binding": {
+    "record": [
+      "m",
+      "Item"
+    ],
+    "fields": {
+      "21": [
+        "m",
+        "quantity",
+        "integer"
+      ],
+      "22": [
+        "m",
+        "amount",
+        "decimal"
+      ],
+      "23": [
+        "m",
+        "active",
+        "boolean"
+      ],
+      "24": [
+        "m",
+        "note",
+        "string"
+      ]
+    }
+  },
+  "qualification": "Explicit development mapping only; not accepted Truss IDs or native query binding."
+}
