@@ -1,0 +1,64 @@
+{
+  "actual_complete_rows": [
+    {
+      "apply_batch_id": "original-commerce-v1",
+      "entity_version": "1",
+      "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTEiLCI2Il0",
+      "id": "6",
+      "logical_key_json": "[]",
+      "lookup_hash": "919d10424e6780780a7b610a1a13f52495d16e9e961a630eb714944f8f8588f2",
+      "props_json": "{\"3\":\"[42,0,\\\"F1\\\"]\",\"4\":\"[42,0,\\\"L1\\\"]\",\"5\":6}",
+      "published_at": "1791547200000000",
+      "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"fulfillments\\\",[\\\"[42,0,\\\\\\\"F1\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"fulfillments\"},\"values\":{\"fulfillments.id\":\"[42,0,\\\"F1\\\"]\",\"fulfillments.line_id\":\"[42,0,\\\"L1\\\"]\",\"fulfillments.quantity\":\"6\"}}}",
+      "root_id": null,
+      "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+      "source_delivery_id": "object:6",
+      "source_epoch": "original-commerce-v1",
+      "source_feed": "private-original-commerce-fixture",
+      "source_position": null,
+      "source_system": "private-original-commerce-fixture",
+      "type_id": "11"
+    }
+  ],
+  "actual_keys": [
+    "[\"urn:umf:domain:commerce\",\"domain\",\"fulfillments\",[\"[42,0,\\\"F1\\\"]\"]]"
+  ],
+  "actual_total": 2,
+  "custody_sha256": "667f5c8260fe6a37c1838495434c08aaa5ee1331aad507b8a65bac6167c731f8",
+  "executed_plan": "AdaptiveSparkPlan isFinalPlan=false\n+- TakeOrderedAndProject(limit=1, orderBy=[original_key#565 ASC NULLS FIRST], output=[graph_id#65,type_id#48,id#49,entity_version#50,root_id#51,source_position#52,source_system#53,logical_key_json#54,schema_revision#55,props_json#56,retained_json#57,source_feed#58,source_epoch#59,lookup_hash#60,apply_batch_id#61,source_cursor_json#62,source_delivery_id#63,published_at#64,original_key#565,original_type#566])\n   +- Project [graph_id#65, type_id#48, id#49, entity_version#50, root_id#51, source_position#52, source_system#53, logical_key_json#54, schema_revision#55, props_json#56, retained_json#57, source_feed#58, source_epoch#59, lookup_hash#60, apply_batch_id#61, source_cursor_json#62, source_delivery_id#63, published_at#64, original_key#565, original_type#566]\n      +- BroadcastHashJoin [graph_id#65], [graph_id#564], Inner, BuildLeft, false\n         :- BroadcastExchange HashedRelationBroadcastMode(List(input[17, string, false]),false), [plan_id=454]\n         :  +- Filter isnotnull(graph_id#65)\n         :     +- FileScan parquet [type_id#48,id#49,entity_version#50,root_id#51,source_position#52,source_system#53,logical_key_json#54,schema_revision#55,props_json#56,retained_json#57,source_feed#58,source_epoch#59,lookup_hash#60,apply_batch_id#61,source_cursor_json#62,source_delivery_id#63,published_at#64,graph_id#65] Batched: true, DataFilters: [isnotnull(graph_id#65)], Format: Parquet, Location: PreparedDeltaFileIndex(1 paths)[file:/private/tmp/ashlar-commerce-graphframes-complete-20261009-1..., PartitionFilters: [], PushedFilters: [IsNotNull(graph_id)], ReadSchema: struct<type_id:string,id:string,entity_version:string,root_id:string,source_position:string,sourc...\n         +- Filter ((isnotnull(original_type#566) AND (original_type#566 = {\"document\":\"urn:umf:domain:commerce\",\"element\":\"fulfillments\",\"module\":\"domain\"})) AND isnotnull(graph_id#564))\n            +- Scan ExistingRDD[graph_id#564,original_key#565,original_type#566]\n",
+  "expected_complete_rows": [
+    {
+      "apply_batch_id": "original-commerce-v1",
+      "entity_version": "1",
+      "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTEiLCI2Il0",
+      "id": "6",
+      "logical_key_json": "[]",
+      "lookup_hash": "919d10424e6780780a7b610a1a13f52495d16e9e961a630eb714944f8f8588f2",
+      "props_json": "{\"3\":\"[42,0,\\\"F1\\\"]\",\"4\":\"[42,0,\\\"L1\\\"]\",\"5\":6}",
+      "published_at": "1791547200000000",
+      "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"fulfillments\\\",[\\\"[42,0,\\\\\\\"F1\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"fulfillments\"},\"values\":{\"fulfillments.id\":\"[42,0,\\\"F1\\\"]\",\"fulfillments.line_id\":\"[42,0,\\\"L1\\\"]\",\"fulfillments.quantity\":\"6\"}}}",
+      "root_id": null,
+      "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+      "source_delivery_id": "object:6",
+      "source_epoch": "original-commerce-v1",
+      "source_feed": "private-original-commerce-fixture",
+      "source_position": null,
+      "source_system": "private-original-commerce-fixture",
+      "type_id": "11"
+    }
+  ],
+  "format": "ashlar-commerce-graphframes-observable-limit/0.1",
+  "limit": 1,
+  "native_nodes": "/private/tmp/ashlar-commerce-graphframes-complete-20261009-1701/nodes",
+  "native_version": 0,
+  "original_ordered_keys": [
+    "[\"urn:umf:domain:commerce\",\"domain\",\"fulfillments\",[\"[42,0,\\\"F1\\\"]\"]]",
+    "[\"urn:umf:domain:commerce\",\"domain\",\"fulfillments\",[\"[42,0,\\\"F2\\\"]\"]]"
+  ],
+  "original_total": 2,
+  "original_type": "{\"document\":\"urn:umf:domain:commerce\",\"element\":\"fulfillments\",\"module\":\"domain\"}",
+  "release_sha256": "eeef228c5fa69720ac082dc3e19adbd63cebe17d1cdf877af250c8a9908aaed6",
+  "scope": "Read-only existing immutable local export rematerialization; no new source/Delta writes, scalar promotion or ongoing source retention."
+}
