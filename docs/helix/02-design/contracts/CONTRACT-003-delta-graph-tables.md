@@ -531,6 +531,33 @@ Lost acknowledgement returns the same manifest and never appends new source
 history. The source's trusted downstream-application proof remains independently
 required where its worker profile demands it.
 
+### Private local export custody
+
+A private local host MAY export an immutable graph release using a separately
+named `ashlar-private-local-graph-custody/0.1` receipt when its original manifest
+has no retention-target inventory. A present malformed or mismatched retention
+inventory MUST refuse; this profile MUST NOT rescue it. It MUST preserve the original manifest and
+release bytes without adding inferred retention metadata. The receipt MUST bind
+both exact byte digests, the complete original native table UUID/version vector,
+the graph roles, source-admission custody and the exact published source ACK.
+The trusted host MUST hold its admitted writer, source and read-pin interval
+through resolution, complete independent source-to-carrier comparison, export,
+and closing native-vector and source/ACK checks. A failed closing check MUST
+withhold both the release and its custody receipt.
+
+An offline engine consumer MUST explicitly select this profile and receive
+separately trusted release and receipt digests. It MUST reject unknown profiles,
+missing or duplicate fields, altered manifest text, incomplete or changed vectors,
+and mismatched role, source or ACK bindings. The existing retention-report profile
+MUST remain strict; absence of retention metadata MUST NOT trigger fallback.
+Digest equality establishes custody only under the independently admitted host
+trust boundary; an untrusted caller cannot authorize a release by hashing it.
+
+This profile admits rematerialization of the retained immutable export. It MUST
+NOT imply continued canonical snapshot availability, future retention, production
+source authority, Unity Catalog access or engine activation. Each engine MUST
+separately prove its mapping, exact values, queries and release lifecycle.
+
 ### Engine release protocol qualification
 
 A release adapter MUST record the actual Delta protocol/features, reader/runtime
