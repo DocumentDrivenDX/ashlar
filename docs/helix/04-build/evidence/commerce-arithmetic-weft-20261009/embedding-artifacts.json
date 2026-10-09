@@ -1,0 +1,16 @@
+{
+  "scope": "Compiler parity only; binaries retained outside repository; no embedded-native engine qualification.",
+  "compilerSha256": "beab6ff8782dda2c212af501023e03056377c2f997ec9e160738d51b2e6d77bd",
+  "wheelSha256": "47d04db7e2b781205c6f29277069774b061c3ba4ceddaaf447d0d1588078254c",
+  "wasmSha256": "ce7e61f88e5ce1d21b1993267ed58576b50054e77fc6cc4719325fb959d59311",
+  "glueSha256": "48f2597d68d0045818b5d7bc5d0d65cf8b3f365599d05932f62864ac23e3ea66",
+  "wrapperSourceSha256": "ff575c5e5866cb33cc3ec949bf25f3d94a3414a486a8507173902ac852044a11",
+  "wrapperBundleSha256": "a1ab5c00b11d7b615330b29c567f05ce5a2666ec2c542935cce0b08cba48a6db",
+  "sourceCompilerCommit": "faa3313",
+  "responseSchemaCommit": "86588a2",
+  "reproduction": {
+    "wasm": "cargo build --locked --features ashlar-databricks-arithmetic --target wasm32-unknown-unknown; wasm-bindgen 0.2.105 --target web; bun build wrapper --target browser",
+    "python": "maturin build --locked --features ashlar-databricks-arithmetic with CPython3.9 ABI3; isolated temporary installation; actual public weft.compile_json for eight retained requests",
+    "browser": "Existing upstream tests/compile/browser-check.mjs with retained cases and exact temporary WASM/glue/wrapper paths; real Chromium151.0.7922.34"
+  }
+}

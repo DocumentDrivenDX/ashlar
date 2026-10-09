@@ -1,0 +1,11 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/09 17:30:37 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tools/run_commerce_arithmetic_weft.py", line 237, in <module>
+    args=p.parse_args();run(args.publication,args.output,args.jars,args.compiler,args.compiler_sha256,args.source_guard,args.umf)
+  File "/Users/erik/Projects/ashlar/tools/run_commerce_arithmetic_weft.py", line 159, in run
+    if sorted(decoded,key=encoded)!=sorted(expected,key=encoded):raise ValueError('Independent original source scenario bag differs: '+encoded({'case':case['id'],'actual':decoded,'expected':expected}))
+ValueError: Independent original source scenario bag differs: {"actual":[["[42,0,\"F2\"]"]],"case":"fulfillment","expected":[["F2"]]}

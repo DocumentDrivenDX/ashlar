@@ -1,0 +1,13 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/09 17:34:05 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tools/run_commerce_arithmetic_weft.py", line 268, in <module>
+    args=p.parse_args();run(args.publication,args.output,args.jars,args.compiler,args.compiler_sha256,args.source_guard,args.umf)
+  File "/Users/erik/Projects/ashlar/tools/run_commerce_arithmetic_weft.py", line 200, in run
+    try:execute_guarded(provider,req,artifact,context=context,public_source=lambda r,a,c:admit_public_source(source_guard,umf,r,a,c))
+  File "/Users/erik/Projects/ashlar/tools/run_commerce_arithmetic_weft.py", line 97, in execute_guarded
+    if p['phase']!='before-user-query' or p['samePublicationRequired']is not True or p['noPartialPublication']is not True or type(p['checks'])is not list or not p['checks']:raise ValueError('Mandatory complete before-query checks required')
+ValueError: Mandatory complete before-query checks required

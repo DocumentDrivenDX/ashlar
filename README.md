@@ -8,7 +8,8 @@ comes from precisely shaped stones that fit together into a larger structure.
 **Status:** Development toolkit with Unity Catalog Delta schema/publication
 components, local Delta ingest and protected PostgreSQL outbox ACK, and
 publication-bound commerce count, decimal/string and supplier-join queries.
-Original UMF0.8 admission and exact integer queries have scoped local evidence.
+Original UMF0.8 admission, [four exact commerce arithmetic scenarios](docs/helix/04-build/evidence/commerce-arithmetic-weft-20261009/README.md),
+and Python/browser compiler parity have scoped local finite evidence.
 Real Truss integration, Fabric GQL and the remaining domain/query corpus are
 unfinished. Native profiles and production authority require their own qualification.
 

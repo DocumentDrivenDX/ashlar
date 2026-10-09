@@ -1,0 +1,69 @@
+{
+  "scope": "Eight exact final native requests/artifacts also have native/Python/real-browser compiler byte parity; wrong-schema control is native-only. This does not qualify embedded engines or native execution in the browser.",
+  "comparisons": [
+    {
+      "case": "fulfillment",
+      "nativeRequestSha256": "575a58b1be3c708255712da4366cd4ae5310cd2f9d74c46195febed00f04f892",
+      "nativeArtifactSha256": "be27907a8214127930b02475ef5a06da733daf888b246a0807b6316e88b7ba8d",
+      "rawCompilerResponseSha256": "0c6bdd87cf2bff0aea3446130e51cd714455be99f0ec8160d872b1ec8e4b6a0d",
+      "requestIdentical": true,
+      "artifactIdentical": true
+    },
+    {
+      "case": "join-prepredicate",
+      "nativeRequestSha256": "99673acf0687dda8e04350b8b19e57c41e40e6efc46cce488fb5ec261e8590fa",
+      "nativeArtifactSha256": "7b77314f1eb4e47cca87e0286cbc80c895c200f58ef05c24ccd84cc073bbeb56",
+      "rawCompilerResponseSha256": "dafe6e5902552d8002d1263e66cf384fbf43923a97787bbab157b90fe55a56ed",
+      "requestIdentical": true,
+      "artifactIdentical": true
+    },
+    {
+      "case": "partial-return",
+      "nativeRequestSha256": "e46a563590e2ccf876aa52355bf669bc7e63c61002763efe1d3ade8693314e40",
+      "nativeArtifactSha256": "d938987cc59489a5802d8855c99b3d7b4ef6b849d627ab297bfd6fb9ac098fec",
+      "rawCompilerResponseSha256": "779eb77b5bda3a6d85fd37981e5cef7bc71c5fd210b42976bb1c8df28f41ef87",
+      "requestIdentical": true,
+      "artifactIdentical": true
+    },
+    {
+      "case": "projection-cancellation",
+      "nativeRequestSha256": "a2996a2998cb6c1b36da30ad349a8730df36e549e20278d3f8779fc2675bd55e",
+      "nativeArtifactSha256": "9db07dee53be8d5e93f36640e2d995d32964b1e3117ba7a36e63a7229744d80a",
+      "rawCompilerResponseSha256": "242950fb2abf80cc28b24bc0b2680d7b6dd460c351c7e60801aa61f5aa061f39",
+      "requestIdentical": true,
+      "artifactIdentical": true
+    },
+    {
+      "case": "projection-empty-survivors",
+      "nativeRequestSha256": "a2a974b5bab2ac4807ed4dc7a158cb3b073bb6534b23595fdb060ec9ec0ea982",
+      "nativeArtifactSha256": "d73b4d687c9dacb5805a1ad68ef95208b45a5ecf5f36d58219dbf8bc7a01e2be",
+      "rawCompilerResponseSha256": "c3d1a57acd3ddd4274eb64bc26b44a66303bd1b7b743b1f0258e68bf04e2bcad",
+      "requestIdentical": true,
+      "artifactIdentical": true
+    },
+    {
+      "case": "refund",
+      "nativeRequestSha256": "dcf3c72a8bb080fc8e41e2a36c777c54512fb251816ba2edcc7d1424fffe1d2c",
+      "nativeArtifactSha256": "61c10dfe6b3ae347afff54d7c8679847b2cd3127f60900180691adc47d0a6d0c",
+      "rawCompilerResponseSha256": "b4121983940af9d8597b7b6a24d357da6862f92c7ff937b5b7b61a9e31bffcc5",
+      "requestIdentical": true,
+      "artifactIdentical": true
+    },
+    {
+      "case": "settlement",
+      "nativeRequestSha256": "a32c901531163e5f55607d215c7b4ed17b9a2d5737f9987cbdc81d2e8a793053",
+      "nativeArtifactSha256": "6e37c9c098643673e4927891688d8345417656539e95e4be6d5f01b3d5db2f13",
+      "rawCompilerResponseSha256": "e0fb6bc8313f2fe7a90b387e6f2d01e2c17ea09e081b9adf469c68a6f138a2b6",
+      "requestIdentical": true,
+      "artifactIdentical": true
+    },
+    {
+      "case": "where-prefilter",
+      "nativeRequestSha256": "dba42b468a9f070eee1af5b408681971a1fd13a945704d27384831e72b8f7490",
+      "nativeArtifactSha256": "bf6c0a098901c7e0c8ec0bdc2b3d19f24ab827ab904c90f272e865d773614920",
+      "rawCompilerResponseSha256": "f98384d284c031df8ff36f08770f8a38d52aca3aeac1d8d022b3f9853c950613",
+      "requestIdentical": true,
+      "artifactIdentical": true
+    }
+  ]
+}

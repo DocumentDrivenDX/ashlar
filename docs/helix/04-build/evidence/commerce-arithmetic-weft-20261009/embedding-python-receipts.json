@@ -1,0 +1,37 @@
+{
+  "scope": "Compiler byte parity only; native execution separate",
+  "cases": [
+    {
+      "id": "fulfillment-request",
+      "responseSha256": "0c6bdd87cf2bff0aea3446130e51cd714455be99f0ec8160d872b1ec8e4b6a0d"
+    },
+    {
+      "id": "join-prepredicate-request",
+      "responseSha256": "dafe6e5902552d8002d1263e66cf384fbf43923a97787bbab157b90fe55a56ed"
+    },
+    {
+      "id": "partial-return-request",
+      "responseSha256": "779eb77b5bda3a6d85fd37981e5cef7bc71c5fd210b42976bb1c8df28f41ef87"
+    },
+    {
+      "id": "projection-cancellation-request",
+      "responseSha256": "242950fb2abf80cc28b24bc0b2680d7b6dd460c351c7e60801aa61f5aa061f39"
+    },
+    {
+      "id": "projection-empty-survivors-request",
+      "responseSha256": "c3d1a57acd3ddd4274eb64bc26b44a66303bd1b7b743b1f0258e68bf04e2bcad"
+    },
+    {
+      "id": "refund-request",
+      "responseSha256": "b4121983940af9d8597b7b6a24d357da6862f92c7ff937b5b7b61a9e31bffcc5"
+    },
+    {
+      "id": "settlement-request",
+      "responseSha256": "e0fb6bc8313f2fe7a90b387e6f2d01e2c17ea09e081b9adf469c68a6f138a2b6"
+    },
+    {
+      "id": "where-prefilter-request",
+      "responseSha256": "f98384d284c031df8ff36f08770f8a38d52aca3aeac1d8d022b3f9853c950613"
+    }
+  ]
+}

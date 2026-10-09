@@ -1,0 +1,84 @@
+{
+  "summary": {
+    "cases": 8,
+    "batchSize": 64,
+    "streamingCorpus": false,
+    "browser": "151.0.7922.34",
+    "playwrightVersion": "1.62.1",
+    "wasmBytes": 11027813,
+    "wasmSha256": "ce7e61f88e5ce1d21b1993267ed58576b50054e77fc6cc4719325fb959d59311",
+    "jsGlueBytes": 6559,
+    "imports": [
+      {
+        "module": "wbg",
+        "name": "__wbg___wbindgen_throw_b855445ff6a94295",
+        "kind": "function"
+      },
+      {
+        "module": "wbg",
+        "name": "__wbindgen_init_externref_table",
+        "kind": "function"
+      }
+    ],
+    "initialMemoryBytes": 1835008,
+    "finalMemoryBytes": 2359296,
+    "networkRequests": [
+      "http://weft.spike.test/",
+      "http://weft.spike.test/spike.wasm",
+      "http://weft.spike.test/spike.js",
+      "http://weft.spike.test/wrapper.js"
+    ],
+    "nodeGlobals": false,
+    "byteParity": true
+  },
+  "cases": [
+    {
+      "id": "fulfillment-request",
+      "requestSha256": "34567d3d19d963eed77167aad65fa956e74616033e67acd1901ce32d29fc813e",
+      "actualSha256": "0c6bdd87cf2bff0aea3446130e51cd714455be99f0ec8160d872b1ec8e4b6a0d",
+      "expectedSha256": "0c6bdd87cf2bff0aea3446130e51cd714455be99f0ec8160d872b1ec8e4b6a0d"
+    },
+    {
+      "id": "join-prepredicate-request",
+      "requestSha256": "624846c3f6fe288bc29d7086cdc67717dd84768372d6c99bcfc7ad112e145400",
+      "actualSha256": "dafe6e5902552d8002d1263e66cf384fbf43923a97787bbab157b90fe55a56ed",
+      "expectedSha256": "dafe6e5902552d8002d1263e66cf384fbf43923a97787bbab157b90fe55a56ed"
+    },
+    {
+      "id": "partial-return-request",
+      "requestSha256": "206afad8992b7c219eb881c43eea8a8a0f256e3b5c403290c12cf3da4a49648a",
+      "actualSha256": "779eb77b5bda3a6d85fd37981e5cef7bc71c5fd210b42976bb1c8df28f41ef87",
+      "expectedSha256": "779eb77b5bda3a6d85fd37981e5cef7bc71c5fd210b42976bb1c8df28f41ef87"
+    },
+    {
+      "id": "projection-cancellation-request",
+      "requestSha256": "c2497d8f089edb038ff8a6754d2d19a823bca01f2869272a040e0f14c38405ad",
+      "actualSha256": "242950fb2abf80cc28b24bc0b2680d7b6dd460c351c7e60801aa61f5aa061f39",
+      "expectedSha256": "242950fb2abf80cc28b24bc0b2680d7b6dd460c351c7e60801aa61f5aa061f39"
+    },
+    {
+      "id": "projection-empty-survivors-request",
+      "requestSha256": "ac25feb1ef553ec2d1e94307da8e4015223300a2d25d86023c72ef37a67aa82e",
+      "actualSha256": "c3d1a57acd3ddd4274eb64bc26b44a66303bd1b7b743b1f0258e68bf04e2bcad",
+      "expectedSha256": "c3d1a57acd3ddd4274eb64bc26b44a66303bd1b7b743b1f0258e68bf04e2bcad"
+    },
+    {
+      "id": "refund-request",
+      "requestSha256": "39ea5ca4666f703cfb7e4f06163b64bf24694308f8a3464b8577b6ff6c319872",
+      "actualSha256": "b4121983940af9d8597b7b6a24d357da6862f92c7ff937b5b7b61a9e31bffcc5",
+      "expectedSha256": "b4121983940af9d8597b7b6a24d357da6862f92c7ff937b5b7b61a9e31bffcc5"
+    },
+    {
+      "id": "settlement-request",
+      "requestSha256": "d4554678654c8f98fd1d6e7a9c21e50b818f18e0e4baadb04142faca42ec1881",
+      "actualSha256": "e0fb6bc8313f2fe7a90b387e6f2d01e2c17ea09e081b9adf469c68a6f138a2b6",
+      "expectedSha256": "e0fb6bc8313f2fe7a90b387e6f2d01e2c17ea09e081b9adf469c68a6f138a2b6"
+    },
+    {
+      "id": "where-prefilter-request",
+      "requestSha256": "7322b4fc175ac4fd6fb73ec5ddd360288e2de174285f845f680eb47714c73ced",
+      "actualSha256": "f98384d284c031df8ff36f08770f8a38d52aca3aeac1d8d022b3f9853c950613",
+      "expectedSha256": "f98384d284c031df8ff36f08770f8a38d52aca3aeac1d8d022b3f9853c950613"
+    }
+  ]
+}

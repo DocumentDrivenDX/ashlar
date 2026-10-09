@@ -1,0 +1,20 @@
+{
+  "baseCommit": "eab4d70a01452841637418cfef738386541deadb",
+  "scope": "Prospective arithmetic backend with corrected full field lineage; native qualification pending",
+  "cliSha256": "beab6ff8782dda2c212af501023e03056377c2f997ec9e160738d51b2e6d77bd",
+  "sourceSha256": {
+    "crates/weft-core/src/arithmetic_resolve.rs": "8d4f6da3fc807935b52e2415604583af4d8f53bc0ee337775a5b28c1f4986440",
+    "crates/weft-core/src/backend_emission.rs": "0d43ec4d27aa5f88cf0a0864c57e513f26dd8cdb8b321b57f169bc36854b1836",
+    "crates/weft-databricks/src/arithmetic.rs": "54b10d17aafc1994ea31248af3e0cf3e008aad2d34c3e2c960347607e4ff1eba",
+    "crates/weft-databricks/src/candidate.rs": "5a178ea18f19b0200de898cda035e9f6beeca94febc5c2378caf0f399da3c339",
+    "crates/weft-databricks/src/candidate/arithmetic.rs": "0a88f2c449dd85122e81679fc29a9e7513f8f63890eee6ab92e4eff32c580730",
+    "crates/weft-databricks/src/lib.rs": "9781edb15f4c33321a0c29ff90c303469382048cad28c164f90d9d80d4f805c4",
+    "crates/weft-python/Cargo.toml": "b80f08457e717b819712574565dc4f58134ec1f5e4d858a0ec5bbb4c5e517933",
+    "crates/weft-runtime/Cargo.toml": "e8adb135af531f0ba47ffb248a3a30aa9dce7777e4e2b044d242df4477a73699",
+    "crates/weft-runtime/src/lib.rs": "21036335ea180a97c78f8a0716ff389979c33ae6b0266fdd740124e8cb2d452a",
+    "crates/weft-wasm/Cargo.toml": "d529dc1d887f71ad5e4152b3befc5995dedb6d9fcf51699da8312e9b7389d6ba",
+    "docs/helix/02-design/contracts/exact-arithmetic-v0.3.md": "8a5e22b2202afd241c2f44ec46bf145442f91036a45f6ed8e51c0d7672ec6f51",
+    "tests/ashlar-databricks/compiler.rs": "55bc832a9728a3544f31b87cbfa812bdbf36b829b566a4d7d938624f22d28e65"
+  },
+  "patchSha256": "abac46084cab3eebfca66e96cbe53e55f1e9e551d219e950975fae8de9dbe0bc"
+}
