@@ -1,0 +1,28 @@
+{
+  "profile": "ashlar-commerce-source-transaction-evidence/0.1",
+  "originalSourceSha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+  "originalGraphSha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+  "outputs": [
+    {
+      "file": "source.jsonl",
+      "bytes": 25707,
+      "sha256": "fb90fc39b840a345f2ea4d9b713ceaad4f476459967581fb5cd781cba73b3a1d"
+    },
+    {
+      "file": "bindings.json",
+      "bytes": 6249,
+      "sha256": "a9063c18bf112358f31755e4f33305ff817717d2bc4dc5675aa35153c1be22b4"
+    }
+  ],
+  "sourceParserReadback": {
+    "records": 21,
+    "objects": 11,
+    "edges": 10,
+    "recordsSha256": "858672ee8bbf3ceb0abec79441eaa83c3490982363328b195267ca8279426c06"
+  },
+  "tests": {
+    "command": "PYTHONPATH=src:tools python3 -m unittest discover -s tests -p 'test_commerce*.py'",
+    "passed": 25
+  },
+  "qualification": "Exact original finite commerce graph converted to a complete candidate source transaction. Development IDs only. Public semantic dataset admission is separate; no Truss accepted IDs, source authority, writer fencing, Delta publication or ACK claim."
+}

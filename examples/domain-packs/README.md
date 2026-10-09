@@ -91,3 +91,20 @@ execution and acknowledgment require their own admission. The output preserves
 the original source and public receipts, resolved endpoints and three separately
 authored negative controls. The Python check verifies retained checked-in evidence;
 regenerate with the Bun command to exercise the public API.
+
+## Commerce source transaction
+
+Create a complete candidate source transaction from the unchanged commerce graph:
+
+```sh
+PYTHONPATH=src:tools python3 tools/commerce_source_transaction.py \
+  --source-system commerce-fixture --output /tmp/ashlar-commerce-source-new
+```
+
+The fresh directory contains `source.jsonl` and `bindings.json`. The transaction
+preserves all 11 objects, 10 edge occurrences, original endpoints and lexical
+numeric values. The binding file assigns deterministic development IDs; they are
+not accepted Truss catalog identities. Retained payloads preserve each original
+row and the model/graph hashes. Run the public dataset admission above separately;
+a complete source transaction still requires trusted source authority, schema
+binding, writer fencing and publication admission before ingestion or ACK.
