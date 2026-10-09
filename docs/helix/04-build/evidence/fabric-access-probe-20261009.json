@@ -1,0 +1,12 @@
+{
+  "date": "2026-10-09",
+  "operation": "GET https://api.fabric.microsoft.com/v1/capacities",
+  "client": "Azure CLI 2.90.0 existing account",
+  "outcome": "Unauthorized",
+  "errorCode": "UserNotLicensed",
+  "message": "User is not licensed",
+  "isRetriable": false,
+  "resourceChanges": false,
+  "qualification": "Existing CLI principal only. Does not prove absence of another licensed browser/user/service principal or capacity. No license, role, capacity or workspace changes attempted. Fabric runtime integration remains pending; independent engine/source/query lanes continue.",
+  "reference": "https://learn.microsoft.com/en-us/rest/api/fabric/core/capacities/list-capacities"
+}

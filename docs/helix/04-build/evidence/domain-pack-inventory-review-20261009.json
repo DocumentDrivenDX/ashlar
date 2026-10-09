@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-09",
+  "scope": "P02 pinned source-custody inventory and finite planned corpus; Fabric access observation",
+  "reviewer": "independent implementation_audit agent",
+  "verdict": "approved-for-landing",
+  "blocking_findings": [],
+  "checks": [
+    "Eight provenance/tamper tests pass",
+    "Pinned regeneration and complete commerce byte-copy verification pass",
+    "24 unique packs and 595 file entries verified",
+    "Five representative versions/counts and corpus inventory digest match",
+    "Fabric existing CLI principal UserNotLicensed independently reproduced"
+  ],
+  "file_sha256": {
+    "tools/domain_pack_inventory.py": "b664d0df6e2e82dbaf1802544fb14fb824d2f8f91f19a021d6dbb197cee59b2c",
+    "tests/test_domain_pack_inventory.py": "394059537e9ddb02813e2855c9a423ba1e475576e36258f14fdce09b6595d38b",
+    "examples/domain-packs/inventory.json": "795261c25448998fdd1bf80fe42cd7df25dff72f7aca0e4149501ffc82fbe8a2",
+    "examples/domain-packs/corpus.json": "e34c2dd7c0fbdf6da4fd7b9d24ae965430cead5028f457947eb15c4cfdcf89a6",
+    "examples/domain-packs/README.md": "b1885405f47caf5a233cef7cb0ca5be1c35cac09457118ca44cb8482c09baa13",
+    "docs/helix/04-build/evidence/fabric-access-probe-20261009.json": "d444e03a03ce1ac582638b426a539f49ccc9c777df4953441a1311c4f68bba11"
+  },
+  "qualification": "Inventory and planned corpus only; no UMF semantics, graph admission, Weft/engine execution, Truss acceptance or Fabric availability qualification."
+}

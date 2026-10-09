@@ -1,0 +1,245 @@
+{
+  "format": "ashlar.domain-pack-corpus-plan",
+  "version": "0.1",
+  "upstream": {
+    "repository": "https://github.com/DocumentDrivenDX/umf",
+    "commit": "1f7b5f5d2a355c4b476e3a96b289b9048f03f567",
+    "inventory_sha256": "795261c25448998fdd1bf80fe42cd7df25dff72f7aca0e4149501ffc82fbe8a2"
+  },
+  "qualification": "Finite planned corpus. No query, admission, ingest or engine execution achieved by this inventory. Required-pass cases cannot be replaced by refusal or unavailable access.",
+  "inventory_required_pack_ids": [
+    "archaeology",
+    "commerce",
+    "construction",
+    "cybersecurity",
+    "ecology",
+    "education",
+    "energy",
+    "gtfs-schedule",
+    "hr",
+    "legal",
+    "manufacturing",
+    "martech",
+    "medical-carrier",
+    "medical-epidemiology",
+    "medical-imaging",
+    "medical-terminology",
+    "medical",
+    "movielens",
+    "noaa-ghcn-daily",
+    "nyc-tlc",
+    "payments",
+    "real-estate",
+    "supply-chain",
+    "transit"
+  ],
+  "required_representatives": [
+    {
+      "stage": 1,
+      "pack": "commerce",
+      "pack_version": "1.0.0",
+      "rationale": "Exact DECIMAL(18,2), integer quantities, typed relationship joins and settlement/refund arithmetic.",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "source": "inventory.json#packs/commerce",
+      "expected_fixture_counts": {
+        "objects": 11,
+        "edges": 10
+      },
+      "admission": "Preserve exact source bytes, notices, source identities, edge closure and original lexical value meaning; execute through pinned UMF validator/interpretation before storage. Do not infer canonical Values.",
+      "known_custody_gaps": [],
+      "medical_scope": null
+    },
+    {
+      "stage": 2,
+      "pack": "supply-chain",
+      "pack_version": "1.0.0",
+      "rationale": "Recursive containment, nullable parents, event identity, sensor method/unit distinctions.",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "source": "inventory.json#packs/supply-chain",
+      "expected_fixture_counts": {
+        "objects": 20,
+        "edges": 23
+      },
+      "admission": "Preserve exact source bytes, notices, source identities, edge closure and original lexical value meaning; execute through pinned UMF validator/interpretation before storage. Do not infer canonical Values.",
+      "known_custody_gaps": [],
+      "medical_scope": null
+    },
+    {
+      "stage": 3,
+      "pack": "archaeology",
+      "pack_version": "1.0.0",
+      "rationale": "Reified stratigraphic/evidence assertions and source-qualified context identifiers.",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "source": "inventory.json#packs/archaeology",
+      "expected_fixture_counts": {
+        "objects": 39,
+        "edges": 46
+      },
+      "admission": "Preserve exact source bytes, notices, source identities, edge closure and original lexical value meaning; execute through pinned UMF validator/interpretation before storage. Do not infer canonical Values.",
+      "known_custody_gaps": [],
+      "medical_scope": null
+    },
+    {
+      "stage": 4,
+      "pack": "ecology",
+      "pack_version": "1.0.0",
+      "rationale": "Method, unit, matrix/fraction and observation/provenance distinctions.",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "source": "inventory.json#packs/ecology",
+      "expected_fixture_counts": {
+        "objects": 40,
+        "edges": 54
+      },
+      "admission": "Preserve exact source bytes, notices, source identities, edge closure and original lexical value meaning; execute through pinned UMF validator/interpretation before storage. Do not infer canonical Values.",
+      "known_custody_gaps": [],
+      "medical_scope": null
+    },
+    {
+      "stage": 5,
+      "pack": "medical",
+      "pack_version": "1.1.0",
+      "rationale": "Bounded original FHIR R4 resources and reference admission; no clinical inference.",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "source": "inventory.json#packs/medical",
+      "expected_fixture_counts": {
+        "objects": 51,
+        "edges": 62
+      },
+      "admission": "Preserve exact source bytes, notices, source identities, edge closure and original lexical value meaning; execute through pinned UMF validator/interpretation before storage. Do not infer canonical Values.",
+      "known_custody_gaps": [
+        "Graph fixture pack digest differs from exact pinned pack.json; quarantine executable admission until explicitly resolved."
+      ],
+      "medical_scope": "Original-byte/reference admission plus allowed bounded source-data qualification only; preserve source notices and never infer clinical validity."
+    }
+  ],
+  "required_commerce_cases": [
+    {
+      "id": "commerce-counts",
+      "purpose": "Counts and exact original tuple/edge identity",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "original_scenario_id": null,
+      "oracle_caution": "Pack scenario expectations name template IDs; graph replay uses exact seed/component tuple IDs. Compute expected results independently from the selected original dataset, not by running the tested query."
+    },
+    {
+      "id": "commerce-partial-return",
+      "purpose": "Quantity arithmetic and partial return",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "original_scenario_id": "partial-return",
+      "oracle_caution": "Pack scenario expectations name template IDs; graph replay uses exact seed/component tuple IDs. Compute expected results independently from the selected original dataset, not by running the tested query."
+    },
+    {
+      "id": "commerce-fulfillment",
+      "purpose": "Over-fulfilled records remain intact",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "original_scenario_id": "fulfillment",
+      "oracle_caution": "Pack scenario expectations name template IDs; graph replay uses exact seed/component tuple IDs. Compute expected results independently from the selected original dataset, not by running the tested query."
+    },
+    {
+      "id": "commerce-settlement",
+      "purpose": "Exact invoice/payment decimal equality",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "original_scenario_id": "settlement",
+      "oracle_caution": "Pack scenario expectations name template IDs; graph replay uses exact seed/component tuple IDs. Compute expected results independently from the selected original dataset, not by running the tested query."
+    },
+    {
+      "id": "commerce-refund",
+      "purpose": "Exact refund/product-price multiplication",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "original_scenario_id": "refund",
+      "oracle_caution": "Pack scenario expectations name template IDs; graph replay uses exact seed/component tuple IDs. Compute expected results independently from the selected original dataset, not by running the tested query."
+    },
+    {
+      "id": "publication-lifecycle",
+      "purpose": "Ingest/update/delete/replay/schema evolution; publication-pinned old and new reads",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "original_scenario_id": null,
+      "oracle_caution": "Pack scenario expectations name template IDs; graph replay uses exact seed/component tuple IDs. Compute expected results independently from the selected original dataset, not by running the tested query."
+    },
+    {
+      "id": "graph-controls",
+      "purpose": "Added explicit controls for isolates, parallel edges, self loops and deleted endpoints, preserving original pack bytes",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "original_scenario_id": null,
+      "oracle_caution": "Pack scenario expectations name template IDs; graph replay uses exact seed/component tuple IDs. Compute expected results independently from the selected original dataset, not by running the tested query."
+    }
+  ],
+  "required_engine_lanes": [
+    {
+      "id": "databricks-weft",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "required_checks": [
+        "actual query results against publication-derived corpus",
+        "original tuple/edge preservation and explicit residuals",
+        "snapshot/refresh and replacement failure behavior",
+        "runtime version and source/release custody"
+      ]
+    },
+    {
+      "id": "local-spark-graphframes",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "required_checks": [
+        "actual query results against publication-derived corpus",
+        "original tuple/edge preservation and explicit residuals",
+        "snapshot/refresh and replacement failure behavior",
+        "runtime version and source/release custody"
+      ]
+    },
+    {
+      "id": "local-puppygraph",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "required_checks": [
+        "actual query results against publication-derived corpus",
+        "original tuple/edge preservation and explicit residuals",
+        "snapshot/refresh and replacement failure behavior",
+        "runtime version and source/release custody"
+      ]
+    },
+    {
+      "id": "microsoft-fabric-graph",
+      "requirement": "required-pass",
+      "status": "unexecuted",
+      "required_checks": [
+        "actual query results against publication-derived corpus",
+        "original tuple/edge preservation and explicit residuals",
+        "snapshot/refresh and replacement failure behavior",
+        "runtime version and source/release custody"
+      ]
+    }
+  ],
+  "optional_refusal_controls": [
+    {
+      "id": "unknown-extension-execution",
+      "requirement": "optional-refusal",
+      "status": "unexecuted",
+      "expected": "Preserve unknown content; refuse executable interpretation when required meaning is unsupported."
+    },
+    {
+      "id": "unsupported-scalar-projection",
+      "requirement": "optional-refusal",
+      "status": "unexecuted",
+      "expected": "Refuse unsupported conversion; never round decimal/integer identities or silently discard presence semantics."
+    }
+  ],
+  "all_pack_classification_requirement": "Inventory and classify every pack; staged representatives are required. Additional packs must receive an explicit supported/deferred/refused disposition rather than silently being declared optional.",
+  "excluded_claims": [
+    "Truss catalog acceptance or feed authority",
+    "Fabric/UC direct interoperability",
+    "clinical inference or native-standard conformance",
+    "production population realism or scale admission"
+  ]
+}
