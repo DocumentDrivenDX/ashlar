@@ -50,7 +50,7 @@ def build_transaction(source_bytes,graph_bytes,*,source_system):
                     fields.append(encode(ref['element'])+':'+value)
             event={'kind':'event','delivery_id':kind+':'+str(i+1),'source_profile':'ashlar-whole-entity/0.1',
                    'source_system':source_system,'entity_kind':kind,'type_id':type_id,'id':entity_id,
-                   'entity_version':'1','schema_revision':SOURCE_SHA,'operation':'upsert',
+                   'entity_version':'1','schema_revision':SOURCE_SHA,'operation':'create',
                    'props_json':'{'+','.join(fields)+'}',
                    'retained_json':encode({'profile':'ashlar-commerce-development-bindings/0.1',
                                           'sourceSha256':SOURCE_SHA,'graphSha256':GRAPH_SHA,'original':row})}

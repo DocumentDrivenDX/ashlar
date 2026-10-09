@@ -1,0 +1,24 @@
+{
+  "profile": "ashlar-commerce-source-create-plan/0.1",
+  "outputs": [
+    {
+      "file": "source.jsonl",
+      "bytes": 25707,
+      "sha256": "2dca2d6230945ef7d555fe7c14cba0c0f7c2110dea628756430c511344da8284"
+    },
+    {
+      "file": "bindings.json",
+      "bytes": 6249,
+      "sha256": "a9063c18bf112358f31755e4f33305ff817717d2bc4dc5675aa35153c1be22b4"
+    }
+  ],
+  "operation": "create",
+  "focusedTestsPassed": 4,
+  "applyPlanner": {
+    "current": 21,
+    "history": 21,
+    "tombstones": 0,
+    "exactReplaySteps": 0
+  },
+  "qualification": "Fresh development installation candidate only; explicit exact fixture policy in planner test, no semantic/source authority claim. Earlier commerce-source-transaction-20261009.json retains historical candidate parser evidence using unsupported upsert; it did not exercise apply planning. This constructor iteration corrects the executable operation and verifies actual graph_sql_plan."
+}

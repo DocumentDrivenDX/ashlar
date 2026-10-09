@@ -29,3 +29,21 @@ class Tests(unittest.TestCase):
     def test_modified_originals_and_missing_namespace_refused(self):
         for s,g,n in [(self.source+b' ',self.graph,'A'),(self.source,self.graph+b' ','A'),(self.source,self.graph,'')]:
             with self.assertRaises(ValueError):build_transaction(s,g,source_system=n)
+
+    def test_fresh_installation_plan_and_exact_delivery_replay(self):
+        from ashlar.apply import empty_state
+        from whole_graph_sql import graph_sql_plan
+        batch,_=build_transaction(self.source,self.graph,source_system='commerce-fixture')
+        exact=changes_from_batch(batch)
+        def fixture_admit(change):
+            self.assertIn(change,exact);self.assertEqual(change.operation,'create')
+        tables={k:'c.s.'+k for k in ['object_current','edge_current','tombstone','whole_source_history']}
+        state,steps=graph_sql_plan(empty_state(),batch,tables,materialized_at='2026-10-09T00:00:00+00:00',schema_policy=fixture_admit)
+        self.assertEqual(len(state.current),21);self.assertEqual(len(state.history),21)
+        self.assertEqual(len(state.tombstones),0)
+        self.assertEqual(set(state.current),{c.state.key for c in exact})
+        for change in exact:self.assertEqual(state.current[change.state.key],change.state)
+        again,replay=graph_sql_plan(state,batch,tables,materialized_at='2026-10-09T00:00:00+00:00',schema_policy=fixture_admit)
+        self.assertEqual(state,again);self.assertEqual(replay,[])
+        history=json.loads(next(step['parameters']['rows'] for step in steps if 'whole_source_history' in step['statement']))
+        self.assertEqual(len(history),21)

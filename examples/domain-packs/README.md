@@ -101,6 +101,7 @@ PYTHONPATH=src:tools python3 tools/commerce_source_transaction.py \
   --source-system commerce-fixture --output /tmp/ashlar-commerce-source-new
 ```
 
+Use a fresh development installation: every event explicitly creates its entity.
 The fresh directory contains `source.jsonl` and `bindings.json`. The transaction
 preserves all 11 objects, 10 edge occurrences, original endpoints and lexical
 numeric values. The binding file assigns deterministic development IDs; they are
