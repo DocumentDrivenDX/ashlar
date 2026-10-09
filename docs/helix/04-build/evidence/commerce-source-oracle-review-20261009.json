@@ -1,0 +1,11 @@
+{
+  "reviewer": "gpt-6-astra ultra",
+  "disposition": "approved",
+  "checks": [
+    "6 targeted tests pass",
+    "Actual public pinned1f7 UMF0.8 37fields/21keys reproduce evidence byte-identically",
+    "Independent11nodes/10edges exact lexical keys/closure and original4scenario oracles",
+    "Source-profile results not native IDs or full UMF Record/relationship acceptance"
+  ],
+  "evidence_sha256": "ecefcc260c9fdbbe44651035a71f64b8929c15540cac3a78181c0d31f1ae1140"
+}
