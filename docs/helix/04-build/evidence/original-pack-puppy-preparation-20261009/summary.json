@@ -1,0 +1,28 @@
+{
+  "format": "ashlar-three-pack-puppy-preparation-evidence/0.1",
+  "scope": "Actual local DuckDB preparation only. No PuppyGraph activation, queries, scalar promotion, UC or Truss authority.",
+  "source_file": "tools/prepare_pack_puppygraph.py",
+  "source_sha256": "aa727d8e7086a8fbd8a9a9410a8ec54c5f768bc01b0d35f7bc484be82f9fa902",
+  "oracle_source_commit": "e6d5ebd7bfa0b347884d386e3de3cd51c094cd95",
+  "oracle_source_sha256": "508daab0b1bf6dfc1d22f1c9b5b4aae9ecba1b30607ac16e7b37174c9f07f199",
+  "candidate_sha256": "cb3c386427e069bda5515d1d2a2c637d6d1fb02c8453bd0a1fc7922fb8c3861a",
+  "database_sha256": "d811d29b8c119bde47dc17c89e23da6618d9cdb689e72f010a49bbddef99beb7",
+  "database_bytes": 2633728,
+  "receipt_uncompressed_sha256": "294aba2c28822f881e68803b26f2ef45ddf51108148a3df3be78ba18d4aa2bd5",
+  "positive_preparation_path": "/private/tmp/ashlar-three-pack-puppy-preparation-20261009-b",
+  "controls": [
+    {
+      "name": "wrong-release-digest",
+      "observed": "ValueError before output directory/connection"
+    },
+    {
+      "name": "wrong-original-source",
+      "observed": "ValueError before output directory/connection"
+    },
+    {
+      "name": "wrong-custody-digest",
+      "observed": "ValueError before output directory/connection"
+    }
+  ],
+  "reproduction": "Use explicit retained candidates with source publications and pairs intact; invoke tools/prepare_pack_puppygraph.py --candidates candidates.json --output a fresh directory with the already available DuckDB1.4.1 interpreter. Source-oracle inputs remain exact original bytes."
+}

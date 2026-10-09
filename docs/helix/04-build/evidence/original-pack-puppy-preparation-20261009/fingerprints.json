@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "path": "tools/prepare_pack_puppygraph.py",
+      "sha256": "aa727d8e7086a8fbd8a9a9410a8ec54c5f768bc01b0d35f7bc484be82f9fa902",
+      "bytes": 5510
+    },
+    {
+      "path": "docs/helix/04-build/evidence/original-pack-puppy-preparation-20261009/candidates.json",
+      "sha256": "cb3c386427e069bda5515d1d2a2c637d6d1fb02c8453bd0a1fc7922fb8c3861a",
+      "bytes": 1414
+    },
+    {
+      "path": "docs/helix/04-build/evidence/original-pack-puppy-preparation-20261009/model.json",
+      "sha256": "c35d1461f62dee7767e8805e26a9b08560f8bfc8eada980bbb9ddef2ff91fe55",
+      "bytes": 32332
+    },
+    {
+      "path": "docs/helix/04-build/evidence/original-pack-puppy-preparation-20261009/packs.duckdb.gz",
+      "sha256": "9d900fd93856b0366d29a810367048a9f3aa39cf7f22e265783ffcc5190bca07",
+      "bytes": 82905
+    },
+    {
+      "path": "docs/helix/04-build/evidence/original-pack-puppy-preparation-20261009/receipt.json.gz",
+      "sha256": "9d7ce4a23e44c32f3a9d61ed582fbcfa5d12d62fb0a6d48a6ad12539d714f257",
+      "bytes": 106721
+    },
+    {
+      "path": "docs/helix/04-build/evidence/original-pack-puppy-preparation-20261009/summary.json",
+      "sha256": "7abc5adb034d1687e204802f49f35cfe58fc3cfd96e2ae1d077d624c6188867b",
+      "bytes": 1569
+    }
+  ]
+}
