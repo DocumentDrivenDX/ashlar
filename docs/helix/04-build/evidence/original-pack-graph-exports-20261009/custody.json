@@ -1,0 +1,465 @@
+{
+  "format": "ashlar-original-pack-three-graph-exports-custody/0.1",
+  "qualification": "All gzip files losslessly preserve original canonical bytes; paired release/custody digests apply to uncompressed originals. Graph-engine query qualification remains separate.",
+  "entries": [
+    {
+      "path": "archaeology/release.graph.json",
+      "sha256": "e43a36357d90fb8fc8854a0b03e9ce34d58f4d186429009518f8cfe761202155",
+      "bytes": 472909,
+      "original": "/private/tmp/ashlar-archaeology-graph-release-20261009-a/release.graph.json",
+      "original_sha256": "e43a36357d90fb8fc8854a0b03e9ce34d58f4d186429009518f8cfe761202155",
+      "original_bytes": 472909,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/custody.json.gz",
+      "sha256": "793adb74d5eee77a72874a0aed14358c04dfc229276121905ac3dc869bdf90fb",
+      "bytes": 205475,
+      "original": "/private/tmp/ashlar-archaeology-graph-release-20261009-a/custody.json",
+      "original_sha256": "a7e086e15add908c9c9b44d6aedd760c798fd7fec6dff07add534cdf64fe3fbe",
+      "original_bytes": 3204155,
+      "encoding": "gzip-lossless-mtime0"
+    },
+    {
+      "path": "archaeology/report.json",
+      "sha256": "f8aab6beff2ef11d2cd90091895a1b29158ba3581f1a8af95cb3ac1feb729f42",
+      "bytes": 13769,
+      "original": "/private/tmp/ashlar-archaeology-graph-release-20261009-a/report.json",
+      "original_sha256": "f8aab6beff2ef11d2cd90091895a1b29158ba3581f1a8af95cb3ac1feb729f42",
+      "original_bytes": 13769,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/native-export.log",
+      "sha256": "8fc2697ffb69d0235e562dd4fd755e557bbe0204d937dfd85024bf98c353899d",
+      "bytes": 14178,
+      "original": "/private/tmp/ashlar-archaeology-graph-release-20261009-a.log",
+      "original_sha256": "8fc2697ffb69d0235e562dd4fd755e557bbe0204d937dfd85024bf98c353899d",
+      "original_bytes": 14178,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/source-publication/development-bindings.json",
+      "sha256": "26f5ff297637361e3c7b4f6a4c40622f98e51ccb68f93a99279cc1339e2dbdcd",
+      "bytes": 36312,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/development-bindings.json",
+      "original_sha256": "26f5ff297637361e3c7b4f6a4c40622f98e51ccb68f93a99279cc1339e2dbdcd",
+      "original_bytes": 36312,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/source-publication/original-graph.json",
+      "sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52",
+      "bytes": 81564,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/original-graph.json",
+      "original_sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52",
+      "original_bytes": 81564,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/source-publication/original-ontology.json",
+      "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+      "bytes": 83068,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/original-ontology.json",
+      "original_sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+      "original_bytes": 83068,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/source-publication/postgres-installation.json",
+      "sha256": "e0b30c1c5556a7bb8e65b7ad74621810c48808291fe4a1e4d351b70921c8930c",
+      "bytes": 16466,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/postgres-installation.json",
+      "original_sha256": "e0b30c1c5556a7bb8e65b7ad74621810c48808291fe4a1e4d351b70921c8930c",
+      "original_bytes": 16466,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/source-publication/public-dataset-call.json",
+      "sha256": "dfba24932d2b14ca8be70a48f559b7fab94cece422e6eaf2ece4e12f3a27473d",
+      "bytes": 257,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/public-dataset-call.json",
+      "original_sha256": "dfba24932d2b14ca8be70a48f559b7fab94cece422e6eaf2ece4e12f3a27473d",
+      "original_bytes": 257,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/source-publication/public-dataset.json.gz",
+      "sha256": "4cb6304cbbbefac674d4ba8627bd3ac6ce71bbb6001526a6e3f7bc31e180f539",
+      "bytes": 61875,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/public-dataset.json",
+      "original_sha256": "fb12d9ce4a4967e3f1ca36adeb758c41c5df314c61560a745acf1b6dd27b96c9",
+      "original_bytes": 1106521,
+      "encoding": "gzip-lossless-mtime0"
+    },
+    {
+      "path": "archaeology/source-publication/report.json.gz",
+      "sha256": "b52c3eec4552394ebbf47fa187d1200b41f220a4d6920d1bb8d649f4de1bf541",
+      "bytes": 124489,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/report.json",
+      "original_sha256": "2cd8cd9afc2757c9a75d60f3c31633688f4afccedee6335d412cc281b214e721",
+      "original_bytes": 1755596,
+      "encoding": "gzip-lossless-mtime0"
+    },
+    {
+      "path": "archaeology/source-publication/source.jsonl",
+      "sha256": "9d0347b430c77d36bbc98b245a4df894108282aea7a10cb774bc729d25d0d9b2",
+      "bytes": 115572,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/source.jsonl",
+      "original_sha256": "9d0347b430c77d36bbc98b245a4df894108282aea7a10cb774bc729d25d0d9b2",
+      "original_bytes": 115572,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/release.graph.json",
+      "sha256": "5ac40fe122b8fa01e7930d5251176818d600bb4447e49f7ed8c152cce9470590",
+      "bytes": 448679,
+      "original": "/private/tmp/ashlar-ecology-graph-release-20261009-a/release.graph.json",
+      "original_sha256": "5ac40fe122b8fa01e7930d5251176818d600bb4447e49f7ed8c152cce9470590",
+      "original_bytes": 448679,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/custody.json.gz",
+      "sha256": "81ac66fdf03ca77d924a037a215db413e9851bafbe903c52a9c04e90b2e16cd5",
+      "bytes": 182625,
+      "original": "/private/tmp/ashlar-ecology-graph-release-20261009-a/custody.json",
+      "original_sha256": "c3c175ce706d5799cdb757052cde59b9b9dece5322c4a95645ee373694041add",
+      "original_bytes": 3028086,
+      "encoding": "gzip-lossless-mtime0"
+    },
+    {
+      "path": "ecology/report.json",
+      "sha256": "6e9042f827ace49e1a083f926c3d7dae26e472a5315ac299b5b10bdb1563e609",
+      "bytes": 13489,
+      "original": "/private/tmp/ashlar-ecology-graph-release-20261009-a/report.json",
+      "original_sha256": "6e9042f827ace49e1a083f926c3d7dae26e472a5315ac299b5b10bdb1563e609",
+      "original_bytes": 13489,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/native-export.log",
+      "sha256": "896a62244bab32a4559700845bb774e89556846433acd27fdaa8938bb5bbcc07",
+      "bytes": 13898,
+      "original": "/private/tmp/ashlar-ecology-graph-release-20261009-a.log",
+      "original_sha256": "896a62244bab32a4559700845bb774e89556846433acd27fdaa8938bb5bbcc07",
+      "original_bytes": 13898,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/source-publication/development-bindings.json",
+      "sha256": "adfd8ba678e7ecf480a54cd5c6a4b657e7e8862d9d3545c93257b75013a0e26e",
+      "bytes": 34327,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/development-bindings.json",
+      "original_sha256": "adfd8ba678e7ecf480a54cd5c6a4b657e7e8862d9d3545c93257b75013a0e26e",
+      "original_bytes": 34327,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/source-publication/original-graph.json",
+      "sha256": "cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668",
+      "bytes": 77070,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/original-graph.json",
+      "original_sha256": "cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668",
+      "original_bytes": 77070,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/source-publication/original-ontology.json",
+      "sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee",
+      "bytes": 62701,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/original-ontology.json",
+      "original_sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee",
+      "original_bytes": 62701,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/source-publication/postgres-installation.json",
+      "sha256": "1b27fc5dd37ec92dc38f2278af603f345ab4597d0604a5f8ff5356bac05f8a8c",
+      "bytes": 16362,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/postgres-installation.json",
+      "original_sha256": "1b27fc5dd37ec92dc38f2278af603f345ab4597d0604a5f8ff5356bac05f8a8c",
+      "original_bytes": 16362,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/source-publication/public-dataset-call.json",
+      "sha256": "8f7fe9b9c38f0fddf736494ef6623ca996597021385ac110d2c4211153b95d00",
+      "bytes": 253,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/public-dataset-call.json",
+      "original_sha256": "8f7fe9b9c38f0fddf736494ef6623ca996597021385ac110d2c4211153b95d00",
+      "original_bytes": 253,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/source-publication/public-dataset.json",
+      "sha256": "6567530f3ecf12189e1c85d16c282df2734ab7635ddd6d294c1987073914906c",
+      "bytes": 1035156,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/public-dataset.json",
+      "original_sha256": "6567530f3ecf12189e1c85d16c282df2734ab7635ddd6d294c1987073914906c",
+      "original_bytes": 1035156,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/source-publication/report.json.gz",
+      "sha256": "9fad127883a95efa8e061eeef63cfb78d4a0d201d219e8a1b8a0058ad0997a44",
+      "bytes": 111197,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/report.json",
+      "original_sha256": "514958f24739e08885dade12d2a22e51e1f679c27336dccb7a53965b520b0083",
+      "original_bytes": 1704479,
+      "encoding": "gzip-lossless-mtime0"
+    },
+    {
+      "path": "ecology/source-publication/source.jsonl",
+      "sha256": "56798cf0ffb9ea899219e6ac7f1e130a428ab16c8866c99583384d1ea833e144",
+      "bytes": 122599,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/source.jsonl",
+      "original_sha256": "56798cf0ffb9ea899219e6ac7f1e130a428ab16c8866c99583384d1ea833e144",
+      "original_bytes": 122599,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/release.graph.json",
+      "sha256": "59f15cd20b36c8816d179221dadb7f1dcf8890e7457a6f43dd4456252ca231f4",
+      "bytes": 757563,
+      "original": "/private/tmp/ashlar-medical-graph-release-20261009-a/release.graph.json",
+      "original_sha256": "59f15cd20b36c8816d179221dadb7f1dcf8890e7457a6f43dd4456252ca231f4",
+      "original_bytes": 757563,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/custody.json.gz",
+      "sha256": "949c84a799d8e3b8eeb564d511969f7d254c9063157bc1eab7662879b30902f1",
+      "bytes": 422975,
+      "original": "/private/tmp/ashlar-medical-graph-release-20261009-a/custody.json",
+      "original_sha256": "e7b9bbdea0e3af9faf7d2ffa228e8856df34abc3c446ea15ed1b605119b28b98",
+      "original_bytes": 5295882,
+      "encoding": "gzip-lossless-mtime0"
+    },
+    {
+      "path": "medical/report.json",
+      "sha256": "c21aae71ce6b1d7e0ac9a0808af166aeb93ee6167c4d0595c01564d9955f3a7f",
+      "bytes": 13489,
+      "original": "/private/tmp/ashlar-medical-graph-release-20261009-a/report.json",
+      "original_sha256": "c21aae71ce6b1d7e0ac9a0808af166aeb93ee6167c4d0595c01564d9955f3a7f",
+      "original_bytes": 13489,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/native-export.log",
+      "sha256": "c3e8d8631335416cb156d46124d6bbc95f7c5a6108cca397f4fa407a2c8e78d8",
+      "bytes": 13898,
+      "original": "/private/tmp/ashlar-medical-graph-release-20261009-a.log",
+      "original_sha256": "c3e8d8631335416cb156d46124d6bbc95f7c5a6108cca397f4fa407a2c8e78d8",
+      "original_bytes": 13898,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/source-publication/development-bindings.json",
+      "sha256": "743fda730110929b66daf5c5ce4d2ad315a9c9447f609dd6dae195a04477af2c",
+      "bytes": 33404,
+      "original": "/private/tmp/ashlar-medical-outbox-publication-20261009-b/development-bindings.json",
+      "original_sha256": "743fda730110929b66daf5c5ce4d2ad315a9c9447f609dd6dae195a04477af2c",
+      "original_bytes": 33404,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/source-publication/original-archive-oracle.json",
+      "sha256": "8afdddd0e30bfb06d27ca5f30ece8271abd75dfc519cfb9de6e463a12755b508",
+      "bytes": 186052,
+      "original": "/private/tmp/ashlar-medical-outbox-publication-20261009-b/original-archive-oracle.json",
+      "original_sha256": "8afdddd0e30bfb06d27ca5f30ece8271abd75dfc519cfb9de6e463a12755b508",
+      "original_bytes": 186052,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/source-publication/original-graph.json",
+      "sha256": "b22d788dcf23e2889f82bd407241d7af4bb5f8a8d4c3316768458a97448f18c4",
+      "bytes": 160290,
+      "original": "/private/tmp/ashlar-medical-outbox-publication-20261009-b/original-graph.json",
+      "original_sha256": "b22d788dcf23e2889f82bd407241d7af4bb5f8a8d4c3316768458a97448f18c4",
+      "original_bytes": 160290,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/source-publication/original-ontology.json",
+      "sha256": "fc9938f152e129e041096219be4d7bef70aa35e16f56745411af232ee9cab1c8",
+      "bytes": 33236,
+      "original": "/private/tmp/ashlar-medical-outbox-publication-20261009-b/original-ontology.json",
+      "original_sha256": "fc9938f152e129e041096219be4d7bef70aa35e16f56745411af232ee9cab1c8",
+      "original_bytes": 33236,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/source-publication/postgres-installation.json",
+      "sha256": "80bc2680897c4254cd61f674f996bc1b7f43397ce1cdf932abc47401620cdeac",
+      "bytes": 16362,
+      "original": "/private/tmp/ashlar-medical-outbox-publication-20261009-b/postgres-installation.json",
+      "original_sha256": "80bc2680897c4254cd61f674f996bc1b7f43397ce1cdf932abc47401620cdeac",
+      "original_bytes": 16362,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/source-publication/public-dataset-call.json",
+      "sha256": "53a74a42a3c80c1486842338e9d4d0843995ee64f1c5fee208de0c9441288c48",
+      "bytes": 148,
+      "original": "/private/tmp/ashlar-medical-outbox-publication-20261009-b/public-dataset-call.json",
+      "original_sha256": "53a74a42a3c80c1486842338e9d4d0843995ee64f1c5fee208de0c9441288c48",
+      "original_bytes": 148,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/source-publication/public-dataset.json.gz",
+      "sha256": "49dc6ae88c68eadf651e040e8a2d1565b5db451743b108779f711ec8d501ff6f",
+      "bytes": 242653,
+      "original": "/private/tmp/ashlar-medical-outbox-publication-20261009-b/public-dataset.json",
+      "original_sha256": "1400eebbca3b082f19fd7699e74c708dfbd69e5ed21f7d3f5e77bd6f4e46b20e",
+      "original_bytes": 2746047,
+      "encoding": "gzip-lossless-mtime0"
+    },
+    {
+      "path": "medical/source-publication/report.json.gz",
+      "sha256": "7bef408ddd11fcc53cb95be1451c803ceeff215cb69361f8206cdc0804e97af8",
+      "bytes": 270376,
+      "original": "/private/tmp/ashlar-medical-outbox-publication-20261009-b/report.json",
+      "original_sha256": "7e76edf742885cfe34bb42f7b8bb76931d3ced46b168f250af744770f8642e03",
+      "original_bytes": 3101327,
+      "encoding": "gzip-lossless-mtime0"
+    },
+    {
+      "path": "medical/source-publication/source.jsonl",
+      "sha256": "99f7b711028f4ccd982381a3feb9667751e014c2f30bfae462d0673cf56d153a",
+      "bytes": 272679,
+      "original": "/private/tmp/ashlar-medical-outbox-publication-20261009-b/source.jsonl",
+      "original_sha256": "99f7b711028f4ccd982381a3feb9667751e014c2f30bfae462d0673cf56d153a",
+      "original_bytes": 272679,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/tools/run_pack_graph_release.py",
+      "sha256": "720d095ce3761b7f832307f9654a6f7afdabfcc9128efd8fbcdd45a38ac88744",
+      "bytes": 3588,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:tools/run_pack_graph_release.py",
+      "original_sha256": "720d095ce3761b7f832307f9654a6f7afdabfcc9128efd8fbcdd45a38ac88744",
+      "original_bytes": 3588,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/tools/run_commerce_graph_release.py",
+      "sha256": "09481bb70aeb8eeef6221658bd56ce213bc16d8d8470644e3a7fc1be4b1bfb52",
+      "bytes": 10335,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:tools/run_commerce_graph_release.py",
+      "original_sha256": "09481bb70aeb8eeef6221658bd56ce213bc16d8d8470644e3a7fc1be4b1bfb52",
+      "original_bytes": 10335,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "summary.json",
+      "sha256": "3c5063c99df7e361c148e6ffacae6aa72198f082f48ada96aa4ff5bf6e6d0591",
+      "bytes": 23751,
+      "original": "Derived source/custody index; original files remain exact",
+      "original_sha256": "3c5063c99df7e361c148e6ffacae6aa72198f082f48ada96aa4ff5bf6e6d0591",
+      "original_bytes": 23751,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/tools/run_medical_outbox_publication.py",
+      "sha256": "4ac0b2d075c9e061f661bff66ea62431ac554196e48ddcd24fcba792bd6b81d6",
+      "bytes": 21278,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:tools/run_medical_outbox_publication.py",
+      "original_sha256": "4ac0b2d075c9e061f661bff66ea62431ac554196e48ddcd24fcba792bd6b81d6",
+      "original_bytes": 21278,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/tools/medical_historical_oracle.py",
+      "sha256": "d16b8873f902d2bb50094aa2f1f245d8355e0615b3577775a1b4aaba36c95b48",
+      "bytes": 4626,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:tools/medical_historical_oracle.py",
+      "original_sha256": "d16b8873f902d2bb50094aa2f1f245d8355e0615b3577775a1b4aaba36c95b48",
+      "original_bytes": 4626,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/tools/medical_source_oracle.py",
+      "sha256": "907a6e2e946583f6b21ea5c1062be8a82da60cb63b1a8b54b62b7d1f9d5e1c4d",
+      "bytes": 9672,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:tools/medical_source_oracle.py",
+      "original_sha256": "907a6e2e946583f6b21ea5c1062be8a82da60cb63b1a8b54b62b7d1f9d5e1c4d",
+      "original_bytes": 9672,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/tools/medical_source_transaction.py",
+      "sha256": "057275ffa943d128d8a6065d3ad642eb44fe6aac435a79314a649d0466a11c43",
+      "bytes": 287,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:tools/medical_source_transaction.py",
+      "original_sha256": "057275ffa943d128d8a6065d3ad642eb44fe6aac435a79314a649d0466a11c43",
+      "original_bytes": 287,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/src/ashlar/medical_source.py",
+      "sha256": "dd02f4214e42019f3f85938ad79987f3510938b37ccb5aeed6f1111a86623978",
+      "bytes": 7897,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:src/ashlar/medical_source.py",
+      "original_sha256": "dd02f4214e42019f3f85938ad79987f3510938b37ccb5aeed6f1111a86623978",
+      "original_bytes": 7897,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/tools/run_ecology_outbox_publication.py",
+      "sha256": "51efa0ce08b962e83270ad06e9ae10de5f3510518494d35fc41351b9c587ccc6",
+      "bytes": 19699,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:tools/run_ecology_outbox_publication.py",
+      "original_sha256": "51efa0ce08b962e83270ad06e9ae10de5f3510518494d35fc41351b9c587ccc6",
+      "original_bytes": 19699,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/tools/ecology_source_transaction.py",
+      "sha256": "47b1eb206885d54569fb17ee53d4aa4ac107204132aad6bc2e351126654f934f",
+      "bytes": 296,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:tools/ecology_source_transaction.py",
+      "original_sha256": "47b1eb206885d54569fb17ee53d4aa4ac107204132aad6bc2e351126654f934f",
+      "original_bytes": 296,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/src/ashlar/ecology_source.py",
+      "sha256": "305aae55528c6c7c748c61be290b74c40a9079238ae158d69fc9dd50b46c7ec9",
+      "bytes": 5818,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:src/ashlar/ecology_source.py",
+      "original_sha256": "305aae55528c6c7c748c61be290b74c40a9079238ae158d69fc9dd50b46c7ec9",
+      "original_bytes": 5818,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/tools/run_archaeology_outbox_publication.py",
+      "sha256": "b9cea56ec8cf6d99fc7557489f1ac811a58ac59e47437ecbf17e3cb4049a2957",
+      "bytes": 19803,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:tools/run_archaeology_outbox_publication.py",
+      "original_sha256": "b9cea56ec8cf6d99fc7557489f1ac811a58ac59e47437ecbf17e3cb4049a2957",
+      "original_bytes": 19803,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/tools/archaeology_source_transaction.py",
+      "sha256": "87ff752e1a2774b515a3ce97da5ce65f100166dcbb958d38db27d6ea33954819",
+      "bytes": 308,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:tools/archaeology_source_transaction.py",
+      "original_sha256": "87ff752e1a2774b515a3ce97da5ce65f100166dcbb958d38db27d6ea33954819",
+      "original_bytes": 308,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "additional-source/src/ashlar/archaeology_source.py",
+      "sha256": "40679abae4ca8365e17efd02376c525c5097d3bb2d699850945855804ff70c2c",
+      "bytes": 5846,
+      "original": "git:78067c2676b7fdbcdf928b264cacb385c9493edf:src/ashlar/archaeology_source.py",
+      "original_sha256": "40679abae4ca8365e17efd02376c525c5097d3bb2d699850945855804ff70c2c",
+      "original_bytes": 5846,
+      "encoding": "original-bytes"
+    }
+  ]
+}
