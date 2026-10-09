@@ -1,0 +1,338 @@
+{
+  "format": "ashlar-original-pack-graphframes-common-custody/0.1",
+  "entries": [
+    {
+      "path": "report.json.gz",
+      "sha256": "4a0ae5115e2ac1c6095cb9d13216436bf9f35b085a8d81ea0100e40a25f0045e",
+      "bytes": 191687,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/report.json",
+      "original_sha256": "66fee874d40d9574fdf5692639441470d528158edef0817305f8825c63662d0f",
+      "original_bytes": 2674012,
+      "encoding": "gzip-lossless-mtime0"
+    },
+    {
+      "path": "attempt-a.log",
+      "sha256": "e4b2b16a0e613db8389e7171a5ab48a3046cb28bfff579c108482355b359d78a",
+      "bytes": 4036,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-a.log",
+      "original_sha256": "e4b2b16a0e613db8389e7171a5ab48a3046cb28bfff579c108482355b359d78a",
+      "original_bytes": 4036,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "attempt-b.log",
+      "sha256": "23c3c3e5465a8f6bebf799bd20e65ff81c11c7ae4a382d212433010ec45deb51",
+      "bytes": 628,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b.log",
+      "original_sha256": "23c3c3e5465a8f6bebf799bd20e65ff81c11c7ae4a382d212433010ec45deb51",
+      "original_bytes": 628,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/nodes/observed-full-rows.json",
+      "sha256": "ade6ff2270437fe8d3f38c521e5cbd203ac195e529a0f8a38300a07a3c3b8766",
+      "bytes": 68637,
+      "original": "Post-run independent direct Parquet read; compared to original native report full row bag",
+      "original_sha256": "ade6ff2270437fe8d3f38c521e5cbd203ac195e529a0f8a38300a07a3c3b8766",
+      "original_bytes": 68637,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/nodes/native/.part-00000-5cce4dfd-573d-47c1-8912-bb23fb73ea38-c000.snappy.parquet.crc",
+      "sha256": "b7500dfc3e3889d9a5fdac082922cee269f73140a693f371f6e56e59e54b406f",
+      "bytes": 160,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/archaeology/nodes/.part-00000-5cce4dfd-573d-47c1-8912-bb23fb73ea38-c000.snappy.parquet.crc",
+      "original_sha256": "b7500dfc3e3889d9a5fdac082922cee269f73140a693f371f6e56e59e54b406f",
+      "original_bytes": 160,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/nodes/native/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "bd2f579b0dd1753e61e18c47279dcbf979131efab420dc293d948ad5c883e694",
+      "bytes": 44,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/archaeology/nodes/_delta_log/.00000000000000000000.json.crc",
+      "original_sha256": "bd2f579b0dd1753e61e18c47279dcbf979131efab420dc293d948ad5c883e694",
+      "original_bytes": 44,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/nodes/native/_delta_log/00000000000000000000.json",
+      "sha256": "db4dc7b837a34e71a642135cfd040017e0b8411c0edacea4dd97cf98d8c39ff1",
+      "bytes": 4212,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/archaeology/nodes/_delta_log/00000000000000000000.json",
+      "original_sha256": "db4dc7b837a34e71a642135cfd040017e0b8411c0edacea4dd97cf98d8c39ff1",
+      "original_bytes": 4212,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/nodes/native/part-00000-5cce4dfd-573d-47c1-8912-bb23fb73ea38-c000.snappy.parquet",
+      "sha256": "7de2888c403d93a0c77fac0b7684fa3b3aeebca078e021bbe609360a8165ccbc",
+      "bytes": 19098,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/archaeology/nodes/part-00000-5cce4dfd-573d-47c1-8912-bb23fb73ea38-c000.snappy.parquet",
+      "original_sha256": "7de2888c403d93a0c77fac0b7684fa3b3aeebca078e021bbe609360a8165ccbc",
+      "original_bytes": 19098,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/edges/observed-full-rows.json",
+      "sha256": "0edf6cd53d544aa15ae36ccdaa85c37ceaa81bb8c24dca0a9341635beb62470d",
+      "bytes": 101468,
+      "original": "Post-run independent direct Parquet read; compared to original native report full row bag",
+      "original_sha256": "0edf6cd53d544aa15ae36ccdaa85c37ceaa81bb8c24dca0a9341635beb62470d",
+      "original_bytes": 101468,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/edges/native/.part-00000-0d9ced9f-debb-4dc9-a6e3-e1c9a0d08d9d-c000.snappy.parquet.crc",
+      "sha256": "9453e5d248e60c41ae1847723c646867c4a9e51c107a4fe9799c86a33eca4a92",
+      "bytes": 172,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/archaeology/edges/.part-00000-0d9ced9f-debb-4dc9-a6e3-e1c9a0d08d9d-c000.snappy.parquet.crc",
+      "original_sha256": "9453e5d248e60c41ae1847723c646867c4a9e51c107a4fe9799c86a33eca4a92",
+      "original_bytes": 172,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/edges/native/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "3b8ad41448ad5fd74da97d5d06e77ff4c3983940ef28966933a7cfacb0d8cb1d",
+      "bytes": 48,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/archaeology/edges/_delta_log/.00000000000000000000.json.crc",
+      "original_sha256": "3b8ad41448ad5fd74da97d5d06e77ff4c3983940ef28966933a7cfacb0d8cb1d",
+      "original_bytes": 48,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/edges/native/_delta_log/00000000000000000000.json",
+      "sha256": "630eb91354c859b8513079b3f24d21fb253442d2e572385825c636bead70e75c",
+      "bytes": 4845,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/archaeology/edges/_delta_log/00000000000000000000.json",
+      "original_sha256": "630eb91354c859b8513079b3f24d21fb253442d2e572385825c636bead70e75c",
+      "original_bytes": 4845,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "archaeology/edges/native/part-00000-0d9ced9f-debb-4dc9-a6e3-e1c9a0d08d9d-c000.snappy.parquet",
+      "sha256": "cb12cfbe87d52d0500e0130816d48cfe3b6e276747573b39c879e56eb1c8615f",
+      "bytes": 20485,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/archaeology/edges/part-00000-0d9ced9f-debb-4dc9-a6e3-e1c9a0d08d9d-c000.snappy.parquet",
+      "original_sha256": "cb12cfbe87d52d0500e0130816d48cfe3b6e276747573b39c879e56eb1c8615f",
+      "original_bytes": 20485,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/nodes/observed-full-rows.json",
+      "sha256": "9eac5daa00c92a001f619e13a5161c1bc6956c4c28f72b973cb75d02c650597d",
+      "bytes": 65857,
+      "original": "Post-run independent direct Parquet read; compared to original native report full row bag",
+      "original_sha256": "9eac5daa00c92a001f619e13a5161c1bc6956c4c28f72b973cb75d02c650597d",
+      "original_bytes": 65857,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/nodes/native/.part-00000-f93b210e-6c2e-4b15-9931-6a8f69e5a499-c000.snappy.parquet.crc",
+      "sha256": "479cf71639d8ac6c70e325749658c9ce1a6b9445471fe93eb3338b0ad84fbbdd",
+      "bytes": 144,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/ecology/nodes/.part-00000-f93b210e-6c2e-4b15-9931-6a8f69e5a499-c000.snappy.parquet.crc",
+      "original_sha256": "479cf71639d8ac6c70e325749658c9ce1a6b9445471fe93eb3338b0ad84fbbdd",
+      "original_bytes": 144,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/nodes/native/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "1ed387e80a97b2619e3d977e78312286fea3b3a117dc45c9bde33a6d19728c57",
+      "bytes": 44,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/ecology/nodes/_delta_log/.00000000000000000000.json.crc",
+      "original_sha256": "1ed387e80a97b2619e3d977e78312286fea3b3a117dc45c9bde33a6d19728c57",
+      "original_bytes": 44,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/nodes/native/_delta_log/00000000000000000000.json",
+      "sha256": "45c560042b1783d6f18604b00510b2e0b324263d2f0ffbb91362b9aa21c20c03",
+      "bytes": 4190,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/ecology/nodes/_delta_log/00000000000000000000.json",
+      "original_sha256": "45c560042b1783d6f18604b00510b2e0b324263d2f0ffbb91362b9aa21c20c03",
+      "original_bytes": 4190,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/nodes/native/part-00000-f93b210e-6c2e-4b15-9931-6a8f69e5a499-c000.snappy.parquet",
+      "sha256": "2d24f733b15b1f935f9e9e73a5c025dce70fb42011d00e57ccc4e4e1b5908baf",
+      "bytes": 17286,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/ecology/nodes/part-00000-f93b210e-6c2e-4b15-9931-6a8f69e5a499-c000.snappy.parquet",
+      "original_sha256": "2d24f733b15b1f935f9e9e73a5c025dce70fb42011d00e57ccc4e4e1b5908baf",
+      "original_bytes": 17286,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/edges/observed-full-rows.json",
+      "sha256": "d84a807d4dd1d4257a65756d118622b49efb6374a0db80fd53e56fd6bed2a1e9",
+      "bytes": 115625,
+      "original": "Post-run independent direct Parquet read; compared to original native report full row bag",
+      "original_sha256": "d84a807d4dd1d4257a65756d118622b49efb6374a0db80fd53e56fd6bed2a1e9",
+      "original_bytes": 115625,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/edges/native/.part-00000-17c91086-c747-455b-9d04-f41746710dc5-c000.snappy.parquet.crc",
+      "sha256": "2802c93c8af0742a902e0410eef048de4f7d65de8d35bd55985f8b8b3608d54c",
+      "bytes": 172,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/ecology/edges/.part-00000-17c91086-c747-455b-9d04-f41746710dc5-c000.snappy.parquet.crc",
+      "original_sha256": "2802c93c8af0742a902e0410eef048de4f7d65de8d35bd55985f8b8b3608d54c",
+      "original_bytes": 172,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/edges/native/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "232c5c7793790b8767fc4618e125b8b0efcc1177abd46ab8561eadd890f4c01c",
+      "bytes": 48,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/ecology/edges/_delta_log/.00000000000000000000.json.crc",
+      "original_sha256": "232c5c7793790b8767fc4618e125b8b0efcc1177abd46ab8561eadd890f4c01c",
+      "original_bytes": 48,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/edges/native/_delta_log/00000000000000000000.json",
+      "sha256": "d97e7b0481ec25bb026f48971b4f76777508c923fcfcb8187ef3ba7ee3f36b3c",
+      "bytes": 4823,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/ecology/edges/_delta_log/00000000000000000000.json",
+      "original_sha256": "d97e7b0481ec25bb026f48971b4f76777508c923fcfcb8187ef3ba7ee3f36b3c",
+      "original_bytes": 4823,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "ecology/edges/native/part-00000-17c91086-c747-455b-9d04-f41746710dc5-c000.snappy.parquet",
+      "sha256": "e51a42aa1625df0ec6e192f7c83fe530b3edcf4c9a2db6ece06b61bb0fd47c06",
+      "bytes": 20981,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/ecology/edges/part-00000-17c91086-c747-455b-9d04-f41746710dc5-c000.snappy.parquet",
+      "original_sha256": "e51a42aa1625df0ec6e192f7c83fe530b3edcf4c9a2db6ece06b61bb0fd47c06",
+      "original_bytes": 20981,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/nodes/observed-full-rows.json",
+      "sha256": "42a73bce71d927d11ad6ba8493856939eb7b3e4a34131970a787487745c27632",
+      "bytes": 208295,
+      "original": "Post-run independent direct Parquet read; compared to original native report full row bag",
+      "original_sha256": "42a73bce71d927d11ad6ba8493856939eb7b3e4a34131970a787487745c27632",
+      "original_bytes": 208295,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/nodes/native/.part-00000-bad14461-0e00-4f87-a061-187e11bba9df-c000.snappy.parquet.crc",
+      "sha256": "91b3e492177fc3bc4720d0934cb325b950bff6313fd61c17f46ea34a27b85903",
+      "bytes": 432,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/medical/nodes/.part-00000-bad14461-0e00-4f87-a061-187e11bba9df-c000.snappy.parquet.crc",
+      "original_sha256": "91b3e492177fc3bc4720d0934cb325b950bff6313fd61c17f46ea34a27b85903",
+      "original_bytes": 432,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/nodes/native/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "742fcd95da7f1c8f23993ada26dae3741d4aebc582b0f1a521d46caad682d929",
+      "bytes": 44,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/medical/nodes/_delta_log/.00000000000000000000.json.crc",
+      "original_sha256": "742fcd95da7f1c8f23993ada26dae3741d4aebc582b0f1a521d46caad682d929",
+      "original_bytes": 44,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/nodes/native/_delta_log/00000000000000000000.json",
+      "sha256": "40f89f38b0d13891e105ede62203fe584f59c89defeb4dcb5ebe156c42644f66",
+      "bytes": 4145,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/medical/nodes/_delta_log/00000000000000000000.json",
+      "original_sha256": "40f89f38b0d13891e105ede62203fe584f59c89defeb4dcb5ebe156c42644f66",
+      "original_bytes": 4145,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/nodes/native/part-00000-bad14461-0e00-4f87-a061-187e11bba9df-c000.snappy.parquet",
+      "sha256": "acfd679469cbf90bed2a0abfd1ee93de4171a16a1ec0c592fbd1ece0b0e4919d",
+      "bytes": 53880,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/medical/nodes/part-00000-bad14461-0e00-4f87-a061-187e11bba9df-c000.snappy.parquet",
+      "original_sha256": "acfd679469cbf90bed2a0abfd1ee93de4171a16a1ec0c592fbd1ece0b0e4919d",
+      "original_bytes": 53880,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/edges/observed-full-rows.json",
+      "sha256": "6fea7f6bcba49a03e37645385b620a760658c70fad2f9f0c74842862cffd8000",
+      "bytes": 134603,
+      "original": "Post-run independent direct Parquet read; compared to original native report full row bag",
+      "original_sha256": "6fea7f6bcba49a03e37645385b620a760658c70fad2f9f0c74842862cffd8000",
+      "original_bytes": 134603,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/edges/native/.part-00000-e4d0baf2-8bdd-4bcf-b84e-5f9c770d0406-c000.snappy.parquet.crc",
+      "sha256": "bb3e924669a823877ac0b6ccbe8181576384ae50249240e985fde8b8b3793755",
+      "bytes": 180,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/medical/edges/.part-00000-e4d0baf2-8bdd-4bcf-b84e-5f9c770d0406-c000.snappy.parquet.crc",
+      "original_sha256": "bb3e924669a823877ac0b6ccbe8181576384ae50249240e985fde8b8b3793755",
+      "original_bytes": 180,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/edges/native/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "230628e0284c6a693d9b4410402f91fc0cd66f31cd26312c0344f2b7dba656b3",
+      "bytes": 48,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/medical/edges/_delta_log/.00000000000000000000.json.crc",
+      "original_sha256": "230628e0284c6a693d9b4410402f91fc0cd66f31cd26312c0344f2b7dba656b3",
+      "original_bytes": 48,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/edges/native/_delta_log/00000000000000000000.json",
+      "sha256": "3a61dea543d241d45c6f6c29f5cf941a9c28056a01d827e36d21394f99c9e428",
+      "bytes": 4824,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/medical/edges/_delta_log/00000000000000000000.json",
+      "original_sha256": "3a61dea543d241d45c6f6c29f5cf941a9c28056a01d827e36d21394f99c9e428",
+      "original_bytes": 4824,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "medical/edges/native/part-00000-e4d0baf2-8bdd-4bcf-b84e-5f9c770d0406-c000.snappy.parquet",
+      "sha256": "97cfcb221ac33125cd180bb57d39e257cc07afa6088a63595e7fb457b90c3db4",
+      "bytes": 21866,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-20261009-b/medical/edges/part-00000-e4d0baf2-8bdd-4bcf-b84e-5f9c770d0406-c000.snappy.parquet",
+      "original_sha256": "97cfcb221ac33125cd180bb57d39e257cc07afa6088a63595e7fb457b90c3db4",
+      "original_bytes": 21866,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "runtime/post-run-import-fingerprints.json",
+      "sha256": "f32a240d66360f2bb0846444e8c7a4672e2a2325bef5f0886e0c777140cb3f77",
+      "bytes": 1711,
+      "original": "/private/tmp/ashlar-three-pack-graphframes-runtime-imports-20261009.json",
+      "original_sha256": "f32a240d66360f2bb0846444e8c7a4672e2a2325bef5f0886e0c777140cb3f77",
+      "original_bytes": 1711,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "runtime/launch-profile.json",
+      "sha256": "e96479fa029214aba2b136790ed6ef1b3140af1e0025525a88d618006b7be133",
+      "bytes": 1757,
+      "original": "Original launch confirmed by run owner; post-run hashes explicitly qualified",
+      "original_sha256": "e96479fa029214aba2b136790ed6ef1b3140af1e0025525a88d618006b7be133",
+      "original_bytes": 1757,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "source/tools/run_pack_release_graphframes.py",
+      "sha256": "508daab0b1bf6dfc1d22f1c9b5b4aae9ecba1b30607ac16e7b37174c9f07f199",
+      "bytes": 14918,
+      "original": "git:e6d5ebd7bfa0b347884d386e3de3cd51c094cd95:tools/run_pack_release_graphframes.py",
+      "original_sha256": "508daab0b1bf6dfc1d22f1c9b5b4aae9ecba1b30607ac16e7b37174c9f07f199",
+      "original_bytes": 14918,
+      "encoding": "original-bytes"
+    },
+    {
+      "path": "summary.json",
+      "sha256": "537be397c6105d9cdd4ee5594029c91228770e8e47200ad4a8b5ff6820f1d217",
+      "bytes": 39318,
+      "original": "Derived custody index; original report/Delta files remain exact",
+      "original_sha256": "537be397c6105d9cdd4ee5594029c91228770e8e47200ad4a8b5ff6820f1d217",
+      "original_bytes": 39318,
+      "encoding": "original-bytes"
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "qualification": "Owner-confirmed original b launch settings; hashes below are post-run read-only file observations. Actual native plans were not retained and are not invented.",
+  "JAVA_HOME": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/jdk4py/java-runtime",
+  "PYTHONPATH": "src:tools",
+  "PYSPARK_PYTHON": "/private/tmp/ashlar-spark311/bin/python",
+  "PYSPARK_DRIVER_PYTHON": "/private/tmp/ashlar-spark311/bin/python",
+  "SPARK_LOCAL_IP": "127.0.0.1",
+  "java_executable_sha256": "7cade5174816a3e93730101bc0885361b2bfaf00c9b4799e2ee5b2086e02d2d6",
+  "jars": [
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.delta_delta-spark_2.12-3.2.1.jar",
+      "sha256": "088e187da689a347a6a8556dcb22318e3dfcfb995d807f5e2c19b4d0a7ee9499",
+      "bytes": 6122814
+    },
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.delta_delta-storage-3.2.1.jar",
+      "sha256": "4dcc179fc4076bda5060a4038f979c53e1f5916cf04971e28f9441db390763c7",
+      "bytes": 24948
+    },
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.graphframes_graphframes-graphx-spark3_2.12-0.12.3.jar",
+      "sha256": "8bbd2bbb4c7a3b137e51b4f32f49a30a2ccf70eeb07b452cffa20090dd481b96",
+      "bytes": 418271
+    },
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.graphframes_graphframes-spark3_2.12-0.12.3.jar",
+      "sha256": "69d7909628caf42bcbe1c7e6e5a5a0901040d00583738d931af41bd72af1d3dc",
+      "bytes": 537023
+    }
+  ],
+  "native_plan_observations_retained": false,
+  "failed_attempt_a": "Python3.9 driver referenced Python3.11 packages; NumPy native ABI import failed after archaeology rematerialization. Terminal failure/cleanup, no report; b uses independent fresh directory and corrected matching Python3.11 driver/workers."
+}

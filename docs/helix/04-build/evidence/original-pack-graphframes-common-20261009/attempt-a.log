@@ -1,0 +1,68 @@
+26/10/09 19:12:22 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+[Stage 0:>                                                          (0 + 1) / 1]                                                                                Traceback (most recent call last):
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/__init__.py", line 24, in <module>
+    from . import multiarray
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/multiarray.py", line 11, in <module>
+    from . import _multiarray_umath, overrides
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/overrides.py", line 6, in <module>
+    from numpy._core._multiarray_umath import (
+ModuleNotFoundError: No module named 'numpy._core._multiarray_umath'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tools/run_pack_release_graphframes.py", line 159, in <module>
+    a=p.parse_args();print('Completed common cases:',run(json.loads(a.candidates.read_bytes()),a.output,a.jars)['cases'])
+  File "/Users/erik/Projects/ashlar/tools/run_pack_release_graphframes.py", line 119, in run
+    g=GraphFrame(frames['nodes'],frames['edges']);actual={}
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/graphframes/graphframe.py", line 180, in __init__
+    from graphframes.classic.graphframe import GraphFrame as GraphFrameClassic
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/graphframes/classic/graphframe.py", line 37, in <module>
+    from graphframes.lib import Pregel
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/graphframes/lib/__init__.py", line 2, in <module>
+    from .pregel import Pregel
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/graphframes/lib/pregel.py", line 20, in <module>
+    from pyspark.ml.wrapper import JavaWrapper
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/ml/__init__.py", line 22, in <module>
+    from pyspark.ml.base import (
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/ml/base.py", line 40, in <module>
+    from pyspark.ml.param import P
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/pyspark/ml/param/__init__.py", line 32, in <module>
+    import numpy as np
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/__init__.py", line 112, in <module>
+    from numpy.__config__ import show_config
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/__config__.py", line 4, in <module>
+    from numpy._core._multiarray_umath import (
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/__init__.py", line 85, in <module>
+    raise ImportError(msg) from exc
+ImportError: 
+
+IMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!
+
+Importing the numpy C-extensions failed. This error can happen for
+many reasons, often due to issues with your setup or how NumPy was
+installed.
+The following compiled module files exist, but seem incompatible
+with with either python 'cpython-39' or the platform 'darwin':
+
+  * _multiarray_umath.cpython-311-darwin.so
+
+We have compiled some common reasons and troubleshooting tips at:
+
+    https://numpy.org/devdocs/user/troubleshooting-importerror.html
+
+Please note and check the following:
+
+  * The Python version is: Python 3.9 from "/private/tmp/ashlar-db-client/bin/python"
+  * The NumPy version is: "2.4.6"
+
+and make sure that they are the versions you expect.
+
+Please carefully study the information and documentation linked above.
+This is unlikely to be a NumPy issue but will be caused by a bad install
+or environment on your machine.
+
+Original error was: No module named 'numpy._core._multiarray_umath'
+
