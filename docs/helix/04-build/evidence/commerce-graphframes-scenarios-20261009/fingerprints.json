@@ -1,0 +1,6 @@
+{
+  "docs/helix/04-build/evidence/commerce-graphframes-scenarios-20261009/README.md": "c4eaf2f747c054630aafc9cfe8e58c7f47bf648b7f3a9d3f20b7fa9ac446d5de",
+  "docs/helix/04-build/evidence/commerce-graphframes-scenarios-20261009/report.json": "a3e1397c9335972fc7502a38eea250ef806a60335aa639390b1a26d10bbd8f8a",
+  "tests/test_commerce_graphframes_scenarios.py": "dc7f89ec2aee5215f820bebf2a263c1a287e906cc77fc531add8b1017123a8ba",
+  "tools/check_commerce_graphframes_scenarios.py": "2a8d80b051d54ec810a21dc290caf9dd9eda533c4aee9bd11835cb9804192283"
+}
