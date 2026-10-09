@@ -58,13 +58,13 @@ def fixture_inventory(batches, columns, *, materialized_at):
     current={};history=[];deletes=[];first={}
     for batch in batches:
         for record in batch.records:
-            event=json.loads(record.raw);kind=event['entity_kind'];key=(kind,event['type_id'],event['id'])
+            event=json.loads(record.raw);kind=event['entity_kind'];key=(kind,event['source_system'],event['type_id'],event['id'])
             identity={'source_system':event['source_system'],'type_id' if kind=='object' else 'rel_type_id':int(event['type_id']),'id':int(event['id'])}
             row={name:None for name,typ in columns['object_current' if kind=='object' else 'edge_current']}
             row.update({k:str(v) for k,v in identity.items()})
             row.update(schema_revision=event['schema_revision'],entity_version=event['entity_version'],props_json=event['props_json'],retained_json=event['retained_json'],
                        source_feed=batch.feed,source_epoch=batch.epoch,source_cursor_json=json.dumps({'profile':batch.profile,'offset':batch.cursor_after},separators=(',',':')),
-                       source_delivery_id=record.delivery_id,published_at=stamp,lookup_hash=hashlib.sha256(json.dumps(identity,separators=(',',':')).encode()).hexdigest(),apply_batch_id=batch.batch_id)
+                       source_delivery_id=record.delivery_id,published_at=stamp,lookup_hash=hashlib.sha256(json.dumps(identity,ensure_ascii=False,separators=(',',':')).encode()).hexdigest(),apply_batch_id=batch.batch_id)
             if kind=='object':row['logical_key_json']='[]'
             else:
                 a,b=event['endpoints'];row.update(source_type=a['type_id'],source_id=a['id'],target_type=b['type_id'],target_id=b['id'])
@@ -80,5 +80,5 @@ def fixture_inventory(batches, columns, *, materialized_at):
             change={'feed':batch.feed,'epoch':batch.epoch,'delivery_id':record.delivery_id,'raw_digest':record.sha256,'operation':event['operation'],'state':state}
             history.append({'feed':batch.feed,'epoch':batch.epoch,'delivery_id':record.delivery_id,'digest':record.sha256,'change_json':json.dumps(change,separators=(',',':')),'raw_base64':base64.b64encode(record.raw).decode()})
         if batch.batch_id in ('local-1','evolution-1','csv-row-1'):first=dict(current)
-    expected={'object_current':[r for k,r in current.items() if k[0]=='object'],'edge_current':[], 'tombstone':deletes,'whole_source_history':history}
+    expected={'object_current':[r for k,r in current.items() if k[0]=='object'],'edge_current':[r for k,r in current.items() if k[0]=='edge'], 'tombstone':deletes,'whole_source_history':history}
     return expected, first
