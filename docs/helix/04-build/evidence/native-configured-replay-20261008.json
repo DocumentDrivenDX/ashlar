@@ -1,0 +1,55 @@
+{
+  "state": "passed-native-configured-committed-replay",
+  "execution_base_revision": "611bc60",
+  "summary": {
+    "state": "replayed",
+    "namespace": "ashlar_e2e_private_20261008.runtime_configured_jsonl",
+    "local_consumer_position": "1828",
+    "published": [
+      {
+        "ordinal": 3,
+        "descriptor": {
+          "profile_version": "ashlar-delta/0.3",
+          "publication_id": "configured-jsonl-stream-5c536402364c2f09e69d8e3af1f5c8c1d11a164811f256a2d8c857ea15632b0f",
+          "recorded_at": "1791492425648106",
+          "schema_revisions_json": "{\"configured-items\":\"3\"}",
+          "source_progress_json": "{\"configured-jsonl\":{\"batch_id\":\"local-3\",\"epoch\":\"configured-1\",\"feed\":\"configured-jsonl\",\"payload_digest\":\"8d52783fe0ab58ea07711893ad149249b5d3d076da38cc2147f0358cb370fb80\",\"position\":\"1828\",\"previous\":\"1331\",\"profile\":\"ashlar-immutable-jsonl/0.1\"}}",
+          "table_versions_json": "{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":0,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":5,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":1,\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":3}",
+          "validation_report_json": "{\"complete\":true,\"effect_parity\":[{\"columns\":20,\"rows\":0,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},{\"columns\":17,\"rows\":1,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":5},{\"columns\":10,\"rows\":1,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":1},{\"columns\":6,\"rows\":4,\"table\":\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":3}],\"intake_artifact_sha256\":\"f1920823eab9efac2c05fee21660d696b531d1faeb8b376c1cb19ba0db0bedf1\",\"intake_source_sha256\":\"60d446310ba1bdebf36a1d066aadeb099336c7a551b3e563bd50ae938eeff085\",\"qualification\":\"Private CONFIGURED-JSONL fixture native publication; explicit local IDs and source custody, actual UMF logical checks. No accepted Truss IDs, remote source ACK or production remote fencing.\",\"request_digest\":\"5c536402364c2f09e69d8e3af1f5c8c1d11a164811f256a2d8c857ea15632b0f\",\"retention\":{\"margin_us\":\"600000000\",\"profile\":\"ashlar-retention-window/0.1\",\"targets\":{\"ashlar_e2e_private_20261008.runtime_configured_jsonl.edge_current\":{\"committed_at\":\"1791491717000000\",\"readable_until\":\"1792095917000000\",\"uuid\":\"1d70e048-260f-4e84-8cfe-0da7dbd097a1\",\"version\":0},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.object_current\":{\"committed_at\":\"1791492391000000\",\"readable_until\":\"1792096591000000\",\"uuid\":\"65498593-9f3f-4931-aa77-67cb34d45d66\",\"version\":5},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.tombstone\":{\"committed_at\":\"1791492395000000\",\"readable_until\":\"1792096595000000\",\"uuid\":\"7f08db08-7942-475a-a639-ffbdfc74006e\",\"version\":1},\"ashlar_e2e_private_20261008.runtime_configured_jsonl.whole_source_history\":{\"committed_at\":\"1791492393000000\",\"readable_until\":\"1792096593000000\",\"uuid\":\"3915704a-e6cf-410a-9a03-25f474073f4e\",\"version\":3}}},\"source_groups\":3,\"source_sha256\":\"f76ecd69ec2939017ac427136c742544837e4068e8a161dd90e72eb8740dd585\",\"upstream_record_check_revision\":\"c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3\"}"
+        }
+      }
+    ],
+    "source_kind": "configured-jsonl",
+    "local_completed_batches": 3,
+    "query_only": false,
+    "singleton": null,
+    "weft": null,
+    "query_publication_id": null,
+    "replay_last": true,
+    "native_read_statements": 113,
+    "effective_permission_pages": 66,
+    "source_sha256": "f76ecd69ec2939017ac427136c742544837e4068e8a161dd90e72eb8740dd585",
+    "materialized_at": "2026-10-08T20:37:05.709841+00:00",
+    "qualification": "Actual CONFIGURED-JSONL fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload."
+  },
+  "original_submissions_byte_identical": 58,
+  "original_checkpoints_byte_identical": [
+    815,
+    1331,
+    1828
+  ],
+  "same_original_descriptor": true,
+  "no_new_delta_submissions": true,
+  "fresh_native_observations": 113,
+  "baseline_sha256": "1f803d92a8a267440739b2084ad9922aec215ea8510771f6609f0da65226e46d",
+  "receipt_sha256": {
+    "summary.json": "ef5bb10810c37d2d8c4852fa7bcbb6f34725a5d41a2ce9e9a797d2cbf33ee220",
+    "statements.jsonl": "83cb602c90f2225709a98ad6f7af529c8ad654d6781e29a704a43ea977461dfe",
+    "effective-permissions.jsonl": "f5d1356540ff5a2b1dd60e4e4c9a4b52278fee49d9d9b71547301d2b2a0da4f8"
+  },
+  "executed_source_sha256": {
+    "tools/run_native_source_stream.py": "1d0421a3a4fa5538ffa82a29ca49f991aa0b2692be11570441f638a4f16f28e4",
+    "tools/committed_replay.py": "3ec66352563536bbd7c98de352d83a84da1d487bbae8be45c8d63daeaea07040"
+  },
+  "qualification": "Re-entered the original committed native attempt for the same final source batch; fresh original source, managed native permission, finite-retention and resolver/pin closure before idempotent local checkpoint acknowledgement. All 58 retained submissions and three checkpoint rows unchanged. Same-host development source and trusted admins; no real Truss feed/catalog/remote ACK or production remote fencing."
+}

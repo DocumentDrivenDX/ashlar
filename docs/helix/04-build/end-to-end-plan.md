@@ -3108,3 +3108,31 @@ exact replay, wider numeric/recursive/join/key/relationship families or real Tru
 acceptance/feed/ACK. The end-to-end goal remains active; the Truss owner explicitly
 requests human authorization to expand that chat from design/Weft integration to
 full runtime implementation, and that scope question is pending.
+
+
+## Original committed native replay — 2026-10-08
+
+The native runner now exposes `--replay-last`, requiring the retained journal and
+the exact last completed source batch ordinal. A separate committed-only backend
+requires the original committed attempt/digest and exact checkpoint descriptor.
+It exposes no prepare/apply/commit operations; absent, incomplete or conflicting
+attempts refuse rather than manufacturing replacement work. Original writer/source
+custody and current resolver/pin/authority/finite-retention closure remain mandatory
+for the idempotent original local acknowledgement. Query-only is a separate mode.
+
+Seventeen focused publisher/progress/replay tests pass. The actual configured
+source final-batch replay passes with 113 fresh native read observations and 66
+permission pages. The exact original final descriptor returns; all 58 retained
+submission rows (including the original 27 writes and retained metadata queries)
+and all three original checkpoint rows/digests at 815,1331,1828 are byte-identical
+to the before-run baseline. No new Delta submission appears.
+[Evidence](evidence/native-configured-replay-20261008.json) retains original receipt
+and executed-source hashes. This is a small committed replay qualification, not
+a scale measurement, missing-journal recovery or remote ACK proof.
+
+The Truss owner now has UMF and PostgreSQL runtime component packages and is
+actively defining the complete acceptance-input producer. Its current public
+assembly still reports catalog/mutation/feed capabilities unavailable. Those
+components and authored interfaces do not establish accepted IDs or an installed
+complete producer. Actual Truss acceptance/mutation/journal/feed/ACK and the
+combined demonstration remain required; the full end-to-end goal is incomplete.

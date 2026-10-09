@@ -63,6 +63,7 @@ from jsonl_source_configuration import load_jsonl_configuration
 from run_schema_evolution import inputs as evolution_inputs
 from sandbox_pins import PrivatePinTransactions
 from whole_graph_sql import graph_sql_plan
+from committed_replay import CommittedReplayBackend
 
 PROFILE=ReaderProtocolProfile('private-databricks-sql-fixture/2026-10-08',(3,),(7,),
     {'appendOnly','clustering','deletionVectors','domainMetadata','invariants','rowTracking','v2Checkpoint'})
@@ -82,6 +83,7 @@ def main():
     parser.add_argument('--additional-intake-proof',type=Path,action='append',default=[],help='Evolution only: original revision-1 proof; primary proof is revision 3')
     parser.add_argument('--limit',type=int,choices=range(1,5),default=1,help='Process through this original source batch ordinal; default one batch')
     parser.add_argument('--query-only',action='store_true',help='Read the last retained publication; no ingestion, publication or progress advancement')
+    parser.add_argument('--replay-last',action='store_true',help='Re-admit the last completed original batch through its committed attempt; no new batch')
     parser.add_argument('--weft-sql',help='Query-only: compile a Weft query against the exact retained model/publication')
     parser.add_argument('--weft-python',type=Path,help='Verified pinned wheel installation directory')
     parser.add_argument('--weft-source',type=Path,help='Clean source checkout at the admitted Weft revision')
@@ -90,6 +92,8 @@ def main():
     parser.add_argument('--profile',default='aidev-cus',help='Authorized existing Databricks CLI profile')
     parser.add_argument('--warehouse',default='2439e1f2e37ac563',help='Authorized existing SQL warehouse')
     args=parser.parse_args()
+    if args.replay_last and (args.query_only or args.weft_sql):parser.error('Replay-last and query modes are separate')
+    if args.replay_last and not args.journal.is_file():parser.error('Replay-last requires the original retained publication journal')
     if (args.source=='configured-jsonl')!=(args.source_config is not None):parser.error('Configured JSONL requires --source-config; other sources do not accept it')
     if args.weft_sql and (not args.query_only or not args.weft_python or not args.weft_source):parser.error('Weft requires query-only and both pinned compiler paths')
     if not args.weft_sql and (args.weft_python or args.weft_source):parser.error('Compiler paths require a Weft query')
@@ -412,6 +416,8 @@ def main():
             else:
                 progress=JournaledJsonlProgress(journal,source,source_sha,ProgressPolicy(),native_resolution,stream=STREAM,feed=feed,epoch=epoch)
             start=progress.completed_batches();results=[]
+            if args.replay_last and (start==0 or start!=args.limit):
+                raise PublicationError('Replay-last requires the exact last completed source batch ordinal')
             singleton=None;weft_result=None
             if args.query_only:
                 if start==0 or start!=args.limit:raise PublicationError('Query-only requires the exact last retained source batch ordinal')
@@ -477,13 +483,19 @@ def main():
                         table=tables['object_current'],kind='object',source=query_source,type_id=query_type_id,entity_id=args.entity_id,context=context,
                         supported_profiles=['ashlar-delta/0.3'],supported_revisions=supported_revisions)
                     singleton=dict(row) if row is not None else None
-            for active in ([] if args.query_only else specs[start:args.limit]):
+            selected=[] if args.query_only else ([specs[start-1]] if args.replay_last else specs[start:args.limit])
+            for active in selected:
                 try:
                     with ExitStack() as publication_scope:
                         driver=JournaledPublisherDriver(DurableEffects(journal,EffectPolicy()),lane_policy,lambda request,supplied:active['steps'],
                             artifacts,validator,progress.acknowledge,namespace=NAMESPACE)
                         attempts=DeltaAttemptStore(JournaledAttemptExecutor(transport,namespace=NAMESPACE),lane_policy,phase_table,uuids[phase_table])
                         backend=StoredPublisherBackend(attempts,driver,lambda request,supplied:JournaledManifestStore(transport,ManifestPolicy(),manifest_table,uuids[manifest_table],operation='stream-manifest:'+request['request_digest']))
+                        if args.replay_last:
+                            original=journal.db.execute('SELECT original_json FROM '+progress.progress_table+' WHERE stream=? AND feed=? AND epoch=? AND position=?',
+                                (STREAM,feed,epoch,int(progress.position()))).fetchone()
+                            expected_descriptor=descriptor(json.loads(original[0])['descriptor'])
+                            backend=CommittedReplayBackend(backend,STREAM,active['batch'].batch_id,active['request']['request_digest'],expected_descriptor)
                         deadline=time.monotonic()+180
                         while True:
                             try:
@@ -500,8 +512,9 @@ def main():
                 finally:publication_scope=None
                 results.append({'ordinal':active['ordinal'],'descriptor':dict(value.raw)})
             authority();source_schema()
-            summary={'state':'queried' if args.query_only else 'published','namespace':NAMESPACE,'local_consumer_position':progress.position(),'published':results,
+            summary={'state':'queried' if args.query_only else ('replayed' if args.replay_last else 'published'),'namespace':NAMESPACE,'local_consumer_position':progress.position(),'published':results,
                 'source_kind':args.source,'local_completed_batches':progress.completed_batches(),'query_only':args.query_only,'singleton':singleton,'weft':weft_result,'query_publication_id':current.publication_id if args.query_only else None,
+                'replay_last':args.replay_last,
                 'native_read_statements':len(client.records),'effective_permission_pages':len(permission_reads),'source_sha256':source_sha,'materialized_at':clock,
                 'qualification':'Actual '+args.source.upper()+' fixture ingestion through immutable native attempt phases, journaled original effects/artifact/manifest and resolver-bound durable local consumer progress. Actual UMF logical checks, raw native intake, finite retention and PG pins. Fixture IDs; trusted admins and same-host cooperating writer/source lane. No real Truss producer/catalog, remote writer fence or remote source ACK. Predictive optimization unchanged; no scale workload.'}
             (args.output/'summary.json').write_text(json.dumps(summary,indent=2)+'\n')

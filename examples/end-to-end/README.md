@@ -1177,8 +1177,9 @@ The complete configured native example now passes all three publications through
 byte `1828`, including update/delete/history/tombstone, and its final resolver-bound
 singleton matches all 17 original fields. Local exact replay is also verified.
 The native singleton uses `configured-example` and the explicit type `1017` from
-the configuration. Actual Truss acceptance/feed, remote ACK/fencing and native exact repeat remain
-outside this demonstrated result. The configured Weft query is qualified below.
+the configuration. Actual Truss acceptance/feed and remote ACK/fencing remain outside this
+demonstrated result. Configured Weft queries and committed native replay are
+qualified below.
 
 The publication receipts can be verified offline without additional SQL:
 
@@ -1223,3 +1224,33 @@ new writes or progress changes. See
 [the exact query evidence](../../docs/helix/04-build/evidence/native-configured-guarded-weft-query-20261008.json).
 It demonstrates configured string/presence queries, not broader Weft families or
 an accepted Truss stream. Exact engine drift refuses; no profile fallback.
+
+
+### Replay the last committed native batch
+
+Reuse the original installation, intake proof, source configuration and publication
+journal, with `--limit` equal to the last completed source batch ordinal:
+
+```sh
+python3 tools/run_native_source_stream.py \
+  --source configured-jsonl \
+  --source-config examples/end-to-end/configured-source.json \
+  --limit 3 --replay-last \
+  --installation /private/tmp/ashlar-configured-setup-20261008/summary.json \
+  --intake-proof /private/tmp/ashlar-configured-schema-20261008/summary.json \
+  --journal /private/tmp/ashlar-configured-stream-20261008.sqlite \
+  --umf-source /path/to/pinned/umf-record-check \
+  --output /fresh/path/configured-replay
+```
+
+The committed replay backend refuses missing, incomplete or conflicting original
+attempts. It cannot prepare, apply or commit an attempt; current source and native
+publication admission still precede idempotent acknowledgement of the original
+checkpoint. This is separate from query-only mode. Its summary reports `replayed`
+and contains the unchanged original descriptor. The configured native run verified
+all 58 retained submissions and three original checkpoint rows byte for byte,
+with no new Delta submissions. See
+[the replay evidence](../../docs/helix/04-build/evidence/native-configured-replay-20261008.json).
+This qualifies replay of the last completed batch with intact original custody.
+It does not repair lost journals, permit reapplying missing attempts, or establish
+remote Truss acknowledgement.
