@@ -1,0 +1,69 @@
+{
+  "observations": [
+    {
+      "scope": {
+        "consumer": "private-local-pipeline",
+        "epoch": "original-a",
+        "feed": "local-outbox-a",
+        "installation_id": "19a48ace-d0df-4feb-b4bc-68c53e8f3210",
+        "scope_id": "10f71d37-23a2-4762-943d-b41fad901051",
+        "service_schema": "ashlar_ack_pipeline_86712f1151a4"
+      },
+      "queried_position": "1",
+      "observed_head": "2",
+      "request_sha256": "3a5d66eba76633179c04b571086b8dc417a6c3e940a5507660d521590ca9d6b7",
+      "manifest_sha256": "2ff8f85db2b3fba40e5f9e968cfd0913e21814db7fbad2f64c4a44c8c5aa2c7d",
+      "receipt_sha256": "1e64f6475f26f535e64fefab0da67e70172e74a14747ac3164e06e7bb5995a49",
+      "publication_id": "local-publication-1"
+    },
+    {
+      "scope": {
+        "consumer": "private-local-pipeline",
+        "epoch": "original-a",
+        "feed": "local-outbox-a",
+        "installation_id": "19a48ace-d0df-4feb-b4bc-68c53e8f3210",
+        "scope_id": "10f71d37-23a2-4762-943d-b41fad901051",
+        "service_schema": "ashlar_ack_pipeline_86712f1151a4"
+      },
+      "queried_position": "2",
+      "observed_head": "2",
+      "request_sha256": "e9dd0846a77246dfc9d7f3284213a57900c3b68929a782f712bd1732a4109559",
+      "manifest_sha256": "63a5cb245939288d6b506cb34d969e86bd087680d45d6dd9a112514dc1abff27",
+      "receipt_sha256": "d684e1693ff4dff8aa0a1e3b57742b778678d114d8d7a6a02f9346d990f51051",
+      "publication_id": "local-publication-3"
+    },
+    {
+      "scope": {
+        "consumer": "private-local-pipeline",
+        "epoch": "original-b",
+        "feed": "local-outbox-b",
+        "installation_id": "f649bf2d-5463-4237-88cc-7cce2cad891c",
+        "scope_id": "b6a485fd-9912-4891-b5bf-4671afe998c7",
+        "service_schema": "ashlar_ack_pipeline_86712f1151a4"
+      },
+      "queried_position": "1",
+      "observed_head": "2",
+      "request_sha256": "9dd638d70b9d8911532a5c0c62a8e35468fac6b1feb6fbd5d7913cbbfedcfe21",
+      "manifest_sha256": "4b65c2ed4aab909efdb7bb1e97adf4d1fdb357a00e8c13271cb978a30d15fb60",
+      "receipt_sha256": "7e0f2ba5d637992f029eaf18c978a5ce2a260abd0b994678c88ac96781e84542",
+      "publication_id": "local-publication-2"
+    },
+    {
+      "scope": {
+        "consumer": "private-local-pipeline",
+        "epoch": "original-b",
+        "feed": "local-outbox-b",
+        "installation_id": "f649bf2d-5463-4237-88cc-7cce2cad891c",
+        "scope_id": "b6a485fd-9912-4891-b5bf-4671afe998c7",
+        "service_schema": "ashlar_ack_pipeline_86712f1151a4"
+      },
+      "queried_position": "2",
+      "observed_head": "2",
+      "request_sha256": "21c50db159f73949031101833fb6c0dac3b421520b7a8b6045364a7c346643a8",
+      "manifest_sha256": "4aaf82614b813744dc4c73738ff80f0dba76fbc4d90f024d3f66517e5154a009",
+      "receipt_sha256": "8e485e59c06da8b39dd47832eba004dae3e6ba03358f7b8ae9f594622d95e795",
+      "publication_id": "local-publication-4"
+    }
+  ],
+  "qualification": "Fresh ordinary-role read-only native retained receipt checks. No mutation."
+}
