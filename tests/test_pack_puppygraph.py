@@ -13,6 +13,9 @@ class PackPuppyTests(unittest.TestCase):
         self.assertIn('WHERE NOT (n)-[:EcologyEdge]-()',c['isolates'][0])
         self.assertIn(".not(__.bothE('EcologyEdge'))",g['isolates'][0])
         self.assertIn(' MATCH (b)-[f:',c['two-hop'][0])
+        self.assertIn('.is(ashlarSingletonKey)',g['singleton'][0])
+        self.assertNotIn('.is(key)',g['singleton'][0])
+        self.assertIn('$ashlarSingletonKey',c['singleton'][0])
     def test_complete_projection_and_nulls(self):
         for lang in ('Cypher','Gremlin'):
             p=projection(lang,'medical','edge')

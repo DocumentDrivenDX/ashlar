@@ -66,7 +66,7 @@ def queries(language, pack):
           'two-hop': ('MATCH (a:'+n+')-[e:'+e+']->(b:'+n+') MATCH (b)-[f:'+e+']->(c:'+n+') RETURN a.original_key AS source,e.original_key AS edge1,b.original_key AS middle,f.original_key AS edge2,c.original_key AS target',['source','edge1','middle','edge2','target']),
           'grouped-count': ('MATCH (a:'+n+')-[e:'+e+']->(b:'+n+') RETURN a.original_key AS source,e.original_type AS relationship,count(e) AS occurrences,count(DISTINCT b) AS destinations',['source','relationship','occurrences','destinations']),
           'filtered-total': ('MATCH (n:'+n+') WHERE n.source_system=$source AND n.type_id=$type RETURN count(n) AS total',['total']),
-          'singleton': (projection(language,pack,'node','WHERE n.carrier_key=$key'),None),
+          'singleton': (projection(language,pack,'node','WHERE n.carrier_key=$ashlarSingletonKey'),None),
           'filtered-limit': (projection(language,pack,'node','WHERE n.source_system=$source AND n.type_id=$type')+' ORDER BY n.original_key LIMIT 1',None),
           'isolates': (projection(language,pack,'node','WHERE NOT (n)-[:'+e+']-()'),None)}
     if language != 'Gremlin': raise ValueError('Closed protocol required')
@@ -77,7 +77,7 @@ def queries(language, pack):
       'two-hop':(projected(walk+".outE('"+e+"').as('f').inV().as('c')",['source','edge1','middle','edge2','target'],["__.select('"+x+"').values('original_key')"for x in ['a','e','b','f','c']]),['source','edge1','middle','edge2','target']),
       'grouped-count':("g.E().hasLabel('"+e+"').group().by(__.project('source','relationship').by(__.outV().values('original_key')).by('original_type')).by(__.fold()).unfold().project('source','relationship','occurrences','destinations').by(__.select(keys).select('source')).by(__.select(keys).select('relationship')).by(__.select(values).unfold().count()).by(__.select(values).unfold().inV().dedup().count())",['source','relationship','occurrences','destinations']),
       'filtered-total':(start+".has('source_system',source).has('type_id',type).count()",['total']),
-      'singleton':(projection(language,pack,'node',start+".where(__.values('carrier_key').is(key))"),None),
+      'singleton':(projection(language,pack,'node',start+".where(__.values('carrier_key').is(ashlarSingletonKey))"),None),
       'filtered-limit':(projection(language,pack,'node',start+".has('source_system',source).has('type_id',type).order().by('original_key').limit(1)"),None),
       'isolates':(projection(language,pack,'node',start+".not(__.bothE('"+e+"'))"),None)}
 
@@ -116,7 +116,7 @@ def execute_pack(language, pack, value, graph, nodes, edges, admission, expected
     if len(source)!=1:raise ValueError('One admitted original source scope required')
     params={'source':next(iter(source)),'type':matches[0]}
     reverse={v:k for k,v in nodes.items()}
-    params['key']=reverse[expected['singleton'][0]]
+    params['ashlarSingletonKey']=reverse[expected['singleton'][0]]
     records=[]
     for kind,role,name in [('node','nodes','all-objects'),('edge','edges','all-edges')]:
         script=projection(language,pack,kind);raw=query(script,{})
