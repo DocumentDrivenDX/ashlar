@@ -94,3 +94,26 @@ class CommerceCLITests(unittest.TestCase):
             result=subprocess.run(command,capture_output=True,cwd=directory,env=env)
             self.assertNotEqual(result.returncode,0)
             self.assertFalse(refused.exists())
+
+class AdditionalPackCLITests(unittest.TestCase):
+    def test_explicit_original_sources_run_outside_repository_and_refuse_changes(self):
+        import tempfile,os,importlib
+        for pack,count in [('archaeology',85),('ecology',94)]:
+            with self.subTest(pack=pack),tempfile.TemporaryDirectory() as directory:
+                module=importlib.import_module('ashlar.'+pack+'_source')
+                source=ROOT/'examples/domain-packs'/pack/'upstream/ontology.json'
+                graph=ROOT/'examples/domain-packs'/pack/'upstream/graph/fixture.json'
+                output=Path(directory)/'candidate'
+                env=dict(os.environ);env['PYTHONPATH']=str(ROOT/'src')
+                command=[sys.executable,'-m','ashlar',pack+'-source','--ontology',str(source),'--graph',str(graph),'--output',str(output),'--source-system','cli-'+pack]
+                result=subprocess.run(command,capture_output=True,cwd=directory,env=env)
+                self.assertEqual(result.returncode,0,result.stderr)
+                batch,binding=module.build_transaction(source.read_bytes(),graph.read_bytes(),source_system='cli-'+pack)
+                self.assertEqual(len(batch.records),count)
+                self.assertEqual((output/'source.jsonl').read_bytes(),batch.begin+b''.join(r.raw for r in batch.records)+batch.commit)
+                self.assertEqual(json.loads((output/'bindings.json').read_bytes()),binding)
+                self.assertNotEqual(subprocess.run(command,capture_output=True,cwd=directory,env=env).returncode,0)
+                changed=Path(directory)/'changed.json';changed.write_bytes(source.read_bytes()+b' ')
+                refused=Path(directory)/'refused';command[command.index('--ontology')+1]=str(changed);command[command.index('--output')+1]=str(refused)
+                self.assertNotEqual(subprocess.run(command,capture_output=True,cwd=directory,env=env).returncode,0)
+                self.assertFalse(refused.exists())

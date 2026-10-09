@@ -1,0 +1,49 @@
+{
+  "scope": "Clean installed CLI source conversion only; public UMF admission and native publication remain separate",
+  "python": "3.11.17",
+  "wheelSha256": "efb60c1a3b1402f5eac88bd1be59c757659790af73284651a5198c507dfa7c59",
+  "sourceHashes": {
+    "README.md": "459fa981afb9a3a6f49b9d3528ec46c69fcd5586810bcd545aacd93ba92d3bac",
+    "src/ashlar/cli.py": "ebc936a1604b32150fab47c0228b44480dfb7d573eba07465129be3231bc3abc",
+    "src/ashlar/archaeology_source.py": "40679abae4ca8365e17efd02376c525c5097d3bb2d699850945855804ff70c2c",
+    "src/ashlar/ecology_source.py": "305aae55528c6c7c748c61be290b74c40a9079238ae158d69fc9dd50b46c7ec9",
+    "tools/archaeology_source_transaction.py": "87ff752e1a2774b515a3ce97da5ce65f100166dcbb958d38db27d6ea33954819",
+    "tools/ecology_source_transaction.py": "47b1eb206885d54569fb17ee53d4aa4ac107204132aad6bc2e351126654f934f",
+    "tests/test_cli.py": "e45399f78382163db0c6d2fc24b0a669ed1254fe4e082592299281d863bf159b"
+  },
+  "outsideRepository": true,
+  "repositoryRuntimeImports": false,
+  "cases": [
+    {
+      "pack": "archaeology",
+      "events": 85,
+      "explicitNulls": 13,
+      "originalRowsAndScalarTokensPreserved": true,
+      "changedSourceRefusedBeforeOutput": true,
+      "existingOutputRefused": true,
+      "transactionSha256": "a440f1d619bb9b8ad7016d02ff1cd52bfee0576935fe07d83218ed8ccaef0632",
+      "bindingsSha256": "da290f22f5d9d753fd808ff074a727ab0ce08daa5a81b653e417921a9c2fb539"
+    },
+    {
+      "pack": "ecology",
+      "events": 94,
+      "explicitNulls": 7,
+      "originalRowsAndScalarTokensPreserved": true,
+      "changedSourceRefusedBeforeOutput": true,
+      "existingOutputRefused": true,
+      "transactionSha256": "fc655b8d8531157776d9a1db0db7d854056711bd14c940c229f2ca21e699c479",
+      "bindingsSha256": "ca54afb98be37485b2421cb5a9ca127fedb7a884bf2fd987ad02a8ca09946bf0"
+    }
+  ],
+  "reproduction": {
+    "build": "python3.11 -m pip wheel --no-build-isolation --no-deps --wheel-dir <fresh-wheel-directory> .",
+    "install": "python3.11 -m pip install --no-deps --target <fresh-installed-directory> <wheel>",
+    "execute": "From outside the repository, PYTHONPATH=<installed-directory> python3.11 -m ashlar <pack>-source --ontology <matching-original-ontology.json> --graph <matching-original-graph-fixture.json> --output <fresh-output-directory> --source-system installed-<pack>",
+    "actualWheel": "/private/tmp/ashlar-pack-source-wheels-final/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "actualInstalledDirectory": "/private/tmp/ashlar-pack-source-installed-final",
+    "buildDependencies": {
+      "setuptools": "84.0.0",
+      "wheel": "0.46.3"
+    }
+  }
+}

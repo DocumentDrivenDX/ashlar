@@ -24,7 +24,19 @@ def main():
         commerce.add_argument('--'+name,required=True)
     commerce.add_argument('--source-system',required=True)
     commerce.add_argument('--binding-profile',choices=['ashlar-commerce-development-bindings/0.1','ashlar-commerce-development-bindings/0.2'],default='ashlar-commerce-development-bindings/0.2')
+    for pack in ('archaeology','ecology'):
+        command=commands.add_parser(pack+'-source',help='Build an exact original '+pack+' candidate with development bindings')
+        for name in ('ontology','graph','output','source-system'):
+            command.add_argument('--'+name,required=True)
     args = parser.parse_args()
+    if args.command in ('archaeology-source','ecology-source'):
+        if args.command=='archaeology-source':
+            from .archaeology_source import write_candidate
+        else:
+            from .ecology_source import write_candidate
+        batch,_=write_candidate(args.ontology,args.graph,args.output,source_system=args.source_system)
+        print('Created candidate '+args.command[:-7]+' transaction: '+str(len(batch.records))+' events; development bindings only')
+        return
     if args.command=='commerce-source':
         from .commerce_source import write_candidate
         write_candidate(args.ontology,args.graph,args.output,source_system=args.source_system,binding_profile=args.binding_profile)

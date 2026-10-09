@@ -30,6 +30,11 @@ The fresh output contains `source.jsonl` and explicit development bindings for
 11 objects, 10 edges and 34 qualified fields. Exact original input hashes are
 required. Public UMF validation and host publication remain separate steps.
 
+Use `ashlar archaeology-source` or `ashlar ecology-source` with the same arguments
+and the matching original ontology and graph under `examples/domain-packs/`.
+They produce 85 and 94 events respectively, retaining original field values,
+nulls and relationships with explicit development bindings.
+
 Inspect an explicitly configured source with the installed command:
 
 ```sh
