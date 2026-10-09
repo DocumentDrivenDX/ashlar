@@ -1,0 +1,34 @@
+{
+  "files": [
+    {
+      "path": "tools/medical_historical_oracle.py",
+      "sha256": "d16b8873f902d2bb50094aa2f1f245d8355e0615b3577775a1b4aaba36c95b48",
+      "bytes": 4626
+    },
+    {
+      "path": "tools/check_medical_historical_dataset.ts",
+      "sha256": "d17b8885c02755845939fc2428349e250770921235a6f55dffb06b70eaaf5a7f",
+      "bytes": 9036
+    },
+    {
+      "path": "tests/test_medical_historical_oracle.py",
+      "sha256": "f66c974e7a19e106d8e9ab5614d66fb09031035802dd86b9997a87e8739e388d",
+      "bytes": 3180
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-historical-admission-20261009/README.md",
+      "sha256": "5c228f4b5e2b71b78ee921a66df0f10748a564ae6bf12825f131e426aad30f6c",
+      "bytes": 2281
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-historical-admission-20261009/original-oracle.json",
+      "sha256": "8afdddd0e30bfb06d27ca5f30ece8271abd75dfc519cfb9de6e463a12755b508",
+      "bytes": 186052
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-historical-admission-20261009/public-receipt.json",
+      "sha256": "1400eebbca3b082f19fd7699e74c708dfbd69e5ed21f7d3f5e77bd6f4e46b20e",
+      "bytes": 2746047
+    }
+  ]
+}
