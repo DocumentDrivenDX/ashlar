@@ -3136,3 +3136,54 @@ assembly still reports catalog/mutation/feed capabilities unavailable. Those
 components and authored interfaces do not establish accepted IDs or an installed
 complete producer. Actual Truss acceptance/mutation/journal/feed/ACK and the
 combined demonstration remain required; the full end-to-end goal is incomplete.
+
+
+## Owner scope expansion and independent execution — 2026-10-09
+
+The owner resumes work and expands the end-to-end objective. Preserve every
+original requirement above, including actual Truss intake/feed integration.
+Truss unavailability blocks only that source lane; it must not stop independent
+source, schema, query or graph-engine work.
+
+Additional completion requirements:
+
+1. Pin actual UMF domain packs and sample datasets. Retain original model/data
+   bytes, notices and hashes; map typed nodes, relationships, exact numeric and
+   presence semantics explicitly through the additional-source interface.
+2. Run Weft-generated queries against ingested domain publications. Extend the
+   currently qualified string/presence subset with evidenced numeric, relationship,
+   join, bounded traversal and aggregate paths. Unsupported constructs refuse;
+   independent expected results must cover parallel edges, isolates and deletes.
+3. Run publication-derived graph releases against Microsoft Fabric Graph GQL,
+   GraphFrames and PuppyGraph Cypher/Gremlin. Record actual runtime versions,
+   release identity, refresh/snapshot behavior, original tuple/edge preservation,
+   query results and access limitations. Export or model validation alone does
+   not establish engine integration. One unavailable engine blocks only its lane.
+4. Package reproducible small setup, ingest, query, update/delete, replay and
+   schema-evolution workflows with an evidence-backed support matrix.
+
+Use existing ingest performance measurements. New checks remain small and do
+not reopen scale benchmarks or authorize new paid capacity, privilege changes,
+retention changes or predictive-optimization changes. Commit/push completed
+iterations from main as previously authorized.
+
+First dataset: UMF commerce 1.0.0, authored synthetic fixtures, at upstream
+1f7b5f5d2a355c4b476e3a96b289b9048f03f567. Its ten tables include exact DECIMAL
+amounts, integer quantities and relationship foreign keys, with fulfillment,
+partial-return, settlement and refund scenarios. This provides a concrete next
+slice beyond the existing Item string fixture. Packs exist in that revision's
+spec/domain-packs and fixtures/domain-packs; the older working checkout does not
+contain them. Use pinned Git objects, not that checkout's current files.
+
+Fabric graph models load structured OneLake data and expose GQL; use bounded
+publication releases, never infer direct canonical managed-UC compatibility.
+PuppyGraph's documented Databricks credential-vending route requires externally
+backed storage: managed canonical tables therefore need separately qualified
+access/release handling. References checked 2026-10-09:
+https://learn.microsoft.com/en-us/fabric/graph/how-graph-works
+https://learn.microsoft.com/en-us/fabric/graph/gql-language-guide
+https://docs.puppygraph.com/getting-started/querying-databricks-delta-lake-data-as-a-graph/
+
+The goal API cannot amend or replace an unfinished objective, and exposes no
+resume operation. This section records the authoritative owner amendment;
+that API limitation does not prevent execution or justify marking work complete.
