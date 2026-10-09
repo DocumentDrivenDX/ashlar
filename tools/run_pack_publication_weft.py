@@ -62,23 +62,48 @@ def compiler_request(pack,sql,model,graph,bindings,manifest,registry,aliases):
         'target':{**BACKEND,'bindingJson':raw,'bindingSha256':hashlib.sha256(raw.encode()).hexdigest()},'options':{'allowCandidate':True}}
 
 
+def admit_pack_inventory(pack,native,manifest,registry):
+    """Closed original six-role inventory independent of compiler availability."""
+    roles={'object_current','edge_current','tombstone','whole_source_history','attempts','manifest'}
+    if type(registry)is not list or len(registry)!=6:raise ValueError('Complete original six-role registration required')
+    rows={row['table']:row for row in registry}
+    if len(rows)!=6 or set(rows)!={'local.'+pack+'.'+role for role in roles}:raise ValueError('Original pack six-role table identity differs')
+    versions=json.loads(manifest['table_versions_json'])
+    if set(versions)!={'local.'+pack+'.'+role for role in roles-{'attempts','manifest'}}:raise ValueError('Complete original four-role pin vector required')
+    if any(type(v)is not int or not 0<=v<2**63 for v in versions.values()):raise ValueError('Exact nonnegative native versions required')
+    if len({r['uuid']for r in registry})!=6 or any(type(r['uuid'])is not str or str(uuid.UUID(r['uuid']))!=r['uuid']for r in registry):raise ValueError('Distinct canonical original UUIDs required')
+    if json.loads(manifest['schema_revisions_json'])!={native.SOURCE_SYSTEM:native.SOURCE_SHA} or set(json.loads(manifest['source_progress_json']))!={native.SOURCE_SYSTEM}:raise ValueError('Original source schema/progress differs')
+    return {table:table.replace('local.','spark_catalog.',1)for table in versions}
+
+
 @contextmanager
-def open_pack_reader(spark,publication,pack):
-    converter,native,admission_type,oracle=original_ports(pack)
+def open_pack_reader(spark,publication,pack,*,graph_only=False):
+    if type(graph_only)is not bool:raise ValueError('Explicit graph-only Boolean required')
+    if pack=='medical':
+        if graph_only is not True:raise ValueError('Medical reader qualifies graph export only; no compiler binding support')
+        converter=importlib.import_module('medical_source_transaction')
+        native=importlib.import_module('run_medical_outbox_publication')
+        admission_type=native.MedicalAdmission;oracle=native.original_medical_oracle
+    else:
+        converter,native,admission_type,oracle=original_ports(pack)
     publication=Path(publication)
     original_report=json.loads((publication/'report.json').read_bytes())
     if original_report['format']!='ashlar-original-'+pack+'-publication/0.1':raise ValueError('Exact original pack publication report required')
     model=(publication/'original-ontology.json').read_bytes();graph=(publication/'original-graph.json').read_bytes();bindings=json.loads((publication/'development-bindings.json').read_bytes())
-    batch,expected_bindings=converter.build_transaction(model,graph,source_system=native.SOURCE_SYSTEM)
+    public=(publication/'public-dataset.json').read_bytes() if pack=='medical' else None
+    batch,expected_bindings=(converter.build_transaction(model,graph,public,source_system=native.SOURCE_SYSTEM) if pack=='medical' else converter.build_transaction(model,graph,source_system=native.SOURCE_SYSTEM))
     if bindings!=expected_bindings or batch.begin+b''.join(row.raw for row in batch.records)+batch.commit!=(publication/'source.jsonl').read_bytes():raise ValueError('Original source/binding bytes differ')
     admission=admission_type(batch,bindings,publication/'original-ontology.json',publication/'original-graph.json',publication/'development-bindings.json',publication/'public-dataset.json')
     expected=oracle(model,graph,bindings,batch,fixture_columns(ROOT))
+    aliases=admit_pack_inventory(pack,native,original_report['native_manifest'],original_report['table_registry'])
     targets=[DeltaTarget(row['table'],Path(row['path']),row['uuid']) for row in original_report['table_registry']]
     def native_files():return {str(path):hashlib.sha256(path.read_bytes()).hexdigest() for target in targets for path in target.path.rglob('*') if path.is_file()}
     original_native=native_files();transport=None;provider=None
     try:
         context=object();policy=PrivatePolicy(context,targets);policy.initializing=False
-        transport=ReadOnlyTransport.open(spark,publication/'operations.sqlite','private-original-'+pack,targets,policy)
+        capacity=native.LOCAL_OPERATION_CAPACITY_8M if pack=='medical' else None
+        if pack=='medical' and original_report.get('local_operation_capacity')!=dict(capacity):raise ValueError('Original explicit medical operation capacity differs')
+        transport=ReadOnlyTransport.open(spark,publication/'operations.sqlite','private-original-'+pack,targets,policy,capacity=capacity)
         artifacts=transport.db.execute('SELECT request,artifact FROM local_publication_artifact').fetchall()
         if len(artifacts)!=1:raise ValueError('Exact original single publication artifact required')
         request_raw,artifact_raw=artifacts[0];request=json.loads(request_raw);manifest=json.loads(artifact_raw)['manifest']
@@ -90,10 +115,18 @@ def open_pack_reader(spark,publication,pack):
         plans=transport.db.execute('SELECT original FROM local_source_plan WHERE request_digest=?',(request['request_digest'],)).fetchall()
         if len(plans)!=1:raise ValueError('Exact original immutable source plan required')
         plan=json.loads(plans[0][0]);policy.active={'request':request,'steps':plan['selected_steps'],'expected':expected,'manifest':manifest,'publication_id':manifest['publication_id'],'previous_progress':{},'progress':json.loads(manifest['source_progress_json']),'previous_expected':plan['complete_prior_oracle'],'generated_steps':plan['generated_steps'],'elisions':plan['zero_match_elisions']}
-        aliases={table:table.replace('local.','spark_catalog.',1) for table in json.loads(manifest['table_versions_json'])}
-        first=next(entry['identity'][2] for entry in bindings['types'] if entry['identity'][0]=='object')
-        request_template=compiler_request(pack,'SELECT * FROM '+first,model,graph,bindings,manifest,original_report['table_registry'],aliases)
-        provider=PublicationProvider(driver,aliases,port,request_raw.encode(),encoded(manifest).encode(),json.loads(request_template['target']['bindingJson']),context=context)
+        if aliases!=admit_pack_inventory(pack,native,manifest,original_report['table_registry']):raise ValueError('Original immutable inventory changed')
+        if graph_only:
+            class GraphOnlyProvider(PublicationProvider):
+                def admit_binding(self,*args,**kwargs):raise PermissionError('Graph-only reader has no compiler binding admission')
+                def sql(self,*args,**kwargs):raise PermissionError('Graph-only reader has no user query interface')
+                def sql_ordered(self,*args,**kwargs):raise PermissionError('Graph-only reader has no user query interface')
+            provider_type=GraphOnlyProvider;binding={}
+        else:
+            first=next(entry['identity'][2] for entry in bindings['types'] if entry['identity'][0]=='object')
+            request_template=compiler_request(pack,'SELECT * FROM '+first,model,graph,bindings,manifest,original_report['table_registry'],aliases)
+            provider_type=PublicationProvider;binding=json.loads(request_template['target']['bindingJson'])
+        provider=provider_type(driver,aliases,port,request_raw.encode(),encoded(manifest).encode(),binding,context=context)
         yield SimpleNamespace(provider=provider,driver=driver,admission=admission,independent_expected=expected,context=context,original_native_files=original_native,native_files=native_files,aliases=aliases,original_report=original_report,model=model,graph=graph,bindings=bindings,manifest=manifest,request_bytes=request_raw.encode(),manifest_bytes=encoded(manifest).encode())
         if native_files()!=original_native:raise ValueError('Read-only consumer changed original native bytes')
     finally:
