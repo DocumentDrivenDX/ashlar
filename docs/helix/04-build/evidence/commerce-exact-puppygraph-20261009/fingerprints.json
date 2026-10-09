@@ -1,0 +1,21 @@
+{
+  "format": "ashlar-evidence-fingerprints/0.1",
+  "files": {
+    "tools/prepare_commerce_exact_puppygraph.py": "6905da5622a65a031785786f4b17f91309e92f66f843df7a2ad4ccdbbde880bd",
+    "tools/check_commerce_exact_puppygraph.py": "5ef90e60e1d130cdf90294d51c7bce7bda5e92e2d7241d5d832c6ec670b89aee",
+    "tests/test_commerce_exact_puppygraph.py": "877659e845edc4d19326a9142ad69e183b472b66aaed2a07ebf02bee4e3def4c",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/README.md": "ceab5af8e99a0d78e05052fca07087fb16e7d7a7b242daa18e9cd6b09d1b35d8",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/activation-after.json": "252a1aa4b08019a2490d6ca77f7ca4a9aa6a4055a7325d5ba04e177fdcdf4a01",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/activation-before.json": "0e9c6a87847db8ed81e8fc04c2300a2b090706b34aded256586d3607bbf952be",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/activation-custody.json": "2cde2cce661848567de99cbb9e0034025e6f406ada5cd1e7ff52d985dc2ec79c",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/activation-request.json": "b56d28a5190b0371b5b870d6c7433862700a62480e9b23f557765547c8d3d314",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/activation-upload.json": "1b602f495155155a59359e7dae169fcced92ff471e6b4555fc3b9dab82827e70",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/cypher-report.json": "1f8e31904409458fff26eec0afed9501e027ca21d8b8ae60de57bb2752e28772",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/gremlin-report.json": "cae2d5c91f35d8b5e81e907f4ef6fbd86aa1e990a49998f3d4dafdd86c052542",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/model.json": "9be332dd2e877c1838246aa6f16375f510b59e6ebb54b95c37baa82deac0de5c",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/prior-parity.json": "7ad8be1772a7656f2e372900bc3d840ff8a0f94d30bb9ad4cf6b4178f9929b70",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/receipt.json": "f694e8bfd3b196f63eb7eda103f9b2c3c75dbe11ebecae5a8973e59db9b2ae90",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/runtime.json": "4228386a1f0bff37180faef624e11b68cb02319fc690b2c2644d21c2b965f064",
+    "docs/helix/04-build/evidence/commerce-exact-puppygraph-20261009/shared-parity.json": "150c17220033541037bcec41a8649fa8eaa49c83de2d4a8ddd94e160b36682ca"
+  }
+}

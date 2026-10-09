@@ -1,0 +1,936 @@
+{
+  "actual": {
+    "fulfillment": [
+      [
+        "F2"
+      ]
+    ],
+    "partial-return": [
+      [
+        6,
+        2,
+        6
+      ]
+    ],
+    "refund": [
+      [
+        "RF1"
+      ]
+    ],
+    "settlement": [
+      [
+        "PAY1"
+      ]
+    ]
+  },
+  "expected": {
+    "fulfillment": [
+      [
+        "F2"
+      ]
+    ],
+    "partial-return": [
+      [
+        6,
+        2,
+        6
+      ]
+    ],
+    "refund": [
+      [
+        "RF1"
+      ]
+    ],
+    "settlement": [
+      [
+        "PAY1"
+      ]
+    ]
+  },
+  "language": "Gremlin",
+  "opening_closing_native_custody": {
+    "container": "ashlar-release-puppy113",
+    "image": "sha256:6d016d5a7e3eab0a57bd4d23c4e218467d00c7661fcda215ea2a429941a68cee",
+    "memory_bytes": 3221225472,
+    "nano_cpus": 2000000000,
+    "ports": {
+      "7687/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "17887"
+        }
+      ],
+      "8081/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "18881"
+        }
+      ],
+      "8182/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "18182"
+        }
+      ]
+    },
+    "sealed_databases": {
+      "/tmp/augmentations.duckdb": "926e9de45d0a0409a6a9be88e933b63332d81fa2316e6a19f0303700eafdfb71",
+      "/tmp/commerce-exact.duckdb": "505e1bfa9cc013a3bfb9024151eed8af537dddf2ff3b4d36471ba91e1034d16e",
+      "/tmp/commerce.duckdb": "f9c4e8d4ec7edf3c6943eb6187db6d1a54f0ba85e480988ee4e8cdfd229278e4",
+      "/tmp/releases.duckdb": "5d69ce5c13549053e3691e689e3f135f09baf7427b9d1d93ee7a42d8aa9ed989"
+    }
+  },
+  "prepared_sha256": "f694e8bfd3b196f63eb7eda103f9b2c3c75dbe11ebecae5a8973e59db9b2ae90",
+  "profile": "ashlar-commerce-exact-graph-arithmetic/0.1",
+  "records": [
+    {
+      "case": "full-nodes",
+      "native_rows": [
+        {
+          "amount_coefficient": null,
+          "amount_token": null,
+          "apply_batch_id": "original-commerce-v1",
+          "currency": null,
+          "decimal_scale": "2",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTAiLCIxIl0",
+          "id": "1",
+          "logical_key_json": "[]",
+          "lookup_hash": "e25e291ce56d93d7d9b43d785545652677dfac28614a29ac34c1261476ad1ebf",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTAiLCIxIl0]"
+          },
+          "original_key": "[\"urn:umf:domain:commerce\",\"domain\",\"customers\",[\"[42,0,\\\"C1\\\"]\"]]",
+          "original_record": "customers",
+          "props_json": "{\"1\":\"[42,0,\\\"C1\\\"]\",\"2\":\"Synthetic café\"}",
+          "published_at": "1791547200000000",
+          "quantity_long": null,
+          "quantity_token": null,
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"customers\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"customers\"},\"values\":{\"customers.id\":\"[42,0,\\\"C1\\\"]\",\"customers.name\":\"Synthetic café\"}}}",
+          "root_id": null,
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "object:1",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "template_id": "C1",
+          "type_id": "10",
+          "unit_price_coefficient": null,
+          "unit_price_token": null
+        },
+        {
+          "amount_coefficient": null,
+          "amount_token": null,
+          "apply_batch_id": "original-commerce-v1",
+          "currency": null,
+          "decimal_scale": "2",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTEiLCI2Il0",
+          "id": "6",
+          "logical_key_json": "[]",
+          "lookup_hash": "919d10424e6780780a7b610a1a13f52495d16e9e961a630eb714944f8f8588f2",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTEiLCI2Il0]"
+          },
+          "original_key": "[\"urn:umf:domain:commerce\",\"domain\",\"fulfillments\",[\"[42,0,\\\"F1\\\"]\"]]",
+          "original_record": "fulfillments",
+          "props_json": "{\"3\":\"[42,0,\\\"F1\\\"]\",\"4\":\"[42,0,\\\"L1\\\"]\",\"5\":6}",
+          "published_at": "1791547200000000",
+          "quantity_long": 6,
+          "quantity_token": "6",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"fulfillments\\\",[\\\"[42,0,\\\\\\\"F1\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"fulfillments\"},\"values\":{\"fulfillments.id\":\"[42,0,\\\"F1\\\"]\",\"fulfillments.line_id\":\"[42,0,\\\"L1\\\"]\",\"fulfillments.quantity\":\"6\"}}}",
+          "root_id": null,
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "object:6",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "template_id": "F1",
+          "type_id": "11",
+          "unit_price_coefficient": null,
+          "unit_price_token": null
+        },
+        {
+          "amount_coefficient": null,
+          "amount_token": null,
+          "apply_batch_id": "original-commerce-v1",
+          "currency": null,
+          "decimal_scale": "2",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTEiLCI3Il0",
+          "id": "7",
+          "logical_key_json": "[]",
+          "lookup_hash": "0ed2e7399a788b1c3ea88583f24406ae18d6680bb4feb4235eec7f8a8f52e54b",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTEiLCI3Il0]"
+          },
+          "original_key": "[\"urn:umf:domain:commerce\",\"domain\",\"fulfillments\",[\"[42,0,\\\"F2\\\"]\"]]",
+          "original_record": "fulfillments",
+          "props_json": "{\"3\":\"[42,0,\\\"F2\\\"]\",\"4\":\"[42,0,\\\"L1\\\"]\",\"5\":11}",
+          "published_at": "1791547200000000",
+          "quantity_long": 11,
+          "quantity_token": "11",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"fulfillments\\\",[\\\"[42,0,\\\\\\\"F2\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"fulfillments\"},\"values\":{\"fulfillments.id\":\"[42,0,\\\"F2\\\"]\",\"fulfillments.line_id\":\"[42,0,\\\"L1\\\"]\",\"fulfillments.quantity\":\"11\"}}}",
+          "root_id": null,
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "object:7",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "template_id": "F2",
+          "type_id": "11",
+          "unit_price_coefficient": null,
+          "unit_price_token": null
+        },
+        {
+          "amount_coefficient": 12500,
+          "amount_token": "125",
+          "apply_batch_id": "original-commerce-v1",
+          "currency": "USD",
+          "decimal_scale": "2",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTIiLCI4Il0",
+          "id": "8",
+          "logical_key_json": "[]",
+          "lookup_hash": "4dbb20a90b0778e9eec5c3d54cfd2bee61f61667ae95bf3989c1d7df08ffbd86",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTIiLCI4Il0]"
+          },
+          "original_key": "[\"urn:umf:domain:commerce\",\"domain\",\"invoices\",[\"[42,0,\\\"I1\\\"]\"]]",
+          "original_record": "invoices",
+          "props_json": "{\"8\":\"[42,0,\\\"I1\\\"]\",\"9\":\"[42,0,\\\"O1\\\"]\",\"6\":125,\"7\":\"USD\"}",
+          "published_at": "1791547200000000",
+          "quantity_long": null,
+          "quantity_token": null,
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"invoices\\\",[\\\"[42,0,\\\\\\\"I1\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"invoices\"},\"values\":{\"invoices.id\":\"[42,0,\\\"I1\\\"]\",\"invoices.order_id\":\"[42,0,\\\"O1\\\"]\",\"invoices.amount\":\"125\",\"invoices.currency\":\"USD\"}}}",
+          "root_id": null,
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "object:8",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "template_id": "I1",
+          "type_id": "12",
+          "unit_price_coefficient": null,
+          "unit_price_token": null
+        },
+        {
+          "amount_coefficient": null,
+          "amount_token": null,
+          "apply_batch_id": "original-commerce-v1",
+          "currency": null,
+          "decimal_scale": "2",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTMiLCI1Il0",
+          "id": "5",
+          "logical_key_json": "[]",
+          "lookup_hash": "6b27cd45a84429d336ebec9b589c9f11a8950431f14c9ba8768891f08d967bfe",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTMiLCI1Il0]"
+          },
+          "original_key": "[\"urn:umf:domain:commerce\",\"domain\",\"order_lines\",[\"[42,0,\\\"L1\\\"]\"]]",
+          "original_record": "order_lines",
+          "props_json": "{\"10\":\"[42,0,\\\"L1\\\"]\",\"11\":\"[42,0,\\\"O1\\\"]\",\"12\":\"[42,0,\\\"P1\\\"]\",\"13\":10}",
+          "published_at": "1791547200000000",
+          "quantity_long": 10,
+          "quantity_token": "10",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"order_lines\\\",[\\\"[42,0,\\\\\\\"L1\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"order_lines\"},\"values\":{\"order_lines.id\":\"[42,0,\\\"L1\\\"]\",\"order_lines.order_id\":\"[42,0,\\\"O1\\\"]\",\"order_lines.product_id\":\"[42,0,\\\"P1\\\"]\",\"order_lines.quantity\":\"10\"}}}",
+          "root_id": null,
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "object:5",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "template_id": "L1",
+          "type_id": "13",
+          "unit_price_coefficient": null,
+          "unit_price_token": null
+        },
+        {
+          "amount_coefficient": null,
+          "amount_token": null,
+          "apply_batch_id": "original-commerce-v1",
+          "currency": null,
+          "decimal_scale": "2",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTQiLCI0Il0",
+          "id": "4",
+          "logical_key_json": "[]",
+          "lookup_hash": "4cc08b651d3ded7f9e1eba55a4e3c4a9882e3a28ed0e65836a486aa1826a4486",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTQiLCI0Il0]"
+          },
+          "original_key": "[\"urn:umf:domain:commerce\",\"domain\",\"orders\",[\"[42,0,\\\"O1\\\"]\"]]",
+          "original_record": "orders",
+          "props_json": "{\"15\":\"[42,0,\\\"O1\\\"]\",\"14\":\"[42,0,\\\"C1\\\"]\",\"16\":\"2026-01-01T12:00:00Z\",\"17\":\"open\"}",
+          "published_at": "1791547200000000",
+          "quantity_long": null,
+          "quantity_token": null,
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"orders\\\",[\\\"[42,0,\\\\\\\"O1\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"orders\"},\"values\":{\"orders.id\":\"[42,0,\\\"O1\\\"]\",\"orders.customer_id\":\"[42,0,\\\"C1\\\"]\",\"orders.ordered_at\":\"2026-01-01T12:00:00Z\",\"orders.status\":\"open\"}}}",
+          "root_id": null,
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "object:4",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "template_id": "O1",
+          "type_id": "14",
+          "unit_price_coefficient": null,
+          "unit_price_token": null
+        },
+        {
+          "amount_coefficient": 12500,
+          "amount_token": "125",
+          "apply_batch_id": "original-commerce-v1",
+          "currency": "USD",
+          "decimal_scale": "2",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTUiLCI5Il0",
+          "id": "9",
+          "logical_key_json": "[]",
+          "lookup_hash": "f8e3c290cd3f603c063498e6aebc3fe047071630cf491342ec6067082ad7ab94",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTUiLCI5Il0]"
+          },
+          "original_key": "[\"urn:umf:domain:commerce\",\"domain\",\"payments\",[\"[42,0,\\\"PAY1\\\"]\"]]",
+          "original_record": "payments",
+          "props_json": "{\"20\":\"[42,0,\\\"PAY1\\\"]\",\"21\":\"[42,0,\\\"I1\\\"]\",\"18\":125,\"19\":\"USD\"}",
+          "published_at": "1791547200000000",
+          "quantity_long": null,
+          "quantity_token": null,
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"payments\\\",[\\\"[42,0,\\\\\\\"PAY1\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"payments\"},\"values\":{\"payments.id\":\"[42,0,\\\"PAY1\\\"]\",\"payments.invoice_id\":\"[42,0,\\\"I1\\\"]\",\"payments.amount\":\"125\",\"payments.currency\":\"USD\"}}}",
+          "root_id": null,
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "object:9",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "template_id": "PAY1",
+          "type_id": "15",
+          "unit_price_coefficient": null,
+          "unit_price_token": null
+        },
+        {
+          "amount_coefficient": null,
+          "amount_token": null,
+          "apply_batch_id": "original-commerce-v1",
+          "currency": null,
+          "decimal_scale": "2",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTYiLCIzIl0",
+          "id": "3",
+          "logical_key_json": "[]",
+          "lookup_hash": "86d684b5876d971d44d530dc3898e864741008ff2bffcd3713d314cdac66899b",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTYiLCIzIl0]"
+          },
+          "original_key": "[\"urn:umf:domain:commerce\",\"domain\",\"products\",[\"[42,0,\\\"P1\\\"]\"]]",
+          "original_record": "products",
+          "props_json": "{\"22\":\"[42,0,\\\"P1\\\"]\",\"24\":\"[42,0,\\\"S1\\\"]\",\"23\":\"SKU1\",\"25\":12.5}",
+          "published_at": "1791547200000000",
+          "quantity_long": null,
+          "quantity_token": null,
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"products\\\",[\\\"[42,0,\\\\\\\"P1\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"products\"},\"values\":{\"products.id\":\"[42,0,\\\"P1\\\"]\",\"products.supplier_id\":\"[42,0,\\\"S1\\\"]\",\"products.sku\":\"SKU1\",\"products.unit_price\":\"12.5\"}}}",
+          "root_id": null,
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "object:3",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "template_id": "P1",
+          "type_id": "16",
+          "unit_price_coefficient": 1250,
+          "unit_price_token": "12.5"
+        },
+        {
+          "amount_coefficient": 2500,
+          "amount_token": "25",
+          "apply_batch_id": "original-commerce-v1",
+          "currency": "USD",
+          "decimal_scale": "2",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTciLCIxMSJd",
+          "id": "11",
+          "logical_key_json": "[]",
+          "lookup_hash": "fc040f3469c7f673f729ef9b14168d3cd02e5ad313c6ad8233563a22307df6f3",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTciLCIxMSJd]"
+          },
+          "original_key": "[\"urn:umf:domain:commerce\",\"domain\",\"refunds\",[\"[42,0,\\\"RF1\\\"]\"]]",
+          "original_record": "refunds",
+          "props_json": "{\"28\":\"[42,0,\\\"RF1\\\"]\",\"29\":\"[42,0,\\\"R1\\\"]\",\"26\":25,\"27\":\"USD\"}",
+          "published_at": "1791547200000000",
+          "quantity_long": null,
+          "quantity_token": null,
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"refunds\\\",[\\\"[42,0,\\\\\\\"RF1\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"refunds\"},\"values\":{\"refunds.id\":\"[42,0,\\\"RF1\\\"]\",\"refunds.return_id\":\"[42,0,\\\"R1\\\"]\",\"refunds.amount\":\"25\",\"refunds.currency\":\"USD\"}}}",
+          "root_id": null,
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "object:11",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "template_id": "RF1",
+          "type_id": "17",
+          "unit_price_coefficient": null,
+          "unit_price_token": null
+        },
+        {
+          "amount_coefficient": null,
+          "amount_token": null,
+          "apply_batch_id": "original-commerce-v1",
+          "currency": null,
+          "decimal_scale": "2",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTgiLCIxMCJd",
+          "id": "10",
+          "logical_key_json": "[]",
+          "lookup_hash": "344c5fc0b9ce2cd37498cff5ff500ba2f2e484a950560564db24d2ebed9e8128",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTgiLCIxMCJd]"
+          },
+          "original_key": "[\"urn:umf:domain:commerce\",\"domain\",\"returns\",[\"[42,0,\\\"R1\\\"]\"]]",
+          "original_record": "returns",
+          "props_json": "{\"30\":\"[42,0,\\\"R1\\\"]\",\"31\":\"[42,0,\\\"L1\\\"]\",\"32\":2}",
+          "published_at": "1791547200000000",
+          "quantity_long": 2,
+          "quantity_token": "2",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"returns\\\",[\\\"[42,0,\\\\\\\"R1\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"returns\"},\"values\":{\"returns.id\":\"[42,0,\\\"R1\\\"]\",\"returns.line_id\":\"[42,0,\\\"L1\\\"]\",\"returns.quantity\":\"2\"}}}",
+          "root_id": null,
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "object:10",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "template_id": "R1",
+          "type_id": "18",
+          "unit_price_coefficient": null,
+          "unit_price_token": null
+        },
+        {
+          "amount_coefficient": null,
+          "amount_token": null,
+          "apply_batch_id": "original-commerce-v1",
+          "currency": null,
+          "decimal_scale": "2",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTkiLCIyIl0",
+          "id": "2",
+          "logical_key_json": "[]",
+          "lookup_hash": "55186fa18d652b5c2b28f55d91faa332888e7389dbe14d6f76ec59f44075d28e",
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTkiLCIyIl0]"
+          },
+          "original_key": "[\"urn:umf:domain:commerce\",\"domain\",\"suppliers\",[\"[42,0,\\\"S1\\\"]\"]]",
+          "original_record": "suppliers",
+          "props_json": "{\"33\":\"[42,0,\\\"S1\\\"]\",\"34\":\"Synthetic supply\"}",
+          "published_at": "1791547200000000",
+          "quantity_long": null,
+          "quantity_token": null,
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"suppliers\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\",\"type\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"element\":\"suppliers\"},\"values\":{\"suppliers.id\":\"[42,0,\\\"S1\\\"]\",\"suppliers.name\":\"Synthetic supply\"}}}",
+          "root_id": null,
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "object:2",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "template_id": "S1",
+          "type_id": "19",
+          "unit_price_coefficient": null,
+          "unit_price_token": null
+        }
+      ],
+      "script": "g.V().hasLabel('ExactCommerceNode').project('amount_coefficient','amount_token','apply_batch_id','currency','decimal_scale','entity_version','graph_id','id','logical_key_json','lookup_hash','original_key','original_record','props_json','published_at','quantity_long','quantity_token','retained_json','root_id','schema_revision','source_cursor_json','source_delivery_id','source_epoch','source_feed','source_position','source_system','template_id','type_id','unit_price_coefficient','unit_price_token','native_id').by(__.coalesce(__.values('amount_coefficient'),__.constant(null))).by(__.coalesce(__.values('amount_token'),__.constant(null))).by(__.coalesce(__.values('apply_batch_id'),__.constant(null))).by(__.coalesce(__.values('currency'),__.constant(null))).by(__.coalesce(__.values('decimal_scale'),__.constant(null))).by(__.coalesce(__.values('entity_version'),__.constant(null))).by(__.coalesce(__.values('carrier_key'),__.constant(null))).by(__.coalesce(__.values('carrier_id'),__.constant(null))).by(__.coalesce(__.values('logical_key_json'),__.constant(null))).by(__.coalesce(__.values('lookup_hash'),__.constant(null))).by(__.coalesce(__.values('original_key'),__.constant(null))).by(__.coalesce(__.values('original_record'),__.constant(null))).by(__.coalesce(__.values('props_json'),__.constant(null))).by(__.coalesce(__.values('published_at'),__.constant(null))).by(__.coalesce(__.values('quantity_long'),__.constant(null))).by(__.coalesce(__.values('quantity_token'),__.constant(null))).by(__.coalesce(__.values('retained_json'),__.constant(null))).by(__.coalesce(__.values('root_id'),__.constant(null))).by(__.coalesce(__.values('schema_revision'),__.constant(null))).by(__.coalesce(__.values('source_cursor_json'),__.constant(null))).by(__.coalesce(__.values('source_delivery_id'),__.constant(null))).by(__.coalesce(__.values('source_epoch'),__.constant(null))).by(__.coalesce(__.values('source_feed'),__.constant(null))).by(__.coalesce(__.values('source_position'),__.constant(null))).by(__.coalesce(__.values('source_system'),__.constant(null))).by(__.coalesce(__.values('template_id'),__.constant(null))).by(__.coalesce(__.values('type_id'),__.constant(null))).by(__.coalesce(__.values('unit_price_coefficient'),__.constant(null))).by(__.coalesce(__.values('unit_price_token'),__.constant(null))).by(__.id())"
+    },
+    {
+      "case": "full-edges",
+      "native_rows": [
+        {
+          "apply_batch_id": "original-commerce-v1",
+          "dst": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTMiLCI1Il0",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMSIsIjUiXQ",
+          "id": "5",
+          "lookup_hash": "f5bd260879371e40dbf13be0f363c0b8b2e12fb747f54492d8ae6871842841b5",
+          "native_dst": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTMiLCI1Il0]"
+          },
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceEdge[ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMSIsIjUiXQ]"
+          },
+          "native_src": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTEiLCI2Il0]"
+          },
+          "order_key": null,
+          "original_relationship": "fulfillments.line_id",
+          "props_json": "{}",
+          "published_at": "1791547200000000",
+          "rel_type_id": "1",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"fulfillments.line_id\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"fulfillments\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"F1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"order_lines\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"L1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\"]\",\"relationship\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"id\":\"fulfillments.line_id\"},\"source\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"fulfillments\\\",[\\\"[42,0,\\\\\\\"F1\\\\\\\"]\\\"]]\",\"target\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"order_lines\\\",[\\\"[42,0,\\\\\\\"L1\\\\\\\"]\\\"]]\"}}",
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "edge:5",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_id": "6",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "source_type": "11",
+          "src": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTEiLCI2Il0",
+          "target_id": "5",
+          "target_type": "13"
+        },
+        {
+          "apply_batch_id": "original-commerce-v1",
+          "dst": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTMiLCI1Il0",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMSIsIjYiXQ",
+          "id": "6",
+          "lookup_hash": "8fcd9f1077adcfe50cf94e9bac1b4c1a5a7dce70d6bc4d5bf11554d9c0378d98",
+          "native_dst": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTMiLCI1Il0]"
+          },
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceEdge[ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMSIsIjYiXQ]"
+          },
+          "native_src": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTEiLCI3Il0]"
+          },
+          "order_key": null,
+          "original_relationship": "fulfillments.line_id",
+          "props_json": "{}",
+          "published_at": "1791547200000000",
+          "rel_type_id": "1",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"fulfillments.line_id\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"fulfillments\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"F2\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"order_lines\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"L1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\"]\",\"relationship\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"id\":\"fulfillments.line_id\"},\"source\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"fulfillments\\\",[\\\"[42,0,\\\\\\\"F2\\\\\\\"]\\\"]]\",\"target\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"order_lines\\\",[\\\"[42,0,\\\\\\\"L1\\\\\\\"]\\\"]]\"}}",
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "edge:6",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_id": "7",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "source_type": "11",
+          "src": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTEiLCI3Il0",
+          "target_id": "5",
+          "target_type": "13"
+        },
+        {
+          "apply_batch_id": "original-commerce-v1",
+          "dst": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTQiLCI0Il0",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMiIsIjciXQ",
+          "id": "7",
+          "lookup_hash": "f9525e2aedb8c2c296d901561e5798d407de89a2f6c781707f32c7607d9c3bc8",
+          "native_dst": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTQiLCI0Il0]"
+          },
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceEdge[ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMiIsIjciXQ]"
+          },
+          "native_src": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTIiLCI4Il0]"
+          },
+          "order_key": null,
+          "original_relationship": "invoices.order_id",
+          "props_json": "{}",
+          "published_at": "1791547200000000",
+          "rel_type_id": "2",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"invoices.order_id\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"invoices\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"I1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"orders\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"O1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\"]\",\"relationship\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"id\":\"invoices.order_id\"},\"source\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"invoices\\\",[\\\"[42,0,\\\\\\\"I1\\\\\\\"]\\\"]]\",\"target\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"orders\\\",[\\\"[42,0,\\\\\\\"O1\\\\\\\"]\\\"]]\"}}",
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "edge:7",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_id": "8",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "source_type": "12",
+          "src": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTIiLCI4Il0",
+          "target_id": "4",
+          "target_type": "14"
+        },
+        {
+          "apply_batch_id": "original-commerce-v1",
+          "dst": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTQiLCI0Il0",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMyIsIjMiXQ",
+          "id": "3",
+          "lookup_hash": "04ab9f287a897ca618dda5c8018deab4cdc50a9ecd7856668a20174a247ea79a",
+          "native_dst": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTQiLCI0Il0]"
+          },
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceEdge[ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMyIsIjMiXQ]"
+          },
+          "native_src": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTMiLCI1Il0]"
+          },
+          "order_key": null,
+          "original_relationship": "order_lines.order_id",
+          "props_json": "{}",
+          "published_at": "1791547200000000",
+          "rel_type_id": "3",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"order_lines.order_id\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"order_lines\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"L1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"orders\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"O1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\"]\",\"relationship\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"id\":\"order_lines.order_id\"},\"source\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"order_lines\\\",[\\\"[42,0,\\\\\\\"L1\\\\\\\"]\\\"]]\",\"target\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"orders\\\",[\\\"[42,0,\\\\\\\"O1\\\\\\\"]\\\"]]\"}}",
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "edge:3",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_id": "5",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "source_type": "13",
+          "src": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTMiLCI1Il0",
+          "target_id": "4",
+          "target_type": "14"
+        },
+        {
+          "apply_batch_id": "original-commerce-v1",
+          "dst": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTYiLCIzIl0",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiNCIsIjQiXQ",
+          "id": "4",
+          "lookup_hash": "4ec86e245480b3070b77e8109960bc0b7d0d25d1f7641664ef401be89482af66",
+          "native_dst": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTYiLCIzIl0]"
+          },
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceEdge[ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiNCIsIjQiXQ]"
+          },
+          "native_src": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTMiLCI1Il0]"
+          },
+          "order_key": null,
+          "original_relationship": "order_lines.product_id",
+          "props_json": "{}",
+          "published_at": "1791547200000000",
+          "rel_type_id": "4",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"order_lines.product_id\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"order_lines\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"L1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"products\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"P1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\"]\",\"relationship\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"id\":\"order_lines.product_id\"},\"source\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"order_lines\\\",[\\\"[42,0,\\\\\\\"L1\\\\\\\"]\\\"]]\",\"target\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"products\\\",[\\\"[42,0,\\\\\\\"P1\\\\\\\"]\\\"]]\"}}",
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "edge:4",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_id": "5",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "source_type": "13",
+          "src": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTMiLCI1Il0",
+          "target_id": "3",
+          "target_type": "16"
+        },
+        {
+          "apply_batch_id": "original-commerce-v1",
+          "dst": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTAiLCIxIl0",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiNSIsIjIiXQ",
+          "id": "2",
+          "lookup_hash": "e51923e204ab8a4ad1b972ac64a0c3d08ba49bf671b692e407e4cad0b7b81be1",
+          "native_dst": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTAiLCIxIl0]"
+          },
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceEdge[ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiNSIsIjIiXQ]"
+          },
+          "native_src": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTQiLCI0Il0]"
+          },
+          "order_key": null,
+          "original_relationship": "orders.customer_id",
+          "props_json": "{}",
+          "published_at": "1791547200000000",
+          "rel_type_id": "5",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"orders.customer_id\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"orders\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"O1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"customers\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"C1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\"]\",\"relationship\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"id\":\"orders.customer_id\"},\"source\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"orders\\\",[\\\"[42,0,\\\\\\\"O1\\\\\\\"]\\\"]]\",\"target\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"customers\\\",[\\\"[42,0,\\\\\\\"C1\\\\\\\"]\\\"]]\"}}",
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "edge:2",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_id": "4",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "source_type": "14",
+          "src": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTQiLCI0Il0",
+          "target_id": "1",
+          "target_type": "10"
+        },
+        {
+          "apply_batch_id": "original-commerce-v1",
+          "dst": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTIiLCI4Il0",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiNiIsIjgiXQ",
+          "id": "8",
+          "lookup_hash": "1d86a59aaac342dfd341495395569701e393a908ef5346a6fa50cdb0fd21c427",
+          "native_dst": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTIiLCI4Il0]"
+          },
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceEdge[ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiNiIsIjgiXQ]"
+          },
+          "native_src": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTUiLCI5Il0]"
+          },
+          "order_key": null,
+          "original_relationship": "payments.invoice_id",
+          "props_json": "{}",
+          "published_at": "1791547200000000",
+          "rel_type_id": "6",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"payments.invoice_id\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"payments\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"PAY1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"invoices\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"I1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\"]\",\"relationship\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"id\":\"payments.invoice_id\"},\"source\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"payments\\\",[\\\"[42,0,\\\\\\\"PAY1\\\\\\\"]\\\"]]\",\"target\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"invoices\\\",[\\\"[42,0,\\\\\\\"I1\\\\\\\"]\\\"]]\"}}",
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "edge:8",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_id": "9",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "source_type": "15",
+          "src": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTUiLCI5Il0",
+          "target_id": "8",
+          "target_type": "12"
+        },
+        {
+          "apply_batch_id": "original-commerce-v1",
+          "dst": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTkiLCIyIl0",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiNyIsIjEiXQ",
+          "id": "1",
+          "lookup_hash": "c6f18d3f1edcdb939221a31b1cb16ee3af0a012897d2500dfba90e573a51b09b",
+          "native_dst": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTkiLCIyIl0]"
+          },
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceEdge[ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiNyIsIjEiXQ]"
+          },
+          "native_src": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTYiLCIzIl0]"
+          },
+          "order_key": null,
+          "original_relationship": "products.supplier_id",
+          "props_json": "{}",
+          "published_at": "1791547200000000",
+          "rel_type_id": "7",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"products.supplier_id\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"products\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"P1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"suppliers\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"S1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\"]\",\"relationship\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"id\":\"products.supplier_id\"},\"source\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"products\\\",[\\\"[42,0,\\\\\\\"P1\\\\\\\"]\\\"]]\",\"target\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"suppliers\\\",[\\\"[42,0,\\\\\\\"S1\\\\\\\"]\\\"]]\"}}",
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "edge:1",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_id": "3",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "source_type": "16",
+          "src": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTYiLCIzIl0",
+          "target_id": "2",
+          "target_type": "19"
+        },
+        {
+          "apply_batch_id": "original-commerce-v1",
+          "dst": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTgiLCIxMCJd",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiOCIsIjEwIl0",
+          "id": "10",
+          "lookup_hash": "e0d9ab3bb71180c7a69e5bfdd69903f0a68b06f0a2c82cbd8d48e009ffc30d86",
+          "native_dst": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTgiLCIxMCJd]"
+          },
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceEdge[ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiOCIsIjEwIl0]"
+          },
+          "native_src": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTciLCIxMSJd]"
+          },
+          "order_key": null,
+          "original_relationship": "refunds.return_id",
+          "props_json": "{}",
+          "published_at": "1791547200000000",
+          "rel_type_id": "8",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"refunds.return_id\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"refunds\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"RF1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"returns\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"R1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\"]\",\"relationship\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"id\":\"refunds.return_id\"},\"source\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"refunds\\\",[\\\"[42,0,\\\\\\\"RF1\\\\\\\"]\\\"]]\",\"target\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"returns\\\",[\\\"[42,0,\\\\\\\"R1\\\\\\\"]\\\"]]\"}}",
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "edge:10",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_id": "11",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "source_type": "17",
+          "src": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTciLCIxMSJd",
+          "target_id": "10",
+          "target_type": "18"
+        },
+        {
+          "apply_batch_id": "original-commerce-v1",
+          "dst": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTMiLCI1Il0",
+          "entity_version": "1",
+          "graph_id": "ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiOSIsIjkiXQ",
+          "id": "9",
+          "lookup_hash": "7248cbca76aa7e04d0281bb276231d6f1031814134193bbac3e2ef555cec2e9a",
+          "native_dst": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTMiLCI1Il0]"
+          },
+          "native_id": {
+            "@type": "g:String",
+            "@value": "ExactCommerceEdge[ashlar-key/1:WyJlZGdlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiOSIsIjkiXQ]"
+          },
+          "native_src": {
+            "@type": "g:String",
+            "@value": "ExactCommerceNode[ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTgiLCIxMCJd]"
+          },
+          "order_key": null,
+          "original_relationship": "returns.line_id",
+          "props_json": "{}",
+          "published_at": "1791547200000000",
+          "rel_type_id": "9",
+          "retained_json": "{\"profile\":\"ashlar-commerce-development-bindings/0.2\",\"sourceSha256\":\"51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a\",\"graphSha256\":\"8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e\",\"original\":{\"key\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"returns.line_id\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"returns\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"R1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\",\\\"[\\\\\\\"urn:umf:domain:commerce\\\\\\\",\\\\\\\"domain\\\\\\\",\\\\\\\"order_lines\\\\\\\",[\\\\\\\"[42,0,\\\\\\\\\\\\\\\"L1\\\\\\\\\\\\\\\"]\\\\\\\"]]\\\"]\",\"relationship\":{\"document\":\"urn:umf:domain:commerce\",\"module\":\"domain\",\"id\":\"returns.line_id\"},\"source\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"returns\\\",[\\\"[42,0,\\\\\\\"R1\\\\\\\"]\\\"]]\",\"target\":\"[\\\"urn:umf:domain:commerce\\\",\\\"domain\\\",\\\"order_lines\\\",[\\\"[42,0,\\\\\\\"L1\\\\\\\"]\\\"]]\"}}",
+          "schema_revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+          "source_cursor_json": "{\"profile\":\"ashlar-jsonl-transactions/0.1\",\"offset\":\"25547\"}",
+          "source_delivery_id": "edge:9",
+          "source_epoch": "original-commerce-v1",
+          "source_feed": "private-original-commerce-fixture",
+          "source_id": "10",
+          "source_position": null,
+          "source_system": "private-original-commerce-fixture",
+          "source_type": "18",
+          "src": "ashlar-key/1:WyJub2RlIiwicHJpdmF0ZS1vcmlnaW5hbC1jb21tZXJjZS1maXh0dXJlIiwiMTgiLCIxMCJd",
+          "target_id": "5",
+          "target_type": "13"
+        }
+      ],
+      "script": "g.E().hasLabel('ExactCommerceEdge').project('apply_batch_id','dst','entity_version','graph_id','id','lookup_hash','order_key','original_relationship','props_json','published_at','rel_type_id','retained_json','schema_revision','source_cursor_json','source_delivery_id','source_epoch','source_feed','source_id','source_position','source_system','source_type','src','target_id','target_type','native_id','native_src','native_dst').by(__.coalesce(__.values('apply_batch_id'),__.constant(null))).by(__.coalesce(__.values('dst'),__.constant(null))).by(__.coalesce(__.values('entity_version'),__.constant(null))).by(__.coalesce(__.values('carrier_key'),__.constant(null))).by(__.coalesce(__.values('carrier_id'),__.constant(null))).by(__.coalesce(__.values('lookup_hash'),__.constant(null))).by(__.coalesce(__.values('order_key'),__.constant(null))).by(__.coalesce(__.values('original_relationship'),__.constant(null))).by(__.coalesce(__.values('props_json'),__.constant(null))).by(__.coalesce(__.values('published_at'),__.constant(null))).by(__.coalesce(__.values('rel_type_id'),__.constant(null))).by(__.coalesce(__.values('retained_json'),__.constant(null))).by(__.coalesce(__.values('schema_revision'),__.constant(null))).by(__.coalesce(__.values('source_cursor_json'),__.constant(null))).by(__.coalesce(__.values('source_delivery_id'),__.constant(null))).by(__.coalesce(__.values('source_epoch'),__.constant(null))).by(__.coalesce(__.values('source_feed'),__.constant(null))).by(__.coalesce(__.values('source_id'),__.constant(null))).by(__.coalesce(__.values('source_position'),__.constant(null))).by(__.coalesce(__.values('source_system'),__.constant(null))).by(__.coalesce(__.values('source_type'),__.constant(null))).by(__.coalesce(__.values('src'),__.constant(null))).by(__.coalesce(__.values('target_id'),__.constant(null))).by(__.coalesce(__.values('target_type'),__.constant(null))).by(__.id()).by(__.outV().id()).by(__.inV().id())"
+    },
+    {
+      "case": "partial-intermediates",
+      "native_rows": [
+        {
+          "add": 6,
+          "source_keys": [
+            "[\"urn:umf:domain:commerce\",\"domain\",\"fulfillments\",[\"[42,0,\\\"F1\\\"]\"]]",
+            "[\"urn:umf:domain:commerce\",\"domain\",\"order_lines\",[\"[42,0,\\\"L1\\\"]\"]]",
+            "[\"urn:umf:domain:commerce\",\"domain\",\"returns\",[\"[42,0,\\\"R1\\\"]\"]]"
+          ],
+          "subtract": 4
+        },
+        {
+          "add": 1,
+          "source_keys": [
+            "[\"urn:umf:domain:commerce\",\"domain\",\"fulfillments\",[\"[42,0,\\\"F2\\\"]\"]]",
+            "[\"urn:umf:domain:commerce\",\"domain\",\"order_lines\",[\"[42,0,\\\"L1\\\"]\"]]",
+            "[\"urn:umf:domain:commerce\",\"domain\",\"returns\",[\"[42,0,\\\"R1\\\"]\"]]"
+          ],
+          "subtract": -1
+        }
+      ],
+      "script": "g.V().hasLabel('ExactCommerceNode').as('f').outE('ExactCommerceEdge').has('original_relationship','fulfillments.line_id').inV().as('l').inE('ExactCommerceEdge').has('original_relationship','returns.line_id').outV().as('r').select('f','l','r').map{ def m=it.get();org.apache.tinkerpop.gremlin.structure.Vertex f=(org.apache.tinkerpop.gremlin.structure.Vertex)m.get('f');org.apache.tinkerpop.gremlin.structure.Vertex l=(org.apache.tinkerpop.gremlin.structure.Vertex)m.get('l');org.apache.tinkerpop.gremlin.structure.Vertex r=(org.apache.tinkerpop.gremlin.structure.Vertex)m.get('r'); ['source_keys':[f.value('original_key'),l.value('original_key'),r.value('original_key')],'subtract':((Long)l.value('quantity_long'))-((Long)f.value('quantity_long')),'add':((Long)l.value('quantity_long'))-((Long)f.value('quantity_long'))+((Long)r.value('quantity_long'))] }"
+    },
+    {
+      "case": "refund-intermediates",
+      "native_rows": [
+        {
+          "multiply_coefficient": 2500,
+          "source_keys": [
+            "[\"urn:umf:domain:commerce\",\"domain\",\"refunds\",[\"[42,0,\\\"RF1\\\"]\"]]",
+            "[\"urn:umf:domain:commerce\",\"domain\",\"returns\",[\"[42,0,\\\"R1\\\"]\"]]",
+            "[\"urn:umf:domain:commerce\",\"domain\",\"order_lines\",[\"[42,0,\\\"L1\\\"]\"]]",
+            "[\"urn:umf:domain:commerce\",\"domain\",\"products\",[\"[42,0,\\\"P1\\\"]\"]]"
+          ]
+        }
+      ],
+      "script": "g.V().hasLabel('ExactCommerceNode').as('r').outE('ExactCommerceEdge').has('original_relationship','refunds.return_id').inV().as('t').outE('ExactCommerceEdge').has('original_relationship','returns.line_id').inV().as('l').outE('ExactCommerceEdge').has('original_relationship','order_lines.product_id').inV().as('p').select('r','t','l','p').map{ def m=it.get(); ['source_keys':['r','t','l','p'].collect{k->((String)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get(k)).value('original_key'))},'multiply_coefficient':((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('t')).value('quantity_long'))*((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('p')).value('unit_price_coefficient'))] }"
+    },
+    {
+      "case": "partial-return",
+      "native_rows": [
+        [
+          6,
+          2,
+          6
+        ]
+      ],
+      "script": "g.V().hasLabel('ExactCommerceNode').as('f').outE('ExactCommerceEdge').has('original_relationship','fulfillments.line_id').inV().as('l').inE('ExactCommerceEdge').has('original_relationship','returns.line_id').outV().as('r').select('f','l','r').filter{((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('f')).value('quantity_long'))<((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('l')).value('quantity_long'))}.map{ def m=it.get();org.apache.tinkerpop.gremlin.structure.Vertex f=(org.apache.tinkerpop.gremlin.structure.Vertex)m.get('f');org.apache.tinkerpop.gremlin.structure.Vertex l=(org.apache.tinkerpop.gremlin.structure.Vertex)m.get('l');org.apache.tinkerpop.gremlin.structure.Vertex r=(org.apache.tinkerpop.gremlin.structure.Vertex)m.get('r'); [((Long)f.value('quantity_long')),((Long)r.value('quantity_long')),((Long)l.value('quantity_long'))-((Long)f.value('quantity_long'))+((Long)r.value('quantity_long'))] }"
+    },
+    {
+      "case": "fulfillment",
+      "native_rows": [
+        "F2"
+      ],
+      "script": "g.V().hasLabel('ExactCommerceNode').as('f').outE('ExactCommerceEdge').has('original_relationship','fulfillments.line_id').inV().as('l').select('f','l').filter{((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('f')).value('quantity_long'))>((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('l')).value('quantity_long'))}.map{((String)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('f')).value('template_id'))}"
+    },
+    {
+      "case": "settlement",
+      "native_rows": [
+        "PAY1"
+      ],
+      "script": "g.V().hasLabel('ExactCommerceNode').as('p').outE('ExactCommerceEdge').has('original_relationship','payments.invoice_id').inV().as('i').select('p','i').filter{def m=it.get();((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('p')).value('amount_coefficient'))==((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('i')).value('amount_coefficient'))&&((String)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('p')).value('currency'))==((String)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('i')).value('currency'))}.map{((String)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('p')).value('template_id'))}"
+    },
+    {
+      "case": "refund",
+      "native_rows": [
+        "RF1"
+      ],
+      "script": "g.V().hasLabel('ExactCommerceNode').as('r').outE('ExactCommerceEdge').has('original_relationship','refunds.return_id').inV().as('t').outE('ExactCommerceEdge').has('original_relationship','returns.line_id').inV().as('l').outE('ExactCommerceEdge').has('original_relationship','order_lines.product_id').inV().as('p').select('r','t','l','p').filter{def m=it.get();((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('r')).value('amount_coefficient'))==((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('t')).value('quantity_long'))*((Long)((org.apache.tinkerpop.gremlin.structure.Vertex)m.get('p')).value('unit_price_coefficient'))}.map{((String)((org.apache.tinkerpop.gremlin.structure.Vertex)it.get().get('r')).value('template_id'))}"
+    }
+  ],
+  "scope": "Native Gremlin Groovy integer operators on qualifiedLONG properties; no Gremlin.math (DOUBLE), no binaryfloat/generalunbounded arithmetic."
+}

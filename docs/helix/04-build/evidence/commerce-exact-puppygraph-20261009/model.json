@@ -1,0 +1,503 @@
+{
+  "catalog": [
+    {
+      "jdbc": {
+        "jdbcUri": "jdbc:duckdb:/tmp/commerce-exact.duckdb"
+      },
+      "name": "ashlar_commerce_exact",
+      "type": "duckdb"
+    }
+  ],
+  "edge": [
+    {
+      "attribute": [
+        {
+          "name": "apply_batch_id",
+          "type": "STRING"
+        },
+        {
+          "name": "dst",
+          "type": "STRING"
+        },
+        {
+          "name": "entity_version",
+          "type": "STRING"
+        },
+        {
+          "name": "lookup_hash",
+          "type": "STRING"
+        },
+        {
+          "name": "order_key",
+          "type": "STRING"
+        },
+        {
+          "name": "props_json",
+          "type": "STRING"
+        },
+        {
+          "name": "published_at",
+          "type": "STRING"
+        },
+        {
+          "name": "rel_type_id",
+          "type": "STRING"
+        },
+        {
+          "name": "retained_json",
+          "type": "STRING"
+        },
+        {
+          "name": "schema_revision",
+          "type": "STRING"
+        },
+        {
+          "name": "source_cursor_json",
+          "type": "STRING"
+        },
+        {
+          "name": "source_delivery_id",
+          "type": "STRING"
+        },
+        {
+          "name": "source_epoch",
+          "type": "STRING"
+        },
+        {
+          "name": "source_feed",
+          "type": "STRING"
+        },
+        {
+          "name": "source_id",
+          "type": "STRING"
+        },
+        {
+          "name": "source_position",
+          "type": "STRING"
+        },
+        {
+          "name": "source_system",
+          "type": "STRING"
+        },
+        {
+          "name": "source_type",
+          "type": "STRING"
+        },
+        {
+          "name": "src",
+          "type": "STRING"
+        },
+        {
+          "name": "target_id",
+          "type": "STRING"
+        },
+        {
+          "name": "target_type",
+          "type": "STRING"
+        },
+        {
+          "name": "original_relationship",
+          "type": "STRING"
+        },
+        {
+          "name": "carrier_key",
+          "type": "STRING"
+        },
+        {
+          "name": "carrier_id",
+          "type": "STRING"
+        }
+      ],
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "catalog": "ashlar_commerce_exact",
+          "enabled": true,
+          "mappedField": [
+            {
+              "sourceFieldName": "apply_batch_id",
+              "targetFieldName": "apply_batch_id"
+            },
+            {
+              "sourceFieldName": "dst",
+              "targetFieldName": "dst"
+            },
+            {
+              "sourceFieldName": "entity_version",
+              "targetFieldName": "entity_version"
+            },
+            {
+              "sourceFieldName": "lookup_hash",
+              "targetFieldName": "lookup_hash"
+            },
+            {
+              "sourceFieldName": "order_key",
+              "targetFieldName": "order_key"
+            },
+            {
+              "sourceFieldName": "props_json",
+              "targetFieldName": "props_json"
+            },
+            {
+              "sourceFieldName": "published_at",
+              "targetFieldName": "published_at"
+            },
+            {
+              "sourceFieldName": "rel_type_id",
+              "targetFieldName": "rel_type_id"
+            },
+            {
+              "sourceFieldName": "retained_json",
+              "targetFieldName": "retained_json"
+            },
+            {
+              "sourceFieldName": "schema_revision",
+              "targetFieldName": "schema_revision"
+            },
+            {
+              "sourceFieldName": "source_cursor_json",
+              "targetFieldName": "source_cursor_json"
+            },
+            {
+              "sourceFieldName": "source_delivery_id",
+              "targetFieldName": "source_delivery_id"
+            },
+            {
+              "sourceFieldName": "source_epoch",
+              "targetFieldName": "source_epoch"
+            },
+            {
+              "sourceFieldName": "source_feed",
+              "targetFieldName": "source_feed"
+            },
+            {
+              "sourceFieldName": "source_id",
+              "targetFieldName": "source_id"
+            },
+            {
+              "sourceFieldName": "source_position",
+              "targetFieldName": "source_position"
+            },
+            {
+              "sourceFieldName": "source_system",
+              "targetFieldName": "source_system"
+            },
+            {
+              "sourceFieldName": "source_type",
+              "targetFieldName": "source_type"
+            },
+            {
+              "sourceFieldName": "src",
+              "targetFieldName": "src"
+            },
+            {
+              "sourceFieldName": "target_id",
+              "targetFieldName": "target_id"
+            },
+            {
+              "sourceFieldName": "target_type",
+              "targetFieldName": "target_type"
+            },
+            {
+              "sourceFieldName": "original_relationship",
+              "targetFieldName": "original_relationship"
+            },
+            {
+              "sourceFieldName": "carrier_key",
+              "targetFieldName": "carrier_key"
+            },
+            {
+              "sourceFieldName": "carrier_id",
+              "targetFieldName": "carrier_id"
+            },
+            {
+              "sourceFieldName": "graph_id",
+              "targetFieldName": "edge_key"
+            }
+          ],
+          "schema": "carrier",
+          "table": "edges"
+        }
+      },
+      "fromKey": [
+        {
+          "name": "src",
+          "type": "STRING"
+        }
+      ],
+      "fromNodeLabel": "ExactCommerceNode",
+      "id": [
+        {
+          "name": "edge_key",
+          "type": "STRING"
+        }
+      ],
+      "label": "ExactCommerceEdge",
+      "toKey": [
+        {
+          "name": "dst",
+          "type": "STRING"
+        }
+      ],
+      "toNodeLabel": "ExactCommerceNode"
+    }
+  ],
+  "node": [
+    {
+      "attribute": [
+        {
+          "name": "apply_batch_id",
+          "type": "STRING"
+        },
+        {
+          "name": "entity_version",
+          "type": "STRING"
+        },
+        {
+          "name": "logical_key_json",
+          "type": "STRING"
+        },
+        {
+          "name": "lookup_hash",
+          "type": "STRING"
+        },
+        {
+          "name": "props_json",
+          "type": "STRING"
+        },
+        {
+          "name": "published_at",
+          "type": "STRING"
+        },
+        {
+          "name": "retained_json",
+          "type": "STRING"
+        },
+        {
+          "name": "root_id",
+          "type": "STRING"
+        },
+        {
+          "name": "schema_revision",
+          "type": "STRING"
+        },
+        {
+          "name": "source_cursor_json",
+          "type": "STRING"
+        },
+        {
+          "name": "source_delivery_id",
+          "type": "STRING"
+        },
+        {
+          "name": "source_epoch",
+          "type": "STRING"
+        },
+        {
+          "name": "source_feed",
+          "type": "STRING"
+        },
+        {
+          "name": "source_position",
+          "type": "STRING"
+        },
+        {
+          "name": "source_system",
+          "type": "STRING"
+        },
+        {
+          "name": "type_id",
+          "type": "STRING"
+        },
+        {
+          "name": "original_record",
+          "type": "STRING"
+        },
+        {
+          "name": "original_key",
+          "type": "STRING"
+        },
+        {
+          "name": "template_id",
+          "type": "STRING"
+        },
+        {
+          "name": "quantity_long",
+          "type": "LONG"
+        },
+        {
+          "name": "quantity_token",
+          "type": "STRING"
+        },
+        {
+          "name": "amount_coefficient",
+          "type": "LONG"
+        },
+        {
+          "name": "amount_token",
+          "type": "STRING"
+        },
+        {
+          "name": "unit_price_coefficient",
+          "type": "LONG"
+        },
+        {
+          "name": "unit_price_token",
+          "type": "STRING"
+        },
+        {
+          "name": "currency",
+          "type": "STRING"
+        },
+        {
+          "name": "decimal_scale",
+          "type": "STRING"
+        },
+        {
+          "name": "carrier_key",
+          "type": "STRING"
+        },
+        {
+          "name": "carrier_id",
+          "type": "STRING"
+        }
+      ],
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "catalog": "ashlar_commerce_exact",
+          "enabled": true,
+          "mappedField": [
+            {
+              "sourceFieldName": "apply_batch_id",
+              "targetFieldName": "apply_batch_id"
+            },
+            {
+              "sourceFieldName": "entity_version",
+              "targetFieldName": "entity_version"
+            },
+            {
+              "sourceFieldName": "logical_key_json",
+              "targetFieldName": "logical_key_json"
+            },
+            {
+              "sourceFieldName": "lookup_hash",
+              "targetFieldName": "lookup_hash"
+            },
+            {
+              "sourceFieldName": "props_json",
+              "targetFieldName": "props_json"
+            },
+            {
+              "sourceFieldName": "published_at",
+              "targetFieldName": "published_at"
+            },
+            {
+              "sourceFieldName": "retained_json",
+              "targetFieldName": "retained_json"
+            },
+            {
+              "sourceFieldName": "root_id",
+              "targetFieldName": "root_id"
+            },
+            {
+              "sourceFieldName": "schema_revision",
+              "targetFieldName": "schema_revision"
+            },
+            {
+              "sourceFieldName": "source_cursor_json",
+              "targetFieldName": "source_cursor_json"
+            },
+            {
+              "sourceFieldName": "source_delivery_id",
+              "targetFieldName": "source_delivery_id"
+            },
+            {
+              "sourceFieldName": "source_epoch",
+              "targetFieldName": "source_epoch"
+            },
+            {
+              "sourceFieldName": "source_feed",
+              "targetFieldName": "source_feed"
+            },
+            {
+              "sourceFieldName": "source_position",
+              "targetFieldName": "source_position"
+            },
+            {
+              "sourceFieldName": "source_system",
+              "targetFieldName": "source_system"
+            },
+            {
+              "sourceFieldName": "type_id",
+              "targetFieldName": "type_id"
+            },
+            {
+              "sourceFieldName": "original_record",
+              "targetFieldName": "original_record"
+            },
+            {
+              "sourceFieldName": "original_key",
+              "targetFieldName": "original_key"
+            },
+            {
+              "sourceFieldName": "template_id",
+              "targetFieldName": "template_id"
+            },
+            {
+              "sourceFieldName": "quantity_long",
+              "targetFieldName": "quantity_long"
+            },
+            {
+              "sourceFieldName": "quantity_token",
+              "targetFieldName": "quantity_token"
+            },
+            {
+              "sourceFieldName": "amount_coefficient",
+              "targetFieldName": "amount_coefficient"
+            },
+            {
+              "sourceFieldName": "amount_token",
+              "targetFieldName": "amount_token"
+            },
+            {
+              "sourceFieldName": "unit_price_coefficient",
+              "targetFieldName": "unit_price_coefficient"
+            },
+            {
+              "sourceFieldName": "unit_price_token",
+              "targetFieldName": "unit_price_token"
+            },
+            {
+              "sourceFieldName": "currency",
+              "targetFieldName": "currency"
+            },
+            {
+              "sourceFieldName": "decimal_scale",
+              "targetFieldName": "decimal_scale"
+            },
+            {
+              "sourceFieldName": "carrier_key",
+              "targetFieldName": "carrier_key"
+            },
+            {
+              "sourceFieldName": "carrier_id",
+              "targetFieldName": "carrier_id"
+            },
+            {
+              "sourceFieldName": "graph_id",
+              "targetFieldName": "node_key"
+            }
+          ],
+          "schema": "carrier",
+          "table": "nodes"
+        }
+      },
+      "id": [
+        {
+          "name": "node_key",
+          "type": "STRING"
+        }
+      ],
+      "label": "ExactCommerceNode"
+    }
+  ]
+}

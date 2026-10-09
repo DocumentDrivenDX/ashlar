@@ -1,0 +1,41 @@
+{
+  "container": "ashlar-release-puppy113",
+  "database_mode": "0444",
+  "host_database": "/private/tmp/ashlar-commerce-exact-puppy-prepared-20261009-b/commerce-exact.duckdb",
+  "image": "sha256:6d016d5a7e3eab0a57bd4d23c4e218467d00c7661fcda215ea2a429941a68cee",
+  "memory_bytes": 3221225472,
+  "nano_cpus": 2000000000,
+  "ports": {
+    "7687/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "17887"
+      }
+    ],
+    "8081/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "18881"
+      }
+    ],
+    "8182/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "18182"
+      }
+    ]
+  },
+  "runtime_versions": {
+    "PuppyGraph": "1.13.0",
+    "duckdb": "1.4.1",
+    "gremlinpython": "3.7.3",
+    "neo4j": "5.28.2"
+  },
+  "scope": "Original fixture values only; no broad native fullsigned64 boundary qualification. CatalogAPI omission explicit; all prior labels replayed after addition.",
+  "sealed_databases": {
+    "/tmp/augmentations.duckdb": "926e9de45d0a0409a6a9be88e933b63332d81fa2316e6a19f0303700eafdfb71",
+    "/tmp/commerce-exact.duckdb": "505e1bfa9cc013a3bfb9024151eed8af537dddf2ff3b4d36471ba91e1034d16e",
+    "/tmp/commerce.duckdb": "f9c4e8d4ec7edf3c6943eb6187db6d1a54f0ba85e480988ee4e8cdfd229278e4",
+    "/tmp/releases.duckdb": "5d69ce5c13549053e3691e689e3f135f09baf7427b9d1d93ee7a42d8aa9ed989"
+  }
+}
