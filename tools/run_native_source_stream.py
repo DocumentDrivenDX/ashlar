@@ -35,7 +35,7 @@ from ashlar.source import jsonl_batches
 from ashlar.singleton import read_singleton
 from ashlar.weft_query import read_weft
 from ashlar.weft_binding import string_compile_request,WEFT_REVISION,LAYOUT_SHA256
-from ashlar.weft_decode import decode_string_column
+from ashlar.weft_decode import decode_compiled_column, admit_compiled_count, admit_count_rows, ExactScalar
 from ashlar.staging import batch_row
 from ashlar.stored_publisher import StoredPublisherBackend
 from databricks_transport import DatabricksTransport,CompiledWeftTransport,sql_result
@@ -461,6 +461,10 @@ def main():
                                 table_uuids={t:uuids[t] for t in tables.values()},manifest_uuid=uuids[manifest_table],layout_sha256=hashlib.sha256(layout.read_bytes()).hexdigest())
                             if request!=fresh or artifact!=json.loads(compiler.compile_json(encoded(fresh))):
                                 raise PublicationError('Exact original owner request and recompiled artifact required')
+                            for column in artifact['columns']:
+                                representation=column.get('representation',{})
+                                if representation.get('kind')=='scalar' and representation.get('logicalType',{}).get('family')=='integer':
+                                    admit_compiled_count(column,artifact,selected_policy,selected_intake)
                             if targets[tables['object_current']]['columns']!=[list(c) for c in columns['object_current']]:
                                 raise PublicationError('Qualified consumed native carrier differs')
                         def verify_native_profile(self,required,supplied):
@@ -468,16 +472,22 @@ def main():
                             observe_native_profile(client,required)
                         def authorize_query(self,request,value,supplied):
                             self.bind_descriptor(value,pin_vector,supplied);authority();source_schema()
+                        def admit_record_integrity(self,check,artifact,supplied):
+                            if supplied is not context:raise PermissionError('Original integrity model context required')
+                            if len(artifact['columns'])!=1 or check['record']!=dict(admit_compiled_count(artifact['columns'][0],artifact,selected_policy,selected_intake)):
+                                raise PublicationError('Original admitted COUNT Record required')
                         def decode_result(self,column,value,request,supplied):
                             if supplied is not context:raise PermissionError('Original result model context required')
-                            return decode_string_column(column,value,selected_policy,selected_intake)
+                            return decode_compiled_column(column,value,compiled,selected_policy,selected_intake)
                         def authorize_result(self,rows,value,supplied):
                             self.authorize_query(query_request,value,supplied)
+                            if compiled['logicalPlan']['aggregate'] is True:
+                                admit_count_rows(rows)
                     rows=read_weft(CompiledWeftTransport(transport,compiled),backend,QueryPins(),pin_vector,WeftPolicy(),
                         request=query_request,artifact=compiled,context=context,supported_profiles=['ashlar-delta/0.3'],supported_revisions=supported_revisions)
                     weft_result={'columns':[c['outputName'] for c in compiled['columns']],
-                        'rows':[[dict(cell) if hasattr(cell,'items') else cell for cell in row] for row in rows],
-                        'compiler_revision':WEFT_REVISION,'qualification':'Original model/publication, mandatory integrity checks, exact string/presence decoding and closing pin/authority checks. Each compiled check/query runs in a read-only script with preceding ANSI cast-error and exact engine/build guards. Separate exact setting observations and closing checks remain; no fallback.'}
+                        'rows':[[{'exactInteger':str(cell.value),'originalCarrier':cell.original} if isinstance(cell,ExactScalar) else dict(cell) if hasattr(cell,'items') else cell for cell in row] for row in rows],
+                        'compiler_revision':WEFT_REVISION,'qualification':'Original model/publication, mandatory integrity checks, exact string/presence and admitted global COUNT decoding and closing pin/authority checks. Each compiled check/query runs in a read-only script with preceding ANSI cast-error and exact engine/build guards. Separate exact setting observations and closing checks remain; no fallback.'}
                 else:
                     row=read_singleton(transport,backend,QueryPins(),pin_vector,policy,publication_id=current.publication_id,
                         table=tables['object_current'],kind='object',source=query_source,type_id=query_type_id,entity_id=args.entity_id,context=context,

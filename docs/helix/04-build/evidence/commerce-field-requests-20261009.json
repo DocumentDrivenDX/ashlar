@@ -1,0 +1,966 @@
+{
+  "documentId": "urn:umf:domain:commerce",
+  "format": "ashlar.commerce-field-literal-requests",
+  "inspectionSha256": "c94c93b8cd97c248a7828e29d4450916d32465efebc41ee4b2539fd3edc65af0",
+  "inventorySha256": "795261c25448998fdd1bf80fe42cd7df25dff72f7aca0e4149501ffc82fbe8a2",
+  "ontologySha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+  "profile": "ashlar.commerce-csv-literals/0.1",
+  "qualification": "Requests only. Original public inspection is a trusted local development input, not signed provenance. Field literal, Record, key, relationship, storage/engine admission and source authority remain separate. Graph fixtures use seeded replay IDs unlike these original CSV template IDs; no implicit graph binding.",
+  "rows": [
+    {
+      "declaredKeys": [
+        {
+          "fields": [
+            {
+              "element": "customers.id",
+              "module": "domain"
+            }
+          ],
+          "id": "identity",
+          "name": "Identity",
+          "primary": true
+        }
+      ],
+      "fields": [
+        {
+          "column": "id",
+          "field": {
+            "element": "customers.id",
+            "module": "domain"
+          },
+          "lexical": "C1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "C1"
+          }
+        },
+        {
+          "column": "name",
+          "field": {
+            "element": "customers.name",
+            "module": "domain"
+          },
+          "lexical": "Synthetic café",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "Synthetic café"
+          }
+        }
+      ],
+      "record": {
+        "document": "urn:umf:domain:commerce",
+        "element": "customers",
+        "module": "domain"
+      },
+      "source": {
+        "path": "data/customers.csv",
+        "rawRowBase64": "IkMxIiwiU3ludGhldGljIGNhZsOpIgo=",
+        "rawRowSha256": "4bd070f219b697e2ecd3ec26dcb32724e984f3e3f056b321f81cf16ab40d962e",
+        "rowOrdinal": 1,
+        "sha256": "56efc5b9eacf47b8fdf794309785cc62b05f54565ed17ab7f02a23c759dfd28c"
+      },
+      "sourceRowKey": "[\"ashlar.commerce-csv-literals/0.1\",\"urn:umf:domain:commerce\",\"data/customers.csv\",1]"
+    },
+    {
+      "declaredKeys": [
+        {
+          "fields": [
+            {
+              "element": "suppliers.id",
+              "module": "domain"
+            }
+          ],
+          "id": "identity",
+          "name": "Identity",
+          "primary": true
+        }
+      ],
+      "fields": [
+        {
+          "column": "id",
+          "field": {
+            "element": "suppliers.id",
+            "module": "domain"
+          },
+          "lexical": "S1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "S1"
+          }
+        },
+        {
+          "column": "name",
+          "field": {
+            "element": "suppliers.name",
+            "module": "domain"
+          },
+          "lexical": "Synthetic supply",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "Synthetic supply"
+          }
+        }
+      ],
+      "record": {
+        "document": "urn:umf:domain:commerce",
+        "element": "suppliers",
+        "module": "domain"
+      },
+      "source": {
+        "path": "data/suppliers.csv",
+        "rawRowBase64": "IlMxIiwiU3ludGhldGljIHN1cHBseSIK",
+        "rawRowSha256": "8d7039ec7960f21fd02559f7a4f776e85346f5f5a2748fa003778adf6b0d5f3f",
+        "rowOrdinal": 1,
+        "sha256": "625888093e3ec19b18c326d84d47eba0f29e77f92c801eda80c63a39301088fb"
+      },
+      "sourceRowKey": "[\"ashlar.commerce-csv-literals/0.1\",\"urn:umf:domain:commerce\",\"data/suppliers.csv\",1]"
+    },
+    {
+      "declaredKeys": [
+        {
+          "fields": [
+            {
+              "element": "products.id",
+              "module": "domain"
+            }
+          ],
+          "id": "identity",
+          "name": "Identity",
+          "primary": true
+        }
+      ],
+      "fields": [
+        {
+          "column": "id",
+          "field": {
+            "element": "products.id",
+            "module": "domain"
+          },
+          "lexical": "P1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "P1"
+          }
+        },
+        {
+          "column": "supplier_id",
+          "field": {
+            "element": "products.supplier_id",
+            "module": "domain"
+          },
+          "lexical": "S1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "S1"
+          }
+        },
+        {
+          "column": "sku",
+          "field": {
+            "element": "products.sku",
+            "module": "domain"
+          },
+          "lexical": "SKU1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "SKU1"
+          }
+        },
+        {
+          "column": "unit_price",
+          "field": {
+            "element": "products.unit_price",
+            "module": "domain"
+          },
+          "lexical": "12.50",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "decimalToken": "12.50"
+          }
+        }
+      ],
+      "record": {
+        "document": "urn:umf:domain:commerce",
+        "element": "products",
+        "module": "domain"
+      },
+      "source": {
+        "path": "data/products.csv",
+        "rawRowBase64": "IlAxIiwiUzEiLCJTS1UxIiwiMTIuNTAiCg==",
+        "rawRowSha256": "526aa22cdf4635409106676442d4a0ccf30ed157945e1ce0f63efc9c4cd77c33",
+        "rowOrdinal": 1,
+        "sha256": "1d2e0659ee22e0764a1c41a4329f994653e5be61df90306c923035ba6c3cc43f"
+      },
+      "sourceRowKey": "[\"ashlar.commerce-csv-literals/0.1\",\"urn:umf:domain:commerce\",\"data/products.csv\",1]"
+    },
+    {
+      "declaredKeys": [
+        {
+          "fields": [
+            {
+              "element": "orders.id",
+              "module": "domain"
+            }
+          ],
+          "id": "identity",
+          "name": "Identity",
+          "primary": true
+        }
+      ],
+      "fields": [
+        {
+          "column": "id",
+          "field": {
+            "element": "orders.id",
+            "module": "domain"
+          },
+          "lexical": "O1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "O1"
+          }
+        },
+        {
+          "column": "customer_id",
+          "field": {
+            "element": "orders.customer_id",
+            "module": "domain"
+          },
+          "lexical": "C1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "C1"
+          }
+        },
+        {
+          "column": "ordered_at",
+          "field": {
+            "element": "orders.ordered_at",
+            "module": "domain"
+          },
+          "lexical": "2026-01-01T12:00:00Z",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "2026-01-01T12:00:00Z"
+          }
+        },
+        {
+          "column": "status",
+          "field": {
+            "element": "orders.status",
+            "module": "domain"
+          },
+          "lexical": "open",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "open"
+          }
+        }
+      ],
+      "record": {
+        "document": "urn:umf:domain:commerce",
+        "element": "orders",
+        "module": "domain"
+      },
+      "source": {
+        "path": "data/orders.csv",
+        "rawRowBase64": "Ik8xIiwiQzEiLCIyMDI2LTAxLTAxVDEyOjAwOjAwWiIsIm9wZW4iCg==",
+        "rawRowSha256": "c2e495c29e9fe59bd3eeeeaa4f4c86b0d9762c4146cc49809c98537df7aca171",
+        "rowOrdinal": 1,
+        "sha256": "88d2bff67d45213af32917b943e2f58a194e56406cb9a22e5121dd1ba1be25ef"
+      },
+      "sourceRowKey": "[\"ashlar.commerce-csv-literals/0.1\",\"urn:umf:domain:commerce\",\"data/orders.csv\",1]"
+    },
+    {
+      "declaredKeys": [
+        {
+          "fields": [
+            {
+              "element": "order_lines.id",
+              "module": "domain"
+            }
+          ],
+          "id": "identity",
+          "name": "Identity",
+          "primary": true
+        }
+      ],
+      "fields": [
+        {
+          "column": "id",
+          "field": {
+            "element": "order_lines.id",
+            "module": "domain"
+          },
+          "lexical": "L1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "L1"
+          }
+        },
+        {
+          "column": "order_id",
+          "field": {
+            "element": "order_lines.order_id",
+            "module": "domain"
+          },
+          "lexical": "O1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "O1"
+          }
+        },
+        {
+          "column": "product_id",
+          "field": {
+            "element": "order_lines.product_id",
+            "module": "domain"
+          },
+          "lexical": "P1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "P1"
+          }
+        },
+        {
+          "column": "quantity",
+          "field": {
+            "element": "order_lines.quantity",
+            "module": "domain"
+          },
+          "lexical": "10",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "integerToken": "10"
+          }
+        }
+      ],
+      "record": {
+        "document": "urn:umf:domain:commerce",
+        "element": "order_lines",
+        "module": "domain"
+      },
+      "source": {
+        "path": "data/order_lines.csv",
+        "rawRowBase64": "IkwxIiwiTzEiLCJQMSIsIjEwIgo=",
+        "rawRowSha256": "009c3114aeffc509a1fc0b4c51072562a71d363de3c5c682ea36be60919de9a2",
+        "rowOrdinal": 1,
+        "sha256": "47cecd72bd1a4389e577b1b590f0cc266b77fd3ce2433853fd8c2f97986cc33e"
+      },
+      "sourceRowKey": "[\"ashlar.commerce-csv-literals/0.1\",\"urn:umf:domain:commerce\",\"data/order_lines.csv\",1]"
+    },
+    {
+      "declaredKeys": [
+        {
+          "fields": [
+            {
+              "element": "fulfillments.id",
+              "module": "domain"
+            }
+          ],
+          "id": "identity",
+          "name": "Identity",
+          "primary": true
+        }
+      ],
+      "fields": [
+        {
+          "column": "id",
+          "field": {
+            "element": "fulfillments.id",
+            "module": "domain"
+          },
+          "lexical": "F1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "F1"
+          }
+        },
+        {
+          "column": "line_id",
+          "field": {
+            "element": "fulfillments.line_id",
+            "module": "domain"
+          },
+          "lexical": "L1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "L1"
+          }
+        },
+        {
+          "column": "quantity",
+          "field": {
+            "element": "fulfillments.quantity",
+            "module": "domain"
+          },
+          "lexical": "6",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "integerToken": "6"
+          }
+        }
+      ],
+      "record": {
+        "document": "urn:umf:domain:commerce",
+        "element": "fulfillments",
+        "module": "domain"
+      },
+      "source": {
+        "path": "data/fulfillments.csv",
+        "rawRowBase64": "IkYxIiwiTDEiLCI2Igo=",
+        "rawRowSha256": "f40f3a8e3c8c1f180621bac8201d2fe23b45e136b640359540313a4dc456a120",
+        "rowOrdinal": 1,
+        "sha256": "cce5d98ad2efe9436d01b0d1ff24efa198bb46e920a4c80deed356719f65250d"
+      },
+      "sourceRowKey": "[\"ashlar.commerce-csv-literals/0.1\",\"urn:umf:domain:commerce\",\"data/fulfillments.csv\",1]"
+    },
+    {
+      "declaredKeys": [
+        {
+          "fields": [
+            {
+              "element": "fulfillments.id",
+              "module": "domain"
+            }
+          ],
+          "id": "identity",
+          "name": "Identity",
+          "primary": true
+        }
+      ],
+      "fields": [
+        {
+          "column": "id",
+          "field": {
+            "element": "fulfillments.id",
+            "module": "domain"
+          },
+          "lexical": "F2",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "F2"
+          }
+        },
+        {
+          "column": "line_id",
+          "field": {
+            "element": "fulfillments.line_id",
+            "module": "domain"
+          },
+          "lexical": "L1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "L1"
+          }
+        },
+        {
+          "column": "quantity",
+          "field": {
+            "element": "fulfillments.quantity",
+            "module": "domain"
+          },
+          "lexical": "11",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "integerToken": "11"
+          }
+        }
+      ],
+      "record": {
+        "document": "urn:umf:domain:commerce",
+        "element": "fulfillments",
+        "module": "domain"
+      },
+      "source": {
+        "path": "data/fulfillments.csv",
+        "rawRowBase64": "IkYyIiwiTDEiLCIxMSIK",
+        "rawRowSha256": "37a7a6f7ce1958291819bbf5297df8e90a0774329323f8d2314b4a5affd54b4b",
+        "rowOrdinal": 2,
+        "sha256": "cce5d98ad2efe9436d01b0d1ff24efa198bb46e920a4c80deed356719f65250d"
+      },
+      "sourceRowKey": "[\"ashlar.commerce-csv-literals/0.1\",\"urn:umf:domain:commerce\",\"data/fulfillments.csv\",2]"
+    },
+    {
+      "declaredKeys": [
+        {
+          "fields": [
+            {
+              "element": "invoices.id",
+              "module": "domain"
+            }
+          ],
+          "id": "identity",
+          "name": "Identity",
+          "primary": true
+        }
+      ],
+      "fields": [
+        {
+          "column": "id",
+          "field": {
+            "element": "invoices.id",
+            "module": "domain"
+          },
+          "lexical": "I1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "I1"
+          }
+        },
+        {
+          "column": "order_id",
+          "field": {
+            "element": "invoices.order_id",
+            "module": "domain"
+          },
+          "lexical": "O1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "O1"
+          }
+        },
+        {
+          "column": "amount",
+          "field": {
+            "element": "invoices.amount",
+            "module": "domain"
+          },
+          "lexical": "125.00",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "decimalToken": "125.00"
+          }
+        },
+        {
+          "column": "currency",
+          "field": {
+            "element": "invoices.currency",
+            "module": "domain"
+          },
+          "lexical": "USD",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "USD"
+          }
+        }
+      ],
+      "record": {
+        "document": "urn:umf:domain:commerce",
+        "element": "invoices",
+        "module": "domain"
+      },
+      "source": {
+        "path": "data/invoices.csv",
+        "rawRowBase64": "IkkxIiwiTzEiLCIxMjUuMDAiLCJVU0QiCg==",
+        "rawRowSha256": "f76c529271953d79331c122dc1d332cf5250799b553ab9d10ca4df8b01368fe1",
+        "rowOrdinal": 1,
+        "sha256": "1aa19948a765e19e7a7805c6cd47ea996abb5cf4249da92f9570368b07ebf919"
+      },
+      "sourceRowKey": "[\"ashlar.commerce-csv-literals/0.1\",\"urn:umf:domain:commerce\",\"data/invoices.csv\",1]"
+    },
+    {
+      "declaredKeys": [
+        {
+          "fields": [
+            {
+              "element": "payments.id",
+              "module": "domain"
+            }
+          ],
+          "id": "identity",
+          "name": "Identity",
+          "primary": true
+        }
+      ],
+      "fields": [
+        {
+          "column": "id",
+          "field": {
+            "element": "payments.id",
+            "module": "domain"
+          },
+          "lexical": "PAY1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "PAY1"
+          }
+        },
+        {
+          "column": "invoice_id",
+          "field": {
+            "element": "payments.invoice_id",
+            "module": "domain"
+          },
+          "lexical": "I1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "I1"
+          }
+        },
+        {
+          "column": "amount",
+          "field": {
+            "element": "payments.amount",
+            "module": "domain"
+          },
+          "lexical": "125.00",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "decimalToken": "125.00"
+          }
+        },
+        {
+          "column": "currency",
+          "field": {
+            "element": "payments.currency",
+            "module": "domain"
+          },
+          "lexical": "USD",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "USD"
+          }
+        }
+      ],
+      "record": {
+        "document": "urn:umf:domain:commerce",
+        "element": "payments",
+        "module": "domain"
+      },
+      "source": {
+        "path": "data/payments.csv",
+        "rawRowBase64": "IlBBWTEiLCJJMSIsIjEyNS4wMCIsIlVTRCIK",
+        "rawRowSha256": "4cb5ef59b701fb3d914d4e712a85128b5d9360b577f4e33d2b40f57a9aac465c",
+        "rowOrdinal": 1,
+        "sha256": "e107ebf5015a0e57696578f147e0100634e7c77ba7ee9d70f37ecf6f3e6c5321"
+      },
+      "sourceRowKey": "[\"ashlar.commerce-csv-literals/0.1\",\"urn:umf:domain:commerce\",\"data/payments.csv\",1]"
+    },
+    {
+      "declaredKeys": [
+        {
+          "fields": [
+            {
+              "element": "returns.id",
+              "module": "domain"
+            }
+          ],
+          "id": "identity",
+          "name": "Identity",
+          "primary": true
+        }
+      ],
+      "fields": [
+        {
+          "column": "id",
+          "field": {
+            "element": "returns.id",
+            "module": "domain"
+          },
+          "lexical": "R1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "R1"
+          }
+        },
+        {
+          "column": "line_id",
+          "field": {
+            "element": "returns.line_id",
+            "module": "domain"
+          },
+          "lexical": "L1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "L1"
+          }
+        },
+        {
+          "column": "quantity",
+          "field": {
+            "element": "returns.quantity",
+            "module": "domain"
+          },
+          "lexical": "2",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "integerToken": "2"
+          }
+        }
+      ],
+      "record": {
+        "document": "urn:umf:domain:commerce",
+        "element": "returns",
+        "module": "domain"
+      },
+      "source": {
+        "path": "data/returns.csv",
+        "rawRowBase64": "IlIxIiwiTDEiLCIyIgo=",
+        "rawRowSha256": "33c26524187e66441cd9dfe98e8b08d629078d1bf5154e7594cf3a8d04fe275d",
+        "rowOrdinal": 1,
+        "sha256": "3a2cae4b5271c8f2f834cc7c7e9efe0514a846b61e708349064c3f33ab143ed4"
+      },
+      "sourceRowKey": "[\"ashlar.commerce-csv-literals/0.1\",\"urn:umf:domain:commerce\",\"data/returns.csv\",1]"
+    },
+    {
+      "declaredKeys": [
+        {
+          "fields": [
+            {
+              "element": "refunds.id",
+              "module": "domain"
+            }
+          ],
+          "id": "identity",
+          "name": "Identity",
+          "primary": true
+        }
+      ],
+      "fields": [
+        {
+          "column": "id",
+          "field": {
+            "element": "refunds.id",
+            "module": "domain"
+          },
+          "lexical": "RF1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "RF1"
+          }
+        },
+        {
+          "column": "return_id",
+          "field": {
+            "element": "refunds.return_id",
+            "module": "domain"
+          },
+          "lexical": "R1",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "R1"
+          }
+        },
+        {
+          "column": "amount",
+          "field": {
+            "element": "refunds.amount",
+            "module": "domain"
+          },
+          "lexical": "25.00",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "decimalToken": "25.00"
+          }
+        },
+        {
+          "column": "currency",
+          "field": {
+            "element": "refunds.currency",
+            "module": "domain"
+          },
+          "lexical": "USD",
+          "presence": "present",
+          "public_umf_validation": "unexecuted",
+          "value": {
+            "string": "USD"
+          }
+        }
+      ],
+      "record": {
+        "document": "urn:umf:domain:commerce",
+        "element": "refunds",
+        "module": "domain"
+      },
+      "source": {
+        "path": "data/refunds.csv",
+        "rawRowBase64": "IlJGMSIsIlIxIiwiMjUuMDAiLCJVU0QiCg==",
+        "rawRowSha256": "e350ff18578dcb4b3a00e2c03beff77acdf9a17f01fe0b7fc1fa2f076ce8a349",
+        "rowOrdinal": 1,
+        "sha256": "36ed1bd1673f17a3a949d926e3155cf573b7f1ae86f16215a70a1a89a8cb8333"
+      },
+      "sourceRowKey": "[\"ashlar.commerce-csv-literals/0.1\",\"urn:umf:domain:commerce\",\"data/refunds.csv\",1]"
+    }
+  ],
+  "rules": {
+    "identity": "Source-row address is injective path/ordinal provenance, not an encoded logical key, graph storage ID or Truss accepted ID.",
+    "numbers": "Exact decoded CSV text in integerToken/decimalToken; no parsing, normalization or rounding. Public UMF validation still required.",
+    "presence": "Every existing CSV cell is present. Missing/extra columns refuse. No null sentinel or default substitution is declared.",
+    "strings": "Exact decoded CSV text; empty text and literal null remain strings.",
+    "time": "ordered_at is declared string and remains string; no timestamp inference."
+  },
+  "sources": [
+    {
+      "bytes": 35,
+      "declaredForeignKeys": [],
+      "path": "data/customers.csv",
+      "rows": 1,
+      "sha256": "56efc5b9eacf47b8fdf794309785cc62b05f54565ed17ab7f02a23c759dfd28c",
+      "sourceBase64": "ImlkIiwibmFtZSIKIkMxIiwiU3ludGhldGljIGNhZsOpIgo="
+    },
+    {
+      "bytes": 36,
+      "declaredForeignKeys": [],
+      "path": "data/suppliers.csv",
+      "rows": 1,
+      "sha256": "625888093e3ec19b18c326d84d47eba0f29e77f92c801eda80c63a39301088fb",
+      "sourceBase64": "ImlkIiwibmFtZSIKIlMxIiwiU3ludGhldGljIHN1cHBseSIK"
+    },
+    {
+      "bytes": 63,
+      "declaredForeignKeys": [
+        {
+          "column": "supplier_id",
+          "references_column": "id",
+          "references_table": "suppliers"
+        }
+      ],
+      "path": "data/products.csv",
+      "rows": 1,
+      "sha256": "1d2e0659ee22e0764a1c41a4329f994653e5be61df90306c923035ba6c3cc43f",
+      "sourceBase64": "ImlkIiwic3VwcGxpZXJfaWQiLCJza3UiLCJ1bml0X3ByaWNlIgoiUDEiLCJTMSIsIlNLVTEiLCIxMi41MCIK"
+    },
+    {
+      "bytes": 81,
+      "declaredForeignKeys": [
+        {
+          "column": "customer_id",
+          "references_column": "id",
+          "references_table": "customers"
+        }
+      ],
+      "path": "data/orders.csv",
+      "rows": 1,
+      "sha256": "88d2bff67d45213af32917b943e2f58a194e56406cb9a22e5121dd1ba1be25ef",
+      "sourceBase64": "ImlkIiwiY3VzdG9tZXJfaWQiLCJvcmRlcmVkX2F0Iiwic3RhdHVzIgoiTzEiLCJDMSIsIjIwMjYtMDEtMDFUMTI6MDA6MDBaIiwib3BlbiIK"
+    },
+    {
+      "bytes": 60,
+      "declaredForeignKeys": [
+        {
+          "column": "order_id",
+          "references_column": "id",
+          "references_table": "orders"
+        },
+        {
+          "column": "product_id",
+          "references_column": "id",
+          "references_table": "products"
+        }
+      ],
+      "path": "data/order_lines.csv",
+      "rows": 1,
+      "sha256": "47cecd72bd1a4389e577b1b590f0cc266b77fd3ce2433853fd8c2f97986cc33e",
+      "sourceBase64": "ImlkIiwib3JkZXJfaWQiLCJwcm9kdWN0X2lkIiwicXVhbnRpdHkiCiJMMSIsIk8xIiwiUDEiLCIxMCIK"
+    },
+    {
+      "bytes": 55,
+      "declaredForeignKeys": [
+        {
+          "column": "line_id",
+          "references_column": "id",
+          "references_table": "order_lines"
+        }
+      ],
+      "path": "data/fulfillments.csv",
+      "rows": 2,
+      "sha256": "cce5d98ad2efe9436d01b0d1ff24efa198bb46e920a4c80deed356719f65250d",
+      "sourceBase64": "ImlkIiwibGluZV9pZCIsInF1YW50aXR5IgoiRjEiLCJMMSIsIjYiCiJGMiIsIkwxIiwiMTEiCg=="
+    },
+    {
+      "bytes": 61,
+      "declaredForeignKeys": [
+        {
+          "column": "order_id",
+          "references_column": "id",
+          "references_table": "orders"
+        }
+      ],
+      "path": "data/invoices.csv",
+      "rows": 1,
+      "sha256": "1aa19948a765e19e7a7805c6cd47ea996abb5cf4249da92f9570368b07ebf919",
+      "sourceBase64": "ImlkIiwib3JkZXJfaWQiLCJhbW91bnQiLCJjdXJyZW5jeSIKIkkxIiwiTzEiLCIxMjUuMDAiLCJVU0QiCg=="
+    },
+    {
+      "bytes": 65,
+      "declaredForeignKeys": [
+        {
+          "column": "invoice_id",
+          "references_column": "id",
+          "references_table": "invoices"
+        }
+      ],
+      "path": "data/payments.csv",
+      "rows": 1,
+      "sha256": "e107ebf5015a0e57696578f147e0100634e7c77ba7ee9d70f37ecf6f3e6c5321",
+      "sourceBase64": "ImlkIiwiaW52b2ljZV9pZCIsImFtb3VudCIsImN1cnJlbmN5IgoiUEFZMSIsIkkxIiwiMTI1LjAwIiwiVVNEIgo="
+    },
+    {
+      "bytes": 40,
+      "declaredForeignKeys": [
+        {
+          "column": "line_id",
+          "references_column": "id",
+          "references_table": "order_lines"
+        }
+      ],
+      "path": "data/returns.csv",
+      "rows": 1,
+      "sha256": "3a2cae4b5271c8f2f834cc7c7e9efe0514a846b61e708349064c3f33ab143ed4",
+      "sourceBase64": "ImlkIiwibGluZV9pZCIsInF1YW50aXR5IgoiUjEiLCJMMSIsIjIiCg=="
+    },
+    {
+      "bytes": 62,
+      "declaredForeignKeys": [
+        {
+          "column": "return_id",
+          "references_column": "id",
+          "references_table": "returns"
+        }
+      ],
+      "path": "data/refunds.csv",
+      "rows": 1,
+      "sha256": "36ed1bd1673f17a3a949d926e3155cf573b7f1ae86f16215a70a1a89a8cb8333",
+      "sourceBase64": "ImlkIiwicmV0dXJuX2lkIiwiYW1vdW50IiwiY3VycmVuY3kiCiJSRjEiLCJSMSIsIjI1LjAwIiwiVVNEIgo="
+    }
+  ],
+  "upstreamCommit": "1f7b5f5d2a355c4b476e3a96b289b9048f03f567",
+  "version": "0.1"
+}

@@ -119,3 +119,87 @@ def decode_exact_scalar(representation, value, *, count=False):
     if len(coefficient.lstrip('0'))>facets['precision']:
         raise fail('Decimal precision outside declared domain')
     return ExactScalar(Decimal(value),value)
+
+
+def admit_compiled_count(column,artifact,policy,intake):
+    """Admit a proved global COUNT from original public 0.2 IR.
+
+    Host must supply its freshly recompiled/admitted original artifact; this helper
+    does not authenticate compiler custody or execute its obligations. Only one
+    unfiltered, unjoined global COUNT over an admitted string Record is added.
+    SQL text is never interpreted to identify aggregation. Numeric Fields, SUM,
+    grouped counts and other logical plans remain outside this result route.
+    """
+    from .semantic_policy import StringRecordPolicy
+    from .schema import SchemaIntake
+    if not isinstance(policy,StringRecordPolicy) or not isinstance(intake,SchemaIntake) or policy.source_sha256!=intake.source_sha256:
+        raise ResolutionError('Original admitted string policy and intake required')
+    if type(artifact) is not dict or type(column) is not dict:
+        raise ResolutionError('Original compiled column required')
+    columns=artifact.get('columns')
+    if type(columns) is not list or not columns or any(type(c) is not dict or type(c.get('position')) is not int or c['position']!=i for i,c in enumerate(columns,1)):
+        raise ResolutionError('Complete ordered original compiler columns required')
+    if type(column.get('position')) is not int or not 1<=column['position']<=len(columns) or columns[column['position']-1]!=column:
+        raise ResolutionError('Result column differs from original compiler output')
+    representation=column.get('representation')
+    if type(representation) is not dict:raise ResolutionError('Result representation required')
+    logical=representation.get('logicalType')
+    if representation.get('kind')=='scalar' and type(logical) is not dict:
+        raise ResolutionError('Complete scalar logical type required')
+    if representation.get('kind')!='scalar' or logical.get('family')!='integer':
+        raise ResolutionError('Only scalar integer COUNT can be admitted')
+    pin={'documentId':intake.document_id,'revision':intake.document_revision,'sha256':intake.source_sha256,'umfVersion':'0.7.0'}
+    if artifact.get('status')!='compiled' or artifact.get('interfaceVersion')!='weft-compile/0.2.0' or artifact.get('dialect')!='weft-sql/0.2.0' or artifact.get('compilerVersion')!='weft/0.1.0' or artifact.get('modelPins')!=[pin]:
+        raise ResolutionError('Exact original compiler/model count artifact required')
+    plan=artifact.get('logicalPlan')
+    expected_keys={'aggregate','filters','groups','irVersion','joins','limit','modulePins','order','outputs','pageKey','readProfile','requiredCapabilities','source','typeGraph'}
+    if type(plan) is not dict or set(plan)!=expected_keys or plan['irVersion']!='weft-ir/0.2.0' or plan['aggregate'] is not True or plan['modulePins']!=[pin]:
+        raise ResolutionError('Original public aggregate IR required')
+    if any(plan[k]!=[] for k in ['filters','groups','joins','order','typeGraph']) or any(plan[k] is not None for k in ['limit','pageKey','readProfile']) or plan['requiredCapabilities']!=['aggregate','aggregate.count','project','scan']:
+        raise ResolutionError('Only unfiltered single-record global COUNT admitted')
+    source=plan['source']
+    if type(source) is not dict or set(source)!= {'occurrence','pin','record'} or source['occurrence']!='s0' or source['pin']!=pin:
+        raise ResolutionError('Exact original count source required')
+    identity=source['record']
+    admitted=[{'documentId':intake.document_id,'revision':intake.document_revision,'module':module,'element':element} for module,element in policy.record_identities.values()]
+    if identity not in admitted or column.get('sourceIdentities')!=[identity]:
+        raise ResolutionError('Count source must correspond to admitted Record identity')
+    logical={'family':'integer','facets':{},'nullable':False}
+    if len(columns)!=1 or set(column)!= {'nullable','outputName','position','representation','sourceIdentities'} or column['nullable'] is not False or type(column['outputName']) is not str or not column['outputName']:
+        raise ResolutionError('One complete non-null global count column required')
+    if plan['outputs']!=[{'name':column['outputName'],'expression':{'op':'count','type':logical}}]:
+        raise ResolutionError('Original output expression must prove COUNT')
+    if representation != {'kind':'scalar','logicalType':logical,'carrier':'text','decoder':'exact-integer'} or logical != {'family':'integer','facets':{},'nullable':False}:
+        raise ResolutionError('Exact non-null facetless COUNT representation required')
+    return MappingProxyType(dict(identity))
+
+
+def decode_compiled_column(column,value,artifact,policy,intake):
+    """Decode admitted COUNT with original carrier custody, or existing strings.
+
+    Host must admit/recompile the original artifact and execute every obligation.
+    Metadata admission never manufactures a value observation.
+    """
+    if type(column) is not dict or type(column.get('representation')) is not dict:
+        raise ResolutionError('Complete original compiler column required')
+    representation=column['representation']
+    if representation.get('kind')=='scalar':
+        logical=representation.get('logicalType')
+        if type(logical) is not dict:raise ResolutionError('Complete scalar logical type required')
+        if logical.get('family')=='integer':
+            admit_compiled_count(column,artifact,policy,intake)
+            return decode_exact_scalar(representation,value,count=True)
+    columns=artifact.get('columns') if type(artifact) is dict else None
+    if type(columns) is not list or any(type(c) is not dict or type(c.get('position')) is not int or c['position']!=i for i,c in enumerate(columns,1)) or type(column.get('position')) is not int or not 1<=column['position']<=len(columns) or columns[column['position']-1]!=column:
+        raise ResolutionError('Complete ordered original compiler columns required')
+    return decode_string_column(column,value,policy,intake)
+
+
+def admit_count_rows(rows):
+    """Require the single exact global COUNT cell, including an empty-input zero."""
+    if type(rows) is not tuple or len(rows)!=1 or type(rows[0]) is not tuple or len(rows[0])!=1 or not isinstance(rows[0][0],ExactScalar):
+        raise ResolutionError('Global COUNT requires exactly one decoded result cell')
+    cell=rows[0][0]
+    representation={'kind':'scalar','logicalType':{'family':'integer','facets':{},'nullable':False},'carrier':'text','decoder':'exact-integer'}
+    if type(cell.value) is not int or cell!=decode_exact_scalar(representation,cell.original,count=True):
+        raise ResolutionError('Exact original COUNT cell required')

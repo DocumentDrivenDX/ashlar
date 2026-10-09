@@ -55,3 +55,50 @@ class WeftQueryTests(unittest.TestCase):
             self.assertFalse(p.active)
             if failure in ['unknown','profile']:self.assertEqual(e.calls,[])
             if failure=='integrity':self.assertEqual(len(e.calls),1)
+
+    def test_record_integrity_requires_explicit_host_admission_before_sql(self):
+        for outcome in ['missing','deny','incomplete','admitted','violation']:
+            q,a,p,e,policy=self.setup()
+            guards=next(o for o in a['obligations'] if o['id']=='ashlar.candidate.scalarIntegrity')['parameters']['checks']
+            guards[:]=[{'sql':guards[0]['sql'],'failureCode':'WFT-BINDING','record':guards[0]['record']}]
+            calls=[]
+            if outcome!='missing':
+                def admit(check,artifact,context):
+                    self.assertTrue(p.active);calls.append(check)
+                    if outcome=='deny':raise PermissionError('Record scope refused')
+                    return True if outcome=='incomplete' else None
+                policy.admit_record_integrity=admit
+            if outcome=='violation':e.violate=True
+            if outcome=='admitted':
+                self.read(q,a,p,e,policy);self.assertEqual(len(calls),2);self.assertEqual(len(e.calls),2)
+            else:
+                with self.assertRaises((ResolutionError,PermissionError)):self.read(q,a,p,e,policy)
+                self.assertEqual(len(e.calls),1 if outcome=='violation' else 0)
+            self.assertFalse(p.active)
+
+    def test_unsupported_real_count_plan_refuses_before_any_sql_with_empty_result(self):
+        import subprocess,sys
+        from run_local_example import fixture_inputs
+        from ashlar.weft_decode import admit_compiled_count
+        from test_weft_decode import CompiledCountTests
+        CompiledCountTests.setUpClass()
+        intake,semantic,_=fixture_inputs()
+        for sql in ["SELECT COUNT(*) AS n FROM Item i WHERE i.label = 'updated'",
+                    'SELECT i.label, COUNT(*) AS n FROM Item i GROUP BY i.label ORDER BY i.label LIMIT 10']:
+            q,a,p,e,policy=self.setup();q=copy.deepcopy(q);q['sql']=sql
+            code='import json,sys;sys.path.insert(0,sys.argv[1]);import weft;print(weft.compile_json(sys.stdin.read()))'
+            result=subprocess.run([sys.executable,'-c',code,'/private/tmp/ashlar-weft-python'],input=json.dumps(q),capture_output=True,text=True,check=True)
+            a=json.loads(result.stdout);self.assertEqual(a['status'],'compiled')
+            next(o for o in a['obligations'] if o['id']=='ashlar.candidate.publication')['parameters']['publication']['id']='p1'
+            e.a=a
+            def admit(request,artifact,*args):
+                for column in artifact['columns']:
+                    if column['representation'].get('logicalType',{}).get('family')=='integer':
+                        admit_compiled_count(column,artifact,semantic,intake)
+            policy.admit_artifact=admit
+            # Any execution would return zero rows; admission must refuse first.
+            def empty_query(sql,params):
+                e.calls.append((sql,params));return SQLResult([],tuple((c['outputName'],'STRING') for c in a['columns']))
+            e.query=empty_query
+            with self.assertRaises(ResolutionError):self.read(q,a,p,e,policy)
+            self.assertEqual(e.calls,[]);self.assertFalse(p.active)

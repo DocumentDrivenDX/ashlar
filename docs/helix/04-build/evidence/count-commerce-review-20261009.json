@@ -1,0 +1,26 @@
+{
+  "reviewer": "gpt-6-astra ultra",
+  "disposition": "approved",
+  "tests": {
+    "weft": 21,
+    "commerce": 10
+  },
+  "checks": [
+    "Unsupported actual compiler COUNT plans refuse before SQL including empty results",
+    "Global COUNT requires exactly one exact original integer cell",
+    "Native COUNT1 matches independent expected current object count; checkpoint1828 unchanged",
+    "Native evidence explicitly discloses final cardinality guard added after process start and captured-result validation",
+    "Commerce source cells remain lexical and original bytes retained;37 public field checks pass without Record/key/relationship/storage admission claim"
+  ],
+  "scope": [
+    "src/ashlar/weft_decode.py",
+    "src/ashlar/weft_query.py",
+    "tools/run_native_source_stream.py",
+    "tools/prepare_commerce_values.py"
+  ],
+  "limitations": [
+    "Only admitted unfiltered global COUNT over original qualified0.7 stringRecord profile",
+    "No domain0.8 Weft, full graph engine, Truss or scale qualification",
+    "Existing Pages CI path filters do not trigger for this slice; local targeted tests pass"
+  ]
+}

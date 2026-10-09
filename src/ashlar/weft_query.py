@@ -24,10 +24,18 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
     expected={'noPartialPublication':True,'parameters':'same emitted ordered slots; values never interpolated','phase':'before-user-query','samePublicationRequired':True,'success':'one exact STRING count equal to 0 per check'}
     if set(guards)!=set(expected)|{'checks'} or any(guards[k]!=v for k,v in expected.items()) or not isinstance(guards['checks'],list):
         raise ResolutionError('Unknown integrity execution meaning')
-    checks=[]
+    checks=[];record_checks=[]
     for check in guards['checks']:
-        if set(check)!= {'sql','failureCode','field','record'} or check['failureCode']!='WFT-NUMERIC-DOMAIN' or not isinstance(check['sql'],str) or not check['sql']:
+        if type(check) is not dict or not isinstance(check.get('sql'),str) or not check['sql']:
             raise ResolutionError('Unknown integrity check meaning')
+        if set(check)=={'sql','failureCode','field','record'} and check['failureCode']=='WFT-NUMERIC-DOMAIN':
+            pass
+        elif set(check)=={'sql','failureCode','record'} and check['failureCode']=='WFT-BINDING':
+            identity=check['record']
+            if type(identity) is not dict or set(identity)!= {'documentId','revision','module','element'} or any(type(v) is not str or not v for v in identity.values()):
+                raise ResolutionError('Exact record integrity identity required')
+            record_checks.append(check)
+        else:raise ResolutionError('Unknown integrity check meaning')
         checks.append(check['sql'])
     parameters={}
     for ordinal,slot in enumerate(artifact.get('parameters',[]),1):
@@ -48,6 +56,10 @@ def read_weft(executor,backend,pins,vector,policy,*,request,artifact,context,sup
                          lambda:policy.verify_native_profile(obligations['ashlar.nativeProfile']['parameters'],context),
                          lambda:policy.authorize_query(request,resolved.descriptor,context)]:
                 if call() is not None:raise ResolutionError('Incomplete Weft host admission')
+            for check in record_checks:
+                callback=getattr(policy,'admit_record_integrity',None)
+                if not callable(callback) or callback(check,artifact,context) is not None:
+                    raise ResolutionError('Explicit record integrity admission required')
         admit()
         for sql in checks:
             result=executor.query(sql,parameters)
