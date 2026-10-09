@@ -1,0 +1,700 @@
+{
+  "format": "ashlar-local-weft-typed-spark4/0.1",
+  "state": "passed-local-unchanged-typed-sql",
+  "engine_profile": "experimental-spark4.0.1-delta4.0.0",
+  "engine_version": "4.0.1",
+  "jar_sha256": {
+    "delta-spark_2.13-4.0.0.jar": "538511702aae0ef6973a6a70af3d4543c9009f8edbed786a00737e2d3cd7f04e",
+    "delta-storage-4.0.0.jar": "9bdb9fb450f1e119eba53feb427f331b0d09072d26485b8273883ad72c9a2e1d"
+  },
+  "compiler_revision": "2744531735c2a771fbe7ed24a7f67e3afc851b25",
+  "extension_sha256": "4eaadc7b9512c904665b9f554296c2a0ef03ad08d2587748b1e6292ae9a34004",
+  "umf_revision": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+  "source_sha256": "4cab993ea0b909e2353c32605edc558db1229fe51a6d8deb2291c9fc422c7153",
+  "table": {
+    "name": [
+      "spark_catalog",
+      "default",
+      "object_current"
+    ],
+    "uuid": "854629ce-2b71-46a7-9d19-063de2cc0759",
+    "version": 1
+  },
+  "public_record_passes": 2,
+  "public_field_passes": 8,
+  "original_props_roundtrip": true,
+  "retained_snapshot_after_refusals": true,
+  "refusals": [
+    {
+      "field": "quantity",
+      "props_json": "{\"31\":9223372036854775808,\"32\":12.50,\"33\":true,\"34\":\"雪\"}",
+      "table": {
+        "name": [
+          "spark_catalog",
+          "default",
+          "object_current"
+        ],
+        "uuid": "854629ce-2b71-46a7-9d19-063de2cc0759",
+        "version": 2
+      },
+      "checks": [
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "active",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BOOLEAN') THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "amount",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p5)) = 'BIGINT' OR (schema_of_variant(variant_get(parse_json(r.props_json), :p5)) RLIKE '^DECIMAL\\\\([0-9]+,[0-9]+\\\\)$' AND coalesce(try_cast(regexp_extract(schema_of_variant(variant_get(parse_json(r.props_json), :p5)), ',([0-9]+)\\\\)$', 1) AS INT), 0) <= 2)) AND try_cast(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS DECIMAL(18,2)) IS NOT NULL) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "label",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p6)) = 'STRING' AND instr(CAST(variant_get(parse_json(r.props_json), :p6) AS STRING), char(0)) = 0) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "quantity",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 2 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p7)) = 'BIGINT' OR schema_of_variant(variant_get(parse_json(r.props_json), :p7)) RLIKE '^DECIMAL\\\\([0-9]+,0\\\\)$') AND try_cast(CAST(variant_get(parse_json(r.props_json), :p7) AS STRING) AS DECIMAL(38,0)) BETWEEN -9223372036854775808 AND 9223372036854775807) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "1"
+            }
+          ]
+        }
+      ],
+      "user_sql_executed": false
+    },
+    {
+      "field": "amount",
+      "props_json": "{\"31\":1,\"32\":12.501,\"33\":true,\"34\":\"雪\"}",
+      "table": {
+        "name": [
+          "spark_catalog",
+          "default",
+          "object_current"
+        ],
+        "uuid": "854629ce-2b71-46a7-9d19-063de2cc0759",
+        "version": 3
+      },
+      "checks": [
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "active",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 3 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BOOLEAN') THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "amount",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 3 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p5)) = 'BIGINT' OR (schema_of_variant(variant_get(parse_json(r.props_json), :p5)) RLIKE '^DECIMAL\\\\([0-9]+,[0-9]+\\\\)$' AND coalesce(try_cast(regexp_extract(schema_of_variant(variant_get(parse_json(r.props_json), :p5)), ',([0-9]+)\\\\)$', 1) AS INT), 0) <= 2)) AND try_cast(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS DECIMAL(18,2)) IS NOT NULL) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "1"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "label",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 3 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p6)) = 'STRING' AND instr(CAST(variant_get(parse_json(r.props_json), :p6) AS STRING), char(0)) = 0) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "quantity",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 3 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p7)) = 'BIGINT' OR schema_of_variant(variant_get(parse_json(r.props_json), :p7)) RLIKE '^DECIMAL\\\\([0-9]+,0\\\\)$') AND try_cast(CAST(variant_get(parse_json(r.props_json), :p7) AS STRING) AS DECIMAL(38,0)) BETWEEN -9223372036854775808 AND 9223372036854775807) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        }
+      ],
+      "user_sql_executed": false
+    },
+    {
+      "field": "active",
+      "props_json": "{\"31\":1,\"32\":12.50,\"33\":\"true\",\"34\":\"雪\"}",
+      "table": {
+        "name": [
+          "spark_catalog",
+          "default",
+          "object_current"
+        ],
+        "uuid": "854629ce-2b71-46a7-9d19-063de2cc0759",
+        "version": 4
+      },
+      "checks": [
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "active",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 4 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BOOLEAN') THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "1"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "amount",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 4 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p5)) = 'BIGINT' OR (schema_of_variant(variant_get(parse_json(r.props_json), :p5)) RLIKE '^DECIMAL\\\\([0-9]+,[0-9]+\\\\)$' AND coalesce(try_cast(regexp_extract(schema_of_variant(variant_get(parse_json(r.props_json), :p5)), ',([0-9]+)\\\\)$', 1) AS INT), 0) <= 2)) AND try_cast(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS DECIMAL(18,2)) IS NOT NULL) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "label",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 4 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p6)) = 'STRING' AND instr(CAST(variant_get(parse_json(r.props_json), :p6) AS STRING), char(0)) = 0) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "quantity",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 4 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p7)) = 'BIGINT' OR schema_of_variant(variant_get(parse_json(r.props_json), :p7)) RLIKE '^DECIMAL\\\\([0-9]+,0\\\\)$') AND try_cast(CAST(variant_get(parse_json(r.props_json), :p7) AS STRING) AS DECIMAL(38,0)) BETWEEN -9223372036854775808 AND 9223372036854775807) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        }
+      ],
+      "user_sql_executed": false
+    }
+  ],
+  "probes": [
+    {
+      "name": "select",
+      "state": "passed-unchanged-local-sql",
+      "integrity": [
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "active",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BOOLEAN') THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "amount",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p5)) = 'BIGINT' OR (schema_of_variant(variant_get(parse_json(r.props_json), :p5)) RLIKE '^DECIMAL\\\\([0-9]+,[0-9]+\\\\)$' AND coalesce(try_cast(regexp_extract(schema_of_variant(variant_get(parse_json(r.props_json), :p5)), ',([0-9]+)\\\\)$', 1) AS INT), 0) <= 2)) AND try_cast(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS DECIMAL(18,2)) IS NOT NULL) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "label",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p6)) = 'STRING' AND instr(CAST(variant_get(parse_json(r.props_json), :p6) AS STRING), char(0)) = 0) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "quantity",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p7)) = 'BIGINT' OR schema_of_variant(variant_get(parse_json(r.props_json), :p7)) RLIKE '^DECIMAL\\\\([0-9]+,0\\\\)$') AND try_cast(CAST(variant_get(parse_json(r.props_json), :p7) AS STRING) AS DECIMAL(38,0)) BETWEEN -9223372036854775808 AND 9223372036854775807) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        }
+      ],
+      "rows": [
+        {
+          "quantity": "2",
+          "amount": "40.00",
+          "active": "false",
+          "label": "second"
+        },
+        {
+          "quantity": "9007199254740993",
+          "amount": "12.50",
+          "active": "true",
+          "label": "雪"
+        }
+      ],
+      "profile_admitted": false,
+      "publication_guard": "refused: local table has no immutable native manifest/authorization/pin authority",
+      "native_profile_guard": "refused: independent Spark4.0.1 is not dbsql2026.39-qualified",
+      "published": false
+    },
+    {
+      "name": "filter",
+      "state": "passed-unchanged-local-sql",
+      "integrity": [
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "active",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BOOLEAN') THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "amount",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p5)) = 'BIGINT' OR (schema_of_variant(variant_get(parse_json(r.props_json), :p5)) RLIKE '^DECIMAL\\\\([0-9]+,[0-9]+\\\\)$' AND coalesce(try_cast(regexp_extract(schema_of_variant(variant_get(parse_json(r.props_json), :p5)), ',([0-9]+)\\\\)$', 1) AS INT), 0) <= 2)) AND try_cast(CAST(variant_get(parse_json(r.props_json), :p5) AS STRING) AS DECIMAL(18,2)) IS NOT NULL) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "quantity",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p6)) = 'BIGINT' OR schema_of_variant(variant_get(parse_json(r.props_json), :p6)) RLIKE '^DECIMAL\\\\([0-9]+,0\\\\)$') AND try_cast(CAST(variant_get(parse_json(r.props_json), :p6) AS STRING) AS DECIMAL(38,0)) BETWEEN -9223372036854775808 AND 9223372036854775807) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        }
+      ],
+      "rows": [
+        {
+          "quantity": "9007199254740993",
+          "amount": "12.50"
+        }
+      ],
+      "profile_admitted": false,
+      "publication_guard": "refused: local table has no immutable native manifest/authorization/pin authority",
+      "native_profile_guard": "refused: independent Spark4.0.1 is not dbsql2026.39-qualified",
+      "published": false
+    },
+    {
+      "name": "group-count",
+      "state": "passed-unchanged-local-sql",
+      "integrity": [
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "active",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND (schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BOOLEAN') THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        }
+      ],
+      "rows": [
+        {
+          "active": "false",
+          "n": "1"
+        },
+        {
+          "active": "true",
+          "n": "1"
+        }
+      ],
+      "profile_admitted": false,
+      "publication_guard": "refused: local table has no immutable native manifest/authorization/pin authority",
+      "native_profile_guard": "refused: independent Spark4.0.1 is not dbsql2026.39-qualified",
+      "published": false
+    },
+    {
+      "name": "join",
+      "state": "passed-unchanged-local-sql",
+      "integrity": [
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "quantity",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p4)) = 'BIGINT' OR schema_of_variant(variant_get(parse_json(r.props_json), :p4)) RLIKE '^DECIMAL\\\\([0-9]+,0\\\\)$') AND try_cast(CAST(variant_get(parse_json(r.props_json), :p4) AS STRING) AS DECIMAL(38,0)) BETWEEN -9223372036854775808 AND 9223372036854775807) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        },
+        {
+          "check": {
+            "failureCode": "WFT-NUMERIC-DOMAIN",
+            "field": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "quantity",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p5 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p6 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p7 COLLATE UTF8_BINARY)) AND ((schema_of_variant(variant_get(parse_json(r.props_json), :p8)) = 'BIGINT' OR schema_of_variant(variant_get(parse_json(r.props_json), :p8)) RLIKE '^DECIMAL\\\\([0-9]+,0\\\\)$') AND try_cast(CAST(variant_get(parse_json(r.props_json), :p8) AS STRING) AS DECIMAL(38,0)) BETWEEN -9223372036854775808 AND 9223372036854775807) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        }
+      ],
+      "rows": [
+        {
+          "left_quantity": "2",
+          "right_quantity": "2"
+        },
+        {
+          "left_quantity": "9007199254740993",
+          "right_quantity": "9007199254740993"
+        }
+      ],
+      "profile_admitted": false,
+      "publication_guard": "refused: local table has no immutable native manifest/authorization/pin authority",
+      "native_profile_guard": "refused: independent Spark4.0.1 is not dbsql2026.39-qualified",
+      "published": false
+    },
+    {
+      "name": "count",
+      "state": "passed-unchanged-local-sql",
+      "integrity": [
+        {
+          "check": {
+            "failureCode": "WFT-BINDING",
+            "record": {
+              "documentId": "ashlar-independent-weft-typed-local",
+              "element": "item",
+              "module": "typed",
+              "revision": "local-1"
+            },
+            "sql": "SELECT CAST(CASE WHEN MAX(1) IS NULL THEN CAST(0 AS DECIMAL(38,0)) WHEN TRY_SUM(CAST(1 AS DECIMAL(38,0))) IS NULL THEN raise_error('WFT-NUMERIC-DOMAIN') ELSE TRY_SUM(CAST(1 AS DECIMAL(38,0))) END AS STRING) AS violations FROM `spark_catalog`.`default`.`object_current` VERSION AS OF 1 r WHERE (r.source_system COLLATE UTF8_BINARY) = (:p1 COLLATE UTF8_BINARY) AND r.type_id = CAST(:p2 AS BIGINT) AND CASE WHEN ((r.schema_revision COLLATE UTF8_BINARY) = (:p3 COLLATE UTF8_BINARY)) THEN FALSE ELSE TRUE END"
+          },
+          "rows": [
+            {
+              "violations": "0"
+            }
+          ]
+        }
+      ],
+      "rows": [
+        {
+          "n": "2"
+        }
+      ],
+      "profile_admitted": false,
+      "publication_guard": "refused: local table has no immutable native manifest/authorization/pin authority",
+      "native_profile_guard": "refused: independent Spark4.0.1 is not dbsql2026.39-qualified",
+      "published": false
+    }
+  ],
+  "published": false,
+  "acknowledged": false,
+  "qualification": "Actual original Weft typed SQL and every emitted scalar-integrity statement on two local Delta rows, original public UMF upgrade/field checks and exact values. Independent experimental engine screening only; no Databricks native-profile or publication/runtime authorization claim."
+}

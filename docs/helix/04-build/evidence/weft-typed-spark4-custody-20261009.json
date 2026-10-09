@@ -1,0 +1,37 @@
+{
+  "original_output": "/private/tmp/ashlar-weft-typed-spark4-20261009-b",
+  "report_sha256": "e051b70165a6bb1c38d7d2aa6650cfaa4e9acd5cbd2bc6f7cb0d69ce3c5568a8",
+  "artifacts": {
+    "summary.json": "e051b70165a6bb1c38d7d2aa6650cfaa4e9acd5cbd2bc6f7cb0d69ce3c5568a8",
+    "refusal-active-request.json": "462dcf68cd1e90df5c09025b870a918d9a43976d1e20fd8b3eb79697b45a0917",
+    "count-request.json": "6c98e82a4eb1b83c12e03f7200ea244de78826e6d5702f799bc3fb9348b4f9c5",
+    "refusal-amount-artifact.json": "f9f5e48d0e903da6c81d3e67cfed6ad894b2142294243da25a8368cf3dd7a770",
+    "umf-request.json": "18e96f36faad56f1983f9beaaba99445cab9ddef08d06283acc47b9c2c0b0f9b",
+    "refusal-amount-request.json": "00f039e447589849d2f7bdb79f3bede80686b380e14557b8fda007a712081d89",
+    "refusal-active-artifact.json": "82210c9c90d0808012d705e1d1cc9777067932d16a86319257ffb87d91d2ac91",
+    "local-table.json": "d9a7ebca6fe4d3cd7a34d53c2d47dcbce05fdbcb315224437e713f9ee64d4794",
+    "group-count-request.json": "6c7c8c31dd9fc323756d92e049715bbceef9e154c8957f65f1c74d77662bae51",
+    "count-artifact.json": "4fe950be93ef907bd99865aa4522d5ff9a5f34d328c62b1c2d1f4e9fda6f8280",
+    "refusal-quantity-artifact.json": "e8344501b39a0ebaac35add2b062f31dd84845e20c6569026375fc8474b9b2c8",
+    "group-count-artifact.json": "e616d91e09ffb2fb1b4eb3af314db8113f93e8a10340e0f2197899324f95628b",
+    "select-artifact.json": "95e795b0c7d223e060c757f045181374bf6dae1ceaadb23aea4edc4593b5c0c4",
+    "umf-receipt.json": "76d92548c074d19521e702e923e0bb9e1a9def3792722897b0d799907a631197",
+    "select-request.json": "2cd9045d0b98db6f43bf497501fdb1009ef7008e4a88f54a4a07993acff8c598",
+    "filter-artifact.json": "d21dac68bba30b201e08cc17d0f2d81058826ed62e5ed4b5fc4067a3c8dde291",
+    "filter-request.json": "fc371b03cf1ea981dc6223d3f27184da7e3df1428f8820584adb5917aa826fdb",
+    "refusal-quantity-request.json": "b8a153c681079d8cc1cf52190593d769785003a26d2e47a71313758daefe63ee",
+    "join-artifact.json": "ae893c421715094c817460270d8279644a3b6ec5d6cc3d999e41584bd51f34f6",
+    "join-request.json": "1b2f0cf6d7cd85b8b12453b744d129743c055451c6b4cf73e76a460a0ba7e560",
+    "object_current/_delta_log/00000000000000000001.json": "a7f2b4e01cf9723901e0f4b450c7a0f37a9ac15fa3afb9c4da20f46bf0c89193",
+    "object_current/_delta_log/00000000000000000000.json": "596ee8195659cb863526d641bad3dbb02aa18564a8e7a0a820376184c89a0738",
+    "object_current/_delta_log/00000000000000000003.json": "076babf836aa45fa45f7b70cc5d1ab5044db50f8fee8ddc52d70008be6494cb7",
+    "object_current/_delta_log/00000000000000000002.json": "e63d4b63f443f0116434937084465531ba3e6cc8c380169a78ac8d84bf416f24",
+    "object_current/_delta_log/00000000000000000004.json": "5c2869f41debfe9a0fe40baaa8dc3fd24e935725c235a111b0ced6b16b744a23"
+  },
+  "scope": "Actual original compiled SQL compatibility and integrity checks on independent local Spark4/Delta4. Native-profile/publication obligations remain unadmitted.",
+  "independent_review": {
+    "reviewer": "Astra Ultra",
+    "result": "approved; no blocking findings",
+    "checks": "Four focused tests and compiler artifact reproduction; independent actual Delta log/Parquet UUID and exact props; five user queries, eleven positive integrity checks and twelve corrupt-field checks."
+  }
+}
