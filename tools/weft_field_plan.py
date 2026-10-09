@@ -7,7 +7,12 @@ closed; this proof does not admit aggregates or numerical predicates.
 import hashlib,json
 
 
-def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False):
+def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False, native_null=False):
+    if type(native_null) is not bool:
+        raise ValueError('Explicit native-null opt-in must be Boolean')
+    native_null_ids = set()
+    native_null_graph_ids = set()
+
     def closed(value, keys):
         if type(value) is not dict or set(value) != set(keys):
             raise ValueError('Unknown field-plan structure')
@@ -26,6 +31,11 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         if value['family'] not in families:
             raise ValueError('Unproved scalar operation')
         int64_slot = {'family': 'integer', 'facets': {'integerWidth': {'bits': 64, 'signed': True}}, 'nullable': False}
+        if native_null and value['family'] == 'decimal' and set(value['facets']) == {'precision', 'scale'}:
+            precision, scale = value['facets']['precision'], value['facets']['scale']
+            if type(precision) is not int or type(scale) is not int or not 0 <= scale <= precision <= 38:
+                raise ValueError('Exact original Decimal facets required')
+            return
         if value['facets'] != {}:
             width=value['facets'].get('integerWidth')
             if (value != int64_slot or type(width) is not dict or type(width.get('bits')) is not int
@@ -52,6 +62,8 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
                'type.string', 'type.boolean', 'type.decimal', 'compare.notEqual',
                'project.positionedOutputs', 'compare.less', 'compare.lessEqual',
                'compare.greaterEqual', 'compare.scalarJoin'}
+    if native_null:
+        allowed |= {'predicate.nativeNull', 'compare.nullAwareStringEqual', 'value.nativeNull', 'value.presence'}
     if type(plan['requiredCapabilities']) is not list or any(
             type(c) is not str or c not in allowed for c in plan['requiredCapabilities']):
         raise ValueError('Unproved field-plan capability')
@@ -87,10 +99,20 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         # or unavailable Fields need their own explicit descriptor admission;
         # never manufacture facets or requiredness from observed source values.
         original = original_fields[key]
-        if (original.get('cardinality') != 'one' or original.get('nullability') != 'required'
-                or original.get('facets', {}) != {} or original.get('scalarType') not in {'string', 'integer', 'decimal', 'boolean'}):
-            raise ValueError('Original closed required scalar metadata required')
-        return {'family': original['scalarType'], 'facets': {}, 'nullable': False}
+        if not native_null and original.get('facets', {}) != {}:
+            raise ValueError('Original default Field facets required')
+        availability = original.get('nullability')
+        facets = original.get('facets', {})
+        if (original.get('cardinality') != 'one' or availability not in ({'required', 'absent-allowed'} if native_null else {'required'})
+                or original.get('scalarType') not in {'string', 'integer', 'decimal', 'boolean'}):
+            raise ValueError('Original closed scalar metadata required')
+        result = {'family': original['scalarType'], 'facets': facets, 'nullable': False}
+        logical_type(result)
+        if availability == 'absent-allowed':
+            if result['family'] == 'integer':
+                raise ValueError('Optional mathematical Integer not qualified')
+            native_null_ids.add(key)
+        return result
 
     def scan(value):
         closed(value, ('occurrence', 'pin', 'record'))
@@ -161,6 +183,23 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
 
     comparison_caps=set()
     def predicate(value, visible, *, join=False):
+        if native_null and type(value) is dict and value.get('op') == 'nullTest':
+            closed(value, ('op', 'field', 'negated'))
+            if type(value['negated']) is not bool or 'predicate.nativeNull' not in plan['requiredCapabilities']:
+                raise ValueError('Original explicit null-test capability required')
+            native_null_graph_ids.add(field(value['field'], visible))
+            return
+        if native_null and type(value) is dict and value.get('op') == 'nullableStringEqual':
+            closed(value, ('op', 'left', 'right'))
+            if not join or 'compare.nullAwareStringEqual' not in plan['requiredCapabilities']:
+                raise ValueError('Only explicit optional String ON equality admitted')
+            comparison_caps.add('compare.nullAwareStringEqual')
+            left = field(value['left'], visible, string_only=True)
+            right = field(value['right'], visible, string_only=True)
+            native_null_graph_ids.update((left, right))
+            if not {left, right} & native_null_ids:
+                raise ValueError('Original optional String operand required')
+            return
         if type(value) is dict and value.get('op') == 'scalarCompare':
             closed(value, ('op', 'operator', 'left', 'right'))
             operators={'notEqual':'compare.notEqual','less':'compare.less','lessEqual':'compare.lessEqual','greaterEqual':'compare.greaterEqual'}
@@ -178,6 +217,16 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         closed(p, ('op', 'left', 'right'))
         if p['op'] != 'equal':
             raise ValueError('Only string equality needs no arithmetic checks')
+        if native_null and p['left'].get('type') == {'family': 'integer', 'facets': {}, 'nullable': False}:
+            field(p['left'], visible)
+            right = p['right']
+            closed(right, ('kind', 'value', 'type', 'span'))
+            if right['kind'] != 'literal' or right['value'] != '0' or right['type'] != p['left']['type']:
+                raise ValueError('Only exact original mathematical Integer zero equality qualified')
+            span(right['span'])
+            if not any(q['value'] == '0' and q['logicalType'] == right['type'] and q['origin'] == {'kind': 'literal', 'sourceSpan': right['span']} for q in parameters):
+                raise ValueError('Original exact zero parameter custody required')
+            return
         field(p['left'], visible, string_only=True)
         operand(p['right'], visible)
 
@@ -209,10 +258,13 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
     for d in plan['typeGraph']:
         closed(d, ('identity', 'availability', 'kind', 'type'))
         key = identity(d['identity'])
-        if key in graph_ids or key not in original_fields or d['availability'] != 'required' or d['kind'] != 'scalar' or d['type'] != original_type(key):
+        if key in graph_ids or key not in original_fields or d['availability'] != original_fields[key].get('nullability') or d['kind'] != 'scalar' or d['type'] != original_type(key):
             raise ValueError('Unproved or duplicate original type descriptor')
         graph_ids.add(key)
-    if graph_ids != {identity(o['expression']['identity']) for o in plan['outputs']}:
+    expected_graph = {identity(o['expression']['identity']) for o in plan['outputs']}
+    if native_null:
+        expected_graph |= native_null_graph_ids
+    if graph_ids != expected_graph:
         raise ValueError('Exact original output type graph required')
     for index, (output, column) in enumerate(zip(plan['outputs'], columns), 1):
         closed(output, ('name', 'expression'))
@@ -227,12 +279,16 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
             raise ValueError('Original output type descriptor required')
         d = descriptors[0]
         closed(d, ('identity', 'availability', 'kind', 'type'))
-        if d['availability'] != 'required' or d['kind'] != 'scalar':
+        if d['availability'] != original_fields[key].get('nullability') or d['kind'] != 'scalar':
             raise ValueError('Only required original scalar output admitted')
         logical_type(d['type'])
         if d['type'] != original_type(key):
             raise ValueError('Output type differs from original authored metadata')
         representation = column.get('representation')
+        if native_null and key in native_null_ids:
+            if ('value.nativeNull' not in plan['requiredCapabilities'] or representation.get('nativeNull') is not True or representation != {'kind': 'value', 'descriptor': d['identity'], 'nativeNull': True}):
+                raise ValueError('Exact original tagged optional descriptor required')
+            continue
         closed(representation, ('kind', 'carrier', 'logicalType', 'decoder'))
         decoders = {'string': 'text', 'integer': 'exact-integer', 'decimal': 'exact-decimal', 'boolean': 'boolean'}
         if representation['kind'] != 'scalar' or representation['carrier'] != 'text' or representation['logicalType'] != d['type'] or representation['decoder'] != decoders[d['type']['family']]:
@@ -245,6 +301,19 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
                if c.get('publicSourceOnly') is not True and c.get('representabilityOnly') is not True}
     if not required_checks <= covered:
         raise ValueError('Every original consumed Field requires a native source-integrity check')
+    if native_null:
+        if native_null_ids and 'value.nativeNull' not in plan['requiredCapabilities']:
+            raise ValueError('Explicit native-null capability required')
+        for key in native_null_ids:
+            properties = [p for r in binding['records'] for p in r['properties'] if identity(p['logical']) == key]
+            if len(properties) != 1 or properties[0]['home'].get('encoding') != 'ashlar-weft-json-native-null/0.1-candidate':
+                raise ValueError('Explicit original per-Field native-null encoding required')
+            home = properties[0]['home']
+            matched = [c for c in checks if identity(c['field']) == key]
+            if not matched or any(c.get('encoding') != home['encoding'] or c.get('propertyId') != home['propertyId'] for c in matched):
+                raise ValueError('Exact native-null home guard correspondence required')
+            if not any(c.get('representabilityOnly') is True and c.get('failureCode') == 'WFT-CAPABILITY' for c in matched):
+                raise ValueError('Missing optional representation capability guard required')
     for flag in ('publicSourceOnly', 'representabilityOnly'):
         guarded = {(identity(c['record']), identity(c['field'])) for c in checks if c.get(flag) is True}
         if not integer_checks <= guarded:

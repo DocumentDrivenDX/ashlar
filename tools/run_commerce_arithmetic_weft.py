@@ -99,11 +99,19 @@ class NativeGuardRefusal(ValueError):
         super().__init__('Original native '+obligation+' refused before user query')
         self.evidence={'obligation':obligation,'check':check,'rows':rows,'priorChecks':prior_checks,'userSqlExecuted':False,'resultReleased':False}
 
-def execute_guarded(provider,request,artifact,*,context,public_source=None,positioned_outputs=False):
+def execute_guarded(provider,request,artifact,*,context,public_source=None,positioned_outputs=False,native_null=False):
     # Private snapshots precede every admission callback and native action.
     request,artifact=copy.deepcopy(request),copy.deepcopy(artifact)
     binding=json.loads(request['target']['bindingJson'])
     if request['target']!={**BACKEND,'bindingJson':request['target']['bindingJson'],'bindingSha256':hashlib.sha256(request['target']['bindingJson'].encode()).hexdigest()} or artifact.get('status')!='compiled' or artifact.get('bindingSha256')!=request['target']['bindingSha256'] or artifact.get('modelPins')!=binding['modelPins']:raise ValueError('Exact compiler/binding custody required')
+    null_caps = {'predicate.nativeNull','compare.nullAwareStringEqual','value.nativeNull'}
+    uses_null = bool(null_caps & set(artifact.get('logicalPlan',{}).get('requiredCapabilities',[])))
+    uses_null = uses_null or any(p.get('home',{}).get('encoding')=='ashlar-weft-json-native-null/0.1-candidate' for r in binding.get('records',[]) for p in r.get('properties',[]))
+    if type(native_null) is not bool or (uses_null and not native_null):
+        raise ValueError('Explicit native-null host opt-in required before callbacks')
+    if native_null:
+        from weft_field_plan import admit_field_plan
+        admit_field_plan(artifact,binding,request['modules'],native_null=True)
     obligations=artifact.get('obligations',[])
     positioned = any(o.get('id')=='weft.output.positioned' for o in obligations)
     expected_obligations=OBLIGATIONS | ({'weft.output.positioned'} if positioned else set())
@@ -126,7 +134,9 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
     arithmetic=params_by_id['ashlar.arithmetic.exact']
     if not arithmetic['checks']:
         plan=artifact.get('logicalPlan',{})
-        if any(plan.get(k) for k in ('filters','joins','order')):
+        if native_null:
+            pass  # complete explicit original null-aware field proof above
+        elif any(plan.get(k) for k in ('filters','joins','order')):
             from weft_field_plan import admit_field_plan
             admit_field_plan(artifact,binding,request['modules'])
         else:admit_operator_free_plan(artifact,binding)
@@ -257,9 +267,10 @@ def persist_after_stop(spark,pending,output):
     spark.stop()
     for name,raw in pending.items():(output/name).write_text(raw)
 
-def decode_rows(artifact,rows,*,positioned=False,native_schema=None,ordered_rows=None):
+def decode_rows(artifact,rows,*,positioned=False,native_schema=None,ordered_rows=None,native_null=False):
     columns=artifact.get('columns')
     if type(columns)is not list or not columns:raise ValueError('Original output columns required')
+    if type(native_null)is not bool:raise ValueError('Explicit native-null decoder opt-in required')
     if type(positioned)is not bool:raise ValueError('Explicit positioned decoder opt-in must be Boolean')
     names=[c['outputName'] for c in columns]
     if positioned:
@@ -276,7 +287,50 @@ def decode_rows(artifact,rows,*,positioned=False,native_schema=None,ordered_rows
     for row in cell_rows:
         values=[]
         for column,value in zip(columns,row):
-            rep=column['representation'];logical=rep['logicalType']
+            rep=column['representation']
+            if rep.get('kind') == 'value':
+                if not native_null or set(rep) != {'kind','descriptor','nativeNull'} or rep['nativeNull'] is not True or column['nullable'] is not False or type(value) is not str:
+                    raise ValueError('Explicit tagged native-null output required')
+                descriptors=[d for d in artifact['logicalPlan']['typeGraph'] if d['identity']==rep['descriptor']]
+                if len(descriptors)!=1 or descriptors[0]['availability']!='absent-allowed' or descriptors[0]['kind']!='scalar' or column['sourceIdentities']!=[rep['descriptor']]:
+                    raise ValueError('Original optional scalar descriptor required')
+                descriptor=descriptors[0]
+                if set(descriptor)!={'identity','availability','kind','type'} or set(column)!={'position','outputName','sourceIdentities','nullable','representation'}:
+                    raise ValueError('Closed original tagged descriptor required')
+                logical=descriptor['type']
+                if type(logical)is not dict or set(logical)!={'family','facets','nullable'} or logical['nullable']is not False or type(logical['facets'])is not dict:
+                    raise ValueError('Original ideal scalar descriptor required')
+                family=logical['family'];facets=logical['facets']
+                if family not in ('string','boolean','integer','decimal') or (family in ('string','boolean') and facets):
+                    raise ValueError('Unknown original ideal scalar meaning')
+                # Validate the descriptor even when a row is null: null is not
+                # evidence that unknown numeric facets are safe to ignore.
+                probe={'string':'','boolean':'false','integer':'0','decimal':'0'}[family]
+                scalar={'outputName':'cell','position':1,'nullable':False,'representation':{'kind':'scalar','carrier':'text','decoder':{'string':'text','boolean':'boolean','integer':'exact-integer','decimal':'exact-decimal'}[family],'logicalType':logical}}
+                decode_rows({'columns':[scalar]},[{'cell':probe}])
+                def unique(pairs):
+                    result={}
+                    for key,item in pairs:
+                        if key in result:raise ValueError('Duplicate tagged Value member')
+                        result[key]=item
+                    return result
+                cell=json.loads(value,object_pairs_hook=unique)
+                if type(cell)is not dict or cell.get('state')not in ('null','value') or set(cell)!=({'state'}if cell.get('state')=='null'else{'state','value'}):
+                    raise ValueError('Only exact null/value tagged states qualified')
+                if cell['state']=='value':
+                    logical=descriptors[0]['type'];family=logical['family']
+                    inner=cell['value']
+                    if family=='boolean':
+                        if type(inner)is not bool:raise ValueError('Native Boolean tagged value required')
+                        text='true'if inner else'false'
+                    else:
+                        if type(inner)is not str:raise ValueError('Original exact scalar text required')
+                        text=inner
+                    synthetic={'columns':[{'outputName':'cell','position':1,'nullable':False,'representation':{'kind':'scalar','carrier':'text','decoder':{'string':'text','boolean':'boolean','integer':'exact-integer','decimal':'exact-decimal'}[family],'logicalType':logical}}]}
+                    decode_rows(synthetic,[{'cell':text}])
+                values.append(cell)
+                continue
+            logical=rep['logicalType']
             if set(rep)!={'kind','logicalType','carrier','decoder'} or rep['kind']!='scalar' or rep['carrier']!='text' or set(logical)!={'family','facets','nullable'} or logical['nullable']is not False or column['nullable']is not False or type(value)is not str:raise ValueError('Exact nonnull public scalar text required')
             family=logical['family'];facets=logical['facets']
             if type(facets)is not dict:raise ValueError('Original facets required')
