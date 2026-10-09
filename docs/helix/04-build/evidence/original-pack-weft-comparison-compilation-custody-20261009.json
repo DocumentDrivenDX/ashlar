@@ -1,0 +1,380 @@
+{
+  "format": "ashlar-original-pack-weft-comparison-compilation-custody/0.1",
+  "official_weft_revision": "6e05a66412a446dac018258a02a638e5b970a20e",
+  "source_manifest": {
+    "base": "86de1fd1b2da84b9a698137f489f938f9a82f2b2",
+    "executable": "/private/tmp/ashlar-weft-comparison-20261009-b/weft-runtime",
+    "executable_sha256": "97ea27ff1ed03ded166a430314ce015915ab4b0d69ea467e4151484e5acd0c8c",
+    "files": [
+      {
+        "path": "crates/weft-core/src/arithmetic_application_resolve.rs",
+        "sha256": "21e2fe7b47349bff5d6457b4ab5d65ca98543ad1d8cdfb493e5c4880071fac2a"
+      },
+      {
+        "path": "crates/weft-core/src/arithmetic_plan.rs",
+        "sha256": "ccb9c6ed10979bec3d9f7efd818443f8b71ed0b89e81bdf7e961a54248ad9de7"
+      },
+      {
+        "path": "crates/weft-core/src/arithmetic_query.rs",
+        "sha256": "d2b6e1f8b7c5c8694df0c208481626d87db5baad84e4255bdecb8ffdc9af70d4"
+      },
+      {
+        "path": "crates/weft-core/src/backend.rs",
+        "sha256": "10fe0c0ed42553d8bd463a3f9f10f82d1ed9a81ccdc9ab6054ebc59f1d1ca4d6"
+      },
+      {
+        "path": "crates/weft-databricks/src/arithmetic.rs",
+        "sha256": "3a4d11b445ae55470eb849adc3ca16894a15e4460c4a78791e79c092a24779f0"
+      },
+      {
+        "path": "crates/weft-databricks/src/candidate/arithmetic.rs",
+        "sha256": "965e0858e2a00d883c44e1427cbcb728feaa151161b49f97df8acbcaf0c58598"
+      },
+      {
+        "path": "docs/helix/02-design/contracts/exact-arithmetic-v0.3.md",
+        "sha256": "0c15566247f7530d63524439585c373ee6f86066656e923539ed62f613d32f25"
+      },
+      {
+        "path": "docs/helix/02-design/contracts/logical-plan-v0.3.schema.json",
+        "sha256": "27f15336db222650eaf245c9cfdca0bbbd181ecdcd291659573b5ee249f80973"
+      },
+      {
+        "path": "tests/ashlar-databricks/compiler.rs",
+        "sha256": "db03b371eb38bd2ccc6b7744e2156d51feac9daae7af82130910018fda502090"
+      }
+    ]
+  },
+  "artifacts": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/original-pack-weft-comparison-compilation-20261009.json",
+      "bytes": 11759,
+      "sha256": "968bc53da247967131dc9dcf48c7045b569ff54d17eedbe9fcac88a16d4ec365"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-cycle-request.json",
+      "bytes": 131588,
+      "sha256": "ee881e40c2ab2bcc77a78ccddc87d8027b2e6ad1af12e174d7f3369d94dd2b08"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-cycle-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-cycle-stdout.json",
+      "bytes": 207,
+      "sha256": "a366d0e0e42707aba157c7f19eec871c1f4aeedb36cb48c403a3c192f82bba64"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-dating-request.json",
+      "bytes": 131570,
+      "sha256": "4c277a3147208cde5a9c06707054c538931c7d4d196b19abeea461c5e933322f"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-dating-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-dating-stdout.json",
+      "bytes": 207,
+      "sha256": "a366d0e0e42707aba157c7f19eec871c1f4aeedb36cb48c403a3c192f82bba64"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-evidence-links-request.json",
+      "bytes": 131639,
+      "sha256": "6559b12b48d320eee3982f1d6a515d28ef2fc922e8aa496afdac5d780ac51316"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-evidence-links-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-evidence-links-stdout.json",
+      "bytes": 258,
+      "sha256": "90d8af4b2fe98f5e64998ebec83ec12cdcd0308becf4a7de9d8ebc5f14643101"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-lineage-request.json",
+      "bytes": 131517,
+      "sha256": "6ef09c318d7ca0cdbc4c4a3396de4d6d0e3ca9eb010042f56fbd41ea1823cda1"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-lineage-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-lineage-stdout.json",
+      "bytes": 25809,
+      "sha256": "2172e51fbd7a0d88e2aa2473745cce246f00355e4870fa70e2d9ad527b657b26"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-media-request.json",
+      "bytes": 131521,
+      "sha256": "630d8001592ba2de46b16efb2aa6be2094096d6dedd2ea848b4dbb60c01414da"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-media-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-media-stdout.json",
+      "bytes": 248,
+      "sha256": "f261d2a412094f1977a5e308485c3399543d2c3703ef0da94bcc075debe00531"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-missing-media-request.json",
+      "bytes": 131456,
+      "sha256": "020032820f65bff96290e15bd364c25e5765f020658a9220455d05040f1d83c5"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-missing-media-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-missing-media-stdout.json",
+      "bytes": 14830,
+      "sha256": "87e2cb1e76ba2c034c128cda831fee85bbeb5602e8e01a33002b04e7daa4c25b"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-sample-request.json",
+      "bytes": 131567,
+      "sha256": "578ac4a566038ff87822b2dff106a94ac6c13b1f8f38615040bdd4292c92964d"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-sample-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-sample-stdout.json",
+      "bytes": 250,
+      "sha256": "8b3dfce77d646236d491f1e7c2feb67cad8084c2e8ea41d74a6a82b44e8d5903"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-specialists-request.json",
+      "bytes": 131673,
+      "sha256": "a468a872bbde9933cfd94ae29d7587f056b225044f25d551a8ea22f8b6f2a742"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-specialists-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-specialists-stdout.json",
+      "bytes": 56260,
+      "sha256": "d4077e6d11c4b5c2260e2c23e7b361db9fdb7c34170f1e98960650bb77aeaca3"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-censor-request.json",
+      "bytes": 99609,
+      "sha256": "fd4e8b973382116df266d3cdeffeaa9b71d820d682e18c3d1f8fc5bdec24735e"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-censor-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-censor-stdout.json",
+      "bytes": 248,
+      "sha256": "905f97da64404b5c9f8817862aea8050c83ef574b71731e3a73528b7272d3a1e"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-comparability-request.json",
+      "bytes": 99735,
+      "sha256": "ed190b440393f4ff819fd730956b7f26aafee0ff1f29a6b0cb2c7e2736515655"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-comparability-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-comparability-stdout.json",
+      "bytes": 246,
+      "sha256": "c2d8eb0ef2874d021a51ce3520c290a60d8921b7a3e1f5077c15bbc1d4309edf"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-connected-measurements-request.json",
+      "bytes": 99917,
+      "sha256": "995e74eb5cf6ccd6bc24b61052f127a71f7f8181df768150f204685275e807d7"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-connected-measurements-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-connected-measurements-stdout.json",
+      "bytes": 248,
+      "sha256": "ff60aee8da63cc2d8645cc7289f2b535557e2be35ca064c84e988f7cc2f16024"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-effort-event-request.json",
+      "bytes": 99608,
+      "sha256": "03e6771fc55555873a36ffd1c9ea84938456d4b22311f8cb38ab3c6bfaedb8e9"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-effort-event-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-effort-event-stdout.json",
+      "bytes": 22939,
+      "sha256": "85198f2e83e57778aac2dc2ff70e929462fdebced1a9946ec5d80ecfeafa66c5"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-effort-request.json",
+      "bytes": 99602,
+      "sha256": "0c4b847d307d63a1d98e535b68bc4f63792aaad3b466f52954fc106ea754fdf9"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-effort-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-effort-stdout.json",
+      "bytes": 248,
+      "sha256": "71da2d7ac5c92bb569bec65b0a94cf03c33559c576c65dc564864f41a9c9243c"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-fishing-request.json",
+      "bytes": 99553,
+      "sha256": "6140ffaab1ee06c93cd94346b6b64d3bf48a207e79bfbdc238e7338cb6a34d4a"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-fishing-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-fishing-stdout.json",
+      "bytes": 11250,
+      "sha256": "75f649133a7817caa8d10c0e45da250fb79c8ed1874e6d15342e692fff2b8320"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-match-request.json",
+      "bytes": 99572,
+      "sha256": "cfec44c56578cc88a07ebba0f46845056968667ac49a3768688121cebcd709ac"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-match-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-match-stdout.json",
+      "bytes": 14804,
+      "sha256": "9ba14e41a6e11f09cd66ccdd89bcce37d40cbedbb9a5fcafa23d213fe2e28a5f"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-network-request.json",
+      "bytes": 99566,
+      "sha256": "2e942cf0263bb2f6597de8aacfe7d4a7ace21452a71259e2eb9c60bb10fda90a"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-network-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-network-stdout.json",
+      "bytes": 13719,
+      "sha256": "6d1666fd76c92c6ca606e25c607e8cd33f6d49e8a76e7bc1d705a4ccad9622a9"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-zero-request.json",
+      "bytes": 99651,
+      "sha256": "1e2ade7e08f83ddd3c048c5bb99a3add79eb68436ad16c4a8a224b655ec2f339"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-zero-stderr.txt",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-zero-stdout.json",
+      "bytes": 250,
+      "sha256": "d1cb983f388597c0ad2e007af1a9ced9140fcf86a23072bb76710a5d2c4373a8"
+    },
+    {
+      "path": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/report.json",
+      "bytes": 11588,
+      "sha256": "46113b96603c61429fca0bb75ec4676371b8df801c86acb4e7a16b9f1b7bb87e"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/weft-runtime",
+      "bytes": 12793488,
+      "sha256": "97ea27ff1ed03ded166a430314ce015915ab4b0d69ea467e4151484e5acd0c8c"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/manifest.json",
+      "bytes": 1674,
+      "sha256": "2f71bdf1d256a114118688f672c15b1524e641c7bca1f9c1efbeb1d90a1b14fd"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/checks.json",
+      "bytes": 878,
+      "sha256": "e19a7ee6166e9ff832ae08a847f91432a3a4f285aed77a928412e5cf5e35adf0"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/compatibility.json",
+      "bytes": 10607,
+      "sha256": "de98e9ad19a78fd57f0350d341af1b62d18eb8d185823157bd0883109beb9f5f"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/source/crates/weft-core/src/arithmetic_application_resolve.rs",
+      "bytes": 21520,
+      "sha256": "21e2fe7b47349bff5d6457b4ab5d65ca98543ad1d8cdfb493e5c4880071fac2a"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/source/crates/weft-core/src/arithmetic_plan.rs",
+      "bytes": 2863,
+      "sha256": "ccb9c6ed10979bec3d9f7efd818443f8b71ed0b89e81bdf7e961a54248ad9de7"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/source/crates/weft-core/src/arithmetic_query.rs",
+      "bytes": 15444,
+      "sha256": "d2b6e1f8b7c5c8694df0c208481626d87db5baad84e4255bdecb8ffdc9af70d4"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/source/crates/weft-core/src/backend.rs",
+      "bytes": 34212,
+      "sha256": "10fe0c0ed42553d8bd463a3f9f10f82d1ed9a81ccdc9ab6054ebc59f1d1ca4d6"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/source/crates/weft-databricks/src/arithmetic.rs",
+      "bytes": 5373,
+      "sha256": "3a4d11b445ae55470eb849adc3ca16894a15e4460c4a78791e79c092a24779f0"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/source/crates/weft-databricks/src/candidate/arithmetic.rs",
+      "bytes": 23530,
+      "sha256": "965e0858e2a00d883c44e1427cbcb728feaa151161b49f97df8acbcaf0c58598"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/source/docs/helix/02-design/contracts/exact-arithmetic-v0.3.md",
+      "bytes": 10743,
+      "sha256": "0c15566247f7530d63524439585c373ee6f86066656e923539ed62f613d32f25"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/source/docs/helix/02-design/contracts/logical-plan-v0.3.schema.json",
+      "bytes": 30962,
+      "sha256": "27f15336db222650eaf245c9cfdca0bbbd181ecdcd291659573b5ee249f80973"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-comparison-20261009-b/source/tests/ashlar-databricks/compiler.rs",
+      "bytes": 37856,
+      "sha256": "db03b371eb38bd2ccc6b7744e2156d51feac9daae7af82130910018fda502090"
+    }
+  ],
+  "qualification": "Actual immutable compiler source/executable and all17 unchanged requests/responses retained separately from older inventories. Full151test regression predates final pre-binding guard; final28compiler+53core/registry/pipeline tests cover corrected gate. Compilation only; refusal remains unmet required case, not pass."
+}
