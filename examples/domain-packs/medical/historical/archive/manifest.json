@@ -1,0 +1,88 @@
+{
+  "delimiter": ",",
+  "domain": "medical",
+  "encoding": "UTF-8",
+  "format": "tablespec.csv-pack",
+  "header": true,
+  "line_ending": "\n",
+  "null_value": "\\N",
+  "origin": "external",
+  "quote": "\"",
+  "run": null,
+  "schema_artifacts": {
+    "ontology.json": "schemas/ontology.json",
+    "umf/encounters.json": "schemas/encounters.json",
+    "umf/medications.json": "schemas/medications.json",
+    "umf/observations.json": "schemas/observations.json",
+    "umf/organizations.json": "schemas/organizations.json",
+    "umf/patients.json": "schemas/patients.json",
+    "umf/practitioners.json": "schemas/practitioners.json",
+    "umf/resource_references.json": "schemas/resource_references.json",
+    "umf/resources.json": "schemas/resources.json"
+  },
+  "seed": null,
+  "source_artifacts": {
+    "data/encounters.csv": "inputs/data/encounters.csv",
+    "data/medications.csv": "inputs/data/medications.csv",
+    "data/observations.csv": "inputs/data/observations.csv",
+    "data/organizations.csv": "inputs/data/organizations.csv",
+    "data/patients.csv": "inputs/data/patients.csv",
+    "data/practitioners.csv": "inputs/data/practitioners.csv",
+    "data/resource_references.csv": "inputs/data/resource_references.csv",
+    "data/resources.csv": "inputs/data/resources.csv",
+    "licenses/LOINC_short_license.txt": "inputs/licenses/LOINC_short_license.txt",
+    "licenses/NOTICE.txt": "inputs/licenses/NOTICE.txt",
+    "sources/encounter-example.json": "inputs/sources/encounter-example.json",
+    "sources/medicationexample1.json": "inputs/sources/medicationexample1.json",
+    "sources/observation-example-body-height.json": "inputs/sources/observation-example-body-height.json",
+    "sources/observation-example-f001-glucose.json": "inputs/sources/observation-example-f001-glucose.json",
+    "sources/observation-example-f002-excess.json": "inputs/sources/observation-example-f002-excess.json",
+    "sources/observation-example-f003-co2.json": "inputs/sources/observation-example-f003-co2.json",
+    "sources/observation-example-f004-erythrocyte.json": "inputs/sources/observation-example-f004-erythrocyte.json",
+    "sources/observation-example-f005-hemoglobin.json": "inputs/sources/observation-example-f005-hemoglobin.json",
+    "sources/observation-example-heart-rate.json": "inputs/sources/observation-example-heart-rate.json",
+    "sources/observation-example-respiratory-rate.json": "inputs/sources/observation-example-respiratory-rate.json",
+    "sources/organization-example-f001-burgers.json": "inputs/sources/organization-example-f001-burgers.json",
+    "sources/organization-example-f002-burgers-card.json": "inputs/sources/organization-example-f002-burgers-card.json",
+    "sources/organization-example-gastro.json": "inputs/sources/organization-example-gastro.json",
+    "sources/patient-example-f001-pieter.json": "inputs/sources/patient-example-f001-pieter.json",
+    "sources/patient-example.json": "inputs/sources/patient-example.json",
+    "sources/practitioner-example-f005-al.json": "inputs/sources/practitioner-example-f005-al.json",
+    "sources/practitioner-example.json": "inputs/sources/practitioner-example.json"
+  },
+  "tables": {
+    "encounters": {
+      "file": "data/encounters.csv",
+      "rows": 1
+    },
+    "medications": {
+      "file": "data/medications.csv",
+      "rows": 1
+    },
+    "observations": {
+      "file": "data/observations.csv",
+      "rows": 8
+    },
+    "organizations": {
+      "file": "data/organizations.csv",
+      "rows": 3
+    },
+    "patients": {
+      "file": "data/patients.csv",
+      "rows": 2
+    },
+    "practitioners": {
+      "file": "data/practitioners.csv",
+      "rows": 2
+    },
+    "resource_references": {
+      "file": "data/resource_references.csv",
+      "rows": 17
+    },
+    "resources": {
+      "file": "data/resources.csv",
+      "rows": 17
+    }
+  },
+  "version": 1
+}

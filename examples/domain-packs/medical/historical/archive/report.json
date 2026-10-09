@@ -1,0 +1,50 @@
+{
+  "encounters": {
+    "fk_orphan_count": 0,
+    "null_violations": 0,
+    "row_count": 1,
+    "uniqueness_violations": 0
+  },
+  "medications": {
+    "fk_orphan_count": 0,
+    "null_violations": 0,
+    "row_count": 1,
+    "uniqueness_violations": 0
+  },
+  "observations": {
+    "fk_orphan_count": 0,
+    "null_violations": 0,
+    "row_count": 8,
+    "uniqueness_violations": 0
+  },
+  "organizations": {
+    "fk_orphan_count": 0,
+    "null_violations": 0,
+    "row_count": 3,
+    "uniqueness_violations": 0
+  },
+  "patients": {
+    "fk_orphan_count": 0,
+    "null_violations": 0,
+    "row_count": 2,
+    "uniqueness_violations": 0
+  },
+  "practitioners": {
+    "fk_orphan_count": 0,
+    "null_violations": 0,
+    "row_count": 2,
+    "uniqueness_violations": 0
+  },
+  "resource_references": {
+    "fk_orphan_count": 0,
+    "null_violations": 0,
+    "row_count": 17,
+    "uniqueness_violations": 0
+  },
+  "resources": {
+    "fk_orphan_count": 0,
+    "null_violations": 0,
+    "row_count": 17,
+    "uniqueness_violations": 0
+  }
+}

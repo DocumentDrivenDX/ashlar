@@ -1,0 +1,527 @@
+{
+  "format": "ashlar-medical-original-source-custody/0.1",
+  "packRevision": "1f7b5f5d2a355c4b476e3a96b289b9048f03f567",
+  "historicalPackRevision": "b36c504b130932987efaaa377cdeecc633a745d3",
+  "currentPackSha256": "e7d3b3c8c39ffb7eb14835b76b371fe1a1c1ba43d38ddc3847914aea35a17574",
+  "historicalPackSha256": "bc0ab3389b3abd8a54e48b2752e6e08a6b0abfb027c54bf3b9b08c6126bd2e39",
+  "historicalArchiveSha256": "3982a74c42c69e6a5c1c83c0f81bd3cd607fa8e99779310afc0fb549c0f25bc7",
+  "files": [
+    {
+      "path": "upstream/README.md",
+      "bytes": 4054,
+      "sha256": "6320036211085c58e2ccbfe2949707af609c30337f8edfa309dd3d39a8019ce5",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/data/encounters.csv",
+      "bytes": 175,
+      "sha256": "4b84065bff25911d3f8b40610f652dc24c06ec3563de0adb7200680ca93f556d",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/data/medications.csv",
+      "bytes": 94,
+      "sha256": "5ba6bb3af8d3d7d8b65052fb071fda4e485805dd89d13bde995129db97d4a9d9",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/data/observations.csv",
+      "bytes": 4330,
+      "sha256": "de68ab0b1dd3d8ee8568fd12e84caac5afe955927ae0c2a650793e0e75c4dc16",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/data/organizations.csv",
+      "bytes": 164,
+      "sha256": "ad25193bf1d73737fbfa22c80cbf92bd4905ec0e8f5185b30822e44e1aa12c4f",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/data/patients.csv",
+      "bytes": 528,
+      "sha256": "f9850c74b803c9a9cbb61b9beb463697da73172c05d934bdec0057a10099fac8",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/data/practitioners.csv",
+      "bytes": 638,
+      "sha256": "5230332e9ffda03877dd98207471cee08105d422eda9317d19fa22b9fb7d05ab",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/data/resource_references.csv",
+      "bytes": 1673,
+      "sha256": "d859681af3e620581795b805a1c0cd4ea1a5042d81613d9826eda4492fa90306",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/data/resources.csv",
+      "bytes": 45242,
+      "sha256": "b52e08436fa98b7e0a78a69777196d70c86ff560b78ecaf127961dc3e851d58c",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/graph/fixture.json",
+      "bytes": 160290,
+      "sha256": "b22d788dcf23e2889f82bd407241d7af4bb5f8a8d4c3316768458a97448f18c4",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/licenses/LOINC_short_license.txt",
+      "bytes": 340,
+      "sha256": "cc1aad47fa2c13f4206daeb92dde51a95dca0850029b76bfabdfc997bd6c4985",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/licenses/NOTICE.txt",
+      "bytes": 1636,
+      "sha256": "52b89f1d6f81600eb5b6ee87d1fe054a7b2de072f7762789f72d104e0cbd35b2",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/ontology.json",
+      "bytes": 33236,
+      "sha256": "fc9938f152e129e041096219be4d7bef70aa35e16f56745411af232ee9cab1c8",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/pack.json",
+      "bytes": 42654,
+      "sha256": "e7d3b3c8c39ffb7eb14835b76b371fe1a1c1ba43d38ddc3847914aea35a17574",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/encounter-example.json",
+      "bytes": 413,
+      "sha256": "6ef7c93b28fa76d3f1f1dcd3e795a8e35c70b5f86ad4659b75f7fc3d93ff0bb5",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/medicationexample1.json",
+      "bytes": 268,
+      "sha256": "7e4840d907254db22a6aa9bce22f1c962a94a7d21cb658ac00f491af8cb37e31",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/observation-example-body-height.json",
+      "bytes": 1548,
+      "sha256": "03fc509c667179aa31a781d0d3a5f278cf459a95ba8a20811376e8b80995a824",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/observation-example-f001-glucose.json",
+      "bytes": 2509,
+      "sha256": "ce9f8dab3efbdfaa8a734e6c738956656cd444a91b823dcf4458eb833edf4a3f",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/observation-example-f002-excess.json",
+      "bytes": 2583,
+      "sha256": "9cd95be31d43a6192d29c18b5452a16c512350f2d96d846d4caddcf4156c331a",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/observation-example-f003-co2.json",
+      "bytes": 2505,
+      "sha256": "e6c700b420ef67bb56ac6093d1131304369d5dd886785da7b68af8a54ee67140",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/observation-example-f004-erythrocyte.json",
+      "bytes": 2853,
+      "sha256": "4c9308712bc8d3b40e47686387ad0f31c02a75c0667d49e9e44b019caf9e4799",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/observation-example-f005-hemoglobin.json",
+      "bytes": 2531,
+      "sha256": "626d6cefa749e4fff6bcc6edf85d51606aa2f25db75f8268e0e734faaf8e904a",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/observation-example-heart-rate.json",
+      "bytes": 1525,
+      "sha256": "d87f95a9cd9b8595b875ae22c38ad73f6d93f1d60d6ee3daf05d9708de1194d3",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/observation-example-respiratory-rate.json",
+      "bytes": 1571,
+      "sha256": "34e17df17d4510fe8424c5e1ac9431766838747171718cab8226cfcd5a9920d9",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/organization-example-f001-burgers.json",
+      "bytes": 3024,
+      "sha256": "cec6465ce1513077fc1accfa2abcd049ecd10e7dc37e73e9140bccf17b35da54",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/organization-example-f002-burgers-card.json",
+      "bytes": 2161,
+      "sha256": "cefea0ad3875422e835f69df47c52575552e6b4f2051e737575fea5f1e29186e",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/organization-example-gastro.json",
+      "bytes": 668,
+      "sha256": "8116a0f1283be32e20e5b2496467b83b32b1c79b759217c5a1937c11c7e5e2bd",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/patient-example-f001-pieter.json",
+      "bytes": 3424,
+      "sha256": "707159ab47ef675765a89e07833f0146c980ef554aaffed08603b5e762a37838",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/patient-example.json",
+      "bytes": 3748,
+      "sha256": "7cc6b3817264c22e722b6bc10e494d3441341032f8294db7ccec796ca7a0cf81",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/practitioner-example-f005-al.json",
+      "bytes": 7572,
+      "sha256": "bea688cbf38ce0e07928cde2b9e4621087d2d2eb4c29b91fe01eaa864713edab",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/sources/practitioner-example.json",
+      "bytes": 1290,
+      "sha256": "f7bdedca23fe131d62bbf7efae8c4dca6c691fe1ab78aa55e81b5fea43a88655",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/umf/encounters.json",
+      "bytes": 1252,
+      "sha256": "a7648a2400acaccac37b44a2d6b58c1027c6e4ee39833452bf1ef6c06d63b992",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/umf/medications.json",
+      "bytes": 728,
+      "sha256": "43f40a1065e3a83ab8b80ef07eb209618adbd7aec8f8ea9c479089b78d4fb39d",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/umf/observations.json",
+      "bytes": 2855,
+      "sha256": "14cd97a50b96e6e3a875c7580255e3d0559eb18a0ad4b92c14f32535c9128e8f",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/umf/organizations.json",
+      "bytes": 720,
+      "sha256": "c1565f2edfbbe04a4ee3d5c47c4307357291691bff3ba9bf6457588805691d19",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/umf/patients.json",
+      "bytes": 1381,
+      "sha256": "baed12f381049b3edc190b1bedc85b4a96c83ce7f3b14827f2cae384da10bc46",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/umf/practitioners.json",
+      "bytes": 996,
+      "sha256": "34105936952f3dd5f42ba4054cc6ad854d6801555595b9ad99d9bc65e2a8cb38",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/umf/resource_references.json",
+      "bytes": 1460,
+      "sha256": "3968e6cb4c8c78608826ed7e241c91176576edb0a80e2d35064d02289acbedd7",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "upstream/umf/resources.json",
+      "bytes": 1075,
+      "sha256": "c1a5858389cce2209d8fb364bf5bbb62aae0536ca462e2a83feb9a0641babad1",
+      "origin": "current-pack-1.1.0"
+    },
+    {
+      "path": "historical/archive/manifest.json",
+      "bytes": 3863,
+      "sha256": "991b08b2692fea43e132900153f1e2897538e621fd53126c3f3322bf6f90515f",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/report.json",
+      "bytes": 1027,
+      "sha256": "abcc1f0634bd1fa92058630a6d36d67f48a1519dec5e32ebdc9db006d5da42e8",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/domain-pack.json",
+      "bytes": 41387,
+      "sha256": "7e66a8e66addf2643b5d30552383011e1a4136804b22d45d7c4628e2a7b4f223",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/data/encounters.csv",
+      "bytes": 175,
+      "sha256": "4b84065bff25911d3f8b40610f652dc24c06ec3563de0adb7200680ca93f556d",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/data/medications.csv",
+      "bytes": 94,
+      "sha256": "5ba6bb3af8d3d7d8b65052fb071fda4e485805dd89d13bde995129db97d4a9d9",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/data/observations.csv",
+      "bytes": 4330,
+      "sha256": "de68ab0b1dd3d8ee8568fd12e84caac5afe955927ae0c2a650793e0e75c4dc16",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/data/organizations.csv",
+      "bytes": 164,
+      "sha256": "ad25193bf1d73737fbfa22c80cbf92bd4905ec0e8f5185b30822e44e1aa12c4f",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/data/patients.csv",
+      "bytes": 528,
+      "sha256": "f9850c74b803c9a9cbb61b9beb463697da73172c05d934bdec0057a10099fac8",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/data/practitioners.csv",
+      "bytes": 638,
+      "sha256": "5230332e9ffda03877dd98207471cee08105d422eda9317d19fa22b9fb7d05ab",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/data/resource_references.csv",
+      "bytes": 1673,
+      "sha256": "d859681af3e620581795b805a1c0cd4ea1a5042d81613d9826eda4492fa90306",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/data/resources.csv",
+      "bytes": 45242,
+      "sha256": "b52e08436fa98b7e0a78a69777196d70c86ff560b78ecaf127961dc3e851d58c",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/licenses/LOINC_short_license.txt",
+      "bytes": 340,
+      "sha256": "cc1aad47fa2c13f4206daeb92dde51a95dca0850029b76bfabdfc997bd6c4985",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/licenses/NOTICE.txt",
+      "bytes": 1636,
+      "sha256": "52b89f1d6f81600eb5b6ee87d1fe054a7b2de072f7762789f72d104e0cbd35b2",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/encounter-example.json",
+      "bytes": 413,
+      "sha256": "6ef7c93b28fa76d3f1f1dcd3e795a8e35c70b5f86ad4659b75f7fc3d93ff0bb5",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/medicationexample1.json",
+      "bytes": 268,
+      "sha256": "7e4840d907254db22a6aa9bce22f1c962a94a7d21cb658ac00f491af8cb37e31",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/observation-example-body-height.json",
+      "bytes": 1548,
+      "sha256": "03fc509c667179aa31a781d0d3a5f278cf459a95ba8a20811376e8b80995a824",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/observation-example-f001-glucose.json",
+      "bytes": 2509,
+      "sha256": "ce9f8dab3efbdfaa8a734e6c738956656cd444a91b823dcf4458eb833edf4a3f",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/observation-example-f002-excess.json",
+      "bytes": 2583,
+      "sha256": "9cd95be31d43a6192d29c18b5452a16c512350f2d96d846d4caddcf4156c331a",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/observation-example-f003-co2.json",
+      "bytes": 2505,
+      "sha256": "e6c700b420ef67bb56ac6093d1131304369d5dd886785da7b68af8a54ee67140",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/observation-example-f004-erythrocyte.json",
+      "bytes": 2853,
+      "sha256": "4c9308712bc8d3b40e47686387ad0f31c02a75c0667d49e9e44b019caf9e4799",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/observation-example-f005-hemoglobin.json",
+      "bytes": 2531,
+      "sha256": "626d6cefa749e4fff6bcc6edf85d51606aa2f25db75f8268e0e734faaf8e904a",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/observation-example-heart-rate.json",
+      "bytes": 1525,
+      "sha256": "d87f95a9cd9b8595b875ae22c38ad73f6d93f1d60d6ee3daf05d9708de1194d3",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/observation-example-respiratory-rate.json",
+      "bytes": 1571,
+      "sha256": "34e17df17d4510fe8424c5e1ac9431766838747171718cab8226cfcd5a9920d9",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/organization-example-f001-burgers.json",
+      "bytes": 3024,
+      "sha256": "cec6465ce1513077fc1accfa2abcd049ecd10e7dc37e73e9140bccf17b35da54",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/organization-example-f002-burgers-card.json",
+      "bytes": 2161,
+      "sha256": "cefea0ad3875422e835f69df47c52575552e6b4f2051e737575fea5f1e29186e",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/organization-example-gastro.json",
+      "bytes": 668,
+      "sha256": "8116a0f1283be32e20e5b2496467b83b32b1c79b759217c5a1937c11c7e5e2bd",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/patient-example-f001-pieter.json",
+      "bytes": 3424,
+      "sha256": "707159ab47ef675765a89e07833f0146c980ef554aaffed08603b5e762a37838",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/patient-example.json",
+      "bytes": 3748,
+      "sha256": "7cc6b3817264c22e722b6bc10e494d3441341032f8294db7ccec796ca7a0cf81",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/practitioner-example-f005-al.json",
+      "bytes": 7572,
+      "sha256": "bea688cbf38ce0e07928cde2b9e4621087d2d2eb4c29b91fe01eaa864713edab",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/inputs/sources/practitioner-example.json",
+      "bytes": 1290,
+      "sha256": "f7bdedca23fe131d62bbf7efae8c4dca6c691fe1ab78aa55e81b5fea43a88655",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/schemas/resources.json",
+      "bytes": 1075,
+      "sha256": "c1a5858389cce2209d8fb364bf5bbb62aae0536ca462e2a83feb9a0641babad1",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/schemas/organizations.json",
+      "bytes": 720,
+      "sha256": "c1565f2edfbbe04a4ee3d5c47c4307357291691bff3ba9bf6457588805691d19",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/schemas/patients.json",
+      "bytes": 1381,
+      "sha256": "baed12f381049b3edc190b1bedc85b4a96c83ce7f3b14827f2cae384da10bc46",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/schemas/practitioners.json",
+      "bytes": 996,
+      "sha256": "34105936952f3dd5f42ba4054cc6ad854d6801555595b9ad99d9bc65e2a8cb38",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/schemas/encounters.json",
+      "bytes": 1252,
+      "sha256": "a7648a2400acaccac37b44a2d6b58c1027c6e4ee39833452bf1ef6c06d63b992",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/schemas/observations.json",
+      "bytes": 2855,
+      "sha256": "14cd97a50b96e6e3a875c7580255e3d0559eb18a0ad4b92c14f32535c9128e8f",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/schemas/medications.json",
+      "bytes": 728,
+      "sha256": "43f40a1065e3a83ab8b80ef07eb209618adbd7aec8f8ea9c479089b78d4fb39d",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/schemas/resource_references.json",
+      "bytes": 1460,
+      "sha256": "3968e6cb4c8c78608826ed7e241c91176576edb0a80e2d35064d02289acbedd7",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/schemas/ontology.json",
+      "bytes": 33236,
+      "sha256": "fc9938f152e129e041096219be4d7bef70aa35e16f56745411af232ee9cab1c8",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/data/encounters.csv",
+      "bytes": 175,
+      "sha256": "4b84065bff25911d3f8b40610f652dc24c06ec3563de0adb7200680ca93f556d",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/data/medications.csv",
+      "bytes": 94,
+      "sha256": "5ba6bb3af8d3d7d8b65052fb071fda4e485805dd89d13bde995129db97d4a9d9",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/data/observations.csv",
+      "bytes": 4330,
+      "sha256": "de68ab0b1dd3d8ee8568fd12e84caac5afe955927ae0c2a650793e0e75c4dc16",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/data/organizations.csv",
+      "bytes": 164,
+      "sha256": "ad25193bf1d73737fbfa22c80cbf92bd4905ec0e8f5185b30822e44e1aa12c4f",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/data/patients.csv",
+      "bytes": 528,
+      "sha256": "024d9395230b731705cf1257c68bbe018deeda63575357d83a139a5767ec11fd",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/data/practitioners.csv",
+      "bytes": 638,
+      "sha256": "bcd41a6f4bc761914aa10f297ab7633bf90dacf4dc33c80f157f38841c787a27",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/data/resource_references.csv",
+      "bytes": 1673,
+      "sha256": "d859681af3e620581795b805a1c0cd4ea1a5042d81613d9826eda4492fa90306",
+      "origin": "historical-pack-1.0.0"
+    },
+    {
+      "path": "historical/archive/data/resources.csv",
+      "bytes": 45242,
+      "sha256": "b52e08436fa98b7e0a78a69777196d70c86ff560b78ecaf127961dc3e851d58c",
+      "origin": "historical-pack-1.0.0"
+    }
+  ],
+  "qualification": "Original current1.1 data and historical1.0 archive/own model remain separate. Identical model bytes are observed, never inferred. No retrieval, clinical validation, semantic admission or native execution."
+}

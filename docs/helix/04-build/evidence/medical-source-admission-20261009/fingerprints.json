@@ -1,0 +1,489 @@
+{
+  "files": [
+    {
+      "path": "tools/prepare_medical_sources.py",
+      "sha256": "670c63ae6a577fb9b5b419147200907de61deeeb5fe99e8bcbc99581b9e815da",
+      "bytes": 3563
+    },
+    {
+      "path": "tools/medical_source_oracle.py",
+      "sha256": "907a6e2e946583f6b21ea5c1062be8a82da60cb63b1a8b54b62b7d1f9d5e1c4d",
+      "bytes": 9672
+    },
+    {
+      "path": "tools/check_medical_current_dataset.ts",
+      "sha256": "bf21cbe95aff32366c74fb0d6d40f5d12a34107164e394d81997fcaec288dec8",
+      "bytes": 4266
+    },
+    {
+      "path": "tests/test_medical_source_oracle.py",
+      "sha256": "db4e9db7ec16ecafeaf849f3c9fae33a2f79204940420a3e645e146dbb87db8e",
+      "bytes": 3516
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/data/encounters.csv",
+      "sha256": "4b84065bff25911d3f8b40610f652dc24c06ec3563de0adb7200680ca93f556d",
+      "bytes": 175
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/data/medications.csv",
+      "sha256": "5ba6bb3af8d3d7d8b65052fb071fda4e485805dd89d13bde995129db97d4a9d9",
+      "bytes": 94
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/data/observations.csv",
+      "sha256": "de68ab0b1dd3d8ee8568fd12e84caac5afe955927ae0c2a650793e0e75c4dc16",
+      "bytes": 4330
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/data/organizations.csv",
+      "sha256": "ad25193bf1d73737fbfa22c80cbf92bd4905ec0e8f5185b30822e44e1aa12c4f",
+      "bytes": 164
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/data/patients.csv",
+      "sha256": "024d9395230b731705cf1257c68bbe018deeda63575357d83a139a5767ec11fd",
+      "bytes": 528
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/data/practitioners.csv",
+      "sha256": "bcd41a6f4bc761914aa10f297ab7633bf90dacf4dc33c80f157f38841c787a27",
+      "bytes": 638
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/data/resource_references.csv",
+      "sha256": "d859681af3e620581795b805a1c0cd4ea1a5042d81613d9826eda4492fa90306",
+      "bytes": 1673
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/data/resources.csv",
+      "sha256": "b52e08436fa98b7e0a78a69777196d70c86ff560b78ecaf127961dc3e851d58c",
+      "bytes": 45242
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/domain-pack.json",
+      "sha256": "7e66a8e66addf2643b5d30552383011e1a4136804b22d45d7c4628e2a7b4f223",
+      "bytes": 41387
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/data/encounters.csv",
+      "sha256": "4b84065bff25911d3f8b40610f652dc24c06ec3563de0adb7200680ca93f556d",
+      "bytes": 175
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/data/medications.csv",
+      "sha256": "5ba6bb3af8d3d7d8b65052fb071fda4e485805dd89d13bde995129db97d4a9d9",
+      "bytes": 94
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/data/observations.csv",
+      "sha256": "de68ab0b1dd3d8ee8568fd12e84caac5afe955927ae0c2a650793e0e75c4dc16",
+      "bytes": 4330
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/data/organizations.csv",
+      "sha256": "ad25193bf1d73737fbfa22c80cbf92bd4905ec0e8f5185b30822e44e1aa12c4f",
+      "bytes": 164
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/data/patients.csv",
+      "sha256": "f9850c74b803c9a9cbb61b9beb463697da73172c05d934bdec0057a10099fac8",
+      "bytes": 528
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/data/practitioners.csv",
+      "sha256": "5230332e9ffda03877dd98207471cee08105d422eda9317d19fa22b9fb7d05ab",
+      "bytes": 638
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/data/resource_references.csv",
+      "sha256": "d859681af3e620581795b805a1c0cd4ea1a5042d81613d9826eda4492fa90306",
+      "bytes": 1673
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/data/resources.csv",
+      "sha256": "b52e08436fa98b7e0a78a69777196d70c86ff560b78ecaf127961dc3e851d58c",
+      "bytes": 45242
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/licenses/LOINC_short_license.txt",
+      "sha256": "cc1aad47fa2c13f4206daeb92dde51a95dca0850029b76bfabdfc997bd6c4985",
+      "bytes": 340
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/licenses/NOTICE.txt",
+      "sha256": "52b89f1d6f81600eb5b6ee87d1fe054a7b2de072f7762789f72d104e0cbd35b2",
+      "bytes": 1636
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/encounter-example.json",
+      "sha256": "6ef7c93b28fa76d3f1f1dcd3e795a8e35c70b5f86ad4659b75f7fc3d93ff0bb5",
+      "bytes": 413
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/medicationexample1.json",
+      "sha256": "7e4840d907254db22a6aa9bce22f1c962a94a7d21cb658ac00f491af8cb37e31",
+      "bytes": 268
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/observation-example-body-height.json",
+      "sha256": "03fc509c667179aa31a781d0d3a5f278cf459a95ba8a20811376e8b80995a824",
+      "bytes": 1548
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/observation-example-f001-glucose.json",
+      "sha256": "ce9f8dab3efbdfaa8a734e6c738956656cd444a91b823dcf4458eb833edf4a3f",
+      "bytes": 2509
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/observation-example-f002-excess.json",
+      "sha256": "9cd95be31d43a6192d29c18b5452a16c512350f2d96d846d4caddcf4156c331a",
+      "bytes": 2583
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/observation-example-f003-co2.json",
+      "sha256": "e6c700b420ef67bb56ac6093d1131304369d5dd886785da7b68af8a54ee67140",
+      "bytes": 2505
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/observation-example-f004-erythrocyte.json",
+      "sha256": "4c9308712bc8d3b40e47686387ad0f31c02a75c0667d49e9e44b019caf9e4799",
+      "bytes": 2853
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/observation-example-f005-hemoglobin.json",
+      "sha256": "626d6cefa749e4fff6bcc6edf85d51606aa2f25db75f8268e0e734faaf8e904a",
+      "bytes": 2531
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/observation-example-heart-rate.json",
+      "sha256": "d87f95a9cd9b8595b875ae22c38ad73f6d93f1d60d6ee3daf05d9708de1194d3",
+      "bytes": 1525
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/observation-example-respiratory-rate.json",
+      "sha256": "34e17df17d4510fe8424c5e1ac9431766838747171718cab8226cfcd5a9920d9",
+      "bytes": 1571
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/organization-example-f001-burgers.json",
+      "sha256": "cec6465ce1513077fc1accfa2abcd049ecd10e7dc37e73e9140bccf17b35da54",
+      "bytes": 3024
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/organization-example-f002-burgers-card.json",
+      "sha256": "cefea0ad3875422e835f69df47c52575552e6b4f2051e737575fea5f1e29186e",
+      "bytes": 2161
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/organization-example-gastro.json",
+      "sha256": "8116a0f1283be32e20e5b2496467b83b32b1c79b759217c5a1937c11c7e5e2bd",
+      "bytes": 668
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/patient-example-f001-pieter.json",
+      "sha256": "707159ab47ef675765a89e07833f0146c980ef554aaffed08603b5e762a37838",
+      "bytes": 3424
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/patient-example.json",
+      "sha256": "7cc6b3817264c22e722b6bc10e494d3441341032f8294db7ccec796ca7a0cf81",
+      "bytes": 3748
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/practitioner-example-f005-al.json",
+      "sha256": "bea688cbf38ce0e07928cde2b9e4621087d2d2eb4c29b91fe01eaa864713edab",
+      "bytes": 7572
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/inputs/sources/practitioner-example.json",
+      "sha256": "f7bdedca23fe131d62bbf7efae8c4dca6c691fe1ab78aa55e81b5fea43a88655",
+      "bytes": 1290
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/manifest.json",
+      "sha256": "991b08b2692fea43e132900153f1e2897538e621fd53126c3f3322bf6f90515f",
+      "bytes": 3863
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/report.json",
+      "sha256": "abcc1f0634bd1fa92058630a6d36d67f48a1519dec5e32ebdc9db006d5da42e8",
+      "bytes": 1027
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/schemas/encounters.json",
+      "sha256": "a7648a2400acaccac37b44a2d6b58c1027c6e4ee39833452bf1ef6c06d63b992",
+      "bytes": 1252
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/schemas/medications.json",
+      "sha256": "43f40a1065e3a83ab8b80ef07eb209618adbd7aec8f8ea9c479089b78d4fb39d",
+      "bytes": 728
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/schemas/observations.json",
+      "sha256": "14cd97a50b96e6e3a875c7580255e3d0559eb18a0ad4b92c14f32535c9128e8f",
+      "bytes": 2855
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/schemas/ontology.json",
+      "sha256": "fc9938f152e129e041096219be4d7bef70aa35e16f56745411af232ee9cab1c8",
+      "bytes": 33236
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/schemas/organizations.json",
+      "sha256": "c1565f2edfbbe04a4ee3d5c47c4307357291691bff3ba9bf6457588805691d19",
+      "bytes": 720
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/schemas/patients.json",
+      "sha256": "baed12f381049b3edc190b1bedc85b4a96c83ce7f3b14827f2cae384da10bc46",
+      "bytes": 1381
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/schemas/practitioners.json",
+      "sha256": "34105936952f3dd5f42ba4054cc6ad854d6801555595b9ad99d9bc65e2a8cb38",
+      "bytes": 996
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/schemas/resource_references.json",
+      "sha256": "3968e6cb4c8c78608826ed7e241c91176576edb0a80e2d35064d02289acbedd7",
+      "bytes": 1460
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/archive/schemas/resources.json",
+      "sha256": "c1a5858389cce2209d8fb364bf5bbb62aae0536ca462e2a83feb9a0641babad1",
+      "bytes": 1075
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/original-1.0.0.zip",
+      "sha256": "3982a74c42c69e6a5c1c83c0f81bd3cd607fa8e99779310afc0fb549c0f25bc7",
+      "bytes": 61131
+    },
+    {
+      "path": "examples/domain-packs/medical/historical/original-pack.json",
+      "sha256": "bc0ab3389b3abd8a54e48b2752e6e08a6b0abfb027c54bf3b9b08c6126bd2e39",
+      "bytes": 41388
+    },
+    {
+      "path": "examples/domain-packs/medical/source-custody.json",
+      "sha256": "985032402b49c5e7ec3c70cd1a5352b0a09b2ef8818c609b7920680307e03b8c",
+      "bytes": 19635
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/README.md",
+      "sha256": "6320036211085c58e2ccbfe2949707af609c30337f8edfa309dd3d39a8019ce5",
+      "bytes": 4054
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/data/encounters.csv",
+      "sha256": "4b84065bff25911d3f8b40610f652dc24c06ec3563de0adb7200680ca93f556d",
+      "bytes": 175
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/data/medications.csv",
+      "sha256": "5ba6bb3af8d3d7d8b65052fb071fda4e485805dd89d13bde995129db97d4a9d9",
+      "bytes": 94
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/data/observations.csv",
+      "sha256": "de68ab0b1dd3d8ee8568fd12e84caac5afe955927ae0c2a650793e0e75c4dc16",
+      "bytes": 4330
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/data/organizations.csv",
+      "sha256": "ad25193bf1d73737fbfa22c80cbf92bd4905ec0e8f5185b30822e44e1aa12c4f",
+      "bytes": 164
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/data/patients.csv",
+      "sha256": "f9850c74b803c9a9cbb61b9beb463697da73172c05d934bdec0057a10099fac8",
+      "bytes": 528
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/data/practitioners.csv",
+      "sha256": "5230332e9ffda03877dd98207471cee08105d422eda9317d19fa22b9fb7d05ab",
+      "bytes": 638
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/data/resource_references.csv",
+      "sha256": "d859681af3e620581795b805a1c0cd4ea1a5042d81613d9826eda4492fa90306",
+      "bytes": 1673
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/data/resources.csv",
+      "sha256": "b52e08436fa98b7e0a78a69777196d70c86ff560b78ecaf127961dc3e851d58c",
+      "bytes": 45242
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/graph/fixture.json",
+      "sha256": "b22d788dcf23e2889f82bd407241d7af4bb5f8a8d4c3316768458a97448f18c4",
+      "bytes": 160290
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/licenses/LOINC_short_license.txt",
+      "sha256": "cc1aad47fa2c13f4206daeb92dde51a95dca0850029b76bfabdfc997bd6c4985",
+      "bytes": 340
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/licenses/NOTICE.txt",
+      "sha256": "52b89f1d6f81600eb5b6ee87d1fe054a7b2de072f7762789f72d104e0cbd35b2",
+      "bytes": 1636
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/ontology.json",
+      "sha256": "fc9938f152e129e041096219be4d7bef70aa35e16f56745411af232ee9cab1c8",
+      "bytes": 33236
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/pack.json",
+      "sha256": "e7d3b3c8c39ffb7eb14835b76b371fe1a1c1ba43d38ddc3847914aea35a17574",
+      "bytes": 42654
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/encounter-example.json",
+      "sha256": "6ef7c93b28fa76d3f1f1dcd3e795a8e35c70b5f86ad4659b75f7fc3d93ff0bb5",
+      "bytes": 413
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/medicationexample1.json",
+      "sha256": "7e4840d907254db22a6aa9bce22f1c962a94a7d21cb658ac00f491af8cb37e31",
+      "bytes": 268
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/observation-example-body-height.json",
+      "sha256": "03fc509c667179aa31a781d0d3a5f278cf459a95ba8a20811376e8b80995a824",
+      "bytes": 1548
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/observation-example-f001-glucose.json",
+      "sha256": "ce9f8dab3efbdfaa8a734e6c738956656cd444a91b823dcf4458eb833edf4a3f",
+      "bytes": 2509
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/observation-example-f002-excess.json",
+      "sha256": "9cd95be31d43a6192d29c18b5452a16c512350f2d96d846d4caddcf4156c331a",
+      "bytes": 2583
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/observation-example-f003-co2.json",
+      "sha256": "e6c700b420ef67bb56ac6093d1131304369d5dd886785da7b68af8a54ee67140",
+      "bytes": 2505
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/observation-example-f004-erythrocyte.json",
+      "sha256": "4c9308712bc8d3b40e47686387ad0f31c02a75c0667d49e9e44b019caf9e4799",
+      "bytes": 2853
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/observation-example-f005-hemoglobin.json",
+      "sha256": "626d6cefa749e4fff6bcc6edf85d51606aa2f25db75f8268e0e734faaf8e904a",
+      "bytes": 2531
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/observation-example-heart-rate.json",
+      "sha256": "d87f95a9cd9b8595b875ae22c38ad73f6d93f1d60d6ee3daf05d9708de1194d3",
+      "bytes": 1525
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/observation-example-respiratory-rate.json",
+      "sha256": "34e17df17d4510fe8424c5e1ac9431766838747171718cab8226cfcd5a9920d9",
+      "bytes": 1571
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/organization-example-f001-burgers.json",
+      "sha256": "cec6465ce1513077fc1accfa2abcd049ecd10e7dc37e73e9140bccf17b35da54",
+      "bytes": 3024
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/organization-example-f002-burgers-card.json",
+      "sha256": "cefea0ad3875422e835f69df47c52575552e6b4f2051e737575fea5f1e29186e",
+      "bytes": 2161
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/organization-example-gastro.json",
+      "sha256": "8116a0f1283be32e20e5b2496467b83b32b1c79b759217c5a1937c11c7e5e2bd",
+      "bytes": 668
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/patient-example-f001-pieter.json",
+      "sha256": "707159ab47ef675765a89e07833f0146c980ef554aaffed08603b5e762a37838",
+      "bytes": 3424
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/patient-example.json",
+      "sha256": "7cc6b3817264c22e722b6bc10e494d3441341032f8294db7ccec796ca7a0cf81",
+      "bytes": 3748
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/practitioner-example-f005-al.json",
+      "sha256": "bea688cbf38ce0e07928cde2b9e4621087d2d2eb4c29b91fe01eaa864713edab",
+      "bytes": 7572
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/sources/practitioner-example.json",
+      "sha256": "f7bdedca23fe131d62bbf7efae8c4dca6c691fe1ab78aa55e81b5fea43a88655",
+      "bytes": 1290
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/umf/encounters.json",
+      "sha256": "a7648a2400acaccac37b44a2d6b58c1027c6e4ee39833452bf1ef6c06d63b992",
+      "bytes": 1252
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/umf/medications.json",
+      "sha256": "43f40a1065e3a83ab8b80ef07eb209618adbd7aec8f8ea9c479089b78d4fb39d",
+      "bytes": 728
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/umf/observations.json",
+      "sha256": "14cd97a50b96e6e3a875c7580255e3d0559eb18a0ad4b92c14f32535c9128e8f",
+      "bytes": 2855
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/umf/organizations.json",
+      "sha256": "c1565f2edfbbe04a4ee3d5c47c4307357291691bff3ba9bf6457588805691d19",
+      "bytes": 720
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/umf/patients.json",
+      "sha256": "baed12f381049b3edc190b1bedc85b4a96c83ce7f3b14827f2cae384da10bc46",
+      "bytes": 1381
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/umf/practitioners.json",
+      "sha256": "34105936952f3dd5f42ba4054cc6ad854d6801555595b9ad99d9bc65e2a8cb38",
+      "bytes": 996
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/umf/resource_references.json",
+      "sha256": "3968e6cb4c8c78608826ed7e241c91176576edb0a80e2d35064d02289acbedd7",
+      "bytes": 1460
+    },
+    {
+      "path": "examples/domain-packs/medical/upstream/umf/resources.json",
+      "sha256": "c1a5858389cce2209d8fb364bf5bbb62aae0536ca462e2a83feb9a0641babad1",
+      "bytes": 1075
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-source-admission-20261009/README.md",
+      "sha256": "978b50a879e40c6048ef3a71b94c8c6b211a6ca9b9b07593815a3a2775f41eb7",
+      "bytes": 2322
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-source-admission-20261009/current-input.json",
+      "sha256": "94ed12620d51933fd5338f212a238bec15e1613832d3a5f6ff28f0efc64b0e5f",
+      "bytes": 211153
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-source-admission-20261009/original-oracle.json",
+      "sha256": "410b9dd81cb481848682cd241ffa432418a26c0300bdcbf2106656156a58ba87",
+      "bytes": 262547
+    },
+    {
+      "path": "docs/helix/04-build/evidence/medical-source-admission-20261009/public-current-receipt.json",
+      "sha256": "44cdd3ea93d9db2673f4720e632d96c0c1439404473029de30495505cf46aeff",
+      "bytes": 2791613
+    }
+  ]
+}
