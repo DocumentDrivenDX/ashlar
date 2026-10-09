@@ -1,0 +1,18 @@
+{
+  "docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009/README.md": "3b5e9c5b3604f7d27a11f8b8bb5cae2f9292c7784e4fa999821324df853fc9d0",
+  "docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009/activation-after.json": "0e9c6a87847db8ed81e8fc04c2300a2b090706b34aded256586d3607bbf952be",
+  "docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009/activation-before.json": "1a032aa2f02bf4417cf19d076b94f778add5c7aeb9b2bce71eb98c41aea5302c",
+  "docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009/activation-custody.json": "77964c45020cd6b4f2198855f80c0824a2056ce60f493d24e822b01fb1bc354d",
+  "docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009/activation-request.json": "1d999300a4249afa6f106c86d43647cadb451c15974c99486ca32b7286b28ae2",
+  "docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009/activation-upload.json": "67e75c8f3f9097ed1ed1e37ab8d06e1491ba116a643aed621f62a6687b5bcfbe",
+  "docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009/cypher-report.json": "3d64493256cec167721c5631810c5824fa742c87b1d084581ca818ecb470cec0",
+  "docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009/gremlin-report.json": "df4395e599fc0807b7f6dc3424f8ff0fd6782fdb55622d6edd5d205d35c8b11c",
+  "docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009/model.json": "c1f0c23b15f03f92a908a09aa4094fd9cff8103c676d8612ac55fd5519f45fe1",
+  "docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009/prior-parity.json": "7ad8be1772a7656f2e372900bc3d840ff8a0f94d30bb9ad4cf6b4178f9929b70",
+  "docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009/receipt.json": "cfdd0265d99cbfb9801bb02eec23d29cdda02dc30bab65771e1195a3298806f5",
+  "docs/helix/04-build/evidence/graph-augmentations-puppygraph-20261009/runtime.json": "0459398da55e5b791734b2007823bb2f3cda1d559660a4e26f1929116857d89a",
+  "tests/test_graph_augmentations_puppygraph.py": "7a664395e3eaf55b94ba1061fa8ee6b9c7a3c03ce43a71801efb3343667cc193",
+  "tools/check_graph_augmentations_cypher.py": "61f6c24f22303aa3f0343db7d521be9ec834ae926b0719f04ac7714b7821bc11",
+  "tools/check_graph_augmentations_gremlin.py": "34f1562d80446bc7c2ba9b0b9b1a8bc48fa6cb7d79c232790b412aa4fff7f70c",
+  "tools/prepare_graph_augmentations_puppygraph.py": "a3c539290a209f160d283d0fc029625870f551b55e95fe5409fef5ae36dfea88"
+}

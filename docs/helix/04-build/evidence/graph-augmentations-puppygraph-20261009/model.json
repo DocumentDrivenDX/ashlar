@@ -1,0 +1,255 @@
+{
+  "catalog": [
+    {
+      "jdbc": {
+        "jdbcUri": "jdbc:duckdb:/tmp/augmentations.duckdb"
+      },
+      "name": "ashlar_authored",
+      "type": "duckdb"
+    }
+  ],
+  "edge": [
+    {
+      "attribute": [
+        {
+          "name": "carrier_key",
+          "type": "STRING"
+        },
+        {
+          "name": "src",
+          "type": "STRING"
+        },
+        {
+          "name": "dst",
+          "type": "STRING"
+        },
+        {
+          "name": "record_json",
+          "type": "STRING"
+        }
+      ],
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "catalog": "ashlar_authored",
+          "enabled": true,
+          "mappedField": [
+            {
+              "sourceFieldName": "carrier_key",
+              "targetFieldName": "carrier_key"
+            },
+            {
+              "sourceFieldName": "src",
+              "targetFieldName": "src"
+            },
+            {
+              "sourceFieldName": "dst",
+              "targetFieldName": "dst"
+            },
+            {
+              "sourceFieldName": "record_json",
+              "targetFieldName": "record_json"
+            },
+            {
+              "sourceFieldName": "carrier_key",
+              "targetFieldName": "edge_key"
+            }
+          ],
+          "schema": "carrier",
+          "table": "edges"
+        }
+      },
+      "fromKey": [
+        {
+          "name": "src",
+          "type": "STRING"
+        }
+      ],
+      "fromNodeLabel": "AuthoredNode",
+      "id": [
+        {
+          "name": "edge_key",
+          "type": "STRING"
+        }
+      ],
+      "label": "AuthoredEdge",
+      "toKey": [
+        {
+          "name": "dst",
+          "type": "STRING"
+        }
+      ],
+      "toNodeLabel": "AuthoredNode"
+    }
+  ],
+  "node": [
+    {
+      "attribute": [
+        {
+          "name": "carrier_key",
+          "type": "STRING"
+        },
+        {
+          "name": "case_id",
+          "type": "STRING"
+        },
+        {
+          "name": "record_json",
+          "type": "STRING"
+        },
+        {
+          "name": "id_state",
+          "type": "STRING"
+        },
+        {
+          "name": "id_value_json",
+          "type": "STRING"
+        },
+        {
+          "name": "id_token",
+          "type": "STRING"
+        },
+        {
+          "name": "text_state",
+          "type": "STRING"
+        },
+        {
+          "name": "text_value_json",
+          "type": "STRING"
+        },
+        {
+          "name": "text_token",
+          "type": "STRING"
+        },
+        {
+          "name": "integer_state",
+          "type": "STRING"
+        },
+        {
+          "name": "integer_value_json",
+          "type": "STRING"
+        },
+        {
+          "name": "integer_token",
+          "type": "STRING"
+        },
+        {
+          "name": "decimal_state",
+          "type": "STRING"
+        },
+        {
+          "name": "decimal_value_json",
+          "type": "STRING"
+        },
+        {
+          "name": "decimal_token",
+          "type": "STRING"
+        },
+        {
+          "name": "boolean_state",
+          "type": "STRING"
+        },
+        {
+          "name": "boolean_value_json",
+          "type": "STRING"
+        },
+        {
+          "name": "boolean_token",
+          "type": "STRING"
+        }
+      ],
+      "dataSourceGroup": {
+        "externalDataSource": {
+          "catalog": "ashlar_authored",
+          "enabled": true,
+          "mappedField": [
+            {
+              "sourceFieldName": "carrier_key",
+              "targetFieldName": "carrier_key"
+            },
+            {
+              "sourceFieldName": "case_id",
+              "targetFieldName": "case_id"
+            },
+            {
+              "sourceFieldName": "record_json",
+              "targetFieldName": "record_json"
+            },
+            {
+              "sourceFieldName": "id_state",
+              "targetFieldName": "id_state"
+            },
+            {
+              "sourceFieldName": "id_value_json",
+              "targetFieldName": "id_value_json"
+            },
+            {
+              "sourceFieldName": "id_token",
+              "targetFieldName": "id_token"
+            },
+            {
+              "sourceFieldName": "text_state",
+              "targetFieldName": "text_state"
+            },
+            {
+              "sourceFieldName": "text_value_json",
+              "targetFieldName": "text_value_json"
+            },
+            {
+              "sourceFieldName": "text_token",
+              "targetFieldName": "text_token"
+            },
+            {
+              "sourceFieldName": "integer_state",
+              "targetFieldName": "integer_state"
+            },
+            {
+              "sourceFieldName": "integer_value_json",
+              "targetFieldName": "integer_value_json"
+            },
+            {
+              "sourceFieldName": "integer_token",
+              "targetFieldName": "integer_token"
+            },
+            {
+              "sourceFieldName": "decimal_state",
+              "targetFieldName": "decimal_state"
+            },
+            {
+              "sourceFieldName": "decimal_value_json",
+              "targetFieldName": "decimal_value_json"
+            },
+            {
+              "sourceFieldName": "decimal_token",
+              "targetFieldName": "decimal_token"
+            },
+            {
+              "sourceFieldName": "boolean_state",
+              "targetFieldName": "boolean_state"
+            },
+            {
+              "sourceFieldName": "boolean_value_json",
+              "targetFieldName": "boolean_value_json"
+            },
+            {
+              "sourceFieldName": "boolean_token",
+              "targetFieldName": "boolean_token"
+            },
+            {
+              "sourceFieldName": "carrier_key",
+              "targetFieldName": "node_key"
+            }
+          ],
+          "schema": "carrier",
+          "table": "nodes"
+        }
+      },
+      "id": [
+        {
+          "name": "node_key",
+          "type": "STRING"
+        }
+      ],
+      "label": "AuthoredNode"
+    }
+  ]
+}
