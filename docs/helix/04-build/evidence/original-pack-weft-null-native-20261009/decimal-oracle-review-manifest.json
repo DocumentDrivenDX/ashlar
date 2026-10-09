@@ -1,0 +1,14 @@
+{
+  "observedNativeDiagnosticLog": "/private/tmp/ashlar-pack-null-weft-20261009-b.log",
+  "diagnosticLogSha256": "8afa4043f38855c3a1621d0f589c82de738b41684751b36a890773c3c0ddb8e0",
+  "files": [
+    {
+      "path": "tools/run_pack_null_weft.py",
+      "sha256": "b4f86e6b8b1970f1d3257f925a78b1a9c62ec211ba540e9dea23ac8cdb0d029e"
+    },
+    {
+      "path": "tests/test_pack_null_decimal_oracle.py",
+      "sha256": "7fa56482cdc98ebcbb07f721fb2f6618a5c00ab99de74f0398f286b80d24f1ad"
+    }
+  ]
+}

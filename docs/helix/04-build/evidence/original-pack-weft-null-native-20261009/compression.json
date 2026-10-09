@@ -1,0 +1,35 @@
+{
+  "encoding": "gzip; unmodified original UTF-8 bytes",
+  "files": [
+    {
+      "path": "report.json.gz",
+      "originalBytes": 23279575,
+      "originalSha256": "00e30842063976056dc096ad68439a3c373ded279db5517215d782d69947bd81",
+      "originalPath": "/private/tmp/ashlar-pack-null-weft-20261009-c/report.json"
+    },
+    {
+      "path": "original-publications/archaeology/report.json.gz",
+      "originalPath": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/report.json",
+      "originalBytes": 1755596,
+      "originalSha256": "2cd8cd9afc2757c9a75d60f3c31633688f4afccedee6335d412cc281b214e721"
+    },
+    {
+      "path": "original-publications/archaeology/public-dataset.json.gz",
+      "originalPath": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/public-dataset.json",
+      "originalBytes": 1106521,
+      "originalSha256": "fb12d9ce4a4967e3f1ca36adeb758c41c5df314c61560a745acf1b6dd27b96c9"
+    },
+    {
+      "path": "original-publications/ecology/report.json.gz",
+      "originalPath": "/private/tmp/ashlar-ecology-native-publication-20261009-a/report.json",
+      "originalBytes": 1704479,
+      "originalSha256": "514958f24739e08885dade12d2a22e51e1f679c27336dccb7a53965b520b0083"
+    },
+    {
+      "path": "original-publications/ecology/public-dataset.json.gz",
+      "originalPath": "/private/tmp/ashlar-ecology-native-publication-20261009-a/public-dataset.json",
+      "originalBytes": 1035156,
+      "originalSha256": "6567530f3ecf12189e1c85d16c282df2734ab7635ddd6d294c1987073914906c"
+    }
+  ]
+}

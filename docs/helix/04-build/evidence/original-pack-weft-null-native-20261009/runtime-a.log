@@ -1,0 +1,11 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/09 19:26:33 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+[Stage 3:>                                                          (0 + 1) / 1]                                                                                Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tools/run_pack_null_weft.py", line 145, in <module>
+    a=p.parse_args();r=run({'archaeology':a.archaeology,'ecology':a.ecology},a.output,a.jars,a.compiler,a.source_guard,a.umf)
+  File "/Users/erik/Projects/ashlar/tools/run_pack_null_weft.py", line 99, in run
+    if sorted(rows,key=encoded)!=sorted(expected,key=encoded):raise ValueError('Independent original graph bag differs: '+original['id'])
+ValueError: Independent original graph bag differs: censor

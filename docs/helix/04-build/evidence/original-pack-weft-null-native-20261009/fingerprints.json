@@ -1,0 +1,890 @@
+{
+  "scope": "Actual four original nullable Weft queries on held private publications; failed a/b retained separately",
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 4445,
+      "sha256": "5810877c7dc81f824c7a6540e7eb165e551511a131328cf7bceb7a109fb9f723"
+    },
+    {
+      "path": "archaeology-sample-artifact.json",
+      "bytes": 30510,
+      "sha256": "f691dbfe5fe2716f4683218a3fe9ca8fae87c431b9cecd2cfa7129e688ece67f"
+    },
+    {
+      "path": "archaeology-sample-request.json",
+      "bytes": 131627,
+      "sha256": "c936d89435175f51550b7c7991561775be7c6ad1aeb4f63059ea3c0f1345ee0c"
+    },
+    {
+      "path": "archaeology-wrong-schema-artifact.json",
+      "bytes": 30408,
+      "sha256": "3cc920e3d7b35ba8298a438600ba7b1abcb20e29c06759a1c3342bc9c979d60d"
+    },
+    {
+      "path": "archaeology-wrong-schema-request.json",
+      "bytes": 130879,
+      "sha256": "fa0f5cbb76503ca2a871ad521285d523be2e1c9f15e6780a7b8956d5472d7e76"
+    },
+    {
+      "path": "ashlar-source/tests/test_pack_null_decimal_oracle.py",
+      "bytes": 3081,
+      "sha256": "7fa56482cdc98ebcbb07f721fb2f6618a5c00ab99de74f0398f286b80d24f1ad"
+    },
+    {
+      "path": "ashlar-source/tests/test_weft_native_null.py",
+      "bytes": 6705,
+      "sha256": "d9d386b7addb0e7475ef0b4bd97206ac7aa076acd659bb38c0ec6b887516103c"
+    },
+    {
+      "path": "ashlar-source/tools/run_commerce_arithmetic_weft.py",
+      "bytes": 33005,
+      "sha256": "8c6d725b668dfd49ffe56b519e804781991e9db6fc17ac644ac1e43e1442f863"
+    },
+    {
+      "path": "ashlar-source/tools/run_pack_null_weft.py",
+      "bytes": 15087,
+      "sha256": "b4f86e6b8b1970f1d3257f925a78b1a9c62ec211ba540e9dea23ac8cdb0d029e"
+    },
+    {
+      "path": "ashlar-source/tools/run_pack_publication_weft.py",
+      "bytes": 15725,
+      "sha256": "ceada2f24c682246302bd1d172b9e1dee52d50e5fbf7cee0fd44db6f716c909c"
+    },
+    {
+      "path": "ashlar-source/tools/weft_field_plan.py",
+      "bytes": 25095,
+      "sha256": "60d8d6869f265eee5e38df964b67e08c3715f826f656a0ac0bea1a4b8480af7c"
+    },
+    {
+      "path": "compiler-source-manifest.json",
+      "bytes": 3241,
+      "sha256": "4b12be64780e2ea740033a8b8d721f7a6f5da2bf33ff093f24cd418762f3fa70"
+    },
+    {
+      "path": "compression.json",
+      "bytes": 1547,
+      "sha256": "72b6727fcd0cc7e6a0ceb70a32d29ce6f152c6a580ee493f8cdbb76ae9b3d15d"
+    },
+    {
+      "path": "decimal-oracle-review-manifest.json",
+      "bytes": 492,
+      "sha256": "7734e4855e8b7c0f251b9a8eafa26ae5e487d3390d8b1bfcd88bda7af5ef13d0"
+    },
+    {
+      "path": "ecology-censor-artifact.json",
+      "bytes": 28984,
+      "sha256": "dc91a3f769cf27619bcb0296b729fa1f0e069816f00eef47d8803a26cacd31ff"
+    },
+    {
+      "path": "ecology-censor-request.json",
+      "bytes": 99729,
+      "sha256": "4ed07952efd2529368eaec684e3e9cbb9fbef672f3cebe9d4ac06f6840b573a1"
+    },
+    {
+      "path": "ecology-effort-artifact.json",
+      "bytes": 25337,
+      "sha256": "735fc70ea504ce4ee9ebf25a01d0a4edcb7a1182dfaf130015652966dbdd6b53"
+    },
+    {
+      "path": "ecology-effort-request.json",
+      "bytes": 99662,
+      "sha256": "6015c72bda65a3badfd4057b7586b9acc8b8ed01e0d2226957b235bfb34b2840"
+    },
+    {
+      "path": "ecology-wrong-schema-artifact.json",
+      "bytes": 28950,
+      "sha256": "873755002cf2225ff89ee69ff646f70cb0697a1c74af75da4c0477dad7bcd01a"
+    },
+    {
+      "path": "ecology-wrong-schema-request.json",
+      "bytes": 99083,
+      "sha256": "ffe2ab48260bc3fc13da5f4bc1897f433d4a9b916f271dd26591f787a178df4a"
+    },
+    {
+      "path": "ecology-zero-artifact.json",
+      "bytes": 35329,
+      "sha256": "89c861ef3f00610770ce28ed205a31e328bdbd5e7957517d00a615a91c014ecc"
+    },
+    {
+      "path": "ecology-zero-request.json",
+      "bytes": 99711,
+      "sha256": "78ade2e9a82de20f0c98e6257dcf7ea80103e84da766ec329973f10e9d077a42"
+    },
+    {
+      "path": "original-publications/archaeology/development-bindings.json",
+      "bytes": 36312,
+      "sha256": "26f5ff297637361e3c7b4f6a4c40622f98e51ccb68f93a99279cc1339e2dbdcd"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/.ashlar-local-installation-reservation.json",
+      "bytes": 1278,
+      "sha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/.part-00000-89f17d3a-c91c-47b5-b7f7-d650d055afdd-c000.snappy.parquet.crc",
+      "bytes": 1652,
+      "sha256": "e109df6557e4c8054898b7bc5825ba9aeff86b85ac15fc197a51671fbdd40c01"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/.part-00000-8a03f94c-6c50-4a68-967c-55c2e90d6351-c000.snappy.parquet.crc",
+      "bytes": 300,
+      "sha256": "4be6450765e377d7e9641ca6afdef8a9e18db389601f3e1c2943b3a7ced7ec74"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/.part-00000-a4ddae28-1099-4be9-a0c6-89420bc0937e-c000.snappy.parquet.crc",
+      "bytes": 300,
+      "sha256": "cb79f9ad8b3ac6db4bc6256118c892ee0ec4531a803f588d4b0a09e23d6e037a"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/.part-00000-d3c5dd27-0696-40a9-97c0-66d38c011512-c000.snappy.parquet.crc",
+      "bytes": 2092,
+      "sha256": "cd5f50cd464c17e664b09197c779945aaaac8beabccbef946595014377b83d55"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/.part-00000-d45e9328-c7cf-4f79-be53-c651ad76f1f3-c000.snappy.parquet.crc",
+      "bytes": 1652,
+      "sha256": "8b90948e0361e6c8f77211400b59138559ef7e6767f1cf30058dc5aaa9600969"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "545001342775f459c2d4578c1596151323799b15eced9da1b15d13094503678a"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 24,
+      "sha256": "290e6ad1fad9e703529ae3bb09948c9721d37d827ea2f399d48a2ba0065c3eca"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 32,
+      "sha256": "23a9263357e8e9c707c071a394e7997acf861bb7c021fc229e1a92eaa1aee3af"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/.00000000000000000003.json.crc",
+      "bytes": 32,
+      "sha256": "236589cb6985d63ee420b5c9416914b81f441cbddbeab1aeb3f91c9561b1d541"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/.00000000000000000004.json.crc",
+      "bytes": 32,
+      "sha256": "6a63232b21d52b15cfaa26242b8c20a39a68f699eacb1611b191f8689e4b0cb1"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/.00000000000000000005.json.crc",
+      "bytes": 32,
+      "sha256": "2bd730fd0d29916e52d8282ab794acdcffd44c605040c154341a2562046d5dfd"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/.00000000000000000006.json.crc",
+      "bytes": 32,
+      "sha256": "062fcfaf09f174a9bcc50d27ffd88ae2687031e807d5cab3f0d628869368590b"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/00000000000000000000.json",
+      "bytes": 1121,
+      "sha256": "784404d7d7c7bfa6d263d68c3ecb2bbdf61649b89253f4d2056b8fb352f3d4ac"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/00000000000000000001.json",
+      "bytes": 1892,
+      "sha256": "669ca7f37cb666848ddfdff40cbeb12033a27ffb8917c2331e819818b24bc650"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/00000000000000000002.json",
+      "bytes": 2852,
+      "sha256": "e5cfe418b0144c6f5c6780029d5a8f853feb5f1089d0305c56250ccf431478d6"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/00000000000000000003.json",
+      "bytes": 2852,
+      "sha256": "769f3aa72a8db40d24a539423edefbefa29d1133715cf14cd0d9b75e9db96977"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/00000000000000000004.json",
+      "bytes": 2852,
+      "sha256": "f1c5dbc2167a1138d475b48434bfb5d552959a8e071b038f800077f7e5ba307f"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/00000000000000000005.json",
+      "bytes": 2857,
+      "sha256": "fa666d8ac163d05f9a1f01e0aad2d36ea134754758d63107f46f85faac2f2aec"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/_delta_log/00000000000000000006.json",
+      "bytes": 2868,
+      "sha256": "3f4820959f50d9f8c4b507987e0bb9fc0207262d73bc5952c952c0b6871ecca7"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/part-00000-89f17d3a-c91c-47b5-b7f7-d650d055afdd-c000.snappy.parquet",
+      "bytes": 210164,
+      "sha256": "a480e31f75e04e9feb20f623ce701b53f75cf2f6fe314ca900bf68deb860c313"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/part-00000-8a03f94c-6c50-4a68-967c-55c2e90d6351-c000.snappy.parquet",
+      "bytes": 37316,
+      "sha256": "fc65ae109f9bc0341bbca062efff3275fe6896d720180c5b22882716e4a47087"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/part-00000-a4ddae28-1099-4be9-a0c6-89420bc0937e-c000.snappy.parquet",
+      "bytes": 37317,
+      "sha256": "86da5e21bc1571d32f0e4c57c355fd3e3e86d0229cba3201e4776c3c6c4b74d0"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/part-00000-d3c5dd27-0696-40a9-97c0-66d38c011512-c000.snappy.parquet",
+      "bytes": 266627,
+      "sha256": "20490b63dcd031a6d19d2de975d4ca854775a73524d6ede27e8d292ebd4fbb42"
+    },
+    {
+      "path": "original-publications/archaeology/native/attempts/part-00000-d45e9328-c7cf-4f79-be53-c651ad76f1f3-c000.snappy.parquet",
+      "bytes": 210185,
+      "sha256": "ed175ac5ad22669b460023503702d2d668359cc286eaec8101ecdb48056f3aaa"
+    },
+    {
+      "path": "original-publications/archaeology/native/edge_current/.ashlar-local-installation-reservation.json",
+      "bytes": 1278,
+      "sha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79"
+    },
+    {
+      "path": "original-publications/archaeology/native/edge_current/.part-00000-7f104b5e-ad97-4bd0-99d3-4cee61d9b554-c000.snappy.parquet.crc",
+      "bytes": 148,
+      "sha256": "84820c26c5bff300fd61930eb1152d40fbb0ac31d82e60793b76a8af1a542f16"
+    },
+    {
+      "path": "original-publications/archaeology/native/edge_current/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 28,
+      "sha256": "b82dff2d7665368b55160ca278ae045292f034981814a9d6ed31fb874c1ec4f4"
+    },
+    {
+      "path": "original-publications/archaeology/native/edge_current/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 32,
+      "sha256": "770945fbed08640062aa362794ca8f15931e8823f57de6471065e81ed6abd6b5"
+    },
+    {
+      "path": "original-publications/archaeology/native/edge_current/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 32,
+      "sha256": "be4238d3821316307331b0a84dbe9c69fc33841acc5fa5dc320a5ac1340c716e"
+    },
+    {
+      "path": "original-publications/archaeology/native/edge_current/_delta_log/00000000000000000000.json",
+      "bytes": 2267,
+      "sha256": "03f155fe523764e9b30ddd476c251ada89cd33e4f9237c84c6f6f97b2bf0fca0"
+    },
+    {
+      "path": "original-publications/archaeology/native/edge_current/_delta_log/00000000000000000001.json",
+      "bytes": 3038,
+      "sha256": "41e0a207c48c7b358defdcde0b945f1c0ffd73383dffea393197d27e5d60a3b1"
+    },
+    {
+      "path": "original-publications/archaeology/native/edge_current/_delta_log/00000000000000000002.json",
+      "bytes": 2743,
+      "sha256": "d8621b74837d1e65b17c06980d8148494b698d6289622488b84bba62712f4ca6"
+    },
+    {
+      "path": "original-publications/archaeology/native/edge_current/part-00000-7f104b5e-ad97-4bd0-99d3-4cee61d9b554-c000.snappy.parquet",
+      "bytes": 17564,
+      "sha256": "a782640937b64b82c0a612a29f1daadd4088ed24f41ad5a7e350301291634ba4"
+    },
+    {
+      "path": "original-publications/archaeology/native/manifest/.ashlar-local-installation-reservation.json",
+      "bytes": 1278,
+      "sha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79"
+    },
+    {
+      "path": "original-publications/archaeology/native/manifest/.part-00000-a6c091f8-3cd0-4776-976a-62a5938ab352-c000.snappy.parquet.crc",
+      "bytes": 468,
+      "sha256": "166a6b1a8c7fd8e13f1ce850cca602000c80a3561003ecc72fa8284c8ad38236"
+    },
+    {
+      "path": "original-publications/archaeology/native/manifest/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "7c3b953c84c9c51ab5b428eaf2c9370d5c3c605a352cc9eefb96a0614eab7fba"
+    },
+    {
+      "path": "original-publications/archaeology/native/manifest/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 24,
+      "sha256": "a6ae6b01de59f1b8abc39272a2f009eb4fcf37a8386b6abb01f324962952dd28"
+    },
+    {
+      "path": "original-publications/archaeology/native/manifest/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 36,
+      "sha256": "538a6642c6a4d20f70fe5df19351a993a0fb124d13036f945d8df527846c3564"
+    },
+    {
+      "path": "original-publications/archaeology/native/manifest/_delta_log/00000000000000000000.json",
+      "bytes": 1257,
+      "sha256": "5130e132edd5d58a5421725a6ce803e5cb712daeb69c4a6c5d7c6c4cc511f13b"
+    },
+    {
+      "path": "original-publications/archaeology/native/manifest/_delta_log/00000000000000000001.json",
+      "bytes": 2028,
+      "sha256": "a4926bfbe5b30e08ce9190dae8eee777f31876b29019ca365246b971777cde9f"
+    },
+    {
+      "path": "original-publications/archaeology/native/manifest/_delta_log/00000000000000000002.json",
+      "bytes": 3285,
+      "sha256": "711802e6cf88933f07da45e2c99ff1072b771e60d53d2bae0c3d6b7ba44f0590"
+    },
+    {
+      "path": "original-publications/archaeology/native/manifest/part-00000-a6c091f8-3cd0-4776-976a-62a5938ab352-c000.snappy.parquet",
+      "bytes": 58693,
+      "sha256": "41ced4502f3c4acc83bcba7c79026c4b5262145a33b3ab5c95969fa84bcfb63e"
+    },
+    {
+      "path": "original-publications/archaeology/native/object_current/.ashlar-local-installation-reservation.json",
+      "bytes": 1278,
+      "sha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79"
+    },
+    {
+      "path": "original-publications/archaeology/native/object_current/.part-00000-d3fbd2cf-0ab8-437a-baa2-097237754f4c-c000.snappy.parquet.crc",
+      "bytes": 152,
+      "sha256": "b99d297acff957ea6c7f873c32ac2c4efe6040f7a44156f738fc08e8c3a3343e"
+    },
+    {
+      "path": "original-publications/archaeology/native/object_current/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 24,
+      "sha256": "d022af3f6ee7026958c3e88752faeb9a8c3e63e40f3e1182b068744b245505cf"
+    },
+    {
+      "path": "original-publications/archaeology/native/object_current/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 32,
+      "sha256": "943cfb005e612b4c6ea3e566716b6299ad86467981093822c96e596335314d7b"
+    },
+    {
+      "path": "original-publications/archaeology/native/object_current/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 32,
+      "sha256": "e5c539a3d05a2353c7cfd7e51b0ece14ee763d61048a25d1101f6fc1f78a349b"
+    },
+    {
+      "path": "original-publications/archaeology/native/object_current/_delta_log/00000000000000000000.json",
+      "bytes": 2033,
+      "sha256": "d00bcc6ec81f2b61ee997850d22b8618a83b061a1dc3f707d7d3a72a686ba19b"
+    },
+    {
+      "path": "original-publications/archaeology/native/object_current/_delta_log/00000000000000000001.json",
+      "bytes": 2804,
+      "sha256": "ce71d23da00ca0955356fc39aacef6548a70325747a1129a8a5ff009a4db5598"
+    },
+    {
+      "path": "original-publications/archaeology/native/object_current/_delta_log/00000000000000000002.json",
+      "bytes": 2732,
+      "sha256": "7d3990d355eb527ec6f67add29b528a139c13afcffd246fdac5f200b4c2a0ac3"
+    },
+    {
+      "path": "original-publications/archaeology/native/object_current/part-00000-d3fbd2cf-0ab8-437a-baa2-097237754f4c-c000.snappy.parquet",
+      "bytes": 18082,
+      "sha256": "1d02f3cf8606d0dfc3d67e93794fb166ce3299bc8715ae0b491cdbc1b908c861"
+    },
+    {
+      "path": "original-publications/archaeology/native/tombstone/.ashlar-local-installation-reservation.json",
+      "bytes": 1278,
+      "sha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79"
+    },
+    {
+      "path": "original-publications/archaeology/native/tombstone/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "55bf672324c62a3671322a3ba29223945a711bbe6015707a8b8b978d9b558e50"
+    },
+    {
+      "path": "original-publications/archaeology/native/tombstone/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 28,
+      "sha256": "a3d96f6bf44be0d01fb0800f7f006e8ab7c7d3f74c6a8742320388ff53489ed9"
+    },
+    {
+      "path": "original-publications/archaeology/native/tombstone/_delta_log/00000000000000000000.json",
+      "bytes": 1455,
+      "sha256": "21e27de7b904c1c58000afcff5a538321995d377fc19c4d82c98eccc154d51b5"
+    },
+    {
+      "path": "original-publications/archaeology/native/tombstone/_delta_log/00000000000000000001.json",
+      "bytes": 2226,
+      "sha256": "9ca6c9a3168cfccba20e887ee7562947d77c436f5c3aa716752987d10433bcd3"
+    },
+    {
+      "path": "original-publications/archaeology/native/whole_source_history/.ashlar-local-installation-reservation.json",
+      "bytes": 1278,
+      "sha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79"
+    },
+    {
+      "path": "original-publications/archaeology/native/whole_source_history/.part-00000-d6ef84a0-b391-474a-96f4-501ddc50042d-c000.snappy.parquet.crc",
+      "bytes": 492,
+      "sha256": "c558ded90c75bff2d1e6734c1fe24b8c7a218e8193f894808b9e7a1e1b6defd3"
+    },
+    {
+      "path": "original-publications/archaeology/native/whole_source_history/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "026d16eb305d76fe59766c15907c9fec25b784daf1573f4a18822fc5bef02796"
+    },
+    {
+      "path": "original-publications/archaeology/native/whole_source_history/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 24,
+      "sha256": "ccf038f67a1b08d86870b95991171298e319d446ab566f4f25594d25b394cb66"
+    },
+    {
+      "path": "original-publications/archaeology/native/whole_source_history/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 24,
+      "sha256": "d30d04a606fa57c4daa410f3faff84ac38c5cadc03477c6df98cb7f320b35fae"
+    },
+    {
+      "path": "original-publications/archaeology/native/whole_source_history/_delta_log/00000000000000000000.json",
+      "bytes": 1109,
+      "sha256": "efb34756b9d939aba8c579e714799e7e644c3f41459a8cc6e8fea03dfdf02d10"
+    },
+    {
+      "path": "original-publications/archaeology/native/whole_source_history/_delta_log/00000000000000000001.json",
+      "bytes": 1880,
+      "sha256": "9076dd6dd5f34965e227237bdebb3e75a2928e05435b2474f2405fbdeaee00d1"
+    },
+    {
+      "path": "original-publications/archaeology/native/whole_source_history/_delta_log/00000000000000000002.json",
+      "bytes": 1664,
+      "sha256": "c3e15c9e95c41c5a7606b9b62645b34f63bf00008d54259befd58115e15755fb"
+    },
+    {
+      "path": "original-publications/archaeology/native/whole_source_history/part-00000-d6ef84a0-b391-474a-96f4-501ddc50042d-c000.snappy.parquet",
+      "bytes": 61926,
+      "sha256": "bc14d22a00b186f86c02d0009ba67a2404b28f40819970a820f9e855382c9bd2"
+    },
+    {
+      "path": "original-publications/archaeology/original-graph.json",
+      "bytes": 81564,
+      "sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52"
+    },
+    {
+      "path": "original-publications/archaeology/original-ontology.json",
+      "bytes": 83068,
+      "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a"
+    },
+    {
+      "path": "original-publications/archaeology/postgres-installation.json",
+      "bytes": 16466,
+      "sha256": "e0b30c1c5556a7bb8e65b7ad74621810c48808291fe4a1e4d351b70921c8930c"
+    },
+    {
+      "path": "original-publications/archaeology/public-dataset-call.json",
+      "bytes": 257,
+      "sha256": "dfba24932d2b14ca8be70a48f559b7fab94cece422e6eaf2ece4e12f3a27473d"
+    },
+    {
+      "path": "original-publications/archaeology/public-dataset.json.gz",
+      "bytes": 61875,
+      "sha256": "79c4cc7a39b1b99097c0320b8003d1c05ca9c2058198f859bb6ec458d62cf51a"
+    },
+    {
+      "path": "original-publications/archaeology/report.json.gz",
+      "bytes": 124489,
+      "sha256": "817ea2b7e577541066c0667d304ad9ac60614e11caef25316e5cb87a99848028"
+    },
+    {
+      "path": "original-publications/archaeology/source.jsonl",
+      "bytes": 115572,
+      "sha256": "9d0347b430c77d36bbc98b245a4df894108282aea7a10cb774bc729d25d0d9b2"
+    },
+    {
+      "path": "original-publications/ecology/development-bindings.json",
+      "bytes": 34327,
+      "sha256": "adfd8ba678e7ecf480a54cd5c6a4b657e7e8862d9d3545c93257b75013a0e26e"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/.ashlar-local-installation-reservation.json",
+      "bytes": 1222,
+      "sha256": "cf7f2a362fbed031c632a8a41dd60b11c46415d1e745abbbc12337645f2dd9ac"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/.part-00000-0158a2b2-e5c0-4891-8e1b-bdc2e48deb6a-c000.snappy.parquet.crc",
+      "bytes": 1972,
+      "sha256": "f3c30722c80b86c1e94c8768acafece49ebaf8f0b9306f82ee58aa8e65fdc4f1"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/.part-00000-198a1e7f-1cfe-4e06-a281-93a0bf2eab2f-c000.snappy.parquet.crc",
+      "bytes": 288,
+      "sha256": "99f37d1a0bd4b1b9b40e526dd2431ef934dc2dff5523024442483ceeea4f21e1"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/.part-00000-887496da-8b02-44c6-9153-4cbc17e72c8a-c000.snappy.parquet.crc",
+      "bytes": 288,
+      "sha256": "14667070e523bd949991446d2b651d4b6319895cf73a83875694fa7c66096c66"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/.part-00000-e895679b-a575-49cb-adc8-ea4d9828b5f3-c000.snappy.parquet.crc",
+      "bytes": 1576,
+      "sha256": "341ed96d940078b38a3e195702690b18a2733e6e38f8f39f2c700b4c0cb760e9"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/.part-00000-f82397aa-2c2f-4fa8-a698-44a4c9a22c87-c000.snappy.parquet.crc",
+      "bytes": 1576,
+      "sha256": "d6c7e8cd92e1ee599bb815df9867b29b87c335ae55a6782eb8fc6748441e80ac"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "beedf9c6c42995294d1fbbcabf47bd8d8b7b5e7d7d85b5adafbff280190c7c2f"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 24,
+      "sha256": "080903df9a7bff62bdcf981a2a812ba96a1e5abc0abfa1ec58e997385e252e8f"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 32,
+      "sha256": "275c06fb2e98633ebfbb8ec25eeb7a04978244e91f42681ff3d76bcbe2020a27"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/.00000000000000000003.json.crc",
+      "bytes": 32,
+      "sha256": "c4b6e6c455e0eed07c9a6e1dfcffe21f904e18cbfc96bd6523b40a61a916064a"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/.00000000000000000004.json.crc",
+      "bytes": 32,
+      "sha256": "6edfb26534e2144e20c5a640fb29611095cd147407f70c2d74c4b066d90ac38a"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/.00000000000000000005.json.crc",
+      "bytes": 32,
+      "sha256": "732917d0a1a73f495beb99ee754c7ae83695eceacff661869d6cae0e18ae70b9"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/.00000000000000000006.json.crc",
+      "bytes": 32,
+      "sha256": "ebe2b833a84adc6e345b73a8e6e99240f675ca1877c741ce0fc5814dc22f2acf"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/00000000000000000000.json",
+      "bytes": 1121,
+      "sha256": "4eb711629a03f281948e996d4bf923d3bc184948fbc1eaebacb0917fb7c0456c"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/00000000000000000001.json",
+      "bytes": 1880,
+      "sha256": "0c6476c2cd9c8012777d7f9eacc10701847fe7da2a1f6ada99c2366044f281ee"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/00000000000000000002.json",
+      "bytes": 2832,
+      "sha256": "567740a036a0b5d75c89a161560cc508da86b6bdc4659df7eb78236daeaf8075"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/00000000000000000003.json",
+      "bytes": 2831,
+      "sha256": "b9643d85f033db2e291a55c5bdb0b36d20421e2dcb5d646f13fbe74b95df8806"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/00000000000000000004.json",
+      "bytes": 2832,
+      "sha256": "06411859239242c79432178f04f087c4d6be6a12df5174061e870487c52efb06"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/00000000000000000005.json",
+      "bytes": 2838,
+      "sha256": "46b0167692fec6ba690ac6de3ffcd715403b8b899e875c7b3b58449538a1b774"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/_delta_log/00000000000000000006.json",
+      "bytes": 2848,
+      "sha256": "d421d31cd09e43aeeb02a27811b26ab39fbe46d17b45996e136dd9e556472556"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/part-00000-0158a2b2-e5c0-4891-8e1b-bdc2e48deb6a-c000.snappy.parquet",
+      "bytes": 251030,
+      "sha256": "c0c55326fb334bd659b5692e2bf9ce395b54bf537146ea4591dc1cb5643cdbb1"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/part-00000-198a1e7f-1cfe-4e06-a281-93a0bf2eab2f-c000.snappy.parquet",
+      "bytes": 35559,
+      "sha256": "f1fc5ba04823f7a80009a4134d862afb7c4234fc1973c5f3787b2c4c152c2075"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/part-00000-887496da-8b02-44c6-9153-4cbc17e72c8a-c000.snappy.parquet",
+      "bytes": 35560,
+      "sha256": "780eed93d60c9591762f90623b53c6ad33952f4bcc5028b02e54e932b0db04a2"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/part-00000-e895679b-a575-49cb-adc8-ea4d9828b5f3-c000.snappy.parquet",
+      "bytes": 200408,
+      "sha256": "977a7d6eafeb31db10494254053bc8320ee0ef324a00bbaa9254734f6cf5d821"
+    },
+    {
+      "path": "original-publications/ecology/native/attempts/part-00000-f82397aa-2c2f-4fa8-a698-44a4c9a22c87-c000.snappy.parquet",
+      "bytes": 200429,
+      "sha256": "5df72db00d7d7fe5b9b33653fa9274a031e7bde3ffe9f5cfc08e6c618c49493e"
+    },
+    {
+      "path": "original-publications/ecology/native/edge_current/.ashlar-local-installation-reservation.json",
+      "bytes": 1222,
+      "sha256": "cf7f2a362fbed031c632a8a41dd60b11c46415d1e745abbbc12337645f2dd9ac"
+    },
+    {
+      "path": "original-publications/ecology/native/edge_current/.part-00000-d26d7009-877c-4821-9b68-efabb0b293f4-c000.snappy.parquet.crc",
+      "bytes": 152,
+      "sha256": "124ad09a48f91400d5daebc19759eb70fbc6e46d9dd31b1962105087b038e78b"
+    },
+    {
+      "path": "original-publications/ecology/native/edge_current/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 28,
+      "sha256": "0835188a123d1fcb770806228c31ac09a6881b6fa57b65eb9addd94a5822131c"
+    },
+    {
+      "path": "original-publications/ecology/native/edge_current/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 32,
+      "sha256": "f9a3caf3526f2ce2cf3337890db86ba7db4a10dd5c67ed75cca2a16c7d02ba2a"
+    },
+    {
+      "path": "original-publications/ecology/native/edge_current/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 32,
+      "sha256": "60314c7c6629237cc98298d7444d73ccee5f66330f8da74ae9e5dd6d7bb7d52e"
+    },
+    {
+      "path": "original-publications/ecology/native/edge_current/_delta_log/00000000000000000000.json",
+      "bytes": 2267,
+      "sha256": "cd15687288d56cf9350cda281017b14325fe07bf309d3806c6126f8534540d5c"
+    },
+    {
+      "path": "original-publications/ecology/native/edge_current/_delta_log/00000000000000000001.json",
+      "bytes": 3026,
+      "sha256": "de672aee20ab053d3fad9c2eb6cf1ffb61a9d0a6482d8837fd59141ef8e84e8b"
+    },
+    {
+      "path": "original-publications/ecology/native/edge_current/_delta_log/00000000000000000002.json",
+      "bytes": 2717,
+      "sha256": "bef9055b8bd39bbf5555b1859cfd8d5c603a79436721abb870e949b17801a4b7"
+    },
+    {
+      "path": "original-publications/ecology/native/edge_current/part-00000-d26d7009-877c-4821-9b68-efabb0b293f4-c000.snappy.parquet",
+      "bytes": 18176,
+      "sha256": "bde242bbebfe00657fe58793d063b2b860ce102e4d244f5e256a04c12a06c6ba"
+    },
+    {
+      "path": "original-publications/ecology/native/manifest/.ashlar-local-installation-reservation.json",
+      "bytes": 1222,
+      "sha256": "cf7f2a362fbed031c632a8a41dd60b11c46415d1e745abbbc12337645f2dd9ac"
+    },
+    {
+      "path": "original-publications/ecology/native/manifest/.part-00000-dba59e8f-2ba2-48d0-9d68-972b7094bb49-c000.snappy.parquet.crc",
+      "bytes": 416,
+      "sha256": "b502c8806d0a7bc4102c0a02016e3e7a26818710b76386349d4c70132a263e24"
+    },
+    {
+      "path": "original-publications/ecology/native/manifest/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "857795b71c11d1f314fffcdce9ca6099cffbc88148aee6551120c64c03c7b372"
+    },
+    {
+      "path": "original-publications/ecology/native/manifest/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 24,
+      "sha256": "7050d2653c11ad2328a5602bdb864e278a501420bd2ab544d940da50f1fe774b"
+    },
+    {
+      "path": "original-publications/ecology/native/manifest/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 36,
+      "sha256": "5db6cc091c7e3ce381f5c3991895ff9df6069f4a62968f79b71ac1069029a0a1"
+    },
+    {
+      "path": "original-publications/ecology/native/manifest/_delta_log/00000000000000000000.json",
+      "bytes": 1257,
+      "sha256": "95165700b7f669e4daa51f799da627a85a073264ee305436649b6784804241ba"
+    },
+    {
+      "path": "original-publications/ecology/native/manifest/_delta_log/00000000000000000001.json",
+      "bytes": 2016,
+      "sha256": "ab0567f60708f1d4a1922dae292354fb98e73dca289f2b45aff3bdfebffadb55"
+    },
+    {
+      "path": "original-publications/ecology/native/manifest/_delta_log/00000000000000000002.json",
+      "bytes": 3280,
+      "sha256": "6f90e3ef98efcf68ab1d0368203c37646fd02bfe4b4f4084728660bf24c2e601"
+    },
+    {
+      "path": "original-publications/ecology/native/manifest/part-00000-dba59e8f-2ba2-48d0-9d68-972b7094bb49-c000.snappy.parquet",
+      "bytes": 51920,
+      "sha256": "ffe3c989e436a80e15fc190371adc4e14b4216775aed0faa1559298280f658db"
+    },
+    {
+      "path": "original-publications/ecology/native/object_current/.ashlar-local-installation-reservation.json",
+      "bytes": 1222,
+      "sha256": "cf7f2a362fbed031c632a8a41dd60b11c46415d1e745abbbc12337645f2dd9ac"
+    },
+    {
+      "path": "original-publications/ecology/native/object_current/.part-00000-5efa5df9-d54a-4fe8-854d-89ab69dd6e1e-c000.snappy.parquet.crc",
+      "bytes": 140,
+      "sha256": "c5f0f4b4b076e51f9b81468bec94eb67f88d7260ca59c813951dd5ab20698ca8"
+    },
+    {
+      "path": "original-publications/ecology/native/object_current/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 24,
+      "sha256": "34d09cfc430e885abde6f656ceda3be4c968a4fbfa69b462af92daf98ae9e32b"
+    },
+    {
+      "path": "original-publications/ecology/native/object_current/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 32,
+      "sha256": "8eebe4e369146ea6479c30b35ae51adfc1a4b351f7f0fa2e192cef0a3a4dd042"
+    },
+    {
+      "path": "original-publications/ecology/native/object_current/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 32,
+      "sha256": "168dd10a36ddc8d05e61589a88e3e4ce4f6e3f0b91cdc2fbf5d19979a02e06c6"
+    },
+    {
+      "path": "original-publications/ecology/native/object_current/_delta_log/00000000000000000000.json",
+      "bytes": 2033,
+      "sha256": "d9368b322063b34424a6613cff84bda52ca409174b2e71de2fa14caa413bbe01"
+    },
+    {
+      "path": "original-publications/ecology/native/object_current/_delta_log/00000000000000000001.json",
+      "bytes": 2792,
+      "sha256": "cfb0b726a4d6d9e1445c39fd3d0706c33d56f62d70659a3a789ee7b89d57c9dc"
+    },
+    {
+      "path": "original-publications/ecology/native/object_current/_delta_log/00000000000000000002.json",
+      "bytes": 2706,
+      "sha256": "d5958d3f917f31d07ebc7eafe144eeabe3cc6fd892c329487ffd00d76f50eaa0"
+    },
+    {
+      "path": "original-publications/ecology/native/object_current/part-00000-5efa5df9-d54a-4fe8-854d-89ab69dd6e1e-c000.snappy.parquet",
+      "bytes": 16388,
+      "sha256": "e8b2f0167b783d748fd00e44b06e76fc0e8b151a97870b1f582cadfde42f36f5"
+    },
+    {
+      "path": "original-publications/ecology/native/tombstone/.ashlar-local-installation-reservation.json",
+      "bytes": 1222,
+      "sha256": "cf7f2a362fbed031c632a8a41dd60b11c46415d1e745abbbc12337645f2dd9ac"
+    },
+    {
+      "path": "original-publications/ecology/native/tombstone/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "11ae53cbfaf18a2fc520312acefff15d9458f349119ce0cbcef5fcbe75bc8844"
+    },
+    {
+      "path": "original-publications/ecology/native/tombstone/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 28,
+      "sha256": "b02fc0f608d76e25199bb206304828a73dedc12f9a69a00f8db726c4182a0ca6"
+    },
+    {
+      "path": "original-publications/ecology/native/tombstone/_delta_log/00000000000000000000.json",
+      "bytes": 1455,
+      "sha256": "0ace37f6bb3254e515dd636d3d8163259c22a40a0ca344b0e127e40370e66d20"
+    },
+    {
+      "path": "original-publications/ecology/native/tombstone/_delta_log/00000000000000000001.json",
+      "bytes": 2214,
+      "sha256": "0ac1bf05ab7c749bbf995cc93cc3d74c3c80a17f63adc29be9bb4d2d2cc7aeea"
+    },
+    {
+      "path": "original-publications/ecology/native/whole_source_history/.ashlar-local-installation-reservation.json",
+      "bytes": 1222,
+      "sha256": "cf7f2a362fbed031c632a8a41dd60b11c46415d1e745abbbc12337645f2dd9ac"
+    },
+    {
+      "path": "original-publications/ecology/native/whole_source_history/.part-00000-7fa9528d-9651-42ad-8ec5-484866af48b4-c000.snappy.parquet.crc",
+      "bytes": 480,
+      "sha256": "99c16c4ded596a8bc11b97bab1c1b18738e45032b43bea497d16ed1615cbf516"
+    },
+    {
+      "path": "original-publications/ecology/native/whole_source_history/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "6b43cf24e8f5147ad001ee4d025e039dfbede9e98771572b658b87f0de14cf71"
+    },
+    {
+      "path": "original-publications/ecology/native/whole_source_history/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 24,
+      "sha256": "f1acd6e6ca2e5d62595aee48e794fda03f3edd621cca5ab8f6422622328fa696"
+    },
+    {
+      "path": "original-publications/ecology/native/whole_source_history/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 24,
+      "sha256": "2d6b71272d15646569d1a52883cae98fd02ef4971a2d8063d377b63cba2e8971"
+    },
+    {
+      "path": "original-publications/ecology/native/whole_source_history/_delta_log/00000000000000000000.json",
+      "bytes": 1109,
+      "sha256": "b29a5f62ca207b0dbbf7eb5d62e399f894fdd0be4d2590b23ee7e269afc09ace"
+    },
+    {
+      "path": "original-publications/ecology/native/whole_source_history/_delta_log/00000000000000000001.json",
+      "bytes": 1868,
+      "sha256": "2947f1326fdd476c1e1833640de96ad5be79a4dd999e230e8ffdf80d84e4fb10"
+    },
+    {
+      "path": "original-publications/ecology/native/whole_source_history/_delta_log/00000000000000000002.json",
+      "bytes": 1649,
+      "sha256": "dad101b0b13c4ae5dc3f01b20e48c691a4a562b121a31a6b5f37b20d9ed4d78e"
+    },
+    {
+      "path": "original-publications/ecology/native/whole_source_history/part-00000-7fa9528d-9651-42ad-8ec5-484866af48b4-c000.snappy.parquet",
+      "bytes": 60345,
+      "sha256": "b885a1c5834a4b9d508be6f3a3311b69aa92087932beb0ac165d459dbfa547e3"
+    },
+    {
+      "path": "original-publications/ecology/original-graph.json",
+      "bytes": 77070,
+      "sha256": "cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668"
+    },
+    {
+      "path": "original-publications/ecology/original-ontology.json",
+      "bytes": 62701,
+      "sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee"
+    },
+    {
+      "path": "original-publications/ecology/postgres-installation.json",
+      "bytes": 16362,
+      "sha256": "1b27fc5dd37ec92dc38f2278af603f345ab4597d0604a5f8ff5356bac05f8a8c"
+    },
+    {
+      "path": "original-publications/ecology/public-dataset-call.json",
+      "bytes": 253,
+      "sha256": "8f7fe9b9c38f0fddf736494ef6623ca996597021385ac110d2c4211153b95d00"
+    },
+    {
+      "path": "original-publications/ecology/public-dataset.json.gz",
+      "bytes": 49207,
+      "sha256": "9750e5ee926c4bdb0481e5dc4cc0ea3324efc3e90d0ebaca0ba25106abb669e5"
+    },
+    {
+      "path": "original-publications/ecology/report.json.gz",
+      "bytes": 111197,
+      "sha256": "ab4bac3778da8031c0a18be3e9859a882cf33e3ecb877404b11ab2c02156609f"
+    },
+    {
+      "path": "original-publications/ecology/source.jsonl",
+      "bytes": 122599,
+      "sha256": "56798cf0ffb9ea899219e6ac7f1e130a428ab16c8866c99583384d1ea833e144"
+    },
+    {
+      "path": "public-original-presence.json",
+      "bytes": 689126,
+      "sha256": "d8698f83fc6b8babac9a5e5b85a7a0914eb2a0c28ed4bb8963ddc93d6b3a9062"
+    },
+    {
+      "path": "public_integer_source.ts",
+      "bytes": 3967,
+      "sha256": "68f0ad41a4cd090281a0ce5e89d6ab8c93873d882a698a593e21d68c7dbf2577"
+    },
+    {
+      "path": "report.json.gz",
+      "bytes": 1404043,
+      "sha256": "153070f13e72565ddf656f85f46ed8dcc8b8b537e061a5aa8edf58bd20db99b0"
+    },
+    {
+      "path": "runtime-a.log",
+      "bytes": 1101,
+      "sha256": "abe3df0323986b3750716985b705e83cede26d385518bc763a45ae2ea3cee750"
+    },
+    {
+      "path": "runtime-b.log",
+      "bytes": 3764,
+      "sha256": "8afa4043f38855c3a1621d0f589c82de738b41684751b36a890773c3c0ddb8e0"
+    },
+    {
+      "path": "runtime-c.log",
+      "bytes": 450,
+      "sha256": "e84f5f14a62edf7b5197296a0d18870c655908ac1e87f7cc9b065a0de466fa06"
+    },
+    {
+      "path": "source-provenance.json",
+      "bytes": 672,
+      "sha256": "99355c912307eae0df9218d3b75342e35db555f60c996bc6a8c728e2317c89d0"
+    }
+  ]
+}

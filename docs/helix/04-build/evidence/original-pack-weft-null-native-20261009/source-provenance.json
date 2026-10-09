@@ -1,0 +1,10 @@
+{
+  "ashlarRevision": "578b5b211f244c080ccaaff9c04778818aa5cb8b",
+  "weftRevision": "1a8a3445302aa44a93167ef340dbcfb306805254",
+  "compilerSha256": "22148789dd5b7c20fdccf9c841311cfed268a1fa62d5b8314f0e927b3fcf5a3a",
+  "sourceGuardPath": "/private/tmp/ashlar-weft-mathematical-integer-f05/scripts/local/public_integer_source.ts",
+  "sourceGuardSha256": "68f0ad41a4cd090281a0ce5e89d6ab8c93873d882a698a593e21d68c7dbf2577",
+  "publicIntegerUmfRevision": "c7c95e1c4ea5b72541f47fa0350ca467ff02f395",
+  "nativeOriginalFileCount": 132,
+  "qualification": "Four original unchanged SQL queries on held existing private publications; original failed a/b logs preserved separately"
+}

@@ -1,0 +1,22 @@
+# Four original nullable Weft queries on held publications
+
+Final run c executed the four original authored queries unchanged on existing private archaeology/ecology publications using Spark4.0.1/Delta4.0.0 and the immutable reviewed Weft executable SHA `22148789dd5b7c20fdccf9c841311cfed268a1fa62d5b8314f0e927b3fcf5a3a`. Weft source is the landed nullable extension `1a8a3445302aa44a93167ef340dbcfb306805254`. Ashlar source is `578b5b2` (full revision in `source-provenance.json`). Results were persisted only after all reader, native pin and ordinary PostgreSQL ACK intervals closed successfully and Spark stopped.
+
+Actual complete result bags are:
+
+- Archaeology `sample`: tagged original SA1 parent identity and `dry-sieve`, including optional String ON equality and `IS NOT NULL`.
+- Ecology `censor`: original O2 identity, tagged Decimal text `0.10` and `below-detection`, including optional Decimal `IS NULL`.
+- Ecology `effort`: original OC3 identity from `IS NULL`.
+- Ecology `zero`: original OC2 identity from exact Integer zero and `IS NOT NULL`.
+
+All 28 emitted native checks ran unchanged, with source checks before arithmetic checks, before user SQL. Two independently incorrect schema-revision bindings refused before user SQL. All 132 original native files remained unchanged. Eight exact opening/closing ordinary ACK interval pairs (two alias registrations, four queries and two final source checks) bind original request/manifest bytes and full native UUID/version vectors; no new source ingestion, publication or ACK was created.
+
+The censor source token is `0.1`; native Decimal18,2 text is `0.10`. Both original strings and the original descriptor remain separately retained. Equality uses exact signed base-ten integer coefficient `10` at authored scale2, with no float, rounding or tolerance. All other scalar strings, integer cells, state tags and row multiplicities use exact encoded comparison. Signed-zero spelling remains retained even when declared mathematical Decimal equality equates zero signs.
+
+`report.json.gz` preserves the complete 23,279,575-byte native report, including all source/public-Integer receipt bytes, check rows, full ACK observations, original vectors and exact coefficient witnesses. `compression.json` binds every compressed file to its original unmodified byte size/digest. Six request/artifact pairs retain four actual successful queries and two actual guard refusals. `original-publications/` contains all original native metadata/Parquet bytes plus original model, graph, bindings, source stream and public admission bytes. The live SQLite journal and transient shared-memory files are not recaptured; admitted original request/source-plan/manifest/ACK custody is retained in the report and prior native-publication evidence.
+
+Earlier a and b logs are preserved unchanged. Run a stopped on a censor bag mismatch without retaining the actual cells. Run b also stopped without a success report and its approved diagnostic records the concrete `0.10`/`0.1` difference caused by strict Decimal lexical comparison. The separately reviewed coefficient correction retained both raw bags and passed exact precision/scale/overflow, zero-sign, Boolean-versus-integer, state and multiplicity controls before final c. These failed runs are not native success evidence.
+
+Reproduce with the explicit `tools/run_pack_null_weft.py` inputs: the two original publication directories, fresh output, existing exact Delta4 jars, immutable compiler, unchanged public Integer source guard and clean UMF c7 checkout. `source-provenance.json`, copied reviewed source and compiler-source manifest name exact versions/digests. Runtime used existing JDK21, Python3.9 pure Spark4 bridge, local[1]/512MiB/shuffle1; no cloud endpoint, paid compute or large data test was used. The standalone six unpublished kernel controls are a separate [evidence slice](../original-pack-weft-null-controls-20261009/README.md).
+
+This qualifies these four original source/model/SQL queries and explicit selected native-null property encoding on a private local publication profile. Combined positioned/tagged outputs, broader optional arithmetic, accepted Truss, Unity Catalog, Fabric and production authorization remain outside this evidence. Together with the earlier nine native original Weft queries, 13 of the 17 original representative queries have actual Weft execution evidence; four other authored query forms remain required.
