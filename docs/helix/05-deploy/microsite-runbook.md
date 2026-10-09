@@ -96,3 +96,25 @@ decision; no external notification channel or automatic messaging is configured.
 
 - [Deployment decision](../02-design/adr/ADR-002-signed-static-microsite.md)
 - [Site build instructions](../../../website/README.md)
+
+
+## UMF schema browser integration — 2026-10-08
+
+The owner's requested schema browser is embedded through a shared schema-page
+partial and independently usable at `/ashlar/model/schema-browser/index.html`.
+`tools/build_schema_browser.py` retains the exact upstream UMF bundle/CSS at
+`c433cfcdde21995803aad65234f20ba95d8c3222` and all nine original model sources.
+`website/scripts/check_schema_browser.py` verifies source/catalog/UI provenance
+before publishing; CI runs it with the existing diagram guard. Rebuild through
+a local UMF repository containing that immutable commit. No live warehouse or
+external schema service is involved.
+
+Local Hugo 0.167.0 build and seven-page link/navigation/seal checks pass. The
+Codex in-app browser verifies object/edge fields, linked field navigation, keys,
+both endpoint relationships, search/empty state and explicit partial Delta
+interpretation. A 390px viewport has no page/catalog horizontal overflow. The
+actual browser download of the relationship model is byte-identical to source.
+A damaged catalog fails the fingerprint guard. Console warning/error observations
+were empty. This is scoped rendering evidence, not native schema enforcement or
+a completion claim for the toolkit runtime. Existing signed Markdown sources
+remain unchanged; the generated/shared renderer is outside their signatures.

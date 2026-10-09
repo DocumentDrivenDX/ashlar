@@ -2,7 +2,8 @@
 import argparse
 from html.parser import HTMLParser
 from pathlib import Path
-from urllib.parse import urlparse, unquote
+from urllib.parse import urlparse, unquote, parse_qs
+import json
 
 class Page(HTMLParser):
     def __init__(self, text):
@@ -53,7 +54,18 @@ def main():
                 destination /= "index.html"
             assert destination.exists(), (relative, "broken link", link)
             if parsed.fragment and destination.suffix == ".html":
-                assert unquote(parsed.fragment) in Page(destination.read_text()).ids, (relative, link)
+                if destination.resolve() == root / 'model/schema-browser/index.html':
+                    route = parse_qs(parsed.fragment, strict_parsing=True)
+                    assert set(route) <= {'schema', 'definition'} and 'schema' in route
+                    assert all(len(value) == 1 for value in route.values())
+                    catalog = json.loads((destination.parent / 'schema-catalog.json').read_text())
+                    entry = next(e for e in catalog['entries'] if e['id'] == route['schema'][0])
+                    if 'definition' in route:
+                        document = json.loads(entry['text'])
+                        definitions = [[m['id'], e['id']] for m in document['modules'] for e in m['elements']]
+                        assert json.loads(route['definition'][0]) in definitions
+                else:
+                    assert unquote(parsed.fragment) in Page(destination.read_text()).ids, (relative, link)
     if args.require_seals:
         assert (root / ".well-known/innsigle/keys.json").exists()
     print(f"PASS: {len(expected)} pages, internal links, current navigation" +

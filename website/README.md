@@ -36,3 +36,25 @@ The workflow builds pull requests without deployment. Main pushes and manual
 runs build and deploy through the `github-pages` environment. GitHub Pages must
 use the Actions publishing source. Expected URL:
 https://documentdrivendx.github.io/ashlar/.
+
+## UMF schema browser
+
+The schema page embeds UMF’s actual browser, pinned at
+`c433cfcdde21995803aad65234f20ba95d8c3222`, with a standalone view at
+`model/schema-browser/index.html`. The upstream JS/CSS remain byte-identical.
+Ashlar owns the surrounding HTML/CSS and a catalog containing the exact eight
+physical UMF definitions plus the logical fields/keys/relationships model.
+It loads only local assets; local-file inspection and source download remain
+browser operations. Delta extension interpretation is explicitly partial.
+
+```sh
+python3 tools/build_schema_browser.py /path/to/umf
+python3 tools/build_schema_browser.py /path/to/umf --check
+python3 website/scripts/check_schema_browser.py
+```
+
+The build reads immutable Git objects at the pinned UMF revision, without
+changing its working checkout. Review the generated catalog and provenance after
+model changes. CI checks original model, bundle, host and catalog hashes before
+publishing. Generated/shared browser content is outside the seven Markdown
+source signatures, like the existing generated diagram.

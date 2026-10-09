@@ -7,6 +7,7 @@ on:
       - 'website/**'
       - 'docs/helix/02-design/models/ashlar-delta-runtime/**'
       - 'tools/generate_runtime_diagram.ts'
+      - 'tools/build_schema_browser.py'
       - '.innsigle/**'
       - '.github/workflows/pages.yml'
   pull_request:
@@ -14,6 +15,7 @@ on:
       - 'website/**'
       - 'docs/helix/02-design/models/ashlar-delta-runtime/**'
       - 'tools/generate_runtime_diagram.ts'
+      - 'tools/build_schema_browser.py'
       - '.innsigle/**'
       - '.github/workflows/pages.yml'
   workflow_dispatch:
@@ -55,7 +57,9 @@ jobs:
       - name: Verify signed page sources
         run: node .tools/innsigle/src/cli.mjs verify --all
       - name: Verify generated runtime model fingerprints
-        run: python3 website/scripts/check_runtime_model.py
+        run: |
+          python3 website/scripts/check_runtime_model.py
+          python3 website/scripts/check_schema_browser.py
       - name: Build verified production site
         run: hugo --source website --destination public --cleanDestinationDir --panicOnWarning
       - name: Check links, navigation and seal coverage

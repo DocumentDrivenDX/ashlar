@@ -4,3 +4,5 @@ header nav{gap:18px}.schema-map{margin:28px 0;border:1px solid var(--line);paddi
 .schema-map{overflow-x:auto}.schema-map svg{min-width:680px}.schema-map figcaption{min-width:0}
 
 .runtime-model-table{margin:16px 0}.runtime-model-table summary{cursor:pointer;padding:12px 0}.runtime-model-fields{overflow-x:auto;max-width:100%}.runtime-model-fields table{min-width:600px}.runtime-model-fields:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+.schema-browser-frame{display:block;width:100%;height:1050px;border:1px solid #ccd2ca;border-radius:4px;margin:20px 0}.schema-browser-links{display:flex;gap:20px;flex-wrap:wrap}@media(max-width:700px){.schema-browser-frame{height:1150px}}

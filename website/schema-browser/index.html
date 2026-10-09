@@ -1,0 +1,9 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ashlar schema browser · powered by UMF</title><link rel="stylesheet" href="explorer.css"><link rel="stylesheet" href="host.css"></head>
+<body><main class="explorer-main">
+<header><h1>Ashlar schema browser</h1><p>Explore records, follow field and endpoint links, or inspect an original Delta definition. These are declarations; they do not establish warehouse enforcement.</p><a href="../../schema/" target="_top">Back to Ashlar’s schema page</a> · <a href="https://documentdrivendx.github.io/umf/explorer.html" target="_blank" rel="noopener">Powered by UMF ↗</a></header>
+<div class="explorer-toolbar"><label class="search-label">Find a schema or definition<input id="search" type="search" placeholder="Search names, descriptions, or IDs…"></label><label>Catalog<select id="category"><option value="all">All schemas</option><option value="domain">Ashlar schemas</option><option value="local">Local files</option></select></label><label class="button secondary file-button">Open local schema<input id="file" type="file" accept=".json,.yaml,.yml" hidden></label></div>
+<p id="status" role="status" aria-live="polite">Loading Ashlar schema catalog…</p>
+<div class="explorer-layout"><aside aria-label="Schema catalog"><div class="catalog-heading"><h2>Catalog</h2><span id="count" class="tag"></span></div><div id="catalog"></div><p class="quiet">Local files stay in this browser. Download preserves the original source.</p></aside><section id="inspector" aria-label="Schema details"><p>Select a schema to explore.</p></section></div>
+<noscript><p>Enable JavaScript to browse interactively, or <a href="schema-catalog.json">download the complete source catalog</a>.</p></noscript>
+</main><script type="module" src="explorer.js"></script></body></html>
