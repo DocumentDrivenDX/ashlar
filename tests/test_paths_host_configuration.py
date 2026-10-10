@@ -76,3 +76,56 @@ assert not any(n.split('.')[0] in {'ashlar_host','pyspark','delta','psycopg','js
         self.assertEqual(out.getvalue(),'')
         self.assertEqual(err.getvalue(),'ashlar-host: refused\n')
         composition.query_commerce_paths.assert_not_called()
+
+    def arguments(self):
+        arguments = ['ashlar', 'query-commerce-paths']
+        for name in ('output','jars','model','graph','umf-source','bun','git',
+                     'index','installation','publication'):
+            arguments.extend(['--'+name, '/explicit/'+name])
+        for name,value in dict(postgres_container='ashlar-e2e-truss-pg17',
+            postgres_host='127.0.0.1',postgres_database='truss_e2e',postgres_port=15432,
+            producer_timeout_seconds=20,producer_maximum_output_bytes=1048576,
+            producer_maximum_receipt_bytes=4194304,maximum_artifact_bytes=16777216,
+            maximum_rows=10,maximum_cell_bytes=1024,maximum_total_cell_bytes=4096).items():
+            arguments.extend(['--'+name.replace('_','-'), str(value)])
+        return arguments
+
+    def test_profile_is_closed_and_immutable(self):
+        self.assertEqual(self.config().profile, 'paths')
+        for profile in ('paths', 'paths-keys'):
+            config = self.config(profile=profile)
+            self.assertEqual(config.profile, profile)
+            with self.assertRaises(dataclasses.FrozenInstanceError):
+                config.profile = 'paths'
+        for profile in ('unknown', '', 'PATHS', None, True, ['paths']):
+            with self.subTest(profile=profile), self.assertRaisesRegex(HostError, '^invalid-paths-profile$'):
+                self.config(profile=profile)
+
+    def test_cli_passes_selected_profile_to_immutable_configuration(self):
+        composition = ModuleType('ashlar_host.paths_query')
+        composition.query_commerce_paths = Mock()
+        for selection in (None, 'paths', 'paths-keys'):
+            arguments = self.arguments()
+            if selection is not None:
+                arguments.extend(['--profile', selection])
+            with patch.dict(sys.modules, {'ashlar_host.paths_query': composition}), patch.object(sys, 'argv', arguments), contextlib.redirect_stdout(io.StringIO()):
+                main()
+            config = composition.query_commerce_paths.call_args.args[0]
+            self.assertEqual(config.profile, selection or 'paths')
+            with self.assertRaises(dataclasses.FrozenInstanceError):
+                config.profile = 'paths'
+        self.assertFalse(any(n.split('.')[0] in {'pyspark','delta','psycopg'} for n in sys.modules))
+
+    def test_unknown_cli_profile_refuses_before_configuration_or_composition(self):
+        with patch.object(sys, 'argv', self.arguments()+['--profile', 'unknown']), patch('ashlar_host.config.ProducerConfig', side_effect=AssertionError('configuration reached')), patch.dict(sys.modules, {'ashlar_host.paths_query': None}), contextlib.redirect_stderr(io.StringIO()):
+            with self.assertRaises(SystemExit) as raised:
+                main()
+        self.assertEqual(raised.exception.code, 2)
+
+    def test_selected_uninstalled_profile_refuses_at_public_host_before_effects(self):
+        from ashlar_host.paths_query import query_commerce_paths
+        config = self.config(profile='paths-keys')
+        with patch('ashlar_host.paths_query.runtime_paths', side_effect=AssertionError('runtime reached')) as runtime:
+            with self.assertRaisesRegex(HostError, '^paths-profile-not-installed$'):
+                query_commerce_paths(config)
+        runtime.assert_not_called()

@@ -1,0 +1,72 @@
+{
+  "baseline": "7c131e4ae45ac965177f827e2297e3cfa455a881",
+  "commands": [
+    "PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=src:tests /usr/bin/python3 -B -S -m unittest test_paths_host_configuration test_host_cli -v",
+    "PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -B -S /private/tmp/astra-paths-profile-selection-review-20261010-b.py"
+  ],
+  "effects": {
+    "compiler": false,
+    "installation": false,
+    "nativeImports": false,
+    "nativeOrDatabase": false,
+    "sourceMutation": false
+  },
+  "format": "independent-source-review/0.1",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-profile-selection-freeze-20261010-b/manifest.json",
+    "sha256": "a9729b8a1dd37acd404e9df9f6d1deaf0244e5c57d601b782ff87d25c2a8dff3"
+  },
+  "independentControls": [
+    "actual public API keys refusal precedes all 12 trapped effects",
+    "actual public CLI keys refusal: exit2, empty stdout, constant stderr, all effects0",
+    "api default paths reaches original dispatch and preserves cancellation identity/marker without output",
+    "cli default paths reaches original dispatch and preserves cancellation identity/marker without output",
+    "api explicit paths reaches original dispatch and preserves cancellation identity/marker without output",
+    "cli explicit paths reaches original dispatch and preserves cancellation identity/marker without output"
+  ],
+  "limits": [
+    "Selection API only: paths-keys intentionally remains unavailable.",
+    "No new profile installation, compiler, SDK, native execution, or support qualification is inferred."
+  ],
+  "openingClosingSourceHashesEqual": true,
+  "portableTests": {
+    "failures": 0,
+    "passed": 9
+  },
+  "runtime": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "script": {
+    "path": "/private/tmp/astra-paths-profile-selection-review-20261010-b.py",
+    "sha256": "4ea2ddf28af3af5c7159d85368069f3afb3ff2c656333374747085e59b68ae25"
+  },
+  "sourceFiles": [
+    {
+      "bytes": 4161,
+      "path": "src/ashlar_host/config.py",
+      "sha256": "0a3f27fd205252075877c12cce9d00508a9a6843258f43b82de57ad77e6525fc"
+    },
+    {
+      "bytes": 13232,
+      "path": "src/ashlar/cli.py",
+      "sha256": "1e23d01a069a37be0e253f0c4d53cb5eed3b80f0853317bed0c2c19e729e3f3a"
+    },
+    {
+      "bytes": 18054,
+      "path": "src/ashlar_host/paths_query.py",
+      "sha256": "91a5093b886cb0fe98be399e6649acf854cedbea6eeb81a6866167d7879df659"
+    },
+    {
+      "bytes": 7433,
+      "path": "tests/test_paths_host_configuration.py",
+      "sha256": "75b614a470ecef4dc35d8e1748265896edbbf45d559361c481f2c0389bf02d28"
+    }
+  ],
+  "staticChecks": [
+    "new field appended with paths default preserves former positional API",
+    "closed exact string profile accepted only paths or paths-keys",
+    "CLI flag limited to query-commerce-paths; other routes unchanged",
+    "unknown argparse profile and help terminate before host composition",
+    "keys guard immediately after exact configuration type and before runtime paths",
+    "no fallback from uninstalled keys selection"
+  ],
+  "verdict": "approved-scoped-source-only"
+}

@@ -1,0 +1,37 @@
+{
+  "format": "source-review-freeze/0.1",
+  "baseCommit": "7c131e4ae45ac965177f827e2297e3cfa455a881",
+  "supersedes": "ashlar-paths-profile-selection-freeze-20261010-a",
+  "files": [
+    {
+      "path": "src/ashlar_host/config.py",
+      "sha256": "0a3f27fd205252075877c12cce9d00508a9a6843258f43b82de57ad77e6525fc",
+      "bytes": 4161
+    },
+    {
+      "path": "src/ashlar/cli.py",
+      "sha256": "1e23d01a069a37be0e253f0c4d53cb5eed3b80f0853317bed0c2c19e729e3f3a",
+      "bytes": 13232
+    },
+    {
+      "path": "src/ashlar_host/paths_query.py",
+      "sha256": "91a5093b886cb0fe98be399e6649acf854cedbea6eeb81a6866167d7879df659",
+      "bytes": 18054
+    },
+    {
+      "path": "tests/test_paths_host_configuration.py",
+      "sha256": "75b614a470ecef4dc35d8e1748265896edbbf45d559361c481f2c0389bf02d28",
+      "bytes": 7433
+    }
+  ],
+  "validation": {
+    "pythonVersions": [
+      "3.9.6",
+      "3.11.17"
+    ],
+    "focusedTests": 9,
+    "boundary": "pass",
+    "diffCheck": "pass"
+  },
+  "scope": "Explicit typed and CLI selection with immediate public-host refusal for uninstalled paths-keys before runtime effects. No trust or native support claim."
+}

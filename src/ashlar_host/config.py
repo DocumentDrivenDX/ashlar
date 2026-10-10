@@ -96,8 +96,11 @@ class QueryCommercePathsConfig:
     maximum_artifact_bytes: int
     capture: PathCaptureConfig
     decoder: PathDecodeConfig
+    profile: str = 'paths'
 
     def __post_init__(self) -> None:
+        if type(self.profile) is not str or self.profile not in ('paths', 'paths-keys'):
+            raise HostError('invalid-paths-profile')
         for p in (self.index, self.installation, self.publication, self.output,
                   self.jars, self.model, self.graph):
             _path(p)

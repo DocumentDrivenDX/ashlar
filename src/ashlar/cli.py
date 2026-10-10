@@ -59,6 +59,7 @@ def main():
             for option in ('index', 'installation', 'publication'):
                 command.add_argument('--' + option, required=True)
         if name == 'query-commerce-paths':
+            command.add_argument('--profile', default='paths', choices=('paths', 'paths-keys'))
             for option in ('maximum-artifact-bytes', 'maximum-rows',
                            'maximum-cell-bytes', 'maximum-total-cell-bytes'):
                 command.add_argument('--' + option, type=int, required=True)
@@ -101,7 +102,7 @@ def main():
                 config = QueryCommercePathsConfig(Path(args.index), Path(args.installation),
                     Path(args.publication), Path(args.output), Path(args.jars),
                     Path(args.model), Path(args.graph), producer, postgres,
-                    args.maximum_artifact_bytes, capture, decoder)
+                    args.maximum_artifact_bytes, capture, decoder, args.profile)
                 from ashlar_host.paths_query import query_commerce_paths
                 query_commerce_paths(config)
                 print("ashlar-host: report " + str(config.output / "report.json"))

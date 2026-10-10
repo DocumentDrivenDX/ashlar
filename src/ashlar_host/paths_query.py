@@ -207,6 +207,7 @@ def _query_commerce_paths(config) -> dict:
     """
     from .config import QueryCommercePathsConfig
     if type(config) is not QueryCommercePathsConfig:raise HostError('invalid-configuration')
+    if config.profile != 'paths':raise HostError('paths-profile-not-installed')
     jars=runtime_paths(config,False)
     original_model,original_graph=original_inputs(config.model,config.graph)
     report_bytes=read_bounded(config.publication/'report.json',4*1024*1024)
