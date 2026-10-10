@@ -1,0 +1,35 @@
+{
+  "format": "ashlar-runtime-model-doc-history/0.1",
+  "purpose": "Preserve the exact former runtime-model README and its historical capture/test/browser observations while the model instructions focus on desired behavior. Original model, generated output and evidence files remain unchanged.",
+  "originalPath": "docs/helix/02-design/models/ashlar-delta-runtime/README.md",
+  "originalCommit": "4c2c8fda770fd204808c61ad4dbdb2b1e9d6d056",
+  "decodedSha256": "a1988f9178a13785e2d153f129e64ebb53528632bd7434d8409750095be22c53",
+  "decodedBytes": 4831,
+  "archive": {
+    "path": "original-readme.md.gz",
+    "sha256": "6b8757425fddb147ea0439216863f31b19869da6373d3d47f9b4357c743fb201",
+    "bytes": 2297
+  },
+  "retainedInputsAndReceipts": [
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/index.json",
+      "sha256": "3905d10dc5ec5e7bc7297004e9e73e6786e53dbf4d2533ecdd351c0b38ba7679",
+      "bytes": 1217
+    },
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/capture-comparison.json",
+      "sha256": "7e73fdc716051ce69c28ed0cb3c547c1faa967aec0fd895453f13af68054c307",
+      "bytes": 813
+    },
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/diagram-integration.json",
+      "sha256": "ca5dc1cc325d3378c38722b1c545f02d4beabcfa705bd8cbd8f9b8946f15ba8b",
+      "bytes": 860
+    },
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/diagram-browser.json",
+      "sha256": "3dc0b9a2afc30b5937930f35a1d7f8c3a8f8fcbc89c37a8b0a05c540fc07b1a5",
+      "bytes": 679
+    }
+  ]
+}
