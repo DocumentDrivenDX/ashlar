@@ -1,0 +1,248 @@
+{
+  "profile": "ashlar-original-pack-dataset-classification/0.1",
+  "producer_revision": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+  "pack_revision": "1f7b5f5d2a355c4b476e3a96b289b9048f03f567",
+  "inventory_sha256": "795261c25448998fdd1bf80fe42cd7df25dff72f7aca0e4149501ffc82fbe8a2",
+  "decoded_receipt_bytes": 8493257,
+  "decoded_receipt_sha256": "2548d291e97252488dd111c5bb9fd2af335e928b27d38ffffd25c807a7af5eb8",
+  "bun_version": "1.4.2",
+  "source_checkout_base": "5d5069f547858b106d2230bbc41c490e37edbfec",
+  "reproduction": "Use the full source_checkout_base plus the exact added tool/test files bound by custody; run the tool from that checkout with clean producer_revision and pack_revision Git objects, then compare the complete decoded public receipt. No native engine was invoked.",
+  "cases": [
+    {
+      "pack": "archaeology",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 39,
+      "relationships": 46,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "commerce",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 11,
+      "relationships": 10,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "construction",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 20,
+      "relationships": 27,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "cybersecurity",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 18,
+      "relationships": 22,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "ecology",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 40,
+      "relationships": 54,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "education",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 13,
+      "relationships": 16,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "energy",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 42,
+      "relationships": 43,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "gtfs-schedule",
+      "status": "unavailable",
+      "dataset_admission": false,
+      "records": 0,
+      "relationships": 0,
+      "negative_controls": []
+    },
+    {
+      "pack": "hr",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 11,
+      "relationships": 13,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "legal",
+      "status": "quarantined",
+      "dataset_admission": false,
+      "records": 0,
+      "relationships": 0,
+      "negative_controls": []
+    },
+    {
+      "pack": "manufacturing",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 15,
+      "relationships": 19,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "martech",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 16,
+      "relationships": 23,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "medical-carrier",
+      "status": "unavailable",
+      "dataset_admission": false,
+      "records": 0,
+      "relationships": 0,
+      "negative_controls": []
+    },
+    {
+      "pack": "medical-epidemiology",
+      "status": "unavailable",
+      "dataset_admission": false,
+      "records": 0,
+      "relationships": 0,
+      "negative_controls": []
+    },
+    {
+      "pack": "medical-imaging",
+      "status": "unavailable",
+      "dataset_admission": false,
+      "records": 0,
+      "relationships": 0,
+      "negative_controls": []
+    },
+    {
+      "pack": "medical-terminology",
+      "status": "unavailable",
+      "dataset_admission": false,
+      "records": 0,
+      "relationships": 0,
+      "negative_controls": []
+    },
+    {
+      "pack": "medical",
+      "status": "quarantined",
+      "dataset_admission": false,
+      "records": 0,
+      "relationships": 0,
+      "negative_controls": []
+    },
+    {
+      "pack": "movielens",
+      "status": "unavailable",
+      "dataset_admission": false,
+      "records": 0,
+      "relationships": 0,
+      "negative_controls": []
+    },
+    {
+      "pack": "noaa-ghcn-daily",
+      "status": "unavailable",
+      "dataset_admission": false,
+      "records": 0,
+      "relationships": 0,
+      "negative_controls": []
+    },
+    {
+      "pack": "nyc-tlc",
+      "status": "unavailable",
+      "dataset_admission": false,
+      "records": 0,
+      "relationships": 0,
+      "negative_controls": []
+    },
+    {
+      "pack": "payments",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 13,
+      "relationships": 14,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "real-estate",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 18,
+      "relationships": 20,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "supply-chain",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 20,
+      "relationships": 23,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    },
+    {
+      "pack": "transit",
+      "status": "admitted-finite-dataset",
+      "dataset_admission": true,
+      "records": 10,
+      "relationships": 10,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target"
+      ]
+    }
+  ],
+  "qualification": "Public compact supplied-dataset ABI: fragments retain sourceRef to the full original source, not standalone documents. Finite supplied original dataset admission only. No source authority, canonical binding, storage publication, Weft, native engine or external dataset support."
+}

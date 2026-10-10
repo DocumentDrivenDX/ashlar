@@ -1,0 +1,32 @@
+{
+  "format": "ashlar.local-development-byte-custody/0.1",
+  "files": [
+    {
+      "path": "tools/check_domain_pack_datasets.ts",
+      "sha256": "300681212ef30d0ea26aeaf7f7d89455c4388e5bb0e6666dc8d58067a18ea8de",
+      "bytes": 11296
+    },
+    {
+      "path": "tests/domain-pack-datasets.test.ts",
+      "sha256": "8f1c5402284a1906e71f7e1e7e875543562cd05d52073ed6e91516b63e64b655",
+      "bytes": 3814
+    },
+    {
+      "path": "docs/helix/04-build/evidence/all-pack-dataset-classification-20261009/public-datasets.json.gz",
+      "sha256": "77823a236bcfa0e4c232baa2c9bfd5ee73163c6cf8c5a74276a2cbb9704da63f",
+      "bytes": 522778
+    },
+    {
+      "path": "docs/helix/04-build/evidence/all-pack-dataset-classification-20261009/run.log",
+      "sha256": "ee9d74ebefd0a7638798a924fa5dd75b0dbf7d8a273dc780ff3944aec3330206",
+      "bytes": 87
+    },
+    {
+      "path": "docs/helix/04-build/evidence/all-pack-dataset-classification-20261009/summary.json",
+      "sha256": "45eb5d96721d1c68b83fde5281e36c549635bd180316e52e3928b63765fb2d62",
+      "bytes": 6515
+    }
+  ],
+  "decoded_receipt_sha256": "2548d291e97252488dd111c5bb9fd2af335e928b27d38ffffd25c807a7af5eb8",
+  "qualification": "Exact source/tool/test and original public output bytes, not authenticated distribution, source authorization or native execution evidence."
+}
