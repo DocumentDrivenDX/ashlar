@@ -1,0 +1,13 @@
+{
+  "format": "ashlar-layout-study-doc-history/0.1",
+  "purpose": "Preserve the complete original study design, provisional targets and dated local/native experiment history while the governed spike describes desired evaluation behavior. Referenced SQL, runners and original receipts remain in their original paths. This archival move performs no experiment or native change.",
+  "originalCommit": "f49230dce2ea32545fb53a95a0276d490cc6c975",
+  "originalPath": "docs/helix/02-design/spikes/SPIKE-001-table-layout.md",
+  "decodedSha256": "4a89a8091511d8c8a0e61e800616430f6b7b2b8247d33a2e40f25f126bf9cad9",
+  "decodedBytes": 68009,
+  "archive": {
+    "path": "original-study.md.gz",
+    "sha256": "1e2bd80d2cdbb4008fc097a73748b7c8a6d26104a002b6ae954ebd3f19ca6113",
+    "bytes": 23874
+  }
+}
