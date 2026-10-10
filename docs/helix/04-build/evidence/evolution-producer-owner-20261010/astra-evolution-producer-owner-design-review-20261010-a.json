@@ -1,0 +1,18 @@
+{
+  "format": "astra-evolution-producer-owner-design-review/0.1",
+  "verdict": "approved-desired-state-only",
+  "file": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+    "bytes": 37951,
+    "sha256": "508aee1a689ff331e5b5c53a10413b671abffbf9f3abd631a7722efa0d1f9632"
+  },
+  "checks": [
+    "Exact one owner row and bounded source/Git custody clarification reviewed against CONTRACT001 producer configuration inventory",
+    "Explicit immutable source/Bun/Git locations retained; developer-owned fixed closure distinct from caller path",
+    "No ambient PATH/environment discovery, private capture/public-UMF bypass, tools/native authority",
+    "Actual module checker adoption remains required before implementation claim",
+    "Artifact frontmatter unchanged; relative links exist; diff check passes"
+  ],
+  "findings": [],
+  "scope": "No implementation, runtime/UMF execution, installed workflow or native authority qualification."
+}

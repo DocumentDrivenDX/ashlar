@@ -165,11 +165,14 @@ The installed original-commerce evolution facade adds these owned boundaries:
 | `src/ashlar/commerce_evolution.py` | Immutable finite source preparation and independent complete prefix-union oracle | Named preparation and oracle under CONTRACT-003 | Public core source/value APIs and Python3.9 standard library | Host/tools/SDK imports, runtime discovery, authority or replacement UMF semantics |
 | `src/ashlar_host/evolution_admission.py` | Bounded original/candidate/proof custody and exact public producer admission | Owned admitted evolution source/transition ports | Explicit config, public core preparation, packaged resources and configured public UMF producer | Checkout discovery, ambient Bun/Git, private UMF APIs, receipt flags as authority |
 | `src/ashlar_host/commerce_evolution.py` | Fresh/resume lifecycle, source-qualified publication and original recovery | publish_commerce_evolution, resume_commerce_evolution under CONTRACT-001 | Explicit config, owned admission/driver/journal/ACK/lifecycle ports and supplied ordinary sessions | Source/role/grant provisioning, credential discovery/escalation, new uncertain intent, tools/private native access |
+| `src/ashlar_host/evolution_producer.py` | Bounded public-UMF subprocess ownership and original receipt custody | Typed producer invocation for evolution_admission under CONTRACT-001 | Explicit immutable configuration/input snapshots, standard-library process and owned lifecycle ports | Ambient environment/PATH discovery, private source capture or UMF APIs, tools, native authority |
 
 `config.py` owns separate immutable fresh/resume types and validates the complete
 selected profile before effects. The CLI is the construction root; supplied native
 writer/source/ACK authority remains independently admitted. `resources/` owns the
-immutable public checker and named original/augmentation inputs. Update the actual
+immutable public checker and named original/augmentation inputs. Producer admission
+verifies the developer-owned exact e44 source closure and Git identity at opening
+and closing; a caller-selected inventory never establishes that trust. Update the actual
 module checker for new classifications without enlarging debt exemptions; verify
 allowed and forbidden imports through that checker. Semantic review covers
 session authority, dynamically supplied ports and original-plan ownership.
