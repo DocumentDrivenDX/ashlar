@@ -1,0 +1,22 @@
+{
+  "scope": "provisional held source-only execution; no native qualification",
+  "files": [
+    {
+      "path": "tools/run_commerce_path_weft.py",
+      "sha256": "10e487db8cf827b98d30782b902206c7c3b1303d992aa0f234fa97dc2e9edbac",
+      "bytes": 21802
+    },
+    {
+      "path": "tests/test_run_commerce_path_weft.py",
+      "sha256": "5a1e518ebc49c48ecbf460258e8fc59efae6958fd5fcf1673d88795fe773d9e4",
+      "bytes": 38108
+    }
+  ],
+  "tests": 21,
+  "changes_from_B": [
+    "validated source receipt copied",
+    "single validated closing files snapshot retained",
+    "validated native schema receipt copied"
+  ],
+  "sql_and_runtime": "unchanged"
+}

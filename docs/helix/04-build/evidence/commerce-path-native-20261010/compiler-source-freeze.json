@@ -1,0 +1,42 @@
+{
+  "files": [
+    {
+      "path": "tools/weft_path_compiler.py",
+      "bytes": 7238,
+      "sha256": "bc4bb0df3a84664d577687b5c8799bb312119b62f85a6ab269f1a6f2e17ee635"
+    },
+    {
+      "path": "tests/test_weft_path_compiler.py",
+      "bytes": 8346,
+      "sha256": "071435085ca874b161cdcb9c08a8f56f8e23e8c1d499efc925895f44dee62017"
+    }
+  ],
+  "sourceRoot": "/Users/erik/Projects/ashlar",
+  "baseCommit": "e0ab4edbe8b5290f6325978666cbcef5d352c0a9",
+  "scope": "Private POSIX one-shot transport for exact reviewed c6fe2a6 compiler; selector/nonblocking pipes, one transport deadline, owned process-group cleanup, untouched bounded response. Host-held local filesystem custody required. No engine, native-query, package installation, or distribution qualification.",
+  "tests": {
+    "passed": 9,
+    "runtime": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+    "command": "env PYTHONDONTWRITEBYTECODE=1 PYTHONPATH=tools python3 -m unittest tests/test_weft_path_compiler.py -v",
+    "regression": "Real direct child exits with inherited-pipe holder; timeout=1s returns before3s, signals own process group, reaps direct child, closes unbuffered pipes. Identity mocked solely for controlled transport cases.",
+    "actualPinnedBinary": "All3 retained collection/count/distinct responses match bytes exactly, 128B response cap refuses. Binary SHA8946ada68a7132a2ba6c1abdc1c9a0e904922cb1dce2c500922cb0dd0a96562b; bytes8274496; sourcec6fe2a6e9513f51b3e0c9e653c54e6746c4ed6fc."
+  },
+  "evidence": [
+    {
+      "path": "portable-tests.log",
+      "bytes": 1009,
+      "sha256": "3d86a5e83e59f30ecbdc84997739de6cc43506e6a86adec7f99a6916ad469052"
+    },
+    {
+      "path": "module-boundaries.log",
+      "bytes": 94,
+      "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+    },
+    {
+      "path": "pinned-compiler-controls.json",
+      "bytes": 1235,
+      "sha256": "b63efaefab4078e41ef9246bae5889dc3c5fd9ad577f8ed8de395e3c76a8b688"
+    }
+  ],
+  "independentReview": "Pending; author freeze only"
+}

@@ -1,0 +1,220 @@
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.l1dcachesize'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.l2cachesize'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.l3cachesize'. Detail: [errno 1] Operation not permitted
+/Users/runner/work/crossbow/crossbow/arrow/cpp/src/arrow/util/cpu_info.cc:239: IOError: sysctlbyname failed for 'hw.optional.neon'. Detail: [errno 1] Operation not permitted
+{
+  "verdict": "Approved actual three-case finite local native evidence",
+  "scope": "Original commerce collection, path count and distinct target count on private Spark4.0.1/Delta4.0.0; no general path profile, cloud, indexed-distribution, Truss or Fabric qualification.",
+  "reviewer_runtime": {
+    "python": "3.12.15 (main, Oct  3 2026, 00:54:33) [Clang 22.1.3 ]",
+    "pyarrow": "22.0.0"
+  },
+  "report": {
+    "path": "/private/tmp/ashlar-commerce-path-native-20261010-a/report.json",
+    "bytes": 5079437,
+    "sha256": "f3f1ffe1cd79e4bf8875d0d12b044ef6a956d9aa7c4871c35a85c812dc0fe491"
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-commerce-path-native-command-20261010-b.json",
+    "bytes": 3581,
+    "sha256": "5c1a5bcae5d91ab580e2136468ac53f6d1092dbd17f490fcf41249ab8691b520"
+  },
+  "compiler": {
+    "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/weft-paths",
+    "bytes": 8274496,
+    "sha256": "8946ada68a7132a2ba6c1abdc1c9a0e904922cb1dce2c500922cb0dd0a96562b"
+  },
+  "original_source_hashes": {
+    "development-bindings.json": "f62bc935c6ad53cfbf8efa73962b8321fc79b1d727521001ea63274d6ba07fbe",
+    "original-graph.json": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+    "original-ontology.json": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+    "public-dataset.json": "76a9bb3a03bb533f8fae2da5b4e700f4d8f3496b4cbfebb1a9b7ceb2145a7d16",
+    "report.json": "fcb60e5bc7c96c0a2c22e473c41d5a15ab03a2ea432f586cf75a40616d5b17d3",
+    "source.jsonl": "e7b488a318d562916f55f875f430087077ab263131e9c71754721d637c3c9482"
+  },
+  "native_tables": [
+    {
+      "role": "object_current",
+      "uuid": "1813c883-d7c3-4f19-838f-7f81cf868989",
+      "version": 2,
+      "latest": 2,
+      "rows": 11,
+      "active_files": [
+        "part-00000-d911a1e4-9ea6-4edb-9443-460c09c3359f-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": true
+    },
+    {
+      "role": "edge_current",
+      "uuid": "f9b4c46d-f0a7-4701-ac91-1c2f639b05c2",
+      "version": 2,
+      "latest": 2,
+      "rows": 10,
+      "active_files": [
+        "part-00000-32094844-569d-42f2-bcac-d425c7d4eb37-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": true
+    },
+    {
+      "role": "tombstone",
+      "uuid": "8cafe780-f333-4301-bc97-2554c710b5c0",
+      "version": 1,
+      "latest": 1,
+      "rows": 0,
+      "active_files": [],
+      "original_full_cell_parity": true
+    },
+    {
+      "role": "whole_source_history",
+      "uuid": "33dbab1d-c7ff-4dd9-b2ba-cc6a45b34631",
+      "version": 2,
+      "latest": 2,
+      "rows": 21,
+      "active_files": [
+        "part-00000-76c94664-8fac-4d89-91cd-33f879250400-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": true
+    },
+    {
+      "role": "attempts",
+      "uuid": "984c5f63-6d0c-46df-b884-bcfa27e228b9",
+      "version": 6,
+      "latest": 6,
+      "rows": 5,
+      "active_files": [
+        "part-00000-08ede5f5-79f1-4435-b5e2-608b99934031-c000.snappy.parquet",
+        "part-00000-3eb8578a-9182-4ba7-b53a-e1566a5b3d8d-c000.snappy.parquet",
+        "part-00000-5407594c-8923-4891-a733-ad5d0b9a3721-c000.snappy.parquet",
+        "part-00000-b7791d80-ab26-4695-bb83-294e91e5485f-c000.snappy.parquet",
+        "part-00000-c960887b-f2ea-4243-9fab-389c70f61354-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": false
+    },
+    {
+      "role": "manifest",
+      "uuid": "360f670c-33d7-4084-8db6-2e70e360838c",
+      "version": 2,
+      "latest": 2,
+      "rows": 1,
+      "active_files": [
+        "part-00000-218ce432-f7a7-4ff1-aff8-402b1a57564c-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": false
+    }
+  ],
+  "raw_native_endpoint_values": [
+    "[42,0,\"L1\"]",
+    "[42,0,\"P1\"]",
+    "[42,0,\"S1\"]"
+  ],
+  "raw_native_edge_pair": [
+    "4",
+    "1"
+  ],
+  "cases": [
+    {
+      "case": "collection",
+      "request_bytes": 55375,
+      "request_sha256": "88275d44ca8ace95e15286018aa172d8baf566ed72c28dd0aa01f61535707664",
+      "response_bytes": 99372,
+      "response_sha256": "baec61d1960599797cdbdcada8d1484212f8a4599cdf8304ca486abc8ed6d5b3",
+      "exact_full_replay": true,
+      "real_schema_and_admission": true,
+      "guards": 24,
+      "original_rows": [
+        [
+          "[42,0,\"L1\"]",
+          "{\"items\":[{\"intermediate\":[\"[42,0,\\\"P1\\\"]\"],\"terminal\":[\"[42,0,\\\"S1\\\"]\"],\"edges\":[\"4\",\"1\"]}],\"truncated\":false}"
+        ]
+      ],
+      "witnesses": {
+        "path_occurrences": 1,
+        "distinct_terminal_keys": 1,
+        "edge_pairs": [
+          [
+            "4",
+            "1"
+          ]
+        ]
+      }
+    },
+    {
+      "case": "path-count",
+      "request_bytes": 55367,
+      "request_sha256": "c24c9848806f70b8520903999700978937e385a0881133c397e6aa632a5c7291",
+      "response_bytes": 88526,
+      "response_sha256": "8efec1f477201fb81fe7762c9396c00778ed4ee871fcf21a9591c00359c2b4f1",
+      "exact_full_replay": true,
+      "real_schema_and_admission": true,
+      "guards": 23,
+      "original_rows": [
+        [
+          "1"
+        ]
+      ],
+      "witnesses": {
+        "path_occurrences": 1,
+        "distinct_terminal_keys": 1,
+        "edge_pairs": [
+          [
+            "4",
+            "1"
+          ]
+        ]
+      }
+    },
+    {
+      "case": "target-count",
+      "request_bytes": 55392,
+      "request_sha256": "9839edc34728b7f4ac66fbdf46ada2e13a592478f044372165039c7768362e5f",
+      "response_bytes": 89343,
+      "response_sha256": "9710a018a38879189efdba7c8e7d08e726c317f919b22f4c0c7e58f4bee706b9",
+      "exact_full_replay": true,
+      "real_schema_and_admission": true,
+      "guards": 23,
+      "original_rows": [
+        [
+          "1"
+        ]
+      ],
+      "witnesses": {
+        "path_occurrences": 1,
+        "distinct_terminal_keys": 1,
+        "edge_pairs": [
+          [
+            "4",
+            "1"
+          ]
+        ]
+      }
+    }
+  ],
+  "closed_intervals": 4,
+  "ack_observations": 8,
+  "ack_schema_independent_receipt": {
+    "path": "/private/tmp/astra-path-native-custody-review-20261010-a.json",
+    "bytes": 5661,
+    "sha256": "16b5bcc61a9cb28186c4a3a84f179daa8558f0c03e2efc6ac0343988e17c4e1f"
+  },
+  "closing_native_files": 66,
+  "closing_project_files": 554,
+  "closing_umf_resources": 865,
+  "closing_compiler_schema_jars": 6,
+  "publication_file_count": 79,
+  "publication_changes": [],
+  "publication_scope": "All non-coordination publication bytes unchanged; any coordination changes listed without cause inference.",
+  "wrapper_outcome": {
+    "path": "/private/tmp/ashlar-commerce-path-native-custody-20261010-a/outcome.json",
+    "bytes": 1248,
+    "sha256": "7608515cbc8e5f8d76624ef4743843822073544c8a52ce58cdc9b2d873f5999c"
+  },
+  "cleanup": {
+    "reader_closed": true,
+    "spark_stopped": true
+  },
+  "limitations": [
+    "No native engine/SQL/database connection opened by reviewer; independent compiler processes and offline Delta/Parquet only.",
+    "Runtime package/JDK versions and imported modules are observed; no whole external binary closure or deterministic rebuild claim.",
+    "Only these three original data cases were executed; no parallel-edge, inverse, self-loop, LEFT, overflow or truncated-result native qualification."
+  ]
+}

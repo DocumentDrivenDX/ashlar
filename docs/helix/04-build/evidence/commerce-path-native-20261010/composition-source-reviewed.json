@@ -1,0 +1,72 @@
+{
+  "decision": "approved source-only three-case composition",
+  "manifest": {
+    "path": "/private/tmp/ashlar-commerce-path-composition-freeze-20261010-b/manifest.json",
+    "sha256": "1f523a82df809f6e6b4536ed1d8c3fe86f32d5ee0b1847da6795c5093b328887"
+  },
+  "files": [
+    {
+      "path": "tools/run_commerce_path_native.py",
+      "sha256": "ab08bbbac3d8bb99700f53265de95a2d5989deb3b979d624c7f804bd953ee2e7",
+      "bytes": 17083
+    },
+    {
+      "path": "tests/test_run_commerce_path_native.py",
+      "sha256": "9448c74720c5f2585ac0132da64536e230e92f51e868ff365bf114be6f0cdb78",
+      "bytes": 9856
+    }
+  ],
+  "independent_checks": {
+    "owner_lifecycle_tests": 9,
+    "original_cancellation_reader_close_counterexamples_now_pass": 2,
+    "source_read": true,
+    "import_resource_correspondence": "63-module conservative dependency map, all under src/tools; selected baseline/ACK SQL and original datasetproducer examplefiles covered by proposed clean export"
+  },
+  "scope": [
+    "Actual native execution remains unapproved until final clean committed export, exact runtime/resource/import command custody, successful source CI and fresh exclusive engine/PG preflight",
+    "No engine started for this review; lifecycle ports are controlled mocks",
+    "Recompilation and pinned public schema admission, original three-query model/graph oracle, unchanged SQL/slots, four publication intervals, final reader close and Spark stop are composed explicitly",
+    "Public-source dataset producer streams discarded; only exact bounded receipt compared; original report/model/graph/binding/source/public-receipt files held opening/closing",
+    "Reader-close and Spark-stop failures withhold report and preserve primary body/cancellation; fixed payload-free cleanup markers",
+    "Success report written only after both cleanup stages, original source/schema/producer/JAR closing checks; crash durability/atomic multifile publication not claimed",
+    "Runtime needs fresh process and caller-controlled filesystem/exclusive local resources; reusing a pre-existing SparkSession is not approved by this source review"
+  ],
+  "helix": {
+    "modularity": "Outer host owns startup/lifecycle and composes separately owned request/compiler/schema/runner/oracle ports",
+    "configuration": "Explicit typed operator paths, limits and private ACK profile; environment remains host-injected and separately observed",
+    "observability": "CLI fixed refusal, discarded producer streams and fixed cleanup markers; no OTel receiver proof",
+    "formal": "Finite success/failure/cancellation controls tied to held-source and result-release boundaries; no machine/unbounded/native proof"
+  },
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-commerce-path-composition-tests-20261010-b.log",
+      "bytes": 1067,
+      "sha256": "6b977fd90a97295f7a975b0034d2bf0238ae60f216d0cd3ae0827b77022ed4d8"
+    },
+    {
+      "path": "/private/tmp/review_path_composition_b_lifecycle_probes.py",
+      "bytes": 1053,
+      "sha256": "ccdf9950df54b96a2fab4e9351f160d72c016f700efa54e850325be9d043c2bc"
+    },
+    {
+      "path": "/private/tmp/review_path_composition_b_lifecycle_probes.json",
+      "bytes": 580,
+      "sha256": "031e1203766ab0f1e9f0474a77f29229addb0ac9f2c3854fde105cec297eecb3"
+    },
+    {
+      "path": "/private/tmp/review_path_composition_b_lifecycle_probes.log",
+      "bytes": 580,
+      "sha256": "031e1203766ab0f1e9f0474a77f29229addb0ac9f2c3854fde105cec297eecb3"
+    },
+    {
+      "path": "/private/tmp/astra-path-composition-subreview-20261010-a.json",
+      "bytes": 4625,
+      "sha256": "a01014b8f910c0a6732efd53b92752be4db00b91e9ecfe3dc24570be56ced1d6"
+    },
+    {
+      "path": "/private/tmp/review_path_composition_a_resources.json",
+      "bytes": 17057,
+      "sha256": "b3fa44a50bbe07ed0ba3c90a19729f9269d1ff74e01752382118d4b811dedea8"
+    }
+  ]
+}

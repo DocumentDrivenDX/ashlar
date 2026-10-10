@@ -1,0 +1,22 @@
+{
+  "closing_pg": "37d798c29961d87549baabd1625ad946f45e8f476ade2eef360d7bf1211419c9 sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545 true false healthy 536870912 1000000000 {\"5432/tcp\":[{\"HostIp\":\"127.0.0.1\",\"HostPort\":\"15432\"}]}",
+  "command_sha256": "5c1a5bcae5d91ab580e2136468ac53f6d1092dbd17f490fcf41249ab8691b520",
+  "exit_code": 0,
+  "finished": 1791618306.495703,
+  "opening_pg": "37d798c29961d87549baabd1625ad946f45e8f476ade2eef360d7bf1211419c9 sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545 true false healthy 536870912 1000000000 {\"5432/tcp\":[{\"HostIp\":\"127.0.0.1\",\"HostPort\":\"15432\"}]}",
+  "ordinary_role_probe": [
+    {
+      "current_user": "ashlar_ack_operator_0fc843618939",
+      "database": "truss_e2e",
+      "session_user": "ashlar_ack_operator_0fc843618939"
+    }
+  ],
+  "phase": "terminal",
+  "report_exists": true,
+  "scope": "Exact reviewed three-case command; exclusive cooperating local engine custody",
+  "started": 1791618276.711905,
+  "stderr_bytes": 598,
+  "stderr_sha256": "15304c697154b9ea2be8b8b4a6d005a6ccb323f75c65288d5caab2e9305d8951",
+  "stdout_bytes": 0,
+  "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+}

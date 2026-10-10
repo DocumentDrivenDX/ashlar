@@ -1,0 +1,17 @@
+{
+  "actual_receipt": "/private/tmp/ashlar-commerce-path-request-native-check-20261010-c/receipt.json",
+  "files": [
+    {
+      "bytes": 3211,
+      "path": "tools/commerce_path_request.py",
+      "sha256": "c0547e878453177b4784b0d2edd86cd3d6a45a20e39db9fcee38f434a81c275f"
+    },
+    {
+      "bytes": 2848,
+      "path": "tests/test_commerce_path_request.py",
+      "sha256": "4bc4b23401981cf581169bfaabb2fbee8ea585b1bc9684677dfc5dd4bac4eae1"
+    }
+  ],
+  "scope": "Original-commerce path request composition; source authority remains caller-owned",
+  "verification": "4 mocked-parent composition controls PASS. Actual original publication inputs: six native compiler invocations (two per COLLECTION/COUNT/DISTINCT), exact replay, offline04 schema+full admission PASS, original source oracle retained. Type IDs remain canonical original String tokens. No native SQL."
+}

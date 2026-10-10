@@ -1,0 +1,85 @@
+{
+  "decision": "approved source-only provisional held execution",
+  "manifest": {
+    "path": "/private/tmp/ashlar-commerce-path-runner-freeze-20261010-c/manifest.json",
+    "sha256": "b0d1d5417397a48ca4aa057f42a69945f598d9efd72877263d9fb9fbddd330e1"
+  },
+  "files": [
+    {
+      "path": "tools/run_commerce_path_weft.py",
+      "sha256": "10e487db8cf827b98d30782b902206c7c3b1303d992aa0f234fa97dc2e9edbac",
+      "bytes": 21802
+    },
+    {
+      "path": "tests/test_run_commerce_path_weft.py",
+      "sha256": "5a1e518ebc49c48ecbf460258e8fc59efae6958fd5fcf1673d88795fe773d9e4",
+      "bytes": 38108
+    }
+  ],
+  "checks": {
+    "owner_tests_independently_run": 21,
+    "real_offline_schema_full_fixture_admissions_and_mock_execution": 17,
+    "schema_individual_refusals": 5,
+    "oracle_bounds_and_shape_refusals": 5,
+    "original_callback_mutation_fixed": true,
+    "oracle_alias_fixed": true,
+    "source_and_schema_receipt_aliases_fixed": true,
+    "single_validated_closing_vector_retained": true
+  },
+  "correspondence": [
+    "Original admitted SQL and complete parameters passed unchanged inside provider hold",
+    "Owning scalar/relationship/LEFT source checks and genuine-public-port receipt precede arithmetic/capacity phase; all path obligations execute before user SQL",
+    "Per-column mathematical numeric decoding requires exact Field+Record publicSource and representabilityOnly proofs; unrelated arithmetic output cannot authorize it",
+    "Actual required BIGINT/String Struct metadata and ordered nativeTypes retained even for empty sources; nullable:true retained with independent nonnull guards",
+    "Complete lexical result bag/order checked against bounded isolated oracle; closing pins/ACK interval and body completion required before provisional return"
+  ],
+  "limits": [
+    "Controlled providers and public-source receipt fixtures validate lifecycle/correspondence only; no real native SQL, source semantic authority, PostgreSQL ACK, Delta behavior or path result qualified here",
+    "Outer reader closure, Spark cleanup, persistence and actual command/source/resource custody remain separate obligations",
+    "Finite configured retained payload limits do not bound Spark partition/executor allocations",
+    "Actual public ports and filesystem/publication authority are provided by outer composition, not established by callback types"
+  ],
+  "helix": {
+    "modularity": "Host execution module composes existing pure admission/decoder/capture APIs; no SDK startup",
+    "configuration": "Explicit immutable typed limits and source port/revision; no environment reads",
+    "observability": "Own refusals payload-free; no OTel receiver proof claimed",
+    "assurance": "Finite controls and source/guard correspondence only, no machine/unbounded/native proof"
+  },
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-commerce-path-runner-tests-20261010-c.log",
+      "bytes": 2355,
+      "sha256": "f3d0bb3cc2f16d26c1b4b8ba0bb99a73bfb0ffcb8082a86fbbac5413f24534a9"
+    },
+    {
+      "path": "/private/tmp/astra-commerce-path-runner-review-20261010-c.py",
+      "bytes": 5114,
+      "sha256": "d91e272109e01ec3fc08766795b4669fb8a8403df8f82b08a0772ab052b4420b"
+    },
+    {
+      "path": "/private/tmp/astra-commerce-path-runner-review-20261010-c.json",
+      "bytes": 3706,
+      "sha256": "109a3af1e98e4fc574ba022469428fdb82b0917fcd4c1544f1f7315b8eb49d0b"
+    },
+    {
+      "path": "/private/tmp/astra-commerce-path-runner-review-20261010-c.log",
+      "bytes": 181,
+      "sha256": "6427ff25f05908e490049284458bec35294209aabca06f3d6d7a6882f84b5a1e"
+    },
+    {
+      "path": "/private/tmp/review_path_runner_c_custody_probes.py",
+      "bytes": 4119,
+      "sha256": "7605b19639be3e8ba54d64f112d41d7204aa5fe1bb9ca80366f6ab5cf0f26101"
+    },
+    {
+      "path": "/private/tmp/review_path_runner_c_custody_probes.json",
+      "bytes": 1223,
+      "sha256": "5bc4936effea499e36f12045bddaf23968c6c6529e4cb0b6a7970ff85a8ab4e2"
+    },
+    {
+      "path": "/private/tmp/review_path_runner_c_custody_probes.log",
+      "bytes": 1223,
+      "sha256": "5bc4936effea499e36f12045bddaf23968c6c6529e4cb0b6a7970ff85a8ab4e2"
+    }
+  ]
+}

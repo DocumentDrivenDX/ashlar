@@ -1,0 +1,121 @@
+{
+  "decision": "conditionally approved for root-owned single tiny native attempt",
+  "command": {
+    "path": "/private/tmp/ashlar-commerce-path-native-command-20261010-b.json",
+    "sha256": "5c1a5bcae5d91ab580e2136468ac53f6d1092dbd17f490fcf41249ab8691b520"
+  },
+  "scope": "Three exact original commerce collection/path-count/distinct-target-count statements, private local reviewed compiler8946ada6 and original held publication. No general SQL/path/profile, indexed distribution, Truss, Databricks, Fabric, parallel-edge or scalability qualification.",
+  "source": {
+    "commit": "3f2c414a277c9217d8be0a61c623f3d74c02e6f9",
+    "files": 554,
+    "bytes": 5577406,
+    "exact_git_path_mode_blob_sha_length_and_no_extra_files": true,
+    "source_ci": "Parent verified both38035166252/244 successful; independently reviewed source bytes match frozen approvals"
+  },
+  "independent_checks": {
+    "runtime_actual_project_imports": 57,
+    "external_version_import_observations": {
+      "python": "3.11.17",
+      "sqlite": "3.53.1",
+      "pyspark": "4.0.1",
+      "delta-spark": "4.0.0",
+      "psycopg": "3.2.13",
+      "jsonschema": "4.23.0",
+      "referencing": "0.35.1"
+    },
+    "real_offline_schema_factory": true,
+    "compiler_schemas_jars_producer_pins": true,
+    "original_publication_opening_files": 79,
+    "original_model_graph_bindings_public_receipt_hashes_match_report": true,
+    "retained_umf_bun_ajv_files_rehashed": 865,
+    "producer_c7_clean": true
+  },
+  "conditions_before_launch": [
+    "Root repeats exact PG container/image/loopback15432/private role-source policy/limits/health check and zero-Spark/Puppy process check",
+    "Fresh output and log destinations; exclusive cooperating local engine reservation",
+    "Opening source/resource/compiler/schema/JAR/publication vectors unchanged and actual environment matches reviewed explicit overrides",
+    "No primary-workspace execution or source edits; use exact exported argv/cwd/PYTHONPATH"
+  ],
+  "after_run": [
+    "Retain exact terminal exit, original log and complete reports only if cleanup succeeds",
+    "Keep failure attempts without fabricating partial successes; root stops/releases exclusive engine slot",
+    "Observe closing whole source/resource/compiler/schema/JAR/publication vectors and exact PG/zero-engine state",
+    "Classify volatile SQLite coordination changes separately if observed; do not infer data changes or causes from a hash difference alone",
+    "Independent native rows/guards/ACK/schema/evidence review required before any success/support claim"
+  ],
+  "limits": [
+    "Dependency versions/import paths and selected865UMF files are observed; full external Python/JDK binary or deterministic rebuild closure not claimed",
+    "Configured capture limits govern retained payloads, not Spark partition/executor allocation or OS execution time",
+    "No SparkSession, PG connection or native SQL was invoked by this independent readiness review"
+  ],
+  "effective_override_flags": {
+    "SPARK_HOME": "unset",
+    "SPARK_REMOTE": "unset",
+    "SPARK_CONNECT_MODE_ENABLED": "unset",
+    "PYSPARK_SUBMIT_ARGS": "unset",
+    "PYSPARK_GATEWAY_PORT": "unset",
+    "PYSPARK_GATEWAY_SECRET": "unset",
+    "MASTER": "unset",
+    "PYTHONHOME": "unset",
+    "JAVA_TOOL_OPTIONS": "unset",
+    "JDK_JAVA_OPTIONS": "unset",
+    "_JAVA_OPTIONS": "unset"
+  },
+  "evidence": [
+    {
+      "path": "/private/tmp/ashlar-commerce-path-native-command-20261010-b.json",
+      "bytes": 3581,
+      "sha256": "5c1a5bcae5d91ab580e2136468ac53f6d1092dbd17f490fcf41249ab8691b520"
+    },
+    {
+      "path": "/private/tmp/astra-path-export-review-20261010-b.json",
+      "bytes": 4032,
+      "sha256": "88b4b54aa281ad7fb389bf2775c162200bdfa14692631471d27e4e1bb2021897"
+    },
+    {
+      "path": "/private/tmp/astra-commerce-path-native-runtime-review-20261010-b.py",
+      "bytes": 4462,
+      "sha256": "0ba0eb5eff1f55d420701a8a9abf9cb8c9b18e55d59b477bed5dc1bb8f1a8497"
+    },
+    {
+      "path": "/private/tmp/astra-commerce-path-native-runtime-review-20261010-b.json",
+      "bytes": 25651,
+      "sha256": "eebf257649a18a02fae21f353d966e58747bb9e57851563389aedf04fcb5feed"
+    },
+    {
+      "path": "/private/tmp/astra-commerce-path-native-runtime-review-20261010-b.log",
+      "bytes": 236,
+      "sha256": "728b235ca47e2a65052c5daaa61c894d1653831248fcb68a1f475d614ed5ddcf"
+    },
+    {
+      "path": "/private/tmp/ashlar-path-composition-import-observation-20261010-b.json",
+      "bytes": 9151,
+      "sha256": "21c230703f41b68669ab41e1c8f4d81a8045b95a0fe2ce6ef34cd349da5ec5ab"
+    },
+    {
+      "path": "/private/tmp/ashlar-commerce-path-native-resource-observation-20261010-a.json",
+      "bytes": 23939,
+      "sha256": "89bd81dc891f23e5b79b8f20b364adb33f4a10901011470030b118f8b7bd252d"
+    },
+    {
+      "path": "/private/tmp/astra-commerce-path-composition-final-review-20261010-b.json",
+      "bytes": 3870,
+      "sha256": "bfd8eb5deadd8fa89868f83887af2ed05bd70600827240672e56b3f3f86762ce"
+    },
+    {
+      "path": "/private/tmp/astra-commerce-path-runner-final-review-20261010-c.json",
+      "bytes": 4166,
+      "sha256": "b3b01bd7f8e288e8824fd87462f680199419ee457499503f9ec7063052cad076"
+    },
+    {
+      "path": "/private/tmp/astra-path-compiler-final-review-20261010-b.json",
+      "bytes": 2517,
+      "sha256": "c5fba878c98d41272575e0294d532ebdf95b138a58b059be258a48630c5a26fc"
+    },
+    {
+      "path": "/private/tmp/astra-commerce-path-request-review-20261010-c.json",
+      "bytes": 3376,
+      "sha256": "522dfa13cee2116a47d603d9f59042e1de19e04d2baf8e55cdb1f3052db8ddc9"
+    }
+  ]
+}

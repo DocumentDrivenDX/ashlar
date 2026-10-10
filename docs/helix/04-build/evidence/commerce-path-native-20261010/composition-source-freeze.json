@@ -1,0 +1,18 @@
+{
+  "scope": "source-only explicit three-case composition; no engine qualification",
+  "files": [
+    {
+      "path": "tools/run_commerce_path_native.py",
+      "sha256": "ab08bbbac3d8bb99700f53265de95a2d5989deb3b979d624c7f804bd953ee2e7",
+      "bytes": 17083
+    },
+    {
+      "path": "tests/test_run_commerce_path_native.py",
+      "sha256": "9448c74720c5f2585ac0132da64536e230e92f51e868ff365bf114be6f0cdb78",
+      "bytes": 9856
+    }
+  ],
+  "tests": 9,
+  "change_from_A": "Capture body BaseException before reader exit; preserve it across reader and Spark cleanup failures with payload-free separate markers",
+  "sql_runtime_resources": "unchanged"
+}

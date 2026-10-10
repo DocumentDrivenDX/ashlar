@@ -1,0 +1,244 @@
+{
+  "bunVersion": "1.4.2",
+  "jdkVersion": "openjdk version \"21.0.12.1\" 2026-08-18\nOpenJDK Runtime Environment Homebrew (build 21.0.12.1)\nOpenJDK 64-Bit Server VM Homebrew (build 21.0.12.1, mixed mode, sharing)\n",
+  "projectImports": {
+    "src/ashlar/__init__.py": {
+      "bytes": 1293,
+      "sha256": "4a2120fc27c18defb9fda700fdf12fe5f02aec883c994b425c3771d85f231bc6"
+    },
+    "src/ashlar/apply.py": {
+      "bytes": 6553,
+      "sha256": "3b1bcdff055a67744f738508363914efa68a3711aeb084d7f221579cd68082d1"
+    },
+    "src/ashlar/attempt_store.py": {
+      "bytes": 7664,
+      "sha256": "836a1cebf179efe27e5d578b903b3e7fa3514f991aff0dde49ec47991b077a44"
+    },
+    "src/ashlar/binding.py": {
+      "bytes": 6813,
+      "sha256": "675384f08081f33c5e32f03ea6a9a988c3559b24dc9901ba65431fb9592b7b3b"
+    },
+    "src/ashlar/catalog.py": {
+      "bytes": 4926,
+      "sha256": "2eaa107b2898f210bb7ae8cdba38a2c4d50f4169bc637de9633ca6708bca9e3f"
+    },
+    "src/ashlar/commerce_source.py": {
+      "bytes": 5680,
+      "sha256": "4b50f2a8531e05f087b535ccfdd2e3ffa8292e5f47302b1e4b569e58f732a746"
+    },
+    "src/ashlar/graph_release.py": {
+      "bytes": 10985,
+      "sha256": "f1481f4e1cd261893dfb5c613cb31823168e72dbc11e57aef8d4708ff6be33b3"
+    },
+    "src/ashlar/manifest.py": {
+      "bytes": 6578,
+      "sha256": "7951cec41e3f5ca19f0a53ed80b60f2bae3a1835effc77dccaf49113a3db9e9c"
+    },
+    "src/ashlar/native.py": {
+      "bytes": 3947,
+      "sha256": "fc54aef7407242fe8b8811ff0da7ceb7fc5030a1be1b178b4fe0be9e3f0fcec4"
+    },
+    "src/ashlar/outbox.py": {
+      "bytes": 6525,
+      "sha256": "6277185048c05afbafdce2229b0cccd8d28dfe334b748f9a6aa14274b9f399a4"
+    },
+    "src/ashlar/publication.py": {
+      "bytes": 5977,
+      "sha256": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a"
+    },
+    "src/ashlar/publisher.py": {
+      "bytes": 6750,
+      "sha256": "7d14fbe76b280615e548694bebcd97e2f9c22a9113ba0a5f20bd9912a7385b1c"
+    },
+    "src/ashlar/recovery.py": {
+      "bytes": 3589,
+      "sha256": "2a87e8bd3e8378f18aa713f0a8bc43274054a472b592a8b1d0361edd25cfa841"
+    },
+    "src/ashlar/schema.py": {
+      "bytes": 3949,
+      "sha256": "cbec6dd4aaa3e6cdbd29383f169855d63470d6ed468a3faff159afac0252273f"
+    },
+    "src/ashlar/schema_policies.py": {
+      "bytes": 1324,
+      "sha256": "9624fd24dce680d314c547cb08e87d6f4b1a190ee1781856bee63e1a85b08f4e"
+    },
+    "src/ashlar/semantic_policy.py": {
+      "bytes": 7593,
+      "sha256": "74c0e18967f4677927a13cdf7bb8705c50265ef278d2b340a5fa617ecf09cfb8"
+    },
+    "src/ashlar/singleton.py": {
+      "bytes": 4947,
+      "sha256": "318342c4449fc331d0f9289b065cdc530f57ae549ad93420cd7e365d2bb8dc41"
+    },
+    "src/ashlar/source.py": {
+      "bytes": 4356,
+      "sha256": "d707482f3512fbbf4be02469208aa0bd10e7bca7e2bf6ed4f4b03c33948a91f2"
+    },
+    "src/ashlar/source_checkpoint.py": {
+      "bytes": 9270,
+      "sha256": "0ef05a0eecf85d8989ae5245c45812c4936fe6e02372b37838a794e170996625"
+    },
+    "src/ashlar/staging.py": {
+      "bytes": 7338,
+      "sha256": "b2807c11bf2703f47646765e5e8d9a43af4863cce8ad6a3909b25d89c0058545"
+    },
+    "src/ashlar/stored_publisher.py": {
+      "bytes": 9299,
+      "sha256": "36f50d738335c511dafc987a7f73fc8eec9d7c417a60a2b0dd4d6204aade2202"
+    },
+    "src/ashlar/weft_decode.py": {
+      "bytes": 13942,
+      "sha256": "b66a26ff2fe7084eafc2d0d77c906836fcfbd08c51b14d6ae1500b38f322d3cd"
+    },
+    "src/ashlar/weft_distribution.py": {
+      "bytes": 4204,
+      "sha256": "5a0b6814f74d1cd74b9e2e02e0cdb2f1d9a13b1a464649f83614755d0ada25d8"
+    },
+    "src/ashlar/weft_installation.py": {
+      "bytes": 35061,
+      "sha256": "3f6365faaa2c2cc30784cf6c07817a701749a452f5aa274efab798d8d70ee285"
+    },
+    "src/ashlar/weft_path_decode.py": {
+      "bytes": 11170,
+      "sha256": "0e5dcb7d28aa60f3d8364c41c5d305b1e71607b8acab678e0eee0973478df0a6"
+    },
+    "src/ashlar/whole_entity.py": {
+      "bytes": 2019,
+      "sha256": "4f2102505851e7bc916df91b625f7a99677d11c79828603c01395f1d7648424f"
+    },
+    "tools/check_commerce_graphframes_scenarios.py": {
+      "bytes": 12258,
+      "sha256": "2a8d80b051d54ec810a21dc290caf9dd9eda533c4aee9bd11835cb9804192283"
+    },
+    "tools/commerce_graph_oracle.py": {
+      "bytes": 11421,
+      "sha256": "42b0990893157cab36b6d633d6cbcf6b6968cfc6d5abf21802d46dd79489fe8e"
+    },
+    "tools/commerce_path_oracle.py": {
+      "bytes": 3503,
+      "sha256": "b616a1382955a53bc7454f8eee6d220ef9b1c28e509c2bd87f9cd55a9ed7a33a"
+    },
+    "tools/commerce_path_request.py": {
+      "bytes": 3211,
+      "sha256": "c0547e878453177b4784b0d2edd86cd3d6a45a20e39db9fcee38f434a81c275f"
+    },
+    "tools/commerce_source_transaction.py": {
+      "bytes": 1047,
+      "sha256": "8b8b185c4ed3cadb554ce0415d8029bb1c3a98b354505d8b01debcba6af17db7"
+    },
+    "tools/domain_pack_inventory.py": {
+      "bytes": 11108,
+      "sha256": "b664d0df6e2e82dbaf1802544fb14fb824d2f8f91f19a021d6dbb197cee59b2c"
+    },
+    "tools/fixture_oracle.py": {
+      "bytes": 7124,
+      "sha256": "f98002ddb99e7f6c9c8dc255e4fe26f3e422285b77fa91626d244656d138a234"
+    },
+    "tools/indexed_weft_commerce.py": {
+      "bytes": 4348,
+      "sha256": "37f328eccb3b5326ef129f968e4da5480b750b7c9f630e32f5a6beb3f39ad6cf"
+    },
+    "tools/local_delta_custody.py": {
+      "bytes": 26838,
+      "sha256": "b4842277c1c53320b75a641074f1efa1a16420920f952b3bdd63506249a3dd12"
+    },
+    "tools/local_outbox_connection.py": {
+      "bytes": 2117,
+      "sha256": "1e9cff1bea23185aa640789e7c684b1c8474293f06f90f2cc6f2ca3d30fdd555"
+    },
+    "tools/postgres_transactions.py": {
+      "bytes": 3339,
+      "sha256": "3fd105abee30c212a48ef33a33f727a3af6abf9b725b4b21295fd911e5719a9b"
+    },
+    "tools/prepare_commerce_values.py": {
+      "bytes": 9534,
+      "sha256": "2f066eb47c373b6196d2a7fdb4269feb9ae7253073bddb923a9caa9740cb8ba5"
+    },
+    "tools/private_graph_custody.py": {
+      "bytes": 7691,
+      "sha256": "3c5c0da967cc67e30fee5d996d7497f8be970b621d6d4238c675ca9eccd82ff8"
+    },
+    "tools/protected_outbox_ack.py": {
+      "bytes": 11649,
+      "sha256": "acfa8f19d0288ccda7119aafd6ae6ff7e4fc0aa58e85fa1271ffece6982d1791"
+    },
+    "tools/run_commerce_arithmetic_weft.py": {
+      "bytes": 40603,
+      "sha256": "5a72c5d95599717ebc3cc75e57a0051b24b9dc93df1552c7c4187d208c873c18"
+    },
+    "tools/run_commerce_outbox_publication.py": {
+      "bytes": 19973,
+      "sha256": "9aa347ef838a979d8de9eba7c1c6201037db017020d269d8a2fe8f77fa69b20b"
+    },
+    "tools/run_commerce_path_native.py": {
+      "bytes": 17083,
+      "sha256": "ab08bbbac3d8bb99700f53265de95a2d5989deb3b979d624c7f804bd953ee2e7"
+    },
+    "tools/run_commerce_path_weft.py": {
+      "bytes": 21802,
+      "sha256": "10e487db8cf827b98d30782b902206c7c3b1303d992aa0f234fa97dc2e9edbac"
+    },
+    "tools/run_commerce_publication_weft.py": {
+      "bytes": 29249,
+      "sha256": "c73b123b2f31e9742afeb07597695e8294e1ff99b8e306ee31693e76667a41ce"
+    },
+    "tools/run_commerce_relationship_weft.py": {
+      "bytes": 6072,
+      "sha256": "6e9ede30835539de72b0aefeba185a3ea16eabe8eaec6bd84745cce8e802c4b8"
+    },
+    "tools/run_commerce_release_graphframes.py": {
+      "bytes": 9385,
+      "sha256": "b3c224a8da693997ecdba4ac89f6aca73adb5fe1eb506aaf6a94fdd3db3551f2"
+    },
+    "tools/run_graph_release_graphframes.py": {
+      "bytes": 13106,
+      "sha256": "3264587cfe01b915780995c518a7fb357852ec99fe8d781e3432c14c50dbb23f"
+    },
+    "tools/run_indexed_commerce_weft.py": {
+      "bytes": 7185,
+      "sha256": "85919b7ca9483af56bbb05f011f2b77c6b910c6e4b6515fea62f9f8b0f3e3c43"
+    },
+    "tools/run_local_example.py": {
+      "bytes": 8371,
+      "sha256": "5c73ca7c680742269605315d7677f1dca4a9d41555691fa81a4f45a3f4d8032c"
+    },
+    "tools/run_local_outbox_publication.py": {
+      "bytes": 41891,
+      "sha256": "8f74e36f3595ed562badbe92457d3808b7a89c1d005facf23ee7a453a6083847"
+    },
+    "tools/weft_path_capture.py": {
+      "bytes": 4693,
+      "sha256": "9e21ffdd08a416ebfffd4ee11532c0d184f54d47331f2bde978aa98aeae0d10e"
+    },
+    "tools/weft_path_compiler.py": {
+      "bytes": 7238,
+      "sha256": "bc4bb0df3a84664d577687b5c8799bb312119b62f85a6ab269f1a6f2e17ee635"
+    },
+    "tools/weft_path_plan.py": {
+      "bytes": 23316,
+      "sha256": "c8cacd6dcc2544973e34d8894a402b32e37d2b6775cbb2a17ed10d79cc2d4f15"
+    },
+    "tools/weft_path_schema.py": {
+      "bytes": 3033,
+      "sha256": "52618204710c0d05e690917bb60b9d2e5c4d49051b134aa646c184d9aa672c9d"
+    },
+    "tools/weft_relationship_plan.py": {
+      "bytes": 5682,
+      "sha256": "9ddcf9e5abc7f10d40e25ac9ace56d9fe860adb5cef9ce74ced5759b2285ed74"
+    },
+    "tools/whole_graph_sql.py": {
+      "bytes": 4866,
+      "sha256": "e599fba56cdb0d4259942f4855a4a3bca4e0a96cbadc2d88f87ebfd92105cff3"
+    }
+  },
+  "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+  "scope": "Actual final-export imports and external selected resource observation; no native engine",
+  "umfResourceEntriesVerified": 865,
+  "versions": {
+    "delta-spark": "4.0.0",
+    "jsonschema": "4.23.0",
+    "psycopg": "3.2.13",
+    "pyspark": "4.0.1",
+    "referencing": "0.35.1"
+  }
+}

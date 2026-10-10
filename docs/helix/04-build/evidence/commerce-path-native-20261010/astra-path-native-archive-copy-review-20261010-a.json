@@ -1,0 +1,161 @@
+{
+  "decision": "approved exact durable-copy closure only; overall native review remains independent and pending",
+  "manifest": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/commerce-path-native-20261010/manifest.json",
+    "sha256": "c650a7a71027fe2be5f76122cdc0b9f11f966af6e20e0620a8a5105dfe4bd463"
+  },
+  "filesIncludingManifest": 23,
+  "entries": [
+    {
+      "path": "report.json.gz",
+      "bytes": 395576,
+      "sha256": "4fa8456d59c9ed7bd68bf435b90a6cadd0c4344bf77d6c47ed7c6583eb3367da",
+      "exactOriginal": true,
+      "originalBytes": 5079437,
+      "originalSha256": "f3f1ffe1cd79e4bf8875d0d12b044ef6a956d9aa7c4871c35a85c812dc0fe491"
+    },
+    {
+      "path": "native-command.json",
+      "bytes": 3581,
+      "sha256": "5c1a5bcae5d91ab580e2136468ac53f6d1092dbd17f490fcf41249ab8691b520",
+      "exactOriginal": true
+    },
+    {
+      "path": "native-command-reviewed.json",
+      "bytes": 5606,
+      "sha256": "5275c8ae4c32a5f55091e72fc6c2a61634a167423472a1758bbce101d7b0752e",
+      "exactOriginal": true
+    },
+    {
+      "path": "runtime-reviewed.json",
+      "bytes": 25651,
+      "sha256": "eebf257649a18a02fae21f353d966e58747bb9e57851563389aedf04fcb5feed",
+      "exactOriginal": true
+    },
+    {
+      "path": "runtime-export-reviewed.json",
+      "bytes": 4032,
+      "sha256": "88b4b54aa281ad7fb389bf2775c162200bdfa14692631471d27e4e1bb2021897",
+      "exactOriginal": true
+    },
+    {
+      "path": "runtime-source-inventory.json",
+      "bytes": 148383,
+      "sha256": "3139e77580cae0902c1c6bc45852bf58c74958391c90e01bccb4c35205e565a8",
+      "exactOriginal": true
+    },
+    {
+      "path": "runtime-imports.json",
+      "bytes": 9151,
+      "sha256": "21c230703f41b68669ab41e1c8f4d81a8045b95a0fe2ce6ef34cd349da5ec5ab",
+      "exactOriginal": true
+    },
+    {
+      "path": "umf-resources.json",
+      "bytes": 188199,
+      "sha256": "a3a90a3f96ce6800717863e81550a618dccfe454626fbe7abad27ee1f148aaef",
+      "exactOriginal": true
+    },
+    {
+      "path": "native-resources.json",
+      "bytes": 23939,
+      "sha256": "89bd81dc891f23e5b79b8f20b364adb33f4a10901011470030b118f8b7bd252d",
+      "exactOriginal": true
+    },
+    {
+      "path": "native-outcome.json",
+      "bytes": 1248,
+      "sha256": "7608515cbc8e5f8d76624ef4743843822073544c8a52ce58cdc9b2d873f5999c",
+      "exactOriginal": true
+    },
+    {
+      "path": "native-stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "exactOriginal": true
+    },
+    {
+      "path": "native-stderr.bin",
+      "bytes": 598,
+      "sha256": "15304c697154b9ea2be8b8b4a6d005a6ccb323f75c65288d5caab2e9305d8951",
+      "exactOriginal": true
+    },
+    {
+      "path": "native-launch.py",
+      "bytes": 5030,
+      "sha256": "d110cd81ac77015e34e6dcd5830681445381beb35346157963d74e238a2d3cf5",
+      "exactOriginal": true
+    },
+    {
+      "path": "request-source-freeze.json",
+      "bytes": 872,
+      "sha256": "4c4002e9df01d1e582db7a1dd684ecd9ff74767da1f071bc321f4afe9e4ccdad",
+      "exactOriginal": true
+    },
+    {
+      "path": "request-source-reviewed.json",
+      "bytes": 3376,
+      "sha256": "522dfa13cee2116a47d603d9f59042e1de19e04d2baf8e55cdb1f3052db8ddc9",
+      "exactOriginal": true
+    },
+    {
+      "path": "compiler-source-freeze.json",
+      "bytes": 2060,
+      "sha256": "38feaec5d0115969615e1722b0e041a571a0e9e556e58c46191da19d97a6f917",
+      "exactOriginal": true
+    },
+    {
+      "path": "compiler-source-reviewed.json",
+      "bytes": 2517,
+      "sha256": "c5fba878c98d41272575e0294d532ebdf95b138a58b059be258a48630c5a26fc",
+      "exactOriginal": true
+    },
+    {
+      "path": "runner-source-freeze.json",
+      "bytes": 653,
+      "sha256": "b0d1d5417397a48ca4aa057f42a69945f598d9efd72877263d9fb9fbddd330e1",
+      "exactOriginal": true
+    },
+    {
+      "path": "runner-source-reviewed.json",
+      "bytes": 4166,
+      "sha256": "b3b01bd7f8e288e8824fd87462f680199419ee457499503f9ec7063052cad076",
+      "exactOriginal": true
+    },
+    {
+      "path": "composition-source-freeze.json",
+      "bytes": 656,
+      "sha256": "1f523a82df809f6e6b4536ed1d8c3fe86f32d5ee0b1847da6795c5093b328887",
+      "exactOriginal": true
+    },
+    {
+      "path": "composition-source-reviewed.json",
+      "bytes": 3870,
+      "sha256": "bfd8eb5deadd8fa89868f83887af2ed05bd70600827240672e56b3f3f86762ce",
+      "exactOriginal": true
+    },
+    {
+      "path": "fresh-public-dataset.json.gz",
+      "bytes": 28590,
+      "sha256": "5e2d3adddba870c950a8338e3d8e24492213446402250145ef16b04b4662d498",
+      "exactOriginal": true,
+      "originalBytes": 2037521,
+      "originalSha256": "76a9bb3a03bb533f8fae2da5b4e700f4d8f3496b4cbfebb1a9b7ceb2145a7d16"
+    }
+  ],
+  "crossReferences": {
+    "sourceFreezeReviewPairs": 4,
+    "commandRuntimeOutcomePins": true,
+    "sourceCommit": "3f2c414a277c9217d8be0a61c623f3d74c02e6f9",
+    "sourceInventoryFiles": 554,
+    "recordedImportedFilesMatchedInventory": 57,
+    "umfResourceInventoryEntries": 865,
+    "compressedPayloadsEqualOriginals": 2
+  },
+  "scope": [
+    "Three exact original local Spark4.0.1/Delta4.0.0 collection/path-count/target-count cases only",
+    "Archive contains exact evidence inventories/receipts, not executable or complete JDK/Python package/runtime closure",
+    "Original absolute resource paths remain references; no standalone replay/installability or deterministic build claim",
+    "No engine, database connection, compiler replay, owner edit, or further qualification performed by this archive-copy review"
+  ]
+}

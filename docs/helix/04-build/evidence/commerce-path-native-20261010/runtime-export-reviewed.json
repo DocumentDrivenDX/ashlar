@@ -1,0 +1,93 @@
+{
+  "decision": "approved exact export/source correspondence and retained UMF resource custody only",
+  "command": {
+    "path": "/private/tmp/ashlar-commerce-path-native-command-20261010-b.json",
+    "sha256": "5c1a5bcae5d91ab580e2136468ac53f6d1092dbd17f490fcf41249ab8691b520"
+  },
+  "source": {
+    "commit": "3f2c414a277c9217d8be0a61c623f3d74c02e6f9",
+    "inventorySha256": "3139e77580cae0902c1c6bc45852bf58c74958391c90e01bccb4c35205e565a8",
+    "files": 554,
+    "bytes": 5577406,
+    "exactSelectedGitPathsetModesBlobsLengthsSha256": true,
+    "openingClosingUnchanged": true
+  },
+  "approvedSources": [
+    {
+      "path": "tools/run_commerce_path_native.py",
+      "sha256": "ab08bbbac3d8bb99700f53265de95a2d5989deb3b979d624c7f804bd953ee2e7",
+      "bytes": 17083,
+      "approvedManifestSha256": "1f523a82df809f6e6b4536ed1d8c3fe86f32d5ee0b1847da6795c5093b328887"
+    },
+    {
+      "path": "tools/run_commerce_path_weft.py",
+      "sha256": "10e487db8cf827b98d30782b902206c7c3b1303d992aa0f234fa97dc2e9edbac",
+      "bytes": 21802,
+      "approvedManifestSha256": "b0d1d5417397a48ca4aa057f42a69945f598d9efd72877263d9fb9fbddd330e1"
+    },
+    {
+      "path": "tools/commerce_path_request.py",
+      "sha256": "c0547e878453177b4784b0d2edd86cd3d6a45a20e39db9fcee38f434a81c275f",
+      "bytes": 3211,
+      "approvedManifestSha256": "4c4002e9df01d1e582db7a1dd684ecd9ff74767da1f071bc321f4afe9e4ccdad"
+    },
+    {
+      "path": "tools/commerce_path_oracle.py",
+      "sha256": "b616a1382955a53bc7454f8eee6d220ef9b1c28e509c2bd87f9cd55a9ed7a33a",
+      "bytes": 3503,
+      "approvedManifestSha256": "12dd8b2da9e5676e8f4e7ccd2e7382265ba551436542e20c4e671223ed1fc619"
+    },
+    {
+      "path": "tools/weft_path_compiler.py",
+      "sha256": "bc4bb0df3a84664d577687b5c8799bb312119b62f85a6ab269f1a6f2e17ee635",
+      "bytes": 7238,
+      "approvedManifestSha256": "38feaec5d0115969615e1722b0e041a571a0e9e556e58c46191da19d97a6f917"
+    },
+    {
+      "path": "tools/weft_path_plan.py",
+      "sha256": "c8cacd6dcc2544973e34d8894a402b32e37d2b6775cbb2a17ed10d79cc2d4f15",
+      "bytes": 23316,
+      "approvedManifestSha256": "d208c9ae74add5f38866c0231cb03e7f8c930c38c57b92920647797decdad923"
+    },
+    {
+      "path": "tools/weft_path_schema.py",
+      "sha256": "52618204710c0d05e690917bb60b9d2e5c4d49051b134aa646c184d9aa672c9d",
+      "bytes": 3033,
+      "approvedManifestSha256": "f5f3d54bbe83eb838d3ea7523deed29af1280dd7ec70d43991f00b5971deaad8"
+    },
+    {
+      "path": "tools/weft_path_capture.py",
+      "sha256": "9e21ffdd08a416ebfffd4ee11532c0d184f54d47331f2bde978aa98aeae0d10e",
+      "bytes": 4693,
+      "approvedManifestSha256": "de8d92d7f568a493398f6be2b078df5726518b31a83fd53207c001be228cdf23"
+    },
+    {
+      "path": "src/ashlar/weft_path_decode.py",
+      "sha256": "0e5dcb7d28aa60f3d8364c41c5d305b1e71607b8acab678e0eee0973478df0a6",
+      "bytes": 11170,
+      "approvedManifestSha256": "0199a634a568211bbedc263ca4bbcd99f63cec635084dbba2796e5c30e95df8b"
+    },
+    {
+      "path": "tools/check_module_boundaries.py",
+      "sha256": "cca877eabaa30758933e884da0bc913e61b1a820cca966e820b4987368f6c32c",
+      "bytes": 5830,
+      "approvedManifestSha256": "0199a634a568211bbedc263ca4bbcd99f63cec635084dbba2796e5c30e95df8b"
+    }
+  ],
+  "sourceImportReceipt": {
+    "path": "/private/tmp/ashlar-path-composition-import-observation-20261010-b.json",
+    "sha256": "21c230703f41b68669ab41e1c8f4d81a8045b95a0fe2ce6ef34cd349da5ec5ab",
+    "projectFiles": 57,
+    "allMatchExport": true,
+    "newImportExecution": false
+  },
+  "umf": {
+    "manifest": "/private/tmp/ashlar-indexed-commerce-umf-resources-20261010-a.json",
+    "sha256": "a3a90a3f96ce6800717863e81550a618dccfe454626fbe7abad27ee1f148aaef",
+    "filesRehashed": 865,
+    "allMatch": true,
+    "head": "c7c95e1c4ea5b72541f47fa0350ca467ff02f395",
+    "fullStatusClean": true
+  },
+  "scope": "Read-only file/hash/Git correspondence. No engines, compiler run, new runtime imports, external dependency qualification, native command approval or owner edits."
+}

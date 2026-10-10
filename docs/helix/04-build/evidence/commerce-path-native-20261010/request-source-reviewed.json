@@ -1,0 +1,112 @@
+{
+  "scope": "Source request composition and pure compiler/schema replay only; no native SQL/source authority grant",
+  "manifest_sha256": "4c4002e9df01d1e582db7a1dd684ecd9ff74767da1f071bc321f4afe9e4ccdad",
+  "inputs": {
+    "original-ontology.json": {
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "bytes": 27544
+    },
+    "development-bindings.json": {
+      "sha256": "f62bc935c6ad53cfbf8efa73962b8321fc79b1d727521001ea63274d6ba07fbe",
+      "bytes": 9226
+    },
+    "original-graph.json": {
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+      "bytes": 23078
+    },
+    "report.json": {
+      "sha256": "fcb60e5bc7c96c0a2c22e473c41d5a15ab03a2ea432f586cf75a40616d5b17d3",
+      "bytes": 471621
+    }
+  },
+  "observations": [
+    {
+      "case": "collection",
+      "requestSha256": "88275d44ca8ace95e15286018aa172d8baf566ed72c28dd0aa01f61535707664",
+      "responseSha256": "baec61d1960599797cdbdcada8d1484212f8a4599cdf8304ca486abc8ed6d5b3",
+      "source_relationships": 9,
+      "schema_and_full_admission": true,
+      "oracle": {
+        "rows": [
+          [
+            "[42,0,\"L1\"]",
+            "{\"items\":[{\"intermediate\":[\"[42,0,\\\"P1\\\"]\"],\"terminal\":[\"[42,0,\\\"S1\\\"]\"],\"edges\":[\"4\",\"1\"]}],\"truncated\":false}"
+          ]
+        ],
+        "witnesses": {
+          "path_occurrences": 1,
+          "distinct_terminal_keys": 1,
+          "edge_pairs": [
+            [
+              "4",
+              "1"
+            ]
+          ]
+        },
+        "scope": "Three exact original-commerce query cases; original fixture edge ordinal IDs only"
+      }
+    },
+    {
+      "case": "count",
+      "requestSha256": "c24c9848806f70b8520903999700978937e385a0881133c397e6aa632a5c7291",
+      "responseSha256": "8efec1f477201fb81fe7762c9396c00778ed4ee871fcf21a9591c00359c2b4f1",
+      "source_relationships": 9,
+      "schema_and_full_admission": true,
+      "oracle": {
+        "rows": [
+          [
+            "1"
+          ]
+        ],
+        "witnesses": {
+          "path_occurrences": 1,
+          "distinct_terminal_keys": 1,
+          "edge_pairs": [
+            [
+              "4",
+              "1"
+            ]
+          ]
+        },
+        "scope": "Three exact original-commerce query cases; original fixture edge ordinal IDs only"
+      }
+    },
+    {
+      "case": "distinct",
+      "requestSha256": "9839edc34728b7f4ac66fbdf46ada2e13a592478f044372165039c7768362e5f",
+      "responseSha256": "9710a018a38879189efdba7c8e7d08e726c317f919b22f4c0c7e58f4bee706b9",
+      "source_relationships": 9,
+      "schema_and_full_admission": true,
+      "oracle": {
+        "rows": [
+          [
+            "1"
+          ]
+        ],
+        "witnesses": {
+          "path_occurrences": 1,
+          "distinct_terminal_keys": 1,
+          "edge_pairs": [
+            [
+              "4",
+              "1"
+            ]
+          ]
+        },
+        "scope": "Three exact original-commerce query cases; original fixture edge ordinal IDs only"
+      }
+    }
+  ],
+  "isolated_invalid_type_tokens_refused": [
+    "1",
+    "True",
+    "'0'",
+    "'01'",
+    "'-1'",
+    "'1.0'",
+    "'9223372036854775808'",
+    "'99999999999999999999'"
+  ],
+  "inputs_unchanged": true,
+  "binary_unchanged": "8946ada68a7132a2ba6c1abdc1c9a0e904922cb1dce2c500922cb0dd0a96562b"
+}

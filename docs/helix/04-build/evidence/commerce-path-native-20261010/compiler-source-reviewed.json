@@ -1,0 +1,66 @@
+{
+  "decision": "approved",
+  "manifest_sha256": "38feaec5d0115969615e1722b0e041a571a0e9e556e58c46191da19d97a6f917",
+  "files": [
+    {
+      "path": "tools/weft_path_compiler.py",
+      "bytes": 7238,
+      "sha256": "bc4bb0df3a84664d577687b5c8799bb312119b62f85a6ab269f1a6f2e17ee635"
+    },
+    {
+      "path": "tests/test_weft_path_compiler.py",
+      "bytes": 8346,
+      "sha256": "071435085ca874b161cdcb9c08a8f56f8e23e8c1d499efc925895f44dee62017"
+    }
+  ],
+  "scope": "Exact private local POSIX compiler transport; no native SQL/indexed distribution/host-obligation discharge. Filesystem custody remains caller-held; retained I/O caps and finite transport/cleanup wait do not constitute OS memory/time proof.",
+  "independent_tests": {
+    "portable_tests": 9,
+    "actual_pinned_response_limit_pairs": [
+      {
+        "case": "collection",
+        "request_bytes": 55375,
+        "output_bytes": 99372,
+        "sha256": "baec61d1960599797cdbdcada8d1484212f8a4599cdf8304ca486abc8ed6d5b3",
+        "exact_output_limit_passes": true,
+        "one_byte_less_refuses": true
+      },
+      {
+        "case": "count",
+        "request_bytes": 55367,
+        "output_bytes": 88526,
+        "sha256": "8efec1f477201fb81fe7762c9396c00778ed4ee871fcf21a9591c00359c2b4f1",
+        "exact_output_limit_passes": true,
+        "one_byte_less_refuses": true
+      },
+      {
+        "case": "distinct",
+        "request_bytes": 55392,
+        "output_bytes": 89343,
+        "sha256": "9710a018a38879189efdba7c8e7d08e726c317f919b22f4c0c7e58f4bee706b9",
+        "exact_output_limit_passes": true,
+        "one_byte_less_refuses": true
+      }
+    ],
+    "cleanup_only_withholds": true,
+    "primary_failure_preserved_with_cleanup_flag": true
+  },
+  "helix_correspondence": {
+    "modularity": "own host transport, standard library only",
+    "configuration": "required immutable explicit byte and timeout limits, fixed source/binary identity",
+    "observability": "constant safe failure strings, cleanup boolean; no receiver claim",
+    "assurance": "concrete process/limit/cancellation controls; no native/unbounded proof"
+  },
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-path-compiler-review-20261010-b.py",
+      "bytes": 3864,
+      "sha256": "3800870fdaed53f373c7cc599d4faf96706d8c27269348c2fcb052e36ae71d67"
+    },
+    {
+      "path": "/private/tmp/astra-path-compiler-tests-20261010-b.log",
+      "bytes": 955,
+      "sha256": "6043d6e5c3da677f1928dce5060031862542dfb9f25065f7e5c57711248f85e8"
+    }
+  ]
+}
