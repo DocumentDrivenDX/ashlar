@@ -1,0 +1,144 @@
+{
+  "actualExecutionObservedBy": "Root-owned terminal sessions39793 and15392; reviewed persisted outcomes/logs here, no rebuild by reviewer",
+  "binary": {
+    "bytes": 8330656,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/weft-paths-keys",
+    "sha256": "471fc5dedc8f8eba3156444d19cc2161fac7a06833672dd5621ed49ead8b522c"
+  },
+  "binaryFormat": "little-endian Mach-O64 arm64 MH_EXECUTE",
+  "command": {
+    "bytes": 7987,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/command-b.json",
+    "sha256": "1ad88380c1c0ece419c7054c6a8d474aaaa425fdef1027798848df1f9e17ac90"
+  },
+  "currentTargetBinaryEqualsRetained": true,
+  "format": "independent-built-custody-check/0.1",
+  "limitations": [
+    "Cached offline build with allowlisted environment; complete Cargo cache/SDK/dynamic-library closure is not inventoried.",
+    "These checks verify retained build artifacts and metadata custody; no compiler corpus, installation, package/index, native query or deterministic-build qualification."
+  ],
+  "passed": true,
+  "phases": [
+    {
+      "outcome": {
+        "bytes": 447,
+        "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/cli-build-outcome.json",
+        "sha256": "0f62105d16809df30dae54f7ddbd2be1b4167909d1b9987c665f97f20e47203f"
+      },
+      "phase": "cli-build",
+      "recordedExitCode": 0,
+      "recordedOpeningClosingCustody": true,
+      "stderr": {
+        "bytes": 5702,
+        "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/cli-build.log.stderr",
+        "sha256": "2d5c531631475bc58aa26b937686ef8a64bb807886f7403c793ba126f2b9b279"
+      },
+      "stdout": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/cli-build.log",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "outcome": {
+        "bytes": 250,
+        "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-build-outcome.json",
+        "sha256": "78ffab5dd9c168a474721f05be206aeba944b2880f23e30d4804d6f6aa239c72"
+      },
+      "phase": "source-metadata",
+      "recordedExitCode": 0,
+      "recordedOpeningClosingCustody": true,
+      "stderr": {
+        "bytes": 6444,
+        "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-build.log",
+        "sha256": "aa945b4ae24e67b355096e050d3ec52c61d7bad785c8023bf7f6fd4cbde93be4"
+      },
+      "stdout": {
+        "bytes": 52274,
+        "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/backend-manifest.json",
+        "sha256": "ead2df8de9927765775ec7267a9a1865b1c02ec21c849255ada85c36a645fb84"
+      }
+    }
+  ],
+  "resourcesNowMatch": [
+    {
+      "bytes": 30854216,
+      "path": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/bin/cargo",
+      "sha256": "b617f75ab3fadd5d764368413b7e87532dfa45039aac431f9c0af883b824a6e6"
+    },
+    {
+      "bytes": 414776,
+      "path": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/bin/rustc",
+      "sha256": "b2011d06d5c7efff7b48b1e1aec6106989e44f3a5ad1d171e06a41c0fbc3ffea"
+    },
+    {
+      "bytes": 577199,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source-inventory.json",
+      "sha256": "e9f1e0ac01d7b9dc1b2d61148c74274c1fed5a5593726487aa4562f2e4bf3512"
+    },
+    {
+      "bytes": 543,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-probe/Cargo.toml",
+      "sha256": "9eb3df1ae22c0df183a88ecd3f31eefb3b266e196ab8960eb5ff1615e7cf45f6"
+    },
+    {
+      "bytes": 22716,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-probe/Cargo.lock",
+      "sha256": "b69384f0e23ae43a62bd59edfadf27ffe73789df3ec09da23c564bb31e396ca6"
+    },
+    {
+      "bytes": 570,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-probe/src/main.rs",
+      "sha256": "54edc872be8e4e8255362cc5a1ccf06cd5507181820dda2e4d7a7a766511939d"
+    },
+    {
+      "bytes": 28372,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/Cargo.lock",
+      "sha256": "08d3d30468be6bbde701be72c4e070f60c0706b54898e8e3a0432ea0cfbe0e9e"
+    },
+    {
+      "bytes": 113,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/rust-toolchain.toml",
+      "sha256": "41ffa816f9f3929eee58730344f11d341b50fb15ac1f3850a7b9ff4205831e14"
+    },
+    {
+      "bytes": 187261080,
+      "path": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/lib/librustc_driver-53a3dd5be7cd01bd.dylib",
+      "sha256": "d78a34753b24f34b4b06be53d37e989b9ff7f9b54e51842fd84429f0584cc776"
+    },
+    {
+      "bytes": 124676976,
+      "path": "/Library/Developer/CommandLineTools/usr/bin/clang",
+      "sha256": "1590ac950a3d627817d09ade5cb60b2115f17a72182a3141e010b4bcc482a0c9"
+    },
+    {
+      "bytes": 2749664,
+      "path": "/Library/Developer/CommandLineTools/usr/bin/ld",
+      "sha256": "374d9f0713bce2c8a9e1e82bde51615d5433516a10d99b63107eb6ee70542e4c"
+    },
+    {
+      "bytes": 199024,
+      "path": "/usr/bin/xcrun",
+      "sha256": "bbe7671518a3905f9d3fce54312fbc77c2876b0d62aca74a0688fa869d31a8a9"
+    },
+    {
+      "bytes": 7948,
+      "path": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/SDKSettings.json",
+      "sha256": "7b93ad7e534cc4b31c6a4e39d19b5e0288acf2168c2649479a796d1cb51939fb"
+    },
+    {
+      "bytes": 6214,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/launch-reviewed-build.py",
+      "sha256": "1b3ddad1de8da44d2af9593bab1be96361a7167f807b7f1fab01b1d901382892"
+    }
+  ],
+  "sourceBytes": 312239178,
+  "sourceCommit": "3a2a79ccc19d636f20d31116662d61365c1b4ff7",
+  "sourceFiles": 1987,
+  "sourceFullVectorNowMatchesReviewedGitInventory": true,
+  "sourceInventory": {
+    "bytes": 577199,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source-inventory.json",
+    "sha256": "e9f1e0ac01d7b9dc1b2d61148c74274c1fed5a5593726487aa4562f2e4bf3512"
+  }
+}

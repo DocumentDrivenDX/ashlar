@@ -1,0 +1,113 @@
+{
+  "command": {
+    "bytes": 7987,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/command-b.json",
+    "sha256": "1ad88380c1c0ece419c7054c6a8d474aaaa425fdef1027798848df1f9e17ac90"
+  },
+  "conditionsBeforeRootExecution": [
+    "Root independently confirms the exact source commit CI success and retains that observation.",
+    "Root holds exclusive use of the selected Cargo target and ensures no competing Cargo/rustc process for these outputs; this receipt does not grant a shared-compute or native engine lease.",
+    "Execute only the two exact command-B phases through the pinned launcher, retaining actual argv, interpreter/environment observation, stream files, exit outcomes and opening/closing vectors.",
+    "Any command/source/resource/launcher byte change requires refreshed verification; failed or incomplete outcomes must not be treated as successful realization.",
+    "After success independently inspect the actual binary descriptor/format and complete metadata against the public backend03 schema, 48 unique capability IDs and selected source before later conformance work."
+  ],
+  "evidence": [
+    {
+      "bytes": 6953,
+      "path": "/private/tmp/astra-paths-keys-build-input-review-20261010-b.json",
+      "sha256": "849eada4ee241b7b1cccf9ef7e6167533be8472f60414a2f7c37b98694b9beb9"
+    },
+    {
+      "bytes": 4857,
+      "path": "/private/tmp/astra-paths-keys-build-launcher-controls-20261010-b.py",
+      "sha256": "d37a3e4bb08ab86060e37625c7af482c24bafe3da6ec084a48a306232dacf1cd"
+    },
+    {
+      "bytes": 772,
+      "path": "/private/tmp/astra-paths-keys-build-launcher-controls-20261010-b.log",
+      "sha256": "ae36a46e431e91349f994f54b69dc600790bb1e51ef092ba25c41f6b718eecf5"
+    },
+    {
+      "bytes": 21951,
+      "path": "/private/tmp/astra-weft-paths-keys-source-review-20261010-a.json",
+      "sha256": "fec3569f8ea280296275753ce2ea2351999b1f9df2447b35b482d827268bac69"
+    }
+  ],
+  "findings": [],
+  "format": "astra-independent-build-command-review/0.1",
+  "helixScope": {
+    "configuration": "Exact argv, bounded limits and complete child environment allowlist; fresh retained paths and explicit reused resources.",
+    "formal": "Finite failure/cancellation controls and exact source correspondence support the stated lifecycle properties only; no unbounded proof or native/host discharge.",
+    "modularity": "Separate CLI and metadata compositions select the owned Backend03 adapter; no historical runtime routing or native executor change.",
+    "observability": "Raw bounded process outcomes and exact custody descriptors are the evidence; no OTel receiver or telemetry claim."
+  },
+  "launcher": {
+    "bytes": 6214,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/launch-reviewed-build.py",
+    "sha256": "1b3ddad1de8da44d2af9593bab1be96361a7167f807b7f1fab01b1d901382892"
+  },
+  "limits": [
+    "Approval is for local offline release and metadata production, not a qualified compiler realization, full corpus, package/index publication, installed profile or native SQL support.",
+    "1800-second deadline and16MiB per-stream limit apply to subprocess capture. Source/resource hashing and binary copying are streaming custody operations over the reviewed cooperative regular-file inputs, not an adversarial filesystem or full whole-wrapper real-time guarantee.",
+    "Complete Cargo target/dependency caches, SDK contents and host dynamic-library closure are not inventoried. Observed clang/ld/SDKSettings do not prove a future linker invocation; no hermetic or deterministic-build claim.",
+    "Metadata 48-capability expectation is source inspection until the actual phase output is produced and independently validated.",
+    "Historical command A remains retained with its old launcher descriptor and must not be executed with the revised launcher; B is the authorized exact successor."
+  ],
+  "noBuildCompilerNativeOrGitMutationByReviewer": true,
+  "resolvedFindings": [
+    "Closing source/resource verification now runs after capture failure/cancellation as well as success, preserving a body primary if closing verification fails.",
+    "Capture retains the first cleanup exception, including KeyboardInterrupt/SystemExit, when there is no body primary; subsequent cleanup still runs."
+  ],
+  "reviewerActualChecks": [
+    {
+      "command": [
+        "python3",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "/private/tmp/astra-paths-keys-build-launcher-controls-20261010-b.py",
+        "-v"
+      ],
+      "controls": [
+        "bounded stdout/stderr success",
+        "output capacity refusal without over-cap retained bytes",
+        "shared finite deadline with descendant-held pipes",
+        "setup interruption preserves primary and reaps/closes child resources",
+        "cleanup-only KeyboardInterrupt and SystemExit preserve exact object",
+        "body cancellation survives cleanup failure",
+        "capture cancellation still performs closing custody",
+        "secondary closing drift preserves body and marks closing_custody_failed",
+        "closing-only cancellation refuses apparent success",
+        "opening refusal starts no child",
+        "nonzero exit closes custody and retains failure exitCode"
+      ],
+      "exitCode": 0,
+      "scope": "Controlled Python child processes and mocked main capture only; no Rust build or actual compiler invocation.",
+      "tests": 11
+    },
+    {
+      "details": "All 1,987 paths, modes, SHA256, lengths and Git blobs equal exact Git3a2a79c tree; no extras/symlinks. All13 resources and launcher descriptors equal current bytes. Metadata lock differs from reviewed historical lock only in root package name. Foreign dirty common.rs excluded. Exact probe selects only source-owned PathsKeys registration.",
+      "result": "passed",
+      "scope": "Git/source/resource/metadata-probe inspection"
+    },
+    {
+      "details": "CLI build selects only ashlar-databricks-paths-keys and weft-paths-keys binary with explicit target, --release/--offline/--locked/-j1 and no default features. Metadata is a separate source-owned Registry03 process with exact path dependencies to the export. Complete child environment allowlist has no HOME or ambient Rust/Cargo flags. Cargo cache and target reuse remain explicit.",
+      "result": "passed",
+      "scope": "command semantics"
+    },
+    {
+      "details": "Retained CLI binary, build logs and metadata output paths were absent at final review; exclusive creation prevents clobber.",
+      "result": "passed",
+      "scope": "output freshness"
+    }
+  ],
+  "sourceBytes": 312239178,
+  "sourceCommit": "3a2a79ccc19d636f20d31116662d61365c1b4ff7",
+  "sourceFiles": 1987,
+  "sourceInventory": {
+    "bytes": 577199,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source-inventory.json",
+    "sha256": "e9f1e0ac01d7b9dc1b2d61148c74274c1fed5a5593726487aa4562f2e4bf3512"
+  },
+  "verdict": "approved-conditionally-for-two-exact-build-phases"
+}

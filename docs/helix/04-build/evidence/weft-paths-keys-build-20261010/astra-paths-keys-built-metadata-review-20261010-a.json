@@ -1,0 +1,178 @@
+{
+  "allCapabilitiesCandidateWithoutEvidence": true,
+  "cliOutcome": {
+    "bytes": 447,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/cli-build-outcome.json",
+    "sha256": "0f62105d16809df30dae54f7ddbd2be1b4167909d1b9987c665f97f20e47203f"
+  },
+  "command": {
+    "bytes": 7987,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/command-b.json",
+    "sha256": "1ad88380c1c0ece419c7054c6a8d474aaaa425fdef1027798848df1f9e17ac90"
+  },
+  "commandRun": "PYTHONDONTWRITEBYTECODE=1 /private/tmp/truss-python-report-schema-env/bin/python -B /private/tmp/astra-paths-keys-built-metadata-review-20261010-a.py",
+  "exactFullExpectedManifestMatch": true,
+  "format": "independent-built-metadata-review/0.1",
+  "inheritedCapabilities": 47,
+  "inputReview": {
+    "bytes": 6953,
+    "path": "/private/tmp/astra-paths-keys-build-input-review-20261010-b.json",
+    "sha256": "849eada4ee241b7b1cccf9ef7e6167533be8472f60414a2f7c37b98694b9beb9"
+  },
+  "limits": [
+    "Read-only inspection of completed root phases; no Cargo/compiler/probe/native/DB/install invocation by reviewer.",
+    "Parent owns aggregate actual build and full opening/closing resource custody review.",
+    "Retained binary identified by bytes only; schema result is source-owned Backend03 metadata, not compiler corpus behavior.",
+    "No corpus, package, index, installed profile, or native qualification is inferred.",
+    "Explicit reused Cargo/target caches and selected SDK/tool resources remain non-hermetic and incompletely inventoried."
+  ],
+  "log": {
+    "bytes": 263,
+    "path": "/private/tmp/astra-paths-keys-built-metadata-review-20261010-a.log",
+    "sha256": "2a67e439838cbddaae45498b7f52c740db987ed986150c5d584942df44e8f90c"
+  },
+  "manifest": {
+    "bytes": 52274,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/backend-manifest.json",
+    "sha256": "ead2df8de9927765775ec7267a9a1865b1c02ec21c849255ada85c36a645fb84"
+  },
+  "metadataOutcome": {
+    "bytes": 250,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-build-outcome.json",
+    "sha256": "78ffab5dd9c168a474721f05be206aeba944b2880f23e30d4804d6f6aa239c72"
+  },
+  "metadataStderr": {
+    "bytes": 6444,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-build.log",
+    "sha256": "aa945b4ae24e67b355096e050d3ec52c61d7bad785c8023bf7f6fd4cbde93be4"
+  },
+  "newCapability": "relationship.boundedKeys",
+  "previousManifest": {
+    "bytes": 51125,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/backend-manifest.json",
+    "sha256": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5"
+  },
+  "probe": [
+    {
+      "bytes": 543,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-probe/Cargo.toml",
+      "sha256": "9eb3df1ae22c0df183a88ecd3f31eefb3b266e196ab8960eb5ff1615e7cf45f6"
+    },
+    {
+      "bytes": 22716,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-probe/Cargo.lock",
+      "sha256": "b69384f0e23ae43a62bd59edfadf27ffe73789df3ec09da23c564bb31e396ca6"
+    },
+    {
+      "bytes": 570,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-probe/src/main.rs",
+      "sha256": "54edc872be8e4e8255362cc5a1ccf06cd5507181820dda2e4d7a7a766511939d"
+    }
+  ],
+  "registry": {
+    "externalRetrievalAttempts": 0,
+    "formatAssertion": false,
+    "offline": true,
+    "refsLocalOnly": true
+  },
+  "retainedBinary": {
+    "bytes": 8330656,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/weft-paths-keys",
+    "sha256": "471fc5dedc8f8eba3156444d19cc2161fac7a06833672dd5621ed49ead8b522c"
+  },
+  "runtime": {
+    "jsonschema": "4.23.0",
+    "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+    "referencing": "0.35.1"
+  },
+  "schema": {
+    "bytes": 18066,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/docs/helix/02-design/contracts/backend-manifest-v0.3.schema.json",
+    "sha256": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a"
+  },
+  "schemaMutationRefusals": [
+    "wrong interface",
+    "unknown root member",
+    "unknown capability member",
+    "unknown target member",
+    "wrong language version"
+  ],
+  "script": {
+    "bytes": 9622,
+    "path": "/private/tmp/astra-paths-keys-built-metadata-review-20261010-a.py",
+    "sha256": "10bdb80873ae316d782364b4b1a96cc933c525dc7e6c66ffed2dbf4d968f07fa"
+  },
+  "selectedCapabilityIds": [
+    "scan",
+    "project",
+    "filter",
+    "innerJoin",
+    "equal",
+    "and",
+    "parameter.named",
+    "compare.lexicographicGreater",
+    "order.asc",
+    "limit",
+    "type.string",
+    "type.boolean",
+    "type.integer",
+    "type.decimal",
+    "value.presence",
+    "value.nativeNull",
+    "predicate.nativeNull",
+    "compare.nullAwareStringEqual",
+    "project.positionedOutputs",
+    "project.distinct",
+    "compare.less",
+    "compare.lessEqual",
+    "compare.greaterEqual",
+    "compare.notEqual",
+    "compare.scalarJoin",
+    "arithmetic.exact.integer",
+    "arithmetic.exact.decimal",
+    "arithmetic.+",
+    "arithmetic.-",
+    "arithmetic.*",
+    "arithmetic.negate",
+    "arithmetic.compareExact",
+    "type.integer.unbounded",
+    "aggregate",
+    "group",
+    "aggregate.count",
+    "aggregate.countDistinct",
+    "aggregate.countDistinct.optional",
+    "aggregate.havingCountDistinctGreater",
+    "predicate.stringIn",
+    "join.left",
+    "value.outerJoinPresence",
+    "relationship.twoHopPaths",
+    "relationship.pathExpansion",
+    "relationship.inverse",
+    "result.pathOccurrences",
+    "aggregate.pathTargetDistinctCount",
+    "relationship.boundedKeys"
+  ],
+  "sourceCorrespondenceMutationsDetected": [
+    "missing selected capability",
+    "duplicated capability ID",
+    "old target profile fallback"
+  ],
+  "sourceRefs": [
+    {
+      "bytes": 18066,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/docs/helix/02-design/contracts/backend-manifest-v0.3.schema.json",
+      "sha256": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a"
+    },
+    {
+      "bytes": 7921,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/crates/weft-databricks/src/paths.rs",
+      "sha256": "f7e677df76ac697f72289b477e9d14159ac5a05f11467316282f31be4deaf72d"
+    },
+    {
+      "bytes": 4001,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/crates/weft-databricks/src/paths_keys.rs",
+      "sha256": "163e3868b171bdb107444ce2d041e3f2c78b00c1a4512aac8e5cf4a15a07674b"
+    }
+  ],
+  "verdict": "actual-metadata-approved-scoped"
+}

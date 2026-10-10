@@ -1,0 +1,162 @@
+{
+  "cargoConfiguration": [
+    {
+      "bytes": 250,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/.cargo/config.toml",
+      "sha256": "6e87ded1a3f6228bb0aee5f62f89e72f87c1f9281d882ef7ac1dd8844315a64f",
+      "text": "# jsonschema's unused target dependency still compiles getrandom. Runtime entropy\n# is disabled in the documented ahash dependency patch; accidental calls fail.\n[target.wasm32-unknown-unknown]\nrustflags = ['--cfg', 'getrandom_backend=\"unsupported\"']\n"
+    }
+  ],
+  "command": {
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/command-b.json",
+    "sha256": "1ad88380c1c0ece419c7054c6a8d474aaaa425fdef1027798848df1f9e17ac90"
+  },
+  "commandRun": "PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -B -S /private/tmp/astra-paths-keys-build-input-review-20261010-b.py",
+  "conditions": [
+    "Parent launcher review and external source-CI gate remain separate prerequisites.",
+    "Opening/closing source and selected resource checks and actual output review remain required at execution."
+  ],
+  "foreignCheckout": {
+    "checkoutSha256": "ede8d95c6407d36ad593b7a64bec47daf0042639bfbd36998df98702244fe8f6",
+    "excluded": true,
+    "exportSha256": "7a64e7de0b7bd672cafc98e39ff4d8bd8f6fab11a20d47f46a6d84ce48d3f425",
+    "path": "tests/ashlar-databricks/common.rs"
+  },
+  "format": "independent-build-input-review/0.1",
+  "historicalRealizationsUnchangedFromBase": "3fcfd37c2bd3b408cbed3d784fc9ec79fc22e679",
+  "launcherDescriptorVerified": {
+    "bytes": 6214,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/launch-reviewed-build.py",
+    "sha256": "1b3ddad1de8da44d2af9593bab1be96361a7167f807b7f1fab01b1d901382892"
+  },
+  "limits": [
+    "No Cargo, build, compiler, metadata executable, native engine, DB, install, or Git mutation run.",
+    "Static source predicts 48 registered capabilities; no actual metadata output asserted.",
+    "Selected 13 resources are not complete Cargo cache, target cache, toolchain, SDK, or dynamic-library closure.",
+    "Shared target/cache reuse is explicit; no hermetic or reproducible-build assertion.",
+    "Exporter files have Git-derived 0644/0755 modes; this review is read-only, not a filesystem write-protection claim."
+  ],
+  "lockProvenance": {
+    "newSha256": "b69384f0e23ae43a62bd59edfadf27ffe73789df3ec09da23c564bb31e396ca6",
+    "onlyRootNameChanged": true,
+    "original": "/private/tmp/weft-paths-530ae35-build-20261010-a/metadata-probe/Cargo.lock",
+    "originalSha256": "ead5d49041cb9990d7ef05f302f2ba7b84301463d8d447f2eba9ac613813ad4e"
+  },
+  "metadata": {
+    "observedExecution": false,
+    "singleExplicitPathsKeysRegistration": true,
+    "staticExpected": {
+      "backendId": "ashlar.databricks.paths-keys",
+      "backendVersion": "0.4.0-paths-keys-candidate",
+      "capabilities": 48,
+      "interfaceVersion": "weft-backend/0.3.0",
+      "languagePair": [
+        "weft-sql/0.4.0",
+        "weft-ir/0.4.0"
+      ]
+    }
+  },
+  "resources": [
+    {
+      "bytes": 30854216,
+      "observedMode": "0o755",
+      "path": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/bin/cargo",
+      "sha256": "b617f75ab3fadd5d764368413b7e87532dfa45039aac431f9c0af883b824a6e6"
+    },
+    {
+      "bytes": 414776,
+      "observedMode": "0o755",
+      "path": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/bin/rustc",
+      "sha256": "b2011d06d5c7efff7b48b1e1aec6106989e44f3a5ad1d171e06a41c0fbc3ffea"
+    },
+    {
+      "bytes": 577199,
+      "observedMode": "0o644",
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source-inventory.json",
+      "sha256": "e9f1e0ac01d7b9dc1b2d61148c74274c1fed5a5593726487aa4562f2e4bf3512"
+    },
+    {
+      "bytes": 543,
+      "observedMode": "0o644",
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-probe/Cargo.toml",
+      "sha256": "9eb3df1ae22c0df183a88ecd3f31eefb3b266e196ab8960eb5ff1615e7cf45f6"
+    },
+    {
+      "bytes": 22716,
+      "observedMode": "0o644",
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-probe/Cargo.lock",
+      "sha256": "b69384f0e23ae43a62bd59edfadf27ffe73789df3ec09da23c564bb31e396ca6"
+    },
+    {
+      "bytes": 570,
+      "observedMode": "0o644",
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-probe/src/main.rs",
+      "sha256": "54edc872be8e4e8255362cc5a1ccf06cd5507181820dda2e4d7a7a766511939d"
+    },
+    {
+      "bytes": 28372,
+      "observedMode": "0o644",
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/Cargo.lock",
+      "sha256": "08d3d30468be6bbde701be72c4e070f60c0706b54898e8e3a0432ea0cfbe0e9e"
+    },
+    {
+      "bytes": 113,
+      "observedMode": "0o644",
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/rust-toolchain.toml",
+      "sha256": "41ffa816f9f3929eee58730344f11d341b50fb15ac1f3850a7b9ff4205831e14"
+    },
+    {
+      "bytes": 187261080,
+      "observedMode": "0o644",
+      "path": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/lib/librustc_driver-53a3dd5be7cd01bd.dylib",
+      "sha256": "d78a34753b24f34b4b06be53d37e989b9ff7f9b54e51842fd84429f0584cc776"
+    },
+    {
+      "bytes": 124676976,
+      "observedMode": "0o755",
+      "path": "/Library/Developer/CommandLineTools/usr/bin/clang",
+      "sha256": "1590ac950a3d627817d09ade5cb60b2115f17a72182a3141e010b4bcc482a0c9"
+    },
+    {
+      "bytes": 2749664,
+      "observedMode": "0o755",
+      "path": "/Library/Developer/CommandLineTools/usr/bin/ld",
+      "sha256": "374d9f0713bce2c8a9e1e82bde51615d5433516a10d99b63107eb6ee70542e4c"
+    },
+    {
+      "bytes": 199024,
+      "observedMode": "0o755",
+      "path": "/usr/bin/xcrun",
+      "sha256": "bbe7671518a3905f9d3fce54312fbc77c2876b0d62aca74a0688fa869d31a8a9"
+    },
+    {
+      "bytes": 7948,
+      "observedMode": "0o644",
+      "path": "/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk/SDKSettings.json",
+      "sha256": "7b93ad7e534cc4b31c6a4e39d19b5e0288acf2168c2649479a796d1cb51939fb"
+    }
+  ],
+  "runtime": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "script": {
+    "path": "/private/tmp/astra-paths-keys-build-input-review-20261010-b.py",
+    "sha256": "e0d61076aa7123d42096e958facebd766f34e0fae7df4fce14ca1adb6b90f298"
+  },
+  "source": {
+    "actualModeCounts": {
+      "0o644": 1978,
+      "0o755": 9
+    },
+    "allGitBlobsSha256LengthsAndModesMatch": true,
+    "bytes": 312239178,
+    "exactGitPathset": true,
+    "files": 1987,
+    "noSymlinksOrExtraFiles": true
+  },
+  "sourceCommit": "3a2a79ccc19d636f20d31116662d61365c1b4ff7",
+  "sourceInventory": {
+    "bytes": 577199,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source-inventory.json",
+    "sha256": "e9f1e0ac01d7b9dc1b2d61148c74274c1fed5a5593726487aa4562f2e4bf3512"
+  },
+  "verdict": "scoped-inputs-approved-conditional"
+}

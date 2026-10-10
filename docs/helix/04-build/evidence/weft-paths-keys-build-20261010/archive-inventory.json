@@ -1,0 +1,162 @@
+[
+  {
+    "originalPath": "/private/tmp/astra-weft-paths-keys-actual-build-review-20261010-a.json",
+    "originalSha256": "265fd996a24aedbbb1783c61cd6bd04ce0e53a49d9d611d690d6f6ccaf9e1a49",
+    "originalBytes": 6487,
+    "archive": "astra-weft-paths-keys-actual-build-review-20261010-a.json",
+    "encoding": "identity",
+    "archiveSha256": "265fd996a24aedbbb1783c61cd6bd04ce0e53a49d9d611d690d6f6ccaf9e1a49"
+  },
+  {
+    "originalPath": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/command-b.json",
+    "originalSha256": "1ad88380c1c0ece419c7054c6a8d474aaaa425fdef1027798848df1f9e17ac90",
+    "originalBytes": 7987,
+    "archive": "command-b.json",
+    "encoding": "identity",
+    "archiveSha256": "1ad88380c1c0ece419c7054c6a8d474aaaa425fdef1027798848df1f9e17ac90"
+  },
+  {
+    "originalPath": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source-inventory.json",
+    "originalSha256": "e9f1e0ac01d7b9dc1b2d61148c74274c1fed5a5593726487aa4562f2e4bf3512",
+    "originalBytes": 577199,
+    "archive": "source-inventory.json.gz",
+    "encoding": "gzip",
+    "archiveSha256": "e8f40b1130b4d7eb55873ef0858708a8a92719e89614af93d058df00d9aeba7d"
+  },
+  {
+    "originalPath": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/launch-reviewed-build.py",
+    "originalSha256": "1b3ddad1de8da44d2af9593bab1be96361a7167f807b7f1fab01b1d901382892",
+    "originalBytes": 6214,
+    "archive": "launch-reviewed-build.py",
+    "encoding": "identity",
+    "archiveSha256": "1b3ddad1de8da44d2af9593bab1be96361a7167f807b7f1fab01b1d901382892"
+  },
+  {
+    "originalPath": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/runtime-observation.json",
+    "originalSha256": "37cc06c3d635fed7c8aa97e1e9c326330cbb3f277461e51a818f4591c81c99ca",
+    "originalBytes": 915,
+    "archive": "runtime-observation.json",
+    "encoding": "identity",
+    "archiveSha256": "37cc06c3d635fed7c8aa97e1e9c326330cbb3f277461e51a818f4591c81c99ca"
+  },
+  {
+    "originalPath": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-validation.json",
+    "originalSha256": "4acd80db9a930f0ccc6c4382a59f8e31ff66e221acfe3f476a2b9c85fad9e8c9",
+    "originalBytes": 916,
+    "archive": "metadata-validation.json",
+    "encoding": "identity",
+    "archiveSha256": "4acd80db9a930f0ccc6c4382a59f8e31ff66e221acfe3f476a2b9c85fad9e8c9"
+  },
+  {
+    "originalPath": "/private/tmp/astra-paths-keys-actual-build-checks-20261010-a.json",
+    "originalSha256": "ac6f202c99af19f1dc53d98e2c9d89c8cac092a114f2138f877ce6541f8e58a8",
+    "originalBytes": 6012,
+    "archive": "astra-paths-keys-actual-build-checks-20261010-a.json",
+    "encoding": "identity",
+    "archiveSha256": "ac6f202c99af19f1dc53d98e2c9d89c8cac092a114f2138f877ce6541f8e58a8"
+  },
+  {
+    "originalPath": "/private/tmp/astra-paths-keys-built-metadata-review-20261010-a.json",
+    "originalSha256": "b6e844d3a6073c8ade5645dc4475df10aad59df7923ce9ff1542acd5671e7d23",
+    "originalBytes": 6620,
+    "archive": "astra-paths-keys-built-metadata-review-20261010-a.json",
+    "encoding": "identity",
+    "archiveSha256": "b6e844d3a6073c8ade5645dc4475df10aad59df7923ce9ff1542acd5671e7d23"
+  },
+  {
+    "originalPath": "/private/tmp/astra-weft-paths-keys-build-command-review-20261010-b.json",
+    "originalSha256": "9ee1ac6467d4e1b10ddf4162c8d5bf2ea02ba36b75a12f7542a951cdc4f7605e",
+    "originalBytes": 6987,
+    "archive": "astra-weft-paths-keys-build-command-review-20261010-b.json",
+    "encoding": "identity",
+    "archiveSha256": "9ee1ac6467d4e1b10ddf4162c8d5bf2ea02ba36b75a12f7542a951cdc4f7605e"
+  },
+  {
+    "originalPath": "/private/tmp/astra-paths-keys-build-input-review-20261010-b.json",
+    "originalSha256": "849eada4ee241b7b1cccf9ef7e6167533be8472f60414a2f7c37b98694b9beb9",
+    "originalBytes": 6953,
+    "archive": "astra-paths-keys-build-input-review-20261010-b.json",
+    "encoding": "identity",
+    "archiveSha256": "849eada4ee241b7b1cccf9ef7e6167533be8472f60414a2f7c37b98694b9beb9"
+  },
+  {
+    "originalPath": "/private/tmp/astra-paths-keys-actual-build-review-20261010-a.py",
+    "originalSha256": "fa2389b0c0ebc84ebc92d27c6fa8a1ddcf5808107d6202dccfbfe25c4c182d07",
+    "originalBytes": 4529,
+    "archive": "astra-paths-keys-actual-build-review-20261010-a.py",
+    "encoding": "identity",
+    "archiveSha256": "fa2389b0c0ebc84ebc92d27c6fa8a1ddcf5808107d6202dccfbfe25c4c182d07"
+  },
+  {
+    "originalPath": "/private/tmp/astra-paths-keys-actual-build-review-20261010-a.log",
+    "originalSha256": "0a16c76ca93583cd3f8c7ee0ac3c3a3bb0f0c967ee8a4fafd3d335062af0da4f",
+    "originalBytes": 369,
+    "archive": "astra-paths-keys-actual-build-review-20261010-a.log.gz",
+    "encoding": "gzip",
+    "archiveSha256": "2f4a3e864178755f5d32227e75807448fbce87090962fb0e8212ba44e28a52f3"
+  },
+  {
+    "originalPath": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/cli-build-outcome.json",
+    "originalSha256": "0f62105d16809df30dae54f7ddbd2be1b4167909d1b9987c665f97f20e47203f",
+    "originalBytes": 447,
+    "archive": "cli-build-outcome.json",
+    "encoding": "identity",
+    "archiveSha256": "0f62105d16809df30dae54f7ddbd2be1b4167909d1b9987c665f97f20e47203f"
+  },
+  {
+    "originalPath": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/cli-build.log.stderr",
+    "originalSha256": "2d5c531631475bc58aa26b937686ef8a64bb807886f7403c793ba126f2b9b279",
+    "originalBytes": 5702,
+    "archive": "cli-build.log.stderr.gz",
+    "encoding": "gzip",
+    "archiveSha256": "5b10db2b2f6d21a26bfa781b5b7b3939cc98e192ee04a8ac002192bdca2370c9"
+  },
+  {
+    "originalPath": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/cli-build.log",
+    "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "originalBytes": 0,
+    "archive": "cli-build.log.gz",
+    "encoding": "gzip",
+    "archiveSha256": "9ceffb7310338057cfe71a4ae1e2c98d2c485d81cdef906532a801f457a38d64"
+  },
+  {
+    "originalPath": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-build-outcome.json",
+    "originalSha256": "78ffab5dd9c168a474721f05be206aeba944b2880f23e30d4804d6f6aa239c72",
+    "originalBytes": 250,
+    "archive": "metadata-build-outcome.json",
+    "encoding": "identity",
+    "archiveSha256": "78ffab5dd9c168a474721f05be206aeba944b2880f23e30d4804d6f6aa239c72"
+  },
+  {
+    "originalPath": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/metadata-build.log",
+    "originalSha256": "aa945b4ae24e67b355096e050d3ec52c61d7bad785c8023bf7f6fd4cbde93be4",
+    "originalBytes": 6444,
+    "archive": "metadata-build.log.gz",
+    "encoding": "gzip",
+    "archiveSha256": "512dc57d048c4bd95a0a3802ccb0387583f85700455f7a9948e73a09c7650449"
+  },
+  {
+    "originalPath": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/backend-manifest.json",
+    "originalSha256": "ead2df8de9927765775ec7267a9a1865b1c02ec21c849255ada85c36a645fb84",
+    "originalBytes": 52274,
+    "archive": "backend-manifest.json.gz",
+    "encoding": "gzip",
+    "archiveSha256": "fce19d68785e9055c749efd7ed5033012403a1b1484f6a5479534799ace5efa0"
+  },
+  {
+    "originalPath": "/private/tmp/astra-paths-keys-build-launcher-controls-20261010-b.py",
+    "originalSha256": "d37a3e4bb08ab86060e37625c7af482c24bafe3da6ec084a48a306232dacf1cd",
+    "originalBytes": 4857,
+    "archive": "astra-paths-keys-build-launcher-controls-20261010-b.py",
+    "encoding": "identity",
+    "archiveSha256": "d37a3e4bb08ab86060e37625c7af482c24bafe3da6ec084a48a306232dacf1cd"
+  },
+  {
+    "originalPath": "/private/tmp/astra-paths-keys-build-launcher-controls-20261010-b.log",
+    "originalSha256": "ae36a46e431e91349f994f54b69dc600790bb1e51ef092ba25c41f6b718eecf5",
+    "originalBytes": 772,
+    "archive": "astra-paths-keys-build-launcher-controls-20261010-b.log.gz",
+    "encoding": "gzip",
+    "archiveSha256": "6acb329d4b365e2abcdc4c03b8a6c1399155539d36ccbd18fd33d80eb779dfa4"
+  }
+]

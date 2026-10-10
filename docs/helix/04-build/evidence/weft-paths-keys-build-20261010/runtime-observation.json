@@ -1,0 +1,18 @@
+{
+  "format": "weft-paths-keys-build-runtime-observation/0.1",
+  "interpreter": {
+    "path": "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/bin/python3.9",
+    "version": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+    "sha256": "6e7ae61f68a3838094fc56590f84c52069a97d7816f6bb79e0e85995b340e464",
+    "bytes": 53200
+  },
+  "sourceCI": {
+    "runId": 38053532338,
+    "headSha": "3a2a79ccc19d636f20d31116662d61365c1b4ff7",
+    "status": "completed",
+    "conclusion": "success"
+  },
+  "exclusiveTarget": "Root observed no local cargo/rustc/java/weft process before launch; both collaborating lanes confirmed no Cargo/native target activity. Root owns both sequential phases.",
+  "binaryFormat": "Mach-O 64-bit executable arm64",
+  "scope": "Observed build inputs and local executable format only; no corpus/install/native qualification."
+}
