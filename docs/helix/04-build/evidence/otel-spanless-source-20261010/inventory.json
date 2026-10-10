@@ -1,0 +1,188 @@
+{
+  "format": "ashlar-evidence-inventory/0.1",
+  "baseCommit": "e5c676ea0e0f12cac4034d954ad7afd1470d9184",
+  "finalApproval": "astra-otel-spanless-source-review-20261010-d.json",
+  "files": [
+    {
+      "original": "/private/tmp/ashlar-spanless-source-controls-20261010-b.json",
+      "archived": "ashlar-spanless-source-controls-20261010-b.json",
+      "bytes": 1239,
+      "sha256": "99007a9fc1d84eef003f01e54c5d82e12b3ef3af9933132ff76629b879a009c5"
+    },
+    {
+      "original": "/private/tmp/ashlar-spanless-source-controls-20261010-c.stderr.log",
+      "archived": "ashlar-spanless-source-controls-20261010-c.stderr.log",
+      "bytes": 136,
+      "sha256": "dd26d8cae5c4a57227b5fbe4c343b3fa22e9eced4fb397b66334f4fc322b71be"
+    },
+    {
+      "original": "/private/tmp/ashlar-spanless-source-controls-20261010-c.json",
+      "archived": "ashlar-spanless-source-controls-20261010-c.json",
+      "bytes": 2056,
+      "sha256": "a6681a7feca6c998efb9f05ff9316ec543dde1edda91b03eb018577f614c3775"
+    },
+    {
+      "original": "/private/tmp/ashlar-spanless-source-controls-20261010-d.stderr.log",
+      "archived": "ashlar-spanless-source-controls-20261010-d.stderr.log",
+      "bytes": 138,
+      "sha256": "11c77e6d975bb2362231f678930d5790773112787e6509f3d43ede6b6a214ec4"
+    },
+    {
+      "original": "/private/tmp/ashlar-spanless-source-controls-20261010-d.json",
+      "archived": "ashlar-spanless-source-controls-20261010-d.json",
+      "bytes": 2338,
+      "sha256": "49e262c4d438b37041591c302bdc4868597f4b86c7ff631e647d97f9f0cdd10c"
+    },
+    {
+      "original": "/private/tmp/ashlar-spanless-source-controls-20261010-c.stdout.log",
+      "archived": "ashlar-spanless-source-controls-20261010-c.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-spanless-source-controls-20261010-d.stdout.log",
+      "archived": "ashlar-spanless-source-controls-20261010-d.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-spanless-source-controls-20261010-a.json",
+      "archived": "ashlar-spanless-source-controls-20261010-a.json",
+      "bytes": 1239,
+      "sha256": "a9cea977738ff047cb75cee4eccd930c34dbab86dd5deba0cf5fec24c209288f"
+    },
+    {
+      "original": "/private/tmp/astra-otel-spanless-source-review-20261010-d.json",
+      "archived": "astra-otel-spanless-source-review-20261010-d.json",
+      "bytes": 10192,
+      "sha256": "9135ee1a836697fef9d234fa79f2e8926ea1a02c37571277c3c265e62e308b2a"
+    },
+    {
+      "original": "/private/tmp/astra-otel-spanless-source-review-20261010-d.py",
+      "archived": "astra-otel-spanless-source-review-20261010-d.py",
+      "bytes": 7251,
+      "sha256": "02cffbd3d4416cb0bf96633a433c44a5db0b10620820070096026a450f1af5e2"
+    },
+    {
+      "original": "/private/tmp/astra-otel-spanless-facade-review-20261010-a.log",
+      "archived": "astra-otel-spanless-facade-review-20261010-a.log",
+      "bytes": 168,
+      "sha256": "156d6e307700d418aec811be4b45329865e408746824796d6323bd5951029b91"
+    },
+    {
+      "original": "/private/tmp/astra-otel-spanless-governance-review-20261010-a.json",
+      "archived": "astra-otel-spanless-governance-review-20261010-a.json",
+      "bytes": 3231,
+      "sha256": "6b93196814e4855ca1b0975715d38191e0771145e70622c5530e93ad8eaaa7f4"
+    },
+    {
+      "original": "/private/tmp/astra-otel-spanless-facade-review-20261010-a.json",
+      "archived": "astra-otel-spanless-facade-review-20261010-a.json",
+      "bytes": 2533,
+      "sha256": "abf5fdfd4deef5a612d2949b56238cf66b2fe15ecea0067932668d4877ad99d3"
+    },
+    {
+      "original": "/private/tmp/astra-otel-spanless-facade-review-20261010-a.py",
+      "archived": "astra-otel-spanless-facade-review-20261010-a.py",
+      "bytes": 6795,
+      "sha256": "4298b705ff53ccb96f561a7798a6001082501020bb0ea7e34178d9d0c88d4bd5"
+    },
+    {
+      "original": "/private/tmp/astra-spanless-worker-review-20261010-d.py",
+      "archived": "astra-spanless-worker-review-20261010-d.py",
+      "bytes": 26174,
+      "sha256": "9cd864b559194422ec64892f6b5219071cfb707df6eac201364f0bb032f63f5e"
+    },
+    {
+      "original": "/private/tmp/astra-spanless-worker-review-20261010-d.json",
+      "archived": "astra-spanless-worker-review-20261010-d.json",
+      "bytes": 90484,
+      "sha256": "0871b0c2c4340a783fc19c99eef95e7cb4b5b6596b217eaf6906815f274c5a96"
+    },
+    {
+      "original": "/private/tmp/astra-spanless-worker-review-20261010-a.py",
+      "archived": "astra-spanless-worker-review-20261010-a.py",
+      "bytes": 19853,
+      "sha256": "64d65aa170674035a13e57befde3644a7b9bb97ae2bae727bc1de600b010be7b"
+    },
+    {
+      "original": "/private/tmp/astra-spanless-worker-review-20261010-d.tests.py",
+      "archived": "astra-spanless-worker-review-20261010-d.tests.py",
+      "bytes": 35751,
+      "sha256": "596af3ff74a532cfe686440a6e8da186c98573a0667aca5e311ce15f9a35ae37"
+    },
+    {
+      "original": "/private/tmp/astra-spanless-worker-review-20261010-c.json",
+      "archived": "astra-spanless-worker-review-20261010-c.json",
+      "bytes": 89908,
+      "sha256": "a3563584d5a53a730137c5b74a9161da3e25ef0369ad9fd31d85c30e8835519d"
+    },
+    {
+      "original": "/private/tmp/astra-spanless-worker-review-20261010-d.worker.py",
+      "archived": "astra-spanless-worker-review-20261010-d.worker.py",
+      "bytes": 34171,
+      "sha256": "143e6baf0d47c0886c69269a589883af4b4b100afa16fd161710eaa885a25a57"
+    },
+    {
+      "original": "/private/tmp/astra-spanless-worker-review-20261010-d.log",
+      "archived": "astra-spanless-worker-review-20261010-d.log",
+      "bytes": 4471,
+      "sha256": "c352c5faf983ebfd511848dd3f73683c45e30c805908649b0de8d55c5341e726"
+    },
+    {
+      "original": "/private/tmp/astra-spanless-worker-review-20261010-c.log",
+      "archived": "astra-spanless-worker-review-20261010-c.log",
+      "bytes": 4093,
+      "sha256": "4ca0a9eb7fe68f79f3eadd30c9118fe635ea95e9bab8ed0b0aefaa93a9223c91"
+    },
+    {
+      "original": "/private/tmp/astra-spanless-worker-review-20261010-a.log",
+      "archived": "astra-spanless-worker-review-20261010-a.log",
+      "bytes": 3739,
+      "sha256": "9abd7ef38ea747c1c16af5fe7ddae6979e06b6c9a403d4ebcdaaa7d22626a61d"
+    },
+    {
+      "original": "/private/tmp/astra-spanless-worker-review-20261010-a.json",
+      "archived": "astra-spanless-worker-review-20261010-a.json",
+      "bytes": 84515,
+      "sha256": "3a683f05824068313bf0de006641818c383408164ceb0d54357dd4f613333d4b"
+    },
+    {
+      "original": "/private/tmp/astra-spanless-worker-review-20261010-c.py",
+      "archived": "astra-spanless-worker-review-20261010-c.py",
+      "bytes": 23583,
+      "sha256": "f991578cdf10f66ac5a100bb1863304e8994b3b67f9adff9c6365c76db3e6c92"
+    },
+    {
+      "original": "/private/tmp/ashlar-spanless-worker-predecessor-c-20261010.py",
+      "archived": "ashlar-spanless-worker-predecessor-c-20261010.py",
+      "bytes": 34149,
+      "sha256": "ec6f21728cdf4a732a0b8fa65b79f18f93467836d8ca3fa4e51b10b1e5103181"
+    },
+    {
+      "original": "/private/tmp/ashlar-spanless-worker-predecessor-b-20261010.py",
+      "archived": "ashlar-spanless-worker-predecessor-b-20261010.py",
+      "bytes": 33706,
+      "sha256": "7044fe68b2cdf193fb446af3d483adf109912ae204b472f1358bbeea11c1a91f"
+    },
+    {
+      "original": "/private/tmp/ashlar-spanless-source-qualification-20261010-a/source.stdout",
+      "archived": "historical-b-root-source.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-spanless-source-qualification-20261010-a/qualification.json",
+      "archived": "historical-b-root-qualification.json",
+      "bytes": 1616,
+      "sha256": "b2503537fa3cbd2688934a13a4fc8a0e58c99025d239bbda47c2eeb34ca59b82"
+    },
+    {
+      "original": "/private/tmp/ashlar-spanless-source-qualification-20261010-a/source.stderr",
+      "archived": "historical-b-root-source.stderr",
+      "bytes": 134,
+      "sha256": "4d300a992c61017ded83ad18c2332e87e84c488cc86deb49d2b2ccc62c613401"
+    }
+  ],
+  "scope": "Final D source and desired-state documentation approval. Real selected SDK source controls with fixture application metadata/inert HTTP, finite process supervision; no installed spanless receiver or full C006 claim. B and C snapshots/receipts and historical-b-root files retain predecessor results and findings. Wheels and installed trees excluded."
+}

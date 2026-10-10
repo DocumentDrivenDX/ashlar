@@ -5,6 +5,7 @@ relies on POSIX scheduling and signal semantics; transport-specific qualificatio
 remains separate from this supervision boundary.
 """
 from contextlib import contextmanager
+from contextvars import ContextVar
 from dataclasses import asdict
 from importlib import metadata
 import json
@@ -43,7 +44,7 @@ class OtelRun:
         self._process = None
         self._lock = threading.Lock()
         self._cleanup_lock = threading.Lock()
-        self._local = threading.local()
+        self._operation_binding = ContextVar('ashlar_otel_operation', default=(None, None, True))
         self._closed = False
         self._group_termination_attempted = False
         try:
@@ -248,9 +249,10 @@ class OtelRun:
             self._lock.release()
 
     @contextmanager
-    def operation_context(self, parent_context=None, retry_link=None):
-        """Bind explicit SDK SpanContexts to this thread; never read ambient context."""
-        require(parent_context is None or retry_link is None)
+    def operation_context(self, parent_context=None, retry_link=None, *, create_span=True):
+        """Select span creation and explicit parents; never read ambient context."""
+        require(type(create_span) is bool and (parent_context is None or retry_link is None)
+                and (create_span or (parent_context is None and retry_link is None)))
         def wire(value):
             if value is None:
                 return None
@@ -259,19 +261,22 @@ class OtelRun:
             return {'trace_id': format(value.trace_id, '032x'),
                     'span_id': format(value.span_id, '016x'),
                     'trace_flags': int(value.trace_flags), 'is_remote': value.is_remote}
-        previous = getattr(self._local, 'context', (None, None))
-        self._local.context = (wire(parent_context), wire(retry_link))
+        token = self._operation_binding.set((wire(parent_context), wire(retry_link), create_span))
         try:
             yield
         finally:
-            self._local.context = previous
+            self._operation_binding.reset(token)
 
     def trace_context(self, attempt: str, operation: str, event: str) -> Optional[dict]:
-        parent, retry = (getattr(self._local, 'context', (None, None))
-                         if event == 'ashlar.operation.started' else (None, None))
-        value = self._invoke({'op': 'context', 'attempt_id': attempt,
+        started = event == 'ashlar.operation.started'
+        parent, retry, create_span = (self._operation_binding.get()
+                         if started else (None, None, None))
+        request = {'op': 'context', 'attempt_id': attempt,
                              'operation': operation, 'event_name': event,
-                             'parent': parent, 'retry_link': retry})
+                             'parent': parent, 'retry_link': retry}
+        if started:
+            request['create_span'] = create_span
+        value = self._invoke(request)
         require(value is None or (type(value) is dict
                 and set(value) == {'trace_id', 'span_id', 'trace_flags'}))
         return value

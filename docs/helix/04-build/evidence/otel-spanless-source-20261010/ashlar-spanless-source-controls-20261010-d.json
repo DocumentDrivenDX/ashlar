@@ -1,0 +1,54 @@
+{
+  "format": "ashlar-spanless-source-controls/0.1",
+  "scope": "Source unit controls only. Actual selected SDK constructors/encoders with metadata fixture and inert transport; actual stdio subprocess supervision controls. No installed host receiver/native qualification.",
+  "command": "PYTHONPATH=/Users/erik/Projects/ashlar/src:/Users/erik/Projects/ashlar/tests /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -m unittest test_otel_worker test_otel_supervision",
+  "result": {
+    "tests": 39,
+    "exitCode": 0,
+    "durationReportedSeconds": 0.664,
+    "terminalChunkId": "10a372",
+    "wallTimeSeconds": 0.689622375
+  },
+  "files": [
+    {
+      "path": "src/ashlar_host/otel.py",
+      "bytes": 13883,
+      "sha256": "da0ec86efd8563204722b3e5dc2870706d1757042bbcf137a79d7d1f0694a1cd"
+    },
+    {
+      "path": "src/ashlar_host/_otel_worker.py",
+      "bytes": 34171,
+      "sha256": "143e6baf0d47c0886c69269a589883af4b4b100afa16fd161710eaa885a25a57"
+    },
+    {
+      "path": "tests/test_otel_supervision.py",
+      "bytes": 15112,
+      "sha256": "5edc7008c4d468a78f4f000c0528562199c2b790eb6cf57d31961379e4e15e3d"
+    },
+    {
+      "path": "tests/test_otel_worker.py",
+      "bytes": 35751,
+      "sha256": "596af3ff74a532cfe686440a6e8da186c98573a0667aca5e311ce15f9a35ae37"
+    }
+  ],
+  "logs": [
+    {
+      "path": "/private/tmp/ashlar-spanless-source-controls-20261010-d.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-spanless-source-controls-20261010-d.stderr.log",
+      "bytes": 138,
+      "sha256": "11c77e6d975bb2362231f678930d5790773112787e6509f3d43ede6b6a214ec4"
+    }
+  ],
+  "predecessorFailure": {
+    "terminalChunkId": "808ad6",
+    "exitCode": 1,
+    "tests": 37,
+    "reportedSeconds": 0.519,
+    "reason": "New cancellation control incorrectly attempted to replay already started event after constructor cancellation; actual worker rejects replay. Removed test retry; worker semantics unchanged."
+  },
+  "change": "Only spanless diagnostic-constructor finish call selects diagnostic_only=True; added actual callsite controls for all three cleanup cancellation classes defeating ordinary constructor failure and preserving first constructor cancellation against later cancellation."
+}

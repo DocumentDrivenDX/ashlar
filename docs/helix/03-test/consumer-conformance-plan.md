@@ -276,6 +276,11 @@ bounded queue overflow, concurrent attempts, no active span, shutdown failure an
 capture loss. Verify one ingestion route and explicit loss disclosure. Diagnostic
 failure must not advance progress, fabricate a commit or release a held result.
 One-shot runners inherit no HTTP-service SLO or new scale benchmark requirement.
+Verify explicit spanless selection through actual SDK logs and a receiver: no
+trace fields or submitted spans, unchanged completion counters, immutable
+per-attempt selection, nested/concurrent binding isolation, and refusal of
+parent/retry contexts before spanless attempt or transport effects. An unfinished
+spanless invocation must not invent unknown span loss.
 
 Before the diagnostic pilot, pin one small synthetic failed-run fixture with
 interleaved attempts and a retry, its ground-truth cause and exact commands,

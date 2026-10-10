@@ -1,0 +1,219 @@
+{
+  "format": "ashlar-spanless-independent-source-review/0.1",
+  "verdict": "approved-exact-source-and-governance-slice",
+  "scope": "Four frozen source/test files plus three already reviewed desired-state documents. Source component and finite subprocess supervision evidence only. Actual installed spanless receiver qualification remains separate.",
+  "exactSourceFiles": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+      "bytes": 13883,
+      "sha256": "da0ec86efd8563204722b3e5dc2870706d1757042bbcf137a79d7d1f0694a1cd"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/_otel_worker.py",
+      "bytes": 34171,
+      "sha256": "143e6baf0d47c0886c69269a589883af4b4b100afa16fd161710eaa885a25a57"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_supervision.py",
+      "bytes": 15112,
+      "sha256": "5edc7008c4d468a78f4f000c0528562199c2b790eb6cf57d31961379e4e15e3d"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_worker.py",
+      "bytes": 35751,
+      "sha256": "596af3ff74a532cfe686440a6e8da186c98573a0667aca5e311ce15f9a35ae37"
+    }
+  ],
+  "exactGoverningDocuments": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "bytes": 24406,
+      "sha256": "06a8919aaecdfbf6f83b53bfbfa0cb09574cc654b2dcb827226cb55c6f8607cd"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 32433,
+      "sha256": "c02848ce5464389cdb121b322404f62b96d3b12ad03f48b99b39a1eb88585148"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/03-test/consumer-conformance-plan.md",
+      "bytes": 21018,
+      "sha256": "ae562fd184b2b6aee5f7adc13ed15a4930d9988866b71d19797d8046dbbe99ab"
+    }
+  ],
+  "approvals": {
+    "governance": {
+      "path": "/private/tmp/astra-otel-spanless-governance-review-20261010-a.json",
+      "bytes": 3231,
+      "sha256": "6b93196814e4855ca1b0975715d38191e0771145e70622c5530e93ad8eaaa7f4"
+    },
+    "unchangedFacade": {
+      "path": "/private/tmp/astra-otel-spanless-facade-review-20261010-a.json",
+      "bytes": 2533,
+      "sha256": "abf5fdfd4deef5a612d2949b56238cf66b2fe15ecea0067932668d4877ad99d3"
+    },
+    "correctedWorker": {
+      "path": "/private/tmp/astra-spanless-worker-review-20261010-d.json",
+      "bytes": 90484,
+      "sha256": "0871b0c2c4340a783fc19c99eef95e7cb4b5b6596b217eaf6906815f274c5a96"
+    }
+  },
+  "ownerSourceControls": {
+    "path": "/private/tmp/ashlar-spanless-source-controls-20261010-d.json",
+    "bytes": 2338,
+    "sha256": "49e262c4d438b37041591c302bdc4868597f4b86c7ff631e647d97f9f0cdd10c"
+  },
+  "ownerLogs": [
+    {
+      "path": "/private/tmp/ashlar-spanless-source-controls-20261010-d.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-spanless-source-controls-20261010-d.stderr.log",
+      "bytes": 138,
+      "sha256": "11c77e6d975bb2362231f678930d5790773112787e6509f3d43ede6b6a214ec4"
+    }
+  ],
+  "independentControls": {
+    "facade": {
+      "groups": 9,
+      "unchangedSourceAndTestHashes": true,
+      "coverage": [
+        "9nonboolvaluesrefusebeforebinding/RPC",
+        "4spanlesscontextconflictsrefusebeforeRPC",
+        "default/nested/restorationandstartonlywireselection",
+        "3nonExceptionidentitiesandbindingrestoration",
+        "explicitparentrestoresaroundspanlessbinding",
+        "threadindependence",
+        "interleavedtasksandtaskcancellationrestoreisolatedbindings",
+        "separateownerbindingsdonotleak",
+        "allunchangedlifecycle/supervisionmethodASTsidentical"
+      ],
+      "script": {
+        "path": "/private/tmp/astra-otel-spanless-facade-review-20261010-a.py",
+        "bytes": 6795,
+        "sha256": "4298b705ff53ccb96f561a7798a6001082501020bb0ea7e34178d9d0c88d4bd5"
+      },
+      "supervisionRegressionLog": {
+        "path": "/private/tmp/astra-otel-spanless-supervision-regression-20261010-a.log",
+        "bytes": 113,
+        "sha256": "6892fd94088b16f02ed7eae66ecf1bcc27bb226f74ba90676be555d404b0bb55"
+      },
+      "ownerSupervisionTests": 14
+    },
+    "worker": {
+      "assertions": 893,
+      "failed": 0,
+      "ownerTests": {
+        "run": 25,
+        "skipped": 0,
+        "failures": 0,
+        "errors": 0
+      },
+      "finiteProjection": {
+        "attempts": 40,
+        "logs": 120,
+        "spans": 20,
+        "metricSeries": 20,
+        "countPerSeries": 2,
+        "ambientContextLeak": false
+      },
+      "restorationCombinations": 25,
+      "script": {
+        "path": "/private/tmp/astra-spanless-worker-review-20261010-d.py",
+        "bytes": 26174,
+        "sha256": "9cd864b559194422ec64892f6b5219071cfb707df6eac201364f0bb032f63f5e"
+      },
+      "log": {
+        "path": "/private/tmp/astra-spanless-worker-review-20261010-d.log",
+        "bytes": 4471,
+        "sha256": "c352c5faf983ebfd511848dd3f73683c45e30c805908649b0de8d55c5341e726"
+      },
+      "snapshots": [
+        {
+          "path": "/private/tmp/astra-spanless-worker-review-20261010-d.worker.py",
+          "bytes": 34171,
+          "sha256": "143e6baf0d47c0886c69269a589883af4b4b100afa16fd161710eaa885a25a57"
+        },
+        {
+          "path": "/private/tmp/astra-spanless-worker-review-20261010-d.tests.py",
+          "bytes": 35751,
+          "sha256": "596af3ff74a532cfe686440a6e8da186c98573a0667aca5e311ce15f9a35ae37"
+        }
+      ]
+    },
+    "combinedOwnerTests": 39,
+    "parentFinalChecks": [
+      "All four source/test pins, three governing document pins, referenced receipts/scripts/logs and worker snapshots match.",
+      "Facade and supervision bytes are unchanged from their independent approval.",
+      "C to D production change is exactly diagnostic_only=True on the new SDK context-restoration finish call.",
+      "Owner added meaningful opposite-direction cancellation controls without removing prior test definitions."
+    ]
+  },
+  "resolvedFindings": [
+    {
+      "id": "SW-001",
+      "counterexample": {
+        "path": "/private/tmp/astra-spanless-worker-review-20261010-a.json",
+        "bytes": 84515,
+        "sha256": "3a683f05824068313bf0de006641818c383408164ceb0d54357dd4f613333d4b"
+      },
+      "resolution": "During spanless LogRecord construction, attach a genuinely empty public SDK Context and restore it before emit. No post-construction field repair, invented span or traced-event stripping. All sixty untraced records remain absent in real SDK and encoded OTLP despite an attached valid ambient context; sixty traced records preserve their contexts.",
+      "reachabilityLimit": "The predecessor isolated worker did not establish valid ambient context itself; the counterexample did not prove a facade-reachable leak."
+    },
+    {
+      "id": "SW-002",
+      "counterexample": {
+        "path": "/private/tmp/astra-spanless-worker-review-20261010-c.json",
+        "bytes": 89908,
+        "sha256": "a3563584d5a53a730137c5b74a9161da3e25ef0369ad9fd31d85c30e8835519d"
+      },
+      "resolution": "The new diagnostic-only cleanup call now preserves the first non-Exception cancellation over ordinary construction failure while retaining an earlier cancellation. All twenty-five construction/restoration combinations pass and restore context."
+    }
+  ],
+  "preservedPredecessorSource": [
+    {
+      "path": "/private/tmp/ashlar-spanless-worker-predecessor-b-20261010.py",
+      "bytes": 33706,
+      "sha256": "7044fe68b2cdf193fb446af3d483adf109912ae204b472f1358bbeea11c1a91f"
+    },
+    {
+      "path": "/private/tmp/ashlar-spanless-worker-predecessor-c-20261010.py",
+      "bytes": 34149,
+      "sha256": "ec6f21728cdf4a732a0b8fa65b79f18f93467836d8ca3fa4e51b10b1e5103181"
+    }
+  ],
+  "runtime": {
+    "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+    "pythonExecutable": "/private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python",
+    "sdk": "1.45.1",
+    "api": "1.45.1",
+    "proto": "1.45.1",
+    "applicationVersion": "0.1.0.dev0 explicit metadata fixture"
+  },
+  "retainedHistoricalQualification": {
+    "path": "/private/tmp/ashlar-spanless-source-qualification-20261010-a/qualification.json",
+    "bytes": 1616,
+    "sha256": "b2503537fa3cbd2688934a13a4fc8a0e58c99025d239bbda47c2eeb34ca59b82"
+  },
+  "historicalQualificationScope": "The retained root 35-test receipt describes predecessor B, portable unchanged config/capture controls and selected 698 SDK payload custody. It is not represented as the final D test run.",
+  "helixCorrespondence": {
+    "modularity": "Public facade owns explicit invocation selection and ContextVar binding; private worker owns SDK projection. Existing process and transport ownership is unchanged.",
+    "configuration": "Exact bool with True default; False refuses explicit parent/retry before effects. No profile, configuration schema, ambient setting or operator-trust discovery was introduced.",
+    "observability": "Actual absence is preserved through the public SDK context mechanism. Logs and finished counters remain unchanged, and an unfinished spanless attempt alone creates no unknown span loss.",
+    "formal": "Finite counterexamples and implementation correspondence checks discharge this source delta only. DIAG-F1/F2/F3/L1 remain precise specifications, not completed mechanical or production proofs."
+  },
+  "findings": [],
+  "limitations": [
+    "SDK metadata is an explicit application-version fixture in component tests, not an installed application observation.",
+    "Async/thread tests establish binding isolation, not concurrent delivery throughput or broad asynchronous runtime qualification.",
+    "No network, receiver, native engine, publication, ACK, installation or full C006 support claim is made by this review.",
+    "No re-audit of all SDK/OS dependencies or broad performance, outage, privacy-sentinel or investigator-pilot qualification."
+  ],
+  "reviewScript": {
+    "path": "/private/tmp/astra-otel-spanless-source-review-20261010-d.py",
+    "bytes": 7251,
+    "sha256": "02cffbd3d4416cb0bf96633a433c44a5db0b10620820070096026a450f1af5e2"
+  }
+}

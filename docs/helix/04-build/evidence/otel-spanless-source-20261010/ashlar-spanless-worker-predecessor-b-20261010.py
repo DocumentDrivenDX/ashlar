@@ -541,24 +541,16 @@ class SDKWorker:
         # A locally dropped started log can leave this span without that log;
         # context creation still attests the owned invocation, not its outcome.
         from opentelemetry._logs import LogRecord, SeverityNumber
-        from opentelemetry.context import Context, attach, detach
+        from opentelemetry.context import Context
         from opentelemetry.trace import set_span_in_context, Status, StatusCode
         if attempt['span'] is not None:
             attempt['span'].set_attribute('ashlar.run.id', attributes['ashlar.run.id'])
         log_attributes = {**attributes, 'ashlar.diagnostic.schema_version': event['schema_version']}
-        # The pinned API treats empty Context and zero IDs as fallbacks to the
-        # attached context. Isolate construction rather than repairing a record.
-        token = attach(Context()) if actual is None else None
-        primary = None
-        try:
-            record = LogRecord(timestamp=int(event['timestamp_unix_nano']) if 'timestamp_unix_nano' in event else None, observed_timestamp=int(event['observed_timestamp_unix_nano']),
-                context=set_span_in_context(attempt['span'], Context()) if actual is not None else Context(),
-                trace_id=actual.trace_id if actual is not None else 0, span_id=actual.span_id if actual is not None else 0,
-                trace_flags=actual.trace_flags if actual is not None else 0, severity_number=SeverityNumber(event['severity_number']),
-                severity_text=event['severity_text'], body=event['body'], attributes=log_attributes, event_name=event['event_name'])
-        except BaseException as error:
-            primary = error
-        finish(primary, (() if actual is not None else (lambda: detach(token),)), diagnostic_only=True)
+        record = LogRecord(timestamp=int(event['timestamp_unix_nano']) if 'timestamp_unix_nano' in event else None, observed_timestamp=int(event['observed_timestamp_unix_nano']),
+            context=set_span_in_context(attempt['span'], Context()) if actual is not None else Context(),
+            trace_id=actual.trace_id if actual is not None else 0, span_id=actual.span_id if actual is not None else 0,
+            trace_flags=actual.trace_flags if actual is not None else 0, severity_number=SeverityNumber(event['severity_number']),
+            severity_text=event['severity_text'], body=event['body'], attributes=log_attributes, event_name=event['event_name'])
         self.logger.emit(record)
         attempt['pending'] = None
         self.last_sequence = attributes['ashlar.sequence']

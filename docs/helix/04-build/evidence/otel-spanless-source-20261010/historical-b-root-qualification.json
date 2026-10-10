@@ -1,0 +1,42 @@
+{
+  "format": "ashlar-spanless-source-qualification/0.1",
+  "sourceControlsReceipt": {
+    "path": "/private/tmp/ashlar-spanless-source-controls-20261010-b.json",
+    "sha256": "99007a9fc1d84eef003f01e54c5d82e12b3ef3af9933132ff76629b879a009c5"
+  },
+  "sourcePinsUnchanged": true,
+  "process": {
+    "command": "PYTHONPATH=/Users/erik/Projects/ashlar/src:/Users/erik/Projects/ashlar/tests /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -W error::ResourceWarning -m unittest test_otel_worker test_otel_supervision",
+    "toolChunk": "9a8fba",
+    "exitCode": 0,
+    "wallTimeSeconds": 0.503776917,
+    "tests": 35
+  },
+  "portableControls": {
+    "python": "3.9.6",
+    "moduleBoundaryChecker": {
+      "exitCode": 0,
+      "toolChunk": "67ae86"
+    },
+    "configuration": {
+      "tests": 7,
+      "exitCode": 0,
+      "toolChunk": "3cca22"
+    },
+    "capture": {
+      "tests": 18,
+      "skipped": 1,
+      "skip": "optional JSON Schema dependency unavailable",
+      "exitCode": 0,
+      "toolChunk": "63f961"
+    }
+  },
+  "scope": "Source controls only; real selected SDK constructors/encoders with fixture Ashlar metadata and inert HTTP transport, plus finite process supervision tests. No installed receiver/native workflow qualification.",
+  "selectedSDKPayloadCustody": {
+    "receipt": "/private/tmp/ashlar-otel-sdk-installation-20261010-a/installation.json",
+    "sha256": "572f1d3ce1333c122cf15af1e61bbc6aa5fee39b62911ce5a64b59b93c9bbf12",
+    "wheelOwnedFiles": 698,
+    "unchanged": true,
+    "scope": "Selected wheel-owned payload only; no claim of complete environment hermeticity."
+  }
+}

@@ -558,7 +558,7 @@ class SDKWorker:
                 severity_text=event['severity_text'], body=event['body'], attributes=log_attributes, event_name=event['event_name'])
         except BaseException as error:
             primary = error
-        finish(primary, (() if actual is not None else (lambda: detach(token),)), diagnostic_only=True)
+        finish(primary, (() if actual is not None else (lambda: detach(token),)))
         self.logger.emit(record)
         attempt['pending'] = None
         self.last_sequence = attributes['ashlar.sequence']

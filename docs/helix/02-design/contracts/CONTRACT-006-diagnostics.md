@@ -173,6 +173,16 @@ metric dimensions or backend stream labels.
 Trace context is all-or-none and must be a valid actual SDK span context, with
 nonzero 16-byte trace and 8-byte span IDs. No active valid span means no `trace`
 field and unset OTLP trace fields. Run/attempt IDs MUST NOT manufacture context.
+The host adapter's `operation_context(parent_context=None, retry_link=None,
+*, create_span=True)` selects context for newly started attempts. `create_span`
+MUST be an exact boolean. An explicit `False` creates no operation span and MUST
+reject any supplied parent or retry context before attempt creation or transport
+effects. The selection is fixed for the attempt; later phases and completion
+MUST NOT change it. Nested bindings restore the caller's prior selection, and
+concurrent callers keep independent bindings. A spanless invocation retains the
+same log and completion-counter semantics, submits no span, and MUST NOT remove
+context from an existing span to simulate an untraced event. An unfinished
+spanless invocation alone MUST NOT produce unknown span loss.
 Each operation span is `ashlar.<operation>`, kind INTERNAL; an explicitly passed
 valid context supplies its parent. An independently retried operation starts a
 new root with at most one link to the original valid span context. Do not copy

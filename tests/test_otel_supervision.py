@@ -1,5 +1,6 @@
 """Actual private process/pipe controls, independent of SDK/receiver claims."""
 from dataclasses import replace
+import asyncio
 import os
 import subprocess
 import sys
@@ -41,6 +42,65 @@ while True:
 
 
 class SupervisionTests(unittest.TestCase):
+    def test_interleaved_async_operation_bindings_are_isolated_and_restored(self):
+        run = self.create()
+        requests = []
+        async def interleave():
+            entered = asyncio.Event()
+            proceed = asyncio.Event()
+            async def spanless():
+                with run.operation_context(create_span=False):
+                    entered.set()
+                    await proceed.wait()
+                    run.trace_context('1'*32, 'held-read', 'ashlar.operation.started')
+            async def traced():
+                await entered.wait()
+                with run.operation_context():
+                    run.trace_context('2'*32, 'held-read', 'ashlar.operation.started')
+                    proceed.set()
+                    await asyncio.sleep(0)
+                    run.trace_context('3'*32, 'held-read', 'ashlar.operation.started')
+            await asyncio.gather(spanless(), traced())
+            run.trace_context('4'*32, 'held-read', 'ashlar.operation.started')
+        try:
+            with patch.object(run, '_invoke', side_effect=lambda request: requests.append(request)):
+                asyncio.run(interleave())
+            self.assertEqual([(request['attempt_id'][0], request['create_span']) for request in requests],
+                             [('2', True), ('1', False), ('3', True), ('4', True)])
+            run.shutdown(time.monotonic()+1)
+        finally: run._dispose()
+
+    def test_span_selection_exact_boolean_nested_restored_and_start_only(self):
+        run = self.create()
+        requests = []
+        try:
+            with patch.object(run, '_invoke', side_effect=lambda request: requests.append(request)):
+                for value in (None, 0, 1, 'false'):
+                    with self.assertRaises(DiagnosticsError):
+                        with run.operation_context(create_span=value): pass
+                for ports in ({'parent_context': object()}, {'retry_link': object()}):
+                    with self.assertRaises(DiagnosticsError):
+                        with run.operation_context(create_span=False, **ports): pass
+                def start(): run.trace_context('1'*32, 'held-read', 'ashlar.operation.started')
+                start()
+                with run.operation_context(create_span=False):
+                    start()
+                    with run.operation_context(): start()
+                    start()
+                    run.trace_context('1'*32, 'held-read', 'ashlar.operation.phase')
+                start()
+                self.assertEqual([request.get('create_span') for request in requests],
+                                 [True, False, True, False, None, True])
+                self.assertNotIn('create_span', requests[-2])
+                with run.operation_context(create_span=False):
+                    other = threading.Thread(target=start)
+                    other.start(); other.join(timeout=1)
+                    self.assertFalse(other.is_alive())
+                    start()
+                self.assertEqual([request['create_span'] for request in requests[-2:]], [True, False])
+            run.shutdown(time.monotonic()+1)
+        finally: run._dispose()
+
     def configuration(self):
         original = config_tests.DiagnosticsConfigurationTests().configuration()
         return replace(original, limits=replace(original.limits,
@@ -155,8 +215,10 @@ class SupervisionTests(unittest.TestCase):
                               "if request['event_name']=='ashlar.operation.started':\n"
                               "            assert request['parent']['trace_id']=='"+format(context.trace_id,'032x')+"'\n"
                               "            assert request['retry_link'] is None\n"
+                              "            assert request['create_span'] is True\n"
                               "        else:\n"
-                              "            assert request['parent'] is None and request['retry_link'] is None")
+                              "            assert request['parent'] is None and request['retry_link'] is None\n"
+                              "            assert 'create_span' not in request")
         run = self.create(child)
         try:
             with run.operation_context(parent_context=context):

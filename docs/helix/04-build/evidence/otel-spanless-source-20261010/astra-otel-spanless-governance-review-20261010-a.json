@@ -1,0 +1,46 @@
+{
+  "verdict": "approved-desired-state-documents-only",
+  "baseCommit": "e5c676ea0e0f12cac4034d954ad7afd1470d9184",
+  "exactFiles": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "bytes": 24406,
+      "sha256": "06a8919aaecdfbf6f83b53bfbfa0cb09574cc654b2dcb827226cb55c6f8607cd"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 32433,
+      "sha256": "c02848ce5464389cdb121b322404f62b96d3b12ad03f48b99b39a1eb88585148"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/03-test/consumer-conformance-plan.md",
+      "bytes": 21018,
+      "sha256": "ae562fd184b2b6aee5f7adc13ed15a4930d9988866b71d19797d8046dbbe99ab"
+    }
+  ],
+  "diff": {
+    "bytes": 7156,
+    "sha256": "7522810e7f59610f8d756c2e93e528712739f33afefe86c88cc31dfa040960d6"
+  },
+  "checks": [
+    "All3 frontmatter/IDs/traceability blocks byte-equivalent to HEAD; scoped diffcheck passes.",
+    "C006 extends public operation_context with exact bool/defaultTrue; False admits no parent/retry before attempt/RPC effects, fixes choice perattempt, restores nestedbindings and requires concurrentbinding isolation.",
+    "Spanless retains log and completioncounter semantics; no invented current context, no created/ended span, no invented unknownspanloss for unfinished spanless alone.",
+    "Existing Resource/scope/event/run schemas/profile/configuration and AlwaysOn semantics for newlycreatedspans unchanged.",
+    "ADR assigns spanselection to owning parent facade; SDKcontext/projection remains private worker ownership.",
+    "TP requires actual SDK/receiver untracedmapping plus immutability/isolation/invalidbinding controls; existing broader C006 privacy/loss/outage/pilot/formal gates remain."
+  ],
+  "helixCorrespondence": {
+    "modularity": "Existing parent/worker/publiccapture owners preserved; no crosspackage private or native authority extension.",
+    "configuration": "Explicit perinvocation typedselection, no ambientsettings/profile/schemaoverride.",
+    "observability": "Trace absence records actual emptySDKcontext rather than deleting a createdspan or manufacturing IDs; span and metric logicalunit accounting remains independent.",
+    "formal": "DIAGF1/F2/F3/L1 desired invariants and precise-specification limits unchanged; source/unit/actualruntime gates remain distinct from mechanicalproof."
+  },
+  "findings": [],
+  "sourceReviewObligations": [
+    "Check exactFalse and all othernonboolvalues, parent/retry rejection before attempt/RPC effects, fixed later-eventmode, zero trace wirefields and no span queueunit.",
+    "New concurrentcaller wording needs actual context isolation under supported concurrency model: thread-local only proves threadisolation, not interleaved asynctasks; clarify supportedscope or implement/test taskcontextisolation.",
+    "Review frozen implementation and unit evidence separately; actual installed spanless receiver qualification follows its own reviewedcommand."
+  ],
+  "scope": "Desired-state3doc approval only. No approval of in-progress source, source-unit runtime qualification, native effects or fullC006 support."
+}

@@ -1,0 +1,32 @@
+{
+  "format": "ashlar-spanless-source-controls/0.1",
+  "scope": "Source unit controls only. Actual selected SDK constructors/encoders with metadata fixture and inert transport; actual stdio subprocess supervision controls. No installed host receiver/native qualification.",
+  "command": "PYTHONPATH=/Users/erik/Projects/ashlar/src:/Users/erik/Projects/ashlar/tests /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -m unittest test_otel_worker test_otel_supervision",
+  "result": {
+    "tests": 35,
+    "exitCode": 0,
+    "durationReportedSeconds": 0.479
+  },
+  "files": [
+    {
+      "path": "src/ashlar_host/otel.py",
+      "bytes": 13883,
+      "sha256": "da0ec86efd8563204722b3e5dc2870706d1757042bbcf137a79d7d1f0694a1cd"
+    },
+    {
+      "path": "src/ashlar_host/_otel_worker.py",
+      "bytes": 33706,
+      "sha256": "7044fe68b2cdf193fb446af3d483adf109912ae204b472f1358bbeea11c1a91f"
+    },
+    {
+      "path": "tests/test_otel_supervision.py",
+      "bytes": 15112,
+      "sha256": "5edc7008c4d468a78f4f000c0528562199c2b790eb6cf57d31961379e4e15e3d"
+    },
+    {
+      "path": "tests/test_otel_worker.py",
+      "bytes": 31475,
+      "sha256": "0edf81a63ea479c959ce57df976e82c1ce8f68311ac35483237b82739cd254cd"
+    }
+  ]
+}
