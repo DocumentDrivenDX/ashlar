@@ -45,7 +45,10 @@ stories for domain assumptions; record license choice before public release.
 Ashlar retains Python 3.9+ and its dependency-free core. Python 3.12+, uv and
 pydantic-settings v2 are the preferred application-host configuration route;
 this does not impose SDK/runtime dependencies on portable core users. Host
-configuration owns typed validation and injects immutable values/ports; the core
+configuration owns typed validation and injects immutable values/ports. Each key
+has one owner: operator handles and secrets are required injected values without
+defaults; committed defaults and environment files contain developer-owned,
+nonsecret values. The core
 must not read ambient environment or discover credentials. Existing runtime
 profiles remain individually qualified. Review this override when the supported
 Python floor or packaged application dependencies change.

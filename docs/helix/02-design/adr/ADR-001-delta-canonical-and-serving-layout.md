@@ -160,7 +160,13 @@ explicit arguments > environment/secret files > development-only .env >
 environment TOML > default TOML > field defaults. Existing explicitly qualified runtime profiles retain their selected configuration
 contract; new precedence cannot silently reinterpret them. Operator-owned endpoint,
 warehouse, source installation, authority and supported profile fields are
-required; never silently select shared/default compute. Secrets use secret types
+required and have no defaults; never silently select shared/default compute. Each
+setting has one owner. Committed defaults and environment TOML contain only
+developer-owned, nonsecret values; endpoints, credentials and other operator-owned
+handles come from injected sources. An injected environment selector chooses the
+reviewed environment file. Operator overrides of developer-owned values are
+incident overrides; standing environment differences belong in that file.
+Secrets use secret types
 and never enter printable settings, fingerprints, SQL diagnostics or subprocess
 capture. Library calls receive explicit configuration/policy ports rather than
 reading process environment. Browser configuration is a separate public,
