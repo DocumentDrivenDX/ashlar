@@ -1,0 +1,9 @@
+# Gremlin immutable release observations
+
+Supply `GremlinReleaseProjection(submit)` as the public adapter projection to observe complete original columns through the same release owner. The ordinary transport submits release-qualified traversals; raw decoded GraphSON rows are retained before strict string/null interpretation. Native schema, carrier, concrete engine and complete value/endpoint gates remain mandatory. Default Cypher queries preserve their original spelling.
+
+Actual H qualifies cached local PuppyGraph 1.13.0 ARM64, Gremlin client 3.7.3/GraphSON 3, Neo4j client 5.28.2 and Python 3.12.15, using two tiny DuckDB 1.5.6 VARCHAR carriers, two CPUs and 3 GiB. Six Cypher and fourteen Gremlin observations match complete original R1 (3 nodes, 3 edges) and R2 (3 nodes, 4 edges) bags, native edge identity and incident endpoints on the same concrete engine. Twenty-eight original decoded Gremlin node/edge query receipts are retained separately from normalized rows.
+
+An actual rejected schema request and controlled original node-only R2 POST followed by synthetic cancellation preserve readable R1. Identical original complete POST bytes resume R2; completed replay performs no POST. Explicit original handles reopen and verify both releases. Selection remains process-local: this does not qualify a durable latest alias, installed activation CLI, Unity Catalog, source ingestion or protected ACK. The controlled partial POST is not a lost response from the complete POST.
+
+`native-h.tar.gz` retains exact H requests/results, source/command hash vectors and the current imported project closure from the additive implementation landed in 8434af60. The inventory maps each member to original bytes. SDK, runtime, database and executable products are hash-only inputs. Earlier native startup and schema-name diagnostics remain in the sibling PuppyGraph refresh evidence from 6505a05a.
