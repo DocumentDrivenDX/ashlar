@@ -1,0 +1,23 @@
+{
+  "decision": "APPROVE scoped ADR-001 installed-host ownership update",
+  "source": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+    "sha256": "b1da1aa855432403f3c721d13c73f2036f2a6818e1bcb2df92eb48708a177280",
+    "bytes": 21972
+  },
+  "freeze": {
+    "path": "/private/tmp/ashlar-adr001-host-boundaries-freeze-20261010-a/manifest.json",
+    "sha256": "16637224ec21c5ca8bbbbc2c3dc1158453966868e51d9a2fdc78a6f925eb1d54"
+  },
+  "checks": [
+    "Only Module Boundaries changed; exact original frontmatter and all configuration/OTel/formal/physical-layout sections preserved.",
+    "Installed host file groups/public configuration and commerce entrypoints match actual modules; protected ACK/session/connection ownership maps to ashlar_host.ack/postgres/connection.",
+    "Exact core-to-host exception is cli.py and __main__.py, never matching nested basenames; no installed tool dependency permitted.",
+    "Package import exposes typed configuration without loading SDKs. Core library remains injected-port based; explicit host profile owns credential/native client construction.",
+    "Required primary-preserving cleanup and report release agree with reviewed D lifecycle/interval source.",
+    "Actual AST checker passes; dynamic imports/cycles/value ownership remain explicit semantic duties.",
+    "No architecture statement promotes finite private local evidence to production authority or OTel/native/formal proof."
+  ],
+  "validationOutput": "Module import boundaries pass; dynamic imports/type ownership/cycles require semantic review.",
+  "scope": "Documentation-only semantic/map correspondence review. No source/checker/baseline edit, SDK/compiler/native/DB execution or receipt promotion."
+}

@@ -118,8 +118,9 @@ proof; capacity estimates cannot authorize destructive cleanup.
 
 ## Module Boundaries
 
-**Source Applicability**: source; the portable Python library and host adapters
-have distinct semantic, custody and transport responsibilities.
+**Source Applicability**: source; the portable `ashlar` library, installed
+`ashlar_host` application package and checkout-only experiments have distinct
+semantic, custody and transport responsibilities.
 
 | Module | Responsibility / Owned Types | Public API | Allowed Dependencies | Forbidden Dependencies |
 | --- | --- | --- | --- | --- |
@@ -127,33 +128,61 @@ have distinct semantic, custody and transport responsibilities.
 | `src/ashlar/source.py`, `apply.py`, `whole_entity.py`, `source_checkpoint.py` | Source batches, prospective graph state and qualified feed checkpoints | SourceBatch, plan_apply, checkpoint binding | Model/binding types, portable structural codecs | Live engine clients, ambient credentials, host orchestration |
 | `src/ashlar/publication.py`, `publisher.py`, `stored_publisher.py`, `recovery.py`, `manifest.py` | Immutable descriptors, attempt state and original-operation recovery | resolve_publication, publisher/backend protocols | Source state and explicit storage/policy ports | Tools, SDK discovery, telemetry as durable authority |
 | `src/ashlar/native.py`, `staging.py`, `attempt_store.py`, `schema_registry.py`, `pins.py`, `authority.py`, `retention_policy.py` | Native SQL, pin/authority and retained-store adapters | Executor/store/policy APIs named in CONTRACT-004 | Core descriptors and injected native transport | Source semantic reinterpretation, tools, automatic permissive policy |
-| `src/ashlar/weft_binding.py`, `weft_query.py`, `weft_decode.py`, `graph_release.py`, `singleton.py` | Qualified consumer bindings, buffered decoding and graph-release projection | read_weft, graph release and singleton APIs | Resolver, admitted model and explicit transport/policy ports | Producer ACK mutation, host result repair, compiler semantic substitution |
+| `src/ashlar/weft_binding.py`, `weft_query.py`, `weft_decode.py`, `weft_path_decode.py`, `graph_release.py`, `singleton.py` | Qualified consumer bindings, buffered decoding and graph-release projection | read_weft, exact scalar/path decoding, graph release and singleton APIs | Resolver, admitted model and explicit transport/policy ports | Producer ACK mutation, host result repair, compiler semantic substitution |
 | `src/ashlar/weft_installation.py` | Indexed compiler package custody, installation availability and bounded executable transport | InstallationConfig, inspect_package, install, open_installation, compile_request | Standard-library byte/file/process adapters and injected trusted index/platform observations | Producer ACK mutation, ambient trust/platform discovery, compiler result repair, automatic network or native engine selection |
 | `src/ashlar/durable_publisher.py`, `effect_validation.py`, `protocol.py`, `schema_policies.py`, `quarantine.py`, `maintenance.py`, `retention.py`, `retention_policy.py`, `profile_custody.py`, `lineage.py`, `origin.py`, `assertions.py`, `report_parts.py`, `outbox.py` | Durable effect/authority composition, maintenance, profile custody and protocol codecs | Named module APIs governed by CONTRACT-001–005 | Core records and injected policy/transport interfaces | Tool imports, ambient SDK construction, silently permissive authority |
 | `src/ashlar/truss_input.py`, `truss_feed.py`, `csv_source.py` | External source framing and exact retained input translation | Source adapter APIs | Core source/schema records and supplied public receipts | Shadow semantic validators, implicit source installation discovery |
-| `src/ashlar/__init__.py`, `__main__.py` | Package exports and command dispatch | Explicit package surface, CLI main | Owned library modules and CLI | Engine SDK construction or new semantic ownership |
-| `src/ashlar/cli.py`, `source_config.py`, `weft_distribution.py`, `*_source.py`; `tools/` adapters | Entrypoint construction, named source profiles and private native experiments | CLI/source conversion and named runner entrypoints | Public core APIs and explicitly owned SDK adapters | Core import of tools; newly introduced private cross-module access |
+| `src/ashlar/__init__.py` | Portable package exports | Explicit core package surface | Owned portable library modules | Host composition, engine SDK construction or new semantic ownership |
+| `src/ashlar/cli.py`, `__main__.py` | Installed command dispatch and typed application construction | CLI main, including publish-commerce and query-commerce | Public core APIs and explicit `ashlar_host` configuration/commerce entrypoints | Native SDK imports/construction, tool imports, semantic ownership or private cross-module access |
+| `src/ashlar/source_config.py`, `weft_distribution.py`, named `*_source.py` adapters | Named source profiles and trusted compiler configuration | Source conversion and indexed compiler composition | Public core APIs and standard-library file/process adapters | Imports of `ashlar_host`, tools or native SDKs; compiler/source semantic substitution |
+| `src/ashlar_host/__init__.py`, `config.py`, `commerce.py` | Typed immutable application configuration, runtime/input admission and public workflow selection | HostError, ProducerConfig, PrivatePostgresConfig, PublishCommerceConfig, QueryCommerceConfig; commerce.publish_commerce and commerce.query_commerce | Explicit configuration, packaged inputs and owned host phase adapters | Checkout tools, implicit endpoint/profile selection, configuration treated as source or ACK authority |
+| `src/ashlar_host/source.py`, `source_identity.py`, `commerce_admission.py`, `resources/`, `schema_rows.py` | Original input custody, public UMF producer invocation, finite source admission and package-relative model/graph/SQL resources | Owned source/resource ports used by the commerce entrypoints | Public core source APIs, explicitly configured Bun/Git and clean pinned UMF source, owned native/source correspondence ports | Checkout-relative resource discovery, private UMF imports, shadow semantic validation, receipt flags treated as publication authority |
+| `src/ashlar_host/delta_publication.py`, `delta_query.py`, `driver.py`, `delta_custody.py`, `graph_sql.py`, `publication_reader.py`, `indexed_query.py`, `relationship_plan.py`, `relationship_query.py`, `runtime.py`, `lifecycle.py` | Native transport/journal custody, publication composition, held query execution, runtime selection and cleanup | Host-internal driver/reader/phase ports; applications enter through commerce.publish_commerce or commerce.query_commerce | Public core publication/resolver/source/compiler APIs, admitted policy ports, configured Spark/Delta and owned ACK/session adapters | Tool imports, rewritten compiler SQL or repaired results, fabricated source/ACK authority, success release before required closing checks and cleanup |
+| `src/ashlar_host/ack.py`, `postgres.py`, `connection.py` | Protected source acknowledgement and reconciliation, ordinary PostgreSQL sessions and private-profile connection construction | Host ACK/session ports: AckScope, ProtectedOutboxAck, AckOutcomeUncertain, Session | Public core descriptor/checkpoint/pin APIs, mandatory policy and connection ports, packaged ACK SQL and explicitly selected psycopg profile | Caller flags as ACK authority, source progress inferred from query results, checkout tools or unqualified production credential discovery |
+| `tools/` adapters | Checkout-only engine/source experiments and review utilities | Named runner/checker entrypoints | Owned public core/host APIs and explicitly selected SDKs | Installed package dependency on tools; newly introduced private cross-module access |
 
-**Integration Owners**: UMF -> schema/typed-source policy receipt boundaries;
-Truss -> `truss_input.py`/`truss_feed.py`; Weft -> `weft_binding.py`/`weft_query.py` for publication reads,
-`weft_installation.py` for indexed compiler transport and `weft_distribution.py`
-for trusted CLI composition;
-Delta SQL -> `native.py` and host transport; PostgreSQL ACK ->
-`tools/protected_source_ack.py`; graph engines -> named `tools/run_*` and
-`tools/check_*` adapters. Vendor/source translation stays at those boundaries.
+**Integration Owners**: UMF -> core schema/typed-source policy receipt boundaries
+and `ashlar_host.source` for explicit public-producer invocation; Truss ->
+`truss_input.py`/`truss_feed.py`. Weft -> `weft_binding.py`/`weft_query.py` for
+portable publication reads, `weft_installation.py` for indexed transport,
+`weft_distribution.py` for trusted compiler composition, and the installed
+`ashlar_host` indexed/relationship query adapters for held native execution.
+Delta SQL -> `native.py` plus `ashlar_host.delta_custody`/`driver`; PostgreSQL
+ACK -> `ashlar_host.ack`, with `postgres` session handling and `connection`
+construction. Private graph-engine experiments retain their named `tools/run_*`
+and `tools/check_*` owners. Vendor/source translation stays at these boundaries;
+a private host profile does not establish production source or engine authority.
 
 **Construction Policy**: the CLI or named host entrypoint builds configuration,
-transport and policy ports once and injects them. Concrete SQL coupling in native
-adapters is deliberate; no container or interface-per-function is required.
-Core invariants and exact shared surfaces remain owned by CONTRACT-001–005.
+transport and policy ports once and injects them. `ashlar_host` package import
+exposes configuration without loading SDKs or starting native clients. Its commerce
+entrypoints validate the selected configuration and runtime before constructing
+phase-specific clients. Package-relative resources own the installed model, graph,
+validator script and SQL; explicit external producer/runtime paths remain operator
+configuration. `connection.py` owns credential acquisition only within the selected
+private PostgreSQL profile. Required reader/session/transport closure and Spark
+stop must complete before a successful report is released; cleanup failure must
+not replace an existing primary failure or turn an uncertain outcome into success.
+
+The only `src/ashlar` files permitted to import `ashlar_host` are the exact
+composition roots `src/ashlar/cli.py` and `src/ashlar/__main__.py`. A matching
+basename in a nested package grants no exception. Other core modules, including
+source and compiler composition adapters, cannot depend on the installed host.
+Host modules may compose owned public core APIs; neither installed package may
+import checkout tools. Concrete SQL coupling in native adapters is deliberate;
+no container or interface-per-function is required. Core invariants and exact
+shared surfaces remain owned by CONTRACT-001–005.
 
 **Boundary Check**: `python3 tools/check_module_boundaries.py`; enforce the
-project map with actual Python AST imports and an individually identified
-existing-debt inventory. Use the same command locally, in pre-commit and CI.
-Baseline entries identify exact importing file, target, symbol, owner and removal
-trigger; no directory exemption admits new violations. Dynamic imports, runtime
-reflection and value/type ownership require explicit semantic review; static
-import success alone cannot establish encapsulation.
+project map with recursive Python AST imports across `src/ashlar`,
+`src/ashlar_host` and `tools`, plus an individually identified existing-debt
+inventory. Use the same command locally, in pre-commit and CI. Baseline entries
+identify exact importing file, target, symbol, owner and removal trigger; no
+directory exemption admits new violations. Check core-to-host composition roots,
+core/host-to-tools edges, portable-core SDK imports, producer/consumer direction
+and private cross-module accesses. Dynamic imports, runtime reflection,
+dependency cycles and value/type ownership require explicit semantic review;
+static import success alone cannot establish encapsulation.
 
 ## Configuration and diagnostic boundaries
 
