@@ -167,6 +167,7 @@ The installed original-commerce evolution facade adds these owned boundaries:
 | `src/ashlar_host/commerce_evolution.py` | Fresh/resume lifecycle, source-qualified publication and original recovery | publish_evolution_transaction, resume_evolution_transaction; publish_commerce_evolution/resume_commerce_evolution under CONTRACT-001 | Explicit config, owned admission/driver/journal/ACK/lifecycle ports and supplied ordinary sessions | Source/role/grant provisioning, credential discovery/escalation, new uncertain intent, tools/private native access |
 | `src/ashlar_host/evolution_plan.py` | Pure immutable original attempt envelope and journal custody | EvolutionAttemptPlan, EvolutionPlanJournal; compatibility exports through commerce_evolution | Standard library and mandatory independent plan-admission policy | Config/orchestration imports, native clients, source/ACK authority |
 | `src/ashlar_host/evolution_run.py` | Fixed alternating original schedule and durable positive submission reservations | EvolutionRunRequest, EvolutionRunDefinition, EvolutionRunLedger, EvolutionRunAttemptJournal, EvolutionRunLedgerView | Pure plan types, standard-library SQLite/POSIX custody and mandatory independent current run/lineage/attempt policy | Native clients, source provisioning, absent handles as absence proof, mutable caller status as authority |
+| `src/ashlar_host/evolution_composition.py` | Exact original eight-slot correspondence and independently admitted native lineage composition | OriginalRunCorrespondence, NativeEvolutionRunPolicy | Owned immutable source/run/plan types and public driver/current original-reservation authority ports | Private driver/transport access, original slot flags or native absence as authority |
 | `src/ashlar_host/evolution_producer.py` | Bounded public-UMF subprocess ownership and original receipt custody | Typed producer invocation for evolution_admission under CONTRACT-001 | Explicit immutable configuration/input snapshots, standard-library process and owned lifecycle ports | Ambient environment/PATH discovery, private source capture or UMF APIs, tools, native authority |
 | `src/ashlar_host/source_sessions.py` | Original outbox registrations and ordinary source-session ownership | OutboxSourceRegistration, RegisteredOutboxSources.admit | Explicit factories/current native policy, owned AckScope/Session/lifecycle and public complete outbox/checkpoint APIs | Credential discovery, provisioning, commits, ACK mutation or registration metadata as authority |
 | `src/ashlar_host/ack_sessions.py` | Original protected ACK registrations and ordinary session selection | OutboxAckRegistration, RegisteredOutboxAcks.acknowledge/reconcile | Supplied ordinary factories/current policy, owned protected ACK and source-registration ports | Credential discovery, provisioning, metadata as authority or cancellation converted to success |
@@ -179,6 +180,18 @@ source and retaining unchanged rows' earlier materialization clocks. Qualified
 source identity preserves overlapping local keys. Returned mappings are copies;
 recorded custody establishes correspondence, while fresh producer verification
 and current source, writer, publication and ACK authority remain separate gates.
+
+`NativeEvolutionRunPolicy` composes independently owned current original-ledger
+authority with the public driver's complete lineage gate. Every retained attempt
+must match its original scheduled source-qualified request, progress, clocks and
+oracle. Unprepared or retained reservations must refuse contradictory operation,
+artifact, phase or named native commit custody. Completed slots require every
+original graph, phase and manifest handle, exact native commit/receipt/snapshot,
+immutable manifest and protected read-only ACK reconciliation. Started slots keep
+their original operation recovery path; missing whole effect plans refuse.
+`LocalDeltaTransport.inspect_committed` observes exact settled original evidence
+without submission or journal updates. Correspondence and observations cannot
+replace the independent original reservation authority or restore lost custody.
 
 `RegisteredOutboxSources` brackets two complete original transaction reads with
 current native source-policy admission and closes every acquired ordinary

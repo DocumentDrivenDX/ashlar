@@ -1,0 +1,13 @@
+{
+  "status": "passed",
+  "reviewer": "installed_evolution_facade",
+  "workflowDelta": "Exactly one line; existing workflow bytes otherwise unchanged",
+  "command": "PYTHONPATH=src:tests /usr/bin/python3 -S -W error::ResourceWarning -m unittest test_evolution_composition test_evolution_run_lineage test_local_delta_committed_inspection",
+  "result": "12 tests PASS6.101s",
+  "launchChunk": "c67d48",
+  "terminalChunk": "811a6a",
+  "logInspectionChunk": "2e192a",
+  "sourceEightUnchanged": true,
+  "workflowSha256": "f9cdf0e6bdd6f0a526faae039d0101fd709a5bde773e35f84d6f9ac6cf00166d",
+  "qualification": "Portable source/inert ports/actual owned SQLite and read-only receipt guards; no real full8 native or external PG/source/ACK proof."
+}

@@ -1,0 +1,29 @@
+{
+  "format": "ashlar-independent-source-review/0.1",
+  "reviewer": "root independent of lineage author",
+  "sourceFreezeSha256": "9697f94be28d6d1cd5f73713875277e0b91f1e9c605977d1739214bd4a29aa5e",
+  "decision": "approved",
+  "scope": "Original correspondence, independently owned reservation composition, bounded complete lineage observation and readonly committed native receipt port; no actual full-eight native/PG/ACK qualification",
+  "sourceReviewChunks": [
+    "65b96c",
+    "0b180e",
+    "a16257",
+    "3146c8",
+    "3d8abd"
+  ],
+  "checks": [
+    {
+      "chunk": "37dd66",
+      "result": "PASS 12 focused tests Python3.9; actual SQLite and inert native ports; 6.228 seconds"
+    },
+    {
+      "chunk": "da32ad",
+      "result": "PASS module boundaries"
+    }
+  ],
+  "correctedInvocation": {
+    "initialChunk": "bfc706",
+    "failure": "Missing PYTHONPATH caused three test imports to fail before execution",
+    "passingCommand": "PYTHONPATH=src:tests:tools python3 -B -m unittest test_evolution_composition test_evolution_run_lineage test_local_delta_committed_inspection"
+  }
+}

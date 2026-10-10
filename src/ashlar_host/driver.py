@@ -290,6 +290,204 @@ class NativeDriver:
                 original.document()['installation'], self.evolution_run_identity(context=context)):
             raise PermissionError('Complete original run installation/source/session identity differs')
 
+    def evolution_sources(self, *, context):
+        """Return this owner's already reconstructed immutable semantic source set."""
+        self.evolution_run_identity(context=context)
+        return self.source_admission
+
+    def admit_evolution_run_ledger(self, original, inventory, *, context, attempt_admission):
+        """Observe complete original lineage; never submit, prepare, repair or ACK.
+
+        The independent reservation owner must admit the exact original ledger
+        before and after this gate. Native absence cannot establish a retained
+        not-started reservation. Started operations retain their existing recovery
+        path, while completed slots require settled phase, manifest and ACK custody.
+        """
+        from .evolution_run import EvolutionRunLedgerView, decode
+        from .evolution_plan import EvolutionAttemptPlan
+        from .evolution_composition import OriginalRunCorrespondence
+        from ashlar.attempt_store import DeltaAttemptStore
+        from ashlar.stored_publisher import validate_applied_artifact
+        from .lifecycle import owned_context
+        self.validate_evolution_run(original, context=context)
+        if (type(inventory) is not EvolutionRunLedgerView or type(inventory.slots) is not tuple
+                or len(inventory.slots) != 8 or not callable(getattr(attempt_admission, 'admit', None))):
+            raise PermissionError('Complete immutable original ledger and current plan authority required')
+        # Validate the complete inventory before acquiring any native session.
+        gap = False
+        for index, slot in enumerate(inventory.slots):
+            if type(slot) is not tuple or len(slot) != 5:
+                raise PermissionError('Exact original slot carriers required')
+            ordinal, state, raw, digest, descriptor = slot
+            if type(ordinal) is not int or ordinal != index or type(state) is not str:
+                raise PermissionError('Exact original ordered slot required')
+            if state == 'unprepared':
+                if any(value is not None for value in (raw, digest, descriptor)):
+                    raise PermissionError('Unprepared original slot carries custody')
+                gap = True
+            else:
+                if gap or state not in ('retained', 'publication-started', 'completed'):
+                    raise PermissionError('Completed prefix and at most one active slot required')
+                plan = EvolutionAttemptPlan(raw)
+                if type(digest) is not str or plan.sha256 != digest:
+                    raise PermissionError('Exact original slot bytes differ')
+                if state == 'completed':
+                    if type(descriptor) is not bytes or not 0 < len(descriptor) <= 4194304:
+                        raise PermissionError('Complete original descriptor bytes required')
+                elif descriptor is not None:
+                    raise PermissionError('Premature original descriptor custody')
+                else:
+                    gap = True
+        correspondence = OriginalRunCorrespondence(original, self.evolution_sources(context=context))
+        previous_active = self.policy.active
+        try:
+            for ordinal, state, raw, digest, descriptor_bytes in inventory.slots:
+                facts = correspondence.at(ordinal); request = facts['request']
+                target = self.transport.targets[self.tables['attempts']]
+                store = DeltaAttemptStore(AttemptExecutor(self), CarrierPolicy(self, 'attempts'),
+                    target.table, target.uuid, original_request=request)
+                records = None
+                with owned_context(store.session(context)) as session:
+                    records = session.read(request['stream'], request['batch_id'])
+                if records is None:
+                    raise PermissionError('Original phase observation completion suppressed')
+                if state in ('unprepared', 'retained'):
+                    checkpoint = json.loads(request['source_checkpoint_json'])
+                    source = next(item for item in self.source_admission.admissions
+                                  if item.prepared.source_system == checkpoint['feed'])
+                    batch = source.prepared.batches[int(checkpoint['position']) - 1]
+                    graph_tables = {role: self.tables[role] for role in self.source_admission.columns}
+                    _, generated = self.plan_graph(self.source_admission.state_at(
+                        facts['schema_state']['previous_prefixes']), batch, graph_tables,
+                        materialized_at=facts['materialized_at'])
+                    selected, _ = local_effect_plan(generated, facts['previous_expected'], graph_tables)
+                    _, _, identities = LocalDeltaEffects(self.transport).original_plan(
+                        'effects:' + request['request_digest'], request['request_digest'], selected)
+                    known = self.transport.db.execute('SELECT operation,intent FROM local_operation LIMIT 1001').fetchall()
+                    if len(known) > 1000:
+                        raise PermissionError('Bounded complete original submission custody required')
+                    for operation_key, intent_text in known:
+                        if type(intent_text) is not str or len(intent_text.encode()) > 4194304:
+                            raise PermissionError('Bounded original operation custody required')
+                        intent = json.loads(intent_text)
+                        if (operation_key in identities or intent.get('operation') in identities
+                                or intent.get('request_digest') == request['request_digest']):
+                            raise PermissionError('Known original submission contradicts not-started reservation')
+                    for table in ('local_source_plan', 'local_publication_artifact'):
+                        if self.transport.db.execute('SELECT 1 FROM ' + table + ' WHERE request_digest=? LIMIT 1',
+                                (request['request_digest'],)).fetchone():
+                            raise PermissionError('Known original artifact contradicts not-started reservation')
+                    for observed_target in self.transport.targets.values():
+                        for history in self.transport.original_history(observed_target):
+                            metadata = json.loads(history.get('userMetadata') or '{}')
+                            if (type(metadata) is dict and metadata.get('profile') == 'ashlar-local-delta-commit/0.1'
+                                    and metadata.get('installation_id') == self.transport.installation_id
+                                    and (metadata.get('request_digest') == request['request_digest']
+                                         or metadata.get('operation') in identities)):
+                                raise PermissionError('Named native commit contradicts not-started reservation')
+                if state == 'unprepared':
+                    if records:
+                        raise PermissionError('Native original submission contradicts unprepared reservation')
+                    continue
+                plan = EvolutionAttemptPlan(raw); correspondence.admit_attempt(ordinal, plan)
+                self.admit_evolution_plan(plan, context=context, fresh=False)
+                self.policy.activate_evolution(plan, context, attempt_admission)
+                value = plan.document(); operation = 'effects:' + request['request_digest']
+                effects = LocalDeltaEffects(self.transport)
+                saved = self.transport.db.execute('SELECT original,digest FROM local_plan WHERE operation=?',
+                                                   (operation,)).fetchone()
+                if state == 'retained':
+                    if records:
+                        raise PermissionError('Native phase contradicts original not-started reservation')
+                    if saved is not None:
+                        observation = effects.observe(operation, request['request_digest'], value['selected_steps'], context=context)
+                        if any(status != 'no-operation-record' for status in observation['states']):
+                            raise PermissionError('Native effect custody contradicts not-started reservation')
+                    continue
+                # Missing whole-plan custody after started never authorizes reconstruction.
+                observation = effects.observe(operation, request['request_digest'], value['selected_steps'], context=context)
+                if state != 'completed':
+                    continue
+                if not records or records[-1].phase != 'committed' or any(
+                        status != 'committed' for status in observation['states']):
+                    raise PermissionError('Completed original slot lacks settled phase/effect custody')
+                payload = json.loads(records[-1].payload_json)
+                retained = self.transport.db.execute('SELECT request,artifact FROM local_publication_artifact WHERE request_digest=?',
+                    (request['request_digest'],)).fetchall()
+                if retained != [(encoded(request), payload['result_json'])]:
+                    raise PermissionError('Complete original applied artifact custody differs')
+                artifact, descriptor = validate_applied_artifact(payload['result_json'], request)
+                source_plan = {'request': request, 'generated_steps': value['generated_steps'],
+                    'selected_steps': value['selected_steps'], 'zero_match_elisions': value['zero_match_elisions'],
+                    'complete_prior_oracle': value['previous_expected'],
+                    'observed_native_prior': value['observed_native_prior']}
+                source_rows = self.transport.db.execute('SELECT original FROM local_source_plan WHERE request_digest=?',
+                    (request['request_digest'],)).fetchall()
+                if source_rows != [(encoded(source_plan),)] or artifact['effects'].get(
+                        'original_source_plan_sha256') != sha(encoded(source_plan)):
+                    raise PermissionError('Complete original source/effect plan custody differs')
+                row = dict(descriptor.raw)
+                if (not original_native_equal(decode(descriptor_bytes), row)
+                        or not original_native_equal(json.loads(payload['descriptor_json']), row)
+                        or row['publication_id'] != facts['publication_id']):
+                    raise PermissionError('Completed original descriptor correspondence differs')
+                self.policy.active['manifest'] = row
+                self.validate_manifest(row, context)
+                handles = self.transport.db.execute('SELECT operation,intent FROM local_operation LIMIT 1001').fetchall()
+                if len(handles) > 1000:
+                    raise PermissionError('Bounded complete original operation inventory required')
+                expected_phases = {record.phase: {'stream': request['stream'], 'batch_id': request['batch_id'],
+                    'phase': record.phase, 'request_digest': record.request_digest,
+                    'payload_json': record.payload_json, 'payload_digest': record.payload_digest} for record in records}
+                seen_graph = set(); seen_phases = set(); manifests = 0
+                for key, intent_text in handles:
+                    if type(intent_text) is not str or len(intent_text.encode()) > 4194304:
+                        raise PermissionError('Bounded original operation intent required')
+                    intent = json.loads(intent_text)
+                    if intent.get('request_digest') != request['request_digest']:
+                        continue
+                    if key in value['operations']:
+                        seen_graph.add(key)
+                    elif intent.get('table') == self.tables['attempts']:
+                        phase_row = json.loads(intent['parameters'].get('payload', 'null'))
+                        phase = phase_row.get('phase') if type(phase_row) is dict else None
+                        if phase in seen_phases or phase not in expected_phases or not original_native_equal(phase_row, expected_phases[phase]):
+                            raise PermissionError('Original phase operation payload inventory differs')
+                        seen_phases.add(phase)
+                    elif intent.get('table') == self.tables['manifest']:
+                        if not original_native_equal(json.loads(intent['parameters'].get('row', 'null')), row):
+                            raise PermissionError('Original manifest operation payload differs')
+                        manifests += 1
+                    else:
+                        raise PermissionError('Unknown original operation in completed lineage')
+                    self.transport.inspect_committed(key, intent['statement'], intent['parameters'],
+                        intent_digest=request['request_digest'], context=context)
+                if seen_graph != set(value['operations']) or seen_phases != set(expected_phases) or manifests != 1:
+                    raise PermissionError('Complete original graph/phase/manifest operation handles required')
+                if not original_native_equal(self.descriptors(row['publication_id']), [row]):
+                    raise PermissionError('Actual immutable native manifest missing or ambiguous')
+                vector = manifest_pin_vector(row, {table: self.transport.targets[table].uuid
+                    for table in descriptor.versions}, authority='private-local-process')
+                receipt = self.ack_sessions.reconcile(encoded(request).encode(), encoded(row).encode(), vector,
+                    context=context, pins=self, publication_backend=self, supported_profiles=[PROFILE],
+                    supported_revisions={key: [revision] for key, revision in descriptor.revisions.items()})
+                if receipt is None:
+                    raise PermissionError('Completed original protected ACK readback absent')
+                self.source_admit(request)
+            if not any(slot[1] == 'publication-started' for slot in inventory.slots):
+                completed = [slot[0] for slot in inventory.slots if slot[1] == 'completed']
+                expected = (correspondence.at(completed[-1])['expected'] if completed else
+                    correspondence.at(0)['previous_expected'])
+                for role, rows in expected.items():
+                    target = self.transport.targets[self.tables[role]]
+                    version = int(self.transport.original_history(target)[0]['version'])
+                    if not original_native_equal(self.transport._snapshot(target, version)['rows'],
+                                                 sorted(rows, key=encoded)):
+                        raise PermissionError('Actual settled original native prefix differs')
+        finally:
+            self.policy.active = previous_active
+        self.validate_evolution_run(original, context=context)
+
     def plan_evolution_transaction(self, original, ordinal, previous_progress, *, context):
         """Generate one original plan from admitted schedule and actual current anchors."""
         from .evolution_plan import EvolutionAttemptPlan, PROFILE as PLAN_PROFILE
@@ -340,6 +538,8 @@ class NativeDriver:
             'schema_state': {'previous_prefixes': previous, 'prefixes': following, 'clocks': clocks},
             'resource_registry': definition['installation']['registry'],
             'source_admission': self.admission_facts(), 'operations': operations}).encode())
+        from .evolution_composition import OriginalRunCorrespondence
+        OriginalRunCorrespondence(original, self.source_admission).admit_attempt(ordinal, plan)
         self.admit_evolution_plan(plan, context=context, fresh=True)
         return plan
 

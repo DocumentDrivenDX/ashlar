@@ -1,0 +1,21 @@
+{
+  "head": "889ab24abf3f165cdafbc7947619131358656872",
+  "files": {
+    "/Users/erik/Projects/ashlar/src/ashlar/stored_publisher.py": "196b9e21df475b6225544512d869fca13e90d1026858a8fb1421c0b2632783be",
+    "/Users/erik/Projects/ashlar/src/ashlar_host/delta_custody.py": "705057f0bda07a86fdab02ba0729aa21c8616d75897ecb537f7d7e2cf462b656",
+    "/Users/erik/Projects/ashlar/src/ashlar_host/driver.py": "6495c1300ce7d7bb69ea0ff036fef0ede119a0d4bb3d2623337033d1e996a214",
+    "/Users/erik/Projects/ashlar/src/ashlar_host/evolution_composition.py": "6b6585e74ef342dbcd30f73c816229beb15ec24e4c1bfa2df8706c514335ce5b",
+    "/Users/erik/Projects/ashlar/tests/test_evolution_composition.py": "66b2e6af3a12a37c92b253d8f151f7586247fb28c8921bb9ec5751e75289543b",
+    "/Users/erik/Projects/ashlar/tests/test_evolution_run_lineage.py": "5341ed1ca44ad015aa5af3a00cfe7d1221a3a35db10107b4b832fbc6432c0863",
+    "/Users/erik/Projects/ashlar/tests/test_local_delta_committed_inspection.py": "77fc28d1be0b320bc50ffba6cdaf57cd4994039229dd14cf9e69ecf4d10a7241",
+    "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "3792009111ddb51fc803cab6e6580f4bb4f5499aca084cd0a2b042a78fcdbbff"
+  },
+  "checks": {
+    "ae53ef": "2 correspondence +5 early lineage +7 original transaction +6 stored publisher PASS",
+    "a98391": "10 original full-run +4 committed inspection +module boundaries +owned diff PASS",
+    "d67333": "final6 lineage guard controls PASS",
+    "9fd043": "module boundaries PASS"
+  },
+  "intermediate": "cf6ea3 first inspection test expected failure incorrectly after caller-mutated fresh returned snapshot; corrected independent-return assertion; import-only boundary test omitted tools PYTHONPATH in0e7264, corrected9fd043/a98391",
+  "qualification": "Read-only owning native lineage implementation and inert guard/SQLite port controls; no installed external source/ACK/native eight-step proof. Source-qualified overlapping local IDs retained; prior native phase SQL proof remains separate."
+}

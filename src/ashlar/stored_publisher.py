@@ -32,6 +32,15 @@ def _artifact(text, request):
     return value, descriptor
 
 
+def validate_applied_artifact(text, request):
+    """Decode the complete original applied artifact and bound descriptor.
+
+    This is correspondence validation only. Native effect, manifest, source and
+    protected ACK authority remain independently owned host gates.
+    """
+    return _artifact(text, request)
+
+
 class StoredPublisherBackend:
     """Connect publish_batch to DeltaAttemptStore and an explicit native driver.
 

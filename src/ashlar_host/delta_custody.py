@@ -311,6 +311,66 @@ class LocalDeltaTransport:
     def recover(self, operation, sql, parameters, *, intent_digest, context):
         return self._execute(operation, sql, parameters, intent_digest, context, recovery=True)
 
+    def inspect_committed(self, operation, sql, parameters, *, intent_digest, context):
+        """Read exact original committed custody; never submit or update a journal.
+
+        A prepared/submitted/missing handle remains a recovery concern and cannot
+        be accepted as settled by this port. Native history, full snapshot and
+        immutable receipt must independently agree at opening and closing.
+        """
+        if (type(sql) is not str or type(operation) is not str or not 0 < len(operation) <= 1024
+                or type(intent_digest) is not str or not re.fullmatch('[0-9a-f]{64}', intent_digest)):
+            raise LocalDeltaError('Exact original operation identity required')
+        self._parameters(parameters); target = self._target(sql)
+        intent = original_operation_intent(self.installation_id, operation, intent_digest,
+            sql, parameters, target, self.operation_capacity)
+        if len(intent.encode()) > (self.operation_capacity['max_intent_bytes'] if self.operation_capacity else 4194304):
+            raise LocalDeltaError('Bounded original operation required')
+        body_sha = sha(intent)
+        metadata = encoded({'profile': 'ashlar-local-delta-commit/0.1',
+            'installation_id': self.installation_id, 'operation': operation,
+            'operation_sha256': body_sha, 'request_digest': intent_digest})
+        from .lifecycle import owned_context
+        result = None
+        with owned_context(self.policy.writer(operation, context)) as permit:
+            if permit is not None or self.policy.admit(json.loads(intent), context) is not None:
+                raise LocalDeltaError('Current original committed admission incomplete')
+            self._profile()
+            with self._lock():
+                row = self.db.execute('SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?',
+                                      (operation,)).fetchone()
+                if (row is None or row[:2] != (intent, body_sha) or row[3] != 'committed'
+                        or type(row[2]) is not int or row[2] < 0 or type(row[4]) is not str
+                        or not 0 < len(row[4].encode()) <= 4194304):
+                    raise LocalDeltaUncertain('Exact committed original handle unavailable')
+                self._detail(target)
+                matches = [record for record in self.original_history(target)
+                           if record.get('userMetadata') == metadata]
+                if len(matches) != 1 or type(matches[0].get('version')) is not int or matches[0]['version'] != row[2] + 1:
+                    raise LocalDeltaUncertain('Original named commit absent or ambiguous')
+                version = matches[0]['version']; snapshot = self._snapshot(target, version)
+                proof = {'profile': 'ashlar-local-delta-receipt/0.1', 'operation': operation,
+                    'operation_sha256': body_sha, 'request_digest': intent_digest, 'table': target.table,
+                    'uuid': target.uuid, 'before_version': row[2], 'version': version,
+                    'commit_metadata': metadata, 'native_operation': matches[0]['operation'], 'snapshot': snapshot}
+                if row[4] != encoded(proof):
+                    raise LocalDeltaError('Original complete native receipt differs')
+                self._detail(target)
+                if self.policy.admit(json.loads(intent), context) is not None:
+                    raise LocalDeltaError('Closing original committed admission incomplete')
+                self._profile()
+                closing_matches = [record for record in self.original_history(target)
+                                   if record.get('userMetadata') == metadata]
+                if closing_matches != matches or encoded(self._snapshot(target, version)) != encoded(snapshot):
+                    raise LocalDeltaError('Closing original named commit/snapshot differs')
+                if self.db.execute('SELECT intent,intent_sha,before_version,state,receipt FROM local_operation WHERE operation=?',
+                                   (operation,)).fetchone() != row:
+                    raise LocalDeltaError('Closing original committed handle changed')
+                result = json.loads(encoded(proof))
+        if result is None:
+            raise LocalDeltaUncertain('Original committed observation completion suppressed')
+        return result
+
     def _execute(self, operation, sql, parameters, intent_digest, context, *, recovery):
         self._parameters(parameters)
         target = self._target(sql)
