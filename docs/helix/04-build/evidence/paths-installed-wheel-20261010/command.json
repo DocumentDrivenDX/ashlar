@@ -1,0 +1,115 @@
+{
+  "buildTools": {
+    "pip": "24.0",
+    "python": "3.11.17",
+    "setuptools": "79.0.1",
+    "wheel": "0.45.1"
+  },
+  "commands": [
+    {
+      "argv": [
+        "/private/tmp/ashlar-host-wheel-env-20261010-a/bin/python",
+        "-I",
+        "-m",
+        "venv",
+        "--without-pip",
+        "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment"
+      ],
+      "cwd": "/private/tmp/ashlar-paths-wheel-command-20261010-a",
+      "phase": "fresh-environment"
+    },
+    {
+      "argv": [
+        "/private/tmp/ashlar-host-wheel-env-20261010-a/bin/python",
+        "-I",
+        "-m",
+        "pip",
+        "--isolated",
+        "wheel",
+        "--no-deps",
+        "--no-index",
+        "--no-build-isolation",
+        "--wheel-dir",
+        "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheels",
+        "."
+      ],
+      "cwd": "/private/tmp/ashlar-paths-wheel-command-20261010-a/source",
+      "phase": "wheel-build"
+    },
+    {
+      "argv": [
+        "/private/tmp/ashlar-host-wheel-env-20261010-a/bin/python",
+        "-I",
+        "-m",
+        "pip",
+        "--isolated",
+        "--python",
+        "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment",
+        "install",
+        "--no-deps",
+        "--no-index",
+        "--no-compile",
+        "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl"
+      ],
+      "cwd": "/private/tmp/ashlar-paths-wheel-command-20261010-a",
+      "phase": "wheel-install"
+    },
+    {
+      "argv": [
+        "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/python",
+        "-I",
+        "-B",
+        "/private/tmp/ashlar-paths-wheel-command-20261010-a/verify_installed.py"
+      ],
+      "cwd": "/private/tmp/ashlar-paths-wheel-command-20261010-a",
+      "phase": "installed-byte-help-checks"
+    },
+    {
+      "argv": [
+        "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/python",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "/private/tmp/ashlar-paths-wheel-command-20261010-a/source/tests",
+        "-p",
+        "test_*.py",
+        "-v"
+      ],
+      "cwd": "/private/tmp/ashlar-paths-wheel-command-20261010-a",
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+        "PIP_NO_INDEX": "1",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/lib/python3.11/site-packages"
+      },
+      "phase": "portable-installed-tests"
+    }
+  ],
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "PIP_DISABLE_PIP_VERSION_CHECK": "1",
+    "PIP_NO_INDEX": "1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "freshPaths": [
+    "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment",
+    "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheels",
+    "/private/tmp/ashlar-paths-wheel-command-20261010-a/installed-checks.json"
+  ],
+  "limits": {
+    "phaseSeconds": 180,
+    "stderrBytes": 2097152,
+    "stdoutBytes": 2097152
+  },
+  "resources": {
+    "files": 2031,
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/resources.json",
+    "sha256": "afaf53fbf3f5dd050b5561f84726c13e5a13e2ea07b6430aca69d2c38335b959"
+  },
+  "scope": "Preparation only. Offline no-deps packaging in fresh runtime environment; source from exactGit only, no foreigncheckoutoverlays. Portable tests use controlled fakePythonprocesses, notWeftcompiler/nativeengines. Complete externalmacOSdylibclosure notclaimed; existing buildtool environment byteinputs pinned, inherited variables excluded.",
+  "sourceCommit": "58f801fcbaeb3faa9cd2f3e967182794d45d8194"
+}

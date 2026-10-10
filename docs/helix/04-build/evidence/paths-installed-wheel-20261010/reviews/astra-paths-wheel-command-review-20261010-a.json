@@ -1,0 +1,73 @@
+{
+  "verdict": "approved bounded offline wheel preparation command A with corrected root wrapper B",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/freeze.json",
+    "bytes": 1450,
+    "sha256": "2cb8af4fd48c45c089fb8010d0c32cf7bc1f1edc4546f62d695621f379d1a24b"
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/command.json",
+    "bytes": 3724,
+    "sha256": "f963b81fd99953e4facc9397224162477b07342895a420d91cb494a335fa6b90"
+  },
+  "rootWrapper": {
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/root-runner.py",
+    "bytes": 4957,
+    "sha256": "11f9724e4b22a9610cdca5c01ced6580f4e6f2476b5489366c32bfca31942a3c"
+  },
+  "inputReview": {
+    "path": "/private/tmp/astra-paths-wheel-inputs-review-20261010-a.json",
+    "bytes": 3317,
+    "sha256": "8e37ec24f90593d38ae7a1ea5b8b87d239b7162782328ab4f8891f335b6b70a8"
+  },
+  "verificationScript": {
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/verify_installed.py",
+    "bytes": 3638,
+    "sha256": "145ed9ee2d958df01e2008b051bac78a5883ca420b23bb0ae4d17903a3589a05"
+  },
+  "independentWrapperChecks": {
+    "passed": 9,
+    "script": {
+      "path": "/private/tmp/astra-paths-wheel-wrapper-probe-20261010-b.py",
+      "bytes": 5040,
+      "sha256": "499235768d37db98587a53003c68cf6ea2a28071c7156b1e670b2270a081f7ce"
+    },
+    "log": {
+      "path": "/private/tmp/astra-paths-wheel-wrapper-probe-20261010-b.log",
+      "bytes": 693,
+      "sha256": "97fa5b4ce4affe92079dfcb137ae82aec5ccb108b199296ac841d59e7e2e821d"
+    },
+    "coverage": [
+      "incremental stream ownership on second-open failure",
+      "primary cancellation survives cleanup failure, child reap and pipe closure",
+      "closing verification cannot replace primary phase failure",
+      "actual fake Python child output overflow and timeout",
+      "valid resource positive",
+      "actual FIFO immediate refusal",
+      "oversize resource refused before read",
+      "expected+1 read bound on growing stream",
+      "resource read primary survives close failure"
+    ]
+  },
+  "review": {
+    "source": "Exact committed58f801fcbaeb3faa9cd2f3e967182794d45d8194 selected95-file export, no foreign checkout overlays.88 expected package/runtime files; four selected test files, README/pyproject and other excluded documentation explicit.",
+    "inputs": "2031 selected source/buildtool resources42032599B, maximum17277120B, all hashes/lengths verified, regular and no selected symlinks; selected tool versions and launcher resolution correspond.",
+    "phases": "Fresh Python3.11 venv without pip, offline no-deps/no-index/no-build-isolation wheel build, existing pinned pip --python install --no-compile, installed parity/RECORD/help verification,27 portable unit controls.",
+    "configuration": "Explicit allowlist environments, isolated Python/pip invocation, absolute paths, frozen command phase order, no inherited environment or source overlay.",
+    "verification": "Installed verifier resolves distribution inside fresh environment, requires exact wheel/core/host resource inventory and byte equality to frozen source, checks installed RECORD hash/length/containment, five public helps require no SDK import.",
+    "testScope": "Selected27 tests: package8+installer12+PathsCLI5+hostCLI2. Synthetic fixtures/mocks/controlled Python processes only; no Weft compiler or native engine.",
+    "bounds": "180s and2MiB each stdout/stderr per phase; selector capture; source/resource opening and closing verification. Resource reads no-follow/nonblocking, fstat regular with descriptor32MiB maximum, expected+1 cap, fd metadata stability and primary-preserving close.",
+    "modularityAndAssurance": "Public installed entrypoints, no checkout/tools runtime; finite packaging and lifecycle checks only; no OTel receiver delivery, mechanical proof, actual installed Weft compiler/native query support or hermetic runtime claim."
+  },
+  "conditions": [
+    "Root executes the exact five commands with reviewed corrected wrapper and fresh paths, retaining each phase captures/process records.",
+    "Stop on any failure; retain failed attempts separately and preserve closing custody outcomes.",
+    "Recheck expected source/tool descriptors before/after; generated wheel/venv/build metadata are outputs and do not become trusted inputs by existing in the directory.",
+    "Independently review actual produced wheel/RECORD/installed bytes and final tests before claiming completed packaging."
+  ],
+  "limitations": [
+    "No actual build/installation/venv/compiler/native execution by reviewer; fake Python transport children only.",
+    "Selected resource closure does not prove full Python stdlib/host dylib closure, deterministic or hermetic wheel construction.",
+    "This gate does not authorize new compiler/native source/ACK or SQL qualification; later actual installed CLI compiler evidence remains separate."
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "phase": "portable-installed-tests",
+  "exitCode": 0,
+  "durationSeconds": 0.6870002080000002,
+  "captureBytes": {
+    "stdout": 0,
+    "stderr": 4332
+  },
+  "captureLimitBytes": {
+    "stdout": 2097152,
+    "stderr": 2097152
+  },
+  "environmentKeys": [
+    "PATH",
+    "PIP_DISABLE_PIP_VERSION_CHECK",
+    "PIP_NO_INDEX",
+    "PYTHONDONTWRITEBYTECODE",
+    "PYTHONPATH"
+  ],
+  "scope": "Root five-phase offline packaging execution; ordinary bounded files, no durability/OTel/native guarantee."
+}

@@ -1,0 +1,31 @@
+{
+  "files": [
+    {
+      "bytes": 3724,
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/command.json",
+      "sha256": "f963b81fd99953e4facc9397224162477b07342895a420d91cb494a335fa6b90"
+    },
+    {
+      "bytes": 499082,
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/resources.json",
+      "sha256": "afaf53fbf3f5dd050b5561f84726c13e5a13e2ea07b6430aca69d2c38335b959"
+    },
+    {
+      "bytes": 23704,
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/source-inventory.json",
+      "sha256": "03e2e2660a019f390f570bdb37cc6a0d710dd69d10b38323af1da8b1dc11d632"
+    },
+    {
+      "bytes": 3638,
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/verify_installed.py",
+      "sha256": "145ed9ee2d958df01e2008b051bac78a5883ca420b23bb0ae4d17903a3589a05"
+    }
+  ],
+  "resources": {
+    "files": 2031,
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/resources.json",
+    "sha256": "afaf53fbf3f5dd050b5561f84726c13e5a13e2ea07b6430aca69d2c38335b959"
+  },
+  "scope": "Preparation only. Offline no-deps packaging in fresh runtime environment; source from exactGit only, no foreigncheckoutoverlays. Portable tests use controlled fakePythonprocesses, notWeftcompiler/nativeengines. Complete externalmacOSdylibclosure notclaimed; existing buildtool environment byteinputs pinned, inherited variables excluded.",
+  "sourceCommit": "58f801fcbaeb3faa9cd2f3e967182794d45d8194"
+}

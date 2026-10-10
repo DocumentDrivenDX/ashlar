@@ -1,0 +1,53 @@
+{
+  "verdict": "approved actual offline wheel build/install and portable installed checks",
+  "rootExecution": {
+    "reportedSession": 53235,
+    "reportedTerminalCode": 0,
+    "phases": 5,
+    "allRetainedProcessExitCodes": 0
+  },
+  "commandApproval": {
+    "path": "/private/tmp/astra-paths-wheel-command-review-20261010-a.json",
+    "bytes": 4938,
+    "sha256": "4bc70f0afcefd02fa98c083dc4e7e8428a7867ad7f6b5778b147d76dfee73405"
+  },
+  "processAndInputCustody": {
+    "path": "/private/tmp/astra-paths-wheel-result-custody-review-20261010-a.json",
+    "bytes": 5354,
+    "sha256": "e7055b8ec1f003e5b3c2e04101ace9610c4e3f9192b7ca23fda77020705e3f7e"
+  },
+  "independentWheelAndInstalledBytes": {
+    "path": "/private/tmp/astra-paths-wheel-result-review-20261010-a.json",
+    "bytes": 25967,
+    "sha256": "19aa4abee44a57e15b1c52d39493a0a49de4d84842e52352625b318ce8f10f47"
+  },
+  "wheel": {
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "bytes": 215643,
+    "sha256": "d20121995c17cd819de2648738474072302fd7859b3781f3fed1d12a53a5c146"
+  },
+  "actualVerification": {
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/installed-checks.json",
+    "bytes": 457,
+    "sha256": "a6a74c4949f07781b0f314b5bb8b907707cc4db5e64d32762ec2f956ee152144"
+  },
+  "conclusions": [
+    "Five actual offline phases completed under180s and2MiB captures each, preserving original build/install warnings.",
+    "All2031 selected original source/tool input bytes remain unchanged;95 committed source files match58f801fc; generated build/egg-info files are separately scoped outputs.",
+    "Wheel215643B/d2012199 contains93 safe regular entries:88 exact source/package resources and five metadata files; no checkout/tools/tests payload.",
+    "All88 package resource bytes match Git source, frozen export, wheel and installed fresh environment; six Paths consumer/host modules preserved.",
+    "All93 wheel RECORD rows and97 installed RECORD rows verified; installed site exact96 files plus0755 console script, other files0644; direct_url names exact wheel.",
+    "Five in-process installed ashlar.cli.main help invocations completed without SDK imports; this is not yet subprocess execution of the console script.",
+    "All27 named portable tests completedOK using synthetic/mocked inputs or controlled Python child processes, not the Weft compiler/native engine."
+  ],
+  "archiveCopy": {
+    "path": "/private/tmp/astra-paths-wheel-evidence-copy-review-20261010-b.json",
+    "bytes": 617,
+    "sha256": "21ead070af094483396918ba96754756813bf2d94fd2be070aa907a8d2c29a95"
+  },
+  "limits": [
+    "Read-only independent review; no build/install/compiler/native replay performed.",
+    "Actual packaging does not qualify new compiler execution, native source/ACK/SQL, cloud, full OS dylib closure, deterministic/hermetic build, OTel receiver delivery or machine proof.",
+    "Selected27-file archive plus manifest retains actual wheel/installedRECORD/console script; original source/tools external inventories remain referenced."
+  ]
+}

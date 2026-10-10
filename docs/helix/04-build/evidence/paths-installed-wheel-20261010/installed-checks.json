@@ -1,0 +1,12 @@
+{
+  "compilerExecuted": false,
+  "helpWithoutSDK": true,
+  "installedPackageFiles": 88,
+  "nativeExecuted": false,
+  "recordHashes": true,
+  "recordRows": 97,
+  "scope": "Offline wheel packaging and portable core only; no installed compiler/native query qualification.",
+  "sourceCommit": "58f801fcbaeb3faa9cd2f3e967182794d45d8194",
+  "sourceWheelInstalledParity": true,
+  "wheelSha256": "d20121995c17cd819de2648738474072302fd7859b3781f3fed1d12a53a5c146"
+}

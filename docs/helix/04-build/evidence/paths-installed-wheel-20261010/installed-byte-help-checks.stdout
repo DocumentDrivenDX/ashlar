@@ -1,0 +1,113 @@
+usage: ashlar [-h]
+              {install-weft,compile-weft,install-weft-paths,compile-weft-paths,inspect-source,inspect-csv,inspect-configured-source,commerce-source,archaeology-source,ecology-source,medical-source,publish-commerce,query-commerce}
+              ...
+
+positional arguments:
+  {install-weft,compile-weft,install-weft-paths,compile-weft-paths,inspect-source,inspect-csv,inspect-configured-source,commerce-source,archaeology-source,ecology-source,medical-source,publish-commerce,query-commerce}
+    install-weft        Verify and install the pinned local Weft candidate
+                        package
+    compile-weft        Compile original stdin through a retained indexed
+                        installation
+    install-weft-paths  Verify and install the separately pinned Paths
+                        candidate
+    compile-weft-paths  Compile original stdin through a retained Paths
+                        installation
+    inspect-source      Verify committed JSONL batches from stdin; no ACK
+    inspect-csv         Adapt bounded UTF-8 CSV to retained source
+                        batches/checkpoints; no ACK
+    inspect-configured-source
+                        Inspect pinned model/ID/source configuration and local
+                        replay; no database I/O
+    commerce-source     Build an exact original commerce candidate with
+                        development bindings
+    archaeology-source  Build an exact original archaeology candidate with
+                        development bindings
+    ecology-source      Build an exact original ecology candidate with
+                        development bindings
+    medical-source      Build an exact historical medical candidate using
+                        explicit public admission
+    publish-commerce    Run the explicit local commerce native host profile
+    query-commerce      Run the explicit local commerce native host profile
+
+options:
+  -h, --help            show this help message and exit
+usage: ashlar publish-commerce [-h] --output OUTPUT --jars JARS --model MODEL
+                               --graph GRAPH --umf-source UMF_SOURCE --bun BUN
+                               --git GIT --postgres-container
+                               POSTGRES_CONTAINER --postgres-host
+                               POSTGRES_HOST --postgres-database
+                               POSTGRES_DATABASE --producer-timeout-seconds
+                               PRODUCER_TIMEOUT_SECONDS
+                               --producer-maximum-output-bytes
+                               PRODUCER_MAXIMUM_OUTPUT_BYTES
+                               --producer-maximum-receipt-bytes
+                               PRODUCER_MAXIMUM_RECEIPT_BYTES --postgres-port
+                               POSTGRES_PORT --source-system SOURCE_SYSTEM
+                               --binding-profile BINDING_PROFILE
+
+options:
+  -h, --help            show this help message and exit
+  --output OUTPUT
+  --jars JARS
+  --model MODEL
+  --graph GRAPH
+  --umf-source UMF_SOURCE
+  --bun BUN
+  --git GIT
+  --postgres-container POSTGRES_CONTAINER
+  --postgres-host POSTGRES_HOST
+  --postgres-database POSTGRES_DATABASE
+  --producer-timeout-seconds PRODUCER_TIMEOUT_SECONDS
+  --producer-maximum-output-bytes PRODUCER_MAXIMUM_OUTPUT_BYTES
+  --producer-maximum-receipt-bytes PRODUCER_MAXIMUM_RECEIPT_BYTES
+  --postgres-port POSTGRES_PORT
+  --source-system SOURCE_SYSTEM
+  --binding-profile BINDING_PROFILE
+usage: ashlar query-commerce [-h] --output OUTPUT --jars JARS --model MODEL
+                             --graph GRAPH --umf-source UMF_SOURCE --bun BUN
+                             --git GIT --postgres-container POSTGRES_CONTAINER
+                             --postgres-host POSTGRES_HOST --postgres-database
+                             POSTGRES_DATABASE --producer-timeout-seconds
+                             PRODUCER_TIMEOUT_SECONDS
+                             --producer-maximum-output-bytes
+                             PRODUCER_MAXIMUM_OUTPUT_BYTES
+                             --producer-maximum-receipt-bytes
+                             PRODUCER_MAXIMUM_RECEIPT_BYTES --postgres-port
+                             POSTGRES_PORT --index INDEX --installation
+                             INSTALLATION --publication PUBLICATION
+
+options:
+  -h, --help            show this help message and exit
+  --output OUTPUT
+  --jars JARS
+  --model MODEL
+  --graph GRAPH
+  --umf-source UMF_SOURCE
+  --bun BUN
+  --git GIT
+  --postgres-container POSTGRES_CONTAINER
+  --postgres-host POSTGRES_HOST
+  --postgres-database POSTGRES_DATABASE
+  --producer-timeout-seconds PRODUCER_TIMEOUT_SECONDS
+  --producer-maximum-output-bytes PRODUCER_MAXIMUM_OUTPUT_BYTES
+  --producer-maximum-receipt-bytes PRODUCER_MAXIMUM_RECEIPT_BYTES
+  --postgres-port POSTGRES_PORT
+  --index INDEX
+  --installation INSTALLATION
+  --publication PUBLICATION
+usage: ashlar install-weft-paths [-h] --index INDEX --package PACKAGE --output
+                                 OUTPUT
+
+options:
+  -h, --help         show this help message and exit
+  --index INDEX
+  --package PACKAGE
+  --output OUTPUT
+usage: ashlar compile-weft-paths [-h] --index INDEX --installation
+                                 INSTALLATION
+
+options:
+  -h, --help            show this help message and exit
+  --index INDEX
+  --installation INSTALLATION
+{"sourceCommit": "58f801fcbaeb3faa9cd2f3e967182794d45d8194", "wheelSha256": "d20121995c17cd819de2648738474072302fd7859b3781f3fed1d12a53a5c146", "installedPackageFiles": 88, "recordRows": 97, "sourceWheelInstalledParity": true, "recordHashes": true, "helpWithoutSDK": true, "compilerExecuted": false, "nativeExecuted": false, "scope": "Offline wheel packaging and portable core only; no installed compiler/native query qualification."}

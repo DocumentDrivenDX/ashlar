@@ -1,0 +1,86 @@
+{
+  "command": {
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/command.json",
+    "sha256": "f963b81fd99953e4facc9397224162477b07342895a420d91cb494a335fa6b90"
+  },
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/freeze.json",
+    "sha256": "2cb8af4fd48c45c089fb8010d0c32cf7bc1f1edc4546f62d695621f379d1a24b"
+  },
+  "freshPaths": [
+    {
+      "absentOpeningAndClosing": true,
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment"
+    },
+    {
+      "absentOpeningAndClosing": true,
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheels"
+    },
+    {
+      "absentOpeningAndClosing": true,
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/installed-checks.json"
+    }
+  ],
+  "limits": [
+    "Selected source/build-tool/interpreter byte inventory only; it is not a full stdlib, macOS shared-library, or operating-system closure.",
+    "Current resource modes are independently recorded; the original resource inventory pins bytes and hashes, not historical modes.",
+    "The existing build-tool launcher resolves through the observed symlink chain to the pinned interpreter; selected inventory entries themselves have no symlinks.",
+    "Wrapper lifecycle, installed verifier behavior and later execution outcomes are outside this subreview."
+  ],
+  "runtime": {
+    "declaredVersions": {
+      "pip": "24.0",
+      "python": "3.11.17",
+      "setuptools": "79.0.1",
+      "wheel": "0.45.1"
+    },
+    "distributionMetadataMatches": {
+      "pip": "24.0",
+      "setuptools": "79.0.1",
+      "wheel": "0.45.1"
+    },
+    "launcherSymlinks": [
+      {
+        "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/bin/python",
+        "target": "python3.11"
+      },
+      {
+        "path": "/private/tmp/ashlar-host-wheel-env-20261010-a/bin/python3.11",
+        "target": "/Users/erik/.local/share/uv/python/cpython-3.11-macos-aarch64-none/bin/python3.11"
+      }
+    ],
+    "pyvenvConfigurationMatches": true,
+    "resolvedInterpreter": {
+      "bytes": 17277120,
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/bin/python3.11",
+      "sha256": "5ebf120b62e8d02ab22485ca328da471db27fd278069df3de01c957cc02d9cd6"
+    },
+    "runtimeExecutionByReviewer": false
+  },
+  "scope": "Read-only selected wheel-command inputs and output-path freshness; no build, install, compiler, native engine or selected interpreter execution.",
+  "selectedResources": {
+    "allSha256AndLengthsMatch": true,
+    "bytes": 42032599,
+    "closingBytesModesAndIdentityUnchanged": true,
+    "currentModeCounts": {
+      "0444": 97,
+      "0644": 1933,
+      "0755": 1
+    },
+    "files": 2031,
+    "maximumFileBytes": 17277120,
+    "regularFiles": true,
+    "selectedSymlinks": 0,
+    "sha256": "afaf53fbf3f5dd050b5561f84726c13e5a13e2ea07b6430aca69d2c38335b959"
+  },
+  "source": {
+    "allExportModes": "0444",
+    "bytes": 697984,
+    "files": 95,
+    "gitBlobModePathSetExact": true,
+    "gitCommit": "58f801fcbaeb3faa9cd2f3e967182794d45d8194",
+    "inventorySha256": "03e2e2660a019f390f570bdb37cc6a0d710dd69d10b38323af1da8b1dc11d632",
+    "selection": "complete committed src/ plus README.md, pyproject.toml and four named portable test files; not the full repository"
+  },
+  "verdict": "PASS"
+}

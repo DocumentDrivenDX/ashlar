@@ -1,0 +1,20 @@
+{
+  "phase": "installed-byte-help-checks",
+  "exitCode": 0,
+  "durationSeconds": 0.305620958,
+  "captureBytes": {
+    "stdout": 5768,
+    "stderr": 0
+  },
+  "captureLimitBytes": {
+    "stdout": 2097152,
+    "stderr": 2097152
+  },
+  "environmentKeys": [
+    "PATH",
+    "PIP_DISABLE_PIP_VERSION_CHECK",
+    "PIP_NO_INDEX",
+    "PYTHONDONTWRITEBYTECODE"
+  ],
+  "scope": "Root five-phase offline packaging execution; ordinary bounded files, no durability/OTel/native guarantee."
+}

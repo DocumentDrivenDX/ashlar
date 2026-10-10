@@ -1,0 +1,13 @@
+{
+  "verdict": "approved exact selected wheel evidence copy B",
+  "manifest": {
+    "path": "/private/tmp/ashlar-paths-wheel-evidence-20261010-b/manifest.json",
+    "bytes": 7915,
+    "sha256": "5adb1404b9f16407f0d8de98157310aca3de0a59702facc7d9705782a27f5f1c"
+  },
+  "files": 27,
+  "bytes": 783353,
+  "allExactOriginalsAndClosedSelectedTree": true,
+  "wheelAndInstalledRecordAndConsoleScriptRetained": true,
+  "scope": "Selected wheel/process/command/input inventories and reviews only. Full source/tool/runtime trees excluded as explicitly referenced external inputs; actual result approval separately retained."
+}

@@ -1,0 +1,9 @@
+Processing /private/tmp/ashlar-paths-wheel-command-20261010-a/source
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: ashlar-graph-toolkit
+  Building wheel for ashlar-graph-toolkit (pyproject.toml): started
+  Building wheel for ashlar-graph-toolkit (pyproject.toml): finished with status 'done'
+  Created wheel for ashlar-graph-toolkit: filename=ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl size=215643 sha256=d20121995c17cd819de2648738474072302fd7859b3781f3fed1d12a53a5c146
+  Stored in directory: /private/tmp/pip-ephem-wheel-cache-_tsrm3nd/wheels/95/24/69/565cbb59c88a9de3ad6050a60f5bec97d4d76ba8d709127651
+Successfully built ashlar-graph-toolkit

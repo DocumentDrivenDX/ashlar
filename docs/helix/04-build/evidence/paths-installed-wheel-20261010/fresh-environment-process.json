@@ -1,0 +1,20 @@
+{
+  "phase": "fresh-environment",
+  "exitCode": 0,
+  "durationSeconds": 0.05598049999999999,
+  "captureBytes": {
+    "stdout": 0,
+    "stderr": 0
+  },
+  "captureLimitBytes": {
+    "stdout": 2097152,
+    "stderr": 2097152
+  },
+  "environmentKeys": [
+    "PATH",
+    "PIP_DISABLE_PIP_VERSION_CHECK",
+    "PIP_NO_INDEX",
+    "PYTHONDONTWRITEBYTECODE"
+  ],
+  "scope": "Root five-phase offline packaging execution; ordinary bounded files, no durability/OTel/native guarantee."
+}

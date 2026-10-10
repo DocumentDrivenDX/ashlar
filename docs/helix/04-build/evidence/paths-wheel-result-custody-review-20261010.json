@@ -1,0 +1,137 @@
+{
+  "verdict": "actual wheel process/source/tool custody checks pass",
+  "processes": [
+    {
+      "record": {
+        "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/fresh-environment-process.json",
+        "bytes": 474,
+        "sha256": "72d83699d969d8434924c01342ec97934aa3bffd35f1dd4f18f122014aca1e5e"
+      },
+      "phase": "fresh-environment",
+      "exitCode": 0,
+      "durationSeconds": 0.05598049999999999
+    },
+    {
+      "record": {
+        "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheel-build-process.json",
+        "bytes": 471,
+        "sha256": "f3daac770b956d8f2f5d6f211ec262af1f323ab610e14be9da94eb3ed1b87632"
+      },
+      "phase": "wheel-build",
+      "exitCode": 0,
+      "durationSeconds": 1.4360384590000002
+    },
+    {
+      "record": {
+        "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheel-install-process.json",
+        "bytes": 466,
+        "sha256": "4e777637983b40d68b407b0214794697bb60063b6ee3dd6bc755796eb2538e83"
+      },
+      "phase": "wheel-install",
+      "exitCode": 0,
+      "durationSeconds": 0.416341375
+    },
+    {
+      "record": {
+        "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/installed-byte-help-checks-process.json",
+        "bytes": 478,
+        "sha256": "61352210338ae5604cd4c8034114d78af4783616f109a3fb56307d5c9a5a5daf"
+      },
+      "phase": "installed-byte-help-checks",
+      "exitCode": 0,
+      "durationSeconds": 0.305620958
+    },
+    {
+      "record": {
+        "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/portable-installed-tests-process.json",
+        "bytes": 501,
+        "sha256": "a0e6808918c2a2255131dc03ee633c6d71f034bb9dc58dfc7d3d3093efc8ec0f"
+      },
+      "phase": "portable-installed-tests",
+      "exitCode": 0,
+      "durationSeconds": 0.6870002080000002
+    }
+  ],
+  "captures": [
+    {
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/fresh-environment.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/fresh-environment.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheel-build.stdout",
+      "bytes": 758,
+      "sha256": "1ca8876013b4256665bc661e1e268f34e74f347efa8857edd491b5c3468f6717"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheel-build.stderr",
+      "bytes": 272,
+      "sha256": "8ee2af54fe7398543d85a5770559025bdcfa3d4140e9f56c291eab21a5e57ddd"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheel-install.stdout",
+      "bytes": 176,
+      "sha256": "8fa63eef65cd8c12b93cfafc9dde53fdd52a67a3717007e575531a1298dde07b"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheel-install.stderr",
+      "bytes": 272,
+      "sha256": "8ee2af54fe7398543d85a5770559025bdcfa3d4140e9f56c291eab21a5e57ddd"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/installed-byte-help-checks.stdout",
+      "bytes": 5768,
+      "sha256": "99bd65fef18e77903923dcc9ddc87622ccbe5a5546a28418bf1b5ea904b81df8"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/installed-byte-help-checks.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/portable-installed-tests.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/portable-installed-tests.stderr",
+      "bytes": 4332,
+      "sha256": "d4c86789c60e2300c54a10903fc7594854f24a562eb212df487ef908a29add1f"
+    }
+  ],
+  "installedChecks": {
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/installed-checks.json",
+    "bytes": 457,
+    "sha256": "a6a74c4949f07781b0f314b5bb8b907707cc4db5e64d32762ec2f956ee152144"
+  },
+  "wheel": {
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "bytes": 215643,
+    "sha256": "d20121995c17cd819de2648738474072302fd7859b3781f3fed1d12a53a5c146"
+  },
+  "resourceFiles": 2031,
+  "resourceBytes": 42032599,
+  "allInputsCurrentMatchOpeningPins": true,
+  "originalSourceFiles": 95,
+  "generatedSourceTreeOutputs": {
+    "files": 93,
+    "onlyBuildOrEggInfo": true
+  },
+  "portableTests": {
+    "passed": 27,
+    "allExactDeclaredTestNamesReported": true,
+    "scope": "Fake/mocked fixture authority and controlled Python transport only; no real Weft compiler/native."
+  },
+  "helps": {
+    "count": 5,
+    "allDeclaredUsageHeadersPresent": true,
+    "SDKFreeVerifierCompleted": true
+  },
+  "stderr": "Exact272-byte pip cache warning retained on build/install; unittest27-results on teststderr retained. No all-empty-stderr claim.",
+  "limitations": "Read-only receipts and hash inspection; actual wheel/installed RECORD parity is independently reviewed separately. Selected resource closure, not full host dylib closure/hermetic/deterministic packaging or installed compiler/native qualification."
+}

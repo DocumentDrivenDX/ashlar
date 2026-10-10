@@ -1,0 +1,20 @@
+{
+  "phase": "wheel-install",
+  "exitCode": 0,
+  "durationSeconds": 0.416341375,
+  "captureBytes": {
+    "stdout": 176,
+    "stderr": 272
+  },
+  "captureLimitBytes": {
+    "stdout": 2097152,
+    "stderr": 2097152
+  },
+  "environmentKeys": [
+    "PATH",
+    "PIP_DISABLE_PIP_VERSION_CHECK",
+    "PIP_NO_INDEX",
+    "PYTHONDONTWRITEBYTECODE"
+  ],
+  "scope": "Root five-phase offline packaging execution; ordinary bounded files, no durability/OTel/native guarantee."
+}
