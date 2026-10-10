@@ -1,0 +1,12 @@
+{
+  "scope": "Independent source/inert HTTP review only; no Fabric credential or cloud action",
+  "files": {
+    "src/ashlar_host/fabric_gql.py": "30b97bd335c7301e05c262cdd712a01fed5e169e963252ba708cec8791c91fa1",
+    "tests/test_fabric_gql.py": "9cab37e16d1c6933b22aad4f9ef09f4d972cebb22d0ebd0628d7ab48f7e25003"
+  },
+  "finding": "A unbounded integer decoding repaired with preconversion <=20-digit gate for JSON integer tokens and decimal strings",
+  "result": "approved within STRING/BOOL/INT64/UINT64/null subset",
+  "controls": "Python3.9 -B -S ResourceWarning test_fabric_gql: six PASS .001seconds toolchunk3232ac; official wire docs turn138view0",
+  "limitations": "Actual graph/publication authority remains mandatory supplied policy/transport; native Fabric qualification remains open",
+  "amendment": "Scoped review approves post-owned-hold deadline renewal and focused mocked-monotonic closing overrun control. Prior B retained. Root seven controls PASS7ee17b; no repeated native/portable run by reviewer."
+}

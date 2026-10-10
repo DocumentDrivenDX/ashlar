@@ -1,0 +1,10 @@
+{
+  "files": {
+    "src/ashlar_host/fabric_gql.py": "30b97bd335c7301e05c262cdd712a01fed5e169e963252ba708cec8791c91fa1",
+    "tests/test_fabric_gql.py": "9cab37e16d1c6933b22aad4f9ef09f4d972cebb22d0ebd0628d7ab48f7e25003",
+    ".github/workflows/fabric-gql.yml": "738317979ac4085a60de774f0684c277b5851476e595e92a419aef1d3bf9128c",
+    "examples/end-to-end/FABRIC-GQL.md": "9694a588b880a753de489ea0d8edadea19b9ba9b81a37ea7378e5b6d0a798e0c"
+  },
+  "scope": "Portable explicit transport/policy reader and user guide; seven controls; no live Fabric proof",
+  "independentSourceReview": "/private/tmp/ashlar-fabric-gql-independent-review-20261010-c.json"
+}
