@@ -1,0 +1,38 @@
+{
+  "build_command": "cargo build --offline --locked --release -p weft-runtime --features ashlar-databricks-candidate",
+  "source_archive": "f05f2df09e9c2494ac8c6d703dfe38413dbc4181",
+  "rustc": "rustc 1.90.0 (1159e78c4 2025-09-14)\nbinary: rustc\ncommit-hash: 1159e78c4747b02ef996e55082b704c09b970588\ncommit-date: 2025-09-14\nhost: aarch64-apple-darwin\nrelease: 1.90.0\nLLVM version: 20.1.8\n",
+  "build_outcome": "exit 0",
+  "scope": "Original three requests replay byte-identically, but this compiler binary is not admitted by the current host. No native query, portable cross-platform reproducibility or broadened host support claim.",
+  "source_archive_directory": "/private/tmp/ashlar-f05-compiler-rebuild-20261009",
+  "compiler_output": "/private/tmp/ashlar-f05-compiler-rebuild-20261009/target/release/weft-runtime",
+  "declared_build_environment": {
+    "CARGO_HOME": "/private/tmp/weft-toolchain/cargo",
+    "RUSTUP_HOME": "/private/tmp/weft-toolchain/rustup",
+    "toolchain_bin": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/bin"
+  },
+  "environment_capture_limit": "No complete build-time environment was captured. Unrecorded Cargo/Rust variables, linker state and cached dependency build environment remain unknown. This receipt establishes the observed build and three exact replays, not deterministic binary reproduction or the cause of the checksum difference.",
+  "retained_original_run": {
+    "durable_native_report": "docs/helix/04-build/evidence/commerce-publication-weft-20261009.json",
+    "sha256": "e4c68d1a2202e476e4a56af6fd7c2f4bc4e9e77be0b744c63f4a351ec55bbe2c",
+    "original_request_artifact_directory": "/private/tmp/ashlar-canonical-commerce-publication-weft-20261009-a",
+    "cases": [
+      {
+        "name": "count",
+        "request_origin": "/private/tmp/ashlar-canonical-commerce-publication-weft-20261009-a/count-request.json",
+        "artifact_origin": "/private/tmp/ashlar-canonical-commerce-publication-weft-20261009-a/count-artifact.json"
+      },
+      {
+        "name": "string-decimal",
+        "request_origin": "/private/tmp/ashlar-canonical-commerce-publication-weft-20261009-a/string-decimal-request.json",
+        "artifact_origin": "/private/tmp/ashlar-canonical-commerce-publication-weft-20261009-a/string-decimal-artifact.json"
+      },
+      {
+        "name": "products-suppliers",
+        "request_origin": "/private/tmp/ashlar-canonical-commerce-publication-weft-20261009-a/products-suppliers-request.json",
+        "artifact_origin": "/private/tmp/ashlar-canonical-commerce-publication-weft-20261009-a/products-suppliers-artifact.json"
+      }
+    ],
+    "scope": "Expected bytes copied verbatim from retained outputs of this historical native run. The durable native report qualifies its three results; it does not independently supply the compiler artifact bytes."
+  }
+}

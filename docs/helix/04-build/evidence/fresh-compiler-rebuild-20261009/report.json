@@ -1,0 +1,37 @@
+{
+  "format": "ashlar-fresh-compiler-replay/0.1",
+  "source_revision": "f05f2df09e9c2494ac8c6d703dfe38413dbc4181",
+  "compiler_sha256": "dde441fc8f1abcd51665c8c7bc4c2e64bf98d1e2c2755ebeb1e7e3e757c5c908",
+  "host_accepted_sha256": "0e5a6607aaa21371db50cfc81e2ab453441566c1cdcdd6096ef949e72eb0b3ff",
+  "host_acceptance": false,
+  "native_execution": false,
+  "queries": [
+    {
+      "name": "count",
+      "exit_code": 0,
+      "semantic_json_equal": true,
+      "byte_equal": true,
+      "request_sha256": "67cd27cb3408f31d325aa47205519e92f79bda67d93968c065bf1a1ae627dec6",
+      "expected_sha256": "c10e3fdb103347f95dc65f095f8273996117845f6bb38d67fbe01be8e4f32630",
+      "actual_sha256": "c10e3fdb103347f95dc65f095f8273996117845f6bb38d67fbe01be8e4f32630"
+    },
+    {
+      "name": "string-decimal",
+      "exit_code": 0,
+      "semantic_json_equal": true,
+      "byte_equal": true,
+      "request_sha256": "4da4ca87a1314199fecaa84f6890254d64d0d40f911b7fd1cc278169110c7506",
+      "expected_sha256": "9384d711be124c4af7942d0c58250246b524b076abe87a383ad57f29f28ec187",
+      "actual_sha256": "9384d711be124c4af7942d0c58250246b524b076abe87a383ad57f29f28ec187"
+    },
+    {
+      "name": "products-suppliers",
+      "exit_code": 0,
+      "semantic_json_equal": true,
+      "byte_equal": true,
+      "request_sha256": "f0e9d8041c3896d1ffd52c0acf0882b1c58e551396dca93af819b53c7b0f4f63",
+      "expected_sha256": "cecbb92e64db1c90e3400d6987122977f33a35ea574494045b6a67b1af170ffd",
+      "actual_sha256": "cecbb92e64db1c90e3400d6987122977f33a35ea574494045b6a67b1af170ffd"
+    }
+  ]
+}
