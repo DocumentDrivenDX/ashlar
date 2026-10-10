@@ -1,0 +1,95 @@
+{
+  "format": "ashlar-original17-graphframes-native-custody/0.1",
+  "ashlar_commit": "8171fb6234f0aeccad3f132762a3867396727c3d",
+  "scope": "Actual bounded in-memory typed DataFrames in a genuine GraphFrame; native Spark relational operations reproduce seventeen original authored scenarios. No new Delta materialization, unchanged SQL execution, Weft or PuppyGraph qualification. Original immutable Delta export provenance retained separately.",
+  "original_authored_cases": 17,
+  "source_references": [
+    {
+      "path": "tools/run_pack_scenario_graphframes.py",
+      "git_commit": "8171fb6234f0aeccad3f132762a3867396727c3d",
+      "sha256": "8f493053466eb8a668305adfcebd5cce998bdf2a2a07d16746c068c7c5d7e8b9"
+    },
+    {
+      "path": "tests/test_pack_scenario_graphframes.py",
+      "git_commit": "8171fb6234f0aeccad3f132762a3867396727c3d",
+      "sha256": "43abafc75a67eaaa76777ae9f9566b809d0b14e4eb597b4d634d64be3a17f16f"
+    },
+    {
+      "path": "tools/prepare_pack_graph_scenarios.py",
+      "git_commit": "8171fb6234f0aeccad3f132762a3867396727c3d",
+      "sha256": "2c76d467c6258aa568c115e91e32e66b27a2f07bd5f2c0f0d718b754f1181dbd"
+    },
+    {
+      "path": "tools/run_pack_release_graphframes.py",
+      "git_commit": "8171fb6234f0aeccad3f132762a3867396727c3d",
+      "sha256": "508daab0b1bf6dfc1d22f1c9b5b4aae9ecba1b30607ac16e7b37174c9f07f199"
+    },
+    {
+      "path": "tools/run_graph_release_graphframes.py",
+      "git_commit": "8171fb6234f0aeccad3f132762a3867396727c3d",
+      "sha256": "3264587cfe01b915780995c518a7fb357852ec99fe8d781e3432c14c50dbb23f"
+    },
+    {
+      "path": "tools/prepare_pack_query_cases.py",
+      "git_commit": "8171fb6234f0aeccad3f132762a3867396727c3d",
+      "sha256": "8e8bcfa08c3ba14e2e0b6f54722cb59a9280b7754600882956d30c720d99751e"
+    },
+    {
+      "path": "tools/archaeology_graph_oracle.py",
+      "git_commit": "8171fb6234f0aeccad3f132762a3867396727c3d",
+      "sha256": "da854f9289d235b32f450aaf7211dcb7119bccaf58488dd50510b010daaf36ca"
+    },
+    {
+      "path": "tools/ecology_graph_oracle.py",
+      "git_commit": "8171fb6234f0aeccad3f132762a3867396727c3d",
+      "sha256": "d599d85db7adb6abc1d2e2f07883a6b8fa3ec5fa3c238c82cbd73a4523820350"
+    },
+    {
+      "path": "tools/check_archaeology_dataset_compact.ts",
+      "git_commit": "8171fb6234f0aeccad3f132762a3867396727c3d",
+      "sha256": "5b7edb81e50a96ab9e3da265a3f73b937c7f2a629cba9499b4ed84f419028e2e"
+    },
+    {
+      "path": "tools/check_ecology_dataset_compact.ts",
+      "git_commit": "8171fb6234f0aeccad3f132762a3867396727c3d",
+      "sha256": "a71c49f1db6094ed845aaa3bab0b43770ddabd3cf234c6c64f6f4767a443c392"
+    }
+  ],
+  "jars": [
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.delta_delta-spark_2.12-3.2.1.jar",
+      "sha256": "088e187da689a347a6a8556dcb22318e3dfcfb995d807f5e2c19b4d0a7ee9499",
+      "bytes": 6122814
+    },
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.delta_delta-storage-3.2.1.jar",
+      "sha256": "4dcc179fc4076bda5060a4038f979c53e1f5916cf04971e28f9441db390763c7",
+      "bytes": 24948
+    },
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.graphframes_graphframes-graphx-spark3_2.12-0.12.3.jar",
+      "sha256": "8bbd2bbb4c7a3b137e51b4f32f49a30a2ccf70eeb07b452cffa20090dd481b96",
+      "bytes": 418271
+    },
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.graphframes_graphframes-spark3_2.12-0.12.3.jar",
+      "sha256": "69d7909628caf42bcbe1c7e6e5a5a0901040d00583738d931af41bd72af1d3dc",
+      "bytes": 537023
+    }
+  ],
+  "versions": {
+    "delta-spark": "3.2.1",
+    "graphframes-py": "0.12.3",
+    "pyspark": "3.5.3"
+  },
+  "runtime": {
+    "python": "/private/tmp/ashlar-spark311/bin/python",
+    "JAVA_HOME": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/jdk4py/java-runtime",
+    "PYTHONPATH": "src:tools",
+    "SPARK_LOCAL_IP": "127.0.0.1",
+    "qualification": "Owner-confirmed launch; runtime dependencies checked by adapter before Spark. No invented native observation."
+  },
+  "cleanup": "Owner observed terminal exit0; tool persists success only after Spark.stop and final source custody check.",
+  "plans": "Exact native executed plans and ordered rows retained in original lossless report.",
+  "source_export_reference": "docs/helix/04-build/evidence/original-pack-graph-exports-20261009/summary.json"
+}

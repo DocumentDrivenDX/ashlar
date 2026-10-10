@@ -1,0 +1,336 @@
+{
+  "prior_reference": "docs/helix/04-build/evidence/original17-graph-scenario-profile-20261009/source-references.json",
+  "prior_reference_sha256": "d7e3ced62d18497b15c74d1366cd665d2ac463ff0d4aac270f41eb3a63cac6a2",
+  "all_54_blobs_unchanged_at": "8171fb6234f0aeccad3f132762a3867396727c3d",
+  "references": [
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/apply.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/apply.py",
+      "sha256": "3b1bcdff055a67744f738508363914efa68a3711aeb084d7f221579cd68082d1"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/archaeology_source.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/archaeology_source.py",
+      "sha256": "40679abae4ca8365e17efd02376c525c5097d3bb2d699850945855804ff70c2c"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/attempt_store.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/attempt_store.py",
+      "sha256": "836a1cebf179efe27e5d578b903b3e7fa3514f991aff0dde49ec47991b077a44"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/binding.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/binding.py",
+      "sha256": "675384f08081f33c5e32f03ea6a9a988c3559b24dc9901ba65431fb9592b7b3b"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/catalog.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/catalog.py",
+      "sha256": "2eaa107b2898f210bb7ae8cdba38a2c4d50f4169bc637de9633ca6708bca9e3f"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/commerce_source.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/commerce_source.py",
+      "sha256": "4b50f2a8531e05f087b535ccfdd2e3ffa8292e5f47302b1e4b569e58f732a746"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/ecology_source.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/ecology_source.py",
+      "sha256": "305aae55528c6c7c748c61be290b74c40a9079238ae158d69fc9dd50b46c7ec9"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/graph_release.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/graph_release.py",
+      "sha256": "f1481f4e1cd261893dfb5c613cb31823168e72dbc11e57aef8d4708ff6be33b3"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/manifest.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/manifest.py",
+      "sha256": "7951cec41e3f5ca19f0a53ed80b60f2bae3a1835effc77dccaf49113a3db9e9c"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/medical_source.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/medical_source.py",
+      "sha256": "dd02f4214e42019f3f85938ad79987f3510938b37ccb5aeed6f1111a86623978"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/native.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/native.py",
+      "sha256": "fc54aef7407242fe8b8811ff0da7ceb7fc5030a1be1b178b4fe0be9e3f0fcec4"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/outbox.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/outbox.py",
+      "sha256": "6277185048c05afbafdce2229b0cccd8d28dfe334b748f9a6aa14274b9f399a4"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/pins.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/pins.py",
+      "sha256": "6bed2f6ae9dd937bc08e4fb67504052d8036a0952c3cff3477c2c39019a88ad8"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/publication.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/publication.py",
+      "sha256": "8adb659c2b83aa831fe766c97861dcb1d069eecf34e749b6be4da4c8246b979a"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/publisher.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/publisher.py",
+      "sha256": "7d14fbe76b280615e548694bebcd97e2f9c22a9113ba0a5f20bd9912a7385b1c"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/schema.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/schema.py",
+      "sha256": "cbec6dd4aaa3e6cdbd29383f169855d63470d6ed468a3faff159afac0252273f"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/semantic_policy.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/semantic_policy.py",
+      "sha256": "74c0e18967f4677927a13cdf7bb8705c50265ef278d2b340a5fa617ecf09cfb8"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/source.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/source.py",
+      "sha256": "d707482f3512fbbf4be02469208aa0bd10e7bca7e2bf6ed4f4b03c33948a91f2"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/source_checkpoint.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/source_checkpoint.py",
+      "sha256": "0ef05a0eecf85d8989ae5245c45812c4936fe6e02372b37838a794e170996625"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/staging.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/staging.py",
+      "sha256": "b2807c11bf2703f47646765e5e8d9a43af4863cce8ad6a3909b25d89c0058545"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/stored_publisher.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/stored_publisher.py",
+      "sha256": "36f50d738335c511dafc987a7f73fc8eec9d7c417a60a2b0dd4d6204aade2202"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "src/ashlar/whole_entity.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:src/ashlar/whole_entity.py",
+      "sha256": "4f2102505851e7bc916df91b625f7a99677d11c79828603c01395f1d7648424f"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tests/test_pack_graph_scenarios.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tests/test_pack_graph_scenarios.py",
+      "sha256": "6aef0f315791c8e68d0b9133bcd3441aa3461e5c11cb235df4c82833ac005ab6"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tests/test_pack_puppygraph.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tests/test_pack_puppygraph.py",
+      "sha256": "452fbcbc234000d2f9bc08c3a8c893498d0f29870bdc712d7255726f37674bfd"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/activate_commerce_puppygraph.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/activate_commerce_puppygraph.py",
+      "sha256": "ae60ee27f6705b81606ba6eb031c68ad6d18ac2cda470cc306bf3e1b919d77ac"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/archaeology_graph_oracle.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/archaeology_graph_oracle.py",
+      "sha256": "da854f9289d235b32f450aaf7211dcb7119bccaf58488dd50510b010daaf36ca"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/archaeology_source_transaction.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/archaeology_source_transaction.py",
+      "sha256": "87ff752e1a2774b515a3ce97da5ce65f100166dcbb958d38db27d6ea33954819"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/check_pack_puppygraph.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/check_pack_puppygraph.py",
+      "sha256": "b947e153e242402bf7e0fb128c4193d2f45ac08d3777a3c594ed703c5ca090f9"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/check_puppygraph_releases.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/check_puppygraph_releases.py",
+      "sha256": "ab529ff925ac52cac2dd65fca4b52f017d6d1ca19b18b149f0f48b0bcd743eb9"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/commerce_source_transaction.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/commerce_source_transaction.py",
+      "sha256": "8b8b185c4ed3cadb554ce0415d8029bb1c3a98b354505d8b01debcba6af17db7"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/ecology_graph_oracle.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/ecology_graph_oracle.py",
+      "sha256": "d599d85db7adb6abc1d2e2f07883a6b8fa3ec5fa3c238c82cbd73a4523820350"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/ecology_source_transaction.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/ecology_source_transaction.py",
+      "sha256": "47b1eb206885d54569fb17ee53d4aa4ac107204132aad6bc2e351126654f934f"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/fixture_oracle.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/fixture_oracle.py",
+      "sha256": "f98002ddb99e7f6c9c8dc255e4fe26f3e422285b77fa91626d244656d138a234"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/local_delta_custody.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/local_delta_custody.py",
+      "sha256": "b4842277c1c53320b75a641074f1efa1a16420920f952b3bdd63506249a3dd12"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/local_outbox_connection.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/local_outbox_connection.py",
+      "sha256": "1e9cff1bea23185aa640789e7c684b1c8474293f06f90f2cc6f2ca3d30fdd555"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/medical_historical_oracle.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/medical_historical_oracle.py",
+      "sha256": "d16b8873f902d2bb50094aa2f1f245d8355e0615b3577775a1b4aaba36c95b48"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/medical_source_oracle.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/medical_source_oracle.py",
+      "sha256": "907a6e2e946583f6b21ea5c1062be8a82da60cb63b1a8b54b62b7d1f9d5e1c4d"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/medical_source_transaction.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/medical_source_transaction.py",
+      "sha256": "057275ffa943d128d8a6065d3ad642eb44fe6aac435a79314a649d0466a11c43"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/postgres_transactions.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/postgres_transactions.py",
+      "sha256": "3fd105abee30c212a48ef33a33f727a3af6abf9b725b4b21295fd911e5719a9b"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/prepare_pack_graph_scenarios.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/prepare_pack_graph_scenarios.py",
+      "sha256": "2c76d467c6258aa568c115e91e32e66b27a2f07bd5f2c0f0d718b754f1181dbd"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/prepare_pack_puppygraph.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/prepare_pack_puppygraph.py",
+      "sha256": "aa727d8e7086a8fbd8a9a9410a8ec54c5f768bc01b0d35f7bc484be82f9fa902"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/prepare_pack_query_cases.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/prepare_pack_query_cases.py",
+      "sha256": "8e8bcfa08c3ba14e2e0b6f54722cb59a9280b7754600882956d30c720d99751e"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/private_graph_custody.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/private_graph_custody.py",
+      "sha256": "3c5c0da967cc67e30fee5d996d7497f8be970b621d6d4238c675ca9eccd82ff8"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/protected_outbox_ack.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/protected_outbox_ack.py",
+      "sha256": "acfa8f19d0288ccda7119aafd6ae6ff7e4fc0aa58e85fa1271ffece6982d1791"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/run_archaeology_outbox_publication.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/run_archaeology_outbox_publication.py",
+      "sha256": "b9cea56ec8cf6d99fc7557489f1ac811a58ac59e47437ecbf17e3cb4049a2957"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/run_commerce_outbox_publication.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/run_commerce_outbox_publication.py",
+      "sha256": "6d726f9bf88abd6790072b0271dfdd71154f6b73c807a21dcbdb8909aae27308"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/run_commerce_release_graphframes.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/run_commerce_release_graphframes.py",
+      "sha256": "b3c224a8da693997ecdba4ac89f6aca73adb5fe1eb506aaf6a94fdd3db3551f2"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/run_ecology_outbox_publication.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/run_ecology_outbox_publication.py",
+      "sha256": "51efa0ce08b962e83270ad06e9ae10de5f3510518494d35fc41351b9c587ccc6"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/run_graph_release_graphframes.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/run_graph_release_graphframes.py",
+      "sha256": "3264587cfe01b915780995c518a7fb357852ec99fe8d781e3432c14c50dbb23f"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/run_local_example.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/run_local_example.py",
+      "sha256": "5c73ca7c680742269605315d7677f1dca4a9d41555691fa81a4f45a3f4d8032c"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/run_local_outbox_publication.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/run_local_outbox_publication.py",
+      "sha256": "7ba69cc14d390c8a1f2a681de1251ef8b4760ef0887d268cf47001d6803026a5"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/run_medical_outbox_publication.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/run_medical_outbox_publication.py",
+      "sha256": "4ac0b2d075c9e061f661bff66ea62431ac554196e48ddcd24fcba792bd6b81d6"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/run_pack_release_graphframes.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/run_pack_release_graphframes.py",
+      "sha256": "508daab0b1bf6dfc1d22f1c9b5b4aae9ecba1b30607ac16e7b37174c9f07f199"
+    },
+    {
+      "commit": "737ed1cf002764ad04e234057bae81293593029b",
+      "path": "tools/whole_graph_sql.py",
+      "reference": "git:737ed1cf002764ad04e234057bae81293593029b:tools/whole_graph_sql.py",
+      "sha256": "e599fba56cdb0d4259942f4855a4a3bca4e0a96cbadc2d88f87ebfd92105cff3"
+    }
+  ],
+  "reproduction": {
+    "candidates": "/private/tmp/ashlar-original17-graph-candidates-20261009.json",
+    "umf": "/private/tmp/ashlar-umf-dataset-compact-fc78",
+    "command": "JAVA_HOME=/private/tmp/ashlar-db-client/lib/python3.9/site-packages/jdk4py/java-runtime SPARK_LOCAL_IP=127.0.0.1 PYSPARK_PYTHON=/private/tmp/ashlar-spark311/bin/python PYSPARK_DRIVER_PYTHON=/private/tmp/ashlar-spark311/bin/python PYTHONPATH=src:tools /private/tmp/ashlar-spark311/bin/python tools/run_pack_scenario_graphframes.py --candidates /private/tmp/ashlar-original17-graph-candidates-20261009.json --umf /private/tmp/ashlar-umf-dataset-compact-fc78 --jars /private/tmp/ashlar-scale-ivy/jars --output <fresh-absent-directory>"
+  }
+}
