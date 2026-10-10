@@ -182,6 +182,21 @@ remain for explicit reconciliation. The local POSIX filesystem and enclosing
 exclusive writer are assumptions; this port does not prove native submission,
 publication or ACK. Journal payloads must not enter CONTRACT-006 diagnostics.
 
+`LocalDeltaEffects.prepare` retains the exact ordered whole effect intent before
+submission and returns its original ordinal identities. `observe` reads only
+that retained whole plan and exact per-operation custody under current policy.
+A missing operation record is a journal observation, never proof of native
+absence. Recovery routes retained ordinals through the original recovery port;
+an ordinal without a record reaches first submission only through the transport's
+mandatory named-native-commit/history refusal checks. Submitted absent or
+ambiguous commits remain uncertain and cannot authorize replacement mutations.
+Opening and closing admission must complete before releasing plan/status results.
+Fresh retention and initial execution refuse a missing whole plan when any derived
+original ordinal already has custody; neither recreates that lost original. If
+ordinal custody is also missing, only current authoritative fresh admission and
+the transport's named-native-commit checks may establish a first submission.
+
+
 
 The producer transport uses the selected installed host Python runtime for a fixed,
 shell-free supervisor; caller arguments remain data and select only the pinned

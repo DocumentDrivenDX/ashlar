@@ -1,0 +1,20 @@
+{
+  "profile": "ashlar-effect-plan-suppressed-admission-counterexample/0.1",
+  "observation": "Actual pre-fix execution against owning Tests SQLite transport and inert Engine; source was live/unfrozen and is not claimed exact pinned baseline",
+  "tool_chunk": "3db843",
+  "command": "PYTHONPATH=src:tests python3 -S with test_local_delta_effect_plan.Tests fixture; transport.policy replaced by contextmanager swallowing PermissionError; admit always raises PermissionError; call fixture.prepare()",
+  "actual_exit": 0,
+  "actual_output": {
+    "plan_sha256": "1c90633da8d5cf783f6874ba6b9ad6524a0a32c440c0493ea060227512c225e4",
+    "intent_digest": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "operation": "whole-plan",
+    "operation_ids": [
+      "local-effect:1c90633da8d5cf783f6874ba6b9ad6524a0a32c440c0493ea060227512c225e4:0",
+      "local-effect:1c90633da8d5cf783f6874ba6b9ad6524a0a32c440c0493ea060227512c225e4:1"
+    ],
+    "retained_plans": 0
+  },
+  "finding": "Prepare released success after writer suppressed mandatory admission failure; observe had analogous closing suppression risk",
+  "required_fix": "Initialize completion resultNone, set only after closing admission/profile checks, reject missing completion after writer exits",
+  "scope": "Independent inert owning transport counterexample; no native engine/source/ACK or secret/network access"
+}

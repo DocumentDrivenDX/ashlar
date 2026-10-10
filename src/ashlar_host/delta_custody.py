@@ -418,16 +418,101 @@ class LocalDeltaEffects:
     def recover(self, operation, intent_digest, steps, *, context):
         return self._execute(operation, intent_digest, steps, context, recovery=True)
 
-    def _execute(self, operation, intent_digest, steps, context, *, recovery):
+    def original_plan(self, operation, intent_digest, steps):
+        """Validate and freeze exact ordered intent; this grants no admission."""
+        if (type(operation) is not str or not operation or len(operation) > 1024
+                or type(intent_digest) is not str or not re.fullmatch('[0-9a-f]{64}', intent_digest)):
+            raise LocalDeltaError('Original whole operation/request identity required')
         if type(steps) is not list or not 1 <= len(steps) <= 100 or any((type(s) is not dict or set(s) != {'statement', 'parameters'} for s in steps)):
             raise LocalDeltaError('Bounded exact ordered native effect plan required')
-        original = encoded({'profile': 'ashlar-local-delta-effects/0.1', 'installation_id': self.transport.installation_id, 'operation': operation, 'intent_digest': intent_digest, 'steps': steps})
+        body = {'profile': 'ashlar-local-delta-effects/0.1', 'installation_id': self.transport.installation_id, 'operation': operation, 'intent_digest': intent_digest, 'steps': steps}
+        bounded_local_json_bytes(body, 4194304)
+        original = encoded(body)
         digest = sha(original)
         if len(original.encode()) > 4194304:
             raise LocalDeltaError('Bounded exact effect intent required')
-        for step in steps:
+        frozen_steps = json.loads(original)['steps']
+        for step in frozen_steps:
             self.transport._target(step['statement'])
             self.transport._parameters(step['parameters'])
+        identities = ['local-effect:' + digest + ':' + str(i) for i in range(len(frozen_steps))]
+        return original, digest, identities
+
+    def prepare(self, operation, intent_digest, steps, *, context):
+        """Retain whole original intent before effects; no mutation or initialization.
+
+        Exact repeated retention returns the same identities. Existing custody is
+        never replaced; missing or changed original operation states still require
+        the transport's independent native admission during execution/recovery.
+        """
+        original, digest, identities = self.original_plan(operation, intent_digest, steps)
+        result = None
+        with self.transport.policy.writer(operation, context) as permit:
+            if permit is not None or self.transport.policy.admit(json.loads(original), context) is not None:
+                raise LocalDeltaError('Whole original effect plan admission incomplete')
+            self.transport._profile()
+            with self.transport._lock():
+                row = self.transport.db.execute('SELECT original,digest FROM local_plan WHERE operation=?', (operation,)).fetchone()
+                if row is None:
+                    placeholders = ','.join('?' for _ in identities)
+                    if self.transport.db.execute('SELECT 1 FROM local_operation WHERE operation IN (' + placeholders + ') LIMIT 1', identities).fetchone():
+                        raise LocalDeltaError('Original ordinal custody exists without whole plan; no restoration')
+                    with self.transport.db:
+                        self.transport.db.execute('INSERT INTO local_plan VALUES(?,?,?)', (operation, original, digest))
+                elif row != (original, digest):
+                    raise LocalDeltaError('Original ordered effect plan differs')
+            if self.transport.policy.admit(json.loads(original), context) is not None:
+                raise LocalDeltaError('Closing whole original effect plan admission incomplete')
+            self.transport._profile()
+            result = {'plan_sha256': digest, 'intent_digest': intent_digest,
+                      'operation': operation, 'operation_ids': identities}
+        if result is None:
+            raise LocalDeltaUncertain('Whole effect preparation completion suppressed')
+        return result
+
+    def observe(self, operation, intent_digest, steps, *, context):
+        """Read only original whole-plan/ordinal custody under current admission.
+
+        'no-operation-record' is a journal observation, not native absence proof.
+        The mutation owner must still inspect original named native commit history
+        before a first submission. Submitted or committed rows never authorize a
+        replacement; the recovery owner independently reconciles exact receipts.
+        """
+        original, digest, identities = self.original_plan(operation, intent_digest, steps)
+        result = None
+        with self.transport.policy.writer(operation, context) as permit:
+            if permit is not None or self.transport.policy.admit(json.loads(original), context) is not None:
+                raise LocalDeltaError('Whole original effect plan admission incomplete')
+            self.transport._profile()
+            with self.transport._lock():
+                plan = self.transport.db.execute('SELECT original,digest FROM local_plan WHERE operation=?', (operation,)).fetchone()
+                if plan != (original, digest):
+                    raise LocalDeltaError('Exact original effect plan missing or changed')
+                states = []
+                for key, step in zip(identities, json.loads(original)['steps']):
+                    row = self.transport.db.execute('SELECT intent,intent_sha,state,receipt FROM local_operation WHERE operation=?', (key,)).fetchone()
+                    if row is None:
+                        states.append('no-operation-record')
+                        continue
+                    target = self.transport._target(step['statement'])
+                    expected = original_operation_intent(self.transport.installation_id, key, intent_digest,
+                        step['statement'], step['parameters'], target, self.transport.operation_capacity)
+                    if (row[0] != expected or row[1] != sha(expected)
+                            or row[2] not in ('prepared', 'submitted', 'committed')
+                            or (row[2] == 'committed') != (row[3] is not None)):
+                        raise LocalDeltaError('Exact original operation custody differs')
+                    states.append(row[2])
+            if self.transport.policy.admit(json.loads(original), context) is not None:
+                raise LocalDeltaError('Closing whole original effect plan admission incomplete')
+            self.transport._profile()
+            result = {'plan_sha256': digest, 'intent_digest': intent_digest,
+                      'operation': operation, 'operation_ids': identities, 'states': states}
+        if result is None:
+            raise LocalDeltaUncertain('Whole effect observation completion suppressed')
+        return result
+
+    def _execute(self, operation, intent_digest, steps, context, *, recovery):
+        original, digest, identities = self.original_plan(operation, intent_digest, steps)
         result = None
         with self.transport.policy.writer(operation, context) as permit:
             if permit is not None:
@@ -444,14 +529,23 @@ class LocalDeltaEffects:
                 if row is None:
                     if recovery:
                         raise LocalDeltaError('Original effect plan missing; no replacement')
+                    placeholders = ','.join('?' for _ in identities)
+                    if self.transport.db.execute('SELECT 1 FROM local_operation WHERE operation IN (' + placeholders + ') LIMIT 1', identities).fetchone():
+                        raise LocalDeltaError('Original ordinal custody exists without whole plan; no restoration')
                     with self.transport.db:
                         self.transport.db.execute('INSERT INTO local_plan VALUES(?,?,?)', (operation, original, digest))
                 elif row != (original, digest):
                     raise LocalDeltaError('Original ordered effect plan differs')
             results = []
             for (i, step) in enumerate(json.loads(original)['steps']):
-                key = 'local-effect:' + digest + ':' + str(i)
+                key = identities[i]
+                # Whole-plan custody remains mandatory. Existing ordinal custody
+                # must enter the original recovery port; only an absent ordinal
+                # reaches first submission, whose transport rechecks native history
+                # and refuses a named commit with missing operation custody.
                 function = self.transport.mutation
+                if recovery and self.transport.db.execute('SELECT 1 FROM local_operation WHERE operation=?', (key,)).fetchone():
+                    function = self.transport.recover
                 receipt = function(key, step['statement'], step['parameters'], intent_digest=intent_digest, context=context).rows
                 results.append(receipt)
                 expected_versions[self.transport._target(step['statement']).table] = int(receipt[0]['version'])

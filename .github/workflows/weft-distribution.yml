@@ -50,6 +50,7 @@ jobs:
           PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_evolution_producer.py
           PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_evolution_admission.py
           PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_evolution_plan_journal.py
+          PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_local_delta_effect_plan.py
           PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_query_cases.py
           PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_weft_request.py
           PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_pack_publication_weft.py

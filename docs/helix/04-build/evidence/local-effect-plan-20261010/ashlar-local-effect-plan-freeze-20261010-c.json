@@ -1,0 +1,49 @@
+{
+  "profile": "ashlar-local-effect-plan-freeze/0.1",
+  "base": "ca8f437983148c871bd4f8381d002f5033dc3ea4",
+  "scope": "Public exact whole-effect preparation/identity/observation and explicit recovery dispatch in existing owning native transport, exercised using real SQLite custody and an inert engine. No native execution, source/oracle authority, installed facade or protected ACK qualification.",
+  "files": [
+    {
+      "path": "src/ashlar_host/delta_custody.py",
+      "bytes": 35460,
+      "sha256": "741da7b031a83b68357e0c69be949c96475a9023e0125f900a4c1a64a39a0c44"
+    },
+    {
+      "path": "tests/test_local_delta_effect_plan.py",
+      "bytes": 12752,
+      "sha256": "55abbeb69e4344c3c8c713f4a24ad670f21711a0999ef457fe0ed2d8c9a9cbe2"
+    },
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 40829,
+      "sha256": "e5b2e59f465e9b9f8164965043217f32e11e7caa51918841efc5a6158a66291f"
+    },
+    {
+      "path": ".github/workflows/weft-distribution.yml",
+      "bytes": 4214,
+      "sha256": "e638086bb55e55d70c4a3012c9d5fd6ef35b63b5e372c221d4b98c0a349273c7"
+    }
+  ],
+  "tests": {
+    "count": 13,
+    "python": "/usr/bin/python3 -S -W error::ResourceWarning",
+    "logs": [
+      {
+        "path": "/private/tmp/ashlar-local-effect-plan-tests-20261010-c.log",
+        "bytes": 1476,
+        "sha256": "51d815298fd10d0eec773979a1ce27e7c01cd8343db0ea9281fee90e9fe7ad2a"
+      },
+      {
+        "path": "/private/tmp/ashlar-local-effect-plan-boundaries-20261010-c.log",
+        "bytes": 94,
+        "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+      }
+    ]
+  },
+  "findings_fixed": [
+    "Suppressed opening/closing writer failures cannot produce prepare/observe success",
+    "Validate frozen serialized steps instead of mutable borrowed list; malformed second step still refuses",
+    "Validate bounded operation and exact request digest before retention",
+    "Fresh prepare and initial run refuse missing whole-plan custody when derived ordinal records already exist; no lost-plan restoration"
+  ]
+}

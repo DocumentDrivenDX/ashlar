@@ -1,0 +1,41 @@
+{
+  "profile": "ashlar-local-effect-plan-independent-review/0.1",
+  "decision": "approve corrected C; B remains withdrawn",
+  "freeze_sha256": "9aa0d6df1a3dd981db819150691606da9dceb585ea9298cad5c92b592ee26e52",
+  "owned_sha256": {
+    "src/ashlar_host/delta_custody.py": "741da7b031a83b68357e0c69be949c96475a9023e0125f900a4c1a64a39a0c44",
+    "tests/test_local_delta_effect_plan.py": "55abbeb69e4344c3c8c713f4a24ad670f21711a0999ef457fe0ed2d8c9a9cbe2",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "e5b2e59f465e9b9f8164965043217f32e11e7caa51918841efc5a6158a66291f",
+    ".github/workflows/weft-distribution.yml": "e638086bb55e55d70c4a3012c9d5fd6ef35b63b5e372c221d4b98c0a349273c7"
+  },
+  "counterexample_sha256": "3efcda1e1032448c3560a1f1535ad8ea730435b4972f27510a17f73b2867ed51",
+  "checks": [
+    "Exact four frozenfiles and two original testlogs",
+    "CI exact one owning test command addition",
+    "Independent actual13 Python3.9 -S ResourceWarningerror tests passed2.128s",
+    "Module AST boundaries pass",
+    "Original suppression counterexample reproduced beforefix and nowactualrefuseswithzero retainedplans",
+    "Four opening/closing suppression controls withhold prepare/observe results",
+    "Independent exact legacy wholeplan serialized bytes,digest,and ordinal identities preserved",
+    "Frozen decodedsteps validation refuses invalid second step despite borrowed inputclear",
+    "Real SQLite custody/inertengine prepared/submitted/committed/missingordinal/missingwholeplan/historyambiguity controls",
+    "Recovery routes existingordinal to recover; absentordinal reaches mutation only with owning nativehistory/journal refusal",
+    "Current writer/admission/profile closing gates before success, unchanged lowertransport nativecustody semantics",
+    "Subsequent author lost-wholeplan finding fixed in both prepare and initial run",
+    "Exact bounded derivedordinal existence query under same owner lock before missing wholeplan INSERT",
+    "Actual prepare/run/recover/observe all refuse lostwholeplan and retain zero wholeplans with no new mutation",
+    "Fresh-current semantic policy and lower nativehistory checks remain required; empty localjournal alone does not prove native absence"
+  ],
+  "scope": "Public exact whole-effect preparation/identity/observation and explicit recovery dispatch in existing owning native transport, exercised using real SQLite custody and an inert engine. No native execution, source/oracle authority, installed facade or protected ACK qualification.",
+  "limits": [
+    "Inert engine cannot qualify actual Spark/Delta commit semantics",
+    "No installed facade,two-source original reconciliation,sourceoracle or ACK witness",
+    "No native/secret/network actions; foreign edits untouched"
+  ],
+  "governing_artifacts": [
+    "TD001 original retention/recovery",
+    "CONTRACT001 no uncertain replacement",
+    "ADR001 owning hostports"
+  ],
+  "supersedes_withdrawal_sha256": "f8b470e54ece923302291a54772dccd13e12f8c28d328ef9c909b0ef5f71cf96"
+}

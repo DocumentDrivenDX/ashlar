@@ -1,0 +1,18 @@
+test_ambiguous_original_commit_refuses_without_replacement (test_local_delta_effect_plan.Tests) ... ok
+test_frozen_steps_not_borrowed_during_validation (test_local_delta_effect_plan.Tests) ... ok
+test_invalid_identity_and_changed_intent_refuse_before_retention (test_local_delta_effect_plan.Tests) ... ok
+test_lost_whole_plan_with_original_ordinal_never_recreated (test_local_delta_effect_plan.Tests) ... ok
+test_missing_ordinal_with_named_native_commit_refuses_replacement (test_local_delta_effect_plan.Tests) ... ok
+test_missing_plan_never_reconstructed_by_observation_or_recovery (test_local_delta_effect_plan.Tests) ... ok
+test_mutated_borrowed_list_cannot_skip_invalid_frozen_step (test_local_delta_effect_plan.Tests) ... ok
+test_operation_status_conflict_refuses (test_local_delta_effect_plan.Tests) ... ok
+test_prepare_retains_exact_whole_original_without_engine_mutation (test_local_delta_effect_plan.Tests) ... ok
+test_prepared_but_unsubmitted_original_enters_recovery_port (test_local_delta_effect_plan.Tests) ... ok
+test_recovery_routes_retained_original_and_only_first_submits_missing_ordinal (test_local_delta_effect_plan.Tests) ... ok
+test_submitted_absent_commit_remains_uncertain_without_replacement (test_local_delta_effect_plan.Tests) ... ok
+test_suppressing_writer_cannot_release_failed_preparation_or_observation (test_local_delta_effect_plan.Tests) ... ok
+
+----------------------------------------------------------------------
+Ran 13 tests in 0.829s
+
+OK
