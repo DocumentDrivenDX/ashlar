@@ -1,0 +1,69 @@
+{
+  "status": "approved-corrected-source-only",
+  "resolved_finding": "SUPPLY-ENVELOPE-001",
+  "source_files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/supply_chain_weft_request.py",
+      "bytes": 2582,
+      "sha256": "e4ba78185e52f911150c70c30c82c4a73a2e75d6d83a6a18f7a3b532b73ac040"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_weft_request.py",
+      "bytes": 2964,
+      "sha256": "885f095e27d6204d99078548891da32620477d9759c1c5b7fc91f2e2ede30fff"
+    }
+  ],
+  "request_schema": {
+    "path": "/private/tmp/ashlar-paths-keys-native10-preparation-20261010-a/installation/schemas/compile-request-v0.4.schema.json",
+    "bytes": 3511,
+    "sha256": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932"
+  },
+  "positive_offline_requests": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/split-excursion.request.json",
+      "bytes": 55233,
+      "sha256": "c2b499c806f5acfb2e8b4fa6aa4dc1d0ba2199278eb7b0e7227a22706f577d5a"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/excursion.request.json",
+      "bytes": 55119,
+      "sha256": "e28cb190cc7c9be306354bd3a79408a372526bcda0b534e4e16a0e11454d8216"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/replay.request.json",
+      "bytes": 55144,
+      "sha256": "14cad02a06fd76401777e549b41d8971f0835723bf8b28bb4e549b7d39dcfe3d"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/lineage.request.json",
+      "bytes": 55255,
+      "sha256": "4f97c50141d9eddfcbdd931a9fb36159788556109d0711414341e8f7aa1e6226"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/sensor.request.json",
+      "bytes": 55102,
+      "sha256": "84230a999af1226cc7742ebc7032ee6958a46c3870620540b2158a6322cd2165"
+    }
+  ],
+  "extra_target_interfaceVersion_negative_controls": 5,
+  "exact_raw_delta": "Only one 40-byte target.interfaceVersion member removed; all other original request bytes preserved.",
+  "source_behavior_review": {
+    "path": "/private/tmp/astra-supplychain-wrapper-review-20261010-c.json",
+    "bytes": 4367,
+    "sha256": "415461b5760ac3d5e1224088370e2309f14c4ceedc4e0e5c988c3ef5cb02bf62"
+  },
+  "counterexample": {
+    "path": "/private/tmp/astra-supplychain-envelope-counterexample-20261010-e.json",
+    "bytes": 6949,
+    "sha256": "5b854e737026efa4fa47c3149bffda98d195dea62ecde1e37fe8764a208626fe"
+  },
+  "limits": [
+    "F preparation contains copied E outcomes and is explicitly unexecuted/unapproved for launch. A fresh successor command is a separate gate.",
+    "Schema validity and exact source correspondence do not assert actual compilation or native query acceptance."
+  ],
+  "review_script": {
+    "path": "/private/tmp/astra-supplychain-corrected-envelope-review-20261010-f.py",
+    "bytes": 2557,
+    "sha256": "a88cd14b237f7290b291d991f895261b83a61bc21d2a1085001df30d59934234"
+  }
+}

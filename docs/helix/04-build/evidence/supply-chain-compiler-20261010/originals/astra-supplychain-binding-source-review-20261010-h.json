@@ -1,0 +1,61 @@
+{
+  "status": "approved-source-only",
+  "resolved_finding": "SUPPLY-BINDING-001",
+  "source_files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/supply_chain_weft_request.py",
+      "bytes": 2890,
+      "sha256": "0a663e723a5c3f8c7977f28fc824120a30c93bb689a1274ee8f56b867cb6d613"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_weft_request.py",
+      "bytes": 3165,
+      "sha256": "9bfd7b2e36cf9caddac33238e1b1caa6a6e6a0e45ce0f2397ee784c40bebdcc2"
+    }
+  ],
+  "source_freeze": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/manifest.json",
+    "bytes": 2423,
+    "sha256": "e8a781257419d3b146934295e1eacbfdb6efdb320be8cd3ed1c28119a48bfe9c"
+  },
+  "independent_malformed_alias_refusals": 8,
+  "author_tests": 3,
+  "regenerated_five_raw_requests": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/split-excursion.request.json",
+      "bytes": 55305,
+      "sha256": "10fa9882b692eb91071c5b257d1bf36278e99d37248890cdeaa6ac20ad5a013f"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/excursion.request.json",
+      "bytes": 55191,
+      "sha256": "9e8be3bfc310dc4a75be2625382a166c3788f6dcd60444fe9c44082b50db7ee9"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/replay.request.json",
+      "bytes": 55216,
+      "sha256": "4c16096f86a309d109a6c1e6358c5ca9135fca5484bc0f662e8a3053deab628c"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/lineage.request.json",
+      "bytes": 55327,
+      "sha256": "41be129090c12b8b525e023f63c038d571b993161e4c276cc50553fdfec9ace8"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/sensor.request.json",
+      "bytes": 55174,
+      "sha256": "da2df5b56e77f47ba7ea84156da3aa9d36e22b958d1bc6ae9990dc2b55e8cd90"
+    }
+  ],
+  "changed_request_semantics": "Only publication.tables[*].name changes from two-part held_supply.role to the exact original namespace three-part spark_catalog.supplychain.role, plus binding digest; original model/SQL/property mapping/UUID/version/source vectors unchanged.",
+  "limits": [
+    "No current Spark table resolution/publication authority established by alias construction.",
+    "Replay original HAVING SQL remains unchanged and its actual G parse refusal is a distinct upstream investigation.",
+    "Nested binding structural source audit and outer schema validation are separate recorded controls; no native or compiler pass claimed."
+  ],
+  "review_script": {
+    "path": "/private/tmp/astra-supplychain-binding-source-review-20261010-h.py",
+    "bytes": 3970,
+    "sha256": "a61f80e71f2161b5272b5c12bda1804f36440904372c5a33aab9a526bd8da92e"
+  }
+}

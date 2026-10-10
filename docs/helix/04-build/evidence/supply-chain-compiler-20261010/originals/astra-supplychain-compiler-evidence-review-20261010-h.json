@@ -1,0 +1,93 @@
+{
+  "scope": "Offline retained response schema validation and original request/pin/capability/obligation/frame inventory correspondence; no compiler rerun/native/runtime/semantic-result qualification. Original125 dataset vectors untouched.",
+  "schemaPins": [
+    {
+      "id": "https://github.com/DocumentDrivenDX/weft/raw/main/docs/helix/02-design/contracts/logical-plan-v0.4.schema.json"
+    },
+    {
+      "id": "https://github.com/DocumentDrivenDX/weft/raw/main/docs/helix/02-design/contracts/compile-response-v0.4.schema.json"
+    }
+  ],
+  "observations": [
+    {
+      "case": "split-excursion",
+      "responseSha256": "e10d9cbcd43defbf5d0d059253f9bc05e3e1d65b3a417c38e03b59be3ca90ddf",
+      "status": "compiled",
+      "capabilities": [
+        "aggregate",
+        "aggregate.countDistinct",
+        "equal",
+        "group",
+        "innerJoin",
+        "project",
+        "scan",
+        "type.string"
+      ],
+      "obligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "columns": 2
+    },
+    {
+      "case": "excursion",
+      "responseSha256": "42d842299656133c067ad9db54e7531b1a92ed40c1167eaa6a56ff424ccfcc6c",
+      "status": "compiled",
+      "capabilities": [
+        "compare.lexicographicGreater",
+        "filter",
+        "project",
+        "scan",
+        "type.decimal",
+        "type.string"
+      ],
+      "obligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "columns": 3
+    },
+    {
+      "case": "replay",
+      "responseSha256": "09def849c75e1404859e0d86485179be178d7e9772fe32e0ec363f9b44aa1933",
+      "status": "blocked"
+    },
+    {
+      "case": "lineage",
+      "responseSha256": "dd8733556ee61fcaddaf7480e1f07dfdcdeafef32b4ac5869272bab6e4e4c709",
+      "status": "compiled",
+      "capabilities": [
+        "equal",
+        "innerJoin",
+        "project",
+        "scan",
+        "type.string",
+        "value.nativeNull",
+        "value.presence"
+      ],
+      "obligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "columns": 4
+    },
+    {
+      "case": "sensor",
+      "responseSha256": "39bcf4516c4e744ead1c106a7e757c2d5d010c48adddeeb8f9c5844c2d69b3fc",
+      "status": "compiled",
+      "capabilities": [
+        "project",
+        "project.distinct",
+        "scan",
+        "type.string"
+      ],
+      "obligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "columns": 2
+    }
+  ]
+}

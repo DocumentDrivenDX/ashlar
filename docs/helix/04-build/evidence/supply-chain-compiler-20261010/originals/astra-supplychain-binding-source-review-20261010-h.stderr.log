@@ -1,0 +1,8 @@
+test_all_original_sql_model_pins_and_only_optional_encoding (test_supply_chain_weft_request.SupplyChainWeftRequest) ... ok
+test_two_component_alias_refuses (test_supply_chain_weft_request.SupplyChainWeftRequest) ... ok
+test_unknown_case_and_changed_original_bindings_refuse (test_supply_chain_weft_request.SupplyChainWeftRequest) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.028s
+
+OK

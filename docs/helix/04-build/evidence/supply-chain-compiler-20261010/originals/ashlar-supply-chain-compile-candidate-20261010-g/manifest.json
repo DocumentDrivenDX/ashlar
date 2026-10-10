@@ -1,0 +1,70 @@
+{
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/schema-controls.json",
+      "bytes": 723,
+      "sha256": "f4b26239dbc15f3c57b746cf09889fa6bbe1d02029a181003804a391d9133fd3"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/test_supply_chain_weft_request.py",
+      "bytes": 2964,
+      "sha256": "885f095e27d6204d99078548891da32620477d9759c1c5b7fc91f2e2ede30fff"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/lineage.request.json",
+      "bytes": 55255,
+      "sha256": "4f97c50141d9eddfcbdd931a9fb36159788556109d0711414341e8f7aa1e6226"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/replay.request.json",
+      "bytes": 55144,
+      "sha256": "14cad02a06fd76401777e549b41d8971f0835723bf8b28bb4e549b7d39dcfe3d"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/sensor.request.json",
+      "bytes": 55102,
+      "sha256": "84230a999af1226cc7742ebc7032ee6958a46c3870620540b2158a6322cd2165"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/supply_chain_weft_request.py",
+      "bytes": 2582,
+      "sha256": "e4ba78185e52f911150c70c30c82c4a73a2e75d6d83a6a18f7a3b532b73ac040"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/excursion.request.json",
+      "bytes": 55119,
+      "sha256": "e28cb190cc7c9be306354bd3a79408a372526bcda0b534e4e16a0e11454d8216"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/capture.py",
+      "bytes": 1614,
+      "sha256": "a7475d58f5f7078b1dc65007ec53b8105bdbbfea6e239e268ebd741897d39e9c"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/split-excursion.request.json",
+      "bytes": 55233,
+      "sha256": "c2b499c806f5acfb2e8b4fa6aa4dc1d0ba2199278eb7b0e7227a22706f577d5a"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/command.json",
+      "bytes": 35057,
+      "sha256": "2727b27e150175d0bf6c494cf2c46e86ccdcfec0658b7c141bebd342d4c3488d"
+    }
+  ],
+  "tests_passed": 2,
+  "schema_controls_passed": 10,
+  "fresh_input_allowlist": [
+    "capture.py",
+    "supply_chain_weft_request.py",
+    "test_supply_chain_weft_request.py",
+    "schema-controls.json",
+    "command.json",
+    "split-excursion.request.json",
+    "excursion.request.json",
+    "replay.request.json",
+    "lineage.request.json",
+    "sensor.request.json"
+  ],
+  "runtime_outputs_absent": true,
+  "scope": "Unexecuted compiler candidate; prior observations not copied"
+}

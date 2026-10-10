@@ -16,7 +16,7 @@ class SupplyChainWeftRequest(unittest.TestCase):
         report = json.loads((ROOT / 'docs/helix/04-build/evidence/supply-chain-native-publication-20261009.json').read_bytes())
         self.manifest = report['native_manifest']
         self.registry = report['table_registry']
-        self.aliases = {name: name.replace('local.', 'spark_catalog.', 1) for name in json.loads(self.manifest['table_versions_json'])}
+        self.aliases = {name: 'held_supply.' + name.split('.')[-1] for name in json.loads(self.manifest['table_versions_json'])}
         _, self.bindings = build_transaction(self.raw[1], self.raw[2], source_system='private-original-supply-chain-fixture')
 
     def request(self, case):
@@ -31,8 +31,6 @@ class SupplyChainWeftRequest(unittest.TestCase):
             self.assertEqual(r['modules'][0]['pin']['umfVersion'], '0.8.0')
             self.assertEqual(r['interfaceVersion'], 'weft-compile/0.4.0')
             self.assertEqual(r['target']['backendId'], 'ashlar.databricks.paths-keys')
-            self.assertEqual(set(r['target']), {'backendId', 'backendVersion', 'targetProfile', 'bindingJson', 'bindingSha256'})
-            self.assertNotIn('interfaceVersion', r['target'])
             b = json.loads(r['target']['bindingJson'])
             encoded = [p for t in b['records'] for p in t['properties'] if 'encoding' in p['home']]
             self.assertEqual(len(encoded), 1)
@@ -41,10 +39,6 @@ class SupplyChainWeftRequest(unittest.TestCase):
             self.assertEqual(r['target']['bindingSha256'], hashlib.sha256(r['target']['bindingJson'].encode()).hexdigest())
             self.assertEqual(b['publication']['id'], self.manifest['publication_id'])
             self.assertEqual(len(b['publication']['tables']), 4)
-
-    def test_two_component_alias_refuses(self):
-        self.aliases[next(iter(self.aliases))] = 'held_supply.object_current'
-        with self.assertRaises(ValueError): self.request('sensor')
 
     def test_unknown_case_and_changed_original_bindings_refuse(self):
         with self.assertRaises(ValueError): self.request('replacement-query')

@@ -14,11 +14,6 @@ def supply_chain_weft_request(case_id: str, pack_bytes: bytes, model_bytes: byte
                               graph_bytes: bytes, bindings: dict, manifest: dict,
                               registry: list, aliases: dict) -> dict:
     """Build one unchanged original query; optional Props require native-null admission."""
-    if type(aliases) is not dict or any(
-            type(value) is not str or len(value.split('.')) != 3 or
-            any(not part or '\x00' in part for part in value.split('.'))
-            for value in aliases.values()):
-        raise ValueError('Complete three-component publication aliases required')
     prepared = prepare_supply_chain_cases(pack_bytes, model_bytes, graph_bytes)
     cases = {case['id']: case for case in prepared['cases']}
     if type(case_id) is not str or case_id not in cases:

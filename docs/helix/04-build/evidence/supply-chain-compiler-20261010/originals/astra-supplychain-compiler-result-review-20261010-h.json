@@ -1,0 +1,180 @@
+{
+  "status": "approved-retained-compiler-observations-for-evidence-landing",
+  "scope": "Actual installed public compiler transport, exact input/output custody, offline public response/IR schemas and request-pin/capability/obligation/frame correspondence only.",
+  "command": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/command.json",
+    "bytes": 35057,
+    "sha256": "649789f68102d390a6136c313047d468151e196b74c186eb4adcb5197171ebbf"
+  },
+  "process": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/process.json",
+    "bytes": 1503,
+    "sha256": "62c2014d1530380faa6e4297cd5eeb1e1a80df72aba3b6b92e95acc5f698f0d8"
+  },
+  "actual_terminal": {
+    "chunk": "d255e2",
+    "exitCode": 0,
+    "toolWallSeconds": 0.69967825
+  },
+  "selected_resources": {
+    "count": 125,
+    "opening": {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/opening-root.json",
+      "bytes": 33819,
+      "sha256": "b2ac3f9d1bf25e8cc35591b8f5fd391d1f84fcf1a8b7da6fd3230244be0bd52d"
+    },
+    "closing": {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/closing-root.json",
+      "bytes": 33819,
+      "sha256": "b2ac3f9d1bf25e8cc35591b8f5fd391d1f84fcf1a8b7da6fd3230244be0bd52d"
+    },
+    "current_hashes_match": true,
+    "interpreter_resolution_matches": true
+  },
+  "streams": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/process.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/process.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "cases": [
+    {
+      "case": "split-excursion",
+      "request": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/split-excursion.request.json",
+        "bytes": 55305,
+        "sha256": "10fa9882b692eb91071c5b257d1bf36278e99d37248890cdeaa6ac20ad5a013f"
+      },
+      "response": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/split-excursion.response.json",
+        "bytes": 38330,
+        "sha256": "e10d9cbcd43defbf5d0d059253f9bc05e3e1d65b3a417c38e03b59be3ca90ddf"
+      },
+      "status": "compiled"
+    },
+    {
+      "case": "excursion",
+      "request": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/excursion.request.json",
+        "bytes": 55191,
+        "sha256": "9e8be3bfc310dc4a75be2625382a166c3788f6dcd60444fe9c44082b50db7ee9"
+      },
+      "response": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/excursion.response.json",
+        "bytes": 25060,
+        "sha256": "42d842299656133c067ad9db54e7531b1a92ed40c1167eaa6a56ff424ccfcc6c"
+      },
+      "status": "compiled"
+    },
+    {
+      "case": "replay",
+      "request": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/replay.request.json",
+        "bytes": 55216,
+        "sha256": "4c16096f86a309d109a6c1e6358c5ca9135fca5484bc0f662e8a3053deab628c"
+      },
+      "response": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/replay.response.json",
+        "bytes": 244,
+        "sha256": "09def849c75e1404859e0d86485179be178d7e9772fe32e0ec363f9b44aa1933"
+      },
+      "status": "blocked"
+    },
+    {
+      "case": "lineage",
+      "request": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/lineage.request.json",
+        "bytes": 55327,
+        "sha256": "41be129090c12b8b525e023f63c038d571b993161e4c276cc50553fdfec9ace8"
+      },
+      "response": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/lineage.response.json",
+        "bytes": 47111,
+        "sha256": "dd8733556ee61fcaddaf7480e1f07dfdcdeafef32b4ac5869272bab6e4e4c709"
+      },
+      "status": "compiled"
+    },
+    {
+      "case": "sensor",
+      "request": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/sensor.request.json",
+        "bytes": 55174,
+        "sha256": "da2df5b56e77f47ba7ea84156da3aa9d36e22b958d1bc6ae9990dc2b55e8cd90"
+      },
+      "response": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/sensor.response.json",
+        "bytes": 15872,
+        "sha256": "39bcf4516c4e744ead1c106a7e757c2d5d010c48adddeeb8f9c5844c2d69b3fc"
+      },
+      "status": "compiled"
+    }
+  ],
+  "schema_correspondence": [
+    {
+      "path": "/private/tmp/ashlar-paths-keys-native10-preparation-20261010-a/installation/schemas/compile-response-v0.4.schema.json",
+      "bytes": 62086,
+      "sha256": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-keys-native10-preparation-20261010-a/installation/schemas/logical-plan-v0.4.schema.json",
+      "bytes": 42813,
+      "sha256": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    }
+  ],
+  "independent_payload_review": {
+    "path": "/private/tmp/astra-supplychain-compiler-evidence-review-20261010-h.receipt.json",
+    "bytes": 3432,
+    "sha256": "176cf322d9fc8dc99ec78e7b18115c41d460659d6d0b998fdf8562bfccea390e"
+  },
+  "payload_review_artifacts": [
+    {
+      "path": "/private/tmp/astra-supplychain-compiler-evidence-review-20261010-h.js",
+      "bytes": 3880,
+      "sha256": "a1904ac8328dffdc171023e3e3e3eaef4a490c443f32936dce703630913ad913"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-compiler-evidence-review-20261010-h.stdout.log",
+      "bytes": 1952,
+      "sha256": "22a92d3a855154adfaeae876131d76a5265659d2d42905214d8e6403f36a1cb6"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-compiler-evidence-review-20261010-h.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "corrected_source_review": {
+    "path": "/private/tmp/astra-supplychain-binding-source-review-20261010-h.json",
+    "bytes": 2791,
+    "sha256": "4c674f60ef446cb05644fd853b77364a6cd22f4d74f7de51da028838b98e4263"
+  },
+  "command_review": {
+    "path": "/private/tmp/astra-supplychain-compile-command-review-20261010-h.json",
+    "bytes": 4898,
+    "sha256": "7feeaded85f235a5cf529946d19f0dbb263eddc3575406ea4a84574fb6dec842"
+  },
+  "scope_corrections": [
+    "E actual five WFT-INPUT responses exposed the wrapper extra target.interfaceVersion; E is retained as malformed-input evidence, not an upstream capability refusal.",
+    "G actual four WFT-BINDING responses exposed two-part aliases; H retains the original physical namespace and uses required three-part spark_catalog aliases.",
+    "The corrected wrapper and request pairs preserve original SQL, UMF0.8 source and complete binding/publication identities; prior source/input approvals missing those two constraints remain historical.",
+    "F was unexecuted with stale copied outcomes; it is not an actual compiler run. H actual custody is opening-root/closing-root only."
+  ],
+  "limitations": [
+    "Four cases compiled; original replay COUNT(*) HAVING remains WFT-UNSUPPORTED at parse span86:87. The complete original five-case task is not finished.",
+    "No actual Spark/PostgreSQL query, native result-bag correctness, current publication hold, ACK, cleanup or complete installed workflow qualification.",
+    "Schema/descriptor/inventory correspondence does not establish exact native lowering semantics or result acceptance.",
+    "Selected resource custody is not full interpreter/OS closure, hermeticity, crash durability or abrupt-parent-death cleanup assurance.",
+    "Review is pure retained-file inspection; no compiler, native engine or receiver was rerun."
+  ],
+  "reviewer_script": {
+    "path": "/private/tmp/astra-supplychain-compiler-result-review-20261010-h.py",
+    "bytes": 6433,
+    "sha256": "70f18fb247c947ab6a992fdba300d37d5b11671373c801caa7115e674a395b18"
+  }
+}

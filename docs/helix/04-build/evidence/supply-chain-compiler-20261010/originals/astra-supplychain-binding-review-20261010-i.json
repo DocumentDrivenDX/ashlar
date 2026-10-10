@@ -1,0 +1,55 @@
+{
+  "scope": "Read-only Python assertions against actual five request values and selected Rust admission rules. Not Rust/compiler/native execution or proof of whole compiler admission. Replay grammar refusal remains separate.",
+  "observations": [
+    {
+      "case": "split-excursion",
+      "requestSha256": "10fa9882b692eb91071c5b257d1bf36278e99d37248890cdeaa6ac20ad5a013f",
+      "records": 12,
+      "properties": 40,
+      "optionalNativeNullHomes": 1,
+      "status": "structural-and-original-model-checks-passed"
+    },
+    {
+      "case": "excursion",
+      "requestSha256": "9e8be3bfc310dc4a75be2625382a166c3788f6dcd60444fe9c44082b50db7ee9",
+      "records": 12,
+      "properties": 40,
+      "optionalNativeNullHomes": 1,
+      "status": "structural-and-original-model-checks-passed"
+    },
+    {
+      "case": "replay",
+      "requestSha256": "4c16096f86a309d109a6c1e6358c5ca9135fca5484bc0f662e8a3053deab628c",
+      "records": 12,
+      "properties": 40,
+      "optionalNativeNullHomes": 1,
+      "status": "structural-and-original-model-checks-passed"
+    },
+    {
+      "case": "lineage",
+      "requestSha256": "41be129090c12b8b525e023f63c038d571b993161e4c276cc50553fdfec9ace8",
+      "records": 12,
+      "properties": 40,
+      "optionalNativeNullHomes": 1,
+      "status": "structural-and-original-model-checks-passed"
+    },
+    {
+      "case": "sensor",
+      "requestSha256": "da2df5b56e77f47ba7ea84156da3aa9d36e22b958d1bc6ae9990dc2b55e8cd90",
+      "records": 12,
+      "properties": 40,
+      "optionalNativeNullHomes": 1,
+      "status": "structural-and-original-model-checks-passed"
+    }
+  ],
+  "sourcePins": [
+    {
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/crates/weft-databricks/src/binding.rs",
+      "sha256": "0d4ca3b8fd15973309be6b5b04949956dd29fdd49d15282569a52717904fdd76"
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/crates/weft-databricks/src/paths.rs",
+      "sha256": "f7e677df76ac697f72289b477e9d14159ac5a05f11467316282f31be4deaf72d"
+    }
+  ]
+}

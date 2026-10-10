@@ -1,0 +1,89 @@
+{
+  "exitCode": 0,
+  "terminalChunk": "dbff96",
+  "toolWallSeconds": 0.289708709,
+  "selectedResourcesUnchanged": 125,
+  "scope": "Actual public installed compiler observations only, not schema/semantic/native query acceptance.",
+  "cases": [
+    {
+      "case": "split-excursion",
+      "bytes": 221,
+      "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-INPUT",
+          "message": "Request is outside the closed 0.4 envelope",
+          "phase": "input",
+          "recoverability": "correct-input",
+          "severity": "error"
+        }
+      ],
+      "requiredCapabilities": null
+    },
+    {
+      "case": "excursion",
+      "bytes": 221,
+      "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-INPUT",
+          "message": "Request is outside the closed 0.4 envelope",
+          "phase": "input",
+          "recoverability": "correct-input",
+          "severity": "error"
+        }
+      ],
+      "requiredCapabilities": null
+    },
+    {
+      "case": "replay",
+      "bytes": 221,
+      "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-INPUT",
+          "message": "Request is outside the closed 0.4 envelope",
+          "phase": "input",
+          "recoverability": "correct-input",
+          "severity": "error"
+        }
+      ],
+      "requiredCapabilities": null
+    },
+    {
+      "case": "lineage",
+      "bytes": 221,
+      "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-INPUT",
+          "message": "Request is outside the closed 0.4 envelope",
+          "phase": "input",
+          "recoverability": "correct-input",
+          "severity": "error"
+        }
+      ],
+      "requiredCapabilities": null
+    },
+    {
+      "case": "sensor",
+      "bytes": 221,
+      "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-INPUT",
+          "message": "Request is outside the closed 0.4 envelope",
+          "phase": "input",
+          "recoverability": "correct-input",
+          "severity": "error"
+        }
+      ],
+      "requiredCapabilities": null
+    }
+  ]
+}

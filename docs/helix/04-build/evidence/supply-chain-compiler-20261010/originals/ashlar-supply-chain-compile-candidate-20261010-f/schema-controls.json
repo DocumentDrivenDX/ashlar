@@ -1,0 +1,30 @@
+{
+  "schema_sha256": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932",
+  "controls": [
+    {
+      "case": "lineage.request",
+      "valid_original": true,
+      "extra_target_interface_refused": true
+    },
+    {
+      "case": "replay.request",
+      "valid_original": true,
+      "extra_target_interface_refused": true
+    },
+    {
+      "case": "sensor.request",
+      "valid_original": true,
+      "extra_target_interface_refused": true
+    },
+    {
+      "case": "excursion.request",
+      "valid_original": true,
+      "extra_target_interface_refused": true
+    },
+    {
+      "case": "split-excursion.request",
+      "valid_original": true,
+      "extra_target_interface_refused": true
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/private/tmp/astra-supplychain-compile-command-review-20261010-g.py", line 11, in <module>
+    assert {x.name for x in B.iterdir()}==allowed and len(allowed)==11 and all(x.is_file() for x in B.iterdir())
+AssertionError

@@ -1,0 +1,94 @@
+{
+  "status": "approved-command-for-root-execution",
+  "command": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/command.json",
+    "bytes": 35057,
+    "sha256": "649789f68102d390a6136c313047d468151e196b74c186eb4adcb5197171ebbf"
+  },
+  "manifest": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/manifest.json",
+    "bytes": 2423,
+    "sha256": "e8a781257419d3b146934295e1eacbfdb6efdb320be8cd3ed1c28119a48bfe9c"
+  },
+  "source_review": {
+    "path": "/private/tmp/astra-supplychain-binding-source-review-20261010-h.json",
+    "bytes": 2791,
+    "sha256": "4c674f60ef446cb05644fd853b77364a6cd22f4d74f7de51da028838b98e4263"
+  },
+  "input_and_outer_schema_review": {
+    "path": "/private/tmp/astra-supplychain-compile-inputs-review-20261010-h.json",
+    "bytes": 1854,
+    "sha256": "c068e1b427a28aa6d6d6bc29f6618f5db16f7ffbac5012b20eeba4bdce44fb4f"
+  },
+  "nested_binding_review": {
+    "path": "/private/tmp/astra-supplychain-binding-review-20261010-i.json",
+    "bytes": 2065,
+    "sha256": "320539ea35141e7b2568b7f4e790822882154198f6d26139504e89f41fa87e6e"
+  },
+  "nested_binding_source_exact_git_3a": [
+    {
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/crates/weft-databricks/src/binding.rs",
+      "bytes": 19296,
+      "sha256": "0d4ca3b8fd15973309be6b5b04949956dd29fdd49d15282569a52717904fdd76"
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/crates/weft-databricks/src/paths.rs",
+      "bytes": 7921,
+      "sha256": "f7e677df76ac697f72289b477e9d14159ac5a05f11467316282f31be4deaf72d"
+    }
+  ],
+  "all125_current_resources_verified": true,
+  "outputs_absent_at_review": true,
+  "prior_actual_G_responses": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/split-excursion.response.json",
+      "bytes": 223,
+      "sha256": "d9107f75f3d362c41094407d5e869cd5b900328d474a583944bf30b227594dd3"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/excursion.response.json",
+      "bytes": 223,
+      "sha256": "d9107f75f3d362c41094407d5e869cd5b900328d474a583944bf30b227594dd3"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/replay.response.json",
+      "bytes": 244,
+      "sha256": "09def849c75e1404859e0d86485179be178d7e9772fe32e0ec363f9b44aa1933"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/lineage.response.json",
+      "bytes": 223,
+      "sha256": "d9107f75f3d362c41094407d5e869cd5b900328d474a583944bf30b227594dd3"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/sensor.response.json",
+      "bytes": 223,
+      "sha256": "d9107f75f3d362c41094407d5e869cd5b900328d474a583944bf30b227594dd3"
+    }
+  ],
+  "resolved_input_defect": "SUPPLY-BINDING-001: actual selected Rust Table.name is [String;3]; source wrapper now rejects malformed aliases and fixed requests retain original physical namespace with spark_catalog prefix.",
+  "reviewer_scope_correction": "Prior five-request approval checked the outer envelope and original model/mapping correspondence but omitted private bindingJson table-name cardinality. H now has explicit original-source struct/member/range and outer-schema audits. Prior receipts remain historical.",
+  "unresolved": "Original replay SQL receives WFT-UNSUPPORTED at parse offset86 on G; unchanged SQL is retained for compiler-owner investigation. No workaround or capability completion claim.",
+  "conditions": [
+    "Root rechecks exact125 resource vector/interpreter resolution and fresh runtime outputs immediately before the direct PATH-only selected-interpreter -I -B command.",
+    "Retain original terminal streams and closing125 vector on observed outcome.",
+    "Each public compile transport retains its30s/16MiBstdout/4096stderr/2sreap bounds; no outer forced-kill or whole-run filesystem deadline."
+  ],
+  "limits": [
+    "Candidate compiler observations only; successful compiled status still needs complete independent artifact/result-descriptor/obligation semantic review.",
+    "No Spark, PostgreSQL, source ACK, current held publication or native table/result qualification.",
+    "Input audit uses selected retained source semantics and finite Python assertions, not a Rust execution/model proof."
+  ],
+  "reviewer_controls": [
+    {
+      "path": "/private/tmp/astra-supplychain-binding-review-20261010-i.py",
+      "bytes": 4334,
+      "sha256": "9076e5a2ca79c7f99097b1c24d45271fd84091048b3659f5b403745a448ea2e5"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-compile-inputs-review-20261010-h.py",
+      "bytes": 3232,
+      "sha256": "bf2f90c9540e080e9852c737bdefe6fd6a1af6a6f5d21b58676e2835510b0a6c"
+    }
+  ]
+}

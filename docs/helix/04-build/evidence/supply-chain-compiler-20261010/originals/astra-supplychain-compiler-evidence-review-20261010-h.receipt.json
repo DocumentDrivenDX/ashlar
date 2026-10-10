@@ -1,0 +1,111 @@
+{
+  "scope": "Offline retained response schema validation and original request/pin/capability/obligation/frame inventory correspondence; no compiler rerun/native/runtime/semantic-result qualification. Original125 dataset vectors untouched.",
+  "schemaPins": [
+    {
+      "path": "/private/tmp/ashlar-weft-distribution-d2d/docs/helix/02-design/contracts/compile-response-v0.4.schema.json",
+      "sha256": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-distribution-d2d/docs/helix/02-design/contracts/logical-plan-v0.4.schema.json",
+      "sha256": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    }
+  ],
+  "observations": [
+    {
+      "case": "split-excursion",
+      "responseSha256": "e10d9cbcd43defbf5d0d059253f9bc05e3e1d65b3a417c38e03b59be3ca90ddf",
+      "status": "compiled",
+      "capabilities": [
+        "aggregate",
+        "aggregate.countDistinct",
+        "equal",
+        "group",
+        "innerJoin",
+        "project",
+        "scan",
+        "type.string"
+      ],
+      "obligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "columns": 2
+    },
+    {
+      "case": "excursion",
+      "responseSha256": "42d842299656133c067ad9db54e7531b1a92ed40c1167eaa6a56ff424ccfcc6c",
+      "status": "compiled",
+      "capabilities": [
+        "compare.lexicographicGreater",
+        "filter",
+        "project",
+        "scan",
+        "type.decimal",
+        "type.string"
+      ],
+      "obligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "columns": 3
+    },
+    {
+      "case": "replay",
+      "responseSha256": "09def849c75e1404859e0d86485179be178d7e9772fe32e0ec363f9b44aa1933",
+      "status": "blocked"
+    },
+    {
+      "case": "lineage",
+      "responseSha256": "dd8733556ee61fcaddaf7480e1f07dfdcdeafef32b4ac5869272bab6e4e4c709",
+      "status": "compiled",
+      "capabilities": [
+        "equal",
+        "innerJoin",
+        "project",
+        "scan",
+        "type.string",
+        "value.nativeNull",
+        "value.presence"
+      ],
+      "obligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "columns": 4
+    },
+    {
+      "case": "sensor",
+      "responseSha256": "39bcf4516c4e744ead1c106a7e757c2d5d010c48adddeeb8f9c5844c2d69b3fc",
+      "status": "compiled",
+      "capabilities": [
+        "project",
+        "project.distinct",
+        "scan",
+        "type.string"
+      ],
+      "obligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "columns": 2
+    }
+  ],
+  "terminalChunk": "7b2cf2",
+  "exitCode": 0,
+  "artifacts": [
+    {
+      "path": "/private/tmp/astra-supplychain-compiler-evidence-review-20261010-h.js",
+      "sha256": "a1904ac8328dffdc171023e3e3e3eaef4a490c443f32936dce703630913ad913"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-compiler-evidence-review-20261010-h.stdout.log",
+      "sha256": "22a92d3a855154adfaeae876131d76a5265659d2d42905214d8e6403f36a1cb6"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-compiler-evidence-review-20261010-h.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

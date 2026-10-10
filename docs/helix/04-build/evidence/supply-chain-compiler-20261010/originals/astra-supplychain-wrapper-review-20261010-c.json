@@ -1,0 +1,100 @@
+{
+  "status": "approved-source-only",
+  "scope": "Two-file explicit original supply-chain PathsKeys request wrapper; no compiler execution or current held-publication/native admission.",
+  "source_opening_closing": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/supply_chain_weft_request.py",
+      "bytes": 2582,
+      "sha256": "e4ba78185e52f911150c70c30c82c4a73a2e75d6d83a6a18f7a3b532b73ac040"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/supply_chain_weft_request.py",
+      "bytes": 2582,
+      "sha256": "e4ba78185e52f911150c70c30c82c4a73a2e75d6d83a6a18f7a3b532b73ac040"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/test_supply_chain_weft_request.py",
+      "bytes": 2964,
+      "sha256": "885f095e27d6204d99078548891da32620477d9759c1c5b7fc91f2e2ede30fff"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_weft_request.py",
+      "bytes": 2964,
+      "sha256": "885f095e27d6204d99078548891da32620477d9759c1c5b7fc91f2e2ede30fff"
+    }
+  ],
+  "freeze": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/manifest.json",
+    "bytes": 3645,
+    "sha256": "5e05606a4e1b66f0f0cbd2882165e0c467d21826f2d9437a75943d10cb0a4ecb"
+  },
+  "controls": {
+    "author_tests": 2,
+    "full_request_comparisons": 5,
+    "sole_optional_home_encoding_addition": true,
+    "input_no_mutation": true,
+    "optional_inventory_negative_controls": 3,
+    "candidate_raw_bytes_equal_regenerated_requests": 5
+  },
+  "candidate_inputs": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/split-excursion.request.json",
+      "bytes": 55233,
+      "sha256": "c2b499c806f5acfb2e8b4fa6aa4dc1d0ba2199278eb7b0e7227a22706f577d5a"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/excursion.request.json",
+      "bytes": 55119,
+      "sha256": "e28cb190cc7c9be306354bd3a79408a372526bcda0b534e4e16a0e11454d8216"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/replay.request.json",
+      "bytes": 55144,
+      "sha256": "14cad02a06fd76401777e549b41d8971f0835723bf8b28bb4e549b7d39dcfe3d"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/lineage.request.json",
+      "bytes": 55255,
+      "sha256": "4f97c50141d9eddfcbdd931a9fb36159788556109d0711414341e8f7aa1e6226"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/sensor.request.json",
+      "bytes": 55102,
+      "sha256": "84230a999af1226cc7742ebc7032ee6958a46c3870620540b2158a6322cd2165"
+    }
+  ],
+  "source_inputs": [
+    {
+      "path": "/Users/erik/Projects/ashlar/examples/domain-packs/supply-chain/upstream/pack.json",
+      "bytes": 15021,
+      "sha256": "baf888ab976749e589df385c76900ebf146959b61eaa4b55ab840e142b54ae22"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/examples/domain-packs/supply-chain/upstream/ontology.json",
+      "bytes": 34293,
+      "sha256": "53ae68617d313548bf6c4b3c507c5fc33632c2e8527f88c310927652f635fe9a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/examples/domain-packs/supply-chain/upstream/graph/fixture.json",
+      "bytes": 38541,
+      "sha256": "2c79e403545766dc7c221d6a6c8ff184ea852a8ecf8ef7f00e26c7f2ffc68e13"
+    }
+  ],
+  "historical_publication_reference": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/supply-chain-native-publication-20261009.json",
+    "bytes": 827423,
+    "sha256": "d5f910e631f55f39f44081359d1f3d317ab36f4bb549555f318a2b9beb927d2f"
+  },
+  "findings": [],
+  "limits": [
+    "Explicit new target; original model documentJson/SQL/options/membership and full supplied table vector preserved.",
+    "The single native-null encoding changes binding bytes and digest deliberately; future native admission must check actual source null/missing behavior.",
+    "Historical table UUID/version pins and held_supply aliases are candidate compile inputs only; no current publication or ACK freshness established.",
+    "Shared old compiler loop/profile/constants remain unchanged."
+  ],
+  "review_script": {
+    "path": "/private/tmp/astra-supplychain-wrapper-review-20261010-c.py",
+    "bytes": 5170,
+    "sha256": "f72d2bb61b9e4f01a664c7582858ef5b00f2c867eb1fadf1d4de8b04db9c5095"
+  }
+}

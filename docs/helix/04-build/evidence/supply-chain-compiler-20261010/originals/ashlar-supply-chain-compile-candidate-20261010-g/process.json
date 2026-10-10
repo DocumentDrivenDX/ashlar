@@ -1,0 +1,36 @@
+{
+  "exitCode": 0,
+  "terminalChunk": "0ffb77",
+  "toolWallSeconds": 0.105875542,
+  "command": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/command.json",
+    "bytes": 35057,
+    "sha256": "2727b27e150175d0bf6c494cf2c46e86ccdcfec0658b7c141bebd342d4c3488d"
+  },
+  "opening": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/opening-root.json",
+    "bytes": 33819,
+    "sha256": "81d0c4555b2048c1dd337038572a1eff8c22d2c2cece7a4f01dec2d777108dbe"
+  },
+  "closing": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/closing-root.json",
+    "bytes": 33819,
+    "sha256": "81d0c4555b2048c1dd337038572a1eff8c22d2c2cece7a4f01dec2d777108dbe"
+  },
+  "stdout": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/process.stdout.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/process.stderr.log",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "observations": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/observations.json",
+    "bytes": 2545,
+    "sha256": "ac530054f0494d2270d15f7a6bd4e76b2e075ef02fd646def09ef9b070b7ab2f"
+  },
+  "scope": "Actual public compiler refusal observations, no schema/semantic/native acceptance."
+}

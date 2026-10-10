@@ -1,0 +1,67 @@
+{
+  "status": "approved-corrected-command-for-root-execution",
+  "command": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/command.json",
+    "bytes": 35057,
+    "sha256": "2727b27e150175d0bf6c494cf2c46e86ccdcfec0658b7c141bebd342d4c3488d"
+  },
+  "manifest": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/manifest.json",
+    "bytes": 2692,
+    "sha256": "85405481fb65de8c4fb450d567c8d6be93ebf52a598a4ad883122d83d275b0fb"
+  },
+  "capture": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/capture.py",
+    "bytes": 1614,
+    "sha256": "a7475d58f5f7078b1dc65007ec53b8105bdbbfea6e239e268ebd741897d39e9c"
+  },
+  "selected_resources": 125,
+  "all_current_inputs_unchanged": true,
+  "fresh_directory_10_inputs_plus_manifest_and_actual_current_root_opening": true,
+  "root_opening": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/opening-root.json",
+    "bytes": 33819,
+    "sha256": "81d0c4555b2048c1dd337038572a1eff8c22d2c2cece7a4f01dec2d777108dbe"
+  },
+  "cases": [
+    "split-excursion",
+    "excursion",
+    "replay",
+    "lineage",
+    "sensor"
+  ],
+  "source_and_schema_review": {
+    "path": "/private/tmp/astra-supplychain-corrected-envelope-review-20261010-f.json",
+    "bytes": 3009,
+    "sha256": "0be9da0da1fc814308057c2525705bdc12a56b88c2304cd3b8b8a710496b6562"
+  },
+  "prior_control_gate": {
+    "path": "/private/tmp/astra-supplychain-compile-command-review-20261010-e.json",
+    "bytes": 3078,
+    "sha256": "d20c7995b7589ec0875a09365c61c449eafd5ddd43bdb788f3e12f7ad472086d"
+  },
+  "capture_control_gate": {
+    "path": "/private/tmp/astra-supplychain-capture-controls-20261010-a.receipt.json",
+    "bytes": 23425,
+    "sha256": "ee8875bf585e02a90ec59f8e35e2bc8f32822df24517f5451709a63946c1cc9d"
+  },
+  "findings": [],
+  "execution_scope": [
+    "Exact direct foreground env-i PATH-only argv/cwd. No outer forced-kill wrapper.",
+    "Installed per-compiler30s deadline/16MiBstdout/4096stderr/two-second reap unchanged; no hard whole-run filesystem deadline.",
+    "Five candidate observations only; actual responses need independent schema/semantic review.",
+    "E actual invalid-envelope outcomes and F unexecuted stale preparation remain historical. No old opening/closing/process evidence is present in G.",
+    "No native engine, publication/ACK proof, current source authority or full OS closure claim."
+  ],
+  "root_preconditions": [
+    "Reverify all125 selected resources and interpreter resolution immediately before invocation.",
+    "Candidate output/process artifacts must be absent at execution start.",
+    "Retain raw terminal streams and closing125-resource vector for any observed outcome."
+  ],
+  "reviewer_control_note": "Initial exact-directory assertion ran after root concurrently created opening-root.json. Final review admits and verifies that125-file current preflight; no product failure or execution occurred.",
+  "review_script": {
+    "path": "/private/tmp/astra-supplychain-compile-command-review-20261010-g-final.py",
+    "bytes": 4694,
+    "sha256": "0678c0aad27304b1ed08cde04fdc696f5067cbba579877d9be908124b04f88d5"
+  }
+}

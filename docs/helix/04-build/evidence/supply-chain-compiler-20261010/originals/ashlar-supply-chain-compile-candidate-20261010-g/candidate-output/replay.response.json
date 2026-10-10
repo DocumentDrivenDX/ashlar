@@ -1,0 +1,1 @@
+{"diagnostics":[{"code":"WFT-UNSUPPORTED","message":"Expected dialect keyword","phase":"parse","recoverability":"correct-input","severity":"error","sourceSpan":{"end":87,"start":86}}],"interfaceVersion":"weft-compile/0.4.0","status":"blocked"}

@@ -1,0 +1,90 @@
+{
+  "selectedResourcesUnchanged": 125,
+  "scope": "Actual installed compiler observations, response semantic admission and native execution separate.",
+  "cases": [
+    {
+      "case": "split-excursion",
+      "bytes": 223,
+      "sha256": "d9107f75f3d362c41094407d5e869cd5b900328d474a583944bf30b227594dd3",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-BINDING",
+          "message": "Unknown or malformed Ashlar mapping member",
+          "phase": "lower",
+          "recoverability": "correct-input",
+          "severity": "error"
+        }
+      ],
+      "requiredCapabilities": null
+    },
+    {
+      "case": "excursion",
+      "bytes": 223,
+      "sha256": "d9107f75f3d362c41094407d5e869cd5b900328d474a583944bf30b227594dd3",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-BINDING",
+          "message": "Unknown or malformed Ashlar mapping member",
+          "phase": "lower",
+          "recoverability": "correct-input",
+          "severity": "error"
+        }
+      ],
+      "requiredCapabilities": null
+    },
+    {
+      "case": "replay",
+      "bytes": 244,
+      "sha256": "09def849c75e1404859e0d86485179be178d7e9772fe32e0ec363f9b44aa1933",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-UNSUPPORTED",
+          "message": "Expected dialect keyword",
+          "phase": "parse",
+          "recoverability": "correct-input",
+          "severity": "error",
+          "sourceSpan": {
+            "end": 87,
+            "start": 86
+          }
+        }
+      ],
+      "requiredCapabilities": null
+    },
+    {
+      "case": "lineage",
+      "bytes": 223,
+      "sha256": "d9107f75f3d362c41094407d5e869cd5b900328d474a583944bf30b227594dd3",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-BINDING",
+          "message": "Unknown or malformed Ashlar mapping member",
+          "phase": "lower",
+          "recoverability": "correct-input",
+          "severity": "error"
+        }
+      ],
+      "requiredCapabilities": null
+    },
+    {
+      "case": "sensor",
+      "bytes": 223,
+      "sha256": "d9107f75f3d362c41094407d5e869cd5b900328d474a583944bf30b227594dd3",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-BINDING",
+          "message": "Unknown or malformed Ashlar mapping member",
+          "phase": "lower",
+          "recoverability": "correct-input",
+          "severity": "error"
+        }
+      ],
+      "requiredCapabilities": null
+    }
+  ]
+}

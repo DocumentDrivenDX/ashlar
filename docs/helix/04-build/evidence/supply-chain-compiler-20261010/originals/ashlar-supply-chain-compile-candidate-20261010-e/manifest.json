@@ -1,0 +1,55 @@
+{
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/test_supply_chain_weft_request.py",
+      "bytes": 2773,
+      "sha256": "4c566db30effd8a0fca5d88cdc7d30e2b8c46b21cc010c3614086f37fd80a0c1"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/lineage.request.json",
+      "bytes": 55295,
+      "sha256": "663b3d73930ad30ddd4b320d92d4d7a17da5cd33c1fbdeda4d41b5ca8a4987f8"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/replay.request.json",
+      "bytes": 55184,
+      "sha256": "6dd37bc13d2d0ab984331dbef4a2e8f0b7dd518d28fa9e826a35dad10ca06adb"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/sensor.request.json",
+      "bytes": 55142,
+      "sha256": "4a341bf6134884ef95273320a90d1885f978ecba4cbe7c0b92af5299b17927fe"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/supply_chain_weft_request.py",
+      "bytes": 2480,
+      "sha256": "bc10a18e48c810c9fe38ad1ec170b2b2e825764a1eedd4a5aa4f0e40a2ff4afb"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/excursion.request.json",
+      "bytes": 55159,
+      "sha256": "5eac926a22d6ae95e847a5f21c82a49644bc97c4d5e2b63ce6d5d1b8f91894e2"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/capture.py",
+      "bytes": 1614,
+      "sha256": "a7475d58f5f7078b1dc65007ec53b8105bdbbfea6e239e268ebd741897d39e9c"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/opening-inputs.json",
+      "bytes": 30971,
+      "sha256": "0f2d0e174acf5edd8754e37a7c12bbb48b8e64ef8c9286d5368b444c5bb6c709"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/split-excursion.request.json",
+      "bytes": 55273,
+      "sha256": "9aef5689b3cd5c5cd710b53a53bef0f81966cea7481b2f8920f11e50f4d0e1c9"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/command.json",
+      "bytes": 35057,
+      "sha256": "31008453efa145cbc7f42bf6363b2906a41ec7e180f07dd75af9304b4d129e08"
+    }
+  ],
+  "scope": "Unexecuted metadata plus literal interpreter/resolution custody successor; requests unchanged"
+}

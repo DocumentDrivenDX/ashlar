@@ -1,0 +1,87 @@
+{
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/process.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/schema-controls.json",
+      "bytes": 723,
+      "sha256": "f4b26239dbc15f3c57b746cf09889fa6bbe1d02029a181003804a391d9133fd3"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/test_supply_chain_weft_request.py",
+      "bytes": 2964,
+      "sha256": "885f095e27d6204d99078548891da32620477d9759c1c5b7fc91f2e2ede30fff"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/lineage.request.json",
+      "bytes": 55255,
+      "sha256": "4f97c50141d9eddfcbdd931a9fb36159788556109d0711414341e8f7aa1e6226"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/replay.request.json",
+      "bytes": 55144,
+      "sha256": "14cad02a06fd76401777e549b41d8971f0835723bf8b28bb4e549b7d39dcfe3d"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/closing-root.json",
+      "bytes": 33819,
+      "sha256": "5eb4d6c01664afaab01c7ae131fa11439a940ebbf4fd770fc5da559ddb823db8"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/sensor.request.json",
+      "bytes": 55102,
+      "sha256": "84230a999af1226cc7742ebc7032ee6958a46c3870620540b2158a6322cd2165"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/process.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/supply_chain_weft_request.py",
+      "bytes": 2582,
+      "sha256": "e4ba78185e52f911150c70c30c82c4a73a2e75d6d83a6a18f7a3b532b73ac040"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/excursion.request.json",
+      "bytes": 55119,
+      "sha256": "e28cb190cc7c9be306354bd3a79408a372526bcda0b534e4e16a0e11454d8216"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/capture.py",
+      "bytes": 1614,
+      "sha256": "a7475d58f5f7078b1dc65007ec53b8105bdbbfea6e239e268ebd741897d39e9c"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/opening-inputs.json",
+      "bytes": 30971,
+      "sha256": "0f2d0e174acf5edd8754e37a7c12bbb48b8e64ef8c9286d5368b444c5bb6c709"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/split-excursion.request.json",
+      "bytes": 55233,
+      "sha256": "c2b499c806f5acfb2e8b4fa6aa4dc1d0ba2199278eb7b0e7227a22706f577d5a"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/command.json",
+      "bytes": 35057,
+      "sha256": "a26aa0c6bc184f3991427eb2c74dfe89f2de49a0154ee0ba5e4e3111e3d80b55"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/opening-root.json",
+      "bytes": 33819,
+      "sha256": "5eb4d6c01664afaab01c7ae131fa11439a940ebbf4fd770fc5da559ddb823db8"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/process.json",
+      "bytes": 2541,
+      "sha256": "81956b31a1508d0757285d0211d33605cb50175d00d757fa9589c4533961bb18"
+    }
+  ],
+  "tests_passed": 2,
+  "schema_controls_passed": 10,
+  "scope": "Corrected target envelope; compiler candidate unexecuted; original E observations preserved"
+}

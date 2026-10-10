@@ -1,0 +1,6 @@
+{
+  "local.supplychain.edge_current": "spark_catalog.supplychain.edge_current",
+  "local.supplychain.object_current": "spark_catalog.supplychain.object_current",
+  "local.supplychain.tombstone": "spark_catalog.supplychain.tombstone",
+  "local.supplychain.whole_source_history": "spark_catalog.supplychain.whole_source_history"
+}

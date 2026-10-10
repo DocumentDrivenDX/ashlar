@@ -1,0 +1,60 @@
+{
+  "status": "approved-command-for-root-execution",
+  "command": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/command.json",
+    "bytes": 35057,
+    "sha256": "31008453efa145cbc7f42bf6363b2906a41ec7e180f07dd75af9304b4d129e08"
+  },
+  "manifest": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/manifest.json",
+    "bytes": 2315,
+    "sha256": "46359bd4804f1a3e5e1ff3b6b998b057578d0ec6f11f714b2c20b8c671fac03f"
+  },
+  "capture": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/capture.py",
+    "bytes": 1614,
+    "sha256": "a7475d58f5f7078b1dc65007ec53b8105bdbbfea6e239e268ebd741897d39e9c"
+  },
+  "selected_resources_count": 125,
+  "selected_resource_bytes": 44221653,
+  "opening_closing_current": true,
+  "outputs_absent_at_review": true,
+  "checks": {
+    "five_requests_equal_independently_accepted_source_requests": true,
+    "installed_original_source_files": 97,
+    "installed_record_hashed_entries": 105,
+    "metadata_files": 8,
+    "selected_interpreter_resolution_negative": true,
+    "index_ready_backend_executable_six_schemas": true,
+    "capture_loop_AST_equal_control_tested_C": true
+  },
+  "control_review": {
+    "path": "/private/tmp/astra-supplychain-capture-controls-20261010-a.receipt.json",
+    "bytes": 23425,
+    "sha256": "ee8875bf585e02a90ec59f8e35e2bc8f32822df24517f5451709a63946c1cc9d"
+  },
+  "prior_installed_custody": {
+    "path": "/private/tmp/ashlar-paths-keys-native10-preparation-20261010-a/wheel/installed-custody.json",
+    "bytes": 27375,
+    "sha256": "c255e022eb9457092be5a17fb3fff020960802d5a2c973455a048c94d958e599"
+  },
+  "scope": [
+    "Root direct foreground env-i PATH-only invocation of exact argv/cwd, not outer forced-kill wrapper.",
+    "Five candidate compiler observations only; blocked responses remain unaccepted observations.",
+    "Installed public transport owns each compiler process group: 30-second exchange, 16MiB stdout, 4096-byte stderr, two-second reap; no shared whole-run wall deadline or abrupt-parent-death guarantee.",
+    "125 selected resources and underlying installed source/RECORD checked; stdlib and OS dynamic runtime remain trusted prerequisites, no hermetic closure.",
+    "Evidence files may remain partial after a failed write; nonzero terminal and later independent response review required.",
+    "No Spark, PostgreSQL, source ACK, current publication hold, native schema admission or native-result qualification."
+  ],
+  "root_preconditions": [
+    "Recheck exact command/manifest and all125 current resource descriptors immediately before invocation, including interpreter resolution.",
+    "Fresh candidate-output directory must be absent.",
+    "Retain terminal status/stdout/stderr and independently compare closing125 resource vector on observed success or failure."
+  ],
+  "findings": [],
+  "review_script": {
+    "path": "/private/tmp/astra-supplychain-compile-command-review-20261010-e.py",
+    "bytes": 7079,
+    "sha256": "09e0a428366ef98903441480a2ced692eedfadab31d12d396983a977193cbdf5"
+  }
+}

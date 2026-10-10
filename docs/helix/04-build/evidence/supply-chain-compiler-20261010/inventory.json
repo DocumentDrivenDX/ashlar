@@ -1,0 +1,710 @@
+{
+  "scope": "Actual installed public compiler observations for five unchanged original UMF0.8 supply-chain queries; four compiled and replay COUNTstar HAVING parse refusal. No held publication/ACK freshness, native result, host semantic admission or production support claim.",
+  "sourcePins": [
+    {
+      "path": "tools/supply_chain_weft_request.py",
+      "bytes": 2890,
+      "sha256": "0a663e723a5c3f8c7977f28fc824120a30c93bb689a1274ee8f56b867cb6d613"
+    },
+    {
+      "path": "tests/test_supply_chain_weft_request.py",
+      "bytes": 3165,
+      "sha256": "9bfd7b2e36cf9caddac33238e1b1caa6a6e6a0e45ce0f2397ee784c40bebdcc2"
+    }
+  ],
+  "files": [
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/excursion.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/excursion.response.json",
+      "bytes": 221,
+      "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/lineage.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/lineage.response.json",
+      "bytes": 221,
+      "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/replay.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/replay.response.json",
+      "bytes": 221,
+      "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/sensor.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/sensor.response.json",
+      "bytes": 221,
+      "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/split-excursion.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/split-excursion.response.json",
+      "bytes": 221,
+      "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/capture.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/capture.py",
+      "bytes": 1614,
+      "sha256": "a7475d58f5f7078b1dc65007ec53b8105bdbbfea6e239e268ebd741897d39e9c"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/closing-root.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/closing-root.json",
+      "bytes": 33819,
+      "sha256": "5eb4d6c01664afaab01c7ae131fa11439a940ebbf4fd770fc5da559ddb823db8"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/command.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/command.json",
+      "bytes": 35057,
+      "sha256": "31008453efa145cbc7f42bf6363b2906a41ec7e180f07dd75af9304b4d129e08"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/excursion.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/excursion.request.json",
+      "bytes": 55159,
+      "sha256": "5eac926a22d6ae95e847a5f21c82a49644bc97c4d5e2b63ce6d5d1b8f91894e2"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/lineage.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/lineage.request.json",
+      "bytes": 55295,
+      "sha256": "663b3d73930ad30ddd4b320d92d4d7a17da5cd33c1fbdeda4d41b5ca8a4987f8"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/manifest.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/manifest.json",
+      "bytes": 2315,
+      "sha256": "46359bd4804f1a3e5e1ff3b6b998b057578d0ec6f11f714b2c20b8c671fac03f"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/opening-inputs.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/opening-inputs.json",
+      "bytes": 30971,
+      "sha256": "0f2d0e174acf5edd8754e37a7c12bbb48b8e64ef8c9286d5368b444c5bb6c709"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/opening-root.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/opening-root.json",
+      "bytes": 33819,
+      "sha256": "5eb4d6c01664afaab01c7ae131fa11439a940ebbf4fd770fc5da559ddb823db8"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/process.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/process.json",
+      "bytes": 2541,
+      "sha256": "81956b31a1508d0757285d0211d33605cb50175d00d757fa9589c4533961bb18"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/process.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/process.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/process.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/process.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/replay.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/replay.request.json",
+      "bytes": 55184,
+      "sha256": "6dd37bc13d2d0ab984331dbef4a2e8f0b7dd518d28fa9e826a35dad10ca06adb"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/sensor.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/sensor.request.json",
+      "bytes": 55142,
+      "sha256": "4a341bf6134884ef95273320a90d1885f978ecba4cbe7c0b92af5299b17927fe"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/split-excursion.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/split-excursion.request.json",
+      "bytes": 55273,
+      "sha256": "9aef5689b3cd5c5cd710b53a53bef0f81966cea7481b2f8920f11e50f4d0e1c9"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/supply_chain_weft_request.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/supply_chain_weft_request.py",
+      "bytes": 2480,
+      "sha256": "bc10a18e48c810c9fe38ad1ec170b2b2e825764a1eedd4a5aa4f0e40a2ff4afb"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/test_supply_chain_weft_request.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-e/test_supply_chain_weft_request.py",
+      "bytes": 2773,
+      "sha256": "4c566db30effd8a0fca5d88cdc7d30e2b8c46b21cc010c3614086f37fd80a0c1"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/command.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-f/command.json",
+      "bytes": 35057,
+      "sha256": "a26aa0c6bc184f3991427eb2c74dfe89f2de49a0154ee0ba5e4e3111e3d80b55"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/manifest.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-f/manifest.json",
+      "bytes": 3645,
+      "sha256": "5e05606a4e1b66f0f0cbd2882165e0c467d21826f2d9437a75943d10cb0a4ecb"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-f/schema-controls.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-f/schema-controls.json",
+      "bytes": 723,
+      "sha256": "f4b26239dbc15f3c57b746cf09889fa6bbe1d02029a181003804a391d9133fd3"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/excursion.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/excursion.response.json",
+      "bytes": 223,
+      "sha256": "d9107f75f3d362c41094407d5e869cd5b900328d474a583944bf30b227594dd3"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/lineage.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/lineage.response.json",
+      "bytes": 223,
+      "sha256": "d9107f75f3d362c41094407d5e869cd5b900328d474a583944bf30b227594dd3"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/replay.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/replay.response.json",
+      "bytes": 244,
+      "sha256": "09def849c75e1404859e0d86485179be178d7e9772fe32e0ec363f9b44aa1933"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/sensor.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/sensor.response.json",
+      "bytes": 223,
+      "sha256": "d9107f75f3d362c41094407d5e869cd5b900328d474a583944bf30b227594dd3"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/split-excursion.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/candidate-output/split-excursion.response.json",
+      "bytes": 223,
+      "sha256": "d9107f75f3d362c41094407d5e869cd5b900328d474a583944bf30b227594dd3"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/capture.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/capture.py",
+      "bytes": 1614,
+      "sha256": "a7475d58f5f7078b1dc65007ec53b8105bdbbfea6e239e268ebd741897d39e9c"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/closing-root.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/closing-root.json",
+      "bytes": 33819,
+      "sha256": "81d0c4555b2048c1dd337038572a1eff8c22d2c2cece7a4f01dec2d777108dbe"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/command.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/command.json",
+      "bytes": 35057,
+      "sha256": "2727b27e150175d0bf6c494cf2c46e86ccdcfec0658b7c141bebd342d4c3488d"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/excursion.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/excursion.request.json",
+      "bytes": 55119,
+      "sha256": "e28cb190cc7c9be306354bd3a79408a372526bcda0b534e4e16a0e11454d8216"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/lineage.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/lineage.request.json",
+      "bytes": 55255,
+      "sha256": "4f97c50141d9eddfcbdd931a9fb36159788556109d0711414341e8f7aa1e6226"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/manifest.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/manifest.json",
+      "bytes": 2692,
+      "sha256": "85405481fb65de8c4fb450d567c8d6be93ebf52a598a4ad883122d83d275b0fb"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/observations.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/observations.json",
+      "bytes": 2545,
+      "sha256": "ac530054f0494d2270d15f7a6bd4e76b2e075ef02fd646def09ef9b070b7ab2f"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/opening-root.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/opening-root.json",
+      "bytes": 33819,
+      "sha256": "81d0c4555b2048c1dd337038572a1eff8c22d2c2cece7a4f01dec2d777108dbe"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/process.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/process.json",
+      "bytes": 1467,
+      "sha256": "a5580fbdf7fb434a17ca80e2f785ef59261d826646adc06d8c335b6477fb1337"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/process.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/process.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/process.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/process.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/replay.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/replay.request.json",
+      "bytes": 55144,
+      "sha256": "14cad02a06fd76401777e549b41d8971f0835723bf8b28bb4e549b7d39dcfe3d"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/schema-controls.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/schema-controls.json",
+      "bytes": 723,
+      "sha256": "f4b26239dbc15f3c57b746cf09889fa6bbe1d02029a181003804a391d9133fd3"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/sensor.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/sensor.request.json",
+      "bytes": 55102,
+      "sha256": "84230a999af1226cc7742ebc7032ee6958a46c3870620540b2158a6322cd2165"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/split-excursion.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/split-excursion.request.json",
+      "bytes": 55233,
+      "sha256": "c2b499c806f5acfb2e8b4fa6aa4dc1d0ba2199278eb7b0e7227a22706f577d5a"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/supply_chain_weft_request.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/supply_chain_weft_request.py",
+      "bytes": 2582,
+      "sha256": "e4ba78185e52f911150c70c30c82c4a73a2e75d6d83a6a18f7a3b532b73ac040"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-g/test_supply_chain_weft_request.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-g/test_supply_chain_weft_request.py",
+      "bytes": 2964,
+      "sha256": "885f095e27d6204d99078548891da32620477d9759c1c5b7fc91f2e2ede30fff"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/aliases.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/aliases.json",
+      "bytes": 329,
+      "sha256": "d99311af9fd1f7cbab5c0147c0e0fe7066c5cd278fa90adb90b96a780e6214c6"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/excursion.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/excursion.response.json",
+      "bytes": 25060,
+      "sha256": "42d842299656133c067ad9db54e7531b1a92ed40c1167eaa6a56ff424ccfcc6c"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/lineage.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/lineage.response.json",
+      "bytes": 47111,
+      "sha256": "dd8733556ee61fcaddaf7480e1f07dfdcdeafef32b4ac5869272bab6e4e4c709"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/replay.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/replay.response.json",
+      "bytes": 244,
+      "sha256": "09def849c75e1404859e0d86485179be178d7e9772fe32e0ec363f9b44aa1933"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/sensor.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/sensor.response.json",
+      "bytes": 15872,
+      "sha256": "39bcf4516c4e744ead1c106a7e757c2d5d010c48adddeeb8f9c5844c2d69b3fc"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/split-excursion.response.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/candidate-output/split-excursion.response.json",
+      "bytes": 38330,
+      "sha256": "e10d9cbcd43defbf5d0d059253f9bc05e3e1d65b3a417c38e03b59be3ca90ddf"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/capture.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/capture.py",
+      "bytes": 1614,
+      "sha256": "a7475d58f5f7078b1dc65007ec53b8105bdbbfea6e239e268ebd741897d39e9c"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/closing-root.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/closing-root.json",
+      "bytes": 33819,
+      "sha256": "b2ac3f9d1bf25e8cc35591b8f5fd391d1f84fcf1a8b7da6fd3230244be0bd52d"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/command.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/command.json",
+      "bytes": 35057,
+      "sha256": "649789f68102d390a6136c313047d468151e196b74c186eb4adcb5197171ebbf"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/excursion.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/excursion.request.json",
+      "bytes": 55191,
+      "sha256": "9e8be3bfc310dc4a75be2625382a166c3788f6dcd60444fe9c44082b50db7ee9"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/lineage.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/lineage.request.json",
+      "bytes": 55327,
+      "sha256": "41be129090c12b8b525e023f63c038d571b993161e4c276cc50553fdfec9ace8"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/manifest.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/manifest.json",
+      "bytes": 2423,
+      "sha256": "e8a781257419d3b146934295e1eacbfdb6efdb320be8cd3ed1c28119a48bfe9c"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/observations.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/observations.json",
+      "bytes": 2189,
+      "sha256": "9187e16ebb30716e015c6d7657e2f010244933a98a8bd0a81c3b8eb3c0d024b2"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/opening-root.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/opening-root.json",
+      "bytes": 33819,
+      "sha256": "b2ac3f9d1bf25e8cc35591b8f5fd391d1f84fcf1a8b7da6fd3230244be0bd52d"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/process.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/process.json",
+      "bytes": 1503,
+      "sha256": "62c2014d1530380faa6e4297cd5eeb1e1a80df72aba3b6b92e95acc5f698f0d8"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/process.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/process.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/process.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/process.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/replay.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/replay.request.json",
+      "bytes": 55216,
+      "sha256": "4c16096f86a309d109a6c1e6358c5ca9135fca5484bc0f662e8a3053deab628c"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/sensor.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/sensor.request.json",
+      "bytes": 55174,
+      "sha256": "da2df5b56e77f47ba7ea84156da3aa9d36e22b958d1bc6ae9990dc2b55e8cd90"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/split-excursion.request.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/split-excursion.request.json",
+      "bytes": 55305,
+      "sha256": "10fa9882b692eb91071c5b257d1bf36278e99d37248890cdeaa6ac20ad5a013f"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/supply_chain_weft_request.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/supply_chain_weft_request.py",
+      "bytes": 2890,
+      "sha256": "0a663e723a5c3f8c7977f28fc824120a30c93bb689a1274ee8f56b867cb6d613"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-h/test_supply_chain_weft_request.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/ashlar-supply-chain-compile-candidate-20261010-h/test_supply_chain_weft_request.py",
+      "bytes": 3165,
+      "sha256": "9bfd7b2e36cf9caddac33238e1b1caa6a6e6a0e45ce0f2397ee784c40bebdcc2"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-binding-review-20261010-i.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-binding-review-20261010-i.json",
+      "bytes": 2065,
+      "sha256": "320539ea35141e7b2568b7f4e790822882154198f6d26139504e89f41fa87e6e"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-binding-review-20261010-i.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-binding-review-20261010-i.py",
+      "bytes": 4334,
+      "sha256": "9076e5a2ca79c7f99097b1c24d45271fd84091048b3659f5b403745a448ea2e5"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-binding-source-review-20261010-h.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-binding-source-review-20261010-h.json",
+      "bytes": 2791,
+      "sha256": "4c674f60ef446cb05644fd853b77364a6cd22f4d74f7de51da028838b98e4263"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-binding-source-review-20261010-h.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-binding-source-review-20261010-h.py",
+      "bytes": 3970,
+      "sha256": "a61f80e71f2161b5272b5c12bda1804f36440904372c5a33aab9a526bd8da92e"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-binding-source-review-20261010-h.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-binding-source-review-20261010-h.stderr.log",
+      "bytes": 435,
+      "sha256": "9b604acd535f2cdc016a4104bdac23e8c6f9ff8651b6c1eea48ec256278596de"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-binding-source-review-20261010-h.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-binding-source-review-20261010-h.stdout.log",
+      "bytes": 140,
+      "sha256": "11856ad52d7ec757d22875cb64c2bf829891eeaa3a30f065b8dab8dd3df50277"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-capture-controls-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-capture-controls-20261010-a.json",
+      "bytes": 22817,
+      "sha256": "98d7efba84a6338149dfda956d79792a233b82462f6ce4eb386229a144ca584e"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-capture-controls-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-capture-controls-20261010-a.py",
+      "bytes": 3127,
+      "sha256": "7b95ff0640a2239a5813cd9e6e94e620208ab09d14e0c3d197083092190d89e2"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-capture-controls-20261010-a.receipt.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-capture-controls-20261010-a.receipt.json",
+      "bytes": 23425,
+      "sha256": "ee8875bf585e02a90ec59f8e35e2bc8f32822df24517f5451709a63946c1cc9d"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-capture-controls-20261010-a.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-capture-controls-20261010-a.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-capture-controls-20261010-a.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-capture-controls-20261010-a.stdout.log",
+      "bytes": 17873,
+      "sha256": "6062d12141265a62c4a71160ec28656098febbf38bb8e6f3104d6227113ee70c"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-command-review-20261010-e.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-command-review-20261010-e.json",
+      "bytes": 3078,
+      "sha256": "d20c7995b7589ec0875a09365c61c449eafd5ddd43bdb788f3e12f7ad472086d"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-command-review-20261010-e.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-command-review-20261010-e.py",
+      "bytes": 7079,
+      "sha256": "09e0a428366ef98903441480a2ced692eedfadab31d12d396983a977193cbdf5"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-command-review-20261010-e.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-command-review-20261010-e.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-command-review-20261010-e.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-command-review-20261010-e.stdout.log",
+      "bytes": 175,
+      "sha256": "163f4c3225d63489f9da06eaf7f4c88f7b9516acf6c5cd7cbb8665419cf28a93"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-command-review-20261010-g-final.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-command-review-20261010-g-final.json",
+      "bytes": 3184,
+      "sha256": "8846bf7e4349f673f75c64821e48b44bc9d2577885643c8376480f4289bb87c7"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-command-review-20261010-g-final.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-command-review-20261010-g-final.py",
+      "bytes": 4694,
+      "sha256": "0678c0aad27304b1ed08cde04fdc696f5067cbba579877d9be908124b04f88d5"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-command-review-20261010-g-final.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-command-review-20261010-g-final.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-command-review-20261010-g-final.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-command-review-20261010-g-final.stdout.log",
+      "bytes": 150,
+      "sha256": "380b39b8c03662073713bc0813f014df50e3d8bd28ce42251d7ebe09f6315095"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-command-review-20261010-g.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-command-review-20261010-g.py",
+      "bytes": 4170,
+      "sha256": "adb2b4b7f03b95a3846a2acafaafe3173610af8f33f46433a23070bc804ecae2"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-command-review-20261010-g.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-command-review-20261010-g.stderr.log",
+      "bytes": 262,
+      "sha256": "38e9ae119a8e45573242a8611c1c75ebde210bdd230a06ea760dfbd4707a8d12"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-command-review-20261010-g.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-command-review-20261010-g.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-command-review-20261010-h.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-command-review-20261010-h.json",
+      "bytes": 4898,
+      "sha256": "7feeaded85f235a5cf529946d19f0dbb263eddc3575406ea4a84574fb6dec842"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-inputs-review-20261010-h.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-inputs-review-20261010-h.json",
+      "bytes": 1854,
+      "sha256": "c068e1b427a28aa6d6d6bc29f6618f5db16f7ffbac5012b20eeba4bdce44fb4f"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compile-inputs-review-20261010-h.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compile-inputs-review-20261010-h.py",
+      "bytes": 3232,
+      "sha256": "bf2f90c9540e080e9852c737bdefe6fd6a1af6a6f5d21b58676e2835510b0a6c"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compiler-evidence-review-20261010-h.js",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compiler-evidence-review-20261010-h.js",
+      "bytes": 3880,
+      "sha256": "a1904ac8328dffdc171023e3e3e3eaef4a490c443f32936dce703630913ad913"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compiler-evidence-review-20261010-h.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compiler-evidence-review-20261010-h.json",
+      "bytes": 2644,
+      "sha256": "7022df52496d57adc08118445d19e0af14fdd76538e7e9199d01af9afb48ed38"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compiler-evidence-review-20261010-h.receipt.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compiler-evidence-review-20261010-h.receipt.json",
+      "bytes": 3432,
+      "sha256": "176cf322d9fc8dc99ec78e7b18115c41d460659d6d0b998fdf8562bfccea390e"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compiler-evidence-review-20261010-h.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compiler-evidence-review-20261010-h.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compiler-evidence-review-20261010-h.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compiler-evidence-review-20261010-h.stdout.log",
+      "bytes": 1952,
+      "sha256": "22a92d3a855154adfaeae876131d76a5265659d2d42905214d8e6403f36a1cb6"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compiler-result-review-20261010-h.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compiler-result-review-20261010-h.json",
+      "bytes": 8140,
+      "sha256": "bedda34fd70a3e66d69757234cc8d40f2e20dfabd04134a974ee088de93dca7a"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compiler-result-review-20261010-h.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compiler-result-review-20261010-h.py",
+      "bytes": 6433,
+      "sha256": "70f18fb247c947ab6a992fdba300d37d5b11671373c801caa7115e674a395b18"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compiler-result-review-20261010-h.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compiler-result-review-20261010-h.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-compiler-result-review-20261010-h.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-compiler-result-review-20261010-h.stdout.log",
+      "bytes": 309,
+      "sha256": "4a174a221981edf2efff85086e0e2007320660f27757e68b9de56ed244158790"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-corrected-envelope-review-20261010-f.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-corrected-envelope-review-20261010-f.json",
+      "bytes": 3009,
+      "sha256": "0be9da0da1fc814308057c2525705bdc12a56b88c2304cd3b8b8a710496b6562"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-corrected-envelope-review-20261010-f.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-corrected-envelope-review-20261010-f.py",
+      "bytes": 2557,
+      "sha256": "a88cd14b237f7290b291d991f895261b83a61bc21d2a1085001df30d59934234"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-corrected-envelope-review-20261010-f.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-corrected-envelope-review-20261010-f.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-corrected-envelope-review-20261010-f.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-corrected-envelope-review-20261010-f.stdout.log",
+      "bytes": 155,
+      "sha256": "57e89e106f35327e5fe7faa13783150a55b709035133db41f4c69477d4840ccb"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-envelope-counterexample-20261010-e.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-envelope-counterexample-20261010-e.json",
+      "bytes": 6949,
+      "sha256": "5b854e737026efa4fa47c3149bffda98d195dea62ecde1e37fe8764a208626fe"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-envelope-counterexample-20261010-e.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-envelope-counterexample-20261010-e.py",
+      "bytes": 3315,
+      "sha256": "e5efb722dd864148b2701372e773c9f4381f4290ecdcee7bb8015eb2bbfdf352"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-envelope-counterexample-20261010-e.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-envelope-counterexample-20261010-e.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-envelope-counterexample-20261010-e.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-envelope-counterexample-20261010-e.stdout.log",
+      "bytes": 148,
+      "sha256": "75c11f3fc8e4e61369c4d5ea122aa75d7adcb209b7576cd388d44a432d0bf142"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-wrapper-review-20261010-c.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-compiler-20261010/originals/astra-supplychain-wrapper-review-20261010-c.json",
+      "bytes": 4367,
+      "sha256": "415461b5760ac3d5e1224088370e2309f14c4ceedc4e0e5c988c3ef5cb02bf62"
+    }
+  ],
+  "actualRuns": {
+    "E": {
+      "exitCode": 0,
+      "seconds": 0.289708709,
+      "result": "five input-envelope refusals"
+    },
+    "G": {
+      "exitCode": 0,
+      "seconds": 0.105875542,
+      "result": "four malformed binding refusals, one original replay parse refusal"
+    },
+    "H": {
+      "exitCode": 0,
+      "seconds": 0.69967825,
+      "result": "four compiled original queries, one original replay parse refusal"
+    }
+  },
+  "currentCompileCases": [
+    "split-excursion",
+    "excursion",
+    "lineage",
+    "sensor"
+  ],
+  "pendingCase": "replay",
+  "custody": "125 actual selected opening-root/closing-root pins unchanged in E/G/H; carried opening-inputs.json is historical, not current proof. Selected interpreter/installed package/compiler/schema custody, not complete OS closure.",
+  "counterexamples": "E proves forbidden target.interfaceVersion. G proves two-part physical names violate nested binding shape. F is unexecuted stale preparation and its carried outcomes are excluded from current proof.",
+  "qualification": "Response schema, request/pin/column correspondence review separate from native execution; required runtime outcomes remain unmet."
+}

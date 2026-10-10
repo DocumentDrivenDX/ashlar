@@ -1,0 +1,87 @@
+{
+  "selectedResourcesUnchanged": 125,
+  "scope": "Actual installed compiler observations; semantic admission and native execution separate.",
+  "cases": [
+    {
+      "case": "split-excursion",
+      "bytes": 38330,
+      "sha256": "e10d9cbcd43defbf5d0d059253f9bc05e3e1d65b3a417c38e03b59be3ca90ddf",
+      "status": "compiled",
+      "diagnostics": [],
+      "requiredCapabilities": [
+        "aggregate",
+        "aggregate.countDistinct",
+        "equal",
+        "group",
+        "innerJoin",
+        "project",
+        "scan",
+        "type.string"
+      ]
+    },
+    {
+      "case": "excursion",
+      "bytes": 25060,
+      "sha256": "42d842299656133c067ad9db54e7531b1a92ed40c1167eaa6a56ff424ccfcc6c",
+      "status": "compiled",
+      "diagnostics": [],
+      "requiredCapabilities": [
+        "compare.lexicographicGreater",
+        "filter",
+        "project",
+        "scan",
+        "type.decimal",
+        "type.string"
+      ]
+    },
+    {
+      "case": "replay",
+      "bytes": 244,
+      "sha256": "09def849c75e1404859e0d86485179be178d7e9772fe32e0ec363f9b44aa1933",
+      "status": "blocked",
+      "diagnostics": [
+        {
+          "code": "WFT-UNSUPPORTED",
+          "message": "Expected dialect keyword",
+          "phase": "parse",
+          "recoverability": "correct-input",
+          "severity": "error",
+          "sourceSpan": {
+            "end": 87,
+            "start": 86
+          }
+        }
+      ],
+      "requiredCapabilities": null
+    },
+    {
+      "case": "lineage",
+      "bytes": 47111,
+      "sha256": "dd8733556ee61fcaddaf7480e1f07dfdcdeafef32b4ac5869272bab6e4e4c709",
+      "status": "compiled",
+      "diagnostics": [],
+      "requiredCapabilities": [
+        "equal",
+        "innerJoin",
+        "project",
+        "scan",
+        "type.string",
+        "value.nativeNull",
+        "value.presence"
+      ]
+    },
+    {
+      "case": "sensor",
+      "bytes": 15872,
+      "sha256": "39bcf4516c4e744ead1c106a7e757c2d5d010c48adddeeb8f9c5844c2d69b3fc",
+      "status": "compiled",
+      "diagnostics": [],
+      "requiredCapabilities": [
+        "project",
+        "project.distinct",
+        "scan",
+        "type.string"
+      ]
+    }
+  ]
+}

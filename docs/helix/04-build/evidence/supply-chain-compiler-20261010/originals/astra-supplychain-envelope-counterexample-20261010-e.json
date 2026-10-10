@@ -1,0 +1,161 @@
+{
+  "status": "confirmed-wrapper-envelope-defect",
+  "finding": "SUPPLY-ENVELOPE-001",
+  "scope": "Actual five retained compiler refusal responses; no compiler rerun. Offline retained request schema independently identifies the invalid target member.",
+  "source": {
+    "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/supply_chain_weft_request.py",
+    "bytes": 2480,
+    "sha256": "bc10a18e48c810c9fe38ad1ec170b2b2e825764a1eedd4a5aa4f0e40a2ff4afb"
+  },
+  "schema": {
+    "path": "/private/tmp/ashlar-paths-keys-native10-preparation-20261010-a/installation/schemas/compile-request-v0.4.schema.json",
+    "bytes": 3511,
+    "sha256": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932"
+  },
+  "cases": [
+    {
+      "case": "split-excursion",
+      "request": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/split-excursion.request.json",
+        "bytes": 55273,
+        "sha256": "9aef5689b3cd5c5cd710b53a53bef0f81966cea7481b2f8920f11e50f4d0e1c9"
+      },
+      "response": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/split-excursion.response.json",
+        "bytes": 221,
+        "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96"
+      },
+      "schema_error": {
+        "path": [
+          "target"
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('interfaceVersion' was unexpected)"
+      },
+      "remove_only_target_interfaceVersion_validates": true
+    },
+    {
+      "case": "excursion",
+      "request": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/excursion.request.json",
+        "bytes": 55159,
+        "sha256": "5eac926a22d6ae95e847a5f21c82a49644bc97c4d5e2b63ce6d5d1b8f91894e2"
+      },
+      "response": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/excursion.response.json",
+        "bytes": 221,
+        "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96"
+      },
+      "schema_error": {
+        "path": [
+          "target"
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('interfaceVersion' was unexpected)"
+      },
+      "remove_only_target_interfaceVersion_validates": true
+    },
+    {
+      "case": "replay",
+      "request": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/replay.request.json",
+        "bytes": 55184,
+        "sha256": "6dd37bc13d2d0ab984331dbef4a2e8f0b7dd518d28fa9e826a35dad10ca06adb"
+      },
+      "response": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/replay.response.json",
+        "bytes": 221,
+        "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96"
+      },
+      "schema_error": {
+        "path": [
+          "target"
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('interfaceVersion' was unexpected)"
+      },
+      "remove_only_target_interfaceVersion_validates": true
+    },
+    {
+      "case": "lineage",
+      "request": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/lineage.request.json",
+        "bytes": 55295,
+        "sha256": "663b3d73930ad30ddd4b320d92d4d7a17da5cd33c1fbdeda4d41b5ca8a4987f8"
+      },
+      "response": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/lineage.response.json",
+        "bytes": 221,
+        "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96"
+      },
+      "schema_error": {
+        "path": [
+          "target"
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('interfaceVersion' was unexpected)"
+      },
+      "remove_only_target_interfaceVersion_validates": true
+    },
+    {
+      "case": "sensor",
+      "request": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/sensor.request.json",
+        "bytes": 55142,
+        "sha256": "4a341bf6134884ef95273320a90d1885f978ecba4cbe7c0b92af5299b17927fe"
+      },
+      "response": {
+        "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/candidate-output/sensor.response.json",
+        "bytes": 221,
+        "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96"
+      },
+      "schema_error": {
+        "path": [
+          "target"
+        ],
+        "validator": "additionalProperties",
+        "message": "Additional properties are not allowed ('interfaceVersion' was unexpected)"
+      },
+      "remove_only_target_interfaceVersion_validates": true
+    }
+  ],
+  "custody": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/opening-root.json",
+      "bytes": 33819,
+      "sha256": "5eb4d6c01664afaab01c7ae131fa11439a940ebbf4fd770fc5da559ddb823db8"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/closing-root.json",
+      "bytes": 33819,
+      "sha256": "5eb4d6c01664afaab01c7ae131fa11439a940ebbf4fd770fc5da559ddb823db8"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/process.json",
+      "bytes": 2541,
+      "sha256": "81956b31a1508d0757285d0211d33605cb50175d00d757fa9589c4533961bb18"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/process.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-compile-candidate-20261010-e/process.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "all_125_current_unchanged": true,
+  "review_correction": "The earlier wrapper source review incorrectly accepted spreading all PATHS_KEYS_BACKEND keys. Backend manifest interfaceVersion is not an allowed compile-request target property. Its source-ready conclusion is superseded for those two wrapper files; preparer/shared-runner findings remain unaffected.",
+  "required_correction": "Select only backendId/backendVersion/targetProfile for target; preserve original SQL/model/binding bytes. Add exact target-key-set regression and validate all five revised request envelopes offline before execution.",
+  "limits": [
+    "WFT-INPUT is request-envelope refusal, not evidence of query capability refusal.",
+    "Removing the unsupported member passes schema only; no new compiler/native acceptance implied."
+  ],
+  "review_script": {
+    "path": "/private/tmp/astra-supplychain-envelope-counterexample-20261010-e.py",
+    "bytes": 3315,
+    "sha256": "e5efb722dd864148b2701372e773c9f4381f4290ecdcee7bb8015eb2bbfdf352"
+  }
+}
