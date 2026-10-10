@@ -1,0 +1,12 @@
+{
+  "format": "source-review-freeze/0.1",
+  "baseCommit": "4d71fecdf2c3b6e98e1308177caad4ba0d04f938",
+  "files": [
+    {
+      "path": "tests/test_installed_path_host.py",
+      "bytes": 7558,
+      "sha256": "aad11a1fc63a1960221b9ea9369ae6933fc28c2f285517778c5125e2bad1f283"
+    }
+  ],
+  "scope": "Test fixture namespace wiring only; preserve actual installed defaultprofile behavior and all legacy guard/cleanup controls."
+}

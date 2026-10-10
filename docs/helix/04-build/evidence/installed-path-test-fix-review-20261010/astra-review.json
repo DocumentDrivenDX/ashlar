@@ -1,0 +1,51 @@
+{
+  "assessment": [
+    "Temporary fixture alias targets actual installed host admission implementation; no production shim, tool-path addition or SDK import added.",
+    "patch.dict restores sys.modules mapping after fixture import; only retained SCHEMAS bytes used by this default-profile test.",
+    "Exact CI parent PYTHONPATH=src now passes; existing isolated child suite and its behavior assertions remain unchanged."
+  ],
+  "baseCommit": "4d71fecdf2c3b6e98e1308177caad4ba0d04f938",
+  "commands": [
+    {
+      "argv": "PYTHONPATH=src /usr/bin/python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_installed_path_host.py",
+      "exitCode": 0,
+      "log": {
+        "bytes": 102,
+        "path": "/private/tmp/astra-installed-path-host-test-seam-20261010-a.log",
+        "sha256": "75221608b6d3dbb003a301b670d08b4e6dd3b23f3c4e098b6383bc6fb2582261"
+      },
+      "runtime": "Python3.9.6",
+      "testsRun": 3
+    },
+    {
+      "argv": "PYTHONPATH=src /Users/erik/Projects/tablespec/.venv/bin/python -S -W error::ResourceWarning -m unittest discover -s tests -p test_installed_path_host.py",
+      "exitCode": 0,
+      "log": {
+        "bytes": 101,
+        "path": "/private/tmp/astra-installed-path-host-test-seam-312-20261010-a.log",
+        "sha256": "b4c1f32d0ad51bf073f66e8424852b74ebfb9e92e6db87bb2ff4e9ed62476f54"
+      },
+      "runtime": "3.12.15",
+      "testsRun": 3
+    }
+  ],
+  "exactDelta": "Only stdlib patch import, explicit installed path_admission import and temporary weft_path_plan fixture alias around SCHEMAS import. All original assertions and isolated full legacy guard/cleanup suite unchanged.",
+  "findings": [],
+  "format": "independent-test-only-review/0.1",
+  "freeze": {
+    "bytes": 427,
+    "path": "/private/tmp/ashlar-installed-path-test-fix-freeze-20261010-a/manifest.json",
+    "sha256": "28a72c0519ef086279165493ebf30923895aa93f0365e198bde75051c98304e4"
+  },
+  "limitations": [
+    "Local checks are not a completed GitHub run.",
+    "No application-source changes, compiler/native execution, package/index/native qualification or new telemetry/model-proof claim."
+  ],
+  "reviewCorrection": "Prior source review used src:tests:tools, which masked this fixture-import seam. This addendum exercises the exact CI import path on both local3.9 and3.12. Historical failed CI and prior receipt remain retained.",
+  "source": {
+    "bytes": 7558,
+    "path": "/Users/erik/Projects/ashlar/tests/test_installed_path_host.py",
+    "sha256": "aad11a1fc63a1960221b9ea9369ae6933fc28c2f285517778c5125e2bad1f283"
+  },
+  "verdict": "approved-test-only"
+}

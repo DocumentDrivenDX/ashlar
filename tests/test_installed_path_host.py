@@ -9,6 +9,7 @@ import os
 import subprocess
 import sys
 import unittest
+from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -25,9 +26,11 @@ class InstalledPathHostTests(unittest.TestCase):
                          ast.dump(after, include_attributes=False))
 
     def test_original_profile_remains_the_default_admission(self):
+        from ashlar_host import path_admission
         from ashlar_host.path_admission import (PathAdmissionConfig,
             PathSchemaValidation, BACKEND)
-        from test_weft_path_plan import SCHEMAS
+        with patch.dict(sys.modules, {'weft_path_plan': path_admission}):
+            from test_weft_path_plan import SCHEMAS
         config = PathAdmissionConfig(16777216,
             PathSchemaValidation(SCHEMAS, lambda *args: None))
         self.assertEqual(config.profile, 'paths')
