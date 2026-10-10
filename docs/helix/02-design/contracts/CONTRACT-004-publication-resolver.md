@@ -469,6 +469,20 @@ execution MUST separately hold the complete original source and publication
 through every guard, result comparison and closing check under the lifecycle
 requirements above; installed library code MUST NOT import checkout tools.
 
+The finite original supply-chain source profile MUST renew the exact original
+model/graph file identity, original emitted public dataset receipt and complete
+independent projection through publication and query. Its native owner MUST hold
+an actual exclusive cooperating installation lease and current original target,
+writer and retention admission. Generic durable attempt and manifest ports govern
+publication and exact replay; the finite replay receipt MUST NOT acquire outbox or
+protected ACK semantics. A reader MUST reopen the original complete committed
+attempts, exact descriptor and pinned native snapshots without applying effects,
+replacing plans or treating nonempty tables as a fresh bootstrap. All five original
+SQL statements execute unchanged under the selected 0.4.1 source and complete-bag
+guards. A final successful result MUST wait for native transport, source, lease and
+owned runtime cleanup under the lifecycle contract above. This private local
+profile does not grant Unity Catalog or remote-source admission.
+
 The selected host MUST refuse unknown capabilities or owning obligations and
 preserve the original SQL, full module documents, binding text and ordered
 parameter values. Its independent oracle MUST count original source occurrence
