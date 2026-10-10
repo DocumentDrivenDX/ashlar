@@ -1,0 +1,238 @@
+{
+  "fixtures": "/private/tmp/astra-diagnostics-reader-20261010-b-7iyheept",
+  "manifest": {
+    "bytes": 447,
+    "path": "/private/tmp/ashlar-diagnostics-source-freeze-20261010-b/manifest.json",
+    "sha256": "69b7188192715e5812a93b24d8f14e6e5500f7ac469c2b57334f6bc58bb76110"
+  },
+  "noSDK": true,
+  "realDependencies": [
+    {
+      "bytes": 6264,
+      "module": "ashlar.publication",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/publication.py",
+      "sha256": "6feb6375bd1cb72a62520af11d5e30871141a3e96ce680c64a57b91ef17873e0"
+    },
+    {
+      "bytes": 4334,
+      "module": "ashlar.schema",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/schema.py",
+      "sha256": "db4b4922d78ef012863cf72231eeca14c1d7d70b2a56dee6428da1c74ed63d8b"
+    },
+    {
+      "bytes": 13942,
+      "module": "ashlar.weft_decode",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_decode.py",
+      "sha256": "b66a26ff2fe7084eafc2d0d77c906836fcfbd08c51b14d6ae1500b38f322d3cd"
+    },
+    {
+      "bytes": 11170,
+      "module": "ashlar.weft_path_decode",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_path_decode.py",
+      "sha256": "0e5dcb7d28aa60f3d8364c41c5d305b1e71607b8acab678e0eee0973478df0a6"
+    },
+    {
+      "bytes": 4898,
+      "module": "ashlar_host.path_capture",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/path_capture.py",
+      "sha256": "b9426e7cd29e6f68843ac53e56f6cbbd4231eac135d5eb35dd137aed29cc3e1d"
+    },
+    {
+      "bytes": 10498,
+      "module": "ashlar_host.config",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "sha256": "0d53617c05b5992255a9009dab4519c829be44dccaa000fa3e314140e2c51346"
+    }
+  ],
+  "rows": [
+    {
+      "outcome": "pass",
+      "test": "exact_freeze_source_contract_schema_config_hashes"
+    },
+    {
+      "outcome": "pass",
+      "test": "baseline_real_schemas_and_bounded_conjunctive_filters"
+    },
+    {
+      "outcome": "pass",
+      "test": "DR-001_complete_undeclared_partial_refuses"
+    },
+    {
+      "outcome": "pass",
+      "test": "undeclared_partial_under_incomplete_loss_preserved"
+    },
+    {
+      "outcome": "pass",
+      "test": "DR-002_phase_before_started_refuses_complete_True"
+    },
+    {
+      "outcome": "pass",
+      "test": "DR-002_phase_before_started_refuses_complete_False"
+    },
+    {
+      "outcome": "pass",
+      "test": "missing_start_with_declared_loss_is_admitted"
+    },
+    {
+      "fixedError": true,
+      "outcome": "pass",
+      "test": "reject_unknown_event_key"
+    },
+    {
+      "fixedError": true,
+      "outcome": "pass",
+      "test": "reject_unknown_attribute"
+    },
+    {
+      "fixedError": true,
+      "outcome": "pass",
+      "test": "reject_unknown_resource"
+    },
+    {
+      "fixedError": true,
+      "outcome": "pass",
+      "test": "reject_unknown_scope"
+    },
+    {
+      "fixedError": true,
+      "outcome": "pass",
+      "test": "reject_boolean_sequence"
+    },
+    {
+      "fixedError": true,
+      "outcome": "pass",
+      "test": "reject_wrong_body"
+    },
+    {
+      "fixedError": true,
+      "outcome": "pass",
+      "test": "reject_wrong_run"
+    },
+    {
+      "fixedError": true,
+      "outcome": "pass",
+      "test": "reject_wrong_attempt"
+    },
+    {
+      "fixedError": true,
+      "outcome": "pass",
+      "test": "reject_wrong_operation"
+    },
+    {
+      "fixedError": true,
+      "outcome": "pass",
+      "test": "reject_resource_drift"
+    },
+    {
+      "fixedError": true,
+      "outcome": "pass",
+      "test": "reject_duplicate_sequence"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_duplicate_members"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_integer_21_digits"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_nesting_13"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_invalid_utf8"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_nonfinite"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_float"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_unexpected_file"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_undeclared_oversize"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_manifest_oversize"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_unsafe_permissions"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_symlink_segment"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_local_sum"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_written_count"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_complete_with_loss"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_export_sum"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_null_without_unknown"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_unknown_manifest_key"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_boolean_limit"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_origin_private_payload"
+    },
+    {
+      "outcome": "pass",
+      "test": "reject_duplicate_attempt_identity"
+    },
+    {
+      "mutations": 1104,
+      "outcome": "pass",
+      "test": "manual_validators_no_schema_false_accepts_for_json_primitive_mutations"
+    },
+    {
+      "outcome": "pass",
+      "test": "filtered_out_invalid_record_refuses_whole_response"
+    }
+  ],
+  "schemas": [
+    {
+      "bytes": 6206,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/schemas/diagnostic-event-v0.1.schema.json",
+      "sha256": "75406834cb25ad1b5cc8e660aa57ac7b2fcc34fcdd79fc3f94718320f837a860"
+    },
+    {
+      "bytes": 7772,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/schemas/diagnostic-run-v0.1.schema.json",
+      "sha256": "f32abe5d39074a4c82e00cbb3d9c071dc65666bdde779c958953f863de049bd2"
+    }
+  ],
+  "source": {
+    "bytes": 36376,
+    "path": "/private/tmp/ashlar-diagnostics-source-freeze-20261010-b/src/ashlar_host/diagnostics.py",
+    "sha256": "29fabc05ad9537a852d470a7fe68d35e67fc95382244dab10c236fe09af59677"
+  }
+}

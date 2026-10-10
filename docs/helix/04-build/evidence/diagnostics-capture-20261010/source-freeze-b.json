@@ -1,0 +1,16 @@
+{
+  "files": [
+    {
+      "bytes": 36376,
+      "path": "src/ashlar_host/diagnostics.py",
+      "sha256": "29fabc05ad9537a852d470a7fe68d35e67fc95382244dab10c236fe09af59677"
+    },
+    {
+      "bytes": 16094,
+      "path": "tests/test_host_diagnostics.py",
+      "sha256": "82156f1a80dfbcc9c3761f2829dd54f988ef5e8f19a0d9a28bd15c3297159d2d"
+    }
+  ],
+  "scope": "source-only local capture and injected sink; no SDK qualification",
+  "tests": 17
+}

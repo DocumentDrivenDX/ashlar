@@ -1,0 +1,41 @@
+{"outcome": "pass", "test": "exact_freeze_source_contract_schema_config_hashes"}
+{"outcome": "pass", "test": "baseline_real_schemas_and_bounded_conjunctive_filters"}
+{"outcome": "pass", "test": "DR-001_complete_undeclared_partial_refuses"}
+{"outcome": "pass", "test": "undeclared_partial_under_incomplete_loss_preserved"}
+{"outcome": "pass", "test": "DR-002_phase_before_started_refuses_complete_True"}
+{"outcome": "pass", "test": "DR-002_phase_before_started_refuses_complete_False"}
+{"outcome": "pass", "test": "missing_start_with_declared_loss_is_admitted"}
+{"fixedError": true, "outcome": "pass", "test": "reject_unknown_event_key"}
+{"fixedError": true, "outcome": "pass", "test": "reject_unknown_attribute"}
+{"fixedError": true, "outcome": "pass", "test": "reject_unknown_resource"}
+{"fixedError": true, "outcome": "pass", "test": "reject_unknown_scope"}
+{"fixedError": true, "outcome": "pass", "test": "reject_boolean_sequence"}
+{"fixedError": true, "outcome": "pass", "test": "reject_wrong_body"}
+{"fixedError": true, "outcome": "pass", "test": "reject_wrong_run"}
+{"fixedError": true, "outcome": "pass", "test": "reject_wrong_attempt"}
+{"fixedError": true, "outcome": "pass", "test": "reject_wrong_operation"}
+{"fixedError": true, "outcome": "pass", "test": "reject_resource_drift"}
+{"fixedError": true, "outcome": "pass", "test": "reject_duplicate_sequence"}
+{"outcome": "pass", "test": "reject_duplicate_members"}
+{"outcome": "pass", "test": "reject_integer_21_digits"}
+{"outcome": "pass", "test": "reject_nesting_13"}
+{"outcome": "pass", "test": "reject_invalid_utf8"}
+{"outcome": "pass", "test": "reject_nonfinite"}
+{"outcome": "pass", "test": "reject_float"}
+{"outcome": "pass", "test": "reject_unexpected_file"}
+{"outcome": "pass", "test": "reject_undeclared_oversize"}
+{"outcome": "pass", "test": "reject_manifest_oversize"}
+{"outcome": "pass", "test": "reject_unsafe_permissions"}
+{"outcome": "pass", "test": "reject_symlink_segment"}
+{"outcome": "pass", "test": "reject_local_sum"}
+{"outcome": "pass", "test": "reject_written_count"}
+{"outcome": "pass", "test": "reject_complete_with_loss"}
+{"outcome": "pass", "test": "reject_export_sum"}
+{"outcome": "pass", "test": "reject_null_without_unknown"}
+{"outcome": "pass", "test": "reject_unknown_manifest_key"}
+{"outcome": "pass", "test": "reject_boolean_limit"}
+{"outcome": "pass", "test": "reject_origin_private_payload"}
+{"outcome": "pass", "test": "reject_duplicate_attempt_identity"}
+{"mutations": 1104, "outcome": "pass", "test": "manual_validators_no_schema_false_accepts_for_json_primitive_mutations"}
+{"outcome": "pass", "test": "filtered_out_invalid_record_refuses_whole_response"}
+{"blockerReproductions": 0, "cases": 40, "data": "/private/tmp/astra-diagnostics-reader-review-20261010-b-data.json", "falseSchemaAccepts": 0, "fixtures": "/private/tmp/astra-diagnostics-reader-20261010-b-7iyheept", "noSDK": true, "outcome": "pass", "test": "review_complete"}

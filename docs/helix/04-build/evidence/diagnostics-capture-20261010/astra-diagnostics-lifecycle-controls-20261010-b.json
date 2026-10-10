@@ -1,0 +1,49 @@
+{
+  "format": "astra-diagnostics-lifecycle-probes/0.1",
+  "freeze": {
+    "path": "/private/tmp/ashlar-diagnostics-source-freeze-20261010-b/manifest.json",
+    "bytes": 447,
+    "sha256": "69b7188192715e5812a93b24d8f14e6e5500f7ac469c2b57334f6bc58bb76110"
+  },
+  "source": {
+    "path": "/private/tmp/ashlar-diagnostics-source-freeze-20261010-b/src/ashlar_host/diagnostics.py",
+    "bytes": 36376,
+    "sha256": "29fabc05ad9537a852d470a7fe68d35e67fc95382244dab10c236fe09af59677"
+  },
+  "rows": [
+    {
+      "id": "DL-001",
+      "status": "pass",
+      "unavailableResultIsNone": true,
+      "diskState": "open",
+      "safeNoticeOnly": true,
+      "sinkShutdownAttempted": true
+    },
+    {
+      "id": "KeyboardInterrupt",
+      "status": "pass",
+      "primaryIdentityAndCleanupMarker": true
+    },
+    {
+      "id": "SystemExit",
+      "status": "pass",
+      "primaryIdentityAndCleanupMarker": true
+    },
+    {
+      "id": "GeneratorExit",
+      "status": "pass",
+      "primaryIdentityAndCleanupMarker": true
+    },
+    {
+      "id": "cross-process-refusal",
+      "status": "pass"
+    },
+    {
+      "id": "ordinary-port-shutdown-failure",
+      "status": "pass",
+      "classificationPreserved": true
+    }
+  ],
+  "scope": "Frozen source; real owned local files, mocked installed version and signal ports. No SDK/network/native invocation.",
+  "contractBasis": "C006 error semantics: ordinary diagnostic-only shutdown failures do not change completed operation classification; SDK/exporter failures fixed categories; primary failures preserved."
+}

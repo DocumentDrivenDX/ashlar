@@ -1,0 +1,165 @@
+{
+  "format": "independent-diagnostics-source-review/0.1",
+  "decision": "approved-exact-B-source-only-two-files",
+  "freeze": {
+    "path": "/private/tmp/ashlar-diagnostics-source-freeze-20261010-b/manifest.json",
+    "bytes": 447,
+    "sha256": "69b7188192715e5812a93b24d8f14e6e5500f7ac469c2b57334f6bc58bb76110"
+  },
+  "files": [
+    {
+      "bytes": 36376,
+      "path": "src/ashlar_host/diagnostics.py",
+      "sha256": "29fabc05ad9537a852d470a7fe68d35e67fc95382244dab10c236fe09af59677"
+    },
+    {
+      "bytes": 16094,
+      "path": "tests/test_host_diagnostics.py",
+      "sha256": "82156f1a80dfbcc9c3761f2829dd54f988ef5e8f19a0d9a28bd15c3297159d2d"
+    }
+  ],
+  "governingReferences": [
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/schemas/diagnostic-event-v0.1.schema.json",
+      "sha256": "75406834cb25ad1b5cc8e660aa57ac7b2fcc34fcdd79fc3f94718320f837a860"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/schemas/diagnostic-run-v0.1.schema.json",
+      "sha256": "f32abe5d39074a4c82e00cbb3d9c071dc65666bdde779c958953f863de049bd2"
+    },
+    {
+      "path": "src/ashlar_host/config.py",
+      "sha256": "0d53617c05b5992255a9009dab4519c829be44dccaa000fa3e314140e2c51346"
+    }
+  ],
+  "priorReaderFindingsEndorsed": {
+    "path": "/private/tmp/astra-diagnostics-reader-review-20261010-a.json",
+    "bytes": 14330,
+    "sha256": "dd56c2674bf671d9a81d44fc0cc023bb26a53544f4c3982cd4877990778e0c69"
+  },
+  "priorLifecycleCounterexample": {
+    "path": "/private/tmp/astra-diagnostics-lifecycle-controls-20261010-a.json",
+    "bytes": 1727,
+    "sha256": "dc85c9e415237af1cdcbb1df39b8dc12332dfbd20658fe2dc48202f169f7a2a9"
+  },
+  "corrections": [
+    {
+      "id": "DL-001",
+      "resolved": "Ordinary final manifest publication failure returns None and fixed notice; on-disk manifest remains open. Original primary or fresh non-Exception cancellation still propagates exact object."
+    },
+    {
+      "id": "DR-001",
+      "resolved": "Complete capture rejects any undeclared segment; bounded abandoned segment remains admitted for declared incomplete capture."
+    },
+    {
+      "id": "DR-002",
+      "resolved": "Observed phase before later started event for same attempt refuses with either completeness flag. Missing start under declared loss remains admitted; no requirement that all attempts finish merely to call local capture complete."
+    }
+  ],
+  "tests": [
+    {
+      "command": "PYTHONPATH=src /usr/bin/python3 -B -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_diagnostics.py -v",
+      "cwd": "/Users/erik/Projects/ashlar",
+      "exitCode": 0,
+      "tests": 17,
+      "passed": 16,
+      "skipped": 1,
+      "skip": "Explicit optional real-schema dependencies absent under -S",
+      "log": {
+        "path": "/private/tmp/astra-diagnostics-owner-tests-20261010-b-py39.log",
+        "bytes": 1903,
+        "sha256": "94a2d98aacb3c3dfb8532454586d1876d8745815c5473021b4ed91285b60ed32"
+      }
+    },
+    {
+      "command": "PYTHONPATH=src /private/tmp/truss-python-report-schema-env/bin/python -B -W error::ResourceWarning -m unittest discover -s tests -p test_host_diagnostics.py -v",
+      "cwd": "/Users/erik/Projects/ashlar",
+      "exitCode": 0,
+      "tests": 17,
+      "passed": 17,
+      "log": {
+        "path": "/private/tmp/astra-diagnostics-owner-tests-20261010-b-py311.log",
+        "bytes": 2753,
+        "sha256": "0116edca16829c1da836d12eb1e98c539edc0e101409ee85f7aae99627cd12f8"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "/private/tmp/astra-diagnostics-lifecycle-controls-20261010-b.py"
+      ],
+      "exitCode": 0,
+      "controls": 6,
+      "artifacts": [
+        {
+          "path": "/private/tmp/astra-diagnostics-lifecycle-controls-20261010-b.py",
+          "bytes": 4049,
+          "sha256": "df1206f22abbc2a398453e53c5452b1f667e3689b68ed6e73b32d38d956aaa6a"
+        },
+        {
+          "path": "/private/tmp/astra-diagnostics-lifecycle-controls-20261010-b.json",
+          "bytes": 1557,
+          "sha256": "1fadd7fe7a7c5e743c295763d3fa390c70b43087e6aba449fbab65bd0880b36f"
+        },
+        {
+          "path": "/private/tmp/astra-diagnostics-lifecycle-controls-20261010-b.log",
+          "bytes": 171,
+          "sha256": "02dfa5fa17d4004e197c39c1d4df3c71217a06c8a092c2c0645272f73bab6bcc"
+        }
+      ]
+    },
+    {
+      "argv": [
+        "/private/tmp/truss-python-report-schema-env/bin/python",
+        "-I",
+        "-B",
+        "/private/tmp/astra-diagnostics-reader-review-20261010-b.py"
+      ],
+      "exitCode": 0,
+      "probeRecords": 40,
+      "realOfflineSchemaMutationComparisons": 1104,
+      "falseSchemaAccepts": 0,
+      "remainingCounterexamples": 0,
+      "artifacts": [
+        {
+          "path": "/private/tmp/astra-diagnostics-reader-review-20261010-b.py",
+          "bytes": 14819,
+          "sha256": "b4518c4a67f603419cfbc0c1715bb47f5a9517386695a5c1d9281360f20e9b5d"
+        },
+        {
+          "path": "/private/tmp/astra-diagnostics-reader-review-20261010-b-data.json",
+          "bytes": 6074,
+          "sha256": "55090c763fb53e32285676444123d2adca5a2131b72885df00a021fb62b9de43"
+        },
+        {
+          "path": "/private/tmp/astra-diagnostics-reader-review-20261010-b.log",
+          "bytes": 2933,
+          "sha256": "5aba6fbb73ae1e920e5bca6388a6393b0f64cce116b935d2412ae658788c5f83"
+        }
+      ]
+    }
+  ],
+  "checks": [
+    "Exact current/frozen source and tests; governed contract/schema/config pins rechecked by independent reader probe.",
+    "Immutable bytes sent through explicit injected sink only after closed event validation; actual-context responsibility remains with trusted port.",
+    "Private local run/segment ownership, finite local caps, complete-record rotation/invalid segment accounting, safe console catalog and one fixed notice.",
+    "Closed retrieval validates every declared event even when filtered out; finite bytes/depth/numeric tokens, private regular-file metadata, every declared hash and final cross-segment custody, fixed refusal/no partial results.",
+    "Pure validation agrees with exact published schemas for all1104 adversarial JSON primitive mutations tested.",
+    "No SDK/engine/publication/ACK imports or calls in reviewed module; source/authority state untouched by probes."
+  ],
+  "limits": {
+    "modularity": "DiagnosticRun/local reader with explicit immutable SignalSink; SDK receiver/transport adapter remains separately owned and unqualified.",
+    "configuration": "Exact typed config/limits injected; installed distribution metadata supplies service.version; no ambient SDK/endpoint/resource discovery.",
+    "observability": "Source-only capture/retrieval and injected logical-unit accounting; no real SDK/OTLP delivery, receiver/privacy runtime or native authority claim.",
+    "formal": "Precise DIAG-F1/F2/F3 and cancellation/closed-manifest correspondence checked with finite implementation tests, not analyzer proof. Port deadline/nonblocking behavior and cooperating private filesystem operations remain assumptions.",
+    "resource": "Limits concern retained encoded payload and local snapshots, not total process/SDK overhead; no abrupt death, power-loss durability or hostile writer guarantee."
+  },
+  "remainingBlockers": [],
+  "reviewerMutations": "Only independent scripts/logs/receipts and owned temporary fixtures; no owner source/Git/network/SDK/native execution."
+}

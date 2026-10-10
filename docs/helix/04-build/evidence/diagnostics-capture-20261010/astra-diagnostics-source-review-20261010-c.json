@@ -1,0 +1,75 @@
+{
+  "format": "astra-independent-diagnostics-source-review/0.1",
+  "verdict": "approved-source-only-C-supersedes-B",
+  "freeze": {
+    "path": "/private/tmp/ashlar-diagnostics-source-freeze-20261010-c/manifest.json",
+    "bytes": 443,
+    "sha256": "16c0497c07460dd1867645221d67ca87951d234fe67465b4eeb7be69f7dd8a1e"
+  },
+  "files": [
+    {
+      "bytes": 36649,
+      "path": "src/ashlar_host/diagnostics.py",
+      "sha256": "5c50e3b0dd151d3defe9e384f6326d33d759084e7afab38f7c1a024a2325922a"
+    },
+    {
+      "bytes": 16974,
+      "path": "tests/test_host_diagnostics.py",
+      "sha256": "0b4939e145f9260e37637fc44d648f69c5d3100507eb736678ec281c9869fb9e"
+    }
+  ],
+  "priorSemanticReview": {
+    "path": "/private/tmp/astra-diagnostics-source-review-20261010-b.json",
+    "bytes": 7616,
+    "sha256": "c81d8817a279a30c3d7a076ba28c371b3e7271e3a384493ff76b431eb8c56854"
+  },
+  "ciAddendum": {
+    "path": "/private/tmp/astra-diagnostics-ci-addendum-review-20261010-b.json",
+    "bytes": 1494,
+    "sha256": "89eb519702ad953c216ebff82a26e4674b63a73a56272a765e746bc5ea2afaaa"
+  },
+  "findings": [],
+  "correction": "Public constructor normalizes all ordinary initialization failures to fixed DiagnosticsError(diagnostics-configuration) from None; exact non-Exception cancellation retained. All other source AST and old tests unchanged.",
+  "independentControls": {
+    "script": {
+      "path": "/private/tmp/astra-diagnostics-constructor-controls-20261010-c.py",
+      "bytes": 3719,
+      "sha256": "487faefd0c8896993eccfb15973ad5e51447f71ac7486b54452f06915e0e08ae"
+    },
+    "python39": {
+      "path": "/private/tmp/astra-diagnostics-constructor-controls-20261010-c-39.json",
+      "bytes": 3841,
+      "sha256": "c8884a10fc5a08eaa1bd2b887e4dba036bd13a212ffa27bc88ab10c30c8caefa"
+    },
+    "python311": {
+      "path": "/private/tmp/astra-diagnostics-constructor-controls-20261010-c-311.json",
+      "bytes": 3841,
+      "sha256": "db9147624feefb897b435f53e6ffb2996f84599ed97bbfaa7f6e206fc6b41026"
+    },
+    "logs": [
+      {
+        "path": "/private/tmp/astra-diagnostics-constructor-controls-20261010-c-py39.log",
+        "bytes": 265,
+        "sha256": "89deba17e17c02bde097561f42ee9b4cbb814ac60fbe92ef940c94975a5d6515"
+      },
+      {
+        "path": "/private/tmp/astra-diagnostics-constructor-controls-20261010-c-py311.log",
+        "bytes": 1891,
+        "sha256": "ade8042721e27a835fe9459cf5d750bd6384c152fed17201a9f94ab1e982081a"
+      },
+      {
+        "path": "/private/tmp/astra-diagnostics-constructor-controls-20261010-c-py311-corrected.log",
+        "bytes": 254,
+        "sha256": "380fb338e7f56588897723b1210dc44ba389fac540fa84c6a21426aea893ab4d"
+      }
+    ],
+    "observed": "32 constructor fault controls per interpreter: B+C times lstat/mkdir/open/write times OSError/KeyboardInterrupt/SystemExit/GeneratorExit. Frozen B reproduces raw private-path exception; C fixed safe refusal and exact cancellation identity. Zero signal emissions or sink shutdown calls. Owner C18 tests: Python3.9 -S17pass+1 dependency skip; actualPython3.11 offline schema dependencies18pass.",
+    "harnessCorrection": "Initial3.11 frozen test source resolved absent schema path under two-file freeze. Retained failure log, then verified live test byte-equality and set only reviewer-loaded module __file__ to original test location for owning schema fixtures. No source/test behavior edited."
+  },
+  "ownership": "Caller composition owns already-created sink cleanup after constructor refusal; partial private directory/open file may remain and cannot establish a closed successful snapshot.",
+  "assurance": [
+    "SDK-free localcapture and injected immutable port source only; no actual SDK receiver/exporter or host operation integration claim.",
+    "C006 fixed-safe startup refusal and original-exception safety tested; no formal analyzer/model proof or native/publication/ACK qualification.",
+    "Existing B semantic/capture/retrieval/loss/closing controls remain supported by exact unchanged AST outside constructor."
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "format": "astra-independent-review/0.1",
+  "verdict": "approved-source-ci-only",
+  "file": {
+    "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+    "bytes": 3110,
+    "sha256": "2636144bc70eefadd2fdcb1c5bcab10db8a4a5650b501e596a5ac992dc9864f1"
+  },
+  "base": "0ecfd27f2bba246f4e6903bf7726e12175b8a27c",
+  "change": "Exactly one appended focused diagnostics unittest command; prior workflow bytes unchanged. Existing Python matrix retained.",
+  "command": {
+    "argv": [
+      "/usr/bin/python3",
+      "-S",
+      "-W",
+      "error::ResourceWarning",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests",
+      "-p",
+      "test_host_diagnostics.py"
+    ],
+    "cwd": "/Users/erik/Projects/ashlar",
+    "environmentOverride": {
+      "PYTHONPATH": "src"
+    },
+    "exitCode": 0,
+    "observed": "17 tests: 16 passed, 1 explicitly skipped original-schema check due absent optional dependencies under -S",
+    "log": {
+      "path": "/private/tmp/astra-diagnostics-ci-addendum-20261010-b.log",
+      "bytes": 128,
+      "sha256": "882cdc135b4a39f488425a80291522a65a5079eefe73b906366bd73773b38356"
+    }
+  },
+  "sourceReview": {
+    "path": "/private/tmp/astra-diagnostics-source-review-20261010-b.json",
+    "bytes": 7616,
+    "sha256": "c81d8817a279a30c3d7a076ba28c371b3e7271e3a384493ff76b431eb8c56854"
+  },
+  "scope": "Source/component controls only. No SDK receiver, native engine, host integration or model-checker proof claim."
+}

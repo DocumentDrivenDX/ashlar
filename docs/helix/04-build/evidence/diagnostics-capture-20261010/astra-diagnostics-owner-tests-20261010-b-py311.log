@@ -1,0 +1,22 @@
+test_concurrent_attempts_sequence_and_no_duplicate_finish (test_host_diagnostics.DiagnosticsTests.test_concurrent_attempts_sequence_and_no_duplicate_finish) ... ok
+test_emission_loss_gaps_and_empty_filter_not_completeness (test_host_diagnostics.DiagnosticsTests.test_emission_loss_gaps_and_empty_filter_not_completeness) ... ok
+test_final_manifest_failure_stays_open_and_primary_survives (test_host_diagnostics.DiagnosticsTests.test_final_manifest_failure_stays_open_and_primary_survives) ... ok
+test_final_publication_ordinary_failure_does_not_reclassify (test_host_diagnostics.DiagnosticsTests.test_final_publication_ordinary_failure_does_not_reclassify) ... ok
+test_fixed_catalog_and_forged_attempt_refuse_before_sink (test_host_diagnostics.DiagnosticsTests.test_fixed_catalog_and_forged_attempt_refuse_before_sink) ... ok
+test_four_segment_rotation_and_total_bound (test_host_diagnostics.DiagnosticsTests.test_four_segment_rotation_and_total_bound) ... ok
+test_open_missing_expired_hash_and_symlink_refusal (test_host_diagnostics.DiagnosticsTests.test_open_missing_expired_hash_and_symlink_refusal) ... ok
+test_partial_segment_write_invalidates_prior_records (test_host_diagnostics.DiagnosticsTests.test_partial_segment_write_invalidates_prior_records) ... ok
+test_primary_and_cleanup_only_cancellation_identity (test_host_diagnostics.DiagnosticsTests.test_primary_and_cleanup_only_cancellation_identity) ... ok
+test_reader_duplicate_numeric_and_closed_mutation_controls (test_host_diagnostics.DiagnosticsTests.test_reader_duplicate_numeric_and_closed_mutation_controls) ... ok
+test_real_offline_schema_correspondence (test_host_diagnostics.DiagnosticsTests.test_real_offline_schema_correspondence) ... ok
+test_sink_mutation_cannot_change_local_event_and_shutdown_snapshot (test_host_diagnostics.DiagnosticsTests.test_sink_mutation_cannot_change_local_event_and_shutdown_snapshot) ... ok
+test_snapshot_rechecks_earlier_segment_after_later_reads (test_host_diagnostics.DiagnosticsTests.test_snapshot_rechecks_earlier_segment_after_later_reads) ... ok
+test_started_after_phase_refuses_even_with_loss (test_host_diagnostics.DiagnosticsTests.test_started_after_phase_refuses_even_with_loss) ... ok
+test_success_trace_filters_private_bytes_and_exact_manifest (test_host_diagnostics.DiagnosticsTests.test_success_trace_filters_private_bytes_and_exact_manifest) ... ok
+test_undeclared_segment_requires_declared_loss (test_host_diagnostics.DiagnosticsTests.test_undeclared_segment_requires_declared_loss) ... ok
+test_unknown_export_counts_and_fixed_notice_once (test_host_diagnostics.DiagnosticsTests.test_unknown_export_counts_and_fixed_notice_once) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.371s
+
+OK
