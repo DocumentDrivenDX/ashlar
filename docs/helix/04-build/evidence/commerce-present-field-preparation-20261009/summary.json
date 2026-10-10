@@ -45,5 +45,5 @@
     "preserved",
     "breaking"
   ],
-  "reproduction": "Use full source_checkout checkout; selected new files are retained in freeze, not asserted as recursive import closure."
+  "reproduction": "Use full source_checkout base plus the four exact new source/test files named in custody and retained evidence inputs; these additions are not asserted to exist in the base commit."
 }
