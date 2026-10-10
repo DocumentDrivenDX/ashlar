@@ -1,0 +1,16 @@
+{
+  "format": "weft-distinct-order-repair/0.1",
+  "base": "0072838e0800a20e6376df47361bd1308b2dbabb",
+  "files": [
+    {
+      "path": "crates/weft-databricks/src/candidate/arithmetic.rs",
+      "sha256": "b054011586aec1114947bc02c888e5f2dda3db78a992cf3d1c8e9a71b67649f4"
+    },
+    {
+      "path": "tests/ashlar-databricks/compiler.rs",
+      "sha256": "fc9536b2c570d4a1f5616080fdd9824a1e4d3a64226729dbef6d983a102efed1"
+    }
+  ],
+  "compilerSha256": "b91bfc411a7124916de8f256a67828d70cd2cc2f655b11aafd9024aa221b738c",
+  "scope": "Compiler projected physical carrier ORDER alias only; nonDISTINCT unchanged"
+}

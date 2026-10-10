@@ -1,0 +1,9 @@
+{
+  "ashlarRevision": "4d7acbe044f4e7f3763459f40689376ba3cfc4f7",
+  "weftBase": "0072838e0800a20e6376df47361bd1308b2dbabb",
+  "weftRevision": "9fbbbabca37e38c60f06dade3d7316e7ef7bc9bc",
+  "compilerSha256": "b91bfc411a7124916de8f256a67828d70cd2cc2f655b11aafd9024aa221b738c",
+  "originalDistinctCompilerSource": "../original-pack-weft-distinct-native-20261009/weft-source",
+  "runtimeJarCustody": "../original-pack-weft-null-native-20261009",
+  "qualification": "Independent unpublished kernel only; no publication/ACK authority or Unity Catalog claim"
+}

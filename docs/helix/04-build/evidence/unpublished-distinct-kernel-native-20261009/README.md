@@ -1,0 +1,7 @@
+# Unpublished DISTINCT native controls
+
+Fresh kernel c passed four unchanged compiler queries on six separately authored original String records. The observations cover duplicate joined tuples, repeated output positions, empty survivors, and projected binary ordering before LIMIT. Empty string, trailing space and distinct Unicode spellings remain separate values. Six source checks ran before user SQL; all 30 native file hashes and five actual Delta UUID/version-zero identities remained unchanged. The public source receipt retains actual pinned UMF validation.
+
+The source and request artifacts identify the independent experimental tables. The publication obligation is explicitly unfulfilled: these are kernel semantics controls with no canonical publication, protected ACK, cloud or production authority claim. Complete evidence was persisted after successful Spark cleanup.
+
+Failed a retained no success report: strict decoding refused positioned arguments without the explicit handler. Failed b retained no success report: the original compiler ordered by an out-of-scope source field after DISTINCT projection. Their original logs, provisional native files and exact loaded driver/test source revisions remain separate. Compiler repair 9fbbbab emits the identity-proven projected physical alias; the host performs no SQL rewrite or result deduplication. Original ecology publication success remains separately retained under the adjacent evidence directory.

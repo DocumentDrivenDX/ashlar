@@ -1,0 +1,1 @@
+{"report_sha256": "6b2a39d80c1e451f3699fd1b36d2735dc92f7544e7852e9e2bf89e11f07b5792", "native_files": 30, "controls": 4, "emitted_checks": 6, "native_uuid_versions": 5, "independent_parquet_readback": true, "public_receipt_replay_sha256": "1194ed2106b3ada9b24ca9f41d433ce8ee18b7a0a6926f539d6f8cee8f86e005", "status": "pass"}

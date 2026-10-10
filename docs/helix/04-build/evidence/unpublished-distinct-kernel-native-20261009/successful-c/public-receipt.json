@@ -1,0 +1,741 @@
+{
+  "format": "ashlar-unpublished-distinct-public-source/0.1",
+  "umfRevision": "a95c3ec18a8f904decde884a4fa252988d2a5b0f",
+  "originalRequestText": "{\"model\":{\"extensions\":{},\"id\":\"urn:ashlar:authored:distinct-kernel:1\",\"modules\":[{\"elements\":[{\"extensions\":{},\"id\":\"Item\",\"kind\":\"record\",\"members\":[{\"element\":\"id\",\"module\":\"control\"},{\"element\":\"value\",\"module\":\"control\"}],\"name\":\"Item\"},{\"cardinality\":\"one\",\"extensions\":{},\"facets\":{},\"id\":\"id\",\"kind\":\"field\",\"name\":\"id\",\"nullability\":\"required\",\"scalarType\":\"string\"},{\"cardinality\":\"one\",\"extensions\":{},\"facets\":{},\"id\":\"value\",\"kind\":\"field\",\"name\":\"value\",\"nullability\":\"required\",\"scalarType\":\"string\"}],\"id\":\"control\",\"namespace\":\"urn:ashlar:authored:distinct-kernel\"}],\"umf\":\"0.8.0\",\"vocabularies\":{}},\"rows\":[{\"id\":\"0\",\"value\":\"A\"},{\"id\":\"1\",\"value\":\"A\"},{\"id\":\"2\",\"value\":\"A \"},{\"id\":\"3\",\"value\":\"é\"},{\"id\":\"4\",\"value\":\"é\"},{\"id\":\"5\",\"value\":\"\"}]}\n",
+  "originalRequestSha256": "a05e30c53c46acd72c4b8cad915f04ac1bd42113cf2a7294f45f97ddad5b778a",
+  "receipts": [
+    {
+      "originalRow": {
+        "id": "0",
+        "value": "A"
+      },
+      "originalPublicReceipt": {
+        "operation": "validate-core-record-values",
+        "version": "1.0.0",
+        "source": {
+          "extensions": {},
+          "id": "urn:ashlar:authored:distinct-kernel:1",
+          "modules": [
+            {
+              "elements": [
+                {
+                  "extensions": {},
+                  "id": "Item",
+                  "kind": "record",
+                  "members": [
+                    {
+                      "element": "id",
+                      "module": "control"
+                    },
+                    {
+                      "element": "value",
+                      "module": "control"
+                    }
+                  ],
+                  "name": "Item"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "id",
+                  "kind": "field",
+                  "name": "id",
+                  "nullability": "required",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "value",
+                  "kind": "field",
+                  "name": "value",
+                  "nullability": "required",
+                  "scalarType": "string"
+                }
+              ],
+              "id": "control",
+              "namespace": "urn:ashlar:authored:distinct-kernel"
+            }
+          ],
+          "umf": "0.8.0",
+          "vocabularies": {}
+        },
+        "identity": {
+          "module": "control",
+          "element": "Item"
+        },
+        "values": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "value": {
+              "string": "0"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "value"
+            },
+            "state": "present",
+            "value": {
+              "string": "A"
+            }
+          }
+        ],
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "validation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "fields": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "value"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "originalRow": {
+        "id": "1",
+        "value": "A"
+      },
+      "originalPublicReceipt": {
+        "operation": "validate-core-record-values",
+        "version": "1.0.0",
+        "source": {
+          "extensions": {},
+          "id": "urn:ashlar:authored:distinct-kernel:1",
+          "modules": [
+            {
+              "elements": [
+                {
+                  "extensions": {},
+                  "id": "Item",
+                  "kind": "record",
+                  "members": [
+                    {
+                      "element": "id",
+                      "module": "control"
+                    },
+                    {
+                      "element": "value",
+                      "module": "control"
+                    }
+                  ],
+                  "name": "Item"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "id",
+                  "kind": "field",
+                  "name": "id",
+                  "nullability": "required",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "value",
+                  "kind": "field",
+                  "name": "value",
+                  "nullability": "required",
+                  "scalarType": "string"
+                }
+              ],
+              "id": "control",
+              "namespace": "urn:ashlar:authored:distinct-kernel"
+            }
+          ],
+          "umf": "0.8.0",
+          "vocabularies": {}
+        },
+        "identity": {
+          "module": "control",
+          "element": "Item"
+        },
+        "values": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "value": {
+              "string": "1"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "value"
+            },
+            "state": "present",
+            "value": {
+              "string": "A"
+            }
+          }
+        ],
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "validation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "fields": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "value"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "originalRow": {
+        "id": "2",
+        "value": "A "
+      },
+      "originalPublicReceipt": {
+        "operation": "validate-core-record-values",
+        "version": "1.0.0",
+        "source": {
+          "extensions": {},
+          "id": "urn:ashlar:authored:distinct-kernel:1",
+          "modules": [
+            {
+              "elements": [
+                {
+                  "extensions": {},
+                  "id": "Item",
+                  "kind": "record",
+                  "members": [
+                    {
+                      "element": "id",
+                      "module": "control"
+                    },
+                    {
+                      "element": "value",
+                      "module": "control"
+                    }
+                  ],
+                  "name": "Item"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "id",
+                  "kind": "field",
+                  "name": "id",
+                  "nullability": "required",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "value",
+                  "kind": "field",
+                  "name": "value",
+                  "nullability": "required",
+                  "scalarType": "string"
+                }
+              ],
+              "id": "control",
+              "namespace": "urn:ashlar:authored:distinct-kernel"
+            }
+          ],
+          "umf": "0.8.0",
+          "vocabularies": {}
+        },
+        "identity": {
+          "module": "control",
+          "element": "Item"
+        },
+        "values": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "value": {
+              "string": "2"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "value"
+            },
+            "state": "present",
+            "value": {
+              "string": "A "
+            }
+          }
+        ],
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "validation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "fields": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "value"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "originalRow": {
+        "id": "3",
+        "value": "é"
+      },
+      "originalPublicReceipt": {
+        "operation": "validate-core-record-values",
+        "version": "1.0.0",
+        "source": {
+          "extensions": {},
+          "id": "urn:ashlar:authored:distinct-kernel:1",
+          "modules": [
+            {
+              "elements": [
+                {
+                  "extensions": {},
+                  "id": "Item",
+                  "kind": "record",
+                  "members": [
+                    {
+                      "element": "id",
+                      "module": "control"
+                    },
+                    {
+                      "element": "value",
+                      "module": "control"
+                    }
+                  ],
+                  "name": "Item"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "id",
+                  "kind": "field",
+                  "name": "id",
+                  "nullability": "required",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "value",
+                  "kind": "field",
+                  "name": "value",
+                  "nullability": "required",
+                  "scalarType": "string"
+                }
+              ],
+              "id": "control",
+              "namespace": "urn:ashlar:authored:distinct-kernel"
+            }
+          ],
+          "umf": "0.8.0",
+          "vocabularies": {}
+        },
+        "identity": {
+          "module": "control",
+          "element": "Item"
+        },
+        "values": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "value": {
+              "string": "3"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "value"
+            },
+            "state": "present",
+            "value": {
+              "string": "é"
+            }
+          }
+        ],
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "validation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "fields": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "value"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "originalRow": {
+        "id": "4",
+        "value": "é"
+      },
+      "originalPublicReceipt": {
+        "operation": "validate-core-record-values",
+        "version": "1.0.0",
+        "source": {
+          "extensions": {},
+          "id": "urn:ashlar:authored:distinct-kernel:1",
+          "modules": [
+            {
+              "elements": [
+                {
+                  "extensions": {},
+                  "id": "Item",
+                  "kind": "record",
+                  "members": [
+                    {
+                      "element": "id",
+                      "module": "control"
+                    },
+                    {
+                      "element": "value",
+                      "module": "control"
+                    }
+                  ],
+                  "name": "Item"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "id",
+                  "kind": "field",
+                  "name": "id",
+                  "nullability": "required",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "value",
+                  "kind": "field",
+                  "name": "value",
+                  "nullability": "required",
+                  "scalarType": "string"
+                }
+              ],
+              "id": "control",
+              "namespace": "urn:ashlar:authored:distinct-kernel"
+            }
+          ],
+          "umf": "0.8.0",
+          "vocabularies": {}
+        },
+        "identity": {
+          "module": "control",
+          "element": "Item"
+        },
+        "values": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "value": {
+              "string": "4"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "value"
+            },
+            "state": "present",
+            "value": {
+              "string": "é"
+            }
+          }
+        ],
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "validation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "fields": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "value"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          }
+        ]
+      }
+    },
+    {
+      "originalRow": {
+        "id": "5",
+        "value": ""
+      },
+      "originalPublicReceipt": {
+        "operation": "validate-core-record-values",
+        "version": "1.0.0",
+        "source": {
+          "extensions": {},
+          "id": "urn:ashlar:authored:distinct-kernel:1",
+          "modules": [
+            {
+              "elements": [
+                {
+                  "extensions": {},
+                  "id": "Item",
+                  "kind": "record",
+                  "members": [
+                    {
+                      "element": "id",
+                      "module": "control"
+                    },
+                    {
+                      "element": "value",
+                      "module": "control"
+                    }
+                  ],
+                  "name": "Item"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "id",
+                  "kind": "field",
+                  "name": "id",
+                  "nullability": "required",
+                  "scalarType": "string"
+                },
+                {
+                  "cardinality": "one",
+                  "extensions": {},
+                  "facets": {},
+                  "id": "value",
+                  "kind": "field",
+                  "name": "value",
+                  "nullability": "required",
+                  "scalarType": "string"
+                }
+              ],
+              "id": "control",
+              "namespace": "urn:ashlar:authored:distinct-kernel"
+            }
+          ],
+          "umf": "0.8.0",
+          "vocabularies": {}
+        },
+        "identity": {
+          "module": "control",
+          "element": "Item"
+        },
+        "values": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "value": {
+              "string": "5"
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "value"
+            },
+            "state": "present",
+            "value": {
+              "string": ""
+            }
+          }
+        ],
+        "documentValidation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "validation": {
+          "valid": true,
+          "complete": true,
+          "diagnostics": []
+        },
+        "fields": [
+          {
+            "field": {
+              "module": "control",
+              "element": "id"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          },
+          {
+            "field": {
+              "module": "control",
+              "element": "value"
+            },
+            "state": "present",
+            "validation": {
+              "valid": true,
+              "complete": true,
+              "diagnostics": []
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "qualification": "Separate authored String fixture; no canonical publication/ACK or source pack claim."
+}

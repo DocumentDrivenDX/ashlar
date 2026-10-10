@@ -1,0 +1,66 @@
+{
+  "format": "weft-distinct-order-repair-fingerprints/0.1",
+  "base": "0072838e0800a20e6376df47361bd1308b2dbabb",
+  "files": [
+    {
+      "path": "manifest.json",
+      "sha256": "46d00540d41fb16b61523393d463e5154c6c1ed57c45b261c036057d9ff9d1ff"
+    },
+    {
+      "path": "weft-runtime",
+      "sha256": "b91bfc411a7124916de8f256a67828d70cd2cc2f655b11aafd9024aa221b738c"
+    },
+    {
+      "path": "cases.json",
+      "sha256": "da2c37d7603c817e8e3bccccf097382b8d8dceedf0d39bf73cbdd14d31901fb2"
+    },
+    {
+      "path": "reports.json",
+      "sha256": "f2f463d9be15e4ab42eb9e7d75700bcba3def65fdc90be38de9358cc8610697a"
+    },
+    {
+      "path": "compatibility.json",
+      "sha256": "0692b40fd2d8bf84197e016098f5db71faf0f2cf3a70a843a5e381923b55bd64"
+    },
+    {
+      "path": "schema-receipts.json",
+      "sha256": "bf42222896525c61f9d4addd71fea3da1185091636e42962c4c963633a4b6a61"
+    },
+    {
+      "path": "python-receipts.json",
+      "sha256": "255a19dfe3ad2dc909898d4110c6d8c4de78b96d90078af7557552b59a4cdb82"
+    },
+    {
+      "path": "browser-receipts.json",
+      "sha256": "33e380fa2f52757108260c8ec97bd878be7f8a5de5d8bb7329eb98a56831d754"
+    },
+    {
+      "path": "browser-summary.json",
+      "sha256": "987df880a930be004e33f34b4d939a68a6b3e6e7a2190d12249318f20b7e91ac"
+    },
+    {
+      "path": "wrapper.js",
+      "sha256": "a1ab5c00b11d7b615330b29c567f05ce5a2666ec2c542935cce0b08cba48a6db"
+    },
+    {
+      "path": "wasm/weft_wasm.js",
+      "sha256": "48f2597d68d0045818b5d7bc5d0d65cf8b3f365599d05932f62864ac23e3ea66"
+    },
+    {
+      "path": "wasm/weft_wasm_bg.wasm",
+      "sha256": "4b4583f59ad6f4cea9dabdaea7ec16de67ddc3ed13d0bf5043dd703ae0b7ae1e"
+    },
+    {
+      "path": "wheel/weft_sql-0.1.0-cp39-abi3-macosx_11_0_arm64.whl",
+      "sha256": "c9ecb6c9536085c3225f03a11a22d2d066eb24072875a87f9dc841bb63794db1"
+    },
+    {
+      "path": "source/crates/weft-databricks/src/candidate/arithmetic.rs",
+      "sha256": "b054011586aec1114947bc02c888e5f2dda3db78a992cf3d1c8e9a71b67649f4"
+    },
+    {
+      "path": "source/tests/ashlar-databricks/compiler.rs",
+      "sha256": "fc9536b2c570d4a1f5616080fdd9824a1e4d3a64226729dbef6d983a102efed1"
+    }
+  ]
+}

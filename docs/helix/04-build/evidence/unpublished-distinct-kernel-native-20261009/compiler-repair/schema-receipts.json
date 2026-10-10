@@ -1,0 +1,47 @@
+{
+  "format": "weft-null03-schema-check/0.1",
+  "cases": [
+    {
+      "file": "repeated-position-artifact.json",
+      "status": "compiled",
+      "officialRequest": true,
+      "officialResponse": true
+    },
+    {
+      "file": "computed-artifact.json",
+      "status": "blocked",
+      "officialRequest": true,
+      "officialResponse": true
+    },
+    {
+      "file": "numeric-artifact.json",
+      "status": "blocked",
+      "officialRequest": true,
+      "officialResponse": true
+    },
+    {
+      "file": "aggregate-artifact.json",
+      "status": "blocked",
+      "officialRequest": true,
+      "officialResponse": true
+    },
+    {
+      "file": "original-artifact.json",
+      "status": "compiled",
+      "officialRequest": true,
+      "officialResponse": true
+    },
+    {
+      "file": "projected-order-limit-artifact.json",
+      "status": "compiled",
+      "officialRequest": true,
+      "officialResponse": true
+    },
+    {
+      "file": "hidden-order-artifact.json",
+      "status": "blocked",
+      "officialRequest": true,
+      "officialResponse": true
+    }
+  ]
+}

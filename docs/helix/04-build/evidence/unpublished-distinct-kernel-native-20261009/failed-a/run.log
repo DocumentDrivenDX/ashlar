@@ -1,0 +1,13 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/09 19:57:55 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+[Stage 0:>                                                          (0 + 1) / 1]                                                                                Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tools/run_native_distinct_controls.py", line 85, in <module>
+    a=p.parse_args();run(a.output,a.jars,a.compiler,a.umf)
+  File "/Users/erik/Projects/ashlar/tools/run_native_distinct_controls.py", line 66, in run
+    decoded=decode_rows(artifact,[] if positioned else [dict(zip((f.name for f in frame.schema.fields),r))for r in ordered],positioned=positioned,native_schema=schema,ordered_rows=ordered)
+  File "/Users/erik/Projects/ashlar/tools/run_commerce_arithmetic_weft.py", line 289, in decode_rows
+    if native_schema is not None or ordered_rows is not None or any('carrierName'in c for c in columns) or any(o.get('id')=='weft.output.positioned'for o in artifact.get('obligations',[])):raise ValueError('Unknown positioned decoding requires explicit handler')
+ValueError: Unknown positioned decoding requires explicit handler
