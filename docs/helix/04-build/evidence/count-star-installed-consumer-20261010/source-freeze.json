@@ -1,0 +1,58 @@
+{
+  "format": "ashlar-count-star-consumer-source-freeze/0.1",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/_weft_installation_mechanics.py",
+      "bytes": 12852,
+      "sha256": "0be8c7465e795c707c5b102216dbc9402f9cf5c86ea5a5176f5865c3aaf2a93d"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_count_star_package.py",
+      "bytes": 10148,
+      "sha256": "0663726c1d09767b820864f210e4b3a3d303ff78844b748f579a8e5a620ad26a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_count_star_installation.py",
+      "bytes": 7338,
+      "sha256": "ba743ce0542db84f700f45580a9929d2035d3fb7f423dffa3ccd764c70ce4387"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_count_star_distribution.py",
+      "bytes": 4052,
+      "sha256": "77ab37e6f0e64d58853719344f59147a22544a7f7e47e3777e76a1d6c042bc92"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/check_module_boundaries.py",
+      "bytes": 6714,
+      "sha256": "a3d13fd05237cae40610c55ad886f80aa6083cb9d457d040021d29888ba00f81"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md",
+      "bytes": 31773,
+      "sha256": "7304b9a248df5432e8ddd923da788b67d17230ebfd13548f6af52cc0930dca0a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_weft_count_star_mechanics.py",
+      "bytes": 3876,
+      "sha256": "48af8e1bcb17db1c771113adc0ebb36f44de7a54bd657d90c36b98d4c8b8b619"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_weft_count_star_consumer.py",
+      "bytes": 6141,
+      "sha256": "82a4f2535e572fcca0c5630726560e6845ee0ea0b85678deade802ba1e07a102"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "bytes": 4352,
+      "sha256": "41d54b04ddf70c9db22bf75348206254560f3c8e3a3032cbb48ffb8dd5cf481d"
+    }
+  ],
+  "trustedWeftIndexRevision": "bd490abc877a1992666c7b45412b14a0ca6c2cac",
+  "trustedWeftIndexSha256": "7eddc39661f6cb400afae897aa0a7d8cd5dee0aec026ed45a4e197fa7c9558a6",
+  "qualification": "Source-only: 16 focused consumer/lifecycle controls and module checker pass. Actual fresh checkout/install/open/full80 transport remains pending reviewed execution.",
+  "supersedes": {
+    "path": "/private/tmp/ashlar-count-star-consumer-source-freeze-20261010-b.json",
+    "sha256": "563184993e1174704a02db9a255d135022d72c581538eff12faa2361b5eb6221",
+    "reason": "B unapproved: embedded provenance manifest/custody are not separately installed files; remove nonexistent stat check, use portable temporary root, add two focused CI commands."
+  }
+}

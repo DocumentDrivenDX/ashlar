@@ -1,0 +1,47 @@
+{
+  "decision": "approve exact archive/inventory landing integrity only",
+  "archive": {
+    "path": "/private/tmp/ashlar-count-star-fresh-install-evidence-e.tar.gz",
+    "sha256": "7ed4f4241358cb692d906cb3c8dfbbffb2fba4b40123ccc94312386e5f24de87",
+    "bytes": 615977
+  },
+  "inventory": {
+    "path": "/private/tmp/ashlar-count-star-fresh-install-evidence-inventory-e.json",
+    "sha256": "ce97df897d6ad6d08d0ca1953342630f7b31dfb788fea788cca8b8137649a228"
+  },
+  "members": 33,
+  "decodedBytes": 11675629,
+  "checks": [
+    "All safe unique relative regular non-executable members, no links/devices/traversal",
+    "Every member exact listed length/hash and original source bytes",
+    "No product/tool binary or Git store copied",
+    "Root actual result review exact hash verified; no duplicate compiler execution or independent requalification of its native/response findings"
+  ],
+  "qualification": "Reviewed fresh sparse Git retrieval/public installation and installed full80 transport only; no binaries/Git stores/native SQL/Ashlar CLI.",
+  "rootActualReview": {
+    "path": "/private/tmp/ashlar-count-star-fresh-install-actual-independent-review-e.json",
+    "sha256": "4f58c0cfecf989bd6a96ded29f29f3b71505920641c6608c3d818005ff720889"
+  },
+  "landingCopies": {
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/count-star-installed-consumer-20261010/actual-install-evidence.tar.gz": {
+      "sha256": "7ed4f4241358cb692d906cb3c8dfbbffb2fba4b40123ccc94312386e5f24de87",
+      "bytes": 615977
+    },
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/count-star-installed-consumer-20261010/source-independent-review.json": {
+      "sha256": "c6413f3c594694b6d013cc1752ea8ede39a5b2e77288805c0a73e0af026916d0",
+      "bytes": 1903
+    },
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/count-star-installed-consumer-20261010/source-freeze.json": {
+      "sha256": "a589f2596531bb02b72fafe8db57630c0162fe095e4bcf9ee8b59f5ae29b5644",
+      "bytes": 2667
+    },
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/count-star-installed-consumer-20261010/archive-inventory.json": {
+      "sha256": "ce97df897d6ad6d08d0ca1953342630f7b31dfb788fea788cca8b8137649a228",
+      "bytes": 8661
+    },
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/count-star-installed-consumer-20261010/actual-independent-review.json": {
+      "sha256": "4f58c0cfecf989bd6a96ded29f29f3b71505920641c6608c3d818005ff720889",
+      "bytes": 1449
+    }
+  }
+}

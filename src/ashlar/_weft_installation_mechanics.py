@@ -30,6 +30,9 @@ _LAYOUT_VALUES=MappingProxyType({
     'paths':('weft-paths','ashlar-weft-paths-ready/0.1','.ashlar-paths-',_SCHEMA_NAMES),
     'paths-keys':('weft-paths-keys','ashlar-weft-paths-keys-ready/0.1','.ashlar-paths-keys-',
                   _SCHEMA_NAMES+('application-result-v0.2.schema.json',)),
+    'count-star':('weft-paths-keys','ashlar-weft-count-star-ready/0.1','.ashlar-count-star-',
+                  ('compile-request-v0.4.1.schema.json','compile-response-v0.4.1.schema.json',
+                   'logical-plan-v0.4.1.schema.json')+_SCHEMA_NAMES+('application-result-v0.2.schema.json',)),
 })
 
 @dataclass(frozen=True)
@@ -63,13 +66,19 @@ def mark_cleanup(primary: BaseException) -> None:
     try:setattr(primary,'cleanup_failed',True)
     except BaseException:pass
 
+def select_failure(primary: BaseException | None, closing: BaseException) -> BaseException:
+    """Body cancellation keeps identity; closing cancellation outranks ordinary errors."""
+    if primary is None:return closing
+    if isinstance(primary,Exception) and not isinstance(closing,Exception):return closing
+    mark_cleanup(primary)
+    return primary
+
 def finish(primary: BaseException | None, callbacks: tuple[Callable[[],None],...]) -> None:
     """Attempt every owned cleanup; retain first failure by exact identity."""
     for callback in callbacks:
         try:callback()
         except BaseException as exc:
-            if primary is None:primary=exc
-            else:mark_cleanup(primary)
+            primary=select_failure(primary,exc)
     if primary is not None:raise primary
 
 def write_owned(path: Path, raw: bytes, *, refuse: Callable[[],None]) -> None:
@@ -161,8 +170,7 @@ def publish_installation(config: InstallationSettings, verified: InstallationByt
                        (final_ready.st_dev,final_ready.st_ino)==ready_identity)
         except FileNotFoundError:rollback_allowed=True
         except BaseException as exc:
-            if primary is None:primary=exc
-            else:mark_cleanup(primary)
+            primary=select_failure(primary,exc)
         # A foreign ready inode or uncertain observation is never an owned commit
         # and is never removed by rollback. The original failure still propagates.
     if not committed and rollback_allowed and owned is not None:
@@ -170,16 +178,14 @@ def publish_installation(config: InstallationSettings, verified: InstallationByt
             info=config.output.stat()
             if not config.output.is_symlink() and (info.st_dev,info.st_ino)==owned:shutil.rmtree(config.output)
         except BaseException as exc:
-            if primary is None:primary=exc
-            else:mark_cleanup(primary)
+            primary=select_failure(primary,exc)
     cleanup_pending=False
     try:shutil.rmtree(staging)
     except BaseException as exc:
         if committed and isinstance(exc,OSError):
             cleanup_pending=True
             if primary is not None:mark_cleanup(primary)
-        elif primary is None:primary=exc
-        else:mark_cleanup(primary)
+        else:primary=select_failure(primary,exc)
     if primary is not None:raise primary
     return maintenance_result if cleanup_pending else result
 

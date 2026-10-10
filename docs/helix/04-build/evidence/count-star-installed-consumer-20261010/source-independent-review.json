@@ -1,0 +1,38 @@
+{
+  "format": "ashlar-independent-source-review/0.1",
+  "reviewer": "root; independent of CountStar source author",
+  "sourceFreeze": {
+    "path": "/private/tmp/ashlar-count-star-consumer-source-freeze-20261010-c.json",
+    "sha256": "a589f2596531bb02b72fafe8db57630c0162fe095e4bcf9ee8b59f5ae29b5644"
+  },
+  "decision": "approve frozen source C for actual installation operation review; actual installation and native queries remain unproven",
+  "scope": "All nine frozen source, contract, test and CI files. Trusted immutable index and full package content closure; separate profile, Git source modes, owned readonly copies, bounded transport, lifecycle cancellation and old profile compatibility.",
+  "resolvedFindings": [
+    "Exact primitive string configuration guards before comparisons/reads",
+    "Positive exact integer finite read limits before file access",
+    "Embedded manifest/custody verified against exact pins, without nonexistent installed-file stat checks",
+    "Platform-independent canonical temporary directory in portable controls"
+  ],
+  "checks": [
+    {
+      "chunk": "49ac50",
+      "command": "PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest test_weft_count_star_consumer test_weft_count_star_mechanics test_weft_installation_mechanics -q",
+      "tests": 31,
+      "result": "PASS"
+    },
+    {
+      "chunk": "46a84a",
+      "command": "python3 tools/check_module_boundaries.py",
+      "result": "PASS"
+    },
+    {
+      "chunk": "c3d132",
+      "result": "All nine source hashes match freeze C"
+    }
+  ],
+  "limitations": [
+    "No actual fresh Git checkout installation/compiler invocation/native query performed by this source review",
+    "Opening and closing custody targets cooperating local writers; process groups are not an adversarial sandbox",
+    "Original fixed 5dd compiler scope, not latest Weft main compiler qualification"
+  ]
+}

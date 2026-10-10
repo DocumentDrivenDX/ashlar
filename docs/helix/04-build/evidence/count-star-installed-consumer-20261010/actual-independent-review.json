@@ -1,0 +1,26 @@
+{
+  "format": "ashlar-independent-actual-review/0.1",
+  "decision": "approve actual E fresh Git delivery, install/open/schema and full80 twice compiler transport proof",
+  "reviewer": "root independent of installer/runner author",
+  "sourceFreezeSha256": "a589f2596531bb02b72fafe8db57630c0162fe095e4bcf9ee8b59f5ae29b5644",
+  "commandSha256": "ecb2754a3de0b544a8f285f2f6cd4f3d46ad08b1b21d0deedb05d47ebe3204c1",
+  "terminal": {
+    "session": 3410,
+    "chunk": "8a949b",
+    "exitCode": 0
+  },
+  "independentChecks": [
+    {
+      "chunk": "c439be",
+      "result": "All160 observed responses equal original retained80 request responses in order, twoiterations; each response digest matches",
+      "observationsBytes": 11564380,
+      "observationsSha256": "4292629d81d63a051e6486ef9dd2d1cc96b10986a213faccc3119876d0cd3c6a"
+    },
+    {
+      "chunk": "2dbacf",
+      "result": "All21 command resources match closing pins; checkout immutable bd490abc and index hash match; full67 normal0644/0755 Gitfiles and exact owned0444/0555 installation closure match bytes/hashes"
+    }
+  ],
+  "scope": "macOS27.0.1/aarch64-apple-darwin; reviewed fixed5dd compiler /041 profile; no sourcechmod or rebuild; nine admitted schema files. Actualpublic install/open/compile library APIs invoked.",
+  "remaining": "Installed Ashlar CLI/wheel, publication-bound native count queries, actual source/ACK, newer Weft compiler and fullP01-P11 plan remain unqualified."
+}

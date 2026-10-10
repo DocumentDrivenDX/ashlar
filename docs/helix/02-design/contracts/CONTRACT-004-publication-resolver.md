@@ -417,6 +417,34 @@ failure; incomplete or uncertain closure MUST withhold success. The private loca
 commerce profile establishes no production Truss authority, end-user delegation,
 Unity Catalog retention or cloud execution claim.
 
+### Separately selected indexed count-star profile
+
+An explicit `count-star` profile MUST select the independently indexed
+`ashlar.databricks.paths-keys` realization
+`0.4.1-count-star-having-candidate`, paired with `weft-compile/0.4.1` and
+`weft-ir/0.4.1`. The application-result surface remains
+`weft-application-result/0.4.0`; the backend interface remains
+`weft-backend/0.3.0` and target remains
+`spark4-delta4-paths-keys-candidate`. Existing profile defaults and refusals MUST
+remain unchanged. A compiled older-profile response MUST refuse; malformed
+preselection requests MAY retain their original blocked response envelope.
+
+Trusted immutable index selection precedes package inspection. Regular Git
+checkout source files MAY retain normal writable checkout modes; all admitted
+content bytes and exact closure MUST match before and after inspection. The
+installer MUST create its own readonly executable, schemas, provenance and ready
+marker. Source file modes MUST NOT substitute for content custody or force an
+undocumented source chmod step. Failed installation remains unavailable without
+fallback. Cancellation retains its identity; a closing cancellation outranks an
+ordinary prior error, while an existing body cancellation retains precedence.
+
+All original source, policy, publication, retention, integrity and bounded
+result-release obligations remain mandatory. Compiler package admission and
+installed compilation do not establish native query execution. Grouped projected
+COUNT(*) MUST retain complete occurrence-bag multiplicity and original ordered
+parameters; HAVING MUST NOT hide a failed complete-bag integrity or capacity
+check. Weft owns the exact language and row-count obligation contracts.
+
 ### Explicit Paths profile with one-hop keys
 
 `query-commerce-paths --profile paths-keys` MUST select the independently indexed

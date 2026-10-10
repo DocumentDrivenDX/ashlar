@@ -1,0 +1,208 @@
+{
+  "format": "ashlar-count-star-fresh-install-evidence/0.1",
+  "archive": "/private/tmp/ashlar-count-star-fresh-install-evidence-e.tar.gz",
+  "archiveBytes": 615977,
+  "archiveSha256": "7ed4f4241358cb692d906cb3c8dfbbffb2fba4b40123ccc94312386e5f24de87",
+  "members": [
+    {
+      "path": "00-sparse.stdout",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/sparse.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "01-clone.stderr",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/clone.stderr",
+      "bytes": 186,
+      "sha256": "4e689164f9d9e3abd7f7f0c902860081b9b16829994d92d556936644819aab8e"
+    },
+    {
+      "path": "02-observations.jsonl",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/observations.jsonl",
+      "bytes": 11564380,
+      "sha256": "4292629d81d63a051e6486ef9dd2d1cc96b10986a213faccc3119876d0cd3c6a"
+    },
+    {
+      "path": "03-result.json",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/result.json",
+      "bytes": 395,
+      "sha256": "31b3309ef6c430808d5211b7d4f716e7973c09641bfbaa205a5d6cd774809201"
+    },
+    {
+      "path": "04-checkout.stderr",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/checkout.stderr",
+      "bytes": 206,
+      "sha256": "339b22eeddd93d99154a085f777444d9de3ca70b2f48f8f4553ce880e9c17c96"
+    },
+    {
+      "path": "05-head.json",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/head.json",
+      "bytes": 72,
+      "sha256": "3348ced58c101a82dd70f36617d67289f9530ed9e8891ef524d60b94309fc8f8"
+    },
+    {
+      "path": "06-checkout.stdout",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/checkout.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "07-checkout.json",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/checkout.json",
+      "bytes": 75,
+      "sha256": "2bd4ddcf1aa15b6244a9701605735dda0072dd7f64b441fc6d4eb69281111336"
+    },
+    {
+      "path": "08-clone.json",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/clone.json",
+      "bytes": 72,
+      "sha256": "88e27604a8ce057ba30c13f8a106c931f9e1c8288a934a4ab01f51c591e1597f"
+    },
+    {
+      "path": "09-sparse.stderr",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/sparse.stderr",
+      "bytes": 106,
+      "sha256": "54dc9366cf6d804bdf5ae1ffa172dab10fc68a63170232134cbe6981ee4634fb"
+    },
+    {
+      "path": "10-clone.stdout",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/clone.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "11-sparse.json",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/sparse.json",
+      "bytes": 73,
+      "sha256": "62e428da6d8d1b12d34d4619df058a707fccd4831ea884ae842dc9fa3b38a44c"
+    },
+    {
+      "path": "12-head.stderr",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/head.stderr",
+      "bytes": 106,
+      "sha256": "54dc9366cf6d804bdf5ae1ffa172dab10fc68a63170232134cbe6981ee4634fb"
+    },
+    {
+      "path": "13-head.stdout",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e/head.stdout",
+      "bytes": 41,
+      "sha256": "58b3b2dd152f6122f3162237aba53ae9bd7ac0dc79388864d5ed8ba5c94f40d9"
+    },
+    {
+      "path": "14-ashlar-count-star-fresh-install-e-outcome.json",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e-outcome.json",
+      "bytes": 588,
+      "sha256": "777f2a0547f4242a366a712c02d62e6ab668fc6e9b3b72bfa1cedc4d23d457ff"
+    },
+    {
+      "path": "15-ashlar-count-star-fresh-install-e.stdout",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "16-ashlar-count-star-fresh-install-e.stderr",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-e.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "17-ashlar-count-star-fresh-install-result-inventory-e.json",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-result-inventory-e.json",
+      "bytes": 3788,
+      "sha256": "7f42a63ce59056554d8377446ff9dac7ef7f88528b66a82a07db8d681244f91f"
+    },
+    {
+      "path": "18-ashlar-count-star-consumer-source-freeze-20261010-c.json",
+      "source": "/private/tmp/ashlar-count-star-consumer-source-freeze-20261010-c.json",
+      "bytes": 2667,
+      "sha256": "a589f2596531bb02b72fafe8db57630c0162fe095e4bcf9ee8b59f5ae29b5644"
+    },
+    {
+      "path": "19-ashlar-count-star-consumer-independent-review-20261010-c.json",
+      "source": "/private/tmp/ashlar-count-star-consumer-independent-review-20261010-c.json",
+      "bytes": 1903,
+      "sha256": "c6413f3c594694b6d013cc1752ea8ede39a5b2e77288805c0a73e0af026916d0"
+    },
+    {
+      "path": "20-ashlar-count-star-fresh-install-command-independent-review-e.json",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-command-independent-review-e.json",
+      "bytes": 825,
+      "sha256": "e27418b21d60951b809c9e7f926ec34d6ba77883c7ab6cbcad5d0f2eaa7492f7"
+    },
+    {
+      "path": "21-ashlar-count-star-fresh-install-command-e.json",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-command-e.json",
+      "bytes": 5643,
+      "sha256": "ecb2754a3de0b544a8f285f2f6cd4f3d46ad08b1b21d0deedb05d47ebe3204c1"
+    },
+    {
+      "path": "22-ashlar-count-star-fresh-install-runner-e.py",
+      "source": "/private/tmp/ashlar-count-star-fresh-install-runner-e.py",
+      "bytes": 4635,
+      "sha256": "9e5ac930e0719fc4a568c0998e7593e4ceba61d9007683e7746c9d754be464cd"
+    },
+    {
+      "path": "23-ashlar-count-star-fresh-capture-e.py",
+      "source": "/private/tmp/ashlar-count-star-fresh-capture-e.py",
+      "bytes": 2622,
+      "sha256": "704d26623b73470fe6ed47976c636e54cd8173682a59bbd6e05ee3d71c824f93"
+    },
+    {
+      "path": "24-_weft_installation_mechanics.py",
+      "source": "/Users/erik/Projects/ashlar/src/ashlar/_weft_installation_mechanics.py",
+      "bytes": 12852,
+      "sha256": "0be8c7465e795c707c5b102216dbc9402f9cf5c86ea5a5176f5865c3aaf2a93d"
+    },
+    {
+      "path": "25-weft_count_star_package.py",
+      "source": "/Users/erik/Projects/ashlar/src/ashlar/weft_count_star_package.py",
+      "bytes": 10148,
+      "sha256": "0663726c1d09767b820864f210e4b3a3d303ff78844b748f579a8e5a620ad26a"
+    },
+    {
+      "path": "26-weft_count_star_installation.py",
+      "source": "/Users/erik/Projects/ashlar/src/ashlar/weft_count_star_installation.py",
+      "bytes": 7338,
+      "sha256": "ba743ce0542db84f700f45580a9929d2035d3fb7f423dffa3ccd764c70ce4387"
+    },
+    {
+      "path": "27-weft_count_star_distribution.py",
+      "source": "/Users/erik/Projects/ashlar/src/ashlar/weft_count_star_distribution.py",
+      "bytes": 4052,
+      "sha256": "77ab37e6f0e64d58853719344f59147a22544a7f7e47e3777e76a1d6c042bc92"
+    },
+    {
+      "path": "28-check_module_boundaries.py",
+      "source": "/Users/erik/Projects/ashlar/tools/check_module_boundaries.py",
+      "bytes": 6714,
+      "sha256": "a3d13fd05237cae40610c55ad886f80aa6083cb9d457d040021d29888ba00f81"
+    },
+    {
+      "path": "29-CONTRACT-004-publication-resolver.md",
+      "source": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md",
+      "bytes": 31773,
+      "sha256": "7304b9a248df5432e8ddd923da788b67d17230ebfd13548f6af52cc0930dca0a"
+    },
+    {
+      "path": "30-test_weft_count_star_mechanics.py",
+      "source": "/Users/erik/Projects/ashlar/tests/test_weft_count_star_mechanics.py",
+      "bytes": 3876,
+      "sha256": "48af8e1bcb17db1c771113adc0ebb36f44de7a54bd657d90c36b98d4c8b8b619"
+    },
+    {
+      "path": "31-test_weft_count_star_consumer.py",
+      "source": "/Users/erik/Projects/ashlar/tests/test_weft_count_star_consumer.py",
+      "bytes": 6141,
+      "sha256": "82a4f2535e572fcca0c5630726560e6845ee0ea0b85678deade802ba1e07a102"
+    },
+    {
+      "path": "32-module-boundaries.yml",
+      "source": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "bytes": 4352,
+      "sha256": "41d54b04ddf70c9db22bf75348206254560f3c8e3a3032cbb48ffb8dd5cf481d"
+    }
+  ],
+  "decodedBytes": 11675629,
+  "qualification": "Reviewed fresh sparse Git retrieval/public installation and installed full80 transport only; no binaries/Git stores/native SQL/Ashlar CLI."
+}
