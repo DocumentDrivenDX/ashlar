@@ -1,0 +1,88 @@
+{
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/evolution_producer.py",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/src/ashlar_host/evolution_producer.py",
+      "sha256": "ac4168d1339b9e79ce0c3fc4e5fb8f0334d428b26fdee0e17fe05a3f1b8ef217",
+      "bytes": 5064
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/evolution_admission.py",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/src/ashlar_host/evolution_admission.py",
+      "sha256": "360b34c02d609fe40af7adc8cbb90193e0e111559f80bbfba3d50fd12ccdd942",
+      "bytes": 12808
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/src/ashlar_host/config.py",
+      "sha256": "c6c1fdb541162d36cb100c8e780f243c8452dffa74e86da6754beb710f782f45",
+      "bytes": 16476
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/pyproject.toml",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/pyproject.toml",
+      "sha256": "7e93ee5a2c494796821bc14d47572e66e91d43bbcbbbd459ca4044cf1f8fdae9",
+      "bytes": 1739
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_evolution_producer.py",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/tests/test_evolution_producer.py",
+      "sha256": "04745a8cd0583c456bd3d64d595b49c5709dcbd5be3181259dfc0512198374f8",
+      "bytes": 4050
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_evolution_admission.py",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/tests/test_evolution_admission.py",
+      "sha256": "3a50a0628a200f29e653c126c443be3fd23da8919d29de134e86b45360a071b5",
+      "bytes": 5321
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/candidate.json",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/src/ashlar_host/resources/evolution/candidate.json",
+      "sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba",
+      "bytes": 175817
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/check_evolution.ts",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/src/ashlar_host/resources/evolution/check_evolution.ts",
+      "sha256": "30ec82f34bd06eae9a23fb852b98482142e2fba1dcb12d9dbf370f2d8bafd3d2",
+      "bytes": 7419
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/original-model.json",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/src/ashlar_host/resources/evolution/original-model.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "bytes": 27544
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/public-presence.json.gz",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/src/ashlar_host/resources/evolution/public-presence.json.gz",
+      "sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae",
+      "bytes": 84770
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/seed-candidate.json",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/src/ashlar_host/resources/evolution/seed-candidate.json",
+      "sha256": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692",
+      "bytes": 174123
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/seed-public.json.gz",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/src/ashlar_host/resources/evolution/seed-public.json.gz",
+      "sha256": "392b8a20395b53566fc9c73ed10cd37d714ce2d45330fd465bb31f4a43a6a6a1",
+      "bytes": 67527
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/source-closure.json",
+      "snapshot": "/private/tmp/ashlar-evolution-admission-source-20261010-a/src/ashlar_host/resources/evolution/source-closure.json",
+      "sha256": "ab05e309c867e8e65eda93d0bec234cf4c815a077d0f6959a0a03a5759c389e6",
+      "bytes": 1194249
+    },
+    {
+      "path": "/private/tmp/ashlar-evolution-admission-source-20261010-a/receipt.json",
+      "sha256": "540de4c65a8989b2ab8ce97f516453d005c12af29b816861b7072a5fbca6e877",
+      "bytes": 1166
+    }
+  ],
+  "scope": "13 owned source/config/package/test artifacts frozen for review"
+}

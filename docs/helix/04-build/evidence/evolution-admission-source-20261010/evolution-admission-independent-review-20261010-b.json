@@ -1,0 +1,105 @@
+{
+  "outcome": "changes-required",
+  "scope": "Source review only; no real UMF producer, installed wheel or native workflow executed",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/evolution_producer.py",
+      "bytes": 6310,
+      "sha256": "c9178e8b235d66e1a4a4385e5febc82333f4fdc1394d414d1c7f080d19a9d54b",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/evolution_admission.py",
+      "bytes": 13297,
+      "sha256": "32372523a7dee239e1fbda15d7db1e577cabf7bed545a349285c46afc03c1aff",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "bytes": 16476,
+      "sha256": "c6c1fdb541162d36cb100c8e780f243c8452dffa74e86da6754beb710f782f45",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/pyproject.toml",
+      "bytes": 1739,
+      "sha256": "7e93ee5a2c494796821bc14d47572e66e91d43bbcbbbd459ca4044cf1f8fdae9",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_evolution_producer.py",
+      "bytes": 6671,
+      "sha256": "43b300c60f4a54b69aec03b7b24f2c54ced11a49edbd437a52808f1186251f7a",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_evolution_admission.py",
+      "bytes": 7791,
+      "sha256": "aa89e39dba963bc500bbd2e35b28ac8dd3c27479b0ab68df2c0a264ad0c645c8",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/candidate.json",
+      "bytes": 175817,
+      "sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/check_evolution.ts",
+      "bytes": 7419,
+      "sha256": "30ec82f34bd06eae9a23fb852b98482142e2fba1dcb12d9dbf370f2d8bafd3d2",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/original-model.json",
+      "bytes": 27544,
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/public-presence.json.gz",
+      "bytes": 84770,
+      "sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/seed-candidate.json",
+      "bytes": 174123,
+      "sha256": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/seed-public.json.gz",
+      "bytes": 67527,
+      "sha256": "392b8a20395b53566fc9c73ed10cd37d714ce2d45330fd465bb31f4a43a6a6a1",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/source-closure.json",
+      "bytes": 1194249,
+      "sha256": "ab05e309c867e8e65eda93d0bec234cf4c815a077d0f6959a0a03a5759c389e6",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 38641,
+      "sha256": "d9149ccc904dc263be2018b24cb33c9bfada3a2d84215dbe4e025e75c92f2606",
+      "matches_frozen": true
+    }
+  ],
+  "findings": [
+    {
+      "severity": "P1",
+      "file": "src/ashlar_host/evolution_producer.py",
+      "line": 90,
+      "issue": "Parent output pipes are not registered as owned until after control descriptor close and fdopen succeed. Actual injected failure at each seam leaves both real output pipes unclosed although process is reaped.",
+      "required": "Record process.stdout and stderr in streams immediately after Popen, before any subsequent potentially raising action; append separately acquired control stream. Add real-process regression controls for both seams."
+    }
+  ],
+  "evidence": {
+    "independent_controls_script": "/private/tmp/evolution-independent-review-b.py",
+    "independent_controls_output": "/private/tmp/evolution-independent-review-b.stdout.json",
+    "tests": "18 inert tests passed independently,4.052 seconds; these omit setup seams"
+  },
+  "other_review": "Supervisor separate bounded exact numeric status and kill-before-reap match ADR. Closed environment, pinned resources/public checker, exact R3 prior to surviving R4 transition19 and source-qualified copied metadata reviewed. No formal/native/UMF approval implied."
+}

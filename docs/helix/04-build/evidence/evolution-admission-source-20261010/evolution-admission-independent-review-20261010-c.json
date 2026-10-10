@@ -1,0 +1,120 @@
+{
+  "outcome": "approved-source-slice",
+  "reviewer": "independent subagent; not Astra final approval",
+  "scope": "14 source/config/package/test/CI files plus ADR; no real UMF execution, installed wheel, native publication or actual Linux/3.12 claim",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/evolution_producer.py",
+      "bytes": 6373,
+      "sha256": "d7dd905cdc1eff0ee0096bf33b64ecf05aeccbf1b684c290e52b1ed345407ae0",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/evolution_admission.py",
+      "bytes": 13297,
+      "sha256": "32372523a7dee239e1fbda15d7db1e577cabf7bed545a349285c46afc03c1aff",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "bytes": 16476,
+      "sha256": "c6c1fdb541162d36cb100c8e780f243c8452dffa74e86da6754beb710f782f45",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/pyproject.toml",
+      "bytes": 1739,
+      "sha256": "7e93ee5a2c494796821bc14d47572e66e91d43bbcbbbd459ca4044cf1f8fdae9",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_evolution_producer.py",
+      "bytes": 8858,
+      "sha256": "8267e50e669735a67c3b5bd8a9b1f1aa2e3d61925b0087879912abb66df410d5",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_evolution_admission.py",
+      "bytes": 7791,
+      "sha256": "aa89e39dba963bc500bbd2e35b28ac8dd3c27479b0ab68df2c0a264ad0c645c8",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/candidate.json",
+      "bytes": 175817,
+      "sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/check_evolution.ts",
+      "bytes": 7419,
+      "sha256": "30ec82f34bd06eae9a23fb852b98482142e2fba1dcb12d9dbf370f2d8bafd3d2",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/original-model.json",
+      "bytes": 27544,
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/public-presence.json.gz",
+      "bytes": 84770,
+      "sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/seed-candidate.json",
+      "bytes": 174123,
+      "sha256": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/seed-public.json.gz",
+      "bytes": 67527,
+      "sha256": "392b8a20395b53566fc9c73ed10cd37d714ce2d45330fd465bb31f4a43a6a6a1",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/source-closure.json",
+      "bytes": 1194249,
+      "sha256": "ab05e309c867e8e65eda93d0bec234cf4c815a077d0f6959a0a03a5759c389e6",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 38641,
+      "sha256": "d9149ccc904dc263be2018b24cb33c9bfada3a2d84215dbe4e025e75c92f2606",
+      "matches_frozen": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/weft-distribution.yml",
+      "bytes": 3961,
+      "sha256": "a11642b361c61136fd25a4daf3d4c7b82024f0d7c698082a057e5ba4ff474fee",
+      "matches_frozen": true
+    }
+  ],
+  "resolved_finding": "B post-launch ownership leak corrected: output streams immediately owned before fallible close; control stream separately transferred. Independent original repro now closed/reaped at both seams. New real test covers close/fdopen ordinary/cancellation and all descriptors.",
+  "actual_tests": {
+    "python": "3.9.6",
+    "command": "PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_evolution*.py",
+    "count": 19,
+    "seconds": 2.457,
+    "stderr": "/private/tmp/evolution-independent-review-c.stderr.log",
+    "stdout": "/private/tmp/evolution-independent-review-c.stdout.log"
+  },
+  "independent_repro": {
+    "script": "/private/tmp/evolution-independent-review-b.py",
+    "output": "/private/tmp/evolution-independent-review-c-repro.json"
+  },
+  "source_review": [
+    "Exact canonical bounded status requires one numeric newline, missing/malformed/early helper loss refuses. Held leader reserves session until owner kill before wait; descendant held pipes are deadline bounded.",
+    "Caller argv shell-free; explicit closed child env. Snapshot nofollow regular-file bounds; resource/executable/source-closure/Git identity opening and closing gates.",
+    "Cancellation identity and fresh cleanup cancellation precedence preserved; ordinary public errors payload-free.",
+    "Public checker dynamically imports pinned UMF index public APIs, checks exact input hashes, five dataset receipts and15negative controls, preserved first3 transitions/breaking fourth; actual fresh producer remains required.",
+    "R3 independent oracle reconstructs exact19 surviving R4 prior states. New separately authored product/edge absent prior excluded; admission denies changed previous carriers.",
+    "Source/epoch qualified batch IDs and schema metadata copied bounded; semantic receipt never source/native/ACK authority.",
+    "Package globs include all seven fixed evolution assets. CI appended only producer/admission SDK-free unittest commands, runs Ubuntu3.9/3.12; POSIX os.fork/no_follow/process session/selectors are compatible by source inspection, actual Linux3.12 proof deferred CI."
+  ],
+  "formal_limit": "Review and inert controls provide scoped source/correspondence evidence, no machine proof or installed/native workflow qualification."
+}

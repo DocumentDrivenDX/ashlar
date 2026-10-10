@@ -1,0 +1,14 @@
+[
+  {
+    "point": "close-control",
+    "stdout_closed": false,
+    "stderr_closed": false,
+    "reaped": true
+  },
+  {
+    "point": "fdopen-control",
+    "stdout_closed": false,
+    "stderr_closed": false,
+    "reaped": true
+  }
+]

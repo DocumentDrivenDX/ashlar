@@ -1,0 +1,43 @@
+{
+  "scope": "Five lifecycle-owned C source/test/desired transport artifacts; inert local controls only; no real UMF/native evidence",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/evolution_producer.py",
+      "snapshot": "/private/tmp/ashlar-evolution-lifecycle-source-20261010-c/src/ashlar_host/evolution_producer.py",
+      "bytes": 6373,
+      "sha256": "d7dd905cdc1eff0ee0096bf33b64ecf05aeccbf1b684c290e52b1ed345407ae0"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/evolution_admission.py",
+      "snapshot": "/private/tmp/ashlar-evolution-lifecycle-source-20261010-c/src/ashlar_host/evolution_admission.py",
+      "bytes": 13297,
+      "sha256": "32372523a7dee239e1fbda15d7db1e577cabf7bed545a349285c46afc03c1aff"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_evolution_producer.py",
+      "snapshot": "/private/tmp/ashlar-evolution-lifecycle-source-20261010-c/tests/test_evolution_producer.py",
+      "bytes": 8858,
+      "sha256": "8267e50e669735a67c3b5bd8a9b1f1aa2e3d61925b0087879912abb66df410d5"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_evolution_admission.py",
+      "snapshot": "/private/tmp/ashlar-evolution-lifecycle-source-20261010-c/tests/test_evolution_admission.py",
+      "bytes": 7791,
+      "sha256": "aa89e39dba963bc500bbd2e35b28ac8dd3c27479b0ab68df2c0a264ad0c645c8"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "snapshot": "/private/tmp/ashlar-evolution-lifecycle-source-20261010-c/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 38641,
+      "sha256": "d9149ccc904dc263be2018b24cb33c9bfada3a2d84215dbe4e025e75c92f2606"
+    }
+  ],
+  "test_logs": [
+    "/private/tmp/evolution-lifecycle-c.stdout.log",
+    "/private/tmp/evolution-lifecycle-c.stderr.log",
+    "/private/tmp/evolution-lifecycle-c-boundary.stdout.log",
+    "/private/tmp/evolution-lifecycle-c-boundary.stderr.log",
+    "/private/tmp/evolution-lifecycle-c-independent-repro.json"
+  ],
+  "changes": "Record Popen-owned stdout/stderr immediately before any fallible setup close; transfer control descriptor ownership separately; real close/fdopen ordinary/cancel fault controls"
+}

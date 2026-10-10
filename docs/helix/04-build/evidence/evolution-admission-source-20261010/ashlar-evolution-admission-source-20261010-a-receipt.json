@@ -1,0 +1,27 @@
+{
+  "tests": {
+    "command": "PYTHONPATH=src python3 -B -m unittest discover -s tests -p test_evolution_*.py -v",
+    "python": "3.9.6",
+    "passed": 12
+  },
+  "boundary": "python3 -B tools/check_module_boundaries.py PASS",
+  "package_discovery": {
+    "tool": "setuptools79.0.0 build_py.find_data_files explicit package-data; no wheel built",
+    "resources": 7,
+    "exact": true
+  },
+  "readonly_custody": {
+    "files": 7698,
+    "bytes": 57325271,
+    "seconds": 0.868123084,
+    "revision": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+    "source_closure_sha256": "ab05e309c867e8e65eda93d0bec234cf4c815a077d0f6959a0a03a5759c389e6",
+    "scope": "Read-only selected resources/executable/Git checks; public producer NOT run"
+  },
+  "limitations": [
+    "Conservative static public-index resource closure; no hermetic OS/runtime guarantee",
+    "Actual selected public producer command requires independent source and exact command review before execution",
+    "No source/writer/publication/ACK authority or installed-native/recovery support from these tests",
+    "Fake fresh receipt tests are orchestration controls, not public API execution evidence"
+  ]
+}

@@ -1,0 +1,17 @@
+test_bad_receipt_refuses_and_cancel_identity_preserved (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_cleanup_failure_preserves_cancel_and_removes_owned_directory (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_closing_drift_withholds_return_and_failure_still_checks_closing (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_config_exact_bounds_and_types (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_gzip_limits_trailing_data_and_invalid_config_before_capture (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_package_resources_core_four_batches_and_exact_fresh_proof_gate (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_body_cancel_survives_selector_cleanup_failure (test_evolution_producer.EvolutionProducerTests) ... ok
+test_descriptor_refuses_symlink_fifo_and_over_limit (test_evolution_producer.EvolutionProducerTests) ... ok
+test_real_inert_child_closed_environment_and_stream_caps (test_evolution_producer.EvolutionProducerTests) ... ok
+test_setup_cancel_closes_real_owned_streams_and_preserves_identity (test_evolution_producer.EvolutionProducerTests) ... ok
+test_success_kills_stdio_closed_descendant (test_evolution_producer.EvolutionProducerTests) ... ok
+test_timeout_when_descendant_holds_pipe (test_evolution_producer.EvolutionProducerTests) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 1.867s
+
+OK

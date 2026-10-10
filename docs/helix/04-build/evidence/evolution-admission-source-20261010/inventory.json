@@ -1,0 +1,210 @@
+{
+  "scope": "Reviewed source/config/resources/CI and inert lifecycle/custody controls; real public UMF execution and installed/native workflows not established",
+  "files": [
+    {
+      "path": "ashlar-evolution-admission-source-20261010-a-manifest.json",
+      "sha256": "05db9b1e2eeb3e41f67ff34bde900f133f189a5d94b6b6bfe8c0ac724c649dc6",
+      "bytes": 4598
+    },
+    {
+      "path": "ashlar-evolution-admission-source-20261010-a-receipt.json",
+      "sha256": "540de4c65a8989b2ab8ce97f516453d005c12af29b816861b7072a5fbca6e877",
+      "bytes": 1166
+    },
+    {
+      "path": "ashlar-evolution-lifecycle-source-20261010-b-manifest.json",
+      "sha256": "dcb2cc374249c30efaed5b656436d862e898bfab1de620d37938814a266a16a2",
+      "bytes": 2201
+    },
+    {
+      "path": "ashlar-evolution-lifecycle-source-20261010-c-manifest.json",
+      "sha256": "194ed433188664fc3cac970049543cbf6c0d4da1dbf16d5dd162410938293bcd",
+      "bytes": 2299
+    },
+    {
+      "path": "evolution-admission-independent-review-20261010-b.json",
+      "sha256": "cc526f5a23b195eb2d2305f56d2f0ec0454d91bdfe2632bb386a7f74f618e4cc",
+      "bytes": 4666
+    },
+    {
+      "path": "evolution-admission-independent-review-20261010-c.json",
+      "sha256": "385212a951c0ec2c90e087c1541c8de48ccba9339611c14aef9154135fbc3330",
+      "bytes": 6162
+    },
+    {
+      "path": "evolution-independent-review-b.py",
+      "sha256": "4cac0b1cd827beece544bccc78c37b68259d1f5068ebcc164b28b095dcdd1c8e",
+      "bytes": 1289
+    },
+    {
+      "path": "evolution-independent-review-b.stdout.json",
+      "sha256": "16340df743710e36ae410d866dfa4671bb5000e94db0764c53a7fdcfdb4f1e0c",
+      "bytes": 232
+    },
+    {
+      "path": "evolution-independent-review-c-repro.json",
+      "sha256": "d5169f5e39d7c8a53a5f198117cf0d4d7d8a9cc9e90df2e5f9d4afe7ca9fcc9b",
+      "bytes": 228
+    },
+    {
+      "path": "evolution-independent-review-c.stderr.log",
+      "sha256": "b9d73c9f06612a0b2f42ebe7fe71f08cbba286d4e58bebd19a67b7c5e4201cc2",
+      "bytes": 118
+    },
+    {
+      "path": "evolution-independent-review-c.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "evolution-lifecycle-b-boundary.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "evolution-lifecycle-b-boundary.stdout.log",
+      "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9",
+      "bytes": 94
+    },
+    {
+      "path": "evolution-lifecycle-b-escalated.stderr.log",
+      "sha256": "fc4523aaca4d26815c5f543b44ed5f62dc57d466f6f7edb3f33f3c9578a98ed2",
+      "bytes": 2236
+    },
+    {
+      "path": "evolution-lifecycle-b-escalated.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "evolution-lifecycle-b.stderr.log",
+      "sha256": "30887923b049d32738b0e04d3fdd6c68c3bdec38ab40d846adf9bf2e725b083c",
+      "bytes": 2236
+    },
+    {
+      "path": "evolution-lifecycle-b.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "evolution-lifecycle-b2.stderr.log",
+      "sha256": "acf36624e82dced78041b32b3aaa0dd67da7eae7e469ef8a3bfc0305dcbbfdba",
+      "bytes": 1451
+    },
+    {
+      "path": "evolution-lifecycle-b2.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "evolution-lifecycle-b3.stderr.log",
+      "sha256": "29ea88c3b604e6adad4ee9354a32bef77d554ded2a7a366ef75f84d20ae41c74",
+      "bytes": 2154
+    },
+    {
+      "path": "evolution-lifecycle-b3.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "evolution-lifecycle-c-boundary.stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "evolution-lifecycle-c-boundary.stdout.log",
+      "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9",
+      "bytes": 94
+    },
+    {
+      "path": "evolution-lifecycle-c-independent-repro.json",
+      "sha256": "d5169f5e39d7c8a53a5f198117cf0d4d7d8a9cc9e90df2e5f9d4afe7ca9fcc9b",
+      "bytes": 228
+    },
+    {
+      "path": "evolution-lifecycle-c.stderr.log",
+      "sha256": "7e5093d8862779707868a0bdf6d0332bb56bf08a261d6492a81215b350dbe5f1",
+      "bytes": 2270
+    },
+    {
+      "path": "evolution-lifecycle-c.stdout.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "source/.github/workflows/weft-distribution.yml",
+      "sha256": "a11642b361c61136fd25a4daf3d4c7b82024f0d7c698082a057e5ba4ff474fee",
+      "bytes": 3961
+    },
+    {
+      "path": "source/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "d9149ccc904dc263be2018b24cb33c9bfada3a2d84215dbe4e025e75c92f2606",
+      "bytes": 38641
+    },
+    {
+      "path": "source/pyproject.toml",
+      "sha256": "7e93ee5a2c494796821bc14d47572e66e91d43bbcbbbd459ca4044cf1f8fdae9",
+      "bytes": 1739
+    },
+    {
+      "path": "source/src/ashlar_host/config.py",
+      "sha256": "c6c1fdb541162d36cb100c8e780f243c8452dffa74e86da6754beb710f782f45",
+      "bytes": 16476
+    },
+    {
+      "path": "source/src/ashlar_host/evolution_admission.py",
+      "sha256": "32372523a7dee239e1fbda15d7db1e577cabf7bed545a349285c46afc03c1aff",
+      "bytes": 13297
+    },
+    {
+      "path": "source/src/ashlar_host/evolution_producer.py",
+      "sha256": "d7dd905cdc1eff0ee0096bf33b64ecf05aeccbf1b684c290e52b1ed345407ae0",
+      "bytes": 6373
+    },
+    {
+      "path": "source/src/ashlar_host/resources/evolution/candidate.json",
+      "sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba",
+      "bytes": 175817
+    },
+    {
+      "path": "source/src/ashlar_host/resources/evolution/check_evolution.ts",
+      "sha256": "30ec82f34bd06eae9a23fb852b98482142e2fba1dcb12d9dbf370f2d8bafd3d2",
+      "bytes": 7419
+    },
+    {
+      "path": "source/src/ashlar_host/resources/evolution/original-model.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "bytes": 27544
+    },
+    {
+      "path": "source/src/ashlar_host/resources/evolution/public-presence.json.gz",
+      "sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae",
+      "bytes": 84770
+    },
+    {
+      "path": "source/src/ashlar_host/resources/evolution/seed-candidate.json",
+      "sha256": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692",
+      "bytes": 174123
+    },
+    {
+      "path": "source/src/ashlar_host/resources/evolution/seed-public.json.gz",
+      "sha256": "392b8a20395b53566fc9c73ed10cd37d714ce2d45330fd465bb31f4a43a6a6a1",
+      "bytes": 67527
+    },
+    {
+      "path": "source/src/ashlar_host/resources/evolution/source-closure.json",
+      "sha256": "ab05e309c867e8e65eda93d0bec234cf4c815a077d0f6959a0a03a5759c389e6",
+      "bytes": 1194249
+    },
+    {
+      "path": "source/tests/test_evolution_admission.py",
+      "sha256": "aa89e39dba963bc500bbd2e35b28ac8dd3c27479b0ab68df2c0a264ad0c645c8",
+      "bytes": 7791
+    },
+    {
+      "path": "source/tests/test_evolution_producer.py",
+      "sha256": "8267e50e669735a67c3b5bd8a9b1f1aa2e3d61925b0087879912abb66df410d5",
+      "bytes": 8858
+    }
+  ]
+}
