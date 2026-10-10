@@ -24,14 +24,17 @@ ddx:
 ## Story
 
 **As a** Warehouse platform engineer,
-**I want** to replay a synthetic producer feed and inspect published state,
+**I want** to ingest and replay admitted producer feeds and inspect immutable published state,
 **So that** consumers can trust deletes, history and reported progress.
 
 ## Context
 
-Use synthetic opaque TypeA/A1 identities and symbolic source positions.
-Version and cursor encoding belongs in the forthcoming publication Contract.
-No UMF model fields or platform implementation are selected by this story.
+UMF models define admitted graph types and relationships. The engineer follows
+source-qualified identities from original transactions into managed-Delta current
+state, history and tombstones, then reads through the publication resolver.
+[CONTRACT-001](../../02-design/contracts/CONTRACT-001-publication-boundary.md)
+and [CONTRACT-003](../../02-design/contracts/CONTRACT-003-delta-graph-tables.md)
+define source progress, recovery and durable acknowledgement boundaries.
 
 ## Walkthrough
 
@@ -49,7 +52,7 @@ No UMF model fields or platform implementation are selected by this story.
 - [ ] **US-004-AC5** — Given failure between related-table updates, no read claims complete publication through the interrupted change; recovery matches the uninterrupted state.
 - [ ] **US-004-AC6** — Given retained v1/v2/v3 and their source positions, historical and changes-since reads match the corpus; requesting expired history reports the retention gap and recovery need.
 - [ ] **US-004-AC7** — Given missing endpoints, a feed gap or conflicting producer identities, the chosen reject/quarantine policy is observable and does not hide invalid data behind a complete-state claim.
-- [ ] **US-004-AC8** — Given two independent feeds, reported progress preserves both positions; unknown source timestamps do not become fabricated freshness measurements.
+- [ ] **US-004-AC8** — Given two independent feeds with overlapping local identities, publication retains distinct source-qualified entities and both source positions/epochs; durable acknowledgement follows complete publication, and unknown source timestamps do not become fabricated freshness measurements.
 
 ## Edge Cases
 
@@ -64,15 +67,15 @@ data before automation; no test implementation is supplied here.
 
 ## Dependencies
 
-FEAT-004; FEAT-002; PRD Q2/Q3/Q9/Q10. UMF binding is a later integration gate.
+FEAT-004; FEAT-002; FEAT-001; PRD FR-4; CONTRACT-001, CONTRACT-003 and the admitted UMF/source profiles. A source lacking a usable external interface does not block another admitted source.
 
 ## Out of Scope
 
-Live transport, production datasets, deployment and UMF schema authoring.
+Production provisioning and UMF core schema authoring. Real Truss acceptance, feed and acknowledgement claims require the native Truss workflow; local fixtures qualify only their declared producer profiles.
 
 ## Review Checklist
 
 - [x] Stable criteria IDs and traceable feature requirements.
 - [ ] Shared corpus and policies reviewed.
-- [ ] Passing tests cite the criteria; all criteria currently UNTESTED.
+- [ ] Passing tests cite the criteria and declare source, model and native target versions.
 - [ ] Owner review and approval.
