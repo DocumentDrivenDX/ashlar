@@ -70,6 +70,14 @@ class BoundaryTests(unittest.TestCase):
         (root / 'src/ashlar/__init__.py').write_text('from ashlar import _self\n')
         self.assertFalse(any(e[0].endswith('__init__.py') for e in scan(root)))
 
+    def test_compiler_installer_and_composition_roles(self):
+        root = self.tree('')
+        (root / 'src/ashlar/weft_installation.py').write_text('from .publisher import Attempt\nfrom .weft_distribution import configuration\n')
+        (root / 'src/ashlar/weft_distribution.py').write_text('from .weft_installation import InstallationConfig\n')
+        edges = scan(root)
+        self.assertEqual({e[3] for e in edges}, {'consumer-to-producer', 'core-to-composition'})
+        self.assertFalse(any(e[0].endswith('weft_distribution.py') for e in edges))
+
     def test_actual_repository_policy(self):
         self.assertEqual(check(ROOT, json.loads(POLICY.read_text())), ([], []))
 

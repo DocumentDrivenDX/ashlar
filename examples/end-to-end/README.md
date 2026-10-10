@@ -30,6 +30,12 @@ Preserve absent, null and value states separately. Feed/epoch and the original
 outer cursor belong to the selected source; JSONL byte offsets cannot substitute
 for a PostgreSQL outbox sequence or a Truss checkpoint.
 
+## Install the local Weft compiler
+
+Follow the [indexed installation guide](WEFT-INSTALLATION.md) to install the
+qualified local candidate and compile an unchanged original request. Publication
+execution still requires the resolved vector and all compiler host obligations.
+
 ## Prepare the original commerce graph
 
 ```sh

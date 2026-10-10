@@ -10,6 +10,12 @@ from .source import jsonl_batches
 def main():
     parser = argparse.ArgumentParser(prog='ashlar')
     commands = parser.add_subparsers(dest='command', required=True)
+    install_weft = commands.add_parser('install-weft', help='Verify and install the pinned local Weft candidate package')
+    for name in ('index', 'package', 'output'):
+        install_weft.add_argument('--' + name, required=True)
+    compile_weft = commands.add_parser('compile-weft', help='Compile original stdin through a retained indexed installation')
+    for name in ('index', 'installation'):
+        compile_weft.add_argument('--' + name, required=True)
     inspect = commands.add_parser('inspect-source', help='Verify committed JSONL batches from stdin; no ACK')
     inspect.add_argument('--feed', required=True)
     inspect.add_argument('--epoch', required=True)
@@ -33,6 +39,28 @@ def main():
         medical.add_argument('--'+name,required=True)
     medical.add_argument('--binding-profile',required=True,choices=['ashlar-medical-development-bindings/0.2'])
     args = parser.parse_args()
+    if args.command in ('install-weft', 'compile-weft'):
+        from pathlib import Path
+        from .weft_distribution import (DistributionPaths, DistributionError,
+            install_distribution, compile_distribution, read_request, diagnostic)
+        try:
+            if args.command == 'install-weft':
+                result = install_distribution(DistributionPaths(
+                    Path(args.index), Path(args.output), Path(args.package)))
+                print('ashlar-weft: ' + diagnostic(result), file=sys.stderr)
+            else:
+                request = read_request(sys.stdin.buffer)
+                response = compile_distribution(DistributionPaths(
+                    Path(args.index), Path(args.installation)), request)
+                sys.stdout.buffer.write(response)
+                sys.stdout.buffer.flush()
+        except DistributionError as error:
+            print('ashlar-weft: ' + str(error), file=sys.stderr)
+            raise SystemExit(2) from None
+        except OSError:
+            print('ashlar-weft: io-refused', file=sys.stderr)
+            raise SystemExit(2) from None
+        return
     if args.command=='medical-source':
         from .medical_source import write_candidate
         batch,_=write_candidate(args.ontology,args.graph,args.public_admission,args.output,source_system=args.source_system,binding_profile=args.binding_profile)

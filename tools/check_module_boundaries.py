@@ -52,11 +52,11 @@ def imports(root: Path):
 def violation(source: str, target: str, symbol: str):
     if source.startswith('src/ashlar/'):
         stem = Path(source).stem
-        host = {'cli', 'source_config', 'commerce_source', 'supply_chain_source', 'archaeology_source', 'ecology_source', 'medical_source', '__main__'}
+        host = {'cli', 'source_config', 'weft_distribution', 'commerce_source', 'supply_chain_source', 'archaeology_source', 'ecology_source', 'medical_source', '__main__'}
         model = {'schema', 'catalog', 'binding', 'semantic_policy', 'typed_source_policy'}
         source_state = {'source', 'apply', 'whole_entity', 'source_checkpoint'}
         transport = {'native', 'staging', 'attempt_store', 'schema_registry', 'pins', 'authority', 'retention_policy'}
-        consumer = {'weft_binding', 'weft_query', 'weft_decode', 'graph_release', 'singleton'}
+        consumer = {'weft_installation', 'weft_binding', 'weft_query', 'weft_decode', 'graph_release', 'singleton'}
         producer = {'publisher', 'stored_publisher', 'durable_publisher', 'outbox'}
         selected = target.split('.')[-1] if target.startswith('ashlar.') else ''
         if stem in model | source_state and selected in transport | host:

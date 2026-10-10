@@ -22,6 +22,9 @@ cursors. It grants no source acknowledgement or native schema acceptance.
 Configured-source inspection resolves explicitly pinned model, interpretation,
 binding and data files; it does not invent catalog IDs.
 
+For a pinned local compiler installation and original-request compilation, use
+the [Weft installation guide](../../examples/end-to-end/WEFT-INSTALLATION.md).
+
 ## Component boundaries
 
 | Components | Responsibility | Required external evidence |
@@ -31,6 +34,7 @@ binding and data files; it does not invent catalog IDs.
 | `staging`, `attempt_store`, `manifest`, `publisher`, `stored_publisher` | Durable phase/effect/descriptor custody and original-handle recovery | Qualified writer fencing, authenticated transport and validation/ACK driver |
 | `publication`, `native`, `singleton`, `pins`, `authority`, `protocol`, `retention_policy` | Resolve exact immutable vectors and gate reads | UUID/version/schema/file/protocol custody, current effective permission and finite readability |
 | `weft_binding`, `weft_query`, `weft_decode` | Publication-bound compilation and guarded buffered result release | Original compiler/model/binding/profile evidence and every emitted integrity obligation |
+| `weft_installation`, `weft_distribution` | Verify indexed compiler bytes and compose explicit local CLI installation/compilation | Independently admitted index, exact package evidence and actual qualified host observations |
 | `truss_input`, `truss_feed`, `report_parts`, `profile_custody` | Preserve selected Truss artifacts and feed semantics | Real accepted catalog/report/head, source registrations and complete native feed/ACK |
 
 No provider policy has a trusting default. A declared principal, stored validation

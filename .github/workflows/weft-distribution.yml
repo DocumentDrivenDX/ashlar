@@ -1,0 +1,25 @@
+name: Weft distribution boundaries
+on:
+  push:
+    branches: [main]
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  consumer:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.9', '3.12']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Verify inert package and trusted composition controls
+        run: |
+          PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_weft_installation.py
+          PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_weft_distribution.py
+          PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_weft_cli.py
+      - name: Verify module ownership
+        run: python3 tools/check_module_boundaries.py
