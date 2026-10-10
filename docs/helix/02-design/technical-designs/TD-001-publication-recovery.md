@@ -101,3 +101,48 @@ Model finite identities as exact tokens, preserving separation of feeds and
 operations; exclude cloud IAM, uncoordinated administrator mutation, real timing,
 physical retention and engine semantics. These require independent host/native
 qualification. Incomplete exploration or timeout is unknown, not passing evidence.
+
+## Installed two-source evolution facade
+
+Apply CONTRACT-001's fresh/resume boundary and CONTRACT-003's original finite
+R1→R4 materialization profile. `ashlar.commerce_evolution` owns portable
+preparation and the independent prefix-union oracle; host admission owns bounded
+original inputs and fresh public UMF verification. Host orchestration owns source
+sessions, stored publication, protected ACK and cleanup under ADR-001. Package
+resources carry the named originals and authored Field35 augmentation separately;
+no checkout path or tool import may become an installed dependency.
+
+Retain the complete original request, generated and selected ordered effects,
+prior no-op anchors, publication identity/clock, prefix/schema state and actual
+resource registry before submission. A new process reconstructs its attempt only
+through the owning original-plan/journal ports. Submitted ordinals require unique
+exact original reconciliation; proven unsubmitted ordinals may first-submit from
+the retained plan. Missing or ambiguous custody withholds progress and ACK.
+Fresh/resume types keep initialization away from recovery. Source append, if
+exposed, requires a separate explicit authorization and is not source provisioning.
+
+This facade maps PUB-F1 to complete per-prefix vectors and historical R1 reads,
+PUB-F2 to ordinary protected request/manifest readback after readable publication,
+PUB-F3 to retained-plan admission and submitted/unsubmitted discrimination, and
+PUB-F4 to A/B source-qualified union and separate progress. PUB-L1 requires an
+actual installed fresh-process recovery witness, conditional on available native
+stores, retained originals, current source/writer authority and terminating
+operations. These are precise reviewed specifications with implementation tests;
+no mechanical proof or general crash-safe platform claim follows.
+
+Configuration follows CONTRACT-001 and the portable-host override: immutable
+validated values and injected resource/authority ports, exact selected evolution
+producer/runtime, finite deadlines and capture limits. Use CONTRACT-006 public
+composition for sanitized phase/outcome evidence and run/attempt correlation;
+raw source values, SQL, credentials and journal payloads are excluded. Instrument
+loss independently of durable publication/ACK, and preserve primary cancellation
+through every owned connection, transport and Spark cleanup. Stage the aggregate
+report exclusively and expose it only after closing checks and successful closure.
+An unavailable report never authorizes replacement effects or undoing committed ACK.
+
+Implement portable preparation and custody first, then fresh orchestration and
+retained-plan resume, followed by installed command wiring and actual qualification.
+Rollback selects the prior immutable application release; preserve original
+installations, journals and source receipts for explicit recovery. It does not
+reset feed progress, drop tables or migrate source data. TP-001 owns complete-row,
+restart, refusal, cleanup and diagnostic tests.

@@ -158,6 +158,22 @@ semantic, custody and transport responsibilities.
 | `src/ashlar_host/ack.py`, `postgres.py`, `connection.py` | Protected source acknowledgement and reconciliation, ordinary PostgreSQL sessions and private-profile connection construction | Host ACK/session ports: AckScope, ProtectedOutboxAck, AckOutcomeUncertain, Session | Public core descriptor/checkpoint/pin APIs, mandatory policy and connection ports, packaged ACK SQL and explicitly selected psycopg profile | Caller flags as ACK authority, source progress inferred from query results, checkout tools or unqualified production credential discovery |
 | `tools/` adapters | Checkout-only engine/source experiments and review utilities | Named runner/checker entrypoints | Owned public core/host APIs and explicitly selected SDKs | Installed package dependency on tools; newly introduced private cross-module access |
 
+The installed original-commerce evolution facade adds these owned boundaries:
+
+| Module | Responsibility / Owned Types | Public API | Allowed Dependencies | Forbidden Dependencies |
+| --- | --- | --- | --- | --- |
+| `src/ashlar/commerce_evolution.py` | Immutable finite source preparation and independent complete prefix-union oracle | Named preparation and oracle under CONTRACT-003 | Public core source/value APIs and Python3.9 standard library | Host/tools/SDK imports, runtime discovery, authority or replacement UMF semantics |
+| `src/ashlar_host/evolution_admission.py` | Bounded original/candidate/proof custody and exact public producer admission | Owned admitted evolution source/transition ports | Explicit config, public core preparation, packaged resources and configured public UMF producer | Checkout discovery, ambient Bun/Git, private UMF APIs, receipt flags as authority |
+| `src/ashlar_host/commerce_evolution.py` | Fresh/resume lifecycle, source-qualified publication and original recovery | publish_commerce_evolution, resume_commerce_evolution under CONTRACT-001 | Explicit config, owned admission/driver/journal/ACK/lifecycle ports and supplied ordinary sessions | Source/role/grant provisioning, credential discovery/escalation, new uncertain intent, tools/private native access |
+
+`config.py` owns separate immutable fresh/resume types and validates the complete
+selected profile before effects. The CLI is the construction root; supplied native
+writer/source/ACK authority remains independently admitted. `resources/` owns the
+immutable public checker and named original/augmentation inputs. Update the actual
+module checker for new classifications without enlarging debt exemptions; verify
+allowed and forbidden imports through that checker. Semantic review covers
+session authority, dynamically supplied ports and original-plan ownership.
+
 **Integration Owners**: UMF -> core schema/typed-source policy receipt boundaries
 and `ashlar_host.source` for explicit public-producer invocation; Truss ->
 `truss_input.py`/`truss_feed.py`. Weft -> `weft_binding.py`/`weft_query.py` for

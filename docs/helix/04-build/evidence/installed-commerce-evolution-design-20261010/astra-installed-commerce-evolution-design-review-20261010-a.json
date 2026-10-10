@@ -1,0 +1,345 @@
+{
+  "status": "design-direction-supported-with-required-boundary-contracts-before-code",
+  "scope": "Read-only installed original-commerce evolution design review against current governing documents, original eight-publication tools, public installed host and retained evidence. No source edits, native/SDK/compiler/receiver/secret/network execution or new qualification.",
+  "proposed_owners": [
+    {
+      "module": "ashlar.commerce_evolution",
+      "owns": "Immutable portable preparation, source/epoch-qualified SourceBatch framing and independently derived complete prefix-union oracle; Python3.9 standard library.",
+      "forbidden": "Host/tool/SDK imports, filesystem/runtime discovery, source authority or UMF semantic reimplementation."
+    },
+    {
+      "module": "ashlar_host.evolution_admission",
+      "owns": "Bounded original/candidate/proof/resource custody, exact selected public UMF producer invocation and expected-source verification, admitted change and prior-state transition correspondence.",
+      "forbidden": "Arbitrary receipt flags as authority, latest-producer equivalence, hardcoded checkout/evidence paths, ambient Bun/Git."
+    },
+    {
+      "module": "ashlar_host.commerce_evolution",
+      "owns": "Explicit fresh and resume composition, source-native publication/ordinary protected ACK boundaries, immutable original operation custody, native resource cleanup and aggregate report availability.",
+      "forbidden": "Source/schema/role/grant provisioning, Docker secret discovery, fixture fault injection defaults, replacing uncertain intent, direct unchecked private native internals."
+    }
+  ],
+  "required_findings": [
+    {
+      "id": "EVOLUTION-BOUNDARY-001",
+      "priority": "required-before-code",
+      "finding": "Current installed publish path calls driver.provision_sources and connection.connect discovers Docker credentials then changes superuser session identity. It is not a reusable authority boundary for this new workflow.",
+      "correction": "Accept separately established source/consumer registrations and ordinary connection/session ports or explicit injected secret-handle configuration. Independently admit source identity, native installation/writer custody and ACK rights; configuration and public UMF proof establish none of these."
+    },
+    {
+      "id": "EVOLUTION-BOUNDARY-002",
+      "priority": "required-before-code",
+      "finding": "Existing runner has only fresh run; recoverable-loss branch copies policy.active from memory and reopens the original journal within the same Spark process. That is not a public fresh-process resume implementation.",
+      "correction": "Use distinct fresh/resume configuration types and entrypoints. Before submission retain the exact original request, ordered generated/selected effect plan, no-op prior anchors, publication identity/clock, prefix/source/schema state and resource identities. Resume restores/adopts only those original bytes through owning ports and renews all authority. Never synthesize replacement intent or initialize when an original journal/operation is missing."
+    },
+    {
+      "id": "EVOLUTION-BOUNDARY-003",
+      "priority": "required-before-code",
+      "finding": "Historical admission requires exact UMF e44cd15f336dfb33db35acf20eee13dd120a1a28 and the separately authored Field35 presence candidate; ordinary original-commerce producer uses a different pin.",
+      "correction": "Define a separate immutable selected evolution producer/resource profile with explicit executable paths, finite bounds and opening/closing source/runtime custody. Freshly invoke public complete dataset/evolution inspectors plus expected-source verifiers against the actual supplied/pinned inputs. No latest-version substitution or shadow compatibility validator."
+    },
+    {
+      "id": "EVOLUTION-BOUNDARY-004",
+      "priority": "required-before-code",
+      "finding": "Eight-publication acceptance includes all source-qualified current/history/tombstone cells, independent progress, exact replay, retained R1 and narrowly admitted R3-to-R4 carriers; final counts alone are insufficient.",
+      "correction": "Retain the original named augmentations and complete per-prefix oracle; add only the source/epoch envelope qualification with exact original event-byte preservation. Breaking model validity does not admit a data migration. Do not collapse edge identity, null/absence or lexical numeric content."
+    },
+    {
+      "id": "EVOLUTION-BOUNDARY-005",
+      "priority": "required-before-code",
+      "finding": "Legacy tool close_resources in finally can replace a body failure, and its direct final report write lacks staged availability semantics. Copying the tool would regress reviewed host lifecycle behavior.",
+      "correction": "Capture original primary immediately, acquire/own each connection/transport/Spark resource under cleanup coverage, attempt every cleanup, preserve cancellation identity and separately record cleanup uncertainty. Publish an aggregate report only after closing admission and successful closure, using bounded exclusive staged output. A report failure does not undo an already committed publication or ACK."
+    }
+  ],
+  "configuration_inventory": [
+    {
+      "keys": "profile and finite eight-step schedule",
+      "owner": "developer-owned versioned profile",
+      "source": "committed immutable package definition",
+      "rule": "Exact R1/R2-update/R3-delete/R4-additive-candidate and A1,B1,A2,B2,A3,B3,A4,B4; unknown profile/options refused, no caller fault-injection switch."
+    },
+    {
+      "keys": "original model/graph, original preparation seed/proof, presence candidate/proof and development registry",
+      "owner": "caller-supplied locations; developer-owned exact profile/content pins",
+      "source": "explicit absolute paths or fixed package resources snapshotted as bounded original bytes",
+      "rule": "No checkout docs/evidence path discovery; closed bounded reads/inflation; no environment fallback. Preserve original and authored-augmentation distinction."
+    },
+    {
+      "keys": "producer source/revision, Bun and Git executables, packaged checker resources",
+      "owner": "selected developer profile plus operator-supplied runtime locations",
+      "source": "explicit typed ProducerConfig-compatible value",
+      "rule": "Exact qualified evolution producer and opening/closing inventory; explicit child environment and bounded output/time. Existing maximum60s producer/1MiB streams/4MiB receipt can be retained if actual complete receipts fit; any different cap requires explicit profile change."
+    },
+    {
+      "keys": "fresh output/installation root, installation ID, publication stream, initial predecessor, materialization clock, table namespace",
+      "owner": "operator/trusted composition input",
+      "source": "explicit fresh configuration; complete selected values retained before first native effect",
+      "rule": "Exclusive fresh target, no reuse; actual UUID/version registry established through admitted native port, never caller-asserted authority."
+    },
+    {
+      "keys": "resume installation/registry, original journal and run/source-plan manifest, separate invocation evidence output",
+      "owner": "original installation custody",
+      "source": "explicit resume configuration referencing retained exact originals",
+      "rule": "No replacement journal, refreshed clock, new operation IDs, recreated table UUIDs or fallback fresh initialization. Verify original complete registry and current native custody."
+    },
+    {
+      "keys": "two source registrations: source_system, feed, epoch, source schema/profile, source installation; consumer/scope/service identity; source read/append and ordinary ACK session ports",
+      "owner": "independently authorized source/ACK operator",
+      "source": "injected immutable registration descriptors and explicitly configured ordinary session factories/credential handles",
+      "rule": "Distinct full source/epoch identity, stable source-qualified batch IDs; renew actual native registration and session identity. Appending prepared batches, if exposed, is an explicit separately authorized action; no registration/grant/provisioning side effect."
+    },
+    {
+      "keys": "native runtime/JAR locations and publication writer/exclusivity/retention authority ports",
+      "owner": "operator locations and independent native authority; developer version/hash profile",
+      "source": "explicit selected local host config",
+      "rule": "Selected host Python3.11 and exact runtime/JAR profile; portable core remains3.9. No forced new settings dependency or ambient Spark/session/service selection."
+    },
+    {
+      "keys": "input/receipt/report/native-result retention limits, phase/connection deadlines and bounded diagnostics",
+      "owner": "developer admissible ceilings; operator explicit finite selection",
+      "source": "typed immutable validated config assembled at entrypoint",
+      "rule": "Reject bool/invalid/unbounded values before effects; preserve no-truncation policy. Diagnostics use C006 public composition and sanitized phase/outcome facts, never authority or raw source/SQL/secrets. Do not claim a hard global native deadline without a real ownership mechanism."
+    }
+  ],
+  "artifact_changes": [
+    {
+      "artifact": "CONTRACT-001",
+      "change": "Own fresh/resume signatures and config/value semantics, original installation/plan/journal state transitions, complete source/ACK authority separation, failure/uncertain/refusal and report-release boundary."
+    },
+    {
+      "artifact": "CONTRACT-003",
+      "change": "Own named finite original0.8 R1-R4 materialization/evolution profile, development identity registry, source-qualified envelopes and exact current/history/tombstone/presence/oracle correspondence. Explicitly exclude general migration/source-authority claims."
+    },
+    {
+      "artifact": "ADR-001",
+      "change": "Add the three module owners, their public types/ports, config ownership, package resources and actual dependency-checker roles. Shared native mechanics exposed only through a narrowly owned port; no new orchestration access to private driver state."
+    },
+    {
+      "artifact": "TD-001",
+      "change": "Map fresh/process-resume transitions to PUB-F1-F4 and PUB-L1; record retained original plan reconstruction/admission, exact uncertainty guards, assumed writer exclusivity/resource availability and process/death boundaries. Precise specification plus implementation controls only; no model-checking claim."
+    },
+    {
+      "artifact": "TP-001",
+      "change": "Require all eight complete prefix outcomes, fresh-process resume witnesses, missing/foreign/replaced journal and zero/multiple original commit-match refusals, ordinary-role ACK readback, cancellation/closure tests and installed no-checkout execution."
+    },
+    {
+      "artifact": "toolkit-delivery-plan P04",
+      "change": "Reference the installed evolution boundary and remaining native qualification without copying history or broadening unrelated tasks. No new PRD/FEAT needed; existing direction already requires this behavior."
+    }
+  ],
+  "finite_acceptance": {
+    "order": [
+      "A1",
+      "B1",
+      "A2",
+      "B2",
+      "A3",
+      "B3",
+      "A4",
+      "B4"
+    ],
+    "prefixes": [
+      [
+        1,
+        0
+      ],
+      [
+        1,
+        1
+      ],
+      [
+        2,
+        1
+      ],
+      [
+        2,
+        2
+      ],
+      [
+        3,
+        2
+      ],
+      [
+        3,
+        3
+      ],
+      [
+        4,
+        3
+      ],
+      [
+        4,
+        4
+      ]
+    ],
+    "source_semantics": [
+      "R1 original complete model/graph",
+      "R2 product exact unit_price12.75 update",
+      "R3 selected fulfillment and incident edge deletion with original history/tombstone custody",
+      "R4 additive absent-allowed String Field35; original surviving values remain absent where absent, separately authored new product has explicit present value and an independent supplier edge",
+      "breaking quantity Integer-to-String candidate remains refused for transition despite standalone dataset validation"
+    ],
+    "all_prefix_checks": [
+      "complete original independently derived bags/cells in four graph roles",
+      "complete immutable native table UUID/version vector and global ancestry",
+      "distinct overlapping local IDs by source_system, kind/type and id",
+      "both feed/epoch progress vectors; no loss when alternating sources",
+      "exact raw event/history/cursor/delivery/retained_json bytes",
+      "every publication exact replay returns same descriptor with no native version change",
+      "original R1 remains readable/equal or explicitly refuses under a separately declared retention failure",
+      "eight ordinary protected request/manifest receipts; final source heads4 and4"
+    ],
+    "final_expected_counts": {
+      "object_current": 22,
+      "edge_current": 20,
+      "tombstone": 4,
+      "whole_source_history": 90
+    },
+    "negative_controls": [
+      "changed source/producer/registry/epoch/request bytes",
+      "batch identity collision or wrong byte cursor",
+      "missing/replaced/foreign original journal or plan",
+      "submitted operation with zero or multiple matching original commits; no replacement submit/ACK",
+      "retained plan exists but wrong ordered effects/prior anchors/publication clock",
+      "closing source/native UUID/version/ACK authority drift",
+      "body cancellation and each resource close failure, including cleanup-only failure",
+      "report write/close failure and postcommit availability interruption"
+    ],
+    "recovery_evidence_split": {
+      "already_retained": "Same-Spark fresh original transport/backend/context after actual manifest response loss and one actual native collect/commit response loss; missing-journal refusal and ordinary PG uncertain ACK reconciliation.",
+      "new_required": "Installed fresh-process resume under retained originals, plus separate absent/ambiguous submission refusal/reconciliation controls. Existing loss-after-known-commit witness does not establish these new cases."
+    }
+  },
+  "review_method": "Read current source/contracts and retained original evidence only. Delegated narrow recovery/ACK read-only inspection; no new tests or native observations claimed.",
+  "references": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/toolkit-delivery-plan.md",
+      "bytes": 14828,
+      "sha256": "70a9ff183ef038600c6f93d1af1facab1f884a18f9c4e57b5c8cdb6651daad0d"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/01-frame/features/FEAT-004-incremental-gold-publication.md",
+      "bytes": 6707,
+      "sha256": "8bbf3672b3ca64f0684b71827a264fe17a09f68db5bec4917d757524e8518df6"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md",
+      "bytes": 25071,
+      "sha256": "7c467e293830a2cf0b57c999ac5d93d0427f708919b7a3f1e5672dfd6beb3dd7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-003-delta-graph-tables.md",
+      "bytes": 65721,
+      "sha256": "206132a8bc494b21d2626dc672ea996692f46f133289ae9227ed743a17d23ccf"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md",
+      "bytes": 30053,
+      "sha256": "a9d4acf0bcd9eb86dab11078add7a6e75a3239ac2694c0aa55ed8f9dbc1c4b19"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "bytes": 30765,
+      "sha256": "7a6a15f9c86536484e62ef73deb51d17caaf926fdb40f67de7ccbab5478d37b7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 35525,
+      "sha256": "9acb8b07a317c4a7006eaa3d14ab40f46e3e6a90e07eea070ab7f8f6fcf6830c"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/technical-designs/TD-001-publication-recovery.md",
+      "bytes": 6177,
+      "sha256": "224c130afc42ea702ee686f58060d6fb5d87ac7a42a2c63da1be59bf55f292c7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/03-test/consumer-conformance-plan.md",
+      "bytes": 24585,
+      "sha256": "828969e5c72f1a7ba514875bfbede75c1610c9b3ae65e6cdc6a8abea50039da7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/prepare_commerce_evolution.py",
+      "bytes": 4078,
+      "sha256": "9e913325d80ec3612e9a7138c9ec949279e7f2a92b68e920a96448db3c72c3ef"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/prepare_commerce_present_field.ts",
+      "bytes": 7688,
+      "sha256": "95e63368d998f7126a0011b31ebe8c3fab224faa4d28822586c58b8c6ded276a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/commerce_evolution_transactions.py",
+      "bytes": 13155,
+      "sha256": "a15669893ad74f811937fc141f4328f69378a57c23c9e81489a1e603bd641a3e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/commerce_evolution_batch_scope.py",
+      "bytes": 5077,
+      "sha256": "06991bab15cbfa7736d63d7eab0b55991109589ddcc64850a076b573a2ba7175"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/commerce_evolution_admission.py",
+      "bytes": 5641,
+      "sha256": "368eb329fd5bd295ceaffc7b588ff64358878fdc3a040c35fd8bd45c705bf82f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/run_commerce_evolution_publication.py",
+      "bytes": 18623,
+      "sha256": "d75af7d35a7612a1c73838674f19076940d920971ac16e4567227ec70c48fffc"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "bytes": 15938,
+      "sha256": "77206bdb19241632ebc4d110fdde6caa8c745fc852143660841a9df1c0d6ae9e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/commerce.py",
+      "bytes": 3296,
+      "sha256": "739f426bcbc2793e56b2ffe9977ce5d2cb8696c52b47e475a33e395943e4b70a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/source.py",
+      "bytes": 3982,
+      "sha256": "373cf5de8fbf3f0a5dc722a5543a6e62833376b8a1d2d254e654d53b791f0d0a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/connection.py",
+      "bytes": 2059,
+      "sha256": "16e985a351d7a1c0bf4dec1b909efb0710781eff4bb1dc28aa490271eb04c5d2"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/delta_publication.py",
+      "bytes": 9874,
+      "sha256": "980206a946916077da4fdef0029b5f8ccda18b65f62ef517574f0b27444b7876"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/driver.py",
+      "bytes": 29383,
+      "sha256": "0d4177c5f9030d0c7dcb5d8c03c3e8be17ec6cac84c0d9cdb2c306ce1292ec70"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/delta_custody.py",
+      "bytes": 28875,
+      "sha256": "314868ed61930a05ce627d8da507141d56280b663b9bd0b45f3be04d1b8a4849"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py",
+      "bytes": 1293,
+      "sha256": "e326335137706e7baa7844218dd487a55610b4b83f2d8f3700ad7ac827817b8b"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_commerce_evolution_publication.py",
+      "bytes": 9311,
+      "sha256": "5661ebc0a5eb9c7e3ee73b373eb3b2a708191cdacad8c7ea92213c9a2c741b48"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/commerce-evolution-native-20261009/summary.json",
+      "bytes": 108437,
+      "sha256": "7ae1ad6fe3ed63fee4f4fce31d80bf7da41c835af97644549df63daaeee4b044"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/commerce-evolution-native-20261009/astra-evolution-native-review-20261009.json",
+      "bytes": 944,
+      "sha256": "b59ec5c43375c11f051ea502f915b88997e9bfc2dc0285408e87145f0833387f"
+    }
+  ]
+}

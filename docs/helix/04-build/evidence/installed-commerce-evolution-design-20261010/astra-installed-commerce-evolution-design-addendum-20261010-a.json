@@ -1,0 +1,20 @@
+{
+  "status": "read-only-design-clarification",
+  "parent_review": {
+    "path": "/private/tmp/astra-installed-commerce-evolution-design-review-20261010-a.json",
+    "bytes": 19917,
+    "sha256": "d437f475639cd7c377ae4c39a329b3aa395ac425378b2766dda95e2f47e5be61"
+  },
+  "independent_recovery_review": {
+    "path": "/private/tmp/astra-installed-commerce-evolution-recovery-design-20261010-a.json",
+    "bytes": 8349,
+    "sha256": "c6819bdea94f7448f3c39c162e634841a2d15c10c4fd7a927f58c61f914276c7"
+  },
+  "clarifications": [
+    "A retained complete original effect plan can legitimately include an ordinal never submitted. Under renewed exact admission the same original ordinal may receive its first submission. This is distinct from resubmitting a submitted/uncertain ordinal, which is forbidden.",
+    "Fresh initialization admits a planned layout and independent authority, then observes/retains actual native UUIDs. Resume binds that existing complete registry. Caller-supplied UUID text is not native custody.",
+    "Ordinary protected ACK reconciliation checks exact original request/manifest/receipt and current source scope through a fresh ordinary session. A wholly absent receipt at the exact predecessor may be observed as absent; partial/conflicting/missing/ambiguous observations refuse. It does not issue a replacement ACK.",
+    "An already committed publication or ACK is retained after a later cancellation/report failure. Withholding the aggregate success report does not establish rollback."
+  ],
+  "contract001_draft_disposition": "Aligned subject to the three precise changes sent to root: unconditional no-provisioning API, fresh layout versus actual retained registry, and originally-unsubmitted ordinals/committed-outcome distinction. Later complete draft review remains separate."
+}

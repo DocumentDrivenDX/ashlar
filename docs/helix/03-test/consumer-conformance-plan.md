@@ -372,3 +372,37 @@ integration claim; a capture test or finite transport spike cannot qualify the
 complete host path. Any executable diagnostic model must retain its bounds,
 reachable successful-close/loss witnesses and broken-mechanism negative
 controls; incomplete analysis cannot satisfy that assurance level.
+
+## Installed original-commerce evolution qualification
+
+For CONTRACT-001/003 and TD-001, execute the installed package without repository
+or tools imports. Apply A1,B1,A2,B2,A3,B3,A4,B4 from the unchanged original finite
+R1/R2-update/R3-delete/R4-additive-candidate profile. At all eight prefixes compare
+complete independently derived current/history/tombstone cells, retained source
+bytes, revisions, global ancestry, immutable UUID/version vector and both native
+feed/epoch positions. Final counts 22 objects, 20 edges, 4 tombstones and 90
+history records are inventory checks only. Exact replay must change no native
+version; original R1 must retain its complete values. Verify all eight ordinary
+protected request/manifest ACK receipts and final source heads 4/4.
+
+Test fresh configuration refusal against existing installations and resume refusal
+for missing/replaced/foreign journals, changed originals, registry/epoch drift,
+wrong ordered plan/prior anchors or changed publication identity/clock. Run actual
+resume in a fresh process with the original installation and journal. Distinguish
+known commit/response loss, uniquely reconciled submitted ordinal, proven
+unsubmitted ordinal in the retained plan, absent submitted commit and multiple
+matching commits. Unresolved submitted cases must produce neither replacement
+submission nor ACK. Protected uncertain ACK recovery must read back exact original
+bytes, without accepting partial or ambiguous observations.
+
+Inject primary failure and cancellation at acquisition, admission, native phases,
+ACK, closing and report stages; independently fail each owned cleanup operation.
+Assert primary identity, all required cleanup attempts and withheld success.
+Report availability failure does not undo an already committed publication/ACK.
+Use synthetic privacy sentinels across every selected diagnostic sink and verify
+bounded capture/loss semantics under CONTRACT-006. Run the real module checker
+with allowed and forbidden edges, and prove core preparation works on Python3.9
+without SDKs. Preserve existing runtime qualification; keep Spark functional runs
+sequential local[1]/512MiB. Retain exact source/package/runtime/input/command pins
+and phase outcomes; source-only or prior same-process tool evidence does not
+qualify installed fresh-process recovery.

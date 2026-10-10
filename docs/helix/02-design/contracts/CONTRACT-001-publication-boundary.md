@@ -345,3 +345,78 @@ checkpoint meanings when delegating to the shared runner.
 Source switching requires its own admitted empty installation and original
 journal. It MUST NOT overwrite an existing publication or treat distinct feeds
 as one state without an explicitly admitted combined-source profile.
+
+## Installed original-commerce two-source evolution boundary
+
+The named development profile `ashlar-commerce-evolution-transactions/0.1`
+MUST be available through installed host APIs `publish_commerce_evolution(config)`
+and `resume_commerce_evolution(config)`. This finite profile does not authorize
+arbitrary model migration or confer Truss source authority. CONTRACT-003 owns
+its complete source/materialization meaning.
+
+Fresh and resume configuration MUST have distinct immutable types. Both MUST
+supply original input custody, the explicitly selected public UMF producer and
+runtime, finite resource bounds, installation identity, graph/attempt/manifest
+registry, two independent source registrations and their ordinary source/ACK
+session factories. Operator-owned resource handles and secrets have no committed
+default. Configuration MUST be validated before construction or effects; the
+portable core MUST NOT read environment, discover runtimes or construct clients.
+A registration descriptor or configuration flag alone MUST NOT establish source,
+writer, publication, retention or ACK authority.
+
+Each source registration MUST bind its original source installation, feed,
+epoch, source namespace, complete transaction-byte inventory and protected ACK
+scope. Current authority MUST be independently established by mandatory native
+policy/session ports. Source identity qualifies overlapping local entity keys;
+feed positions and schema revisions remain independent while publications retain
+one complete ancestry and progress vector. The host MUST NOT provision sources,
+create roles/grants, discover Docker credentials or escalate sessions
+through this workflow. Supplied credentials MUST remain opaque to diagnostics.
+
+Fresh configuration supplies the proposed layout and independent authority; it
+MAY initialize only a separately authorized, new empty installation. Authorized
+initialization MUST establish and retain the actual table UUID registry; proposed
+UUIDs MUST NOT stand in for that observation. Resume configuration MUST name the retained original installation,
+journal, table UUID registry and original source/operation custody. Resume MUST
+NOT initialize, reseed or replace a missing journal, regenerate submitted SQL or
+operation identities, or infer absence from current graph rows. An unresolved
+submitted operation, absent original handle, ambiguous native result, changed
+input/registration/epoch/UUID or missing original plan MUST withhold publication
+and ACK until original-operation reconciliation establishes the outcome. A
+retained complete plan MAY first-submit an originally unsubmitted ordinal only
+after proving it has no original submission. An already submitted or uncertain
+ordinal MUST NOT be resubmitted. A previously committed operation with lost
+response is a distinct recoverable case;
+its evidence MUST NOT qualify unresolved absent or ambiguous submissions.
+
+The orchestration MUST use the stored-publisher boundary for every complete
+source transaction. Exact replay MUST preserve original descriptors, native
+versions and logical current/history/tombstones while independently renewing
+source ACK admission. Restart MUST reconstruct work from retained original
+custody and complete admitted progress, never from in-memory prefix counters.
+Default execution MUST NOT inject failures. Fault controls use explicitly named
+verification compositions and cannot silently alter the installed public API.
+
+Success MUST be released only after complete independent prefix-union validation,
+protected ordinary ACK readback, closing source/native/installation admission and
+owned resource cleanup. Failure or cancellation MUST preserve the primary outcome
+through cleanup and withhold the success report. CONTRACT-006 owns bounded safe
+run/attempt diagnostics; telemetry and receipt flags MUST NOT establish commit,
+source authority or ACK. Report failure MUST NOT imply rollback of an already committed publication or
+ACK. Qualification requires installed execution without a
+checkout plus actual fresh-process original-journal resume; simulator-only guards
+or prior checkout runs cannot substitute.
+
+The following configuration groups MUST each have one owner and declared source;
+unknown groups/options and invalid finite bounds MUST refuse before effects.
+
+| Configuration group | Owner and source | Required admission |
+| --- | --- | --- |
+| Finite profile and eight-step schedule | Developer-owned immutable package definition | Exact supported version and complete original schedule; no fault-injection option |
+| Model/graph, preparation seed/proof, presence candidate/proof and registry | Caller absolute locations or fixed package resources; developer content pins | Bounded exact original bytes/inflation; original and authored augmentation distinguished |
+| Evolution producer revision, checker, Bun/Git locations | Developer version/content profile; operator explicit locations | Separate exact e44cd15f336dfb33db35acf20eee13dd120a1a28 profile, opening/closing custody and fresh public verification |
+| Fresh root, installation ID, stream, predecessor, clock and namespace | Explicit operator/trusted fresh configuration | Exclusive new target; complete original plan retained; actual UUIDs observed under independent authority |
+| Resume installation/registry, journal and original plan; invocation evidence output | Explicit retained installation custody | Exact original identities and separate fresh invocation output; no initialization fallback |
+| Two source and consumer/ACK registrations and ordinary session factories | Independently authorized source operator injection | Complete actual identity and current source/ACK rights; descriptors alone grant none |
+| Native runtime/JAR locations and writer/exclusivity/retention ports | Operator locations/authority; developer runtime/hash profile | Exact selected Python3.11 native profile, independent authority; portable core remains3.9 |
+| Input/receipt/report/result limits, deadlines and diagnostics | Developer admissible ceilings; operator finite selections | Typed non-bool bounds, no silent truncation, CONTRACT-006 privacy/loss; no unimplemented hard native deadline claim |

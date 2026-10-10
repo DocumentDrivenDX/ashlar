@@ -1,0 +1,47 @@
+{
+  "scope": "Independent desired-state evolution governance review only; no implementation/native qualification",
+  "files": [
+    {
+      "original": "/private/tmp/astra-installed-commerce-evolution-design-addendum-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/installed-commerce-evolution-design-20261010/astra-installed-commerce-evolution-design-addendum-20261010-a.json",
+      "bytes": 1810,
+      "sha256": "4c06cc0254462063bdecf509f6d9c9c1001f706ddcf0b67954c424cdee70b87a"
+    },
+    {
+      "original": "/private/tmp/astra-installed-commerce-evolution-design-review-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/installed-commerce-evolution-design-20261010/astra-installed-commerce-evolution-design-review-20261010-a.json",
+      "bytes": 19917,
+      "sha256": "d437f475639cd7c377ae4c39a329b3aa395ac425378b2766dda95e2f47e5be61"
+    },
+    {
+      "original": "/private/tmp/astra-installed-commerce-evolution-governance-review-20261010-a.stdout.log",
+      "copy": "docs/helix/04-build/evidence/installed-commerce-evolution-design-20261010/astra-installed-commerce-evolution-governance-review-20261010-a.stdout.log",
+      "bytes": 1270,
+      "sha256": "82d07bce4d6b507b51577f0485df2cb483380ef96fd42a2b1334d21293082aac"
+    },
+    {
+      "original": "/private/tmp/astra-installed-commerce-evolution-governance-review-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/installed-commerce-evolution-design-20261010/astra-installed-commerce-evolution-governance-review-20261010-a.json",
+      "bytes": 6810,
+      "sha256": "15e3730d0a45099bea0ecb0c40111eeb65bfd57c15a1d873a1038d4b83cc276e"
+    },
+    {
+      "original": "/private/tmp/astra-installed-commerce-evolution-recovery-design-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/installed-commerce-evolution-design-20261010/astra-installed-commerce-evolution-recovery-design-20261010-a.json",
+      "bytes": 8349,
+      "sha256": "c6819bdea94f7448f3c39c162e634841a2d15c10c4fd7a927f58c61f914276c7"
+    },
+    {
+      "original": "/private/tmp/astra-installed-commerce-evolution-governance-review-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/installed-commerce-evolution-design-20261010/astra-installed-commerce-evolution-governance-review-20261010-a.py",
+      "bytes": 6438,
+      "sha256": "93e62aecf1334d9778a362f30eb7f91d1e0c492cbb55604bf2528b63a04bd933"
+    },
+    {
+      "original": "/private/tmp/astra-installed-commerce-evolution-governance-review-20261010-a.stderr.log",
+      "copy": "docs/helix/04-build/evidence/installed-commerce-evolution-design-20261010/astra-installed-commerce-evolution-governance-review-20261010-a.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ]
+}

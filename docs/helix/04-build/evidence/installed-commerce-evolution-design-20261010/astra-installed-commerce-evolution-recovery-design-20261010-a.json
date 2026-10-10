@@ -1,0 +1,137 @@
+{
+  "format": "astra-commerce-evolution-recovery-design-review/0.1",
+  "scope": "Read-only current source audit; no Git, native engine, compiler, receiver, database, secret or network execution; no new qualification. No tests executed.",
+  "disposition": "Existing primitives support exact retained-operation reconciliation; new fresh/resume composition needs explicit retained-state and authority admission. Historical eight-publication proof does not itself establish process-level resume.",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/run_commerce_evolution_publication.py",
+      "bytes": 18623,
+      "sha256": "d75af7d35a7612a1c73838674f19076940d920971ac16e4567227ec70c48fffc"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/commerce_evolution_admission.py",
+      "bytes": 5641,
+      "sha256": "368eb329fd5bd295ceaffc7b588ff64358878fdc3a040c35fd8bd45c705bf82f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/commerce_evolution_batch_scope.py",
+      "bytes": 5077,
+      "sha256": "06991bab15cbfa7736d63d7eab0b55991109589ddcc64850a076b573a2ba7175"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/delta_custody.py",
+      "bytes": 28875,
+      "sha256": "314868ed61930a05ce627d8da507141d56280b663b9bd0b45f3be04d1b8a4849"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/driver.py",
+      "bytes": 29383,
+      "sha256": "0d4177c5f9030d0c7dcb5d8c03c3e8be17ec6cac84c0d9cdb2c306ce1292ec70"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/ack.py",
+      "bytes": 12465,
+      "sha256": "292570e275d9dd68de48eafe588183576d8e03008903b47c555dddb1b87475ce"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/recovery.py",
+      "bytes": 3589,
+      "sha256": "2a87e8bd3e8378f18aa713f0a8bc43274054a472b592a8b1d0361edd25cfa841"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/stored_publisher.py",
+      "bytes": 9299,
+      "sha256": "36f50d738335c511dafc987a7f73fc8eec9d7c417a60a2b0dd4d6204aade2202"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_commerce_evolution_publication.py",
+      "bytes": 9311,
+      "sha256": "5661ebc0a5eb9c7e3ee73b373eb3b2a708191cdacad8c7ea92213c9a2c741b48"
+    }
+  ],
+  "checks": [
+    {
+      "topic": "historical recovery scope",
+      "references": [
+        "tools/run_commerce_evolution_publication.py:78",
+        "tools/run_commerce_evolution_publication.py:169",
+        "tools/run_commerce_evolution_publication.py:216"
+      ],
+      "finding": "The injected native loss occurs after actual collect. Ordinal 1 manifest and ordinal 3 native-response recovery reopen the original journal with fresh driver/context, but retain Spark and copy the current in-memory active plan. This is not independent process restart or arbitrary uncertain-operation recovery."
+    },
+    {
+      "topic": "fresh versus retained installation",
+      "references": [
+        "tools/run_commerce_evolution_publication.py:104",
+        "src/ashlar_host/delta_custody.py:128",
+        "src/ashlar_host/delta_custody.py:136",
+        "src/ashlar_host/delta_custody.py:188",
+        "src/ashlar_host/delta_custody.py:203"
+      ],
+      "finding": "Historical run permits exclusively fresh output. Existing transport distinguishes initialize from reopen; original registry includes installation, exact table/path/UUID and optional capacity, with original journal path bound into reservation and native properties. Reopen requires the same existing non-symlink journal and exact stored registry/schema. Missing journal must not select initialization or a replacement journal."
+    },
+    {
+      "topic": "missing and uncertain native operation",
+      "references": [
+        "src/ashlar_host/delta_custody.py:335",
+        "src/ashlar_host/delta_custody.py:356",
+        "src/ashlar_host/delta_custody.py:371"
+      ],
+      "finding": "Direct recover refuses a missing operation. Retained prepared operations may submit after exact predecessor check; submitted operations are not resubmitted. Exactly one original commit metadata match at before_version+1 and matching snapshot/receipt is required. Zero or multiple matches remain uncertain and cannot authorize replacement mutation or ACK."
+    },
+    {
+      "topic": "whole-plan continuation exception",
+      "references": [
+        "src/ashlar_host/delta_custody.py:443",
+        "src/ashlar_host/delta_custody.py:452",
+        "src/ashlar_host/driver.py:261",
+        "src/ashlar_host/driver.py:289"
+      ],
+      "finding": "Whole-effect recovery first requires exact retained ordered local_plan and source_plan. It intentionally calls mutation for each deterministic plan ordinal, allowing original not-yet-submitted ordinals to proceed; the per-operation custody still prevents replaying submitted ordinals. Do not describe recovery as forbidding every missing per-operation row or allowing arbitrary missing plans."
+    },
+    {
+      "topic": "new process resume admission obligation",
+      "references": [
+        "src/ashlar_host/driver.py:243",
+        "src/ashlar_host/driver.py:254",
+        "src/ashlar_host/driver.py:281",
+        "src/ashlar/stored_publisher.py:102",
+        "src/ashlar/stored_publisher.py:132",
+        "src/ashlar/recovery.py:1",
+        "src/ashlar/recovery.py:27"
+      ],
+      "finding": "New resume must independently re-establish exact request, generated/selected ordered steps, zero-match elisions, complete prior oracle, native-prior UUID/version/snapshot anchors, source-qualified prefix/checkpoints, publication identity/progress and retained manifest/artifact as appropriate to original attempt phase. Current host driver compares these against original journal and native source, but receives active policy state from its caller. Pure whole-entity state recovery only reconstructs an admitted contiguous retained source interval; it grants no source/ACK/native-effect authority."
+    },
+    {
+      "topic": "ordinary ACK and uncertainty",
+      "references": [
+        "src/ashlar_host/driver.py:385",
+        "src/ashlar_host/driver.py:399",
+        "src/ashlar_host/driver.py:415",
+        "src/ashlar_host/ack.py:82",
+        "src/ashlar_host/ack.py:104",
+        "src/ashlar_host/ack.py:125"
+      ],
+      "finding": "ACK requires original retained request/artifact, native registered scope/source signature, authoritative resolved whole manifest and held pin vector with opening/closing admission. Injected PostgreSQL loss follows actual commit and is reconciled on a fresh ordinary-role connection by exact request/manifest/receipt bytes. Reconcile is read-only observation: exact predecessor with all receipt fields absent yields None; partial/conflicting/missing/ambiguous observations refuse. The driver does not silently issue a replacement ACK when reconcile returns None."
+    },
+    {
+      "topic": "source semantic admission versus authority",
+      "references": [
+        "tools/commerce_evolution_admission.py:1",
+        "tools/commerce_evolution_admission.py:38",
+        "tools/commerce_evolution_admission.py:68",
+        "tools/commerce_evolution_batch_scope.py:37"
+      ],
+      "finding": "Historical admission requires fresh public UMF dataset/source-preservation verification plus exact prepared changes and independently derived prior/entity transition pairs. It expressly does not establish producer/source installation authority, migration durability or ACK truth. Portable preparation/oracle and injected admission must preserve this separation; ordinary source connection and registered ACK scope authority belong to the host composition."
+    },
+    {
+      "topic": "historical cleanup limitation",
+      "references": [
+        "tools/run_commerce_evolution_publication.py:96",
+        "tools/run_commerce_evolution_publication.py:217",
+        "src/ashlar_host/ack.py:154"
+      ],
+      "finding": "Historical runner attempts transport and Spark close before report, but finally cleanup can replace an in-flight primary exception. ACK intentionally classifies write/commit uncertainty with original custody; new outer resume/report handling must preserve cancellation identity separately from any retained uncertainty evidence. No all-cancellation-preserved claim follows from this historical tool."
+    }
+  ]
+}

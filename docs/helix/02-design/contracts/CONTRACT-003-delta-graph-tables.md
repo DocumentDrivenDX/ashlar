@@ -965,3 +965,47 @@ common traversal cases do not qualify these relational scenarios.
 Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).
 The [original contract text](../../04-build/evidence/contract-history-20261009/CONTRACT-003-delta-graph-tables.original.txt)
 preserves prior execution diaries verbatim; those results do not amend this contract.
+
+## Installed original-commerce evolution materialization profile
+
+The finite `ashlar-commerce-evolution-transactions/0.1` profile MUST preserve the
+original candidate, public preservation input and original UMF 0.8 model bytes.
+Fresh public UMF inspection and preservation verification MUST establish the
+selected exact producer revision and supported semantics; archived receipt flags
+alone MUST NOT admit a transition. Unknown original content remains preserved.
+Changing the source inputs or producer version requires separate qualification.
+
+Each of two independently registered sources contributes exactly four complete
+transactions: `R1`, `R2-update`, `R3-delete`, `R4-additive-candidate`. The required
+combined workflow applies A1, B1, A2, B2, A3, B3, A4, B4 and publishes a complete
+vector after each transaction. A/B are workflow labels, never native authority
+identifiers. Overlapping local keys MUST remain distinct through full source
+identity. Source epochs, positions and schema inventories MUST remain separate.
+The selected `source-epoch-qualified/0.1` envelope MUST give all eight batches
+globally distinct IDs from the exact tuple `[source_system, epoch, original revision]`.
+It MUST preserve original event bytes, delivery IDs and record digests unchanged,
+while recomputing exact envelope and record byte cursors. Plain shared revision
+IDs or inferred ordinal cursors MUST refuse. Outer PostgreSQL outbox positions
+0→4 remain separately source-bound; each inner JSONL envelope starts at byte
+cursor 0 and retains exact byte offsets. Neither cursor substitutes for the other. R2 retains the exact product price
+update to 12.75; R3 deletes the selected fulfillment and incident edge. R4 retains
+the separately authored absent-allowed String Field35 augmentation: existing
+surviving values remain absent, while the separate new product has a present
+String value and an independent supplier edge. The `breaking-candidate` transition
+MUST refuse before effects or source ACK.
+
+After every prefix, independent original-input interpretation MUST match complete
+current objects and edges, logical history, tombstones, schema revisions and both
+source progress entries. The oracle MUST NOT derive expected values from emitted
+SQL, native query results or the materialized candidate. Required and absent
+properties, exact integer/decimal tokens, endpoint identity, changed values and
+deleted entities MUST retain their original meaning. Physical carrier restrictions
+are explicit after public semantic admission; they MUST NOT redefine UMF types.
+
+Exact replay MUST produce no additional native graph or manifest commit. The
+original first publication MUST remain readable with the same complete UUID/version
+vector and values while later prefixes are published, or refuse under an explicit
+retention boundary. A latest-table read cannot stand in for historical publication
+verification. CONTRACT-001 owns fresh/resume, original journal and source ACK
+custody; installed packaging and local engine evidence do not qualify production
+Unity Catalog storage, arbitrary migration or real Truss source acceptance.
