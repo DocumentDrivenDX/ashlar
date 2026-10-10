@@ -36,5 +36,8 @@ jobs:
           PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_commerce_path_request.py
           PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_run_commerce_path_weft.py
           PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_run_commerce_path_native.py
+          PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_weft_path_fixture.py
+          PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_weft_path_fixture_request.py
+          PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_weft_path_fixture_source.py
       - name: Verify module ownership
         run: python3 tools/check_module_boundaries.py
