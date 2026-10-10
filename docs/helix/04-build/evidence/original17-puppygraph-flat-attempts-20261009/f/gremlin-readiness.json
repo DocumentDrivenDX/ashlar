@@ -1,0 +1,7 @@
+{
+  "query": "g.V().hasLabel('ScenarioArchaeologyNode').count()",
+  "rows": [
+    39
+  ],
+  "scope": "Native protocol and catalog readiness only; no scenario pass"
+}

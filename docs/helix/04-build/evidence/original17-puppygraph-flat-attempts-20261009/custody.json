@@ -1,0 +1,156 @@
+{
+  "entries": [
+    {
+      "path": "e/log",
+      "sha256": "2746d1a7f799a4221bf6f974922ac759e086dfb09bbf53fcb3f2fe5170b76f8a",
+      "bytes": 29239,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-20261009-e.log",
+      "original_sha256": "2746d1a7f799a4221bf6f974922ac759e086dfb09bbf53fcb3f2fe5170b76f8a",
+      "original_bytes": 29239
+    },
+    {
+      "path": "e/attempts.jsonl",
+      "sha256": "d23d637a2aedcc3143c10b596f6775bde980c65676d9445e5954677e6daab062",
+      "bytes": 127741,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-20261009-e.attempts.jsonl",
+      "original_sha256": "d23d637a2aedcc3143c10b596f6775bde980c65676d9445e5954677e6daab062",
+      "original_bytes": 127741
+    },
+    {
+      "path": "e/gremlin-readiness.json",
+      "sha256": "e42884576ae1f14e3efa6a85ad5214286e0df2a6a21faedbe336b57d5608c419",
+      "bytes": 166,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-readiness-20261009-e.json",
+      "original_sha256": "e42884576ae1f14e3efa6a85ad5214286e0df2a6a21faedbe336b57d5608c419",
+      "original_bytes": 166
+    },
+    {
+      "path": "e/closing.json",
+      "sha256": "f47414f6ada2b1c65c8ee3f6de576e83ef63f344c6ecf300e2e2dd089daa52e4",
+      "bytes": 1428,
+      "original": "/private/tmp/ashlar-original17-puppy-closing-20261009-e.json",
+      "original_sha256": "f47414f6ada2b1c65c8ee3f6de576e83ef63f344c6ecf300e2e2dd089daa52e4",
+      "original_bytes": 1428
+    },
+    {
+      "path": "e/stopped.json",
+      "sha256": "e1a55d09824dcc2133f62e99df8be0e1ca23ce0931de10bb393e1cc2b6a36f5b",
+      "bytes": 226,
+      "original": "/private/tmp/ashlar-original17-puppy-stopped-20261009-e.json",
+      "original_sha256": "e1a55d09824dcc2133f62e99df8be0e1ca23ce0931de10bb393e1cc2b6a36f5b",
+      "original_bytes": 226
+    },
+    {
+      "path": "e/source/tools/check_pack_scenario_puppygraph.py",
+      "sha256": "16289318de57a9e9be8a998c340e92e7018e9e76f1436a0d53a536f48a436ba2",
+      "bytes": 25881,
+      "original": "git:e467ca3816eb560b8243307688e63c4df74ea86f:tools/check_pack_scenario_puppygraph.py",
+      "original_sha256": "16289318de57a9e9be8a998c340e92e7018e9e76f1436a0d53a536f48a436ba2",
+      "original_bytes": 25881
+    },
+    {
+      "path": "e/source/tools/pack_scenario_native_plan.py",
+      "sha256": "ceb09dd1b07aa1da3eb37fdb8f26e74977030e1ac0e9d196c809d21ffe30a11a",
+      "bytes": 3276,
+      "original": "git:e467ca3816eb560b8243307688e63c4df74ea86f:tools/pack_scenario_native_plan.py",
+      "original_sha256": "ceb09dd1b07aa1da3eb37fdb8f26e74977030e1ac0e9d196c809d21ffe30a11a",
+      "original_bytes": 3276
+    },
+    {
+      "path": "e/source/tests/test_pack_scenario_puppygraph_queries.py",
+      "sha256": "997cb1620cb20f65b3c182651276c01bfbea266d21de65c02dcfdd85fb365912",
+      "bytes": 11956,
+      "original": "git:e467ca3816eb560b8243307688e63c4df74ea86f:tests/test_pack_scenario_puppygraph_queries.py",
+      "original_sha256": "997cb1620cb20f65b3c182651276c01bfbea266d21de65c02dcfdd85fb365912",
+      "original_bytes": 11956
+    },
+    {
+      "path": "f/log",
+      "sha256": "b9309eebc26eaaec01aadd412efe1730af64488b4775137384e0b0eb541edcb8",
+      "bytes": 8607,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-20261009-f.log",
+      "original_sha256": "b9309eebc26eaaec01aadd412efe1730af64488b4775137384e0b0eb541edcb8",
+      "original_bytes": 8607
+    },
+    {
+      "path": "f/attempts.jsonl",
+      "sha256": "c0dd8d945d66d527a9b4eccb0c362f505e5eac276eae94133b88f92369f3d916",
+      "bytes": 307390,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-20261009-f.attempts.jsonl",
+      "original_sha256": "c0dd8d945d66d527a9b4eccb0c362f505e5eac276eae94133b88f92369f3d916",
+      "original_bytes": 307390
+    },
+    {
+      "path": "f/gremlin-readiness.json",
+      "sha256": "e42884576ae1f14e3efa6a85ad5214286e0df2a6a21faedbe336b57d5608c419",
+      "bytes": 166,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-readiness-20261009-f.json",
+      "original_sha256": "e42884576ae1f14e3efa6a85ad5214286e0df2a6a21faedbe336b57d5608c419",
+      "original_bytes": 166
+    },
+    {
+      "path": "f/closing.json",
+      "sha256": "f47414f6ada2b1c65c8ee3f6de576e83ef63f344c6ecf300e2e2dd089daa52e4",
+      "bytes": 1428,
+      "original": "/private/tmp/ashlar-original17-puppy-closing-20261009-f.json",
+      "original_sha256": "f47414f6ada2b1c65c8ee3f6de576e83ef63f344c6ecf300e2e2dd089daa52e4",
+      "original_bytes": 1428
+    },
+    {
+      "path": "f/stopped.json",
+      "sha256": "3447dacbb5660a8351663b698d0bf0f2ed364970a222d661b582bc2a3f302419",
+      "bytes": 226,
+      "original": "/private/tmp/ashlar-original17-puppy-stopped-20261009-f.json",
+      "original_sha256": "3447dacbb5660a8351663b698d0bf0f2ed364970a222d661b582bc2a3f302419",
+      "original_bytes": 226
+    },
+    {
+      "path": "f/source/tools/check_pack_scenario_puppygraph.py",
+      "sha256": "f25a9f16685e9fc6ed3cc2f48cd426791778846d031c70b87d25179150d6f9bf",
+      "bytes": 25850,
+      "original": "git:1dc3647422ca026cc4abceadb4209d3e81c9dc61:tools/check_pack_scenario_puppygraph.py",
+      "original_sha256": "f25a9f16685e9fc6ed3cc2f48cd426791778846d031c70b87d25179150d6f9bf",
+      "original_bytes": 25850
+    },
+    {
+      "path": "f/source/tools/pack_scenario_native_plan.py",
+      "sha256": "ceb09dd1b07aa1da3eb37fdb8f26e74977030e1ac0e9d196c809d21ffe30a11a",
+      "bytes": 3276,
+      "original": "git:1dc3647422ca026cc4abceadb4209d3e81c9dc61:tools/pack_scenario_native_plan.py",
+      "original_sha256": "ceb09dd1b07aa1da3eb37fdb8f26e74977030e1ac0e9d196c809d21ffe30a11a",
+      "original_bytes": 3276
+    },
+    {
+      "path": "f/source/tests/test_pack_scenario_puppygraph_queries.py",
+      "sha256": "5fbb0a0955c010d124fd97b2ed879e96537ea2ba8f29331ef3b2e068745e5916",
+      "bytes": 12695,
+      "original": "git:1dc3647422ca026cc4abceadb4209d3e81c9dc61:tests/test_pack_scenario_puppygraph_queries.py",
+      "original_sha256": "5fbb0a0955c010d124fd97b2ed879e96537ea2ba8f29331ef3b2e068745e5916",
+      "original_bytes": 12695
+    },
+    {
+      "path": "references/original17-puppygraph-attempts-20261009.json",
+      "sha256": "3f1495deba18f27da202525142f2b0d8d990741bf94822b878c300d933095ba7",
+      "bytes": 263,
+      "original": "Existing landed exact custody reference",
+      "original_sha256": "3f1495deba18f27da202525142f2b0d8d990741bf94822b878c300d933095ba7",
+      "original_bytes": 263
+    },
+    {
+      "path": "references/original17-puppygraph-valuemap-shapes-20261009.json",
+      "sha256": "c65f5e067bd88fa88c2114a5607231fa03cadc8bf355f2d46cee70eba9007258",
+      "bytes": 270,
+      "original": "Existing landed exact custody reference",
+      "original_sha256": "c65f5e067bd88fa88c2114a5607231fa03cadc8bf355f2d46cee70eba9007258",
+      "original_bytes": 270
+    },
+    {
+      "path": "summary.json",
+      "sha256": "c68dca200ef87244b21604d38bfd236a9c60a2d14b1fd68a538210b1675c3717",
+      "bytes": 41601,
+      "original": "Journal-derived qualified scope",
+      "original_sha256": "c68dca200ef87244b21604d38bfd236a9c60a2d14b1fd68a538210b1675c3717",
+      "original_bytes": 41601
+    }
+  ]
+}
