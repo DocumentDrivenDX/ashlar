@@ -1,0 +1,26 @@
+{
+  "scope": "Public original finite dataset recomputation and narrowly named source-model preservation only. Dataset validity and unchanged source do not establish update/delete transition or migration correctness. Original development registry remains unchanged.",
+  "umf_revision": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+  "bun": "1.4.2",
+  "original_inputs": {
+    "candidate_sha256": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692",
+    "public_dataset_sha256": "40ce6e670308c9749b1f13139c136a7ce1b134335fc49a19669cb68771b19952",
+    "compressed_dataset_sha256": "36153e788105fb822823cf3fe8c187e94f4d2d2b64da85e0edbe37c4305668e2",
+    "repository_path": "docs/helix/04-build/evidence/commerce-evolution-preparation-20261009/",
+    "original_preparation_commit": "8395a6b"
+  },
+  "counts": {
+    "complete_datasets": 5,
+    "negative_controls": 15,
+    "source_preservation_transitions": 4
+  },
+  "classifications": [
+    "preserved",
+    "preserved",
+    "preserved",
+    "breaking"
+  ],
+  "command": "bun tools/check_commerce_revision_preservation.ts CLEAN_E44_UMF docs/helix/04-build/evidence/commerce-evolution-preparation-20261009/candidate.json docs/helix/04-build/evidence/commerce-evolution-preparation-20261009/public-datasets.json.gz FRESH_OUTPUT",
+  "source_custody": "Selected tool/tests snapshots retained. Complete producer reproduction uses exact official e44 checkout (including schemas/dependencies), original integration proof and full expected source documents. No complete import-closure claim for these selected copies.",
+  "qualification": "No native migration, source acceptance, Truss IDs, catalog authority, publication, ACK or two-source/recovery claim."
+}

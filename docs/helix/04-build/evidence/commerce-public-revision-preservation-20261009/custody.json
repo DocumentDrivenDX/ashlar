@@ -1,0 +1,36 @@
+{
+  "entries": [
+    {
+      "path": "public-revisions.json.gz",
+      "sha256": "392b8a20395b53566fc9c73ed10cd37d714ce2d45330fd465bb31f4a43a6a6a1",
+      "bytes": 67527,
+      "original_sha256": "8d7f8e214222504fedb082336159ced54ea4782218008efe069bb1b44ef2268c",
+      "original_bytes": 1608571,
+      "encoding": "gzip"
+    },
+    {
+      "path": "run.log",
+      "sha256": "e52300f786d24199ba174fc0757f49658b3b6a6100d6503a3035ee2ccae2cc7b",
+      "bytes": 120,
+      "original_sha256": "e52300f786d24199ba174fc0757f49658b3b6a6100d6503a3035ee2ccae2cc7b",
+      "original_bytes": 120,
+      "encoding": "original"
+    },
+    {
+      "path": "checker.ts",
+      "sha256": "35b115e89b5cbc5c4368127858af11463d2a2088415587b744527d9a4ede8404",
+      "bytes": 5899,
+      "original_sha256": "35b115e89b5cbc5c4368127858af11463d2a2088415587b744527d9a4ede8404",
+      "original_bytes": 5899,
+      "encoding": "original"
+    },
+    {
+      "path": "tests.ts",
+      "sha256": "a4798a5655f573203eff2a2a33f419818b7b07ee738d349275fb5e22f07136f0",
+      "bytes": 1349,
+      "original_sha256": "a4798a5655f573203eff2a2a33f419818b7b07ee738d349275fb5e22f07136f0",
+      "original_bytes": 1349,
+      "encoding": "original"
+    }
+  ]
+}
