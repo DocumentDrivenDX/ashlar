@@ -1,0 +1,275 @@
+{
+  "format": "ashlar-installed-supply-chain-evidence/0.1",
+  "members": [
+    {
+      "path": "actual/archive.json",
+      "bytes": 235,
+      "sha256": "c718f878d279f333f2afd5620fc70bb983271cff1916f7e526b6ad213db85090"
+    },
+    {
+      "path": "actual/archive.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/compile-output/excursion-0.request",
+      "bytes": 55199,
+      "sha256": "6d9b35d4127cd1d5b972d064538ab622cc1cf86bd1e5bef11ff81fa49cda2659"
+    },
+    {
+      "path": "actual/compile-output/excursion-0.response",
+      "bytes": 25067,
+      "sha256": "f55b6f2af3250d495c4eb2697ba10bb9fe402d51a3ef03bda548f83583fe93c2"
+    },
+    {
+      "path": "actual/compile-output/excursion-1.request",
+      "bytes": 55199,
+      "sha256": "6d9b35d4127cd1d5b972d064538ab622cc1cf86bd1e5bef11ff81fa49cda2659"
+    },
+    {
+      "path": "actual/compile-output/excursion-1.response",
+      "bytes": 25067,
+      "sha256": "f55b6f2af3250d495c4eb2697ba10bb9fe402d51a3ef03bda548f83583fe93c2"
+    },
+    {
+      "path": "actual/compile-output/lineage-0.request",
+      "bytes": 55335,
+      "sha256": "c6bd7f2ca0fc6e5204390f1ce5bffe9bc0819a9f92531714b042ec504aefec30"
+    },
+    {
+      "path": "actual/compile-output/lineage-0.response",
+      "bytes": 47118,
+      "sha256": "d5e34fea62b92d228bf0f09f0378913e979dae91bd88fd233da15856787d7266"
+    },
+    {
+      "path": "actual/compile-output/lineage-1.request",
+      "bytes": 55335,
+      "sha256": "c6bd7f2ca0fc6e5204390f1ce5bffe9bc0819a9f92531714b042ec504aefec30"
+    },
+    {
+      "path": "actual/compile-output/lineage-1.response",
+      "bytes": 47118,
+      "sha256": "d5e34fea62b92d228bf0f09f0378913e979dae91bd88fd233da15856787d7266"
+    },
+    {
+      "path": "actual/compile-output/observations.jsonl",
+      "bytes": 1689080,
+      "sha256": "57adf84ff75240ade2ef7ce1f6b2ddf234db279fe3bea96af3c3b9a9ae2bb433"
+    },
+    {
+      "path": "actual/compile-output/replay-0.request",
+      "bytes": 55224,
+      "sha256": "65b2fc163dd574c3d9832e4ea6f35bccefccdee4035a6886a520d845e6ff2cdb"
+    },
+    {
+      "path": "actual/compile-output/replay-0.response",
+      "bytes": 19452,
+      "sha256": "aab97c6114a980cef521916781cb82739a9d416b1bbfe440e8bdefa0fb2a3621"
+    },
+    {
+      "path": "actual/compile-output/replay-1.request",
+      "bytes": 55224,
+      "sha256": "65b2fc163dd574c3d9832e4ea6f35bccefccdee4035a6886a520d845e6ff2cdb"
+    },
+    {
+      "path": "actual/compile-output/replay-1.response",
+      "bytes": 19452,
+      "sha256": "aab97c6114a980cef521916781cb82739a9d416b1bbfe440e8bdefa0fb2a3621"
+    },
+    {
+      "path": "actual/compile-output/report.json",
+      "bytes": 1268209,
+      "sha256": "7cb312bc4cac478701162e539d98d4ebcb85e5c59872d7e7a3c276f9a90a2ca6"
+    },
+    {
+      "path": "actual/compile-output/sensor-0.request",
+      "bytes": 55182,
+      "sha256": "d90bb7c74f3e0f2155df3f1d2492e7316b0fbbc72ee99829dd8127fb602ebbde"
+    },
+    {
+      "path": "actual/compile-output/sensor-0.response",
+      "bytes": 15879,
+      "sha256": "48bbf50715b11dd3087266ccfa2eadc4c9e44504c529460e1515d18026f9ce48"
+    },
+    {
+      "path": "actual/compile-output/sensor-1.request",
+      "bytes": 55182,
+      "sha256": "d90bb7c74f3e0f2155df3f1d2492e7316b0fbbc72ee99829dd8127fb602ebbde"
+    },
+    {
+      "path": "actual/compile-output/sensor-1.response",
+      "bytes": 15879,
+      "sha256": "48bbf50715b11dd3087266ccfa2eadc4c9e44504c529460e1515d18026f9ce48"
+    },
+    {
+      "path": "actual/compile-output/split-excursion-0.request",
+      "bytes": 55313,
+      "sha256": "2c03ffaeac9f9567c950703aa24bb2edd0975bb6615d204dc215c1b773444344"
+    },
+    {
+      "path": "actual/compile-output/split-excursion-0.response",
+      "bytes": 38337,
+      "sha256": "771d35125d2bf5013554c0a19ff70e6bac8841aa0013aa901a6da0c5e613488b"
+    },
+    {
+      "path": "actual/compile-output/split-excursion-1.request",
+      "bytes": 55313,
+      "sha256": "2c03ffaeac9f9567c950703aa24bb2edd0975bb6615d204dc215c1b773444344"
+    },
+    {
+      "path": "actual/compile-output/split-excursion-1.response",
+      "bytes": 38337,
+      "sha256": "771d35125d2bf5013554c0a19ff70e6bac8841aa0013aa901a6da0c5e613488b"
+    },
+    {
+      "path": "actual/installed-RECORD.csv",
+      "bytes": 12592,
+      "sha256": "9f03612e5c5edd902de28a2a1f01fe48b7ce5a37d54926d58168a41be9eae316"
+    },
+    {
+      "path": "actual/installed-console.txt",
+      "bytes": 205,
+      "sha256": "203a2737be53b8a4eae13e00dd9a0285d2e0d022f327041d00ba409c3f0d00e5"
+    },
+    {
+      "path": "actual/pip-install.json",
+      "bytes": 235,
+      "sha256": "9284b16d76cd1dd9d28365cd0cd09d674c089c8b553d4d44cd5853bbdef546c2"
+    },
+    {
+      "path": "actual/pip-install.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/pip-install.stdout",
+      "bytes": 176,
+      "sha256": "8fa63eef65cd8c12b93cfafc9dde53fdd52a67a3717007e575531a1298dde07b"
+    },
+    {
+      "path": "actual/result.json",
+      "bytes": 717,
+      "sha256": "b934bff35722bcbbbce8dc9b216789b4116c8fa901534cf19122b0506b25efe7"
+    },
+    {
+      "path": "actual/supplychain-compile.json",
+      "bytes": 243,
+      "sha256": "48903b44518594c1ab20625bc0ee8ab1d627d2761db9b24ccc32f5e8fff14141"
+    },
+    {
+      "path": "actual/supplychain-compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/supplychain-compile.stdout",
+      "bytes": 265,
+      "sha256": "99c9fc3cd8c7e4c0a9d000dbd030955771895d0dec55327539bda2c924008b79"
+    },
+    {
+      "path": "actual/venv.json",
+      "bytes": 226,
+      "sha256": "e3523665488b261ecea3fd00c8751d77128bcd228e70912ccf077eacf54e0cd8"
+    },
+    {
+      "path": "actual/venv.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/venv.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/wheel-inventory.json",
+      "bytes": 18429,
+      "sha256": "8394394a639344d90bf9ed25b93365ac0f5508e5d4a641b4a885ffc47ab9d7a2"
+    },
+    {
+      "path": "actual/wheel.json",
+      "bytes": 229,
+      "sha256": "618f298f8aeecd5ac5564c1cf07153ece66c78855b8b88d88a4279a117f882d9"
+    },
+    {
+      "path": "actual/wheel.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/wheel.stdout",
+      "bytes": 749,
+      "sha256": "1e2c911a5c8a746af83ea5272b55c6cc62307e7e5b1897f85a2f73d65b99c9fc"
+    },
+    {
+      "path": "records/ashlar-count-star-installed-cli-capture-a.py",
+      "bytes": 3216,
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-cli-b.capture.json",
+      "bytes": 702,
+      "sha256": "9a65733969903545534aaa6efdad67432cc87f06d01ac0e21850123f3dd50638"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-cli-b.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-cli-b.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-cli-command-a.json",
+      "bytes": 465028,
+      "sha256": "076bb670412df18f775236305ce33cc43b66e7864e82a6f51eb91f1641cf2c91"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-cli-command-b.json",
+      "bytes": 465144,
+      "sha256": "53163806032ebc9da89aa6ed6ad3eadec733c99fcfe02638a2bd9fc95300cd2b"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-cli-result-freeze-b.json",
+      "bytes": 9785,
+      "sha256": "7267c13ea0af3895848e16579753483870e2d58cd887ca8f5b26784448dd7add"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-cli-root-review-b.json",
+      "bytes": 652,
+      "sha256": "974c009e20a751f69938cf147b4339029d9499529aeb7e8364794461a22e51d2"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-cli-runner-a.py",
+      "bytes": 11019,
+      "sha256": "3967e5980cbc6d186dbd2a7f55c9c5e47a999b5cce5e24d30330574650beb837"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-cli-runner-b.py",
+      "bytes": 11017,
+      "sha256": "ebb97bbedcda8a3256ab52a1d11961467ebc385be87a21827f974e146632dda4"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-metadata-a.json",
+      "bytes": 162244,
+      "sha256": "46c3ee165859461358befe7975b3debab795b10446a5ab2acf920c68840c143f"
+    },
+    {
+      "path": "records/ashlar-supply-chain-installed-source-inventory-a.json",
+      "bytes": 35307,
+      "sha256": "f157ecc5973d90ec306487f0a1b554635bb0a25fabedc3a27bc31f40122f282b"
+    },
+    {
+      "path": "records/launch-reviewed-parity-g.py",
+      "bytes": 2541,
+      "sha256": "0b238f4b0cb5544f93cf669f9839562292d518c43fdb4ed52fdee84ee507bb9e"
+    }
+  ],
+  "qualification": "Fresh immutableb89 Ashlar host wheel actualconsole5originalqueries compiled/recompiled/public041offlineadmission. Existingindexedcompiler reused/no rebuild or reinstall. No nativeSQL/PG/Spark/protectedACK/sourceauthority; cachedschema dependencies explicit pinnedPYTHONPATH. Original source archive/wheel/venv/runtimeproducts omitted, exact source/wheel/console/RECORD inventories retained.",
+  "archive": {
+    "bytes": 466970,
+    "sha256": "533abc113d2d9b32aad84d5c5199b81293ed2a27b19f2324b64228c7805f1cd9"
+  }
+}
