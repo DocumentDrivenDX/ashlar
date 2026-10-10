@@ -1,0 +1,13 @@
+{
+  "sourceFreezeSha256": "ad3c7b5d2dcd4f73641120096478106ac1062a54705794abb658ce37b71dbe20",
+  "files": {
+    "src/ashlar_host/evolution_cli.py": "8c600cafd8bebfe66ab18ca74b04e2424c3d69c2416bb3d10daf76ac468102fd",
+    "src/ashlar/cli.py": "74f17956554a431d3c899e4062f6a886b13aa00fc8ce183d733ab55bdf23307a",
+    "tests/test_evolution_cli.py": "6c90ca7181ff5e854706e438d270d88e8c6def0e7137379e82f06e007fae03d7",
+    "docs/helix/05-deploy/commerce-evolution-cli.md": "5bd9e70de0cf37b22d090eb7d72cf55acbd3caef31d6f7b00ad60dfc78687244",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "7ce4218529fdf5241f33f3644c19c29bc100ceeea8d55f238906262d501c7b32"
+  },
+  "result": "approved generic evolution CLI source C only",
+  "review": "B full source/policy/lifecycle/CLI/docs reviewed; C only bounded canonical <=7-digit nonnegative parse_int and focused giant-token control. Ten controls independently passed Python3.9.6 chunk07c5fc; exact five file pins verified. Provider pin only code correspondence, actual ordinary source/ACK and independent NativeEvolutionRunPolicy authority mandatory. No native operation/secret/config source changes by reviewer.",
+  "priorFinding": "60000-digit token creates199316-bit integer before validation on Python3.9 B; C rejects before conversion/constructor/provider."
+}

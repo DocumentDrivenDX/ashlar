@@ -1,0 +1,16 @@
+name: Evolution CLI controls
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  portable-invocation:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python: ['3.9', '3.12']
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_evolution_cli.py

@@ -1,0 +1,13 @@
+{
+  "files": {
+    "src/ashlar_host/evolution_cli.py": "8c600cafd8bebfe66ab18ca74b04e2424c3d69c2416bb3d10daf76ac468102fd",
+    "src/ashlar/cli.py": "74f17956554a431d3c899e4062f6a886b13aa00fc8ce183d733ab55bdf23307a",
+    "tests/test_evolution_cli.py": "6c90ca7181ff5e854706e438d270d88e8c6def0e7137379e82f06e007fae03d7",
+    "docs/helix/05-deploy/commerce-evolution-cli.md": "5bd9e70de0cf37b22d090eb7d72cf55acbd3caef31d6f7b00ad60dfc78687244",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "7ce4218529fdf5241f33f3644c19c29bc100ceeea8d55f238906262d501c7b32"
+  },
+  "scope": "Generic installed full8 fresh/resume explicit operator composition only; actual concrete local operator provider remains next slice, native qualification remains open",
+  "tests": "nine test_evolution_cli PASS .291s chunk0851b3; boundaries PASS; diffcheck PASS. Initial parent-symlink test paths errors540cbf corrected canonical tempfile paths, ninePASSbcbca3. CLI actual parser help chunk3232ac. No native operation or secret access.",
+  "exports": "No host __init__ change; original exact head bytes retained to preserve parallel native closure.",
+  "amendment": "B independent lexical integer finding1a1155 repaired with canonical <=7digit parse_int preconversion; ten controls PASS .288seconds cabb4b incl giant token cannot reach producer constructor/providercode. B preserved."
+}
