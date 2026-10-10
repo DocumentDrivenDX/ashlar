@@ -1,0 +1,27 @@
+{
+  "verdict": "No additional material finding in fixed selection, byte forwarding, restart configuration or old-route compatibility; known A subprocess.TimeoutExpired sanitization defect remains outside this clean sub-scope.",
+  "scope": "Frozen integration A selected composition/CLI source only; nine mocked owner tests and three reviewer controls, no actual compiler/install/native/index change.",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-integration-source-freeze-20261010-a/manifest.json",
+    "sha256": "dfd71dc31d432888f4587fd3064c16898c8793f05b18f18b6bd3c420e3b8954d"
+  },
+  "fixedIndex": {
+    "revision": "c8d825808a27e15517c1fc93c3fba0faffc2406e",
+    "sha256": "a7571d2bd141bf182ce171acc16f64f1276cca29a855dbf4b49a92283fc71864",
+    "bytes": 1390,
+    "selectedEntryExactlyPriorReviewed": true
+  },
+  "legacyCompatibility": {
+    "fiveAddedMainNodesOnly": true,
+    "oldCliAstUnchangedAfterRemovingAdditions": true,
+    "oldCompositionBytesUnchanged": true
+  },
+  "mockedOwnerTests": 9,
+  "extraControls": [
+    "unsupported-architecture-before-effects",
+    "compile-weft-old-dispatch-unchanged",
+    "install-weft-old-dispatch-unchanged"
+  ],
+  "closingFreezeHashesUnchanged": true,
+  "scriptSha256": "af6372934513f5ce3b212e6e91b8953c46912ce5538e531bdd96bfef61591d71"
+}

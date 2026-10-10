@@ -105,6 +105,14 @@ class BoundaryTests(unittest.TestCase):
                     path.write_text(statement + '\n')
                     self.assertIn(reason, {e[3] for e in scan(root)})
 
+    def test_paths_composition_is_an_exact_host_role(self):
+        root = self.tree('')
+        (root / 'src/ashlar/weft_paths_distribution.py').write_text('from .weft_paths_installation import PathsInstallationConfig\n')
+        self.assertEqual(check(root, self.policy()), ([], []))
+        for name in ('weft_paths_package.py', 'weft_paths_installation.py', 'schema.py'):
+            (root / 'src/ashlar' / name).write_text('from .weft_paths_distribution import open_paths_distribution\n')
+        self.assertEqual({e[3] for e in scan(root)}, {'portable-to-runtime', 'core-to-composition'})
+
     def test_installed_host_has_owned_public_edges(self):
         root = self.tree('from ashlar_host.commerce import publish_commerce\n')
         host = root / 'src/ashlar_host'

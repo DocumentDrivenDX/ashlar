@@ -1,0 +1,25 @@
+{
+  "verdict": "approved desired-state ADR ownership clarification",
+  "scope": "One ADR Module Boundaries change only; source integration approval is separate. No runtime/native/OTel receiver or machine-proof claim.",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-composition-adr-freeze-20261010-a/manifest.json",
+    "sha256": "04c627da7a5df78946f53f83c56fb26a634d39f53b9344cf7e511ca24d4b9fb3"
+  },
+  "file": {
+    "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+    "bytes": 25444,
+    "sha256": "06e11b398dd5d67b61e9253357cf14743dfe50653244f62226752f0ea2aceb01",
+    "baselineSha256": "32ad32c0d0cbd68a125b04161dcd810199d91e79efa34bb5c22e5b3659769309"
+  },
+  "baselineGit": "b91ccaee0f7b06caa15a559cf64bfa569dbed1db",
+  "checks": {
+    "exactLiveAndFrozenDescriptor": true,
+    "frontmatterPreserved": true,
+    "outsideModuleBoundariesPreserved": true,
+    "configurationObservabilityFormalClausesBytePreserved": true,
+    "sixPublicNamesMatchFrozenOwner": true,
+    "fixedTrustObservedPlatformOperatorLocationsMatchesSource": true,
+    "diffCheck": true
+  },
+  "sourceCaveat": "Integration A timeout redaction finding remains independent; desired-state ownership/API/config wording is unchanged by expected narrow correction."
+}

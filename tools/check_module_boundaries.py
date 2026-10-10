@@ -56,7 +56,7 @@ def violation(source: str, target: str, symbol: str):
         if target == 'ashlar_host' or target.startswith('ashlar_host.'):
             if source not in {'src/ashlar/cli.py', 'src/ashlar/__main__.py'}:
                 return 'core-to-host-composition'
-        host = {'cli', 'source_config', 'weft_distribution', 'commerce_source', 'supply_chain_source', 'archaeology_source', 'ecology_source', 'medical_source', '__main__'}
+        host = {'cli', 'source_config', 'weft_distribution', 'weft_paths_distribution', 'commerce_source', 'supply_chain_source', 'archaeology_source', 'ecology_source', 'medical_source', '__main__'}
         model = {'schema', 'catalog', 'binding', 'semantic_policy', 'typed_source_policy'}
         source_state = {'source', 'apply', 'whole_entity', 'source_checkpoint'}
         transport = {'native', 'staging', 'attempt_store', 'schema_registry', 'pins', 'authority', 'retention_policy'}

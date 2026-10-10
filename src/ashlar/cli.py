@@ -16,6 +16,12 @@ def main():
     compile_weft = commands.add_parser('compile-weft', help='Compile original stdin through a retained indexed installation')
     for name in ('index', 'installation'):
         compile_weft.add_argument('--' + name, required=True)
+    install_paths = commands.add_parser('install-weft-paths', help='Verify and install the separately pinned Paths candidate')
+    for name in ('index', 'package', 'output'):
+        install_paths.add_argument('--' + name, required=True)
+    compile_paths = commands.add_parser('compile-weft-paths', help='Compile original stdin through a retained Paths installation')
+    for name in ('index', 'installation'):
+        compile_paths.add_argument('--' + name, required=True)
     inspect = commands.add_parser('inspect-source', help='Verify committed JSONL batches from stdin; no ACK')
     inspect.add_argument('--feed', required=True)
     inspect.add_argument('--epoch', required=True)
@@ -80,6 +86,30 @@ def main():
                 print("ashlar-host: report " + str(config.output / "report.json"))
         except (HostError, OSError):
             print('ashlar-host: refused', file=sys.stderr)
+            raise SystemExit(2) from None
+        return
+    if args.command in ('install-weft-paths', 'compile-weft-paths'):
+        from pathlib import Path
+        from .weft_distribution import read_request, DistributionError
+        from .weft_paths_distribution import (PathsDistributionPaths, PathsDistributionError,
+            install_paths_distribution, compile_paths_distribution)
+        try:
+            if args.command == 'install-weft-paths':
+                result = install_paths_distribution(PathsDistributionPaths(
+                    Path(args.index), Path(args.output), Path(args.package)))
+                outcome = 'cleanup-pending' if result.cleanup_pending else 'installed'
+                print('ashlar-weft-paths: ' + outcome, file=sys.stderr)
+            else:
+                request = read_request(sys.stdin.buffer)
+                response = compile_paths_distribution(PathsDistributionPaths(
+                    Path(args.index), Path(args.installation)), request)
+                sys.stdout.buffer.write(response)
+                sys.stdout.buffer.flush()
+        except (PathsDistributionError, DistributionError) as error:
+            print('ashlar-weft-paths: ' + str(error), file=sys.stderr)
+            raise SystemExit(2) from None
+        except OSError:
+            print('ashlar-weft-paths: io-refused', file=sys.stderr)
             raise SystemExit(2) from None
         return
     if args.command in ('install-weft', 'compile-weft'):

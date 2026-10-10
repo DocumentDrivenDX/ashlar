@@ -132,6 +132,7 @@ semantic, custody and transport responsibilities.
 | `src/ashlar/weft_installation.py` | Indexed compiler package custody, installation availability and bounded executable transport | InstallationConfig, inspect_package, install, open_installation, compile_request | Standard-library byte/file/process adapters and injected trusted index/platform observations | Producer ACK mutation, ambient trust/platform discovery, compiler result repair, automatic network or native engine selection |
 | `src/ashlar/weft_paths_package.py` | Bounded verification of the explicit Paths distribution profile and its complete artifact/receipt closure | PathsInstallationConfig, inspect_package | Standard-library byte/file adapters and injected trusted index/platform observations | Self-registration, implicit profile selection, relaxation of the old installation profile, native SDKs or source/ACK authority |
 | `src/ashlar/weft_paths_installation.py` | Local Paths installation, restart verification, retained schema bytes and bounded one-shot compiler transport | PathsInstallationConfig and inspect_package re-exports; install, open_installation, compile_request, installed_schema_bundle | Owned package verification APIs and standard-library file/process adapters | Compiler fallback, request/response rewriting, ambient trust discovery, native SDKs or producer ACK mutation |
+| `src/ashlar/weft_paths_distribution.py` | Trusted Paths realization selection, observed platform admission and operator-owned file locations | PathsDistributionPaths, PathsDistributionError; install_paths_distribution, open_paths_distribution, compile_paths_distribution, installed_paths_schema_bundle | Public Paths installation APIs and standard-library platform observation | Operator overrides of trust pins, realization or platform; compiler fallback, host/tool/SDK imports, source/ACK authority or protocol repair |
 | `src/ashlar/durable_publisher.py`, `effect_validation.py`, `protocol.py`, `schema_policies.py`, `quarantine.py`, `maintenance.py`, `retention.py`, `retention_policy.py`, `profile_custody.py`, `lineage.py`, `origin.py`, `assertions.py`, `report_parts.py`, `outbox.py` | Durable effect/authority composition, maintenance, profile custody and protocol codecs | Named module APIs governed by CONTRACT-001–005 | Core records and injected policy/transport interfaces | Tool imports, ambient SDK construction, silently permissive authority |
 | `src/ashlar/truss_input.py`, `truss_feed.py`, `csv_source.py` | External source framing and exact retained input translation | Source adapter APIs | Core source/schema records and supplied public receipts | Shadow semantic validators, implicit source installation discovery |
 | `src/ashlar/__init__.py` | Portable package exports | Explicit core package surface | Owned portable library modules | Host composition, engine SDK construction or new semantic ownership |
@@ -150,7 +151,8 @@ and `ashlar_host.source` for explicit public-producer invocation; Truss ->
 portable publication reads, `weft_installation.py` for indexed transport,
 `weft_distribution.py` for its trusted compiler composition, and
 `weft_paths_package.py`/`weft_paths_installation.py` for the separately selected
-Paths package and executable transport. Installed `ashlar_host` indexed/relationship
+Paths package and executable transport; `weft_paths_distribution.py` owns their
+trusted application composition. Installed `ashlar_host` indexed/relationship
 query adapters own their held native execution; `path_admission.py`,
 `path_capture.py` and `path_execution.py` own path artifact and result custody.
 Delta SQL -> `native.py` plus `ashlar_host.delta_custody`/`driver`; PostgreSQL
@@ -170,8 +172,10 @@ private PostgreSQL profile. Required reader/session/transport closure and Spark
 stop must complete before a successful report is released; cleanup failure must
 not replace an existing primary failure or turn an uncertain outcome into success.
 
-Paths configuration must select the trusted index revision/digest, realization,
-platform and local installation explicitly. The `ashlar-databricks-paths` build
+`weft_paths_distribution.py` fixes the trusted index revision/digest and
+realization, observes the supported host platform, and accepts operator locations
+only for the index, package and local installation. It supplies these values to
+the typed Paths installation configuration. The `ashlar-databricks-paths` build
 selects `weft-compile/0.4.0`, `weft-sql/0.4.0`, `weft-ir/0.4.0`,
 `weft-backend/0.3.0` and `spark4-delta4-paths-candidate`. Package verification binds
 the exact source, executable, features, schemas, backend manifest and complete

@@ -1,0 +1,91 @@
+{
+  "verdict": "approved source-only integration B",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-integration-source-freeze-20261010-b/manifest.json",
+    "bytes": 1423,
+    "sha256": "10bbf5522ab9e56a391c87a39e63a3e54e09d8ad40c9cc9b72f384dbf92bc64a"
+  },
+  "base": "b91ccaee0f7b06caa15a559cf64bfa569dbed1db",
+  "files": [
+    {
+      "path": "src/ashlar/weft_paths_distribution.py",
+      "bytes": 3790,
+      "sha256": "8e592efcc2518b69d8113e7bbf1a9f0b00dc6003c79f6e64083e5e4f2e7f8b7f"
+    },
+    {
+      "path": "src/ashlar/cli.py",
+      "bytes": 11628,
+      "sha256": "fcc91744a272c5165847a95066d4f9264cb510505295a3e955b75b8e1efc6a71"
+    },
+    {
+      "path": "tests/test_weft_paths_distribution.py",
+      "bytes": 5069,
+      "sha256": "03420f0e9efc003389e018f183f26ef699e02b77c85a10fcd916d8f5fdd8a33a"
+    },
+    {
+      "path": "tests/test_weft_paths_cli.py",
+      "bytes": 3927,
+      "sha256": "ecd0edc8033be9db5df9c74d7cd210e7b15dd289d2b1154ef456c607c9cc87cc"
+    },
+    {
+      "path": "tools/check_module_boundaries.py",
+      "bytes": 6461,
+      "sha256": "f20a340f68ba4c10cf47aaa779a803b6146a248115bfa6c58490a162ef8def5f"
+    },
+    {
+      "path": "tests/test_module_boundaries.py",
+      "bytes": 8678,
+      "sha256": "d55137501582fec7739da97fbc5c5134821799eb7b1815c9c0e30ebaf761faef"
+    },
+    {
+      "path": ".github/workflows/module-boundaries.yml",
+      "bytes": 1402,
+      "sha256": "b628323cad88fa76b8e4de5fdbbb491c8aae0e9c4fb6e370cb39009950bf3031"
+    }
+  ],
+  "tests": {
+    "focused": {
+      "command": "PYTHONPATH=src:tools:tests python3 -B -S -W error::ResourceWarning -m unittest test_weft_paths_distribution test_weft_paths_cli test_module_boundaries -v",
+      "passed": 22,
+      "log": {
+        "path": "/private/tmp/astra-paths-integration-tests-20261010-b.log",
+        "bytes": 2289,
+        "sha256": "26204b438a03ffc37456e62afd08dcb462a844cd7e7502a8f6e891fc70c7d55d"
+      }
+    },
+    "independent": {
+      "passed": 6,
+      "script": {
+        "path": "/private/tmp/astra-paths-integration-probe-20261010-b.py",
+        "bytes": 2962,
+        "sha256": "8632b07b74d612eec37964000208cfbd5342f4ab0154cb17ba15aa69945b907b"
+      },
+      "log": {
+        "path": "/private/tmp/astra-paths-integration-probe-20261010-b.log",
+        "bytes": 344,
+        "sha256": "17482ce4fcb83a0511b3fa9cd972d2fdfb4391fe77902d98eae9c23197ed7fcf"
+      }
+    },
+    "moduleBoundaryChecker": "pass; exact host-role addition and four bounded portable CI suites, no baseline waivers"
+  },
+  "findingsResolved": [
+    {
+      "A": "Expected subprocess timeout could escape CLI redaction with executable path in traceback.",
+      "B": "Only expected SubprocessError now becomes compilation-refused; TimeoutExpired and CalledProcessError controls prove empty stdout and constant stderr. KeyboardInterrupt/SystemExit exact primary objects survive."
+    }
+  ],
+  "review": {
+    "trust": "Literal c8d825808a27e15517c1fc93c3fba0faffc2406e resolves exact a7571d2bd141bf182ce171acc16f64f1276cca29a855dbf4b49a92283fc71864 index and selected Paths530 realization. Caller selects absolute local locations only.",
+    "platform": "Production composition observes darwin/arm64/27.0.1 and refuses others; no caller observation/trust override.",
+    "protocol": "Byte-only 16MiB request gate; existing bounded stdin reader; original response bytes forwarded; restart explicitly passes package=None; installation status is stderr only.",
+    "modularity": "Public installation APIs; SDK-free imports; portable package/installer/model cannot depend on composition; old CLI routes remain unchanged.",
+    "configuration": "Frozen typed operator paths, fixed developer-owned trust and measured host platform; no ambient environment reads in pure configuration/transport core.",
+    "observability": "Constant bounded CLI error codes, tested timeout redaction; no OTel receiver/export claim.",
+    "assurance": "Finite mocked boundary/cancellation tests and static ownership checks only, not native execution, actual Paths installation or machine-checked unbounded proof."
+  },
+  "reviewerCorrection": "Independent script initially addressed index key realizations; actual key entries verified and script corrected. Initial KeyError log retained separately; production source unchanged.",
+  "limitations": [
+    "No actual compiler invoked, package installed, native SDK or SQL engine started.",
+    "Actual installation/compile command and any new realization runtime evidence require separate review."
+  ]
+}
