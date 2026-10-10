@@ -64,4 +64,37 @@ class CountStarExecutionTests(unittest.TestCase):
             provider.interval=interval
             with self.assertRaises(SystemExit)as caught:self.execute(s)
             self.assertIs(caught.exception,body);self.assertFalse(provider.active)
+    def test_observer_snapshot_mutation_cannot_repair_or_corrupt_capture(self):
+        from dataclasses import replace
+        s=list(self.setup());seen=[]
+        def observe(captured):
+            seen.append(copy.deepcopy(captured));captured['rows'].append(['forged']);captured['schema'].clear()
+        s[3]=replace(s[3],native_observer=observe)
+        result=self.execute(s)
+        self.assertEqual(seen[0],result['native_result']);self.assertEqual(result['native_result']['rows'],[])
+        self.assertTrue(seen[0]['schema']);self.assertFalse(s[2].provider.active)
+    def test_observer_sees_raw_mismatch_before_refusal(self):
+        from dataclasses import replace
+        s=list(self.setup());seen=[]
+        s[3]=replace(s[3],native_observer=lambda captured:seen.append(captured))
+        s[4]=lambda *args:{'rows':[['independent mismatch']],'witnesses':{},'scope':'independent control'}
+        with self.assertRaises(CountStarExecutionError):self.execute(s)
+        self.assertEqual(seen[0]['rows'],[]);self.assertFalse(s[2].provider.active)
+    def test_observer_failure_and_cancellation_withhold_success(self):
+        from dataclasses import replace
+        from contextlib import contextmanager
+        for body in (ValueError('observer refusal'),KeyboardInterrupt(),SystemExit(),GeneratorExit()):
+            s=list(self.setup());provider=s[2].provider
+            def observe(captured):raise body
+            s[3]=replace(s[3],native_observer=observe)
+            @contextmanager
+            def interval(context):
+                provider.active=True
+                try:yield
+                finally:
+                    provider.active=False
+                    if not isinstance(body,Exception):raise SystemExit('closing cancellation')
+            provider.interval=interval
+            with self.assertRaises(type(body))as caught:self.execute(s)
+            self.assertIs(caught.exception,body);self.assertFalse(provider.active)
 if __name__=='__main__':unittest.main()

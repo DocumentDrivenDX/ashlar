@@ -33,6 +33,7 @@ class CountStarExecutionConfig:
     decoder: PathDecodeConfig
     public_source: Optional[Callable]
     public_source_revision: Optional[str]
+    native_observer: Optional[Callable] = None
 
     def __post_init__(self):
         if (type(self.admission) is not CountStarAdmissionConfig
@@ -43,6 +44,8 @@ class CountStarExecutionConfig:
                 or type(self.public_source_revision) is not str
                 or not self.public_source_revision):
             raise CountStarExecutionError('Explicit source producer and revision required')
+        if self.native_observer is not None and not callable(self.native_observer):
+            raise CountStarExecutionError('Callable native observation port required')
 
 
 def _plain(value):
@@ -331,6 +334,9 @@ def execute_commerce_count_star(opened, request: dict, artifact: dict, trusted_r
                     config.public_source_revision, request, artifact, source_rows,
                     config.admission.maximum_artifact_bytes)
         captured = adapter.capture(artifact['sql'], slots)
+        if config.native_observer is not None:
+            config.native_observer(_oracle_snapshot(captured,
+                config.capture.maximum_total_cell_bytes + config.admission.maximum_artifact_bytes))
         names = [c.get('carrierName', c['outputName']) for c in artifact['columns']]
         _require([s[0] for s in captured['schema']] == names,
                  'Actual ordered output names differ')

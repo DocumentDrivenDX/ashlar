@@ -133,7 +133,18 @@ def _queries(config,driver,pack,aliases):
     maximum=16*1024*1024
     execution=CountStarExecutionConfig(CountStarAdmissionConfig(maximum,_schemas(config)),PathCaptureConfig(128,maximum,maximum),PathDecodeConfig(maximum),finite_public_source(driver.source,maximum),UMF_REVISION)
     observed=0
-    with owned_context((config.output/'compiler-observations.jsonl').open('xb'))as log:
+    native_observed=0
+    with owned_context((config.output/'compiler-observations.jsonl').open('xb'))as log, owned_context((config.output/'native-observations.jsonl').open('xb'))as native_log:
+        def observe_native(name,captured):
+            nonlocal native_observed
+            body=bytearray()
+            for chunk in json.JSONEncoder(separators=(',',':'),ensure_ascii=True).iterencode({'id':name,'captured':captured}):
+                raw=chunk.encode()
+                if native_observed+len(body)+len(raw)+1>64*1024*1024:raise ValueError('Complete finite native observation bound')
+                body.extend(raw)
+            body.extend(b'\n')
+            if native_log.write(body)!=len(body):raise ValueError('Finite native observation write refused')
+            native_log.flush();native_observed+=len(body)
         def observe(name,iteration,request,response):
             nonlocal observed
             if any(type(b)is not bytes or len(b)>1048576 for b in (request,response)):raise ValueError('Original finite compiler observation bound')
@@ -141,7 +152,7 @@ def _queries(config,driver,pack,aliases):
             if observed>8*1024*1024:raise ValueError('Complete finite compiler observation bound')
             if log.write(raw)!=len(raw):raise ValueError('Finite compiler record write refused')
             log.flush()
-        return query_supply_chain_cases(driver,pack,aliases,SupplyChainCompileConfig(config.compiler,maximum),execution,observe=observe)
+        return query_supply_chain_cases(driver,pack,aliases,SupplyChainCompileConfig(config.compiler,maximum),execution,observe=observe,observe_native=observe_native)
 
 def _finish_report(config,result):
     # Iterative serialization caps retained whole evidence before publication.

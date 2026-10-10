@@ -509,6 +509,14 @@ Spark session, and recheck source, JAR, installation and publication custody
 before publishing any complete report. Cleanup failure withholds the report;
 cancellation follows the lifecycle precedence above.
 
+An optional native-result observation port MUST receive a bounded independent
+copy of the captured schema and rows while source and publication custody are
+held, before decoding or comparison with the original oracle. Mutating that
+copy MUST NOT change the query result. Observation persistence failure or
+cancellation MUST withhold the complete report and preserve lifecycle failure
+precedence. Retained diagnostics do not establish a passing query or grant
+publication authority.
+
 ### Explicit Paths profile with one-hop keys
 
 `query-commerce-paths --profile paths-keys` MUST select the independently indexed

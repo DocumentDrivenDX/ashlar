@@ -3,6 +3,7 @@
 The caller owns the actual reader/transport and Spark cleanup. This port releases
 provisional evidence only; final persistence must follow all outer cleanup gates.
 """
+from dataclasses import replace
 from collections import Counter
 import hashlib,json
 from types import SimpleNamespace
@@ -53,12 +54,13 @@ def finite_public_source(source,maximum):
     return validate
 
 
-def query_supply_chain_cases(driver,pack,aliases,compile_config,execution_config,*,observe):
+def query_supply_chain_cases(driver,pack,aliases,compile_config,execution_config,*,observe,observe_native=None):
     """Execute original SQL without repairs/fallback under actual held publication."""
     if type(compile_config)is not SupplyChainCompileConfig or type(execution_config)is not CountStarExecutionConfig:
         raise ValueError('Typed original finite query configuration required')
     if execution_config.public_source_revision!=UMF_REVISION or execution_config.public_source is None:
         raise ValueError('Actual owning original public finite source port required')
+    if observe_native is not None and not callable(observe_native):raise ValueError('Callable original native observation port required')
     source=driver.source;source.renew();aliases=source_snapshot(aliases)
     registry=[{'table':t.table,'uuid':t.uuid}for t in driver.transport.targets.values()]
     compiled=compile_supply_chain_cases(compile_config,pack,source.model,source.graph,source.bindings,driver.manifest,registry,aliases,observe=observe)
@@ -69,7 +71,13 @@ def query_supply_chain_cases(driver,pack,aliases,compile_config,execution_config
             source.metadata();return {'model':hashlib.sha256(source.model).hexdigest(),'graph':hashlib.sha256(source.graph).hexdigest(),
                 'finite_source_receipt':hashlib.sha256(source.receipt).hexdigest(),'source_transaction':hashlib.sha256(source.raw).hexdigest()}
         opened=SimpleNamespace(provider=provider,context=driver.context,model=source.model,graph=source.graph,bindings=source.bindings,native_files=native_files,original_native_files=native_files())
-        result=execute_commerce_count_star(opened,request,case['response'],json.loads(case['responseBytes']),config=execution_config,
+        case_execution=execution_config
+        if observe_native is not None:
+            def native_observation(captured,name=case['id']):
+                observe_native(name,captured)
+                if execution_config.native_observer is not None:execution_config.native_observer(captured)
+            case_execution=replace(execution_config,native_observer=native_observation)
+        result=execute_commerce_count_star(opened,request,case['response'],json.loads(case['responseBytes']),config=case_execution,
             original_oracle=lambda model,graph,request,name=case['id']:supply_chain_result_oracle(name,model,graph))
         provisional.append({'id':case['id'],'evidence':result})
     source.renew()
