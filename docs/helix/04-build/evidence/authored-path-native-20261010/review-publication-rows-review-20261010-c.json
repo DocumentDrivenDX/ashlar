@@ -1,0 +1,849 @@
+{
+  "verdict": "Approved offline publication row/schema/file review for exact authored finite fixture only. All source-derived current/history/tombstone cells match active native Parquet at manifest pins.",
+  "scope": "Read-only Delta JSON+Parquet and retained ordinary source/report files. No Spark/Delta engine, PostgreSQL, original SQLite connection or journal read, publication mutation, producer/compile invocation or broader query qualification. Parent separately owns public receipt, ACK, source envelope and launch outcome review.",
+  "publication": "/private/tmp/ashlar-authored-path-publication-20261010-a",
+  "reportSha256": "4c27b416df3ade069203156fcfe3e3c1fbed8d39b398e97883aa4ebf2bbb2e9f",
+  "reportBytes": 191881,
+  "runtime": {
+    "python": "/Users/erik/Projects/tablespec/.venv/bin/python",
+    "pythonVersion": "3.12.15",
+    "pyarrow": "22.0.0"
+  },
+  "source": {
+    "exportCommit": "3c72ca35da100aecff19bc2f5d61be5b76b9685c",
+    "hashes": {
+      "model": "5a6c6de5abb1918e71807c0bc9f5e3ddd31c1aaf5341f1772da0f97ac083148c",
+      "graph": "cd5d72bfe58cb532c6a17c2df9cb45f56086cf8126e9830bb7a335cbf098d915",
+      "registry": "c29037617cca4e7d7aa29cb1768036244396db7ca2f1a47445c6dbb31b14ee97"
+    },
+    "reconstructedRawSourceBytes": 16776,
+    "reconstructedRawSourceSha256": "ba286e8370e4a322a964fb306ae12b3322f88545ccbf5c0de063d252cad3143f",
+    "oracle": "Independent reviewer derives original full state, event bytes and rows directly from model/graph/development registry, not production expected_rows or compiler output."
+  },
+  "nativeTables": [
+    {
+      "role": "object_current",
+      "table": "local.authored_paths.object_current",
+      "uuid": "bab4af8c-a48a-4343-97b4-18f393e0d978",
+      "version": 2,
+      "manifestDataPin": true,
+      "logVersions": [
+        0,
+        1,
+        2
+      ],
+      "actions": {
+        "commitInfo": 3,
+        "metaData": 2,
+        "protocol": 1,
+        "add": 1
+      },
+      "nativeSchema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "source_system",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "type_id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "logical_key_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "schema_revision",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "entity_version",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "props_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "retained_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "root_id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_feed",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_epoch",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_position",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "published_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "lookup_hash",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "apply_batch_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_cursor_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_delivery_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "activeParquet": [
+        {
+          "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/object_current/part-00000-66d65d45-6862-482e-a124-42c1b97a73cd-c000.snappy.parquet",
+          "sha256": "ed644d465f4ab0ebb86814a0cea3e165d0be165a6c4a94d748f83697cadad782",
+          "rows": 10,
+          "arrowTypes": [
+            "string",
+            "int64",
+            "int64",
+            "string",
+            "string",
+            "int64",
+            "string",
+            "string",
+            "int64",
+            "string",
+            "string",
+            "int64",
+            "timestamp[ns]",
+            "string",
+            "string",
+            "string",
+            "string"
+          ]
+        }
+      ],
+      "rows": 10,
+      "canonicalRowsSha256": "29d4a88614d9899ebe2cedeb2674a596c23b9a9234692c3154b383283d1a1cc9"
+    },
+    {
+      "role": "edge_current",
+      "table": "local.authored_paths.edge_current",
+      "uuid": "eee60f4f-6f3b-4164-88c2-6e9c8a7178a9",
+      "version": 2,
+      "manifestDataPin": true,
+      "logVersions": [
+        0,
+        1,
+        2
+      ],
+      "actions": {
+        "commitInfo": 3,
+        "metaData": 2,
+        "protocol": 1,
+        "add": 1
+      },
+      "nativeSchema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "source_system",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "rel_type_id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_type",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "target_type",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "target_id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "schema_revision",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "entity_version",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "props_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "retained_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "order_key",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_feed",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_epoch",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_position",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "published_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "lookup_hash",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "apply_batch_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_cursor_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_delivery_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "activeParquet": [
+        {
+          "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/edge_current/part-00000-a7500bac-e87a-4868-b5ed-476bd79f6070-c000.snappy.parquet",
+          "sha256": "ce869a163680b945183e64807a5f5c562592a84ea2a3d1ff5572bf0f6a143520",
+          "rows": 10,
+          "arrowTypes": [
+            "string",
+            "int64",
+            "int64",
+            "int64",
+            "int64",
+            "int64",
+            "int64",
+            "string",
+            "int64",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "int64",
+            "timestamp[ns]",
+            "string",
+            "string",
+            "string",
+            "string"
+          ]
+        }
+      ],
+      "rows": 10,
+      "canonicalRowsSha256": "2a191e5b2a067dfff22253f7de16ed957e3856503eec518795d9588ce4ea093c"
+    },
+    {
+      "role": "tombstone",
+      "table": "local.authored_paths.tombstone",
+      "uuid": "9d01c4ac-fa9d-4812-85c7-ce6ae7bec2ee",
+      "version": 1,
+      "manifestDataPin": true,
+      "logVersions": [
+        0,
+        1
+      ],
+      "actions": {
+        "commitInfo": 2,
+        "metaData": 2,
+        "protocol": 1
+      },
+      "nativeSchema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "source_system",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "entity_kind",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "type_id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "id",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "entity_version",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_feed",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_epoch",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_position",
+            "type": "long",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_cursor_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_delivery_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "activeParquet": [],
+      "rows": 0,
+      "canonicalRowsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "role": "whole_source_history",
+      "table": "local.authored_paths.whole_source_history",
+      "uuid": "bcd693a1-6c3b-4fac-90cd-67c5c9fac709",
+      "version": 2,
+      "manifestDataPin": true,
+      "logVersions": [
+        0,
+        1,
+        2
+      ],
+      "actions": {
+        "commitInfo": 3,
+        "metaData": 2,
+        "protocol": 1,
+        "add": 1
+      },
+      "nativeSchema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "feed",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "epoch",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "delivery_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "digest",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "change_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "raw_base64",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "activeParquet": [
+        {
+          "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/whole_source_history/part-00000-6be5aa06-bbc5-4b61-9790-e5d923de944a-c000.snappy.parquet",
+          "sha256": "415875a28eee7579aa7bfd86e4adde2bc8fc8d18e78dddd43b4f28dacfb9857e",
+          "rows": 20,
+          "arrowTypes": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+          ]
+        }
+      ],
+      "rows": 20,
+      "canonicalRowsSha256": "e6c62024d501e4c18cb89ff9477323a6013ab07ed0613892cde8933660d49ede"
+    },
+    {
+      "role": "attempts",
+      "table": "local.authored_paths.attempts",
+      "uuid": "7eeed361-0a4c-40e9-83c6-1a210043352c",
+      "version": 6,
+      "manifestDataPin": false,
+      "logVersions": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "actions": {
+        "commitInfo": 7,
+        "metaData": 2,
+        "protocol": 1,
+        "add": 5
+      },
+      "nativeSchema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "stream",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "batch_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "phase",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "request_digest",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "payload_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "payload_digest",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "activeParquet": [
+        {
+          "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/attempts/part-00000-30b681e0-42e6-4d19-bdf7-9ac0cf982e00-c000.snappy.parquet",
+          "sha256": "021dc61daa954e94f253f89b47f15269b72bc7433e3258be8fd1dfeb148fe3e1",
+          "rows": 1,
+          "arrowTypes": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+          ]
+        },
+        {
+          "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/attempts/part-00000-56ec97c0-fc79-4427-8c24-3c81dc18729a-c000.snappy.parquet",
+          "sha256": "a4ff1184058eecf76fa0d2070c58d3db3406faeabd14a6b06b226a72a471ff05",
+          "rows": 1,
+          "arrowTypes": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+          ]
+        },
+        {
+          "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/attempts/part-00000-dea6cc2d-c64b-4fe0-bc99-e54e9ded795a-c000.snappy.parquet",
+          "sha256": "8e80b14d2589f0b11aa8f0a00fbfcc43415176ad978f7a08f1063eb980819486",
+          "rows": 1,
+          "arrowTypes": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+          ]
+        },
+        {
+          "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/attempts/part-00000-e4e7046a-3b8b-480e-91ab-a85fa1ab3a02-c000.snappy.parquet",
+          "sha256": "ecf03e9db9e962d3739b750d9294b952e00caeb4c4bbe1a4364450dfffd12697",
+          "rows": 1,
+          "arrowTypes": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+          ]
+        },
+        {
+          "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/attempts/part-00000-e6de75c6-8203-4655-878e-39f8447e543c-c000.snappy.parquet",
+          "sha256": "4ddf7fbcf939c426b1366d5e9965a92e2b36073313967a6b675e00dd410771ac",
+          "rows": 1,
+          "arrowTypes": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string"
+          ]
+        }
+      ],
+      "rows": 5,
+      "canonicalRowsSha256": "321b7a44e86ad9be0abad6b166c5560fe8adb1ae0d04ecdc2f760874e6c7e083"
+    },
+    {
+      "role": "manifest",
+      "table": "local.authored_paths.manifest",
+      "uuid": "0d0621c6-d3b0-4a7a-851f-c127808d4020",
+      "version": 2,
+      "manifestDataPin": false,
+      "logVersions": [
+        0,
+        1,
+        2
+      ],
+      "actions": {
+        "commitInfo": 3,
+        "metaData": 2,
+        "protocol": 1,
+        "add": 1
+      },
+      "nativeSchema": {
+        "type": "struct",
+        "fields": [
+          {
+            "name": "publication_id",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "profile_version",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "table_versions_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "source_progress_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "schema_revisions_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "validation_report_json",
+            "type": "string",
+            "nullable": true,
+            "metadata": {}
+          },
+          {
+            "name": "recorded_at",
+            "type": "timestamp",
+            "nullable": true,
+            "metadata": {}
+          }
+        ]
+      },
+      "activeParquet": [
+        {
+          "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/manifest/part-00000-28a30cc6-cfb5-4e73-b81c-af0bc181a7bf-c000.snappy.parquet",
+          "sha256": "de40e3a0f0b1e712165b657ddebef4fc0fd0a42cfe09c060180d0516423cffa0",
+          "rows": 1,
+          "arrowTypes": [
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "string",
+            "timestamp[ns]"
+          ]
+        }
+      ],
+      "rows": 1,
+      "canonicalRowsSha256": "ab2dc28bb1c1f64957c89339d6b448fc670d92adf44c726cd84eda56b4deb427"
+    }
+  ],
+  "fullDataCellCounts": {
+    "object_current": 170,
+    "edge_current": 200,
+    "tombstone": 0,
+    "whole_source_history": 120
+  },
+  "totalDataCellsCompared": 490,
+  "logicalObjectKeys": [
+    {
+      "object": "A_empty",
+      "record": "Anchor",
+      "authoredKey": [
+        "A_empty"
+      ]
+    },
+    {
+      "object": "A_match",
+      "record": "Anchor",
+      "authoredKey": [
+        "A_match"
+      ]
+    },
+    {
+      "object": "A_missing",
+      "record": "Anchor",
+      "authoredKey": [
+        "A_missing"
+      ]
+    },
+    {
+      "object": "L0",
+      "record": "Start",
+      "authoredKey": [
+        "L0"
+      ]
+    },
+    {
+      "object": "L1",
+      "record": "Start",
+      "authoredKey": [
+        "L1"
+      ]
+    },
+    {
+      "object": "L_order",
+      "record": "Start",
+      "authoredKey": [
+        "L_order"
+      ]
+    },
+    {
+      "object": "P1",
+      "record": "Bridge",
+      "authoredKey": [
+        "1",
+        "\u96ea",
+        "false"
+      ]
+    },
+    {
+      "object": "P10",
+      "record": "Bridge",
+      "authoredKey": [
+        "10",
+        "a",
+        "false"
+      ]
+    },
+    {
+      "object": "P2",
+      "record": "Bridge",
+      "authoredKey": [
+        "2",
+        "z",
+        "true"
+      ]
+    },
+    {
+      "object": "S1",
+      "record": "Terminal",
+      "authoredKey": [
+        "S1"
+      ]
+    }
+  ],
+  "signedEdgeIds": [
+    "-9223372036854775808",
+    "-1",
+    "0",
+    "0",
+    "0",
+    "1",
+    "2",
+    "2",
+    "10",
+    "9223372036854775807"
+  ],
+  "completeSourceQualifiedEdgeIdentities": 10,
+  "historyEvents": 20,
+  "tombstones": 0,
+  "attemptPhases": [
+    "prepared",
+    "applying",
+    "applied",
+    "committing",
+    "committed"
+  ],
+  "manifestRows": 1,
+  "fileClosure": {
+    "files": 66,
+    "bytes": 218810,
+    "canonicalInventorySha256": "2abe3411ae82436c270be4cdd01c25499fa4c5fdb9611bc0915a2ddf493ec852",
+    "openingEqualsReport": true,
+    "closingEqualsOpening": true,
+    "sixReservationsAndMetadataBindingsVerified": true,
+    "registrySha256": "3ed5f3d262cb0fe225cdcb62ca575739eb59e05700e9a0ca08ae764da851bb10",
+    "journalPathSha256Only": "925d082fd4d155fcaabbd5c65d8c5623ed1864e96cb369f91f02fde931f51d0d"
+  },
+  "script": {
+    "path": "/private/tmp/astra-authored-path-publication-rows-review-20261010-c.py",
+    "sha256": "7120d594949d789b611b60ee88112b3d077f848731fb9bb954f5f4fadf0f14aa"
+  }
+}

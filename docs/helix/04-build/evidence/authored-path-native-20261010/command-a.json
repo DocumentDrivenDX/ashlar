@@ -1,0 +1,356 @@
+{
+  "format": "ashlar-authored-path-native-command/0.1",
+  "status": "REVIEW-CANDIDATE-NOT-EXECUTED",
+  "sourceExport": {
+    "path": "/private/tmp/ashlar-authored-path-runtime-20261010-a/source",
+    "commit": "3c72ca35da100aecff19bc2f5d61be5b76b9685c",
+    "files": 563,
+    "bytes": 5663113
+  },
+  "phases": [
+    {
+      "phase": "publish",
+      "cwd": "/private/tmp/ashlar-authored-path-runtime-20261010-a/source",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/src:/private/tmp/ashlar-authored-path-runtime-20261010-a/source/tools:/private/tmp/ashlar-indexed-psycopg-python311-20261010-c",
+        "JAVA_HOME": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/jdk4py/java-runtime",
+        "SPARK_LOCAL_IP": "127.0.0.1",
+        "PYSPARK_PYTHON": "/private/tmp/ashlar-spark311/bin/python",
+        "PYSPARK_DRIVER_PYTHON": "/private/tmp/ashlar-spark311/bin/python",
+        "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      },
+      "argv": [
+        "/private/tmp/ashlar-spark311/bin/python",
+        "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/tools/run_weft_path_fixture_native.py",
+        "publish",
+        "--publication",
+        "/private/tmp/ashlar-authored-path-publication-20261010-a",
+        "--model",
+        "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/examples/end-to-end/weft-paths/model.umf.json",
+        "--graph",
+        "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/examples/end-to-end/weft-paths/graph.json",
+        "--registry",
+        "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/examples/end-to-end/weft-paths/development-registry.json",
+        "--producer",
+        "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/tools/check_path_fixture_dataset.ts",
+        "--umf-source",
+        "/private/tmp/ashlar-umf-dataset-45473",
+        "--bun",
+        "/opt/homebrew/bin/bun",
+        "--compiler",
+        "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/weft-paths",
+        "--maximum-input-bytes",
+        "4194304",
+        "--maximum-artifact-bytes",
+        "2097152",
+        "--maximum-request-bytes",
+        "2097152",
+        "--maximum-response-bytes",
+        "2097152",
+        "--timeout-seconds",
+        "10",
+        "--maximum-rows",
+        "128",
+        "--maximum-cell-bytes",
+        "1048576",
+        "--maximum-total-cell-bytes",
+        "4194304",
+        "--maximum-native-files",
+        "2048",
+        "--maximum-native-bytes",
+        "134217728",
+        "--ack-container",
+        "ashlar-e2e-truss-pg17",
+        "--ack-host",
+        "127.0.0.1",
+        "--ack-port",
+        "15432",
+        "--ack-database",
+        "truss_e2e",
+        "--schema",
+        "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/compile-request-v0.4.schema.json",
+        "--schema",
+        "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/compile-response-v0.4.schema.json",
+        "--schema",
+        "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/logical-plan-v0.4.schema.json",
+        "--output",
+        "/private/tmp/ashlar-authored-path-publication-20261010-a",
+        "--jars",
+        "/private/tmp/ashlar-scale-ivy/jars"
+      ],
+      "log": "/private/tmp/ashlar-authored-path-publication-20261010-a.log",
+      "engine": "local[1]/512MiB/UTC/ANSI/UIoff/shuffle1/snapshot1",
+      "prerequisite": "Root exclusive grant, whole resource opening hashes and fresh exact private PG/zero-other-engine checks. Query additionally requires publish terminal0, stop confirmed, report+all original Delta/rawsource/ACK reviewed unchanged."
+    },
+    {
+      "phase": "query",
+      "cwd": "/private/tmp/ashlar-authored-path-runtime-20261010-a/source",
+      "environment": {
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PYTHONPATH": "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/src:/private/tmp/ashlar-authored-path-runtime-20261010-a/source/tools:/private/tmp/truss-python-report-schema-env/lib/python3.11/site-packages:/private/tmp/ashlar-indexed-typing-python39-20261010-b:/private/tmp/ashlar-indexed-delta4-python-20261010-a:/private/tmp/ashlar-spark4-python39-bridge:/private/tmp/ashlar-indexed-psycopg-python311-20261010-c",
+        "JAVA_HOME": "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+        "SPARK_LOCAL_IP": "127.0.0.1",
+        "PYSPARK_PYTHON": "/private/tmp/ashlar-spark311/bin/python",
+        "PYSPARK_DRIVER_PYTHON": "/private/tmp/ashlar-spark311/bin/python",
+        "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      },
+      "argv": [
+        "/private/tmp/ashlar-spark311/bin/python",
+        "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/tools/run_weft_path_fixture_native.py",
+        "query",
+        "--publication",
+        "/private/tmp/ashlar-authored-path-publication-20261010-a",
+        "--model",
+        "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/examples/end-to-end/weft-paths/model.umf.json",
+        "--graph",
+        "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/examples/end-to-end/weft-paths/graph.json",
+        "--registry",
+        "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/examples/end-to-end/weft-paths/development-registry.json",
+        "--producer",
+        "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/tools/check_path_fixture_dataset.ts",
+        "--umf-source",
+        "/private/tmp/ashlar-umf-dataset-45473",
+        "--bun",
+        "/opt/homebrew/bin/bun",
+        "--compiler",
+        "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/weft-paths",
+        "--maximum-input-bytes",
+        "4194304",
+        "--maximum-artifact-bytes",
+        "2097152",
+        "--maximum-request-bytes",
+        "2097152",
+        "--maximum-response-bytes",
+        "2097152",
+        "--timeout-seconds",
+        "10",
+        "--maximum-rows",
+        "128",
+        "--maximum-cell-bytes",
+        "1048576",
+        "--maximum-total-cell-bytes",
+        "4194304",
+        "--maximum-native-files",
+        "2048",
+        "--maximum-native-bytes",
+        "134217728",
+        "--ack-container",
+        "ashlar-e2e-truss-pg17",
+        "--ack-host",
+        "127.0.0.1",
+        "--ack-port",
+        "15432",
+        "--ack-database",
+        "truss_e2e",
+        "--schema",
+        "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/compile-request-v0.4.schema.json",
+        "--schema",
+        "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/compile-response-v0.4.schema.json",
+        "--schema",
+        "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/logical-plan-v0.4.schema.json",
+        "--output",
+        "/private/tmp/ashlar-authored-path-queries-20261010-a",
+        "--jars",
+        "/private/tmp/ashlar-delta4-jars"
+      ],
+      "log": "/private/tmp/ashlar-authored-path-queries-20261010-a.log",
+      "engine": "local[1]/512MiB/UTC/ANSI/UIoff/shuffle1/snapshot1",
+      "prerequisite": "Root exclusive grant, whole resource opening hashes and fresh exact private PG/zero-other-engine checks. Query additionally requires publish terminal0, stop confirmed, report+all original Delta/rawsource/ACK reviewed unchanged."
+    }
+  ],
+  "freshPaths": {
+    "/private/tmp/ashlar-authored-path-publication-20261010-a": true,
+    "/private/tmp/ashlar-authored-path-queries-20261010-a": true,
+    "/private/tmp/ashlar-authored-path-publication-20261010-a.log": true,
+    "/private/tmp/ashlar-authored-path-queries-20261010-a.log": true
+  },
+  "references": [
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-umf-resources-20261010-a.json",
+      "sha256": "a3a90a3f96ce6800717863e81550a618dccfe454626fbe7abad27ee1f148aaef",
+      "bytes": 188199,
+      "scope": "Inherited byte inventory or fresh import observation, not a fresh complete runtime closing claim."
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-runtime-final-20261010-a.json",
+      "sha256": "26306c184e287103880afe692e6c004ccbf460633137e3fd2c1040372c3a2bb0",
+      "bytes": 601576,
+      "scope": "Inherited byte inventory or fresh import observation, not a fresh complete runtime closing claim."
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-setup311-runtime-20261010-c.json",
+      "sha256": "dbd7d9b61163638946a2ae9c56cc19a8833ce380424e560e2fd79c6a154aa0b7",
+      "bytes": 393672,
+      "scope": "Inherited byte inventory or fresh import observation, not a fresh complete runtime closing claim."
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-query311-runtime-20261010-e.json",
+      "sha256": "1209e9bc27ff665b71ed155de0316e2b94c5328a3e7bccf45c65ab009dca77fa",
+      "bytes": 126915,
+      "scope": "Inherited byte inventory or fresh import observation, not a fresh complete runtime closing claim."
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-publish-imports-20261010-a.json",
+      "sha256": "83179a371baadcbb749be52d90dac0975393415b2f397d8a04fb00d68ce095e1",
+      "bytes": 105620,
+      "scope": "Inherited byte inventory or fresh import observation, not a fresh complete runtime closing claim."
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-query-imports-20261010-a.json",
+      "sha256": "e55aebe8994b40189210f56f9a7b98e65eade59f89412484951351102245ce2d",
+      "bytes": 122543,
+      "scope": "Inherited byte inventory or fresh import observation, not a fresh complete runtime closing claim."
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-import-probe-20261010-a.py",
+      "sha256": "0377b62ab8d8e8678c9004adf9a651d6c4e02b2f51a968e971ab19ba9735b6cc",
+      "bytes": 1043,
+      "scope": "Inherited byte inventory or fresh import observation, not a fresh complete runtime closing claim."
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-publish-imports-20261010-final.json",
+      "sha256": "ccf55c9004765c7065dae2ae284598c621763336e1c270c92600177361cc6676",
+      "bytes": 116892,
+      "scope": "Fresh exact exported runner import, no SparkContext/gateway or SQL"
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-query-imports-20261010-final.json",
+      "sha256": "e853b5d5e3a627f353242df6a5e22804eb36c19d7af4f8de5c060f9a2f6afe9d",
+      "bytes": 133815,
+      "scope": "Fresh exact exported runner import, no SparkContext/gateway or SQL"
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-command-final-20261010-a/resources.json",
+      "sha256": "5056bfdb44cf6809d90ea33743ed66da1d271aa24aef6eb1032c2f204b8a3a76",
+      "bytes": 1264993
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-runtime-20261010-a/source-inventory.json",
+      "sha256": "95a33d2e89e883ca7aece6b164dcb065f2dd5cd00e816bec6e66fead81b43b80",
+      "bytes": 150800
+    }
+  ],
+  "selectedResources": [
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.delta_delta-spark_2.12-3.2.1.jar",
+      "sha256": "088e187da689a347a6a8556dcb22318e3dfcfb995d807f5e2c19b4d0a7ee9499",
+      "bytes": 6122814,
+      "role": "actual selected native JAR"
+    },
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.delta_delta-storage-3.2.1.jar",
+      "sha256": "4dcc179fc4076bda5060a4038f979c53e1f5916cf04971e28f9441db390763c7",
+      "bytes": 24948,
+      "role": "actual selected native JAR"
+    },
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.graphframes_graphframes-graphx-spark3_2.12-0.12.3.jar",
+      "sha256": "8bbd2bbb4c7a3b137e51b4f32f49a30a2ccf70eeb07b452cffa20090dd481b96",
+      "bytes": 418271,
+      "role": "actual selected native JAR"
+    },
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.graphframes_graphframes-spark3_2.12-0.12.3.jar",
+      "sha256": "69d7909628caf42bcbe1c7e6e5a5a0901040d00583738d931af41bd72af1d3dc",
+      "bytes": 537023,
+      "role": "actual selected native JAR"
+    },
+    {
+      "path": "/private/tmp/ashlar-delta4-jars/delta-spark_2.13-4.0.0.jar",
+      "sha256": "538511702aae0ef6973a6a70af3d4543c9009f8edbed786a00737e2d3cd7f04e",
+      "bytes": 7727374,
+      "role": "actual selected native JAR"
+    },
+    {
+      "path": "/private/tmp/ashlar-delta4-jars/delta-storage-4.0.0.jar",
+      "sha256": "9bdb9fb450f1e119eba53feb427f331b0d09072d26485b8273883ad72c9a2e1d",
+      "bytes": 69732,
+      "role": "actual selected native JAR"
+    },
+    {
+      "path": "/private/tmp/ashlar-spark311/bin/python",
+      "resolved": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/bin/python3.11",
+      "sha256": "5ebf120b62e8d02ab22485ca328da471db27fd278069df3de01c957cc02d9cd6",
+      "bytes": 17277120,
+      "role": "selected executable or fixed public schema"
+    },
+    {
+      "path": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/jdk4py/java-runtime/bin/java",
+      "resolved": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/jdk4py/java-runtime/bin/java",
+      "sha256": "7cade5174816a3e93730101bc0885361b2bfaf00c9b4799e2ee5b2086e02d2d6",
+      "bytes": 69872,
+      "role": "selected executable or fixed public schema"
+    },
+    {
+      "path": "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home/bin/java",
+      "resolved": "/opt/homebrew/Cellar/openjdk@21/21.0.12.1/libexec/openjdk.jdk/Contents/Home/bin/java",
+      "sha256": "2aee02a39a0817c27501e853728c28b79f48d114dbde7c88cbf698ecf1680f63",
+      "bytes": 51584,
+      "role": "selected executable or fixed public schema"
+    },
+    {
+      "path": "/opt/homebrew/bin/bun",
+      "resolved": "/opt/homebrew/Cellar/bun/1.4.2/bin/bun",
+      "sha256": "4d410fa7e06d8cb3c6694c85cb61f3024cc4cd5cbe78764c58692384ee06e6b9",
+      "bytes": 58079568,
+      "role": "selected executable or fixed public schema"
+    },
+    {
+      "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/weft-paths",
+      "resolved": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/weft-paths",
+      "sha256": "8946ada68a7132a2ba6c1abdc1c9a0e904922cb1dce2c500922cb0dd0a96562b",
+      "bytes": 8274496,
+      "role": "selected executable or fixed public schema"
+    },
+    {
+      "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/compile-request-v0.4.schema.json",
+      "resolved": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/compile-request-v0.4.schema.json",
+      "sha256": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932",
+      "bytes": 3511,
+      "role": "selected executable or fixed public schema"
+    },
+    {
+      "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/compile-response-v0.4.schema.json",
+      "resolved": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/compile-response-v0.4.schema.json",
+      "sha256": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140",
+      "bytes": 62086,
+      "role": "selected executable or fixed public schema"
+    },
+    {
+      "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/logical-plan-v0.4.schema.json",
+      "resolved": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/logical-plan-v0.4.schema.json",
+      "sha256": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5",
+      "bytes": 42813,
+      "role": "selected executable or fixed public schema"
+    }
+  ],
+  "pgObservation": {
+    "container": "ashlar-e2e-truss-pg17",
+    "id": "37d798c29961d87549baabd1625ad946f45e8f476ade2eef360d7bf1211419c9",
+    "image": "sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545",
+    "purpose": "end-to-end-development",
+    "running": true,
+    "healthy": true,
+    "oomKilled": false,
+    "memory": 536870912,
+    "nanoCPUs": 1000000000,
+    "port": {
+      "host": "127.0.0.1",
+      "hostPort": 15432,
+      "containerPort": 5432
+    },
+    "scope": "Fresh read-only docker inspect only; no SQL/credentials/container changes. Repeat immediately before each native grant."
+  },
+  "observedAt": "2026-10-10T08:16:56.678574+00:00",
+  "javaVersions": {
+    "publish": "Temurin17.0.9+9",
+    "query": "Homebrew21.0.12.1"
+  },
+  "bunVersion": "1.4.2",
+  "requiredClosing": "Each phase: terminal process exit, Spark stop/zero engine, full source/runtime/module/JAR/publicproducer/compiler/schema vectors; publish complete original current/history/tombstone and protectedACK; query11bags/order/fullpath occurrences+edgeIDs/keyatoms/truncation/LEFT and12 closed alias/query intervals. Read-only SQLite sidecar addition/change must be stated precisely from observed vectors, never inferred immutable entirefile set.",
+  "scope": "Twenty source events, eleven unchanged authored query intents. No renewedscale/cloud/dependencies/service provisioning performed during drafting. GraphFrames package/JAR inherited by existing publisher composition; no GraphFrames graph query qualification here.",
+  "resourceFiles": 5564,
+  "resourceBytes": 1389836096,
+  "remainingGrant": "Independent command review, root CI success, fresh exact PG/zero engine observation, exclusive sequential phase grant. PG observation in draft is historical; refresh required."
+}

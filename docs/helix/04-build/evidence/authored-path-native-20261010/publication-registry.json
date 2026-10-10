@@ -1,0 +1,38 @@
+{
+  "profile": "ashlar.path-development-registry/0.1",
+  "sourceSystem": "ashlar-authored-path-fixture",
+  "epoch": "paths-v1",
+  "types": {
+    "Start": 1,
+    "Bridge": 2,
+    "Terminal": 3,
+    "Anchor": 4
+  },
+  "relationships": {
+    "start-bridge": 1,
+    "bridge-terminal": 2,
+    "bridge-loop": 3
+  },
+  "objects": {
+    "L1": 1,
+    "L0": 2,
+    "L_order": 3,
+    "P1": 4,
+    "P2": 5,
+    "P10": 6,
+    "S1": 7,
+    "A_match": 8,
+    "A_empty": 9,
+    "A_missing": 10
+  },
+  "properties": {
+    "Start.id": 2,
+    "Bridge.rank": 4,
+    "Bridge.label": 5,
+    "Bridge.flag": 6,
+    "Terminal.id": 8,
+    "Anchor.id": 10,
+    "Anchor.start_ref": 11
+  },
+  "qualification": "Explicit development IDs only; UMF does not assign storage IDs."
+}

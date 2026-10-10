@@ -1,0 +1,181 @@
+{
+  "verdict": "Approved exact retained native result/decoded preservation for all eleven separately authored finite cases. No mismatch or repair/deduplication observed.",
+  "scope": "Read-only retained query report compared with independent raw-model/graph oracle prepared before terminal report access. No engine, PostgreSQL, original SQLite or mutation. Parent owns compiler/schema/guards/ACK/vector/cleanup review; this receipt does not independently certify those layers or broader support.",
+  "report": {
+    "path": "/private/tmp/ashlar-authored-path-queries-20261010-a/report.json",
+    "sha256": "680275558919a4218e12f9ef801e86820129dc261b1980edc0dc51c57a2ad697",
+    "bytes": 9554597
+  },
+  "oracle": {
+    "path": "/private/tmp/astra-authored-path-query-oracle-20261010-c.json",
+    "sha256": "a542eca6cc32857474adb69ba9609cff2d162992808aa0116eed73da597bdf4c",
+    "source": {
+      "modelSha256": "5a6c6de5abb1918e71807c0bc9f5e3ddd31c1aaf5341f1772da0f97ac083148c",
+      "graphSha256": "cd5d72bfe58cb532c6a17c2df9cb45f56086cf8126e9830bb7a335cbf098d915"
+    },
+    "independentOfCompilerAndRuntimeRows": true
+  },
+  "cases": [
+    {
+      "case": "parallel-six",
+      "rows": 1,
+      "cells": 2,
+      "exactRawCellsAndOrder": true,
+      "completeBagEquality": true,
+      "decodedOriginalCellsPreserved": true,
+      "rawRowsSha256": "0efe3ea8cb87dbf09da05b472b376fd74ee13c408e839a241c9292049035741f",
+      "decodedSha256": "ded5ebb6981b15f860741b7959b74cf4ce1b78ffeb9198308a75a84f64d82208"
+    },
+    {
+      "case": "truncated-two",
+      "rows": 1,
+      "cells": 2,
+      "exactRawCellsAndOrder": true,
+      "completeBagEquality": true,
+      "decodedOriginalCellsPreserved": true,
+      "rawRowsSha256": "22bee955d925f9325205063b7cf2e16ec00b9f91434e4ef53065249254e79bbc",
+      "decodedSha256": "3ae449bb4859c35d2b954cfdf2623bf564bba343b145663b607a65c6f7d0b336"
+    },
+    {
+      "case": "empty",
+      "rows": 1,
+      "cells": 2,
+      "exactRawCellsAndOrder": true,
+      "completeBagEquality": true,
+      "decodedOriginalCellsPreserved": true,
+      "rawRowsSha256": "ea0b4274548b4cc3d431d83f3896f19e5823640b996a7226da627693e3bff1cd",
+      "decodedSha256": "ead73a0d8d00fa952aa7128ef7365e5101ea03c4f509d75f9678216ef95bec28"
+    },
+    {
+      "case": "typed-order",
+      "rows": 1,
+      "cells": 2,
+      "exactRawCellsAndOrder": true,
+      "completeBagEquality": true,
+      "decodedOriginalCellsPreserved": true,
+      "rawRowsSha256": "af026e5701f9ac882c28f01127d09f85726a1011fa569afeef208c2c29c92697",
+      "decodedSha256": "3bd8ff8b7bfc89aef5b4116454e47eb3d419915c800b227f324ee38b1dc01fb6"
+    },
+    {
+      "case": "inverse",
+      "rows": 1,
+      "cells": 2,
+      "exactRawCellsAndOrder": true,
+      "completeBagEquality": true,
+      "decodedOriginalCellsPreserved": true,
+      "rawRowsSha256": "e52d6d3483f68e365db630018862a6326fd857aa4370d43c2ec2624e7f2534fc",
+      "decodedSha256": "11b05b6e3c16788dfdda9a42d1c15503bb96f1cd2ff6132698a87bbbf43854e2"
+    },
+    {
+      "case": "self-loop",
+      "rows": 1,
+      "cells": 2,
+      "exactRawCellsAndOrder": true,
+      "completeBagEquality": true,
+      "decodedOriginalCellsPreserved": true,
+      "rawRowsSha256": "e788b19af3cc34ae93c4e4f96ab34589c6379d6a97b1722f3335b61497a32313",
+      "decodedSha256": "5678aa919e40ac4b77a3b535fa3018a71f7968b5e41f49215d639173d7da66f4"
+    },
+    {
+      "case": "left-presence",
+      "rows": 3,
+      "cells": 6,
+      "exactRawCellsAndOrder": true,
+      "completeBagEquality": true,
+      "decodedOriginalCellsPreserved": true,
+      "rawRowsSha256": "18d654ddc5bbd98fc38ab43290dd6d99b2448b91476a1cf220ba8368484aae0e",
+      "decodedSha256": "9ae532d03ccf0780749ddb9df747875721fa2dc2ea71567d6f2e8897f8aa22ac"
+    },
+    {
+      "case": "six",
+      "rows": 1,
+      "cells": 1,
+      "exactRawCellsAndOrder": true,
+      "completeBagEquality": true,
+      "decodedOriginalCellsPreserved": true,
+      "rawRowsSha256": "014afbc8098059d0f243b9b825be43093cbc76679daf7fe4d26f765933b55f46",
+      "decodedSha256": "496989c008817280eb3ccb334d8e3ed3ee460f6ac29e21903a6cf4a769e349f3"
+    },
+    {
+      "case": "oneTarget",
+      "rows": 1,
+      "cells": 1,
+      "exactRawCellsAndOrder": true,
+      "completeBagEquality": true,
+      "decodedOriginalCellsPreserved": true,
+      "rawRowsSha256": "e28610836ab702cd35495751839961e9fae54fec4ee18dc4b314862c18c3d104",
+      "decodedSha256": "57347cc58038905840b8a101d873d0e0ad589e79a7f235378a0cf51084575ad7"
+    },
+    {
+      "case": "zero",
+      "rows": 1,
+      "cells": 1,
+      "exactRawCellsAndOrder": true,
+      "completeBagEquality": true,
+      "decodedOriginalCellsPreserved": true,
+      "rawRowsSha256": "aa6885079e7ed8ca6ff962f5c1f6d44f5dd0ba9e476e9158ae65d99a02203c3b",
+      "decodedSha256": "10d60e8789dc19792ce9a95d3e0da8972701290fcf19c530f32cdb6cf497922c"
+    },
+    {
+      "case": "noGroups",
+      "rows": 0,
+      "cells": 0,
+      "exactRawCellsAndOrder": true,
+      "completeBagEquality": true,
+      "decodedOriginalCellsPreserved": true,
+      "rawRowsSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "decodedSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    }
+  ],
+  "totals": {
+    "cases": 11,
+    "resultRows": 12,
+    "resultCells": 21,
+    "pathCells": 9,
+    "pathOccurrencesAcrossAllResults": 21
+  },
+  "semanticWitnesses": {
+    "parallelPathBag": 6,
+    "parallelDistinctTerminalAuthoredKeys": 1,
+    "truncatedReturned": 2,
+    "truncatedTrue": true,
+    "typedIntegerKeyOrder": [
+      "2",
+      "10"
+    ],
+    "inversePathBag": 4,
+    "selfLoopEdgeSequence": [
+      "0",
+      "0"
+    ],
+    "leftStates": [
+      "value-empty",
+      "value-six",
+      "absent"
+    ],
+    "globalPathCount": "6",
+    "distinctTargetCount": "1",
+    "emptyGlobalCount": "0",
+    "emptyGroupedRows": 0,
+    "signed64MinAndMaxLexemesPreserved": true,
+    "unicodeAndBooleanKeyLexemesPreserved": true
+  },
+  "inMemoryMutationControlsRejected": [
+    "parallel-terminal-dedup",
+    "parallel-order-reversal",
+    "wrong-truncation",
+    "numeric-order-as-text",
+    "absent-becomes-empty",
+    "global-zero-becomes-no-row",
+    "empty-group-becomes-zero-row"
+  ],
+  "closingReportAndOracleBytesUnchanged": true,
+  "runtime": {
+    "python": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6"
+  },
+  "script": {
+    "path": "/private/tmp/astra-authored-path-query-results-review-20261010-c.py",
+    "sha256": "c62d77b501b558e95405f44aea00b577594d908aac2dc752a7a83fc85c7a0c5c"
+  }
+}

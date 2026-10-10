@@ -1,0 +1,129 @@
+{
+  "scope": "Independent finite source oracle only. No live query output, compiler output, production expected_cases helper, native engine/PG/SQLite read or execution.",
+  "source": {
+    "modelSha256": "5a6c6de5abb1918e71807c0bc9f5e3ddd31c1aaf5341f1772da0f97ac083148c",
+    "graphSha256": "cd5d72bfe58cb532c6a17c2df9cb45f56086cf8126e9830bb7a335cbf098d915"
+  },
+  "rows": {
+    "parallel-six": [
+      [
+        "L1",
+        "{\"items\":[{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"-9223372036854775808\",\"-1\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"-9223372036854775808\",\"1\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"-9223372036854775808\",\"9223372036854775807\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"0\",\"-1\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"0\",\"1\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"0\",\"9223372036854775807\"]}],\"truncated\":false}"
+      ]
+    ],
+    "truncated-two": [
+      [
+        "L1",
+        "{\"items\":[{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"-9223372036854775808\",\"-1\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"-9223372036854775808\",\"1\"]}],\"truncated\":true}"
+      ]
+    ],
+    "empty": [
+      [
+        "L0",
+        "{\"items\":[],\"truncated\":false}"
+      ]
+    ],
+    "typed-order": [
+      [
+        "L_order",
+        "{\"items\":[{\"intermediate\":[\"2\",\"z\",\"true\"],\"terminal\":[\"S1\"],\"edges\":[\"2\",\"0\"]},{\"intermediate\":[\"10\",\"a\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"10\",\"2\"]}],\"truncated\":false}"
+      ]
+    ],
+    "inverse": [
+      [
+        "L1",
+        "{\"items\":[{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"L1\"],\"edges\":[\"-9223372036854775808\",\"-9223372036854775808\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"L1\"],\"edges\":[\"-9223372036854775808\",\"0\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"L1\"],\"edges\":[\"0\",\"-9223372036854775808\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"L1\"],\"edges\":[\"0\",\"0\"]}],\"truncated\":false}"
+      ]
+    ],
+    "self-loop": [
+      [
+        "1",
+        "{\"items\":[{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"1\",\"雪\",\"false\"],\"edges\":[\"0\",\"0\"]}],\"truncated\":false}"
+      ]
+    ],
+    "left-presence": [
+      [
+        "A_empty",
+        "{\"state\":\"value\",\"value\":{\"items\":[],\"truncated\":false}}"
+      ],
+      [
+        "A_match",
+        "{\"state\":\"value\",\"value\":{\"items\":[{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"-9223372036854775808\",\"-1\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"-9223372036854775808\",\"1\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"-9223372036854775808\",\"9223372036854775807\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"0\",\"-1\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"0\",\"1\"]},{\"intermediate\":[\"1\",\"雪\",\"false\"],\"terminal\":[\"S1\"],\"edges\":[\"0\",\"9223372036854775807\"]}],\"truncated\":false}}"
+      ],
+      [
+        "A_missing",
+        "{\"state\":\"absent\"}"
+      ]
+    ],
+    "six": [
+      [
+        "6"
+      ]
+    ],
+    "oneTarget": [
+      [
+        "1"
+      ]
+    ],
+    "zero": [
+      [
+        "0"
+      ]
+    ],
+    "noGroups": []
+  },
+  "semantics": {
+    "parallelOccurrences": 6,
+    "truncatedFirstTwo": {
+      "items": [
+        {
+          "intermediate": [
+            "1",
+            "雪",
+            "false"
+          ],
+          "terminal": [
+            "S1"
+          ],
+          "edges": [
+            "-9223372036854775808",
+            "-1"
+          ]
+        },
+        {
+          "intermediate": [
+            "1",
+            "雪",
+            "false"
+          ],
+          "terminal": [
+            "S1"
+          ],
+          "edges": [
+            "-9223372036854775808",
+            "1"
+          ]
+        }
+      ],
+      "truncated": true
+    },
+    "typedIntermediateRankOrder": [
+      "2",
+      "10"
+    ],
+    "inverseOccurrences": 4,
+    "selfLoopReusesSamePhysicalEdge": true,
+    "leftRowOrder": [
+      "A_empty",
+      "A_match",
+      "A_missing"
+    ],
+    "globalEmptyCount": "0",
+    "groupedEmptyRows": 0,
+    "distinctTerminalAuthoredKeys": 1
+  },
+  "script": {
+    "path": "/private/tmp/astra-authored-path-query-oracle-20261010-c.py",
+    "sha256": "886ccaf83900eef92b0b9f7a6524813716e0f261b18dace2201fbf23141255da"
+  }
+}

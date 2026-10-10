@@ -1,0 +1,238 @@
+{
+  "format": "ashlar.path-qualification-graph",
+  "version": "0.1",
+  "qualification": "Separately authored finite development fixture; not original commerce or production authority.",
+  "objects": [
+    {
+      "key": "L1",
+      "type": {
+        "module": "paths",
+        "element": "Start",
+        "document": "urn:ashlar:qualification:two-hop-paths"
+      },
+      "values": {
+        "Start.id": "L1"
+      }
+    },
+    {
+      "key": "L0",
+      "type": {
+        "module": "paths",
+        "element": "Start",
+        "document": "urn:ashlar:qualification:two-hop-paths"
+      },
+      "values": {
+        "Start.id": "L0"
+      }
+    },
+    {
+      "key": "L_order",
+      "type": {
+        "module": "paths",
+        "element": "Start",
+        "document": "urn:ashlar:qualification:two-hop-paths"
+      },
+      "values": {
+        "Start.id": "L_order"
+      }
+    },
+    {
+      "key": "P1",
+      "type": {
+        "module": "paths",
+        "element": "Bridge",
+        "document": "urn:ashlar:qualification:two-hop-paths"
+      },
+      "values": {
+        "Bridge.rank": "1",
+        "Bridge.label": "雪",
+        "Bridge.flag": "false"
+      }
+    },
+    {
+      "key": "P2",
+      "type": {
+        "module": "paths",
+        "element": "Bridge",
+        "document": "urn:ashlar:qualification:two-hop-paths"
+      },
+      "values": {
+        "Bridge.rank": "2",
+        "Bridge.label": "z",
+        "Bridge.flag": "true"
+      }
+    },
+    {
+      "key": "P10",
+      "type": {
+        "module": "paths",
+        "element": "Bridge",
+        "document": "urn:ashlar:qualification:two-hop-paths"
+      },
+      "values": {
+        "Bridge.rank": "10",
+        "Bridge.label": "a",
+        "Bridge.flag": "false"
+      }
+    },
+    {
+      "key": "S1",
+      "type": {
+        "module": "paths",
+        "element": "Terminal",
+        "document": "urn:ashlar:qualification:two-hop-paths"
+      },
+      "values": {
+        "Terminal.id": "S1"
+      }
+    },
+    {
+      "key": "A_match",
+      "type": {
+        "module": "paths",
+        "element": "Anchor",
+        "document": "urn:ashlar:qualification:two-hop-paths"
+      },
+      "values": {
+        "Anchor.id": "A_match",
+        "Anchor.start_ref": "L1"
+      }
+    },
+    {
+      "key": "A_empty",
+      "type": {
+        "module": "paths",
+        "element": "Anchor",
+        "document": "urn:ashlar:qualification:two-hop-paths"
+      },
+      "values": {
+        "Anchor.id": "A_empty",
+        "Anchor.start_ref": "L0"
+      }
+    },
+    {
+      "key": "A_missing",
+      "type": {
+        "module": "paths",
+        "element": "Anchor",
+        "document": "urn:ashlar:qualification:two-hop-paths"
+      },
+      "values": {
+        "Anchor.id": "A_missing",
+        "Anchor.start_ref": "X"
+      }
+    }
+  ],
+  "edges": [
+    {
+      "key": "start-bridge:-9223372036854775808",
+      "relationship": {
+        "document": "urn:ashlar:qualification:two-hop-paths",
+        "module": "paths",
+        "id": "start-bridge"
+      },
+      "source": "L1",
+      "target": "P1",
+      "physicalId": "-9223372036854775808"
+    },
+    {
+      "key": "start-bridge:0",
+      "relationship": {
+        "document": "urn:ashlar:qualification:two-hop-paths",
+        "module": "paths",
+        "id": "start-bridge"
+      },
+      "source": "L1",
+      "target": "P1",
+      "physicalId": "0"
+    },
+    {
+      "key": "bridge-terminal:-1",
+      "relationship": {
+        "document": "urn:ashlar:qualification:two-hop-paths",
+        "module": "paths",
+        "id": "bridge-terminal"
+      },
+      "source": "P1",
+      "target": "S1",
+      "physicalId": "-1"
+    },
+    {
+      "key": "bridge-terminal:1",
+      "relationship": {
+        "document": "urn:ashlar:qualification:two-hop-paths",
+        "module": "paths",
+        "id": "bridge-terminal"
+      },
+      "source": "P1",
+      "target": "S1",
+      "physicalId": "1"
+    },
+    {
+      "key": "bridge-terminal:9223372036854775807",
+      "relationship": {
+        "document": "urn:ashlar:qualification:two-hop-paths",
+        "module": "paths",
+        "id": "bridge-terminal"
+      },
+      "source": "P1",
+      "target": "S1",
+      "physicalId": "9223372036854775807"
+    },
+    {
+      "key": "bridge-loop:0",
+      "relationship": {
+        "document": "urn:ashlar:qualification:two-hop-paths",
+        "module": "paths",
+        "id": "bridge-loop"
+      },
+      "source": "P1",
+      "target": "P1",
+      "physicalId": "0"
+    },
+    {
+      "key": "start-bridge:2",
+      "relationship": {
+        "document": "urn:ashlar:qualification:two-hop-paths",
+        "module": "paths",
+        "id": "start-bridge"
+      },
+      "source": "L_order",
+      "target": "P2",
+      "physicalId": "2"
+    },
+    {
+      "key": "start-bridge:10",
+      "relationship": {
+        "document": "urn:ashlar:qualification:two-hop-paths",
+        "module": "paths",
+        "id": "start-bridge"
+      },
+      "source": "L_order",
+      "target": "P10",
+      "physicalId": "10"
+    },
+    {
+      "key": "bridge-terminal:0",
+      "relationship": {
+        "document": "urn:ashlar:qualification:two-hop-paths",
+        "module": "paths",
+        "id": "bridge-terminal"
+      },
+      "source": "P2",
+      "target": "S1",
+      "physicalId": "0"
+    },
+    {
+      "key": "bridge-terminal:2",
+      "relationship": {
+        "document": "urn:ashlar:qualification:two-hop-paths",
+        "module": "paths",
+        "id": "bridge-terminal"
+      },
+      "source": "P10",
+      "target": "S1",
+      "physicalId": "2"
+    }
+  ]
+}

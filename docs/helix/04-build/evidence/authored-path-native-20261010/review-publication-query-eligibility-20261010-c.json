@@ -1,0 +1,32 @@
+{
+  "verdict": "Approved exact finite authored publication; eligible for unchanged reviewed Command B query phase after root immediate gates",
+  "publication": {
+    "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/report.json",
+    "sha256": "4c27b416df3ade069203156fcfe3e3c1fbed8d39b398e97883aa4ebf2bbb2e9f",
+    "bytes": 191881
+  },
+  "reviews": [
+    {
+      "path": "/private/tmp/astra-authored-path-publication-review-20261010-c.json",
+      "sha256": "be71f43ca55f41aaaf2992c925bf44a2c5fc0fa11c1139d3f5c50f56d0f7881b",
+      "bytes": 3151
+    },
+    {
+      "path": "/private/tmp/astra-authored-path-publication-rows-review-20261010-c.json",
+      "sha256": "26d8714348f61a96205affa3ac9acc9e1fcf6ea48ee1522ab401fd6e3ee20934",
+      "bytes": 22126
+    }
+  ],
+  "checks": [
+    "Exact original model/graph/development registry and genuine c7 public receipt; 20 original source events",
+    "Independent raw Delta JSON/Parquet verifies all490 data cells:10objects10edges20history0tombstones; signed-i64 edge identities/endpoints and authored keys retained",
+    "All6 native schemas/UUIDs; four data pins2/2/1/2; attempts6 with5phases; manifest2 with1row",
+    "Protected ACK position1 exact request/payload/manifest/scope digest correspondence from actual retained ordinary-role observation",
+    "Nine committed operations independently matched native Delta metadata via copy-only journal; integrity passes",
+    "All66 native files unchanged; all77 original publication files unchanged during independent read-only reviews",
+    "Terminal0 report persisted after reviewed transport/Spark cleanup; launcher closing source/resource/zero-engine/privatePG checks"
+  ],
+  "queryScope": "Only exact unchanged Command B query phase: 11 authored finite SQL intents, existing bounded capture/decoder/compiler configuration, same original publication and immutable c6 compiler. No query result qualification yet.",
+  "requiredImmediateGates": "Root refreshes sole cooperating-engine lease, zero engines, private PG identity/purpose/health/resources and ordinary-role check, exact source/external/compiler/schema/JAR vectors, exact original report/native vector and fresh query output. No source policy or runtime changes.",
+  "limits": "No new native engine/PG/original SQLite connection during review. Whole external dependency/reproducible-build, indexed distribution, arbitrary-query, production, Truss/cloud and machine formal/OTel proof remain unclaimed."
+}

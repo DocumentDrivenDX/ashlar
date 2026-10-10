@@ -1,0 +1,2 @@
+{"actualPreflightPassed": true, "jars": ["/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.delta_delta-spark_2.12-3.2.1.jar", "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.delta_delta-storage-3.2.1.jar", "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.graphframes_graphframes-graphx-spark3_2.12-0.12.3.jar", "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.graphframes_graphframes-spark3_2.12-0.12.3.jar"], "noSparkContextOrGateway": true}
+{"phase": "publish", "reportPersisted": true, "cases": 0}

@@ -1,0 +1,14 @@
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/tools/run_weft_path_fixture_native.py", line 435, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/tools/run_weft_path_fixture_native.py", line 431, in main
+    report=publish_fixture(config) if args.phase=='publish' else query_fixture(config)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/tools/run_weft_path_fixture_native.py", line 243, in publish_fixture
+    jars=preflight(config,'publish');m,g,r=_inputs(config)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-authored-path-runtime-20261010-a/source/tools/run_weft_path_fixture_native.py", line 118, in preflight
+    if set(p.name for p in config.jars.glob('*.jar'))!=set(hashes) or any(hashlib.sha256(read_bounded(p,32000000)).hexdigest()!=hashes[p.name] for p in paths):raise ValueError('Exact selected runtime JAR set required')
+                                                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: Exact selected runtime JAR set required

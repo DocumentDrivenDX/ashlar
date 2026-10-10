@@ -1,0 +1,72 @@
+{
+  "verdict": "approved corrected exact command B, conditional on unchanged root immediate gates",
+  "command": {
+    "path": "/private/tmp/ashlar-authored-path-command-final-20261010-b/command.json",
+    "sha256": "8866fdbb22eef9088b02c1406953b3c2563db14952926174c7ab8d070e2b642c",
+    "bytes": 19787
+  },
+  "comparison": "Only publish --jars argument changed. Query argv/env/cwd, source, selected historical resources, limits and policy are unchanged. Four exact byte-copy resource entries are additive.",
+  "exactPublicationJarDirectoryMembers": [
+    {
+      "path": "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.delta_delta-spark_2.12-3.2.1.jar",
+      "sha256": "088e187da689a347a6a8556dcb22318e3dfcfb995d807f5e2c19b4d0a7ee9499",
+      "bytes": 6122814
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.delta_delta-storage-3.2.1.jar",
+      "sha256": "4dcc179fc4076bda5060a4038f979c53e1f5916cf04971e28f9441db390763c7",
+      "bytes": 24948
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.graphframes_graphframes-graphx-spark3_2.12-0.12.3.jar",
+      "sha256": "8bbd2bbb4c7a3b137e51b4f32f49a30a2ccf70eeb07b452cffa20090dd481b96",
+      "bytes": 418271
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.graphframes_graphframes-spark3_2.12-0.12.3.jar",
+      "sha256": "69d7909628caf42bcbe1c7e6e5a5a0901040d00583738d931af41bd72af1d3dc",
+      "bytes": 537023
+    }
+  ],
+  "resourceFilesVerified": 5568,
+  "resourceBytesVerified": 1396939152,
+  "independentActualExportPreflight": [
+    {
+      "phase": "publish",
+      "preflightPaths": [
+        "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.delta_delta-spark_2.12-3.2.1.jar",
+        "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.delta_delta-storage-3.2.1.jar",
+        "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.graphframes_graphframes-graphx-spark3_2.12-0.12.3.jar",
+        "/private/tmp/ashlar-authored-path-publish-jars-20261010-a/io.graphframes_graphframes-spark3_2.12-0.12.3.jar"
+      ],
+      "noSparkContextOrGateway": true,
+      "phaseBodyExecuted": false
+    },
+    {
+      "phase": "query",
+      "preflightPaths": [
+        "/private/tmp/ashlar-delta4-jars/delta-spark_2.13-4.0.0.jar",
+        "/private/tmp/ashlar-delta4-jars/delta-storage-4.0.0.jar"
+      ],
+      "noSparkContextOrGateway": true,
+      "phaseBodyExecuted": false
+    }
+  ],
+  "originalFailure": {
+    "path": "/private/tmp/ashlar-authored-path-publish-custody-20261010-a/outcome.json",
+    "sha256": "a75264d4012ac4814c3cfc173297e6356b4d4a7b52288b62135863508682d9f9",
+    "bytes": 1315
+  },
+  "priorReadinessReceipt": {
+    "path": "/private/tmp/astra-authored-path-command-review-20261010-a.json",
+    "sha256": "7e6ae6299dce357177717aafafb70f0dd17b15496802b2111a0dd55e6885f095",
+    "bytes": 3454
+  },
+  "scope": "No publish/query phase, SparkSession, gateway/context, SQL, PG or journal operation. Actual exported preflight and exact input checks run under both selected environments; all outputs/logs still absent. Prior A fail-closed exact-JAR-membership refusal is preserved, no policy or data correction. Reviewer initial A check verified selected hashes but missed full directory membership; corrected here.",
+  "requiredImmediateGates": "Root fresh private PG identity/purpose/health/limits, zero Spark/Puppy, source/resource/compiler/schema/producer rehash, fresh output and sole lease with bounded launcher. Publish first; query only after terminal0, cleanup and independent original publication/source/ACK verification.",
+  "script": {
+    "path": "/private/tmp/astra-authored-path-command-review-20261010-b.py",
+    "sha256": "131820389baa1b3bc46bcac7cd192ad7cd0672f93160c771253d5e18092a22ea",
+    "bytes": 4958
+  }
+}

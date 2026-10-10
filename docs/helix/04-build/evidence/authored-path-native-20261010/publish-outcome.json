@@ -1,0 +1,24 @@
+{
+  "closing_pg": "37d798c29961d87549baabd1625ad946f45e8f476ade2eef360d7bf1211419c9 sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545 true false healthy 536870912 1000000000 {\"5432/tcp\":[{\"HostIp\":\"127.0.0.1\",\"HostPort\":\"15432\"}]}",
+  "command_sha256": "8866fdbb22eef9088b02c1406953b3c2563db14952926174c7ab8d070e2b642c",
+  "exit_code": 0,
+  "finished": 1791621344.075606,
+  "native_phase": "publish",
+  "opening_pg": "37d798c29961d87549baabd1625ad946f45e8f476ade2eef360d7bf1211419c9 sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545 true false healthy 536870912 1000000000 {\"5432/tcp\":[{\"HostIp\":\"127.0.0.1\",\"HostPort\":\"15432\"}]}",
+  "ordinary_role_probe": [
+    {
+      "current_user": "ashlar_ack_operator_0fc843618939",
+      "database": "truss_e2e",
+      "session_user": "ashlar_ack_operator_0fc843618939",
+      "superuser": "false"
+    }
+  ],
+  "phase": "terminal",
+  "report_exists": true,
+  "scope": "Exact reviewed finite authored path phase, exclusive cooperating local engine custody",
+  "started": 1791621312.1196811,
+  "stderr_bytes": 462,
+  "stderr_sha256": "f91ed952f628da19529277fe91d12f1566e5181218d4a6ee0c51324e7f496ed3",
+  "stdout_bytes": 58,
+  "stdout_sha256": "d6fbd97f56c78f543adfaf268257bd9ba298bf83e0dd415714f86345cda71f82"
+}

@@ -1,0 +1,253 @@
+{
+  "verdict": "Approved exact34entry35file selected durable archive; original bytes and single-member lossless gzip correspondence pass",
+  "manifest": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/authored-path-native-20261010/manifest.json",
+    "bytes": 15296,
+    "sha256": "cc6aafe14af6409ac4443f8c275e36a60b25564d71ae9b47ac47b7102249c0c8"
+  },
+  "files": [
+    {
+      "path": "publication-report.json.gz",
+      "bytes": 25754,
+      "decodedBytes": 191881,
+      "sha256": "479ab596502d80d064929a0bd3c11e77f63566d1c1feaf09c8fd4c7edfd5e3ea",
+      "originalSha256": "4c27b416df3ade069203156fcfe3e3c1fbed8d39b398e97883aa4ebf2bbb2e9f"
+    },
+    {
+      "path": "publication-model.umf.json",
+      "bytes": 6891,
+      "decodedBytes": 6891,
+      "sha256": "5a6c6de5abb1918e71807c0bc9f5e3ddd31c1aaf5341f1772da0f97ac083148c",
+      "originalSha256": "5a6c6de5abb1918e71807c0bc9f5e3ddd31c1aaf5341f1772da0f97ac083148c"
+    },
+    {
+      "path": "publication-graph.json",
+      "bytes": 5563,
+      "decodedBytes": 5563,
+      "sha256": "cd5d72bfe58cb532c6a17c2df9cb45f56086cf8126e9830bb7a335cbf098d915",
+      "originalSha256": "cd5d72bfe58cb532c6a17c2df9cb45f56086cf8126e9830bb7a335cbf098d915"
+    },
+    {
+      "path": "publication-registry.json",
+      "bytes": 749,
+      "decodedBytes": 749,
+      "sha256": "c29037617cca4e7d7aa29cb1768036244396db7ca2f1a47445c6dbb31b14ee97",
+      "originalSha256": "c29037617cca4e7d7aa29cb1768036244396db7ca2f1a47445c6dbb31b14ee97"
+    },
+    {
+      "path": "publication-public-dataset.json.gz",
+      "bytes": 8427,
+      "decodedBytes": 388518,
+      "sha256": "e4279cf6ec15ec30f8c1adb14eae61a9d80809aab02ac041024053199aacda71",
+      "originalSha256": "c61b71a61e40cf844b695087df38fd9abb2724f57b5ac4f7348d7dca75cd27fa"
+    },
+    {
+      "path": "publication-source.jsonl",
+      "bytes": 16776,
+      "decodedBytes": 16776,
+      "sha256": "ba286e8370e4a322a964fb306ae12b3322f88545ccbf5c0de063d252cad3143f",
+      "originalSha256": "ba286e8370e4a322a964fb306ae12b3322f88545ccbf5c0de063d252cad3143f"
+    },
+    {
+      "path": "query-report.json.gz",
+      "bytes": 673322,
+      "decodedBytes": 9554597,
+      "sha256": "aa638a0967d808c094ab10dd6077a2d58bb8c90a802ebb087ee817982b119d50",
+      "originalSha256": "680275558919a4218e12f9ef801e86820129dc261b1980edc0dc51c57a2ad697"
+    },
+    {
+      "path": "query-fresh-public-dataset.json.gz",
+      "bytes": 8427,
+      "decodedBytes": 388518,
+      "sha256": "e4279cf6ec15ec30f8c1adb14eae61a9d80809aab02ac041024053199aacda71",
+      "originalSha256": "c61b71a61e40cf844b695087df38fd9abb2724f57b5ac4f7348d7dca75cd27fa"
+    },
+    {
+      "path": "publish-outcome.json",
+      "bytes": 1315,
+      "decodedBytes": 1315,
+      "sha256": "ad17d5129e61207bcb253e972b324ba68d076ad152a73c7b7df764cacd070392",
+      "originalSha256": "ad17d5129e61207bcb253e972b324ba68d076ad152a73c7b7df764cacd070392"
+    },
+    {
+      "path": "publish-stdout.bin",
+      "bytes": 58,
+      "decodedBytes": 58,
+      "sha256": "d6fbd97f56c78f543adfaf268257bd9ba298bf83e0dd415714f86345cda71f82",
+      "originalSha256": "d6fbd97f56c78f543adfaf268257bd9ba298bf83e0dd415714f86345cda71f82"
+    },
+    {
+      "path": "publish-stderr.bin",
+      "bytes": 462,
+      "decodedBytes": 462,
+      "sha256": "f91ed952f628da19529277fe91d12f1566e5181218d4a6ee0c51324e7f496ed3",
+      "originalSha256": "f91ed952f628da19529277fe91d12f1566e5181218d4a6ee0c51324e7f496ed3"
+    },
+    {
+      "path": "query-outcome.json",
+      "bytes": 1420,
+      "decodedBytes": 1420,
+      "sha256": "6f7936c7d119db956f6b894bee6f69c0c99d7f7f77b95c3b6af87a5d3bb5f308",
+      "originalSha256": "6f7936c7d119db956f6b894bee6f69c0c99d7f7f77b95c3b6af87a5d3bb5f308"
+    },
+    {
+      "path": "query-stdout.bin",
+      "bytes": 57,
+      "decodedBytes": 57,
+      "sha256": "7520552929eb1ea9e1dcbb66e277f2b3a6d801c61fd2cd49ccce798144877767",
+      "originalSha256": "7520552929eb1ea9e1dcbb66e277f2b3a6d801c61fd2cd49ccce798144877767"
+    },
+    {
+      "path": "query-stderr.bin",
+      "bytes": 598,
+      "decodedBytes": 598,
+      "sha256": "15d9afa6b4e35e35413328ac486f7d5d868334af6e3484160738186ca1f4fb00",
+      "originalSha256": "15d9afa6b4e35e35413328ac486f7d5d868334af6e3484160738186ca1f4fb00"
+    },
+    {
+      "path": "refused-a-outcome.json",
+      "bytes": 1315,
+      "decodedBytes": 1315,
+      "sha256": "a75264d4012ac4814c3cfc173297e6356b4d4a7b52288b62135863508682d9f9",
+      "originalSha256": "a75264d4012ac4814c3cfc173297e6356b4d4a7b52288b62135863508682d9f9"
+    },
+    {
+      "path": "refused-b-outcome.json",
+      "bytes": 277,
+      "decodedBytes": 277,
+      "sha256": "9049e9c49b5f2d22f84bd2564066aa8f036eee8263bbad5d2bd975295bd6c176",
+      "originalSha256": "9049e9c49b5f2d22f84bd2564066aa8f036eee8263bbad5d2bd975295bd6c176"
+    },
+    {
+      "path": "refused-a-stdout.bin",
+      "bytes": 0,
+      "decodedBytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "refused-a-stderr.bin",
+      "bytes": 1337,
+      "decodedBytes": 1337,
+      "sha256": "4351d87d63e81c4c891697500f93bb0421abb3c112cdc7a9d3fa054acc9b1a54",
+      "originalSha256": "4351d87d63e81c4c891697500f93bb0421abb3c112cdc7a9d3fa054acc9b1a54"
+    },
+    {
+      "path": "launcher-a.py",
+      "bytes": 5552,
+      "decodedBytes": 5552,
+      "sha256": "aec1be7d4970b37d7b900fa0b08a18ac45c96d437930811c8e0d33f397cc9571",
+      "originalSha256": "aec1be7d4970b37d7b900fa0b08a18ac45c96d437930811c8e0d33f397cc9571"
+    },
+    {
+      "path": "launcher-b.py",
+      "bytes": 5552,
+      "decodedBytes": 5552,
+      "sha256": "b1e3082ed34ce3e9aba84e000882dd58f872d5e9710bc186d1565bbc5b358d36",
+      "originalSha256": "b1e3082ed34ce3e9aba84e000882dd58f872d5e9710bc186d1565bbc5b358d36"
+    },
+    {
+      "path": "launcher-c.py",
+      "bytes": 5552,
+      "decodedBytes": 5552,
+      "sha256": "26f97cfdec91c4866de071a22b4095d5ce0e1808c5fe8867ff3f3240b8925776",
+      "originalSha256": "26f97cfdec91c4866de071a22b4095d5ce0e1808c5fe8867ff3f3240b8925776"
+    },
+    {
+      "path": "command-a.json",
+      "bytes": 17557,
+      "decodedBytes": 17557,
+      "sha256": "f519cc896754338103cacd04de8c01cdad240672988f78975c8a4e97575cc418",
+      "originalSha256": "f519cc896754338103cacd04de8c01cdad240672988f78975c8a4e97575cc418"
+    },
+    {
+      "path": "command-b.json",
+      "bytes": 19787,
+      "decodedBytes": 19787,
+      "sha256": "8866fdbb22eef9088b02c1406953b3c2563db14952926174c7ab8d070e2b642c",
+      "originalSha256": "8866fdbb22eef9088b02c1406953b3c2563db14952926174c7ab8d070e2b642c"
+    },
+    {
+      "path": "command-b-resources.json.gz",
+      "bytes": 275093,
+      "decodedBytes": 1265945,
+      "sha256": "251858f7f320e8de11758bf054277bcaff1f957eee8a9e278ed54878e738cf38",
+      "originalSha256": "1083f5afe820ff897297a9cfb77d7fd2e2fea6006499240991c59d6e4b7ff615"
+    },
+    {
+      "path": "command-b-preflight.py",
+      "bytes": 425,
+      "decodedBytes": 425,
+      "sha256": "efb3f2dfa0f8a43e332f6bb93e8c50b05f5c623b1f044c3632e0c3f4961512a2",
+      "originalSha256": "efb3f2dfa0f8a43e332f6bb93e8c50b05f5c623b1f044c3632e0c3f4961512a2"
+    },
+    {
+      "path": "command-b-preflight.log",
+      "bytes": 553,
+      "decodedBytes": 553,
+      "sha256": "93ed93b9269b2770fb939fd8cea2a4e4f755b0b18d72cf41c0e49f5d6f51e792",
+      "originalSha256": "93ed93b9269b2770fb939fd8cea2a4e4f755b0b18d72cf41c0e49f5d6f51e792"
+    },
+    {
+      "path": "review-command-review-20261010-b.json",
+      "bytes": 3858,
+      "decodedBytes": 3858,
+      "sha256": "c3a07338df7ef35108d1f5e8eb9ad22b07ff26ceac1a7b577b055ac2f784970b",
+      "originalSha256": "c3a07338df7ef35108d1f5e8eb9ad22b07ff26ceac1a7b577b055ac2f784970b"
+    },
+    {
+      "path": "review-publication-review-20261010-c.json",
+      "bytes": 3151,
+      "decodedBytes": 3151,
+      "sha256": "be71f43ca55f41aaaf2992c925bf44a2c5fc0fa11c1139d3f5c50f56d0f7881b",
+      "originalSha256": "be71f43ca55f41aaaf2992c925bf44a2c5fc0fa11c1139d3f5c50f56d0f7881b"
+    },
+    {
+      "path": "review-publication-rows-review-20261010-c.json",
+      "bytes": 22126,
+      "decodedBytes": 22126,
+      "sha256": "26d8714348f61a96205affa3ac9acc9e1fcf6ea48ee1522ab401fd6e3ee20934",
+      "originalSha256": "26d8714348f61a96205affa3ac9acc9e1fcf6ea48ee1522ab401fd6e3ee20934"
+    },
+    {
+      "path": "review-publication-query-eligibility-20261010-c.json",
+      "bytes": 2477,
+      "decodedBytes": 2477,
+      "sha256": "88e1a9f6c53c86e4fbf389b71f9c3bfee38db9a635432e2fe1284170c9156388",
+      "originalSha256": "88e1a9f6c53c86e4fbf389b71f9c3bfee38db9a635432e2fe1284170c9156388"
+    },
+    {
+      "path": "publication-before-query-vector.json",
+      "bytes": 14764,
+      "decodedBytes": 14764,
+      "sha256": "ea6a1ca6ba98e882860731a2e888cbe7bbcb988dde34d0a69e7d01f3c4359571",
+      "originalSha256": "ea6a1ca6ba98e882860731a2e888cbe7bbcb988dde34d0a69e7d01f3c4359571"
+    },
+    {
+      "path": "review-query-results.json",
+      "bytes": 6579,
+      "decodedBytes": 6579,
+      "sha256": "e7bb7f1537fe582d8915decf18d60e214b7cfdb74ecfee1d94b361c0a195a6e7",
+      "originalSha256": "e7bb7f1537fe582d8915decf18d60e214b7cfdb74ecfee1d94b361c0a195a6e7"
+    },
+    {
+      "path": "independent-query-oracle.json",
+      "bytes": 4851,
+      "decodedBytes": 4851,
+      "sha256": "a542eca6cc32857474adb69ba9609cff2d162992808aa0116eed73da597bdf4c",
+      "originalSha256": "a542eca6cc32857474adb69ba9609cff2d162992808aa0116eed73da597bdf4c"
+    },
+    {
+      "path": "review-query-transport.json",
+      "bytes": 7607,
+      "decodedBytes": 7607,
+      "sha256": "074205b2164c639d7b1a32a8e6a65de8f935b86eb8b141fe8bfa52bd7fba6a55",
+      "originalSha256": "074205b2164c639d7b1a32a8e6a65de8f935b86eb8b141fe8bfa52bd7fba6a55"
+    }
+  ],
+  "scope": "Parent read scope and limitations against approved actual publication+query receipts: finite11authoredcase/privatecomponent; no generic/nativeprofile/indexedinstallation/cloud/production/OTelreceiver/formal proof. Raw native resources externally retained and bound, not complete archive. All77originalpublicationfiles unchanged, with only2coordination additions; native66same. No normalization or semanticrewrite.",
+  "script": {
+    "path": "/private/tmp/astra-authored-path-native-archive-parent-review-20261010-a.py",
+    "sha256": "66c01f71afab4fa21fd02a371b872bf7382b0365b42b683c40398f5fefe6e74f"
+  }
+}

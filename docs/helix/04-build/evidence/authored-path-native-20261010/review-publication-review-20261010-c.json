@@ -1,0 +1,70 @@
+{
+  "verdict": "publication source, retained protected ACK, native journal and cleanup custody verified; raw-row review separate",
+  "publication": {
+    "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/report.json",
+    "sha256": "4c27b416df3ade069203156fcfe3e3c1fbed8d39b398e97883aa4ebf2bbb2e9f",
+    "bytes": 191881
+  },
+  "source": {
+    "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/source.jsonl",
+    "sha256": "ba286e8370e4a322a964fb306ae12b3322f88545ccbf5c0de063d252cad3143f",
+    "bytes": 16776
+  },
+  "publicReceipt": {
+    "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/public-dataset.json",
+    "sha256": "c61b71a61e40cf844b695087df38fd9abb2724f57b5ac4f7348d7dca75cd27fa",
+    "bytes": 388518
+  },
+  "sourceEvents": 20,
+  "publicInventory": [
+    10,
+    10,
+    10
+  ],
+  "nativeFiles": 66,
+  "committedNativeOperations": 9,
+  "journal": {
+    "path": "/private/tmp/ashlar-authored-path-publication-20261010-a/operations.sqlite",
+    "sha256": "2cf3cc7fca61452f2c8fea98f759a61bb762d876381ebefac07d35b9a47c9dcf",
+    "bytes": 3416064
+  },
+  "journalCopy": {
+    "path": "/private/tmp/astra-authored-path-publication-journal-copy-20261010-c.sqlite",
+    "sha256": "2cf3cc7fca61452f2c8fea98f759a61bb762d876381ebefac07d35b9a47c9dcf",
+    "bytes": 3416064
+  },
+  "sqlite": "3.53.1",
+  "protectedAck": {
+    "position": "1",
+    "previous": "0",
+    "requestDigest": "31a87a1a7be6682c914431e2f5614ae773c4ecd57cb66ab2bd3af1447e03e88d",
+    "requestBytesSHA256": "f99f3639c1e2d850ab1826c09609d30e13194e9c57f4a4d83d4f70454d81bc8e",
+    "manifestBytesSHA256": "3c79daa3ae3595c4d08c859cbdc7f2f85afa86c592ac9e53a308a249844391af",
+    "receiptBytesSHA256": "d57352ac9f1cb8c07fd628ac9ebb8ef939e5a9ec771ff4dd66e1b3473c7b41ee"
+  },
+  "runtime": {
+    "delta": "3.2.1",
+    "spark": "3.5.3"
+  },
+  "launcher": {
+    "path": "/private/tmp/launch_ashlar_authored_path_native_20261010_c.py",
+    "sha256": "26f97cfdec91c4866de071a22b4095d5ce0e1808c5fe8867ff3f3240b8925776",
+    "bytes": 5552
+  },
+  "outcome": {
+    "path": "/private/tmp/ashlar-authored-path-publish-custody-20261010-c/outcome.json",
+    "sha256": "ad17d5129e61207bcb253e972b324ba68d076ad152a73c7b7df764cacd070392",
+    "bytes": 1315
+  },
+  "originalPublicationFilesReadOnlyVerified": 77,
+  "scope": "Offline original-source/public-receipt/retained ordinary ACK/native commit correspondence; no engine, PG access or original SQLite connection. Copy-only SQLite3.53.1 integrity and committed-operation checks. Cleanup success follows reviewed finalizer ordering and launcher terminal/zero-engine gate. Existing finite authored private development profile only; no query result claim.",
+  "limitations": [
+    "Protected ACK observation retained from actual run, not a new live PG observation.",
+    "Unqualified system SQLite copy-only open failed; qualified Python3.11 SQLite3.53.1 succeeded. Original journal was never opened."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-authored-path-publication-review-20261010-c.py",
+    "sha256": "ffee46767a91e0ac494bb53581525a54b2b4557cc2ca7914e14f60d2e236ad56",
+    "bytes": 8094
+  }
+}

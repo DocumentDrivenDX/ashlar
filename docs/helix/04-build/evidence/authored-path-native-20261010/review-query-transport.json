@@ -1,0 +1,203 @@
+{
+  "verdict": "PASS exact eleven authored native query transport, emitted guard/schema/pin and closed ACK custody",
+  "report": {
+    "path": "/private/tmp/ashlar-authored-path-queries-20261010-a/report.json",
+    "sha256": "680275558919a4218e12f9ef801e86820129dc261b1980edc0dc51c57a2ad697",
+    "bytes": 9554597
+  },
+  "cases": [
+    {
+      "name": "parallel-six",
+      "requestSha256": "0491a1847edc80e535e73840bf75f0550c762188d08bb7109c41c07345ff2947",
+      "responseSha256": "e8010eeb5d9d19444d7c6c50e76498b94e444578d6673765a55f06f8fce03df9",
+      "requestBytes": 16626,
+      "responseBytes": 119844,
+      "freshCompilerBytesEqual": true,
+      "offlineSchemaAndFullAdmission": true,
+      "guards": 28,
+      "schemas": 6,
+      "rows": 1
+    },
+    {
+      "name": "truncated-two",
+      "requestSha256": "4446fd3991f9ecafaa43746a50e457629f00a6079563683689c89fd56f474456",
+      "responseSha256": "f83f7c65a8c0680c6739b3b32810215d1ab0800e0203b2a11a3b432dbfe78541",
+      "requestBytes": 16625,
+      "responseBytes": 119832,
+      "freshCompilerBytesEqual": true,
+      "offlineSchemaAndFullAdmission": true,
+      "guards": 28,
+      "schemas": 6,
+      "rows": 1
+    },
+    {
+      "name": "empty",
+      "requestSha256": "92ab7ac031dd7830a5662ce9ada0d3632dd0f663897a95007a1a60cbf8d98c89",
+      "responseSha256": "f16b0aae7e72cb8c3a5c42290935a2784d864b86525fabb539d1d53139ce869b",
+      "requestBytes": 16626,
+      "responseBytes": 119844,
+      "freshCompilerBytesEqual": true,
+      "offlineSchemaAndFullAdmission": true,
+      "guards": 28,
+      "schemas": 6,
+      "rows": 1
+    },
+    {
+      "name": "typed-order",
+      "requestSha256": "a73036f4d87185c0c06cb97eaa55059f8f8bcf73e07e791e2e1688b9f4f9ba19",
+      "responseSha256": "815a5c380c7ce9da9c6dada8e9d81871c1fe891b416ffaa257966d06c620f38b",
+      "requestBytes": 16631,
+      "responseBytes": 119854,
+      "freshCompilerBytesEqual": true,
+      "offlineSchemaAndFullAdmission": true,
+      "guards": 28,
+      "schemas": 6,
+      "rows": 1
+    },
+    {
+      "name": "inverse",
+      "requestSha256": "16d24b78c1b4f564af0ae681089fe8eb95bb97e6576eb9b403158e5da38abfe0",
+      "responseSha256": "547168505d2a0c2886d3ec695576a8c90553ab414e6e79c274643717575d3004",
+      "requestBytes": 16624,
+      "responseBytes": 120620,
+      "freshCompilerBytesEqual": true,
+      "offlineSchemaAndFullAdmission": true,
+      "guards": 28,
+      "schemas": 6,
+      "rows": 1
+    },
+    {
+      "name": "self-loop",
+      "requestSha256": "67102b07a0ddff5eee61e5609853b8997970ebdc4f6e91a083e6ba844662df2f",
+      "responseSha256": "e25e85a72f6d4fab7de86d8d8cb776618a7ad9b23d4eded484a65538dd47bc0f",
+      "requestBytes": 16624,
+      "responseBytes": 85353,
+      "freshCompilerBytesEqual": true,
+      "offlineSchemaAndFullAdmission": true,
+      "guards": 19,
+      "schemas": 6,
+      "rows": 1
+    },
+    {
+      "name": "left-presence",
+      "requestSha256": "642b88b2bed35eddfe11e43df1e463c26198d2c4064d462e2510d629bf311aab",
+      "responseSha256": "619a6d44487bbf1d5e09a241d84e9fbb03a3ebc2b0ae5e8c6b416c0ef238f559",
+      "requestBytes": 16649,
+      "responseBytes": 135726,
+      "freshCompilerBytesEqual": true,
+      "offlineSchemaAndFullAdmission": true,
+      "guards": 31,
+      "schemas": 7,
+      "rows": 3
+    },
+    {
+      "name": "six",
+      "requestSha256": "fd69f92518108d079d02d0dd8e93b534dd1604322b6b0fe97401416cc960c511",
+      "responseSha256": "9728b29e18515c29eadbededf72666f7993d1e5faf61ce6ab221a9534af042e0",
+      "requestBytes": 16625,
+      "responseBytes": 113229,
+      "freshCompilerBytesEqual": true,
+      "offlineSchemaAndFullAdmission": true,
+      "guards": 28,
+      "schemas": 6,
+      "rows": 1
+    },
+    {
+      "name": "oneTarget",
+      "requestSha256": "90db7ecdaa22a822e641e096418b382de7a954d07a5a3d565dcd86938a6f28c8",
+      "responseSha256": "f3d388297ebade25affc58058c002ad5deda199f373b6f596a6ca985ae0b77c4",
+      "requestBytes": 16650,
+      "responseBytes": 114094,
+      "freshCompilerBytesEqual": true,
+      "offlineSchemaAndFullAdmission": true,
+      "guards": 28,
+      "schemas": 6,
+      "rows": 1
+    },
+    {
+      "name": "zero",
+      "requestSha256": "e9aa04df3ffba82f196c7e96dbd822efa2a10ca6f93a8e1538c9f90af4ef7497",
+      "responseSha256": "f827fd298c5f4538163729c825906be6d093cad3b21ae2ae0c5ce0560bae2db8",
+      "requestBytes": 16625,
+      "responseBytes": 113229,
+      "freshCompilerBytesEqual": true,
+      "offlineSchemaAndFullAdmission": true,
+      "guards": 28,
+      "schemas": 6,
+      "rows": 1
+    },
+    {
+      "name": "noGroups",
+      "requestSha256": "d511c034b5e4034e89f6846f8c0b19aff34167ab9e0fe209f884478281a986ff",
+      "responseSha256": "bd47fab1c3ef759303a84a9bee350ae74048ca398432af3334c3b911ecc25125",
+      "requestBytes": 16645,
+      "responseBytes": 115731,
+      "freshCompilerBytesEqual": true,
+      "offlineSchemaAndFullAdmission": true,
+      "guards": 28,
+      "schemas": 6,
+      "rows": 0
+    }
+  ],
+  "guardCaptures": 302,
+  "allGuardCounts": "0",
+  "nativeSchemaObservations": 67,
+  "closedIntervals": 12,
+  "ordinaryAckObservations": 24,
+  "distinctOrdinarySessionPids": [
+    "644156",
+    "644169",
+    "644201",
+    "644233",
+    "644264",
+    "644295",
+    "644327",
+    "644351",
+    "644382",
+    "644413",
+    "644438",
+    "644469"
+  ],
+  "nativeFilesUnchanged": 66,
+  "publicationOriginalFilesUnchanged": 77,
+  "closingPublicationFiles": 79,
+  "addedCoordinationFiles": [
+    {
+      "path": "operations.sqlite-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "operations.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    }
+  ],
+  "scope": "Retained native schema and zero-guard captures correspond exactly to compiler obligations in source-before-capacity order. All11 original requests freshly compile byte-identically using pinned private c6 component; actual offline04schemas and full host admission pass. Reviewed committed host passes emitted SQL and exact parameter slots unchanged. Complete raw result semantics independently checked in separate rawgraph receipt. No engine, PG or SQLite connection in this review.",
+  "runtime": {
+    "delta": "4.0.0",
+    "spark": "4.0.1"
+  },
+  "cleanup": "Report exists only after reviewed reader/Spark finalizer; terminal0 launcher rechecks exact source/resources/zero engines/privatePG. Original77files unchanged; two coordination files added, no inference about cause or wholeinventory equality.",
+  "compiler": {
+    "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/weft-paths",
+    "sha256": "8946ada68a7132a2ba6c1abdc1c9a0e904922cb1dce2c500922cb0dd0a96562b",
+    "bytes": 8274496
+  },
+  "outcome": {
+    "path": "/private/tmp/ashlar-authored-path-query-custody-20261010-c/outcome.json",
+    "sha256": "6f7936c7d119db956f6b894bee6f69c0c99d7f7f77b95c3b6af87a5d3bb5f308",
+    "bytes": 1420
+  },
+  "rawResultReview": {
+    "path": "/private/tmp/astra-authored-path-query-results-review-20261010-c.json",
+    "sha256": "e7bb7f1537fe582d8915decf18d60e214b7cfdb74ecfee1d94b361c0a195a6e7",
+    "bytes": 6579
+  },
+  "script": {
+    "path": "/private/tmp/astra-authored-path-query-transport-review-20261010-c.py",
+    "sha256": "de8027e53af70295da7f137a7281ceefb428a4c0158af8ceadc45959dc813cab",
+    "bytes": 9864
+  },
+  "limits": "Finite11authored cases/privateSpark4.0.1Delta4.0.0,c6candidateonly; no arbitraryquery/indexedrelease/Databricks/UC/Truss/production/OTelreceiver/unboundedformal proof."
+}

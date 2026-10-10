@@ -1,0 +1,288 @@
+{
+  "umf": "0.8.0",
+  "id": "urn:ashlar:qualification:two-hop-paths",
+  "vocabularies": {},
+  "modules": [
+    {
+      "id": "paths",
+      "namespace": "urn:ashlar:qualification:paths",
+      "elements": [
+        {
+          "id": "Start",
+          "name": "start",
+          "kind": "record",
+          "members": [
+            {
+              "module": "paths",
+              "element": "Start.id"
+            }
+          ],
+          "keys": [
+            {
+              "id": "identity",
+              "name": "Identity",
+              "fields": [
+                {
+                  "module": "paths",
+                  "element": "Start.id"
+                }
+              ],
+              "primary": true
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "Start.id",
+          "name": "id",
+          "kind": "field",
+          "scalarType": "string",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {}
+        },
+        {
+          "id": "Bridge",
+          "name": "bridge",
+          "kind": "record",
+          "members": [
+            {
+              "module": "paths",
+              "element": "Bridge.rank"
+            },
+            {
+              "module": "paths",
+              "element": "Bridge.label"
+            },
+            {
+              "module": "paths",
+              "element": "Bridge.flag"
+            }
+          ],
+          "keys": [
+            {
+              "id": "identity",
+              "name": "Identity",
+              "fields": [
+                {
+                  "module": "paths",
+                  "element": "Bridge.rank"
+                },
+                {
+                  "module": "paths",
+                  "element": "Bridge.label"
+                },
+                {
+                  "module": "paths",
+                  "element": "Bridge.flag"
+                }
+              ],
+              "primary": true
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "Bridge.rank",
+          "name": "rank",
+          "kind": "field",
+          "scalarType": "integer",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {},
+          "facets": {
+            "integerWidth": {
+              "bits": 64,
+              "signed": true
+            }
+          }
+        },
+        {
+          "id": "Bridge.label",
+          "name": "label",
+          "kind": "field",
+          "scalarType": "string",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {}
+        },
+        {
+          "id": "Bridge.flag",
+          "name": "flag",
+          "kind": "field",
+          "scalarType": "boolean",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {}
+        },
+        {
+          "id": "Terminal",
+          "name": "terminal",
+          "kind": "record",
+          "members": [
+            {
+              "module": "paths",
+              "element": "Terminal.id"
+            }
+          ],
+          "keys": [
+            {
+              "id": "identity",
+              "name": "Identity",
+              "fields": [
+                {
+                  "module": "paths",
+                  "element": "Terminal.id"
+                }
+              ],
+              "primary": true
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "Terminal.id",
+          "name": "id",
+          "kind": "field",
+          "scalarType": "string",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {}
+        },
+        {
+          "id": "Anchor",
+          "name": "anchor",
+          "kind": "record",
+          "members": [
+            {
+              "module": "paths",
+              "element": "Anchor.id"
+            },
+            {
+              "module": "paths",
+              "element": "Anchor.start_ref"
+            }
+          ],
+          "keys": [
+            {
+              "id": "identity",
+              "name": "Identity",
+              "fields": [
+                {
+                  "module": "paths",
+                  "element": "Anchor.id"
+                }
+              ],
+              "primary": true
+            }
+          ],
+          "extensions": {}
+        },
+        {
+          "id": "Anchor.id",
+          "name": "id",
+          "kind": "field",
+          "scalarType": "string",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {}
+        },
+        {
+          "id": "Anchor.start_ref",
+          "name": "start_ref",
+          "kind": "field",
+          "scalarType": "string",
+          "cardinality": "one",
+          "nullability": "required",
+          "extensions": {}
+        }
+      ],
+      "relationships": [
+        {
+          "id": "start-bridge",
+          "name": "bridge",
+          "source": [
+            {
+              "module": "paths",
+              "element": "Start"
+            }
+          ],
+          "target": [
+            {
+              "module": "paths",
+              "element": "Bridge",
+              "key": "identity"
+            }
+          ],
+          "sourceMultiplicity": {
+            "min": 0,
+            "max": "*"
+          },
+          "targetMultiplicity": {
+            "min": 0,
+            "max": "*"
+          },
+          "targetLifecycle": "independent",
+          "directed": true,
+          "inverse": "starts"
+        },
+        {
+          "id": "bridge-terminal",
+          "name": "terminal",
+          "source": [
+            {
+              "module": "paths",
+              "element": "Bridge"
+            }
+          ],
+          "target": [
+            {
+              "module": "paths",
+              "element": "Terminal",
+              "key": "identity"
+            }
+          ],
+          "sourceMultiplicity": {
+            "min": 0,
+            "max": "*"
+          },
+          "targetMultiplicity": {
+            "min": 0,
+            "max": "*"
+          },
+          "targetLifecycle": "independent",
+          "directed": true,
+          "inverse": "bridges"
+        },
+        {
+          "id": "bridge-loop",
+          "name": "loop",
+          "source": [
+            {
+              "module": "paths",
+              "element": "Bridge"
+            }
+          ],
+          "target": [
+            {
+              "module": "paths",
+              "element": "Bridge",
+              "key": "identity"
+            }
+          ],
+          "sourceMultiplicity": {
+            "min": 0,
+            "max": "*"
+          },
+          "targetMultiplicity": {
+            "min": 0,
+            "max": "*"
+          },
+          "targetLifecycle": "independent",
+          "directed": true,
+          "inverse": "loopBack"
+        }
+      ]
+    }
+  ]
+}
