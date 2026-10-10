@@ -40,7 +40,7 @@ https://documentdrivendx.github.io/ashlar/.
 ## UMF schema browser
 
 The schema page embeds UMF’s actual browser, pinned at
-`c433cfcdde21995803aad65234f20ba95d8c3222`, with a standalone view at
+`cea3fa03480de1f3437ecd6d23e500bea618e0f3`, with a standalone view at
 `model/schema-browser/index.html`. The upstream JS/CSS remain byte-identical.
 Ashlar owns the surrounding HTML/CSS and a catalog containing the exact eight
 physical UMF definitions plus the logical fields/keys/relationships model.

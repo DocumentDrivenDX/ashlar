@@ -13,22 +13,30 @@ and engage the installed `helix` skill for governed work.
 
 ## Project context
 
-Ashlar's owner requested a standard structure for graph nodes on Databricks,
-selected the name Ashlar, and authorized this repository and HELIX bootstrap.
-Discovery drafts exist; PRD, feature specifications, architecture, and code do not.
-The next action is `frame`.
+Ashlar defines domain-independent property graphs on Unity Catalog managed Delta
+tables. Native singleton reads must work independently of Fabric Graph. Read the
+product requirements and publication, consumer, table and resolver contracts
+before extending a boundary; do not infer requirements from implementation status.
 
-Databricks is the stated target. Runtime language, storage format, graph model,
-node identity, relationship scope, enforcement mechanisms, supported versions,
-and first users remain undecided. Do not inherit truss's PostgreSQL or TypeScript
-ADRs: they belong to a separate project.
+UMF owns reusable schema interpretation, validation and DDL generation. Preserve
+declared schema versions, native semantics and unknown extensions. Put explicit
+Ashlar meanings in versioned extension vocabularies. Repair demonstrated reusable
+domain-pack gaps in UMF rather than introducing a second interpretation in Ashlar.
 
-UMF (DocumentDrivenDX's machine-readable metamodel and schema interchange fabric),
-tablespec, truss, and Axon are related projects, not dependencies selected here.
-If Ashlar consumes UMF, preserve its semantics and put Ashlar-specific concepts
-in an explicit extension vocabulary rather than redefining UMF meaning.
+Weft owns query compilation; Ashlar owns publication-bound execution adapters.
+Do not repair compiler SQL in an adapter. Truss owns its accepted source boundary;
+do not inherit its PostgreSQL or TypeScript ADRs or substitute development fixtures
+for actual Truss acceptance and feed evidence.
 
-Qualify future support claims by platform/runtime version, selected model or
-format version, supported subset, and evidence. Distinguish declared constraints
-from constraints actually enforced. Use synthetic examples until a real dataset
-and its governance requirements are explicitly supplied.
+Qualify support claims by platform/runtime version, model or format version,
+supported subset and exact evidence. Distinguish declared constraints from enforced
+constraints, preparation from native execution, and development source authority
+from production authority. Preserve identity, presence, exact values, multiplicity,
+full publication vectors and source/ACK custody throughout each workflow.
+
+Specs describe desired behavior. Keep implementation status short in the README
+and retain execution results under build evidence. Keep native checks small and
+sequential; use local systems or an explicitly dedicated Databricks endpoint,
+never the shared default cluster. Do not renew scale benchmarks or disable
+predictive optimization. Land tested, independently reviewed iterations on main
+and push to origin.
