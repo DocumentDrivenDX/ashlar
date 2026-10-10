@@ -3,18 +3,23 @@
 This inspects compiler IR, never SQL or UMF source meaning. Scalar source checks
 and the complete publication interval remain mandatory. Unknown operations fail
 closed. Default routes refuse aggregates; explicit required-String COUNT DISTINCT
-and literal IN require separate capacity guards and target admission.
+and literal IN require separate capacity guards and target admission. A separate
+optional-String count/HAVING route retains authored availability and per-Field
+native-null admission; it does not widen default or required-count routes.
 """
 import hashlib,json
 
 
-def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False, native_null=False, distinct=False, count_distinct=False):
+def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False, native_null=False, distinct=False, count_distinct=False, count_having=False):
     if type(native_null) is not bool:
         raise ValueError('Explicit native-null opt-in must be Boolean')
     if type(distinct) is not bool or (distinct and native_null):
         raise ValueError("Explicit separate DISTINCT host opt-in required")
     if type(count_distinct) is not bool or (count_distinct and (native_null or distinct or positioned_output_only)):
         raise ValueError('Explicit separate distinct-count host opt-in required')
+    if type(count_having) is not bool or (count_having and (count_distinct or native_null or distinct or positioned_output_only)):
+        raise ValueError("Explicit separate optional-count/HAVING opt-in required")
+    count_route = count_distinct or count_having
     native_null_ids = set()
     native_null_graph_ids = set()
 
@@ -57,19 +62,23 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
     plan = artifact.get('logicalPlan')
     closed(plan, ('aggregate', 'filters', 'groups', 'irVersion', 'joins', 'limit',
                   'modulePins', 'order', 'outputs', 'pageKey', 'readProfile',
-                  'requiredCapabilities', 'source', 'typeGraph') + (('distinct',) if distinct else ()))
-    if (plan['irVersion'] != 'weft-ir/0.3.0' or (type(plan['aggregate']) is not bool or (not count_distinct and plan['aggregate'] is not False))
-            or (not count_distinct and plan['groups'] != []) or any(plan[k] is not None for k in ('pageKey', 'readProfile'))
+                  'requiredCapabilities', 'source', 'typeGraph') + (('distinct',) if distinct else ()) + (('having',) if count_having and 'having' in plan else ()))
+    if (plan['irVersion'] != 'weft-ir/0.3.0' or (type(plan['aggregate']) is not bool or (not count_route and plan['aggregate'] is not False))
+            or (not count_route and plan['groups'] != []) or any(plan[k] is not None for k in ('pageKey', 'readProfile'))
             or (plan['limit'] is not None and (not distinct or type(plan['limit']) is not int or not 1 <= plan['limit'] <= 1000))
             or plan['modulePins'] != binding['modelPins']):
         raise ValueError('Empty arithmetic checks require a complete field-only row plan')
+    if count_having and (plan['joins'] or ('having' in plan and (type(plan['having']) is not list or len(plan['having']) != 1))):
+        raise ValueError('Single original Record and omitted-or-single HAVING required')
     allowed = {'project', 'scan', 'filter', 'equal', 'innerJoin', 'order.asc', 'and',
                'parameter.named', 'type.integer', 'type.integer.unbounded',
                'type.string', 'type.boolean', 'type.decimal', 'compare.notEqual',
                'project.positionedOutputs', 'compare.less', 'compare.lessEqual',
                'compare.greaterEqual', 'compare.scalarJoin'}
-    if count_distinct:
+    if count_route:
         allowed={'project','scan','filter','equal','innerJoin','order.asc','and','type.string','aggregate','group','aggregate.countDistinct','predicate.stringIn'}
+        if count_having:
+            allowed |= {'aggregate.countDistinct.optional','aggregate.havingCountDistinctGreater','value.nativeNull','value.presence','predicate.nativeNull'}
         if (type(plan['requiredCapabilities']) is not list or any(type(c) is not str for c in plan['requiredCapabilities'])
                 or len(set(plan['requiredCapabilities'])) != len(plan['requiredCapabilities'])
                 or not {'scan','project','type.string'} <= set(plan['requiredCapabilities'])
@@ -124,7 +133,7 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
             raise ValueError('Original default Field facets required')
         availability = original.get('nullability')
         facets = original.get('facets', {})
-        if (original.get('cardinality') != 'one' or availability not in ({'required', 'absent-allowed'} if native_null else {'required'})
+        if (original.get('cardinality') != 'one' or availability not in ({'required', 'absent-allowed'} if native_null or count_having else {'required'})
                 or original.get('scalarType') not in {'string', 'integer', 'decimal', 'boolean'}):
             raise ValueError('Original closed scalar metadata required')
         result = {'family': original['scalarType'], 'facets': facets, 'nullable': False}
@@ -150,7 +159,7 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         scans[name] = (record_key, properties)
         return name
 
-    def field(value, visible, *, typed=True, string_only=False):
+    def field(value, visible, *, typed=True, string_only=False, optional_count=False):
         closed(value, ('identity', 'scan', 'span', 'type') if typed else ('identity', 'scan', 'op'))
         if not typed and value['op'] != 'field':
             raise ValueError('Only original direct Field outputs admitted')
@@ -165,8 +174,10 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
             logical_type(value['type'], string_only)
             if value['type'] != original_type(key):
                 raise ValueError('Field type differs from original authored metadata')
-        if count_distinct and original_type(key) != {'family':'string','facets':{},'nullable':False}:
+        if count_route and original_type(key) != {'family':'string','facets':{},'nullable':False}:
             raise ValueError('Distinct-count inputs require original required String Fields')
+        if count_having and key in native_null_ids and not optional_count:
+            raise ValueError("Optional input requires explicit counted-argument/null-test admission")
         required_checks.add((scans[occurrence][0], key))
         if original_type(key)['family'] == 'integer':
             integer_checks.add((scans[occurrence][0], key))
@@ -180,7 +191,7 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         if type(p['position']) is not int or p['position'] != index or type(p['value']) is not str or type(p['origin']) is not dict:
             raise ValueError('Original exact ordered slot required')
         logical_type(p['logicalType'])
-        if count_distinct and p['origin'].get('kind')=='namedParameter':raise ValueError('Named slots are outside the explicit String set/count host subset')
+        if count_route and p['origin'].get('kind')=='namedParameter':raise ValueError('Named slots are outside the explicit String set/count host subset')
 
     def operand(value, visible):
         if type(value) is not dict:
@@ -191,7 +202,7 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
             return
         keys = ('kind', 'value', 'type', 'span')
         if value.get('kind') == 'parameter':
-            if count_distinct:raise ValueError('Named parameters are outside the explicit String set/count host subset')
+            if count_route:raise ValueError('Named parameters are outside the explicit String set/count host subset')
             keys += ('name',)
         elif value.get('kind') != 'literal':
             raise ValueError('Unknown comparison operand')
@@ -209,11 +220,13 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
     comparison_caps=set()
     in_used=False
     equality_used=False
+    null_tests=set()
     def predicate(value, visible, *, join=False):
         nonlocal in_used,equality_used
-        if count_distinct and type(value) is dict and value.get('op') == 'stringIn':
+        if count_route and type(value) is dict and value.get('op') == 'stringIn':
             closed(value, ('op','field','values'))
-            field(value['field'],visible,string_only=True)
+            in_key=field(value['field'],visible,string_only=True)
+            if count_having and in_key in native_null_ids:raise ValueError('Optional IN is outside the HAVING host subset')
             if type(value['values']) is not list or not 1 <= len(value['values']) <= 256:
                 raise ValueError('Original bounded nonempty String IN slots required')
             for v in value['values']:
@@ -222,11 +235,13 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
                 operand(v,visible)
             in_used=True
             return
-        if native_null and type(value) is dict and value.get('op') == 'nullTest':
+        if (native_null or count_having) and type(value) is dict and value.get('op') == 'nullTest':
             closed(value, ('op', 'field', 'negated'))
             if type(value['negated']) is not bool or 'predicate.nativeNull' not in plan['requiredCapabilities']:
                 raise ValueError('Original explicit null-test capability required')
-            native_null_graph_ids.add(field(value['field'], visible))
+            null_key=field(value['field'], visible,optional_count=count_having)
+            native_null_graph_ids.add(null_key)
+            null_tests.add((value['field']['scan'],null_key))
             return
         if native_null and type(value) is dict and value.get('op') == 'nullableStringEqual':
             closed(value, ('op', 'left', 'right'))
@@ -285,11 +300,13 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
     groups=[]
     for f in plan['groups']:
         key=field(f,visible,string_only=True);pair=(f['scan'],key)
+        if count_having and key in native_null_ids:raise ValueError('Optional grouping is outside the HAVING host subset')
         if pair in groups:raise ValueError('Original unique grouping Fields required')
         groups.append(pair)
     for f in plan['order']:
-        key=field(f, visible,string_only=count_distinct)
-        if count_distinct and plan['aggregate'] and (f['scan'],key) not in groups:
+        key=field(f, visible,string_only=count_route)
+        if count_having and key in native_null_ids:raise ValueError('Optional ordering is outside the HAVING host subset')
+        if count_route and plan['aggregate'] and (f['scan'],key) not in groups:
             raise ValueError('Distinct-count ordering requires original grouping identity')
     columns = artifact.get('columns')
     if type(columns) is not list or not plan['outputs'] or len(plan['outputs']) != len(columns):
@@ -299,19 +316,22 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         raise ValueError('Separate output-only proof is restricted to positioned descriptors')
     if (len({o.get('name') for o in plan['outputs']}) != len(plan['outputs'])) != positioned:
         raise ValueError('Exact original repeated-output capability required')
-    if count_distinct and positioned:raise ValueError('Distinct-count host requires unique original output names')
+    if count_route and positioned:raise ValueError('Distinct-count host requires unique original output names')
     if positioned:
         admit_positioned_outputs(artifact)
     graph_ids = set()
     for d in plan['typeGraph']:
         closed(d, ('identity', 'availability', 'kind', 'type'))
         key = identity(d['identity'])
+        logical_type(d['type'])
         if key in graph_ids or key not in original_fields or d['availability'] != original_fields[key].get('nullability') or d['kind'] != 'scalar' or d['type'] != original_type(key):
             raise ValueError('Unproved or duplicate original type descriptor')
         graph_ids.add(key)
-    expected_graph = {identity(o['expression']['identity']) for o in plan['outputs'] if not (count_distinct and o['expression'].get('op')=='countDistinct')}
-    if native_null:
+    expected_graph = {identity(o['expression']['identity']) for o in plan['outputs'] if not (count_route and o['expression'].get('op')=='countDistinct')}
+    if native_null or count_having:
         expected_graph |= native_null_graph_ids
+    if count_having:
+        expected_graph |= {identity(o['expression']['argument']['identity']) for o in plan['outputs'] if o['expression'].get('op') == 'countDistinct' and original_fields[identity(o['expression']['argument']['identity'])].get('nullability') == 'absent-allowed'}
     if graph_ids != expected_graph:
         raise ValueError('Exact original output type graph required')
     count_used=False
@@ -319,12 +339,14 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         closed(output, ('name', 'expression'))
         closed(column, ('outputName', 'position', 'sourceIdentities', 'nullable', 'representation') + (('carrierName',) if positioned else ()))
         expression=output['expression']
-        if count_distinct and type(expression) is dict and expression.get('op') == 'countDistinct':
+        if count_route and type(expression) is dict and expression.get('op') == 'countDistinct':
             closed(expression,('op','argument','type'))
             count_type={'family':'integer','facets':{},'nullable':False}
             logical_type(expression['type'])
             if expression['type'] != count_type:raise ValueError('Exact mathematical Integer count result required')
-            field(expression['argument'],visible,string_only=True)
+            argument_key=field(expression['argument'],visible,string_only=True,optional_count=count_having)
+            if count_having and argument_key in native_null_ids:
+                native_null_graph_ids.add(argument_key)
             closed(column['representation'],('kind','carrier','logicalType','decoder'))
             logical_type(column['representation']['logicalType'])
             if (column['outputName'] != output['name'] or type(column['position']) is not int or column['position'] != index
@@ -334,7 +356,8 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
             count_used=True
             continue
         key = field(expression, visible, typed=False)
-        if count_distinct and plan['aggregate'] and (expression['scan'],key) not in groups:
+        if count_having and key in native_null_ids:raise ValueError('Optional direct output is outside the HAVING host subset')
+        if count_route and plan['aggregate'] and (expression['scan'],key) not in groups:
             raise ValueError('Distinct-count direct outputs must be original grouping Fields')
         if column.get('outputName') != output['name'] or type(column.get('position')) is not int or column['position'] != index:
             raise ValueError('Original output order differs')
@@ -359,7 +382,7 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         decoders = {'string': 'text', 'integer': 'exact-integer', 'decimal': 'exact-decimal', 'boolean': 'boolean'}
         if representation['kind'] != 'scalar' or representation['carrier'] != 'text' or representation['logicalType'] != d['type'] or representation['decoder'] != decoders[d['type']['family']]:
             raise ValueError('Original exact output carrier differs')
-    if count_distinct:
+    if count_route:
         caps=set(plan['requiredCapabilities'])
         if (plan['aggregate'] is not (count_used or bool(groups)) or bool(groups) != ('group' in caps)
                 or count_used != ('aggregate.countDistinct' in caps) or plan['aggregate'] != ('aggregate' in caps)
@@ -371,6 +394,31 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         if plan['aggregate'] and not count_used:raise ValueError('Only explicitly projected distinct-count grouping admitted')
         projected_groups={(o['expression']['scan'],identity(o['expression']['identity'])) for o in plan['outputs'] if o['expression'].get('op')!='countDistinct'}
         if plan['aggregate'] and set(groups)!=projected_groups:raise ValueError('Every exact group identity must be projected for this closed count host')
+    if count_having:
+        having=plan.get('having',[])
+        if type(having) is not list or len(having)>1:
+            raise ValueError('One closed projected-count HAVING required')
+        caps=set(plan['requiredCapabilities'])
+        if bool(having) != ('aggregate.havingCountDistinctGreater' in caps) or bool(native_null_ids) != ('aggregate.countDistinct.optional' in caps) or bool(native_null_ids) != ('value.nativeNull' in caps) or bool(native_null_ids) != ('value.presence' in caps) or bool(null_tests) != ('predicate.nativeNull' in caps):
+            raise ValueError('Exact optional-count/HAVING capability correspondence required')
+        counted={(o['expression']['argument']['scan'],identity(o['expression']['argument']['identity'])) for o in plan['outputs'] if o['expression'].get('op')=='countDistinct'}
+        if not null_tests<=counted:raise ValueError('Null tests must reference explicit counted arguments')
+        counted_keys={key for _,key in counted}
+        if any(key not in counted_keys for key in native_null_ids):
+            raise ValueError('Optional fields are restricted to counted arguments')
+        for item in having:
+            closed(item,('count','threshold'));c=item['count'];closed(c,('op','argument','type'));logical_type(c['type'])
+            if c['op']!='countDistinct' or c['type']!={'family':'integer','facets':{},'nullable':False}:
+                raise ValueError('Exact projected COUNT in HAVING required')
+            key=field(c['argument'],visible,string_only=True,optional_count=True)
+            if (c['argument']['scan'],key) not in counted:
+                raise ValueError('HAVING must match original projected count identity')
+            t=item['threshold'];closed(t,('kind','value','type','span'));span(t['span']);logical_type(t['type'])
+            import re
+            if t['kind']!='literal' or t['type']!=c['type'] or type(t['value']) is not str or len(t['value'])>1024 or not re.fullmatch('[0-9]+',t['value']) or int(t['value'])>9223372036854775807:
+                raise ValueError('Exact nonnegative literal within native threshold capacity required')
+            if not any(q['logicalType']==t['type'] and q['value']==t['value'] and q['origin']=={'kind':'literal','sourceSpan':t['span']} for q in parameters):
+                raise ValueError('Exact original HAVING literal slot required')
     if distinct:
         projected = {(o['expression']['scan'], identity(o['expression']['identity'])) for o in plan['outputs']}
         if any((f['scan'], identity(f['identity'])) not in projected for f in plan['order']):
@@ -386,7 +434,7 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
                if c.get('publicSourceOnly') is not True and c.get('representabilityOnly') is not True}
     if not required_checks <= covered:
         raise ValueError('Every original consumed Field requires a native source-integrity check')
-    if native_null:
+    if native_null or count_having:
         if native_null_ids and 'value.nativeNull' not in plan['requiredCapabilities']:
             raise ValueError('Explicit native-null capability required')
         for key in native_null_ids:

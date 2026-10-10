@@ -8,6 +8,7 @@ from decimal import Decimal
 from run_commerce_publication_weft import compiler_request as old_request,encoded,SOURCE_SHA
 from check_commerce_graphframes_scenarios import scenario_oracle
 
+HAVING_BACKEND={'backendId':'ashlar.databricks.count-having','backendVersion':'0.3.0-count-having-candidate','targetProfile':'spark4-delta4-count-having-candidate'}
 COUNT_BACKEND={'backendId':'ashlar.databricks.count-distinct','backendVersion':'0.3.0-count-distinct-candidate','targetProfile':'spark4-delta4-count-distinct-candidate'}
 BACKEND={'backendId':'ashlar.databricks','backendVersion':'0.3.0-arithmetic-candidate','targetProfile':'spark4-delta4-arithmetic-candidate'}
 OBLIGATIONS={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.arithmetic.exact'}
@@ -100,18 +101,21 @@ class NativeGuardRefusal(ValueError):
         super().__init__('Original native '+obligation+' refused before user query')
         self.evidence={'obligation':obligation,'check':check,'rows':rows,'priorChecks':prior_checks,'userSqlExecuted':False,'resultReleased':False}
 
-def execute_guarded(provider,request,artifact,*,context,public_source=None,positioned_outputs=False,native_null=False,distinct=False,count_distinct=False):
+def execute_guarded(provider,request,artifact,*,context,public_source=None,positioned_outputs=False,native_null=False,distinct=False,count_distinct=False,count_having=False):
     # Private snapshots precede every admission callback and native action.
     request,artifact=copy.deepcopy(request),copy.deepcopy(artifact)
     binding=json.loads(request['target']['bindingJson'])
     if type(count_distinct) is not bool or (count_distinct and (native_null or distinct or positioned_outputs)):
         raise ValueError('Explicit separate String set/count host opt-in required')
-    backend=COUNT_BACKEND if count_distinct else BACKEND
+    if type(count_having) is not bool or (count_having and (count_distinct or native_null or distinct or positioned_outputs)):
+        raise ValueError("Explicit separate optional-count/HAVING host opt-in required")
+    count_route=count_distinct or count_having
+    backend=HAVING_BACKEND if count_having else COUNT_BACKEND if count_distinct else BACKEND
     if request['target']!={**backend,'bindingJson':request['target']['bindingJson'],'bindingSha256':hashlib.sha256(request['target']['bindingJson'].encode()).hexdigest()} or artifact.get('status')!='compiled' or artifact.get('bindingSha256')!=request['target']['bindingSha256'] or artifact.get('modelPins')!=binding['modelPins']:raise ValueError('Exact compiler/binding custody required')
     plan = artifact.get('logicalPlan',{})
-    if count_distinct:
+    if count_route:
         from weft_field_plan import admit_field_plan
-        admit_field_plan(artifact,binding,request['modules'],count_distinct=True)
+        admit_field_plan(artifact,binding,request['modules'],count_distinct=count_distinct,count_having=count_having)
     uses_distinct = 'distinct' in plan or 'project.distinct' in plan.get('requiredCapabilities',[])
     if type(distinct) is not bool or (uses_distinct and not distinct) or (distinct and native_null):
         raise ValueError('Explicit separate DISTINCT host opt-in required before callbacks')
@@ -121,7 +125,7 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
     null_caps = {'predicate.nativeNull','compare.nullAwareStringEqual','value.nativeNull'}
     uses_null = bool(null_caps & set(artifact.get('logicalPlan',{}).get('requiredCapabilities',[])))
     uses_null = uses_null or any(p.get('home',{}).get('encoding')=='ashlar-weft-json-native-null/0.1-candidate' for r in binding.get('records',[]) for p in r.get('properties',[]))
-    if type(native_null) is not bool or (uses_null and not native_null):
+    if type(native_null) is not bool or (uses_null and not (native_null or count_having)):
         raise ValueError('Explicit native-null host opt-in required before callbacks')
     if native_null:
         from weft_field_plan import admit_field_plan
@@ -148,21 +152,22 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
     arithmetic=params_by_id['ashlar.arithmetic.exact']
     if not arithmetic['checks']:
         plan=artifact.get('logicalPlan',{})
-        if native_null or distinct or count_distinct:
+        if native_null or distinct or count_route:
             pass  # complete explicit original optional/distinct field proof above
         elif any(plan.get(k) for k in ('filters','joins','order')):
             from weft_field_plan import admit_field_plan
             admit_field_plan(artifact,binding,request['modules'],distinct=distinct)
         else:admit_operator_free_plan(artifact,binding)
     if arithmetic.get('nativeRepresentation')!='DECIMAL(38,0) coefficients' or type(arithmetic.get('maxScale'))is not int or arithmetic['maxScale']!=18:raise ValueError('Exact native arithmetic profile required')
-    phases=('aggregate-candidates',) if count_distinct else ('join-candidates','where-candidates','projection-survivors')
-    count_outputs=[i for i,o in enumerate(plan.get('outputs',[])) if o['expression'].get('op')=='countDistinct'] if count_distinct else []
-    if count_distinct and len(arithmetic['checks'])!=len(count_outputs):raise ValueError('Every distinct-count output requires its emitted capacity guard')
+    phases=('aggregate-candidates',) if count_route else ('join-candidates','where-candidates','projection-survivors')
+    count_outputs=[i for i,o in enumerate(plan.get('outputs',[])) if o['expression'].get('op')=='countDistinct'] if count_route else []
+    if count_route and len(arithmetic['checks'])!=len(count_outputs):raise ValueError('Every distinct-count output requires its emitted capacity guard')
     if any(c.get('phase')not in phases for c in arithmetic['checks']):raise ValueError('Original arithmetic evaluation phases required')
     for check in params_by_id['ashlar.candidate.scalarIntegrity']['checks']:
         for flag in ['publicSourceOnly','representabilityOnly']:
             if flag in check and type(check[flag])is not bool:raise ValueError('Exact original guard kind required')
         if check.get('publicSourceOnly')is True and check.get('representabilityOnly')is True:raise ValueError('Distinct original source/capacity dispositions required')
+    if count_having and not callable(getattr(provider,'sql_ordered',None)):raise ValueError('Optional-count host requires exact native schema/ordered-cell transport')
     params={'p'+str(p['position']):p['value'] for p in artifact['parameters']};checks=[];completed=False
     with provider.interval(context):
         opening=provider.resolve(context);provider.admit_binding(binding,opening,context);provider.runtime(context)
@@ -180,20 +185,40 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
         ordered=None
         if positioned:
             ordered=admit_positioned_cells(artifact,provider.sql_ordered(artifact['sql'],params));rows=ordered['rows']
+        elif count_having:
+            ordered=admit_count_ordered_cells(artifact,provider.sql_ordered(artifact['sql'],params))
+            rows=[dict(zip([c['outputName'] for c in artifact['columns']],row)) for row in ordered['rows']]
         else:rows=provider.sql(artifact['sql'],params)
-        if count_distinct:
-            admit_count_result_rows(artifact,rows)
+        if count_route:
+            admit_count_result_rows(artifact,rows,count_having=count_having)
         provider.runtime(context);closing=provider.resolve(context);provider.admit_binding(binding,closing,context)
         if dict(opening.descriptor.raw)!=dict(closing.descriptor.raw) or opening.snapshots!=closing.snapshots:raise ValueError('Whole publication changed before release')
         completed=True
     if not completed:raise ValueError('Suppressed interval failure')
-    return {'rows':rows,'checks':checks,**({'positioned':ordered,'native_schema':ordered['schema'],'ordered_rows':ordered['rows']} if positioned else {})}
+    return {'rows':rows,'checks':checks,**({'positioned':ordered,'native_schema':ordered['schema'],'ordered_rows':ordered['rows']} if positioned or count_having else {})}
 
-def admit_count_result_rows(artifact,rows):
+def admit_count_ordered_cells(artifact,observed):
+    """Preserve actual unique native names, schema and ordered cells; no repair."""
+    if type(observed) is not dict or set(observed)!={'schema','rows'} or type(observed['schema']) is not list or type(observed['rows']) is not list:
+        raise ValueError('Exact native ordered result structure required')
+    names=[c['outputName'] for c in artifact['columns']]
+    if len(set(names))!=len(names) or observed['schema'] != [[name,'STRING']for name in names]:
+        raise ValueError('Native unique output names/order/exact text schema required')
+    for row in observed['rows']:
+        if type(row) is not list or len(row)!=len(names) or any(type(cell)is not str for cell in row):
+            raise ValueError('Complete nonnull exact text native count cells required')
+    return observed
+
+def admit_count_result_rows(artifact,rows,*,count_having=False):
     """Check exact native count carrier/cardinality; never repair a result bag."""
     plan=artifact['logicalPlan'];columns=artifact['columns']
     if type(rows) is not list:raise ValueError('Complete native result list required')
-    if plan['aggregate'] and not plan['groups'] and len(rows)!=1:raise ValueError('Global distinct count requires exactly one native row')
+    if type(count_having) is not bool:raise ValueError('Explicit HAVING result route required')
+    if plan.get('having') and not count_having:raise ValueError('HAVING requires separate result admission')
+    if plan['aggregate'] and not plan['groups']:
+        if count_having and plan.get('having'):
+            if len(rows)>1:raise ValueError('Global HAVING requires zero or one native row')
+        elif len(rows)!=1:raise ValueError('Global distinct count requires exactly one native row')
     count_names=[c['outputName'] for c,o in zip(columns,plan['outputs']) if o['expression'].get('op')=='countDistinct']
     group_names=[c['outputName'] for c,o in zip(columns,plan['outputs']) if o['expression'].get('op')!='countDistinct']
     groups=set()
