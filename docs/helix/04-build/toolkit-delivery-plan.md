@@ -49,6 +49,23 @@ new paid capacity, broad grants, destructive migrations or fabricated accepted
 Truss IDs. Measure duration/cost of functional runs without turning speed into an
 architecture gate. Engine access failures are explicit per-engine dependencies.
 
+## Design and verification foundations
+
+Apply these foundations within P01, before dependent source changes in P03–P10.
+Keep requirements and exact shared surfaces in their owning contracts; put run
+results and implementation gaps in evidence.
+
+| Concern | Required design | Verification and sequencing |
+| --- | --- | --- |
+| Modularity and encapsulation | Architecture maps actual modules, owned types, public APIs, allowed/forbidden dependencies, integration owners and composition root | Adopt a project-local dependency checker, shared by local/pre-commit/CI checks, before dependent features. Prove allowed and forbidden edges; test cycle/private-access checks where supported. Inventory existing violations individually and prevent new debt; name semantic review limits |
+| Configuration | Entrypoints construct and inject one typed configuration object; declare precedence, required operator settings, safe defaults and secret handling. Browser libraries receive explicit inputs and remain independent of process environment | Test precedence, missing/invalid settings, isolated test configuration and redaction. Python application settings follow the selected runtime concern; review narrowly scoped library exceptions explicitly |
+| Observability | OpenTelemetry governs applicable signal semantics. Contracts define safe event/mapping/retrieval surfaces; development runners retain bounded attributable diagnostics and clean protocol output | Sequence contract, capture/instrumentation and real receiver/mapping plus failure/privacy tests before a diagnostic pilot. Verify bounded queues/capture, loss reporting and shutdown. Service SLOs apply to services; measure overhead with small functional checks, preserving the prohibition on renewed scale benchmarks |
+| Formal analysis | The publication/recovery design specifies states, guards, atomicity, safety and liveness separately, with stable property IDs tied to governing requirements and contracts | Select assurance per affected slice. Review precise specifications; executable analysis requires completed bounded exploration, reachable success/recovery witnesses and broken-mechanism negative controls. Review model/code correspondence and run implementation tests; explicitly record assumptions, excluded behavior and incomplete results |
+
+Independent pack inventory, reviewed upstream fixes and documentation may continue
+while foundation adoption proceeds. Affected feature work must satisfy its scoped
+foundation checks; unrelated lanes do not inherit external engine prerequisites.
+
 ## Implementation slices
 
 | Order / ID | Deliverable | Dependencies | Completion evidence |
