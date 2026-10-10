@@ -1,0 +1,407 @@
+{
+  "profile": "ashlar.authored-path-oracle/0.1",
+  "cases": [
+    {
+      "name": "parallel-six",
+      "start": "L1",
+      "paths": {
+        "items": [
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "S1"
+            ],
+            "edges": [
+              "-9223372036854775808",
+              "-1"
+            ]
+          },
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "S1"
+            ],
+            "edges": [
+              "-9223372036854775808",
+              "1"
+            ]
+          },
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "S1"
+            ],
+            "edges": [
+              "-9223372036854775808",
+              "9223372036854775807"
+            ]
+          },
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "S1"
+            ],
+            "edges": [
+              "0",
+              "-1"
+            ]
+          },
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "S1"
+            ],
+            "edges": [
+              "0",
+              "1"
+            ]
+          },
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "S1"
+            ],
+            "edges": [
+              "0",
+              "9223372036854775807"
+            ]
+          }
+        ],
+        "truncated": false
+      },
+      "count": 6,
+      "distinctTargets": 1,
+      "sql": "SELECT s.id, RELATED_PATHS(s.bridge, terminal, 10) AS paths FROM start s WHERE s.id = 'L1' ORDER BY s.id"
+    },
+    {
+      "name": "truncated-two",
+      "start": "L1",
+      "paths": {
+        "items": [
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "S1"
+            ],
+            "edges": [
+              "-9223372036854775808",
+              "-1"
+            ]
+          },
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "S1"
+            ],
+            "edges": [
+              "-9223372036854775808",
+              "1"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "count": 6,
+      "sql": "SELECT s.id, RELATED_PATHS(s.bridge, terminal, 2) AS paths FROM start s WHERE s.id = 'L1' ORDER BY s.id"
+    },
+    {
+      "name": "empty",
+      "start": "L0",
+      "paths": {
+        "items": [],
+        "truncated": false
+      },
+      "count": 0,
+      "groupedRows": [],
+      "sql": "SELECT s.id, RELATED_PATHS(s.bridge, terminal, 10) AS paths FROM start s WHERE s.id = 'L0' ORDER BY s.id"
+    },
+    {
+      "name": "typed-order",
+      "start": "L_order",
+      "paths": {
+        "items": [
+          {
+            "intermediate": [
+              "2",
+              "z",
+              "true"
+            ],
+            "terminal": [
+              "S1"
+            ],
+            "edges": [
+              "2",
+              "0"
+            ]
+          },
+          {
+            "intermediate": [
+              "10",
+              "a",
+              "false"
+            ],
+            "terminal": [
+              "S1"
+            ],
+            "edges": [
+              "10",
+              "2"
+            ]
+          }
+        ],
+        "truncated": false
+      },
+      "sql": "SELECT s.id, RELATED_PATHS(s.bridge, terminal, 10) AS paths FROM start s WHERE s.id = 'L_order' ORDER BY s.id"
+    },
+    {
+      "name": "inverse",
+      "start": "L1",
+      "paths": {
+        "items": [
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "L1"
+            ],
+            "edges": [
+              "-9223372036854775808",
+              "-9223372036854775808"
+            ]
+          },
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "L1"
+            ],
+            "edges": [
+              "-9223372036854775808",
+              "0"
+            ]
+          },
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "L1"
+            ],
+            "edges": [
+              "0",
+              "-9223372036854775808"
+            ]
+          },
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "L1"
+            ],
+            "edges": [
+              "0",
+              "0"
+            ]
+          }
+        ],
+        "truncated": false
+      },
+      "count": 4,
+      "distinctTargets": 1,
+      "sql": "SELECT s.id, RELATED_PATHS(s.bridge, starts, 10) AS paths FROM start s WHERE s.id = 'L1' ORDER BY s.id"
+    },
+    {
+      "name": "self-loop",
+      "start": "P1",
+      "paths": {
+        "items": [
+          {
+            "intermediate": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "terminal": [
+              "1",
+              "雪",
+              "false"
+            ],
+            "edges": [
+              "0",
+              "0"
+            ]
+          }
+        ],
+        "truncated": false
+      },
+      "sql": "SELECT b.rank, RELATED_PATHS(b.loop, loop, 10) AS paths FROM bridge b WHERE b.rank = 1 ORDER BY b.rank"
+    },
+    {
+      "name": "left-presence",
+      "rows": [
+        [
+          "A_empty",
+          {
+            "state": "value",
+            "value": {
+              "items": [],
+              "truncated": false
+            }
+          }
+        ],
+        [
+          "A_match",
+          {
+            "state": "value",
+            "value": {
+              "items": [
+                {
+                  "intermediate": [
+                    "1",
+                    "雪",
+                    "false"
+                  ],
+                  "terminal": [
+                    "S1"
+                  ],
+                  "edges": [
+                    "-9223372036854775808",
+                    "-1"
+                  ]
+                },
+                {
+                  "intermediate": [
+                    "1",
+                    "雪",
+                    "false"
+                  ],
+                  "terminal": [
+                    "S1"
+                  ],
+                  "edges": [
+                    "-9223372036854775808",
+                    "1"
+                  ]
+                },
+                {
+                  "intermediate": [
+                    "1",
+                    "雪",
+                    "false"
+                  ],
+                  "terminal": [
+                    "S1"
+                  ],
+                  "edges": [
+                    "-9223372036854775808",
+                    "9223372036854775807"
+                  ]
+                },
+                {
+                  "intermediate": [
+                    "1",
+                    "雪",
+                    "false"
+                  ],
+                  "terminal": [
+                    "S1"
+                  ],
+                  "edges": [
+                    "0",
+                    "-1"
+                  ]
+                },
+                {
+                  "intermediate": [
+                    "1",
+                    "雪",
+                    "false"
+                  ],
+                  "terminal": [
+                    "S1"
+                  ],
+                  "edges": [
+                    "0",
+                    "1"
+                  ]
+                },
+                {
+                  "intermediate": [
+                    "1",
+                    "雪",
+                    "false"
+                  ],
+                  "terminal": [
+                    "S1"
+                  ],
+                  "edges": [
+                    "0",
+                    "9223372036854775807"
+                  ]
+                }
+              ],
+              "truncated": false
+            }
+          }
+        ],
+        [
+          "A_missing",
+          {
+            "state": "absent"
+          }
+        ]
+      ],
+      "sql": "SELECT a.id, RELATED_PATHS(s.bridge, terminal, 10) AS paths FROM anchor a LEFT JOIN start s ON a.start_ref = s.id ORDER BY a.id"
+    }
+  ],
+  "qualification": "Pure source occurrence oracle; no native execution, model authority, publication or ACK claim.",
+  "expansionQueries": {
+    "six": "SELECT COUNT(*) AS rows FROM start s CROSS JOIN EXPAND_PATHS(s.bridge, terminal) AS p WHERE s.id = 'L1'",
+    "oneTarget": "SELECT COUNT_DISTINCT_PATH_TARGETS(p) AS targets FROM start s CROSS JOIN EXPAND_PATHS(s.bridge, terminal) AS p WHERE s.id = 'L1'",
+    "zero": "SELECT COUNT(*) AS rows FROM start s CROSS JOIN EXPAND_PATHS(s.bridge, terminal) AS p WHERE s.id = 'L0'",
+    "noGroups": "SELECT s.id, COUNT(*) AS rows FROM start s CROSS JOIN EXPAND_PATHS(s.bridge, terminal) AS p WHERE s.id = 'L0' GROUP BY s.id"
+  }
+}
