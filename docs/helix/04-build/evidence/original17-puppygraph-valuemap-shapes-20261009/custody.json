@@ -1,0 +1,108 @@
+{
+  "entries": [
+    {
+      "path": "attempt-d/log",
+      "sha256": "d9ae91426d9f9a9617fbfd4e3fd4e65b3b2244dcb12882b6d43683104b311477",
+      "bytes": 1986,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-20261009-d.log",
+      "original_sha256": "d9ae91426d9f9a9617fbfd4e3fd4e65b3b2244dcb12882b6d43683104b311477",
+      "original_bytes": 1986
+    },
+    {
+      "path": "attempt-d/attempts.jsonl",
+      "sha256": "ec4bb3e823a6bc789076c878bec79b6c9d74d12cab22e9c7bfc6a98f275a8bc9",
+      "bytes": 3800,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-20261009-d.attempts.jsonl",
+      "original_sha256": "ec4bb3e823a6bc789076c878bec79b6c9d74d12cab22e9c7bfc6a98f275a8bc9",
+      "original_bytes": 3800
+    },
+    {
+      "path": "actual/ashlar-original17-puppy-valuemap-shapes-20261009-a.json",
+      "sha256": "b240759598d146742a601827a7a141274860eb74849bbecc695ce21501d8b41e",
+      "bytes": 269218,
+      "original": "/private/tmp/ashlar-original17-puppy-valuemap-shapes-20261009-a.json",
+      "original_sha256": "b240759598d146742a601827a7a141274860eb74849bbecc695ce21501d8b41e",
+      "original_bytes": 269218
+    },
+    {
+      "path": "actual/ashlar-original17-puppy-valuemap-shapes-20261009.py",
+      "sha256": "7fdb1ee3a60c3ec3ae92314ebf7fd893532857d3a276ce5b27cd4111b02baa9f",
+      "bytes": 2656,
+      "original": "/private/tmp/ashlar-original17-puppy-valuemap-shapes-20261009.py",
+      "original_sha256": "7fdb1ee3a60c3ec3ae92314ebf7fd893532857d3a276ce5b27cd4111b02baa9f",
+      "original_bytes": 2656
+    },
+    {
+      "path": "actual/ashlar-original17-puppy-stopped-20261009-d.json",
+      "sha256": "4e3ae0cd384e46394e36bd260cf20421eb648c5a2dc0167f66612cf9044d0213",
+      "bytes": 226,
+      "original": "/private/tmp/ashlar-original17-puppy-stopped-20261009-d.json",
+      "original_sha256": "4e3ae0cd384e46394e36bd260cf20421eb648c5a2dc0167f66612cf9044d0213",
+      "original_bytes": 226
+    },
+    {
+      "path": "actual/ashlar-original17-puppy-gremlin-readiness-20261009-d.json",
+      "sha256": "e42884576ae1f14e3efa6a85ad5214286e0df2a6a21faedbe336b57d5608c419",
+      "bytes": 166,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-readiness-20261009-d.json",
+      "original_sha256": "e42884576ae1f14e3efa6a85ad5214286e0df2a6a21faedbe336b57d5608c419",
+      "original_bytes": 166
+    },
+    {
+      "path": "source/tools/pack_scenario_native_plan.py",
+      "sha256": "ceb09dd1b07aa1da3eb37fdb8f26e74977030e1ac0e9d196c809d21ffe30a11a",
+      "bytes": 3276,
+      "original": "git:a82309b6360271229f7fdc6aed094a0ab8c885d9:tools/pack_scenario_native_plan.py",
+      "original_sha256": "ceb09dd1b07aa1da3eb37fdb8f26e74977030e1ac0e9d196c809d21ffe30a11a",
+      "original_bytes": 3276
+    },
+    {
+      "path": "source/tools/check_pack_scenario_puppygraph.py",
+      "sha256": "0fa4fb500f412939e759e8e2aeda25ea3a4b6362d3101ff9c798a4292e4487b3",
+      "bytes": 24795,
+      "original": "git:a82309b6360271229f7fdc6aed094a0ab8c885d9:tools/check_pack_scenario_puppygraph.py",
+      "original_sha256": "0fa4fb500f412939e759e8e2aeda25ea3a4b6362d3101ff9c798a4292e4487b3",
+      "original_bytes": 24795
+    },
+    {
+      "path": "source/tests/test_pack_scenario_puppygraph_queries.py",
+      "sha256": "bc4f4872b13b657001e2b1d8be081215a1432ba8876557b7198d6e39b2696ab1",
+      "bytes": 10573,
+      "original": "git:a82309b6360271229f7fdc6aed094a0ab8c885d9:tests/test_pack_scenario_puppygraph_queries.py",
+      "original_sha256": "bc4f4872b13b657001e2b1d8be081215a1432ba8876557b7198d6e39b2696ab1",
+      "original_bytes": 10573
+    },
+    {
+      "path": "source/tools/check_pack_puppygraph.py",
+      "sha256": "b947e153e242402bf7e0fb128c4193d2f45ac08d3777a3c594ed703c5ca090f9",
+      "bytes": 20241,
+      "original": "git:a82309b6360271229f7fdc6aed094a0ab8c885d9:tools/check_pack_puppygraph.py",
+      "original_sha256": "b947e153e242402bf7e0fb128c4193d2f45ac08d3777a3c594ed703c5ca090f9",
+      "original_bytes": 20241
+    },
+    {
+      "path": "source/tools/check_puppygraph_releases.py",
+      "sha256": "ab529ff925ac52cac2dd65fca4b52f017d6d1ca19b18b149f0f48b0bcd743eb9",
+      "bytes": 7349,
+      "original": "git:a82309b6360271229f7fdc6aed094a0ab8c885d9:tools/check_puppygraph_releases.py",
+      "original_sha256": "ab529ff925ac52cac2dd65fca4b52f017d6d1ca19b18b149f0f48b0bcd743eb9",
+      "original_bytes": 7349
+    },
+    {
+      "path": "source/tools/run_pack_scenario_graphframes.py",
+      "sha256": "8f493053466eb8a668305adfcebd5cce998bdf2a2a07d16746c068c7c5d7e8b9",
+      "bytes": 18718,
+      "original": "git:a82309b6360271229f7fdc6aed094a0ab8c885d9:tools/run_pack_scenario_graphframes.py",
+      "original_sha256": "8f493053466eb8a668305adfcebd5cce998bdf2a2a07d16746c068c7c5d7e8b9",
+      "original_bytes": 18718
+    },
+    {
+      "path": "summary.json",
+      "sha256": "1da96911656e0a2efffb63f90fc40e84d93f14cc011c82e021b1ed762bde43ec",
+      "bytes": 2463,
+      "original": "Qualified diagnostic custody",
+      "original_sha256": "1da96911656e0a2efffb63f90fc40e84d93f14cc011c82e021b1ed762bde43ec",
+      "original_bytes": 2463
+    }
+  ]
+}

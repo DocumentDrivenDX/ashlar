@@ -1,0 +1,45 @@
+{
+  "scope": "Actual d nativefirstnodequery39rows completed with custody unchanged, host standardTinkerPop node-list codec refused Puppyscalar carrier_key; no completedrun/report, zero authored Gremlin cases. Separately two exact firstchunk diagnostics node39/edge46 show flat String/null maps in cachedPuppy1.13 image6d. No LONG columns in diagnostic, no overallGraphengine17pass, noaccept-either/fallback/sourcechanges.",
+  "source_commit": "a82309b6360271229f7fdc6aed094a0ab8c885d9",
+  "source_references": [
+    {
+      "commit": "a82309b6360271229f7fdc6aed094a0ab8c885d9",
+      "path": "tools/pack_scenario_native_plan.py",
+      "sha256": "ceb09dd1b07aa1da3eb37fdb8f26e74977030e1ac0e9d196c809d21ffe30a11a"
+    },
+    {
+      "commit": "a82309b6360271229f7fdc6aed094a0ab8c885d9",
+      "path": "tools/check_pack_scenario_puppygraph.py",
+      "sha256": "0fa4fb500f412939e759e8e2aeda25ea3a4b6362d3101ff9c798a4292e4487b3"
+    },
+    {
+      "commit": "a82309b6360271229f7fdc6aed094a0ab8c885d9",
+      "path": "tests/test_pack_scenario_puppygraph_queries.py",
+      "sha256": "bc4f4872b13b657001e2b1d8be081215a1432ba8876557b7198d6e39b2696ab1"
+    },
+    {
+      "commit": "a82309b6360271229f7fdc6aed094a0ab8c885d9",
+      "path": "tools/check_pack_puppygraph.py",
+      "sha256": "b947e153e242402bf7e0fb128c4193d2f45ac08d3777a3c594ed703c5ca090f9"
+    },
+    {
+      "commit": "a82309b6360271229f7fdc6aed094a0ab8c885d9",
+      "path": "tools/check_puppygraph_releases.py",
+      "sha256": "ab529ff925ac52cac2dd65fca4b52f017d6d1ca19b18b149f0f48b0bcd743eb9"
+    },
+    {
+      "commit": "a82309b6360271229f7fdc6aed094a0ab8c885d9",
+      "path": "tools/run_pack_scenario_graphframes.py",
+      "sha256": "8f493053466eb8a668305adfcebd5cce998bdf2a2a07d16746c068c7c5d7e8b9"
+    }
+  ],
+  "prior_fullsource_custody": {
+    "path": "docs/helix/04-build/evidence/original17-puppygraph-attempts-20261009/custody.json",
+    "sha256": "d4a86d2ca6d6f3219d304ff65bff7bfb19fb778e504abfeb126e5cd6364b202f"
+  },
+  "diagnostic_sha256": "b240759598d146742a601827a7a141274860eb74849bbecc695ce21501d8b41e",
+  "observed_profile": "Puppy1.13 exactcachedimage6d016d5a7e3eab0a57bd4d23c4e218467d00c7661fcda215ea2a429941a68cee; native Gremlin decoded property map values are flat String/None for BOTH roles.",
+  "LONG_native_qualified": false,
+  "raw_wire_qualification": "Native driver-decoded maps/types retained, not original GraphSON wire bytes.",
+  "native_container_stopped": true
+}

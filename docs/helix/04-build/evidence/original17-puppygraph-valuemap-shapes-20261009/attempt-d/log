@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 349, in <module>
+    result=check(prepared,a.language,a.endpoint,model,databases,os.environ['ASHLAR_PUPPY_USER'],os.environ['ASHLAR_PUPPY_PASSWORD'],watcher,a.attempt_log)
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 276, in check
+    try:result=held(prepared,language,journal_query(lambda s,b:remote.submit(s,bindings=b).all().result(timeout=20),observe,attempt_log),observe,source_observe)
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 222, in held
+    profile=report['profile'];carriers={k:carrier_check(profile,k,language,query)for k in ('node','edge')}
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 222, in <dictcomp>
+    profile=report['profile'];carriers={k:carrier_check(profile,k,language,query)for k in ('node','edge')}
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 215, in carrier_check
+    return {'chunks':[dict(columns=names,**carrier_chunk_check(profile,kind,language,query,names))for names in chunks]}
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 215, in <listcomp>
+    return {'chunks':[dict(columns=names,**carrier_chunk_check(profile,kind,language,query,names))for names in chunks]}
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 199, in carrier_chunk_check
+    if language=='Gremlin':cells=native_map_cells(row,kind,names,expected)
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 171, in native_map_cells
+    identity=scalar('carrier_key')
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 167, in scalar
+    if type(value)is not list or len(value)>1:raise ValueError('Node zero/one property list required')
+ValueError: Node zero/one property list required
