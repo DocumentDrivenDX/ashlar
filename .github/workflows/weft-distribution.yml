@@ -25,5 +25,15 @@ jobs:
           PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_run_indexed_commerce_weft.py
           PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_weft_relationship_host.py
           PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_commerce_publication_lifecycle.py
+      - name: Verify path admission and held execution controls
+        run: |
+          PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_weft_path_decode.py
+          PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_weft_path_capture.py
+          PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_weft_path_plan.py
+          PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_commerce_path_oracle.py
+          PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_weft_path_compiler.py
+          PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_commerce_path_request.py
+          PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_run_commerce_path_weft.py
+          PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_run_commerce_path_native.py
       - name: Verify module ownership
         run: python3 tools/check_module_boundaries.py
