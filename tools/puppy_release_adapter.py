@@ -92,16 +92,21 @@ def admit_original_subset(active, prior, addition):
 
 
 class PuppyNativeReleaseAdapter:
-    def __init__(self, *, prepared, prior_model, http, cypher, runtime, evidence):
+    def __init__(self, *, prepared, prior_model, http, runtime, evidence,
+                 cypher=None, projection=None):
         """Explicit prepared SHA-keyed files and exact independently pinned model.
 
         http(path,data,context)->bytes executes /schemajson or /schema.
         cypher(query,context)->list executes real release-qualified native query.
         runtime(context)->(engine_instance_identity, exact_engine_version) uses
         actual independently pinned runtime inspection; never a local counter.
+        Optional projection(kind,label,context,retain)->(query,rows) replaces only the
+        query rendering/transport; identical complete observation gates apply.
         """
         if (type(prepared) is not dict or type(prior_model) is not bytes
-                or any(not callable(port) for port in (http, cypher, runtime))):
+                or any(not callable(port) for port in (http, runtime))
+                or (projection is None and not callable(cypher))
+                or (projection is not None and (not callable(projection) or cypher is not None))):
             raise PuppyReleaseError('Explicit prepared carriers and public native transports required')
         self.prepared = {}
         for digest, selected in prepared.items():
@@ -113,6 +118,7 @@ class PuppyNativeReleaseAdapter:
             self.prepared[digest] = tuple(str(Path(path)) for path in selected[:3]) + (selected[3],)
         self.model = prior_model
         self.http = http; self.cypher = cypher; self.runtime = runtime
+        self.projection = projection
         self.evidence = Path(evidence)
         self.evidence.mkdir(mode=0o700, exist_ok=False)
         self.ordinal = 0
@@ -193,11 +199,19 @@ class PuppyNativeReleaseAdapter:
             'edge_label': handle.edge_label, 'nodes': [], 'edges': []}
         for kind, role, label in [('node', 'nodes', handle.node_label), ('edge', 'edges', handle.edge_label)]:
             names = columns(kind)
-            field = lambda name: 'carrier_id' if name == 'id' else 'carrier_key' if name == 'graph_id' else name
-            pattern = '(x:' + label + ')' if kind == 'node' else '(s)-[x:' + label + ']->(t)'
-            query = 'MATCH ' + pattern + ' RETURN ' + ','.join('x.' + field(n) + ' AS ' + n for n in names) + ',id(x) AS native_id'
-            if kind == 'edge': query += ',id(s) AS native_source,id(t) AS native_target'
-            rows = self.cypher(query, context)
+            if self.projection is None:
+                field = lambda name: 'carrier_id' if name == 'id' else 'carrier_key' if name == 'graph_id' else name
+                pattern = '(x:' + label + ')' if kind == 'node' else '(s)-[x:' + label + ']->(t)'
+                query = 'MATCH ' + pattern + ' RETURN ' + ','.join('x.' + field(n) + ' AS ' + n for n in names) + ',id(x) AS native_id'
+                if kind == 'edge': query += ',id(s) AS native_source,id(t) AS native_target'
+                rows = self.cypher(query, context)
+            else:
+                selected = self.projection(kind, label, context, self.retain)
+                if type(selected) is not tuple or len(selected) != 2:
+                    raise PuppyReleaseError('Exact public native projection required')
+                query, rows = selected
+                if type(query) is not str or len(query.encode()) > 65536:
+                    raise PuppyReleaseError('Bounded original native query required')
             self.retain('query.json', encoded({'query': query, 'rows': rows}))
             if type(rows) is not list or len(rows) > 10000:
                 raise PuppyReleaseError('Bounded complete native graph rows required')
