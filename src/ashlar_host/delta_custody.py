@@ -205,25 +205,26 @@ class LocalDeltaTransport:
             descriptor = os.open(self.journal_path, os.O_CREAT | os.O_EXCL | os.O_WRONLY, 384)
             os.close(descriptor)
         self.db = sqlite3.connect('file:' + quote(str(self.journal_path.resolve())) + '?mode=rw', uri=True)
-        self.db.execute('PRAGMA journal_mode=WAL')
-        self.db.execute('PRAGMA synchronous=FULL')
-        if create:
-            with self.db:
-                self.db.execute('CREATE TABLE local_installation(id INTEGER PRIMARY KEY CHECK(id=1), original TEXT NOT NULL)')
-                self.db.execute('INSERT INTO local_installation VALUES(1,?)', (registry,))
-                self.db.execute('CREATE TABLE local_operation(operation TEXT PRIMARY KEY,intent TEXT NOT NULL,intent_sha TEXT NOT NULL,before_version INTEGER NOT NULL,state TEXT NOT NULL,receipt TEXT)')
-                self.db.execute('CREATE TABLE local_plan(operation TEXT PRIMARY KEY,original TEXT NOT NULL,digest TEXT NOT NULL)')
         try:
+            self.db.execute('PRAGMA journal_mode=WAL')
+            self.db.execute('PRAGMA synchronous=FULL')
+            if create:
+                with self.db:
+                    self.db.execute('CREATE TABLE local_installation(id INTEGER PRIMARY KEY CHECK(id=1), original TEXT NOT NULL)')
+                    self.db.execute('INSERT INTO local_installation VALUES(1,?)', (registry,))
+                    self.db.execute('CREATE TABLE local_operation(operation TEXT PRIMARY KEY,intent TEXT NOT NULL,intent_sha TEXT NOT NULL,before_version INTEGER NOT NULL,state TEXT NOT NULL,receipt TEXT)')
+                    self.db.execute('CREATE TABLE local_plan(operation TEXT PRIMARY KEY,original TEXT NOT NULL,digest TEXT NOT NULL)')
             if self.db.execute('SELECT original FROM local_installation WHERE id=1').fetchall() != [(registry,)]:
                 raise LocalDeltaError('Original journal installation/registry differs')
             for (name, columns) in {'local_installation': ['id', 'original'], 'local_operation': ['operation', 'intent', 'intent_sha', 'before_version', 'state', 'receipt'], 'local_plan': ['operation', 'original', 'digest']}.items():
                 if [r[1] for r in self.db.execute('PRAGMA table_info(' + name + ')')] != columns:
                     raise LocalDeltaError('Original custody journal schema incomplete or changed')
         except BaseException as error:
-            self.db.close()
-            if isinstance(error, sqlite3.Error):
-                raise LocalDeltaError('Original custody journal missing or incomplete') from error
-            raise
+            from .lifecycle import finish
+            try:
+                finish(error, [self.db.close])
+            except sqlite3.Error as original:
+                raise LocalDeltaError('Original custody journal missing or incomplete') from original
 
     def close(self):
         self.db.close()

@@ -199,6 +199,46 @@ class EvolutionRunLedger:
         except BaseException as error:
             finish(error, [connection.close])
 
+    @classmethod
+    def inspect(cls, path: Path, original: EvolutionRunDefinition, *, context, custody):
+        """Read existing complete custody under an independent held owner.
+
+        This port never initializes or transitions a ledger and grants no native
+        submission authority. The callback must renew the actual original path,
+        installation and held lease; matching bytes alone are correspondence.
+        """
+        if (cls is not EvolutionRunLedger or type(path) is not type(Path())
+                or not path.is_absolute() or type(original) is not EvolutionRunDefinition
+                or not callable(custody)):
+            raise EvolutionPlanError('Exact existing ledger and held custody owner required')
+        if custody(path, original, context) is not None:
+            raise EvolutionPlanError('Opening independent ledger custody incomplete')
+        parent = path.parent.lstat(); info = path.lstat()
+        if (not stat.S_ISDIR(parent.st_mode) or path.parent.resolve() != path.parent
+                or parent.st_uid != os.getuid() or parent.st_mode & 0o022
+                or not stat.S_ISREG(info.st_mode) or info.st_uid != os.getuid()
+                or info.st_mode & 0o022 or info.st_size > 128 * 1024 * 1024):
+            raise EvolutionPlanError('Private bounded original ledger custody required')
+        connection = sqlite3.connect('file:' + quote(str(path)) + '?mode=ro', uri=True)
+        result = None; primary = None
+        try:
+            after = path.lstat()
+            if (after.st_dev, after.st_ino) != (info.st_dev, info.st_ino):
+                raise EvolutionPlanError('Original ledger opening identity changed')
+            if connection.execute('PRAGMA journal_mode').fetchone() != ('delete',):
+                raise EvolutionPlanError('Existing original DELETE-journal profile required')
+            owner = cls(path, connection, original, None, context)
+            before = owner._inventory()
+            if custody(path, original, context) is not None:
+                raise EvolutionPlanError('Closing independent ledger custody incomplete')
+            if owner._inventory() != before:
+                raise EvolutionPlanError('Original ledger changed during inspection')
+            result = before
+        except BaseException as error:
+            primary = error
+        finish(primary, [connection.close])
+        return result
+
     def _filesystem_custody(self):
         parent = self.path.parent.lstat()
         if (not stat.S_ISDIR(parent.st_mode) or self.path.parent.resolve() != self.path.parent
@@ -210,7 +250,7 @@ class EvolutionRunLedger:
                 or info.st_uid != os.getuid() or info.st_mode & 0o022 or info.st_size > 128 * 1024 * 1024):
             raise EvolutionPlanError('Original ledger file identity changed')
 
-    def admit(self):
+    def _inventory(self):
         if self.closed: raise EvolutionPlanError('Original run ledger closed')
         self._filesystem_custody()
         schema = dict(self.connection.execute("SELECT name,sql FROM sqlite_master WHERE type='table'"))
@@ -237,6 +277,11 @@ class EvolutionRunLedger:
                 if descriptor is not None:
                     if type(descriptor) is not bytes or len(descriptor) > 4194304 or type(decode(descriptor)) is not dict:
                         raise EvolutionPlanError('Bounded original publication descriptor required')
+        return EvolutionRunLedgerView(tuple(slots))
+
+    def admit(self):
+        inventory = self._inventory()
+        slots = list(inventory.slots)
         if self.policy.admit_run(self.original, self.context) is not None:
             raise EvolutionPlanError('Current original ledger admission incomplete')
         if self.policy.admit_ledger(self.original, EvolutionRunLedgerView(tuple(slots)), self.context) is not None:

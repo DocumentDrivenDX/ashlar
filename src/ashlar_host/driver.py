@@ -247,6 +247,45 @@ class NativeDriver:
             with transport.db:
                 transport.db.execute('CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)')
 
+    @classmethod
+    def with_registered_evolution(cls, transport, policy, context, tables, allowed_changes,
+                                  columns, *, source_admission, source_sessions, ack_factory):
+        """Transfer the transport into one complete existing evolution owner.
+
+        The factory receives a construction-only driver; writer/publication ports
+        remain closed until an exact copied ACK owner matches every source. On
+        any construction failure the transferred transport is closed. Other
+        supplied resources retain their enclosing provider's lifecycle ownership.
+        """
+        from .lifecycle import finish
+        if (cls is not NativeDriver or type(source_sessions) is not RegisteredOutboxSources
+                or not callable(ack_factory) or not callable(getattr(transport, 'close', None))):
+            raise PermissionError('Exact existing evolution construction ports required')
+        primary = None; result = None
+        try:
+            retained_tables = {row[0] for row in transport.db.execute(
+                "SELECT name FROM sqlite_master WHERE type='table'")}
+            if not {'local_plan', 'local_operation', 'local_publication_artifact',
+                    'local_source_plan'}.issubset(retained_tables):
+                raise PermissionError('Complete preexisting original publication journal required')
+            sources = RegisteredOutboxSources(source_sessions.registrations, source_sessions.policy)
+            result = cls(transport, policy, context, tables, {}, allowed_changes, columns,
+                source_admission=source_admission, source_sessions=sources)
+            result._evolution_constructing = True
+            supplied = ack_factory(result)
+            if type(supplied) is not RegisteredOutboxAcks:
+                raise PermissionError('Complete registered ordinary ACK owner required')
+            acks = RegisteredOutboxAcks(supplied.registrations)
+            if acks.metadata()['registrations'] != sources.metadata()['registrations']:
+                raise PermissionError('Complete original source/ACK registrations differ')
+            result.ack_sessions = acks
+            result.original_ack_sessions = encoded(acks.metadata())
+            result._evolution_constructing = False
+        except BaseException as error:
+            primary = error
+        finish(primary, [] if primary is None else [transport.close])
+        return result
+
     def evolution_run_identity(self, *, context):
         from .evolution_admission import EvolutionSourceSet
         self.require(context)
@@ -731,11 +770,15 @@ class NativeDriver:
         return json.loads(self.original_admission)
 
     def require(self, context):
+        if getattr(self, '_evolution_constructing', False):
+            raise PermissionError('Evolution registrations are not complete')
         if context is not self.context or not self.held:
             raise PermissionError('Original private writer interval required')
 
     @contextmanager
     def writer(self, stream, context):
+        if getattr(self, '_evolution_constructing', False):
+            raise PermissionError('Evolution registrations are not complete')
         if context is not self.context or self.held:
             raise PermissionError('Exclusive original process writer required')
         with (self.transport.journal_path.parent / '.pipeline-writer.lock').open('a') as gate:
