@@ -1,0 +1,37 @@
+{
+  "candidateFreeze": {
+    "bytes": 1453,
+    "path": "/private/tmp/weft-paths-keys-index-candidate-20261010-a/freeze.json",
+    "sha256": "45c542fec6b281af60ec947c289c3f350da754664eff0fa8d7ea8358b0dcebd1"
+  },
+  "candidateIndex": {
+    "bytes": 2060,
+    "path": "/private/tmp/weft-paths-keys-index-candidate-20261010-a/index.json",
+    "sha256": "bd541aa8cb261376f160661d3df67065b36fcba4f6caf4c0f42e33d710c4b9dc"
+  },
+  "closedReviewReference": {
+    "bytes": 45266,
+    "path": "/private/tmp/weft-paths-keys-index-candidate-20261010-a/output-review.json",
+    "sha256": "c58445b06f18e7181ffc0ff531cfa8daee39fde2bb666d98fa5b9d8f86f2229c"
+  },
+  "correspondence": "Preserved exact two old entries plus unique new manifest414d/custody03e/executable471 record for source3a/PathsKeys feature/arm64; actual74 fullresponses,48 capabilities and8 transport controls support this finite compiler profile. Historical463 remain separately retained, not replayed.",
+  "decision": "approved-exact-append-only-index-entry",
+  "format": "independent-index-admission-endorsement/0.1",
+  "independentChildReview": {
+    "bytes": 4251,
+    "path": "/private/tmp/astra-paths-keys-index-review-20261010-a.json",
+    "sha256": "5ab1bb34a05308910ff169e7103c6cee6c00a9a684c8968db3b521b3c89c17fd"
+  },
+  "parentActualPackageReview": {
+    "bytes": 45266,
+    "path": "/private/tmp/astra-paths-keys-assembly-output-review-20261010-a.json",
+    "sha256": "c58445b06f18e7181ffc0ff531cfa8daee39fde2bb666d98fa5b9d8f86f2229c"
+  },
+  "remainingBlockers": [],
+  "resolvedMetadataNote": "Root supplied exact originally declared output-review.json bytes; candidate freeze now resolves that relative descriptor. Original child receipt remains unchanged.",
+  "scope": [
+    "Root may copy the exact127-file approved package and exact candidate index bytes for publication, followed by copy/hash review.",
+    "This review does not itself mutate or publish the index. The committed immutable public index revision and digest must be independently selected by future consumer composition.",
+    "No source/publication/authorization/ACK/native authority or installation success transfers from distribution index admission. Old530 andab899 entries/profile routes are unchanged."
+  ]
+}

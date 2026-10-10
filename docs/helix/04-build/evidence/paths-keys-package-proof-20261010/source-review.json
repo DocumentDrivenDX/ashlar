@@ -1,0 +1,177 @@
+{
+  "format": "astra-paths-keys-package-source-review/0.1",
+  "decision": "approved-source-only",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-keys-package-source-freeze-20261010-a/manifest.json",
+    "sha256": "67cf36ff51d20a44a397d801c3b7f0c63881c318e7fee6e5108001c9ceba6006",
+    "bytes": 1285
+  },
+  "files": [
+    {
+      "path": "src/ashlar/weft_paths_keys_package.py",
+      "sha256": "c46366ce47870717c62801d524b059dcd142bc7d9f6751d334f3a6f484da111d",
+      "bytes": 27662,
+      "frozenPath": "/private/tmp/ashlar-paths-keys-package-source-freeze-20261010-a/src/ashlar/weft_paths_keys_package.py",
+      "livePath": "/Users/erik/Projects/ashlar/src/ashlar/weft_paths_keys_package.py"
+    },
+    {
+      "path": "tests/test_weft_paths_keys_package.py",
+      "sha256": "ae3c658f13e59dff19f456f7d357b6b66a0a584afb58c4c88f3723200587bd23",
+      "bytes": 11252,
+      "frozenPath": "/private/tmp/ashlar-paths-keys-package-source-freeze-20261010-a/tests/test_weft_paths_keys_package.py",
+      "livePath": "/Users/erik/Projects/ashlar/tests/test_weft_paths_keys_package.py"
+    }
+  ],
+  "findings": [],
+  "reviewedBehavior": [
+    "Trusted injected index hash and observed target are checked before caller package bytes; configuration is immutable and no trust/profile/SDK/environment discovery occurs.",
+    "Fixed current Git3a/1987 inventory, exact 97 original source copies and 20 public schemas are distinct from producer H and separately built metadata probe.",
+    "Exact fixed binary/backend/receipt/case/build/qualification hashes bind actual 74 protocol cases and 8 transport controls; old historical 530/463 original request, expected and namespace refusal bytes remain separately verified and are not relabelled fresh execution.",
+    "Complete package closure and modes are rechecked; per-file32MiB, total96MiB and single-member gzip64MiB caps are finite and old profiles are unchanged.",
+    "Returned immutable snapshots include backend plus six exact source schemas, including inherited application-result/0.2; opaque verified objects explicitly do not authorize bypassing restart verification.",
+    "Public refusal is payload-free; cancellation identity is retained through shared bounded file-read cleanup and closing index/source checks gate success."
+  ],
+  "actualCommands": [
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "/private/tmp/astra-paths-keys-package-review-tests-20261010-a.py"
+      ],
+      "exit": 0,
+      "tests": 10,
+      "runtime": "Python3.9.6"
+    },
+    {
+      "argv": [
+        "/private/tmp/truss-python-report-schema-env/bin/python",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "/private/tmp/astra-paths-keys-package-review-tests-20261010-a.py"
+      ],
+      "exit": 0,
+      "tests": 10,
+      "runtime": "Python3.11.17"
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "/private/tmp/astra-paths-keys-package-public-probe-20261010-a.py"
+      ],
+      "exit": 0,
+      "actualPackagePositive": {
+        "files": 127,
+        "bytes": 47778857,
+        "resources": 7,
+        "executableBytes": 8330656,
+        "seconds": 0.62722275,
+        "fixtureIndexAuthorityOnly": true
+      },
+      "ownerCorruptionControlsReproduced": 9,
+      "independentPublicControls": {
+        "inherited02Schema": "original source bytes retained among seven immutable resources",
+        "public-manifest-format": "refused with fixed payload-free public error",
+        "public-manifest-source": "refused with fixed payload-free public error",
+        "public-manifest-backendManifests": "refused with fixed payload-free public error",
+        "public-manifest-publicSchemas": "refused with fixed payload-free public error",
+        "public-manifest-unknown": "refused with fixed payload-free public error",
+        "target-before-package": "refused with fixed payload-free public error",
+        "readonly-primary": "exact primary object preserved through secondary close SystemExit and readonly marker",
+        "closing-index-drift": "refused with fixed payload-free public error",
+        "no-output": "public inspection created no install/output"
+      }
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "tools/check_module_boundaries.py"
+      ],
+      "cwd": "/Users/erik/Projects/ashlar",
+      "envOverrides": {
+        "PYTHONPATH": "src:tools"
+      },
+      "exit": 0
+    }
+  ],
+  "unchangedDependencyFiles": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_paths_package.py",
+      "sha256": "0dc1c2a6803290f2fd300d93c09e6c9e53269c726e08115d0ed2f2dca06f82ee",
+      "bytes": 25893
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_paths_installation.py",
+      "sha256": "9f29570213f9432e497f67d337c5c56e522fb7802ee778771484172b6d8e80b9",
+      "bytes": 12169
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_installation.py",
+      "sha256": "3f6365faaa2c2cc30784cf6c07817a701749a452f5aa274efab798d8d70ee285",
+      "bytes": 35061
+    }
+  ],
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-paths-keys-package-review-tests-20261010-a.py",
+      "sha256": "8ec4f0f5ff575487b43b036fb4268cc1662ce433702747d633f45e0e75f946ad",
+      "bytes": 1137
+    },
+    {
+      "path": "/private/tmp/astra-paths-keys-package-review-tests-20261010-a-py39.log",
+      "sha256": "141193ac856c803485d4c61b1e65cefa5837e640bd7da6ce3d0ab4a555aed254",
+      "bytes": 1220
+    },
+    {
+      "path": "/private/tmp/astra-paths-keys-package-review-tests-20261010-a-py311.log",
+      "sha256": "8e09e7acc52a6bf5e64354559f3bbbbb7f25e9b18ef9200c7437c88ac938c1e8",
+      "bytes": 1745
+    },
+    {
+      "path": "/private/tmp/astra-paths-keys-package-public-probe-20261010-a.py",
+      "sha256": "d33c2251a91b836148e94a32a03fdfa755e8d3bd0c76c30b97deef5871a2f582",
+      "bytes": 4151
+    },
+    {
+      "path": "/private/tmp/astra-paths-keys-package-public-probe-20261010-a.log",
+      "sha256": "9ab5f3b71e597be0b82b8c3c6ab0a5c8de0aabbfdb7039831cdb235b2787d835",
+      "bytes": 903
+    },
+    {
+      "path": "/private/tmp/astra-paths-keys-package-public-probe-20261010-a.json",
+      "sha256": "5099bc8b3a85f18c24e3ebcbe231919556383e7d5bf58a9c8a64f6c0fd88f215",
+      "bytes": 952
+    },
+    {
+      "path": "/private/tmp/astra-paths-keys-package-actual-controls-20261010-a.json",
+      "sha256": "9824139b7a63b22949c278db946fa3bbc741c9ee2ff550a9bbcc5eaa497c60ec",
+      "bytes": 1166
+    },
+    {
+      "path": "/private/tmp/astra-paths-keys-package-boundaries-20261010-a.log",
+      "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9",
+      "bytes": 94
+    }
+  ],
+  "helix": {
+    "modularity": "Separate package proof owner uses existing public snapshot/document/tree/index helpers; old package/installer implementations equal committed HEAD. Actual boundary checker passes.",
+    "configuration": "Closed typed injected trust/location/platform inputs and fixed finite profile bounds; no ambient profile override or runtime discovery.",
+    "observability": "Fixed payload-free public refusal and best-effort cleanup markers; no raw source/exception payload export or OTel receiver claim.",
+    "formal": "Finite source/receipt correspondence and meaningful corruption/cancellation counterexamples support this exact implementation; no unbounded mechanical proof or native obligation discharge."
+  },
+  "limits": [
+    "Pure tests and inert package inspection only; subprocess.Popen trapped in actual package/public probes. No actual installation, compiler, database/native engine, index mutation or Git mutation.",
+    "Actual package counterexamples use an explicitly injected fixture index authority; they do not self-register a trusted production index.",
+    "Cooperating local directory writers and injected trusted configuration remain assumptions. Declared byte limits are retained/input limits, not process-RSS bounds.",
+    "This source review does not qualify future installer/composition/runtime or transfer native/source/publication/ACK authority."
+  ]
+}

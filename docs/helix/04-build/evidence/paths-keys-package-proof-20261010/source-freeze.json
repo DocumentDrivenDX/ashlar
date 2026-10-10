@@ -1,0 +1,41 @@
+{
+  "format": "ashlar-paths-keys-package-source-freeze/0.1",
+  "files": [
+    {
+      "path": "src/ashlar/weft_paths_keys_package.py",
+      "sha256": "c46366ce47870717c62801d524b059dcd142bc7d9f6751d334f3a6f484da111d",
+      "bytes": 27662
+    },
+    {
+      "path": "tests/test_weft_paths_keys_package.py",
+      "sha256": "ae3c658f13e59dff19f456f7d357b6b66a0a584afb58c4c88f3723200587bd23",
+      "bytes": 11252
+    }
+  ],
+  "reviewEvidence": [
+    {
+      "path": "actual-controls.py",
+      "sha256": "cb9eec44a97878ac4be276d3dfb03a3a07be9460eb6f99fba1ddeb0aeb425e79",
+      "bytes": 4782
+    },
+    {
+      "path": "actual-controls.json",
+      "sha256": "20af6766f156a134d272c704d8c058a6dc264f7c5a9d3a1d5d802ed19df163a5",
+      "bytes": 1174
+    }
+  ],
+  "verification": {
+    "python3.9.6": {
+      "focusedTests": 10,
+      "status": "pass"
+    },
+    "python3.11.17": {
+      "focusedTests": 10,
+      "status": "pass"
+    },
+    "actualPackage": "127files pure inspection plus9 isolated corruption controls; fixture index authority only",
+    "moduleChecker": "pass",
+    "diffCheck": "pass"
+  },
+  "scope": "Separate fixed PathsKeys3a proof only; no installer/composition changes, executable invocation, native execution, index self-registration or publication authority."
+}

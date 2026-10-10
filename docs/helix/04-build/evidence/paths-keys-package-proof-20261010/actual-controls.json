@@ -1,0 +1,26 @@
+{
+  "format": "paths-keys-package-pure-controls/0.1",
+  "sourcePackage": "/private/tmp/weft-paths-keys-package-assembly-20261010-a/package",
+  "index": "/private/tmp/weft-paths-keys-index-candidate-20261010-a/index.json",
+  "indexSha256": "bd541aa8cb261376f160661d3df67065b36fcba4f6caf4c0f42e33d710c4b9dc",
+  "results": {
+    "actualPositive": {
+      "files": 127,
+      "bytes": 47778857,
+      "resources": 7,
+      "executableBytes": 8330656,
+      "seconds": 0.6203880829999999,
+      "fixtureIndexAuthorityOnly": true
+    },
+    "repinned:producer/corpus-harness.py": "refused",
+    "repinned:evidence/full-receipt.json.gz": "refused",
+    "repinned:source-subset/docs/helix/02-design/contracts/logical-plan-v0.4.schema.json": "refused",
+    "repinned:source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/manifest.json": "refused",
+    "missingH": "refused",
+    "unindexed-directory": "refused",
+    "executable-mode": "refused",
+    "closing-H-drift": "refused",
+    "actual-observedOS-mismatch": "refused"
+  },
+  "scope": "No installation/process/native execution; repinned copies use explicit fixture index authority only."
+}

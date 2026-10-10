@@ -1,0 +1,50 @@
+{
+  "files": [
+    {
+      "bytes": 1285,
+      "original": "/private/tmp/ashlar-paths-keys-package-source-freeze-20261010-a/manifest.json",
+      "path": "source-freeze.json",
+      "sha256": "67cf36ff51d20a44a397d801c3b7f0c63881c318e7fee6e5108001c9ceba6006"
+    },
+    {
+      "bytes": 4782,
+      "original": "/private/tmp/ashlar-paths-keys-package-source-freeze-20261010-a/actual-controls.py",
+      "path": "actual-controls.py",
+      "sha256": "cb9eec44a97878ac4be276d3dfb03a3a07be9460eb6f99fba1ddeb0aeb425e79"
+    },
+    {
+      "bytes": 1174,
+      "original": "/private/tmp/ashlar-paths-keys-package-source-freeze-20261010-a/actual-controls.json",
+      "path": "actual-controls.json",
+      "sha256": "20af6766f156a134d272c704d8c058a6dc264f7c5a9d3a1d5d802ed19df163a5"
+    },
+    {
+      "bytes": 8250,
+      "original": "/private/tmp/astra-paths-keys-package-source-review-20261010-a.json",
+      "path": "source-review.json",
+      "sha256": "6490a57eb6b55812e33699969f4cc5d9ea11c9cd5bc96b106258c5564c87221d"
+    },
+    {
+      "bytes": 4251,
+      "original": "/private/tmp/astra-paths-keys-index-review-20261010-a.json",
+      "path": "index-review.json",
+      "sha256": "5ab1bb34a05308910ff169e7103c6cee6c00a9a684c8968db3b521b3c89c17fd"
+    },
+    {
+      "bytes": 2249,
+      "original": "/private/tmp/astra-paths-keys-index-endorsed-20261010-a.json",
+      "path": "index-endorsement.json",
+      "sha256": "6051f01faa1a1178e58e9b720b288e9e769f058468cce7bdb4761ac31402a998"
+    },
+    {
+      "bytes": 44302,
+      "original": "/private/tmp/ashlar-paths-keys-final-copy-20261010-a.json",
+      "path": "final-copy.json",
+      "sha256": "0d4a9bd70d0be3226f33c16635d280ddba389de032117fe781a7afee376d541e"
+    }
+  ],
+  "format": "ashlar-qualified-package-proof/0.1",
+  "scope": "Fixed current3a/H/historical530 proof, publicindex6d exact127file copy and sourcecontrols only; no installation/compiler/native/source/publication/ACK authority transfer.",
+  "weftIndexRevision": "6d82b7e89e43319c2a175b9895527298ff66ef36",
+  "weftIndexSha256": "bd541aa8cb261376f160661d3df67065b36fcba4f6caf4c0f42e33d710c4b9dc"
+}

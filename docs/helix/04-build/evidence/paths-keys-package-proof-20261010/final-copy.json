@@ -1,0 +1,1034 @@
+{
+  "format": "weft-paths-keys-final-copy/0.1",
+  "commit": "6d82b7e89e43319c2a175b9895527298ff66ef36",
+  "headAndOriginEqual": true,
+  "files": 127,
+  "bytes": 47778857,
+  "index": {
+    "path": "distributions/index.json",
+    "sha256": "bd541aa8cb261376f160661d3df67065b36fcba4f6caf4c0f42e33d710c4b9dc",
+    "bytes": 2060,
+    "candidateBytesEqual": true,
+    "oldTwoEntriesUnchanged": true,
+    "baseSha256": "a7571d2bd141bf182ce171acc16f64f1276cca29a855dbf4b49a92283fc71864"
+  },
+  "artifacts": [
+    {
+      "path": "assembly-custody.json",
+      "gitBlob": "d416c586cd0b86be6276b7a7d373b1f780967a16",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "03e897e9d9e0b849e3a480710a9a3cc440537d439e3ba1a25385c48c9fef2f27",
+      "bytes": 34922
+    },
+    {
+      "path": "backend/backend-manifest.json",
+      "gitBlob": "37b2df77bce04f1690d864071eddae1ca29b9277",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "ead2df8de9927765775ec7267a9a1865b1c02ec21c849255ada85c36a645fb84",
+      "bytes": 52274
+    },
+    {
+      "path": "bin/weft-paths-keys",
+      "gitBlob": "3f6536ee0355297c88a778d01849c53eaa418ad6",
+      "gitMode": "100755",
+      "copyMode": "0o555",
+      "sha256": "471fc5dedc8f8eba3156444d19cc2161fac7a06833672dd5621ed49ead8b522c",
+      "bytes": 8330656
+    },
+    {
+      "path": "evidence/build-command.json",
+      "gitBlob": "9c0e75ffcf3999bf238b1a219d48223420b20384",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "1ad88380c1c0ece419c7054c6a8d474aaaa425fdef1027798848df1f9e17ac90",
+      "bytes": 7987
+    },
+    {
+      "path": "evidence/cli-build-outcome.json",
+      "gitBlob": "8f19a9ce4f509547809e800f2f8e6a58b5420737",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "0f62105d16809df30dae54f7ddbd2be1b4167909d1b9987c665f97f20e47203f",
+      "bytes": 447
+    },
+    {
+      "path": "evidence/controls-custody.json",
+      "gitBlob": "5c39fcf4aadc335e0bb86899cbdb880e78d2206b",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "820d0195de77269f743ee1e486ac7c0808672a962eda09f3def6ccaaa6118f7d",
+      "bytes": 425
+    },
+    {
+      "path": "evidence/controls-summary.json",
+      "gitBlob": "b6a23f6dacd6c3d511b89cf168c7ed13fb5a3514",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "edc50de30827f172d710def6ef168b62feb9bf4f2e5672c751f70b411bf4a2ca",
+      "bytes": 438
+    },
+    {
+      "path": "evidence/controls.jsonl.gz",
+      "gitBlob": "3857418ae66cea3f481c56f1dc099d42fae7fa2f",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "7e47bef6782a07add317db7daeb64b1a5f862a3d596d750d5e06d7feb9f59a6a",
+      "bytes": 150164
+    },
+    {
+      "path": "evidence/corpus-custody.json",
+      "gitBlob": "5468f8b9c65f60e35585cfe443b8fff9331ed54b",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "fffb1bd4bf35d81c6b90dba2c591e02a4b0cf9e7d6a552efdbeed673836f9428",
+      "bytes": 425
+    },
+    {
+      "path": "evidence/corpus-summary.json",
+      "gitBlob": "74bf9ad6afa1693db351ce1a6183c5b2739190f7",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "d05e7301d8312312901a824fe57b5620b880c61b8bc3276acd604ecffdff201e",
+      "bytes": 439
+    },
+    {
+      "path": "evidence/corpus.jsonl.gz",
+      "gitBlob": "ee5406e597e2cdeae2751a793a16b19c8063e562",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "6483915d0578a67b1acdbd17ce3abae672fea3d2141e47d1d7c22604250a319d",
+      "bytes": 675354
+    },
+    {
+      "path": "evidence/expected-cases.json",
+      "gitBlob": "3b8671180bbcc7022178e9ed7ed13e2fc09d3267",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "b9661c7ff024e9696417ef5bce3ca70a28d8cd8b93b109835ab0517ededf63d0",
+      "bytes": 20542587
+    },
+    {
+      "path": "evidence/full-receipt.json.gz",
+      "gitBlob": "e5a64d341cf88f0863694a2ccd49b0d2cdafb85d",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "7309da7969bc8bfb6ea7070f44deb4e5aa3d3d0e2cd2b44bda14d05ce31631be",
+      "bytes": 830443
+    },
+    {
+      "path": "evidence/metadata-build-outcome.json",
+      "gitBlob": "f97be326a50b5112e547dfa13929f0b7e20624d1",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "78ffab5dd9c168a474721f05be206aeba944b2880f23e30d4804d6f6aa239c72",
+      "bytes": 250
+    },
+    {
+      "path": "evidence/qualification-command.json",
+      "gitBlob": "3476891273648f102daec773aa88f21d1915a4fb",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "5be699a29f0fc67d95c9e99222c7981d86b074d615b8344983bb6bd5dba4c0b2",
+      "bytes": 91664
+    },
+    {
+      "path": "evidence/qualification-outcome.json",
+      "gitBlob": "a5fcd9bfb25ebe8853177cbcdf5d34bc6e3af441",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "b9998b3d7434e380e82f02254b15209c0123a6273e2aa73ed9a874a7479093c2",
+      "bytes": 315
+    },
+    {
+      "path": "evidence/source-inventory.json.gz",
+      "gitBlob": "2f5612035ce7dd6c57979537ade50086dfe90ab2",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "e8f40b1130b4d7eb55873ef0858708a8a92719e89614af93d058df00d9aeba7d",
+      "bytes": 149590
+    },
+    {
+      "path": "evidence/tools.json",
+      "gitBlob": "93af4f637e87f6c7fef653ae03de1a0bc96440a7",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "38429dcb2d11ce4f4a0fdfe1790356667be33e3c8ef82973edebd421ed202426",
+      "bytes": 94
+    },
+    {
+      "path": "evidence/transport.json",
+      "gitBlob": "487e20b96f8a3bad644937deb24f65f57f997472",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "1e8df8b01f2d077b8db811c8a6bc3a869817f591dae1aab43ab753d15d56e753",
+      "bytes": 2764
+    },
+    {
+      "path": "manifest.json",
+      "gitBlob": "1cda4261c83ba127fa99ec2ddef4427077426a69",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "414d343f917bffa5eca34b6d9d87a4fd2234486c6351b95879f1061afb17302d",
+      "bytes": 7066
+    },
+    {
+      "path": "producer/assemble-paths-distribution.py",
+      "gitBlob": "c3734d4ea1ba5f5abd2ab3262033d7b44bff26cc",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "623e1c174e98e6415f86010784a0fd61e53c7f2a368f0a555d2bc36b1d8a6159",
+      "bytes": 23157
+    },
+    {
+      "path": "producer/bounded-launcher.py",
+      "gitBlob": "ea397e7bbfd5f97d6e449cf05cfcdbc66fcd88f8",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "1b3ddad1de8da44d2af9593bab1be96361a7167f807b7f1fab01b1d901382892",
+      "bytes": 6214
+    },
+    {
+      "path": "producer/checker.py",
+      "gitBlob": "65fc671c65c151d17b219835eda9d631901d7fc7",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "bf9523f086466fd485d1cb90b54da9d02677585f015216ad90b236daa9acc276",
+      "bytes": 7368
+    },
+    {
+      "path": "producer/corpus-harness.py",
+      "gitBlob": "8df25773c385a67cc3a40844ff590976702474de",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "77517097fe5c5c3b27f90433c505c36514e409896beaa3d473f1937542eb75a5",
+      "bytes": 35371
+    },
+    {
+      "path": "producer/metadata-probe/Cargo.lock",
+      "gitBlob": "9b2cfe1dca162c2ea2915bc05f84078a258bc345",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "b69384f0e23ae43a62bd59edfadf27ffe73789df3ec09da23c564bb31e396ca6",
+      "bytes": 22716
+    },
+    {
+      "path": "producer/metadata-probe/Cargo.toml",
+      "gitBlob": "071d64079f0beabc9a94a250e60f2e1cf07b01bc",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "9eb3df1ae22c0df183a88ecd3f31eefb3b266e196ab8960eb5ff1615e7cf45f6",
+      "bytes": 543
+    },
+    {
+      "path": "producer/metadata-probe/src/main.rs",
+      "gitBlob": "838524440844571096b3db59d82bb3ef7c5a5c64",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "54edc872be8e4e8255362cc5a1ccf06cd5507181820dda2e4d7a7a766511939d",
+      "bytes": 570
+    },
+    {
+      "path": "producer/paths_keys_distribution.py",
+      "gitBlob": "242348fd7dae3ea2df65e8cdd8332f1c48b3ad9d",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "5e981a454bbfbc31b797559dd6d4c4ee67d0114fc5922ff7d437c63a13f8a2c0",
+      "bytes": 18716
+    },
+    {
+      "path": "producer/run.py",
+      "gitBlob": "5ec5a28d0d209868d30ac62eedd0cc8d5b56ed09",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "04d9fa07266e0744c3835b31e4ddeb87c0954381fff0bc58420345f51faaa05e",
+      "bytes": 2390
+    },
+    {
+      "path": "producer/schema-checker",
+      "gitBlob": "b4547995f682c79f562515693fcafa44df45c85e",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "fccf88deb54e04bc1c599a8dd11303669a15e8e0c71e3ae0d2c5f649c6ee68b8",
+      "bytes": 2324
+    },
+    {
+      "path": "source-subset/Cargo.lock",
+      "gitBlob": "f1a4ddf602e4a727c8ff9c0a6058932efdf42280",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "08d3d30468be6bbde701be72c4e070f60c0706b54898e8e3a0432ea0cfbe0e9e",
+      "bytes": 28372
+    },
+    {
+      "path": "source-subset/crates/weft-core/src/compile04.rs",
+      "gitBlob": "294367c1b377256e973ea0ca78555405462cbe01",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "2c82da3f60c20776284ff97b4844e976edd4b8c12d5be016ec4a323ebc7196ac",
+      "bytes": 17708
+    },
+    {
+      "path": "source-subset/crates/weft-databricks/src/paths.rs",
+      "gitBlob": "ffa2207546838d4f3e8dc44e0a1ce53edf6c6b89",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "f7e677df76ac697f72289b477e9d14159ac5a05f11467316282f31be4deaf72d",
+      "bytes": 7921
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/evidence/full-receipt.json.gz",
+      "gitBlob": "497262f8129404f3eb380f7c758dbeca53acada2",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "98f33d3a1051db8da45e99f850253a546858b1412318346a44dd6ebfd5e6766f",
+      "bytes": 2569562
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/evidence/source-inventory.json.gz",
+      "gitBlob": "909803985f00b73ce1bd6b93cc5bb66f025fd4c0",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "26a7161b60156fac6543619cc7a13467f77cd68b6b45997fa4d379bbdc071af0",
+      "bytes": 140992
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/manifest.json",
+      "gitBlob": "5a27e093260f58f953ce75ac7b513e405f9c9289",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "fa801113d214078f5bbccf6aee2d9acdf184ccd7be352b7fd55e84b794d5ac4e",
+      "bytes": 7044
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/crates/weft-core/src/compile04.rs",
+      "gitBlob": "294367c1b377256e973ea0ca78555405462cbe01",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "2c82da3f60c20776284ff97b4844e976edd4b8c12d5be016ec4a323ebc7196ac",
+      "bytes": 17708
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/crates/weft-databricks/src/paths.rs",
+      "gitBlob": "dc5ff0e8909ab903c0c17bcf00ee3703a864d04f",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "3c6ebc5f201c80256109a55e7acf9b9c1c31a045650d5cecc5e32cd096b98b6a",
+      "bytes": 7992
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-application-native/compile-artifacts.jsonl",
+      "gitBlob": "5cc388a8203ff6cf31e2bb2e0eec6176a2255e96",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "1890b061d48626fc8b253b64f320643bdf78036ccc3c076e991588274a083759",
+      "bytes": 2458108
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-columns-native/compile-artifacts.jsonl",
+      "gitBlob": "79a74552021206185579afa63bb9507e1ed97301",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "652edb0bf4d5e275755201de6baaf088601521f8d006549404731a38a2742212",
+      "bytes": 955224
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-compound-application-native/compile-artifacts.jsonl",
+      "gitBlob": "601fe9506732dea888fa1c54a8e8ec7a6be85d63",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "77a7f484c60916573cb9667695c056340ec4eed13d32963f4e700f3fce4d73f3",
+      "bytes": 2335992
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-compound-boundaries-native/compile-artifacts.jsonl",
+      "gitBlob": "7de9b4d8c0661be0f6fb6b86c07502ebc0b39e5b",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "6250c001b0133ff34a6e7b7339fadb21c4797f792ae023c951b282ddf61c6197",
+      "bytes": 204042
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-compound-native/compile-artifacts.jsonl",
+      "gitBlob": "fb07877588ef7aad833ad41e2226655180c6db17",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "46cbe6bd63669dc975b7ba9ed042ce8b957aed1c1cf139e229b1b3345b9086c9",
+      "bytes": 4050957
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-cross-module-native/compile.json",
+      "gitBlob": "80efc0f184bbdf62b9097c2d5684b1c8b6811ca0",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "f8492391b65b717be213fbafb6fbdbcb8c8d9fe7cec9d77461ee420464bf0560",
+      "bytes": 31389
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-global-native/empty-compile.json",
+      "gitBlob": "ceea30da4cd9d5afc66fd1b920de08a39ce62ec8",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "7e2ffd6796d94c5cef6240dd7aa96bf2abe0d491cd3a1fbbbb455aec1944138c",
+      "bytes": 22968
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-global-native/exact-compile.json",
+      "gitBlob": "49f1dcce5bed3211402b5851a425ef1d3c928370",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "a63edaff21189070686056bb28a7d80a461d72f6a4e76a221911f324e721bcc7",
+      "bytes": 22968
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-key-refusal/compile-artifacts.jsonl",
+      "gitBlob": "02f4495ddcf3df5a0e32c5059632f8c8ef5930bd",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "89790e1dddbf25bd28e32cb084091219e02506deb6d6f31ccb7b59ed20a1fc5f",
+      "bytes": 176688
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-optional-native/compile-artifacts.jsonl",
+      "gitBlob": "a5cf654f0df5f4db91968c8efdc63b0518ab99df",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "888f33af3b2b4f998649f0343d56bafb23615db65f2a90cdbd0c94e3bd21455c",
+      "bytes": 472102
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-relationship-native/compile-artifacts.jsonl",
+      "gitBlob": "36217966206bf9f01e920a107c88261d0a55587a",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "2116aca797fc0257bd0d01dfdf5258751a37d26c73f24a48914bb5a26ba1a5c1",
+      "bytes": 2234669
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-scalar-native/empty-compile.json",
+      "gitBlob": "9beab6f9469271fcfec99483c7bf8353e19ef16c",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "49028e5b145b42fa658a33cb848a9586cb47279fce0db4b0d2c133cc6dde5223",
+      "bytes": 40458
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-scalar-native/exact-compile.json",
+      "gitBlob": "205133415d8a67babe1a7844938335d658227e67",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "919e76703e2d331986111ff92ea5dbba5516c2dbf6001248b3a357983511c8d0",
+      "bytes": 40458
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-scalar-native/hidden-absent-compile.json",
+      "gitBlob": "729ee071d87c0f08cb7eec2caff7a94eb616a7e9",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "2a9975a7a550fc43dfc3042be368451c4400c0c9e0379a8f9149b3c3fdc3fd07",
+      "bytes": 40490
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-scalar-native/hidden-decimal-domain-compile.json",
+      "gitBlob": "27e16deea195e6e197c608bcf72e797cd3d469b8",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "692388f4238c349f6475f2cc2082506b11dfafabd09976a2ccc5ed2222eb214e",
+      "bytes": 40522
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-scalar-native/hidden-decimal-scale-compile.json",
+      "gitBlob": "6c2faf887eb2b52250b2ee3f54dcc9ccffc6ea99",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "25096731e121df758e94235d6ffb1625b7cb827540275f1194e05f344126bd71",
+      "bytes": 40518
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-scalar-native/hidden-exponent-carrier-compile.json",
+      "gitBlob": "211721b146fd85c70291d446612af7342b41e230",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "7cb3c305d740ed25f1a8e3c16e20f0d5c7effb85a982419e16deeef2961e69b6",
+      "bytes": 40530
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-scalar-native/hidden-foreign-domain-compile.json",
+      "gitBlob": "5b26ecf2aac3ea5e0b5cb309bdb0d49aaf2d5796",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "a6912ca81fdad96f52ebec603dec7c91c77db19544790c76ad280f2a1932995d",
+      "bytes": 40522
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-scalar-native/hidden-null-compile.json",
+      "gitBlob": "62af08b87f77a43a3c5e2af7fbae2ea57f3a83e1",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "1f6cd52d39d9872a58dd2b6450eec467f7b34ebacc5efa3d5ec58366e3460965",
+      "bytes": 40482
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-scalar-native/hidden-number-string-compile.json",
+      "gitBlob": "402beec0052111c839b9ddeea01a757090fd47f9",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "49bf0c4bb8f3e6de21d759b36ddf93ba561209d4d793a1978e257fa3e47875dc",
+      "bytes": 40518
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-scalar-native/hidden-wrong-name-compile.json",
+      "gitBlob": "bfd8b8230d4a37f2d759f46716c0a72b14b9b195",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "03f53796eee3e66f870fb8666df6c9298ef43d43b5d2fee0eb81a83bc2a87f94",
+      "bytes": 40506
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/docs/helix/04-build/evidence/B-006-unsigned-columns/compile-artifacts.jsonl",
+      "gitBlob": "5a4ac71940edd6221646fe248e8906f6743a5ecd",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "3d15a23eec23885098e458e82ffa6505ebe8dd2ddd2ce122a2f1f4b4d1a0e915",
+      "bytes": 72760
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/scripts/distribution/check-cli-controls.py",
+      "gitBlob": "ed8778e28d4c6f58f4368fdf5e7ffaf4c08ae693",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "01dbe70e2428741a007b12e218da9c39fcef542fcae59e68e36fbb4cd0724854",
+      "bytes": 7388
+    },
+    {
+      "path": "source-subset/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/source-subset/scripts/distribution/check-paths-cli.py",
+      "gitBlob": "e7748af55696ad67bd23e41dacf68f47030b9863",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "2cad04baacb843f22306d0ca1554bd375e70d77e3be0bc85123be56eb923c088",
+      "bytes": 23087
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/application-result-v0.2.schema.json",
+      "gitBlob": "bff1fc5a8ede0c75796037700e272c7a1e73ce70",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "0e9fc7aa16d14a4e78027a70514d75476d1576f9625747e1b5f56b76147f8014",
+      "bytes": 1636
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/application-result-v0.4.schema.json",
+      "gitBlob": "5800cad40de29960b872af76edf1e4c1f2b63041",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "ee87e4e845d670601a301701dc6109c7a37dadb96ccb1e7f75c8144c5bd8bc2a",
+      "bytes": 2281
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/backend-manifest-v0.2.schema.json",
+      "gitBlob": "ac57b3c25c82e77cdd9ca06e699c2d64cbadef09",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "b3b556d49b9c605e0c1ce1cad601905ba89008b67f5129f4bdbdbb8df0b55fc2",
+      "bytes": 7580
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/backend-manifest-v0.3.schema.json",
+      "gitBlob": "3d0b8fd69ea93109dcab51a5a0d9e52738bf163d",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a",
+      "bytes": 18066
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/backend-manifest.schema.json",
+      "gitBlob": "418afd598fe7feb89cda149890d1b96c0ecf5fda",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "d18133db2b104714f78839aba458d62dffa79d969195df02582a87465a2ac4a1",
+      "bytes": 4006
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/compile-request-v0.2.schema.json",
+      "gitBlob": "b02ca0597d829b04e751a530a937efdc5079ac90",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "2a9a4264a9d8926176aa3809d613e103f35c8f634b0d8839ddf2bbcf598cacde",
+      "bytes": 3874
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/compile-request-v0.3.schema.json",
+      "gitBlob": "dbc7f5e8ac1d95d9c85749b475568582498ddbf6",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "7345c424b1bbf8da15e6f7b4efb81da7eeb85a1e08fb91319eeb7b19ec129047",
+      "bytes": 3511
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/compile-request-v0.4.schema.json",
+      "gitBlob": "2c6e073e2d538454c726f96e6e234581217acd69",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932",
+      "bytes": 3511
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/compile-request.schema.json",
+      "gitBlob": "5b674d7781fe7013d419c54791f5508f839ade34",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "8916022eb698864f5580319848307a1e0e90699dbaac1dafd6b8f2e11119d3e5",
+      "bytes": 2851
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/compile-response-v0.2.schema.json",
+      "gitBlob": "4a4cd7f6ad6241da911334ed0f873d593bbea933",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "8cce222e4031b5cf2e2aa6388b28e948e1d1408e60b3056a2c3c297e993af3dc",
+      "bytes": 30933
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/compile-response-v0.3.schema.json",
+      "gitBlob": "b8a03d44e0d0e689b890ab5896e6dcff80cd0f97",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "9583cd85063d00a2f88473acb2a1566ad9d94b8b305e2388c612fdb43c52507a",
+      "bytes": 34484
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/compile-response-v0.4.schema.json",
+      "gitBlob": "49b62782a4d2a990f785cadbcf100fb8424be7e1",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140",
+      "bytes": 62086
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/compile-response.schema.json",
+      "gitBlob": "1996ebf0e45003ff4ffb88a9c9d1c1e77aa66311",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "234e439bca6ac06b783579005e3db086526b4f16a28267e0fdc92fe55abfb938",
+      "bytes": 23723
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/conformance-case.schema.json",
+      "gitBlob": "86e9cd72a6d6182e104ef62359f9f0fd686cb631",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "837197d5a3d7ef43b80ae50ef8d45caf14a42ce88d5d166492abf8247e791e99",
+      "bytes": 2261
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/distribution-index.schema.json",
+      "gitBlob": "e15cf366c561add486d83238a88c0f7b58151753",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "768f25323aa5e046298742200ba413ba98d2f53cf9e10ee3126c6ea618ef830d",
+      "bytes": 2813
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/distribution-manifest.schema.json",
+      "gitBlob": "ab6925c0302a4640c30c6343e11328675296db7d",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "856d5103161b965db3eb1dc0198d08c13a65a2cd7367aab5caf345ba69722d66",
+      "bytes": 9259
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/logical-plan-v0.2.schema.json",
+      "gitBlob": "37d562a0b19ca2b3671a167ad2d816868a80b106",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "17b650e2573b4274cfd8506cf02b963060c0d978ffc7f979d94a7d9eafea1316",
+      "bytes": 17644
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/logical-plan-v0.3.schema.json",
+      "gitBlob": "ea47211813d4eb96762ab3d3d7f8a1f0950b676c",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "60fe7c27d6afea25bebe3cd429d5a86e1b447c403715f298be79fd0aa0d3f297",
+      "bytes": 38838
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/logical-plan-v0.4.schema.json",
+      "gitBlob": "a5cbe0875038fb1a9d6314f2876aeca3ff023b14",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5",
+      "bytes": 42813
+    },
+    {
+      "path": "source-subset/docs/helix/02-design/contracts/logical-plan.schema.json",
+      "gitBlob": "bdf15621aa9eb750172007c13f483475ae575cdd",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "ce9c7de12094ab840e4b483faed44a4ee5e122e47a4d4c9f9e46d8144541f9ff",
+      "bytes": 8879
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/aggregate.request.json.gz",
+      "gitBlob": "53be8dc33aa441badc363f2758d52fd84bd4c5e1",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "88d9105b1c2cd687fd2793e207e6a4e0615b11985f0e02d787b862a3a8de6c99",
+      "bytes": 3437
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/aggregate.response.json",
+      "gitBlob": "45e324edb3eaabf04c83d24078f38458ec6bd736",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "152b79a0ba084507222839f4c2ff24b5a44d73873181467e2f655fcd48f8b496",
+      "bytes": 217
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/arithmetic_and_collection.request.json.gz",
+      "gitBlob": "ea96cebd7e42d8c77fb94ae1e438757dec9b3f34",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "36b8b3bf31d882be876f3ec93c7d83be442293ff2be5e4a6cc798aa7b76ba19a",
+      "bytes": 3441
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/arithmetic_and_collection.response.json.gz",
+      "gitBlob": "44b7293ae864bbc5466b54787f0a8e80dc65524b",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "883b54288ad8776af3262d2b169d291f85d2b18b5c68e510ece286b096536f6d",
+      "bytes": 6118
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/bound0.request.json.gz",
+      "gitBlob": "c838f9c37dfbe9c7556519e15717174fbfab3ef9",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "a5de5a4d5f5a28fd7e5ea58ef8040376c0f3a2e2f6cfa7a3877cf1c0464fa387",
+      "bytes": 3430
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/bound0.response.json",
+      "gitBlob": "f81700a5aa246e7da29e1e338136fc6afbfcc5f4",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "fa1a16bf5bfd37f63c98a64b0d909f07e5ae2ef0958ee280945372b2b1306920",
+      "bytes": 270
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/bound1001.request.json.gz",
+      "gitBlob": "12193b353bb91b2969f1e889cb41e0f29a7ff822",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "a02034ffeea71af4f3cc757fd7b61b4f993f9405681a21ac329b8af0a7913444",
+      "bytes": 3432
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/bound1001.response.json",
+      "gitBlob": "a67cd01b97e91c6792ae2b9026d45bab8df5a018",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "073f39ce27c1118bf9aace918411f09c6c2bd3a3900ca29d1fdc835aa400c4e7",
+      "bytes": 270
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/candidate_off.request.json.gz",
+      "gitBlob": "abfff76947d90d21cdbc5a77927ecc8ca21a1682",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "09d762041aaa969b8c231194fe984930554c846623d2ce684d07d3a9f2fcd000",
+      "bytes": 3432
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/candidate_off.response.json",
+      "gitBlob": "c67eeccfae22f75d8372629ec0b7fb9b5e763ac2",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "87b9145e79540aa768a19252eec1f5b4829f78ad6758d6b4cea99893c2bf04b7",
+      "bytes": 234
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/composite.request.json.gz",
+      "gitBlob": "e780e8f8e1446bc7215cb66ecd53849064a923de",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "0c1f7ed3591c53ebc42604d21cace64d0a37c31bcb8b7834446c919e6c18b63b",
+      "bytes": 3102
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/composite.response.json.gz",
+      "gitBlob": "2330924afeab63ef58c4306b1f53546f8358bbfd",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "52c231d8815b5d3b9c72a0b0b3797e2ecafad51d1ed6a99e9ea8c32d89f07508",
+      "bytes": 5557
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/empty_outer.request.json.gz",
+      "gitBlob": "5e1a8945578849409bec6a32b3c84bd2505f85f5",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "2502b93dfce3200e954d467aa8efeafa05d183e59d6d67a8a31ef306d9f92374",
+      "bytes": 3476
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/empty_outer.response.json.gz",
+      "gitBlob": "42d4f3b449c685a1edf11b9c0b20bc824520e198",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "dd8fd42742c593280fca3c6f5c947cf1c302616abd5f3ec5515314230f04ac6d",
+      "bytes": 5665
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/expansion_mix.request.json.gz",
+      "gitBlob": "31f97a9ce68c52344ab715fdcc9028201f240a16",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "f17aa1cebb9f9e68e236c766176eb9419365a8927139b01f108b87ed3fcc581e",
+      "bytes": 3468
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/expansion_mix.response.json",
+      "gitBlob": "68d4799f72ae9bd2fae6ff1bd71f83cdea19d9df",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "42c2baaf5c140e365225ce92a03f84d701dc8dabb075f832a33aee4c1d6149ee",
+      "bytes": 283
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/group.request.json.gz",
+      "gitBlob": "e1530c2f946c31e1315caf87ba888d988ed03d4f",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "ab2803b09837f206aa6d009cc6d90792e523cdc1a353d856b783d88c3ae2a379",
+      "bytes": 3442
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/group.response.json",
+      "gitBlob": "45e324edb3eaabf04c83d24078f38458ec6bd736",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "152b79a0ba084507222839f4c2ff24b5a44d73873181467e2f655fcd48f8b496",
+      "bytes": 217
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/inverse.request.json.gz",
+      "gitBlob": "69e4349437123f2f11018ce093bc149bad2b7549",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "c106c6dfcac918fcf8be78561f3d6212307e3cf771e0af77239b325ae8fbe466",
+      "bytes": 3098
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/inverse.response.json.gz",
+      "gitBlob": "450c13ba4c91617abef634041e1e9adb6aac2e37",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "f55941f52bfbc8268a2b573f1cad5c1276582e59368a0f371e8c133f05a41a29",
+      "bytes": 5262
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/left_root.request.json.gz",
+      "gitBlob": "0b05ecddff8d761364f7e576036b82e5bbb66774",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "c7b076edd1761c21a72e0fbe3c33b03014750acf1373e5d10f246e35fa6c3938",
+      "bytes": 3463
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/left_root.response.json",
+      "gitBlob": "263b12542db3c091317cc8cdfd02433237d9a259",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "fdbb4884897fb8ff17cccdfbd9c5861d7f0998fdc323b07a95cf412130e47767",
+      "bytes": 255
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/mixed_reverse_order.request.json.gz",
+      "gitBlob": "4af3506583212d2d2e98947169c41592bfc6347a",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "f312f71cf0630ebeb099c17dc8c09ae251a25804d6f90b6e31d38405a4336e84",
+      "bytes": 3460
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/mixed_reverse_order.response.json.gz",
+      "gitBlob": "c32caca4d783b14c73e3f07411cd6db08a146e61",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "b94ada5503f09f514ea8ca65d66df24c1d1d18964a72342dad3666b36729fdf6",
+      "bytes": 8241
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/numeric_key.request.json.gz",
+      "gitBlob": "16b836bbef87f045b30487c70f07b8f25b2d34f2",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "8436963f84a11a6aa70a744f5fcf0af629c4281256eaef7c0074592900c3fda8",
+      "bytes": 3106
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/numeric_key.response.json",
+      "gitBlob": "7a20dbaf2350eb007cb617b5975c61099926620f",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "6ee9f1d8b9ab24308f59a8cc5f766f6394d025ae410fa73d528579813a642e90",
+      "bytes": 246
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/optional_key.request.json.gz",
+      "gitBlob": "7ea8abdaabb8b57098f6d57f5a27f9c1a418a0be",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "492825f28313aafbb174510d438e14bdc13de6f8fc48c31476b533c86f6c5323",
+      "bytes": 3113
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/optional_key.response.json",
+      "gitBlob": "f3233d37c28e7e8ae646573c711c581908af7a06",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "9dc6ea6473533f4c173d8eebbf9cca7913773445a52d3f562c7eaebf539aaa17",
+      "bytes": 247
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/original.request.json.gz",
+      "gitBlob": "ccba40fe4e3f40fa6246088eb2867fc12ff6ad4c",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "81adff170c0102ee9d94be052c9684f5277956994b4dcb2d3686b9cdf51e0b84",
+      "bytes": 3430
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/original.response.json.gz",
+      "gitBlob": "4d013374ba2443afa6ace43484bc219517443f16",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "fa2c06996dcb83556b3b0e6dbef8aaf4d28d83a86dfa61ab81e8bb29d7aff45f",
+      "bytes": 5402
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/repeated_expressions.request.json.gz",
+      "gitBlob": "aed510383b4e13eb07b51400c1c1baeb19b068c9",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "d6d61e49ba7dfb9daa4aa1ab040f4031dac323a9942ba76bb0288b43483853a4",
+      "bytes": 3430
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/repeated_expressions.response.json.gz",
+      "gitBlob": "c4fc1213a3d1e3e14fb368671b11529a8fa1cc02",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "32067b0e8d20c76dc0a6cd5dc7455902906c5dc2f248092ad9bee0b062b2f575",
+      "bytes": 5493
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/required_root_with_left_other.request.json.gz",
+      "gitBlob": "7e088af3448f4f3717e97566a65569629175e59f",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "75da6883a8c9db4f60ac932a4a8cc3ec3c3db017f1d089c5662877980047e996",
+      "bytes": 3461
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/required_root_with_left_other.response.json.gz",
+      "gitBlob": "6ac2898d1fe2ea363f4e60051080725d0b2341cc",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "8e8fc1c2d913739a12045167c7479cf16b1afc71496d77db726db893f519b215",
+      "bytes": 5946
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/scalar_only.request.json.gz",
+      "gitBlob": "9dd1bcc20180a6fa386b0fad60f540d1013f093d",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "c9bb72ced01e352d1b541400b43e688b19826f4c8d1cd35aa9a41bf58ec0bd2d",
+      "bytes": 3384
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/scalar_only.response.json",
+      "gitBlob": "7391d296281c6c4dd2cbc8426018547bcf09cd5d",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "7adfcfbe8282c0ccaf658428b803ab9dd4af46da6f014aac70f8559b656f26d3",
+      "bytes": 12009
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/two_roots.request.json.gz",
+      "gitBlob": "9b8418dfcf5dfacd8956dc0dee5cb4d9558ec02d",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "6f4cd5c2a226612e226ce00b86de86df16be5471abdfd38e3dfa2e4bcb3cc91e",
+      "bytes": 3453
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/two_roots.response.json.gz",
+      "gitBlob": "de871f2a8dc0faa1a25d848a0f2396ba5f034127",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "265d2b2069f7377dc3ffb3e5c71b751bcd35517d361cc239f75e8cc89d847053",
+      "bytes": 6061
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/wrong_profile.request.json.gz",
+      "gitBlob": "949841ed70d518d5309fcae7d6b621763fdc407b",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "6bec670e36226b43e17f7487e05e7cf96f2688068db329b75e5e5e58417dd6f7",
+      "bytes": 3431
+    },
+    {
+      "path": "source-subset/docs/helix/04-build/evidence/paths-keys-source-review-20261010/wrong_profile.response.json",
+      "gitBlob": "1c5033aab9b13928c09e3e2c4cafe82b1061b6fc",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "d0d3fea3e62601431d8b906817fc33baf79e92d2a84fd28bde17fdf875c72ef8",
+      "bytes": 217
+    },
+    {
+      "path": "source-subset/rust-toolchain.toml",
+      "gitBlob": "38c5ee54a9557e203e59ef6dc06586b6bd1b77d7",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "41ffa816f9f3929eee58730344f11d341b50fb15ac1f3850a7b9ff4205831e14",
+      "bytes": 113
+    },
+    {
+      "path": "source-subset/scripts/distribution/backend-paths-metadata.rs",
+      "gitBlob": "49e062ded352e7241ece213b77ec43276d70f6fd",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "4d9141327cac82550a662043cbf371b4ee3a20336fca776dcd77d94219ca2964",
+      "bytes": 556
+    },
+    {
+      "path": "source-subset/scripts/distribution/check-cli-controls.py",
+      "gitBlob": "ed8778e28d4c6f58f4368fdf5e7ffaf4c08ae693",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "01dbe70e2428741a007b12e218da9c39fcef542fcae59e68e36fbb4cd0724854",
+      "bytes": 7388
+    },
+    {
+      "path": "source-subset/spec/upstream/umf-0.7.0.schema.json",
+      "gitBlob": "1bc03f55ddf11a44a2a7fc7351187a8a70da0ddb",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "a95512729481417f1a3a094cc337d7264a575bd6b54046b05c037db6c33b4813",
+      "bytes": 18941
+    },
+    {
+      "path": "source-subset/spec/upstream/umf-0.8.0.schema.json",
+      "gitBlob": "ebaf4c4ee757b88825a30cb81be647d4761bcf5e",
+      "gitMode": "100644",
+      "copyMode": "0o444",
+      "sha256": "79e72f2ebef434c7d1e09d372c74d330b24109bb8af9778745a8d41275acee6e",
+      "bytes": 26793
+    }
+  ],
+  "scope": "Committed Git bytes, checkout copies and independently approved package bytes only; no compiler/install/native execution or authority inferred from this comparison."
+}
