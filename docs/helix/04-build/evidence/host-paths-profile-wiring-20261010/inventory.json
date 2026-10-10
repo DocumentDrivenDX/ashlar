@@ -1,0 +1,16 @@
+{
+  "format": "ashlar-host-profile-wiring-evidence/0.1",
+  "scope": "Independently reviewed source and offline schema/fake-held-source tests only; actual native ten-query qualification remains separate.",
+  "files": [
+    {
+      "path": "freeze-a.json",
+      "bytes": 4484,
+      "sha256": "36ae05291ed4bc41c61e2202cd5a70a7ac20fdd6ccb145bc173e6edabc165a35"
+    },
+    {
+      "path": "independent-review-a.json",
+      "bytes": 7821,
+      "sha256": "9546fbc42297258ecdd69675e70cdf2e3dde766eb679f6d51b91c1dc3632db56"
+    }
+  ]
+}

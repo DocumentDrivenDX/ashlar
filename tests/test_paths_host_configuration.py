@@ -122,10 +122,13 @@ assert not any(n.split('.')[0] in {'ashlar_host','pyspark','delta','psycopg','js
                 main()
         self.assertEqual(raised.exception.code, 2)
 
-    def test_selected_uninstalled_profile_refuses_at_public_host_before_effects(self):
+    def test_invalid_profile_refuses_at_public_host_before_effects(self):
         from ashlar_host.paths_query import query_commerce_paths
         config = self.config(profile='paths-keys')
+        # Defend the composition boundary even if a caller bypasses the frozen
+        # configuration constructor; a truthy unknown selection is no fallback.
+        object.__setattr__(config, 'profile', 'unknown')
         with patch('ashlar_host.paths_query.runtime_paths', side_effect=AssertionError('runtime reached')) as runtime:
-            with self.assertRaisesRegex(HostError, '^paths-profile-not-installed$'):
+            with self.assertRaisesRegex(HostError, '^invalid-paths-profile$'):
                 query_commerce_paths(config)
         runtime.assert_not_called()

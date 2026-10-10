@@ -15,6 +15,9 @@ from pathlib import Path
 from ashlar.weft_paths_distribution import (
     PathsDistributionPaths, compile_paths_distribution, installed_paths_schema_bundle,
 )
+from ashlar.weft_paths_keys_distribution import (
+    PathsKeysDistributionPaths, compile_paths_keys_distribution, installed_paths_keys_schema_bundle,
+)
 from .commerce import runtime_paths
 from .commerce_path_oracle import commerce_path_cases, original_commerce_path_oracle
 from .commerce_path_request import commerce_path_request
@@ -200,19 +203,28 @@ def _source_port(opened, dataset_bytes, maximum):
 
 
 def _query_commerce_paths(config) -> dict:
-    """Run all ten declared intents through the fixed installed Paths profile.
+    """Run all ten declared intents through the explicitly selected profile.
 
     A refused required case withholds the whole report. This is not a capability
     qualification claim until actual native results and custody are reviewed.
     """
     from .config import QueryCommercePathsConfig
     if type(config) is not QueryCommercePathsConfig:raise HostError('invalid-configuration')
-    if config.profile != 'paths':raise HostError('paths-profile-not-installed')
+    profile=config.profile
+    if type(profile) is not str:raise HostError('invalid-paths-profile')
+    if profile == 'paths':
+        paths=PathsDistributionPaths(config.index,config.installation)
+        schema_bundle=installed_paths_schema_bundle
+        compile_distribution=compile_paths_distribution
+    elif profile == 'paths-keys':
+        paths=PathsKeysDistributionPaths(config.index,config.installation)
+        schema_bundle=installed_paths_keys_schema_bundle
+        compile_distribution=compile_paths_keys_distribution
+    else:raise HostError('invalid-paths-profile')
     jars=runtime_paths(config,False)
     original_model,original_graph=original_inputs(config.model,config.graph)
     report_bytes=read_bounded(config.publication/'report.json',4*1024*1024)
-    paths=PathsDistributionPaths(config.index,config.installation)
-    schemas=dict(installed_paths_schema_bundle(paths))
+    schemas=dict(schema_bundle(paths))
     selected={name:schemas[name] for name in ('compile-request-v0.4.schema.json',
               'compile-response-v0.4.schema.json','logical-plan-v0.4.schema.json')}
     schema_port=make_offline_path_schema_validation(selected)
@@ -241,17 +253,17 @@ def _query_commerce_paths(config) -> dict:
                     spark.sql('CREATE TABLE '+alias+" USING DELTA LOCATION '"+str(native).replace("'","''")+"'").collect()
                 if opened.native_files() != opened.original_native_files:raise HostError('paths-native-drift')
             alias_interval=opened.provider.closed_interval_custody(opened.context)
-            execution=PathExecutionConfig(PathAdmissionConfig(config.maximum_artifact_bytes,schema_port),
+            execution=PathExecutionConfig(PathAdmissionConfig(config.maximum_artifact_bytes,schema_port,profile=profile),
                 config.capture,config.decoder,_source_port(opened,dataset_bytes,config.maximum_artifact_bytes),UMF_REVISION)
             cases=[]
             for name,sql in commerce_path_cases():
                 request=commerce_path_request(sql,opened.model,opened.bindings,opened.manifest,
-                    opened.original_report['table_registry'],opened.aliases)
+                    opened.original_report['table_registry'],opened.aliases,profile=profile)
                 raw_request=(_encoded(request)+'\n').encode('utf8')
                 if len(raw_request)>config.maximum_artifact_bytes:raise HostError('paths-request-bound')
-                raw_response=compile_paths_distribution(paths,raw_request)
+                raw_response=compile_distribution(paths,raw_request)
                 artifact=_parse(raw_response,config.maximum_artifact_bytes)
-                raw_recompiled=compile_paths_distribution(paths,raw_request)
+                raw_recompiled=compile_distribution(paths,raw_request)
                 recompiled=_parse(raw_recompiled,config.maximum_artifact_bytes)
                 if opened.provider.active:raise HostError('paths-active-binding-refused')
                 opened.provider.expected_binding=_encoded(json.loads(request['target']['bindingJson']))
@@ -275,7 +287,7 @@ def _query_commerce_paths(config) -> dict:
     runtime_paths(config,False,require_fresh=False)
     if original_inputs(config.model,config.graph)!=(original_model,original_graph):raise HostError('paths-source-drift')
     if {str(path):hashlib.sha256(read_bounded(path,32*1024*1024)).hexdigest() for path in jars}!=opening_jars:raise HostError('paths-jar-drift')
-    if dict(installed_paths_schema_bundle(paths))!=schemas:raise HostError('paths-installation-drift')
+    if dict(schema_bundle(paths))!=schemas:raise HostError('paths-installation-drift')
     result['opening_closing_jars']=opening_jars;result['cleanup']={'readerClosed':True,'sparkStopped':True}
     payload=(_bounded_encoded(_json(result),96*1024*1024-1)+'\n').encode('utf8')
     _publish_report(config.output,payload)

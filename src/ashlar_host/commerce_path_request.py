@@ -10,12 +10,15 @@ import re
 from .delta_custody import encoded
 from .publication_reader import compiler_request as base_request
 from .source_identity import SOURCE_SHA
-from .path_admission import BACKEND
+from .path_admission import BACKEND, PATHS_KEYS_BACKEND
 
 
 def commerce_path_request(sql: str, model: bytes, bindings: dict, manifest: dict,
-                          registry: list, aliases: dict) -> dict:
+                          registry: list, aliases: dict, *, profile: str = 'paths') -> dict:
     """Build the exact original source mapping; this grants no native authority."""
+    if type(profile) is not str or profile not in ('paths', 'paths-keys'):
+        raise ValueError('Explicit supported path profile required')
+    backend = BACKEND if profile == 'paths' else PATHS_KEYS_BACKEND
     request = base_request(sql, model, bindings, manifest, registry, aliases, fields=True)
     if bindings['profile'] != 'ashlar-commerce-development-bindings/0.2':
         raise ValueError('Complete canonical original property bindings required')
@@ -86,7 +89,7 @@ def commerce_path_request(sql: str, model: bytes, bindings: dict, manifest: dict
     binding['relationships'] = relationships
     raw = encoded(binding)
     request.update(interfaceVersion='weft-compile/0.4.0', dialect='weft-sql/0.4.0')
-    request['target'] = {key: BACKEND[key] for key in
+    request['target'] = {key: backend[key] for key in
                          ('backendId', 'backendVersion', 'targetProfile')}
     request['target'].update(bindingJson=raw, bindingSha256=hashlib.sha256(raw.encode()).hexdigest())
     return request

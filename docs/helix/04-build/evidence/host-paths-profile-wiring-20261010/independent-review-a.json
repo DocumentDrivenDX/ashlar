@@ -1,0 +1,135 @@
+{
+  "format": "independent-host-profile-wiring-review/0.1",
+  "decision": "approved-source-and-exact-ci-delta-only",
+  "freeze": {
+    "path": "/private/tmp/ashlar-host-profile-wiring-freeze-20261010-a/manifest.json",
+    "bytes": 4484,
+    "sha256": "36ae05291ed4bc41c61e2202cd5a70a7ac20fdd6ccb145bc173e6edabc165a35"
+  },
+  "files": [
+    {
+      "path": "src/ashlar_host/commerce_path_request.py",
+      "bytes": 5743,
+      "sha256": "9a05f74c1ab9cda066188f91e51e992dfa51f1f2d2bcf8d772757a3c6fd21015",
+      "baselineSha256": "155987ddded4c3e909fc43ca32246e0318c677b3aedc5bcf844d4006fd699a07",
+      "frozenPath": "/private/tmp/ashlar-host-profile-wiring-freeze-20261010-a/src/ashlar_host/commerce_path_request.py",
+      "livePath": "/Users/erik/Projects/ashlar/src/ashlar_host/commerce_path_request.py"
+    },
+    {
+      "path": "src/ashlar_host/paths_query.py",
+      "bytes": 18629,
+      "sha256": "80a809d481b4710cdb2dc9a3509c149f0390e9dc3c6491f37e43812bdfb919ba",
+      "baselineSha256": "91a5093b886cb0fe98be399e6649acf854cedbea6eeb81a6866167d7879df659",
+      "frozenPath": "/private/tmp/ashlar-host-profile-wiring-freeze-20261010-a/src/ashlar_host/paths_query.py",
+      "livePath": "/Users/erik/Projects/ashlar/src/ashlar_host/paths_query.py"
+    },
+    {
+      "path": "tests/test_paths_host_configuration.py",
+      "bytes": 7630,
+      "sha256": "6408c4af9c24645f19c9b5446f024cd260649f1945892bcee68db3422bfcd246",
+      "baselineSha256": "75b614a470ecef4dc35d8e1748265896edbbf45d559361c481f2c0389bf02d28",
+      "frozenPath": "/private/tmp/ashlar-host-profile-wiring-freeze-20261010-a/tests/test_paths_host_configuration.py",
+      "livePath": "/Users/erik/Projects/ashlar/tests/test_paths_host_configuration.py"
+    },
+    {
+      "path": "tests/test_host_paths_profile_wiring.py",
+      "bytes": 8587,
+      "sha256": "4f798d3774ee5bcb2dfd5fce303bf07b8463a32da2f0b04f01ec32ebad27fe8b",
+      "baselineSha256": null,
+      "frozenPath": "/private/tmp/ashlar-host-profile-wiring-freeze-20261010-a/tests/test_host_paths_profile_wiring.py",
+      "livePath": "/Users/erik/Projects/ashlar/tests/test_host_paths_profile_wiring.py"
+    }
+  ],
+  "ci": {
+    "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+    "bytes": 2855,
+    "sha256": "d0ccd802c18d8a69caf73d61f8fa993ae08f8c9546372f80bfb78c9eccded40d",
+    "baseCommit": "f3d270008ab58e9ba3e239f94ddba28af0f4114a",
+    "onlyAddedLine": "- run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_paths_profile_wiring.py"
+  },
+  "findings": [],
+  "independentVerification": {
+    "cwd": "/Users/erik/Projects/ashlar",
+    "commands": [
+      {
+        "command": "PYTHONPATH=src:tests:tools /usr/bin/python3 -B -S -W error::ResourceWarning /private/tmp/astra-host-profile-wiring-tests-20261010-a.py",
+        "exitCode": 0,
+        "tests": 28,
+        "python": "3.9.6"
+      },
+      {
+        "command": "PYTHONPATH=src:tests:tools /private/tmp/truss-python-report-schema-env/bin/python -B -W error::ResourceWarning /private/tmp/astra-host-profile-wiring-tests-20261010-a.py",
+        "exitCode": 0,
+        "tests": 46,
+        "python": "3.11.17",
+        "offlineDependencies": "jsonschema 4.23.0 / referencing 0.35.1"
+      },
+      {
+        "command": "PYTHONPATH=src /usr/bin/python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_paths_profile_wiring.py",
+        "exitCode": 0,
+        "tests": 7
+      },
+      {
+        "command": "/usr/bin/python3 -B -S tools/check_module_boundaries.py",
+        "exitCode": 0
+      }
+    ],
+    "controls": [
+      "All ten original requests independently rebuilt using exact committed baseline builder; default new serialized bytes equal original bytes and retained author observations.",
+      "For each of ten requests, replacing only new backendId/backendVersion/targetProfile with original values restores exact original serialized request, preserving source/binding text and digest.",
+      "Profile chosen once before runtime effects; corresponding immutable path value, compiler and schema callbacks reused through request, recompile, admission and closing even if globals rebound.",
+      "Unknown selection refuses before base request/runtime; selected schema/compiler failure has no fallback or successful report.",
+      "Actual fake lifecycle cancellation preserves original exception across required cleanup failure; selected closing schema drift withholds report after Spark stop.",
+      "Existing fourteen original host tests retained; real offline admission twelve and held execution six pass with fake native/compiler ports."
+    ],
+    "priorInvocationCorrection": "An initial reviewer harness run from the UMF cwd lacked subprocess PYTHONPATH and its isolated help import failed. Repeated with the repository cwd and explicit project test paths; all 28/46 and exact src-only CI tests pass. No source edit was required.",
+    "artifacts": [
+      {
+        "path": "/private/tmp/astra-host-profile-wiring-tests-20261010-a.py",
+        "bytes": 3328,
+        "sha256": "deefa18b4ac08fd3c0e4814979e7301fad0eb0b423c41d6724424dcc2587c5b3"
+      },
+      {
+        "path": "/private/tmp/astra-host-profile-wiring-tests-20261010-a-py39.log",
+        "bytes": 3288,
+        "sha256": "fef89239684a54ef51113c24805190f4605f43733042b4f2edb31bda5d20b960"
+      },
+      {
+        "path": "/private/tmp/astra-host-profile-wiring-tests-20261010-a-py311.log",
+        "bytes": 8085,
+        "sha256": "0f300dff0f9acd6fc807596a9328fe3b77dc82330a8ae13231b0f16a55304a1e"
+      },
+      {
+        "path": "/private/tmp/astra-host-profile-wiring-controls-20261010-a-9.json",
+        "bytes": 1813,
+        "sha256": "97fd57c035a646e5498e2fe782fa9bfcc4f762b191b1adee085f7d30b2b2681b"
+      },
+      {
+        "path": "/private/tmp/astra-host-profile-wiring-controls-20261010-a-11.json",
+        "bytes": 1791,
+        "sha256": "13e573a2d9014aa34735bacece85f05631086ee2f924ed1972b9c7e2ad1f344e"
+      },
+      {
+        "path": "/private/tmp/astra-host-profile-wiring-ci-20261010-a.log",
+        "bytes": 105,
+        "sha256": "19b35269f9b276011c891935f04faddaa00e083e827695b12c8cbac476b659f4"
+      },
+      {
+        "path": "/private/tmp/astra-host-profile-wiring-boundaries-20261010-a.log",
+        "bytes": 94,
+        "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+      }
+    ]
+  },
+  "governingCorrespondence": {
+    "modularity": "Only public profile-specific distribution APIs imported; host orchestration retains owned source/schema/admission/execution ports. SDK construction remains lazy and below verified source/schema preflight. Actual boundary checker passes, with its dynamic/type/cycle limits explicit.",
+    "configuration": "Closed explicit immutable profile selection; default paths preserved. No environment/trust/profile discovery or response-driven fallback introduced; existing finite configured limits unchanged.",
+    "observability": "Existing payload-free HostError refusal and exact original cancellation behavior preserved. No OTel receiver/export or telemetry integration claim.",
+    "formalAnalysis": "PUB-F1/PUB-F2 held interval, source/ACK/native vector, cleanup, closing and complete-report availability code remains unchanged except the selected public callbacks and same profile passed to owning admission. Evidence is finite semantic and implementation tests, not analyzer/model proof."
+  },
+  "limitations": [
+    "No actual compiler, installation, SDK construction, native engine, publication, ACK, package or index action in this review.",
+    "The mocked ten-case composition is not an actual ten-case native success claim.",
+    "Independent command review is still required before actual installed smoke/native execution."
+  ]
+}

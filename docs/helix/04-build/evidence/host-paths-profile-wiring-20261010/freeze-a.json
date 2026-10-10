@@ -1,0 +1,97 @@
+{
+  "format": "ashlar-host-profile-wiring-source-freeze/0.1",
+  "files": [
+    {
+      "path": "src/ashlar_host/commerce_path_request.py",
+      "bytes": 5743,
+      "sha256": "9a05f74c1ab9cda066188f91e51e992dfa51f1f2d2bcf8d772757a3c6fd21015",
+      "baselineSha256": "155987ddded4c3e909fc43ca32246e0318c677b3aedc5bcf844d4006fd699a07"
+    },
+    {
+      "path": "src/ashlar_host/paths_query.py",
+      "bytes": 18629,
+      "sha256": "80a809d481b4710cdb2dc9a3509c149f0390e9dc3c6491f37e43812bdfb919ba",
+      "baselineSha256": "91a5093b886cb0fe98be399e6649acf854cedbea6eeb81a6866167d7879df659"
+    },
+    {
+      "path": "tests/test_paths_host_configuration.py",
+      "bytes": 7630,
+      "sha256": "6408c4af9c24645f19c9b5446f024cd260649f1945892bcee68db3422bfcd246",
+      "baselineSha256": "75b614a470ecef4dc35d8e1748265896edbbf45d559361c481f2c0389bf02d28"
+    },
+    {
+      "path": "tests/test_host_paths_profile_wiring.py",
+      "bytes": 8587,
+      "sha256": "4f798d3774ee5bcb2dfd5fce303bf07b8463a32da2f0b04f01ec32ebad27fe8b",
+      "baselineSha256": null
+    }
+  ],
+  "baseline": {
+    "commit": "7449147e5eec55a930cec7b87da6d1c6e4a96832",
+    "files": [
+      {
+        "path": "src/ashlar_host/commerce_path_request.py",
+        "sha256": "155987ddded4c3e909fc43ca32246e0318c677b3aedc5bcf844d4006fd699a07",
+        "bytes": 5484
+      },
+      {
+        "path": "src/ashlar_host/paths_query.py",
+        "sha256": "91a5093b886cb0fe98be399e6649acf854cedbea6eeb81a6866167d7879df659",
+        "bytes": 18054
+      },
+      {
+        "path": "tests/test_paths_host_configuration.py",
+        "sha256": "75b614a470ecef4dc35d8e1748265896edbbf45d559361c481f2c0389bf02d28",
+        "bytes": 7433
+      }
+    ]
+  },
+  "delta": {
+    "path": "changes.diff",
+    "sha256": "1856a27d1b94f138eed33362e7840180afa0354138c775ba78b492dc1edc0035",
+    "bytes": 16481
+  },
+  "verification": {
+    "portable": {
+      "command": "PYTHONPATH=src:tests /usr/bin/python3 -B -S -m unittest -v test_host_paths_profile_wiring test_paths_host_configuration test_host_paths_query",
+      "python": "3.9.6",
+      "tests": 28,
+      "exit": 0
+    },
+    "offlineSchemaAndHeldExecution": {
+      "command": "PYTHONPATH=src:tools:tests /private/tmp/truss-python-report-schema-env/bin/python -B -m unittest -v test_host_paths_profile_wiring test_paths_host_configuration test_host_paths_query test_host_paths_keys_admission test_host_paths_keys_execution",
+      "python": "3.11.17",
+      "tests": 46,
+      "exit": 0,
+      "log": {
+        "path": "/private/tmp/ashlar-host-profile-wiring-tests-20261010-a.log",
+        "bytes": 8299,
+        "sha256": "b1167c68c675b1abd88f047d098a640bc24c858e05bd8e2c1cf9c5ec5ddc6131"
+      }
+    },
+    "priorAttempt": "The 28 main tests passed under Python 3.11, but two extra fixture modules could not import without tools on PYTHONPATH. Corrected explicit test path succeeded with all 46 tests.",
+    "oldRequests": {
+      "cases": 10,
+      "path": "/private/tmp/ashlar-host-profile-wiring-before-20261010-a.json",
+      "sha256": "3bdc27377bc60e09a4ef147552a629383c3311b9a27d4a76f3f0f542e37388a4",
+      "bytes": 554015,
+      "comparison": "Post-edit default requests reserialized with identical JSON settings match every pre-edit byte."
+    },
+    "boundaries": {
+      "command": "/usr/bin/python3 -B -S tools/check_module_boundaries.py",
+      "exit": 0
+    },
+    "diffCheck": "pass"
+  },
+  "correspondence": [
+    "Immutable host profile is selected once before effects; matching path value and schema/compiler callbacks are reused through closing.",
+    "Request public keyword profile defaults to paths; paths-keys changes only backendId/backendVersion/targetProfile, preserving all original source/binding bytes and digests.",
+    "PathAdmissionConfig receives the identical selected profile; no response-driven selection or fallback.",
+    "PUB-F1/PUB-F2 lifecycle mapping is unchanged: fake held execution, source/ACK custody, reader/Spark cleanup and complete report gates remain; tests cover selected failures/cancellation/closing drift."
+  ],
+  "limits": [
+    "Source-only tests use fake compiler/native ports; no actual compiler, SDK construction, package install, native engine, publication or ACK execution.",
+    "New trusted PathsKeys frontend and installation dependencies are separate reviewed source slices; this freeze grants no new runtime/native qualification.",
+    "No Git mutation or other source/document edits by this lane."
+  ]
+}
