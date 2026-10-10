@@ -49,10 +49,11 @@ Single capability: bounded relationship queries and their feasibility evidence.
 - **QUERY-02:** Query examples must state direction, endpoint/type filters,
   duplicate-node versus distinct-path semantics, parallel-edge treatment,
   cycle handling, and which published snapshot they observe.
-- **QUERY-03:** Evaluate SQL joins as a baseline and GraphFrames motif finding
-  as an optional consumer. Record compatibility, additional dependencies,
-  limitations, and reasons to select or reject each. Recursive SQL is an
-  optional version-gated experiment, not an implicit requirement.
+- **QUERY-03:** Execute Weft-compiled SQL joins on publication-pinned data and
+  the shared graph corpus through GraphFrames, PuppyGraph Cypher/Gremlin and
+  Microsoft Fabric Graph GQL. Qualify each runtime, model and supported subset
+  independently; missing engine access affects that lane. Preserve compiler SQL
+  and obligations. Recursive SQL remains an optional version-gated experiment.
 - **QUERY-04:** Results must match a hand-auditable oracle on a shared fixture;
   adapters must preserve original node and edge identities without collisions.
 - **QUERY-05:** The feasibility record must name node/edge counts, degree skew,
@@ -106,8 +107,10 @@ and can identify the selected execution path and its unsupported operations.
 ## Constraints and Assumptions
 
 GraphFrames is a Spark compute library, not a store. A fixed two-hop join is
-in scope; arbitrary multi-hop algorithms are deferred. Query result surface and
-adapter mappings belong in a subsequent Contract after PRD Q4–Q5 are resolved.
+in scope; arbitrary multi-hop algorithms are deferred. CONTRACT-002 and
+CONTRACT-004 govern read results and publication resolution. Target-specific
+adapter mappings require explicit versioned contracts and runtime qualification
+within those boundaries; unresolved PRD Q4–Q5 decisions remain target-specific.
 
 ## Consumer input and open decisions
 
@@ -122,24 +125,27 @@ proof. “Interactive” and “a few seconds” are workload aspirations, not S
 ## Native lookup and scale direction
 
 The owner selected 1B nodes with more edges and requested low-latency singleton
-lookup directly on Databricks. SPIKE-001 records provisional performance gates
-and table-layout candidates. Fabric is an optional bounded graph projection;
-it must not be required by the native singleton path.
+lookup directly on Databricks. SPIKE-001 records provisional performance targets
+and table-layout candidates. These performance targets guide measurement and
+tuning. The Fabric integration lane is required; the native Databricks singleton
+path runs independently of Fabric.
 
 ## Dependencies
 
 FEAT-002, FEAT-004 for incremental progress, PRD FR-3, and [query research](../../00-discover/research.md).
-GraphFrames is an evaluation candidate, not a selected mandatory dependency.
+GraphFrames execution is a required integration lane; installing it is not a
+prerequisite for native Databricks singleton reads or other independent engines.
 
 ## Out of Scope
 
 New query language/compiler, general path algorithms, GraphQL, MCP, production
 graph projection deployments, and cross-store live query federation. PuppyGraph,
-GraphFrames and bounded Fabric table-mapping experiments are in scope under the
-owner’s 2026-10-05 direction. Native singleton queries remain on Databricks.
+GraphFrames and Fabric graph-release/native-query integration are required
+bounded toolkit workflows. Native singleton queries remain on Databricks.
 
-## Review Checklist
+## Review Requirements
 
-- [x] One PRD subsystem, testable behavior, named story, and explicit boundaries.
-- [x] Exact shared surfaces deferred to Contracts, not invented here.
-- [ ] Design decisions, executable acceptance evidence, and owner approval.
+Review verifies FR-3 and QUERY-01–QUERY-09 against governed contracts and the
+selected runtime corpus. Support claims require actual result, identity,
+multiplicity and publication-boundary evidence for each declared engine subset;
+record execution outcomes in build evidence.

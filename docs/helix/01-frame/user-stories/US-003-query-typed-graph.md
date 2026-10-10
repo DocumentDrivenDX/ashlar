@@ -29,9 +29,12 @@ ddx:
 
 ## Context
 
-The first milestone uses synthetic domain-neutral data to expose structural mistakes
-before real-data adoption. This journey exercises the parent feature's outcome;
-exact interface and schema surfaces belong in the forthcoming design Contracts.
+Use domain-neutral controls and original admitted UMF domain-pack datasets to
+expose structural and scalar errors. The engineer queries one immutable
+publication through Weft and compares independent graph-engine results within
+each qualified subset. [CONTRACT-002](../../02-design/contracts/CONTRACT-002-consumer-read-boundary.md)
+and [CONTRACT-004](../../02-design/contracts/CONTRACT-004-publication-resolver.md)
+own bounded reads and publication resolution.
 
 ## Walkthrough
 
@@ -76,18 +79,21 @@ producer profile may reject parallel edges explicitly, but must not collapse the
 
 ## Dependencies
 
-FEAT-003; PRD FR-3; QUERY-01–QUERY-09. Depends on US-002. Query Contract and target evidence await PRD Q4–Q5. General graph algorithms and new compilers are excluded.
+FEAT-003; PRD FR-3; QUERY-01–QUERY-09; US-002; CONTRACT-002 and CONTRACT-004.
+Each supported path requires its admitted model, publication and target profile.
+Weft owns compilation; Ashlar implements its host obligations. Engine access
+and real Truss prerequisites affect their own lanes. General graph algorithms
+remain outside this journey.
 
 ## Out of Scope
 
 The exclusions in the parent feature apply. This story does not authorize
 production data, deployment, or an application facade.
 
-## Review Checklist
+## Review Requirements
 
-- [x] One persona goal, parent feature and PRD requirement, stable criteria IDs.
-- [x] Concrete positive/edge scenarios; normative interfaces left to Contracts.
-- [ ] Criteria exercised by passing tests citing `@covers US-003-ACm`.
-- [ ] Owner review and approval.
-
-Test scenarios are specifications, not executed tests. All criteria are UNTESTED.
+Review verifies the stable criteria against exact identities, multiplicities,
+values, publication/progress and effective policy in the selected corpus.
+Actual runtime evidence must name its model, version and supported subset and
+cover the corresponding acceptance IDs. Keep observations and pending execution
+in build evidence; preserve independently authored expected results.
