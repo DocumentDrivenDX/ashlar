@@ -1,0 +1,7 @@
+{
+  "sourceCommit": "c6fe2a6e9513f51b3e0c9e653c54e6746c4ed6fc",
+  "sourceInventorySha256": "7e33db2f6f37b23ab1963fabb84868e7592975243ceba96884c619c6f9bfdec8",
+  "sourceFiles": 1839,
+  "exporterSha256": "4d9141327cac82550a662043cbf371b4ee3a20336fca776dcd77d94219ca2964",
+  "scope": "Source-owned Backend03 metadata only; no executable self-description, index admission or native engine qualification. Reused dependency cache, no deterministic build claim."
+}

@@ -1,0 +1,84 @@
+{
+  "format": "weft-paths-source-backend-metadata/0.1",
+  "sourceCommit": "c6fe2a6e9513f51b3e0c9e653c54e6746c4ed6fc",
+  "opening": {
+    "sourceCommit": "c6fe2a6e9513f51b3e0c9e653c54e6746c4ed6fc",
+    "sourceInventorySha256": "7e33db2f6f37b23ab1963fabb84868e7592975243ceba96884c619c6f9bfdec8",
+    "sourceFiles": 1839,
+    "exporterSha256": "4d9141327cac82550a662043cbf371b4ee3a20336fca776dcd77d94219ca2964",
+    "scope": "Source-owned Backend03 metadata only; no executable self-description, index admission or native engine qualification. Reused dependency cache, no deterministic build claim."
+  },
+  "closingSourceFilesVerified": 1839,
+  "terminalSession": 20847,
+  "terminalExit": 0,
+  "argv": [
+    "cargo",
+    "run",
+    "--offline",
+    "--release",
+    "-j1"
+  ],
+  "cwd": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/probe",
+  "explicitEnvironmentOverrides": {
+    "PATH": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/bin:/usr/bin:/bin",
+    "CARGO_HOME": "/private/tmp/weft-toolchain/cargo",
+    "RUSTUP_HOME": "/private/tmp/weft-toolchain/rustup",
+    "CARGO_TARGET_DIR": "/private/tmp/ashlar-weft-distribution-d2d/target"
+  },
+  "artifacts": [
+    {
+      "path": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/backend-manifest.json",
+      "sha256": "8ca9691612508eb55adc8b899baed2a57ec66a7952af367140b2ea2979b4288f",
+      "bytes": 52195
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/build.log",
+      "sha256": "75672e12720a501028477bc32ea7e7cdabd30d03441e3db49a92d8280e17d9a8",
+      "bytes": 6352
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/probe/Cargo.toml",
+      "sha256": "55b64384f91f7061b7a110e6ed64d4edc863575b4230c294303c5340a3407c3f",
+      "bytes": 480
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/probe/Cargo.lock",
+      "sha256": "ead5d49041cb9990d7ef05f302f2ba7b84301463d8d447f2eba9ac613813ad4e",
+      "bytes": 22711
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/probe/src/main.rs",
+      "sha256": "4d9141327cac82550a662043cbf371b4ee3a20336fca776dcd77d94219ca2964",
+      "bytes": 556
+    },
+    {
+      "path": "/private/tmp/weft-paths-native-c6fe2a6-20261010-a/source/docs/helix/02-design/contracts/backend-manifest-v0.3.schema.json",
+      "sha256": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a",
+      "bytes": 18066
+    }
+  ],
+  "schemaValidation": {
+    "draft": "2020-12",
+    "retrieval": "disabled",
+    "jsonschema": "4.23.0",
+    "referencing": "0.35.1",
+    "positive": true,
+    "negativeControls": [
+      {
+        "name": "wrong-interface",
+        "refused": true
+      },
+      {
+        "name": "unknown-member",
+        "refused": true
+      }
+    ]
+  },
+  "observed": {
+    "backendId": "ashlar.databricks.paths",
+    "backendVersion": "0.4.0-paths-candidate",
+    "interfaceVersion": "weft-backend/0.3.0",
+    "capabilities": 48
+  },
+  "qualification": "Actual source-owned Backend03 Registry registration and metadata serialization only. Candidate, original immutable c6 source and separate exporter; compiler/executable/native/index qualification remain separate. Reused Cargo dependency/target cache, inherited environment outside explicit overrides; no deterministic or full dependency closure claim."
+}

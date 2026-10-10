@@ -1,0 +1,52 @@
+{
+  "sourceCommit": "c6fe2a6e9513f51b3e0c9e653c54e6746c4ed6fc",
+  "sourceInventory": {
+    "path": "../weft-path-native-compiler-20261010/source-inventory.json",
+    "sha256": "7e33db2f6f37b23ab1963fabb84868e7592975243ceba96884c619c6f9bfdec8"
+  },
+  "entries": [
+    {
+      "path": "backend-manifest.json",
+      "originalPath": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/backend-manifest.json",
+      "bytes": 52195,
+      "sha256": "8ca9691612508eb55adc8b899baed2a57ec66a7952af367140b2ea2979b4288f"
+    },
+    {
+      "path": "build.log",
+      "originalPath": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/build.log",
+      "bytes": 6352,
+      "sha256": "75672e12720a501028477bc32ea7e7cdabd30d03441e3db49a92d8280e17d9a8"
+    },
+    {
+      "path": "opening.json",
+      "originalPath": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/opening.json",
+      "bytes": 458,
+      "sha256": "ce154517f157552ba7d043ba5da48115e508355967878f0a7535456d664cc276"
+    },
+    {
+      "path": "receipt.json",
+      "originalPath": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/receipt.json",
+      "bytes": 3381,
+      "sha256": "d884e233b743cf2c2142542a2aa7198808c33423e252bff9df0c3fa5a0aa717a"
+    },
+    {
+      "path": "probe-Cargo.toml",
+      "originalPath": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/probe/Cargo.toml",
+      "bytes": 480,
+      "sha256": "55b64384f91f7061b7a110e6ed64d4edc863575b4230c294303c5340a3407c3f"
+    },
+    {
+      "path": "probe-Cargo.lock",
+      "originalPath": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/probe/Cargo.lock",
+      "bytes": 22711,
+      "sha256": "ead5d49041cb9990d7ef05f302f2ba7b84301463d8d447f2eba9ac613813ad4e"
+    },
+    {
+      "path": "backend-paths-metadata.rs",
+      "originalPath": "/private/tmp/ashlar-paths-backend-metadata-20261010-a/probe/src/main.rs",
+      "bytes": 556,
+      "sha256": "4d9141327cac82550a662043cbf371b4ee3a20336fca776dcd77d94219ca2964"
+    }
+  ],
+  "scope": "Actual source-owned Backend03 path metadata registration/serialization and offline schema checks only. Independent review is recorded separately. No distribution index, installed CLI, native engine or deterministic build qualification."
+}
