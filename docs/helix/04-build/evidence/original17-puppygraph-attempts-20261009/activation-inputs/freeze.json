@@ -1,0 +1,24 @@
+{
+  "files": [
+    {
+      "bytes": 576,
+      "path": "/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/databases.json",
+      "sha256": "008ed0c0e032e20248bad0a11b3c25a0fac4d7bea60f26a91a36e66f38c2028a"
+    },
+    {
+      "bytes": 633,
+      "path": "/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/host-paths.json",
+      "sha256": "1854ebb48ef05b240ae306466d70ce9c5f64680181d426a5cd5730f0f7479a6d"
+    },
+    {
+      "bytes": 180496,
+      "path": "/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/model.json",
+      "sha256": "1b37adb8adcf17d9e62e43b587782ec9aeb2a235be65e2b603408149565af429"
+    },
+    {
+      "bytes": 263,
+      "path": "/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/trusted-prepared.json",
+      "sha256": "4fd195f2aa2e1c20d45be809586a77c8cff3fefba92ccbe9d6914778ca9e02b5"
+    }
+  ]
+}

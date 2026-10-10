@@ -1,0 +1,11 @@
+{
+  "client_sha256": "b3ee9c5760b410ca6f9b26595d64eaf2488564414b767fc7996305d399ab4b35",
+  "executable": "/private/tmp/ashlar-db-client/bin/python",
+  "format": "ashlar-gremlin-existing-runtime-preflight/0.1",
+  "gremlinpython": "3.7.3",
+  "module": "/private/tmp/ashlar-gremlin-python/gremlin_python/__init__.py",
+  "module_sha256": "adb38e768ff5f67cff9874d755ce69f195cb239a5418c7d72ca422c3b3a5bbb8",
+  "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "scope": "Read-only module import before three-pack Gremlin execution; no engine query.",
+  "serializer_sha256": "c0508f025b51076174a7d645c83d31dad86806623cd603c56610245795cb04e4"
+}

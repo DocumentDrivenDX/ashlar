@@ -1,0 +1,46 @@
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 305, in <module>
+    result=check(prepared,a.language,a.endpoint,model,databases,os.environ['ASHLAR_PUPPY_USER'],os.environ['ASHLAR_PUPPY_PASSWORD'],watcher,a.attempt_log)
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 232, in check
+    try:result=held(prepared,language,journal_query(lambda s,b:remote.submit(s,bindings=b).all().result(timeout=20),observe,attempt_log),observe,source_observe)
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 178, in held
+    profile=report['profile'];carriers={k:carrier_check(profile,k,language,query)for k in ('node','edge')}
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 178, in <dictcomp>
+    profile=report['profile'];carriers={k:carrier_check(profile,k,language,query)for k in ('node','edge')}
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 171, in carrier_check
+    return {'chunks':[{'columns':names,'original_native_rows':carrier_chunk_check(profile,kind,language,query,names)}for names in chunks]}
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 171, in <listcomp>
+    return {'chunks':[{'columns':names,'original_native_rows':carrier_chunk_check(profile,kind,language,query,names)}for names in chunks]}
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 154, in carrier_chunk_check
+    script,expected,names,label=raw_projection(profile,kind,language,selected);raw=staged_query(query,{'pack':profile['pack'],'stage':'carrier','kind':kind,'columns':names},script,{})
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 201, in staged_query
+    return query(script,bindings)
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 214, in execute
+    opening=observe();raw=query(frozen['script'],frozen['bindings']);closing=observe()
+  File "/Users/erik/Projects/ashlar/tools/check_pack_scenario_puppygraph.py", line 232, in <lambda>
+    try:result=held(prepared,language,journal_query(lambda s,b:remote.submit(s,bindings=b).all().result(timeout=20),observe,attempt_log),observe,source_observe)
+  File "/private/tmp/ashlar-gremlin-python/gremlin_python/driver/client.py", line 171, in submit
+    return self.submit_async(message, bindings=bindings, request_options=request_options).result()
+  File "/private/tmp/ashlar-gremlin-python/gremlin_python/driver/client.py", line 206, in submit_async
+    return conn.write(message)
+  File "/private/tmp/ashlar-gremlin-python/gremlin_python/driver/connection.py", line 58, in write
+    self.connect()
+  File "/private/tmp/ashlar-gremlin-python/gremlin_python/driver/connection.py", line 48, in connect
+    self._transport.connect(self._url, self._headers)
+  File "/private/tmp/ashlar-gremlin-python/gremlin_python/driver/aiohttp/transport.py", line 83, in connect
+    self._loop.run_until_complete(async_connect())
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/asyncio/base_events.py", line 642, in run_until_complete
+    return future.result()
+  File "/private/tmp/ashlar-gremlin-python/gremlin_python/driver/aiohttp/transport.py", line 73, in async_connect
+    self._websocket = await self._client_session.ws_connect(url, **self._aiohttp_kwargs, headers=headers)
+  File "/private/tmp/ashlar-gremlin-python/aiohttp/client.py", line 1087, in _ws_connect
+    resp = await self.request(
+  File "/private/tmp/ashlar-gremlin-python/aiohttp/client.py", line 788, in _request
+    resp = await handler(req)
+  File "/private/tmp/ashlar-gremlin-python/aiohttp/client.py", line 766, in _connect_and_send_request
+    await resp.start(conn)
+  File "/private/tmp/ashlar-gremlin-python/aiohttp/client_reqrep.py", line 539, in start
+    message, payload = await protocol.read()  # type: ignore[union-attr]
+  File "/private/tmp/ashlar-gremlin-python/aiohttp/streams.py", line 707, in read
+    await self._waiter
+aiohttp.client_exceptions.ServerDisconnectedError: Server disconnected

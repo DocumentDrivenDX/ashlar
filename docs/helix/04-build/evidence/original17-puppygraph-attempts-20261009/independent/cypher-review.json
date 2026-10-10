@@ -1,0 +1,96 @@
+{
+  "format": "astra-independent-original17-cypher-review/0.1",
+  "report_sha256": "ffe1dc4f17979d7ba89d58d7c76025791933d074a3e9229f5bfbda20488c69d8",
+  "cases": [
+    {
+      "pack": "archaeology",
+      "case": "cycle",
+      "rows": 1
+    },
+    {
+      "pack": "archaeology",
+      "case": "dating",
+      "rows": 1
+    },
+    {
+      "pack": "archaeology",
+      "case": "media",
+      "rows": 1
+    },
+    {
+      "pack": "archaeology",
+      "case": "missing-media",
+      "rows": 1
+    },
+    {
+      "pack": "archaeology",
+      "case": "specialists",
+      "rows": 1
+    },
+    {
+      "pack": "archaeology",
+      "case": "lineage",
+      "rows": 1
+    },
+    {
+      "pack": "archaeology",
+      "case": "evidence-links",
+      "rows": 2
+    },
+    {
+      "pack": "archaeology",
+      "case": "sample",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "effort-event",
+      "rows": 0
+    },
+    {
+      "pack": "ecology",
+      "case": "connected-measurements",
+      "rows": 2
+    },
+    {
+      "pack": "ecology",
+      "case": "censor",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "match",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "effort",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "zero",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "network",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "comparability",
+      "rows": 1
+    },
+    {
+      "pack": "ecology",
+      "case": "fishing",
+      "rows": 1
+    }
+  ],
+  "complete_raw_carrier_parity": true,
+  "native_identity_and_incidence": true,
+  "opening_closing_six_databases_and_model": true,
+  "watched_source_files": 22,
+  "scope": "Actual native Cypher translations; Gremlin and source SQL execution not implied."
+}

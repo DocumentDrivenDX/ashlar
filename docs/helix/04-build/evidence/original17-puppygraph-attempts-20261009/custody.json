@@ -1,0 +1,484 @@
+{
+  "entries": [
+    {
+      "path": "cypher-a/report.json.gz",
+      "sha256": "e4ae2874f22a40cb1f663ee863743ddb8184132ec90f8b96f20693bb521ecb6b",
+      "bytes": 78911,
+      "original": "/private/tmp/ashlar-original17-puppy-cypher-20261009-a.json",
+      "original_sha256": "ffe1dc4f17979d7ba89d58d7c76025791933d074a3e9229f5bfbda20488c69d8",
+      "original_bytes": 2156729
+    },
+    {
+      "path": "cypher-a/native.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "original": "/private/tmp/ashlar-original17-puppy-cypher-20261009-a.log",
+      "original_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "original_bytes": 0
+    },
+    {
+      "path": "gremlin-a/native.log",
+      "sha256": "e1d97cde13f444585b9ec144b7cba41ae948eda271426cc54500fa2a43a69c26",
+      "bytes": 7750,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-20261009-a.log",
+      "original_sha256": "e1d97cde13f444585b9ec144b7cba41ae948eda271426cc54500fa2a43a69c26",
+      "original_bytes": 7750
+    },
+    {
+      "path": "gremlin-b/native.log",
+      "sha256": "7e4f951c9f5fe535727e85f0ca4a967778e3e275e2a73c70b7ee2bfde0e3e873",
+      "bytes": 4201,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-20261009-b.log",
+      "original_sha256": "7e4f951c9f5fe535727e85f0ca4a967778e3e275e2a73c70b7ee2bfde0e3e873",
+      "original_bytes": 4201
+    },
+    {
+      "path": "gremlin-b/original-attempts.jsonl",
+      "sha256": "0050a151ea72b8b1101e0c51e6316b31e90200693c4f972113fd52aaf4adaad4",
+      "bytes": 3228,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-20261009-b.attempts.jsonl",
+      "original_sha256": "0050a151ea72b8b1101e0c51e6316b31e90200693c4f972113fd52aaf4adaad4",
+      "original_bytes": 3228
+    },
+    {
+      "path": "gremlin-c/native.log",
+      "sha256": "2abe21a2751f8592c659059d347496f6e63144b7ae46aa7cbfb249e4578dd719",
+      "bytes": 8742,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-20261009-c.log",
+      "original_sha256": "2abe21a2751f8592c659059d347496f6e63144b7ae46aa7cbfb249e4578dd719",
+      "original_bytes": 8742
+    },
+    {
+      "path": "gremlin-c/original-attempts.jsonl",
+      "sha256": "f52934df37d56b280aac6fd690153ca9817caa52bf8703b27a088663abc1ad3c",
+      "bytes": 116703,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-20261009-c.attempts.jsonl",
+      "original_sha256": "f52934df37d56b280aac6fd690153ca9817caa52bf8703b27a088663abc1ad3c",
+      "original_bytes": 116703
+    },
+    {
+      "path": "lifecycle/ashlar-original17-puppy-opening-databases-20261009-a.json",
+      "sha256": "008ed0c0e032e20248bad0a11b3c25a0fac4d7bea60f26a91a36e66f38c2028a",
+      "bytes": 576,
+      "original": "/private/tmp/ashlar-original17-puppy-opening-databases-20261009-a.json",
+      "original_sha256": "008ed0c0e032e20248bad0a11b3c25a0fac4d7bea60f26a91a36e66f38c2028a",
+      "original_bytes": 576
+    },
+    {
+      "path": "lifecycle/ashlar-original17-puppy-closing-databases-20261009-a.json",
+      "sha256": "008ed0c0e032e20248bad0a11b3c25a0fac4d7bea60f26a91a36e66f38c2028a",
+      "bytes": 576,
+      "original": "/private/tmp/ashlar-original17-puppy-closing-databases-20261009-a.json",
+      "original_sha256": "008ed0c0e032e20248bad0a11b3c25a0fac4d7bea60f26a91a36e66f38c2028a",
+      "original_bytes": 576
+    },
+    {
+      "path": "lifecycle/ashlar-original17-puppy-closing-databases-20261009-c.json",
+      "sha256": "008ed0c0e032e20248bad0a11b3c25a0fac4d7bea60f26a91a36e66f38c2028a",
+      "bytes": 576,
+      "original": "/private/tmp/ashlar-original17-puppy-closing-databases-20261009-c.json",
+      "original_sha256": "008ed0c0e032e20248bad0a11b3c25a0fac4d7bea60f26a91a36e66f38c2028a",
+      "original_bytes": 576
+    },
+    {
+      "path": "lifecycle/ashlar-original17-puppy-stopped-20261009-a.json",
+      "sha256": "6f3047b7f9049dde49d290c5d910926fc560e1d2ac6e7791e7b7ef1610ab7ae7",
+      "bytes": 226,
+      "original": "/private/tmp/ashlar-original17-puppy-stopped-20261009-a.json",
+      "original_sha256": "6f3047b7f9049dde49d290c5d910926fc560e1d2ac6e7791e7b7ef1610ab7ae7",
+      "original_bytes": 226
+    },
+    {
+      "path": "lifecycle/ashlar-original17-puppy-stopped-20261009-c.json",
+      "sha256": "794d059719bc0dd7535918d696791852312b0c6ddcada6bbf70fa2bc2425d9ae",
+      "bytes": 225,
+      "original": "/private/tmp/ashlar-original17-puppy-stopped-20261009-c.json",
+      "original_sha256": "794d059719bc0dd7535918d696791852312b0c6ddcada6bbf70fa2bc2425d9ae",
+      "original_bytes": 225
+    },
+    {
+      "path": "lifecycle/ashlar-original17-puppy-gremlin-readiness-20261009-c.json",
+      "sha256": "e42884576ae1f14e3efa6a85ad5214286e0df2a6a21faedbe336b57d5608c419",
+      "bytes": 166,
+      "original": "/private/tmp/ashlar-original17-puppy-gremlin-readiness-20261009-c.json",
+      "original_sha256": "e42884576ae1f14e3efa6a85ad5214286e0df2a6a21faedbe336b57d5608c419",
+      "original_bytes": 166
+    },
+    {
+      "path": "activation/after.json",
+      "sha256": "b774d174a1c85503b66c1c7c75940f4abc15333eaffdc826b4aa9da3a8697625",
+      "bytes": 95487,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-20261009-a/after.json",
+      "original_sha256": "b774d174a1c85503b66c1c7c75940f4abc15333eaffdc826b4aa9da3a8697625",
+      "original_bytes": 95487
+    },
+    {
+      "path": "activation/before.json",
+      "sha256": "9b500ba43a5419c278d908f60274474bbb3c13f0e3d78ab04e32b8151f37eb49",
+      "bytes": 43650,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-20261009-a/before.json",
+      "original_sha256": "9b500ba43a5419c278d908f60274474bbb3c13f0e3d78ab04e32b8151f37eb49",
+      "original_bytes": 43650
+    },
+    {
+      "path": "activation/custody.json",
+      "sha256": "c12a0a7550bfd15a94c0bf8e4ef77bf5c1c8fc98cec049c1e70b7b116c3b66f6",
+      "bytes": 305,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-20261009-a/custody.json",
+      "original_sha256": "c12a0a7550bfd15a94c0bf8e4ef77bf5c1c8fc98cec049c1e70b7b116c3b66f6",
+      "original_bytes": 305
+    },
+    {
+      "path": "activation/request.json",
+      "sha256": "d92d77a57bebeb05a2fc1f126f2f830ab36530181e2a2015f4c995600bd69cfc",
+      "bytes": 92607,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-20261009-a/request.json",
+      "original_sha256": "d92d77a57bebeb05a2fc1f126f2f830ab36530181e2a2015f4c995600bd69cfc",
+      "original_bytes": 92607
+    },
+    {
+      "path": "activation/upload.json",
+      "sha256": "b241a4688e549b452a52da385aea07ba325e9e3477917660717d171e12150a67",
+      "bytes": 4411,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-20261009-a/upload.json",
+      "original_sha256": "b241a4688e549b452a52da385aea07ba325e9e3477917660717d171e12150a67",
+      "original_bytes": 4411
+    },
+    {
+      "path": "activation-inputs/databases.json",
+      "sha256": "008ed0c0e032e20248bad0a11b3c25a0fac4d7bea60f26a91a36e66f38c2028a",
+      "bytes": 576,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/databases.json",
+      "original_sha256": "008ed0c0e032e20248bad0a11b3c25a0fac4d7bea60f26a91a36e66f38c2028a",
+      "original_bytes": 576
+    },
+    {
+      "path": "activation-inputs/freeze.json",
+      "sha256": "f5fa450d7a10847f9a046b1fe399bd21e42cef15b960f0c0db85d251e511c706",
+      "bytes": 883,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/freeze.json",
+      "original_sha256": "f5fa450d7a10847f9a046b1fe399bd21e42cef15b960f0c0db85d251e511c706",
+      "original_bytes": 883
+    },
+    {
+      "path": "activation-inputs/host-paths.json",
+      "sha256": "1854ebb48ef05b240ae306466d70ce9c5f64680181d426a5cd5730f0f7479a6d",
+      "bytes": 633,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/host-paths.json",
+      "original_sha256": "1854ebb48ef05b240ae306466d70ce9c5f64680181d426a5cd5730f0f7479a6d",
+      "original_bytes": 633
+    },
+    {
+      "path": "activation-inputs/model.json",
+      "sha256": "1b37adb8adcf17d9e62e43b587782ec9aeb2a235be65e2b603408149565af429",
+      "bytes": 180496,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/model.json",
+      "original_sha256": "1b37adb8adcf17d9e62e43b587782ec9aeb2a235be65e2b603408149565af429",
+      "original_bytes": 180496
+    },
+    {
+      "path": "activation-inputs/trusted-prepared.json",
+      "sha256": "4fd195f2aa2e1c20d45be809586a77c8cff3fefba92ccbe9d6914778ca9e02b5",
+      "bytes": 263,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/trusted-prepared.json",
+      "original_sha256": "4fd195f2aa2e1c20d45be809586a77c8cff3fefba92ccbe9d6914778ca9e02b5",
+      "original_bytes": 263
+    },
+    {
+      "path": "original/0-custody.json.gz",
+      "sha256": "793adb74d5eee77a72874a0aed14358c04dfc229276121905ac3dc869bdf90fb",
+      "bytes": 205475,
+      "original": "/private/tmp/ashlar-archaeology-graph-release-20261009-a/custody.json",
+      "original_sha256": "a7e086e15add908c9c9b44d6aedd760c798fd7fec6dff07add534cdf64fe3fbe",
+      "original_bytes": 3204155
+    },
+    {
+      "path": "original/1-release.graph.json",
+      "sha256": "e43a36357d90fb8fc8854a0b03e9ce34d58f4d186429009518f8cfe761202155",
+      "bytes": 472909,
+      "original": "/private/tmp/ashlar-archaeology-graph-release-20261009-a/release.graph.json",
+      "original_sha256": "e43a36357d90fb8fc8854a0b03e9ce34d58f4d186429009518f8cfe761202155",
+      "original_bytes": 472909
+    },
+    {
+      "path": "original/2-development-bindings.json",
+      "sha256": "26f5ff297637361e3c7b4f6a4c40622f98e51ccb68f93a99279cc1339e2dbdcd",
+      "bytes": 36312,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/development-bindings.json",
+      "original_sha256": "26f5ff297637361e3c7b4f6a4c40622f98e51ccb68f93a99279cc1339e2dbdcd",
+      "original_bytes": 36312
+    },
+    {
+      "path": "original/3-original-graph.json",
+      "sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52",
+      "bytes": 81564,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/original-graph.json",
+      "original_sha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52",
+      "original_bytes": 81564
+    },
+    {
+      "path": "original/4-original-ontology.json",
+      "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+      "bytes": 83068,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/original-ontology.json",
+      "original_sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+      "original_bytes": 83068
+    },
+    {
+      "path": "original/5-public-dataset.json.gz",
+      "sha256": "4cb6304cbbbefac674d4ba8627bd3ac6ce71bbb6001526a6e3f7bc31e180f539",
+      "bytes": 61875,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/public-dataset.json",
+      "original_sha256": "fb12d9ce4a4967e3f1ca36adeb758c41c5df314c61560a745acf1b6dd27b96c9",
+      "original_bytes": 1106521
+    },
+    {
+      "path": "original/6-report.json.gz",
+      "sha256": "b52c3eec4552394ebbf47fa187d1200b41f220a4d6920d1bb8d649f4de1bf541",
+      "bytes": 124489,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/report.json",
+      "original_sha256": "2cd8cd9afc2757c9a75d60f3c31633688f4afccedee6335d412cc281b214e721",
+      "original_bytes": 1755596
+    },
+    {
+      "path": "original/7-source.jsonl",
+      "sha256": "9d0347b430c77d36bbc98b245a4df894108282aea7a10cb774bc729d25d0d9b2",
+      "bytes": 115572,
+      "original": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/source.jsonl",
+      "original_sha256": "9d0347b430c77d36bbc98b245a4df894108282aea7a10cb774bc729d25d0d9b2",
+      "original_bytes": 115572
+    },
+    {
+      "path": "original/8-custody.json.gz",
+      "sha256": "81ac66fdf03ca77d924a037a215db413e9851bafbe903c52a9c04e90b2e16cd5",
+      "bytes": 182625,
+      "original": "/private/tmp/ashlar-ecology-graph-release-20261009-a/custody.json",
+      "original_sha256": "c3c175ce706d5799cdb757052cde59b9b9dece5322c4a95645ee373694041add",
+      "original_bytes": 3028086
+    },
+    {
+      "path": "original/9-release.graph.json",
+      "sha256": "5ac40fe122b8fa01e7930d5251176818d600bb4447e49f7ed8c152cce9470590",
+      "bytes": 448679,
+      "original": "/private/tmp/ashlar-ecology-graph-release-20261009-a/release.graph.json",
+      "original_sha256": "5ac40fe122b8fa01e7930d5251176818d600bb4447e49f7ed8c152cce9470590",
+      "original_bytes": 448679
+    },
+    {
+      "path": "original/10-development-bindings.json",
+      "sha256": "adfd8ba678e7ecf480a54cd5c6a4b657e7e8862d9d3545c93257b75013a0e26e",
+      "bytes": 34327,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/development-bindings.json",
+      "original_sha256": "adfd8ba678e7ecf480a54cd5c6a4b657e7e8862d9d3545c93257b75013a0e26e",
+      "original_bytes": 34327
+    },
+    {
+      "path": "original/11-original-graph.json",
+      "sha256": "cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668",
+      "bytes": 77070,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/original-graph.json",
+      "original_sha256": "cd601e5eff6868def9e5ad06d53e6a067cc140eadbc29855a46bba548b78d668",
+      "original_bytes": 77070
+    },
+    {
+      "path": "original/12-original-ontology.json",
+      "sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee",
+      "bytes": 62701,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/original-ontology.json",
+      "original_sha256": "299e6f3e96bbfb149e593484e1ded655378aa9adf272cdc1ffc9d8706d3244ee",
+      "original_bytes": 62701
+    },
+    {
+      "path": "original/13-public-dataset.json.gz",
+      "sha256": "9005b9f441a794c4d8649a428706fe76169627b4957a0a0b89722b4dcd866311",
+      "bytes": 49207,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/public-dataset.json",
+      "original_sha256": "6567530f3ecf12189e1c85d16c282df2734ab7635ddd6d294c1987073914906c",
+      "original_bytes": 1035156
+    },
+    {
+      "path": "original/14-report.json.gz",
+      "sha256": "9fad127883a95efa8e061eeef63cfb78d4a0d201d219e8a1b8a0058ad0997a44",
+      "bytes": 111197,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/report.json",
+      "original_sha256": "514958f24739e08885dade12d2a22e51e1f679c27336dccb7a53965b520b0083",
+      "original_bytes": 1704479
+    },
+    {
+      "path": "original/15-source.jsonl",
+      "sha256": "56798cf0ffb9ea899219e6ac7f1e130a428ab16c8866c99583384d1ea833e144",
+      "bytes": 122599,
+      "original": "/private/tmp/ashlar-ecology-native-publication-20261009-a/source.jsonl",
+      "original_sha256": "56798cf0ffb9ea899219e6ac7f1e130a428ab16c8866c99583384d1ea833e144",
+      "original_bytes": 122599
+    },
+    {
+      "path": "original/16-databases.json",
+      "sha256": "008ed0c0e032e20248bad0a11b3c25a0fac4d7bea60f26a91a36e66f38c2028a",
+      "bytes": 576,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/databases.json",
+      "original_sha256": "008ed0c0e032e20248bad0a11b3c25a0fac4d7bea60f26a91a36e66f38c2028a",
+      "original_bytes": 576
+    },
+    {
+      "path": "original/17-model.json",
+      "sha256": "1b37adb8adcf17d9e62e43b587782ec9aeb2a235be65e2b603408149565af429",
+      "bytes": 180496,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/model.json",
+      "original_sha256": "1b37adb8adcf17d9e62e43b587782ec9aeb2a235be65e2b603408149565af429",
+      "original_bytes": 180496
+    },
+    {
+      "path": "original/18-trusted-prepared.json",
+      "sha256": "4fd195f2aa2e1c20d45be809586a77c8cff3fefba92ccbe9d6914778ca9e02b5",
+      "bytes": 263,
+      "original": "/private/tmp/ashlar-original17-puppy-activation-inputs-20261009-a/trusted-prepared.json",
+      "original_sha256": "4fd195f2aa2e1c20d45be809586a77c8cff3fefba92ccbe9d6914778ca9e02b5",
+      "original_bytes": 263
+    },
+    {
+      "path": "original/19-model.json",
+      "sha256": "236bb0c6f7afe0dfd51fa0a94cbd607182b132b9216c71f705cabd98902a1cf6",
+      "bytes": 98865,
+      "original": "/private/tmp/ashlar-original17-puppy-preparation-20261009-a/model.json",
+      "original_sha256": "236bb0c6f7afe0dfd51fa0a94cbd607182b132b9216c71f705cabd98902a1cf6",
+      "original_bytes": 98865
+    },
+    {
+      "path": "original/20-receipt.json.gz",
+      "sha256": "80e36b22b767a00c127eb22fe8d2c9eab19ca8562aa4333d60f4fbe31a499883",
+      "bytes": 183254,
+      "original": "/private/tmp/ashlar-original17-puppy-preparation-20261009-a/receipt.json",
+      "original_sha256": "028baee6e38f698410fa7511b9f116c7420fcec9bd362b443015e42d176e8249",
+      "original_bytes": 3278977
+    },
+    {
+      "path": "original/21-scenarios.duckdb.gz",
+      "sha256": "721d9803919d0b223663bef6367a3d8bffa3e69cfacc60f90e15ca25cf2db578",
+      "bytes": 63259,
+      "original": "/private/tmp/ashlar-original17-puppy-preparation-20261009-a/scenarios.duckdb",
+      "original_sha256": "d816fc919f9404cf5603f73d37ceb7281ac4ef841a7c3e143a90f80b954e715b",
+      "original_bytes": 2895872
+    },
+    {
+      "path": "source/2f80c5b/tools/pack_scenario_native_plan.py",
+      "sha256": "ceb09dd1b07aa1da3eb37fdb8f26e74977030e1ac0e9d196c809d21ffe30a11a",
+      "bytes": 3276,
+      "original": "git:2f80c5b5c10b7146a8c5cbb60debe4c2182b4cf5:tools/pack_scenario_native_plan.py",
+      "original_sha256": "ceb09dd1b07aa1da3eb37fdb8f26e74977030e1ac0e9d196c809d21ffe30a11a",
+      "original_bytes": 3276
+    },
+    {
+      "path": "source/2f80c5b/tools/check_pack_scenario_puppygraph.py",
+      "sha256": "a2406a8318244f25694d14b6300fd4c6ec1b050adbc683ac74039b6081d78878",
+      "bytes": 19242,
+      "original": "git:2f80c5b5c10b7146a8c5cbb60debe4c2182b4cf5:tools/check_pack_scenario_puppygraph.py",
+      "original_sha256": "a2406a8318244f25694d14b6300fd4c6ec1b050adbc683ac74039b6081d78878",
+      "original_bytes": 19242
+    },
+    {
+      "path": "source/2f80c5b/tests/test_pack_scenario_puppygraph_queries.py",
+      "sha256": "6e33e9dc4a353853b1f31c0a8179f3b2de5920ae82381127de523a57c8683db9",
+      "bytes": 4751,
+      "original": "git:2f80c5b5c10b7146a8c5cbb60debe4c2182b4cf5:tests/test_pack_scenario_puppygraph_queries.py",
+      "original_sha256": "6e33e9dc4a353853b1f31c0a8179f3b2de5920ae82381127de523a57c8683db9",
+      "original_bytes": 4751
+    },
+    {
+      "path": "source/d602cec/tools/pack_scenario_native_plan.py",
+      "sha256": "ceb09dd1b07aa1da3eb37fdb8f26e74977030e1ac0e9d196c809d21ffe30a11a",
+      "bytes": 3276,
+      "original": "git:d602cecd8a8c26cfb6ec738c9f3bf587aff9f47d:tools/pack_scenario_native_plan.py",
+      "original_sha256": "ceb09dd1b07aa1da3eb37fdb8f26e74977030e1ac0e9d196c809d21ffe30a11a",
+      "original_bytes": 3276
+    },
+    {
+      "path": "source/d602cec/tools/check_pack_scenario_puppygraph.py",
+      "sha256": "7f66779100da7a40b1347ad038235f9b9783f4d1d0db8d928c96cf12b7653b47",
+      "bytes": 22389,
+      "original": "git:d602cecd8a8c26cfb6ec738c9f3bf587aff9f47d:tools/check_pack_scenario_puppygraph.py",
+      "original_sha256": "7f66779100da7a40b1347ad038235f9b9783f4d1d0db8d928c96cf12b7653b47",
+      "original_bytes": 22389
+    },
+    {
+      "path": "source/d602cec/tests/test_pack_scenario_puppygraph_queries.py",
+      "sha256": "d9c53eccf129260774a339940978afb20facd231ff633656a1fd004cf1fa39da",
+      "bytes": 7354,
+      "original": "git:d602cecd8a8c26cfb6ec738c9f3bf587aff9f47d:tests/test_pack_scenario_puppygraph_queries.py",
+      "original_sha256": "d9c53eccf129260774a339940978afb20facd231ff633656a1fd004cf1fa39da",
+      "original_bytes": 7354
+    },
+    {
+      "path": "independent/cypher-review.json",
+      "sha256": "f38c280bfa8b8c07a7f30d59df6b7c9656b8a5ad898a9aa328c6ebcb94e02f76",
+      "bytes": 1830,
+      "original": "/private/tmp/astra-original17-puppy-cypher-review-20261009.json",
+      "original_sha256": "f38c280bfa8b8c07a7f30d59df6b7c9656b8a5ad898a9aa328c6ebcb94e02f76",
+      "original_bytes": 1830
+    },
+    {
+      "path": "summary.json",
+      "sha256": "b5827ff18a07e0f31ea5c23d22656c1ce83697ef8add8c522edb5826b1be4939",
+      "bytes": 40344,
+      "original": "Qualified evidence index",
+      "original_sha256": "b5827ff18a07e0f31ea5c23d22656c1ce83697ef8add8c522edb5826b1be4939",
+      "original_bytes": 40344
+    },
+    {
+      "path": "source/2f80c5b/tools/check_pack_puppygraph.py",
+      "sha256": "b947e153e242402bf7e0fb128c4193d2f45ac08d3777a3c594ed703c5ca090f9",
+      "bytes": 20241,
+      "original": "git:2f80c5b5c10b7146a8c5cbb60debe4c2182b4cf5:tools/check_pack_puppygraph.py",
+      "original_sha256": "b947e153e242402bf7e0fb128c4193d2f45ac08d3777a3c594ed703c5ca090f9",
+      "original_bytes": 20241
+    },
+    {
+      "path": "source/2f80c5b/tools/check_puppygraph_releases.py",
+      "sha256": "ab529ff925ac52cac2dd65fca4b52f017d6d1ca19b18b149f0f48b0bcd743eb9",
+      "bytes": 7349,
+      "original": "git:2f80c5b5c10b7146a8c5cbb60debe4c2182b4cf5:tools/check_puppygraph_releases.py",
+      "original_sha256": "ab529ff925ac52cac2dd65fca4b52f017d6d1ca19b18b149f0f48b0bcd743eb9",
+      "original_bytes": 7349
+    },
+    {
+      "path": "source/2f80c5b/tools/run_pack_scenario_graphframes.py",
+      "sha256": "8f493053466eb8a668305adfcebd5cce998bdf2a2a07d16746c068c7c5d7e8b9",
+      "bytes": 18718,
+      "original": "git:2f80c5b5c10b7146a8c5cbb60debe4c2182b4cf5:tools/run_pack_scenario_graphframes.py",
+      "original_sha256": "8f493053466eb8a668305adfcebd5cce998bdf2a2a07d16746c068c7c5d7e8b9",
+      "original_bytes": 18718
+    },
+    {
+      "path": "source/d602cec/tools/check_pack_puppygraph.py",
+      "sha256": "b947e153e242402bf7e0fb128c4193d2f45ac08d3777a3c594ed703c5ca090f9",
+      "bytes": 20241,
+      "original": "git:d602cecd8a8c26cfb6ec738c9f3bf587aff9f47d:tools/check_pack_puppygraph.py",
+      "original_sha256": "b947e153e242402bf7e0fb128c4193d2f45ac08d3777a3c594ed703c5ca090f9",
+      "original_bytes": 20241
+    },
+    {
+      "path": "source/d602cec/tools/check_puppygraph_releases.py",
+      "sha256": "ab529ff925ac52cac2dd65fca4b52f017d6d1ca19b18b149f0f48b0bcd743eb9",
+      "bytes": 7349,
+      "original": "git:d602cecd8a8c26cfb6ec738c9f3bf587aff9f47d:tools/check_puppygraph_releases.py",
+      "original_sha256": "ab529ff925ac52cac2dd65fca4b52f017d6d1ca19b18b149f0f48b0bcd743eb9",
+      "original_bytes": 7349
+    },
+    {
+      "path": "source/d602cec/tools/run_pack_scenario_graphframes.py",
+      "sha256": "8f493053466eb8a668305adfcebd5cce998bdf2a2a07d16746c068c7c5d7e8b9",
+      "bytes": 18718,
+      "original": "git:d602cecd8a8c26cfb6ec738c9f3bf587aff9f47d:tools/run_pack_scenario_graphframes.py",
+      "original_sha256": "8f493053466eb8a668305adfcebd5cce998bdf2a2a07d16746c068c7c5d7e8b9",
+      "original_bytes": 18718
+    },
+    {
+      "path": "runtime/original-qualified-gremlin-preflight.json",
+      "sha256": "76b897b6c5d26531e44b6e49f992170b638fa66614d49503ba381a730ea4e217",
+      "bytes": 677,
+      "original": "/private/tmp/ashlar-pack-gremlin-runtime-preflight-20261009.json",
+      "original_sha256": "76b897b6c5d26531e44b6e49f992170b638fa66614d49503ba381a730ea4e217",
+      "original_bytes": 677
+    }
+  ]
+}
