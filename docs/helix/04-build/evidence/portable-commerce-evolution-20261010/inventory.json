@@ -1,0 +1,119 @@
+{
+  "scope": "Portable Python3.9 evolution preparation/envelope/independent oracle extraction and actual module checker controls; no installed host/native/authority/recovery qualification",
+  "sourcePins": [
+    {
+      "path": "src/ashlar/commerce_evolution.py",
+      "bytes": 17250,
+      "sha256": "fe58c3095242929f5136975d0b3ee4a9924c206667d67c05148f8c5964c4e4d3"
+    },
+    {
+      "path": "tests/test_portable_commerce_evolution.py",
+      "bytes": 9791,
+      "sha256": "e4f830ca8e37b7197ad2f35618f0ae62fde2ca754c0f33d99c3986e08ee09c2c"
+    },
+    {
+      "path": ".github/workflows/weft-distribution.yml",
+      "bytes": 3716,
+      "sha256": "47105d99df0be3332f6ea836c4303b2abe34910457f0123d6fbaac91264d6528"
+    }
+  ],
+  "files": [
+    {
+      "original": "/private/tmp/ashlar-installed-evolution-baseline-20261010-a.stderr.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/ashlar-installed-evolution-baseline-20261010-a.stderr.log",
+      "bytes": 1026,
+      "sha256": "6069df6644248d6c108dfc563fefc1b165b410e771c2c5d1bf21bcba3d7bd75c"
+    },
+    {
+      "original": "/private/tmp/ashlar-installed-evolution-baseline-20261010-a.stdout.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/ashlar-installed-evolution-baseline-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-portable-evolution-boundaries-20261010-a.stderr.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/ashlar-portable-evolution-boundaries-20261010-a.stderr.log",
+      "bytes": 1088,
+      "sha256": "c091c209ae7efc3ae3c63a354f3c2835118e13b6e77037661cc4932e5fe58edf"
+    },
+    {
+      "original": "/private/tmp/ashlar-portable-evolution-boundaries-20261010-a.stdout.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/ashlar-portable-evolution-boundaries-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-portable-evolution-boundaries-20261010-b.stderr.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/ashlar-portable-evolution-boundaries-20261010-b.stderr.log",
+      "bytes": 2905,
+      "sha256": "85a5101565a455792573935c9a743bb4dcba187367cc69180a2261f44193883c"
+    },
+    {
+      "original": "/private/tmp/ashlar-portable-evolution-boundaries-20261010-b.stdout.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/ashlar-portable-evolution-boundaries-20261010-b.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-portable-evolution-source-20261010-a.stderr.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/ashlar-portable-evolution-source-20261010-a.stderr.log",
+      "bytes": 1047,
+      "sha256": "25432929ecea40878ac3631dcf632a7e882f077f195649365897fcd7fba1adac"
+    },
+    {
+      "original": "/private/tmp/ashlar-portable-evolution-source-20261010-a.stdout.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/ashlar-portable-evolution-source-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-portable-evolution-source-20261010-b.stderr.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/ashlar-portable-evolution-source-20261010-b.stderr.log",
+      "bytes": 1047,
+      "sha256": "12ce6766c73784d38658140676a34612669b0b98f932b37eddea24a7c98aaf73"
+    },
+    {
+      "original": "/private/tmp/ashlar-portable-evolution-source-20261010-b.stdout.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/ashlar-portable-evolution-source-20261010-b.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-portable-evolution-source-20261010-c.stderr.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/ashlar-portable-evolution-source-20261010-c.stderr.log",
+      "bytes": 1317,
+      "sha256": "afb89a1697e897d01d1f72bc63771fffd9516ba472a2c8c59b2c4c5873b0b93e"
+    },
+    {
+      "original": "/private/tmp/ashlar-portable-evolution-source-20261010-c.stdout.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/ashlar-portable-evolution-source-20261010-c.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-portable-commerce-evolution-review-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/astra-portable-commerce-evolution-review-20261010-a.json",
+      "bytes": 4835,
+      "sha256": "29e54f73718de92f32c712d4b2874f3de6343a03ea94d086087292f7b000fd19"
+    },
+    {
+      "original": "/private/tmp/astra-portable-commerce-evolution-review-20261010-a.log",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/astra-portable-commerce-evolution-review-20261010-a.log",
+      "bytes": 1583,
+      "sha256": "3264287e1ff3594160b66f6d4b2c8a6571db71490f12bd8a3c5d36cc1eaf5430"
+    },
+    {
+      "original": "/private/tmp/astra-portable-commerce-evolution-review-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/astra-portable-commerce-evolution-review-20261010-a.py",
+      "bytes": 6585,
+      "sha256": "49ef515d41e4016a79aa842bbbdf710512d873645f4b27505f03d3093d23391e"
+    },
+    {
+      "original": "/private/tmp/astra-portable-commerce-evolution-source-review-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/portable-commerce-evolution-20261010/astra-portable-commerce-evolution-source-review-20261010-a.json",
+      "bytes": 3239,
+      "sha256": "6cb42a38f83d20b60e2088ce076eb3df207d4e6ebe2309ed0c9cd11f903d446f"
+    }
+  ],
+  "counterexamples": "Actual module checker refused core-to-composition import before correction; initial checker-test launch lacked tools PYTHONPATH and its failed log remains historical. Corrected tests ran16controls."
+}

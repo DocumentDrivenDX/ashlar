@@ -1,0 +1,183 @@
+{
+  "format": "astra-portable-commerce-evolution-source-review/0.1",
+  "verdict": "PASS scoped source-only extraction compatibility",
+  "scope": "No Git/compiler/native/SDK/network execution. Existing tool functions are compatibility references, not new native proof. No source edits.",
+  "runtime": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/commerce_evolution.py",
+      "bytes": 17250,
+      "sha256": "fe58c3095242929f5136975d0b3ee4a9924c206667d67c05148f8c5964c4e4d3"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_portable_commerce_evolution.py",
+      "bytes": 9791,
+      "sha256": "e4f830ca8e37b7197ad2f35618f0ae62fde2ca754c0f33d99c3986e08ee09c2c"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/commerce_evolution_transactions.py",
+      "bytes": 13155,
+      "sha256": "a15669893ad74f811937fc141f4328f69378a57c23c9e81489a1e603bd641a3e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/commerce_evolution_batch_scope.py",
+      "bytes": 5077,
+      "sha256": "06991bab15cbfa7736d63d7eab0b55991109589ddcc64850a076b573a2ba7175"
+    }
+  ],
+  "inputs": [
+    {
+      "role": "candidate",
+      "bytes": 175817,
+      "sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba"
+    },
+    {
+      "role": "public-proof-uncompressed",
+      "bytes": 1822190,
+      "sha256": "bdd21b1566e66dbe5cb1fd2ff6e098853aa9766b4bf6cdb1cf5192ecd0191576"
+    },
+    {
+      "role": "original-model",
+      "bytes": 27544,
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    }
+  ],
+  "unchanged_function_asts": [
+    "text",
+    "digest",
+    "rows",
+    "model_bytes",
+    "numeric_token",
+    "properties_from_public_input",
+    "PreparedEvolution",
+    "prepare",
+    "independent_oracle",
+    "qualify",
+    "scoped_oracle"
+  ],
+  "eight_prefix_full_row_parity": [
+    {
+      "prefixes": {
+        "a": 1,
+        "b": 0
+      },
+      "counts": {
+        "object_current": 11,
+        "edge_current": 10,
+        "tombstone": 0,
+        "whole_source_history": 21
+      },
+      "oracle_sha256": "e63402c01b5f5f5168e45fe0a2fad875436c72c146828c5742498aa23ba84937"
+    },
+    {
+      "prefixes": {
+        "a": 1,
+        "b": 1
+      },
+      "counts": {
+        "object_current": 22,
+        "edge_current": 20,
+        "tombstone": 0,
+        "whole_source_history": 42
+      },
+      "oracle_sha256": "decd4d5d09e5cdc6778d817ee23f16fe5ff95e7454481300b5a04569004d3b05"
+    },
+    {
+      "prefixes": {
+        "a": 2,
+        "b": 1
+      },
+      "counts": {
+        "object_current": 22,
+        "edge_current": 20,
+        "tombstone": 0,
+        "whole_source_history": 43
+      },
+      "oracle_sha256": "66a4a8827837f85cbd9331ff860a5262c9f291f57edda65c0ac1e3338a6ecc51"
+    },
+    {
+      "prefixes": {
+        "a": 2,
+        "b": 2
+      },
+      "counts": {
+        "object_current": 22,
+        "edge_current": 20,
+        "tombstone": 0,
+        "whole_source_history": 44
+      },
+      "oracle_sha256": "cd1e2ea17ec0b0aae7d38b1e345a938efb57195ffab6563b7e806e77e749cbf2"
+    },
+    {
+      "prefixes": {
+        "a": 3,
+        "b": 2
+      },
+      "counts": {
+        "object_current": 21,
+        "edge_current": 19,
+        "tombstone": 2,
+        "whole_source_history": 46
+      },
+      "oracle_sha256": "41668ce5580dc118b0ecedbcef156c27ecea608a79ed06830df9748fa2a515e1"
+    },
+    {
+      "prefixes": {
+        "a": 3,
+        "b": 3
+      },
+      "counts": {
+        "object_current": 20,
+        "edge_current": 18,
+        "tombstone": 4,
+        "whole_source_history": 48
+      },
+      "oracle_sha256": "ac8625ee11bfeba336d6a1e924ac011d857ca60da684c2af4436515f5cc684fa"
+    },
+    {
+      "prefixes": {
+        "a": 4,
+        "b": 3
+      },
+      "counts": {
+        "object_current": 21,
+        "edge_current": 19,
+        "tombstone": 4,
+        "whole_source_history": 69
+      },
+      "oracle_sha256": "7052a186a99bcc94223ab52311130177a71d6f73470596ab5dfb6dc97a25062e"
+    },
+    {
+      "prefixes": {
+        "a": 4,
+        "b": 4
+      },
+      "counts": {
+        "object_current": 22,
+        "edge_current": 20,
+        "tombstone": 4,
+        "whole_source_history": 90
+      },
+      "oracle_sha256": "04d5884ba62881720f2db73cef16cb4452c3b640e4d5c27d75fd967c7f673dc2"
+    }
+  ],
+  "negative_controls": [
+    "changed-original-0",
+    "changed-original-1",
+    "changed-original-2",
+    "batch-id",
+    "feed",
+    "epoch",
+    "inner-ordinal",
+    "cursor-before",
+    "record-cursor",
+    "record-raw",
+    "extra-record",
+    "missing-record",
+    "begin",
+    "commit",
+    "decoded-input-alias-does-not-affect-next-call"
+  ],
+  "owner_tests": 9,
+  "closing_sources_unchanged": true
+}

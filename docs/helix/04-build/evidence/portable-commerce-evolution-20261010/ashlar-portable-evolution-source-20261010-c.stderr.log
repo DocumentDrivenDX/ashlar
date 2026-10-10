@@ -1,0 +1,14 @@
+test_actual_apply_requires_exact_delete_carrier_and_transition_policy (test_portable_commerce_evolution.PortableEvolutionPreparationTests) ... ok
+test_breaking_and_changed_custody_refuse_before_output (test_portable_commerce_evolution.PortableEvolutionPreparationTests) ... ok
+test_graph_sql_plan_all_prefixes_matches_independent_source_cells_and_replay (test_portable_commerce_evolution.PortableEvolutionPreparationTests) ... ok
+test_namespaces_do_not_collapse_overlapping_numeric_ids (test_portable_commerce_evolution.PortableEvolutionPreparationTests) ... ok
+test_new_field_absent_and_present_keep_decimal_and_registry (test_portable_commerce_evolution.PortableEvolutionPreparationTests) ... ok
+test_oracle_does_not_adopt_emitted_bad_property (test_portable_commerce_evolution.PortableEvolutionPreparationTests) ... ok
+test_prefix_topology_history_and_no_dangling_edges (test_portable_commerce_evolution.PortableEvolutionPreparationTests) ... ok
+test_qualified_envelopes_preserve_records_and_eight_identities (test_portable_commerce_evolution.PortableEvolutionPreparationTests) ... ok
+test_qualified_oracle_refuses_wrong_identity_or_cursor (test_portable_commerce_evolution.PortableEvolutionPreparationTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.525s
+
+OK

@@ -1,0 +1,86 @@
+{
+  "format": "astra-portable-commerce-evolution-aggregate-review/0.1",
+  "verdict": "approved-source-only",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/commerce_evolution.py",
+      "bytes": 17250,
+      "sha256": "fe58c3095242929f5136975d0b3ee4a9924c206667d67c05148f8c5964c4e4d3"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_portable_commerce_evolution.py",
+      "bytes": 9791,
+      "sha256": "e4f830ca8e37b7197ad2f35618f0ae62fde2ca754c0f33d99c3986e08ee09c2c"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/weft-distribution.yml",
+      "bytes": 3716,
+      "sha256": "47105d99df0be3332f6ea836c4303b2abe34910457f0123d6fbaac91264d6528"
+    }
+  ],
+  "reviewed_child": {
+    "path": "/private/tmp/astra-portable-commerce-evolution-review-20261010-a.json",
+    "bytes": 4835,
+    "sha256": "29e54f73718de92f32c712d4b2874f3de6343a03ea94d086087292f7b000fd19"
+  },
+  "child_evidence": [
+    {
+      "path": "/private/tmp/astra-portable-commerce-evolution-review-20261010-a.py",
+      "bytes": 6585,
+      "sha256": "49ef515d41e4016a79aa842bbbdf710512d873645f4b27505f03d3093d23391e"
+    },
+    {
+      "path": "/private/tmp/astra-portable-commerce-evolution-review-20261010-a.log",
+      "bytes": 1583,
+      "sha256": "3264287e1ff3594160b66f6d4b2c8a6571db71490f12bd8a3c5d36cc1eaf5430"
+    }
+  ],
+  "commands": [
+    {
+      "argv": [
+        "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "-B",
+        "-S",
+        "tools/check_module_boundaries.py"
+      ],
+      "cwd": "/Users/erik/Projects/ashlar",
+      "exitCode": 0,
+      "stdout": "Module import boundaries pass; dynamic imports/type ownership/cycles require semantic review.\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check",
+        "--",
+        ".github/workflows/weft-distribution.yml"
+      ],
+      "cwd": "/Users/erik/Projects/ashlar",
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "independent_controls": [
+    "SDK/host/tool imports trapped while importing public portable module under Python 3.9 -S",
+    "immutable original-model profile pin equals original source byte SHA",
+    "actual AST module boundary checker passes without waiver",
+    "only one CI command added; exact portable test filename; old steps untouched",
+    "opening/closing three hashes unchanged"
+  ],
+  "semantic_checks": [
+    "11 extracted function/class ASTs preserved except own model-pin reference",
+    "both source namespaces complete prepared/qualified bytes and cursors equal historical portable source",
+    "eight ordered prefix complete row oracles agree; final22objects/20edges/4tombstones/90history",
+    "15 changed-input/envelope/alias controls refuse or isolate as specified",
+    "nine owner source tests passed on independent Python3.9 child"
+  ],
+  "scope": [
+    "Portable extraction and its CI wiring only",
+    "Old checkout preparation remains intentionally duplicated during migration",
+    "No public UMF preservation re-execution, source/native authority, native engine, installed workflow, new recovery qualification or machine proof"
+  ],
+  "findings": [],
+  "closing_sources_unchanged": true
+}

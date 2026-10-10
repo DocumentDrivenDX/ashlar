@@ -1,0 +1,33 @@
+test_actual_repository_policy (test_module_boundaries.BoundaryTests) ... src/ashlar_host/path_execution.py:199: DeprecationWarning: invalid escape sequence \.
+  and re.fullmatch('-?[0-9]+(?:\.[0-9]+)?', value)
+tools/check_commerce_graphframes_scenarios.py:47: DeprecationWarning: invalid escape sequence \.
+  if field.get('facets')!={'precision':18,'scale':2} or not re.fullmatch('-?(0|[1-9][0-9]*)(\.[0-9]{1,2})?',token):raise ValueError('Exact selected fixed decimal capability refused')
+tools/run_commerce_arithmetic_weft.py:444: DeprecationWarning: invalid escape sequence \.
+  if len(value)>128 or set(facets) not in ({'scale'},{'precision','scale'}) or type(facets['scale'])is not int or not 0<=facets['scale']<=38 or not re.fullmatch('-?[0-9]+(?:\.[0-9]+)?',value):raise ValueError('Exact decimal text with explicit scale required')
+tools/run_commerce_path_weft.py:198: DeprecationWarning: invalid escape sequence \.
+  and re.fullmatch('-?[0-9]+(?:\.[0-9]+)?', value)
+tools/run_pack_null_weft.py:61: DeprecationWarning: invalid escape sequence \.
+  if (type(text)is not str or len(text)>128 or not re.fullmatch('-?[0-9]+(?:\.[0-9]+)?',text)
+tools/stage_source.py:31: DeprecationWarning: invalid escape sequence \.
+  if not re.fullmatch('[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*',namespace):parser.error('Safe installed namespace required')
+ok
+test_compiler_installer_and_composition_roles (test_module_boundaries.BoundaryTests) ... ok
+test_exact_baseline_no_blanket_or_new_symbol (test_module_boundaries.BoundaryTests) ... ok
+test_installed_host_has_owned_public_edges (test_module_boundaries.BoundaryTests) ... ok
+test_model_runtime_and_consumer_producer_directions (test_module_boundaries.BoundaryTests) ... ok
+test_otel_host_owner_and_public_composition_edges_are_allowed (test_module_boundaries.BoundaryTests) ... ok
+test_otel_vendor_is_forbidden_in_every_core_location (test_module_boundaries.BoundaryTests) ... ok
+test_package_members_qualified_chain_and_native_libraries (test_module_boundaries.BoundaryTests) ... ok
+test_path_decoder_role_has_real_allow_and_deny_controls (test_module_boundaries.BoundaryTests) ... ok
+test_paths_composition_is_an_exact_host_role (test_module_boundaries.BoundaryTests) ... ok
+test_paths_keys_composition_role_is_closed (test_module_boundaries.BoundaryTests) ... ok
+test_paths_keys_consumers_and_private_mechanics_exact_boundaries (test_module_boundaries.BoundaryTests) ... ok
+test_paths_package_and_installer_have_consumer_boundaries (test_module_boundaries.BoundaryTests) ... ok
+test_policy_refuses_duplicate_unowned_and_unknown (test_module_boundaries.BoundaryTests) ... ok
+test_real_allowed_and_forbidden_edges (test_module_boundaries.BoundaryTests) ... ok
+test_recursive_role_relative_and_alias_checks (test_module_boundaries.BoundaryTests) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.812s
+
+OK
