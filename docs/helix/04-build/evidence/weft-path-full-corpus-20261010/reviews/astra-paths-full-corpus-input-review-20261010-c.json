@@ -1,0 +1,48 @@
+{
+  "status": "approved-exact-C-input-custody-and-schema-scope",
+  "freeze": {
+    "path": "/private/tmp/weft-paths-full-corpus-20261010-c/freeze.json",
+    "sha256": "98855bbe24994c9d8cd0503494a3fd2d0126ecb21299c29dcb6cd694455804d6",
+    "bytes": 1072
+  },
+  "command": {
+    "path": "/private/tmp/weft-paths-full-corpus-20261010-c/command.json",
+    "sha256": "5d6724c46bc928d56dac35945a1a49bbee45cb0a4f4d9f2b9141e862fec18624",
+    "bytes": 90688
+  },
+  "cases": {
+    "path": "/private/tmp/weft-paths-full-corpus-20261010-c/cases.json",
+    "sha256": "1cf69c0dfbde7cb8f82e6653c67637157342374bd1ab4114050d93246f21000d",
+    "bytes": 17032500
+  },
+  "priorCompleteReview": {
+    "path": "/private/tmp/astra-paths-full-corpus-input-review-20261010-b.json",
+    "sha256": "72999169ec0246b6e81a61cf7a2de5ea4d46995b816c3c599ef0682c288d7b66",
+    "bytes": 27926
+  },
+  "roleDelta": [
+    "controls:unknown-envelope-member valid->invalid",
+    "controls:mismatched-interface-dialect valid->invalid"
+  ],
+  "rawAcceptedCasesUnchanged": 49,
+  "offlineSchemaPairsPassed": 49,
+  "coverageCapabilitiesUnchanged": 47,
+  "legacyRequestsUnchanged": 463,
+  "sourceInventoryUnchanged": {
+    "sha256": "2a1eed46946a4d623f2f8abc7e7592e6d74e3964585ce1c500600a7ea62d6896",
+    "files": 1842,
+    "bytes": 267288896,
+    "verification": "Exact modes/blob/SHA/length/pathset verified in B immediately before C; source inventory and descriptors unchanged."
+  },
+  "resourcePinsReverified": 368,
+  "bridgeSelectedPaths": 274,
+  "wrapperBytesUnchanged": true,
+  "nonblockingMetadataNote": "readiness conservativeReceiptPrechargeIncludingMaxTransport retains B598652300. Four extra bundle bytes add32 to producer precharge; adjusted598652332 is still below unchanged603979776 hard cap. This is not an actual allocation or actual receipt-size claim.",
+  "conditions": "Exact C execution under root grant; parent wrapper/bounds approval required. Future run must pass all byte comparisons/schema checks/transport controls and closing custody; this review does not claim corpus completion.",
+  "limits": "No producer/Weft compiler/native engine/PG/SQLite/build/install executed. Offline schema validation and hash/source/copy reads only. Selected resource pins do not establish complete host dynamic-library closure.",
+  "script": {
+    "path": "/private/tmp/astra-paths-full-corpus-input-review-20261010-c.py",
+    "sha256": "4a1d91cfe3af3a7e1d1841bf626db4a8b6572d7d6048d7bbdb4ef55ccc890644",
+    "bytes": 4649
+  }
+}

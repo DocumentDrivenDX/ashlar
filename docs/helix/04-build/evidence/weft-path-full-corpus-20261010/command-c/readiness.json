@@ -1,0 +1,18 @@
+{
+  "status": "Expectations accepted; command approval/exclusive root grant pending",
+  "pathCases": 30,
+  "controls": 19,
+  "legacyNamespaceCases": 463,
+  "transportCases": 8,
+  "totalCompilerCases": 512,
+  "sourceCommit": "530ae3511a4a50364d3d7e26195d3883952601df",
+  "conservativeReceiptPrechargeIncludingMaxTransport": 598652300,
+  "maximumReceiptBytes": 603979776,
+  "criteriaAcceptanceRequired": false,
+  "compilerExecuted": false,
+  "controlsAcceptance": {
+    "path": "/private/tmp/astra-paths-controls19-expected-acceptance-20261010-a.json",
+    "sha256": "ab441d7fd72d926dd92d5677f3c98818a0319112306aa1831cf7d128bf947f70"
+  },
+  "maximumReceiptBytesScope": "Hard configured retention cap derived from conservative producer precharge including maximal bounded control output; not actual report allocation/size."
+}

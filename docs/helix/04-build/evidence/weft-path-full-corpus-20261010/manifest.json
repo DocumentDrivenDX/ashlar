@@ -1,0 +1,95 @@
+{
+  "scope": "Exact selected full compiler corpusC command/input/review/actual producer and closing receipts. Independent actual receipt review pending.512 cases and8 transports are compiler-only; no native or index authority. External resource/source/bridge closure remains hash-bound, not bundled. Earlier A/B preserved externally; C readiness inherited B precharge amount, reviewer records corrected598652332B below603979776B cap. Actual producer receipt47489682B.",
+  "entries": [
+    {
+      "archive": "command-c/freeze.json",
+      "original": "/private/tmp/weft-paths-full-corpus-20261010-c/freeze.json",
+      "bytes": 1072,
+      "sha256": "98855bbe24994c9d8cd0503494a3fd2d0126ecb21299c29dcb6cd694455804d6",
+      "encoding": "identity",
+      "archiveBytes": 1072,
+      "archiveSha256": "98855bbe24994c9d8cd0503494a3fd2d0126ecb21299c29dcb6cd694455804d6"
+    },
+    {
+      "archive": "command-c/cases.json.gz",
+      "original": "/private/tmp/weft-paths-full-corpus-20261010-c/cases.json",
+      "bytes": 17032500,
+      "sha256": "1cf69c0dfbde7cb8f82e6653c67637157342374bd1ab4114050d93246f21000d",
+      "encoding": "gzip",
+      "archiveBytes": 392494,
+      "archiveSha256": "6f54781d823b9a355c4ed80b453e618b7f9a0d9f45d18b8075118ce309ad0fe2"
+    },
+    {
+      "archive": "command-c/command.json",
+      "original": "/private/tmp/weft-paths-full-corpus-20261010-c/command.json",
+      "bytes": 90688,
+      "sha256": "5d6724c46bc928d56dac35945a1a49bbee45cb0a4f4d9f2b9141e862fec18624",
+      "encoding": "identity",
+      "archiveBytes": 90688,
+      "archiveSha256": "5d6724c46bc928d56dac35945a1a49bbee45cb0a4f4d9f2b9141e862fec18624"
+    },
+    {
+      "archive": "command-c/execution.json",
+      "original": "/private/tmp/weft-paths-full-corpus-20261010-c/execution.json",
+      "bytes": 635,
+      "sha256": "f1c6760f1d6a73a99c506ffd4b701a709a48b3a5552b63b009922ef54c0b8f3a",
+      "encoding": "identity",
+      "archiveBytes": 635,
+      "archiveSha256": "f1c6760f1d6a73a99c506ffd4b701a709a48b3a5552b63b009922ef54c0b8f3a"
+    },
+    {
+      "archive": "command-c/readiness.json",
+      "original": "/private/tmp/weft-paths-full-corpus-20261010-c/readiness.json",
+      "bytes": 823,
+      "sha256": "a9d9b584e0e13050e0f40a53117032a218f2a775f45a5c46b70adfc067688520",
+      "encoding": "identity",
+      "archiveBytes": 823,
+      "archiveSha256": "a9d9b584e0e13050e0f40a53117032a218f2a775f45a5c46b70adfc067688520"
+    },
+    {
+      "archive": "command-c/run.py",
+      "original": "/private/tmp/weft-paths-full-corpus-20261010-c/run.py",
+      "bytes": 1682,
+      "sha256": "ca68e06336db7652cf075fe032608e612c7883e4485d3178237c1b3716f1acb8",
+      "encoding": "identity",
+      "archiveBytes": 1682,
+      "archiveSha256": "ca68e06336db7652cf075fe032608e612c7883e4485d3178237c1b3716f1acb8"
+    },
+    {
+      "archive": "closing-custody.json",
+      "original": "/private/tmp/weft-paths-full-corpus-20261010-c/closing-custody.json",
+      "bytes": 235,
+      "sha256": "db7ee4e94ba64ab01e3ef56d58a00e2f02884a7b1c78a41cfe8e6baffaa1f241",
+      "encoding": "identity",
+      "archiveBytes": 235,
+      "archiveSha256": "db7ee4e94ba64ab01e3ef56d58a00e2f02884a7b1c78a41cfe8e6baffaa1f241"
+    },
+    {
+      "archive": "producer-receipt.json.gz",
+      "original": "/private/tmp/weft-paths-full-corpus-20261010-c/producer-output/receipt.json",
+      "bytes": 47489682,
+      "sha256": "7f80a87ac41d868a32d220fd5a5ec7f8998c264ec0eecc4455029ce3ba7caf68",
+      "encoding": "gzip",
+      "archiveBytes": 2569562,
+      "archiveSha256": "98f33d3a1051db8da45e99f850253a546858b1412318346a44dd6ebfd5e6766f"
+    },
+    {
+      "archive": "reviews/astra-paths-full-corpus-command-review-20261010-c.json",
+      "original": "/private/tmp/astra-paths-full-corpus-command-review-20261010-c.json",
+      "bytes": 2919,
+      "sha256": "fa15f988cd38274591fc8097c292b06a210866a0f222a3db6a26e3196c7c2ced",
+      "encoding": "identity",
+      "archiveBytes": 2919,
+      "archiveSha256": "fa15f988cd38274591fc8097c292b06a210866a0f222a3db6a26e3196c7c2ced"
+    },
+    {
+      "archive": "reviews/astra-paths-full-corpus-input-review-20261010-c.json",
+      "original": "/private/tmp/astra-paths-full-corpus-input-review-20261010-c.json",
+      "bytes": 2491,
+      "sha256": "15070f81cf072dd214a417b6aa889ef371ac935af061f1b55ec4ccc0866c2e2a",
+      "encoding": "identity",
+      "archiveBytes": 2491,
+      "archiveSha256": "15070f81cf072dd214a417b6aa889ef371ac935af061f1b55ec4ccc0866c2e2a"
+    }
+  ]
+}

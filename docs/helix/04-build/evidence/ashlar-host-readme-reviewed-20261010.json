@@ -1,0 +1,8 @@
+{
+  "decision": "Approved narrow README correction",
+  "file": "/Users/erik/Projects/ashlar/README.md",
+  "sha256": "cd81a6e5c9efdec550ad28d2ccb28d974277d7476a6b07354114168c710b2afb",
+  "bytes": 5195,
+  "scope": "Distinguishes installed source conversion/inspection from installed publish/query host composition; matches independently reviewed CLI source and help. No native execution or qualification is asserted.",
+  "testRequirement": "Documentation-only clarification; inspected exact diff and existing approved CLI correspondence."
+}

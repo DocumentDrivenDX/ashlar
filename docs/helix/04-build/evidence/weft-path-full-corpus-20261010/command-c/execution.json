@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "/private/tmp/weft-paths-full-corpus-20261010-c/run.py",
+    "--command",
+    "/private/tmp/weft-paths-full-corpus-20261010-c/command.json",
+    "--sha256",
+    "5d6724c46bc928d56dac35945a1a49bbee45cb0a4f4d9f2b9141e862fec18624"
+  ],
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "cwd": "/private/tmp/weft-paths-full-corpus-20261010-c",
+  "commandSha256": "5d6724c46bc928d56dac35945a1a49bbee45cb0a4f4d9f2b9141e862fec18624",
+  "status": "Expectations independently accepted; command review and root grant pending"
+}

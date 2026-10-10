@@ -1,0 +1,64 @@
+{
+  "decision": "Approved exact C command for root-owned finite compiler corpus execution; no native engine grant",
+  "freeze": {
+    "path": "/private/tmp/weft-paths-full-corpus-20261010-c/freeze.json",
+    "sha256": "98855bbe24994c9d8cd0503494a3fd2d0126ecb21299c29dcb6cd694455804d6"
+  },
+  "command": {
+    "path": "/private/tmp/weft-paths-full-corpus-20261010-c/command.json",
+    "sha256": "5d6724c46bc928d56dac35945a1a49bbee45cb0a4f4d9f2b9141e862fec18624"
+  },
+  "execution": {
+    "argv": [
+      "/Library/Developer/CommandLineTools/usr/bin/python3",
+      "/private/tmp/weft-paths-full-corpus-20261010-c/run.py",
+      "--command",
+      "/private/tmp/weft-paths-full-corpus-20261010-c/command.json",
+      "--sha256",
+      "5d6724c46bc928d56dac35945a1a49bbee45cb0a4f4d9f2b9141e862fec18624"
+    ],
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "cwd": "/private/tmp/weft-paths-full-corpus-20261010-c",
+    "commandSha256": "5d6724c46bc928d56dac35945a1a49bbee45cb0a4f4d9f2b9141e862fec18624",
+    "status": "Expectations independently accepted; command review and root grant pending"
+  },
+  "independentChecks": [
+    {
+      "path": "/private/tmp/astra-paths-full-corpus-input-review-20261010-c.json",
+      "sha256": "15070f81cf072dd214a417b6aa889ef371ac935af061f1b55ec4ccc0866c2e2a"
+    },
+    {
+      "path": "/private/tmp/astra-paths-full-corpus-command-review-20261010-b.json",
+      "sha256": "67049106d5bfbd5f5f6024e87117558d92c2a3a40f49d85da050a5b875142443"
+    }
+  ],
+  "correction": "Only unknown-envelope-member and mismatched-interface-dialect control schema roles changed valid to invalid; every original request/expected response byte remains exact. B is unapproved due this precompiler schema gate.",
+  "budget": {
+    "conservativePrechargeBytes": 598652332,
+    "maximumReceiptBytes": 603979776,
+    "marginBytes": 5327444,
+    "staleReadinessEstimateBytes": 598652300,
+    "staleEstimateDeltaBytes": 32,
+    "scope": "C changes four bundle bytes; readiness estimate is stale by32 bytes, nonblocking because true precharge is under exact cap. Receipt cap does not bound Python process RSS or claim actual receipt allocation."
+  },
+  "counts": {
+    "paths": 30,
+    "staticControls": 19,
+    "legacyNamespace": 463,
+    "compilerCases": 512,
+    "transportControls": 8,
+    "declaredCapabilities": 47,
+    "resources": 368,
+    "sourceFiles": 1842
+  },
+  "conditions": [
+    "Execute exact frozen execution argv/cwd/allowlisted environment.",
+    "Require producer receipt plus wrapper completed=true and closingCustody=true; partial producer output after closing failure is unqualified.",
+    "Independent post-run review required before full corpus evidence or public distribution admission.",
+    "No native query, rebuild, index mutation or package trust qualification authorized by this compiler-only review."
+  ],
+  "result": "PASS"
+}

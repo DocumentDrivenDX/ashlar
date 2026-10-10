@@ -60,9 +60,11 @@ create/update/delete/history and unchanged exact replay. It performs no database
 I/O; actual upstream UMF logical-value checking remains the separate host preflight.
 
 The distribution is `ashlar-graph-toolkit`; the import is `ashlar`. It has no
-runtime dependencies. The installed CLI verifies source custody and emits complete
-original transaction bytes; it does not publish or acknowledge data. Native SDKs
-and credentials belong to the separate host tools.
+runtime dependencies. `commerce-source` emits complete original transaction
+bytes; `inspect-source` verifies source custody. These source commands do not
+publish or acknowledge data. The installed `publish-commerce` and `query-commerce` commands
+use explicit host configuration; native SDKs and credentials belong to that host
+composition.
 
 Run the local example (Python standard library only):
 

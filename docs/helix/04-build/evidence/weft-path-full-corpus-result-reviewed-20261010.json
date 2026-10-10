@@ -1,0 +1,51 @@
+{
+  "decision": "Approved finite fresh same-binary Paths corpus receipt correspondence",
+  "command": {
+    "path": "/private/tmp/weft-paths-full-corpus-20261010-c/command.json",
+    "sha256": "5d6724c46bc928d56dac35945a1a49bbee45cb0a4f4d9f2b9141e862fec18624",
+    "bytes": 90688
+  },
+  "producerReceipt": {
+    "path": "/private/tmp/weft-paths-full-corpus-20261010-c/producer-output/receipt.json",
+    "sha256": "7f80a87ac41d868a32d220fd5a5ec7f8998c264ec0eecc4455029ce3ba7caf68",
+    "bytes": 47489682
+  },
+  "closingCustody": {
+    "path": "/private/tmp/weft-paths-full-corpus-20261010-c/closing-custody.json",
+    "sha256": "db7ee4e94ba64ab01e3ef56d58a00e2f02884a7b1c78a41cfe8e6baffaa1f241",
+    "bytes": 235
+  },
+  "binary": {
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/weft-paths",
+    "sha256": "71ba88a07c27661413830d5a42e2ea5c4a8b071df965bb98dbbe8f3615a6c911",
+    "bytes": 8273840
+  },
+  "sourceCommit": "530ae3511a4a50364d3d7e26195d3883952601df",
+  "counts": {
+    "cases": 512,
+    "compiled": 29,
+    "blocked": 483,
+    "legacyNamespace": 463,
+    "paths": 30,
+    "controls": 19,
+    "transport": 8,
+    "capabilities": 47,
+    "resourcePins": 368,
+    "sourceFiles": 1842
+  },
+  "checks": [
+    "Every complete raw request/response/originalExpected byte and ordered unique ID equals prior independently accepted bundle or exact original463/fixed04namespace fence.",
+    "No legacy request rewriting or historical response migration; all migrations arrays empty.",
+    "All47 coverage entries exactly accepted mapping.",
+    "Eight transport receipts match exact original input hashes/lengths, exit/stdout/stderr, including closed-output and directory-input OS controls.",
+    "All368 selected resources and complete1842 source Git blobs/modes/SHA/lengths/pathset reverified after terminal run.",
+    "Producer source runs each512case twice with per-launch executable hash, trusted schema gate and byte-equality; retained result binds harness, schemas, source inventory, cases and backend.",
+    "Root terminal0 corroborated by closing completed=true/closingCustody=true; reviewed execution command exact."
+  ],
+  "limitations": [
+    "Native engines, public index admission and package installation remain separate; this review did not run compiler or native engine.",
+    "Legacy463 coverage is explicitnamespace refusal in Paths04, not old compiled artifact parity under this entrypoint.",
+    "Exact16MiB boundary tests are malformed JSON and establish transport acceptance to parser, not valid maximum-size request semantics.",
+    "Receipt contains one retained matched response per case; two-process determinism follows pinned executed producer logic and terminal success, not independently duplicated raw stdout files."
+  ]
+}

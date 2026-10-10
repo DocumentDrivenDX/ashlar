@@ -1,0 +1,32 @@
+{
+  "decision": "Approved selected archive exact-copy closure plus separate additive actual-result and README review copies",
+  "manifest": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/weft-path-full-corpus-20261010/manifest.json",
+    "sha256": "655ac9b7bad0ea38789c2496e5b9b04120fa53e63c990d762ff6310aa8f67c7f",
+    "bytes": 4500
+  },
+  "entries": 10,
+  "filesIncludingManifest": 11,
+  "gzipMembers": 2,
+  "nestedFrozenDescriptorsMatched": 5,
+  "additiveSiblings": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/weft-path-full-corpus-result-reviewed-20261010.json",
+      "sha256": "cc5c5e7b67ebc702a3df86e82237eb50a64927131c43d6f7caa3184ffb978923",
+      "bytes": 2767
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/ashlar-host-readme-reviewed-20261010.json",
+      "sha256": "d9f4710e31bca3225f410a9022c0f59ff5add0ffef8b44865f5b04fb67f56a53",
+      "bytes": 539
+    }
+  ],
+  "scope": "Historical manifest pending-review statement remains exact historical bytes. Separate exact result review supplies completed finite512case/8transport acceptance. No native engine or distribution-index admission inferred. External source/runtime/bridge records are hash-bound, not bundled.",
+  "checks": [
+    "Every archive and decoded original hash/length matches exact original bytes.",
+    "Two gzip files are complete single-member, no trailing data.",
+    "Actual archive tree has no missing/extra files.",
+    "All five nested C freeze descriptors reproduced exactly.",
+    "Separate additive approvals are exact original receipt bytes; README still equals reviewed hash."
+  ]
+}
