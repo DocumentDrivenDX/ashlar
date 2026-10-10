@@ -1,0 +1,43 @@
+{
+  "entries": [
+    {
+      "path": "tools/run_local_outbox_publication.py",
+      "sha256": "8f74e36f3595ed562badbe92457d3808b7a89c1d005facf23ee7a453a6083847",
+      "bytes": 41891
+    },
+    {
+      "path": "tools/commerce_evolution_admission.py",
+      "sha256": "368eb329fd5bd295ceaffc7b588ff64358878fdc3a040c35fd8bd45c705bf82f",
+      "bytes": 5641
+    },
+    {
+      "path": "tests/test_commerce_evolution_admission.py",
+      "sha256": "051aca5f439f0642025edc7198377e230a26b310ff85b4a9a47652c3e6db8663",
+      "bytes": 5621
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-admission-20261009/public-port-smoke.json",
+      "sha256": "f757af36a09f5c9935f51ebe9c3f2b16df577e613c7933ecf147610ec3e37dbc",
+      "bytes": 12685
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-admission-20261009/summary.json",
+      "sha256": "9986ced0b2b5cbea232a158f9f537d700321fe18e77c1c8630b2c4d662eb0523",
+      "bytes": 1970
+    }
+  ],
+  "inputs": [
+    {
+      "path": "docs/helix/04-build/evidence/commerce-present-field-preparation-20261009/candidate.json",
+      "sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-present-field-preparation-20261009/public-presence.json.gz",
+      "sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-preparation-20261009/original-model.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    }
+  ]
+}

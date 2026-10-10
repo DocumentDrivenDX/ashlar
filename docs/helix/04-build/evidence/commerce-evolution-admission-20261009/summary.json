@@ -1,0 +1,16 @@
+{
+  "profile": "ashlar-commerce-evolution-port-custody/0.1",
+  "source_base": "5d5069f547858b106d2230bbc41c490e37edbfec",
+  "qualification": "Fresh genuine public finite dataset/source preservation reexecution and pure NativeDriver/planner wiring only. No source authority, native data transition/migration, publication durability or ACK claim. Existing source/writer/pin/CAS authority guards remain mandatory.",
+  "producer": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+  "actual_smoke": "Original public tool reexecutes fresh exclusive output; exact full receipt SHA bdd21b1566e66dbe5cb1fd2ff6e098853aa9766b4bf6cdb1cf5192ecd0191576 required before admitting exact fixture changes. Actual pure smoke completed all four prefixes and19 exact original prior-state transitions.",
+  "timing": "Smoke preceded additive gzip decompression/output byte and subprocess timeout guards; these structural guards tested on final source separately, public evaluator invocation/body unchanged. No native execution occurred.",
+  "reproduction": "Full source_base plus exact three source/test files in custody and already retained commerce-present-field-preparation-20261009 evidence. Construct CommerceEvolutionAdmission with exact candidate/public/model paths, clean e44 repo, explicit source_system+epoch; pure driver.plan_graph requires independently retained prior state and checked source callback.",
+  "tests": [
+    "PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_commerce_evolution_admission.py",
+    "PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_local_outbox_publication.py",
+    "python3 tools/check_module_boundaries.py"
+  ],
+  "native": false,
+  "scope_limits": "Source compatibility is not a general migration certificate. Only exact independently derived prior carriers and approved surviving R3\u2192R4 changes may cross schema revisions. New creates need ordinary source admission, not a previous-entity transition callback."
+}

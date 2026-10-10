@@ -1,0 +1,321 @@
+{
+  "profile": "ashlar-commerce-evolution-admission-pure-smoke/0.1",
+  "facts": {
+    "profile": "ashlar-commerce-evolution-private-source-admission/0.1",
+    "qualification": "Private finite development source policy, backed by fresh public UMF calls.\n\nThis port admits only the exact prepared fixture changes and prior carriers. It\ndoes not establish producer/source authority, migration durability or ACK truth;\nthe surrounding protected publication workflow must supply those independently.\n",
+    "umf_revision": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+    "candidate_sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba",
+    "public_receipt_sha256": "bdd21b1566e66dbe5cb1fd2ff6e098853aa9766b4bf6cdb1cf5192ecd0191576",
+    "source_system": "commerce-evolution-A",
+    "epoch": "private-preparation-1",
+    "registry_sha256": "517cd85e14b33804d80b03a556a241bcf5821299e21421435850ff414076a253",
+    "schema_revisions": [
+      "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "f053cd4d9412c6ae091ec5f3d649e06558f89379d1f33c836eda66229f1f2b65"
+    ],
+    "deliveries": [
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:object:1",
+        "raw_sha256": "071c1cd13aa0afdd7d50ac8266d65d74a67bfd87e5ffd71730902a8a380cf093"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:object:2",
+        "raw_sha256": "e1aac7102ee9c8cae8bca8ae84cc2f453959bf24f5a5fd6e544d5d6dab2b5ae3"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:object:3",
+        "raw_sha256": "f1ae55986437742046b109a753937434589e25ded50f1de7f4f6459f920da99a"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:object:4",
+        "raw_sha256": "4fae3900a8a983b3293e1c41c9ead12962c9d5885874c14825709e83de6d5553"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:object:5",
+        "raw_sha256": "d0243c8718e7763e739a6a10dc685d50fbf39508616e162e6b04af5b42b206cc"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:object:6",
+        "raw_sha256": "287609417c2c640624115197e4faaf72bb6155ff312ca3a4e2d9cd5a4d44ca9e"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:object:7",
+        "raw_sha256": "a05bac7a46f3f20adc87059d7989f6a31899f0201a87b175b5973c771bfce453"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:object:8",
+        "raw_sha256": "f397267f22b104c83d70715bc76c85ff238b7560bfbf500e4a53d86a4e3bc721"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:object:9",
+        "raw_sha256": "801cba8062fbca5c6cde654ce0bf79ed013ee03bbfb857d5448ba3024ab9383d"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:object:10",
+        "raw_sha256": "a7ecd816524e2da5e3b1595dcc88e4fcb076d29ddf007f611b72da8c3a783e77"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:object:11",
+        "raw_sha256": "8a2d9fac34aff8d3eebe40c20a1fde9a3f532e37073ec5abfad86da1bcb1a53a"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:edge:1",
+        "raw_sha256": "a20307053b6be08c54e96ed27fc8f1eb1f1057348c66ff353a038bbf27400633"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:edge:2",
+        "raw_sha256": "43dea02c92cb3083ddff7c1fc50092872dcb719c022994837d4f98b4443a5054"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:edge:3",
+        "raw_sha256": "81f93cbb75d895014fb48fa5ceaff96bf5b63b554b29b9b150e5317bcc8ddcc2"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:edge:4",
+        "raw_sha256": "742a2fec6e6871104e897645d2a414a2cefafc790595bcab5762982f4705eeb2"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:edge:5",
+        "raw_sha256": "ab3f99a64836482f94d0c7181c39eb0e59afcda837142b3728054125ff757f51"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:edge:6",
+        "raw_sha256": "a50f2f261950dbacfb84ebff2bc17b60ef187769acbfadebd4a1a8180b213392"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:edge:7",
+        "raw_sha256": "6d80de2119862af14e5d6b382450005d795b09731b9098593d332ce7dfd569e2"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:edge:8",
+        "raw_sha256": "6d6ce857dd94065068c423ef05e5b8934022e0841fc0ffbedb07e3552801c926"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:edge:9",
+        "raw_sha256": "d380824678cdeb302d403607b0e5de6c0a77f575861e0187a91569b0d88a13be"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R1:edge:10",
+        "raw_sha256": "56606ec38c8cffeb3ebc118026bf38a477c53aaf05dc7fd5a444281ac221a1bf"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R2-update:object:3",
+        "raw_sha256": "252a498151b34fb8eceb6a33d0ff4831da50e1455a00bc54f5d96bf85638984a"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R3-delete:edge:6",
+        "raw_sha256": "a55c39b4c03b770328b62dc66b5bcbaef5b8b88da7142a5885626e9fa8124dfe"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R3-delete:object:7",
+        "raw_sha256": "a586a579c915d91b3554878a33102d693406a41febbe0a364789a8f7c345667d"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:object:1",
+        "raw_sha256": "63f8ac4bbcfa714e6d95baacd510fbad4916cae9e689333089f0fbfa13c0bbca"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:object:2",
+        "raw_sha256": "641687b03e7000ab666e112da400955b9144b95ef0fe706ecc6b3ee8bb6ec81f"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:object:3",
+        "raw_sha256": "7c932a14100b580c6019fa035b23de3e1d477eafd5285179d9442199e63df5b4"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:object:4",
+        "raw_sha256": "4d1ca76d629ab15dd6f0ab057e8fe2fa13ec89952596d5005ae7e903f3f7c1df"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:object:5",
+        "raw_sha256": "dea5d4235617e9f62de514bf1bd58fb7e5d18443cb41211258472ea6042eaf92"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:object:6",
+        "raw_sha256": "d0a3e7429777e460ec654e3848ef578241220f070f562c47ece134431ef74bbc"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:object:8",
+        "raw_sha256": "edb773ae68db2372d77fb87642b467e5633aa6e5e924628fa54e500f44d9d18a"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:object:9",
+        "raw_sha256": "5955abf926e42d4726dbda27f8cbedfee5c44310842be836563471e6d07a4d7d"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:object:10",
+        "raw_sha256": "b94f033a9ff81354f61d183547d4ac4f34b758941714ade3a508c19e2f0c1001"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:object:11",
+        "raw_sha256": "0b1987f03c598b494aceba043b57de5dd006473cbb7c262475257ce855a847c7"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:object:12",
+        "raw_sha256": "41ca4a545a3fd74b6a2f0e9a712cfe775027be0ca564c1d483ac04c02ca781e1"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:edge:1",
+        "raw_sha256": "6b0f1c75ce4e89b6cbab35a48f7d973678105c2753468314a0cc18f524d81381"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:edge:2",
+        "raw_sha256": "f1025b1279b8a4824d6a7d4c8e8822a1748dec8b5a591f1f1a9138fbb54d3f44"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:edge:3",
+        "raw_sha256": "0985b813ee39103127425962538c82c83da5c92e9dd384a83d3c30aa0638ec80"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:edge:4",
+        "raw_sha256": "1114835608a3791e86dea652025b84b1a73d14dbb38630367190decc87178b4b"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:edge:5",
+        "raw_sha256": "3cb20c91b92115cba98507d662fb055261744017e22ef4e812cd1dd798f4dace"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:edge:7",
+        "raw_sha256": "9f1ad8c0228ae7abb4d418b9eb11d81a33510e6819b75986d650452128510420"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:edge:8",
+        "raw_sha256": "fe3f07e35337ad0120cd01250115133989f64b57d3be5e057e9866b4e2f220ac"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:edge:9",
+        "raw_sha256": "d017411735c74669fe2a45d44987b6b8cc60630f832b857049ab7cb1d640e35f"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:edge:10",
+        "raw_sha256": "b2f072874614a3d6dd912a2c052446cf9e9fe0eeba4eb38db60fd8b743fc8a6a"
+      },
+      {
+        "feed": "commerce-evolution-A",
+        "epoch": "private-preparation-1",
+        "delivery_id": "R4-additive-candidate:edge:11",
+        "raw_sha256": "a2a0599a9537f7b910398c2c712297db3dd6a2beafb552937c82b5b1f3643088"
+      }
+    ],
+    "source_preservation": "Fresh public complete datasets and exact expected-source verifiers; fixture data transitions require exact independent prior/source rows, not model compatibility inference."
+  },
+  "prefixes": [
+    {
+      "current": 21,
+      "history": 21,
+      "tombstones": 0,
+      "generated_steps": 5
+    },
+    {
+      "current": 21,
+      "history": 22,
+      "tombstones": 0,
+      "generated_steps": 3
+    },
+    {
+      "current": 19,
+      "history": 24,
+      "tombstones": 2,
+      "generated_steps": 4
+    },
+    {
+      "current": 21,
+      "history": 45,
+      "tombstones": 2,
+      "generated_steps": 5
+    }
+  ],
+  "transition_count": 19,
+  "native": false,
+  "qualification": "Fresh genuine public calls plus pure planner/port execution only; no source/native/publication/ACK authority or durability proof."
+}

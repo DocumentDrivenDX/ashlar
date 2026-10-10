@@ -200,6 +200,15 @@ class NativeDriver:
         if change not in self.allowed_changes:raise PermissionError('No independently admitted original source change')
         if self.source_admission.admit(change) is not None:raise PermissionError('Original source semantic admission incomplete')
         self.admission_facts()
+    def schema_transition_admit(self,previous,change):
+        """Exact source-profile transition policy; no revision-string inference."""
+        self.schema_admit(change)
+        callback=getattr(self.source_admission,'admit_transition',None)
+        if not callable(callback):raise PermissionError('Explicit source-profile schema transition policy required')
+        if callback(previous,change) is not None:raise PermissionError('Original source schema transition admission incomplete')
+        self.admission_facts()
+    def plan_graph(self,prior,batch,tables,*,materialized_at):
+        return graph_sql_plan(prior,batch,tables,materialized_at=materialized_at,schema_policy=self.schema_admit,schema_transition_policy=self.schema_transition_admit)
     def source_admit(self,request):
         self.admission_facts()
         checkpoint=json.loads(request['source_checkpoint_json']);port=self.scope_ports[checkpoint['feed']]
@@ -409,7 +418,7 @@ def run(output,jars,umf_source):
             # Complete prior state and oracle are rebuilt from original admitted sources,
             # never from generated SQL outputs. Closing native parity verifies all roles.
             previous_expected,_=fixture_inventory(processed,driver.columns,materialized_at=CLOCK)
-            state,steps=graph_sql_plan(state,batch,graph_tables,materialized_at=CLOCK,schema_policy=driver.schema_admit)
+            state,steps=driver.plan_graph(state,batch,graph_tables,materialized_at=CLOCK)
             generated_steps=steps;steps,elisions=local_effect_plan(generated_steps,previous_expected,graph_tables)
             processed.append(batch);expected,_=fixture_inventory(processed,driver.columns,materialized_at=CLOCK)
             revisions={**revisions,selected['source']:'3'};request=request_for('private-global-pipeline',transaction,predecessor,revisions);next_progress=progress_union(progress,json.loads(outbox_checkpoint(transaction)))
