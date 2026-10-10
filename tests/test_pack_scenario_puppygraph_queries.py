@@ -119,3 +119,21 @@ class NativeScenarioQueryTests(unittest.TestCase):
         for bad in (FakeInt(0),True,0.0,GraphSONReader().to_object({'@type':'g:Int64','@value':2**63})):
             raw['cells']['count']=bad
             with self.assertRaises(ValueError):native_map_cells(raw,'edge',['graph_id','count'],expected)
+    def test_explicit_puppy_flat_profile_never_accepts_lists(self):
+        from check_pack_scenario_puppygraph import native_map_cells,MAP_PUPPY,MAP_STANDARD
+        import copy
+        expected=[{'graph_id':'g','original_key':'key','empty':'','null':None,'count':0}];names=list(expected[0])
+        raw={'cells':{'carrier_key':'g','original_key':'key','empty':'','null':None,'count':0},'native_id':'id'}
+        self.assertEqual(native_map_cells(raw,'node',names,expected,MAP_PUPPY),expected[0])
+        with self.assertRaises(ValueError):native_map_cells(raw,'node',names,expected,MAP_STANDARD)
+        for value in ([],['key'],['key','key'],False,0.0):
+            bad=copy.deepcopy(raw);bad['cells']['original_key']=value
+            with self.assertRaises(ValueError):native_map_cells(bad,'node',names,expected,MAP_PUPPY)
+        for kind in ('node','edge'):
+            row=copy.deepcopy(raw)
+            if kind=='edge':row.update(native_src='s',native_dst='t')
+            for key in ('empty','original_key','count'):
+                bad=copy.deepcopy(row);del bad['cells'][key]
+                with self.assertRaises(ValueError):native_map_cells(bad,kind,names,expected,MAP_PUPPY)
+            self.assertEqual(native_map_cells(row,kind,names,expected,MAP_PUPPY)['null'],None)
+        with self.assertRaises(ValueError):native_map_cells(raw,'node',names,expected,'unknown')

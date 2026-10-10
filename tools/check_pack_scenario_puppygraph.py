@@ -8,6 +8,13 @@ from pack_scenario_native_plan import plans
 from run_pack_scenario_graphframes import ARITY,WITNESSES,validate_case
 
 
+MAP_STANDARD='tinkerpop-3.7.3-valuemap/0.1'
+# Observed both roles in exact image pinned by observe_six/observe_native.
+# String/null shape proof: b240759598d146742a601827a7a141274860eb74849bbecc695ce21501d8b41e.
+# Native LONG qualification is separate from this first-chunk observation.
+MAP_PUPPY='ashlar-puppygraph-1.13-flat-valuemap/0.1'
+
+
 def query_plan(profile,name,language):
     scans,joins,predicates,outputs,group=plans(profile['pack'])[name]
     records=dict(s.split(':')for s in scans);fields={(f['record_identity'][2],f['original_field']['name']):f for f in profile['fields']};bindings={};label='Scenario'+profile['pack'].title()+'Node'
@@ -148,7 +155,7 @@ def carrier_chunks(profile,kind,language):
     return [identity+remaining[i:i+12]for i in range(0,len(remaining),12)]
 
 
-def native_map_cells(row,kind,names,expected):
+def native_map_cells(row,kind,names,expected,native_map_profile=MAP_STANDARD):
     """TinkerPop3.7.3 valueMap codec: vertex lists, edge scalars.
 
     https://tinkerpop.apache.org/docs/3.7.3/reference/#valuemap-step
@@ -156,6 +163,8 @@ def native_map_cells(row,kind,names,expected):
     Raw property maps stay retained; missing physical-null cells are allowed
     only by exact independently admitted source-cell correspondence.
     """
+    if kind not in ('node','edge'):raise ValueError('Closed native carrier role required')
+    if native_map_profile not in (MAP_STANDARD,MAP_PUPPY):raise ValueError('Explicit closed native property-map codec required')
     mapping={n:{'id':'carrier_id','graph_id':'carrier_key'}.get(n,n)for n in names}
     required={'cells','native_id'}|({'native_src','native_dst'}if kind=='edge'else set())
     if type(row)is not dict or set(row)!=required or type(row['cells'])is not dict or not set(row['cells'])<=set(mapping.values()):raise ValueError('Closed role-specific native property map required')
@@ -163,10 +172,10 @@ def native_map_cells(row,kind,names,expected):
     def scalar(key):
         if key not in values:return None
         value=values[key]
-        if kind=='node':
+        if native_map_profile==MAP_STANDARD and kind=='node':
             if type(value)is not list or len(value)>1:raise ValueError('Node zero/one property list required')
             return value[0]if value else None
-        if type(value)is list:raise ValueError('Edge scalar property required')
+        if type(value)is list:raise ValueError('Explicit scalar native property-map profile required')
         return value
     identity=scalar('carrier_key')
     source=next((r for r in expected if r['graph_id']==identity),None)
@@ -190,13 +199,13 @@ def native_map_cells(row,kind,names,expected):
     return decoded
 
 
-def carrier_chunk_check(profile,kind,language,query,selected):
+def carrier_chunk_check(profile,kind,language,query,selected,native_map_profile=MAP_STANDARD):
     from run_graph_release_graphframes import row_bag
     from check_puppygraph_releases import native_text
     script,expected,names,label=raw_projection(profile,kind,language,selected);raw=staged_query(query,{'pack':profile['pack'],'stage':'carrier','kind':kind,'columns':names},script,{})
     allowed=set(names)|{'native_id'}|({'native_src','native_dst'}if kind=='edge'else set());actual=[]
     for row in raw:
-        if language=='Gremlin':cells=native_map_cells(row,kind,names,expected)
+        if language=='Gremlin':cells=native_map_cells(row,kind,names,expected,native_map_profile)
         else:
             if type(row)is not dict or set(row)!=allowed:raise ValueError('Complete closed original native carrier required')
             cells={n:row[n]for n in names}
@@ -209,23 +218,23 @@ def carrier_chunk_check(profile,kind,language,query,selected):
     return {'original_native_rows':raw,'decoded_projected_rows':actual}if language=='Gremlin'else raw
 
 
-def carrier_check(profile,kind,language,query):
+def carrier_check(profile,kind,language,query,native_map_profile=MAP_STANDARD):
     chunks=carrier_chunks(profile,kind,language)
-    if language=='Cypher':return carrier_chunk_check(profile,kind,language,query,chunks[0])
-    return {'chunks':[dict(columns=names,**carrier_chunk_check(profile,kind,language,query,names))for names in chunks]}
+    if language=='Cypher':return carrier_chunk_check(profile,kind,language,query,chunks[0],native_map_profile)
+    return {'chunks':[dict(columns=names,**carrier_chunk_check(profile,kind,language,query,names,native_map_profile))for names in chunks]}
 
 
-def held(prepared,language,query,observe,source_observe):
+def held(prepared,language,query,observe,source_observe,native_map_profile=MAP_STANDARD):
     """Mandatory trusted native/source observers, opening and closing whole vectors."""
     original=source_observe();opening=observe();reports=[]
     for report in prepared['reports']:
-        profile=report['profile'];carriers={k:carrier_check(profile,k,language,query)for k in ('node','edge')}
+        profile=report['profile'];carriers={k:carrier_check(profile,k,language,query,native_map_profile)for k in ('node','edge')}
         cases=execute(profile,language,query)
-        closing_carriers={k:carrier_check(profile,k,language,query)for k in ('node','edge')}
+        closing_carriers={k:carrier_check(profile,k,language,query,native_map_profile)for k in ('node','edge')}
         reports.append({'pack':profile['pack'],'carriers':carriers,'cases':cases,'closing_carriers':closing_carriers})
     closing=observe()
     if closing!=opening or source_observe()!=original:raise ValueError('Closing whole native/source custody differs')
-    return {'format':'ashlar-original17-puppygraph-native/0.1','language':language,'reports':reports,'opening':opening,'closing':closing,'original_files':original,'original_authored_cases':17}
+    return {'format':'ashlar-original17-puppygraph-native/0.1','language':language,'reports':reports,'opening':opening,'closing':closing,'original_files':original,'original_authored_cases':17,'native_map_profile':native_map_profile if language=='Gremlin'else None}
 
 
 def observe_six(language,endpoint,model,databases,user,password):
@@ -263,17 +272,17 @@ def journal_query(query,observe,path):
     execute.set_stage=set_stage;return execute
 
 
-def check(prepared,language,endpoint,model,databases,user,password,source_observe,attempt_log=None):
+def check(prepared,language,endpoint,model,databases,user,password,source_observe,attempt_log=None,native_map_profile=MAP_STANDARD):
     observe=lambda:observe_six(language,endpoint,model,databases,user,password)
     observe();source_observe() # no native client before complete custody
     if language=='Cypher':
         from neo4j import GraphDatabase
         with GraphDatabase.driver(endpoint,auth=(user,password),connection_timeout=5)as driver:
-            with driver.session()as session:result=held(prepared,language,journal_query(lambda s,b:session.run(s,**b).data(),observe,attempt_log),observe,source_observe)
+            with driver.session()as session:result=held(prepared,language,journal_query(lambda s,b:session.run(s,**b).data(),observe,attempt_log),observe,source_observe,native_map_profile)
     elif language=='Gremlin':
         from gremlin_python.driver import client,serializer
         remote=client.Client(endpoint,'g',username=user,password=password,message_serializer=serializer.GraphSONSerializersV3d0())
-        try:result=held(prepared,language,journal_query(lambda s,b:remote.submit(s,bindings=b).all().result(timeout=20),observe,attempt_log),observe,source_observe)
+        try:result=held(prepared,language,journal_query(lambda s,b:remote.submit(s,bindings=b).all().result(timeout=20),observe,attempt_log),observe,source_observe,native_map_profile)
         finally:remote.close()
     else:raise ValueError('Closed protocol required')
     if source_observe()!=result['original_files']or observe()!=result['closing']:raise ValueError('Post-client cleanup custody differs')
@@ -329,6 +338,7 @@ if __name__=='__main__':
     p=argparse.ArgumentParser(description=__doc__)
     for n in ('prepared','trusted','model','databases','output','candidates','umf','attempt-log'):p.add_argument('--'+n,type=Path,required=True)
     for n in ('model-sha256','language','endpoint'):p.add_argument('--'+n,required=True)
+    p.add_argument('--native-map-profile',choices=(MAP_PUPPY,),required=True)
     a=p.parse_args()
     if a.output.exists()or a.attempt_log.exists():raise ValueError('Fresh original complete report and attempt journal required')
     raw=a.model.read_bytes()
@@ -346,6 +356,6 @@ if __name__=='__main__':
         for n in ('release','custody'):
             if hashlib.sha256(Path(c[n]).read_bytes()).hexdigest()!=c[n+'_sha256']:raise ValueError('Original source bytes differ')
     watcher=source_watcher(prepared,a.prepared,a.model,a.databases,a.trusted,candidates);prepared,baseline=admit_guarded(a.prepared,trusted,candidates,a.umf,watcher)
-    result=check(prepared,a.language,a.endpoint,model,databases,os.environ['ASHLAR_PUPPY_USER'],os.environ['ASHLAR_PUPPY_PASSWORD'],watcher,a.attempt_log)
+    result=check(prepared,a.language,a.endpoint,model,databases,os.environ['ASHLAR_PUPPY_USER'],os.environ['ASHLAR_PUPPY_PASSWORD'],watcher,a.attempt_log,a.native_map_profile)
     if watcher()!=baseline:raise ValueError('Original pre-client source vector differs')
     a.output.write_text(json.dumps(result,sort_keys=True,ensure_ascii=False,indent=2)+'\n')
