@@ -1,0 +1,59 @@
+{
+  "files": [
+    {
+      "bytes": 3034,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/path_schema.py",
+      "relative": "src/ashlar_host/path_schema.py",
+      "sha256": "db702846fcdaae8af2c64803b663891530a5b21c2b6fe61a7671838ced52441b"
+    },
+    {
+      "bytes": 5484,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/commerce_path_request.py",
+      "relative": "src/ashlar_host/commerce_path_request.py",
+      "sha256": "155987ddded4c3e909fc43ca32246e0318c677b3aedc5bcf844d4006fd699a07"
+    },
+    {
+      "bytes": 8949,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/commerce_path_oracle.py",
+      "relative": "src/ashlar_host/commerce_path_oracle.py",
+      "sha256": "8d35535e5ca38455542743d599d218d16b9f028410ecf8e7712071656d81b2fe"
+    },
+    {
+      "bytes": 17974,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/paths_query.py",
+      "relative": "src/ashlar_host/paths_query.py",
+      "sha256": "ca5b4c87c849c9ade9e9d0083cf94a3932fb6bed7714799b700e380f0cf7cbac"
+    },
+    {
+      "bytes": 18145,
+      "path": "/Users/erik/Projects/ashlar/tests/test_host_paths_query.py",
+      "relative": "tests/test_host_paths_query.py",
+      "sha256": "c9b0cedaad9a5e2694fe4b76f15d2d7e4b48f51df4363861415daeb4869f3edc"
+    },
+    {
+      "bytes": 3194,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/installed-paths-one-hop-refusal-20261010/observation.json",
+      "relative": "docs/helix/04-build/evidence/installed-paths-one-hop-refusal-20261010/observation.json",
+      "sha256": "c8d79ea15f624802c193ca8dc629e14b66c15db02e97388f6e449fdcbde50156"
+    },
+    {
+      "bytes": 55339,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/installed-paths-one-hop-refusal-20261010/request.json",
+      "relative": "docs/helix/04-build/evidence/installed-paths-one-hop-refusal-20261010/request.json",
+      "sha256": "4da463f78392b52fbded257eb24704611c3b41675a343884a32ce309ad73c72a"
+    },
+    {
+      "bytes": 234,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/installed-paths-one-hop-refusal-20261010/response.json",
+      "relative": "docs/helix/04-build/evidence/installed-paths-one-hop-refusal-20261010/response.json",
+      "sha256": "87b9145e79540aa768a19252eec1f5b4829f78ad6758d6b4cea99893c2bf04b7"
+    }
+  ],
+  "scope": "Source-only composition; Paths530 required RELATED_KEYS refuses before binding. No complete-ten native support claim.",
+  "supersedes": "/private/tmp/ashlar-installed-commerce-paths-source-freeze-20261010-d/manifest.json",
+  "tests": {
+    "boundary": "passed",
+    "python311RealOfflineSchema": "13 passed before final added postcommit cancellation control; rerun pending",
+    "python39": "14 passed"
+  }
+}

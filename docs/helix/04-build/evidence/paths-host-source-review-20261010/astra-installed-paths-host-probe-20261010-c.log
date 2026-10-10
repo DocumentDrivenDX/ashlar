@@ -1,0 +1,37 @@
+test_alias_cancel_preserved_and_stop (__main__.Additional.test_alias_cancel_preserved_and_stop) ... ok
+test_all_three_real_offline_schema_roots (__main__.Additional.test_all_three_real_offline_schema_roots) ... ok
+test_closing_schema_drift_withholds (__main__.Additional.test_closing_schema_drift_withholds) ... ok
+test_final_report_write_cancel_close_failure_identity (__main__.Additional.test_final_report_write_cancel_close_failure_identity) ... FAIL
+test_stop_only_failure_withholds (__main__.Additional.test_stop_only_failure_withholds) ... ok
+test_cancellation_reader_replacement_and_stop_failure_preserve_primary (test_host_paths_query.LifecycleTests.test_cancellation_reader_replacement_and_stop_failure_preserve_primary) ... ok
+test_complete_ten_results_persist_only_after_reader_and_stop (test_host_paths_query.LifecycleTests.test_complete_ten_results_persist_only_after_reader_and_stop) ... ok
+test_reader_suppression_withholds_and_stop_runs (test_host_paths_query.LifecycleTests.test_reader_suppression_withholds_and_stop_runs) ... ok
+test_report_drift_after_reader_closes_withholds (test_host_paths_query.LifecycleTests.test_report_drift_after_reader_closes_withholds) ... ok
+test_required_onehop_refusal_withholds_whole_report (test_host_paths_query.LifecycleTests.test_required_onehop_refusal_withholds_whole_report) ... ok
+
+======================================================================
+FAIL: test_final_report_write_cancel_close_failure_identity (__main__.Additional.test_final_report_write_cancel_close_failure_identity)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/astra-installed-paths-host-probe-20261010-c.py", line 46, in test_final_report_write_cancel_close_failure_identity
+    try:f.compose()
+        ^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/tests/test_host_paths_query.py", line 191, in compose
+    return module.query_commerce_paths(self.config)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/paths_query.py", line 269, in query_commerce_paths
+    raise refusal from None
+ashlar_host.config.HostError: paths-query-refused
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/astra-installed-paths-host-probe-20261010-c.py", line 47, in test_final_report_write_cancel_close_failure_identity
+    except BaseException as caught:self.assertIs(caught,primary)
+                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: HostError('paths-query-refused') is not KeyboardInterrupt('write-primary')
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.616s
+
+FAILED (failures=1)

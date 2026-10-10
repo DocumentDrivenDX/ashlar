@@ -1,0 +1,47 @@
+{
+  "scope": "Exact selected source-review controls and historical failure, no native qualification",
+  "files": [
+    {
+      "source": "/private/tmp/astra-installed-paths-host-real-schema-tests-20261010-e.log",
+      "path": "docs/helix/04-build/evidence/paths-host-source-review-20261010/astra-installed-paths-host-real-schema-tests-20261010-e.log",
+      "bytes": 2439,
+      "sha256": "82c3382c8899397fa678af0165f77c4a032fc983ed251934272ae00e03a891c3"
+    },
+    {
+      "source": "/private/tmp/astra-installed-paths-host-combined-tests-20261010-e.log",
+      "path": "docs/helix/04-build/evidence/paths-host-source-review-20261010/astra-installed-paths-host-combined-tests-20261010-e.log",
+      "bytes": 2127,
+      "sha256": "6dadfefc225f36d3968ec71b1aca506a2dd10251f404ff163b88a4cb112e5689"
+    },
+    {
+      "source": "/private/tmp/astra-installed-paths-host-probe-20261010-e.log",
+      "path": "docs/helix/04-build/evidence/paths-host-source-review-20261010/astra-installed-paths-host-probe-20261010-e.log",
+      "bytes": 2474,
+      "sha256": "1cafa44ccd9cadcee02850c396367b0aced875cfdf7ee928195da8e2891cd659"
+    },
+    {
+      "source": "/private/tmp/astra-installed-paths-host-probe-20261010-e.py",
+      "path": "docs/helix/04-build/evidence/paths-host-source-review-20261010/astra-installed-paths-host-probe-20261010-e.py",
+      "bytes": 5932,
+      "sha256": "2643b0c8791a9693d1959b1a25187fe37beb0c49fa2d6cc10ab999ee79d79166"
+    },
+    {
+      "source": "/private/tmp/astra-installed-paths-host-probe-20261010-c.log",
+      "path": "docs/helix/04-build/evidence/paths-host-source-review-20261010/astra-installed-paths-host-probe-20261010-c.log",
+      "bytes": 2782,
+      "sha256": "de4b144ef6ed499e0536dbdb31a4979bcccead3c4c03167d326fd68bf7b1daeb"
+    },
+    {
+      "source": "/private/tmp/astra-installed-paths-host-probe-20261010-c.py",
+      "path": "docs/helix/04-build/evidence/paths-host-source-review-20261010/astra-installed-paths-host-probe-20261010-c.py",
+      "bytes": 3966,
+      "sha256": "69d1b7a686284cf12e3c507893281720983fdbf6926944d91cb34e256b2b1d7b"
+    },
+    {
+      "source": "/private/tmp/ashlar-installed-commerce-paths-source-freeze-20261010-e/manifest.json",
+      "path": "docs/helix/04-build/evidence/paths-host-source-review-20261010/ashlar-installed-commerce-paths-source-freeze-20261010-e-manifest.json",
+      "bytes": 2762,
+      "sha256": "703968bf591ad8a566cff4a5e3c379369c7e20742f9c1c9222337cd4c8ebfe74"
+    }
+  ]
+}

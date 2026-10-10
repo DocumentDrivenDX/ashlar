@@ -4,7 +4,8 @@ import io
 import subprocess
 import sys
 import unittest
-from unittest.mock import patch
+from types import ModuleType
+from unittest.mock import Mock, patch
 
 from ashlar.cli import main
 
@@ -38,11 +39,13 @@ assert not any(name.split('.')[0] in {'ashlar_host','pyspark','delta','psycopg'}
                 '--source-system', 'private-original-commerce-fixture',
                 '--binding-profile', 'ashlar-commerce-development-bindings/0.2']
         out, err = io.StringIO(), io.StringIO()
-        with patch.object(sys, 'argv', args), contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
+        composition = ModuleType('ashlar_host.commerce')
+        composition.publish_commerce = Mock(side_effect=AssertionError('Composition reached'))
+        with patch.dict(sys.modules, {'ashlar_host.commerce': composition}), patch.object(sys, 'argv', args), contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
             with self.assertRaises(SystemExit) as raised:
                 main()
         self.assertEqual(raised.exception.code, 2)
         self.assertEqual(out.getvalue(), '')
         self.assertEqual(err.getvalue(), 'ashlar-host: refused\n')
-        self.assertNotIn('ashlar_host.commerce', sys.modules)
+        composition.publish_commerce.assert_not_called()
         self.assertFalse(any(name.split('.')[0] in {'pyspark','delta','psycopg'} for name in sys.modules))

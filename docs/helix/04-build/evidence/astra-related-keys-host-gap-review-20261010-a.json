@@ -1,0 +1,121 @@
+{
+  "compilerEvidence": [
+    {
+      "bytes": 7992,
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-databricks/src/paths.rs",
+      "sha256": "3c6ebc5f201c80256109a55e7acf9b9c1c31a045650d5cecc5e32cd096b98b6a"
+    },
+    {
+      "bytes": 36101,
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-databricks/src/candidate/path_lowering.rs",
+      "sha256": "5ae68c0a03075b767d0b0fe77edce32c8d33e88af749ea9ca3ed8c85049c43b2"
+    },
+    {
+      "bytes": 40143,
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-core/src/arithmetic_application_resolve.rs",
+      "sha256": "7f9a51cfe44f97405a4c310178d90122dc5f523b869bfc468eed199ab6a658b8"
+    },
+    {
+      "bytes": 30159,
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-core/src/backend03_emission.rs",
+      "sha256": "ed0aee08f93d01d1dfc19fdee465f7f50b91681377889b617aefec98afa34bf1"
+    }
+  ],
+  "focusedControls": [
+    "Exact original products.supplier_id bound2 and raw graph supplier witness under originalUMF0.8; complete request/recompile and new indexed runtime native evidence later.",
+    "Required-root empty collection; duplicate equal key tuples retained; full bound with true/false lookahead checked against independent bag, not inferred by length.",
+    "Wrong descriptor relationship/key/bound, foreign pin, inverse endpoint mismatch, wrong scan/Record and missing or extra relationship guards refuse before callbacks.",
+    "No-path standalone RelatedKeys and any explicitly allowed nongrouped mixed collection inventory; never invent path occurrence guards for one-hop. Existing grouped/expansion frontend restrictions remain.",
+    "Wrong native edge type on empty source, missing schema callback, source guard failure and duplicate-edge/degree controls; distinct-neighbor counts must not deduplicate output occurrences.",
+    "Bounded UTF8/JSON, primitive types/arity/order, duplicate members, marker closure, positioned labels and whole-result refusal; potentially unmatched LEFT source explicitly refused."
+  ],
+  "gaps": [
+    {
+      "finding": "The selected530/71ba Paths realization lacks relationship.boundedKeys and explicitly refuses one-hop collection composition. Existing schema04 shape support does not grant runtime capability. Host-only changes cannot execute the required original RELATED_KEYS case.",
+      "location": "weft-databricks/src/paths.rs capabilities; candidate/path_lowering.rs:326-334"
+    },
+    {
+      "finding": "Only relatedPaths and pathExpansion populate consumed relationship inventory. A standalone correct RelatedKeys artifact would carry relationshipIntegrity, which is rejected as unselected; no exact one-hop output-role correspondence is admitted.",
+      "location": "ashlar_host/path_admission.py:260-270,346-357,374-381"
+    },
+    {
+      "finding": "Only relatedPaths dispatches to a collection decoder; relatedKeys falls into scalar-only refusal. An edge table used only through binding.relationships has no required one-hop physical field type checks because it need not appear in binding.records and there is no path occurrence edgeSchemas entry.",
+      "location": "ashlar_host/path_execution.py:307-318,359-385; _scalar:183"
+    }
+  ],
+  "minimumExtension": [
+    "First add and separately review/build/qualify/register an explicit Paths realization admitting relationship.boundedKeys and its actual lowering. Preserve existing frozen71ba/c8 package, old runtime profile, exact requests and no-fallback rule. Existing Backend03 emission already checks RelatedKeys correspondence, so required-root one-hop needs no new wire members.",
+    "In path_admission, collect exact RelatedKeys expressions separately. Require relationshipIntegrity for the union of one-hop and two-hop consumed authored relationships; keep occurrenceIntegrity exclusive to actual two-hop paths and countCapacity exclusive to selected expanded counts. Validate every retained emitted check unchanged under the held context, with full relationship identity inventory equality and normal scalar/public-source obligations.",
+    "Bind expression.scan to the original admitted scan Record and relationship.from; use full original pin/relationship/direction/from/to/key/multiplicity/lifecycle and physical binding endpoint correspondence. Require closed representation exactly kind:relatedKeys, relationship:expression.relationship.identity, key:expression.relationship.targetKey, bound:expression.bound; column nullable:false, preserved ordered position/label/lineage, and existing positioned-output mapping when applicable.",
+    "Derive native edge-table schema requirements from the admitted one-hop relationship bindings, independently of two-hop edgeSchemas. At the exact UUID/version require original id/rel_type_id/source_type/source_id/target_type/target_id BIGINT and source_system/schema_revision STRING with complete nullable metadata; observe source/target object schema too. Keep complete source endpoint/type/revision/orphan/unique-edge/key and distinct-neighbor participation checks before user SQL. Schema alone does not establish non-null/uniqueness.",
+    "Add a pure decode_related_keys helper beside existing pure path decoding, reusing bounded strictUTF8/duplicate-member rejection and exact scalar/key helpers instead of importing fixed legacy relationship_plan rows. Preserve original bytes and tuple atoms in immutable output. Decode closed items+truncated only, exact authored key arity/order, String atoms for String/Boolean/exact numeric keys, selected finite scalar decoder refusal, no JSON numeric coercion or normalization. Compare typed tuple order, permit equal adjacent tuples and never deduplicate.",
+    "Apply explicit existing cell byte limit before parsing; item count<=bound1..1000, Boolean marker, truncated=>len==bound, empty=>false. Native NULL, extra members, numeric atoms, wrong arity/key types/order, duplicate JSON keys, overflow and invalidUTF8 refuse the entire captured result. Full-bag lookahead truth remains emitted SQL/held integrity plus independent raw-source oracle, not a decoder inference.",
+    "Dispatch relatedKeys explicitly in path_execution, retaining bounded String-frame positional capture, original SQL/slots, source-before-dependent guard order, original raw-row oracle comparison, and current interval/outer cleanup withholding. No change to old relationship_plan.py or its historical ab899 admission profile."
+  ],
+  "presenceFence": "Current04 RelatedKeys representation has no outerJoin member and application-result04 defines only two-hop pathCollection/pathPresence. The smallest safe extension admits required starting scans only and refuses RelatedKeys rooted on a potentially unmatched LEFT scan. Present root with zero neighbors is items:[],truncated:false. Do not wrap one-hop in pathPresence, treat nativeNULL as absent, or accept a generic presence fallback. Supporting LEFT-root one-hop requires a separately governed representation/profile decision, not a decoder guess.",
+  "qualificationLimits": [
+    "No current compiler/native success is asserted. The fixed original one-edge witness does not qualify general parallel edges, inverse keys or additional scalar key domains.",
+    "Existing historical relationship_query oracle is a useful original source witness; its profile-specific artifact admission and fixed row-name decoder are not the new generic04 host boundary."
+  ],
+  "schemaEvidence": [
+    {
+      "bytes": 62086,
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/docs/helix/02-design/contracts/compile-response-v0.4.schema.json",
+      "sha256": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140"
+    },
+    {
+      "bytes": 42813,
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/docs/helix/02-design/contracts/logical-plan-v0.4.schema.json",
+      "sha256": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    },
+    {
+      "bytes": 2281,
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/docs/helix/02-design/contracts/application-result-v0.4.schema.json",
+      "sha256": "ee87e4e845d670601a301701dc6109c7a37dadb96ccb1e7f75c8144c5bd8bc2a"
+    },
+    {
+      "bytes": 15624,
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/docs/helix/02-design/contracts/CONTRACT-004-application-reads.md",
+      "sha256": "ec7db0a935ee11236296abe47ef025cb50577780f74e147075e88258b69b4587"
+    },
+    {
+      "bytes": 23735,
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/docs/helix/02-design/contracts/CONTRACT-005-authored-two-hop-paths.md",
+      "sha256": "82f94c9eefb01f1cf99eed7810f2420176a574383354bb7cb8390ce4236453d9"
+    }
+  ],
+  "scope": "Read-only source/contract/schema assessment; no compiler, native, install or source edits.",
+  "selectedManifest": {
+    "bytes": 51125,
+    "path": "/private/tmp/ashlar-weft-distribution-d2d/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/backend/backend-manifest.json",
+    "sha256": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5"
+  },
+  "sources": [
+    {
+      "bytes": 24169,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/path_admission.py",
+      "sha256": "d6eaa20320c97f607ad6d59578b81653e564d94e1af6daa3537a02640f70d8d2"
+    },
+    {
+      "bytes": 22553,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/path_execution.py",
+      "sha256": "f42d4ceb62ebfb00a626f2d8cab74d38df950f42bdfc4b9bb875aff09f5b5c8b"
+    },
+    {
+      "bytes": 5781,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/relationship_plan.py",
+      "sha256": "6e3e65793d31cdc192b986f9a916bee56fd2f8a65899c94f60d3d1c0975a97ec"
+    },
+    {
+      "bytes": 6176,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/relationship_query.py",
+      "sha256": "a3f6b28a665c6f08773f73e5d8c76cac5b0fe6b87441ab42c0ffdace6ac37972"
+    },
+    {
+      "bytes": 11170,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_path_decode.py",
+      "sha256": "0e5dcb7d28aa60f3d8364c41c5d305b1e71607b8acab678e0eee0973478df0a6"
+    }
+  ],
+  "verdict": "GAPS_CONFIRMED_RECOMMENDATION_ONLY"
+}

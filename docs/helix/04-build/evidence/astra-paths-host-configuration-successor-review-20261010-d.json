@@ -1,0 +1,61 @@
+{
+  "changes": [
+    "Only tests/test_host_cli.py adds a fake public commerce module and asserts publish_commerce was not called for invalid configuration, instead of requiring prior absence from sys.modules.",
+    "Existing old help subprocess/no native dependency controls remain. Production config, CLI, exports, ADR and the two CI discovery lines remain exact approved bytes."
+  ],
+  "checks": {
+    "combined19": "14 owner mocked source controls +3 root config +2 old CLI tests pass in same Python3.9 process.",
+    "log": {
+      "bytes": 2127,
+      "path": "/private/tmp/astra-installed-paths-host-combined-tests-20261010-e.log",
+      "sha256": "6dadfefc225f36d3968ec71b1aca506a2dd10251f404ff163b88a4cb112e5689"
+    }
+  },
+  "files": [
+    {
+      "bytes": 3992,
+      "path": "src/ashlar_host/config.py",
+      "sha256": "956543b5fc341e3d20a9c97e6a385d13f52fb035e6e46a62b260c38d8926ffa6"
+    },
+    {
+      "bytes": 13122,
+      "path": "src/ashlar/cli.py",
+      "sha256": "5e2e77394bb2d685d383f9bd9384972a2c0103faa0aff865caf4f7189854e9f6"
+    },
+    {
+      "bytes": 358,
+      "path": "src/ashlar_host/__init__.py",
+      "sha256": "16dcd8e08c7e0335a9cbf7154317d147c2fb5462a12197c023e3d2fe1d102151"
+    },
+    {
+      "bytes": 4131,
+      "path": "tests/test_paths_host_configuration.py",
+      "sha256": "5f797a1ad89bf62b8485e76ee767c69eacc870351b164461f15ea3f6b8928ed1"
+    },
+    {
+      "bytes": 26613,
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "6b09813946bc64d6e8b10867e714cd39cd286e9ddb861cb602497579de1b590a"
+    },
+    {
+      "bytes": 1656,
+      "path": ".github/workflows/module-boundaries.yml",
+      "sha256": "a90670e4493427a10d5484ae51841063e655e16b9e4b2b3881a342c5e9d5c206"
+    },
+    {
+      "bytes": 2638,
+      "path": "tests/test_host_cli.py",
+      "sha256": "0293a3a77ee705aeccecf3d09786b2b0ecdd76283532ab0c28810ef60fa71389"
+    }
+  ],
+  "priorReview": {
+    "bytes": 2553,
+    "path": "/private/tmp/astra-paths-host-configuration-successor-review-20261010-c.json",
+    "sha256": "a747b55af254604bcf1b4d3aa5a39cf1e8ba6600579d3a2b2f944059058890f1"
+  },
+  "scope": [
+    "Root seven-file source-only review. Owner E eight-file implementation is separately reviewed; no engine/compiler/package/native approval in this test-only successor.",
+    "No ignored or weakened boundary baseline; no actual compiler, native SDK or database execution."
+  ],
+  "verdict": "APPROVED_ROOT_SEVEN_FILE_SOURCE_SUCCESSOR"
+}

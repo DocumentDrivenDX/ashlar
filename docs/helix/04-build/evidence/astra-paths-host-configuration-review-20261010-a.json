@@ -1,0 +1,88 @@
+{
+  "assessment": [
+    "All new operator paths are required absolute Paths; producer/private PostgreSQL profiles are reused unchanged; no new environment, credential, trust, compiler or SDK discovery is introduced.",
+    "QueryCommercePathsConfig is a separate frozen type. Artifact and cell limits cap at16MiB, rows at1000, total retained cells at64MiB; exact positive integer checks reject bool/zero/overflow and decoder maximum cannot exceed capture. These are retained payload bounds, not Spark executor/work-memory bounds.",
+    "CLI help parses before host import; actual subprocess help passed without ashlar_host/pyspark/delta/psycopg/jsonschema imports. Valid mocked dispatch receives exactly the new typed config once.",
+    "HostError and OSError map to constant refusal without payload; exact KeyboardInterrupt/SystemExit objects propagate and do not print success. No catch of BaseException added.",
+    "Legacy config definitions and publish/query construction blocks remain AST-identical; other existing compiler/source CLI routes are unchanged by the addition.",
+    "ADR adds explicit schema/request/oracle/outer-lifecycle ownership and dependencies while preserving frontmatter and existing concern clauses. CI adds exactly the new stdlib configuration-suite command."
+  ],
+  "base": "2756901288953894ec8663c00620444d49dc581d",
+  "files": [
+    {
+      "bytes": 3992,
+      "path": "src/ashlar_host/config.py",
+      "sha256": "956543b5fc341e3d20a9c97e6a385d13f52fb035e6e46a62b260c38d8926ffa6"
+    },
+    {
+      "bytes": 13122,
+      "path": "src/ashlar/cli.py",
+      "sha256": "5e2e77394bb2d685d383f9bd9384972a2c0103faa0aff865caf4f7189854e9f6"
+    },
+    {
+      "bytes": 358,
+      "path": "src/ashlar_host/__init__.py",
+      "sha256": "16dcd8e08c7e0335a9cbf7154317d147c2fb5462a12197c023e3d2fe1d102151"
+    },
+    {
+      "bytes": 3873,
+      "path": "tests/test_paths_host_configuration.py",
+      "sha256": "7960d0b5684bd7fc43adf936a6a6f85e0f2258e5a72e1c3e49b7dde3dc8a64be"
+    },
+    {
+      "bytes": 26613,
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "6b09813946bc64d6e8b10867e714cd39cd286e9ddb861cb602497579de1b590a"
+    },
+    {
+      "bytes": 1533,
+      "path": ".github/workflows/module-boundaries.yml",
+      "sha256": "fbb8de37214f3c52b44ea31646185bfc6814a397df01bc134184321f1a32b9c2"
+    }
+  ],
+  "findings": [],
+  "freeze": {
+    "bytes": 1246,
+    "path": "/private/tmp/astra-paths-host-configuration-freeze-20261010-a/manifest.json",
+    "sha256": "218455d9dfc53b058f38c3e770a90be6e774e28887ade8d352e1b03c4edf11bd"
+  },
+  "independentChecks": {
+    "actualModuleBoundaryChecker": "PASS",
+    "diffCheck": "PASS",
+    "existingCliTests": {
+      "command": "PYTHONPATH=src:tools:tests python3 -B -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_cli.py -v",
+      "passed": 2
+    },
+    "extraPublicRouteControls": {
+      "log": {
+        "bytes": 433,
+        "path": "/private/tmp/astra-paths-host-configuration-probe-20261010-a.log",
+        "sha256": "8e1bd9509384a78f39baf860eae22cb2e27aab9bc4467e0af80b3ffa8fa3ba5b"
+      },
+      "passed": 5,
+      "script": {
+        "bytes": 4556,
+        "path": "/private/tmp/astra-paths-host-configuration-probe-20261010-a.py",
+        "sha256": "4390473f9e67ea6db071200a6cdb6ddea45e0be96ac57056d99f38dbe5df88a2"
+      }
+    },
+    "ownerConfigurationTests": {
+      "command": "PYTHONPATH=src:tools:tests python3 -B -S -W error::ResourceWarning -m unittest discover -s tests -p test_paths_host_configuration.py -v",
+      "passed": 3
+    },
+    "rootSixClosingHashes": "PASS"
+  },
+  "limits": [
+    "This is review of the six exact root-owned files only; the four new host implementation modules and their tests remain separately unreviewed.",
+    "A valid CLI branch imports the separately owned paths_query module; landing/execution readiness remains gated by its reviewed implementation and dependencies.",
+    "No actual compiler, installation, source publication, native engine, ACK or database operation was executed. Fake host functions and standard-library controlled help subprocesses only.",
+    "No native, OTel receiver, whole-profile, liveness or machine-checked formal proof claim follows from these checks."
+  ],
+  "resolvedFinding": "Removed the inserted blank separator that split the ADR Module Boundaries Markdown table; the final config owner row also names QueryCommercePathsConfig.",
+  "separateImplementationGap": {
+    "blockingNativeProfileCompletion": true,
+    "description": "Current indexed530/c8 Paths compiler does not select relationship.boundedKeys and its lowerer refuses one-hop collection composition. Existing installed host also routes only relatedPaths or scalar/value decoding. This requires a separately reviewed compiler/profile realization and host RelatedKeys admission/decoding; do not replace the one-hop requirement with property equality or an old compiler fallback.",
+    "doesNotBlockThisScaffoldReview": true
+  },
+  "verdict": "APPROVED_ROOT_SIX_FILE_SOURCE_SLICE"
+}

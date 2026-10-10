@@ -1,0 +1,22 @@
+test_alias_cancel_preserved_and_stop (__main__.Additional.test_alias_cancel_preserved_and_stop) ... ok
+test_all_three_real_offline_schema_roots (__main__.Additional.test_all_three_real_offline_schema_roots) ... ok
+test_closing_schema_drift_withholds (__main__.Additional.test_closing_schema_drift_withholds) ... ok
+test_final_report_write_cancel_close_failure_identity (__main__.Additional.test_final_report_write_cancel_close_failure_identity) ... ok
+test_stop_only_failure_withholds (__main__.Additional.test_stop_only_failure_withholds) ... ok
+test_cancellation_reader_replacement_and_stop_failure_preserve_primary (test_host_paths_query.LifecycleTests.test_cancellation_reader_replacement_and_stop_failure_preserve_primary) ... ok
+test_complete_ten_results_persist_only_after_reader_and_stop (test_host_paths_query.LifecycleTests.test_complete_ten_results_persist_only_after_reader_and_stop) ... ok
+test_final_report_write_cancellation_survives_stream_close_failure (test_host_paths_query.LifecycleTests.test_final_report_write_cancellation_survives_stream_close_failure) ... ok
+test_postcommit_report_cleanup_cancellation_is_not_swallowed (test_host_paths_query.LifecycleTests.test_postcommit_report_cleanup_cancellation_is_not_swallowed) ... ok
+test_reader_suppression_withholds_and_stop_runs (test_host_paths_query.LifecycleTests.test_reader_suppression_withholds_and_stop_runs) ... ok
+test_report_close_failure_leaves_no_final_report (test_host_paths_query.LifecycleTests.test_report_close_failure_leaves_no_final_report) ... ok
+test_report_drift_after_reader_closes_withholds (test_host_paths_query.LifecycleTests.test_report_drift_after_reader_closes_withholds) ... ok
+test_required_onehop_refusal_withholds_whole_report (test_host_paths_query.LifecycleTests.test_required_onehop_refusal_withholds_whole_report) ... ok
+test_final_collision_preserves_foreign_bytes_and_removes_owned_stage (__main__.Persistence.test_final_collision_preserves_foreign_bytes_and_removes_owned_stage) ... ok
+test_postcommit_ordinary_cleanup_keeps_complete_availability (__main__.Persistence.test_postcommit_ordinary_cleanup_keeps_complete_availability) ... ok
+test_short_write_closes_and_withholds (__main__.Persistence.test_short_write_closes_and_withholds) ... ok
+test_stage_collision_preserves_foreign_bytes (__main__.Persistence.test_stage_collision_preserves_foreign_bytes) ... ok
+
+----------------------------------------------------------------------
+Ran 17 tests in 0.669s
+
+OK

@@ -1,0 +1,72 @@
+{
+  "compilerSource": "530ae3511a4a50364d3d7e26195d3883952601df",
+  "execution": {
+    "api": "ashlar.weft_paths_distribution.compile_paths_distribution",
+    "environment": {
+      "PYTHONPATH": "/Users/erik/Projects/ashlar/src"
+    },
+    "method": "Prior retained real commerce publication request seed; SQL replaced with exact one-hop intent and compact sorted ensure-ascii serialization; no request normalization or SQL repair.",
+    "platform": "actual macOS27.0.1/arm64",
+    "python": "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/python"
+  },
+  "format": "ashlar-installed-paths-one-hop-observation/0.1",
+  "indexRevision": "c8d825808a27e15517c1fc93c3fba0faffc2406e",
+  "inputs": [
+    {
+      "bytes": 1390,
+      "path": "/private/tmp/ashlar-weft-distribution-d2d/distributions/index.json",
+      "sha256": "a7571d2bd141bf182ce171acc16f64f1276cca29a855dbf4b49a92283fc71864"
+    },
+    {
+      "bytes": 1407,
+      "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/ready.json",
+      "sha256": "420dce3f3135bd2584fa93568e76b3ae850c014b23b688a369b4318c89f16afc"
+    },
+    {
+      "bytes": 45893,
+      "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/provenance.json",
+      "sha256": "bf0e6742cadae1409d841d109e108468eac105ac63293144ad47a1b013977602"
+    },
+    {
+      "bytes": 8273840,
+      "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/weft-paths",
+      "sha256": "71ba88a07c27661413830d5a42e2ea5c4a8b071df965bb98dbbe8f3615a6c911"
+    },
+    {
+      "bytes": 3790,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_paths_distribution.py",
+      "sha256": "8e592efcc2518b69d8113e7bbf1a9f0b00dc6003c79f6e64083e5e4f2e7f8b7f"
+    },
+    {
+      "bytes": 12169,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_paths_installation.py",
+      "sha256": "9f29570213f9432e497f67d337c5c56e522fb7802ee778771484172b6d8e80b9"
+    },
+    {
+      "bytes": 25893,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_paths_package.py",
+      "sha256": "0dc1c2a6803290f2fd300d93c09e6c9e53269c726e08115d0ed2f2dca06f82ee"
+    },
+    {
+      "bytes": 395576,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/commerce-path-native-20261010/report.json.gz",
+      "sha256": "4fa8456d59c9ed7bd68bf435b90a6cadd0c4344bf77d6c47ed7c6583eb3367da"
+    }
+  ],
+  "outcome": {
+    "diagnostics": [
+      {
+        "code": "WFT-CAPABILITY",
+        "message": "Selected04 capability refused before binding",
+        "phase": "capability",
+        "recoverability": "change-profile",
+        "severity": "error"
+      }
+    ],
+    "interfaceVersion": "weft-compile/0.4.0",
+    "status": "blocked"
+  },
+  "realizationId": "weft-530ae35-paths-aarch64-apple-darwin-candidate",
+  "scope": "Compiler-only observation; no Spark/PG/source/native execution. This required case remains unqualified and refuses the complete ten-case host report. Referenced runtime inputs are selected custody, not complete external import/runtime closure.",
+  "sql": "SELECT p.id, RELATED_KEYS(p.\"products.supplier_id\", 2) AS suppliers FROM products p ORDER BY p.id"
+}

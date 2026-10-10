@@ -44,7 +44,7 @@ def main():
     for name in ('ontology','graph','public-admission','output','source-system'):
         medical.add_argument('--'+name,required=True)
     medical.add_argument('--binding-profile',required=True,choices=['ashlar-medical-development-bindings/0.2'])
-    for name in ('publish-commerce', 'query-commerce'):
+    for name in ('publish-commerce', 'query-commerce', 'query-commerce-paths'):
         command = commands.add_parser(name, help='Run the explicit local commerce native host profile')
         for option in ('output', 'jars', 'model', 'graph', 'umf-source', 'bun', 'git',
                        'postgres-container', 'postgres-host', 'postgres-database'):
@@ -58,8 +58,12 @@ def main():
         else:
             for option in ('index', 'installation', 'publication'):
                 command.add_argument('--' + option, required=True)
+        if name == 'query-commerce-paths':
+            for option in ('maximum-artifact-bytes', 'maximum-rows',
+                           'maximum-cell-bytes', 'maximum-total-cell-bytes'):
+                command.add_argument('--' + option, type=int, required=True)
     args = parser.parse_args()
-    if args.command in ('publish-commerce', 'query-commerce'):
+    if args.command in ('publish-commerce', 'query-commerce', 'query-commerce-paths'):
         from pathlib import Path
         from ashlar_host.config import (HostError, ProducerConfig, PrivatePostgresConfig,
                                         PublishCommerceConfig, QueryCommerceConfig)
@@ -77,12 +81,29 @@ def main():
                 from ashlar_host.commerce import publish_commerce
                 publish_commerce(config)
                 print("ashlar-host: report " + str(config.output / "report.json"))
-            else:
+            elif args.command == 'query-commerce':
                 config = QueryCommerceConfig(Path(args.index), Path(args.installation),
                     Path(args.publication), Path(args.output), Path(args.jars),
                     Path(args.model), Path(args.graph), producer, postgres)
                 from ashlar_host.commerce import query_commerce
                 query_commerce(config)
+                print("ashlar-host: report " + str(config.output / "report.json"))
+            else:
+                from ashlar_host.config import QueryCommercePathsConfig
+                from ashlar_host.path_capture import PathCaptureConfig, PathCaptureError
+                from .weft_path_decode import PathDecodeConfig, PathDecodeError
+                try:
+                    capture = PathCaptureConfig(args.maximum_rows,
+                        args.maximum_cell_bytes, args.maximum_total_cell_bytes)
+                    decoder = PathDecodeConfig(args.maximum_cell_bytes)
+                except (PathCaptureError, PathDecodeError):
+                    raise HostError('invalid-finite-bound') from None
+                config = QueryCommercePathsConfig(Path(args.index), Path(args.installation),
+                    Path(args.publication), Path(args.output), Path(args.jars),
+                    Path(args.model), Path(args.graph), producer, postgres,
+                    args.maximum_artifact_bytes, capture, decoder)
+                from ashlar_host.paths_query import query_commerce_paths
+                query_commerce_paths(config)
                 print("ashlar-host: report " + str(config.output / "report.json"))
         except (HostError, OSError):
             print('ashlar-host: refused', file=sys.stderr)

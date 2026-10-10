@@ -1,0 +1,60 @@
+{
+  "changes": [
+    "Configuration refusal control now injects a fake paths_query port and asserts it was not called; no dependency on prior module import state.",
+    "CI adds exactly one additional source-only test_host_paths_query.py discovery command after the already approved configuration suite; separate processes are preserved."
+  ],
+  "checks": {
+    "combinedNewHostAndConfiguration": 16,
+    "log": {
+      "bytes": 1836,
+      "path": "/private/tmp/astra-paths-host-config-successor-20261010-b.log",
+      "sha256": "90d468468200a52205510356f8ed6527edf0f3f4cd8552e26cc60f8efcc0f984"
+    },
+    "ownerHostTestScope": "13 current owner tests were present during this check; these pending successor files are not approved by this root-only receipt.",
+    "unchangedRootOtherFourHashes": "PASS"
+  },
+  "files": [
+    {
+      "bytes": 3992,
+      "path": "src/ashlar_host/config.py",
+      "sha256": "956543b5fc341e3d20a9c97e6a385d13f52fb035e6e46a62b260c38d8926ffa6"
+    },
+    {
+      "bytes": 13122,
+      "path": "src/ashlar/cli.py",
+      "sha256": "5e2e77394bb2d685d383f9bd9384972a2c0103faa0aff865caf4f7189854e9f6"
+    },
+    {
+      "bytes": 358,
+      "path": "src/ashlar_host/__init__.py",
+      "sha256": "16dcd8e08c7e0335a9cbf7154317d147c2fb5462a12197c023e3d2fe1d102151"
+    },
+    {
+      "bytes": 4131,
+      "path": "tests/test_paths_host_configuration.py",
+      "sha256": "5f797a1ad89bf62b8485e76ee767c69eacc870351b164461f15ea3f6b8928ed1"
+    },
+    {
+      "bytes": 26613,
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "6b09813946bc64d6e8b10867e714cd39cd286e9ddb861cb602497579de1b590a"
+    },
+    {
+      "bytes": 1656,
+      "path": ".github/workflows/module-boundaries.yml",
+      "sha256": "a90670e4493427a10d5484ae51841063e655e16b9e4b2b3881a342c5e9d5c206"
+    }
+  ],
+  "priorReview": {
+    "bytes": 5086,
+    "path": "/private/tmp/astra-paths-host-configuration-review-20261010-a.json",
+    "sha256": "0c2c2ea5719b9034e2821455fdf9295ade30690ec17f2801fba08abb6acd8222"
+  },
+  "scope": [
+    "Approves exact root test and CI delta only.",
+    "Owner host persistence correction remains separately under review; this receipt does not approve those files or grant landing/native execution.",
+    "No compiler, installation or native SDK was executed; host tests use fake ports.",
+    "Existing old CLI import-absence test remains scoped to its separate CI process; no claim of a unified all-tests process."
+  ],
+  "verdict": "APPROVED_ROOT_TEST_AND_CI_SUCCESSOR_ONLY"
+}

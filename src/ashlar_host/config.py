@@ -1,6 +1,8 @@
 """Explicit application configuration; no environment or credential discovery."""
 from dataclasses import dataclass
 from pathlib import Path
+from ashlar.weft_path_decode import PathDecodeConfig
+from .path_capture import PathCaptureConfig
 
 
 class HostError(ValueError):
@@ -77,3 +79,36 @@ class QueryCommerceConfig:
     def __post_init__(self) -> None:
         for p in (self.index,self.installation,self.publication,self.output,self.jars,self.model,self.graph): _path(p)
         if not isinstance(self.producer,ProducerConfig) or not isinstance(self.postgres,PrivatePostgresConfig):raise HostError('invalid-configuration')
+
+
+@dataclass(frozen=True)
+class QueryCommercePathsConfig:
+    """Separately selected Paths profile with explicit finite capture bounds."""
+    index: Path
+    installation: Path
+    publication: Path
+    output: Path
+    jars: Path
+    model: Path
+    graph: Path
+    producer: ProducerConfig
+    postgres: PrivatePostgresConfig
+    maximum_artifact_bytes: int
+    capture: PathCaptureConfig
+    decoder: PathDecodeConfig
+
+    def __post_init__(self) -> None:
+        for p in (self.index, self.installation, self.publication, self.output,
+                  self.jars, self.model, self.graph):
+            _path(p)
+        if (type(self.producer) is not ProducerConfig
+                or type(self.postgres) is not PrivatePostgresConfig
+                or type(self.capture) is not PathCaptureConfig
+                or type(self.decoder) is not PathDecodeConfig):
+            raise HostError('invalid-configuration')
+        _bound(self.maximum_artifact_bytes, 16 * 1024 * 1024)
+        _bound(self.capture.maximum_rows, 1000)
+        _bound(self.capture.maximum_cell_bytes, 16 * 1024 * 1024)
+        _bound(self.capture.maximum_total_cell_bytes, 64 * 1024 * 1024)
+        if self.decoder.maximum_cell_bytes > self.capture.maximum_cell_bytes:
+            raise HostError('decoder-exceeds-capture-bound')

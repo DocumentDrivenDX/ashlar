@@ -1,0 +1,24 @@
+test_cancellation_reader_replacement_and_stop_failure_preserve_primary (test_host_paths_query.LifecycleTests) ... ok
+test_complete_ten_results_persist_only_after_reader_and_stop (test_host_paths_query.LifecycleTests) ... ok
+test_final_report_write_cancellation_survives_stream_close_failure (test_host_paths_query.LifecycleTests) ... ok
+test_postcommit_report_cleanup_cancellation_is_not_swallowed (test_host_paths_query.LifecycleTests) ... ok
+test_reader_suppression_withholds_and_stop_runs (test_host_paths_query.LifecycleTests) ... ok
+test_report_close_failure_leaves_no_final_report (test_host_paths_query.LifecycleTests) ... ok
+test_report_drift_after_reader_closes_withholds (test_host_paths_query.LifecycleTests) ... ok
+test_required_onehop_refusal_withholds_whole_report (test_host_paths_query.LifecycleTests) ... ok
+test_all_ten_independent_original_bags_and_opaque_identities (test_host_paths_query.OracleRequestTests) ... ok
+test_complete_request_preserves_original_source_and_all_homes (test_host_paths_query.OracleRequestTests) ... ok
+test_package_import_without_tools_or_sdk (test_host_paths_query.OracleRequestTests) ... ok
+test_schema_pin_refusal_before_dependency_and_optional_real_validator (test_host_paths_query.OracleRequestTests) ... ok
+test_native_projection_and_field_receipt_correspondence_refuse_independent_mutations (test_host_paths_query.PublicSourceTests) ... ok
+test_preflight_refuses_before_encoder_and_numeric_conversion (test_host_paths_query.PublicSourceTests) ... ok
+test_help_without_host_or_sdk_imports (test_paths_host_configuration.PathsHostConfigurationTests) ... ok
+test_invalid_bounds_refuse_before_paths_composition (test_paths_host_configuration.PathsHostConfigurationTests) ... ok
+test_separate_immutable_profile_and_finite_limits (test_paths_host_configuration.PathsHostConfigurationTests) ... ok
+test_help_needs_neither_host_package_nor_native_libraries (test_host_cli.HostCliTests) ... ok
+test_invalid_configuration_refuses_before_composition (test_host_cli.HostCliTests) ... ok
+
+----------------------------------------------------------------------
+Ran 19 tests in 0.709s
+
+OK
