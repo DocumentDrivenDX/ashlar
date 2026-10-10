@@ -1,0 +1,25 @@
+{
+  "UMF_clean_source": "/private/tmp/ashlar-umf-dataset-compact-fc78",
+  "UMF_revision": "a95c3ec18a8f904decde884a4fa252988d2a5b0f",
+  "actual_public_recomputation": "Fresh existing public check_archaeology_dataset_compact.ts/check_ecology_dataset_compact.ts outputs compare complete original native publication receipt bytes before representation. Astra independently reproduced both profiles under current frozen source with byte-identical outputs.",
+  "engine_executed": false,
+  "format": "ashlar-original17-graph-scenario-profile-proof/0.1",
+  "profiles": {
+    "archaeology": {
+      "cases": 8,
+      "edges": 46,
+      "fields": 110,
+      "nodes": 39,
+      "signed64_guards": 4
+    },
+    "ecology": {
+      "cases": 9,
+      "edges": 54,
+      "fields": 81,
+      "nodes": 40,
+      "signed64_guards": 3
+    }
+  },
+  "source_commit": "737ed1cf002764ad04e234057bae81293593029b",
+  "source_only_scope": "Named finite lexical/presence vertex profile retains all raw canonical cells, original qualified Field definitions/identities and tokens; only interpretations earliest/latest and occurrences count additionally admit exact signed64. No authored engine query pass, production source or UMF declaration narrowing."
+}
