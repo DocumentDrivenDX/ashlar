@@ -1,0 +1,76 @@
+{
+  "profile": "ashlar-schema-browser-sync-evidence/0.1",
+  "upstream_revision": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+  "upstream_asset_path": "docs/helix/05-deploy/microsite/dist/explorer.js",
+  "upstream_asset_sha256": "e6d54c957f1a7644acf87ed74462ee783ac71be46299587ce08fcfc49596b207",
+  "upstream_asset_bytes": 3532688,
+  "prior_consumer_pin": "cea3fa03480de1f3437ecd6d23e500bea618e0f3",
+  "asset_custody": "Exact tracked public UMF bundle and unchanged upstream CSS; no private rendering implementation. Ashlar host/catalog and all nine original models stay unchanged.",
+  "source_build": {
+    "command": "From clean e44 producer: Bun.build({entrypoints:[\"docs/helix/05-deploy/microsite/explorer.ts\"],target:\"browser\",minify:true,outdir:FRESH_DIRECTORY}); resource-custody onLoad logs original file hashes without changing contents.",
+    "bun_version": "1.4.2",
+    "rebuilt_sha256": "c81e914d5e10ee8ddf09de309c7cd92e387c859a63789581e9b3cbc68dd552bb",
+    "rebuilt_bytes": 2866025,
+    "byte_identical_to_tracked_asset": false,
+    "qualification": "Reconstruction uses existing reused producer node_modules and produces different bytes. It is retained as a source/dependency audit, not a deterministic release-build proof; reconstructed bundle was not served by the successful consumer smoke. Exact tracked asset custody is separately qualified through real Chromium DOM/download behavior."
+  },
+  "browser_reproduction": "bun tools/check_schema_browser_browser.ts ASHLAR_ROOT /private/tmp/ashlar-umf-evolution-land-6a292 FRESH_OUTPUT (bounded loopback plus existing Playwright/Chromium; no data engine).",
+  "browser_command": "bun tools/check_schema_browser_browser.ts /Users/erik/Projects/ashlar /private/tmp/ashlar-umf-evolution-land-6a292 /private/tmp/ashlar-schema-browser-e44-smoke-20261009-e",
+  "browser_scope": "Chromium153:9exact raw-source/download pairs,8exact native extension payload displays and8complete ordered logical member/type/cardinality/availability tables at1440and390pixels; navigation/filter retains deep-linked inspector; no page errors/wholepage overflow. Unknown Delta interpretation explicitly remains partial. No loader/research pack support, arbitrary schema intake, source migration or native enforcement claim.",
+  "attempts": "a failed sandbox loopback bind; b failed test selector (Members vs Fields and members); c raw-source/download/logical tables passed; d failed strict locator for interpretation notice; final e fixes public DOM selector and includes all declared50 checks. All partial directories retained privately, no prior success result rewritten.",
+  "reproducible_source_base": "3fb7488f64ab722b2950a9d4056c4f1de156c9ae",
+  "unchanged_model_source_references": [
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/relationships.umf.json",
+      "sha256": "3b09f2938e94a83c92369a9b1f3b682528db463978fd1ac708c7b376fca4ce57",
+      "git_blob": "5a62f32af369449904206b8a6b981c29d3c42e20"
+    },
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/object_current.umf.json",
+      "sha256": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884",
+      "git_blob": "644f7645f62353e5d0839be91bf6b59f584fea18"
+    },
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/edge_current.umf.json",
+      "sha256": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302",
+      "git_blob": "7c50cc03de63f0d282a7e0e88ac3550a19b9fa6d"
+    },
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/source_record.umf.json",
+      "sha256": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375",
+      "git_blob": "ea15740e463236f9b5fb6a34c8685dab1b83a4a7"
+    },
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/property_journal.umf.json",
+      "sha256": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5",
+      "git_blob": "f21a7e6aa702e70b3bee42fa6074b8d1ebc5e614"
+    },
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/tombstone.umf.json",
+      "sha256": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13",
+      "git_blob": "c048c79d58b9dfe32450486efa673f79d1e1519b"
+    },
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/publication_manifest.umf.json",
+      "sha256": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d",
+      "git_blob": "33badd2f1b01dd0a1f0e6a7ec77bd2a0465a43f9"
+    },
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/publication_attempt_phase.umf.json",
+      "sha256": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c",
+      "git_blob": "918c8715c66626c2ebca2a86490e0536f70f8a16"
+    },
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/whole_source_history.umf.json",
+      "sha256": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926",
+      "git_blob": "fe0aed38db09713467b5e1b05ac90b34e6ef2188"
+    },
+    {
+      "path": "docs/helix/02-design/models/ashlar-delta-runtime/index.json",
+      "sha256": "3905d10dc5ec5e7bc7297004e9e73e6786e53dbf4d2533ecdd351c0b38ba7679",
+      "git_blob": "1ca4b432a174ba487d2804a59be293b3804ed478"
+    }
+  ],
+  "unchanged_boundaries": "Runtime model index still pins fac149 generator; all authored source meanings/DDL, original schema catalog, CSS/host/index, site seals and reference source remain unchanged. Browser component e44 pin is separate from model generator pin.",
+  "tests": "4 focused Python custody tests pass, including missing/tampered pin, model/bundle/catalog/host copy/generator and missing upstream Git object refusal; generator --check, website fingerprint check and module boundary check pass."
+}

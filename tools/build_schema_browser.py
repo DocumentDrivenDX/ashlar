@@ -2,7 +2,7 @@
 import argparse,hashlib,json,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-REVISION='cea3fa03480de1f3437ecd6d23e500bea618e0f3'
+REVISION='e44cd15f336dfb33db35acf20eee13dd120a1a28'
 UPSTREAM='docs/helix/05-deploy/microsite/dist/'
 MODEL=ROOT/'docs/helix/02-design/models/ashlar-delta-runtime'
 TARGET=ROOT/'website/static/model/schema-browser'
