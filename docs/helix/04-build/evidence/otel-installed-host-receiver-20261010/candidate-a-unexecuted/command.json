@@ -1,0 +1,41 @@
+{
+  "format": "ashlar-unexecuted-command/0.1",
+  "state": "candidate-not-executed",
+  "argv": [
+    "/private/tmp/ashlar-otel-installed-preparation-20261010-a/environment/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-a/candidate.py"
+  ],
+  "cwd": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-a",
+  "env": {
+    "PATH": "/usr/bin:/bin"
+  },
+  "source": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-a/candidate.py",
+    "bytes": 12432,
+    "sha256": "9a8cdad16cc967f85bd7532a835a07e687d5738bb017b7c29f744979d56eed1a"
+  },
+  "preparation": {
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/freeze-b.json",
+    "sha256": "633280aecb8baed0278887010ddba28723f0824b5cd0da5f783397a127ca0ef8"
+  },
+  "executionRequires": [
+    "Independent candidate review",
+    "Root current opening and closing selected input custody verification",
+    "Fresh capture/result/request output absence",
+    "No active native engines or other receiver run"
+  ],
+  "bounds": {
+    "attempts": 2,
+    "expectedHttpRequests": 10,
+    "maxHttpRequests": 19,
+    "maxReceivedBodyBytesEach": 65536,
+    "maxReceivedBodyBytesTotal": 1048576,
+    "acceptedSocketTimeoutSeconds": 0.5,
+    "receiverJoinSeconds": 1,
+    "sdkExportTimeoutMs": 1000,
+    "sdkShutdownTimeoutMs": 2000
+  },
+  "qualification": "No execution or support claim. Direct foreground command, no outer forced-termination wrapper, no detached process. Public owner supervision relies on reviewed POSIX cleanup, not independent process census."
+}

@@ -1,0 +1,34 @@
+{
+  "verdict": "candidate-successor-approved-root-wrapper-correction-required",
+  "candidate": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/candidate.py",
+    "bytes": 13465,
+    "sha256": "b1da715f60001fb8f650167d074daf66eb469cf16b0bfaccfe6b8f170ee4857c"
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/command.json",
+    "bytes": 1882,
+    "sha256": "63dcbd893077164759ab3a9074d24ca6d01e531c0dcdace78c00ace642cccae8"
+  },
+  "opening": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/opening-inputs.json",
+    "bytes": 244665,
+    "sha256": "b8661caf57003de851fe4aa6b04529b659b3d96231254e495b5f72db850e27b0"
+  },
+  "checks": [
+    "Candidate exact one path substitution from approved B; no semantic/oracle/lifecycle code changes.",
+    "Command bounds/env/selected interpreter and all900 installed/source pins unchanged except successor candidate+command paths/digests.",
+    "All900 listed files rehashed; root must repeat fresh preflight and closing."
+  ],
+  "wrapper": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/root-runner.py",
+    "bytes": 1843,
+    "sha256": "3cd5fe6ec9485206bc894866660559c43029800754ce382854106b740c68e620"
+  },
+  "wrapperFindings": [
+    "subprocess.run creates an outer forced-kill boundary on BaseException; candidate owns separate session worker, so outerkill can orphan it. Use direct selected interpreter supervision with cooperative scope.",
+    "Closing custody runs only after subprocess.run completes normally, not on BaseException.",
+    "Freshness uses result.stage.json rather than actual .result-stage.json."
+  ],
+  "scope": "No receiver/network/worker execution; candidate B11 inert controls remain applicable; no actual qualification claim."
+}

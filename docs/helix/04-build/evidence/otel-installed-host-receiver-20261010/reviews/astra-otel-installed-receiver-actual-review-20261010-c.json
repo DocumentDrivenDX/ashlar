@@ -1,0 +1,108 @@
+{
+  "verdict": "approved-actual-installed-receiver-finite-subset",
+  "sourceCommit": "2786ca31447a8815d6985e87034f4adddb1f3389",
+  "scope": "Actual installed public DiagnosticRun/OtelRun -> isolated SDK worker -> custom cooperative loopback OTLP receiver, two sequential synthetic traced attempts. Read-only review of original retained output; no execution repeated.",
+  "command": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/command.json",
+    "bytes": 1882,
+    "sha256": "63dcbd893077164759ab3a9074d24ca6d01e531c0dcdace78c00ace642cccae8"
+  },
+  "source": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/candidate.py",
+    "bytes": 13465,
+    "sha256": "b1da715f60001fb8f650167d074daf66eb469cf16b0bfaccfe6b8f170ee4857c"
+  },
+  "process": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/process.json",
+    "bytes": 585,
+    "sha256": "9d9408937171de7bd55e2f34d6b453a89e31d6ef1c399b26984d51f41961e515"
+  },
+  "result": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/result.json",
+    "bytes": 2232,
+    "sha256": "df8a922fd270e5de39330a9f99bec2d9aa6676caf19c583133f26d55f9b0207c"
+  },
+  "preparationReview": {
+    "path": "/private/tmp/astra-otel-installed-preparation-review-20261010-b.json",
+    "bytes": 2851,
+    "sha256": "acbe1d9869254dc49369c3de0134139e5790058859b10fcc5b4e018d0b095464"
+  },
+  "directCommandReview": {
+    "path": "/private/tmp/astra-otel-installed-receiver-direct-command-review-20261010-c.json",
+    "bytes": 3325,
+    "sha256": "15a3eed0a4192f3d3af61172d978cbb31d5ae27d17cab171c1a0cd5985acb9f9"
+  },
+  "custodyCaptureReview": {
+    "path": "/private/tmp/astra-otel-installed-receiver-custody-review-20261010-c.json",
+    "bytes": 8633,
+    "sha256": "f8252e25ce09fa29a816ca2c44a2c0a42f37cf059f95ed3a4d9e6e910915e48e"
+  },
+  "protobufReview": {
+    "path": "/private/tmp/astra-otel-installed-receiver-protobuf-review-20261010-c.json",
+    "bytes": 54560,
+    "sha256": "78e5c45587d65bf84c776f221e76cc8e77be5ad494eeebc68e7247e1bd95b853"
+  },
+  "actual": {
+    "exitCode": 0,
+    "observedToolWallSeconds": 0.520493625,
+    "receiverDurationSeconds": 0.43720533297164366,
+    "httpRequests": 9,
+    "logs": 6,
+    "spans": 2,
+    "metricRequests": 1,
+    "cumulativeIntegerSumPoints": 2,
+    "httpBodyBytes": 6019,
+    "stdoutBytes": 0,
+    "stderrBytes": 124,
+    "stderr": "Exact6closedcatalogmessages; no payload/context output.",
+    "loss": "Local6/6/0; logs6handedoff/spans2/metrics2logicalpoints; no dropped/unknown, flush complete.",
+    "wireFlags": {
+      "allLogs": 3,
+      "parentedSpan": 771,
+      "retryRootSpan": 259,
+      "retryLink": 771
+    },
+    "wireAudit": {
+      "duplicateAttributeKeys": 0,
+      "duplicateSingularFields": 0,
+      "fields": 617,
+      "messages": 294,
+      "roundtripExactRequests": 9,
+      "unknownFields": 0
+    },
+    "capture": "Closedcomplete6originalJSONLevents,2attempts,matchingmanifest/segments;7actualofflinepublicschema validations.",
+    "custody": "All900opening/closingpins and22exactoutputfiles rehashed unchanged; independent17wheel/RECORD closure alreadyapproved."
+  },
+  "contextQualification": "Parent and link are explicitly authored remote SpanContext fixtures. The two distinct child span IDs and retry-root trace ID are observed in both original local capture and retained OTLP. Inspected installed source gets them from Tracer.start_span/get_span_context and validates every log against that owned context. This is source-to-retained-output correspondence, not an independently captured in-memory worker context transcript or proof of randomness.",
+  "historicalFailure": "OriginalB exited1 at sandbox server.bind beforeworker/capture; emptyprovisionalrequests/originalstderr retained. A unexecuted. Root-runner copies remain historical and were not used for successfulCdirect invocation.",
+  "findings": [],
+  "limitations": [
+    "Synthetic operation labels do not perform real publication/query/source/ACK/native work.",
+    "No concurrent attempt or spanless event actualqualification, privacy credential sentinel, outage/deadline fault receiver, or investigator/overheadpilot.",
+    "Selectedpayload/interpreterclosure, not hermeticwholemachine/reproducibility/securityproof.",
+    "No arbitrarylocalpeer/globalwallclock/abruptdeath guarantee or reviewerprocesscensus.",
+    "Customworker transport throughpublicSDKencoders, not officialHTTPexporter runtimecertification; fullCONTRACT006 qualification remains incomplete."
+  ],
+  "artifacts": [
+    {
+      "path": "/private/tmp/astra-otel-installed-receiver-custody-review-20261010-c.py",
+      "bytes": 9100,
+      "sha256": "60f1c0d84baad0c88d63ba2b9b98e8c5ad1ec1b3ed28d104f4bb46fe221a546e"
+    },
+    {
+      "path": "/private/tmp/astra-otel-installed-receiver-custody-review-20261010-c.log",
+      "bytes": 179,
+      "sha256": "b00a52fa5d235214dcb3b730f55a6e4719962c4ede9cdcda0d7dce2e8c40b59c"
+    },
+    {
+      "path": "/private/tmp/astra-otel-installed-receiver-protobuf-review-20261010-c.py",
+      "bytes": 27479,
+      "sha256": "00baf82c2764c02a0b48ceb1e869f3c14c08b9b90caffe963da4cf16ec4b8c3e"
+    },
+    {
+      "path": "/private/tmp/astra-otel-installed-receiver-protobuf-review-20261010-c.log",
+      "bytes": 286,
+      "sha256": "127d9c680f5549b77f04a586d0a47d894a57f536f84b9392d87db59dfed83791"
+    }
+  ]
+}

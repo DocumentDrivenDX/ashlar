@@ -1,0 +1,13 @@
+{
+  "format": "ashlar-actual-process/0.1",
+  "execution": "direct-foreground-selected-interpreter-no-outer-wrapper",
+  "commandSha256": "63dcbd893077164759ab3a9074d24ca6d01e531c0dcdace78c00ace642cccae8",
+  "exitCode": 0,
+  "observedWallTimeSeconds": 0.520493625,
+  "toolChunk": "877ee3",
+  "selectedInputCount": 900,
+  "closingCustodyPassed": true,
+  "stdoutBytes": 0,
+  "stderrBytes": 124,
+  "scope": "Two synthetic sequential traced invocations through actual installed public owner and SDK worker to a real loopback receiver. No native/source/publication/ACK or full C006 claim."
+}

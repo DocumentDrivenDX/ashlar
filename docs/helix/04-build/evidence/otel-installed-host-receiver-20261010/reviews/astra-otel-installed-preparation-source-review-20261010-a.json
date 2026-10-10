@@ -1,0 +1,136 @@
+{
+  "allEightApprovedSourcePinsPresentInCommit": true,
+  "foreignSourceOverlays": false,
+  "freeze": {
+    "bytes": 5261,
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/freeze-b.json",
+    "sha256": "633280aecb8baed0278887010ddba28723f0824b5cd0da5f783397a127ca0ef8"
+  },
+  "freezeArtifactsRehashed": 22,
+  "generatedBuildFilesClassifiedSeparately": 105,
+  "independentProbe": {
+    "argv": [
+      "/private/tmp/ashlar-otel-installed-preparation-20261010-a/environment/bin/python",
+      "-I",
+      "-B",
+      "-c",
+      "import sys,json,os\nfrom pathlib import Path\nfrom importlib import metadata\ndef deny(event,args):\n if event in ('subprocess.Popen','socket.connect','socket.bind','socket.getaddrinfo','os.system'):raise AssertionError('unexpected-effect:'+event)\nsys.addaudithook(deny)\nimport ashlar,ashlar_host.otel,ashlar_host._otel_worker\nassert not any(n in sys.modules for n in ('pyspark','delta','psycopg','opentelemetry.sdk'))\nsite=Path(metadata.distribution('ashlar-graph-toolkit').locate_file('')).resolve()\nmodules={n:str(Path(sys.modules[n].__file__).resolve()) for n in ('ashlar','ashlar_host.otel','ashlar_host._otel_worker')}\nassert all(Path(v).is_relative_to(site) for v in modules.values())\nprint(json.dumps({'version':metadata.version('ashlar-graph-toolkit'),'python':sys.version,'executable':sys.executable,'site':str(site),'modules':modules,'sysPath':sys.path,'effectAudit':'no subprocess, network, DNS or native SDK startup'}))\n"
+    ],
+    "cwd": "/private/tmp",
+    "environment": {
+      "PATH": "/usr/bin:/bin"
+    },
+    "exitCode": 0,
+    "stderrBytes": 0,
+    "stdoutBytes": 1204
+  },
+  "inertInstalledObservation": {
+    "effectAudit": "no subprocess, network, DNS or native SDK startup",
+    "executable": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/environment/bin/python",
+    "modules": {
+      "ashlar": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/environment/lib/python3.11/site-packages/ashlar/__init__.py",
+      "ashlar_host._otel_worker": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/environment/lib/python3.11/site-packages/ashlar_host/_otel_worker.py",
+      "ashlar_host.otel": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/environment/lib/python3.11/site-packages/ashlar_host/otel.py"
+    },
+    "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+    "site": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/environment/lib/python3.11/site-packages",
+    "sysPath": [
+      "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python311.zip",
+      "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11",
+      "/Users/erik/.local/share/uv/python/cpython-3.11-macos-aarch64-none/lib/python3.11/lib-dynload",
+      "/private/tmp/ashlar-otel-installed-preparation-20261010-a/environment/lib/python3.11/site-packages"
+    ],
+    "version": "0.1.0.dev0"
+  },
+  "inputsRehashed": 20,
+  "limitations": [
+    "Four recorded preparation phases only; copied per-phase prose says five-phase from its reused launcher and is not a fifth execution.",
+    "Original 103 inputs match committed Git exactly; generated build/egg-info products are separately classified.",
+    "Selected interpreter/wheel/source inputs only; preparation did not bind complete pip/setuptools/host runtime dependency closure. No hermetic or deterministic build claim.",
+    "No worker/provider/receiver/network/native execution. Installed RECORD and dependency payload review is separate."
+  ],
+  "processes": [
+    {
+      "phase": "fresh-environment",
+      "record": {
+        "bytes": 451,
+        "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/fresh-environment-process.json",
+        "sha256": "f232ec817e6fd3083f65ab3c8c4cadae60994b5b495d249a66016cdd1d17952d"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/fresh-environment.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 0,
+        "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/fresh-environment.stdout",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "phase": "wheel-build",
+      "record": {
+        "bytes": 447,
+        "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/wheel-build-process.json",
+        "sha256": "bf9202455dc19e44c93b157cb54e8c1d5ac45bbfd92e85cc46ebac175a56f652"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/wheel-build.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 814,
+        "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/wheel-build.stdout",
+        "sha256": "c53c9f5edb1d11cdfdbc61c5d9bb8d06006dd9dd65f32013cac1e81129fb5c25"
+      }
+    },
+    {
+      "phase": "wheel-install",
+      "record": {
+        "bytes": 450,
+        "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/wheel-install-process.json",
+        "sha256": "d3ebe4e5727d972ad4cfea6af5848ec4bca13dd02efc67c9a7d206fc1a050279"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/wheel-install.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 2723,
+        "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/wheel-install.stdout",
+        "sha256": "f2e7ae2e8546aceacb234d70e22ed834d0f5b69cccf41688d5c9454a53a08b12"
+      }
+    },
+    {
+      "phase": "installed-custody",
+      "record": {
+        "bytes": 453,
+        "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/installed-custody-process.json",
+        "sha256": "c3091db650fdc07fb17645bd436a857b60fb3d2d6d565a7d6c4a5b7416a13c1a"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/installed-custody.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 522,
+        "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/installed-custody.stdout",
+        "sha256": "1cc517c8822328398a36c690731205e358c59c609768617fc4ee32ce727a993a"
+      }
+    }
+  ],
+  "script": {
+    "bytes": 7420,
+    "path": "/private/tmp/astra-otel-installed-preparation-source-review-20261010-a.py",
+    "sha256": "e0f07c99cb005813525aa16ae6f413d68864fcd7b30946e24f14187f1c79d264"
+  },
+  "selectedGitBytes": 873454,
+  "selectedGitFiles": 103,
+  "sourceCommit": "2786ca31447a8815d6985e87034f4adddb1f3389",
+  "verdict": "approved-selected-source-and-preparation-custody",
+  "wheelSourceMembers": 100
+}

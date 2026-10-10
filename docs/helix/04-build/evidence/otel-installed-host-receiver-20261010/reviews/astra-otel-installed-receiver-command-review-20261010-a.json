@@ -1,0 +1,55 @@
+{
+  "verdict": "corrections-required-unexecuted-candidate",
+  "source": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-a/candidate.py",
+    "bytes": 12432,
+    "sha256": "9a8cdad16cc967f85bd7532a835a07e687d5738bb017b7c29f744979d56eed1a"
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-a/command.json",
+    "bytes": 1597,
+    "sha256": "3150423813e8f9fadbee57f0c15ce8db425a27eae74569e24dd55f3c1b79f231"
+  },
+  "independentChecks": [
+    {
+      "id": "IR-002",
+      "control": "close interruption after complete write",
+      "observed": "exact KeyboardInterrupt retained but final result.json containing outcome=passed remains available",
+      "confirmed": true
+    },
+    {
+      "id": "IR-004",
+      "control": "thread construction failure after receiver acquisition",
+      "observed": "bound receiver owner is not closed; no try/finally entered",
+      "confirmed": true
+    }
+  ],
+  "findings": [
+    {
+      "id": "IR-001",
+      "severity": "medium",
+      "finding": "Expected HTTP count10 conflates two metric logical points with one metric snapshot. Six logs+two spans+one snapshot gives9; assert 6/2/1 endpoint request counts."
+    },
+    {
+      "id": "IR-002",
+      "severity": "medium",
+      "finding": "Direct final-name result write permits complete or partial success-named artifact after write/close failure. Stage exclusively, finish close/readback, then no-clobber link final availability; preserve primary and postcommit maintenance semantics."
+    },
+    {
+      "id": "IR-003",
+      "severity": "medium",
+      "finding": "Receiver raw payload retention follows semantic assertions; semantic failure loses observed protobuf evidence. Retain bounded provisional raw evidence on every outcome, without success claim."
+    },
+    {
+      "id": "IR-004",
+      "severity": "medium",
+      "finding": "Receiver acquired before protected cleanup; thread construction failure leaks owner. Accepted socket close can replace settimeout failure. Protect acquisition-to-cleanup and original primary."
+    }
+  ],
+  "scope": "AST-extracted write and lifecycle controls only, fake receiver/thread and owned temporary file. No installed worker, receiver socket, SDK provider, network, native or secret execution.",
+  "script": {
+    "path": "/private/tmp/astra-otel-installed-receiver-command-review-20261010-a.py",
+    "bytes": 3963,
+    "sha256": "c21a72ff4a2099f23f154b2a9967dac53eaaf9d72607ce6db8f439499ec004ce"
+  }
+}

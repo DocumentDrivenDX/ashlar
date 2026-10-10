@@ -1,0 +1,17 @@
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-b/candidate.py", line 229, in <module>
+    if __name__ == '__main__': main()
+                               ^^^^^^
+  File "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-b/candidate.py", line 159, in main
+    if primary is not None: raise primary
+                            ^^^^^^^^^^^^^
+  File "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-b/candidate.py", line 115, in main
+    server = Server(('127.0.0.1', 0), Receiver)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/socketserver.py", line 456, in __init__
+    self.server_bind()
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/http/server.py", line 140, in server_bind
+    socketserver.TCPServer.server_bind(self)
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/socketserver.py", line 472, in server_bind
+    self.socket.bind(self.server_address)
+PermissionError: [Errno 1] Operation not permitted

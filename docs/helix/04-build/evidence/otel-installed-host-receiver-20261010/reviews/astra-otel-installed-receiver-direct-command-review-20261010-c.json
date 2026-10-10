@@ -1,0 +1,65 @@
+{
+  "verdict": "approved-direct-command-conditional-preflight",
+  "candidate": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/candidate.py",
+    "bytes": 13465,
+    "sha256": "b1da715f60001fb8f650167d074daf66eb469cf16b0bfaccfe6b8f170ee4857c"
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/command.json",
+    "bytes": 1882,
+    "sha256": "63dcbd893077164759ab3a9074d24ca6d01e531c0dcdace78c00ace642cccae8"
+  },
+  "opening900": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/opening-inputs.json",
+    "bytes": 244665,
+    "sha256": "b8661caf57003de851fe4aa6b04529b659b3d96231254e495b5f72db850e27b0"
+  },
+  "successorReview": {
+    "path": "/private/tmp/astra-otel-installed-receiver-command-review-20261010-c.json",
+    "bytes": 1824,
+    "sha256": "b9a0c7bcfff38df9afafa9b0b3fb3568c79618e25e538578a00518b7cf9298bc"
+  },
+  "sourceAndInertControls": {
+    "path": "/private/tmp/astra-otel-installed-receiver-command-review-20261010-b.json",
+    "bytes": 3467,
+    "sha256": "43363678f07396e9af140f3e9d2995553d9a94f3d04e9655222e7f8e910231ca"
+  },
+  "installed900Correspondence": {
+    "path": "/private/tmp/astra-otel-installed-opening-correspondence-20261010-b.json",
+    "bytes": 6737,
+    "sha256": "282dd3fe9e29a7832c937d794310a6913d0ef126c12c7f0032e1a48367c1753e"
+  },
+  "execution": {
+    "argv": [
+      "/private/tmp/ashlar-otel-installed-preparation-20261010-a/environment/bin/python",
+      "-I",
+      "-B",
+      "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/candidate.py"
+    ],
+    "cwd": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c",
+    "environment": {
+      "PATH": "/usr/bin:/bin"
+    },
+    "stdout": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/process.stdout",
+    "stderr": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/process.stderr",
+    "supervision": "Direct tool invocation. No Python subprocess.run/root-runner, outer timeout or forced-kill wrapper. Root performs separate closing verification after every observed terminal outcome."
+  },
+  "conditions": [
+    "Repeat all900 input hashes immediately before direct invocation.",
+    "Confirm no capture/result/.result-stage/expected/provisional/request/process output paths already exist.",
+    "Repeat all900 input hashes after every observed exit includingfailure; retain actualexit/stdout/stderr, no success release withoutclosingpass.",
+    "Same2 syntheticattempts,9expectedHTTPPOSTs with6logs2spans1metricssnapshot/twopoints, only127.0.0.1 ephemeralreceiver.",
+    "Original sandbox refusal is retained; any permission escalation is confined to this identical loopback operation."
+  ],
+  "limitations": [
+    "Candidate-only execution approval; no receiver outcome or fullC006 claim.",
+    "No outer hard global wallclock/forced-termination/processcensus guarantee; reviewed public owner controls its SDK worker deadlines.",
+    "No hostile local sender, arbitrary abrupt host death, native/ACK/credential/privacy-sentinel/outage qualification."
+  ],
+  "abandonedWrapper": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/root-runner.py",
+    "bytes": 1843,
+    "sha256": "3cd5fe6ec9485206bc894866660559c43029800754ce382854106b740c68e620"
+  }
+}

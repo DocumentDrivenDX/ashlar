@@ -1,0 +1,19 @@
+{
+  "format": "ashlar-actual-process/0.1",
+  "argv": [
+    "/private/tmp/ashlar-otel-installed-preparation-20261010-a/environment/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-b/candidate.py"
+  ],
+  "environment": {
+    "PATH": "/usr/bin:/bin"
+  },
+  "cwd": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-b",
+  "exitCode": 1,
+  "durationSeconds": 0.19459837500000002,
+  "selectedInputCount": 900,
+  "closingCustodyPassed": true,
+  "closingErrorClass": null,
+  "scope": "Actual installed public adapter and bounded cooperative loopback receiver; no native workflow or full C006 claim."
+}

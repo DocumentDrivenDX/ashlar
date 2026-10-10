@@ -1,0 +1,60 @@
+{
+  "state": "provisional",
+  "requests": [
+    {
+      "path": "/v1/logs",
+      "file": "request-00.pb",
+      "bytes": 659,
+      "sha256": "b40753073e400e38dfef69397e0a416a0aee1f8c14e809305eb093a93ff46549"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-01.pb",
+      "bytes": 724,
+      "sha256": "7abedeaf4a0041f80ba8e3905d605b4b0bc12b841ba27853259b1bfd8444e40f"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-02.pb",
+      "bytes": 721,
+      "sha256": "cc589d2a6c9009f898cee42db5ca395b22fce4e3e43f026f4700b8bc00f02401"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-03.pb",
+      "bytes": 661,
+      "sha256": "aab57ef0e5043c6d50b9c24bf83a3385ec6479d2c0fe317f30c8a185f95bdbe7"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-04.pb",
+      "bytes": 728,
+      "sha256": "b2f62810be4a9f3f4e67432e706ff4d61877bd60defad885836de8b71e2e9dcb"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-05.pb",
+      "bytes": 755,
+      "sha256": "3e3687f300a13c37785baa011a618bac61d874710cfd4d6f0ffa01c0d8b8e5b1"
+    },
+    {
+      "path": "/v1/traces",
+      "file": "request-06.pb",
+      "bytes": 587,
+      "sha256": "fd318010337871d0bfa3d7ad895d673aa10657594192c3f1bdca5b859e33aef4"
+    },
+    {
+      "path": "/v1/traces",
+      "file": "request-07.pb",
+      "bytes": 650,
+      "sha256": "92db8988feaeb87b8aa3f5f24aaaa279ff7954829a1b41cdb5796dc996df65e3"
+    },
+    {
+      "path": "/v1/metrics",
+      "file": "request-08.pb",
+      "bytes": 534,
+      "sha256": "33bfb033eaca5ea4a1c3dd56a8cf3e5cec55784602758713fa6c24ea37346080"
+    }
+  ],
+  "receiverFailures": []
+}

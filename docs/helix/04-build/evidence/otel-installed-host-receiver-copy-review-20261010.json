@@ -1,0 +1,70 @@
+{
+  "verdict": "approved-additive-exact-copy",
+  "inventory": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/otel-installed-host-receiver-20261010/inventory.json",
+    "bytes": 22870,
+    "sha256": "b466dd8a875406a31ec128f835ebb559be563528eaa4e03671cc6be480fde56b"
+  },
+  "previous72Review": {
+    "path": "/private/tmp/astra-otel-installed-receiver-copy-review-20261010-a.json",
+    "bytes": 1143,
+    "sha256": "8f441a36eff0d9775d3b87349e496050ada3603f4d425559091457361a6f74ff"
+  },
+  "checks": [
+    "Exact earlier72-entry inventory reconstructed and hashmatched; oldscope/order/descriptors unchanged.",
+    "Exactly8appended originalfiles match byte-for-byte/hash/length.",
+    "Independent protobufreceipt/script/log allincluded alongside capturecustodyreceipt/script/log,aggregateactualapproval andpriorcopyreceipt.",
+    "Exact81fileclosureincludinginventory; noadditionalunlistedfiles/traversal/symlinkadditions."
+  ],
+  "added": [
+    {
+      "original": "/private/tmp/astra-otel-installed-receiver-actual-review-20261010-c.json",
+      "archived": "reviews/astra-otel-installed-receiver-actual-review-20261010-c.json",
+      "bytes": 5397,
+      "sha256": "f566ea198bd0dbb53ea016a4b9a5cd1371362d40018e671b2e181f0afa0963e6"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-receiver-custody-review-20261010-c.py",
+      "archived": "reviews/astra-otel-installed-receiver-custody-review-20261010-c.py",
+      "bytes": 9100,
+      "sha256": "60f1c0d84baad0c88d63ba2b9b98e8c5ad1ec1b3ed28d104f4bb46fe221a546e"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-receiver-custody-review-20261010-c.json",
+      "archived": "reviews/astra-otel-installed-receiver-custody-review-20261010-c.json",
+      "bytes": 8633,
+      "sha256": "f8252e25ce09fa29a816ca2c44a2c0a42f37cf059f95ed3a4d9e6e910915e48e"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-receiver-custody-review-20261010-c.log",
+      "archived": "reviews/astra-otel-installed-receiver-custody-review-20261010-c.log",
+      "bytes": 179,
+      "sha256": "b00a52fa5d235214dcb3b730f55a6e4719962c4ede9cdcda0d7dce2e8c40b59c"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-receiver-copy-review-20261010-a.json",
+      "archived": "reviews/astra-otel-installed-receiver-copy-review-20261010-a.json",
+      "bytes": 1143,
+      "sha256": "8f441a36eff0d9775d3b87349e496050ada3603f4d425559091457361a6f74ff"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-receiver-protobuf-review-20261010-c.log",
+      "archived": "reviews/astra-otel-installed-receiver-protobuf-review-20261010-c.log",
+      "bytes": 286,
+      "sha256": "127d9c680f5549b77f04a586d0a47d894a57f536f84b9392d87db59dfed83791"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-receiver-protobuf-review-20261010-c.json",
+      "archived": "reviews/astra-otel-installed-receiver-protobuf-review-20261010-c.json",
+      "bytes": 54560,
+      "sha256": "78e5c45587d65bf84c776f221e76cc8e77be5ad494eeebc68e7247e1bd95b853"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-receiver-protobuf-review-20261010-c.py",
+      "archived": "reviews/astra-otel-installed-receiver-protobuf-review-20261010-c.py",
+      "bytes": 27479,
+      "sha256": "00baf82c2764c02a0b48ceb1e869f3c14c08b9b90caffe963da4cf16ec4b8c3e"
+    }
+  ],
+  "scope": "Evidence-only additivecopyreview; actualscopedqualification approvedby f566ea198bd0dbb53ea016a4b9a5cd1371362d40018e671b2e181f0afa0963e6. No rerun of old72files or runtime. This reviewreceipt remains outsideinventory toavoidselfreference."
+}

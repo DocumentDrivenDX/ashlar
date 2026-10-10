@@ -1,0 +1,19 @@
+{
+  "verdict": "approved-exact-selected-copy-only",
+  "inventory": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/otel-installed-host-receiver-20261010/inventory.json",
+    "bytes": 20468,
+    "sha256": "7d3d31b972ee0c81246fd88995125c5fa13122aca5b7516b39fc413c25061e08"
+  },
+  "originalEntries": 72,
+  "totalOriginalBytes": 2568277,
+  "actualArchiveFilesIncludingInventory": 73,
+  "checks": [
+    "All72 selected files byte-identical originalpaths, hashes/lengths unchanged; no normalized logs/capture/JSON.",
+    "Exactclosedfileinventory, no symlinks/traversal/unlistedfiles.",
+    "ActualC9PB+capture/result/expectation retained; Aunexecuted and Bbinddenied labels retained.",
+    "Root-runner copies explicitly historical unused/failed-boundary, not approved launch route.",
+    "Wheel/environment payloads excluded; original selected installedvector references retained."
+  ],
+  "scope": "Copy review only. Actual semantic approval is separate, pending full independent wire audit at receipt creation. Any appended approvalfiles require additive exactcopy review; this receipt binds current72-entry inventory."
+}

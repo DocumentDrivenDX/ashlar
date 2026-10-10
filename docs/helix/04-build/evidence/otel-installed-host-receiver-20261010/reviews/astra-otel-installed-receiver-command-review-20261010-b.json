@@ -1,0 +1,80 @@
+{
+  "verdict": "approved-command-conditional-opening-and-closing-custody",
+  "source": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-b/candidate.py",
+    "bytes": 13465,
+    "sha256": "d6b4eaf033ae4c4df23faaa25be5b2b723287d53195586bf1cc1abb4821f3fbf"
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-b/command.json",
+    "bytes": 1808,
+    "sha256": "37941ff0cffd879c5b9b07dfad4cec2279c32a79fe17ad5bb53dc4373c3d7f50"
+  },
+  "checks": [
+    {
+      "control": "success",
+      "passed": true
+    },
+    {
+      "control": "write-cancel-close-error",
+      "passed": true
+    },
+    {
+      "control": "close-cancel",
+      "passed": true
+    },
+    {
+      "control": "existing-final",
+      "passed": true
+    },
+    {
+      "control": "postcommit-unlink-error",
+      "passed": true
+    },
+    {
+      "control": "postcommit-unlink-cancel",
+      "passed": true
+    },
+    {
+      "control": "ordinary-setup",
+      "passed": true
+    },
+    {
+      "control": "cancel-setup",
+      "passed": true
+    },
+    {
+      "control": "cancel-setup-and-retention",
+      "passed": true
+    },
+    {
+      "control": "cancel-timeout-close-error",
+      "passed": true
+    },
+    {
+      "control": "ordinary-timeout-close-cancel",
+      "passed": true
+    }
+  ],
+  "checkCount": 11,
+  "priorFindingsResolved": [
+    "9requests6logs2spans1metrics-snapshot,2metriclogicalpoints",
+    "Exclusive staged result write/close/readback precedes no-clobber availability; committed housekeeping differs from cancellation.",
+    "Bounded raw protobuf and provisional receipt preserved before semantic checks and on lifecycle failure; persistence cannot replace original cancellation.",
+    "Protected receiver/thread acquisition, accepted-socket primary preservation, all acquired cleanup actions attempted."
+  ],
+  "executionConditions": [
+    "Root rehash exact source+command, approved preparation freeze/input pins, wheel, all installed source/dependency/RECORD content and interpreter/pyvenv before and after; current inventories are selected custody, not hermetic closure.",
+    "Fresh capture/result/stage/expected/provisional/request paths immediately before invocation.",
+    "Execute exact direct foreground installed Python-I-B command with only stated environment; no outer abrupt-termination/globaldeadline assertion.",
+    "Two synthetic sequential attempts only; fixed incoming parent/retry contexts, genuine current worker SDK span identities. No native/source/publication/ACK operation.",
+    "Retain raw process stdout/stderr, terminal outcome and bounded capture/protobuf artifacts even when semantic assertions fail."
+  ],
+  "qualificationScope": "Candidate command only. Actual installed public owner -> SDK worker -> custom real loopback OTLP receiver qualification is pending. No concurrent/untraced/credential-sentinel/outage/pilot/native/fullC006 support claim. The accepted-socket inactivity timeout and finite cooperative local sender are not hostile-sender/global wallclock guarantees.",
+  "inertControlScope": "AST-extracted original helpers/main/final statements with fake receiver/thread/accept and owned temporary files only; no receiver/network/worker/provider execution.",
+  "script": {
+    "path": "/private/tmp/astra-otel-installed-receiver-command-review-20261010-b.py",
+    "bytes": 8703,
+    "sha256": "fd54f237bda6d765e8650fb6e4bcd1645c53d65b2f4afc6871cc983269c933ae"
+  }
+}

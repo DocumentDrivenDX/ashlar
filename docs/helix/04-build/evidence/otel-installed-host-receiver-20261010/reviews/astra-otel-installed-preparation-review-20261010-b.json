@@ -1,0 +1,45 @@
+{
+  "verdict": "approved-offline-installed-preparation",
+  "freeze": {
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/freeze-b.json",
+    "bytes": 5261,
+    "sha256": "633280aecb8baed0278887010ddba28723f0824b5cd0da5f783397a127ca0ef8"
+  },
+  "sourceCommit": "2786ca31447a8815d6985e87034f4adddb1f3389",
+  "wheel": {
+    "bytes": 272871,
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "sha256": "eea05f5c712b94a6b6a1ae32de6742a459be16fb9b2f3be8c5890478f9db7de5"
+  },
+  "independentSourceReview": {
+    "path": "/private/tmp/astra-otel-installed-preparation-source-review-20261010-a.json",
+    "bytes": 7021,
+    "sha256": "32b47f0997f1ae71ef58b22b9ea2e3b3b9039476e42a9eaf2f556fbc6aecb039"
+  },
+  "independentInstalledRecordReview": {
+    "path": "/private/tmp/astra-otel-installed-record-review-20261010-a.json",
+    "bytes": 25594,
+    "sha256": "cac6db0847f879c6ebdd478bd52cbdec8995f95526320ea344a988f20e179406"
+  },
+  "inventory": {
+    "path": "/private/tmp/astra-otel-installed-record-review-20261010-a-inventory.json",
+    "bytes": 810886,
+    "sha256": "b3d49f56cef66de09e9766b7a0af26a45f1fcd64de88cf65d06de7981746b45b"
+  },
+  "checks": [
+    "All103selectedsourceinputs exactly Git2786ca31447a8815d6985e87034f4adddb1f3389 blobs/modes/SHA; all8 previously approved adapter source pins present in commit.",
+    "Wheel exactly100 source/resource members plus4metadata members; no checkoutoverlay/tests/tools packaged.",
+    "Four actual offline preparation phases exit0 and retainedstdout/stderr bytecounts match; source+selectedinputs unchanged.",
+    "All16 previously reviewed dependency wheels and698payloadmembers unchanged; all17distributions raw wheel/installed metadata and payload verified.",
+    "17installed RECORDs,872rows,855hashedfiles plus17selfrows independently verified; exact870file/161directory site closure plus2expectedconsolelaunchers,53expectedgeneratedfiles, no unknownextras/pyc/pth.",
+    "Independent inert installed imports under Python3.11.17 -I-B with subprocess/socket/DNS effects denied resolve actual fresh sitepackages and version0.1.0.dev0; no SDKprovider/worker startup."
+  ],
+  "findings": [],
+  "limitations": [
+    "Preparation and static selected installation custody only; no worker/receiver/HTTP/native/ACK or fullCONTRACT006 qualification.",
+    "Selected source/interpreter/wheel/runtime inventory is not hermetic host/stdlib/dylib closure or reproducible build proof.",
+    "Four actual preparation phases; per-phase inherited launcher prose refers to five phases and is not evidence of a fifth run.",
+    "Dependency metadata retained, not an optional-extra/vulnerability/signature certification.",
+    "Separate receiver candidate remains unexecuted with review corrections required."
+  ]
+}
