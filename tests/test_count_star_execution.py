@@ -32,4 +32,36 @@ class CountStarExecutionTests(unittest.TestCase):
         s=self.setup();values=iter(['opening','changed']);s[2].provider.resolve=lambda context:next(values)
         with self.assertRaises(CountStarExecutionError):self.execute(s)
         self.assertFalse(s[2].provider.active)
+    def test_closing_cancellation_outranks_ordinary_native_failure(self):
+        from contextlib import contextmanager
+        for cancellation in (KeyboardInterrupt(),SystemExit(),GeneratorExit()):
+            s=self.setup();provider=s[2].provider;body=ValueError('ordinary native failure')
+            def sql(*args,**kwargs):raise body
+            provider.driver.transport.spark.sql=sql
+            @contextmanager
+            def interval(context):
+                provider.active=True
+                try:yield
+                finally:
+                    provider.active=False
+                    raise cancellation
+            provider.interval=interval
+            with self.assertRaises(type(cancellation))as caught:self.execute(s)
+            self.assertIs(caught.exception,cancellation);self.assertFalse(provider.active)
+    def test_original_body_cancellation_identity_survives_cleanup(self):
+        from contextlib import contextmanager
+        for closing in (ValueError('cleanup'),KeyboardInterrupt()):
+            s=self.setup();provider=s[2].provider;body=SystemExit()
+            def sql(*args,**kwargs):raise body
+            provider.driver.transport.spark.sql=sql
+            @contextmanager
+            def interval(context):
+                provider.active=True
+                try:yield
+                finally:
+                    provider.active=False
+                    raise closing
+            provider.interval=interval
+            with self.assertRaises(SystemExit)as caught:self.execute(s)
+            self.assertIs(caught.exception,body);self.assertFalse(provider.active)
 if __name__=='__main__':unittest.main()

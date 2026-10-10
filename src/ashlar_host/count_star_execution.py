@@ -19,6 +19,7 @@ from ashlar.weft_path_decode import PathDecodeConfig, decode_related_paths
 from ashlar.weft_related_keys_decode import RelatedKeysDecodeConfig, decode_related_keys
 from .count_star_admission import CountStarAdmissionConfig, admit_count_star_artifact
 from .path_capture import PathCaptureConfig, capture_string_frame
+from .lifecycle import owned_context
 
 
 class CountStarExecutionError(ValueError):
@@ -251,25 +252,9 @@ def _source_receipt(port, revision, request, artifact, checks, maximum):
 
 @contextmanager
 def _preserving_interval(provider, context):
-    """Keep the original execution failure across owned interval cleanup."""
-    primary = None
-    try:
-        with provider.interval(context):
-            try:
-                yield
-            except BaseException as error:
-                primary = error
-                raise
-    except BaseException as error:
-        if primary is None:
-            raise
-        if error is not primary:
-            try:
-                primary.interval_cleanup_failed = True
-            except BaseException:
-                pass  # Diagnostic annotation cannot replace primary failure.
-    if primary is not None:
-        raise primary from None
+    """Apply the shared owned lifecycle cancellation precedence to held reads."""
+    with owned_context(provider.interval(context)):
+        yield
 
 
 def execute_commerce_count_star(opened, request: dict, artifact: dict, trusted_recompiled: dict,
