@@ -47,6 +47,23 @@ def _integer(token):
     return int(token)
 
 
+def _numeric_predicate(predicate):
+    """Identify coefficient guards selected by the owning predicate lowering."""
+    numeric = lambda field: field.get('type', {}).get('family') in ('integer', 'decimal')
+    op = predicate['op']
+    if op in ('arithmeticCompare', 'arithmeticCompareExtended'):
+        return True
+    if op == 'scalarCompare':
+        return numeric(predicate['left'])
+    if op == 'legacy':
+        original = predicate['predicate']
+        if original['op'] == 'equal':
+            return numeric(original['left'])
+        if original['op'] == 'lexicographicGreater':
+            return any(numeric(field) for field in original['columns'])
+    return False
+
+
 def _fraction(_):
     raise PathPlanError('Unadmitted JSON numeric atom')
 
@@ -262,7 +279,11 @@ def _admit_path_artifact(request: dict, artifact: dict, trusted_recompiled: dict
     positioned = 'project.positionedOutputs' in plan['requiredCapabilities']
     if positioned:
         required.add('weft.output.positioned')
-    if any(c.startswith('arithmetic.') for c in plan['requiredCapabilities']) or 'aggregate.countDistinct' in plan['requiredCapabilities'] or ('aggregate.count' in plan['requiredCapabilities'] and not plan.get('pathExpansion')):
+    predicates = plan['filters'] + [p for join in plan['joins'] for p in join['on']]
+    if (any(c.startswith('arithmetic.') for c in plan['requiredCapabilities'])
+            or 'aggregate.countDistinct' in plan['requiredCapabilities']
+            or ('aggregate.count' in plan['requiredCapabilities'] and not plan.get('pathExpansion'))
+            or any(_numeric_predicate(p) for p in predicates)):
         required.add('ashlar.arithmetic.exact')
     _require(set(owning) == required, 'Unknown, missing or unselected obligation')
     failures = {'ashlar.candidate.publication': 'WFT-OBLIGATION', 'ashlar.candidate.scalarIntegrity': 'WFT-NUMERIC-DOMAIN',
