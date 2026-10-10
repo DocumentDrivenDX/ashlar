@@ -1,0 +1,1054 @@
+{
+  "archive": "ashlar-puppy-installed-evidence-20261010-f.tar.gz",
+  "bytes": 427898,
+  "decoded_bytes": 3244465,
+  "exclusions": "No SDK/JDK/runtime/tool/product executables, wheel, venv or carrier databases copied. Git4f90 source inventory + actual wheel member/metadata/RECORD/console receipts retained. A/B/D/E recipes never executed; F native-only reuses unchanged qualified C installed closure. Failed C originals retained; diagnosis TypeError is independently reproduced pure control, not a recovered historical exception trace.",
+  "hash_only_omitted_source_archive": [
+    {
+      "bytes": 3133440,
+      "path": "/private/tmp/ashlar-puppy-installed-20261010-c/archive.stdout",
+      "sha256": "eec0d0089b3bbca96b76e3d851f98574417fe69c6138ada9134f4dca5117e6cc"
+    }
+  ],
+  "members": [
+    {
+      "bytes": 303,
+      "name": "actual-f/ashlar-puppy-installed-native-20261010-f-outcome.json",
+      "original": "/private/tmp/ashlar-puppy-installed-native-20261010-f-outcome.json",
+      "sha256": "791e16c5cd907ace0100d4c1cc13dc23ff55678f5233d042fb366d5b3a923e23"
+    },
+    {
+      "bytes": 0,
+      "name": "actual-f/ashlar-puppy-installed-native-20261010-f.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-native-20261010-f.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "actual-f/ashlar-puppy-installed-native-20261010-f.stdout",
+      "original": "/private/tmp/ashlar-puppy-installed-native-20261010-f.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 35396,
+      "name": "actual-f/installed-native-opening.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/installed-native-opening.json",
+      "sha256": "fb23a64253c07934ef8de627c4fe283d65cdabe67a5c0b21dd1d7982566e3d1a"
+    },
+    {
+      "bytes": 60,
+      "name": "actual-f/native-run/gremlin-readiness.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/gremlin-readiness.json",
+      "sha256": "0c0987c9ba68628055ed40bc1d641459d67f8254348a4650ecde4f1359e0e38a"
+    },
+    {
+      "bytes": 241,
+      "name": "actual-f/native-run/http-records.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/http-records.json",
+      "sha256": "83454fe8ea7f56da5a5a7a13a299bcf7319425d6b1432d6926425f69be1214a9"
+    },
+    {
+      "bytes": 40479,
+      "name": "actual-f/native-run/native-engine.log",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/native-engine.log",
+      "sha256": "1d753a6b26b84eadc0b1f04bd37348b601f75c6ab09449adc72412ab496e9022"
+    },
+    {
+      "bytes": 9324,
+      "name": "actual-f/native-run/native-readiness.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/native-readiness.json",
+      "sha256": "f43bb5959d54a195a2c152d74aba7a2356cec91474461f11dbfeca2cab3461d5"
+    },
+    {
+      "bytes": 391,
+      "name": "actual-f/native-run/r1-activate-cypher-configuration.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-activate-cypher-configuration.json",
+      "sha256": "6c309b2483c19aff3a0fe47ebc8ec3bd831015669ea035cad149b952411c9aef"
+    },
+    {
+      "bytes": 1882,
+      "name": "actual-f/native-run/r1-activate-cypher-operator-original.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-activate-cypher-operator-original.json",
+      "sha256": "9e1c1865867528008fc5d2609957b8d6a6a8eb7be27adcf95b69487972331d72"
+    },
+    {
+      "bytes": 424,
+      "name": "actual-f/native-run/r1-activate-cypher-process.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-activate-cypher-process.json",
+      "sha256": "f174d01c2cca64c182223a1d5fcbc00109ecd2cb8a16bc4cf345fcc723936e5f"
+    },
+    {
+      "bytes": 0,
+      "name": "actual-f/native-run/r1-activate-cypher.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-activate-cypher.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 425,
+      "name": "actual-f/native-run/r1-activate-cypher.stdout",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-activate-cypher.stdout",
+      "sha256": "327873cf53c70c9c81d49afe018f4a7e0927a99c8e4223866623121b01b4bb98"
+    },
+    {
+      "bytes": 586,
+      "name": "actual-f/native-run/r1-read-after-r2-gremlin-configuration.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-read-after-r2-gremlin-configuration.json",
+      "sha256": "18045a7955d233d393f182dc9bc80cdb09a393323d2185e1478187042fd6247f"
+    },
+    {
+      "bytes": 13040,
+      "name": "actual-f/native-run/r1-read-after-r2-gremlin-operator-original.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-read-after-r2-gremlin-operator-original.json",
+      "sha256": "4dab0ad0fb94b6171aa709c91606eb5850d3c02ea6d29611e73e1c2eca59076f"
+    },
+    {
+      "bytes": 426,
+      "name": "actual-f/native-run/r1-read-after-r2-gremlin-process.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-read-after-r2-gremlin-process.json",
+      "sha256": "363aee110e52cd3b0bd14d78811eeeacd1ba0f86d23a839676b55383ab0c5ca9"
+    },
+    {
+      "bytes": 0,
+      "name": "actual-f/native-run/r1-read-after-r2-gremlin.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-read-after-r2-gremlin.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 437,
+      "name": "actual-f/native-run/r1-read-after-r2-gremlin.stdout",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-read-after-r2-gremlin.stdout",
+      "sha256": "3c281db61a9a3d2a2804ee3b285ad5b41a04ef47ef8cb146339f181fa5642f83"
+    },
+    {
+      "bytes": 577,
+      "name": "actual-f/native-run/r1-read-gremlin-configuration.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-read-gremlin-configuration.json",
+      "sha256": "85b0b87e512016749186390e062b74d0d5bf38b05ac9b7f7aaffbb910133bf59"
+    },
+    {
+      "bytes": 7460,
+      "name": "actual-f/native-run/r1-read-gremlin-operator-original.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-read-gremlin-operator-original.json",
+      "sha256": "16018ccfcde8cc92ca1201692e262e578b25f071d532ac58298b71e9c12e0f4e"
+    },
+    {
+      "bytes": 417,
+      "name": "actual-f/native-run/r1-read-gremlin-process.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-read-gremlin-process.json",
+      "sha256": "75f60f177fc48a401235eee350ea292b660ca499da5e91079fdfe7e8535db2d2"
+    },
+    {
+      "bytes": 0,
+      "name": "actual-f/native-run/r1-read-gremlin.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-read-gremlin.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 419,
+      "name": "actual-f/native-run/r1-read-gremlin.stdout",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r1-read-gremlin.stdout",
+      "sha256": "71c699cba74490d8006d6d5462807a880922c54633cc60695736c2b236fcb07d"
+    },
+    {
+      "bytes": 392,
+      "name": "actual-f/native-run/r2-activate-gremlin-configuration.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r2-activate-gremlin-configuration.json",
+      "sha256": "3a87fc7c12ddcb85c069c580f99b3a20ca286cb5f858adb6dc1de1c0b034ead9"
+    },
+    {
+      "bytes": 7460,
+      "name": "actual-f/native-run/r2-activate-gremlin-operator-original.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r2-activate-gremlin-operator-original.json",
+      "sha256": "16018ccfcde8cc92ca1201692e262e578b25f071d532ac58298b71e9c12e0f4e"
+    },
+    {
+      "bytes": 425,
+      "name": "actual-f/native-run/r2-activate-gremlin-process.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r2-activate-gremlin-process.json",
+      "sha256": "399b150b431a6512a7d6256eb5fe7d71ede9034c72285d5d860fada89b4b3e6d"
+    },
+    {
+      "bytes": 0,
+      "name": "actual-f/native-run/r2-activate-gremlin.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r2-activate-gremlin.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 427,
+      "name": "actual-f/native-run/r2-activate-gremlin.stdout",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r2-activate-gremlin.stdout",
+      "sha256": "d332cdd330e7ad69dce4a35f3406b49afc777ccd5477b3c364e1773fb9e5e703"
+    },
+    {
+      "bytes": 577,
+      "name": "actual-f/native-run/r2-read-cypher-configuration.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r2-read-cypher-configuration.json",
+      "sha256": "0127073aefcf9cda27a84849f702149aa59893084e8cf2b02b7dc9fb4372fc38"
+    },
+    {
+      "bytes": 13039,
+      "name": "actual-f/native-run/r2-read-cypher-operator-original.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r2-read-cypher-operator-original.json",
+      "sha256": "b31e030f91a65f96bb7d515686fb85b71850516addcad217cb940d24c43e4a24"
+    },
+    {
+      "bytes": 416,
+      "name": "actual-f/native-run/r2-read-cypher-process.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r2-read-cypher-process.json",
+      "sha256": "974735534f4b7077cd8923bd98c59b7a096674e7b0b8ae15036bc71793f2cfdf"
+    },
+    {
+      "bytes": 0,
+      "name": "actual-f/native-run/r2-read-cypher.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r2-read-cypher.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 417,
+      "name": "actual-f/native-run/r2-read-cypher.stdout",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/r2-read-cypher.stdout",
+      "sha256": "1a31c364a1dd43ce9b6ea623813a9e3029f6c13cc812d041d35b55ba813ab80f"
+    },
+    {
+      "bytes": 69446,
+      "name": "actual-f/native-run/summary.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-run/summary.json",
+      "sha256": "f3d4553c128eb2e3c55d36ba1087bbc54d4a3d58e5fdd8a07b29db1af88e03b8"
+    },
+    {
+      "bytes": 13040,
+      "name": "actual-f/native-runtime.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/native-runtime.json",
+      "sha256": "4dab0ad0fb94b6171aa709c91606eb5850d3c02ea6d29611e73e1c2eca59076f"
+    },
+    {
+      "bytes": 507,
+      "name": "actual-f/r1-activate-cypher/activation.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/activation.json",
+      "sha256": "49fb289dc46cf7d3eb76a2582f197224c1fb812cfe8b50e8290f4d103002e8cf"
+    },
+    {
+      "bytes": 12478,
+      "name": "actual-f/r1-activate-cypher/installed-imports.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/installed-imports.json",
+      "sha256": "2b89ac973d9ee08c904ffb9362adf9aee7dba5d17c6e0c0225ccc0b216653abf"
+    },
+    {
+      "bytes": 43632,
+      "name": "actual-f/r1-activate-cypher/native-http-records.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native-http-records.json",
+      "sha256": "d49f08553d7c4f3a396b9e6de8f73091880e0e81a6c0431b49d302d6dc51ab2b"
+    },
+    {
+      "bytes": 2,
+      "name": "actual-f/r1-activate-cypher/native/0001-before.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0001-before.json",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "bytes": 5611,
+      "name": "actual-f/r1-activate-cypher/native/0002-request.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0002-request.json",
+      "sha256": "dcf6a7894e4436c7269e597dbb0bc26e25c29ac63f15b30b2ca34f54145b58db"
+    },
+    {
+      "bytes": 4387,
+      "name": "actual-f/r1-activate-cypher/native/0003-upload.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0003-upload.json",
+      "sha256": "9ebd5b5dc49855561c2055c5c4a606bef63b8e844be941d50ca61b2f49a66cfb"
+    },
+    {
+      "bytes": 5610,
+      "name": "actual-f/r1-activate-cypher/native/0004-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0004-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 5610,
+      "name": "actual-f/r1-activate-cypher/native/0005-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0005-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 2944,
+      "name": "actual-f/r1-activate-cypher/native/0006-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0006-query.json",
+      "sha256": "717cb1f06bcd749bec59039361b7dfdfa9392aed09834ebdfa212eb125c15575"
+    },
+    {
+      "bytes": 4603,
+      "name": "actual-f/r1-activate-cypher/native/0007-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0007-query.json",
+      "sha256": "68dc1db3e3b2ef786aee1d26c39c7dc4582dd9364f23e385fc4b703f468d0d2a"
+    },
+    {
+      "bytes": 5610,
+      "name": "actual-f/r1-activate-cypher/native/0008-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0008-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 12685,
+      "name": "actual-f/r1-activate-cypher/native/0009-observed.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0009-observed.json",
+      "sha256": "66bdf0748bfda82ceba54799a0231e2d424c0aa1b8d566f7c0c5394eaf5280e1"
+    },
+    {
+      "bytes": 5610,
+      "name": "actual-f/r1-activate-cypher/native/0010-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0010-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 2944,
+      "name": "actual-f/r1-activate-cypher/native/0011-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0011-query.json",
+      "sha256": "717cb1f06bcd749bec59039361b7dfdfa9392aed09834ebdfa212eb125c15575"
+    },
+    {
+      "bytes": 4603,
+      "name": "actual-f/r1-activate-cypher/native/0012-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0012-query.json",
+      "sha256": "68dc1db3e3b2ef786aee1d26c39c7dc4582dd9364f23e385fc4b703f468d0d2a"
+    },
+    {
+      "bytes": 5610,
+      "name": "actual-f/r1-activate-cypher/native/0013-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0013-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 12685,
+      "name": "actual-f/r1-activate-cypher/native/0014-observed.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/native/0014-observed.json",
+      "sha256": "66bdf0748bfda82ceba54799a0231e2d424c0aa1b8d566f7c0c5394eaf5280e1"
+    },
+    {
+      "bytes": 12685,
+      "name": "actual-f/r1-activate-cypher/observation.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/observation.json",
+      "sha256": "66bdf0748bfda82ceba54799a0231e2d424c0aa1b8d566f7c0c5394eaf5280e1"
+    },
+    {
+      "bytes": 352,
+      "name": "actual-f/r1-activate-cypher/original-intent.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/original-intent.json",
+      "sha256": "673352fee4950f78f83f079374476066992c9ad21123ff77842d976ac4a5c347"
+    },
+    {
+      "bytes": 54,
+      "name": "actual-f/r1-activate-cypher/provider-outcome.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-activate-cypher/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 507,
+      "name": "actual-f/r1-read-after-r2-gremlin/activation.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/activation.json",
+      "sha256": "49fb289dc46cf7d3eb76a2582f197224c1fb812cfe8b50e8290f4d103002e8cf"
+    },
+    {
+      "bytes": 12480,
+      "name": "actual-f/r1-read-after-r2-gremlin/installed-imports.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/installed-imports.json",
+      "sha256": "31fa0619dfe2989b4a2afccc01775bdf7d03b3ea67188fc6a6cc444d58c4e88b"
+    },
+    {
+      "bytes": 25631,
+      "name": "actual-f/r1-read-after-r2-gremlin/native-http-records.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/native-http-records.json",
+      "sha256": "547b4189f323dafb50542a7e5f085c0f4bd200886ea55849e67eba0b91db0cdf"
+    },
+    {
+      "bytes": 11202,
+      "name": "actual-f/r1-read-after-r2-gremlin/native/0001-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/native/0001-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 3859,
+      "name": "actual-f/r1-read-after-r2-gremlin/native/0002-gremlin-native-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/native/0002-gremlin-native-query.json",
+      "sha256": "0fac31cc6dad26949e4236349507c37232db9d4745a523194fd9390ccdd65d59"
+    },
+    {
+      "bytes": 3769,
+      "name": "actual-f/r1-read-after-r2-gremlin/native/0003-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/native/0003-query.json",
+      "sha256": "4ee94e4fac4185613a0d6adefc61e2cb133bdaf52996f17c6ffb137c88fd9ac4"
+    },
+    {
+      "bytes": 5937,
+      "name": "actual-f/r1-read-after-r2-gremlin/native/0004-gremlin-native-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/native/0004-gremlin-native-query.json",
+      "sha256": "6ac78984975d03ed45cd53d3e034108e9e736353b8d8cd5c9a4e8f7cb70a6ec6"
+    },
+    {
+      "bytes": 5667,
+      "name": "actual-f/r1-read-after-r2-gremlin/native/0005-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/native/0005-query.json",
+      "sha256": "8d09a4364135e54b0860cc6563bda4eea74b1610895d0c3c3e1bc4c282052937"
+    },
+    {
+      "bytes": 11202,
+      "name": "actual-f/r1-read-after-r2-gremlin/native/0006-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/native/0006-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 12685,
+      "name": "actual-f/r1-read-after-r2-gremlin/native/0007-observed.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/native/0007-observed.json",
+      "sha256": "66bdf0748bfda82ceba54799a0231e2d424c0aa1b8d566f7c0c5394eaf5280e1"
+    },
+    {
+      "bytes": 12685,
+      "name": "actual-f/r1-read-after-r2-gremlin/observation.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/observation.json",
+      "sha256": "66bdf0748bfda82ceba54799a0231e2d424c0aa1b8d566f7c0c5394eaf5280e1"
+    },
+    {
+      "bytes": 410,
+      "name": "actual-f/r1-read-after-r2-gremlin/original-intent.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/original-intent.json",
+      "sha256": "3ae82acc3c13909f54ce37cb5835b9cc647708dc1bbc6c99a9452e44507799d5"
+    },
+    {
+      "bytes": 54,
+      "name": "actual-f/r1-read-after-r2-gremlin/provider-outcome.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-after-r2-gremlin/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 507,
+      "name": "actual-f/r1-read-gremlin/activation.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/activation.json",
+      "sha256": "49fb289dc46cf7d3eb76a2582f197224c1fb812cfe8b50e8290f4d103002e8cf"
+    },
+    {
+      "bytes": 12471,
+      "name": "actual-f/r1-read-gremlin/installed-imports.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/installed-imports.json",
+      "sha256": "6ba299237c5168c48a827ff7970015944cd0330dd1b5823ff71ba693b4d80d23"
+    },
+    {
+      "bytes": 12903,
+      "name": "actual-f/r1-read-gremlin/native-http-records.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/native-http-records.json",
+      "sha256": "2f2c4142005962afde69fbbc89c5cba3021d77436aec5ea4af880ec9f6d0e865"
+    },
+    {
+      "bytes": 5610,
+      "name": "actual-f/r1-read-gremlin/native/0001-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/native/0001-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 3859,
+      "name": "actual-f/r1-read-gremlin/native/0002-gremlin-native-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/native/0002-gremlin-native-query.json",
+      "sha256": "0fac31cc6dad26949e4236349507c37232db9d4745a523194fd9390ccdd65d59"
+    },
+    {
+      "bytes": 3769,
+      "name": "actual-f/r1-read-gremlin/native/0003-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/native/0003-query.json",
+      "sha256": "4ee94e4fac4185613a0d6adefc61e2cb133bdaf52996f17c6ffb137c88fd9ac4"
+    },
+    {
+      "bytes": 5937,
+      "name": "actual-f/r1-read-gremlin/native/0004-gremlin-native-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/native/0004-gremlin-native-query.json",
+      "sha256": "6ac78984975d03ed45cd53d3e034108e9e736353b8d8cd5c9a4e8f7cb70a6ec6"
+    },
+    {
+      "bytes": 5667,
+      "name": "actual-f/r1-read-gremlin/native/0005-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/native/0005-query.json",
+      "sha256": "8d09a4364135e54b0860cc6563bda4eea74b1610895d0c3c3e1bc4c282052937"
+    },
+    {
+      "bytes": 5610,
+      "name": "actual-f/r1-read-gremlin/native/0006-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/native/0006-schema.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 12685,
+      "name": "actual-f/r1-read-gremlin/native/0007-observed.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/native/0007-observed.json",
+      "sha256": "66bdf0748bfda82ceba54799a0231e2d424c0aa1b8d566f7c0c5394eaf5280e1"
+    },
+    {
+      "bytes": 12685,
+      "name": "actual-f/r1-read-gremlin/observation.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/observation.json",
+      "sha256": "66bdf0748bfda82ceba54799a0231e2d424c0aa1b8d566f7c0c5394eaf5280e1"
+    },
+    {
+      "bytes": 410,
+      "name": "actual-f/r1-read-gremlin/original-intent.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/original-intent.json",
+      "sha256": "303755dd29a3e85d38d2fe296e9b36eabd9228b1bd421792b12e77267186ec99"
+    },
+    {
+      "bytes": 54,
+      "name": "actual-f/r1-read-gremlin/provider-outcome.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r1-read-gremlin/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 507,
+      "name": "actual-f/r2-activate-gremlin/activation.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/activation.json",
+      "sha256": "4ceed4d21be40948b3a92f266b306fa51665984f8c24323b7cad6622aa92cefd"
+    },
+    {
+      "bytes": 12479,
+      "name": "actual-f/r2-activate-gremlin/installed-imports.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/installed-imports.json",
+      "sha256": "6ac1fce0fc6fd7bd3e2c8c79114d9620f9f6be2cffee5903508dc786a856934c"
+    },
+    {
+      "bytes": 87879,
+      "name": "actual-f/r2-activate-gremlin/native-http-records.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native-http-records.json",
+      "sha256": "29e1855d38ab0e6a5e0b38bb963e2aa321d51b3e928b50d013139d05edf2ba49"
+    },
+    {
+      "bytes": 5610,
+      "name": "actual-f/r2-activate-gremlin/native/0001-before.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0001-before.json",
+      "sha256": "db0d7e1f02315e6a42682fa4b75354e418ef3a749104861090444968dbdd54e3"
+    },
+    {
+      "bytes": 11191,
+      "name": "actual-f/r2-activate-gremlin/native/0002-request.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0002-request.json",
+      "sha256": "116bee095aa7deae0433991d8cf1e71af2e4d4cdd59a0f3f516cb238934daadc"
+    },
+    {
+      "bytes": 4086,
+      "name": "actual-f/r2-activate-gremlin/native/0003-upload.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0003-upload.json",
+      "sha256": "443e067137935169da40c3b46df4621575628836391043aabc3fd03500f893e8"
+    },
+    {
+      "bytes": 11202,
+      "name": "actual-f/r2-activate-gremlin/native/0004-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0004-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 11202,
+      "name": "actual-f/r2-activate-gremlin/native/0005-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0005-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 3934,
+      "name": "actual-f/r2-activate-gremlin/native/0006-gremlin-native-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0006-gremlin-native-query.json",
+      "sha256": "449e09ae0920e97f055cb689a71b420456cbb129d7b4180f8e255470e8d28f59"
+    },
+    {
+      "bytes": 3844,
+      "name": "actual-f/r2-activate-gremlin/native/0007-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0007-query.json",
+      "sha256": "f61c9ec6e4bc3d77db451f120f1e8702d60e3f2ced5a807c1bec1a4ab1a975c1"
+    },
+    {
+      "bytes": 7411,
+      "name": "actual-f/r2-activate-gremlin/native/0008-gremlin-native-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0008-gremlin-native-query.json",
+      "sha256": "c845c2ef2ffb3b7cfb341454a39b921f0cf5ad964529531d5b579df8ae263607"
+    },
+    {
+      "bytes": 7051,
+      "name": "actual-f/r2-activate-gremlin/native/0009-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0009-query.json",
+      "sha256": "e90f714da336b2d00807572a9c5a0a5e0ebdd9f67327703b9ceb0b6bf0f44bcd"
+    },
+    {
+      "bytes": 11202,
+      "name": "actual-f/r2-activate-gremlin/native/0010-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0010-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 14152,
+      "name": "actual-f/r2-activate-gremlin/native/0011-observed.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0011-observed.json",
+      "sha256": "dc8c07e2927a0eb9fd882407b75d5aa3bdb463f5c5802b76c05dd1fb82f44a44"
+    },
+    {
+      "bytes": 11202,
+      "name": "actual-f/r2-activate-gremlin/native/0012-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0012-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 3934,
+      "name": "actual-f/r2-activate-gremlin/native/0013-gremlin-native-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0013-gremlin-native-query.json",
+      "sha256": "449e09ae0920e97f055cb689a71b420456cbb129d7b4180f8e255470e8d28f59"
+    },
+    {
+      "bytes": 3844,
+      "name": "actual-f/r2-activate-gremlin/native/0014-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0014-query.json",
+      "sha256": "f61c9ec6e4bc3d77db451f120f1e8702d60e3f2ced5a807c1bec1a4ab1a975c1"
+    },
+    {
+      "bytes": 7411,
+      "name": "actual-f/r2-activate-gremlin/native/0015-gremlin-native-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0015-gremlin-native-query.json",
+      "sha256": "c845c2ef2ffb3b7cfb341454a39b921f0cf5ad964529531d5b579df8ae263607"
+    },
+    {
+      "bytes": 7051,
+      "name": "actual-f/r2-activate-gremlin/native/0016-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0016-query.json",
+      "sha256": "e90f714da336b2d00807572a9c5a0a5e0ebdd9f67327703b9ceb0b6bf0f44bcd"
+    },
+    {
+      "bytes": 11202,
+      "name": "actual-f/r2-activate-gremlin/native/0017-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0017-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 14152,
+      "name": "actual-f/r2-activate-gremlin/native/0018-observed.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/native/0018-observed.json",
+      "sha256": "dc8c07e2927a0eb9fd882407b75d5aa3bdb463f5c5802b76c05dd1fb82f44a44"
+    },
+    {
+      "bytes": 14152,
+      "name": "actual-f/r2-activate-gremlin/observation.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/observation.json",
+      "sha256": "dc8c07e2927a0eb9fd882407b75d5aa3bdb463f5c5802b76c05dd1fb82f44a44"
+    },
+    {
+      "bytes": 352,
+      "name": "actual-f/r2-activate-gremlin/original-intent.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/original-intent.json",
+      "sha256": "8ecfaf6b0d55f5b50cdcd7975afaf59c725f3bee32d387188230cc05aea72515"
+    },
+    {
+      "bytes": 54,
+      "name": "actual-f/r2-activate-gremlin/provider-outcome.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-activate-gremlin/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 507,
+      "name": "actual-f/r2-read-cypher/activation.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-read-cypher/activation.json",
+      "sha256": "4ceed4d21be40948b3a92f266b306fa51665984f8c24323b7cad6622aa92cefd"
+    },
+    {
+      "bytes": 12470,
+      "name": "actual-f/r2-read-cypher/installed-imports.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-read-cypher/installed-imports.json",
+      "sha256": "0487d6416565e71bb4f1853b0fbc986aa66f78777d4e89b42344cb13bd7f6daa"
+    },
+    {
+      "bytes": 25631,
+      "name": "actual-f/r2-read-cypher/native-http-records.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-read-cypher/native-http-records.json",
+      "sha256": "547b4189f323dafb50542a7e5f085c0f4bd200886ea55849e67eba0b91db0cdf"
+    },
+    {
+      "bytes": 11202,
+      "name": "actual-f/r2-read-cypher/native/0001-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-read-cypher/native/0001-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 3019,
+      "name": "actual-f/r2-read-cypher/native/0002-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-read-cypher/native/0002-query.json",
+      "sha256": "a11518e6a08e25b483078b8fcb72cb0c572cf34469acdcd05a59cea650c04b8d"
+    },
+    {
+      "bytes": 5987,
+      "name": "actual-f/r2-read-cypher/native/0003-query.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-read-cypher/native/0003-query.json",
+      "sha256": "d99d96a77fc5c1f15ab99ce84df7ad0bb1def49424291ec8e4edb212686b2106"
+    },
+    {
+      "bytes": 11202,
+      "name": "actual-f/r2-read-cypher/native/0004-schema.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-read-cypher/native/0004-schema.json",
+      "sha256": "90fbe82222b27209a2282cdad214d71c2e9bda5c026b5b51a5b2887ac97ce5db"
+    },
+    {
+      "bytes": 14152,
+      "name": "actual-f/r2-read-cypher/native/0005-observed.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-read-cypher/native/0005-observed.json",
+      "sha256": "dc8c07e2927a0eb9fd882407b75d5aa3bdb463f5c5802b76c05dd1fb82f44a44"
+    },
+    {
+      "bytes": 14152,
+      "name": "actual-f/r2-read-cypher/observation.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-read-cypher/observation.json",
+      "sha256": "dc8c07e2927a0eb9fd882407b75d5aa3bdb463f5c5802b76c05dd1fb82f44a44"
+    },
+    {
+      "bytes": 410,
+      "name": "actual-f/r2-read-cypher/original-intent.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-read-cypher/original-intent.json",
+      "sha256": "25359df54fbed90e839861e4b8a26c3b0037e78788f2392480c791d373e4ba74"
+    },
+    {
+      "bytes": 54,
+      "name": "actual-f/r2-read-cypher/provider-outcome.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-f/r2-read-cypher/provider-outcome.json",
+      "sha256": "77ded8ec6d525a8ca46dc2322540c8c74a58020cce17dd071797d7f7598faca4"
+    },
+    {
+      "bytes": 26671,
+      "name": "actual-f/result-freeze.json",
+      "original": "/private/tmp/ashlar-puppy-installed-native-result-freeze-20261010-f.json",
+      "sha256": "1f695de005f55a4bfd6705b0a4177562374ba0f6bb7ad8ca056e7c2d2866f443"
+    },
+    {
+      "bytes": 235,
+      "name": "build-c/archive.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/archive.json",
+      "sha256": "7f977058e0c76d393a08da6580c8bebc8f6ecf033d674e4c5db81927e19f2bbd"
+    },
+    {
+      "bytes": 0,
+      "name": "build-c/archive.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/archive.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 300,
+      "name": "build-c/ashlar-puppy-installed-build-20261010-c-outcome.json",
+      "original": "/private/tmp/ashlar-puppy-installed-build-20261010-c-outcome.json",
+      "sha256": "efcb1ce27e895a4ed5c673d74c3f83a6080770d595d5cd11962db47361e6cf40"
+    },
+    {
+      "bytes": 0,
+      "name": "build-c/ashlar-puppy-installed-build-20261010-c.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-build-20261010-c.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "build-c/ashlar-puppy-installed-build-20261010-c.stdout",
+      "original": "/private/tmp/ashlar-puppy-installed-build-20261010-c.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 927,
+      "name": "build-c/build-phases.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/build-phases.json",
+      "sha256": "9bbc12b8abcdce3ec91de9349ac3d1beeae103b964aa740f12270c5a2e2c1806"
+    },
+    {
+      "bytes": 12855,
+      "name": "build-c/installed-RECORD.csv",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/installed-RECORD.csv",
+      "sha256": "5dfe8b886b80a20231faf738f14f897b66e96594cdae240f79b25df9611fd847"
+    },
+    {
+      "bytes": 203,
+      "name": "build-c/installed-console.txt",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/installed-console.txt",
+      "sha256": "c5526453c4c69e9aecf84c3b82d841b6a7b212aaeaf8a72f5a47ce19d062f7bb"
+    },
+    {
+      "bytes": 337,
+      "name": "build-c/installed-custody.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/installed-custody.json",
+      "sha256": "1ccff7f70c3d42033213b79b8764f1c7fa7114ea8299f58b45b5d06bf41c58a8"
+    },
+    {
+      "bytes": 235,
+      "name": "build-c/pip-install.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/pip-install.json",
+      "sha256": "9284b16d76cd1dd9d28365cd0cd09d674c089c8b553d4d44cd5853bbdef546c2"
+    },
+    {
+      "bytes": 0,
+      "name": "build-c/pip-install.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/pip-install.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 176,
+      "name": "build-c/pip-install.stdout",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/pip-install.stdout",
+      "sha256": "8fa63eef65cd8c12b93cfafc9dde53fdd52a67a3717007e575531a1298dde07b"
+    },
+    {
+      "bytes": 4606,
+      "name": "build-c/result-freeze.json",
+      "original": "/private/tmp/ashlar-puppy-installed-build-result-freeze-20261010-c.json",
+      "sha256": "ba7dd59227779d2d5f8fd632b877909ec0c68dc182548203c83b004d0567fd34"
+    },
+    {
+      "bytes": 226,
+      "name": "build-c/venv.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/venv.json",
+      "sha256": "e3523665488b261ecea3fd00c8751d77128bcd228e70912ccf077eacf54e0cd8"
+    },
+    {
+      "bytes": 0,
+      "name": "build-c/venv.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/venv.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "name": "build-c/venv.stdout",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/venv.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 403,
+      "name": "build-c/venv/pyvenv.cfg",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/venv/pyvenv.cfg",
+      "sha256": "c03c87759b0be83e75cca1950793d70797174b75e329346ae27f3f01824f2867"
+    },
+    {
+      "bytes": 18821,
+      "name": "build-c/wheel-inventory.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/wheel-inventory.json",
+      "sha256": "2fa8ce7f58474866d276ffe827b810db5a00935f547c79885586d4e474f33f3e"
+    },
+    {
+      "bytes": 229,
+      "name": "build-c/wheel.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/wheel.json",
+      "sha256": "c3720187a0019cd9aba75a008cd4c7565a09f3495c80ffa358f62dcf4dc28736"
+    },
+    {
+      "bytes": 0,
+      "name": "build-c/wheel.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/wheel.stderr",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 747,
+      "name": "build-c/wheel.stdout",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/wheel.stdout",
+      "sha256": "da7f13f9c78b76ee7f37858e9b707e239c90ca0df688ebd8041786353cbde78b"
+    },
+    {
+      "bytes": 2792,
+      "name": "controls-d/provider-control.py",
+      "original": "/private/tmp/ashlar-puppy-installed-provider-control-20261010-d.py",
+      "sha256": "12644b279ef3589f0b8c0fdce6cb5fe337e473b77177696defacf7f4a2ab5c2e"
+    },
+    {
+      "bytes": 7143,
+      "name": "controls-d/provider.py",
+      "original": "/private/tmp/ashlar-puppy-installed-provider-20261010-d.py",
+      "sha256": "0d23a0972d7d434d77fc3ee9e80ecf16eae5ded35d95c1a2a283c8644599d772"
+    },
+    {
+      "bytes": 1011,
+      "name": "controls-d/signature-diagnosis.json",
+      "original": "/private/tmp/ashlar-puppy-installed-signature-diagnosis-20261010-d.json",
+      "sha256": "272c093acef7dced0ae8755b8e426b59e5d31def7bffe192b2cde67fd8788610"
+    },
+    {
+      "bytes": 1525,
+      "name": "controls-f/receipt-control.py",
+      "original": "/private/tmp/ashlar-puppy-installed-receipt-control-20261010-f.py",
+      "sha256": "797f20c1d37b8379460d0e413deb9725c319baab8cc48f42ec67e03fedc9afbe"
+    },
+    {
+      "bytes": 343,
+      "name": "failed-c/ashlar-puppy-installed-native-20261010-c-outcome.json",
+      "original": "/private/tmp/ashlar-puppy-installed-native-20261010-c-outcome.json",
+      "sha256": "65d92e5c253bc53f122a8feee875aff998df1a85f230d395f25cab4860dd9bbc"
+    },
+    {
+      "bytes": 1100,
+      "name": "failed-c/ashlar-puppy-installed-native-20261010-c.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-native-20261010-c.stderr",
+      "sha256": "6927915c2bf7bd495c7c36215b474b67bf6e8354b74ae4b1f4187ec2229baa6b"
+    },
+    {
+      "bytes": 0,
+      "name": "failed-c/ashlar-puppy-installed-native-20261010-c.stdout",
+      "original": "/private/tmp/ashlar-puppy-installed-native-20261010-c.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 35396,
+      "name": "failed-c/installed-native-opening.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/installed-native-opening.json",
+      "sha256": "fb23a64253c07934ef8de627c4fe283d65cdabe67a5c0b21dd1d7982566e3d1a"
+    },
+    {
+      "bytes": 60,
+      "name": "failed-c/native-run/gremlin-readiness.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/native-run/gremlin-readiness.json",
+      "sha256": "0c0987c9ba68628055ed40bc1d641459d67f8254348a4650ecde4f1359e0e38a"
+    },
+    {
+      "bytes": 241,
+      "name": "failed-c/native-run/http-records.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/native-run/http-records.json",
+      "sha256": "83454fe8ea7f56da5a5a7a13a299bcf7319425d6b1432d6926425f69be1214a9"
+    },
+    {
+      "bytes": 23584,
+      "name": "failed-c/native-run/native-engine.log",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/native-run/native-engine.log",
+      "sha256": "b1e4838f8d76076f6c5e5399ce8f56f48b8de3bf70129c5c064e58461afa9bd6"
+    },
+    {
+      "bytes": 5348,
+      "name": "failed-c/native-run/native-readiness.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/native-run/native-readiness.json",
+      "sha256": "1edfb19e70ee04dc6e03f8ca40417828d3d648bc9dfb76ddba867dc57cb5c7d9"
+    },
+    {
+      "bytes": 391,
+      "name": "failed-c/native-run/r1-activate-cypher-configuration.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/native-run/r1-activate-cypher-configuration.json",
+      "sha256": "31165e70eee190a96c3eb1304006f8e85cda7f727c1af2f75d0c9b438cb27755"
+    },
+    {
+      "bytes": 1882,
+      "name": "failed-c/native-run/r1-activate-cypher-operator-original.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/native-run/r1-activate-cypher-operator-original.json",
+      "sha256": "62df511342c80ce2c84b9cae191bca9d86eb1b2452ebd25e9c0599a52d6e5b5d"
+    },
+    {
+      "bytes": 423,
+      "name": "failed-c/native-run/r1-activate-cypher-process.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/native-run/r1-activate-cypher-process.json",
+      "sha256": "93086671a6e9b26feeeec2fe49f48e792c4be22d2f8e9f0204c3d44f012f12de"
+    },
+    {
+      "bytes": 43,
+      "name": "failed-c/native-run/r1-activate-cypher.stderr",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/native-run/r1-activate-cypher.stderr",
+      "sha256": "c8277750ab0bc15468c7cd0bba8df0d7e2d9aa1d76033b85b7e12275e4ce557e"
+    },
+    {
+      "bytes": 0,
+      "name": "failed-c/native-run/r1-activate-cypher.stdout",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/native-run/r1-activate-cypher.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1882,
+      "name": "failed-c/native-runtime.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/native-runtime.json",
+      "sha256": "62df511342c80ce2c84b9cae191bca9d86eb1b2452ebd25e9c0599a52d6e5b5d"
+    },
+    {
+      "bytes": 12478,
+      "name": "failed-c/r1-activate-cypher/installed-imports.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/r1-activate-cypher/installed-imports.json",
+      "sha256": "342935dbd05d863c884768e31ff861ed768bad6be236ba5a4136496a9da9c4c2"
+    },
+    {
+      "bytes": 2,
+      "name": "failed-c/r1-activate-cypher/native-http-records.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/r1-activate-cypher/native-http-records.json",
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "bytes": 352,
+      "name": "failed-c/r1-activate-cypher/original-intent.json",
+      "original": "/private/tmp/ashlar-puppy-installed-20261010-c/r1-activate-cypher/original-intent.json",
+      "sha256": "0ea019b59c663e6f316892f8d50f28501bae7a8572a910d6f2be45d8c0bfaf29"
+    },
+    {
+      "bytes": 4157,
+      "name": "failed-c/result-freeze.json",
+      "original": "/private/tmp/ashlar-puppy-installed-native-failure-freeze-20261010-c.json",
+      "sha256": "788514acca54bf9272f425fab3f0b6e61a6d79fdb178816d56ac9855931e7d63"
+    },
+    {
+      "bytes": 1689,
+      "name": "reviews/f-helper-independent.json",
+      "original": "/private/tmp/ashlar-puppy-installed-narrow-independent-review-f.json",
+      "sha256": "079682396587824039441868d1c52df0d8e1b19b3d37b5ed89fcac0d566d3d04"
+    },
+    {
+      "bytes": 8539,
+      "name": "sources-c/build.py",
+      "original": "/private/tmp/ashlar-puppy-installed-build-20261010-c.py",
+      "sha256": "a3765499d6b5d28381e0dc80fb9135b75ca287c15c4e19b68b4ac72cd63b7924"
+    },
+    {
+      "bytes": 1031812,
+      "name": "sources-c/command.json",
+      "original": "/private/tmp/ashlar-puppy-installed-command-20261010-c.json",
+      "sha256": "6048cd3c24621733f4867361522c854228c978430aac5d55f17b234dfb78750c"
+    },
+    {
+      "bytes": 3194,
+      "name": "sources-c/console-capture.py",
+      "original": "/private/tmp/ashlar-puppy-installed-console-capture-20261010-c.py",
+      "sha256": "ed6e0bcfcf9a3b9387e24979c6d8498622c2148c63755ee5be33b90c976f567a"
+    },
+    {
+      "bytes": 11776,
+      "name": "sources-c/native-probe.py",
+      "original": "/private/tmp/ashlar-puppy-installed-native-probe-20261010-c.py",
+      "sha256": "ce5d141d515e050bb248e4b70c91aa8209f27d460c5884b9118fd572fc974c13"
+    },
+    {
+      "bytes": 6313,
+      "name": "sources-c/provider.py",
+      "original": "/private/tmp/ashlar-puppy-installed-provider-20261010-c.py",
+      "sha256": "6caf0fa1c8015299b223a416db836d87933d408e74edf8966ac09b17b155988e"
+    },
+    {
+      "bytes": 3216,
+      "name": "sources-c/reviewed-build-capture.py",
+      "original": "/private/tmp/ashlar-count-star-installed-cli-capture-a.py",
+      "sha256": "1e42caf78bd7c7bb9251fb926d88a8efc6138ec52271a6525ecb6954fab97fea"
+    },
+    {
+      "bytes": 5415,
+      "name": "sources-c/runner.py",
+      "original": "/private/tmp/ashlar-puppy-installed-runner-20261010-c.py",
+      "sha256": "ff15e78d8b89860a0b96bee29a6c83ac91e03b87eedefb71547a42131471b2fa"
+    },
+    {
+      "bytes": 27476,
+      "name": "sources-c/source-inventory.json",
+      "original": "/private/tmp/ashlar-puppy-installed-source-inventory-20261010-a.json",
+      "sha256": "0ed99097d636fbd83e3c8d15d34be80292ecd6f59c14f9d2749c72037a4a07a0"
+    },
+    {
+      "bytes": 1034435,
+      "name": "sources-f/command.json",
+      "original": "/private/tmp/ashlar-puppy-installed-command-20261010-f.json",
+      "sha256": "fc0ee6063c206788976a8da9500ad4477e2a6df77541a740e00841baddab258e"
+    },
+    {
+      "bytes": 11846,
+      "name": "sources-f/native-probe.py",
+      "original": "/private/tmp/ashlar-puppy-installed-native-probe-20261010-f.py",
+      "sha256": "847675ac0a02ab9cf796b96217dcefde97ff2bbe25d778517bb7ef7c6af22732"
+    },
+    {
+      "bytes": 7143,
+      "name": "sources-f/provider.py",
+      "original": "/private/tmp/ashlar-puppy-installed-provider-20261010-f.py",
+      "sha256": "3f43e55802e1c124eea0e0114fb69a82f9a24a836fc3765b69b734782cbc66d5"
+    },
+    {
+      "bytes": 6194,
+      "name": "sources-f/runner.py",
+      "original": "/private/tmp/ashlar-puppy-installed-runner-20261010-f.py",
+      "sha256": "0668ec7cd9074599f97a96db17b223df154206da1e8e6c5b871b74f33c1bd708"
+    }
+  ],
+  "sha256": "d148679432f51d9d2548e3d7582a2ef0f039c9256285d3ce9947c860c3736805"
+}
