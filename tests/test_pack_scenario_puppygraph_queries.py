@@ -56,3 +56,31 @@ class NativeScenarioQueryTests(unittest.TestCase):
             with patch('prepare_pack_graph_scenarios.prepare',return_value=wrong),patch('check_pack_scenario_puppygraph.check')as client:
                 with self.assertRaisesRegex(ValueError,'publication/profile'):admit(directory,trusted,[{'pack':'archaeology'},{'pack':'ecology'}],'x')
                 client.assert_not_called()
+    def test_gremlin_carrier_chunks_cover_all_cells_and_correlate(self):
+        from check_pack_scenario_puppygraph import carrier_chunks,carrier_check,raw_projection
+        for p in self.profiles():
+            for kind in ('node','edge'):
+                chunks=carrier_chunks(p,kind,'Gremlin');_,expected,all_names,label=raw_projection(p,kind,'Gremlin')
+                self.assertEqual(set().union(*map(set,chunks)),set(all_names));self.assertTrue(all(len(c)<=18 for c in chunks))
+                self.assertTrue(all({'id','graph_id','original_key','original_type'}<=set(c)for c in chunks))
+                scripts={}
+                for cols in chunks:
+                    script,rows,_,_=raw_projection(p,kind,'Gremlin',cols);scripts[script]=[dict({n:r[n]for n in cols},native_id=label+'['+r['graph_id']+']',**({'native_src':'Scenario'+p['pack'].title()+'Node['+r['src']+']','native_dst':'Scenario'+p['pack'].title()+'Node['+r['dst']+']'}if kind=='edge'else {}))for r in rows]
+                actual=carrier_check(p,kind,'Gremlin',lambda s,b:scripts[s]);self.assertEqual(len(actual['chunks']),len(chunks))
+                scripts[next(iter(scripts))][0]['props_json']='changed'if 'props_json'in chunks[0]else None
+                with self.assertRaises(ValueError):carrier_check(p,kind,'Gremlin',lambda s,b:scripts[s])
+    def test_join_predicates_apply_before_next_scan(self):
+        p=self.profiles()[0];script,_,_=query_plan(p,'specialists','Gremlin')
+        self.assertLess(script.index('.where('),script.index(".as('s')"))
+        self.assertLess(script.index(".where(",script.index(".as('s')")),script.index(".as('l')"))
+    def test_attempt_journal_precedes_native_and_retains_failure(self):
+        import tempfile
+        from check_pack_scenario_puppygraph import journal_query,staged_query
+        with tempfile.TemporaryDirectory()as t:
+            path=Path(t)/'attempts.jsonl'
+            def fail(s,b):
+                self.assertEqual(json.loads(path.read_text().splitlines()[0])['outcome'],'submitted-before-native-query')
+                raise RuntimeError('native refusal')
+            q=journal_query(fail,lambda:{'six':'unchanged'},path)
+            with self.assertRaisesRegex(RuntimeError,'native refusal'):staged_query(q,{'stage':'carrier','columns':['a']},'original-script',{'ashlarValue':'original'})
+            rows=[json.loads(x)for x in path.read_text().splitlines()];self.assertEqual([r['outcome']for r in rows],['submitted-before-native-query','failed']);self.assertEqual(rows[1]['script'],'original-script');self.assertEqual(rows[1]['stage']['columns'],['a'])

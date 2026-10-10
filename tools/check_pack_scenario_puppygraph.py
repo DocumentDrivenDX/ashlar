@@ -57,7 +57,7 @@ def query_plan(profile,name,language):
 def execute(profile,language,query):
     reports=[]
     for case in profile['cases']:
-        name=case['original_scenario']['id'];script,bindings,names=query_plan(profile,name,language);raw=query(script,bindings)
+        name=case['original_scenario']['id'];script,bindings,names=query_plan(profile,name,language);raw=staged_query(query,{'pack':profile['pack'],'stage':'authored-case','case':name},script,bindings)
         if any(type(r)is not dict or set(r)!=set(names)for r in raw):raise ValueError('Closed native result fields required')
         ordered=[[r[n]for n in names]for r in raw];types=['string']*len(names)
         if name in ('media','connected-measurements'):types[1]='bigint'
@@ -90,13 +90,15 @@ def gremlin_plan(profile,name,scans,joins,predicates,outputs,group,records,field
     def scan(s):
         a,r=s.split(':');identity=next(f['record_identity']for f in profile['fields']if f['record_identity'][2]==r);typ=json.dumps({'document':identity[0],'module':identity[1],'element':identity[2]},sort_keys=True,separators=(',',':'))
         return ".V().hasLabel('"+label+"').has('original_type',"+bound(typ)+").as('"+a+"')"
-    optional={j[9:].split('.')[0]for j in joins if j.startswith('OPTIONAL:')};text='g'
+    optional={j[9:].split('.')[0]for j in joins if j.startswith('OPTIONAL:')};text='g';available=set()
+    pending=[j for j in joins if not j.startswith('OPTIONAL:')]+list(predicates)
     for s in scans:
         a=s.split(':')[0]
-        if a not in optional:text+=scan(s)
-    for j in joins:
-        if not j.startswith('OPTIONAL:'):text+='.where('+condition(j)+')'
-    for p in predicates:text+='.where('+condition(p)+')'
+        if a not in optional:
+            text+=scan(s);available.add(a)
+            ready=[p for p in pending if set(re.findall(r'([a-z]+)\.',p))<=available]
+            for p in ready:text+='.where('+condition(p)+')';pending.remove(p)
+    if pending:raise ValueError('Every original predicate must bind existing scan occurrences')
     for s in scans:
         a=s.split(':')[0]
         if a in optional:
@@ -119,9 +121,9 @@ def gremlin_plan(profile,name,scans,joins,predicates,outputs,group,records,field
     return text,bindings,names
 
 
-def raw_projection(profile,kind,language):
+def raw_projection(profile,kind,language,selected=None):
     from prepare_pack_scenario_puppygraph import entries
-    nodes,edges,_=entries(profile);rows=nodes if kind=='node'else edges;names=list(rows[0]);label='Scenario'+profile['pack'].title()+kind.title()
+    nodes,edges,_=entries(profile);rows=nodes if kind=='node'else edges;names=list(rows[0])if selected is None else selected;label='Scenario'+profile['pack'].title()+kind.title()
     if language=='Cypher':
         pattern='(n:'+label+')'if kind=='node'else'(s:Scenario'+profile['pack'].title()+'Node)-[n:'+label+']->(t:Scenario'+profile['pack'].title()+'Node)'
         query='MATCH '+pattern+' RETURN '+','.join('n.'+({'id':'carrier_id','graph_id':'carrier_key'}.get(n,n))+' AS '+n for n in names)+',id(n) AS native_id'
@@ -134,10 +136,22 @@ def raw_projection(profile,kind,language):
     return query,rows,names,label
 
 
-def carrier_check(profile,kind,language,query):
+def carrier_chunks(profile,kind,language):
+    from prepare_pack_scenario_puppygraph import entries
+    nodes,edges,_=entries(profile);rows=nodes if kind=='node'else edges;names=list(rows[0])
+    if len({r['original_key']for r in rows})!=len(rows)or len({r['graph_id']for r in rows})!=len(rows):raise ValueError('Injective original carrier correlation required')
+    if language!='Gremlin':return [names]
+    identity=['id','graph_id','original_key','original_type']+(['src','dst']if kind=='edge'else [])
+    remaining=[n for n in names if n not in identity]
+    # Independent native projected bags, each repeats original identity/incidence.
+    # No host assembly, filtering, deduplication or query-result repair.
+    return [identity+remaining[i:i+12]for i in range(0,len(remaining),12)]
+
+
+def carrier_chunk_check(profile,kind,language,query,selected):
     from run_graph_release_graphframes import row_bag
     from check_puppygraph_releases import native_text
-    script,expected,names,label=raw_projection(profile,kind,language);raw=query(script,{})
+    script,expected,names,label=raw_projection(profile,kind,language,selected);raw=staged_query(query,{'pack':profile['pack'],'stage':'carrier','kind':kind,'columns':names},script,{})
     allowed=set(names)|{'native_id'}|({'native_src','native_dst'}if kind=='edge'else set());actual=[]
     for row in raw:
         if type(row)is not dict or set(row)!=allowed:raise ValueError('Complete closed original native carrier required')
@@ -147,8 +161,14 @@ def carrier_check(profile,kind,language,query):
             node='Scenario'+profile['pack'].title()+'Node'
             if native_text(row['native_src'])!=node+'['+cells['src']+']'or native_text(row['native_dst'])!=node+'['+cells['dst']+']':raise ValueError('Exact original native incidence required')
         actual.append(cells)
-    if row_bag(actual)!=row_bag(expected):raise ValueError('Complete original native scalar/presence/raw bag differs')
+    if row_bag(actual)!=row_bag([{n:r[n]for n in names}for r in expected]):raise ValueError('Complete original native scalar/presence/raw bag differs')
     return raw
+
+
+def carrier_check(profile,kind,language,query):
+    chunks=carrier_chunks(profile,kind,language)
+    if language=='Cypher':return carrier_chunk_check(profile,kind,language,query,chunks[0])
+    return {'chunks':[{'columns':names,'original_native_rows':carrier_chunk_check(profile,kind,language,query,names)}for names in chunks]}
 
 
 def held(prepared,language,query,observe,source_observe):
@@ -176,17 +196,40 @@ def observe_six(language,endpoint,model,databases,user,password):
     base['databases']=actual;return base
 
 
-def check(prepared,language,endpoint,model,databases,user,password,source_observe):
+def staged_query(query,stage,script,bindings):
+    if hasattr(query,'set_stage'):query.set_stage(stage)
+    return query(script,bindings)
+
+
+def journal_query(query,observe,path):
+    if path is None:return query # injected unit/embedding port; production CLI requires journal
+    import os,json
+    from pathlib import Path
+    path=Path(path);fd=os.open(path,os.O_WRONLY|os.O_CREAT|os.O_EXCL,0o600);os.close(fd);stage={}
+    def append(value):
+        with path.open('a')as stream:stream.write(json.dumps(value,sort_keys=True,ensure_ascii=False)+'\n');stream.flush();os.fsync(stream.fileno())
+    def execute(script,bindings):
+        frozen=json.loads(json.dumps({'stage':stage,'script':script,'bindings':bindings}));append(dict(frozen,outcome='submitted-before-native-query'))
+        try:
+            opening=observe();raw=query(frozen['script'],frozen['bindings']);closing=observe()
+            if closing!=opening:raise ValueError('Whole native custody changed during query')
+        except Exception as error:append(dict(frozen,outcome='failed',error_type=type(error).__name__,error=str(error)));raise
+        append(dict(frozen,outcome='native-query-completed',native_rows=len(raw),opening=opening,closing=closing));return raw
+    def set_stage(value):stage.clear();stage.update(json.loads(json.dumps(value)))
+    execute.set_stage=set_stage;return execute
+
+
+def check(prepared,language,endpoint,model,databases,user,password,source_observe,attempt_log=None):
     observe=lambda:observe_six(language,endpoint,model,databases,user,password)
     observe();source_observe() # no native client before complete custody
     if language=='Cypher':
         from neo4j import GraphDatabase
         with GraphDatabase.driver(endpoint,auth=(user,password),connection_timeout=5)as driver:
-            with driver.session()as session:result=held(prepared,language,lambda s,b:session.run(s,**b).data(),observe,source_observe)
+            with driver.session()as session:result=held(prepared,language,journal_query(lambda s,b:session.run(s,**b).data(),observe,attempt_log),observe,source_observe)
     elif language=='Gremlin':
         from gremlin_python.driver import client,serializer
         remote=client.Client(endpoint,'g',username=user,password=password,message_serializer=serializer.GraphSONSerializersV3d0())
-        try:result=held(prepared,language,lambda s,b:remote.submit(s,bindings=b).all().result(timeout=20),observe,source_observe)
+        try:result=held(prepared,language,journal_query(lambda s,b:remote.submit(s,bindings=b).all().result(timeout=20),observe,attempt_log),observe,source_observe)
         finally:remote.close()
     else:raise ValueError('Closed protocol required')
     if source_observe()!=result['original_files']or observe()!=result['closing']:raise ValueError('Post-client cleanup custody differs')
@@ -240,10 +283,10 @@ if __name__=='__main__':
     import argparse,hashlib,os
     from pathlib import Path
     p=argparse.ArgumentParser(description=__doc__)
-    for n in ('prepared','trusted','model','databases','output','candidates','umf'):p.add_argument('--'+n,type=Path,required=True)
+    for n in ('prepared','trusted','model','databases','output','candidates','umf','attempt-log'):p.add_argument('--'+n,type=Path,required=True)
     for n in ('model-sha256','language','endpoint'):p.add_argument('--'+n,required=True)
     a=p.parse_args()
-    if a.output.exists():raise ValueError('Fresh original complete report required')
+    if a.output.exists()or a.attempt_log.exists():raise ValueError('Fresh original complete report and attempt journal required')
     raw=a.model.read_bytes()
     if hashlib.sha256(raw).hexdigest()!=a.model_sha256:raise ValueError('Trusted complete model bytes differ')
     model=json.loads(raw);addition=json.loads((a.prepared/'model.json').read_bytes())
@@ -259,6 +302,6 @@ if __name__=='__main__':
         for n in ('release','custody'):
             if hashlib.sha256(Path(c[n]).read_bytes()).hexdigest()!=c[n+'_sha256']:raise ValueError('Original source bytes differ')
     watcher=source_watcher(prepared,a.prepared,a.model,a.databases,a.trusted,candidates);prepared,baseline=admit_guarded(a.prepared,trusted,candidates,a.umf,watcher)
-    result=check(prepared,a.language,a.endpoint,model,databases,os.environ['ASHLAR_PUPPY_USER'],os.environ['ASHLAR_PUPPY_PASSWORD'],watcher)
+    result=check(prepared,a.language,a.endpoint,model,databases,os.environ['ASHLAR_PUPPY_USER'],os.environ['ASHLAR_PUPPY_PASSWORD'],watcher,a.attempt_log)
     if watcher()!=baseline:raise ValueError('Original pre-client source vector differs')
     a.output.write_text(json.dumps(result,sort_keys=True,ensure_ascii=False,indent=2)+'\n')
