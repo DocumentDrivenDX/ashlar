@@ -21,5 +21,8 @@ jobs:
           PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_weft_installation.py
           PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_weft_distribution.py
           PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_weft_cli.py
+          PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_indexed_weft_commerce.py
+          PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_run_indexed_commerce_weft.py
+          PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_weft_relationship_host.py
       - name: Verify module ownership
         run: python3 tools/check_module_boundaries.py

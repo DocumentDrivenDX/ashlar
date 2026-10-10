@@ -1,0 +1,22 @@
+{
+  "format": "ashlar-original-commerce-relation-compile-fixture/0.1",
+  "qualification": "Actual public indexed candidate compiler output on unchanged original0.8 commerce model; synthetic unpublished table UUIDs/version0 and publication ID for portable host tests only. No database, ACK, publication or native query claim.",
+  "realizationId": "weft-362a9c6-ab899150-aarch64-apple-darwin-candidate",
+  "compilerSourceRevision": "362a9c6af85996a80ed4af6f68efecfe6eb22110",
+  "compilerSha256": "ab899150d217a26368ab0c0954a627401d41031fc768f758247231ea513a3437",
+  "originalModelSha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+  "originalGraphSha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+  "requestSha256": "32cba54dc849cad6e8961b4e1621dbef280dbd2962c5acc56ce8676b59d82167",
+  "responseSha256": "3512424fd1d6df3ef2816a652a32d18089ae3313a3f82394e7ed66db707c257f",
+  "compilerManifestSha256": "cc9e8ff5a4f9690258d6c4aaeb7c3fa53f7ffd6109797007bf5cd9883f1ca72d",
+  "exitCode": 0,
+  "stderrHex": "",
+  "schemaSourceRevision": "362a9c6af85996a80ed4af6f68efecfe6eb22110",
+  "publicSchemas": {
+    "compile-request-v0.2.schema.json": "2a9a4264a9d8926176aa3809d613e103f35c8f634b0d8839ddf2bbcf598cacde",
+    "compile-response-v0.2.schema.json": "8cce222e4031b5cf2e2aa6388b28e948e1d1408e60b3056a2c3c297e993af3dc",
+    "logical-plan.schema.json": "ce9c7de12094ab840e4b483faed44a4ee5e122e47a4d4c9f9e46d8144541f9ff",
+    "logical-plan-v0.2.schema.json": "17b650e2573b4274cfd8506cf02b963060c0d978ffc7f979d94a7d9eafea1316",
+    "backend-manifest-v0.2.schema.json": "b3b556d49b9c605e0c1ce1cad601905ba89008b67f5129f4bdbdbb8df0b55fc2"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "qualification": "Actual Ajv Draft2020-12 public0.2 structural request/response validation; compiler semantics remain original receipt",
+  "checks": [
+    {
+      "file": "request.json",
+      "schema": "compile-request-v0.2.schema.json",
+      "valid": true,
+      "schemaSha256": "2a9a4264a9d8926176aa3809d613e103f35c8f634b0d8839ddf2bbcf598cacde"
+    },
+    {
+      "file": "response.json",
+      "schema": "compile-response-v0.2.schema.json",
+      "valid": true,
+      "schemaSha256": "8cce222e4031b5cf2e2aa6388b28e948e1d1408e60b3056a2c3c297e993af3dc"
+    }
+  ]
+}
