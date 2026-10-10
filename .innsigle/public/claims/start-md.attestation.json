@@ -2,7 +2,7 @@
   "payload": {
     "innsigle": "1",
     "type": "https://innsigle.dev/claim/colophon/v1",
-    "issued_at": "2026-10-08T05:14:21Z",
+    "issued_at": "2026-10-10T00:18:22Z",
     "issuer": {
       "id": "ashlar",
       "name": "Ashlar",
@@ -14,7 +14,7 @@
         "uri": "https://documentdrivendx.github.io/ashlar/start/",
         "digest": {
           "alg": "sha256",
-          "value": "6515f201dec9d6713bb0aaa832190f16e2e041a16cbc65f7fce7fd8411205181"
+          "value": "000711967aa3b651658bac11a49a78651cdcf8d58851280aa934e9875bf58c6a"
         }
       }
     ],
@@ -51,8 +51,8 @@
     {
       "key_id": "ed25519:c2d14d17c30aa16155894b10c42bf1f1",
       "alg": "ed25519",
-      "sig": "8LPvwvazQgj8NbpjcVCSJJ9IHvYBLnxFoeztA0md-0ZkguIbV5cus1TTmPsDblBSxd_Tnmue3nir4lPVC_5MBg",
-      "signed_at": "2026-10-08T05:14:21Z"
+      "sig": "n6CpBqos93t99a6Nix2BjXCdZlOVlZVpGS-v7iSdMRRSwea_ei28SfL-hEnj7rSJGOS9m2BWtkjYbQD4W6QlBg",
+      "signed_at": "2026-10-10T00:18:22Z"
     }
   ]
 }

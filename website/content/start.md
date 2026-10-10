@@ -1,44 +1,37 @@
 ---
-title: "Start with the schema package"
-description: "Inspect the proposed Delta layout and its synthetic evidence before selecting a deployment target."
+title: "Use Ashlar"
+description: "Install the toolkit, inspect a source, and follow a bounded publication and query workflow."
 eyebrow: "02 / Start here"
 composition: model-primary
 nextPath: schema/
 nextLabel: "See how the tables fit together"
 ---
 
-## Inspect the candidate
+## Install and inspect a source
 
-The repository contains the [ashlar-delta/0.3 SQL package](https://github.com/DocumentDrivenDX/ashlar/tree/main/sql/ashlar-delta-v03), a reviewable extraction of the table contract. It is a candidate package with explicit target placeholders, not an automatic installer.
-
-1. Read the package README and enforcement matrix.
-2. Inspect `01-baseline.sql` for the six baseline roles.
-3. Inspect `02-forward-adjacency.sql` when forward traversal is needed.
-4. Select reverse adjacency, degree summaries and typed examples only for an identified consumer workload.
-5. Review the publication and consumer contracts before executing reads.
-
-A future deployment must explicitly select a fresh Unity Catalog catalog/schema, managed storage and access policy, then replace the reviewed target placeholders. Existing data requires a separate migration design.
-
-## Understand what the DDL enforces
-
-The candidate declares required-column nullability. It does not enforce typed key uniqueness, endpoint existence, parallel-edge rules or caller authorization. The publisher and execution adapter have separate validation and policy responsibilities.
-
-The [package README](https://github.com/DocumentDrivenDX/ashlar/blob/main/sql/ashlar-delta-v03/README.md) assigns each responsibility. Start there before assuming a declared graph constraint is a warehouse-enforced constraint.
-
-## Inspect the resolver candidate
-
-The Python 3.9+ standard-library resolver requires a trusted table/UUID inventory, supported profile and revision sets, and injected backend/policy ports. It refuses ambiguous descriptors, duplicate JSON members, unsupported revisions and identity mismatches. It keeps exact metadata and returns immutable pins.
-
-Its local checks can be run from a cloned repository:
+Clone [the Ashlar repository](https://github.com/DocumentDrivenDX/ashlar) and run these commands from its root with Python 3.9 or later:
 
 ```sh
-PYTHONPATH=src python3 -m unittest discover -s tests -v
+python3 -m pip install .
+ashlar inspect-source --feed example --epoch one < examples/end-to-end/local-string-source.jsonl
+ashlar inspect-configured-source examples/end-to-end/configured-source.json
+python3 tools/run_local_example.py
 ```
 
-These tests use simulated backends. They do not establish live authentication, retention, concurrent publication or a production deployment. See the [resolver README](https://github.com/DocumentDrivenDX/ashlar/blob/main/src/ashlar/README.md) for the integration boundary.
+The source inspector retains complete committed transaction bytes. The configured example uses explicit model and identity bindings to apply bounded create, update and delete changes and check replay. Inspection does not acknowledge a source or publish warehouse data.
 
-## Follow a synthetic example
+## Publish and query a small graph
 
-Use TypeA A1, TypeB B1 and an independent E1 relationship as a reading example. Find node identity in `object_current`, edge identity/endpoints in `edge_current`, and the original delivery in `source_record`. The journal retains accepted property events; the manifest selects the versions a reader may consume.
+Follow the [local setup and query guide](https://github.com/DocumentDrivenDX/ashlar/blob/main/examples/end-to-end/README.md) to prepare the original commerce graph, recompute its public UMF admission and publish it to local Delta tables. The guide names the separate writer and reader runtimes, exact compiler revision and required inputs.
 
-Then [inspect ecosystem examples](../ecosystem/) to see how the same canonical meaning becomes an engine-specific release.
+Choose a fresh output directory, explicit source namespace and pinned model for each installation. Retain original input and journal bytes for recovery. Weft compiles queries against the selected immutable publication; Ashlar executes its unchanged SQL and integrity checks before releasing results. Reads must retain the full table-version vector and refuse drift or unavailable snapshots.
+
+The local PostgreSQL sandbox supplies an experimental outbox source. Real Truss catalog acceptance and feed registration require their own integration. For Databricks, select a dedicated Ashlar endpoint and an explicit catalog/schema. Preserve predictive optimization; readability follows the observed retention configuration.
+
+## Inspect the tables and mappings
+
+The [schema browser](../schema/) shows the UMF model, physical fields, logical keys and relationships. The [Delta SQL package](https://github.com/DocumentDrivenDX/ashlar/tree/main/sql/ashlar-delta-v03) exposes baseline and optional layouts with explicit deployment placeholders.
+
+Delta column nullability is only part of enforcement. The publisher validates typed identities, endpoint existence and relationship rules; execution adapters enforce read policy and publication custody. Review the package's responsibility matrix before deploying a layout or assuming a declared relationship is a Delta-enforced foreign key.
+
+Use the [ecosystem examples](../ecosystem/) to choose an engine projection with its explicit value and identity mapping. Each engine and query profile needs its own qualification; a prepared export alone does not establish query support.
