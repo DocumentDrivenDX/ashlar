@@ -1,17 +1,20 @@
-"""Closed proof that a compiled 0.3 row plan needs no arithmetic checks.
+"""Closed original Field/operation proof for explicit compiled 0.3 host subsets.
 
 This inspects compiler IR, never SQL or UMF source meaning. Scalar source checks
 and the complete publication interval remain mandatory. Unknown operations fail
-closed; this proof does not admit aggregates or numerical predicates.
+closed. Default routes refuse aggregates; explicit required-String COUNT DISTINCT
+and literal IN require separate capacity guards and target admission.
 """
 import hashlib,json
 
 
-def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False, native_null=False, distinct=False):
+def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False, native_null=False, distinct=False, count_distinct=False):
     if type(native_null) is not bool:
         raise ValueError('Explicit native-null opt-in must be Boolean')
     if type(distinct) is not bool or (distinct and native_null):
         raise ValueError("Explicit separate DISTINCT host opt-in required")
+    if type(count_distinct) is not bool or (count_distinct and (native_null or distinct or positioned_output_only)):
+        raise ValueError('Explicit separate distinct-count host opt-in required')
     native_null_ids = set()
     native_null_graph_ids = set()
 
@@ -55,8 +58,8 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
     closed(plan, ('aggregate', 'filters', 'groups', 'irVersion', 'joins', 'limit',
                   'modulePins', 'order', 'outputs', 'pageKey', 'readProfile',
                   'requiredCapabilities', 'source', 'typeGraph') + (('distinct',) if distinct else ()))
-    if (plan['irVersion'] != 'weft-ir/0.3.0' or plan['aggregate'] is not False
-            or plan['groups'] != [] or any(plan[k] is not None for k in ('pageKey', 'readProfile'))
+    if (plan['irVersion'] != 'weft-ir/0.3.0' or (type(plan['aggregate']) is not bool or (not count_distinct and plan['aggregate'] is not False))
+            or (not count_distinct and plan['groups'] != []) or any(plan[k] is not None for k in ('pageKey', 'readProfile'))
             or (plan['limit'] is not None and (not distinct or type(plan['limit']) is not int or not 1 <= plan['limit'] <= 1000))
             or plan['modulePins'] != binding['modelPins']):
         raise ValueError('Empty arithmetic checks require a complete field-only row plan')
@@ -65,6 +68,13 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
                'type.string', 'type.boolean', 'type.decimal', 'compare.notEqual',
                'project.positionedOutputs', 'compare.less', 'compare.lessEqual',
                'compare.greaterEqual', 'compare.scalarJoin'}
+    if count_distinct:
+        allowed={'project','scan','filter','equal','innerJoin','order.asc','and','type.string','aggregate','group','aggregate.countDistinct','predicate.stringIn'}
+        if (type(plan['requiredCapabilities']) is not list or any(type(c) is not str for c in plan['requiredCapabilities'])
+                or len(set(plan['requiredCapabilities'])) != len(plan['requiredCapabilities'])
+                or not {'scan','project','type.string'} <= set(plan['requiredCapabilities'])
+                or not {'aggregate.countDistinct','predicate.stringIn'} & set(plan['requiredCapabilities'])):
+            raise ValueError('Closed explicit String set/count capability inventory required')
     if distinct:
         if (plan['distinct'] is not True or 'project.distinct' not in plan['requiredCapabilities']
                 or 'type.string' not in plan['requiredCapabilities']
@@ -78,7 +88,7 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
     if type(plan['requiredCapabilities']) is not list or any(
             type(c) is not str or c not in allowed for c in plan['requiredCapabilities']):
         raise ValueError('Unproved field-plan capability')
-    for key in ('joins', 'filters', 'order', 'outputs', 'typeGraph'):
+    for key in ('joins', 'filters', 'groups', 'order', 'outputs', 'typeGraph'):
         if type(plan[key]) is not list:
             raise ValueError('Complete field-plan arrays required')
     # This is exact authored metadata correspondence, not source validation.
@@ -155,6 +165,8 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
             logical_type(value['type'], string_only)
             if value['type'] != original_type(key):
                 raise ValueError('Field type differs from original authored metadata')
+        if count_distinct and original_type(key) != {'family':'string','facets':{},'nullable':False}:
+            raise ValueError('Distinct-count inputs require original required String Fields')
         required_checks.add((scans[occurrence][0], key))
         if original_type(key)['family'] == 'integer':
             integer_checks.add((scans[occurrence][0], key))
@@ -168,6 +180,7 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         if type(p['position']) is not int or p['position'] != index or type(p['value']) is not str or type(p['origin']) is not dict:
             raise ValueError('Original exact ordered slot required')
         logical_type(p['logicalType'])
+        if count_distinct and p['origin'].get('kind')=='namedParameter':raise ValueError('Named slots are outside the explicit String set/count host subset')
 
     def operand(value, visible):
         if type(value) is not dict:
@@ -178,6 +191,7 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
             return
         keys = ('kind', 'value', 'type', 'span')
         if value.get('kind') == 'parameter':
+            if count_distinct:raise ValueError('Named parameters are outside the explicit String set/count host subset')
             keys += ('name',)
         elif value.get('kind') != 'literal':
             raise ValueError('Unknown comparison operand')
@@ -193,7 +207,21 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
             raise ValueError('Original exact comparison slot required')
 
     comparison_caps=set()
+    in_used=False
+    equality_used=False
     def predicate(value, visible, *, join=False):
+        nonlocal in_used,equality_used
+        if count_distinct and type(value) is dict and value.get('op') == 'stringIn':
+            closed(value, ('op','field','values'))
+            field(value['field'],visible,string_only=True)
+            if type(value['values']) is not list or not 1 <= len(value['values']) <= 256:
+                raise ValueError('Original bounded nonempty String IN slots required')
+            for v in value['values']:
+                if type(v) is not dict or v.get('kind') != 'literal':
+                    raise ValueError('Only original literal String IN slots admitted')
+                operand(v,visible)
+            in_used=True
+            return
         if native_null and type(value) is dict and value.get('op') == 'nullTest':
             closed(value, ('op', 'field', 'negated'))
             if type(value['negated']) is not bool or 'predicate.nativeNull' not in plan['requiredCapabilities']:
@@ -228,6 +256,7 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         closed(p, ('op', 'left', 'right'))
         if p['op'] != 'equal':
             raise ValueError('Only string equality needs no arithmetic checks')
+        equality_used=True
         if native_null and p['left'].get('type') == {'family': 'integer', 'facets': {}, 'nullable': False}:
             field(p['left'], visible)
             right = p['right']
@@ -253,8 +282,15 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         if not positioned_output_only:predicate(p, visible)
     if not positioned_output_only and ({c for c in plan['requiredCapabilities'] if c.startswith('compare.')} != comparison_caps):
         raise ValueError('Exact String predicate/capability correspondence required')
+    groups=[]
+    for f in plan['groups']:
+        key=field(f,visible,string_only=True);pair=(f['scan'],key)
+        if pair in groups:raise ValueError('Original unique grouping Fields required')
+        groups.append(pair)
     for f in plan['order']:
-        field(f, visible)
+        key=field(f, visible,string_only=count_distinct)
+        if count_distinct and plan['aggregate'] and (f['scan'],key) not in groups:
+            raise ValueError('Distinct-count ordering requires original grouping identity')
     columns = artifact.get('columns')
     if type(columns) is not list or not plan['outputs'] or len(plan['outputs']) != len(columns):
         raise ValueError('Complete original output descriptors required')
@@ -263,6 +299,7 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         raise ValueError('Separate output-only proof is restricted to positioned descriptors')
     if (len({o.get('name') for o in plan['outputs']}) != len(plan['outputs'])) != positioned:
         raise ValueError('Exact original repeated-output capability required')
+    if count_distinct and positioned:raise ValueError('Distinct-count host requires unique original output names')
     if positioned:
         admit_positioned_outputs(artifact)
     graph_ids = set()
@@ -272,15 +309,33 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         if key in graph_ids or key not in original_fields or d['availability'] != original_fields[key].get('nullability') or d['kind'] != 'scalar' or d['type'] != original_type(key):
             raise ValueError('Unproved or duplicate original type descriptor')
         graph_ids.add(key)
-    expected_graph = {identity(o['expression']['identity']) for o in plan['outputs']}
+    expected_graph = {identity(o['expression']['identity']) for o in plan['outputs'] if not (count_distinct and o['expression'].get('op')=='countDistinct')}
     if native_null:
         expected_graph |= native_null_graph_ids
     if graph_ids != expected_graph:
         raise ValueError('Exact original output type graph required')
+    count_used=False
     for index, (output, column) in enumerate(zip(plan['outputs'], columns), 1):
         closed(output, ('name', 'expression'))
         closed(column, ('outputName', 'position', 'sourceIdentities', 'nullable', 'representation') + (('carrierName',) if positioned else ()))
-        key = field(output['expression'], visible, typed=False)
+        expression=output['expression']
+        if count_distinct and type(expression) is dict and expression.get('op') == 'countDistinct':
+            closed(expression,('op','argument','type'))
+            count_type={'family':'integer','facets':{},'nullable':False}
+            logical_type(expression['type'])
+            if expression['type'] != count_type:raise ValueError('Exact mathematical Integer count result required')
+            field(expression['argument'],visible,string_only=True)
+            closed(column['representation'],('kind','carrier','logicalType','decoder'))
+            logical_type(column['representation']['logicalType'])
+            if (column['outputName'] != output['name'] or type(column['position']) is not int or column['position'] != index
+                    or column['nullable'] is not False or column['sourceIdentities'] != [expression['argument']['identity']]
+                    or column['representation'] != {'kind':'scalar','carrier':'text','logicalType':count_type,'decoder':'exact-integer'}):
+                raise ValueError('Exact original distinct-count output descriptor required')
+            count_used=True
+            continue
+        key = field(expression, visible, typed=False)
+        if count_distinct and plan['aggregate'] and (expression['scan'],key) not in groups:
+            raise ValueError('Distinct-count direct outputs must be original grouping Fields')
         if column.get('outputName') != output['name'] or type(column.get('position')) is not int or column['position'] != index:
             raise ValueError('Original output order differs')
         if column.get('sourceIdentities') != [output['expression']['identity']] or column.get('nullable') is not False:
@@ -304,6 +359,18 @@ def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False
         decoders = {'string': 'text', 'integer': 'exact-integer', 'decimal': 'exact-decimal', 'boolean': 'boolean'}
         if representation['kind'] != 'scalar' or representation['carrier'] != 'text' or representation['logicalType'] != d['type'] or representation['decoder'] != decoders[d['type']['family']]:
             raise ValueError('Original exact output carrier differs')
+    if count_distinct:
+        caps=set(plan['requiredCapabilities'])
+        if (plan['aggregate'] is not (count_used or bool(groups)) or bool(groups) != ('group' in caps)
+                or count_used != ('aggregate.countDistinct' in caps) or plan['aggregate'] != ('aggregate' in caps)
+                or in_used != ('predicate.stringIn' in caps) or bool(plan['order']) != ('order.asc' in caps)
+                or bool(plan['filters']) != ('filter' in caps) or bool(plan['joins']) != ('innerJoin' in caps)
+                or equality_used != ('equal' in caps)
+                or (len(plan['filters'])>1 or any(len(j['on'])>1 for j in plan['joins'])) != ('and' in caps)):
+            raise ValueError('Exact String set/count operation and capability correspondence required')
+        if plan['aggregate'] and not count_used:raise ValueError('Only explicitly projected distinct-count grouping admitted')
+        projected_groups={(o['expression']['scan'],identity(o['expression']['identity'])) for o in plan['outputs'] if o['expression'].get('op')!='countDistinct'}
+        if plan['aggregate'] and set(groups)!=projected_groups:raise ValueError('Every exact group identity must be projected for this closed count host')
     if distinct:
         projected = {(o['expression']['scan'], identity(o['expression']['identity'])) for o in plan['outputs']}
         if any((f['scan'], identity(f['identity'])) not in projected for f in plan['order']):

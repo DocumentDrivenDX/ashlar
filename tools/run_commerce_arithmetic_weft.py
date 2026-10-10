@@ -8,6 +8,7 @@ from decimal import Decimal
 from run_commerce_publication_weft import compiler_request as old_request,encoded,SOURCE_SHA
 from check_commerce_graphframes_scenarios import scenario_oracle
 
+COUNT_BACKEND={'backendId':'ashlar.databricks.count-distinct','backendVersion':'0.3.0-count-distinct-candidate','targetProfile':'spark4-delta4-count-distinct-candidate'}
 BACKEND={'backendId':'ashlar.databricks','backendVersion':'0.3.0-arithmetic-candidate','targetProfile':'spark4-delta4-arithmetic-candidate'}
 OBLIGATIONS={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','ashlar.arithmetic.exact'}
 
@@ -99,12 +100,18 @@ class NativeGuardRefusal(ValueError):
         super().__init__('Original native '+obligation+' refused before user query')
         self.evidence={'obligation':obligation,'check':check,'rows':rows,'priorChecks':prior_checks,'userSqlExecuted':False,'resultReleased':False}
 
-def execute_guarded(provider,request,artifact,*,context,public_source=None,positioned_outputs=False,native_null=False,distinct=False):
+def execute_guarded(provider,request,artifact,*,context,public_source=None,positioned_outputs=False,native_null=False,distinct=False,count_distinct=False):
     # Private snapshots precede every admission callback and native action.
     request,artifact=copy.deepcopy(request),copy.deepcopy(artifact)
     binding=json.loads(request['target']['bindingJson'])
-    if request['target']!={**BACKEND,'bindingJson':request['target']['bindingJson'],'bindingSha256':hashlib.sha256(request['target']['bindingJson'].encode()).hexdigest()} or artifact.get('status')!='compiled' or artifact.get('bindingSha256')!=request['target']['bindingSha256'] or artifact.get('modelPins')!=binding['modelPins']:raise ValueError('Exact compiler/binding custody required')
+    if type(count_distinct) is not bool or (count_distinct and (native_null or distinct or positioned_outputs)):
+        raise ValueError('Explicit separate String set/count host opt-in required')
+    backend=COUNT_BACKEND if count_distinct else BACKEND
+    if request['target']!={**backend,'bindingJson':request['target']['bindingJson'],'bindingSha256':hashlib.sha256(request['target']['bindingJson'].encode()).hexdigest()} or artifact.get('status')!='compiled' or artifact.get('bindingSha256')!=request['target']['bindingSha256'] or artifact.get('modelPins')!=binding['modelPins']:raise ValueError('Exact compiler/binding custody required')
     plan = artifact.get('logicalPlan',{})
+    if count_distinct:
+        from weft_field_plan import admit_field_plan
+        admit_field_plan(artifact,binding,request['modules'],count_distinct=True)
     uses_distinct = 'distinct' in plan or 'project.distinct' in plan.get('requiredCapabilities',[])
     if type(distinct) is not bool or (uses_distinct and not distinct) or (distinct and native_null):
         raise ValueError('Explicit separate DISTINCT host opt-in required before callbacks')
@@ -141,14 +148,17 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
     arithmetic=params_by_id['ashlar.arithmetic.exact']
     if not arithmetic['checks']:
         plan=artifact.get('logicalPlan',{})
-        if native_null or distinct:
+        if native_null or distinct or count_distinct:
             pass  # complete explicit original optional/distinct field proof above
         elif any(plan.get(k) for k in ('filters','joins','order')):
             from weft_field_plan import admit_field_plan
             admit_field_plan(artifact,binding,request['modules'],distinct=distinct)
         else:admit_operator_free_plan(artifact,binding)
     if arithmetic.get('nativeRepresentation')!='DECIMAL(38,0) coefficients' or type(arithmetic.get('maxScale'))is not int or arithmetic['maxScale']!=18:raise ValueError('Exact native arithmetic profile required')
-    if any(c.get('phase')not in ('join-candidates','where-candidates','projection-survivors') for c in arithmetic['checks']):raise ValueError('Original arithmetic evaluation phases required')
+    phases=('aggregate-candidates',) if count_distinct else ('join-candidates','where-candidates','projection-survivors')
+    count_outputs=[i for i,o in enumerate(plan.get('outputs',[])) if o['expression'].get('op')=='countDistinct'] if count_distinct else []
+    if count_distinct and len(arithmetic['checks'])!=len(count_outputs):raise ValueError('Every distinct-count output requires its emitted capacity guard')
+    if any(c.get('phase')not in phases for c in arithmetic['checks']):raise ValueError('Original arithmetic evaluation phases required')
     for check in params_by_id['ashlar.candidate.scalarIntegrity']['checks']:
         for flag in ['publicSourceOnly','representabilityOnly']:
             if flag in check and type(check[flag])is not bool:raise ValueError('Exact original guard kind required')
@@ -171,11 +181,32 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
         if positioned:
             ordered=admit_positioned_cells(artifact,provider.sql_ordered(artifact['sql'],params));rows=ordered['rows']
         else:rows=provider.sql(artifact['sql'],params)
+        if count_distinct:
+            admit_count_result_rows(artifact,rows)
         provider.runtime(context);closing=provider.resolve(context);provider.admit_binding(binding,closing,context)
         if dict(opening.descriptor.raw)!=dict(closing.descriptor.raw) or opening.snapshots!=closing.snapshots:raise ValueError('Whole publication changed before release')
         completed=True
     if not completed:raise ValueError('Suppressed interval failure')
     return {'rows':rows,'checks':checks,**({'positioned':ordered,'native_schema':ordered['schema'],'ordered_rows':ordered['rows']} if positioned else {})}
+
+def admit_count_result_rows(artifact,rows):
+    """Check exact native count carrier/cardinality; never repair a result bag."""
+    plan=artifact['logicalPlan'];columns=artifact['columns']
+    if type(rows) is not list:raise ValueError('Complete native result list required')
+    if plan['aggregate'] and not plan['groups'] and len(rows)!=1:raise ValueError('Global distinct count requires exactly one native row')
+    count_names=[c['outputName'] for c,o in zip(columns,plan['outputs']) if o['expression'].get('op')=='countDistinct']
+    group_names=[c['outputName'] for c,o in zip(columns,plan['outputs']) if o['expression'].get('op')!='countDistinct']
+    groups=set()
+    for row in rows:
+        if type(row) is not dict or set(row)!={c['outputName'] for c in columns}:raise ValueError('Exact original native count output cells required')
+        for name in count_names:
+            value=row[name]
+            if type(value) is not str or not re.fullmatch('0|[1-9][0-9]*',value) or int(value)>9223372036854775807:raise ValueError('Exact nonnegative signed64 native count text required')
+        if plan['aggregate'] and plan['groups']:
+            key=encoded([row[n] for n in group_names])
+            if key in groups:raise ValueError('Native grouped result contains a duplicate complete group tuple')
+            groups.add(key)
+    return rows
 
 def admit_public_source(script,umf,request,artifact,checks):
     from pathlib import Path
