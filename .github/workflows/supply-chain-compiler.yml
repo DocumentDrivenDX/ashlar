@@ -15,3 +15,4 @@ jobs:
           python-version: ${{ matrix.python }}
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_installed_request.py
       - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_installed_oracle.py
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_cli.py

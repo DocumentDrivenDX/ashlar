@@ -37,6 +37,10 @@ def main():
     compile_count_star = commands.add_parser('compile-weft-count-star', help='Compile original stdin through the selected COUNT star installation')
     for name in ('index', 'installation'):
         compile_count_star.add_argument('--' + name, required=True)
+    supply_compile = commands.add_parser('compile-supply-chain-count-star', help='Compile all five unchanged original supply-chain queries with selected041; no native authority')
+    for name in ('pack','model','graph','metadata','index','installation','output'):
+        supply_compile.add_argument('--'+name, required=True)
+    supply_compile.add_argument('--maximum-artifact-bytes',type=int,required=True)
     inspect = commands.add_parser('inspect-source', help='Verify committed JSONL batches from stdin; no ACK')
     inspect.add_argument('--feed', required=True)
     inspect.add_argument('--epoch', required=True)
@@ -85,6 +89,15 @@ def main():
         for option in ('configuration', 'provider', 'provider-sha256'):
             command.add_argument('--' + option, required=True)
     args = parser.parse_args()
+    if args.command == 'compile-supply-chain-count-star':
+        from ashlar_host.supply_chain_cli import compile_supply_chain_command
+        try:
+            answer=compile_supply_chain_command(**{name:getattr(args,name)for name in ('pack','model','graph','metadata','index','installation','output','maximum_artifact_bytes')})
+            print(json.dumps(answer,sort_keys=True,separators=(',',':')))
+        except Exception:
+            print('ashlar supply-chain compiler refused',file=sys.stderr)
+            raise SystemExit(2) from None
+        return
     if args.command in ('publish-commerce-evolution', 'resume-commerce-evolution'):
         from ashlar_host.evolution_cli import run_evolution_command
         from ashlar_host.config import HostError
