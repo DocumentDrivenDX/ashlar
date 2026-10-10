@@ -110,7 +110,7 @@ def gremlin_plan(profile,name,scans,joins,predicates,outputs,group,records,field
         a=s.split(':')[0]
         if a in optional:
             checks=''.join('.where('+condition(j[9:])+')'for j in joins if j.startswith('OPTIONAL:'+a+'.'))
-            text+=' .coalesce(__'+scan(s)+checks+",__.constant(null).as('"+a+"'))"
+            text+='.optional(__'+scan(s)+checks+')'
     names=['result_'+str(i)for i in range(len(outputs))];steps=[]
     for o in outputs:
         t=o[15:]if o.startswith('COUNT_DISTINCT:')else o;steps.append('__.coalesce('+val(t)+',__.constant(null))')

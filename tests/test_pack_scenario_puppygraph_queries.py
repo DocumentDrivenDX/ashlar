@@ -13,8 +13,18 @@ class NativeScenarioQueryTests(unittest.TestCase):
                     script,b,n=query_plan(profile,name,language)
                     self.assertTrue(script);self.assertTrue(all(k.startswith('ashlar')for k in b));self.assertEqual(len(n),10 if name=='evidence-links'else len(case['original_graph_expected'][0])if case['original_graph_expected']else 1)
                     if name in ('media','connected-measurements'):self.assertIn('DISTINCT'if language=='Cypher'else'.dedup().count()',script)
-                    if name=='evidence-links':self.assertIn('OPTIONAL MATCH'if language=='Cypher'else'.coalesce(',script);self.assertIn('interpretation_order_token',script)
+                    if name=='evidence-links':self.assertIn('OPTIONAL MATCH'if language=='Cypher'else'.optional(',script);self.assertIn('interpretation_order_token',script)
                     if name=='connected-measurements':self.assertIn('ORDER BY'if language=='Cypher'else'.order()',script)
+    def test_optional_vertex_branch_retains_native_multiplicity_and_missing_labels(self):
+        profile=self.profiles()[0]
+        script,bindings,names=query_plan(profile,'evidence-links','Gremlin')
+        self.assertEqual(script.count('.optional('),2)
+        self.assertNotIn("constant(null).as(",script)
+        self.assertIn(".as('p')",script);self.assertIn(".as('f')",script)
+        self.assertNotIn('.fold(',script);self.assertNotIn('.limit(',script);self.assertNotIn('.dedup(',script)
+        self.assertIn("__.coalesce(__.select('p').values('original_key'),__.constant(null))",script)
+        self.assertIn("__.coalesce(__.select('f').values('original_key'),__.constant(null))",script)
+        self.assertEqual(len(names),10)
     def test_complete_closing_source_change_refuses(self):
         from unittest.mock import patch
         prepared={'reports':[]}
