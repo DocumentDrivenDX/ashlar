@@ -3,6 +3,8 @@
 Run commands from the Ashlar checkout. Select fresh output directories for new
 installations; retain the original journals and inputs when recovering a run.
 Use explicit source namespaces, model revisions and catalog bindings throughout.
+The [query gallery](QUERY-GALLERY.md) gives exact commerce examples and the
+semantic and execution boundaries needed for each query family.
 
 ## Install and inspect a source
 
