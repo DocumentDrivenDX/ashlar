@@ -1,0 +1,94 @@
+{
+  "format": "paths-keys-release-expectations-evidence/0.1",
+  "files": [
+    {
+      "path": "manifest.json",
+      "originalPath": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/manifest.json",
+      "sha256": "09aaea18917745c53c5f7aabb035865330f3f10b927e85be126f8f1ba0535238",
+      "bytes": 46347
+    },
+    {
+      "path": "capture-command.json",
+      "originalPath": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/capture-command.json",
+      "sha256": "7751957b1f95e0410f6acfe5c00d283e33fcee6494c836afbec68fa9af3308ad",
+      "bytes": 22696
+    },
+    {
+      "path": "capture-command-b.json",
+      "originalPath": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/capture-command-b.json",
+      "sha256": "3b1a0d33194cb62810682e3c32dcc97129cfde92b41276cdc078d6a2e16733c9",
+      "bytes": 23167
+    },
+    {
+      "path": "capture-candidate-expectations.py",
+      "originalPath": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/capture-candidate-expectations.py",
+      "sha256": "038e5cb8732e1b7529c9ca1da5926bfecff2e27d7837269f655a7e6555339fa5",
+      "bytes": 5065
+    },
+    {
+      "path": "capture-candidate-expectations-b.py",
+      "originalPath": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/capture-candidate-expectations-b.py",
+      "sha256": "2ef634efb5e7ba4341a2225c0918e59ec72b63759a375aa86f33d3f737b07b94",
+      "bytes": 5871
+    },
+    {
+      "path": "capture.json",
+      "originalPath": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/capture.json",
+      "sha256": "3d673253febec1481eea72f7c5fdefed6db7f0417c978376bc2565b0a990c8a6",
+      "bytes": 24241
+    },
+    {
+      "path": "correspondence-inventory.json",
+      "originalPath": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/correspondence-inventory.json",
+      "sha256": "0899e3248d5eae9f593aa6ed93bd217e9d217852f8ac602fafbd8e08e89a4ea6",
+      "bytes": 37703
+    },
+    {
+      "path": "astra-paths-keys-authored-requests-review-20261010-a.json",
+      "originalPath": "/private/tmp/astra-paths-keys-authored-requests-review-20261010-a.json",
+      "sha256": "e549916573183140f31a4fc4f061baa0b10ef43e3103efa658a730b0cbf80fef",
+      "bytes": 20298
+    },
+    {
+      "path": "astra-paths-keys-capture-negative-review-20261010-a.json",
+      "originalPath": "/private/tmp/astra-paths-keys-capture-negative-review-20261010-a.json",
+      "sha256": "844e8a00d1115aa7c310841d65d17c0891cdd9a62e8cfb088309d0e040d9e8ab",
+      "bytes": 1365
+    },
+    {
+      "path": "astra-paths-keys-capture-command-review-20261010-b.json",
+      "originalPath": "/private/tmp/astra-paths-keys-capture-command-review-20261010-b.json",
+      "sha256": "66e4f7ee44d93d7206b6e80909d258647f90a9411f5acb466081459308a85e07",
+      "bytes": 15451
+    },
+    {
+      "path": "astra-paths-keys-49-expectations-accepted-20261010-a.json",
+      "originalPath": "/private/tmp/astra-paths-keys-49-expectations-accepted-20261010-a.json",
+      "sha256": "63f98e991d036b35d0a1beea527882c738a3798e7e68612641d451546fd6ffa8",
+      "bytes": 6035
+    },
+    {
+      "path": "astra-paths-keys-twelve-response-review-20261010-b.json",
+      "originalPath": "/private/tmp/astra-paths-keys-twelve-response-review-20261010-b.json",
+      "sha256": "f1a0a7f0fe945f883894e86e3c64561ed322596fe93c2bbe5b5147730d37f6b8",
+      "bytes": 25281
+    },
+    {
+      "path": "release-pairs.json.gz",
+      "sha256": "e8ac8c988c6ed66cf95153f6eaabc2097ab9d1883515e877748cab6c384d3f4a",
+      "bytes": 398693,
+      "decodedSha256": "2bc4f2d4402c1d48c07d1ae29c95ffcd2a6f23af3ea42393f584fef9796af852",
+      "decodedBytes": 17139362
+    }
+  ],
+  "sourceCommit": "3a2a79ccc19d636f20d31116662d61365c1b4ff7",
+  "binarySha256": "471fc5dedc8f8eba3156444d19cc2161fac7a06833672dd5621ed49ead8b522c",
+  "actualProtocolCases": 49,
+  "compiled": 29,
+  "blocked": 20,
+  "stdoutBytes": 2122683,
+  "childStderrBytes": 0,
+  "processExit": 0,
+  "outerDiagnostic": "Python launcher emitted a Darwin confstr temporary-directory warning; compiler children emitted zero stderr bytes.",
+  "scope": "Reviewed request authoring, bounded actual release capture and independently accepted49 finite expected responses only. Compiler74-case qualification, index/package/installed native and semantic safety claims remain separate."
+}

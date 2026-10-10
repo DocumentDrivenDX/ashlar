@@ -1,0 +1,1368 @@
+{
+  "format": "paths-keys-authored-requests/0.1",
+  "originalBundle": {
+    "path": "/private/tmp/ashlar-weft-distribution-d2d/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/evidence/expected-cases.json",
+    "sha256": "1cf69c0dfbde7cb8f82e6653c67637157342374bd1ab4114050d93246f21000d",
+    "bytes": 17032500
+  },
+  "requests": [
+    {
+      "scope": "paths",
+      "id": "0:explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "role": "valid",
+      "path": "paths-00.request.json",
+      "bytes": 55390,
+      "sha256": "b693156fe3cb5de6a2c42f5d0649b3a48252afe27d7beb54b620027ffa6ad9f0",
+      "originalSha256": "1a15d83d1b0cc07f423a3a7bfd9a209e1f0d29b25aeef41120cdcd91416c4e7e",
+      "originalBytes": 55375,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "paths",
+      "id": "1:authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops",
+      "role": "valid",
+      "path": "paths-01.request.json",
+      "bytes": 5959,
+      "sha256": "1350781c09595d0d3cb163e011c3605b8dd60d312417c6344ac4a27c056a0737",
+      "originalSha256": "92f0285b32bcee48b0e5b8ea8916ceb9ee0b6231594335aeacfd12186db055f3",
+      "originalBytes": 5944,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "2:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+      "role": "valid",
+      "path": "paths-02.request.json",
+      "bytes": 5949,
+      "sha256": "c0c0132fe8f7e31d255ce4beb438c674a6961ca1bb1820fe56b3436f6a6d26a3",
+      "originalSha256": "d12c8b6586634b8ddc10d31f71aad3292c7d309d061d8132a97f5516e9863ecf",
+      "originalBytes": 5934,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "3:distinct_composition_remains_required_string_only",
+      "role": "valid",
+      "path": "paths-03.request.json",
+      "bytes": 55307,
+      "sha256": "d3bfbeb13548a3a8dc95631d6f05ea11bb3f246c6bcb46ff87aab650333fd7b9",
+      "originalSha256": "dac192242c9881ffc202910ecc8dd1125071784e2b94bb5d965afd442aed326f",
+      "originalBytes": 55292,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "4:global_count_kind_inventory_and_empty_formula_are_selected",
+      "role": "valid",
+      "path": "paths-04.request.json",
+      "bytes": 55381,
+      "sha256": "bb2d5231aae8151b8e76f26b6a5656c098c91daffc33071b0a576abd8e435b64",
+      "originalSha256": "ad06a02f9065bee5dd253214edeaeab9a1c83a5fd2bce97cbad1d24706dc50d7",
+      "originalBytes": 55366,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+      "role": "valid",
+      "path": "paths-05.request.json",
+      "bytes": 55389,
+      "sha256": "fc7787ca0f3a6a7e7a51e5409b8b35e309fdcbaa8f6da14ce67219d8110dbc60",
+      "originalSha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2",
+      "originalBytes": 55374,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "6:generated_collection_and_guard_sql_are_lexically_closed",
+      "role": "valid",
+      "path": "paths-06.request.json",
+      "bytes": 55389,
+      "sha256": "fc7787ca0f3a6a7e7a51e5409b8b35e309fdcbaa8f6da14ce67219d8110dbc60",
+      "originalSha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2",
+      "originalBytes": 55374,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "7:repeated_logical_labels_retain_the_exact_positioned_host_map",
+      "role": "valid",
+      "path": "paths-07.request.json",
+      "bytes": 55373,
+      "sha256": "9319b7b67c949c793cce868ad477995f395a9a19c384fea59bb6ce4ee8395cab",
+      "originalSha256": "9c98cde61dff3b1e0fedf724157591d1d018d731842ef1ad708d6ec9b0ad2e03",
+      "originalBytes": 55358,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "8:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+      "role": "valid",
+      "path": "paths-08.request.json",
+      "bytes": 55436,
+      "sha256": "e747487b7531fbdc7fb46723c52070eb75a5d5be4a90a01e9ea1b8afa4d4eff1",
+      "originalSha256": "2b63294f45bb6eeafcc085d799d85be1e826f1d528c40223fd50e41b4768d099",
+      "originalBytes": 55421,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+      "role": "valid",
+      "path": "paths-09.request.json",
+      "bytes": 55452,
+      "sha256": "cfa402e3339296f119154280d3146fde4db2ae804df00486175824247cb27a14",
+      "originalSha256": "074581eff7c05a68010b04d32142fd00f38be424c2724895e4604795ca420c86",
+      "originalBytes": 55437,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "10:left_root_distinguishes_absence_and_retains_native_match_inventory",
+      "role": "valid",
+      "path": "paths-10.request.json",
+      "bytes": 55423,
+      "sha256": "e5c9302a0dc3f27adbc5ed2942eaeefe1e4ae90dc1bd40febac5dfade5a056e2",
+      "originalSha256": "48922be05e137ea4e2ccfcc2cd1c441aeb6ffc75ca3f8299392c2c9a19797b68",
+      "originalBytes": 55408,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+      "role": "valid",
+      "path": "paths-11.request.json",
+      "bytes": 55604,
+      "sha256": "799a1692eb1b5fe8093398e4b316cf713d53f0043fe7f16618a803cc9c712a03",
+      "originalSha256": "e337e3b21552ca36fc39a481b9e093f745105b4ede84eb25dc21553c10809654",
+      "originalBytes": 55589,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "12:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+      "role": "valid",
+      "path": "paths-12.request.json",
+      "bytes": 5947,
+      "sha256": "2527e0497dd15edba3bbc8fbb025eb68f163459370b97d0ee40312d7b8935b06",
+      "originalSha256": "b48f5e12363eaf50547d69d0f3610e31fb528296528cd744483a5df403c39444",
+      "originalBytes": 5932,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "13:explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "role": "valid",
+      "path": "paths-13.request.json",
+      "bytes": 55393,
+      "sha256": "d411a4293db1ef480322cb52c5b693e83865adc9605d3fcfee3c482b761f6e5b",
+      "originalSha256": "3a7615ea14211c1e29ea2120d44d6f337f2e5e69f64d358668ba0f4d51fd3956",
+      "originalBytes": 55378,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "paths",
+      "id": "14:distinct_composition_remains_required_string_only",
+      "role": "valid",
+      "path": "paths-14.request.json",
+      "bytes": 55319,
+      "sha256": "b4831cae77c49626d84bdb7dea78863419fb124571c0cc8282a9651c37823476",
+      "originalSha256": "27225b875cf7fafc419eb0bc73932259321ecf123d83a0918a4f5d945dc099c1",
+      "originalBytes": 55304,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "paths",
+      "id": "15:global_count_kind_inventory_and_empty_formula_are_selected",
+      "role": "valid",
+      "path": "paths-15.request.json",
+      "bytes": 55406,
+      "sha256": "b884433de1f273a349c207f188dfc57e216b7b2f791c6348b1c59770df427507",
+      "originalSha256": "55279a36e813e3f70e86a298129ecb28e91ddfaf32330f8328f1fc2d5560c5f7",
+      "originalBytes": 55391,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "16:generated_collection_and_guard_sql_are_lexically_closed",
+      "role": "valid",
+      "path": "paths-16.request.json",
+      "bytes": 55381,
+      "sha256": "bb2d5231aae8151b8e76f26b6a5656c098c91daffc33071b0a576abd8e435b64",
+      "originalSha256": "ad06a02f9065bee5dd253214edeaeab9a1c83a5fd2bce97cbad1d24706dc50d7",
+      "originalBytes": 55366,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "17:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+      "role": "valid",
+      "path": "paths-17.request.json",
+      "bytes": 55369,
+      "sha256": "126c2f5adc54f188271be69914fa2f9963ccb047cae527d99922c855ebf08b55",
+      "originalSha256": "16b12b2ef2c7cfdb42e6cd068e6c16927b1adbe9fde92b2a8dcc9c7e0764de30",
+      "originalBytes": 55354,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "18:left_root_distinguishes_absence_and_retains_native_match_inventory",
+      "role": "valid",
+      "path": "paths-18.request.json",
+      "bytes": 55486,
+      "sha256": "99c9a532b2738a49db8379916b97fd580733c8916b6aab616e4cad4d54c956dc",
+      "originalSha256": "5b6a992f8ae144ca36ea0f326f4e3e195aaa545d464bf7f95d36356a9ba1bb68",
+      "originalBytes": 55471,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "19:explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "role": "valid",
+      "path": "paths-19.request.json",
+      "bytes": 55415,
+      "sha256": "c486b92b9942da4254c449ea893a6d154763922da2041169d21d956750804762",
+      "originalSha256": "a045ffb00fc863b995350eb63c809fad5e44cd246bc204deaa856fe82655f4be",
+      "originalBytes": 55400,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "paths",
+      "id": "20:global_count_kind_inventory_and_empty_formula_are_selected",
+      "role": "valid",
+      "path": "paths-20.request.json",
+      "bytes": 55430,
+      "sha256": "a175f3394beb6841f0ef908d53172dcc65eb35e3b07f70df5f336144af4407e6",
+      "originalSha256": "4dd0f91e344e9b49eec5ded6f2905aa5965af74f497c366e6478c8005aa13f34",
+      "originalBytes": 55415,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "integer-expression",
+      "role": "valid",
+      "path": "paths-21.request.json",
+      "bytes": 55399,
+      "sha256": "ea5e9f3708a1c03e2b411fee79f3ea6b2ce019c775cab526564414494a304f72",
+      "originalSha256": "543698b8d5f92cf8bc0202a4e554e9602e491d507016ad3ab0a341b5466f26c5",
+      "originalBytes": 55384,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "decimal-expression",
+      "role": "valid",
+      "path": "paths-22.request.json",
+      "bytes": 5745,
+      "sha256": "fe3da5ede924129f8e2c9ad09b9920fbdecb2b650a05fdad7efef2718549e25d",
+      "originalSha256": "4059ca4e7b2d45a7791c98f841aed50d12bf747c381086cd617bd8db9696249d",
+      "originalBytes": 5730,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "boolean-direct",
+      "role": "valid",
+      "path": "paths-23.request.json",
+      "bytes": 5731,
+      "sha256": "a4df87f1ab869544d4b1c606d2818992b024ab52105adb68ebb042746ba8513c",
+      "originalSha256": "5a974e01e00e4a43d95046ce3594d84ca04bdcdfc5dc1481f87128855c7dfe37",
+      "originalBytes": 5716,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "optional-projection",
+      "role": "valid",
+      "path": "paths-24.request.json",
+      "bytes": 2231,
+      "sha256": "a484f3feda730bce152dcf957bd16d0bd7cd58ed8764a04961e4f8a37c5a775a",
+      "originalSha256": "9d6c1f3247078df33a1175358c166b4acaa70704f19a2e3b54785f5b2e797262",
+      "originalBytes": 2216,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "optional-null-predicate",
+      "role": "valid",
+      "path": "paths-25.request.json",
+      "bytes": 2253,
+      "sha256": "152db54029491dde3afc38a3a8e5e3f3459add7ce91c59f074a90d8c1f513cc1",
+      "originalSha256": "76b3400ca21955dfbf7b787d001f5de313dd5fc656d043debabb22dd39944f71",
+      "originalBytes": 2238,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "optional-string-join",
+      "role": "valid",
+      "path": "paths-26.request.json",
+      "bytes": 2271,
+      "sha256": "41ff57911079f4da45ff19b54f2a4f3c0a3227e222f2210d454adc620994d218",
+      "originalSha256": "03b45d1c1d754eaea8af7dcaaf4f71a8311a5e75c8934df07dfafed7e2c9edc1",
+      "originalBytes": 2256,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "numeric-property-join",
+      "role": "valid",
+      "path": "paths-27.request.json",
+      "bytes": 5764,
+      "sha256": "1df1d58745645f972e7e82267502548d8ec1df1888767466fdd7cbbcd552bcee",
+      "originalSha256": "9239146199365f1028ef73d9237b3514f58a99c798cd675b058d7125f6544451",
+      "originalBytes": 5749,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "string-lex-in",
+      "role": "valid",
+      "path": "paths-28.request.json",
+      "bytes": 55371,
+      "sha256": "8cb431954c15cc6181465d12221425fa5f3dc17844c590fb55e0e78a37329882",
+      "originalSha256": "63c40cf544202f046e07a5bdcff489cb3a7ad263d10cc61d2c8bddee7462e367",
+      "originalBytes": 55356,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "paths",
+      "id": "optional-count-distinct",
+      "role": "valid",
+      "path": "paths-29.request.json",
+      "bytes": 2252,
+      "sha256": "d7189e75b01ee1ffa1c58650543d6fad74e48f273ffbdab126f0a12403523892",
+      "originalSha256": "61f1e74bcd77ab76144270f3e5ceef4edebf6490faec863ea577d70079842415",
+      "originalBytes": 2237,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "controls",
+      "id": "candidate-opt-out",
+      "role": "valid",
+      "path": "controls-00.request.json",
+      "bytes": 55390,
+      "sha256": "b693156fe3cb5de6a2c42f5d0649b3a48252afe27d7beb54b620027ffa6ad9f0",
+      "originalSha256": "1a15d83d1b0cc07f423a3a7bfd9a209e1f0d29b25aeef41120cdcd91416c4e7e",
+      "originalBytes": 55375,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "unknown-backend",
+      "role": "valid",
+      "path": "controls-01.request.json",
+      "bytes": 55386,
+      "sha256": "b9e9b64df2ff42803f12634b6ebb4d754a7b4a8baa25cc40f843fafd056ae85e",
+      "originalSha256": "ea3020d06f48f4ff89834413d384ebbafbebcf1a870658f9d0be82426d5b7378",
+      "originalBytes": 55376,
+      "targetChanges": [
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "wrong-backend-version",
+      "role": "valid",
+      "path": "controls-02.request.json",
+      "bytes": 55369,
+      "sha256": "ecd399e988dbcf88ad334c015e9afc7b185cf75dde197d356208962998d4ece1",
+      "originalSha256": "6c0fdd88cc8ccf05a066d885b4770d24e1f5b1c4c9c69bda4e3368cb9895ba18",
+      "originalBytes": 55359,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "wrong-profile",
+      "role": "valid",
+      "path": "controls-03.request.json",
+      "bytes": 55375,
+      "sha256": "36dc8ecf120b1eb96ce0c0059d960deabc1edcb7c4f9333fe1e4072b57a31fd4",
+      "originalSha256": "67ad76d2523284f34087dc1a4d2cd7eb1875f6aecfdbf3a8df314e52f86f3e03",
+      "originalBytes": 55365,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "unknown-envelope-member",
+      "role": "invalid",
+      "path": "controls-04.request.json",
+      "bytes": 55415,
+      "sha256": "003b68469eb0641afb37b85d1e099e2f54989ec3c62401e85d5b41f9651ec429",
+      "originalSha256": "b62a0e14776bd4e7698bc89ce779689ef1cd1859a98119303fb03c97338b422c",
+      "originalBytes": 55400,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "mismatched-interface-dialect",
+      "role": "invalid",
+      "path": "controls-05.request.json",
+      "bytes": 55389,
+      "sha256": "459cbc03ab74515e60106e756cbdc13e024cfd5ae27e2d87340a2fbb8c9ff70e",
+      "originalSha256": "f850d2e9c120c408e9726054b5072f223a2be7a2c1f1e941ac88fda1ac91d3fb",
+      "originalBytes": 55374,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "binding-digest-mismatch",
+      "role": "valid",
+      "path": "controls-06.request.json",
+      "bytes": 55389,
+      "sha256": "7a69f0e56c4a2159f4b1f9fcf4bd46d5a30a2f901da8b2da8f0d5fafd6586db3",
+      "originalSha256": "743d4887e074834582d03aeb7a2266e4c4652db3e274ec2c53aadf7a8d6176ab",
+      "originalBytes": 55374,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "model-digest-mismatch",
+      "role": "valid",
+      "path": "controls-07.request.json",
+      "bytes": 55389,
+      "sha256": "91c73a4bfac895366b7b6bdc41f947db82b31261e851ae73917e383217b30015",
+      "originalSha256": "0ee108dbc9ea0e520b7cf4a0d241a1501ef4e56c8b57014c163f56432e3becaf",
+      "originalBytes": 55374,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "sql-byte-limit",
+      "role": "valid",
+      "path": "controls-08.request.json",
+      "bytes": 120791,
+      "sha256": "524bdfcae88c39e5676e39c72619887fc32b855748099a529a0042b0092c4900",
+      "originalSha256": "b4905a553f854248afc121486a1d798e09c160e7bfc93b4ccc043593215594a0",
+      "originalBytes": 120776,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "binding-byte-limit",
+      "role": "valid",
+      "path": "controls-09.request.json",
+      "bytes": 4225886,
+      "sha256": "4415edd890c076e462d0912d75492458fbe495eeff5883e574321e6d1ccdf3ce",
+      "originalSha256": "3e6655a76ea17a158946a06280e4ceb49d8be56956b6368b637686e66f4e7a86",
+      "originalBytes": 4225871,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "duplicate-envelope-member",
+      "role": "invalid",
+      "path": "controls-10.request.json",
+      "bytes": 55429,
+      "sha256": "033b31c7ce084198bb5b8c7acedb31b348e76594ee0745617a354ad02c430009",
+      "originalSha256": "cbc36180fe5cba9edfbdfa387b3c38b2432a34095442bbad02a90718641309f2",
+      "originalBytes": 55414,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "missing-publication",
+      "role": "valid",
+      "path": "controls-11.request.json",
+      "bytes": 55358,
+      "sha256": "c6988f6811b00490306fcb251e6fb2259685dbc611f78d87a7a63329dad3afef",
+      "originalSha256": "0e219a344cb724ee7097751ffb244aa6e0f74ee8c603a0c1b5a928c11eb19546",
+      "originalBytes": 55343,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "negative-table-version",
+      "role": "valid",
+      "path": "controls-12.request.json",
+      "bytes": 55390,
+      "sha256": "96a0c7abbd3b2fa92cdbe655376e6a87e121affdddf3691347f4b4b59e7337f3",
+      "originalSha256": "96983a4111e01e32391ec54c5b7a55a14bcf52bee23da3f26d6bf0c4e77011e9",
+      "originalBytes": 55375,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "duplicate-table-uuid",
+      "role": "valid",
+      "path": "controls-13.request.json",
+      "bytes": 55496,
+      "sha256": "bbbda80fa71902ad695809246c1cc955d0d74da6aee3b6c93a4ee84dc7173a93",
+      "originalSha256": "6b5a66ca6413b24f40795ff7f4558987bf8bcf50a30ef91d697a7f7896950b16",
+      "originalBytes": 55481,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "missing-table-mapping",
+      "role": "valid",
+      "path": "controls-14.request.json",
+      "bytes": 55391,
+      "sha256": "fcb447fa4dc175d2a66435d603d721f0003d12e8330fae148e40ed03d84bb671",
+      "originalSha256": "6153c47e7d2b54a356208e8f55b22ce09a2260fd1aa1a4878ca85c49f0bc5a3f",
+      "originalBytes": 55376,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "inconsistent-model-pin",
+      "role": "valid",
+      "path": "controls-15.request.json",
+      "bytes": 55349,
+      "sha256": "30ebb84498ed300ce6fb31a642ccca64f89e8ce8f63caf461305e16ece1dee13",
+      "originalSha256": "9aa3c92f60c7c3b673e1967f82afcefad0b68c9c1501985edee6ec7a5bf4fe64",
+      "originalBytes": 55334,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "blocked"
+    },
+    {
+      "scope": "controls",
+      "id": "fresh-binding-0",
+      "role": "valid",
+      "path": "controls-16.request.json",
+      "bytes": 55396,
+      "sha256": "6a4a3ecc7a6cb82dc96f30dec8db760f2aed04693a061bb19336ef069d5ada85",
+      "originalSha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face",
+      "originalBytes": 55381,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "controls",
+      "id": "fresh-binding-1",
+      "role": "valid",
+      "path": "controls-17.request.json",
+      "bytes": 55396,
+      "sha256": "bf6efc31def36c5836f0343a624e2b25fe9b4a6937b0fd50c0a0b2354eae58d5",
+      "originalSha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987",
+      "originalBytes": 55381,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    },
+    {
+      "scope": "controls",
+      "id": "fresh-binding-2",
+      "role": "valid",
+      "path": "controls-18.request.json",
+      "bytes": 55400,
+      "sha256": "35c6250085135afb15308140971ab0d503a86898571cf35ec0a8fabbe0ceece6",
+      "originalSha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4",
+      "originalBytes": 55385,
+      "targetChanges": [
+        {
+          "field": "/target/backendId",
+          "before": "ashlar.databricks.paths",
+          "after": "ashlar.databricks.paths-keys"
+        },
+        {
+          "field": "/target/backendVersion",
+          "before": "0.4.0-paths-candidate",
+          "after": "0.4.0-paths-keys-candidate"
+        },
+        {
+          "field": "/target/targetProfile",
+          "before": "spark4-delta4-paths-candidate",
+          "after": "spark4-delta4-paths-keys-candidate"
+        }
+      ],
+      "expectedStatus": "compiled"
+    }
+  ],
+  "scope": "49 explicitly authored target selections only. Original SQL, model/module, options, binding strings/digests and malformed raw duplicate members preserved. No compiler execution or expected response acceptance."
+}

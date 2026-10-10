@@ -1,0 +1,741 @@
+{
+  "verdict": "ACCEPT twelve exact captured full response bytes as finite regression expectations",
+  "scope": "Paths21–29 and controls16–18 only. Pure artifact/source/contract review, no compiler or SQL/native execution, no full corpus/index/install/native qualification.",
+  "capture": {
+    "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/capture.json",
+    "bytes": 24241,
+    "sha256": "3d673253febec1481eea72f7c5fdefed6db7f0417c978376bc2565b0a990c8a6"
+  },
+  "inputs": {
+    "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/manifest.json",
+    "bytes": 46347,
+    "sha256": "09aaea18917745c53c5f7aabb035865330f3f10b927e85be126f8f1ba0535238"
+  },
+  "originalAcceptedBundle": {
+    "path": "/private/tmp/weft-paths-full-corpus-20261010-c/cases.json",
+    "bytes": 17032500,
+    "sha256": "1cf69c0dfbde7cb8f82e6653c67637157342374bd1ab4114050d93246f21000d"
+  },
+  "sourceCommit": "3a2a79ccc19d636f20d31116662d61365c1b4ff7",
+  "newManifest": {
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/backend-manifest.json",
+    "bytes": 52274,
+    "sha256": "ead2df8de9927765775ec7267a9a1865b1c02ec21c849255ada85c36a645fb84"
+  },
+  "sourceFiles": [
+    {
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/crates/weft-databricks/src/candidate/path_lowering.rs",
+      "bytes": 42148,
+      "sha256": "80f5ea3cdaf195483af8a49d5815228b1a2a6fcdf072aca4152d492f5807a4a1"
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/crates/weft-databricks/src/paths_keys.rs",
+      "bytes": 4001,
+      "sha256": "163e3868b171bdb107444ce2d041e3f2c78b00c1a4512aac8e5cf4a15a07674b"
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source/crates/weft-databricks/src/candidate/related_keys.rs",
+      "bytes": 5908,
+      "sha256": "ed99856f9044b77e2477764d9b1f136cc17a9ff0db6770d6164809f63c62fb13"
+    }
+  ],
+  "priorIndependentAcceptance": [
+    {
+      "path": "/private/tmp/astra-paths-nine-numeric-response-review-20261010-a.json",
+      "bytes": 10522,
+      "sha256": "7e6feef9b1e21164f5060b9a3bcae3b957cd42c77e6b36ca5d7b6aa843e2f51e"
+    },
+    {
+      "path": "/private/tmp/astra-paths-nine-six-semantics-review-20261010-a.json",
+      "bytes": 10892,
+      "sha256": "5a8a2e0e4c8873bb6813d18ec82c55a2b2c4d616e56cf368340b959fe23669f5"
+    },
+    {
+      "path": "/private/tmp/astra-paths-controls-fresh-bindings-review-20261010-a.json",
+      "bytes": 5707,
+      "sha256": "3840d32b393f420e3ebb8c8bbcdb1aa23332d6fd35e1095375da7ed50db47c4f"
+    }
+  ],
+  "accepted": [
+    {
+      "name": "paths-21",
+      "id": "integer-expression",
+      "request": {
+        "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-21.request.json",
+        "bytes": 55399,
+        "sha256": "ea5e9f3708a1c03e2b411fee79f3ea6b2ce019c775cab526564414494a304f72"
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/paths-21.response.json",
+        "bytes": 44157,
+        "sha256": "edf967a939f66b7523124d151327147070b158cbe2470cba1a5ff41ec4552bc6"
+      },
+      "originalRequestSha256": "543698b8d5f92cf8bc0202a4e554e9602e491d507016ad3ab0a341b5466f26c5",
+      "originalAcceptedResponseSha256": "83ac430ad064a6a0c2847814bbbf3718233349f6950a754f698d6df260084e62",
+      "schemaValid": true,
+      "fullResponseCompared": true
+    },
+    {
+      "name": "paths-22",
+      "id": "decimal-expression",
+      "request": {
+        "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-22.request.json",
+        "bytes": 5745,
+        "sha256": "fe3da5ede924129f8e2c9ad09b9920fbdecb2b650a05fdad7efef2718549e25d"
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/paths-22.response.json",
+        "bytes": 16462,
+        "sha256": "d13dbb397ef54eb84bb60ea89c13c374a74059e94c8859b9edaf3b7a55583015"
+      },
+      "originalRequestSha256": "4059ca4e7b2d45a7791c98f841aed50d12bf747c381086cd617bd8db9696249d",
+      "originalAcceptedResponseSha256": "2a443ee5053fbbf0ee4f28f5f9923d2b5804dcfca4d94c9ea01328b0d94b9176",
+      "schemaValid": true,
+      "fullResponseCompared": true
+    },
+    {
+      "name": "paths-23",
+      "id": "boolean-direct",
+      "request": {
+        "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-23.request.json",
+        "bytes": 5731,
+        "sha256": "a4df87f1ab869544d4b1c606d2818992b024ab52105adb68ebb042746ba8513c"
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/paths-23.response.json",
+        "bytes": 10466,
+        "sha256": "1a71e7948659467b2b220e40a1a0fa9472317409d7ed8613509c243f1f74b3f5"
+      },
+      "originalRequestSha256": "5a974e01e00e4a43d95046ce3594d84ca04bdcdfc5dc1481f87128855c7dfe37",
+      "originalAcceptedResponseSha256": "8ea7512847e8866814bc867a64be8f8b697b79fde6cf4c91323180c843a49bd8",
+      "schemaValid": true,
+      "fullResponseCompared": true
+    },
+    {
+      "name": "paths-24",
+      "id": "optional-projection",
+      "request": {
+        "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-24.request.json",
+        "bytes": 2231,
+        "sha256": "a484f3feda730bce152dcf957bd16d0bd7cd58ed8764a04961e4f8a37c5a775a"
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/paths-24.response.json",
+        "bytes": 14043,
+        "sha256": "4b57b432da5cb1d1d190f5947826a1411e6f35d6ce0a68da2b9db41b058d081e"
+      },
+      "originalRequestSha256": "9d6c1f3247078df33a1175358c166b4acaa70704f19a2e3b54785f5b2e797262",
+      "originalAcceptedResponseSha256": "1a57fe22e4a54cfe74a0e64cc4b6e058b723c8b1791173badd92c12bc577cef2",
+      "schemaValid": true,
+      "fullResponseCompared": true
+    },
+    {
+      "name": "paths-25",
+      "id": "optional-null-predicate",
+      "request": {
+        "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-25.request.json",
+        "bytes": 2253,
+        "sha256": "152db54029491dde3afc38a3a8e5e3f3459add7ce91c59f074a90d8c1f513cc1"
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/paths-25.response.json",
+        "bytes": 16709,
+        "sha256": "ff5bf76aaadc10f433e4f6a4290498dbe405e30401384728b38a879920068588"
+      },
+      "originalRequestSha256": "76b3400ca21955dfbf7b787d001f5de313dd5fc656d043debabb22dd39944f71",
+      "originalAcceptedResponseSha256": "8868e6f4ad1197d4fce274c0c5dcc9a8bba39858dff30a00ef3271e3071a122f",
+      "schemaValid": true,
+      "fullResponseCompared": true
+    },
+    {
+      "name": "paths-26",
+      "id": "optional-string-join",
+      "request": {
+        "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-26.request.json",
+        "bytes": 2271,
+        "sha256": "41ff57911079f4da45ff19b54f2a4f3c0a3227e222f2210d454adc620994d218"
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/paths-26.response.json",
+        "bytes": 22763,
+        "sha256": "cec314edb8967ade9eef37ba6719aa2f6dd2711c3be3a7d76365895720c3a548"
+      },
+      "originalRequestSha256": "03b45d1c1d754eaea8af7dcaaf4f71a8311a5e75c8934df07dfafed7e2c9edc1",
+      "originalAcceptedResponseSha256": "e90f3f30e66ad6cf03d94df581722926cd8c526762ad58f79ba16e6bcb6f8ac1",
+      "schemaValid": true,
+      "fullResponseCompared": true
+    },
+    {
+      "name": "paths-27",
+      "id": "numeric-property-join",
+      "request": {
+        "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-27.request.json",
+        "bytes": 5764,
+        "sha256": "1df1d58745645f972e7e82267502548d8ec1df1888767466fdd7cbbcd552bcee"
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/paths-27.response.json",
+        "bytes": 19108,
+        "sha256": "321cfdeb4e1f51b5d1e426dd031b50190466892b3c1b4c87a4bbd688c52164c9"
+      },
+      "originalRequestSha256": "9239146199365f1028ef73d9237b3514f58a99c798cd675b058d7125f6544451",
+      "originalAcceptedResponseSha256": "df1404573518fd4732aafad29399e253277ab2f83803db08827f3b0c761a3e0a",
+      "schemaValid": true,
+      "fullResponseCompared": true
+    },
+    {
+      "name": "paths-28",
+      "id": "string-lex-in",
+      "request": {
+        "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-28.request.json",
+        "bytes": 55371,
+        "sha256": "8cb431954c15cc6181465d12221425fa5f3dc17844c590fb55e0e78a37329882"
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/paths-28.response.json",
+        "bytes": 22838,
+        "sha256": "7a7554b2e4255a4698bdfcf16ca1314d7b66ccfc70c339882e7e0f7fcbc64265"
+      },
+      "originalRequestSha256": "63c40cf544202f046e07a5bdcff489cb3a7ad263d10cc61d2c8bddee7462e367",
+      "originalAcceptedResponseSha256": "f7badddaa0cf9fd3aa687ec8b315b0867fed8a8bd6b01759beafeca367d89637",
+      "schemaValid": true,
+      "fullResponseCompared": true
+    },
+    {
+      "name": "paths-29",
+      "id": "optional-count-distinct",
+      "request": {
+        "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-29.request.json",
+        "bytes": 2252,
+        "sha256": "d7189e75b01ee1ffa1c58650543d6fad74e48f273ffbdab126f0a12403523892"
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/paths-29.response.json",
+        "bytes": 19285,
+        "sha256": "e550817584054ae1f5b5ff0238c22b4ffe88de021271322959bf8e13047b82c4"
+      },
+      "originalRequestSha256": "61f1e74bcd77ab76144270f3e5ceef4edebf6490faec863ea577d70079842415",
+      "originalAcceptedResponseSha256": "66b167c2da9abd87475644141d7cd219c9245bca3e52491e7210438e1579538c",
+      "schemaValid": true,
+      "fullResponseCompared": true
+    },
+    {
+      "name": "controls-16",
+      "id": "fresh-binding-0",
+      "request": {
+        "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-16.request.json",
+        "bytes": 55396,
+        "sha256": "6a4a3ecc7a6cb82dc96f30dec8db760f2aed04693a061bb19336ef069d5ada85"
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/controls-16.response.json",
+        "bytes": 104236,
+        "sha256": "15c4ed8891e42a7726827bb056120d05df64417b871eed630317136f68dbf126"
+      },
+      "originalRequestSha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face",
+      "originalAcceptedResponseSha256": "0825fd12d6e14fe3b60e416a963f18f0dffe5448381959e3d3123a349a171d92",
+      "schemaValid": true,
+      "fullResponseCompared": true
+    },
+    {
+      "name": "controls-17",
+      "id": "fresh-binding-1",
+      "request": {
+        "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-17.request.json",
+        "bytes": 55396,
+        "sha256": "bf6efc31def36c5836f0343a624e2b25fe9b4a6937b0fd50c0a0b2354eae58d5"
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/controls-17.response.json",
+        "bytes": 104236,
+        "sha256": "d52313b9b0d8bd0688f89b5e240faf19f7843af2c1044e69ce093b97582baacc"
+      },
+      "originalRequestSha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987",
+      "originalAcceptedResponseSha256": "081f1f8dede25832b67b54beff271029d3c4f92dcf8b9bebd41ca7270e61d14a",
+      "schemaValid": true,
+      "fullResponseCompared": true
+    },
+    {
+      "name": "controls-18",
+      "id": "fresh-binding-2",
+      "request": {
+        "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-18.request.json",
+        "bytes": 55400,
+        "sha256": "35c6250085135afb15308140971ab0d503a86898571cf35ec0a8fabbe0ceece6"
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/controls-18.response.json",
+        "bytes": 104386,
+        "sha256": "60645fe04feafd5b4d7bc51e1d06cfbe75545a260fb6db6b08c5e9252d8ee160"
+      },
+      "originalRequestSha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4",
+      "originalAcceptedResponseSha256": "b6cf74ef768f4087048e45cf7743dfe6dfc388751fd344bfd765702c123f17d6",
+      "schemaValid": true,
+      "fullResponseCompared": true
+    }
+  ],
+  "finiteLogicalRows": {
+    "integer-expression": [
+      [
+        "-3"
+      ],
+      [
+        "-19"
+      ]
+    ],
+    "decimal-expression": [
+      [
+        "0.250000"
+      ],
+      [
+        "0.500000"
+      ],
+      [
+        "2.500000"
+      ],
+      [
+        "2.500000"
+      ]
+    ],
+    "numeric-property-join": [
+      [
+        "18446744073709551615"
+      ],
+      [
+        "2"
+      ],
+      [
+        "2"
+      ],
+      [
+        "2"
+      ]
+    ],
+    "boolean-direct": [
+      [
+        "true"
+      ],
+      [
+        "false"
+      ],
+      [
+        "true"
+      ]
+    ],
+    "optional-projection": [
+      [
+        "{\"state\":\"value\",\"value\":\"a\"}"
+      ],
+      [
+        "{\"state\":\"value\",\"value\":\"a\"}"
+      ],
+      [
+        "{\"state\":\"value\",\"value\":\"b\"}"
+      ],
+      [
+        "{\"state\":\"null\"}"
+      ],
+      [
+        "{\"state\":\"value\",\"value\":\"\"}"
+      ]
+    ],
+    "optional-null-predicate": [
+      [
+        "{\"state\":\"null\"}"
+      ]
+    ],
+    "optional-string-join": [
+      [
+        "{\"state\":\"value\",\"value\":\"a\"}",
+        "{\"state\":\"value\",\"value\":\"a\"}"
+      ],
+      [
+        "{\"state\":\"value\",\"value\":\"a\"}",
+        "{\"state\":\"value\",\"value\":\"a\"}"
+      ],
+      [
+        "{\"state\":\"value\",\"value\":\"a\"}",
+        "{\"state\":\"value\",\"value\":\"a\"}"
+      ],
+      [
+        "{\"state\":\"value\",\"value\":\"a\"}",
+        "{\"state\":\"value\",\"value\":\"a\"}"
+      ],
+      [
+        "{\"state\":\"value\",\"value\":\"b\"}",
+        "{\"state\":\"value\",\"value\":\"b\"}"
+      ],
+      [
+        "{\"state\":\"value\",\"value\":\"\"}",
+        "{\"state\":\"value\",\"value\":\"\"}"
+      ]
+    ],
+    "optional-count-distinct": [
+      [
+        "3"
+      ]
+    ],
+    "string-lex-in": [
+      [
+        "L10"
+      ],
+      [
+        "L2"
+      ],
+      [
+        "L3"
+      ]
+    ]
+  },
+  "freshBindings": [
+    {
+      "id": "fresh-binding-0",
+      "publication": {
+        "id": "fresh-paths-publication-0",
+        "manifestUuid": "df76d088-a3c3-5e8f-8b85-fcd9cb115a03",
+        "tables": [
+          {
+            "name": [
+              "local_fixture",
+              "new_distribution",
+              "table_0_0"
+            ],
+            "uuid": "ae1fa64e-7026-5a49-bcc4-554715bd74cf",
+            "version": 0
+          },
+          {
+            "name": [
+              "local_fixture",
+              "new_distribution",
+              "table_0_1"
+            ],
+            "uuid": "86c42e00-1c8a-54eb-9320-dfcc42cdfdb3",
+            "version": 0
+          },
+          {
+            "name": [
+              "local_fixture",
+              "new_distribution",
+              "table_0_2"
+            ],
+            "uuid": "caac2516-9876-5e86-bd60-cffad4904cab",
+            "version": 0
+          },
+          {
+            "name": [
+              "local_fixture",
+              "new_distribution",
+              "table_0_3"
+            ],
+            "uuid": "6a3fadb8-d598-5576-8771-e99d782e8885",
+            "version": 0
+          }
+        ]
+      },
+      "newGuard": {
+        "failureCode": "WFT-CAPABILITY",
+        "id": "ashlar.relatedKeys.ordinalCapacity",
+        "owner": "host",
+        "parameters": {
+          "collections": [
+            {
+              "kind": "relatedPaths",
+              "outputPosition": 2
+            }
+          ],
+          "maximum": "99999999999999999999999999999999999999",
+          "nativeRepresentation": "decimal38",
+          "noPartialPublication": true,
+          "phase": "before-user-query",
+          "samePublicationRequired": true,
+          "success": "one exact STRING count equal to 0 per check"
+        }
+      }
+    },
+    {
+      "id": "fresh-binding-1",
+      "publication": {
+        "id": "fresh-paths-publication-1",
+        "manifestUuid": "8cfdb80e-b1d3-58df-b13f-70c20473d810",
+        "tables": [
+          {
+            "name": [
+              "local_fixture",
+              "new_distribution",
+              "table_1_0"
+            ],
+            "uuid": "cfd72202-4bfa-5f24-9f32-0afb9496799e",
+            "version": 7
+          },
+          {
+            "name": [
+              "local_fixture",
+              "new_distribution",
+              "table_1_1"
+            ],
+            "uuid": "8302c300-3d02-579c-9a73-6a9a996297ff",
+            "version": 7
+          },
+          {
+            "name": [
+              "local_fixture",
+              "new_distribution",
+              "table_1_2"
+            ],
+            "uuid": "18bfa071-d63b-52d4-b760-1f67642dbd9e",
+            "version": 7
+          },
+          {
+            "name": [
+              "local_fixture",
+              "new_distribution",
+              "table_1_3"
+            ],
+            "uuid": "9d241787-768a-5f3a-b365-98e2dd060480",
+            "version": 7
+          }
+        ]
+      },
+      "newGuard": {
+        "failureCode": "WFT-CAPABILITY",
+        "id": "ashlar.relatedKeys.ordinalCapacity",
+        "owner": "host",
+        "parameters": {
+          "collections": [
+            {
+              "kind": "relatedPaths",
+              "outputPosition": 2
+            }
+          ],
+          "maximum": "99999999999999999999999999999999999999",
+          "nativeRepresentation": "decimal38",
+          "noPartialPublication": true,
+          "phase": "before-user-query",
+          "samePublicationRequired": true,
+          "success": "one exact STRING count equal to 0 per check"
+        }
+      }
+    },
+    {
+      "id": "fresh-binding-2",
+      "publication": {
+        "id": "fresh-paths-publication-2",
+        "manifestUuid": "7d34f892-31fb-5b0a-92d3-cc5cc62e939f",
+        "tables": [
+          {
+            "name": [
+              "local_fixture",
+              "new_distribution",
+              "table_2_0"
+            ],
+            "uuid": "48717840-ffb4-568e-91cb-572568f572ab",
+            "version": 57
+          },
+          {
+            "name": [
+              "local_fixture",
+              "new_distribution",
+              "table_2_1"
+            ],
+            "uuid": "157c2f11-36cd-5772-8d21-1c9c31cbba87",
+            "version": 57
+          },
+          {
+            "name": [
+              "local_fixture",
+              "new_distribution",
+              "table_2_2"
+            ],
+            "uuid": "e8d98a95-bad5-5ca1-89e6-163164ef139f",
+            "version": 57
+          },
+          {
+            "name": [
+              "local_fixture",
+              "new_distribution",
+              "table_2_3"
+            ],
+            "uuid": "de282eb0-fa2d-543b-a87c-a4d2597daefe",
+            "version": 57
+          }
+        ]
+      },
+      "newGuard": {
+        "failureCode": "WFT-CAPABILITY",
+        "id": "ashlar.relatedKeys.ordinalCapacity",
+        "owner": "host",
+        "parameters": {
+          "collections": [
+            {
+              "kind": "relatedPaths",
+              "outputPosition": 2
+            }
+          ],
+          "maximum": "99999999999999999999999999999999999999",
+          "nativeRepresentation": "decimal38",
+          "noPartialPublication": true,
+          "phase": "before-user-query",
+          "samePublicationRequired": true,
+          "success": "one exact STRING count equal to 0 per check"
+        }
+      }
+    }
+  ],
+  "mutationControls": [
+    {
+      "case": "paths-21",
+      "mutation": "remove numeric capacity guard",
+      "rejected": true
+    },
+    {
+      "case": "paths-21",
+      "mutation": "drop notEqual predicate",
+      "rejected": true
+    },
+    {
+      "case": "paths-22",
+      "mutation": "round original decimal scale6",
+      "rejected": true
+    },
+    {
+      "case": "paths-23",
+      "mutation": "forge Boolean field carrier",
+      "rejected": true
+    },
+    {
+      "case": "paths-24",
+      "mutation": "native null becomes absence",
+      "rejected": true
+    },
+    {
+      "case": "paths-25",
+      "mutation": "invert null predicate",
+      "rejected": true
+    },
+    {
+      "case": "paths-26",
+      "mutation": "drop second positioned output",
+      "rejected": true
+    },
+    {
+      "case": "paths-27",
+      "mutation": "numeric join becomes equality",
+      "rejected": true
+    },
+    {
+      "case": "paths-28",
+      "mutation": "reverse binary order",
+      "rejected": true
+    },
+    {
+      "case": "paths-29",
+      "mutation": "COUNT DISTINCT becomes COUNT",
+      "rejected": true
+    },
+    {
+      "case": "controls-16",
+      "mutation": "remove new full population ordinal guard",
+      "rejected": true
+    },
+    {
+      "case": "controls-16",
+      "mutation": "validate bounded prefix instead of ranked population",
+      "rejected": true
+    },
+    {
+      "case": "controls-16",
+      "mutation": "wrong ordinal output position",
+      "rejected": true
+    },
+    {
+      "case": "controls-16",
+      "mutation": "corrupt fresh binding SHA",
+      "rejected": true
+    },
+    {
+      "case": "controls-16",
+      "mutation": "publication vector truncated",
+      "rejected": true
+    },
+    {
+      "case": "controls-17",
+      "mutation": "remove new full population ordinal guard",
+      "rejected": true
+    },
+    {
+      "case": "controls-17",
+      "mutation": "validate bounded prefix instead of ranked population",
+      "rejected": true
+    },
+    {
+      "case": "controls-17",
+      "mutation": "wrong ordinal output position",
+      "rejected": true
+    },
+    {
+      "case": "controls-17",
+      "mutation": "corrupt fresh binding SHA",
+      "rejected": true
+    },
+    {
+      "case": "controls-17",
+      "mutation": "publication vector truncated",
+      "rejected": true
+    },
+    {
+      "case": "controls-18",
+      "mutation": "remove new full population ordinal guard",
+      "rejected": true
+    },
+    {
+      "case": "controls-18",
+      "mutation": "validate bounded prefix instead of ranked population",
+      "rejected": true
+    },
+    {
+      "case": "controls-18",
+      "mutation": "wrong ordinal output position",
+      "rejected": true
+    },
+    {
+      "case": "controls-18",
+      "mutation": "corrupt fresh binding SHA",
+      "rejected": true
+    },
+    {
+      "case": "controls-18",
+      "mutation": "publication vector truncated",
+      "rejected": true
+    }
+  ],
+  "checks": [
+    "All original request bytes preserved except exact three explicit target selectors; documentJson, bindingJson, SQL, modules, options unchanged",
+    "Every original accepted full response byte hash bound to prior independent acceptance and original retained outputs",
+    "Nine complete IR/SQL/parameter/column/guard bodies unchanged; only explicit new profile selectors and source-owned target declaration/session metadata differ",
+    "Three complete fresh-binding artifacts preserve full original body including source authority guards and four-table versions0/7/57; add exactly the source-owned per-output DECIMAL38 fullOccurrencePrefix obligation",
+    "New ordinal check independently uses all ranked occurrences and NULL-prefix detection, before user query; no final LIMIT or bounded-prefix population; exact zero String success and same-publication/no-partial-release contract",
+    "All24 request/response schema checks via exact three original schemas with external retrieval refused",
+    "Finite independently authored bag calculations preserve duplicate numeric/property join and optional join rows, native-null vs absent/empty, decimal scale6, unsigned64 comparison, binary String order",
+    "Twenty-five targeted changed SQL/guard/lineage/publication controls rejected by complete acceptance assertions"
+  ],
+  "schemaRuntime": {
+    "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+    "jsonschema": "4.23.0",
+    "referencing": "0.35.1",
+    "schemaSha256": {
+      "compile-request-v0.4.schema.json": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932",
+      "compile-response-v0.4.schema.json": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140",
+      "logical-plan-v0.4.schema.json": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    }
+  },
+  "limits": [
+    "Finite mathematical calculations are not native observations. Native actual table existence and host obligations remain unestablished here.",
+    "Ordinal source reasoning covers fixed two-hop fresh-binding artifacts; no one-hop candidate acceptance or general overflow execution test.",
+    "Prior semantic acceptance reused only after exact original byte custody and complete new-response allowed-delta comparison; no expectations generated by invoking the tested compiler."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-paths-keys-twelve-response-review-20261010-b.py",
+    "bytes": 15101,
+    "sha256": "b21f27c2488385722e14f8dadb329fd758b9ded2ce9656e2ee62f5a68af5913d"
+  }
+}

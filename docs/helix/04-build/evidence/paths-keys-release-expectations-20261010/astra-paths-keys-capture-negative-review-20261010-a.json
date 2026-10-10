@@ -1,0 +1,27 @@
+{
+  "candidateSource": {
+    "bytes": 5065,
+    "path": "/private/tmp/astra-paths-keys-capture-negative-source-20261010-a.py",
+    "sha256": "038e5cb8732e1b7529c9ca1da5926bfecff2e27d7837269f655a7e6555339fa5"
+  },
+  "command": "PYTHONDONTWRITEBYTECODE=1 /usr/bin/python3 -B -S -W error::ResourceWarning /private/tmp/astra-paths-keys-capture-negative-controls-20261010-a.py",
+  "findings": [
+    "Actual main with fake capture/input: input close OSError replaces capture KeyboardInterrupt.",
+    "Actual main with fake capture/closing drift: read-only primary marker assignment replaces original KeyboardInterrupt with AttributeError.",
+    "Actual main with fake capture: global output cap checked only after retaining bytes beyond cap."
+  ],
+  "format": "independent-capture-negative-controls/0.1",
+  "log": {
+    "bytes": 309,
+    "path": "/private/tmp/astra-paths-keys-capture-negative-controls-20261010-a.log",
+    "sha256": "10975f523d4a885aacc4c165274befac0452954bf0c8692eccc3f1492fab9c2a"
+  },
+  "scope": "Only fake ports and temporary files; no compiler, source corpus, Cargo or native execution.",
+  "script": {
+    "bytes": 3276,
+    "path": "/private/tmp/astra-paths-keys-capture-negative-controls-20261010-a.py",
+    "sha256": "cadfc5759f608d3d3fe66a464b39e7274bc2a85c7b7baf5858802a877e64b8f5"
+  },
+  "testsRun": 3,
+  "verdict": "A-refused-superseded"
+}

@@ -1,0 +1,35 @@
+{
+  "checks": [
+    "All13 listed entries have exact stored hashes/lengths and all12 identity copies equal originals.",
+    "Single gzip member has no trailing or concatenated data and decodes to exact17139362B/hash.",
+    "Every49 ordered raw request and actualresponse byte sequence matches separately accepted capture; not reserialized payloads.",
+    "Source/binary/counts/childstderr scope exact. Outer warning explicitly retained as historical diagnostic rather than empty-parent-stderr claim.",
+    "Selected archive retains superseded A plan/failure review and B approved execution without altering historical contents."
+  ],
+  "copyChecks": {
+    "closedDirectoryInventory": true,
+    "decodedBytes": 17139362,
+    "rawPairByteEquality": true,
+    "rawRequestResponsePairs": 49,
+    "singleMemberGzip": 1,
+    "verbatimOriginalFiles": 12
+  },
+  "fileCountIncludingInventory": 14,
+  "findings": [],
+  "limitations": [
+    "Selected evidence bundle; referenced external scripts, runtime, schemas, source exports, negative logs and parent full-check row inventory are not all vendored.",
+    "No actual74 corpus qualification/package/index/native/install authority granted. No compiler/native replay occurred in copy review."
+  ],
+  "manifest": {
+    "bytes": 4326,
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/paths-keys-release-expectations-20261010/inventory.json",
+    "sha256": "e5f0f2b58f55a78fc73c6684888ecac01e72f3905c02ba0b844f98123b8324e7"
+  },
+  "script": {
+    "bytes": 3258,
+    "path": "/private/tmp/astra-paths-keys-release-archive-review-20261010-a.py",
+    "sha256": "95efe7a864abf9b0204e1ca639162c22953b8a524078081e5c595a89411650f8"
+  },
+  "totalStoredBytes": 636539,
+  "verdict": "APPROVE exact selected14-file release-expectations archive copy"
+}

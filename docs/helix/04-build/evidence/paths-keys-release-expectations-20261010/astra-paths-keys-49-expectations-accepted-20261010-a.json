@@ -1,0 +1,114 @@
+{
+  "acceptanceBasis": [
+    "All20 blocked full raw response bytes remain identical to accepted original responses.",
+    "All29 compiled full responses equal original accepted payloads except exact source-owned profile declarations/target-context addition and new required ordinalCapacity obligation. No expected response bytes rewritten.",
+    "Entire original SQL, every parameter/order/origin, logical IR/model/binding identities, columns, old obligations and guard SQL remain exact.",
+    "New full-population ordinal inventories derive from every selected collection output; each guard uses exact same unbounded ranked CTE and original full occurrence rows as user SQL, both signed edge ordering components, DECIMAL38 TRY_SUM and full NULL selector without prefix/outer LIMIT narrowing.",
+    "Full response public schema validation49 and applicable valid-request schema validation; exact original module/binding byte digests retained.",
+    "Eight independent malformed mechanism/payload mutations are detected; finite max/max+1 prefix counterexample shows bounded-prefix-only checking misses capacity.",
+    "Child independently checked all12 numeric/optional/fresh-binding full payloads,24 schema validations,nine finite bags,and25 targeted mutations.",
+    "All49 request/response/stderr descriptors were rechecked at aggregate creation. Exact response bytes remain untouched."
+  ],
+  "actualReviewerCommand": [
+    "/private/tmp/truss-python-report-schema-env/bin/python",
+    "-B",
+    "/private/tmp/astra-paths-keys-49-payload-review-20261010-a.py"
+  ],
+  "actualReviewerEnvironmentOverrides": {
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "actualReviewerExitCode": 0,
+  "backendMetadata": {
+    "bytes": 52274,
+    "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/backend-manifest.json",
+    "sha256": "ead2df8de9927765775ec7267a9a1865b1c02ec21c849255ada85c36a645fb84"
+  },
+  "capture": {
+    "bytes": 24241,
+    "path": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b/capture.json",
+    "sha256": "3d673253febec1481eea72f7c5fdefed6db7f0417c978376bc2565b0a990c8a6"
+  },
+  "childSemanticReview": {
+    "bytes": 25281,
+    "path": "/private/tmp/astra-paths-keys-twelve-response-review-20261010-b.json",
+    "sha256": "f1a0a7f0fe945f883894e86e3c64561ed322596fe93c2bbe5b5147730d37f6b8"
+  },
+  "counts": {
+    "blocked": 20,
+    "compiled": 29,
+    "ordinalChecks": 13,
+    "stdoutBytes": 2122683
+  },
+  "findings": [],
+  "format": "independent-expectation-acceptance/0.1",
+  "helix": {
+    "configuration": "Fixed schema/profile/version and complete original binding/model pins; no ambient trust discovery.",
+    "formal": "Finite bag calculations and ordinal prefix countermodel/source correspondence; no unbounded machine or native proof.",
+    "modularity": "Separate producer provenance, compiler profile/source and native host obligation owners remain explicit.",
+    "observability": "Closed redacted blocked payloads and exact stream custody; no OTel receiver assurance."
+  },
+  "limitations": [
+    "This review accepts finite expected fixtures before a fresh whole-corpus replay; it is not the replay itself.",
+    "No compiler/Cargo/database/native execution in this review. No package/index/install/native or complete74-corpus qualification is granted.",
+    "New ordinal SQL is checked structurally against reviewed source and original occurrence CTEs; native DECIMAL38 execution and host-obligation discharge remain separate."
+  ],
+  "originalAcceptedBundle": {
+    "bytes": 17032500,
+    "path": "/private/tmp/ashlar-weft-distribution-d2d/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate/evidence/expected-cases.json",
+    "sha256": "1cf69c0dfbde7cb8f82e6653c67637157342374bd1ab4114050d93246f21000d"
+  },
+  "parentChecks": {
+    "bytes": 44174,
+    "path": "/private/tmp/astra-paths-keys-49-payload-checks-20261010-a.json",
+    "sha256": "6e0baaefa7267a712a563c7732b02d1eb52b6157af84369cac57026a353d5b04"
+  },
+  "priorScopeReferences": [
+    {
+      "bytes": 20298,
+      "path": "/private/tmp/astra-paths-keys-authored-requests-review-20261010-a.json",
+      "sha256": "e549916573183140f31a4fc4f061baa0b10ef43e3103efa658a730b0cbf80fef"
+    },
+    {
+      "bytes": 21951,
+      "path": "/private/tmp/astra-weft-paths-keys-source-review-20261010-a.json",
+      "sha256": "fec3569f8ea280296275753ce2ea2351999b1f9df2447b35b482d827268bac69"
+    },
+    {
+      "bytes": 6487,
+      "path": "/private/tmp/astra-weft-paths-keys-actual-build-review-20261010-a.json",
+      "sha256": "265fd996a24aedbbb1783c61cd6bd04ce0e53a49d9d611d690d6f6ccaf9e1a49"
+    },
+    {
+      "bytes": 11428,
+      "path": "/private/tmp/astra-paths-original-snapshots-parent-review-20261010-a.json",
+      "sha256": "4254f59e2ce0fe09364969b9c4e20554e39735d3f57c72bfcfe4c82f264733d3"
+    },
+    {
+      "bytes": 14861,
+      "path": "/private/tmp/astra-original21-path-five-review-20261010-a.json",
+      "sha256": "620568d2628f7dc61b18d0b4d2cee9d7aa06dd5e5b969c2aae9f55f8d97999bd"
+    },
+    {
+      "bytes": 2767,
+      "path": "/private/tmp/astra-paths-full-corpus-result-review-20261010-c.json",
+      "sha256": "cc5c5e7b67ebc702a3df86e82237eb50a64927131c43d6f7caa3184ffb978923"
+    }
+  ],
+  "requestManifest": {
+    "bytes": 46347,
+    "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/manifest.json",
+    "sha256": "09aaea18917745c53c5f7aabb035865330f3f10b927e85be126f8f1ba0535238"
+  },
+  "reviewerLog": {
+    "bytes": 287,
+    "path": "/private/tmp/astra-paths-keys-49-payload-review-20261010-a.log",
+    "sha256": "3741c7840aa065cd1aa830e74782061afe0c15feb8121a8bc3d23aab0ae46ef9"
+  },
+  "reviewerScript": {
+    "bytes": 11202,
+    "path": "/private/tmp/astra-paths-keys-49-payload-review-20261010-a.py",
+    "sha256": "237582ac6279a05904f004ea973a232ba22deb55edd03d2f50b8adbe7850759c"
+  },
+  "sourceCommit": "3a2a79ccc19d636f20d31116662d61365c1b4ff7",
+  "verdict": "ACCEPT the exact49 captured response byte sequences as finite reviewed regression expectations"
+}

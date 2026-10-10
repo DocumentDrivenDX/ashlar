@@ -1,0 +1,1219 @@
+{
+  "rows": [
+    {
+      "id": "paths:0:explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:1:authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan"
+      ],
+      "newRequiredCapabilities": [
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "ashlar.relatedKeys.ordinalCapacity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:2:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "project",
+        "relationship.inverse",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan"
+      ],
+      "newRequiredCapabilities": [
+        "project",
+        "relationship.inverse",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "ashlar.relatedKeys.ordinalCapacity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:3:distinct_composition_remains_required_string_only",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "order.asc",
+        "project",
+        "project.distinct",
+        "scan",
+        "type.string"
+      ],
+      "newRequiredCapabilities": [
+        "order.asc",
+        "project",
+        "project.distinct",
+        "scan",
+        "type.string"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:4:global_count_kind_inventory_and_empty_formula_are_selected",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "aggregate",
+        "aggregate.count",
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan"
+      ],
+      "newRequiredCapabilities": [
+        "aggregate",
+        "aggregate.count",
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.countCapacity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.countCapacity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "limit",
+        "order.asc",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string"
+      ],
+      "newRequiredCapabilities": [
+        "limit",
+        "order.asc",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "ashlar.relatedKeys.ordinalCapacity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:6:generated_collection_and_guard_sql_are_lexically_closed",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "limit",
+        "order.asc",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string"
+      ],
+      "newRequiredCapabilities": [
+        "limit",
+        "order.asc",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "ashlar.relatedKeys.ordinalCapacity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:7:repeated_logical_labels_retain_the_exact_positioned_host_map",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "project",
+        "project.positionedOutputs",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string"
+      ],
+      "newRequiredCapabilities": [
+        "project",
+        "project.positionedOutputs",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "weft.output.positioned"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "ashlar.relatedKeys.ordinalCapacity",
+        "weft.output.positioned"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:8:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan"
+      ],
+      "newRequiredCapabilities": [
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "ashlar.relatedKeys.ordinalCapacity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "arithmetic.+",
+        "arithmetic.exact.integer",
+        "equal",
+        "filter",
+        "parameter.named",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.integer",
+        "type.integer.unbounded",
+        "type.string"
+      ],
+      "newRequiredCapabilities": [
+        "arithmetic.+",
+        "arithmetic.exact.integer",
+        "equal",
+        "filter",
+        "parameter.named",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.integer",
+        "type.integer.unbounded",
+        "type.string"
+      ],
+      "originalObligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "ashlar.relatedKeys.ordinalCapacity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:10:left_root_distinguishes_absence_and_retains_native_match_inventory",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "equal",
+        "join.left",
+        "order.asc",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string",
+        "value.outerJoinPresence"
+      ],
+      "newRequiredCapabilities": [
+        "equal",
+        "join.left",
+        "order.asc",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string",
+        "value.outerJoinPresence"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "outerJoin.matchIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "ashlar.relatedKeys.ordinalCapacity",
+        "outerJoin.matchIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "aggregate",
+        "aggregate.count",
+        "aggregate.countDistinct",
+        "aggregate.havingCountDistinctGreater",
+        "aggregate.pathTargetDistinctCount",
+        "equal",
+        "filter",
+        "group",
+        "innerJoin",
+        "limit",
+        "order.asc",
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan",
+        "type.string"
+      ],
+      "newRequiredCapabilities": [
+        "aggregate",
+        "aggregate.count",
+        "aggregate.countDistinct",
+        "aggregate.havingCountDistinctGreater",
+        "aggregate.pathTargetDistinctCount",
+        "equal",
+        "filter",
+        "group",
+        "innerJoin",
+        "limit",
+        "order.asc",
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan",
+        "type.string"
+      ],
+      "originalObligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.countCapacity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.countCapacity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:12:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "project",
+        "relationship.inverse",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan"
+      ],
+      "newRequiredCapabilities": [
+        "project",
+        "relationship.inverse",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "ashlar.relatedKeys.ordinalCapacity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:13:explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:14:distinct_composition_remains_required_string_only",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:15:global_count_kind_inventory_and_empty_formula_are_selected",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "aggregate",
+        "aggregate.pathTargetDistinctCount",
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan"
+      ],
+      "newRequiredCapabilities": [
+        "aggregate",
+        "aggregate.pathTargetDistinctCount",
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.countCapacity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.countCapacity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:16:generated_collection_and_guard_sql_are_lexically_closed",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "aggregate",
+        "aggregate.count",
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan"
+      ],
+      "newRequiredCapabilities": [
+        "aggregate",
+        "aggregate.count",
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.countCapacity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.countCapacity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:17:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan",
+        "type.string"
+      ],
+      "newRequiredCapabilities": [
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan",
+        "type.string"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "aggregate",
+        "aggregate.count",
+        "aggregate.pathTargetDistinctCount",
+        "equal",
+        "group",
+        "join.left",
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan",
+        "type.string",
+        "value.outerJoinPresence"
+      ],
+      "newRequiredCapabilities": [
+        "aggregate",
+        "aggregate.count",
+        "aggregate.pathTargetDistinctCount",
+        "equal",
+        "group",
+        "join.left",
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan",
+        "type.string",
+        "value.outerJoinPresence"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.countCapacity",
+        "ashlar.path.occurrenceIntegrity",
+        "outerJoin.matchIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.countCapacity",
+        "ashlar.path.occurrenceIntegrity",
+        "outerJoin.matchIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:19:explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:20:global_count_kind_inventory_and_empty_formula_are_selected",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "aggregate",
+        "aggregate.count",
+        "aggregate.pathTargetDistinctCount",
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan"
+      ],
+      "newRequiredCapabilities": [
+        "aggregate",
+        "aggregate.count",
+        "aggregate.pathTargetDistinctCount",
+        "project",
+        "relationship.pathExpansion",
+        "relationship.twoHopPaths",
+        "scan"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.countCapacity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.countCapacity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:integer-expression",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "and",
+        "arithmetic.*",
+        "arithmetic.-",
+        "arithmetic.compareExact",
+        "arithmetic.exact.integer",
+        "arithmetic.negate",
+        "compare.greaterEqual",
+        "compare.less",
+        "compare.lessEqual",
+        "compare.notEqual",
+        "filter",
+        "order.asc",
+        "project",
+        "scan",
+        "type.integer",
+        "type.integer.unbounded",
+        "type.string"
+      ],
+      "newRequiredCapabilities": [
+        "and",
+        "arithmetic.*",
+        "arithmetic.-",
+        "arithmetic.compareExact",
+        "arithmetic.exact.integer",
+        "arithmetic.negate",
+        "compare.greaterEqual",
+        "compare.less",
+        "compare.lessEqual",
+        "compare.notEqual",
+        "filter",
+        "order.asc",
+        "project",
+        "scan",
+        "type.integer",
+        "type.integer.unbounded",
+        "type.string"
+      ],
+      "originalObligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:decimal-expression",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "arithmetic.*",
+        "arithmetic.exact.decimal",
+        "project",
+        "scan",
+        "type.decimal"
+      ],
+      "newRequiredCapabilities": [
+        "arithmetic.*",
+        "arithmetic.exact.decimal",
+        "project",
+        "scan",
+        "type.decimal"
+      ],
+      "originalObligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:boolean-direct",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "project",
+        "scan",
+        "type.boolean"
+      ],
+      "newRequiredCapabilities": [
+        "project",
+        "scan",
+        "type.boolean"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:optional-projection",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "project",
+        "scan",
+        "type.string",
+        "value.nativeNull",
+        "value.presence"
+      ],
+      "newRequiredCapabilities": [
+        "project",
+        "scan",
+        "type.string",
+        "value.nativeNull",
+        "value.presence"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:optional-null-predicate",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "filter",
+        "predicate.nativeNull",
+        "project",
+        "scan",
+        "type.string",
+        "value.nativeNull",
+        "value.presence"
+      ],
+      "newRequiredCapabilities": [
+        "filter",
+        "predicate.nativeNull",
+        "project",
+        "scan",
+        "type.string",
+        "value.nativeNull",
+        "value.presence"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:optional-string-join",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "compare.nullAwareStringEqual",
+        "innerJoin",
+        "project",
+        "project.positionedOutputs",
+        "scan",
+        "type.string",
+        "value.nativeNull",
+        "value.presence"
+      ],
+      "newRequiredCapabilities": [
+        "compare.nullAwareStringEqual",
+        "innerJoin",
+        "project",
+        "project.positionedOutputs",
+        "scan",
+        "type.string",
+        "value.nativeNull",
+        "value.presence"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity",
+        "weft.output.positioned"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity",
+        "weft.output.positioned"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:numeric-property-join",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "compare.lessEqual",
+        "compare.scalarJoin",
+        "innerJoin",
+        "project",
+        "scan",
+        "type.integer"
+      ],
+      "newRequiredCapabilities": [
+        "compare.lessEqual",
+        "compare.scalarJoin",
+        "innerJoin",
+        "project",
+        "scan",
+        "type.integer"
+      ],
+      "originalObligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:string-lex-in",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "and",
+        "compare.lexicographicGreater",
+        "filter",
+        "order.asc",
+        "predicate.stringIn",
+        "project",
+        "scan",
+        "type.string"
+      ],
+      "newRequiredCapabilities": [
+        "and",
+        "compare.lexicographicGreater",
+        "filter",
+        "order.asc",
+        "predicate.stringIn",
+        "project",
+        "scan",
+        "type.string"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "paths:optional-count-distinct",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "aggregate",
+        "aggregate.countDistinct",
+        "aggregate.countDistinct.optional",
+        "project",
+        "scan",
+        "type.string",
+        "value.nativeNull",
+        "value.presence"
+      ],
+      "newRequiredCapabilities": [
+        "aggregate",
+        "aggregate.countDistinct",
+        "aggregate.countDistinct.optional",
+        "project",
+        "scan",
+        "type.string",
+        "value.nativeNull",
+        "value.presence"
+      ],
+      "originalObligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.arithmetic.exact",
+        "ashlar.candidate.publication",
+        "ashlar.candidate.scalarIntegrity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:candidate-opt-out",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:unknown-backend",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:wrong-backend-version",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:wrong-profile",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:unknown-envelope-member",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:mismatched-interface-dialect",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:binding-digest-mismatch",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:model-digest-mismatch",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:sql-byte-limit",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:binding-byte-limit",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:duplicate-envelope-member",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:missing-publication",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:negative-table-version",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:duplicate-table-uuid",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:missing-table-mapping",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:inconsistent-model-pin",
+      "status": "blocked",
+      "originalRequiredCapabilities": [],
+      "newRequiredCapabilities": [],
+      "originalObligations": [],
+      "newObligations": [],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:fresh-binding-0",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "limit",
+        "order.asc",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string"
+      ],
+      "newRequiredCapabilities": [
+        "limit",
+        "order.asc",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "ashlar.relatedKeys.ordinalCapacity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:fresh-binding-1",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "limit",
+        "order.asc",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string"
+      ],
+      "newRequiredCapabilities": [
+        "limit",
+        "order.asc",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "ashlar.relatedKeys.ordinalCapacity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    },
+    {
+      "id": "controls:fresh-binding-2",
+      "status": "compiled",
+      "originalRequiredCapabilities": [
+        "limit",
+        "order.asc",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string"
+      ],
+      "newRequiredCapabilities": [
+        "limit",
+        "order.asc",
+        "project",
+        "relationship.twoHopPaths",
+        "result.pathOccurrences",
+        "scan",
+        "type.string"
+      ],
+      "originalObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity"
+      ],
+      "newObligations": [
+        "ashlar.candidate.publication",
+        "ashlar.candidate.relationshipIntegrity",
+        "ashlar.candidate.scalarIntegrity",
+        "ashlar.path.occurrenceIntegrity",
+        "ashlar.relatedKeys.ordinalCapacity"
+      ],
+      "scope": "Mechanical inventory, independent complete-payload acceptance pending"
+    }
+  ],
+  "blockedPayloadsEqual": 20,
+  "scope": "No semantic acceptance inferred"
+}

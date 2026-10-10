@@ -1,0 +1,548 @@
+{
+  "format": "paths-keys-expectation-capture-command/0.1",
+  "launcher": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/capture-candidate-expectations-b.py",
+  "resources": [
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/capture-candidate-expectations-b.py",
+      "sha256": "2ef634efb5e7ba4341a2225c0918e59ec72b63759a375aa86f33d3f737b07b94",
+      "bytes": 5871
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/manifest.json",
+      "sha256": "09aaea18917745c53c5f7aabb035865330f3f10b927e85be126f8f1ba0535238",
+      "bytes": 46347
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/weft-paths-keys",
+      "sha256": "471fc5dedc8f8eba3156444d19cc2161fac7a06833672dd5621ed49ead8b522c",
+      "bytes": 8330656
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/launch-reviewed-build.py",
+      "sha256": "1b3ddad1de8da44d2af9593bab1be96361a7167f807b7f1fab01b1d901382892",
+      "bytes": 6214
+    },
+    {
+      "path": "/usr/bin/python3",
+      "sha256": "34129c71a01a74f7f3b2443521519b2e5447553fa187f5fcafaaf8c42cc192e2",
+      "bytes": 200560
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-00.request.json",
+      "sha256": "b693156fe3cb5de6a2c42f5d0649b3a48252afe27d7beb54b620027ffa6ad9f0",
+      "bytes": 55390
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-01.request.json",
+      "sha256": "1350781c09595d0d3cb163e011c3605b8dd60d312417c6344ac4a27c056a0737",
+      "bytes": 5959
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-02.request.json",
+      "sha256": "c0c0132fe8f7e31d255ce4beb438c674a6961ca1bb1820fe56b3436f6a6d26a3",
+      "bytes": 5949
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-03.request.json",
+      "sha256": "d3bfbeb13548a3a8dc95631d6f05ea11bb3f246c6bcb46ff87aab650333fd7b9",
+      "bytes": 55307
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-04.request.json",
+      "sha256": "bb2d5231aae8151b8e76f26b6a5656c098c91daffc33071b0a576abd8e435b64",
+      "bytes": 55381
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-05.request.json",
+      "sha256": "fc7787ca0f3a6a7e7a51e5409b8b35e309fdcbaa8f6da14ce67219d8110dbc60",
+      "bytes": 55389
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-06.request.json",
+      "sha256": "fc7787ca0f3a6a7e7a51e5409b8b35e309fdcbaa8f6da14ce67219d8110dbc60",
+      "bytes": 55389
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-07.request.json",
+      "sha256": "9319b7b67c949c793cce868ad477995f395a9a19c384fea59bb6ce4ee8395cab",
+      "bytes": 55373
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-08.request.json",
+      "sha256": "e747487b7531fbdc7fb46723c52070eb75a5d5be4a90a01e9ea1b8afa4d4eff1",
+      "bytes": 55436
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-09.request.json",
+      "sha256": "cfa402e3339296f119154280d3146fde4db2ae804df00486175824247cb27a14",
+      "bytes": 55452
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-10.request.json",
+      "sha256": "e5c9302a0dc3f27adbc5ed2942eaeefe1e4ae90dc1bd40febac5dfade5a056e2",
+      "bytes": 55423
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-11.request.json",
+      "sha256": "799a1692eb1b5fe8093398e4b316cf713d53f0043fe7f16618a803cc9c712a03",
+      "bytes": 55604
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-12.request.json",
+      "sha256": "2527e0497dd15edba3bbc8fbb025eb68f163459370b97d0ee40312d7b8935b06",
+      "bytes": 5947
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-13.request.json",
+      "sha256": "d411a4293db1ef480322cb52c5b693e83865adc9605d3fcfee3c482b761f6e5b",
+      "bytes": 55393
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-14.request.json",
+      "sha256": "b4831cae77c49626d84bdb7dea78863419fb124571c0cc8282a9651c37823476",
+      "bytes": 55319
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-15.request.json",
+      "sha256": "b884433de1f273a349c207f188dfc57e216b7b2f791c6348b1c59770df427507",
+      "bytes": 55406
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-16.request.json",
+      "sha256": "bb2d5231aae8151b8e76f26b6a5656c098c91daffc33071b0a576abd8e435b64",
+      "bytes": 55381
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-17.request.json",
+      "sha256": "126c2f5adc54f188271be69914fa2f9963ccb047cae527d99922c855ebf08b55",
+      "bytes": 55369
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-18.request.json",
+      "sha256": "99c9a532b2738a49db8379916b97fd580733c8916b6aab616e4cad4d54c956dc",
+      "bytes": 55486
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-19.request.json",
+      "sha256": "c486b92b9942da4254c449ea893a6d154763922da2041169d21d956750804762",
+      "bytes": 55415
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-20.request.json",
+      "sha256": "a175f3394beb6841f0ef908d53172dcc65eb35e3b07f70df5f336144af4407e6",
+      "bytes": 55430
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-21.request.json",
+      "sha256": "ea5e9f3708a1c03e2b411fee79f3ea6b2ce019c775cab526564414494a304f72",
+      "bytes": 55399
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-22.request.json",
+      "sha256": "fe3da5ede924129f8e2c9ad09b9920fbdecb2b650a05fdad7efef2718549e25d",
+      "bytes": 5745
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-23.request.json",
+      "sha256": "a4df87f1ab869544d4b1c606d2818992b024ab52105adb68ebb042746ba8513c",
+      "bytes": 5731
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-24.request.json",
+      "sha256": "a484f3feda730bce152dcf957bd16d0bd7cd58ed8764a04961e4f8a37c5a775a",
+      "bytes": 2231
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-25.request.json",
+      "sha256": "152db54029491dde3afc38a3a8e5e3f3459add7ce91c59f074a90d8c1f513cc1",
+      "bytes": 2253
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-26.request.json",
+      "sha256": "41ff57911079f4da45ff19b54f2a4f3c0a3227e222f2210d454adc620994d218",
+      "bytes": 2271
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-27.request.json",
+      "sha256": "1df1d58745645f972e7e82267502548d8ec1df1888767466fdd7cbbcd552bcee",
+      "bytes": 5764
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-28.request.json",
+      "sha256": "8cb431954c15cc6181465d12221425fa5f3dc17844c590fb55e0e78a37329882",
+      "bytes": 55371
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-29.request.json",
+      "sha256": "d7189e75b01ee1ffa1c58650543d6fad74e48f273ffbdab126f0a12403523892",
+      "bytes": 2252
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-00.request.json",
+      "sha256": "b693156fe3cb5de6a2c42f5d0649b3a48252afe27d7beb54b620027ffa6ad9f0",
+      "bytes": 55390
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-01.request.json",
+      "sha256": "b9e9b64df2ff42803f12634b6ebb4d754a7b4a8baa25cc40f843fafd056ae85e",
+      "bytes": 55386
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-02.request.json",
+      "sha256": "ecd399e988dbcf88ad334c015e9afc7b185cf75dde197d356208962998d4ece1",
+      "bytes": 55369
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-03.request.json",
+      "sha256": "36dc8ecf120b1eb96ce0c0059d960deabc1edcb7c4f9333fe1e4072b57a31fd4",
+      "bytes": 55375
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-04.request.json",
+      "sha256": "003b68469eb0641afb37b85d1e099e2f54989ec3c62401e85d5b41f9651ec429",
+      "bytes": 55415
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-05.request.json",
+      "sha256": "459cbc03ab74515e60106e756cbdc13e024cfd5ae27e2d87340a2fbb8c9ff70e",
+      "bytes": 55389
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-06.request.json",
+      "sha256": "7a69f0e56c4a2159f4b1f9fcf4bd46d5a30a2f901da8b2da8f0d5fafd6586db3",
+      "bytes": 55389
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-07.request.json",
+      "sha256": "91c73a4bfac895366b7b6bdc41f947db82b31261e851ae73917e383217b30015",
+      "bytes": 55389
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-08.request.json",
+      "sha256": "524bdfcae88c39e5676e39c72619887fc32b855748099a529a0042b0092c4900",
+      "bytes": 120791
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-09.request.json",
+      "sha256": "4415edd890c076e462d0912d75492458fbe495eeff5883e574321e6d1ccdf3ce",
+      "bytes": 4225886
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-10.request.json",
+      "sha256": "033b31c7ce084198bb5b8c7acedb31b348e76594ee0745617a354ad02c430009",
+      "bytes": 55429
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-11.request.json",
+      "sha256": "c6988f6811b00490306fcb251e6fb2259685dbc611f78d87a7a63329dad3afef",
+      "bytes": 55358
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-12.request.json",
+      "sha256": "96a0c7abbd3b2fa92cdbe655376e6a87e121affdddf3691347f4b4b59e7337f3",
+      "bytes": 55390
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-13.request.json",
+      "sha256": "bbbda80fa71902ad695809246c1cc955d0d74da6aee3b6c93a4ee84dc7173a93",
+      "bytes": 55496
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-14.request.json",
+      "sha256": "fcb447fa4dc175d2a66435d603d721f0003d12e8330fae148e40ed03d84bb671",
+      "bytes": 55391
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-15.request.json",
+      "sha256": "30ebb84498ed300ce6fb31a642ccca64f89e8ce8f63caf461305e16ece1dee13",
+      "bytes": 55349
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-16.request.json",
+      "sha256": "6a4a3ecc7a6cb82dc96f30dec8db760f2aed04693a061bb19336ef069d5ada85",
+      "bytes": 55396
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-17.request.json",
+      "sha256": "bf6efc31def36c5836f0343a624e2b25fe9b4a6937b0fd50c0a0b2354eae58d5",
+      "bytes": 55396
+    },
+    {
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-18.request.json",
+      "sha256": "35c6250085135afb15308140971ab0d503a86898571cf35ec0a8fabbe0ceece6",
+      "bytes": 55400
+    }
+  ],
+  "requests": [
+    {
+      "name": "paths-00",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-00.request.json",
+      "caseId": "paths:0:explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes"
+    },
+    {
+      "name": "paths-01",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-01.request.json",
+      "caseId": "paths:1:authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops"
+    },
+    {
+      "name": "paths-02",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-02.request.json",
+      "caseId": "paths:2:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions"
+    },
+    {
+      "name": "paths-03",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-03.request.json",
+      "caseId": "paths:3:distinct_composition_remains_required_string_only"
+    },
+    {
+      "name": "paths-04",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-04.request.json",
+      "caseId": "paths:4:global_count_kind_inventory_and_empty_formula_are_selected"
+    },
+    {
+      "name": "paths-05",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-05.request.json",
+      "caseId": "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory"
+    },
+    {
+      "name": "paths-06",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-06.request.json",
+      "caseId": "paths:6:generated_collection_and_guard_sql_are_lexically_closed"
+    },
+    {
+      "name": "paths-07",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-07.request.json",
+      "caseId": "paths:7:repeated_logical_labels_retain_the_exact_positioned_host_map"
+    },
+    {
+      "name": "paths-08",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-08.request.json",
+      "caseId": "paths:8:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard"
+    },
+    {
+      "name": "paths-09",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-09.request.json",
+      "caseId": "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards"
+    },
+    {
+      "name": "paths-10",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-10.request.json",
+      "caseId": "paths:10:left_root_distinguishes_absence_and_retains_native_match_inventory"
+    },
+    {
+      "name": "paths-11",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-11.request.json",
+      "caseId": "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit"
+    },
+    {
+      "name": "paths-12",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-12.request.json",
+      "caseId": "paths:12:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions"
+    },
+    {
+      "name": "paths-13",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-13.request.json",
+      "caseId": "paths:13:explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes"
+    },
+    {
+      "name": "paths-14",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-14.request.json",
+      "caseId": "paths:14:distinct_composition_remains_required_string_only"
+    },
+    {
+      "name": "paths-15",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-15.request.json",
+      "caseId": "paths:15:global_count_kind_inventory_and_empty_formula_are_selected"
+    },
+    {
+      "name": "paths-16",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-16.request.json",
+      "caseId": "paths:16:generated_collection_and_guard_sql_are_lexically_closed"
+    },
+    {
+      "name": "paths-17",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-17.request.json",
+      "caseId": "paths:17:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard"
+    },
+    {
+      "name": "paths-18",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-18.request.json",
+      "caseId": "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory"
+    },
+    {
+      "name": "paths-19",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-19.request.json",
+      "caseId": "paths:19:explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes"
+    },
+    {
+      "name": "paths-20",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-20.request.json",
+      "caseId": "paths:20:global_count_kind_inventory_and_empty_formula_are_selected"
+    },
+    {
+      "name": "paths-21",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-21.request.json",
+      "caseId": "paths:integer-expression"
+    },
+    {
+      "name": "paths-22",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-22.request.json",
+      "caseId": "paths:decimal-expression"
+    },
+    {
+      "name": "paths-23",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-23.request.json",
+      "caseId": "paths:boolean-direct"
+    },
+    {
+      "name": "paths-24",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-24.request.json",
+      "caseId": "paths:optional-projection"
+    },
+    {
+      "name": "paths-25",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-25.request.json",
+      "caseId": "paths:optional-null-predicate"
+    },
+    {
+      "name": "paths-26",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-26.request.json",
+      "caseId": "paths:optional-string-join"
+    },
+    {
+      "name": "paths-27",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-27.request.json",
+      "caseId": "paths:numeric-property-join"
+    },
+    {
+      "name": "paths-28",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-28.request.json",
+      "caseId": "paths:string-lex-in"
+    },
+    {
+      "name": "paths-29",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-29.request.json",
+      "caseId": "paths:optional-count-distinct"
+    },
+    {
+      "name": "controls-00",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-00.request.json",
+      "caseId": "controls:candidate-opt-out"
+    },
+    {
+      "name": "controls-01",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-01.request.json",
+      "caseId": "controls:unknown-backend"
+    },
+    {
+      "name": "controls-02",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-02.request.json",
+      "caseId": "controls:wrong-backend-version"
+    },
+    {
+      "name": "controls-03",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-03.request.json",
+      "caseId": "controls:wrong-profile"
+    },
+    {
+      "name": "controls-04",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-04.request.json",
+      "caseId": "controls:unknown-envelope-member"
+    },
+    {
+      "name": "controls-05",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-05.request.json",
+      "caseId": "controls:mismatched-interface-dialect"
+    },
+    {
+      "name": "controls-06",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-06.request.json",
+      "caseId": "controls:binding-digest-mismatch"
+    },
+    {
+      "name": "controls-07",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-07.request.json",
+      "caseId": "controls:model-digest-mismatch"
+    },
+    {
+      "name": "controls-08",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-08.request.json",
+      "caseId": "controls:sql-byte-limit"
+    },
+    {
+      "name": "controls-09",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-09.request.json",
+      "caseId": "controls:binding-byte-limit"
+    },
+    {
+      "name": "controls-10",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-10.request.json",
+      "caseId": "controls:duplicate-envelope-member"
+    },
+    {
+      "name": "controls-11",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-11.request.json",
+      "caseId": "controls:missing-publication"
+    },
+    {
+      "name": "controls-12",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-12.request.json",
+      "caseId": "controls:negative-table-version"
+    },
+    {
+      "name": "controls-13",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-13.request.json",
+      "caseId": "controls:duplicate-table-uuid"
+    },
+    {
+      "name": "controls-14",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-14.request.json",
+      "caseId": "controls:missing-table-mapping"
+    },
+    {
+      "name": "controls-15",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-15.request.json",
+      "caseId": "controls:inconsistent-model-pin"
+    },
+    {
+      "name": "controls-16",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-16.request.json",
+      "caseId": "controls:fresh-binding-0"
+    },
+    {
+      "name": "controls-17",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-17.request.json",
+      "caseId": "controls:fresh-binding-1"
+    },
+    {
+      "name": "controls-18",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-18.request.json",
+      "caseId": "controls:fresh-binding-2"
+    }
+  ],
+  "binary": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/weft-paths-keys",
+  "cwd": "/private/tmp/weft-paths-keys-authored-requests-20261010-a",
+  "output": "/private/tmp/weft-paths-keys-candidate-responses-20261010-b",
+  "environment": {},
+  "totalDeadlineSeconds": 120,
+  "perCaseDeadlineSeconds": 15,
+  "maximumStreamBytes": 4194304,
+  "maximumTotalOutputBytes": 67108864,
+  "captureDerivation": {
+    "sourceSha256": "1b3ddad1de8da44d2af9593bab1be96361a7167f807b7f1fab01b1d901382892",
+    "changes": [
+      "add explicit caller-owned stdin parameter",
+      "replace DEVNULL with that stdin handle",
+      "Primary-preserving explicit input-handle cleanup",
+      "Best-effort closing-custody annotation",
+      "Shared remaining output budget enforced before writes with one-byte sentinel reads"
+    ],
+    "cleanup": "Existing independently reviewed capture cleanup retained; caller context owns input handle"
+  },
+  "scope": "49 candidate payload captures only after independent command review. No expected-byte qualification or native execution.",
+  "supersedes": {
+    "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/capture-command.json",
+    "sha256": "7751957b1f95e0410f6acfe5c00d283e33fcee6494c836afbec68fa9af3308ad",
+    "scope": "A unexecuted; lifecycle/cap review findings fixed in B"
+  }
+}

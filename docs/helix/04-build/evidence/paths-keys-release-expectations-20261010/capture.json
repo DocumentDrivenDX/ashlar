@@ -1,0 +1,596 @@
+{
+  "commandSha256": "3b1a0d33194cb62810682e3c32dcc97129cfde92b41276cdc078d6a2e16733c9",
+  "records": [
+    {
+      "name": "paths-00",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-00.request.json",
+      "caseId": "paths:0:explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 234,
+        "stderrBytes": 0
+      },
+      "responseSha256": "87b9145e79540aa768a19252eec1f5b4829f78ad6758d6b4cea99893c2bf04b7",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-01",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-01.request.json",
+      "caseId": "paths:1:authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 51301,
+        "stderrBytes": 0
+      },
+      "responseSha256": "d3e4a57f1ebbfe73381ff34d2969bac0f028bf330d7f46735f527ddb9a22ca94",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-02",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-02.request.json",
+      "caseId": "paths:2:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 88690,
+        "stderrBytes": 0
+      },
+      "responseSha256": "cfd5f6da178f531653b80d99d03336fdb3b5bfe2c1476a034b4eee29fa82c42d",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-03",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-03.request.json",
+      "caseId": "paths:3:distinct_composition_remains_required_string_only",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 14756,
+        "stderrBytes": 0
+      },
+      "responseSha256": "f38dfce6b5f82fe32380463bbc3e24923cecda6379a45db2c80f30e0512d7d35",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-04",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-04.request.json",
+      "caseId": "paths:4:global_count_kind_inventory_and_empty_formula_are_selected",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 88653,
+        "stderrBytes": 0
+      },
+      "responseSha256": "a83f451be04f5f81213b8760da48be647eb912b75a9ab895b09cec08ba40f0ef",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-05",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-05.request.json",
+      "caseId": "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 103719,
+        "stderrBytes": 0
+      },
+      "responseSha256": "8769b68b4f509068fe708e30673e3644efd57bac9bfe98d46caf691831451332",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-06",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-06.request.json",
+      "caseId": "paths:6:generated_collection_and_guard_sql_are_lexically_closed",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 103719,
+        "stderrBytes": 0
+      },
+      "responseSha256": "8769b68b4f509068fe708e30673e3644efd57bac9bfe98d46caf691831451332",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-07",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-07.request.json",
+      "caseId": "paths:7:repeated_logical_labels_retain_the_exact_positioned_host_map",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 104750,
+        "stderrBytes": 0
+      },
+      "responseSha256": "6cd426e2e681b3cebb6cdf3e8619b37441302ec2731be3b266401bfaae87dd0d",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-08",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-08.request.json",
+      "caseId": "paths:8:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 128279,
+        "stderrBytes": 0
+      },
+      "responseSha256": "8dcdb55fc251be9060d3e07890cceb71265a280f5745a092cf8c27140d61252e",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-09",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-09.request.json",
+      "caseId": "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 119996,
+        "stderrBytes": 0
+      },
+      "responseSha256": "e9049d0a189b617cb5d0ac2d33a8006e05adfd6256e29eb839ce9bb62913a21d",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-10",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-10.request.json",
+      "caseId": "paths:10:left_root_distinguishes_absence_and_retains_native_match_inventory",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 117985,
+        "stderrBytes": 0
+      },
+      "responseSha256": "b891c6b3dcddd70dcf1a285919b76034a4875b3475df11aeeb2cdd41d0997eda",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-11",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-11.request.json",
+      "caseId": "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 131181,
+        "stderrBytes": 0
+      },
+      "responseSha256": "bfa37afaba6034141bf22214f1cadce9761352ca35030227439528143721dd76",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-12",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-12.request.json",
+      "caseId": "paths:12:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 88680,
+        "stderrBytes": 0
+      },
+      "responseSha256": "12acbe025850ad4eb899879cb16a4174efedd8dfeaa85166cb85e939d1521a5b",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-13",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-13.request.json",
+      "caseId": "paths:13:explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 237,
+        "stderrBytes": 0
+      },
+      "responseSha256": "4a89d8bafe8239dde337cbb208d483c10b040b65c0fe1e5b66ddbcc183e5b734",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-14",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-14.request.json",
+      "caseId": "paths:14:distinct_composition_remains_required_string_only",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 247,
+        "stderrBytes": 0
+      },
+      "responseSha256": "7574daeabb953d8ed86faca3df0bf8658adabf2ec7512874208491447c07c045",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-15",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-15.request.json",
+      "caseId": "paths:15:global_count_kind_inventory_and_empty_formula_are_selected",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 89470,
+        "stderrBytes": 0
+      },
+      "responseSha256": "dc112f158a18013a1e29267866db62c192b138a6ac151a6972292199a024a384",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-16",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-16.request.json",
+      "caseId": "paths:16:generated_collection_and_guard_sql_are_lexically_closed",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 88653,
+        "stderrBytes": 0
+      },
+      "responseSha256": "a83f451be04f5f81213b8760da48be647eb912b75a9ab895b09cec08ba40f0ef",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-17",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-17.request.json",
+      "caseId": "paths:17:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 87770,
+        "stderrBytes": 0
+      },
+      "responseSha256": "0da773c81ab28a433d9dc5d369091b938b6b2b37c09a167c5a0d93fbd9cc0f64",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-18",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-18.request.json",
+      "caseId": "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 117018,
+        "stderrBytes": 0
+      },
+      "responseSha256": "873d7981c4ae4deea6f64892b5967d9472ee2c5fde12cc1c9b988dac1d901766",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-19",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-19.request.json",
+      "caseId": "paths:19:explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 252,
+        "stderrBytes": 0
+      },
+      "responseSha256": "b6ef9bd3caed3c6a1c0f1335ee1f42ff7983ddabde4d59794ee595c7a61bc91c",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-20",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-20.request.json",
+      "caseId": "paths:20:global_count_kind_inventory_and_empty_formula_are_selected",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 94875,
+        "stderrBytes": 0
+      },
+      "responseSha256": "42bb4358a0f62aba59e8476e378bc9787ec6b22f87469a224f2cb97a766480fa",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-21",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-21.request.json",
+      "caseId": "paths:integer-expression",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 44157,
+        "stderrBytes": 0
+      },
+      "responseSha256": "edf967a939f66b7523124d151327147070b158cbe2470cba1a5ff41ec4552bc6",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-22",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-22.request.json",
+      "caseId": "paths:decimal-expression",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 16462,
+        "stderrBytes": 0
+      },
+      "responseSha256": "d13dbb397ef54eb84bb60ea89c13c374a74059e94c8859b9edaf3b7a55583015",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-23",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-23.request.json",
+      "caseId": "paths:boolean-direct",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 10466,
+        "stderrBytes": 0
+      },
+      "responseSha256": "1a71e7948659467b2b220e40a1a0fa9472317409d7ed8613509c243f1f74b3f5",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-24",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-24.request.json",
+      "caseId": "paths:optional-projection",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 14043,
+        "stderrBytes": 0
+      },
+      "responseSha256": "4b57b432da5cb1d1d190f5947826a1411e6f35d6ce0a68da2b9db41b058d081e",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-25",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-25.request.json",
+      "caseId": "paths:optional-null-predicate",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 16709,
+        "stderrBytes": 0
+      },
+      "responseSha256": "ff5bf76aaadc10f433e4f6a4290498dbe405e30401384728b38a879920068588",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-26",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-26.request.json",
+      "caseId": "paths:optional-string-join",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 22763,
+        "stderrBytes": 0
+      },
+      "responseSha256": "cec314edb8967ade9eef37ba6719aa2f6dd2711c3be3a7d76365895720c3a548",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-27",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-27.request.json",
+      "caseId": "paths:numeric-property-join",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 19108,
+        "stderrBytes": 0
+      },
+      "responseSha256": "321cfdeb4e1f51b5d1e426dd031b50190466892b3c1b4c87a4bbd688c52164c9",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-28",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-28.request.json",
+      "caseId": "paths:string-lex-in",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 22838,
+        "stderrBytes": 0
+      },
+      "responseSha256": "7a7554b2e4255a4698bdfcf16ca1314d7b66ccfc70c339882e7e0f7fcbc64265",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "paths-29",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/paths-29.request.json",
+      "caseId": "paths:optional-count-distinct",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 19285,
+        "stderrBytes": 0
+      },
+      "responseSha256": "e550817584054ae1f5b5ff0238c22b4ffe88de021271322959bf8e13047b82c4",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-00",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-00.request.json",
+      "caseId": "controls:candidate-opt-out",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 234,
+        "stderrBytes": 0
+      },
+      "responseSha256": "87b9145e79540aa768a19252eec1f5b4829f78ad6758d6b4cea99893c2bf04b7",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-01",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-01.request.json",
+      "caseId": "controls:unknown-backend",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 231,
+        "stderrBytes": 0
+      },
+      "responseSha256": "40542f7f0e58d7d20561a8bb028750ba806afabbbd4072ff4685cd62550a637b",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-02",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-02.request.json",
+      "caseId": "controls:wrong-backend-version",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 221,
+        "stderrBytes": 0
+      },
+      "responseSha256": "a4cdc4e021690f22fbe95a388e94eb4ad4cff9f8f9dab18dd7a6aaf2def1ec8a",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-03",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-03.request.json",
+      "caseId": "controls:wrong-profile",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 217,
+        "stderrBytes": 0
+      },
+      "responseSha256": "d0d3fea3e62601431d8b906817fc33baf79e92d2a84fd28bde17fdf875c72ef8",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-04",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-04.request.json",
+      "caseId": "controls:unknown-envelope-member",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 221,
+        "stderrBytes": 0
+      },
+      "responseSha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-05",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-05.request.json",
+      "caseId": "controls:mismatched-interface-dialect",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 244,
+        "stderrBytes": 0
+      },
+      "responseSha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-06",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-06.request.json",
+      "caseId": "controls:binding-digest-mismatch",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 205,
+        "stderrBytes": 0
+      },
+      "responseSha256": "394ec73b477602611400490467f3a467086f85b2ed5176e4dff3f7f214a927a6",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-07",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-07.request.json",
+      "caseId": "controls:model-digest-mismatch",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 208,
+        "stderrBytes": 0
+      },
+      "responseSha256": "a95c9a1bb61009de2876973446115fcc2663e253b39dc920cf0c8968d9feced7",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-08",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-08.request.json",
+      "caseId": "controls:sql-byte-limit",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 197,
+        "stderrBytes": 0
+      },
+      "responseSha256": "bfeb1bc5621d1effb5115043da05bef9a2f9eea16b55cf7dd64572807aa487b2",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-09",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-09.request.json",
+      "caseId": "controls:binding-byte-limit",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 203,
+        "stderrBytes": 0
+      },
+      "responseSha256": "7e068aed973872aca01b6ded145e2e9da4a0d9ec0f22803a61ccb83c878cac44",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-10",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-10.request.json",
+      "caseId": "controls:duplicate-envelope-member",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 208,
+        "stderrBytes": 0
+      },
+      "responseSha256": "8de20be1c72ddad538fc75b4ccdad2c8737ba39e1038d7f71a4a3ceec23bae38",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-11",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-11.request.json",
+      "caseId": "controls:missing-publication",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 237,
+        "stderrBytes": 0
+      },
+      "responseSha256": "f3773edfc857b14b20bacd927d6dc9925540273d26c87b8933d234dc56a06549",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-12",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-12.request.json",
+      "caseId": "controls:negative-table-version",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 220,
+        "stderrBytes": 0
+      },
+      "responseSha256": "872facf6012475dfbae54ded3c408427ccd8f5f6f69629ee4022d56c98a53eaa",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-13",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-13.request.json",
+      "caseId": "controls:duplicate-table-uuid",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 220,
+        "stderrBytes": 0
+      },
+      "responseSha256": "872facf6012475dfbae54ded3c408427ccd8f5f6f69629ee4022d56c98a53eaa",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-14",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-14.request.json",
+      "caseId": "controls:missing-table-mapping",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 225,
+        "stderrBytes": 0
+      },
+      "responseSha256": "ba33971febfcaff3bc86d9cdd26e8e99adfdfec4a57d329ec36d3077ef6e23e3",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-15",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-15.request.json",
+      "caseId": "controls:inconsistent-model-pin",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 238,
+        "stderrBytes": 0
+      },
+      "responseSha256": "941b5c4e7e7f17a8805f703fcbfa4db00e8a894d704b153f22bd319c575ca63a",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-16",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-16.request.json",
+      "caseId": "controls:fresh-binding-0",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 104236,
+        "stderrBytes": 0
+      },
+      "responseSha256": "15c4ed8891e42a7726827bb056120d05df64417b871eed630317136f68dbf126",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-17",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-17.request.json",
+      "caseId": "controls:fresh-binding-1",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 104236,
+        "stderrBytes": 0
+      },
+      "responseSha256": "d52313b9b0d8bd0688f89b5e240faf19f7843af2c1044e69ce093b97582baacc",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    },
+    {
+      "name": "controls-18",
+      "path": "/private/tmp/weft-paths-keys-authored-requests-20261010-a/controls-18.request.json",
+      "caseId": "controls:fresh-binding-2",
+      "result": {
+        "exitCode": 0,
+        "stdoutBytes": 104386,
+        "stderrBytes": 0
+      },
+      "responseSha256": "60645fe04feafd5b4d7bc51e1d06cfbe75545a260fb6db6b08c5e9252d8ee160",
+      "scope": "Unaccepted candidate expectation; requires independent payload review"
+    }
+  ],
+  "openingClosingCustody": true,
+  "environmentInherited": false,
+  "scope": "Actual candidate responses only, no qualification acceptance/native support/index authority"
+}
