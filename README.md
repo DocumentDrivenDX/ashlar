@@ -7,7 +7,9 @@ comes from precisely shaped stones that fit together into a larger structure.
 
 **Implementation status:** Development toolkit with local Delta ingest,
 protected PostgreSQL outbox ACK, publication-bound Weft queries, and immutable
-GraphFrames/PuppyGraph projections. See the [qualified query evidence](docs/helix/04-build/evidence/original-pack-weft-null-native-20261009/README.md)
+GraphFrames/PuppyGraph projections. Publication-bound Weft execution covers 16
+of the 17 original archaeology/ecology queries; LEFT JOIN remains pending. See
+the [query qualification table](examples/end-to-end/QUERY-GALLERY.md#qualified-original-query-subsets)
 and [delivery scope](docs/helix/04-build/toolkit-delivery-plan.md) for exact subsets.
 Real Truss integration, Fabric GQL and the remaining query corpus are unfinished.
 Native profiles and production authority require their own qualification.

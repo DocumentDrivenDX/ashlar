@@ -78,3 +78,27 @@ names the actual local source, compiler and runtime scope. It does not qualify
 Databricks deployment, real Truss source authority or another engine. Preserve
 source, ACK, table and file custody through opening, execution and closing checks;
 refuse drift or missing authority instead of reading current table heads.
+
+## Qualified original query subsets
+
+The original archaeology/ecology corpus has publication-bound Weft execution
+evidence for 16 of its 17 authored statements. These results use private local
+Spark 4.0.1 / Delta 4.0.0 publications, exact compiler artifacts, complete result
+bags and held source/ACK/UUID/version guards. Each linked receipt identifies its
+own immutable compiler and source profile; the slices do not imply that an
+arbitrary newer executable is admitted.
+
+| Original corpus subset | Qualified scope | Evidence |
+| --- | --- | --- |
+| Nine scalar, arithmetic, join and positioned-output statements | Exact original statements and ordered output carriers | [Nine-query receipt](../../docs/helix/04-build/evidence/original-pack-weft-nine-native-20261009/custody.json) |
+| Four nullable statements | Selected optional String/Decimal/Integer predicates and exact native-null encoding | [Nullable receipt](../../docs/helix/04-build/evidence/original-pack-weft-null-native-20261009/README.md) |
+| Ecology comparability | Original SELECT DISTINCT statement | [DISTINCT receipt](../../docs/helix/04-build/evidence/original-pack-weft-distinct-native-20261009/README.md) |
+| Ecology connected measurements | Original grouped COUNT DISTINCT statement | [Count receipt](../../docs/helix/04-build/evidence/original-pack-weft-count-native-20261009/README.md) |
+| Archaeology media | Original optional COUNT DISTINCT / HAVING statement, plus five separately scoped controls | [Media receipt](../../docs/helix/04-build/evidence/original-pack-weft-media-native-20261009/README.md) |
+| Archaeology evidence links | LEFT JOIN remains unqualified through Weft | Required remaining statement |
+
+The five media controls are additional checks, not five additional original
+corpus statements. Native authored-SQL, GraphFrames and PuppyGraph results have
+separate engine profiles; they cannot substitute for the remaining Weft case.
+These local receipts do not establish Unity Catalog, Fabric, real Truss source
+authority, general aggregate/null support or production deployment.
