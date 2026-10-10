@@ -1,0 +1,15 @@
+{
+  "id": "umf.schema-browser",
+  "version": "1.0.0",
+  "package": "@documentdrivendx/umf-schema-browser",
+  "license": "MIT OR Apache-2.0",
+  "source_commit": "90d03f40c5435001a895e315eb5515032a9c8d64",
+  "artifacts": [
+    {
+      "reference": "documentdrivendx-umf-schema-browser-1.0.0.tgz",
+      "sha256": "ae319400f48745b868c490948e2bf68cbd7a78e43f31f8d8a3b74d1de1d0f77d",
+      "bytes": 845173
+    }
+  ],
+  "distribution": "Installable software only; no public dataset corpus"
+}

@@ -2,10 +2,16 @@
   "profile": "ashlar-umf-schema-browser/0.1",
   "upstream": {
     "project": "UMF",
-    "revision": "5cc29553b18766d852011de9c1790c4e8d93e34e",
-    "path": "docs/helix/05-deploy/microsite/dist/",
+    "revision": "90d03f40c5435001a895e315eb5515032a9c8d64",
+    "path": "package/assets/",
+    "package": {
+      "name": "@documentdrivendx/umf-schema-browser",
+      "version": "1.0.0",
+      "bytes": 845173,
+      "sha256": "ae319400f48745b868c490948e2bf68cbd7a78e43f31f8d8a3b74d1de1d0f77d"
+    },
     "assets": {
-      "explorer.js": "e2b504dd11e9fa707d39a28a81910d9b90526c90aaaa4b4bca3b392511efac32",
+      "explorer.js": "2b2fb5a7624f121430534306a28ac871b87d8e07acc7731a34214fbed257dcb0",
       "explorer.css": "40fcfcd4e9446b97b94722c0bebea4511d6ac90133cfecd61fcb8da7103b0d2c"
     }
   },
@@ -21,13 +27,16 @@
     "docs/helix/02-design/models/ashlar-delta-runtime/whole_source_history.umf.json": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926",
     "docs/helix/02-design/models/ashlar-delta-runtime/index.json": "3905d10dc5ec5e7bc7297004e9e73e6786e53dbf4d2533ecdd351c0b38ba7679"
   },
-  "generator_sha256": "a010afb2e0f0e2540749c13500d411956c90bdcc54adbd44b71f7d1c54552736",
+  "generator_sha256": "0c74004ec87e1d0dd89fff49ec18b17dbf5313470658b25d83016a2887bf67fa",
   "outputs": {
-    "explorer.js": "e2b504dd11e9fa707d39a28a81910d9b90526c90aaaa4b4bca3b392511efac32",
+    "explorer.js": "2b2fb5a7624f121430534306a28ac871b87d8e07acc7731a34214fbed257dcb0",
     "explorer.css": "40fcfcd4e9446b97b94722c0bebea4511d6ac90133cfecd61fcb8da7103b0d2c",
+    "LICENSE-MIT": "f1409ffd0dff471f9f5078c8f2cc2c070147daae3197812234b5919c1f820702",
+    "LICENSE-APACHE": "c04b4216f1cd4c5a4f7fb2f2a1b0ae70d847e9e0cac7c9dee9bf8cc03177c449",
+    "THIRD_PARTY_NOTICES.md": "e9fd8452254796acd4d6bbe0646b7cde21160acaea921f449ff54423cbff7cc6",
     "schema-catalog.json": "8abe93eb1b9012eecd4deaf318f8ca85fcbb69d920b20c7b80957f7dc44c4e3b",
     "index.html": "30ac5a7324d74055476c73a4b5aac335ed076ae102776f1d0cbbef76d5c2e5d9",
     "host.css": "4c3d274b076fa10e60877036006043b18e1191bbf19d946939a9e8b09f40246e"
   },
-  "qualification": "Pinned upstream browser bundle and stylesheet unchanged. Nine exact original Ashlar UMF sources, including eight physical definitions and one logical model. Browser interpretation is explicitly partial for Delta extensions; no native validation or enforcement claim. Generated/shared UI is outside signed Markdown source coverage."
+  "qualification": "Exact published UMF standalone renderer, stylesheet and license notices. Nine exact original Ashlar UMF sources, including eight physical definitions and one logical model. Browser interpretation is explicitly partial for Delta extensions; no native validation or enforcement claim. Generated/shared UI is outside signed Markdown source coverage."
 }

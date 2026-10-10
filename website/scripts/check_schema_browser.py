@@ -5,9 +5,10 @@ root=Path(__file__).resolve().parents[2];folder=root/'website/static/model/schem
 proof=json.loads((folder/'provenance.json').read_text())
 sha=lambda data:hashlib.sha256(data).hexdigest()
 assert proof['profile']=='ashlar-umf-schema-browser/0.1'
-assert proof['upstream']['revision']=='5cc29553b18766d852011de9c1790c4e8d93e34e'
+assert proof['upstream']['revision']=='90d03f40c5435001a895e315eb5515032a9c8d64'
+assert proof['upstream']['package']=={'name':'@documentdrivendx/umf-schema-browser','version':'1.0.0','bytes':845173,'sha256':'ae319400f48745b868c490948e2bf68cbd7a78e43f31f8d8a3b74d1de1d0f77d'}
 assert proof['generator_sha256']==sha((root/'tools/build_schema_browser.py').read_bytes())
-expected={'explorer.js','explorer.css','index.html','host.css','schema-catalog.json'}
+expected={'explorer.js','explorer.css','index.html','host.css','schema-catalog.json','LICENSE-MIT','LICENSE-APACHE','THIRD_PARTY_NOTICES.md'}
 assert set(proof['outputs'])==expected
 for name,digest in proof['outputs'].items():assert sha((folder/name).read_bytes())==digest,name
 for name in ['explorer.js','explorer.css']:assert proof['outputs'][name]==proof['upstream']['assets'][name]

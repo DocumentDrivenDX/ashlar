@@ -1,0 +1,86 @@
+{
+  "profile": "ashlar-browser-release-freeze/0.1",
+  "base": "941e2c795be9cad7e7290ccdd79e21e751c1e830",
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 270,
+      "sha256": "5ee3dc28b6d671ae4e561f73a5f18c7b506a94ea65b900e0dc15cf9dd4f7e4d5"
+    },
+    {
+      "path": "tools/build_schema_browser.py",
+      "bytes": 4034,
+      "sha256": "0c74004ec87e1d0dd89fff49ec18b17dbf5313470658b25d83016a2887bf67fa"
+    },
+    {
+      "path": "website/scripts/check_schema_browser.py",
+      "bytes": 2054,
+      "sha256": "69278ee4dea0a878529598cba0a651d58e71624ff850d5d700474a2dfaeccbfa"
+    },
+    {
+      "path": "website/README.md",
+      "bytes": 3598,
+      "sha256": "eac5abf8f82af60d601a0fb40d102f29b2384f0d8605935e8d5cbe7f5f2fc0aa"
+    },
+    {
+      "path": "docs/helix/05-deploy/microsite-runbook.md",
+      "bytes": 5388,
+      "sha256": "a5a58a8e9ac9efa58e7c9f3e3d361967dcd2459e955467f4b638229092b414e7"
+    },
+    {
+      "path": "website/static/model/schema-browser/explorer.js",
+      "bytes": 3546315,
+      "sha256": "2b2fb5a7624f121430534306a28ac871b87d8e07acc7731a34214fbed257dcb0"
+    },
+    {
+      "path": "website/static/model/schema-browser/provenance.json",
+      "bytes": 3287,
+      "sha256": "f7dc43af68b99c044465d5349e82dd7b5fc92397dc89ac0b8195d8105bab8195"
+    },
+    {
+      "path": "website/static/model/schema-browser/LICENSE-MIT",
+      "bytes": 1086,
+      "sha256": "f1409ffd0dff471f9f5078c8f2cc2c070147daae3197812234b5919c1f820702"
+    },
+    {
+      "path": "website/static/model/schema-browser/LICENSE-APACHE",
+      "bytes": 11357,
+      "sha256": "c04b4216f1cd4c5a4f7fb2f2a1b0ae70d847e9e0cac7c9dee9bf8cc03177c449"
+    },
+    {
+      "path": "website/static/model/schema-browser/THIRD_PARTY_NOTICES.md",
+      "bytes": 79919,
+      "sha256": "e9fd8452254796acd4d6bbe0646b7cde21160acaea921f449ff54423cbff7cc6"
+    }
+  ],
+  "upstreamMain": "fc85192abf29d416c8b3e56e96abf5c20a498189",
+  "release": "schema-browser-v1.0.0",
+  "packageSha256": "ae319400f48745b868c490948e2bf68cbd7a78e43f31f8d8a3b74d1de1d0f77d",
+  "checks": [
+    {
+      "chunk": "85ad9d",
+      "result": "Published package SHA/size and14safe regularmembers; renderer/CSS exactly equal latestUMFmain"
+    },
+    {
+      "chunk": "f8a565",
+      "result": "Actual package generation and --check PASS"
+    },
+    {
+      "chunk": "ffe70c",
+      "result": "Actual Chromium desktop/mobile9source/download/8record checks PASS"
+    },
+    {
+      "chunk": "5b9474",
+      "result": "Fingerprint guard and gitdiffcheck PASS"
+    }
+  ],
+  "firstFailedCheck": {
+    "chunk": "c6fff4",
+    "result": "Sandbox denied localhost listen; terminal exit1 before browser; unchanged check rerun with local-server approval at freshoutput B succeeded"
+  },
+  "browserReport": {
+    "path": "/private/tmp/ashlar-umf-browser-1-0-0-check-20261010-b/report.json",
+    "sha256": "a59930d378fc861eddc8f5325d5fccbbe9747c73c815d12922007dc3f29a0fee"
+  },
+  "qualification": "Public released standalone renderer on exact9Ashlar original schemas; no frameworkmount/newschema/nativeDelta claims. Licensed source bytes preserved including upstream whitespace."
+}

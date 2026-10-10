@@ -1,0 +1,1331 @@
+{
+  "profile": "ashlar-public-schema-browser-dom/0.1",
+  "browser": "153.0.8010.12",
+  "checks": [
+    {
+      "width": 1440,
+      "id": "ashlar-runtime-logical",
+      "source_sha256": "3b09f2938e94a83c92369a9b1f3b682528db463978fd1ac708c7b376fca4ce57",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:object_current",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:object_current",
+      "source_sha256": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:edge_current",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:edge_current",
+      "source_sha256": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:source_record",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:source_record",
+      "source_sha256": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:property_journal",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:property_journal",
+      "source_sha256": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:tombstone",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:tombstone",
+      "source_sha256": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:publication_manifest",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:publication_manifest",
+      "source_sha256": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:publication_attempt_phase",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:publication_attempt_phase",
+      "source_sha256": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:whole_source_history",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 1440,
+      "id": "ashlar-delta:whole_source_history",
+      "source_sha256": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 1440,
+      "record": "object_current",
+      "orderedOriginalMembers": [
+        [
+          "object_current.source_system",
+          "string · one",
+          "required"
+        ],
+        [
+          "object_current.type_id",
+          "integer · one",
+          "required"
+        ],
+        [
+          "object_current.id",
+          "integer · one",
+          "required"
+        ],
+        [
+          "object_current.logical_key_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.schema_revision",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.entity_version",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "object_current.props_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.retained_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.root_id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "object_current.source_feed",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.source_epoch",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.source_position",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "object_current.published_at",
+          "timestamp · one",
+          "unspecified"
+        ],
+        [
+          "object_current.lookup_hash",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.apply_batch_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.source_cursor_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.source_delivery_id",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 1440,
+      "record": "edge_current",
+      "orderedOriginalMembers": [
+        [
+          "edge_current.source_system",
+          "string · one",
+          "required"
+        ],
+        [
+          "edge_current.rel_type_id",
+          "integer · one",
+          "required"
+        ],
+        [
+          "edge_current.id",
+          "integer · one",
+          "required"
+        ],
+        [
+          "edge_current.source_type",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.source_id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.target_type",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.target_id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.schema_revision",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.entity_version",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.props_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.retained_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.order_key",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.source_feed",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.source_epoch",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.source_position",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.published_at",
+          "timestamp · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.lookup_hash",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.apply_batch_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.source_cursor_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.source_delivery_id",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 1440,
+      "record": "source_record",
+      "orderedOriginalMembers": [
+        [
+          "source_record.source_feed",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.source_epoch",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.delivery_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.record_kind",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.source_cursor_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.payload_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.payload_digest",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.schema_revision",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.received_at",
+          "timestamp · one",
+          "unspecified"
+        ],
+        [
+          "source_record.apply_batch_id",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 1440,
+      "record": "property_journal",
+      "orderedOriginalMembers": [
+        [
+          "property_journal.source_system",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.entity_kind",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.type_id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.property_id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.entity_version",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.operation",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.old_present",
+          "boolean · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.old_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.new_present",
+          "boolean · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.new_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.schema_revision",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.source_feed",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.source_epoch",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.source_position",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.event_ordinal",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.source_time_text",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.published_at",
+          "timestamp · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.apply_batch_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.source_cursor_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.source_delivery_id",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 1440,
+      "record": "tombstone",
+      "orderedOriginalMembers": [
+        [
+          "tombstone.source_system",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.entity_kind",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.type_id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.entity_version",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.source_feed",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.source_epoch",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.source_position",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.source_cursor_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.source_delivery_id",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 1440,
+      "record": "publication_manifest",
+      "orderedOriginalMembers": [
+        [
+          "publication_manifest.publication_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_manifest.profile_version",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_manifest.table_versions_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_manifest.source_progress_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_manifest.schema_revisions_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_manifest.validation_report_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_manifest.recorded_at",
+          "timestamp · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 1440,
+      "record": "publication_attempt_phase",
+      "orderedOriginalMembers": [
+        [
+          "publication_attempt_phase.stream",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_attempt_phase.batch_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_attempt_phase.phase",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_attempt_phase.request_digest",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_attempt_phase.payload_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_attempt_phase.payload_digest",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 1440,
+      "record": "whole_source_history",
+      "orderedOriginalMembers": [
+        [
+          "whole_source_history.feed",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "whole_source_history.epoch",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "whole_source_history.delivery_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "whole_source_history.digest",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "whole_source_history.change_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "whole_source_history.raw_base64",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 390,
+      "id": "ashlar-runtime-logical",
+      "source_sha256": "3b09f2938e94a83c92369a9b1f3b682528db463978fd1ac708c7b376fca4ce57",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:object_current",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:object_current",
+      "source_sha256": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:edge_current",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:edge_current",
+      "source_sha256": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:source_record",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:source_record",
+      "source_sha256": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:property_journal",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:property_journal",
+      "source_sha256": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:tombstone",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:tombstone",
+      "source_sha256": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:publication_manifest",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:publication_manifest",
+      "source_sha256": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:publication_attempt_phase",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:publication_attempt_phase",
+      "source_sha256": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:whole_source_history",
+      "retainedExtensionDisplayExact": true,
+      "unknownDeltaSemanticsExplicit": true
+    },
+    {
+      "width": 390,
+      "id": "ashlar-delta:whole_source_history",
+      "source_sha256": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926",
+      "domOriginalSourceExact": true,
+      "downloadOriginalSourceExact": true,
+      "catalogCount": 9,
+      "noOverflow": true
+    },
+    {
+      "width": 390,
+      "record": "object_current",
+      "orderedOriginalMembers": [
+        [
+          "object_current.source_system",
+          "string · one",
+          "required"
+        ],
+        [
+          "object_current.type_id",
+          "integer · one",
+          "required"
+        ],
+        [
+          "object_current.id",
+          "integer · one",
+          "required"
+        ],
+        [
+          "object_current.logical_key_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.schema_revision",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.entity_version",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "object_current.props_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.retained_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.root_id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "object_current.source_feed",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.source_epoch",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.source_position",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "object_current.published_at",
+          "timestamp · one",
+          "unspecified"
+        ],
+        [
+          "object_current.lookup_hash",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.apply_batch_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.source_cursor_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "object_current.source_delivery_id",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 390,
+      "record": "edge_current",
+      "orderedOriginalMembers": [
+        [
+          "edge_current.source_system",
+          "string · one",
+          "required"
+        ],
+        [
+          "edge_current.rel_type_id",
+          "integer · one",
+          "required"
+        ],
+        [
+          "edge_current.id",
+          "integer · one",
+          "required"
+        ],
+        [
+          "edge_current.source_type",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.source_id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.target_type",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.target_id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.schema_revision",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.entity_version",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.props_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.retained_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.order_key",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.source_feed",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.source_epoch",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.source_position",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.published_at",
+          "timestamp · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.lookup_hash",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.apply_batch_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.source_cursor_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "edge_current.source_delivery_id",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 390,
+      "record": "source_record",
+      "orderedOriginalMembers": [
+        [
+          "source_record.source_feed",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.source_epoch",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.delivery_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.record_kind",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.source_cursor_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.payload_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.payload_digest",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.schema_revision",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "source_record.received_at",
+          "timestamp · one",
+          "unspecified"
+        ],
+        [
+          "source_record.apply_batch_id",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 390,
+      "record": "property_journal",
+      "orderedOriginalMembers": [
+        [
+          "property_journal.source_system",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.entity_kind",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.type_id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.property_id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.entity_version",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.operation",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.old_present",
+          "boolean · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.old_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.new_present",
+          "boolean · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.new_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.schema_revision",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.source_feed",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.source_epoch",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.source_position",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.event_ordinal",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.source_time_text",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.published_at",
+          "timestamp · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.apply_batch_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.source_cursor_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "property_journal.source_delivery_id",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 390,
+      "record": "tombstone",
+      "orderedOriginalMembers": [
+        [
+          "tombstone.source_system",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.entity_kind",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.type_id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.id",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.entity_version",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.source_feed",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.source_epoch",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.source_position",
+          "integer · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.source_cursor_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "tombstone.source_delivery_id",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 390,
+      "record": "publication_manifest",
+      "orderedOriginalMembers": [
+        [
+          "publication_manifest.publication_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_manifest.profile_version",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_manifest.table_versions_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_manifest.source_progress_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_manifest.schema_revisions_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_manifest.validation_report_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_manifest.recorded_at",
+          "timestamp · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 390,
+      "record": "publication_attempt_phase",
+      "orderedOriginalMembers": [
+        [
+          "publication_attempt_phase.stream",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_attempt_phase.batch_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_attempt_phase.phase",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_attempt_phase.request_digest",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_attempt_phase.payload_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "publication_attempt_phase.payload_digest",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    },
+    {
+      "width": 390,
+      "record": "whole_source_history",
+      "orderedOriginalMembers": [
+        [
+          "whole_source_history.feed",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "whole_source_history.epoch",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "whole_source_history.delivery_id",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "whole_source_history.digest",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "whole_source_history.change_json",
+          "string · one",
+          "unspecified"
+        ],
+        [
+          "whole_source_history.raw_base64",
+          "string · one",
+          "unspecified"
+        ]
+      ]
+    }
+  ],
+  "qualification": "Exact nine original source catalogs, DOM raw source and download bytes, ordered logical member/type/cardinality/availability glyphs and desktop/mobile navigation/overflow. Delta extensions remain retained raw source; no native Delta semantics, loader/research pack execution or broad browser library support claim."
+}
