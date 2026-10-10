@@ -1,0 +1,91 @@
+{
+  "profile": "ashlar-commerce-evolution-native-command/0.1",
+  "source_commit": "060692aa7c3b6da9b6913132264f5f4a2c96dbf4",
+  "scope": "Candidate exact native command only; not executed. Root exclusive reservation and reviewed private host/source/writer/PG authority required. No Databricks/cloud/shared service changes.",
+  "cwd": "/private/tmp/ashlar-commerce-evolution-runtime-060692-20261009-a",
+  "environment": {
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "src:tools:/private/tmp/ashlar-spark311/lib/python3.11/site-packages",
+    "JAVA_HOME": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/jdk4py/java-runtime",
+    "SPARK_LOCAL_IP": "127.0.0.1",
+    "PYSPARK_PYTHON": "/private/tmp/ashlar-db-client/bin/python",
+    "PYSPARK_DRIVER_PYTHON": "/private/tmp/ashlar-db-client/bin/python"
+  },
+  "argv": [
+    "/private/tmp/ashlar-db-client/bin/python",
+    "tools/run_commerce_evolution_publication.py",
+    "--output",
+    "/private/tmp/ashlar-commerce-evolution-native-20261009-a",
+    "--jars",
+    "/private/tmp/ashlar-scale-ivy/jars",
+    "--umf-source",
+    "/private/tmp/ashlar-umf-evolution-land-6a292"
+  ],
+  "stdout_stderr_log": "/private/tmp/ashlar-commerce-evolution-native-20261009-a.log",
+  "references": [
+    {
+      "path": "/private/tmp/ashlar-commerce-evolution-committed-runtime-20261009-a.json",
+      "sha256": "d6731047dc9cfa5f4206b4975ff5629826dde0160472ccd119417cd49ae631ae",
+      "bytes": 26716
+    },
+    {
+      "path": "/private/tmp/ashlar-commerce-evolution-native-resource-preflight-20261009-a.json",
+      "sha256": "cc8d4a9c7b4d3334038c4d022faa0ac14e5bafba1429a3b1c6fda27efc9f82e4",
+      "bytes": 802107
+    },
+    {
+      "path": "/private/tmp/ashlar-commerce-evolution-native-import-preflight-20261009.json",
+      "sha256": "7ff538b905259e8d2b79c229aa6dc642b571167efc6b9170e6209f84c5baccf6",
+      "bytes": 8237
+    }
+  ],
+  "cached_native_jars": [
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.delta_delta-spark_2.12-3.2.1.jar",
+      "sha256": "088e187da689a347a6a8556dcb22318e3dfcfb995d807f5e2c19b4d0a7ee9499"
+    },
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.delta_delta-storage-3.2.1.jar",
+      "sha256": "4dcc179fc4076bda5060a4038f979c53e1f5916cf04971e28f9441db390763c7"
+    },
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.graphframes_graphframes-spark3_2.12-0.12.3.jar",
+      "sha256": "69d7909628caf42bcbe1c7e6e5a5a0901040d00583738d931af41bd72af1d3dc"
+    },
+    {
+      "path": "/private/tmp/ashlar-scale-ivy/jars/io.graphframes_graphframes-graphx-spark3_2.12-0.12.3.jar",
+      "sha256": "8bbd2bbb4c7a3b137e51b4f32f49a30a2ccf70eeb07b452cffa20090dd481b96"
+    }
+  ],
+  "postgres_fixture": {
+    "container": "ashlar-e2e-truss-pg17",
+    "id": "37d798c29961d87549baabd1625ad946f45e8f476ade2eef360d7bf1211419c9",
+    "image": "sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545",
+    "purpose": "end-to-end-development",
+    "ports": {
+      "5432/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "15432"
+        }
+      ]
+    },
+    "running": true,
+    "oom_killed": false,
+    "memory_limit": 536870912,
+    "cpu_limit": 1000000000,
+    "observation": "Read-only Docker inspect; no SQL connection, authentication secret omitted. Source/service namespaces must be fresh and admitted during run."
+  },
+  "spark_configuration": {
+    "master": "local[1]",
+    "driver_memory": "512m",
+    "shuffle_partitions": "1",
+    "delta_snapshot_partitions": "1",
+    "timezone": "UTC",
+    "ansi": true,
+    "ui": false
+  },
+  "configuration_origins": "Explicit argv/env and reviewed fixed private fixture configuration; source/core receives typed explicit inputs and does not infer schema compatibility or acknowledge source from environment. Existing authentication is private fixture route, never retained in report.",
+  "required_runtime_guards": "Before execution verify every committed runtime entry and explicit JAR/executable/package/producer source fingerprint; producer HEAD/status exact e44. After stop verify source/runtime/resource vectors unchanged and inspect original Delta operation metadata/full snapshots/PG exact receipts before final release. Ordinary host/OS/Docker and interpreter stdlib remain explicitly trusted private prerequisites.",
+  "qualification": "The imported GF distribution/version and its two cached jars are inherited qualified native fixture dependencies; this runner executes Spark/Delta ingestion, not GraphFrames graph queries. No Python NumPy/pandas execution path is selected. Both driver and workers use Python3.9.6; pure compatible3.5.3 package sources from the existing cached PYTHONPATH, psycopg binary matches CPython3.9."
+}

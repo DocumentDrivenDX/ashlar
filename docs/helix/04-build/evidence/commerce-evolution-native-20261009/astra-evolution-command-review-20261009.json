@@ -1,0 +1,38 @@
+{
+  "commandSha256": "dd32abae6cf4121af90d2c96b4d21d9cd70bfbf750f8410b46da5e9c7b232b68",
+  "sourceCommit": "060692aa7c3b6da9b6913132264f5f4a2c96dbf4",
+  "runtimeFilesGitByteIdentical": 108,
+  "completePortablePackage": true,
+  "eagerToolImportsResolved": true,
+  "loadedLocalModulesVerified": 35,
+  "resourceFilesVerified": {
+    "pyspark": 763,
+    "py4j": 33,
+    "delta": 6,
+    "psycopg": 84,
+    "psycopg_binary": 18,
+    "jdk": 199,
+    "jars": 4,
+    "producer": 1570,
+    "ajv:ajv": 466,
+    "ajv:fast-deep-equal": 11,
+    "ajv:fast-uri": 44,
+    "ajv:json-schema-traverse": 12,
+    "ajv:require-from-string": 4
+  },
+  "sourceProducerHeadClean": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+  "outputAndLogAbsent": true,
+  "noNativeSessionsStarted": true,
+  "archivedRuntimeTests": {
+    "count": 7,
+    "passed": true,
+    "nativeSessionStarted": false
+  },
+  "privatePostgresReadOnlyInspection": {
+    "exactIdImagePurposePortsBudgetsMatched": true,
+    "running": true,
+    "oomKilled": false,
+    "sqlConnectionOpened": false
+  },
+  "previouslyApprovedNativeSourceManifest": "de293503444b966edc29ea532beaca944459c3f9861385c45134b8f868bc783a"
+}

@@ -1,0 +1,23 @@
+{
+  "profile": "ashlar-commerce-evolution-offline-journal/0.1",
+  "scope": "Post-run read-only SQLite observation; no source/engine mutation or semantic authorization inferred. Full original journal retained in native-artifacts.tar.gz.",
+  "journal_sha256": "240a74ef8f35e4fe4d1ac45426369e9e275dd1cea72f54d940d0387e981e47cf",
+  "operation_states": {
+    "committed": 78
+  },
+  "counts": {
+    "local_installation": 1,
+    "local_operation": 78,
+    "local_plan": 8,
+    "local_publication_artifact": 8,
+    "local_source_plan": 8
+  },
+  "native_delta_logs": {
+    "object_current": 14,
+    "edge_current": 10,
+    "whole_source_history": 10,
+    "tombstone": 4,
+    "attempts": 42,
+    "manifest": 10
+  }
+}

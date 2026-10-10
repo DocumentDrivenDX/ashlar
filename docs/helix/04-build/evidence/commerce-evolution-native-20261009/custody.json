@@ -1,0 +1,74 @@
+{
+  "profile": "ashlar-commerce-evolution-native-custody/0.1",
+  "scope": "Exact original native output and immutable command/runtime fingerprints; evidence copies create no semantic/native authority.",
+  "files": [
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-native-20261009/ashlar-commerce-evolution-closing-vector-20261009-a.json",
+      "bytes": 74289,
+      "sha256": "3d58a4493cbb7dc5b48f72604228d2776f17d7d4e7921a9cc6b439cac995f789"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-native-20261009/ashlar-commerce-evolution-committed-runtime-20261009-a.json",
+      "bytes": 26716,
+      "sha256": "d6731047dc9cfa5f4206b4975ff5629826dde0160472ccd119417cd49ae631ae"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-native-20261009/ashlar-commerce-evolution-native-command-20261009-a.json",
+      "bytes": 4730,
+      "sha256": "dd32abae6cf4121af90d2c96b4d21d9cd70bfbf750f8410b46da5e9c7b232b68"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-native-20261009/ashlar-commerce-evolution-native-import-preflight-20261009.json",
+      "bytes": 8237,
+      "sha256": "7ff538b905259e8d2b79c229aa6dc642b571167efc6b9170e6209f84c5baccf6"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-native-20261009/ashlar-commerce-evolution-native-resource-preflight-20261009-a.json",
+      "bytes": 802107,
+      "sha256": "cc8d4a9c7b4d3334038c4d022faa0ac14e5bafba1429a3b1c6fda27efc9f82e4"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-native-20261009/ashlar-commerce-evolution-opening-vector-20261009-a.json",
+      "bytes": 238,
+      "sha256": "35bbad80c1263080a926292461a689ea2b0a5811bb79ec0708152cd468396279"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-native-20261009/astra-evolution-command-review-20261009.json",
+      "bytes": 1155,
+      "sha256": "7fc26450c43491a34d51401dfa5185de0b36a171c01c47143ac906e26d8411a1"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-native-20261009/native-artifacts.tar.gz",
+      "bytes": 23058649,
+      "sha256": "6dcea8662df06b941bd9b976c21b7b6053477f447530400d86bf7ca9079dc93b"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-native-20261009/native.log",
+      "bytes": 949,
+      "sha256": "b97c3757bcb4c28b6fae787bdb574780c7fa6e8446b799ad8d361b7757c950bf"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-native-20261009/offline-journal.json",
+      "bytes": 707,
+      "sha256": "5929d59a1ce694c7c2db7e689b3bdee914bfab4aafe0c4f949010e02cbcbdea3"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-native-20261009/report.json.gz",
+      "bytes": 378782,
+      "sha256": "43a24df4f3df6d10c2afe2908805f3af2b8caaae9aed37fa9bf23db52d49d950"
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-evolution-native-20261009/summary.json",
+      "bytes": 108437,
+      "sha256": "7ae1ad6fe3ed63fee4f4fce31d80bf7da41c835af97644549df63daaeee4b044"
+    }
+  ],
+  "decompressed_report": {
+    "path": "/private/tmp/ashlar-commerce-evolution-native-20261009-a/report.json",
+    "bytes": 3891843,
+    "sha256": "77871e10fb8d52b599f9feca9c2ce8c9e9e1cc85a9258739f2ed4ddf01c71be3"
+  },
+  "archive_members": 374,
+  "archive_full_member_correspondence": "Every member independently compared byte-for-byte with closing-vector original output files.",
+  "original_output_file_count": 375
+}

@@ -1,0 +1,67 @@
+{
+  "scope": "Independent live ordinary protected PG read-only receipt/source binding observation; no mutation or Spark",
+  "sources": [
+    {
+      "feed": "commerce-evolution-a",
+      "ordinaryRole": "ashlar_ack_operator_5eb2515bb0d9",
+      "sourceSignatureMatches": true,
+      "receipts": [
+        {
+          "position": 1,
+          "head": "4",
+          "requestSha256": "7fbb7ec85f93d98724e7b8a63f86e9e4d88b47e9f1358d9b7ddf977658f1f197",
+          "manifestSha256": "6e244bea8f222bc07bafbac3a3d96981475a0608d613a7056a97d8c641227653"
+        },
+        {
+          "position": 2,
+          "head": "4",
+          "requestSha256": "b55004dea9f44816d799206b0794d8f850f8bbc8015b5ed35066a3b2199d9397",
+          "manifestSha256": "97b5f9eaa88be41ea0a2a4764c51b357c3bb130b7526b05384eef62dfeb5b4e0"
+        },
+        {
+          "position": 3,
+          "head": "4",
+          "requestSha256": "9398c2ab9d36b16790c3c783cd0772f40acbe3dea22bbf6c21893a5e75c6fd7d",
+          "manifestSha256": "5f6b4dc184d4089b9a2b9cc4132e13697b8e7bee2d953c6e9da4677fa503b2f3"
+        },
+        {
+          "position": 4,
+          "head": "4",
+          "requestSha256": "c507dbbbb11ed445a985abb3a07c041bf60510117d8c1fa64dfca802e12480dd",
+          "manifestSha256": "1c0c65c66134d85a92188058df0b0504d816239960c78c2e18fcccd627ac6ebb"
+        }
+      ]
+    },
+    {
+      "feed": "commerce-evolution-b",
+      "ordinaryRole": "ashlar_ack_operator_5eb2515bb0d9",
+      "sourceSignatureMatches": true,
+      "receipts": [
+        {
+          "position": 1,
+          "head": "4",
+          "requestSha256": "1719d521f818919ee077d8a3c3dda9aca12dbffac4c34a1559afddc5290256b1",
+          "manifestSha256": "b6f607741c6c6c64cab02bac210040db2f3b4b9033ddf91a65acee953b828b14"
+        },
+        {
+          "position": 2,
+          "head": "4",
+          "requestSha256": "46f4717cc34a453af0d34a1656829364956e4eada88ba5ca3f20c07e1e10733f",
+          "manifestSha256": "319f659ef5674b3ddc37da3b942e2a6837dc0b87dd16ac16a10a5dd75754fa87"
+        },
+        {
+          "position": 3,
+          "head": "4",
+          "requestSha256": "c3c1d61cbe5ebb37ce8850093ad88b321bdee3e7958e381eb50c00052d48eda9",
+          "manifestSha256": "3773bf08f2a1d006839b2112a86c4cd572aa25aeb48850e9da377e149ee60039"
+        },
+        {
+          "position": 4,
+          "head": "4",
+          "requestSha256": "3afc13379cefb493f5fa62791104b9292598cad2ae5683b68af2f6a510921a09",
+          "manifestSha256": "6b124aadd8e3263b70a2305003049ff5fc4e0da019e793ba5d49920accf4200a"
+        }
+      ]
+    }
+  ]
+}

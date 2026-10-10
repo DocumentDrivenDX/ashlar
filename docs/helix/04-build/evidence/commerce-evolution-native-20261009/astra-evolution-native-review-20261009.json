@@ -1,0 +1,26 @@
+{
+  "freezeSha256": "16bd6e35aef24fd0d498f4762224141203ebd12889cc0400ee0cef758120533d",
+  "nativeFiles": 375,
+  "archiveMembers": 374,
+  "publications": 8,
+  "fullRoleSnapshotsIndependentlyRead": 32,
+  "allDeltaSnapshotsRead": 90,
+  "completeJournalOperations": 78,
+  "singleActualNativeLostResponseCommit": [
+    [
+      "local-effect:40978d9e0804dc3944111d067751755c34e5e3ceabe629ea9fc11c852f4b31d0:1",
+      "local.commerce_evolution.object_current",
+      5
+    ]
+  ],
+  "protectedReceiptsMatched": 8,
+  "finalCounts": {
+    "edge_current": 20,
+    "object_current": 22,
+    "tombstone": 4,
+    "whole_source_history": 90
+  },
+  "qualification": "Independent original-source oracle, all native Delta logs/Parquet snapshots, retained SQLite operation custody, and live ordinary SELECT-only protected PG source binding/receipt observation; no Spark rerun",
+  "allSixRoleSchemasAndUuidsMatch": true,
+  "liveProtectedPgReceiptRowsMatched": 8
+}

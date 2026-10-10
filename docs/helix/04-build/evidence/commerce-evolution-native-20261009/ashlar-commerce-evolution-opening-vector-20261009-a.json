@@ -1,0 +1,8 @@
+{
+  "command_sha256": "dd32abae6cf4121af90d2c96b4d21d9cd70bfbf750f8410b46da5e9c7b232b68",
+  "all_runtime_files": 108,
+  "all_resources": 3210,
+  "explicit_jars": 4,
+  "all_hashes_match": true,
+  "native_sessions_before_launcher": false
+}

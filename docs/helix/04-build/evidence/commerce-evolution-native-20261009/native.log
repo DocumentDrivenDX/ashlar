@@ -1,0 +1,8 @@
+26/10/09 22:19:15 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/10/09 22:19:19 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+[Stage 2644:>                                                       (0 + 1) / 2]                                                                                26/10/09 22:25:31 WARN DAGScheduler: Broadcasting large task binary with size 1082.3 KiB
+26/10/09 22:25:34 WARN DAGScheduler: Broadcasting large task binary with size 1082.3 KiB
+26/10/09 22:25:40 WARN DAGScheduler: Broadcasting large task binary with size 1109.3 KiB
+Completed original commerce interleaved publications: 8
