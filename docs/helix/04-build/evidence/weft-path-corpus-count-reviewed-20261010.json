@@ -1,0 +1,59 @@
+{
+  "additionalIndependentControl": {
+    "execution": "Inline read-only reviewer probe using a fresh TemporaryDirectory; no actual compiler or engine.",
+    "fixture": "Existing self-contained CorpusTests setup, append duplicate first backend capability and refresh its required input hash; retain count48 and complete48-key coverage.",
+    "result": "Refusal capability-inventory, output directory absent."
+  },
+  "closingFrozenBytesUnchanged": true,
+  "delta": [
+    "Mandatory Config and CLI declared_capability_count, exact int1..512; boolean excluded.",
+    "Requires both complete backend declaration array length and unique ID count equal explicit declared count.",
+    "Coverage key set must still exactly equal the selected pinned backend capability set; every accepted/refused reference keeps existing checks.",
+    "Emitted receipt retains declaredCapabilityCount beside original backend/case input byte identities.",
+    "No namespace, schema-role, process transport, source custody, expectation or historical migration behavior change."
+  ],
+  "files": [
+    {
+      "bytes": 23087,
+      "path": "scripts/distribution/check-paths-cli.py",
+      "sha256": "2cad04baacb843f22306d0ca1554bd375e70d77e3be0bc85123be56eb923c088"
+    },
+    {
+      "bytes": 12724,
+      "path": "tests/distribution-paths-corpus/test_corpus.py",
+      "sha256": "13fef008d21e669ace93052023f2e66a41c46124bba8ee5a67e83c6e3b71d8f6"
+    }
+  ],
+  "freeze": {
+    "bytes": 752,
+    "path": "/private/tmp/weft-paths-corpus-source-freeze-20261010-e/manifest.json",
+    "sha256": "1f55ef8a15c9612bdbd379774953953cc3a38a450893fefa5bb80ca5e4f2f89d"
+  },
+  "independentTests": {
+    "command": "python3 -S -W error::ResourceWarning -m unittest discover -s tests/distribution-paths-corpus -q",
+    "isolatedSettingsRefused": [
+      0,
+      513,
+      true
+    ],
+    "log": {
+      "bytes": 98,
+      "path": "/private/tmp/astra-paths-corpus-unit-review-20261010-e.log",
+      "sha256": "ba9d9fd9dc46d8c82a62c3b166d3074794a46530da602aa814aa584de77c3a68"
+    },
+    "passed": 23,
+    "positiveProfiles": [
+      47,
+      48
+    ],
+    "terminalExit": 0,
+    "wrongCountWithholdsOutput": true
+  },
+  "priorReviewedSource": {
+    "bytes": 4320,
+    "path": "/private/tmp/astra-paths-corpus-source-review-20261010-d.json",
+    "sha256": "3208c80448e417c8407e0cba91d9d0a51ab1597548222f07d0e1b4251787ddfb"
+  },
+  "scope": "Source-only producer parameterization. Caller-selected count and a structural coverage map do not establish semantic completeness, support, trust or index authority. The new47 realization still needs independently reviewed expectations and coverage followed by actual produced-byte full-corpus execution. Historical D/c6/48 artifacts remain unchanged.",
+  "verdict": "Approved exact two-file E delta: explicit declared capability count for separately selected pinned backend realizations."
+}

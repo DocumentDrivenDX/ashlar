@@ -1,0 +1,79 @@
+{
+  "closingFrozenBytesUnchanged": true,
+  "files": [
+    {
+      "bytes": 22694,
+      "path": "scripts/distribution/check-paths-cli.py",
+      "sha256": "418a500e7bfe5f5e5cef4fd527657b509ab7750fad5914a2312d37c9a282df7f"
+    },
+    {
+      "bytes": 11545,
+      "path": "tests/distribution-paths-corpus/test_corpus.py",
+      "sha256": "eb9b13fd0a78222ac3b948c20899fcc36c3cf598302788095bacaefbce7640e9"
+    }
+  ],
+  "findingsResolved": [
+    "Legacy structured requests and old expected values retained separately; exact source-defined v04 WFT-VERSION refusal used only for selected Paths namespace; historical migrations are not invoked.",
+    "Explicit scope/role schema port preserves invalid raw compiler input controls and original-version namespace request checks.",
+    "Primary cancellation survives protected cleanup; complete process group signaled even on successful leader exit; bounded wait and failure marker.",
+    "Transport stdout/stderr precharged before hex/append/final serialization.",
+    "Receipt binds original cases/backend input digests and lengths, plus source inventory, harness, schema checker and binary pins."
+  ],
+  "freeze": {
+    "bytes": 1267,
+    "path": "/private/tmp/weft-paths-corpus-source-freeze-20261010-d/manifest.json",
+    "sha256": "63c9fd0a080d3c2bd3741655e8bf9144925b4ed8ed6975263249adb6ab5d8f14"
+  },
+  "helixScope": {
+    "configuration": "Required frozen typed paths, digests, counts, byte and time limits; no implicit environment trust or installation authority.",
+    "diagnostics": "Finite source/process/control receipts and bounded child streams; no OTel receiver integration claim.",
+    "formal": "Concrete DIST-F2 correspondence checks and adversarial controls; no unbounded proof or native obligation discharge.",
+    "modularity": "Producer orchestration stays outside compiler crates; schema checking is an explicit owned injected port."
+  },
+  "independentOwnerSuite": {
+    "log": {
+      "bytes": 1882,
+      "path": "/private/tmp/astra-paths-corpus-unit-review-20261010-d.log",
+      "sha256": "98dbc480697de297dc41cec53477e76e1ccd1b4a4c00f66ab12e81f7c904b068"
+    },
+    "resourceWarningsAsErrors": true,
+    "result": "PASS",
+    "tests": 21
+  },
+  "independentSourceControls": {
+    "actualOriginalLegacyRequests": 463,
+    "actualTrackedSourceBytes": 267249597,
+    "actualTrackedSourceFiles": 1839,
+    "fenceResponseBytes": 244,
+    "fenceResponseSha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18",
+    "legacyRequestSchemaVersions": {
+      "weft-compile/0.1.0": 68,
+      "weft-compile/0.2.0": 395
+    },
+    "sourceDerivedFenceSchemaValid": true,
+    "sourceOpeningExactInventory": true
+  },
+  "independentTransportReview": {
+    "bytes": 3710,
+    "path": "/private/tmp/astra-paths-corpus-transport-review-20261010-c.json",
+    "sha256": "3e2672b7677e273c453fcc02ffabb918a6e3fba71602c85f1ae625ed01bbd757"
+  },
+  "limitations": [
+    "No Weft compiler, native engine, build, complete corpus qualification, public index registration or new native qualification occurred during this review.",
+    "The 48-capability matrix and independent expected-response acceptance remain caller-reviewed prerequisites; this source review does not certify their semantic adequacy.",
+    "A distinct-namespace refusal does not establish legacy compiled-artifact parity on the Paths executable. Historical legacy entrypoint qualification remains separate.",
+    "Full source opening inventory was independently streamed and verified; execution-time opening/closing repeats are producer duties.",
+    "Permission-denied process-group cleanup reports failure with a bounded wait; this cannot guarantee termination when the operating system denies signaling."
+  ],
+  "sourceLog": {
+    "bytes": 421,
+    "path": "/private/tmp/astra-paths-corpus-source-review-20261010-d.log",
+    "sha256": "65ab197d10a3b894bab6b0c4809536ccb2e3d2e2200107e2cd4c0ef891352122"
+  },
+  "sourceProbe": {
+    "bytes": 3745,
+    "path": "/private/tmp/astra-paths-corpus-source-review-20261010-d.py",
+    "sha256": "7594bfa9eae3270aa56cf65396a87e9f7944e1ccc6ef9043ea0c81b661745bae"
+  },
+  "verdict": "Approved exact two-file D as source-only corpus producer, with externally reviewed expectations and capability matrix still required before actual qualification."
+}

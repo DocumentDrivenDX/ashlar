@@ -1,0 +1,320 @@
+{
+  "verdict": "Approved exact B schema adapter fixes and bounded offline shape scope. No remaining scoped finding.",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-corpus-schema-source-freeze-20261010-b/manifest.json",
+    "sha256": "69ed3a4630c625126ddd680699c8bfc9ed7d18d138a1d10c259deadfa2cb2340"
+  },
+  "exactMirror": "/private/tmp/astra-paths-corpus-schema-mirror-20261010-b",
+  "ownerTests": {
+    "passed": 11,
+    "log": "/private/tmp/astra-paths-corpus-schema-review-20261010-b.log",
+    "sha256": "9b81c484e9473e6909dbe84ce1dee06412c2426cb20e4dfed150fb95d59df972"
+  },
+  "actualPinnedSchemaPositives": [
+    {
+      "index": 1,
+      "test": "authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops",
+      "requestSha256": "92f0285b32bcee48b0e5b8ea8916ceb9ee0b6231594335aeacfd12186db055f3",
+      "responseSha256": "48a4201161624c2c18566fab33211e5da9247078bd86c966a17e44066e4b1e0f"
+    },
+    {
+      "index": 2,
+      "test": "same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+      "requestSha256": "d12c8b6586634b8ddc10d31f71aad3292c7d309d061d8132a97f5516e9863ecf",
+      "responseSha256": "7c248dddc53d465e28e419603c247467d071fb5924785a740f85e678c4cd6b2d"
+    },
+    {
+      "index": 3,
+      "test": "distinct_composition_remains_required_string_only",
+      "requestSha256": "dac192242c9881ffc202910ecc8dd1125071784e2b94bb5d965afd442aed326f",
+      "responseSha256": "8f4cc31ad5151c0990b294f424bb2aeb7fb85a50313845b56c33fcb5c6355ea6"
+    },
+    {
+      "index": 4,
+      "test": "global_count_kind_inventory_and_empty_formula_are_selected",
+      "requestSha256": "ad06a02f9065bee5dd253214edeaeab9a1c83a5fd2bce97cbad1d24706dc50d7",
+      "responseSha256": "6f02b6ec9b7c20ee903dcbd7bd9404b7f6f6f5415f4033495b11b55dde9523aa"
+    },
+    {
+      "index": 5,
+      "test": "original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+      "requestSha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2",
+      "responseSha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8"
+    },
+    {
+      "index": 6,
+      "test": "generated_collection_and_guard_sql_are_lexically_closed",
+      "requestSha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2",
+      "responseSha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8"
+    },
+    {
+      "index": 7,
+      "test": "repeated_logical_labels_retain_the_exact_positioned_host_map",
+      "requestSha256": "9c98cde61dff3b1e0fedf724157591d1d018d731842ef1ad708d6ec9b0ad2e03",
+      "responseSha256": "6ae0cfd0edc7c8310f12ae39d599ef400be3bf030f86ea6c4450d8795015346b"
+    },
+    {
+      "index": 8,
+      "test": "repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+      "requestSha256": "2b63294f45bb6eeafcc085d799d85be1e826f1d528c40223fd50e41b4768d099",
+      "responseSha256": "74f281b3718eff4a9443d4dd80fca45831174315af8a6e14d2c94c204c5efcc6"
+    },
+    {
+      "index": 9,
+      "test": "scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+      "requestSha256": "074581eff7c05a68010b04d32142fd00f38be424c2724895e4604795ca420c86",
+      "responseSha256": "cc9411f86ce0c507b3dc89927403b177e7fb899c723bf92a52ece02e01680ba4"
+    },
+    {
+      "index": 10,
+      "test": "left_root_distinguishes_absence_and_retains_native_match_inventory",
+      "requestSha256": "48922be05e137ea4e2ccfcc2cd1c441aeb6ffc75ca3f8299392c2c9a19797b68",
+      "responseSha256": "629beae35b31b8e7232e2152690df64dca2aa3215a011f855d5482be30cd1d02"
+    },
+    {
+      "index": 11,
+      "test": "path_counts_use_complete_filtered_bag_before_having_order_limit",
+      "requestSha256": "e337e3b21552ca36fc39a481b9e093f745105b4ede84eb25dc21553c10809654",
+      "responseSha256": "3c4d6fca3d5b13c45348651c2dd24e08823a519ae581d0f175a0439e96d0ff62"
+    },
+    {
+      "index": 12,
+      "test": "same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+      "requestSha256": "b48f5e12363eaf50547d69d0f3610e31fb528296528cd744483a5df403c39444",
+      "responseSha256": "b8a1b3bf18dec575f6fe781eabef90a00082c8e4ed41e9ea87095894adbbf02a"
+    },
+    {
+      "index": 15,
+      "test": "global_count_kind_inventory_and_empty_formula_are_selected",
+      "requestSha256": "55279a36e813e3f70e86a298129ecb28e91ddfaf32330f8328f1fc2d5560c5f7",
+      "responseSha256": "a7bbc1178076e22d900c4666d694467d3a0342103bf31fc111e2fdece4bff6da"
+    },
+    {
+      "index": 16,
+      "test": "generated_collection_and_guard_sql_are_lexically_closed",
+      "requestSha256": "ad06a02f9065bee5dd253214edeaeab9a1c83a5fd2bce97cbad1d24706dc50d7",
+      "responseSha256": "6f02b6ec9b7c20ee903dcbd7bd9404b7f6f6f5415f4033495b11b55dde9523aa"
+    },
+    {
+      "index": 17,
+      "test": "repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+      "requestSha256": "16b12b2ef2c7cfdb42e6cd068e6c16927b1adbe9fde92b2a8dcc9c7e0764de30",
+      "responseSha256": "b7772e720c2779fccff6658692db18e42ed955c4278291ab842b23bc0b88d522"
+    },
+    {
+      "index": 18,
+      "test": "left_root_distinguishes_absence_and_retains_native_match_inventory",
+      "requestSha256": "5b6a992f8ae144ca36ea0f326f4e3e195aaa545d464bf7f95d36356a9ba1bb68",
+      "responseSha256": "7f07dfc0fc916ddd0311c121c0e15dc1a18afa5a6ebf0b194c0745149b726821"
+    },
+    {
+      "index": 20,
+      "test": "global_count_kind_inventory_and_empty_formula_are_selected",
+      "requestSha256": "4dd0f91e344e9b49eec5ded6f2905aa5965af74f497c366e6478c8005aa13f34",
+      "responseSha256": "eaabdbe813b1748a615e6db925329d0d50dc552c192cf91dadbfeaf007380cfc"
+    }
+  ],
+  "additionalOriginalBlockedPairs": [
+    {
+      "index": 0,
+      "test": "explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "requestSha256": "1a15d83d1b0cc07f423a3a7bfd9a209e1f0d29b25aeef41120cdcd91416c4e7e",
+      "responseSha256": "87b9145e79540aa768a19252eec1f5b4829f78ad6758d6b4cea99893c2bf04b7",
+      "role": "paths/valid",
+      "status": "blocked"
+    },
+    {
+      "index": 13,
+      "test": "explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "requestSha256": "3a7615ea14211c1e29ea2120d44d6f337f2e5e69f64d358668ba0f4d51fd3956",
+      "responseSha256": "4a89d8bafe8239dde337cbb208d483c10b040b65c0fe1e5b66ddbcc183e5b734",
+      "role": "paths/valid",
+      "status": "blocked"
+    },
+    {
+      "index": 14,
+      "test": "distinct_composition_remains_required_string_only",
+      "requestSha256": "27225b875cf7fafc419eb0bc73932259321ecf123d83a0918a4f5d945dc099c1",
+      "responseSha256": "7574daeabb953d8ed86faca3df0bf8658adabf2ec7512874208491447c07c045",
+      "role": "paths/valid",
+      "status": "blocked"
+    },
+    {
+      "index": 19,
+      "test": "explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "requestSha256": "a045ffb00fc863b995350eb63c809fad5e44cd246bc204deaa856fe82655f4be",
+      "responseSha256": "b6ef9bd3caed3c6a1c0f1335ee1f42ff7983ddabde4d59794ee595c7a61bc91c",
+      "role": "paths/valid",
+      "status": "blocked"
+    }
+  ],
+  "allOriginalPairsValidated": 21,
+  "sixSchemaPins": {
+    "compile-request.schema.json": "8916022eb698864f5580319848307a1e0e90699dbaac1dafd6b8f2e11119d3e5",
+    "compile-request-v0.2.schema.json": "2a9a4264a9d8926176aa3809d613e103f35c8f634b0d8839ddf2bbcf598cacde",
+    "compile-request-v0.3.schema.json": "7345c424b1bbf8da15e6f7b4efb81da7eeb85a1e08fb91319eeb7b19ec129047",
+    "compile-request-v0.4.schema.json": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932",
+    "compile-response-v0.4.schema.json": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140",
+    "logical-plan-v0.4.schema.json": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+  },
+  "rootRuntimeReceiptMatched": {
+    "path": "/private/tmp/ashlar-paths-corpus-schema-runtime-20261010-b.json",
+    "sha256": "3b5a1bf49530b7bdd53f8c8fb7794cbf66679b17ac04ad6ac257b27ca799c780"
+  },
+  "encodingControlsRejected": [
+    {
+      "encoding": "utf-16",
+      "component": "envelope",
+      "refused": true
+    },
+    {
+      "encoding": "utf-16",
+      "component": "request",
+      "refused": true
+    },
+    {
+      "encoding": "utf-16",
+      "component": "response",
+      "refused": true
+    },
+    {
+      "encoding": "utf-32",
+      "component": "envelope",
+      "refused": true
+    },
+    {
+      "encoding": "utf-32",
+      "component": "request",
+      "refused": true
+    },
+    {
+      "encoding": "utf-32",
+      "component": "response",
+      "refused": true
+    },
+    {
+      "encoding": "utf-16-le",
+      "component": "envelope",
+      "refused": true
+    },
+    {
+      "encoding": "utf-16-le",
+      "component": "request",
+      "refused": true
+    },
+    {
+      "encoding": "utf-16-le",
+      "component": "response",
+      "refused": true
+    },
+    {
+      "encoding": "utf-16-be",
+      "component": "envelope",
+      "refused": true
+    },
+    {
+      "encoding": "utf-16-be",
+      "component": "request",
+      "refused": true
+    },
+    {
+      "encoding": "utf-16-be",
+      "component": "response",
+      "refused": true
+    },
+    {
+      "encoding": "utf-32-le",
+      "component": "envelope",
+      "refused": true
+    },
+    {
+      "encoding": "utf-32-le",
+      "component": "request",
+      "refused": true
+    },
+    {
+      "encoding": "utf-32-le",
+      "component": "response",
+      "refused": true
+    },
+    {
+      "encoding": "utf-32-be",
+      "component": "envelope",
+      "refused": true
+    },
+    {
+      "encoding": "utf-32-be",
+      "component": "request",
+      "refused": true
+    },
+    {
+      "encoding": "utf-32-be",
+      "component": "response",
+      "refused": true
+    }
+  ],
+  "fileAndCleanupControls": [
+    {
+      "phase": "opening",
+      "fifoRefusedBeforeHalfSecond": true,
+      "childTerminalExit": 0
+    },
+    {
+      "phase": "closing",
+      "fifoRefusedBeforeHalfSecond": true,
+      "childTerminalExit": 0
+    },
+    {
+      "control": "closing-byte-drift",
+      "passed": true
+    },
+    {
+      "control": "closing-symlink",
+      "passed": true
+    },
+    {
+      "control": "exact-file-boundary",
+      "passed": true
+    },
+    {
+      "control": "one-byte-over-file-boundary",
+      "passed": true
+    },
+    {
+      "control": "directory-refusal",
+      "passed": true
+    },
+    {
+      "control": "cleanup-only-withholds-read",
+      "passed": true
+    },
+    {
+      "control": "primary-cancellation-identity-and-cleanup-flag",
+      "passed": true
+    }
+  ],
+  "numericControlsRejected": [
+    "positive-21-digit",
+    "negative-21-digit",
+    "million-digit",
+    "fraction-over-256",
+    "nonfinite",
+    "duplicate"
+  ],
+  "exactFractionAndExponentPreserved": true,
+  "invalidRoleRawRequestBypassPreserved": true,
+  "invalidResponseSchemaRefused": true,
+  "externalRegistryRetrievalRefused": true,
+  "closingOriginalSchemasUnchanged": true,
+  "scope": "Pure offline schema checks and temporary controlled FIFO children only; no Weft executable, engine, PG or SQLite. Eighteen UTF-16/32 cases include the original six A counterexamples and BOM-free encodings. Initial/closing FIFO operations now refuse quickly via nonblocking descriptor and regular-file check. Compiler semantic authority, full corpus qualification and downstream invocation composition remain separate.",
+  "runtime": {
+    "python": "/private/tmp/umf-wheel-smoke/bin/python",
+    "version": "3.13.16",
+    "jsonschema": "4.26.0",
+    "referencing": "0.37.0"
+  },
+  "script": {
+    "path": "/private/tmp/astra-paths-corpus-schema-review-20261010-b.py",
+    "sha256": "c6a45dcec3e42aa816639ba35afa65bbc108f0426e2d4a56ef47cb357a7571dd"
+  }
+}

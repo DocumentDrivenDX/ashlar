@@ -1,0 +1,16 @@
+{
+  "files": [
+    {
+      "bytes": 7368,
+      "path": "tools/check_weft_paths_corpus_schemas.py",
+      "sha256": "bf9523f086466fd485d1cb90b54da9d02677585f015216ad90b236daa9acc276"
+    },
+    {
+      "bytes": 6336,
+      "path": "tests/test_weft_paths_corpus_schemas.py",
+      "sha256": "ab0aee787590500f257a50e0c139b7782d4cc1131f692f2f1f7ebb9f5e1ca7c0"
+    }
+  ],
+  "scope": "Pinned offline c6 schemas, strictUTF8 roles, bounded regularfilefd openingclosing, cleanup preservesoriginalcancellation. Shape evidence only; no compiler/native/index authority.",
+  "tests": 11
+}

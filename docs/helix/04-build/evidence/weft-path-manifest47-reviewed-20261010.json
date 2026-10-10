@@ -1,0 +1,88 @@
+{
+  "closingFrozenBytesUnchanged": true,
+  "controls": [
+    "Exact remaining ordered47 capability inventory.",
+    "Old Candidate registry still exposes Backend02 and key.uniqueStable.",
+    "04 readProfile refusal and old01/02/03 namespace WFT-VERSION refusals.",
+    "Twelve existing Paths compiler tests continue passing."
+  ],
+  "freeze": {
+    "bytes": 1379,
+    "path": "/private/tmp/weft-paths-manifest47-source-freeze-20261010-a/manifest.json",
+    "sha256": "c7ac42967e4d30cca14365ee02aa4c401b08e1960d7cf191c244c9f777897cb8"
+  },
+  "helix": "Narrow owned Backend03 metadata correction; no new imports, configuration, diagnostics or state. Precise finite compiler tests, no OTel receiver or formal proof claim.",
+  "independentTests": {
+    "command": [
+      "cargo",
+      "test",
+      "--offline",
+      "-p",
+      "weft-databricks",
+      "--test",
+      "paths",
+      "--locked"
+    ],
+    "environmentOverrides": {
+      "CARGO_BUILD_JOBS": "1",
+      "CARGO_HOME": "/private/tmp/weft-toolchain/cargo",
+      "PATH": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin",
+      "RUSTUP_HOME": "/private/tmp/weft-toolchain/rustup"
+    },
+    "log": {
+      "bytes": 6924,
+      "path": "/private/tmp/astra-paths-manifest47-tests-20261010-a.log",
+      "sha256": "595635a168aeb5808568872ca1a1d8a9c203ed26f89f369c50dcd3a28f742f5e"
+    },
+    "passed": 13,
+    "terminalExit": 0
+  },
+  "limitations": [
+    "Cached offline test build only; no release binary, metadata export realization, native engine, package or index admission.",
+    "Old private c6 binary/48-manifest evidence remains immutable historical evidence. New source/build must obtain its own complete qualified corpus and metadata.",
+    "This test verifies the remaining declared list, not independent reachability of all47 capabilities; reviewed accepted/refused matrix remains pending.",
+    "The checkout has a separate pre-existing formatting-only diff in unused compound_request test helper; it is excluded from this source approval and no owner files were edited.",
+    "Default shell rustup lookup initially lacked a writable configured home; tests used the already-recorded explicit selected Rust1.90 paths."
+  ],
+  "productionDelta": "Only one capability declaration removed from Paths Backend03; compiler, lowerer, namespace, old backend sources unchanged.",
+  "semanticBasis": [
+    "CONTRACT-005 lines126\u2013129 forbids readProfile on initial04 and leaves Plan04 readProfile null.",
+    "Plan04::new rejects a page_key. The 04 resolver uses the scalar shared driver; only the old entity-page/related-entity-page branch in application_resolve inserts key.uniqueStable.",
+    "Authored path key integrity remains enforced by the unchanged path/relationship checks; it is not removed with this unused entity-page declaration."
+  ],
+  "sourceFiles": [
+    {
+      "bytes": 7992,
+      "path": "crates/weft-databricks/src/paths.rs",
+      "sha256": "3c6ebc5f201c80256109a55e7acf9b9c1c31a045650d5cecc5e32cd096b98b6a"
+    },
+    {
+      "bytes": 18427,
+      "path": "crates/weft-databricks/tests/paths.rs",
+      "sha256": "501ec02b19ac86b945ffcf80b6d33e9aa19f5a5a1b10de952513afe7021594ac"
+    }
+  ],
+  "unchangedBaselineFilesVerifiedAgainstCurrentGitHEAD": [
+    {
+      "bytes": 32143,
+      "path": "crates/weft-databricks/src/candidate.rs",
+      "sha256": "bb2a63463b25c337b660a4c7250164de312338539bcbcb44c491ba3589e7731b"
+    },
+    {
+      "bytes": 7558,
+      "path": "crates/weft-databricks/src/arithmetic.rs",
+      "sha256": "de4f8539e782b50a506cfdf50be3ad32ec54f9f522fc9e77556fbc94929b2ed0"
+    },
+    {
+      "bytes": 3040,
+      "path": "crates/weft-runtime/src/paths.rs",
+      "sha256": "3a83f24b8b273f4de06c45a3557b6c0bb363468db7a610556db754d11fa7721c"
+    },
+    {
+      "bytes": 27066,
+      "path": "crates/weft-core/src/path_ir.rs",
+      "sha256": "e916875da947eae1fe825c029092523d8a3b5dcc7666a251ef5b241ac8a44f28"
+    }
+  ],
+  "verdict": "Approved exact two-file Paths metadata correction; source-only."
+}
