@@ -15,6 +15,7 @@ import subprocess
 
 from ashlar.weft_distribution import DistributionPaths
 from indexed_weft_commerce import run_indexed_queries
+from run_commerce_relationship_weft import run_indexed_relationship
 from run_commerce_publication_weft import open_commerce_reader
 
 UMF_PIN = 'c7c95e1c4ea5b72541f47fa0350ca467ff02f395'
@@ -78,7 +79,9 @@ def run(*, index: Path, installation: Path, publication: Path, source: Path,
                 if opened.native_files()!=opened.original_native_files:raise ValueError('Alias registration changed originals')
             alias_custody=opened.provider.closed_interval_custody(opened.context)
             opening_native=dict(opened.original_native_files)
-            result=run_indexed_queries(opened,DistributionPaths(index,installation))
+            paths_config=DistributionPaths(index,installation)
+            result=run_indexed_queries(opened,paths_config)
+            result['relationship']=run_indexed_relationship(opened,paths_config)
             closing_native=opened.native_files()
             if closing_native!=opening_native:raise ValueError('Closing complete native vector differs')
             result['alias_interval']=alias_custody

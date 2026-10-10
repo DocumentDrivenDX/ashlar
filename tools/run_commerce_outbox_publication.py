@@ -110,6 +110,23 @@ def original_commerce_oracle(model_bytes,graph_bytes,bindings,batch,columns):
             result['whole_source_history'].append({'feed':batch.feed,'epoch':batch.epoch,'delivery_id':delivery,'digest':raw.sha256,'change_json':json.dumps(change,separators=(',',':')),'raw_base64':base64.b64encode(raw.raw).decode()})
     return result
 
+def finalize_publication(transport, spark, report, output: Path) -> None:
+    """Attempt both native cleanup steps; expose success only after both succeed.
+
+    Failed/interrupted work may retain native data and journals for recovery,
+    but never obtains a successful setup report from this finalizer.
+    """
+    failures=[]
+    if transport is not None:
+        try:transport.close()
+        except BaseException as error:failures.append(error)
+    try:spark.stop()
+    except BaseException as error:failures.append(error)
+    if failures:raise failures[0]
+    if report is not None:
+        (output/'report.json').write_text(encoded(report)+'\n')
+
+
 def run(output,jars,umf_source):
     output=Path(output)
     if output.exists():raise ValueError('Exclusive fresh local output required; retain every original attempted installation')
@@ -128,7 +145,7 @@ def run(output,jars,umf_source):
     admission=CommerceAdmission(batch,bindings,model_path,graph_path,binding_path,receipt_path)
     from pyspark.sql import SparkSession
     spark=(SparkSession.builder.master('local[1]').appName('Ashlar original commerce local publication').config('spark.driver.memory','512m').config('spark.sql.shuffle.partitions','1').config('spark.databricks.delta.snapshotPartitions','1').config('spark.ui.enabled','false').config('spark.sql.session.timeZone','UTC').config('spark.sql.ansi.enabled','true').config('spark.jars',','.join(str(p) for p in paths)).config('spark.sql.extensions','io.delta.sql.DeltaSparkSessionExtension').config('spark.sql.catalog.spark_catalog','org.apache.spark.sql.delta.catalog.DeltaCatalog').getOrCreate())
-    transport=None
+    transport=None;report=None
     try:
         graph_columns=fixture_columns(ROOT);columns={**graph_columns,'attempts':tuple((name,'STRING') for name in ('stream','batch_id','phase','request_digest','payload_json','payload_digest')),'manifest':tuple((name,'TIMESTAMP' if name=='recorded_at' else 'STRING') for name in FIELDS)}
         tables={role:'local.commerce.'+role for role in columns};targets=[]
@@ -169,10 +186,12 @@ def run(output,jars,umf_source):
         finally:connection.close()
         report={'format':'ashlar-original-commerce-publication/0.1','runtime_versions':VERSIONS,'public_umf_revision':UMF_PIN,'public_dataset_receipt_sha256':hashlib.sha256(receipt_path.read_bytes()).hexdigest(),'original_model_sha256':SOURCE_SHA,'original_graph_sha256':GRAPH_SHA,'bindings_sha256':hashlib.sha256(binding_path.read_bytes()).hexdigest(),
                 'source_transaction_sha256':hashlib.sha256(raw).hexdigest(),'native_manifest':dict(descriptor.raw),'table_registry':[{'table':t.table,'uuid':t.uuid,'path':str(t.path)} for t in targets],'complete_original_oracle':expected,'record_count':11,'edge_count':10,'history_count':21,'protected_ack_scope':port['scope'].__dict__,'source_schema':port['source'],'source_signature_sha256':port['signature'],'protected_ack_observation':observation,'exact_replay_unchanged':True,'qualification':__doc__}
-        (output/'report.json').write_text(encoded(report)+'\n');return report
+    except BaseException:
+        report=None
+        raise
     finally:
-        if transport is not None:transport.close()
-        spark.stop()
+        finalize_publication(transport,spark,report,output)
+    return report
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--output',required=True,type=Path);parser.add_argument('--jars',required=True,type=Path);parser.add_argument('--umf-source',required=True,type=Path);args=parser.parse_args();print(encoded(run(args.output,args.jars,args.umf_source)))
