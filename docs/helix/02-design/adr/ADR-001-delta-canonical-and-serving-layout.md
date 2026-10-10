@@ -167,6 +167,7 @@ The installed original-commerce evolution facade adds these owned boundaries:
 | `src/ashlar_host/commerce_evolution.py` | Fresh/resume lifecycle, source-qualified publication and original recovery | EvolutionAttemptPlan, EvolutionPlanJournal; publish_commerce_evolution, resume_commerce_evolution under CONTRACT-001 | Explicit config, owned admission/driver/journal/ACK/lifecycle ports and supplied ordinary sessions | Source/role/grant provisioning, credential discovery/escalation, new uncertain intent, tools/private native access |
 | `src/ashlar_host/evolution_producer.py` | Bounded public-UMF subprocess ownership and original receipt custody | Typed producer invocation for evolution_admission under CONTRACT-001 | Explicit immutable configuration/input snapshots, standard-library process and owned lifecycle ports | Ambient environment/PATH discovery, private source capture or UMF APIs, tools, native authority |
 | `src/ashlar_host/source_sessions.py` | Original outbox registrations and ordinary source-session ownership | OutboxSourceRegistration, RegisteredOutboxSources.admit | Explicit factories/current native policy, owned AckScope/Session/lifecycle and public complete outbox/checkpoint APIs | Credential discovery, provisioning, commits, ACK mutation or registration metadata as authority |
+| `src/ashlar_host/ack_sessions.py` | Original protected ACK registrations and ordinary session selection | OutboxAckRegistration, RegisteredOutboxAcks.acknowledge/reconcile | Supplied ordinary factories/current policy, owned protected ACK and source-registration ports | Credential discovery, provisioning, metadata as authority or cancellation converted to success |
 
 `EvolutionSourceSet` owns reconstructed original semantic sources after checking
 their complete packaged correspondence. It reconstructs state from explicit
@@ -181,6 +182,14 @@ and current source, writer, publication and ACK authority remain separate gates.
 current native source-policy admission and closes every acquired ordinary
 connection through rollback and close. The evolution source-set driver requires
 this injected owner; protected ACK retains its separate authority/session owner.
+`RegisteredOutboxAcks` selects the original source-qualified protected scope and
+reuses the protected ACK owner under supplied ordinary sessions and mandatory
+current source/publication policy. Native scope binding must match the retained
+namespace and immutable signature. Cancellation retains its exact exception
+identity and carries original ACK uncertainty custody for explicit reconciliation;
+it cannot trigger automatic retry-success. Source-set publication requires this
+injected ACK owner and matching complete source registrations.
+
 Cleanup attempts every owned callback and preserves the original cancellation;
 otherwise cleanup cancellation takes precedence over an ordinary body failure.
 

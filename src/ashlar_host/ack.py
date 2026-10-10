@@ -152,20 +152,31 @@ class ProtectedOutboxAck:
                 commit_observed = True
             completed = True
         except BaseException as error:
+            primary = error
             if connection is not None:
                 if write_attempted:
                     try:
                         if connection.info.transaction_status not in (2, 3):
                             transaction_closed = True
-                    except BaseException:
+                    except BaseException as cleanup:
                         transaction_closed = True
+                        if isinstance(primary, Exception) and not isinstance(cleanup, Exception):
+                            primary = cleanup
                 try:
                     connection.rollback()
-                except BaseException:
+                except BaseException as cleanup:
                     transaction_closed = True
+                    if isinstance(primary, Exception) and not isinstance(cleanup, Exception):
+                        primary = cleanup
+            if not isinstance(primary, Exception):
+                if write_attempted:
+                    setattr(primary, 'ack_outcome_uncertain', AckOutcomeUncertain(
+                        request_bytes, manifest_bytes, self.scope,
+                        commit_attempted=commit_attempted, commit_observed=commit_observed))
+                raise primary
             if write_attempted and (commit_attempted or transaction_closed):
                 raise AckOutcomeUncertain(request_bytes, manifest_bytes, self.scope, commit_attempted=commit_attempted, commit_observed=commit_observed) from error
-            raise
+            raise primary
         finally:
             original_error = sys.exc_info()[1]
             cleanup_error = None
@@ -182,9 +193,16 @@ class ProtectedOutboxAck:
                 try:
                     connection.close()
                 except BaseException as error:
-                    if cleanup_error is None:
+                    if cleanup_error is None or (isinstance(cleanup_error, Exception) and not isinstance(error, Exception)):
                         cleanup_error = error
                 if cleanup_error is not None:
+                    cancellation = original_error if original_error is not None and not isinstance(original_error, Exception) else (cleanup_error if not isinstance(cleanup_error, Exception) else None)
+                    if cancellation is not None:
+                        if write_attempted:
+                            setattr(cancellation, 'ack_outcome_uncertain', AckOutcomeUncertain(
+                                request_bytes, manifest_bytes, self.scope,
+                                commit_attempted=commit_attempted, commit_observed=commit_observed))
+                        raise cancellation
                     if write_attempted and (commit_attempted or commit_observed or transaction_closed):
                         raise AckOutcomeUncertain(request_bytes, manifest_bytes, self.scope, commit_attempted=commit_attempted, commit_observed=commit_observed) from original_error or cleanup_error
                     raise cleanup_error from original_error

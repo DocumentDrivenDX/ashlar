@@ -1,0 +1,14 @@
+{
+  "decision": "approve-six-file-integration-for-landing",
+  "integrationFreezeSha256": "bace1c54fbd3e6edf62f1e20831c76752edf56ce75c40d48e2aa0afb4d7cecf7",
+  "originalFiveFileReviewSha256": "91256f1bb6d601920246c7f3ff04d577e2acb5705a62cd5050cd3614e90fe2e3",
+  "ownedFiles": {
+    "src/ashlar_host/ack_sessions.py": "37fed621945b1427e8b3aa0cb280692d217b92ca1ab48453066167e99e20eaf6",
+    "src/ashlar_host/ack.py": "8419a424a671edcaa20763a695ac2df99cc93ef7457fb2557e76fb19bc15a9ce",
+    "src/ashlar_host/driver.py": "ad31f326402b878388386e5c6faf3382d959aa8b7f7cf0599328a7166d930560",
+    "tests/test_registered_outbox_ack.py": "0e9ac448ffa0f214255cdcf21d7acd97fe7f7cc95bb04fd9a72cda2d02dd9151",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "7c5549355df3afdefcb97f40cb1f9d7d1c022dce060567f16e87169cdbfeed02",
+    ".github/workflows/weft-distribution.yml": "9f2c8d06543bfa87aa4a8f99c9fabb941eb497aec051d0dafd445e2d3e137a98"
+  },
+  "checks": "Original five hashes unchanged; sixth CI diff exactly one neighboring focused ACK unittest command, correct src:tools:tests imports; all six current hashes exact. No redundant source test rerun. Original inert-only evidence qualification unchanged."
+}

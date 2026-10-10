@@ -15,6 +15,7 @@ from .postgres import Session
 from .ack import AckScope, ProtectedOutboxAck, AckOutcomeUncertain, render_ddl
 from .graph_sql import graph_sql_plan
 from .source_sessions import RegisteredOutboxSources
+from .ack_sessions import RegisteredOutboxAcks
 ROOT = RESOURCE_ROOT
 CLOCK = '2026-10-09T12:00:00+00:00'
 PROFILE = 'ashlar-delta/0.3'
@@ -167,7 +168,7 @@ class ManifestPort:
 
 class NativeDriver:
 
-    def __init__(self, transport, policy, context, tables, scope_ports, allowed_changes, columns, *, source_admission, source_sessions=None):
+    def __init__(self, transport, policy, context, tables, scope_ports, allowed_changes, columns, *, source_admission, source_sessions=None, ack_sessions=None):
         self.transport = transport
         self.policy = policy
         self.context = context
@@ -193,6 +194,14 @@ class NativeDriver:
             actual = {(item.scope.feed, item.scope.epoch) for item in source_sessions.registrations}
             if expected != actual:
                 raise PermissionError('Complete original semantic/native source inventory differs')
+        if ack_sessions is not None and type(ack_sessions) is not RegisteredOutboxAcks:
+            raise PermissionError('Explicit registered ordinary protected ACK owner required')
+        self.ack_sessions = ack_sessions
+        self.original_ack_sessions = None if ack_sessions is None else encoded(ack_sessions.metadata())
+        if ack_sessions is not None:
+            if source_sessions is None or (ack_sessions.metadata()['registrations'] !=
+                                          source_sessions.metadata()['registrations']):
+                raise PermissionError('Complete original source/ACK registrations differ')
         self.held = False
         self.pin_held = False
         self.lose_manifest = False
@@ -425,7 +434,9 @@ class NativeDriver:
         if self.lose_manifest:
             self.lose_manifest = False
             raise LostAfterManifest('Injected loss after real immutable manifest commit before PG ACK')
-        port = self.scope_ports[json.loads(request['source_checkpoint_json'])['feed']]
+        if (self.admission_facts()['profile'] == 'ashlar-commerce-evolution-source-set/0.1'
+                and self.ack_sessions is None):
+            raise PermissionError('Installed evolution requires explicit ordinary protected ACK sessions')
         retained = self.transport.db.execute('SELECT request,artifact FROM local_publication_artifact WHERE request_digest=?', (request['request_digest'],)).fetchone()
         if retained is None or retained[0] != encoded(request):
             raise LocalDeltaError('Original applied artifact custody absent; no ACK')
@@ -435,6 +446,8 @@ class NativeDriver:
         self.policy.active['manifest'] = original_manifest
         row = dict(descriptor.raw)
         vector = manifest_pin_vector(row, {t: self.transport.targets[t].uuid for t in descriptor.versions}, authority='private-local-process')
+
+        port = None if self.ack_sessions is not None else self.scope_ports[json.loads(request['source_checkpoint_json'])['feed']]
 
         def factory(supplied):
             self.require(supplied)
@@ -452,13 +465,22 @@ class NativeDriver:
                     connection.commit()
                     raise OSError('Injected response loss after actual PostgreSQL COMMIT')
             return LostCommit()
-        ack = ProtectedOutboxAck(factory, self, self, self, port['scope'], supported_profiles=[PROFILE], supported_revisions={k: [v] for (k, v) in json.loads(request['schema_revisions_json']).items()})
+        if self.ack_sessions is None:
+            ack = ProtectedOutboxAck(factory, self, self, self, port['scope'], supported_profiles=[PROFILE], supported_revisions={k: [v] for (k, v) in json.loads(request['schema_revisions_json']).items()})
+            ack_ports = {}
+        else:
+            if encoded(self.ack_sessions.metadata()) != self.original_ack_sessions:
+                raise PermissionError('Original ordinary ACK registrations changed')
+            ack = self.ack_sessions
+            ack_ports = {'pins': self, 'publication_backend': self, 'supported_profiles': [PROFILE],
+                         'supported_revisions': {k: [v] for k, v in json.loads(request['schema_revisions_json']).items()}}
+
         raw_request = encoded(request).encode()
         raw_manifest = encoded(row).encode()
         try:
-            receipt = ack.acknowledge(raw_request, raw_manifest, vector, context=context)
+            receipt = ack.acknowledge(raw_request, raw_manifest, vector, context=context, **ack_ports)
         except AckOutcomeUncertain:
-            receipt = ack.reconcile(raw_request, raw_manifest, vector, context=context)
+            receipt = ack.reconcile(raw_request, raw_manifest, vector, context=context, **ack_ports)
             if receipt is None:
                 raise ValueError('Actual committed original ACK did not reconcile')
             self.acks.append({'publication_id': row['publication_id'], 'uncertain_commit_fresh_reconciled': True})
@@ -466,6 +488,9 @@ class NativeDriver:
             self.acks.append({'publication_id': row['publication_id'], 'uncertain_commit_fresh_reconciled': False})
         if not receipt:
             raise ValueError('Exact protected native ACK receipt missing')
+        if self.ack_sessions is not None and encoded(self.ack_sessions.metadata()) != self.original_ack_sessions:
+            raise PermissionError('Closing original ordinary ACK registrations changed')
+        self.admission_facts()
 
 class AttemptExecutor:
 

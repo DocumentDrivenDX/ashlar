@@ -1,0 +1,14 @@
+{
+  "scope": "Actual public ProtectedOutboxAck with existing inert test-only harness and isolated driver routing; no installed/native authority or recovery witness. Remaining immutable fresh/resume config, public driver activation and end-to-end installed native proof.",
+  "root_check": {
+    "command": "PYTHONPATH=src:tools:tests /usr/bin/python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_registered_outbox_ack.py",
+    "tests": 12,
+    "exit_code": 0,
+    "tool_chunk": "2ef745"
+  },
+  "files": {
+    "source-freeze.json": "bace1c54fbd3e6edf62f1e20831c76752edf56ce75c40d48e2aa0afb4d7cecf7",
+    "independent-review.json": "91256f1bb6d601920246c7f3ff04d577e2acb5705a62cd5050cd3614e90fe2e3",
+    "integration-review.json": "77db16e22eb9c1efeaded2b206e3beaf2caaed6566cf9fd7659a3a14b0d14f20"
+  }
+}

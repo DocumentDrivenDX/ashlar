@@ -1,0 +1,31 @@
+{
+  "decision": "approve-frozen-five-file-registered-ack-iteration",
+  "freezeSha256": "eeda1acc0dd24b9566a750f202a7bd098715456c490205bb6c4532a3193401ad",
+  "ownedFiles": {
+    "src/ashlar_host/ack_sessions.py": "37fed621945b1427e8b3aa0cb280692d217b92ca1ab48453066167e99e20eaf6",
+    "src/ashlar_host/ack.py": "8419a424a671edcaa20763a695ac2df99cc93ef7457fb2557e76fb19bc15a9ce",
+    "src/ashlar_host/driver.py": "ad31f326402b878388386e5c6faf3382d959aa8b7f7cf0599328a7166d930560",
+    "tests/test_registered_outbox_ack.py": "0e9ac448ffa0f214255cdcf21d7acd97fe7f7cc95bb04fd9a72cda2d02dd9151",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "7c5549355df3afdefcb97f40cb1f9d7d1c022dce060567f16e87169cdbfeed02"
+  },
+  "independentChecks": {
+    "newPublicAckInertControls": 12,
+    "existingProtectedAckRegressions": 14,
+    "moduleBoundaries": "pass",
+    "python": "3.9 -S ResourceWarning error",
+    "chunk": "4defbb"
+  },
+  "resolvedFindings": [
+    "Original body cancellation retains identity; first closing cancellation replaces ordinary errors including status inspection, rollback and close",
+    "Cancellation carries exact original request/manifest/scope and observed commit flags in ack_outcome_uncertain; NativeDriver never catches cancellation for reconcile-success",
+    "Current supplied publication policy receives readonly copied request; no metadata as authority"
+  ],
+  "review": [
+    "Explicit copied source/ACK registrations and complete source inventory match before constructor effects",
+    "Mandatory native binding namespace/signature plus current source/publication policy under public protected ACK pins",
+    "Existing original artifact/descriptor checks remain before ACK factory acquisition",
+    "Uncertain ordinary commit uses fresh reconcile of exact original bytes; reconcile never performs another ACK write",
+    "Desired-state ADR public owner row and semantics match implementation"
+  ],
+  "qualification": "Actual public ProtectedOutboxAck with inert test-only source/Delta harness and isolated driver dispatch; no actual native authority, installed toolkit recovery or end-to-end qualification. Five frozen files only; later CI amendment needs own exact review."
+}

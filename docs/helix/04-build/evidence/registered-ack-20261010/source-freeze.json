@@ -1,0 +1,36 @@
+{
+  "base": "f403c9256f4fc6a66660d407f209e84918bedcd0",
+  "files": {
+    "src/ashlar_host/ack_sessions.py": "37fed621945b1427e8b3aa0cb280692d217b92ca1ab48453066167e99e20eaf6",
+    "src/ashlar_host/ack.py": "8419a424a671edcaa20763a695ac2df99cc93ef7457fb2557e76fb19bc15a9ce",
+    "src/ashlar_host/driver.py": "ad31f326402b878388386e5c6faf3382d959aa8b7f7cf0599328a7166d930560",
+    "tests/test_registered_outbox_ack.py": "0e9ac448ffa0f214255cdcf21d7acd97fe7f7cc95bb04fd9a72cda2d02dd9151",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "7c5549355df3afdefcb97f40cb1f9d7d1c022dce060567f16e87169cdbfeed02",
+    ".github/workflows/weft-distribution.yml": "9f2c8d06543bfa87aa4a8f99c9fabb941eb497aec051d0dafd445e2d3e137a98"
+  },
+  "checks": {
+    "registered_ack": {
+      "command": "PYTHONPATH=src:tools:tests /usr/bin/python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_registered_outbox_ack.py",
+      "passed": 12,
+      "chunk": "a82c99"
+    },
+    "host": {
+      "passed": 11,
+      "chunk": "01bad4"
+    },
+    "registered_sources": {
+      "passed": 13,
+      "chunk": "25ed11"
+    },
+    "legacy_tool_ack": {
+      "passed": 14,
+      "chunk": "af4ad5"
+    },
+    "boundary": {
+      "pass": true,
+      "chunk": "01bad4"
+    }
+  },
+  "scope": "Actual public ProtectedOutboxAck with existing inert test-only harness and isolated driver routing; no installed/native authority or recovery witness. Remaining immutable fresh/resume config, public driver activation and end-to-end installed native proof.",
+  "original_author_freeze_sha256": "eeda1acc0dd24b9566a750f202a7bd098715456c490205bb6c4532a3193401ad"
+}
