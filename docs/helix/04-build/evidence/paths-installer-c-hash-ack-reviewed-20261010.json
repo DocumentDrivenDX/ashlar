@@ -1,0 +1,30 @@
+{
+  "verdict": "PASS: prior installer lifecycle review applies unchanged to C",
+  "scope": "Hash and exact test-delta acknowledgement only; no test rerun, compiler, native, package/install or source edit.",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-installation-source-freeze-20261010-c/manifest.json",
+    "sha256": "23df86e9bd0ffe35a0af21450002cd7fb7bc8ec13a2627b15fecb5b5e5b2da28"
+  },
+  "unchangedFromB": [
+    "src/ashlar/weft_paths_package.py",
+    "src/ashlar/weft_paths_installation.py",
+    "tests/test_weft_paths_installation.py"
+  ],
+  "testOnlyChange": {
+    "path": "tests/test_weft_paths_package.py",
+    "beforeSha256": "3ca87c8b2171ef0bb06c057c894d0e8ec6454f57ec32daac0ec6d13fefa8b9c4",
+    "afterSha256": "42ceba81c5cc07ac3e830a4b9ae7a67f01ee1f07d91a9892bfd5961f4f35ee83",
+    "diff": "--- B/tests/test_weft_paths_package.py\n+++ C/tests/test_weft_paths_package.py\n@@ -53,7 +53,9 @@\n             with self.assertRaises(p.PathsInstallationError):store.artifact({'path':'next','sha256':'a'*64,'bytes':1})\n     def test_read_primary_survives_readonly_marker_and_close_failure(self):\n         class Cancel(KeyboardInterrupt):\n-            def __setattr__(self,*args):raise RuntimeError('no marker')\n+            def __setattr__(self,name,value):\n+                if name=='cleanup_failed':raise RuntimeError('no marker')\n+                super().__setattr__(name,value)\n         primary=Cancel();target=self.root/'input';target.write_bytes(b'original');close=os.close\n         def bad_close(fd):close(fd);raise OSError('close')\n         with patch.object(p.os,'read',side_effect=primary),patch.object(p.os,'close',side_effect=bad_close):\n"
+  },
+  "priorIndependentReceipts": [
+    {
+      "path": "/private/tmp/astra-paths-installer-lifecycle-review-20261010-b.json",
+      "sha256": "3dbc5e558f772420eff269920609d2d1ced53cb874bf879acf7839e6e2e7775f"
+    },
+    {
+      "path": "/private/tmp/astra-paths-installer-restart-controls-20261010-b.json",
+      "sha256": "dab47f7512ce69ac0f52cbd76792544578eaebda153383424fde077f9ac006f9"
+    }
+  ],
+  "limits": "Package-profile review and Python3.12 test execution are parent-owned, not reasserted here."
+}

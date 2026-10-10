@@ -1,0 +1,22 @@
+{
+  "verdict": "PASS for additional B restart/transport controls",
+  "scope": "Synthetic manually constructed installed bytes; trusted-index validation and full manifest semantic validation explicitly mocked as package-owner dependencies. All remaining restart descriptors/tree/bytes/modes/closing checks actual. One controlled Python child, never Weft/native.",
+  "sourceSha256": "9f29570213f9432e497f67d337c5c56e522fb7802ee778771484172b6d8e80b9",
+  "controls": [
+    "restart-with-no-package-path",
+    "exact-owned-installed-schema-bytes",
+    "tamper-ready.json",
+    "tamper-provenance.json",
+    "tamper-weft-paths",
+    "tamper-backend-manifest.json",
+    "tamper-schemas/compile-request-v0.4.schema.json",
+    "extra-installed-file-refused",
+    "missing-schema-refused",
+    "executable-mode-drift-refused",
+    "closing-index-drift-refused",
+    "preexisting-destination-refused",
+    "deadline-terminates-leader-and-closes-all-set-up-streams"
+  ],
+  "deadlineSeconds": 0.20288725000000002,
+  "scriptSha256": "74ed7fd68217bf68db9dead20914bedd0e352187470632cbf520a4c49d9f16ee"
+}

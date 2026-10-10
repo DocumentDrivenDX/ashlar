@@ -1,0 +1,64 @@
+{
+  "decision": "PASS package verifier source and bounded inert inspection controls; installer transport/lifecycle separately reviewed",
+  "source": {
+    "path": "/Users/erik/Projects/ashlar/src/ashlar/weft_paths_package.py",
+    "sha256": "0dc1c2a6803290f2fd300d93c09e6c9e53269c726e08115d0ed2f2dca06f82ee",
+    "bytes": 25893
+  },
+  "fixtureIndexOnly": true,
+  "checks": [
+    "actual70-package-under-labeled-fixture-index",
+    "wrong-index-pin-before-any-caller-read",
+    "file-replaced-by-fifo-at-open",
+    "json-descriptor-limit-before-read",
+    "closing-package-byte-drift",
+    "closing-index-byte-drift",
+    "closing-KeyboardInterrupt-identity",
+    "closing-SystemExit-identity"
+  ],
+  "actualPackageFiles": 70,
+  "actualPackageBytes": 44587566,
+  "sourceInventory": 1842,
+  "fullResponses": 512,
+  "legacyPairs": 463,
+  "retainedResources": [
+    {
+      "path": "backend-manifest.json",
+      "bytes": 51125,
+      "sha256": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5"
+    },
+    {
+      "path": "schemas/compile-request-v0.4.schema.json",
+      "bytes": 3511,
+      "sha256": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932"
+    },
+    {
+      "path": "schemas/compile-response-v0.4.schema.json",
+      "bytes": 62086,
+      "sha256": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140"
+    },
+    {
+      "path": "schemas/logical-plan-v0.4.schema.json",
+      "bytes": 42813,
+      "sha256": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    },
+    {
+      "path": "schemas/application-result-v0.4.schema.json",
+      "bytes": 2281,
+      "sha256": "ee87e4e845d670601a301701dc6109c7a37dadb96ccb1e7f75c8144c5bd8bc2a"
+    },
+    {
+      "path": "schemas/backend-manifest-v0.3.schema.json",
+      "bytes": 18066,
+      "sha256": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a"
+    }
+  ],
+  "inspectSeconds": 0.396,
+  "noOutputCreated": true,
+  "closingOriginalFilesUnchanged": 70,
+  "limits": [
+    "No actual install, executable, native engine, index mutation or source edits. Temporary index uses explicitly synthetic revision; it does not create production trust.",
+    "Fixed profile530/binary71ba/backend47/fullreceipt/source hashes remain distinct from old ab899 module limits.",
+    "Filesystem containment assumes trusted cooperating directory writers; bounded regular reads and no-follow checks are not adversarial cross-principal/crash-durability claims."
+  ]
+}

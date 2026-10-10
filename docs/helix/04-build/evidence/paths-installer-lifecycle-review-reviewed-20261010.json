@@ -1,0 +1,54 @@
+{
+  "verdict": "PASS for targeted B lifecycle corrections",
+  "scope": "Frozen installer source lifecycle and fake fixture/process controls only. No actual compiler, package/index admission, real installation, native engine, database or source edit. Identity verification deliberately mocked for controlled Python child transport.",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-installation-source-freeze-20261010-b/manifest.json",
+    "sha256": "c8cce0f1449c9daea62cd668927025f12d955488338f54f29f5b7b1bd571e977"
+  },
+  "source": {
+    "bytes": 12169,
+    "path": "src/ashlar/weft_paths_installation.py",
+    "sha256": "9f29570213f9432e497f67d337c5c56e522fb7802ee778771484172b6d8e80b9"
+  },
+  "ownerTests": {
+    "count": 20,
+    "passed": true,
+    "log": "/private/tmp/astra-paths-installer-lifecycle-review-20261010-b-tests.log"
+  },
+  "controls": [
+    {
+      "id": "setup-set_blocking",
+      "primaryPreserved": true,
+      "childTerminated": true,
+      "streamsClosedAfterReturn": {
+        "stdin": true,
+        "stdout": true,
+        "stderr": true
+      },
+      "correction": "All three owned pipe objects close even when initial setup fails."
+    },
+    {
+      "id": "setup-register",
+      "primaryPreserved": true,
+      "childTerminated": true,
+      "streamsClosedAfterReturn": {
+        "stdin": true,
+        "stdout": true,
+        "stderr": true
+      },
+      "correction": "All three owned pipe objects close even when initial setup fails."
+    },
+    {
+      "id": "postcommit-staging-cancellation",
+      "returnedSuccess": false,
+      "exactCancellationPreserved": true,
+      "readyCommitted": true,
+      "correction": "Postcommit cancellation propagates while the committed ready file remains intact."
+    }
+  ],
+  "cleanup": "Every stream was already closed by the reviewed transport; reviewer reaped controlled leaders and removed temporary fixture installation directories.",
+  "script": {
+    "path": "/private/tmp/astra-paths-installer-lifecycle-review-20261010-b.py",
+    "sha256": "b65cceb0724dbbc8461d8796259c22a064e99e837c6aad5c87e5170d719f3fb9"
+  }
+}

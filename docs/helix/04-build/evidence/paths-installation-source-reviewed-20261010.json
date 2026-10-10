@@ -1,0 +1,85 @@
+{
+  "decision": "APPROVE exact four-file separate Paths package/installation source C",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-installation-source-freeze-20261010-c/manifest.json",
+    "sha256": "23df86e9bd0ffe35a0af21450002cd7fb7bc8ec13a2627b15fecb5b5e5b2da28",
+    "bytes": 935
+  },
+  "files": [
+    {
+      "bytes": 25893,
+      "path": "src/ashlar/weft_paths_package.py",
+      "sha256": "0dc1c2a6803290f2fd300d93c09e6c9e53269c726e08115d0ed2f2dca06f82ee"
+    },
+    {
+      "bytes": 12169,
+      "path": "src/ashlar/weft_paths_installation.py",
+      "sha256": "9f29570213f9432e497f67d337c5c56e522fb7802ee778771484172b6d8e80b9"
+    },
+    {
+      "bytes": 4601,
+      "path": "tests/test_weft_paths_package.py",
+      "sha256": "42ceba81c5cc07ac3e830a4b9ae7a67f01ee1f07d91a9892bfd5961f4f35ee83"
+    },
+    {
+      "bytes": 7995,
+      "path": "tests/test_weft_paths_installation.py",
+      "sha256": "9fb780079bfce623fdaba30040557dbd2e71bd21ecc85d7c45f66e457d15b723"
+    }
+  ],
+  "reviews": [
+    {
+      "path": "/private/tmp/astra-paths-installer-lifecycle-review-20261010-b.json",
+      "sha256": "3dbc5e558f772420eff269920609d2d1ced53cb874bf879acf7839e6e2e7775f",
+      "bytes": 2103
+    },
+    {
+      "path": "/private/tmp/astra-paths-installer-restart-controls-20261010-b.json",
+      "sha256": "dab47f7512ce69ac0f52cbd76792544578eaebda153383424fde077f9ac006f9",
+      "bytes": 1088
+    },
+    {
+      "path": "/private/tmp/astra-paths-installer-c-hash-ack-20261010-c.json",
+      "sha256": "6ee391e1505a7706b2125a107e3b191cddf455669b7dfc6fa258971e2d540cd3",
+      "bytes": 2187
+    },
+    {
+      "path": "/private/tmp/astra-paths-package-source-probe-20261010-a.json",
+      "sha256": "9b5dff5ba1b8fdd9403a17d5430901a4e394e03f3899dd6ff8033564ebc74fcc",
+      "bytes": 2483
+    }
+  ],
+  "independentTestLogs": [
+    {
+      "path": "/private/tmp/astra-paths-installation-focused-tests-20261010-c-python39.log",
+      "sha256": "968d0b48e5c95eadff292d8d2ff4a793cbe308ef12e236ee539da4ab1f40d0c6",
+      "bytes": 2274
+    },
+    {
+      "path": "/private/tmp/astra-paths-package-tests-20261010-c-python312.log",
+      "sha256": "58a362cfb17c71fb809d7b4249d5244020f67454330f93ac58d6fd52ad0387d7",
+      "bytes": 1304
+    }
+  ],
+  "checks": [
+    "Package verification hashes independently trusted index bytes before caller package reads, then validates exact selected realization and fixed530 source/binary/backend/build/schema/full-response profile. Original ab899 module and20MiB decoded limit remain untouched.",
+    "Actual reviewed70-file package inspected read-only under clearly labeled fixture index:1842 source inventory,463 original historical pairs,512 full responses,47 capability coverage,8 transport controls and6 retained schema/backend resources agree. No destination or ready record created.",
+    "Additional package probes refuse wrong trust before reads, FIFO replacement at open without blocking, JSON descriptor oversize before read, closing package drift and closing index drift. KeyboardInterrupt/SystemExit closing identity survives;70 original package files unchanged.",
+    "Bounded nonblocking/no-follow regular-file snapshots, explicit aggregate96MiB/per-file32MiB/decoded64MiB ceilings, single-member gzip and exact-tree closure are confined to this distinct profile.",
+    "Installer final-ready commit and no-clobber ownership, retained exact schema/backend bytes, package-free restart verification and opening/closing executable/index verification reviewed separately.",
+    "Corrected early transport setup cancellation records and closes all3 Popen streams, reaps the controlled child and preserves original primary failure. Postcommit fresh cancellation propagates while committedready stays; ordinary staging OSError produces cleanup_pending.",
+    "Child13 additional synthetic restart/transport controls cover tampered ready/executable/provenance/schema/backend, extra/missing tree, mode, closing index drift, existing destination and bounded deadline cleanup.",
+    "Final C only fixes readonly-cancellation test portability; Python3.12 package8 and Python3.9 focused20 tests pass independently."
+  ],
+  "reviewHistory": [
+    "Source A lifecycle failures retained in independent child receipt; B corrected pipe tracking and postcommit cancellation. C production bytes unchanged B.",
+    "Reviewer first package script used the wrong backend copy path and stopped after pure inspection; corrected to manifest-defined backend/backend-manifest.json and reran successfully. Initial error log retained.",
+    "Reviewer broad test glob included an unrelated corpus-schema test without tools on import path; the exact20 requested tests were rerun explicitly and passed. Original broader-import failure log retained."
+  ],
+  "limits": [
+    "Approval concerns source and finite controlled tests. It performs no actual package installation, Paths executable run, native engine, database or public index mutation.",
+    "Synthetic test trust is not production index authority. Composition must inject the independently selected immutable public index revision/digest and actual qualified platform; caller package data cannot select its own trust.",
+    "No filesystem containment against hostile cross-principal writers, power-loss durability, full SDK/cache closure, native530 support, source/ACK authority, OTel receiver integration or mechanical/unbounded proof inferred.",
+    "Actual installed compiler/host composition and any native qualification remain separate gates."
+  ]
+}
