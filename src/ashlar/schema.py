@@ -5,6 +5,7 @@ import json
 import re
 from dataclasses import dataclass
 from decimal import Decimal
+from typing import Any
 
 class SchemaIntakeError(ValueError):
     pass
@@ -17,13 +18,21 @@ def _pairs(pairs):
         result[key] = value
     return result
 
-def _json(raw):
+def decode_retained_json(raw: bytes) -> Any:
+    """Decode UTF-8 JSON without duplicate members or nonfinite numbers.
+
+    Fractions retain Decimal precision; every JSON root is permitted. Callers
+    own input byte/work bounds and domain validation; this is no UMF admission.
+    """
     try:
         return json.loads(raw.decode('utf-8'), object_pairs_hook=_pairs,
                           parse_float=Decimal,
                           parse_constant=lambda _: (_ for _ in ()).throw(SchemaIntakeError('Non-finite JSON')))
     except (UnicodeError, ValueError, TypeError, RecursionError) as exc:
         raise SchemaIntakeError('Invalid retained JSON') from exc
+
+# Retained compatibility name for existing internal consumers.
+_json = decode_retained_json
 
 @dataclass(frozen=True)
 class SchemaIntake:

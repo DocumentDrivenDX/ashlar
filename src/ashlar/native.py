@@ -1,7 +1,7 @@
 """Read-only SQL backend; authenticated execution and policy are injected."""
 from dataclasses import dataclass
 from typing import Any, Mapping, Protocol, Sequence, Tuple
-from .publication import Descriptor, ResolutionError, Snapshot, _name
+from .publication import Descriptor, ResolutionError, Snapshot, _name, validate_table_identifier
 
 @dataclass(frozen=True)
 class SQLResult:
@@ -21,8 +21,15 @@ class Policy(Protocol):
         LIMIT 0 alone proves none of these. Refuse when evidence is unavailable.
         """
 
-def _quoted(table):
-    return '.'.join('`' + part + '`' for part in _name(table).split('.'))
+def quote_table_identifier(table: str) -> str:
+    """Quote an admitted three-part identifier; never accept an SQL fragment.
+
+    This syntax operation grants no permission to access the named table.
+    """
+    return '.'.join('`' + part + '`' for part in validate_table_identifier(table).split('.'))
+
+# Retained compatibility name for existing internal consumers.
+_quoted = quote_table_identifier
 
 class NativeBackend:
     def __init__(self, executor: Executor, policy: Policy, manifest_table: str,

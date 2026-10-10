@@ -19,7 +19,12 @@ class PhaseRecord:
     payload_digest: str
 
 
-def _request_digest(request):
+def verify_request_digest(request: dict[str, str]) -> str:
+    """Verify the complete original attempt-request strings and digest.
+
+    A present checkpoint retains its existing source-specific validation. This
+    verifies request correspondence only, never writer/source/ACK authority.
+    """
     keys={'stream','batch_id','predecessor','schema_revisions_json','source_batch_json','source_batch_digest','request_digest'}
     if not isinstance(request,dict) or set(request) not in (keys,keys|{'source_checkpoint_json'}) or any(not isinstance(x,str) or not x for x in request.values()):
         raise AttemptStoreError('Complete original request strings required')
@@ -31,6 +36,9 @@ def _request_digest(request):
         try:validate_checkpoint_request(request)
         except ValueError as exc:raise AttemptStoreError('Invalid original native source checkpoint') from exc
     return digest
+
+# Retained compatibility name for existing internal consumers.
+_request_digest = verify_request_digest
 
 def _phase_records(stream,batch_id,rows):
     try:return _validate_phase_records(stream,batch_id,rows)

@@ -1,0 +1,79 @@
+{
+  "bounds": "decode_retained_json explicitly assigns byte/work bounds and domain validation to callers; it preserves original Decimal/unknown JSON semantics and is not a new bounded admission API. Future host callers must supply their own input bounds before this helper.",
+  "evidenceLimits": "Portable unit/fake-provider checks and exact source-body correspondence, not actual database execution, OTel receiver integration, unbounded formal proof or native feature qualification. Foreign authority/docs edits and all other files excluded.",
+  "files": [
+    {
+      "bytes": 6264,
+      "frozenCopy": "/private/tmp/ashlar-public-host-ports-freeze-20261010-a/src/ashlar/publication.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/publication.py",
+      "sha256": "6feb6375bd1cb72a62520af11d5e30871141a3e96ce680c64a57b91ef17873e0"
+    },
+    {
+      "bytes": 8034,
+      "frozenCopy": "/private/tmp/ashlar-public-host-ports-freeze-20261010-a/src/ashlar/attempt_store.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/attempt_store.py",
+      "sha256": "bcc55c8b070f0dcc9b9517f33fde230b1d85d37f2f1171806abbab2fece16e5e"
+    },
+    {
+      "bytes": 4334,
+      "frozenCopy": "/private/tmp/ashlar-public-host-ports-freeze-20261010-a/src/ashlar/schema.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/schema.py",
+      "sha256": "db4b4922d78ef012863cf72231eeca14c1d7d70b2a56dee6428da1c74ed63d8b"
+    },
+    {
+      "bytes": 4279,
+      "frozenCopy": "/private/tmp/ashlar-public-host-ports-freeze-20261010-a/src/ashlar/native.py",
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/native.py",
+      "sha256": "a6f202ac9f76ae65cf5dd2f1a1a7989108906df49c7719a2c74497e73c96fe98"
+    },
+    {
+      "bytes": 3604,
+      "frozenCopy": "/private/tmp/ashlar-public-host-ports-freeze-20261010-a/tests/test_host_public_ports.py",
+      "path": "/Users/erik/Projects/ashlar/tests/test_host_public_ports.py",
+      "sha256": "200dda0c99a632cefb98f855d670820a7132e65f4c29cacf9251a61cd1d917e5"
+    }
+  ],
+  "freeze": {
+    "bytes": 1622,
+    "path": "/private/tmp/ashlar-public-host-ports-freeze-20261010-a/manifest.json",
+    "sha256": "69b3fa988cc3877bc177a2085b642b820e6655fa8289159bfb2f67251ae87436"
+  },
+  "independentBodyCorrespondence": [
+    {
+      "bodyAstUnchangedAfterPublicCalleeRename": true,
+      "file": "src/ashlar/publication.py",
+      "old": "_name",
+      "privateCompatibilityAliasPresent": true,
+      "public": "validate_table_identifier"
+    },
+    {
+      "bodyAstUnchangedAfterPublicCalleeRename": true,
+      "file": "src/ashlar/attempt_store.py",
+      "old": "_request_digest",
+      "privateCompatibilityAliasPresent": true,
+      "public": "verify_request_digest"
+    },
+    {
+      "bodyAstUnchangedAfterPublicCalleeRename": true,
+      "file": "src/ashlar/schema.py",
+      "old": "_json",
+      "privateCompatibilityAliasPresent": true,
+      "public": "decode_retained_json"
+    },
+    {
+      "bodyAstUnchangedAfterPublicCalleeRename": true,
+      "file": "src/ashlar/native.py",
+      "old": "_quoted",
+      "privateCompatibilityAliasPresent": true,
+      "public": "quote_table_identifier"
+    }
+  ],
+  "ownershipAndConfiguration": "Syntax validation/quoting, exact retained JSON decoding and request digest correspondence stay in their existing owning modules. No new environment reads, SDK dependencies, privilege, catalog/source authority or model admission. Typed public API signatures and original private aliases retain existing consumers.",
+  "validation": {
+    "actualModuleBoundaryChecker": "PASS",
+    "focusedAndExistingTests": 19,
+    "result": "PASS",
+    "runtime": "Python3.9.6 -B -S ResourceWarning as error"
+  },
+  "verdict": "Approved exact five-file public helper exposure, source-only and no runtime profile change"
+}

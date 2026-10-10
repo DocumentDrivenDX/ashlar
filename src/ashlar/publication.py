@@ -11,10 +11,17 @@ _IDENTIFIER = re.compile(r'[A-Za-z_][A-Za-z0-9_]*\.[A-Za-z_][A-Za-z0-9_]*\.[A-Za
 class ResolutionError(ValueError):
     """Invalid or unavailable publication; never a partial read admission."""
 
-def _name(value):
+def validate_table_identifier(value: str) -> str:
+    """Validate the existing closed three-part SQL identifier grammar.
+
+    This syntax check grants no catalog, publication or execution authority.
+    """
     if not isinstance(value, str) or not _IDENTIFIER.fullmatch(value):
         raise ResolutionError('Invalid qualified table identifier')
     return value
+
+# Retained compatibility name for existing internal consumers.
+_name = validate_table_identifier
 
 def _pairs(pairs):
     result = {}

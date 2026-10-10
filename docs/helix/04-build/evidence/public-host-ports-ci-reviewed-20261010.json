@@ -1,0 +1,8 @@
+{
+  "verdict": "Approved single CI test-discovery addition",
+  "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+  "sha256": "622b035def8ce9e43e901714f813ac60c40ed16fabea849e5bb4c81385ed023d",
+  "delta": "Only adds stdlib public-host-port suite to existing Ubuntu/Python3.12 job, no permission/dependency/engine changes",
+  "independentLocalValidation": "Exact command, additionally -B, passes all4 tests onPython3.9.6; Python3.12 CI is pending actualexecution",
+  "dependsOn": "public API5 source approvalc41c569f"
+}
