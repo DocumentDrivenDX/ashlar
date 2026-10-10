@@ -1,0 +1,179 @@
+{
+  "format": "astra-independent-actual-sdk-receiver-review/0.1",
+  "verdict": "approved-actual-finite-SDK-loopback-evidence",
+  "command": {
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/command.json",
+    "bytes": 176346,
+    "sha256": "0a7b2cbdce299a806941779130e02a1586817bf4037b8c6e2f371ca062e7558f"
+  },
+  "source": {
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/probe.py",
+    "bytes": 14937,
+    "sha256": "ba1f359a9fc8e1fd2ac99ca2a3d55100fe48c33bac52bc98be610e205b09a64a"
+  },
+  "actualLaunch": {
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/launch.json",
+    "bytes": 365,
+    "sha256": "0d9f1817496377f6af3f6f221b0cdea766c18ec320287527412e0380275375b7"
+  },
+  "actualResult": {
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/result.json",
+    "bytes": 1420,
+    "sha256": "3ee5fa80b55f1ac7dd1e0b77cb43694a0cd90c3dc6c6cb59b3f8aaa402a03147"
+  },
+  "actualExpectedSdkContext": {
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/expected.json",
+    "bytes": 889,
+    "sha256": "5f91c51fd9b670a42fdd7fe2009f1302fc04fa53b5bef0e930223c5ff39f4b51"
+  },
+  "independentSemanticReview": {
+    "path": "/private/tmp/astra-otel-sdk-receiver-output-review-20261010-c.json",
+    "bytes": 23660,
+    "sha256": "335f0fa390f01209960773e2a52810dad9ac7cee2cba54646a55b31c6fb26a69"
+  },
+  "independentCustodyReview": {
+    "path": "/private/tmp/astra-otel-sdk-receiver-closure-20261010-c.json",
+    "bytes": 4780,
+    "sha256": "053d0dbb983080dc75122a1b8c936e2c96fc898719a7c82ddd4b0f7ca21afeb2"
+  },
+  "commandReview": {
+    "path": "/private/tmp/astra-otel-sdk-probe-command-review-20261010-c.json",
+    "bytes": 4951,
+    "sha256": "7038cd2071c5ce72bcef6b88bf850546a89fd9314efc47cc52beff0ac4f79bcb"
+  },
+  "installedByteReview": {
+    "path": "/private/tmp/astra-otel-installed-content-review-20261010-a.json",
+    "bytes": 30177,
+    "sha256": "47d5927585acb8478c73feb7c7e0f3e0583ef75db834cdbdc57bbe9b66b93832"
+  },
+  "observed": {
+    "exitCode": 0,
+    "wallSeconds": 0.2681759580154903,
+    "providerReceiverSeconds": 0.0327441249974072,
+    "selectedInputsRehashed": 703,
+    "filesExact": 11,
+    "requests": 4,
+    "requestTotalBytes": 2376,
+    "logs": 2,
+    "spans": 1,
+    "cumulativeMonotonicIntegerSumPoints": 1,
+    "sumValue": 1,
+    "stdoutBytes": 0,
+    "stderrBytes": 0,
+    "stageAbsent": true,
+    "receiverThreadClosed": true,
+    "actualContextFlags": 3,
+    "tracedLogFlags": 3,
+    "untracedLogFlags": 0,
+    "nativeRootSpanFlags": 256,
+    "nativeRootSpanLow8": 0,
+    "duplicateAttributeNames": 0,
+    "unknownProtobufFields": 0
+  },
+  "checks": [
+    {
+      "check": "approved_source_command_and_four_request_hashes",
+      "outcome": "pass",
+      "requests": 4
+    },
+    {
+      "check": "no_unknown_protobuf_fields",
+      "outcome": "pass",
+      "requests": 4
+    },
+    {
+      "check": "exact_resource_scope_all_four_envelopes",
+      "outcome": "pass",
+      "resourceAttributes": 6,
+      "resourceDropped": 0,
+      "scopeAttributes": 0,
+      "scopeDropped": 0
+    },
+    {
+      "actualContextFlags": 3,
+      "check": "two_exact_logs_traced_untraced",
+      "outcome": "pass",
+      "tracedAttributeTypes": {
+        "ashlar.attempt.id": "string_value",
+        "ashlar.diagnostic.schema_version": "string_value",
+        "ashlar.emitter.id": "string_value",
+        "ashlar.operation": "string_value",
+        "ashlar.run.id": "string_value",
+        "ashlar.sequence": "int_value"
+      },
+      "tracedWireFlags": 3,
+      "untracedAttributeTypes": {
+        "ashlar.attempt.id": "string_value",
+        "ashlar.diagnostic.schema_version": "string_value",
+        "ashlar.emitter.id": "string_value",
+        "ashlar.operation": "string_value",
+        "ashlar.phase": "string_value",
+        "ashlar.phase.state": "string_value",
+        "ashlar.run.id": "string_value",
+        "ashlar.sequence": "int_value"
+      },
+      "untracedWireFlags": 0
+    },
+    {
+      "actualContextFlags": 3,
+      "attributeTypes": {
+        "ashlar.attempt.id": "string_value",
+        "ashlar.cleanup_failed": "bool_value",
+        "ashlar.operation": "string_value",
+        "ashlar.outcome": "string_value",
+        "ashlar.run.id": "string_value"
+      },
+      "check": "exact_root_span_with_native_flag_omission",
+      "droppedCounts": 0,
+      "events": 0,
+      "flags": 256,
+      "links": 0,
+      "lowEightBits": 0,
+      "outcome": "pass",
+      "parentBytes": 0,
+      "statusCode": 0
+    },
+    {
+      "check": "exact_cumulative_monotonic_integer_counter_point",
+      "dimensionTypes": {
+        "ashlar.operation": "string_value",
+        "ashlar.outcome": "string_value"
+      },
+      "exemplars": 0,
+      "flags": 0,
+      "outcome": "pass",
+      "points": 1,
+      "temporality": 2,
+      "value": 1
+    },
+    {
+      "check": "finite_timestamp_ordering",
+      "metricEnd": 1791645985987426000,
+      "metricStart": 1791645985987419000,
+      "observedTraced": 1791645985985779000,
+      "observedUntraced": 1791645985985779001,
+      "outcome": "pass",
+      "source": 1791645985985778990,
+      "spanEnd": 1791645985987036000,
+      "spanStart": 1791645985985764000
+    },
+    {
+      "check": "closing_output_source_hashes_and_exact_installed_decoder_bytes",
+      "decoderModules": 51,
+      "outcome": "pass",
+      "providerOrExporterImports": 0
+    }
+  ],
+  "findings": [],
+  "nativeSdkLimitation": "Pinned SDK1.45.1 root span encoder omits actual context flags in low8 OTLP bits; observed256 is not actualcontext3. Evidence retains both values and unmodified receiver bytes. Installed encoder also omits linked-context low8; this run has zero links and does not exercise linked span behavior.",
+  "historicalDisposition": "A actualexit1 before logger.emit due too-narrow sampled==1 oracle is retained, along with unexecuted B oracle draft and correction finding. C is a new explicit bounded probe; no historical output rewritten.",
+  "scope": [
+    "Actual public owned Python3.11.17 OTelSDK1.45.1 providers and pinned encoder functions emitted two exact LogRecords, one root span and one cumulative integer Sum point through custom synchronous HTTP loopback transport.",
+    "Independent protobuf-only decoder checked exact primitive oneof types, Resource/scope fields, actual SDK trace/time fixture, all span attributes/status, empty parent/events/links/exemplars/drop counts, temporal ordering, duplicate and unknown-field refusal.",
+    "Root-retained launch records exact opening/closing703 andterminal0; reviewer independently rehashed all703 after execution and exact11-file output tree. Thread cleanup is source assertion plus terminal evidence, not an external global-process proof.",
+    "Fixed service.version fixture. No installed Ashlar operation/capture integration, production OTLP HTTP exporter, queue/deadline/retry/outage/privacy/loss/backpressure qualification, credentials/nativegraph/publication/ACK authority or complete C006 conformance.",
+    "Full adapter span/link flag preservation requires a separate reviewed owning projection or explicit governed limitation before full conformance can be claimed; this receipt does not grant an exception.",
+    "Selected installed input bytes are verified; no complete stdlib/OS/dylib closure, hermeticity, arbitrary abrupt-kill guarantee, model checker or unbounded proof."
+  ],
+  "reviewerExecution": "Read-only retained files and local protobuf decoding only; no SDK providers/exporters/network/receiver rerun."
+}

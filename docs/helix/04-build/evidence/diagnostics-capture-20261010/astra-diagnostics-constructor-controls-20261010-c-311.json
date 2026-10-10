@@ -1,0 +1,203 @@
+{
+  "rows": [
+    {
+      "version": "b",
+      "port": "lstat",
+      "failure": "PermissionError",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "lstat",
+      "failure": "KeyboardInterrupt",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "lstat",
+      "failure": "SystemExit",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "lstat",
+      "failure": "GeneratorExit",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "mkdir",
+      "failure": "PermissionError",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "mkdir",
+      "failure": "KeyboardInterrupt",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "mkdir",
+      "failure": "SystemExit",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "mkdir",
+      "failure": "GeneratorExit",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "open",
+      "failure": "PermissionError",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "open",
+      "failure": "KeyboardInterrupt",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "open",
+      "failure": "SystemExit",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "open",
+      "failure": "GeneratorExit",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "write",
+      "failure": "PermissionError",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "write",
+      "failure": "KeyboardInterrupt",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "write",
+      "failure": "SystemExit",
+      "pass": true
+    },
+    {
+      "version": "b",
+      "port": "write",
+      "failure": "GeneratorExit",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "lstat",
+      "failure": "PermissionError",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "lstat",
+      "failure": "KeyboardInterrupt",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "lstat",
+      "failure": "SystemExit",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "lstat",
+      "failure": "GeneratorExit",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "mkdir",
+      "failure": "PermissionError",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "mkdir",
+      "failure": "KeyboardInterrupt",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "mkdir",
+      "failure": "SystemExit",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "mkdir",
+      "failure": "GeneratorExit",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "open",
+      "failure": "PermissionError",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "open",
+      "failure": "KeyboardInterrupt",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "open",
+      "failure": "SystemExit",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "open",
+      "failure": "GeneratorExit",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "write",
+      "failure": "PermissionError",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "write",
+      "failure": "KeyboardInterrupt",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "write",
+      "failure": "SystemExit",
+      "pass": true
+    },
+    {
+      "version": "c",
+      "port": "write",
+      "failure": "GeneratorExit",
+      "pass": true
+    }
+  ],
+  "ownerTests": {
+    "run": 18,
+    "skipped": 0,
+    "failures": 0,
+    "errors": 0
+  },
+  "scope": "Frozen B counterexamples and frozen C normalization/non-Exception exact identity; no SDK or operation ports. Sink cleanup remains composition owned."
+}

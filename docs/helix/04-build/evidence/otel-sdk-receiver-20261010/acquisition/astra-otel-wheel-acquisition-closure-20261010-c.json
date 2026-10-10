@@ -1,0 +1,121 @@
+{
+  "format": "astra-otel-wheel-actual-closure/0.1",
+  "status": "pass",
+  "freeze": {
+    "path": "/private/tmp/ashlar-otel-wheel-resolution-20261010-c/freeze.json",
+    "bytes": 2039,
+    "sha256": "16ed09ffac6eb4a8b088ad7243c5aeac7bdceb210712e3e7a7f3d65a7b441604"
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-otel-wheel-resolution-20261010-c/command.json",
+    "bytes": 10222,
+    "sha256": "4607c5148d7bda1bcc44fc99a0d2ca84bffa5f04d92773bee1a64f61fef54193"
+  },
+  "allFrozenFiles": 9,
+  "allCommandInputPins": 19,
+  "output": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c",
+  "fileCount": 18,
+  "wheelCount": 16,
+  "wheelBytes": 1955024,
+  "totalOutputBytes": 1962013,
+  "inventory": [
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/.download-provisional.json",
+      "bytes": 3470,
+      "sha256": "da45df34c0da398edac7b854cf8e99d033ffcacf8759c8aebd5f8a4d7d9f199a"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/certifi-2025.10.5-py3-none-any.whl",
+      "bytes": 163286,
+      "sha256": "0f212c2744a9bb6de0c56639a6f68afe01ecd92d91f14ae897c4fe7bbeeef0de"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/charset_normalizer-3.4.3-cp311-cp311-macosx_10_9_universal2.whl",
+      "bytes": 204483,
+      "sha256": "b256ee2e749283ef3ddcff51a675ff43798d92d746d1a6e4631bf8c707d22d0b"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/download.json",
+      "bytes": 3519,
+      "sha256": "90dee75789e7c3d5fe2c02ad5c4604cd96fb252fef2afcb66b02b8b70b0051a8"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/googleapis_common_protos-1.75.0-py3-none-any.whl",
+      "bytes": 300631,
+      "sha256": "961ed60399c457ceb0ee8f285a84c870aabc9c6a832b9d37bb281b5bebde43ed"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/idna-3.15-py3-none-any.whl",
+      "bytes": 72340,
+      "sha256": "048adeaf8c2d788c40fee287673ccaa74c24ffd8dcf09ffa555a2fbb59f10ac8"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_api-1.45.1-py3-none-any.whl",
+      "bytes": 60256,
+      "sha256": "b31553efa588ae44bc306f863c785c5333a9ecc091248c6ee68b4b6c87fdedfb"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_exporter_http_transport-0.66b1-py3-none-any.whl",
+      "bytes": 12155,
+      "sha256": "2f95404bdee7f9d2d529c7de56c7bd86d014d774d8fbf137810e0167f8a492bf"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_exporter_otlp_common-0.66b1-py3-none-any.whl",
+      "bytes": 12385,
+      "sha256": "00ff8592c3a7cb729ff3fdc7ffa12372c243bdf2163e80c180994d0c7bd83ee9"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_exporter_otlp_proto_common-1.45.1-py3-none-any.whl",
+      "bytes": 15393,
+      "sha256": "2f446183ae7047b036226f1d846c41a834b0e8755ad13b51a51dd38952eb466c"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_exporter_otlp_proto_http-1.45.1-py3-none-any.whl",
+      "bytes": 22180,
+      "sha256": "24a97cf3753c7fb52fad44a696e452ff371686339e2acf3309e2eda3d0230700"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_proto-1.45.1-py3-none-any.whl",
+      "bytes": 72488,
+      "sha256": "f38e2a8413053c180cd3d2637fbb279673ec2f6a6e09c995aafa2f452c52b46e"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_sdk-1.45.1-py3-none-any.whl",
+      "bytes": 140063,
+      "sha256": "c604c11dc429810812348989115fa44bd558772a3d7442afc43d024f2c250ca4"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_semantic_conventions-0.66b1-py3-none-any.whl",
+      "bytes": 206279,
+      "sha256": "d4cddeb4315490b35213f55e2bdc9ac54bb1e4d318927475bed62b35545e581b"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/protobuf-6.33.6-cp39-abi3-macosx_10_9_universal2.whl",
+      "bytes": 427737,
+      "sha256": "9720e6961b251bde64edfdab7d500725a2af5280f3f4c87e57c0208376aa8c3a"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/requests-2.33.0-py3-none-any.whl",
+      "bytes": 65017,
+      "sha256": "3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/typing_extensions-4.15.0-py3-none-any.whl",
+      "bytes": 44614,
+      "sha256": "f0fa19c6845758ab08074a0cfa8b7aecb71c999ca73d62883bc25cc018c4e548"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/urllib3-2.8.0-py3-none-any.whl",
+      "bytes": 135717,
+      "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3"
+    }
+  ],
+  "checks": [
+    "Exact 16 locked wheel hashes and sizes",
+    "Canonical independent final/provisional receipt reconstruction matches exact bytes",
+    "Exactly18 regular0600 files under0700 directory; no stage, pycache, install or extra outputs",
+    "Opening/closing inventory and hashes unchanged during reviewer read",
+    "Approved command and every frozen/input pin unchanged"
+  ],
+  "runtimeScope": "Actual root-reported terminal exit0; this review executes only bounded no-follow reads/hash comparisons, not acquisition/import/install or receiver."
+}

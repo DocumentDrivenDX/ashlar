@@ -1,0 +1,97 @@
+{
+  "format": "independent-otel-wheel-proposal-review/0.1",
+  "decision": "approved-exact-C-bounded-wheel-acquisition-only",
+  "freeze": {
+    "path": "/private/tmp/ashlar-otel-wheel-resolution-20261010-c/freeze.json",
+    "bytes": 2039,
+    "sha256": "16ed09ffac6eb4a8b088ad7243c5aeac7bdceb210712e3e7a7f3d65a7b441604"
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-otel-wheel-resolution-20261010-c/command.json",
+    "bytes": 10222,
+    "sha256": "4607c5148d7bda1bcc44fc99a0d2ca84bffa5f04d92773bee1a64f61fef54193"
+  },
+  "helper": {
+    "path": "/private/tmp/ashlar-otel-wheel-resolution-20261010-c/download_wheels.py",
+    "bytes": 9823,
+    "sha256": "f61c99545e1627933c1cec60c562d957803f23b5491ed05dbfbb39254d798265"
+  },
+  "lock": {
+    "path": "/private/tmp/ashlar-otel-wheel-resolution-20261010-c/wheel-lock.json",
+    "bytes": 22309,
+    "sha256": "512a9e4891765720686c3c60ea30b767b1cdc9ec69ddc62f4616d7798c5b00f4"
+  },
+  "priorMetadataClosureEndorsed": {
+    "path": "/private/tmp/astra-otel-wheel-proposal-review-20261010-b.json",
+    "bytes": 4951,
+    "sha256": "beb8cc0851c19ca26583d92a50ffbc0d18c70498b3202a31621a125ccc0b9f1e"
+  },
+  "metadataScope": {
+    "packages": 16,
+    "activeDependencyEdges": 25,
+    "wheelBytes": 1955024,
+    "largestWheelBytes": 427737,
+    "lockBytesUnchanged": true,
+    "selectedPython": "3.11.17",
+    "selectedOTelApiSdkHttp": "1.45.1",
+    "selectedSemanticConventions": "0.66b1",
+    "qualification": "Official recorded PyPI/PEP658 hashes and independently recomputed target marker/Requires-Python/tag closure from B remain exact; no new resolver or advisory audit."
+  },
+  "independentTransportReviewEndorsed": {
+    "path": "/private/tmp/astra-wheel-transport-review-20261010-c.json",
+    "bytes": 10603,
+    "sha256": "d1f020e585ee4790bf6447f86f74d702d626e9ce4052e51ec41d41e832afa5ba"
+  },
+  "custody": {
+    "path": "/private/tmp/astra-otel-wheel-c-custody-20261010-a.json",
+    "bytes": 657,
+    "sha256": "ed108daa03d06b6b71966786b015d450e753e69385beb86bd82671a9abf1baf8"
+  },
+  "parentTest": {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-S",
+      "-W",
+      "error::ResourceWarning",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "/private/tmp/ashlar-otel-wheel-resolution-20261010-c",
+      "-p",
+      "test_download_wheels.py",
+      "-v"
+    ],
+    "exitCode": 0,
+    "tests": 13,
+    "log": {
+      "path": "/private/tmp/astra-otel-wheel-c-owner-tests.log",
+      "bytes": 1338,
+      "sha256": "1cb19f9f507936f3ee11a2b8bdd5a5e65aa22f9ed43a019bb299e4b4a60b1ed1"
+    }
+  },
+  "resolvedFindings": [
+    "WTR-001 worker final publication before process closure: distinct provisional format, parent closing all wheels/lock then staged close/readback and exclusive final link.",
+    "WTR-002 ZIP cleanup masks primary: stream/archive both close through primary-preserving finish; independent original counterexamples now pass."
+  ],
+  "publicationSemantics": {
+    "commit": "Exclusive os.link of fully closed/read-back final stage, after worker exit/group kill/reap and all closing byte checks.",
+    "beforeCommit": "Any refusal/primary/cleanup failure withholds final receipt; partial owned data may remain.",
+    "afterCommit": "Late cancellation may propagate while exact complete committed final receipt remains; ordinary stage unlink failure is housekeeping.",
+    "assumptions": "Cooperating writers in fresh private output; no crash/power-loss durability or hostile-principal race claim."
+  },
+  "executionConditions": [
+    "Root invokes exactly the frozen argv/cwd with cleared inherited environment and only PATH=/usr/bin:/bin.",
+    "Root checks all19 command inputs and fresh output immediately before the one bounded command.",
+    "Only exact16 HTTPS wheel bodies from files.pythonhosted.org are acquired. No installation, wheel imports, SDK/receiver/native invocation.",
+    "Actual outcome/wheels/embedded METADATA/final receipt require subsequent independent review before installation."
+  ],
+  "guidelines": {
+    "modularity": "Optional host SDK dependency preparation; core dependency/import boundaries unchanged.",
+    "configuration": "Explicit exact versions, URLs, bytes/hashes, no redirect/proxy/retry discovery; 50s worker/60s wait/2s reap limits remain bounded mechanisms rather than OS response guarantees.",
+    "observability": "Safe fixed refusal only; no endpoint secrets or dependency body output. SDK receiver/correlation/export/privacy assurance remains separate.",
+    "formal": "Commit and cancellation transitions independently exercised with20 inert probes plus13 owner tests; counterexamples closed, no machine proof or full host TLS/dylib closure."
+  },
+  "reviewExecution": "No actual wheel acquisition, package installation, SDK imports or native engine operation by reviewer."
+}

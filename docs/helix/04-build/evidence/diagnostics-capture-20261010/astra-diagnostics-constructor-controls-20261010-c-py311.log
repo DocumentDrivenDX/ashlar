@@ -1,0 +1,25 @@
+...........E......
+======================================================================
+ERROR: test_real_offline_schema_correspondence (review_diagnostics_tests.DiagnosticsTests.test_real_offline_schema_correspondence)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-diagnostics-source-freeze-20261010-c/tests/test_host_diagnostics.py", line 286, in test_real_offline_schema_correspondence
+    event=json.loads((root/'diagnostic-event-v0.1.schema.json').read_bytes());run_schema=json.loads((root/'diagnostic-run-v0.1.schema.json').read_bytes())
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/pathlib.py", line 1050, in read_bytes
+    with self.open(mode='rb') as f:
+         ^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/pathlib.py", line 1044, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/ashlar-diagnostics-source-freeze-20261010-c/docs/helix/02-design/contracts/schemas/diagnostic-event-v0.1.schema.json'
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.331s
+
+FAILED (errors=1)
+Traceback (most recent call last):
+  File "/private/tmp/astra-diagnostics-constructor-controls-20261010-c.py", line 31, in <module>
+    result=unittest.TextTestRunner(verbosity=1).run(unittest.defaultTestLoader.loadTestsFromModule(test));assert result.wasSuccessful()
+                                                                                                                 ^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

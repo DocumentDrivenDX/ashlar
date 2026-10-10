@@ -1,0 +1,29 @@
+{
+  "resource": {
+    "service.name": "ashlar-host",
+    "service.version": "0.1.0.dev0",
+    "deployment.environment.name": "test",
+    "telemetry.sdk.name": "opentelemetry",
+    "telemetry.sdk.language": "python",
+    "telemetry.sdk.version": "1.45.1"
+  },
+  "resourceSchemaUrl": "https://opentelemetry.io/schemas/1.44.0",
+  "scope": [
+    "ashlar.host.diagnostics",
+    "0.1.0"
+  ],
+  "attributes": {
+    "ashlar.run.id": "b48a9b74a71e4f7f8da9d053a4e4e9d7",
+    "ashlar.attempt.id": "352e868df62c4a82a758a5e26e9072b3",
+    "ashlar.emitter.id": "host",
+    "ashlar.operation": "held-read",
+    "ashlar.diagnostic.schema_version": "ashlar.diagnostic.event/0.1"
+  },
+  "timestampUnixNano": 1791645985985778990,
+  "observedUnixNano": 1791645985985779000,
+  "actualSdkContext": {
+    "traceId": "8562b972d4516d1f364a60a5b346757d",
+    "spanId": "abde75180af4239e",
+    "traceFlags": 3
+  }
+}

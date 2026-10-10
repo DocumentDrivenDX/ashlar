@@ -1,0 +1,103 @@
+{
+  "format": "astra-independent-receiver-command-review/0.1",
+  "verdict": "approved-for-root-scoped-loopback-probe",
+  "command": {
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/command.json",
+    "bytes": 176346,
+    "sha256": "0a7b2cbdce299a806941779130e02a1586817bf4037b8c6e2f371ca062e7558f"
+  },
+  "source": {
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/probe.py",
+    "bytes": 14937,
+    "sha256": "ba1f359a9fc8e1fd2ac99ca2a3d55100fe48c33bac52bc98be610e205b09a64a"
+  },
+  "inputsVerified": 703,
+  "venvInterpreter": {
+    "argvPath": "/private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python",
+    "resolved": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/bin/python3.11",
+    "descriptor": {
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python",
+      "bytes": 17277120,
+      "sha256": "5ebf120b62e8d02ab22485ca328da471db27fd278069df3de01c957cc02d9cd6"
+    },
+    "configuration": {
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/pyvenv.cfg",
+      "bytes": 395,
+      "sha256": "6f123453fb82d6a9f6d6ca3dea671ecd16d8476506ff2666f069400296d2bfa5"
+    }
+  },
+  "encoderFacadeCorrespondence": [
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry/exporter/otlp/proto/common/trace_encoder.py",
+      "bytes": 205,
+      "sha256": "8a96602f29ed7a74552d86807416e943109dbdefc250cceb1305de9bab642163"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry/exporter/otlp/proto/common/metrics_encoder.py",
+      "bytes": 211,
+      "sha256": "f9b7b8f5da49338842a631107890977a46200abb41e0fee6cee1b4421dbbff7c"
+    }
+  ],
+  "installedContentReview": {
+    "path": "/private/tmp/astra-otel-installed-content-review-20261010-a.json",
+    "bytes": 30177,
+    "sha256": "47d5927585acb8478c73feb7c7e0f3e0583ef75db834cdbdc57bbe9b66b93832"
+  },
+  "installedCounts": {
+    "boundedReadOperations": 2965,
+    "generatedFilesExcludingRecords": 49,
+    "generatedScripts": 1,
+    "installedRecordEntries": 763,
+    "packages": 16,
+    "recordHashMatches": 747,
+    "siteFiles": 762,
+    "totalReadBytes": 48041693,
+    "unhashedRecordSelfEntries": 16,
+    "unrecordedSiteFiles": 0,
+    "wheelOwnedFiles": 698,
+    "zipUncompressedBytes": 6512951
+  },
+  "controls": {
+    "count": 8,
+    "result": {
+      "path": "/private/tmp/astra-otel-sdk-probe-controls-20261010-c.json",
+      "bytes": 955,
+      "sha256": "0b2f9e23a874dc715fffcbc35ff5106225ca3afa0d9ef28f2eddac9fbe212ac0"
+    },
+    "script": {
+      "path": "/private/tmp/astra-otel-sdk-probe-controls-20261010-c.py",
+      "bytes": 4661,
+      "sha256": "b98194ee4e6889bb32de9f08b7c1b9fdd618012a3668f7c506975f81c1400013"
+    },
+    "log": {
+      "path": "/private/tmp/astra-otel-sdk-probe-controls-20261010-c.log",
+      "bytes": 163,
+      "sha256": "20b769ae7e9309d4f17d861b2c79b858af7e7f26d3b4131dc55f6731c179454f"
+    }
+  },
+  "findings": [],
+  "spanFlagDisposition": "Native root span flags exactly256 is owning SDK behavior; actual SDK context flags retained separately. Full LogRecord trace flags unchanged. Explicit native span/link low8 omission prevents full span/context representation conformance claim. No repair of received bytes.",
+  "priorFinding": {
+    "path": "/private/tmp/astra-otel-sdk-probe-oracle-finding-20261010-b.json",
+    "bytes": 1581,
+    "sha256": "6b6bc1d2a48b9ff11d1b965c48b80bb6aeafe725b2c398d4a1d9cdb250a6c875"
+  },
+  "conditions": [
+    "Root repeat all703 selected byte descriptors before and after actual command; preserve partial outcomes and refuse successful qualification on drift.",
+    "Six exact output paths and stage remain absent before invocation; retain actual four protobuf requests and expected actual SDK context/time fixture.",
+    "Run exact clear-environment command; no additional host operation/engine/capture integration."
+  ],
+  "assurance": [
+    "Two LogRecords traced/untraced, one span, one cumulative monotonic integer Sum point through public owned SDK providers and pinned protobuf encoders to custom loopback HTTP receiver.",
+    "Public trace/metrics encoder facade imports checked against installed owning implementation; log encoder remains explicitly pinned private helper.",
+    "Installed wheel correspondence establishes selected bytes, not complete interpreter/stdlib/dylib/OS closure.",
+    "Fixed fixture service.version, custom synchronous transport, no production OTLP HTTP exporter/host adapter, queue/deadline/outage/retry/privacy/full C006 qualification.",
+    "Component fake controls plus static ownership inspection establish bounded intended mechanics under cooperative process/filesystem assumptions; no analyzer, crash-durability, hostile-writer or forced-termination proof."
+  ],
+  "executedByReviewer": {
+    "sdkImport": false,
+    "listener": false,
+    "network": false,
+    "probe": false
+  }
+}

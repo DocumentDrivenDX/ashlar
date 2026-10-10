@@ -1,0 +1,28 @@
+{
+  "format": "astra-independent-probe-oracle-finding/0.1",
+  "verdict": "B-unexecuted-requires-correct-native-span-flag-oracle-and-explicit-limitation",
+  "source": {
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-b/probe.py",
+    "bytes": 14605,
+    "sha256": "3f5d5807c21d672abffe35edc609910582fc44b2dca368780ef88e140e62052b"
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-b/command.json",
+    "bytes": 176187,
+    "sha256": "c7cfb4e732ac5629d186a193b69846b3d3dfd98b88fc858db7badeea5e232fa3"
+  },
+  "owningEncoder": {
+    "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry/exporter/otlp/proto/common/_internal/trace_encoder/__init__.py",
+    "bytes": 6146,
+    "sha256": "286b1140e27f9c226795ad536db423a6781488c8e4ea4381cf91ee282caae498"
+  },
+  "finding": "Pinned SDK1.45.1 _encode_span flags are _span_flags(sdk_span.parent), which returns HAS_IS_REMOTE mask for absent root parent and omits actual span context trace_flags. New B low8==actual sampled context assertion would refuse this owning encoding.",
+  "pureControls": {
+    "exactFunctionAST_rootNone": 256,
+    "exactFunctionAST_remoteParent": 768,
+    "contextflagsNeverArgument": true,
+    "sdkImport": false,
+    "network": false
+  },
+  "disposition": "Retain A actual failed attempt and B unexecuted draft. C may observe native root flags without synthesis, retaining exact full actual context and LogRecord flags and explicit omission limitation. No complete span/context or C006 conformance claim inferred."
+}

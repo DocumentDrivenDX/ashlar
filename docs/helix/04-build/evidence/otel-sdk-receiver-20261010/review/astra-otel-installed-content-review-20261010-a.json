@@ -1,0 +1,640 @@
+{
+  "acquisitionReceipt": {
+    "bytes": 3519,
+    "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/download.json",
+    "sha256": "90dee75789e7c3d5fe2c02ad5c4604cd96fb252fef2afcb66b02b8b70b0051a8"
+  },
+  "bounds": {
+    "manifestCommandBytes": 262144,
+    "memberBytes": 1048576,
+    "readOperations": 5000,
+    "recordBytes": 262144,
+    "recordRowsPerPackage": 1024,
+    "siteDirectoryEntries": 4096,
+    "totalBytesRead": 157286400,
+    "uncompressedTotalBytes": 16777216,
+    "wheelBytes": "exact acquisition length",
+    "wheelMembersPerArchive": 1024
+  },
+  "command": {
+    "argv": [
+      "/private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python",
+      "-I",
+      "-B",
+      "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/probe.py"
+    ],
+    "clearInheritedEnvironment": true,
+    "cwd": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a",
+    "environment": {
+      "PATH": "/usr/bin:/bin"
+    },
+    "executed": false,
+    "expectedHashFromDelegationMatched": false,
+    "freshOutputRequired": true,
+    "inputsMatched": 701,
+    "note": "Delegation cited an earlier293cd288 command/b0812 probe prefix; this independently validates the observed later exact snapshot only.",
+    "output": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/result.json",
+    "probe": {
+      "bytes": 14501,
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/probe.py",
+      "sha256": "665b0f42c762fa1e55aa365c578cd5d01b64f35cb6a619584f4596015577e2b4"
+    },
+    "snapshot": {
+      "bytes": 175440,
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/command.json",
+      "sha256": "d9cd7c65033725f19e8a9e415f4a102d46a4dd658800b586c95508d9b3e35ac7"
+    },
+    "unchangedDuringReview": true
+  },
+  "commandAtReceiptCreation": {
+    "bytes": 175440,
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/command.json",
+    "sha256": "d9cd7c65033725f19e8a9e415f4a102d46a4dd658800b586c95508d9b3e35ac7"
+  },
+  "commandStillMatchesReviewedSnapshot": true,
+  "counts": {
+    "boundedReadOperations": 2965,
+    "generatedFilesExcludingRecords": 49,
+    "generatedScripts": 1,
+    "installedRecordEntries": 763,
+    "packages": 16,
+    "recordHashMatches": 747,
+    "siteFiles": 762,
+    "totalReadBytes": 48041693,
+    "unhashedRecordSelfEntries": 16,
+    "unrecordedSiteFiles": 0,
+    "wheelOwnedFiles": 698,
+    "zipUncompressedBytes": 6512951
+  },
+  "evidence": [
+    {
+      "bytes": 12211,
+      "path": "/private/tmp/astra-otel-installed-content-review-20261010-a.py",
+      "sha256": "98915283ab24aed0d4630b9184350d0ac7e9ee4c8d3f4db48e6122cd86bad4ee"
+    },
+    {
+      "bytes": 4117,
+      "path": "/private/tmp/astra-otel-installed-content-review-20261010-a.log",
+      "sha256": "3d54ec8235855ee76fcf9dffaafed4117b7fe9771ca397e3d034f58fc4023985"
+    },
+    {
+      "bytes": 28770,
+      "path": "/private/tmp/astra-otel-installed-content-review-20261010-a-data.json",
+      "sha256": "dfe5733181c7ef17f203b0446419f68d29ca7022949dd4098934d8a3bc5746a1"
+    }
+  ],
+  "findings": [],
+  "format": "astra-independent-installed-otel-content-review/0.1",
+  "generatedFiles": [
+    {
+      "bytes": 4,
+      "package": "certifi",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/certifi-2025.10.5.dist-info/INSTALLER",
+      "relativeRecordPath": "certifi-2025.10.5.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "certifi",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/certifi-2025.10.5.dist-info/REQUESTED",
+      "relativeRecordPath": "certifi-2025.10.5.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 292,
+      "package": "certifi",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/certifi-2025.10.5.dist-info/direct_url.json",
+      "relativeRecordPath": "certifi-2025.10.5.dist-info/direct_url.json",
+      "sha256": "5a7f22e619a0e7485623f77dbb91e1b2ea7175e0863eb19129c13b7677b2e033"
+    },
+    {
+      "bytes": 271,
+      "package": "charset-normalizer",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/bin/normalizer",
+      "relativeRecordPath": "../../../bin/normalizer",
+      "sha256": "683213214671493b2db37746a3e5daf7473a622db274a226b79e3cfeb6f56d32"
+    },
+    {
+      "bytes": 4,
+      "package": "charset-normalizer",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/charset_normalizer-3.4.3.dist-info/INSTALLER",
+      "relativeRecordPath": "charset_normalizer-3.4.3.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "charset-normalizer",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/charset_normalizer-3.4.3.dist-info/REQUESTED",
+      "relativeRecordPath": "charset_normalizer-3.4.3.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 321,
+      "package": "charset-normalizer",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/charset_normalizer-3.4.3.dist-info/direct_url.json",
+      "relativeRecordPath": "charset_normalizer-3.4.3.dist-info/direct_url.json",
+      "sha256": "32c67eea74d520e08c15cd9dbc8d94794e5d7dc43f2f06cd113f31edfe001774"
+    },
+    {
+      "bytes": 4,
+      "package": "googleapis-common-protos",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/googleapis_common_protos-1.75.0.dist-info/INSTALLER",
+      "relativeRecordPath": "googleapis_common_protos-1.75.0.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "googleapis-common-protos",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/googleapis_common_protos-1.75.0.dist-info/REQUESTED",
+      "relativeRecordPath": "googleapis_common_protos-1.75.0.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 306,
+      "package": "googleapis-common-protos",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/googleapis_common_protos-1.75.0.dist-info/direct_url.json",
+      "relativeRecordPath": "googleapis_common_protos-1.75.0.dist-info/direct_url.json",
+      "sha256": "bb4f15aae9db8b3159df2d43828cb3ef30044a01560346131907d7ff69c632d5"
+    },
+    {
+      "bytes": 4,
+      "package": "idna",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/idna-3.15.dist-info/INSTALLER",
+      "relativeRecordPath": "idna-3.15.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "idna",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/idna-3.15.dist-info/REQUESTED",
+      "relativeRecordPath": "idna-3.15.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 284,
+      "package": "idna",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/idna-3.15.dist-info/direct_url.json",
+      "relativeRecordPath": "idna-3.15.dist-info/direct_url.json",
+      "sha256": "0be25c6e90d04dc7f29102ace923706f7bfcc9d1443d7a8929a8db077e169811"
+    },
+    {
+      "bytes": 4,
+      "package": "opentelemetry-api",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_api-1.45.1.dist-info/INSTALLER",
+      "relativeRecordPath": "opentelemetry_api-1.45.1.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "opentelemetry-api",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_api-1.45.1.dist-info/REQUESTED",
+      "relativeRecordPath": "opentelemetry_api-1.45.1.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 299,
+      "package": "opentelemetry-api",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_api-1.45.1.dist-info/direct_url.json",
+      "relativeRecordPath": "opentelemetry_api-1.45.1.dist-info/direct_url.json",
+      "sha256": "a04ab14d3ae05f51dbf6a99119a40e67fdfd1aa81dfac9e472a62504f9708d14"
+    },
+    {
+      "bytes": 4,
+      "package": "opentelemetry-exporter-http-transport",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_http_transport-0.66b1.dist-info/INSTALLER",
+      "relativeRecordPath": "opentelemetry_exporter_http_transport-0.66b1.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "opentelemetry-exporter-http-transport",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_http_transport-0.66b1.dist-info/REQUESTED",
+      "relativeRecordPath": "opentelemetry_exporter_http_transport-0.66b1.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 319,
+      "package": "opentelemetry-exporter-http-transport",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_http_transport-0.66b1.dist-info/direct_url.json",
+      "relativeRecordPath": "opentelemetry_exporter_http_transport-0.66b1.dist-info/direct_url.json",
+      "sha256": "9c1101111ba1680d4e6503397c4f1fba6933216d8f7e38aa6a24d1fe6a913891"
+    },
+    {
+      "bytes": 4,
+      "package": "opentelemetry-exporter-otlp-common",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_otlp_common-0.66b1.dist-info/INSTALLER",
+      "relativeRecordPath": "opentelemetry_exporter_otlp_common-0.66b1.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "opentelemetry-exporter-otlp-common",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_otlp_common-0.66b1.dist-info/REQUESTED",
+      "relativeRecordPath": "opentelemetry_exporter_otlp_common-0.66b1.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 316,
+      "package": "opentelemetry-exporter-otlp-common",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_otlp_common-0.66b1.dist-info/direct_url.json",
+      "relativeRecordPath": "opentelemetry_exporter_otlp_common-0.66b1.dist-info/direct_url.json",
+      "sha256": "af8340682ce114e16640c265b302a540b5d5e2b0341d280b4f6512cee2922647"
+    },
+    {
+      "bytes": 4,
+      "package": "opentelemetry-exporter-otlp-proto-common",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_otlp_proto_common-1.45.1.dist-info/INSTALLER",
+      "relativeRecordPath": "opentelemetry_exporter_otlp_proto_common-1.45.1.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "opentelemetry-exporter-otlp-proto-common",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_otlp_proto_common-1.45.1.dist-info/REQUESTED",
+      "relativeRecordPath": "opentelemetry_exporter_otlp_proto_common-1.45.1.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 322,
+      "package": "opentelemetry-exporter-otlp-proto-common",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_otlp_proto_common-1.45.1.dist-info/direct_url.json",
+      "relativeRecordPath": "opentelemetry_exporter_otlp_proto_common-1.45.1.dist-info/direct_url.json",
+      "sha256": "f5480e0bd40bf51862a0ccd3a9979004920e5571049c5bb3d99460bf0b1bab57"
+    },
+    {
+      "bytes": 4,
+      "package": "opentelemetry-exporter-otlp-proto-http",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_otlp_proto_http-1.45.1.dist-info/INSTALLER",
+      "relativeRecordPath": "opentelemetry_exporter_otlp_proto_http-1.45.1.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "opentelemetry-exporter-otlp-proto-http",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_otlp_proto_http-1.45.1.dist-info/REQUESTED",
+      "relativeRecordPath": "opentelemetry_exporter_otlp_proto_http-1.45.1.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 320,
+      "package": "opentelemetry-exporter-otlp-proto-http",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_otlp_proto_http-1.45.1.dist-info/direct_url.json",
+      "relativeRecordPath": "opentelemetry_exporter_otlp_proto_http-1.45.1.dist-info/direct_url.json",
+      "sha256": "261d03b873c0d392de262b8f318eb3c72b25f8b38520835dc287d0d7cd1fa93e"
+    },
+    {
+      "bytes": 4,
+      "package": "opentelemetry-proto",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_proto-1.45.1.dist-info/INSTALLER",
+      "relativeRecordPath": "opentelemetry_proto-1.45.1.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "opentelemetry-proto",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_proto-1.45.1.dist-info/REQUESTED",
+      "relativeRecordPath": "opentelemetry_proto-1.45.1.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 301,
+      "package": "opentelemetry-proto",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_proto-1.45.1.dist-info/direct_url.json",
+      "relativeRecordPath": "opentelemetry_proto-1.45.1.dist-info/direct_url.json",
+      "sha256": "bf129ea4a56609154f89371ada899b7f17ad28c749d9fe08afa9c64ee5a9bffe"
+    },
+    {
+      "bytes": 4,
+      "package": "opentelemetry-sdk",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_sdk-1.45.1.dist-info/INSTALLER",
+      "relativeRecordPath": "opentelemetry_sdk-1.45.1.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "opentelemetry-sdk",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_sdk-1.45.1.dist-info/REQUESTED",
+      "relativeRecordPath": "opentelemetry_sdk-1.45.1.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 299,
+      "package": "opentelemetry-sdk",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_sdk-1.45.1.dist-info/direct_url.json",
+      "relativeRecordPath": "opentelemetry_sdk-1.45.1.dist-info/direct_url.json",
+      "sha256": "b83dae8bfc622c544a8b111931b9114733b5850fe92e5e5b456b0edf525d82f4"
+    },
+    {
+      "bytes": 4,
+      "package": "opentelemetry-semantic-conventions",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_semantic_conventions-0.66b1.dist-info/INSTALLER",
+      "relativeRecordPath": "opentelemetry_semantic_conventions-0.66b1.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "opentelemetry-semantic-conventions",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_semantic_conventions-0.66b1.dist-info/REQUESTED",
+      "relativeRecordPath": "opentelemetry_semantic_conventions-0.66b1.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 316,
+      "package": "opentelemetry-semantic-conventions",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_semantic_conventions-0.66b1.dist-info/direct_url.json",
+      "relativeRecordPath": "opentelemetry_semantic_conventions-0.66b1.dist-info/direct_url.json",
+      "sha256": "bb1f48b574c3102c3613614f3d5bbe53d129c555668f4ee3a0754b90eb9e3881"
+    },
+    {
+      "bytes": 4,
+      "package": "protobuf",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/protobuf-6.33.6.dist-info/INSTALLER",
+      "relativeRecordPath": "protobuf-6.33.6.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "protobuf",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/protobuf-6.33.6.dist-info/REQUESTED",
+      "relativeRecordPath": "protobuf-6.33.6.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 310,
+      "package": "protobuf",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/protobuf-6.33.6.dist-info/direct_url.json",
+      "relativeRecordPath": "protobuf-6.33.6.dist-info/direct_url.json",
+      "sha256": "ab8ae2297497cca71b4c04100110ad5ed5010a769b9fca8d3085853c46178ab4"
+    },
+    {
+      "bytes": 4,
+      "package": "requests",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/requests-2.33.0.dist-info/INSTALLER",
+      "relativeRecordPath": "requests-2.33.0.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "requests",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/requests-2.33.0.dist-info/REQUESTED",
+      "relativeRecordPath": "requests-2.33.0.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 290,
+      "package": "requests",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/requests-2.33.0.dist-info/direct_url.json",
+      "relativeRecordPath": "requests-2.33.0.dist-info/direct_url.json",
+      "sha256": "a6ec0819ecd387c3226710ef4b02f0d22a693c7b77ec89d9b9b6254e2645fa28"
+    },
+    {
+      "bytes": 4,
+      "package": "typing-extensions",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/typing_extensions-4.15.0.dist-info/INSTALLER",
+      "relativeRecordPath": "typing_extensions-4.15.0.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "typing-extensions",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/typing_extensions-4.15.0.dist-info/REQUESTED",
+      "relativeRecordPath": "typing_extensions-4.15.0.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 299,
+      "package": "typing-extensions",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/typing_extensions-4.15.0.dist-info/direct_url.json",
+      "relativeRecordPath": "typing_extensions-4.15.0.dist-info/direct_url.json",
+      "sha256": "233fd9e0c10e824e1bbe298a012928173d391f7de6278c5979d250752d95e576"
+    },
+    {
+      "bytes": 4,
+      "package": "urllib3",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/urllib3-2.8.0.dist-info/INSTALLER",
+      "relativeRecordPath": "urllib3-2.8.0.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508"
+    },
+    {
+      "bytes": 0,
+      "package": "urllib3",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/urllib3-2.8.0.dist-info/REQUESTED",
+      "relativeRecordPath": "urllib3-2.8.0.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 288,
+      "package": "urllib3",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/urllib3-2.8.0.dist-info/direct_url.json",
+      "relativeRecordPath": "urllib3-2.8.0.dist-info/direct_url.json",
+      "sha256": "e00ad06de539ec3ef77b1f81851a99942d733ee4262f5dae3ab0f9f78d97d2c4"
+    }
+  ],
+  "installation": {
+    "bytes": 178178,
+    "path": "/private/tmp/ashlar-otel-sdk-installation-20261010-a/installation.json",
+    "sha256": "572f1d3ce1333c122cf15af1e61bbc6aa5fee39b62911ce5a64b59b93c9bbf12"
+  },
+  "interpreterLinks": [
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python",
+      "target": "python3.11"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python3.11",
+      "target": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/bin/python3.11"
+    }
+  ],
+  "limitations": [
+    "No SDK/package imports, network, installation, extraction or receiver execution.",
+    "RECORD self entries have no intrinsic hash by design; this review independently hashes each retained RECORD file.",
+    "The command vector binds698 wheel-owned files plus probe, installation receipt and interpreter target. Generated installer files/RECORDs, pyvenv.cfg and interpreter symlink targets are separately observed here, not all declared command inputs.",
+    "No full host stdlib/dylib/TLS/runtime closure claim.",
+    "Parent owns receiver probe mapping and process/resource lifecycle review."
+  ],
+  "pyvenvConfig": {
+    "bytes": 395,
+    "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/pyvenv.cfg",
+    "sha256": "6f123453fb82d6a9f6d6ca3dea671ecd16d8476506ff2666f069400296d2bfa5"
+  },
+  "records": [
+    {
+      "bytes": 1075,
+      "entries": 13,
+      "generatedEntries": 3,
+      "hashedEntries": 12,
+      "package": "certifi",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/certifi-2025.10.5.dist-info/RECORD",
+      "sha256": "60c169958027f2f535c63edb56f4962c6d7c21827850bdc995c888fecc769877",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 2287,
+      "entries": 25,
+      "generatedEntries": 4,
+      "hashedEntries": 24,
+      "package": "charset-normalizer",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/charset_normalizer-3.4.3.dist-info/RECORD",
+      "sha256": "7247039270769d449977379e4bdbd5390d2520ea41f0d1a0c6843e7c8ced9ae9",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 17679,
+      "entries": 202,
+      "generatedEntries": 3,
+      "hashedEntries": 201,
+      "package": "googleapis-common-protos",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/googleapis_common_protos-1.75.0.dist-info/RECORD",
+      "sha256": "6a8a15940e5c59e28420b4b0cf6474049e58d714ed622d62b9accf5f6e4e229e",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 1212,
+      "entries": 16,
+      "generatedEntries": 3,
+      "hashedEntries": 15,
+      "package": "idna",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/idna-3.15.dist-info/RECORD",
+      "sha256": "2cfed5c573416cedf7a7f8e6e2883ac1c52c6bfef031d420f536ebb9d22ddf14",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 4626,
+      "entries": 50,
+      "generatedEntries": 3,
+      "hashedEntries": 49,
+      "package": "opentelemetry-api",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_api-1.45.1.dist-info/RECORD",
+      "sha256": "fea5c50807119c5798a902134277f54793b1409c71a0c3e2506d8e7ce47f8ad0",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 1566,
+      "entries": 14,
+      "generatedEntries": 3,
+      "hashedEntries": 13,
+      "package": "opentelemetry-exporter-http-transport",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_http_transport-0.66b1.dist-info/RECORD",
+      "sha256": "8103a624dd698a16883cf4bc42182fb2ed7a70a99f227c2d7bed0f7786ace296",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 1408,
+      "entries": 13,
+      "generatedEntries": 3,
+      "hashedEntries": 12,
+      "package": "opentelemetry-exporter-otlp-common",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_otlp_common-0.66b1.dist-info/RECORD",
+      "sha256": "a86f468296847bd5f8842b14403927066599f9651a2632d3852c4aa5e67139bb",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 2015,
+      "entries": 17,
+      "generatedEntries": 3,
+      "hashedEntries": 16,
+      "package": "opentelemetry-exporter-otlp-proto-common",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_otlp_proto_common-1.45.1.dist-info/RECORD",
+      "sha256": "6e85e1968b5d351fe773231c5ee9e84bb3d5b60a761e29e350f91d24a93a5969",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 1875,
+      "entries": 16,
+      "generatedEntries": 3,
+      "hashedEntries": 15,
+      "package": "opentelemetry-exporter-otlp-proto-http",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_exporter_otlp_proto_http-1.45.1.dist-info/RECORD",
+      "sha256": "b27da3a9f2aebecfd11e7bf591f14a8727e934fb334fef4d615b960cf3032dd7",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 4948,
+      "entries": 47,
+      "generatedEntries": 3,
+      "hashedEntries": 46,
+      "package": "opentelemetry-proto",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_proto-1.45.1.dist-info/RECORD",
+      "sha256": "5fa5cd6d27b696626dd37a98eb0b2baf441265ef5a515b5f3c5aa72961f95973",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 7967,
+      "entries": 73,
+      "generatedEntries": 3,
+      "hashedEntries": 72,
+      "package": "opentelemetry-sdk",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_sdk-1.45.1.dist-info/RECORD",
+      "sha256": "7e2bd3a6415a8f0ff438b0a30a679a312c09c16e6d7ffae6b871ad6b00b6d15a",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 15878,
+      "entries": 135,
+      "generatedEntries": 3,
+      "hashedEntries": 134,
+      "package": "opentelemetry-semantic-conventions",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/opentelemetry_semantic_conventions-0.66b1.dist-info/RECORD",
+      "sha256": "15b5753fd3e5cabfed7dc65dd0de74fbacef97983166e7e5c0199b31dec25097",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 5641,
+      "entries": 62,
+      "generatedEntries": 3,
+      "hashedEntries": 61,
+      "package": "protobuf",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/protobuf-6.33.6.dist-info/RECORD",
+      "sha256": "8fbe3ea873e442e3fd8224a47d3f9ba0baf821b138f94a84af171b90e76ee4b2",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 2182,
+      "entries": 27,
+      "generatedEntries": 3,
+      "hashedEntries": 26,
+      "package": "requests",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/requests-2.33.0.dist-info/RECORD",
+      "sha256": "fd3d7479efccee230eb4b9af0ffd2f77fdd7aa802147d502128d5c568cdb622a",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 737,
+      "entries": 8,
+      "generatedEntries": 3,
+      "hashedEntries": 7,
+      "package": "typing-extensions",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/typing_extensions-4.15.0.dist-info/RECORD",
+      "sha256": "fe8b6e5f9a30c0ac0a9bbf8eb36d8815b0a40a1cc2c53f36604848a505c79d3a",
+      "unhashedSelfEntries": 1
+    },
+    {
+      "bytes": 3765,
+      "entries": 45,
+      "generatedEntries": 3,
+      "hashedEntries": 44,
+      "package": "urllib3",
+      "path": "/private/tmp/ashlar-otel-sdk-env-20261010-a/lib/python3.11/site-packages/urllib3-2.8.0.dist-info/RECORD",
+      "sha256": "63b0182f2ab2ca4e198a587a3299f7b150163c950f7f54f3ab5af2d98eaeb5ab",
+      "unhashedSelfEntries": 1
+    }
+  ],
+  "reviewExecution": {
+    "SDKImports": false,
+    "argv": [
+      "/usr/bin/python3",
+      "-I",
+      "-B",
+      "/private/tmp/astra-otel-installed-content-review-20261010-a.py"
+    ],
+    "environmentEdits": false,
+    "exitCode": 0,
+    "installation": false,
+    "network": false,
+    "ownerEdits": false,
+    "receiverExecution": false
+  },
+  "reviewedDate": "2026-10-10",
+  "scope": "Read-only approved wheel bytes -> installed member bytes, installed RECORD hashes including generated normalizer script, exact observed receiver command input vector; no dependency re-resolution or runtime qualification.",
+  "status": "pass for installed wheel/RECORD bytes and the explicitly recorded later command snapshot; no runtime qualification"
+}

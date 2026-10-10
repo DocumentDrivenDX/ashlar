@@ -1,0 +1,10 @@
+{
+  "format": "ashlar-otel-sdk-probe-launch/0.1",
+  "commandSha256": "0a7b2cbdce299a806941779130e02a1586817bf4037b8c6e2f371ca062e7558f",
+  "exitCode": 0,
+  "durationSeconds": 0.2681759580154903,
+  "openingClosingInputs": 703,
+  "stdoutBytes": 0,
+  "stderrBytes": 0,
+  "scope": "Direct command execution; no outer forced termination or global deadline guarantee."
+}

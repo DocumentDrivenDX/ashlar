@@ -1,0 +1,7 @@
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/probe.py", line 260, in <module>
+    raise primary
+  File "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/probe.py", line 197, in <module>
+    context = span.get_span_context(); assert context.is_valid and context.trace_flags == TraceFlags.SAMPLED
+                                              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

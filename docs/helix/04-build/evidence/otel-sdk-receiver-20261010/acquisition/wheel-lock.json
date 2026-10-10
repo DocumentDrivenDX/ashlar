@@ -1,0 +1,580 @@
+{
+  "format": "ashlar-otel-wheel-lock/0.1",
+  "status": "candidate resolved from official wheel metadata; wheel bytes not downloaded or qualified",
+  "profile": "ashlar-host-otel-http/0.1",
+  "roots": [
+    "opentelemetry-api",
+    "opentelemetry-sdk",
+    "opentelemetry-exporter-otlp-proto-http"
+  ],
+  "target": {
+    "implementation": "CPython",
+    "python": "3.11.17",
+    "platform": "macOS",
+    "observedOS": "27.0.1",
+    "machine": "arm64",
+    "firstTag": "cp311-cp311-macosx_27_0_arm64"
+  },
+  "resolver": {
+    "tool": "pip vendored packaging metadata parser; no pip install/download invoked",
+    "pipVersion": "24.0",
+    "environment": {
+      "implementation_name": "cpython",
+      "implementation_version": "3.11.17",
+      "os_name": "posix",
+      "platform_machine": "arm64",
+      "platform_release": "27.0.0",
+      "platform_system": "Darwin",
+      "platform_version": "Darwin Kernel Version 27.0.0: Tue Aug 11 21:06:40 PDT 2026; root:xnu-13432.1.9~1/RELEASE_ARM64_T6050",
+      "python_full_version": "3.11.17",
+      "platform_python_implementation": "CPython",
+      "python_version": "3.11",
+      "sys_platform": "darwin"
+    },
+    "extras": "Only transitive http-transport[requests]; no file-configuration/grpc/gcp-auth/auto-instrumentation extras"
+  },
+  "packages": [
+    {
+      "name": "certifi",
+      "version": "2025.10.5",
+      "selectedExtras": [],
+      "filename": "certifi-2025.10.5-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/e4/37/af0d2ef3967ac0d6113837b44a4f0bfe1328c2b9763bd5b1744520e5cfed/certifi-2025.10.5-py3-none-any.whl",
+      "bytes": 163286,
+      "sha256": "0f212c2744a9bb6de0c56639a6f68afe01ecd92d91f14ae897c4fe7bbeeef0de",
+      "requiresPython": ">=3.7",
+      "requiresDist": [],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/certifi-2025.10.5-py3-none-any.whl.metadata",
+        "bytes": 2474,
+        "sha256": "473c91e2c4fac51375a4d372db820754e959b83261d4135f68c6b4e3311a76d9"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.4.3",
+      "selectedExtras": [],
+      "filename": "charset_normalizer-3.4.3-cp311-cp311-macosx_10_9_universal2.whl",
+      "url": "https://files.pythonhosted.org/packages/7f/b5/991245018615474a60965a7c9cd2b4efbaabd16d582a5547c47ee1c7730b/charset_normalizer-3.4.3-cp311-cp311-macosx_10_9_universal2.whl",
+      "bytes": 204483,
+      "sha256": "b256ee2e749283ef3ddcff51a675ff43798d92d746d1a6e4631bf8c707d22d0b",
+      "requiresPython": ">=3.7",
+      "requiresDist": [],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/charset_normalizer-3.4.3-cp311-cp311-macosx_10_9_universal2.whl.metadata",
+        "bytes": 36700,
+        "sha256": "9c134eb243d4b5ca87b5a48f3da25a7e35eb96270f70f2202c5ce92504e0bda0"
+      },
+      "wheelTags": [
+        "cp311-cp311-macosx_10_9_universal2"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "googleapis-common-protos",
+      "version": "1.75.0",
+      "selectedExtras": [],
+      "filename": "googleapis_common_protos-1.75.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/e7/c8/e2645aa8ed02fd4c7a2f59d68783b65b1f3cbdfe39a6308e156509d1fee8/googleapis_common_protos-1.75.0-py3-none-any.whl",
+      "bytes": 300631,
+      "sha256": "961ed60399c457ceb0ee8f285a84c870aabc9c6a832b9d37bb281b5bebde43ed",
+      "requiresPython": ">=3.9",
+      "requiresDist": [
+        "protobuf<8.0.0,>=4.25.8",
+        "grpcio<2.0.0,>=1.44.0; extra == \"grpc\""
+      ],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/googleapis_common_protos-1.75.0-py3-none-any.whl.metadata",
+        "bytes": 8559,
+        "sha256": "b137b6a2d3b8a620041ae60f00e756422e6a7a0ac9b0d30c3a6367e651f88f7f"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "idna",
+      "version": "3.15",
+      "selectedExtras": [],
+      "filename": "idna-3.15-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/d2/23/408243171aa9aaba178d3e2559159c24c1171a641aa83b67bdd3394ead8e/idna-3.15-py3-none-any.whl",
+      "bytes": 72340,
+      "sha256": "048adeaf8c2d788c40fee287673ccaa74c24ffd8dcf09ffa555a2fbb59f10ac8",
+      "requiresPython": ">=3.8",
+      "requiresDist": [
+        "ruff >= 0.6.2 ; extra == \"all\"",
+        "mypy >= 1.11.2 ; extra == \"all\"",
+        "pytest >= 8.3.2 ; extra == \"all\""
+      ],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/idna-3.15-py3-none-any.whl.metadata",
+        "bytes": 7699,
+        "sha256": "cb8ac245bf249c9e2346427bc54bbf79971c96b7bf6b46862e4335fa76001827"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "opentelemetry-api",
+      "version": "1.45.1",
+      "selectedExtras": [],
+      "filename": "opentelemetry_api-1.45.1-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/1e/41/f7dcf80b81ee8e71c1a2b59f14208bc723edbd89ed027a73b175abf6348e/opentelemetry_api-1.45.1-py3-none-any.whl",
+      "bytes": 60256,
+      "sha256": "b31553efa588ae44bc306f863c785c5333a9ecc091248c6ee68b4b6c87fdedfb",
+      "requiresPython": ">=3.10",
+      "requiresDist": [
+        "typing-extensions>=4.5.0"
+      ],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/opentelemetry_api-1.45.1-py3-none-any.whl.metadata",
+        "bytes": 1411,
+        "sha256": "5bc71e90cb421be92a43bf5ad5b0f25dccfa2a24ddceaa2877779879962a4c9e"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "opentelemetry-exporter-http-transport",
+      "version": "0.66b1",
+      "selectedExtras": [
+        "requests"
+      ],
+      "filename": "opentelemetry_exporter_http_transport-0.66b1-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/04/69/6af86ff66492b481c6a4c05dcfd68beb47ed8ba046440a26a2aac76b95c7/opentelemetry_exporter_http_transport-0.66b1-py3-none-any.whl",
+      "bytes": 12155,
+      "sha256": "2f95404bdee7f9d2d529c7de56c7bd86d014d774d8fbf137810e0167f8a492bf",
+      "requiresPython": ">=3.10",
+      "requiresDist": [
+        "opentelemetry-api~=1.15",
+        "requests~=2.25; extra == 'requests'",
+        "urllib3>=1.26; extra == 'urllib3'"
+      ],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/opentelemetry_exporter_http_transport-0.66b1-py3-none-any.whl.metadata",
+        "bytes": 2335,
+        "sha256": "13f918a456445f2ff6dc97b2f7ccca6ae803e649cf7888cc9fb70adc5504225d"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "opentelemetry-exporter-otlp-common",
+      "version": "0.66b1",
+      "selectedExtras": [],
+      "filename": "opentelemetry_exporter_otlp_common-0.66b1-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/fc/39/8c23d67665c762aa51840fa06f86e902e8f6f1693bc8d7e3d98cd6e2f753/opentelemetry_exporter_otlp_common-0.66b1-py3-none-any.whl",
+      "bytes": 12385,
+      "sha256": "00ff8592c3a7cb729ff3fdc7ffa12372c243bdf2163e80c180994d0c7bd83ee9",
+      "requiresPython": ">=3.10",
+      "requiresDist": [
+        "opentelemetry-sdk~=1.45.1",
+        "opentelemetry-exporter-http-transport==0.66b1; extra == 'http'"
+      ],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/opentelemetry_exporter_otlp_common-0.66b1-py3-none-any.whl.metadata",
+        "bytes": 1946,
+        "sha256": "a2fcd71a1e43d98acfb9fcb2c664d3d750a3b83fa68fa4330b90f948cea3b77d"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "opentelemetry-exporter-otlp-proto-common",
+      "version": "1.45.1",
+      "selectedExtras": [],
+      "filename": "opentelemetry_exporter_otlp_proto_common-1.45.1-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/84/aa/92f225d353904e7f70b8b3e3c1b02db0cf56f744c2e83c581dc372e78873/opentelemetry_exporter_otlp_proto_common-1.45.1-py3-none-any.whl",
+      "bytes": 15393,
+      "sha256": "2f446183ae7047b036226f1d846c41a834b0e8755ad13b51a51dd38952eb466c",
+      "requiresPython": ">=3.10",
+      "requiresDist": [
+        "opentelemetry-proto==1.45.1"
+      ],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/opentelemetry_exporter_otlp_proto_common-1.45.1-py3-none-any.whl.metadata",
+        "bytes": 1824,
+        "sha256": "95aed04d7e4ca7cecd6813b04666d3f5d069bea793cbda5131dcc7a44192b7d6"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "opentelemetry-exporter-otlp-proto-http",
+      "version": "1.45.1",
+      "selectedExtras": [],
+      "filename": "opentelemetry_exporter_otlp_proto_http-1.45.1-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/aa/1f/517eaa0187ba106a9da97160ce2add3a371812681dc440930b267f714e42/opentelemetry_exporter_otlp_proto_http-1.45.1-py3-none-any.whl",
+      "bytes": 22180,
+      "sha256": "24a97cf3753c7fb52fad44a696e452ff371686339e2acf3309e2eda3d0230700",
+      "requiresPython": ">=3.10",
+      "requiresDist": [
+        "googleapis-common-protos~=1.52",
+        "opentelemetry-api~=1.15",
+        "opentelemetry-exporter-http-transport[requests]==0.66b1",
+        "opentelemetry-exporter-otlp-common==0.66b1",
+        "opentelemetry-exporter-otlp-proto-common==1.45.1",
+        "opentelemetry-proto==1.45.1",
+        "opentelemetry-sdk~=1.45.1",
+        "requests~=2.7",
+        "typing-extensions>=4.5.0",
+        "opentelemetry-exporter-credential-provider-gcp>=0.59b0; extra == 'gcp-auth'",
+        "opentelemetry-exporter-http-transport[requests]==0.66b1; extra == 'requests'",
+        "requests~=2.7; extra == 'requests'"
+      ],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/opentelemetry_exporter_otlp_proto_http-1.45.1-py3-none-any.whl.metadata",
+        "bytes": 3012,
+        "sha256": "93be2171f402c500e2b39ea70f4a6c7a9902c43e61e5987b3f23a576613947ce"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "opentelemetry-proto",
+      "version": "1.45.1",
+      "selectedExtras": [],
+      "filename": "opentelemetry_proto-1.45.1-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/ab/9a/42ec8180a769516ae757e893b69736826efceac7332553915b4528a91c6d/opentelemetry_proto-1.45.1-py3-none-any.whl",
+      "bytes": 72488,
+      "sha256": "f38e2a8413053c180cd3d2637fbb279673ec2f6a6e09c995aafa2f452c52b46e",
+      "requiresPython": ">=3.10",
+      "requiresDist": [
+        "protobuf<8.0,>=5.0"
+      ],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/opentelemetry_proto-1.45.1-py3-none-any.whl.metadata",
+        "bytes": 2319,
+        "sha256": "fb0c27d4250fd7f73926884d7788c3cdb8577a1c3485e3f73ebbd23f5ac6d30a"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "opentelemetry-sdk",
+      "version": "1.45.1",
+      "selectedExtras": [],
+      "filename": "opentelemetry_sdk-1.45.1-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/95/3c/87c42b4bd6dd297536f04cd9383d212ac557ecd49f2cbdcd46da1c9ef5c8/opentelemetry_sdk-1.45.1-py3-none-any.whl",
+      "bytes": 140063,
+      "sha256": "c604c11dc429810812348989115fa44bd558772a3d7442afc43d024f2c250ca4",
+      "requiresPython": ">=3.10",
+      "requiresDist": [
+        "opentelemetry-api==1.45.1",
+        "opentelemetry-semantic-conventions==0.66b1",
+        "typing-extensions>=4.5.0",
+        "opentelemetry-configuration==0.66b1; extra == 'file-configuration'"
+      ],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/opentelemetry_sdk-1.45.1-py3-none-any.whl.metadata",
+        "bytes": 1627,
+        "sha256": "0a353d0fa633a7ece2b51f6f2dd3f64f75563d0d8bc8716480489fc2f9476e34"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "opentelemetry-semantic-conventions",
+      "version": "0.66b1",
+      "selectedExtras": [],
+      "filename": "opentelemetry_semantic_conventions-0.66b1-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/bc/14/67f8aa798857f8cf686f515bf93d9bb877ce952ddc8efae0fa25b45ce0d6/opentelemetry_semantic_conventions-0.66b1-py3-none-any.whl",
+      "bytes": 206279,
+      "sha256": "d4cddeb4315490b35213f55e2bdc9ac54bb1e4d318927475bed62b35545e581b",
+      "requiresPython": ">=3.10",
+      "requiresDist": [
+        "opentelemetry-api==1.45.1",
+        "typing-extensions>=4.5.0"
+      ],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/opentelemetry_semantic_conventions-0.66b1-py3-none-any.whl.metadata",
+        "bytes": 2408,
+        "sha256": "0b21fb9e6e2c2c79b61c110c3235757606fc2d2d11eaa22840f2f66794efd61c"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "protobuf",
+      "version": "6.33.6",
+      "selectedExtras": [],
+      "filename": "protobuf-6.33.6-cp39-abi3-macosx_10_9_universal2.whl",
+      "url": "https://files.pythonhosted.org/packages/5c/01/a3c3ed5cd186f39e7880f8303cc51385a198a81469d53d0fdecf1f64d929/protobuf-6.33.6-cp39-abi3-macosx_10_9_universal2.whl",
+      "bytes": 427737,
+      "sha256": "9720e6961b251bde64edfdab7d500725a2af5280f3f4c87e57c0208376aa8c3a",
+      "requiresPython": ">=3.9",
+      "requiresDist": [],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/protobuf-6.33.6-cp39-abi3-macosx_10_9_universal2.whl.metadata",
+        "bytes": 593,
+        "sha256": "6f3b31fd64380f5e60ed10f5a2954699bcc1f6266eb74316f0ba96702d30546f"
+      },
+      "wheelTags": [
+        "cp39-abi3-macosx_10_9_universal2"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "requests",
+      "version": "2.33.0",
+      "selectedExtras": [],
+      "filename": "requests-2.33.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/56/5d/c814546c2333ceea4ba42262d8c4d55763003e767fa169adc693bd524478/requests-2.33.0-py3-none-any.whl",
+      "bytes": 65017,
+      "sha256": "3324635456fa185245e24865e810cecec7b4caf933d7eb133dcde67d48cee69b",
+      "requiresPython": ">=3.10",
+      "requiresDist": [
+        "charset_normalizer<4,>=2",
+        "idna<4,>=2.5",
+        "urllib3<3,>=1.26",
+        "certifi>=2023.5.7",
+        "PySocks!=1.5.7,>=1.5.6; extra == \"socks\"",
+        "chardet<8,>=3.0.2; extra == \"use-chardet-on-py3\"",
+        "pytest-httpbin==2.1.0; extra == \"test\"",
+        "pytest-cov; extra == \"test\"",
+        "pytest-mock; extra == \"test\"",
+        "pytest-xdist; extra == \"test\"",
+        "PySocks!=1.5.7,>=1.5.6; extra == \"test\"",
+        "pytest>=3; extra == \"test\""
+      ],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/requests-2.33.0-py3-none-any.whl.metadata",
+        "bytes": 5126,
+        "sha256": "0cc0fa6e89be83cfa1777957519e3fffe78d1a79b30561934d1e4384fb177711"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "typing-extensions",
+      "version": "4.15.0",
+      "selectedExtras": [],
+      "filename": "typing_extensions-4.15.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/18/67/36e9267722cc04a6b9f15c7f3441c2363321a3ea07da7ae0c0707beb2a9c/typing_extensions-4.15.0-py3-none-any.whl",
+      "bytes": 44614,
+      "sha256": "f0fa19c6845758ab08074a0cfa8b7aecb71c999ca73d62883bc25cc018c4e548",
+      "requiresPython": ">=3.9",
+      "requiresDist": [],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/typing_extensions-4.15.0-py3-none-any.whl.metadata",
+        "bytes": 3259,
+        "sha256": "c138378fe8f18934ac99de060535c53ec6c13aeed65e94c32641da7ee3192a72"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    },
+    {
+      "name": "urllib3",
+      "version": "2.8.0",
+      "selectedExtras": [],
+      "filename": "urllib3-2.8.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/92/9d/c4e665119135114480843e7ab388fa94d8480650450e6f8e26b70d323a4c/urllib3-2.8.0-py3-none-any.whl",
+      "bytes": 135717,
+      "sha256": "0cf3cae568d36aa9576b28dfb35f11328f1cb974ca7647d9475ebb86c75ac6e3",
+      "requiresPython": ">=3.10",
+      "requiresDist": [
+        "brotli>=1.2.0; (platform_python_implementation == 'CPython') and extra == 'brotli'",
+        "brotlicffi>=1.2.0.0; (platform_python_implementation != 'CPython') and extra == 'brotli'",
+        "h2<5,>=4; extra == 'h2'",
+        "pysocks!=1.5.7,<2.0,>=1.5.6; extra == 'socks'",
+        "backports-zstd>=1.0.0; (python_version < '3.14') and extra == 'zstd'"
+      ],
+      "metadata": {
+        "path": "/private/tmp/ashlar-otel-pypi-metadata-20261010-b/urllib3-2.8.0-py3-none-any.whl.metadata",
+        "bytes": 7389,
+        "sha256": "10898c620e8007c030e07fa5622b68358a43010025dfbd78a1cb797699de2bb4"
+      },
+      "wheelTags": [
+        "py3-none-any"
+      ],
+      "yanked": false
+    }
+  ],
+  "activeEdges": [
+    {
+      "from": "opentelemetry-api",
+      "requirement": "typing-extensions>=4.5.0",
+      "to": "typing-extensions",
+      "selectedVersion": "4.15.0"
+    },
+    {
+      "from": "opentelemetry-sdk",
+      "requirement": "opentelemetry-api==1.45.1",
+      "to": "opentelemetry-api",
+      "selectedVersion": "1.45.1"
+    },
+    {
+      "from": "opentelemetry-sdk",
+      "requirement": "opentelemetry-semantic-conventions==0.66b1",
+      "to": "opentelemetry-semantic-conventions",
+      "selectedVersion": "0.66b1"
+    },
+    {
+      "from": "opentelemetry-sdk",
+      "requirement": "typing-extensions>=4.5.0",
+      "to": "typing-extensions",
+      "selectedVersion": "4.15.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "requirement": "googleapis-common-protos~=1.52",
+      "to": "googleapis-common-protos",
+      "selectedVersion": "1.75.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "requirement": "opentelemetry-api~=1.15",
+      "to": "opentelemetry-api",
+      "selectedVersion": "1.45.1"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "requirement": "opentelemetry-exporter-http-transport[requests]==0.66b1",
+      "to": "opentelemetry-exporter-http-transport",
+      "selectedVersion": "0.66b1"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "requirement": "opentelemetry-exporter-otlp-common==0.66b1",
+      "to": "opentelemetry-exporter-otlp-common",
+      "selectedVersion": "0.66b1"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "requirement": "opentelemetry-exporter-otlp-proto-common==1.45.1",
+      "to": "opentelemetry-exporter-otlp-proto-common",
+      "selectedVersion": "1.45.1"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "requirement": "opentelemetry-proto==1.45.1",
+      "to": "opentelemetry-proto",
+      "selectedVersion": "1.45.1"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "requirement": "opentelemetry-sdk~=1.45.1",
+      "to": "opentelemetry-sdk",
+      "selectedVersion": "1.45.1"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "requirement": "requests~=2.7",
+      "to": "requests",
+      "selectedVersion": "2.33.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-http",
+      "requirement": "typing-extensions>=4.5.0",
+      "to": "typing-extensions",
+      "selectedVersion": "4.15.0"
+    },
+    {
+      "from": "opentelemetry-semantic-conventions",
+      "requirement": "opentelemetry-api==1.45.1",
+      "to": "opentelemetry-api",
+      "selectedVersion": "1.45.1"
+    },
+    {
+      "from": "opentelemetry-semantic-conventions",
+      "requirement": "typing-extensions>=4.5.0",
+      "to": "typing-extensions",
+      "selectedVersion": "4.15.0"
+    },
+    {
+      "from": "googleapis-common-protos",
+      "requirement": "protobuf<8.0.0,>=4.25.8",
+      "to": "protobuf",
+      "selectedVersion": "6.33.6"
+    },
+    {
+      "from": "opentelemetry-exporter-http-transport",
+      "requirement": "opentelemetry-api~=1.15",
+      "to": "opentelemetry-api",
+      "selectedVersion": "1.45.1"
+    },
+    {
+      "from": "opentelemetry-exporter-http-transport",
+      "requirement": "requests~=2.25; extra == 'requests'",
+      "to": "requests",
+      "selectedVersion": "2.33.0"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-common",
+      "requirement": "opentelemetry-sdk~=1.45.1",
+      "to": "opentelemetry-sdk",
+      "selectedVersion": "1.45.1"
+    },
+    {
+      "from": "opentelemetry-exporter-otlp-proto-common",
+      "requirement": "opentelemetry-proto==1.45.1",
+      "to": "opentelemetry-proto",
+      "selectedVersion": "1.45.1"
+    },
+    {
+      "from": "opentelemetry-proto",
+      "requirement": "protobuf<8.0,>=5.0",
+      "to": "protobuf",
+      "selectedVersion": "6.33.6"
+    },
+    {
+      "from": "requests",
+      "requirement": "charset_normalizer<4,>=2",
+      "to": "charset-normalizer",
+      "selectedVersion": "3.4.3"
+    },
+    {
+      "from": "requests",
+      "requirement": "idna<4,>=2.5",
+      "to": "idna",
+      "selectedVersion": "3.15"
+    },
+    {
+      "from": "requests",
+      "requirement": "urllib3<3,>=1.26",
+      "to": "urllib3",
+      "selectedVersion": "2.8.0"
+    },
+    {
+      "from": "requests",
+      "requirement": "certifi>=2023.5.7",
+      "to": "certifi",
+      "selectedVersion": "2025.10.5"
+    }
+  ],
+  "fileCount": 16,
+  "totalBytes": 1955024,
+  "maximumFileBytes": 427737,
+  "limits": [
+    "Official metadata and published wheel hashes/lengths only. Actual wheel bytes and embedded METADATA must be compared after a separately reviewed download.",
+    "No SDK import/install/receiver/runtime qualification or host-dylib closure.",
+    "SDK>=3.10 stays outside portable Python3.9 core; selected target is Python3.11.17."
+  ]
+}

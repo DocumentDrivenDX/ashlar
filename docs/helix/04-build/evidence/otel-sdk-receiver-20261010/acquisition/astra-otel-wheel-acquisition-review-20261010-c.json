@@ -1,0 +1,90 @@
+{
+  "format": "astra-otel-actual-acquisition-review/0.1",
+  "decision": "approved-exact-C-acquired-wheel-byte-set-only",
+  "commandReview": {
+    "path": "/private/tmp/astra-otel-wheel-proposal-review-20261010-c.json",
+    "bytes": 4826,
+    "sha256": "8bc524e58f3b20ba7d7b507fe389895f61adba316b3ff7e55cdf04f7d237cd06"
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-otel-wheel-resolution-20261010-c/command.json",
+    "bytes": 10222,
+    "sha256": "4607c5148d7bda1bcc44fc99a0d2ca84bffa5f04d92773bee1a64f61fef54193"
+  },
+  "freeze": {
+    "path": "/private/tmp/ashlar-otel-wheel-resolution-20261010-c/freeze.json",
+    "bytes": 2039,
+    "sha256": "16ed09ffac6eb4a8b088ad7243c5aeac7bdceb210712e3e7a7f3d65a7b441604"
+  },
+  "lock": {
+    "path": "/private/tmp/ashlar-otel-wheel-resolution-20261010-c/wheel-lock.json",
+    "bytes": 22309,
+    "sha256": "512a9e4891765720686c3c60ea30b767b1cdc9ec69ddc62f4616d7798c5b00f4"
+  },
+  "actualFinalReceipt": {
+    "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/download.json",
+    "bytes": 3519,
+    "sha256": "90dee75789e7c3d5fe2c02ad5c4604cd96fb252fef2afcb66b02b8b70b0051a8"
+  },
+  "actualProvisionalReceipt": {
+    "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/.download-provisional.json",
+    "bytes": 3470,
+    "sha256": "da45df34c0da398edac7b854cf8e99d033ffcacf8759c8aebd5f8a4d7d9f199a"
+  },
+  "parentClosure": {
+    "path": "/private/tmp/astra-otel-wheel-acquisition-closure-20261010-c.json",
+    "bytes": 5395,
+    "sha256": "317d9a495f43301679c8b23f22bd240667d8d34c9d232aa6a069c85ef8aca980"
+  },
+  "childContentReviewEndorsed": {
+    "path": "/private/tmp/astra-otel-wheel-acquisition-content-review-20261010-c.json",
+    "bytes": 42804,
+    "sha256": "e9d30d0373a124ea5cf32a1161184816d779bad60497a55062ff94e0c9728f31"
+  },
+  "parentExecution": {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-S",
+      "/private/tmp/astra-otel-wheel-acquisition-closure-20261010-c.py"
+    ],
+    "exitCode": 0,
+    "script": {
+      "path": "/private/tmp/astra-otel-wheel-acquisition-closure-20261010-c.py",
+      "bytes": 4387,
+      "sha256": "dc2bf61110289da217a6c8b497af9588a8964208d9d1b8cc578a634a8cfd1677"
+    },
+    "log": {
+      "path": "/private/tmp/astra-otel-wheel-acquisition-closure-20261010-c.log",
+      "bytes": 171,
+      "sha256": "739cc529ff2a5f0cb78f103361c73dbe990ef34007feab07c43213dd559587a3"
+    }
+  },
+  "observed": {
+    "lockedWheels": 16,
+    "wheelBytes": 1955024,
+    "outputFiles": 18,
+    "totalOutputBytes": 1962013,
+    "directoryMode": "0700",
+    "fileModes": "0600",
+    "frozenFilesMatched": 9,
+    "commandInputsMatched": 19,
+    "embeddedMetadataMatches": 16,
+    "unexpectedFiles": 0,
+    "closingDrift": false
+  },
+  "correspondence": [
+    "All16 exact actual wheel filenames/lengths/SHA256 match previously independently reviewed official metadata lock; embedded METADATA byte-equal retained hash-bound PEP658 sidecars.",
+    "Final and provisional receipts independently reconstructed byte-exact from lock and distinct formats; no final stage remains.",
+    "Exact18-file tree, bounded no-follow regular-file reads, no symlink/pycache/install/extra files; opening and closing inventory unchanged.",
+    "Every approved command and input pin still matches, including helper/interpreter and all16 sidecars.",
+    "Parent terminal exit0 is directly reported by root; current byte checks and reviewed command establish acquired artifact correspondence. This receipt does not invent a separate retained process transcript."
+  ],
+  "limits": [
+    "No wheel imports/extraction/installation, SDK receiver, dependency runtime execution or native operation by reviewers.",
+    "This accepts downloaded inert package bytes for subsequent separately reviewed installation; no new environment/SDK compatibility, live receiver, exporter/shutdown/privacy qualification.",
+    "Prior dependency resolution and wheel-tag review applies only because exact lock and all actual bytes match; no new advisory/security audit.",
+    "No full host TLS/dylib closure, crash durability or hostile-writer guarantee."
+  ],
+  "remainingBlockers": []
+}

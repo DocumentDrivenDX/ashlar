@@ -1,0 +1,121 @@
+{
+  "format": "astra-independent-receiver-closure/0.1",
+  "outcome": "passed",
+  "command": {
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/command.json",
+    "bytes": 176346,
+    "sha256": "0a7b2cbdce299a806941779130e02a1586817bf4037b8c6e2f371ca062e7558f"
+  },
+  "launch": {
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/launch.json",
+    "bytes": 365,
+    "sha256": "0d9f1817496377f6af3f6f221b0cdea766c18ec320287527412e0380275375b7"
+  },
+  "source": {
+    "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/probe.py",
+    "bytes": 14937,
+    "sha256": "ba1f359a9fc8e1fd2ac99ca2a3d55100fe48c33bac52bc98be610e205b09a64a"
+  },
+  "selectedInputsRehashed": 703,
+  "totalInputBytes": 41191661,
+  "outputInventory": [
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/command.json",
+      "bytes": 176346,
+      "sha256": "0a7b2cbdce299a806941779130e02a1586817bf4037b8c6e2f371ca062e7558f"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/probe.py",
+      "bytes": 14937,
+      "sha256": "ba1f359a9fc8e1fd2ac99ca2a3d55100fe48c33bac52bc98be610e205b09a64a"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/launch.json",
+      "bytes": 365,
+      "sha256": "0d9f1817496377f6af3f6f221b0cdea766c18ec320287527412e0380275375b7"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/result.json",
+      "bytes": 1420,
+      "sha256": "3ee5fa80b55f1ac7dd1e0b77cb43694a0cd90c3dc6c6cb59b3f8aaa402a03147"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/expected.json",
+      "bytes": 889,
+      "sha256": "5f91c51fd9b670a42fdd7fe2009f1302fc04fa53b5bef0e930223c5ff39f4b51"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/request-00.pb",
+      "bytes": 668,
+      "sha256": "8bc45e68fb41fb45d8f18bf16cda8c4d75048548f2f063b188d52ab058b168ee"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/request-01.pb",
+      "bytes": 691,
+      "sha256": "0a0a3dde0b73f4b4800f4a59aaca9c60c034166c2106ccb393e5ce906d51222b"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/request-02.pb",
+      "bytes": 577,
+      "sha256": "16adc2b0792652981d92cd7bacc801c25b5dd80755769f3cd9687a2358563db1"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/request-03.pb",
+      "bytes": 440,
+      "sha256": "8fda7a57edf5c05aa103a2d721066715983a636eef7e8801744f3b487f16ec44"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "outputTreeClosed": true,
+  "noStage": true,
+  "stdoutStderrEmpty": true,
+  "aFailedAttempt": [
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/command.json",
+      "bytes": 175821,
+      "sha256": "444cc7d8eeb11fc2e5e62a977fa8dc3822a99f2f4222cc8f86e3c8ae2c61c086"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/probe.py",
+      "bytes": 14500,
+      "sha256": "625960967faabb55da31980c1fb5cf871462a66572b570752423cff97603c23b"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/launch.json",
+      "bytes": 367,
+      "sha256": "c53ea9464d966437fd25d0eb7f0a350b1e67eff7e8e3d9b8de54e02736afb648"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/stderr.log",
+      "bytes": 478,
+      "sha256": "dd2fb51f284e16914651759d9b51f24b734ee29dd19f0220926a639dd0216d01"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "bUnexecuted": [
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-b/command.json",
+      "bytes": 176187,
+      "sha256": "c7cfb4e732ac5629d186a193b69846b3d3dfd98b88fc858db7badeea5e232fa3"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-b/probe.py",
+      "bytes": 14605,
+      "sha256": "3f5d5807c21d672abffe35edc609910582fc44b2dca368780ef88e140e62052b"
+    }
+  ],
+  "scope": "Independent current bytes and closed output inventory; launch opening/closing count is root-retained actual receipt, independently rehashed after execution. Raw protobuf semantic decoding reviewed separately. No execution/network/SDK import by this check."
+}

@@ -1,0 +1,38 @@
+{
+  "format": "ashlar-otel-sdk-receiver-probe/0.1",
+  "outcome": "passed",
+  "runtime": "Python3.11.17 OTelSDK1.45.1",
+  "requests": [
+    {
+      "signal": "/v1/logs",
+      "bytes": 668,
+      "sha256": "8bc45e68fb41fb45d8f18bf16cda8c4d75048548f2f063b188d52ab058b168ee"
+    },
+    {
+      "signal": "/v1/logs",
+      "bytes": 691,
+      "sha256": "0a0a3dde0b73f4b4800f4a59aaca9c60c034166c2106ccb393e5ce906d51222b"
+    },
+    {
+      "signal": "/v1/traces",
+      "bytes": 577,
+      "sha256": "16adc2b0792652981d92cd7bacc801c25b5dd80755769f3cd9687a2358563db1"
+    },
+    {
+      "signal": "/v1/metrics",
+      "bytes": 440,
+      "sha256": "8fda7a57edf5c05aa103a2d721066715983a636eef7e8801744f3b487f16ec44"
+    }
+  ],
+  "logicalUnits": {
+    "logs": 2,
+    "spans": 1,
+    "metrics": 1
+  },
+  "durationSeconds": 0.0327441249974072,
+  "receiverThreadClosed": true,
+  "actualSdkTraceFlags": 3,
+  "actualOtlpSpanFlags": 256,
+  "spanFlagLimitation": "Pinned SDK native span encoder omits actual context flags in low8 OTLP bits; this probe does not repair them or claim full span/context representation conformance.",
+  "scope": "Actual SDK direct logger/span/cumulative integer Counter through OTLP encoders to real loopback HTTP receiver. Test resource service.version is a fixed fixture; no installed Ashlar service-version, production adapter, queue/deadline/privacy/failure, capture or operation integration claim."
+}

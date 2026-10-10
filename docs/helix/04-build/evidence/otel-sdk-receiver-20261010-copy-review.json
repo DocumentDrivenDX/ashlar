@@ -1,0 +1,334 @@
+{
+  "format": "astra-independent-evidence-copy-review/0.1",
+  "verdict": "approved-selected-exact-copy-landing",
+  "inventory": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/otel-sdk-receiver-20261010/inventory.json",
+    "bytes": 5619,
+    "sha256": "bd0fb741f25518e30d13708475f36e2fe974c0843f808fa22729c40464ac988e"
+  },
+  "selectedFiles": 31,
+  "selectedBytes": 885882,
+  "treeFilesIncludingInventory": 32,
+  "treeBytesIncludingInventory": 891501,
+  "originalComparisons": [
+    {
+      "archivePath": "acquisition/command.json",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-wheel-resolution-20261010-c/command.json",
+        "bytes": 10222,
+        "sha256": "4607c5148d7bda1bcc44fc99a0d2ca84bffa5f04d92773bee1a64f61fef54193"
+      }
+    },
+    {
+      "archivePath": "acquisition/wheel-lock.json",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-wheel-resolution-20261010-c/wheel-lock.json",
+        "bytes": 22309,
+        "sha256": "512a9e4891765720686c3c60ea30b767b1cdc9ec69ddc62f4616d7798c5b00f4"
+      }
+    },
+    {
+      "archivePath": "acquisition/download_wheels.py",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-wheel-resolution-20261010-c/download_wheels.py",
+        "bytes": 9823,
+        "sha256": "f61c99545e1627933c1cec60c562d957803f23b5491ed05dbfbb39254d798265"
+      }
+    },
+    {
+      "archivePath": "acquisition/astra-otel-wheel-proposal-review-20261010-c.json",
+      "original": {
+        "path": "/private/tmp/astra-otel-wheel-proposal-review-20261010-c.json",
+        "bytes": 4826,
+        "sha256": "8bc524e58f3b20ba7d7b507fe389895f61adba316b3ff7e55cdf04f7d237cd06"
+      }
+    },
+    {
+      "archivePath": "acquisition/astra-otel-wheel-acquisition-review-20261010-c.json",
+      "original": {
+        "path": "/private/tmp/astra-otel-wheel-acquisition-review-20261010-c.json",
+        "bytes": 4142,
+        "sha256": "4ec1b1583518188f02f200700b67214fa526001bb2e8616d39934081c2a301b8"
+      }
+    },
+    {
+      "archivePath": "acquisition/astra-otel-wheel-acquisition-closure-20261010-c.json",
+      "original": {
+        "path": "/private/tmp/astra-otel-wheel-acquisition-closure-20261010-c.json",
+        "bytes": 5395,
+        "sha256": "317d9a495f43301679c8b23f22bd240667d8d34c9d232aa6a069c85ef8aca980"
+      }
+    },
+    {
+      "archivePath": "installation/installation.json",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-installation-20261010-a/installation.json",
+        "bytes": 178178,
+        "sha256": "572f1d3ce1333c122cf15af1e61bbc6aa5fee39b62911ce5a64b59b93c9bbf12"
+      }
+    },
+    {
+      "archivePath": "actual-c/command.json",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/command.json",
+        "bytes": 176346,
+        "sha256": "0a7b2cbdce299a806941779130e02a1586817bf4037b8c6e2f371ca062e7558f"
+      }
+    },
+    {
+      "archivePath": "actual-c/probe.py",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/probe.py",
+        "bytes": 14937,
+        "sha256": "ba1f359a9fc8e1fd2ac99ca2a3d55100fe48c33bac52bc98be610e205b09a64a"
+      }
+    },
+    {
+      "archivePath": "actual-c/launch.json",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/launch.json",
+        "bytes": 365,
+        "sha256": "0d9f1817496377f6af3f6f221b0cdea766c18ec320287527412e0380275375b7"
+      }
+    },
+    {
+      "archivePath": "actual-c/result.json",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/result.json",
+        "bytes": 1420,
+        "sha256": "3ee5fa80b55f1ac7dd1e0b77cb43694a0cd90c3dc6c6cb59b3f8aaa402a03147"
+      }
+    },
+    {
+      "archivePath": "actual-c/expected.json",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/expected.json",
+        "bytes": 889,
+        "sha256": "5f91c51fd9b670a42fdd7fe2009f1302fc04fa53b5bef0e930223c5ff39f4b51"
+      }
+    },
+    {
+      "archivePath": "actual-c/stdout.log",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "archivePath": "actual-c/stderr.log",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/stderr.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "archivePath": "actual-c/request-00.pb",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/request-00.pb",
+        "bytes": 668,
+        "sha256": "8bc45e68fb41fb45d8f18bf16cda8c4d75048548f2f063b188d52ab058b168ee"
+      }
+    },
+    {
+      "archivePath": "actual-c/request-01.pb",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/request-01.pb",
+        "bytes": 691,
+        "sha256": "0a0a3dde0b73f4b4800f4a59aaca9c60c034166c2106ccb393e5ce906d51222b"
+      }
+    },
+    {
+      "archivePath": "actual-c/request-02.pb",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/request-02.pb",
+        "bytes": 577,
+        "sha256": "16adc2b0792652981d92cd7bacc801c25b5dd80755769f3cd9687a2358563db1"
+      }
+    },
+    {
+      "archivePath": "actual-c/request-03.pb",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-c/request-03.pb",
+        "bytes": 440,
+        "sha256": "8fda7a57edf5c05aa103a2d721066715983a636eef7e8801744f3b487f16ec44"
+      }
+    },
+    {
+      "archivePath": "failed-a/command.json",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/command.json",
+        "bytes": 175821,
+        "sha256": "444cc7d8eeb11fc2e5e62a977fa8dc3822a99f2f4222cc8f86e3c8ae2c61c086"
+      }
+    },
+    {
+      "archivePath": "failed-a/probe.py",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/probe.py",
+        "bytes": 14500,
+        "sha256": "625960967faabb55da31980c1fb5cf871462a66572b570752423cff97603c23b"
+      }
+    },
+    {
+      "archivePath": "failed-a/launch.json",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/launch.json",
+        "bytes": 367,
+        "sha256": "c53ea9464d966437fd25d0eb7f0a350b1e67eff7e8e3d9b8de54e02736afb648"
+      }
+    },
+    {
+      "archivePath": "failed-a/stdout.log",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/stdout.log",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "archivePath": "failed-a/stderr.log",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-a/stderr.log",
+        "bytes": 478,
+        "sha256": "dd2fb51f284e16914651759d9b51f24b734ee29dd19f0220926a639dd0216d01"
+      }
+    },
+    {
+      "archivePath": "unexecuted-b/command.json",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-b/command.json",
+        "bytes": 176187,
+        "sha256": "c7cfb4e732ac5629d186a193b69846b3d3dfd98b88fc858db7badeea5e232fa3"
+      }
+    },
+    {
+      "archivePath": "unexecuted-b/probe.py",
+      "original": {
+        "path": "/private/tmp/ashlar-otel-sdk-receiver-probe-20261010-b/probe.py",
+        "bytes": 14605,
+        "sha256": "3f5d5807c21d672abffe35edc609910582fc44b2dca368780ef88e140e62052b"
+      }
+    },
+    {
+      "archivePath": "review/astra-otel-sdk-probe-command-review-20261010-c.json",
+      "original": {
+        "path": "/private/tmp/astra-otel-sdk-probe-command-review-20261010-c.json",
+        "bytes": 4951,
+        "sha256": "7038cd2071c5ce72bcef6b88bf850546a89fd9314efc47cc52beff0ac4f79bcb"
+      }
+    },
+    {
+      "archivePath": "review/astra-otel-sdk-probe-oracle-finding-20261010-b.json",
+      "original": {
+        "path": "/private/tmp/astra-otel-sdk-probe-oracle-finding-20261010-b.json",
+        "bytes": 1581,
+        "sha256": "6b6bc1d2a48b9ff11d1b965c48b80bb6aeafe725b2c398d4a1d9cdb250a6c875"
+      }
+    },
+    {
+      "archivePath": "review/astra-otel-sdk-receiver-actual-review-20261010-c.json",
+      "original": {
+        "path": "/private/tmp/astra-otel-sdk-receiver-actual-review-20261010-c.json",
+        "bytes": 7547,
+        "sha256": "884055ae91dd9f1150cd8c5dcdd2e9a6468cc245f938cd961d02d561a6e2b2cf"
+      }
+    },
+    {
+      "archivePath": "review/astra-otel-sdk-receiver-closure-20261010-c.json",
+      "original": {
+        "path": "/private/tmp/astra-otel-sdk-receiver-closure-20261010-c.json",
+        "bytes": 4780,
+        "sha256": "053d0dbb983080dc75122a1b8c936e2c96fc898719a7c82ddd4b0f7ca21afeb2"
+      }
+    },
+    {
+      "archivePath": "review/astra-otel-sdk-receiver-output-review-20261010-c.json",
+      "original": {
+        "path": "/private/tmp/astra-otel-sdk-receiver-output-review-20261010-c.json",
+        "bytes": 23660,
+        "sha256": "335f0fa390f01209960773e2a52810dad9ac7cee2cba54646a55b31c6fb26a69"
+      }
+    },
+    {
+      "archivePath": "review/astra-otel-installed-content-review-20261010-a.json",
+      "original": {
+        "path": "/private/tmp/astra-otel-installed-content-review-20261010-a.json",
+        "bytes": 30177,
+        "sha256": "47d5927585acb8478c73feb7c7e0f3e0583ef75db834cdbdc57bbe9b66b93832"
+      }
+    }
+  ],
+  "diagnosticsConstructorAdditions": [
+    {
+      "copy": {
+        "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/diagnostics-capture-20261010/astra-diagnostics-constructor-controls-20261010-c-311.json",
+        "bytes": 3841,
+        "sha256": "db9147624feefb897b435f53e6ffb2996f84599ed97bbfaa7f6e206fc6b41026"
+      },
+      "original": {
+        "path": "/private/tmp/astra-diagnostics-constructor-controls-20261010-c-311.json",
+        "bytes": 3841,
+        "sha256": "db9147624feefb897b435f53e6ffb2996f84599ed97bbfaa7f6e206fc6b41026"
+      }
+    },
+    {
+      "copy": {
+        "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/diagnostics-capture-20261010/astra-diagnostics-constructor-controls-20261010-c-39.json",
+        "bytes": 3841,
+        "sha256": "c8884a10fc5a08eaa1bd2b887e4dba036bd13a212ffa27bc88ab10c30c8caefa"
+      },
+      "original": {
+        "path": "/private/tmp/astra-diagnostics-constructor-controls-20261010-c-39.json",
+        "bytes": 3841,
+        "sha256": "c8884a10fc5a08eaa1bd2b887e4dba036bd13a212ffa27bc88ab10c30c8caefa"
+      }
+    },
+    {
+      "copy": {
+        "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/diagnostics-capture-20261010/astra-diagnostics-constructor-controls-20261010-c-py311-corrected.log",
+        "bytes": 254,
+        "sha256": "380fb338e7f56588897723b1210dc44ba389fac540fa84c6a21426aea893ab4d"
+      },
+      "original": {
+        "path": "/private/tmp/astra-diagnostics-constructor-controls-20261010-c-py311-corrected.log",
+        "bytes": 254,
+        "sha256": "380fb338e7f56588897723b1210dc44ba389fac540fa84c6a21426aea893ab4d"
+      }
+    },
+    {
+      "copy": {
+        "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/diagnostics-capture-20261010/astra-diagnostics-constructor-controls-20261010-c-py311.log",
+        "bytes": 1891,
+        "sha256": "ade8042721e27a835fe9459cf5d750bd6384c152fed17201a9f94ab1e982081a"
+      },
+      "original": {
+        "path": "/private/tmp/astra-diagnostics-constructor-controls-20261010-c-py311.log",
+        "bytes": 1891,
+        "sha256": "ade8042721e27a835fe9459cf5d750bd6384c152fed17201a9f94ab1e982081a"
+      }
+    },
+    {
+      "copy": {
+        "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/diagnostics-capture-20261010/astra-diagnostics-constructor-controls-20261010-c-py39.log",
+        "bytes": 265,
+        "sha256": "89deba17e17c02bde097561f42ee9b4cbb814ac60fbe92ef940c94975a5d6515"
+      },
+      "original": {
+        "path": "/private/tmp/astra-diagnostics-constructor-controls-20261010-c-py39.log",
+        "bytes": 265,
+        "sha256": "89deba17e17c02bde097561f42ee9b4cbb814ac60fbe92ef940c94975a5d6515"
+      }
+    }
+  ],
+  "scopeChecks": [
+    "Current C actual source/command/four protobuf requests/actual context/result/launch/empty logs copied byte-for-byte.",
+    "A actual failed attempt and B unexecuted oracle correction preserved without reinterpretation; exact independent command/output/closure/installed-byte reviews retained.",
+    "Inventory explicitly withholds production adapter/HTTP exporter/full C006 and capture-owner integration qualification; native SDK span-flag omission remains explicit.",
+    "Selected archive has no wheel or installed dependency tree. Referenced external source/runtime files and unselected review harnesses remain descriptor-bound references, not claimed archive closure.",
+    "Five constructor artifacts are exact additional copies, including initial reviewer schema-location failure and corrected success; no overwrite or normalization of historical evidence."
+  ],
+  "findings": [],
+  "actions": "Read-only byte/tree/digest/scope comparison; no SDK/network/native execution or Git mutation."
+}
