@@ -1,0 +1,34 @@
+{
+  "profile": "ashlar-evolution-plan-journal-independent-review/0.1",
+  "decision": "approve",
+  "freeze_sha256": "4254daa27eaeb6987cb8cf5dc14c4bec8ff0bd256883cfd8b362ab4913732820",
+  "owned_sha256": {
+    "src/ashlar_host/commerce_evolution.py": "0e3c441033a01209d245e5309a312a8f5a2c6d35f5b964f7f28c172307e75466",
+    "tests/test_evolution_plan_journal.py": "2afec0da4743e5ab73604a16d3cc4f2c2421ca5baa0840215f422c2f46889758",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "f25bd9aadde8a65b1ba604a701d779e9137b350fc4a04ce59f1f05ee9f014725",
+    ".github/workflows/weft-distribution.yml": "8686fc64c718e93183b31288d004d70a33ed98fbc1527d7e32190c2df2cee69c"
+  },
+  "governing_artifacts": [
+    "TD-001-publication-recovery",
+    "CONTRACT-001-publication-boundary",
+    "ADR-001-delta-canonical-and-serving-layout"
+  ],
+  "checks": [
+    "Exact three frozen source/test/ADR files and two original evidence log hashes",
+    "CI fourth file exact one test command addition",
+    "Actual independent Python3.9 -S ResourceWarningerror10 tests passed0.272s",
+    "AST module boundaries passed",
+    "Independent actual descriptor closure after read failure",
+    "Independent concurrent in-place read modification refused",
+    "Independent FIFO refused without blocking",
+    "Exclusive creation/no replacement, file and directory fsync, missing/partial/tampered custody refusal",
+    "Original cancellation identity and cleanup cancellation precedence",
+    "Expected hash only byte custody; mandatory injected original native/semantic policy remains required"
+  ],
+  "assumptions": [
+    "Selected local POSIX filesystem honors file and directory fsync",
+    "Caller holds original exclusive writer interval",
+    "Original owner provides trusted plan digest and mandatory native/semantic policy"
+  ],
+  "scope": "Local original-attempt custody prerequisite only. No completed publish/resume facade, installed package, fresh-process native recovery, native operation status or protected ACK qualification. Fresh interpreter test qualifies exact local retained bytes only. No secret/native/network actions; foreign work untouched."
+}

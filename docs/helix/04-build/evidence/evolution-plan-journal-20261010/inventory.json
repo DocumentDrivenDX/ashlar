@@ -1,0 +1,31 @@
+{
+  "profile": "ashlar-evolution-plan-journal-evidence/0.1",
+  "scope": "Local original-attempt custody prerequisite only. No completed publish/resume facade, installed package, fresh-process native recovery, native operation status or protected ACK qualification. Fresh interpreter test qualifies exact local retained bytes only. No secret/native/network actions; foreign work untouched.",
+  "files": [
+    {
+      "name": "ashlar-evolution-plan-journal-independent-review-20261010-b.json",
+      "bytes": 2161,
+      "sha256": "549189cabba8073282b873580da688721b8f8a36a31b9d0c92554d4684753ede"
+    },
+    {
+      "name": "ashlar-evolution-plan-journal-freeze-20261010-b.json",
+      "bytes": 1690,
+      "sha256": "4254daa27eaeb6987cb8cf5dc14c4bec8ff0bd256883cfd8b362ab4913732820"
+    },
+    {
+      "name": "ashlar-evolution-plan-journal-tests-20261010-b.log",
+      "bytes": 1164,
+      "sha256": "6c715c14303ed37d23ea182461fff7d7f8af11f9ff814eb2965b7f2a669fc1a1"
+    },
+    {
+      "name": "ashlar-evolution-plan-journal-boundaries-20261010-b.log",
+      "bytes": 94,
+      "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+    },
+    {
+      "name": "ashlar-schema-browser-deployed-5cc2955-20261010.json",
+      "bytes": 868,
+      "sha256": "f634bc18336232b055b598760c053508d7c08454e173e694091bd73571eaac4d"
+    }
+  ]
+}

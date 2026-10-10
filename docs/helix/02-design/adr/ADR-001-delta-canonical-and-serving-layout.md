@@ -164,8 +164,24 @@ The installed original-commerce evolution facade adds these owned boundaries:
 | --- | --- | --- | --- | --- |
 | `src/ashlar/commerce_evolution.py` | Immutable finite source preparation and independent complete prefix-union oracle | Named preparation and oracle under CONTRACT-003 | Public core source/value APIs and Python3.9 standard library | Host/tools/SDK imports, runtime discovery, authority or replacement UMF semantics |
 | `src/ashlar_host/evolution_admission.py` | Bounded original/candidate/proof custody and exact public producer admission | Owned admitted evolution source/transition ports | Explicit config, public core preparation, packaged resources and configured public UMF producer | Checkout discovery, ambient Bun/Git, private UMF APIs, receipt flags as authority |
-| `src/ashlar_host/commerce_evolution.py` | Fresh/resume lifecycle, source-qualified publication and original recovery | publish_commerce_evolution, resume_commerce_evolution under CONTRACT-001 | Explicit config, owned admission/driver/journal/ACK/lifecycle ports and supplied ordinary sessions | Source/role/grant provisioning, credential discovery/escalation, new uncertain intent, tools/private native access |
+| `src/ashlar_host/commerce_evolution.py` | Fresh/resume lifecycle, source-qualified publication and original recovery | EvolutionAttemptPlan, EvolutionPlanJournal; publish_commerce_evolution, resume_commerce_evolution under CONTRACT-001 | Explicit config, owned admission/driver/journal/ACK/lifecycle ports and supplied ordinary sessions | Source/role/grant provisioning, credential discovery/escalation, new uncertain intent, tools/private native access |
 | `src/ashlar_host/evolution_producer.py` | Bounded public-UMF subprocess ownership and original receipt custody | Typed producer invocation for evolution_admission under CONTRACT-001 | Explicit immutable configuration/input snapshots, standard-library process and owned lifecycle ports | Ambient environment/PATH discovery, private source capture or UMF APIs, tools, native authority |
+
+`EvolutionAttemptPlan` retains the complete closed attempt envelope as immutable
+original bytes: source-qualified request, generated and selected ordered steps,
+no-op anchors, publication identity and clocks, prefix/schema/progress state,
+resource registry, admitted source facts and original ordered operation identities.
+`EvolutionPlanJournal` receives an explicit private file path and mandatory
+semantic/current-authority policy. Fresh retention exclusively creates one file,
+synchronizes its bytes and parent directory, and refuses any existing original.
+Resume requires the owning attempt's trusted digest and reads without creating,
+repairing or replacing custody. The mandatory policy independently admits all
+native registry, anchor, source, schema and oracle meanings; structural validation
+or caller-supplied hashes cannot establish native authority. Interrupted files
+remain for explicit reconciliation. The local POSIX filesystem and enclosing
+exclusive writer are assumptions; this port does not prove native submission,
+publication or ACK. Journal payloads must not enter CONTRACT-006 diagnostics.
+
 
 The producer transport uses the selected installed host Python runtime for a fixed,
 shell-free supervisor; caller arguments remain data and select only the pinned

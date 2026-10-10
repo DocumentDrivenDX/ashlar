@@ -1,0 +1,24 @@
+{
+  "profile": "ashlar-deployed-browser-bytes/0.1",
+  "commit": "8c52333ba5b1d1ceec66454a3a0070dfc0a17887",
+  "assets": [
+    {
+      "url": "https://documentdrivendx.github.io/ashlar/model/schema-browser/provenance.json",
+      "bytes": 2807,
+      "sha256": "a7f282ce070a5573bc1285c30e756946cfedcfe008c67fdf6ab0d9a24f351fe6",
+      "exact_reviewed_asset": true
+    },
+    {
+      "url": "https://documentdrivendx.github.io/ashlar/model/schema-browser/explorer.js",
+      "bytes": 3545636,
+      "sha256": "e2b504dd11e9fa707d39a28a81910d9b90526c90aaaa4b4bca3b392511efac32",
+      "exact_reviewed_asset": true
+    },
+    {
+      "url": "https://documentdrivendx.github.io/ashlar/model/schema-browser/explorer.css",
+      "bytes": 13479,
+      "sha256": "40fcfcd4e9446b97b94722c0bebea4511d6ac90133cfecd61fcb8da7103b0d2c",
+      "exact_reviewed_asset": true
+    }
+  ]
+}

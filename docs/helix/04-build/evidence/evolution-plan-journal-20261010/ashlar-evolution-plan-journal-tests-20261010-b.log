@@ -1,0 +1,15 @@
+test_cleanup_cancellation_priority_and_original_cancellation_identity (test_evolution_plan_journal.JournalTests) ... ok
+test_closed_original_plan_and_order_refusals (test_evolution_plan_journal.JournalTests) ... ok
+test_concurrent_retain_has_one_original_winner (test_evolution_plan_journal.JournalTests) ... ok
+test_existing_original_cannot_be_replaced_even_with_same_bytes (test_evolution_plan_journal.JournalTests) ... ok
+test_matching_caller_hash_does_not_replace_original_policy (test_evolution_plan_journal.JournalTests) ... ok
+test_missing_partial_tampered_and_symlink_resume_refuse (test_evolution_plan_journal.JournalTests) ... ok
+test_original_is_immutable_and_reconstructed_in_new_interpreter (test_evolution_plan_journal.JournalTests) ... ok
+test_partial_write_is_retained_and_cannot_be_reinitialized (test_evolution_plan_journal.JournalTests) ... ok
+test_policy_refusal_precedes_creation (test_evolution_plan_journal.JournalTests) ... ok
+test_sync_failure_retains_original_and_refuses_reinitialization (test_evolution_plan_journal.JournalTests) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.419s
+
+OK

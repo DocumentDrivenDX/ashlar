@@ -1,0 +1,43 @@
+{
+  "profile": "ashlar-evolution-plan-journal-freeze/0.1",
+  "base": "8c52333ba5b1d1ceec66454a3a0070dfc0a17887",
+  "scope": "Local immutable original-attempt custody prerequisite only; no facade publication, native recovery, UMF semantic admission or protected ACK qualification. Mandatory injected policy owns full native and semantic admission.",
+  "files": [
+    {
+      "path": "src/ashlar_host/commerce_evolution.py",
+      "bytes": 10853,
+      "sha256": "0e3c441033a01209d245e5309a312a8f5a2c6d35f5b964f7f28c172307e75466"
+    },
+    {
+      "path": "tests/test_evolution_plan_journal.py",
+      "bytes": 9898,
+      "sha256": "2afec0da4743e5ab73604a16d3cc4f2c2421ca5baa0840215f422c2f46889758"
+    },
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 39800,
+      "sha256": "f25bd9aadde8a65b1ba604a701d779e9137b350fc4a04ce59f1f05ee9f014725"
+    }
+  ],
+  "tests": {
+    "count": 10,
+    "python": "/usr/bin/python3 -S -W error::ResourceWarning",
+    "logs": [
+      {
+        "path": "/private/tmp/ashlar-evolution-plan-journal-tests-20261010-b.log",
+        "bytes": 1164,
+        "sha256": "6c715c14303ed37d23ea182461fff7d7f8af11f9ff814eb2965b7f2a669fc1a1"
+      },
+      {
+        "path": "/private/tmp/ashlar-evolution-plan-journal-boundaries-20261010-b.log",
+        "bytes": 94,
+        "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+      }
+    ]
+  },
+  "assumptions": [
+    "Selected local POSIX filesystem honors file and directory fsync",
+    "Caller holds original exclusive writer interval",
+    "Original owner provides trusted plan digest and mandatory native/semantic policy"
+  ]
+}
