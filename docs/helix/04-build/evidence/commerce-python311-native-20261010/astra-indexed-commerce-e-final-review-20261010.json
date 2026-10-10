@@ -1,0 +1,29 @@
+{
+  "scope": "Final37-file exact E custody closure, includes actual77-file opening inventory and corrected readable summary; combines substantive independent native/compiler/schema/ACK/archive/resource review receipts",
+  "freeze_sha256": "fc5010be54abb1c8e264620a7540508a222a69406819c8be3ac9643988e8db72",
+  "files": 37,
+  "nested_custody_entries": 36,
+  "all_hashes_equal": true,
+  "substantive_receipts": [
+    {
+      "path": "/private/tmp/astra-indexed-commerce-actual-e-review-20261010.json",
+      "sha256": "f56214cff17144a3d3be17d51943b3b6b7ae6671994bf21bd36b1ae9adc8b7f8",
+      "bytes": 5310
+    },
+    {
+      "path": "/private/tmp/astra-indexed-commerce-pg-e-review-20261010.json",
+      "sha256": "4e1c4613619bb3e12998534d139d349eac8d6d9fbeef99da5cc427314857ce7c",
+      "bytes": 1236
+    },
+    {
+      "path": "/private/tmp/astra-indexed-commerce-schemas-e-review-20261010.json",
+      "sha256": "fd0b80b18b8eb8d460283f96ff97054f3a1e526626268634eccdb34460af70e0",
+      "bytes": 545
+    },
+    {
+      "path": "/private/tmp/astra-indexed-commerce-e-retention-review-20261010.json",
+      "sha256": "6542c3547d7e818ecb93c0ffbcf872da4eb1af697699da5e976801ec337cfcb6",
+      "bytes": 895
+    }
+  ]
+}

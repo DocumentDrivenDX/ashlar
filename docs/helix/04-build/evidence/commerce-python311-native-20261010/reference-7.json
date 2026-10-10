@@ -1,0 +1,810 @@
+{
+  "scope": "ExactselectedexistingCPython3.9psycopg3.2.13 bytecopies, isolatesunrelatedNumPy; noinstallation/download",
+  "files": [
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/__init__.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/__init__.py",
+      "sha256": "5f1607a193cb63e60a0c5687209d2bd0e3029760b9559e9968f31d6b5d82c778",
+      "bytes": 3423,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_acompat.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_acompat.py",
+      "sha256": "2ef0152b55633e375239c13ba8da3d81a0855283ba3b142c8a1dedb34118ae5b",
+      "bytes": 2684,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_adapters_map.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_adapters_map.py",
+      "sha256": "8d4caebb82a89e5b662449119aefca5c015aede7a0286d70d2220aa52533f4b9",
+      "bytes": 10650,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_capabilities.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_capabilities.py",
+      "sha256": "7ceda92129b13cfd9ff8443cd1895cbe115fa13b52ee43c96101416aeac7905a",
+      "bytes": 4952,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_cmodule.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_cmodule.py",
+      "sha256": "d7bb5516799ff9ace28653ae3b4ff51dd3c3b578d435fedbf56a27cda7b40011",
+      "bytes": 872,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_column.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_column.py",
+      "sha256": "c26f09f2ce367fa6bdf97f412d1e6fb1decb0d2e3d33efff068e2dd7f0ac66dd",
+      "bytes": 2999,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_compat.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_compat.py",
+      "sha256": "a7241a481cd2ff9a853906ba73d25e91ebd7da98ef2aa229b51d313444d5d656",
+      "bytes": 1745,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_connection_base.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_connection_base.py",
+      "sha256": "047afac6019de9f1d3313e1c35ac1d76d6a985b50d9dd96144814bfcb8cf645b",
+      "bytes": 23947,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_connection_info.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_connection_info.py",
+      "sha256": "168cadc0bd2b9fa51b331ee1727a46d2f6cd73f65f1fb2fadfb1bb005331048d",
+      "bytes": 5932,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_conninfo_attempts.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_conninfo_attempts.py",
+      "sha256": "9e081d1fe49a639f4cf0f2d54bce359ac6b7524acc2ed9b170cc0dd004fec7d3",
+      "bytes": 3501,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_conninfo_attempts_async.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_conninfo_attempts_async.py",
+      "sha256": "7fe10d9b648df37f6f89689c7389cda6abac077eac5cfc58e5320c0c8002eb54",
+      "bytes": 3590,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_conninfo_utils.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_conninfo_utils.py",
+      "sha256": "008bda02cdd0a7c7b029fcfced01ba9fdbbd67da0e862f1089306c799b013575",
+      "bytes": 3164,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_copy.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_copy.py",
+      "sha256": "10feb0b0af87e30f5166131d9512b39fc969f5e4b5df138ec51b9f24859bf2ba",
+      "bytes": 9708,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_copy_async.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_copy_async.py",
+      "sha256": "f87f7fa0830a195067ed6c0509ca206119a83c38a2190731502a112516a44f43",
+      "bytes": 9947,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_copy_base.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_copy_base.py",
+      "sha256": "7f8d660d03dc81f00cc7dfd28f31f881f0e536d83dbcc05d83c46bddf360f745",
+      "bytes": 13853,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_cursor_base.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_cursor_base.py",
+      "sha256": "8ee5ab1a96a461d6ede54db71d880799656f5fc9167d23de4f71aef320e65913",
+      "bytes": 21664,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_dns.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_dns.py",
+      "sha256": "2bfd13d52d9c8d19110988681388b62d0a4010db41464f803dae761cb1e898ad",
+      "bytes": 7827,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_encodings.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_encodings.py",
+      "sha256": "3d137de3957cb2e874a22983c2cccc1a185b9be3fd2b3b82e95458a3f7d38bf7",
+      "bytes": 4073,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_enums.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_enums.py",
+      "sha256": "e6009e7ffb187bd51d684e27fd198359e1784df40ec1015e8a48eb933f588af2",
+      "bytes": 1691,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_oids.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_oids.py",
+      "sha256": "98923c1db46b4ec6cad0b2209e71b9c4f1fede1c4d51c968b6a52eae6ca8dacd",
+      "bytes": 1875,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_pipeline.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_pipeline.py",
+      "sha256": "1448864658cefa7aee20a61bb7255f6fc49b832c1c377b520789e46cb70e9f1a",
+      "bytes": 2165,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_pipeline_async.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_pipeline_async.py",
+      "sha256": "af9c9a8670382419329b1f5352ac1af75994959ca7c0b32a5385fdfa5037c25f",
+      "bytes": 2108,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_pipeline_base.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_pipeline_base.py",
+      "sha256": "8f892873645f2d083b55171bff5eb2c8ec5f07012cb7c69715c960b7320139e0",
+      "bytes": 6666,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_preparing.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_preparing.py",
+      "sha256": "b867a5615337a04d21d2f7260e0f2ad7c8fa04efda4e1bb0600539c86e2266c2",
+      "bytes": 6279,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_py_transformer.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_py_transformer.py",
+      "sha256": "ae9044217c2cbe28350d7114fa16758d783749b0fd5e3f6a00ca363e789a2404",
+      "bytes": 11900,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_queries.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_queries.py",
+      "sha256": "2e12182b0246bc3d848cd67c3da7e43a9e28a5ffd30c5f7db1487ee079237201",
+      "bytes": 13532,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_server_cursor.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_server_cursor.py",
+      "sha256": "beb5f2bfccef57c912d9e9a4af1d9a41af172e73c99d51d3cec68d419eca3402",
+      "bytes": 4240,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_server_cursor_async.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_server_cursor_async.py",
+      "sha256": "b906dd7888968793e4f1fa77b6a57d9b69bf3a4740a47f9893d4fd959892476e",
+      "bytes": 4305,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_server_cursor_base.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_server_cursor_base.py",
+      "sha256": "77c4a736f8187ade24e6e7e238a2ffa679e82f53ed7605603d41a0c9d034964b",
+      "bytes": 6989,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_struct.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_struct.py",
+      "sha256": "84ffa93e65bd9a395f808509d2dfa1757c57e334a80bf95582aa4f2c13aa0103",
+      "bytes": 1997,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_tpc.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_tpc.py",
+      "sha256": "34b89f229756a6121bc1a04fbcb3d2699ffe0e8b5eebbc94ebb7bd53402891e4",
+      "bytes": 3529,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_transformer.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_transformer.py",
+      "sha256": "9839012ee4b16d70c6d537243e0232649c74d329f951753c0e5b8e1a61d68c06",
+      "bytes": 451,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_typeinfo.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_typeinfo.py",
+      "sha256": "df3b400ebec2794344384d4b834dcb29c5a189a85b595a8acfe48dd66aada3cb",
+      "bytes": 10620,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_typemod.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_typemod.py",
+      "sha256": "519c0715f9d66d7ab167d508541ac9877eb9f7da686406998fae6ff04b1b209b",
+      "bytes": 2498,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_tz.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_tz.py",
+      "sha256": "9886b76e5a555677cb544bb4bf4435f9366b27407df80f9db45b8307e3e58a45",
+      "bytes": 1186,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/_wrappers.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/_wrappers.py",
+      "sha256": "c0a66dfdaafc42e46010a0bab6ec1a9985c2c01d4fec8650b268187553a50215",
+      "bytes": 3126,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/abc.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/abc.py",
+      "sha256": "0fffd32a02c47477d78beee1e1304926f56f020a7f62ed38e98f757093b6c798",
+      "bytes": 7673,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/adapt.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/adapt.py",
+      "sha256": "7d957b9c6a6a57650ac22c4bbb9d24d5f6ffb20d2e9ba4ae575ac21959f5dfa3",
+      "bytes": 5195,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/client_cursor.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/client_cursor.py",
+      "sha256": "9d1a376dc91c2a3de764601c5f3aec3cfe3984431f6b195e8159def7031d6b3f",
+      "bytes": 2681,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/connection.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/connection.py",
+      "sha256": "d45bf17c4073530bc5bc84eac9afe9cf581608afc7fe29ee19207e74cab6a08d",
+      "bytes": 18709,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/connection_async.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/connection_async.py",
+      "sha256": "97efc713434e9c6b011f76ce0c7c3445b5d9465714f9289625a5f2c9a4758c91",
+      "bytes": 20922,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/conninfo.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/conninfo.py",
+      "sha256": "f59c7138b3d6001b8d069e0c52697f48a40dd8b395ca20a6f6cef35c5bed6a36",
+      "bytes": 4471,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/copy.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/copy.py",
+      "sha256": "fd5ef68e9d835ebd931ecaa8f52e9c6a1bde328d10b819777e78a0b74ac699b7",
+      "bytes": 806,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/crdb/__init__.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/crdb/__init__.py",
+      "sha256": "674c11bec482fc2a5a38159f5828a5c0fd2c37a037f88561403e5c95d826fdd1",
+      "bytes": 439,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/crdb/_types.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/crdb/_types.py",
+      "sha256": "113a0c8556624f6e8ade6d46552e6bd0510c3bcf2d0cb8c0ad94421b2382577a",
+      "bytes": 7270,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/crdb/connection.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/crdb/connection.py",
+      "sha256": "32cfafe6e10e7d23962af75c671edddd54d75df8b9a13cbf1a14c22350a0d704",
+      "bytes": 2758,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/cursor.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/cursor.py",
+      "sha256": "3459853ab854d6912cb45534d88cfaad16da1ef4937cb2f81660d75bc04ab430",
+      "bytes": 9193,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/cursor_async.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/cursor_async.py",
+      "sha256": "4d3e1f8e339ac34790614a3f99302756bba186e130eef09fc83eb356a2f207f7",
+      "bytes": 9473,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/dbapi20.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/dbapi20.py",
+      "sha256": "17abbdaa086a73345fc43cba4621999e6c25400c476af96b58cbb4cbadd6c78c",
+      "bytes": 3284,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/errors.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/errors.py",
+      "sha256": "9a76aac329cbfd7220a3572f2bf8988712e4dd1b6e5b7a7bcd42d4ee66f9b493",
+      "bytes": 46315,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/generators.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/generators.py",
+      "sha256": "9ff3f4e458f13dd6c9597ce78d15f8a9fc32a90c2a76bdc9ea4981123b4f8f63",
+      "bytes": 12699,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/postgres.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/postgres.py",
+      "sha256": "133982b2b02c0dfc6e0b28f6d28f870d8c39d6de7707fcce96439ca46c0a9137",
+      "bytes": 6413,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/pq/__init__.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/pq/__init__.py",
+      "sha256": "7edacc4f10fda3bd11c5f90f3fc5378a8939f3e8b624bd97a258ff3ad0b9d1c7",
+      "bytes": 3989,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/pq/_debug.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/pq/_debug.py",
+      "sha256": "f1e39c20d6883bd4d7051a4979832f23deeaa703cab556fb86575221448deed0",
+      "bytes": 3074,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/pq/_enums.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/pq/_enums.py",
+      "sha256": "fa1a16d893690911b3dfc89a2fd0f44eb740b541c869fb96170252b264722216",
+      "bytes": 6004,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/pq/_pq_ctypes.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/pq/_pq_ctypes.py",
+      "sha256": "f616f9400cfc8143ebc8a3290510e071ab9a95b2f8ce2fcfdb7a23f9a16bbaa5",
+      "bytes": 22234,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/pq/_pq_ctypes.pyi",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/pq/_pq_ctypes.pyi",
+      "sha256": "64e48275e9de123f3edf29c0750638e1b819bef7af46ab853c4b6fe9b84764e4",
+      "bytes": 10254,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/pq/abc.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/pq/abc.py",
+      "sha256": "d49ea4a6bcfa44981f6da087a6c2ea161d4d9ddfd10db1232a47d60ac19f823d",
+      "bytes": 8047,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/pq/misc.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/pq/misc.py",
+      "sha256": "d90ebc90e2745c556cb1419a1417db05c2acc4c3bd69435534f31177bc113615",
+      "bytes": 6731,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/pq/pq_ctypes.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/pq/pq_ctypes.py",
+      "sha256": "0f26299f75e1c183045f67408db4d2b2e2b2f4d04e97f90d266a0c4759564910",
+      "bytes": 42135,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/py.typed",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/py.typed",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/raw_cursor.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/raw_cursor.py",
+      "sha256": "f00ede45a5898b16d0b7877f5cf2507097bd5436a81165817a2352acf6ec08b9",
+      "bytes": 2202,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/rows.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/rows.py",
+      "sha256": "72e0a87d32ceb93a7a1599a00efd4e643311f9d5f38306e4a0ece0717439e919",
+      "bytes": 7877,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/sql.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/sql.py",
+      "sha256": "06e6e5567c2c8ac3fe80a473db123695b54c43d2609fb10631065feda5c7bb01",
+      "bytes": 16563,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/transaction.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/transaction.py",
+      "sha256": "f6bb34a1d997fb274a9f2219d1b9ed028f925df9b341dda9fd0766305272b8af",
+      "bytes": 9244,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/__init__.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/__init__.py",
+      "sha256": "24f02457811f917c1db2befafd4d43b10575f5cf1a40d481ea482e7786e15de3",
+      "bytes": 181,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/array.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/array.py",
+      "sha256": "0d6171b0e3c8af0674653d06a0b99d49b783d438c628b8a74d2b4d7d2e395b91",
+      "bytes": 15348,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/bool.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/bool.py",
+      "sha256": "d062501be0a6e4fe4d807f137cb363f67fdee5c930e365e7b110629d7d24e39c",
+      "bytes": 1163,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/composite.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/composite.py",
+      "sha256": "5143d402b791d94f882afe1330f6ed40a7561433f913b9817ce14b6b3dfebb52",
+      "bytes": 11897,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/datetime.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/datetime.py",
+      "sha256": "5d8c3bbedabe59bd2fe57a13aab464536f2bf3ffc9b63fc9f5f8707c1b949a20",
+      "bytes": 25504,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/enum.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/enum.py",
+      "sha256": "a3445f8c13c24413a76d6faff1ebc3c7b84f19fa5db1f8359b9603ffbd99302e",
+      "bytes": 7179,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/hstore.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/hstore.py",
+      "sha256": "e88321c8b02fc8e6c89d9daff0e50f5ac72d4eda4d48a4b7abd4e31849a69970",
+      "bytes": 7060,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/json.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/json.py",
+      "sha256": "9eaeeb981784cf476b9dc7062bff0b08b30dd5c2d0fc35d4d37b5174e9504610",
+      "bytes": 9727,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/multirange.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/multirange.py",
+      "sha256": "ea0dc70c9f1a6cf861bd64291f07d5c66fb123965b0a69a782b4d9f8ecc6834d",
+      "bytes": 17582,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/net.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/net.py",
+      "sha256": "48d0af8091f0c40bb32944b19e99dc7fa2bda21a4819e8f0ddc8309a04ce50de",
+      "bytes": 6850,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/none.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/none.py",
+      "sha256": "832fce26a13562c949d91222c7412adf1d01f083dfa07f8671cdac40c20ed12c",
+      "bytes": 666,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/numeric.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/numeric.py",
+      "sha256": "110e118bf8938f1fb3415a904121807f2f34121a2ae58c640a1a60a439dfcbff",
+      "bytes": 15463,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/numpy.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/numpy.py",
+      "sha256": "34f2d46c31723632af3533fa761a14bb5abcd2ddde41d1ebae77ad28083c95b8",
+      "bytes": 3273,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/range.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/range.py",
+      "sha256": "b4c8fb149e2ba434d7e4389c895003d6b1afa28001c7cb9a11d076b0b315e86c",
+      "bytes": 21411,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/shapely.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/shapely.py",
+      "sha256": "47abeddbbee2a4e3392c761aa740e72a681f2525ff6ee859386bd1cbf29083d6",
+      "bytes": 2593,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/string.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/string.py",
+      "sha256": "911acad422939a9e2574720ca638e897fda4b1801bfa9c0cbdc6fafd9677fc00",
+      "bytes": 7629,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/types/uuid.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/types/uuid.py",
+      "sha256": "92587fff76aa78ec25edf1a113fa1869f63dccaf4165794099cf3854a6af443b",
+      "bytes": 1630,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/version.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/version.py",
+      "sha256": "24b5a8a6b22c0b91d5725ca19fb2f355f56936d65853e5282d0c0018c1019587",
+      "bytes": 232,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg/waiting.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/waiting.py",
+      "sha256": "a674db1c59f05f48f3865b7dfb51a34ee9e5f595e3011fba1ba1ed4063bbe748",
+      "bytes": 13978,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/.dylibs/libcom_err.3.0.dylib",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/.dylibs/libcom_err.3.0.dylib",
+      "sha256": "5df273f353d7207a74c3baaccdb0bceff99d2ea406526d23adc484320d13ec4e",
+      "bytes": 73488,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/.dylibs/libcrypto.3.dylib",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/.dylibs/libcrypto.3.dylib",
+      "sha256": "f0f56f956ddbe6ad3453f0c42cb8ca7dea9d43a9f1045472e311c92dbc6aa595",
+      "bytes": 5001952,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/.dylibs/libgssapi_krb5.2.2.dylib",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/.dylibs/libgssapi_krb5.2.2.dylib",
+      "sha256": "40d0450f1035b77a1fb83192a96a006e216cda4355d88e1465db410e4b7f6255",
+      "bytes": 397696,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/.dylibs/libk5crypto.3.1.dylib",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/.dylibs/libk5crypto.3.1.dylib",
+      "sha256": "863419b9e60b26d2adb6af9df7620d08e5db18ad08d62c1e7b0ddc0498f3fe71",
+      "bytes": 232464,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/.dylibs/libkrb5.3.3.dylib",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/.dylibs/libkrb5.3.3.dylib",
+      "sha256": "932880ebca679111baa7f1ecfbb454b1346026654bdf28dbe3b6d5082911d58b",
+      "bytes": 983888,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/.dylibs/libkrb5support.1.1.dylib",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/.dylibs/libkrb5support.1.1.dylib",
+      "sha256": "99edf6441f8114357094a60bea5bf97820902ddb009150e0819b742744610ddd",
+      "bytes": 110448,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/.dylibs/liblber.2.dylib",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/.dylibs/liblber.2.dylib",
+      "sha256": "d9400efd93d929566ba3541fc95f7759aedabc5997d83e17a1ad042606115e3b",
+      "bytes": 137424,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/.dylibs/libldap.2.dylib",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/.dylibs/libldap.2.dylib",
+      "sha256": "a616a9f1da1a39c70faf35df22654777ea2e78515e78f2e8d1bae14a43f6b52b",
+      "bytes": 478928,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/.dylibs/libpq.5.dylib",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/.dylibs/libpq.5.dylib",
+      "sha256": "0a3d3679df334f8e3be531400960da643cddad72a6937f03ae803dab3c796690",
+      "bytes": 354496,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/.dylibs/libsasl2.3.dylib",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/.dylibs/libsasl2.3.dylib",
+      "sha256": "238bcd987c81310a3ed27d7d51a70fde767a86d62450dd231100c05c811832f7",
+      "bytes": 164416,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/.dylibs/libssl.3.dylib",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/.dylibs/libssl.3.dylib",
+      "sha256": "ccc3785218dec826c81c15181838fbbca89a4a3f1641292f39225f1f0893fab5",
+      "bytes": 1036912,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/__init__.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/__init__.py",
+      "sha256": "e64c70f50767f2e6c88b88a4f769b164eb23af950ed2fc2ae53e52d018425868",
+      "bytes": 402,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/_psycopg.cpython-39-darwin.so",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/_psycopg.cpython-39-darwin.so",
+      "sha256": "80420e9539fe94d1d668c924de65d859f29f292955b610a5d6d2f98d8b70fa51",
+      "bytes": 806352,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/_psycopg.pyi",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/_psycopg.pyi",
+      "sha256": "808d726a0ea1506532f0d65803472af9d507da23573258470d453026b8a625c1",
+      "bytes": 3195,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/_uuid.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/_uuid.py",
+      "sha256": "daa982484eb58e49f9a3a1c5aa24baa3b6bf62d423d7d65ea2050efb8615b86d",
+      "bytes": 765,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/pq.cpython-39-darwin.so",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/pq.cpython-39-darwin.so",
+      "sha256": "046b41905aca88ce76281cb288b14a890a633b7314c13df387a9fc332a6fa913",
+      "bytes": 374832,
+      "mode": "0o755"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/py.typed",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/py.typed",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary/version.py",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary/version.py",
+      "sha256": "01c85c2d67e86b2f74da6acfde3d50cb79d0d85e503b3348bfc632d0d77016b7",
+      "bytes": 246,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg-3.2.13.dist-info/INSTALLER",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg-3.2.13.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508",
+      "bytes": 4,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg-3.2.13.dist-info/METADATA",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg-3.2.13.dist-info/METADATA",
+      "sha256": "8d7f2fbac4fbd46d8da97b448bab8315091e367748a0cb79dc5387965c5c2b37",
+      "bytes": 4475,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg-3.2.13.dist-info/RECORD",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg-3.2.13.dist-info/RECORD",
+      "sha256": "b0e3e665ce59a260fda3f12e2613c0a4eb2c32bc7d72aad98cd3869cac5a6fb2",
+      "bytes": 20001,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg-3.2.13.dist-info/REQUESTED",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg-3.2.13.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg-3.2.13.dist-info/WHEEL",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg-3.2.13.dist-info/WHEEL",
+      "sha256": "ff309ddcdd65ebd02bc724dbf2bcc4a0ff53a5b61792a44548d383e4ebb19d3b",
+      "bytes": 91,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg-3.2.13.dist-info/licenses/LICENSE.txt",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg-3.2.13.dist-info/licenses/LICENSE.txt",
+      "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "bytes": 7652,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg-3.2.13.dist-info/top_level.txt",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg-3.2.13.dist-info/top_level.txt",
+      "sha256": "9e9b612b1dbf384a1a86db58a9db083e54548234bf6d00667e90c257141c3c6a",
+      "bytes": 8,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary-3.2.13.dist-info/INSTALLER",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary-3.2.13.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508",
+      "bytes": 4,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary-3.2.13.dist-info/METADATA",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary-3.2.13.dist-info/METADATA",
+      "sha256": "4acafde79dfed2b37e234946066430b6b450be80328b3c6629c24dbe0fd6b33e",
+      "bytes": 2850,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary-3.2.13.dist-info/RECORD",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary-3.2.13.dist-info/RECORD",
+      "sha256": "2cf48f861fa9bcbcd483b67197b0bf6bad0bcad44405627e58f1ecdfc9462c58",
+      "bytes": 2737,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary-3.2.13.dist-info/WHEEL",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary-3.2.13.dist-info/WHEEL",
+      "sha256": "6c359a1568a0a46e5b129ab0f48a118b262cf0cbe64858743a15003a88bff8a0",
+      "bytes": 134,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary-3.2.13.dist-info/licenses/LICENSE.txt",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary-3.2.13.dist-info/licenses/LICENSE.txt",
+      "sha256": "e3a994d82e644b03a792a930f574002658412f62407f5fee083f2555c5f23118",
+      "bytes": 7652,
+      "mode": "0o644"
+    },
+    {
+      "original": "/private/tmp/ashlar-db-client/lib/python3.9/site-packages/psycopg_binary-3.2.13.dist-info/top_level.txt",
+      "path": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg_binary-3.2.13.dist-info/top_level.txt",
+      "sha256": "f0e33f3ec01ae682a4cd5bd1bbc9031128a1050a3f2d7ab01bf9eb95e72e6c89",
+      "bytes": 15,
+      "mode": "0o644"
+    }
+  ]
+}

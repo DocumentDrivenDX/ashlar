@@ -1,0 +1,165 @@
+{
+  "scope": "Independent offline raw Delta/Parquet, full immutable compiler replay, retained ACK interval and original source/custody review; no native engine rerun",
+  "command_sha256": "43920a1b9272e947ca7b430bfee7c686742d59bc160270a68412ec7312afada2",
+  "publication_report_sha256": "fcb60e5bc7c96c0a2c22e473c41d5a15ab03a2ea432f586cf75a40616d5b17d3",
+  "query_report_sha256": "26635d077da10fd685f83be670b1d75d6754500565ccc99e16932adfaf4e271b",
+  "archive_member_checks": [],
+  "pyarrow_version": "22.0.0",
+  "native_tables": [
+    {
+      "role": "object_current",
+      "uuid": "1813c883-d7c3-4f19-838f-7f81cf868989",
+      "version": 2,
+      "latest": 2,
+      "rows": 11,
+      "active_files": [
+        "part-00000-d911a1e4-9ea6-4edb-9443-460c09c3359f-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": true
+    },
+    {
+      "role": "edge_current",
+      "uuid": "f9b4c46d-f0a7-4701-ac91-1c2f639b05c2",
+      "version": 2,
+      "latest": 2,
+      "rows": 10,
+      "active_files": [
+        "part-00000-32094844-569d-42f2-bcac-d425c7d4eb37-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": true
+    },
+    {
+      "role": "tombstone",
+      "uuid": "8cafe780-f333-4301-bc97-2554c710b5c0",
+      "version": 1,
+      "latest": 1,
+      "rows": 0,
+      "active_files": [],
+      "original_full_cell_parity": true
+    },
+    {
+      "role": "whole_source_history",
+      "uuid": "33dbab1d-c7ff-4dd9-b2ba-cc6a45b34631",
+      "version": 2,
+      "latest": 2,
+      "rows": 21,
+      "active_files": [
+        "part-00000-76c94664-8fac-4d89-91cd-33f879250400-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": true
+    },
+    {
+      "role": "attempts",
+      "uuid": "984c5f63-6d0c-46df-b884-bcfa27e228b9",
+      "version": 6,
+      "latest": 6,
+      "rows": 5,
+      "active_files": [
+        "part-00000-08ede5f5-79f1-4435-b5e2-608b99934031-c000.snappy.parquet",
+        "part-00000-3eb8578a-9182-4ba7-b53a-e1566a5b3d8d-c000.snappy.parquet",
+        "part-00000-5407594c-8923-4891-a733-ad5d0b9a3721-c000.snappy.parquet",
+        "part-00000-b7791d80-ab26-4695-bb83-294e91e5485f-c000.snappy.parquet",
+        "part-00000-c960887b-f2ea-4243-9fab-389c70f61354-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": false
+    },
+    {
+      "role": "manifest",
+      "uuid": "360f670c-33d7-4084-8db6-2e70e360838c",
+      "version": 2,
+      "latest": 2,
+      "rows": 1,
+      "active_files": [
+        "part-00000-218ce432-f7a7-4ff1-aff8-402b1a57564c-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": false
+    }
+  ],
+  "scalar_results": [
+    [
+      {
+        "id": "[42,0,\"P1\"]"
+      }
+    ],
+    [
+      {
+        "n": "1"
+      }
+    ]
+  ],
+  "relationship": [
+    {
+      "id": "[42,0,\"P1\"]",
+      "suppliers": {
+        "items": [
+          [
+            "[42,0,\"S1\"]"
+          ]
+        ],
+        "truncated": false
+      }
+    }
+  ],
+  "compiler_replays": [
+    {
+      "sql": "SELECT p.id FROM products p",
+      "request_bytes": 34788,
+      "request_sha256": "9e0720fccf32b10be40ce84ea5cd081ef4259da98ea3f9d4dd5347937d2b46a9",
+      "stdout_bytes": 10249,
+      "stdout_sha256": "82b629325f4f2fda08b8b21e8110e1effb8170b8b0f513094e716d9fa9f1cd2d",
+      "full_artifact_equal": true,
+      "native_emitted_checks": 1
+    },
+    {
+      "sql": "SELECT COUNT(*) AS n FROM products p",
+      "request_bytes": 33319,
+      "request_sha256": "15d2b052b0a960794926ed111270428326cd45bd288f81b6396c32ba3e47e528",
+      "stdout_bytes": 10001,
+      "stdout_sha256": "d67a5adf92ada5b0c57a2f8950abdca543fb5a11e9faecf7893d4968e4544d87",
+      "full_artifact_equal": true,
+      "native_emitted_checks": 1
+    },
+    {
+      "sql": "SELECT p.id, RELATED_KEYS(p.\"products.supplier_id\", 2) AS suppliers FROM products p ORDER BY p.id",
+      "request_bytes": 36031,
+      "request_sha256": "3e51e5840cf378861d7c4e1bdfbbf996d9a0782a51e330c0d6fa74ee8aeed250",
+      "stdout_bytes": 38920,
+      "stdout_sha256": "208f8f42eb9d24c02b33b79bb28b9be8c82e14aaa75c6a700a6a73b574824234",
+      "full_artifact_equal": true,
+      "native_emitted_checks": 11
+    }
+  ],
+  "held_intervals": 4,
+  "ack_observations": 8,
+  "distinct_ordinary_pg_sessions": [
+    "599938",
+    "599944",
+    "599968",
+    "599986"
+  ],
+  "observed_right_schemas": 2,
+  "complete_native_files_unchanged": 66,
+  "sqlite_copy_integrity": "ok",
+  "sqlite_table_counts": {
+    "local_installation": 1,
+    "local_operation": 9,
+    "local_plan": 1,
+    "local_publication_artifact": 1,
+    "local_source_plan": 1
+  },
+  "all_publication_file_changes": [],
+  "added_publication_files": [
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-publication-20261010-c/operations.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-publication-20261010-c/operations.sqlite-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "sqlite_scope": "All77 original publication files byte-identical before/after successful E; empty WAL and32KiB SHM newly retained. Complete file sets differ. No original journal connection during review.",
+  "failed_query_d_preserved": true
+}

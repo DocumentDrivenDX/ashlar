@@ -1,0 +1,9 @@
+{
+  "scope": "Read-onlyoriginalrawgraphbags plusrecordedcompleteguard/schema/closedintervalinventory, nofreshSQLorPGauthorityclaim",
+  "query_bags_equal": true,
+  "guards": 13,
+  "exact_zero_guards": true,
+  "schemas": 2,
+  "closed_intervals": 4,
+  "native_query_opening_closing_equal": true
+}

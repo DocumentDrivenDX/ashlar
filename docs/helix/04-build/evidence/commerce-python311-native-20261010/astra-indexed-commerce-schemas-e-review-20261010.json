@@ -1,0 +1,20 @@
+{
+  "scope": "Original indexed source362 public0.2 schemas; three actual native requests/responses",
+  "cases": [
+    {
+      "sql": "SELECT p.id FROM products p",
+      "requestSchema": true,
+      "responseSchema": true
+    },
+    {
+      "sql": "SELECT COUNT(*) AS n FROM products p",
+      "requestSchema": true,
+      "responseSchema": true
+    },
+    {
+      "sql": "SELECT p.id, RELATED_KEYS(p.\"products.supplier_id\", 2) AS suppliers FROM products p ORDER BY p.id",
+      "requestSchema": true,
+      "responseSchema": true
+    }
+  ]
+}

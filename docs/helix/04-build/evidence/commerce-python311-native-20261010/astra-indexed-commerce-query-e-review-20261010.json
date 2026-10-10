@@ -1,0 +1,41 @@
+{
+  "scope": "Independent exact proposed phase2-only runtime/command/import review; original C journal untouched; no engine or PostgreSQL calls. Root fresh exclusive grant required. No runtime success claim.",
+  "command_sha256": "43920a1b9272e947ca7b430bfee7c686742d59bc160270a68412ec7312afada2",
+  "project_source": "12ddc5f07c40da3cf67a04520cc40671781dbecb",
+  "resource_references": 11,
+  "unique_resources": 5701,
+  "resource_bytes": 1394841011,
+  "all_hashes_equal": true,
+  "same_source_index_queries_publication": true,
+  "fresh_paths_absent": true,
+  "import_observation": {
+    "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+    "sqlite": "3.53.1",
+    "versions": {
+      "pyspark": "4.0.1",
+      "delta-spark": "4.0.0",
+      "psycopg": "3.2.13",
+      "psycopg-binary": "3.2.13",
+      "numpy": "2.4.6",
+      "typing_extensions": "4.15.0"
+    },
+    "module_paths": {
+      "pyspark": "/private/tmp/ashlar-spark4-python39-bridge/pyspark/__init__.py",
+      "delta": "/private/tmp/ashlar-indexed-delta4-python-20261010-a/delta/__init__.py",
+      "psycopg": "/private/tmp/ashlar-indexed-psycopg-python311-20261010-c/psycopg/__init__.py",
+      "numpy": "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/__init__.py",
+      "typing_extensions": "/private/tmp/ashlar-indexed-typing-python39-20261010-b/typing_extensions.py"
+    },
+    "psycopg_impl": "binary",
+    "spark_context": false,
+    "spark_gateway": false,
+    "converters_false_for_none": true
+  },
+  "probe_stderr": "",
+  "collector_sha256": "6294b374a70bf25548935a615d50df04d7010e5e9080a298fd728fc7ba00ae30",
+  "guide_freeze_sha256": "a69dc242e95bd5ce43ac36d0d15de483b237bf75c2c379d20cb5ab224c97042a",
+  "journal_files_unchanged": {
+    "/private/tmp/ashlar-indexed-commerce-publication-20261010-c/operations.sqlite": "e3c1af43d0b245b530863da7986defd9040767b81b5c53bda23a85ba6581174d",
+    "/private/tmp/ashlar-indexed-commerce-publication-20261010-c/operations.sqlite.lock": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  }
+}

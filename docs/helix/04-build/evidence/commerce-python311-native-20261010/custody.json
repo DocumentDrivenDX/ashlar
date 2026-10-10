@@ -1,0 +1,187 @@
+{
+  "format": "ashlar-indexed-commerce-after-terminal-custody/0.1",
+  "files": [
+    {
+      "path": "ashlar-indexed-commerce-d-terminal.json",
+      "sha256": "ff2cf29dd6db9487f840429c2db66299d4d45fb7e14bd076b68ff8102a9466b3",
+      "bytes": 19604
+    },
+    {
+      "path": "ashlar-indexed-commerce-e-reservation.json",
+      "sha256": "333e3b2776bc6828bbf99e4c89ee90355faceadb686f7f48d8fece46fa935272",
+      "bytes": 639
+    },
+    {
+      "path": "ashlar-indexed-commerce-e-terminal.json",
+      "sha256": "385daff51409f8e10dad28b3da5b6f600ad0a14c1f27c26b1eb35401feb02319",
+      "bytes": 777
+    },
+    {
+      "path": "ashlar-indexed-commerce-native-command-20261010-d.json",
+      "sha256": "a489d1ffb89af6930e972bdebdb31910e3d549ae5622682959fac2e03ce824ed",
+      "bytes": 6610
+    },
+    {
+      "path": "ashlar-indexed-commerce-native-command-20261010-e.json",
+      "sha256": "43920a1b9272e947ca7b430bfee7c686742d59bc160270a68412ec7312afada2",
+      "bytes": 5719
+    },
+    {
+      "path": "ashlar-indexed-commerce-publication-20261010-c.log",
+      "sha256": "870b3a69dfdd33ae825d80ee5d4ef2f431878e300fa5c6ea40f15ccc1e528246",
+      "bytes": 472083
+    },
+    {
+      "path": "ashlar-indexed-commerce-queries-20261010-c.log",
+      "sha256": "4aa51a958abb8e3c1a90bfa6f002d46879a4b196e0fa3922edf3ef3504326017",
+      "bytes": 2614
+    },
+    {
+      "path": "astra-indexed-commerce-query-d-review-20261010.json",
+      "sha256": "fc1e588cafb4a1a579b4c1e5faebc46265a60d2323ebd668c8081e0a6a8c9cb6",
+      "bytes": 5149
+    },
+    {
+      "path": "astra-indexed-commerce-query-e-review-20261010.json",
+      "sha256": "044af0a9bdcc1424bcdb6d0811627d9939e7b29772fa0f63f77eb970026bb9f6",
+      "bytes": 2059
+    },
+    {
+      "path": "astra-indexed-commerce-sqlite-diagnosis-20261010.json",
+      "sha256": "51fdf4c89698e9399f1f54d919b7347977edf3540daef703a54aab8215531283",
+      "bytes": 5468
+    },
+    {
+      "path": "check-indexed-commerce-parquet-20261010-e.py",
+      "sha256": "9d787ed70779e40e9e7f326f0ceca4330e5d76964b534377bdb063049ccd035c",
+      "bytes": 2702
+    },
+    {
+      "path": "collect-indexed-commerce-evidence-20261010-c.py",
+      "sha256": "6294b374a70bf25548935a615d50df04d7010e5e9080a298fd728fc7ba00ae30",
+      "bytes": 3967
+    },
+    {
+      "path": "command.json",
+      "sha256": "43920a1b9272e947ca7b430bfee7c686742d59bc160270a68412ec7312afada2",
+      "bytes": 5719
+    },
+    {
+      "path": "offline-original-row-oracle.json",
+      "sha256": "aa8d9e83126e311914093aceb439e54ebacb890c8ffe862fcafd177049a2e7bf",
+      "bytes": 1228
+    },
+    {
+      "path": "offline-query-oracle.json",
+      "sha256": "1df86d488e29a194750a4fd82b9852b20aa890336cb53a3365787a21d13700a4",
+      "bytes": 294
+    },
+    {
+      "path": "publication-artifacts.tar.gz",
+      "sha256": "286582db3ea0f0b6e0c737f9268c07429cbbdc7997c50263886ab9b9d1d402de",
+      "bytes": 902040
+    },
+    {
+      "path": "publication-original-files.json",
+      "sha256": "2791da0b273c07fee568a405635b30912dc3b53335e54a356f94dbe85bd4b387",
+      "bytes": 18761
+    },
+    {
+      "path": "publication-report.json.gz",
+      "sha256": "3d628eee2e6f9a2e5226e57a551980320feaf834d4453b1be71ca49d2664814b",
+      "bytes": 47881
+    },
+    {
+      "path": "publication.log",
+      "sha256": "870b3a69dfdd33ae825d80ee5d4ef2f431878e300fa5c6ea40f15ccc1e528246",
+      "bytes": 472083
+    },
+    {
+      "path": "queries-artifacts.tar.gz",
+      "sha256": "cf5eaebfc27be776ae88e5aa07b1a0300de606e1e9a8f99e1f8a2f9e87f9f9b1",
+      "bytes": 347246
+    },
+    {
+      "path": "queries-original-files.json",
+      "sha256": "0311af0f7b9c956baa451ccabab873d267bee69992c7422d0842465e3186017b",
+      "bytes": 407
+    },
+    {
+      "path": "queries-report.json.gz",
+      "sha256": "e9e29fa9974131922307736b7c13926b930021e32165997d18edd2538ec86db8",
+      "bytes": 318541
+    },
+    {
+      "path": "queries.log",
+      "sha256": "68bd34e51d85d62904be450f1f1220a4a49dbf9efa60640abbbf26cc254f8842",
+      "bytes": 598
+    },
+    {
+      "path": "reference-0.json",
+      "sha256": "54eb4c2044bd74f23913846c1002536f5b63ae49818892b4ed51fa6df5384437",
+      "bytes": 99859
+    },
+    {
+      "path": "reference-1.json",
+      "sha256": "26306c184e287103880afe692e6c004ccbf460633137e3fd2c1040372c3a2bb0",
+      "bytes": 601576
+    },
+    {
+      "path": "reference-10.json",
+      "sha256": "1209e9bc27ff665b71ed155de0316e2b94c5328a3e7bccf45c65ab009dca77fa",
+      "bytes": 126915
+    },
+    {
+      "path": "reference-2.json",
+      "sha256": "cd44869cea1d714b217efd0343ae98d706a1e0351682aa5a5c088871d6927987",
+      "bytes": 5498
+    },
+    {
+      "path": "reference-3.json",
+      "sha256": "621d92b145ae8f1ac6e826ff3f61f2b3ce2bce8804e2412e21cc0c3c0d853813",
+      "bytes": 108454
+    },
+    {
+      "path": "reference-4.json",
+      "sha256": "dca955ea09a5388c6a1e15bf856def89393dd54ff8ad3f8d8f00da9227fa98a4",
+      "bytes": 111491
+    },
+    {
+      "path": "reference-5.json",
+      "sha256": "a3a90a3f96ce6800717863e81550a618dccfe454626fbe7abad27ee1f148aaef",
+      "bytes": 188199
+    },
+    {
+      "path": "reference-6.json",
+      "sha256": "4d5f1422159b8154dd04a9a991f45e16ccf49bf121eb4dab7e10624ad616f68f",
+      "bytes": 2392
+    },
+    {
+      "path": "reference-7.json",
+      "sha256": "9d925fd27daa31b7fb78de2493e843e93405dcf6b7dd393c1eb1a7619aa122b2",
+      "bytes": 39856
+    },
+    {
+      "path": "reference-8.json",
+      "sha256": "4e99437fcbfb7c33698a0e5d158d6a1cf681278c99800b0fc422414e8edd2a5a",
+      "bytes": 113384
+    },
+    {
+      "path": "reference-9.json",
+      "sha256": "dbd7d9b61163638946a2ae9c56cc19a8833ce380424e560e2fd79c6a154aa0b7",
+      "bytes": 393672
+    },
+    {
+      "path": "summary.json",
+      "sha256": "426c982cc6c5e185cb6f062d4bd35f788c64aa9cb085e09f64fb291f4e2e547a",
+      "bytes": 2063
+    },
+    {
+      "path": "ashlar-indexed-commerce-e-publication-opening.json",
+      "sha256": "c1c4225937b2349d103b39a879164a89221609e467e9f65416d4fa3bebf702c6",
+      "bytes": 19249
+    }
+  ],
+  "closing_resource_files": 5701,
+  "qualification": "ActualproperCPython311freshsourcepublication+isolatedCPython311query, distinctSpark3.5/4runtimes; privateoriginalcommercedevsourceauthority notTruss/UC/warehouseproduction. Noformalproof/OTelreceiver/processkilldurability or freshvenvbuildclaim."
+}

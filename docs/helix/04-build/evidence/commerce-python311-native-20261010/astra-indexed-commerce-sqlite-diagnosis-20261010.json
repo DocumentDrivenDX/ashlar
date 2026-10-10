@@ -1,0 +1,146 @@
+{
+  "scope": "Independent separate exact-byte copies only; original SQLite files never connected or mutated, no Spark or PostgreSQL. Reads/writes below occur only on disposable copies. Observed read-only WAL bootstrap incompatibility; no exact SQLite internal-cause assertion. No immutable live bypass.",
+  "original_database_sha256": "e3c1af43d0b245b530863da7986defd9040767b81b5c53bda23a85ba6581174d",
+  "original_files_unchanged": true,
+  "results": [
+    {
+      "copy_variant": "39_ro_only",
+      "observations": [
+        {
+          "success": false,
+          "error": "unable to open database file",
+          "code": null,
+          "name": null,
+          "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+          "sqlite": "3.54.0",
+          "files": {
+            "operations.sqlite": {
+              "bytes": 7204864,
+              "sha256": "e3c1af43d0b245b530863da7986defd9040767b81b5c53bda23a85ba6581174d"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "copy_variant": "311_ro_only",
+      "observations": [
+        {
+          "success": true,
+          "rows": 1,
+          "registration_sha256": "da986cab1daa190ef91e6dfc12cf952549318ed0b00cf0531bf61790d1b2ea10",
+          "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+          "sqlite": "3.53.1",
+          "files": {
+            "operations.sqlite-wal": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "operations.sqlite": {
+              "bytes": 7204864,
+              "sha256": "e3c1af43d0b245b530863da7986defd9040767b81b5c53bda23a85ba6581174d"
+            },
+            "operations.sqlite-shm": {
+              "bytes": 32768,
+              "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "copy_variant": "311_then39",
+      "observations": [
+        {
+          "success": true,
+          "rows": 1,
+          "registration_sha256": "da986cab1daa190ef91e6dfc12cf952549318ed0b00cf0531bf61790d1b2ea10",
+          "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+          "sqlite": "3.53.1",
+          "files": {
+            "operations.sqlite-wal": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "operations.sqlite": {
+              "bytes": 7204864,
+              "sha256": "e3c1af43d0b245b530863da7986defd9040767b81b5c53bda23a85ba6581174d"
+            },
+            "operations.sqlite-shm": {
+              "bytes": 32768,
+              "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+            }
+          }
+        },
+        {
+          "success": true,
+          "rows": 1,
+          "registration_sha256": "da986cab1daa190ef91e6dfc12cf952549318ed0b00cf0531bf61790d1b2ea10",
+          "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+          "sqlite": "3.54.0",
+          "files": {
+            "operations.sqlite-wal": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "operations.sqlite": {
+              "bytes": 7204864,
+              "sha256": "e3c1af43d0b245b530863da7986defd9040767b81b5c53bda23a85ba6581174d"
+            },
+            "operations.sqlite-shm": {
+              "bytes": 32768,
+              "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "copy_variant": "39_rw_copy",
+      "observations": [
+        {
+          "success": true,
+          "rows": 1,
+          "registration_sha256": "da986cab1daa190ef91e6dfc12cf952549318ed0b00cf0531bf61790d1b2ea10",
+          "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+          "sqlite": "3.54.0",
+          "files": {
+            "operations.sqlite-wal": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "operations.sqlite": {
+              "bytes": 7204864,
+              "sha256": "e3c1af43d0b245b530863da7986defd9040767b81b5c53bda23a85ba6581174d"
+            },
+            "operations.sqlite-shm": {
+              "bytes": 32768,
+              "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+            }
+          }
+        },
+        {
+          "success": true,
+          "rows": 1,
+          "registration_sha256": "da986cab1daa190ef91e6dfc12cf952549318ed0b00cf0531bf61790d1b2ea10",
+          "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+          "sqlite": "3.54.0",
+          "files": {
+            "operations.sqlite-wal": {
+              "bytes": 0,
+              "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "operations.sqlite": {
+              "bytes": 7204864,
+              "sha256": "e3c1af43d0b245b530863da7986defd9040767b81b5c53bda23a85ba6581174d"
+            },
+            "operations.sqlite-shm": {
+              "bytes": 32768,
+              "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

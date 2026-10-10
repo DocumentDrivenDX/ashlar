@@ -1,0 +1,55 @@
+{
+  "python": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "versions": {
+    "pyspark": "4.0.1",
+    "delta-spark": "4.0.0",
+    "psycopg": "3.2.13",
+    "psycopg-binary": "3.2.13",
+    "typing_extensions": "4.15.0"
+  },
+  "have_numpy": false,
+  "modules": {
+    "pyspark": "/private/tmp/ashlar-spark4-python39-bridge/pyspark/__init__.py",
+    "delta": "/private/tmp/ashlar-indexed-delta4-python-20261010-a/delta/__init__.py",
+    "psycopg": "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b/psycopg/__init__.py",
+    "typing_extensions": "/private/tmp/ashlar-indexed-typing-python39-20261010-b/typing_extensions.py"
+  },
+  "typing_resources": [
+    {
+      "path": "/private/tmp/ashlar-indexed-typing-python39-20261010-b/typing_extensions-4.15.0.dist-info/INSTALLER",
+      "sha256": "ceebae7b8927a3227e5303cf5e0f1f7b34bb542ad7250ac03fbcde36ec2f1508",
+      "bytes": 4
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-typing-python39-20261010-b/typing_extensions-4.15.0.dist-info/METADATA",
+      "sha256": "c138378fe8f18934ac99de060535c53ec6c13aeed65e94c32641da7ee3192a72",
+      "bytes": 3259
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-typing-python39-20261010-b/typing_extensions-4.15.0.dist-info/RECORD",
+      "sha256": "d6060b953b604c49a3121355624513615b5fb5d0ca5ed3be48a39c7fe248056d",
+      "bytes": 823
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-typing-python39-20261010-b/typing_extensions-4.15.0.dist-info/REQUESTED",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-typing-python39-20261010-b/typing_extensions-4.15.0.dist-info/WHEEL",
+      "sha256": "1b68144734c4b66791f27add5d425f3620775585718a03d0f9b110ba3a4d88db",
+      "bytes": 82
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-typing-python39-20261010-b/typing_extensions-4.15.0.dist-info/licenses/LICENSE",
+      "sha256": "3b2f81fe21d181c499c59a256c8e1968455d6689d269aa85373bfb6af41da3bf",
+      "bytes": 13936
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-typing-python39-20261010-b/typing_extensions.py",
+      "sha256": "433d11d170d3a24d2eb065ebc1bfe848cea7e3d7ce68567ab52bea2d4c2f7ed8",
+      "bytes": 160429
+    }
+  ],
+  "qualification": "Read-onlyimports; noSparkSession, NumPyabsence observed not invented"
+}

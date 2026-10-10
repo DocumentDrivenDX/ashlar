@@ -1,0 +1,25 @@
+{
+  "scope": "Independent actual E terminal archive and selected-resource closure; no engines or original SQLite connections",
+  "reviewed_freeze_sha256": "fd767d70306835564b653b95cdaf9ccaedbcca3cd0ca5664386caa818867963a",
+  "frozen_files": 36,
+  "archives": [
+    {
+      "label": "publication",
+      "files": 79,
+      "original_bytes": 10226302,
+      "exact_member_parity": true
+    },
+    {
+      "label": "queries",
+      "files": 2,
+      "original_bytes": 5568122,
+      "exact_member_parity": true
+    }
+  ],
+  "references": 11,
+  "unique_resources": 5701,
+  "resource_bytes": 1394841011,
+  "all_resource_hashes_equal": true,
+  "original_failed_d_log_sha256": "4aa51a958abb8e3c1a90bfa6f002d46879a4b196e0fa3922edf3ef3504326017",
+  "pending_additive_retention": "Exact Eopening77-file inventory required separately; B36 review does not imply this missing receipt is already retained."
+}

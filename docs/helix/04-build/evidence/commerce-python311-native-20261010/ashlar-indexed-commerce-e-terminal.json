@@ -1,0 +1,29 @@
+{
+  "spark_processes": [],
+  "pg": {
+    "id": "37d798c29961d87549baabd1625ad946f45e8f476ade2eef360d7bf1211419c9",
+    "image": "sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545",
+    "label": "end-to-end-development",
+    "ports": {
+      "5432/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "15432"
+        }
+      ]
+    },
+    "running": true,
+    "oom": false,
+    "memory": 536870912,
+    "cpu": 1000000000
+  },
+  "time": 1791608975.367311,
+  "exit": {
+    "exit_code": 0,
+    "duration_seconds": 21.843288898468018
+  },
+  "all_original_publication_files_unchanged": true,
+  "publication_opening_files": 77,
+  "report_sha256": "26635d077da10fd685f83be670b1d75d6754500565ccc99e16932adfaf4e271b",
+  "report_bytes": 3530601
+}
