@@ -9,7 +9,7 @@ from local_delta_custody import encoded
 from prepare_pack_query_cases import prepare
 from run_pack_publication_weft import compiler_request,open_pack_reader
 from run_commerce_arithmetic_weft import compile_original,execute_guarded,admit_public_source,decode_rows,persist_after_stop,HAVING_BACKEND
-COMPILER_SHA='87b9e1f3c5dd64942ae65d4e125431b452d01624c4f3e5289ec0d29898db9416'
+COMPILER_SHA='4914d593b706d2740dbcaa08a441d1dec3677b4b2d79e6fa03f6c532e0b1f70d'
 
 
 def admit_ordered_rows(rows,expected):
@@ -105,7 +105,7 @@ def run(publication,output,jars,compiler,source_guard,umf):
             closing_custody=provider.closed_interval_custody(context)
             if opened.native_files()!=opened.original_native_files:raise ValueError('Count/IN read changed original bytes')
             report={'format':'ashlar-original-archaeology-weft-count-having/0.1','qualification':__doc__,
-                'compiler_sha256':COMPILER_SHA,'official_weft_revision':'764d9fa1c4aef68358a5c77c85b051d6d7bf0495',
+                'compiler_sha256':COMPILER_SHA,'official_weft_revision':'d2d63879a80c83f604179ade6c169b10676f6de4',
                 'controls':control_results,'independent_all_group_counts':all_group_counts,'case':case,'native_result':result,'exact_rows':rows,'independent_expected':expected,'original_independent_expected':original_expected,
                 'original_manifest':opened.manifest,'original_table_registry':opened.original_report['table_registry'],
                 'original_native_files':opened.original_native_files,'alias_closed_interval_custody':alias_custody,
