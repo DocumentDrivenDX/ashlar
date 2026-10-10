@@ -1,0 +1,1016 @@
+{
+  "status": "accepted-exact-sixteen-static-refusal-response-bytes",
+  "observation": {
+    "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/observation.json",
+    "sha256": "47ea676105ae2bf0ee81465bfc5a6a484a00e11786a23b8d51dfc6fc980d43eb",
+    "bytes": 18137
+  },
+  "priorCriteriaReview": {
+    "path": "/private/tmp/astra-paths-controls-preobservation-review-20261010-a.json",
+    "sha256": "a8b63abc160ff3cdea14e70a23daceecc180008472db18488124214201dd1979",
+    "bytes": 9816
+  },
+  "criteriaFreeze": {
+    "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/freeze.json",
+    "sha256": "648871abf0bdd52c077017ad6ffdd374e1b93b07a72186e00faae23f1e9a1065",
+    "bytes": 3426
+  },
+  "accepted": [
+    {
+      "id": "candidate-opt-out",
+      "request": {
+        "bytes": 55375,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/candidate-opt-out.request",
+        "sha256": "1a15d83d1b0cc07f423a3a7bfd9a209e1f0d29b25aeef41120cdcd91416c4e7e"
+      },
+      "response": {
+        "bytes": 234,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/candidate-opt-out.stdout",
+        "sha256": "87b9145e79540aa768a19252eec1f5b4829f78ad6758d6b4cea99893c2bf04b7"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/candidate-opt-out.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-CAPABILITY",
+        "phase": "capability",
+        "message": "Selected04 capability refused before binding",
+        "severity": "error",
+        "recoverability": "change-profile"
+      },
+      "source": {
+        "path": "crates/weft-core/src/backend03_registry.rs",
+        "messageLine": 140
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "unknown-backend",
+      "request": {
+        "bytes": 55376,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/unknown-backend.request",
+        "sha256": "ea3020d06f48f4ff89834413d384ebbafbebcf1a870658f9d0be82426d5b7378"
+      },
+      "response": {
+        "bytes": 231,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/unknown-backend.stdout",
+        "sha256": "40542f7f0e58d7d20561a8bb028750ba806afabbbd4072ff4685cd62550a637b"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/unknown-backend.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-BACKEND-MISSING",
+        "phase": "capability",
+        "message": "Selected Backend03 is not registered",
+        "severity": "error",
+        "recoverability": "change-profile"
+      },
+      "source": {
+        "path": "crates/weft-core/src/compile04.rs",
+        "messageLine": 362
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "wrong-backend-version",
+      "request": {
+        "bytes": 55359,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/wrong-backend-version.request",
+        "sha256": "6c0fdd88cc8ccf05a066d885b4770d24e1f5b1c4c9c69bda4e3368cb9895ba18"
+      },
+      "response": {
+        "bytes": 221,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/wrong-backend-version.stdout",
+        "sha256": "a4cdc4e021690f22fbe95a388e94eb4ad4cff9f8f9dab18dd7a6aaf2def1ec8a"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/wrong-backend-version.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-BACKEND-VERSION",
+        "phase": "capability",
+        "message": "Backend03 version mismatch",
+        "severity": "error",
+        "recoverability": "change-profile"
+      },
+      "source": {
+        "path": "crates/weft-core/src/backend03_registry.rs",
+        "messageLine": 94
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "wrong-profile",
+      "request": {
+        "bytes": 55365,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/wrong-profile.request",
+        "sha256": "67ad76d2523284f34087dc1a4d2cd7eb1875f6aecfdbf3a8df314e52f86f3e03"
+      },
+      "response": {
+        "bytes": 217,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/wrong-profile.stdout",
+        "sha256": "d0d3fea3e62601431d8b906817fc33baf79e92d2a84fd28bde17fdf875c72ef8"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/wrong-profile.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-BACKEND-VERSION",
+        "phase": "capability",
+        "message": "Unknown target profile",
+        "severity": "error",
+        "recoverability": "change-profile"
+      },
+      "source": {
+        "path": "crates/weft-core/src/backend03_registry.rs",
+        "messageLine": 101
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "unknown-envelope-member",
+      "request": {
+        "bytes": 55400,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/unknown-envelope-member.request",
+        "sha256": "b62a0e14776bd4e7698bc89ce779689ef1cd1859a98119303fb03c97338b422c"
+      },
+      "response": {
+        "bytes": 221,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/unknown-envelope-member.stdout",
+        "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/unknown-envelope-member.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-INPUT",
+        "phase": "input",
+        "message": "Request is outside the closed 0.4 envelope",
+        "severity": "error",
+        "recoverability": "correct-input"
+      },
+      "source": {
+        "path": "crates/weft-core/src/compile04.rs",
+        "messageLine": 299
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "mismatched-interface-dialect",
+      "request": {
+        "bytes": 55374,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/mismatched-interface-dialect.request",
+        "sha256": "f850d2e9c120c408e9726054b5072f223a2be7a2c1f1e941ac88fda1ac91d3fb"
+      },
+      "response": {
+        "bytes": 244,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/mismatched-interface-dialect.stdout",
+        "sha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/mismatched-interface-dialect.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-VERSION",
+        "phase": "input",
+        "message": "This entrypoint requires the exact 0.4 compile and dialect pair",
+        "severity": "error",
+        "recoverability": "correct-input"
+      },
+      "source": {
+        "path": "crates/weft-core/src/compile04.rs",
+        "messageLine": 292
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "binding-digest-mismatch",
+      "request": {
+        "bytes": 55374,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/binding-digest-mismatch.request",
+        "sha256": "743d4887e074834582d03aeb7a2266e4c4652db3e274ec2c53aadf7a8d6176ab"
+      },
+      "response": {
+        "bytes": 205,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/binding-digest-mismatch.stdout",
+        "sha256": "394ec73b477602611400490467f3a467086f85b2ed5176e4dff3f7f214a927a6"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/binding-digest-mismatch.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-PIN",
+        "phase": "input",
+        "message": "Binding byte digest mismatch",
+        "severity": "error",
+        "recoverability": "correct-input"
+      },
+      "source": {
+        "path": "crates/weft-core/src/compile04.rs",
+        "messageLine": 318
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "model-digest-mismatch",
+      "request": {
+        "bytes": 55374,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/model-digest-mismatch.request",
+        "sha256": "0ee108dbc9ea0e520b7cf4a0d241a1501ef4e56c8b57014c163f56432e3becaf"
+      },
+      "response": {
+        "bytes": 208,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/model-digest-mismatch.stdout",
+        "sha256": "a95c9a1bb61009de2876973446115fcc2663e253b39dc920cf0c8968d9feced7"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/model-digest-mismatch.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-PIN",
+        "phase": "model",
+        "message": "Owning document digest mismatch",
+        "severity": "error",
+        "recoverability": "correct-input"
+      },
+      "source": {
+        "path": "crates/weft-core/src/model.rs",
+        "messageLine": 81
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "sql-byte-limit",
+      "request": {
+        "bytes": 120776,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/sql-byte-limit.request",
+        "sha256": "b4905a553f854248afc121486a1d798e09c160e7bfc93b4ccc043593215594a0"
+      },
+      "response": {
+        "bytes": 197,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/sql-byte-limit.stdout",
+        "sha256": "bfeb1bc5621d1effb5115043da05bef9a2f9eea16b55cf7dd64572807aa487b2"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/sql-byte-limit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-LIMIT",
+        "phase": "input",
+        "message": "SQL exceeds 64 KiB",
+        "severity": "error",
+        "recoverability": "correct-input"
+      },
+      "source": {
+        "path": "crates/weft-core/src/compile04.rs",
+        "messageLine": 305
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "binding-byte-limit",
+      "request": {
+        "bytes": 4225871,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/binding-byte-limit.request",
+        "sha256": "3e6655a76ea17a158946a06280e4ceb49d8be56956b6368b637686e66f4e7a86"
+      },
+      "response": {
+        "bytes": 203,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/binding-byte-limit.stdout",
+        "sha256": "7e068aed973872aca01b6ded145e2e9da4a0d9ec0f22803a61ccb83c878cac44"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/binding-byte-limit.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-LIMIT",
+        "phase": "input",
+        "message": "Binding exceeds four MiB",
+        "severity": "error",
+        "recoverability": "correct-input"
+      },
+      "source": {
+        "path": "crates/weft-core/src/compile04.rs",
+        "messageLine": 311
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "duplicate-envelope-member",
+      "request": {
+        "bytes": 55414,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/duplicate-envelope-member.request",
+        "sha256": "cbc36180fe5cba9edfbdfa387b3c38b2432a34095442bbad02a90718641309f2"
+      },
+      "response": {
+        "bytes": 208,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/duplicate-envelope-member.stdout",
+        "sha256": "8de20be1c72ddad538fc75b4ccdad2c8737ba39e1038d7f71a4a3ceec23bae38"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/duplicate-envelope-member.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-JSON-DUPLICATE",
+        "phase": "input",
+        "message": "Invalid request JSON",
+        "severity": "error",
+        "recoverability": "correct-input"
+      },
+      "source": {
+        "path": "crates/weft-core/src/compile04.rs",
+        "messageLine": 286
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "missing-publication",
+      "request": {
+        "bytes": 55343,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/missing-publication.request",
+        "sha256": "0e219a344cb724ee7097751ffb244aa6e0f74ee8c603a0c1b5a928c11eb19546"
+      },
+      "response": {
+        "bytes": 237,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/missing-publication.stdout",
+        "sha256": "f3773edfc857b14b20bacd927d6dc9925540273d26c87b8933d234dc56a06549"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/missing-publication.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-BINDING",
+        "phase": "lower",
+        "message": "Publication identity/vector is missing or exceeds bounds",
+        "severity": "error",
+        "recoverability": "correct-input"
+      },
+      "source": {
+        "path": "crates/weft-databricks/src/binding.rs",
+        "messageLine": 209
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "negative-table-version",
+      "request": {
+        "bytes": 55375,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/negative-table-version.request",
+        "sha256": "96983a4111e01e32391ec54c5b7a55a14bcf52bee23da3f26d6bf0c4e77011e9"
+      },
+      "response": {
+        "bytes": 220,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/negative-table-version.stdout",
+        "sha256": "872facf6012475dfbae54ded3c408427ccd8f5f6f69629ee4022d56c98a53eaa"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/negative-table-version.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-BINDING",
+        "phase": "lower",
+        "message": "Invalid or ambiguous pinned Delta table",
+        "severity": "error",
+        "recoverability": "correct-input"
+      },
+      "source": {
+        "path": "crates/weft-databricks/src/binding.rs",
+        "messageLine": 224
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "duplicate-table-uuid",
+      "request": {
+        "bytes": 55481,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/duplicate-table-uuid.request",
+        "sha256": "6b5a66ca6413b24f40795ff7f4558987bf8bcf50a30ef91d697a7f7896950b16"
+      },
+      "response": {
+        "bytes": 220,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/duplicate-table-uuid.stdout",
+        "sha256": "872facf6012475dfbae54ded3c408427ccd8f5f6f69629ee4022d56c98a53eaa"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/duplicate-table-uuid.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-BINDING",
+        "phase": "lower",
+        "message": "Invalid or ambiguous pinned Delta table",
+        "severity": "error",
+        "recoverability": "correct-input"
+      },
+      "source": {
+        "path": "crates/weft-databricks/src/binding.rs",
+        "messageLine": 224
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "missing-table-mapping",
+      "request": {
+        "bytes": 55376,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/missing-table-mapping.request",
+        "sha256": "6153c47e7d2b54a356208e8f55b22ce09a2260fd1aa1a4878ca85c49f0bc5a3f"
+      },
+      "response": {
+        "bytes": 225,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/missing-table-mapping.stdout",
+        "sha256": "ba33971febfcaff3bc86d9cdd26e8e99adfdfec4a57d329ec36d3077ef6e23e3"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/missing-table-mapping.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-BINDING",
+        "phase": "lower",
+        "message": "Invalid or duplicate original record mapping",
+        "severity": "error",
+        "recoverability": "correct-input"
+      },
+      "source": {
+        "path": "crates/weft-databricks/src/binding.rs",
+        "messageLine": 239
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    },
+    {
+      "id": "inconsistent-model-pin",
+      "request": {
+        "bytes": 55334,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/inconsistent-model-pin.request",
+        "sha256": "9aa3c92f60c7c3b673e1967f82afcefad0b68c9c1501985edee6ec7a5bf4fe64"
+      },
+      "response": {
+        "bytes": 238,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/inconsistent-model-pin.stdout",
+        "sha256": "941b5c4e7e7f17a8805f703fcbfa4db00e8a894d704b153f22bd319c575ca63a"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/inconsistent-model-pin.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "expectedDiagnostic": {
+        "code": "WFT-BINDING",
+        "phase": "lower",
+        "message": "Binding model pins differ from the original module bundle",
+        "severity": "error",
+        "recoverability": "correct-input"
+      },
+      "source": {
+        "path": "crates/weft-databricks/src/binding.rs",
+        "messageLine": 200
+      },
+      "completeResponseBytesAccepted": true,
+      "noSourceSpanOrCompiledArtifact": true,
+      "schemaPassed": true
+    }
+  ],
+  "sourceChecks": [
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-core/src/backend03.rs",
+      "sha256": "fcfa161b4381d5938dc7e96d9b0a13be9d68b4177a2e5cba3d2811a7c2f4d242",
+      "bytes": 6841
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-core/src/backend03_registry.rs",
+      "sha256": "9841bb1d9ce3a59effc6255fbecc3194388d256a4fa3697812e6ff6fb1c6ce8a",
+      "bytes": 10845
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-core/src/compile.rs",
+      "sha256": "0a41ab3b2db8f206c3d80c6e634fa4fa68dffa1c92bc2c9091f25a4ff109fdc5",
+      "bytes": 12411
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-core/src/compile04.rs",
+      "sha256": "2c82da3f60c20776284ff97b4844e976edd4b8c12d5be016ec4a323ebc7196ac",
+      "bytes": 17708
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-core/src/error.rs",
+      "sha256": "aef90fed252a4edb716b3ba3c06cec8ecbb6bf711d30c5640bf660006af105aa",
+      "bytes": 780
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-core/src/json.rs",
+      "sha256": "e791b5d3f5de812bc59366fedc9d62d7687da93c31f0dbd82297faa9605535e4",
+      "bytes": 2429
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-core/src/model.rs",
+      "sha256": "bd461122697e480dc87931bc0bf39fae46c28b10e457f03e4ec4861bf8b09cf0",
+      "bytes": 14467
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-databricks/src/binding.rs",
+      "sha256": "0d4ca3b8fd15973309be6b5b04949956dd29fdd49d15282569a52717904fdd76",
+      "bytes": 19296
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-runtime/src/paths_cli.rs",
+      "sha256": "4aabd6a7fff0da6dfb7630ca7db356afbf9fa286d189372b362a509addd802c3",
+      "bytes": 4148
+    }
+  ],
+  "schemaAdapter": {
+    "path": "/Users/erik/Projects/ashlar/tools/check_weft_paths_corpus_schemas.py",
+    "sha256": "bf9523f086466fd485d1cb90b54da9d02677585f015216ad90b236daa9acc276",
+    "bytes": 7368
+  },
+  "schemaRuntime": {
+    "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+    "jsonschema": "4.23.0",
+    "referencing": "0.35.1"
+  },
+  "offlineSchemaPairs": 16,
+  "mutations": [
+    {
+      "id": "candidate-opt-out",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "unknown-backend",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "wrong-backend-version",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "wrong-profile",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "unknown-envelope-member",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "mismatched-interface-dialect",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "binding-digest-mismatch",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "model-digest-mismatch",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "sql-byte-limit",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "binding-byte-limit",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "duplicate-envelope-member",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "missing-publication",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "negative-table-version",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "duplicate-table-uuid",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "missing-table-mapping",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    },
+    {
+      "id": "inconsistent-model-pin",
+      "rejected": 20,
+      "controls": [
+        "code",
+        "phase",
+        "message",
+        "severity",
+        "recoverability",
+        "sourceSpan",
+        "artifact-sql",
+        "artifact-modelPins",
+        "artifact-backend",
+        "artifact-logicalPlan",
+        "artifact-bindingSha256",
+        "artifact-qualification",
+        "duplicate-diagnostic",
+        "status",
+        "namespace",
+        "missing-LF",
+        "extra-LF",
+        "duplicate-envelope",
+        "nonzero-exit",
+        "stderr"
+      ]
+    }
+  ],
+  "mutationTotal": 320,
+  "gateScope": "Binding/SQL oversized whitespace controls select byte limit before digest/inner-JSON parsing; duplicate raw request envelope is preserved and skipped only by invalid-role request schema prevalidation. Missing publication means empty ID; missing mapping means out-of-range123 even on an unselected record, consistent with whole-binding admission. No sourceSpan is authored by these constructors; exact source-derived message/code/phase/severity/recoverability and closed blocked envelope are required.",
+  "limits": "Only these16 exact outputs accepted as source-derived static refusal expectations. No compiler/native/PG/SQLite invocation, no complete corpus or native qualification, no review of three fresh compiled outputs in this receipt.",
+  "script": {
+    "path": "/private/tmp/astra-paths-controls-refusal-acceptance-20261010-a.py",
+    "sha256": "14e4d4675a1c221c386030e071baa0385db3231f0aad9ff1791ee6ec38fb163c",
+    "bytes": 9832
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "verdict": "APPROVE exact19 candidate-only compiler observation command, parent endorsement",
+  "review": {
+    "path": "/private/tmp/astra-paths-controls-preobservation-review-20261010-a.json",
+    "bytes": 9816,
+    "sha256": "a8b63abc160ff3cdea14e70a23daceecc180008472db18488124214201dd1979"
+  },
+  "criteriaFreeze": {
+    "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/freeze.json",
+    "sha256": "648871abf0bdd52c077017ad6ffdd374e1b93b07a72186e00faae23f1e9a1065",
+    "bytes": 3426
+  },
+  "command": {
+    "path": "/private/tmp/weft-paths-controls-observation-20261010-a/command.json",
+    "sha256": "78d4e707a4319827743d3fd29219b37e935b48e5a5ef3af8e518204a1392cce5",
+    "bytes": 33235
+  },
+  "execution": {
+    "path": "/private/tmp/weft-paths-controls-observation-20261010-a/execution.json",
+    "sha256": "4cd0a9d89e3a34cb9a4f1217dfdb5a4a4d7b2a3306fff5713d4caccdfd153d0a",
+    "bytes": 604
+  },
+  "observationFreeze": {
+    "path": "/private/tmp/weft-paths-controls-observation-20261010-a/freeze.json",
+    "sha256": "b1c58207cba7cf2f3f7a6f15c3fc5563a4c50a17c3d54a2c594141fcd72f4e1b",
+    "bytes": 758
+  },
+  "conditions": [
+    "Root executes exact pinned descriptor after its fresh resource/source checks.",
+    "Require completed=true, closingCustody=true, preserve raw request/stdout/stderr and failed attempts without expectation normalization.",
+    "Full raw observed responses remain unaccepted until independent source/contract/schema/correspondence review; no native/index/whole47 qualification."
+  ],
+  "scope": "16 source-derived static refusals plus3 coherent full-binding variants0/7/57, original model/SQL/mappings unchanged except deliberate negative controls; two bytecap controls prove early size-gate refusal only."
+}

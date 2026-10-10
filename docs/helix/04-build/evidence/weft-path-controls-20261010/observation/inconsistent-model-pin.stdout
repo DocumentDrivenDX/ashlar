@@ -1,0 +1,1 @@
+{"diagnostics":[{"code":"WFT-BINDING","message":"Binding model pins differ from the original module bundle","phase":"lower","recoverability":"correct-input","severity":"error"}],"interfaceVersion":"weft-compile/0.4.0","status":"blocked"}

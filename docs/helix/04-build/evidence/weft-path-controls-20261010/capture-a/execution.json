@@ -1,0 +1,17 @@
+{
+  "argv": [
+    "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "/private/tmp/weft-paths-controls-observation-20261010-a/capture.py",
+    "--command",
+    "/private/tmp/weft-paths-controls-observation-20261010-a/command.json",
+    "--sha256",
+    "78d4e707a4319827743d3fd29219b37e935b48e5a5ef3af8e518204a1392cce5"
+  ],
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "cwd": "/private/tmp/weft-paths-controls-observation-20261010-a",
+  "commandSha256": "78d4e707a4319827743d3fd29219b37e935b48e5a5ef3af8e518204a1392cce5",
+  "status": "not executed"
+}

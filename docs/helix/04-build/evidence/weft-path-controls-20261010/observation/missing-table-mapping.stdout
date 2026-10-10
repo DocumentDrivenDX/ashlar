@@ -1,0 +1,1 @@
+{"diagnostics":[{"code":"WFT-BINDING","message":"Invalid or duplicate original record mapping","phase":"lower","recoverability":"correct-input","severity":"error"}],"interfaceVersion":"weft-compile/0.4.0","status":"blocked"}

@@ -1,0 +1,1 @@
+{"diagnostics":[{"code":"WFT-BACKEND-MISSING","message":"Selected Backend03 is not registered","phase":"capability","recoverability":"change-profile","severity":"error"}],"interfaceVersion":"weft-compile/0.4.0","status":"blocked"}

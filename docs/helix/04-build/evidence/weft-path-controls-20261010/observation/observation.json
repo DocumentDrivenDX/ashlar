@@ -1,0 +1,426 @@
+{
+  "closingCustody": true,
+  "commandSha256": "78d4e707a4319827743d3fd29219b37e935b48e5a5ef3af8e518204a1392cce5",
+  "completed": true,
+  "records": [
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55375,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/candidate-opt-out.request",
+          "sha256": "1a15d83d1b0cc07f423a3a7bfd9a209e1f0d29b25aeef41120cdcd91416c4e7e"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/candidate-opt-out.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 234,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/candidate-opt-out.stdout",
+          "sha256": "87b9145e79540aa768a19252eec1f5b4829f78ad6758d6b4cea99893c2bf04b7"
+        }
+      },
+      "exitCode": 0,
+      "id": "candidate-opt-out",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55376,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/unknown-backend.request",
+          "sha256": "ea3020d06f48f4ff89834413d384ebbafbebcf1a870658f9d0be82426d5b7378"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/unknown-backend.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 231,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/unknown-backend.stdout",
+          "sha256": "40542f7f0e58d7d20561a8bb028750ba806afabbbd4072ff4685cd62550a637b"
+        }
+      },
+      "exitCode": 0,
+      "id": "unknown-backend",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55359,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/wrong-backend-version.request",
+          "sha256": "6c0fdd88cc8ccf05a066d885b4770d24e1f5b1c4c9c69bda4e3368cb9895ba18"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/wrong-backend-version.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 221,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/wrong-backend-version.stdout",
+          "sha256": "a4cdc4e021690f22fbe95a388e94eb4ad4cff9f8f9dab18dd7a6aaf2def1ec8a"
+        }
+      },
+      "exitCode": 0,
+      "id": "wrong-backend-version",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55365,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/wrong-profile.request",
+          "sha256": "67ad76d2523284f34087dc1a4d2cd7eb1875f6aecfdbf3a8df314e52f86f3e03"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/wrong-profile.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 217,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/wrong-profile.stdout",
+          "sha256": "d0d3fea3e62601431d8b906817fc33baf79e92d2a84fd28bde17fdf875c72ef8"
+        }
+      },
+      "exitCode": 0,
+      "id": "wrong-profile",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55400,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/unknown-envelope-member.request",
+          "sha256": "b62a0e14776bd4e7698bc89ce779689ef1cd1859a98119303fb03c97338b422c"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/unknown-envelope-member.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 221,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/unknown-envelope-member.stdout",
+          "sha256": "a03c9c3f488b4a0e9b7b65f3cab6fe40816f5d5b7ff09343029adf1f1cbace96"
+        }
+      },
+      "exitCode": 0,
+      "id": "unknown-envelope-member",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55374,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/mismatched-interface-dialect.request",
+          "sha256": "f850d2e9c120c408e9726054b5072f223a2be7a2c1f1e941ac88fda1ac91d3fb"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/mismatched-interface-dialect.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 244,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/mismatched-interface-dialect.stdout",
+          "sha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18"
+        }
+      },
+      "exitCode": 0,
+      "id": "mismatched-interface-dialect",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55374,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/binding-digest-mismatch.request",
+          "sha256": "743d4887e074834582d03aeb7a2266e4c4652db3e274ec2c53aadf7a8d6176ab"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/binding-digest-mismatch.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 205,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/binding-digest-mismatch.stdout",
+          "sha256": "394ec73b477602611400490467f3a467086f85b2ed5176e4dff3f7f214a927a6"
+        }
+      },
+      "exitCode": 0,
+      "id": "binding-digest-mismatch",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55374,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/model-digest-mismatch.request",
+          "sha256": "0ee108dbc9ea0e520b7cf4a0d241a1501ef4e56c8b57014c163f56432e3becaf"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/model-digest-mismatch.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 208,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/model-digest-mismatch.stdout",
+          "sha256": "a95c9a1bb61009de2876973446115fcc2663e253b39dc920cf0c8968d9feced7"
+        }
+      },
+      "exitCode": 0,
+      "id": "model-digest-mismatch",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 120776,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/sql-byte-limit.request",
+          "sha256": "b4905a553f854248afc121486a1d798e09c160e7bfc93b4ccc043593215594a0"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/sql-byte-limit.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 197,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/sql-byte-limit.stdout",
+          "sha256": "bfeb1bc5621d1effb5115043da05bef9a2f9eea16b55cf7dd64572807aa487b2"
+        }
+      },
+      "exitCode": 0,
+      "id": "sql-byte-limit",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 4225871,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/binding-byte-limit.request",
+          "sha256": "3e6655a76ea17a158946a06280e4ceb49d8be56956b6368b637686e66f4e7a86"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/binding-byte-limit.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 203,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/binding-byte-limit.stdout",
+          "sha256": "7e068aed973872aca01b6ded145e2e9da4a0d9ec0f22803a61ccb83c878cac44"
+        }
+      },
+      "exitCode": 0,
+      "id": "binding-byte-limit",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55414,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/duplicate-envelope-member.request",
+          "sha256": "cbc36180fe5cba9edfbdfa387b3c38b2432a34095442bbad02a90718641309f2"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/duplicate-envelope-member.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 208,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/duplicate-envelope-member.stdout",
+          "sha256": "8de20be1c72ddad538fc75b4ccdad2c8737ba39e1038d7f71a4a3ceec23bae38"
+        }
+      },
+      "exitCode": 0,
+      "id": "duplicate-envelope-member",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55343,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/missing-publication.request",
+          "sha256": "0e219a344cb724ee7097751ffb244aa6e0f74ee8c603a0c1b5a928c11eb19546"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/missing-publication.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 237,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/missing-publication.stdout",
+          "sha256": "f3773edfc857b14b20bacd927d6dc9925540273d26c87b8933d234dc56a06549"
+        }
+      },
+      "exitCode": 0,
+      "id": "missing-publication",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55375,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/negative-table-version.request",
+          "sha256": "96983a4111e01e32391ec54c5b7a55a14bcf52bee23da3f26d6bf0c4e77011e9"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/negative-table-version.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 220,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/negative-table-version.stdout",
+          "sha256": "872facf6012475dfbae54ded3c408427ccd8f5f6f69629ee4022d56c98a53eaa"
+        }
+      },
+      "exitCode": 0,
+      "id": "negative-table-version",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55481,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/duplicate-table-uuid.request",
+          "sha256": "6b5a66ca6413b24f40795ff7f4558987bf8bcf50a30ef91d697a7f7896950b16"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/duplicate-table-uuid.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 220,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/duplicate-table-uuid.stdout",
+          "sha256": "872facf6012475dfbae54ded3c408427ccd8f5f6f69629ee4022d56c98a53eaa"
+        }
+      },
+      "exitCode": 0,
+      "id": "duplicate-table-uuid",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55376,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/missing-table-mapping.request",
+          "sha256": "6153c47e7d2b54a356208e8f55b22ce09a2260fd1aa1a4878ca85c49f0bc5a3f"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/missing-table-mapping.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 225,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/missing-table-mapping.stdout",
+          "sha256": "ba33971febfcaff3bc86d9cdd26e8e99adfdfec4a57d329ec36d3077ef6e23e3"
+        }
+      },
+      "exitCode": 0,
+      "id": "missing-table-mapping",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55334,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/inconsistent-model-pin.request",
+          "sha256": "9aa3c92f60c7c3b673e1967f82afcefad0b68c9c1501985edee6ec7a5bf4fe64"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/inconsistent-model-pin.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 238,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/inconsistent-model-pin.stdout",
+          "sha256": "941b5c4e7e7f17a8805f703fcbfa4db00e8a894d704b153f22bd319c575ca63a"
+        }
+      },
+      "exitCode": 0,
+      "id": "inconsistent-model-pin",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55381,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-0.request",
+          "sha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-0.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 99864,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-0.stdout",
+          "sha256": "0825fd12d6e14fe3b60e416a963f18f0dffe5448381959e3d3123a349a171d92"
+        }
+      },
+      "exitCode": 0,
+      "id": "fresh-binding-0",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55381,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-1.request",
+          "sha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-1.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 99864,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-1.stdout",
+          "sha256": "081f1f8dede25832b67b54beff271029d3c4f92dcf8b9bebd41ca7270e61d14a"
+        }
+      },
+      "exitCode": 0,
+      "id": "fresh-binding-1",
+      "status": "candidate-unaccepted-observation"
+    },
+    {
+      "artifacts": {
+        "request": {
+          "bytes": 55385,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-2.request",
+          "sha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4"
+        },
+        "stderr": {
+          "bytes": 0,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-2.stderr",
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stdout": {
+          "bytes": 100007,
+          "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-2.stdout",
+          "sha256": "b6cf74ef768f4087048e45cf7743dfe6dfc388751fd344bfd765702c123f17d6"
+        }
+      },
+      "exitCode": 0,
+      "id": "fresh-binding-2",
+      "status": "candidate-unaccepted-observation"
+    }
+  ],
+  "status": "candidate-unaccepted-observations; no golden/qualification/native claim"
+}

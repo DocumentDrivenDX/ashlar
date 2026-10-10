@@ -1,0 +1,172 @@
+{
+  "verdict": "ACCEPT three exact fresh-binding outputs as finite reviewed expected responses",
+  "observation": {
+    "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/observation.json",
+    "sha256": "47ea676105ae2bf0ee81465bfc5a6a484a00e11786a23b8d51dfc6fc980d43eb",
+    "bytes": 18137
+  },
+  "baselineAcceptance": {
+    "path": "/private/tmp/astra-paths-original21-expected-acceptance-20261010-a.json",
+    "sha256": "9af288c45cd38f39e7b237860d36efb8cca6b3c4f5ec5df56462d2938b86bd3d",
+    "bytes": 10570
+  },
+  "criteriaFreeze": {
+    "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/freeze.json",
+    "sha256": "648871abf0bdd52c077017ad6ffdd374e1b93b07a72186e00faae23f1e9a1065",
+    "bytes": 3426
+  },
+  "accepted": [
+    {
+      "id": "fresh-binding-0",
+      "request": {
+        "bytes": 55381,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-0.request",
+        "sha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face"
+      },
+      "expectedResponse": {
+        "bytes": 99864,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-0.stdout",
+        "sha256": "0825fd12d6e14fe3b60e416a963f18f0dffe5448381959e3d3123a349a171d92"
+      },
+      "tableVersion": 0,
+      "physicalReferenceOccurrencesChecked": 137,
+      "fullResponseEqualOnlyAllowedBindingTransform": true
+    },
+    {
+      "id": "fresh-binding-1",
+      "request": {
+        "bytes": 55381,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-1.request",
+        "sha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987"
+      },
+      "expectedResponse": {
+        "bytes": 99864,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-1.stdout",
+        "sha256": "081f1f8dede25832b67b54beff271029d3c4f92dcf8b9bebd41ca7270e61d14a"
+      },
+      "tableVersion": 7,
+      "physicalReferenceOccurrencesChecked": 137,
+      "fullResponseEqualOnlyAllowedBindingTransform": true
+    },
+    {
+      "id": "fresh-binding-2",
+      "request": {
+        "bytes": 55385,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-2.request",
+        "sha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4"
+      },
+      "expectedResponse": {
+        "bytes": 100007,
+        "path": "/private/tmp/weft-paths-controls-observation-20261010-a/candidate-output/fresh-binding-2.stdout",
+        "sha256": "b6cf74ef768f4087048e45cf7743dfe6dfc388751fd344bfd765702c123f17d6"
+      },
+      "tableVersion": 57,
+      "physicalReferenceOccurrencesChecked": 137,
+      "fullResponseEqualOnlyAllowedBindingTransform": true
+    }
+  ],
+  "mutations": [
+    {
+      "case": "fresh-binding-0",
+      "mutation": "stale user SQL",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-0",
+      "mutation": "one stale guard",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-0",
+      "mutation": "stale edge schema",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-0",
+      "mutation": "partial publication vector",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-0",
+      "mutation": "logical bound altered",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-0",
+      "mutation": "parameter origin lost",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-1",
+      "mutation": "stale user SQL",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-1",
+      "mutation": "one stale guard",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-1",
+      "mutation": "stale edge schema",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-1",
+      "mutation": "partial publication vector",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-1",
+      "mutation": "logical bound altered",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-1",
+      "mutation": "parameter origin lost",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-2",
+      "mutation": "stale user SQL",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-2",
+      "mutation": "one stale guard",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-2",
+      "mutation": "stale edge schema",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-2",
+      "mutation": "partial publication vector",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-2",
+      "mutation": "logical bound altered",
+      "refused": true
+    },
+    {
+      "case": "fresh-binding-2",
+      "mutation": "parameter origin lost",
+      "refused": true
+    }
+  ],
+  "schemaChecks": 3,
+  "scope": "Every full response equals accepted original collection response with only exact binding SHA/fullpublication vector/per-hop schema and literal physical table VERSION AS OF references changed. Logical plan, key lineage, bounds, ordering, slots, parameters, columns, selected capabilities and guard meaning remain exact.",
+  "limits": [
+    "Versions0/7/57 are structurally coherent declared snapshots; no actual native table existence, current authority or host guard discharge established.",
+    "No compiler or native execution in this review.",
+    "Full corpus replay and trusted installation/index admission remain separate."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-paths-controls-fresh-bindings-review-20261010-a.py",
+    "sha256": "2fd5a28f0c6c9158c157fbf619e9954f057d731f70e8a9fba58fd5a3cc100f21",
+    "bytes": 6705
+  }
+}

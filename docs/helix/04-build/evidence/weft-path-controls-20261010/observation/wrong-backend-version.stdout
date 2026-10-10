@@ -1,0 +1,1 @@
+{"diagnostics":[{"code":"WFT-BACKEND-VERSION","message":"Backend03 version mismatch","phase":"capability","recoverability":"change-profile","severity":"error"}],"interfaceVersion":"weft-compile/0.4.0","status":"blocked"}

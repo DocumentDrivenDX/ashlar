@@ -1,0 +1,1 @@
+{"diagnostics":[{"code":"WFT-PIN","message":"Owning document digest mismatch","phase":"model","recoverability":"correct-input","severity":"error"}],"interfaceVersion":"weft-compile/0.4.0","status":"blocked"}

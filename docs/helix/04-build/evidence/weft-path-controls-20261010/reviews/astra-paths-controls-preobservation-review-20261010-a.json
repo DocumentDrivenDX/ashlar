@@ -1,0 +1,250 @@
+{
+  "status": "conditional-approval-candidate-observation-only",
+  "criteriaFreeze": {
+    "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/freeze.json",
+    "sha256": "648871abf0bdd52c077017ad6ffdd374e1b93b07a72186e00faae23f1e9a1065",
+    "bytes": 3426
+  },
+  "observationFreeze": {
+    "path": "/private/tmp/weft-paths-controls-observation-20261010-a/freeze.json",
+    "sha256": "b1c58207cba7cf2f3f7a6f15c3fc5563a4c50a17c3d54a2c594141fcd72f4e1b",
+    "bytes": 758
+  },
+  "command": {
+    "path": "/private/tmp/weft-paths-controls-observation-20261010-a/command.json",
+    "sha256": "78d4e707a4319827743d3fd29219b37e935b48e5a5ef3af8e518204a1392cce5",
+    "bytes": 33235
+  },
+  "execution": {
+    "path": "/private/tmp/weft-paths-controls-observation-20261010-a/execution.json",
+    "sha256": "4cd0a9d89e3a34cb9a4f1217dfdb5a4a4d7b2a3306fff5713d4caccdfd153d0a",
+    "bytes": 604
+  },
+  "cases": [
+    {
+      "id": "candidate-opt-out",
+      "expectedCode": "WFT-CAPABILITY",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/candidate-opt-out.request.json",
+        "sha256": "1a15d83d1b0cc07f423a3a7bfd9a209e1f0d29b25aeef41120cdcd91416c4e7e",
+        "bytes": 55375
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "unknown-backend",
+      "expectedCode": "WFT-BACKEND-MISSING",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/unknown-backend.request.json",
+        "sha256": "ea3020d06f48f4ff89834413d384ebbafbebcf1a870658f9d0be82426d5b7378",
+        "bytes": 55376
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "wrong-backend-version",
+      "expectedCode": "WFT-BACKEND-VERSION",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/wrong-backend-version.request.json",
+        "sha256": "6c0fdd88cc8ccf05a066d885b4770d24e1f5b1c4c9c69bda4e3368cb9895ba18",
+        "bytes": 55359
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "wrong-profile",
+      "expectedCode": "WFT-BACKEND-VERSION",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/wrong-profile.request.json",
+        "sha256": "67ad76d2523284f34087dc1a4d2cd7eb1875f6aecfdbf3a8df314e52f86f3e03",
+        "bytes": 55365
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "unknown-envelope-member",
+      "expectedCode": "WFT-INPUT",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/unknown-envelope-member.request.json",
+        "sha256": "b62a0e14776bd4e7698bc89ce779689ef1cd1859a98119303fb03c97338b422c",
+        "bytes": 55400
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "mismatched-interface-dialect",
+      "expectedCode": "WFT-VERSION",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/mismatched-interface-dialect.request.json",
+        "sha256": "f850d2e9c120c408e9726054b5072f223a2be7a2c1f1e941ac88fda1ac91d3fb",
+        "bytes": 55374
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "binding-digest-mismatch",
+      "expectedCode": "WFT-PIN",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/binding-digest-mismatch.request.json",
+        "sha256": "743d4887e074834582d03aeb7a2266e4c4652db3e274ec2c53aadf7a8d6176ab",
+        "bytes": 55374
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "model-digest-mismatch",
+      "expectedCode": "WFT-PIN",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/model-digest-mismatch.request.json",
+        "sha256": "0ee108dbc9ea0e520b7cf4a0d241a1501ef4e56c8b57014c163f56432e3becaf",
+        "bytes": 55374
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "sql-byte-limit",
+      "expectedCode": "WFT-LIMIT",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/sql-byte-limit.request.json",
+        "sha256": "b4905a553f854248afc121486a1d798e09c160e7bfc93b4ccc043593215594a0",
+        "bytes": 120776
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "binding-byte-limit",
+      "expectedCode": "WFT-LIMIT",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/binding-byte-limit.request.json",
+        "sha256": "3e6655a76ea17a158946a06280e4ceb49d8be56956b6368b637686e66f4e7a86",
+        "bytes": 4225871
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "duplicate-envelope-member",
+      "expectedCode": "WFT-JSON-DUPLICATE",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/duplicate-envelope-member.request.json",
+        "sha256": "cbc36180fe5cba9edfbdfa387b3c38b2432a34095442bbad02a90718641309f2",
+        "bytes": 55414
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "missing-publication",
+      "expectedCode": "WFT-BINDING",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/missing-publication.request.json",
+        "sha256": "0e219a344cb724ee7097751ffb244aa6e0f74ee8c603a0c1b5a928c11eb19546",
+        "bytes": 55343
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "negative-table-version",
+      "expectedCode": "WFT-BINDING",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/negative-table-version.request.json",
+        "sha256": "96983a4111e01e32391ec54c5b7a55a14bcf52bee23da3f26d6bf0c4e77011e9",
+        "bytes": 55375
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "duplicate-table-uuid",
+      "expectedCode": "WFT-BINDING",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/duplicate-table-uuid.request.json",
+        "sha256": "6b5a66ca6413b24f40795ff7f4558987bf8bcf50a30ef91d697a7f7896950b16",
+        "bytes": 55481
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "missing-table-mapping",
+      "expectedCode": "WFT-BINDING",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/missing-table-mapping.request.json",
+        "sha256": "6153c47e7d2b54a356208e8f55b22ce09a2260fd1aa1a4878ca85c49f0bc5a3f",
+        "bytes": 55376
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "inconsistent-model-pin",
+      "expectedCode": "WFT-BINDING",
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/inconsistent-model-pin.request.json",
+        "sha256": "9aa3c92f60c7c3b673e1967f82afcefad0b68c9c1501985edee6ec7a5bf4fe64",
+        "bytes": 55334
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "fresh-binding-0",
+      "expectedCode": null,
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/fresh-binding-0.request.json",
+        "sha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face",
+        "bytes": 55381
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "fresh-binding-1",
+      "expectedCode": null,
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/fresh-binding-1.request.json",
+        "sha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987",
+        "bytes": 55381
+      },
+      "deltaExact": true
+    },
+    {
+      "id": "fresh-binding-2",
+      "expectedCode": null,
+      "request": {
+        "path": "/private/tmp/weft-paths-controls-criteria-20261010-a/fresh-binding-2.request.json",
+        "sha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4",
+        "bytes": 55385
+      },
+      "deltaExact": true
+    }
+  ],
+  "sourceReasons": {
+    "input": "compile04.rs checked_json duplicate refusal then version, closed envelope, SQL/binding byte budgets before digest/parsing, Catalog pin validation",
+    "backend": "backend03_registry.rs backend/version/target/candidate gate; binding.rs full catalog pins, nonempty publication, nonnegative distinct table vector and all record table indices",
+    "fresh": "All four aliases/UUIDs/versions and publication identity replaced; all remaining binding, original model bytes, SQL, module pins, parameter metadata preserved. Guard selection/meaning unchanged; physical references must change with binding."
+  },
+  "budgetScope": "Whitespace-only SQL65537B and binding4194305B test early size-gate priority; oversized binding deliberately also has stale digest and invalid JSON. They do not prove at-limit acceptance or valid-binding overlimit separately. Duplicate envelope has two literal04 interfaceVersion members and is never normalized before fake transport.",
+  "resourcePins": 104,
+  "sourceFiles": 1842,
+  "sourceBytes": 267288896,
+  "probes": [
+    {
+      "name": "nineteen-raw-requests-with-inert-callback",
+      "passed": true,
+      "sourceChecks": 2,
+      "callbackCalls": 19
+    },
+    {
+      "name": "primary-plus-report-failure",
+      "passed": true,
+      "sourceChecks": 2,
+      "callbackCalls": 1
+    }
+  ],
+  "ownerPersistenceTests": {
+    "count": 4,
+    "exit": 0,
+    "stderr": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.003s\n\nOK\n"
+  },
+  "conditions": "Root may execute only exact execution descriptor under exclusive grant. Require completed=true and closingCustody=true. All raw observed outputs remain unaccepted until separate schema/semantic/byte review.",
+  "limits": "No Weft executable, compiler, native engine, PG/SQLite, Bun, build or install invoked. Only hash/source reads and inert callback capture controls; selected resource pins are not full host dynamic-loader closure.",
+  "script": {
+    "path": "/private/tmp/astra-paths-controls-preobservation-review-20261010-a.py",
+    "sha256": "1112ef81066093c8df8a468c33f0640de708a227ec62973e6d9dcd47f8358bab",
+    "bytes": 12130
+  }
+}

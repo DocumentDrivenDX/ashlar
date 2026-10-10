@@ -1,0 +1,28 @@
+{
+  "decision": "Approved exact selected archive copy and stated finite scope",
+  "manifest": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/weft-path-controls-20261010/manifest.json",
+    "sha256": "36df951b43bb30680a4191455b90d7b24b6d77299e34bb754f0a87016b3a4ac0",
+    "bytes": 39593
+  },
+  "entries": 89,
+  "filesIncludingManifest": 90,
+  "storedBytesExcludingManifest": 2585156,
+  "decodedBytes": 11024152,
+  "singleMemberGzipEntries": 2,
+  "nestedFrozenDescriptorsMatched": 24,
+  "checks": [
+    "Every archived descriptor path, byte count, SHA and original byte equality verified.",
+    "Complete actual file set equals manifest plus manifest itself.",
+    "Each gzip member is bounded, complete and single-member without trailing data.",
+    "Criteria and capture nested freezes retain every exact declared file.",
+    "Original candidate observation is unchanged; separate nineteen-case acceptance receipt is exact."
+  ],
+  "scope": "Exact selected19 control criteria, candidate observations and independent acceptance; gzip preserves decoded exact bytes. No fullcorpus replay, valid-at-limit boundary, native or distribution-index authority. External source/runtime references are hash-bound, not bundled. Original candidate status remains unchanged; additive acceptance is separate.",
+  "notEstablished": [
+    "Full fresh compiler corpus replay",
+    "Native query or installed host qualification",
+    "Distribution-index admission",
+    "External source/runtime byte availability after original temporary paths are removed"
+  ]
+}

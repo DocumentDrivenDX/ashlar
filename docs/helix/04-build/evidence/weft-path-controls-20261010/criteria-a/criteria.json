@@ -1,0 +1,568 @@
+{
+  "scope": "19 pre-observation Paths04 request/semantic criteria; exact expected response bytes require later independent candidate review",
+  "sourceCommit": "530ae3511a4a50364d3d7e26195d3883952601df",
+  "baseline": {
+    "test": "original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+    "sql": "SELECT l.id, RELATED_PATHS(l.\"order_lines.product_id\", \"products.supplier_id\", 2) AS paths FROM order_lines l ORDER BY l.id LIMIT 1",
+    "originalRequestSha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2"
+  },
+  "adaptations": [
+    "Initial04 namespace and selected Paths backend/profile are preserved.",
+    "Dialect-mismatch negative uses03 against04 (historical old control02 would now be equal to neither).",
+    "Duplicate raw envelope carries04 twice; no JSON parse/reserialization of that malformed request.",
+    "Fresh bindings replace every selected table alias/UUID/version, preserving table-index mappings and original source/model/path metadata.",
+    "No historical scalar01 response is used as an expected Paths response."
+  ],
+  "sources": [
+    {
+      "path": "/private/tmp/weft-path-lowering-artifacts-20261010-b.jsonl",
+      "sha256": "376c29438acc7fc9fd150716f2ff5845b391a1818ae2c029d803a1f134f61ca9",
+      "bytes": 2591912
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-distribution-d2d/scripts/distribution/check-cli-controls.py",
+      "sha256": "01dbe70e2428741a007b12e218da9c39fcef542fcae59e68e36fbb4cd0724854",
+      "bytes": 7388
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-distribution-d2d/scripts/distribution/check-paths-cli.py",
+      "sha256": "2cad04baacb843f22306d0ca1554bd375e70d77e3be0bc85123be56eb923c088",
+      "bytes": 23087
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-distribution-d2d/crates/weft-core/src/compile04.rs",
+      "sha256": "2c82da3f60c20776284ff97b4844e976edd4b8c12d5be016ec4a323ebc7196ac",
+      "bytes": 17708
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-distribution-d2d/crates/weft-databricks/src/paths.rs",
+      "sha256": "3c6ebc5f201c80256109a55e7acf9b9c1c31a045650d5cecc5e32cd096b98b6a",
+      "bytes": 7992
+    }
+  ],
+  "cases": [
+    {
+      "id": "candidate-opt-out",
+      "role": "invalid",
+      "request": {
+        "path": "candidate-opt-out.request.json",
+        "sha256": "1a15d83d1b0cc07f423a3a7bfd9a209e1f0d29b25aeef41120cdcd91416c4e7e",
+        "bytes": 55375
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-CAPABILITY",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "unknown-backend",
+      "role": "invalid",
+      "request": {
+        "path": "unknown-backend.request.json",
+        "sha256": "ea3020d06f48f4ff89834413d384ebbafbebcf1a870658f9d0be82426d5b7378",
+        "bytes": 55376
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-BACKEND-MISSING",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "wrong-backend-version",
+      "role": "invalid",
+      "request": {
+        "path": "wrong-backend-version.request.json",
+        "sha256": "6c0fdd88cc8ccf05a066d885b4770d24e1f5b1c4c9c69bda4e3368cb9895ba18",
+        "bytes": 55359
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-BACKEND-VERSION",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "wrong-profile",
+      "role": "invalid",
+      "request": {
+        "path": "wrong-profile.request.json",
+        "sha256": "67ad76d2523284f34087dc1a4d2cd7eb1875f6aecfdbf3a8df314e52f86f3e03",
+        "bytes": 55365
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-BACKEND-VERSION",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "unknown-envelope-member",
+      "role": "invalid",
+      "request": {
+        "path": "unknown-envelope-member.request.json",
+        "sha256": "b62a0e14776bd4e7698bc89ce779689ef1cd1859a98119303fb03c97338b422c",
+        "bytes": 55400
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-INPUT",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "mismatched-interface-dialect",
+      "role": "invalid",
+      "request": {
+        "path": "mismatched-interface-dialect.request.json",
+        "sha256": "f850d2e9c120c408e9726054b5072f223a2be7a2c1f1e941ac88fda1ac91d3fb",
+        "bytes": 55374
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-VERSION",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "binding-digest-mismatch",
+      "role": "invalid",
+      "request": {
+        "path": "binding-digest-mismatch.request.json",
+        "sha256": "743d4887e074834582d03aeb7a2266e4c4652db3e274ec2c53aadf7a8d6176ab",
+        "bytes": 55374
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-PIN",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "model-digest-mismatch",
+      "role": "invalid",
+      "request": {
+        "path": "model-digest-mismatch.request.json",
+        "sha256": "0ee108dbc9ea0e520b7cf4a0d241a1501ef4e56c8b57014c163f56432e3becaf",
+        "bytes": 55374
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-PIN",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "sql-byte-limit",
+      "role": "invalid",
+      "request": {
+        "path": "sql-byte-limit.request.json",
+        "sha256": "b4905a553f854248afc121486a1d798e09c160e7bfc93b4ccc043593215594a0",
+        "bytes": 120776
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-LIMIT",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "binding-byte-limit",
+      "role": "invalid",
+      "request": {
+        "path": "binding-byte-limit.request.json",
+        "sha256": "3e6655a76ea17a158946a06280e4ceb49d8be56956b6368b637686e66f4e7a86",
+        "bytes": 4225871
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-LIMIT",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "duplicate-envelope-member",
+      "role": "invalid",
+      "request": {
+        "path": "duplicate-envelope-member.request.json",
+        "sha256": "cbc36180fe5cba9edfbdfa387b3c38b2432a34095442bbad02a90718641309f2",
+        "bytes": 55414
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-JSON-DUPLICATE",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "missing-publication",
+      "role": "invalid",
+      "request": {
+        "path": "missing-publication.request.json",
+        "sha256": "0e219a344cb724ee7097751ffb244aa6e0f74ee8c603a0c1b5a928c11eb19546",
+        "bytes": 55343
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-BINDING",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "negative-table-version",
+      "role": "invalid",
+      "request": {
+        "path": "negative-table-version.request.json",
+        "sha256": "96983a4111e01e32391ec54c5b7a55a14bcf52bee23da3f26d6bf0c4e77011e9",
+        "bytes": 55375
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-BINDING",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "duplicate-table-uuid",
+      "role": "invalid",
+      "request": {
+        "path": "duplicate-table-uuid.request.json",
+        "sha256": "6b5a66ca6413b24f40795ff7f4558987bf8bcf50a30ef91d697a7f7896950b16",
+        "bytes": 55481
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-BINDING",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "missing-table-mapping",
+      "role": "invalid",
+      "request": {
+        "path": "missing-table-mapping.request.json",
+        "sha256": "6153c47e7d2b54a356208e8f55b22ce09a2260fd1aa1a4878ca85c49f0bc5a3f",
+        "bytes": 55376
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-BINDING",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "inconsistent-model-pin",
+      "role": "invalid",
+      "request": {
+        "path": "inconsistent-model-pin.request.json",
+        "sha256": "9aa3c92f60c7c3b673e1967f82afcefad0b68c9c1501985edee6ec7a5bf4fe64",
+        "bytes": 55334
+      },
+      "expected": {
+        "status": "blocked",
+        "diagnosticCode": "WFT-BINDING",
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission"
+      }
+    },
+    {
+      "id": "fresh-binding-0",
+      "role": "valid",
+      "request": {
+        "path": "fresh-binding-0.request.json",
+        "sha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face",
+        "bytes": 55381
+      },
+      "expected": {
+        "status": "compiled",
+        "diagnosticCode": null,
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission",
+        "semantic": {
+          "unchanged": [
+            "all original modelPins",
+            "complete logicalPlan",
+            "ordered columns/representation/lineage",
+            "parameters and raw literal tokens",
+            "selected capabilities and guards"
+          ],
+          "bindingSha256": "cdd2649fee7bb5eaa5197bdfe1cd65c276d959afb297d082791f5f5e79d53c6b",
+          "publication": {
+            "id": "fresh-paths-publication-0",
+            "manifestUuid": "df76d088-a3c3-5e8f-8b85-fcd9cb115a03",
+            "tables": [
+              {
+                "name": [
+                  "local_fixture",
+                  "new_distribution",
+                  "table_0_0"
+                ],
+                "uuid": "ae1fa64e-7026-5a49-bcc4-554715bd74cf",
+                "version": 0
+              },
+              {
+                "name": [
+                  "local_fixture",
+                  "new_distribution",
+                  "table_0_1"
+                ],
+                "uuid": "86c42e00-1c8a-54eb-9320-dfcc42cdfdb3",
+                "version": 0
+              },
+              {
+                "name": [
+                  "local_fixture",
+                  "new_distribution",
+                  "table_0_2"
+                ],
+                "uuid": "caac2516-9876-5e86-bd60-cffad4904cab",
+                "version": 0
+              },
+              {
+                "name": [
+                  "local_fixture",
+                  "new_distribution",
+                  "table_0_3"
+                ],
+                "uuid": "6a3fadb8-d598-5576-8771-e99d782e8885",
+                "version": 0
+              }
+            ]
+          },
+          "nativeSQL": "Every selected original table uses corresponding new exact alias/UUID/version; all owning guards use those same references. Source and path identity/key/edge metadata are unchanged.",
+          "pathRoles": "Original two-hop collection descriptor/bound/ordering and mandatory per-hop native edgeSchemas, occurrenceIntegrity stay selected; no path count guard is introduced."
+        }
+      }
+    },
+    {
+      "id": "fresh-binding-1",
+      "role": "valid",
+      "request": {
+        "path": "fresh-binding-1.request.json",
+        "sha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987",
+        "bytes": 55381
+      },
+      "expected": {
+        "status": "compiled",
+        "diagnosticCode": null,
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission",
+        "semantic": {
+          "unchanged": [
+            "all original modelPins",
+            "complete logicalPlan",
+            "ordered columns/representation/lineage",
+            "parameters and raw literal tokens",
+            "selected capabilities and guards"
+          ],
+          "bindingSha256": "af13375b7d873a9f1240ae58a21d6bae7b34411a8b4e13d0e497ffe7cd8dd217",
+          "publication": {
+            "id": "fresh-paths-publication-1",
+            "manifestUuid": "8cfdb80e-b1d3-58df-b13f-70c20473d810",
+            "tables": [
+              {
+                "name": [
+                  "local_fixture",
+                  "new_distribution",
+                  "table_1_0"
+                ],
+                "uuid": "cfd72202-4bfa-5f24-9f32-0afb9496799e",
+                "version": 7
+              },
+              {
+                "name": [
+                  "local_fixture",
+                  "new_distribution",
+                  "table_1_1"
+                ],
+                "uuid": "8302c300-3d02-579c-9a73-6a9a996297ff",
+                "version": 7
+              },
+              {
+                "name": [
+                  "local_fixture",
+                  "new_distribution",
+                  "table_1_2"
+                ],
+                "uuid": "18bfa071-d63b-52d4-b760-1f67642dbd9e",
+                "version": 7
+              },
+              {
+                "name": [
+                  "local_fixture",
+                  "new_distribution",
+                  "table_1_3"
+                ],
+                "uuid": "9d241787-768a-5f3a-b365-98e2dd060480",
+                "version": 7
+              }
+            ]
+          },
+          "nativeSQL": "Every selected original table uses corresponding new exact alias/UUID/version; all owning guards use those same references. Source and path identity/key/edge metadata are unchanged.",
+          "pathRoles": "Original two-hop collection descriptor/bound/ordering and mandatory per-hop native edgeSchemas, occurrenceIntegrity stay selected; no path count guard is introduced."
+        }
+      }
+    },
+    {
+      "id": "fresh-binding-2",
+      "role": "valid",
+      "request": {
+        "path": "fresh-binding-2.request.json",
+        "sha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4",
+        "bytes": 55385
+      },
+      "expected": {
+        "status": "compiled",
+        "diagnosticCode": null,
+        "transport": {
+          "exit": 0,
+          "stderr": "empty",
+          "stdout": "one complete JSON object followed by one LF"
+        },
+        "authority": "contract/source-derived criteria before candidate observation; no native/index admission",
+        "semantic": {
+          "unchanged": [
+            "all original modelPins",
+            "complete logicalPlan",
+            "ordered columns/representation/lineage",
+            "parameters and raw literal tokens",
+            "selected capabilities and guards"
+          ],
+          "bindingSha256": "3d3c12c0ab170593bba93077253e183ec195ce6dcbe18061cc3e0b0f0a2a3dc1",
+          "publication": {
+            "id": "fresh-paths-publication-2",
+            "manifestUuid": "7d34f892-31fb-5b0a-92d3-cc5cc62e939f",
+            "tables": [
+              {
+                "name": [
+                  "local_fixture",
+                  "new_distribution",
+                  "table_2_0"
+                ],
+                "uuid": "48717840-ffb4-568e-91cb-572568f572ab",
+                "version": 57
+              },
+              {
+                "name": [
+                  "local_fixture",
+                  "new_distribution",
+                  "table_2_1"
+                ],
+                "uuid": "157c2f11-36cd-5772-8d21-1c9c31cbba87",
+                "version": 57
+              },
+              {
+                "name": [
+                  "local_fixture",
+                  "new_distribution",
+                  "table_2_2"
+                ],
+                "uuid": "e8d98a95-bad5-5ca1-89e6-163164ef139f",
+                "version": 57
+              },
+              {
+                "name": [
+                  "local_fixture",
+                  "new_distribution",
+                  "table_2_3"
+                ],
+                "uuid": "de282eb0-fa2d-543b-a87c-a4d2597daefe",
+                "version": 57
+              }
+            ]
+          },
+          "nativeSQL": "Every selected original table uses corresponding new exact alias/UUID/version; all owning guards use those same references. Source and path identity/key/edge metadata are unchanged.",
+          "pathRoles": "Original two-hop collection descriptor/bound/ordering and mandatory per-hop native edgeSchemas, occurrenceIntegrity stay selected; no path count guard is introduced."
+        }
+      }
+    }
+  ]
+}

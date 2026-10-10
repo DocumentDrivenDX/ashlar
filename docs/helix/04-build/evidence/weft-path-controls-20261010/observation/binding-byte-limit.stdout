@@ -1,0 +1,1 @@
+{"diagnostics":[{"code":"WFT-LIMIT","message":"Binding exceeds four MiB","phase":"input","recoverability":"correct-input","severity":"error"}],"interfaceVersion":"weft-compile/0.4.0","status":"blocked"}

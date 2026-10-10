@@ -1,0 +1,106 @@
+{
+  "files": [
+    {
+      "path": "binding-byte-limit.request.json",
+      "sha256": "3e6655a76ea17a158946a06280e4ceb49d8be56956b6368b637686e66f4e7a86",
+      "bytes": 4225871
+    },
+    {
+      "path": "binding-digest-mismatch.request.json",
+      "sha256": "743d4887e074834582d03aeb7a2266e4c4652db3e274ec2c53aadf7a8d6176ab",
+      "bytes": 55374
+    },
+    {
+      "path": "candidate-opt-out.request.json",
+      "sha256": "1a15d83d1b0cc07f423a3a7bfd9a209e1f0d29b25aeef41120cdcd91416c4e7e",
+      "bytes": 55375
+    },
+    {
+      "path": "criteria.json",
+      "sha256": "20f28fb0d58ee7f3313f7b3bf89819cd227b5d829df7b3f1d897a16187e8b467",
+      "bytes": 20241
+    },
+    {
+      "path": "duplicate-envelope-member.request.json",
+      "sha256": "cbc36180fe5cba9edfbdfa387b3c38b2432a34095442bbad02a90718641309f2",
+      "bytes": 55414
+    },
+    {
+      "path": "duplicate-table-uuid.request.json",
+      "sha256": "6b5a66ca6413b24f40795ff7f4558987bf8bcf50a30ef91d697a7f7896950b16",
+      "bytes": 55481
+    },
+    {
+      "path": "fresh-binding-0.request.json",
+      "sha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face",
+      "bytes": 55381
+    },
+    {
+      "path": "fresh-binding-1.request.json",
+      "sha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987",
+      "bytes": 55381
+    },
+    {
+      "path": "fresh-binding-2.request.json",
+      "sha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4",
+      "bytes": 55385
+    },
+    {
+      "path": "inconsistent-model-pin.request.json",
+      "sha256": "9aa3c92f60c7c3b673e1967f82afcefad0b68c9c1501985edee6ec7a5bf4fe64",
+      "bytes": 55334
+    },
+    {
+      "path": "mismatched-interface-dialect.request.json",
+      "sha256": "f850d2e9c120c408e9726054b5072f223a2be7a2c1f1e941ac88fda1ac91d3fb",
+      "bytes": 55374
+    },
+    {
+      "path": "missing-publication.request.json",
+      "sha256": "0e219a344cb724ee7097751ffb244aa6e0f74ee8c603a0c1b5a928c11eb19546",
+      "bytes": 55343
+    },
+    {
+      "path": "missing-table-mapping.request.json",
+      "sha256": "6153c47e7d2b54a356208e8f55b22ce09a2260fd1aa1a4878ca85c49f0bc5a3f",
+      "bytes": 55376
+    },
+    {
+      "path": "model-digest-mismatch.request.json",
+      "sha256": "0ee108dbc9ea0e520b7cf4a0d241a1501ef4e56c8b57014c163f56432e3becaf",
+      "bytes": 55374
+    },
+    {
+      "path": "negative-table-version.request.json",
+      "sha256": "96983a4111e01e32391ec54c5b7a55a14bcf52bee23da3f26d6bf0c4e77011e9",
+      "bytes": 55375
+    },
+    {
+      "path": "sql-byte-limit.request.json",
+      "sha256": "b4905a553f854248afc121486a1d798e09c160e7bfc93b4ccc043593215594a0",
+      "bytes": 120776
+    },
+    {
+      "path": "unknown-backend.request.json",
+      "sha256": "ea3020d06f48f4ff89834413d384ebbafbebcf1a870658f9d0be82426d5b7378",
+      "bytes": 55376
+    },
+    {
+      "path": "unknown-envelope-member.request.json",
+      "sha256": "b62a0e14776bd4e7698bc89ce779689ef1cd1859a98119303fb03c97338b422c",
+      "bytes": 55400
+    },
+    {
+      "path": "wrong-backend-version.request.json",
+      "sha256": "6c0fdd88cc8ccf05a066d885b4770d24e1f5b1c4c9c69bda4e3368cb9895ba18",
+      "bytes": 55359
+    },
+    {
+      "path": "wrong-profile.request.json",
+      "sha256": "67ad76d2523284f34087dc1a4d2cd7eb1875f6aecfdbf3a8df314e52f86f3e03",
+      "bytes": 55365
+    }
+  ],
+  "compilerExecuted": false,
+  "nativeExecuted": false
+}

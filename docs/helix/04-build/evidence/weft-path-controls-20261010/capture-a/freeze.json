@@ -1,0 +1,27 @@
+{
+  "files": [
+    {
+      "path": "capture.py",
+      "sha256": "9bfd40c4fc21edf7e1e128513dda4772f9a187391b51c016810e472d508a48e9",
+      "bytes": 2792
+    },
+    {
+      "path": "command.json",
+      "sha256": "78d4e707a4319827743d3fd29219b37e935b48e5a5ef3af8e518204a1392cce5",
+      "bytes": 33235
+    },
+    {
+      "path": "execution.json",
+      "sha256": "4cd0a9d89e3a34cb9a4f1217dfdb5a4a4d7b2a3306fff5713d4caccdfd153d0a",
+      "bytes": 604
+    },
+    {
+      "path": "test_capture.py",
+      "sha256": "fffebdd385faf76f3756433faed622ae7ab17f063332e5523f299f6958d8ddfb",
+      "bytes": 1585
+    }
+  ],
+  "compilerExecuted": false,
+  "nativeExecuted": false,
+  "priorPattern": "reviewed nine capture B; only raw-control count/inputs/output changes"
+}
