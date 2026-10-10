@@ -129,8 +129,8 @@ def raw_projection(profile,kind,language,selected=None):
         query='MATCH '+pattern+' RETURN '+','.join('n.'+({'id':'carrier_id','graph_id':'carrier_key'}.get(n,n))+' AS '+n for n in names)+',id(n) AS native_id'
         if kind=='edge':query+=',id(s) AS native_src,id(t) AS native_dst'
     elif language=='Gremlin':
-        query='g.'+('V'if kind=='node'else'E')+"().hasLabel('"+label+"').project("+','.join(repr(n)for n in names+['native_id']+(['native_src','native_dst']if kind=='edge'else[]))+')'
-        query+=''.join(".by(__.coalesce(__.values('"+({'id':'carrier_id','graph_id':'carrier_key'}.get(n,n))+"'),__.constant(null)))"for n in names)+'.by(__.id())'
+        native_names=list(dict.fromkeys({'id':'carrier_id','graph_id':'carrier_key'}.get(n,n)for n in names))
+        query='g.'+('V'if kind=='node'else'E')+"().hasLabel('"+label+"').project('cells','native_id'"+(",'native_src','native_dst'"if kind=='edge'else'')+").by(__.valueMap("+','.join(repr(n)for n in native_names)+")).by(__.id())"
         if kind=='edge':query+='.by(__.outV().id()).by(__.inV().id())'
     else:raise ValueError('Closed protocol required')
     return query,rows,names,label
@@ -148,27 +148,71 @@ def carrier_chunks(profile,kind,language):
     return [identity+remaining[i:i+12]for i in range(0,len(remaining),12)]
 
 
+def native_map_cells(row,kind,names,expected):
+    """TinkerPop3.7.3 valueMap codec: vertex lists, edge scalars.
+
+    https://tinkerpop.apache.org/docs/3.7.3/reference/#valuemap-step
+    PuppyGraph1.13 behavior remains actual native qualification, not inferred.
+    Raw property maps stay retained; missing physical-null cells are allowed
+    only by exact independently admitted source-cell correspondence.
+    """
+    mapping={n:{'id':'carrier_id','graph_id':'carrier_key'}.get(n,n)for n in names}
+    required={'cells','native_id'}|({'native_src','native_dst'}if kind=='edge'else set())
+    if type(row)is not dict or set(row)!=required or type(row['cells'])is not dict or not set(row['cells'])<=set(mapping.values()):raise ValueError('Closed role-specific native property map required')
+    values=row['cells']
+    def scalar(key):
+        if key not in values:return None
+        value=values[key]
+        if kind=='node':
+            if type(value)is not list or len(value)>1:raise ValueError('Node zero/one property list required')
+            return value[0]if value else None
+        if type(value)is list:raise ValueError('Edge scalar property required')
+        return value
+    identity=scalar('carrier_key')
+    source=next((r for r in expected if r['graph_id']==identity),None)
+    if source is None:raise ValueError('Exact independently original carrier key required')
+    decoded={}
+    for n,key in mapping.items():
+        value=scalar(key);original=source[n]
+        if value is None:
+            if original is not None:raise ValueError('Missing non-null original property refuses')
+        elif type(original)is int:
+            allowed=type(value)is int
+            if not allowed:
+                try:
+                    from gremlin_python.statics import long as graphson_long
+                    allowed=type(value)is graphson_long
+                except ImportError:allowed=False
+            if not allowed or not -(2**63)<=value<2**63:raise ValueError('Exact native signed64 scalar or trusted GraphSON long required')
+            value=int(value)
+        elif type(original)is not str or type(value)is not str:raise ValueError('Exact native String scalar type required')
+        decoded[n]=value
+    return decoded
+
+
 def carrier_chunk_check(profile,kind,language,query,selected):
     from run_graph_release_graphframes import row_bag
     from check_puppygraph_releases import native_text
     script,expected,names,label=raw_projection(profile,kind,language,selected);raw=staged_query(query,{'pack':profile['pack'],'stage':'carrier','kind':kind,'columns':names},script,{})
     allowed=set(names)|{'native_id'}|({'native_src','native_dst'}if kind=='edge'else set());actual=[]
     for row in raw:
-        if type(row)is not dict or set(row)!=allowed:raise ValueError('Complete closed original native carrier required')
-        cells={n:row[n]for n in names}
+        if language=='Gremlin':cells=native_map_cells(row,kind,names,expected)
+        else:
+            if type(row)is not dict or set(row)!=allowed:raise ValueError('Complete closed original native carrier required')
+            cells={n:row[n]for n in names}
         if native_text(row['native_id'])!=label+'['+cells['graph_id']+']':raise ValueError('Exact original native identity required')
         if kind=='edge':
             node='Scenario'+profile['pack'].title()+'Node'
             if native_text(row['native_src'])!=node+'['+cells['src']+']'or native_text(row['native_dst'])!=node+'['+cells['dst']+']':raise ValueError('Exact original native incidence required')
         actual.append(cells)
     if row_bag(actual)!=row_bag([{n:r[n]for n in names}for r in expected]):raise ValueError('Complete original native scalar/presence/raw bag differs')
-    return raw
+    return {'original_native_rows':raw,'decoded_projected_rows':actual}if language=='Gremlin'else raw
 
 
 def carrier_check(profile,kind,language,query):
     chunks=carrier_chunks(profile,kind,language)
     if language=='Cypher':return carrier_chunk_check(profile,kind,language,query,chunks[0])
-    return {'chunks':[{'columns':names,'original_native_rows':carrier_chunk_check(profile,kind,language,query,names)}for names in chunks]}
+    return {'chunks':[dict(columns=names,**carrier_chunk_check(profile,kind,language,query,names))for names in chunks]}
 
 
 def held(prepared,language,query,observe,source_observe):

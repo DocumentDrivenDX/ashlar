@@ -65,9 +65,9 @@ class NativeScenarioQueryTests(unittest.TestCase):
                 self.assertTrue(all({'id','graph_id','original_key','original_type'}<=set(c)for c in chunks))
                 scripts={}
                 for cols in chunks:
-                    script,rows,_,_=raw_projection(p,kind,'Gremlin',cols);scripts[script]=[dict({n:r[n]for n in cols},native_id=label+'['+r['graph_id']+']',**({'native_src':'Scenario'+p['pack'].title()+'Node['+r['src']+']','native_dst':'Scenario'+p['pack'].title()+'Node['+r['dst']+']'}if kind=='edge'else {}))for r in rows]
+                    script,rows,_,_=raw_projection(p,kind,'Gremlin',cols);scripts[script]=[dict(cells={{'id':'carrier_id','graph_id':'carrier_key'}.get(n,n):([r[n]]if kind=='node'else r[n])for n in cols if r[n]is not None},native_id=label+'['+r['graph_id']+']',**({'native_src':'Scenario'+p['pack'].title()+'Node['+r['src']+']','native_dst':'Scenario'+p['pack'].title()+'Node['+r['dst']+']'}if kind=='edge'else {}))for r in rows]
                 actual=carrier_check(p,kind,'Gremlin',lambda s,b:scripts[s]);self.assertEqual(len(actual['chunks']),len(chunks))
-                scripts[next(iter(scripts))][0]['props_json']='changed'if 'props_json'in chunks[0]else None
+                scripts[next(iter(scripts))][0]['cells']['unexpected']='changed'
                 with self.assertRaises(ValueError):carrier_check(p,kind,'Gremlin',lambda s,b:scripts[s])
     def test_join_predicates_apply_before_next_scan(self):
         p=self.profiles()[0];script,_,_=query_plan(p,'specialists','Gremlin')
@@ -84,3 +84,38 @@ class NativeScenarioQueryTests(unittest.TestCase):
             q=journal_query(fail,lambda:{'six':'unchanged'},path)
             with self.assertRaisesRegex(RuntimeError,'native refusal'):staged_query(q,{'stage':'carrier','columns':['a']},'original-script',{'ashlarValue':'original'})
             rows=[json.loads(x)for x in path.read_text().splitlines()];self.assertEqual([r['outcome']for r in rows],['submitted-before-native-query','failed']);self.assertEqual(rows[1]['script'],'original-script');self.assertEqual(rows[1]['stage']['columns'],['a'])
+    def test_role_specific_map_null_scalar_and_loss_refusals(self):
+        from check_pack_scenario_puppygraph import native_map_cells
+        import copy
+        expected=[{'graph_id':'g','original_key':'key','empty':'','zero':0,'null':None}];names=list(expected[0])
+        node={'cells':{'carrier_key':['g'],'original_key':['key'],'empty':[''],'zero':[0]},'native_id':'native'}
+        edge={'cells':{'carrier_key':'g','original_key':'key','empty':'','zero':0},'native_id':'native','native_src':'s','native_dst':'t'}
+        for kind,raw in [('node',node),('edge',edge)]:
+            self.assertEqual(native_map_cells(raw,kind,names,expected),expected[0])
+            for key,value in [('zero',True),('zero',0.0),('empty',False),('unknown','x')]:
+                bad=copy.deepcopy(raw);bad['cells'][key]=[value]if kind=='node'else value
+                with self.assertRaises(ValueError):native_map_cells(bad,kind,names,expected)
+            bad=copy.deepcopy(raw);del bad['cells']['empty']
+            with self.assertRaises(ValueError):native_map_cells(bad,kind,names,expected)
+        for value in ([],['key','key'],'key'):
+            bad=copy.deepcopy(node);bad['cells']['original_key']=value
+            with self.assertRaises(ValueError):native_map_cells(bad,'node',names,expected)
+        bad=copy.deepcopy(node);bad['cells']['null']=[];self.assertEqual(native_map_cells(bad,'node',names,expected)['null'],None)
+        bad=copy.deepcopy(edge);bad['cells']['zero']=[0]
+        with self.assertRaises(ValueError):native_map_cells(bad,'edge',names,expected)
+    def test_value_map_native_edge_endpoint_refusal(self):
+        from check_pack_scenario_puppygraph import carrier_chunk_check,raw_projection
+        p=self.profiles()[0];_,rows,names,label=raw_projection(p,'edge','Gremlin');raw=[{'cells':{{'id':'carrier_id','graph_id':'carrier_key'}.get(n,n):r[n]for n in names if r[n]is not None},'native_id':label+'['+r['graph_id']+']','native_src':'wrong','native_dst':'wrong'}for r in rows]
+        with self.assertRaisesRegex(ValueError,'incidence'):carrier_chunk_check(p,'edge','Gremlin',lambda s,b:raw,names)
+    def test_actual_graphson_int64_wrapper_and_other_subclasses(self):
+        try:
+            from gremlin_python.structure.io.graphsonV3d0 import GraphSONReader
+        except ImportError:self.skipTest('Qualified optional Gremlin3.7.3 runtime required')
+        from check_pack_scenario_puppygraph import native_map_cells
+        expected=[{'graph_id':'g','count':0}];value=GraphSONReader().to_object({'@type':'g:Int64','@value':0})
+        raw={'cells':{'carrier_key':'g','count':value},'native_id':'native','native_src':'s','native_dst':'t'}
+        cells=native_map_cells(raw,'edge',['graph_id','count'],expected);self.assertEqual(cells['count'],0);self.assertIs(type(cells['count']),int);self.assertIs(raw['cells']['count'],value)
+        class FakeInt(int):pass
+        for bad in (FakeInt(0),True,0.0,GraphSONReader().to_object({'@type':'g:Int64','@value':2**63})):
+            raw['cells']['count']=bad
+            with self.assertRaises(ValueError):native_map_cells(raw,'edge',['graph_id','count'],expected)
