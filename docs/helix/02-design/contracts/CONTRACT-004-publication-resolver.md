@@ -483,6 +483,21 @@ guards. A final successful result MUST wait for native transport, source, lease 
 owned runtime cleanup under the lifecycle contract above. This private local
 profile does not grant Unity Catalog or remote-source admission.
 
+Reusable finite-pack admission MUST select an immutable, closed definition of
+the original pack, model and graph digests, declared UMF version, source namespace,
+complete scenario inventory and independent source/result oracles. It MUST retain
+lexical integers and decimals, absent versus present-null values, qualified Field
+identities and every relationship occurrence and endpoint. The selected public
+UMF producer MUST validate the original supplied dataset; a definition, callback,
+receipt digest or development carrier binding MUST NOT grant source or native
+authority. Current source admission and original file/producer custody MUST be
+renewed independently. Unknown definitions and executable equality on caller
+carriers MUST refuse before effects. Shared installed owners MUST support the
+original supply-chain, archaeology and ecology profiles without importing checkout
+tools or silently upgrading their UMF declarations. Each profile requires its
+entire original scenario inventory and complete independent bags; another pack's
+successful execution cannot establish its support.
+
 The selected host MUST refuse unknown capabilities or owning obligations and
 preserve the original SQL, full module documents, binding text and ordered
 parameter values. Its independent oracle MUST count original source occurrence
