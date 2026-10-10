@@ -1,0 +1,116 @@
+{
+  "profile": "ashlar-count-star-host-independent-review/0.1",
+  "reviewer": "root independent of weft_package_next author",
+  "approved": true,
+  "freezeSha256": "3dc4c58f16a318767f7ebd4da8d42fcee9a6cd6c1d4f444b67a77a94917678af",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_admission.py",
+      "bytes": 37241,
+      "sha256": "d367321d4e8f7407b2ade8261802e3552155cffe5702ebefc8ff3c0d26f45925"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_configuration.py",
+      "bytes": 1558,
+      "sha256": "e47b661307ec9be5dd0211937ecf9c9e32b52ab2f3dc12eed68e827db936b647"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_execution.py",
+      "bytes": 23096,
+      "sha256": "0b061f4e244ac314e5feb931628da1e420bad65b11da639ca6ec59d54d0e0a5e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_oracle.py",
+      "bytes": 4301,
+      "sha256": "31759cc92065f8334da8f87b755a09ee1d9d4fd8b79dbbebd8a9f9633ca8e3e4"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_query.py",
+      "bytes": 23496,
+      "sha256": "9d6c38012286b21fd13fec965c486c43afc7126de2f0c462c9ba16433d1655c9"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/count_star_schema.py",
+      "bytes": 3086,
+      "sha256": "443f9bdb3d85334944940c04690082f067641e7333f6fa4e240e819ba5b59ca9"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/cli.py",
+      "bytes": 18403,
+      "sha256": "9571abc89814a3637326ae7c8c0a22ea7caadac955ca4117dd8eeb3caf352d86"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/__init__.py",
+      "bytes": 473,
+      "sha256": "c6adb4df03b649b9af8108eed8fa136502456ec00645d7624bba4beb715d25af"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md",
+      "bytes": 33097,
+      "sha256": "ddebd07c35cfd249c5ac7ce844d6f2c252fb8ad04ccb93765b0725c710655391"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "bytes": 4484,
+      "sha256": "01dcf5de18d985f3abc320befdbfdab233c6e519436656e8f303ac187c3007d3"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_count_star_admission.py",
+      "bytes": 3390,
+      "sha256": "b354e1a5cb037f5e3cdac8ef763f5f01b54f83a0a87b2ed3e79e87c9444d44fb"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_count_star_cli.py",
+      "bytes": 2432,
+      "sha256": "26d91677f0bf45970e60c63bb17b144519d266ef7542ce318a1e186debdfd036"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_count_star_execution.py",
+      "bytes": 3043,
+      "sha256": "410e7ab131761daee433410ea898191390c172bf0e831ed182238d980dc03d17"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_count_star_host_wiring.py",
+      "bytes": 1662,
+      "sha256": "ec4ea3215e7a3a3ac82afc039dbec8634d070f168eaf6d6c880c164e867bf26c"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_count_star_lifecycle.py",
+      "bytes": 3465,
+      "sha256": "cc10a165a2f3fcac1b5041ad95966c84f7c4696a0ca6e5c7d269085d739ee333"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_count_star_oracle.py",
+      "bytes": 1838,
+      "sha256": "e15482778cdca2df5c3c953e37a40a54c6e6cbcf613b4602b966ade569251858"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/fixtures/weft_count_star_admission.json.zlib",
+      "bytes": 60486,
+      "sha256": "ba8eaaaabd802465b4641df688d71e8f9cfcae33f1f2ff076cb5020ddf323669"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/fixtures/weft_count_star_admission.json.provenance.json",
+      "bytes": 3207,
+      "sha256": "a8917c9a31e92b1faf0bb6a26805350e596c00144fc548925d2497cb87521743"
+    }
+  ],
+  "checks": {
+    "focused23": "019bb9/432e35 PASS",
+    "historical12": "04e739 PASS",
+    "moduleBoundaries": "39171f PASS",
+    "diffCheck": "39733e PASS",
+    "fixtureOriginal11": "exact request/response byte comparison against retained full80 receipt PASS"
+  },
+  "failedCheck": {
+    "chunk": "8bdf97",
+    "reason": "reviewer used nonexistent test_host_paths_profiles name; corrected to test_host_paths_profile_wiring; no product failure"
+  },
+  "review": [
+    "Selected041 metadata and schemas; complete aggregate candidate and occurrence capacity before HAVING; unknown capability and obligation refusal",
+    "Source occurrence multiplicity oracle with positive original-source HAVING cases; original ten intents plus four counts",
+    "Public CLI exact-byte transport, bounded explicit configuration, lazy SDK dependencies; historical040 defaults retained",
+    "Held publication execution and report withholding until reader/Spark cleanup plus closing source/JAR/installation custody"
+  ],
+  "scope": "Source-only admission/oracle/lifecycle/CLI composition. Does not qualify installed Ashlar CLI or actual native14 commerce or five supplychain queries."
+}

@@ -31,6 +31,12 @@ def main():
         compile_paths.add_argument('--' + name, required=True)
     for command in (install_paths, compile_paths):
         command.add_argument('--profile', default='paths', choices=('paths', 'paths-keys'))
+    install_count_star = commands.add_parser('install-weft-count-star', help='Verify and install the indexed COUNT star candidate')
+    for name in ('index', 'package', 'output'):
+        install_count_star.add_argument('--' + name, required=True)
+    compile_count_star = commands.add_parser('compile-weft-count-star', help='Compile original stdin through the selected COUNT star installation')
+    for name in ('index', 'installation'):
+        compile_count_star.add_argument('--' + name, required=True)
     inspect = commands.add_parser('inspect-source', help='Verify committed JSONL batches from stdin; no ACK')
     inspect.add_argument('--feed', required=True)
     inspect.add_argument('--epoch', required=True)
@@ -53,7 +59,7 @@ def main():
     for name in ('ontology','graph','public-admission','output','source-system'):
         medical.add_argument('--'+name,required=True)
     medical.add_argument('--binding-profile',required=True,choices=['ashlar-medical-development-bindings/0.2'])
-    for name in ('publish-commerce', 'query-commerce', 'query-commerce-paths'):
+    for name in ('publish-commerce', 'query-commerce', 'query-commerce-paths', 'query-commerce-count-star'):
         command = commands.add_parser(name, help='Run the explicit local commerce native host profile')
         for option in ('output', 'jars', 'model', 'graph', 'umf-source', 'bun', 'git',
                        'postgres-container', 'postgres-host', 'postgres-database'):
@@ -67,9 +73,10 @@ def main():
         else:
             for option in ('index', 'installation', 'publication'):
                 command.add_argument('--' + option, required=True)
-        if name == 'query-commerce-paths':
+        if name in ('query-commerce-paths','query-commerce-count-star'):
             command.add_argument('--diagnostics-config')
-            command.add_argument('--profile', default='paths', choices=('paths', 'paths-keys'))
+            if name == 'query-commerce-paths':
+                command.add_argument('--profile', default='paths', choices=('paths', 'paths-keys'))
             for option in ('maximum-artifact-bytes', 'maximum-rows',
                            'maximum-cell-bytes', 'maximum-total-cell-bytes'):
                 command.add_argument('--' + option, type=int, required=True)
@@ -92,7 +99,7 @@ def main():
             print('ashlar diagnostics refused', file=sys.stderr)
             raise SystemExit(2) from None
         return
-    if args.command in ('publish-commerce', 'query-commerce', 'query-commerce-paths'):
+    if args.command in ('publish-commerce', 'query-commerce', 'query-commerce-paths', 'query-commerce-count-star'):
         from pathlib import Path
         from ashlar_host.config import (HostError, ProducerConfig, PrivatePostgresConfig,
                                         PublishCommerceConfig, QueryCommerceConfig)
@@ -127,11 +134,19 @@ def main():
                     decoder = PathDecodeConfig(args.maximum_cell_bytes)
                 except (PathCaptureError, PathDecodeError):
                     raise HostError('invalid-finite-bound') from None
-                config = QueryCommercePathsConfig(Path(args.index), Path(args.installation),
-                    Path(args.publication), Path(args.output), Path(args.jars),
-                    Path(args.model), Path(args.graph), producer, postgres,
-                    args.maximum_artifact_bytes, capture, decoder, args.profile)
-                from ashlar_host.paths_query import query_commerce_paths
+                if args.command == 'query-commerce-count-star':
+                    from ashlar_host.count_star_configuration import QueryCommerceCountStarConfig
+                    from ashlar_host.count_star_query import query_commerce_count_star as query_commerce_paths
+                    config = QueryCommerceCountStarConfig(Path(args.index), Path(args.installation),
+                        Path(args.publication), Path(args.output), Path(args.jars),
+                        Path(args.model), Path(args.graph), producer, postgres,
+                        args.maximum_artifact_bytes, capture, decoder)
+                else:
+                    config = QueryCommercePathsConfig(Path(args.index), Path(args.installation),
+                        Path(args.publication), Path(args.output), Path(args.jars),
+                        Path(args.model), Path(args.graph), producer, postgres,
+                        args.maximum_artifact_bytes, capture, decoder, args.profile)
+                    from ashlar_host.paths_query import query_commerce_paths
                 if args.diagnostics_config is None:
                     query_commerce_paths(config)
                 else:
@@ -144,6 +159,25 @@ def main():
         except (HostError, OSError):
             print('ashlar-host: refused', file=sys.stderr)
             raise SystemExit(2) from None
+        return
+    if args.command in ('install-weft-count-star','compile-weft-count-star'):
+        from pathlib import Path
+        from .weft_distribution import read_request,DistributionError
+        from .weft_count_star_distribution import (CountStarDistributionPaths,CountStarDistributionError,
+            install_count_star_distribution,compile_count_star_distribution)
+        try:
+            if args.command == 'install-weft-count-star':
+                result=install_count_star_distribution(CountStarDistributionPaths(Path(args.index),Path(args.output),Path(args.package)))
+                print('ashlar-weft-count-star: '+('cleanup-pending'if result.cleanup_pending else 'installed'),file=sys.stderr)
+            else:
+                request=read_request(sys.stdin.buffer)
+                response=compile_count_star_distribution(CountStarDistributionPaths(Path(args.index),Path(args.installation)),request)
+                written=sys.stdout.buffer.write(response)
+                if type(written)is not int or written!=len(response):raise CountStarDistributionError('output-refused')
+                sys.stdout.buffer.flush()
+        except (CountStarDistributionError,DistributionError,OSError):
+            print('ashlar-weft-count-star: refused',file=sys.stderr)
+            raise SystemExit(2)from None
         return
     if args.command in ('install-weft-paths', 'compile-weft-paths'):
         from pathlib import Path

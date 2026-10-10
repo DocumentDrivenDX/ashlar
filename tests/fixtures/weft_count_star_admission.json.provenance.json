@@ -1,0 +1,64 @@
+{
+  "format": "ashlar-count-star-host-fixture-provenance/0.1",
+  "compilerSourceCommit": "5ddcebd6941c572ddd62b78925fdb1fe78b1c688",
+  "reviewedFull80ReceiptSha256": "81cdac9213c064ccf78ff90cd8fa643b78ed245d11977bcb87b36439b3890f35",
+  "selection": "Exactly eleven count-star: cases, original request/response UTF8 text unchanged; three compiled/eight blocked. Schemas exact5dd owning public bytes. No native or installed proof.",
+  "fixtureSha256": "ba8eaaaabd802465b4641df688d71e8f9cfcae33f1f2ff076cb5020ddf323669",
+  "cases": [
+    {
+      "id": "count-star:original-replay",
+      "requestSha256": "ab1475fd1228849dca964ae20661ef90e9d4dfc0e6e8c81ce0e4a1fc5beff552",
+      "responseSha256": "aab97c6114a980cef521916781cb82739a9d416b1bbfe440e8bdefa0fb2a3621"
+    },
+    {
+      "id": "count-star:joined-filtered-full-bag",
+      "requestSha256": "c5f56cdb1134c170421d0bde22a402ddfaeea648857a914c26900313169f0a11",
+      "responseSha256": "2e2ebd74a54362cfcb4e1afb7b31499cf16be631a9cf8f05c9dae7be684707d9"
+    },
+    {
+      "id": "count-star:expansion-count-owner",
+      "requestSha256": "2eadf181bdcc990f3fc4dd8774286534eb5e75b87269ed269354298ca319f25d",
+      "responseSha256": "4338956de1cea9e176e858c9cd5e77a5bc25af7c3b3e5d69c4349a58b7cc1d19"
+    },
+    {
+      "id": "count-star:old-dialect-new-interface",
+      "requestSha256": "4254970c77f57588f06146cf5395180670ef11a1372c9f39386c8105540464d9",
+      "responseSha256": "459782c7cba307074b9820cbd680279022e4ad8de6cd948e4961b87e48c16043"
+    },
+    {
+      "id": "count-star:new-dialect-old-interface",
+      "requestSha256": "f68e2dee0589c964ff9f6a8c73560158ba74ad0d75e85df8008a84143cf2d55e",
+      "responseSha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18"
+    },
+    {
+      "id": "count-star:new-language-old-backend",
+      "requestSha256": "2e241cfccfb096974bfe2c1051e0d65e574db9b8a42dc50ee466e05912db1ba7",
+      "responseSha256": "811fb93c1eea9de57e131f0663161123d5eb1ff80c62ab59ac6552262e21a8f3"
+    },
+    {
+      "id": "count-star:old-language-new-backend",
+      "requestSha256": "097af3ceffcf4dacd789373c2f6d00a87d6a306d7ced65f4c4b62001562693ae",
+      "responseSha256": "09def849c75e1404859e0d86485179be178d7e9772fe32e0ec363f9b44aa1933"
+    },
+    {
+      "id": "count-star:candidate-optout",
+      "requestSha256": "bb2e02518f97560ea06442e4d21dfef3f5e97c5d6f3fbb8b0b3c1a43f4a0aa79",
+      "responseSha256": "da28987449c851db117f435eb23795484154be79ef97862b43eb74b167929a63"
+    },
+    {
+      "id": "count-star:unprojected-count",
+      "requestSha256": "9bca8b2792bb3e5a168f6e0d0d2602d6e5194c6334ec24e922a533f2249a6240",
+      "responseSha256": "a4f8f0e0465b5a56a31f998012342a64ea8b8f1024c3fed5be8eac0fa47599a2"
+    },
+    {
+      "id": "count-star:no-groups",
+      "requestSha256": "20d82962f8df7fe9b2183f301cdf0b4d31e703d29b1bb3a1c467f05852b2e900",
+      "responseSha256": "17efbaddd65c0ce31e6a1db331e24a659f07a4757e6d530ccdecf62986a877f3"
+    },
+    {
+      "id": "count-star:output-alias-not-source-field",
+      "requestSha256": "2cfda1a70cd5c3844df0e4192adb66339ae57df22957983c9c7458a5df4233af",
+      "responseSha256": "260fc023484a3d8c206a343888b52831b374fbd6ec6c3b8e97786e20e9bab9cf"
+    }
+  ]
+}

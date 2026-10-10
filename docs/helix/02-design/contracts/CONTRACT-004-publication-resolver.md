@@ -445,6 +445,25 @@ COUNT(*) MUST retain complete occurrence-bag multiplicity and original ordered
 parameters; HAVING MUST NOT hide a failed complete-bag integrity or capacity
 check. Weft owns the exact language and row-count obligation contracts.
 
+`install-weft-count-star` and `compile-weft-count-star` MUST expose the selected
+indexed package through the public installation and original-byte transport ports.
+`query-commerce-count-star` MUST use a separately typed bounded host configuration
+and the pinned offline 0.4.1 request, response and IR schemas. The required original
+ten commerce intents remain in the query gallery; plain row count, grouped row
+count, grouped COUNT(*) HAVING and expanded occurrence COUNT(*) HAVING are added.
+The five required supply-chain intents remain separate required coverage.
+
+The selected host MUST refuse unknown capabilities or owning obligations and
+preserve the original SQL, full module documents, binding text and ordered
+parameter values. Its independent oracle MUST count original source occurrence
+identities, including parallel edge pairs, before HAVING selection. Every full
+candidate bag MUST pass original integrity and capacity checks before user SQL;
+an empty result or a HAVING threshold that excludes all groups cannot discharge
+those checks. The host MUST close the held publication reader, stop its owned
+Spark session, and recheck source, JAR, installation and publication custody
+before publishing any complete report. Cleanup failure withholds the report;
+cancellation follows the lifecycle precedence above.
+
 ### Explicit Paths profile with one-hop keys
 
 `query-commerce-paths --profile paths-keys` MUST select the independently indexed
