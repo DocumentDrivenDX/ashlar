@@ -92,7 +92,16 @@ def main():
         command = commands.add_parser(name, help='Activate or read one explicit original PuppyGraph release handle')
         for option in ('configuration', 'provider', 'provider-sha256'):
             command.add_argument('--' + option, required=True)
+    preparation = commands.add_parser('prepare-puppy-release', help='Prepare exact local carrier tables under independent original-release admission')
+    for option in ('configuration','provider','provider-sha256'):
+        preparation.add_argument('--'+option,required=True)
     args = parser.parse_args()
+    if args.command == 'prepare-puppy-release':
+        from ashlar_host.puppy_carrier_cli import run_puppy_preparation
+        try:answer=run_puppy_preparation(args.configuration,args.provider,args.provider_sha256)
+        except Exception:
+            parser.exit(1,'ashlar original PuppyGraph carrier preparation refused\n')
+        print(json.dumps(answer,sort_keys=True));return
     if args.command in ('activate-puppy-release','read-puppy-release'):
         from ashlar_host.puppy_release_cli import run_puppy_command
         try:

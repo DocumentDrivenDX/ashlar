@@ -32,6 +32,41 @@ value and endpoint oracle, schema/carrier checks, and closing admission gates.
 Provider hashes establish byte custody; current policy independently authorizes
 source use and native operations.
 
+Prepare the immutable local DuckDB carrier with `ashlar prepare-puppy-release`
+before activation. This command accepts `--configuration`, `--provider` and
+`--provider-sha256`. The closed configuration is:
+
+```json
+{
+  "profile": "ashlar-puppy-preparation-invocation/0.1",
+  "release_path": "/private/ashlar/original.graph.json",
+  "release_sha256": "<externally trusted original release SHA256>",
+  "output_directory": "/private/ashlar/new-carrier"
+}
+```
+
+The preparation provider exposes `open_puppy_preparation(invocation, release)`
+as a context manager yielding `PuppyPreparationSession(policy, context)` from
+`ashlar_host.puppy_carrier_cli`. Its policy implements
+`admit_original_release(release, context)` and returns `None` only after admitting
+the original publication lineage and current source/read authority. This gate is
+renewed before committing the carrier and completing preparation. The command
+requires DuckDB in the selected environment; its import follows initial release
+admission. The destination must be new, absolute, and under an owned private
+parent. The output preserves exact original String/null values, graph identities
+and incident endpoints in two VARCHAR tables, plus the hash-qualified native
+model. A 31-character catalog name is a shortened storage name; full release and
+carrier hashes remain authoritative byte pins, and changed model collisions
+refuse during activation.
+
+The command retains `original-intent.json`, the release-qualified `.duckdb`
+file, `model.json`, and `receipt.json`. The completed receipt follows provider
+cleanup and closing original-file checks. A failed preparation may leave owned
+incomplete files; it cannot be resumed by treating their presence or absence as
+authority. Prepared artifacts do not activate PuppyGraph, extend source grants,
+or qualify native queries. The activation provider must independently admit
+current native/source authority and the selected exact carrier again.
+
 An activation configuration has this closed shape. Paths must be absolute;
 `output_directory` must be a fresh child of an owned private directory.
 

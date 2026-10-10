@@ -94,6 +94,16 @@ def _carrier(row,kind):
     return result
 
 
+def validate_release_carrier(original, kind):
+    """Validate one original canonical carrier and derive reversible identities.
+
+    This pure correspondence check does not establish publication/read authority.
+    """
+    if type(kind) is not str or kind not in ('node', 'edge') or type(original) is not dict:
+        raise ResolutionError('Exact original graph carrier and role required')
+    return _carrier(original, kind)
+
+
 def read_graph_release(executor,backend,pins,vector,policy,*,publication_id,node_table,edge_table,
                        context,supported_profiles,supported_revisions,max_nodes,max_edges):
     """Read a complete bounded publication graph, or refuse without releasing data.
