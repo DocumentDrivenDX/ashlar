@@ -1,0 +1,32 @@
+[
+  {
+    "id": "all-null-groups-request",
+    "actualSha256": "2d7ede63f63dfa125eb8ca2646af1338c393079025a1ec7c2a1a3431f9f0d8a8",
+    "byteIdentical": true
+  },
+  {
+    "id": "global-empty-request",
+    "actualSha256": "5ff4129444d8d5f25675a608ae57ec9bed1406d1c4a85cf153a201766b355483",
+    "byteIdentical": true
+  },
+  {
+    "id": "global-having-empty-request",
+    "actualSha256": "06cb172c5f3d7a9adff1801feeb38dc5eb4a47be0388b0774da028aeeaf472ff",
+    "byteIdentical": true
+  },
+  {
+    "id": "global-request",
+    "actualSha256": "990406ccf350a345d40b1ae1d866f4a6d9bb18d8879c0a3a3b6967d49d70e208",
+    "byteIdentical": true
+  },
+  {
+    "id": "having-excludes-all-request",
+    "actualSha256": "9e44c093a6806e014cf5cad1fc0ebc2d7bd39d2e3327a626022a98045a01a6b8",
+    "byteIdentical": true
+  },
+  {
+    "id": "original-request",
+    "actualSha256": "161cf1a901e384d01723655d2b97c4473112b28a8821e47c864f13e11291e2cc",
+    "byteIdentical": true
+  }
+]

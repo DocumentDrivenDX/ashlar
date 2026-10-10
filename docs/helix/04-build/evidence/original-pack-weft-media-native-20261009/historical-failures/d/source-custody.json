@@ -1,0 +1,28 @@
+{
+  "format": "ashlar-media-native-source-custody/0.1",
+  "qualification": "Pre-run only; no native retry execution",
+  "runtimeSourceCommit": "30e1e97cdbf297666baeb294da63e3e56bd8765a",
+  "runtimeManifestPath": "/private/tmp/ashlar-media-runtime-30e1/runtime-source-manifest.json",
+  "runtimeManifestSha256": "865d581fb75fc7bd61d089a902945566375e40b1522407e2b8245d97a4f405d2",
+  "runtimeFileCount": 712,
+  "commandSha256": "2b71a92c541313f1de7914abcc0991a3e8307ec5150557d0a90f291b6d0595fc",
+  "planSha256": "bf8b0129bf48d7b76ee29868a8a2921590d48c24271ba3ff1793e3d5c0923982",
+  "previous450eManifestSha256": "cd43f9eb8eb84818185c90c5abf1a0b30d392a4b085a44de40da5a964fc358c2",
+  "changedOrAddedTrackedPathsVs450e": [
+    "tests/commerce-present-field.test.ts",
+    "tests/commerce-revision-preservation.test.ts",
+    "tests/test_commerce_evolution_transactions.py",
+    "tools/check_commerce_revision_preservation.ts",
+    "tools/commerce_evolution_transactions.py",
+    "tools/prepare_commerce_present_field.ts",
+    "tools/run_pack_count_having_weft.py"
+  ],
+  "compilerPinManifestSha256": "e41ea0e4c2712ee4dbed93e3f54ffc675d3fe00bdc1ebdd54b907b87d91279d6",
+  "resourceClosure": "Complete all Git tracked runtime roots src/tools/sql/examples/tests/root configs/.github; docs/website nonruntime excluded. Fixture baseline, protectedACK SQL, source/outbox SQL, fixed pack source files all present; explicit external publicUMF/Weft original sources unchanged. Every712file independently exactGit30e1 byte checked.",
+  "failureHistory": "a gateway refused; b missingSQL before reader; c native compiler ORDER visibility failure; logs and original source manifests retained unchanged; no completed partial report invented.",
+  "requiredGates": [
+    "Official d2d CI38015040993SUCCESS",
+    "Astra exact newruntime/source/command review",
+    "Root sole engine reservation"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "scope": "Read-only pre-run source/command review; CI and exclusive reservation remain root gates",
+  "planHashes": {
+    "plan.json": "3e8a3cf9e7de199e41aa00639f555fa98ab3711b25b2b83bce88a6f9659d0019",
+    "run-command.txt": "77ff053de5f28ac21274244de267dc122923ea7016c00946243a3f4ae70b512c",
+    "source-custody.json": "77d9c6689ea1b44608d66ee999bd1c64568b618d4c1867817088752c35cb316a",
+    "host-source-receipt.json": "a0c18d614f4eba27356b86c0f1e60e09cffb9c3ca2953060180d562387dcbc59"
+  },
+  "runtimeCommit": "4c2c8fda770fd204808c61ad4dbdb2b1e9d6d056",
+  "allRuntimeGitFiles": 719,
+  "reviewedHostFiles": 4,
+  "changedRuntimePaths": [
+    "tests/domain-pack-datasets.test.ts",
+    "tests/test_commerce_evolution_admission.py",
+    "tests/test_commerce_evolution_publication.py",
+    "tools/check_domain_pack_datasets.ts",
+    "tools/commerce_evolution_admission.py",
+    "tools/commerce_evolution_batch_scope.py",
+    "tools/run_commerce_evolution_publication.py",
+    "tools/run_local_outbox_publication.py",
+    "tools/run_pack_count_having_weft.py"
+  ],
+  "compilerSha256": "209c7fa66b4ea002554f1d3246a1c10bdffb9f238d1c01367a53cef596c65e27",
+  "jars": {
+    "delta-spark_2.13-4.0.0.jar": "538511702aae0ef6973a6a70af3d4543c9009f8edbed786a00737e2d3cd7f04e",
+    "delta-storage-4.0.0.jar": "9bdb9fb450f1e119eba53feb427f331b0d09072d26485b8273883ad72c9a2e1d"
+  },
+  "publicProducerClean": true,
+  "outputAbsent": true,
+  "sourceTransitionPort": "Previously reviewed ingest-only NativeDriver callback; reader path does not call plan_graph or schema_transition_admit."
+}

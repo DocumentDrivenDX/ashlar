@@ -1,0 +1,2 @@
+Working directory: /private/tmp
+PYTHONPATH=/private/tmp/ashlar-spark4-python39-bridge JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home SPARK_LOCAL_IP=127.0.0.1 PYSPARK_PYTHON=/private/tmp/ashlar-db-client/bin/python PYSPARK_DRIVER_PYTHON=/private/tmp/ashlar-db-client/bin/python /private/tmp/ashlar-db-client/bin/python /private/tmp/ashlar-having-order-collation-smoke.py > /private/tmp/ashlar-having-order-collation-smoke-20261009.log 2>&1

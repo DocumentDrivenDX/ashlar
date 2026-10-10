@@ -1,0 +1,32 @@
+[
+  {
+    "case": "original",
+    "requestValid": true,
+    "responseValid": true
+  },
+  {
+    "case": "global",
+    "requestValid": true,
+    "responseValid": true
+  },
+  {
+    "case": "global-empty",
+    "requestValid": true,
+    "responseValid": true
+  },
+  {
+    "case": "all-null-groups",
+    "requestValid": true,
+    "responseValid": true
+  },
+  {
+    "case": "having-excludes-all",
+    "requestValid": true,
+    "responseValid": true
+  },
+  {
+    "case": "global-having-empty",
+    "requestValid": true,
+    "responseValid": true
+  }
+]

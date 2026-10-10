@@ -1,0 +1,370 @@
+{
+  "format": "ashlar-media-native-prerun/0.1",
+  "qualification": "Planned bounded read-only six cases, no runtime result",
+  "sourceHostCommit": "1353a6b9751e3dd96fc3e9d6217b5b8b2b7a385c",
+  "compilerSourceCommit": "764d9fa1c4aef68358a5c77c85b051d6d7bf0495",
+  "compilerSha256": "87b9e1f3c5dd64942ae65d4e125431b452d01624c4f3e5289ec0d29898db9416",
+  "publicationPath": "/private/tmp/ashlar-archaeology-native-publication-20261009-a",
+  "cases": [
+    {
+      "id": "original",
+      "sql": "SELECT asset_id,COUNT(DISTINCT context_id) FROM asset_subjects GROUP BY asset_id HAVING COUNT(DISTINCT context_id)>1",
+      "original_graph_expected": [
+        [
+          "[42,0,\"AS4\"]",
+          "2"
+        ]
+      ],
+      "modelPins": [
+        {
+          "documentId": "urn:umf:domain:archaeology",
+          "revision": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+          "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+          "umfVersion": "0.8.0"
+        }
+      ],
+      "publication": {
+        "id": "original-archaeology-publication-1",
+        "manifestUuid": "071ac2f6-5620-45b2-b882-f718a32ff98e",
+        "tables": [
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "edge_current"
+            ],
+            "uuid": "0177155a-98c1-4805-96f9-a088fe0c2d3c",
+            "version": 2
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "object_current"
+            ],
+            "uuid": "39769337-47a7-4d2d-bd7a-1eca818be9ce",
+            "version": 2
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "tombstone"
+            ],
+            "uuid": "c64450fd-00bf-4db9-8162-38e20f04fed5",
+            "version": 1
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "whole_source_history"
+            ],
+            "uuid": "ff760a5b-8172-47f0-ba05-ada8df973da5",
+            "version": 2
+          }
+        ]
+      },
+      "requestSha256": "a594b50318195d228cbf593b534637be4e6db56a435881bfa4d2375ee5023cf5",
+      "artifactSha256": "ffb2267eb4eeacf378ab9312d98b85304dbc5f7df89629eb7656ef1860321b6c"
+    },
+    {
+      "id": "global",
+      "sql": "SELECT COUNT(DISTINCT context_id) AS n FROM asset_subjects",
+      "original_graph_expected": [
+        [
+          "2"
+        ]
+      ],
+      "modelPins": [
+        {
+          "documentId": "urn:umf:domain:archaeology",
+          "revision": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+          "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+          "umfVersion": "0.8.0"
+        }
+      ],
+      "publication": {
+        "id": "original-archaeology-publication-1",
+        "manifestUuid": "071ac2f6-5620-45b2-b882-f718a32ff98e",
+        "tables": [
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "edge_current"
+            ],
+            "uuid": "0177155a-98c1-4805-96f9-a088fe0c2d3c",
+            "version": 2
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "object_current"
+            ],
+            "uuid": "39769337-47a7-4d2d-bd7a-1eca818be9ce",
+            "version": 2
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "tombstone"
+            ],
+            "uuid": "c64450fd-00bf-4db9-8162-38e20f04fed5",
+            "version": 1
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "whole_source_history"
+            ],
+            "uuid": "ff760a5b-8172-47f0-ba05-ada8df973da5",
+            "version": 2
+          }
+        ]
+      },
+      "requestSha256": "548c850fe7801c5d3392e6c329399902ca60c66799a21b94b2aca32b0afbdea1",
+      "artifactSha256": "880e8b4274724e8682b5bcca957c051137243aec04e99bce59e776d0de724d1c"
+    },
+    {
+      "id": "global-empty",
+      "sql": "SELECT COUNT(DISTINCT context_id) AS n FROM asset_subjects WHERE asset_id IN ('no-original-record')",
+      "original_graph_expected": [
+        [
+          "0"
+        ]
+      ],
+      "modelPins": [
+        {
+          "documentId": "urn:umf:domain:archaeology",
+          "revision": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+          "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+          "umfVersion": "0.8.0"
+        }
+      ],
+      "publication": {
+        "id": "original-archaeology-publication-1",
+        "manifestUuid": "071ac2f6-5620-45b2-b882-f718a32ff98e",
+        "tables": [
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "edge_current"
+            ],
+            "uuid": "0177155a-98c1-4805-96f9-a088fe0c2d3c",
+            "version": 2
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "object_current"
+            ],
+            "uuid": "39769337-47a7-4d2d-bd7a-1eca818be9ce",
+            "version": 2
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "tombstone"
+            ],
+            "uuid": "c64450fd-00bf-4db9-8162-38e20f04fed5",
+            "version": 1
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "whole_source_history"
+            ],
+            "uuid": "ff760a5b-8172-47f0-ba05-ada8df973da5",
+            "version": 2
+          }
+        ]
+      },
+      "requestSha256": "d8ed287a19cac6ef615ce2f84419a96fbc69097a6fc9cceb797570244995d48f",
+      "artifactSha256": "09676e1f8e44fd571e93dab72afde638333c748ef72fefa7c93bc21a28039e03"
+    },
+    {
+      "id": "all-null-groups",
+      "sql": "SELECT asset_id,COUNT(DISTINCT context_id) AS n FROM asset_subjects WHERE context_id IS NULL GROUP BY asset_id ORDER BY asset_id",
+      "original_graph_expected": [
+        [
+          "[42,0,\"AS5\"]",
+          "0"
+        ]
+      ],
+      "modelPins": [
+        {
+          "documentId": "urn:umf:domain:archaeology",
+          "revision": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+          "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+          "umfVersion": "0.8.0"
+        }
+      ],
+      "publication": {
+        "id": "original-archaeology-publication-1",
+        "manifestUuid": "071ac2f6-5620-45b2-b882-f718a32ff98e",
+        "tables": [
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "edge_current"
+            ],
+            "uuid": "0177155a-98c1-4805-96f9-a088fe0c2d3c",
+            "version": 2
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "object_current"
+            ],
+            "uuid": "39769337-47a7-4d2d-bd7a-1eca818be9ce",
+            "version": 2
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "tombstone"
+            ],
+            "uuid": "c64450fd-00bf-4db9-8162-38e20f04fed5",
+            "version": 1
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "whole_source_history"
+            ],
+            "uuid": "ff760a5b-8172-47f0-ba05-ada8df973da5",
+            "version": 2
+          }
+        ]
+      },
+      "requestSha256": "3f646ad63360620acc9c75aa57bc7256ee37ce30c2d38a0404647e9621393cbd",
+      "artifactSha256": "b811a5fa80dea624d4c890b85ca1b3bfc05aca4fba9eb195022b266e7b6352a9"
+    },
+    {
+      "id": "having-excludes-all",
+      "sql": "SELECT asset_id,COUNT(DISTINCT context_id) AS n FROM asset_subjects GROUP BY asset_id HAVING COUNT(DISTINCT context_id)>9223372036854775807 ORDER BY asset_id",
+      "original_graph_expected": [],
+      "modelPins": [
+        {
+          "documentId": "urn:umf:domain:archaeology",
+          "revision": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+          "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+          "umfVersion": "0.8.0"
+        }
+      ],
+      "publication": {
+        "id": "original-archaeology-publication-1",
+        "manifestUuid": "071ac2f6-5620-45b2-b882-f718a32ff98e",
+        "tables": [
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "edge_current"
+            ],
+            "uuid": "0177155a-98c1-4805-96f9-a088fe0c2d3c",
+            "version": 2
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "object_current"
+            ],
+            "uuid": "39769337-47a7-4d2d-bd7a-1eca818be9ce",
+            "version": 2
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "tombstone"
+            ],
+            "uuid": "c64450fd-00bf-4db9-8162-38e20f04fed5",
+            "version": 1
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "whole_source_history"
+            ],
+            "uuid": "ff760a5b-8172-47f0-ba05-ada8df973da5",
+            "version": 2
+          }
+        ]
+      },
+      "requestSha256": "0a77bbd4c1773cdb76f83cfe6203d38256030f0b2d555a7fc305c63762c73ec7",
+      "artifactSha256": "e0012fb6a8e81814ccdc6575e99d80489fb2171b1c093bef95389a21f8981938"
+    },
+    {
+      "id": "global-having-empty",
+      "sql": "SELECT COUNT(DISTINCT context_id) AS n FROM asset_subjects HAVING COUNT(DISTINCT context_id)>9223372036854775807",
+      "original_graph_expected": [],
+      "modelPins": [
+        {
+          "documentId": "urn:umf:domain:archaeology",
+          "revision": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+          "sha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+          "umfVersion": "0.8.0"
+        }
+      ],
+      "publication": {
+        "id": "original-archaeology-publication-1",
+        "manifestUuid": "071ac2f6-5620-45b2-b882-f718a32ff98e",
+        "tables": [
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "edge_current"
+            ],
+            "uuid": "0177155a-98c1-4805-96f9-a088fe0c2d3c",
+            "version": 2
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "object_current"
+            ],
+            "uuid": "39769337-47a7-4d2d-bd7a-1eca818be9ce",
+            "version": 2
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "tombstone"
+            ],
+            "uuid": "c64450fd-00bf-4db9-8162-38e20f04fed5",
+            "version": 1
+          },
+          {
+            "name": [
+              "spark_catalog",
+              "archaeology",
+              "whole_source_history"
+            ],
+            "uuid": "ff760a5b-8172-47f0-ba05-ada8df973da5",
+            "version": 2
+          }
+        ]
+      },
+      "requestSha256": "ee5b5425725754079e7932b94a9d2c49d63588efe9e8f90d5dbb0cb71d63c876",
+      "artifactSha256": "22a4b538871b7a77ec693c4c7062b24d1bdca9fa6f04969bab0554cabdc566da"
+    }
+  ]
+}

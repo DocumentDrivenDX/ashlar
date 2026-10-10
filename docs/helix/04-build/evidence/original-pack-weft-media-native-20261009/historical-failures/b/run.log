@@ -1,0 +1,23 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/09 21:37:48 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-media-runtime-450e/tools/run_pack_count_having_weft.py", line 124, in <module>
+    a=p.parse_args();run(a.archaeology,a.output,a.jars,a.compiler,a.source_guard,a.umf)
+  File "/private/tmp/ashlar-media-runtime-450e/tools/run_pack_count_having_weft.py", line 71, in run
+    with open_pack_reader(spark,publication,'archaeology')as opened:
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "/private/tmp/ashlar-media-runtime-450e/tools/run_pack_publication_weft.py", line 97, in open_pack_reader
+    expected=oracle(model,graph,bindings,batch,fixture_columns(ROOT))
+  File "/private/tmp/ashlar-media-runtime-450e/tools/fixture_oracle.py", line 12, in fixture_columns
+    baseline=(root/'sql/ashlar-delta-v03/01-baseline.sql').read_text()
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1256, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1242, in open
+    return io.open(self, mode, buffering, encoding, errors, newline,
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/pathlib.py", line 1110, in _opener
+    return self._accessor.open(self, flags, mode)
+FileNotFoundError: [Errno 2] No such file or directory: '/private/tmp/ashlar-media-runtime-450e/sql/ashlar-delta-v03/01-baseline.sql'

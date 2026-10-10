@@ -1,0 +1,76 @@
+{
+  "baseRevision": "320a7a20d508000583c133badce9bfc151f3f72e",
+  "compilerSha256": "87b9e1f3c5dd64942ae65d4e125431b452d01624c4f3e5289ec0d29898db9416",
+  "files": [
+    {
+      "path": ".github/workflows/conformance.yml",
+      "sha256": "ef8fa90b7e15e26d08f89db904713a233c8a9220558dd93f7ede22aff91d498d"
+    },
+    {
+      "path": "crates/weft-core/src/arithmetic_application_resolve.rs",
+      "sha256": "2cf11abd6028c21e13f7fcb2ed50dd609deaa42887e7d196c03ccd80a384671f"
+    },
+    {
+      "path": "crates/weft-core/src/arithmetic_plan.rs",
+      "sha256": "9a5daa5f3ea9712f6cb13f0d58a169e5b00fc1869efa9f02f3303c1453da20aa"
+    },
+    {
+      "path": "crates/weft-core/src/arithmetic_query.rs",
+      "sha256": "7949a34ecb7ac7e0f8fcea3e9c88231a39179b99e7c5769b60d92c57f847b814"
+    },
+    {
+      "path": "crates/weft-core/src/backend.rs",
+      "sha256": "a6a857e5f4987efeb447d9dc72fa37701c0cb79c8b64293baaa37cfbb3d29a90"
+    },
+    {
+      "path": "crates/weft-core/src/backend_emission.rs",
+      "sha256": "9e8fb16a64c41c336c6bcf28f1885d54855d5f385fe5fc5f1e6875372f3a786b"
+    },
+    {
+      "path": "crates/weft-databricks/src/candidate/arithmetic.rs",
+      "sha256": "06b23e6162938e2a35e57366a74f2d4f9afb1bff2a9581aafa1f97de22eaa52e"
+    },
+    {
+      "path": "crates/weft-databricks/src/lib.rs",
+      "sha256": "f8c4cb131b824e410d189043dc0e0ba9e43abacfa86ee8de32641c09e16f260e"
+    },
+    {
+      "path": "crates/weft-python/Cargo.toml",
+      "sha256": "790840a4743c9d4277bc3f5896bd9b1de13839a7228934a2056c222bd6a70f08"
+    },
+    {
+      "path": "crates/weft-runtime/Cargo.toml",
+      "sha256": "094d40bc118edbc1de24928c24bf7da01ad3640d03da995d3e44865663758ae7"
+    },
+    {
+      "path": "crates/weft-runtime/src/lib.rs",
+      "sha256": "0e77fdc22315e299a8067a0ba5080adb870deea1306522c22c864c0865a2d39b"
+    },
+    {
+      "path": "crates/weft-wasm/Cargo.toml",
+      "sha256": "f828e5d3289277349a53304e626449f1d386748bd5b0c7a9acb81d23b16e254a"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/exact-arithmetic-v0.3.md",
+      "sha256": "5e187ac7f9f53bb60192769d45dca7f4af7a0898494b2c6d522b8ad5752f3aa6"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/logical-plan-v0.3.schema.json",
+      "sha256": "315cc38645163e60207c25a98a56bb75bcb10617ac75af5491ecaf12d43e7f9d"
+    },
+    {
+      "path": "tests/ashlar-databricks/compiler.rs",
+      "sha256": "4a4694234b5e7578202ba8f44373e83d7d51cd5fc24c67c5fdb4d2af00659536"
+    },
+    {
+      "path": "tests/register-backend/pipeline.rs",
+      "sha256": "1a7a100f5c39ee0ef1f8ec6512f85248a3ae3c42efcacd94ee7548a6d31f1c96"
+    },
+    {
+      "path": "crates/weft-databricks/src/count_having.rs",
+      "sha256": "e835313d8ae870e7b19dac8086f8f888e0a0d99c79e33766a1ff495fea10bd17"
+    }
+  ],
+  "format": "weft-media-compiler-source/0.1",
+  "qualification": "Source/schema engineering freeze only; native media/HAVING proof pending"
+}

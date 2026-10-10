@@ -1,0 +1,18 @@
+{
+  "format": "ashlar-media-native-source-custody/0.1",
+  "qualification": "Pre-run source/command custody only; no native execution",
+  "planSha256": "2255f02e3052fb42b17f3beca73f59063104abb4798c4ba6e1cf45eead026c70",
+  "runtimeSourceCommit": "450e131cb294a5a9fe3abf4b25aa0cff1597f665",
+  "runtimeManifestPath": "/private/tmp/ashlar-media-runtime-450e/runtime-source-manifest.json",
+  "runtimeManifestSha256": "b765d3e09161ae72155c4a7334fa05f880346fbba6117ee0519f535081d9e0d7",
+  "runtimeFileCount": 663,
+  "commandSha256": "78226d6de2d87ba41f0f0877c1f54e3246cb98939c90f70397fca9027af968c7",
+  "reviewedHostManifestSha256": "3d3c1ce3617fe0a9914f61636ad3b146e3c855cc554195c54368985fe93084fe",
+  "sourceQualification": "All retained src/tools/examples/tests and pyproject files independently matched exact tracked Git450e bytes; dirty main authority source excluded. Four reviewed host files match final b freeze.",
+  "runtimeBudget": "Existing Spark4.0.1 local[1]/512m/shuffle1/snapshot1 with existing JDK21/Delta4 jars; read-only original publication",
+  "requiredGates": [
+    "Weft4da CI38013173532 success",
+    "Ashlar450e boundary CI38013304415 success",
+    "Astra exact source/command pre-run approval"
+  ]
+}

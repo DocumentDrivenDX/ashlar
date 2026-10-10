@@ -1,0 +1,51 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/09 21:37:11 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Exception in thread "main" py4j.Py4JNetworkException: Failed to bind to /127.0.0.1:0
+	at py4j.GatewayServer.startSocket(GatewayServer.java:804)
+	at py4j.GatewayServer.start(GatewayServer.java:779)
+	at py4j.GatewayServer.start(GatewayServer.java:762)
+	at py4j.ClientServer.<init>(ClientServer.java:150)
+	at py4j.ClientServer.<init>(ClientServer.java:45)
+	at py4j.ClientServer$ClientServerBuilder.build(ClientServer.java:263)
+	at org.apache.spark.api.python.Py4JServer.<init>(Py4JServer.scala:42)
+	at org.apache.spark.api.python.PythonGatewayServer$.main(PythonGatewayServer.scala:39)
+	at org.apache.spark.api.python.PythonGatewayServer.main(PythonGatewayServer.scala)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:75)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:52)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.apache.spark.deploy.JavaMainApplication.start(SparkApplication.scala:52)
+	at org.apache.spark.deploy.SparkSubmit.org$apache$spark$deploy$SparkSubmit$$runMain(SparkSubmit.scala:1027)
+	at org.apache.spark.deploy.SparkSubmit.doRunMain$1(SparkSubmit.scala:204)
+	at org.apache.spark.deploy.SparkSubmit.submit(SparkSubmit.scala:227)
+	at org.apache.spark.deploy.SparkSubmit.doSubmit(SparkSubmit.scala:96)
+	at org.apache.spark.deploy.SparkSubmit$$anon$2.doSubmit(SparkSubmit.scala:1132)
+	at org.apache.spark.deploy.SparkSubmit$.main(SparkSubmit.scala:1141)
+	at org.apache.spark.deploy.SparkSubmit.main(SparkSubmit.scala)
+Caused by: java.net.SocketException: Operation not permitted
+	at java.base/sun.nio.ch.Net.bind0(Native Method)
+	at java.base/sun.nio.ch.Net.bind(Net.java:577)
+	at java.base/sun.nio.ch.Net.bind(Net.java:566)
+	at java.base/sun.nio.ch.NioSocketImpl.bind(NioSocketImpl.java:636)
+	at java.base/java.net.ServerSocket.bind(ServerSocket.java:391)
+	at py4j.GatewayServer.startSocket(GatewayServer.java:802)
+	... 20 more
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-media-runtime-450e/tools/run_pack_count_having_weft.py", line 124, in <module>
+    a=p.parse_args();run(a.archaeology,a.output,a.jars,a.compiler,a.source_guard,a.umf)
+  File "/private/tmp/ashlar-media-runtime-450e/tools/run_pack_count_having_weft.py", line 62, in run
+    spark=(SparkSession.builder.master('local[1]').appName('Ashlar original archaeology optional counts')
+  File "/private/tmp/ashlar-spark4-python39-bridge/pyspark/sql/session.py", line 556, in getOrCreate
+    sc = SparkContext.getOrCreate(sparkConf)
+  File "/private/tmp/ashlar-spark4-python39-bridge/pyspark/core/context.py", line 523, in getOrCreate
+    SparkContext(conf=conf or SparkConf())
+  File "/private/tmp/ashlar-spark4-python39-bridge/pyspark/core/context.py", line 205, in __init__
+    SparkContext._ensure_initialized(self, gateway=gateway, conf=conf)
+  File "/private/tmp/ashlar-spark4-python39-bridge/pyspark/core/context.py", line 444, in _ensure_initialized
+    SparkContext._gateway = gateway or launch_gateway(conf)
+  File "/private/tmp/ashlar-spark4-python39-bridge/pyspark/java_gateway.py", line 111, in launch_gateway
+    raise PySparkRuntimeError(
+pyspark.errors.exceptions.base.PySparkRuntimeError: [JAVA_GATEWAY_EXITED] Java gateway process exited before sending its port number.

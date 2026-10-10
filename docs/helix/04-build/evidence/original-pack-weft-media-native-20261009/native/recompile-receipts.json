@@ -1,0 +1,41 @@
+{
+  "cases": [
+    {
+      "artifactSha256": "56059c80d80eeeaad6439404477dbb8d65169079c2157efb93b6137a0bb11399",
+      "case": "all-null-groups",
+      "recompileJsonIdentical": true,
+      "requestSha256": "3f646ad63360620acc9c75aa57bc7256ee37ce30c2d38a0404647e9621393cbd"
+    },
+    {
+      "artifactSha256": "09676e1f8e44fd571e93dab72afde638333c748ef72fefa7c93bc21a28039e03",
+      "case": "global-empty",
+      "recompileJsonIdentical": true,
+      "requestSha256": "d8ed287a19cac6ef615ce2f84419a96fbc69097a6fc9cceb797570244995d48f"
+    },
+    {
+      "artifactSha256": "22a4b538871b7a77ec693c4c7062b24d1bdca9fa6f04969bab0554cabdc566da",
+      "case": "global-having-empty",
+      "recompileJsonIdentical": true,
+      "requestSha256": "ee5b5425725754079e7932b94a9d2c49d63588efe9e8f90d5dbb0cb71d63c876"
+    },
+    {
+      "artifactSha256": "880e8b4274724e8682b5bcca957c051137243aec04e99bce59e776d0de724d1c",
+      "case": "global",
+      "recompileJsonIdentical": true,
+      "requestSha256": "548c850fe7801c5d3392e6c329399902ca60c66799a21b94b2aca32b0afbdea1"
+    },
+    {
+      "artifactSha256": "2fddafcd36977dad4286fda2524f7be16d29c869b2de8b92989dbe1676ccb34f",
+      "case": "having-excludes-all",
+      "recompileJsonIdentical": true,
+      "requestSha256": "0a77bbd4c1773cdb76f83cfe6203d38256030f0b2d555a7fc305c63762c73ec7"
+    },
+    {
+      "artifactSha256": "ffb2267eb4eeacf378ab9312d98b85304dbc5f7df89629eb7656ef1860321b6c",
+      "case": "original",
+      "recompileJsonIdentical": true,
+      "requestSha256": "a594b50318195d228cbf593b534637be4e6db56a435881bfa4d2375ee5023cf5"
+    }
+  ],
+  "compilerSha256": "209c7fa66b4ea002554f1d3246a1c10bdffb9f238d1c01367a53cef596c65e27"
+}

@@ -1,0 +1,30 @@
+{
+  "format": "ashlar-media-native-source-custody/0.1",
+  "qualification": "Pre-run source/command custody only; no native execution",
+  "planSha256": "2255f02e3052fb42b17f3beca73f59063104abb4798c4ba6e1cf45eead026c70",
+  "runtimeSourceCommit": "450e131cb294a5a9fe3abf4b25aa0cff1597f665",
+  "runtimeManifestPath": "/private/tmp/ashlar-media-runtime-450e/runtime-source-manifest.json",
+  "runtimeManifestSha256": "cd43f9eb8eb84818185c90c5abf1a0b30d392a4b085a44de40da5a964fc358c2",
+  "runtimeFileCount": 706,
+  "commandSha256": "a40c7559dfaa9f8ca1ec58b392c12d64c466d879189812ed513280a8d3fb76db",
+  "reviewedHostManifestSha256": "3d3c1ce3617fe0a9914f61636ad3b146e3c855cc554195c54368985fe93084fe",
+  "sourceQualification": "All706 tracked450e src/tools/examples/tests/sql and root config/.github exact Git bytes verified; four host source hashes unchanged. docs/website historical/nonruntime excluded; no code change.",
+  "runtimeBudget": "Existing Spark4.0.1 local[1]/512m/shuffle1/snapshot1 with existing JDK21/Delta4 jars; read-only original publication",
+  "requiredGates": [
+    "Weft4da CI38013173532 success",
+    "Ashlar450e boundary CI38013304415 success",
+    "Astra exact source/command pre-run approval"
+  ],
+  "priorSourceCustodySha256": "6fcb0b657d4720009a92026cb48b621571401fe3c56ae73ea52c53f236739ac1",
+  "resourceInventory": {
+    "fixture_oracle.fixture_columns": "sql/ashlar-delta-v03/01-baseline.sql",
+    "protected_outbox_ack": "sql/ashlar-source-ack/01-postgresql.sql",
+    "native source/outbox reusable tools": "complete sql tree and examples tree retained",
+    "schema/public guards": "original externally pinned clean publicUMF/Weft sources referenced unchanged by command/publication; no implicit local schema substitution",
+    "allPythonImports": "complete tracked src/tools retained",
+    "failedAttempts": {
+      "a": "sandbox gateway bind refusal before SparkContext",
+      "b": "SparkContext started, missing baseline before reader entered/native query; finally stopped"
+    }
+  }
+}

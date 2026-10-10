@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "4c2c8fda770fd204808c61ad4dbdb2b1e9d6d056",
+  "files": [
+    {
+      "path": "tools/weft_field_plan.py",
+      "sha256": "4545d3b60c565c2e186a5f76b605506c5b8b7e61fa9f8041f952bfde5dbd6e2d",
+      "matchesReviewedSource": true
+    },
+    {
+      "path": "tools/run_commerce_arithmetic_weft.py",
+      "sha256": "9f99d45b86ffb335272d959d1ad52fc4c0bf80766dc02efa4ed1455ab199cdc9",
+      "matchesReviewedSource": true
+    },
+    {
+      "path": "tools/run_pack_count_having_weft.py",
+      "sha256": "42455be6147a7bd6000303fb97988e40d800e25180b59274a982a2c6f8fd5ec3",
+      "matchesReviewedSource": true
+    },
+    {
+      "path": "tests/test_weft_count_having.py",
+      "sha256": "4b1c9ff0aa9080e506c91caa81f73ab49cdf6cedcc8e9e4220e44a0a76c6ec4e",
+      "matchesReviewedSource": true
+    }
+  ]
+}

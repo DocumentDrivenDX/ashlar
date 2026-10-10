@@ -1,0 +1,236 @@
+{
+  "historicalCount": 46,
+  "allIdentical": true,
+  "rows": [
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/fulfillment-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/fulfillment-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/join-prepredicate-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/join-prepredicate-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/partial-return-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/partial-return-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/projection-cancellation-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/projection-cancellation-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/projection-empty-survivors-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/projection-empty-survivors-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/refund-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/refund-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/settlement-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/settlement-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/where-prefilter-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-current-requests/where-prefilter-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/fulfillment-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/fulfillment-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/join-prepredicate-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/join-prepredicate-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/partial-return-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/partial-return-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/projection-cancellation-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/projection-cancellation-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/projection-empty-survivors-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/projection-empty-survivors-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/refund-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/refund-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/settlement-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/settlement-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/where-prefilter-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/where-prefilter-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/wrong-schema-revision-request.json",
+      "artifact": "/private/tmp/ashlar-commerce-arithmetic-weft-20261009-d/wrong-schema-revision-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-lineage-request.json",
+      "artifact": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-lineage-stdout.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-missing-media-request.json",
+      "artifact": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-missing-media-stdout.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-specialists-request.json",
+      "artifact": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/archaeology-specialists-stdout.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-effort-event-request.json",
+      "artifact": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-effort-event-stdout.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-fishing-request.json",
+      "artifact": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-fishing-stdout.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-match-request.json",
+      "artifact": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-match-stdout.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-network-request.json",
+      "artifact": "/private/tmp/ashlar-original-pack-comparison-compiler-20261009-b/ecology-network-stdout.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-wrong-schema-request.json",
+      "artifact": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-wrong-schema-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-match-request.json",
+      "artifact": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-match-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-fishing-request.json",
+      "artifact": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-fishing-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-cycle-request.json",
+      "artifact": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-cycle-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-specialists-request.json",
+      "artifact": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-specialists-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-network-request.json",
+      "artifact": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-network-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-missing-media-request.json",
+      "artifact": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-missing-media-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-dating-request.json",
+      "artifact": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-dating-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-lineage-request.json",
+      "artifact": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/archaeology-lineage-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-effort-event-request.json",
+      "artifact": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-effort-event-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-wrong-schema-request.json",
+      "artifact": "/private/tmp/ashlar-pack-positioned-weft-20261009-b/ecology-wrong-schema-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-null-weft-20261009-c/archaeology-sample-request.json",
+      "artifact": "/private/tmp/ashlar-pack-null-weft-20261009-c/archaeology-sample-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-null-weft-20261009-c/ecology-censor-request.json",
+      "artifact": "/private/tmp/ashlar-pack-null-weft-20261009-c/ecology-censor-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-null-weft-20261009-c/ecology-effort-request.json",
+      "artifact": "/private/tmp/ashlar-pack-null-weft-20261009-c/ecology-effort-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-pack-null-weft-20261009-c/ecology-zero-request.json",
+      "artifact": "/private/tmp/ashlar-pack-null-weft-20261009-c/ecology-zero-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-weft-count-in-source-20261009-c/original-request.json",
+      "artifact": "/private/tmp/ashlar-weft-count-in-source-20261009-c/original-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-weft-count-in-source-20261009-c/global-empty-request.json",
+      "artifact": "/private/tmp/ashlar-weft-count-in-source-20261009-c/global-empty-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-weft-count-in-source-20261009-c/global-request.json",
+      "artifact": "/private/tmp/ashlar-weft-count-in-source-20261009-c/global-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-weft-count-in-source-20261009-c/grouped-empty-request.json",
+      "artifact": "/private/tmp/ashlar-weft-count-in-source-20261009-c/grouped-empty-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-weft-count-in-source-20261009-c/literal-duplicates-request.json",
+      "artifact": "/private/tmp/ashlar-weft-count-in-source-20261009-c/literal-duplicates-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-weft-count-in-source-20261009-c/numeric-refusal-request.json",
+      "artifact": "/private/tmp/ashlar-weft-count-in-source-20261009-c/numeric-refusal-artifact.json",
+      "jsonIdentical": true
+    },
+    {
+      "request": "/private/tmp/ashlar-weft-count-in-source-20261009-c/null-literal-refusal-request.json",
+      "artifact": "/private/tmp/ashlar-weft-count-in-source-20261009-c/null-literal-refusal-artifact.json",
+      "jsonIdentical": true
+    }
+  ]
+}

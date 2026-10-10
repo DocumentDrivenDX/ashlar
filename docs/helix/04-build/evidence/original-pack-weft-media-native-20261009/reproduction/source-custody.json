@@ -1,0 +1,32 @@
+{
+  "format": "ashlar-media-native-source-custody/0.1",
+  "qualification": "Pre-run only; no new native execution",
+  "runtimeSourceCommit": "4c2c8fda770fd204808c61ad4dbdb2b1e9d6d056",
+  "runtimeManifestPath": "/private/tmp/ashlar-media-runtime-4c2c/runtime-source-manifest.json",
+  "runtimeManifestSha256": "f146095f9503a05fa789b16733dba5d68801261ba4dedbb76b8da6df1d0831f8",
+  "runtimeFileCount": 719,
+  "commandSha256": "77ff053de5f28ac21274244de267dc122923ea7016c00946243a3f4ae70b512c",
+  "planSha256": "3e8a3cf9e7de199e41aa00639f555fa98ab3711b25b2b83bce88a6f9659d0019",
+  "hostSourceReceiptSha256": "a0c18d614f4eba27356b86c0f1e60e09cffb9c3ca2953060180d562387dcbc59",
+  "previous30eManifestSha256": "865d581fb75fc7bd61d089a902945566375e40b1522407e2b8245d97a4f405d2",
+  "changedOrAddedTrackedPathsVs30e": [
+    "tests/domain-pack-datasets.test.ts",
+    "tests/test_commerce_evolution_admission.py",
+    "tests/test_commerce_evolution_publication.py",
+    "tools/check_domain_pack_datasets.ts",
+    "tools/commerce_evolution_admission.py",
+    "tools/commerce_evolution_batch_scope.py",
+    "tools/run_commerce_evolution_publication.py",
+    "tools/run_local_outbox_publication.py",
+    "tools/run_pack_count_having_weft.py"
+  ],
+  "compilerPinManifestSha256": "0b99d35725ff9e7e8301c8e65b21907f3d87e2d1e4632a5db8bf656db38150c7",
+  "resourceClosure": "All tracked src/tools/sql/examples/tests/rootconfigs/.github exact Git4c2c bytes. docs/website nonruntime excluded. Complete prior reviewed resource/import closure; externally pinned original public producer/guard unchanged.",
+  "failureHistory": "Original a/b/c/d logs/source snapshots preserved; no complete report/partial native pass invented. New source lowering qualified only by independent literal syntax smoke and compiler transports.",
+  "requiredGates": [
+    "Official a71 CI38016303388SUCCESS",
+    "Host4c2c boundary CI38016545670SUCCESS",
+    "Astra exact newsource/command pre-run approval",
+    "Explicit domainengine stop/release and root reservation"
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "ashlarRuntimeRevision": "4c2c8fda770fd204808c61ad4dbdb2b1e9d6d056",
+  "cases": 6,
+  "closedIntervals": 8,
+  "emittedChecks": 22,
+  "historicalHostCommit": "1353a6b9751e3dd96fc3e9d6217b5b8b2b7a385c",
+  "immutableCompilerPath": "/private/tmp/ashlar-weft-having-order-collation-freeze-20261009-a/weft-runtime",
+  "immutableCompilerSha256": "209c7fa66b4ea002554f1d3246a1c10bdffb9f238d1c01367a53cef596c65e27",
+  "originalNativeFiles": 66,
+  "publicCompactProducer": "a95c3ec18a8f904decde884a4fa252988d2a5b0f",
+  "qualification": "Read-only original optional-String COUNT DISTINCT/HAVING finite fixture on private local publication only; no native excess-cardinality or threshold failure, cloud, UC, production authority or LEFT support claim",
+  "runtime": "Spark4.0.1/Delta4.0.0, local[1]/512m, existing Python3.9 bridge/JDK21/jars in exact command/custody",
+  "sourceGuard": "Original c7 source guard retained in reproduction custody; no integer guard was required by these String/count artifacts",
+  "weftRevision": "a71cf7cbb9de5387d3763cfd781419440a11adf2"
+}

@@ -1,0 +1,306 @@
+{
+  "format": "weft-media-component-fingerprints/0.1",
+  "qualification": "Compiler/schema/Python/browser component proof only; no native media/HAVING qualification",
+  "files": [
+    {
+      "path": "all-null-groups-artifact.json",
+      "sha256": "b811a5fa80dea624d4c890b85ca1b3bfc05aca4fba9eb195022b266e7b6352a9",
+      "bytes": 25846
+    },
+    {
+      "path": "all-null-groups-request.json",
+      "sha256": "3f646ad63360620acc9c75aa57bc7256ee37ce30c2d38a0404647e9621393cbd",
+      "bytes": 131610
+    },
+    {
+      "path": "backend-pipeline-tests.log",
+      "sha256": "1c3efc2f33e5816679e135aa9d1820019e8c686072a864582deaaa050391624f",
+      "bytes": 5760
+    },
+    {
+      "path": "backend-tests.log",
+      "sha256": "5f2611df7abdc95a04bcbc566544e809bd8147e72be34ef7733eb167b8405ef6",
+      "bytes": 8228
+    },
+    {
+      "path": "browser-receipts.json",
+      "sha256": "55e4f2b45d22a1cf4d4b190d35d94218475bca68714daa5bc0d2a21ada98bc58",
+      "bytes": 3087
+    },
+    {
+      "path": "browser-summary.json",
+      "sha256": "293bc70e95b37ce66cf0f389146db9f1c84aa4be461a59f66e2503e7d73c99c1",
+      "bytes": 795
+    },
+    {
+      "path": "browser.log",
+      "sha256": "293bc70e95b37ce66cf0f389146db9f1c84aa4be461a59f66e2503e7d73c99c1",
+      "bytes": 795
+    },
+    {
+      "path": "cases.json",
+      "sha256": "965276093a99004496bba61aed47e898dc877bb77bdb20a893cab970f2c38e83",
+      "bytes": 923429
+    },
+    {
+      "path": "compatibility.json",
+      "sha256": "bdcbef000e03c2f3a6c2f34dddf03decf8c500b6a670c0264db5abfd1ba320c0",
+      "bytes": 11293
+    },
+    {
+      "path": "core-schema-tests.log",
+      "sha256": "2d8a73fc41f241e78ca903f48053cfb74a80d1a38e115f6e2de92fc0d41ebd69",
+      "bytes": 8412
+    },
+    {
+      "path": "feature-refusal.log",
+      "sha256": "09b55720f3e763c049b7f47bd9e4ed04924d3840e0f392cc3e1627465d8a0085",
+      "bytes": 7173
+    },
+    {
+      "path": "global-empty-artifact.json",
+      "sha256": "d1a68a0362369aa265e9eac534b433412b6db51e7ab87a43cb378efbc532627c",
+      "bytes": 22705
+    },
+    {
+      "path": "global-empty-request.json",
+      "sha256": "b36a09f05fe1547c3cc331e2ae636735e6ec98f2bb450c53053939ba61d1145b",
+      "bytes": 131573
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "0a8e208ce3ff981b754e8b71445dd172629734c39ba6537c6328cd58530144eb",
+      "bytes": 2911
+    },
+    {
+      "path": "mismatched-count-artifact.json",
+      "sha256": "b7cadb9eeede84430678691c342c3c97bf47b637ac683867837a4624f44a3656",
+      "bytes": 261
+    },
+    {
+      "path": "mismatched-count-request.json",
+      "sha256": "6569761b093587597af94f76110b0df1ce016e6f70d9a21ccb15545b428fe779",
+      "bytes": 131596
+    },
+    {
+      "path": "no-encoding-artifact.json",
+      "sha256": "3ea7ad022c9fdd5535ed50239d7c5cf1f4b980a491983c2f9fc9d29da3e795b7",
+      "bytes": 261
+    },
+    {
+      "path": "no-encoding-request.json",
+      "sha256": "57a6be2f248f887b3c74e55e6e204b32324aea498758c72cda5c9de911bdcc45",
+      "bytes": 131538
+    },
+    {
+      "path": "original-artifact.json",
+      "sha256": "ffb2267eb4eeacf378ab9312d98b85304dbc5f7df89629eb7656ef1860321b6c",
+      "bytes": 24590
+    },
+    {
+      "path": "original-request.json",
+      "sha256": "a594b50318195d228cbf593b534637be4e6db56a435881bfa4d2375ee5023cf5",
+      "bytes": 131598
+    },
+    {
+      "path": "python-receipts.json",
+      "sha256": "f54eb74e6bd12f3fbbd44065d4edd460b1ab70aea74d5f9654a33c826a8b6ee3",
+      "bytes": 1009
+    },
+    {
+      "path": "reports.json",
+      "sha256": "5f271fcc37f9b8119d8181546728d4559775792794d8c10a8808e75e937abfba",
+      "bytes": 80108
+    },
+    {
+      "path": "schema-check.ts",
+      "sha256": "079aea7e56c38adc5cb7f6c11ce4c6912260d79722025820b8ee2ff0e2f7fffc",
+      "bytes": 1096
+    },
+    {
+      "path": "schema-receipts.json",
+      "sha256": "810b10ddeeb58885c737a300657db9bc6c8e57769f7f6b236b3de5fa3285fabc",
+      "bytes": 701
+    },
+    {
+      "path": "source/.github/workflows/conformance.yml",
+      "sha256": "ef8fa90b7e15e26d08f89db904713a233c8a9220558dd93f7ede22aff91d498d",
+      "bytes": 3135
+    },
+    {
+      "path": "source/crates/weft-core/src/arithmetic_application_resolve.rs",
+      "sha256": "2cf11abd6028c21e13f7fcb2ed50dd609deaa42887e7d196c03ccd80a384671f",
+      "bytes": 32696
+    },
+    {
+      "path": "source/crates/weft-core/src/arithmetic_plan.rs",
+      "sha256": "9a5daa5f3ea9712f6cb13f0d58a169e5b00fc1869efa9f02f3303c1453da20aa",
+      "bytes": 3489
+    },
+    {
+      "path": "source/crates/weft-core/src/arithmetic_query.rs",
+      "sha256": "7949a34ecb7ac7e0f8fcea3e9c88231a39179b99e7c5769b60d92c57f847b814",
+      "bytes": 18056
+    },
+    {
+      "path": "source/crates/weft-core/src/backend.rs",
+      "sha256": "a6a857e5f4987efeb447d9dc72fa37701c0cb79c8b64293baaa37cfbb3d29a90",
+      "bytes": 35280
+    },
+    {
+      "path": "source/crates/weft-core/src/backend_emission.rs",
+      "sha256": "9e8fb16a64c41c336c6bcf28f1885d54855d5f385fe5fc5f1e6875372f3a786b",
+      "bytes": 37362
+    },
+    {
+      "path": "source/crates/weft-databricks/src/candidate/arithmetic.rs",
+      "sha256": "06b23e6162938e2a35e57366a74f2d4f9afb1bff2a9581aafa1f97de22eaa52e",
+      "bytes": 30907
+    },
+    {
+      "path": "source/crates/weft-databricks/src/count_having.rs",
+      "sha256": "e835313d8ae870e7b19dac8086f8f888e0a0d99c79e33766a1ff495fea10bd17",
+      "bytes": 3199
+    },
+    {
+      "path": "source/crates/weft-databricks/src/lib.rs",
+      "sha256": "f8c4cb131b824e410d189043dc0e0ba9e43abacfa86ee8de32641c09e16f260e",
+      "bytes": 589
+    },
+    {
+      "path": "source/crates/weft-python/Cargo.toml",
+      "sha256": "790840a4743c9d4277bc3f5896bd9b1de13839a7228934a2056c222bd6a70f08",
+      "bytes": 878
+    },
+    {
+      "path": "source/crates/weft-runtime/Cargo.toml",
+      "sha256": "094d40bc118edbc1de24928c24bf7da01ad3640d03da995d3e44865663758ae7",
+      "bytes": 1183
+    },
+    {
+      "path": "source/crates/weft-runtime/src/lib.rs",
+      "sha256": "0e77fdc22315e299a8067a0ba5080adb870deea1306522c22c864c0865a2d39b",
+      "bytes": 20294
+    },
+    {
+      "path": "source/crates/weft-wasm/Cargo.toml",
+      "sha256": "f828e5d3289277349a53304e626449f1d386748bd5b0c7a9acb81d23b16e254a",
+      "bytes": 821
+    },
+    {
+      "path": "source/docs/helix/02-design/contracts/exact-arithmetic-v0.3.md",
+      "sha256": "5e187ac7f9f53bb60192769d45dca7f4af7a0898494b2c6d522b8ad5752f3aa6",
+      "bytes": 24644
+    },
+    {
+      "path": "source/docs/helix/02-design/contracts/logical-plan-v0.3.schema.json",
+      "sha256": "315cc38645163e60207c25a98a56bb75bcb10617ac75af5491ecaf12d43e7f9d",
+      "bytes": 38571
+    },
+    {
+      "path": "source/tests/ashlar-databricks/compiler.rs",
+      "sha256": "4a4694234b5e7578202ba8f44373e83d7d51cd5fc24c67c5fdb4d2af00659536",
+      "bytes": 66648
+    },
+    {
+      "path": "source/tests/register-backend/pipeline.rs",
+      "sha256": "1a7a100f5c39ee0ef1f8ec6512f85248a3ae3c42efcacd94ee7548a6d31f1c96",
+      "bytes": 32128
+    },
+    {
+      "path": "threshold-wide-artifact.json",
+      "sha256": "87b01d96ca3a19403b553ae785478382447c1c868a1ec05d459357045efcddd0",
+      "bytes": 253
+    },
+    {
+      "path": "threshold-wide-request.json",
+      "sha256": "72d3322c75bf41692abdbd880248d51c33e0cef2a194ada44acb2fdc98cf9037",
+      "bytes": 131616
+    },
+    {
+      "path": "transport/all-null-groups-request.json",
+      "sha256": "9d770fe43a7c7b829eb18ffb3151621ecf1636f757b8783c88bdacf8d37cbaf2",
+      "bytes": 131609
+    },
+    {
+      "path": "transport/global-empty-request.json",
+      "sha256": "62fc441030da80d4efbe17401db38a80079e3bda2971ebff0ee13f5f52acbe80",
+      "bytes": 131572
+    },
+    {
+      "path": "transport/mismatched-count-request.json",
+      "sha256": "28cbd134e46666b4a927b3232e6910766e4bf1db02a02848a65ccb0a0ba0f46f",
+      "bytes": 131595
+    },
+    {
+      "path": "transport/no-encoding-request.json",
+      "sha256": "a9a4bb5cdbd20bcce14e8f9099e93007b63932455dde115a42756782006882e4",
+      "bytes": 131537
+    },
+    {
+      "path": "transport/original-request.json",
+      "sha256": "4a560a0c6a1f7740b273b9dd46827c462e6e205f0e48d04076cdfa850e69f770",
+      "bytes": 131597
+    },
+    {
+      "path": "transport/threshold-wide-request.json",
+      "sha256": "45e29578e41f1ae5656c7911db6e0c367a2885931dec6d114d5ea0154acd8cbc",
+      "bytes": 131615
+    },
+    {
+      "path": "transport/wrong-binding-request.json",
+      "sha256": "11459c6be784fdb79dff36707aef88c1ae8f1d74c998a988e670d924005d05fe",
+      "bytes": 131586
+    },
+    {
+      "path": "transport-replay.json",
+      "sha256": "8f9c3cdaa2d609b64c5abad4d07b4c0c5a3c2042958e79e9ce90f17fb4e731ba",
+      "bytes": 1940
+    },
+    {
+      "path": "wasm/weft_wasm.d.ts",
+      "sha256": "6fbf4309fbc1465604c02d59cddae80271e1adfc4fce94356c8bfa28787b1b8c",
+      "bytes": 1491
+    },
+    {
+      "path": "wasm/weft_wasm.js",
+      "sha256": "48f2597d68d0045818b5d7bc5d0d65cf8b3f365599d05932f62864ac23e3ea66",
+      "bytes": 6559
+    },
+    {
+      "path": "wasm/weft_wasm_bg.wasm",
+      "sha256": "a6a7ea29fe90581b693fadc306805c5399a44c7cd0f884cc8d0f5ef5f2159831",
+      "bytes": 11533893
+    },
+    {
+      "path": "wasm/weft_wasm_bg.wasm.d.ts",
+      "sha256": "bb600deaf3d9ced4a6a741f5079ca1485dd1c7225ed87f84d3b06fa7951eea28",
+      "bytes": 480
+    },
+    {
+      "path": "weft-runtime",
+      "sha256": "87b9e1f3c5dd64942ae65d4e125431b452d01624c4f3e5289ec0d29898db9416",
+      "bytes": 13170688
+    },
+    {
+      "path": "wheel/weft_sql-0.1.0-cp39-abi3-macosx_11_0_arm64.whl",
+      "sha256": "ee45bf125b7c1f80be249ec3a3213020b5604761ec1344273569fb0c480c9071",
+      "bytes": 3509738
+    },
+    {
+      "path": "wrapper.js",
+      "sha256": "a1ab5c00b11d7b615330b29c567f05ce5a2666ec2c542935cce0b08cba48a6db",
+      "bytes": 1218
+    },
+    {
+      "path": "wrong-binding-artifact.json",
+      "sha256": "fd2a3c216a90ad4b42f7703cca36af9809f82443caca50dd56240e3eed39c048",
+      "bytes": 260
+    },
+    {
+      "path": "wrong-binding-request.json",
+      "sha256": "fb8f75fdc383046ad3b0ebb89a0b19beff1c99003453d553f71f8fb07dbfc350",
+      "bytes": 131587
+    }
+  ]
+}

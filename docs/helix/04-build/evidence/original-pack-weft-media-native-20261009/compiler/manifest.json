@@ -1,0 +1,159 @@
+{
+  "format": "weft-count-having-order-collation-repair/0.1",
+  "baseCommit": "d2d63879a80c83f604179ade6c169b10676f6de4",
+  "qualification": "Only infix collation syntax correction; compile/schema/nativeCLI/Python/Chromium parity and literal analyzer smoke; full nativepublication retry pending",
+  "files": [
+    {
+      "path": "all-null-groups-artifact.json",
+      "sha256": "56059c80d80eeeaad6439404477dbb8d65169079c2157efb93b6137a0bb11399"
+    },
+    {
+      "path": "all-null-groups-request.json",
+      "sha256": "8c45e3ea1900258248067fbc20e8e89902b048fd3961ac0d012381c5f6f529f3"
+    },
+    {
+      "path": "browser-receipts.json",
+      "sha256": "898cab46c19446036011d1ca6271515c5c77dca8a141000ccad0b55afb975d80"
+    },
+    {
+      "path": "browser-summary.json",
+      "sha256": "0b8fc01768f93aef9302bd10a1ad8c6ca1c8987f8a9b44091116fbed37c949c3"
+    },
+    {
+      "path": "browser.log",
+      "sha256": "0b8fc01768f93aef9302bd10a1ad8c6ca1c8987f8a9b44091116fbed37c949c3"
+    },
+    {
+      "path": "build.log",
+      "sha256": "0df8374014faf888c14055365f413b92ebd04195ef00eda1511e315f29643107"
+    },
+    {
+      "path": "cases.json",
+      "sha256": "71d1c70d25b61239325f1a881adee6b770a6429a2e60d3da75b2b4c01d1c1ad9"
+    },
+    {
+      "path": "check.ts",
+      "sha256": "ea38703709eb318df749cb0fcfa04a0b3e6c34c81a0b345531b432294be4f57b"
+    },
+    {
+      "path": "compatibility.json",
+      "sha256": "8893162c527b2f2cea6a07956b834fc54f7b44068199d945346fadb0dc4c8673"
+    },
+    {
+      "path": "global-artifact.json",
+      "sha256": "880e8b4274724e8682b5bcca957c051137243aec04e99bce59e776d0de724d1c"
+    },
+    {
+      "path": "global-empty-artifact.json",
+      "sha256": "09676e1f8e44fd571e93dab72afde638333c748ef72fefa7c93bc21a28039e03"
+    },
+    {
+      "path": "global-empty-request.json",
+      "sha256": "a425280d4038f561503c38a3347ae982fb4b9257c8fdc0a1c36d2474b4491a02"
+    },
+    {
+      "path": "global-having-empty-artifact.json",
+      "sha256": "22a4b538871b7a77ec693c4c7062b24d1bdca9fa6f04969bab0554cabdc566da"
+    },
+    {
+      "path": "global-having-empty-request.json",
+      "sha256": "9ba7fd7769bdcbffcf043b719e098534e5303569ca2e1dd624f7e976b855a08d"
+    },
+    {
+      "path": "global-request.json",
+      "sha256": "69eedb25e808c2ce2bd9f3896597382573a8b8c023aae49729dac469c347dce2"
+    },
+    {
+      "path": "having-excludes-all-artifact.json",
+      "sha256": "2fddafcd36977dad4286fda2524f7be16d29c869b2de8b92989dbe1676ccb34f"
+    },
+    {
+      "path": "having-excludes-all-request.json",
+      "sha256": "81558156765b949d6c6a1ca0199b095eef51909865fb3966eb0e35106df870bd"
+    },
+    {
+      "path": "native-syntax-smoke/command.txt",
+      "sha256": "419b86370678b75e1f4b8986ecd7943d3e58604b95de11cb82bf669dede93a56"
+    },
+    {
+      "path": "native-syntax-smoke/native.log",
+      "sha256": "774c74e7e5b0afe472980ea903f012cb5a7012e72363f9101a15b4e071a03e25"
+    },
+    {
+      "path": "native-syntax-smoke/report.json",
+      "sha256": "7ef99f08432ec0c5893c548b3aed8cc0ec3a9bcb6505964b9c4d8cc9da171af9"
+    },
+    {
+      "path": "native-syntax-smoke/script.py",
+      "sha256": "a772a333aa8cb6f7dbb727e8cf93977c1f843ef60cf973d4a0fad6ada55638bb"
+    },
+    {
+      "path": "original-artifact.json",
+      "sha256": "ffb2267eb4eeacf378ab9312d98b85304dbc5f7df89629eb7656ef1860321b6c"
+    },
+    {
+      "path": "original-request.json",
+      "sha256": "07839b786f236ae4981ecf646357ceb333765354875356f0339dfc68dbb36031"
+    },
+    {
+      "path": "python-receipts.json",
+      "sha256": "b00ff956eb22051e531009ff953f87544a4879e767fa97c9c5b768cfb6281588"
+    },
+    {
+      "path": "reports.json",
+      "sha256": "df0c3bafd5f8fcc8a3324d17569f6106376dba42afcdb3cb1b21b0c2d27f225a"
+    },
+    {
+      "path": "schema-receipts.json",
+      "sha256": "a415374c363de03fc84527b7a65b865078346a4be8e0611b7289dd42742bdd01"
+    },
+    {
+      "path": "source/crates/weft-databricks/src/candidate/arithmetic.rs",
+      "sha256": "c1e347d49d25f67de9972235bac74bc4cae47afbc470b06912d9af697b622783"
+    },
+    {
+      "path": "source/tests/ashlar-databricks/compiler.rs",
+      "sha256": "620b60df40981e5ea47f82220207c88ffcb1ffaee94d1b35b924afc9bb9b27b6"
+    },
+    {
+      "path": "tests.log",
+      "sha256": "149055421d97416eafd7c4278cf997b1a6b74408cc63a26c160762d809846d63"
+    },
+    {
+      "path": "wasm/weft_wasm.d.ts",
+      "sha256": "6fbf4309fbc1465604c02d59cddae80271e1adfc4fce94356c8bfa28787b1b8c"
+    },
+    {
+      "path": "wasm/weft_wasm.js",
+      "sha256": "48f2597d68d0045818b5d7bc5d0d65cf8b3f365599d05932f62864ac23e3ea66"
+    },
+    {
+      "path": "wasm/weft_wasm_bg.wasm",
+      "sha256": "6d517a8f5b82486035071d757c5e2cce684c8a03754fb0a240c3aad6a7573e87"
+    },
+    {
+      "path": "wasm/weft_wasm_bg.wasm.d.ts",
+      "sha256": "bb600deaf3d9ced4a6a741f5079ca1485dd1c7225ed87f84d3b06fa7951eea28"
+    },
+    {
+      "path": "wasm.log",
+      "sha256": "2d622a71cf475fc499879c0e37d26c67c10641d3779b9636e18aa34f8f35544e"
+    },
+    {
+      "path": "weft-runtime",
+      "sha256": "209c7fa66b4ea002554f1d3246a1c10bdffb9f238d1c01367a53cef596c65e27"
+    },
+    {
+      "path": "wheel/weft_sql-0.1.0-cp39-abi3-macosx_11_0_arm64.whl",
+      "sha256": "fc451190347d805279b00f716876a26cb214af9870f7f6fe42e2a5a2b2ac271b"
+    },
+    {
+      "path": "wheel.log",
+      "sha256": "1ace8d01b8a38983fbc86da392a577e1a02fa062cde82a8d603bf96026c22d6e"
+    },
+    {
+      "path": "wrapper.js",
+      "sha256": "a1ab5c00b11d7b615330b29c567f05ce5a2666ec2c542935cce0b08cba48a6db"
+    }
+  ]
+}

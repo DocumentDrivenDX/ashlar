@@ -1,0 +1,15 @@
+Working directory: /private/tmp/ashlar-media-runtime-4c2c
+
+PYTHONPATH=/private/tmp/ashlar-media-runtime-4c2c/src:/private/tmp/ashlar-media-runtime-4c2c/tools:/private/tmp/ashlar-spark4-python39-bridge \
+JAVA_HOME=/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home \
+SPARK_LOCAL_IP=127.0.0.1 \
+PYSPARK_PYTHON=/private/tmp/ashlar-db-client/bin/python \
+PYSPARK_DRIVER_PYTHON=/private/tmp/ashlar-db-client/bin/python \
+/private/tmp/ashlar-db-client/bin/python /private/tmp/ashlar-media-runtime-4c2c/tools/run_pack_count_having_weft.py \
+  --archaeology /private/tmp/ashlar-archaeology-native-publication-20261009-a \
+  --output /private/tmp/ashlar-pack-media-weft-20261009-e \
+  --jars /private/tmp/ashlar-delta4-jars \
+  --compiler /private/tmp/ashlar-weft-having-order-collation-freeze-20261009-a/weft-runtime \
+  --source-guard /private/tmp/ashlar-weft-mathematical-integer-f05/scripts/local/public_integer_source.ts \
+  --umf /private/tmp/ashlar-umf-dataset-45473 \
+  > /private/tmp/ashlar-pack-media-weft-20261009-e.log 2>&1

@@ -1,0 +1,10 @@
+[
+  {
+    "encoding": "gzip; complete original bytes; mtime=0",
+    "originalBytes": 23483520,
+    "originalPath": "/private/tmp/ashlar-pack-media-weft-20261009-e/report.json",
+    "originalSha256": "18db8d27380e7d1dc918cb7eb54245d7720b01177efd902a2ea13a7d74a8607e",
+    "path": "native/report.json.gz",
+    "sha256": "fd2405c8815514075a1f5be9552b5c303ad765077dd7bdcb43e7b7becf97030b"
+  }
+]
