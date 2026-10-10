@@ -88,7 +88,21 @@ def main():
         command = commands.add_parser(name, help='Run the original eight-step evolution with an explicit trusted operator provider')
         for option in ('configuration', 'provider', 'provider-sha256'):
             command.add_argument('--' + option, required=True)
+    for name in ('activate-puppy-release', 'read-puppy-release'):
+        command = commands.add_parser(name, help='Activate or read one explicit original PuppyGraph release handle')
+        for option in ('configuration', 'provider', 'provider-sha256'):
+            command.add_argument('--' + option, required=True)
     args = parser.parse_args()
+    if args.command in ('activate-puppy-release','read-puppy-release'):
+        from ashlar_host.puppy_release_cli import run_puppy_command
+        try:
+            answer = run_puppy_command(args.configuration,args.provider,args.provider_sha256,
+                'activate' if args.command == 'activate-puppy-release' else 'read')
+            print(json.dumps(answer,sort_keys=True,separators=(',',':')))
+        except Exception:
+            print('ashlar selected PuppyGraph release refused',file=sys.stderr)
+            raise SystemExit(2) from None
+        return
     if args.command == 'compile-supply-chain-count-star':
         from ashlar_host.supply_chain_cli import compile_supply_chain_command
         try:

@@ -18,6 +18,13 @@ EDGE_TEXT=('source_system','schema_revision','props_json','retained_json','order
 NULLABLE={'root_id','source_position','order_key','apply_batch_id','source_cursor_json','source_delivery_id'}
 
 
+def release_columns(kind):
+    """Ordered original canonical graph-release carrier columns."""
+    if type(kind) is not str or kind not in ('node', 'edge'):
+        raise ResolutionError('Exact canonical graph role required')
+    return (NODE_INTS+NODE_TEXT if kind=='node' else EDGE_INTS+EDGE_TEXT)+('published_at','graph_id')+(('src','dst') if kind=='edge' else ())
+
+
 def _text(value):
     if type(value) is not str or '\x00' in value:
         raise ResolutionError('Exact Unicode text carrier required')

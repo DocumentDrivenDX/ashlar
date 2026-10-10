@@ -7,7 +7,7 @@ import json
 from pathlib import Path
 import re
 import sys
-from ashlar.graph_release import NODE_INTS, NODE_TEXT, EDGE_INTS, EDGE_TEXT, _carrier
+from ashlar.graph_release import NODE_INTS, NODE_TEXT, EDGE_INTS, EDGE_TEXT, _carrier, release_columns
 
 FORMAT='ashlar-graph-release/0.1'
 VERSIONS={'pyspark':'3.5.3','delta-spark':'3.2.1','graphframes-py':'0.12.3'}
@@ -96,7 +96,7 @@ def load_release(payload, trusted_sha256,*,custody_profile=None,custody_payload=
     return value
 
 def columns(kind):
-    return (NODE_INTS+NODE_TEXT if kind=='node' else EDGE_INTS+EDGE_TEXT)+('published_at','graph_id')+(('src','dst') if kind=='edge' else ())
+    return release_columns(kind)
 
 def graph_rows(rows):
     return [{('carrier_id' if k=='id' else 'id' if k=='graph_id' else k):v for k,v in row.items()} for row in rows]
