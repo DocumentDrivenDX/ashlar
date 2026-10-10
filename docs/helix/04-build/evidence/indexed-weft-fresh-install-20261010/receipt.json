@@ -1,0 +1,162 @@
+{
+  "format": "ashlar-indexed-weft-fresh-install/0.1",
+  "recordedAt": "2026-10-10T04:10:32.774529+00:00",
+  "ashlarRevision": "2783aef955555d9b536e8fe603efd1617a633c91",
+  "weftIndexRevision": "41a42ed5fc3c780ce900c61144733ad93359dc76",
+  "indexSha256": "71e441ce80b36a50cb8fc668431fefddec71e5e83908eb7fe78abe40c41ba2de",
+  "realizationId": "weft-362a9c6-ab899150-aarch64-apple-darwin-candidate",
+  "compilerSha256": "ab899150d217a26368ab0c0954a627401d41031fc768f758247231ea513a3437",
+  "requestSha256": "f99ccab34a1add755375051480788dd9f2d74d551a7a2440193e6649968d76e4",
+  "stdoutSha256": "f130efdaceb05295d1121d252cab09fe28eb02a0f6cd2d9f5414165fb05ca34e",
+  "cwd": "/private/tmp/ashlar-weft-fresh-cli-20261010-a/ashlar",
+  "setup": {
+    "venv": ".venv-ashlar",
+    "pipInstallCommand": [
+      ".venv-ashlar/bin/python",
+      "-m",
+      "pip",
+      "install",
+      "."
+    ],
+    "pipSession": 65233,
+    "pipExit": 0,
+    "observedWheelBytes": 114493,
+    "observedWheelSha256": "2f3dfb11b014af09698d54ea66448ef89dbe7867ccb4a9d8b10f5f104a9c8fb7",
+    "wheelRetention": "Wheel hash/size observed in pip output; original wheel and full build log not retained; no reproducible-wheel or external build-closure claim",
+    "gitCloneSession": 10238,
+    "gitCloneExit": 0,
+    "sourceSelection": "Exact57 Git files exported; documented sparse publicdistribution clone/filter+checkout command ran unchanged"
+  },
+  "observedHost": {
+    "platform": "darwin",
+    "machine": "arm64",
+    "macOS": "27.0.1",
+    "python": "3.9.6",
+    "pip": "21.2.4"
+  },
+  "ciGates": {
+    "weftPortabilityRepair": {
+      "run": 38022362770,
+      "revision": "be49fff8b642105d76ab369387dea6139c0868d4",
+      "conclusion": "success"
+    },
+    "ashlarDistribution": {
+      "run": 38022937020,
+      "conclusion": "success"
+    },
+    "ashlarBoundaries": {
+      "run": 38022937034,
+      "conclusion": "success"
+    }
+  },
+  "results": {
+    "installExit": 0,
+    "installStdoutBytes": 0,
+    "installStderr": "ashlar-weft: installed\n",
+    "compileExit": 0,
+    "compileStderrBytes": 0,
+    "fullOriginalStdoutParity": true,
+    "restartExit": 0,
+    "restartStderrBytes": 0,
+    "restartOriginalPackageAbsent": true,
+    "restartFullOriginalStdoutParity": true
+  },
+  "captureLimits": "Original conformance request/response and safe installation/provenance files retained; setup stdout observed by tool only. No OTLP receiver/export or crash durability claim. Private runtime paths identify this run, not prerequisites for documented commands. No native engine or live publication executed.",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "venv",
+        "/private/tmp/ashlar-weft-fresh-cli-20261010-a/ashlar/.venv-ashlar"
+      ],
+      "exit": 0
+    },
+    {
+      "argv": [
+        ".venv-ashlar/bin/python",
+        "-m",
+        "pip",
+        "install",
+        "."
+      ],
+      "exit": 0
+    },
+    {
+      "argv": [
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "--no-checkout",
+        "https://github.com/DocumentDrivenDX/weft.git",
+        "out/weft-distribution"
+      ],
+      "exit": 0
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "out/weft-distribution",
+        "sparse-checkout",
+        "set",
+        "distributions"
+      ],
+      "exit": 0
+    },
+    {
+      "argv": [
+        "git",
+        "-C",
+        "out/weft-distribution",
+        "checkout",
+        "41a42ed5fc3c780ce900c61144733ad93359dc76"
+      ],
+      "exit": 0
+    },
+    {
+      "argv": [
+        ".venv-ashlar/bin/ashlar",
+        "install-weft",
+        "--index",
+        "out/weft-distribution/distributions/index.json",
+        "--package",
+        "out/weft-distribution/distributions/realizations/weft-362a9c6-ab899150-aarch64-apple-darwin-candidate",
+        "--output",
+        "out/weft-installation"
+      ],
+      "exit": 0,
+      "stdout": "actual/out/install.stdout",
+      "stderr": "actual/out/install.stderr"
+    },
+    {
+      "argv": [
+        ".venv-ashlar/bin/ashlar",
+        "compile-weft",
+        "--index",
+        "out/weft-distribution/distributions/index.json",
+        "--installation",
+        "out/weft-installation"
+      ],
+      "exit": 0,
+      "stdin": "actual/examples/end-to-end/weft-installation-request.json",
+      "stdout": "actual/out/weft-compile-response.json",
+      "stderr": "actual/out/compile.stderr"
+    },
+    {
+      "argv": [
+        ".venv-ashlar/bin/ashlar",
+        "compile-weft",
+        "--index",
+        "out/weft-distribution/distributions/index.json",
+        "--installation",
+        "out/weft-installation"
+      ],
+      "exit": 0,
+      "stdin": "actual/examples/end-to-end/weft-installation-request.json",
+      "stdout": "actual/out/restart-response.json",
+      "stderr": "actual/out/restart.stderr",
+      "originalPackageStateDuringProcess": "Renamed to realizationId+.offline; original path asserted absent; restored in finally"
+    }
+  ]
+}

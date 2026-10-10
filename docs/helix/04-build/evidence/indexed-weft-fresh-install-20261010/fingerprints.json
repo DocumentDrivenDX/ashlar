@@ -1,0 +1,74 @@
+{
+  "files": [
+    {
+      "path": "README.md",
+      "bytes": 1513,
+      "sha256": "c74c93514e15858aa90eac9cde49aabc629a709a3a177a69e95ace1f87d9b74c"
+    },
+    {
+      "path": "actual/examples/end-to-end/weft-installation-request.json",
+      "bytes": 3203,
+      "sha256": "f99ccab34a1add755375051480788dd9f2d74d551a7a2440193e6649968d76e4"
+    },
+    {
+      "path": "actual/out/compile.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/out/install.stderr",
+      "bytes": 23,
+      "sha256": "cb249d03196d5f2be039080d782bad189222c45ef7b0fef2d20485a92df34739"
+    },
+    {
+      "path": "actual/out/install.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/out/restart-response.json",
+      "bytes": 16292,
+      "sha256": "f130efdaceb05295d1121d252cab09fe28eb02a0f6cd2d9f5414165fb05ca34e"
+    },
+    {
+      "path": "actual/out/restart.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "actual/out/weft-compile-response.json",
+      "bytes": 16292,
+      "sha256": "f130efdaceb05295d1121d252cab09fe28eb02a0f6cd2d9f5414165fb05ca34e"
+    },
+    {
+      "path": "actual/out/weft-distribution/distributions/index.json",
+      "bytes": 730,
+      "sha256": "71e441ce80b36a50cb8fc668431fefddec71e5e83908eb7fe78abe40c41ba2de"
+    },
+    {
+      "path": "actual/out/weft-installation/provenance.json",
+      "bytes": 73021,
+      "sha256": "524b0b5e58d066153cbd6b73d1ea58f13d725203d27e0b25c9e03456684de601"
+    },
+    {
+      "path": "actual/out/weft-installation/ready.json",
+      "bytes": 572,
+      "sha256": "b0eea521316afdf88aa40cc2655b9e0dc055bbec37965e0ed2fdc78f7009a20c"
+    },
+    {
+      "path": "installed-project-inventory.json",
+      "bytes": 8298,
+      "sha256": "7b8535583336118bf99c25cea1a0c6b8e96bf9a089cfee2235b7cb501eb61b43"
+    },
+    {
+      "path": "receipt.json",
+      "bytes": 4976,
+      "sha256": "92e70f71f1e1f72df51608f4732bedba07e7312adf8b9299abbed02a342134e2"
+    },
+    {
+      "path": "selected-project-inventory.json",
+      "bytes": 14162,
+      "sha256": "033e75da64fb29ae20ad2d669a59133f0058a781390e75cb428afa101e2b434d"
+    }
+  ]
+}
