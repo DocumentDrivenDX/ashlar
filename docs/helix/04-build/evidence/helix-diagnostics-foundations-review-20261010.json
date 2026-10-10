@@ -1,0 +1,145 @@
+{
+  "format": "astra-independent-helix-desired-state-review/0.1",
+  "verdict": "approved-three-file-desired-state-iteration",
+  "scope": "Current Ashlar diagnostics/module/configuration/formal coverage against installed HELIX0.15.4 practices; no implementation readiness or runtime qualification inferred.",
+  "catalog": {
+    "version": "0.15.4",
+    "source": "installed full plugin workflows catalog",
+    "skill": {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/skills/helix/SKILL.md",
+      "bytes": 21248,
+      "sha256": "d076ad64cdcc50a30bbcc341a9033ab4d785364d45f9f1904dad1a8f2ae943f7"
+    },
+    "graph": {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/graph.yml",
+      "bytes": 15649,
+      "sha256": "902a05f64a1d501797c1c3561bac1634dc4b31f0f5c7fbdf0e51e68a113fb3ef"
+    },
+    "mode": {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/modes/review.md",
+      "bytes": 1795,
+      "sha256": "755d99316f91ffcf8869542579b0bf0fa47c4490cf97b5f55274b0459be6607d"
+    },
+    "stopTriggers": {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/stop-triggers.yml",
+      "bytes": 2215,
+      "sha256": "f771a7ddef0f82e4f366934e22e9d1a38fe5de90c160630cddddc8e1569634cd"
+    }
+  },
+  "guidance": [
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/concerns/modularity-and-encapsulation/practices.md",
+      "bytes": 4078,
+      "sha256": "ac0ba86836f318a443e404053e9018e9165e367077307a1746cc2b2306d04fcb"
+    },
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/concerns/python-uv/practices.md",
+      "bytes": 3843,
+      "sha256": "14d8e5e4f0a24a410884070a205ef137f7575c89f9f67465bc82a368ca9ca0c0"
+    },
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/concerns/o11y-otel/practices.md",
+      "bytes": 8161,
+      "sha256": "af3a6cf39fe5ab641fc52f3e59645e1261e9396531549cf54453ffa5c4930eba"
+    },
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/concerns/formal-methods/practices.md",
+      "bytes": 4666,
+      "sha256": "f9c3e143176e2f0e9f9d02a8e44e48b29891b1e0e33a578ca0d09d67d5e83410"
+    },
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/references/agent-diagnostics.md",
+      "bytes": 10466,
+      "sha256": "8b31cb15eaa0e688d9ff88e6545587425de87feccef56017f6a1b2a18c8b1eab"
+    },
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/references/formal-methods.md",
+      "bytes": 6598,
+      "sha256": "2fa25550231332cb7af2f64e9a9b1a95a4a7d89285a0cace215935bcd89d3a8b"
+    }
+  ],
+  "changedFiles": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/01-frame/concerns.md",
+      "bytes": 6357,
+      "sha256": "c3d688ba3bc45f9884298a83ae40cd9585d4a9792a7792d9c37939480ff0006f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 31584,
+      "sha256": "92ff96aa8f5603a3bac6eabde6d41761035cc733e4af8eea5df4ae27aff80fbd"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/03-test/consumer-conformance-plan.md",
+      "bytes": 20654,
+      "sha256": "26c8db71338d0d0a60a8ea0816d98cb21ade1fefe514eb70a8233e59fb0371da"
+    }
+  ],
+  "governingContext": [
+    {
+      "path": "/Users/erik/Projects/ashlar/.helix.yml",
+      "bytes": 43,
+      "sha256": "50c803bf828578d2d717246db0d75d16acb6c294867cce533e1073009cae010a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/README.md",
+      "bytes": 3526,
+      "sha256": "64e6adaf880289bcbade4c743081d9c701161022b5397edadc6ad1957dbae768"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "bytes": 23636,
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/toolkit-delivery-plan.md",
+      "bytes": 14828,
+      "sha256": "70a9ff183ef038600c6f93d1af1facab1f884a18f9c4e57b5c8cdb6651daad0d"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/technical-designs/TD-001-publication-recovery.md",
+      "bytes": 6177,
+      "sha256": "224c130afc42ea702ee686f58060d6fb5d87ac7a42a2c63da1be59bf55f292c7"
+    }
+  ],
+  "frontmatter": "All three frontmatter blocks byte-equivalent to HEAD; artifact identity/traceability preserved.",
+  "diffCheck": "passed (read-only git diff --check)",
+  "findings": [],
+  "resolvedDuringReview": [
+    {
+      "id": "HELIX-DIAG-PILOT-001",
+      "issue": "Earlier TP covered mapping/failure tests but lacked specific failed-run diagnostic pilot ground truth and measured acceptance criteria.",
+      "resolution": "Latest TP lines280\u2013288 adds small synthetic interleaved/retry fixture, blinded diagnosis/citations, predeclared accuracy/time/calls/context/overhead thresholds and disabled same-fixture baseline, actual sanitized evidence and unknown-outcome reporting. Service-only pilot obligations remain applicability-scoped."
+    }
+  ],
+  "coverage": [
+    {
+      "practice": "modularity-and-encapsulation",
+      "disposition": "satisfied-desired-state",
+      "evidence": "ADR Module Boundaries names public otel.py composition/context/process owner and private _otel_worker SDK/queue/transport owner. diagnostics.py remains SDK-free; config owns typed settings. Construction policy owns clean worker environment, bounded private channel, deadlines and termination/reaping. Existing checker command/debt/private-edge/unsupported-static-review policy retained. No normative wire signatures copied into module table."
+    },
+    {
+      "practice": "python-uv configuration",
+      "disposition": "satisfied-with-recorded-portable-library-override",
+      "evidence": "Concerns preserves Python3.9 dependency-free core and qualified host profile distinctions. ADR has one immutable injected config, source precedence/origin, required operator values/no defaults, secret separation. C006 owns exact limits/TLS/header/endpoint fields and rejects ambient OTEL/proxy/resource overrides. Worker initialization is private; secrets prohibited in argv/env/artifacts. Clean environment is a required mechanism to verify, not proof by explicit constructor arguments alone."
+    },
+    {
+      "practice": "o11y-otel",
+      "disposition": "satisfied-desired-state; runtime integration obligations remain",
+      "evidence": "C006 owns versions, schema and exact local-to-OTel mapping, actual context, bounded queues/transport/capture/retrieval, logical-unit loss, privacy and one route. TP requires real receiver, failure/overflow/concurrency/shutdown/privacy and now measured failed-run pilot. One-shot CLI does not inherit service SLOs. Finite four-POST SDK fixture evidence remains a partial mapping observation with explicit native span-flag omission, never complete adapter qualification."
+    },
+    {
+      "practice": "formal-methods",
+      "disposition": "precise-only assurance explicitly bounded",
+      "evidence": "Concerns now includes diagnostic interference/DIAG properties. C006 defines run lifecycle, authority stuttering, privacy/budgets, original-failure safety and conditional deadline assumptions. TP explicitly maps DIAG-F1/F2/F3/L1 to capture/worker/composition guards/tests, requires recheck after relevant changes and distinguishes assumptions from observed runtime behavior. Executable analysis is a separate optional assurance level requiring completed bounds/witnesses/negative controls; no analyzer pass invented. TD001 PUB assumptions not strengthened by diagnostics."
+    }
+  ],
+  "remainingImplementationGates": [
+    "Independent exact worker/facade source and private-protocol/lifecycle review; actual SDK configuration must demonstrate ambient settings cannot affect effective behavior.",
+    "Complete selected host path real receiver/failure/privacy/loss/bounds/concurrency/retry/cancellation and scoped pilot evidence before full diagnostics integration claim.",
+    "Actual SDK native span/link flags discrepancy needs reviewed owning projection or explicit governed disposition; partial fixture evidence cannot silently qualify preservation.",
+    "Current module-map/checker conformity and model/code correspondence need their own source evidence; this audit did not execute checker or application source."
+  ],
+  "smallestFurtherDesiredStateCorrection": "None required in the reviewed three-file iteration after the pilot paragraph. Existing C006/plan requirements already govern remaining implementation/evidence work; no new process prose or artifact required.",
+  "reviewActions": "Read installed methodology and governing docs, inspect exact diff/frontmatter, compute hashes and write this receipt only. No source execution, tests, SDK/engine/network, credential access or Git mutation."
+}

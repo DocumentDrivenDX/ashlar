@@ -23,7 +23,7 @@ explicitly qualified runtime profiles.
 | modularity-and-encapsulation | baseline-policy; HELIX 0.15.4 | all | Handwritten Python core and integration tooling require enforceable ownership | ADR-001 Module Boundaries; exact existing edge debt only; new forbidden imports fail the project checker. |
 | python-uv | library; owner-requested configuration guidance | all | Runtime endpoint, identity and policy configuration affects authority | One typed entrypoint configuration object with explicit precedence, secret types and injection; portable-library override below. |
 | o11y-otel | library; owner-requested diagnostics guidance | all | Publication, ACK and held reads need attributable failure evidence | Structured bounded diagnostics, OTel boundary mapping, redaction before every sink; no telemetry-as-commit evidence. |
-| formal-methods | library; owner-requested formal analysis | all | Crash/replay and independent feed progress are safety-critical | Precise reviewed publication/ACK specification with implementation witnesses; bounded executable analysis is a separately evidenced increment; ADR-001 and TP-001 own scope/correspondence. |
+| formal-methods | library; owner-requested formal analysis | all | Crash/replay, independent feed progress and diagnostic interference affect safety | Precise reviewed publication/ACK and CONTRACT-006 diagnostic specifications with implementation witnesses; bounded executable analysis is a separately evidenced increment; ADR-001 and TP-001 own scope/correspondence. |
 | scope-discipline | library; owner-requested focus | all | End-to-end toolkit scope must stay bounded | Deliver admitted source ingestion, immutable publication/recovery and qualified reads/engine mappings; no unrelated agent product. |
 | databricks-target | project-local; operator-override | `area:data`, `area:interop` | Databricks gold Delta selected | Pin cloud, compute/runtime, catalog, protocol, subset, and evidence before support claims. |
 | semantic-preservation | project-local; operator-override | `area:model`, `area:interop` | UMF integration selected | Preserve source; reuse existing vocabulary; report losses and distinguish target-only recovery. |
@@ -62,7 +62,10 @@ browser assets carry no credentials. UMF retains semantic validation ownership.
 ### Formal-analysis scope
 
 Formal specification applies to publication visibility, immutable vectors,
-per-feed ACK/replay and original-attempt recovery. Engine query semantics,
+per-feed ACK/replay and original-attempt recovery, plus CONTRACT-006's diagnostic
+authority isolation, privacy/bounds, failure preservation and conditional shutdown
+liveness. Each affected slice requires reviewed implementation correspondence;
+precise specification alone carries no machine-checked assurance. Engine query semantics,
 layout performance and UI behavior are outside this model; their conformance
 uses independent semantic/native tests. A model pass is not a production fence
 or native retention/transaction guarantee.

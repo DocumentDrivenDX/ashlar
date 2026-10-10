@@ -277,6 +277,16 @@ capture loss. Verify one ingestion route and explicit loss disclosure. Diagnosti
 failure must not advance progress, fabricate a commit or release a held result.
 One-shot runners inherit no HTTP-service SLO or new scale benchmark requirement.
 
+Before the diagnostic pilot, pin one small synthetic failed-run fixture with
+interleaved attempts and a retry, its ground-truth cause and exact commands,
+versions and budgets. Give an investigator the failure question without its
+answer and compare the diagnosis and cited records with that ground truth.
+Predeclare project-owned accuracy, investigation-time, tool-call, context-use
+and runtime-overhead thresholds against the same fixture with diagnostics
+disabled. Retain actual measurements and sanitized receiver/local evidence;
+report unknown or incomplete outcomes explicitly. Service-pilot requirements
+apply only when Ashlar owns a service boundary.
+
 ## Formal analysis and implementation correspondence
 
 PUB-F1–F4 and PUB-L1 in TD-001 initially require precise semantic review and
@@ -295,3 +305,16 @@ from required public-UMF admitted commerce evolution/relationship and two-source
 coverage; never count structural synthetic edges as public semantic admission.
 Recheck affected model/code/config correspondence after changes. Model-green
 cannot substitute for real durable effects, ordinary-role ACK or source authority.
+
+CONTRACT-006's DIAG-F1–F3 and DIAG-L1 require precise semantic review and
+implementation correspondence for capture, SDK worker and host composition.
+Map each property to its actual guards and tests; recheck the mapping when
+configuration, transport, cancellation or mapped code changes. Verify authority
+isolation, sentinel privacy in every sink, bounded loss, primary-failure
+preservation and deadline/owned-resource cleanup with small actual runtime
+controls. State clock, scheduling and cancellability assumptions separately
+from observations. Actual SDK-to-receiver mapping is necessary for an OTel
+integration claim; a capture test or finite transport spike cannot qualify the
+complete host path. Any executable diagnostic model must retain its bounds,
+reachable successful-close/loss witnesses and broken-mechanism negative
+controls; incomplete analysis cannot satisfy that assurance level.
