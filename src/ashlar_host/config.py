@@ -8,7 +8,7 @@ import re
 import stat
 import unicodedata
 from types import MappingProxyType
-from typing import Mapping, Literal, Optional
+from typing import Callable, Mapping, Literal, Optional, TypeVar
 from urllib.parse import urlsplit
 
 
@@ -155,6 +155,26 @@ class DiagnosticsConfig:
         if any(origins[name] not in ('explicit','environment-secret','development-env') for name in operators):
             raise ValueError()
         object.__setattr__(self, 'origins', MappingProxyType(origins))
+
+
+_TransportResult = TypeVar('_TransportResult')
+
+
+def with_diagnostics_transport(
+        config: DiagnosticsConfig,
+        use: Callable[[str, tuple[tuple[str, str], ...], str, Optional[Path]], _TransportResult]
+        ) -> _TransportResult:
+    """Pass secrets only to the trusted transport initializer, never a logger.
+
+    This purpose-specific port is an ownership boundary, not a security sandbox
+    or a promise of Python object erasure. The callback must not retain, print,
+    fingerprint or return these values to a diagnostic caller.
+    """
+    if type(config) is not DiagnosticsConfig or not callable(use):
+        raise HostError('diagnostics-configuration')
+    return use(config.endpoint._reveal(),
+               tuple((name, value._reveal()) for name, value in config.headers),
+               config.tls, config.ca_file)
 
 
 class HostError(ValueError):

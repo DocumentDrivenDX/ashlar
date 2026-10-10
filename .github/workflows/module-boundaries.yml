@@ -3,6 +3,15 @@ on: [push, pull_request]
 permissions:
   contents: read
 jobs:
+  diagnostic-supervision:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_otel_supervision.py
+      - run: PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_otel_worker.py
   check:
     runs-on: ubuntu-latest
     steps:

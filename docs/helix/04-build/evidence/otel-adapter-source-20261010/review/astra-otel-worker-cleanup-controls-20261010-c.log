@@ -1,0 +1,77 @@
+.................
+----------------------------------------------------------------------
+Ran 17 tests in 0.016s
+
+OK
+
+{
+  "sourceSha256": "c37de88b4b0e3f3505d5fd7808cfb6fad2c64685f253a390876240322347ffd3",
+  "freezeSha256": "0b0248c2d04a01a2e763de170bef4446ef03650f20db1b46482ad9ae0b209dcd",
+  "scope": "Six bounded real SDK or inert transport source controls, no network/receiver/secret/native",
+  "checks": [
+    {
+      "control": "close ordinary collection failure then cancellation",
+      "cancel": "KeyboardInterrupt",
+      "caught": "OSError",
+      "cancelIdentity": false,
+      "ordinaryIdentity": true,
+      "cleanup": [
+        "traces",
+        "metrics"
+      ]
+    },
+    {
+      "control": "close ordinary collection failure then cancellation",
+      "cancel": "SystemExit",
+      "caught": "OSError",
+      "cancelIdentity": false,
+      "ordinaryIdentity": true,
+      "cleanup": [
+        "traces",
+        "metrics"
+      ]
+    },
+    {
+      "control": "close ordinary collection failure then cancellation",
+      "cancel": "GeneratorExit",
+      "caught": "OSError",
+      "cancelIdentity": false,
+      "ordinaryIdentity": true,
+      "cleanup": [
+        "traces",
+        "metrics"
+      ]
+    },
+    {
+      "control": "transport ordinary request failure then cancellation",
+      "cancel": "KeyboardInterrupt",
+      "caught": "OSError",
+      "cancelIdentity": false,
+      "ordinaryIdentity": true,
+      "cleanup": [
+        "close"
+      ]
+    },
+    {
+      "control": "transport ordinary request failure then cancellation",
+      "cancel": "SystemExit",
+      "caught": "OSError",
+      "cancelIdentity": false,
+      "ordinaryIdentity": true,
+      "cleanup": [
+        "close"
+      ]
+    },
+    {
+      "control": "transport ordinary request failure then cancellation",
+      "cancel": "GeneratorExit",
+      "caught": "OSError",
+      "cancelIdentity": false,
+      "ordinaryIdentity": true,
+      "cleanup": [
+        "close"
+      ]
+    }
+  ],
+  "ownerTests": 17
+}

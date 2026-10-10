@@ -1,0 +1,107 @@
+{
+  "observedFacade": {
+    "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+    "snapshot": "/private/tmp/astra-otel-facade-context-controls-20261010-a.source.py",
+    "sha256": "2b50cb8af6a7e187eacbd01d207aa706d8328f1bc04ba5dde86a609c575b5d44"
+  },
+  "workerFreeze": "07b9f67ce3755597dfd4ed12213f09eecee5c13cfd5d81acd3939da1e15c9361",
+  "scope": "Direct facade context port to real pinned SDK worker, injected send, no processes/network/native; source version fixture only",
+  "results": [
+    {
+      "mode": "parent_context",
+      "events": [
+        {
+          "event": "started",
+          "accepted": true
+        },
+        {
+          "event": "phase",
+          "accepted": true
+        },
+        {
+          "event": "finished",
+          "accepted": true
+        }
+      ],
+      "requests": [
+        {
+          "op": "context",
+          "attempt_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "operation": "held-read",
+          "event_name": "ashlar.operation.started",
+          "parent": {
+            "trace_id": "cccccccccccccccccccccccccccccccc",
+            "span_id": "dddddddddddddddd",
+            "trace_flags": 3,
+            "is_remote": true
+          },
+          "retry_link": null
+        },
+        {
+          "op": "context",
+          "attempt_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "operation": "held-read",
+          "event_name": "ashlar.operation.phase",
+          "parent": null,
+          "retry_link": null
+        },
+        {
+          "op": "context",
+          "attempt_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "operation": "held-read",
+          "event_name": "ashlar.operation.finished",
+          "parent": null,
+          "retry_link": null
+        }
+      ]
+    },
+    {
+      "mode": "retry_link",
+      "events": [
+        {
+          "event": "started",
+          "accepted": true
+        },
+        {
+          "event": "phase",
+          "accepted": true
+        },
+        {
+          "event": "finished",
+          "accepted": true
+        }
+      ],
+      "requests": [
+        {
+          "op": "context",
+          "attempt_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "operation": "held-read",
+          "event_name": "ashlar.operation.started",
+          "parent": null,
+          "retry_link": {
+            "trace_id": "cccccccccccccccccccccccccccccccc",
+            "span_id": "dddddddddddddddd",
+            "trace_flags": 3,
+            "is_remote": true
+          }
+        },
+        {
+          "op": "context",
+          "attempt_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "operation": "held-read",
+          "event_name": "ashlar.operation.phase",
+          "parent": null,
+          "retry_link": null
+        },
+        {
+          "op": "context",
+          "attempt_id": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "operation": "held-read",
+          "event_name": "ashlar.operation.finished",
+          "parent": null,
+          "retry_link": null
+        }
+      ]
+    }
+  ]
+}

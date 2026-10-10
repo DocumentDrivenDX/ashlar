@@ -1,0 +1,100 @@
+{
+  "capability_gaps": [
+    {
+      "follow_up": "During parent integration, review and test the no-valid-span behavior without fabricated context; do not infer complete C006 integration from current traced worker controls.",
+      "id": "WP-G01",
+      "issue": "Closed-schema valid untraced event cannot enter current worker emit path; all events require a worker-created span context.",
+      "lines": [
+        489,
+        499
+      ],
+      "qualification": "Not established as a reachable parent-composition failure: selected operation context creates a span, and the parent facade does not exist in this freeze. This worker path alone cannot support the separately required no-active-context receiver control."
+    }
+  ],
+  "check_count": 154,
+  "findings": [
+    {
+      "correction": "Set Resource schema URL, add fixed diagnostic schema attribute, leave unknown LogRecord Timestamp unset.",
+      "id": "WP-001",
+      "issue": "Exact log/resource mapping omits required schema URL and diagnostic schema attribute; absent source timestamp is replaced by observed timestamp.",
+      "lines": [
+        383,
+        511,
+        514
+      ]
+    },
+    {
+      "correction": "Populate only fixed catalog name and admitted per-event span attributes before ending.",
+      "id": "WP-002",
+      "issue": "Operation spans omit ashlar. name prefix, run ID, cleanup_failed, and nonsuccess safe error category.",
+      "lines": [
+        464,
+        521,
+        523
+      ]
+    }
+  ],
+  "inputs": {
+    "adr": {
+      "bytes": 31584,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "92ff96aa8f5603a3bac6eabde6d41761035cc733e4af8eea5df4ae27aff80fbd"
+    },
+    "author_tests": {
+      "bytes": 19570,
+      "path": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-a/tests/test_otel_worker.py",
+      "sha256": "29ba2b5b116ea724209c2b4cda98a75ceb09769bbba3bcde4cea02b544d3f486"
+    },
+    "config": {
+      "bytes": 11360,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "sha256": "3bb0719a56e8ae7322887f087306f041df1d89df2dd32583cb8fb3e5b416d6a7"
+    },
+    "contract": {
+      "bytes": 23636,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34"
+    },
+    "diagnostics": {
+      "bytes": 36998,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostics.py",
+      "sha256": "57ebbe40d06ee182b6e26453aa2977fe9df381fb279f0b5e3691ae742d291780"
+    },
+    "manifest": {
+      "bytes": 1053,
+      "path": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-a/manifest.json",
+      "sha256": "07b9f67ce3755597dfd4ed12213f09eecee5c13cfd5d81acd3939da1e15c9361"
+    },
+    "worker": {
+      "bytes": 30749,
+      "path": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-a/src/ashlar_host/_otel_worker.py",
+      "sha256": "a0f9b449c03d7b3671121d7b52eed4a53c913b29019fdcf19ab9113d414e287e"
+    }
+  },
+  "limitations": [
+    "Installed application version mocked only as an author-test fixture; pinned SDK metadata checked by worker",
+    "No parent facade, process lifetime, transport, receiver or full host conformance qualification",
+    "No SDK object/process-memory bound claim"
+  ],
+  "log": {
+    "bytes": 7190,
+    "path": "/private/tmp/astra-otel-worker-projection-review-20261010-a.log",
+    "sha256": "a756975834ffbe016e072c24e1f4d2b885a9307dcf977870af289b2cf114917a"
+  },
+  "positive_controls": [
+    "root span and log low8 flags",
+    "retry link full low8 and remote bits",
+    "monotonic cumulative integer counter, no exemplars or histogram",
+    "cumulative 1 then 3 with one occupied-slot drop",
+    "logical-unit queue accounting retaining inflight reservation",
+    "privacy rejection before admission",
+    "no duplicate attributes or unknown protobuf fields"
+  ],
+  "scope": "Frozen private worker projections only; actual pinned SDK, fake send ports, no receiver/network/native/process or source edits",
+  "script": {
+    "bytes": 16201,
+    "path": "/private/tmp/astra-otel-worker-projection-review-20261010-a.py",
+    "sha256": "3d5f2cb318dd65488a976e9951bfcac778262127b21a16a6087f514211cc7cee"
+  },
+  "status": "concrete projection defects reproduced"
+}

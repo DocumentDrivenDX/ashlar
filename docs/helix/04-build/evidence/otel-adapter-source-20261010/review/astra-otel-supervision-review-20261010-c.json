@@ -1,0 +1,152 @@
+{
+  "author_tests": {
+    "count": 12,
+    "log": {
+      "bytes": 2039,
+      "path": "/private/tmp/astra-otel-supervision-review-20261010-c.author.log",
+      "sha256": "f5b10599e02fa82ce5ac81292a56c2d14e8ac23c6170fef9929f1c3eef39efae"
+    },
+    "passed": true,
+    "skipped": 0
+  },
+  "checks": 36,
+  "closing_owner_source": {
+    "bytes": 13563,
+    "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+    "sha256": "7ec19a8213383e1ca067ea1cbbdb394a161170a6be4de4a69e789bd49fd08f24"
+  },
+  "findings": [],
+  "inputs": {
+    "adr": {
+      "bytes": 32409,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "b769f8ec88b434204873de71807cef9db277b2f77f0adbe4ae8ccecb9e036db4"
+    },
+    "author_tests": {
+      "bytes": 11767,
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_supervision.py",
+      "sha256": "3896023ef9f3698bb8fe9c02765fe0cc1fd7c83fc7e9b017fb1d2726ce1a526f"
+    },
+    "config": {
+      "bytes": 11360,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "sha256": "3bb0719a56e8ae7322887f087306f041df1d89df2dd32583cb8fb3e5b416d6a7"
+    },
+    "contract": {
+      "bytes": 23636,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34"
+    },
+    "diagnostics": {
+      "bytes": 37137,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostics.py",
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    "executed_snapshot": {
+      "bytes": 13563,
+      "path": "/private/tmp/astra-otel-supervision-review-20261010-c.source.py",
+      "sha256": "7ec19a8213383e1ca067ea1cbbdb394a161170a6be4de4a69e789bd49fd08f24"
+    },
+    "fixture_dependency": {
+      "bytes": 8064,
+      "path": "/Users/erik/Projects/ashlar/tests/test_diagnostics_configuration.py",
+      "sha256": "c557eb3d79ed0128d38d2715631a6194cd829aa80ce2a12775acd69ab1239bd9"
+    },
+    "owner_source": {
+      "bytes": 13563,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+      "sha256": "7ec19a8213383e1ca067ea1cbbdb394a161170a6be4de4a69e789bd49fd08f24"
+    },
+    "root_qualification": {
+      "bytes": 6718,
+      "path": "/private/tmp/ashlar-otel-adapter-source-20261010-b/qualification.json",
+      "sha256": "64ee3ebeb8cdef0055e6ed49b7460b999735ab50db84b03d60cc335662e8584d"
+    },
+    "worker": {
+      "bytes": 32918,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/_otel_worker.py",
+      "sha256": "41c57b1bf3f07e1dd850521e1da3039f880ee597641f734512042ad06a20b0b1"
+    },
+    "worker_tests": {
+      "bytes": 28339,
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_worker.py",
+      "sha256": "a987a3ea4e79fc00ec3adbadd052a40aa99fc6f88954e3f83d3d55b6ccff2e0a"
+    },
+    "workflow": {
+      "bytes": 3540,
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "sha256": "9555f52f174f717544f48994312f9551b191732fd65883287a20b08d321b0c3f"
+    }
+  },
+  "limitations": [
+    "Independent controls use finite fake process/clock/pipe/selector ports; twelve owner tests additionally run inspected finite helper subprocesses and one inert SDK API span; no exporter/receiver/network/native/Git",
+    "Exact root eight-source qualification vector plus direct fixtures/docs and snapshot pinned before and after",
+    "Group-cleanup concurrency control uses fake scheduling; POSIX scheduling and signal assumptions remain explicit"
+  ],
+  "log": {
+    "bytes": 3368,
+    "path": "/private/tmp/astra-otel-supervision-review-20261010-c.log",
+    "sha256": "47ff7a442a22fe9f2b1c296c9e9ffee68f673f94f92158a1751f1f2d1abd0958"
+  },
+  "observations": [
+    {
+      "disposition": "Do not describe all startup/control lifecycle work as covered by its request deadline. Either include cleanup in the original total or explicitly document this separate allowance; no claimed shutdown refresh defect.",
+      "id": "SUP-O01",
+      "issue": "Startup/control failure cleanup creates a fresh two-second wait budget; explicit shutdown deadline is retained."
+    }
+  ],
+  "qualified_eight_source_vector": [
+    {
+      "bytes": 11360,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "sha256": "3bb0719a56e8ae7322887f087306f041df1d89df2dd32583cb8fb3e5b416d6a7"
+    },
+    {
+      "bytes": 37137,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostics.py",
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    {
+      "bytes": 13563,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+      "sha256": "7ec19a8213383e1ca067ea1cbbdb394a161170a6be4de4a69e789bd49fd08f24"
+    },
+    {
+      "bytes": 32918,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/_otel_worker.py",
+      "sha256": "41c57b1bf3f07e1dd850521e1da3039f880ee597641f734512042ad06a20b0b1"
+    },
+    {
+      "bytes": 11767,
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_supervision.py",
+      "sha256": "3896023ef9f3698bb8fe9c02765fe0cc1fd7c83fc7e9b017fb1d2726ce1a526f"
+    },
+    {
+      "bytes": 28339,
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_worker.py",
+      "sha256": "a987a3ea4e79fc00ec3adbadd052a40aa99fc6f88954e3f83d3d55b6ccff2e0a"
+    },
+    {
+      "bytes": 3540,
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "sha256": "9555f52f174f717544f48994312f9551b191732fd65883287a20b08d321b0c3f"
+    },
+    {
+      "bytes": 32409,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "b769f8ec88b434204873de71807cef9db277b2f77f0adbe4ae8ccecb9e036db4"
+    }
+  ],
+  "resolved": [
+    "SUP-001 first cancellation precedence",
+    "SUP-002 primary-preserving selector closure",
+    "SUP-003 leader liveness no longer skips owned group action",
+    "SUP-004 cleanup lock spans group action through reaping; waiting callers respect deadline and primary cancellation"
+  ],
+  "script": {
+    "bytes": 19003,
+    "path": "/private/tmp/astra-otel-supervision-review-20261010-c.py",
+    "sha256": "d59031e60e528d16784093e3cfa3733b3bc89a4efea20fc3ab62a3a28520a23e"
+  },
+  "status": "SUP001-004 resolved for exact reviewed source and affected finite controls; no receiver or full host qualification"
+}

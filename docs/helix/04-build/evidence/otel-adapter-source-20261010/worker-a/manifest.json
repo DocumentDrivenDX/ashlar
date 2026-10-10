@@ -1,0 +1,19 @@
+{
+  "command": "PYTHONPATH=src /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -W error::ResourceWarning -m unittest discover -s tests -p test_otel_worker.py -q",
+  "files": [
+    {
+      "bytes": 30749,
+      "path": "src/ashlar_host/_otel_worker.py",
+      "sha256": "a0f9b449c03d7b3671121d7b52eed4a53c913b29019fdcf19ab9113d414e287e"
+    },
+    {
+      "bytes": 19570,
+      "path": "tests/test_otel_worker.py",
+      "sha256": "29ba2b5b116ea724209c2b4cda98a75ceb09769bbba3bcde4cea02b544d3f486"
+    }
+  ],
+  "ownership": "Parent owns process group, clean environment, bounded RPC control deadlines and local diagnostic identity/capture. Worker has no native/publication/ACK interfaces.",
+  "remainingGap": "Hostname DNS may exceed per-request socket timeout; parent-owned hard total deadline is separate and facade not implemented by this slice",
+  "scope": "Actual public SDK projection and protobuf mapping; inert HTTP ports only; installed host metadata mocked only in tests; no network/receiver/full C006 qualification",
+  "tests": 14
+}

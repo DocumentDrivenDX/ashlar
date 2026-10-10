@@ -1,0 +1,49 @@
+{
+  "scope": "New public configuration/diagnostic seams only; source reads and stdlib controls; no SDK/provider/process worker/network/native/secret input",
+  "checks": [
+    "explicit transport snapshot callback result",
+    "config type refusal",
+    "config type refusal",
+    "config type refusal",
+    "trusted callback original cancellation",
+    "trusted callback original cancellation",
+    "trusted callback original cancellation",
+    "closed exact event admitted",
+    "bounded event refusal",
+    "bounded event refusal",
+    "bounded event refusal",
+    "bounded event refusal",
+    "bounded event refusal",
+    "bounded event refusal",
+    "unknown event member refuses",
+    "owned fresh event result snapshot",
+    "known exact loss accepted",
+    "unknown loss accepted",
+    "loss refusal",
+    "loss refusal",
+    "loss refusal",
+    "loss refusal",
+    "loss refusal"
+  ],
+  "count": 23,
+  "preservedOldDefinitions": [
+    {
+      "path": "src/ashlar_host/config.py",
+      "existingFunctionClassBodies": 11
+    },
+    {
+      "path": "src/ashlar_host/diagnostics.py",
+      "existingFunctionClassBodies": 20
+    }
+  ],
+  "source": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "sha256": "3bb0719a56e8ae7322887f087306f041df1d89df2dd32583cb8fb3e5b416d6a7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostics.py",
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    }
+  ]
+}

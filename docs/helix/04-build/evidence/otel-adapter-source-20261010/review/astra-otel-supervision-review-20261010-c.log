@@ -1,0 +1,83 @@
+{
+  "checks": [
+    "SUP001 corrected cleanup first cancellation exact",
+    "cleanup still attempts streams and wait",
+    "preexisting cancellation preserved by disposal",
+    "SUP002 corrected selector exit original cancellation identity",
+    "selector cancellation replacement still disposes child",
+    "SUP003 corrected leader-exited group killed",
+    "control failure allocates fresh cleanup window",
+    "expired explicit disposal deadline does not refresh",
+    "busy invocation refuses without touching process",
+    "transport completion restores only original whole deadline",
+    "reject oversize length",
+    "reject duplicate response member",
+    "reject active transport final without completion",
+    "reject nested transport begin",
+    "reject completion without begin",
+    "reject per-request deadline exceeds whole",
+    "reject finite progress cap",
+    "partial pipe reads and writes round trip",
+    "updated parent context forwarded only at start",
+    "SUP004 corrected no reap while group action pending",
+    "concurrent disposal threads completed",
+    "SUP004 corrected group action before both reaps",
+    "SUP004 group action remains one shot",
+    "waiting cleanup lock respects remaining absolute deadline",
+    "cleanup-lock timeout refuses success without owned actions",
+    "first waiting-lock cancellation exact object",
+    "interrupted lock acquire never releases or reaps",
+    "first waiting-lock cancellation exact object",
+    "interrupted lock acquire never releases or reaps",
+    "earlier cancellation preserved across waiting-lock interruption",
+    "interrupted lock acquire never releases or reaps",
+    "waiting-lock timeout marks existing primary without replacing",
+    "cleanup lock wait consumes original reap budget",
+    "all12 inspected owner tests pass",
+    "all reviewed source dependency test docs and snapshot hashes unchanged",
+    "final qualified eight-source vector unchanged"
+  ],
+  "observations": [
+    {
+      "case": "cleanup_late_cancellation",
+      "expected": "original KeyboardInterrupt",
+      "identity_preserved": true,
+      "observed": "KeyboardInterrupt"
+    },
+    {
+      "case": "selector_cleanup_preserves_primary",
+      "expected": "original KeyboardInterrupt",
+      "identity_preserved": true,
+      "observed": "KeyboardInterrupt"
+    },
+    {
+      "case": "leader_exited_group_alive",
+      "fake_group_survives": false,
+      "killpg_calls": 1,
+      "qualification": "Fake child group model; no real descendant process spawned and no claim current SDK actually creates descendants.",
+      "shutdown_loss_complete": true
+    },
+    {
+      "case": "control_timeout_cleanup_window",
+      "qualification": "Shutdown explicit deadline does not refresh; startup/control disposal has an additional hard-coded two-second ceiling.",
+      "reap_timeout_after_request_deadline": 2.0,
+      "request_deadline": 10.1
+    },
+    {
+      "case": "concurrent_disposal_order",
+      "order": [
+        "kill_entered",
+        "kill_completed",
+        "reap",
+        "reap"
+      ],
+      "qualification": "Fake delayed group action; neither waiting caller reaps before it completes."
+    },
+    {
+      "cancellation_priority_passed": true,
+      "case": "waiting_lock",
+      "post_acquire_reap_budget_seconds": 0.009999999999999787,
+      "timeout_seconds": 0.025
+    }
+  ]
+}

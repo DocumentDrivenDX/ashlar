@@ -1,0 +1,48 @@
+{
+  "checks": [
+    "reproduced cleanup cancellation suppressed by prior ordinary cleanup",
+    "cleanup still attempts streams and wait",
+    "preexisting cancellation preserved by disposal",
+    "reproduced selector exit replacing cancellation",
+    "selector cancellation replacement still disposes child",
+    "reproduced leader-exited live-group skip",
+    "control failure allocates fresh cleanup window",
+    "expired explicit disposal deadline does not refresh",
+    "busy invocation refuses without touching process",
+    "transport completion restores only original whole deadline",
+    "reject oversize length",
+    "reject duplicate response member",
+    "reject active transport final without completion",
+    "reject nested transport begin",
+    "reject completion without begin",
+    "reject per-request deadline exceeds whole",
+    "reject finite progress cap",
+    "partial pipe reads and writes round trip",
+    "updated parent context forwarded only at start"
+  ],
+  "observations": [
+    {
+      "case": "cleanup_late_cancellation",
+      "expected": "original KeyboardInterrupt",
+      "observed": "DiagnosticsError"
+    },
+    {
+      "case": "selector_cleanup_masks_primary",
+      "expected": "original KeyboardInterrupt",
+      "observed": "DiagnosticsError"
+    },
+    {
+      "case": "leader_exited_group_alive",
+      "fake_group_survives": true,
+      "killpg_calls": 0,
+      "qualification": "Fake child group model; no real descendant process spawned and no claim current SDK actually creates descendants.",
+      "shutdown_loss_complete": true
+    },
+    {
+      "case": "control_timeout_cleanup_window",
+      "qualification": "Shutdown explicit deadline does not refresh; startup/control disposal has an additional hard-coded two-second ceiling.",
+      "reap_timeout_after_request_deadline": 2.0,
+      "request_deadline": 10.1
+    }
+  ]
+}

@@ -1,0 +1,178 @@
+{
+  "verdict": "approved-source-only",
+  "scope": "Eight exact source/test/configuration/ADR/CI files in root B qualification vector, including independently approved private worker D. This approval covers finite source/component controls and reviewed semantic correspondence only. No installed-host, real HTTP receiver, native/ACK or full CONTRACT-006 support claim.",
+  "exactFiles": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "bytes": 11360,
+      "sha256": "3bb0719a56e8ae7322887f087306f041df1d89df2dd32583cb8fb3e5b416d6a7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostics.py",
+      "bytes": 37137,
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+      "bytes": 13563,
+      "sha256": "7ec19a8213383e1ca067ea1cbbdb394a161170a6be4de4a69e789bd49fd08f24"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/_otel_worker.py",
+      "bytes": 32918,
+      "sha256": "41c57b1bf3f07e1dd850521e1da3039f880ee597641f734512042ad06a20b0b1"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_supervision.py",
+      "bytes": 11767,
+      "sha256": "3896023ef9f3698bb8fe9c02765fe0cc1fd7c83fc7e9b017fb1d2726ce1a526f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_worker.py",
+      "bytes": 28339,
+      "sha256": "a987a3ea4e79fc00ec3adbadd052a40aa99fc6f88954e3f83d3d55b6ccff2e0a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "bytes": 3540,
+      "sha256": "9555f52f174f717544f48994312f9551b191732fd65883287a20b08d321b0c3f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 32409,
+      "sha256": "b769f8ec88b434204873de71807cef9db277b2f77f0adbe4ae8ccecb9e036db4"
+    }
+  ],
+  "rootQualification": {
+    "path": "/private/tmp/ashlar-otel-adapter-source-20261010-b/qualification.json",
+    "bytes": 6718,
+    "sha256": "64ee3ebeb8cdef0055e6ed49b7460b999735ab50db84b03d60cc335662e8584d"
+  },
+  "sourceCustody": {
+    "path": "/private/tmp/astra-otel-adapter-source-closure-20261010-b.json",
+    "bytes": 4123,
+    "sha256": "eeef760b2616377506e7271bb03c042db1b9cd8e981fcfdf4d06cd8544c0d75b"
+  },
+  "workerSourceApproval": {
+    "path": "/private/tmp/astra-otel-worker-source-review-20261010-d.json",
+    "bytes": 5844,
+    "sha256": "e47083dba6c81ec1c1e1c1245e8060178859f3b0c50e26d0812daca1f1874872"
+  },
+  "supervisionApproval": {
+    "path": "/private/tmp/astra-otel-supervision-review-20261010-c.json",
+    "bytes": 6477,
+    "sha256": "5dac9a65fee86083779899306942c10c09446a663e8bc2d56db6b34c75c7a196"
+  },
+  "resolvedFindings": {
+    "context-binding": "Parent/retry is forwarded only for started; later phase/finished use the actual stored worker attempt context. Both explicit parent and retry direct-port controls pass; affected current methods remain AST-identical to independently exercised corrected snapshot.",
+    "SUP-001": "Diagnostics-only ordinary cleanup/RPC failures cannot suppress first non-Exception shutdown cancellation; pre-existing non-Exception remains original.",
+    "SUP-002": "Explicit selector ownership preserves original cancellation through selector close failure, with best-effort annotation.",
+    "SUP-003": "One-shot owned process-group termination precedes direct-child reaping, independent of leader exit. Default SIGCHLD and exclusive unreaped child ownership are explicit preconditions.",
+    "SUP-004": "Dedicated cleanup lock serializes group action, stream cleanup and wait/reap. Contending cleanup uses its existing remaining deadline; timeout cannot report completed cleanup. Deterministic race now kill_entered \u2192 kill_completed \u2192 reap \u2192 reap.",
+    "worker": "Endpoint, complete C006 log/resource/span mapping, and cleanup cancellation call-site defects resolved by worker D; conditional begin/complete transport supervision reviewed against parent protocol."
+  },
+  "independentEvidence": {
+    "supervision": "36 finite adversarial checks plus 12 current author tests; same exact eight-source opening/closing vector.",
+    "worker": "18 real pinned SDK/inert-HTTP author tests; six original diagnostics-failure/cancellation counterexamples repaired; 428 independent projection checks on unchanged C\u2192D mapping regions.",
+    "publicPorts": "23 SDK-free direct API controls; all 31 existing configuration/diagnostics class/function bodies remain AST-identical to pre-change HEAD.",
+    "ci": "Independent exact new job commands on Python3.11 with -S and ResourceWarning-as-error: 12 supervision tests with1 explicit API-dependency skip;18 worker tests with13 explicit SDK-dependency skips. These portable CI checks are distinct from actual pinned SDK source evidence.",
+    "resourceClosure": "Rehashed all698 previously installed wheel-owned files, all8 current source bytes and4 root test logs. No full interpreter/OS or installed application closure inferred.",
+    "artifacts": [
+      {
+        "path": "/private/tmp/astra-otel-supervision-review-20261010-c.py",
+        "bytes": 19003,
+        "sha256": "d59031e60e528d16784093e3cfa3733b3bc89a4efea20fc3ab62a3a28520a23e"
+      },
+      {
+        "path": "/private/tmp/astra-otel-supervision-review-20261010-c.json",
+        "bytes": 6477,
+        "sha256": "5dac9a65fee86083779899306942c10c09446a663e8bc2d56db6b34c75c7a196"
+      },
+      {
+        "path": "/private/tmp/astra-otel-supervision-review-20261010-c.log",
+        "bytes": 3368,
+        "sha256": "47ff7a442a22fe9f2b1c296c9e9ffee68f673f94f92158a1751f1f2d1abd0958"
+      },
+      {
+        "path": "/private/tmp/astra-otel-public-ports-review-20261010-a.py",
+        "bytes": 4104,
+        "sha256": "faf617e5fdd23daea4686f10304db5e6dff466fcb2a96a7b8983dc9165d0ad85"
+      },
+      {
+        "path": "/private/tmp/astra-otel-public-ports-review-20261010-a.json",
+        "bytes": 1498,
+        "sha256": "b092cbe25c858f05ae44d2c4d7ac377209fb46d8a0d883d437d21702a96c54ed"
+      },
+      {
+        "path": "/private/tmp/astra-otel-public-ports-review-20261010-a.log",
+        "bytes": 1498,
+        "sha256": "b092cbe25c858f05ae44d2c4d7ac377209fb46d8a0d883d437d21702a96c54ed"
+      },
+      {
+        "path": "/private/tmp/astra-otel-facade-context-controls-20261010-a.py",
+        "bytes": 2636,
+        "sha256": "47175c4e529a50beb16e55993a840600231270c2c44747521d7b45da962e08ef"
+      },
+      {
+        "path": "/private/tmp/astra-otel-facade-context-controls-20261010-a.json",
+        "bytes": 3017,
+        "sha256": "f2f2bbfde03524080f9ec7eb4471d8ad103d2c67cc4fda85a41b5155b89d3eb4"
+      },
+      {
+        "path": "/private/tmp/astra-otel-facade-context-controls-20261010-a.log",
+        "bytes": 3017,
+        "sha256": "f2f2bbfde03524080f9ec7eb4471d8ad103d2c67cc4fda85a41b5155b89d3eb4"
+      },
+      {
+        "path": "/private/tmp/astra-otel-adapter-source-closure-20261010-b.py",
+        "bytes": 2970,
+        "sha256": "f45fe742a5830893331bc732603b732ca3511cc841112a1a82c6bc5db4299309"
+      },
+      {
+        "path": "/private/tmp/astra-otel-adapter-source-closure-20261010-b.json",
+        "bytes": 4123,
+        "sha256": "eeef760b2616377506e7271bb03c042db1b9cd8e981fcfdf4d06cd8544c0d75b"
+      },
+      {
+        "path": "/private/tmp/astra-otel-adapter-source-closure-20261010-b.log",
+        "bytes": 552,
+        "sha256": "05e52d78cf72f21065a329e59b615536ccc0ff6beaa0fd6283f3c502c6a5ddea"
+      }
+    ]
+  },
+  "helixGuidelineDisposition": {
+    "modularity": "Parent facade owns explicit configuration, API contexts, clean subprocess environment, bounded protocol and process lifecycle. Private worker owns SDK construction, projections, queues and transport. New public configuration and sanitized validation ports match ADR map. Existing core/capture behavior preserved; no native/publication/ACK authority port added.",
+    "configuration": "Immutable explicit settings and finite budgets; no effective ambient OTEL/proxy settings through clean private worker environment. Secrets cross private initialization bytes rather than argv/environment/artifacts. Separate fixed initialization2s and failure cleanup<=2s are documented; shutdown retains its original selected deadline.",
+    "observability": "Exact event mapping and logical-unit loss accounting tested; no global SDK provider attachment, no claimed remote ingestion. Queue payload bounds remain separate from process/object memory. Actual receiver and installed workflow evidence required before integration support claims.",
+    "formal": "DIAG-F1/F2/F3/L1 are precise-only properties with reviewed ownership/state/transition correspondence. Counterexamples and affected repair controls retained. No analyzer/model proof, production scheduling bound or test-only assurance inflation."
+  },
+  "ciAndDocs": "One additive Python3.11 diagnostic-supervision job; existing CI bytes preserved. ADR frontmatter byte-identical, public ports/worker isolation/startup and process ownership assumptions explicit.",
+  "remainingRuntimeGates": [
+    "Fresh installed source/wheel correspondence and matching actual worker process imports.",
+    "Actual real HTTP receiver/protobuf and host capture composition, poisoned ambient environment, concurrent/retry/error/cancellation/outage/privacy and deadline controls.",
+    "No-active-valid-context behavior and failed-run pilot acceptance remain separately qualified future gates; source slice alone does not establish them."
+  ],
+  "priorCounterexampleReceipts": [
+    {
+      "path": "/private/tmp/astra-otel-worker-source-review-20261010-a.json",
+      "bytes": 10421,
+      "sha256": "8bac8e03ee13290e35b8588be969b8cd4625cc827341d7f11c9d9e125c19128d"
+    },
+    {
+      "path": "/private/tmp/astra-otel-worker-cleanup-controls-20261010-c.json",
+      "bytes": 1889,
+      "sha256": "fc65d459e56d0493b9430e8f88389a577590f856a4336b684b49da2d49b5b58c"
+    },
+    {
+      "path": "/private/tmp/astra-otel-supervision-review-20261010-a.json",
+      "bytes": 4052,
+      "sha256": "583d34ef459888540c35b30ffb7c19b1b0cbea1d5e47ba4b3cc59ac8bfaedc18"
+    },
+    {
+      "path": "/private/tmp/astra-otel-supervision-review-20261010-b.json",
+      "bytes": 4807,
+      "sha256": "932c6e11f46c3b2aa51b4ebb78db996c70f0fc13085bc0d3bcbc26c25895eabb"
+    }
+  ],
+  "actions": "Read-only owner-source and evidence inspection; temporary reviewer artifacts and finite controlled tests only. No Git/source edits, network/receiver, secrets or native engines."
+}

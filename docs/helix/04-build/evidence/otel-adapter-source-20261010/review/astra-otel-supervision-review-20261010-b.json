@@ -1,0 +1,105 @@
+{
+  "author_tests": {
+    "count": 11,
+    "log": {
+      "bytes": 1876,
+      "path": "/private/tmp/astra-otel-supervision-review-20261010-b.author.log",
+      "sha256": "af517f8f22749a9b9d212129bdc52320d3fb17b88a3639b365e2e9282057a343"
+    },
+    "passed": true,
+    "skipped": 0
+  },
+  "checks": 23,
+  "closing_owner_source": {
+    "bytes": 12516,
+    "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+    "sha256": "58c4af496201627a63a2c6cfc7dc2f412380d6adad3c723d6bb5b9fd3a9281b5"
+  },
+  "findings": [
+    {
+      "id": "SUP-004",
+      "issue": "Concurrent _dispose callers can reap before the first caller completes killpg: _group_termination_attempted becomes true before the group action and no disposal coordination prevents another caller immediately reaching wait. This breaks the new unreaped-PID ownership argument.",
+      "smallest_correction": "Coordinate one owner of group termination and reaping; concurrent callers must not reap or report completed cleanup while its group action is pending. Preserve the supplied total deadline and cancellation semantics."
+    }
+  ],
+  "inputs": {
+    "adr": {
+      "bytes": 32409,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "b769f8ec88b434204873de71807cef9db277b2f77f0adbe4ae8ccecb9e036db4"
+    },
+    "author_tests": {
+      "bytes": 10009,
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_supervision.py",
+      "sha256": "e4eb7892d52adb40dc294213b5c0a0f3a43d39dfa7778b3ff22df00ce59fae7c"
+    },
+    "config": {
+      "bytes": 11360,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "sha256": "3bb0719a56e8ae7322887f087306f041df1d89df2dd32583cb8fb3e5b416d6a7"
+    },
+    "contract": {
+      "bytes": 23636,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34"
+    },
+    "diagnostics": {
+      "bytes": 37137,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostics.py",
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    "executed_snapshot": {
+      "bytes": 12516,
+      "path": "/private/tmp/astra-otel-supervision-review-20261010-b.source.py",
+      "sha256": "58c4af496201627a63a2c6cfc7dc2f412380d6adad3c723d6bb5b9fd3a9281b5"
+    },
+    "fixture_dependency": {
+      "bytes": 8064,
+      "path": "/Users/erik/Projects/ashlar/tests/test_diagnostics_configuration.py",
+      "sha256": "c557eb3d79ed0128d38d2715631a6194cd829aa80ce2a12775acd69ab1239bd9"
+    },
+    "owner_source": {
+      "bytes": 12516,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+      "sha256": "58c4af496201627a63a2c6cfc7dc2f412380d6adad3c723d6bb5b9fd3a9281b5"
+    },
+    "worker": {
+      "bytes": 32918,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/_otel_worker.py",
+      "sha256": "41c57b1bf3f07e1dd850521e1da3039f880ee597641f734512042ad06a20b0b1"
+    },
+    "worker_tests": {
+      "bytes": 28339,
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_worker.py",
+      "sha256": "a987a3ea4e79fc00ec3adbadd052a40aa99fc6f88954e3f83d3d55b6ccff2e0a"
+    }
+  },
+  "limitations": [
+    "Independent controls use finite fake process/clock/pipe/selector ports; eleven owner tests additionally run inspected finite helper subprocesses and one inert SDK API span; no exporter/receiver/network/native/Git",
+    "Source snapshot and six implementation/test files plus direct fixtures/docs pinned before and after",
+    "Concurrent ownership counterexample uses fake scheduling, not demonstrated PID reuse"
+  ],
+  "log": {
+    "bytes": 2489,
+    "path": "/private/tmp/astra-otel-supervision-review-20261010-b.log",
+    "sha256": "2530dbe10ad3f378a2387ce931768e7fee38674922bec21489e3bdbf51dcbc8c"
+  },
+  "observations": [
+    {
+      "disposition": "Do not describe all startup/control lifecycle work as covered by its request deadline. Either include cleanup in the original total or explicitly document this separate allowance; no claimed shutdown refresh defect.",
+      "id": "SUP-O01",
+      "issue": "Startup/control failure cleanup creates a fresh two-second wait budget; explicit shutdown deadline is retained."
+    }
+  ],
+  "resolved": [
+    "SUP-001 first cancellation precedence",
+    "SUP-002 primary-preserving selector closure",
+    "SUP-003 leader liveness no longer skips owned group action"
+  ],
+  "script": {
+    "bytes": 15558,
+    "path": "/private/tmp/astra-otel-supervision-review-20261010-b.py",
+    "sha256": "dc4a9c2221a31db128cb5a1b4e4921dbb92c32890c91f0a2cda641be3b8597f7"
+  },
+  "status": "SUP001-003 resolved; concurrent cleanup ordering finding remains; not frozen approval"
+}

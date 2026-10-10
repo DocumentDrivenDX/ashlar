@@ -1,0 +1,354 @@
+{
+  "format": "ashlar-otel-source-evidence-copy/0.1",
+  "scope": "Source-only tests and reviewed predecessor counterexamples; no installed host, real receiver, native engine or full CONTRACT-006 integration claim. Worker A/B/C are superseded; worker D is the source candidate. SDK custody reuses the prior installation receipt.",
+  "files": [
+    {
+      "source": "/private/tmp/ashlar-otel-adapter-source-20261010-b/qualify.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/qualification/qualify.py",
+      "bytes": 2760,
+      "sha256": "5efd928a5c5e23d8f56fd3e393bfe1de7068faf81d6d796dcb0f59eb09cf2469"
+    },
+    {
+      "source": "/private/tmp/ashlar-otel-adapter-source-20261010-b/qualification.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/qualification/qualification.json",
+      "bytes": 6718,
+      "sha256": "64ee3ebeb8cdef0055e6ed49b7460b999735ab50db84b03d60cc335662e8584d"
+    },
+    {
+      "source": "/private/tmp/ashlar-otel-adapter-source-20261010-b/supervision.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/qualification/supervision.log",
+      "bytes": 111,
+      "sha256": "dd7a107600dbde4fdebfd8fa7b52e1a9a5b46386ed53244af1313db74ce031be"
+    },
+    {
+      "source": "/private/tmp/ashlar-otel-adapter-source-20261010-b/worker.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/qualification/worker.log",
+      "bytes": 117,
+      "sha256": "34812b70e52b16128b4462f040bc4845f8be1af4684e5eba45383881354c75a4"
+    },
+    {
+      "source": "/private/tmp/ashlar-otel-adapter-source-20261010-b/configuration.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/qualification/configuration.log",
+      "bytes": 215,
+      "sha256": "1775e01971e8e6e154df5c52c03655eb78d9677460ce216b6f21bbcfb31d8c9d"
+    },
+    {
+      "source": "/private/tmp/ashlar-otel-adapter-source-20261010-b/capture.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/qualification/capture.log",
+      "bytes": 239,
+      "sha256": "93a48377005d204f89c60c4f9fc0d30fd42ead80196d6d3a288cc3b888a83f0c"
+    },
+    {
+      "source": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-a/manifest.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/worker-a/manifest.json",
+      "bytes": 1053,
+      "sha256": "07b9f67ce3755597dfd4ed12213f09eecee5c13cfd5d81acd3939da1e15c9361"
+    },
+    {
+      "source": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-a/src/ashlar_host/_otel_worker.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/worker-a/src/ashlar_host/_otel_worker.py",
+      "bytes": 30749,
+      "sha256": "a0f9b449c03d7b3671121d7b52eed4a53c913b29019fdcf19ab9113d414e287e"
+    },
+    {
+      "source": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-a/tests/test_otel_worker.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/worker-a/tests/test_otel_worker.py",
+      "bytes": 19570,
+      "sha256": "29ba2b5b116ea724209c2b4cda98a75ceb09769bbba3bcde4cea02b544d3f486"
+    },
+    {
+      "source": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-b/manifest.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/worker-b/manifest.json",
+      "bytes": 1146,
+      "sha256": "38c262304bedf50af2619da289c0b5c5041531e5075e4285aafd27abbbcbfc52"
+    },
+    {
+      "source": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-c/manifest.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/worker-c/manifest.json",
+      "bytes": 1548,
+      "sha256": "0b0248c2d04a01a2e763de170bef4446ef03650f20db1b46482ad9ae0b209dcd"
+    },
+    {
+      "source": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-d/manifest.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/worker-d/manifest.json",
+      "bytes": 1554,
+      "sha256": "26823f128a63d31c1acd1f4e472f552625f911332c4508c5e54c25a8e282b9f2"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-source-review-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-source-review-20261010-a.json",
+      "bytes": 10421,
+      "sha256": "8bac8e03ee13290e35b8588be969b8cd4625cc827341d7f11c9d9e125c19128d"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-source-review-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-source-review-20261010-a.py",
+      "bytes": 5326,
+      "sha256": "23e82a81db3c47da0428e8ad047546ad5ea57871a3382670368ebf4cbe54c71e"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-source-review-20261010-a.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-source-review-20261010-a.log",
+      "bytes": 167,
+      "sha256": "b43027132c1af5f3d8539e62dd4ad78f54e8f93c9408d865217a1e98413d0dde"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-source-review-20261010-d.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-source-review-20261010-d.json",
+      "bytes": 5844,
+      "sha256": "e47083dba6c81ec1c1e1c1245e8060178859f3b0c50e26d0812daca1f1874872"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-source-review-20261010-d.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-source-review-20261010-d.py",
+      "bytes": 4720,
+      "sha256": "87cca41daffd5f7a4ca253de805178da99474c4e0cd0c660b730b25f44dd3bd6"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-source-review-20261010-d.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-source-review-20261010-d.log",
+      "bytes": 166,
+      "sha256": "c0d2f25626c80d879f1722905ec2307139ea5a576c92c05c20d641ca9e3b4a0c"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-transport-controls-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-transport-controls-20261010-a.json",
+      "bytes": 2145,
+      "sha256": "596d7e178bf245cbb32445e44aab6826a1619ebf53f9c056d846c3b3e0dc32bd"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-transport-controls-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-transport-controls-20261010-a.py",
+      "bytes": 3936,
+      "sha256": "a5e5b1d22f6f60357613dfbaad7b2d7b147c8e05b24faa4a1e4cef581f81b488"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-transport-controls-20261010-a.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-transport-controls-20261010-a.log",
+      "bytes": 2259,
+      "sha256": "4ebe17dfb315898dc7e105ab9a81507fa27f34cd16b96f90949b6f658f8f5142"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-cleanup-controls-20261010-c.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-cleanup-controls-20261010-c.json",
+      "bytes": 1889,
+      "sha256": "fc65d459e56d0493b9430e8f88389a577590f856a4336b684b49da2d49b5b58c"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-cleanup-controls-20261010-c.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-cleanup-controls-20261010-c.py",
+      "bytes": 3252,
+      "sha256": "0b86ba6683532c62cbeb2b4df2af04afc312f1ae66322887d6a02ae2963e9343"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-cleanup-controls-20261010-c.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-cleanup-controls-20261010-c.log",
+      "bytes": 2006,
+      "sha256": "89163786c3d34845b842806ce031b92a4411a5bd6f96d8080f806c763b709432"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-cleanup-controls-20261010-d.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-cleanup-controls-20261010-d.json",
+      "bytes": 1927,
+      "sha256": "1bd542377514931cc2bef4dbb84c96f9b2d1533a4ffae87f6e33d6947cb9b737"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-cleanup-controls-20261010-d.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-cleanup-controls-20261010-d.py",
+      "bytes": 3330,
+      "sha256": "8b291449e6dffd55426d6724c3644572301cedb059bf041178e24a075b85d312"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-cleanup-controls-20261010-d.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-cleanup-controls-20261010-d.log",
+      "bytes": 2045,
+      "sha256": "388a58645a6d83505aaa9e5751635420ec80421162e878a9b83bc5b7f876b6cb"
+    },
+    {
+      "source": "/private/tmp/astra-otel-supervision-review-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-supervision-review-20261010-a.json",
+      "bytes": 4052,
+      "sha256": "583d34ef459888540c35b30ffb7c19b1b0cbea1d5e47ba4b3cc59ac8bfaedc18"
+    },
+    {
+      "source": "/private/tmp/astra-otel-supervision-review-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-supervision-review-20261010-a.py",
+      "bytes": 12807,
+      "sha256": "0bd5902c2f0a8fcd299f83af64292069964440e605a81158cc4bae3f2a9da4aa"
+    },
+    {
+      "source": "/private/tmp/astra-otel-supervision-review-20261010-a.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-supervision-review-20261010-a.log",
+      "bytes": 1876,
+      "sha256": "36fa9c0af32d25a9d6491b77cf6bbd31e96dc05274fe7e692def94e71b0abc9e"
+    },
+    {
+      "source": "/private/tmp/astra-otel-supervision-review-20261010-a.source.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-supervision-review-20261010-a.source.py",
+      "bytes": 11297,
+      "sha256": "1dadd52fe6c24d81f4e8cc047db4c29151c91123a9aee48be934860850c6624c"
+    },
+    {
+      "source": "/private/tmp/astra-otel-supervision-review-20261010-b.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-supervision-review-20261010-b.json",
+      "bytes": 4807,
+      "sha256": "932c6e11f46c3b2aa51b4ebb78db996c70f0fc13085bc0d3bcbc26c25895eabb"
+    },
+    {
+      "source": "/private/tmp/astra-otel-supervision-review-20261010-b.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-supervision-review-20261010-b.py",
+      "bytes": 15558,
+      "sha256": "dc4a9c2221a31db128cb5a1b4e4921dbb92c32890c91f0a2cda641be3b8597f7"
+    },
+    {
+      "source": "/private/tmp/astra-otel-supervision-review-20261010-b.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-supervision-review-20261010-b.log",
+      "bytes": 2489,
+      "sha256": "2530dbe10ad3f378a2387ce931768e7fee38674922bec21489e3bdbf51dcbc8c"
+    },
+    {
+      "source": "/private/tmp/astra-otel-supervision-review-20261010-b.source.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-supervision-review-20261010-b.source.py",
+      "bytes": 12516,
+      "sha256": "58c4af496201627a63a2c6cfc7dc2f412380d6adad3c723d6bb5b9fd3a9281b5"
+    },
+    {
+      "source": "/private/tmp/astra-otel-public-ports-review-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-public-ports-review-20261010-a.json",
+      "bytes": 1498,
+      "sha256": "b092cbe25c858f05ae44d2c4d7ac377209fb46d8a0d883d437d21702a96c54ed"
+    },
+    {
+      "source": "/private/tmp/astra-otel-public-ports-review-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-public-ports-review-20261010-a.py",
+      "bytes": 4104,
+      "sha256": "faf617e5fdd23daea4686f10304db5e6dff466fcb2a96a7b8983dc9165d0ad85"
+    },
+    {
+      "source": "/private/tmp/astra-otel-public-ports-review-20261010-a.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-public-ports-review-20261010-a.log",
+      "bytes": 1498,
+      "sha256": "b092cbe25c858f05ae44d2c4d7ac377209fb46d8a0d883d437d21702a96c54ed"
+    },
+    {
+      "source": "/private/tmp/astra-otel-adapter-source-closure-20261010-b.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-adapter-source-closure-20261010-b.json",
+      "bytes": 4123,
+      "sha256": "eeef760b2616377506e7271bb03c042db1b9cd8e981fcfdf4d06cd8544c0d75b"
+    },
+    {
+      "source": "/private/tmp/astra-otel-adapter-source-closure-20261010-b.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-adapter-source-closure-20261010-b.py",
+      "bytes": 2970,
+      "sha256": "f45fe742a5830893331bc732603b732ca3511cc841112a1a82c6bc5db4299309"
+    },
+    {
+      "source": "/private/tmp/astra-otel-adapter-source-closure-20261010-b.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-adapter-source-closure-20261010-b.log",
+      "bytes": 552,
+      "sha256": "05e52d78cf72f21065a329e59b615536ccc0ff6beaa0fd6283f3c502c6a5ddea"
+    },
+    {
+      "source": "/private/tmp/astra-otel-adapter-source-review-20261010-b.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-adapter-source-review-20261010-b.json",
+      "bytes": 10649,
+      "sha256": "30a3325cba4bc5c64619971667cc2b21aae181af77347d40a2a8ffc50bbe97f4"
+    },
+    {
+      "source": "/private/tmp/astra-otel-adapter-source-review-20261010-b.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-adapter-source-review-20261010-b.py",
+      "bytes": 7247,
+      "sha256": "71bcc607d1d514443460868d944b9d6313e220e3adc073c1da8db265c4029580"
+    },
+    {
+      "source": "/private/tmp/astra-otel-adapter-source-review-20261010-b.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-adapter-source-review-20261010-b.log",
+      "bytes": 168,
+      "sha256": "25fd672e073bbd890e4d6159d4d90aad7957bc6b7af5d5fdb1a31dddf78f3405"
+    },
+    {
+      "source": "/private/tmp/astra-otel-supervision-review-20261010-c.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-supervision-review-20261010-c.json",
+      "bytes": 6477,
+      "sha256": "5dac9a65fee86083779899306942c10c09446a663e8bc2d56db6b34c75c7a196"
+    },
+    {
+      "source": "/private/tmp/astra-otel-supervision-review-20261010-c.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-supervision-review-20261010-c.py",
+      "bytes": 19003,
+      "sha256": "d59031e60e528d16784093e3cfa3733b3bc89a4efea20fc3ab62a3a28520a23e"
+    },
+    {
+      "source": "/private/tmp/astra-otel-supervision-review-20261010-c.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-supervision-review-20261010-c.log",
+      "bytes": 3368,
+      "sha256": "47ff7a442a22fe9f2b1c296c9e9ffee68f673f94f92158a1751f1f2d1abd0958"
+    },
+    {
+      "source": "/private/tmp/astra-otel-supervision-review-20261010-c.source.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-supervision-review-20261010-c.source.py",
+      "bytes": 13563,
+      "sha256": "7ec19a8213383e1ca067ea1cbbdb394a161170a6be4de4a69e789bd49fd08f24"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-projection-review-20261010-c.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-projection-review-20261010-c.json",
+      "bytes": 5328,
+      "sha256": "edd61446bf75ae78b722be33b50b2fbb65a74fc6b4a3b9223f144f4d132c0038"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-projection-review-20261010-c.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-projection-review-20261010-c.py",
+      "bytes": 22294,
+      "sha256": "2ae3b787f6a0cb3b727d838e1cfda262b85f13c5e3ef78d0566aa127b0034ee1"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-projection-review-20261010-c.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-projection-review-20261010-c.log",
+      "bytes": 18180,
+      "sha256": "2f1b02b678d52a45054d6d1d795deac96bc9795bbfa46f29fead641e51340db3"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-projection-review-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-projection-review-20261010-a.json",
+      "bytes": 4355,
+      "sha256": "faf56024c7c5258662723393f31cbc5d3797fc97a258217be4447d1892be9296"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-projection-review-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-projection-review-20261010-a.py",
+      "bytes": 16201,
+      "sha256": "3d5f2cb318dd65488a976e9951bfcac778262127b21a16a6087f514211cc7cee"
+    },
+    {
+      "source": "/private/tmp/astra-otel-worker-projection-review-20261010-a.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-worker-projection-review-20261010-a.log",
+      "bytes": 7190,
+      "sha256": "a756975834ffbe016e072c24e1f4d2b885a9307dcf977870af289b2cf114917a"
+    },
+    {
+      "source": "/private/tmp/astra-otel-facade-context-controls-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-facade-context-controls-20261010-a.json",
+      "bytes": 3017,
+      "sha256": "f2f2bbfde03524080f9ec7eb4471d8ad103d2c67cc4fda85a41b5155b89d3eb4"
+    },
+    {
+      "source": "/private/tmp/astra-otel-facade-context-controls-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-facade-context-controls-20261010-a.py",
+      "bytes": 2636,
+      "sha256": "47175c4e529a50beb16e55993a840600231270c2c44747521d7b45da962e08ef"
+    },
+    {
+      "source": "/private/tmp/astra-otel-facade-context-controls-20261010-a.log",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-facade-context-controls-20261010-a.log",
+      "bytes": 3017,
+      "sha256": "f2f2bbfde03524080f9ec7eb4471d8ad103d2c67cc4fda85a41b5155b89d3eb4"
+    },
+    {
+      "source": "/private/tmp/astra-otel-facade-context-controls-20261010-a.source.py",
+      "copy": "docs/helix/04-build/evidence/otel-adapter-source-20261010/review/astra-otel-facade-context-controls-20261010-a.source.py",
+      "bytes": 11176,
+      "sha256": "2b50cb8af6a7e187eacbd01d207aa706d8328f1bc04ba5dde86a609c575b5d44"
+    }
+  ]
+}

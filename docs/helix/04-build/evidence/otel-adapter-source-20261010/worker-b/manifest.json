@@ -1,0 +1,20 @@
+{
+  "command": "PYTHONPATH=src /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -W error::ResourceWarning -m unittest discover -s tests -p test_otel_worker.py -q",
+  "delta": "OTLP spans route maps to /v1/traces; exact three-signal/base-prefix regression",
+  "files": [
+    {
+      "bytes": 30834,
+      "path": "src/ashlar_host/_otel_worker.py",
+      "sha256": "3131b86054b499db3a0a55ff6c11cbdb2aebd09e48c5b476a663d273b557fc3f"
+    },
+    {
+      "bytes": 20569,
+      "path": "tests/test_otel_worker.py",
+      "sha256": "2a5f3fe7240a69102c07cd1776ebc7f5dda735dab527f00cd8386bcc8225f074"
+    }
+  ],
+  "ownership": "Parent owns process group, clean environment, bounded RPC control deadlines and local diagnostic identity/capture. Worker has no native/publication/ACK interfaces.",
+  "remainingGap": "Hostname DNS may exceed per-request socket timeout; parent-owned hard total deadline is separate and facade not implemented by this slice",
+  "scope": "Actual public SDK projection and protobuf mapping; inert HTTP ports only; installed host metadata mocked only in tests; no network/receiver/full C006 qualification",
+  "tests": 15
+}

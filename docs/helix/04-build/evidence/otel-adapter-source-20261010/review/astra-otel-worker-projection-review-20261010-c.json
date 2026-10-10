@@ -1,0 +1,107 @@
+{
+  "capability_gaps": [
+    {
+      "follow_up": "During parent integration, review and test the no-valid-span behavior without fabricated context; do not infer complete C006 integration from current traced worker controls.",
+      "id": "WP-G01",
+      "issue": "Closed-schema valid untraced event cannot enter current worker emit path; all events require a worker-created span context.",
+      "lines": [
+        489,
+        499
+      ],
+      "qualification": "Not established as a reachable parent-composition failure: selected operation context creates a span, and the parent facade does not exist in this freeze. This worker path alone cannot support the separately required no-active-context receiver control."
+    }
+  ],
+  "check_count": 428,
+  "findings": [],
+  "inputs": {
+    "adr": {
+      "bytes": 32409,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "b769f8ec88b434204873de71807cef9db277b2f77f0adbe4ae8ccecb9e036db4"
+    },
+    "author_tests": {
+      "bytes": 26308,
+      "path": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-c/tests/test_otel_worker.py",
+      "sha256": "7f16c25a6223c0c750a7216c5e56ed9c682bab81134a45e613d091c9a9cd5d22"
+    },
+    "config": {
+      "bytes": 11360,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "sha256": "3bb0719a56e8ae7322887f087306f041df1d89df2dd32583cb8fb3e5b416d6a7"
+    },
+    "contract": {
+      "bytes": 23636,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34"
+    },
+    "diagnostics": {
+      "bytes": 37137,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostics.py",
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    "manifest": {
+      "bytes": 1548,
+      "path": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-c/manifest.json",
+      "sha256": "0b0248c2d04a01a2e763de170bef4446ef03650f20db1b46482ad9ae0b209dcd"
+    },
+    "successor_manifest": {
+      "bytes": 1554,
+      "path": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-d/manifest.json",
+      "sha256": "26823f128a63d31c1acd1f4e472f552625f911332c4508c5e54c25a8e282b9f2"
+    },
+    "successor_worker": {
+      "bytes": 32918,
+      "path": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-d/src/ashlar_host/_otel_worker.py",
+      "sha256": "41c57b1bf3f07e1dd850521e1da3039f880ee597641f734512042ad06a20b0b1"
+    },
+    "worker": {
+      "bytes": 32750,
+      "path": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-c/src/ashlar_host/_otel_worker.py",
+      "sha256": "c37de88b4b0e3f3505d5fd7808cfb6fad2c64685f253a390876240322347ffd3"
+    }
+  },
+  "limitations": [
+    "Installed application version mocked only as an author-test fixture; pinned SDK metadata checked by worker",
+    "No parent facade, process lifetime, transport, receiver or full host conformance qualification",
+    "Parent separately owns known C cleanup-cancellation defect WT002 and successor D review; this projection pass does not override it",
+    "No SDK object/process-memory bound claim"
+  ],
+  "log": {
+    "bytes": 18180,
+    "path": "/private/tmp/astra-otel-worker-projection-review-20261010-c.log",
+    "sha256": "2f1b02b678d52a45054d6d1d795deac96bc9795bbfa46f29fead641e51340db3"
+  },
+  "positive_controls": [
+    "root span and log low8 flags",
+    "retry link full low8 and remote bits",
+    "monotonic cumulative integer counter, no exemplars or histogram",
+    "cumulative 1 then 3 with one occupied-slot drop",
+    "logical-unit queue accounting retaining inflight reservation",
+    "privacy rejection before admission",
+    "no duplicate attributes or unknown protobuf fields"
+  ],
+  "resolved": [
+    "WP-001 Resource schema URLs, schema marker, and optional source Timestamp",
+    "WP-002 catalog span names, run identity, cleanup_failed and nonsuccess category"
+  ],
+  "scope": "Frozen private worker projections only; actual pinned SDK, fake send ports, no receiver/network/native/process or source edits",
+  "script": {
+    "bytes": 22294,
+    "path": "/private/tmp/astra-otel-worker-projection-review-20261010-c.py",
+    "sha256": "2ae3b787f6a0cb3b727d838e1cfda262b85f13c5e3ef78d0566aa127b0034ee1"
+  },
+  "status": "WP-001 and WP-002 fixed for tested frozen C projection scope; no full worker approval",
+  "successor_mapping_equivalence": {
+    "exact_section_byte_hashes": {
+      "Queue": "f6947b01189b41e5b2e3b53d397466e20646154df60394473ed09f5db1f3fe5b",
+      "SDKWorker.__init__": "44b5c752ebc0e9822a996596c535cb9c90cd2150a667da875827495c8132da73",
+      "SDKWorker.context": "e27cc1d833985b2d4131e4be5c675887a461d4881573cba1d584937883c9ada5",
+      "SDKWorker.emit": "54666c30460d6db61ddf669e82d74e24f58a627ebbb25db468360d3ccfd70fa3",
+      "Settings": "1e525d48171e4b580c6c464febb6f72a3e1abff59cb5c6be5c1e39c42bf6f19a",
+      "parse": "a660e0845806170e9ecaefc336db408e79b6d4cb25f9e0af7f81249917fdbab9"
+    },
+    "executed": "C only",
+    "qualification": "Six projection/input/accounting sections match exactly; D lifecycle changes reviewed separately by parent, no D full worker approval inferred here",
+    "source_only_compared": "D"
+  }
+}

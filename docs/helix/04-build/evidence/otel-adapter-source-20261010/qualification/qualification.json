@@ -1,0 +1,206 @@
+{
+  "format": "ashlar-otel-adapter-source-qualification/0.1",
+  "scope": "Reviewed-source qualification only; worker tests use actual pinned SDK with mocked Ashlar package metadata and inert HTTP ports. Supervision uses actual private finite subprocesses and selected SDK parent context; no installed-host, network, receiver, native engine or full CONTRACT-006 support claim. SDK-free capture omits optional schema test explicitly.",
+  "openingSources": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "bytes": 11360,
+      "sha256": "3bb0719a56e8ae7322887f087306f041df1d89df2dd32583cb8fb3e5b416d6a7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostics.py",
+      "bytes": 37137,
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+      "bytes": 13563,
+      "sha256": "7ec19a8213383e1ca067ea1cbbdb394a161170a6be4de4a69e789bd49fd08f24"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/_otel_worker.py",
+      "bytes": 32918,
+      "sha256": "41c57b1bf3f07e1dd850521e1da3039f880ee597641f734512042ad06a20b0b1"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_supervision.py",
+      "bytes": 11767,
+      "sha256": "3896023ef9f3698bb8fe9c02765fe0cc1fd7c83fc7e9b017fb1d2726ce1a526f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_worker.py",
+      "bytes": 28339,
+      "sha256": "a987a3ea4e79fc00ec3adbadd052a40aa99fc6f88954e3f83d3d55b6ccff2e0a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "bytes": 3540,
+      "sha256": "9555f52f174f717544f48994312f9551b191732fd65883287a20b08d321b0c3f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 32409,
+      "sha256": "b769f8ec88b434204873de71807cef9db277b2f77f0adbe4ae8ccecb9e036db4"
+    }
+  ],
+  "closingSources": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "bytes": 11360,
+      "sha256": "3bb0719a56e8ae7322887f087306f041df1d89df2dd32583cb8fb3e5b416d6a7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostics.py",
+      "bytes": 37137,
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+      "bytes": 13563,
+      "sha256": "7ec19a8213383e1ca067ea1cbbdb394a161170a6be4de4a69e789bd49fd08f24"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/_otel_worker.py",
+      "bytes": 32918,
+      "sha256": "41c57b1bf3f07e1dd850521e1da3039f880ee597641f734512042ad06a20b0b1"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_supervision.py",
+      "bytes": 11767,
+      "sha256": "3896023ef9f3698bb8fe9c02765fe0cc1fd7c83fc7e9b017fb1d2726ce1a526f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_worker.py",
+      "bytes": 28339,
+      "sha256": "a987a3ea4e79fc00ec3adbadd052a40aa99fc6f88954e3f83d3d55b6ccff2e0a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+      "bytes": 3540,
+      "sha256": "9555f52f174f717544f48994312f9551b191732fd65883287a20b08d321b0c3f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 32409,
+      "sha256": "b769f8ec88b434204873de71807cef9db277b2f77f0adbe4ae8ccecb9e036db4"
+    }
+  ],
+  "sdkWheelOwnedFileCount": 698,
+  "sdkInstallationReceipt": {
+    "path": "/private/tmp/ashlar-otel-sdk-installation-20261010-a/installation.json",
+    "bytes": 178178,
+    "sha256": "572f1d3ce1333c122cf15af1e61bbc6aa5fee39b62911ce5a64b59b93c9bbf12"
+  },
+  "commands": [
+    {
+      "name": "supervision",
+      "argv": [
+        "/private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_otel_supervision.py"
+      ],
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "PYTHONPATH": "src:tests"
+      },
+      "exitCode": 0,
+      "durationSeconds": 0.51442675,
+      "output": {
+        "path": "/private/tmp/ashlar-otel-adapter-source-20261010-b/supervision.log",
+        "bytes": 111,
+        "sha256": "dd7a107600dbde4fdebfd8fa7b52e1a9a5b46386ed53244af1313db74ce031be"
+      }
+    },
+    {
+      "name": "worker",
+      "argv": [
+        "/private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python",
+        "-B",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_otel_worker.py"
+      ],
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "PYTHONPATH": "src:tests"
+      },
+      "exitCode": 0,
+      "durationSeconds": 0.19082312499999998,
+      "output": {
+        "path": "/private/tmp/ashlar-otel-adapter-source-20261010-b/worker.log",
+        "bytes": 117,
+        "sha256": "34812b70e52b16128b4462f040bc4845f8be1af4684e5eba45383881354c75a4"
+      }
+    },
+    {
+      "name": "configuration",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_diagnostics_configuration.py"
+      ],
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "PYTHONPATH": "src:tests"
+      },
+      "exitCode": 0,
+      "durationSeconds": 0.3296181250000001,
+      "output": {
+        "path": "/private/tmp/ashlar-otel-adapter-source-20261010-b/configuration.log",
+        "bytes": 215,
+        "sha256": "1775e01971e8e6e154df5c52c03655eb78d9677460ce216b6f21bbcfb31d8c9d"
+      }
+    },
+    {
+      "name": "capture",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_host_diagnostics.py"
+      ],
+      "environment": {
+        "PATH": "/usr/bin:/bin",
+        "PYTHONPATH": "src:tests"
+      },
+      "exitCode": 0,
+      "durationSeconds": 0.5706057090000001,
+      "output": {
+        "path": "/private/tmp/ashlar-otel-adapter-source-20261010-b/capture.log",
+        "bytes": 239,
+        "sha256": "93a48377005d204f89c60c4f9fc0d30fd42ead80196d6d3a288cc3b888a83f0c"
+      }
+    }
+  ]
+}

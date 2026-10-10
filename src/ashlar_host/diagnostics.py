@@ -254,6 +254,11 @@ def _export(value: dict, closed: bool = True) -> None:
             _require(total == value['submitted'])
 
 
+def validate_signal_loss(value: dict) -> None:
+    """Validate one closed C006 logical-unit accounting projection."""
+    _export(value)
+
+
 def _private_directory(path: Path) -> None:
     _require(isinstance(path, Path) and path.is_absolute())
     for ancestor in reversed((path,) + tuple(path.parents)):
@@ -277,6 +282,16 @@ class DiagnosticSignalSink:
     def __post_init__(self) -> None:
         _require(all(callable(p) for p in (self.emit, self.trace_context, self.shutdown)),
                  'diagnostics-configuration')
+
+
+def decode_event(raw: bytes) -> dict:
+    """Admit one bounded immutable JSONL event at a signal-owner boundary."""
+    _require(type(raw) is bytes and 0 < len(raw) <= 4096
+             and raw.endswith(b'\n') and b'\n' not in raw[:-1],
+             'diagnostics-event-refused')
+    event = _decode(raw)
+    validate_event(event)
+    return event
 
 
 @dataclass(frozen=True)

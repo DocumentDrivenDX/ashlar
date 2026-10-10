@@ -1,0 +1,71 @@
+{
+  "sourceSha256": "41c57b1bf3f07e1dd850521e1da3039f880ee597641f734512042ad06a20b0b1",
+  "freezeSha256": "26823f128a63d31c1acd1f4e472f552625f911332c4508c5e54c25a8e282b9f2",
+  "scope": "Six bounded real SDK or inert transport source controls, no network/receiver/secret/native",
+  "checks": [
+    {
+      "control": "close ordinary collection failure then cancellation",
+      "cancel": "KeyboardInterrupt",
+      "caught": "KeyboardInterrupt",
+      "cancelIdentity": true,
+      "ordinaryIdentity": false,
+      "cleanup": [
+        "traces",
+        "metrics"
+      ]
+    },
+    {
+      "control": "close ordinary collection failure then cancellation",
+      "cancel": "SystemExit",
+      "caught": "SystemExit",
+      "cancelIdentity": true,
+      "ordinaryIdentity": false,
+      "cleanup": [
+        "traces",
+        "metrics"
+      ]
+    },
+    {
+      "control": "close ordinary collection failure then cancellation",
+      "cancel": "GeneratorExit",
+      "caught": "GeneratorExit",
+      "cancelIdentity": true,
+      "ordinaryIdentity": false,
+      "cleanup": [
+        "traces",
+        "metrics"
+      ]
+    },
+    {
+      "control": "transport ordinary request failure then cancellation",
+      "cancel": "KeyboardInterrupt",
+      "caught": "KeyboardInterrupt",
+      "cancelIdentity": true,
+      "ordinaryIdentity": false,
+      "cleanup": [
+        "close"
+      ]
+    },
+    {
+      "control": "transport ordinary request failure then cancellation",
+      "cancel": "SystemExit",
+      "caught": "SystemExit",
+      "cancelIdentity": true,
+      "ordinaryIdentity": false,
+      "cleanup": [
+        "close"
+      ]
+    },
+    {
+      "control": "transport ordinary request failure then cancellation",
+      "cancel": "GeneratorExit",
+      "caught": "GeneratorExit",
+      "cancelIdentity": true,
+      "ordinaryIdentity": false,
+      "cleanup": [
+        "close"
+      ]
+    }
+  ],
+  "ownerTests": 18
+}

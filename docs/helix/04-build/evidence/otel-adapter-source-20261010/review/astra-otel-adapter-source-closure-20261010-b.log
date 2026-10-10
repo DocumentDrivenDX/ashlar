@@ -1,0 +1,12 @@
+EIGHT SOURCE PINS / 698 WHEEL FILES / FOUR ROOT LOGS VERIFIED
+astra-otel-supervision-ci-20261010-b ......s.....
+----------------------------------------------------------------------
+Ran 12 tests in 0.385s
+
+OK (skipped=1)
+astra-otel-worker-ci-20261010-d sssssssssssss.....
+----------------------------------------------------------------------
+Ran 18 tests in 0.002s
+
+OK (skipped=13)
+{"path": "/private/tmp/astra-otel-adapter-source-closure-20261010-b.json", "bytes": 4123, "sha256": "eeef760b2616377506e7271bb03c042db1b9cd8e981fcfdf4d06cd8544c0d75b"}

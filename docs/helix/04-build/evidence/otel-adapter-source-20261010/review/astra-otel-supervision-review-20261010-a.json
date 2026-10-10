@@ -1,0 +1,92 @@
+{
+  "checks": 19,
+  "closing_owner_source": {
+    "bytes": 11566,
+    "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+    "sha256": "c7b47b49b11b5e45152fb847a0a82b2532b57bf58545fbd383d1148bba156d94"
+  },
+  "findings": [
+    {
+      "id": "SUP-001",
+      "issue": "With primary=None, an ordinary cleanup failure before the first cleanup cancellation makes _dispose raise fixed DiagnosticsError and suppress the original cancellation.",
+      "lines": [
+        99,
+        114
+      ],
+      "smallest_correction": "With primary=None, retain the first non-Exception cancellation over preceding ordinary diagnostic cleanup errors; finish all cleanup and propagate that original object. Preserve an existing operation primary."
+    },
+    {
+      "id": "SUP-002",
+      "issue": "Selector context-manager cleanup can replace the original select/read/write cancellation, which _invoke then turns into DiagnosticsError.",
+      "lines": [
+        125,
+        145
+      ],
+      "smallest_correction": "Close selectors with primary-preserving cleanup, including register/select/read/write failure paths."
+    },
+    {
+      "id": "SUP-003",
+      "issue": "_dispose skips killpg when direct child already exited, allowing an owned descendant group to survive while shutdown returns successful complete accounting in a fake process model.",
+      "lines": [
+        89,
+        94
+      ],
+      "smallest_correction": "Dispose the owned process group independently of leader liveness, then reap the direct child; scope process-group ownership carefully."
+    }
+  ],
+  "inputs": {
+    "author_tests": {
+      "bytes": 8536,
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_supervision.py",
+      "sha256": "437dca7f1cd62c23b9103b80d4983018afd54241bf7ff60b51556fa327388ee0"
+    },
+    "config": {
+      "bytes": 11360,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "sha256": "3bb0719a56e8ae7322887f087306f041df1d89df2dd32583cb8fb3e5b416d6a7"
+    },
+    "contract": {
+      "bytes": 23636,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34"
+    },
+    "diagnostics": {
+      "bytes": 37137,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostics.py",
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    "executed_snapshot": {
+      "bytes": 11297,
+      "path": "/private/tmp/astra-otel-supervision-review-20261010-a.source.py",
+      "sha256": "1dadd52fe6c24d81f4e8cc047db4c29151c91123a9aee48be934860850c6624c"
+    },
+    "owner_source": {
+      "bytes": 11566,
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+      "sha256": "c7b47b49b11b5e45152fb847a0a82b2532b57bf58545fbd383d1148bba156d94"
+    }
+  },
+  "limitations": [
+    "Only finite fake process, clock, pipe and selector ports executed; no child/SDK/network/receiver/native/Git",
+    "Source was changing; executed snapshot pinned and later source not approved",
+    "No actual POSIX scheduling, process launch or process-group behavior qualified"
+  ],
+  "log": {
+    "bytes": 1876,
+    "path": "/private/tmp/astra-otel-supervision-review-20261010-a.log",
+    "sha256": "36fa9c0af32d25a9d6491b77cf6bbd31e96dc05274fe7e692def94e71b0abc9e"
+  },
+  "observations": [
+    {
+      "disposition": "Do not describe all startup/control lifecycle work as covered by its request deadline. Either include cleanup in the original total or explicitly document this separate allowance; no claimed shutdown refresh defect.",
+      "id": "SUP-O01",
+      "issue": "Startup/control failure cleanup creates a fresh two-second wait budget; explicit shutdown deadline is retained."
+    }
+  ],
+  "script": {
+    "bytes": 12807,
+    "path": "/private/tmp/astra-otel-supervision-review-20261010-a.py",
+    "sha256": "0bd5902c2f0a8fcd299f83af64292069964440e605a81158cc4bae3f2a9da4aa"
+  },
+  "status": "provisional candidate review; not frozen approval"
+}

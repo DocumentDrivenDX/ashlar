@@ -1,0 +1,89 @@
+..............
+----------------------------------------------------------------------
+Ran 14 tests in 0.046s
+
+OK
+
+{
+  "scope": "Frozen A source; inert HTTP/file/clock ports and real SDK owner tests only; no receiver/network/native/secret use",
+  "source": {
+    "path": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-a/src/ashlar_host/_otel_worker.py",
+    "sha256": "a0f9b449c03d7b3671121d7b52eed4a53c913b29019fdcf19ab9113d414e287e"
+  },
+  "controls": [
+    {
+      "control": "signal_route",
+      "signal": "logs",
+      "actual_path": "/v1/logs",
+      "status": "success"
+    },
+    {
+      "control": "signal_route",
+      "signal": "spans",
+      "actual_path": "/v1/spans",
+      "status": "success"
+    },
+    {
+      "control": "signal_route",
+      "signal": "metrics",
+      "actual_path": "/v1/metrics",
+      "status": "success"
+    },
+    {
+      "control": "whole_request_header_deadline",
+      "configured_seconds": 0.1,
+      "actual_inert_clock_seconds": 0.2,
+      "header_read_instants": [
+        0.04,
+        0.08,
+        0.12,
+        0.16,
+        0.2
+      ],
+      "dns_or_network": false,
+      "result": "overrun detected only after getresponse returns"
+    },
+    {
+      "control": "cleanup_cancellation_after_ordinary_failure",
+      "cancellation_type": "KeyboardInterrupt",
+      "raised_type": "OSError",
+      "preserved_cancellation_identity": false,
+      "first_ordinary_identity": true,
+      "attempted": [
+        "first",
+        "second",
+        "third"
+      ]
+    },
+    {
+      "control": "cleanup_cancellation_after_ordinary_failure",
+      "cancellation_type": "SystemExit",
+      "raised_type": "OSError",
+      "preserved_cancellation_identity": false,
+      "first_ordinary_identity": true,
+      "attempted": [
+        "first",
+        "second",
+        "third"
+      ]
+    },
+    {
+      "control": "cleanup_cancellation_after_ordinary_failure",
+      "cancellation_type": "GeneratorExit",
+      "raised_type": "OSError",
+      "preserved_cancellation_identity": false,
+      "first_ordinary_identity": true,
+      "attempted": [
+        "first",
+        "second",
+        "third"
+      ]
+    }
+  ],
+  "ownerTests": {
+    "run": 14,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  }
+}

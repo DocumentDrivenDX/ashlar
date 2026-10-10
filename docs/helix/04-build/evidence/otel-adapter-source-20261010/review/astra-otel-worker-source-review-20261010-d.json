@@ -1,0 +1,98 @@
+{
+  "verdict": "approved-source-only",
+  "scope": "Exactly frozen worker D and focused tests; no installation, actual HTTP/receiver, host/native/ACK or complete C006 qualification. Parent facade reviewed separately.",
+  "freeze": {
+    "path": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-d/manifest.json",
+    "bytes": 1554,
+    "sha256": "26823f128a63d31c1acd1f4e472f552625f911332c4508c5e54c25a8e282b9f2"
+  },
+  "sourceFiles": [
+    {
+      "path": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-d/src/ashlar_host/_otel_worker.py",
+      "bytes": 32918,
+      "sha256": "41c57b1bf3f07e1dd850521e1da3039f880ee597641f734512042ad06a20b0b1"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-worker-source-freeze-20261010-d/tests/test_otel_worker.py",
+      "bytes": 28339,
+      "sha256": "a987a3ea4e79fc00ec3adbadd052a40aa99fc6f88954e3f83d3d55b6ccff2e0a"
+    }
+  ],
+  "liveEqualsFrozen": true,
+  "correctionDisposition": {
+    "WT-001": "Closed logs/spans/metrics route map now emits /v1/logs,/v1/traces,/v1/metrics while preserving base prefix; meaningful inert transport controls pass.",
+    "WP-001": "Resource schema URL and exact six attributes/scopes; diagnostic schema log attr; unknown source Timestamp remains omitted; 428 independent finite SDK projection assertions pass on C projection regions proven byte-identical in D.",
+    "WP-002": "ashlar.<operation> span names and exact admitted run/attempt/operation/outcome/cleanup/error attrs and status; success/failure cases independently rechecked.",
+    "WT-002": "D distinguishes diagnostics-only accumulators from explicit owner primary; original six SDK collect/HTTP failure-followed-by-cancellation cases now preserve exact KI/SystemExit/GeneratorExit; owner primary default remains preserved.",
+    "WT-003": "Worker emits bounded private begin before transport construction/I/O and complete after successful owned cleanup; failed cleanup permanently refuses later sends and cannot reset parent deadline. Actual hard deadline depends on matching parent supervision; worker direct use/socket timeout alone is not qualified."
+  },
+  "actualVerification": {
+    "parentCommand": "PYTHONPATH=/Users/erik/Projects/ashlar/src /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -W error::ResourceWarning /private/tmp/astra-otel-worker-cleanup-controls-20261010-d.py",
+    "ownerTests": 18,
+    "parentIndependentReproControls": 6,
+    "childIndependentProjectionAssertions": 428,
+    "artifacts": [
+      {
+        "path": "/private/tmp/astra-otel-worker-cleanup-controls-20261010-d.py",
+        "bytes": 3330,
+        "sha256": "8b291449e6dffd55426d6724c3644572301cedb059bf041178e24a075b85d312"
+      },
+      {
+        "path": "/private/tmp/astra-otel-worker-cleanup-controls-20261010-d.json",
+        "bytes": 1927,
+        "sha256": "1bd542377514931cc2bef4dbb84c96f9b2d1533a4ffae87f6e33d6947cb9b737"
+      },
+      {
+        "path": "/private/tmp/astra-otel-worker-cleanup-controls-20261010-d.log",
+        "bytes": 2045,
+        "sha256": "388a58645a6d83505aaa9e5751635420ec80421162e878a9b83bc5b7f876b6cb"
+      },
+      {
+        "path": "/private/tmp/astra-otel-worker-projection-review-20261010-c.py",
+        "bytes": 22294,
+        "sha256": "2ae3b787f6a0cb3b727d838e1cfda262b85f13c5e3ef78d0566aa127b0034ee1"
+      },
+      {
+        "path": "/private/tmp/astra-otel-worker-projection-review-20261010-c.json",
+        "bytes": 5328,
+        "sha256": "edd61446bf75ae78b722be33b50b2fbb65a74fc6b4a3b9223f144f4d132c0038"
+      },
+      {
+        "path": "/private/tmp/astra-otel-worker-projection-review-20261010-c.log",
+        "bytes": 18180,
+        "sha256": "2f1b02b678d52a45054d6d1d795deac96bc9795bbfa46f29fead641e51340db3"
+      }
+    ]
+  },
+  "governing": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "bytes": 23636,
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34"
+    }
+  ],
+  "helix": {
+    "modularity": "Private SDK/queue/transport owner with sanitized event ports; no native/publication/ACK interfaces or global provider attachment. Parent owns environment and process lifetime.",
+    "configuration": "Explicit frozen settings, closed schemas and bounded integer limits; ambient SDK/proxy knobs refused before providers; package version admission remains actual-installed integration work.",
+    "observability": "Exact low8 SDK context flags projected with native upper bits preserved; logical-unit counts and bounded local uncertainty independent of remote ingestion. No runtime/receiver proof from fake ports.",
+    "formal": "Precise DIAG state/cleanup and projection correspondence plus finite counterexample/regression controls; no analyzer/model proof or production liveness guarantee."
+  },
+  "separateRemainingIntegrationObligations": [
+    "Match private progress protocol with independently reviewed parent facade; exercise actual isolated blocked I/O and deadline/reap behavior.",
+    "Actual installed parent/worker and real receiver/protobuf output closure, failure/privacy/concurrency/retry controls and pilot gates remain.",
+    "Contract-valid no-active-context behavior has not been established as reachable through current required per-operation span path; do not claim the untraced receiver control from this source slice.",
+    "Payload budgets exclude SDK object/process memory."
+  ],
+  "priorEvidence": [
+    {
+      "path": "/private/tmp/astra-otel-worker-source-review-20261010-a.json",
+      "bytes": 10421,
+      "sha256": "8bac8e03ee13290e35b8588be969b8cd4625cc827341d7f11c9d9e125c19128d"
+    },
+    {
+      "path": "/private/tmp/astra-otel-worker-cleanup-controls-20261010-c.json",
+      "bytes": 1889,
+      "sha256": "fc65d459e56d0493b9430e8f88389a577590f856a4336b684b49da2d49b5b58c"
+    }
+  ]
+}

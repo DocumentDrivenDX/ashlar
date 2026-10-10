@@ -1,0 +1,21 @@
+{
+  "command": "PYTHONPATH=src /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -W error::ResourceWarning -m unittest discover -s tests -p test_otel_worker.py -q",
+  "delta": "Diagnostic-only collect/send/read/protocol cleanup permits first non-Exception cancellation to supersede ordinary diagnostic failure; explicit owner primary remains exact; six isolated actualSDK/HTTP callsite controls",
+  "files": [
+    {
+      "bytes": 32918,
+      "path": "src/ashlar_host/_otel_worker.py",
+      "sha256": "41c57b1bf3f07e1dd850521e1da3039f880ee597641f734512042ad06a20b0b1"
+    },
+    {
+      "bytes": 28339,
+      "path": "tests/test_otel_worker.py",
+      "sha256": "a987a3ea4e79fc00ec3adbadd052a40aa99fc6f88954e3f83d3d55b6ccff2e0a"
+    }
+  ],
+  "ownership": "Parent owns process group, clean environment, bounded RPC control deadlines and local diagnostic identity/capture. Worker has no native/publication/ACK interfaces.",
+  "protocol": "During close only, bounded reply progress value transport_deadline:absolute monotonic float before connection; transport_complete:true only after owned cleanup succeeds; failed cleanup prevents new request and does not reset deadline",
+  "remainingGap": "Hard DNS/header/per-request bounds depend on parent supervision of progress deadlines and kill/reap; not proved by this worker-only slice or socket timeout",
+  "scope": "Actual public SDK projection and protobuf mapping; inert HTTP ports only; installed host metadata mocked only in tests; no network/receiver/full C006 qualification",
+  "tests": 18
+}
