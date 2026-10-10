@@ -8,7 +8,8 @@ import hashlib,importlib.metadata,json,subprocess,tempfile
 from pathlib import Path
 from local_delta_custody import encoded
 from prepare_native_distinct_controls import fixture_model,rows,controls,request
-from run_pack_distinct_weft import COMPILER_SHA
+# Corrected DISTINCT projected-order compiler; canonical historical runner keeps its pin.
+COMPILER_SHA='b91bfc411a7124916de8f256a67828d70cd2cc2f655b11aafd9024aa221b738c'
 from run_commerce_arithmetic_weft import compile_original,decode_rows,persist_after_stop
 from weft_field_plan import admit_field_plan
 
