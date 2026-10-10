@@ -36,6 +36,9 @@ Follow the [indexed installation guide](WEFT-INSTALLATION.md) to install the
 qualified local candidate and compile an unchanged original request. Publication
 execution still requires the resolved vector and all compiler host obligations.
 
+For a complete local publication and indexed scalar/count/relationship workflow,
+follow the [commerce setup and query guide](COMMERCE-INDEXED-WEFT.md).
+
 ## Prepare the original commerce graph
 
 ```sh

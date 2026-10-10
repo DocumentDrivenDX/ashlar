@@ -13,6 +13,8 @@ the [query qualification table](examples/end-to-end/QUERY-GALLERY.md#qualified-o
 and [delivery scope](docs/helix/04-build/toolkit-delivery-plan.md) for exact subsets.
 Real Truss integration, Fabric GQL and broader query support are unfinished.
 Native profiles and production authority require their own qualification.
+Use the [commerce setup and indexed query guide](examples/end-to-end/COMMERCE-INDEXED-WEFT.md)
+to publish the original graph locally and query its authored supplier relationship.
 
 Install the candidate toolkit locally (Python3.9+):
 

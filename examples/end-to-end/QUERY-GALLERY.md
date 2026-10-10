@@ -1,9 +1,10 @@
 # Query an immutable publication
 
 Use the original commerce model and the publication produced by the
-[local setup guide](README.md). The following queries are the exact cases in
-`tools/run_commerce_publication_weft.py`; the runner compiles and executes them
-against that publication and compares their complete results with the original
+[local setup guide](README.md). The count, price and property-join examples are the exact cases in
+`tools/run_commerce_publication_weft.py`. The authored relationship example uses
+the separate indexed runner described below. Each runner compiles its fixed
+queries against the publication and compares complete results with the original
 source oracle.
 
 ## Count products
@@ -37,6 +38,23 @@ FROM products p JOIN suppliers s ON p.supplier_id = s.id
 This is a property-equality join. Preserve every matching occurrence. An explicit
 edge traversal is a different query and requires an admitted relationship mapping;
 it cannot silently replace this join.
+
+## Follow the authored supplier relationship
+
+```sql
+SELECT p.id, RELATED_KEYS(p."products.supplier_id", 2) AS suppliers
+FROM products p ORDER BY p.id
+```
+
+This follows the original independently identified edges for the authored
+`products.supplier_id` relationship. The bounded result carries ordered supplier
+key tuples and an explicit truncation marker. Preserve repeated edge occurrences;
+a property-equality join cannot substitute for this traversal.
+
+Use the [indexed commerce workflow](COMMERCE-INDEXED-WEFT.md) for this fixed
+query, String projection and global count on one publication. Its immutable
+compiler profile selects the original single-edge fixture; parallel-edge degree,
+observable truncation and two-hop paths require separate qualification.
 
 ## Run the cases
 
