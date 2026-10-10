@@ -1,0 +1,34 @@
+{
+  "scope": "Immutable PuppyGraph release owner/public native adapter and single-release carrier preparation source; actual PuppyGraph staged workflow remains pending",
+  "head": "889ab24abf3f165cdafbc7947619131358656872",
+  "files": {
+    "src/ashlar_host/puppy_release.py": "b2df51301c339e83019a008ed89576c61b3af849263c0189ec55cfb86d1128db",
+    "tools/prepare_puppy_release.py": "1dcf965fd3bbd11aa002ddf8e3498bf780bd2ca71a135deeb0b64809856a7a10",
+    "tools/puppy_release_adapter.py": "8cbac2da92cd6ee6027b867ba6867ddbc89879af034643c75a9bc3a42d9ab608",
+    "tests/test_puppy_release_owner.py": "935ad9dbdf7bca7255a16eb46d62d9b6374113c473a2e0249bf5a6459d89a28d",
+    "tests/test_puppy_release_adapter.py": "1c7f18c8e1101cfefee6cb8157ae85b05dab5759f737afd64a2f42b67ff58a96",
+    ".github/workflows/weft-distribution.yml": "a800e25e1d4f42cd0d0c8b6895f1600f2c90c9098aab25f96bf74a49c46ff7fd"
+  },
+  "supersedes": "Dsource; onlyhelpercatalog31chars (fullhashDBfilename unchanged), exactcatalogcollisioncontrol. ActualF71charADD_CATALOGrejection retained, unknown actualnative name limit not claimed.",
+  "controls": "16 controlsPASS25796d .326s; actualtinyDuckDB2fullvalueexportsPASSafe74f; no actualnativeG yet",
+  "actualPreparation": {
+    "path": "/private/tmp/ashlar-puppy-carrier-actual-check-20261010-b.json",
+    "sha256": "29496a10ba3cd6c3f9a5329d86a58091de76cbe59ae24f82a41645e0531b45ef",
+    "chunk": "fa7300",
+    "qualification": "Actual two local DuckDB1.5.6 exports with existingPython3.12, each798720B, threads1/64MB; full carrier rows exact; no native PuppyGraph activation/query."
+  },
+  "desiredSemantics": [
+    "Actual adapter stage performs public schema POST before native GET+query admission; caller ports own credentials/current native authority. Hash-qualified labels preserve independent old-release identities.",
+    "Complete full native node/edge/value/incident comparisons; engineinstance/schemahash/carrierbytepin, declared catalog distinct from observed native node/edge schema when catalog API omitted.",
+    "Externally trusted prepared receipt SHA pins database and model; original request/schema/raw response artifacts retained separately, no arbitrary SQL rewriting/scalar promotion.",
+    "Owner requires actualactivation receipt and closing native/independent policy/writer cleanup; failed/interrupted/uncertain stage exposes no new selected handle; old explicit handle reobserves exact native values or refuses.",
+    "Local pointer is cooperating process selection, not durable remote latest authority. New process may open explicit exact original activation handle and renew native read; public CLI/durable activation delivery still pending."
+  ],
+  "qualification": "Source/inertports and small actual DuckDB prep only. Actual engine activation/interrupted successor/native old-reader/new-reader lifecycle requires separately frozen reviewed bounded existinglocalPuppy recipe. No cloud/new capacity/credential source access/native network action/commits.",
+  "stagedOriginal": "Exact independently authorized pinned original addition only: complete prior remains; extra observed rows must be exact subset of original addition; unknown/changed/duplicate/missing-prior refuse. Retain complete original POST intent before mutation; original subset resumes byte-identical intent; complete exact candidate observes read-only, never repairs based on absence.",
+  "sourceFreeze": {
+    "path": "/private/tmp/ashlar-puppy-release-source-freeze-20261010-c.json",
+    "sha256": "590183aad4ab234e30573cb3e1b8e64f6b5bd6ae7decf6b164673f30a454b716"
+  },
+  "ci": "One owning focused test pattern selects13owner+adapter controls, no package/native requirement. Original workflow f9cdf0e6\u2026 exact before edit."
+}

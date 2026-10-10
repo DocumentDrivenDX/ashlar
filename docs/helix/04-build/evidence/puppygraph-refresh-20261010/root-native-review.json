@@ -1,0 +1,17 @@
+{
+  "reviewer": "root independent native result review",
+  "actualFilesVerified": 106,
+  "archiveMembersVerified": 200,
+  "fullObservations": {
+    "R1": 10,
+    "R2": 6
+  },
+  "originalImmutableGraphRowBags": "Exact complete nodes/edges match original R1/R2 payloads; all native endpoints match src/dst",
+  "scope": "Actual local Cypher immutable release refresh; no Gremlin/full CLI/source ACK/UC/durable latest claim",
+  "checks": [
+    "6c98ea",
+    "3d4cf8",
+    "155371"
+  ],
+  "approved": true
+}
