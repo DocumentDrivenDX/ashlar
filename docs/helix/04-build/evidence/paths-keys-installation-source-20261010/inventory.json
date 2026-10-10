@@ -1,0 +1,71 @@
+{
+  "format": "ashlar-paths-keys-installation-source-evidence/0.1",
+  "scope": "Source and precise semantic/implementation review only. Historical A fails; C preserves committed availability. No analyzer proof or actual compiler/native installation claim.",
+  "files": [
+    {
+      "path": "mechanics-freeze-c.json",
+      "bytes": 1255,
+      "sha256": "0767a1480e1148e117fefff8431b767b975a33063b5c753b93f41b37804edb80"
+    },
+    {
+      "path": "mechanics-review-c.json",
+      "bytes": 9939,
+      "sha256": "565e27756705fa2d4004950a7387c4f3586185a3a18679cbf59d3692d2e10b76"
+    },
+    {
+      "path": "frontends-freeze-b.json",
+      "bytes": 1121,
+      "sha256": "b26118d131688c6c68e6bc04f768c8fdce808a7ba0d0781b7059536ffc7b25f4"
+    },
+    {
+      "path": "frontends-review-b.json",
+      "bytes": 7732,
+      "sha256": "af553d77281ad3d4f50519b7d3db9c353f780d77f230690ee76ba7c423687544"
+    },
+    {
+      "path": "old-profile-compatibility-review.json",
+      "bytes": 6328,
+      "sha256": "174df9b65bef2fa4725a8faed8ee1715c25ade2d45fece2489076bf5584118d0"
+    },
+    {
+      "path": "availability-counterexample-a.py",
+      "bytes": 1745,
+      "sha256": "85fd7b42b5138ecb4f5ecb83ae7f7e2c75222f64eeb0e22defa8cef7d74eb983"
+    },
+    {
+      "path": "availability-counterexample-a.json",
+      "bytes": 517,
+      "sha256": "8ea125d2a4302755daa25aff72ee928b5f4602375eee36e56d31f82a3690df13"
+    },
+    {
+      "path": "availability-corrected-c.py",
+      "bytes": 1751,
+      "sha256": "a8b6744c59f30aee47d6d16db7807d2957e4d24760839cafec08bfdfcd1af23e"
+    },
+    {
+      "path": "availability-corrected-c.json",
+      "bytes": 513,
+      "sha256": "48bf4e52f730aefe57cd880916b2100e5542da98f258a2aebe2b2ba33c9efa5f"
+    },
+    {
+      "path": "cli-freeze-a.json",
+      "bytes": 488,
+      "sha256": "123278c7a1620e869e74d2ea9c1b463f416e8a262979668dda6f41b9eaeafab5"
+    },
+    {
+      "path": "cli-independent-review-a.json",
+      "bytes": 924,
+      "sha256": "da1111ac8d107aa439902454598b2b7763fb1b06ee4004f6e5335c9e37299c86"
+    },
+    {
+      "path": "ci-review-a.json",
+      "bytes": 3241,
+      "sha256": "f67b1e8b389872505251c5fcb662987313f4b73efc7ce68112583673396165a6"
+    },
+    {
+      "path": "cli-endorsement-a.json",
+      "bytes": 1866,
+      "sha256": "8897d5c4bff5a36107abc3e3c7a48535d41642c0fb818c203583c8fb6d041338"
+    }
+  ]
+}

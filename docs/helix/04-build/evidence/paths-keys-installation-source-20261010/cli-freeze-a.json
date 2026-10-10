@@ -1,0 +1,16 @@
+{
+  "format": "ashlar-paths-keys-cli-freeze/0.1",
+  "files": [
+    {
+      "path": "src/ashlar/cli.py",
+      "bytes": 13787,
+      "sha256": "34e2dec4e57f0fe4c23f85ec5d2d11883621d80f95f08bc35d5f8063ace13d05"
+    },
+    {
+      "path": "tests/test_weft_paths_keys_cli.py",
+      "bytes": 4147,
+      "sha256": "a0dc0f278a1b9930a33093c6570921d1f6fa5cd7880267d24a5c4beb8f43ec69"
+    }
+  ],
+  "scope": "Explicit closed CLI profile selection; old default paths unchanged. Port tests only."
+}

@@ -1,0 +1,38 @@
+{
+  "format": "astra-paths-keys-cli-endorsement/0.1",
+  "decision": "approved-source-only",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-keys-cli-freeze-20261010-a/manifest.json",
+    "sha256": "123278c7a1620e869e74d2ea9c1b463f416e8a262979668dda6f41b9eaeafab5",
+    "bytes": 488
+  },
+  "files": [
+    {
+      "path": "src/ashlar/cli.py",
+      "bytes": 13787,
+      "sha256": "34e2dec4e57f0fe4c23f85ec5d2d11883621d80f95f08bc35d5f8063ace13d05"
+    },
+    {
+      "path": "tests/test_weft_paths_keys_cli.py",
+      "bytes": 4147,
+      "sha256": "a0dc0f278a1b9930a33093c6570921d1f6fa5cd7880267d24a5c4beb8f43ec69"
+    }
+  ],
+  "independentReview": {
+    "path": "/private/tmp/domain-paths-keys-cli-review-20261010-a.json",
+    "sha256": "da1111ac8d107aa439902454598b2b7763fb1b06ee4004f6e5335c9e37299c86",
+    "bytes": 924
+  },
+  "parentReview": "Exactdiff retains all command bodies and public16MiB reader unchanged; adds closed profile selector defaultpaths and one selected typed facade import. Parent independently executed new5 CLI tests through exact strictCI command, with old5 included in final60 suite. Child15 frozen tests additionally prove unknown/help no effects, exact raw bytes/limits and all cancellation identities without fallback.",
+  "dependency": {
+    "path": "/private/tmp/astra-paths-keys-frontends-source-review-20261010-b.json",
+    "sha256": "af553d77281ad3d4f50519b7d3db9c353f780d77f230690ee76ba7c423687544",
+    "bytes": 7732
+  },
+  "ci": {
+    "path": "/private/tmp/astra-paths-keys-ci-reviewed-20261010-a.json",
+    "sha256": "f67b1e8b389872505251c5fcb662987313f4b73efc7ce68112583673396165a6",
+    "bytes": 3241
+  },
+  "scope": "No actual installation/compiler/native or package authority claim. Both CLI source/test files and the fifth CI line should land together; no zero-test discovery should be represented as CI coverage."
+}

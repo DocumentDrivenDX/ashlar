@@ -1,0 +1,219 @@
+{
+  "format": "astra-installation-mechanics-source-review/0.1",
+  "decision": "approved-source-only",
+  "freeze": {
+    "path": "/private/tmp/ashlar-installation-mechanics-source-freeze-20261010-c/manifest.json",
+    "sha256": "0767a1480e1148e117fefff8431b767b975a33063b5c753b93f41b37804edb80",
+    "bytes": 1255
+  },
+  "files": [
+    {
+      "path": "src/ashlar/_weft_installation_mechanics.py",
+      "sha256": "6b51cd4cf6e6974d017cf564c7243f97587585aec60b8791ec26fea9d9204282",
+      "bytes": 12324,
+      "frozenPath": "/private/tmp/ashlar-installation-mechanics-source-freeze-20261010-c/src/ashlar/_weft_installation_mechanics.py"
+    },
+    {
+      "path": "src/ashlar/weft_paths_installation.py",
+      "sha256": "013dcc2d91612d53bca6f4e2e431a49e272a2f73bee84ae54cf1579e20d5181b",
+      "bytes": 6753,
+      "frozenPath": "/private/tmp/ashlar-installation-mechanics-source-freeze-20261010-c/src/ashlar/weft_paths_installation.py"
+    },
+    {
+      "path": "tests/test_weft_installation_mechanics.py",
+      "sha256": "735764cd2331d60cfbbb6d322da37c64ceeaaa524284e0376899fc08d158f3ac",
+      "bytes": 12096,
+      "frozenPath": "/private/tmp/ashlar-installation-mechanics-source-freeze-20261010-c/tests/test_weft_installation_mechanics.py"
+    }
+  ],
+  "findings": [],
+  "resolvedFindings": [
+    "A final link could become visible before an interruption, then rollback removed committed availability. B/C recognize only the staged regular ready inode under the owned output directory before selecting destructive rollback; original primary remains exact.",
+    "B newly reachable committed-plus-primary path omitted secondary cleanup marker. C marks the existing primary best-effort on staging cleanup OSError, while preserving no-primary maintenance success."
+  ],
+  "actualVerification": {
+    "commands": [
+      {
+        "argv": [
+          "/usr/bin/python3",
+          "-B",
+          "-S",
+          "-W",
+          "error::ResourceWarning",
+          "/private/tmp/astra-installation-final-tests-20261010-c.py"
+        ],
+        "exit": 0,
+        "tests": 60,
+        "runtime": "Python3.9.6"
+      },
+      {
+        "argv": [
+          "/private/tmp/truss-python-report-schema-env/bin/python",
+          "-B",
+          "-W",
+          "error::ResourceWarning",
+          "/private/tmp/astra-installation-final-tests-20261010-c.py"
+        ],
+        "exit": 0,
+        "tests": 60,
+        "runtime": "Python3.11.17"
+      }
+    ],
+    "scope": "15 mechanics +12 new installation +8 new composition +12 unchanged old installation +8 unchanged old package +5 unchanged old composition. Fake Python child processes and inert fixture files only."
+  },
+  "independentControls": [
+    {
+      "profile": "paths",
+      "scenario": "owned-link-interruption",
+      "pass": true,
+      "readyRetained": true,
+      "primaryIdentity": true
+    },
+    {
+      "profile": "paths",
+      "scenario": "owned-link-secondary-cleanup",
+      "pass": true,
+      "readyRetained": true,
+      "primaryIdentity": true
+    },
+    {
+      "profile": "paths",
+      "scenario": "readonly-primary-secondary-cleanup",
+      "pass": true,
+      "readyRetained": true,
+      "primaryIdentity": true
+    },
+    {
+      "profile": "paths",
+      "scenario": "absent-link-rollback",
+      "pass": true,
+      "readyRetained": false,
+      "primaryIdentity": true
+    },
+    {
+      "profile": "paths",
+      "scenario": "uncertain-link-observation",
+      "pass": true,
+      "readyRetained": true,
+      "primaryIdentity": true
+    },
+    {
+      "profile": "paths-keys",
+      "scenario": "owned-link-interruption",
+      "pass": true,
+      "readyRetained": true,
+      "primaryIdentity": true
+    },
+    {
+      "profile": "paths-keys",
+      "scenario": "owned-link-secondary-cleanup",
+      "pass": true,
+      "readyRetained": true,
+      "primaryIdentity": true
+    },
+    {
+      "profile": "paths-keys",
+      "scenario": "readonly-primary-secondary-cleanup",
+      "pass": true,
+      "readyRetained": true,
+      "primaryIdentity": true
+    },
+    {
+      "profile": "paths-keys",
+      "scenario": "absent-link-rollback",
+      "pass": true,
+      "readyRetained": false,
+      "primaryIdentity": true
+    },
+    {
+      "profile": "paths-keys",
+      "scenario": "uncertain-link-observation",
+      "pass": true,
+      "readyRetained": true,
+      "primaryIdentity": true
+    },
+    {
+      "scenario": "closing-generatorExit-plus-group-cleanup-failure",
+      "pass": true,
+      "primaryIdentity": true,
+      "childReapedAllPipesClosed": true
+    }
+  ],
+  "oldCompatibilityReceipt": {
+    "path": "/private/tmp/astra-installation-mechanics-compat-review-20261010-a.json",
+    "sha256": "174df9b65bef2fa4725a8faed8ee1715c25ade2d45fece2489076bf5584118d0",
+    "bytes": 6328
+  },
+  "behavior": [
+    "Closed immutable internally selected two-profile layouts preserve fixed executable/resource names. Mechanics owns no index or package proof and cannot authorize a caller-defined layout.",
+    "Bounded exclusive writer and staged copied bytes retain exact primary exceptions through cleanup, including readonly cleanup marker failures. All owning verification and immutable result construction precede final ready publication.",
+    "Old proof/public formats, default paths layout, fault-injection seams and original protocol byte behavior remain preserved. Both old/new installation types remain with their owning modules.",
+    "Bounded selector transport retains original one-line stdout, rejects stderr/status/limits, checks response and closing proof before result, and attempts process-group kill/reap and stream/selector cleanup for success and failure."
+  ],
+  "formalScope": {
+    "level": "Precise specification with semantic/implementation correspondence and finite tests; no analyzer or mechanical proof.",
+    "availabilityCommit": "The physical final no-clobber ready hardlink is the availability linearization. When syscall outcome is interrupted, same owned output directory plus regular final ready inode matching the staged inode establishes commit before rollback decisions.",
+    "ownershipAssumptions": "Cooperating directory writers, stable owned directory/ready inode identities and inherited child process-group membership; this is not hostile-process/filesystem sandboxing or crash durability.",
+    "transitions": "Before commit, verified absence permits removal only of the owned output directory. Foreign ready inode or uncertain observation prohibits destructive rollback. After owned commit, primary cancellation propagates while availability stays. Ordinary staging-cleanup OSError without primary returns cleanup_pending; with primary it marks safe loss without replacement.",
+    "originalExceptionSafety": "Every original primary non-Exception survives by object identity; cleanup attempts continue and annotations are best effort. Cleanup-only cancellation remains observable.",
+    "counterexampleAndRecheck": "A two-layout link-success-then-KI witness is retained as failure evidence. Final C is rechecked for both layouts, absent-link rollback, unknown observation, readonly primary and secondary group cleanup."
+  },
+  "helix": {
+    "modularity": "Private file/process mechanics separated from public proof/profile owners; real AST boundary checker passes.",
+    "configuration": "Closed layout identities and fixed finite32/96MiB inputs,16MiB protocol output,4KiB stderr,30s work deadline plus bounded reap; no SDK/env/trust discovery.",
+    "observability": "Safe boolean cleanup marker only; no payload logging or OTel integration assurance.",
+    "formal": "The exact stated transition and ownership correspondence above, not test-only proof inflation."
+  },
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-installation-final-tests-20261010-c.py",
+      "sha256": "83913f6cac0f9e99ed75d517fe3b050570676e942477658bb02bd7c541550601",
+      "bytes": 1773
+    },
+    {
+      "path": "/private/tmp/astra-installation-final-tests-20261010-c-py39.log",
+      "sha256": "1ea97593adb4af0d60f20d4efb9984658462e4ea8f8b348d8e24e3529272a3e7",
+      "bytes": 6196
+    },
+    {
+      "path": "/private/tmp/astra-installation-final-tests-20261010-c-py311.log",
+      "sha256": "0c98cc81fdec6236a3f792f4cddc35520c9cc6c9d5f578ef34fe5d574d11b293",
+      "bytes": 9434
+    },
+    {
+      "path": "/private/tmp/astra-installation-final-boundaries-20261010-c.log",
+      "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9",
+      "bytes": 94
+    },
+    {
+      "path": "/private/tmp/astra-mechanics-final-controls-20261010-c.py",
+      "sha256": "4dbe0e2848363be8cd5d589fec6025cde301844a043f883316a599332add6ba6",
+      "bytes": 3973
+    },
+    {
+      "path": "/private/tmp/astra-mechanics-final-controls-20261010-c.log",
+      "sha256": "4649b4c6c56ca0e46641442dab1f5f35d2fa9f71a7432ed90c2bcc1cf0d85260",
+      "bytes": 8
+    },
+    {
+      "path": "/private/tmp/astra-mechanics-final-controls-20261010-c.json",
+      "sha256": "178527e233f10f9554887223865317188fcd32b4c9631f6cc53ff72a6d71a0ff",
+      "bytes": 1998
+    },
+    {
+      "path": "/private/tmp/astra-mechanics-link-interruption-probe-20261010-a.py",
+      "sha256": "85fd7b42b5138ecb4f5ecb83ae7f7e2c75222f64eeb0e22defa8cef7d74eb983",
+      "bytes": 1745
+    },
+    {
+      "path": "/private/tmp/astra-mechanics-link-interruption-probe-20261010-a.json",
+      "sha256": "8ea125d2a4302755daa25aff72ee928b5f4602375eee36e56d31f82a3690df13",
+      "bytes": 517
+    }
+  ],
+  "limits": [
+    "No actual installation of the indexed compiler, compiler/native execution, index/Git mutation or runtime/package qualification in this review.",
+    "Focused new tests still require the separately owned CI integration delta before claiming CI coverage.",
+    "External OS/process behavior and platform qualification remain bounded by the explicit ownership assumptions; no new native/source/publication/ACK assurance."
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "format": "ashlar-paths-keys-frontends-freeze/0.1",
+  "files": [
+    {
+      "path": "src/ashlar/weft_paths_keys_installation.py",
+      "bytes": 6862,
+      "sha256": "dbbfaaaeeb85805b497bf588224017f2e1805bfa5fda3e980a06e7f3a748e2e8"
+    },
+    {
+      "path": "src/ashlar/weft_paths_keys_distribution.py",
+      "bytes": 4043,
+      "sha256": "84f103f1a13b781d0692cb7c939e2fa747b2e8269ed61779721bebd06170342f"
+    },
+    {
+      "path": "tests/test_weft_paths_keys_installation.py",
+      "bytes": 8083,
+      "sha256": "65350dd81b8572bf98eb974961a03bfc1a26fe02b908e830a7773bd9218fce46"
+    },
+    {
+      "path": "tests/test_weft_paths_keys_distribution.py",
+      "bytes": 8162,
+      "sha256": "1f06548e0fd914c976defa8c4d5e8dbfd4c8ae9cc4cf86f402c5934c9ff3d25e"
+    }
+  ],
+  "scope": "Source-only frontends; mechanics A separately reviewed. No actual installation or compiler/native authority.",
+  "previousFreeze": "/private/tmp/ashlar-paths-keys-frontends-freeze-20261010-a/manifest.json",
+  "correction": "Expected OSError translated into payload-free facade outcomes; non-Exception cancellation unchanged."
+}

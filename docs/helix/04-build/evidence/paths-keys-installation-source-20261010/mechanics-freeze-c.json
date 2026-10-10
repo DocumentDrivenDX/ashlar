@@ -1,0 +1,35 @@
+{
+  "format": "ashlar-installation-mechanics-source-freeze/0.1",
+  "supersedes": "/private/tmp/ashlar-installation-mechanics-source-freeze-20261010-b/manifest.json",
+  "files": [
+    {
+      "path": "src/ashlar/_weft_installation_mechanics.py",
+      "sha256": "6b51cd4cf6e6974d017cf564c7243f97587585aec60b8791ec26fea9d9204282",
+      "bytes": 12324
+    },
+    {
+      "path": "src/ashlar/weft_paths_installation.py",
+      "sha256": "013dcc2d91612d53bca6f4e2e431a49e272a2f73bee84ae54cf1579e20d5181b",
+      "bytes": 6753
+    },
+    {
+      "path": "tests/test_weft_installation_mechanics.py",
+      "sha256": "735764cd2331d60cfbbb6d322da37c64ceeaaa524284e0376899fc08d158f3ac",
+      "bytes": 12096
+    }
+  ],
+  "verification": {
+    "python3.9.6": {
+      "tests": 40,
+      "status": "pass"
+    },
+    "python3.11.17": {
+      "tests": 40,
+      "status": "pass"
+    },
+    "boundaryChecker": "pass",
+    "diffCheck": "pass"
+  },
+  "delta": "Committed staging-cleanup OSError marks an existing primary by best-effort cleanup_failed; no-primary maintenance success preserved. Both-layout post-link KI plus cleanup-failure regression.",
+  "scope": "Owned file/process mechanics only; fake executables/fixture proof, no compiler/native/index authority."
+}

@@ -1,0 +1,112 @@
+{
+  "format": "astra-paths-keys-ci-review/0.1",
+  "decision": "approved-five-line-ci-delta",
+  "path": "/Users/erik/Projects/ashlar/.github/workflows/module-boundaries.yml",
+  "sha256": "7fe8c3abf98c0dc5b4f214696b9a0c096ce58636aedc02fe5ca3a4ce11c16281",
+  "bytes": 2723,
+  "oldSha256": "52af875bfe10c23727613a8dfc306c3b61a17256cd8e1d8f3ead1e43e34b8cbf",
+  "onlyAppend": true,
+  "runs": [
+    {
+      "suite": "test_weft_paths_keys_package.py",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_weft_paths_keys_package.py"
+      ],
+      "exit": 0,
+      "log": "/private/tmp/astra-paths-keys-ci-test_weft_paths_keys_package-20261010-a.log",
+      "sha256": "d4be35de3d82250986690334669c4d88ae35b2993f723c16c8c675d6299bc32e"
+    },
+    {
+      "suite": "test_weft_installation_mechanics.py",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_weft_installation_mechanics.py"
+      ],
+      "exit": 0,
+      "log": "/private/tmp/astra-paths-keys-ci-test_weft_installation_mechanics-20261010-a.log",
+      "sha256": "d43c9f663d63bff98e8ef740f34502c435e4c91ed7ae165edfb6d8211c3f7f64"
+    },
+    {
+      "suite": "test_weft_paths_keys_installation.py",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_weft_paths_keys_installation.py"
+      ],
+      "exit": 0,
+      "log": "/private/tmp/astra-paths-keys-ci-test_weft_paths_keys_installation-20261010-a.log",
+      "sha256": "dc9938e2a9d6a42da9f878e962d8ff0d3ac1d8e6761baf39a91003cdc828ec0d"
+    },
+    {
+      "suite": "test_weft_paths_keys_distribution.py",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_weft_paths_keys_distribution.py"
+      ],
+      "exit": 0,
+      "log": "/private/tmp/astra-paths-keys-ci-test_weft_paths_keys_distribution-20261010-a.log",
+      "sha256": "637ad693971420b70a01476cd5d51065ecc3c7af270c41cfe91899ec8c2db4bd"
+    },
+    {
+      "suite": "test_weft_paths_keys_cli.py",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-W",
+        "error::ResourceWarning",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_weft_paths_keys_cli.py"
+      ],
+      "exit": 0,
+      "log": "/private/tmp/astra-paths-keys-ci-test_weft_paths_keys_cli-20261010-a.log",
+      "sha256": "3507612a5e67de7f909c5daf665e72ae48703638023e5a20bbbf698936a10064"
+    }
+  ],
+  "scope": "Existing Python matrix/std-library SDK-free tests unchanged; exact five suites added. Actual local3.9 execution only; hosted CI and native/runtime availability not asserted."
+}

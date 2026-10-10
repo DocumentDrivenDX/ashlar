@@ -1,0 +1,82 @@
+{
+  "format": "astra-installation-mechanics-compat-review/0.1",
+  "decision": "compatibility scope passes; overall A remains held for parent final-link interruption finding",
+  "freeze": {
+    "path": "/private/tmp/ashlar-installation-mechanics-source-freeze-20261010-a/manifest.json",
+    "sha256": "319182b10eda2502bafc6df3dd68c9851e8f18a5b2afbe43a8986ff549677b2e"
+  },
+  "baselineCommit": "7449147e5eec55a930cec7b87da6d1c6e4a96832",
+  "baselineInstaller": {
+    "sha256": "9f29570213f9432e497f67d337c5c56e522fb7802ee778771484172b6d8e80b9",
+    "bytes": 12169
+  },
+  "files": [
+    {
+      "path": "src/ashlar/_weft_installation_mechanics.py",
+      "sha256": "de9599839de4a18c76a2464f21133d0849841531bd99f35f98b1c9781246a039",
+      "bytes": 11063
+    },
+    {
+      "path": "src/ashlar/weft_paths_installation.py",
+      "sha256": "013dcc2d91612d53bca6f4e2e431a49e272a2f73bee84ae54cf1579e20d5181b",
+      "bytes": 6753
+    },
+    {
+      "path": "tests/test_weft_installation_mechanics.py",
+      "sha256": "6d326e8bf51ea66d556acef9900dd79d2eb3d75c599d6b4c00ce49197b56917f",
+      "bytes": 9757
+    }
+  ],
+  "unchangedAstDefinitions": [
+    "_refuse",
+    "_sha",
+    "PathsInstallation",
+    "_resource_paths",
+    "_verify",
+    "open_installation",
+    "installed_schema_bundle"
+  ],
+  "verification": [
+    {
+      "label": "committed",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-m",
+        "unittest",
+        "-v",
+        "test_weft_paths_installation"
+      ],
+      "exit": 0,
+      "output": "python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ntest_bounded_fake_transport_original_stdout_and_closing_gate (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_cancellation_and_cleanup_preserve_exact_primary (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_early_setup_cancellation_closes_all_real_owned_pipes (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_final_ready_commit_retains_schema_resources (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_install_none_refuses_before_effects (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_postcommit_cancellation_propagates_with_ready_retained (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_postcommit_cleanup_is_maintenance_success (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_precommit_verification_failure_never_available (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_restart_trust_gate_precedes_ready_read (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_successful_leader_cleanup_targets_stdio_closed_descendant (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_transport_cancellation_not_masked_by_selector_cleanup (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_transport_profile_and_request_bounds_refuse (test_weft_paths_installation.PathsInstallationTests) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.388s\n\nOK\n",
+      "testSha256": "9fb780079bfce623fdaba30040557dbd2e71bd21ecc85d7c45f66e457d15b723"
+    },
+    {
+      "label": "extracted-A",
+      "argv": [
+        "/usr/bin/python3",
+        "-B",
+        "-S",
+        "-m",
+        "unittest",
+        "-v",
+        "test_weft_paths_installation"
+      ],
+      "exit": 0,
+      "output": "python3: warning: confstr() failed with code 5: couldn't get path of DARWIN_USER_TEMP_DIR; using /tmp instead\ntest_bounded_fake_transport_original_stdout_and_closing_gate (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_cancellation_and_cleanup_preserve_exact_primary (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_early_setup_cancellation_closes_all_real_owned_pipes (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_final_ready_commit_retains_schema_resources (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_install_none_refuses_before_effects (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_postcommit_cancellation_propagates_with_ready_retained (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_postcommit_cleanup_is_maintenance_success (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_precommit_verification_failure_never_available (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_restart_trust_gate_precedes_ready_read (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_successful_leader_cleanup_targets_stdio_closed_descendant (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_transport_cancellation_not_masked_by_selector_cleanup (test_weft_paths_installation.PathsInstallationTests) ... ok\ntest_transport_profile_and_request_bounds_refuse (test_weft_paths_installation.PathsInstallationTests) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.307s\n\nOK\n",
+      "testSha256": "9fb780079bfce623fdaba30040557dbd2e71bd21ecc85d7c45f66e457d15b723"
+    }
+  ],
+  "observations": [
+    "All twelve unchanged committed installer tests passed against both committed source and isolated frozen extraction.",
+    "Proof and restart verification bodies, ready/provenance validation, schema return API, dataclass fields and defaults remain exact AST matches.",
+    "Installation still calls inspect_package before mechanics, passes owned write/read/verify callbacks, and selects the fixed paths layout.",
+    "Paths layout preserves executable, resource order, ready format and limits. Original request bytes are passed to transport; response profile and closing ready gate stay in the public wrapper.",
+    "Additional mechanics defenses (closed layout, resource order/limits, precommit result construction, nonpositive write refusal) do not relax old profile gates."
+  ],
+  "limits": [
+    "Only fixture authority and inert Python subprocess tests; no actual package installation, compiler, native engine, package proof or release qualification.",
+    "Parent independently owns process/files/cancellation review; parent reported ready-link interruption issue in A, so this receipt is not overall source approval."
+  ]
+}

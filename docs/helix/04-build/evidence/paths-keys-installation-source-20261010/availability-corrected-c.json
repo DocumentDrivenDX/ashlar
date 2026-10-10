@@ -1,0 +1,19 @@
+{
+  "scope": "Inert file publication with fixture proof; no executable/compiler/native invocation",
+  "results": [
+    {
+      "profile": "paths",
+      "readyAvailableBeforeInterrupt": true,
+      "readyExistsAfterCleanup": true,
+      "outputExistsAfterCleanup": true,
+      "primaryPreserved": true
+    },
+    {
+      "profile": "paths-keys",
+      "readyAvailableBeforeInterrupt": true,
+      "readyExistsAfterCleanup": true,
+      "outputExistsAfterCleanup": true,
+      "primaryPreserved": true
+    }
+  ]
+}

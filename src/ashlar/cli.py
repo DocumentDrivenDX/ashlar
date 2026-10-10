@@ -22,6 +22,8 @@ def main():
     compile_paths = commands.add_parser('compile-weft-paths', help='Compile original stdin through a retained Paths installation')
     for name in ('index', 'installation'):
         compile_paths.add_argument('--' + name, required=True)
+    for command in (install_paths, compile_paths):
+        command.add_argument('--profile', default='paths', choices=('paths', 'paths-keys'))
     inspect = commands.add_parser('inspect-source', help='Verify committed JSONL batches from stdin; no ACK')
     inspect.add_argument('--feed', required=True)
     inspect.add_argument('--epoch', required=True)
@@ -113,8 +115,15 @@ def main():
     if args.command in ('install-weft-paths', 'compile-weft-paths'):
         from pathlib import Path
         from .weft_distribution import read_request, DistributionError
-        from .weft_paths_distribution import (PathsDistributionPaths, PathsDistributionError,
-            install_paths_distribution, compile_paths_distribution)
+        if args.profile == 'paths':
+            from .weft_paths_distribution import (PathsDistributionPaths, PathsDistributionError,
+                install_paths_distribution, compile_paths_distribution)
+        else:
+            from .weft_paths_keys_distribution import (
+                PathsKeysDistributionPaths as PathsDistributionPaths,
+                PathsKeysDistributionError as PathsDistributionError,
+                install_paths_keys_distribution as install_paths_distribution,
+                compile_paths_keys_distribution as compile_paths_distribution)
         try:
             if args.command == 'install-weft-paths':
                 result = install_paths_distribution(PathsDistributionPaths(

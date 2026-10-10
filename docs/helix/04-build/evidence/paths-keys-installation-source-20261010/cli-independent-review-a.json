@@ -1,0 +1,23 @@
+{
+  "format": "domain-paths-keys-cli-review/0.1",
+  "freeze": "/private/tmp/ashlar-paths-keys-cli-freeze-20261010-a/manifest.json",
+  "freezeSha256": "123278c7a1620e869e74d2ea9c1b463f416e8a262979668dda6f41b9eaeafab5",
+  "files": [
+    {
+      "path": "src/ashlar/cli.py",
+      "bytes": 13787,
+      "sha256": "34e2dec4e57f0fe4c23f85ec5d2d11883621d80f95f08bc35d5f8063ace13d05"
+    },
+    {
+      "path": "tests/test_weft_paths_keys_cli.py",
+      "bytes": 4147,
+      "sha256": "a0dc0f278a1b9930a33093c6570921d1f6fa5cd7880267d24a5c4beb8f43ec69"
+    }
+  ],
+  "frontendsFreeze": "/private/tmp/ashlar-paths-keys-frontends-freeze-20261010-b/manifest.json",
+  "tests": 15,
+  "failures": 0,
+  "errors": 0,
+  "verdict": "approved",
+  "scope": "Source-only frozen CLI and mock facade review; 5new+5old+5independent tests. No real compiler/install/native; SDK-free unknown/help gates, exact routing/raw bytes/bounds/cancellation."
+}

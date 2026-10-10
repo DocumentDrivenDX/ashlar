@@ -1,0 +1,179 @@
+{
+  "format": "astra-paths-keys-frontends-source-review/0.1",
+  "decision": "approved-source-only",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-keys-frontends-freeze-20261010-b/manifest.json",
+    "sha256": "b26118d131688c6c68e6bc04f768c8fdce808a7ba0d0781b7059536ffc7b25f4",
+    "bytes": 1121
+  },
+  "files": [
+    {
+      "path": "src/ashlar/weft_paths_keys_installation.py",
+      "bytes": 6862,
+      "sha256": "dbbfaaaeeb85805b497bf588224017f2e1805bfa5fda3e980a06e7f3a748e2e8",
+      "frozenPath": "/private/tmp/ashlar-paths-keys-frontends-freeze-20261010-b/src/ashlar/weft_paths_keys_installation.py"
+    },
+    {
+      "path": "src/ashlar/weft_paths_keys_distribution.py",
+      "bytes": 4043,
+      "sha256": "84f103f1a13b781d0692cb7c939e2fa747b2e8269ed61779721bebd06170342f",
+      "frozenPath": "/private/tmp/ashlar-paths-keys-frontends-freeze-20261010-b/src/ashlar/weft_paths_keys_distribution.py"
+    },
+    {
+      "path": "tests/test_weft_paths_keys_installation.py",
+      "bytes": 8083,
+      "sha256": "65350dd81b8572bf98eb974961a03bfc1a26fe02b908e830a7773bd9218fce46",
+      "frozenPath": "/private/tmp/ashlar-paths-keys-frontends-freeze-20261010-b/tests/test_weft_paths_keys_installation.py"
+    },
+    {
+      "path": "tests/test_weft_paths_keys_distribution.py",
+      "bytes": 8162,
+      "sha256": "1f06548e0fd914c976defa8c4d5e8dbfd4c8ae9cc4cf86f402c5934c9ff3d25e",
+      "frozenPath": "/private/tmp/ashlar-paths-keys-frontends-freeze-20261010-b/tests/test_weft_paths_keys_distribution.py"
+    }
+  ],
+  "findings": [],
+  "dependency": {
+    "path": "/private/tmp/astra-installation-mechanics-source-review-20261010-c.json",
+    "sha256": "565e27756705fa2d4004950a7387c4f3586185a3a18679cbf59d3692d2e10b76",
+    "bytes": 9939
+  },
+  "actualVerification": {
+    "commands": [
+      {
+        "argv": [
+          "/usr/bin/python3",
+          "-B",
+          "-S",
+          "-W",
+          "error::ResourceWarning",
+          "/private/tmp/astra-installation-final-tests-20261010-c.py"
+        ],
+        "exit": 0,
+        "tests": 60,
+        "runtime": "Python3.9.6"
+      },
+      {
+        "argv": [
+          "/private/tmp/truss-python-report-schema-env/bin/python",
+          "-B",
+          "-W",
+          "error::ResourceWarning",
+          "/private/tmp/astra-installation-final-tests-20261010-c.py"
+        ],
+        "exit": 0,
+        "tests": 60,
+        "runtime": "Python3.11.17"
+      }
+    ],
+    "scope": "15 mechanics +12 new installation +8 new composition +12 unchanged old installation +8 unchanged old package +5 unchanged old composition. Fake Python child processes and inert fixture files only."
+  },
+  "independentControls": [
+    {
+      "check": "installer AST exact old thin implementation after closed profile/type/name substitution",
+      "pass": true
+    },
+    {
+      "check": "fixed committed Git6d index/realization/executable correspondence",
+      "pass": true
+    },
+    {
+      "check": "install OSError",
+      "pass": true
+    },
+    {
+      "check": "install GeneratorExit",
+      "pass": true
+    },
+    {
+      "check": "open OSError",
+      "pass": true
+    },
+    {
+      "check": "open GeneratorExit",
+      "pass": true
+    },
+    {
+      "check": "compile OSError",
+      "pass": true
+    },
+    {
+      "check": "compile GeneratorExit",
+      "pass": true
+    },
+    {
+      "check": "schemas OSError",
+      "pass": true
+    },
+    {
+      "check": "schemas GeneratorExit",
+      "pass": true
+    }
+  ],
+  "resolvedFinding": "Expected OSError at new public install/open/compile/schema composition boundaries is now converted to fixed payload-free installation-refused/compilation-refused errors with suppressed original context; every non-Exception cancellation remains original by identity. Old facade unchanged.",
+  "correspondence": [
+    "New installer is exactly the reviewed thin old installer AST after closed profile/type/file-name substitutions; proof remains owning fixed new package profile and seven retained resources, including six schemas and inherited result0.2.",
+    "Actual git show of6d82b7e89e43319c2a175b9895527298ff66ef36 index hashes tobd541aa8cb261376f160661d3df67065b36fcba4f6caf4c0f42e33d710c4b9dc and selects exact new realization/bin471. Existing old entry/default/profile remains unchanged.",
+    "Composition accepts only its explicit path-value type and independently observes Darwin arm64 OS27.0.1; operator paths cannot override trust pins, platform, backend profile or fallback.",
+    "Restart deliberately uses package=None and verifies injected trusted index, ready/provenance, original manifest/custody, binary/schema bytes and exact installed tree. No forged returned object authorizes bypass.",
+    "Compile response is original bytes with closing ready proof; this transport success does not discharge native/source/schema/ACK obligations."
+  ],
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-installation-final-tests-20261010-c.py",
+      "sha256": "83913f6cac0f9e99ed75d517fe3b050570676e942477658bb02bd7c541550601",
+      "bytes": 1773
+    },
+    {
+      "path": "/private/tmp/astra-installation-final-tests-20261010-c-py39.log",
+      "sha256": "1ea97593adb4af0d60f20d4efb9984658462e4ea8f8b348d8e24e3529272a3e7",
+      "bytes": 6196
+    },
+    {
+      "path": "/private/tmp/astra-installation-final-tests-20261010-c-py311.log",
+      "sha256": "0c98cc81fdec6236a3f792f4cddc35520c9cc6c9d5f578ef34fe5d574d11b293",
+      "bytes": 9434
+    },
+    {
+      "path": "/private/tmp/astra-installation-final-boundaries-20261010-c.log",
+      "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9",
+      "bytes": 94
+    },
+    {
+      "path": "/private/tmp/astra-paths-keys-frontends-controls-20261010-b.py",
+      "sha256": "a5d6885ed4120a6edd483b93a9ac4c96379dff6118889ec7d265dab0be3a0b8c",
+      "bytes": 3556
+    },
+    {
+      "path": "/private/tmp/astra-paths-keys-frontends-controls-20261010-b.log",
+      "sha256": "cb6ce84e7daf45683d0b494196659b851bdb2f2fb5e20afff52080d72d1a3623",
+      "bytes": 8
+    },
+    {
+      "path": "/private/tmp/astra-paths-keys-frontends-controls-20261010-b.json",
+      "sha256": "71553b1fa174b577623545677bbe8083995803afd2fa0aafe6d6da5f1109a64f",
+      "bytes": 899
+    },
+    {
+      "path": "/private/tmp/astra-paths-keys-frontends-error-probe-20261010-a.py",
+      "sha256": "d9b9bc46be71e686b5f3636820e8af80f18223b09e7743a27f3d5762d31bc782",
+      "bytes": 1933
+    },
+    {
+      "path": "/private/tmp/astra-paths-keys-frontends-error-probe-20261010-a.json",
+      "sha256": "5d3beed8f67f621cf08478aaa8f3a293c2e0a9b5dae44c53034810013dc564c9",
+      "bytes": 419
+    }
+  ],
+  "helix": {
+    "modularity": "Separate public proof/installation/composition ownership and explicit profile types; shared private mechanics owns no trust policy. Boundary checker passes.",
+    "configuration": "Immutable path inputs with fixed trusted selection and independently observed platform; no environment/trust discovery overrides.",
+    "observability": "Expected failures are safe constants; cancellation exact identity, no raw diagnostics or OTel assurance.",
+    "formal": "Source/representation/ready and transport correspondence is reviewed at precise+finite-test level, not a machine proof or native qualification."
+  },
+  "limits": [
+    "No actual indexed package installation or compiler/native execution. Tests use fixture proof callbacks and inert fake Python children.",
+    "Actual selected installed restart/transport still requires the separately reviewed immutable source/command/custody gate.",
+    "No package/index/source/native/publication/ACK authority inferred beyond the exact already-approved fixed artifact trust policy."
+  ]
+}
