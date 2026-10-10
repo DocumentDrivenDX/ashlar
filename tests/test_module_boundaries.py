@@ -78,6 +78,18 @@ class BoundaryTests(unittest.TestCase):
         self.assertEqual({e[3] for e in edges}, {'consumer-to-producer', 'core-to-composition'})
         self.assertFalse(any(e[0].endswith('weft_distribution.py') for e in edges))
 
+    def test_path_decoder_role_has_real_allow_and_deny_controls(self):
+        root = self.tree('')
+        path = root / 'src/ashlar/weft_path_decode.py'
+        path.write_text('from .weft_decode import decode_exact_scalar\n')
+        self.assertEqual(check(root, self.policy()), ([], []))
+        for statement, reason in [('from .publisher import Attempt', 'consumer-to-producer'),
+                                  ('from .cli import main', 'core-to-composition'),
+                                  ('import pyspark', 'core-to-sdk'),
+                                  ('from .weft_decode import _hidden', 'private-cross-module')]:
+            path.write_text(statement + '\n')
+            self.assertIn(reason, {e[3] for e in scan(root)})
+
     def test_actual_repository_policy(self):
         self.assertEqual(check(ROOT, json.loads(POLICY.read_text())), ([], []))
 
