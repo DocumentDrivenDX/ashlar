@@ -1,0 +1,1136 @@
+{
+  "checks": 18761,
+  "contextEvidence": "Parent and link are explicitly authored remote SpanContext fixtures. The two distinct child span IDs and retry-root trace ID are observed in both original local capture and retained OTLP. Inspected installed source gets them from Tracer.start_span/get_span_context and validates every log against that owned context. This is source-to-retained-output correspondence, not an independently captured in-memory worker context transcript or proof of randomness.",
+  "decoderFilesCheckedAgainstRetainedWheelCustody": 95,
+  "explicitFixtures": {
+    "link": {
+      "flags": 3,
+      "is_remote": true,
+      "span_id": "abcdef1234567890",
+      "trace_id": "abcdef1234567890abcdef1234567890"
+    },
+    "parent": {
+      "flags": 3,
+      "is_remote": true,
+      "span_id": "1234567890abcdef",
+      "trace_id": "1234567890abcdef1234567890abcdef"
+    }
+  },
+  "findings": [],
+  "format": "astra-independent-installed-receiver-protobuf-review/0.1",
+  "fullWireAudit": {
+    "duplicateAttributeKeys": 0,
+    "duplicateSingularFields": 0,
+    "fields": 831,
+    "messages": 400,
+    "roundtripExactRequests": 12,
+    "unknownFields": 0
+  },
+  "importedDecoderModules": [
+    {
+      "bytes": 662626,
+      "module": "google._upb._message",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/_upb/_message.abi3.so",
+      "sha256": "f3a1ae5ed99290e7ebf913d18e19dc3ed8850f98274742ddb8cb3229380ec0ab"
+    },
+    {
+      "bytes": 346,
+      "module": "google.protobuf",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/__init__.py",
+      "sha256": "3d66aee60879ae8b66cfa5548c120e9f32b42d03e9a4743832b701b76c8027fd"
+    },
+    {
+      "bytes": 53428,
+      "module": "google.protobuf.descriptor",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/descriptor.py",
+      "sha256": "87af655893f4aacc6ba40eb9f6a75ae48c70bc87450b57aa9e46717bbbbe6d32"
+    },
+    {
+      "bytes": 5936,
+      "module": "google.protobuf.descriptor_database",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/descriptor_database.py",
+      "sha256": "14700e65ce6ecfce88b0caabdce99cd7d01e9eec2b3a49eeb76c02434986b067"
+    },
+    {
+      "bytes": 48864,
+      "module": "google.protobuf.descriptor_pool",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/descriptor_pool.py",
+      "sha256": "e31928fcf2f03be388c3c65ab4dfb24a343194ac18b9f7eb366d183aa56e4e59"
+    },
+    {
+      "bytes": 272,
+      "module": "google.protobuf.internal",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/__init__.py",
+      "sha256": "f1dfe4d64b0d588baa3c310412d3a3802dd7c7c9005c3dbed3847b9b126549bb"
+    },
+    {
+      "bytes": 4669,
+      "module": "google.protobuf.internal.api_implementation",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/api_implementation.py",
+      "sha256": "110ec42264b12432e2337017a10c2eb83ecad0bcf9d34ef6092d6daedd9bceaa"
+    },
+    {
+      "bytes": 4112,
+      "module": "google.protobuf.internal.builder",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/builder.py",
+      "sha256": "54f9eb1eaaade89eba47065ed7d84b9b4d59975bcffe314aa4bf9b0bc9c49dc6"
+    },
+    {
+      "bytes": 22175,
+      "module": "google.protobuf.internal.containers",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/containers.py",
+      "sha256": "c42eb201307c1b108095542d663d1021f48f70639125bd240f1a1600a455ed84"
+    },
+    {
+      "bytes": 37588,
+      "module": "google.protobuf.internal.decoder",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/decoder.py",
+      "sha256": "4f06935e6f48a1ec37a0edd66b58605582e21d57bb045745e0d02c8efd85c86b"
+    },
+    {
+      "bytes": 27297,
+      "module": "google.protobuf.internal.encoder",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/encoder.py",
+      "sha256": "56e8e9ddb535d1d2c16ac52745a199283f994cbabbcc4180f302a1ee654b47e8"
+    },
+    {
+      "bytes": 3747,
+      "module": "google.protobuf.internal.enum_type_wrapper",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/enum_type_wrapper.py",
+      "sha256": "3cd84af3b6bf34fd4921f147b981626e913884774761ac17c2a671304b6fb2fa"
+    },
+    {
+      "bytes": 7141,
+      "module": "google.protobuf.internal.extension_dict",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/extension_dict.py",
+      "sha256": "e1a7f4877da3ab90702fbb81eb29b78a9773cf79131fbe5618c1cb1e5b86b0d0"
+    },
+    {
+      "bytes": 10442,
+      "module": "google.protobuf.internal.field_mask",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/field_mask.py",
+      "sha256": "41b39f87329a4e4bd847d93b1d88a0562755832a1b05152270189b3bbd6e7c7a"
+    },
+    {
+      "bytes": 2008,
+      "module": "google.protobuf.internal.message_listener",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/message_listener.py",
+      "sha256": "ba1f2f894fccbd67437b82a5d780aba26295140cc130f94ccc5678bdec3f5097"
+    },
+    {
+      "bytes": 542,
+      "module": "google.protobuf.internal.python_edition_defaults",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/python_edition_defaults.py",
+      "sha256": "898522ad06d47288fe7cb6d6649c2d22d2d61e4e34e9e48520f25e81a15b1210"
+    },
+    {
+      "bytes": 57984,
+      "module": "google.protobuf.internal.python_message",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/python_message.py",
+      "sha256": "4b84ac5cb357f731b347f5c37e230e36fd0ce20c73c70aacc1bb4f9c057aa848"
+    },
+    {
+      "bytes": 17252,
+      "module": "google.protobuf.internal.type_checkers",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/type_checkers.py",
+      "sha256": "80238bdfdd12038038110be75296be94ac72c47b668990682d07a5a3a241757e"
+    },
+    {
+      "bytes": 22850,
+      "module": "google.protobuf.internal.well_known_types",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/well_known_types.py",
+      "sha256": "6f63216ce5da418f05473a624c67144f5e91f432a16447848f7c4191835dc009"
+    },
+    {
+      "bytes": 7087,
+      "module": "google.protobuf.internal.wire_format",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/wire_format.py",
+      "sha256": "11b01765d6f6de208e6c267136068cc7cf95445d948e0c8fac1093b55d74471f"
+    },
+    {
+      "bytes": 14917,
+      "module": "google.protobuf.message",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/message.py",
+      "sha256": "21ec9013af2b8ff61c521cb6d174b90ebded536eff25867918b2c79be4db6c3e"
+    },
+    {
+      "bytes": 6607,
+      "module": "google.protobuf.message_factory",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/message_factory.py",
+      "sha256": "b842ea4625a8fb7a4126ea67413947b06266803277a781ea5f74fb778e8c32e8"
+    },
+    {
+      "bytes": 0,
+      "module": "google.protobuf.pyext",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/pyext/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1715,
+      "module": "google.protobuf.pyext.cpp_message",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/pyext/cpp_message.py",
+      "sha256": "f2e4ab597f640f71cf4619edbd33dce1b8277d0d81cd7f453c2ef70a089f5c0c"
+    },
+    {
+      "bytes": 1241,
+      "module": "google.protobuf.reflection",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/reflection.py",
+      "sha256": "80c55f5839a772411ba78bd347980aab61c3c116ff788e6b7f29593a81529844"
+    },
+    {
+      "bytes": 5752,
+      "module": "google.protobuf.symbol_database",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/symbol_database.py",
+      "sha256": "b34a44c6e63226f8b5ab4a43f36004a09b47d840d9daf019088aa36bce0229c7"
+    },
+    {
+      "bytes": 3621,
+      "module": "google.protobuf.text_encoding",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/text_encoding.py",
+      "sha256": "028d50e8e3fc8b8a7c543b6fa5ef2e5b50635fb69066f909820be115862b07bc"
+    },
+    {
+      "bytes": 64149,
+      "module": "google.protobuf.text_format",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/text_format.py",
+      "sha256": "5118c6b53354a9ed0e489fb70008c48e11c7f4bd3ce0ea140fc82c185664be48"
+    },
+    {
+      "bytes": 3065,
+      "module": "google.protobuf.unknown_fields",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/unknown_fields.py",
+      "sha256": "af7089d9ee3f5d4ab8d5372007cc3a134c99c71cd24c240b1780bb38e1daf65a"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.collector",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2649,
+      "module": "opentelemetry.proto.collector.logs.v1.logs_service_pb2",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/logs/v1/logs_service_pb2.py",
+      "sha256": "bf3a98f991f639b3f3820e37a387413cf0cf904cd1e2e2adb1178148aa7da575"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.collector.metrics",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/metrics/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.collector.metrics.v1",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/metrics/v1/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2785,
+      "module": "opentelemetry.proto.collector.metrics.v1.metrics_service_pb2",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/metrics/v1/metrics_service_pb2.py",
+      "sha256": "98b9d549154bc260e84234892b11d62903492a7ae1e2b3a3d13bde1d6d03cb62"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.collector.trace",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/trace/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.collector.trace.v1",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/trace/v1/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2698,
+      "module": "opentelemetry.proto.collector.trace.v1.trace_service_pb2",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/trace/v1/trace_service_pb2.py",
+      "sha256": "ffe329abb6b9e85e737eeb7eebb8b8fae99688c88541b883de4974f8aafe97ff"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.common",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/common/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.common.v1",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/common/v1/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3244,
+      "module": "opentelemetry.proto.common.v1.common_pb2",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/common/v1/common_pb2.py",
+      "sha256": "714a72d447de7a48ebf1276743a526d5bbdf6b5610109be6e5fd6ae707dafef8"
+    },
+    {
+      "bytes": 4709,
+      "module": "opentelemetry.proto.logs.v1.logs_pb2",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/logs/v1/logs_pb2.py",
+      "sha256": "164d4c73a1cc452027759f636d37f899f97b0dc84972d428671376bf155e3c4e"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.metrics",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/metrics/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.metrics.v1",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/metrics/v1/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9468,
+      "module": "opentelemetry.proto.metrics.v1.metrics_pb2",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/metrics/v1/metrics_pb2.py",
+      "sha256": "dc574a568d66d3572e274eeffd09ce4ed4fed485d349e6437f5062a29b372566"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.resource",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/resource/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.resource.v1",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/resource/v1/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1864,
+      "module": "opentelemetry.proto.resource.v1.resource_pb2",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/resource/v1/resource_pb2.py",
+      "sha256": "f3689981f1b59f1d172d1efbdb68def69d58e99793558590807e9984441c08f5"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.trace",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/trace/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "module": "opentelemetry.proto.trace.v1",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/trace/v1/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5493,
+      "module": "opentelemetry.proto.trace.v1.trace_pb2",
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/trace/v1/trace_pb2.py",
+      "sha256": "1600fadc0eeea5662bc3469e35edea271ae0371376dc897e81a97c4d363db919"
+    }
+  ],
+  "logicalUnits": {
+    "logs": 9,
+    "metricRequests": 1,
+    "metricsNumberDataPoints": 3,
+    "spans": 2
+  },
+  "method": "Read-only retained bytes; isolated Python -I -S -B; installed immutable protobuf decoder plus independent descriptor-guided raw wire scanner; strict effect denial; no candidate/worker/receiver/native rerun.",
+  "metricPoints": [
+    {
+      "dimensions": {
+        "ashlar.operation": "held-read",
+        "ashlar.outcome": "succeeded"
+      },
+      "startTimeUnixNano": "1791651219387727000",
+      "timeUnixNano": "1791651219395154000",
+      "value": 1
+    },
+    {
+      "dimensions": {
+        "ashlar.operation": "publication",
+        "ashlar.outcome": "refused"
+      },
+      "startTimeUnixNano": "1791651219388905000",
+      "timeUnixNano": "1791651219395154000",
+      "value": 1
+    },
+    {
+      "dimensions": {
+        "ashlar.operation": "source-admission",
+        "ashlar.outcome": "succeeded"
+      },
+      "startTimeUnixNano": "1791651219389758000",
+      "timeUnixNano": "1791651219395154000",
+      "value": 1
+    }
+  ],
+  "observedSpans": [
+    {
+      "attemptId": "465d50992209413f9207df82a7e2f998",
+      "endTimeUnixNano": "1791651219387282000",
+      "flags": 771,
+      "links": 0,
+      "operation": "held-read",
+      "parentSpanId": "1234567890abcdef",
+      "spanId": "27c9f3b6a26be0ee",
+      "startTimeUnixNano": "1791651219386091000",
+      "statusCode": 0,
+      "traceId": "1234567890abcdef1234567890abcdef"
+    },
+    {
+      "attemptId": "4c996bb8ff2e4c94bd382947c4b623a8",
+      "endTimeUnixNano": "1791651219388509000",
+      "flags": 259,
+      "links": 1,
+      "operation": "publication",
+      "parentSpanId": null,
+      "spanId": "5f775aa90fbdded8",
+      "startTimeUnixNano": "1791651219387865000",
+      "statusCode": 2,
+      "traceId": "9b429d6b7cc87ab9c5a6cabee66f634f"
+    }
+  ],
+  "openingClosingInputPins": [
+    {
+      "bytes": 267144,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/installed-custody.json",
+      "sha256": "c55a1930d035c65d15dec6cf6b024771f864eb93daa7c90d37f90b22d2266cb8"
+    },
+    {
+      "bytes": 286021,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/dependency-payload-custody.json",
+      "sha256": "6bb29c3c99ac72a9f1851923e3006e18b2141ab4a1067228284acc33b616fc25"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/py.typed",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2649,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/logs/v1/logs_service_pb2.py",
+      "sha256": "bf3a98f991f639b3f3820e37a387413cf0cf904cd1e2e2adb1178148aa7da575"
+    },
+    {
+      "bytes": 4942,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/logs/v1/logs_service_pb2.pyi",
+      "sha256": "7f5ae7c8094082fae004f579dc750757f2de7db372664b63b1a0debc18b66c25"
+    },
+    {
+      "bytes": 4778,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/logs/v1/logs_service_pb2_grpc.py",
+      "sha256": "8f8d8e07fd57071d58b00428bf33f7b69156f99c362a28d12abe4663ce9ddeeb"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/metrics/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/metrics/v1/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2785,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/metrics/v1/metrics_service_pb2.py",
+      "sha256": "98b9d549154bc260e84234892b11d62903492a7ae1e2b3a3d13bde1d6d03cb62"
+    },
+    {
+      "bytes": 5017,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/metrics/v1/metrics_service_pb2.pyi",
+      "sha256": "deebcc87285b10fe68df65d01ff974070e631129f419ac479b933c8a820f7219"
+    },
+    {
+      "bytes": 4679,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/metrics/v1/metrics_service_pb2_grpc.py",
+      "sha256": "59658d92caa517274ffa19beba68dd239e418943294d6c10a355864859163c62"
+    },
+    {
+      "bytes": 3129,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/profiles/v1development/profiles_service_pb2.py",
+      "sha256": "bbda661cb8466ffd7164250b50e126a42a411c15f9c60c5bec0837029d113c26"
+    },
+    {
+      "bytes": 5572,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/profiles/v1development/profiles_service_pb2.pyi",
+      "sha256": "7d3f1a993599a97c3565d2eebc98758c8ed79a48b5727335d412c454357ccd0a"
+    },
+    {
+      "bytes": 4836,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/profiles/v1development/profiles_service_pb2_grpc.py",
+      "sha256": "da2c554ce995de40a8dc051e688a5b0aba7a4922ed3dc9336074b191d65f246b"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/trace/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/trace/v1/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 2698,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/trace/v1/trace_service_pb2.py",
+      "sha256": "ffe329abb6b9e85e737eeb7eebb8b8fae99688c88541b883de4974f8aafe97ff"
+    },
+    {
+      "bytes": 4931,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/trace/v1/trace_service_pb2.pyi",
+      "sha256": "1b39520c46db78c28acdececbd09cb4d7440a5f53eb1c414678e3a91c46d6cf0"
+    },
+    {
+      "bytes": 4812,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/collector/trace/v1/trace_service_pb2_grpc.py",
+      "sha256": "82f4704d4fc69da3464a2e150b902e3933a65effae7a61856113a64d5ed8896f"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/common/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/common/v1/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3244,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/common/v1/common_pb2.py",
+      "sha256": "714a72d447de7a48ebf1276743a526d5bbdf6b5610109be6e5fd6ae707dafef8"
+    },
+    {
+      "bytes": 12252,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/common/v1/common_pb2.pyi",
+      "sha256": "60252c9b8e35ea7981c09be10d1d2125baedcc56c49cfb50eaa0252a88f9e3a0"
+    },
+    {
+      "bytes": 4709,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/logs/v1/logs_pb2.py",
+      "sha256": "164d4c73a1cc452027759f636d37f899f97b0dc84972d428671376bf155e3c4e"
+    },
+    {
+      "bytes": 17504,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/logs/v1/logs_pb2.pyi",
+      "sha256": "ef000aec5f8ca194de359073fbd3c22cb0877c8cb6f932588cba54f86a08d550"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/metrics/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/metrics/v1/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 9468,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/metrics/v1/metrics_pb2.py",
+      "sha256": "dc574a568d66d3572e274eeffd09ce4ed4fed485d349e6437f5062a29b372566"
+    },
+    {
+      "bytes": 56770,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/metrics/v1/metrics_pb2.pyi",
+      "sha256": "a8393a2141f9edfac23d74b8236d670bfa55cb887fe7bf80cb6c81376951533d"
+    },
+    {
+      "bytes": 6853,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/profiles/v1development/profiles_pb2.py",
+      "sha256": "4c3c348d738f2aebb0e981e6f395791efff81b144a0e039875b90634f19720ec"
+    },
+    {
+      "bytes": 38013,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/profiles/v1development/profiles_pb2.pyi",
+      "sha256": "11cc83f94bbff90022288351b3ca093a06ae13e2061cc6d1c8fc68e8c1c84838"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/resource/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/resource/v1/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1864,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/resource/v1/resource_pb2.py",
+      "sha256": "f3689981f1b59f1d172d1efbdb68def69d58e99793558590807e9984441c08f5"
+    },
+    {
+      "bytes": 2802,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/resource/v1/resource_pb2.pyi",
+      "sha256": "0e9f65777e5652542a81e5aa3d8e3508a7047ede32a2c0f48f7601ef8f8a966b"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/trace/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/trace/v1/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 5493,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/trace/v1/trace_pb2.py",
+      "sha256": "1600fadc0eeea5662bc3469e35edea271ae0371376dc897e81a97c4d363db919"
+    },
+    {
+      "bytes": 28268,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/trace/v1/trace_pb2.pyi",
+      "sha256": "7074f0c170def4454c9b05630cafa0aa6696aff3f1831ddb6eb4cde7706a64e5"
+    },
+    {
+      "bytes": 100,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/opentelemetry/proto/version/__init__.py",
+      "sha256": "5b0fe18ed3a8b5e373d3b94fa2738797d281f95f9d1af58ea3a768e1732c162c"
+    },
+    {
+      "bytes": 662626,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/_upb/_message.abi3.so",
+      "sha256": "f3a1ae5ed99290e7ebf913d18e19dc3ed8850f98274742ddb8cb3229380ec0ab"
+    },
+    {
+      "bytes": 346,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/__init__.py",
+      "sha256": "3d66aee60879ae8b66cfa5548c120e9f32b42d03e9a4743832b701b76c8027fd"
+    },
+    {
+      "bytes": 1319,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/any.py",
+      "sha256": "dfb9e9a3c2322f58bd85e87b0f18a1fd129013604a16ebfb9bd3576d6c6849da"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/compiler/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 53428,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/descriptor.py",
+      "sha256": "87af655893f4aacc6ba40eb9f6a75ae48c70bc87450b57aa9e46717bbbbe6d32"
+    },
+    {
+      "bytes": 5936,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/descriptor_database.py",
+      "sha256": "14700e65ce6ecfce88b0caabdce99cd7d01e9eec2b3a49eeb76c02434986b067"
+    },
+    {
+      "bytes": 48864,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/descriptor_pool.py",
+      "sha256": "e31928fcf2f03be388c3c65ab4dfb24a343194ac18b9f7eb366d183aa56e4e59"
+    },
+    {
+      "bytes": 2672,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/duration.py",
+      "sha256": "bd04f05728a2c869b75b2dcb5bca21037b641a4ad42a84e7fe9e12744054f1b3"
+    },
+    {
+      "bytes": 272,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/__init__.py",
+      "sha256": "f1dfe4d64b0d588baa3c310412d3a3802dd7c7c9005c3dbed3847b9b126549bb"
+    },
+    {
+      "bytes": 4669,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/api_implementation.py",
+      "sha256": "110ec42264b12432e2337017a10c2eb83ecad0bcf9d34ef6092d6daedd9bceaa"
+    },
+    {
+      "bytes": 4112,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/builder.py",
+      "sha256": "54f9eb1eaaade89eba47065ed7d84b9b4d59975bcffe314aa4bf9b0bc9c49dc6"
+    },
+    {
+      "bytes": 22175,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/containers.py",
+      "sha256": "c42eb201307c1b108095542d663d1021f48f70639125bd240f1a1600a455ed84"
+    },
+    {
+      "bytes": 37588,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/decoder.py",
+      "sha256": "4f06935e6f48a1ec37a0edd66b58605582e21d57bb045745e0d02c8efd85c86b"
+    },
+    {
+      "bytes": 27297,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/encoder.py",
+      "sha256": "56e8e9ddb535d1d2c16ac52745a199283f994cbabbcc4180f302a1ee654b47e8"
+    },
+    {
+      "bytes": 3747,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/enum_type_wrapper.py",
+      "sha256": "3cd84af3b6bf34fd4921f147b981626e913884774761ac17c2a671304b6fb2fa"
+    },
+    {
+      "bytes": 7141,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/extension_dict.py",
+      "sha256": "e1a7f4877da3ab90702fbb81eb29b78a9773cf79131fbe5618c1cb1e5b86b0d0"
+    },
+    {
+      "bytes": 10442,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/field_mask.py",
+      "sha256": "41b39f87329a4e4bd847d93b1d88a0562755832a1b05152270189b3bbd6e7c7a"
+    },
+    {
+      "bytes": 2008,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/message_listener.py",
+      "sha256": "ba1f2f894fccbd67437b82a5d780aba26295140cc130f94ccc5678bdec3f5097"
+    },
+    {
+      "bytes": 542,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/python_edition_defaults.py",
+      "sha256": "898522ad06d47288fe7cb6d6649c2d22d2d61e4e34e9e48520f25e81a15b1210"
+    },
+    {
+      "bytes": 57984,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/python_message.py",
+      "sha256": "4b84ac5cb357f731b347f5c37e230e36fd0ce20c73c70aacc1bb4f9c057aa848"
+    },
+    {
+      "bytes": 4495,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/testing_refleaks.py",
+      "sha256": "5678ad2c14e7ca759c6b23ecbc795270c64273366ceef7f4ff1f1cb0f141c418"
+    },
+    {
+      "bytes": 17252,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/type_checkers.py",
+      "sha256": "80238bdfdd12038038110be75296be94ac72c47b668990682d07a5a3a241757e"
+    },
+    {
+      "bytes": 22850,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/well_known_types.py",
+      "sha256": "6f63216ce5da418f05473a624c67144f5e91f432a16447848f7c4191835dc009"
+    },
+    {
+      "bytes": 7087,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/internal/wire_format.py",
+      "sha256": "11b01765d6f6de208e6c267136068cc7cf95445d948e0c8fac1093b55d74471f"
+    },
+    {
+      "bytes": 38402,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/json_format.py",
+      "sha256": "7b386cc56f648154f744b2d1b38f44e94dba27c8c33980002e158c235443c7a7"
+    },
+    {
+      "bytes": 14917,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/message.py",
+      "sha256": "21ec9013af2b8ff61c521cb6d174b90ebded536eff25867918b2c79be4db6c3e"
+    },
+    {
+      "bytes": 6607,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/message_factory.py",
+      "sha256": "b842ea4625a8fb7a4126ea67413947b06266803277a781ea5f74fb778e8c32e8"
+    },
+    {
+      "bytes": 4389,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/proto.py",
+      "sha256": "72ea8cb6569c6ac8d335075fc8a893b9b10a5cd6a981d004727413bfae409a81"
+    },
+    {
+      "bytes": 4203,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/proto_builder.py",
+      "sha256": "a465362ffa4f11893295992bbc7302507d8f156bdcf7023e6b0c13ec5e62ef8d"
+    },
+    {
+      "bytes": 3094,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/proto_json.py",
+      "sha256": "7d4cb455be26ffcdf5fa869b9fb25bce6ca2a5ca09a505ad05d8133288fc629e"
+    },
+    {
+      "bytes": 5307,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/proto_text.py",
+      "sha256": "643db5c227d617f1d531c264549068de318d171a842c2ae039e22c86ecf9eb95"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/pyext/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1715,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/pyext/cpp_message.py",
+      "sha256": "f2e4ab597f640f71cf4619edbd33dce1b8277d0d81cd7f453c2ef70a089f5c0c"
+    },
+    {
+      "bytes": 1241,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/reflection.py",
+      "sha256": "80c55f5839a772411ba78bd347980aab61c3c116ff788e6b7f29593a81529844"
+    },
+    {
+      "bytes": 3033,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/runtime_version.py",
+      "sha256": "d512fb01a12edebd949676cc7eb12b2809a43309f863ecb17448e2b94308f28c"
+    },
+    {
+      "bytes": 10058,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/service_reflection.py",
+      "sha256": "5871251a73e0cb00ed9f75fcc4a54db1964e0a024e4f38290324ddfab9822865"
+    },
+    {
+      "bytes": 5752,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/symbol_database.py",
+      "sha256": "b34a44c6e63226f8b5ab4a43f36004a09b47d840d9daf019088aa36bce0229c7"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/testdata/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 3621,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/text_encoding.py",
+      "sha256": "028d50e8e3fc8b8a7c543b6fa5ef2e5b50635fb69066f909820be115862b07bc"
+    },
+    {
+      "bytes": 64149,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/text_format.py",
+      "sha256": "5118c6b53354a9ed0e489fb70008c48e11c7f4bd3ce0ea140fc82c185664be48"
+    },
+    {
+      "bytes": 3133,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/timestamp.py",
+      "sha256": "b36dcb5aaea10e2148780b55527f0bc1f11ce5a44ced60304f3fe109a3959dd9"
+    },
+    {
+      "bytes": 3065,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/unknown_fields.py",
+      "sha256": "af7089d9ee3f5d4ab8d5372007cc3a134c99c71cd24c240b1780bb38e1daf65a"
+    },
+    {
+      "bytes": 0,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/util/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 1725,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/any_pb2.py",
+      "sha256": "500529c69f066d85f66a047e14aca5c4e44990acbe37ec59721350ddc20be9c1"
+    },
+    {
+      "bytes": 3600,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/api_pb2.py",
+      "sha256": "f01a8c023f35cdaf03402fb0251d17a33dde465f4db53941245dcee3073ea64c"
+    },
+    {
+      "bytes": 3797,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/compiler/plugin_pb2.py",
+      "sha256": "e5e0fa506ab3a8f3965ced2d24f449d2bd17766932e980285a2f8be1c5d12d55"
+    },
+    {
+      "bytes": 366972,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/descriptor_pb2.py",
+      "sha256": "5ece5a33fd3fc13d96305c346fcda12af66ae599ba93ef933892496c3b58ba9e"
+    },
+    {
+      "bytes": 1805,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/duration_pb2.py",
+      "sha256": "513385880f8f9dccf80044551eb6a532a429dc653c40afdc64052dc4e0288978"
+    },
+    {
+      "bytes": 1669,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/empty_pb2.py",
+      "sha256": "8db1ee291a4e0faced5b34b647225ee033daef0efbe2099748e6b8021cc5d6c7"
+    },
+    {
+      "bytes": 1765,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/field_mask_pb2.py",
+      "sha256": "ac5bbdee189512e7df941b9ecb16fefa0a0257271961e961f307e1793cca1f8e"
+    },
+    {
+      "bytes": 1791,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/source_context_pb2.py",
+      "sha256": "9dc788d6c14810f8dad702c91c4cbd8fbb9602359cc12dfe1b9a6b0fa07f6988"
+    },
+    {
+      "bytes": 3061,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/struct_pb2.py",
+      "sha256": "bfd01aa03d6dc5ac210cd433996c8da027fb8d6301e655f6d26cfe2519e819e5"
+    },
+    {
+      "bytes": 1815,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/timestamp_pb2.py",
+      "sha256": "888267b8f93efd59cd96f23ea5f2be1b2274db5fe4cd42b8d7c7989fc330f35c"
+    },
+    {
+      "bytes": 5438,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/type_pb2.py",
+      "sha256": "d59c57db48767092a63aaef31f3a9340fb0e8c3e67d03d51bb3f477ee1d015d0"
+    },
+    {
+      "bytes": 3037,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/google/protobuf/wrappers_pb2.py",
+      "sha256": "edeb16d3f811bfa3bc6ac984d853f4686394611a07ee78ff6bfae10235becdf9"
+    },
+    {
+      "bytes": 5400,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/ashlar_graph_toolkit-0.1.0.dev0.dist-info/METADATA",
+      "sha256": "4231090070e09fab05cd689a7d0478d2732cbabfd8ae49c8cec2fc72b1ca426e"
+    },
+    {
+      "bytes": 24406,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "sha256": "06a8919aaecdfbf6f83b53bfbfa0cb09574cc654b2dcb827226cb55c6f8607cd"
+    },
+    {
+      "bytes": 14036,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/candidate.py",
+      "sha256": "a5b2d63ccf5b2fb7dd0b699976728057881e5f56ee40e0008434eb0c45f67ab9"
+    },
+    {
+      "bytes": 11170,
+      "path": "/private/tmp/astra-otel-installed-receiver-delta-source-review-20261010-d.json",
+      "sha256": "ecd1f0012f3a213dff84fb0b9c78a32267030a047fd5b12e9c6b23c04b8d96f0"
+    },
+    {
+      "bytes": 13883,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/ashlar_host/otel.py",
+      "sha256": "da0ec86efd8563204722b3e5dc2870706d1757042bbcf137a79d7d1f0694a1cd"
+    },
+    {
+      "bytes": 34171,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/ashlar_host/_otel_worker.py",
+      "sha256": "143e6baf0d47c0886c69269a589883af4b4b100afa16fd161710eaa885a25a57"
+    },
+    {
+      "bytes": 37137,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/ashlar_host/diagnostics.py",
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    {
+      "bytes": 2159,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/capture/d2b91081b708414481a5fdb4b052894e/run.json",
+      "sha256": "d8893bf4c264c1eaa4f12edda9f796a4e3679046145206b0cd17b44612bef282"
+    },
+    {
+      "bytes": 7210,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/capture/d2b91081b708414481a5fdb4b052894e/events-0000.jsonl",
+      "sha256": "074ceef237529a1dc6258227e45019fb863347cc7de2846e4290897836b08641"
+    },
+    {
+      "bytes": 10231,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/expected.json",
+      "sha256": "3c1de0d4ef0cbcd164e41b2a5108575e19676d1523e561c4cba771ac2054adf9"
+    },
+    {
+      "bytes": 2755,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/result.json",
+      "sha256": "aa7ee94097b8ff5dcb098a8f987ff5acfbf755d2df3c4cb4bf8594baf5c15f93"
+    },
+    {
+      "bytes": 2158,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/receiver-observations.json",
+      "sha256": "5d3431951cd882ced95195d24692a35b7ff787c056376f87b8f8478aaddd7160"
+    },
+    {
+      "bytes": 659,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-00.pb",
+      "sha256": "cab98328919a224554242790c2223177ee3ea89f72cfaaefa4f05789589a4118"
+    },
+    {
+      "bytes": 724,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-01.pb",
+      "sha256": "f66b9bdffb9c774326255675f674f638d691f2f701f7930636981b0f902ef203"
+    },
+    {
+      "bytes": 721,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-02.pb",
+      "sha256": "23dc79fa862fb5f882508073a26e18ab63448818d490bf74cfce6e9d571a13b1"
+    },
+    {
+      "bytes": 661,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-03.pb",
+      "sha256": "2042f01e75455daac2672863f96527fe40201dc21173f8022b9f82323c60c5bd"
+    },
+    {
+      "bytes": 728,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-04.pb",
+      "sha256": "3636d914f01056c67f79a3820afa299294fd7d6cf3c367c3475f21c474f07ad4"
+    },
+    {
+      "bytes": 755,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-05.pb",
+      "sha256": "ce7d8e12f5bf07b4ad783c4809507f9bf71f224b53dc62a8a427612ece9ca7ca"
+    },
+    {
+      "bytes": 633,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-06.pb",
+      "sha256": "cdbf68a6c6846888a254f32740035a74fc5b039d8bd0fadaf9b2878d5925ca3b"
+    },
+    {
+      "bytes": 702,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-07.pb",
+      "sha256": "6c79676ad10a792544a2c92287326bd08fc4a55dc2c7030f3cba0d590f0a2b83"
+    },
+    {
+      "bytes": 695,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-08.pb",
+      "sha256": "2fe8315d87969c7084f0bef652215d8cd63f79ca05655625c5a89cc327498c4a"
+    },
+    {
+      "bytes": 587,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-09.pb",
+      "sha256": "4bc4105489ca30664490dda60e8d555071f0655b736024529bcc8f943e47ce83"
+    },
+    {
+      "bytes": 650,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-10.pb",
+      "sha256": "0b49d583d03ba9b28d0e8a72ef1d5ae806b21eff9e33bd06b1484b9b669914eb"
+    },
+    {
+      "bytes": 634,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-11.pb",
+      "sha256": "c8e8d1a45f2488dc8e807f27d14f9bd42462dd0f9374a6fb3d2f51e2a7d99540"
+    }
+  ],
+  "qualifications": [
+    "Three sequential synthetic public DiagnosticRun/OtelRun attempts only: held-read succeeded; publication refused with guard category; genuinely spanless source-admission succeeded.",
+    "No native publication/source/query/ACK workflow or concurrent-attempt receiver control.",
+    "No credential/privacy sentinel, outage/deadline/cancellation pilot, memory/runtime overhead measurement, or complete C006 support claim.",
+    "Receiver bytes prove this observed handoff mapping; they do not prove durable ingestion or exactly-once delivery.",
+    "No process census or runtime effect was performed by this reviewer. Parent review owns full installed/input/output custody and execution/cleanup interpretation."
+  ],
+  "requests": [
+    {
+      "bytes": 659,
+      "decodedMessage": "opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest",
+      "file": "request-00.pb",
+      "path": "/v1/logs",
+      "sha256": "cab98328919a224554242790c2223177ee3ea89f72cfaaefa4f05789589a4118"
+    },
+    {
+      "bytes": 724,
+      "decodedMessage": "opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest",
+      "file": "request-01.pb",
+      "path": "/v1/logs",
+      "sha256": "f66b9bdffb9c774326255675f674f638d691f2f701f7930636981b0f902ef203"
+    },
+    {
+      "bytes": 721,
+      "decodedMessage": "opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest",
+      "file": "request-02.pb",
+      "path": "/v1/logs",
+      "sha256": "23dc79fa862fb5f882508073a26e18ab63448818d490bf74cfce6e9d571a13b1"
+    },
+    {
+      "bytes": 661,
+      "decodedMessage": "opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest",
+      "file": "request-03.pb",
+      "path": "/v1/logs",
+      "sha256": "2042f01e75455daac2672863f96527fe40201dc21173f8022b9f82323c60c5bd"
+    },
+    {
+      "bytes": 728,
+      "decodedMessage": "opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest",
+      "file": "request-04.pb",
+      "path": "/v1/logs",
+      "sha256": "3636d914f01056c67f79a3820afa299294fd7d6cf3c367c3475f21c474f07ad4"
+    },
+    {
+      "bytes": 755,
+      "decodedMessage": "opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest",
+      "file": "request-05.pb",
+      "path": "/v1/logs",
+      "sha256": "ce7d8e12f5bf07b4ad783c4809507f9bf71f224b53dc62a8a427612ece9ca7ca"
+    },
+    {
+      "bytes": 633,
+      "decodedMessage": "opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest",
+      "file": "request-06.pb",
+      "path": "/v1/logs",
+      "sha256": "cdbf68a6c6846888a254f32740035a74fc5b039d8bd0fadaf9b2878d5925ca3b"
+    },
+    {
+      "bytes": 702,
+      "decodedMessage": "opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest",
+      "file": "request-07.pb",
+      "path": "/v1/logs",
+      "sha256": "6c79676ad10a792544a2c92287326bd08fc4a55dc2c7030f3cba0d590f0a2b83"
+    },
+    {
+      "bytes": 695,
+      "decodedMessage": "opentelemetry.proto.collector.logs.v1.ExportLogsServiceRequest",
+      "file": "request-08.pb",
+      "path": "/v1/logs",
+      "sha256": "2fe8315d87969c7084f0bef652215d8cd63f79ca05655625c5a89cc327498c4a"
+    },
+    {
+      "bytes": 587,
+      "decodedMessage": "opentelemetry.proto.collector.trace.v1.ExportTraceServiceRequest",
+      "file": "request-09.pb",
+      "path": "/v1/traces",
+      "sha256": "4bc4105489ca30664490dda60e8d555071f0655b736024529bcc8f943e47ce83"
+    },
+    {
+      "bytes": 650,
+      "decodedMessage": "opentelemetry.proto.collector.trace.v1.ExportTraceServiceRequest",
+      "file": "request-10.pb",
+      "path": "/v1/traces",
+      "sha256": "0b49d583d03ba9b28d0e8a72ef1d5ae806b21eff9e33bd06b1484b9b669914eb"
+    },
+    {
+      "bytes": 634,
+      "decodedMessage": "opentelemetry.proto.collector.metrics.v1.ExportMetricsServiceRequest",
+      "file": "request-11.pb",
+      "path": "/v1/metrics",
+      "sha256": "c8e8d1a45f2488dc8e807f27d14f9bd42462dd0f9374a6fb3d2f51e2a7d99540"
+    }
+  ],
+  "resource": {
+    "deployment.environment.name": "test",
+    "service.name": "ashlar-host",
+    "service.version": "0.1.0.dev0",
+    "telemetry.sdk.language": "python",
+    "telemetry.sdk.name": "opentelemetry",
+    "telemetry.sdk.version": "1.45.1"
+  },
+  "resourceSchemaUrl": "https://opentelemetry.io/schemas/1.44.0",
+  "root": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d",
+  "scope": {
+    "name": "ashlar.host.diagnostics",
+    "version": "0.1.0"
+  },
+  "script": {
+    "bytes": 29684,
+    "path": "/private/tmp/astra-otel-installed-receiver-protobuf-review-20261010-d.py",
+    "sha256": "385942c70c5b591537e8b01fc8771871163447eff63d8adbd763523ceb73d864"
+  },
+  "sourceTimestamp": "Absent in all nine original events and omitted from all nine OTLP logs; ObservedTimestamp equals exact original nanoseconds.",
+  "spanlessEvidence": {
+    "attemptId": "cd662b6a6d07465e82378ed0ed25e6fc",
+    "completedCounter": 1,
+    "localEventSequences": [
+      7,
+      8,
+      9
+    ],
+    "localTracePresent": false,
+    "operation": "source-admission",
+    "qualification": "Reviewed candidate D begins this attempt under create_span=False and leaves the binding before phase/finish. Installed source stores no span for the attempt; retained start/phase/finish and wire context are absent throughout. No source or record repair was performed in this review.",
+    "spanSubmitted": false,
+    "wireFlags": 0,
+    "wireSpanId": "",
+    "wireTraceId": ""
+  },
+  "verdict": "approved-retained-wire-semantics-with-stated-scope"
+}

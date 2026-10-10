@@ -1,0 +1,42 @@
+{
+  "state": "unexecuted-offline-preparation-command",
+  "sourceCommit": "ea4b4ff433edfe096ea40290f19cf1439c5fae33",
+  "argv": [
+    "/private/tmp/ashlar-host-wheel-env-20261010-a/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-otel-installed-preparation-20261010-b/prepare.py"
+  ],
+  "cwd": "/private/tmp/ashlar-otel-installed-preparation-20261010-b",
+  "environment": {
+    "PATH": "/usr/bin:/bin"
+  },
+  "inputs": [
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/prepare.py",
+      "bytes": 4758,
+      "sha256": "22ff0c8ae71d3a97ba04daa392bb5bda8541306ce04458b3dbf3d6a3e2c9a9f1"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/verify_installed.py",
+      "bytes": 3366,
+      "sha256": "b1fde1849b7d6512262ad67b56947f1d95d96f7ab6f64823054238c59c01b15b"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/verify_dependency_payloads.py",
+      "bytes": 1885,
+      "sha256": "2f761e36e8b1d15c00ed2936fb9c946ebef8947dd6528b14d573b5051248aa34"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/root-runner.py",
+      "bytes": 4957,
+      "sha256": "11f9724e4b22a9610cdca5c01ced6580f4e6f2476b5489366c32bfca31942a3c"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/download.json",
+      "bytes": 3519,
+      "sha256": "90dee75789e7c3d5fe2c02ad5c4604cd96fb252fef2afcb66b02b8b70b0051a8"
+    }
+  ],
+  "scope": "Exact Git source export and fresh offline wheel/venv using existing16locked SDK wheels only; no worker/provider/receiver/native/network. Prior reviewed phase helper reused unchanged. Dependency payload verification is separate explicit post-install command."
+}

@@ -1,0 +1,4 @@
+{"phase": "fresh-environment", "exitCode": 0, "durationSeconds": 0.05973554198862985}
+{"phase": "wheel-build", "exitCode": 0, "durationSeconds": 4.092508667032234}
+{"phase": "wheel-install", "exitCode": 0, "durationSeconds": 1.1565392920165323}
+{"phase": "installed-custody", "exitCode": 0, "durationSeconds": 0.5176200830028392}

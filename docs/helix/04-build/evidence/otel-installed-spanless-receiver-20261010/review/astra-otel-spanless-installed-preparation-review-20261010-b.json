@@ -1,0 +1,43 @@
+{
+  "verdict": "approved-fresh-offline-installed-preparation-only",
+  "freeze": {
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/freeze.json",
+    "bytes": 6469,
+    "sha256": "42aa7c1f88287b1d4704c8da10eee8f4c100da5287dbe2536d631047735b42aa"
+  },
+  "sourceCommit": "ea4b4ff433edfe096ea40290f19cf1439c5fae33",
+  "wheel": {
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "bytes": 273263,
+    "sha256": "52e166683404a8f88dd76d54d96f388fdea9f50f5a2891dd537374f2c306fbbe"
+  },
+  "independentReviews": [
+    {
+      "path": "/private/tmp/astra-otel-installed-preparation-source-review-20261010-b.json",
+      "bytes": 7478,
+      "sha256": "e188daf54691b6aedea514cd95fe00ef05f9b2679237b0878746abb0913ed196"
+    },
+    {
+      "path": "/private/tmp/astra-otel-installed-record-review-20261010-b.json",
+      "bytes": 27099,
+      "sha256": "7fb5640b6a236aaf1a5821f6b63807502735f4897e4f0640655153126fdcea0e"
+    }
+  ],
+  "checks": [
+    "All103 selected Git blobs, modes, hashes and lengths match exact committed source; approved D source and three governance pins are present in commit.",
+    "All100 packaged source members equal source export and installed copies; the two changed package members versus predecessor A are the approved otel.py and _otel_worker.py.",
+    "All17 wheel and installed RECORD inventories correspond;872 installed rows/855 hashed files, exact870-file site closure.",
+    "All698 payload members of the16 SDK/dependency wheels are unchanged from independently approved preparation A.",
+    "All26 frozen evidence files and20 selected inputs rehash correctly; four preparation subprocesses exited0 with bounded retained streams.",
+    "Actual effect-blocked inert installed module observation reports Python3.11.17, application0.1.0.dev0 and only fresh installed module paths, without SDK startup.",
+    "Preparation and two verification helpers differ from the previously reviewed helpers only in destination paths and source commit."
+  ],
+  "actualParentEnvironment": "Preparation parent invoked directly in shell inherited environment with -I -B; preparation-command.json environment is a proposed selection, not the actual parent environment. Four packaging subprocesses use exact explicit environment retained command.json. No hermetic parent runtime closure claim.",
+  "scope": "Narrow successor package/installed-file custody review only. The parent actually inherited shell environment under -I -B; four packaging subprocesses used retained explicit environment. No hermeticity or deterministic build claim. No worker/provider, installed receiver or native execution was performed by this review. Source semantics were already approved separately.",
+  "limitations": [
+    "No complete build-tool/stdlib/OS dependency closure is claimed.",
+    "Actual spanless installed receiver mapping requires its own exact command and runtime evidence.",
+    "This does not establish full CONTRACT-006 support, performance, privacy-pilot or outage qualification."
+  ],
+  "findings": []
+}

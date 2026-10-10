@@ -1,0 +1,57 @@
+{
+  "format": "ashlar-unexecuted-command/0.1",
+  "state": "candidate-not-executed",
+  "argv": [
+    "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/candidate.py"
+  ],
+  "cwd": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d",
+  "env": {
+    "PATH": "/usr/bin:/bin"
+  },
+  "source": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/candidate.py",
+    "bytes": 14036,
+    "sha256": "a5b2d63ccf5b2fb7dd0b699976728057881e5f56ee40e0008434eb0c45f67ab9"
+  },
+  "preparation": {
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/freeze.json",
+    "sha256": "42aa7c1f88287b1d4704c8da10eee8f4c100da5287dbe2536d631047735b42aa"
+  },
+  "executionRequires": [
+    "Independent candidate review",
+    "Root current opening and closing selected input custody verification",
+    "Fresh capture/result/request output absence",
+    "No active native engines or other receiver run"
+  ],
+  "bounds": {
+    "attempts": 3,
+    "expectedHttpRequests": 12,
+    "maxHttpRequests": 19,
+    "maxReceivedBodyBytesEach": 65536,
+    "maxReceivedBodyBytesTotal": 1048576,
+    "acceptedSocketTimeoutSeconds": 0.5,
+    "receiverJoinSeconds": 1,
+    "sdkExportTimeoutMs": 1000,
+    "sdkShutdownTimeoutMs": 2000
+  },
+  "qualification": "No execution or support claim. Direct foreground command, no outer forced-termination wrapper, no detached process. Public owner supervision relies on reviewed POSIX cleanup, not independent process census.",
+  "supersedesUnexecutedCandidate": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/candidate.py",
+    "sha256": "b1da715f60001fb8f650167d074daf66eb469cf16b0bfaccfe6b8f170ee4857c",
+    "state": "Historical actually executed predecessor; no alteration"
+  },
+  "sourceCommit": "ea4b4ff433edfe096ea40290f19cf1439c5fae33",
+  "logicalUnits": {
+    "logs": 9,
+    "spans": 2,
+    "metrics": 3
+  },
+  "expectedEndpointRequests": {
+    "/v1/logs": 9,
+    "/v1/traces": 2,
+    "/v1/metrics": 1
+  }
+}

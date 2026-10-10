@@ -1,0 +1,19 @@
+Processing ./wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/certifi-2025.10.5-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/charset_normalizer-3.4.3-cp311-cp311-macosx_10_9_universal2.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/googleapis_common_protos-1.75.0-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/idna-3.15-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_api-1.45.1-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_exporter_http_transport-0.66b1-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_exporter_otlp_common-0.66b1-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_exporter_otlp_proto_common-1.45.1-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_exporter_otlp_proto_http-1.45.1-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_proto-1.45.1-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_sdk-1.45.1-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_semantic_conventions-0.66b1-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/protobuf-6.33.6-cp39-abi3-macosx_10_9_universal2.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/requests-2.33.0-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/typing_extensions-4.15.0-py3-none-any.whl
+Processing /private/tmp/ashlar-otel-wheel-inputs-20261010-c/urllib3-2.8.0-py3-none-any.whl
+Installing collected packages: urllib3, typing-extensions, requests, protobuf, opentelemetry-semantic-conventions, opentelemetry-sdk, opentelemetry-proto, opentelemetry-exporter-otlp-proto-http, opentelemetry-exporter-otlp-proto-common, opentelemetry-exporter-otlp-common, opentelemetry-exporter-http-transport, opentelemetry-api, idna, googleapis-common-protos, charset-normalizer, certifi, ashlar-graph-toolkit
+Successfully installed ashlar-graph-toolkit-0.1.0.dev0 certifi-2025.10.5 charset-normalizer-3.4.3 googleapis-common-protos-1.75.0 idna-3.15 opentelemetry-api-1.45.1 opentelemetry-exporter-http-transport-0.66b1 opentelemetry-exporter-otlp-common-0.66b1 opentelemetry-exporter-otlp-proto-common-1.45.1 opentelemetry-exporter-otlp-proto-http-1.45.1 opentelemetry-proto-1.45.1 opentelemetry-sdk-1.45.1 opentelemetry-semantic-conventions-0.66b1 protobuf-6.33.6 requests-2.33.0 typing-extensions-4.15.0 urllib3-2.8.0

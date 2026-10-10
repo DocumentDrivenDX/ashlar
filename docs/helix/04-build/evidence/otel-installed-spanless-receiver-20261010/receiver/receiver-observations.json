@@ -1,0 +1,78 @@
+{
+  "state": "provisional",
+  "requests": [
+    {
+      "path": "/v1/logs",
+      "file": "request-00.pb",
+      "bytes": 659,
+      "sha256": "cab98328919a224554242790c2223177ee3ea89f72cfaaefa4f05789589a4118"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-01.pb",
+      "bytes": 724,
+      "sha256": "f66b9bdffb9c774326255675f674f638d691f2f701f7930636981b0f902ef203"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-02.pb",
+      "bytes": 721,
+      "sha256": "23dc79fa862fb5f882508073a26e18ab63448818d490bf74cfce6e9d571a13b1"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-03.pb",
+      "bytes": 661,
+      "sha256": "2042f01e75455daac2672863f96527fe40201dc21173f8022b9f82323c60c5bd"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-04.pb",
+      "bytes": 728,
+      "sha256": "3636d914f01056c67f79a3820afa299294fd7d6cf3c367c3475f21c474f07ad4"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-05.pb",
+      "bytes": 755,
+      "sha256": "ce7d8e12f5bf07b4ad783c4809507f9bf71f224b53dc62a8a427612ece9ca7ca"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-06.pb",
+      "bytes": 633,
+      "sha256": "cdbf68a6c6846888a254f32740035a74fc5b039d8bd0fadaf9b2878d5925ca3b"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-07.pb",
+      "bytes": 702,
+      "sha256": "6c79676ad10a792544a2c92287326bd08fc4a55dc2c7030f3cba0d590f0a2b83"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-08.pb",
+      "bytes": 695,
+      "sha256": "2fe8315d87969c7084f0bef652215d8cd63f79ca05655625c5a89cc327498c4a"
+    },
+    {
+      "path": "/v1/traces",
+      "file": "request-09.pb",
+      "bytes": 587,
+      "sha256": "4bc4105489ca30664490dda60e8d555071f0655b736024529bcc8f943e47ce83"
+    },
+    {
+      "path": "/v1/traces",
+      "file": "request-10.pb",
+      "bytes": 650,
+      "sha256": "0b49d583d03ba9b28d0e8a72ef1d5ae806b21eff9e33bd06b1484b9b669914eb"
+    },
+    {
+      "path": "/v1/metrics",
+      "file": "request-11.pb",
+      "bytes": 634,
+      "sha256": "c8e8d1a45f2488dc8e807f27d14f9bd42462dd0f9374a6fb3d2f51e2a7d99540"
+    }
+  ],
+  "receiverFailures": []
+}

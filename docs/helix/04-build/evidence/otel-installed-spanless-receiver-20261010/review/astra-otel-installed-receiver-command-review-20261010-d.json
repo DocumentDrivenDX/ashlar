@@ -1,0 +1,87 @@
+{
+  "verdict": "approved-scoped-direct-command-gate",
+  "candidate": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/candidate.py",
+    "bytes": 14036,
+    "sha256": "a5b2d63ccf5b2fb7dd0b699976728057881e5f56ee40e0008434eb0c45f67ab9"
+  },
+  "command": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/command.json",
+    "bytes": 2112,
+    "sha256": "90c25a9d8ca5ad77880828f4ff7ef9baf6d6ca51cc22ca055f97ebfe1ce266b9"
+  },
+  "installedPreparationReview": {
+    "path": "/private/tmp/astra-otel-spanless-installed-preparation-review-20261010-b.json",
+    "bytes": 3115,
+    "sha256": "9547f2c6ce4f80ada7b13929ed8ae9df8948aeb706d296aa5f73634feb2909cb"
+  },
+  "independentDeltaOracleReview": {
+    "path": "/private/tmp/astra-otel-installed-receiver-delta-source-review-20261010-d.json",
+    "bytes": 11170,
+    "sha256": "ecd1f0012f3a213dff84fb0b9c78a32267030a047fd5b12e9c6b23c04b8d96f0"
+  },
+  "predecessorDirectCommandReview": {
+    "path": "/private/tmp/astra-otel-installed-receiver-direct-command-review-20261010-c.json",
+    "bytes": 3325,
+    "sha256": "15a3eed0a4192f3d3af61172d978cbb31d5ae27d17cab171c1a0cd5985acb9f9"
+  },
+  "predecessorActualReceiverReview": {
+    "path": "/private/tmp/astra-otel-installed-receiver-actual-review-20261010-c.json",
+    "bytes": 5397,
+    "sha256": "f566ea198bd0dbb53ea016a4b9a5cd1371362d40018e671b2e181f0afa0963e6"
+  },
+  "exactArgv": [
+    "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/candidate.py"
+  ],
+  "cwd": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d",
+  "environment": {
+    "PATH": "/usr/bin:/bin"
+  },
+  "sourceCommit": "ea4b4ff433edfe096ea40290f19cf1439c5fae33",
+  "checks": [
+    "The exact new receiver source adds one third synthetic source-admission attempt under create_span=False only at begin; phase/finish occur after binding exit to exercise immutable attempt selection.",
+    "Nine closed local events map to nine actual SDK/OTLP logs; the third attempt has no trace member and all three corresponding LogRecord IDs/flags must be absent/zero.",
+    "Two traced attempts preserve their existing complete span/parent/retry context oracles; the spanless attempt contributes no third span.",
+    "One metric export contains three cumulative integerSum points, each value1, with exact operation/outcome attribute bag. Logical-unit loss must be known complete9/2/3.",
+    "Seven receiver/helper/class ASTs and main lifecycle finally are identical to approved C; raw failure preservation and staged no-clobber final availability remain unchanged.",
+    "Fresh output and actual result-stage paths are absent at review time.",
+    "Command uses only reviewed fresh installed B environment and exact source; no checkout import or source overlay."
+  ],
+  "bounds": {
+    "attempts": 3,
+    "expectedHttpRequests": 12,
+    "maxHttpRequests": 19,
+    "maxReceivedBodyBytesEach": 65536,
+    "maxReceivedBodyBytesTotal": 1048576,
+    "acceptedSocketTimeoutSeconds": 0.5,
+    "receiverJoinSeconds": 1,
+    "sdkExportTimeoutMs": 1000,
+    "sdkShutdownTimeoutMs": 2000
+  },
+  "expectedEndpointRequests": {
+    "/v1/logs": 9,
+    "/v1/traces": 2,
+    "/v1/metrics": 1
+  },
+  "logicalUnits": {
+    "logs": 9,
+    "spans": 2,
+    "metrics": 3
+  },
+  "conditionsBeforeRootExecution": [
+    "Repeat complete selected input custody including interpreter/environment, candidate/command, preparation and installed records immediately before direct foreground invocation.",
+    "Repeat absence of capture/result/.result-stage.json/expected/provisional receiver/request/process output files.",
+    "No simultaneous native engine or receiver run; root owns direct foreground invocation and rechecks selected closing vector after every observed terminal outcome.",
+    "Use the exact selected environment/argv without an outer forced-termination runner."
+  ],
+  "findings": [],
+  "scope": "Unexecuted command/source gate for three finite installed synthetic attempts only. This reviewer did not start candidate, worker, provider, receiver, network or native engine. Actual receiver output needs independent review after root execution.",
+  "limitations": [
+    "Existing POSIX cooperative process/cleanup ownership assumptions remain; no abrupt root death, forced global-deadline, process-census or hermetic-runtime guarantee.",
+    "No concurrent attempt delivery, real publication/query/source/ACK workflow, credential/privacy sentinel, outage/performance/investigator pilot or full C006 qualification.",
+    "Third attempt uses the real public spanless API with actual SDK context absence; source-unit proof and prior traced receiver evidence do not substitute for its pending actual wire evidence."
+  ]
+}

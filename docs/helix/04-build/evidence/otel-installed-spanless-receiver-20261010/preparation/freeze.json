@@ -1,0 +1,149 @@
+{
+  "state": "offline-preparation-completed",
+  "sourceCommit": "ea4b4ff433edfe096ea40290f19cf1439c5fae33",
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/command.json",
+      "bytes": 4428,
+      "sha256": "4c63e7ac49bcbb9e0bc3cbf47b14df189524642b788669b80a4e23d96735d2e5"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/dependency-payload-custody.json",
+      "bytes": 286021,
+      "sha256": "6bb29c3c99ac72a9f1851923e3006e18b2141ab4a1067228284acc33b616fc25"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/dependency-payload-custody.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/dependency-payload-custody.stdout",
+      "bytes": 42,
+      "sha256": "c39f752e73d7b3053923906b80550798168bfff3fe287df44a1a4d342d2b4fbe"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/fresh-environment-process.json",
+      "bytes": 452,
+      "sha256": "96940d22d6806b6924b9cec9330a98ba56aaa71f7e5aac3f807697332d26ceec"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/fresh-environment.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/fresh-environment.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/inputs.json",
+      "bytes": 4339,
+      "sha256": "73533f8ce520ea455898e22c9f7db79d28a8bb306b70c32ab77645ed4872bc38"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/installed-custody-process.json",
+      "bytes": 453,
+      "sha256": "ed21d377a929e7d96d2ba9213687bf75b7acc77c561fd2fbf1ac7b4a3b572def"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/installed-custody.json",
+      "bytes": 267144,
+      "sha256": "c55a1930d035c65d15dec6cf6b024771f864eb93daa7c90d37f90b22d2266cb8"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/installed-custody.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/installed-custody.stdout",
+      "bytes": 522,
+      "sha256": "adf968af5e3400b4aa2ab608af8c9cd86f3f26fae3c757eadd311a9c8876b5f3"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/preparation-command.json",
+      "bytes": 1740,
+      "sha256": "bd2278db295b2d9d86a53029c05600207e3a8b7cb2c5f7dbc62ae810c7112ac9"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/preparation.json",
+      "bytes": 584,
+      "sha256": "fbf2f36ed9e9b28c8cd86fc11085a6dd52912f89f570d29fb7dcb08f3270422a"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/prepare.py",
+      "bytes": 4758,
+      "sha256": "22ff0c8ae71d3a97ba04daa392bb5bda8541306ce04458b3dbf3d6a3e2c9a9f1"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/prepare.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/prepare.stdout",
+      "bytes": 330,
+      "sha256": "70849fab1357ca2901183edfecd2485ce16a69473b516f91ee00943f8e9ae85f"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/source-inventory.json",
+      "bytes": 25877,
+      "sha256": "83bbb1890c395467b854ac36731d80ed15889884349cc9cddf49b26709e3cd74"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/verify_dependency_payloads.py",
+      "bytes": 1885,
+      "sha256": "2f761e36e8b1d15c00ed2936fb9c946ebef8947dd6528b14d573b5051248aa34"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/verify_installed.py",
+      "bytes": 3366,
+      "sha256": "b1fde1849b7d6512262ad67b56947f1d95d96f7ab6f64823054238c59c01b15b"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/wheel-build-process.json",
+      "bytes": 446,
+      "sha256": "62f7e8f8c79dae371d7157b50b1228f5ce8110f9f358be7fb8f9d7d6256cb2e8"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/wheel-build.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/wheel-build.stdout",
+      "bytes": 814,
+      "sha256": "a396081f7f8a29de25bde9dae67e4432b937f101eca9c080d295408bccd1e34f"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/wheel-install-process.json",
+      "bytes": 450,
+      "sha256": "a33de75b841eed643609431940186dca5044abeafae9409fbb876638d45311a6"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/wheel-install.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/wheel-install.stdout",
+      "bytes": 2723,
+      "sha256": "f2e7ae2e8546aceacb234d70e22ed834d0f5b69cccf41688d5c9454a53a08b12"
+    }
+  ],
+  "selectedSourceFiles": 103,
+  "installedSourceFiles": 100,
+  "SDKWheelPayloadCopies": 698,
+  "installedRECORDs": 17,
+  "runtimeVersion": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+  "serviceVersion": "0.1.0.dev0",
+  "launch": {
+    "initialSessionId": 40781,
+    "terminalChunkId": "a94a74",
+    "exitCode": 0,
+    "scope": "Preparation parent invoked directly in shell inherited environment with -I -B; preparation-command.json environment is a proposed selection, not the actual parent environment. Four packaging subprocesses use exact explicit environment retained command.json. No hermetic parent runtime closure claim."
+  },
+  "qualification": "Offline package/module-path/custody checks only; no SDK worker/provider startup, receiver or native operation."
+}

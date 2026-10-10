@@ -1,0 +1,189 @@
+{
+  "candidate": {
+    "bytes": 14036,
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/candidate.py",
+    "sha256": "a5b2d63ccf5b2fb7dd0b699976728057881e5f56ee40e0008434eb0c45f67ab9"
+  },
+  "checks": [
+    "bounded regular input: candidate.py",
+    "exact size: candidate.py",
+    "exact SHA256: candidate.py",
+    "bounded regular input: candidate.py",
+    "exact size: candidate.py",
+    "exact SHA256: candidate.py",
+    "bounded regular input: command.json",
+    "exact size: command.json",
+    "exact SHA256: command.json",
+    "bounded regular input: freeze.json",
+    "exact SHA256: freeze.json",
+    "bounded regular input: installed-custody.json",
+    "exact committed spanless source identity",
+    "bounded regular input: otel.py",
+    "exact size: otel.py",
+    "exact SHA256: otel.py",
+    "bounded regular input: _otel_worker.py",
+    "exact size: _otel_worker.py",
+    "exact SHA256: _otel_worker.py",
+    "bounded regular input: diagnostics.py",
+    "exact size: diagnostics.py",
+    "exact SHA256: diagnostics.py",
+    "bounded regular input: CONTRACT-006-diagnostics.md",
+    "exact SHA256: CONTRACT-006-diagnostics.md",
+    "current C006 explicitly governs genuine spanless invocation semantics",
+    "bounded regular input: METADATA",
+    "exact size: METADATA",
+    "exact SHA256: METADATA",
+    "actual installed service version remains 0.1.0.dev0",
+    "all helper, receiver, cleanup and attribute/scope functions unchanged from actual C",
+    "third attempt starts spanless; phase/finish are outside the binding",
+    "exact three sequential synthetic invocation operations",
+    "third explicit binding contains only begin_attempt",
+    "third binding carries no parent or retry context",
+    "required new/retained oracle: assert len(received) == 12 and [sum(path == route for path, _ in received) for route in ('/v1/logs', '/v1/traces', '/v1/metrics')] == [9, 2, 1]",
+    "required new/retained oracle: assert snapshot['capture_complete'] and snapshot['matched'] == 9 and len(events) == 9",
+    "required new/retained oracle: assert resource['service.version'] == metadata.version('ashlar-graph-toolkit')",
+    "required new/retained oracle: assert len(logs) == 9 and len(spans) == 2 and len(points) == 3",
+    "required new/retained oracle: assert log.time_unix_nano == 0 and log.observed_time_unix_nano == int(event['observed_timestamp_unix_nano'])",
+    "required new/retained oracle: assert attributes(log.attributes) == {**event['attributes'], 'ashlar.diagnostic.schema_version': event['schema_version']}",
+    "required new/retained oracle: assert event['attributes']['ashlar.operation'] == 'source-admission'",
+    "required new/retained oracle: assert not log.trace_id and not log.span_id and log.flags == 0",
+    "required new/retained oracle: assert all('trace' not in event for event in events[6:])",
+    "required new/retained oracle: for signal, count in (('logs', 9), ('spans', 2), ('metrics', 3)):",
+    "required new/retained oracle: assert manifest['loss'][signal] == {'submitted': count, 'handed_off': count, 'dropped': 0, 'unknown': False, 'flush': 'complete'}",
+    "required new/retained oracle: {'ashlar.operation': 'source-admission', 'ashlar.outcome': 'succeeded'}",
+    "command agrees with separate request/logical-unit counts",
+    "exact new trace presence/absence branch",
+    "candidate D is precisely the reviewed delta; all other actual C source bytes unchanged",
+    "facade started-only selection and binding restoration: if started:\n            request['create_span'] = create_span",
+    "facade started-only selection and binding restoration: self._operation_binding.reset(token)",
+    "installed spanless correspondence: set_status_on_exception=False) if request['create_span'] else None",
+    "installed spanless correspondence: 'span': span, 'operation': request['operation']",
+    "installed spanless correspondence: actual = attempt['span'].get_span_context() if attempt['span'] is not None else None",
+    "installed spanless correspondence: result = None if actual is None else",
+    "installed spanless correspondence: (actual is None and 'trace' not in event)",
+    "installed spanless correspondence: token = attach(Context()) if actual is None else None",
+    "installed spanless correspondence: trace_id=actual.trace_id if actual is not None else 0, span_id=actual.span_id if actual is not None else 0",
+    "installed spanless correspondence: trace_flags=actual.trace_flags if actual is not None else 0",
+    "installed spanless correspondence: if attempt['span'] is not None:\n                attempt['span'].set_attribute('ashlar.outcome', outcome)",
+    "installed spanless correspondence: self.counter.add(1, {'ashlar.operation': key[0], 'ashlar.outcome': key[1]}, context=Context())",
+    "bounded regular input: candidate.py",
+    "exact size: candidate.py",
+    "exact SHA256: candidate.py",
+    "unchanged closing bytes: candidate.py",
+    "bounded regular input: candidate.py",
+    "exact size: candidate.py",
+    "exact SHA256: candidate.py",
+    "unchanged closing bytes: candidate.py",
+    "bounded regular input: command.json",
+    "exact size: command.json",
+    "exact SHA256: command.json",
+    "unchanged closing bytes: command.json",
+    "bounded regular input: freeze.json",
+    "exact size: freeze.json",
+    "exact SHA256: freeze.json",
+    "unchanged closing bytes: freeze.json",
+    "bounded regular input: installed-custody.json",
+    "exact size: installed-custody.json",
+    "exact SHA256: installed-custody.json",
+    "unchanged closing bytes: installed-custody.json",
+    "bounded regular input: otel.py",
+    "exact size: otel.py",
+    "exact SHA256: otel.py",
+    "unchanged closing bytes: otel.py",
+    "bounded regular input: _otel_worker.py",
+    "exact size: _otel_worker.py",
+    "exact SHA256: _otel_worker.py",
+    "unchanged closing bytes: _otel_worker.py",
+    "bounded regular input: diagnostics.py",
+    "exact size: diagnostics.py",
+    "exact SHA256: diagnostics.py",
+    "unchanged closing bytes: diagnostics.py",
+    "bounded regular input: CONTRACT-006-diagnostics.md",
+    "exact size: CONTRACT-006-diagnostics.md",
+    "exact SHA256: CONTRACT-006-diagnostics.md",
+    "unchanged closing bytes: CONTRACT-006-diagnostics.md",
+    "bounded regular input: METADATA",
+    "exact size: METADATA",
+    "exact SHA256: METADATA",
+    "unchanged closing bytes: METADATA"
+  ],
+  "conditions": [
+    "Parent owns command/input/fresh-path/cleanup review and opening/closing verification. Actual receiver qualification requires retained D execution and wire review; this receipt makes no actual outcome claim."
+  ],
+  "findings": [],
+  "format": "astra-independent-unexecuted-receiver-source-gate/0.1",
+  "limitations": [
+    "No concurrent attempts, native workflow, privacy sentinel, outage/deadline/cancellation or full C006 qualification is implied.",
+    "No original C evidence was edited."
+  ],
+  "method": "Read-only source comparison, inert stdlib AST inspection and exact installed-source custody checks; no candidate/module execution, SDK/provider construction, receiver/worker/network/native run.",
+  "openingClosingPins": [
+    {
+      "bytes": 13465,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-c/candidate.py",
+      "sha256": "b1da715f60001fb8f650167d074daf66eb469cf16b0bfaccfe6b8f170ee4857c"
+    },
+    {
+      "bytes": 14036,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/candidate.py",
+      "sha256": "a5b2d63ccf5b2fb7dd0b699976728057881e5f56ee40e0008434eb0c45f67ab9"
+    },
+    {
+      "bytes": 2112,
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/command.json",
+      "sha256": "90c25a9d8ca5ad77880828f4ff7ef9baf6d6ca51cc22ca055f97ebfe1ce266b9"
+    },
+    {
+      "bytes": 6469,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/freeze.json",
+      "sha256": "42aa7c1f88287b1d4704c8da10eee8f4c100da5287dbe2536d631047735b42aa"
+    },
+    {
+      "bytes": 267144,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/installed-custody.json",
+      "sha256": "c55a1930d035c65d15dec6cf6b024771f864eb93daa7c90d37f90b22d2266cb8"
+    },
+    {
+      "bytes": 13883,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/ashlar_host/otel.py",
+      "sha256": "da0ec86efd8563204722b3e5dc2870706d1757042bbcf137a79d7d1f0694a1cd"
+    },
+    {
+      "bytes": 34171,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/ashlar_host/_otel_worker.py",
+      "sha256": "143e6baf0d47c0886c69269a589883af4b4b100afa16fd161710eaa885a25a57"
+    },
+    {
+      "bytes": 37137,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/ashlar_host/diagnostics.py",
+      "sha256": "ead220a3197e067aca789c0a857744af8b5c73da29514b97d83cd771ba8513c9"
+    },
+    {
+      "bytes": 24406,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "sha256": "06a8919aaecdfbf6f83b53bfbfa0cb09574cc654b2dcb827226cb55c6f8607cd"
+    },
+    {
+      "bytes": 5400,
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/lib/python3.11/site-packages/ashlar_graph_toolkit-0.1.0.dev0.dist-info/METADATA",
+      "sha256": "4231090070e09fab05cd689a7d0478d2732cbabfd8ae49c8cec2fc72b1ca426e"
+    }
+  ],
+  "oracleAssessment": [
+    "The first two traced invocations retain every C parent/link/span/flags/status/time oracle unchanged.",
+    "All nine local events must be captured; all nine OTLP logs retain exact original timestamp/severity/body/EventName/attributes/schema version/resource/scope mapping.",
+    "The final three local events must omit trace. Their logs must have empty trace ID/span ID and zero flags; trace-less events must identify source-admission.",
+    "Exactly two ended spans remain, so no span is exported for the third invocation.",
+    "One cumulative monotonic integer Sum contains three points, each value one, with only operation/outcome dimensions; the source-admission/succeeded point is required.",
+    "Manifest export loss checks use logical units 9/2/3 independently of HTTP requests 9/2/1.",
+    "Resource service.version remains actual installed metadata, not the fixture SDK version."
+  ],
+  "reviewerCorrection": "Initial inert harness stopped on historical C006 hash; reviewed current explicit spanless contract and corrected pin before continuing. Historical-hash failure log retained; not a product or candidate failure.",
+  "scope": "Three sequential synthetic public attempts; third source-admission starts with create_span=False and leaves binding before phase/finish; expected nine logs, two spans, one cumulative integer metric request carrying three points.",
+  "script": {
+    "bytes": 12654,
+    "path": "/private/tmp/astra-otel-installed-receiver-delta-source-review-20261010-d.py",
+    "sha256": "aabc988ff2ec4210f2d8920fe2bdf4ce2e1e50499259e7b90ddadbc0ee4c7c45"
+  },
+  "verdict": "approved-source-oracle-only"
+}

@@ -1,0 +1,111 @@
+{
+  "format": "ashlar-installed-spanless-receiver-independent-review/0.1",
+  "verdict": "approved-actual-three-attempt-subset",
+  "sourceCommit": "ea4b4ff433edfe096ea40290f19cf1439c5fae33",
+  "sourceCommandReview": {
+    "path": "/private/tmp/astra-otel-installed-receiver-command-review-20261010-d.json",
+    "bytes": 4838,
+    "sha256": "d1469b197dbda26a2fde1dc9c88e01e6e4651d3ae66860ccaca5030a8adf403e"
+  },
+  "installedPreparationReview": {
+    "path": "/private/tmp/astra-otel-spanless-installed-preparation-review-20261010-b.json",
+    "bytes": 3115,
+    "sha256": "9547f2c6ce4f80ada7b13929ed8ae9df8948aeb706d296aa5f73634feb2909cb"
+  },
+  "actualProcess": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/process.json",
+    "bytes": 619,
+    "sha256": "ba90b67d034663cb2b077364313d3f90608c37307710aa90e4ba58335c73ccd1"
+  },
+  "processObservation": {
+    "format": "ashlar-actual-process/0.1",
+    "execution": "direct-foreground-selected-interpreter-no-outer-wrapper",
+    "commandSha256": "90c25a9d8ca5ad77880828f4ff7ef9baf6d6ca51cc22ca055f97ebfe1ce266b9",
+    "exitCode": 0,
+    "observedWallTimeSeconds": 0.357319166,
+    "toolChunk": "b2c712",
+    "selectedInputCount": 923,
+    "closingCustodyPassed": true,
+    "stdoutBytes": 0,
+    "stderrBytes": 186,
+    "scope": "Three synthetic sequential invocations (two traced, one spanless) through actual installed public owner and SDK worker to a real cooperative loopback receiver. No native/source/publication/ACK or full C006 claim."
+  },
+  "result": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/result.json",
+    "bytes": 2755,
+    "sha256": "aa7ee94097b8ff5dcb098a8f987ff5acfbf755d2df3c4cb4bf8594baf5c15f93"
+  },
+  "independentReviews": {
+    "custodyAndCapture": {
+      "path": "/private/tmp/astra-otel-installed-receiver-custody-review-20261010-d.json",
+      "bytes": 8301,
+      "sha256": "6380f56d4ad30f557f901779db90596cebde91f4b24b27fe481076e81cd52a4c"
+    },
+    "completeRetainedWire": {
+      "path": "/private/tmp/astra-otel-installed-receiver-protobuf-review-20261010-d.json",
+      "bytes": 57104,
+      "sha256": "276f4faa068fa8c528136cbcbbcb026db47115ff46e14c1f0b5551f3fa3a9fb8"
+    }
+  },
+  "reviewArtifacts": [
+    {
+      "path": "/private/tmp/astra-otel-installed-receiver-custody-review-20261010-d.py",
+      "bytes": 9544,
+      "sha256": "3ab7a2ffe63866314754fb3ba0329cc1768b48549b1a95e404d43444f02fa291"
+    },
+    {
+      "path": "/private/tmp/astra-otel-installed-receiver-custody-review-20261010-d.log",
+      "bytes": 179,
+      "sha256": "8c21cd132797bc1dbc210e52007c7cba8643dfed22b72145d13e901bce4bdad9"
+    },
+    {
+      "bytes": 29684,
+      "path": "/private/tmp/astra-otel-installed-receiver-protobuf-review-20261010-d.py",
+      "sha256": "385942c70c5b591537e8b01fc8771871163447eff63d8adbd763523ceb73d864"
+    },
+    {
+      "path": "/private/tmp/astra-otel-installed-receiver-protobuf-review-20261010-d.log",
+      "bytes": 286,
+      "sha256": "d0c0da5841cb24586d17d69d4605be6f7a8033dd5901287b94f467c93d173909"
+    }
+  ],
+  "checks": {
+    "selectedInputs": 923,
+    "openingClosingIdentical": true,
+    "exactOutputFiles": 24,
+    "requestCount": 12,
+    "requestBytes": 8149,
+    "logs": 9,
+    "spans": 2,
+    "metricRequests": 1,
+    "cumulativeIntegerSumPoints": 3,
+    "localClosedEvents": 9,
+    "eventAndManifestOfflineSchemaValidations": 10,
+    "wireAssertions": 18761,
+    "fullWireAudit": {
+      "duplicateAttributeKeys": 0,
+      "duplicateSingularFields": 0,
+      "fields": 831,
+      "messages": 400,
+      "roundtripExactRequests": 12,
+      "unknownFields": 0
+    },
+    "noStageOrUnexpectedOutputs": true,
+    "stdoutBytes": 0,
+    "stderrBytes": 186,
+    "stderrContent": "Exactly the fixed started/phase/finished catalog lines, three times."
+  },
+  "spanlessEvidence": "The third source-admission invocation starts under create_span=False, then its phase and finish run after binding exit. Sequences7\u20139 omit trace locally and all corresponding OTLP logs omit trace_id/span_id and have zero flags. No third span is present. Its succeeded operation/outcome contributes exactly one cumulative integer counter point. The closed manifest reports known complete logical-unit loss9/2/3.",
+  "preservedTracedSemantics": "The first held-read success and second publication refusal retain the previously reviewed explicit remote-parent/external retry-link mappings, exact resource/scope/type/time/event/span/status/attribute assertions. All12 protobuf bodies are fully parsed with no extra/unknown fields.",
+  "contextEvidenceLimit": "Parent and link are explicitly authored remote SpanContext fixtures. The two distinct child span IDs and retry-root trace ID are observed in both original local capture and retained OTLP. Inspected installed source gets them from Tracer.start_span/get_span_context and validates every log against that owned context. This is source-to-retained-output correspondence, not an independently captured in-memory worker context transcript or proof of randomness.",
+  "metadata": "Actual installed ashlar-graph-toolkit0.1.0.dev0, selected OTel SDK/API1.45.1. Incoming parent/retry contexts are explicit fixture values; third invocation creates no current span.",
+  "scope": "Actual installed public DiagnosticRun/OtelRun and isolated SDK worker to a cooperative loopback HTTP/protobuf receiver for three sequential synthetic attempts. Reviewers decoded retained files only; no receiver/worker/provider/native replay.",
+  "limitations": [
+    "Synthetic operation labels execute no real source admission, publication, native query or protected ACK workflow.",
+    "Finite wire reception and local handed_off accounting do not prove durable remote delivery.",
+    "No concurrent delivery, credential/privacy sentinel, outage/deadline/fault/performance or investigator-pilot qualification.",
+    "No hermetic runtime, exhaustive process census, abrupt-root-death or global forced-termination guarantee.",
+    "No full CONTRACT-006, broader product support or mechanical DIAG invariant proof is inferred."
+  ],
+  "findings": []
+}

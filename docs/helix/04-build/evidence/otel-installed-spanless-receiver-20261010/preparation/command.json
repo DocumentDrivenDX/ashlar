@@ -1,0 +1,101 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "/private/tmp/ashlar-host-wheel-env-20261010-a/bin/python",
+        "-I",
+        "-B",
+        "-m",
+        "venv",
+        "--without-pip",
+        "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment"
+      ],
+      "cwd": "/private/tmp/ashlar-otel-installed-preparation-20261010-b",
+      "phase": "fresh-environment"
+    },
+    {
+      "argv": [
+        "/private/tmp/ashlar-host-wheel-env-20261010-a/bin/python",
+        "-I",
+        "-B",
+        "-m",
+        "pip",
+        "--isolated",
+        "wheel",
+        "--no-deps",
+        "--no-index",
+        "--no-cache-dir",
+        "--no-build-isolation",
+        "--wheel-dir",
+        "/private/tmp/ashlar-otel-installed-preparation-20261010-b/wheels",
+        "."
+      ],
+      "cwd": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/source",
+      "phase": "wheel-build"
+    },
+    {
+      "argv": [
+        "/private/tmp/ashlar-host-wheel-env-20261010-a/bin/python",
+        "-I",
+        "-B",
+        "-m",
+        "pip",
+        "--isolated",
+        "--python",
+        "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment",
+        "install",
+        "--no-index",
+        "--no-deps",
+        "--no-compile",
+        "--no-cache-dir",
+        "/private/tmp/ashlar-otel-installed-preparation-20261010-b/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/certifi-2025.10.5-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/charset_normalizer-3.4.3-cp311-cp311-macosx_10_9_universal2.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/googleapis_common_protos-1.75.0-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/idna-3.15-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_api-1.45.1-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_exporter_http_transport-0.66b1-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_exporter_otlp_common-0.66b1-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_exporter_otlp_proto_common-1.45.1-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_exporter_otlp_proto_http-1.45.1-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_proto-1.45.1-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_sdk-1.45.1-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/opentelemetry_semantic_conventions-0.66b1-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/protobuf-6.33.6-cp39-abi3-macosx_10_9_universal2.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/requests-2.33.0-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/typing_extensions-4.15.0-py3-none-any.whl",
+        "/private/tmp/ashlar-otel-wheel-inputs-20261010-c/urllib3-2.8.0-py3-none-any.whl"
+      ],
+      "cwd": "/private/tmp/ashlar-otel-installed-preparation-20261010-b",
+      "phase": "wheel-install"
+    },
+    {
+      "argv": [
+        "/private/tmp/ashlar-otel-installed-preparation-20261010-b/environment/bin/python",
+        "-I",
+        "-B",
+        "/private/tmp/ashlar-otel-installed-preparation-20261010-b/verify_installed.py"
+      ],
+      "cwd": "/private/tmp/ashlar-otel-installed-preparation-20261010-b",
+      "phase": "installed-custody"
+    }
+  ],
+  "environment": {
+    "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin",
+    "PIP_CONFIG_FILE": "/dev/null",
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "TMPDIR": "/private/tmp/ashlar-otel-installed-preparation-20261010-b/tmp"
+  },
+  "limits": {
+    "phaseSeconds": 60,
+    "stderrBytes": 262144,
+    "stdoutBytes": 262144
+  },
+  "phaseImplementation": {
+    "bytes": 4957,
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/root-runner.py",
+    "sha256": "11f9724e4b22a9610cdca5c01ced6580f4e6f2476b5489366c32bfca31942a3c"
+  },
+  "scope": "Offline package preparation only; no worker startup, receiver, network or native operation; dependency/runtime closure is selected custody, not hermetic reproducibility.",
+  "sourceCommit": "ea4b4ff433edfe096ea40290f19cf1439c5fae33"
+}

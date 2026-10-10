@@ -1,0 +1,195 @@
+{
+  "verdict": "approved-actual-custody-and-local-capture",
+  "scope": "Actual3synthetic sequential installed host invocations; no receiver/worker rerun by reviewer. Independent protobuf wire review is separate.",
+  "selectedInputCount": 923,
+  "selectedOpeningClosingEqual": true,
+  "process": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/process.json",
+    "bytes": 619,
+    "sha256": "ba90b67d034663cb2b077364313d3f90608c37307710aa90e4ba58335c73ccd1"
+  },
+  "stdout": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/process.stdout",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/process.stderr",
+    "bytes": 186,
+    "sha256": "c9ffdbd72ddd751f069bee2130a722e836e52f566a8ac6b0b55edec057ea3666"
+  },
+  "result": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/result.json",
+    "bytes": 2755,
+    "sha256": "aa7ee94097b8ff5dcb098a8f987ff5acfbf755d2df3c4cb4bf8594baf5c15f93"
+  },
+  "outputFiles": 24,
+  "outputInventory": [
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/candidate.py",
+      "bytes": 14036,
+      "sha256": "a5b2d63ccf5b2fb7dd0b699976728057881e5f56ee40e0008434eb0c45f67ab9"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/capture/d2b91081b708414481a5fdb4b052894e/events-0000.jsonl",
+      "bytes": 7210,
+      "sha256": "074ceef237529a1dc6258227e45019fb863347cc7de2846e4290897836b08641"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/capture/d2b91081b708414481a5fdb4b052894e/run.json",
+      "bytes": 2159,
+      "sha256": "d8893bf4c264c1eaa4f12edda9f796a4e3679046145206b0cd17b44612bef282"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/closing-inputs.json",
+      "bytes": 249858,
+      "sha256": "8067a1318078770eef0556be1b7e347f824017e50340dd9c2ad751fa9badb281"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/command.json",
+      "bytes": 2112,
+      "sha256": "90c25a9d8ca5ad77880828f4ff7ef9baf6d6ca51cc22ca055f97ebfe1ce266b9"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/expected.json",
+      "bytes": 10231,
+      "sha256": "3c1de0d4ef0cbcd164e41b2a5108575e19676d1523e561c4cba771ac2054adf9"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/opening-inputs.json",
+      "bytes": 249858,
+      "sha256": "8067a1318078770eef0556be1b7e347f824017e50340dd9c2ad751fa9badb281"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/process.json",
+      "bytes": 619,
+      "sha256": "ba90b67d034663cb2b077364313d3f90608c37307710aa90e4ba58335c73ccd1"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/process.stderr",
+      "bytes": 186,
+      "sha256": "c9ffdbd72ddd751f069bee2130a722e836e52f566a8ac6b0b55edec057ea3666"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/process.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/receiver-observations.json",
+      "bytes": 2158,
+      "sha256": "5d3431951cd882ced95195d24692a35b7ff787c056376f87b8f8478aaddd7160"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-00.pb",
+      "bytes": 659,
+      "sha256": "cab98328919a224554242790c2223177ee3ea89f72cfaaefa4f05789589a4118"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-01.pb",
+      "bytes": 724,
+      "sha256": "f66b9bdffb9c774326255675f674f638d691f2f701f7930636981b0f902ef203"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-02.pb",
+      "bytes": 721,
+      "sha256": "23dc79fa862fb5f882508073a26e18ab63448818d490bf74cfce6e9d571a13b1"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-03.pb",
+      "bytes": 661,
+      "sha256": "2042f01e75455daac2672863f96527fe40201dc21173f8022b9f82323c60c5bd"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-04.pb",
+      "bytes": 728,
+      "sha256": "3636d914f01056c67f79a3820afa299294fd7d6cf3c367c3475f21c474f07ad4"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-05.pb",
+      "bytes": 755,
+      "sha256": "ce7d8e12f5bf07b4ad783c4809507f9bf71f224b53dc62a8a427612ece9ca7ca"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-06.pb",
+      "bytes": 633,
+      "sha256": "cdbf68a6c6846888a254f32740035a74fc5b039d8bd0fadaf9b2878d5925ca3b"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-07.pb",
+      "bytes": 702,
+      "sha256": "6c79676ad10a792544a2c92287326bd08fc4a55dc2c7030f3cba0d590f0a2b83"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-08.pb",
+      "bytes": 695,
+      "sha256": "2fe8315d87969c7084f0bef652215d8cd63f79ca05655625c5a89cc327498c4a"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-09.pb",
+      "bytes": 587,
+      "sha256": "4bc4105489ca30664490dda60e8d555071f0655b736024529bcc8f943e47ce83"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-10.pb",
+      "bytes": 650,
+      "sha256": "0b49d583d03ba9b28d0e8a72ef1d5ae806b21eff9e33bd06b1484b9b669914eb"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/request-11.pb",
+      "bytes": 634,
+      "sha256": "c8e8d1a45f2488dc8e807f27d14f9bd42462dd0f9374a6fb3d2f51e2a7d99540"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/result.json",
+      "bytes": 2755,
+      "sha256": "aa7ee94097b8ff5dcb098a8f987ff5acfbf755d2df3c4cb4bf8594baf5c15f93"
+    }
+  ],
+  "requestCount": 12,
+  "requestBodyBytes": 8149,
+  "capture": {
+    "manifest": {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/capture/d2b91081b708414481a5fdb4b052894e/run.json",
+      "bytes": 2159,
+      "sha256": "d8893bf4c264c1eaa4f12edda9f796a4e3679046145206b0cd17b44612bef282"
+    },
+    "segment": {
+      "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-d/capture/d2b91081b708414481a5fdb4b052894e/events-0000.jsonl",
+      "bytes": 7210,
+      "sha256": "074ceef237529a1dc6258227e45019fb863347cc7de2846e4290897836b08641"
+    },
+    "events": 9,
+    "attempts": 3,
+    "originalExpectedEquality": true,
+    "closedComplete": true,
+    "schemaChecks": 10,
+    "schemas": [
+      {
+        "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/schemas/diagnostic-event-v0.1.schema.json",
+        "bytes": 6206,
+        "sha256": "75406834cb25ad1b5cc8e660aa57ac7b2fcc34fcdd79fc3f94718320f837a860"
+      },
+      {
+        "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/schemas/diagnostic-run-v0.1.schema.json",
+        "bytes": 7772,
+        "sha256": "f32abe5d39074a4c82e00cbb3d9c071dc65666bdde779c958953f863de049bd2"
+      }
+    ],
+    "validatorVersions": {
+      "jsonschema": "4.23.0",
+      "referencing": "0.35.1"
+    }
+  },
+  "limitations": [
+    "Synthetic held-read/publication labels do not execute native query/publication or exercise source/ACK authority.",
+    "Handed_off counts are local transport completion; this finite review also has exact receiver bytes but makes no durable remote delivery guarantee.",
+    "No concurrent/outage/deadline/privacy-sentinel or investigator pilot claim.",
+    "No hostile local peer/abrupt host death/global runtime closure claim; process census was not performed by reviewer."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-otel-installed-receiver-custody-review-20261010-d.py",
+    "bytes": 9544,
+    "sha256": "3ab7a2ffe63866314754fb3ba0329cc1768b48549b1a95e404d43444f02fa291"
+  }
+}

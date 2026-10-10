@@ -1,0 +1,13 @@
+{
+  "format": "ashlar-actual-process/0.1",
+  "execution": "direct-foreground-selected-interpreter-no-outer-wrapper",
+  "commandSha256": "90c25a9d8ca5ad77880828f4ff7ef9baf6d6ca51cc22ca055f97ebfe1ce266b9",
+  "exitCode": 0,
+  "observedWallTimeSeconds": 0.357319166,
+  "toolChunk": "b2c712",
+  "selectedInputCount": 923,
+  "closingCustodyPassed": true,
+  "stdoutBytes": 0,
+  "stderrBytes": 186,
+  "scope": "Three synthetic sequential invocations (two traced, one spanless) through actual installed public owner and SDK worker to a real cooperative loopback receiver. No native/source/publication/ACK or full C006 claim."
+}

@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/private/tmp/astra-otel-installed-receiver-delta-source-review-20261010-d.py", line 45, in <module>
+    read(Path('/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md'),
+  File "/private/tmp/astra-otel-installed-receiver-delta-source-review-20261010-d.py", line 28, in read
+    if digest is not None: check(pin['sha256'] == digest, 'exact SHA256: ' + path.name)
+  File "/private/tmp/astra-otel-installed-receiver-delta-source-review-20261010-d.py", line 19, in check
+    raise AssertionError(label)
+AssertionError: exact SHA256: CONTRACT-006-diagnostics.md
