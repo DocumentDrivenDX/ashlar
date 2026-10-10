@@ -14,17 +14,25 @@ WRITE_OR_DELEGATE={'MODIFY','ALL PRIVILEGES','MANAGE','OWN','OWNERSHIP'}
 
 
 def validate_writer_inventory(owner, grants, *, trusted_writers):
-    trusted=set(trusted_writers)
-    if not trusted or any(not isinstance(p,str) or not p for p in trusted):
+    writer_kind=type(trusted_writers)
+    if writer_kind is not list and writer_kind is not tuple and writer_kind is not set and writer_kind is not frozenset:
         raise AuthorityError('Explicit trusted writer identities required')
-    if not isinstance(owner,str) or not owner or owner not in trusted:
+    captured=tuple(trusted_writers)
+    if not captured or any(type(p) is not str or not p for p in captured):
+        raise AuthorityError('Explicit trusted writer identities required')
+    trusted=set(captured)
+    if type(owner) is not str or not owner or owner not in trusted:
         raise AuthorityError('Native owner is outside admitted writer authority')
-    if not isinstance(grants,(list,tuple)):
+    grant_kind=type(grants)
+    if grant_kind is not list and grant_kind is not tuple:
         raise AuthorityError('Complete native grant inventory required')
-    for grant in grants:
-        if not isinstance(grant,dict) or not {'Principal','ActionType','ObjectType','ObjectKey'}.issubset(grant):
+    for original in tuple(grants):
+        if type(original) is not dict:
             raise AuthorityError('Incomplete native permission record')
-        if any(not isinstance(grant[k],str) or not grant[k] for k in ['Principal','ActionType','ObjectType','ObjectKey']):
+        grant=original.copy()
+        if any(type(k) is not str for k in grant) or not {'Principal','ActionType','ObjectType','ObjectKey'}.issubset(grant):
+            raise AuthorityError('Incomplete native permission record')
+        if any(type(grant[k]) is not str or not grant[k] for k in ['Principal','ActionType','ObjectType','ObjectKey']):
             raise AuthorityError('Invalid native permission carrier')
         action=grant['ActionType']
         if action not in READ_OR_CREATE|WRITE_OR_DELEGATE:

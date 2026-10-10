@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "versions": {
+    "python": "3.9.6"
+  },
+  "sourceDigests": {
+    "src/ashlar/authority.py": "babac31a4601603e3d6d0d67fe3540f680068660bb92249b555b361aa8524b51",
+    "tests/test_authority.py": "f7de581d259221f7c8c680aa453c700e0421318ec01fb9497207352db4ec95b2",
+    "tests/test_effective_grants.py": "e8fc99d83fa0c611dbb8b06cd21d3d46851ff18b7b24a9bb7951a8f02c35f94a",
+    "tests/test_native_registry_authority.py": "470a7697c85d9b4774cde1a9ba9981dec81035ff0520af4282042cf09240e3ff",
+    "tools/native_owner_lane.py": "0716c2b14a2db152d6ac59c16a0fecfd11634adeefca610d2abd56580daadf06",
+    "tools/native_registry_authority.py": "f6914c7743d182e41300e37de212d1f327b68705836d26a1f337fb28fb431394"
+  },
+  "sourcesUnchanged": true,
+  "runs": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_authority.py"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": ".........\n----------------------------------------------------------------------\nRan 9 tests in 0.000s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_effective_grants.py"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_native_registry_authority.py"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.014s\n\nOK\n"
+    }
+  ],
+  "nativeImplementationQualified": false,
+  "scope": "Local plain-data carrier validation: nine authority, three effective-grants and two mocked registry tests. Exact type identity refuses metaclass equality spoofing without callbacks. No complete import closure, concurrent inventory snapshot, Unity Catalog execution, inventory authentication, ordinary actor authorization, publication custody or backend acceptance."
+}

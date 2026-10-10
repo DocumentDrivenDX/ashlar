@@ -35,3 +35,45 @@ See [the runnable guide](../../../examples/end-to-end/README.md),
 [resolver contract](../02-design/contracts/CONTRACT-004-publication-resolver.md).
 Historical execution notes are retained in [original evidence](evidence/documentation-history-20261009/end-to-end-plan.original.txt);
 its provenance file records the original relative-link base and byte digest.
+
+## Trusted-writer carrier correction — 2026-10-09
+
+Local authority validation previously split a scalar `trusted_writers='alice'`
+into characters and could admit owner `a`. The validator now requires exact
+built-in list/tuple/set/frozenset containers, captures one tuple, and requires
+plain nonempty string identities before constructing membership. Regression
+controls also refuse an executable list subclass that changes identities between
+iterations and an unhashable string subclass; the former is refused without
+calling its iterator. Supported collections retain whole-identity behavior.
+
+Six authority tests, three effective-grants tests and two mocked registry tests
+pass on Python 3.9.6. Astra independently rechecks the authority tests and reports
+no remaining defect in this change. [Source-pinned local evidence](evidence/authority-writer-carriers-20261009.json)
+records commands and qualification. This does not establish native Unity Catalog
+permissions, the separate owner/grant-input boundaries, authenticated ordinary
+actors or production publication authority; those obligations remain open.
+
+## Owner and grant plain-data correction — 2026-10-09
+
+A follow-on control demonstrated that a string subclass with spoofed equality
+and hashing could impersonate an admitted owner or MODIFY principal. Owner,
+permission keys and required permission fields now require exact built-in string
+values. Grant inventories require built-in lists or tuples; records require
+built-in dictionaries and are copied before validation.
+
+Astra identified that tuple membership in the initial exact-container check still
+called type equality: a custom metaclass could impersonate an admitted container.
+The corrected checks compare type identity with `is`. Regression controls refuse
+foreign writer and grant containers without equality or iterator callbacks.
+
+Nine authority tests, three effective-grants tests and two mocked registry tests
+pass on Python 3.9.6 with unchanged captured sources. The new
+[source-pinned receipt](evidence/authority-plain-carriers-reviewed-20261009.json)
+retains all commands and results. Earlier writer-only and owner/grant receipts
+remain historical checkpoints; their source pins do not describe this revision.
+No complete import closure, concurrent inventory snapshot, native inventory
+authentication, Unity Catalog execution or full backend acceptance is established.
+
+Astra ultra independently reran all nine authority tests on the corrected
+revision and found no remaining actionable defect within local plain-data
+validation. The review does not qualify the native obligations above.

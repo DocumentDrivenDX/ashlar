@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "versions": {
+    "python": "3.9.6"
+  },
+  "sourceDigests": {
+    "src/ashlar/authority.py": "f20d57ce5fa9d4faa75108302314b8b8a3356261b2b54be2760068bec61f70a0",
+    "tests/test_authority.py": "45a8d617bf84429cbd67b0557f4a435793006f2ab9a5026b2c641336b83613ab",
+    "tests/test_effective_grants.py": "e8fc99d83fa0c611dbb8b06cd21d3d46851ff18b7b24a9bb7951a8f02c35f94a",
+    "tests/test_native_registry_authority.py": "470a7697c85d9b4774cde1a9ba9981dec81035ff0520af4282042cf09240e3ff",
+    "tools/native_owner_lane.py": "0716c2b14a2db152d6ac59c16a0fecfd11634adeefca610d2abd56580daadf06",
+    "tools/native_registry_authority.py": "f6914c7743d182e41300e37de212d1f327b68705836d26a1f337fb28fb431394"
+  },
+  "sourcesUnchanged": true,
+  "runs": [
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_authority.py"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "........\n----------------------------------------------------------------------\nRan 8 tests in 0.001s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_effective_grants.py"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "...\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n"
+    },
+    {
+      "command": [
+        "python3",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests",
+        "-p",
+        "test_native_registry_authority.py"
+      ],
+      "exitCode": 0,
+      "stdout": "",
+      "stderr": "..\n----------------------------------------------------------------------\nRan 2 tests in 0.024s\n\nOK\n"
+    }
+  ],
+  "nativeImplementationQualified": false,
+  "scope": "Local plain-data trusted-writer, owner and grant carrier validation; eight authority, three effective-grants and two mocked registry tests. Source pins do not assert complete import closure or concurrent inventory snapshots. No Unity Catalog execution, native inventory authentication, ordinary actor authorization, publication custody or backend acceptance."
+}
