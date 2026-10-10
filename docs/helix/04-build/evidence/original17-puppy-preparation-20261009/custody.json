@@ -1,0 +1,30 @@
+{
+  "entries": [
+    {
+      "path": "receipt.json.gz",
+      "sha256": "80e36b22b767a00c127eb22fe8d2c9eab19ca8562aa4333d60f4fbe31a499883",
+      "original_sha256": "028baee6e38f698410fa7511b9f116c7420fcec9bd362b443015e42d176e8249",
+      "original_bytes": 3278977,
+      "original_path": "/private/tmp/ashlar-original17-puppy-preparation-20261009-a/receipt.json"
+    },
+    {
+      "path": "model.json",
+      "sha256": "236bb0c6f7afe0dfd51fa0a94cbd607182b132b9216c71f705cabd98902a1cf6",
+      "original_sha256": "236bb0c6f7afe0dfd51fa0a94cbd607182b132b9216c71f705cabd98902a1cf6",
+      "original_bytes": 98865,
+      "original_path": "/private/tmp/ashlar-original17-puppy-preparation-20261009-a/model.json"
+    },
+    {
+      "path": "source-smoke.json",
+      "sha256": "cab89b7e00509440c4b71b44fe51bc71c3d5118093a6e59232e8c2a3b1a18e02",
+      "bytes": 64466
+    }
+  ],
+  "database": {
+    "path": "/private/tmp/ashlar-original17-puppy-preparation-20261009-a/scenarios.duckdb",
+    "sha256": "d816fc919f9404cf5603f73d37ceb7281ac4ef841a7c3e143a90f80b954e715b",
+    "bytes": 2895872,
+    "mode": "0o444"
+  },
+  "scope": "Actual fresh public source admission then native DuckDB full-cell parity preparation only; no PuppyGraph activation/execution."
+}
