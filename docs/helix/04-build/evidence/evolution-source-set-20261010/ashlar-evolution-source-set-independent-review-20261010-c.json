@@ -1,0 +1,31 @@
+{
+  "profile": "ashlar-evolution-source-set-independent-review/0.1",
+  "decision": "approve corrected frozen C",
+  "freeze_sha256": "aaa1ac2d6b43fd729e8fd187936e7c7fc06991cd64f19ab10153a25c007aaeec",
+  "owned_sha256": {
+    "src/ashlar_host/evolution_admission.py": "e4b1f021e0583d3972cd440eee2a85fb9305b7ab2e6bf7cc49bf9cbfbad61ad4",
+    "tests/test_evolution_source_set.py": "ba109aac9ef5417f6c07974dd63262afce23be57c8049e106cc0ac945a8eb478",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "822f41c8e14eb682e9a84c0d6a5be075757f05078a0aa50de5ed6e297fc901f3",
+    ".github/workflows/weft-distribution.yml": "34f373196be58b3ed4367e2adbb8f5e7ee5ff8c56c39257642945cace0efa4af"
+  },
+  "checks": [
+    "Exact four frozenfiles and three original testlogs",
+    "Independent actual12newtests2.079s plus9admissionregression1.052s Python3.9 -S ResourceWarningerror passed",
+    "ASTmoduleboundary check passed",
+    "Constructor strictrecursive exacttypes/canonicalcustodybytes and ownedreconstructedadmissions; no borrowedvalidatedobjects",
+    "Publicchange/transition and sourcekey forgedexecutableequality controls refuse beforecaller equality",
+    "Complete prefix0..4 inventory and exactfourUTCtransactionclocktuples per source; prefixzero stillvalidatesclocks",
+    "QualifiedoverlappingA/Blocalidentity and shared epoch/delivery IDs remainindependent",
+    "Independentcomplete entity/property/retained/endpoints/historyrawbytes/tombstone comparison tocore replay4/3and1/0",
+    "Original delivery/batch clockwitness matches touch-onlynative graphplan: unchangedR2rows retainR1clock,R3survivors retainpriorclock",
+    "Returnedcolumns/rows/metadatafreshcopies cannot mutateownedoracle",
+    "CIexactoneowningtestcommand andminimaldesiredADRAPI/authorityqualification"
+  ],
+  "scope": "Fixed packaged-original semantic source-set correspondence, complete independent per-original-transaction-clock prefix union oracle, core replay state reconstruction. No fresh public producer, native/source/writer/publication/ACK authority or installed publish/resume execution claim.",
+  "limits": [
+    "Not nativeSQL/publication or protectedACK evidence",
+    "Constructor correspondence is not fresh producer/currentauthority proof",
+    "Installed publish/resume orchestration stilloutstanding",
+    "Read-only reviewer; no secret/network/native execution"
+  ]
+}

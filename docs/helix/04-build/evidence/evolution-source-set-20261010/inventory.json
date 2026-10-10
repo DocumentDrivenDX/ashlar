@@ -1,0 +1,38 @@
+{
+  "format": "ashlar-evolution-source-set-evidence-inventory/0.1",
+  "qualification": "Fixed packaged-original semantic source-set correspondence, complete independent per-original-transaction-clock prefix union oracle, core replay state reconstruction. No fresh public producer, native/source/writer/publication/ACK authority or installed publish/resume execution claim.",
+  "files": [
+    {
+      "path": "ashlar-evolution-source-set-freeze-20261010-c.json",
+      "bytes": 3321,
+      "sha256": "aaa1ac2d6b43fd729e8fd187936e7c7fc06991cd64f19ab10153a25c007aaeec"
+    },
+    {
+      "path": "ashlar-evolution-source-set-independent-review-20261010-c.json",
+      "bytes": 2383,
+      "sha256": "bb4d5333455986c5809c3ac6ca9bfe2f9d3b2a3cb788e660a17138c9123c9098"
+    },
+    {
+      "path": "ashlar-evolution-source-set-tests-20261010-c.log",
+      "bytes": 1350,
+      "sha256": "dfcc69b7c2b700bc9ae8336f2aaf9f5c49525b82e9d496027553702e3b1e0c57"
+    },
+    {
+      "path": "ashlar-evolution-source-set-admission-regression-20261010-c.log",
+      "bytes": 1161,
+      "sha256": "757e440e3fb1e46a48751da6e98f8c263224ce88ceb5a5050c5021b1a48b16fd"
+    },
+    {
+      "path": "ashlar-evolution-source-set-boundaries-20261010-c.log",
+      "bytes": 94,
+      "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+    }
+  ],
+  "root_verification": {
+    "exact_frozen_source_and_logs": "passed",
+    "new_controls": 12,
+    "seconds": 2.103,
+    "tool_chunk": "ed662d",
+    "diff_check": "passed"
+  }
+}

@@ -1,0 +1,14 @@
+test_bad_receipt_refuses_and_cancel_identity_preserved (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_cleanup_cancellations_win_over_ordinary_body_failures (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_cleanup_failure_preserves_cancel_and_removes_owned_directory (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_closing_cancellation_wins_over_ordinary_body_failure (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_closing_drift_withholds_return_and_failure_still_checks_closing (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_config_exact_bounds_and_types (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_gzip_limits_trailing_data_and_invalid_config_before_capture (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_package_resources_core_four_batches_and_exact_fresh_proof_gate (test_evolution_admission.EvolutionAdmissionTests) ... ok
+test_writer_cleanup_cancellation_wins_over_ordinary_write_failure (test_evolution_admission.EvolutionAdmissionTests) ... ok
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.764s
+
+OK

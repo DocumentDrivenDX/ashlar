@@ -1,0 +1,17 @@
+test_complete_prefix_and_clock_inventories_and_bounds (test_evolution_source_set.Tests) ... ok
+test_custody_requires_original_canonical_bytes (test_evolution_source_set.Tests) ... ok
+test_full_original_oracle_matches_independent_core_replay (test_evolution_source_set.Tests) ... ok
+test_independent_full_union_uses_original_transaction_clock_witnesses (test_evolution_source_set.Tests) ... ok
+test_overlapping_local_entities_deliveries_and_epochs_remain_independent (test_evolution_source_set.Tests) ... ok
+test_public_admission_does_not_invoke_caller_equality (test_evolution_source_set.Tests) ... ok
+test_publicly_constructible_admission_rechecked_against_originals (test_evolution_source_set.Tests) ... ok
+test_returned_rows_columns_and_metadata_do_not_mutate_owned_sources (test_evolution_source_set.Tests) ... ok
+test_source_inventory_keys_never_accept_caller_equality (test_evolution_source_set.Tests) ... ok
+test_source_set_owns_reconstructed_admissions_and_rejects_executable_equality (test_evolution_source_set.Tests) ... ok
+test_unchanged_rows_preserve_first_clock_through_update_and_delete (test_evolution_source_set.Tests) ... ok
+test_zero_prefix_has_no_rows_or_progress_and_still_validates_clocks (test_evolution_source_set.Tests) ... ok
+
+----------------------------------------------------------------------
+Ran 12 tests in 1.473s
+
+OK

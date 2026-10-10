@@ -3,9 +3,10 @@
 Fresh selected public UMF calls verify source/data semantics. The source and
 runtime custody profile is fixed by this module, never by caller inventory flags.
 """
-from dataclasses import dataclass
+from dataclasses import dataclass, field, fields, is_dataclass
 import hashlib
 from importlib.resources import files
+import datetime
 import json
 import os
 import re
@@ -13,9 +14,9 @@ from pathlib import Path
 import tempfile
 import zlib
 from types import MappingProxyType
-from ashlar.commerce_evolution import PreparedEvolution, prepare, qualify, independent_oracle, PRESERVATION_SHA
+from ashlar.commerce_evolution import PreparedEvolution, prepare, qualify, independent_oracle, scoped_oracle, PRESERVATION_SHA
 from ashlar.whole_entity import changes_from_batch
-from ashlar.apply import EntityKey, EntityState
+from ashlar.apply import EntityKey, EntityState, empty_state, plan_apply
 from .config import EvolutionAdmissionConfig, HostError
 from .evolution_producer import capture, snapshot
 
@@ -103,8 +104,8 @@ def custody(config: EvolutionAdmissionConfig, resources: tuple[tuple[str, bytes]
                        'runtime_scope': closure['scope']}, sort_keys=True, separators=(',', ':')).encode()
 
 
-def original_transitions(raw: dict, original: PreparedEvolution, scoped: PreparedEvolution) -> tuple:
-    """Exact R3 prior carriers paired with surviving R4 changes; not model compatibility inference."""
+def evolution_columns(raw: dict) -> dict:
+    """Complete four-role native cell registry from the checked packaged baseline."""
     baseline = raw['baseline.sql']
     columns = {}
     for role in ('object_current', 'edge_current', 'tombstone'):
@@ -112,6 +113,12 @@ def original_transitions(raw: dict, original: PreparedEvolution, scoped: Prepare
         columns[role] = tuple((match.group(1), match.group(2)) for item in body.split(',')
                               for match in [re.match(r'\s*(\w+) (STRING|BIGINT|TIMESTAMP)', item)] if match)
     columns['whole_source_history'] = tuple((name, 'STRING') for name in ('feed','epoch','delivery_id','digest','change_json','raw_base64'))
+    return columns
+
+
+def original_transitions(raw: dict, original: PreparedEvolution, scoped: PreparedEvolution) -> tuple:
+    """Exact R3 prior carriers paired with surviving R4 changes; not model compatibility inference."""
+    columns = evolution_columns(raw)
     prior_rows = independent_oracle(raw['candidate.json'], expand_receipt(raw['public-presence.json.gz'], 4194304),
                                    raw['original-model.json'], original, columns, prefix=3,
                                    materialized_at='2026-10-09T00:00:00+00:00')
@@ -158,6 +165,176 @@ class EvolutionAdmission:
         if (previous, change) not in self.transitions:
             raise HostError('evolution-admission-refused')
 
+
+
+def original_equal(supplied, expected):
+    """Exact owned carrier types; never invoke a caller's executable equality."""
+    if type(supplied) is not type(expected):
+        return False
+    if is_dataclass(expected):
+        return all(original_equal(getattr(supplied, item.name), getattr(expected, item.name))
+                   for item in fields(expected))
+    if type(expected) is tuple:
+        return len(supplied) == len(expected) and all(original_equal(a, b) for a, b in zip(supplied, expected))
+    if type(expected) in (str, bytes, int, bool, type(None)):
+        return supplied == expected
+    return False
+
+
+@dataclass(frozen=True)
+class EvolutionSourceSet:
+    """Finite independently checked original semantic sources; never native authority.
+
+    Publicly constructible admissions are rechecked against packaged originals,
+    not accepted by class/metadata flags. Matching receipt/custody bytes preserve
+    recorded correspondence; they do not prove a new producer run or grant source,
+    writer, publication, ancestry, source-position or protected-ACK admission.
+    """
+    admissions: tuple
+    _inputs: tuple = field(init=False, repr=False)
+    _columns: tuple = field(init=False, repr=False)
+    _changes: tuple = field(init=False, repr=False)
+    _transitions: tuple = field(init=False, repr=False)
+
+    def __post_init__(self):
+        if type(self.admissions) is not tuple or not 1 <= len(self.admissions) <= 2:
+            raise HostError('evolution-source-set-refused')
+        raw = dict(packaged_inputs())
+        proof = expand_receipt(raw['public-presence.json.gz'], 4194304)
+        closure = json.loads(raw['source-closure.json'])
+        expected_custody = {'revision': REVISION,
+            'source_closure_sha256': digest(raw['source-closure.json']),
+            'files': len(closure['files']), 'bytes': sum(item['bytes'] for item in closure['files']),
+            'runtime_scope': closure['scope']}
+        expected_custody_bytes = json.dumps(expected_custody, sort_keys=True, separators=(',', ':')).encode()
+        sources = set(); changes = []; transitions = []; owned = []
+        for admitted in self.admissions:
+            if type(admitted) is not EvolutionAdmission or type(admitted.prepared) is not PreparedEvolution:
+                raise HostError('evolution-source-set-refused')
+            prepared = admitted.prepared
+            if any(type(value) is not str or not value or '\x00' in value or len(value) > 1024
+                   for value in (prepared.source_system, prepared.epoch)):
+                raise HostError('evolution-source-set-refused')
+            if prepared.source_system in sources:
+                raise HostError('evolution-source-set-refused')
+            sources.add(prepared.source_system)
+            if (type(admitted.receipt_bytes) is not bytes or admitted.receipt_bytes != proof
+                    or type(admitted.custody_bytes) is not bytes
+                    or len(admitted.custody_bytes) > 1048576):
+                raise HostError('evolution-source-set-refused')
+            if admitted.custody_bytes != expected_custody_bytes:
+                raise HostError('evolution-source-set-refused')
+            original = prepare(raw['candidate.json'], proof, raw['original-model.json'],
+                source_system=prepared.source_system, epoch=prepared.epoch)
+            expected = qualify(original)
+            expected_changes = tuple(change for batch in expected.batches for change in changes_from_batch(batch))
+            expected_transitions = original_transitions(raw, original, expected)
+            if (not original_equal(prepared, expected) or not original_equal(admitted.changes, expected_changes)
+                    or not original_equal(admitted.transitions, expected_transitions)):
+                raise HostError('evolution-source-set-refused')
+            changes.extend(expected_changes); transitions.extend(expected_transitions)
+            owned.append(EvolutionAdmission(expected, proof, expected_custody_bytes, expected_changes, expected_transitions))
+        object.__setattr__(self, 'admissions', tuple(owned))
+        object.__setattr__(self, '_inputs', tuple(raw.items()))
+        object.__setattr__(self, '_columns', tuple(evolution_columns(raw).items()))
+        object.__setattr__(self, '_changes', tuple(changes))
+        object.__setattr__(self, '_transitions', tuple(transitions))
+
+    @property
+    def changes(self):
+        return self._changes
+
+    @property
+    def columns(self):
+        return dict(self._columns)
+
+    def metadata(self):
+        return {'profile': 'ashlar-commerce-evolution-source-set/0.1',
+            'qualification': 'Packaged-original semantic correspondence only; no fresh producer, source, writer, publication or ACK authority.',
+            'sources': [admitted.metadata() for admitted in self.admissions]}
+
+    def admit(self, change):
+        if not any(original_equal(change, original) for original in self._changes):
+            raise HostError('evolution-source-set-refused')
+
+    def admit_transition(self, previous, change):
+        self.admit(change)
+        if not any(original_equal((previous, change), original) for original in self._transitions):
+            raise HostError('evolution-source-set-refused')
+
+    def prefixes(self, supplied):
+        """Snapshot the complete explicit consumed-prefix inventory, including zero."""
+        if type(supplied) not in (dict, MappingProxyType):
+            raise HostError('evolution-source-set-refused')
+        copied = dict(supplied)
+        if any(type(key) is not str for key in copied):
+            raise HostError('evolution-source-set-refused')
+        if set(copied) != {admitted.prepared.source_system for admitted in self.admissions}:
+            raise HostError('evolution-source-set-refused')
+        if any(type(prefix) is not int or not 0 <= prefix <= 4 for prefix in copied.values()):
+            raise HostError('evolution-source-set-refused')
+        return copied
+
+    def state_at(self, prefixes):
+        """Reconstruct exact admitted source state; no native/current-table reads."""
+        prefixes = self.prefixes(prefixes)
+        state = empty_state()
+        for admitted in self.admissions:
+            for batch in admitted.prepared.batches[:prefixes[admitted.prepared.source_system]]:
+                state = plan_apply(state, changes_from_batch(batch), schema_policy=self.admit,
+                                   schema_transition_policy=self.admit_transition)
+        return state
+
+    def oracle(self, prefixes, *, materialized_at):
+        """Complete independent native cells using original transaction clocks.
+
+        Clocks are explicit for every source even at prefix zero. This method does
+        not invent source progress, publication ancestry or native checkpoints.
+        """
+        prefixes = self.prefixes(prefixes)
+        if type(materialized_at) not in (dict, MappingProxyType):
+            raise HostError('evolution-source-set-refused')
+        clocks = dict(materialized_at)
+        if any(type(key) is not str for key in clocks):
+            raise HostError('evolution-source-set-refused')
+        if set(clocks) != set(prefixes):
+            raise HostError('evolution-source-set-refused')
+        stamps = {}
+        for source, sequence in clocks.items():
+            if type(sequence) is not tuple or len(sequence) != 4:
+                raise HostError('evolution-source-set-refused')
+            stamps[source] = []
+            for clock in sequence:
+                try:
+                    if type(clock) is not str or not 0 < len(clock) <= 64:
+                        raise ValueError('Explicit finite UTC clock required')
+                    instant = datetime.datetime.fromisoformat(clock)
+                    if instant.tzinfo is None or instant.utcoffset() != datetime.timedelta(0):
+                        raise ValueError('Explicit finite UTC clock required')
+                    elapsed = instant - datetime.datetime(1970, 1, 1, tzinfo=datetime.timezone.utc)
+                    stamps[source].append(str((elapsed.days * 86400 + elapsed.seconds) * 1000000 + elapsed.microseconds))
+                except (TypeError, ValueError, OverflowError):
+                    raise HostError('evolution-source-set-refused') from None
+        raw = dict(self._inputs)
+        proof = expand_receipt(raw['public-presence.json.gz'], 4194304)
+        result = {role: [] for role in self.columns}
+        for admitted in self.admissions:
+            source = admitted.prepared.source_system
+            if prefixes[source] == 0:
+                continue
+            rows = scoped_oracle(raw['candidate.json'], proof, raw['original-model.json'],
+                admitted.prepared, self.columns, prefix=prefixes[source], materialized_at=clocks[source][prefixes[source] - 1])
+            witnesses = {record.delivery_id: (batch.batch_id, stamps[source][index])
+                for index, batch in enumerate(admitted.prepared.batches[:prefixes[source]]) for record in batch.records}
+            for role in ('object_current', 'edge_current'):
+                for row in rows[role]:
+                    batch_id, stamp = witnesses[row['source_delivery_id']]
+                    if row['apply_batch_id'] != batch_id:
+                        raise HostError('evolution-source-set-refused')
+                    row['published_at'] = stamp
+            for role in result:
+                result[role].extend(rows[role])
+        return result
 
 def run_admission(config: EvolutionAdmissionConfig, *, source_system: str,
                              epoch: str) -> EvolutionAdmission:

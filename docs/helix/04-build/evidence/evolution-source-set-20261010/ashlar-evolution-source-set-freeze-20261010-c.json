@@ -1,0 +1,69 @@
+{
+  "profile": "ashlar-evolution-source-set-freeze/0.1",
+  "base": "4f456577d998bd00b8670082ea67386ee467b923",
+  "scope": "Fixed packaged-original semantic source-set correspondence, complete independent per-original-transaction-clock prefix union oracle, core replay state reconstruction. No fresh public producer, native/source/writer/publication/ACK authority or installed publish/resume execution claim.",
+  "files": [
+    {
+      "path": "src/ashlar_host/evolution_admission.py",
+      "bytes": 23067,
+      "sha256": "e4b1f021e0583d3972cd440eee2a85fb9305b7ab2e6bf7cc49bf9cbfbad61ad4"
+    },
+    {
+      "path": "tests/test_evolution_source_set.py",
+      "bytes": 16678,
+      "sha256": "ba109aac9ef5417f6c07974dd63262afce23be57c8049e106cc0ac945a8eb478"
+    },
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 41522,
+      "sha256": "822f41c8e14eb682e9a84c0d6a5be075757f05078a0aa50de5ed6e297fc901f3"
+    },
+    {
+      "path": ".github/workflows/weft-distribution.yml",
+      "bytes": 4338,
+      "sha256": "34f373196be58b3ed4367e2adbb8f5e7ee5ff8c56c39257642945cace0efa4af"
+    }
+  ],
+  "tests": {
+    "new_controls": 12,
+    "admission_regression_controls": 9,
+    "python": "/usr/bin/python3 -S -W error::ResourceWarning",
+    "logs": [
+      {
+        "path": "/private/tmp/ashlar-evolution-source-set-tests-20261010-c.log",
+        "bytes": 1350,
+        "sha256": "dfcc69b7c2b700bc9ae8336f2aaf9f5c49525b82e9d496027553702e3b1e0c57"
+      },
+      {
+        "path": "/private/tmp/ashlar-evolution-source-set-admission-regression-20261010-c.log",
+        "bytes": 1161,
+        "sha256": "757e440e3fb1e46a48751da6e98f8c263224ce88ceb5a5050c5021b1a48b16fd"
+      },
+      {
+        "path": "/private/tmp/ashlar-evolution-source-set-boundaries-20261010-c.log",
+        "bytes": 94,
+        "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+      }
+    ]
+  },
+  "prior_live_draft_failures": [
+    {
+      "tool_chunk": "7f6d99",
+      "scope": "Root live unfrozen6test run firstdraft assertion expected71 actual69; incorrect authored expectation, original eventcounts independently21,1,2,21",
+      "original_input_observation_tool_chunk": "15772e"
+    },
+    {
+      "tool_chunk": "21a326",
+      "scope": "Root live intermediate10test5error run during ongoing clock-vector API source/test edits; mixed unfrozen files, no asserted exact-source hash or standalone defect proof"
+    }
+  ],
+  "findings_fixed": [
+    "Exact canonical original custody spelling, not duplicate/numeric-equal JSON",
+    "Strict recursive exact carrier types with no caller executable equality",
+    "Retain reconstructed owned admissions, not caller-supplied nested carriers",
+    "Exact string prefix/clock inventory keys; independent UTC clocks at prefixzero too",
+    "Full logical oracle vs independent core replay comparison for asymmetric4/3 and1/0",
+    "Uniform source-last clock mismatched untouched native rows: require exact four-clock tuple per source, derive each current row timestamp from independent original delivery/batch witness; R2 preserves20unchanged R1 clocks, R3 survivors preserve prior clocks",
+    "Reject executable change/EntityState/tuple equality and nonstring inventory keys before any caller equality invocation"
+  ]
+}
