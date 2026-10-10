@@ -1,0 +1,110 @@
+{
+  "verdict": "approved exact five-file source-only landing",
+  "freezes": [
+    {
+      "path": "/private/tmp/ashlar-authored-path-native-composition-freeze-20261010-c/manifest.json",
+      "sha256": "21e7d089c1f07e45cdca24a3ced2fac34e4facf72e4e74fb83eb31790a53fb87",
+      "bytes": 1040
+    },
+    {
+      "path": "/private/tmp/ashlar-path-interval-cleanup-freeze-20261010-a/manifest.json",
+      "sha256": "8cabfe3a706344882b413ff89b57eb9ba75df713cca447223b634796776e4376",
+      "bytes": 577
+    }
+  ],
+  "sourceAndTests": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/run_weft_path_fixture_native.py",
+      "sha256": "5d864b6e05ecd54a4b54f75cbc9d3771059b1444b48b4e84e0d8e21727b1a47a",
+      "bytes": 30963
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_run_weft_path_fixture_native.py",
+      "sha256": "4debc060c1be184e1a253daed83795a02d0233d724121d30a2376e56edbf8bea",
+      "bytes": 11025
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/run_commerce_path_weft.py",
+      "sha256": "c20111440e10f0f9f2335032b6c8b547773544a11117df70a96d0347d53215b1",
+      "bytes": 22423
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_weft_path_interval_cleanup.py",
+      "sha256": "39a406ee6c51ddec84a350c1093c56c23081cbcffea81ca651d53d7bdccef4b1",
+      "bytes": 4368
+    }
+  ],
+  "workflow": {
+    "path": "/Users/erik/Projects/ashlar/.github/workflows/weft-distribution.yml",
+    "sha256": "402d97fc713ae67a04ba498e985820aa396a186dcfbbd3ae72a37e4ad67dced5",
+    "bytes": 2843
+  },
+  "independentEvidence": [
+    {
+      "path": "/private/tmp/astra-authored-native-composition-review-20261010-c.json",
+      "sha256": "cee5c6a4e2cbfdb7d1aef608b464e2e57e853a282d859fd11f60c45314dee870",
+      "bytes": 2915
+    },
+    {
+      "path": "/private/tmp/astra-authored-native-composition-review-20261010-c.py",
+      "sha256": "e67bf0d91827a29262ab912e9d2674678e4bf4c11271a8eb3df750c120b819e7",
+      "bytes": 7153
+    },
+    {
+      "path": "/private/tmp/astra-authored-native-composition-review-20261010-c.log",
+      "sha256": "846d0ac7d9fed030140fc43633c42ecbdf78c9aaabd5e32801633c4d13bfd2e3",
+      "bytes": 247
+    },
+    {
+      "path": "/private/tmp/astra-authored-path-native-composition-review-20261010-c.json",
+      "sha256": "e4718133314441fbce9cdb56864995c1cbc59d80c5648a42b090222b934d6862",
+      "bytes": 2095
+    },
+    {
+      "path": "/private/tmp/astra-authored-path-native-composition-review-20261010-c.py",
+      "sha256": "31b355d0e5a5e68f7e04273a4ef23f0b4563ab9ca639751bbaa1d34bd97b894a",
+      "bytes": 3993
+    },
+    {
+      "path": "/private/tmp/astra-authored-path-native-composition-review-20261010-c.log",
+      "sha256": "e4718133314441fbce9cdb56864995c1cbc59d80c5648a42b090222b934d6862",
+      "bytes": 2095
+    },
+    {
+      "path": "/private/tmp/astra-path-interval-cleanup-review-20261010-a.json",
+      "sha256": "91b418cbc24bd0f7bdb4423691c610e382b8535a9fab00ae5db2ace30c873f14",
+      "bytes": 7200
+    },
+    {
+      "path": "/private/tmp/astra-path-interval-owner-tests-20261010-a.log",
+      "sha256": "790d729f7b8e238a655cdea440e08445ab14dfd3bbb238faa629fd126b773562",
+      "bytes": 589
+    },
+    {
+      "path": "/private/tmp/astra-authored-path-native-owner-tests-20261010-c.log",
+      "sha256": "9ca96e3d4fed1b18b52e95e12323762009fe40ab238928e7d0ffbcbf9880dd40",
+      "bytes": 1608
+    }
+  ],
+  "findingsResolved": [
+    "Three direct publication connections preserve exact primary on close failure",
+    "Alias interval preserves primary across replacement and suppression",
+    "Reader scope preserves primary across replacement and suppression",
+    "Shared held interval preserves guard/query primary across replacement and suppression",
+    "Serialization failure no longer creates final report file"
+  ],
+  "validation": {
+    "compositionTestsPython39NoSite": 13,
+    "sharedFocusedTestsPython39NoSite": 4,
+    "delegatedSharedOldAndNewTestsPython39And313": 25,
+    "delegatedIndependentSharedExceptionControls": 11,
+    "allAuthoredActualCompilerArtifactsThroughRealOfflineSchemasAndMockedNative": 11,
+    "completeSharedBeforeAfterArtifactEvidenceUnchanged": 11,
+    "moduleBoundaries": "pass",
+    "diffCheck": "pass",
+    "exactWorkflowDelta": "only two suite discovery lines, existing Python3.9/3.12 matrix unchanged"
+  },
+  "semantics": "Exact authored model/graph/development registry and genuine public-dataset revalidation precede effects. Native publication source writer, complete original row oracle, exact replay and protected ordinary PG ACK remain delegated to existing held policies. Query phase uses read-only journal, same publication full vector and schema/guard obligations before bounded rows; all11 source-driven oracle cases pass mock-only composition and decoding. Signed edge min/0/max and relation-qualified repeated0 remain intact. Separate phases require reader/transport and Spark cleanup before success persistence.",
+  "helixScope": "Owned source admission/request/oracle/native composition remain separate from pure decoder/schema/compiler; bounded settings are injected. Cleanup markers are booleans without added native payload. Checks give finite source/lifecycle correspondence, no machine formal proof or OTel receiver qualification.",
+  "remainingNativeGate": "No source publication, engine, PG or original SQLite operation was run in this review. Native run still requires committed export/import/resource/schema/compiler/publication/producer/PG command custody, source CI, fresh zero-engine check and parent exclusive grant. No indexed release/cloud/Truss/UC/Fabric or general paths support claim."
+}
