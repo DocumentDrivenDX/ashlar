@@ -164,7 +164,8 @@ The installed original-commerce evolution facade adds these owned boundaries:
 | --- | --- | --- | --- | --- |
 | `src/ashlar/commerce_evolution.py` | Immutable finite source preparation and independent complete prefix-union oracle | Named preparation and oracle under CONTRACT-003 | Public core source/value APIs and Python3.9 standard library | Host/tools/SDK imports, runtime discovery, authority or replacement UMF semantics |
 | `src/ashlar_host/evolution_admission.py` | Bounded original/candidate/proof custody and exact public producer admission | EvolutionSourceSet source/transition admission, state_at and complete oracle; owned producer admission ports | Explicit config, public core preparation, packaged resources and configured public UMF producer | Checkout discovery, ambient Bun/Git, private UMF APIs, receipt flags as authority |
-| `src/ashlar_host/commerce_evolution.py` | Fresh/resume lifecycle, source-qualified publication and original recovery | EvolutionAttemptPlan, EvolutionPlanJournal; publish_commerce_evolution, resume_commerce_evolution under CONTRACT-001 | Explicit config, owned admission/driver/journal/ACK/lifecycle ports and supplied ordinary sessions | Source/role/grant provisioning, credential discovery/escalation, new uncertain intent, tools/private native access |
+| `src/ashlar_host/commerce_evolution.py` | Fresh/resume lifecycle, source-qualified publication and original recovery | publish_evolution_transaction, resume_evolution_transaction; full publish_commerce_evolution/resume_commerce_evolution under CONTRACT-001 | Explicit config, owned admission/driver/journal/ACK/lifecycle ports and supplied ordinary sessions | Source/role/grant provisioning, credential discovery/escalation, new uncertain intent, tools/private native access |
+| `src/ashlar_host/evolution_plan.py` | Pure immutable original attempt envelope and journal custody | EvolutionAttemptPlan, EvolutionPlanJournal; compatibility exports through commerce_evolution | Standard library and mandatory independent plan-admission policy | Config/orchestration imports, native clients, source/ACK authority |
 | `src/ashlar_host/evolution_producer.py` | Bounded public-UMF subprocess ownership and original receipt custody | Typed producer invocation for evolution_admission under CONTRACT-001 | Explicit immutable configuration/input snapshots, standard-library process and owned lifecycle ports | Ambient environment/PATH discovery, private source capture or UMF APIs, tools, native authority |
 | `src/ashlar_host/source_sessions.py` | Original outbox registrations and ordinary source-session ownership | OutboxSourceRegistration, RegisteredOutboxSources.admit | Explicit factories/current native policy, owned AckScope/Session/lifecycle and public complete outbox/checkpoint APIs | Credential discovery, provisioning, commits, ACK mutation or registration metadata as authority |
 | `src/ashlar_host/ack_sessions.py` | Original protected ACK registrations and ordinary session selection | OutboxAckRegistration, RegisteredOutboxAcks.acknowledge/reconcile | Supplied ordinary factories/current policy, owned protected ACK and source-registration ports | Credential discovery, provisioning, metadata as authority or cancellation converted to success |
@@ -233,6 +234,20 @@ It must refuse missing or malformed completion status and preserve cancellation
 identity; successful producer exit alone does not establish semantic admission.
 This transport assumption does not extend the UMF executable/source custody claim
 to an operating-system or interpreter closure.
+
+`FreshEvolutionTransactionConfig` and `ResumeEvolutionTransactionConfig` select
+one original transaction independently of installation construction. Their
+public transaction composition enters `NativeDriver.publish_evolution_attempt`
+through owned ports. Held admission checks the complete source-prefix oracle,
+original four-clock vectors, full progress/schema inventory, generated/elided
+steps, ordered operation identities and actual UUID/prior-snapshot registry.
+Independent current native policy remains mandatory. Fresh retains full intent
+before effect and publisher phase custody; resume loads only the retained bytes
+and original whole effect plan. Missing effect-plan custody after attempt-file
+retention safely refuses and does not authorize restoration. Closing custody,
+source admission and writer cleanup gate result release. These transaction APIs
+are internal components; the installed facade separately owns the fixed eight-step
+schedule, initialization admission, producer verification and restart run custody.
 
 `config.py` owns separate immutable fresh/resume types and validates the complete
 selected profile before effects. The CLI is the construction root; supplied native

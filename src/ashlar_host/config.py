@@ -2,6 +2,7 @@
 from dataclasses import dataclass
 from pathlib import Path
 from ashlar.weft_path_decode import PathDecodeConfig
+from .evolution_plan import EvolutionAttemptPlan, EvolutionPlanJournal
 from .path_capture import PathCaptureConfig
 import ipaddress
 import json
@@ -10,7 +11,7 @@ import re
 import stat
 import unicodedata
 from types import MappingProxyType
-from typing import Callable, Mapping, Literal, Optional, TypeVar
+from typing import Callable, Mapping, Literal, Optional, TypeVar, Protocol
 from urllib.parse import urlsplit
 
 
@@ -412,3 +413,42 @@ class EvolutionAdmissionConfig:
         _bound(self.timeout_seconds, 60)
         _bound(self.maximum_output_bytes, 1024 * 1024)
         _bound(self.maximum_receipt_bytes, 4 * 1024 * 1024)
+
+
+class EvolutionTransactionDriver(Protocol):
+    def publish_evolution_attempt(self, journal: EvolutionPlanJournal, *, context: object,
+                                  original_plan: Optional[EvolutionAttemptPlan] = None,
+                                  expected_sha256: Optional[str] = None): ...
+
+
+@dataclass(frozen=True, repr=False)
+class FreshEvolutionTransactionConfig:
+    """One already planned original transaction; no installation initialization."""
+    driver: EvolutionTransactionDriver
+    journal: EvolutionPlanJournal
+    context: object
+    plan_bytes: bytes
+
+    def __post_init__(self):
+        if (type(self.journal) is not EvolutionPlanJournal or not self.journal.path.is_absolute()
+                or not callable(getattr(self.journal.policy, 'admit', None))
+                or not callable(getattr(self.driver, 'publish_evolution_attempt', None))):
+            raise HostError('evolution-transaction-configuration')
+        EvolutionAttemptPlan(self.plan_bytes)
+
+
+@dataclass(frozen=True, repr=False)
+class ResumeEvolutionTransactionConfig:
+    """One retained original transaction; no replacement plan or initializer."""
+    driver: EvolutionTransactionDriver
+    journal: EvolutionPlanJournal
+    context: object
+    expected_sha256: str
+
+    def __post_init__(self):
+        if (type(self.journal) is not EvolutionPlanJournal or not self.journal.path.is_absolute()
+                or not callable(getattr(self.journal.policy, 'admit', None))
+                or not callable(getattr(self.driver, 'publish_evolution_attempt', None))
+                or type(self.expected_sha256) is not str
+                or not re.fullmatch('[0-9a-f]{64}', self.expected_sha256)):
+            raise HostError('evolution-transaction-configuration')

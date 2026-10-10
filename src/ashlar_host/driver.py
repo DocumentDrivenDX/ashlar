@@ -20,6 +20,21 @@ ROOT = RESOURCE_ROOT
 CLOCK = '2026-10-09T12:00:00+00:00'
 PROFILE = 'ashlar-delta/0.3'
 
+def original_native_equal(supplied, expected):
+    """Exact primitive/native containers; numeric equivalence is not original custody."""
+    if type(supplied) is not type(expected):
+        return False
+    if type(expected) is dict:
+        if any(type(key) is not str for key in supplied) or any(type(key) is not str for key in expected):
+            return False
+        return set(supplied) == set(expected) and all(original_native_equal(supplied[key], value)
+                                                     for key, value in expected.items())
+    if type(expected) in (list, tuple):
+        return len(supplied) == len(expected) and all(original_native_equal(a, b) for a, b in zip(supplied, expected))
+    if type(expected) in (str, int, bool, float, type(None)):
+        return supplied == expected
+    return False
+
 def progress_union(previous, checkpoint):
     result = json.loads(encoded(previous))
     old = result.get(checkpoint['feed'])
@@ -83,6 +98,20 @@ class PrivatePolicy:
         if args[-1] is not self.context:
             raise PermissionError('Original held private writer context required')
         yield
+
+    def activate_evolution(self, plan, context, admission):
+        """Own active native intent only after independent current plan admission."""
+        from .evolution_plan import EvolutionAttemptPlan
+        if type(plan) is not EvolutionAttemptPlan or context is not self.context or self.initializing:
+            raise PermissionError('Original noninitializing evolution writer required')
+        if not callable(getattr(admission, 'admit', None)) or admission.admit(plan, context) is not None:
+            raise PermissionError('Independent original evolution admission required')
+        value = plan.document()
+        self.active = {'request': value['request'], 'steps': value['selected_steps'],
+            'expected': value['expected'], 'publication_id': value['publication_id'],
+            'previous_progress': value['previous_progress'], 'progress': value['progress'],
+            'previous_expected': value['previous_expected'], 'generated_steps': value['generated_steps'],
+            'elisions': value['zero_match_elisions'], 'recorded_at': value['recorded_at']}
 
     def admit(self, intent, context):
         if context is not self.context:
@@ -218,6 +247,172 @@ class NativeDriver:
             with transport.db:
                 transport.db.execute('CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)')
 
+    def admit_evolution_plan(self, plan, *, context, fresh):
+        """Check complete original semantic/native correspondence under held writer.
+
+        These observations do not replace the journal's mandatory independent
+        current source/writer/installation policy or the transport's admission.
+        """
+        from .evolution_plan import EvolutionAttemptPlan
+        from .evolution_admission import EvolutionSourceSet
+        from .source_sessions import request_snapshot
+        self.require(context)
+        if (type(plan) is not EvolutionAttemptPlan or type(fresh) is not bool
+                or type(self.source_admission) is not EvolutionSourceSet
+                or self.source_sessions is None or self.ack_sessions is None
+                or not callable(getattr(self.policy, 'activate_evolution', None))):
+            raise PermissionError('Complete original evolution owners required')
+        value = plan.document(); request, checkpoint = request_snapshot(value['request'])
+        if not original_native_equal(value['source_admission'], self.admission_facts()):
+            raise PermissionError('Original evolution source facts differ')
+        schema = value['schema_state']
+        if set(schema) != {'previous_prefixes', 'prefixes', 'clocks'}:
+            raise PermissionError('Complete original prefixes and transaction clocks required')
+        previous = self.source_admission.prefixes(schema['previous_prefixes'])
+        following = self.source_admission.prefixes(schema['prefixes'])
+        if (type(schema['clocks']) is not dict
+                or any(type(sequence) is not list or len(sequence) != 4 for sequence in schema['clocks'].values())):
+            raise PermissionError('Exact original four-clock inventory required')
+        clocks = {source: tuple(sequence) for source, sequence in schema['clocks'].items()}
+        feed = checkpoint['feed']
+        if (feed not in previous or following != {source: prefix + (source == feed)
+                for source, prefix in previous.items()} or not 1 <= following[feed] <= 4):
+            raise PermissionError('Exactly one original source prefix must advance')
+        admitted = next(item for item in self.source_admission.admissions
+                        if item.prepared.source_system == feed)
+        batch = admitted.prepared.batches[following[feed] - 1]
+        if (checkpoint['epoch'] != admitted.prepared.epoch
+                or batch_row(batch)['batch_json'] != request['source_batch_json']
+                or value['materialized_at'] != clocks[feed][following[feed] - 1]):
+            raise PermissionError('Original source transaction or clock differs')
+        expected_previous = self.source_admission.oracle(previous, materialized_at=clocks)
+        expected = self.source_admission.oracle(following, materialized_at=clocks)
+        revisions = {item.prepared.source_system: item.prepared.schema_revisions[
+            following[item.prepared.source_system] - 1] for item in self.source_admission.admissions
+            if following[item.prepared.source_system]}
+        if (not original_native_equal(value['previous_expected'], expected_previous) or not original_native_equal(value['expected'], expected)
+                or not original_native_equal(json.loads(request['schema_revisions_json']), revisions)
+                or not original_native_equal(value['progress'], progress_union(value['previous_progress'], checkpoint))
+                or not value['recorded_at'].isascii() or not value['recorded_at'].isdigit()
+                or len(value['recorded_at']) > 19 or str(int(value['recorded_at'])) != value['recorded_at']
+                or not 0 <= int(value['recorded_at']) < 2**63):
+            raise PermissionError('Complete original oracle/schema/progress differs')
+        from ashlar.source_checkpoint import validate_outbox_checkpoint
+        consumed = {source for source, prefix in previous.items() if prefix}
+        if (set(value['previous_progress']) != consumed
+                or checkpoint['previous'] != str(previous[feed])
+                or not original_native_equal(self.columns, self.source_admission.columns)):
+            raise PermissionError('Complete original consumed source progress/columns required')
+        for item in self.source_admission.admissions:
+            source = item.prepared.source_system
+            if source in consumed:
+                original_checkpoint = value['previous_progress'][source]
+                validate_outbox_checkpoint(encoded(original_checkpoint), item.prepared.batches[previous[source] - 1])
+                if original_checkpoint['position'] != str(previous[source]):
+                    raise PermissionError('Original source prefix/native position differs')
+        graph_tables = {role: self.tables[role] for role in self.source_admission.columns}
+        _, generated = self.plan_graph(self.source_admission.state_at(previous), batch,
+                                       graph_tables, materialized_at=value['materialized_at'])
+        selected, elisions = local_effect_plan(generated, expected_previous, graph_tables)
+        if (not original_native_equal(value['generated_steps'], generated) or not original_native_equal(value['selected_steps'], selected)
+                or not original_native_equal(value['zero_match_elisions'], elisions)):
+            raise PermissionError('Original generated/effective ordered plan differs')
+        registry = {target.table: {'uuid': target.uuid, 'path': str(target.path)}
+                    for target in self.transport.targets.values()}
+        if not original_native_equal(value['resource_registry'], registry):
+            raise PermissionError('Original observed installation registry differs')
+        if set(value['observed_native_prior']) != set(graph_tables.values()):
+            raise PermissionError('Complete original prior native anchors required')
+        for role, table in graph_tables.items():
+            target = self.transport.targets[table]; anchor = value['observed_native_prior'][table]
+            if (set(anchor) != {'uuid', 'version', 'snapshot'} or anchor['uuid'] != target.uuid
+                    or type(anchor['version']) is not int or anchor['version'] < 0
+                    or not original_native_equal(anchor['snapshot'], self.transport._snapshot(target, anchor['version']))
+                    or not original_native_equal(anchor['snapshot']['rows'], sorted(expected_previous[role], key=encoded))
+                    or (fresh and int(self.transport.original_history(target)[0]['version']) != anchor['version'])):
+                raise PermissionError('Original complete prior native evidence differs')
+            self.transport._detail(target)
+        effects = LocalDeltaEffects(self.transport)
+        _, _, operations = effects.original_plan('effects:' + request['request_digest'],
+            request['request_digest'], selected)
+        if not original_native_equal(operations, value['operations']):
+            raise PermissionError('Original effect operation identities differ')
+        self.source_admit(request)
+        return batch
+
+    def publish_evolution_attempt(self, journal, *, context, original_plan=None, expected_sha256=None):
+        from .lifecycle import owned_context
+        with owned_context(self.writer('evolution-original-attempt', context)):
+            return self._publish_evolution_attempt(journal, context=context,
+                original_plan=original_plan, expected_sha256=expected_sha256)
+
+    def _publish_evolution_attempt(self, journal, *, context, original_plan=None, expected_sha256=None):
+        """One original transaction via real stored publisher; never initializes.
+
+        Fresh retains exact full intent before native phase/effect submission.
+        Resume loads only original bytes and preserves ordinary original recovery.
+        The enclosing eight-step run and its schedule custody are separate owners.
+        """
+        from .evolution_plan import EvolutionPlanJournal, EvolutionAttemptPlan
+        from ashlar.attempt_store import DeltaAttemptStore
+        from ashlar.stored_publisher import StoredPublisherBackend
+        from ashlar.publisher import publish_batch
+        from .lifecycle import owned_context
+        if (type(journal) is not EvolutionPlanJournal or (original_plan is None) == (expected_sha256 is None)
+                or (original_plan is not None and type(original_plan) is not EvolutionAttemptPlan)):
+            raise PermissionError('Distinct original fresh or retained resume required')
+        owner = self
+        @contextmanager
+        def _held_evolution_context():
+            owner.require(context)
+            yield
+            owner.require(context)
+        class Driver:
+            @contextmanager
+            def writer(self, stream, supplied):
+                owner.require(supplied)
+                with owned_context(_held_evolution_context()):
+                    plan = original_plan if original_plan is not None else journal.load(
+                        expected_sha256=expected_sha256, context=supplied)
+                    owner.admit_evolution_plan(plan, context=supplied, fresh=original_plan is not None)
+                    if original_plan is not None:
+                        journal.retain(plan, context=supplied)
+                    owner.policy.activate_evolution(plan, supplied, journal.policy)
+                    value = plan.document()
+                    effects = LocalDeltaEffects(owner.transport)
+                    if original_plan is not None:
+                        effects.prepare('effects:' + value['request']['request_digest'],
+                            value['request']['request_digest'], value['selected_steps'], context=supplied)
+                    else:
+                        effects.observe('effects:' + value['request']['request_digest'],
+                            value['request']['request_digest'], value['selected_steps'], context=supplied)
+                    yield
+                    closing = journal.load(expected_sha256=plan.sha256, context=supplied)
+                    if closing.raw != plan.raw:
+                        raise PermissionError('Closing exact original attempt differs')
+                    owner.source_admit(value['request'])
+                    owner.admission_facts()
+            def apply(self, request, supplied): return owner.apply(request, supplied)
+            def recover_apply(self, request, supplied): return owner.recover_apply(request, supplied)
+            def validate(self, request, artifact, descriptor, supplied): return owner.validate(request, artifact, descriptor, supplied)
+            def acknowledge(self, request, descriptor, supplied): return owner.acknowledge(request, descriptor, supplied)
+        # Resume selection is read-only; the authoritative load is renewed held.
+        plan = original_plan if original_plan is not None else journal.load(
+            expected_sha256=expected_sha256, context=context)
+        request = plan.document()['request']
+        from ashlar.staging import batch_from_row
+        raw = json.loads(request['source_batch_json'])
+        batch = batch_from_row({'source_profile': raw['profile'], 'feed': raw['feed'], 'epoch': raw['epoch'],
+            'batch_id': raw['batch_id'], 'cursor_before': raw['cursor_before'], 'cursor_after': raw['cursor_after'],
+            'records_digest': raw['records_sha256'], 'batch_json': request['source_batch_json'],
+            'batch_digest': request['source_batch_digest']})
+        target = self.transport.targets[self.tables['attempts']]
+        backend = StoredPublisherBackend(DeltaAttemptStore(AttemptExecutor(self), CarrierPolicy(self, 'attempts'),
+            target.table, target.uuid), Driver(), lambda original, supplied: ManifestPort(self, original))
+        return publish_batch(backend, request['stream'], batch, predecessor=request['predecessor'],
+            schema_revisions_json=request['schema_revisions_json'], context=context,
+            source_checkpoint_json=request['source_checkpoint_json'])
+
     def admission_facts(self):
         if encoded(self.source_admission.metadata()) != self.original_admission:
             raise PermissionError('Original admitted source profile metadata changed')
@@ -341,7 +536,7 @@ class NativeDriver:
             versions[target.table] = version
             parity[role] = snapshot['row_sha256']
         proof = {**proof, 'original_generated_steps': active['generated_steps'], 'zero_match_elisions': active['elisions'], 'original_source_plan_sha256': sha(original_plan), 'observed_native_prior': json.loads(original_plan)['observed_native_prior']}
-        manifest = {'publication_id': active['publication_id'], 'profile_version': PROFILE, 'table_versions_json': encoded(versions), 'schema_revisions_json': request['schema_revisions_json'], 'source_progress_json': encoded(active['progress']), 'validation_report_json': encoded({'complete': True, 'request_digest': request['request_digest'], 'predecessor': request['predecessor'], 'effect_parity': parity, 'original_source_plan_sha256': sha(original_plan), 'zero_match_elisions': active['elisions'], 'source_oracle_sha256': sha(encoded(active['expected'])), 'source_admission': self.admission_facts(), 'scope': self.admission_facts()['qualification']}), 'recorded_at': '1791547200000000'}
+        manifest = {'publication_id': active['publication_id'], 'profile_version': PROFILE, 'table_versions_json': encoded(versions), 'schema_revisions_json': request['schema_revisions_json'], 'source_progress_json': encoded(active['progress']), 'validation_report_json': encoded({'complete': True, 'request_digest': request['request_digest'], 'predecessor': request['predecessor'], 'effect_parity': parity, 'original_source_plan_sha256': sha(original_plan), 'zero_match_elisions': active['elisions'], 'source_oracle_sha256': sha(encoded(active['expected'])), 'source_admission': self.admission_facts(), 'scope': self.admission_facts()['qualification']}), 'recorded_at': active.get('recorded_at', '1791547200000000')}
         active['manifest'] = manifest
         artifact = encoded({'effects': proof, 'manifest': manifest})
         with self.transport.db:

@@ -1,0 +1,14 @@
+{
+  "scope": "One original transaction composition. Actual StoredPublisherBackend/core phase transitions with inert native effect/manifest/ACK test ports. No eight-step or native/installed/fresh-process-run claim. Resume missing whole effect-plan after original attempt-file retention safely refuses. Current independent plan/source/native/ACK policies remain mandatory.",
+  "root_check": {
+    "command": "PYTHONPATH=src:tests /usr/bin/python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_evolution_publication.py",
+    "session": 73203,
+    "chunk": "248fe5",
+    "exit_code": 0,
+    "passed": 7
+  },
+  "files": {
+    "source-freeze.json": "1966f3b86133f82997e7ebbf9656d83ad79305e3e7a29ffe6faf118f3ab3205e",
+    "independent-review.json": "836f29004c195405267e86f3e24d59b8ab1c3d3590f093546dda2913febbe7e6"
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "decision": "approve-seven-file-original-transaction-integration",
+  "freezeSha256": "1966f3b86133f82997e7ebbf9656d83ad79305e3e7a29ffe6faf118f3ab3205e",
+  "originalSixFreezeSha256": "81b4e63a5575e98018902cdde5069175516c8ccc49ee74fbb9e2695e1e99b278",
+  "ownedFiles": {
+    "src/ashlar_host/config.py": "e6c67646b6fd4698de8bb8f4c61d02ad51eb836ebd7f294196a2a69652929b36",
+    "src/ashlar_host/commerce_evolution.py": "e92b1ccb51331a8153f7f27c9823e3e52dcfda84f5d01b83999968ca1e85e429",
+    "src/ashlar_host/evolution_plan.py": "756e3feded4061418f028f3ef0a0be4346caec816e0e450796dac72248e65650",
+    "src/ashlar_host/driver.py": "3fed0d0437e4faf8f9b4aa0d5dcc2dd1ecd739868c28db7f089b864acc007872",
+    "tests/test_evolution_publication.py": "2d0f110462d83d3c612cf69f1c728331e5cc74eadfd6a50eea10f7752636b931",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "249ed84126bf6020a2252a1b514873b573223dcae7a914abc3683fc10c2a18c8",
+    ".github/workflows/weft-distribution.yml": "bcaa37fb47bc176d52b2db225700c8787f4fb8855bdfcd20f3ac26347fd24f55"
+  },
+  "independentChecks": {
+    "transactionTests": 7,
+    "journalTests": 10,
+    "moduleBoundaries": "pass",
+    "testChunk": "12e295",
+    "strictNestedCarrierCheckChunk": "50e1d3",
+    "python": "3.9 -S ResourceWarning error",
+    "pureEnvelopeMove": "Original trimmed source bytes identical"
+  },
+  "review": [
+    "Immutable separate fresh/resume configs and public owned driver routing; import cycle resolved via pure envelope owner",
+    "Held full semantic/native admission before activation/effects: strict carrier oracle/clocks/prefix/progress/schema/UUID/historical anchors/generated steps/elisions/operation identities",
+    "Independent journal policy remains mandatory; fresh exact full intent retained before effects/phase submission",
+    "Actual StoredPublisherBackend/core phase composition exercised with inert apply/manifest/ACK ports; committed resume does not reapply or recommit",
+    "Closing exact original journal bytes/current source admission and writer cleanup gate success; closing tamper refuses",
+    "Source/ACK inventory injection remains mandatory; original numeric carrier and noncanonical clock refusals",
+    "CI exact one focused transaction test command; all original six hashes unchanged"
+  ],
+  "limitation": "Crash after attempt-file retention before whole effect-plan prepare safely refuses on resume; no custody restoration/recoverability claim for that gap.",
+  "qualification": "One original transaction internal component with actual core stored publisher plus inert native ports. No full eight-step facade, native installation, native publication/ACK or fresh-process installed recovery proof."
+}

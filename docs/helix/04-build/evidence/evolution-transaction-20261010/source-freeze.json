@@ -1,0 +1,41 @@
+{
+  "base": "16e2bc44ec9a6b7aad592d6354ffc3f11d04d151",
+  "files": {
+    "src/ashlar_host/config.py": "e6c67646b6fd4698de8bb8f4c61d02ad51eb836ebd7f294196a2a69652929b36",
+    "src/ashlar_host/commerce_evolution.py": "e92b1ccb51331a8153f7f27c9823e3e52dcfda84f5d01b83999968ca1e85e429",
+    "src/ashlar_host/evolution_plan.py": "756e3feded4061418f028f3ef0a0be4346caec816e0e450796dac72248e65650",
+    "src/ashlar_host/driver.py": "3fed0d0437e4faf8f9b4aa0d5dcc2dd1ecd739868c28db7f089b864acc007872",
+    "tests/test_evolution_publication.py": "2d0f110462d83d3c612cf69f1c728331e5cc74eadfd6a50eea10f7752636b931",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "249ed84126bf6020a2252a1b514873b573223dcae7a914abc3683fc10c2a18c8",
+    ".github/workflows/weft-distribution.yml": "bcaa37fb47bc176d52b2db225700c8787f4fb8855bdfcd20f3ac26347fd24f55"
+  },
+  "tests": {
+    "new_transaction": {
+      "passed": 7,
+      "chunk": "51aa2c",
+      "command": "PYTHONPATH=src:tests /usr/bin/python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_evolution_publication.py"
+    },
+    "journal": {
+      "passed": 10,
+      "chunk": "51aa2c"
+    },
+    "host": {
+      "passed": 11,
+      "chunk": "0c77d7"
+    },
+    "effects": {
+      "passed": 13,
+      "chunk": "d55495"
+    },
+    "boundaries": {
+      "passed": true,
+      "chunk": "0c77d7"
+    },
+    "pure_owner_move": {
+      "trimmed_original_bytes_identical": true,
+      "chunk": "936d15"
+    }
+  },
+  "scope": "One original transaction composition. Actual StoredPublisherBackend/core phase transitions with inert native effect/manifest/ACK test ports. No eight-step or native/installed/fresh-process-run claim. Resume missing whole effect-plan after original attempt-file retention safely refuses. Current independent plan/source/native/ACK policies remain mandatory.",
+  "author_freeze_sha256": "81b4e63a5575e98018902cdde5069175516c8ccc49ee74fbb9e2695e1e99b278"
+}

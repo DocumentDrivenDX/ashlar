@@ -54,6 +54,7 @@ jobs:
           PYTHONPATH=src:tools:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_registered_outbox_ack.py
           PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_lifecycle.py
           PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_evolution_plan_journal.py
+          PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_evolution_publication.py
           PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_local_delta_effect_plan.py
           PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_query_cases.py
           PYTHONPATH=src:tools python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_supply_chain_weft_request.py
