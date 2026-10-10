@@ -1,0 +1,71 @@
+{
+  "format": "ashlar-paths-keys-installed-smoke-evidence/0.1",
+  "scope": "Actual finite installation, package-free restart, six installed schemas and two exact expected compiler responses. Original response bytes compared during execution; retained hashes only. D direct/cooperative supervision; B/C rejected without actual compiler execution. No fresh-process compiler/native/host ten-query/publication/source/ACK qualification.",
+  "files": [
+    {
+      "path": "command.json",
+      "bytes": 68995,
+      "sha256": "92b7a6bb930a37e3867aa444f4bed5b65ed431ae6aa6e822a03e0a3591b64b15"
+    },
+    {
+      "path": "run.py",
+      "bytes": 2839,
+      "sha256": "4cbee6538b41ce02d8e490fad99abf255dd72c1275ecaa82b6103d7c9073eac8"
+    },
+    {
+      "path": "launch.py",
+      "bytes": 2218,
+      "sha256": "8b2556c183b42be6b3fb35d53a623f8ed99370b5d83421e6cbfc1ad8044543ca"
+    },
+    {
+      "path": "launch-result.json",
+      "bytes": 416,
+      "sha256": "0d9d61c33b8a07e463d145214ce57e911c28086f89a086aff463648a3baf392b"
+    },
+    {
+      "path": "provisional-result.json",
+      "bytes": 1831,
+      "sha256": "5847aceeca1244243da7200175e5504f323ecd22acbd285266777ffb26d2f767"
+    },
+    {
+      "path": "stdout.log",
+      "bytes": 55,
+      "sha256": "56bcf8e19e238e26c905e7a255285896095addcd6ee46503bdb5bb2ce3951333"
+    },
+    {
+      "path": "stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ready.json",
+      "bytes": 1566,
+      "sha256": "0f6d25f42d3f3fbd44117677ac2f4056f444dbf0d52e0c0632925cf69b53fcae"
+    },
+    {
+      "path": "provenance.json",
+      "bytes": 85425,
+      "sha256": "f4b1fc979eb7fd839be83a9eb2259f3534fa550493ea6e05c901231049631ccd"
+    },
+    {
+      "path": "command-review-d.json",
+      "bytes": 857,
+      "sha256": "f1ab9bf7c7b5703541cb421436cd19afbe91ffa01838cebe31e9927d854182b4"
+    },
+    {
+      "path": "actual-review-d.json",
+      "bytes": 7268,
+      "sha256": "6c6a1623d02b8b9689b2a4d4556594e8dc6e295f5f67513a4ecce34d3bb272dc"
+    },
+    {
+      "path": "rejected-boundary-b.json",
+      "bytes": 1606,
+      "sha256": "cbd6dcb2c77f6bb43b57debd78b26880506c0dedb1b6d911b6ffc37b42fdf840"
+    },
+    {
+      "path": "rejected-boundary-c.json",
+      "bytes": 1679,
+      "sha256": "138d883614928ed8ed746d905c7bb4e48adb7c8ac22ef75bfcbd69b857b3ae6c"
+    }
+  ]
+}

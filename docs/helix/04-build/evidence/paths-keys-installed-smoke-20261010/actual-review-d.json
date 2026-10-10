@@ -1,0 +1,149 @@
+{
+  "format": "independent-paths-keys-installed-smoke-review/0.1",
+  "decision": "approved-exact-direct-command-and-finite-actual-install-restart-transport-evidence",
+  "command": {
+    "path": "/private/tmp/ashlar-paths-keys-installed-smoke-20261010-d/command.json",
+    "bytes": 68995,
+    "sha256": "92b7a6bb930a37e3867aa444f4bed5b65ed431ae6aa6e822a03e0a3591b64b15"
+  },
+  "sourceCommit": "f3d270008ab58e9ba3e239f94ddba28af0f4114a",
+  "commandReviewEndorsed": {
+    "path": "/private/tmp/domain-paths-keys-smoke-review-20261010-d.json",
+    "bytes": 857,
+    "sha256": "f1ab9bf7c7b5703541cb421436cd19afbe91ffa01838cebe31e9927d854182b4"
+  },
+  "actualInputsAndOutputsReviewed": [
+    {
+      "path": "/private/tmp/ashlar-paths-keys-installed-smoke-20261010-d/run.py",
+      "bytes": 2839,
+      "sha256": "4cbee6538b41ce02d8e490fad99abf255dd72c1275ecaa82b6103d7c9073eac8"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-keys-installed-smoke-20261010-d/launch.py",
+      "bytes": 2218,
+      "sha256": "8b2556c183b42be6b3fb35d53a623f8ed99370b5d83421e6cbfc1ad8044543ca"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-keys-installed-smoke-20261010-d/launch-result.json",
+      "bytes": 416,
+      "sha256": "0d9d61c33b8a07e463d145214ce57e911c28086f89a086aff463648a3baf392b"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-keys-installed-smoke-20261010-d/provisional-result.json",
+      "bytes": 1831,
+      "sha256": "5847aceeca1244243da7200175e5504f323ecd22acbd285266777ffb26d2f767"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-keys-installed-smoke-20261010-d/stdout.log",
+      "bytes": 55,
+      "sha256": "56bcf8e19e238e26c905e7a255285896095addcd6ee46503bdb5bb2ce3951333"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-keys-installed-smoke-20261010-d/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-keys-installed-smoke-20261010-d/installation/ready.json",
+      "bytes": 1566,
+      "sha256": "0f6d25f42d3f3fbd44117677ac2f4056f444dbf0d52e0c0632925cf69b53fcae"
+    },
+    {
+      "path": "/private/tmp/ashlar-paths-keys-installed-smoke-20261010-d/installation/provenance.json",
+      "bytes": 85425,
+      "sha256": "f4b1fc979eb7fd839be83a9eb2259f3534fa550493ea6e05c901231049631ccd"
+    }
+  ],
+  "reviewerActualCommand": {
+    "argv": [
+      "/usr/bin/python3",
+      "-B",
+      "-S",
+      "/private/tmp/astra-paths-keys-installed-smoke-controls-20261010-d.py"
+    ],
+    "exitCode": 0,
+    "artifacts": [
+      {
+        "path": "/private/tmp/astra-paths-keys-installed-smoke-controls-20261010-d.py",
+        "bytes": 5736,
+        "sha256": "3c5c6d40764dc066135d65a6ff83ecadeb2e3b4c3a4e9809f38d860967cb8141"
+      },
+      {
+        "path": "/private/tmp/astra-paths-keys-installed-smoke-controls-20261010-d.json",
+        "bytes": 6831,
+        "sha256": "482240abb3095de44a7b414f43da1d6cafb7f775cd55d227284dbd6932d02d9f"
+      },
+      {
+        "path": "/private/tmp/astra-paths-keys-installed-smoke-controls-20261010-d.log",
+        "bytes": 176,
+        "sha256": "4110f7a19989b832da181ba048936ef297a8238578d1117195d8747425ed2317"
+      }
+    ]
+  },
+  "actualExecutionEvidence": {
+    "rootReportedToolSession": 1529,
+    "rootReportedTerminalExitCode": 0,
+    "retainedLaunchElapsedSeconds": 1.032270334,
+    "closing229ResourcePins": true,
+    "finalLaunchBindsProvisionalResultSha256": "5847aceeca1244243da7200175e5504f323ecd22acbd285266777ffb26d2f767",
+    "reviewerDidNotRerunCompiler": true
+  },
+  "verified": {
+    "installedExactFiles": 10,
+    "modes": "binary0555; ready/provenance/backend/six schemas0444",
+    "fixedIndexRevision": "6d82b7e89e43319c2a175b9895527298ff66ef36",
+    "fixedIndexSha256": "bd541aa8cb261376f160661d3df67065b36fcba4f6caf4c0f42e33d710c4b9dc",
+    "binarySha256": "471fc5dedc8f8eba3156444d19cc2161fac7a06833672dd5621ed49ead8b522c",
+    "backendSha256": "ead2df8de9927765775ec7267a9a1865b1c02ec21c849255ada85c36a645fb84",
+    "exactIndexedManifestAndCustodyRetainedInProvenance": true,
+    "purePublicReopenAndSixSchemaPortsWithPackageNone": true,
+    "processCreationTrappedDuringReviewerPorts": true,
+    "cases": [
+      {
+        "id": "1:authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops",
+        "requestSha256": "1350781c09595d0d3cb163e011c3605b8dd60d312417c6344ac4a27c056a0737",
+        "responseSha256": "d3e4a57f1ebbfe73381ff34d2969bac0f028bf330d7f46735f527ddb9a22ca94",
+        "status": "compiled",
+        "requestBytes": 5959,
+        "responseBytes": 51301,
+        "diagnostics": []
+      },
+      {
+        "id": "candidate-opt-out",
+        "requestSha256": "b693156fe3cb5de6a2c42f5d0649b3a48252afe27d7beb54b620027ffa6ad9f0",
+        "responseSha256": "87b9145e79540aa768a19252eec1f5b4829f78ad6758d6b4cea99893c2bf04b7",
+        "status": "blocked",
+        "requestBytes": 55390,
+        "responseBytes": 234,
+        "diagnostics": [
+          {
+            "code": "WFT-CAPABILITY",
+            "message": "Selected04 capability refused before binding",
+            "phase": "capability",
+            "recoverability": "change-profile",
+            "severity": "error"
+          }
+        ]
+      }
+    ],
+    "reportedStreams": {
+      "stdoutBytes": 55,
+      "stderrBytes": 0
+    },
+    "closingInputsRehashedByReviewer": 229
+  },
+  "formalAndLifecycleScope": {
+    "ownership": "The direct root process invokes the frozen runner without a nested outer subprocess/kill boundary. Each unchanged committed compile_transport owns its compiler process group, finite streams and 30-second work deadline.",
+    "custody": "Source export, package, fixed public index, exact accepted corpus and scripts are pinned; runner verifies original response equality and package=None reopen; final success artifact follows root closing input verification. Cooperating local writers assumed.",
+    "primaryFailure": "Endorsed fake command controls preserve exact original cancellation, observe closing drift and withhold final success. This is a finite implementation/control review, not a mechanical proof.",
+    "historicalFailedProposals": "B and C remain unapproved for robust outer-kill ownership; D removes that outer-kill boundary. No guarantees transfer from unexecuted predecessors."
+  },
+  "limitations": [
+    "No hard whole-run deadline, abrupt root-process death, uninterruptible filesystem or hostile writer guarantee.",
+    "Runner compared each actual response byte string to the original expected byte string before recording its hash/status. Separate actual response files were not retained; this receipt does not claim raw output retention.",
+    "PackageNone restart was observed in the same Python runner, then independently reopened in this separate reviewer process using pure APIs; no fresh-process compiler restart was executed by reviewer.",
+    "This finite compiled self-loop case and candidate-opt-out refusal are not a full74 replay, new corpus acceptance, actual ten-case host/native workflow, source/publication/ACK or OTel receiver proof.",
+    "Source and artifact pinning are selected custody evidence, not a hermetic interpreter/OS dependency closure or deterministic build proof."
+  ],
+  "findings": []
+}

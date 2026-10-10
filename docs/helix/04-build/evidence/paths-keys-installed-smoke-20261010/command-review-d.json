@@ -1,0 +1,22 @@
+{
+  "format": "domain-paths-keys-smoke-review/0.2",
+  "verdict": "approved for direct root-owned smoke within declared cooperative process scope",
+  "commandSha256": "92b7a6bb930a37e3867aa444f4bed5b65ed431ae6aa6e822a03e0a3591b64b15",
+  "inputsVerified": 229,
+  "sourceGitFilesVerified": 98,
+  "controls": [
+    {
+      "primaryIdentity": true,
+      "closingDrift": false,
+      "successWithheld": true
+    },
+    {
+      "primaryIdentity": true,
+      "closingDrift": true,
+      "successWithheld": true
+    }
+  ],
+  "captureExactLimitAndOverflow": true,
+  "noOuterProcessOrForcedKill": true,
+  "scope": "No actual installer/compiler/native invocation. Each committed transport owns compiler group/deadline; abrupt root process death/global whole-run deadline excluded. Resource snapshot assumes cooperating writers. No source/ACK/native qualification."
+}

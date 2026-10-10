@@ -1,0 +1,35 @@
+{
+  "format": "domain-paths-keys-smoke-review/0.1",
+  "command": "/private/tmp/ashlar-paths-keys-installed-smoke-20261010-b/command.json",
+  "commandSha256": "f298eb6ebf877661f2b3efeb03b6005f9363088524723ab371d7200d105a254e",
+  "inputsVerified": 229,
+  "sourceGitFilesVerified": 98,
+  "sourceCommit": "f3d270008ab58e9ba3e239f94ddba28af0f4114a",
+  "pairs": [
+    {
+      "id": "1:authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops",
+      "role": "valid",
+      "requestSha256": "1350781c09595d0d3cb163e011c3605b8dd60d312417c6344ac4a27c056a0737",
+      "responseSha256": "d3e4a57f1ebbfe73381ff34d2969bac0f028bf330d7f46735f527ddb9a22ca94",
+      "status": "compiled"
+    },
+    {
+      "id": "candidate-opt-out",
+      "role": "valid",
+      "requestSha256": "b693156fe3cb5de6a2c42f5d0649b3a48252afe27d7beb54b620027ffa6ad9f0",
+      "responseSha256": "87b9145e79540aa768a19252eec1f5b4829f78ad6758d6b4cea99893c2bf04b7",
+      "status": "blocked"
+    }
+  ],
+  "fakeProbe": {
+    "primaryIdentityPreserved": true,
+    "escapedNestedChildContinues": true,
+    "outerRunnerReaped": true
+  },
+  "verdict": "blocked",
+  "findings": [
+    "Outer cancellation only kills runner group; inner compile_transport owns a separate session/group, which survives the outer cleanup.",
+    "Closing resource verification is skipped after primary failure/cancellation; no incomplete closing outcome is persisted."
+  ],
+  "scope": "Read-only source/resource/Git/pair comparison and controlled fake process only. No installer/compiler/native invocation. Controlled escaped child killed by reviewer after probe."
+}
