@@ -282,6 +282,38 @@ per-attempt selection, nested/concurrent binding isolation, and refusal of
 parent/retry contexts before spanless attempt or transport effects. An unfinished
 spanless invocation must not invent unknown span loss.
 
+For the installed command configuration boundary, test all eight required JSON
+members and derived origins, duplicate/unknown keys, malformed UTF-8, booleans in
+integer limits, oversize files, symlinks and opening/closing file identity. No real
+credential file is needed: use synthetic values and prove absence from argv,
+stdout, stderr, capture, diagnostic signal payloads and retained receiver evidence;
+transport headers may reach only the selected trusted receiver. Disabled commands and
+retrieval must operate without selected SDK dependency discovery. Missing or
+incompatible selected dependencies and local capture construction failure must
+refuse before native effects; ordinary later worker/transport startup failure must
+preserve local capture, unknown remote accounting and the business result.
+
+Exercise the actual installed retrieval command against immutable closed capture
+and compare its bounded complete JSON output with the public reader. Cover every
+filter conjunction, zero matches, truncation and open/expired/changed snapshots;
+no partial stdout may escape a refused snapshot. Timestamp evidence must not be
+interpreted as causal order or an unsupported timestamp filter.
+
+For workflow composition, map the real Paths host's phase transitions to
+CONTRACT-006 and DIAG-F1/F2/F3/L1. Inject ordinary diagnostic failure and first
+cancellation at construction, emission, finish and shutdown. Verify exactly one
+shutdown owner across partial construction and transferred ownership; preserve
+business exception identity and native cleanup markers for ordinary diagnostic
+failures. Negative controls cover an ordinary business error followed by first
+diagnostic cancellation, an existing business cancellation followed by later
+diagnostic cancellation, and cancellation at every post-Spark-acquisition phase
+hook. Verify the original winning cancellation object and required native cleanup;
+composition must close the run without passing the business primary. A successful attempt
+requires all ten original query results, reader/Spark cleanup, closing custody
+and published report. Actual native evidence is required for this workflow claim;
+synthetic ports qualify only failure/ownership controls. An external credential
+or engine gap does not permit substituting a fake workflow pass.
+
 Before the diagnostic pilot, pin one small synthetic failed-run fixture with
 interleaved attempts and a retry, its ground-truth cause and exact commands,
 versions and budgets. Give an investigator the failure question without its

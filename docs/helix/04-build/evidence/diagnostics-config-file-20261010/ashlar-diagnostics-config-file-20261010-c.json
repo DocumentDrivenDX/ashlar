@@ -1,0 +1,32 @@
+{
+  "scope": "Portable source configuration loader synthetic temporary file controls only; no SDK/native/network or real credential reads.",
+  "command": "PYTHONPATH=/Users/erik/Projects/ashlar/src:/Users/erik/Projects/ashlar/tests /usr/bin/python3 -B -m unittest test_host_diagnostics_config_file test_diagnostics_configuration",
+  "runtime": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "tests": 14,
+  "exitCode": 0,
+  "reportedSeconds": 0.178,
+  "terminalChunkId": "a5659f",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "bytes": 15938,
+      "sha256": "77206bdb19241632ebc4d110fdde6caa8c745fc852143660841a9df1c0d6ae9e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_host_diagnostics_config_file.py",
+      "bytes": 7203,
+      "sha256": "5fc2b1123dfa1eafb475ca602192824f112803d2c9a73393c6321e6ca15079bf"
+    },
+    {
+      "path": "/private/tmp/ashlar-diagnostics-config-file-20261010-c.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-diagnostics-config-file-20261010-c.stderr.log",
+      "bytes": 113,
+      "sha256": "3d21b22933dd813c13fb827cc2b2b8d1a65cfa75fbea9b2afbd55f8b2685c2ae"
+    }
+  ],
+  "changes": "Bound predecode structural depth12 outside quoted escaped strings; <=20 integer digits before conversion; reject every float token without conversion. Guards assert decoder/conversion not called. B intermediate passed14 but strengthened guard assertions and sign-excluded digit bound in C."
+}

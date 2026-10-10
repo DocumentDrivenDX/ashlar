@@ -1,0 +1,107 @@
+{
+  "scope": "Five files only: portable explicit diagnostics JSON configuration loader, its focused tests, and desired-state C006/ADR001/TP001 amendments. No command/composition implementation, dependency admission implementation, SDK worker/receiver, native query, publication or ACK qualification.",
+  "files": [
+    {
+      "source": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.json",
+      "path": "astra-diagnostics-config-docs-review-20261010-c.json",
+      "bytes": 10935,
+      "sha256": "ee6b9366f5f7e6e7c5f9d77aa429d53519f954e81c8329ecd3ca349384a53b72"
+    },
+    {
+      "source": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.py",
+      "path": "astra-diagnostics-config-docs-review-20261010-c.py",
+      "bytes": 6122,
+      "sha256": "318ccb3c87a3fd537a58ceec96823ed7bff85dd54ca94404d87dd423d3559c0e"
+    },
+    {
+      "source": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.author.stdout.log",
+      "path": "astra-diagnostics-config-docs-review-20261010-c.author.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.author.stderr.log",
+      "path": "astra-diagnostics-config-docs-review-20261010-c.author.stderr.log",
+      "bytes": 113,
+      "sha256": "1922fc05741523e7201757c6c8157ca823dc684a8da84fbf0b5dc11b2bd9f910"
+    },
+    {
+      "source": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.independent.stdout.log",
+      "path": "astra-diagnostics-config-docs-review-20261010-c.independent.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.independent.stderr.log",
+      "path": "astra-diagnostics-config-docs-review-20261010-c.independent.stderr.log",
+      "bytes": 726,
+      "sha256": "074341f1098986c76dc5e6ad5215963230a218369a62cb8bdf8116391be956ca"
+    },
+    {
+      "source": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.independent-first.stderr.log",
+      "path": "astra-diagnostics-config-docs-review-20261010-c.independent-first.stderr.log",
+      "bytes": 1211,
+      "sha256": "fac56511a4db812b7674ea9dcca203dbe582067efe1b5d157f5677e593a6df6d"
+    },
+    {
+      "source": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.boundary.stdout.log",
+      "path": "astra-diagnostics-config-docs-review-20261010-c.boundary.stdout.log",
+      "bytes": 94,
+      "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+    },
+    {
+      "source": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.boundary.stderr.log",
+      "path": "astra-diagnostics-config-docs-review-20261010-c.boundary.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/ashlar-diagnostics-config-file-20261010-c.stderr.log",
+      "path": "ashlar-diagnostics-config-file-20261010-c.stderr.log",
+      "bytes": 113,
+      "sha256": "3d21b22933dd813c13fb827cc2b2b8d1a65cfa75fbea9b2afbd55f8b2685c2ae"
+    },
+    {
+      "source": "/private/tmp/ashlar-diagnostics-config-file-20261010-b.stdout.log",
+      "path": "ashlar-diagnostics-config-file-20261010-b.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/ashlar-diagnostics-config-file-20261010-a.json",
+      "path": "ashlar-diagnostics-config-file-20261010-a.json",
+      "bytes": 1322,
+      "sha256": "d690e17d833b05583ad7f69819b9060e552dc3ecc3dbaf824ef1b0070f9a54c2"
+    },
+    {
+      "source": "/private/tmp/ashlar-diagnostics-config-file-20261010-a.stderr.log",
+      "path": "ashlar-diagnostics-config-file-20261010-a.stderr.log",
+      "bytes": 112,
+      "sha256": "7da87e21609d7e2c09b37d31ca7d6a46b70dacdac039dde9997a7be738ac0356"
+    },
+    {
+      "source": "/private/tmp/ashlar-diagnostics-config-file-20261010-c.stdout.log",
+      "path": "ashlar-diagnostics-config-file-20261010-c.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/ashlar-diagnostics-config-file-20261010-b.stderr.log",
+      "path": "ashlar-diagnostics-config-file-20261010-b.stderr.log",
+      "bytes": 113,
+      "sha256": "b4fd81c0cf97a44c6c7c8d4fcc0be5d47418d79c1adf9cf1fad15ceae8f89167"
+    },
+    {
+      "source": "/private/tmp/ashlar-diagnostics-config-file-20261010-a.stdout.log",
+      "path": "ashlar-diagnostics-config-file-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "source": "/private/tmp/ashlar-diagnostics-config-file-20261010-c.json",
+      "path": "ashlar-diagnostics-config-file-20261010-c.json",
+      "bytes": 1628,
+      "sha256": "11d4e310256013038fa7f1720c1fbf0e2ea79211a8583f61d8163892f835348c"
+    }
+  ]
+}

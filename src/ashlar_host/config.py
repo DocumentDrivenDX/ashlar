@@ -4,6 +4,8 @@ from pathlib import Path
 from ashlar.weft_path_decode import PathDecodeConfig
 from .path_capture import PathCaptureConfig
 import ipaddress
+import json
+import os
 import re
 import stat
 import unicodedata
@@ -158,6 +160,111 @@ class DiagnosticsConfig:
 
 
 _TransportResult = TypeVar('_TransportResult')
+
+
+def load_diagnostics_config(path: Path) -> DiagnosticsConfig:
+    """Load one explicit bounded JSON file; never discover ambient settings."""
+    descriptor = None
+    primary = None
+    result = None
+    try:
+        if not isinstance(path, Path) or not path.is_absolute():
+            raise ValueError()
+        inspected = path.lstat()
+        if not stat.S_ISREG(inspected.st_mode) or not 0 < inspected.st_size <= 32768:
+            raise ValueError()
+        descriptor = os.open(path, os.O_RDONLY | os.O_NOFOLLOW | os.O_NONBLOCK)
+        def identity(value):
+            return (value.st_dev, value.st_ino, value.st_mode, value.st_size,
+                    value.st_mtime_ns, value.st_ctime_ns)
+        opening = os.fstat(descriptor)
+        if identity(opening) != identity(inspected):
+            raise ValueError()
+        data = bytearray()
+        while True:
+            part = os.read(descriptor, min(4096, 32769 - len(data)))
+            if not part:
+                break
+            data.extend(part)
+            if len(data) > 32768:
+                raise ValueError()
+        if (len(data) != opening.st_size or identity(os.fstat(descriptor)) != identity(opening)
+                or identity(path.lstat()) != identity(opening)):
+            raise ValueError()
+        def pairs(items):
+            values = {}
+            for name, value in items:
+                if name in values:
+                    raise ValueError()
+                values[name] = value
+            return values
+        def nonfinite(_value):
+            raise ValueError()
+        def integer(value):
+            if len(value.lstrip('-')) > 20:
+                raise ValueError()
+            return int(value)
+        depth = 0
+        quoted = escaped = False
+        for byte in data:
+            if quoted:
+                if escaped:
+                    escaped = False
+                elif byte == 92:
+                    escaped = True
+                elif byte == 34:
+                    quoted = False
+            elif byte == 34:
+                quoted = True
+            elif byte in (91, 123):
+                depth += 1
+                if depth > 12:
+                    raise ValueError()
+            elif byte in (93, 125):
+                depth -= 1
+                if depth < 0:
+                    raise ValueError()
+        values = json.loads(bytes(data).decode('utf8'), object_pairs_hook=pairs,
+                            parse_constant=nonfinite, parse_float=nonfinite, parse_int=integer)
+        names = {'profile', 'capture_root', 'endpoint', 'headers', 'tls',
+                 'ca_file', 'environment', 'limits'}
+        if type(values) is not dict or set(values) != names:
+            raise ValueError()
+        if any(type(values[name]) is not str for name in
+               ('profile', 'capture_root', 'endpoint', 'tls', 'environment')):
+            raise ValueError()
+        if values['ca_file'] is not None and type(values['ca_file']) is not str:
+            raise ValueError()
+        limits = values['limits']
+        if type(limits) is not dict or set(limits) != set(DiagnosticsLimits.__dataclass_fields__):
+            raise ValueError()
+        headers = values['headers']
+        if type(headers) is not list or any(type(pair) is not list or len(pair) != 2
+                or any(type(value) is not str for value in pair) for pair in headers):
+            raise ValueError()
+        origins = {name: 'explicit' for name in names - {'limits'}}
+        origins.update({'limits.' + name: 'explicit' for name in limits})
+        result = DiagnosticsConfig(values['profile'], Path(values['capture_root']),
+            SecretText(values['endpoint']), tuple((name, SecretText(value)) for name, value in headers),
+            values['tls'], Path(values['ca_file']) if values['ca_file'] is not None else None,
+            values['environment'], DiagnosticsLimits(**limits), origins)
+    except BaseException as error:
+        primary = error
+    finally:
+        if descriptor is not None:
+            try:
+                os.close(descriptor)
+            except BaseException as error:
+                if primary is None or (isinstance(primary, Exception) and not isinstance(error, Exception)):
+                    primary = error
+                else:
+                    try: primary.cleanup_failed = True
+                    except BaseException: pass
+    if primary is not None:
+        if isinstance(primary, Exception):
+            raise HostError('diagnostics-configuration') from None
+        raise primary
+    return result
 
 
 def with_diagnostics_transport(

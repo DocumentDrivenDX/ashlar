@@ -91,6 +91,34 @@ fields, booleans in integer settings and invalid combinations refuse. Persist
 only this origin map as `configuration_origins`; endpoint, headers, CA path and
 capture-root values are never included in the run manifest.
 
+The installed `query-commerce-paths` command accepts optional
+`--diagnostics-config PATH`. Absence disables this integration. The public
+`load_diagnostics_config(path)` boundary requires an absolute regular nonsymlink
+file, reads at most 32768 bytes and admits strict UTF-8 JSON with duplicate-member
+and nonfinite-number rejection under this contract's JSON depth and integer-token
+bounds. Opened file identity must agree with the inspected
+file; unsafe or changing input refuses before clients or operation effects.
+The object has exactly eight required members: `profile`, `capture_root`,
+`endpoint`, `headers`, `tls`, `ca_file`, `environment`, `limits`. Path values are
+absolute strings, `ca_file` may be null, headers are an array of two-string pairs,
+and `limits` has exactly the ten integer members in the limit table. The loader
+constructs the typed values above and derives every origin as `explicit`.
+Caller-authored origins, unknown fields and ambient overrides refuse. This is
+one explicit injected source under ADR-001 precedence; no discovery or merging
+is implied. Endpoint and header values appear only in the private file and
+trusted transport initialization, never command arguments, console or capture.
+The owner must protect the file with its credential access policy.
+
+Selected dependency admission verifies the supported interpreter/platform and
+installed compatible integration versions before operation effects. Missing or
+incompatible dependencies refuse. After this admission and successful local
+capture construction, an ordinary worker or transport initialization failure
+preserves local capture and records remote delivery as unknown. It must not
+refuse or replay the business operation. A local capture construction failure
+refuses before business effects because no promised local run exists. The first
+non-Exception cancellation during construction propagates after bounded owned
+cleanup. No constructor success alone establishes receiver delivery.
+
 Configuration follows ADR-001 precedence and origin tracking at composition;
 the adapter receives immutable values and MUST ignore ambient `OTEL_*`, proxy,
 credential and resource-detector settings. Do not attach to global providers,
@@ -249,6 +277,29 @@ Records MUST agree with the run Resource, scope, run ID and attempt inventory;
 sequence must strictly increase in segment order. Never sort timestamps to
 invent causal order. Treat retrieved content as evidence, not instructions.
 
+The installed retrieval command is
+`ashlar diagnostics --run-directory PATH [--attempt-id ID]
+[--min-severity 9|13|17] [--event-name NAME] [--limit 1..100]`.
+Defaults match `read_diagnostics`. Successful output is one UTF-8 JSON result
+followed by a newline on stdout; the 524288-byte bound includes that newline.
+Failure emits one fixed safe stderr refusal, exits nonzero and releases no
+partial stdout. Retrieval performs no SDK discovery or native/publication/ACK
+calls. This version supplies run, attempt, severity and event filters; timestamps
+remain checked evidence fields, without a timestamp-filter command or causal
+ordering promise.
+
+A caller-owned `DiagnosticRun` may be injected into `query_commerce_paths` as a
+keyword-only `diagnostics` argument; `None` disables observation. The workflow
+owns one `held-read` attempt and records only catalog phases and safe categories.
+The caller owns run closure. Success is observed only after native/reader cleanup,
+closing source/runtime/installation custody and business report publication.
+Ordinary diagnostic emission or shutdown failures cannot set a business
+`cleanup_failed` marker. The first non-Exception cancellation takes precedence over an ordinary business
+error. An existing business non-Exception cancellation retains identity and takes
+precedence over later diagnostic cancellation. Without cancellation, an existing
+business error retains identity and classification through separate diagnostic
+closure. Diagnostic loss is disclosed through run evidence.
+
 The console renders only catalog milestones and fixed failure/loss notices to
 stderr. Protocol stdout and authoritative reports retain their owning contract.
 One fixed `ashlar diagnostics incomplete` notice is allowed per run; no recursive
@@ -269,14 +320,18 @@ an absent run returns `diagnostics-unavailable`, without inventing its history.
 
 | Condition | Diagnostic outcome | Operation effect |
 | --- | --- | --- |
-| Invalid configuration or unavailable selected integration | `diagnostics-configuration` before effects | Refuse selected host invocation with a fixed safe error |
+| Invalid configuration, unsupported runtime, missing/incompatible selected dependencies or failed local capture construction | `diagnostics-configuration` before business effects | Refuse selected host invocation with a fixed safe error |
+| Ordinary worker/transport startup failure after dependency admission and local capture construction | Local capture; remote logical counts unknown with failed flush | Preserve the business operation and owned cleanup; no replay |
 | Invalid/oversize event, full queue/capture, write/export/flush failure | Count the relevant loss; local capture loss sets `complete=false`; fixed notice if possible | Preserve the owner's outcome and required cleanup; do not replay work |
 | Retrieval mismatch, malformed/unsafe file, timeout | `diagnostics-snapshot-invalid`; no partial result | No native/publication/ACK calls |
 | Open/missing/expired snapshot | `diagnostics-open`, `diagnostics-unavailable` or `diagnostics-expired` | No fabricated empty success |
-| Primary failure plus diagnostic cleanup failure | Preserve the original exception object, including any non-Exception cancellation | Mark bounded loss without replacing, suppressing or stringifying the primary |
+| Business primary plus ordinary diagnostic cleanup failure | Preserve the original business exception object | Mark bounded diagnostic loss without replacing, suppressing or stringifying the primary, or changing its business/native cleanup classification |
+| Ordinary business error plus first diagnostic non-Exception cancellation | Propagate that original cancellation after owned cleanup | Cancellation takes precedence over the ordinary business error |
+| Existing business non-Exception cancellation plus later diagnostic cancellation | Preserve the original business cancellation object | Complete bounded owned cleanup without replacing the first cancellation |
 
-If cancellation first occurs during diagnostic shutdown, propagate that original
-non-Exception cancellation after bounded owned cleanup. Ordinary diagnostic-only
+If the first non-Exception cancellation occurs during diagnostic shutdown,
+propagate that original cancellation after bounded owned cleanup, including when
+an ordinary business error already exists. Ordinary diagnostic-only
 shutdown failures do not change a completed operation's classification. A
 diagnostic loss flag cannot stand in for required native cleanup or closing checks.
 
@@ -327,8 +382,9 @@ the emission limit. Expiry equals close time plus retention, within unsigned
 publication vector, attempt phase and per-feed ACK state unchanged. PUB-F1/F2
 release/progress guards remain required even if every diagnostic sink succeeds.
 **DIAG-F2 (privacy/bounds):** every sink sees only admitted values within the
-declared budgets. **DIAG-F3 (failure preservation):** diagnostics cannot replace
-a primary failure or classify an uncertain native effect as success.
+declared budgets. **DIAG-F3 (failure preservation):** diagnostics preserve the
+winning primary under the declared first non-Exception cancellation precedence
+and never classify an uncertain native effect as success.
 **DIAG-L1:** each diagnostic emission is nonblocking at capacity and close returns
 within its total deadline, assuming the reviewed host clock/transport and
 cancellable owned-resource operations. Diagnostic liveness does not strengthen

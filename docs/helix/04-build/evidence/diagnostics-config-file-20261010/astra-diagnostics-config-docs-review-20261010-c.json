@@ -1,0 +1,193 @@
+{
+  "reviewer": "/root/astra_plan_review",
+  "verdict": "approve-exact-source-loader-and-desired-state-documents",
+  "scope": "Five files only: portable explicit diagnostics JSON configuration loader, its focused tests, and desired-state C006/ADR001/TP001 amendments. No command/composition implementation, dependency admission implementation, SDK worker/receiver, native query, publication or ACK qualification.",
+  "repository": "/Users/erik/Projects/ashlar",
+  "baseHead": "6de0866f579c98ae31cd39bb0e95b0ff74268d5c",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "bytes": 15938,
+      "sha256": "77206bdb19241632ebc4d110fdde6caa8c745fc852143660841a9df1c0d6ae9e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_host_diagnostics_config_file.py",
+      "bytes": 7203,
+      "sha256": "5fc2b1123dfa1eafb475ca602192824f112803d2c9a73393c6321e6ca15079bf"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "bytes": 28805,
+      "sha256": "5bcb62a69aa3f122515fea030bbf08c5a2af9ce92e3b86419c5cd8170c8ebec3"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 34641,
+      "sha256": "226fd0c4cb269a6d4a9ec84ab832a20c3db7210e0e761018eea233c6b2229a31"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/03-test/consumer-conformance-plan.md",
+      "bytes": 23320,
+      "sha256": "53f455d4cf7815756c0d835fbe018f5427860af707b713ddc0f5d0577db2256b"
+    }
+  ],
+  "frontmatter": [
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "unchangedVsHEAD": true,
+      "sha256": "f4513715aeba8034214cc228b86ed7873a7c995c20b97d6c3520ad61ebf9b0ca"
+    },
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "unchangedVsHEAD": true,
+      "sha256": "6cf9df72fb22a18f1a934204a89c65949b82541a3bf6496b21d8086f23022cf7"
+    },
+    {
+      "path": "docs/helix/03-test/consumer-conformance-plan.md",
+      "unchangedVsHEAD": true,
+      "sha256": "7cedc4d5ada41aab05ce4eab9ddd8b7de9db7f3783ed4cc148944cd86b9f80bf"
+    }
+  ],
+  "authorControlsReceipt": {
+    "path": "/private/tmp/ashlar-diagnostics-config-file-20261010-c.json",
+    "bytes": 1628,
+    "sha256": "11d4e310256013038fa7f1720c1fbf0e2ea79211a8583f61d8163892f835348c"
+  },
+  "reviewArtifacts": [
+    {
+      "path": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.py",
+      "bytes": 6122,
+      "sha256": "318ccb3c87a3fd537a58ceec96823ed7bff85dd54ca94404d87dd423d3559c0e"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.author.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.author.stderr.log",
+      "bytes": 113,
+      "sha256": "1922fc05741523e7201757c6c8157ca823dc684a8da84fbf0b5dc11b2bd9f910"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.independent.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.independent.stderr.log",
+      "bytes": 726,
+      "sha256": "074341f1098986c76dc5e6ad5215963230a218369a62cb8bdf8116391be956ca"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.independent-first.stderr.log",
+      "bytes": 1211,
+      "sha256": "fac56511a4db812b7674ea9dcca203dbe582067efe1b5d157f5677e593a6df6d"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.boundary.stdout.log",
+      "bytes": 94,
+      "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostics-config-docs-review-20261010-c.boundary.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "actualValidation": [
+    {
+      "command": "PYTHONPATH=src:tests /usr/bin/python3 -B -S -W error::ResourceWarning -m unittest test_host_diagnostics_config_file test_diagnostics_configuration",
+      "cwd": "/Users/erik/Projects/ashlar",
+      "exitCode": 0,
+      "tests": 14,
+      "terminalChunk": "fa678b",
+      "reportedSeconds": 0.185
+    },
+    {
+      "command": "PYTHONPATH=src /usr/bin/python3 -B -S -W error::ResourceWarning /private/tmp/astra-diagnostics-config-docs-review-20261010-c.py",
+      "cwd": "/Users/erik/Projects/ashlar",
+      "exitCode": 0,
+      "tests": 7,
+      "terminalChunk": "cc46d9",
+      "reportedSeconds": 0.128
+    },
+    {
+      "command": "/usr/bin/python3 -B -S tools/check_module_boundaries.py",
+      "cwd": "/Users/erik/Projects/ashlar",
+      "exitCode": 0,
+      "terminalChunk": "2cd104",
+      "limitations": "Static imports; dynamic imports/type ownership/cycles still require semantic review."
+    },
+    {
+      "command": "git diff --check -- src/ashlar_host/config.py tests/test_host_diagnostics_config_file.py docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md docs/helix/03-test/consumer-conformance-plan.md",
+      "cwd": "/Users/erik/Projects/ashlar",
+      "exitCode": 0,
+      "terminalChunk": "3c37d0"
+    }
+  ],
+  "reviewerRuntime": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "independentControls": [
+    "Depth12 reaches bounded decoder; depth13 refuses before decoder. Quoted/escaped structural characters do not consume depth.",
+    "20-digit signed and unsigned integers reach conversion; 21-digit and fractional/exponent tokens refuse before numeric conversion.",
+    "Unicode-decoded duplicate names and caller-authored origins refuse with fixed safe output-free error.",
+    "Real regular-file-to-FIFO replacement at os.open refuses using O_NONBLOCK/O_NOFOLLOW and closes acquired descriptor.",
+    "Same-size content overwrite with changed metadata refuses.",
+    "Read-only original BaseException survives read failure plus close OSError; cleanup-only KeyboardInterrupt/SystemExit/GeneratorExit preserves exact identity.",
+    "Explicit17-leaf immutable origin map, secret wrapping, snapshot independence and no capture creation or ambient override."
+  ],
+  "correctedFindings": [
+    {
+      "id": "LOADER-BOUNDS",
+      "status": "resolved-in-C",
+      "description": "Adds byte-scanned JSON depth12 and <=20-digit parse_int before conversion; rejects all fraction tokens because typed schema permits none."
+    },
+    {
+      "id": "DIAG-F3-PRECEDENCE",
+      "status": "resolved-in-documents",
+      "description": "Formal failure-preservation wording now preserves the winning primary under declared first non-Exception precedence, matching error table and composition obligations."
+    }
+  ],
+  "documentationAssessment": {
+    "ownership": "One explicit loader and desired-state diagnostic composition owner; public ports only, caller owns run closure, native owner encloses every post-acquisition hook.",
+    "configuration": "Exactly8 required JSON fields; ten bounded integer limits; explicit17-leaf origins; no discovery or merging; protected synthetic secret values only.",
+    "failurePolicy": "Unavailable selected dependencies or initial capture refuse before business effects. Ordinary admitted remote startup loss preserves local capture; distinct diagnostics close cannot mutate native cleanup markers. First non-Exception cancellation wins ordinary error; existing non-Exception business cancellation retains identity.",
+    "retrieval": "Desired installed retrieval releases one complete bounded JSON result including newline, no partial stdout or SDK/native calls.",
+    "formal": "DIAG-F1/F2/F3/L1 remain precise reviewed invariants with scoped implementation correspondence and assumptions. Tests/static checks are not analyzer/model proof."
+  },
+  "helixPracticeReferences": [
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/concerns/modularity-and-encapsulation/practices.md",
+      "bytes": 4078,
+      "sha256": "ac0ba86836f318a443e404053e9018e9165e367077307a1746cc2b2306d04fcb"
+    },
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/concerns/python-uv/practices.md",
+      "bytes": 3843,
+      "sha256": "14d8e5e4f0a24a410884070a205ef137f7575c89f9f67465bc82a368ca9ca0c0"
+    },
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/concerns/o11y-otel/practices.md",
+      "bytes": 8161,
+      "sha256": "af3a6cf39fe5ab641fc52f3e59645e1261e9396531549cf54453ffa5c4930eba"
+    },
+    {
+      "path": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/concerns/formal-methods/practices.md",
+      "bytes": 4666,
+      "sha256": "f9c3e143176e2f0e9f9d02a8e44e48b29891b1e0e33a578ca0d09d67d5e83410"
+    }
+  ],
+  "implementationRequirementsCarriedForward": [
+    "Future composition must distinguish dependency/local admission refusal from a safely cleaned ordinary worker startup failure; catching every DiagnosticsError as degraded startup would be insufficient.",
+    "Acquire partial SDK resources under an explicit ownership stack before completed transfer; cleanup of partial construction and clean process termination must precede degraded startup continuation.",
+    "Close diagnostics without passing the business exception; apply the declared cancellation matrix outside the diagnostic owner. Ordinary diagnostic failures must not set business cleanup_failed.",
+    "Every diagnostic hook after native resource acquisition must remain within native owner cleanup. A diagnostic cancellation after completed report availability must not rewrite the completed authoritative business result.",
+    "Actual installed retrieval and ten-result native workflow evidence are separately required; this receipt does not substitute for either."
+  ],
+  "reviewerProbeCorrection": "Initial independent test incorrectly counted all ten integer fields when expecting one target-token conversion. Corrected the assertion to count the exact oversized test token; initial failure log retained. This was a reviewer test-oracle error, not a source defect.",
+  "limitations": [
+    "Synthetic local file and injected failure controls only; no real credential, network, SDK/provider, receiver, compiler, Spark or PostgreSQL execution.",
+    "File custody checks cover opened regular-file snapshot and named-path identity under reviewed cooperative filesystem assumptions; no hostile privileged writer or arbitrary filesystem-stall guarantee.",
+    "Other dirty files excluded. No production source/document edits or Git mutation performed by reviewer."
+  ]
+}

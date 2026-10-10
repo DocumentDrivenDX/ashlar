@@ -1,0 +1,12 @@
+test_exact_depth_boundary_and_quote_escapes (__main__.IndependentLoaderControls) ... ok
+test_fifo_replacement_at_open_is_nonblocking_and_closed (__main__.IndependentLoaderControls) ... ok
+test_integer_and_fraction_lexical_boundaries (__main__.IndependentLoaderControls) ... ok
+test_readonly_primary_and_cleanup_priority (__main__.IndependentLoaderControls) ... ok
+test_result_snapshot_redaction_and_no_effects (__main__.IndependentLoaderControls) ... ok
+test_same_size_overwrite_is_detected (__main__.IndependentLoaderControls) ... ok
+test_unicode_duplicate_and_caller_origins_refuse (__main__.IndependentLoaderControls) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.128s
+
+OK

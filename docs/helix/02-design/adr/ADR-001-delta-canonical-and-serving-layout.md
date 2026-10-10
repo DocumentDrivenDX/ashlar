@@ -143,8 +143,9 @@ semantic, custody and transport responsibilities.
 | `src/ashlar/__init__.py` | Portable package exports | Explicit core package surface | Owned portable library modules | Host composition, engine SDK construction or new semantic ownership |
 | `src/ashlar/cli.py`, `__main__.py` | Installed command dispatch and typed application construction | CLI main, including publish-commerce and query-commerce | Public core APIs and explicit `ashlar_host` configuration/commerce entrypoints | Native SDK imports/construction, tool imports, semantic ownership or private cross-module access |
 | `src/ashlar/source_config.py`, `weft_distribution.py`, named `*_source.py` adapters | Named source profiles and trusted compiler configuration | Source conversion and indexed compiler composition | Public core APIs and standard-library file/process adapters | Imports of `ashlar_host`, tools or native SDKs; compiler/source semantic substitution |
-| `src/ashlar_host/__init__.py`, `config.py`, `commerce.py` | Typed immutable application and diagnostic configuration, runtime/input admission and public workflow selection | HostError, ProducerConfig, PrivatePostgresConfig, PublishCommerceConfig, QueryCommerceConfig, QueryCommercePathsConfig, DiagnosticsConfig, DiagnosticsLimits, SecretText, with_diagnostics_transport; commerce.publish_commerce and commerce.query_commerce | Explicit configuration, packaged inputs and owned host phase adapters | Checkout tools, implicit endpoint/profile selection, configuration treated as source or ACK authority |
+| `src/ashlar_host/__init__.py`, `config.py`, `commerce.py` | Typed immutable application and diagnostic configuration, runtime/input admission and public workflow selection | HostError, ProducerConfig, PrivatePostgresConfig, PublishCommerceConfig, QueryCommerceConfig, QueryCommercePathsConfig, DiagnosticsConfig, DiagnosticsLimits, SecretText, load_diagnostics_config, with_diagnostics_transport; commerce.publish_commerce and commerce.query_commerce | Explicit configuration, packaged inputs and owned host phase adapters | Checkout tools, implicit endpoint/profile selection, configuration treated as source or ACK authority |
 | `src/ashlar_host/diagnostics.py` | Sanitized event identity, bounded local run capture and closed-snapshot retrieval | CONTRACT-006 event/run validation and capture; decode_event, validate_signal_loss, read_diagnostics | Standard-library immutable values and file adapters, explicit DiagnosticsConfig and injected signal sink | SDK imports, ambient settings, raw payload/secret capture, publication/ACK mutation ports or checkout tools |
+| `src/ashlar_host/diagnostic_composition.py` | Explicit diagnostic dependency admission, run/adapter ownership and host invocation wiring | CONTRACT-006 selected workflow composition | Public typed configuration, capture and OTel lifecycle ports; injected business workflow | Native/publication/ACK ports, ambient discovery, business exception cleanup classification changes or checkout tools |
 | `src/ashlar_host/otel.py` | OpenTelemetry (OTel) adapter composition, explicit parent/retry and span-creation binding, and owned worker lifecycle | make_otel_run; OtelRun signal sink, operation_context and bounded shutdown under CONTRACT-006 | Explicit DiagnosticsConfig, public sanitized diagnostic APIs, selected OTel API context values and bounded private worker protocol | In-process SDK provider construction, ambient endpoint discovery, raw payloads, publication/ACK mutation ports or checkout tools |
 | `src/ashlar_host/_otel_worker.py` | Private isolated SDK construction, actual context/signal mapping, bounded queues and transport | None; private worker protocol owned by the OTel adapter | Public sanitized event validation, selected OTel SDK/encoders and explicit injected settings | Native/publication SDKs, ambient configuration overrides, compiler/result repair, publication/ACK mutation ports or checkout tools |
 | `src/ashlar_host/source.py`, `source_identity.py`, `commerce_admission.py`, `resources/`, `schema_rows.py` | Original input custody, public UMF producer invocation, finite source admission and package-relative model/graph/SQL resources | Owned source/resource ports used by the commerce entrypoints | Public core source APIs, explicitly configured Bun/Git and clean pinned UMF source, owned native/source correspondence ports | Checkout-relative resource discovery, private UMF imports, shadow semantic validation, receipt flags treated as publication authority |
@@ -192,10 +193,16 @@ private PostgreSQL profile. Required reader/session/transport closure and Spark
 stop must complete before a successful report is released; cleanup failure must
 not replace an existing primary failure or turn an uncertain outcome into success.
 
-The `ashlar_host.commerce` and `ashlar_host.paths_query` composition roots receive
-an explicit `DiagnosticsConfig` or `None`. They validate it before operation
-effects, construct the owned diagnostic capture and OTel adapter once, and inject
-their public ports; `None` disables diagnostics without SDK discovery. OTel SDK
+The installed CLI selects explicit diagnostics through CONTRACT-006's file
+boundary. `ashlar_host.diagnostic_composition` validates selected dependency
+availability, constructs local capture and the OTel adapter once, and injects a
+caller-owned run into the workflow. `ashlar_host.paths_query` owns its held-read
+attempt and genuine phase observations; the composition owns run closure.
+`None` disables diagnostics without SDK discovery. Missing/incompatible selected
+dependencies and failed local capture construction refuse before business effects;
+ordinary later worker/transport startup failure leaves local capture active with
+unknown remote delivery. Diagnostic loss never changes native cleanup markers
+or bypasses closing custody and report publication. OTel SDK
 construction belongs only to its private `ashlar_host._otel_worker` in the selected
 Python 3.11 host runtime. The adapter owns the worker's clean environment,
 bounded request/response channel, deadline and termination/reaping. Settings
@@ -270,6 +277,24 @@ and never enter printable settings, fingerprints, SQL diagnostics or subprocess
 capture. Library calls receive explicit configuration/policy ports rather than
 reading process environment. Browser configuration is a separate public,
 browser-safe closed boundary and cannot contain credentials.
+
+The selected diagnostic host uses the optional `diagnostics` installation extra
+and Python 3.11; portable-core dependency and Python-floor policy remains intact.
+The extra pins API, SDK and OTLP HTTP integration versions named in CONTRACT-006;
+qualification retains the complete resolved dependency lock and actual installed
+version evidence. Package selection alone does not qualify delivery. The explicit
+JSON configuration source derives origins without accepting a caller-supplied
+provenance claim. Exact file, command and retrieval surfaces remain in CONTRACT-006.
+
+Run construction transfers signal shutdown ownership only after successful local
+capture admission. A failed partial construction closes resources still owned
+by the composition. After transfer, run closure drains the adapter once under its
+shared deadline. Composition closes the diagnostic run without passing a business primary, then
+resolves CONTRACT-006 cancellation precedence. Ordinary diagnostic failure cannot
+replace a business primary or pollute its native cleanup marker; the first
+non-Exception cancellation takes precedence over an ordinary error. Every phase
+hook after Spark acquisition executes inside the native cleanup owner's try/context. This ownership split avoids
+abandoned workers and duplicate shutdown while permitting remote startup loss.
 
 OpenTelemetry (OTel) governs diagnostics, independently of durable attempt/manifest/ACK custody.
 Publication, source admission, resolver-held read and ACK/reconciliation are

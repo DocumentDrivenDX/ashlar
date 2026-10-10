@@ -1,0 +1,31 @@
+{
+  "scope": "Portable source configuration loader synthetic temporary file controls only; no SDK/native/network or real credential reads.",
+  "command": "PYTHONPATH=/Users/erik/Projects/ashlar/src:/Users/erik/Projects/ashlar/tests /usr/bin/python3 -B -m unittest test_host_diagnostics_config_file test_diagnostics_configuration",
+  "runtime": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "tests": 13,
+  "exitCode": 0,
+  "reportedSeconds": 0.206,
+  "terminalChunkId": "79fdd2",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "bytes": 15327,
+      "sha256": "b54914c20beed73489882000485a1caa9dab0df8284334180415b8fff9de442a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_host_diagnostics_config_file.py",
+      "bytes": 6262,
+      "sha256": "9c5a568662094a0cd63b6273e5640723e0c68c63400f9eb2f9929911d18e0b58"
+    },
+    {
+      "path": "/private/tmp/ashlar-diagnostics-config-file-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-diagnostics-config-file-20261010-a.stderr.log",
+      "bytes": 112,
+      "sha256": "7da87e21609d7e2c09b37d31ca7d6a46b70dacdac039dde9997a7be738ac0356"
+    }
+  ]
+}
