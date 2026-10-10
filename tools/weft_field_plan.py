@@ -10,7 +10,12 @@ native-null admission; it does not widen default or required-count routes.
 import hashlib,json
 
 
-def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False, native_null=False, distinct=False, count_distinct=False, count_having=False):
+def admit_field_plan(artifact, binding, modules, *, positioned_output_only=False, native_null=False, distinct=False, count_distinct=False, count_having=False, left_join=False):
+    if type(left_join)is not bool or (left_join and (native_null or distinct or count_distinct or count_having or positioned_output_only)):
+        raise ValueError("Explicit separate LEFT host route required")
+    if left_join:
+        from weft_left_plan import admit_left_plan
+        return admit_left_plan(artifact,binding,modules)
     if type(native_null) is not bool:
         raise ValueError('Explicit native-null opt-in must be Boolean')
     if type(distinct) is not bool or (distinct and native_null):

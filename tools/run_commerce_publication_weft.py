@@ -167,6 +167,38 @@ class PublicationProvider:
             detail=self.driver.transport.spark.sql('DESCRIBE DETAIL '+self.aliases[native]).first().asDict()
             target=self.driver.transport.targets[native]
             if detail['id']!=target.uuid or detail['location'].removeprefix('file:').rstrip('/')!=str(target.path):raise ValueError('Alias replaced or points at another native original')
+    def native_table_schema(self,table,resolved,context):
+        """Observe complete native metadata at a resolved, held original version.
+
+        Physical nullable metadata is retained; row non-nullness is a separate
+        mandatory compiler guard. This callback never samples source rows.
+        """
+        if context is not self.context or not self.active:
+            raise PermissionError('Original active full-publication schema context required')
+        if (type(table) is not dict or set(table)!={'name','uuid','version'}
+                or type(table['name']) is not list or len(table['name'])!=3
+                or any(type(part) is not str or not part for part in table['name'])
+                or type(table['uuid']) is not str or not table['uuid']
+                or type(table['version']) is not int or table['version']<0):
+            raise ValueError('Exact original native table reference required')
+        matches=[native for native,alias in self.aliases.items() if alias.split('.')==table['name']]
+        if len(matches)!=1 or matches[0] not in resolved.snapshots:
+            raise ValueError('Schema table outside original resolved alias vector')
+        native=matches[0];snapshot=resolved.snapshots[native];target=self.driver.transport.targets[native]
+        if snapshot.uuid!=table['uuid'] or snapshot.version!=table['version'] or target.uuid!=snapshot.uuid:
+            raise ValueError('Schema UUID/version differs from original pinned source')
+        frame=(self.driver.transport.spark.read.format('delta')
+               .option('versionAsOf',snapshot.version).load(str(target.path)))
+        native_schema=frame.schema
+        schema=json.loads(native_schema.json())
+        if (type(schema) is not dict or schema.get('type')!='struct'
+                or type(schema.get('fields')) is not list
+                or any(type(field) is not dict or type(field.get('name')) is not str
+                       or type(field.get('nullable')) is not bool for field in schema['fields'])
+                or len({field['name'] for field in schema['fields']})!=len(schema['fields'])):
+            raise ValueError('Actual complete native schema is ambiguous or malformed')
+        return {'table':json.loads(encoded(table)),'schema':schema,
+                'nativeTypes':[[field.name,field.dataType.simpleString().upper()] for field in native_schema.fields]}
     def sql(self,sql,params):
         if not self.active:raise PermissionError('No user SQL outside full held native publication')
         return [r.asDict() for r in self.driver.transport.spark.sql(sql,args=params).collect()]

@@ -16,7 +16,8 @@ OBLIGATIONS={'ashlar.candidate.publication','ashlar.candidate.scalarIntegrity','
 def compiler_request(sql,model,bindings,manifest,registry,aliases):
     request=old_request(sql,model,bindings,manifest,registry,aliases,fields=True)
     if bindings['profile']!='ashlar-commerce-development-bindings/0.2':raise ValueError('Original canonical property bindings required')
-    binding=json.loads(request['target']['bindingJson']);pin=binding['modelPins'][0]
+    binding=json.loads(request['target']['bindingJson'])
+    pin=binding['modelPins'][0]
     document=json.loads(model);properties={tuple(p['identity']):p['property_id'] for p in bindings['properties']}
     if len(properties)!=34 or len(properties)!=len(bindings['properties']) or len(set(properties.values()))!=34:raise ValueError('Complete injective original 34 Field inventory required')
     records=[];object_index=binding['records'][0]['table']
@@ -101,18 +102,25 @@ class NativeGuardRefusal(ValueError):
         super().__init__('Original native '+obligation+' refused before user query')
         self.evidence={'obligation':obligation,'check':check,'rows':rows,'priorChecks':prior_checks,'userSqlExecuted':False,'resultReleased':False}
 
-def execute_guarded(provider,request,artifact,*,context,public_source=None,positioned_outputs=False,native_null=False,distinct=False,count_distinct=False,count_having=False):
+def execute_guarded(provider,request,artifact,*,context,public_source=None,positioned_outputs=False,native_null=False,distinct=False,count_distinct=False,count_having=False,left_join=False):
     # Private snapshots precede every admission callback and native action.
     request,artifact=copy.deepcopy(request),copy.deepcopy(artifact)
     binding=json.loads(request['target']['bindingJson'])
+    if type(left_join)is not bool or (left_join and (native_null or distinct or count_distinct or count_having or positioned_outputs)):
+        raise ValueError('Explicit separate LEFT host opt-in required')
+    from weft_left_plan import BACKEND as LEFT_BACKEND,admit_left_schema,admit_left_cells
+    left_proof=None
     if type(count_distinct) is not bool or (count_distinct and (native_null or distinct or positioned_outputs)):
         raise ValueError('Explicit separate String set/count host opt-in required')
     if type(count_having) is not bool or (count_having and (count_distinct or native_null or distinct or positioned_outputs)):
         raise ValueError("Explicit separate optional-count/HAVING host opt-in required")
     count_route=count_distinct or count_having
-    backend=HAVING_BACKEND if count_having else COUNT_BACKEND if count_distinct else BACKEND
+    backend=LEFT_BACKEND if left_join else HAVING_BACKEND if count_having else COUNT_BACKEND if count_distinct else BACKEND
     if request['target']!={**backend,'bindingJson':request['target']['bindingJson'],'bindingSha256':hashlib.sha256(request['target']['bindingJson'].encode()).hexdigest()} or artifact.get('status')!='compiled' or artifact.get('bindingSha256')!=request['target']['bindingSha256'] or artifact.get('modelPins')!=binding['modelPins']:raise ValueError('Exact compiler/binding custody required')
     plan = artifact.get('logicalPlan',{})
+    if left_join:
+        from weft_field_plan import admit_field_plan
+        left_proof=admit_field_plan(artifact,binding,request['modules'],left_join=True)
     if count_route:
         from weft_field_plan import admit_field_plan
         admit_field_plan(artifact,binding,request['modules'],count_distinct=count_distinct,count_having=count_having)
@@ -125,14 +133,14 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
     null_caps = {'predicate.nativeNull','compare.nullAwareStringEqual','value.nativeNull'}
     uses_null = bool(null_caps & set(artifact.get('logicalPlan',{}).get('requiredCapabilities',[])))
     uses_null = uses_null or any(p.get('home',{}).get('encoding')=='ashlar-weft-json-native-null/0.1-candidate' for r in binding.get('records',[]) for p in r.get('properties',[]))
-    if type(native_null) is not bool or (uses_null and not (native_null or count_having)):
+    if type(native_null) is not bool or (uses_null and not (native_null or count_having or left_join)):
         raise ValueError('Explicit native-null host opt-in required before callbacks')
     if native_null:
         from weft_field_plan import admit_field_plan
         admit_field_plan(artifact,binding,request['modules'],native_null=True)
     obligations=artifact.get('obligations',[])
     positioned = any(o.get('id')=='weft.output.positioned' for o in obligations)
-    expected_obligations=OBLIGATIONS | ({'weft.output.positioned'} if positioned else set())
+    expected_obligations=OBLIGATIONS | ({'weft.output.positioned'} if positioned else set()) | ({'outerJoin.matchIntegrity'} if left_join else set())
     if len(obligations)!=len(expected_obligations) or {o['id'] for o in obligations}!=expected_obligations:raise ValueError('All and only original required obligations must be fulfilled')
     from weft_field_plan import admit_positioned_outputs,admit_positioned_cells
     if type(positioned_outputs) is not bool:raise ValueError('Explicit positioned host opt-in must be Boolean')
@@ -152,7 +160,7 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
     arithmetic=params_by_id['ashlar.arithmetic.exact']
     if not arithmetic['checks']:
         plan=artifact.get('logicalPlan',{})
-        if native_null or distinct or count_route:
+        if native_null or distinct or count_route or left_join:
             pass  # complete explicit original optional/distinct field proof above
         elif any(plan.get(k) for k in ('filters','joins','order')):
             from weft_field_plan import admit_field_plan
@@ -168,9 +176,15 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
             if flag in check and type(check[flag])is not bool:raise ValueError('Exact original guard kind required')
         if check.get('publicSourceOnly')is True and check.get('representabilityOnly')is True:raise ValueError('Distinct original source/capacity dispositions required')
     if count_having and not callable(getattr(provider,'sql_ordered',None)):raise ValueError('Optional-count host requires exact native schema/ordered-cell transport')
+    if left_join and (not callable(getattr(provider,'native_table_schema',None)) or not callable(getattr(provider,'sql_ordered',None))):raise ValueError('Explicit complete native LEFT schema/ordered transports required')
     params={'p'+str(p['position']):p['value'] for p in artifact['parameters']};checks=[];completed=False
     with provider.interval(context):
         opening=provider.resolve(context);provider.admit_binding(binding,opening,context);provider.runtime(context)
+        left_schemas=[]
+        if left_join:
+            for entry in left_proof['scans']:
+                receipt=admit_left_schema(entry,provider.native_table_schema(entry['table'],opening,context))
+                left_schemas.append({'scan':entry['scan'],'record':entry['record'],'schema':receipt})
         for name in ['ashlar.candidate.scalarIntegrity','ashlar.arithmetic.exact']:
             for check in params_by_id[name]['checks']:
                 rows=provider.sql(check['sql'],params)
@@ -182,8 +196,18 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
                     if len(rows)==1 and set(rows[0])=={'violations'} and type(rows[0]['violations'])is str and re.fullmatch('[0-9]+',rows[0]['violations']) and int(rows[0]['violations'])>0:raise NativeGuardRefusal(name,check,rows,checks)
                     raise ValueError('Malformed original native violation count')
                 checks.append({'obligation':name,'check':check,'rows':rows,'publicSourceReceipt':public_receipt})
+        if left_join:
+            for check in left_proof['scans']:
+                observed=provider.sql(check['sql'],params)
+                if observed!=[{'violations':'0'}]:
+                    if len(observed)==1 and set(observed[0])=={'violations'} and type(observed[0]['violations'])is str and re.fullmatch('[0-9]+',observed[0]['violations']) and int(observed[0]['violations'])>0:raise NativeGuardRefusal('outerJoin.matchIntegrity',check,observed,checks)
+                    raise ValueError('Malformed native LEFT sentinel violation count')
+                checks.append({'obligation':'outerJoin.matchIntegrity','check':check,'rows':observed,'publicSourceReceipt':None})
         ordered=None
-        if positioned:
+        if left_join:
+            ordered=admit_left_cells(artifact,provider.sql_ordered(artifact['sql'],params))
+            rows=[dict(zip([c['outputName'] for c in artifact['columns']],row)) for row in ordered['rows']]
+        elif positioned:
             ordered=admit_positioned_cells(artifact,provider.sql_ordered(artifact['sql'],params));rows=ordered['rows']
         elif count_having:
             ordered=admit_count_ordered_cells(artifact,provider.sql_ordered(artifact['sql'],params))
@@ -195,7 +219,7 @@ def execute_guarded(provider,request,artifact,*,context,public_source=None,posit
         if dict(opening.descriptor.raw)!=dict(closing.descriptor.raw) or opening.snapshots!=closing.snapshots:raise ValueError('Whole publication changed before release')
         completed=True
     if not completed:raise ValueError('Suppressed interval failure')
-    return {'rows':rows,'checks':checks,**({'positioned':ordered,'native_schema':ordered['schema'],'ordered_rows':ordered['rows']} if positioned or count_having else {})}
+    return {'rows':rows,'checks':checks,**({'positioned':ordered,'native_schema':ordered['schema'],'ordered_rows':ordered['rows']} if positioned or count_having or left_join else {}),**({'left_match_schemas':left_schemas} if left_join else {})}
 
 def admit_count_ordered_cells(artifact,observed):
     """Preserve actual unique native names, schema and ordered cells; no repair."""
@@ -330,10 +354,14 @@ def persist_after_stop(spark,pending,output):
     spark.stop()
     for name,raw in pending.items():(output/name).write_text(raw)
 
-def decode_rows(artifact,rows,*,positioned=False,native_schema=None,ordered_rows=None,native_null=False):
+def decode_rows(artifact,rows,*,positioned=False,native_schema=None,ordered_rows=None,native_null=False,left_join=False):
     columns=artifact.get('columns')
     if type(columns)is not list or not columns:raise ValueError('Original output columns required')
     if type(native_null)is not bool:raise ValueError('Explicit native-null decoder opt-in required')
+    if type(left_join)is not bool or (left_join and (native_null or positioned)):raise ValueError('Explicit separate LEFT decoding route required')
+    if left_join:
+        from weft_left_plan import admit_left_cells
+        return admit_left_cells(artifact,{'schema':native_schema,'rows':ordered_rows})['decoded']
     if type(positioned)is not bool:raise ValueError('Explicit positioned decoder opt-in must be Boolean')
     names=[c['outputName'] for c in columns]
     if positioned:
