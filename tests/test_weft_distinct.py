@@ -47,6 +47,18 @@ class DistinctAdmission(unittest.TestCase):
         self.assertEqual(artifact['obligations'][next(i for i,o in enumerate(artifact['obligations'])if o['id']=='ashlar.arithmetic.exact')]['parameters']['checks'],[])
         with self.assertRaises(Reached):execute_guarded(Provider(),request,artifact,context=None,distinct=True)
 
+    def test_native_unique_and_positioned_routes_keep_exact_schema_cells(self):
+        from run_native_distinct_controls import decode_native_tuple
+        for name,row in [('original',['benthos','whole','family']),('repeated-position',['A','A'])]:
+            request,artifact,binding=self.case(name)
+            schema=[[c.get('carrierName',c['outputName']),'STRING']for c in artifact['columns']]
+            self.assertEqual(decode_native_tuple(artifact,schema,[row]),[row])
+            bad=copy.deepcopy(schema);bad[0][1]='DOUBLE'
+            with self.assertRaises(ValueError):decode_native_tuple(artifact,bad,[row])
+            bad=copy.deepcopy(schema);bad[0][0]='wrong-original-column'
+            with self.assertRaises(ValueError):decode_native_tuple(artifact,bad,[row])
+            with self.assertRaises(ValueError):decode_native_tuple(artifact,schema,[row[:-1]])
+
     def test_limit_boolean_and_combined_null_optin_refuse(self):
         request,artifact,binding=self.case('projected-order-limit');artifact['logicalPlan']['limit']=True
         with self.assertRaises(ValueError):admit_field_plan(artifact,binding,request['modules'],distinct=True)

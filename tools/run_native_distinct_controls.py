@@ -13,6 +13,16 @@ from run_commerce_arithmetic_weft import compile_original,decode_rows,persist_af
 from weft_field_plan import admit_field_plan
 
 
+def decode_native_tuple(artifact,schema,ordered):
+    """Exact native positions and String types; dictionaries only for unique names."""
+    columns=artifact['columns'];positioned=any(o['id']=='weft.output.positioned'for o in artifact['obligations'])
+    expected=[[c.get('carrierName',c['outputName']),'STRING']for c in columns]
+    if schema!=expected or len({name for name,_ in schema})!=len(schema):raise ValueError('Exact unique native String carrier schema required')
+    if any(type(row)is not list or len(row)!=len(columns)for row in ordered):raise ValueError('Exact complete native tuple rows required')
+    if positioned:return decode_rows(artifact,ordered,positioned=True,native_schema=schema,ordered_rows=ordered)
+    return decode_rows(artifact,[dict(zip((name for name,_ in schema),row))for row in ordered])
+
+
 def run(output,jars,compiler,umf):
     from pyspark.sql import SparkSession
     from run_local_weft_typed_spark4 import JAR_SHA
@@ -62,8 +72,7 @@ def run(output,jars,compiler,umf):
                     if actual!=[{'violations':'0'}]:raise ValueError('Original source/native guard refused')
                     checks.append({'obligation':oid,'check':check,'rows':actual})
             frame=spark.sql(artifact['sql'],args=params);ordered=[list(r)for r in frame.collect()];schema=[[f.name,f.dataType.simpleString().upper()]for f in frame.schema.fields]
-            positioned='weft.output.positioned'in obligations
-            decoded=decode_rows(artifact,[] if positioned else [dict(zip((f.name for f in frame.schema.fields),r))for r in ordered],positioned=positioned,native_schema=schema,ordered_rows=ordered)
+            decoded=decode_native_tuple(artifact,schema,ordered)
             if sorted(map(encoded,decoded))!=sorted(map(encoded,case['expected']))or(case.get('ordered')and decoded!=case['expected']):raise ValueError('Independent original String tuple/order differs')
             if files()!=opening:raise ValueError('Kernel queries changed native files')
             for pinned in [*vector,empty[3]]:
