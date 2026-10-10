@@ -30,6 +30,7 @@ jobs:
           PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_weft_path_decode.py
           PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_weft_path_capture.py
           PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_weft_path_plan.py
+          PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_weft_path_predicate_admission.py
           PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_commerce_path_oracle.py
           PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_weft_path_compiler.py
           PYTHONPATH=src:tools:tests python3 -m unittest discover -s tests -p test_commerce_path_request.py
