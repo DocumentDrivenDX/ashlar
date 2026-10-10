@@ -1,0 +1,9 @@
+Processing /private/tmp/ashlar-otel-installed-preparation-20261010-c/source
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: ashlar-graph-toolkit
+  Building wheel for ashlar-graph-toolkit (pyproject.toml): started
+  Building wheel for ashlar-graph-toolkit (pyproject.toml): finished with status 'done'
+  Created wheel for ashlar-graph-toolkit: filename=ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl size=279192 sha256=1ce1753dbf01eb7e5fd8e5bb0a31071c100b17ef89cdcf14e2a0ef31b769be0d
+  Stored in directory: /private/tmp/ashlar-otel-installed-preparation-20261010-c/tmp/pip-ephem-wheel-cache-mugh5p2r/wheels/5d/86/6d/c69da6270ea10a2d17759bd06ca4c50bb4b871375b7f8fb3b4
+Successfully built ashlar-graph-toolkit

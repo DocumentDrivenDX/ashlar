@@ -1,0 +1,70 @@
+{
+  "format": "ashlar-installed-host-receiver/0.1",
+  "outcome": "passed",
+  "requests": [
+    {
+      "path": "/v1/logs",
+      "file": "request-00.pb",
+      "bytes": 659,
+      "sha256": "ac6c194d32d2ac1ccb081c34681e0adf835fa15cb803a3c973b68d32f8b1047e"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-01.pb",
+      "bytes": 724,
+      "sha256": "bc88bf69a142da5edce08aae40733d20d0120eba1b695d449aee509cb0e13eea"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-02.pb",
+      "bytes": 721,
+      "sha256": "4957f8974fb4ec33de8abbaca3907a5d08e82b2585042d375cd46551534e0b2a"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-03.pb",
+      "bytes": 661,
+      "sha256": "86ce40b185dc1042e8b3725a8f184e7c8a8e231acf3763f8becd83c132854521"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-04.pb",
+      "bytes": 728,
+      "sha256": "4d3bd734bddea9a4ef5defcaf0fd3dcc7a3bc92c945b9b0aed39b11c2e4cb14f"
+    },
+    {
+      "path": "/v1/logs",
+      "file": "request-05.pb",
+      "bytes": 755,
+      "sha256": "49ae92381c34e52701fa9a64f9298d2880c61669e8bda1e2c320b1776b49a058"
+    },
+    {
+      "path": "/v1/traces",
+      "file": "request-06.pb",
+      "bytes": 577,
+      "sha256": "0b681a715610d82e47cf7fcee12c36ad33a2fd0b7e1f403c4646187c94c5d6dc"
+    },
+    {
+      "path": "/v1/traces",
+      "file": "request-07.pb",
+      "bytes": 615,
+      "sha256": "aad61688016da603f5e9c5583dc6ba993e2ea3a383023985df800e8a860fe60d"
+    },
+    {
+      "path": "/v1/metrics",
+      "file": "request-08.pb",
+      "bytes": 534,
+      "sha256": "8aece4bdd64bc927c1309acf1aa48b155950a096dbb5dc3eb1ffda49dd4f8902"
+    }
+  ],
+  "durationSeconds": 0.31037883303361014,
+  "receiverThreadClosed": true,
+  "scope": "Installed public diagnostic_run composition, two sequential synthetic lifecycle attempts, closed local capture, installed CLI main retrieval byte parity and real bounded loopback receiver. Successful actual signals imply positive current worker dependency admission; no private handshake inspection.",
+  "gaps": [
+    "No spanless composition selection or explicit parent/retry binding test",
+    "No concurrent attempt test",
+    "No real publication/query/source/ACK workflow",
+    "No credential/privacy sentinel or outage/deadline/fault pilot",
+    "No hermetic runtime closure or process census; public owner shutdown completion only"
+  ]
+}

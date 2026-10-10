@@ -1,0 +1,20 @@
+{
+  "phase": "wheel-build",
+  "exitCode": 0,
+  "durationSeconds": 3.3121887909946963,
+  "captureBytes": {
+    "stdout": 814,
+    "stderr": 0
+  },
+  "captureLimitBytes": {
+    "stdout": 262144,
+    "stderr": 262144
+  },
+  "environmentKeys": [
+    "PATH",
+    "PIP_CONFIG_FILE",
+    "PYTHONDONTWRITEBYTECODE",
+    "TMPDIR"
+  ],
+  "scope": "Root five-phase offline packaging execution; ordinary bounded files, no durability/OTel/native guarantee."
+}

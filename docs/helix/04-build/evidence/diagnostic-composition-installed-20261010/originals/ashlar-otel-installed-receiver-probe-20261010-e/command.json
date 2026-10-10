@@ -1,0 +1,53 @@
+{
+  "format": "ashlar-unexecuted-command/0.1",
+  "state": "candidate-not-executed",
+  "argv": [
+    "/private/tmp/ashlar-otel-installed-preparation-20261010-c/environment/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/candidate.py"
+  ],
+  "cwd": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e",
+  "env": {
+    "PATH": "/usr/bin:/bin"
+  },
+  "source": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/candidate.py",
+    "bytes": 13424,
+    "sha256": "6c9413bd8dab57fa9447474fd10103cb342e665a4609e92aa7de7a79d6494cad"
+  },
+  "preparation": {
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/freeze-b.json",
+    "sha256": "1a2ccfebe9992d87f4c9e28d5c249da1d96a20137443242126b7a5682f0b3ae2"
+  },
+  "executionRequires": [
+    "Independent candidate review",
+    "Root current opening and closing selected input custody verification",
+    "Fresh capture/result/request output absence",
+    "No active native engines or other receiver run"
+  ],
+  "bounds": {
+    "attempts": 2,
+    "expectedHttpRequests": 9,
+    "maxHttpRequests": 19,
+    "maxReceivedBodyBytesEach": 65536,
+    "maxReceivedBodyBytesTotal": 1048576,
+    "acceptedSocketTimeoutSeconds": 0.5,
+    "receiverJoinSeconds": 1,
+    "sdkExportTimeoutMs": 1000,
+    "sdkShutdownTimeoutMs": 2000
+  },
+  "qualification": "No execution or support claim. Direct foreground command, no outer forced-termination wrapper, no detached process. Public owner supervision relies on reviewed POSIX cleanup, not independent process census.",
+  "sourceCommit": "02136b9e68afe0f0b175186c6444662347fc463a",
+  "logicalUnits": {
+    "logs": 6,
+    "spans": 2,
+    "metrics": 2
+  },
+  "expectedEndpointRequests": {
+    "/v1/logs": 6,
+    "/v1/traces": 2,
+    "/v1/metrics": 1
+  },
+  "scope": "Actual installed diagnostic_run and CLI main public retrieval, no injected native workflow. No private owner access, spanless composition, native, credentials or startup fallback qualification."
+}

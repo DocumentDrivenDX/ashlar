@@ -1,0 +1,37 @@
+{
+  "reviewer": "/root/astra_plan_review",
+  "verdict": "approve-exact-two-file-usage-docs",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/examples/end-to-end/DIAGNOSTICS.md",
+      "bytes": 3125,
+      "sha256": "1072e2872fdbfb415f4cbf050fde4788e388fd718ac8150673f61041aefd402d"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/examples/end-to-end/README.md",
+      "bytes": 6039,
+      "sha256": "e73b922fe344652b8e9979a11091985de3decae62bb7cbd1f00800d506a9e6d5"
+    }
+  ],
+  "checks": [
+    "Literal JSON has exactly eight loader-owned fields and all ten explicit limits. Actual SDK-free Python3.9 loader admits it with17 explicit origins.",
+    "Profile Python3.11/POSIX/optional extra selection matches public composition; native dependencies and compiler authority remain separate.",
+    "query-commerce-paths --diagnostics-config route and diagnostics retrieval options match actual CLI; filters compose conjunctively, severity17 allowed, reader limit50/10 valid.",
+    "Closed capture completeness is distinguished from business success and remote delivery; open/expired/invalid capture refuses.",
+    "Collector example uses loopback-test numeric localhost and three standard OTLP routes; remote TLS choices and secret file instructions match config contract.",
+    "Relative guide/contract links exist; diff check passes. No executed native, fallback-fault or full C006 support claim introduced."
+  ],
+  "sourceReferences": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "bytes": 15938,
+      "sha256": "77206bdb19241632ebc4d110fdde6caa8c745fc852143660841a9df1c0d6ae9e"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar/cli.py",
+      "bytes": 15781,
+      "sha256": "34ca8449b4d1c36dd139d94cde7b151262643b45beec53d9324ead7286f77708"
+    }
+  ],
+  "scope": "Desired-state usage correctness and one synthetic config-file admission; no SDK/receiver/native execution."
+}

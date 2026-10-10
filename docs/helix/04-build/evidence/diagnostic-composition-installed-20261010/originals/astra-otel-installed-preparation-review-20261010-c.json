@@ -1,0 +1,95 @@
+{
+  "reviewer": "/root/astra_plan_review",
+  "verdict": "approve-scoped-actual-offline-installed-preparation",
+  "sourceCommit": "02136b9e68afe0f0b175186c6444662347fc463a",
+  "freeze": {
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/freeze-b.json",
+    "bytes": 6721,
+    "sha256": "1a2ccfebe9992d87f4c9e28d5c249da1d96a20137443242126b7a5682f0b3ae2"
+  },
+  "wheel": {
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "bytes": 279192,
+    "sha256": "1ce1753dbf01eb7e5fd8e5bb0a31071c100b17ef89cdcf14e2a0ef31b769be0d"
+  },
+  "checks": {
+    "selectedGitFiles": 105,
+    "exactGitModesBlobShaAndSha256": true,
+    "installedSourceMembers": 102,
+    "uniqueHashedRECORDPayloads": 857,
+    "installedRECORDs": 17,
+    "SDKWheels": 16,
+    "SDKOriginalMemberCopies": 698,
+    "selectedPackagingInputs": 20,
+    "wheelEmbeddedOptionalDependencies": 16,
+    "coreDependencyFree": true,
+    "installedEntryPoint": "ashlar.cli:main"
+  },
+  "processes": [
+    {
+      "phase": "fresh-environment",
+      "exitCode": 0,
+      "durationSeconds": 0.06576124997809529,
+      "captureBytes": {
+        "stdout": 0,
+        "stderr": 0
+      }
+    },
+    {
+      "phase": "wheel-build",
+      "exitCode": 0,
+      "durationSeconds": 3.3121887909946963,
+      "captureBytes": {
+        "stdout": 814,
+        "stderr": 0
+      }
+    },
+    {
+      "phase": "wheel-install",
+      "exitCode": 0,
+      "durationSeconds": 1.0673911669873632,
+      "captureBytes": {
+        "stdout": 2723,
+        "stderr": 0
+      }
+    },
+    {
+      "phase": "installed-custody",
+      "exitCode": 0,
+      "durationSeconds": 0.7079019999946468,
+      "captureBytes": {
+        "stdout": 522,
+        "stderr": 0
+      }
+    }
+  ],
+  "scope": "Pure independent Git/file/ZIP/CSV/metadata reads. Actual preparation records show offline package build/install; no reviewer installed import, worker/provider/receiver/native/network execution.",
+  "command": {
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/command.json",
+    "bytes": 4428,
+    "sha256": "23dca3bff21275a25fd56e2589a040d0009d94f2a0acfcf87c020f7f400ece4b"
+  },
+  "sourceInventory": {
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/source-inventory.json",
+    "bytes": 26389,
+    "sha256": "647ce557e55f2dd8d1d843207f222ace4d72fc0d11630dba84fa15090c002acb"
+  },
+  "installedCustody": {
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/installed-custody.json",
+    "bytes": 268326,
+    "sha256": "e304cd6a7f7ddbfb51d54d17d60330fd2a15e2dbf6cf236fd1f4a0cac43305db"
+  },
+  "dependencyPayloadCustody": {
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/dependency-payload-custody.json",
+    "bytes": 286021,
+    "sha256": "c1502e980c2e16b07cf95d3eeeecf99566deae6b0535f373e3e2747d11b0bd62"
+  },
+  "executionQualification": "Preparation parent used inherited shell environment with -I/-B as explicitly recorded; four child packaging commands used the declared explicit environment. Selected custody only, no hermetic/toolchain-complete claim.",
+  "findings": [],
+  "historicalCorrection": "Original freeze artifacts=[] preserved; successor freeze-b binds the actual selected artifacts. No implied pre-execution complete-freeze claim.",
+  "limitations": [
+    "Metadata version/module path observations retained from inert installed verifier; reader review did not initialize SDK.",
+    "No actual current-main receiver/composition qualification until separately reviewed direct command runs.",
+    "Source export is selected src/README/pyproject, not full repository; build-generated files are separate from original selected inputs."
+  ]
+}

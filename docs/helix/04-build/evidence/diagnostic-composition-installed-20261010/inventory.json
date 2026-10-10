@@ -1,0 +1,407 @@
+{
+  "sourceCommit": "02136b9e68afe0f0b175186c6444662347fc463a",
+  "scope": "Fresh offline installed public diagnostics composition, two synthetic lifecycle attempts, real loopback OTLP receiver and installed CLI main retrieval. No native workflow, spanless composition, outage/cancellation/privacy pilot or full C006 conformance claim.",
+  "result": {
+    "exitCode": 0,
+    "requests": 9,
+    "bodyBytes": 5974,
+    "logs": 6,
+    "spans": 2,
+    "counterPoints": 2,
+    "selectedInputsUnchanged": 925,
+    "receiverDurationSeconds": 0.31037883303361014
+  },
+  "files": [
+    {
+      "original": "/private/tmp/ashlar-otel-current-input-check-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-current-input-check-20261010-a.py",
+      "bytes": 1748,
+      "sha256": "504acc5df506e5b89d0d72bbe9671d3014761c95b0aa071126510e08a3fb43a5"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/command.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/command.json",
+      "bytes": 4428,
+      "sha256": "23dca3bff21275a25fd56e2589a040d0009d94f2a0acfcf87c020f7f400ece4b"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/dependency-payload-custody.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/dependency-payload-custody.json",
+      "bytes": 286021,
+      "sha256": "c1502e980c2e16b07cf95d3eeeecf99566deae6b0535f373e3e2747d11b0bd62"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/dependency-payload-custody.stderr",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/dependency-payload-custody.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/dependency-payload-custody.stdout",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/dependency-payload-custody.stdout",
+      "bytes": 42,
+      "sha256": "c39f752e73d7b3053923906b80550798168bfff3fe287df44a1a4d342d2b4fbe"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/freeze-b.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/freeze-b.json",
+      "bytes": 6721,
+      "sha256": "1a2ccfebe9992d87f4c9e28d5c249da1d96a20137443242126b7a5682f0b3ae2"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/freeze.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/freeze.json",
+      "bytes": 523,
+      "sha256": "a35f482d96be9d89c04f762b27ffd1c4401ab18b1e4300258e21ad467ed1c326"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/fresh-environment-process.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/fresh-environment-process.json",
+      "bytes": 452,
+      "sha256": "5578962a28ddb2718ce60a9fb5695a022ac31c17eef64d27e69189935f448a04"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/fresh-environment.stderr",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/fresh-environment.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/fresh-environment.stdout",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/fresh-environment.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/inputs.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/inputs.json",
+      "bytes": 4339,
+      "sha256": "73533f8ce520ea455898e22c9f7db79d28a8bb306b70c32ab77645ed4872bc38"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/installed-custody-process.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/installed-custody-process.json",
+      "bytes": 453,
+      "sha256": "a31e48874549d8dba716ae643ffbad628232918641252ac1ee26944cbbb14dfe"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/installed-custody.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/installed-custody.json",
+      "bytes": 268326,
+      "sha256": "e304cd6a7f7ddbfb51d54d17d60330fd2a15e2dbf6cf236fd1f4a0cac43305db"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/installed-custody.stderr",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/installed-custody.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/installed-custody.stdout",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/installed-custody.stdout",
+      "bytes": 522,
+      "sha256": "b47a1f8ff2745c7c441e44187e40eb80cbb41db7fcb0650616e3f76b25feeca8"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/preparation-command.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/preparation-command.json",
+      "bytes": 1107,
+      "sha256": "c4f3c458ebae73f1ba6c528f47d1f7007bdf3aa891883ab50f8bb514dcdb3a09"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/preparation.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/preparation.json",
+      "bytes": 584,
+      "sha256": "5d793963e9f27b457d90c3793208a9687307ab3b584b63357f9b58de28df8946"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/prepare.py",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/prepare.py",
+      "bytes": 4758,
+      "sha256": "2336ba744e5e15fe3463a89994b869b9d7b4e1afa8397dd912c21a747bcdfbea"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/prepare.stderr",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/prepare.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/prepare.stdout",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/prepare.stdout",
+      "bytes": 331,
+      "sha256": "843d49c900cb3376291b62929c2776557b8fb36aaf7868514c1e1e85fbefc6db"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/source-inventory.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/source-inventory.json",
+      "bytes": 26389,
+      "sha256": "647ce557e55f2dd8d1d843207f222ace4d72fc0d11630dba84fa15090c002acb"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/verify_dependency_payloads.py",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/verify_dependency_payloads.py",
+      "bytes": 1885,
+      "sha256": "a6e31f38af6b554eb8e6199f6ec5ec2f106ce029f07faec589151e0dc1dfd970"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/verify_installed.py",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/verify_installed.py",
+      "bytes": 3366,
+      "sha256": "f52c40901690ba460d40862af4c93bf967e7f8cda6669288344e90918d4ebbbf"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/wheel-build-process.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/wheel-build-process.json",
+      "bytes": 447,
+      "sha256": "3318e3bd9a557208c6c518620faedd75caba78239520246e9178c4d884660704"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/wheel-build.stderr",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/wheel-build.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/wheel-build.stdout",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/wheel-build.stdout",
+      "bytes": 814,
+      "sha256": "b6c90977fbec485eedc853dae3c7256d339d457802c277f2de1f15cf0d8db1e3"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/wheel-install-process.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/wheel-install-process.json",
+      "bytes": 450,
+      "sha256": "711ad4e623f6f02ca73c5a274a27dbbd98081605b8d624b4e729b6875f1bdef9"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/wheel-install.stderr",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/wheel-install.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/wheel-install.stdout",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-preparation-20261010-c/wheel-install.stdout",
+      "bytes": 2723,
+      "sha256": "f2e7ae2e8546aceacb234d70e22ed834d0f5b69cccf41688d5c9454a53a08b12"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/candidate.py",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/candidate.py",
+      "bytes": 13424,
+      "sha256": "6c9413bd8dab57fa9447474fd10103cb342e665a4609e92aa7de7a79d6494cad"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/capture/ac7054e4882c4406acf457801488595c/events-0000.jsonl",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/capture/ac7054e4882c4406acf457801488595c/events-0000.jsonl",
+      "bytes": 5005,
+      "sha256": "6722e6c5667bc6385ec22b7b7a189b1cd35d1b0a8272005b82a06e46c9793747"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/capture/ac7054e4882c4406acf457801488595c/run.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/capture/ac7054e4882c4406acf457801488595c/run.json",
+      "bytes": 2078,
+      "sha256": "7c4b5bcd2b9c1505f45f7eb4ae225467f18a733333c1db5cb46113af4c13a31c"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/cli-output.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/cli-output.json",
+      "bytes": 5883,
+      "sha256": "891022fb192af08b03ca7730c3e2c0815f5511039fcb94f19315fe4b6730a97f"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/closing-inputs.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/closing-inputs.json",
+      "bytes": 250396,
+      "sha256": "049425756bab2aa6556b0c7b653a941f10748b6c545e29ca90338e8b2b3471c4"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/command.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/command.json",
+      "bytes": 2037,
+      "sha256": "3b718c20877ea804ba759a7cd49c3f3537996eb7d147be37cf0f6d03cb713b74"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/expected.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/expected.json",
+      "bytes": 7041,
+      "sha256": "7f7b82637a12e6c511732a618936477928ea2b46adf55375ec474cb2e72fd7a6"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/opening-inputs.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/opening-inputs.json",
+      "bytes": 250396,
+      "sha256": "049425756bab2aa6556b0c7b653a941f10748b6c545e29ca90338e8b2b3471c4"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/process.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/process.json",
+      "bytes": 1479,
+      "sha256": "bdde0876d101b08eaf8df877fa8d8c9ae548e6ac1d1847b15f8b612783af09b4"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/process.stderr",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/process.stderr",
+      "bytes": 124,
+      "sha256": "731482e778011b16c155bc471d7bcc9ac7f2d604452a2242a212cde39de5c600"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/process.stdout",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/process.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/receiver-observations.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/receiver-observations.json",
+      "bytes": 1639,
+      "sha256": "35291ae0d0a9fdfead8f469f23ccef2553872996bf9c24108754857954013529"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/request-00.pb",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/request-00.pb",
+      "bytes": 659,
+      "sha256": "ac6c194d32d2ac1ccb081c34681e0adf835fa15cb803a3c973b68d32f8b1047e"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/request-01.pb",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/request-01.pb",
+      "bytes": 724,
+      "sha256": "bc88bf69a142da5edce08aae40733d20d0120eba1b695d449aee509cb0e13eea"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/request-02.pb",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/request-02.pb",
+      "bytes": 721,
+      "sha256": "4957f8974fb4ec33de8abbaca3907a5d08e82b2585042d375cd46551534e0b2a"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/request-03.pb",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/request-03.pb",
+      "bytes": 661,
+      "sha256": "86ce40b185dc1042e8b3725a8f184e7c8a8e231acf3763f8becd83c132854521"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/request-04.pb",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/request-04.pb",
+      "bytes": 728,
+      "sha256": "4d3bd734bddea9a4ef5defcaf0fd3dcc7a3bc92c945b9b0aed39b11c2e4cb14f"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/request-05.pb",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/request-05.pb",
+      "bytes": 755,
+      "sha256": "49ae92381c34e52701fa9a64f9298d2880c61669e8bda1e2c320b1776b49a058"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/request-06.pb",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/request-06.pb",
+      "bytes": 577,
+      "sha256": "0b681a715610d82e47cf7fcee12c36ad33a2fd0b7e1f403c4646187c94c5d6dc"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/request-07.pb",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/request-07.pb",
+      "bytes": 615,
+      "sha256": "aad61688016da603f5e9c5583dc6ba993e2ea3a383023985df800e8a860fe60d"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/request-08.pb",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/request-08.pb",
+      "bytes": 534,
+      "sha256": "8aece4bdd64bc927c1309acf1aa48b155950a096dbb5dc3eb1ffda49dd4f8902"
+    },
+    {
+      "original": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/result.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/ashlar-otel-installed-receiver-probe-20261010-e/result.json",
+      "bytes": 2391,
+      "sha256": "8414880daefcf152390227e7781d5907f9c95ac685d2022cd8af499e0d1563a3"
+    },
+    {
+      "original": "/private/tmp/astra-diagnostics-usage-review-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/astra-diagnostics-usage-review-20261010-a.json",
+      "bytes": 1955,
+      "sha256": "57752fe8c68678269af642dbb10d1051a194398cb007e71f1ac88f65e3b29fda"
+    },
+    {
+      "original": "/private/tmp/astra-diagnostics-usage-review-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/astra-diagnostics-usage-review-20261010-a.py",
+      "bytes": 2559,
+      "sha256": "300361d65e5d2865fd87337e7906ed6f7b10856a3f86e535568dd51d63818743"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-composition-review-20261010-e.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/astra-otel-installed-composition-review-20261010-e.json",
+      "bytes": 7630,
+      "sha256": "144108a3ca1017b513f4fa64f63618f092af1923e03e4c0129eff3bafc69c4b3"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-composition-review-20261010-e.py",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/astra-otel-installed-composition-review-20261010-e.py",
+      "bytes": 11776,
+      "sha256": "a5d9b527925995ab11fb88e24d6cd21fecdb4401a040140c8f2a82d80f15c475"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-composition-review-20261010-e.stderr.log",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/astra-otel-installed-composition-review-20261010-e.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-composition-review-20261010-e.stdout.log",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/astra-otel-installed-composition-review-20261010-e.stdout.log",
+      "bytes": 174,
+      "sha256": "94e1310b182c31b6f6c08b21bc676e48f19a3934580a5887c090a9d829723d1e"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-preparation-review-20261010-c.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/astra-otel-installed-preparation-review-20261010-c.json",
+      "bytes": 3760,
+      "sha256": "3c89c160e6f0e97bce0bc9bcadda639f30f3f95a612b39af9e7d3ceb2660fa1e"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-preparation-review-20261010-c.py",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/astra-otel-installed-preparation-review-20261010-c.py",
+      "bytes": 7222,
+      "sha256": "b3edfc3cfb052f79bea11438df242883d6322ece91f892fd4d150967811302f7"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-preparation-review-20261010-c.stderr.log",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/astra-otel-installed-preparation-review-20261010-c.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-preparation-review-20261010-c.stdout.log",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/astra-otel-installed-preparation-review-20261010-c.stdout.log",
+      "bytes": 174,
+      "sha256": "8c678c8fdcdf19797fd24ab51b08445f3688a68bd71b63134a837538bcf6d92f"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-receiver-command-review-20261010-e.json",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/astra-otel-installed-receiver-command-review-20261010-e.json",
+      "bytes": 3869,
+      "sha256": "e88c310312b753f2fdbf6edd5746ad9e35d00f473a5facd3ce2a14667455cfa5"
+    },
+    {
+      "original": "/private/tmp/astra-otel-installed-receiver-command-review-20261010-e.py",
+      "copy": "docs/helix/04-build/evidence/diagnostic-composition-installed-20261010/originals/astra-otel-installed-receiver-command-review-20261010-e.py",
+      "bytes": 4518,
+      "sha256": "7394fd71f917cde60eb5b951c21839d97e6a82e8200c93feba20c4cd01d304bd"
+    }
+  ],
+  "documentationPins": [
+    {
+      "path": "examples/end-to-end/DIAGNOSTICS.md",
+      "bytes": 3125,
+      "sha256": "1072e2872fdbfb415f4cbf050fde4788e388fd718ac8150673f61041aefd402d"
+    },
+    {
+      "path": "examples/end-to-end/README.md",
+      "bytes": 6039,
+      "sha256": "e73b922fe344652b8e9979a11091985de3decae62bb7cbd1f00800d506a9e6d5"
+    }
+  ],
+  "preparationLimits": "Selected input custody only. Preparation parent inherited environment; actual receiver child PATH-only. Initial incomplete freeze preserved alongside corrected pinned freeze-b. No environment trees or wheels copied into Git."
+}

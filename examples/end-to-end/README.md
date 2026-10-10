@@ -98,6 +98,9 @@ join evidence remains separate from the indexed installation workflow above.
 Use its retained source and receipts when reproducing that qualification; this
 pin does not select the compiler for a new indexed query installation.
 
+Use the [diagnostics guide](DIAGNOSTICS.md) to select bounded observation for
+`query-commerce-paths` and inspect a closed local capture.
+
 ## Contracts and evidence
 
 Use the [toolkit plan](../../docs/helix/04-build/toolkit-delivery-plan.md) for the

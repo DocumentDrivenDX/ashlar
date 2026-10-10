@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "02136b9e68afe0f0b175186c6444662347fc463a",
+  "state": "offline-prepared-no-runtime-startup",
+  "artifacts": [],
+  "wheel": {
+    "bytes": 279192,
+    "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "sha256": "1ce1753dbf01eb7e5fd8e5bb0a31071c100b17ef89cdcf14e2a0ef31b769be0d"
+  },
+  "scope": "Selected Git, wheel, installed RECORD and16cachedSDKpayload custody. Not hermetic closure. No receiver/native/worker startup."
+}

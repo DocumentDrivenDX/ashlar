@@ -1,0 +1,213 @@
+{
+  "events": [
+    {
+      "schema_version": "ashlar.diagnostic.event/0.1",
+      "observed_timestamp_unix_nano": "1791654163055825000",
+      "severity_text": "INFO",
+      "severity_number": 9,
+      "event_name": "ashlar.operation.started",
+      "body": "Operation started",
+      "resource": {
+        "service.name": "ashlar-host",
+        "service.version": "0.1.0.dev0",
+        "deployment.environment.name": "test",
+        "telemetry.sdk.name": "opentelemetry",
+        "telemetry.sdk.language": "python",
+        "telemetry.sdk.version": "1.45.1"
+      },
+      "scope": {
+        "name": "ashlar.host.diagnostics",
+        "version": "0.1.0"
+      },
+      "attributes": {
+        "ashlar.run.id": "ac7054e4882c4406acf457801488595c",
+        "ashlar.attempt.id": "3cf597947b3e40f7a4c4fa4ad0bdea78",
+        "ashlar.emitter.id": "host",
+        "ashlar.sequence": 1,
+        "ashlar.operation": "held-read"
+      },
+      "trace": {
+        "trace_id": "4bf1082386840c2023e700b64dec5670",
+        "span_id": "efb65c8ad3581ef9",
+        "trace_flags": 3
+      }
+    },
+    {
+      "schema_version": "ashlar.diagnostic.event/0.1",
+      "observed_timestamp_unix_nano": "1791654163056850000",
+      "severity_text": "INFO",
+      "severity_number": 9,
+      "event_name": "ashlar.operation.phase",
+      "body": "Operation phase observed",
+      "resource": {
+        "service.name": "ashlar-host",
+        "service.version": "0.1.0.dev0",
+        "deployment.environment.name": "test",
+        "telemetry.sdk.name": "opentelemetry",
+        "telemetry.sdk.language": "python",
+        "telemetry.sdk.version": "1.45.1"
+      },
+      "scope": {
+        "name": "ashlar.host.diagnostics",
+        "version": "0.1.0"
+      },
+      "attributes": {
+        "ashlar.run.id": "ac7054e4882c4406acf457801488595c",
+        "ashlar.attempt.id": "3cf597947b3e40f7a4c4fa4ad0bdea78",
+        "ashlar.emitter.id": "host",
+        "ashlar.sequence": 2,
+        "ashlar.operation": "held-read",
+        "ashlar.phase": "guard",
+        "ashlar.phase.state": "completed"
+      },
+      "trace": {
+        "trace_id": "4bf1082386840c2023e700b64dec5670",
+        "span_id": "efb65c8ad3581ef9",
+        "trace_flags": 3
+      }
+    },
+    {
+      "schema_version": "ashlar.diagnostic.event/0.1",
+      "observed_timestamp_unix_nano": "1791654163057187000",
+      "severity_text": "INFO",
+      "severity_number": 9,
+      "event_name": "ashlar.operation.finished",
+      "body": "Operation finished",
+      "resource": {
+        "service.name": "ashlar-host",
+        "service.version": "0.1.0.dev0",
+        "deployment.environment.name": "test",
+        "telemetry.sdk.name": "opentelemetry",
+        "telemetry.sdk.language": "python",
+        "telemetry.sdk.version": "1.45.1"
+      },
+      "scope": {
+        "name": "ashlar.host.diagnostics",
+        "version": "0.1.0"
+      },
+      "attributes": {
+        "ashlar.run.id": "ac7054e4882c4406acf457801488595c",
+        "ashlar.attempt.id": "3cf597947b3e40f7a4c4fa4ad0bdea78",
+        "ashlar.emitter.id": "host",
+        "ashlar.sequence": 3,
+        "ashlar.operation": "held-read",
+        "ashlar.outcome": "succeeded",
+        "ashlar.cleanup_failed": false
+      },
+      "trace": {
+        "trace_id": "4bf1082386840c2023e700b64dec5670",
+        "span_id": "efb65c8ad3581ef9",
+        "trace_flags": 3
+      }
+    },
+    {
+      "schema_version": "ashlar.diagnostic.event/0.1",
+      "observed_timestamp_unix_nano": "1791654163057981000",
+      "severity_text": "INFO",
+      "severity_number": 9,
+      "event_name": "ashlar.operation.started",
+      "body": "Operation started",
+      "resource": {
+        "service.name": "ashlar-host",
+        "service.version": "0.1.0.dev0",
+        "deployment.environment.name": "test",
+        "telemetry.sdk.name": "opentelemetry",
+        "telemetry.sdk.language": "python",
+        "telemetry.sdk.version": "1.45.1"
+      },
+      "scope": {
+        "name": "ashlar.host.diagnostics",
+        "version": "0.1.0"
+      },
+      "attributes": {
+        "ashlar.run.id": "ac7054e4882c4406acf457801488595c",
+        "ashlar.attempt.id": "8bb9a56febf2461ba08998d47d65cde5",
+        "ashlar.emitter.id": "host",
+        "ashlar.sequence": 4,
+        "ashlar.operation": "publication"
+      },
+      "trace": {
+        "trace_id": "aa4c0eb38c66fa6664bdbd6afd80b589",
+        "span_id": "21eafcf11b29a307",
+        "trace_flags": 3
+      }
+    },
+    {
+      "schema_version": "ashlar.diagnostic.event/0.1",
+      "observed_timestamp_unix_nano": "1791654163058288000",
+      "severity_text": "INFO",
+      "severity_number": 9,
+      "event_name": "ashlar.operation.phase",
+      "body": "Operation phase observed",
+      "resource": {
+        "service.name": "ashlar-host",
+        "service.version": "0.1.0.dev0",
+        "deployment.environment.name": "test",
+        "telemetry.sdk.name": "opentelemetry",
+        "telemetry.sdk.language": "python",
+        "telemetry.sdk.version": "1.45.1"
+      },
+      "scope": {
+        "name": "ashlar.host.diagnostics",
+        "version": "0.1.0"
+      },
+      "attributes": {
+        "ashlar.run.id": "ac7054e4882c4406acf457801488595c",
+        "ashlar.attempt.id": "8bb9a56febf2461ba08998d47d65cde5",
+        "ashlar.emitter.id": "host",
+        "ashlar.sequence": 5,
+        "ashlar.operation": "publication",
+        "ashlar.phase": "closing",
+        "ashlar.phase.state": "completed"
+      },
+      "trace": {
+        "trace_id": "aa4c0eb38c66fa6664bdbd6afd80b589",
+        "span_id": "21eafcf11b29a307",
+        "trace_flags": 3
+      }
+    },
+    {
+      "schema_version": "ashlar.diagnostic.event/0.1",
+      "observed_timestamp_unix_nano": "1791654163058541000",
+      "severity_text": "WARN",
+      "severity_number": 13,
+      "event_name": "ashlar.operation.finished",
+      "body": "Operation finished",
+      "resource": {
+        "service.name": "ashlar-host",
+        "service.version": "0.1.0.dev0",
+        "deployment.environment.name": "test",
+        "telemetry.sdk.name": "opentelemetry",
+        "telemetry.sdk.language": "python",
+        "telemetry.sdk.version": "1.45.1"
+      },
+      "scope": {
+        "name": "ashlar.host.diagnostics",
+        "version": "0.1.0"
+      },
+      "attributes": {
+        "ashlar.run.id": "ac7054e4882c4406acf457801488595c",
+        "ashlar.attempt.id": "8bb9a56febf2461ba08998d47d65cde5",
+        "ashlar.emitter.id": "host",
+        "ashlar.sequence": 6,
+        "ashlar.operation": "publication",
+        "ashlar.outcome": "refused",
+        "ashlar.cleanup_failed": false,
+        "ashlar.error.category": "guard"
+      },
+      "trace": {
+        "trace_id": "aa4c0eb38c66fa6664bdbd6afd80b589",
+        "span_id": "21eafcf11b29a307",
+        "trace_flags": 3
+      }
+    }
+  ],
+  "resource": {
+    "service.name": "ashlar-host",
+    "service.version": "0.1.0.dev0",
+    "deployment.environment.name": "test",
+    "telemetry.sdk.name": "opentelemetry",
+    "telemetry.sdk.language": "python",
+    "telemetry.sdk.version": "1.45.1"
+  }
+}

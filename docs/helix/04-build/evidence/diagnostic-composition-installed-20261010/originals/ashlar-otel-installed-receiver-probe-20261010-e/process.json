@@ -1,0 +1,36 @@
+{
+  "command": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/command.json",
+    "bytes": 2037,
+    "sha256": "3b718c20877ea804ba759a7cd49c3f3537996eb7d147be37cf0f6d03cb713b74"
+  },
+  "exitCode": 0,
+  "terminalChunk": "8a3da4",
+  "toolWallSeconds": 0.420445,
+  "stdout": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/process.stdout",
+    "bytes": 0,
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "stderr": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/process.stderr",
+    "bytes": 124,
+    "sha256": "731482e778011b16c155bc471d7bcc9ac7f2d604452a2242a212cde39de5c600"
+  },
+  "opening": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/opening-inputs.json",
+    "bytes": 250396,
+    "sha256": "049425756bab2aa6556b0c7b653a941f10748b6c545e29ca90338e8b2b3471c4"
+  },
+  "closing": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/closing-inputs.json",
+    "bytes": 250396,
+    "sha256": "049425756bab2aa6556b0c7b653a941f10748b6c545e29ca90338e8b2b3471c4"
+  },
+  "candidateResult": {
+    "path": "/private/tmp/ashlar-otel-installed-receiver-probe-20261010-e/result.json",
+    "bytes": 2391,
+    "sha256": "8414880daefcf152390227e7781d5907f9c95ac685d2022cd8af499e0d1563a3"
+  },
+  "scope": "Exact reviewed direct foreground command, PATH-only child environment; no outer forced-termination wrapper."
+}

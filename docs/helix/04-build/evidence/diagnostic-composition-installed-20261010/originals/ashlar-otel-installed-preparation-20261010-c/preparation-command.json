@@ -1,0 +1,25 @@
+{
+  "sourceCommit": "02136b9e68afe0f0b175186c6444662347fc463a",
+  "argv": [
+    "/private/tmp/ashlar-host-wheel-env-20261010-a/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-otel-installed-preparation-20261010-c/prepare.py"
+  ],
+  "cwd": "/private/tmp/ashlar-otel-installed-preparation-20261010-c",
+  "inputs": [
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/prepare.py",
+      "sha256": "2336ba744e5e15fe3463a89994b869b9d7b4e1afa8397dd912c21a747bcdfbea"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/verify_installed.py",
+      "sha256": "f52c40901690ba460d40862af4c93bf967e7f8cda6669288344e90918d4ebbbf"
+    },
+    {
+      "path": "/private/tmp/ashlar-otel-installed-preparation-20261010-c/verify_dependency_payloads.py",
+      "sha256": "a6e31f38af6b554eb8e6199f6ec5ec2f106ce029f07faec589151e0dc1dfd970"
+    }
+  ],
+  "scope": "Offline package preparation only. No receiver, worker or native startup. Packaging subprocesses use explicit environment; preparation parent inherits shell environment with isolated Python."
+}
