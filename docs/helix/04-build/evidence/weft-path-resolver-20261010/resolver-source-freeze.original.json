@@ -1,0 +1,135 @@
+{
+  "format": "weft-private-path-application-resolve-source-freeze/0.1",
+  "root": "/private/tmp/ashlar-weft-distribution-d2d",
+  "snapshot": "/private/tmp/weft-path-application-resolve-source-20261010-a",
+  "base": "f3208b216f2020e978090777b8234773ecccb230",
+  "files": [
+    {
+      "path": "crates/weft-core/src/arithmetic_application_resolve.rs",
+      "bytes": 40143,
+      "sha256": "7f9a51cfe44f97405a4c310178d90122dc5f523b869bfc468eed199ab6a658b8"
+    },
+    {
+      "path": "crates/weft-core/src/path_application_resolve.rs",
+      "bytes": 26438,
+      "sha256": "b1d4cbe51d4b0cb300e51d0a91c9cae9a7388c45c7768dc283b187bf94d7ee37"
+    },
+    {
+      "path": "crates/weft-core/src/lib.rs",
+      "bytes": 3967,
+      "sha256": "be0cf6a09de3e565c5030411d811d93fde94d09090126d9b34175657dbbf4e3a"
+    }
+  ],
+  "scope": "Private full-query 0.4 resolution; original AST borrowed through a shared typed driver; unchanged old 0.3 wrapper and public types; path aliases outside Record/Field scope; no public routing, backend/runtime admission or engine execution.",
+  "dependencies": [
+    {
+      "path": "crates/weft-core/src/path_query.rs",
+      "bytes": 18016,
+      "sha256": "0d8993b9668d28658d56fafbeae09951fd35eb8abdd93f2b0bbe1478b1f1b5ec"
+    },
+    {
+      "path": "crates/weft-core/src/path_resolve.rs",
+      "bytes": 10830,
+      "sha256": "1fffaf46129c0451eaf72fe3d832a0147d6a8db650211c059a0f2aebb77026e6"
+    },
+    {
+      "path": "crates/weft-core/src/path_ir.rs",
+      "bytes": 26861,
+      "sha256": "cb5a43d4657fcb19bdecfb493f35b3156020877439edf332ed1334ccdf44460a"
+    },
+    {
+      "path": "crates/weft-core/src/application_scope.rs",
+      "bytes": 11904,
+      "sha256": "89fbb5d278b0e32a97ea2199d4a6b281a87df7cfb7c1280447dac3c086953e65"
+    }
+  ],
+  "dependencyNote": "Dependencies are read-only inputs owned by other agents, not part of this authoring scope. path_ir has separate owner accessor additions present in the actual test environment.",
+  "toolchain": {
+    "rustc": "1.90.0 (1159e78c4 2025-09-14)",
+    "cargo": "1.90.0 (840b83a10 2025-07-30)",
+    "CARGO_HOME": "/private/tmp/weft-toolchain/cargo",
+    "RUSTUP_HOME": "/private/tmp/weft-toolchain/rustup",
+    "PATH": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+  },
+  "checks": [
+    {
+      "command": "cargo test --offline -p weft-core --lib",
+      "exit": 0,
+      "passed": 74,
+      "failed": 0,
+      "pathApplicationResolveTests": 10
+    },
+    {
+      "command": "python3 scripts/checks/check-module-boundaries.py",
+      "exit": 0,
+      "workspaceModules": 11
+    },
+    {
+      "command": "python3 tests/module-boundaries/check.py",
+      "exit": 0,
+      "passed": 3,
+      "failed": 0
+    },
+    {
+      "command": "rustfmt --edition 2021 --check crates/weft-core/src/path_application_resolve.rs",
+      "exit": 0
+    },
+    {
+      "command": "git diff --check -- crates/weft-core/src/arithmetic_application_resolve.rs crates/weft-core/src/path_application_resolve.rs crates/weft-core/src/lib.rs",
+      "exit": 0
+    }
+  ],
+  "legacyParity": {
+    "beforeSourceCommit": "474503c",
+    "beforeSourceSha256": "5c31cdd90a2c0f94dbde951ac30617ae34ba602544529ba338a6530cfc01c778",
+    "cases": 1256,
+    "successfulPlans": 610,
+    "existingRequests": 620,
+    "eachRequestModes": [
+      "explicit absent read profile",
+      "original request read profile"
+    ],
+    "additionalControls": 16,
+    "comparison": "byte-identical JSON captures containing full serialized Plan03 or full diagnostic including source byte spans",
+    "beforeAndAfterSha256": "cf0842f4c65cfd5725159b457b5d0af61ea3c4c529efeda2c2ac6cd5b0c97417",
+    "temporaryProbeRemoved": true
+  },
+  "evidence": [
+    {
+      "path": "/private/tmp/weft-arithmetic-resolver-before-path-query.rs",
+      "bytes": 33087,
+      "sha256": "5c31cdd90a2c0f94dbde951ac30617ae34ba602544529ba338a6530cfc01c778"
+    },
+    {
+      "path": "/private/tmp/weft-path-resolver-legacy-probe.rs",
+      "bytes": 4362,
+      "sha256": "3356778a24bdcf3eedc498a6263e409d3f136017161170c4346ce564ca377c5d"
+    },
+    {
+      "path": "/private/tmp/weft-path-resolver-legacy-probe-before.json",
+      "bytes": 2543641,
+      "sha256": "cf0842f4c65cfd5725159b457b5d0af61ea3c4c529efeda2c2ac6cd5b0c97417"
+    },
+    {
+      "path": "/private/tmp/weft-path-resolver-legacy-probe-after.json",
+      "bytes": 2543641,
+      "sha256": "cf0842f4c65cfd5725159b457b5d0af61ea3c4c529efeda2c2ac6cd5b0c97417"
+    },
+    {
+      "path": "/private/tmp/weft-path-resolver-legacy-before.log",
+      "bytes": 5389,
+      "sha256": "1efaa2f70580e573b2e14feff3211081816061c05d99609f1ed7abf15f29e589"
+    },
+    {
+      "path": "/private/tmp/weft-path-resolver-legacy-after.log",
+      "bytes": 5966,
+      "sha256": "e6d8d02eca2d4a2e4770550fde516e7bf3ec9e63078bd793e9418a9066b39997"
+    },
+    {
+      "path": "/private/tmp/weft-path-application-resolve-core-tests-20261010-a.log",
+      "bytes": 13065,
+      "sha256": "87bcdaa908e1e38e081b140434ceb93f0485c74c6a6662441f30b62753906deb"
+    }
+  ],
+  "qualification": "Core typed semantic/model/shape tests only; original commerce bytes/pins remain intact. Separate inverse/optional fixture explicitly declares its own document/pin. No native rows, backend or public interface support claim. Existing dependency/unused imports and private unwired Plan accessors warnings retained."
+}

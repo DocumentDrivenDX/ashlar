@@ -1,0 +1,106 @@
+{
+  "format": "ashlar-reviewed-weft-path-resolver-evidence/0.1",
+  "weftCommit": "05140971066dc19dd4624e138e9682c674430f5c",
+  "reviewScope": "Exact private full-query typed resolver and unchanged legacy Plan03/diagnostic captures. No Backend03, compile04, lowering, native rows, runtime or toolkit completion claim.",
+  "ci": {
+    "status": "completed",
+    "conclusion": "success",
+    "runId": 38030551612,
+    "headSha": "05140971066dc19dd4624e138e9682c674430f5c",
+    "url": "https://github.com/DocumentDrivenDX/weft/actions/runs/38030551612",
+    "rawResponse": "ci.original.json"
+  },
+  "legacyComparison": {
+    "beforeSourceCommit": "474503c",
+    "beforeSourceSha256": "5c31cdd90a2c0f94dbde951ac30617ae34ba602544529ba338a6530cfc01c778",
+    "cases": 1256,
+    "successfulPlans": 610,
+    "existingRequests": 620,
+    "eachRequestModes": [
+      "explicit absent read profile",
+      "original request read profile"
+    ],
+    "additionalControls": 16,
+    "comparison": "byte-identical JSON captures containing full serialized Plan03 or full diagnostic including source byte spans",
+    "beforeAndAfterSha256": "cf0842f4c65cfd5725159b457b5d0af61ea3c4c529efeda2c2ac6cd5b0c97417",
+    "temporaryProbeRemoved": true
+  },
+  "files": [
+    {
+      "path": "resolver-source-freeze.original.json",
+      "bytes": 5452,
+      "sha256": "d913e4162555205fbc416010db4b8c7ba028ac1998e663d46d1f43fc5506f83a"
+    },
+    {
+      "path": "astra-review.original.json",
+      "bytes": 8052,
+      "sha256": "7b0f72e1d2005432087a41bf94725ed78659073c2ab594ae06aaca9ef97915ad"
+    },
+    {
+      "path": "source/crates/weft-core/src/arithmetic_application_resolve.rs",
+      "bytes": 40143,
+      "sha256": "7f9a51cfe44f97405a4c310178d90122dc5f523b869bfc468eed199ab6a658b8"
+    },
+    {
+      "path": "source/crates/weft-core/src/path_application_resolve.rs",
+      "bytes": 26438,
+      "sha256": "b1d4cbe51d4b0cb300e51d0a91c9cae9a7388c45c7768dc283b187bf94d7ee37"
+    },
+    {
+      "path": "source/crates/weft-core/src/lib.rs",
+      "bytes": 3967,
+      "sha256": "be0cf6a09de3e565c5030411d811d93fde94d09090126d9b34175657dbbf4e3a"
+    },
+    {
+      "path": "captures/weft-arithmetic-resolver-before-path-query.rs",
+      "bytes": 33087,
+      "sha256": "5c31cdd90a2c0f94dbde951ac30617ae34ba602544529ba338a6530cfc01c778"
+    },
+    {
+      "path": "captures/weft-path-resolver-legacy-probe.rs",
+      "bytes": 4362,
+      "sha256": "3356778a24bdcf3eedc498a6263e409d3f136017161170c4346ce564ca377c5d"
+    },
+    {
+      "path": "captures/weft-path-resolver-legacy-probe-before.json.gz",
+      "bytes": 40609,
+      "sha256": "8849ebfc84761e028848c36defcfb29eb250bc443169c3e09fbd05a3e6b5f06f",
+      "original": {
+        "bytes": 2543641,
+        "sha256": "cf0842f4c65cfd5725159b457b5d0af61ea3c4c529efeda2c2ac6cd5b0c97417",
+        "encoding": "gzip; exact original decompressed bytes"
+      }
+    },
+    {
+      "path": "captures/weft-path-resolver-legacy-probe-after.json.gz",
+      "bytes": 40609,
+      "sha256": "8849ebfc84761e028848c36defcfb29eb250bc443169c3e09fbd05a3e6b5f06f",
+      "original": {
+        "bytes": 2543641,
+        "sha256": "cf0842f4c65cfd5725159b457b5d0af61ea3c4c529efeda2c2ac6cd5b0c97417",
+        "encoding": "gzip; exact original decompressed bytes"
+      }
+    },
+    {
+      "path": "captures/weft-path-resolver-legacy-before.log",
+      "bytes": 5389,
+      "sha256": "1efaa2f70580e573b2e14feff3211081816061c05d99609f1ed7abf15f29e589"
+    },
+    {
+      "path": "captures/weft-path-resolver-legacy-after.log",
+      "bytes": 5966,
+      "sha256": "e6d8d02eca2d4a2e4770550fde516e7bf3ec9e63078bd793e9418a9066b39997"
+    },
+    {
+      "path": "captures/weft-path-application-resolve-core-tests-20261010-a.log",
+      "bytes": 13065,
+      "sha256": "87bcdaa908e1e38e081b140434ceb93f0485c74c6a6662441f30b62753906deb"
+    },
+    {
+      "path": "ci.original.json",
+      "bytes": 3947,
+      "sha256": "09a446be0c9c58d263ce3d60cabc8ba80c242b4afd1e39bd74939e04415a3187"
+    }
+  ],
+  "captureLimits": "Finite original corpus and bounded local core/boundary tests. Raw logs retain recorded warnings; no service telemetry/OTLP receiver, unlimited proof or native engine claims."
+}

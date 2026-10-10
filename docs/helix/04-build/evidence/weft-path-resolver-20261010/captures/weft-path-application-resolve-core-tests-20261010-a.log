@@ -1,0 +1,230 @@
+warning: unexpected `cfg` condition value: `128`
+   --> vendor/ahash/src/fallback_hash.rs:164:11
+    |
+164 |     #[cfg(target_pointer_width = "128")]
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: expected values for `target_pointer_width` are: `16`, `32`, and `64`
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+    = note: `#[warn(unexpected_cfgs)]` on by default
+
+warning: unexpected `cfg` condition name: `fuzzing`
+  --> vendor/ahash/src/random_state.rs:48:58
+   |
+48 |     if #[cfg(all(feature = "compile-time-rng", any(test, fuzzing)))] {
+   |                                                          ^^^^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, `folded_multiply`, `specialize`, and `test` and 31 more
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(fuzzing)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(fuzzing)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition name: `fuzzing`
+  --> vendor/ahash/src/random_state.rs:68:54
+   |
+68 |     } else if #[cfg(all(feature = "runtime-rng", not(fuzzing)))] {
+   |                                                      ^^^^^^^
+   |
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(fuzzing)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(fuzzing)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: methods `read_u128x2`, `read_u128x4`, `read_last_u16`, `read_last_u128x2`, and `read_last_u128x4` are never used
+  --> vendor/ahash/src/convert.rs:69:8
+   |
+64 | pub(crate) trait ReadFromSlice {
+   |                  ------------- methods in this trait
+...
+69 |     fn read_u128x2(&self) -> ([u128; 2], &[u8]);
+   |        ^^^^^^^^^^^
+70 |     fn read_u128x4(&self) -> ([u128; 4], &[u8]);
+   |        ^^^^^^^^^^^
+71 |     fn read_last_u16(&self) -> u16;
+   |        ^^^^^^^^^^^^^
+...
+75 |     fn read_last_u128x2(&self) -> [u128; 2];
+   |        ^^^^^^^^^^^^^^^^
+76 |     fn read_last_u128x4(&self) -> [u128; 4];
+   |        ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: `ahash` (lib) generated 4 warnings
+warning: `ahash` (lib) generated 4 warnings (4 duplicates)
+   Compiling weft-core v0.1.0 (/private/tmp/ashlar-weft-distribution-d2d/crates/weft-core)
+warning: unused import: `Identity`
+ --> crates/weft-core/src/application_scope.rs:8:18
+  |
+8 |     ir::{Family, Identity, LogicalType},
+  |                  ^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `Column`, `Descriptor`, `LiteralKind`, `Literal`, `Name`, `Record`, `Shape`, and `exact`
+ --> crates/weft-core/src/application_resolve.rs:3:25
+  |
+3 |     application_model::{Descriptor, Shape},
+  |                         ^^^^^^^^^^  ^^^^^
+...
+6 |     exact,
+  |     ^^^^^
+7 |     ir::{Family, Identity, LogicalType},
+8 |     model::{Catalog, Record},
+  |                      ^^^^^^
+9 |     syntax::{Column, Literal, LiteralKind, Name},
+  |              ^^^^^^  ^^^^^^^  ^^^^^^^^^^^  ^^^^
+
+warning: methods `span`, `hop_spans`, and `terminal_key` are never used
+   --> crates/weft-core/src/path_ir.rs:98:19
+    |
+ 48 | impl PathRead {
+    | ------------- methods in this implementation
+...
+ 98 |     pub(crate) fn span(&self)->&Span{&self.span}
+    |                   ^^^^
+ 99 |     pub(crate) fn hop_spans(&self)->&[Span;2]{&self.hop_spans}
+    |                   ^^^^^^^^^
+...
+112 |     pub fn terminal_key(&self) -> &AuthoredKey {
+    |            ^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: method `path` is never used
+   --> crates/weft-core/src/path_ir.rs:133:12
+    |
+122 | impl PathExpansion {
+    | ------------------ method in this implementation
+...
+133 |     pub fn path(&self) -> &PathRead {
+    |            ^^^^
+
+warning: multiple methods are never used
+   --> crates/weft-core/src/path_ir.rs:376:12
+    |
+229 | impl Plan {
+    | --------- methods in this implementation
+...
+376 |     pub fn outputs(&self) -> &[Output] {
+    |            ^^^^^^^
+...
+379 |     pub fn expansion(&self) -> Option<&PathExpansion> {
+    |            ^^^^^^^^^
+...
+382 |     pub fn pins(&self) -> &[ModelPin] {
+    |            ^^^^
+...
+385 |     pub fn capabilities(&self) -> &[String] {
+    |            ^^^^^^^^^^^^
+...
+388 |     pub(crate) fn joins(&self)->&[Join]{&self.joins}
+    |                   ^^^^^
+389 |     pub(crate) fn filters(&self)->&[Predicate]{&self.filters}
+    |                   ^^^^^^^
+390 |     pub(crate) fn groups(&self)->&[Field]{&self.groups}
+    |                   ^^^^^^
+391 |     pub(crate) fn having(&self)->&[Having]{&self.having}
+    |                   ^^^^^^
+392 |     pub(crate) fn order(&self)->&[Field]{&self.order}
+    |                   ^^^^^
+393 |     pub(crate) fn limit(&self)->Option<u16>{self.limit}
+    |                   ^^^^^
+394 |     pub(crate) fn distinct(&self)->bool{self.distinct}
+    |                   ^^^^^^^^
+395 |     pub(crate) fn aggregate(&self)->bool{self.aggregate}
+    |                   ^^^^^^^^^
+396 |     pub(crate) fn outer_join_scans(&self)->&[String]{&self.outer_join_scans}
+    |                   ^^^^^^^^^^^^^^^^
+397 |     pub(crate) fn type_graph(&self)->&[Descriptor]{&self.type_graph}
+    |                   ^^^^^^^^^^
+398 |     pub fn source(&self) -> &Scan {
+    |            ^^^^^^
+
+warning: `weft-core` (lib test) generated 5 warnings (run `cargo fix --lib -p weft-core --tests` to apply 2 suggestions)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2.13s
+     Running unittests src/lib.rs (target/debug/deps/weft_core-ab4f3977477b01ad)
+
+running 74 tests
+test arithmetic_syntax::tests::nesting_and_tree_depth_boundaries ... ok
+test arithmetic_query::tests::operator_free_comparisons_preserve_existing_semantics ... ok
+test arithmetic_syntax::tests::precedence_association_tokens_and_spans ... ok
+test arithmetic_query::tests::aggregate_and_order_positions_remain_field_only ... ok
+test arithmetic_query::tests::commerce_arithmetic_in_projection_filter_and_join ... ok
+test arithmetic_resolve::tests::mathematical_integer_and_original_field_facets ... ok
+test arithmetic_resolve::tests::invalid_and_unavailable_numeric_meaning_refuses ... ok
+test arithmetic_syntax::tests::unsupported_constructs_and_old_profile_isolation ... ok
+test arithmetic_resolve::tests::exact_scale_and_token_retention ... ok
+test backend::tests::obligations_are_retained_sorted_and_conflicts_refuse ... ok
+test backend_emission::tests::numeric_results_require_exact_text_decoders ... ok
+test backend_emission::tests::exact_numeric_slots_refuse_invalid_domains_and_lexemes ... ok
+test arithmetic_query::tests::new_comparison_tokens_are_closed_and_old_tuples_remain ... ok
+test backend_emission::tests::parameter_domain_guards_have_exact_diagnostics ... ok
+test backend_emission::tests::scalar_carriers_preserve_family_nullability_and_facets ... ok
+test arithmetic_syntax::tests::common_budget_and_literal_boundaries ... ok
+test arithmetic_query::tests::one_budget_for_entire_query_and_old_profile_isolation ... ok
+test backend_emission::tests::initial_plan_requires_projection_root_before_output_validation ... ok
+test path_application_resolve::tests::legacy_only_queries_keep_the_same_resolved_members ... ok
+test path_application_resolve::tests::old_version_entrypoints_still_refuse_new_path_queries ... ok
+test path_application_resolve::tests::left_join_roots_keep_original_scan_and_outer_join_metadata ... ok
+test path_application_resolve::tests::ordinary_join_filter_group_legacy_having_order_and_parameters_share_semantics ... ok
+test path_application_resolve::tests::grouped_and_global_counts_use_one_complete_expansion_and_exact_integer ... ok
+test path_application_resolve::tests::original_commerce_collection_keeps_pins_relationships_keys_and_spans ... ok
+test path_ir::tests::alternative_intermediate_keys_and_parallel_path_structure_survive ... ok
+test path_ir::tests::collection_and_count_schema_correspondence ... ok
+test backend_emission::tests::related_result_metadata_preserves_authored_key_and_bound ... ok
+test path_application_resolve::tests::separately_declared_inverse_and_optional_count_fixture_keeps_own_semantics ... ok
+test path_ir::tests::endpoint_key_and_paging_metadata_refuse ... ok
+test arithmetic_application_resolve::tests::arithmetic_join_projection_and_exact_domain ... ok
+test path_ir::tests::impossible_paths_and_spans_refuse ... ok
+test path_ir::tests::pin_only_mutation_refuses_before_root_correspondence ... ok
+test path_ir::tests::legacy_aggregates_are_not_opaque ... ok
+test backend_emission::tests::arithmetic_output_retains_exact_derived_domains ... ok
+test path_ir::tests::original_catalog_cross_module_key_is_preserved ... ok
+test arithmetic_application_resolve::tests::count_distinct_and_string_in_closed_ir_refuse_domain_and_slot_mutations ... ok
+test backend_emission::tests::outer_join_metadata_binds_scan_record_and_unprojected_match_guards ... ok
+test backend_emission::tests::positioned_metadata_refuses_incomplete_colliding_or_reordered_cells ... ok
+test backend_emission::tests::presence_and_native_null_require_qualified_descriptors ... ok
+test backend::tests::arithmetic_selection_retains_original_operands_and_versions ... ok
+test path_query::tests::escaped_unicode_names_and_optional_as_keep_original_byte_offsets ... ok
+test path_ir::tests::stage_root_count_and_collision_refuse ... ok
+test path_query::tests::expansion_follows_ordinary_joins_and_keeps_legacy_tail ... ok
+test path_query::tests::expansion_placement_arity_alias_and_trailing_tokens_are_closed ... ok
+test path_query::tests::new_having_forms_are_not_silently_admitted ... ok
+test path_query::tests::old_entrypoints_continue_to_refuse_new_query_forms ... ok
+test path_query::tests::original_commerce_collection_preserves_function_and_operand_spans ... ok
+test path_query::tests::original_commerce_expansion_and_both_counts_retain_occurrence_spans ... ok
+test path_ir::tests::complete_local_schema_and_pin_refusals ... ok
+test path_application_resolve::tests::scalar_parameter_occurrences_and_surplus_rules_remain_shared ... ok
+test path_query::tests::syntax_does_not_claim_resolver_admission ... ok
+test path_syntax::tests::distinct_target_alias_has_its_original_name_span ... ok
+test path_syntax::tests::fragments_leave_surrounding_query_tokens_to_the_existing_parser ... ok
+test path_syntax::tests::bound_endpoints_and_invalid_literal_domains ... ok
+test path_query::tests::shared_limits_cover_all_query_segments ... ok
+test path_syntax::tests::function_arity_aliases_and_trailing_syntax_refuse ... ok
+test path_syntax::tests::original_commerce_collection_operands_and_spans ... ok
+test path_syntax::tests::qualified_first_and_single_second_names_are_required ... ok
+test path_syntax::tests::quoted_escaping_unicode_bytes_and_case_folding ... ok
+test path_syntax::tests::shared_lexer_limits_and_existing_frontend_refusals_remain ... ok
+test path_resolve::tests::separately_declared_inverse_fixture_preserves_orientation ... ok
+test path_resolve::tests::missing_alias_relationship_and_stale_root_refuse ... ok
+test path_resolve::tests::unchanged_original_commerce_and_name_spans ... ok
+test path_resolve::tests::alias_case_quoting_and_ambiguity_follow_existing_scope ... ok
+test path_application_resolve::tests::aggregate_classification_collection_composition_and_labels_are_closed ... ok
+test path_application_resolve::tests::alias_binding_is_separate_from_record_and_field_scope ... ok
+test path_resolve::tests::equal_local_names_remain_scoped_to_original_document_revision ... ok
+test arithmetic_application_resolve::tests::null03_closed_ir_preserves_nonnullable_ideal_and_boolean_operator ... ok
+test arithmetic_application_resolve::tests::having_count_closed_schema_and_original_spans ... ok
+test arithmetic_application_resolve::tests::distinct03_closed_member_is_true_only_and_absent_on_old_plans ... ok
+test path_query::tests::legacy_fixture_asts_and_diagnostics_keep_original_spans ... ok
+test resolve::tests::typed_ast_resolver_literal_boundary_and_empty_join_refusal ... ok
+test arithmetic_application_resolve::tests::grouped_leaves_and_parameter_occurrences ... ok
+test arithmetic_application_resolve::tests::additive_comparisons_retain_scope_constraints_and_closed_ir ... ok
+
+test result: ok. 74 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.17s
+

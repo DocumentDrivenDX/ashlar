@@ -1,0 +1,20 @@
+{
+  "format": "astra-resolver-durable-custody-review/0.1",
+  "verdict": "approved",
+  "manifest": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/weft-path-resolver-20261010/manifest.json",
+    "sha256": "0f32673c24e0895924c368ea7626a493896fa02fc0129f64bddee6034c269578"
+  },
+  "files": 14,
+  "inventory_exact": true,
+  "checks": [
+    "All13 manifest entries verified exact lengths and SHA256; no unlisted files.",
+    "All three archived resolver sources match exact Git0514097 blobs.",
+    "Archived old shared resolver matches Git474503c.",
+    "Both lossless captures byte-identical to original independent reviewer before/after captures: 1256 results,610 full successful Plans,2543641 decoded bytes.",
+    "Original frozen source manifest and independent review receipt retained exactly.",
+    "Retained CI response identifies exact0514097 success,run38030551612; complete successful jobs."
+  ],
+  "scope": "Selected source and actual resolver/corpus evidence archive; excludes Backend03, compile04, lowerer/native execution and runtime/toolkit completion. Reproduction requires referenced whole Git checkout/dependencies; embedded historical reviewer receipt retains its exact historical dependency and temporary-evidence references.",
+  "new_execution": "No compiler or native rerun; byte/hash, Git blob and structured retained evidence checks only."
+}

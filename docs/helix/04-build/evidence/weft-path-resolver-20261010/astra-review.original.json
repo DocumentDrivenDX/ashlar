@@ -1,0 +1,173 @@
+{
+  "format": "astra-private-path-full-query-review/0.1",
+  "verdict": "approved",
+  "freeze": {
+    "path": "/private/tmp/weft-path-application-resolve-freeze-20261010-a.json",
+    "bytes": 5452,
+    "sha256": "d913e4162555205fbc416010db4b8c7ba028ac1998e663d46d1f43fc5506f83a"
+  },
+  "sourceFiles": [
+    {
+      "path": "crates/weft-core/src/arithmetic_application_resolve.rs",
+      "bytes": 40143,
+      "sha256": "7f9a51cfe44f97405a4c310178d90122dc5f523b869bfc468eed199ab6a658b8"
+    },
+    {
+      "path": "crates/weft-core/src/path_application_resolve.rs",
+      "bytes": 26438,
+      "sha256": "b1d4cbe51d4b0cb300e51d0a91c9cae9a7388c45c7768dc283b187bf94d7ee37"
+    },
+    {
+      "path": "crates/weft-core/src/lib.rs",
+      "bytes": 3967,
+      "sha256": "be0cf6a09de3e565c5030411d811d93fde94d09090126d9b34175657dbbf4e3a"
+    }
+  ],
+  "dependencyScope": [
+    {
+      "path": "crates/weft-core/src/path_query.rs",
+      "bytes": 18016,
+      "sha256": "0d8993b9668d28658d56fafbeae09951fd35eb8abdd93f2b0bbe1478b1f1b5ec"
+    },
+    {
+      "path": "crates/weft-core/src/path_resolve.rs",
+      "bytes": 10830,
+      "sha256": "1fffaf46129c0451eaf72fe3d832a0147d6a8db650211c059a0f2aebb77026e6"
+    },
+    {
+      "path": "crates/weft-core/src/path_ir.rs",
+      "bytes": 26861,
+      "sha256": "cb5a43d4657fcb19bdecfb493f35b3156020877439edf332ed1334ccdf44460a"
+    },
+    {
+      "path": "crates/weft-core/src/application_scope.rs",
+      "bytes": 11904,
+      "sha256": "89fbb5d278b0e32a97ea2199d4a6b281a87df7cfb7c1280447dac3c086953e65"
+    }
+  ],
+  "sourceIsolation": "Reviewer mirror rebuilt exact tracked core at f3208b2, overlaid only frozen three files and four recorded dependency files. Root backend03 and compile04 wiring excluded. Original owner files were not edited.",
+  "verification": {
+    "allCoreTests": {
+      "passed": 74,
+      "failed": 0
+    },
+    "pathResolverWithThreeReviewerControls": {
+      "passed": 13,
+      "failed": 0
+    },
+    "legacyReplay": {
+      "cases": 1256,
+      "successfulPlans": 610,
+      "bytes": 2543641,
+      "sha256": "cf0842f4c65cfd5725159b457b5d0af61ea3c4c529efeda2c2ac6cd5b0c97417",
+      "independentBeforeAfterAndAuthorCapturesByteIdentical": true,
+      "oldSourceVerifiedAgainstGit": "474503c",
+      "fixtureVerifiedAgainstGit": "f3208b2"
+    },
+    "cargoBoundaryMap": {
+      "modules": 11,
+      "edges": 12
+    },
+    "actualBoundaryControls": 3,
+    "initialBoundaryCheckAttempt": "Failed before checking because cargo was absent from default PATH; exact failure retained and corrected explicit-toolchain run passed."
+  },
+  "reviewerControls": [
+    "Two collections on self-joined original Records keep distinct s0/s1 start occurrences, original equal hop metadata and separate bounds; subsequent inner join does not remove retained LEFT provenance.",
+    "Grouping same authored Field from another scan refuses; correct scan passes. JOIN ON cannot see a later source alias and reports its original span.",
+    "Grouped expansion without count does not invent count capabilities; collection bounds 1/1000 pass and 0/1001 refuse."
+  ],
+  "helix0154": {
+    "modularity": "Only private core typed driver/projection extension hooks; old public Plan and resolver entrypoints unchanged. Original scope, scalar predicates, source parameters, labels, grouping, ordering, HAVING and descriptor owner remain shared. No new dependency or vendor type leakage. Within-crate semantic checks performed in addition to Cargo checker.",
+    "configuration": "Immutable Catalog, borrowed AST and typed parameter inputs are injected. No new environment reads, credentials, hidden runtime defaults or configuration ownership.",
+    "observability": "Existing structured diagnostics and original source spans retained; local reviewer logs and exact safe fixture snapshots bound below. No OTLP export/receiver or production retention claim; captured warnings and initial failed tool-environment attempt are not omitted.",
+    "formal": "Precise-only TD-007 PATH-S1 and stage/count representation correspondence reviewed. Starting occurrences and complete model identity metadata retained; native path multiplicity, ordering, capacity, empty-bag SQL behavior and release safety still require backend/host/native evidence. No executable formal proof or native qualification claimed."
+  },
+  "toolchain": {
+    "rustc": "1.90.0 (1159e78c4 2025-09-14)",
+    "cargo": "1.90.0 (840b83a10 2025-07-30)",
+    "CARGO_HOME": "/private/tmp/weft-toolchain/cargo",
+    "RUSTUP_HOME": "/private/tmp/weft-toolchain/rustup",
+    "PATH": "/private/tmp/weft-toolchain/rustup/toolchains/1.90.0-aarch64-apple-darwin/bin:/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+  },
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-path-application-resolve-core-20261010.log",
+      "bytes": 13292,
+      "sha256": "e6ea63dbda2c7635a01d95c6f7d7bc9d1fa6d8273010b148a7caba57fab6bad1"
+    },
+    {
+      "path": "/private/tmp/astra-path-resolver-legacy-before-20261010.log",
+      "bytes": 6765,
+      "sha256": "a947999f9306015e589173c887419608407a924e6da883723e60d81bba04caa3"
+    },
+    {
+      "path": "/private/tmp/astra-path-resolver-legacy-after-20261010.log",
+      "bytes": 6765,
+      "sha256": "b6ccd8e3137a0a99880288bdfc828a0c0a1f1d3528b65dfaf567bd1d23d08223"
+    },
+    {
+      "path": "/private/tmp/astra-path-resolver-legacy-before-20261010.json",
+      "bytes": 2543641,
+      "sha256": "cf0842f4c65cfd5725159b457b5d0af61ea3c4c529efeda2c2ac6cd5b0c97417"
+    },
+    {
+      "path": "/private/tmp/astra-path-resolver-legacy-after-20261010.json",
+      "bytes": 2543641,
+      "sha256": "cf0842f4c65cfd5725159b457b5d0af61ea3c4c529efeda2c2ac6cd5b0c97417"
+    },
+    {
+      "path": "/private/tmp/astra-path-application-extra-tests-20261010.rs",
+      "bytes": 3083,
+      "sha256": "7a7362a9b527f05a3558c4f68960280f58f356bf00bd7ef622d86c461aacd867"
+    },
+    {
+      "path": "/private/tmp/astra-path-application-extra-tests-20261010.log",
+      "bytes": 8108,
+      "sha256": "3b910a5a71b0cd33cdb54ffb79e82cf1952443dda3c39689bca67e90d025e3a7"
+    },
+    {
+      "path": "/private/tmp/astra-path-application-module-check-20261010.log",
+      "bytes": 1148,
+      "sha256": "0f2bdff5359293a8bb26eba4a654e6b00e6843bcdefe1b4a9680099c9ed492ed"
+    },
+    {
+      "path": "/private/tmp/astra-path-application-module-check-20261010-b.log",
+      "bytes": 646,
+      "sha256": "bfbb02925bc2fff01e3029e78aa209a113f6173ef6072ba29395bd7328c0b655"
+    },
+    {
+      "path": "/private/tmp/astra-path-application-module-controls-20261010.log",
+      "bytes": 101,
+      "sha256": "2cfe70e7672f12f55e41a535cc268cd1b6fe56f66a149e45c36c47ae51433df1"
+    },
+    {
+      "path": "/private/tmp/astra-path-shared-driver-20261010.diff",
+      "bytes": 29751,
+      "sha256": "c17b068355be346cad459717c3964dac8289c8fedca3b812eb2ad6df30095042"
+    }
+  ],
+  "additionalInputs": [
+    {
+      "path": "/private/tmp/ashlar-weft-distribution-d2d/tests/application/fixtures/cases.json",
+      "bytes": 1625357,
+      "sha256": "e74e260e19e0ded02463002b2cdd6ccf99936951a6e90432ff20482cbbaf1626"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-distribution-d2d/docs/helix/02-design/contracts/logical-plan-v0.4.schema.json",
+      "bytes": 42813,
+      "sha256": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-distribution-d2d/docs/helix/02-design/contracts/CONTRACT-005-authored-two-hop-paths.md",
+      "bytes": 23735,
+      "sha256": "82f94c9eefb01f1cf99eed7810f2420176a574383354bb7cb8390ce4236453d9"
+    },
+    {
+      "path": "/private/tmp/ashlar-weft-distribution-d2d/docs/helix/02-design/technical-designs/TD-007-authored-two-hop-paths.md",
+      "bytes": 11510,
+      "sha256": "4256d8c7919e84dfd11975ad9c51540a40dc680450f46102b820493f39111b69"
+    }
+  ],
+  "scope": "Private full-query to Plan04 resolution only. No backend03 review, compile04 routing review, native execution or newly registered realization.",
+  "findingsRemaining": []
+}
