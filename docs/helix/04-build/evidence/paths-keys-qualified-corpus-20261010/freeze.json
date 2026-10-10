@@ -1,0 +1,51 @@
+{
+  "files": [
+    {
+      "bytes": 91664,
+      "path": "command.json",
+      "sha256": "5be699a29f0fc67d95c9e99222c7981d86b074d615b8344983bb6bd5dba4c0b2"
+    },
+    {
+      "bytes": 35371,
+      "path": "producer.py",
+      "sha256": "77517097fe5c5c3b27f90433c505c36514e409896beaa3d473f1937542eb75a5"
+    },
+    {
+      "bytes": 2390,
+      "path": "run.py",
+      "sha256": "04d9fa07266e0744c3835b31e4ddeb87c0954381fff0bc58420345f51faaa05e"
+    },
+    {
+      "bytes": 6214,
+      "path": "bounded-launcher.py",
+      "sha256": "1b3ddad1de8da44d2af9593bab1be96361a7167f807b7f1fab01b1d901382892"
+    },
+    {
+      "bytes": 7368,
+      "path": "checker.py",
+      "sha256": "bf9523f086466fd485d1cb90b54da9d02677585f015216ad90b236daa9acc276"
+    },
+    {
+      "bytes": 2324,
+      "path": "schema-checker",
+      "sha256": "fccf88deb54e04bc1c599a8dd11303669a15e8e0c71e3ae0d2c5f649c6ee68b8"
+    }
+  ],
+  "invocation": [
+    "/usr/bin/python3",
+    "-B",
+    "-S",
+    "/private/tmp/weft-paths-keys-qualification-20261010-d/run.py",
+    "--command",
+    "/private/tmp/weft-paths-keys-qualification-20261010-d/command.json",
+    "--sha256",
+    "5be699a29f0fc67d95c9e99222c7981d86b074d615b8344983bb6bd5dba4c0b2"
+  ],
+  "resources": 359,
+  "status": "No execution, producerE and commandD review required",
+  "supersedes": {
+    "bytes": 1509,
+    "path": "/private/tmp/weft-paths-keys-qualification-20261010-c/freeze.json",
+    "sha256": "3bd540e36d56951e222371e44939be3a9bb677a6ac0934492d712a1a9957df02"
+  }
+}

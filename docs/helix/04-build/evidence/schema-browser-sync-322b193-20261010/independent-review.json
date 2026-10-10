@@ -1,0 +1,207 @@
+{
+  "verdict": "APPROVE exact five-file browser sync and scoped retained Chromium evidence",
+  "freeze": {
+    "path": "/private/tmp/ashlar-schema-browser-322b193-freeze-20261010-a/manifest.json",
+    "sha256": "2133f9a9e659bc441df6be98a015d4dfd269106d47b262cb1c4a6f4e337ccddd",
+    "bytes": 1757
+  },
+  "files": [
+    {
+      "path": "tools/build_schema_browser.py",
+      "bytes": 2885,
+      "sha256": "f8f5bbba66c7e19b4d6317ad984fa05e329c1ce5a20e6afc80b798c708736458"
+    },
+    {
+      "path": "website/scripts/check_schema_browser.py",
+      "bytes": 1804,
+      "sha256": "6415aaea294a3229a2704d185dccf9c0261599dfd12d812c372cf0f188372a38"
+    },
+    {
+      "path": "website/static/model/schema-browser/explorer.js",
+      "bytes": 3542876,
+      "sha256": "ced5812c5c376036254da0960055a113a0232a26cf74f633128c2dd63b92ce60"
+    },
+    {
+      "path": "website/static/model/schema-browser/explorer.css",
+      "bytes": 11433,
+      "sha256": "f4f15ddfc7dfa1f04d1a3d3604fdbf039e566293e4ee834c424f83642e440ceb"
+    },
+    {
+      "path": "website/static/model/schema-browser/provenance.json",
+      "bytes": 2807,
+      "sha256": "e007775d193cf2b5b75bfc7c0e6649e17e21f76a787230b450d6e32bf055d8cf"
+    }
+  ],
+  "sourceLocation": "Freeze is hash manifest; all five live files matched opening and closing exact descriptors. No frozen copies were implied.",
+  "upstream": {
+    "commit": "322b193cef7c940d07b741860cf0170272628868",
+    "localOriginMain": "322b193cef7c940d07b741860cf0170272628868",
+    "assets": [
+      {
+        "name": "explorer.js",
+        "bytes": 3542876,
+        "sha256": "ced5812c5c376036254da0960055a113a0232a26cf74f633128c2dd63b92ce60",
+        "gitBlob": "24fc3edd932b2317f7fb000b00601a4961c5ad98",
+        "verbatimIncludingWhitespace": true
+      },
+      {
+        "name": "explorer.css",
+        "bytes": 11433,
+        "sha256": "f4f15ddfc7dfa1f04d1a3d3604fdbf039e566293e4ee834c424f83642e440ceb",
+        "gitBlob": "93ce7a5e0dbd0f11bb527abb95f2c2800e4486ae",
+        "verbatimIncludingWhitespace": true
+      }
+    ]
+  },
+  "AshlarBaseline": "c083553d3273de80e09a95188ccd8d5355ea9b7e",
+  "umfCheckout": {
+    "head": "385c8cf119a3c2e40ba59cc5f15e24edab52f3b2",
+    "statusUnchanged": true,
+    "branchNotMoved": true
+  },
+  "checks": [
+    "Generator/checker diff exactly upstream revision replacement",
+    "Nine original models plus index and existing generated catalog/index/host CSS byte-exact Ashlar HEAD; no model rewriting",
+    "Provenance generator SHA and every input/output asset descriptor correct",
+    "Upstream explorer JS/CSS byte-exact Git objects including original minified whitespace; no stripping or re-minification",
+    "Retained Chromium153.0.8010.12 report has18 source/DOM/download cases at1440/390,16 physical retained-extension/unknown-semantics observations,16 ordered-record-member observations",
+    "All18 retained downloads equal original model bytes; each of16 record observations equals independently derived original ordered member/scalar/cardinality/nullability triples",
+    "Viewed retained desktop/mobile screenshots; visible source/version/partial-semantics posture agrees with report",
+    "Four original stdlib corruption controls rerun in isolated temporary copies and real read-only checker passes; no browser/build rerun"
+  ],
+  "portableTests": {
+    "passed": 4,
+    "names": [
+      "test_original_browser_custody_passes",
+      "test_changed_browser_inputs_and_copy_refuse",
+      "test_missing_or_changed_pin_and_generator_refuse",
+      "test_missing_upstream_git_pin_leaves_original_outputs"
+    ],
+    "runtime": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+    "testSource": {
+      "path": "/Users/erik/Projects/ashlar/tests/test_schema_browser_sync.py",
+      "sha256": "8fe365dad865ac4e9889eaf8470ffcbfdb1f3c91c0ed199b5a72ea40b0207df2",
+      "bytes": 2802
+    },
+    "checkerStdout": "Pinned UMF renderer and all nine original Ashlar schema sources match\n"
+  },
+  "browserEvidence": {
+    "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/report.json",
+    "sha256": "a59930d378fc861eddc8f5325d5fccbbe9747c73c815d12922007dc3f29a0fee",
+    "bytes": 32446
+  },
+  "downloads": [
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/1440-relationships.umf.json",
+      "sha256": "3b09f2938e94a83c92369a9b1f3b682528db463978fd1ac708c7b376fca4ce57",
+      "bytes": 42928
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/1440-object_current.umf.json",
+      "sha256": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884",
+      "bytes": 14713
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/1440-edge_current.umf.json",
+      "sha256": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302",
+      "bytes": 17098
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/1440-source_record.umf.json",
+      "sha256": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375",
+      "bytes": 9158
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/1440-property_journal.umf.json",
+      "sha256": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5",
+      "bytes": 17855
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/1440-tombstone.umf.json",
+      "sha256": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13",
+      "bytes": 9030
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/1440-publication_manifest.umf.json",
+      "sha256": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d",
+      "bytes": 6672
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/1440-publication_attempt_phase.umf.json",
+      "sha256": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c",
+      "bytes": 5839
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/1440-whole_source_history.umf.json",
+      "sha256": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926",
+      "bytes": 5817
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/390-relationships.umf.json",
+      "sha256": "3b09f2938e94a83c92369a9b1f3b682528db463978fd1ac708c7b376fca4ce57",
+      "bytes": 42928
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/390-object_current.umf.json",
+      "sha256": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884",
+      "bytes": 14713
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/390-edge_current.umf.json",
+      "sha256": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302",
+      "bytes": 17098
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/390-source_record.umf.json",
+      "sha256": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375",
+      "bytes": 9158
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/390-property_journal.umf.json",
+      "sha256": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5",
+      "bytes": 17855
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/390-tombstone.umf.json",
+      "sha256": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13",
+      "bytes": 9030
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/390-publication_manifest.umf.json",
+      "sha256": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d",
+      "bytes": 6672
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/390-publication_attempt_phase.umf.json",
+      "sha256": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c",
+      "bytes": 5839
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/390-whole_source_history.umf.json",
+      "sha256": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926",
+      "bytes": 5817
+    }
+  ],
+  "screenshots": [
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/browser-1440.png",
+      "sha256": "4d9610a55ffae0c26aa15c26c265204cd2f99bebae2c2b9542ec52c1487393a2",
+      "bytes": 136714
+    },
+    {
+      "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/browser-390.png",
+      "sha256": "afe6f207ace5a4a8b095d73ab62028e127f57df8457a4f8ed7ca5de631bdd61f",
+      "bytes": 79637
+    }
+  ],
+  "limits": [
+    "Independent byte/model/custody review and retained browser observations, not a new browser execution. Browser receipt alone does not establish all browser library capabilities.",
+    "No native Delta interpretation/enforcement, loader/research pack qualification or schema-version conversion claim.",
+    "Corruption controls establish existing copy/pin consistency checks, not independent upstream semantic validation or protection against jointly rewritten trusted provenance."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-schema-browser-322b193-review-20261010-a.py",
+    "sha256": "77bf6db6805cf0bc130c02666d0bf34513adaab557e637568937036878f9f813",
+    "bytes": 7450
+  }
+}

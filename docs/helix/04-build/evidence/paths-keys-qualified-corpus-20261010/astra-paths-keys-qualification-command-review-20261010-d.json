@@ -1,0 +1,88 @@
+{
+  "verdict": "APPROVE final E source / D command lifecycle and input gate, conditional on parent74 expectation/producer approval and root execution grant",
+  "sourceFreeze": {
+    "path": "/private/tmp/weft-paths-keys-producer-freeze-20261010-e/manifest.json",
+    "sha256": "b4dd3831f4d582968db5f684a132075e4b917b3c0f18b9740855dd96c9a37e0d",
+    "bytes": 799
+  },
+  "commandFreeze": {
+    "path": "/private/tmp/weft-paths-keys-qualification-20261010-d/freeze.json",
+    "sha256": "72a6af548d17efebf2592a8fd19ea55a4ce4c5859d9971d8e7e303efa6cedeef",
+    "bytes": 1509
+  },
+  "command": {
+    "path": "/private/tmp/weft-paths-keys-qualification-20261010-d/command.json",
+    "sha256": "5be699a29f0fc67d95c9e99222c7981d86b074d615b8344983bb6bd5dba4c0b2",
+    "bytes": 91664
+  },
+  "producerSnapshot": {
+    "path": "/private/tmp/weft-paths-keys-qualification-20261010-d/producer.py",
+    "sha256": "77517097fe5c5c3b27f90433c505c36514e409896beaa3d473f1937542eb75a5",
+    "bytes": 35371
+  },
+  "priorBlockedCommand": {
+    "path": "/private/tmp/astra-paths-keys-qualification-command-review-20261010-b.json",
+    "sha256": "2ac4ce6ccffde7438c526a23924c513786d1a52f655266cbd251392de87d44e2",
+    "bytes": 5250
+  },
+  "independentLifecycleControls": {
+    "path": "/private/tmp/astra-paths-keys-qualification-lifecycle-review-20261010-c.json",
+    "sha256": "301d402023766afad4380bc3ec87bc4047608c8a87325251a0be5d8436dded0d",
+    "bytes": 4003
+  },
+  "focusedFinalTests": {
+    "passed": 3,
+    "names": [
+      "test_cleanup_only_generator_exit_preserves_identity",
+      "test_transport_cleanup_preserves_cancellation_and_readonly_marker",
+      "test_closed_process_group_ownership_configuration"
+    ],
+    "runtime": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]"
+  },
+  "selectedResources": {
+    "count": 359,
+    "bytes": 53956079,
+    "allCurrentShaAndLengthsVerified": true,
+    "unchangedExternalDescriptorsFromB": 354
+  },
+  "source": {
+    "commit": "3a2a79ccc19d636f20d31116662d61365c1b4ff7",
+    "files": 1987,
+    "bytes": 312239178,
+    "inventory": {
+      "bytes": 577199,
+      "path": "/private/tmp/weft-paths-keys-3a2a79c-build-20261010-a/source-inventory.json",
+      "sha256": "e9f1e0ac01d7b9dc1b2d61148c74274c1fed5a5593726487aa4562f2e4bf3512"
+    },
+    "exactPathSetModesGitBlobsShaAndLengthsVerified": true
+  },
+  "checks": [
+    "Final E differs from tested D only by propagating every non-Exception cleanup cancellation; exact GeneratorExit/KeyboardInterrupt identity and readonly-marker tests pass",
+    "Frozen D34 owner tests and exact C launcher/D producer four independent inert process controls preserved: timeout, outer cancellation+cleanup error, inner cancellation, success with closed-stdio descendant",
+    "Final launcher/run/checker unchanged from prior reviewed bytes; bridge only path relocation, selected source schemas unchanged",
+    "Explicit outer mode only selected Paths-keys; launcher creates producer session/group leader, inner compiler/schema children join that group, direct child killed/reaped internally, complete group killed by unchanged outer capture on every outcome",
+    "Original transport default remains; all non-main/non-transport functions including full historical463 correspondence byte-AST identical B",
+    "Final command only reviewed process-owner option, successor paths and exact producer/bridge pins; binary/backend/source/cases/config/environment/bounds unchanged",
+    "All selected resources/source closure verified read-only; output files/directory remain fresh; protocol precharge exactly270846700 against301989888 cap"
+  ],
+  "limits": {
+    "outerSeconds": 180,
+    "outerEachStreamBytes": 262144,
+    "childSeconds": 20,
+    "childStdoutBytes": 4194304,
+    "childStderrBytes": 4096,
+    "receiptBytes": 301989888,
+    "scope": "Configured finite limits and accounting only; no runtime/RSS/duration or actual corpus result claim"
+  },
+  "scope": "Read-only command readiness plus inert Python control processes. No qualification, Weft compiler, Cargo, native engine, DB, build, install, index or owner/source edits. Exact74 semantic/coverage and aggregate source gate are parent-owned.",
+  "residualLimits": [
+    "Process cleanup covers same-group descendants of trusted compiler/schema helpers; hostile setsid escape is outside the fixed child implementation scope.",
+    "Sandbox does not permit ps; successful owned-group SIGKILL plus exact group identity and stopped descendant heartbeat retained in lifecycle receipt. No orphan reaping ownership claim.",
+    "359 selected runtime inputs are not complete host SDK/dynamic-library/cache closure. Historical530 qualification remains separate from compiled3a and producerE."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-paths-keys-qualification-command-review-20261010-d.py",
+    "sha256": "ba51e6f3054a93917c1dd299f4ff5225da75c1f40b38ecba6d84a3edafaad7df",
+    "bytes": 8201
+  }
+}

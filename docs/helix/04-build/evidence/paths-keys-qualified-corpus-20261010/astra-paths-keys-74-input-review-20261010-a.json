@@ -1,0 +1,66 @@
+{
+  "bundle": {
+    "bytes": 20542587,
+    "path": "/private/tmp/weft-paths-keys-candidate-corpus-20261010-a/candidate-cases.json",
+    "sha256": "b9661c7ff024e9696417ef5bce3ca70a28d8cd8b93b109835ab0517ededf63d0"
+  },
+  "checks": [
+    "All49 exact rawpairs match separately accepted release capture; no payload normalization.",
+    "All20 debugpairs match exact reviewed fixture and40 original Git3a source capture files byte-for-byte after lossless decompression.",
+    "All45 source descriptors match immutable source export.",
+    "Old47 coverage records remain exact; all48 accepted mappings select the actual capability in full logicalPlan. Nine positive boundedKeys cases and ten scoped refusals retained; scalar-only is not counted as boundedKeys.",
+    "Five namespace pairs preserve canonical historical01/02 requests or alter only explicit version fields of an accepted original request. Full244B response derives from compile04 version gate before schema/binding/factory.",
+    "Historical463 remain referenced prior qualification, not current74 process observations.",
+    "Root actual offline74 shape receipt separately bound; no compiler execution repeated here."
+  ],
+  "counts": {
+    "blockedExpected": 35,
+    "capabilities": 48,
+    "compiledExpected": 39,
+    "controls": 19,
+    "namespaceFences": 5,
+    "paths": 50,
+    "sourceDescriptors": 45,
+    "total": 74
+  },
+  "coverageScope": "Finite reviewed obligations and source/IR correspondence. Refused entries include explicit bound/domain/group/profile controls; profile opt-out/refusal alone is not positive feature evidence.",
+  "findings": [],
+  "fixture": {
+    "bytes": 122890,
+    "path": "/Users/erik/Projects/ashlar/tests/fixtures/weft_paths_keys_admission.json.zlib",
+    "sha256": "27c8f5910658b90c45c14002a26ae3e0b8f2ae966b95930f21c49d71aeaa0e51"
+  },
+  "limits": [
+    "Candidate bundle historical pending-acceptance wording remains unchanged; this additive receipt supersedes that statement only for exact74 expectations.",
+    "Not actual full74 qualification, native SQL/host-obligation discharge, package/index/install proof, hostile-filesystem or unbounded formal proof."
+  ],
+  "refs": [
+    {
+      "bytes": 6035,
+      "path": "/private/tmp/astra-paths-keys-49-expectations-accepted-20261010-a.json",
+      "sha256": "63f98e991d036b35d0a1beea527882c738a3798e7e68612641d451546fd6ffa8"
+    },
+    {
+      "bytes": 21951,
+      "path": "/private/tmp/astra-weft-paths-keys-source-review-20261010-a.json",
+      "sha256": "fec3569f8ea280296275753ce2ea2351999b1f9df2447b35b482d827268bac69"
+    },
+    {
+      "bytes": 14099,
+      "path": "/private/tmp/astra-paths-keys-host-admission-review-20261010-a.json",
+      "sha256": "c69b5c02e8c7d5d160819cbd78e644ea47598d8518d0e75a6591e5a5b4f94941"
+    },
+    {
+      "bytes": 10575,
+      "path": "/private/tmp/weft-paths-keys-candidate-corpus-20261010-a/schema-check.json",
+      "sha256": "959251b3c3b97f97fb5579efe041f7aca7a0c7196f0b40806002da530553ace6"
+    }
+  ],
+  "script": {
+    "bytes": 7943,
+    "path": "/private/tmp/astra-paths-keys-74-input-review-20261010-a.py",
+    "sha256": "ee2e39d6d6e4c31688b63bea44f94fc9f23c01e740debb79be12d0320390d0d8"
+  },
+  "sourceCommit": "3a2a79ccc19d636f20d31116662d61365c1b4ff7",
+  "verdict": "ACCEPT exact74 input expectation set and48 selected-capability map for subsequent fresh qualification only"
+}

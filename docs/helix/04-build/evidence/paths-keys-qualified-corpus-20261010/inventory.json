@@ -1,0 +1,114 @@
+{
+  "format": "paths-keys-qualified-corpus-evidence/0.1",
+  "files": [
+    {
+      "path": "command.json",
+      "sha256": "5be699a29f0fc67d95c9e99222c7981d86b074d615b8344983bb6bd5dba4c0b2",
+      "bytes": 91664,
+      "originalPath": "/private/tmp/weft-paths-keys-qualification-20261010-d/command.json"
+    },
+    {
+      "path": "freeze.json",
+      "sha256": "72a6af548d17efebf2592a8fd19ea55a4ce4c5859d9971d8e7e303efa6cedeef",
+      "bytes": 1509,
+      "originalPath": "/private/tmp/weft-paths-keys-qualification-20261010-d/freeze.json"
+    },
+    {
+      "path": "run.py",
+      "sha256": "04d9fa07266e0744c3835b31e4ddeb87c0954381fff0bc58420345f51faaa05e",
+      "bytes": 2390,
+      "originalPath": "/private/tmp/weft-paths-keys-qualification-20261010-d/run.py"
+    },
+    {
+      "path": "producer.py",
+      "sha256": "77517097fe5c5c3b27f90433c505c36514e409896beaa3d473f1937542eb75a5",
+      "bytes": 35371,
+      "originalPath": "/private/tmp/weft-paths-keys-qualification-20261010-d/producer.py"
+    },
+    {
+      "path": "bounded-launcher.py",
+      "sha256": "1b3ddad1de8da44d2af9593bab1be96361a7167f807b7f1fab01b1d901382892",
+      "bytes": 6214,
+      "originalPath": "/private/tmp/weft-paths-keys-qualification-20261010-d/bounded-launcher.py"
+    },
+    {
+      "path": "schema-checker",
+      "sha256": "fccf88deb54e04bc1c599a8dd11303669a15e8e0c71e3ae0d2c5f649c6ee68b8",
+      "bytes": 2324,
+      "originalPath": "/private/tmp/weft-paths-keys-qualification-20261010-d/schema-checker"
+    },
+    {
+      "path": "checker.py",
+      "sha256": "bf9523f086466fd485d1cb90b54da9d02677585f015216ad90b236daa9acc276",
+      "bytes": 7368,
+      "originalPath": "/private/tmp/weft-paths-keys-qualification-20261010-d/checker.py"
+    },
+    {
+      "path": "outcome.json",
+      "sha256": "b9998b3d7434e380e82f02254b15209c0123a6273e2aa73ed9a874a7479093c2",
+      "bytes": 315,
+      "originalPath": "/private/tmp/weft-paths-keys-qualification-20261010-d/outcome.json"
+    },
+    {
+      "path": "producer.stdout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0,
+      "originalPath": "/private/tmp/weft-paths-keys-qualification-20261010-d/producer.stdout"
+    },
+    {
+      "path": "producer.stderr",
+      "sha256": "2a13af67601624cb4924e88c89583b6d14c362a01c585716097d241c0a47bd61",
+      "bytes": 110,
+      "originalPath": "/private/tmp/weft-paths-keys-qualification-20261010-d/producer.stderr"
+    },
+    {
+      "path": "receipt.json.gz",
+      "sha256": "7309da7969bc8bfb6ea7070f44deb4e5aa3d3d0e2cd2b44bda14d05ce31631be",
+      "bytes": 830443,
+      "decodedSha256": "d5f586b09499d8a099d4b270ab49f03e797dbd9e9ca38ec1bc8034aa0dbf5aa0",
+      "decodedBytes": 26019878,
+      "originalPath": "/private/tmp/weft-paths-keys-qualification-20261010-d/producer-output/receipt.json"
+    },
+    {
+      "path": "expected-cases.json.gz",
+      "sha256": "974099de713bc06f15ece1a580caaffdcb6d6988711fd321c978bd8e805d7aa0",
+      "bytes": 559367,
+      "decodedSha256": "b9661c7ff024e9696417ef5bce3ca70a28d8cd8b93b109835ab0517ededf63d0",
+      "decodedBytes": 20542587,
+      "originalPath": "/private/tmp/weft-paths-keys-candidate-corpus-20261010-a/candidate-cases.json"
+    },
+    {
+      "path": "astra-paths-keys-actual74-review-20261010-d.json",
+      "sha256": "e45195fca795d96aa9cfc7f8edc53587d93ccbcaa7ade0507aa38d3379125583",
+      "bytes": 24958,
+      "originalPath": "/private/tmp/astra-paths-keys-actual74-review-20261010-d.json"
+    },
+    {
+      "path": "astra-paths-keys-74-input-review-20261010-a.json",
+      "sha256": "aaa080cca0fccf93f70f8d6f8817f45423f96ae62be50b576be23cc1524d16ae",
+      "bytes": 3383,
+      "originalPath": "/private/tmp/astra-paths-keys-74-input-review-20261010-a.json"
+    },
+    {
+      "path": "astra-paths-keys-qualification-gate-20261010-d.json",
+      "sha256": "054f32a6e245adb42d4dd0f94156f14fcd2a34b83d88a2951e174315d3418760",
+      "bytes": 3726,
+      "originalPath": "/private/tmp/astra-paths-keys-qualification-gate-20261010-d.json"
+    },
+    {
+      "path": "astra-paths-keys-qualification-command-review-20261010-d.json",
+      "sha256": "b503317c120f09f07883767f9ea2848e8689961a69f49e7e77e2a4187d43b43f",
+      "bytes": 4952,
+      "originalPath": "/private/tmp/astra-paths-keys-qualification-command-review-20261010-d.json"
+    }
+  ],
+  "actualProtocolCases": 74,
+  "compiled": 39,
+  "blocked": 35,
+  "transportControls": 8,
+  "declaredCapabilities": 48,
+  "retainedPrechargeBytes": 270884932,
+  "retainedBudgetBytes": 301989888,
+  "scope": "Actual independently accepted finite release compiler/schema/case/transport correspondence only. Compiler source Git3a is separate from producerE. Historical463 remains original reference, five namespace representatives execute here. No native publication/SQL/source/ACK, index/package/installation support inferred.",
+  "warning": "Producer Python emitted110 bytes of Darwin confstr warning; all protocol compiler stderr bytes are zero."
+}

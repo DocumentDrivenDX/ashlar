@@ -1,0 +1,43 @@
+{
+  "format": "ashlar-schema-browser-sync-review-input/0.1",
+  "upstreamRevision": "322b193cef7c940d07b741860cf0170272628868",
+  "previousRevision": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+  "files": [
+    {
+      "path": "tools/build_schema_browser.py",
+      "bytes": 2885,
+      "sha256": "f8f5bbba66c7e19b4d6317ad984fa05e329c1ce5a20e6afc80b798c708736458"
+    },
+    {
+      "path": "website/scripts/check_schema_browser.py",
+      "bytes": 1804,
+      "sha256": "6415aaea294a3229a2704d185dccf9c0261599dfd12d812c372cf0f188372a38"
+    },
+    {
+      "path": "website/static/model/schema-browser/explorer.js",
+      "bytes": 3542876,
+      "sha256": "ced5812c5c376036254da0960055a113a0232a26cf74f633128c2dd63b92ce60"
+    },
+    {
+      "path": "website/static/model/schema-browser/explorer.css",
+      "bytes": 11433,
+      "sha256": "f4f15ddfc7dfa1f04d1a3d3604fdbf039e566293e4ee834c424f83642e440ceb"
+    },
+    {
+      "path": "website/static/model/schema-browser/provenance.json",
+      "bytes": 2807,
+      "sha256": "e007775d193cf2b5b75bfc7c0e6649e17e21f76a787230b450d6e32bf055d8cf"
+    }
+  ],
+  "checks": [
+    "test_original_browser_custody_passes",
+    "test_changed_browser_inputs_and_copy_refuse",
+    "test_missing_or_changed_pin_and_generator_refuse",
+    "test_missing_upstream_git_pin_leaves_original_outputs"
+  ],
+  "browserReceipt": {
+    "path": "/private/tmp/ashlar-schema-browser-322b193-20261010-b/report.json",
+    "sha256": "a59930d378fc861eddc8f5325d5fccbbe9747c73c815d12922007dc3f29a0fee"
+  },
+  "scope": "Exact latest committed UMF browser assets; nine Ashlar source models unchanged. Real Chromium source/download/field/extension/desktop-mobile checks and existing four sync refusal controls. No native Delta support claim."
+}

@@ -1,0 +1,81 @@
+{
+  "budget": {
+    "protocolPrechargeBytes": 270846700,
+    "receiptLimitBytes": 301989888,
+    "scope": "Finite accounting cap, not observed RSS or actual retained size"
+  },
+  "checks": [
+    "Final six frozen command files checked against manifest; reviewed producerE exact.",
+    "All root prerequisites now met: separate sourceE approval, exact74 expected bytes/48selected-map acceptance, independently reverified359selected resources/1987Git source files and repaired all-outcome process group cleanup.",
+    "Explicit outer owner only newprofile under actual session/group leader; compiler/schema helpers inherit owned group and outer capture kills it on success/failure/deadline/cancellation.",
+    "Driver runs closing resource/source verification after child outcome and records completed only after closing passes.",
+    "Source compiled3a, independently frozen producerE, and referenced historical530 qualification stay distinct."
+  ],
+  "command": {
+    "bytes": 91664,
+    "path": "/private/tmp/weft-paths-keys-qualification-20261010-d/command.json",
+    "sha256": "5be699a29f0fc67d95c9e99222c7981d86b074d615b8344983bb6bd5dba4c0b2"
+  },
+  "cwd": "/private/tmp/weft-paths-keys-qualification-20261010-d",
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "expectedCounts": {
+    "blocked": 35,
+    "capabilities": 48,
+    "compiled": 39,
+    "protocol": 74,
+    "transport": 8
+  },
+  "findings": [],
+  "freeze": {
+    "bytes": 1509,
+    "path": "/private/tmp/weft-paths-keys-qualification-20261010-d/freeze.json",
+    "sha256": "72a6af548d17efebf2592a8fd19ea55a4ce4c5859d9971d8e7e303efa6cedeef"
+  },
+  "freshOutputPathsAbsent": true,
+  "invocation": [
+    "/usr/bin/python3",
+    "-B",
+    "-S",
+    "/private/tmp/weft-paths-keys-qualification-20261010-d/run.py",
+    "--command",
+    "/private/tmp/weft-paths-keys-qualification-20261010-d/command.json",
+    "--sha256",
+    "5be699a29f0fc67d95c9e99222c7981d86b074d615b8344983bb6bd5dba4c0b2"
+  ],
+  "limits": {
+    "maximumStreamBytes": 262144,
+    "timeoutSeconds": 180
+  },
+  "limitsOfApproval": [
+    "This approves a bounded attempt, not its unseen actual outcome. Actual receipt full raw pairs,48coverage,8transport,closing inputs and process outcome require independent review afterward.",
+    "No database/native engine, build, package/index/install or wider production qualification is authorized by this receipt.",
+    "180s is capture deadline with bounded process cleanup plus cooperative file/source verification; not a hard real-time bound for all filesystem operations.",
+    "359selectedresources are not full OS/dynamic-library closure. Same-group descendants covered; deliberate child session escape remains outside fixed trusted helpers."
+  ],
+  "sourceAndExpectationsAndLifecycle": [
+    {
+      "bytes": 4942,
+      "path": "/private/tmp/astra-paths-keys-producer-source-review-20261010-e.json",
+      "sha256": "270245d42c94dc98c73f28cb70517f73246d037b06368596a29f61e40a05f586"
+    },
+    {
+      "bytes": 3383,
+      "path": "/private/tmp/astra-paths-keys-74-input-review-20261010-a.json",
+      "sha256": "aaa080cca0fccf93f70f8d6f8817f45423f96ae62be50b576be23cc1524d16ae"
+    },
+    {
+      "bytes": 6035,
+      "path": "/private/tmp/astra-paths-keys-49-expectations-accepted-20261010-a.json",
+      "sha256": "63f98e991d036b35d0a1beea527882c738a3798e7e68612641d451546fd6ffa8"
+    },
+    {
+      "bytes": 4952,
+      "path": "/private/tmp/astra-paths-keys-qualification-command-review-20261010-d.json",
+      "sha256": "b503317c120f09f07883767f9ea2848e8689961a69f49e7e77e2a4187d43b43f"
+    }
+  ],
+  "verdict": "APPROVE exact command D for root-owned bounded fresh74 compiler qualification attempt"
+}
