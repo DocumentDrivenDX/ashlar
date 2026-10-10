@@ -1,0 +1,86 @@
+{
+  "decision": "APPROVE exact seven-file corrective installed-host source C",
+  "freeze": {
+    "path": "/private/tmp/ashlar-installed-path-host-source-freeze-20261010-c/manifest.json",
+    "sha256": "eb7d698743bba0a81e50ca52b06c60be2e2f27b6bfc7ff0dcb96f7c0be824419",
+    "bytes": 2344
+  },
+  "files": [
+    {
+      "path": "src/ashlar_host/path_admission.py",
+      "sha256": "d6eaa20320c97f607ad6d59578b81653e564d94e1af6daa3537a02640f70d8d2",
+      "bytes": 24169
+    },
+    {
+      "path": "src/ashlar_host/path_capture.py",
+      "sha256": "b9426e7cd29e6f68843ac53e56f6cbbd4231eac135d5eb35dd137aed29cc3e1d",
+      "bytes": 4898
+    },
+    {
+      "path": "src/ashlar_host/path_execution.py",
+      "sha256": "f42d4ceb62ebfb00a626f2d8cab74d38df950f42bdfc4b9bb875aff09f5b5c8b",
+      "bytes": 22553
+    },
+    {
+      "path": "tests/test_installed_path_host.py",
+      "sha256": "38e3e40b0cf33d75e0ccbacc149f9996cd3fb6217ed4dac73bce625e0ae165fc",
+      "bytes": 7634
+    },
+    {
+      "path": ".github/workflows/module-boundaries.yml",
+      "sha256": "a992c5346741a25a7f1188ca6ec9be26b8633302aa435413b00a5bf24252321c",
+      "bytes": 896
+    },
+    {
+      "path": "tools/check_module_boundaries.py",
+      "sha256": "0602e637a0fbf8ff6a4c3e5c5f520ab3f57623f74f8d3d7cbf9a70ac87cfd4af",
+      "bytes": 6434
+    },
+    {
+      "path": "tests/test_module_boundaries.py",
+      "sha256": "10f65c9f7ccb1d1f077bc07bba0a01262fb1685d2b6c13ec3d20bbfda498fe92",
+      "bytes": 8082
+    }
+  ],
+  "checks": [
+    "Original admission module byte-identical; execution/capture preserve original owned AST outside exactly two reviewed cleanup functions and two relative imports. Original tools remain unchanged.",
+    "Two migration tests pass independently on Python3.9.6, exercising five existing admission/capture/execution/interval/predicate suites against the installed-package module definitions plus five cleanup-identity controls.",
+    "Independent probes preserve exact KeyboardInterrupt/SystemExit across distinct cleanup cancellation, denied diagnostic annotation and close-accessor SystemExit. Cleanup-only cancellation propagates; ordinary cleanup refusal stays payload-free.",
+    "Isolated -I -S import outside checkout with only explicit src path loads no tools, PySpark, Delta or psycopg. The three source modules have no environment reads; explicit immutable config and injected schema/source/runtime ports remain.",
+    "Exact one-line CI addition invokes these portable tests under existing Python3.12 job; no SDK install or runtime construction added.",
+    "Independent checker review validates only two new consumer role names, no policy baseline changes; actual checker and11 tests plus18 negative/direction probes and429 old/new comparisons pass."
+  ],
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-installed-path-host-tests-20261010-c.log",
+      "sha256": "320ed59501ae6b8f2d522b632e018e6259afc883cd8c4648ba0ac8a1a1fbec28",
+      "bytes": 297
+    },
+    {
+      "path": "/private/tmp/astra-installed-path-host-cleanup-probe-20261010-a.py",
+      "sha256": "e8e7261711d3b8fa16772cadbff0bc06a5d1441f0a88e4a30c0e16100ade374f",
+      "bytes": 2118
+    },
+    {
+      "path": "/private/tmp/astra-installed-path-host-cleanup-probe-20261010-c.log",
+      "sha256": "85aa89ced0f428ea7d547e675aa9e872dfdf492bc8513cddbb12a86211aa41c7",
+      "bytes": 327
+    },
+    {
+      "path": "/private/tmp/astra-installed-path-host-accessor-probe-20261010-c.log",
+      "sha256": "b78ab6027acb487d98af594654999067b03860128b7e9bb644f20158209bcb64",
+      "bytes": 52
+    },
+    {
+      "path": "/private/tmp/astra-installed-path-host-boundaries-review-20261010-b.json",
+      "sha256": "58e698cbb0d2930b3212b868500ef6d8762c4e937c01daf44d44088c0a258257",
+      "bytes": 2690
+    }
+  ],
+  "limits": [
+    "Finite source and fake-port/process controls only; no wheel installation, Paths530 executable run, native query, publication/source/ACK authority or host-runtime qualification.",
+    "Path execution returns provisional evidence; outer reader/client/Spark cleanup remains required before report release.",
+    "Retained row/cell payload limits do not bound Spark partition/executor memory. No OTel receiver integration or mechanical/unbounded proof asserted.",
+    "This approval does not approve the separate new Paths package/installation source, which remains under independent review."
+  ]
+}

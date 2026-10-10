@@ -90,6 +90,21 @@ class BoundaryTests(unittest.TestCase):
             path.write_text(statement + '\n')
             self.assertIn(reason, {e[3] for e in scan(root)})
 
+    def test_paths_package_and_installer_have_consumer_boundaries(self):
+        for name in ('weft_paths_package.py', 'weft_paths_installation.py'):
+            with self.subTest(module=name):
+                root = self.tree('')
+                path = root / 'src/ashlar' / name
+                path.write_text('from .weft_decode import decode_exact_scalar\n')
+                self.assertEqual(check(root, self.policy()), ([], []))
+                for statement, reason in [('from .publisher import Attempt', 'consumer-to-producer'),
+                                          ('from .cli import main', 'core-to-composition'),
+                                          ('import pyspark', 'core-to-sdk'),
+                                          ('from ashlar_host.commerce import query_commerce', 'core-to-host-composition'),
+                                          ('from .weft_decode import _hidden', 'private-cross-module')]:
+                    path.write_text(statement + '\n')
+                    self.assertIn(reason, {e[3] for e in scan(root)})
+
     def test_installed_host_has_owned_public_edges(self):
         root = self.tree('from ashlar_host.commerce import publish_commerce\n')
         host = root / 'src/ashlar_host'
