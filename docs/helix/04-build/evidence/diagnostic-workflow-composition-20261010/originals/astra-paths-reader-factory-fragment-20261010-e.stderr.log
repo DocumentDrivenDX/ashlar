@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/private/tmp/astra-paths-reader-factory-fragment-20261010-e.py", line 46, in <module>
+    with contextmanager(namespace['exercise'])():pass
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/publication_reader.py", line 361, in exercise
+    finish(primary, actions)
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py", line 16, in finish
+    raise primary
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/publication_reader.py", line 344, in exercise
+    driver = NativeDriver(transport, policy, context, tables, {batch.feed: port}, admission.changes, fixture_columns(ROOT), source_admission=admission)
+NameError: name 'ROOT' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/astra-paths-reader-factory-fragment-20261010-e.py", line 49, in <module>
+    assert actual is expected
+AssertionError

@@ -1,0 +1,95 @@
+{
+  "reviewer": "/root/astra_plan_review",
+  "verdict": "request-narrow-reader-primary-correction",
+  "scope": "Paths observation and actual reader/provider cleanup facts. Classification controls pass; aggregate original cancellation preservation on affected reader closing path is withheld.",
+  "sourceSnapshots": [
+    {
+      "path": "/private/tmp/astra-paths-reader-predecessor-20261010-c/paths_query.py",
+      "bytes": 23084,
+      "sha256": "71c090cdb05fbf30ce875a1189f16c045acad47fedf0efff33d617a6e3578d9c"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-predecessor-20261010-c/publication_reader.py",
+      "bytes": 25014,
+      "sha256": "f023b4a0ba0da047b1c404b8ab095938e3afea4db7b9430ab2f1155e0c33d0a6"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-predecessor-20261010-c/test_host_paths_diagnostics.py",
+      "bytes": 13416,
+      "sha256": "c6d98debc97b8c61b34f4bd173765ba6fddbd656cdaf4bb87bff00a6313c57ce"
+    }
+  ],
+  "childReview": {
+    "path": "/private/tmp/astra-paths-reader-review-20261010-c.json",
+    "bytes": 3174,
+    "sha256": "fb104ff28ab6e788ae19450a55d5c5991ac5633ab82841a046f10d938b44d297"
+  },
+  "finding": {
+    "id": "PATH-READER-PRIMARY-001",
+    "priority": "P1",
+    "path": "src/ashlar_host/publication_reader.py",
+    "location": "open_commerce_reader final transport close",
+    "provenance": "Inherited behavior, not introduced by fact instrumentation. Current affected source was independently checked.",
+    "evidence": "Exact acquired-region AST control preserves real try/except/finally and injected inert ports. Three postyield KI/SystemExit/GeneratorExit primaries each get replaced by ordinary transport-close OSError; four further ordinary-guard/cleanup combinations also demonstrate replacement.",
+    "remedy": "Use the owning primary-preserving finalization policy around the actual close callback after recording the existing primary. Keep independent cleanup facts and exact omission behavior except explicit primary bug correction; test both state-present and omitted cases.",
+    "limit": "This inherited concrete counterexample prevents a complete cancellation-preservation claim; source classification pass alone does not establish corrected closure."
+  },
+  "passed": "38 source/inert tests, four independent workflow cases, state type/read-only/singleclaim controls, actual provider method guard versus rollback/close. Child raw artifact digests verified.",
+  "qualificationLimits": [
+    "No native, SDK worker, receiver, network or credentials used.",
+    "Exact AST acquired-region control is not whole-factory/native execution.",
+    "No approval of unmodified predecessor for cancellation guarantees."
+  ],
+  "files": [
+    {
+      "path": "/private/tmp/astra-paths-diagnostics-review-20261010-c.stderr.log",
+      "bytes": 137,
+      "sha256": "495a8d241277ab7cd215e5b4612053fa799e40f749c9820c5cf9afb9ea25b129"
+    },
+    {
+      "path": "/private/tmp/astra-paths-diagnostics-review-20261010-c.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-paths-cleanup-independent-20261010-c.json",
+      "bytes": 1701,
+      "sha256": "b5301bcd9221ea23bc48bb2093d7718625f6a3fe6d4683f41355ef40ff39acdd"
+    },
+    {
+      "path": "/private/tmp/astra-paths-cleanup-independent-20261010-c.py",
+      "bytes": 3608,
+      "sha256": "aa1074c8c7a6bf864fc163e7d6f4f07e46cf83759935a769449182f3c0402363"
+    },
+    {
+      "path": "/private/tmp/astra-paths-cleanup-independent-20261010-c.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-paths-cleanup-independent-20261010-c.stdout.log",
+      "bytes": 1309,
+      "sha256": "a630fb96158a6b8aa0f15ffe6aadc79ef2ad72e0aa04b491dd9310a56531a163"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-factory-fragment-20261010-d.json",
+      "bytes": 2029,
+      "sha256": "77866c623e2fbb1bc4a64bfc5cb6f140c1f00d95ff2e1c38b2c259c855a85244"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-factory-fragment-20261010-d.py",
+      "bytes": 3992,
+      "sha256": "dc282cf3200f26494cb8364ea9df55d094559082b3fdb49ac753de50799dd8d3"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-factory-fragment-20261010-d.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-factory-fragment-20261010-d.stdout.log",
+      "bytes": 1693,
+      "sha256": "ca5c960ba4d21718523ef5172ece4166f9d7801b689740f57b22efae0a1799f9"
+    }
+  ]
+}

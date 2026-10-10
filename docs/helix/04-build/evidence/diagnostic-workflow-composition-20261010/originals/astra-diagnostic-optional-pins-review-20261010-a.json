@@ -1,0 +1,17 @@
+{
+  "scope": "Pure metadata/source comparison; no package build, install or dependency execution",
+  "sixteenOptionalPinsEqualPublicProfile": true,
+  "portableDependenciesUnchanged": true,
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/pyproject.toml",
+      "bytes": 1653,
+      "sha256": "9ef59b100ca45a32ed9c02ad47a9e6227e8aa5c2a4e8c9935a2097e2a721fcc6"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel_profile.py",
+      "bytes": 740,
+      "sha256": "4765b81692c781d7953637337ee8a8f066365bd658c2271f966ae54c1e531fc3"
+    }
+  ]
+}

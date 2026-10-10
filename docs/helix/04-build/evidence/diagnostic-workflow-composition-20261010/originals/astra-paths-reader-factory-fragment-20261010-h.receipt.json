@@ -1,0 +1,26 @@
+{
+  "sourceSha256": "d0693a36262871f5e4fe6335dadb7b67e5330ab1abe2b420d98724ade6b3ba5f",
+  "scope": "Actual acquired-region AST with inert ports; no whole-factory/native execution",
+  "cases": 30,
+  "terminalChunk": "1cb87e",
+  "exitCode": 0,
+  "files": {
+    ".py": {
+      "sha256": "ee4381ea9bdbcf55d12c7808468d82acd2a1b349deed3fd03a27525bc3ac5e79",
+      "bytes": 5355
+    },
+    ".json": {
+      "sha256": "424a821a94813a362b1335d07715ea8b2aeb77776e991f850bfcb90f349c280d",
+      "bytes": 8771
+    },
+    ".stdout.log": {
+      "sha256": "1cfe185d99ec94780a3023e61b9165250aa8831587079acfef5deaf528335dcb",
+      "bytes": 7017
+    },
+    ".stderr.log": {
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "historicalCorrection": "C/D fragment claims of post-yield identity are withdrawn because incomplete stubs could fail before yield. E/F/G retain failed setup controls. H explicitly verifies yield entered and guard reached before accepting identity results. Valid four whole-workflow classification controls are unaffected."
+}

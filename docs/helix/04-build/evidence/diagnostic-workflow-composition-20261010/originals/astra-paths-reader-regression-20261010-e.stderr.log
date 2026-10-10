@@ -1,0 +1,77 @@
+
+======================================================================
+FAIL: test_reader_acquired_region_preserves_primary_with_and_without_facts (test_host_paths_diagnostics.DiagnosticWorkflowTests) (observed=False, primary='ValueError')
+Exercise the owning acquired-region AST with inert ports, not native I/O.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tests/test_host_paths_diagnostics.py", line 254, in test_reader_acquired_region_preserves_primary_with_and_without_facts
+    self.assertIs(caught.exception, primary)
+AssertionError: NameError("name 'ROOT' is not defined") is not ValueError('closing-guard')
+
+======================================================================
+FAIL: test_reader_acquired_region_preserves_primary_with_and_without_facts (test_host_paths_diagnostics.DiagnosticWorkflowTests) (observed=False, primary='KeyboardInterrupt')
+Exercise the owning acquired-region AST with inert ports, not native I/O.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tests/test_host_paths_diagnostics.py", line 254, in test_reader_acquired_region_preserves_primary_with_and_without_facts
+    self.assertIs(caught.exception, primary)
+AssertionError: NameError("name 'ROOT' is not defined") is not KeyboardInterrupt()
+
+======================================================================
+FAIL: test_reader_acquired_region_preserves_primary_with_and_without_facts (test_host_paths_diagnostics.DiagnosticWorkflowTests) (observed=False, primary='SystemExit')
+Exercise the owning acquired-region AST with inert ports, not native I/O.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tests/test_host_paths_diagnostics.py", line 254, in test_reader_acquired_region_preserves_primary_with_and_without_facts
+    self.assertIs(caught.exception, primary)
+AssertionError: NameError("name 'ROOT' is not defined") is not SystemExit()
+
+======================================================================
+FAIL: test_reader_acquired_region_preserves_primary_with_and_without_facts (test_host_paths_diagnostics.DiagnosticWorkflowTests) (observed=False, primary='GeneratorExit')
+Exercise the owning acquired-region AST with inert ports, not native I/O.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tests/test_host_paths_diagnostics.py", line 254, in test_reader_acquired_region_preserves_primary_with_and_without_facts
+    self.assertIs(caught.exception, primary)
+AssertionError: NameError("name 'ROOT' is not defined") is not GeneratorExit()
+
+======================================================================
+FAIL: test_reader_acquired_region_preserves_primary_with_and_without_facts (test_host_paths_diagnostics.DiagnosticWorkflowTests) (observed=True, primary='ValueError')
+Exercise the owning acquired-region AST with inert ports, not native I/O.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tests/test_host_paths_diagnostics.py", line 254, in test_reader_acquired_region_preserves_primary_with_and_without_facts
+    self.assertIs(caught.exception, primary)
+AssertionError: NameError("name 'ROOT' is not defined") is not ValueError('closing-guard')
+
+======================================================================
+FAIL: test_reader_acquired_region_preserves_primary_with_and_without_facts (test_host_paths_diagnostics.DiagnosticWorkflowTests) (observed=True, primary='KeyboardInterrupt')
+Exercise the owning acquired-region AST with inert ports, not native I/O.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tests/test_host_paths_diagnostics.py", line 254, in test_reader_acquired_region_preserves_primary_with_and_without_facts
+    self.assertIs(caught.exception, primary)
+AssertionError: NameError("name 'ROOT' is not defined") is not KeyboardInterrupt()
+
+======================================================================
+FAIL: test_reader_acquired_region_preserves_primary_with_and_without_facts (test_host_paths_diagnostics.DiagnosticWorkflowTests) (observed=True, primary='SystemExit')
+Exercise the owning acquired-region AST with inert ports, not native I/O.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tests/test_host_paths_diagnostics.py", line 254, in test_reader_acquired_region_preserves_primary_with_and_without_facts
+    self.assertIs(caught.exception, primary)
+AssertionError: NameError("name 'ROOT' is not defined") is not SystemExit()
+
+======================================================================
+FAIL: test_reader_acquired_region_preserves_primary_with_and_without_facts (test_host_paths_diagnostics.DiagnosticWorkflowTests) (observed=True, primary='GeneratorExit')
+Exercise the owning acquired-region AST with inert ports, not native I/O.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/erik/Projects/ashlar/tests/test_host_paths_diagnostics.py", line 254, in test_reader_acquired_region_preserves_primary_with_and_without_facts
+    self.assertIs(caught.exception, primary)
+AssertionError: NameError("name 'ROOT' is not defined") is not GeneratorExit()
+
+----------------------------------------------------------------------
+Ran 1 test in 0.008s
+
+FAILED (failures=8)

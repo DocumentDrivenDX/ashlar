@@ -1,0 +1,25 @@
+{
+  "scope": "Source CLI finite actual local capture/publicreader and strictloader plus inert query/composition wiring. No installed SDK/receiver/native/business workflow qualification. Distributionmetadatafixture used solely forlocalcapturecreation; retrieval/disabledquery assert no metadata discovery. Includes non-atomic short output prefix with fixed failure exit, and first KeyboardInterrupt/SystemExit/GeneratorExit output cancellation identity; no claim partially written stdout can be retracted.",
+  "tests": 7,
+  "exitCode": 0,
+  "runtime": "Python3.9.6",
+  "reportedSeconds": 0.137,
+  "terminalChunkId": "f88dd4",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_host_diagnostics_cli.py",
+      "bytes": 10031,
+      "sha256": "e21d7db77d3444dfc4c76d344a26f0c7f376a763236371d57e1651208d07c25a"
+    },
+    {
+      "path": "/private/tmp/ashlar-diagnostics-cli-controls-20261010-c.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-diagnostics-cli-controls-20261010-c.stderr.log",
+      "bytes": 270,
+      "sha256": "3b1f8d11359a0008ad92956692a025cac91f653289665903a1ec9166a7357240"
+    }
+  ]
+}

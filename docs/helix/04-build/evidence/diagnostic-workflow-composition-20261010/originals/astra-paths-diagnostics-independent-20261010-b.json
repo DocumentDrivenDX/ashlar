@@ -1,0 +1,253 @@
+{
+  "scope": "Independent inert lifecycle controls, no actual native/SDK/receiver workflow qualification",
+  "sourceHashes": {
+    "src/ashlar_host/paths_query.py": "f3219de96c6c3822f8bce589f60332283c55fe38580bc48a495fd768cde4c005",
+    "tests/test_host_paths_diagnostics.py": "91c10b73bc3888eb3b781d2890535a1c1e5ad0d0d35cbf3a4fbff9c9f3695084"
+  },
+  "cancellationControls": [
+    {
+      "cancellation": "KeyboardInterrupt",
+      "phase": "prepare",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "KeyboardInterrupt",
+      "phase": "guard",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "KeyboardInterrupt",
+      "phase": "guard",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "KeyboardInterrupt",
+      "phase": "capture",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "KeyboardInterrupt",
+      "phase": "capture",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "KeyboardInterrupt",
+      "phase": "closing",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "KeyboardInterrupt",
+      "phase": "cleanup",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "KeyboardInterrupt",
+      "phase": "cleanup",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "KeyboardInterrupt",
+      "phase": "closing",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "KeyboardInterrupt",
+      "phase": "commit",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "KeyboardInterrupt",
+      "phase": "commit",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "SystemExit",
+      "phase": "prepare",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "SystemExit",
+      "phase": "guard",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "SystemExit",
+      "phase": "guard",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "SystemExit",
+      "phase": "capture",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "SystemExit",
+      "phase": "capture",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "SystemExit",
+      "phase": "closing",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "SystemExit",
+      "phase": "cleanup",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "SystemExit",
+      "phase": "cleanup",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "SystemExit",
+      "phase": "closing",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "SystemExit",
+      "phase": "commit",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "SystemExit",
+      "phase": "commit",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "GeneratorExit",
+      "phase": "prepare",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "GeneratorExit",
+      "phase": "guard",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "GeneratorExit",
+      "phase": "guard",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "GeneratorExit",
+      "phase": "capture",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "GeneratorExit",
+      "phase": "capture",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "GeneratorExit",
+      "phase": "closing",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "GeneratorExit",
+      "phase": "cleanup",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "GeneratorExit",
+      "phase": "cleanup",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "GeneratorExit",
+      "phase": "closing",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "GeneratorExit",
+      "phase": "commit",
+      "state": "started",
+      "identityPreserved": true,
+      "sparkStopped": true
+    },
+    {
+      "cancellation": "GeneratorExit",
+      "phase": "commit",
+      "state": "completed",
+      "identityPreserved": true,
+      "sparkStopped": true
+    }
+  ],
+  "finding": {
+    "id": "PATH-DIAG-001",
+    "observed": [
+      "finish",
+      "failed",
+      {
+        "error_category": "closing",
+        "cleanup_failed": false
+      }
+    ],
+    "expectedCategory": "closing",
+    "resolution": "Closing runtime/source/jar/schema validation now reports closing after successful cleanup."
+  }
+}

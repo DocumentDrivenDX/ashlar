@@ -1,0 +1,7 @@
+......./Users/erik/Projects/ashlar/src/ashlar_host/path_execution.py:199: SyntaxWarning: invalid escape sequence '\.'
+  and re.fullmatch('-?[0-9]+(?:\.[0-9]+)?', value)
+.......
+----------------------------------------------------------------------
+Ran 14 tests in 0.577s
+
+OK

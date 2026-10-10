@@ -1,0 +1,28 @@
+from pathlib import Path
+import hashlib,json,subprocess,tomllib
+R=Path('/Users/erik/Projects/ashlar'); stem=Path('/private/tmp/astra-diagnostic-cli-package-ci-review-20261010-a'); snap=Path(str(stem)+'-source');snap.mkdir(exist_ok=False)
+def d(p):
+ b=p.read_bytes();return {'path':str(p),'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()}
+expected={'src/ashlar/cli.py':'34ca8449b4d1c36dd139d94cde7b151262643b45beec53d9324ead7286f77708','pyproject.toml':'9ef59b100ca45a32ed9c02ad47a9e6227e8aa5c2a4e8c9935a2097e2a721fcc6','tests/test_host_diagnostics_cli.py':'e21d7db77d3444dfc4c76d344a26f0c7f376a763236371d57e1651208d07c25a'}
+for rel,sha in expected.items():assert d(R/rel)['sha256']==sha
+ci='.github/workflows/module-boundaries.yml';old=subprocess.check_output(['git','show','HEAD:'+ci],cwd=R).decode();current=(R/ci).read_text()
+commands=["PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_diagnostic_composition.py","PYTHONPATH=src python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_diagnostics_config_file.py","PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_paths_diagnostics.py","PYTHONPATH=src:tests python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_diagnostics_cli.py"]
+removed=current
+for c in commands:
+ line='      - run: '+c+'\n';assert removed.count(line)==1;removed=removed.replace(line,'')
+assert removed==old
+ns={};exec((R/'src/ashlar_host/otel_profile.py').read_bytes(),ns);project=tomllib.loads((R/'pyproject.toml').read_text())['project'];assert project['dependencies']==[] and project['requires-python']=='>=3.9'
+assert {v.split(';')[0].split('==')[0]:v.split(';')[0].split('==')[1] for v in project['optional-dependencies']['diagnostics']}==dict(ns['SDK_VERSIONS'])
+assert all(v.split(';')[1].strip()=="python_version == '3.11'" for v in project['optional-dependencies']['diagnostics'])
+files=list(expected)+[ci]; snapshots=[]
+for rel in files:
+ q=snap/(rel.replace('/','__'));q.write_bytes((R/rel).read_bytes());snapshots.append(d(q))
+artifacts=[]
+for p in ['/private/tmp/astra-diagnostic-owner-seam-review-20261010-b.cli.stdout.log','/private/tmp/astra-diagnostic-owner-seam-review-20261010-b.cli.stderr.log','/private/tmp/astra-diagnostic-owner-seam-review-20261010-b.boundary.stdout.log','/private/tmp/astra-diagnostic-owner-seam-review-20261010-b.boundary.stderr.log','/private/tmp/astra-diagnostic-optional-pins-review-20261010-a.json']:
+ artifacts.append(d(Path(p)))
+for suffix in ('.composition.stdout.log','.composition.stderr.log','.portable.stdout.log','.portable.stderr.log'):
+ artifacts.append(d(Path(str(stem)+suffix)))
+for p in sorted(Path('/private/tmp/astra-diagnostics-cli-shortwrite-20261010-a').iterdir()):
+ if p.is_file():artifacts.append(d(p))
+report={'reviewer':'/root/astra_plan_review','verdict':'approve-exact-cli-package-ci-source-slice','files':[d(R/p) for p in files],'snapshots':snapshots,'scope':'Source command selection, bounded local retrieval output, optional dependency declarations and four CI command additions. Query hook implementation needs its separate pending Paths/reader source review before joint operational landing; no installed or native workflow claim.','checks':['Absent diagnostics selection preserves old query(config) route without composition/SDK metadata lookup. Selected file is admitted before composition/query effects and context closes before success console message.','Retrieval uses owning public closed-snapshot reader, validates/serializes completely before output, bounds output at524288, checks exact binary write count, and reports fixed refusal2. Physical write failure may retain a prefix; no output atomicity claim. Non-Exception cancellation is not swallowed.','Optional diagnostics extra equals all16 exact shared-profile versions with Python3.11 markers; core dependencies=[] and Python>=3.9 unchanged.','CI delta consists only of the four specified commands; existing commands unchanged; source tests run SDK-free via-S and do not assert receiver qualification.'],'ciCommands':commands,'validation':[{'command':'PYTHONPATH=src:tests /usr/bin/python3 -B -S -W error::ResourceWarning -m unittest test_host_diagnostics_config_file test_host_diagnostics_cli','tests':14,'exitCode':0,'terminalChunk':'23701e'},{'command':'PYTHONPATH=src:tests /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_diagnostic_composition.py','tests':9,'exitCode':0,'terminalChunk':'828962'},{'command':'PYTHONPATH=src:tests /Users/erik/Projects/tablespec/.venv/bin/python -B -S -W error::ResourceWarning -m unittest test_host_diagnostics_config_file test_host_diagnostics_cli','tests':14,'exitCode':0,'terminalChunk':'6caefe','note':'Raw log includes unchanged path_execution.py invalid-escape SyntaxWarning; no ResourceWarning failure.'},{'control':'Independent public CLI/inert reader/short stdout writer retains one-byte prefix but returns2 and fixed refusal','terminalChunk':'125818','exitCode':0},{'check':'Actual module-boundary checker','exitCode':0,'terminalChunk':'23701e'}],'artifacts':artifacts,'findings':[],'limits':['No package build or install, no real SDK worker/receiver/native process, no credential access.','Selected query wiring was checked with an inert public query port; source phase and native cleanup fact behavior is separately reviewed.','Source-unit controls and explicit metadata pins are not full C006 runtime support or formal model proof.']}
+out=stem.with_suffix('.json');out.write_text(json.dumps(report,indent=2)+'\n');print(json.dumps(d(out)))

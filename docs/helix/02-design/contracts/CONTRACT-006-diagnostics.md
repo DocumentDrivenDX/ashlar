@@ -307,7 +307,18 @@ ordering promise.
 A caller-owned `DiagnosticRun` may be injected into `query_commerce_paths` as a
 keyword-only `diagnostics` argument; `None` disables observation. The workflow
 owns one `held-read` attempt and records only catalog phases and safe categories.
-The caller owns run closure. Success is observed only after native/reader cleanup,
+The caller owns run closure. `open_commerce_reader` and `PublicationProvider`
+accept optional keyword-only `cleanup_state` of exact `ReaderCleanupState` type.
+The reader factory claims one fresh state for one invocation and shares it only
+with its provider. The state exposes read-only booleans `failed` and
+`cleanup_only`, initially false; it retains no exception payload. Only an actual
+reader transport close or provider PostgreSQL rollback/close failure sets
+`failed`. The first such failure sets `cleanup_only` iff no business or closing
+primary was already active. Custody or ACK guard refusal followed by successful
+cleanup leaves both flags false. These observations confer no native authority,
+change no primary exception and cannot replace required closure. Omission keeps
+the existing reader/provider lifecycle semantics.
+Success is observed only after native/reader cleanup,
 closing source/runtime/installation custody and business report publication.
 Ordinary diagnostic emission or shutdown failures cannot set a business
 `cleanup_failed` marker. The first non-Exception cancellation takes precedence over an ordinary business

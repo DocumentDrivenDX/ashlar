@@ -316,7 +316,16 @@ failures. Negative controls cover an ordinary business error followed by first
 diagnostic cancellation, an existing business cancellation followed by later
 diagnostic cancellation, and cancellation at every post-Spark-acquisition phase
 hook. Verify the original winning cancellation object and required native cleanup;
-composition must close the run without passing the business primary. A successful attempt
+composition must close the run without passing the business primary.
+Exercise exact `ReaderCleanupState` admission, read-only flags and one-reader
+claim. Actual provider-method controls distinguish closing ACK guard refusal
+with successful rollback/close from rollback/close failure. Reader controls
+likewise distinguish closing native-custody drift from transport-close failure;
+no generic context-exit classification may invent cleanup loss. Verify cleanup-only
+facts classify cleanup failure, combined failure preserves the business category,
+and omitted observation preserves existing lifecycle behavior. The state must
+retain no raw exception or authorize native work.
+A successful attempt
 requires all ten original query results, reader/Spark cleanup, closing custody
 and published report. Actual native evidence is required for this workflow claim;
 synthetic ports qualify only failure/ownership controls. An external credential

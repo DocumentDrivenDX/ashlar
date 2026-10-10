@@ -1,0 +1,1 @@
+{"cancellationControls": 33, "finding": {"id": "PATH-DIAG-001", "observed": ["finish", "failed", {"error_category": "closing", "cleanup_failed": false}], "expectedCategory": "closing", "resolution": "Closing runtime/source/jar/schema validation now reports closing after successful cleanup."}}

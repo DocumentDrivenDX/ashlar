@@ -1,0 +1,12 @@
+test_constructor_cancellation_never_holds_or_replies (__main__.HoldIndependent.test_constructor_cancellation_never_holds_or_replies) ... ok
+test_hold_reads_exactly_one_byte_after_fixed_reply (__main__.HoldIndependent.test_hold_reads_exactly_one_byte_after_fixed_reply) ... ok
+test_ready_worker_refusal_does_not_use_init_hold (__main__.HoldIndependent.test_ready_worker_refusal_does_not_use_init_hold) ... ok
+test_init_refusal_hold_follows_reply_and_preserves_read_cancellation (test_otel_worker.WorkerProtocolTests.test_init_refusal_hold_follows_reply_and_preserves_read_cancellation) ... ok
+test_failed_refusal_write_does_not_wait_for_parent (test_otel_worker.WorkerProtocolTests.test_failed_refusal_write_does_not_wait_for_parent) ... ok
+test_actual_pipe_eof_releases_refusing_worker (test_otel_worker.WorkerProtocolTests.test_actual_pipe_eof_releases_refusing_worker) ... ok
+test_actual_refusal_hold_keeps_session_live_for_parent_cleanup (test_otel_supervision.SupervisionTests.test_actual_refusal_hold_keeps_session_live_for_parent_cleanup) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.108s
+
+OK

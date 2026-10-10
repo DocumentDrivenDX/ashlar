@@ -1,0 +1,31 @@
+{
+  "reviewer": "/root/astra_plan_review",
+  "verdict": "approve-exact-three-document-desired-state-delta",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "bytes": 30765,
+      "sha256": "7a6a15f9c86536484e62ef73deb51d17caaf926fdb40f67de7ccbab5478d37b7"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 35525,
+      "sha256": "9acb8b07a317c4a7006eaa3d14ab40f46e3e6a90e07eea070ab7f8f6fcf6830c"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/03-test/consumer-conformance-plan.md",
+      "bytes": 24585,
+      "sha256": "828969e5c72f1a7ba514875bfbede75c1610c9b3ae65e6cdc6a8abea50039da7"
+    }
+  ],
+  "scope": "Optional ReaderCleanupState ownership and diagnostic fact classification only; source review and native workflow evidence separate.",
+  "findings": [],
+  "checks": [
+    "Exact-type optional state, read-only payload-free failure booleans, fresh reader factory claim and provider sharing are owned by publication_reader.",
+    "Actual transport.close and PostgreSQL rollback/close failures are distinguished from custody/ACK guard failures. First actual cleanup failure records whether a primary was already active.",
+    "Observation confers no authority or alternate cleanup policy; omitted state preserves existing lifecycle.",
+    "ADR module table names the public fact port; test plan requires exact admission, immutable facts, single claim and both actual method-fault distinctions.",
+    "No duplicated assurance claim, implemented receiver/native coverage, or mechanical formal proof is introduced; frontmatter unchanged and diff-check passed."
+  ],
+  "qualification": "Desired-state semantic approval; does not approve pending source counterexample disposition or infer full C006 support."
+}

@@ -1,0 +1,7 @@
+/Users/erik/Projects/ashlar/src/ashlar_host/path_execution.py:199: DeprecationWarning: invalid escape sequence \.
+  and re.fullmatch('-?[0-9]+(?:\.[0-9]+)?', value)
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.137s
+
+OK

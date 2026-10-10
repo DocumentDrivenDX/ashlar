@@ -1,0 +1,163 @@
+{
+  "reviewer": "/root/astra_plan_review",
+  "verdict": "approve-exact-three-file-paths-reader-source-successor",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/paths_query.py",
+      "bytes": 23084,
+      "sha256": "71c090cdb05fbf30ce875a1189f16c045acad47fedf0efff33d617a6e3578d9c"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/publication_reader.py",
+      "bytes": 25078,
+      "sha256": "d0693a36262871f5e4fe6335dadb7b67e5330ab1abe2b420d98724ade6b3ba5f"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_host_paths_diagnostics.py",
+      "bytes": 17697,
+      "sha256": "32d45037986b860542397cfdff19fbdd73672e39e9c0d719c0bdbd89eda235b2"
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/private/tmp/astra-paths-reader-final-review-20261010-d/paths_query.py",
+      "bytes": 23084,
+      "sha256": "71c090cdb05fbf30ce875a1189f16c045acad47fedf0efff33d617a6e3578d9c"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-final-review-20261010-d/publication_reader.py",
+      "bytes": 25078,
+      "sha256": "d0693a36262871f5e4fe6335dadb7b67e5330ab1abe2b420d98724ade6b3ba5f"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-final-review-20261010-d/test_host_paths_diagnostics.py",
+      "bytes": 17697,
+      "sha256": "32d45037986b860542397cfdff19fbdd73672e39e9c0d719c0bdbd89eda235b2"
+    }
+  ],
+  "scope": "Optional diagnostics phase hooks, actual reader/PG/Spark cleanup fact classification and corrected acquired reader primary preservation; source-only finite inert controls.",
+  "resolvedFindings": [
+    {
+      "id": "PATH-DIAG-001",
+      "resolution": "Closing custody checks re-enter closing phase after successful Spark cleanup."
+    },
+    {
+      "id": "PATH-DIAG-002",
+      "resolution": "Actual Spark.stop and reader transport/PG rollback/close facts classify cleanup failure independently of business exception markers. Closing ACK/native custody guards alone do not fabricate cleanup failure."
+    },
+    {
+      "id": "PATH-READER-PRIMARY-001",
+      "resolution": "Reader captures original primary and calls existing finish(primary,actions), even if no transport was acquired. Acquired transport close observes facts inside protected callback; primary is retained and native cleanup_failed marker follows existing owner policy."
+    }
+  ],
+  "controls": [
+    {
+      "tests": 38,
+      "exitCode": 0,
+      "scope": "Predecessor fact-classification source/inert suite; unchanged Paths phase and fact code carried into final successor."
+    },
+    {
+      "independentWorkflowCases": 4,
+      "scope": "Spark/reader cleanup-only correct; closing-only false; state exact-type/singleclaim; provider guard/rollback/close method controls."
+    },
+    {
+      "command": "PYTHONPATH=src:tests /usr/bin/python3 -B -S -W error::ResourceWarning -m unittest discover -s tests -p test_host_paths_diagnostics.py",
+      "tests": 18,
+      "exitCode": 0,
+      "seconds": 1.195,
+      "terminalChunk": "1eae56",
+      "newRegression": "Eight subcases: observed/omitted state times ValueError/KeyboardInterrupt/SystemExit/GeneratorExit postyield primary plus close OSError. Assert guard actually reached, exact original identity, close once, cleanup marker and observed failed=true/cleanup_only=false."
+    },
+    {
+      "command": "PYTHONPATH=src:tests /usr/bin/python3 -B -S -W error::ResourceWarning /private/tmp/astra-paths-reader-regression-predecessor-20261010-a.py",
+      "exitCode": 0,
+      "expectedTestFailures": 8,
+      "scope": "Same durable test against exact retained f023b4 acquired-region AST. Every guard-reached assertion passes before original identity assertion fails; success assertion in driver confirms eight expected failures."
+    }
+  ],
+  "correspondence": [
+    "Production successor exactly replaces the captured-primary/direct-final-close tail with primary-preserving existing finish; no other reader semantics edited.",
+    "No diagnostics None still omits state parameter and creates no SDK dependency; existing native ownership remains authoritative.",
+    "Only public read-only fact state crosses reader/Paths boundary. State stores booleans, no exception payload; one factory claim and exact type required.",
+    "Observation errors do not change business authority/report release; actual cleanup and closing checks remain required. Diagnostic first-cancellation policy and owning native primary policy remain distinct."
+  ],
+  "provenanceCorrection": "Earlier child seven-case fragment evidence lacked some inert prerequisite values, so it did not establish the selected postyield guard identity. Those historical bytes are retained but their cancellation attribution is superseded by the corrected parent durable regression and exact predecessor replay. Initial new-test fixture NameError log is likewise retained as reviewer setup failure, not product evidence.",
+  "artifacts": [
+    {
+      "path": "/private/tmp/astra-paths-reader-regression-predecessor-20261010-a.py",
+      "bytes": 895,
+      "sha256": "65ccd175eb06d98c27200bb0953e1714fcf4cb6edb4d64bf34cbfa49c60922ee"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-regression-predecessor-20261010-a.stdout.log",
+      "bytes": 85,
+      "sha256": "e7d247fb372c61a9d646f3ea74cb51cee324c0c72843246b8c059c87594544fe"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-regression-predecessor-20261010-a.stderr.log",
+      "bytes": 5861,
+      "sha256": "cf55319bdc7a795e2ab0f212e62dd5d319750807b8829cd33909d44a60a33bb7"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-regression-20261010-g.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-regression-20261010-g.stderr.log",
+      "bytes": 117,
+      "sha256": "35d2822f6bc9b008b08377960791b6fd66f9757d625dd770a3491a8a63a8a6b6"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-regression-20261010-e.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-regression-20261010-e.stderr.log",
+      "bytes": 5764,
+      "sha256": "e138b475cf21e2844102c1cb9e9ecdabed3ccf376134d3fb1ddcc57517bc0c62"
+    },
+    {
+      "path": "/private/tmp/astra-paths-reader-review-20261010-c.json",
+      "bytes": 3174,
+      "sha256": "fb104ff28ab6e788ae19450a55d5c5991ac5633ab82841a046f10d938b44d297"
+    },
+    {
+      "path": "/private/tmp/astra-paths-cleanup-independent-20261010-c.py",
+      "bytes": 3608,
+      "sha256": "aa1074c8c7a6bf864fc163e7d6f4f07e46cf83759935a769449182f3c0402363"
+    },
+    {
+      "path": "/private/tmp/astra-paths-cleanup-independent-20261010-c.json",
+      "bytes": 1701,
+      "sha256": "b5301bcd9221ea23bc48bb2093d7718625f6a3fe6d4683f41355ef40ff39acdd"
+    },
+    {
+      "path": "/private/tmp/astra-paths-cleanup-independent-20261010-c.stdout.log",
+      "bytes": 1309,
+      "sha256": "a630fb96158a6b8aa0f15ffe6aadc79ef2ad72e0aa04b491dd9310a56531a163"
+    },
+    {
+      "path": "/private/tmp/astra-paths-cleanup-independent-20261010-c.stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-paths-diagnostics-review-20261010-c.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-paths-diagnostics-review-20261010-c.stderr.log",
+      "bytes": 137,
+      "sha256": "495a8d241277ab7cd215e5b4612053fa799e40f749c9820c5cf9afb9ea25b129"
+    }
+  ],
+  "testAuthorship": "Reviewer authored only the requested durable acquired-region regression in tests/test_host_paths_diagnostics.py; root owns production fix. Parent root independently reran all97 focused controls after the test addition; that result is root-reported, not inferred from reviewer execution.",
+  "limits": [
+    "Acquired-region AST with inert ports is explicitly not whole-factory native execution.",
+    "No receiver, SDK worker, Spark, PostgreSQL, compiler, secrets or network used.",
+    "Precise semantic and implementation-control correspondence, not mechanical formal proof or full C006/native workflow qualification."
+  ]
+}

@@ -1,0 +1,22 @@
+Traceback (most recent call last):
+  File "/private/tmp/astra-paths-reader-factory-fragment-20261010-g.py", line 47, in <module>
+    with contextmanager(namespace['exercise'])():entered.append(True)
+  File "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/lib/python3.11/contextlib.py", line 137, in __enter__
+    return next(self.gen)
+           ^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/publication_reader.py", line 361, in exercise
+    finish(primary, actions)
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py", line 16, in finish
+    raise primary
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/publication_reader.py", line 350, in exercise
+    yield SimpleNamespace(provider=provider, driver=driver, admission=admission, independent_expected=expected, context=context, original_native_files=original_native, native_files=native_files, aliases=aliases, original_report=original_report, model=model, graph=graph, bindings=bindings, manifest=manifest, request_bytes=request_raw.encode(), manifest_bytes=encoded(manifest).encode())
+          ^^^^^^^^^^^^^^^
+NameError: name 'SimpleNamespace' is not defined
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/astra-paths-reader-factory-fragment-20261010-g.py", line 50, in <module>
+    assert actual is expected
+           ^^^^^^^^^^^^^^^^^^
+AssertionError

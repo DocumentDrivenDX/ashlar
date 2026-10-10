@@ -1,0 +1,19 @@
+Traceback (most recent call last):
+  File "/private/tmp/astra-paths-reader-factory-fragment-20261010-f.py", line 47, in <module>
+    with contextmanager(namespace['exercise'])():entered.append(True)
+  File "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/contextlib.py", line 117, in __enter__
+    return next(self.gen)
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/publication_reader.py", line 361, in exercise
+    finish(primary, actions)
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/lifecycle.py", line 16, in finish
+    raise primary
+  File "/Users/erik/Projects/ashlar/src/ashlar_host/publication_reader.py", line 348, in exercise
+    req = compiler_request('SELECT COUNT(*) AS n FROM products p', model, bindings, manifest, original_report['table_registry'], aliases)
+KeyError: 'table_registry'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/private/tmp/astra-paths-reader-factory-fragment-20261010-f.py", line 50, in <module>
+    assert actual is expected
+AssertionError
