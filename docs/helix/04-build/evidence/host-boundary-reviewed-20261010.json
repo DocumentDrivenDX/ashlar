@@ -1,0 +1,100 @@
+{
+  "verdict": "APPROVED exact two-file host boundary checker extension",
+  "freeze": {
+    "path": "/private/tmp/ashlar-host-boundary-freeze-20261010-b/manifest.json",
+    "sha256": "464078b78f11a140e736f088833bbac3889af2d64d48acfe1b0fb87e64602467",
+    "bytes": 1121
+  },
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/check_module_boundaries.py",
+      "frozenCopy": "/private/tmp/ashlar-host-boundary-freeze-20261010-b/tools/check_module_boundaries.py",
+      "sha256": "0813282eafd84be050f322e5399c7b6eb4350d26947f32440ac452a5eed37d6e",
+      "bytes": 6385
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_module_boundaries.py",
+      "frozenCopy": "/private/tmp/ashlar-host-boundary-freeze-20261010-b/tests/test_module_boundaries.py",
+      "sha256": "c3aaab933775c9999359e5f3158fa19ca661193f2fb1c5e19fa1f0febaf7954a",
+      "bytes": 7024
+    }
+  ],
+  "independentCases": [
+    {
+      "source": "src/ashlar/x.py",
+      "input": "import ashlar_host.connection as c\nc.open_connection()",
+      "expected": "core-to-host-composition",
+      "pass": true
+    },
+    {
+      "source": "src/ashlar/x.py",
+      "input": "from ashlar_host import connection as c\nc.open_connection()",
+      "expected": "core-to-host-composition",
+      "pass": true
+    },
+    {
+      "source": "src/ashlar/nested/cli.py",
+      "input": "from ashlar_host.connection import open_connection",
+      "expected": "core-to-host-composition",
+      "pass": true
+    },
+    {
+      "source": "src/ashlar/cli.py",
+      "input": "from ashlar_host.connection import open_connection",
+      "expected": null,
+      "pass": true
+    },
+    {
+      "source": "src/ashlar/__main__.py",
+      "input": "import ashlar_host.connection",
+      "expected": null,
+      "pass": true
+    },
+    {
+      "source": "src/ashlar_host/nested/x.py",
+      "input": "from .. import connection as c\nc._hidden()",
+      "expected": "private-cross-module",
+      "pass": true
+    },
+    {
+      "source": "src/ashlar_host/x.py",
+      "input": "import ashlar.schema as schema\nschema._json(b\"{}\")",
+      "expected": "private-cross-module",
+      "pass": true
+    },
+    {
+      "source": "src/ashlar_host/x.py",
+      "input": "import tools.host as h",
+      "expected": "host-to-checkout-tools",
+      "pass": true
+    },
+    {
+      "source": "src/ashlar_host/x.py",
+      "input": "from ashlar.schema import decode_retained_json\nfrom .connection import open_connection",
+      "expected": null,
+      "pass": true
+    }
+  ],
+  "ownerTests": {
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "..........\n----------------------------------------------------------------------\nRan 10 tests in 0.484s\n\nOK\n"
+  },
+  "baselineUnchanged": true,
+  "currentRepositoryScan": "no new forbidden or stale baseline edges",
+  "scope": [
+    "AST import scan now covers installed ashlar_host; its relative and package aliases resolve to the owned package",
+    "Only exact top-level src/ashlar/cli.py and __main__.py composition modules may import host from core",
+    "Host imports of checkout tools and known private cross-module symbol accesses refuse",
+    "Existing SDK/consumer/producer/core boundaries retained; no baseline waivers added"
+  ],
+  "limits": [
+    "Existing AST dynamic-import, alias-reassignment, nested ownership and type/cycle limitations remain explicit",
+    "This check does not prove packaging completeness, installed execution, SDK timing, native authority or runtime configuration semantics"
+  ],
+  "script": {
+    "path": "/private/tmp/astra-host-boundary-review-20261010-b.py",
+    "sha256": "7777c1958c224a350e0b65b3e559fefd54e9dd16f5fbfc31619b6f8a79869986",
+    "bytes": 3882
+  }
+}

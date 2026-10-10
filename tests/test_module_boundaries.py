@@ -90,6 +90,24 @@ class BoundaryTests(unittest.TestCase):
             path.write_text(statement + '\n')
             self.assertIn(reason, {e[3] for e in scan(root)})
 
+    def test_installed_host_has_owned_public_edges(self):
+        root = self.tree('from ashlar_host.commerce import publish_commerce\n')
+        host = root / 'src/ashlar_host'
+        host.mkdir()
+        (host / 'commerce.py').write_text('from .connection import open_connection\nfrom ashlar.publication import validate_table_identifier\n')
+        (host / 'connection.py').write_text('')
+        self.assertEqual({e[3] for e in scan(root)}, {'core-to-host-composition'})
+        (root / 'src/ashlar/example.py').write_text('')
+        (root / 'src/ashlar/cli.py').write_text('from ashlar_host.commerce import publish_commerce\n')
+        self.assertEqual(check(root, self.policy()), ([], []))
+        nested = root / 'src/ashlar/nested'
+        nested.mkdir()
+        (nested / 'cli.py').write_text('from ashlar_host.commerce import publish_commerce\n')
+        self.assertEqual({e[3] for e in scan(root)}, {'core-to-host-composition'})
+        (nested / 'cli.py').unlink()
+        (host / 'commerce.py').write_text('from tools.runtime import execute\nfrom .connection import _hidden\nfrom ashlar.schema import _json\n')
+        self.assertEqual({e[3] for e in scan(root)}, {'host-to-checkout-tools', 'private-cross-module'})
+
     def test_actual_repository_policy(self):
         self.assertEqual(check(ROOT, json.loads(POLICY.read_text())), ([], []))
 

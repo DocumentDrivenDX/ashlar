@@ -11,7 +11,7 @@ VENDORS = {'pyspark', 'delta', 'databricks', 'psycopg', 'psycopg2', 'gremlin_pyt
 
 
 def imports(root: Path):
-    paths = sorted(list((root / 'src/ashlar').rglob('*.py')) + list((root / 'tools').rglob('*.py')))
+    paths = sorted(list((root / 'src/ashlar').rglob('*.py')) + list((root / 'src/ashlar_host').rglob('*.py')) + list((root / 'tools').rglob('*.py')))
     for path in paths:
         source = path.relative_to(root).as_posix()
         tree = ast.parse(path.read_text(), filename=source)
@@ -23,11 +23,12 @@ def imports(root: Path):
                     yield source, name.name, '*', node.lineno
             elif isinstance(node, ast.ImportFrom):
                 target = node.module or ''
-                if node.level and source.startswith('src/ashlar/'):
-                    package = ['ashlar'] + list(path.relative_to(root / 'src/ashlar').parts[:-1])
+                if node.level and source.startswith(('src/ashlar/', 'src/ashlar_host/')):
+                    package_name = source.split('/')[1]
+                    package = [package_name] + list(path.relative_to(root / 'src' / package_name).parts[:-1])
                     target = '.'.join(package[:len(package) - node.level + 1] + ([target] if target else []))
                 for name in node.names:
-                    if target == 'ashlar':
+                    if target in {'ashlar', 'ashlar_host'}:
                         aliases[name.asname or name.name] = target + '.' + name.name
                     selected = target + '.' + name.name
                     if target.startswith('ashlar') and (root / 'src' / Path(*selected.split('.'))).with_suffix('.py').exists():
@@ -52,6 +53,9 @@ def imports(root: Path):
 def violation(source: str, target: str, symbol: str):
     if source.startswith('src/ashlar/'):
         stem = Path(source).stem
+        if target == 'ashlar_host' or target.startswith('ashlar_host.'):
+            if source not in {'src/ashlar/cli.py', 'src/ashlar/__main__.py'}:
+                return 'core-to-host-composition'
         host = {'cli', 'source_config', 'weft_distribution', 'commerce_source', 'supply_chain_source', 'archaeology_source', 'ecology_source', 'medical_source', '__main__'}
         model = {'schema', 'catalog', 'binding', 'semantic_policy', 'typed_source_policy'}
         source_state = {'source', 'apply', 'whole_entity', 'source_checkpoint'}
@@ -69,8 +73,10 @@ def violation(source: str, target: str, symbol: str):
             return 'core-to-tools'
         if target.split('.')[0] in VENDORS:
             return 'core-to-sdk'
-    if (target == 'ashlar' or target.startswith('ashlar.')) and symbol.startswith('_'):
-        own = '.'.join(Path(source).with_suffix('').parts[1:]) if source.startswith('src/ashlar/') else ''
+    if source.startswith('src/ashlar_host/') and (target == 'tools' or target.startswith('tools.')):
+        return 'host-to-checkout-tools'
+    if (target in {'ashlar', 'ashlar_host'} or target.startswith(('ashlar.', 'ashlar_host.'))) and symbol.startswith('_'):
+        own = '.'.join(Path(source).with_suffix('').parts[1:]) if source.startswith(('src/ashlar/', 'src/ashlar_host/')) else ''
         if own.endswith('.__init__'):
             own = own[:-9]
         if target != own:
