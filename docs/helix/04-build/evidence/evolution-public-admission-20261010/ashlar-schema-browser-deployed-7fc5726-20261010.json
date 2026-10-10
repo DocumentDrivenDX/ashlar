@@ -1,0 +1,23 @@
+{
+  "url": "https://documentdrivendx.github.io/ashlar/model/schema-browser/",
+  "checks": [
+    {
+      "file": "provenance.json",
+      "bytes": 2807,
+      "sha256": "9dd13425a15261479dff8f75c9518e4f46d6307e4cbe244530484fe9502ee46b",
+      "deployedByteExact": true
+    },
+    {
+      "file": "explorer.js",
+      "bytes": 3543232,
+      "sha256": "56e030768eb45783683a1b6c40e8aaf497a6e958602f557e88333f1ff4689d40",
+      "deployedByteExact": true
+    },
+    {
+      "file": "explorer.css",
+      "bytes": 12205,
+      "sha256": "4f41c73d60c75364781cc9a4cd598eb1cc01fa1c266af6a18ee45acedb428696",
+      "deployedByteExact": true
+    }
+  ]
+}

@@ -1,0 +1,78 @@
+{
+  "outcome": "approved-actual-source-public-producer-result",
+  "receipt_sha256": "bdd21b1566e66dbe5cb1fd2ff6e098853aa9766b4bf6cdb1cf5192ecd0191576",
+  "datasets": [
+    {
+      "revision": "R1",
+      "records": 11,
+      "relationships": 10,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target",
+        "missing-required-relationship"
+      ]
+    },
+    {
+      "revision": "R2-update",
+      "records": 11,
+      "relationships": 10,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target",
+        "missing-required-relationship"
+      ]
+    },
+    {
+      "revision": "R3-delete",
+      "records": 10,
+      "relationships": 9,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target",
+        "missing-required-relationship"
+      ]
+    },
+    {
+      "revision": "R4-additive-candidate",
+      "records": 11,
+      "relationships": 10,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target",
+        "missing-required-relationship"
+      ]
+    },
+    {
+      "revision": "breaking-candidate",
+      "records": 11,
+      "relationships": 10,
+      "negative_controls": [
+        "duplicate-key",
+        "unresolved-target",
+        "missing-required-relationship"
+      ]
+    }
+  ],
+  "model_transitions": [
+    "preserved",
+    "preserved",
+    "preserved",
+    "breaking"
+  ],
+  "closing_independent_custody": {
+    "files": 7698,
+    "bytes": 57325271,
+    "git_revision": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+    "clean": true,
+    "executables": "exact selected pins unchanged",
+    "ashlar_reviewed_source": "all15 unchanged"
+  },
+  "scope": "Actual selected public UMF source/data verification via source-checkout API. Exact original archived public receipt bytes reproduced. No fresh installed wheel or native authority/publication/ACK/recovery qualification.",
+  "run_seconds": 13.843679958,
+  "summary_counts": {
+    "batches": 4,
+    "changes": 45,
+    "prior_transitions": 19
+  },
+  "script": "/private/tmp/review-public-evolution-result-20261010-a.py"
+}

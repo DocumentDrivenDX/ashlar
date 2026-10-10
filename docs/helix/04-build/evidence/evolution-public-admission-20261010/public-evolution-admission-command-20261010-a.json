@@ -1,0 +1,19 @@
+{
+  "script": "/private/tmp/run-public-evolution-admission-20261010-a.py",
+  "script_sha256": "5dfc46f40a06cc0f2d2f1567cfd57afdd22e2caac53b9bcfff6f6c7710ee22fe",
+  "argv": [
+    "/usr/bin/python3",
+    "-B",
+    "/private/tmp/run-public-evolution-admission-20261010-a.py"
+  ],
+  "environment": {
+    "PYTHONPATH": "/Users/erik/Projects/ashlar/src"
+  },
+  "source_commit": "02e23cdf16c9c8fe0c4719b54d7e1bdc6688f499",
+  "effects": "Fresh private/tmp evidence output plus owned ephemeral child temp; no native/source/ACK mutation or secret read",
+  "budgets": {
+    "producer_timeout_seconds": 60,
+    "stream_bytes": 1048576,
+    "receipt_bytes": 4194304
+  }
+}

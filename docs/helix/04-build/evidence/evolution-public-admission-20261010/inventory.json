@@ -1,0 +1,47 @@
+{
+  "scope": "Actual bounded public UMF source admission and independently reviewed result; no installed-wheel/native workflow claim",
+  "public_receipt_decoded_bytes": 1822190,
+  "public_receipt_decoded_sha256": "bdd21b1566e66dbe5cb1fd2ff6e098853aa9766b4bf6cdb1cf5192ecd0191576",
+  "files": [
+    {
+      "path": "ashlar-schema-browser-deployed-7fc5726-20261010.json",
+      "bytes": 643,
+      "sha256": "53d287679c1760a71e14b9fec18a992fdad9e4c2395f8cd275ac147f338fd69d"
+    },
+    {
+      "path": "custody.json",
+      "bytes": 338,
+      "sha256": "6e93318fcf804cb1fe1791ef1b7a139b9f075f80e3b90f6b6b17a4ad567c3705"
+    },
+    {
+      "path": "public-evolution-admission-command-20261010-a.json",
+      "bytes": 659,
+      "sha256": "62e4359bb9c52e8f36c2535dfed1dc435151394b5dddcc1206180647a63d248f"
+    },
+    {
+      "path": "public-evolution-admission-command-independent-review-20261010-a.json",
+      "bytes": 4301,
+      "sha256": "8a90ecf01320a71b93fe43a95ce59ae182982c832871dd45ac6cb4616d858881"
+    },
+    {
+      "path": "public-evolution-result-independent-review-20261010-a.json",
+      "bytes": 2091,
+      "sha256": "0971ff04fbe3bc5192d172bb89876b6cc0142d24ade082e23a11c78c30664675"
+    },
+    {
+      "path": "public-receipt.json.gz",
+      "bytes": 84770,
+      "sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae"
+    },
+    {
+      "path": "run-public-evolution-admission-20261010-a.py",
+      "bytes": 1267,
+      "sha256": "5dfc46f40a06cc0f2d2f1567cfd57afdd22e2caac53b9bcfff6f6c7710ee22fe"
+    },
+    {
+      "path": "summary.json",
+      "bytes": 1969,
+      "sha256": "857dff3dce94abe527d60ccc4c2d1cb4f44ec11fc5a9933b308a29e0a2c65124"
+    }
+  ]
+}

@@ -1,0 +1,88 @@
+{
+  "outcome": "approved-command",
+  "qualification": "Independent source-checkout public API command review; not actual execution or Astra approval",
+  "command_sha256": "62e4359bb9c52e8f36c2535dfed1dc435151394b5dddcc1206180647a63d248f",
+  "script_sha256": "5dfc46f40a06cc0f2d2f1567cfd57afdd22e2caac53b9bcfff6f6c7710ee22fe",
+  "source_commit": "02e23cdf16c9c8fe0c4719b54d7e1bdc6688f499",
+  "reviewed_source": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/evolution_producer.py",
+      "sha256": "d7dd905cdc1eff0ee0096bf33b64ecf05aeccbf1b684c290e52b1ed345407ae0",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/evolution_admission.py",
+      "sha256": "32372523a7dee239e1fbda15d7db1e577cabf7bed545a349285c46afc03c1aff",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/config.py",
+      "sha256": "c6c1fdb541162d36cb100c8e780f243c8452dffa74e86da6754beb710f782f45",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/pyproject.toml",
+      "sha256": "7e93ee5a2c494796821bc14d47572e66e91d43bbcbbbd459ca4044cf1f8fdae9",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_evolution_producer.py",
+      "sha256": "8267e50e669735a67c3b5bd8a9b1f1aa2e3d61925b0087879912abb66df410d5",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_evolution_admission.py",
+      "sha256": "aa89e39dba963bc500bbd2e35b28ac8dd3c27479b0ab68df2c0a264ad0c645c8",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/candidate.json",
+      "sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/check_evolution.ts",
+      "sha256": "30ec82f34bd06eae9a23fb852b98482142e2fba1dcb12d9dbf370f2d8bafd3d2",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/original-model.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/public-presence.json.gz",
+      "sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/seed-candidate.json",
+      "sha256": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/seed-public.json.gz",
+      "sha256": "392b8a20395b53566fc9c73ed10cd37d714ce2d45330fd465bb31f4a43a6a6a1",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/resources/evolution/source-closure.json",
+      "sha256": "ab05e309c867e8e65eda93d0bec234cf4c815a077d0f6959a0a03a5759c389e6",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "d9149ccc904dc263be2018b24cb33c9bfada3a2d84215dbe4e025e75c92f2606",
+      "unchanged": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/weft-distribution.yml",
+      "sha256": "a11642b361c61136fd25a4daf3d4c7b82024f0d7c698082a057e5ba4ff474fee",
+      "unchanged": true
+    }
+  ],
+  "output_fresh": true,
+  "effects": "Creates only named fresh evidence directory, public receipt/custody/summary, and owned ephemeral child files/processes. No source graph writes, native sessions, ACK, grants, secret reads or package edits. Python -B prevents cache writes.",
+  "bounds": "Explicit selected UMFe44 checkout and Bun/Git paths; developer-fixed executable/source custody enforced by owner;60s per invocation,1MiB per stream,4MiB receipt. Capture closed env and session cleanup independently reviewed.",
+  "scope": "Four qualified prepared batches and19transition carriers if actual execution succeeds. Metadata explicitly excludes installed wheel, native authority/publication/ACK/recovery."
+}
