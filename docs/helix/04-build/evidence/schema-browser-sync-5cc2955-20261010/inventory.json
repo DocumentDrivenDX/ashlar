@@ -1,0 +1,31 @@
+{
+  "profile": "ashlar-browser-sync-evidence/0.1",
+  "upstream_revision": "5cc29553b18766d852011de9c1790c4e8d93e34e",
+  "files": [
+    {
+      "name": "ashlar-schema-browser-5cc2955-independent-review-20261010.json",
+      "bytes": 3728,
+      "sha256": "0faaaa5d9624ea7d244a0cbe8d8b90a5781e74f0f41ba6054ca4fd49aede84ff"
+    },
+    {
+      "name": "ashlar-main-landing-audit-20261010.json",
+      "bytes": 19165,
+      "sha256": "f876ad8e74951887e776e605e52010d7461582b5626514877c09f8f9399aea33"
+    },
+    {
+      "name": "report.json",
+      "bytes": 32446,
+      "sha256": "a59930d378fc861eddc8f5325d5fccbbe9747c73c815d12922007dc3f29a0fee"
+    },
+    {
+      "name": "browser-1440.png",
+      "bytes": 136563,
+      "sha256": "0649833e02e3762cabb4edb4bfeabe9d7b300a6df063bbac29ff491fbeb81b69"
+    },
+    {
+      "name": "browser-390.png",
+      "bytes": 79654,
+      "sha256": "6b5f22706e70884c86e7c9b80d5a6c0fdf74ff8477f6b8d858d1998fd84c6f9b"
+    }
+  ]
+}

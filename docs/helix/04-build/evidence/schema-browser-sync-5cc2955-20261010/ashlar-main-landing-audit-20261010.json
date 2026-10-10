@@ -1,0 +1,401 @@
+{
+  "profile": "ashlar-machine-main-landing-audit/0.1",
+  "mode": "read-only; no fetch or mutation",
+  "repositories": {
+    "ashlar": {
+      "path": "/Users/erik/Projects/ashlar",
+      "head": "28b35f1bc57bac87a5ace124e57a46c2a5bf4037",
+      "main": "28b35f1bc57bac87a5ace124e57a46c2a5bf4037",
+      "origin_main": "28b35f1bc57bac87a5ace124e57a46c2a5bf4037",
+      "branches": [
+        {
+          "branch": "input/hot-store-publication-requirements",
+          "head": "ba2b1a4fee87caf4f7bcf00e0798044d4c86d770",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 1,
+          "patch_unique": 0
+        },
+        {
+          "branch": "main",
+          "head": "28b35f1bc57bac87a5ace124e57a46c2a5bf4037",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        }
+      ],
+      "worktrees_porcelain": "worktree /Users/erik/Projects/ashlar\nHEAD 28b35f1bc57bac87a5ace124e57a46c2a5bf4037\nbranch refs/heads/main\n\nworktree /private/tmp/claude-501/ashlar-wt\nHEAD ba2b1a4fee87caf4f7bcf00e0798044d4c86d770\nbranch refs/heads/input/hot-store-publication-requirements\nprunable gitdir file points to non-existent location",
+      "dirty_paths": [
+        "M tools/build_schema_browser.py",
+        " M website/content/reference.md",
+        " M website/scripts/check_schema_browser.py",
+        " M website/static/model/schema-browser/explorer.css",
+        " M website/static/model/schema-browser/explorer.js",
+        " M website/static/model/schema-browser/provenance.json",
+        "?? src/ashlar_host/commerce_evolution.py",
+        "?? tools/diagnose_local_phase_capacity.py"
+      ]
+    },
+    "umf": {
+      "path": "/private/tmp/umf-main-delta-integration-20261010",
+      "head": "5cc29553b18766d852011de9c1790c4e8d93e34e",
+      "main": "5cc29553b18766d852011de9c1790c4e8d93e34e",
+      "origin_main": "5cc29553b18766d852011de9c1790c4e8d93e34e",
+      "branches": [
+        {
+          "branch": "claude/pr-3-review-24afb7",
+          "head": "b9082ee97d4114580d508e0a71557d9ebf56c931",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/actions-documentation-release",
+          "head": "b8e235c6f1f9935ac208f2779745f2609d329960",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 0,
+          "patch_unique": 24
+        },
+        {
+          "branch": "codex/combined-review-fixes",
+          "head": "ac800eed03cddcbdcf9bd320dec7a15ecc360d96",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 0,
+          "patch_unique": 27
+        },
+        {
+          "branch": "codex/core-record-value-check",
+          "head": "c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 0,
+          "patch_unique": 2
+        },
+        {
+          "branch": "codex/core-schema-properties",
+          "head": "16c35e8d943769ccfa7bb57d16785aa7159abe65",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 0,
+          "patch_unique": 1
+        },
+        {
+          "branch": "codex/core-semantic-types",
+          "head": "88be379f399e9f2a376fdd71a0c73420cd504357",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 0,
+          "patch_unique": 66
+        },
+        {
+          "branch": "codex/delta-ddl-decimal",
+          "head": "385c8cf119a3c2e40ba59cc5f15e24edab52f3b2",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 0,
+          "patch_unique": 5
+        },
+        {
+          "branch": "codex/domain-pack-catalog",
+          "head": "30e489aab5762dcbf36363e48f8fa36b5712b779",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/domain-pack-loaders",
+          "head": "5cc29553b18766d852011de9c1790c4e8d93e34e",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/domain-pack-metadata",
+          "head": "80adbd477d2bcc4a78de80ade780600eb80789ba",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/format-separation",
+          "head": "18bf1115b9a69c712b3431b4444f6096c669c68e",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 0,
+          "patch_unique": 1
+        },
+        {
+          "branch": "codex/helix-alignment",
+          "head": "b917859e80528ad3e95f7660369701de33a3e2b1",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 1,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/javascript-numeric-carrier",
+          "head": "6e194c7f972178a85c1e3173d1f8013071ffe79e",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/legal-mixed-pack",
+          "head": "44bbd8922ba4a3c7be2afa1a5ec2e6fecd473e64",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/medical-domain-pack",
+          "head": "4daff7af560d02900b3236adbd660f629fddaa7a",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/medical-pack-integration",
+          "head": "04f4bfe26b27588fb74e6ffb13773cd147929929",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 1,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/medical-publication-fix",
+          "head": "a8d4ccfbd3b8859b14ccd4d6671cbc22f157bd5a",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 1,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/microsite-publishing",
+          "head": "06780ce99af31359a8f743167596a86d2937985d",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 0,
+          "patch_unique": 2
+        },
+        {
+          "branch": "codex/microsite-signatures",
+          "head": "7880278297427adfbe59260d192a2e9d939d574c",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/python-support",
+          "head": "ee83900f1dbd277b4e5764ad3bc53837005014eb",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/schema-explorer",
+          "head": "c433cfcdde21995803aad65234f20ba95d8c3222",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/security-main-integration",
+          "head": "d2ef29e267eafcb6bae28efd3c7974754c1d0b23",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "input/consumer-actions-and-conformance",
+          "head": "37ad2706b5857714ed8362135ba7a5c652d2c26d",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 1,
+          "patch_unique": 0
+        },
+        {
+          "branch": "main",
+          "head": "5cc29553b18766d852011de9c1790c4e8d93e34e",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        }
+      ],
+      "worktrees_porcelain": "worktree /Users/erik/Projects/umf\nHEAD 16c35e8d943769ccfa7bb57d16785aa7159abe65\nbranch refs/heads/codex/core-schema-properties\n\nworktree /private/tmp/claude-501/umf-wt\nHEAD 37ad2706b5857714ed8362135ba7a5c652d2c26d\nbranch refs/heads/input/consumer-actions-and-conformance\nprunable gitdir file points to non-existent location\n\nworktree /private/tmp/umf-main-delta-integration-20261010\nHEAD 5cc29553b18766d852011de9c1790c4e8d93e34e\nbranch refs/heads/main\n\nworktree /Users/erik/.codex/worktrees/0e51/umf\nHEAD b9082ee97d4114580d508e0a71557d9ebf56c931\ndetached\n\nworktree /Users/erik/.codex/worktrees/1598/umf\nHEAD 9e4bed3efe922c11e4b5a888ba6854de14f1b29f\ndetached\n\nworktree /Users/erik/.codex/worktrees/2c09/umf\nHEAD 9d2553d4074ec21874b496ac86a253a2de6dadba\ndetached\n\nworktree /Users/erik/.codex/worktrees/2cd3/umf\nHEAD 9e4bed3efe922c11e4b5a888ba6854de14f1b29f\ndetached\n\nworktree /Users/erik/.codex/worktrees/6423/umf\nHEAD 385c8cf119a3c2e40ba59cc5f15e24edab52f3b2\nbranch refs/heads/codex/delta-ddl-decimal\n\nworktree /Users/erik/.codex/worktrees/6db4/umf\nHEAD 5cc29553b18766d852011de9c1790c4e8d93e34e\nbranch refs/heads/codex/domain-pack-loaders\n\nworktree /Users/erik/.codex/worktrees/actions-requirements-design/umf\nHEAD b8e235c6f1f9935ac208f2779745f2609d329960\nbranch refs/heads/codex/actions-documentation-release\n\nworktree /Users/erik/.codex/worktrees/security-main-integration/umf\nHEAD d2ef29e267eafcb6bae28efd3c7974754c1d0b23\nbranch refs/heads/codex/security-main-integration\n\nworktree /Users/erik/.codex/worktrees/umf-record-check/umf\nHEAD c45c72a2a8a3c4fba61c40c5927dd9091acf8cc3\nbranch refs/heads/codex/core-record-value-check\n\nworktree /Users/erik/Projects/umf/.claude/worktrees/pr-3-review-24afb7\nHEAD d206a13f480777df989536809b7199866beb18c1\ndetached",
+      "dirty_paths": []
+    },
+    "truss": {
+      "path": "/Users/erik/Projects/truss",
+      "head": "01a4c3ed3248cf92e2dc8abe42b6e5da696aab24",
+      "main": "ae642a46d160d0ad2a27ce35dee140635dbfc1df",
+      "origin_main": "ae642a46d160d0ad2a27ce35dee140635dbfc1df",
+      "branches": [
+        {
+          "branch": "codex/ashlar-runtime",
+          "head": "8af84f71621abf654415f2317f36d823346b33bb",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "codex/refresh-helix-specs",
+          "head": "01a4c3ed3248cf92e2dc8abe42b6e5da696aab24",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "main",
+          "head": "ae642a46d160d0ad2a27ce35dee140635dbfc1df",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        },
+        {
+          "branch": "spec/change-feed-and-groups",
+          "head": "6d87fce53d04b876ec8ca37fb5eab0a949f1d320",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 0,
+          "patch_unique": 13
+        },
+        {
+          "branch": "spec/import-idempotency",
+          "head": "70f022bf4b302abe414f67d3a6e4d8be3469cf01",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 0,
+          "patch_unique": 10
+        },
+        {
+          "branch": "spec/storage-layout-and-contracts",
+          "head": "bd519ec5f141e2ae1b8f610261b4d44942e10920",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 0,
+          "patch_unique": 4
+        }
+      ],
+      "worktrees_porcelain": "worktree /Users/erik/Projects/truss\nHEAD 01a4c3ed3248cf92e2dc8abe42b6e5da696aab24\nbranch refs/heads/codex/refresh-helix-specs\n\nworktree /private/tmp/ashlar-truss-runtime\nHEAD 8af84f71621abf654415f2317f36d823346b33bb\nbranch refs/heads/codex/ashlar-runtime\n\nworktree /private/tmp/claude-501/truss-spec-wt\nHEAD 6d87fce53d04b876ec8ca37fb5eab0a949f1d320\nbranch refs/heads/spec/change-feed-and-groups\nprunable gitdir file points to non-existent location\n\nworktree /private/tmp/truss-main-integration-20261010\nHEAD ae642a46d160d0ad2a27ce35dee140635dbfc1df\nbranch refs/heads/main",
+      "dirty_paths": [
+        "M .gitignore",
+        " M docs/helix/02-design/contracts/CONTRACT-007-embedding-and-execution.md",
+        " M docs/helix/04-build/acceptance-runtime-handoff.md",
+        " M docs/helix/04-build/implementation-plan.md",
+        " M packages/pg-runtime/README.md",
+        " M packages/pg-runtime/src/index.ts",
+        " M packages/pg-runtime/src/native-query.ts",
+        " M packages/pg-runtime/src/wire.ts",
+        " M packages/postgresql/README.md",
+        " M packages/postgresql/native/catalog-new-inventory.sql",
+        " M packages/postgresql/native/catalog-relationship-stage.sql",
+        " M packages/postgresql/src/acceptance-json.ts",
+        " M packages/umf-bun/src/catalog-assertion-observations.ts",
+        " M packages/umf-bun/src/catalog-core-assertion-identities.ts",
+        " M packages/umf-bun/src/catalog-new-stage.ts",
+        " M packages/umf-bun/src/catalog-observation-coverage.ts",
+        " M packages/umf-bun/src/catalog-report-correspondence.ts",
+        " M packages/umf-bun/src/catalog-report-preparation.ts",
+        " M packages/umf-bun/src/index.ts",
+        " M scripts/build-umf-runtime.ts",
+        "?? --help",
+        "?? .github/workflows/pages.yml",
+        "?? .innsigle/",
+        "?? docs/helix/02-design/DESIGN.md",
+        "?? docs/helix/02-design/brand-voice.md",
+        "?? docs/helix/04-build/evidence/design-audit/__pycache__/",
+        "?? docs/helix/04-build/evidence/umf-compact-dataset-browser.json",
+        "?? docs/helix/04-build/evidence/umf-dataset-browser.json",
+        "?? docs/helix/04-build/evidence/umf-inventory-composition-browser.json",
+        "?? docs/helix/04-build/evidence/umf-inventory-composition.json",
+        "?? docs/helix/04-build/evidence/visible-owner-browser.json",
+        "?? docs/helix/05-deploy/microsite-runbook.md",
+        "?? packages/postgresql/native/dataset-unfiltered-owner-inventory.sql",
+        "?? packages/postgresql/native/dataset-visible-owner-inventory.sql",
+        "?? packages/postgresql/src/dataset-visible-owner-inventory.ts",
+        "?? packages/postgresql/src/security-candidate-condition.ts",
+        "?? packages/postgresql/src/security-candidate-endpoint.ts",
+        "?? packages/postgresql/src/security-graph-locator.ts",
+        "?? packages/postgresql/src/security-graph-source.ts",
+        "?? packages/postgresql/src/security-key-namespace.ts",
+        "?? packages/postgresql/src/security-key-transport.ts",
+        "?? packages/postgresql/src/security-native-key.ts",
+        "?? packages/postgresql/src/security-predicate.ts",
+        "?? packages/postgresql/src/security-query-use.ts",
+        "?? packages/postgresql/src/security-source-completeness.ts",
+        "?? packages/postgresql/src/security-stored-key.ts",
+        "?? packages/python/build/",
+        "?? packages/python/src/truss/__pycache__/",
+        "?? packages/python/src/truss_toolkit.egg-info/",
+        "?? packages/python/tests/__pycache__/",
+        "?? packages/umf-bun/src/catalog-assertion-reconciliation.ts",
+        "?? packages/umf-bun/src/catalog-assertion-report-correspondence.ts",
+        "?? packages/umf-bun/src/catalog-assertion-source-occurrences.ts",
+        "?? packages/umf-bun/src/catalog-complete-assertion-inventory.ts",
+        "?? packages/umf-bun/src/catalog-dataset-evidence.ts",
+        "?? packages/umf-bun/src/catalog-facet-components.ts",
+        "?? packages/umf-bun/src/catalog-item-assertion-identities.ts",
+        "?? packages/umf-bun/src/catalog-literal-components.ts",
+        "?? packages/umf-bun/src/catalog-membership-assertion-identities.ts",
+        "?? packages/umf-bun/src/catalog-reference-assertion-identities.ts",
+        "?? packages/umf-bun/src/catalog-scalar-assertion-identities.ts",
+        "?? packages/umf-bun/src/catalog-source-metadata.ts",
+        "?? packages/umf-bun/src/catalog-source-report-preparation.ts",
+        "?? scripts/build-umf-inventory-runtime.ts",
+        "?? scripts/check-umf-dataset-browser.ts",
+        "?? scripts/check-umf-inventory-composition-browser.ts",
+        "?? scripts/check-umf-inventory-composition.ts",
+        "?? scripts/check-visible-owner-browser.ts",
+        "?? scripts/export-core-layout-site.py",
+        "?? tests/catalog-assertion-report-correspondence.test.ts",
+        "?? tests/catalog-assertion-source-occurrences.test.ts",
+        "?? tests/catalog-compact-dataset-owner.test.ts",
+        "?? tests/catalog-dataset-evidence.test.ts",
+        "?? tests/catalog-dataset-fixture.ts",
+        "?? tests/catalog-dataset-owner.test.ts",
+        "?? tests/catalog-inventory-inspection-composition.test.ts",
+        "?? tests/catalog-original08-assertion-components.test.ts",
+        "?? tests/dataset-visible-owner-inventory.test.ts",
+        "?? tests/pg-principal-wire.test.ts",
+        "?? tests/security-candidate-condition.test.ts",
+        "?? tests/security-candidate-endpoint.test.ts",
+        "?? tests/security-graph-locator.test.ts",
+        "?? tests/security-graph-source-lowering.test.ts",
+        "?? tests/security-graph-source.test.ts",
+        "?? website/README.md",
+        "?? website/assets/",
+        "?? website/content/",
+        "?? website/hugo.yaml",
+        "?? website/layouts/_partials/innsigle-badge.html",
+        "?? website/layouts/_partials/innsigle-colophon.html",
+        "?? website/layouts/_partials/innsigle-glyph.html",
+        "?? website/layouts/baseof.html",
+        "?? website/layouts/home.html",
+        "?? website/layouts/shortcodes/",
+        "?? website/scripts/",
+        "?? website/static/favicon.svg",
+        "?? website/static/layout-source/"
+      ]
+    },
+    "weft": {
+      "path": "/private/tmp/ashlar-weft-distribution-d2d",
+      "head": "14c58146dad2e3aeb755c8035e91754a150be74c",
+      "main": "14c58146dad2e3aeb755c8035e91754a150be74c",
+      "origin_main": "14c58146dad2e3aeb755c8035e91754a150be74c",
+      "branches": [
+        {
+          "branch": "codex/b007-conformance",
+          "head": "94b2de5e303fe53f0c9432458119b6fe1eef187c",
+          "ancestor_of_origin_main": false,
+          "patch_equivalent": 1,
+          "patch_unique": 0
+        },
+        {
+          "branch": "main",
+          "head": "14c58146dad2e3aeb755c8035e91754a150be74c",
+          "ancestor_of_origin_main": true,
+          "patch_equivalent": 0,
+          "patch_unique": 0
+        }
+      ],
+      "worktrees_porcelain": "worktree /private/tmp/ashlar-weft-distribution-d2d\nHEAD 14c58146dad2e3aeb755c8035e91754a150be74c\nbranch refs/heads/main",
+      "dirty_paths": [
+        "M tests/ashlar-databricks/common.rs"
+      ]
+    }
+  },
+  "interpretation": [
+    "UMF Delta five commits consolidated into d2ef29e2; implementation/tests byte-identical despite unique cherry hashes",
+    "Foreign unmerged historical branches require owner/completion/review assessment before integration",
+    "Truss dirty work is unfinished and preserved",
+    "UMF security integration has conflicts; actions integration and detached1598 have unfinished dirty work; no blindmerge",
+    "Observed refs may change during concurrent work; records are local remote-tracking refs"
+  ],
+  "scope": "Enumerated registered worktrees and local branches of four project Git repositories; not every unrelated repository on machine. Does not certify foreign work complete or tested."
+}

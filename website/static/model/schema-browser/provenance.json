@@ -2,11 +2,11 @@
   "profile": "ashlar-umf-schema-browser/0.1",
   "upstream": {
     "project": "UMF",
-    "revision": "7fc5726b8752d8f8de6eba21f9d1fbfc6ee7cc53",
+    "revision": "5cc29553b18766d852011de9c1790c4e8d93e34e",
     "path": "docs/helix/05-deploy/microsite/dist/",
     "assets": {
-      "explorer.js": "56e030768eb45783683a1b6c40e8aaf497a6e958602f557e88333f1ff4689d40",
-      "explorer.css": "4f41c73d60c75364781cc9a4cd598eb1cc01fa1c266af6a18ee45acedb428696"
+      "explorer.js": "e2b504dd11e9fa707d39a28a81910d9b90526c90aaaa4b4bca3b392511efac32",
+      "explorer.css": "40fcfcd4e9446b97b94722c0bebea4511d6ac90133cfecd61fcb8da7103b0d2c"
     }
   },
   "inputs": {
@@ -21,10 +21,10 @@
     "docs/helix/02-design/models/ashlar-delta-runtime/whole_source_history.umf.json": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926",
     "docs/helix/02-design/models/ashlar-delta-runtime/index.json": "3905d10dc5ec5e7bc7297004e9e73e6786e53dbf4d2533ecdd351c0b38ba7679"
   },
-  "generator_sha256": "14f7dfdf8cbbf7d2d950e746533b3904f9b597ff7860c09503987237f79409fb",
+  "generator_sha256": "a010afb2e0f0e2540749c13500d411956c90bdcc54adbd44b71f7d1c54552736",
   "outputs": {
-    "explorer.js": "56e030768eb45783683a1b6c40e8aaf497a6e958602f557e88333f1ff4689d40",
-    "explorer.css": "4f41c73d60c75364781cc9a4cd598eb1cc01fa1c266af6a18ee45acedb428696",
+    "explorer.js": "e2b504dd11e9fa707d39a28a81910d9b90526c90aaaa4b4bca3b392511efac32",
+    "explorer.css": "40fcfcd4e9446b97b94722c0bebea4511d6ac90133cfecd61fcb8da7103b0d2c",
     "schema-catalog.json": "8abe93eb1b9012eecd4deaf318f8ca85fcbb69d920b20c7b80957f7dc44c4e3b",
     "index.html": "30ac5a7324d74055476c73a4b5aac335ed076ae102776f1d0cbbef76d5c2e5d9",
     "host.css": "4c3d274b076fa10e60877036006043b18e1191bbf19d946939a9e8b09f40246e"

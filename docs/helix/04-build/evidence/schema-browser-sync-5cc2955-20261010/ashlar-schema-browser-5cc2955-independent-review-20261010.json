@@ -1,0 +1,47 @@
+{
+  "profile": "ashlar-schema-browser-independent-review/0.1",
+  "decision": "approve",
+  "upstream_revision": "5cc29553b18766d852011de9c1790c4e8d93e34e",
+  "owned_sha256": {
+    "tools/build_schema_browser.py": "a010afb2e0f0e2540749c13500d411956c90bdcc54adbd44b71f7d1c54552736",
+    "website/scripts/check_schema_browser.py": "54d3859a7943ea416d1209d17a0d3ff74fe7849d323a0b17ec98859fab1ccec2",
+    "website/static/model/schema-browser/explorer.js": "e2b504dd11e9fa707d39a28a81910d9b90526c90aaaa4b4bca3b392511efac32",
+    "website/static/model/schema-browser/explorer.css": "40fcfcd4e9446b97b94722c0bebea4511d6ac90133cfecd61fcb8da7103b0d2c",
+    "website/static/model/schema-browser/provenance.json": "a7f282ce070a5573bc1285c30e756946cfedcfe008c67fdf6ab0d9a24f351fe6"
+  },
+  "checks": [
+    "Exact upstream Git asset bytes",
+    "Only pin changed in generator and guard",
+    "Ten model/index inputs identical to HEAD and prior provenance",
+    "Original nine catalog sources and unchanged qualification",
+    "Actual Chromium153 report:50 checks,18 byte-exact downloads,16 explicit unknown Delta checks",
+    "All evidence files below4MiB",
+    "Both guards rerun successfully",
+    "Browser test unchanged from HEAD; both1440/390 screenshots independently inspected, legible and no visible horizontal overflow"
+  ],
+  "evidence_sha256": {
+    "390-property_journal.umf.json": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5",
+    "1440-publication_attempt_phase.umf.json": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c",
+    "1440-relationships.umf.json": "3b09f2938e94a83c92369a9b1f3b682528db463978fd1ac708c7b376fca4ce57",
+    "report.json": "a59930d378fc861eddc8f5325d5fccbbe9747c73c815d12922007dc3f29a0fee",
+    "390-tombstone.umf.json": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13",
+    "390-object_current.umf.json": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884",
+    "390-edge_current.umf.json": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302",
+    "1440-object_current.umf.json": "9f8f21ad8e41b7b42b8064588201f7f19bb39e9d4b0265f6fafe3f61c46a0884",
+    "390-source_record.umf.json": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375",
+    "browser-1440.png": "0649833e02e3762cabb4edb4bfeabe9d7b300a6df063bbac29ff491fbeb81b69",
+    "1440-publication_manifest.umf.json": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d",
+    "1440-property_journal.umf.json": "02c830b30cbe8552d9bc25839b1edcb1300c864171b96d2be2e6087fceefa0b5",
+    "390-publication_manifest.umf.json": "584ffbf53b553b4e338ffd613d72509a2a19df1b2c5e600c6b0f5e525638763d",
+    "1440-source_record.umf.json": "443cd1dde52f1618ba1b25c9f37199c68ef3efb9d0932fbc463971e159e33375",
+    "1440-tombstone.umf.json": "0a652a6a7f0f678062aabef67e86d2ddfc466f6d65c18bfac9e2ace26702ef13",
+    "390-whole_source_history.umf.json": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926",
+    "1440-edge_current.umf.json": "cbca60228cbacfc80307712880f0320f453a674c8bacba16cea6878c84173302",
+    "1440-whole_source_history.umf.json": "e27bd5125590aa0ab33789b73b9f975238ac843ca8f73995e63cfdb5ccb85926",
+    "browser-390.png": "6b5f22706e70884c86e7c9b80d5a6c0fdf74ff8477f6b8d858d1998fd84c6f9b",
+    "390-relationships.umf.json": "3b09f2938e94a83c92369a9b1f3b682528db463978fd1ac708c7b376fca4ce57",
+    "390-publication_attempt_phase.umf.json": "aef12a203ac5bd5eb8ba1ab702fa9b43d31711af1cfd98b14a01e8c5f6dd7d9c"
+  },
+  "scope": "Pinned browser synchronization only; no native Delta validation or enforcement claim. Foreign edits excluded.",
+  "browser_test_sha256": "494a10ad1fc3ab339e5700d027295648f37fffdbe9530fc89b320fe3e3a907ba"
+}
