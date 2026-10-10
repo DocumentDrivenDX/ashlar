@@ -1,0 +1,15 @@
+{
+  "scope": "Test-only correction permits standard exception traceback attributes while cleanup_failed marker remains refused; production unchanged",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_ashlar_host.py",
+      "bytes": 8620,
+      "sha256": "f64a23df7801ebe8e1161a2cec8de67ac57fbb0d5e76483fc569e047439213d6"
+    }
+  ],
+  "checks": [
+    "11 tests pass Python3.9.6 -B -S",
+    "11 tests pass Python3.11.17 -B -S"
+  ],
+  "failedCi": 38043561524
+}

@@ -1,0 +1,225 @@
+{
+  "verdict": "APPROVE exact D wheel/package custody and installed non-native CLI boundary; source separately approved, no native grant",
+  "inputs": {
+    "path": "/private/tmp/ashlar-host-wheel-build-20261010-d/inputs.json",
+    "sha256": "1cc8abb4d2b8fd801c1d0c08ee4514dd97fbd19f5c29363c37f48dd3f283c745",
+    "bytes": 14519
+  },
+  "base": {
+    "path": "/private/tmp/ashlar-host-package-base-20261010-a/manifest.json",
+    "sha256": "2399f1f19cde7ac1f1391139b2905614fc602f4f57ec70a6a3c1cf7e515f6a55",
+    "bytes": 14028
+  },
+  "wheel": {
+    "path": "/private/tmp/ashlar-host-wheel-build-20261010-d/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "sha256": "57a13eb1a53edaf08b1d5f22e342e8f30a6665d1844e1b3178e0f7125f85ca07",
+    "bytes": 186993
+  },
+  "rootOverlays": [
+    {
+      "path": "src/ashlar/cli.py",
+      "sha256": "e457b74e88c8d8efdf0dd27c24259c2a9e080cc98a84d4bf738dac1502650523",
+      "bytes": 9790,
+      "kind": "root-owned-integration-candidate"
+    },
+    {
+      "path": "pyproject.toml",
+      "sha256": "8883ce3a8011874e79c527f311b5f3a4f330879a3dfff4e60598223ff65a0801",
+      "bytes": 602,
+      "kind": "root-owned-integration-candidate"
+    },
+    {
+      "path": "tests/test_host_cli.py",
+      "sha256": "fcdf64ab76f432b9867d4b7cf4b0768a8cc6218145ca41fd2cd9712016c00215",
+      "bytes": 2392,
+      "kind": "root-owned-integration-candidate"
+    }
+  ],
+  "verified": {
+    "inputFiles": 87,
+    "committedBaseFiles": 56,
+    "frozenHostOverlays": 30,
+    "rootIntegrationOverlays": 3,
+    "packageEntries": 82,
+    "allPackageBytesEqualInputsAndInstalled": true,
+    "wheelRecordHashes": true,
+    "checkoutToolsOrTestsPackaged": false
+  },
+  "actualInstalledControls": [
+    {
+      "arguments": [
+        "publish-commerce",
+        "--help"
+      ],
+      "exit": 0,
+      "stdoutSha256": "db97ffd863080b95e08e1c7dffe27931a530dc076dbeecf8685744aa5e7fda69",
+      "stdoutBytes": 1466,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0
+    },
+    {
+      "arguments": [
+        "query-commerce",
+        "--help"
+      ],
+      "exit": 0,
+      "stdoutSha256": "a931ac118ab312e9c186496bd07bcd288f35381e218bc74b6e5661055b7827e1",
+      "stdoutBytes": 1421,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0
+    },
+    {
+      "arguments": [
+        "commerce-source",
+        "--ontology",
+        "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar_host/resources/ontology.json",
+        "--graph",
+        "/private/tmp/ashlar-host-wheel-env-20261010-a/lib/python3.11/site-packages/ashlar_host/resources/graph.json",
+        "--output",
+        "/private/var/folders/z0/kv_wlyps77b_txh08w55z99w0000gn/T/tmpf5vq7wuy/candidate",
+        "--source-system",
+        "packaged-commerce-check",
+        "--binding-profile",
+        "ashlar-commerce-development-bindings/0.2"
+      ],
+      "exit": 0,
+      "stdoutSha256": "530c964d4c6f8a863d98fb8a54621a6b60eabd817eeddab0f79765a9aacc29e6",
+      "stdoutBytes": 88,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0
+    },
+    {
+      "arguments": [
+        "inspect-source",
+        "--feed",
+        "packaged-commerce-check",
+        "--epoch",
+        "original-commerce-v1"
+      ],
+      "exit": 0,
+      "stdoutSha256": "33851489e1139d5bdd5d56f6b28aa0ae2cb7586d0526f665dfeea0fed7783849",
+      "stdoutBytes": 36967,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrBytes": 0
+    },
+    {
+      "arguments": [
+        "publish-commerce",
+        "--output",
+        "relative-output",
+        "--jars",
+        "/jars",
+        "--model",
+        "/model",
+        "--graph",
+        "/graph",
+        "--umf-source",
+        "/umf",
+        "--bun",
+        "/bun",
+        "--git",
+        "/git",
+        "--postgres-container",
+        "ashlar-e2e-truss-pg17",
+        "--postgres-host",
+        "127.0.0.1",
+        "--postgres-port",
+        "15432",
+        "--postgres-database",
+        "truss_e2e",
+        "--producer-timeout-seconds",
+        "20",
+        "--producer-maximum-output-bytes",
+        "1048576",
+        "--producer-maximum-receipt-bytes",
+        "4194304",
+        "--source-system",
+        "private-original-commerce-fixture",
+        "--binding-profile",
+        "ashlar-commerce-development-bindings/0.2"
+      ],
+      "exit": 2,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stderrSha256": "47aac2162e12b38b78902d5f27dc30393d3bdcc24c22628d90e94cbc5df3bbfa",
+      "stderrBytes": 21
+    },
+    {
+      "arguments": [
+        "query-commerce",
+        "--output",
+        "relative-output",
+        "--jars",
+        "/jars",
+        "--model",
+        "/model",
+        "--graph",
+        "/graph",
+        "--umf-source",
+        "/umf",
+        "--bun",
+        "/bun",
+        "--git",
+        "/git",
+        "--postgres-container",
+        "ashlar-e2e-truss-pg17",
+        "--postgres-host",
+        "127.0.0.1",
+        "--postgres-port",
+        "15432",
+        "--postgres-database",
+        "truss_e2e",
+        "--producer-timeout-seconds",
+        "20",
+        "--producer-maximum-output-bytes",
+        "1048576",
+        "--producer-maximum-receipt-bytes",
+        "4194304",
+        "--index",
+        "/index",
+        "--installation",
+        "/installation",
+        "--publication",
+        "/publication"
+      ],
+      "exit": 2,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 0,
+      "stderrSha256": "47aac2162e12b38b78902d5f27dc30393d3bdcc24c22628d90e94cbc5df3bbfa",
+      "stderrBytes": 21
+    }
+  ],
+  "limits": [
+    "No native host publication/query, compiler, PG connection or SDK execution.",
+    "Exact D build/install argv and terminal logs retained; inherited build environment and reused build tools remain outside a hermetic/reproducible build claim.",
+    "Actual native hosts require separately qualified Python3.11/SDK/JDK/JAR/private PG and source/public admission runtime; packaging requires-python>=3.9 applies to portable toolkit/help, not every native host profile.",
+    "Host D30 source separately approved; test portability, inner cancellation preservation and module scope fixes included. Original earlier wheels remain historical."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-host-wheel-integration-review-20261010-d.py",
+    "sha256": "9848dd2598f27954b3695ebe8c829e797c2eb53062a2e90a47ac926c01aa9e60",
+    "bytes": 7772
+  },
+  "sourceReview": {
+    "path": "/private/tmp/astra-ashlar-host-source-review-20261010-d.json",
+    "sha256": "df8592262660c497ad6943a7326d710b9a7e124600cc063aac77193e9b359967",
+    "bytes": 5431
+  },
+  "retainedTransports": [
+    {
+      "path": "/private/tmp/ashlar-host-wheel-build-20261010-d/build-outcome.json",
+      "sha256": "61d10d618d4bfe2fde89b7a51dec13dcfbb280f2a43d07a22f766ac2a2127975",
+      "bytes": 650
+    },
+    {
+      "path": "/private/tmp/ashlar-host-wheel-build-20261010-d/install-outcome.json",
+      "sha256": "54bbaf35ea22fdd0aff18092c6ed5d910c182a330fb98adaa2dc793a5b6ad81a",
+      "bytes": 716
+    }
+  ],
+  "installedReceipt": {
+    "path": "/private/tmp/ashlar-host-wheel-build-20261010-d/installed-checks.json",
+    "sha256": "37ea194efa716f0d1b288ecedaaa48576e8480ba99e5b24c06b65cf33e3bdc1f",
+    "bytes": 944
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "verdict": "APPROVE one test-only correction",
+  "file": "/Users/erik/Projects/ashlar/tests/test_ashlar_host.py",
+  "bytes": 8620,
+  "sha256": "f64a23df7801ebe8e1161a2cec8de67ac57fbb0d5e76483fc569e047439213d6",
+  "change": "Readonly cancellation refuses only best-effort cleanup_failed annotation; superclass handles interpreter/contextlib traceback fields normally. Production29 files remain exact approvedD.",
+  "independentTests": {
+    "hostTestsPerRuntime": 11,
+    "versions": {
+      "/private/tmp/ashlar-spark311/bin/python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+      "/Users/erik/Projects/tablespec/.venv/bin/python": "3.12.15 (main, Oct  3 2026, 00:54:33) [Clang 22.1.3 ]"
+    },
+    "arguments": "-B -S -W error::ResourceWarning -m unittest discover -s tests -p test_ashlar_host.py -v",
+    "result": "PASS on both runtimes"
+  },
+  "scope": "Restores fixture compatibility with actualPython3.11 and3.12 exception protocol while continuing to exercise forbidden cleanup marker. No native execution or production changes."
+}

@@ -127,7 +127,9 @@ assert not any(n.split('.')[0] in {'pyspark','psycopg','graphframes','tools'} fo
 
     def test_cleanup_marker_cannot_replace_readonly_primary(self):
         class ReadonlyCancellation(KeyboardInterrupt):
-            def __setattr__(self,name,value): raise RuntimeError('marker refused')
+            def __setattr__(self, name, value):
+                if name == 'cleanup_failed': raise RuntimeError('marker refused')
+                super().__setattr__(name, value)
         def broken(): raise OSError('cleanup')
         primary=ReadonlyCancellation()
         with self.assertRaises(ReadonlyCancellation) as observed: finish(primary,[broken])
