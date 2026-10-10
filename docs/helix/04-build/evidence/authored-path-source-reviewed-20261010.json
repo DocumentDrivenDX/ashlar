@@ -1,0 +1,122 @@
+{
+  "verdict": "Approved exact eleven authored fixture/request/source files with corrections C; source-only",
+  "freezes": [
+    {
+      "path": "/private/tmp/ashlar-authored-path-fixture-freeze-20261010-a/manifest.json",
+      "sha256": "a97c9d79db8eb1addb5553d14bcf9a5848f85ce51129f6235804cc12df4e69f7",
+      "entries": 9
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-request-freeze-20261010-a/manifest.json",
+      "sha256": "6e863bbad79e54134db92f970face4e9a285a3c9c8c2128918c1a3398d0165bd",
+      "entries": 27
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-source-freeze-20261010-a/manifest.json",
+      "sha256": "52ebe1dd0a2561a7c4bb191b666c1052bf3273caa6267f22255020e2474c83de",
+      "entries": 7
+    },
+    {
+      "path": "/private/tmp/ashlar-authored-path-corrections-freeze-20261010-c/manifest.json",
+      "sha256": "ac35c3254e8756ae53be92090a0c484744f83574cb86d16c80939e0cb7a925aa",
+      "entries": 10
+    }
+  ],
+  "effective_source_files": [
+    {
+      "path": "examples/end-to-end/weft-paths/model.umf.json",
+      "sha256": "5a6c6de5abb1918e71807c0bc9f5e3ddd31c1aaf5341f1772da0f97ac083148c",
+      "bytes": 6891
+    },
+    {
+      "path": "examples/end-to-end/weft-paths/graph.json",
+      "sha256": "cd5d72bfe58cb532c6a17c2df9cb45f56086cf8126e9830bb7a335cbf098d915",
+      "bytes": 5563
+    },
+    {
+      "path": "examples/end-to-end/weft-paths/expected.json",
+      "sha256": "4600fba3a34e7e4775ee7184c5c6243f2525ebe6f883a4403ef4ed0b11557a55",
+      "bytes": 9616
+    },
+    {
+      "path": "examples/end-to-end/weft-paths/development-registry.json",
+      "sha256": "c29037617cca4e7d7aa29cb1768036244396db7ca2f1a47445c6dbb31b14ee97",
+      "bytes": 749
+    },
+    {
+      "path": "tools/weft_path_fixture.py",
+      "sha256": "3dfc253c57d3e09fea6ce3a87b4c17a1c60d301d82dda16bf5137c9402bd393b",
+      "bytes": 5914
+    },
+    {
+      "path": "tools/check_path_fixture_dataset.ts",
+      "sha256": "3ded4d61ab86b7ba8f63acdf3d99975afd353fcf29c4e21d0dfc7e211be984c2",
+      "bytes": 5961
+    },
+    {
+      "path": "tests/test_weft_path_fixture.py",
+      "sha256": "4808967ca18eb796923eabf0e934379365288fc0af377e199d52229fa5e54f89",
+      "bytes": 1618
+    },
+    {
+      "path": "tools/weft_path_fixture_request.py",
+      "sha256": "1f501b79e70afc37f91dd5f9f633789a6c38df6bb7614df59c678f4c6090c63e",
+      "bytes": 7526
+    },
+    {
+      "path": "tests/test_weft_path_fixture_request.py",
+      "sha256": "cd13f37a2e77e46556cbfa67ba9c74ab102fe909cfc45ccc67e4cfbf1ded851d",
+      "bytes": 15047
+    },
+    {
+      "path": "tools/weft_path_fixture_source.py",
+      "sha256": "6b4b28aed1cf5dd3f11e360e9a5981329535b7832c4a902a49f51f14becd2f41",
+      "bytes": 11050
+    },
+    {
+      "path": "tests/test_weft_path_fixture_source.py",
+      "sha256": "ec0dfe6822283769325a055947194c9113edf9a67166537769ef84ec21cec991",
+      "bytes": 4983
+    }
+  ],
+  "tests": {
+    "python": "3.9.6 -S",
+    "fixture_request_source_tests": 15,
+    "no_skips": true,
+    "actual_public_umf_replay_sha256": "c61b71a61e40cf844b695087df38fd9abb2724f57b5ac4f7348d7dca75cd27fa",
+    "public_records_keys_occurrences": [
+      10,
+      10,
+      10
+    ],
+    "actual_public_negative_controls": 2,
+    "producer_existing_and_late_existing_output_controls": 2,
+    "request_compiler_full_response_replays": 11,
+    "module_boundary_checker": "pass"
+  },
+  "independent_reviews": [
+    {
+      "path": "/private/tmp/astra-authored-path-source-review-20261010-b.json",
+      "sha256": "abe2baae2c27465eb067829af06d82b4929b567f1bdd8e9ac1c4a376b7fe3f31",
+      "bytes": 4925
+    },
+    {
+      "path": "/private/tmp/astra-authored-path-request-review-20261010-c.json",
+      "sha256": "3061f1417a4f09f07881ed63ea061e95fe1bce894ea4e761e3d0a6dfdae33fed",
+      "bytes": 9641
+    },
+    {
+      "path": "/private/tmp/astra-path-producer-exclusive-20261010-a/receipt.json",
+      "sha256": "c23036dd9b8667c562710ae18d5d101907cffaf8c349306cbcf0406dc3c8d6eb",
+      "bytes": 507
+    }
+  ],
+  "source_semantics": "20 original events;10 objects/10 full physical edge identities; all signed64 edge values including min/0/max retained; full Record/Field keys/endpoints and original carriers; independent raw-source states/current/history and exact replay. Six parallel path occurrences/one target, inverse4 and same-edge self-loop, LEFT matched-empty/absent remain distinct.",
+  "qualification": "Finite authored development registry and genuine public UMF0.8 supplied-dataset evidence only. No native publication, source writer, ACK, indexed release or general path runtime approval. Composite Integer order2<10 discriminated; String/Boolean components retained without separate tie-order claim.",
+  "modularity_configuration_o11y_formal": "Pure tools with injected public verification/explicit publication pins; no environment-owned authority, bounded receipt parsing and no-clobber output; source-oracle/control correspondence only, no OTel receiver or machine/native proof claim.",
+  "ci_followup": {
+    "path": ".github/workflows/weft-distribution.yml",
+    "sha256": "177656530fba4d7494af9a48a5659a638604e72b6638a8846114fd74b5bfa3b3",
+    "scope": "Exactly three portable discovery lines after existing path suites;15 tests run independently with third-party sites disabled; Ubuntu matrix execution remains CI."
+  }
+}
