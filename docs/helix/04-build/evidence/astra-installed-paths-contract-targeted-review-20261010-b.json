@@ -1,0 +1,54 @@
+{
+  "files": [
+    {
+      "baselineSha256": "727f4645276ac7bbede7c3746e710519e5ec8d1fa3ef9f11dc0bda97db373eee",
+      "bytes": 26377,
+      "path": "docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md",
+      "sha256": "41d537e4c5b5264d417940a1a8d889c66e9e6de570388b6aa71df5aa0a760f2b"
+    },
+    {
+      "baselineSha256": "108e3a4ad14432645172df782eb8883a8f2f1e5aab3eedee1a2b166d53a7896c",
+      "bytes": 17161,
+      "path": "docs/helix/03-test/consumer-conformance-plan.md",
+      "sha256": "ba542393398c4a6399214d885c43bd368745df57913117f70a514dc89534baba"
+    }
+  ],
+  "findingsResolved": [
+    "Positive nonempty grouped expanded-path count is explicit; an ordinary grouped record count alone cannot satisfy this named case.",
+    "Original property-equality join is explicit; authored traversal remains in its distinct path/related-key cases."
+  ],
+  "finiteSourceWitnessSummary": {
+    "distinctTerminalIdentities": 1,
+    "edges": 10,
+    "fulfillment": "[42,0,\"F2\"]",
+    "nonemptyGroupedExpandedCount": 1,
+    "objects": 11,
+    "partialReturn": [
+      6,
+      2,
+      6
+    ],
+    "refund": "[42,0,\"RF1\"]",
+    "settlement": "[42,0,\"PAY1\"]",
+    "twoHopOccurrences": 1,
+    "umfVersion": "0.8.0"
+  },
+  "freeze": {
+    "bytes": 926,
+    "path": "/private/tmp/ashlar-installed-paths-contract-freeze-20261010-b/manifest.json",
+    "sha256": "c7605a488787560688afe89fbb1b424aa82ff48aeb35d6041485f575711da0c1"
+  },
+  "frontmatterUnchanged": true,
+  "limits": [
+    "Finite original-source feasibility and desired-state coverage only; exact executable case matrix and native artifacts still require review.",
+    "Original graph has no parallel stored edge pairs; these ten cases do not independently qualify parallel edge/path distinction, LEFT absence-versus-empty, truncation or cycles. Those remain separately scoped governing requirements.",
+    "Broader native/authority/version support is not inferred from prior receipts or this desired-state update."
+  ],
+  "onlyThreeRequestedWordingChanges": true,
+  "priorFiniteSourceReview": {
+    "path": "/private/tmp/astra-installed-paths-contract-targeted-review-20261010-a.json",
+    "sha256": "71e15921076b19846aa89fdbc2e686ac6ee63b9270aeb115a98f83249860948b"
+  },
+  "scope": "Targeted desired-state test-plan review and exact A-to-B corrective delta; no compiler/native execution or document edits. Parent reviews governing contract/lifecycle in full.",
+  "verdict": "PASS"
+}

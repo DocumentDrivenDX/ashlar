@@ -1,0 +1,93 @@
+{
+  "baseline": "cbe19cee23ef9fde4e412a851b3607580d56b174",
+  "files": [
+    {
+      "baselineSha256": "727f4645276ac7bbede7c3746e710519e5ec8d1fa3ef9f11dc0bda97db373eee",
+      "bytes": 26377,
+      "path": "docs/helix/02-design/contracts/CONTRACT-004-publication-resolver.md",
+      "sha256": "41d537e4c5b5264d417940a1a8d889c66e9e6de570388b6aa71df5aa0a760f2b"
+    },
+    {
+      "baselineSha256": "108e3a4ad14432645172df782eb8883a8f2f1e5aab3eedee1a2b166d53a7896c",
+      "bytes": 17161,
+      "path": "docs/helix/03-test/consumer-conformance-plan.md",
+      "sha256": "ba542393398c4a6399214d885c43bd368745df57913117f70a514dc89534baba"
+    }
+  ],
+  "findingsResolvedInB": [
+    "The positive nonempty group explicitly counts expanded paths; ordinary grouped record counts cannot satisfy this case.",
+    "The sixth case explicitly uses original property-equality join semantics; it does not establish authored edge traversal.",
+    "Application-owned index/realization selection is distinct from independently observed host platform."
+  ],
+  "freeze": {
+    "bytes": 926,
+    "path": "/private/tmp/ashlar-installed-paths-contract-freeze-20261010-b/manifest.json",
+    "sha256": "c7605a488787560688afe89fbb1b424aa82ff48aeb35d6041485f575711da0c1"
+  },
+  "governing": {
+    "feature": {
+      "bytes": 7206,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/01-frame/features/FEAT-003-graph-query-path.md",
+      "sha256": "3e090e8a59ce13e6b33d48c77182a6f2a9541afdf2085190a2ff0ef657cdbaaa"
+    },
+    "moduleConfigurationAndDiagnostics": {
+      "bytes": 25444,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "06e11b398dd5d67b61e9253357cf14743dfe50653244f62226752f0ea2aceb01"
+    },
+    "pathSemantics": {
+      "bytes": 23735,
+      "path": "/private/tmp/ashlar-weft-distribution-d2d/docs/helix/02-design/contracts/CONTRACT-005-authored-two-hop-paths.md",
+      "sha256": "82f94c9eefb01f1cf99eed7810f2420176a574383354bb7cb8390ce4236453d9"
+    },
+    "prd": {
+      "bytes": 18957,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/01-frame/prd.md",
+      "sha256": "9b3f247be0ab559fa922a781ab231f447b2efee2a4ede745dbf49b858517d76a"
+    },
+    "readBoundary": {
+      "bytes": 8979,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-002-consumer-read-boundary.md",
+      "sha256": "d1776d3a065f223c9b6abecd7bfc30ebdb88bdf930938cd89599f1e91752665a"
+    },
+    "selectedConcerns": {
+      "bytes": 6050,
+      "path": "/Users/erik/Projects/ashlar/docs/helix/01-frame/concerns.md",
+      "sha256": "2d40001eb5462513def7b28c912aa539bbecc2696594aacd50433a0328ca2cca"
+    }
+  },
+  "helixAssessment": {
+    "catalog": "/Users/erik/.codex/plugins/cache/helix/helix/0.15.4/workflows/graph.yml",
+    "configuration": "Fixed developer trust and observed platform remain distinct from operator locations; existing immutable injected configuration and SDK-free import policy is unchanged.",
+    "diagnostics": "Retained complete bounded native/source/compiler/ACK vectors are evidence requirements; existing ADR safe bounded diagnostics and separate OTel mapping apply. No new receiver/integration claim.",
+    "formalScope": "No ACK or publication transition is added. Existing precise publication/ACK assumptions and independent semantic/native test policy remain; these desired-state additions claim no model checking or proof.",
+    "mode": "review",
+    "modularity": "Weft owns language/schema/obligations; Ashlar owns explicit installed composition and held source/native/result authority. Existing ADR/checker restrictions continue to govern implementation."
+  },
+  "limits": [
+    "Approval covers the two exact desired-state document additions, not implementation, new native execution or production authorization.",
+    "Original commerce has one L1-P1-S1 path; this ten-case target cannot by itself qualify parallel-edge multiplication, LEFT absence/empty, truncation or cycles. Existing governing obligations and separate evidence gates remain.",
+    "New implementation modules, typed APIs, original source-derived expected values, native runtime/resource commands and actual results still require their own source and evidence review."
+  ],
+  "semanticAssessment": [
+    "The named query-commerce-paths profile is separately selected; historical query-commerce/compiler/native profile remains unchanged and unavailable Paths refuses without fallback.",
+    "Owning Weft04/Backend03 schemas, complete raw request/recompile/artifact custody and actual offline validation do not establish native source or execution authority.",
+    "Original UMF0.8/model/key/relationship/physical-edge identities and complete binding/publication vectors remain governing. Physical IDs cannot replace logical keys.",
+    "Every integrity/user statement shares the authorized original publication hold; complete original STRING/schema capture precedes descriptor decoding and release. Unknown obligations, drift, expired context and failed cleanup withhold results.",
+    "Path occurrence counts and terminal distinct counts retain Weft005 semantics. The separate Paths profile does not redefine CONTRACT002 synthetic distinct-start count semantics.",
+    "Query-only observation does not advance ACK/publication progress; exact primary failure survives cleanup and report release requires successful reader/client/Spark closure."
+  ],
+  "targetedSourceReview": {
+    "bytes": 7477,
+    "path": "/private/tmp/astra-installed-paths-contract-targeted-review-20261010-a.json",
+    "sha256": "71e15921076b19846aa89fdbc2e686ac6ee63b9270aeb115a98f83249860948b"
+  },
+  "verdict": "APPROVED_DESIRED_STATE_DOCUMENTS",
+  "verification": {
+    "diffCheck": "PASS",
+    "frontmatterAndAllBaselineBytesPreserved": true,
+    "frozenAndLiveBytesMatch": true,
+    "nativeOrCompilerExecution": false,
+    "onlyTwoNewBodySections": true
+  }
+}

@@ -174,6 +174,25 @@ report. Importing these modules must not construct an engine, install a compiler
 or grant source authority. This strategy specifies executable checks; it does not
 assert native qualification, OpenTelemetry integration or mechanical proof.
 
+### Installed publication-held Paths workflow
+
+Run `query-commerce-paths` through the installed package with its separately
+selected indexed compiler and actual offline installed-schema validator.
+Compare independent raw-source expectations for original commerce collection,
+expanded path count, distinct terminal count, one-hop related keys, positive
+nonempty grouped expanded-path count, original property-equality join,
+fulfillment, partial return,
+settlement and refund arithmetic. Preserve original UMF 0.8 bytes/version;
+a separately authored model requires its own admitted source profile.
+
+Record original requests/recompiles/results and the complete opening/closing
+publication, native schema, source, compiler and protected ACK vectors. Exercise
+unknown-obligation, changed binding, stale schema, capture-bound, closing-drift
+and cancellation refusals through public host APIs. Fake-port tests qualify their
+component invariants; actual native results and successful reader/client/Spark
+cleanup are required for the installed workflow. Neither the historical compiler
+profile nor its native receipts qualify a newly selected compiler implicitly.
+
 ## Evidence and performance policy
 
 Fixture, simulated contract, native target and engine execution evidence are

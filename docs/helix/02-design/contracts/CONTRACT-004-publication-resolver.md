@@ -371,6 +371,52 @@ correspondence; unsupported families refuse.
 This private development host does not establish production authorization or
 complete Weft conformance. Query-only MUST NOT advance graph/source progress.
 
+### Separately selected indexed Paths host
+
+The Paths host is an explicit additional profile. Its command is
+`query-commerce-paths`; `query-commerce` retains its selected compiler profile.
+An unavailable Paths installation MUST refuse without choosing another compiler.
+The application fixes the trusted index and realization and independently
+observes the host platform; operator file locations MUST NOT replace that trust
+selection.
+
+Weft owns the paired `weft-compile/0.4.0`, `weft-ir/0.4.0` and
+`weft-application-result/0.4.0` surfaces and `weft-backend/0.3.0` manifest.
+Its authored-path contract and exact installed JSON schemas govern syntax,
+logical descriptors, occurrence semantics and host obligations. Ashlar MUST
+validate against those retained schemas offline, reject unknown obligations and
+preserve original request, response, SQL, ordered parameter and result bytes.
+An injected callback without actual schema validation does not satisfy admission.
+
+The host MUST derive the complete request from the admitted original model,
+source and selected publication vector. Preserve the declared UMF version,
+including original 0.8 documents, all consumed Record/Field/relationship identities,
+ordered typed keys and independent physical edge identities. Model revision,
+binding digest, table UUID/version and source correspondence MUST agree.
+A physical object ID MUST NOT substitute for a logical key.
+
+The host MUST compile and independently recompile the same original request
+through the retained indexed installation and compare complete artifacts before
+native execution. Both compiles establish compiler custody only. Every integrity
+check and user statement MUST execute inside the same original authorized
+publication hold, under the exact selected native profile and source policy.
+Missing, expired or drifted context MUST refuse without rows or source progress.
+
+Capture complete bounded native STRING rows and original schema metadata before
+decoding. Exact integer/decimal arithmetic MUST preserve mathematical values;
+float conversion, repaired SQL/results and inferred relationships are forbidden.
+Preserve absent/null/value states, parallel path occurrences and opaque identities.
+Expanded path counts and distinct terminal counts MUST follow their different
+original descriptors. A positive nonempty grouped answer is required evidence;
+an empty grouping alone cannot qualify grouped counts.
+
+Release a report only after final publication/policy/ACK/source checks, reader
+and client closure, and Spark shutdown succeed. Query-only work MUST NOT advance
+source ACK or publication progress. Cleanup MUST preserve an existing primary
+failure; incomplete or uncertain closure MUST withhold success. The private local
+commerce profile establishes no production Truss authority, end-user delegation,
+Unity Catalog retention or cloud execution claim.
+
 ## Execution evidence
 
 Current results and remaining work belong in the [execution plan](../../04-build/end-to-end-plan.md).
