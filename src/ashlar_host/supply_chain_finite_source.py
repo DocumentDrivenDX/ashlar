@@ -76,6 +76,7 @@ class FiniteSupplyChainSource:
         self.metadata()
         if not any(original_equal(change,owned)for owned in self.changes):raise ValueError('No admitted original finite change')
     def admit_request(self,request):
+        request=source_snapshot(request)
         self.metadata();row=batch_row(self.batch)
         if (type(request)is not dict or set(request)!={'stream','batch_id','predecessor','schema_revisions_json','source_batch_json','source_batch_digest','request_digest'}
             or request['batch_id']!=self.batch.batch_id or request['source_batch_json']!=row['batch_json']or request['source_batch_digest']!=row['batch_digest']

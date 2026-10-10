@@ -133,3 +133,14 @@ class Controls(TestCase):
    self.assertEqual(len(opened),1)
    with self.assertRaises(OSError):os.fstat(opened[0])
    (self.root/'.finite-installation.lock').unlink()
+
+ def test_public_request_gate_rejects_forged_batch_json_subclass(self):
+  import hashlib
+  class ForgedBatch(str):
+   def __ne__(self,other):return False
+  request=native._request(self.source.batch);request['source_batch_json']=ForgedBatch('{"forged":true}')
+  request['request_digest']=hashlib.sha256(publication.encoded({k:v for k,v in request.items()if k!='request_digest'}).encode()).hexdigest()
+  with mock.patch.object(self.source,'metadata')as metadata:
+   with self.assertRaises(ValueError):self.source.admit_request(request)
+   metadata.assert_not_called()
+  self.source.admit_request(native._request(self.source.batch))
