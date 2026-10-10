@@ -1,0 +1,209 @@
+   Compiling getrandom v0.3.4
+warning: unexpected `cfg` condition value: `128`
+   --> vendor/ahash/src/fallback_hash.rs:164:11
+    |
+164 |     #[cfg(target_pointer_width = "128")]
+    |           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+    |
+    = note: expected values for `target_pointer_width` are: `16`, `32`, and `64`
+    = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+    = note: `#[warn(unexpected_cfgs)]` on by default
+
+warning: unexpected `cfg` condition name: `fuzzing`
+  --> vendor/ahash/src/random_state.rs:48:58
+   |
+48 |     if #[cfg(all(feature = "compile-time-rng", any(test, fuzzing)))] {
+   |                                                          ^^^^^^^
+   |
+   = help: expected names are: `docsrs`, `feature`, `folded_multiply`, `specialize`, and `test` and 31 more
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(fuzzing)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(fuzzing)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: unexpected `cfg` condition name: `fuzzing`
+  --> vendor/ahash/src/random_state.rs:68:54
+   |
+68 |     } else if #[cfg(all(feature = "runtime-rng", not(fuzzing)))] {
+   |                                                      ^^^^^^^
+   |
+   = help: consider using a Cargo feature instead
+   = help: or consider adding in `Cargo.toml` the `check-cfg` lint config for the lint:
+            [lints.rust]
+            unexpected_cfgs = { level = "warn", check-cfg = ['cfg(fuzzing)'] }
+   = help: or consider adding `println!("cargo::rustc-check-cfg=cfg(fuzzing)");` to the top of the `build.rs`
+   = note: see <https://doc.rust-lang.org/nightly/rustc/check-cfg/cargo-specifics.html> for more information about checking conditional configuration
+
+warning: methods `read_u128x2`, `read_u128x4`, `read_last_u16`, `read_last_u128x2`, and `read_last_u128x4` are never used
+  --> vendor/ahash/src/convert.rs:69:8
+   |
+64 | pub(crate) trait ReadFromSlice {
+   |                  ------------- methods in this trait
+...
+69 |     fn read_u128x2(&self) -> ([u128; 2], &[u8]);
+   |        ^^^^^^^^^^^
+70 |     fn read_u128x4(&self) -> ([u128; 4], &[u8]);
+   |        ^^^^^^^^^^^
+71 |     fn read_last_u16(&self) -> u16;
+   |        ^^^^^^^^^^^^^
+...
+75 |     fn read_last_u128x2(&self) -> [u128; 2];
+   |        ^^^^^^^^^^^^^^^^
+76 |     fn read_last_u128x4(&self) -> [u128; 4];
+   |        ^^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(dead_code)]` on by default
+
+warning: `ahash` (lib) generated 4 warnings
+   Compiling ppv-lite86 v0.2.21
+   Compiling bitflags v2.13.2
+   Compiling unarray v0.1.4
+warning: `ahash` (lib) generated 4 warnings (4 duplicates)
+   Compiling weft-core v0.1.0 (/private/tmp/ashlar-weft-land-5856/crates/weft-core)
+   Compiling rand_core v0.9.5
+   Compiling rand_chacha v0.9.0
+   Compiling rand_xorshift v0.4.0
+   Compiling rand v0.9.5
+warning: unused import: `Identity`
+ --> crates/weft-core/src/application_scope.rs:8:18
+  |
+8 |     ir::{Family, Identity, LogicalType},
+  |                  ^^^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` on by default
+
+warning: unused imports: `Column`, `Descriptor`, `LiteralKind`, `Literal`, `Name`, `Record`, `Shape`, and `exact`
+ --> crates/weft-core/src/application_resolve.rs:3:25
+  |
+3 |     application_model::{Descriptor, Shape},
+  |                         ^^^^^^^^^^  ^^^^^
+...
+6 |     exact,
+  |     ^^^^^
+7 |     ir::{Family, Identity, LogicalType},
+8 |     model::{Catalog, Record},
+  |                      ^^^^^^
+9 |     syntax::{Column, Literal, LiteralKind, Name},
+  |              ^^^^^^  ^^^^^^^  ^^^^^^^^^^^  ^^^^
+
+   Compiling proptest v1.11.0
+warning: struct `PlanSchema03` is never constructed
+   --> crates/weft-core/src/arithmetic_application_resolve.rs:494:8
+    |
+494 | struct PlanSchema03;
+    |        ^^^^^^^^^^^^
+    |
+    = note: `#[warn(dead_code)]` on by default
+
+warning: method `finish` is never used
+   --> crates/weft-core/src/syntax.rs:245:19
+    |
+208 | impl Parser {
+    | ----------- method in this implementation
+...
+245 |     pub(crate) fn finish(&mut self) -> Result<()> {
+    |                   ^^^^^^
+
+warning: `weft-core` (lib) generated 4 warnings (run `cargo fix --lib -p weft-core` to apply 2 suggestions)
+warning: variant `Upgrade` is never constructed
+  --> crates/weft-core/../../tests/compile/../register-backend/fixture.rs:21:5
+   |
+ 9 | pub(crate) enum Behavior {
+   |                 -------- variant in this enum
+...
+21 |     Upgrade,
+   |     ^^^^^^^
+   |
+   = note: `Behavior` has a derived impl for the trait `Clone`, but this is intentionally ignored during dead code analysis
+   = note: `#[warn(dead_code)]` on by default
+
+warning: function `target` is never used
+   --> crates/weft-core/../../tests/compile/../register-backend/fixture.rs:297:15
+    |
+297 | pub(crate) fn target(candidate: bool) -> Target {
+    |               ^^^^^^
+
+warning: `weft-core` (test "compile-envelope") generated 2 warnings
+warning: `weft-core` (lib test) generated 2 warnings (2 duplicates)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 16.92s
+     Running unittests src/lib.rs (/private/tmp/ashlar-weft-count-build/debug/deps/weft_core-ab4f3977477b01ad)
+
+running 1 test
+test arithmetic_application_resolve::tests::count_distinct_and_string_in_closed_ir_refuse_domain_and_slot_mutations ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 29 filtered out; finished in 0.04s
+
+     Running unittests src/bin/frontend.rs (/private/tmp/ashlar-weft-count-build/debug/deps/frontend-d6bf5f7390d603a8)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+
+     Running ../../tests/application/model.rs (/private/tmp/ashlar-weft-count-build/debug/deps/application_model-19690274fbf9d999)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 18 filtered out; finished in 0.00s
+
+     Running ../../tests/application/resolve.rs (/private/tmp/ashlar-weft-count-build/debug/deps/application_resolve-f998d0c1d0dab409)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.00s
+
+     Running ../../tests/application/syntax.rs (/private/tmp/ashlar-weft-count-build/debug/deps/application_syntax-64bbd147c24c63c3)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 6 filtered out; finished in 0.00s
+
+     Running ../../tests/register-backend/pipeline.rs (/private/tmp/ashlar-weft-count-build/debug/deps/backend_pipeline-6aba09f969772361)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 18 filtered out; finished in 0.00s
+
+     Running ../../tests/register-backend/registry.rs (/private/tmp/ashlar-weft-count-build/debug/deps/backend_registry-a9d7ed301b6f479e)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 9 filtered out; finished in 0.00s
+
+     Running ../../tests/compile/envelope.rs (/private/tmp/ashlar-weft-count-build/debug/deps/compile_envelope-06e549811750685b)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.00s
+
+     Running tests/frontend.rs (/private/tmp/ashlar-weft-count-build/debug/deps/frontend-ebd50c03157834a6)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 4 filtered out; finished in 0.00s
+
+     Running tests/mathematical08.rs (/private/tmp/ashlar-weft-count-build/debug/deps/mathematical08-2c4aec758baf00a2)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 1 filtered out; finished in 0.00s
+
+     Running tests/original08.rs (/private/tmp/ashlar-weft-count-build/debug/deps/original08-c217c06a26273dec)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 3 filtered out; finished in 0.00s
+
+     Running ../../tests/qualify-and-evolve/properties.rs (/private/tmp/ashlar-weft-count-build/debug/deps/qualification_properties-7a3cd0c09ca515e1)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 7 filtered out; finished in 0.00s
+
+     Running ../../tests/qualify-and-evolve/resources.rs (/private/tmp/ashlar-weft-count-build/debug/deps/qualification_resources-29c49ea09aeb6b38)
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 5 filtered out; finished in 0.00s
+

@@ -1,0 +1,47 @@
+{
+  "format": "weft-null03-schema-check/0.1",
+  "cases": [
+    {
+      "file": "global-empty-artifact.json",
+      "status": "compiled",
+      "officialRequest": true,
+      "officialResponse": true
+    },
+    {
+      "file": "numeric-refusal-artifact.json",
+      "status": "blocked",
+      "officialRequest": true,
+      "officialResponse": true
+    },
+    {
+      "file": "grouped-empty-artifact.json",
+      "status": "compiled",
+      "officialRequest": true,
+      "officialResponse": true
+    },
+    {
+      "file": "original-artifact.json",
+      "status": "compiled",
+      "officialRequest": true,
+      "officialResponse": true
+    },
+    {
+      "file": "literal-duplicates-artifact.json",
+      "status": "compiled",
+      "officialRequest": true,
+      "officialResponse": true
+    },
+    {
+      "file": "global-artifact.json",
+      "status": "compiled",
+      "officialRequest": true,
+      "officialResponse": true
+    },
+    {
+      "file": "null-literal-refusal-artifact.json",
+      "status": "blocked",
+      "officialRequest": true,
+      "officialResponse": true
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "global-empty",
+    "rawSha256": "02c8b13407a3616aa2abbae8bd990dc3a60a272e41d75006b546cf5d8fbf9ff1",
+    "byteIdentical": true
+  },
+  {
+    "id": "global",
+    "rawSha256": "ba4b1649a2a25e456e048501c515e9bea9a0ecb1332ef4b5d5093a69f1cbeed4",
+    "byteIdentical": true
+  },
+  {
+    "id": "grouped-empty",
+    "rawSha256": "b1aa6456fc42a4f05dc10977bb1a52cb86eeb582272d7964f463d4a8bd25a0e8",
+    "byteIdentical": true
+  },
+  {
+    "id": "literal-duplicates",
+    "rawSha256": "82a12cd5190b48e109b889f9ec8fc322ef184694f70f0f52f0afe35bf35d3cf6",
+    "byteIdentical": true
+  },
+  {
+    "id": "null-literal-refusal",
+    "rawSha256": "e26bc163d649898fe9548ce8ba3598f01bca5625a5acb2503f6f36a6de581284",
+    "byteIdentical": true
+  },
+  {
+    "id": "numeric-refusal",
+    "rawSha256": "000822e1262e121e5e9e7d31a0f334d48117f58ca6a094f8ae77a093e432cdcd",
+    "byteIdentical": true
+  },
+  {
+    "id": "original",
+    "rawSha256": "a4f97250d5bf6b827fa089f714d9aa5122dc059943715c587995975ac715a7f1",
+    "byteIdentical": true
+  }
+]

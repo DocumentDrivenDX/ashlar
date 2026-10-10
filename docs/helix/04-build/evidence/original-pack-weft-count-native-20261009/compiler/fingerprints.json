@@ -1,0 +1,201 @@
+{
+  "format": "weft-count-distinct-string-in-compile-fingerprints/0.1",
+  "files": [
+    {
+      "path": "backend-tests.log",
+      "sha256": "84e04d2c80248d459158c23530297b5b0f77f287db51f19f31accc14a2240e5d"
+    },
+    {
+      "path": "browser-receipts.json",
+      "sha256": "9125a490d8ee579b6fa164fb749d98c88c29a295fda8059c9d3738b1bd3afaa1"
+    },
+    {
+      "path": "browser-summary.json",
+      "sha256": "655c98d3aa4469077c094540acd66efb7ebccd3c09a89b54f4ecee948f48b07c"
+    },
+    {
+      "path": "cases.json",
+      "sha256": "12726f36f940b313aa28488f5b342efe861f6adc4508f60094ea8906548d0b20"
+    },
+    {
+      "path": "compatibility.json",
+      "sha256": "0692b40fd2d8bf84197e016098f5db71faf0f2cf3a70a843a5e381923b55bd64"
+    },
+    {
+      "path": "core-ir-test.log",
+      "sha256": "1e460e0fbaf5150ae3682c07d00e94facba0d5a3355fd3ecdbe70caf00227247"
+    },
+    {
+      "path": "feature-refusal.log",
+      "sha256": "afc65f50539ac15108d894d7d76ae9f29cf3bed20924f1314df1a1662a00afe4"
+    },
+    {
+      "path": "global-artifact.json",
+      "sha256": "97c3bc67c3f0c5befb6c266f1a85909157bb64171f341c7ae8e52e5bee69de52"
+    },
+    {
+      "path": "global-empty-artifact.json",
+      "sha256": "a8db591ecb473e4bc9749aaf6c848a41d423c5c5f06236b0cd17dfdd9f67dffb"
+    },
+    {
+      "path": "global-empty-request.json",
+      "sha256": "8802bdb749dd9a86df72ec714819e20870c8cc2d5ed1a93b315a792bae80e1c0"
+    },
+    {
+      "path": "global-request.json",
+      "sha256": "2dc1c7877265da077eea1c9c965af82db273c0093104e32a1c32925a43df72ec"
+    },
+    {
+      "path": "grouped-empty-artifact.json",
+      "sha256": "5feaa874a9a2a496b15b05c772ed4859589d020098598f22d3cad660a53236ad"
+    },
+    {
+      "path": "grouped-empty-request.json",
+      "sha256": "e35de421c172a7e209dec491ba72334a0911d86f249f97d5a47f7043d87d9612"
+    },
+    {
+      "path": "literal-duplicates-artifact.json",
+      "sha256": "d2f37c3b5b93c8adc3b762ccfce1e12bb014b371faf6ea513bc3b7bc19d95f68"
+    },
+    {
+      "path": "literal-duplicates-request.json",
+      "sha256": "30532a1db852ff88273ab65be3b468e36925fde76d87898d73fc935b1867ed56"
+    },
+    {
+      "path": "manifest.json",
+      "sha256": "eee3a15b2d9f0b4fff01925135b0d27e1c7f2040d99b853d29e7d514ceacda55"
+    },
+    {
+      "path": "null-literal-refusal-artifact.json",
+      "sha256": "c63f39f282b015e6f7f688920f57da06d1b120a53f26786f59cca99ceb147af1"
+    },
+    {
+      "path": "null-literal-refusal-request.json",
+      "sha256": "0299a449251256ab52dda641189a548393abfb325b7ed698a67139ead848fac5"
+    },
+    {
+      "path": "numeric-refusal-artifact.json",
+      "sha256": "a2541c38b0d5f1e61d74ee1261a6c14d7cee7ffcd69d9a260d64ac3f8b7c0f2b"
+    },
+    {
+      "path": "numeric-refusal-request.json",
+      "sha256": "e81c6426b9800d5f6e4b1d992079d8e8a110d746ea83ca36e3ad698403433337"
+    },
+    {
+      "path": "original-artifact.json",
+      "sha256": "3d202cf533937b018e00b067a968a80e2e74a35d8ef09ccc476961bb97a069fe"
+    },
+    {
+      "path": "original-request.json",
+      "sha256": "85d14c19e9547ea179ff3f336a441de2450b9a6266594808b150d858a81e54b2"
+    },
+    {
+      "path": "python-receipts.json",
+      "sha256": "79a7ae5f5db9560b3f439350eba7249e8b18f9d5f4a786d34a33d5743fe923f1"
+    },
+    {
+      "path": "reports.json",
+      "sha256": "8a8ea1ec4c4755e8dd020c3f19f18ece0a4e30a028a54c777e25544e87e18f4c"
+    },
+    {
+      "path": "schema-receipts.json",
+      "sha256": "3264ddf30b6a484a092c660af57aedc31826eddde05230325dfaa71747ce5ff7"
+    },
+    {
+      "path": "source/.github/workflows/conformance.yml",
+      "sha256": "719175cf2a93e7f8d3a96fac1147bc71a06ad1b4936046b08240a572863d4fa3"
+    },
+    {
+      "path": "source/crates/weft-core/src/arithmetic_application_resolve.rs",
+      "sha256": "726a8a899c8fbebe5f84475d62dad4ff043bd9f6c755df75d9b2ce02a8c70aaf"
+    },
+    {
+      "path": "source/crates/weft-core/src/arithmetic_plan.rs",
+      "sha256": "a9e3d12339d7d26945a82a455d6e3907d2d612b7d8d24670c0ebbda8bda5fc4d"
+    },
+    {
+      "path": "source/crates/weft-core/src/arithmetic_query.rs",
+      "sha256": "bef7cbbc8b2b183a6a8e9852d868e6e97ce4c8b452840b32e0e7b7cf434dc1b2"
+    },
+    {
+      "path": "source/crates/weft-core/src/arithmetic_syntax.rs",
+      "sha256": "24620970982bc738e4abf01093771707adf35eaadc3320852210c7db2661577d"
+    },
+    {
+      "path": "source/crates/weft-core/src/backend.rs",
+      "sha256": "05f59bc6268b9d539957fcc91b31e5dda4a275b14466d246561f27850d7bf1fd"
+    },
+    {
+      "path": "source/crates/weft-core/src/backend_emission.rs",
+      "sha256": "59ac06d9acc06d289080d129973bbcc8c042c355ca918e1cee1da2e58ee60f95"
+    },
+    {
+      "path": "source/crates/weft-databricks/src/candidate/arithmetic.rs",
+      "sha256": "d48acff9e524d1a3aa80c02b9b8da1ad3308d29308489b46b0aa657369b9928c"
+    },
+    {
+      "path": "source/crates/weft-databricks/src/count_distinct.rs",
+      "sha256": "4d8e8dd391f7f2670705fdd611204b4c19942a237996d4f2c59ff6be72bf2548"
+    },
+    {
+      "path": "source/crates/weft-databricks/src/lib.rs",
+      "sha256": "5e29b549b07cadbcbc7dc94a501d8bf4fe96dd045014021d63e8ec772ec58bbc"
+    },
+    {
+      "path": "source/crates/weft-python/Cargo.toml",
+      "sha256": "8f2ac232e23812e2156f57a031e75c55567e8ecdcc13a00a1a83d1e0a535862d"
+    },
+    {
+      "path": "source/crates/weft-runtime/Cargo.toml",
+      "sha256": "e081b736d099553423369c74a38a69463e33a4a8b86315b99ce23638f1c21c08"
+    },
+    {
+      "path": "source/crates/weft-runtime/src/lib.rs",
+      "sha256": "6a44929970d1979191ba2c6b9153a9ae23526a79f2770156e7d1b072c4c9175a"
+    },
+    {
+      "path": "source/crates/weft-wasm/Cargo.toml",
+      "sha256": "f89fb6410574f9966ae10097b1865fad652955b1ac17e9af29dca523477579d1"
+    },
+    {
+      "path": "source/docs/helix/02-design/contracts/exact-arithmetic-v0.3.md",
+      "sha256": "ad82c7f67cfee7885cd6b592eacc688c5166ec18bb7e68a18eb3c295d0881157"
+    },
+    {
+      "path": "source/docs/helix/02-design/contracts/logical-plan-v0.3.schema.json",
+      "sha256": "f4808c97772ff53eda4cbacf2fa0c1b609b4a3af65bacb1471c669ea51a431aa"
+    },
+    {
+      "path": "source/tests/ashlar-databricks/compiler.rs",
+      "sha256": "f4fb0e40357a183d5deea48775f7d672c2b6873dc72f30bd8875f0d39ec1a0df"
+    },
+    {
+      "path": "wasm/weft_wasm.d.ts",
+      "sha256": "6fbf4309fbc1465604c02d59cddae80271e1adfc4fce94356c8bfa28787b1b8c"
+    },
+    {
+      "path": "wasm/weft_wasm.js",
+      "sha256": "48f2597d68d0045818b5d7bc5d0d65cf8b3f365599d05932f62864ac23e3ea66"
+    },
+    {
+      "path": "wasm/weft_wasm_bg.wasm",
+      "sha256": "201e51fc6ee4e58a9a1d0e890752088f1928852736698a89c822ac719df4c8e5"
+    },
+    {
+      "path": "wasm/weft_wasm_bg.wasm.d.ts",
+      "sha256": "bb600deaf3d9ced4a6a741f5079ca1485dd1c7225ed87f84d3b06fa7951eea28"
+    },
+    {
+      "path": "weft-runtime",
+      "sha256": "8e2ce68b9482bc0c2bb7782e25879859f8d1d03843d5378a038d804f3e4f603b"
+    },
+    {
+      "path": "wheel/weft_sql-0.1.0-cp39-abi3-macosx_11_0_arm64.whl",
+      "sha256": "c9eb4a31f529dee60ee084cd2b79e7403cf9b4ce0392a0d9ba14719f5e975e63"
+    },
+    {
+      "path": "wrapper.js",
+      "sha256": "a1ab5c00b11d7b615330b29c567f05ce5a2666ec2c542935cce0b08cba48a6db"
+    }
+  ]
+}

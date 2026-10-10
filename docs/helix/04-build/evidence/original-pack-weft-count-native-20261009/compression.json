@@ -1,0 +1,12 @@
+[
+  {
+    "file": "native/report.json.gz",
+    "originalBytes": 19566809,
+    "originalSha256": "1f00fde06040a47ff1756cf93871666c61c6073e4bbfd3977e2f6abb118aa355"
+  },
+  {
+    "file": "original-publication/report.json.gz",
+    "originalBytes": 1704479,
+    "originalSha256": "514958f24739e08885dade12d2a22e51e1f679c27336dccb7a53965b520b0083"
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "ashlarRevision": "3e58e63fe03e3725d2b62272d7f45759147dc396",
+  "compilerSourceManifestSha256": "eee3a15b2d9f0b4fff01925135b0d27e1c7f2040d99b853d29e7d514ceacda55",
+  "immutableCompilerPath": "/private/tmp/ashlar-weft-count-in-source-20261009-c/weft-runtime",
+  "immutableCompilerSha256": "8e2ce68b9482bc0c2bb7782e25879859f8d1d03843d5378a038d804f3e4f603b",
+  "reviewedCountHostRevision": "f7624d5b1f1387bc215641032119883592103e5a",
+  "runtime": "Spark4.0.1/Delta4.0.0; exact existing runtime/JAR receipts under original-pack-weft-null-native-20261009",
+  "scope": "Original connected-measurements and four finite original-data read-only controls only; no nullable COUNT/HAVING/native capacity failure qualification",
+  "weftRevision": "320a7a20d508000583c133badce9bfc151f3f72e"
+}
