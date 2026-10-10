@@ -1,0 +1,33 @@
+{
+  "compilerSha256": "8946ada68a7132a2ba6c1abdc1c9a0e904922cb1dce2c500922cb0dd0a96562b",
+  "files": [
+    {
+      "bytes": 167154,
+      "decodedBytes": 2591912,
+      "decodedSha256": "376c29438acc7fc9fd150716f2ff5845b391a1818ae2c029d803a1f134f61ca9",
+      "encoding": "gzip-single-member",
+      "path": "original-lowering-artifacts.jsonl.gz",
+      "sha256": "32d644bfff0def76c45a241e7904b23829969af928037a96226c40b4940969f4"
+    },
+    {
+      "bytes": 229730,
+      "decodedBytes": 5181976,
+      "decodedSha256": "6e38829d2dd0876e352d837407f17e1811976e4d260d3c00c674bebea867bff1",
+      "encoding": "gzip-single-member",
+      "path": "retained-exact-case-pairs.jsonl.gz",
+      "sha256": "eea7a3ae2ddc478ffb9681633028271144f4ff7fabff6288337426ebc265fe06"
+    }
+  ],
+  "format": "weft-path-corpus-inputs/0.1",
+  "observations": 21,
+  "originalCapturesPath": "/private/tmp/weft-path-lowering-artifacts-20261010-b.jsonl",
+  "originalCapturesSha256": "376c29438acc7fc9fd150716f2ff5845b391a1818ae2c029d803a1f134f61ca9",
+  "sameBinaryReplay": {
+    "path": "../weft-path-native-compiler-20261010/native-cli-replay.json",
+    "sha256": "7ad78f27e4f7eb7b0a506012cd001833b9e852a0e0c85f81ca352d063a246154"
+  },
+  "scope": "Exact pre-existing source-case and same-binary replay correspondence retained as corpus inputs. Source/expected acceptance review pending; this is not full48-capability corpus, new qualification, indexed installation, native runtime or production support.",
+  "serializer": "Original retained object order; UTF-8 JSON ensure_ascii=False,separators=(comma,colon); requests without newline, expected CLI responses with one LF. All21 reconstructed request bytes match independently retained request SHA/length; all21 expected bytes match retained stdout exactly. During this archive-retention operation, no executable was invoked: expected-response candidate bytes were reconstructed from the pre-existing compiler-generated lowering capture and checked against the retained c6 CLI replay. Independent source/expected acceptance remains pending.",
+  "sourceCommit": "c6fe2a6e9513f51b3e0c9e653c54e6746c4ed6fc",
+  "uniqueRequests": 19
+}

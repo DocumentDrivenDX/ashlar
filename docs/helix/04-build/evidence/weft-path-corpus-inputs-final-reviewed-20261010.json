@@ -1,0 +1,31 @@
+{
+  "verdict": "Approved final manifest wording and exact retained input copies; retention/correspondence only",
+  "manifest": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/weft-path-corpus-inputs-20261010/manifest.json",
+    "sha256": "6c8697260d7d3c71e926bf21f411b58e742064f7203925cb79773d8f309b67aa",
+    "bytes": 2154
+  },
+  "unchangedCompressedFiles": [
+    {
+      "bytes": 167154,
+      "decodedBytes": 2591912,
+      "decodedSha256": "376c29438acc7fc9fd150716f2ff5845b391a1818ae2c029d803a1f134f61ca9",
+      "encoding": "gzip-single-member",
+      "path": "original-lowering-artifacts.jsonl.gz",
+      "sha256": "32d644bfff0def76c45a241e7904b23829969af928037a96226c40b4940969f4"
+    },
+    {
+      "bytes": 229730,
+      "decodedBytes": 5181976,
+      "decodedSha256": "6e38829d2dd0876e352d837407f17e1811976e4d260d3c00c674bebea867bff1",
+      "encoding": "gzip-single-member",
+      "path": "retained-exact-case-pairs.jsonl.gz",
+      "sha256": "eea7a3ae2ddc478ffb9681633028271144f4ff7fabff6288337426ebc265fe06"
+    }
+  ],
+  "priorIndependentCopyReview": {
+    "path": "/private/tmp/astra-path-corpus-inputs-copy-review-20261010-a.json",
+    "sha256": "da564f22d7e74dc233536472556e553220abe9087ae8614dd392871dd228c8e2"
+  },
+  "scope": "21historical compiler-generated observations/19unique requests retained; exact originalserialization and same-binaryreplay correspondence verified, no fresh executable invocation. These are expected-response candidates, not independently admitted semantic oracle or full48capability conformance. No source/expectedacceptance or distribution/index/native expansion approval."
+}
