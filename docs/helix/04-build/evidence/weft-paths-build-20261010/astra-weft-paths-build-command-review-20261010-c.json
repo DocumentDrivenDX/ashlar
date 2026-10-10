@@ -1,0 +1,71 @@
+{
+  "command": {
+    "bytes": 7712,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/command-c.json",
+    "sha256": "d7bec02e48c77842db160d3c34081a432e9a00b867d8547df11dd0de0dc45fa0"
+  },
+  "configuration": {
+    "commandDeadlineSeconds": 1800,
+    "completeChildEnvironment": true,
+    "explicitTarget": "aarch64-apple-darwin",
+    "homeNotRepurposed": true,
+    "offlineLocked": true,
+    "selectedBinary": "weft-paths",
+    "selectedFeature": "ashlar-databricks-paths",
+    "singleCargoJob": true,
+    "streamLimitBytes": 16777216
+  },
+  "executionConditions": [
+    "Root reserves sole cooperating build access to shared target through retained executable copy and hashing.",
+    "Repeat pinned opening verification immediately before each phase. Successful launcher path repeats all resources and source verification; timeout/cancellation/other exceptions require root to retain failure outcome and separately repeat closing verification.",
+    "Retain exact command, environment, raw streams, exit result, fresh binary digest/length and actual format/platform observations; independently validate full emitted metadata schema before making any result claim."
+  ],
+  "freeze": {
+    "bytes": 654,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/freeze-c.json",
+    "sha256": "e754d36ec7629cd299a7dee1df07defbd4739cacb03f491b3e34b1a75abdea6d"
+  },
+  "fullSourceVectorReverifiedByPinnedLauncher": true,
+  "helixScope": "Owned source/exporter boundary, explicit bounded injected configuration, payload-free fixed transport failure messages plus private raw build logs; no OpenTelemetry receiver or formal/native proof inferred.",
+  "independentControlledProcessChecks": [
+    "Complete explicit child environment excludes a parent-only variable",
+    "Exact independent stdout and stderr byte limits succeed without alteration",
+    "One extra stderr byte refuses the whole capture",
+    "Live leader with both streams closed still obeys the whole deadline",
+    "Original cancellation identity survives simultaneous selector cleanup failure",
+    "Existing output refuses before process creation and preserves prior bytes"
+  ],
+  "launcher": {
+    "bytes": 5591,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/launch-reviewed-build.py",
+    "sha256": "85fcbea3548b8e909e64869558bca2c6002c319378624ecd39c671e37bee52ca"
+  },
+  "limits": [
+    "Reused Cargo dependency/target caches and full SDK/dynamic loader closure are not inventoried; no hermetic or deterministic build claim.",
+    "Clang/ld/SDKSettings descriptors identify observed tools, not proof those linker entrypoints were invoked.",
+    "Pinned local files and no concurrent interfering writer are explicit execution assumptions.",
+    "No actual Weft compiler, Cargo/Rust build, database engine, package registration, corpus qualification or native query was executed by this review."
+  ],
+  "metadataScope": "Separate source-owned Backend03 Registry.register(Paths) probe against the exact exported source, expected 47 capability declarations; actual metadata/schema result and produced executable remain future evidence. Not executable self-description.",
+  "ownedLauncherTests": {
+    "resourceWarnings": "errors",
+    "result": "PASS",
+    "runtime": "3.9.6",
+    "tests": 4
+  },
+  "resourceDescriptorsRehashed": 13,
+  "script": {
+    "bytes": 7041,
+    "path": "/private/tmp/astra-weft-paths-build-command-review-20261010-c.py",
+    "sha256": "e27b665cf196e6f7a50c74bff5f7948a9db59cf66c0a2e6d435a845329f1c9cc"
+  },
+  "sourceBytes": 267288896,
+  "sourceCommit": "530ae3511a4a50364d3d7e26195d3883952601df",
+  "sourceExportReview": {
+    "bytes": 3020,
+    "path": "/private/tmp/astra-weft-paths-530ae35-source-export-review-20261010-a.json",
+    "sha256": "2443665fded5c3fdfa458bf6d58d99129d41b7ea066fa4ea99170ab99c56d2b5"
+  },
+  "sourceFiles": 1842,
+  "verdict": "Approved exact command C for root-controlled local offline cached build and separate source-owned metadata probe; no build performed during review"
+}

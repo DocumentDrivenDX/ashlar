@@ -1,0 +1,52 @@
+{
+  "actualReadOnlyBinaryObservation": {
+    "buildVersionLoadCommand": "cmdsize 32\n platform 1\n    minos 11.0\n      sdk 27.0\n   ntools 1\n     tool 3\n  version 27037.1",
+    "file": "/private/tmp/weft-paths-530ae35-build-20261010-a/weft-paths: Mach-O 64-bit executable arm64",
+    "retainedFilePermissions": "0555"
+  },
+  "binary": {
+    "bytes": 8273840,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/weft-paths",
+    "sha256": "71ba88a07c27661413830d5a42e2ea5c4a8b071df965bb98dbbe8f3615a6c911"
+  },
+  "command": {
+    "bytes": 7712,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/command-c.json",
+    "sha256": "d7bec02e48c77842db160d3c34081a432e9a00b867d8547df11dd0de0dc45fa0"
+  },
+  "independentClosingRecheck": {
+    "selectedResources": 13,
+    "shaModeGitBlobAndExactPathset": true,
+    "sourceBytes": 267288896,
+    "sourceFiles": 1842
+  },
+  "launchReview": {
+    "bytes": 4026,
+    "path": "/private/tmp/astra-weft-paths-build-command-review-20261010-c.json",
+    "sha256": "d21007e258d578dadf630ec0f3c310a49fb1242da3b945b6dde6e852cbf20bf2"
+  },
+  "limits": [
+    "No Weft binary was invoked during this review. No corpus, expected-response, native query, metadata-result, index or installer qualification is established.",
+    "Cached dependency/target/SDK/dynamic-loader limitations of command review remain unchanged.",
+    "Metadata build is separately active; this review did not use Cargo or touch target artifacts."
+  ],
+  "outcome": {
+    "bytes": 437,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/cli-build-outcome.json",
+    "sha256": "5b6112ae8f11efdfb05b2ee665d7317ea42324ae3b263032f9bbfff63454fe83"
+  },
+  "streams": [
+    {
+      "bytes": 0,
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/cli-build.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "bytes": 7450,
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/cli-build.log.stderr",
+      "sha256": "6d1ca7e8f95c82ebe9a376b3a13f7faff9d9935b0141021b9f26366227fd2870"
+    }
+  ],
+  "terminalEvidence": "Root observed own build process terminal exit0; exact launcher outcome confirms exit0. Raw stderr names exact exported core/databricks/runtime crate paths and release completion in1m44s; compiler warnings retained unmodified.",
+  "verdict": "Approved exact retained local build outcome correspondence, not compiler behavior or distribution admission"
+}

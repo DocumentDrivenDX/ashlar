@@ -1,0 +1,211 @@
+{
+  "format": "weft-paths-build-evidence/0.1",
+  "scope": "Actual committed530ae35 source export, sanitized offline single-job compiler build and source-owned47-capability metadata shape; no corpus semantic qualification, index admission, installed release or native query support. Exact selected archive; full source/runtime/cache/SDK/binary are externally retained hash-bound inputs, not repository-contained hermetic bundle.",
+  "sourceCommit": "530ae3511a4a50364d3d7e26195d3883952601df",
+  "binary": {
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/weft-paths",
+    "bytes": 8273840,
+    "sha256": "71ba88a07c27661413830d5a42e2ea5c4a8b071df965bb98dbbe8f3615a6c911",
+    "retainedInArchive": false
+  },
+  "files": [
+    {
+      "path": "command.json",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/command.json",
+      "encoding": "identity",
+      "bytes": 7120,
+      "sha256": "ffbf6c3014da5e258aa7ca59a5ac24c9b3d0642ab394c9ab87a565683eae5269",
+      "originalBytes": 7120,
+      "originalSha256": "ffbf6c3014da5e258aa7ca59a5ac24c9b3d0642ab394c9ab87a565683eae5269"
+    },
+    {
+      "path": "command-b.json",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/command-b.json",
+      "encoding": "identity",
+      "bytes": 7715,
+      "sha256": "ae920a56e603db1e7530289f92ed54c4e94e53d7aee46c5479b64a867b239d88",
+      "originalBytes": 7715,
+      "originalSha256": "ae920a56e603db1e7530289f92ed54c4e94e53d7aee46c5479b64a867b239d88"
+    },
+    {
+      "path": "command-c.json",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/command-c.json",
+      "encoding": "identity",
+      "bytes": 7712,
+      "sha256": "d7bec02e48c77842db160d3c34081a432e9a00b867d8547df11dd0de0dc45fa0",
+      "originalBytes": 7712,
+      "originalSha256": "d7bec02e48c77842db160d3c34081a432e9a00b867d8547df11dd0de0dc45fa0"
+    },
+    {
+      "path": "freeze-b.json",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/freeze-b.json",
+      "encoding": "identity",
+      "bytes": 741,
+      "sha256": "924257f9cc1662fd0c28b932f6908882fcc8c417794ed461bee1f232d455bf84",
+      "originalBytes": 741,
+      "originalSha256": "924257f9cc1662fd0c28b932f6908882fcc8c417794ed461bee1f232d455bf84"
+    },
+    {
+      "path": "freeze-c.json",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/freeze-c.json",
+      "encoding": "identity",
+      "bytes": 654,
+      "sha256": "e754d36ec7629cd299a7dee1df07defbd4739cacb03f491b3e34b1a75abdea6d",
+      "originalBytes": 654,
+      "originalSha256": "e754d36ec7629cd299a7dee1df07defbd4739cacb03f491b3e34b1a75abdea6d"
+    },
+    {
+      "path": "launch-reviewed-build.py",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/launch-reviewed-build.py",
+      "encoding": "identity",
+      "bytes": 5591,
+      "sha256": "85fcbea3548b8e909e64869558bca2c6002c319378624ecd39c671e37bee52ca",
+      "originalBytes": 5591,
+      "originalSha256": "85fcbea3548b8e909e64869558bca2c6002c319378624ecd39c671e37bee52ca"
+    },
+    {
+      "path": "test_launcher.py",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/test_launcher.py",
+      "encoding": "identity",
+      "bytes": 1593,
+      "sha256": "7cced16ae1b6b3780516de77ba135c953aeaab861c4b51643258a7eb22b9106b",
+      "originalBytes": 1593,
+      "originalSha256": "7cced16ae1b6b3780516de77ba135c953aeaab861c4b51643258a7eb22b9106b"
+    },
+    {
+      "path": "cli-build.log",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/cli-build.log",
+      "encoding": "identity",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "originalBytes": 0,
+      "originalSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "cli-build.log.stderr",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/cli-build.log.stderr",
+      "encoding": "identity",
+      "bytes": 7450,
+      "sha256": "6d1ca7e8f95c82ebe9a376b3a13f7faff9d9935b0141021b9f26366227fd2870",
+      "originalBytes": 7450,
+      "originalSha256": "6d1ca7e8f95c82ebe9a376b3a13f7faff9d9935b0141021b9f26366227fd2870"
+    },
+    {
+      "path": "cli-build-outcome.json",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/cli-build-outcome.json",
+      "encoding": "identity",
+      "bytes": 437,
+      "sha256": "5b6112ae8f11efdfb05b2ee665d7317ea42324ae3b263032f9bbfff63454fe83",
+      "originalBytes": 437,
+      "originalSha256": "5b6112ae8f11efdfb05b2ee665d7317ea42324ae3b263032f9bbfff63454fe83"
+    },
+    {
+      "path": "metadata-build.log",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/metadata-build.log",
+      "encoding": "identity",
+      "bytes": 6364,
+      "sha256": "ea3b606b2ca1c1627357638dd226c438fd1faf4a522d2e119cd0a5273dfae9c1",
+      "originalBytes": 6364,
+      "originalSha256": "ea3b606b2ca1c1627357638dd226c438fd1faf4a522d2e119cd0a5273dfae9c1"
+    },
+    {
+      "path": "metadata-build-outcome.json",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/metadata-build-outcome.json",
+      "encoding": "identity",
+      "bytes": 250,
+      "sha256": "31abfb03a83225abe86aa3a778d2298240b0260697bfca966160766c6c664f53",
+      "originalBytes": 250,
+      "originalSha256": "31abfb03a83225abe86aa3a778d2298240b0260697bfca966160766c6c664f53"
+    },
+    {
+      "path": "backend-manifest.json",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/backend-manifest.json",
+      "encoding": "identity",
+      "bytes": 51125,
+      "sha256": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5",
+      "originalBytes": 51125,
+      "originalSha256": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5"
+    },
+    {
+      "path": "metadata-schema-checks.json",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/metadata-schema-checks.json",
+      "encoding": "identity",
+      "bytes": 1741,
+      "sha256": "ede0896b72cd701877708d0325c764c4d5c94600ba2f17f88cac49d1790381f5",
+      "originalBytes": 1741,
+      "originalSha256": "ede0896b72cd701877708d0325c764c4d5c94600ba2f17f88cac49d1790381f5"
+    },
+    {
+      "path": "metadata-probe/Cargo.toml",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/metadata-probe/Cargo.toml",
+      "encoding": "identity",
+      "bytes": 523,
+      "sha256": "d5a0bca053f8511e193f98e50dcaeef3d1e69c72e33b364f89a341ee072f8e45",
+      "originalBytes": 523,
+      "originalSha256": "d5a0bca053f8511e193f98e50dcaeef3d1e69c72e33b364f89a341ee072f8e45"
+    },
+    {
+      "path": "metadata-probe/Cargo.lock",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/metadata-probe/Cargo.lock",
+      "encoding": "identity",
+      "bytes": 22711,
+      "sha256": "ead5d49041cb9990d7ef05f302f2ba7b84301463d8d447f2eba9ac613813ad4e",
+      "originalBytes": 22711,
+      "originalSha256": "ead5d49041cb9990d7ef05f302f2ba7b84301463d8d447f2eba9ac613813ad4e"
+    },
+    {
+      "path": "metadata-probe/src/main.rs",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/metadata-probe/src/main.rs",
+      "encoding": "identity",
+      "bytes": 556,
+      "sha256": "4d9141327cac82550a662043cbf371b4ee3a20336fca776dcd77d94219ca2964",
+      "originalBytes": 556,
+      "originalSha256": "4d9141327cac82550a662043cbf371b4ee3a20336fca776dcd77d94219ca2964"
+    },
+    {
+      "path": "source-inventory.json.gz",
+      "originalPath": "/private/tmp/weft-paths-530ae35-build-20261010-a/source-inventory.json",
+      "encoding": "gzip-single-member",
+      "bytes": 140992,
+      "sha256": "26a7161b60156fac6543619cc7a13467f77cd68b6b45997fa4d379bbdc071af0",
+      "originalBytes": 528773,
+      "originalSha256": "2a1eed46946a4d623f2f8abc7e7592e6d74e3964585ce1c500600a7ea62d6896"
+    },
+    {
+      "path": "astra-weft-paths-530ae35-source-export-review-20261010-a.json",
+      "originalPath": "/private/tmp/astra-weft-paths-530ae35-source-export-review-20261010-a.json",
+      "encoding": "identity",
+      "bytes": 3020,
+      "sha256": "2443665fded5c3fdfa458bf6d58d99129d41b7ea066fa4ea99170ab99c56d2b5",
+      "originalBytes": 3020,
+      "originalSha256": "2443665fded5c3fdfa458bf6d58d99129d41b7ea066fa4ea99170ab99c56d2b5"
+    },
+    {
+      "path": "astra-weft-paths-build-command-review-20261010-c.json",
+      "originalPath": "/private/tmp/astra-weft-paths-build-command-review-20261010-c.json",
+      "encoding": "identity",
+      "bytes": 4026,
+      "sha256": "d21007e258d578dadf630ec0f3c310a49fb1242da3b945b6dde6e852cbf20bf2",
+      "originalBytes": 4026,
+      "originalSha256": "d21007e258d578dadf630ec0f3c310a49fb1242da3b945b6dde6e852cbf20bf2"
+    },
+    {
+      "path": "astra-weft-paths-530ae35-cli-build-review-20261010-a.json",
+      "originalPath": "/private/tmp/astra-weft-paths-530ae35-cli-build-review-20261010-a.json",
+      "encoding": "identity",
+      "bytes": 2474,
+      "sha256": "3555fdbbe406bdc08ebdc5c6970361afdca4519725df9c03946a13f6e69bf741",
+      "originalBytes": 2474,
+      "originalSha256": "3555fdbbe406bdc08ebdc5c6970361afdca4519725df9c03946a13f6e69bf741"
+    },
+    {
+      "path": "astra-weft-paths-530ae35-metadata-review-20261010-a.json",
+      "originalPath": "/private/tmp/astra-weft-paths-530ae35-metadata-review-20261010-a.json",
+      "encoding": "identity",
+      "bytes": 2221,
+      "sha256": "ce46dda95849c06a48a1d8104c48d62c199d482fc5062067722ca89943896852",
+      "originalBytes": 2221,
+      "originalSha256": "ce46dda95849c06a48a1d8104c48d62c199d482fc5062067722ca89943896852"
+    }
+  ]
+}

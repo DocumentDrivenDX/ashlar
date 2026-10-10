@@ -1,0 +1,21 @@
+{
+  "status": "source-only; no build executed",
+  "files": [
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/command-b.json",
+      "sha256": "ae920a56e603db1e7530289f92ed54c4e94e53d7aee46c5479b64a867b239d88",
+      "bytes": 7715
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/launch-reviewed-build.py",
+      "sha256": "85fcbea3548b8e909e64869558bca2c6002c319378624ecd39c671e37bee52ca",
+      "bytes": 5591
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/test_launcher.py",
+      "sha256": "7cced16ae1b6b3780516de77ba135c953aeaab861c4b51643258a7eb22b9106b",
+      "bytes": 1593
+    }
+  ],
+  "tests": "four controlled fake-process tests passed; no compiler"
+}

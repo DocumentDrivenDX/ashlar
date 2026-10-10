@@ -1,0 +1,49 @@
+{
+  "buildLog": {
+    "bytes": 6364,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/metadata-build.log",
+    "sha256": "ea3b606b2ca1c1627357638dd226c438fd1faf4a522d2e119cd0a5273dfae9c1"
+  },
+  "checks": {
+    "actualSchema": "Draft202012Validator offline no retrieval",
+    "exact47IdsMatchSourceOrder": true,
+    "negativeControls": [
+      "wrong interface",
+      "extra trust field",
+      "nested old language"
+    ],
+    "old48ManifestDiff": "Exactly removal of key.uniqueStable entry; every other parsed field unchanged"
+  },
+  "command": {
+    "bytes": 7712,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/command-c.json",
+    "sha256": "d7bec02e48c77842db160d3c34081a432e9a00b867d8547df11dd0de0dc45fa0"
+  },
+  "exporter": {
+    "bytes": 556,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/metadata-probe/src/main.rs",
+    "sha256": "4d9141327cac82550a662043cbf371b4ee3a20336fca776dcd77d94219ca2964"
+  },
+  "limits": [
+    "Source-owned public Registry03 probe is separate from the produced CLI; not executable self-description.",
+    "47 declarations are structurally and source-correspondence checked, not 47 semantic conformance proofs.",
+    "Cached build/nonhermetic source and platform limitations remain explicit. No Weft compiler invocation or native engine by reviewer."
+  ],
+  "metadata": {
+    "bytes": 51125,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/backend-manifest.json",
+    "sha256": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5"
+  },
+  "outcome": {
+    "bytes": 250,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/metadata-build-outcome.json",
+    "sha256": "31abfb03a83225abe86aa3a778d2298240b0260697bfca966160766c6c664f53"
+  },
+  "schema": {
+    "bytes": 18066,
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/docs/helix/02-design/contracts/backend-manifest-v0.3.schema.json",
+    "sha256": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a"
+  },
+  "sourceCommit": "530ae3511a4a50364d3d7e26195d3883952601df",
+  "verdict": "Approved exact source-owned metadata build outcome and closed manifest shape correspondence; no behavior/qualification admission"
+}

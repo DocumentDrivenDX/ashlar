@@ -1,0 +1,59 @@
+{
+  "verdict": "Approved scoped exact source export/Git inventory correspondence for reviewed build plan; no build executed.",
+  "command": {
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/command.json",
+    "sha256": "ffbf6c3014da5e258aa7ca59a5ac24c9b3d0642ab394c9ab87a565683eae5269",
+    "bytes": 7120
+  },
+  "source": {
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source",
+    "commit": "530ae3511a4a50364d3d7e26195d3883952601df",
+    "files": 1842,
+    "bytes": 267288896,
+    "maxFileBytes": 18379449,
+    "exactGitPathsetModesBlobsSha256Lengths": true,
+    "exactDirectorySet": true,
+    "directories": 335,
+    "fileGitModes": {
+      "100644": 1834,
+      "100755": 8
+    },
+    "allFilesAndDirectoriesHaveNoWriteBits": true,
+    "permissionNote": "POSIX 0444/0555 observation, not an immutable filesystem or protection against the owner changing permissions."
+  },
+  "inventory": {
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source-inventory.json",
+    "sha256": "2a1eed46946a4d623f2f8abc7e7592e6d74e3964585ce1c500600a7ea62d6896",
+    "bytes": 528773,
+    "closedShapeSortedUniquePaths": true
+  },
+  "foreignWorktreeChange": {
+    "path": "tests/ashlar-databricks/common.rs",
+    "worktreeSha256": "ede8d95c6407d36ad593b7a64bec47daf0042639bfbd36998df98702244fe8f6",
+    "exportSha256": "7a64e7de0b7bd672cafc98e39ff4d8bd8f6fab11a20d47f46a6d84ce48d3f425",
+    "exportEqualsPinnedGitBlob": "cae788a236a0e4fa3a55d512c579d1952c9ad3db",
+    "dirtyBytesExcluded": true,
+    "diffSha256": "00134a780b2ad629cc531cd4a5cde6f2541471e1bf9ebf0beeb867859038a465",
+    "scope": "Observed formatting diff left untouched; Git export uses committed contents."
+  },
+  "historicalSelectedPins": {
+    "sourceCommit": "c6fe2a6e9513f51b3e0c9e653c54e6746c4ed6fc",
+    "sourceInventorySha256": "7e33db2f6f37b23ab1963fabb84868e7592975243ceba96884c619c6f9bfdec8",
+    "sourceInventoryFiles": 1839,
+    "binarySha256": "8946ada68a7132a2ba6c1abdc1c9a0e904922cb1dce2c500922cb0dd0a96562b",
+    "binaryBytes": 8274496,
+    "freshSourceAndRetainedBinaryPathsSeparate": true,
+    "limits": "Historical full source tree not redundantly rescanned; pinned historical inventory and executable verified. No c6 result/native qualification transferred to new source."
+  },
+  "plannedOutputPathsStillAbsent": true,
+  "commandAndInventoryUnchangedAtClose": true,
+  "scope": "Read-only Git ls-tree/show/diff and bounded file hashing only. All 1842 export files independently verified. No Cargo/Rust/Weft compiler/build/engine execution or source/permission mutation. Parent owns command/toolchain/resources/probe/build approval. Full dependency/SDK closure and deterministic builds are not inferred.",
+  "runtime": {
+    "python": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "version": "3.9.6"
+  },
+  "script": {
+    "path": "/private/tmp/astra-weft-paths-530ae35-source-export-review-20261010-a.py",
+    "sha256": "991c42201d816f92f234616a284a9c01694b8f4b90dc3d022e166af27405235a"
+  }
+}

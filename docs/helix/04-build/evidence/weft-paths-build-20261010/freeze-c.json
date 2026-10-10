@@ -1,0 +1,20 @@
+{
+  "status": "not executed",
+  "files": [
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/command-c.json",
+      "sha256": "d7bec02e48c77842db160d3c34081a432e9a00b867d8547df11dd0de0dc45fa0",
+      "bytes": 7712
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/launch-reviewed-build.py",
+      "sha256": "85fcbea3548b8e909e64869558bca2c6002c319378624ecd39c671e37bee52ca",
+      "bytes": 5591
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/test_launcher.py",
+      "sha256": "7cced16ae1b6b3780516de77ba135c953aeaab861c4b51643258a7eb22b9106b",
+      "bytes": 1593
+    }
+  ]
+}
