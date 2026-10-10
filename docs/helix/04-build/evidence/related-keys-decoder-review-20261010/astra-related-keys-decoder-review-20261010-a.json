@@ -1,0 +1,103 @@
+{
+  "format": "astra-related-keys-decoder-source-review/0.1",
+  "verdict": "approved exact B three-file pure decoder source/test/CI slice for landing",
+  "freeze": {
+    "path": "/private/tmp/ashlar-related-keys-decoder-freeze-20261010-b/manifest.json",
+    "sha256": "7496278a6174937044ab6f613c65c6f913bf96f6fa37cd88ffdcc87887825c7b",
+    "bytes": 833
+  },
+  "governingCommit": "4f65a8e76441ab5eaa1959609eca8b080e99505f",
+  "files": [
+    {
+      "path": "src/ashlar/weft_related_keys_decode.py",
+      "bytes": 6711,
+      "sha256": "7caee613cfba191f067816411a9aaef9eabd115fb65537b4484d80eb7a05a61a"
+    },
+    {
+      "path": "tests/test_weft_related_keys_decode.py",
+      "bytes": 7523,
+      "sha256": "754efde4c9ac99d05ca94cc358a39d8c596da131d63de30f31eb75b14d7b2dda"
+    },
+    {
+      "path": ".github/workflows/module-boundaries.yml",
+      "bytes": 1787,
+      "sha256": "b0069cb311d9dad07a233fe4bca9006924ca0e2cfe1befde5c007a8072b9ca6b"
+    }
+  ],
+  "findings": [],
+  "resolvedFinding": "A public raw/model_pins parameters and __post_init__ return lacked required annotations. B adds only Python3.9-compatible standard-library typing annotations/import; normalized AST behavior equals A. Existing tests/CI bytes are unchanged.",
+  "review": {
+    "metadata": "Closed exact built-in dictionaries/lists, complete nonempty identities/pins, supported exact UMF0.7.0/0.8.0 pins and SHA shape, same original document/revision, distinct ordered key Fields and facetless required String types. Cross-module Fields within same original document/revision remain allowed. Full authored membership/terminal/source authority is explicitly prior host admission, not inferred here.",
+    "boundedInput": "Required frozen config exact int1..16MiB excludes Boolean; UTF8 string bytes counted before encoding, immutable bytes bounded before parsing. Numeric parser callbacks reject before numeric conversion, recursive malformed carrier refuses. Metadata bounds remain caller admission responsibility as module documents.",
+    "carrier": "Closed items/truncated only; exact String atoms/arity/Unicode/NUL rules; nondecreasing complete tuple order agrees with valid Unicode UTF8 binary order. Equal tuple occurrences preserved without normalization, sorting or deduplication. Items<=bound, true marker requires full prefix; exact-bound false/true both structurally admitted because full-bag truth is external.",
+    "custody": "Only validated primitive bound/arity retained before JSON parsing. Result retains immutable original bytes and nested tuple/String values; no mutable descriptor/carrier aliases escape.",
+    "privacyAndCancellation": "Refusal strings are fixed payload-free categories. UTF8/decode errors suppress raw parser context in emitted traceback. Only specific decode errors are caught; BaseException cancellation is not converted.",
+    "ownership": "Pure portable module imports only dataclasses/json/re/typing, no SDK/host/tool discovery or effects. API and immutable result/config types match governed decoder role.",
+    "ci": "Exact one-line discovery added to existing module-boundaries Python3.12 job; strict ResourceWarning, SDK-free stdlib controls. Existing workflow otherwise byte-equivalent."
+  },
+  "verification": {
+    "runtime": "Python3.9.6",
+    "ownerControls": {
+      "command": "env PYTHONPATH=src python3 -B -S -W error::ResourceWarning -m unittest discover -s tests -p test_weft_related_keys_decode.py -v",
+      "passed": 8,
+      "log": {
+        "path": "/private/tmp/astra-related-keys-owner-tests-20261010-b.log",
+        "sha256": "be359233c5693cb585b8c58b5700f3b8d1e4fce09c1c0be2961eac4744d85e92",
+        "bytes": 1051
+      }
+    },
+    "independentControls": {
+      "command": "env PYTHONPATH=src python3 -B -S -W error::ResourceWarning /private/tmp/astra-related-keys-probe-20261010-a.py",
+      "passed": 7,
+      "script": {
+        "path": "/private/tmp/astra-related-keys-probe-20261010-a.py",
+        "sha256": "74541740bdefd708ca997043ce02f37b7ef0a77c96f98f8bd8a9c5fc4d28ef6f",
+        "bytes": 4868
+      },
+      "log": {
+        "path": "/private/tmp/astra-related-keys-probe-20261010-b.log",
+        "sha256": "0db137997b547ff9f960c32db633d42e58860d16c2d25fc015a812ff85e42a2a",
+        "bytes": 588
+      },
+      "coverage": [
+        "every nested metadata extra/missing-member refusal",
+        "empty/NUL/surrogate identities and stale/version/hash pin refusals; crossmodule Field positive",
+        "UTF8 binary Unicode order and no normalization; supplementary-plane order control",
+        "100000-digit numeric callback refusal before int conversion; deep malformed JSON",
+        "bound1000, exact UTF8 byte cap and both exactbound marker shapes",
+        "descriptor mutation injected during parsing cannot change snapshotted primitive admission",
+        "UTF16/32/BOM/invalidUTF8 refusals with safe errors; isolated module import loads no Spark/Delta SDK"
+      ]
+    },
+    "actualChecker": {
+      "command": "python3 -B tools/check_module_boundaries.py",
+      "log": {
+        "path": "/private/tmp/astra-related-keys-boundaries-20261010-b.log",
+        "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9",
+        "bytes": 94
+      },
+      "result": "PASS; dynamic imports/type ownership/cycles remain semantic review"
+    },
+    "exactFrozenHashes": true,
+    "diffCheck": true,
+    "annotationNormalizedAstEquivalentToA": true
+  },
+  "independentChild": {
+    "receipt": {
+      "path": "/private/tmp/astra-related-keys-decoder-targeted-review-20261010-b.json",
+      "sha256": "c1fda8bb36d554d5cc50140834638ba1f7df668e4a43ba6f7c0953dfe9d41d5c",
+      "bytes": 2362
+    },
+    "result": "Clean scoped semantic review; 3 positive and18 malformed descriptor/pin/carrier privacy controls passed against exact B. Child original A/live precondition stopped at announced B before execution, then ran exact B successor; no A test pass inferred."
+  },
+  "limits": [
+    "Pure decoder only, not host admission/composition, source validity, original terminal-key membership, native edge tie-break, complete bag/truncation truth, compiler/lowering, package/index trust, or native qualification.",
+    "No actual compiler, installer, SDK/native engine or database executed. No repository source edit or Git mutation by reviewer.",
+    "No whole-process parser-memory/CPU bound, hostile in-process object mutation, OTel receiver, crash durability or mechanical proof claim."
+  ],
+  "priorFreeze": {
+    "path": "/private/tmp/ashlar-related-keys-decoder-freeze-20261010-a/manifest.json",
+    "sha256": "babbc4f0665095076a384377c50b689a86b22d0a8fdbbff20789d4cefd4dec81",
+    "bytes": 737
+  }
+}

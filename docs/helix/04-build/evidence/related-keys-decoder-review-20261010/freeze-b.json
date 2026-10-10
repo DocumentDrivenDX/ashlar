@@ -1,0 +1,23 @@
+{
+  "scope": "Pure decoder source and controls only; no host/native/compiler qualification",
+  "root": "/Users/erik/Projects/ashlar",
+  "governingCommit": "4f65a8e76441ab5eaa1959609eca8b080e99505f",
+  "files": [
+    {
+      "path": "src/ashlar/weft_related_keys_decode.py",
+      "bytes": 6711,
+      "sha256": "7caee613cfba191f067816411a9aaef9eabd115fb65537b4484d80eb7a05a61a"
+    },
+    {
+      "path": "tests/test_weft_related_keys_decode.py",
+      "bytes": 7523,
+      "sha256": "754efde4c9ac99d05ca94cc358a39d8c596da131d63de30f31eb75b14d7b2dda"
+    },
+    {
+      "path": ".github/workflows/module-boundaries.yml",
+      "bytes": 1787,
+      "sha256": "b0069cb311d9dad07a233fe4bca9006924ca0e2cfe1befde5c007a8072b9ca6b"
+    }
+  ],
+  "previousManifestSha256": "babbc4f0665095076a384377c50b689a86b22d0a8fdbbff20789d4cefd4dec81"
+}

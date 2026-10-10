@@ -1,0 +1,49 @@
+{
+  "checks": {
+    "equalOccurrencesAndOriginalBytesRetained": true,
+    "freezeAndLiveFiles": 3,
+    "full1000BoundTrue": true,
+    "independentMalformedControls": 18,
+    "positiveControls": 3,
+    "sourceBytesUnchanged": true,
+    "unicodeScalarVsUTF16Order": true
+  },
+  "files": [
+    {
+      "bytes": 6711,
+      "path": "src/ashlar/weft_related_keys_decode.py",
+      "sha256": "7caee613cfba191f067816411a9aaef9eabd115fb65537b4484d80eb7a05a61a"
+    },
+    {
+      "bytes": 7523,
+      "path": "tests/test_weft_related_keys_decode.py",
+      "sha256": "754efde4c9ac99d05ca94cc358a39d8c596da131d63de30f31eb75b14d7b2dda"
+    },
+    {
+      "bytes": 1787,
+      "path": ".github/workflows/module-boundaries.yml",
+      "sha256": "b0069cb311d9dad07a233fe4bca9006924ca0e2cfe1befde5c007a8072b9ca6b"
+    }
+  ],
+  "format": "astra-related-keys-decoder-targeted-review/0.1",
+  "freeze": {
+    "path": "/private/tmp/ashlar-related-keys-decoder-freeze-20261010-b/manifest.json",
+    "sha256": "7496278a6174937044ab6f613c65c6f913bf96f6fa37cd88ffdcc87887825c7b"
+  },
+  "limits": [
+    "No host/source/native/compiler authority reviewed or granted.",
+    "No full-bag, edge tie-break or truncation truth claim; parent independently reviews full tests/CI/checker.",
+    "No source edits or compiler/native/DB execution."
+  ],
+  "reasoning": [
+    "Metadata names/pins are exact closed primitive values and selected UMF0.7/0.8; relationship and ordered distinct key Fields share admitted document/revision. Target Record/scan/model authority intentionally belongs to prior host admission.",
+    "All key types are required facetless String; empty values allowed, NUL/surrogate and nonString atoms rejected. Python Unicode scalar tuple order matches UTF8 binary order for admitted scalars.",
+    "Closed marker/arity/bound checks preserve duplicates; bound-full marker does not attest full-bag truth; no absence wrapper/edge-token inference.",
+    "Exceptions use constant payload-free messages; no malformed test leaked its sentinel. Metadata resource size remains prior bounded-host-admission precondition."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-related-keys-decoder-targeted-review-20261010-b.py",
+    "sha256": "b3db192fd232105d9650fd81b4253d1cd40800669ebfccdc60a892b08d74cea6"
+  },
+  "verdict": "clean within pure String-key descriptor/carrier review"
+}

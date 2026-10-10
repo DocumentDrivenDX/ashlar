@@ -1,0 +1,12 @@
+test_boundaries_and_full_prefix_not_complete_bag_claim (__main__.Probe) ... ok
+test_closed_metadata_each_nested_object (__main__.Probe) ... ok
+test_complete_identity_pin_refusals_and_cross_module_positive (__main__.Probe) ... ok
+test_numeric_parser_callback_and_deep_input (__main__.Probe) ... ok
+test_snapshot_precedes_parser_callback (__main__.Probe) ... ok
+test_unicode_binary_order_without_normalization (__main__.Probe) ... ok
+test_utf8_only_privacy_and_no_sdk (__main__.Probe) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.003s
+
+OK

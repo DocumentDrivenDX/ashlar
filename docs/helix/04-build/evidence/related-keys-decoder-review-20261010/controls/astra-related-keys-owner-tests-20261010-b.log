@@ -1,0 +1,13 @@
+test_closed_carriers_duplicate_members_and_no_presence_fallback (test_weft_related_keys_decode.RelatedKeysDecodeTests) ... ok
+test_composite_string_order_unicode_and_empty_string_preserve_lexemes (test_weft_related_keys_decode.RelatedKeysDecodeTests) ... ok
+test_descriptor_and_original_pin_fences (test_weft_related_keys_decode.RelatedKeysDecodeTests) ... ok
+test_empty_bound_and_marker_constraints (test_weft_related_keys_decode.RelatedKeysDecodeTests) ... ok
+test_exact_original_bytes_parallel_occurrences_and_immutable_result (test_weft_related_keys_decode.RelatedKeysDecodeTests) ... ok
+test_no_mutable_metadata_or_parsed_cell_aliases_escape (test_weft_related_keys_decode.RelatedKeysDecodeTests) ... ok
+test_non_string_atoms_unicode_nul_arity_and_order_refuse (test_weft_related_keys_decode.RelatedKeysDecodeTests) ... ok
+test_utf8_capacity_preflight_and_explicit_finite_configuration (test_weft_related_keys_decode.RelatedKeysDecodeTests) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.001s
+
+OK
