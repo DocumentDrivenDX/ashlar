@@ -166,6 +166,7 @@ The installed original-commerce evolution facade adds these owned boundaries:
 | `src/ashlar_host/evolution_admission.py` | Bounded original/candidate/proof custody and exact public producer admission | EvolutionSourceSet source/transition admission, state_at and complete oracle; owned producer admission ports | Explicit config, public core preparation, packaged resources and configured public UMF producer | Checkout discovery, ambient Bun/Git, private UMF APIs, receipt flags as authority |
 | `src/ashlar_host/commerce_evolution.py` | Fresh/resume lifecycle, source-qualified publication and original recovery | EvolutionAttemptPlan, EvolutionPlanJournal; publish_commerce_evolution, resume_commerce_evolution under CONTRACT-001 | Explicit config, owned admission/driver/journal/ACK/lifecycle ports and supplied ordinary sessions | Source/role/grant provisioning, credential discovery/escalation, new uncertain intent, tools/private native access |
 | `src/ashlar_host/evolution_producer.py` | Bounded public-UMF subprocess ownership and original receipt custody | Typed producer invocation for evolution_admission under CONTRACT-001 | Explicit immutable configuration/input snapshots, standard-library process and owned lifecycle ports | Ambient environment/PATH discovery, private source capture or UMF APIs, tools, native authority |
+| `src/ashlar_host/source_sessions.py` | Original outbox registrations and ordinary source-session ownership | OutboxSourceRegistration, RegisteredOutboxSources.admit | Explicit factories/current native policy, owned AckScope/Session/lifecycle and public complete outbox/checkpoint APIs | Credential discovery, provisioning, commits, ACK mutation or registration metadata as authority |
 
 `EvolutionSourceSet` owns reconstructed original semantic sources after checking
 their complete packaged correspondence. It reconstructs state from explicit
@@ -175,6 +176,13 @@ source and retaining unchanged rows' earlier materialization clocks. Qualified
 source identity preserves overlapping local keys. Returned mappings are copies;
 recorded custody establishes correspondence, while fresh producer verification
 and current source, writer, publication and ACK authority remain separate gates.
+
+`RegisteredOutboxSources` brackets two complete original transaction reads with
+current native source-policy admission and closes every acquired ordinary
+connection through rollback and close. The evolution source-set driver requires
+this injected owner; protected ACK retains its separate authority/session owner.
+Cleanup attempts every owned callback and preserves the original cancellation;
+otherwise cleanup cancellation takes precedence over an ordinary body failure.
 
 `EvolutionAttemptPlan` retains the complete closed attempt envelope as immutable
 original bytes: source-qualified request, generated and selected ordered steps,

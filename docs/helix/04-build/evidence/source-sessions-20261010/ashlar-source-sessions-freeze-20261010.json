@@ -1,0 +1,41 @@
+{
+  "base": "378d5fb9b4b3d17408f9ef1a53050b3a39e7fc00",
+  "files": {
+    "src/ashlar_host/source_sessions.py": "2fac6ab77f5b2b7fab23c152546f265cdfc8d6141d7320fc31f53ddc1dc98c0f",
+    "src/ashlar_host/driver.py": "a5ed90cc69648e2fe9095e932bfbfee97857f25ba3d1354ecc965a6ca2e29993",
+    "src/ashlar_host/lifecycle.py": "119f39432b6cb5d0cde81ba36c9ce28330daf11c5298d096a292bb6b2d03f5f2",
+    "tests/test_registered_outbox_sources.py": "fe00a0ecc88d39d1aac7542f090a72724d47be1eec4f12fa895878ba0babbcd5",
+    "tests/test_host_lifecycle.py": "cb82b0d1e76227af8cf8b3ce843d0980bcaa02e04d5554400e972a8d42c85ff7",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "09e08aa50132335c4b7ce10fb027287b89f88e54d1c1bee4b3761f57fee20088",
+    ".github/workflows/weft-distribution.yml": "98850c5fe2538cc88866ca53a8c83228b8a9479b98800adfc2848b7d28c504e4"
+  },
+  "tests": {
+    "command_prefix": "PYTHONPATH=src /usr/bin/python3 -S -W error::ResourceWarning -m unittest discover -s tests -p",
+    "source_sessions": {
+      "file": "test_registered_outbox_sources.py",
+      "passed": 13,
+      "chunk": "d8f382"
+    },
+    "lifecycle": {
+      "file": "test_host_lifecycle.py",
+      "passed": 7,
+      "chunk": "adff49"
+    },
+    "host": {
+      "file": "test_ashlar_host.py",
+      "passed": 11,
+      "chunk": "adff49"
+    },
+    "paths": {
+      "file": "test_host_paths_diagnostics.py",
+      "passed": 18,
+      "chunk": "adff49"
+    },
+    "composition": {
+      "file": "test_host_diagnostic_composition.py",
+      "passed": 1,
+      "skipped": 8,
+      "chunk": "adff49"
+    }
+  }
+}

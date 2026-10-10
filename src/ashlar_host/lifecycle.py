@@ -4,17 +4,22 @@ from contextlib import contextmanager
 
 def finish(primary, callbacks):
     cleanup = None
+    cancellation = None
     for callback in callbacks:
         try:
             callback()
         except BaseException as error:
             if cleanup is None: cleanup = error
-    if primary is not None:
+            if not isinstance(error, Exception) and cancellation is None:
+                cancellation = error
+    owner = primary if primary is not None and not isinstance(primary, Exception) else cancellation
+    if owner is None:
+        owner = primary if primary is not None else cleanup
+    if owner is not None:
         if cleanup is not None:
-            try: setattr(primary, 'cleanup_failed', True)
+            try: setattr(owner, 'cleanup_failed', True)
             except BaseException: pass
-        raise primary
-    if cleanup is not None: raise cleanup
+        raise owner
 
 
 @contextmanager
@@ -30,6 +35,8 @@ def owned_context(manager):
     except BaseException as error:
         if primary is not None:
             if error is not primary:
+                if isinstance(primary, Exception) and not isinstance(error, Exception):
+                    raise
                 try: setattr(primary, 'cleanup_failed', True)
                 except BaseException: pass
             raise primary

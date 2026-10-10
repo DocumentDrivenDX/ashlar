@@ -1,0 +1,33 @@
+{
+  "format": "ashlar-source-sessions-evidence-inventory/0.1",
+  "qualification": "Explicit ordinary source-read session ownership and current mandatory admission, exact original transactions and cancellation-safe cleanup. No actual native/source/ACK authority or installed publication/resume proof.",
+  "files": [
+    {
+      "path": "ashlar-source-sessions-freeze-20261010.json",
+      "bytes": 1601,
+      "sha256": "0edf885359abb8afc6999bbf4c3e9524147f1ca2d71c3c4b6d9901f5a1592b19"
+    },
+    {
+      "path": "ashlar-source-sessions-independent-review-20261010.json",
+      "bytes": 2185,
+      "sha256": "9027cb633303212a5bf2a97a2ca96e5fa4649069e262aa10ee183d8612d12773"
+    }
+  ],
+  "root_checks": {
+    "source_session_tests": 13,
+    "source_test_chunk": "787847",
+    "lifecycle_tests": 7,
+    "lifecycle_test_chunk": "2641dc"
+  },
+  "regression_scope": {
+    "host_passes": 11,
+    "paths_passes": 18,
+    "composition_passes": 1,
+    "composition_optional_skips": 8,
+    "author_tool_chunk": "adff49"
+  },
+  "live_draft_failure": {
+    "author_tool_chunk": "037ce5",
+    "scope": "Unfrozen test fixture Policy.calls not reset between two cancellation scenarios; corrected before freeze."
+  }
+}

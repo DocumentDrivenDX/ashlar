@@ -14,6 +14,7 @@ from .connection import connect, CONTAINER
 from .postgres import Session
 from .ack import AckScope, ProtectedOutboxAck, AckOutcomeUncertain, render_ddl
 from .graph_sql import graph_sql_plan
+from .source_sessions import RegisteredOutboxSources
 ROOT = RESOURCE_ROOT
 CLOCK = '2026-10-09T12:00:00+00:00'
 PROFILE = 'ashlar-delta/0.3'
@@ -166,7 +167,7 @@ class ManifestPort:
 
 class NativeDriver:
 
-    def __init__(self, transport, policy, context, tables, scope_ports, allowed_changes, columns, *, source_admission):
+    def __init__(self, transport, policy, context, tables, scope_ports, allowed_changes, columns, *, source_admission, source_sessions=None):
         self.transport = transport
         self.policy = policy
         self.context = context
@@ -181,6 +182,17 @@ class NativeDriver:
         facts = json.loads(self.original_admission)
         if type(facts) is not dict or not isinstance(facts.get('profile'), str) or (not facts['profile']) or (not isinstance(facts.get('qualification'), str)) or (not facts['qualification']) or (len(self.original_admission.encode()) > 1048576):
             raise PermissionError('Bounded explicit immutable source profile facts required')
+        if facts['profile'] == 'ashlar-commerce-evolution-source-set/0.1' and source_sessions is None:
+            raise PermissionError('Installed evolution requires explicit ordinary source sessions')
+        if source_sessions is not None and type(source_sessions) is not RegisteredOutboxSources:
+            raise PermissionError('Explicit registered ordinary source session owner required')
+        self.source_sessions = source_sessions
+        self.original_source_sessions = None if source_sessions is None else encoded(source_sessions.metadata())
+        if source_sessions is not None and facts['profile'] == 'ashlar-commerce-evolution-source-set/0.1':
+            expected = {(item['source_system'], item['epoch']) for item in facts['sources']}
+            actual = {(item.scope.feed, item.scope.epoch) for item in source_sessions.registrations}
+            if expected != actual:
+                raise PermissionError('Complete original semantic/native source inventory differs')
         self.held = False
         self.pin_held = False
         self.lose_manifest = False
@@ -242,6 +254,18 @@ class NativeDriver:
 
     def source_admit(self, request):
         self.admission_facts()
+        if self.source_sessions is not None:
+            self.require(self.context)
+            if encoded(self.source_sessions.metadata()) != self.original_source_sessions:
+                raise PermissionError('Original ordinary source registrations changed')
+            if self.source_sessions.admit(request, context=self.context) is not None:
+                raise PermissionError('Original ordinary source admission incomplete')
+            if encoded(self.source_sessions.metadata()) != self.original_source_sessions:
+                raise PermissionError('Closing original ordinary source registrations changed')
+            self.admission_facts()
+            return
+        # Compatibility lane for the already qualified private local profile;
+        # installed source-set composition is forbidden from choosing this path.
         checkpoint = json.loads(request['source_checkpoint_json'])
         port = self.scope_ports[checkpoint['feed']]
         connection = connect(port['reader'])
