@@ -24,8 +24,9 @@ ddx:
 ## Overview
 
 Platform engineers publish reproducible graph state from an external replayable
-change feed. The potential-consumer input P1–P4/P7 supplies the scenario; exact
-feed transport and logical-schema binding remain open.
+change feed under an admitted UMF model and declared source profile. The
+potential-consumer input P1–P4/P7 supplies the replay, history and progress
+requirements. Each transport retains its original transactions and semantics.
 
 ## Ideal Future State
 
@@ -92,7 +93,9 @@ for reads. Producer integrity alone does not demonstrate projection integrity.
 Zero unexplained state differences between uninterrupted and replayed corpus
 runs; zero stale resurrection cases; every published-progress claim backed by
 visible state. Compatibility claims require target, version, subset and evidence.
-Synthetic data remains the initial governance boundary.
+Bounded examples use synthetic or provenance-reviewed domain-pack data. Real
+source support requires its own authorization, native transport and durable
+acknowledgement evidence; a local fixture cannot establish Truss support.
 
 ## User Stories
 
@@ -114,22 +117,27 @@ or identity conventions.
 
 ## Constraints and Assumptions
 
-Delta is the selected warehouse storage format; physical layout is open.
-Logical identity and revision references are opaque in this feature. The input’s
-property-level idempotency tuple and single-edge triple are proposed profiles,
-not a selected feed schema. PRD Q2/Q3/Q9/Q10 must resolve their exact semantics.
+Unity Catalog managed Delta is the warehouse storage target.
+[CONTRACT-003](../../02-design/contracts/CONTRACT-003-delta-graph-tables.md)
+defines physical roles, source admission, history and durable acknowledgement;
+[CONTRACT-001](../../02-design/contracts/CONTRACT-001-publication-boundary.md)
+defines complete publication and per-source progress. Logical identities and
+revision references remain opaque. Property-level source events require an
+explicit semantics-preserving adapter; an edge triple cannot replace independent
+edge identity or collapse parallel occurrences.
 
 ## Dependencies
 
-PRD FR-4; FEAT-002’s integrity and publication boundary. FEAT-001 is required
-for eventual UMF integration, but is not a prerequisite for specifying these
-observable behaviors with synthetic identifiers. Contract work must define feed
-ordering, progress, application atomicity, history and error surfaces before build.
+PRD FR-4; FEAT-001’s admitted UMF model and FEAT-002’s integrity/publication
+boundary; CONTRACT-001 and CONTRACT-003. Each source and model requires separate
+admission. An unavailable external source blocks only its own qualification,
+while other admitted sources can ingest and publish independently.
 
 ## Out of Scope
 
-UMF core/vocabulary changes, live connectors, transactional writes, cross-store
-query federation, production provisioning and an application API facade.
+Cross-store query federation, production provisioning and an application API
+facade. Reusable UMF interpretation and evolution capabilities belong upstream
+in UMF; Ashlar owns graph bindings, source application and publication.
 
 ## Review Checklist
 
