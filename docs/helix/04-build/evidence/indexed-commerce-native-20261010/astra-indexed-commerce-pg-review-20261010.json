@@ -1,0 +1,27 @@
+{
+  "scope": "Fresh ordinary-session read-only observation after native query completion; no data mutation or engine rerun",
+  "source_signature_sha256": "3bed265f42ba35a218282d19b5cefa8ff26c3c129d33dfa5f9a72766c0d43057",
+  "source_schema": "ashlar_ack_source_704ce80fff99_commerce",
+  "ack_scope": {
+    "consumer": "private-local-pipeline",
+    "epoch": "original-commerce-v1",
+    "feed": "private-original-commerce-fixture",
+    "installation_id": "f250d725-c1fc-40e2-854c-db42af29dd53",
+    "scope_id": "a6ed6ff9-efbf-4bda-8457-2e9896f5552d",
+    "service_schema": "ashlar_ack_pipeline_704ce80fff99"
+  },
+  "session": {
+    "current_user": "ashlar_ack_operator_704ce80fff99",
+    "session_user": "ashlar_ack_operator_704ce80fff99",
+    "database": "truss_e2e",
+    "server_address": "192.168.215.3/32",
+    "server_port": "5432",
+    "backend_pid": "597079"
+  },
+  "position": "1",
+  "original_observation_equal": true,
+  "request_sha256": "8fde1b80674747810602d44893e176eabbfaef23673c58bd215b91dfcd8f6c93",
+  "manifest_sha256": "4a34e7c637a182e19cdc433f26592e87247b882c56400d1d0af11122a2ac7c3c",
+  "receipt_sha256": "e80bfb51b5e7bef57cb843f0cd4e8aead624e785f10c1e6c1f99202f22439aea",
+  "connection_rolled_back_and_closed": true
+}

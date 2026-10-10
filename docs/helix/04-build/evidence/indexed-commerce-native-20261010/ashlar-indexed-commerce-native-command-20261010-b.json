@@ -1,0 +1,105 @@
+{
+  "format": "ashlar-indexed-commerce-native-command/0.1",
+  "source_commit": "12ddc5f07c40da3cf67a04520cc40671781dbecb",
+  "cwd": "/private/tmp/ashlar-indexed-commerce-runtime-12dd-20261010-a",
+  "references": [
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-source-runtime-20261010-a.json",
+      "sha256": "54eb4c2044bd74f23913846c1002536f5b63ae49818892b4ed51fa6df5384437",
+      "bytes": 99859
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-runtime-final-20261010-a.json",
+      "sha256": "26306c184e287103880afe692e6c004ccbf460633137e3fd2c1040372c3a2bb0",
+      "bytes": 601576
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-query-runtime-20261010-a.json",
+      "sha256": "cd44869cea1d714b217efd0343ae98d706a1e0351682aa5a5c088871d6927987",
+      "bytes": 5498
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-setup-imports-20261010-a.json",
+      "sha256": "621d92b145ae8f1ac6e826ff3f61f2b3ce2bce8804e2412e21cc0c3c0d853813",
+      "bytes": 108454
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-query-imports-20261010-a.json",
+      "sha256": "dca955ea09a5388c6a1e15bf856def89393dd54ff8ad3f8d8f00da9227fa98a4",
+      "bytes": 111491
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-umf-resources-20261010-a.json",
+      "sha256": "a3a90a3f96ce6800717863e81550a618dccfe454626fbe7abad27ee1f148aaef",
+      "bytes": 188199
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-query-runtime-20261010-b.json",
+      "sha256": "4d5f1422159b8154dd04a9a991f45e16ccf49bf121eb4dab7e10624ad616f68f",
+      "bytes": 2392
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-psycopg-copies-20261010-b.json",
+      "sha256": "9d925fd27daa31b7fb78de2493e843e93405dcf6b7dd393c1eb1a7619aa122b2",
+      "bytes": 39856
+    }
+  ],
+  "phases": [
+    {
+      "phase": 2,
+      "environment": {
+        "PYTHONPATH": "src:tools:/private/tmp/ashlar-indexed-typing-python39-20261010-b:/private/tmp/ashlar-indexed-delta4-python-20261010-a:/private/tmp/ashlar-spark4-python39-bridge:/private/tmp/ashlar-indexed-psycopg-python39-20261010-b",
+        "JAVA_HOME": "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+        "SPARK_LOCAL_IP": "127.0.0.1",
+        "PYSPARK_PYTHON": "/private/tmp/ashlar-db-client/bin/python",
+        "PYSPARK_DRIVER_PYTHON": "/private/tmp/ashlar-db-client/bin/python",
+        "PYTHONDONTWRITEBYTECODE": "1",
+        "PATH": "/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+      },
+      "argv": [
+        "/private/tmp/ashlar-db-client/bin/python",
+        "tools/run_indexed_commerce_weft.py",
+        "--index",
+        "/private/tmp/ashlar-weft-fresh-cli-20261010-a/ashlar/out/weft-distribution/distributions/index.json",
+        "--installation",
+        "/private/tmp/ashlar-weft-fresh-cli-20261010-a/ashlar/out/weft-installation",
+        "--publication",
+        "/private/tmp/ashlar-indexed-commerce-publication-20261010-a",
+        "--umf-source",
+        "/private/tmp/ashlar-umf-dataset-45473",
+        "--jars",
+        "/private/tmp/ashlar-delta4-jars",
+        "--output",
+        "/private/tmp/ashlar-indexed-commerce-queries-20261010-b",
+        "--ack-container",
+        "ashlar-e2e-truss-pg17",
+        "--ack-host",
+        "127.0.0.1",
+        "--ack-port",
+        "15432",
+        "--ack-database",
+        "truss_e2e"
+      ],
+      "capture": "/private/tmp/ashlar-indexed-commerce-queries-20261010-b.log"
+    }
+  ],
+  "fresh_paths": {
+    "/private/tmp/ashlar-indexed-commerce-queries-20261010-b.log": true,
+    "/private/tmp/ashlar-indexed-commerce-queries-20261010-b": true
+  },
+  "scope": "Exactphase2-onlyretry; phase1 originalsuccess retained, no setup rerun. Phase2A failedSparkconstruction NumPyABI/noqueryreport retained. B actualNumPyabsent fromisolateddependencyprofile; noshim/coercion/sourcechange.",
+  "requirements": [
+    "Astra exact source+whole command/resource approval",
+    "Root sole engine reservation",
+    "No other Spark/Puppy process",
+    "Original dedicated labeled PG17 fixture identity/image/loopback512MiB1CPU read-only inspect verified",
+    "Fresh output paths absent; complete authority source+ordinary ACK policy retained",
+    "Setup closes transport and Spark before success report; query relationship composition reviewed/landed",
+    "Phase1 fulltransport/Sparkstop+terminalreport beforephase2, refreshzeroprocessobservation",
+    "Verifycomplete referencedfilehashes/PGsafeidentity before andaftereachphase",
+    "Preservepublicreceipt/model/graph/binding/SQLite/allDeltaUUID/versionlogs/Parquet/fulloriginalACK andalias/scalar/relationshipintervals; closingnative/source/installedindex andruntime unchanged",
+    "No finalreport on anyfailure/cleanupfailure; boundedlocal capture no secrets",
+    "Source+commandAstraapproval/rootexclusivegrant required; notyetexecuted"
+  ],
+  "prior_command_sha256": "48f32d3c98ff1857d82b58929e0311b0af7297b1de3f2dc0c92729eed7925d48"
+}

@@ -1,0 +1,180 @@
+{
+  "scope": "Independent offline raw Delta/Parquet, full immutable compiler replay, retained ACK interval and original source/custody review; no native engine rerun",
+  "evidence_freeze_sha256": "e89c3198286ea434e88c0475e8ea08c26dbe12d5168bffeda2b1212d69f9873b",
+  "publication_report_sha256": "efb6c088807df5660a33fc26197dd395a7c72fafa5a3250fa4057a9bfadda295",
+  "query_report_sha256": "f957c61dfdf3641f70983259e0508c877b83e99fce77491cd68816814d104ef1",
+  "archive_member_checks": [
+    {
+      "label": "publication",
+      "files": 79,
+      "original_bytes": 10226307,
+      "exact_member_parity": true
+    },
+    {
+      "label": "queries",
+      "files": 2,
+      "original_bytes": 5568122,
+      "exact_member_parity": true
+    }
+  ],
+  "pyarrow_version": "22.0.0",
+  "native_tables": [
+    {
+      "role": "object_current",
+      "uuid": "c98428a6-446d-4b67-9d72-146f06cb3d42",
+      "version": 2,
+      "latest": 2,
+      "rows": 11,
+      "active_files": [
+        "part-00000-d58d68a5-97c3-4cec-8258-eb0a793600b2-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": true
+    },
+    {
+      "role": "edge_current",
+      "uuid": "d129a12b-55a3-47c1-a929-8892866916ae",
+      "version": 2,
+      "latest": 2,
+      "rows": 10,
+      "active_files": [
+        "part-00000-8e4bb1d4-e984-4dcf-8e91-8a5dafcc769b-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": true
+    },
+    {
+      "role": "tombstone",
+      "uuid": "42711b38-4037-4b77-b4c8-161b7df2d637",
+      "version": 1,
+      "latest": 1,
+      "rows": 0,
+      "active_files": [],
+      "original_full_cell_parity": true
+    },
+    {
+      "role": "whole_source_history",
+      "uuid": "977f0c49-1e5a-4ac0-a060-5eb2df21bf54",
+      "version": 2,
+      "latest": 2,
+      "rows": 21,
+      "active_files": [
+        "part-00000-572169e0-377e-413f-86cb-375fd5746711-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": true
+    },
+    {
+      "role": "attempts",
+      "uuid": "53cace9e-3d71-4d4a-acbf-e81ccc5ec1d3",
+      "version": 6,
+      "latest": 6,
+      "rows": 5,
+      "active_files": [
+        "part-00000-0b9bcdb0-13e2-4107-8176-5d4c6f523a5d-c000.snappy.parquet",
+        "part-00000-365e570b-3a10-46c6-bc21-2e11920f0bf8-c000.snappy.parquet",
+        "part-00000-58d6af6f-52a3-4986-bd9b-faad202a8aba-c000.snappy.parquet",
+        "part-00000-a649b24d-524a-4cb5-96de-43173362665f-c000.snappy.parquet",
+        "part-00000-cceceb7a-3e08-4c83-b42d-a0770734fffb-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": false
+    },
+    {
+      "role": "manifest",
+      "uuid": "0f1e44fe-fd82-4aea-bf5f-395a2e64dc52",
+      "version": 2,
+      "latest": 2,
+      "rows": 1,
+      "active_files": [
+        "part-00000-2039f59e-7e61-4092-b06f-fabadc85a16a-c000.snappy.parquet"
+      ],
+      "original_full_cell_parity": false
+    }
+  ],
+  "scalar_results": [
+    [
+      {
+        "id": "[42,0,\"P1\"]"
+      }
+    ],
+    [
+      {
+        "n": "1"
+      }
+    ]
+  ],
+  "relationship": [
+    {
+      "id": "[42,0,\"P1\"]",
+      "suppliers": {
+        "items": [
+          [
+            "[42,0,\"S1\"]"
+          ]
+        ],
+        "truncated": false
+      }
+    }
+  ],
+  "compiler_replays": [
+    {
+      "sql": "SELECT p.id FROM products p",
+      "request_bytes": 34788,
+      "request_sha256": "429e10a1954e9048ba61fe3805987459cb12fb723e5cba5f73f736d3b8335841",
+      "stdout_bytes": 10249,
+      "stdout_sha256": "ea63b0692808a1ae0e3c573c5de5798a4eae0f3bd169e541692a1610e47938a0",
+      "full_artifact_equal": true,
+      "native_emitted_checks": 1
+    },
+    {
+      "sql": "SELECT COUNT(*) AS n FROM products p",
+      "request_bytes": 33319,
+      "request_sha256": "4365a649ff46286754483101fd455675ef2b180a9d625cbf05872994e80606b2",
+      "stdout_bytes": 10001,
+      "stdout_sha256": "d7cdf97bfb472e78ff4ccf59f82bed1e21801d3878a0f298d7c5a2f37525df81",
+      "full_artifact_equal": true,
+      "native_emitted_checks": 1
+    },
+    {
+      "sql": "SELECT p.id, RELATED_KEYS(p.\"products.supplier_id\", 2) AS suppliers FROM products p ORDER BY p.id",
+      "request_bytes": 36031,
+      "request_sha256": "ae9106abe924ac6cba400c416348668416d6b05e31ba5d308d9a30c411887aa9",
+      "stdout_bytes": 38920,
+      "stdout_sha256": "66d00933526aa073fe24074ea6e30f2dc224b1e4a259942720c527eee6c9a9e7",
+      "full_artifact_equal": true,
+      "native_emitted_checks": 11
+    }
+  ],
+  "held_intervals": 4,
+  "ack_observations": 8,
+  "distinct_ordinary_pg_sessions": [
+    "595551",
+    "595557",
+    "595581",
+    "595598"
+  ],
+  "observed_right_schemas": 2,
+  "complete_native_files_unchanged": 66,
+  "sqlite_copy_integrity": "ok",
+  "sqlite_table_counts": {
+    "local_installation": 1,
+    "local_operation": 9,
+    "local_plan": 1,
+    "local_publication_artifact": 1,
+    "local_source_plan": 1
+  },
+  "all_publication_file_changes": [
+    {
+      "path": "operations.sqlite-shm",
+      "opening": {
+        "path": "operations.sqlite-shm",
+        "bytes": 32768,
+        "sha256": "756337ed06a3c3eb6a3c936da6d8413bee7d7f2eca8f5c5e4f2459dd6f72467d"
+      },
+      "closing": {
+        "path": "operations.sqlite-shm",
+        "bytes": 32768,
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      }
+    }
+  ],
+  "sqlite_scope": "Only volatile SHM differs; opening bytes not retained, so no exact changed-offset or causal attribution. DB and WAL byte-identical. No blanket all-file-invariance claim.",
+  "failed_query_a_preserved": true
+}

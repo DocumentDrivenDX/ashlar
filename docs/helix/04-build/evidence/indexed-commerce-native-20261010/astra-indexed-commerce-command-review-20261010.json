@@ -1,0 +1,51 @@
+{
+  "scope": "Independent read-only pre-run command/resource review, not native execution. No complete external reproducibility claim.",
+  "planSha256": "48f32d3c98ff1857d82b58929e0311b0af7297b1de3f2dc0c92729eed7925d48",
+  "references": [
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-source-runtime-20261010-a.json",
+      "sha256": "54eb4c2044bd74f23913846c1002536f5b63ae49818892b4ed51fa6df5384437",
+      "bytes": 99859
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-runtime-final-20261010-a.json",
+      "sha256": "26306c184e287103880afe692e6c004ccbf460633137e3fd2c1040372c3a2bb0",
+      "bytes": 601576
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-query-runtime-20261010-a.json",
+      "sha256": "cd44869cea1d714b217efd0343ae98d706a1e0351682aa5a5c088871d6927987",
+      "bytes": 5498
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-setup-imports-20261010-a.json",
+      "sha256": "621d92b145ae8f1ac6e826ff3f61f2b3ce2bce8804e2412e21cc0c3c0d853813",
+      "bytes": 108454
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-query-imports-20261010-a.json",
+      "sha256": "dca955ea09a5388c6a1e15bf856def89393dd54ff8ad3f8d8f00da9227fa98a4",
+      "bytes": 111491
+    },
+    {
+      "path": "/private/tmp/ashlar-indexed-commerce-umf-resources-20261010-a.json",
+      "sha256": "a3a90a3f96ce6800717863e81550a618dccfe454626fbe7abad27ee1f148aaef",
+      "bytes": 188199
+    }
+  ],
+  "uniqueSelectedFilesVerified": 4191,
+  "selectedBytesVerified": 1330599167,
+  "projectGitBlobsVerified": 545,
+  "projectCommit": "12ddc5f07c40da3cf67a04520cc40671781dbecb",
+  "projectReadOnly": true,
+  "freshOutputsAndLogs": true,
+  "publicProducerClean": true,
+  "installedIndexAndCompilerExact": true,
+  "phaseOrder": "Setup success report follows transport close and Spark stop; query phase requires fresh zero-engine observation and independent root reservation.",
+  "conditionalGates": [
+    "Root confirms required CI success",
+    "Root refreshes exact PG metadata and zero-engine observation immediately before launch",
+    "All opening/closing recorded resource/native/source/index vectors checked per phase",
+    "No second phase after failed or incomplete setup"
+  ]
+}

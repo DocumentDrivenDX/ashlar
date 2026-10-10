@@ -1,0 +1,74 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/10 00:43:42 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/__init__.py", line 24, in <module>
+    from . import multiarray
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/multiarray.py", line 11, in <module>
+    from . import _multiarray_umath, overrides
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/overrides.py", line 6, in <module>
+    from numpy._core._multiarray_umath import (
+ModuleNotFoundError: No module named 'numpy._core._multiarray_umath'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-indexed-commerce-runtime-12dd-20261010-a/tools/run_indexed_commerce_weft.py", line 115, in <module>
+    if __name__=='__main__':main()
+  File "/private/tmp/ashlar-indexed-commerce-runtime-12dd-20261010-a/tools/run_indexed_commerce_weft.py", line 111, in main
+    run(index=a.index,installation=a.installation,publication=a.publication,source=a.umf_source,jars=a.jars,output=a.output,
+  File "/private/tmp/ashlar-indexed-commerce-runtime-12dd-20261010-a/tools/run_indexed_commerce_weft.py", line 59, in run
+    spark=(SparkSession.builder.master('local[1]').appName('Indexed original commerce query')
+  File "/private/tmp/ashlar-spark4-python39-bridge/pyspark/sql/session.py", line 556, in getOrCreate
+    sc = SparkContext.getOrCreate(sparkConf)
+  File "/private/tmp/ashlar-spark4-python39-bridge/pyspark/core/context.py", line 523, in getOrCreate
+    SparkContext(conf=conf or SparkConf())
+  File "/private/tmp/ashlar-spark4-python39-bridge/pyspark/core/context.py", line 207, in __init__
+    self._do_init(
+  File "/private/tmp/ashlar-spark4-python39-bridge/pyspark/core/context.py", line 249, in _do_init
+    self._conf = SparkConf(_jvm=SparkContext._jvm)
+  File "/private/tmp/ashlar-spark4-python39-bridge/pyspark/conf.py", line 136, in __init__
+    self._jconf = jvm.SparkConf(loadDefaults)
+  File "/private/tmp/ashlar-spark4-python39-bridge/py4j/java_gateway.py", line 1613, in __call__
+    (new_args, temp_args) = self._get_args(args)
+  File "/private/tmp/ashlar-spark4-python39-bridge/py4j/java_gateway.py", line 1598, in _get_args
+    if converter.can_convert(arg):
+  File "/private/tmp/ashlar-spark4-python39-bridge/pyspark/sql/types.py", line 3314, in can_convert
+    import numpy as np
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/__init__.py", line 112, in <module>
+    from numpy.__config__ import show_config
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/__config__.py", line 4, in <module>
+    from numpy._core._multiarray_umath import (
+  File "/private/tmp/ashlar-spark311/lib/python3.11/site-packages/numpy/_core/__init__.py", line 85, in <module>
+    raise ImportError(msg) from exc
+ImportError: 
+
+IMPORTANT: PLEASE READ THIS FOR ADVICE ON HOW TO SOLVE THIS ISSUE!
+
+Importing the numpy C-extensions failed. This error can happen for
+many reasons, often due to issues with your setup or how NumPy was
+installed.
+The following compiled module files exist, but seem incompatible
+with with either python 'cpython-39' or the platform 'darwin':
+
+  * _multiarray_umath.cpython-311-darwin.so
+
+We have compiled some common reasons and troubleshooting tips at:
+
+    https://numpy.org/devdocs/user/troubleshooting-importerror.html
+
+Please note and check the following:
+
+  * The Python version is: Python 3.9 from "/private/tmp/ashlar-db-client/bin/python"
+  * The NumPy version is: "2.4.6"
+
+and make sure that they are the versions you expect.
+
+Please carefully study the information and documentation linked above.
+This is unlikely to be a NumPy issue but will be caused by a bad install
+or environment on your machine.
+
+Original error was: No module named 'numpy._core._multiarray_umath'
+

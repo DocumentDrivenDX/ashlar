@@ -1,0 +1,26 @@
+{
+  "source": "12ddc5f07c40da3cf67a04520cc40671781dbecb",
+  "command_sha256": "48f32d3c98ff1857d82b58929e0311b0af7297b1de3f2dc0c92729eed7925d48",
+  "owner": "root",
+  "grant": "Phase1 only. Phase2 requires successful terminal setup/closure and revalidated resources/zero-engine observation.",
+  "pg": {
+    "id": "37d798c29961d87549baabd1625ad946f45e8f476ade2eef360d7bf1211419c9",
+    "image": "sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545",
+    "labels": {
+      "ashlar.purpose": "end-to-end-development"
+    },
+    "ports": {
+      "5432/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "15432"
+        }
+      ]
+    },
+    "running": true,
+    "oom_killed": false,
+    "memory": 536870912,
+    "cpu": 1000000000
+  },
+  "spark_processes": []
+}

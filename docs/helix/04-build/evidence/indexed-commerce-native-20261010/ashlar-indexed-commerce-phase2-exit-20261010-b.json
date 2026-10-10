@@ -1,0 +1,8 @@
+{
+  "phase": 2,
+  "attempt": "B-isolated-dependencies",
+  "exit": 0,
+  "elapsed_seconds": 20.852237939834595,
+  "command_sha256": "13eca32f8554555a6092f506f64b19275cc7bcd441d8a0540ecbe4b534a84d98",
+  "capture": "/private/tmp/ashlar-indexed-commerce-queries-20261010-b.log"
+}

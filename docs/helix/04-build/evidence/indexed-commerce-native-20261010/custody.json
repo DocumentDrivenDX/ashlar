@@ -1,0 +1,182 @@
+{
+  "format": "ashlar-indexed-commerce-after-terminal-custody/0.1",
+  "files": [
+    {
+      "path": "ashlar-indexed-commerce-native-command-20261010-a.json",
+      "sha256": "48f32d3c98ff1857d82b58929e0311b0af7297b1de3f2dc0c92729eed7925d48",
+      "bytes": 6271
+    },
+    {
+      "path": "ashlar-indexed-commerce-native-command-20261010-b.json",
+      "sha256": "e2ae4586e89b56a95ef4043cb6e0f6b82abfa41ff8b1a40733b4c6afec51fcf6",
+      "bytes": 4992
+    },
+    {
+      "path": "ashlar-indexed-commerce-native-command-20261010-c.json",
+      "sha256": "13eca32f8554555a6092f506f64b19275cc7bcd441d8a0540ecbe4b534a84d98",
+      "bytes": 5393
+    },
+    {
+      "path": "ashlar-indexed-commerce-phase1-exit-20261010-a.json",
+      "sha256": "b3be345005395db096a1167ecc186b6d71372d7133d0fcff8767722991a03cee",
+      "bytes": 238
+    },
+    {
+      "path": "ashlar-indexed-commerce-phase2-exit-20261010-a.json",
+      "sha256": "b0fdc96749674ff7bb7863eb3d75d1209619d8084d65a72912e18dd0be33a96b",
+      "bytes": 234
+    },
+    {
+      "path": "ashlar-indexed-commerce-phase2-exit-20261010-b.json",
+      "sha256": "9cf5dc2b62f3fd12a81472a659d5c702b15540b8bd9f9f290dea7f1e54153c1c",
+      "bytes": 275
+    },
+    {
+      "path": "ashlar-indexed-commerce-phase2-reservation-20261010-a.json",
+      "sha256": "d277e2ab06ca31375575ee3c28b59772519385ffe68cb432f7256d8d52c4d7d9",
+      "bytes": 616
+    },
+    {
+      "path": "ashlar-indexed-commerce-phase2-reservation-20261010-b.json",
+      "sha256": "030b1c8323847ba32c7ed89fed4fdff88760e8c4e99c3466254721eff841e4ef",
+      "bytes": 15554
+    },
+    {
+      "path": "ashlar-indexed-commerce-post-run-20261010-b.json",
+      "sha256": "2b3041b891848d70b24554e7f8f03485fa2669bdfb77b72cc20ffbb21d5d87ed",
+      "bytes": 16384
+    },
+    {
+      "path": "ashlar-indexed-commerce-queries-20261010-a.log",
+      "sha256": "0289281a6e0cfd6b43eaf17a859b66112d3babf2788ea4aece9db8b69ca0038f",
+      "bytes": 4265
+    },
+    {
+      "path": "ashlar-indexed-commerce-root-reservation-20261010-a.json",
+      "sha256": "beae663a5dcb31737e82ea56d0515f27b977ee545257a099d6df181916df6264",
+      "bytes": 798
+    },
+    {
+      "path": "astra-indexed-commerce-command-review-20261010.json",
+      "sha256": "714b7cbcf1d446f0a9f9e24e3160a9a04e0b249d3bf66887ffd5435ceff17ac5",
+      "bytes": 2241
+    },
+    {
+      "path": "astra-indexed-commerce-query-b-review-20261010.json",
+      "sha256": "331be8db962cec16f1e7a29b4fb230992c1c06165ca503fe5dea2c9215f9d13f",
+      "bytes": 1999
+    },
+    {
+      "path": "check-indexed-commerce-parquet-20261010.py",
+      "sha256": "d404808184dad69cdcce7730790b04f250a7e663d4d6e80246766a6d5d7ddc4b",
+      "bytes": 2700
+    },
+    {
+      "path": "collect-indexed-commerce-evidence-20261010-b.py",
+      "sha256": "6651a5769b9384d41c13f0c29e6401c80ff7ef0df010db8634518dbe6e2863cb",
+      "bytes": 3922
+    },
+    {
+      "path": "command.json",
+      "sha256": "13eca32f8554555a6092f506f64b19275cc7bcd441d8a0540ecbe4b534a84d98",
+      "bytes": 5393
+    },
+    {
+      "path": "offline-original-row-oracle.json",
+      "sha256": "fd16a7a9e4b0e5a11783fb982607da644c10cefa605037da0de34799012e3259",
+      "bytes": 1228
+    },
+    {
+      "path": "publication-artifacts.tar.gz",
+      "sha256": "bd0eb4b06463a3d348d5b11e1904d3f7640482c205f9345f0b29755ece38a3eb",
+      "bytes": 880841
+    },
+    {
+      "path": "publication-original-files.json",
+      "sha256": "34ef5043a0baddd51a7b273652cb9b8787420a6a1c30ac81b0c886c43e270727",
+      "bytes": 18761
+    },
+    {
+      "path": "publication-report.json.gz",
+      "sha256": "ae2aea32f71e4c9736df12a057d0dead1f68cc48893c3f50af534b5c80405453",
+      "bytes": 47878
+    },
+    {
+      "path": "publication.log",
+      "sha256": "e42b00e47ced1d565c1f09eaad973e86142e195511391dd99ccff57194663e80",
+      "bytes": 472083
+    },
+    {
+      "path": "queries-artifacts.tar.gz",
+      "sha256": "c11c34a94ccd7462350e5a84daff6dce97dfef6969b963f431c6a4b9152e0cfb",
+      "bytes": 347190
+    },
+    {
+      "path": "queries-original-files.json",
+      "sha256": "b6b15b0025dbb2a21fcfb91f827d1a60b149c9338ba04f0045f5e340d808b887",
+      "bytes": 407
+    },
+    {
+      "path": "queries-report.json.gz",
+      "sha256": "eeeeb2f14c3321733954c96c48d3f2f1b54cead85983c3a2bcf45fae50bd82a8",
+      "bytes": 318486
+    },
+    {
+      "path": "queries.log",
+      "sha256": "baffbf6cc6df7c605f79f834a8342522c78b568ec51178689ae4549817346514",
+      "bytes": 598
+    },
+    {
+      "path": "reference-0.json",
+      "sha256": "54eb4c2044bd74f23913846c1002536f5b63ae49818892b4ed51fa6df5384437",
+      "bytes": 99859
+    },
+    {
+      "path": "reference-1.json",
+      "sha256": "26306c184e287103880afe692e6c004ccbf460633137e3fd2c1040372c3a2bb0",
+      "bytes": 601576
+    },
+    {
+      "path": "reference-2.json",
+      "sha256": "cd44869cea1d714b217efd0343ae98d706a1e0351682aa5a5c088871d6927987",
+      "bytes": 5498
+    },
+    {
+      "path": "reference-3.json",
+      "sha256": "621d92b145ae8f1ac6e826ff3f61f2b3ce2bce8804e2412e21cc0c3c0d853813",
+      "bytes": 108454
+    },
+    {
+      "path": "reference-4.json",
+      "sha256": "dca955ea09a5388c6a1e15bf856def89393dd54ff8ad3f8d8f00da9227fa98a4",
+      "bytes": 111491
+    },
+    {
+      "path": "reference-5.json",
+      "sha256": "a3a90a3f96ce6800717863e81550a618dccfe454626fbe7abad27ee1f148aaef",
+      "bytes": 188199
+    },
+    {
+      "path": "reference-6.json",
+      "sha256": "4d5f1422159b8154dd04a9a991f45e16ccf49bf121eb4dab7e10624ad616f68f",
+      "bytes": 2392
+    },
+    {
+      "path": "reference-7.json",
+      "sha256": "9d925fd27daa31b7fb78de2493e843e93405dcf6b7dd393c1eb1a7619aa122b2",
+      "bytes": 39856
+    },
+    {
+      "path": "reference-8.json",
+      "sha256": "4e99437fcbfb7c33698a0e5d158d6a1cf681278c99800b0fc422414e8edd2a5a",
+      "bytes": 113384
+    },
+    {
+      "path": "summary.json",
+      "sha256": "c477fccabfc52deeb49ad744bc22abfc78b8a0734b1a7f58f6f69a4a348f5dff",
+      "bytes": 1207
+    }
+  ],
+  "closing_resource_files": 4324,
+  "qualification": "Selectedlocalprivateauthority/read-onlyquery qualification, noOTelreceiver/formalproof/processkilldurability, originaltwo-phase resourceinventory historicalpendingline overriddenbyfinalcommand"
+}

@@ -1,0 +1,44 @@
+{
+  "scope": "Read-onlyDeltaJSON+Parquet vsindependentoriginalsourceoracle; timestampmicroseconds/int64exactstringconversion, nofloat/noengine",
+  "pyarrow": "22.0.0",
+  "tables": [
+    {
+      "role": "object_current",
+      "uuid": "c98428a6-446d-4b67-9d72-146f06cb3d42",
+      "version": 2,
+      "rows": 11,
+      "active_files": [
+        "part-00000-d58d68a5-97c3-4cec-8258-eb0a793600b2-c000.snappy.parquet"
+      ],
+      "full_cell_bag_equal": true
+    },
+    {
+      "role": "edge_current",
+      "uuid": "d129a12b-55a3-47c1-a929-8892866916ae",
+      "version": 2,
+      "rows": 10,
+      "active_files": [
+        "part-00000-8e4bb1d4-e984-4dcf-8e91-8a5dafcc769b-c000.snappy.parquet"
+      ],
+      "full_cell_bag_equal": true
+    },
+    {
+      "role": "tombstone",
+      "uuid": "42711b38-4037-4b77-b4c8-161b7df2d637",
+      "version": 1,
+      "rows": 0,
+      "active_files": [],
+      "full_cell_bag_equal": true
+    },
+    {
+      "role": "whole_source_history",
+      "uuid": "977f0c49-1e5a-4ac0-a060-5eb2df21bf54",
+      "version": 2,
+      "rows": 21,
+      "active_files": [
+        "part-00000-572169e0-377e-413f-86cb-375fd5746711-c000.snappy.parquet"
+      ],
+      "full_cell_bag_equal": true
+    }
+  ]
+}

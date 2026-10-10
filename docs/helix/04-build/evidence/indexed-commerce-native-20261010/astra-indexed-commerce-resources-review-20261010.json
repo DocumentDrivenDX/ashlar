@@ -1,0 +1,8 @@
+{
+  "scope": "Independent post-terminal selected-file hash closure; no broad external build reproducibility claim",
+  "command_sha256": "13eca32f8554555a6092f506f64b19275cc7bcd441d8a0540ecbe4b534a84d98",
+  "references": 9,
+  "unique_resources": 4324,
+  "bytes": 1341903922,
+  "all_equal": true
+}

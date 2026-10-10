@@ -1,0 +1,39 @@
+{
+  "scope": "Read-only phase2-only B review; real import/converter probes, no SparkContext/Java gateway/PG connection. Root must reserve exclusive runtime and refresh zero-engine and PG metadata.",
+  "commandSha256": "e2ae4586e89b56a95ef4043cb6e0f6b82abfa41ff8b1a40733b4c6afec51fcf6",
+  "verifiedUniqueFiles": 4313,
+  "verifiedBytes": 1341666936,
+  "originalCopyBytesAndModes": true,
+  "phase1ReportSha256": "efb6c088807df5660a33fc26197dd395a7c72fafa5a3250fa4057a9bfadda295",
+  "phase2AFailurePreserved": true,
+  "phase2AFailureLogSha256": "0289281a6e0cfd6b43eaf17a859b66112d3babf2788ea4aece9db8b69ca0038f",
+  "actualProbe": {
+    "versions": {
+      "pyspark": "4.0.1",
+      "delta-spark": "4.0.0",
+      "psycopg": "3.2.13",
+      "psycopg-binary": "3.2.13",
+      "typing_extensions": "4.15.0"
+    },
+    "have_numpy": false,
+    "bothNativeConverterProbes": false,
+    "sparkContext": null,
+    "javaGateway": null,
+    "psycopgImplementation": "binary",
+    "sysPath": [
+      "",
+      "/private/tmp/ashlar-indexed-commerce-runtime-12dd-20261010-a/src",
+      "/private/tmp/ashlar-indexed-commerce-runtime-12dd-20261010-a/tools",
+      "/private/tmp/ashlar-indexed-typing-python39-20261010-b",
+      "/private/tmp/ashlar-indexed-delta4-python-20261010-a",
+      "/private/tmp/ashlar-spark4-python39-bridge",
+      "/private/tmp/ashlar-indexed-psycopg-python39-20261010-b",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python39.zip",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/lib-dynload",
+      "/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/3.9/lib/python3.9/site-packages"
+    ],
+    "source": "/private/tmp/ashlar-indexed-commerce-runtime-12dd-20261010-a/tools/run_indexed_commerce_weft.py"
+  },
+  "freshOutputAndLog": true
+}

@@ -1,0 +1,443 @@
+{
+  "phase2_exit": {
+    "phase": 2,
+    "attempt": "B-isolated-dependencies",
+    "exit": 0,
+    "elapsed_seconds": 20.852237939834595,
+    "command_sha256": "13eca32f8554555a6092f506f64b19275cc7bcd441d8a0540ecbe4b534a84d98",
+    "capture": "/private/tmp/ashlar-indexed-commerce-queries-20261010-b.log"
+  },
+  "spark_processes": [],
+  "pg": {
+    "id": "37d798c29961d87549baabd1625ad946f45e8f476ade2eef360d7bf1211419c9",
+    "image": "sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545",
+    "labels": {
+      "ashlar.purpose": "end-to-end-development"
+    },
+    "ports": {
+      "5432/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "15432"
+        }
+      ]
+    },
+    "running": true,
+    "oom_killed": false,
+    "memory": 536870912,
+    "cpu": 1000000000
+  },
+  "closing_publication_files": [
+    {
+      "path": ".pipeline-writer.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "attempts/.ashlar-local-installation-reservation.json",
+      "bytes": 1243,
+      "sha256": "4aedec7b5e9856dfc09c66ace3bc096335e4c50d4d354e01fe1cd5891f8770fd"
+    },
+    {
+      "path": "attempts/.part-00000-0b9bcdb0-13e2-4107-8176-5d4c6f523a5d-c000.snappy.parquet.crc",
+      "bytes": 104,
+      "sha256": "a9b14e056dc3aaa8b6adce00adc523bea71035e5c79dda0fbc80786709957106"
+    },
+    {
+      "path": "attempts/.part-00000-365e570b-3a10-46c6-bc21-2e11920f0bf8-c000.snappy.parquet.crc",
+      "bytes": 532,
+      "sha256": "201063f93b196b0d3cf02b7b615084899569b67bc9ef3af8e2ec3fd62a9096f3"
+    },
+    {
+      "path": "attempts/.part-00000-58d6af6f-52a3-4986-bd9b-faad202a8aba-c000.snappy.parquet.crc",
+      "bytes": 104,
+      "sha256": "e18239ae58ffc140d7a55f581631c09a8e7e4ef76726963105ee5aa83eca5612"
+    },
+    {
+      "path": "attempts/.part-00000-a649b24d-524a-4cb5-96de-43173362665f-c000.snappy.parquet.crc",
+      "bytes": 532,
+      "sha256": "c401f23378a5ca2c6181b0dc0cfa9d1b3e518e302aa38075f8ac2287a16ba935"
+    },
+    {
+      "path": "attempts/.part-00000-cceceb7a-3e08-4c83-b42d-a0770734fffb-c000.snappy.parquet.crc",
+      "bytes": 712,
+      "sha256": "f14fa1ea450678466b2c0eefcf0746076cbf8e39e223121e4cabe8f6e3187f02"
+    },
+    {
+      "path": "attempts/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "43377d3bdff539b2741f2524a924e121e0c462b6827d04ba3a54fcf809f95fde"
+    },
+    {
+      "path": "attempts/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 24,
+      "sha256": "0c6b586adf2dc36a70a6af4dc2c8aff2d55694fe5fdc87706a14834ee5a66cf6"
+    },
+    {
+      "path": "attempts/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 32,
+      "sha256": "812d1dc825916d156c17304c0c5bdbf65f5b6af19810ab1e46b5a16013e6d355"
+    },
+    {
+      "path": "attempts/_delta_log/.00000000000000000003.json.crc",
+      "bytes": 32,
+      "sha256": "b5d852641f2af6a959b1537739dab642b8f67c2f9386f70468651ac9bba557a2"
+    },
+    {
+      "path": "attempts/_delta_log/.00000000000000000004.json.crc",
+      "bytes": 32,
+      "sha256": "9685f9d05a8bfbbeb675378b64fd90355cfb6df535efa2c4505615e50d0a069f"
+    },
+    {
+      "path": "attempts/_delta_log/.00000000000000000005.json.crc",
+      "bytes": 32,
+      "sha256": "6bf9b242c1e1d71e6e7294f7e02bd2cc89425eca4e0be6b86899d844372fbc7e"
+    },
+    {
+      "path": "attempts/_delta_log/.00000000000000000006.json.crc",
+      "bytes": 32,
+      "sha256": "6f4ed5cb064e73851e2d0761cddeb680a104b86b1ff8cfcc295734e1411a1aed"
+    },
+    {
+      "path": "attempts/_delta_log/00000000000000000000.json",
+      "bytes": 1121,
+      "sha256": "b13c14e537c291de64232538f8c4f779d61605676b9cfe439649b24ad4ff77bd"
+    },
+    {
+      "path": "attempts/_delta_log/00000000000000000001.json",
+      "bytes": 1883,
+      "sha256": "256d3b7e60b2f010c31bdb4a2b5f1bc6af11fb5759f71965a3317017c2e7cb7e"
+    },
+    {
+      "path": "attempts/_delta_log/00000000000000000002.json",
+      "bytes": 2837,
+      "sha256": "df8adf1cecce010ca8207b3071c5156dfb61b9997c846c3340b49f71f9b19cec"
+    },
+    {
+      "path": "attempts/_delta_log/00000000000000000003.json",
+      "bytes": 2836,
+      "sha256": "d3a85bc629df986211172de248926c870e62b262331ab4bb590b00ad4d0e92b3"
+    },
+    {
+      "path": "attempts/_delta_log/00000000000000000004.json",
+      "bytes": 2835,
+      "sha256": "393d57642de8ae8d6b9bd859ff3fd3f759bd204f545b5c02b4b467b9c51e586c"
+    },
+    {
+      "path": "attempts/_delta_log/00000000000000000005.json",
+      "bytes": 2839,
+      "sha256": "e400633b6bfa6a62c6be02492de57c45cd3925f1e5f373ed4e7f3c889e300e3e"
+    },
+    {
+      "path": "attempts/_delta_log/00000000000000000006.json",
+      "bytes": 2849,
+      "sha256": "69ded1e46b9a0eb0c0420162356f53185457ff5a11a464f41cd729999710c385"
+    },
+    {
+      "path": "attempts/part-00000-0b9bcdb0-13e2-4107-8176-5d4c6f523a5d-c000.snappy.parquet",
+      "bytes": 12162,
+      "sha256": "219967fdc97f9c0dc387cc4898c0ee7a9e2f26b0174be1ce95382fa0cfc5b75e"
+    },
+    {
+      "path": "attempts/part-00000-365e570b-3a10-46c6-bc21-2e11920f0bf8-c000.snappy.parquet",
+      "bytes": 66719,
+      "sha256": "ac19337dc4a063d85cbdfba27794aa1bc5555ff015495428f20afbe45408e13d"
+    },
+    {
+      "path": "attempts/part-00000-58d6af6f-52a3-4986-bd9b-faad202a8aba-c000.snappy.parquet",
+      "bytes": 12161,
+      "sha256": "135d96e66c35f2ebbe1afadc002e6e66315f848d1db2cdac078320ba70d19c7c"
+    },
+    {
+      "path": "attempts/part-00000-a649b24d-524a-4cb5-96de-43173362665f-c000.snappy.parquet",
+      "bytes": 66698,
+      "sha256": "2eddf93439333712164043c348757c7c31c84fa07a1807c03236259555249424"
+    },
+    {
+      "path": "attempts/part-00000-cceceb7a-3e08-4c83-b42d-a0770734fffb-c000.snappy.parquet",
+      "bytes": 89766,
+      "sha256": "7848d516a647f871fdfc7e766b2129c5c4503ddaefb9ef84b16b1adcb4814b1a"
+    },
+    {
+      "path": "development-bindings.json",
+      "bytes": 9226,
+      "sha256": "f62bc935c6ad53cfbf8efa73962b8321fc79b1d727521001ea63274d6ba07fbe"
+    },
+    {
+      "path": "edge_current/.ashlar-local-installation-reservation.json",
+      "bytes": 1243,
+      "sha256": "4aedec7b5e9856dfc09c66ace3bc096335e4c50d4d354e01fe1cd5891f8770fd"
+    },
+    {
+      "path": "edge_current/.part-00000-8e4bb1d4-e984-4dcf-8e91-8a5dafcc769b-c000.snappy.parquet.crc",
+      "bytes": 100,
+      "sha256": "69592b5a1d1ce87dba3efd58284afb8c996e95d97718517595e70dc767c3888b"
+    },
+    {
+      "path": "edge_current/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 28,
+      "sha256": "65c19ce3536a59689af25d7fb75e57015fe1fc1fafff5cc9b88d9d98b237aeb5"
+    },
+    {
+      "path": "edge_current/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 32,
+      "sha256": "978c85183773d7061ca33b27d15143594713dddcf14254d47c5e69bd0c4675ba"
+    },
+    {
+      "path": "edge_current/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 32,
+      "sha256": "50c9c65b0f31773d99d65d660c1beadad3c1e1924ccb0f46694a64ffe18f1181"
+    },
+    {
+      "path": "edge_current/_delta_log/00000000000000000000.json",
+      "bytes": 2267,
+      "sha256": "9f3b8fad8494b408c7fada5a55d5895c3fa3c769ce40da37656e897808cfe3b1"
+    },
+    {
+      "path": "edge_current/_delta_log/00000000000000000001.json",
+      "bytes": 3029,
+      "sha256": "e274911b39e3519655516964957982daf4f7abe2d8b3b66ce40de9160b5cd698"
+    },
+    {
+      "path": "edge_current/_delta_log/00000000000000000002.json",
+      "bytes": 2727,
+      "sha256": "54b831c856cf72e1623461cd2749b67ae8576a98c596d5a1752de118e11310e8"
+    },
+    {
+      "path": "edge_current/part-00000-8e4bb1d4-e984-4dcf-8e91-8a5dafcc769b-c000.snappy.parquet",
+      "bytes": 11425,
+      "sha256": "4a442dd31232014a98e5ba0d11a9be4e69c014d551f8eeb2e6c0d911e007bc4e"
+    },
+    {
+      "path": "manifest/.ashlar-local-installation-reservation.json",
+      "bytes": 1243,
+      "sha256": "4aedec7b5e9856dfc09c66ace3bc096335e4c50d4d354e01fe1cd5891f8770fd"
+    },
+    {
+      "path": "manifest/.part-00000-2039f59e-7e61-4092-b06f-fabadc85a16a-c000.snappy.parquet.crc",
+      "bytes": 228,
+      "sha256": "41d07571138da4210d3d11a42ed8230b4174f39dde35a38a212bb2ade4405270"
+    },
+    {
+      "path": "manifest/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "0efb44cb28d7cf6bfd05a5827d6641660fda4c817edc45cec109c2ef61903013"
+    },
+    {
+      "path": "manifest/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 24,
+      "sha256": "b5128ba068471c87681385970e5fc2a5b76ff81dcb0c23934799afb77343fcdc"
+    },
+    {
+      "path": "manifest/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 36,
+      "sha256": "da7fb249ec465126123b69e9e97064e61db31ab0bed604f937d645724e5d5f67"
+    },
+    {
+      "path": "manifest/_delta_log/00000000000000000000.json",
+      "bytes": 1257,
+      "sha256": "c8a0c9eaacb54bc80bbe00de1e3551772071481bc9438197c377d076e3bdb662"
+    },
+    {
+      "path": "manifest/_delta_log/00000000000000000001.json",
+      "bytes": 2019,
+      "sha256": "8ffc8334fae518f5072875e66b4dfa655559a8d1044d400071884577ec8413ae"
+    },
+    {
+      "path": "manifest/_delta_log/00000000000000000002.json",
+      "bytes": 3282,
+      "sha256": "6a7c17fcd88a5fc0b13e21bc1503b04c71adf8b34e368bcf5ed1a40faca27e03"
+    },
+    {
+      "path": "manifest/part-00000-2039f59e-7e61-4092-b06f-fabadc85a16a-c000.snappy.parquet",
+      "bytes": 28141,
+      "sha256": "3db385b289c82de5b332faf9d950198c503f9643754ebd377232b12dbe63e951"
+    },
+    {
+      "path": "object_current/.ashlar-local-installation-reservation.json",
+      "bytes": 1243,
+      "sha256": "4aedec7b5e9856dfc09c66ace3bc096335e4c50d4d354e01fe1cd5891f8770fd"
+    },
+    {
+      "path": "object_current/.part-00000-d58d68a5-97c3-4cec-8258-eb0a793600b2-c000.snappy.parquet.crc",
+      "bytes": 92,
+      "sha256": "bf33675fef9e9ada9549201e296ff1b20f66a97c9256345329d142dd873d819c"
+    },
+    {
+      "path": "object_current/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 24,
+      "sha256": "02bb5b18bc396c03d20fbb25ee497efc5bb59e0f72ec2c7200a4d58bd2181b8f"
+    },
+    {
+      "path": "object_current/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 32,
+      "sha256": "419beb8b231e614701a724551a0481bd1f7ddf74acbf4fd8f253d698730a8137"
+    },
+    {
+      "path": "object_current/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 32,
+      "sha256": "e067a8355143ce4d571a2c4cde4c84354fb72a2f45206860df219f089d311ecc"
+    },
+    {
+      "path": "object_current/_delta_log/00000000000000000000.json",
+      "bytes": 2033,
+      "sha256": "082496e3d42284823e3c08699a6ec0f963df778fa9f1e8cb2e1284f6657dcf6c"
+    },
+    {
+      "path": "object_current/_delta_log/00000000000000000001.json",
+      "bytes": 2795,
+      "sha256": "1ceca496b5253a43f1bf16ea83de9ef4ed21c94ddd1eed2761dc7dc11d712659"
+    },
+    {
+      "path": "object_current/_delta_log/00000000000000000002.json",
+      "bytes": 2717,
+      "sha256": "8167080776377fa7a52ccf689d17d9177c5376690ad8848159dbd05839258aa3"
+    },
+    {
+      "path": "object_current/part-00000-d58d68a5-97c3-4cec-8258-eb0a793600b2-c000.snappy.parquet",
+      "bytes": 10265,
+      "sha256": "c0520f770a17a350e61bb21e3f5e352df8ac02d07b34c2ec111b03c9c347f513"
+    },
+    {
+      "path": "operations.sqlite",
+      "bytes": 7204864,
+      "sha256": "94f994e0bf0d231f213222a4e55a15a2e25b0263da79c2301d093a521e6f9c59"
+    },
+    {
+      "path": "operations.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+    },
+    {
+      "path": "operations.sqlite-wal",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "operations.sqlite.lock",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "original-graph.json",
+      "bytes": 23078,
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e"
+    },
+    {
+      "path": "original-ontology.json",
+      "bytes": 27544,
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a"
+    },
+    {
+      "path": "postgres-installation.json",
+      "bytes": 16388,
+      "sha256": "703775498aba53dbb0cf19917d7a83df6d4ac776b48b71dc8baf7a0b516f6ea0"
+    },
+    {
+      "path": "public-dataset-call.json",
+      "bytes": 247,
+      "sha256": "715edca442512c3b5030806c968e4270b72e232b1ca69f84ff2ef904d76fa62e"
+    },
+    {
+      "path": "public-dataset.json",
+      "bytes": 2037521,
+      "sha256": "76a9bb3a03bb533f8fae2da5b4e700f4d8f3496b4cbfebb1a9b7ceb2145a7d16"
+    },
+    {
+      "path": "report.json",
+      "bytes": 471621,
+      "sha256": "efb6c088807df5660a33fc26197dd395a7c72fafa5a3250fa4057a9bfadda295"
+    },
+    {
+      "path": "source.jsonl",
+      "bytes": 25547,
+      "sha256": "e7b488a318d562916f55f875f430087077ab263131e9c71754721d637c3c9482"
+    },
+    {
+      "path": "tombstone/.ashlar-local-installation-reservation.json",
+      "bytes": 1243,
+      "sha256": "4aedec7b5e9856dfc09c66ace3bc096335e4c50d4d354e01fe1cd5891f8770fd"
+    },
+    {
+      "path": "tombstone/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "aaef67a509aa5dda7bc97cc547779d2ba1dbce09fd871569bd0e9c2facd733c5"
+    },
+    {
+      "path": "tombstone/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 28,
+      "sha256": "bc50e4ae7ecaa48342ae6b098b603aa8fd45643fde0581c85d42b3360fb7404d"
+    },
+    {
+      "path": "tombstone/_delta_log/00000000000000000000.json",
+      "bytes": 1455,
+      "sha256": "0feebbb892a4087a0bdc67f4d17947f614ebe175835e43e1b58e749a54439e7a"
+    },
+    {
+      "path": "tombstone/_delta_log/00000000000000000001.json",
+      "bytes": 2217,
+      "sha256": "f36bfaed081e4cb4caab959c7fe8c1243ecb46db5f2a64be08c9f0ffaa866ae7"
+    },
+    {
+      "path": "whole_source_history/.ashlar-local-installation-reservation.json",
+      "bytes": 1243,
+      "sha256": "4aedec7b5e9856dfc09c66ace3bc096335e4c50d4d354e01fe1cd5891f8770fd"
+    },
+    {
+      "path": "whole_source_history/.part-00000-572169e0-377e-413f-86cb-375fd5746711-c000.snappy.parquet.crc",
+      "bytes": 180,
+      "sha256": "8b58c17b55915efb9ce4e7a4f748926cb86074f51381ff61ba642b2f3d466e74"
+    },
+    {
+      "path": "whole_source_history/_delta_log/.00000000000000000000.json.crc",
+      "bytes": 20,
+      "sha256": "d75582a2aec5058cb48b8c3fd4d737b316849d5d0eab1f19193d49f6522f71e7"
+    },
+    {
+      "path": "whole_source_history/_delta_log/.00000000000000000001.json.crc",
+      "bytes": 24,
+      "sha256": "9121f7e5ae43ad045024a5279c307415ec1cb17e78cec8ec80d9786fab23e2b5"
+    },
+    {
+      "path": "whole_source_history/_delta_log/.00000000000000000002.json.crc",
+      "bytes": 24,
+      "sha256": "12210d2d9e1a2e4bb3e58a00501b2c58f4fd8a958d3cede0a855b8842e52539b"
+    },
+    {
+      "path": "whole_source_history/_delta_log/00000000000000000000.json",
+      "bytes": 1109,
+      "sha256": "ed6bb96fbc337ff28a2fa6a32c5628a221628ffada4ec5f9de4af404db127eb6"
+    },
+    {
+      "path": "whole_source_history/_delta_log/00000000000000000001.json",
+      "bytes": 1871,
+      "sha256": "666b6fde450e73528c772264026119b8d0c26e4299fad3e7ddb65d8953453a08"
+    },
+    {
+      "path": "whole_source_history/_delta_log/00000000000000000002.json",
+      "bytes": 1655,
+      "sha256": "5143ad74f5658606c79f0d9784f81ddf41e7572c109170fb3d0340e7b3114272"
+    },
+    {
+      "path": "whole_source_history/part-00000-572169e0-377e-413f-86cb-375fd5746711-c000.snappy.parquet",
+      "bytes": 21911,
+      "sha256": "bb4ed29f27aae19a0ccefcc34c0bae4280ded2e59732e9b4066ab902189eea01"
+    }
+  ],
+  "original_file_changes": [
+    {
+      "path": "operations.sqlite-shm",
+      "opening": {
+        "path": "operations.sqlite-shm",
+        "bytes": 32768,
+        "sha256": "756337ed06a3c3eb6a3c936da6d8413bee7d7f2eca8f5c5e4f2459dd6f72467d"
+      },
+      "closing": {
+        "path": "operations.sqlite-shm",
+        "bytes": 32768,
+        "sha256": "fd4c9fda9cd3f9ae7c962b0ddf37232294d55580e1aa165aa06129b8549389eb"
+      }
+    }
+  ],
+  "qualification": "All original Delta files, publication/source/report bytes and durable SQLite database/WAL bytes unchanged. Volatile SQLite shared-memory read-lock/index bytes changed; opening bytes were fingerprinted, not retained. No blanket all-artifact-byte invariance claim."
+}

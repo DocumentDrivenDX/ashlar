@@ -1,0 +1,14 @@
+{
+  "source": "12ddc5f07c40da3cf67a04520cc40671781dbecb",
+  "phase1_report_sha256": "efb6c088807df5660a33fc26197dd395a7c72fafa5a3250fa4057a9bfadda295",
+  "exit": {
+    "phase": 1,
+    "exit": 0,
+    "elapsed_seconds": 33.82248377799988,
+    "command_sha256": "48f32d3c98ff1857d82b58929e0311b0af7297b1de3f2dc0c92729eed7925d48",
+    "capture": "/private/tmp/ashlar-indexed-commerce-publication-20261010-a.log"
+  },
+  "resource_entries_unchanged": 4814,
+  "spark_processes": [],
+  "phase2_grant": "root exclusive exact reviewed phase2 only; successful setup report follows transport/Spark stop and phase1 terminal0."
+}
