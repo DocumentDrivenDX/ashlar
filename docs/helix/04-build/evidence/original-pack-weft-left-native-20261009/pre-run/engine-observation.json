@@ -1,0 +1,7 @@
+{
+  "format": "ashlar-left-pre-run-engine-observation/0.1",
+  "observedAtUtc": "2026-10-10T03:41:12.331283+00:00",
+  "method": "local ps pid/comm/args; Java Spark entrypoints or Python LEFT runner only",
+  "activeMatchingEngines": [],
+  "scope": "Point-in-time local process observation; not a reservation or continued exclusivity proof"
+}

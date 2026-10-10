@@ -1,0 +1,12 @@
+{
+  "format": "astra-left-host-source-review/0.1",
+  "sourceFreezeSha256": "b23ee7d5a54d921202ea3bcb13af6f4433ef3332bfc78ccba60d7d7b87344587",
+  "exactFiles": 15,
+  "compilerSha256": "a8bade61ddaf8062de21103e0f290d88669606c1f3466f78cb45c3a24f6942d0",
+  "freshActualCompilerFixtures": 3,
+  "additionalControls": [
+    "sentinel-only native violation prevents user SQL",
+    "missing ordered callback refuses before interval"
+  ],
+  "qualification": "Closed source/pre-run review only; no native execution or complete LEFT profile qualification. Physical nullable:true metadata is retained; complete source non-null check is separate. Parent still owns CI, committed runtime/resource closure and sole native reservation."
+}

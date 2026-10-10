@@ -1,0 +1,13 @@
+# Original archaeology LEFT JOIN — local native proof
+
+The unchanged original evidence-links query passed on the existing private archaeology publication using Spark4.0.1/Delta4 and the explicitly selected Weft v0.3 LEFT profile. The two ordered full rows are Author A / tagged value bowl / tagged absent, and Author B / tagged absent / tagged value synthetic-ungulate. Original source tokens and model version0.8 remain unchanged. The absent state is relational unmatched provenance; it is not an authored native null.
+
+All13 emitted checks ran unchanged before user SQL:11 complete source checks then2 right-scan identity match checks, each returning zero violations. Both actual held schema observations retain the physical id as BIGINT with nullable:true metadata; separate full-source id non-null checks establish sentinel integrity. The report retains actual three-String output schema and exact raw JSON carriers, decoded values and independently ordered graph oracle.
+
+Session35050 exited0. All three ordinary protected-ACK intervals closed, the outer original reader closed, and Spark.stop completed before successful report/request/artifact persistence. The closing filtered process observation found no Spark/LEFT process. All66 original native target file hashes remain unchanged. No new graph source data or cloud compute was used.
+
+The exact loaded project source is committed Ashlar a6a58c6659f104ebf0e9831226e08c2037dd52ca:733 tracked source/resource/config files with Git modes, blob IDs and hashes. The15 reviewed host files are retained alongside the complete inventory; reproduce other project files from that exact commit. Python/JDK/pyspark and supporting packages are version/import-observed private runtime resources, not a complete external binary inventory. Compiler, Delta jars and public source guard have separately retained exact byte hashes.
+
+The immutable a8bade61 compiler realization retains the reviewed23 LEFT source files plus bounded CLI from ee90571, integrated on official6f003 and corrected CI successor ef6f9b. Original finite-dataset admission remains a95; the configured public Integer callback remains c7 but this String-only query emits no publicSourceOnly check. Pre-run plan metadata records CI as pending; the additive source custody records parent-confirmed terminal success without rewriting that history.
+
+This qualifies the one original query under a private local publication/ACK profile. It does not qualify production Unity Catalog/Databricks, Truss authority, Fabric, or the general LEFT JOIN domain. Gzip copies preserve complete original bytes; copy-custody records their decoded hashes. No partial native pass or failure is invented.

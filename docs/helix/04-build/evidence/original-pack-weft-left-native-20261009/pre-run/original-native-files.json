@@ -1,0 +1,334 @@
+{
+  "files": [
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/.ashlar-local-installation-reservation.json",
+      "size": 1278,
+      "sha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/.part-00000-d3fbd2cf-0ab8-437a-baa2-097237754f4c-c000.snappy.parquet.crc",
+      "size": 152,
+      "sha256": "b99d297acff957ea6c7f873c32ac2c4efe6040f7a44156f738fc08e8c3a3343e"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/_delta_log/.00000000000000000000.json.crc",
+      "size": 24,
+      "sha256": "d022af3f6ee7026958c3e88752faeb9a8c3e63e40f3e1182b068744b245505cf"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/_delta_log/.00000000000000000001.json.crc",
+      "size": 32,
+      "sha256": "943cfb005e612b4c6ea3e566716b6299ad86467981093822c96e596335314d7b"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/_delta_log/.00000000000000000002.json.crc",
+      "size": 32,
+      "sha256": "e5c539a3d05a2353c7cfd7e51b0ece14ee763d61048a25d1101f6fc1f78a349b"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/_delta_log/00000000000000000000.json",
+      "size": 2033,
+      "sha256": "d00bcc6ec81f2b61ee997850d22b8618a83b061a1dc3f707d7d3a72a686ba19b"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/_delta_log/00000000000000000001.json",
+      "size": 2804,
+      "sha256": "ce71d23da00ca0955356fc39aacef6548a70325747a1129a8a5ff009a4db5598"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/_delta_log/00000000000000000002.json",
+      "size": 2732,
+      "sha256": "7d3990d355eb527ec6f67add29b528a139c13afcffd246fdac5f200b4c2a0ac3"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/part-00000-d3fbd2cf-0ab8-437a-baa2-097237754f4c-c000.snappy.parquet",
+      "size": 18082,
+      "sha256": "1d02f3cf8606d0dfc3d67e93794fb166ce3299bc8715ae0b491cdbc1b908c861"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/.ashlar-local-installation-reservation.json",
+      "size": 1278,
+      "sha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/.part-00000-7f104b5e-ad97-4bd0-99d3-4cee61d9b554-c000.snappy.parquet.crc",
+      "size": 148,
+      "sha256": "84820c26c5bff300fd61930eb1152d40fbb0ac31d82e60793b76a8af1a542f16"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/_delta_log/.00000000000000000000.json.crc",
+      "size": 28,
+      "sha256": "b82dff2d7665368b55160ca278ae045292f034981814a9d6ed31fb874c1ec4f4"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/_delta_log/.00000000000000000001.json.crc",
+      "size": 32,
+      "sha256": "770945fbed08640062aa362794ca8f15931e8823f57de6471065e81ed6abd6b5"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/_delta_log/.00000000000000000002.json.crc",
+      "size": 32,
+      "sha256": "be4238d3821316307331b0a84dbe9c69fc33841acc5fa5dc320a5ac1340c716e"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/_delta_log/00000000000000000000.json",
+      "size": 2267,
+      "sha256": "03f155fe523764e9b30ddd476c251ada89cd33e4f9237c84c6f6f97b2bf0fca0"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/_delta_log/00000000000000000001.json",
+      "size": 3038,
+      "sha256": "41e0a207c48c7b358defdcde0b945f1c0ffd73383dffea393197d27e5d60a3b1"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/_delta_log/00000000000000000002.json",
+      "size": 2743,
+      "sha256": "d8621b74837d1e65b17c06980d8148494b698d6289622488b84bba62712f4ca6"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/part-00000-7f104b5e-ad97-4bd0-99d3-4cee61d9b554-c000.snappy.parquet",
+      "size": 17564,
+      "sha256": "a782640937b64b82c0a612a29f1daadd4088ed24f41ad5a7e350301291634ba4"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/tombstone/.ashlar-local-installation-reservation.json",
+      "size": 1278,
+      "sha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/tombstone/_delta_log/.00000000000000000000.json.crc",
+      "size": 20,
+      "sha256": "55bf672324c62a3671322a3ba29223945a711bbe6015707a8b8b978d9b558e50"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/tombstone/_delta_log/.00000000000000000001.json.crc",
+      "size": 28,
+      "sha256": "a3d96f6bf44be0d01fb0800f7f006e8ab7c7d3f74c6a8742320388ff53489ed9"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/tombstone/_delta_log/00000000000000000000.json",
+      "size": 1455,
+      "sha256": "21e27de7b904c1c58000afcff5a538321995d377fc19c4d82c98eccc154d51b5"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/tombstone/_delta_log/00000000000000000001.json",
+      "size": 2226,
+      "sha256": "9ca6c9a3168cfccba20e887ee7562947d77c436f5c3aa716752987d10433bcd3"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/.ashlar-local-installation-reservation.json",
+      "size": 1278,
+      "sha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/.part-00000-d6ef84a0-b391-474a-96f4-501ddc50042d-c000.snappy.parquet.crc",
+      "size": 492,
+      "sha256": "c558ded90c75bff2d1e6734c1fe24b8c7a218e8193f894808b9e7a1e1b6defd3"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/_delta_log/.00000000000000000000.json.crc",
+      "size": 20,
+      "sha256": "026d16eb305d76fe59766c15907c9fec25b784daf1573f4a18822fc5bef02796"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/_delta_log/.00000000000000000001.json.crc",
+      "size": 24,
+      "sha256": "ccf038f67a1b08d86870b95991171298e319d446ab566f4f25594d25b394cb66"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/_delta_log/.00000000000000000002.json.crc",
+      "size": 24,
+      "sha256": "d30d04a606fa57c4daa410f3faff84ac38c5cadc03477c6df98cb7f320b35fae"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/_delta_log/00000000000000000000.json",
+      "size": 1109,
+      "sha256": "efb34756b9d939aba8c579e714799e7e644c3f41459a8cc6e8fea03dfdf02d10"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/_delta_log/00000000000000000001.json",
+      "size": 1880,
+      "sha256": "9076dd6dd5f34965e227237bdebb3e75a2928e05435b2474f2405fbdeaee00d1"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/_delta_log/00000000000000000002.json",
+      "size": 1664,
+      "sha256": "c3e15c9e95c41c5a7606b9b62645b34f63bf00008d54259befd58115e15755fb"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/part-00000-d6ef84a0-b391-474a-96f4-501ddc50042d-c000.snappy.parquet",
+      "size": 61926,
+      "sha256": "bc14d22a00b186f86c02d0009ba67a2404b28f40819970a820f9e855382c9bd2"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/.ashlar-local-installation-reservation.json",
+      "size": 1278,
+      "sha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/.part-00000-89f17d3a-c91c-47b5-b7f7-d650d055afdd-c000.snappy.parquet.crc",
+      "size": 1652,
+      "sha256": "e109df6557e4c8054898b7bc5825ba9aeff86b85ac15fc197a51671fbdd40c01"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/.part-00000-8a03f94c-6c50-4a68-967c-55c2e90d6351-c000.snappy.parquet.crc",
+      "size": 300,
+      "sha256": "4be6450765e377d7e9641ca6afdef8a9e18db389601f3e1c2943b3a7ced7ec74"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/.part-00000-a4ddae28-1099-4be9-a0c6-89420bc0937e-c000.snappy.parquet.crc",
+      "size": 300,
+      "sha256": "cb79f9ad8b3ac6db4bc6256118c892ee0ec4531a803f588d4b0a09e23d6e037a"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/.part-00000-d3c5dd27-0696-40a9-97c0-66d38c011512-c000.snappy.parquet.crc",
+      "size": 2092,
+      "sha256": "cd5f50cd464c17e664b09197c779945aaaac8beabccbef946595014377b83d55"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/.part-00000-d45e9328-c7cf-4f79-be53-c651ad76f1f3-c000.snappy.parquet.crc",
+      "size": 1652,
+      "sha256": "8b90948e0361e6c8f77211400b59138559ef7e6767f1cf30058dc5aaa9600969"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000000.json.crc",
+      "size": 20,
+      "sha256": "545001342775f459c2d4578c1596151323799b15eced9da1b15d13094503678a"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000001.json.crc",
+      "size": 24,
+      "sha256": "290e6ad1fad9e703529ae3bb09948c9721d37d827ea2f399d48a2ba0065c3eca"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000002.json.crc",
+      "size": 32,
+      "sha256": "23a9263357e8e9c707c071a394e7997acf861bb7c021fc229e1a92eaa1aee3af"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000003.json.crc",
+      "size": 32,
+      "sha256": "236589cb6985d63ee420b5c9416914b81f441cbddbeab1aeb3f91c9561b1d541"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000004.json.crc",
+      "size": 32,
+      "sha256": "6a63232b21d52b15cfaa26242b8c20a39a68f699eacb1611b191f8689e4b0cb1"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000005.json.crc",
+      "size": 32,
+      "sha256": "2bd730fd0d29916e52d8282ab794acdcffd44c605040c154341a2562046d5dfd"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000006.json.crc",
+      "size": 32,
+      "sha256": "062fcfaf09f174a9bcc50d27ffd88ae2687031e807d5cab3f0d628869368590b"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000000.json",
+      "size": 1121,
+      "sha256": "784404d7d7c7bfa6d263d68c3ecb2bbdf61649b89253f4d2056b8fb352f3d4ac"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000001.json",
+      "size": 1892,
+      "sha256": "669ca7f37cb666848ddfdff40cbeb12033a27ffb8917c2331e819818b24bc650"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000002.json",
+      "size": 2852,
+      "sha256": "e5cfe418b0144c6f5c6780029d5a8f853feb5f1089d0305c56250ccf431478d6"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000003.json",
+      "size": 2852,
+      "sha256": "769f3aa72a8db40d24a539423edefbefa29d1133715cf14cd0d9b75e9db96977"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000004.json",
+      "size": 2852,
+      "sha256": "f1c5dbc2167a1138d475b48434bfb5d552959a8e071b038f800077f7e5ba307f"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000005.json",
+      "size": 2857,
+      "sha256": "fa666d8ac163d05f9a1f01e0aad2d36ea134754758d63107f46f85faac2f2aec"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000006.json",
+      "size": 2868,
+      "sha256": "3f4820959f50d9f8c4b507987e0bb9fc0207262d73bc5952c952c0b6871ecca7"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/part-00000-89f17d3a-c91c-47b5-b7f7-d650d055afdd-c000.snappy.parquet",
+      "size": 210164,
+      "sha256": "a480e31f75e04e9feb20f623ce701b53f75cf2f6fe314ca900bf68deb860c313"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/part-00000-8a03f94c-6c50-4a68-967c-55c2e90d6351-c000.snappy.parquet",
+      "size": 37316,
+      "sha256": "fc65ae109f9bc0341bbca062efff3275fe6896d720180c5b22882716e4a47087"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/part-00000-a4ddae28-1099-4be9-a0c6-89420bc0937e-c000.snappy.parquet",
+      "size": 37317,
+      "sha256": "86da5e21bc1571d32f0e4c57c355fd3e3e86d0229cba3201e4776c3c6c4b74d0"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/part-00000-d3c5dd27-0696-40a9-97c0-66d38c011512-c000.snappy.parquet",
+      "size": 266627,
+      "sha256": "20490b63dcd031a6d19d2de975d4ca854775a73524d6ede27e8d292ebd4fbb42"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/part-00000-d45e9328-c7cf-4f79-be53-c651ad76f1f3-c000.snappy.parquet",
+      "size": 210185,
+      "sha256": "ed175ac5ad22669b460023503702d2d668359cc286eaec8101ecdb48056f3aaa"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/.ashlar-local-installation-reservation.json",
+      "size": 1278,
+      "sha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/.part-00000-a6c091f8-3cd0-4776-976a-62a5938ab352-c000.snappy.parquet.crc",
+      "size": 468,
+      "sha256": "166a6b1a8c7fd8e13f1ce850cca602000c80a3561003ecc72fa8284c8ad38236"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/_delta_log/.00000000000000000000.json.crc",
+      "size": 20,
+      "sha256": "7c3b953c84c9c51ab5b428eaf2c9370d5c3c605a352cc9eefb96a0614eab7fba"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/_delta_log/.00000000000000000001.json.crc",
+      "size": 24,
+      "sha256": "a6ae6b01de59f1b8abc39272a2f009eb4fcf37a8386b6abb01f324962952dd28"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/_delta_log/.00000000000000000002.json.crc",
+      "size": 36,
+      "sha256": "538a6642c6a4d20f70fe5df19351a993a0fb124d13036f945d8df527846c3564"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/_delta_log/00000000000000000000.json",
+      "size": 1257,
+      "sha256": "5130e132edd5d58a5421725a6ce803e5cb712daeb69c4a6c5d7c6c4cc511f13b"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/_delta_log/00000000000000000001.json",
+      "size": 2028,
+      "sha256": "a4926bfbe5b30e08ce9190dae8eee777f31876b29019ca365246b971777cde9f"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/_delta_log/00000000000000000002.json",
+      "size": 3285,
+      "sha256": "711802e6cf88933f07da45e2c99ff1072b771e60d53d2bae0c3d6b7ba44f0590"
+    },
+    {
+      "path": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/part-00000-a6c091f8-3cd0-4776-976a-62a5938ab352-c000.snappy.parquet",
+      "size": 58693,
+      "sha256": "41ced4502f3c4acc83bcba7c79026c4b5262145a33b3ab5c95969fa84bcfb63e"
+    }
+  ]
+}

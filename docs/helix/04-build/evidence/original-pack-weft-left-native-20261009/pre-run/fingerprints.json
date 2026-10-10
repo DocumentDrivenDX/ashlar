@@ -1,0 +1,52 @@
+{
+  "files": [
+    {
+      "path": "engine-observation.json",
+      "sha256": "525bdbf725b771f896e18b787eb76e7d256acb915389e4322de89afa29f04def"
+    },
+    {
+      "path": "host-source-receipt.json",
+      "sha256": "be62344783cee9ee3a9d5646086fd3731f9af7e3bb97057e25e76b7d323466ac"
+    },
+    {
+      "path": "original-artifact.json",
+      "sha256": "12d4db884adb0a99a7c579b82b24b8e8636cfa0b94a5fae90469fec2b63a6c77"
+    },
+    {
+      "path": "original-native-files.json",
+      "sha256": "1a5ab3696b11842d3e5a68ff9ee82b5d4c21559199c956478d1e6616c657ccc5"
+    },
+    {
+      "path": "original-request.json",
+      "sha256": "92b82e2d55a8e81d97af8ddde93600ab93f70020590df2efdfa52106abf345f8"
+    },
+    {
+      "path": "plan.json",
+      "sha256": "b30071fae297cf46f6a6927a7d2725da0e4a9c42e14029e1d94f8e748a349992"
+    },
+    {
+      "path": "platform.json",
+      "sha256": "e88fc41d948f0c977a1d02be51c05526c0f57a78d638fe5145f041a6fe90cb20"
+    },
+    {
+      "path": "postgres-container.json",
+      "sha256": "a7ec3db5242ba5e7b0bf263f8f13e61a608c3ef8ecb1086beae2ec8206654046"
+    },
+    {
+      "path": "prepare-left-plan-20261009.py",
+      "sha256": "b724b016841ca8c8da2a972dee492f6b1434f08d9129324786591a9aa7c5ba90"
+    },
+    {
+      "path": "prepare-left-runtime-20261009.py",
+      "sha256": "29c38ea8db7416c23d596a3b15802c3b86008463800f7dd2cb429d2abe3d8f9c"
+    },
+    {
+      "path": "run-command.txt",
+      "sha256": "9f296d7ed0484dc591837766b031cb95138206eaf56b3a3d295d744c2fb7044e"
+    },
+    {
+      "path": "source-custody.json",
+      "sha256": "c4fd00966c1121e22f4a8d04c86c50680cfc5207c3047216c8cee95ab062da14"
+    }
+  ]
+}

@@ -1,0 +1,963 @@
+{
+  "files": [
+    {
+      "source": "/private/tmp/ashlar-pack-left-weft-20261009-a/report.json",
+      "retainedPath": "actual/report.json.gz",
+      "originalSha256": "b31eefcc881b5d1b3710845bb30d47cbb9c69d4d0b4fb72b7872720d62fe374e",
+      "originalBytes": 9021931,
+      "encoding": "gzip"
+    },
+    {
+      "source": "/private/tmp/ashlar-pack-left-weft-20261009-a/original-request.json",
+      "retainedPath": "actual/original-request.json.gz",
+      "originalSha256": "92b82e2d55a8e81d97af8ddde93600ab93f70020590df2efdfa52106abf345f8",
+      "originalBytes": 131767,
+      "encoding": "gzip"
+    },
+    {
+      "source": "/private/tmp/ashlar-pack-left-weft-20261009-a/original-artifact.json",
+      "retainedPath": "actual/original-artifact.json.gz",
+      "originalSha256": "12d4db884adb0a99a7c579b82b24b8e8636cfa0b94a5fae90469fec2b63a6c77",
+      "originalBytes": 49254,
+      "encoding": "gzip"
+    },
+    {
+      "source": "/private/tmp/ashlar-pack-left-weft-20261009-a.log",
+      "retainedPath": "actual/run.log",
+      "originalSha256": "f7040c1c55597870de398637755dc9a4190be2a105f745248985888ef9349002",
+      "originalBytes": 409,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-engine-observation-20261009-c.json",
+      "retainedPath": "actual/engine-c.json",
+      "originalSha256": "f7d5adb7995d92533d2363c3304106f05e47dc76000b17755e5c01b0cb66de44",
+      "originalBytes": 153,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-engine-observation-20261009-d.json",
+      "retainedPath": "actual/engine-d.json",
+      "originalSha256": "9d8a8765f3a5ad0ff337ea17f11f1d6c2aad6ba6b874113b82d11fad391ef5b9",
+      "originalBytes": 236,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/engine-observation.json",
+      "retainedPath": "pre-run/engine-observation.json",
+      "originalSha256": "525bdbf725b771f896e18b787eb76e7d256acb915389e4322de89afa29f04def",
+      "originalBytes": 340,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/fingerprints.json",
+      "retainedPath": "pre-run/fingerprints.json",
+      "originalSha256": "417023feb094c025a4689f5d7dc1f724cf8be25c65f9f35214c6b590647f23b7",
+      "originalBytes": 1644,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/host-source-receipt.json",
+      "retainedPath": "pre-run/host-source-receipt.json",
+      "originalSha256": "be62344783cee9ee3a9d5646086fd3731f9af7e3bb97057e25e76b7d323466ac",
+      "originalBytes": 1345,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/original-artifact.json",
+      "retainedPath": "pre-run/original-artifact.json",
+      "originalSha256": "12d4db884adb0a99a7c579b82b24b8e8636cfa0b94a5fae90469fec2b63a6c77",
+      "originalBytes": 49254,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/original-native-files.json",
+      "retainedPath": "pre-run/original-native-files.json",
+      "originalSha256": "1a5ab3696b11842d3e5a68ff9ee82b5d4c21559199c956478d1e6616c657ccc5",
+      "originalBytes": 16843,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/original-request.json",
+      "retainedPath": "pre-run/original-request.json",
+      "originalSha256": "92b82e2d55a8e81d97af8ddde93600ab93f70020590df2efdfa52106abf345f8",
+      "originalBytes": 131767,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/plan.json",
+      "retainedPath": "pre-run/plan.json",
+      "originalSha256": "b30071fae297cf46f6a6927a7d2725da0e4a9c42e14029e1d94f8e748a349992",
+      "originalBytes": 319117,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/platform.json",
+      "retainedPath": "pre-run/platform.json",
+      "originalSha256": "e88fc41d948f0c977a1d02be51c05526c0f57a78d638fe5145f041a6fe90cb20",
+      "originalBytes": 1149,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/postgres-container.json",
+      "retainedPath": "pre-run/postgres-container.json",
+      "originalSha256": "a7ec3db5242ba5e7b0bf263f8f13e61a608c3ef8ecb1086beae2ec8206654046",
+      "originalBytes": 541,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/prepare-left-plan-20261009.py",
+      "retainedPath": "pre-run/prepare-left-plan-20261009.py",
+      "originalSha256": "b724b016841ca8c8da2a972dee492f6b1434f08d9129324786591a9aa7c5ba90",
+      "originalBytes": 5520,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/prepare-left-runtime-20261009.py",
+      "retainedPath": "pre-run/prepare-left-runtime-20261009.py",
+      "originalSha256": "29c38ea8db7416c23d596a3b15802c3b86008463800f7dd2cb429d2abe3d8f9c",
+      "originalBytes": 2558,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/run-command.txt",
+      "retainedPath": "pre-run/run-command.txt",
+      "originalSha256": "9f296d7ed0484dc591837766b031cb95138206eaf56b3a3d295d744c2fb7044e",
+      "originalBytes": 1026,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-native-plan-20261009-b/source-custody.json",
+      "retainedPath": "pre-run/source-custody.json",
+      "originalSha256": "c4fd00966c1121e22f4a8d04c86c50680cfc5207c3047216c8cee95ab062da14",
+      "originalBytes": 2433,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/runtime-source-manifest.json",
+      "retainedPath": "source/runtime-source-manifest.json",
+      "originalSha256": "4560c75caaff8f18f639ff444bd64820bf5ebd326e166f7fea2ba3d0d2cfc2d2",
+      "originalBytes": 195878,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/tools/weft_left_plan.py",
+      "retainedPath": "source/loaded/tools/weft_left_plan.py",
+      "originalSha256": "3ced74c1793a501fc293724aae9d3b8c67665079dcdde2a9212732478c4582ea",
+      "originalBytes": 22931,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/tools/weft_field_plan.py",
+      "retainedPath": "source/loaded/tools/weft_field_plan.py",
+      "originalSha256": "c604eb10f8661407072361ff485968aa54d207b25e9e7734ba40b8377319d10e",
+      "originalBytes": 37138,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/tools/run_commerce_arithmetic_weft.py",
+      "retainedPath": "source/loaded/tools/run_commerce_arithmetic_weft.py",
+      "originalSha256": "5a72c5d95599717ebc3cc75e57a0051b24b9dc93df1552c7c4187d208c873c18",
+      "originalBytes": 40603,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/tools/run_commerce_publication_weft.py",
+      "retainedPath": "source/loaded/tools/run_commerce_publication_weft.py",
+      "originalSha256": "c73b123b2f31e9742afeb07597695e8294e1ff99b8e306ee31693e76667a41ce",
+      "originalBytes": 29249,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/tools/run_pack_left_weft.py",
+      "retainedPath": "source/loaded/tools/run_pack_left_weft.py",
+      "originalSha256": "81651dc59e947d9d677ce8ff8fcf4a2c26cf113a60b2c4ea8dd545e9571b763d",
+      "originalBytes": 8725,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/tests/test_weft_left_host.py",
+      "retainedPath": "source/loaded/tests/test_weft_left_host.py",
+      "originalSha256": "9db7ae6dac49244c18abc9e3f34b1aeb284291ba6e2c0302b020a21165a130f6",
+      "originalBytes": 9598,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/tests/test_weft_left_schema.py",
+      "retainedPath": "source/loaded/tests/test_weft_left_schema.py",
+      "originalSha256": "b6119f2d303f4d5c22108185639b33c399da6a7d97ce6df1094b3ee52f77f53c",
+      "originalBytes": 3351,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/tests/test_pack_left_weft.py",
+      "retainedPath": "source/loaded/tests/test_pack_left_weft.py",
+      "originalSha256": "967d1846e134e3dd7039479f40290f2ca06bc7c8a7fe5aee16ff99c034d172a9",
+      "originalBytes": 2995,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/examples/end-to-end/weft-left-compiler-fixtures/README.md",
+      "retainedPath": "source/loaded/examples/end-to-end/weft-left-compiler-fixtures/README.md",
+      "originalSha256": "1407da76fb088909e09e4e9e56efae3eadc88bcb65a0eac71e313216db53237c",
+      "originalBytes": 928,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/examples/end-to-end/weft-left-compiler-fixtures/original-artifact.json",
+      "retainedPath": "source/loaded/examples/end-to-end/weft-left-compiler-fixtures/original-artifact.json",
+      "originalSha256": "12d4db884adb0a99a7c579b82b24b8e8636cfa0b94a5fae90469fec2b63a6c77",
+      "originalBytes": 49254,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/examples/end-to-end/weft-left-compiler-fixtures/original-request.json",
+      "retainedPath": "source/loaded/examples/end-to-end/weft-left-compiler-fixtures/original-request.json",
+      "originalSha256": "ab940fce8faa4c730b48636eef96cc585e907deb5a3b3c642df6f03ecf265b09",
+      "originalBytes": 131766,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/examples/end-to-end/weft-left-compiler-fixtures/unselected-right-artifact.json",
+      "retainedPath": "source/loaded/examples/end-to-end/weft-left-compiler-fixtures/unselected-right-artifact.json",
+      "originalSha256": "df2870f39f5fd4c2df46f7f369547a9a95260897f2c50d92be6c772649d298fe",
+      "originalBytes": 43448,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/examples/end-to-end/weft-left-compiler-fixtures/unselected-right-request.json",
+      "retainedPath": "source/loaded/examples/end-to-end/weft-left-compiler-fixtures/unselected-right-request.json",
+      "originalSha256": "a16281b7b731ae878099216d0f53e004190a21940e40bb51c0e5823352f62240",
+      "originalBytes": 131751,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/examples/end-to-end/weft-left-compiler-fixtures/self-join-request.json",
+      "retainedPath": "source/loaded/examples/end-to-end/weft-left-compiler-fixtures/self-join-request.json",
+      "originalSha256": "5997d9e9031fa2cdb4ef1e56e082c512d4f7b6380f8df116533f4c2de8fc27e5",
+      "originalBytes": 131653,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-runtime-a6a58c/examples/end-to-end/weft-left-compiler-fixtures/self-join-artifact.json",
+      "retainedPath": "source/loaded/examples/end-to-end/weft-left-compiler-fixtures/self-join-artifact.json",
+      "originalSha256": "e8b468435abd3b530b1fdb4c7e75524345b3f2a3436347139a8367fb1713fb89",
+      "originalBytes": 26307,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-left-host-freeze-20261009-c/manifest.json",
+      "retainedPath": "source/host-approval-manifest.json",
+      "originalSha256": "b23ee7d5a54d921202ea3bcb13af6f4433ef3332bfc78ccba60d7d7b87344587",
+      "originalBytes": 2840,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-integration-final-20261009-a/weft-runtime",
+      "retainedPath": "compiler/weft-runtime",
+      "originalSha256": "a8bade61ddaf8062de21103e0f290d88669606c1f3466f78cb45c3a24f6942d0",
+      "originalBytes": 13381984,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-integration-final-20261009-a/fingerprints.json",
+      "retainedPath": "compiler/integration-fingerprints.json",
+      "originalSha256": "be70548d5805c939a8e1201c514ba9b1925e3d298c63149351035e2e170d14ca",
+      "originalBytes": 4079,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-integration-final-20261009-a/integration-custody.json",
+      "retainedPath": "compiler/integration-integration-custody.json",
+      "originalSha256": "7faab500dc9ba88a5576bceb144b1dc3e9017f61183b435fca33715729e58e72",
+      "originalBytes": 19690,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/manifest.json",
+      "retainedPath": "compiler/original-source-manifest.json",
+      "originalSha256": "8b60ac82f3f730471adde8f2c54a0e42c9210d19fe7ea94a4948f2020235e0dd",
+      "originalBytes": 3838,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-core/src/arithmetic_application_resolve.rs",
+      "retainedPath": "compiler/source/crates/weft-core/src/arithmetic_application_resolve.rs",
+      "originalSha256": "5c31cdd90a2c0f94dbde951ac30617ae34ba602544529ba338a6530cfc01c778",
+      "originalBytes": 33087,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-core/src/arithmetic_plan.rs",
+      "retainedPath": "compiler/source/crates/weft-core/src/arithmetic_plan.rs",
+      "originalSha256": "41bf6deab05a49b61966b8e690002702d1c3e1018cae4083be97e90e2739a72b",
+      "originalBytes": 3784,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-core/src/arithmetic_query.rs",
+      "retainedPath": "compiler/source/crates/weft-core/src/arithmetic_query.rs",
+      "originalSha256": "eab75ff3389180cb7c432890679ae9f4210c804d6e3a6c11c4e8b5ff36239a1a",
+      "originalBytes": 18255,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-core/src/backend.rs",
+      "retainedPath": "compiler/source/crates/weft-core/src/backend.rs",
+      "originalSha256": "90cd4de56c7a31b626a0097700f4aa44f31c1c3edbe5c913427a884176ffaf4c",
+      "originalBytes": 35608,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-core/src/backend_emission.rs",
+      "retainedPath": "compiler/source/crates/weft-core/src/backend_emission.rs",
+      "originalSha256": "6fbe584a4de038a5278b7d40a6c0f4adb2161ee2cc08da8c5faea15796998b32",
+      "originalBytes": 44469,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-databricks/src/candidate/application.rs",
+      "retainedPath": "compiler/source/crates/weft-databricks/src/candidate/application.rs",
+      "originalSha256": "f6f6269996c49c3f7acb4b9ed13c0e80e25d6c24f0e163eff2cef4339cd3f660",
+      "originalBytes": 16858,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-databricks/src/candidate/arithmetic.rs",
+      "retainedPath": "compiler/source/crates/weft-databricks/src/candidate/arithmetic.rs",
+      "originalSha256": "5945ec28f7c7653e0068ebe6bac7dc02900063b43c0676bc296983dfe45c245b",
+      "originalBytes": 34479,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-databricks/src/candidate.rs",
+      "retainedPath": "compiler/source/crates/weft-databricks/src/candidate.rs",
+      "originalSha256": "fb8270f97b51377fe0edab09d5f6daddc5078bd18ceb76cdb0575ecbdb969c38",
+      "originalBytes": 32113,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-databricks/src/left_join.rs",
+      "retainedPath": "compiler/source/crates/weft-databricks/src/left_join.rs",
+      "originalSha256": "f89a0e9358ead34344ed88cc957932f1a84bbdcf6217463ff8d8d4158a2218ff",
+      "originalBytes": 3292,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-databricks/src/lib.rs",
+      "retainedPath": "compiler/source/crates/weft-databricks/src/lib.rs",
+      "originalSha256": "3e03979bc64203ccd5033aa1a94b84b2120cca2f9ba6cda4d9ba10fa6347a2df",
+      "originalBytes": 656,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-postgresql/src/candidate/application.rs",
+      "retainedPath": "compiler/source/crates/weft-postgresql/src/candidate/application.rs",
+      "originalSha256": "45b7f9187e47dcf0f3ff84deee72323a0d473453ba357e6eba09e0f353ca4cf6",
+      "originalBytes": 36549,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-postgresql/src/result_definition.rs",
+      "retainedPath": "compiler/source/crates/weft-postgresql/src/result_definition.rs",
+      "originalSha256": "53c8102b2c916cecaa8f7e1cdc65c52cf95585f5f87be91d89fa60eb0f979155",
+      "originalBytes": 30955,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-python/Cargo.toml",
+      "retainedPath": "compiler/source/crates/weft-python/Cargo.toml",
+      "originalSha256": "50990f42c58e569e65f2876c4e5c0e27b6b536ba6d0ddda35ee2e7bf9b60ad6d",
+      "originalBytes": 951,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-runtime/Cargo.toml",
+      "retainedPath": "compiler/source/crates/weft-runtime/Cargo.toml",
+      "originalSha256": "aee8351e7c8eaab0646b5dfb0117de899ce534e6175713aa81496c861b579d57",
+      "originalBytes": 1235,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-runtime/src/lib.rs",
+      "retainedPath": "compiler/source/crates/weft-runtime/src/lib.rs",
+      "originalSha256": "a477a5e6226d30902e222c0094034f1b28097e6357dee6d9dc4be5b43bedb1c9",
+      "originalBytes": 21170,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/crates/weft-wasm/Cargo.toml",
+      "retainedPath": "compiler/source/crates/weft-wasm/Cargo.toml",
+      "originalSha256": "7e55a908cf04b8fb92fd0cc02e3b468ffbab05b6356de4c0675d7e14205fd234",
+      "originalBytes": 894,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/docs/helix/02-design/architecture.md",
+      "retainedPath": "compiler/source/docs/helix/02-design/architecture.md",
+      "originalSha256": "55b000b8d835561b865c8bb88c58f56aafac75378de3b6f349d53013d44323fa",
+      "originalBytes": 8503,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/docs/helix/02-design/contracts/compile-response-v0.3.schema.json",
+      "retainedPath": "compiler/source/docs/helix/02-design/contracts/compile-response-v0.3.schema.json",
+      "originalSha256": "9583cd85063d00a2f88473acb2a1566ad9d94b8b305e2388c612fdb43c52507a",
+      "originalBytes": 34484,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/docs/helix/02-design/contracts/left-join-v0.3.md",
+      "retainedPath": "compiler/source/docs/helix/02-design/contracts/left-join-v0.3.md",
+      "originalSha256": "890f5c4e18c23150b75140dfae48ad14490362a1be37770543f24a5cb0d9f617",
+      "originalBytes": 9906,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/docs/helix/02-design/contracts/logical-plan-v0.3.schema.json",
+      "retainedPath": "compiler/source/docs/helix/02-design/contracts/logical-plan-v0.3.schema.json",
+      "originalSha256": "60fe7c27d6afea25bebe3cd429d5a86e1b447c403715f298be79fd0aa0d3f297",
+      "originalBytes": 38838,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/tests/ashlar-databricks/compiler.rs",
+      "retainedPath": "compiler/source/tests/ashlar-databricks/compiler.rs",
+      "originalSha256": "7d1bbcc272a49fe2ecce319b8d5fbe97c07597d6a66f28902988b566c24f517a",
+      "originalBytes": 76776,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/tests/ashlar-databricks/fixtures/original-archaeology-left-request.json",
+      "retainedPath": "compiler/source/tests/ashlar-databricks/fixtures/original-archaeology-left-request.json",
+      "originalSha256": "ab940fce8faa4c730b48636eef96cc585e907deb5a3b3c642df6f03ecf265b09",
+      "originalBytes": 131766,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-weft-left-source-20261009-a/source/tests/register-backend/pipeline.rs",
+      "retainedPath": "compiler/source/tests/register-backend/pipeline.rs",
+      "originalSha256": "0d865509936981fe50a12e108caadbf8620acf8c56220f4ff15fde0269cee20c",
+      "originalBytes": 32162,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/report.json",
+      "retainedPath": "original-publication/report.json.gz",
+      "originalSha256": "2cd8cd9afc2757c9a75d60f3c31633688f4afccedee6335d412cc281b214e721",
+      "originalBytes": 1755596,
+      "encoding": "gzip"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/original-ontology.json",
+      "retainedPath": "original-publication/original-ontology.json.gz",
+      "originalSha256": "dc0e075208922c928c6144d3efcc23235735f01aeb70bcf66f96080f1301ca5a",
+      "originalBytes": 83068,
+      "encoding": "gzip"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/original-graph.json",
+      "retainedPath": "original-publication/original-graph.json.gz",
+      "originalSha256": "d30006199d1a464827194a24e5cd87f8d5b2f073917a3e8253fc95a778adcc52",
+      "originalBytes": 81564,
+      "encoding": "gzip"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/development-bindings.json",
+      "retainedPath": "original-publication/development-bindings.json.gz",
+      "originalSha256": "26f5ff297637361e3c7b4f6a4c40622f98e51ccb68f93a99279cc1339e2dbdcd",
+      "originalBytes": 36312,
+      "encoding": "gzip"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/public-dataset.json",
+      "retainedPath": "original-publication/public-dataset.json.gz",
+      "originalSha256": "fb12d9ce4a4967e3f1ca36adeb758c41c5df314c61560a745acf1b6dd27b96c9",
+      "originalBytes": 1106521,
+      "encoding": "gzip"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/source.jsonl",
+      "retainedPath": "original-publication/source.jsonl.gz",
+      "originalSha256": "9d0347b430c77d36bbc98b245a4df894108282aea7a10cb774bc729d25d0d9b2",
+      "originalBytes": 115572,
+      "encoding": "gzip"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/.ashlar-local-installation-reservation.json",
+      "retainedPath": "native/object_current/.ashlar-local-installation-reservation.json",
+      "originalSha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79",
+      "originalBytes": 1278,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/.part-00000-d3fbd2cf-0ab8-437a-baa2-097237754f4c-c000.snappy.parquet.crc",
+      "retainedPath": "native/object_current/.part-00000-d3fbd2cf-0ab8-437a-baa2-097237754f4c-c000.snappy.parquet.crc",
+      "originalSha256": "b99d297acff957ea6c7f873c32ac2c4efe6040f7a44156f738fc08e8c3a3343e",
+      "originalBytes": 152,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/_delta_log/.00000000000000000000.json.crc",
+      "retainedPath": "native/object_current/_delta_log/.00000000000000000000.json.crc",
+      "originalSha256": "d022af3f6ee7026958c3e88752faeb9a8c3e63e40f3e1182b068744b245505cf",
+      "originalBytes": 24,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/_delta_log/.00000000000000000001.json.crc",
+      "retainedPath": "native/object_current/_delta_log/.00000000000000000001.json.crc",
+      "originalSha256": "943cfb005e612b4c6ea3e566716b6299ad86467981093822c96e596335314d7b",
+      "originalBytes": 32,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/_delta_log/.00000000000000000002.json.crc",
+      "retainedPath": "native/object_current/_delta_log/.00000000000000000002.json.crc",
+      "originalSha256": "e5c539a3d05a2353c7cfd7e51b0ece14ee763d61048a25d1101f6fc1f78a349b",
+      "originalBytes": 32,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/_delta_log/00000000000000000000.json",
+      "retainedPath": "native/object_current/_delta_log/00000000000000000000.json",
+      "originalSha256": "d00bcc6ec81f2b61ee997850d22b8618a83b061a1dc3f707d7d3a72a686ba19b",
+      "originalBytes": 2033,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/_delta_log/00000000000000000001.json",
+      "retainedPath": "native/object_current/_delta_log/00000000000000000001.json",
+      "originalSha256": "ce71d23da00ca0955356fc39aacef6548a70325747a1129a8a5ff009a4db5598",
+      "originalBytes": 2804,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/_delta_log/00000000000000000002.json",
+      "retainedPath": "native/object_current/_delta_log/00000000000000000002.json",
+      "originalSha256": "7d3990d355eb527ec6f67add29b528a139c13afcffd246fdac5f200b4c2a0ac3",
+      "originalBytes": 2732,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/object_current/part-00000-d3fbd2cf-0ab8-437a-baa2-097237754f4c-c000.snappy.parquet",
+      "retainedPath": "native/object_current/part-00000-d3fbd2cf-0ab8-437a-baa2-097237754f4c-c000.snappy.parquet",
+      "originalSha256": "1d02f3cf8606d0dfc3d67e93794fb166ce3299bc8715ae0b491cdbc1b908c861",
+      "originalBytes": 18082,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/.ashlar-local-installation-reservation.json",
+      "retainedPath": "native/edge_current/.ashlar-local-installation-reservation.json",
+      "originalSha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79",
+      "originalBytes": 1278,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/.part-00000-7f104b5e-ad97-4bd0-99d3-4cee61d9b554-c000.snappy.parquet.crc",
+      "retainedPath": "native/edge_current/.part-00000-7f104b5e-ad97-4bd0-99d3-4cee61d9b554-c000.snappy.parquet.crc",
+      "originalSha256": "84820c26c5bff300fd61930eb1152d40fbb0ac31d82e60793b76a8af1a542f16",
+      "originalBytes": 148,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/_delta_log/.00000000000000000000.json.crc",
+      "retainedPath": "native/edge_current/_delta_log/.00000000000000000000.json.crc",
+      "originalSha256": "b82dff2d7665368b55160ca278ae045292f034981814a9d6ed31fb874c1ec4f4",
+      "originalBytes": 28,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/_delta_log/.00000000000000000001.json.crc",
+      "retainedPath": "native/edge_current/_delta_log/.00000000000000000001.json.crc",
+      "originalSha256": "770945fbed08640062aa362794ca8f15931e8823f57de6471065e81ed6abd6b5",
+      "originalBytes": 32,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/_delta_log/.00000000000000000002.json.crc",
+      "retainedPath": "native/edge_current/_delta_log/.00000000000000000002.json.crc",
+      "originalSha256": "be4238d3821316307331b0a84dbe9c69fc33841acc5fa5dc320a5ac1340c716e",
+      "originalBytes": 32,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/_delta_log/00000000000000000000.json",
+      "retainedPath": "native/edge_current/_delta_log/00000000000000000000.json",
+      "originalSha256": "03f155fe523764e9b30ddd476c251ada89cd33e4f9237c84c6f6f97b2bf0fca0",
+      "originalBytes": 2267,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/_delta_log/00000000000000000001.json",
+      "retainedPath": "native/edge_current/_delta_log/00000000000000000001.json",
+      "originalSha256": "41e0a207c48c7b358defdcde0b945f1c0ffd73383dffea393197d27e5d60a3b1",
+      "originalBytes": 3038,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/_delta_log/00000000000000000002.json",
+      "retainedPath": "native/edge_current/_delta_log/00000000000000000002.json",
+      "originalSha256": "d8621b74837d1e65b17c06980d8148494b698d6289622488b84bba62712f4ca6",
+      "originalBytes": 2743,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/edge_current/part-00000-7f104b5e-ad97-4bd0-99d3-4cee61d9b554-c000.snappy.parquet",
+      "retainedPath": "native/edge_current/part-00000-7f104b5e-ad97-4bd0-99d3-4cee61d9b554-c000.snappy.parquet",
+      "originalSha256": "a782640937b64b82c0a612a29f1daadd4088ed24f41ad5a7e350301291634ba4",
+      "originalBytes": 17564,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/tombstone/.ashlar-local-installation-reservation.json",
+      "retainedPath": "native/tombstone/.ashlar-local-installation-reservation.json",
+      "originalSha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79",
+      "originalBytes": 1278,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/tombstone/_delta_log/.00000000000000000000.json.crc",
+      "retainedPath": "native/tombstone/_delta_log/.00000000000000000000.json.crc",
+      "originalSha256": "55bf672324c62a3671322a3ba29223945a711bbe6015707a8b8b978d9b558e50",
+      "originalBytes": 20,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/tombstone/_delta_log/.00000000000000000001.json.crc",
+      "retainedPath": "native/tombstone/_delta_log/.00000000000000000001.json.crc",
+      "originalSha256": "a3d96f6bf44be0d01fb0800f7f006e8ab7c7d3f74c6a8742320388ff53489ed9",
+      "originalBytes": 28,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/tombstone/_delta_log/00000000000000000000.json",
+      "retainedPath": "native/tombstone/_delta_log/00000000000000000000.json",
+      "originalSha256": "21e27de7b904c1c58000afcff5a538321995d377fc19c4d82c98eccc154d51b5",
+      "originalBytes": 1455,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/tombstone/_delta_log/00000000000000000001.json",
+      "retainedPath": "native/tombstone/_delta_log/00000000000000000001.json",
+      "originalSha256": "9ca6c9a3168cfccba20e887ee7562947d77c436f5c3aa716752987d10433bcd3",
+      "originalBytes": 2226,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/.ashlar-local-installation-reservation.json",
+      "retainedPath": "native/whole_source_history/.ashlar-local-installation-reservation.json",
+      "originalSha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79",
+      "originalBytes": 1278,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/.part-00000-d6ef84a0-b391-474a-96f4-501ddc50042d-c000.snappy.parquet.crc",
+      "retainedPath": "native/whole_source_history/.part-00000-d6ef84a0-b391-474a-96f4-501ddc50042d-c000.snappy.parquet.crc",
+      "originalSha256": "c558ded90c75bff2d1e6734c1fe24b8c7a218e8193f894808b9e7a1e1b6defd3",
+      "originalBytes": 492,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/_delta_log/.00000000000000000000.json.crc",
+      "retainedPath": "native/whole_source_history/_delta_log/.00000000000000000000.json.crc",
+      "originalSha256": "026d16eb305d76fe59766c15907c9fec25b784daf1573f4a18822fc5bef02796",
+      "originalBytes": 20,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/_delta_log/.00000000000000000001.json.crc",
+      "retainedPath": "native/whole_source_history/_delta_log/.00000000000000000001.json.crc",
+      "originalSha256": "ccf038f67a1b08d86870b95991171298e319d446ab566f4f25594d25b394cb66",
+      "originalBytes": 24,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/_delta_log/.00000000000000000002.json.crc",
+      "retainedPath": "native/whole_source_history/_delta_log/.00000000000000000002.json.crc",
+      "originalSha256": "d30d04a606fa57c4daa410f3faff84ac38c5cadc03477c6df98cb7f320b35fae",
+      "originalBytes": 24,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/_delta_log/00000000000000000000.json",
+      "retainedPath": "native/whole_source_history/_delta_log/00000000000000000000.json",
+      "originalSha256": "efb34756b9d939aba8c579e714799e7e644c3f41459a8cc6e8fea03dfdf02d10",
+      "originalBytes": 1109,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/_delta_log/00000000000000000001.json",
+      "retainedPath": "native/whole_source_history/_delta_log/00000000000000000001.json",
+      "originalSha256": "9076dd6dd5f34965e227237bdebb3e75a2928e05435b2474f2405fbdeaee00d1",
+      "originalBytes": 1880,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/_delta_log/00000000000000000002.json",
+      "retainedPath": "native/whole_source_history/_delta_log/00000000000000000002.json",
+      "originalSha256": "c3e15c9e95c41c5a7606b9b62645b34f63bf00008d54259befd58115e15755fb",
+      "originalBytes": 1664,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/whole_source_history/part-00000-d6ef84a0-b391-474a-96f4-501ddc50042d-c000.snappy.parquet",
+      "retainedPath": "native/whole_source_history/part-00000-d6ef84a0-b391-474a-96f4-501ddc50042d-c000.snappy.parquet",
+      "originalSha256": "bc14d22a00b186f86c02d0009ba67a2404b28f40819970a820f9e855382c9bd2",
+      "originalBytes": 61926,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/.ashlar-local-installation-reservation.json",
+      "retainedPath": "native/attempts/.ashlar-local-installation-reservation.json",
+      "originalSha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79",
+      "originalBytes": 1278,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/.part-00000-89f17d3a-c91c-47b5-b7f7-d650d055afdd-c000.snappy.parquet.crc",
+      "retainedPath": "native/attempts/.part-00000-89f17d3a-c91c-47b5-b7f7-d650d055afdd-c000.snappy.parquet.crc",
+      "originalSha256": "e109df6557e4c8054898b7bc5825ba9aeff86b85ac15fc197a51671fbdd40c01",
+      "originalBytes": 1652,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/.part-00000-8a03f94c-6c50-4a68-967c-55c2e90d6351-c000.snappy.parquet.crc",
+      "retainedPath": "native/attempts/.part-00000-8a03f94c-6c50-4a68-967c-55c2e90d6351-c000.snappy.parquet.crc",
+      "originalSha256": "4be6450765e377d7e9641ca6afdef8a9e18db389601f3e1c2943b3a7ced7ec74",
+      "originalBytes": 300,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/.part-00000-a4ddae28-1099-4be9-a0c6-89420bc0937e-c000.snappy.parquet.crc",
+      "retainedPath": "native/attempts/.part-00000-a4ddae28-1099-4be9-a0c6-89420bc0937e-c000.snappy.parquet.crc",
+      "originalSha256": "cb79f9ad8b3ac6db4bc6256118c892ee0ec4531a803f588d4b0a09e23d6e037a",
+      "originalBytes": 300,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/.part-00000-d3c5dd27-0696-40a9-97c0-66d38c011512-c000.snappy.parquet.crc",
+      "retainedPath": "native/attempts/.part-00000-d3c5dd27-0696-40a9-97c0-66d38c011512-c000.snappy.parquet.crc",
+      "originalSha256": "cd5f50cd464c17e664b09197c779945aaaac8beabccbef946595014377b83d55",
+      "originalBytes": 2092,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/.part-00000-d45e9328-c7cf-4f79-be53-c651ad76f1f3-c000.snappy.parquet.crc",
+      "retainedPath": "native/attempts/.part-00000-d45e9328-c7cf-4f79-be53-c651ad76f1f3-c000.snappy.parquet.crc",
+      "originalSha256": "8b90948e0361e6c8f77211400b59138559ef7e6767f1cf30058dc5aaa9600969",
+      "originalBytes": 1652,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000000.json.crc",
+      "retainedPath": "native/attempts/_delta_log/.00000000000000000000.json.crc",
+      "originalSha256": "545001342775f459c2d4578c1596151323799b15eced9da1b15d13094503678a",
+      "originalBytes": 20,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000001.json.crc",
+      "retainedPath": "native/attempts/_delta_log/.00000000000000000001.json.crc",
+      "originalSha256": "290e6ad1fad9e703529ae3bb09948c9721d37d827ea2f399d48a2ba0065c3eca",
+      "originalBytes": 24,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000002.json.crc",
+      "retainedPath": "native/attempts/_delta_log/.00000000000000000002.json.crc",
+      "originalSha256": "23a9263357e8e9c707c071a394e7997acf861bb7c021fc229e1a92eaa1aee3af",
+      "originalBytes": 32,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000003.json.crc",
+      "retainedPath": "native/attempts/_delta_log/.00000000000000000003.json.crc",
+      "originalSha256": "236589cb6985d63ee420b5c9416914b81f441cbddbeab1aeb3f91c9561b1d541",
+      "originalBytes": 32,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000004.json.crc",
+      "retainedPath": "native/attempts/_delta_log/.00000000000000000004.json.crc",
+      "originalSha256": "6a63232b21d52b15cfaa26242b8c20a39a68f699eacb1611b191f8689e4b0cb1",
+      "originalBytes": 32,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000005.json.crc",
+      "retainedPath": "native/attempts/_delta_log/.00000000000000000005.json.crc",
+      "originalSha256": "2bd730fd0d29916e52d8282ab794acdcffd44c605040c154341a2562046d5dfd",
+      "originalBytes": 32,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/.00000000000000000006.json.crc",
+      "retainedPath": "native/attempts/_delta_log/.00000000000000000006.json.crc",
+      "originalSha256": "062fcfaf09f174a9bcc50d27ffd88ae2687031e807d5cab3f0d628869368590b",
+      "originalBytes": 32,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000000.json",
+      "retainedPath": "native/attempts/_delta_log/00000000000000000000.json",
+      "originalSha256": "784404d7d7c7bfa6d263d68c3ecb2bbdf61649b89253f4d2056b8fb352f3d4ac",
+      "originalBytes": 1121,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000001.json",
+      "retainedPath": "native/attempts/_delta_log/00000000000000000001.json",
+      "originalSha256": "669ca7f37cb666848ddfdff40cbeb12033a27ffb8917c2331e819818b24bc650",
+      "originalBytes": 1892,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000002.json",
+      "retainedPath": "native/attempts/_delta_log/00000000000000000002.json",
+      "originalSha256": "e5cfe418b0144c6f5c6780029d5a8f853feb5f1089d0305c56250ccf431478d6",
+      "originalBytes": 2852,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000003.json",
+      "retainedPath": "native/attempts/_delta_log/00000000000000000003.json",
+      "originalSha256": "769f3aa72a8db40d24a539423edefbefa29d1133715cf14cd0d9b75e9db96977",
+      "originalBytes": 2852,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000004.json",
+      "retainedPath": "native/attempts/_delta_log/00000000000000000004.json",
+      "originalSha256": "f1c5dbc2167a1138d475b48434bfb5d552959a8e071b038f800077f7e5ba307f",
+      "originalBytes": 2852,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000005.json",
+      "retainedPath": "native/attempts/_delta_log/00000000000000000005.json",
+      "originalSha256": "fa666d8ac163d05f9a1f01e0aad2d36ea134754758d63107f46f85faac2f2aec",
+      "originalBytes": 2857,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/_delta_log/00000000000000000006.json",
+      "retainedPath": "native/attempts/_delta_log/00000000000000000006.json",
+      "originalSha256": "3f4820959f50d9f8c4b507987e0bb9fc0207262d73bc5952c952c0b6871ecca7",
+      "originalBytes": 2868,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/part-00000-89f17d3a-c91c-47b5-b7f7-d650d055afdd-c000.snappy.parquet",
+      "retainedPath": "native/attempts/part-00000-89f17d3a-c91c-47b5-b7f7-d650d055afdd-c000.snappy.parquet",
+      "originalSha256": "a480e31f75e04e9feb20f623ce701b53f75cf2f6fe314ca900bf68deb860c313",
+      "originalBytes": 210164,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/part-00000-8a03f94c-6c50-4a68-967c-55c2e90d6351-c000.snappy.parquet",
+      "retainedPath": "native/attempts/part-00000-8a03f94c-6c50-4a68-967c-55c2e90d6351-c000.snappy.parquet",
+      "originalSha256": "fc65ae109f9bc0341bbca062efff3275fe6896d720180c5b22882716e4a47087",
+      "originalBytes": 37316,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/part-00000-a4ddae28-1099-4be9-a0c6-89420bc0937e-c000.snappy.parquet",
+      "retainedPath": "native/attempts/part-00000-a4ddae28-1099-4be9-a0c6-89420bc0937e-c000.snappy.parquet",
+      "originalSha256": "86da5e21bc1571d32f0e4c57c355fd3e3e86d0229cba3201e4776c3c6c4b74d0",
+      "originalBytes": 37317,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/part-00000-d3c5dd27-0696-40a9-97c0-66d38c011512-c000.snappy.parquet",
+      "retainedPath": "native/attempts/part-00000-d3c5dd27-0696-40a9-97c0-66d38c011512-c000.snappy.parquet",
+      "originalSha256": "20490b63dcd031a6d19d2de975d4ca854775a73524d6ede27e8d292ebd4fbb42",
+      "originalBytes": 266627,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/attempts/part-00000-d45e9328-c7cf-4f79-be53-c651ad76f1f3-c000.snappy.parquet",
+      "retainedPath": "native/attempts/part-00000-d45e9328-c7cf-4f79-be53-c651ad76f1f3-c000.snappy.parquet",
+      "originalSha256": "ed175ac5ad22669b460023503702d2d668359cc286eaec8101ecdb48056f3aaa",
+      "originalBytes": 210185,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/.ashlar-local-installation-reservation.json",
+      "retainedPath": "native/manifest/.ashlar-local-installation-reservation.json",
+      "originalSha256": "6078509feed7b46808db7bb13bbd9d70478f367f0a0dff89e0a75ba76304aa79",
+      "originalBytes": 1278,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/.part-00000-a6c091f8-3cd0-4776-976a-62a5938ab352-c000.snappy.parquet.crc",
+      "retainedPath": "native/manifest/.part-00000-a6c091f8-3cd0-4776-976a-62a5938ab352-c000.snappy.parquet.crc",
+      "originalSha256": "166a6b1a8c7fd8e13f1ce850cca602000c80a3561003ecc72fa8284c8ad38236",
+      "originalBytes": 468,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/_delta_log/.00000000000000000000.json.crc",
+      "retainedPath": "native/manifest/_delta_log/.00000000000000000000.json.crc",
+      "originalSha256": "7c3b953c84c9c51ab5b428eaf2c9370d5c3c605a352cc9eefb96a0614eab7fba",
+      "originalBytes": 20,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/_delta_log/.00000000000000000001.json.crc",
+      "retainedPath": "native/manifest/_delta_log/.00000000000000000001.json.crc",
+      "originalSha256": "a6ae6b01de59f1b8abc39272a2f009eb4fcf37a8386b6abb01f324962952dd28",
+      "originalBytes": 24,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/_delta_log/.00000000000000000002.json.crc",
+      "retainedPath": "native/manifest/_delta_log/.00000000000000000002.json.crc",
+      "originalSha256": "538a6642c6a4d20f70fe5df19351a993a0fb124d13036f945d8df527846c3564",
+      "originalBytes": 36,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/_delta_log/00000000000000000000.json",
+      "retainedPath": "native/manifest/_delta_log/00000000000000000000.json",
+      "originalSha256": "5130e132edd5d58a5421725a6ce803e5cb712daeb69c4a6c5d7c6c4cc511f13b",
+      "originalBytes": 1257,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/_delta_log/00000000000000000001.json",
+      "retainedPath": "native/manifest/_delta_log/00000000000000000001.json",
+      "originalSha256": "a4926bfbe5b30e08ce9190dae8eee777f31876b29019ca365246b971777cde9f",
+      "originalBytes": 2028,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/_delta_log/00000000000000000002.json",
+      "retainedPath": "native/manifest/_delta_log/00000000000000000002.json",
+      "originalSha256": "711802e6cf88933f07da45e2c99ff1072b771e60d53d2bae0c3d6b7ba44f0590",
+      "originalBytes": 3285,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/ashlar-archaeology-native-publication-20261009-a/manifest/part-00000-a6c091f8-3cd0-4776-976a-62a5938ab352-c000.snappy.parquet",
+      "retainedPath": "native/manifest/part-00000-a6c091f8-3cd0-4776-976a-62a5938ab352-c000.snappy.parquet",
+      "originalSha256": "41ced4502f3c4acc83bcba7c79026c4b5262145a33b3ab5c95969fa84bcfb63e",
+      "originalBytes": 58693,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/astra-left-native-prerun-review-20261009-a.json",
+      "retainedPath": "review/astra-left-native-prerun-review-20261009-a.json",
+      "originalSha256": "e1be9c9d0b0b3aa114d336b17a0aca07b07f8bebab73b1411e5dc9e5f98cf11a",
+      "originalBytes": 1035,
+      "encoding": "original"
+    },
+    {
+      "source": "/private/tmp/astra-left-host-review-20261009-c.json",
+      "retainedPath": "review/astra-left-host-review-20261009-c.json",
+      "originalSha256": "5b44f5bf529911075949f387d83c0f92c47c5234d28adfa116ab93c2bd4e6d6c",
+      "originalBytes": 722,
+      "encoding": "original"
+    }
+  ]
+}

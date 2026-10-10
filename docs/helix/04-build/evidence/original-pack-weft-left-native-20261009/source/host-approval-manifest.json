@@ -1,0 +1,68 @@
+{
+  "baseCommit": "595f0a40e4e1a26394eb48b0926fb1ae4159200b",
+  "files": [
+    {
+      "path": "tools/weft_left_plan.py",
+      "sha256": "3ced74c1793a501fc293724aae9d3b8c67665079dcdde2a9212732478c4582ea"
+    },
+    {
+      "path": "tools/weft_field_plan.py",
+      "sha256": "c604eb10f8661407072361ff485968aa54d207b25e9e7734ba40b8377319d10e"
+    },
+    {
+      "path": "tools/run_commerce_arithmetic_weft.py",
+      "sha256": "5a72c5d95599717ebc3cc75e57a0051b24b9dc93df1552c7c4187d208c873c18"
+    },
+    {
+      "path": "tools/run_commerce_publication_weft.py",
+      "sha256": "c73b123b2f31e9742afeb07597695e8294e1ff99b8e306ee31693e76667a41ce"
+    },
+    {
+      "path": "tools/run_pack_left_weft.py",
+      "sha256": "81651dc59e947d9d677ce8ff8fcf4a2c26cf113a60b2c4ea8dd545e9571b763d"
+    },
+    {
+      "path": "tests/test_weft_left_host.py",
+      "sha256": "9db7ae6dac49244c18abc9e3f34b1aeb284291ba6e2c0302b020a21165a130f6"
+    },
+    {
+      "path": "tests/test_weft_left_schema.py",
+      "sha256": "b6119f2d303f4d5c22108185639b33c399da6a7d97ce6df1094b3ee52f77f53c"
+    },
+    {
+      "path": "tests/test_pack_left_weft.py",
+      "sha256": "967d1846e134e3dd7039479f40290f2ca06bc7c8a7fe5aee16ff99c034d172a9"
+    },
+    {
+      "path": "examples/end-to-end/weft-left-compiler-fixtures/README.md",
+      "sha256": "1407da76fb088909e09e4e9e56efae3eadc88bcb65a0eac71e313216db53237c"
+    },
+    {
+      "path": "examples/end-to-end/weft-left-compiler-fixtures/original-artifact.json",
+      "sha256": "12d4db884adb0a99a7c579b82b24b8e8636cfa0b94a5fae90469fec2b63a6c77"
+    },
+    {
+      "path": "examples/end-to-end/weft-left-compiler-fixtures/original-request.json",
+      "sha256": "ab940fce8faa4c730b48636eef96cc585e907deb5a3b3c642df6f03ecf265b09"
+    },
+    {
+      "path": "examples/end-to-end/weft-left-compiler-fixtures/unselected-right-artifact.json",
+      "sha256": "df2870f39f5fd4c2df46f7f369547a9a95260897f2c50d92be6c772649d298fe"
+    },
+    {
+      "path": "examples/end-to-end/weft-left-compiler-fixtures/unselected-right-request.json",
+      "sha256": "a16281b7b731ae878099216d0f53e004190a21940e40bb51c0e5823352f62240"
+    },
+    {
+      "path": "examples/end-to-end/weft-left-compiler-fixtures/self-join-request.json",
+      "sha256": "5997d9e9031fa2cdb4ef1e56e082c512d4f7b6380f8df116533f4c2de8fc27e5"
+    },
+    {
+      "path": "examples/end-to-end/weft-left-compiler-fixtures/self-join-artifact.json",
+      "sha256": "e8b468435abd3b530b1fdb4c7e75524345b3f2a3436347139a8367fb1713fb89"
+    }
+  ],
+  "compilerSha256": "a8bade61ddaf8062de21103e0f290d88669606c1f3466f78cb45c3a24f6942d0",
+  "scope": "Closed host proof and original archaeology runner pre-run; no native execution claim",
+  "checks": "12 LEFT +10 arithmetic +10 provider +4 original-oracle/runner tests pass; real import boundary and git diff --check pass"
+}

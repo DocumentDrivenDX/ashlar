@@ -1,0 +1,19 @@
+{
+  "format": "astra-independent-left-prerun-review/0.1",
+  "planDirectory": "/private/tmp/ashlar-left-native-plan-20261009-a",
+  "fingerprintsSha256": "50666d90e1d360ac329dedad0549a3ff88844eb303cb5c9856b02602948116d7",
+  "verifiedFrozenFiles": 12,
+  "checks": {
+    "trackedRuntimeGitFiles": 733,
+    "approvedHostFiles": 15,
+    "originalNativeFilesUnchanged": 66,
+    "originalQueryAndTaggedOracleExact": true,
+    "freshActualCompilerArtifactEqual": true,
+    "closedHostProofAdmitted": true,
+    "publicationTableAckPinsExact": true,
+    "deltaJarHashesExact": true,
+    "originalDatasetAndSourceGuardProducerPinsClean": true,
+    "freshOutputAbsentAtReview": true
+  },
+  "scope": "Read-only source/custody and pure compiler proof. No Spark context, native LEFT query, or publication writes were performed by reviewer. Python/JDK/Python-package versions were observed; this receipt does not claim full external package-byte inventory. Root terminal CI confirmation and exclusive engine reservation remain launch prerequisites."
+}

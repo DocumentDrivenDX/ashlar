@@ -1,0 +1,7 @@
+{
+  "observedAtUtc": "2026-10-10T03:57:46.763430+00:00",
+  "activeMatchingEngines": [],
+  "session": 35050,
+  "terminalExit": 0,
+  "scope": "Filtered actual local Spark/LEFT postterminal check; report persisted only after Spark.stop"
+}

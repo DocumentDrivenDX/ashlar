@@ -1,0 +1,25 @@
+{
+  "format": "ashlar-left-native-source-custody/0.1",
+  "scope": "Pre-run only; no native result. Full committed runtime excludes unrelated primary WIP. Original publication data stays unchanged.",
+  "runtimeSourceCommit": "a6a58c6659f104ebf0e9831226e08c2037dd52ca",
+  "runtimeManifestPath": "/private/tmp/ashlar-left-runtime-a6a58c/runtime-source-manifest.json",
+  "runtimeManifestSha256": "4560c75caaff8f18f639ff444bd64820bf5ebd326e166f7fea2ba3d0d2cfc2d2",
+  "runtimeFileCount": 733,
+  "hostSourceReceiptSha256": "be62344783cee9ee3a9d5646086fd3731f9af7e3bb97057e25e76b7d323466ac",
+  "planSha256": "b30071fae297cf46f6a6927a7d2725da0e4a9c42e14029e1d94f8e748a349992",
+  "commandSha256": "9f296d7ed0484dc591837766b031cb95138206eaf56b3a3d295d744c2fb7044e",
+  "compilerSourceManifestSha256": "8b60ac82f3f730471adde8f2c54a0e42c9210d19fe7ea94a4948f2020235e0dd",
+  "compilerIntegrationManifestSha256": "be70548d5805c939a8e1201c514ba9b1925e3d298c63149351035e2e170d14ca",
+  "compilerSha256": "a8bade61ddaf8062de21103e0f290d88669606c1f3466f78cb45c3a24f6942d0",
+  "ciHistory": "Initial Weft6f003 CI38020888924 failed, preserved as reported by root. Corrected-source successor CI38021143166 terminalSUCCESS remains required. Compiler source23/realization unchanged by the separately reviewed CI repair. Do not infer native or CI pass from this plan.",
+  "cleanup": "Alias, query and final wholevector intervals close; original held reader exits; Spark.stop succeeds before report/request/artifact persistence. Failure writes no successful report.",
+  "resourceClosure": "All tracked source/config/sql/examples/tests/runtime roots. Docs/website excluded as nonruntime. Exact Git path/mode/blob/SHA inventory; existing pure pyspark bridge and pinned external UMF sourceguard/producer/jars recorded separately.",
+  "externalRuntimeQualification": "Version/import-observed previously qualified Python39/JDK21/Spark4 private runtime; no whole external package/JDK-byte closure. Complete733 project Git path/mode/blob/SHA closure and exact Delta jar/compiler/sourceguard hashes remain separately evidenced.",
+  "ciTerminalConfirmation": {
+    "weftRun": "38021143166",
+    "weftHead": "ef6f9b054b385cf13b135ec72bd0aec9510dc927",
+    "status": "SUCCESS",
+    "custody": "Authoritative parent confirmation; historical failure38020888924 retained separately"
+  },
+  "platformSha256": "e88fc41d948f0c977a1d02be51c05526c0f57a78d638fe5145f041a6fe90cb20"
+}

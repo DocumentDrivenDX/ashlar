@@ -1,0 +1,19 @@
+{
+  "containerId": "37d798c29961d87549baabd1625ad946f45e8f476ade2eef360d7bf1211419c9",
+  "name": "/ashlar-e2e-truss-pg17",
+  "image": "postgres:17.9",
+  "imageId": "sha256:2a0d0fe14825b0939f78a8cad5cd4e6aa68bf94d0e5dd96e24b6d23af4315545",
+  "labels": {
+    "ashlar.purpose": "end-to-end-development"
+  },
+  "ports": {
+    "5432/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "15432"
+      }
+    ]
+  },
+  "running": true,
+  "qualification": "Read-only container custody before run; no connection/source privilege claim"
+}

@@ -1,0 +1,17 @@
+{
+  "pythonExecutable": "/private/tmp/ashlar-db-client/bin/python",
+  "pythonVersion": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+  "platform": "macOS-27.0.1-arm64-arm-64bit",
+  "architecture": "arm64",
+  "packages": {
+    "pyspark": "4.0.1",
+    "py4j": "0.10.9.9",
+    "psycopg": "3.2.13",
+    "numpy": "2.0.2"
+  },
+  "javaExecutable": "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home/bin/java",
+  "javaVersionOriginalStderr": "openjdk version \"21.0.12.1\" 2026-08-18\nOpenJDK Runtime Environment Homebrew (build 21.0.12.1)\nOpenJDK 64-Bit Server VM Homebrew (build 21.0.12.1, mixed mode, sharing)\n",
+  "jarsMatchReviewedSha": true,
+  "qualification": "Import/version observation only; no SparkContext or data read",
+  "externalResourceQualification": "Same previously qualified private local runtime: Python executable/JDK/pyspark/py4j/psycopg/numpy are observed by versions/imports, not complete external binary/package byte inventories. Exact external byte hashes are limited to the two Delta jars and pinned compiler/source guard; complete733 committed project file closure is separate."
+}
