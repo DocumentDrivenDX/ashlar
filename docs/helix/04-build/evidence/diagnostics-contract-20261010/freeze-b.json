@@ -1,0 +1,78 @@
+{
+  "format": "ashlar-diagnostics-contract-freeze/0.1",
+  "status": "successor draft for independent review; no implementation/integration qualification",
+  "source_root": "/Users/erik/Projects/ashlar",
+  "previousFreeze": {
+    "path": "/private/tmp/ashlar-diagnostics-contract-freeze-20261010-a/manifest.json",
+    "bytes": 6253,
+    "sha256": "1117a246cee62ddd73e5fec4639cab6cd8ed7c488a2459a18001a42bfe0a7b89"
+  },
+  "files": [
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "bytes": 23636,
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34",
+      "baseline": {
+        "bytes": 21133,
+        "sha256": "681a612958dd7e91ee4ce5c38dd89b0b4cb79957acee871da2075ac54116c9a2"
+      },
+      "mode": "100644"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/schemas/diagnostic-event-v0.1.schema.json",
+      "bytes": 6206,
+      "sha256": "75406834cb25ad1b5cc8e660aa57ac7b2fcc34fcdd79fc3f94718320f837a860",
+      "baseline": {
+        "bytes": 6206,
+        "sha256": "75406834cb25ad1b5cc8e660aa57ac7b2fcc34fcdd79fc3f94718320f837a860"
+      },
+      "mode": "100644"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/schemas/diagnostic-run-v0.1.schema.json",
+      "bytes": 7772,
+      "sha256": "f32abe5d39074a4c82e00cbb3d9c071dc65666bdde779c958953f863de049bd2",
+      "baseline": {
+        "bytes": 7515,
+        "sha256": "8bc161153c90af27db788667dab11d5df8c2b7211bc6577c10a277d2c2042732"
+      },
+      "mode": "100644"
+    }
+  ],
+  "diff": {
+    "path": "/private/tmp/ashlar-diagnostics-contract-freeze-20261010-b/changes-from-a.diff",
+    "bytes": 6909,
+    "sha256": "97e0653d5f867a011f0405dcb323866e18b335a3ee6ac5d438267a56ef2e5f9c"
+  },
+  "changes": [
+    "Separated selected logs/spans queue payload budgets, finite metric payload/snapshot budget, serialized request cap and encoded/decoded response cap. Retries share reservations/deadlines.",
+    "Defined logical accounting units for logs, spans and cumulative metric NumberDataPoints, one-count retry behavior, handoff/never-transmitted drop/unknown semantics, closed equalities and local flush meanings.",
+    "Clarified error table: only local capture loss forces complete=false, consistent with existing local completeness definition.",
+    "Run schema description documents units; validation structure and event schema unchanged."
+  ],
+  "author_shape_check": {
+    "path": "/private/tmp/ashlar-diagnostics-contract-shape-check-20261010-b.json",
+    "bytes": 9750,
+    "sha256": "5b3781b6de6c002cacc296952b7b65932c094c5f605537be3daba17a36d8c7f7"
+  },
+  "author_shape_script": {
+    "path": "/private/tmp/ashlar-diagnostics-contract-shape-check-20261010-b.py",
+    "bytes": 11345,
+    "sha256": "a3339462b93ee11b54c0da0bc89a3f625fd12a333622c0458ca6ba871ff35caf"
+  },
+  "author_shape_log": {
+    "path": "/private/tmp/ashlar-diagnostics-contract-shape-check-20261010-b.log",
+    "bytes": 176,
+    "sha256": "c5285fc1b44bb33fdf80e7e59294214fe3b3b5930473b11ec7bfa893b54b573b"
+  },
+  "runtime_proposal_unchanged": {
+    "path": "/private/tmp/ashlar-diagnostics-runtime-proposal-20261010-a.json",
+    "bytes": 7931,
+    "sha256": "b52897439f84a32b23cd9e4a9175bf2b7fc788f59724f629593342987487ee05"
+  },
+  "scope": [
+    "90 offline shape controls, including metric handoff unknown after local drain, required unknown flag and two cumulative data points.",
+    "A source and evidence preserved; no runtime, SDK installation/import, implementation, receiver, compiler/native, Git or other docs changed.",
+    "Semantic counter identities/equalities, SDK/lifecycle/memory and receiver behavior require later implementation correspondence; schema tests do not prove them."
+  ]
+}

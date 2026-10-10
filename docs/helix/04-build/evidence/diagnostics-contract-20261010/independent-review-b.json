@@ -1,0 +1,138 @@
+{
+  "format": "astra-ashlar-diagnostics-contract-review/0.1",
+  "decision": "approved-governing-docs-only",
+  "freeze": {
+    "path": "/private/tmp/ashlar-diagnostics-contract-freeze-20261010-b/manifest.json",
+    "sha256": "0197609b710e46a018a51f7799e8b1e0cb18e9cf4150eca890f58ba0eab416b4",
+    "bytes": 3726
+  },
+  "files": [
+    {
+      "path": "docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "bytes": 23636,
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34",
+      "baseline": {
+        "bytes": 21133,
+        "sha256": "681a612958dd7e91ee4ce5c38dd89b0b4cb79957acee871da2075ac54116c9a2"
+      },
+      "mode": "100644",
+      "frozenPath": "/private/tmp/ashlar-diagnostics-contract-freeze-20261010-b/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/schemas/diagnostic-event-v0.1.schema.json",
+      "bytes": 6206,
+      "sha256": "75406834cb25ad1b5cc8e660aa57ac7b2fcc34fcdd79fc3f94718320f837a860",
+      "baseline": {
+        "bytes": 6206,
+        "sha256": "75406834cb25ad1b5cc8e660aa57ac7b2fcc34fcdd79fc3f94718320f837a860"
+      },
+      "mode": "100644",
+      "frozenPath": "/private/tmp/ashlar-diagnostics-contract-freeze-20261010-b/docs/helix/02-design/contracts/schemas/diagnostic-event-v0.1.schema.json"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/schemas/diagnostic-run-v0.1.schema.json",
+      "bytes": 7772,
+      "sha256": "f32abe5d39074a4c82e00cbb3d9c071dc65666bdde779c958953f863de049bd2",
+      "baseline": {
+        "bytes": 7515,
+        "sha256": "8bc161153c90af27db788667dab11d5df8c2b7211bc6577c10a277d2c2042732"
+      },
+      "mode": "100644",
+      "frozenPath": "/private/tmp/ashlar-diagnostics-contract-freeze-20261010-b/docs/helix/02-design/contracts/schemas/diagnostic-run-v0.1.schema.json"
+    }
+  ],
+  "findings": [],
+  "resolvedFindings": [
+    {
+      "issue": "A conflated selected log/span queue bounds with a blanket64KiB budget.",
+      "resolution": "B separately specifies log/span queued+in-flight payload reservations,20-series metric state and one snapshot64KiB, per-signal serialized requests1MiB, encoded and decoded responses64KiB, one in-flight request and retries sharing reservations/deadlines."
+    },
+    {
+      "issue": "A did not identify the unit or retry semantics of export counters, especially cumulative metrics.",
+      "resolution": "B specifies logical LogRecord, ended Span and per-series per-collection NumberDataPoint units; retries do not double count; pretransmission drop and observed full-success handoff are distinct; ambiguous outcomes remain null/unknown; closed known drain has exact accounting equality."
+    }
+  ],
+  "semanticReview": [
+    "Three closed local event variants preserve fixed safe bodies and outcome severity; actual optional trace context/resource/scope mappings and versions are separate and explicit.",
+    "Operation/attempt/sequence ownership, finite limits, canonical sink privacy, single ingestion route and bounded read-only closed-snapshot retrieval are normative. Diagnostic evidence never becomes publication/source/ACK or result-release authority.",
+    "Explicit typed config and secret inputs have no endpoint/credential/SDK discovery defaults; owned providers ignore ambient OTEL/proxy/resource detectors and no SDK dependency is imposed on portable core.",
+    "Failure preservation includes every original non-Exception cancellation; ordinary diagnostic-only failure does not change completed operation classification. Local capture completeness and remote delivery uncertainty are independent.",
+    "DIAG-F1/F2/F3 and conditional DIAG-L1 remain precise requirements with explicit clock/cancellable-resource assumptions, not mechanical proof. PUB-F1/F2 release and progress guards remain untouched.",
+    "Contract and schemas own exact fields/mapping; future implementation must enforce UTF8 bytes, depth, uint64, identities, sequence, loss equalities and source/capture correspondence that JSON Schema cannot establish."
+  ],
+  "checks": {
+    "frontmatterPreserved": true,
+    "relativeLinksResolve": [
+      "../adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "../technical-designs/TD-001-publication-recovery.md",
+      "../../03-test/consumer-conformance-plan.md#module-configuration-and-diagnostic-verification",
+      "schemas/diagnostic-event-v0.1.schema.json",
+      "schemas/diagnostic-run-v0.1.schema.json"
+    ],
+    "schemaStructureUnchangedFromA": true,
+    "offlineSchemaMetaValidation": 2,
+    "reproducedShapeControls": 90,
+    "independentShapeControls": 12,
+    "externalSchemaRetrievals": 0,
+    "runtime": "3.11.17",
+    "validationDependencies": {
+      "jsonschema": "4.23.0",
+      "referencing": "0.35.1"
+    },
+    "command": [
+      "/private/tmp/truss-python-report-schema-env/bin/python",
+      "-B",
+      "/private/tmp/astra-diagnostics-contract-controls-20261010-b.py"
+    ],
+    "exit": 0
+  },
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-diagnostics-contract-controls-20261010-b.py",
+      "sha256": "637cb146e9239110c6916d2d184c1d2d954cd91eb42e25f72f790c38f5f9b6f6",
+      "bytes": 2972
+    },
+    {
+      "path": "/private/tmp/astra-diagnostics-contract-controls-20261010-b.log",
+      "sha256": "5e9d534e430e70c73de9b69cb3d2733127b770033bed178a9417bb5c8baf442f",
+      "bytes": 267
+    },
+    {
+      "path": "/private/tmp/astra-diagnostics-contract-controls-20261010-b.json",
+      "sha256": "abfc5dd9f06ff8fd220fcdcfd5d8c89c8c028c08a378e5519376d2e44eeb9883",
+      "bytes": 1816
+    },
+    {
+      "path": "/private/tmp/astra-diagnostics-contract-shape-reproduction-20261010-b.json",
+      "sha256": "5b3781b6de6c002cacc296952b7b65932c094c5f605537be3daba17a36d8c7f7",
+      "bytes": 9750
+    }
+  ],
+  "helix0154": {
+    "modularity": "Host config/diagnostics/otel roles are explicit; no native mutation or checkout-tool import allowed from diagnostic owners. Runtime boundary implementation/checker wiring is a later source gate.",
+    "configuration": "Typed immutable leaf origins and owner precedence; injected ops-secret handles; bounded disabled/selected behavior and pre-effect refusal.",
+    "observability": "Pinned actual OTel mapping, safe durable local evidence, one-route signal ownership, explicit losses/units/privacy/retention, bounded retrieval, actual receiver and outage/cancellation/overhead gates.",
+    "formal": "Precise safety/liveness specification and mandatory later code correspondence/countermodels; no invented proof or inherited native assurance."
+  },
+  "primarySourcesChecked": [
+    "https://github.com/open-telemetry/opentelemetry-specification/blob/v1.61.0/specification/logs/data-model.md",
+    "https://github.com/open-telemetry/opentelemetry-python/releases/tag/v1.45.1",
+    "https://raw.githubusercontent.com/open-telemetry/opentelemetry-specification/v1.61.0/specification/protocol/exporter.md",
+    "https://raw.githubusercontent.com/open-telemetry/semantic-conventions/v1.44.0/docs/resource/README.md",
+    "https://raw.githubusercontent.com/open-telemetry/opentelemetry-specification/v1.61.0/specification/trace/api.md",
+    "https://raw.githubusercontent.com/open-telemetry/opentelemetry-specification/v1.61.0/specification/metrics/api.md"
+  ],
+  "runtimeProposal": {
+    "descriptor": {
+      "path": "/private/tmp/ashlar-diagnostics-runtime-proposal-20261010-a.json",
+      "sha256": "b52897439f84a32b23cd9e4a9175bf2b7fc788f59724f629593342987487ee05",
+      "bytes": 7931
+    },
+    "disposition": "Separate proposal only; no dependency installation or runtime-command approval. Exact resolved wheel/interpreter/dependency custody, implementation/API mapping and bounded receiver/lifecycle command review remain required."
+  },
+  "limitations": [
+    "No SDK import/install, OTLP receiver, diagnostics runtime, compiler/native execution, Git mutation, production retention or deployment claim.",
+    "Shape positives and counterexamples do not establish cross-record/counter semantics, SDK memory bounds, filesystem durability or remote delivery.",
+    "This receipt authorizes landing the exact draft contract and two schema documents as governing desired state; runtime integration remains dependent on separately reviewed implementation and actual evidence."
+  ]
+}

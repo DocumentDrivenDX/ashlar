@@ -1,0 +1,140 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ashlar:diagnostic-run:0.1",
+  "title": "Ashlar diagnostic run 0.1",
+  "type": "object", "additionalProperties": false,
+  "required": ["schema_version", "profile", "run_id", "state", "started_unix_nano", "resource", "scope", "attempts", "limits", "configuration_origins", "sampling", "segments", "loss", "complete"],
+  "properties": {
+    "schema_version": {"const": "ashlar.diagnostic.run/0.1"},
+    "profile": {"const": "ashlar-host-otel-http/0.1"},
+    "run_id": {"$ref": "urn:ashlar:diagnostic-event:0.1#/$defs/id"},
+    "state": {"enum": ["open", "closed"]},
+    "started_unix_nano": {"$ref": "urn:ashlar:diagnostic-event:0.1#/$defs/nanoseconds"},
+    "ended_unix_nano": {"$ref": "urn:ashlar:diagnostic-event:0.1#/$defs/nanoseconds"},
+    "expires_unix_nano": {"$ref": "urn:ashlar:diagnostic-event:0.1#/$defs/nanoseconds"},
+    "resource": {"$ref": "urn:ashlar:diagnostic-event:0.1#/$defs/resource"},
+    "scope": {"$ref": "urn:ashlar:diagnostic-event:0.1#/$defs/scope"},
+    "attempts": {
+      "type": "array", "maxItems": 64, "uniqueItems": true,
+      "items": {
+        "type": "object", "additionalProperties": false, "required": ["attempt_id", "operation"],
+        "properties": {
+          "attempt_id": {"$ref": "urn:ashlar:diagnostic-event:0.1#/$defs/id"},
+          "operation": {"$ref": "urn:ashlar:diagnostic-event:0.1#/$defs/operation"}
+        }
+      }
+    },
+    "limits": {
+      "type": "object", "additionalProperties": false,
+      "required": ["max_event_bytes", "max_queue_records", "max_queue_bytes", "max_segment_bytes", "max_capture_bytes", "max_emissions", "max_attempts", "export_timeout_ms", "shutdown_timeout_ms", "retention_seconds"],
+      "properties": {
+        "max_event_bytes": {"type": "integer", "minimum": 512, "maximum": 4096},
+        "max_queue_records": {"type": "integer", "minimum": 1, "maximum": 128},
+        "max_queue_bytes": {"type": "integer", "minimum": 4096, "maximum": 524288},
+        "max_segment_bytes": {"type": "integer", "minimum": 4096, "maximum": 4194304},
+        "max_capture_bytes": {"type": "integer", "minimum": 4096, "maximum": 16777216},
+        "max_emissions": {"type": "integer", "minimum": 1, "maximum": 10000},
+        "max_attempts": {"type": "integer", "minimum": 1, "maximum": 64},
+        "export_timeout_ms": {"type": "integer", "minimum": 1, "maximum": 1000},
+        "shutdown_timeout_ms": {"type": "integer", "minimum": 1, "maximum": 2000},
+        "retention_seconds": {"type": "integer", "minimum": 1, "maximum": 604800}
+      }
+    },
+    "configuration_origins": {
+      "type": "object", "additionalProperties": false,
+      "required": ["profile", "capture_root", "endpoint", "headers", "tls", "ca_file", "environment", "limits.max_event_bytes", "limits.max_queue_records", "limits.max_queue_bytes", "limits.max_segment_bytes", "limits.max_capture_bytes", "limits.max_emissions", "limits.max_attempts", "limits.export_timeout_ms", "limits.shutdown_timeout_ms", "limits.retention_seconds"],
+      "properties": {
+        "profile": {"$ref": "#/$defs/origin"},
+        "capture_root": {"$ref": "#/$defs/origin"},
+        "endpoint": {"$ref": "#/$defs/origin"},
+        "headers": {"$ref": "#/$defs/origin"},
+        "tls": {"$ref": "#/$defs/origin"},
+        "ca_file": {"$ref": "#/$defs/origin"},
+        "environment": {"$ref": "#/$defs/origin"},
+        "limits.max_event_bytes": {"$ref": "#/$defs/origin"},
+        "limits.max_queue_records": {"$ref": "#/$defs/origin"},
+        "limits.max_queue_bytes": {"$ref": "#/$defs/origin"},
+        "limits.max_segment_bytes": {"$ref": "#/$defs/origin"},
+        "limits.max_capture_bytes": {"$ref": "#/$defs/origin"},
+        "limits.max_emissions": {"$ref": "#/$defs/origin"},
+        "limits.max_attempts": {"$ref": "#/$defs/origin"},
+        "limits.export_timeout_ms": {"$ref": "#/$defs/origin"},
+        "limits.shutdown_timeout_ms": {"$ref": "#/$defs/origin"},
+        "limits.retention_seconds": {"$ref": "#/$defs/origin"}
+      }
+    },
+    "sampling": {
+      "type": "object", "additionalProperties": false, "required": ["logs", "new_spans", "metrics"],
+      "properties": {"logs": {"const": "all"}, "new_spans": {"const": "always_on"}, "metrics": {"const": "all"}}
+    },
+    "segments": {"type": "array", "maxItems": 4, "uniqueItems": true, "items": {"$ref": "#/$defs/segment"}},
+    "loss": {"$ref": "#/$defs/loss"},
+    "complete": {"type": "boolean"}
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"state": {"const": "open"}}},
+      "then": {"properties": {"complete": {"const": false}, "segments": {"maxItems": 0}, "ended_unix_nano": false, "expires_unix_nano": false}},
+      "else": {"required": ["ended_unix_nano", "expires_unix_nano"]}
+    },
+    {
+      "if": {"properties": {"complete": {"const": true}}},
+      "then": {
+        "properties": {
+          "state": {"const": "closed"},
+          "loss": {"properties": {
+            "local_attempted": {"type": "integer"}, "local_written": {"type": "integer"},
+            "local_dropped": {"const": 0}, "local_unknown": {"const": false}
+          }}
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "origin": {"enum": ["explicit", "environment-secret", "development-env", "environment-toml", "default-toml", "field-default"]},
+    "count": {"type": ["integer", "null"], "minimum": 0, "maximum": 9007199254740991},
+    "segment": {
+      "type": "object", "additionalProperties": false, "required": ["source", "bytes", "sha256", "records"],
+      "properties": {
+        "source": {"type": "string", "minLength": 17, "maxLength": 17, "pattern": "^events-000[0-3]\\.jsonl$"},
+        "bytes": {"type": "integer", "minimum": 1, "maximum": 4194304},
+        "sha256": {"type": "string", "minLength": 64, "maxLength": 64, "pattern": "^[0-9a-f]{64}$"},
+        "records": {"type": "integer", "minimum": 1, "maximum": 10000}
+      }
+    },
+    "export": {
+      "description": "Per-signal logical-unit accounting: one LogRecord, one ended Span, or one cumulative Sum NumberDataPoint at one collection instant. Retries do not add units. CONTRACT-006 owns cross-counter equalities and observed handoff semantics.",
+      "type": "object", "additionalProperties": false, "required": ["submitted", "handed_off", "dropped", "unknown", "flush"],
+      "properties": {
+        "submitted": {"$ref": "#/$defs/count"}, "handed_off": {"$ref": "#/$defs/count"}, "dropped": {"$ref": "#/$defs/count"},
+        "unknown": {"type": "boolean"},
+        "flush": {"enum": ["not_attempted", "complete", "incomplete", "failed"]}
+      },
+      "allOf": [{
+        "if": {"anyOf": [
+          {"properties": {"submitted": {"type": "null"}}},
+          {"properties": {"handed_off": {"type": "null"}}},
+          {"properties": {"dropped": {"type": "null"}}}
+        ]},
+        "then": {"properties": {"unknown": {"const": true}}}
+      }]
+    },
+    "loss": {
+      "type": "object", "additionalProperties": false,
+      "required": ["local_attempted", "local_written", "local_dropped", "local_unknown", "logs", "spans", "metrics"],
+      "properties": {
+        "local_attempted": {"$ref": "#/$defs/count"}, "local_written": {"$ref": "#/$defs/count"}, "local_dropped": {"$ref": "#/$defs/count"},
+        "local_unknown": {"type": "boolean"},
+        "logs": {"$ref": "#/$defs/export"}, "spans": {"$ref": "#/$defs/export"}, "metrics": {"$ref": "#/$defs/export"}
+      },
+      "allOf": [{
+        "if": {"anyOf": [
+          {"properties": {"local_attempted": {"type": "null"}}},
+          {"properties": {"local_written": {"type": "null"}}},
+          {"properties": {"local_dropped": {"type": "null"}}}
+        ]},
+        "then": {"properties": {"local_unknown": {"const": true}}}
+      }]
+    }
+  }
+}

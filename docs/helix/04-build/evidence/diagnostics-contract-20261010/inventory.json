@@ -1,0 +1,36 @@
+{
+  "format": "ashlar-diagnostics-contract-evidence/0.1",
+  "scope": "Independently reviewed desired-state contract and offline shape controls only. Runtime proposal unexecuted; no SDK/receiver or implementation qualification.",
+  "files": [
+    {
+      "path": "freeze-b.json",
+      "bytes": 3726,
+      "sha256": "0197609b710e46a018a51f7799e8b1e0cb18e9cf4150eca890f58ba0eab416b4"
+    },
+    {
+      "path": "independent-review-b.json",
+      "bytes": 8323,
+      "sha256": "37b6b077b07c5eea5c369233269e07123b3229eb06e7c1a4d1e535da5f17d06b"
+    },
+    {
+      "path": "shape-controls.py",
+      "bytes": 11345,
+      "sha256": "a3339462b93ee11b54c0da0bc89a3f625fd12a333622c0458ca6ba871ff35caf"
+    },
+    {
+      "path": "shape-controls.json",
+      "bytes": 9750,
+      "sha256": "5b3781b6de6c002cacc296952b7b65932c094c5f605537be3daba17a36d8c7f7"
+    },
+    {
+      "path": "shape-controls.log",
+      "bytes": 176,
+      "sha256": "c5285fc1b44bb33fdf80e7e59294214fe3b3b5930473b11ec7bfa893b54b573b"
+    },
+    {
+      "path": "runtime-proposal-unexecuted.json",
+      "bytes": 7931,
+      "sha256": "b52897439f84a32b23cd9e4a9175bf2b7fc788f59724f629593342987487ee05"
+    }
+  ]
+}

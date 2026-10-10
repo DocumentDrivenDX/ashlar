@@ -1,0 +1,103 @@
+{
+  "format": "ashlar-diagnostics-runtime-proposal/0.1",
+  "status": "design proposal; no installation, receiver, SDK import or integration executed",
+  "basis": {
+    "path": "/private/tmp/astra-ashlar-p01-otel-next-slice-audit-20261010-a.json",
+    "sha256": "6281cf04bf7f354a4a269abbd1c9ec4c6e19cbee4a9a11ecba762a0e3108b01c"
+  },
+  "governed_profile": "ashlar-host-otel-http/0.1",
+  "interpreter": {
+    "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/bin/python3.11",
+    "version_observed": "Python 3.11.17",
+    "bytes": 17277120,
+    "sha256": "5ebf120b62e8d02ab22485ca328da471db27fd278069df3de01c957cc02d9cd6",
+    "platform": "macOS aarch64, local selected runtime; no host dylib closure claim"
+  },
+  "fresh_locations": {
+    "environment": "/private/tmp/ashlar-otel-receiver-env-20261010-a",
+    "evidence": "/private/tmp/ashlar-otel-receiver-20261010-a",
+    "wheel_inputs": "/private/tmp/ashlar-otel-wheel-inputs-20261010-a",
+    "existence_check": "all absent at proposal authoring"
+  },
+  "candidate_constraints": {
+    "opentelemetry-api": "1.45.1",
+    "opentelemetry-sdk": "1.45.1",
+    "opentelemetry-semantic-conventions": "0.66b1",
+    "opentelemetry-proto": "1.45.1",
+    "opentelemetry-exporter-otlp-proto-http": "1.45.1",
+    "opentelemetry-exporter-otlp-proto-common": "1.45.1",
+    "opentelemetry-exporter-otlp-common": "0.66b1",
+    "opentelemetry-exporter-http-transport": "0.66b1",
+    "googleapis-common-protos": "1.75.0",
+    "protobuf": "6.33.6",
+    "typing-extensions": "4.15.0",
+    "requests": "2.32.5",
+    "urllib3": "2.5.0",
+    "certifi": "2025.10.5",
+    "charset-normalizer": "3.4.3",
+    "idna": "3.10"
+  },
+  "dependency_scope": [
+    "These are exact proposed package versions, not an executed resolution or wheel custody lock. Preserve every original wheel/METADATA/hash and validate the complete transitive closure and Requires-Python before a separate install command is reviewed.",
+    "The eight OTel names/versions are based on the official OTel release and author-published package metadata. API/SDK/exporter require Python>=3.10; semantic-conventions 0.66b1 is not the resource-conventions 1.44.0 document version.",
+    "opentelemetry-proto 1.45.1 packages generated OTLP v1.10.0 code; use this exact generated reader in the test receiver. No grpc package, auto instrumentation, collector binary, credentials plugin or configuration extras are selected.",
+    "The other eight candidate dependency versions are observed as installed metadata in the separate Tablespec Python3.12 environment and proposed for a fresh Python3.11 resolution. Do not copy site-packages or infer target-runtime compatibility from that observation.",
+    "Existing qualified Spark/Delta/GraphFrames, psycopg, schema and compiler environments remain untouched; the Python3.9 core remains dependency-free. Native-workflow claims require a later same-profile qualification, not evidence transfer from a synthetic receiver."
+  ],
+  "official_metadata": [
+    "https://pypi.org/pypi/opentelemetry-api/1.45.1/json",
+    "https://pypi.org/pypi/opentelemetry-sdk/1.45.1/json",
+    "https://pypi.org/pypi/opentelemetry-semantic-conventions/0.66b1/json",
+    "https://pypi.org/pypi/opentelemetry-proto/1.45.1/json",
+    "https://pypi.org/pypi/opentelemetry-exporter-otlp-proto-http/1.45.1/json",
+    "https://pypi.org/pypi/opentelemetry-exporter-otlp-proto-common/1.45.1/json",
+    "https://pypi.org/pypi/opentelemetry-exporter-otlp-common/0.66b1/json",
+    "https://pypi.org/pypi/opentelemetry-exporter-http-transport/0.66b1/json"
+  ],
+  "observed_published_wheel_descriptors": {
+    "opentelemetry_api-1.45.1-py3-none-any.whl": {
+      "bytes": 60256,
+      "sha256": "b31553efa588ae44bc306f863c785c5333a9ecc091248c6ee68b4b6c87fdedfb"
+    },
+    "opentelemetry_sdk-1.45.1-py3-none-any.whl": {
+      "bytes": 140063,
+      "sha256": "c604c11dc429810812348989115fa44bd558772a3d7442afc43d024f2c250ca4"
+    },
+    "opentelemetry_exporter_otlp_proto_http-1.45.1-py3-none-any.whl": {
+      "bytes": 22180,
+      "sha256": "24a97cf3753c7fb52fad44a696e452ff371686339e2acf3309e2eda3d0230700"
+    },
+    "opentelemetry_semantic_conventions-0.66b1-py3-none-any.whl": {
+      "bytes": 206279,
+      "sha256": "d4cddeb4315490b35213f55e2bdc9ac54bb1e4d318927475bed62b35545e581b"
+    }
+  },
+  "environment_policy": {
+    "process": "fresh venv, explicitly selected interpreter, isolated import path; no inherited PYTHONPATH, user-site, OTEL_*, proxy or native SDK environment",
+    "sdk": "owned providers with explicit Resource/scope/sampler/limits/exporter endpoints; no default detectors or global auto instrumentation",
+    "http": "explicit test-only loopback endpoint allocated by receiver; pass private session with environment/proxy discovery disabled; finite body, response, retry and whole-close limits must be demonstrated",
+    "secrets": "synthetic sentinel headers only, no real credentials; secret representations and endpoint values absent from artifacts",
+    "receiver": "reviewed stdlib HTTP test receiver using exact installed opentelemetry-proto generated request/response classes, parses actual SDK-exported bytes, one owned local listener; not a handcrafted producer and not a claim about a vendor Collector deployment"
+  },
+  "next_owned_files_proposal": {
+    "contract": "CONTRACT-006 + event/run schemas, first independent review",
+    "host": "ashlar_host.config typed DiagnosticsConfig, ashlar_host.diagnostics sanitized capture/retrieval, ashlar_host.otel optional SDK owner; exact APIs and cleanup transport reviewed before runtime command",
+    "checker": "add explicit portable-core-to-opentelemetry prohibition and allowed host SDK edge with real positive/negative tests, preserving old baseline",
+    "tests": "separate synthetic receiver/process-control tests; existing native runner, compiler, publication and ACK semantics unchanged"
+  },
+  "receiver_acceptance_required": [
+    "Real host emission -> SDK Logger -> OTLP/HTTP receiver; compare EventName, exact six Resource keys/schema URL, scope, times, severity, fixed Body, typed attributes, actual context, and no duplicate ingestion route.",
+    "Create one actual SDK span and export it; matching log carries exact context. Explicit no-span event has no context. Retry root links original; interleaved attempts cannot leak context.",
+    "Collect the exact cumulative monotonic operation/outcome Counter with exemplars disabled, finite 20-series set and no run/attempt labels.",
+    "Inject source/SQL/exception/header/subprocess sentinel strings and control characters; check every file, console, exporter, receiver and permitted artifact, including SDK self-diagnostics.",
+    "Exercise wrong config/SDK before effects; queue count+byte overflow, whole-event oversize, local segment/total cap, partial write, denied capture, exporter outage/slow or oversized response, retry ambiguity, no-active-span, deadline and all BaseException cancellation/cleanup cases.",
+    "Closed snapshot retrieval verifies hashes/byte limits/counters/ordering and supports source/line citations; open/expired/changed/unsafe files yield whole refusal. No post-close owned process/thread remains.",
+    "Compare synthetic host workflow with no-op and enabled diagnostics under a predeclared small functional overhead budget; receiver accuracy must be exact, no raw native or package qualification follows."
+  ],
+  "known_gates_before_execution": [
+    "Independent governing contract/schema approval.",
+    "Review exact implementation/source freeze and tests before invoking the real SDK.",
+    "Obtain and independently verify a full hash-locked wheel dependency closure and fresh-env command; current four metadata descriptors alone are not that closure.",
+    "Review exact receiver ownership, port/paths, process-group cleanup, resource inventory, time/byte budgets and original output withholding command."
+  ]
+}

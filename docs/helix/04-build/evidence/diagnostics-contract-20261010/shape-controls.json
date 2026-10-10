@@ -1,0 +1,488 @@
+{
+  "format": "ashlar-diagnostics-contract-shape-check/0.1",
+  "scope": "Author shape validation only; no SDK, receiver, native engine, runtime implementation or semantic assurance claim.",
+  "python": "3.11.17",
+  "packages": {
+    "jsonschema": "4.23.0",
+    "referencing": "0.35.1"
+  },
+  "sources": {
+    "docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md": {
+      "bytes": 23636,
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34"
+    },
+    "docs/helix/02-design/contracts/schemas/diagnostic-event-v0.1.schema.json": {
+      "bytes": 6206,
+      "sha256": "75406834cb25ad1b5cc8e660aa57ac7b2fcc34fcdd79fc3f94718320f837a860"
+    },
+    "docs/helix/02-design/contracts/schemas/diagnostic-run-v0.1.schema.json": {
+      "bytes": 7772,
+      "sha256": "f32abe5d39074a4c82e00cbb3d9c071dc65666bdde779c958953f863de049bd2"
+    }
+  },
+  "schema_draft": "2020-12",
+  "external_retrieval_count": 0,
+  "checks": [
+    {
+      "name": "contract-untraced-example",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "contract-traced-example",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "actual-byte-flags-0",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "actual-byte-flags-3",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "actual-byte-flags-255",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "phase-started",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "phase-completed",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "phase-failed",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "phase-uncertain",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "finished-succeeded",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "finished-wrong-severity-succeeded",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "finished-failed",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "finished-wrong-severity-failed",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "finished-missing-category-failed",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "finished-cancelled",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "finished-wrong-severity-cancelled",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "finished-missing-category-cancelled",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "finished-refused",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "finished-wrong-severity-refused",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "finished-missing-category-refused",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "finished-uncertain",
+      "valid": true,
+      "kind": "event"
+    },
+    {
+      "name": "finished-wrong-severity-uncertain",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "finished-missing-category-uncertain",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "unknown-field",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "wrong-version",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "free-body",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "wrong-event",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "severity-mismatch",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "free-attribute",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "extra-phase-on-start",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "extra-outcome-on-start",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "bad-operation",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "id-newline",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "negative-sequence",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "huge-sequence",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "boolean-sequence",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "free-resource",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "bad-sdk-pin",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "resource-newline",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "free-environment",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "bad-scope",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "unknown-scope-field",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "zero-time",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "time-newline",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "numeric-time",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "too-long-time",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "zero-trace",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "zero-span",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "uppercase-trace",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "trace-newline",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "negative-flags",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "overflow-flags",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "boolean-flags",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "free-context",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "partial-context-trace_id",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "partial-context-span_id",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "partial-context-trace_flags",
+      "valid": false,
+      "kind": "event"
+    },
+    {
+      "name": "complete-run",
+      "valid": true,
+      "kind": "run"
+    },
+    {
+      "name": "initial-open-run",
+      "valid": true,
+      "kind": "run"
+    },
+    {
+      "name": "unknown-local-loss",
+      "valid": true,
+      "kind": "run"
+    },
+    {
+      "name": "local-complete-remote-unknown",
+      "valid": true,
+      "kind": "run"
+    },
+    {
+      "name": "metrics-unit-handoff-unknown-after-local-drain",
+      "valid": true,
+      "kind": "run"
+    },
+    {
+      "name": "metrics-null-handoff-needs-unknown",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "two-cumulative-points-separate-from-measurement-value",
+      "valid": true,
+      "kind": "run"
+    },
+    {
+      "name": "unknown-run-field",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "wrong-run-version",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "wrong-profile",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "open-complete",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "complete-with-drop",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "complete-with-unknown",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "null-hidden-local",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "null-hidden-export",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "unknown-loss-field",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "free-export-state",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "negative-export",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "huge-counter",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "unsafe-segment",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "segment-newline",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "sha-newline",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "overbyte-segment",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "oversized-queue",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "boolean-limit",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "unbounded-retention",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "sampling-change",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "unknown-origin-key",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "unknown-origin-value",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "closed-missing-ended_unix_nano",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "closed-missing-expires_unix_nano",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "exact-duplicate-attempts",
+      "valid": false,
+      "kind": "run"
+    },
+    {
+      "name": "exact-duplicate-segments",
+      "valid": false,
+      "kind": "run"
+    }
+  ],
+  "passed": 90,
+  "semantic_checks_not_claimed": [
+    "exact uint64 upper bound",
+    "actual SDK context/resource provenance",
+    "capture/queue UTF-8 byte accounting",
+    "attempt/source identity uniqueness across different objects",
+    "cross-record sequence and counters",
+    "closing snapshot and filesystem safety",
+    "privacy of admitted metadata provenance",
+    "bounded cancellation and receiver behavior"
+  ]
+}

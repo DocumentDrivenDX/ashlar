@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:ashlar:diagnostic-event:0.1",
+  "title": "Ashlar diagnostic event 0.1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "observed_timestamp_unix_nano", "severity_text", "severity_number", "event_name", "body", "resource", "scope", "attributes"],
+  "properties": {
+    "schema_version": {"const": "ashlar.diagnostic.event/0.1"},
+    "timestamp_unix_nano": {"$ref": "#/$defs/nanoseconds"},
+    "observed_timestamp_unix_nano": {"$ref": "#/$defs/nanoseconds"},
+    "severity_text": {"enum": ["INFO", "WARN", "ERROR"]},
+    "severity_number": {"enum": [9, 13, 17]},
+    "event_name": {"enum": ["ashlar.operation.started", "ashlar.operation.phase", "ashlar.operation.finished"]},
+    "body": {"enum": ["Operation started", "Operation phase observed", "Operation finished"]},
+    "resource": {"$ref": "#/$defs/resource"},
+    "scope": {"$ref": "#/$defs/scope"},
+    "trace": {"$ref": "#/$defs/trace"},
+    "attributes": {
+      "type": "object", "additionalProperties": false,
+      "required": ["ashlar.run.id", "ashlar.attempt.id", "ashlar.emitter.id", "ashlar.sequence", "ashlar.operation"],
+      "properties": {
+        "ashlar.run.id": {"$ref": "#/$defs/id"},
+        "ashlar.attempt.id": {"$ref": "#/$defs/id"},
+        "ashlar.emitter.id": {"const": "host"},
+        "ashlar.sequence": {"type": "integer", "minimum": 1, "maximum": 10000},
+        "ashlar.operation": {"$ref": "#/$defs/operation"},
+        "ashlar.phase": {"enum": ["configuration", "admission", "prepare", "apply", "commit", "ack", "guard", "capture", "closing", "cleanup"]},
+        "ashlar.phase.state": {"enum": ["started", "completed", "uncertain", "failed"]},
+        "ashlar.outcome": {"$ref": "#/$defs/outcome"},
+        "ashlar.error.category": {"enum": ["configuration", "source", "compiler", "guard", "capture", "decoder", "closing", "cleanup", "authority", "io", "internal"]},
+        "ashlar.cleanup_failed": {"type": "boolean"}
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {"properties": {"event_name": {"const": "ashlar.operation.started"}}},
+      "then": {
+        "properties": {
+          "body": {"const": "Operation started"}, "severity_text": {"const": "INFO"}, "severity_number": {"const": 9},
+          "attributes": {"maxProperties": 5}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"event_name": {"const": "ashlar.operation.phase"}}},
+      "then": {
+        "properties": {
+          "body": {"const": "Operation phase observed"}, "severity_text": {"const": "INFO"}, "severity_number": {"const": 9},
+          "attributes": {"required": ["ashlar.phase", "ashlar.phase.state"], "maxProperties": 7}
+        }
+      }
+    },
+    {
+      "if": {"properties": {"event_name": {"const": "ashlar.operation.finished"}}},
+      "then": {
+        "properties": {
+          "body": {"const": "Operation finished"},
+          "attributes": {
+            "required": ["ashlar.outcome", "ashlar.cleanup_failed"],
+            "properties": {"ashlar.phase": false, "ashlar.phase.state": false},
+            "allOf": [{
+              "if": {"properties": {"ashlar.outcome": {"const": "succeeded"}}},
+              "then": {"properties": {"ashlar.error.category": false, "ashlar.cleanup_failed": {"const": false}}},
+              "else": {"required": ["ashlar.error.category"]}
+            }]
+          }
+        },
+        "allOf": [
+          {
+            "if": {"properties": {"attributes": {"properties": {"ashlar.outcome": {"const": "succeeded"}}}}},
+            "then": {"properties": {"severity_text": {"const": "INFO"}, "severity_number": {"const": 9}}}
+          },
+          {
+            "if": {"properties": {"attributes": {"properties": {"ashlar.outcome": {"const": "failed"}}}}},
+            "then": {"properties": {"severity_text": {"const": "ERROR"}, "severity_number": {"const": 17}}}
+          },
+          {
+            "if": {"properties": {"attributes": {"properties": {"ashlar.outcome": {"enum": ["refused", "cancelled", "uncertain"]}}}}},
+            "then": {"properties": {"severity_text": {"const": "WARN"}, "severity_number": {"const": 13}}}
+          }
+        ]
+      }
+    }
+  ],
+  "$defs": {
+    "id": {"type": "string", "minLength": 32, "maxLength": 32, "pattern": "^[0-9a-f]{32}$"},
+    "nanoseconds": {"type": "string", "pattern": "^[1-9][0-9]{0,19}$", "not": {"pattern": "[^0-9]"}, "description": "Exact epoch nanoseconds in 1..18446744073709551615; numeric upper bound is a semantic check."},
+    "operation": {"enum": ["publication", "source-admission", "held-read", "ack-reconciliation"]},
+    "outcome": {"enum": ["succeeded", "refused", "failed", "cancelled", "uncertain"]},
+    "resource": {
+      "type": "object", "additionalProperties": false,
+      "required": ["service.name", "service.version", "deployment.environment.name", "telemetry.sdk.name", "telemetry.sdk.language", "telemetry.sdk.version"],
+      "properties": {
+        "service.name": {"const": "ashlar-host"},
+        "service.version": {"type": "string", "minLength": 1, "maxLength": 64, "pattern": "^[A-Za-z0-9][A-Za-z0-9.+_-]*$", "not": {"pattern": "[\\r\\n]"}},
+        "deployment.environment.name": {"enum": ["development", "test", "staging", "production"]},
+        "telemetry.sdk.name": {"const": "opentelemetry"},
+        "telemetry.sdk.language": {"const": "python"},
+        "telemetry.sdk.version": {"const": "1.45.1"}
+      }
+    },
+    "scope": {
+      "type": "object", "additionalProperties": false, "required": ["name", "version"],
+      "properties": {"name": {"const": "ashlar.host.diagnostics"}, "version": {"const": "0.1.0"}}
+    },
+    "trace": {
+      "type": "object", "additionalProperties": false, "required": ["trace_id", "span_id", "trace_flags"],
+      "properties": {
+        "trace_id": {"type": "string", "minLength": 32, "maxLength": 32, "pattern": "^[0-9a-f]{32}$", "not": {"const": "00000000000000000000000000000000"}},
+        "span_id": {"type": "string", "minLength": 16, "maxLength": 16, "pattern": "^[0-9a-f]{16}$", "not": {"const": "0000000000000000"}},
+        "trace_flags": {"type": "integer", "minimum": 0, "maximum": 255}
+      }
+    }
+  }
+}
