@@ -172,6 +172,43 @@ class BoundaryTests(unittest.TestCase):
         (host / 'commerce.py').write_text('from tools.runtime import execute\nfrom .connection import _hidden\nfrom ashlar.schema import _json\n')
         self.assertEqual({e[3] for e in scan(root)}, {'host-to-checkout-tools', 'private-cross-module'})
 
+    def test_otel_vendor_is_forbidden_in_every_core_location(self):
+        root = self.tree('')
+        statements = (
+            'import opentelemetry',
+            'import opentelemetry.sdk.trace as sdk',
+            'from opentelemetry import trace',
+            'from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter',
+        )
+        for location in ('example.py', 'cli.py', '__main__.py', 'nested/otel.py'):
+            path = root / 'src/ashlar' / location
+            path.parent.mkdir(parents=True, exist_ok=True)
+            for statement in statements:
+                with self.subTest(location=location, statement=statement):
+                    path.write_text(statement + '\n')
+                    new, stale = check(root, self.policy())
+                    self.assertEqual(len(new), 1)
+                    self.assertEqual(new[0][0], 'src/ashlar/' + location)
+                    self.assertEqual(new[0][3], 'core-to-sdk')
+                    self.assertFalse(stale)
+            path.unlink()
+
+    def test_otel_host_owner_and_public_composition_edges_are_allowed(self):
+        root = self.tree('')
+        host = root / 'src/ashlar_host'; host.mkdir()
+        (host / 'config.py').write_text('')
+        (host / 'diagnostics.py').write_text('from .config import DiagnosticsConfig\n')
+        (host / 'otel.py').write_text(
+            'from .config import DiagnosticsConfig\n'
+            'from .diagnostics import read_diagnostics\n'
+            'from opentelemetry.sdk.trace import TracerProvider\n'
+            'from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter\n')
+        (root / 'src/ashlar/cli.py').write_text('from ashlar_host.config import DiagnosticsConfig\n')
+        self.assertEqual(check(root, self.policy()), ([], []))
+        (host / 'otel.py').write_text('from tools.telemetry import exporter\n')
+        self.assertEqual({edge[3] for edge in check(root, self.policy())[0]},
+                         {'host-to-checkout-tools'})
+
     def test_actual_repository_policy(self):
         self.assertEqual(check(ROOT, json.loads(POLICY.read_text())), ([], []))
 

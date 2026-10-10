@@ -1,0 +1,92 @@
+{
+  "format": "independent-diagnostics-foundation-review/0.1",
+  "decision": "approved-governance-and-static-boundary-source-only",
+  "freeze": {
+    "path": "/private/tmp/ashlar-diagnostics-foundation-freeze-20261010-a/manifest.json",
+    "bytes": 4016,
+    "sha256": "4ebac5503c6f531e3d6ac9c1b72b05ec3cd679dbf7d3f09d4b3f9470bef96a9b"
+  },
+  "files": [
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "3387cfaa618d81f4108410af2bf7f9e640745d760e6604a765a6ebc175ab66f6",
+      "bytes": 30774,
+      "baselineSha256": "7d3cd3eabf446c3c1c01a9de365af5b2c97660ef8962282e694e1cbee15a3728"
+    },
+    {
+      "path": "tools/check_module_boundaries.py",
+      "sha256": "5de06b03379accba7ef7893a8cc51c22829ff0af2410bb3e178526db943713eb",
+      "bytes": 6601,
+      "baselineSha256": "3db80fdb6e620bac514340a882a7f88ffccb28d42728cff5fb6b5c0ed2a91de8"
+    },
+    {
+      "path": "tests/test_module_boundaries.py",
+      "sha256": "fb12d1af999fb61a1f2afada67c5b8d3ce5e3fb7808350bfc04d9d26e8112659",
+      "bytes": 13344,
+      "baselineSha256": "0b1a01d86dcf2387bb76a3d047e212332dd165f444c4ba50a198ff75d8aa717a"
+    }
+  ],
+  "findings": [],
+  "verification": {
+    "cwd": "/Users/erik/Projects/ashlar",
+    "commands": [
+      {
+        "command": "PYTHONPATH=tools /usr/bin/python3 -B -S -W error::ResourceWarning -m unittest discover -s tests -p test_module_boundaries.py -v",
+        "exitCode": 0,
+        "tests": 16
+      },
+      {
+        "command": "/usr/bin/python3 -B -S /private/tmp/astra-diagnostics-foundation-controls-20261010-a.py",
+        "exitCode": 0,
+        "controls": "20 core SDK refusal variants and allowed host positive; all prior checker/test AST preserved; ADR bytes outside Module Boundaries/frontmatter preserved"
+      },
+      {
+        "command": "/usr/bin/python3 -B -S tools/check_module_boundaries.py",
+        "exitCode": 0
+      }
+    ],
+    "artifacts": [
+      {
+        "path": "/private/tmp/astra-diagnostics-foundation-tests-20261010-a.log",
+        "bytes": 1625,
+        "sha256": "25e988248ed96656b36050ed2f3f066b1327c58168cc08cbefdd50ef7b865dee"
+      },
+      {
+        "path": "/private/tmp/astra-diagnostics-foundation-controls-20261010-a.py",
+        "bytes": 3051,
+        "sha256": "7489e34105a1fb3effaa7f064984b01338d9bc1448c99d7f613a52f8f1aacb9e"
+      },
+      {
+        "path": "/private/tmp/astra-diagnostics-foundation-controls-20261010-a.json",
+        "bytes": 310,
+        "sha256": "2cb6d463a302d7a1d3d4d72a3ae3172e5b4559c2a893597c01a2e483c48c4681"
+      },
+      {
+        "path": "/private/tmp/astra-diagnostics-foundation-controls-20261010-a.log",
+        "bytes": 296,
+        "sha256": "b0738e564ccbe2d0b1c7e582dd042eb59c5d1dc7785c83d12c29386c3c023db4"
+      },
+      {
+        "path": "/private/tmp/astra-host-profile-wiring-boundaries-20261010-a.log",
+        "bytes": 94,
+        "sha256": "6b232bb68b84d8afd6f7b3b334d062cf6b4864c68762d1a3959fe368d13277f9"
+      }
+    ]
+  },
+  "correspondence": {
+    "contract": {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "bytes": 23636,
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34"
+    },
+    "modularity": "ADR assigns typed config, sanitized local capture/retrieval, and selected SDK mapping/export to distinct owning host modules. Static code adds only portable-core opentelemetry denial; no baseline waiver or claimed complete host ownership enforcement.",
+    "configuration": "Explicit immutable DiagnosticsConfig or None before effects; selected host constructs/injects owned ports once; None has no SDK discovery. Portable Python3.9 remains separate from selected Python3.11 host.",
+    "observability": "Desired-state C006 mapping and bounded close, no raw data/ambient discovery/native mutation port. No SDK installed or runtime receiver/export evidence claimed.",
+    "formalAnalysis": "Original workflow outcome, authority and primary-failure constraints retained. These exact AST tests cover finite import-policy properties only, not runtime ownership, dynamic imports, dependency cycles, analyzer verification or production behavior."
+  },
+  "limitations": [
+    "No SDK/runtime modules, dependency installations, receiver/network/native/compiler execution or CI edits in this slice.",
+    "Future implementation must satisfy separately reviewed CONTRACT-006 config/privacy/queue/export/shutdown/receiver gates.",
+    "Package SDK dependency closure and actual OTel receiver evidence remain separate from this foundation."
+  ]
+}

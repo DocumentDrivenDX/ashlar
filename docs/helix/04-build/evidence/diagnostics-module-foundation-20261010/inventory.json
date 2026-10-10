@@ -1,0 +1,16 @@
+{
+  "format": "ashlar-diagnostics-module-foundation-evidence/0.1",
+  "scope": "Module ownership and source import-boundary enforcement only; no telemetry SDK/receiver or runtime qualification.",
+  "files": [
+    {
+      "path": "freeze-a.json",
+      "bytes": 4016,
+      "sha256": "4ebac5503c6f531e3d6ac9c1b72b05ec3cd679dbf7d3f09d4b3f9470bef96a9b"
+    },
+    {
+      "path": "independent-review-a.json",
+      "bytes": 4610,
+      "sha256": "ba7223ad0c01b77d8c4ef4136f9a07beef6a485e3262337d6bdd7b88f054a1c3"
+    }
+  ]
+}

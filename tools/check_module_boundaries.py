@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 POLICY = ROOT / 'tools/module_boundaries.json'
-VENDORS = {'pyspark', 'delta', 'databricks', 'psycopg', 'psycopg2', 'gremlin_python', 'neo4j', 'duckdb', 'pyarrow'}
+VENDORS = {'pyspark', 'delta', 'databricks', 'psycopg', 'psycopg2', 'gremlin_python', 'neo4j', 'duckdb', 'pyarrow', 'opentelemetry'}
 
 
 def imports(root: Path):

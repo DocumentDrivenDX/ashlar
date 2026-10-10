@@ -1,0 +1,89 @@
+{
+  "format": "ashlar-diagnostics-foundation-source-freeze/0.1",
+  "files": [
+    {
+      "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "3387cfaa618d81f4108410af2bf7f9e640745d760e6604a765a6ebc175ab66f6",
+      "bytes": 30774,
+      "baselineSha256": "7d3cd3eabf446c3c1c01a9de365af5b2c97660ef8962282e694e1cbee15a3728"
+    },
+    {
+      "path": "tools/check_module_boundaries.py",
+      "sha256": "5de06b03379accba7ef7893a8cc51c22829ff0af2410bb3e178526db943713eb",
+      "bytes": 6601,
+      "baselineSha256": "3db80fdb6e620bac514340a882a7f88ffccb28d42728cff5fb6b5c0ed2a91de8"
+    },
+    {
+      "path": "tests/test_module_boundaries.py",
+      "sha256": "fb12d1af999fb61a1f2afada67c5b8d3ce5e3fb7808350bfc04d9d26e8112659",
+      "bytes": 13344,
+      "baselineSha256": "0b1a01d86dcf2387bb76a3d047e212332dd165f444c4ba50a198ff75d8aa717a"
+    }
+  ],
+  "baseline": {
+    "commit": "f3d270008ab58e9ba3e239f94ddba28af0f4114a",
+    "files": [
+      {
+        "path": "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+        "sha256": "7d3cd3eabf446c3c1c01a9de365af5b2c97660ef8962282e694e1cbee15a3728",
+        "bytes": 29014
+      },
+      {
+        "path": "tools/check_module_boundaries.py",
+        "sha256": "3db80fdb6e620bac514340a882a7f88ffccb28d42728cff5fb6b5c0ed2a91de8",
+        "bytes": 6584
+      },
+      {
+        "path": "tests/test_module_boundaries.py",
+        "sha256": "0b1a01d86dcf2387bb76a3d047e212332dd165f444c4ba50a198ff75d8aa717a",
+        "bytes": 11313
+      }
+    ]
+  },
+  "governance": {
+    "helix": "0.15.4",
+    "contract": {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "sha256": "272280c065e06a84d1b3e72478dfbd72fd8aca5cfea59e8973ff352b0f1cdb34"
+    },
+    "constraints": [
+      "CONTRACT-006 ownership and explicit typed configuration",
+      "ADR-001 Module Boundaries and configuration/diagnostic clauses",
+      "TD-001 PUB-F1/PUB-F2 authority and primary-failure preservation",
+      "HELIX modularity, configuration, observability and precise-specification guidance"
+    ]
+  },
+  "diff": {
+    "path": "changes.diff",
+    "sha256": "3832adf8114e23b80d538407af111f162e84e48314be80ccda17441c70c981de",
+    "bytes": 10052
+  },
+  "verification": {
+    "command": "PYTHONPATH=tools /usr/bin/python3 -B -S -m unittest discover -s tests -p test_module_boundaries.py -v",
+    "python": "3.9.6",
+    "tests": 16,
+    "exit": 0,
+    "log": {
+      "path": "/private/tmp/ashlar-diagnostics-foundation-tests-20261010-a.log",
+      "sha256": "1e55da6f57d8058b42e424d97810bb347af8c2444799d342d60c4e030676334b",
+      "bytes": 2905
+    },
+    "actualChecker": {
+      "command": "/usr/bin/python3 -B -S tools/check_module_boundaries.py",
+      "exit": 0
+    },
+    "scopedDiffCheck": "pass",
+    "preservation": [
+      "ADR frontmatter and every byte outside Module Boundaries unchanged",
+      "Checker AST exactly unchanged after removing only opentelemetry from VENDORS",
+      "All existing test definitions remain AST-identical; two added tests exercise sixteen core SDK import refusals and allowed host/public configuration edges plus host-to-tools refusal"
+    ],
+    "newEvidence": "Real project checker scans inert source trees; no test-only policy clone or SDK import is used."
+  },
+  "scope": [
+    "Desired-state inventory adds DiagnosticsConfig ownership and diagnostics.py/otel.py capture/retrieval/SDK boundaries only. No runtime modules are created.",
+    "Named host composition roots validate typed config before effects; explicit None avoids SDK discovery; Python3.9 portable core remains separate from selected Python3.11 OTel host.",
+    "Static import evidence proves only the selected core-to-SDK deny and existing checker rules. Dynamic imports, runtime ownership and actual SDK-to-receiver qualification remain separate.",
+    "No SDK installation/download/receiver, compiler/native/DB execution, CI edits or Git mutations."
+  ]
+}

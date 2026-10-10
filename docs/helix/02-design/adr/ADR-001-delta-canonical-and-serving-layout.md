@@ -143,7 +143,9 @@ semantic, custody and transport responsibilities.
 | `src/ashlar/__init__.py` | Portable package exports | Explicit core package surface | Owned portable library modules | Host composition, engine SDK construction or new semantic ownership |
 | `src/ashlar/cli.py`, `__main__.py` | Installed command dispatch and typed application construction | CLI main, including publish-commerce and query-commerce | Public core APIs and explicit `ashlar_host` configuration/commerce entrypoints | Native SDK imports/construction, tool imports, semantic ownership or private cross-module access |
 | `src/ashlar/source_config.py`, `weft_distribution.py`, named `*_source.py` adapters | Named source profiles and trusted compiler configuration | Source conversion and indexed compiler composition | Public core APIs and standard-library file/process adapters | Imports of `ashlar_host`, tools or native SDKs; compiler/source semantic substitution |
-| `src/ashlar_host/__init__.py`, `config.py`, `commerce.py` | Typed immutable application configuration, runtime/input admission and public workflow selection | HostError, ProducerConfig, PrivatePostgresConfig, PublishCommerceConfig, QueryCommerceConfig, QueryCommercePathsConfig; commerce.publish_commerce and commerce.query_commerce | Explicit configuration, packaged inputs and owned host phase adapters | Checkout tools, implicit endpoint/profile selection, configuration treated as source or ACK authority |
+| `src/ashlar_host/__init__.py`, `config.py`, `commerce.py` | Typed immutable application and diagnostic configuration, runtime/input admission and public workflow selection | HostError, ProducerConfig, PrivatePostgresConfig, PublishCommerceConfig, QueryCommerceConfig, QueryCommercePathsConfig, DiagnosticsConfig; commerce.publish_commerce and commerce.query_commerce | Explicit configuration, packaged inputs and owned host phase adapters | Checkout tools, implicit endpoint/profile selection, configuration treated as source or ACK authority |
+| `src/ashlar_host/diagnostics.py` | Sanitized event identity, bounded local run capture and closed-snapshot retrieval | CONTRACT-006 event/run validation and capture; read_diagnostics | Standard-library immutable values and file adapters, explicit DiagnosticsConfig and injected signal sink | SDK imports, ambient settings, raw payload/secret capture, publication/ACK mutation ports or checkout tools |
+| `src/ashlar_host/otel.py` | OpenTelemetry (OTel) SDK construction, exact signal mapping and bounded export/shutdown | CONTRACT-006 log/span/metric emission and bounded close adapter | Explicit DiagnosticsConfig, validated diagnostic values and lazily loaded selected OTel SDK/exporter | Native/publication SDKs, ambient endpoint discovery, raw payloads, compiler/result repair, publication/ACK mutation ports or checkout tools |
 | `src/ashlar_host/source.py`, `source_identity.py`, `commerce_admission.py`, `resources/`, `schema_rows.py` | Original input custody, public UMF producer invocation, finite source admission and package-relative model/graph/SQL resources | Owned source/resource ports used by the commerce entrypoints | Public core source APIs, explicitly configured Bun/Git and clean pinned UMF source, owned native/source correspondence ports | Checkout-relative resource discovery, private UMF imports, shadow semantic validation, receipt flags treated as publication authority |
 | `src/ashlar_host/path_admission.py`, `path_capture.py`, `path_execution.py` | Immutable path artifact/schema admission, bounded result capture and provisional execution within a caller-owned publication hold | PathAdmissionConfig, admit_path_artifact; PathCaptureConfig, capture_string_frame; PathExecutionConfig, execute_commerce_path | Public core exact decoders, owned admission/capture APIs and explicit schema, source, reader and execution ports | Engine construction, compiler installation/discovery, source/ACK authority, compiler SQL/result repair or successful report release before outer cleanup |
 | `src/ashlar_host/path_schema.py` | Offline validation against exact installed Paths schemas | make_offline_path_schema_validation; owning PathSchemaValidation port in path_admission | Installed schema bytes, lazy JSON Schema validator and offline reference registry | Network schema retrieval, compiler or source authority, native clients |
@@ -171,7 +173,10 @@ query adapters own their held native execution; `path_admission.py`,
 `path_capture.py` and `path_execution.py` own path artifact and result custody.
 Delta SQL -> `native.py` plus `ashlar_host.delta_custody`/`driver`; PostgreSQL
 ACK -> `ashlar_host.ack`, with `postgres` session handling and `connection`
-construction. Private graph-engine experiments retain their named `tools/run_*`
+construction. OpenTelemetry -> `ashlar_host.otel` for SDK signal mapping and
+export; `ashlar_host.diagnostics` owns the local capture/retrieval projection,
+and `ashlar_host.config` owns its typed settings under CONTRACT-006. Private
+graph-engine experiments retain their named `tools/run_*`
 and `tools/check_*` owners. Vendor/source translation stays at these boundaries;
 a private host profile does not establish production source or engine authority.
 
@@ -185,6 +190,15 @@ configuration. `connection.py` owns credential acquisition only within the selec
 private PostgreSQL profile. Required reader/session/transport closure and Spark
 stop must complete before a successful report is released; cleanup failure must
 not replace an existing primary failure or turn an uncertain outcome into success.
+
+The `ashlar_host.commerce` and `ashlar_host.paths_query` composition roots receive
+an explicit `DiagnosticsConfig` or `None`. They validate it before operation
+effects, construct the owned diagnostic capture and OTel adapter once, and inject
+their public ports; `None` disables diagnostics without SDK discovery. OTel SDK
+construction belongs only to `ashlar_host.otel` in the selected Python 3.11 host
+runtime. The portable core remains Python 3.9 compatible and has no OTel dependency.
+Diagnostics observe the owning workflow's outcome and preserve primary failures;
+their loss or export failure cannot authorize publication, ACK or result release.
 
 `weft_paths_distribution.py` fixes the trusted index revision/digest and
 realization, observes the supported host platform, and accepts operator locations
@@ -217,7 +231,7 @@ project map with recursive Python AST imports across `src/ashlar`,
 inventory. Use the same command locally, in pre-commit and CI. Baseline entries
 identify exact importing file, target, symbol, owner and removal trigger; no
 directory exemption admits new violations. Check core-to-host composition roots,
-core/host-to-tools edges, portable-core SDK imports, producer/consumer direction
+core/host-to-tools edges, portable-core SDK imports (including `opentelemetry`), producer/consumer direction
 and private cross-module accesses. Dynamic imports, runtime reflection,
 dependency cycles and value/type ownership require explicit semantic review;
 static import success alone cannot establish encapsulation.
