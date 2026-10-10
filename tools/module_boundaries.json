@@ -1,0 +1,753 @@
+{
+  "format": "ashlar-boundary-baseline/0.1",
+  "limitations": [
+    "Recursive AST explicit Python imports and direct imported-module alias attributes only; dynamic import strings/reflection, alias reassignment/indirect getattr, transitive external SDK internals, dependency cycles and semantic type/value ownership require review.",
+    "Existing private accesses are individually grandfathered, not approved public interfaces. Remove each entry when replaced by an owned public API; new edges fail."
+  ],
+  "baseline": [
+    {
+      "source": "src/ashlar/apply.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/assertions.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/attempt_store.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/attempt_store.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/binding.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/cli.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/csv_source.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/csv_source.py",
+      "target": "ashlar.whole_entity",
+      "symbol": "_integer",
+      "reason": "private-cross-module",
+      "owner": "ashlar.whole_entity API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/durable_publisher.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/effect_validation.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/graph_release.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/maintenance.py",
+      "target": "ashlar.publication",
+      "symbol": "_name",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/manifest.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/manifest.py",
+      "target": "ashlar.publication",
+      "symbol": "_decode",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/manifest.py",
+      "target": "ashlar.publication",
+      "symbol": "_freeze",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/manifest.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/native.py",
+      "target": "ashlar.publication",
+      "symbol": "_name",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/origin.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/origin.py",
+      "target": "ashlar.truss_input",
+      "symbol": "_canonical",
+      "reason": "private-cross-module",
+      "owner": "ashlar.truss_input API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/pins.py",
+      "target": "ashlar.publication",
+      "symbol": "_name",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/protocol.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/protocol.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/publisher.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/quarantine.py",
+      "target": "ashlar.publication",
+      "symbol": "_name",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/report_parts.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/retention.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/retention.py",
+      "target": "ashlar.publication",
+      "symbol": "_name",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/retention_policy.py",
+      "target": "ashlar.publication",
+      "symbol": "_decode",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/retention_policy.py",
+      "target": "ashlar.publication",
+      "symbol": "_freeze",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/retention_policy.py",
+      "target": "ashlar.retention",
+      "symbol": "_micros",
+      "reason": "private-cross-module",
+      "owner": "ashlar.retention API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/schema_registry.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/semantic_policy.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/singleton.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/source.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/source_checkpoint.py",
+      "target": "ashlar.attempt_store",
+      "symbol": "_request_digest",
+      "reason": "portable-to-runtime",
+      "owner": "ashlar.attempt_store API owner",
+      "removal_trigger": "Move this structural codec/digest into an owned portable module or inject the operation; remove this exact runtime dependency in the same reviewed change."
+    },
+    {
+      "source": "src/ashlar/source_checkpoint.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/source_checkpoint.py",
+      "target": "ashlar.staging",
+      "symbol": "batch_from_row",
+      "reason": "portable-to-runtime",
+      "owner": "ashlar.staging API owner",
+      "removal_trigger": "Move this structural codec/digest into an owned portable module or inject the operation; remove this exact runtime dependency in the same reviewed change."
+    },
+    {
+      "source": "src/ashlar/source_checkpoint.py",
+      "target": "ashlar.staging",
+      "symbol": "batch_row",
+      "reason": "portable-to-runtime",
+      "owner": "ashlar.staging API owner",
+      "removal_trigger": "Move this structural codec/digest into an owned portable module or inject the operation; remove this exact runtime dependency in the same reviewed change."
+    },
+    {
+      "source": "src/ashlar/source_config.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/staging.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/staging.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/stored_publisher.py",
+      "target": "ashlar.publication",
+      "symbol": "_decode",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/stored_publisher.py",
+      "target": "ashlar.publication",
+      "symbol": "_freeze",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/stored_publisher.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/truss_feed.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/truss_feed.py",
+      "target": "ashlar.truss_input",
+      "symbol": "_canonical",
+      "reason": "private-cross-module",
+      "owner": "ashlar.truss_input API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/truss_feed.py",
+      "target": "ashlar.truss_input",
+      "symbol": "_hash",
+      "reason": "private-cross-module",
+      "owner": "ashlar.truss_input API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/truss_feed.py",
+      "target": "ashlar.truss_input",
+      "symbol": "_text",
+      "reason": "private-cross-module",
+      "owner": "ashlar.truss_input API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/truss_input.py",
+      "target": "ashlar.lineage",
+      "symbol": "_quote",
+      "reason": "private-cross-module",
+      "owner": "ashlar.lineage API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/truss_input.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/typed_source_policy.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/typed_source_policy.py",
+      "target": "ashlar.schema",
+      "symbol": "_pairs",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/weft_decode.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/whole_entity.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "src/ashlar/whole_entity.py",
+      "target": "ashlar.staging",
+      "symbol": "batch_row",
+      "reason": "portable-to-runtime",
+      "owner": "ashlar.staging API owner",
+      "removal_trigger": "Move this structural codec/digest into an owned portable module or inject the operation; remove this exact runtime dependency in the same reviewed change."
+    },
+    {
+      "source": "tools/check_native_csv_artifact.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/check_native_csv_artifact.py",
+      "target": "ashlar.publication",
+      "symbol": "_decode",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/check_native_csv_artifact.py",
+      "target": "ashlar.publication",
+      "symbol": "_freeze",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/check_native_retention_window.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/journaled_attempts.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/journaled_file_progress.py",
+      "target": "ashlar.attempt_store",
+      "symbol": "_request_digest",
+      "reason": "private-cross-module",
+      "owner": "ashlar.attempt_store API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/journaled_file_progress.py",
+      "target": "ashlar.publication",
+      "symbol": "_decode",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/journaled_file_progress.py",
+      "target": "ashlar.publication",
+      "symbol": "_freeze",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/journaled_file_progress.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/journaled_publisher_driver.py",
+      "target": "ashlar.attempt_store",
+      "symbol": "_request_digest",
+      "reason": "private-cross-module",
+      "owner": "ashlar.attempt_store API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/journaled_publisher_driver.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/journaled_publisher_driver.py",
+      "target": "ashlar.stored_publisher",
+      "symbol": "_artifact",
+      "reason": "private-cross-module",
+      "owner": "ashlar.stored_publisher API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/journaled_snapshot_artifacts.py",
+      "target": "ashlar.attempt_store",
+      "symbol": "_request_digest",
+      "reason": "private-cross-module",
+      "owner": "ashlar.attempt_store API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/journaled_snapshot_artifacts.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/journaled_snapshot_artifacts.py",
+      "target": "ashlar.stored_publisher",
+      "symbol": "_artifact",
+      "reason": "private-cross-module",
+      "owner": "ashlar.stored_publisher API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/local_delta_custody.py",
+      "target": "ashlar.publication",
+      "symbol": "_name",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/native_artifact_validation.py",
+      "target": "ashlar.publication",
+      "symbol": "_decode",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/native_artifact_validation.py",
+      "target": "ashlar.publication",
+      "symbol": "_freeze",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/native_artifact_validation.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/native_artifact_validation.py",
+      "target": "ashlar.stored_publisher",
+      "symbol": "_artifact",
+      "reason": "private-cross-module",
+      "owner": "ashlar.stored_publisher API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/protected_outbox_ack.py",
+      "target": "ashlar.attempt_store",
+      "symbol": "_request_digest",
+      "reason": "private-cross-module",
+      "owner": "ashlar.attempt_store API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/protected_outbox_ack.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/publish_native_csv_example.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/publish_native_csv_example.py",
+      "target": "ashlar.publication",
+      "symbol": "_decode",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/publish_native_csv_example.py",
+      "target": "ashlar.publication",
+      "symbol": "_freeze",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/retain_profile_custody.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/run_commerce_release_graphframes.py",
+      "target": "ashlar.graph_release",
+      "symbol": "_carrier",
+      "reason": "private-cross-module",
+      "owner": "ashlar.graph_release API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/run_graph_release_graphframes.py",
+      "target": "ashlar.graph_release",
+      "symbol": "_carrier",
+      "reason": "private-cross-module",
+      "owner": "ashlar.graph_release API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/run_local_example.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/run_native_source_stream.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/run_native_source_stream.py",
+      "target": "ashlar.publication",
+      "symbol": "_decode",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/run_native_source_stream.py",
+      "target": "ashlar.publication",
+      "symbol": "_freeze",
+      "reason": "private-cross-module",
+      "owner": "ashlar.publication API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/run_native_source_stream.py",
+      "target": "ashlar.stored_publisher",
+      "symbol": "_artifact",
+      "reason": "private-cross-module",
+      "owner": "ashlar.stored_publisher API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/run_outbox_example.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/run_pack_release_graphframes.py",
+      "target": "ashlar.graph_release",
+      "symbol": "_carrier",
+      "reason": "private-cross-module",
+      "owner": "ashlar.graph_release API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/run_schema_evolution.py",
+      "target": "ashlar.schema",
+      "symbol": "_json",
+      "reason": "private-cross-module",
+      "owner": "ashlar.schema API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/verify_configured_publication.py",
+      "target": "ashlar.attempt_store",
+      "symbol": "_request_digest",
+      "reason": "private-cross-module",
+      "owner": "ashlar.attempt_store API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    },
+    {
+      "source": "tools/whole_graph_sql.py",
+      "target": "ashlar.native",
+      "symbol": "_quoted",
+      "reason": "private-cross-module",
+      "owner": "ashlar.native API owner",
+      "removal_trigger": "Replace this exact access with its owning public contract API; remove entry in same reviewed change."
+    }
+  ]
+}
