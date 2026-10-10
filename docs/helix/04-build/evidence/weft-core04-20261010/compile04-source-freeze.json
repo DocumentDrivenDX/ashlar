@@ -1,0 +1,44 @@
+{
+  "format": "weft-explicit-compile04-source-freeze/0.1",
+  "base": "05140971066dc19dd4624e138e9682c674430f5c",
+  "root": "/private/tmp/ashlar-weft-distribution-d2d",
+  "snapshot": "/private/tmp/weft-compile04-source-freeze-20261010-b",
+  "files": [
+    {
+      "path": "crates/weft-core/src/compile.rs",
+      "bytes": 12411,
+      "sha256": "0a41ab3b2db8f206c3d80c6e634fa4fa68dffa1c92bc2c9091f25a4ff109fdc5"
+    },
+    {
+      "path": "crates/weft-core/src/compile04.rs",
+      "bytes": 17708,
+      "sha256": "2c82da3f60c20776284ff97b4844e976edd4b8c12d5be016ec4a323ebc7196ac"
+    }
+  ],
+  "dependencies": {
+    "backend03Freeze": "/private/tmp/ashlar-backend03-source-freeze-20261010-c/manifest.json",
+    "backend03FreezeSha256": "4ff12eb2f0e14ebe9e3ba0c211897119c89be1937a9b2adabd140ecb1fabd4d8"
+  },
+  "checks": [
+    {
+      "command": "cargo test --offline -p weft-core --lib",
+      "passed": 90,
+      "failed": 0,
+      "transportTests": 5,
+      "backend03Tests": 11,
+      "actualSession": 98281
+    },
+    {
+      "command": "python3 scripts/checks/check-module-boundaries.py",
+      "workspaceModules": 11,
+      "exit": 0
+    },
+    {
+      "command": "python3 tests/module-boundaries/check.py",
+      "passed": 3,
+      "failed": 0
+    }
+  ],
+  "scope": "New compile::v04 namespace only; old Compiler/Factory/public routes remain unchanged. Uses explicit injected Backend03 registration and resolved original models. Typed response metadata and candidate-only fixture compilation are not SQL lowering/native/runtime qualification. Panic payload exclusion is scoped to returned structured response; process panic-hook/log policy remains host-owned.",
+  "resolvedReviewFinding": "Preserve original 64 KiB SQL and four MiB binding byte budgets before digest/parser/factory; exact four MiB admitted and +1 matching-digest byte refused before composition, plus multibyte SQL control."
+}

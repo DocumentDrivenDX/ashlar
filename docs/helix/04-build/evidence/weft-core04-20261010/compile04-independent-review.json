@@ -1,0 +1,99 @@
+{
+  "format": "astra-independent-compile04-review/0.1",
+  "verdict": "approved-source-only",
+  "freeze": {
+    "path": "/private/tmp/weft-compile04-source-freeze-20261010-b/manifest.json",
+    "sha256": "838e2154b18b6bacf8e27005f3024c2005390c5b78e88f0a6366166b1cbd8966"
+  },
+  "files": [
+    {
+      "path": "crates/weft-core/src/compile.rs",
+      "bytes": 12411,
+      "sha256": "0a41ab3b2db8f206c3d80c6e634fa4fa68dffa1c92bc2c9091f25a4ff109fdc5"
+    },
+    {
+      "path": "crates/weft-core/src/compile04.rs",
+      "bytes": 17708,
+      "sha256": "2c82da3f60c20776284ff97b4844e976edd4b8c12d5be016ec4a323ebc7196ac"
+    }
+  ],
+  "dependencies": {
+    "backend03Freeze": "/private/tmp/ashlar-backend03-source-freeze-20261010-c/manifest.json",
+    "backend03FreezeSha256": "4ff12eb2f0e14ebe9e3ba0c211897119c89be1937a9b2adabd140ecb1fabd4d8"
+  },
+  "base_commit": "05140971066dc19dd4624e138e9682c674430f5c",
+  "reviewer_mirror": "/private/tmp/astra-backend03-probe-20261010",
+  "checks": [
+    {
+      "scope": "Exact frozen B transport with frozen C Backend03 and base051 core",
+      "passed": 90,
+      "failed": 0,
+      "transport_tests": 5,
+      "backend_tests": 11
+    },
+    {
+      "scope": "Independent real 4 MiB String-valued binding positive, matching and wrong-digest +1 byte refusals, exact 16 MiB request positive and +1 byte refusal, nested binding refusal; factory counters and closed responses",
+      "passed": 2,
+      "failed": 0
+    },
+    {
+      "scope": "Actual Cargo boundary checker",
+      "modules": 11,
+      "edges": 12,
+      "exit": 0
+    },
+    {
+      "scope": "Independent module boundary controls",
+      "passed": 3,
+      "failed": 0
+    },
+    {
+      "scope": "Legacy compile.rs byte equality after removing sole path=compile04.rs/pub mod v04 declaration",
+      "equal": true
+    }
+  ],
+  "resolved_finding": "Explicit SQL 64 KiB and binding 4 MiB byte checks now precede digest, nested binding JSON parse and host composition. Exact bounds admit; oversized input does not invoke factory.",
+  "review": [
+    "Exact04 compile/dialect and closed request precede original Catalog and typed query resolution.",
+    "Registry factory is explicit host registration and receives resolved original pins and immutable Plan04View; SQL/models do not select code.",
+    "Candidate status requires explicit selection at registry before backend validation/assessment; composition is not native admission.",
+    "Response uses closed04 schema; malformed/foreign diagnostic payload and caught panic payload do not escape returned structured response. Host panic hook remains separately owned.",
+    "Old public Compiler/RegistryFactory/Backend02 behavior is isolated by additive namespace; original byte-identical compile.rs implementation and full90 core regression retained.",
+    "HELIX: typed module boundary and injected configuration maintained; no environment/file/network engine effects introduced. Diagnostic output is not OTel receiver qualification; precise properties/tests are not machine proof."
+  ],
+  "limits": [
+    "Explicit compile API and metadata fixture only; no concrete two-hop SQL lowerer, produced runtime transport, package/index, native query or host-obligation-discharge qualification."
+  ],
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-compile04-core-tests-20261010-b.log",
+      "bytes": 12663,
+      "sha256": "f6fff25defaf8331c9f60e069744297d5b7d89d9bb1b847b1a301e7cfbfb09b7"
+    },
+    {
+      "path": "/private/tmp/astra-compile04-byte-controls-20261010-b.rs",
+      "bytes": 2384,
+      "sha256": "16f7c363b9f92492922eaec028d515baaa141cc2b0a30a402e5b18520647130c"
+    },
+    {
+      "path": "/private/tmp/astra-compile04-byte-controls-20261010-b.log",
+      "bytes": 4833,
+      "sha256": "5b41bf4b547ea53251825a523ce6c517616dc3463068ccf5caa4549669193fc7"
+    },
+    {
+      "path": "/private/tmp/astra-compile04-module-check-20261010-b.log",
+      "bytes": 646,
+      "sha256": "bfbb02925bc2fff01e3029e78aa209a113f6173ef6072ba29395bd7328c0b655"
+    },
+    {
+      "path": "/private/tmp/astra-compile04-module-controls-20261010-b.log",
+      "bytes": 101,
+      "sha256": "14563d5018205d1b5be72b375fbb01077c05ae25f09f7338467cddae0073c133"
+    },
+    {
+      "path": "/private/tmp/astra-backend03-final-review-20261010.json",
+      "bytes": 4690,
+      "sha256": "8637d7f6633aa8de157f14eb77bf4a13ef102d571d00211bfb07cb87b6512462"
+    }
+  ]
+}

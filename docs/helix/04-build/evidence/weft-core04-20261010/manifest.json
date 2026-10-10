@@ -1,0 +1,121 @@
+{
+  "format": "ashlar-reviewed-weft-core04-source-custody/0.1",
+  "sourceCommit": "db860737eaafe977ef0a6c5f6f2351e7f0b2c9b5",
+  "scope": "Exact reviewed Backend03 C and explicit compile04 B source plus original review/control and completed CI receipts. Source-only; no native SQL execution, runtime installation, or path-host qualification. Frozen historical temporary references remain original; archived source requires the pinned repository dependency checkout.",
+  "files": [
+    {
+      "path": "backend03-source-freeze.json",
+      "bytes": 1994,
+      "sha256": "4ff12eb2f0e14ebe9e3ba0c211897119c89be1937a9b2adabd140ecb1fabd4d8",
+      "origin": "/private/tmp/ashlar-backend03-source-freeze-20261010-c/manifest.json"
+    },
+    {
+      "path": "compile04-source-freeze.json",
+      "bytes": 1900,
+      "sha256": "838e2154b18b6bacf8e27005f3024c2005390c5b78e88f0a6366166b1cbd8966",
+      "origin": "/private/tmp/weft-compile04-source-freeze-20261010-b/manifest.json"
+    },
+    {
+      "path": "backend03-independent-review.json",
+      "bytes": 4690,
+      "sha256": "8637d7f6633aa8de157f14eb77bf4a13ef102d571d00211bfb07cb87b6512462",
+      "origin": "/private/tmp/astra-backend03-final-review-20261010.json"
+    },
+    {
+      "path": "compile04-independent-review.json",
+      "bytes": 4414,
+      "sha256": "6facbc3292d098f0a2728b9bd8b3497faabe599c6112954845a063a7c71b3168",
+      "origin": "/private/tmp/astra-compile04-final-review-20261010.json"
+    },
+    {
+      "path": "backend03-author-tests.log",
+      "bytes": 5435,
+      "sha256": "915edc766ed9d26505235a80b4e924fab75cc57ff48cf2fc3f5511102318a09b",
+      "origin": "/private/tmp/ashlar-backend03-tests-final-c.log"
+    },
+    {
+      "path": "backend03-independent-tests.log",
+      "bytes": 5842,
+      "sha256": "341440f5c18516998df4531f5493bd7539807544b90edfbe5a5508c1654388d9",
+      "origin": "/private/tmp/astra-backend03-tests-20261010-c.log"
+    },
+    {
+      "path": "backend03-positioned-controls.log",
+      "bytes": 4961,
+      "sha256": "42074a2f078f37ca8da74bfb0aa1d2d5aa570eb7162850b7d6475468fb175d67",
+      "origin": "/private/tmp/astra-backend03-positioned-controls-20261010-c.log"
+    },
+    {
+      "path": "backend03-positioned-controls.rs",
+      "bytes": 2759,
+      "sha256": "08e3c3b67fab2dd2cd40a16eb78cacc5d2aa6cbfc8dbbf70f607222bfb48492a",
+      "origin": "/private/tmp/astra-backend03-positioned-controls-20261010-c.rs"
+    },
+    {
+      "path": "ci-38031240480.json",
+      "bytes": 12539,
+      "sha256": "f4dfffdbea3e9745cd0f43c7f5d94b834218cd2975297a3d018b737848b94087",
+      "origin": "/private/tmp/weft-core04-ci-38031240480.json"
+    },
+    {
+      "path": "source/crates/weft-core/src/backend03.rs",
+      "bytes": 6841,
+      "sha256": "fcfa161b4381d5938dc7e96d9b0a13be9d68b4177a2e5cba3d2811a7c2f4d242",
+      "origin": "git:db860737eaafe977ef0a6c5f6f2351e7f0b2c9b5:crates/weft-core/src/backend03.rs"
+    },
+    {
+      "path": "source/crates/weft-core/src/backend03_emission.rs",
+      "bytes": 30159,
+      "sha256": "ed0aee08f93d01d1dfc19fdee465f7f50b91681377889b617aefec98afa34bf1",
+      "origin": "git:db860737eaafe977ef0a6c5f6f2351e7f0b2c9b5:crates/weft-core/src/backend03_emission.rs"
+    },
+    {
+      "path": "source/crates/weft-core/src/backend03_manifest.rs",
+      "bytes": 3289,
+      "sha256": "35d03b2b9f9d583566d8b44bae817012ee8ab5ec443768aa95141da5f88dc7b7",
+      "origin": "git:db860737eaafe977ef0a6c5f6f2351e7f0b2c9b5:crates/weft-core/src/backend03_manifest.rs"
+    },
+    {
+      "path": "source/crates/weft-core/src/backend03_registry.rs",
+      "bytes": 10845,
+      "sha256": "9841bb1d9ce3a59effc6255fbecc3194388d256a4fa3697812e6ff6fb1c6ce8a",
+      "origin": "git:db860737eaafe977ef0a6c5f6f2351e7f0b2c9b5:crates/weft-core/src/backend03_registry.rs"
+    },
+    {
+      "path": "source/crates/weft-core/src/backend03_tests.rs",
+      "bytes": 30728,
+      "sha256": "e10178a8eb4fe10a06b0286ff56325a36984854f51e227dbbfab002944abd90f",
+      "origin": "git:db860737eaafe977ef0a6c5f6f2351e7f0b2c9b5:crates/weft-core/src/backend03_tests.rs"
+    },
+    {
+      "path": "source/crates/weft-core/src/backend03_view.rs",
+      "bytes": 4032,
+      "sha256": "c191d49157788458c8f31fc0dfb562f8b64af9314659d96da2da8d618dfce648",
+      "origin": "git:db860737eaafe977ef0a6c5f6f2351e7f0b2c9b5:crates/weft-core/src/backend03_view.rs"
+    },
+    {
+      "path": "source/crates/weft-core/src/path_ir.rs",
+      "bytes": 27066,
+      "sha256": "e916875da947eae1fe825c029092523d8a3b5dcc7666a251ef5b241ac8a44f28",
+      "origin": "git:db860737eaafe977ef0a6c5f6f2351e7f0b2c9b5:crates/weft-core/src/path_ir.rs"
+    },
+    {
+      "path": "source/crates/weft-core/src/compile.rs",
+      "bytes": 12411,
+      "sha256": "0a41ab3b2db8f206c3d80c6e634fa4fa68dffa1c92bc2c9091f25a4ff109fdc5",
+      "origin": "git:db860737eaafe977ef0a6c5f6f2351e7f0b2c9b5:crates/weft-core/src/compile.rs"
+    },
+    {
+      "path": "source/crates/weft-core/src/compile04.rs",
+      "bytes": 17708,
+      "sha256": "2c82da3f60c20776284ff97b4844e976edd4b8c12d5be016ec4a323ebc7196ac",
+      "origin": "git:db860737eaafe977ef0a6c5f6f2351e7f0b2c9b5:crates/weft-core/src/compile04.rs"
+    },
+    {
+      "path": "source/crates/weft-core/src/lib.rs",
+      "bytes": 3986,
+      "sha256": "a64262ea8862f7b496b1ab0d3ed717e7aadb31795177dfed354d3861272775fa",
+      "origin": "git:db860737eaafe977ef0a6c5f6f2351e7f0b2c9b5:crates/weft-core/src/lib.rs"
+    }
+  ]
+}

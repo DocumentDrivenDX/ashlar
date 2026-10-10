@@ -1,0 +1,19 @@
+{
+  "format": "astra-independent-review/0.1",
+  "decision": "approved-durable-source-custody",
+  "manifest": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/weft-core04-20261010/manifest.json",
+    "bytes": 5445,
+    "sha256": "97104db1edb8f6e5e80eb7b096c1b81dd3348a7437008f2321273ee84deca0e0"
+  },
+  "entries": 19,
+  "totalFiles": 20,
+  "checks": [
+    "Exact recursive file inventory, all file lengths and SHA256 digests independently matched.",
+    "All ten selected source files match exact Git db860737eaafe977ef0a6c5f6f2351e7f0b2c9b5 blobs; nine owner files match both nested approved freeze manifests and root lib wiring is separately retained.",
+    "Both original independent review receipts, all three selected Backend03 logs, positioned probe, freeze manifests and raw CI JSON byte-identical to original recorded origins.",
+    "Retained CI response explicitly identifies run38031240480, exact reviewed source commit, completed/success. No jobs array is present; no independent per-job claim."
+  ],
+  "qualification": "Backend03 C and compile04 B source custody only. Historical temporary references remain original; selected files require exact repository/dependency checkout to reproduce. This archive does not qualify path lowering/runtime, emitted SQL native semantics, host obligations or installed realizations.",
+  "remainingBlockingFindings": []
+}

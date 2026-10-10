@@ -1,0 +1,49 @@
+{
+  "format": "weft-backend03-source-freeze/0.1",
+  "source_checkout": "/private/tmp/ashlar-weft-distribution-d2d",
+  "base_commit": "05140971066dc19dd4624e138e9682c674430f5c",
+  "files": [
+    {
+      "path": "crates/weft-core/src/backend03.rs",
+      "sha256": "fcfa161b4381d5938dc7e96d9b0a13be9d68b4177a2e5cba3d2811a7c2f4d242",
+      "bytes": 6841
+    },
+    {
+      "path": "crates/weft-core/src/backend03_emission.rs",
+      "sha256": "ed0aee08f93d01d1dfc19fdee465f7f50b91681377889b617aefec98afa34bf1",
+      "bytes": 30159
+    },
+    {
+      "path": "crates/weft-core/src/backend03_manifest.rs",
+      "sha256": "35d03b2b9f9d583566d8b44bae817012ee8ab5ec443768aa95141da5f88dc7b7",
+      "bytes": 3289
+    },
+    {
+      "path": "crates/weft-core/src/backend03_registry.rs",
+      "sha256": "9841bb1d9ce3a59effc6255fbecc3194388d256a4fa3697812e6ff6fb1c6ce8a",
+      "bytes": 10845
+    },
+    {
+      "path": "crates/weft-core/src/backend03_tests.rs",
+      "sha256": "e10178a8eb4fe10a06b0286ff56325a36984854f51e227dbbfab002944abd90f",
+      "bytes": 30728
+    },
+    {
+      "path": "crates/weft-core/src/backend03_view.rs",
+      "sha256": "c191d49157788458c8f31fc0dfb562f8b64af9314659d96da2da8d618dfce648",
+      "bytes": 4032
+    },
+    {
+      "path": "crates/weft-core/src/path_ir.rs",
+      "sha256": "e916875da947eae1fe825c029092523d8a3b5dcc7666a251ef5b241ac8a44f28",
+      "bytes": 27066
+    }
+  ],
+  "scope": "Separate Backend03 metadata/registry/view foundation; path_ir immutable getters only. No lowerer/native execution or host-obligation discharge. Root lib/compile04 excluded.",
+  "change_from_b": "Original empty/NUL rejection for manifest top/target/capability/obligation IDs, and original generic obligation failure-code grammar in manifest/merge. Field-isolated parity controls. A/B snapshots preserved.",
+  "tests": {
+    "command": "cargo test -p weft-core --lib backend03 --offline",
+    "passed": 11,
+    "log": "/private/tmp/ashlar-backend03-tests-final-c.log"
+  }
+}

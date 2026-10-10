@@ -1,0 +1,107 @@
+{
+  "format": "astra-independent-backend03-review/0.1",
+  "verdict": "approved-source-only",
+  "freeze": {
+    "path": "/private/tmp/ashlar-backend03-source-freeze-20261010-c/manifest.json",
+    "sha256": "4ff12eb2f0e14ebe9e3ba0c211897119c89be1937a9b2adabd140ecb1fabd4d8"
+  },
+  "files": [
+    {
+      "path": "crates/weft-core/src/backend03.rs",
+      "sha256": "fcfa161b4381d5938dc7e96d9b0a13be9d68b4177a2e5cba3d2811a7c2f4d242",
+      "bytes": 6841
+    },
+    {
+      "path": "crates/weft-core/src/backend03_emission.rs",
+      "sha256": "ed0aee08f93d01d1dfc19fdee465f7f50b91681377889b617aefec98afa34bf1",
+      "bytes": 30159
+    },
+    {
+      "path": "crates/weft-core/src/backend03_manifest.rs",
+      "sha256": "35d03b2b9f9d583566d8b44bae817012ee8ab5ec443768aa95141da5f88dc7b7",
+      "bytes": 3289
+    },
+    {
+      "path": "crates/weft-core/src/backend03_registry.rs",
+      "sha256": "9841bb1d9ce3a59effc6255fbecc3194388d256a4fa3697812e6ff6fb1c6ce8a",
+      "bytes": 10845
+    },
+    {
+      "path": "crates/weft-core/src/backend03_tests.rs",
+      "sha256": "e10178a8eb4fe10a06b0286ff56325a36984854f51e227dbbfab002944abd90f",
+      "bytes": 30728
+    },
+    {
+      "path": "crates/weft-core/src/backend03_view.rs",
+      "sha256": "c191d49157788458c8f31fc0dfb562f8b64af9314659d96da2da8d618dfce648",
+      "bytes": 4032
+    },
+    {
+      "path": "crates/weft-core/src/path_ir.rs",
+      "sha256": "e916875da947eae1fe825c029092523d8a3b5dcc7666a251ef5b241ac8a44f28",
+      "bytes": 27066
+    }
+  ],
+  "reviewer_mirror": "/private/tmp/astra-backend03-probe-20261010",
+  "base_commit": "05140971066dc19dd4624e138e9682c674430f5c",
+  "wiring": "Explicit pub mod backend03; line; root compile04 excluded from these checks.",
+  "checks": [
+    {
+      "kind": "actual frozen Backend03 unit tests",
+      "passed": 11,
+      "failed": 0,
+      "log": "/private/tmp/astra-backend03-tests-20261010-c.log"
+    },
+    {
+      "kind": "independent actual Registry positioned-output complete positive plus nine isolated map/carrier refusals",
+      "passed": 1,
+      "cases": 10,
+      "failed": 0,
+      "log": "/private/tmp/astra-backend03-positioned-controls-20261010-c.log",
+      "test_source": "/private/tmp/astra-backend03-positioned-controls-20261010-c.rs"
+    }
+  ],
+  "findings_resolved": [
+    "A admitted repeated-field positioned results without exact host output map; C now refuses original actual Registry counterexample and isolated malformed maps.",
+    "Inherited manifest and obligation empty/NUL identifier and failure-code grammar preserved."
+  ],
+  "assessment": [
+    "Separate Backend03 Registry and immutable Plan04View; old Backend02/public expression types unchanged.",
+    "Selected capabilities, target/language/version, binding digest/size and source coverage precede binding/assessment as appropriate; immutable source declarations retained before callbacks.",
+    "Exact original scan/Record LEFT source map, two-hop relationship/table/schema inventory and full count-capacity metadata correspondence required.",
+    "Closed local schema resources are cached; source-controlled typed metadata validation does not discharge native SQL/host obligations.",
+    "HELIX modular boundaries and injected configuration maintained; returned diagnostics are not OTel receiver evidence; precise semantic correspondence is not executable formal proof."
+  ],
+  "limits": [
+    "Source and metadata foundation only; no native lowerer, execution, runtime, source publication, or host-obligation-discharge approval.",
+    "Root compile04 transport reviewed separately.",
+    "Trusted backend callback total-memory and panic-hook policy remain host responsibilities."
+  ],
+  "evidence": [
+    {
+      "path": "/private/tmp/astra-backend03-tests-20261010-c.log",
+      "bytes": 5842,
+      "sha256": "341440f5c18516998df4531f5493bd7539807544b90edfbe5a5508c1654388d9"
+    },
+    {
+      "path": "/private/tmp/astra-backend03-positioned-controls-20261010-c.log",
+      "bytes": 4961,
+      "sha256": "42074a2f078f37ca8da74bfb0aa1d2d5aa570eb7162850b7d6475468fb175d67"
+    },
+    {
+      "path": "/private/tmp/astra-backend03-positioned-controls-20261010-c.rs",
+      "bytes": 2759,
+      "sha256": "08e3c3b67fab2dd2cd40a16eb78cacc5d2aa6cbfc8dbbf70f607222bfb48492a"
+    },
+    {
+      "path": "/private/tmp/astra-backend03-positioned-counterexample-20261010.rs",
+      "bytes": 1504,
+      "sha256": "860a68a737b6fce7e6b974ab7e09cca08511d08d1effd005790040a6b7b85067"
+    },
+    {
+      "path": "/private/tmp/astra-backend03-positioned-counterexample-20261010.log",
+      "bytes": 4968,
+      "sha256": "bc3ba30ac2fcd696b0d907565f55673cdf86cb2f4eadfacacb24f7ae50d82a95"
+    }
+  ]
+}
