@@ -1,0 +1,46 @@
+{
+  "decision": "APPROVE one-file installed workflow guide",
+  "guide": {
+    "path": "/Users/erik/Projects/ashlar/examples/end-to-end/COMMERCE-INDEXED-WEFT.md",
+    "sha256": "114df0f91d7a940c806d40e27965bf7963b698e57cb67f42eb3d47a4a48a21d4",
+    "bytes": 16327
+  },
+  "freeze": {
+    "path": "/private/tmp/ashlar-installed-commerce-guide-freeze-20261010-a/manifest.json",
+    "sha256": "595d1ae16de7d2f8314f1f786ef84070af2aaac4f59100cdb045f0bde3cfd424"
+  },
+  "commandBaselineSha256": "3ddd9ce324d45231df162b302e06beb8bf8d4db854d6470799a0c8ce39045b58",
+  "checks": {
+    "shellBlocksParsed": 8,
+    "pythonHeredocsParsed": 4,
+    "exactFlagSetsAndValues": [
+      {
+        "phase": "publish",
+        "flags": 16,
+        "nonpathValuesMatch": true
+      },
+      {
+        "phase": "query",
+        "flags": 17,
+        "nonpathValuesMatch": true
+      }
+    ],
+    "jarPins": 6,
+    "expectedResultsMatchActualReport": 3,
+    "relativeLinks": [
+      "../../docs/helix/04-build/evidence/installed-commerce-native-20261010/manifest.json",
+      "WEFT-INSTALLATION.md",
+      "QUERY-GALLERY.md"
+    ]
+  },
+  "helixScope": [
+    "Modularity: installed ashlar CLI owns host composition and package resources; no checkout tools import or compiler authority fallback.",
+    "Configuration: required operator paths, two explicit SDK environments, exact source/index/wheel identities and typed producer limits; secrets generated locally and absent from documented command arguments.",
+    "Observability: bounded refusal/report paths and retained native/ACK checks; no OTel receiver or comprehensive external-runtime closure claim.",
+    "Formal/evidence: finite original source/three-query qualification, cleanup before release, complete publication pins and original-versus-added-file distinction; no general multiplicity/two-hop or proof claim."
+  ],
+  "limits": [
+    "Static and evidence correspondence review only; no installation, SDK, database, compiler or recipe command executed.",
+    "The guide expressly distinguishes the actual single-interpreter separated-import run from a new two-environment installation recipe. New wheel/runtime bytes require independent qualification."
+  ]
+}
