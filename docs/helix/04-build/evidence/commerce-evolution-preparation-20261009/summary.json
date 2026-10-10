@@ -1,0 +1,51 @@
+{
+  "format": "ashlar-commerce-evolution-preparation-custody/0.1",
+  "source_commit": "f9bbdda389deb10a34000e69c7f9f417df35bba4",
+  "umf_revision": "a95c3ec18a8f904decde884a4fa252988d2a5b0f",
+  "umf_source": "/private/tmp/ashlar-umf-dataset-compact-fc78",
+  "scope": "Five separately authored finite dataset candidates with actual public compact dataset and verifier receipts; standalone validity only, no evolution compatibility, publication, accepted catalog or ACK authority. Original34developmentFieldIDs retained;35thappends. Original model/graph byte copies unchanged. Quantityinteger-toString candidate validates separately and remains compatibility-unadmitted.",
+  "reproduction": [
+    "PYTHONPATH=src:tools /private/tmp/ashlar-db-client/bin/python tools/prepare_commerce_evolution.py examples/domain-packs/commerce/upstream/ontology.json examples/domain-packs/commerce/upstream/graph/fixture.json FRESH_OUTPUT",
+    "bun tools/check_commerce_evolution_dataset.ts /private/tmp/ashlar-umf-dataset-compact-fc78 FRESH_OUTPUT/candidate.json FRESH_OUTPUT/public-datasets.json"
+  ],
+  "tests": "PYTHONPATH=src:tools /private/tmp/ashlar-db-client/bin/python -m unittest discover -s tests -p test_commerce_evolution.py",
+  "qualified_result": "4tests;5completepublicdatasets;15negativecontrols refused; actual receipt independently recomputed byte-identically by Astra.",
+  "prior_semantic_custody": {
+    "path": "docs/helix/04-build/evidence/original17-graph-scenario-profile-20261009/custody.json",
+    "sha256": "620de6163df9084378081bc7489a6122c2e090adcceea1c0f90c29c542b0bdcd",
+    "scope": "Separate a95 original public compact semantic producer provenance; historical originalpack claims remain unchanged."
+  },
+  "selected_source_copies": [
+    {
+      "commit": "f9bbdda389deb10a34000e69c7f9f417df35bba4",
+      "path": "tools/prepare_commerce_evolution.py",
+      "sha256": "9e913325d80ec3612e9a7138c9ec949279e7f2a92b68e920a96448db3c72c3ef"
+    },
+    {
+      "commit": "f9bbdda389deb10a34000e69c7f9f417df35bba4",
+      "path": "tools/check_commerce_evolution_dataset.ts",
+      "sha256": "14b13ff9af43a4b9cab8af2e68a1f553496163549990ce0a7a72c2d45c91ca9c"
+    },
+    {
+      "commit": "f9bbdda389deb10a34000e69c7f9f417df35bba4",
+      "path": "tests/test_commerce_evolution.py",
+      "sha256": "f9b1f6aa654571ff27b8cd42bd25d1d75310a761f2a1ebd4921aefe5335be97e"
+    },
+    {
+      "commit": "f9bbdda389deb10a34000e69c7f9f417df35bba4",
+      "path": "src/ashlar/commerce_source.py",
+      "sha256": "4b50f2a8531e05f087b535ccfdd2e3ffa8292e5f47302b1e4b569e58f732a746"
+    },
+    {
+      "commit": "f9bbdda389deb10a34000e69c7f9f417df35bba4",
+      "path": "src/ashlar/source.py",
+      "sha256": "d707482f3512fbbf4be02469208aa0bd10e7bca7e2bf6ed4f4b03c33948a91f2"
+    },
+    {
+      "commit": "f9bbdda389deb10a34000e69c7f9f417df35bba4",
+      "path": "src/ashlar/__init__.py",
+      "sha256": "4a2120fc27c18defb9fda700fdf12fe5f02aec883c994b425c3771d85f231bc6"
+    }
+  ],
+  "reproduction_source_scope": "The six copied files are selected source snapshots, not a recursive import closure. Complete reproduction requires the entire exact f9bbdda checkout identified by source_commit, including ashlar.__init__ imports and source.py schema._json dependencies."
+}

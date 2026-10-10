@@ -1,0 +1,92 @@
+{
+  "entries": [
+    {
+      "path": "candidate.json",
+      "sha256": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692",
+      "bytes": 174123,
+      "original": "/private/tmp/ashlar-commerce-evolution-preparation-20261009-a/candidate.json",
+      "original_sha256": "1c210a1bb3a5ef510d832715b15d238cdcb5126aa23b3f93d01d9be9c4c9d692",
+      "original_bytes": 174123
+    },
+    {
+      "path": "original-graph.json",
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+      "bytes": 23078,
+      "original": "/private/tmp/ashlar-commerce-evolution-preparation-20261009-a/original-graph.json",
+      "original_sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+      "original_bytes": 23078
+    },
+    {
+      "path": "original-model.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "bytes": 27544,
+      "original": "/private/tmp/ashlar-commerce-evolution-preparation-20261009-a/original-model.json",
+      "original_sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "original_bytes": 27544
+    },
+    {
+      "path": "public-datasets.json.gz",
+      "sha256": "36153e788105fb822823cf3fe8c187e94f4d2d2b64da85e0edbe37c4305668e2",
+      "bytes": 62750,
+      "original": "/private/tmp/ashlar-commerce-evolution-preparation-20261009-a/public-datasets.json",
+      "original_sha256": "40ce6e670308c9749b1f13139c136a7ce1b134335fc49a19669cb68771b19952",
+      "original_bytes": 1343907
+    },
+    {
+      "path": "source/tools/prepare_commerce_evolution.py",
+      "sha256": "9e913325d80ec3612e9a7138c9ec949279e7f2a92b68e920a96448db3c72c3ef",
+      "bytes": 4078,
+      "original": "git:f9bbdda389deb10a34000e69c7f9f417df35bba4:tools/prepare_commerce_evolution.py",
+      "original_sha256": "9e913325d80ec3612e9a7138c9ec949279e7f2a92b68e920a96448db3c72c3ef",
+      "original_bytes": 4078
+    },
+    {
+      "path": "source/tools/check_commerce_evolution_dataset.ts",
+      "sha256": "14b13ff9af43a4b9cab8af2e68a1f553496163549990ce0a7a72c2d45c91ca9c",
+      "bytes": 6025,
+      "original": "git:f9bbdda389deb10a34000e69c7f9f417df35bba4:tools/check_commerce_evolution_dataset.ts",
+      "original_sha256": "14b13ff9af43a4b9cab8af2e68a1f553496163549990ce0a7a72c2d45c91ca9c",
+      "original_bytes": 6025
+    },
+    {
+      "path": "source/tests/test_commerce_evolution.py",
+      "sha256": "f9b1f6aa654571ff27b8cd42bd25d1d75310a761f2a1ebd4921aefe5335be97e",
+      "bytes": 2898,
+      "original": "git:f9bbdda389deb10a34000e69c7f9f417df35bba4:tests/test_commerce_evolution.py",
+      "original_sha256": "f9b1f6aa654571ff27b8cd42bd25d1d75310a761f2a1ebd4921aefe5335be97e",
+      "original_bytes": 2898
+    },
+    {
+      "path": "source/src/ashlar/commerce_source.py",
+      "sha256": "4b50f2a8531e05f087b535ccfdd2e3ffa8292e5f47302b1e4b569e58f732a746",
+      "bytes": 5680,
+      "original": "git:f9bbdda389deb10a34000e69c7f9f417df35bba4:src/ashlar/commerce_source.py",
+      "original_sha256": "4b50f2a8531e05f087b535ccfdd2e3ffa8292e5f47302b1e4b569e58f732a746",
+      "original_bytes": 5680
+    },
+    {
+      "path": "source/src/ashlar/source.py",
+      "sha256": "d707482f3512fbbf4be02469208aa0bd10e7bca7e2bf6ed4f4b03c33948a91f2",
+      "bytes": 4356,
+      "original": "git:f9bbdda389deb10a34000e69c7f9f417df35bba4:src/ashlar/source.py",
+      "original_sha256": "d707482f3512fbbf4be02469208aa0bd10e7bca7e2bf6ed4f4b03c33948a91f2",
+      "original_bytes": 4356
+    },
+    {
+      "path": "source/src/ashlar/__init__.py",
+      "sha256": "4a2120fc27c18defb9fda700fdf12fe5f02aec883c994b425c3771d85f231bc6",
+      "bytes": 1293,
+      "original": "git:f9bbdda389deb10a34000e69c7f9f417df35bba4:src/ashlar/__init__.py",
+      "original_sha256": "4a2120fc27c18defb9fda700fdf12fe5f02aec883c994b425c3771d85f231bc6",
+      "original_bytes": 1293
+    },
+    {
+      "path": "summary.json",
+      "sha256": "957110ec3e869f104ff6da47946fb9edb44cd3eafa699c7fb8b37c470cf98c73",
+      "bytes": 3266,
+      "original": "Qualified reproduction/custody index",
+      "original_sha256": "957110ec3e869f104ff6da47946fb9edb44cd3eafa699c7fb8b37c470cf98c73",
+      "original_bytes": 3266
+    }
+  ]
+}
