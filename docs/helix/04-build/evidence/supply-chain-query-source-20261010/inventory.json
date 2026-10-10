@@ -1,0 +1,210 @@
+{
+  "scope": "Source/inert preparation and request construction for all five original UMF0.8 supply-chain queries, independent lexical graph bags, explicit optional property encoding, six-role inventory and CI controls. No compiler or native execution claim.",
+  "sourcePins": [
+    {
+      "path": "tools/prepare_supply_chain_query_cases.py",
+      "bytes": 4227,
+      "sha256": "c6bc7e829655c816b46d2ac88b20410bda0849efd25f6ffc64b825f636b8b255"
+    },
+    {
+      "path": "tests/test_supply_chain_query_cases.py",
+      "bytes": 2697,
+      "sha256": "7f1d349d165f8357fd99a8c3dfffc225adedee77d41bc796d6149f989cea68b5"
+    },
+    {
+      "path": "tools/supply_chain_weft_request.py",
+      "bytes": 2480,
+      "sha256": "bc10a18e48c810c9fe38ad1ec170b2b2e825764a1eedd4a5aa4f0e40a2ff4afb"
+    },
+    {
+      "path": "tests/test_supply_chain_weft_request.py",
+      "bytes": 2773,
+      "sha256": "4c566db30effd8a0fca5d88cdc7d30e2b8c46b21cc010c3614086f37fd80a0c1"
+    },
+    {
+      "path": "tools/run_pack_publication_weft.py",
+      "bytes": 16191,
+      "sha256": "ef572d60c28a626e4814d8ea34ad69f07260ce3d4863ff20df93acb6d9b1ec59"
+    },
+    {
+      "path": "tests/test_pack_publication_weft.py",
+      "bytes": 4206,
+      "sha256": "44fd30423b77d48e4defd285a021e1a71043f95c887759b7401670bbd4172e96"
+    },
+    {
+      "path": "tests/test_pack_graph_release.py",
+      "bytes": 3071,
+      "sha256": "78872625b2aba321e91463651237628428b0531ed9be494868463c3bff31cf12"
+    },
+    {
+      "path": ".github/workflows/weft-distribution.yml",
+      "bytes": 3585,
+      "sha256": "e939212e1a0c246c91b697df454170aecdbf046e04bd51298ee7088cefc8a237"
+    }
+  ],
+  "files": [
+    {
+      "original": "/private/tmp/ashlar-supply-chain-binding-tests-20261010-a.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/ashlar-supply-chain-binding-tests-20261010-a.stderr.log",
+      "bytes": 100,
+      "sha256": "36622b7541646da9d47ee95f742e7e0ca8cfa4a55cf3340eb191ce68bae9d32c"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-binding-tests-20261010-a.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/ashlar-supply-chain-binding-tests-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-inventory-tests-20261010-a.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/ashlar-supply-chain-inventory-tests-20261010-a.stderr.log",
+      "bytes": 102,
+      "sha256": "feabb4add9e2ca3374e538560634d1ec97dc4f4ce89aab12f3d726e36ea9b2f6"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-inventory-tests-20261010-a.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/ashlar-supply-chain-inventory-tests-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-query-preparation-20261010-a/candidate.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/ashlar-supply-chain-query-preparation-20261010-a/candidate.json",
+      "bytes": 29743,
+      "sha256": "50f64fcf233d0dae6f578d0db43668539c6c9f20ab7a45660745105e030063e9"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-query-preparation-20261010-a/manifest.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/ashlar-supply-chain-query-preparation-20261010-a/manifest.json",
+      "bytes": 1473,
+      "sha256": "6bd550900b4470fea712b588a2743e3c551736ef9ae6349764d4965dd66ccc6b"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-query-preparation-20261010-a/prepare_supply_chain_query_cases.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/ashlar-supply-chain-query-preparation-20261010-a/prepare_supply_chain_query_cases.py",
+      "bytes": 4227,
+      "sha256": "c6bc7e829655c816b46d2ac88b20410bda0849efd25f6ffc64b825f636b8b255"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-query-preparation-20261010-a/test_supply_chain_query_cases.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/ashlar-supply-chain-query-preparation-20261010-a/test_supply_chain_query_cases.py",
+      "bytes": 2697,
+      "sha256": "7f1d349d165f8357fd99a8c3dfffc225adedee77d41bc796d6149f989cea68b5"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-shared-binding-freeze-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/ashlar-supply-chain-shared-binding-freeze-20261010-a.json",
+      "bytes": 954,
+      "sha256": "978c5ff03541c5aa57e1cacf219b401575a087c3b4a6abab2fe5f0594a99271b"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-source-final-20261010-a.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/ashlar-supply-chain-source-final-20261010-a.stderr.log",
+      "bytes": 110,
+      "sha256": "418aec6ebe01bc5e250fe43773dcbd89b4fb9797fd1b7fee78dafa3e7a9c5ec3"
+    },
+    {
+      "original": "/private/tmp/ashlar-supply-chain-source-final-20261010-a.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/ashlar-supply-chain-source-final-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-query-preparation-review-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-query-preparation-review-20261010-a.json",
+      "bytes": 4367,
+      "sha256": "a3de5419db38d1f9a6009a0dc1d5e9355680b76a1b7f7fa35a10ed9acbb20279"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-query-preparation-review-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-query-preparation-review-20261010-a.py",
+      "bytes": 7469,
+      "sha256": "0c3e9a3d534d3ef535491bccfc920689c6bca67d15554bd01642a9d39be187e0"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-query-preparation-review-20261010-a.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-query-preparation-review-20261010-a.stderr.log",
+      "bytes": 440,
+      "sha256": "eab82b51a0a1ce2f682d2e47cf71495f4a13b752611e166f883c16a7e9c6df05"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-query-preparation-review-20261010-a.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-query-preparation-review-20261010-a.stdout.log",
+      "bytes": 162,
+      "sha256": "481f572792f9855857784a70e064d5aed9585de5eba65fc42860cff2502eb5e8"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-shared-runner-review-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-shared-runner-review-20261010-a.json",
+      "bytes": 1699,
+      "sha256": "dab96a14889da115ef68e769641cc43d4cc98c18751e4ffe6b2ce3e5f4376996"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-shared-runner-review-20261010-a.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-shared-runner-review-20261010-a.stderr.log",
+      "bytes": 104,
+      "sha256": "7fef6d6d64671aee4fcdf0e8ff22d837d1191e16cfe6ffdaa1b788dad47e0b10"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-shared-runner-review-20261010-a.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-shared-runner-review-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-source-review-20261010-a.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-source-review-20261010-a.json",
+      "bytes": 5819,
+      "sha256": "145f502c3e41c3c160be37f9ff6725214bb39a554dad6fbf2ff062adf518582b"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-wrapper-review-20261010-a.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-wrapper-review-20261010-a.py",
+      "bytes": 5114,
+      "sha256": "e7885b694fe549e5f8e6ceb558f62a17ff251cd77351fefa89afa129bb0bc31e"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-wrapper-review-20261010-a.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-wrapper-review-20261010-a.stderr.log",
+      "bytes": 248,
+      "sha256": "b8409d5d0e277ff80f80fe49aa44322cce806ccac552a0698946fa726f3e1d3e"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-wrapper-review-20261010-a.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-wrapper-review-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-wrapper-review-20261010-b.json",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-wrapper-review-20261010-b.json",
+      "bytes": 4367,
+      "sha256": "95ad8bc496cbd84f62a0d86115f8dd5f9e913ca0131076c583118bd6180a2e7b"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-wrapper-review-20261010-b.py",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-wrapper-review-20261010-b.py",
+      "bytes": 5107,
+      "sha256": "edcf52a70889ce67294ba23ad5c1297a7a7233f7ea422b1b9f988ab5820839e8"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-wrapper-review-20261010-b.stderr.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-wrapper-review-20261010-b.stderr.log",
+      "bytes": 339,
+      "sha256": "38f2a3873cf40ca460615ee7dd620680b863eb7923993cf889317a6b884f8187"
+    },
+    {
+      "original": "/private/tmp/astra-supplychain-wrapper-review-20261010-b.stdout.log",
+      "copy": "docs/helix/04-build/evidence/supply-chain-query-source-20261010/originals/astra-supplychain-wrapper-review-20261010-b.stdout.log",
+      "bytes": 130,
+      "sha256": "52fe27332520f696635981aa2e65454882abca5d3b6e35641bce0adc1bd05bc7"
+    }
+  ],
+  "focusedChecks": {
+    "tests": 11,
+    "seconds": 0.093,
+    "exitCode": 0,
+    "runtime": "Python3.9 SDK-free -S ResourceWarning errors"
+  },
+  "reviewedPublicMapping": "12 original records/40 Fields; original query/model bytes, opaque graph identities, exact decimals and present-null retained. Old archaeology/ecology compiler pins and 17-case loop unchanged."
+}

@@ -1,0 +1,8 @@
+test_each_original_input_refuses_independent_tamper (test_supply_chain_query_cases.SupplyChainQueryCases) ... ok
+test_original_queries_and_independent_lexical_bags (test_supply_chain_query_cases.SupplyChainQueryCases) ... ok
+test_returned_mutation_does_not_change_next_preparation (test_supply_chain_query_cases.SupplyChainQueryCases) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.005s
+
+OK

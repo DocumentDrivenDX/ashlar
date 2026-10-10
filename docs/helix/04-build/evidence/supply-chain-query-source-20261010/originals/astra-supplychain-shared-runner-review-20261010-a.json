@@ -1,0 +1,48 @@
+{
+  "status": "approved-scoped",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/run_pack_publication_weft.py",
+      "bytes": 16191,
+      "sha256": "ef572d60c28a626e4814d8ea34ad69f07260ce3d4863ff20df93acb6d9b1ec59"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_pack_publication_weft.py",
+      "bytes": 4206,
+      "sha256": "44fd30423b77d48e4defd285a021e1a71043f95c887759b7401670bbd4172e96"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_pack_graph_release.py",
+      "bytes": 3071,
+      "sha256": "78872625b2aba321e91463651237628428b0531ed9be494868463c3bff31cf12"
+    }
+  ],
+  "command": [
+    "python3",
+    "-B",
+    "-m",
+    "unittest",
+    "test_pack_publication_weft",
+    "test_pack_graph_release"
+  ],
+  "cwd": "/Users/erik/Projects/ashlar",
+  "environmentSelection": {
+    "PYTHONPATH": "src:tools:tests"
+  },
+  "terminalChunk": "2bd7bf",
+  "tests": 6,
+  "seconds": 0.065,
+  "exitCode": 0,
+  "logs": {
+    "stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr": "7fef6d6d64671aee4fcdf0e8ff22d837d1191e16cfe6ffdaa1b788dad47e0b10"
+  },
+  "findings": [],
+  "verified": [
+    "Explicit supply-chain owner imports and SupplyChainAdmission/oracle selection",
+    "supply-chain public pack name maps only inventory namespace supplychain",
+    "closed inventory pack choices retain medical graph-only reader restriction",
+    "PACKS archaeology/ecology, seventeen-case compile loop and compiler/source/Weft pins unchanged"
+  ],
+  "scope": "Read-only diff/source and finite binding/inventory/inert cleanup tests. No compiler, native engine, SDK, network or ACK execution/support qualification."
+}

@@ -1,0 +1,32 @@
+{
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/run_pack_publication_weft.py",
+      "bytes": 16191,
+      "sha256": "ef572d60c28a626e4814d8ea34ad69f07260ce3d4863ff20df93acb6d9b1ec59"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_pack_publication_weft.py",
+      "bytes": 4206,
+      "sha256": "44fd30423b77d48e4defd285a021e1a71043f95c887759b7401670bbd4172e96"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_pack_graph_release.py",
+      "bytes": 3071,
+      "sha256": "78872625b2aba321e91463651237628428b0531ed9be494868463c3bff31cf12"
+    }
+  ],
+  "scope": "Source/inert original supply-chain binding construction and six-role inventory; no compiler/native/ACK acceptance",
+  "controls": [
+    {
+      "suite": "test_pack_publication_weft.py",
+      "tests": 2,
+      "exitCode": 0
+    },
+    {
+      "suite": "test_pack_graph_release.py",
+      "tests": 4,
+      "exitCode": 0
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "source_files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/prepare_supply_chain_query_cases.py",
+      "snapshot": "/private/tmp/ashlar-supply-chain-query-preparation-20261010-a/prepare_supply_chain_query_cases.py",
+      "sha256": "c6bc7e829655c816b46d2ac88b20410bda0849efd25f6ffc64b825f636b8b255",
+      "bytes": 4227
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_query_cases.py",
+      "snapshot": "/private/tmp/ashlar-supply-chain-query-preparation-20261010-a/test_supply_chain_query_cases.py",
+      "sha256": "7f1d349d165f8357fd99a8c3dfffc225adedee77d41bc796d6149f989cea68b5",
+      "bytes": 2697
+    }
+  ],
+  "original_inputs": [
+    {
+      "kind": "pack",
+      "sha256": "baf888ab976749e589df385c76900ebf146959b61eaa4b55ab840e142b54ae22",
+      "bytes": 15021
+    },
+    {
+      "kind": "model",
+      "sha256": "53ae68617d313548bf6c4b3c507c5fc33632c2e8527f88c310927652f635fe9a",
+      "bytes": 34293
+    },
+    {
+      "kind": "graph",
+      "sha256": "2c79e403545766dc7c221d6a6c8ff184ea852a8ecf8ef7f00e26c7f2ffc68e13",
+      "bytes": 38541
+    }
+  ],
+  "test_command": "PYTHONPATH=src:tools python3 -B -m unittest discover -s tests -p test_supply_chain_query_cases.py -v",
+  "tests_passed": 3,
+  "python": "3.9.6",
+  "candidate_sha256": "50f64fcf233d0dae6f578d0db43668539c6c9f20ab7a45660745105e030063e9",
+  "scope": "Pure exact original five-query preparation; no compiler/native/publication/ACK admission"
+}

@@ -1,0 +1,1035 @@
+{
+  "format": "ashlar-original-supply-chain-query-candidate/0.1",
+  "original_inputs": [
+    {
+      "kind": "pack",
+      "sha256": "baf888ab976749e589df385c76900ebf146959b61eaa4b55ab840e142b54ae22",
+      "bytes": 15021
+    },
+    {
+      "kind": "model",
+      "sha256": "53ae68617d313548bf6c4b3c507c5fc33632c2e8527f88c310927652f635fe9a",
+      "bytes": 34293
+    },
+    {
+      "kind": "graph",
+      "sha256": "2c79e403545766dc7c221d6a6c8ff184ea852a8ecf8ef7f00e26c7f2ffc68e13",
+      "bytes": 38541
+    }
+  ],
+  "original_umf_version": "0.8.0",
+  "development_binding_profile": "ashlar-supply-chain-development-bindings/0.2",
+  "source_system": "private-original-supply-chain-fixture",
+  "tables": [
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "containers"
+      ],
+      "development_type_id": "14",
+      "fields": [
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "containers.id"
+          ],
+          "development_property_id": "1",
+          "original_field": {
+            "id": "containers.id",
+            "name": "id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored containers id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "containers.parent_id"
+          ],
+          "development_property_id": "3",
+          "original_field": {
+            "id": "containers.parent_id",
+            "name": "parent_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "absent-allowed",
+            "description": "Authored containers parent_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "containers.kind"
+          ],
+          "development_property_id": "2",
+          "original_field": {
+            "id": "containers.kind",
+            "name": "kind",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored containers kind; synthetic reference scenario.",
+            "extensions": {}
+          }
+        }
+      ]
+    },
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "containment"
+      ],
+      "development_type_id": "15",
+      "fields": [
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "containment.id"
+          ],
+          "development_property_id": "5",
+          "original_field": {
+            "id": "containment.id",
+            "name": "id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored containment id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "containment.item_id"
+          ],
+          "development_property_id": "6",
+          "original_field": {
+            "id": "containment.item_id",
+            "name": "item_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored containment item_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "containment.container_id"
+          ],
+          "development_property_id": "4",
+          "original_field": {
+            "id": "containment.container_id",
+            "name": "container_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored containment container_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        }
+      ]
+    },
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "events"
+      ],
+      "development_type_id": "16",
+      "fields": [
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "events.id"
+          ],
+          "development_property_id": "9",
+          "original_field": {
+            "id": "events.id",
+            "name": "id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored events id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "events.shipment_id"
+          ],
+          "development_property_id": "10",
+          "original_field": {
+            "id": "events.shipment_id",
+            "name": "shipment_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored events shipment_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "events.upstream_event_id"
+          ],
+          "development_property_id": "11",
+          "original_field": {
+            "id": "events.upstream_event_id",
+            "name": "upstream_event_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored events upstream_event_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "events.event_time"
+          ],
+          "development_property_id": "8",
+          "original_field": {
+            "id": "events.event_time",
+            "name": "event_time",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored events event_time; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "events.action"
+          ],
+          "development_property_id": "7",
+          "original_field": {
+            "id": "events.action",
+            "name": "action",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored events action; synthetic reference scenario.",
+            "extensions": {}
+          }
+        }
+      ]
+    },
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "facilities"
+      ],
+      "development_type_id": "17",
+      "fields": [
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "facilities.id"
+          ],
+          "development_property_id": "12",
+          "original_field": {
+            "id": "facilities.id",
+            "name": "id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored facilities id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "facilities.organization_id"
+          ],
+          "development_property_id": "14",
+          "original_field": {
+            "id": "facilities.organization_id",
+            "name": "organization_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored facilities organization_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "facilities.name"
+          ],
+          "development_property_id": "13",
+          "original_field": {
+            "id": "facilities.name",
+            "name": "name",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored facilities name; synthetic reference scenario.",
+            "extensions": {}
+          }
+        }
+      ]
+    },
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "items"
+      ],
+      "development_type_id": "18",
+      "fields": [
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "items.id"
+          ],
+          "development_property_id": "15",
+          "original_field": {
+            "id": "items.id",
+            "name": "id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored items id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "items.lot_id"
+          ],
+          "development_property_id": "16",
+          "original_field": {
+            "id": "items.lot_id",
+            "name": "lot_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored items lot_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "items.serial"
+          ],
+          "development_property_id": "17",
+          "original_field": {
+            "id": "items.serial",
+            "name": "serial",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored items serial; synthetic reference scenario.",
+            "extensions": {}
+          }
+        }
+      ]
+    },
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "lots"
+      ],
+      "development_type_id": "19",
+      "fields": [
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "lots.id"
+          ],
+          "development_property_id": "18",
+          "original_field": {
+            "id": "lots.id",
+            "name": "id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored lots id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "lots.product_id"
+          ],
+          "development_property_id": "20",
+          "original_field": {
+            "id": "lots.product_id",
+            "name": "product_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored lots product_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "lots.lot_code"
+          ],
+          "development_property_id": "19",
+          "original_field": {
+            "id": "lots.lot_code",
+            "name": "lot_code",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored lots lot_code; synthetic reference scenario.",
+            "extensions": {}
+          }
+        }
+      ]
+    },
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "organizations"
+      ],
+      "development_type_id": "20",
+      "fields": [
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "organizations.id"
+          ],
+          "development_property_id": "21",
+          "original_field": {
+            "id": "organizations.id",
+            "name": "id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored organizations id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "organizations.name"
+          ],
+          "development_property_id": "22",
+          "original_field": {
+            "id": "organizations.name",
+            "name": "name",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored organizations name; synthetic reference scenario.",
+            "extensions": {}
+          }
+        }
+      ]
+    },
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "products"
+      ],
+      "development_type_id": "21",
+      "fields": [
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "products.id"
+          ],
+          "development_property_id": "23",
+          "original_field": {
+            "id": "products.id",
+            "name": "id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored products id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "products.sku"
+          ],
+          "development_property_id": "24",
+          "original_field": {
+            "id": "products.sku",
+            "name": "sku",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored products sku; synthetic reference scenario.",
+            "extensions": {}
+          }
+        }
+      ]
+    },
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "sensor_readings"
+      ],
+      "development_type_id": "22",
+      "fields": [
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "sensor_readings.id"
+          ],
+          "development_property_id": "26",
+          "original_field": {
+            "id": "sensor_readings.id",
+            "name": "id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored sensor_readings id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "sensor_readings.container_id"
+          ],
+          "development_property_id": "25",
+          "original_field": {
+            "id": "sensor_readings.container_id",
+            "name": "container_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored sensor_readings container_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "sensor_readings.value"
+          ],
+          "development_property_id": "30",
+          "original_field": {
+            "id": "sensor_readings.value",
+            "name": "value",
+            "kind": "field",
+            "scalarType": "decimal",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored sensor_readings value; synthetic reference scenario.",
+            "extensions": {},
+            "facets": {
+              "precision": 18,
+              "scale": 2
+            }
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "sensor_readings.unit"
+          ],
+          "development_property_id": "28",
+          "original_field": {
+            "id": "sensor_readings.unit",
+            "name": "unit",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored sensor_readings unit; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "sensor_readings.method"
+          ],
+          "development_property_id": "27",
+          "original_field": {
+            "id": "sensor_readings.method",
+            "name": "method",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored sensor_readings method; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "sensor_readings.upper_limit"
+          ],
+          "development_property_id": "29",
+          "original_field": {
+            "id": "sensor_readings.upper_limit",
+            "name": "upper_limit",
+            "kind": "field",
+            "scalarType": "decimal",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored sensor_readings upper_limit; synthetic reference scenario.",
+            "extensions": {},
+            "facets": {
+              "precision": 18,
+              "scale": 2
+            }
+          }
+        }
+      ]
+    },
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "shipment_items"
+      ],
+      "development_type_id": "23",
+      "fields": [
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "shipment_items.id"
+          ],
+          "development_property_id": "31",
+          "original_field": {
+            "id": "shipment_items.id",
+            "name": "id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored shipment_items id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "shipment_items.shipment_id"
+          ],
+          "development_property_id": "33",
+          "original_field": {
+            "id": "shipment_items.shipment_id",
+            "name": "shipment_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored shipment_items shipment_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "shipment_items.item_id"
+          ],
+          "development_property_id": "32",
+          "original_field": {
+            "id": "shipment_items.item_id",
+            "name": "item_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored shipment_items item_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        }
+      ]
+    },
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "shipments"
+      ],
+      "development_type_id": "24",
+      "fields": [
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "shipments.id"
+          ],
+          "development_property_id": "36",
+          "original_field": {
+            "id": "shipments.id",
+            "name": "id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored shipments id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "shipments.container_id"
+          ],
+          "development_property_id": "34",
+          "original_field": {
+            "id": "shipments.container_id",
+            "name": "container_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored shipments container_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "shipments.facility_id"
+          ],
+          "development_property_id": "35",
+          "original_field": {
+            "id": "shipments.facility_id",
+            "name": "facility_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored shipments facility_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "shipments.status"
+          ],
+          "development_property_id": "37",
+          "original_field": {
+            "id": "shipments.status",
+            "name": "status",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored shipments status; synthetic reference scenario.",
+            "extensions": {}
+          }
+        }
+      ]
+    },
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "source_events"
+      ],
+      "development_type_id": "25",
+      "fields": [
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "source_events.id"
+          ],
+          "development_property_id": "38",
+          "original_field": {
+            "id": "source_events.id",
+            "name": "id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored source_events id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "source_events.publisher"
+          ],
+          "development_property_id": "40",
+          "original_field": {
+            "id": "source_events.publisher",
+            "name": "publisher",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored source_events publisher; synthetic reference scenario.",
+            "extensions": {}
+          }
+        },
+        {
+          "identity": [
+            "urn:umf:domain:supply-chain",
+            "domain",
+            "source_events.native_id"
+          ],
+          "development_property_id": "39",
+          "original_field": {
+            "id": "source_events.native_id",
+            "name": "native_id",
+            "kind": "field",
+            "scalarType": "string",
+            "cardinality": "one",
+            "nullability": "required",
+            "description": "Authored source_events native_id; synthetic reference scenario.",
+            "extensions": {}
+          }
+        }
+      ]
+    }
+  ],
+  "optional_props_requirements": [
+    {
+      "identity": [
+        "urn:umf:domain:supply-chain",
+        "domain",
+        "containers.parent_id"
+      ],
+      "development_property_id": "3",
+      "required_home_encoding": "ashlar-weft-json-native-null/0.1-candidate",
+      "missing_property": "refuse",
+      "present_null": "state:null"
+    }
+  ],
+  "cases": [
+    {
+      "id": "split-excursion",
+      "original_scenario": {
+        "id": "split-excursion",
+        "question": "A split lot reaches two shipments and exposes temperature excursion",
+        "sql": "SELECT l.lot_code,COUNT(DISTINCT s.id) FROM lots l JOIN items i ON i.lot_id=l.id JOIN shipment_items x ON x.item_id=i.id JOIN shipments s ON s.id=x.shipment_id GROUP BY l.lot_code",
+        "expected": [
+          [
+            "LOT1",
+            2
+          ]
+        ]
+      },
+      "output_names": [
+        "lot_code",
+        "shipment_count"
+      ],
+      "original_graph_rows": [
+        [
+          "LOT1",
+          "2"
+        ]
+      ],
+      "comparison": "multiset; original query has no ORDER BY"
+    },
+    {
+      "id": "excursion",
+      "original_scenario": {
+        "id": "excursion",
+        "question": "Compare temperature against explicit upper limit",
+        "sql": "SELECT id,value,unit FROM sensor_readings WHERE value>upper_limit",
+        "expected": [
+          [
+            "M2",
+            17,
+            "Cel"
+          ]
+        ]
+      },
+      "output_names": [
+        "id",
+        "value",
+        "unit"
+      ],
+      "original_graph_rows": [
+        [
+          "[42,0,\"M2\"]",
+          "17",
+          "Cel"
+        ]
+      ],
+      "comparison": "multiset; original query has no ORDER BY"
+    },
+    {
+      "id": "replay",
+      "original_scenario": {
+        "id": "replay",
+        "question": "Expose duplicate upstream event identity",
+        "sql": "SELECT upstream_event_id,COUNT(*) FROM events GROUP BY upstream_event_id HAVING COUNT(*)>1",
+        "expected": [
+          [
+            "SOURCE1",
+            2
+          ]
+        ]
+      },
+      "output_names": [
+        "upstream_event_id",
+        "count"
+      ],
+      "original_graph_rows": [
+        [
+          "[42,0,\"SOURCE1\"]",
+          "2"
+        ]
+      ],
+      "comparison": "multiset; original query has no ORDER BY"
+    },
+    {
+      "id": "lineage",
+      "original_scenario": {
+        "id": "lineage",
+        "question": "Trace serialized item through lot and nested container",
+        "sql": "SELECT i.serial,l.lot_code,p.sku,c.parent_id FROM items i JOIN lots l ON l.id=i.lot_id JOIN products p ON p.id=l.product_id JOIN containment a ON a.item_id=i.id JOIN containers c ON c.id=a.container_id",
+        "expected": [
+          [
+            "SER1",
+            "LOT1",
+            "SKU1",
+            "C1"
+          ],
+          [
+            "SER2",
+            "LOT1",
+            "SKU1",
+            null
+          ]
+        ]
+      },
+      "output_names": [
+        "serial",
+        "lot_code",
+        "sku",
+        "parent_id"
+      ],
+      "original_graph_rows": [
+        [
+          "SER1",
+          "LOT1",
+          "SKU1",
+          "[42,0,\"C1\"]"
+        ],
+        [
+          "SER2",
+          "LOT1",
+          "SKU1",
+          null
+        ]
+      ],
+      "comparison": "multiset; original query has no ORDER BY"
+    },
+    {
+      "id": "sensor",
+      "original_scenario": {
+        "id": "sensor",
+        "question": "Keep method and temperature unit with measurements",
+        "sql": "SELECT DISTINCT unit,method FROM sensor_readings",
+        "expected": [
+          [
+            "Cel",
+            "probe"
+          ]
+        ]
+      },
+      "output_names": [
+        "unit",
+        "method"
+      ],
+      "original_graph_rows": [
+        [
+          "Cel",
+          "probe"
+        ]
+      ],
+      "comparison": "multiset; original query has no ORDER BY"
+    }
+  ],
+  "qualification": "Pure original query/graph preparation only; no compiler, publication, native or authority support claim."
+}

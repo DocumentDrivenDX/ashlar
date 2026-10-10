@@ -1,0 +1,130 @@
+{
+  "status": "approved-source-and-ci-only",
+  "source_files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/prepare_supply_chain_query_cases.py",
+      "bytes": 4227,
+      "sha256": "c6bc7e829655c816b46d2ac88b20410bda0849efd25f6ffc64b825f636b8b255"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_query_cases.py",
+      "bytes": 2697,
+      "sha256": "7f1d349d165f8357fd99a8c3dfffc225adedee77d41bc796d6149f989cea68b5"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/supply_chain_weft_request.py",
+      "bytes": 2480,
+      "sha256": "bc10a18e48c810c9fe38ad1ec170b2b2e825764a1eedd4a5aa4f0e40a2ff4afb"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_weft_request.py",
+      "bytes": 2773,
+      "sha256": "4c566db30effd8a0fca5d88cdc7d30e2b8c46b21cc010c3614086f37fd80a0c1"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/run_pack_publication_weft.py",
+      "bytes": 16191,
+      "sha256": "ef572d60c28a626e4814d8ea34ad69f07260ce3d4863ff20df93acb6d9b1ec59"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_pack_publication_weft.py",
+      "bytes": 4206,
+      "sha256": "44fd30423b77d48e4defd285a021e1a71043f95c887759b7401670bbd4172e96"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_pack_graph_release.py",
+      "bytes": 3071,
+      "sha256": "78872625b2aba321e91463651237628428b0531ed9be494868463c3bff31cf12"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/.github/workflows/weft-distribution.yml",
+      "bytes": 3585,
+      "sha256": "e939212e1a0c246c91b697df454170aecdbf046e04bd51298ee7088cefc8a237"
+    }
+  ],
+  "reviews": [
+    {
+      "path": "/private/tmp/astra-supplychain-query-preparation-review-20261010-a.json",
+      "bytes": 4367,
+      "sha256": "a3de5419db38d1f9a6009a0dc1d5e9355680b76a1b7f7fa35a10ed9acbb20279"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-wrapper-review-20261010-b.json",
+      "bytes": 4367,
+      "sha256": "95ad8bc496cbd84f62a0d86115f8dd5f9e913ca0131076c583118bd6180a2e7b"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-shared-runner-review-20261010-a.json",
+      "bytes": 1699,
+      "sha256": "dab96a14889da115ef68e769641cc43d4cc98c18751e4ffe6b2ce3e5f4376996"
+    }
+  ],
+  "actual_reviewer_controls": {
+    "preparer": "5 independent raw graph bags, 12 Record/40 Field equality, six tamper/type negatives, nested return isolation, 3 author tests; terminal5b6704 exit0",
+    "wrapper": "5 byte-identical regenerated requests; only optional parent encoding and selected target/version changed, 3 optional-inventory negatives, 2 author tests; terminal8d8267 exit0",
+    "shared_runner": "6 tests; terminal2bd7bf exit0; original two-pack/17-case compiler loop and pins unchanged"
+  },
+  "root_aggregate_logs": [
+    {
+      "path": "/private/tmp/ashlar-supply-chain-source-final-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-source-final-20261010-a.stderr.log",
+      "bytes": 110,
+      "sha256": "418aec6ebe01bc5e250fe43773dcbd89b4fb9797fd1b7fee78dafa3e7a9c5ec3"
+    }
+  ],
+  "ci_review": "Only four strict stdlib discovery commands added to existing Python3.9/3.12 matrix; no dependencies or engine execution added.",
+  "findings": [],
+  "scope_limits": [
+    "Original UMF0.8 source, opaque identity strings, exact decimal mathematical values, nulls and bag multiplicity preserved for these fixed five cases.",
+    "Current held publication, source/native-null admission, compiler output semantics and native execution remain separate gates.",
+    "No public authority, source ACK or production SDK/observability qualification.",
+    "Precise semantic correspondence and finite unit checks; no analyzer or mechanical-proof claim."
+  ],
+  "reviewer_control_correction": "First wrapper review attempt assumed a final newline. Actual request serialization deliberately has none; successor compares the observed compact serialization exactly. Original failed reviewer log retained, no product defect.",
+  "reviewer_logs": [
+    {
+      "path": "/private/tmp/astra-supplychain-query-preparation-review-20261010-a.stdout.log",
+      "bytes": 162,
+      "sha256": "481f572792f9855857784a70e064d5aed9585de5eba65fc42860cff2502eb5e8"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-query-preparation-review-20261010-a.stderr.log",
+      "bytes": 440,
+      "sha256": "eab82b51a0a1ce2f682d2e47cf71495f4a13b752611e166f883c16a7e9c6df05"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-wrapper-review-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-wrapper-review-20261010-a.stderr.log",
+      "bytes": 248,
+      "sha256": "b8409d5d0e277ff80f80fe49aa44322cce806ccac552a0698946fa726f3e1d3e"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-wrapper-review-20261010-b.stdout.log",
+      "bytes": 130,
+      "sha256": "52fe27332520f696635981aa2e65454882abca5d3b6e35641bce0adc1bd05bc7"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-wrapper-review-20261010-b.stderr.log",
+      "bytes": 339,
+      "sha256": "38f2a3873cf40ca460615ee7dd620680b863eb7923993cf889317a6b884f8187"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-shared-runner-review-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-supplychain-shared-runner-review-20261010-a.stderr.log",
+      "bytes": 104,
+      "sha256": "7fef6d6d64671aee4fcdf0e8ff22d837d1191e16cfe6ffdaa1b788dad47e0b10"
+    }
+  ]
+}

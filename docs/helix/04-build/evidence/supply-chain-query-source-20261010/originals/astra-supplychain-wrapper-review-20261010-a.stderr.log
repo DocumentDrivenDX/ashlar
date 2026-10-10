@@ -1,0 +1,4 @@
+Traceback (most recent call last):
+  File "/private/tmp/astra-supplychain-wrapper-review-20261010-a.py", line 33, in <module>
+    assert candidate.read_bytes()==(json.dumps(new,ensure_ascii=False,separators=(',',':'))+'\n').encode()
+AssertionError

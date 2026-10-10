@@ -1,0 +1,137 @@
+{
+  "status": "approved-source-only",
+  "scope": "Exact finite original five-query preparation and independent graph bags. No compiler, native, publication, source authority or ACK qualification.",
+  "freeze": {
+    "path": "/private/tmp/ashlar-supply-chain-query-preparation-20261010-a/manifest.json",
+    "bytes": 1473,
+    "sha256": "6bd550900b4470fea712b588a2743e3c551736ef9ae6349764d4965dd66ccc6b"
+  },
+  "source_opening_closing": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/prepare_supply_chain_query_cases.py",
+      "bytes": 4227,
+      "sha256": "c6bc7e829655c816b46d2ac88b20410bda0849efd25f6ffc64b825f636b8b255"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-query-preparation-20261010-a/prepare_supply_chain_query_cases.py",
+      "bytes": 4227,
+      "sha256": "c6bc7e829655c816b46d2ac88b20410bda0849efd25f6ffc64b825f636b8b255"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_supply_chain_query_cases.py",
+      "bytes": 2697,
+      "sha256": "7f1d349d165f8357fd99a8c3dfffc225adedee77d41bc796d6149f989cea68b5"
+    },
+    {
+      "path": "/private/tmp/ashlar-supply-chain-query-preparation-20261010-a/test_supply_chain_query_cases.py",
+      "bytes": 2697,
+      "sha256": "7f1d349d165f8357fd99a8c3dfffc225adedee77d41bc796d6149f989cea68b5"
+    }
+  ],
+  "original_inputs": [
+    {
+      "path": "/Users/erik/Projects/ashlar/examples/domain-packs/supply-chain/upstream/pack.json",
+      "bytes": 15021,
+      "sha256": "baf888ab976749e589df385c76900ebf146959b61eaa4b55ab840e142b54ae22"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/examples/domain-packs/supply-chain/upstream/ontology.json",
+      "bytes": 34293,
+      "sha256": "53ae68617d313548bf6c4b3c507c5fc33632c2e8527f88c310927652f635fe9a"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/examples/domain-packs/supply-chain/upstream/graph/fixture.json",
+      "bytes": 38541,
+      "sha256": "2c79e403545766dc7c221d6a6c8ff184ea852a8ecf8ef7f00e26c7f2ffc68e13"
+    }
+  ],
+  "independent_expected_bags": {
+    "split-excursion": [
+      [
+        "LOT1",
+        "2"
+      ]
+    ],
+    "excursion": [
+      [
+        "[42,0,\"M2\"]",
+        "17",
+        "Cel"
+      ]
+    ],
+    "replay": [
+      [
+        "[42,0,\"SOURCE1\"]",
+        "2"
+      ]
+    ],
+    "lineage": [
+      [
+        "SER1",
+        "LOT1",
+        "SKU1",
+        "[42,0,\"C1\"]"
+      ],
+      [
+        "SER2",
+        "LOT1",
+        "SKU1",
+        null
+      ]
+    ],
+    "sensor": [
+      [
+        "Cel",
+        "probe"
+      ]
+    ]
+  },
+  "controls": {
+    "author_tests": 3,
+    "independent_inner_join_bags": 5,
+    "original_records": 12,
+    "original_fields": 40,
+    "original_graph_objects": 20,
+    "original_edge_occurrences": 23,
+    "input_tamper_or_type_refusals": 6,
+    "returned_nested_snapshot_isolation": true,
+    "subprocess_forbidden_during_preparation": true,
+    "original_graph_decimal_lexemes": [
+      "4",
+      "17",
+      "8"
+    ],
+    "declared_decimal_facets": {
+      "precision": 18,
+      "scale": 2
+    },
+    "present_nulls": 2,
+    "lineage_nulls": 1
+  },
+  "findings": [],
+  "limits": [
+    "Fixed original hashes; not a general SQL evaluator or generalized mutable-data oracle.",
+    "COUNT outputs are exact decimal text; original source-qualified identity strings remain opaque.",
+    "Original graph decimal lexemes 17/8 are retained rather than rewritten to CSV display scale 17.00/8.00.",
+    "Optional native-null home requirements are declared only; execution must independently admit them.",
+    "No ORDER BY exists; fixture list order is not a query ordering guarantee.",
+    "Finite semantic/source tests; no analyzer proof or engine support claim."
+  ],
+  "referenced_dependency_inputs": [
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/supply_chain_graph_oracle.py",
+      "bytes": 3434,
+      "sha256": "92136d7d6d830f9e5b54b657ef9e260e99ec9eb8c4d691e2b9b2447487eb3a94"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tools/supply_chain_source_transaction.py",
+      "bytes": 5920,
+      "sha256": "03c9fe6f547a9a07f72370435ffcd8ac1b1f9c5234a8f5c5489b3389315dc0b9"
+    }
+  ],
+  "review_script": {
+    "path": "/private/tmp/astra-supplychain-query-preparation-review-20261010-a.py",
+    "bytes": 7469,
+    "sha256": "0c3e9a3d534d3ef535491bccfc920689c6bca67d15554bd01642a9d39be187e0"
+  }
+}
