@@ -1,0 +1,67 @@
+{
+  "verdict": "APPROVE root four-file integration source, contingent on independently approved host production source; no native grant",
+  "freeze": {
+    "path": "/private/tmp/ashlar-host-root-integration-freeze-20261010-a/manifest.json",
+    "sha256": "57302e44842c76c779d873acbda0f88403b7a858e734a06993ea9fd97d19e31a",
+    "bytes": 767
+  },
+  "files": [
+    {
+      "path": "pyproject.toml",
+      "bytes": 602,
+      "sha256": "8883ce3a8011874e79c527f311b5f3a4f330879a3dfff4e60598223ff65a0801"
+    },
+    {
+      "path": "src/ashlar/cli.py",
+      "bytes": 9790,
+      "sha256": "e457b74e88c8d8efdf0dd27c24259c2a9e080cc98a84d4bf738dac1502650523"
+    },
+    {
+      "path": "tests/test_host_cli.py",
+      "bytes": 2392,
+      "sha256": "fcdf64ab76f432b9867d4b7cf4b0768a8cc6218145ca41fd2cd9712016c00215"
+    },
+    {
+      "path": ".github/workflows/module-boundaries.yml",
+      "bytes": 770,
+      "sha256": "94e3a5c63d6907f04c922059d1db6b1a3e34b6ac8c381d9e87c0fae8987fce39"
+    }
+  ],
+  "independentControls": [
+    "publish-commerce exact typed argument dispatch",
+    "publish-commerce HostError redacted refusal",
+    "publish-commerce OSError redacted refusal",
+    "publish-commerce original cancellation preserved",
+    "publish-commerce --output invalid-before-callback",
+    "publish-commerce --producer-timeout-seconds invalid-before-callback",
+    "publish-commerce --producer-maximum-output-bytes invalid-before-callback",
+    "publish-commerce --producer-maximum-receipt-bytes invalid-before-callback",
+    "publish-commerce --postgres-port invalid-before-callback",
+    "query-commerce exact typed argument dispatch",
+    "query-commerce HostError redacted refusal",
+    "query-commerce OSError redacted refusal",
+    "query-commerce original cancellation preserved",
+    "query-commerce --output invalid-before-callback",
+    "query-commerce --producer-timeout-seconds invalid-before-callback",
+    "query-commerce --producer-maximum-output-bytes invalid-before-callback",
+    "query-commerce --producer-maximum-receipt-bytes invalid-before-callback",
+    "query-commerce --postgres-port invalid-before-callback"
+  ],
+  "ownerCliTests": 2,
+  "workflow": "Only two portable host/CLI source-only discovery steps appended; Python3.12 existing job, no new dependency/native invocation",
+  "wheelReview": {
+    "path": "/private/tmp/astra-host-wheel-integration-review-20261010-a.json",
+    "sha256": "1d98afb1558ff7c85c136a47dd90ba3e05a130353f98b2afe35bf555344d1343",
+    "bytes": 6755
+  },
+  "limits": [
+    "Mocked production API callbacks test CLI dispatch/refusal/cancellation only.",
+    "Actual installed wheel source workflow is separately checked and retains explicit no-native limitations.",
+    "Native source/publication/ACK/query runtime readiness requires independent composition and exact command approval."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-host-cli-review-20261010-a.py",
+    "sha256": "0a09995348d84f84b61a595014168a694bbea0e8e99aef476256a43aa4824241",
+    "bytes": 5209
+  }
+}

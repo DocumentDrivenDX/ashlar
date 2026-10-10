@@ -1,0 +1,155 @@
+{
+  "verdict": "APPROVE exact host D30-file source slice for landing; no native grant",
+  "freeze": {
+    "path": "/private/tmp/ashlar-host-package-source-freeze-20261010-d/manifest.json",
+    "sha256": "b91ce7bc766567161a1b663f469d529dfbbe019167f5f3209eef5fd8a1ed5e5c",
+    "bytes": 6126
+  },
+  "priorSourceFindings": {
+    "path": "/private/tmp/astra-ashlar-host-source-review-20261010-b.json",
+    "sha256": "50961f061f7b95fe28ff5ef8c2b6202b6a0fbc87023594e1ad33dab42fe93f63",
+    "bytes": 3570
+  },
+  "ownerTestsPassed": 11,
+  "independentCorrectedExecuteGuardedProbe": {
+    "primaryIdentity": true,
+    "cleanupCalls": [
+      "rollback",
+      "close"
+    ],
+    "resultWithheld": true,
+    "docstring": "Selected original commerce native publication composition; no CLI discovery."
+  },
+  "independentIntervalControls": [
+    {
+      "case": "both-connection-cleanups",
+      "primaryPreserved": true,
+      "resultWithheld": true,
+      "cleanupCalls": [
+        "ack",
+        "rollback",
+        "close"
+      ]
+    },
+    {
+      "case": "held-exit-replacement",
+      "primaryPreserved": true,
+      "resultWithheld": true,
+      "cleanupCalls": [
+        "ack",
+        "rollback",
+        "close"
+      ]
+    },
+    {
+      "case": "held-exit-suppression",
+      "primaryPreserved": true,
+      "resultWithheld": true,
+      "cleanupCalls": [
+        "ack",
+        "rollback",
+        "close"
+      ]
+    },
+    {
+      "case": "successful-body-cleanup-refusal",
+      "primaryPreserved": null,
+      "resultWithheld": true,
+      "cleanupCalls": [
+        "ack",
+        "ack",
+        "rollback",
+        "close"
+      ]
+    },
+    {
+      "case": "ordinary-body-preserved",
+      "primaryPreserved": true,
+      "resultWithheld": true,
+      "cleanupCalls": [
+        "ack",
+        "rollback",
+        "close"
+      ]
+    }
+  ],
+  "custody": {
+    "all30FrozenFilesVerified": true,
+    "originalToolSourcesVerified": [
+      {
+        "path": "tools/commerce_source_transaction.py",
+        "sha256": "8b8b185c4ed3cadb554ce0415d8029bb1c3a98b354505d8b01debcba6af17db7"
+      },
+      {
+        "path": "tools/run_graph_release_graphframes.py",
+        "sha256": "3264587cfe01b915780995c518a7fb357852ec99fe8d781e3432c14c50dbb23f"
+      },
+      {
+        "path": "tools/run_local_outbox_publication.py",
+        "sha256": "8f74e36f3595ed562badbe92457d3808b7a89c1d005facf23ee7a453a6083847"
+      },
+      {
+        "path": "tools/postgres_transactions.py",
+        "sha256": "3fd105abee30c212a48ef33a33f727a3af6abf9b725b4b21295fd911e5719a9b"
+      },
+      {
+        "path": "tools/local_outbox_connection.py",
+        "sha256": "1e9cff1bea23185aa640789e7c684b1c8474293f06f90f2cc6f2ca3d30fdd555"
+      },
+      {
+        "path": "tools/local_delta_custody.py",
+        "sha256": "b4842277c1c53320b75a641074f1efa1a16420920f952b3bdd63506249a3dd12"
+      },
+      {
+        "path": "tools/protected_outbox_ack.py",
+        "sha256": "acfa8f19d0288ccda7119aafd6ae6ff7e4fc0aa58e85fa1271ffece6982d1791"
+      },
+      {
+        "path": "tools/whole_graph_sql.py",
+        "sha256": "e599fba56cdb0d4259942f4855a4a3bca4e0a96cbadc2d88f87ebfd92105cff3"
+      },
+      {
+        "path": "tools/run_commerce_relationship_weft.py",
+        "sha256": "6e9ede30835539de72b0aefeba185a3ea16eabe8eaec6bd84745cce8e802c4b8"
+      },
+      {
+        "path": "tools/weft_relationship_plan.py",
+        "sha256": "9ddcf9e5abc7f10d40e25ac9ace56d9fe860adb5cef9ce74ced5759b2285ed74"
+      },
+      {
+        "path": "tools/indexed_weft_commerce.py",
+        "sha256": "37f328eccb3b5326ef129f968e4da5480b750b7c9f630e32f5a6beb3f39ad6cf"
+      },
+      {
+        "path": "tools/run_commerce_publication_weft.py",
+        "sha256": "c73b123b2f31e9742afeb07597695e8294e1ff99b8e306ee31693e76667a41ce"
+      },
+      {
+        "path": "tools/run_commerce_outbox_publication.py",
+        "sha256": "9aa347ef838a979d8de9eba7c1c6201037db017020d269d8a2fe8f77fa69b20b"
+      },
+      {
+        "path": "tools/fixture_oracle.py",
+        "sha256": "f98002ddb99e7f6c9c8dc255e4fe26f3e422285b77fa91626d244656d138a234"
+      }
+    ],
+    "isolatedCommittedCoreBase": "/private/tmp/ashlar-host-package-base-20261010-a/source/src/ashlar"
+  },
+  "integrationReview": {
+    "path": "/private/tmp/astra-host-cli-review-20261010-a.json",
+    "sha256": "d8cb98f803c72a420f4c2aaafa47e5faa089891b6f8c9e79db1b89bf90a53f3b",
+    "bytes": 3028
+  },
+  "limits": [
+    "Source-only package relocation and explicit typed host APIs with SDK imports deferred. Original model/source/public admission, native publication and ordinary ACK policies remain scoped to the fixed private local profile.",
+    "Mocked connection/ACK/runtime callbacks prove exception/cleanup and result-withholding control flow, not native correctness.",
+    "Source-specific native runtime/SDK/JAR/Python/SQLite/process/PG authority and exact final installed wheel custody require independent readiness evidence.",
+    "Selected prior wheelA remains historical; D changes four production files relative to its source and must not inherit A installed native qualification.",
+    "No compiler/engine/PG/SQLite/network/builder execution in this review. No OTel receiver or unbounded formal proof claim."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-ashlar-host-source-review-20261010-d.py",
+    "sha256": "026fdbdd0c6fe0bcdd93747b9ac53c5130d627660698d4994317d3dc7da3a0c2",
+    "bytes": 7275
+  }
+}

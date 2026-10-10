@@ -38,7 +38,50 @@ def main():
     for name in ('ontology','graph','public-admission','output','source-system'):
         medical.add_argument('--'+name,required=True)
     medical.add_argument('--binding-profile',required=True,choices=['ashlar-medical-development-bindings/0.2'])
+    for name in ('publish-commerce', 'query-commerce'):
+        command = commands.add_parser(name, help='Run the explicit local commerce native host profile')
+        for option in ('output', 'jars', 'model', 'graph', 'umf-source', 'bun', 'git',
+                       'postgres-container', 'postgres-host', 'postgres-database'):
+            command.add_argument('--' + option, required=True)
+        for option in ('producer-timeout-seconds', 'producer-maximum-output-bytes',
+                       'producer-maximum-receipt-bytes', 'postgres-port'):
+            command.add_argument('--' + option, type=int, required=True)
+        if name == 'publish-commerce':
+            for option in ('source-system', 'binding-profile'):
+                command.add_argument('--' + option, required=True)
+        else:
+            for option in ('index', 'installation', 'publication'):
+                command.add_argument('--' + option, required=True)
     args = parser.parse_args()
+    if args.command in ('publish-commerce', 'query-commerce'):
+        from pathlib import Path
+        from ashlar_host.config import (HostError, ProducerConfig, PrivatePostgresConfig,
+                                        PublishCommerceConfig, QueryCommerceConfig)
+        try:
+            producer = ProducerConfig(Path(args.umf_source), Path(args.bun), Path(args.git),
+                                      args.producer_timeout_seconds,
+                                      args.producer_maximum_output_bytes,
+                                      args.producer_maximum_receipt_bytes)
+            postgres = PrivatePostgresConfig(args.postgres_container, args.postgres_host,
+                                            args.postgres_port, args.postgres_database)
+            if args.command == 'publish-commerce':
+                config = PublishCommerceConfig(Path(args.output), Path(args.jars),
+                    Path(args.model), Path(args.graph), producer, postgres,
+                    args.source_system, args.binding_profile)
+                from ashlar_host.commerce import publish_commerce
+                publish_commerce(config)
+                print("ashlar-host: report " + str(config.output / "report.json"))
+            else:
+                config = QueryCommerceConfig(Path(args.index), Path(args.installation),
+                    Path(args.publication), Path(args.output), Path(args.jars),
+                    Path(args.model), Path(args.graph), producer, postgres)
+                from ashlar_host.commerce import query_commerce
+                query_commerce(config)
+                print("ashlar-host: report " + str(config.output / "report.json"))
+        except (HostError, OSError):
+            print('ashlar-host: refused', file=sys.stderr)
+            raise SystemExit(2) from None
+        return
     if args.command in ('install-weft', 'compile-weft'):
         from pathlib import Path
         from .weft_distribution import (DistributionPaths, DistributionError,

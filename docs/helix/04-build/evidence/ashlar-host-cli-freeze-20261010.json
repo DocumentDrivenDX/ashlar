@@ -1,0 +1,25 @@
+{
+  "scope": "Exact root package/CLI integration and two focused CI commands; source inputs remain review candidates",
+  "files": [
+    {
+      "path": "pyproject.toml",
+      "bytes": 602,
+      "sha256": "8883ce3a8011874e79c527f311b5f3a4f330879a3dfff4e60598223ff65a0801"
+    },
+    {
+      "path": "src/ashlar/cli.py",
+      "bytes": 9790,
+      "sha256": "e457b74e88c8d8efdf0dd27c24259c2a9e080cc98a84d4bf738dac1502650523"
+    },
+    {
+      "path": "tests/test_host_cli.py",
+      "bytes": 2392,
+      "sha256": "fcdf64ab76f432b9867d4b7cf4b0768a8cc6218145ca41fd2cd9712016c00215"
+    },
+    {
+      "path": ".github/workflows/module-boundaries.yml",
+      "bytes": 770,
+      "sha256": "94e3a5c63d6907f04c922059d1db6b1a3e34b6ac8c381d9e87c0fae8987fce39"
+    }
+  ]
+}

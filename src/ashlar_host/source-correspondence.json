@@ -1,0 +1,324 @@
+{
+  "scope": "selected definition relocation; original tools unchanged",
+  "origins": [
+    {
+      "source": "tools/commerce_source_transaction.py",
+      "sha256": "8b8b185c4ed3cadb554ce0415d8029bb1c3a98b354505d8b01debcba6af17db7",
+      "selectedSymbols": [
+        "GRAPH_SHA",
+        "SOURCE_SHA",
+        "build_transaction"
+      ],
+      "target": "source_identity.py"
+    },
+    {
+      "source": "tools/run_graph_release_graphframes.py",
+      "sha256": "3264587cfe01b915780995c518a7fb357852ec99fe8d781e3432c14c50dbb23f",
+      "selectedSymbols": [
+        "JARS",
+        "VERSIONS"
+      ],
+      "target": "runtime.py"
+    },
+    {
+      "source": "tools/run_local_outbox_publication.py",
+      "sha256": "8f74e36f3595ed562badbe92457d3808b7a89c1d005facf23ee7a453a6083847",
+      "selectedSymbols": [
+        "AckOutcomeUncertain",
+        "AckScope",
+        "AttemptExecutor",
+        "CLOCK",
+        "CONTAINER",
+        "CarrierPolicy",
+        "DeltaManifestStore",
+        "FIELDS",
+        "LocalDeltaEffects",
+        "LocalDeltaError",
+        "LocalOperationExecutor",
+        "LostAfterManifest",
+        "ManifestPort",
+        "NativeDriver",
+        "PROFILE",
+        "Path",
+        "PostgresOutbox",
+        "PrivatePolicy",
+        "ProtectedOutboxAck",
+        "ROOT",
+        "RecoveryExecutor",
+        "Session",
+        "Snapshot",
+        "batch_row",
+        "child_operation",
+        "connect",
+        "contextmanager",
+        "encoded",
+        "fcntl",
+        "graph_sql_plan",
+        "hashlib",
+        "json",
+        "local_effect_plan",
+        "manifest_pin_vector",
+        "outbox_checkpoint",
+        "progress_union",
+        "provision_sources",
+        "render_ddl",
+        "request_for",
+        "sha",
+        "subprocess",
+        "uuid",
+        "validate_union"
+      ],
+      "target": "driver.py"
+    },
+    {
+      "source": "tools/postgres_transactions.py",
+      "sha256": "3fd105abee30c212a48ef33a33f727a3af6abf9b725b4b21295fd911e5719a9b",
+      "selectedSymbols": [
+        "PostgresTransactionError",
+        "SQLResult",
+        "Session",
+        "re"
+      ],
+      "target": "postgres.py"
+    },
+    {
+      "source": "tools/local_outbox_connection.py",
+      "sha256": "1e9cff1bea23185aa640789e7c684b1c8474293f06f90f2cc6f2ca3d30fdd555",
+      "selectedSymbols": [
+        "CONTAINER",
+        "connect",
+        "json",
+        "re",
+        "subprocess"
+      ],
+      "target": "connection.py"
+    },
+    {
+      "source": "tools/local_delta_custody.py",
+      "sha256": "b4842277c1c53320b75a641074f1efa1a16420920f952b3bdd63506249a3dd12",
+      "selectedSymbols": [
+        "DeltaTarget",
+        "LOCAL_OPERATION_CAPACITY_8M",
+        "LocalDeltaEffects",
+        "LocalDeltaError",
+        "LocalDeltaTransport",
+        "LocalDeltaUncertain",
+        "LocalOperationExecutor",
+        "MappingProxyType",
+        "Path",
+        "SQLResult",
+        "_name",
+        "bounded_local_json_bytes",
+        "child_operation",
+        "contextmanager",
+        "dataclass",
+        "encoded",
+        "fcntl",
+        "hashlib",
+        "json",
+        "operation_capacity",
+        "original_operation_intent",
+        "os",
+        "quote",
+        "re",
+        "sha",
+        "sqlite3"
+      ],
+      "target": "delta_custody.py"
+    },
+    {
+      "source": "tools/protected_outbox_ack.py",
+      "sha256": "acfa8f19d0288ccda7119aafd6ae6ff7e4fc0aa58e85fa1271ffece6982d1791",
+      "selectedSymbols": [
+        "AckError",
+        "AckOutcomeUncertain",
+        "AckScope",
+        "Path",
+        "ProtectedOutboxAck",
+        "Session",
+        "UUID",
+        "_json",
+        "_request_digest",
+        "bind_manifest_pins",
+        "bind_outbox_descriptor",
+        "dataclass",
+        "hashlib",
+        "json",
+        "re",
+        "receipt_bytes",
+        "render_ddl",
+        "resolve_publication",
+        "sys"
+      ],
+      "target": "ack.py"
+    },
+    {
+      "source": "tools/whole_graph_sql.py",
+      "sha256": "e599fba56cdb0d4259942f4855a4a3bca4e0a96cbadc2d88f87ebfd92105cff3",
+      "selectedSymbols": [
+        "TABLES",
+        "_quoted",
+        "asdict",
+        "base64",
+        "changes_from_batch",
+        "datetime",
+        "graph_sql_plan",
+        "hashlib",
+        "json",
+        "plan_apply"
+      ],
+      "target": "graph_sql.py"
+    },
+    {
+      "source": "tools/run_commerce_relationship_weft.py",
+      "sha256": "6e9ede30835539de72b0aefeba185a3ea16eabe8eaec6bd84745cce8e802c4b8",
+      "selectedSymbols": [
+        "GRAPH_SHA",
+        "admit_relationship_artifact",
+        "compile_distribution",
+        "decode_compile_artifact",
+        "decode_relationship_rows",
+        "encoded",
+        "hashlib",
+        "json",
+        "original_oracle",
+        "relationship_request",
+        "run_indexed_relationship"
+      ],
+      "target": "relationship_query.py"
+    },
+    {
+      "source": "tools/weft_relationship_plan.py",
+      "sha256": "9ddcf9e5abc7f10d40e25ac9ace56d9fe860adb5cef9ce74ced5759b2285ed74",
+      "selectedSymbols": [
+        "BACKEND",
+        "OBLIGATIONS",
+        "RELATION",
+        "SQL",
+        "admit_relationship_artifact",
+        "compiler_request",
+        "decode_relationship_rows",
+        "encoded",
+        "hashlib",
+        "json",
+        "relationship_request"
+      ],
+      "target": "relationship_plan.py"
+    },
+    {
+      "source": "tools/indexed_weft_commerce.py",
+      "sha256": "37f328eccb3b5326ef129f968e4da5480b750b7c9f630e32f5a6beb3f39ad6cf",
+      "selectedSymbols": [
+        "CASES",
+        "Counter",
+        "DistributionPaths",
+        "LIMIT",
+        "_duplicate_free",
+        "_encoded",
+        "compile_distribution",
+        "compiler_request",
+        "decode_compile_artifact",
+        "execute_guarded",
+        "hashlib",
+        "json",
+        "run_indexed_queries"
+      ],
+      "target": "indexed_query.py"
+    },
+    {
+      "source": "tools/run_commerce_publication_weft.py",
+      "sha256": "c73b123b2f31e9742afeb07597695e8294e1ff99b8e306ee31693e76667a41ce",
+      "selectedSymbols": [
+        "LAYOUT_SHA",
+        "PublicationProvider",
+        "ReadOnlyTransport",
+        "SOURCE_SHA",
+        "compiler_request",
+        "contextmanager",
+        "encoded",
+        "execute_guarded",
+        "hashlib",
+        "json",
+        "open_commerce_reader",
+        "resolve_publication"
+      ],
+      "target": "publication_reader.py"
+    },
+    {
+      "source": "tools/run_commerce_outbox_publication.py",
+      "sha256": "9aa347ef838a979d8de9eba7c1c6201037db017020d269d8a2fe8f77fa69b20b",
+      "selectedSymbols": [
+        "CLOCK",
+        "CommerceAdmission",
+        "GRAPH_SHA",
+        "Path",
+        "SOURCE_SHA",
+        "UMF_PIN",
+        "base64",
+        "build_transaction",
+        "changes_from_batch",
+        "datetime",
+        "encoded",
+        "hashlib",
+        "json",
+        "original_commerce_oracle"
+      ],
+      "target": "commerce_admission.py"
+    },
+    {
+      "source": "tools/fixture_oracle.py",
+      "sha256": "f98002ddb99e7f6c9c8dc255e4fe26f3e422285b77fa91626d244656d138a234",
+      "selectedSymbols": [
+        "fixture_columns",
+        "re"
+      ],
+      "target": "schema_rows.py"
+    }
+  ],
+  "adaptations": [
+    "Selected definition relocation only; original checkout tools unchanged.",
+    "Portable private helpers replaced by same-semantics public aliases.",
+    "SQL/model/graph resources are package-relative; public UMF producer source, Bun and Git are explicitly injected.",
+    "Native runtime imports remain lazy. Fixed original development source/ACK and indexed realization profiles are unchanged.",
+    "Owned cleanup preserves primary exceptions and refuses suppressed body failure; reports serialize after reader/transport/Spark closure.",
+    "LocalDeltaTransport history is exposed within this owned host package as original_history."
+  ],
+  "resources": [
+    {
+      "path": "resources/__init__.py",
+      "sha256": "204406c57d492492db69f923ab5c9a36633da7e6b9f519acf65abaff68add8cb",
+      "bytes": 148
+    },
+    {
+      "path": "resources/check_commerce_dataset.ts",
+      "sha256": "5e6b4ad0a44759e658e4ba7e0c1cb52b508cf9ff327ab06cc5952ca8137aad9d",
+      "bytes": 5901
+    },
+    {
+      "path": "resources/graph.json",
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+      "bytes": 23078
+    },
+    {
+      "path": "resources/ontology.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "bytes": 27544
+    },
+    {
+      "path": "resources/sql/ashlar-delta-v03/01-baseline.sql",
+      "sha256": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060",
+      "bytes": 3996
+    },
+    {
+      "path": "resources/sql/ashlar-outbox/01-postgresql.sql",
+      "sha256": "3d120a63c1afebf0f8a057ce4b66301fc837eb34220adb340227c4dc339be739",
+      "bytes": 2470
+    },
+    {
+      "path": "resources/sql/ashlar-source-ack/01-postgresql.sql",
+      "sha256": "a0834eee02fa0ba3ffe0110e70aa56bcc208f630ad59a426020bb0e8180f02f9",
+      "bytes": 11829
+    }
+  ],
+  "qualification": "Selected installed host source composition; package-only imports and mocked lifecycle controls are not native qualification."
+}

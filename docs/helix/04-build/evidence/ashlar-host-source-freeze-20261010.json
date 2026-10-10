@@ -1,0 +1,176 @@
+{
+  "scope": "Selected installed indexed commerce host source only; no native workflow or wheel qualification claim",
+  "portableBase": "0c12dba",
+  "files": [
+    {
+      "path": "src/ashlar_host/__init__.py",
+      "sha256": "b758ede6ea77a5ae0f8c84eb4324603907fc0245f4d76042e6d2a701a8f04f92",
+      "bytes": 305
+    },
+    {
+      "path": "src/ashlar_host/ack.py",
+      "sha256": "292570e275d9dd68de48eafe588183576d8e03008903b47c555dddb1b87475ce",
+      "bytes": 12465
+    },
+    {
+      "path": "src/ashlar_host/commerce.py",
+      "sha256": "739f426bcbc2793e56b2ffe9977ce5d2cb8696c52b47e475a33e395943e4b70a",
+      "bytes": 3296
+    },
+    {
+      "path": "src/ashlar_host/commerce_admission.py",
+      "sha256": "3dc8f2ceb93528565ae5cb0b95cf09c60d0de21eedbd690ef3c8f678526c37de",
+      "bytes": 11033
+    },
+    {
+      "path": "src/ashlar_host/config.py",
+      "sha256": "6ce81cacfd0f13d9427cde502782eac80b65cb6ae82aa7687421b0e29ce4ff3f",
+      "bytes": 2591
+    },
+    {
+      "path": "src/ashlar_host/connection.py",
+      "sha256": "16e985a351d7a1c0bf4dec1b909efb0710781eff4bb1dc28aa490271eb04c5d2",
+      "bytes": 2059
+    },
+    {
+      "path": "src/ashlar_host/delta_custody.py",
+      "sha256": "314868ed61930a05ce627d8da507141d56280b663b9bd0b45f3be04d1b8a4849",
+      "bytes": 28875
+    },
+    {
+      "path": "src/ashlar_host/delta_publication.py",
+      "sha256": "980206a946916077da4fdef0029b5f8ccda18b65f62ef517574f0b27444b7876",
+      "bytes": 9874
+    },
+    {
+      "path": "src/ashlar_host/delta_query.py",
+      "sha256": "82a5768e5d18b473ab3cfdd0dd934d5755de20fc9b52d58537dd14369b05705e",
+      "bytes": 4739
+    },
+    {
+      "path": "src/ashlar_host/driver.py",
+      "sha256": "0d4177c5f9030d0c7dcb5d8c03c3e8be17ec6cac84c0d9cdb2c306ce1292ec70",
+      "bytes": 29383
+    },
+    {
+      "path": "src/ashlar_host/graph_sql.py",
+      "sha256": "c46ab0858db42ae5d06409abf2f8cc72d72eae2756c642485b1f106f4f18a107",
+      "bytes": 4796
+    },
+    {
+      "path": "src/ashlar_host/indexed_query.py",
+      "sha256": "d57af1288c8847f06ac47cec0d065c7cfda8aeb60623211e9d7878135e2be987",
+      "bytes": 3755
+    },
+    {
+      "path": "src/ashlar_host/lifecycle.py",
+      "sha256": "e326335137706e7baa7844218dd487a55610b4b83f2d8f3700ad7ac827817b8b",
+      "bytes": 1293
+    },
+    {
+      "path": "src/ashlar_host/postgres.py",
+      "sha256": "5a1dfee0e29e2712003246e36c19383b3984b744efae6fa65bdd3a53cef134a2",
+      "bytes": 1879
+    },
+    {
+      "path": "src/ashlar_host/publication_reader.py",
+      "sha256": "4632f4e1fe81c23ec57f7ebe59efccc4a58b3603e4e3491eb3f63532cfc634a7",
+      "bytes": 23253
+    },
+    {
+      "path": "src/ashlar_host/relationship_plan.py",
+      "sha256": "6e3e65793d31cdc192b986f9a916bee56fd2f8a65899c94f60d3d1c0975a97ec",
+      "bytes": 5781
+    },
+    {
+      "path": "src/ashlar_host/relationship_query.py",
+      "sha256": "a3f6b28a665c6f08773f73e5d8c76cac5b0fe6b87441ab42c0ffdace6ac37972",
+      "bytes": 6176
+    },
+    {
+      "path": "src/ashlar_host/resources/__init__.py",
+      "sha256": "204406c57d492492db69f923ab5c9a36633da7e6b9f519acf65abaff68add8cb",
+      "bytes": 148
+    },
+    {
+      "path": "src/ashlar_host/resources/check_commerce_dataset.ts",
+      "sha256": "5e6b4ad0a44759e658e4ba7e0c1cb52b508cf9ff327ab06cc5952ca8137aad9d",
+      "bytes": 5901
+    },
+    {
+      "path": "src/ashlar_host/resources/graph.json",
+      "sha256": "8052dbcf2cf48a5e344c492d661872bc0a3f80a5c7be033ab5008dea9c86119e",
+      "bytes": 23078
+    },
+    {
+      "path": "src/ashlar_host/resources/ontology.json",
+      "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+      "bytes": 27544
+    },
+    {
+      "path": "src/ashlar_host/resources/sql/ashlar-delta-v03/01-baseline.sql",
+      "sha256": "391889023e61dd8f63e3a1f94c78638145087ba9b326459fc98a95fcbe714060",
+      "bytes": 3996
+    },
+    {
+      "path": "src/ashlar_host/resources/sql/ashlar-outbox/01-postgresql.sql",
+      "sha256": "3d120a63c1afebf0f8a057ce4b66301fc837eb34220adb340227c4dc339be739",
+      "bytes": 2470
+    },
+    {
+      "path": "src/ashlar_host/resources/sql/ashlar-source-ack/01-postgresql.sql",
+      "sha256": "a0834eee02fa0ba3ffe0110e70aa56bcc208f630ad59a426020bb0e8180f02f9",
+      "bytes": 11829
+    },
+    {
+      "path": "src/ashlar_host/runtime.py",
+      "sha256": "b6ce66d2210488b367a1859fdf3fc434c8de4bb54a5e8913cee58b7baee974fc",
+      "bytes": 367
+    },
+    {
+      "path": "src/ashlar_host/schema_rows.py",
+      "sha256": "93b60d6e10622467f3aa9bc5618dab91c7e46ca499f4b6bb04d27b908c2ff032",
+      "bytes": 700
+    },
+    {
+      "path": "src/ashlar_host/source-correspondence.json",
+      "sha256": "587cc96f178bca90b31123a09e9c3ac2292aa830337fbf4b783705e4fc0ce4a2",
+      "bytes": 9275
+    },
+    {
+      "path": "src/ashlar_host/source.py",
+      "sha256": "373cf5de8fbf3f0a5dc722a5543a6e62833376b8a1d2d254e654d53b791f0d0a",
+      "bytes": 3982
+    },
+    {
+      "path": "src/ashlar_host/source_identity.py",
+      "sha256": "033f3638d1d9a099d857c899a2e862d3ee9a8746fc3bfd9c210eda3429a52aec",
+      "bytes": 163
+    },
+    {
+      "path": "tests/test_ashlar_host.py",
+      "sha256": "29eb84db29e34b6d844bb7ea4e30f8101011490092d06e1c38324e5acc01f7af",
+      "bytes": 8524
+    }
+  ],
+  "checks": {
+    "ownedTests": 11,
+    "packageWithoutCheckout": "checked-out portable package and exact owned host overlay isolated from checkout; independent reviewer/build export owns production-byte selection",
+    "moduleBoundaries": "pass",
+    "syntax": "all owned Python compiled in memory"
+  },
+  "excluded": [
+    "root CLI/pyproject/boundary integration",
+    "foreign dirty authority, tests, documentation and website"
+  ],
+  "supersedes": {
+    "manifestSha256": "3cc13adbfe7d25b421d86b2931f5d5592262a3aefa2e32ba6cc822d1439151ac",
+    "delta": "Best-effort cleanup marker in lifecycle and two same-pattern direct owner cleanup sites; readonly cancellation regression."
+  },
+  "deltaFiles": [
+    "src/ashlar_host/connection.py",
+    "src/ashlar_host/delta_publication.py",
+    "src/ashlar_host/lifecycle.py",
+    "tests/test_ashlar_host.py"
+  ]
+}

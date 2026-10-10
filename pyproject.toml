@@ -15,4 +15,7 @@ ashlar = "ashlar.cli:main"
 
 [tool.setuptools.packages.find]
 where = ["src"]
-include = ["ashlar", "ashlar.*"]
+include = ["ashlar", "ashlar.*", "ashlar_host", "ashlar_host.*"]
+
+[tool.setuptools.package-data]
+ashlar_host = ["source-correspondence.json", "resources/*.json", "resources/*.ts", "resources/sql/*/*.sql"]
