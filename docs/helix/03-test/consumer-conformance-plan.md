@@ -140,6 +140,40 @@ unique edge identities, query corpus and access limits. Export/model validation
 alone cannot prove engine execution. Test canonical parity and explicit omitted
 scope; managed-UC compatibility must be demonstrated, not assumed.
 
+## Explicit Paths compiler distribution
+
+Treat Weft CONTRACT-003's compiler distribution properties DIST-F1–F4 and
+DIST-L1 as P0 consumer gates: cover 100% of the selected properties with positive
+and refusal controls before an installation-availability claim. The Paths
+installation has its own typed configuration, `weft-compile/0.4.0` /
+`weft-ir/0.4.0` schemas and `weft-backend/0.3.0` manifest. Preserve the old
+installation profile and its refusal behavior.
+
+| Property | Primary layer | Required checks |
+| --- | --- | --- |
+| DIST-F1 | Portable package admission | Inject the independently trusted index revision/digest and platform before caller package admission. Refuse missing/duplicate/unregistered identities and incompatible profiles; a local manifest, matching checksum or passing corpus cannot register itself. |
+| DIST-F2 | Package/receipt correspondence | Check exact source inventory, executable, features, target, backend, schemas and complete declared corpus against the selected realization. Preserve every request/response byte, legacy namespace refusal, fresh-binding control and capability-coverage reference. Refuse malformed/duplicate metadata, escaped or nonregular paths, extra/missing files, opening/closing drift, exceeded file/total/decoded bounds and truncated, trailing or multiple gzip members. |
+| DIST-F3 | Host contract and native integration | Verify registration leaves all source, policy, publication, stored-value and ACK obligations pending. Exercise failed guards, wrong result schema, incomplete capture and closing failures through injected ports; qualify actual native behavior separately against original source data. |
+| DIST-F4 | Installation/restart and process transport | Failures before the final ready-link availability commit, or any failed required verification, leave the component unavailable. Noncritical postcommit staging-cleanup failure sets `cleanup_pending` and does not itself revoke an intact verified ready installation. Reopen using only the installed tree and trusted configuration; reject tampered executable/schema/receipt/ready bytes. Reject nonzero exit, stderr, malformed UTF-8, partial/extra protocol output and exceeded input/output/deadline bounds without fallback or artifact release. Preserve the primary failure through cancellation and descendant/stream cleanup. |
+| DIST-L1 | Local installation integration | With an explicitly trusted valid realization, available package, passing receipts, compatible platform and writable fresh destination, complete installation and reopen successfully. Missing external inputs remain explicit prerequisites. |
+
+Portable checks use temporary files, injected trust/platform ports and controlled
+child processes; they require no native SDK or engine. Compare produced-byte
+compiler evidence to independently accepted complete expectations. Preserve
+malformed raw requests in refusal controls; never repair SQL, normalize response
+bytes or derive semantic expected results from the executable under test. Valid
+fresh publication bindings must remain usable beyond the qualification fixture.
+
+Test `installed_schema_bundle` against the retained exact schema bytes and actual
+offline validation; importing a schema or returning a claim-only callback is
+insufficient. For `ashlar_host.path_admission`, `path_capture` and `path_execution`,
+verify immutable callback/input custody, complete bounded capture, original
+parameter/result representations and successful publication-hold closure before
+return. The outer composition must close readers/clients before releasing its
+report. Importing these modules must not construct an engine, install a compiler
+or grant source authority. This strategy specifies executable checks; it does not
+assert native qualification, OpenTelemetry integration or mechanical proof.
+
 ## Evidence and performance policy
 
 Fixture, simulated contract, native target and engine execution evidence are

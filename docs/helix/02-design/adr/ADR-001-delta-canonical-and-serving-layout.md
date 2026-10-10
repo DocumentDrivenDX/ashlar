@@ -130,6 +130,8 @@ semantic, custody and transport responsibilities.
 | `src/ashlar/native.py`, `staging.py`, `attempt_store.py`, `schema_registry.py`, `pins.py`, `authority.py`, `retention_policy.py` | Native SQL, pin/authority and retained-store adapters | Executor/store/policy APIs named in CONTRACT-004 | Core descriptors and injected native transport | Source semantic reinterpretation, tools, automatic permissive policy |
 | `src/ashlar/weft_binding.py`, `weft_query.py`, `weft_decode.py`, `weft_path_decode.py`, `graph_release.py`, `singleton.py` | Qualified consumer bindings, buffered decoding and graph-release projection | read_weft, exact scalar/path decoding, graph release and singleton APIs | Resolver, admitted model and explicit transport/policy ports | Producer ACK mutation, host result repair, compiler semantic substitution |
 | `src/ashlar/weft_installation.py` | Indexed compiler package custody, installation availability and bounded executable transport | InstallationConfig, inspect_package, install, open_installation, compile_request | Standard-library byte/file/process adapters and injected trusted index/platform observations | Producer ACK mutation, ambient trust/platform discovery, compiler result repair, automatic network or native engine selection |
+| `src/ashlar/weft_paths_package.py` | Bounded verification of the explicit Paths distribution profile and its complete artifact/receipt closure | PathsInstallationConfig, inspect_package | Standard-library byte/file adapters and injected trusted index/platform observations | Self-registration, implicit profile selection, relaxation of the old installation profile, native SDKs or source/ACK authority |
+| `src/ashlar/weft_paths_installation.py` | Local Paths installation, restart verification, retained schema bytes and bounded one-shot compiler transport | PathsInstallationConfig and inspect_package re-exports; install, open_installation, compile_request, installed_schema_bundle | Owned package verification APIs and standard-library file/process adapters | Compiler fallback, request/response rewriting, ambient trust discovery, native SDKs or producer ACK mutation |
 | `src/ashlar/durable_publisher.py`, `effect_validation.py`, `protocol.py`, `schema_policies.py`, `quarantine.py`, `maintenance.py`, `retention.py`, `retention_policy.py`, `profile_custody.py`, `lineage.py`, `origin.py`, `assertions.py`, `report_parts.py`, `outbox.py` | Durable effect/authority composition, maintenance, profile custody and protocol codecs | Named module APIs governed by CONTRACT-001–005 | Core records and injected policy/transport interfaces | Tool imports, ambient SDK construction, silently permissive authority |
 | `src/ashlar/truss_input.py`, `truss_feed.py`, `csv_source.py` | External source framing and exact retained input translation | Source adapter APIs | Core source/schema records and supplied public receipts | Shadow semantic validators, implicit source installation discovery |
 | `src/ashlar/__init__.py` | Portable package exports | Explicit core package surface | Owned portable library modules | Host composition, engine SDK construction or new semantic ownership |
@@ -137,6 +139,7 @@ semantic, custody and transport responsibilities.
 | `src/ashlar/source_config.py`, `weft_distribution.py`, named `*_source.py` adapters | Named source profiles and trusted compiler configuration | Source conversion and indexed compiler composition | Public core APIs and standard-library file/process adapters | Imports of `ashlar_host`, tools or native SDKs; compiler/source semantic substitution |
 | `src/ashlar_host/__init__.py`, `config.py`, `commerce.py` | Typed immutable application configuration, runtime/input admission and public workflow selection | HostError, ProducerConfig, PrivatePostgresConfig, PublishCommerceConfig, QueryCommerceConfig; commerce.publish_commerce and commerce.query_commerce | Explicit configuration, packaged inputs and owned host phase adapters | Checkout tools, implicit endpoint/profile selection, configuration treated as source or ACK authority |
 | `src/ashlar_host/source.py`, `source_identity.py`, `commerce_admission.py`, `resources/`, `schema_rows.py` | Original input custody, public UMF producer invocation, finite source admission and package-relative model/graph/SQL resources | Owned source/resource ports used by the commerce entrypoints | Public core source APIs, explicitly configured Bun/Git and clean pinned UMF source, owned native/source correspondence ports | Checkout-relative resource discovery, private UMF imports, shadow semantic validation, receipt flags treated as publication authority |
+| `src/ashlar_host/path_admission.py`, `path_capture.py`, `path_execution.py` | Immutable path artifact/schema admission, bounded result capture and provisional execution within a caller-owned publication hold | PathAdmissionConfig, admit_path_artifact; PathCaptureConfig, capture_string_frame; PathExecutionConfig, execute_commerce_path | Public core exact decoders, owned admission/capture APIs and explicit schema, source, reader and execution ports | Engine construction, compiler installation/discovery, source/ACK authority, compiler SQL/result repair or successful report release before outer cleanup |
 | `src/ashlar_host/delta_publication.py`, `delta_query.py`, `driver.py`, `delta_custody.py`, `graph_sql.py`, `publication_reader.py`, `indexed_query.py`, `relationship_plan.py`, `relationship_query.py`, `runtime.py`, `lifecycle.py` | Native transport/journal custody, publication composition, held query execution, runtime selection and cleanup | Host-internal driver/reader/phase ports; applications enter through commerce.publish_commerce or commerce.query_commerce | Public core publication/resolver/source/compiler APIs, admitted policy ports, configured Spark/Delta and owned ACK/session adapters | Tool imports, rewritten compiler SQL or repaired results, fabricated source/ACK authority, success release before required closing checks and cleanup |
 | `src/ashlar_host/ack.py`, `postgres.py`, `connection.py` | Protected source acknowledgement and reconciliation, ordinary PostgreSQL sessions and private-profile connection construction | Host ACK/session ports: AckScope, ProtectedOutboxAck, AckOutcomeUncertain, Session | Public core descriptor/checkpoint/pin APIs, mandatory policy and connection ports, packaged ACK SQL and explicitly selected psycopg profile | Caller flags as ACK authority, source progress inferred from query results, checkout tools or unqualified production credential discovery |
 | `tools/` adapters | Checkout-only engine/source experiments and review utilities | Named runner/checker entrypoints | Owned public core/host APIs and explicitly selected SDKs | Installed package dependency on tools; newly introduced private cross-module access |
@@ -145,8 +148,11 @@ semantic, custody and transport responsibilities.
 and `ashlar_host.source` for explicit public-producer invocation; Truss ->
 `truss_input.py`/`truss_feed.py`. Weft -> `weft_binding.py`/`weft_query.py` for
 portable publication reads, `weft_installation.py` for indexed transport,
-`weft_distribution.py` for trusted compiler composition, and the installed
-`ashlar_host` indexed/relationship query adapters for held native execution.
+`weft_distribution.py` for its trusted compiler composition, and
+`weft_paths_package.py`/`weft_paths_installation.py` for the separately selected
+Paths package and executable transport. Installed `ashlar_host` indexed/relationship
+query adapters own their held native execution; `path_admission.py`,
+`path_capture.py` and `path_execution.py` own path artifact and result custody.
 Delta SQL -> `native.py` plus `ashlar_host.delta_custody`/`driver`; PostgreSQL
 ACK -> `ashlar_host.ack`, with `postgres` session handling and `connection`
 construction. Private graph-engine experiments retain their named `tools/run_*`
@@ -163,6 +169,20 @@ configuration. `connection.py` owns credential acquisition only within the selec
 private PostgreSQL profile. Required reader/session/transport closure and Spark
 stop must complete before a successful report is released; cleanup failure must
 not replace an existing primary failure or turn an uncertain outcome into success.
+
+Paths configuration must select the trusted index revision/digest, realization,
+platform and local installation explicitly. The `ashlar-databricks-paths` build
+selects `weft-compile/0.4.0`, `weft-sql/0.4.0`, `weft-ir/0.4.0`,
+`weft-backend/0.3.0` and `spark4-delta4-paths-candidate`. Package verification binds
+the exact source, executable, features, schemas, backend manifest and complete
+declared corpus. Verify the installed tree and ready record before
+making the component available, including on restart; retain the verified schema
+bundle with the installation. Failure leaves it unavailable without fallback.
+Index trust comes from application composition, never the caller's package or a
+passing corpus. These duties follow Weft CONTRACT-003's DIST-F1–F4 and DIST-L1;
+installation grants no native execution, publication, source or ACK authority.
+Path execution receives admitted ports and returns provisional evidence; the
+outer composition owns reader/client closure and final report release.
 
 The only `src/ashlar` files permitted to import `ashlar_host` are the exact
 composition roots `src/ashlar/cli.py` and `src/ashlar/__main__.py`. A matching

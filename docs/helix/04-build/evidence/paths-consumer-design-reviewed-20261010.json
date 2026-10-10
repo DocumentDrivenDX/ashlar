@@ -1,0 +1,33 @@
+{
+  "decision": "APPROVE exact two-document desired-state update B",
+  "freeze": {
+    "path": "/private/tmp/ashlar-paths-consumer-docs-freeze-20261010-b/manifest.json",
+    "sha256": "e8c3697621880112c4ce796fe77d018d4150ea4c2a66d3c67c7d24412389c74c",
+    "bytes": 1472
+  },
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "sha256": "32ad32c0d0cbd68a125b04161dcd810199d91e79efa34bb5c22e5b3659769309",
+      "bytes": 24692
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/03-test/consumer-conformance-plan.md",
+      "sha256": "108e3a4ad14432645172df782eb8883a8f2f1e5aab3eedee1a2b166d53a7896c",
+      "bytes": 16004
+    }
+  ],
+  "review": [
+    "ADR changes confined to Module Boundaries, with explicit package/config, installation/transport and host admission/capture/provisional execution owners; no ownership of source or ACK authority moves to compiler installation.",
+    "TP adds DIST-F1\u2013F4/L1 tests with positive/refusal controls for injected trust, full receipt correspondence, exact namespace/profile, all-file/bounded-gzip/closing custody, restart and bounded transport, and conditional installation progress.",
+    "Corrected final-ready-link commit semantics: precommit/required verification failure withholds availability; noncritical postcommit staging cleanup_pending does not revoke an intact verified installation.",
+    "Required reader/client/native cleanup before final report and primary-failure preservation remain intact.",
+    "Explicit profiles/version pairs agree with reviewed Paths530 manifest; legacy installation profile remains separately preserved.",
+    "Existing frontmatter/traceability, all ADR configuration/OTel/formal sections and every prior TP byte retained unchanged. No implementation, native support, OTel receiver or machine-proof claim added."
+  ],
+  "verification": "Read-only exact hash/base comparison and governing contract/source ownership review. Prior actual boundary checker and10 controls retained; no redundant runtime tests for prose-only update.",
+  "limits": [
+    "Desired-state architecture and test strategy do not assert the WIP installer or newly migrated host source is already approved or installed.",
+    "Independent installer/source/custody/native reviews remain separate."
+  ]
+}
