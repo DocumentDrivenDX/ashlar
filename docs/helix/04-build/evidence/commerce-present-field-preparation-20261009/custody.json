@@ -1,0 +1,52 @@
+{
+  "entries": [
+    {
+      "path": "tools/prepare_commerce_present_field.ts",
+      "sha256": "95e63368d998f7126a0011b31ebe8c3fab224faa4d28822586c58b8c6ded276a",
+      "bytes": 7688
+    },
+    {
+      "path": "tools/commerce_evolution_transactions.py",
+      "sha256": "a15669893ad74f811937fc141f4328f69378a57c23c9e81489a1e603bd641a3e",
+      "bytes": 13155
+    },
+    {
+      "path": "tests/commerce-present-field.test.ts",
+      "sha256": "3e82b29f5355f3fa94c2c3a084755ddf09b4a776568f9d9f6f03ff2de347ad15",
+      "bytes": 2209
+    },
+    {
+      "path": "tests/test_commerce_evolution_transactions.py",
+      "sha256": "0633ce0fe052cde860d7c93730c12b5052d9af60dbf669d3481a28e9f862a829",
+      "bytes": 8095
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-present-field-preparation-20261009/candidate.json",
+      "sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba",
+      "bytes": 175817
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-present-field-preparation-20261009/prefix-oracle.json.gz",
+      "sha256": "8f11cc557d3dbcda40d95ad9575701c2c0ccec538e9f982ca3616ff25ddecb97",
+      "bytes": 56993
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-present-field-preparation-20261009/public-presence.json.gz",
+      "sha256": "333c812a8dba69495bfe6c7bb1dca17094764e4e1c2b1bea00a92c25c074dfae",
+      "bytes": 84770
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-present-field-preparation-20261009/run.log",
+      "sha256": "82b81e697e7fd152db228cf3a68c752bc24ec88b9eaf3a79509a39ceb4f22c3a",
+      "bytes": 101
+    },
+    {
+      "path": "docs/helix/04-build/evidence/commerce-present-field-preparation-20261009/summary.json",
+      "sha256": "51476258d2a3ab68580603eaf084e4345f21c57fd7fb41de5498ac0d0ac539d5",
+      "bytes": 1543
+    }
+  ],
+  "decoded_public_sha256": "bdd21b1566e66dbe5cb1fd2ff6e098853aa9766b4bf6cdb1cf5192ecd0191576",
+  "decoded_public_bytes": 1822190,
+  "candidate_sha256": "450c82ef4b76fd73b095dc4617d0a9d2a9f9d06c15b9e402fc757be31b510aba"
+}

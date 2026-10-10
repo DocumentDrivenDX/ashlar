@@ -1,0 +1,49 @@
+{
+  "profile": "ashlar-commerce-present-field-custody/0.1",
+  "qualification": "Separately authored R4 presence fixture and source-only transactions; actual public finite dataset/source preservation receipts, independent native-cell expectations. No data-transition/native migration/source/catalog/ACK authority. Original archived assets unchanged.",
+  "producer": "e44cd15f336dfb33db35acf20eee13dd120a1a28",
+  "source_checkout": "be220e96394eea8df5433bcfa145b596ff3ba43a",
+  "public_command": "bun tools/prepare_commerce_present_field.ts /private/tmp/ashlar-umf-evolution-land-6a292 docs/helix/04-build/evidence/commerce-evolution-preparation-20261009/candidate.json docs/helix/04-build/evidence/commerce-public-revision-preservation-20261009/public-revisions.json.gz FRESH_OUTPUT",
+  "tests": [
+    "bun test tests/commerce-present-field.test.ts",
+    "PYTHONPATH=src:tools python3 -m unittest discover -s tests -p test_commerce_evolution_transactions.py"
+  ],
+  "native": false,
+  "data_transition_admission": false,
+  "event_counts": [
+    21,
+    1,
+    2,
+    21
+  ],
+  "public_dataset_counts": [
+    [
+      11,
+      10
+    ],
+    [
+      11,
+      10
+    ],
+    [
+      10,
+      9
+    ],
+    [
+      11,
+      10
+    ],
+    [
+      11,
+      10
+    ]
+  ],
+  "public_negative_receipts": 15,
+  "source_classifications": [
+    "preserved",
+    "preserved",
+    "preserved",
+    "breaking"
+  ],
+  "reproduction": "Use full source_checkout checkout; selected new files are retained in freeze, not asserted as recursive import closure."
+}
