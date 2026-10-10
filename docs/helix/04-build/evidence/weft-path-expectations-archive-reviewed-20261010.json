@@ -1,0 +1,39 @@
+{
+  "verdict": "APPROVE exact selected archive57 files and separate two map copies",
+  "manifest": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/weft-path-expectations-20261010/manifest.json",
+    "bytes": 17967,
+    "sha256": "347eb12e37fce7b8c9ff42fa8c502e86be41ca5b3a4715c951b260cecc59427e"
+  },
+  "entries": 56,
+  "totalFiles": 57,
+  "bytes": 593845,
+  "checks": [
+    "Every selected file exact-byte matches original and declared digest/length; complete local file inventory contains no extras.",
+    "Both contained source freezes reproduce their archived source files.",
+    "All nine raw request/stdout/stderr match observation and accepted expectations; original candidate-unaccepted capture label remains intact.",
+    "Original21 acceptance retained without copying or modifying separately archived raw21; no new replay asserted."
+  ],
+  "separateReviewedMapCopies": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/weft-paths-full47-coverage-20261010.json",
+      "bytes": 25328,
+      "sha256": "76dded485a1e1f07dfd1e1dfb1fea5c7c96d82ad4009c4d8d75676b2ced65298"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/weft-paths-full47-coverage-reviewed-20261010.json",
+      "bytes": 3330,
+      "sha256": "cf4bac5e2676668d33ddf5d5f27d30456b920e09c974ce5a78be69a3a81fd4b9"
+    }
+  ],
+  "scope": "Exact selected pre-observation criteria, bounded nine compiler observation and independent acceptance reviews for30 observations; original21 request/response archive remains separately committed. Not full47 replay, native coverage or installed distribution authority. Referenced compiler/source/runtime external resources remain hash bound, not bundled. Earlier superseded criteria/reviews remain at original paths.",
+  "limitations": [
+    "Selected archive only: referenced compiler/source/runtime and some earlier review/probe files remain external hash-bound resources.",
+    "No compiler/native invocation, semantic re-review, full47 replay, new installed distribution or index authority from this copy check."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-path-expectations-archive-review-20261010-a.py",
+    "bytes": 3564,
+    "sha256": "26666c4619d1f384b5db886ef599f78dfa83d0cb1fe261f26c8a60b25998efb0"
+  }
+}

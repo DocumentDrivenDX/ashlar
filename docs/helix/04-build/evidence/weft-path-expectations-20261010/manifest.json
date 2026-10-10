@@ -1,0 +1,397 @@
+{
+  "scope": "Exact selected pre-observation criteria, bounded nine compiler observation and independent acceptance reviews for30 observations; original21 request/response archive remains separately committed. Not full47 replay, native coverage or installed distribution authority. Referenced compiler/source/runtime external resources remain hash bound, not bundled. Earlier superseded criteria/reviews remain at original paths.",
+  "entries": [
+    {
+      "archive": "criteria-e/freeze.json",
+      "original": "/private/tmp/weft-paths-nine-criteria-20261010-e/freeze.json",
+      "bytes": 2475,
+      "sha256": "66fe6b15e1468b5429837f24c65eddcaafafb689decd478c17e556b197c0691c",
+      "encoding": "identity"
+    },
+    {
+      "archive": "criteria-e/boolean-direct.request.json",
+      "original": "/private/tmp/weft-paths-nine-criteria-20261010-e/boolean-direct.request.json",
+      "bytes": 5716,
+      "sha256": "5a974e01e00e4a43d95046ce3594d84ca04bdcdfc5dc1481f87128855c7dfe37",
+      "encoding": "identity"
+    },
+    {
+      "archive": "criteria-e/criteria.json",
+      "original": "/private/tmp/weft-paths-nine-criteria-20261010-e/criteria.json",
+      "bytes": 11493,
+      "sha256": "cc82ad4ae4b82abf661dbafe6f0326a86f268a00c5023cfca2ae73b3d7de22eb",
+      "encoding": "identity"
+    },
+    {
+      "archive": "criteria-e/decimal-expression.request.json",
+      "original": "/private/tmp/weft-paths-nine-criteria-20261010-e/decimal-expression.request.json",
+      "bytes": 5730,
+      "sha256": "4059ca4e7b2d45a7791c98f841aed50d12bf747c381086cd617bd8db9696249d",
+      "encoding": "identity"
+    },
+    {
+      "archive": "criteria-e/integer-expression.request.json",
+      "original": "/private/tmp/weft-paths-nine-criteria-20261010-e/integer-expression.request.json",
+      "bytes": 55384,
+      "sha256": "543698b8d5f92cf8bc0202a4e554e9602e491d507016ad3ab0a341b5466f26c5",
+      "encoding": "identity"
+    },
+    {
+      "archive": "criteria-e/numeric-property-join.request.json",
+      "original": "/private/tmp/weft-paths-nine-criteria-20261010-e/numeric-property-join.request.json",
+      "bytes": 5749,
+      "sha256": "9239146199365f1028ef73d9237b3514f58a99c798cd675b058d7125f6544451",
+      "encoding": "identity"
+    },
+    {
+      "archive": "criteria-e/optional-count-distinct.request.json",
+      "original": "/private/tmp/weft-paths-nine-criteria-20261010-e/optional-count-distinct.request.json",
+      "bytes": 2237,
+      "sha256": "61f1e74bcd77ab76144270f3e5ceef4edebf6490faec863ea577d70079842415",
+      "encoding": "identity"
+    },
+    {
+      "archive": "criteria-e/optional-null-predicate.request.json",
+      "original": "/private/tmp/weft-paths-nine-criteria-20261010-e/optional-null-predicate.request.json",
+      "bytes": 2238,
+      "sha256": "76b3400ca21955dfbf7b787d001f5de313dd5fc656d043debabb22dd39944f71",
+      "encoding": "identity"
+    },
+    {
+      "archive": "criteria-e/optional-projection.request.json",
+      "original": "/private/tmp/weft-paths-nine-criteria-20261010-e/optional-projection.request.json",
+      "bytes": 2216,
+      "sha256": "9d6c1f3247078df33a1175358c166b4acaa70704f19a2e3b54785f5b2e797262",
+      "encoding": "identity"
+    },
+    {
+      "archive": "criteria-e/optional-string-join.request.json",
+      "original": "/private/tmp/weft-paths-nine-criteria-20261010-e/optional-string-join.request.json",
+      "bytes": 2256,
+      "sha256": "03b45d1c1d754eaea8af7dcaaf4f71a8311a5e75c8934df07dfafed7e2c9edc1",
+      "encoding": "identity"
+    },
+    {
+      "archive": "criteria-e/source-correspondence.json",
+      "original": "/private/tmp/weft-paths-nine-criteria-20261010-e/source-correspondence.json",
+      "bytes": 1775,
+      "sha256": "4d1efee5c3bfc9230a52108a827f9100ce51304fcba86c4d30d12e2f7372014b",
+      "encoding": "identity"
+    },
+    {
+      "archive": "criteria-e/string-lex-in.request.json",
+      "original": "/private/tmp/weft-paths-nine-criteria-20261010-e/string-lex-in.request.json",
+      "bytes": 55356,
+      "sha256": "63c40cf544202f046e07a5bdcff489cb3a7ad263d10cc61d2c8bddee7462e367",
+      "encoding": "identity"
+    },
+    {
+      "archive": "capture-b/freeze.json",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/freeze.json",
+      "bytes": 886,
+      "sha256": "f75cd082ad373c14dc1857a05f5ac576535fa11f2a173f86a8ac6d8c0f85379b",
+      "encoding": "identity"
+    },
+    {
+      "archive": "capture-b/capture.py",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/capture.py",
+      "bytes": 2734,
+      "sha256": "53a18d245faf2b12df6e794cf4b304cd37a788b93f04cddbb8e09d3e73905b48",
+      "encoding": "identity"
+    },
+    {
+      "archive": "capture-b/command.json",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/command.json",
+      "bytes": 28387,
+      "sha256": "86a050cee386b6f19b6cd826ce055606c196904628ee4c6e6663d8f1cf2cad45",
+      "encoding": "identity"
+    },
+    {
+      "archive": "capture-b/execution.json",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/execution.json",
+      "bytes": 592,
+      "sha256": "052a2336e284f83ecea7493e15cb7ca01863385b83e7824ee514fdcac740eaf7",
+      "encoding": "identity"
+    },
+    {
+      "archive": "capture-b/test_capture.py",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/test_capture.py",
+      "bytes": 1585,
+      "sha256": "fffebdd385faf76f3756433faed622ae7ab17f063332e5523f299f6958d8ddfb",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/observation.json",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/observation.json",
+      "bytes": 8598,
+      "sha256": "914cff81e7aeeb1c5631c443e0e496667170bd0f89459a8122b0e298c7924124",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/integer-expression.request",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/integer-expression.request",
+      "bytes": 55384,
+      "sha256": "543698b8d5f92cf8bc0202a4e554e9602e491d507016ad3ab0a341b5466f26c5",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/integer-expression.stderr",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/integer-expression.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/integer-expression.stdout",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/integer-expression.stdout",
+      "bytes": 43975,
+      "sha256": "83ac430ad064a6a0c2847814bbbf3718233349f6950a754f698d6df260084e62",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/decimal-expression.request",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/decimal-expression.request",
+      "bytes": 5730,
+      "sha256": "4059ca4e7b2d45a7791c98f841aed50d12bf747c381086cd617bd8db9696249d",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/decimal-expression.stderr",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/decimal-expression.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/decimal-expression.stdout",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/decimal-expression.stdout",
+      "bytes": 16340,
+      "sha256": "2a443ee5053fbbf0ee4f28f5f9923d2b5804dcfca4d94c9ea01328b0d94b9176",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/boolean-direct.request",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/boolean-direct.request",
+      "bytes": 5716,
+      "sha256": "5a974e01e00e4a43d95046ce3594d84ca04bdcdfc5dc1481f87128855c7dfe37",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/boolean-direct.stderr",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/boolean-direct.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/boolean-direct.stdout",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/boolean-direct.stdout",
+      "bytes": 10354,
+      "sha256": "8ea7512847e8866814bc867a64be8f8b697b79fde6cf4c91323180c843a49bd8",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/optional-projection.request",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-projection.request",
+      "bytes": 2216,
+      "sha256": "9d6c1f3247078df33a1175358c166b4acaa70704f19a2e3b54785f5b2e797262",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/optional-projection.stderr",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-projection.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/optional-projection.stdout",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-projection.stdout",
+      "bytes": 13921,
+      "sha256": "1a57fe22e4a54cfe74a0e64cc4b6e058b723c8b1791173badd92c12bc577cef2",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/optional-null-predicate.request",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-null-predicate.request",
+      "bytes": 2238,
+      "sha256": "76b3400ca21955dfbf7b787d001f5de313dd5fc656d043debabb22dd39944f71",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/optional-null-predicate.stderr",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-null-predicate.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/optional-null-predicate.stdout",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-null-predicate.stdout",
+      "bytes": 16577,
+      "sha256": "8868e6f4ad1197d4fce274c0c5dcc9a8bba39858dff30a00ef3271e3071a122f",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/optional-string-join.request",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-string-join.request",
+      "bytes": 2256,
+      "sha256": "03b45d1c1d754eaea8af7dcaaf4f71a8311a5e75c8934df07dfafed7e2c9edc1",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/optional-string-join.stderr",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-string-join.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/optional-string-join.stdout",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-string-join.stdout",
+      "bytes": 22626,
+      "sha256": "e90f3f30e66ad6cf03d94df581722926cd8c526762ad58f79ba16e6bcb6f8ac1",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/numeric-property-join.request",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/numeric-property-join.request",
+      "bytes": 5749,
+      "sha256": "9239146199365f1028ef73d9237b3514f58a99c798cd675b058d7125f6544451",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/numeric-property-join.stderr",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/numeric-property-join.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/numeric-property-join.stdout",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/numeric-property-join.stdout",
+      "bytes": 18981,
+      "sha256": "df1404573518fd4732aafad29399e253277ab2f83803db08827f3b0c761a3e0a",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/string-lex-in.request",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/string-lex-in.request",
+      "bytes": 55356,
+      "sha256": "63c40cf544202f046e07a5bdcff489cb3a7ad263d10cc61d2c8bddee7462e367",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/string-lex-in.stderr",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/string-lex-in.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/string-lex-in.stdout",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/string-lex-in.stdout",
+      "bytes": 22701,
+      "sha256": "f7badddaa0cf9fd3aa687ec8b315b0867fed8a8bd6b01759beafeca367d89637",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/optional-count-distinct.request",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-count-distinct.request",
+      "bytes": 2237,
+      "sha256": "61f1e74bcd77ab76144270f3e5ceef4edebf6490faec863ea577d70079842415",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/optional-count-distinct.stderr",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-count-distinct.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "encoding": "identity"
+    },
+    {
+      "archive": "observation/optional-count-distinct.stdout",
+      "original": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-count-distinct.stdout",
+      "bytes": 19148,
+      "sha256": "66b167c2da9abd87475644141d7cd219c9245bca3e52491e7210438e1579538c",
+      "encoding": "identity"
+    },
+    {
+      "archive": "reviews/astra-paths-nine-criteria-final-review-20261010-e.json",
+      "original": "/private/tmp/astra-paths-nine-criteria-final-review-20261010-e.json",
+      "bytes": 3170,
+      "sha256": "ec63aa3d24748fc791fdcdf28581ed26854c232948edc55a6f3aed92f6a324fb",
+      "encoding": "identity"
+    },
+    {
+      "archive": "reviews/astra-paths-nine-observation-review-20261010-b.json",
+      "original": "/private/tmp/astra-paths-nine-observation-review-20261010-b.json",
+      "bytes": 3487,
+      "sha256": "0495a27afe32eaf9b9bbc98fe40230c31ac84df4e11857f5c9ecdd0d89d3b979",
+      "encoding": "identity"
+    },
+    {
+      "archive": "reviews/astra-paths-nine-expected-acceptance-20261010-a.json",
+      "original": "/private/tmp/astra-paths-nine-expected-acceptance-20261010-a.json",
+      "bytes": 6924,
+      "sha256": "fad589e435be700a669aa1b3e2150960d1ba6df02b77654079048122d81bf983",
+      "encoding": "identity"
+    },
+    {
+      "archive": "reviews/astra-paths-nine-six-semantics-review-20261010-a.json",
+      "original": "/private/tmp/astra-paths-nine-six-semantics-review-20261010-a.json",
+      "bytes": 10892,
+      "sha256": "5a8a2e0e4c8873bb6813d18ec82c55a2b2c4d616e56cf368340b959fe23669f5",
+      "encoding": "identity"
+    },
+    {
+      "archive": "reviews/astra-paths-nine-numeric-response-review-20261010-a.json",
+      "original": "/private/tmp/astra-paths-nine-numeric-response-review-20261010-a.json",
+      "bytes": 10522,
+      "sha256": "7e6feef9b1e21164f5060b9a3bcae3b957cd42c77e6b36ca5d7b6aa843e2f51e",
+      "encoding": "identity"
+    },
+    {
+      "archive": "reviews/astra-paths-original21-expected-acceptance-20261010-a.json",
+      "original": "/private/tmp/astra-paths-original21-expected-acceptance-20261010-a.json",
+      "bytes": 10570,
+      "sha256": "9af288c45cd38f39e7b237860d36efb8cca6b3c4f5ec5df56462d2938b86bd3d",
+      "encoding": "identity"
+    },
+    {
+      "archive": "reviews/astra-paths-original-snapshots-parent-review-20261010-a.json",
+      "original": "/private/tmp/astra-paths-original-snapshots-parent-review-20261010-a.json",
+      "bytes": 11428,
+      "sha256": "4254f59e2ce0fe09364969b9c4e20554e39735d3f57c72bfcfe4c82f264733d3",
+      "encoding": "identity"
+    },
+    {
+      "archive": "reviews/astra-original21-path-five-review-20261010-a.json",
+      "original": "/private/tmp/astra-original21-path-five-review-20261010-a.json",
+      "bytes": 14861,
+      "sha256": "620568d2628f7dc61b18d0b4d2cee9d7aa06dd5e5b969c2aae9f55f8d97999bd",
+      "encoding": "identity"
+    },
+    {
+      "archive": "reviews/astra-paths-original21-expected-acceptance-20261010-a.py",
+      "original": "/private/tmp/astra-paths-original21-expected-acceptance-20261010-a.py",
+      "bytes": 3187,
+      "sha256": "ee2e1d89549717061d654293129a052f289b6e349a4452b478da2ea0d4b0bee2",
+      "encoding": "identity"
+    },
+    {
+      "archive": "checks/nine-schema-checks.json",
+      "original": "/private/tmp/ashlar-nine-candidate-schema-checks-20261010-a.json",
+      "bytes": 1286,
+      "sha256": "2a2bb18e4aedcaee820db2fd3eccf1cc4ac1a90d268a405641bbecb4efd490e9",
+      "encoding": "identity"
+    },
+    {
+      "archive": "checks/decimal-capacity.json",
+      "original": "/private/tmp/ashlar-decimal-product-capacity-20261010-a.json",
+      "bytes": 606,
+      "sha256": "484e8e2a35a526d051ab06d1ea0514df9e781e988c1a5753b989f0223ed8f5a2",
+      "encoding": "identity"
+    }
+  ]
+}

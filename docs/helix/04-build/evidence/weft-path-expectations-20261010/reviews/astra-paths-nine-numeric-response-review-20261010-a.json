@@ -1,0 +1,285 @@
+{
+  "status": "ACCEPT THREE EXACT CAPTURED RESPONSES AS SCOPED EXPECTED ARTIFACTS",
+  "scope": "Source/contract-derived response review for exact integer-expression, decimal-expression and numeric-property-join requests only. No compiler replay, SQL/native execution, data-source admission or general conformance/qualification.",
+  "observation": {
+    "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/observation.json",
+    "sha256": "914cff81e7aeeb1c5631c443e0e496667170bd0f89459a8122b0e298c7924124",
+    "bytes": 8598
+  },
+  "criteriaFreeze": {
+    "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/freeze.json",
+    "sha256": "66fe6b15e1468b5429837f24c65eddcaafafb689decd478c17e556b197c0691c",
+    "bytes": 2475
+  },
+  "priorPreObservationMath": {
+    "path": "/private/tmp/astra-paths-nine-numeric-criteria-review-20261010-e.json",
+    "sha256": "1a086050d951b0466ae8bff36a43116878ee5f7789bd576a14ea4baa3f3528c0",
+    "bytes": 6261
+  },
+  "sourceCommit": "530ae3511a4a50364d3d7e26195d3883952601df",
+  "sourceFiles": [
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-databricks/src/candidate.rs",
+      "sha256": "bb2a63463b25c337b660a4c7250164de312338539bcbcb44c491ba3589e7731b",
+      "bytes": 32143
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-databricks/src/candidate/arithmetic.rs",
+      "sha256": "39b9ecef419730095681529419c1d80a830705dee06ea9ed64ebf572eb53a622",
+      "bytes": 34589
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-databricks/src/candidate/path_lowering.rs",
+      "sha256": "5ae68c0a03075b767d0b0fe77edce32c8d33e88af749ea9ca3ed8c85049c43b2",
+      "bytes": 36101
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-core/src/arithmetic_application_resolve.rs",
+      "sha256": "7f9a51cfe44f97405a4c310178d90122dc5f523b869bfc468eed199ab6a658b8",
+      "bytes": 40143
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-core/src/application_scope.rs",
+      "sha256": "89fbb5d278b0e32a97ea2199d4a6b281a87df7cfb7c1280447dac3c086953e65",
+      "bytes": 11904
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/docs/helix/02-design/contracts/exact-arithmetic-v0.3.md",
+      "sha256": "5e187ac7f9f53bb60192769d45dca7f4af7a0898494b2c6d522b8ad5752f3aa6",
+      "bytes": 24644
+    }
+  ],
+  "acceptedArtifacts": {
+    "integer-expression": {
+      "request": {
+        "bytes": 55384,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/integer-expression.request",
+        "sha256": "543698b8d5f92cf8bc0202a4e554e9602e491d507016ad3ab0a341b5466f26c5"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/integer-expression.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 43975,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/integer-expression.stdout",
+        "sha256": "83ac430ad064a6a0c2847814bbbf3718233349f6950a754f698d6df260084e62"
+      }
+    },
+    "decimal-expression": {
+      "request": {
+        "bytes": 5730,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/decimal-expression.request",
+        "sha256": "4059ca4e7b2d45a7791c98f841aed50d12bf747c381086cd617bd8db9696249d"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/decimal-expression.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 16340,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/decimal-expression.stdout",
+        "sha256": "2a443ee5053fbbf0ee4f28f5f9923d2b5804dcfca4d94c9ea01328b0d94b9176"
+      }
+    },
+    "numeric-property-join": {
+      "request": {
+        "bytes": 5749,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/numeric-property-join.request",
+        "sha256": "9239146199365f1028ef73d9237b3514f58a99c798cd675b058d7125f6544451"
+      },
+      "stderr": {
+        "bytes": 0,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/numeric-property-join.stderr",
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stdout": {
+        "bytes": 18981,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/numeric-property-join.stdout",
+        "sha256": "df1404573518fd4732aafad29399e253277ab2f83803db08827f3b0c761a3e0a"
+      }
+    }
+  },
+  "independentlyEvaluatedIRRows": {
+    "integer-expression": [
+      [
+        "-3"
+      ],
+      [
+        "-19"
+      ]
+    ],
+    "decimal-expression": [
+      [
+        "0.250000"
+      ],
+      [
+        "0.500000"
+      ],
+      [
+        "2.500000"
+      ],
+      [
+        "2.500000"
+      ]
+    ],
+    "numeric-property-join": [
+      [
+        "18446744073709551615"
+      ],
+      [
+        "2"
+      ],
+      [
+        "2"
+      ],
+      [
+        "2"
+      ]
+    ]
+  },
+  "checks": [
+    "actual offline closed request04 and full response04 schemas, exact logicalPlan references",
+    "original model/binding/pins/publication and property homes; no synthetic numeric facets",
+    "exact operator/capability set and source-owned candidate declarations",
+    "original Field lineage, original literal token spans and ordered slots",
+    "independently composed exact user SQL and arithmetic guard SQL for these fixed expressions",
+    "complete pre-ON cross bag, unfiltered WHERE intermediates, projection survivors before ordering; separate complete source-domain guards",
+    "Integer unbounded domain separate from DECIMAL38 capacity; Decimal(p28,s2)*2.5000 has scale6 and at most33 coefficient digits; unsigned64 join preserves four-occurrence bag",
+    "no native warehouse qualification, no fabricated evidence, immutable capture closing hashes"
+  ],
+  "mutations": [
+    {
+      "name": "integer logical narrowing",
+      "case": "integer-expression",
+      "rejected": true
+    },
+    {
+      "name": "missing original public source proof",
+      "case": "integer-expression",
+      "rejected": true
+    },
+    {
+      "name": "missing separate operand capacity",
+      "case": "integer-expression",
+      "rejected": true
+    },
+    {
+      "name": "WHERE guard incorrectly post-filter",
+      "case": "integer-expression",
+      "rejected": true
+    },
+    {
+      "name": "missing intermediate negate check",
+      "case": "integer-expression",
+      "rejected": true
+    },
+    {
+      "name": "drop numeric notEqual filter",
+      "case": "integer-expression",
+      "rejected": true
+    },
+    {
+      "name": "property binding slot substitution",
+      "case": "integer-expression",
+      "rejected": true
+    },
+    {
+      "name": "decimal output rounded scale2",
+      "case": "decimal-expression",
+      "rejected": true
+    },
+    {
+      "name": "decimal literal loses lexical scale",
+      "case": "decimal-expression",
+      "rejected": true
+    },
+    {
+      "name": "decimal source narrowed precision",
+      "case": "decimal-expression",
+      "rejected": true
+    },
+    {
+      "name": "decimal guard overbroad scale",
+      "case": "decimal-expression",
+      "rejected": true
+    },
+    {
+      "name": "decimal native floating arithmetic",
+      "case": "decimal-expression",
+      "rejected": true
+    },
+    {
+      "name": "join equality replaces lessEqual",
+      "case": "numeric-property-join",
+      "rejected": true
+    },
+    {
+      "name": "join candidate guard wrongly after ON",
+      "case": "numeric-property-join",
+      "rejected": true
+    },
+    {
+      "name": "join wrongly deduplicates bag",
+      "case": "numeric-property-join",
+      "rejected": true
+    },
+    {
+      "name": "join signed64 narrowed source guard",
+      "case": "numeric-property-join",
+      "rejected": true
+    },
+    {
+      "name": "join original right Field lineage changed",
+      "case": "numeric-property-join",
+      "rejected": true
+    },
+    {
+      "name": "missing scalarJoin capability",
+      "case": "numeric-property-join",
+      "rejected": true
+    },
+    {
+      "name": "wrong original publication version",
+      "case": "decimal-expression",
+      "rejected": true
+    },
+    {
+      "name": "fabricated qualified evidence status",
+      "case": "decimal-expression",
+      "rejected": true
+    }
+  ],
+  "schemaRuntime": {
+    "python": "3.11.17 (main, Oct  3 2026, 00:54:14) [Clang 22.1.3 ]",
+    "jsonschema": "4.23.0",
+    "referencing": "0.35.1",
+    "adapter": {
+      "path": "/Users/erik/Projects/ashlar/tools/check_weft_paths_corpus_schemas.py",
+      "sha256": "bf9523f086466fd485d1cb90b54da9d02677585f015216ad90b236daa9acc276",
+      "bytes": 7368
+    },
+    "schemas": {
+      "compile-request.schema.json": "8916022eb698864f5580319848307a1e0e90699dbaac1dafd6b8f2e11119d3e5",
+      "compile-request-v0.2.schema.json": "2a9a4264a9d8926176aa3809d613e103f35c8f634b0d8839ddf2bbcf598cacde",
+      "compile-request-v0.3.schema.json": "7345c424b1bbf8da15e6f7b4efb81da7eeb85a1e08fb91319eeb7b19ec129047",
+      "compile-request-v0.4.schema.json": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932",
+      "compile-response-v0.4.schema.json": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140",
+      "logical-plan-v0.4.schema.json": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    },
+    "offlineNoRetrieval": true
+  },
+  "limits": [
+    "These are expected compiler artifact bytes after independent source/contract review, not independent native query results.",
+    "Source publication handles remain nonnative fixtures; executing emitted SQL still requires each host obligation and native runtime qualification.",
+    "Mutation controls exercise acceptance assertions, not compiler refusals.",
+    "Finite logical examples and source reasoning do not prove arbitrary-domain backend conformance."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-paths-nine-numeric-response-review-20261010-a.py",
+    "sha256": "509aeccfa506c81830af65236c8265eb3ace606e9ca3709bfdf7540264c2f1e3",
+    "bytes": 25260
+  }
+}

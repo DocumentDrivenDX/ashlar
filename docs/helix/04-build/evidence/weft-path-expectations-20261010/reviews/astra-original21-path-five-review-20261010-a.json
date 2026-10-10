@@ -1,0 +1,518 @@
+{
+  "status": "ACCEPT EXACT ORIGINAL RESPONSES AT INDICES1,2,10,12,18 AS SCOPED EXPECTED ARTIFACTS",
+  "scope": "Source/contract review, offline schema validation and independently authored finite graph oracle only; no compiler replay/native SQL/PG/engine execution or general qualification.",
+  "capture": {
+    "path": "/private/tmp/weft-path-lowering-artifacts-20261010-b.jsonl",
+    "sha256": "376c29438acc7fc9fd150716f2ff5845b391a1818ae2c029d803a1f134f61ca9",
+    "bytes": 2591912
+  },
+  "historicalSameBinaryRawStdout": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/weft-path-native-compiler-20261010/native-cli-replay.json",
+    "sha256": "7ad78f27e4f7eb7b0a506012cd001833b9e852a0e0c85f81ca352d063a246154",
+    "bytes": 1647771
+  },
+  "sourceCommit": "530ae3511a4a50364d3d7e26195d3883952601df",
+  "governingAndSourceFiles": [
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/docs/helix/02-design/contracts/CONTRACT-005-authored-two-hop-paths.md",
+      "sha256": "82f94c9eefb01f1cf99eed7810f2420176a574383354bb7cb8390ce4236453d9",
+      "bytes": 23735
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/docs/helix/02-design/technical-designs/TD-007-authored-two-hop-paths.md",
+      "sha256": "4256d8c7919e84dfd11975ad9c51540a40dc680450f46102b820493f39111b69",
+      "bytes": 11510
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-databricks/src/candidate/path_lowering.rs",
+      "sha256": "5ae68c0a03075b767d0b0fe77edce32c8d33e88af749ea9ca3ed8c85049c43b2",
+      "bytes": 36101
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-databricks/src/candidate/relationships.rs",
+      "sha256": "9bdc758bf9e8e2edf13cef776d9b79257ec6095ab659c0fa555f10a7acca112e",
+      "bytes": 13451
+    },
+    {
+      "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/source/crates/weft-databricks/src/candidate.rs",
+      "sha256": "bb2a63463b25c337b660a4c7250164de312338539bcbcb44c491ba3589e7731b",
+      "bytes": 32143
+    }
+  ],
+  "accepted": [
+    {
+      "index": 1,
+      "test": "authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops",
+      "sql": "SELECT RELATED_PATHS(c.orders, orders, 2) AS paths FROM Customer c",
+      "requestSha256": "92f0285b32bcee48b0e5b8ea8916ceb9ee0b6231594335aeacfd12186db055f3",
+      "requestBytes": 5944,
+      "fullStdoutSha256": "48a4201161624c2c18566fab33211e5da9247078bd86c966a17e44066e4b1e0f",
+      "fullStdoutBytes": 48006,
+      "checks": {
+        "ctes": 9,
+        "relationshipChecks": 8,
+        "scalarChecks": 2,
+        "occurrenceChecks": 3,
+        "countCapacityChecks": 0,
+        "direction": [
+          false,
+          false
+        ]
+      }
+    },
+    {
+      "index": 2,
+      "test": "same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+      "sql": "SELECT RELATED_PATHS(c.orders, customer, 2) AS paths FROM Customer c",
+      "requestSha256": "d12c8b6586634b8ddc10d31f71aad3292c7d309d061d8132a97f5516e9863ecf",
+      "requestBytes": 5934,
+      "fullStdoutSha256": "7c248dddc53d465e28e419603c247467d071fb5924785a740f85e678c4cd6b2d",
+      "fullStdoutBytes": 84522,
+      "checks": {
+        "ctes": 12,
+        "relationshipChecks": 16,
+        "scalarChecks": 4,
+        "occurrenceChecks": 3,
+        "countCapacityChecks": 0,
+        "direction": [
+          false,
+          true
+        ]
+      }
+    },
+    {
+      "index": 10,
+      "test": "left_root_distinguishes_absence_and_retains_native_match_inventory",
+      "sql": "SELECT a.id, RELATED_PATHS(l.\"order_lines.product_id\", \"products.supplier_id\", 2) AS paths FROM products a LEFT JOIN order_lines l ON a.id=l.product_id ORDER BY a.id",
+      "requestSha256": "48922be05e137ea4e2ccfcc2cd1c441aeb6ffc75ca3f8299392c2c9a19797b68",
+      "requestBytes": 55408,
+      "fullStdoutSha256": "629beae35b31b8e7232e2152690df64dca2aa3215a011f855d5482be30cd1d02",
+      "fullStdoutBytes": 113301,
+      "checks": {
+        "ctes": 13,
+        "relationshipChecks": 16,
+        "scalarChecks": 6,
+        "occurrenceChecks": 3,
+        "countCapacityChecks": 0,
+        "direction": [
+          false,
+          false
+        ]
+      }
+    },
+    {
+      "index": 12,
+      "test": "same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+      "sql": "SELECT RELATED_PATHS(o.customer, orders, 2) AS paths FROM Orders o",
+      "requestSha256": "b48f5e12363eaf50547d69d0f3610e31fb528296528cd744483a5df403c39444",
+      "requestBytes": 5932,
+      "fullStdoutSha256": "b8a1b3bf18dec575f6fe781eabef90a00082c8e4ed41e9ea87095894adbbf02a",
+      "fullStdoutBytes": 84512,
+      "checks": {
+        "ctes": 12,
+        "relationshipChecks": 16,
+        "scalarChecks": 4,
+        "occurrenceChecks": 3,
+        "countCapacityChecks": 0,
+        "direction": [
+          true,
+          false
+        ]
+      }
+    },
+    {
+      "index": 18,
+      "test": "left_root_distinguishes_absence_and_retains_native_match_inventory",
+      "sql": "SELECT a.id, COUNT(*) AS rows, COUNT_DISTINCT_PATH_TARGETS(p) AS targets FROM products a LEFT JOIN order_lines l ON a.id=l.product_id CROSS JOIN EXPAND_PATHS(l.\"order_lines.product_id\", \"products.supplier_id\") AS p GROUP BY a.id",
+      "requestSha256": "5b6a992f8ae144ca36ea0f326f4e3e195aaa545d464bf7f95d36356a9ba1bb68",
+      "requestBytes": 55471,
+      "fullStdoutSha256": "7f07dfc0fc916ddd0311c121c0e15dc1a18afa5a6ebf0b194c0745149b726821",
+      "fullStdoutBytes": 116861,
+      "checks": {
+        "ctes": 11,
+        "relationshipChecks": 16,
+        "scalarChecks": 6,
+        "occurrenceChecks": 2,
+        "countCapacityChecks": 2,
+        "direction": [
+          false,
+          false
+        ]
+      }
+    }
+  ],
+  "finiteOracle": {
+    "signedEdgeOrderWitness": {
+      "typedOrder": [
+        "-9223372036854775808",
+        "-10",
+        "-2",
+        "0",
+        "2",
+        "10",
+        "9223372036854775807"
+      ],
+      "wrongLexicalOrder": [
+        "-10",
+        "-2",
+        "-9223372036854775808",
+        "0",
+        "10",
+        "2",
+        "9223372036854775807"
+      ]
+    },
+    "typedKeyOrderWitness": [
+      "2",
+      "10"
+    ],
+    "selfLoop": {
+      "completeCount": 6,
+      "collection": {
+        "items": [
+          {
+            "intermediate": [
+              "2"
+            ],
+            "terminal": [
+              "2"
+            ],
+            "edges": [
+              "-2",
+              "-2"
+            ]
+          },
+          {
+            "intermediate": [
+              "2"
+            ],
+            "terminal": [
+              "2"
+            ],
+            "edges": [
+              "-2",
+              "0"
+            ]
+          }
+        ],
+        "truncated": true
+      },
+      "sameEdgeZeroTwice": true
+    },
+    "forwardInverse": {
+      "completeCount": 7,
+      "collection": {
+        "items": [
+          {
+            "intermediate": [
+              "2"
+            ],
+            "terminal": [
+              "2"
+            ],
+            "edges": [
+              "-2",
+              "-2"
+            ]
+          },
+          {
+            "intermediate": [
+              "2"
+            ],
+            "terminal": [
+              "2"
+            ],
+            "edges": [
+              "-2",
+              "0"
+            ]
+          }
+        ],
+        "truncated": true
+      }
+    },
+    "inverseForward": {
+      "completeCount": 7,
+      "collection": {
+        "items": [
+          {
+            "intermediate": [
+              "2"
+            ],
+            "terminal": [
+              "2"
+            ],
+            "edges": [
+              "-2",
+              "-2"
+            ]
+          },
+          {
+            "intermediate": [
+              "2"
+            ],
+            "terminal": [
+              "2"
+            ],
+            "edges": [
+              "-2",
+              "0"
+            ]
+          }
+        ],
+        "truncated": true
+      }
+    },
+    "emptySalesRoot": {
+      "items": [],
+      "truncated": false
+    },
+    "leftCollection": [
+      [
+        "P10",
+        {
+          "state": "value",
+          "value": {
+            "items": [
+              {
+                "intermediate": [
+                  "P10"
+                ],
+                "terminal": [
+                  "S1"
+                ],
+                "edges": [
+                  "9",
+                  "20"
+                ]
+              }
+            ],
+            "truncated": false
+          }
+        }
+      ],
+      [
+        "P2",
+        {
+          "state": "value",
+          "value": {
+            "items": [
+              {
+                "intermediate": [
+                  "P2"
+                ],
+                "terminal": [
+                  "S1"
+                ],
+                "edges": [
+                  "-2",
+                  "-10"
+                ]
+              },
+              {
+                "intermediate": [
+                  "P2"
+                ],
+                "terminal": [
+                  "S1"
+                ],
+                "edges": [
+                  "-2",
+                  "0"
+                ]
+              }
+            ],
+            "truncated": true
+          }
+        }
+      ],
+      [
+        "P2",
+        {
+          "state": "value",
+          "value": {
+            "items": [
+              {
+                "intermediate": [
+                  "P2"
+                ],
+                "terminal": [
+                  "S1"
+                ],
+                "edges": [
+                  "8",
+                  "-10"
+                ]
+              },
+              {
+                "intermediate": [
+                  "P2"
+                ],
+                "terminal": [
+                  "S1"
+                ],
+                "edges": [
+                  "8",
+                  "0"
+                ]
+              }
+            ],
+            "truncated": true
+          }
+        }
+      ],
+      [
+        "Pempty",
+        {
+          "state": "absent"
+        }
+      ]
+    ],
+    "leftGroupedExpansionCounts": [
+      [
+        "P10",
+        "1",
+        "1"
+      ],
+      [
+        "P2",
+        "9",
+        "1"
+      ]
+    ],
+    "authoredDomainPrecision": "Commerce hops have target min=max1; matched-root empty paths would fail original relationship integrity. Valid emptiness witness uses sales min0/maxstar, while unmatched commerce product is tagged absent and yields no grouped expansion row.",
+    "negativeSemanticControls": [
+      "Signed64 boundary witness (-9223372036854775808,-10,-2,0,2,10,9223372036854775807) differs from lexical token order; numeric key2 precedes10.",
+      "Collapsing duplicate edge pairs changes self-loop6 and reverse7 bags.",
+      "Counting distinct associated neighbors permits2x3 parallel edges but a second distinct target violates commerce max1.",
+      "Preserving absent roots through LEFT expansion would incorrectly invent a zero-count group."
+    ]
+  },
+  "mutations": [
+    {
+      "case": 1,
+      "mutation": "same-edge path exclusion",
+      "rejected": true
+    },
+    {
+      "case": 2,
+      "mutation": "deduplicate path pairs",
+      "rejected": true
+    },
+    {
+      "case": 2,
+      "mutation": "inverse second hop wrong endpoint",
+      "rejected": true
+    },
+    {
+      "case": 12,
+      "mutation": "inverse first hop wrong endpoint",
+      "rejected": true
+    },
+    {
+      "case": 1,
+      "mutation": "lexical signed-edge sort",
+      "rejected": true
+    },
+    {
+      "case": 1,
+      "mutation": "lookahead erased",
+      "rejected": true
+    },
+    {
+      "case": 1,
+      "mutation": "bound-dependent truncation forgery",
+      "rejected": true
+    },
+    {
+      "case": 2,
+      "mutation": "typed numeric key narrowed",
+      "rejected": true
+    },
+    {
+      "case": 10,
+      "mutation": "LEFT absence replaced by empty",
+      "rejected": true
+    },
+    {
+      "case": 10,
+      "mutation": "LEFT sentinel forged constant",
+      "rejected": true
+    },
+    {
+      "case": 10,
+      "mutation": "LEFT descriptor points wrong scan",
+      "rejected": true
+    },
+    {
+      "case": 18,
+      "mutation": "absent roots preserved by LEFT expansion",
+      "rejected": true
+    },
+    {
+      "case": 18,
+      "mutation": "count capacity deduplicates rows",
+      "rejected": true
+    },
+    {
+      "case": 18,
+      "mutation": "count capacity validates already-counted long",
+      "rejected": true
+    },
+    {
+      "case": 18,
+      "mutation": "distinct target uses edge identity",
+      "rejected": true
+    },
+    {
+      "case": 2,
+      "mutation": "missing edge schema hop",
+      "rejected": true
+    },
+    {
+      "case": 12,
+      "mutation": "missing occurrence integrity check",
+      "rejected": true
+    },
+    {
+      "case": 10,
+      "mutation": "degree counts parallel edges",
+      "rejected": true
+    },
+    {
+      "case": 18,
+      "mutation": "wrong terminal source identity",
+      "rejected": true
+    },
+    {
+      "case": 10,
+      "mutation": "original publication pin drift",
+      "rejected": true
+    }
+  ],
+  "schemaValidation": {
+    "pairs": 5,
+    "offline": true,
+    "jsonschema": "4.23.0",
+    "referencing": "0.35.1",
+    "schemaDigests": {
+      "compile-request.schema.json": "8916022eb698864f5580319848307a1e0e90699dbaac1dafd6b8f2e11119d3e5",
+      "compile-request-v0.2.schema.json": "2a9a4264a9d8926176aa3809d613e103f35c8f634b0d8839ddf2bbcf598cacde",
+      "compile-request-v0.3.schema.json": "7345c424b1bbf8da15e6f7b4efb81da7eeb85a1e08fb91319eeb7b19ec129047",
+      "compile-request-v0.4.schema.json": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932",
+      "compile-response-v0.4.schema.json": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140",
+      "logical-plan-v0.4.schema.json": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    }
+  },
+  "limitations": [
+    "Expected stdout originated as historical compiler output; acceptance is the independent source/contract/finite-oracle review here, not independent generation or a new native result.",
+    "Fixture model changes for self-loop/forward-inverse were explicitly authored in each original retained request; no external commerce model was relabeled.",
+    "Native BIGINT schema, original-publication authority, ACK/custody and every host guard still require actual execution evidence; this review grants none.",
+    "Finite examples do not establish all-source native conformance or corpus47-capability qualification."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-original21-path-five-review-20261010-a.py",
+    "sha256": "633e989d4eafcf3663d53dbeb688203a9d18545e0059f3d0ec305e211e2b5c83",
+    "bytes": 32627
+  }
+}

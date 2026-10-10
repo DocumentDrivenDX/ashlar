@@ -1,0 +1,97 @@
+{
+  "verdict": "APPROVE exact47 selected-capability expectation map for subsequent full conformance replay",
+  "map": {
+    "path": "/private/tmp/ashlar-paths-full47-coverage-candidate-20261010-a.json",
+    "sha256": "76dded485a1e1f07dfd1e1dfb1fea5c7c96d82ad4009c4d8d75676b2ced65298",
+    "bytes": 25328
+  },
+  "metadata": {
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/backend-manifest.json",
+    "sha256": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5",
+    "bytes": 51125
+  },
+  "acceptedExpectations": [
+    {
+      "path": "/private/tmp/astra-paths-original21-expected-acceptance-20261010-a.json",
+      "sha256": "9af288c45cd38f39e7b237860d36efb8cca6b3c4f5ec5df56462d2938b86bd3d",
+      "bytes": 10570
+    },
+    {
+      "path": "/private/tmp/astra-paths-nine-expected-acceptance-20261010-a.json",
+      "sha256": "fad589e435be700a669aa1b3e2150960d1ba6df02b77654079048122d81bf983",
+      "bytes": 6924
+    }
+  ],
+  "counts": {
+    "observations": 30,
+    "uniqueRequests": 28,
+    "compiled": 26,
+    "blocked": 4,
+    "selectedCapabilities": 47
+  },
+  "coverageCounts": {
+    "scan": 26,
+    "project": 26,
+    "filter": 5,
+    "innerJoin": 3,
+    "equal": 4,
+    "and": 2,
+    "parameter.named": 1,
+    "compare.lexicographicGreater": 1,
+    "order.asc": 7,
+    "limit": 3,
+    "type.string": 15,
+    "type.boolean": 1,
+    "type.integer": 3,
+    "type.decimal": 1,
+    "value.presence": 4,
+    "value.nativeNull": 4,
+    "predicate.nativeNull": 1,
+    "compare.nullAwareStringEqual": 1,
+    "project.positionedOutputs": 2,
+    "project.distinct": 1,
+    "compare.less": 1,
+    "compare.lessEqual": 2,
+    "compare.greaterEqual": 1,
+    "compare.notEqual": 1,
+    "compare.scalarJoin": 1,
+    "arithmetic.exact.integer": 2,
+    "arithmetic.exact.decimal": 1,
+    "arithmetic.+": 1,
+    "arithmetic.-": 1,
+    "arithmetic.*": 2,
+    "arithmetic.negate": 1,
+    "arithmetic.compareExact": 1,
+    "type.integer.unbounded": 2,
+    "aggregate": 7,
+    "group": 2,
+    "aggregate.count": 5,
+    "aggregate.countDistinct": 2,
+    "aggregate.countDistinct.optional": 1,
+    "aggregate.havingCountDistinctGreater": 1,
+    "predicate.stringIn": 1,
+    "join.left": 2,
+    "value.outerJoinPresence": 2,
+    "relationship.twoHopPaths": 16,
+    "relationship.pathExpansion": 7,
+    "relationship.inverse": 2,
+    "result.pathOccurrences": 9,
+    "aggregate.pathTargetDistinctCount": 4
+  },
+  "refusedAccountingMutations": [
+    "omitted selected case",
+    "nonexistent capability",
+    "blocked response masquerading positive"
+  ],
+  "limits": [
+    "Positive mapping draws only on independently accepted exact response fixtures and unchanged source-owned selected declarations. No blanket unknown-profile refusal counts as capability coverage.",
+    "Map is finite reviewed regression coverage, not proof of every capability interaction or native discharge.",
+    "Fresh same-binary full corpus with exact legacy namespace463,static19 andtransport8 plus custody/schema gates remains outstanding.",
+    "No compiler invocation, native engine, package registration or index admission in this review."
+  ],
+  "script": {
+    "path": "/private/tmp/astra-paths-full47-map-review-20261010-a.py",
+    "sha256": "bd245e9de678ca44f9b7c1fc33f054e526d9b30de6679b47f111f45d8ee4395b",
+    "bytes": 4213
+  }
+}

@@ -1,0 +1,312 @@
+{
+  "verdict": "APPROVED: these six exact observed responses may become finite regression expectations after independent semantic review; no production/native/corpus qualification",
+  "observation": {
+    "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/observation.json",
+    "sha256": "914cff81e7aeeb1c5631c443e0e496667170bd0f89459a8122b0e298c7924124",
+    "bytes": 8598
+  },
+  "criteria": {
+    "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/criteria.json",
+    "sha256": "cc82ad4ae4b82abf661dbafe6f0326a86f268a00c5023cfca2ae73b3d7de22eb",
+    "bytes": 11493
+  },
+  "backendManifest": {
+    "path": "/private/tmp/weft-paths-530ae35-build-20261010-a/backend-manifest.json",
+    "sha256": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5",
+    "bytes": 51125
+  },
+  "cases": [
+    {
+      "id": "optional-projection",
+      "request": {
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-projection.request",
+        "sha256": "9d6c1f3247078df33a1175358c166b4acaa70704f19a2e3b54785f5b2e797262",
+        "bytes": 2216
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-projection.stdout",
+        "sha256": "1a57fe22e4a54cfe74a0e64cc4b6e058b723c8b1791173badd92c12bc577cef2",
+        "bytes": 13921
+      },
+      "independentFiniteRows": [
+        [
+          "{\"state\":\"value\",\"value\":\"a\"}"
+        ],
+        [
+          "{\"state\":\"value\",\"value\":\"a\"}"
+        ],
+        [
+          "{\"state\":\"value\",\"value\":\"b\"}"
+        ],
+        [
+          "{\"state\":\"null\"}"
+        ],
+        [
+          "{\"state\":\"value\",\"value\":\"\"}"
+        ]
+      ],
+      "order": "bag; array presentation is not native order"
+    },
+    {
+      "id": "optional-null-predicate",
+      "request": {
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-null-predicate.request",
+        "sha256": "76b3400ca21955dfbf7b787d001f5de313dd5fc656d043debabb22dd39944f71",
+        "bytes": 2238
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-null-predicate.stdout",
+        "sha256": "8868e6f4ad1197d4fce274c0c5dcc9a8bba39858dff30a00ef3271e3071a122f",
+        "bytes": 16577
+      },
+      "independentFiniteRows": [
+        [
+          "{\"state\":\"null\"}"
+        ]
+      ],
+      "order": "bag; array presentation is not native order"
+    },
+    {
+      "id": "optional-string-join",
+      "request": {
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-string-join.request",
+        "sha256": "03b45d1c1d754eaea8af7dcaaf4f71a8311a5e75c8934df07dfafed7e2c9edc1",
+        "bytes": 2256
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-string-join.stdout",
+        "sha256": "e90f3f30e66ad6cf03d94df581722926cd8c526762ad58f79ba16e6bcb6f8ac1",
+        "bytes": 22626
+      },
+      "independentFiniteRows": [
+        [
+          "{\"state\":\"value\",\"value\":\"a\"}",
+          "{\"state\":\"value\",\"value\":\"a\"}"
+        ],
+        [
+          "{\"state\":\"value\",\"value\":\"a\"}",
+          "{\"state\":\"value\",\"value\":\"a\"}"
+        ],
+        [
+          "{\"state\":\"value\",\"value\":\"a\"}",
+          "{\"state\":\"value\",\"value\":\"a\"}"
+        ],
+        [
+          "{\"state\":\"value\",\"value\":\"a\"}",
+          "{\"state\":\"value\",\"value\":\"a\"}"
+        ],
+        [
+          "{\"state\":\"value\",\"value\":\"b\"}",
+          "{\"state\":\"value\",\"value\":\"b\"}"
+        ],
+        [
+          "{\"state\":\"value\",\"value\":\"\"}",
+          "{\"state\":\"value\",\"value\":\"\"}"
+        ]
+      ],
+      "order": "bag; array presentation is not native order"
+    },
+    {
+      "id": "optional-count-distinct",
+      "request": {
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-count-distinct.request",
+        "sha256": "61f1e74bcd77ab76144270f3e5ceef4edebf6490faec863ea577d70079842415",
+        "bytes": 2237
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-count-distinct.stdout",
+        "sha256": "66b167c2da9abd87475644141d7cd219c9245bca3e52491e7210438e1579538c",
+        "bytes": 19148
+      },
+      "independentFiniteRows": [
+        [
+          "3"
+        ]
+      ],
+      "order": "bag; array presentation is not native order"
+    },
+    {
+      "id": "boolean-direct",
+      "request": {
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/boolean-direct.request",
+        "sha256": "5a974e01e00e4a43d95046ce3594d84ca04bdcdfc5dc1481f87128855c7dfe37",
+        "bytes": 5716
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/boolean-direct.stdout",
+        "sha256": "8ea7512847e8866814bc867a64be8f8b697b79fde6cf4c91323180c843a49bd8",
+        "bytes": 10354
+      },
+      "independentFiniteRows": [
+        [
+          "true"
+        ],
+        [
+          "false"
+        ],
+        [
+          "true"
+        ]
+      ],
+      "order": "bag; array presentation is not native order"
+    },
+    {
+      "id": "string-lex-in",
+      "request": {
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/string-lex-in.request",
+        "sha256": "63c40cf544202f046e07a5bdcff489cb3a7ad263d10cc61d2c8bddee7462e367",
+        "bytes": 55356
+      },
+      "response": {
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/string-lex-in.stdout",
+        "sha256": "f7badddaa0cf9fd3aa687ec8b315b0867fed8a8bd6b01759beafeca367d89637",
+        "bytes": 22701
+      },
+      "independentFiniteRows": [
+        [
+          "L10"
+        ],
+        [
+          "L2"
+        ],
+        [
+          "L3"
+        ]
+      ],
+      "order": "explicit UTF8 byte order"
+    }
+  ],
+  "mutations": [
+    {
+      "case": "optional-projection",
+      "mutation": "native null relabeled as absent",
+      "refused": true
+    },
+    {
+      "case": "optional-projection",
+      "mutation": "drop original descriptor",
+      "refused": true
+    },
+    {
+      "case": "optional-projection",
+      "mutation": "remove missing-property guard",
+      "refused": true
+    },
+    {
+      "case": "optional-null-predicate",
+      "mutation": "negate original null predicate",
+      "refused": true
+    },
+    {
+      "case": "optional-string-join",
+      "mutation": "null-safe equality substitution",
+      "refused": true
+    },
+    {
+      "case": "optional-string-join",
+      "mutation": "drop second occurrence guards",
+      "refused": true
+    },
+    {
+      "case": "optional-string-join",
+      "mutation": "collapse positional carriers",
+      "refused": true
+    },
+    {
+      "case": "optional-string-join",
+      "mutation": "wrong second scan lineage",
+      "refused": true
+    },
+    {
+      "case": "optional-count-distinct",
+      "mutation": "COUNT without DISTINCT",
+      "refused": true
+    },
+    {
+      "case": "optional-count-distinct",
+      "mutation": "remove exact count capacity",
+      "refused": true
+    },
+    {
+      "case": "optional-count-distinct",
+      "mutation": "capacity distinct population removed",
+      "refused": true
+    },
+    {
+      "case": "boolean-direct",
+      "mutation": "wrong Boolean source family",
+      "refused": true
+    },
+    {
+      "case": "boolean-direct",
+      "mutation": "forged qualified status",
+      "refused": true
+    },
+    {
+      "case": "string-lex-in",
+      "mutation": "inclusive tuple compare",
+      "refused": true
+    },
+    {
+      "case": "string-lex-in",
+      "mutation": "wrong repeated literal",
+      "refused": true
+    },
+    {
+      "case": "string-lex-in",
+      "mutation": "descending source order",
+      "refused": true
+    },
+    {
+      "case": "string-lex-in",
+      "mutation": "drop unprojected filter Field guard",
+      "refused": true
+    },
+    {
+      "case": "optional-projection",
+      "mutation": "stale publication version",
+      "refused": true
+    }
+  ],
+  "mutationCount": 18,
+  "checks": [
+    "Exact original request/response capture hashes; no bytes replaced or normalized",
+    "Request model/binding/response publication and complete pin correspondence",
+    "Every selected declaration exactly source-owned 47-capability manifest; candidate status preserved",
+    "Ordered native slots and original literal byte spans; full before-query source guards",
+    "Exact optional encoding guard distinction: absence refuses, present JSON-null remains explicit null, empty String is value",
+    "Ordinary self-join preserves duplicate bag and distinct scan/positioned carrier lineage",
+    "COUNT DISTINCT native nonnull population and independent DECIMAL38 signed64 capacity before result",
+    "Boolean source type guards and exact text output; no arithmetic dependency",
+    "String tuple binary lexicographic ordering and duplicate IN membership semantics",
+    "Independent finite logical calculations plus isolated malicious SQL/metadata mutation refusals"
+  ],
+  "sourceReview": {
+    "root": "/private/tmp/weft-paths-530ae35-build-20261010-a/source",
+    "commit": "530ae3511a4a50364d3d7e26195d3883952601df",
+    "files": [
+      "crates/weft-databricks/src/candidate/path_lowering.rs",
+      "crates/weft-databricks/src/candidate/arithmetic.rs",
+      "docs/helix/02-design/contracts/CONTRACT-003-compile-and-host-boundary.md",
+      "docs/helix/02-design/contracts/CONTRACT-004-application-reads.md",
+      "docs/helix/02-design/contracts/CONTRACT-005-authored-two-hop-paths.md"
+    ]
+  },
+  "limitations": [
+    "No SQL executed; finite mathematical evaluation and source/SQL/IR correspondence review only",
+    "Schema validation separately supplied by exact nine-case bridge receipt; no inference that schema proves SQL meaning",
+    "No native authority for retained fixture publication handles; execution requires original public source and all host/native guards",
+    "These six reviewed fixture expectations are not complete47-capability qualification, original21 acceptance, or fresh whole-corpus replay",
+    "No unbounded formal proof, platform portability, OTel receiver or dependency-closure claim"
+  ],
+  "schemaReceipt": {
+    "path": "/private/tmp/ashlar-nine-candidate-schema-checks-20261010-a.json",
+    "sha256": "2a2bb18e4aedcaee820db2fd3eccf1cc4ac1a90d268a405641bbecb4efd490e9",
+    "bytes": 1286
+  },
+  "script": {
+    "path": "/private/tmp/astra-paths-nine-six-semantics-review-20261010-a.py",
+    "sha256": "84e7a6b882b0ec6723296e2ef5d0fdd28518a40f2e45cbf4975d26f938007007",
+    "bytes": 23644
+  }
+}

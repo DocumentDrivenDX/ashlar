@@ -1,0 +1,64 @@
+{
+  "status": "CONDITIONAL APPROVAL: exact B candidate observation command",
+  "freeze": {
+    "path": "/private/tmp/weft-paths-nine-observation-20261010-b/freeze.json",
+    "bytes": 886,
+    "sha256": "f75cd082ad373c14dc1857a05f5ac576535fa11f2a173f86a8ac6d8c0f85379b"
+  },
+  "command": {
+    "path": "/private/tmp/weft-paths-nine-observation-20261010-b/command.json",
+    "bytes": 28387,
+    "sha256": "86a050cee386b6f19b6cd826ce055606c196904628ee4c6e6663d8f1cf2cad45"
+  },
+  "execution": {
+    "path": "/private/tmp/weft-paths-nine-observation-20261010-b/execution.json",
+    "bytes": 592,
+    "sha256": "052a2336e284f83ecea7493e15cb7ca01863385b83e7824ee514fdcac740eaf7"
+  },
+  "capture": {
+    "path": "/private/tmp/weft-paths-nine-observation-20261010-b/capture.py",
+    "bytes": 2734,
+    "sha256": "53a18d245faf2b12df6e794cf4b304cd37a788b93f04cddbb8e09d3e73905b48"
+  },
+  "verifiedResources": 95,
+  "verifiedResourceBytes": 11536556,
+  "sourceInventory": {
+    "sha256": "2a1eed46946a4d623f2f8abc7e7592e6d74e3964585ce1c500600a7ea62d6896",
+    "files": 1842,
+    "bytes": 267288896,
+    "modeGitBlobShaLengthExactPathset": "verified through exact reviewed verify_source function"
+  },
+  "approvedERequestsExact": 9,
+  "outputInitiallyAbsent": true,
+  "transportReview": "Exact source producer transport is previously reviewed bounded POSIX selector transport:20s common child/pipe deadline,4MiB stdout,4096B stderr, unconditional process-group kill and1s final wait; no compiler execution during this review. Raw observation writing does not parse, normalize or establish expected bytes.",
+  "probes": [
+    {
+      "name": "primary-cancellation-vs-report-write",
+      "mockScope": "Only transport callback and module import replaced; no process/Weft executable used. Report open deterministically raises OSError.",
+      "observedException": "KeyboardInterrupt",
+      "primaryPreserved": true,
+      "sourceChecks": 2,
+      "status": "PASS: original cancellation preserved; cleanup_failed True"
+    }
+  ],
+  "resolvedFinding": "B wraps report serialization/open/write/close; full main mocked failure control preserves original KeyboardInterrupt with cleanup_failed=True. Report-only failures propagate.",
+  "conditions": "Execute only exact B execution descriptor under root grant; require opening/closing custody and completed=true before interpreting capture as complete; raw outputs remain candidate observations requiring independent acceptance/schema/semantic review, not golden/qualification/native evidence.",
+  "scopeLimits": "95 selected resource pins are not full Python/framework/dynamic-loader closure. Config schemaChecker is custody-only and is never called here; this is candidate observation, not schema/semantic conformance or qualification.",
+  "closingFreezeUnchanged": true,
+  "script": {
+    "path": "/private/tmp/astra-paths-nine-observation-review-20261010-b.py",
+    "bytes": 7976,
+    "sha256": "f7629b6ca1bb3d28341bc928539c11276df797a0c4ee1665e48fc63a17e57aa2"
+  },
+  "ownerPersistenceTests": {
+    "interpreter": "/Library/Developer/CommandLineTools/usr/bin/python3",
+    "testSource": {
+      "path": "/private/tmp/weft-paths-nine-observation-20261010-b/test_capture.py",
+      "bytes": 1585,
+      "sha256": "fffebdd385faf76f3756433faed622ae7ab17f063332e5523f299f6958d8ddfb"
+    },
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "....\n----------------------------------------------------------------------\nRan 4 tests in 0.003s\n\nOK\n"
+  }
+}

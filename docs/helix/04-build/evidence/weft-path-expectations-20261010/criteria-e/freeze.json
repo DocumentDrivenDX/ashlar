@@ -1,0 +1,60 @@
+{
+  "files": [
+    {
+      "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/boolean-direct.request.json",
+      "sha256": "5a974e01e00e4a43d95046ce3594d84ca04bdcdfc5dc1481f87128855c7dfe37",
+      "bytes": 5716
+    },
+    {
+      "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/criteria.json",
+      "sha256": "cc82ad4ae4b82abf661dbafe6f0326a86f268a00c5023cfca2ae73b3d7de22eb",
+      "bytes": 11493
+    },
+    {
+      "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/decimal-expression.request.json",
+      "sha256": "4059ca4e7b2d45a7791c98f841aed50d12bf747c381086cd617bd8db9696249d",
+      "bytes": 5730
+    },
+    {
+      "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/integer-expression.request.json",
+      "sha256": "543698b8d5f92cf8bc0202a4e554e9602e491d507016ad3ab0a341b5466f26c5",
+      "bytes": 55384
+    },
+    {
+      "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/numeric-property-join.request.json",
+      "sha256": "9239146199365f1028ef73d9237b3514f58a99c798cd675b058d7125f6544451",
+      "bytes": 5749
+    },
+    {
+      "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/optional-count-distinct.request.json",
+      "sha256": "61f1e74bcd77ab76144270f3e5ceef4edebf6490faec863ea577d70079842415",
+      "bytes": 2237
+    },
+    {
+      "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/optional-null-predicate.request.json",
+      "sha256": "76b3400ca21955dfbf7b787d001f5de313dd5fc656d043debabb22dd39944f71",
+      "bytes": 2238
+    },
+    {
+      "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/optional-projection.request.json",
+      "sha256": "9d6c1f3247078df33a1175358c166b4acaa70704f19a2e3b54785f5b2e797262",
+      "bytes": 2216
+    },
+    {
+      "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/optional-string-join.request.json",
+      "sha256": "03b45d1c1d754eaea8af7dcaaf4f71a8311a5e75c8934df07dfafed7e2c9edc1",
+      "bytes": 2256
+    },
+    {
+      "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/source-correspondence.json",
+      "sha256": "4d1efee5c3bfc9230a52108a827f9100ce51304fcba86c4d30d12e2f7372014b",
+      "bytes": 1775
+    },
+    {
+      "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/string-lex-in.request.json",
+      "sha256": "63c40cf544202f046e07a5bdcff489cb3a7ad263d10cc61d2c8bddee7462e367",
+      "bytes": 55356
+    }
+  ],
+  "status": "metadata-only correction; all nine request bytes unchanged from C; no compiler observed"
+}

@@ -1,0 +1,156 @@
+{
+  "verdict": "ACCEPT exact nine complete observed responses as reviewed expected fixtures for these unchanged requests",
+  "observation": {
+    "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/observation.json",
+    "bytes": 8598,
+    "sha256": "914cff81e7aeeb1c5631c443e0e496667170bd0f89459a8122b0e298c7924124"
+  },
+  "criteriaFreeze": {
+    "path": "/private/tmp/weft-paths-nine-criteria-20261010-e/freeze.json",
+    "bytes": 2475,
+    "sha256": "66fe6b15e1468b5429837f24c65eddcaafafb689decd478c17e556b197c0691c"
+  },
+  "reviews": [
+    {
+      "path": "/private/tmp/astra-paths-nine-six-semantics-review-20261010-a.json",
+      "bytes": 10892,
+      "sha256": "5a8a2e0e4c8873bb6813d18ec82c55a2b2c4d616e56cf368340b959fe23669f5"
+    },
+    {
+      "path": "/private/tmp/astra-paths-nine-numeric-response-review-20261010-a.json",
+      "bytes": 10522,
+      "sha256": "7e6feef9b1e21164f5060b9a3bcae3b957cd42c77e6b36ca5d7b6aa843e2f51e"
+    }
+  ],
+  "accepted": [
+    {
+      "id": "integer-expression",
+      "request": {
+        "bytes": 55384,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/integer-expression.request",
+        "sha256": "543698b8d5f92cf8bc0202a4e554e9602e491d507016ad3ab0a341b5466f26c5"
+      },
+      "expectedResponse": {
+        "bytes": 43975,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/integer-expression.stdout",
+        "sha256": "83ac430ad064a6a0c2847814bbbf3718233349f6950a754f698d6df260084e62"
+      }
+    },
+    {
+      "id": "decimal-expression",
+      "request": {
+        "bytes": 5730,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/decimal-expression.request",
+        "sha256": "4059ca4e7b2d45a7791c98f841aed50d12bf747c381086cd617bd8db9696249d"
+      },
+      "expectedResponse": {
+        "bytes": 16340,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/decimal-expression.stdout",
+        "sha256": "2a443ee5053fbbf0ee4f28f5f9923d2b5804dcfca4d94c9ea01328b0d94b9176"
+      }
+    },
+    {
+      "id": "boolean-direct",
+      "request": {
+        "bytes": 5716,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/boolean-direct.request",
+        "sha256": "5a974e01e00e4a43d95046ce3594d84ca04bdcdfc5dc1481f87128855c7dfe37"
+      },
+      "expectedResponse": {
+        "bytes": 10354,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/boolean-direct.stdout",
+        "sha256": "8ea7512847e8866814bc867a64be8f8b697b79fde6cf4c91323180c843a49bd8"
+      }
+    },
+    {
+      "id": "optional-projection",
+      "request": {
+        "bytes": 2216,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-projection.request",
+        "sha256": "9d6c1f3247078df33a1175358c166b4acaa70704f19a2e3b54785f5b2e797262"
+      },
+      "expectedResponse": {
+        "bytes": 13921,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-projection.stdout",
+        "sha256": "1a57fe22e4a54cfe74a0e64cc4b6e058b723c8b1791173badd92c12bc577cef2"
+      }
+    },
+    {
+      "id": "optional-null-predicate",
+      "request": {
+        "bytes": 2238,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-null-predicate.request",
+        "sha256": "76b3400ca21955dfbf7b787d001f5de313dd5fc656d043debabb22dd39944f71"
+      },
+      "expectedResponse": {
+        "bytes": 16577,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-null-predicate.stdout",
+        "sha256": "8868e6f4ad1197d4fce274c0c5dcc9a8bba39858dff30a00ef3271e3071a122f"
+      }
+    },
+    {
+      "id": "optional-string-join",
+      "request": {
+        "bytes": 2256,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-string-join.request",
+        "sha256": "03b45d1c1d754eaea8af7dcaaf4f71a8311a5e75c8934df07dfafed7e2c9edc1"
+      },
+      "expectedResponse": {
+        "bytes": 22626,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-string-join.stdout",
+        "sha256": "e90f3f30e66ad6cf03d94df581722926cd8c526762ad58f79ba16e6bcb6f8ac1"
+      }
+    },
+    {
+      "id": "numeric-property-join",
+      "request": {
+        "bytes": 5749,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/numeric-property-join.request",
+        "sha256": "9239146199365f1028ef73d9237b3514f58a99c798cd675b058d7125f6544451"
+      },
+      "expectedResponse": {
+        "bytes": 18981,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/numeric-property-join.stdout",
+        "sha256": "df1404573518fd4732aafad29399e253277ab2f83803db08827f3b0c761a3e0a"
+      }
+    },
+    {
+      "id": "string-lex-in",
+      "request": {
+        "bytes": 55356,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/string-lex-in.request",
+        "sha256": "63c40cf544202f046e07a5bdcff489cb3a7ad263d10cc61d2c8bddee7462e367"
+      },
+      "expectedResponse": {
+        "bytes": 22701,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/string-lex-in.stdout",
+        "sha256": "f7badddaa0cf9fd3aa687ec8b315b0867fed8a8bd6b01759beafeca367d89637"
+      }
+    },
+    {
+      "id": "optional-count-distinct",
+      "request": {
+        "bytes": 2237,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-count-distinct.request",
+        "sha256": "61f1e74bcd77ab76144270f3e5ceef4edebf6490faec863ea577d70079842415"
+      },
+      "expectedResponse": {
+        "bytes": 19148,
+        "path": "/private/tmp/weft-paths-nine-observation-20261010-b/candidate-output/optional-count-distinct.stdout",
+        "sha256": "66b167c2da9abd87475644141d7cd219c9245bca3e52491e7210438e1579538c"
+      }
+    }
+  ],
+  "tests": {
+    "semanticMutationRefusals": 38,
+    "finiteMathCases": 9,
+    "actualOfflineSchemaPairs": 9
+  },
+  "custody": "Raw captured request/stdout bytes unchanged; status candidate-unaccepted in original historical capture remains untouched. Independent acceptance is this additive review, not a rewrite of historical receipts.",
+  "limitations": [
+    "Acceptance is finite source/contract/IR/SQL/guard correspondence with pre-observation independent logical examples, not native SQL execution or complete profile qualification",
+    "Original21 candidate snapshot expectations still need separate acceptance",
+    "Fresh whole corpus replay with reviewed full47 capability map, namespace463, controls19 and transport8 remains required before distribution qualification",
+    "No installed package/index authority, cloud/Fabric/Truss or unbounded formal/observability claim"
+  ]
+}

@@ -1,0 +1,322 @@
+{
+  "verdict": "ACCEPT exact original response bytes for these16 retained observations as finite reviewed expected fixtures",
+  "capture": {
+    "path": "/private/tmp/weft-path-lowering-artifacts-20261010-b.jsonl",
+    "sha256": "376c29438acc7fc9fd150716f2ff5845b391a1818ae2c029d803a1f134f61ca9",
+    "bytes": 2591912
+  },
+  "retentionManifest": {
+    "path": "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/weft-path-corpus-inputs-20261010/manifest.json",
+    "sha256": "6c8697260d7d3c71e926bf21f411b58e742064f7203925cb79773d8f309b67aa",
+    "bytes": 2154
+  },
+  "priorIndependentLowererReview": {
+    "path": "/private/tmp/astra-path-lowering-final-review-20261010-b.json",
+    "sha256": "5fd335ed5d03f346893fa4ad8ca1112d8bb894589171bd38e756bc6e3d9aeefb",
+    "bytes": 6395
+  },
+  "indices": [
+    0,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    11,
+    13,
+    14,
+    15,
+    16,
+    17,
+    19,
+    20
+  ],
+  "accepted": [
+    {
+      "index": 0,
+      "test": "explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "requestSha256": "1a15d83d1b0cc07f423a3a7bfd9a209e1f0d29b25aeef41120cdcd91416c4e7e",
+      "requestBytes": 55375,
+      "expectedResponseSha256": "87b9145e79540aa768a19252eec1f5b4829f78ad6758d6b4cea99893c2bf04b7",
+      "expectedResponseBytes": 234
+    },
+    {
+      "index": 3,
+      "test": "distinct_composition_remains_required_string_only",
+      "requestSha256": "dac192242c9881ffc202910ecc8dd1125071784e2b94bb5d965afd442aed326f",
+      "requestBytes": 55292,
+      "expectedResponseSha256": "8f4cc31ad5151c0990b294f424bb2aeb7fb85a50313845b56c33fcb5c6355ea6",
+      "expectedResponseBytes": 14634
+    },
+    {
+      "index": 4,
+      "test": "global_count_kind_inventory_and_empty_formula_are_selected",
+      "requestSha256": "ad06a02f9065bee5dd253214edeaeab9a1c83a5fd2bce97cbad1d24706dc50d7",
+      "requestBytes": 55366,
+      "expectedResponseSha256": "6f02b6ec9b7c20ee903dcbd7bd9404b7f6f6f5415f4033495b11b55dde9523aa",
+      "expectedResponseBytes": 88526
+    },
+    {
+      "index": 5,
+      "test": "original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+      "requestSha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2",
+      "requestBytes": 55374,
+      "expectedResponseSha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8",
+      "expectedResponseBytes": 99372
+    },
+    {
+      "index": 6,
+      "test": "generated_collection_and_guard_sql_are_lexically_closed",
+      "requestSha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2",
+      "requestBytes": 55374,
+      "expectedResponseSha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8",
+      "expectedResponseBytes": 99372
+    },
+    {
+      "index": 7,
+      "test": "repeated_logical_labels_retain_the_exact_positioned_host_map",
+      "requestSha256": "9c98cde61dff3b1e0fedf724157591d1d018d731842ef1ad708d6ec9b0ad2e03",
+      "requestBytes": 55358,
+      "expectedResponseSha256": "6ae0cfd0edc7c8310f12ae39d599ef400be3bf030f86ea6c4450d8795015346b",
+      "expectedResponseBytes": 100408
+    },
+    {
+      "index": 8,
+      "test": "repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+      "requestSha256": "2b63294f45bb6eeafcc085d799d85be1e826f1d528c40223fd50e41b4768d099",
+      "requestBytes": 55421,
+      "expectedResponseSha256": "74f281b3718eff4a9443d4dd80fca45831174315af8a6e14d2c94c204c5efcc6",
+      "expectedResponseBytes": 117635
+    },
+    {
+      "index": 9,
+      "test": "scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+      "requestSha256": "074581eff7c05a68010b04d32142fd00f38be424c2724895e4604795ca420c86",
+      "requestBytes": 55437,
+      "expectedResponseSha256": "cc9411f86ce0c507b3dc89927403b177e7fb899c723bf92a52ece02e01680ba4",
+      "expectedResponseBytes": 115556
+    },
+    {
+      "index": 11,
+      "test": "path_counts_use_complete_filtered_bag_before_having_order_limit",
+      "requestSha256": "e337e3b21552ca36fc39a481b9e093f745105b4ede84eb25dc21553c10809654",
+      "requestBytes": 55589,
+      "expectedResponseSha256": "3c4d6fca3d5b13c45348651c2dd24e08823a519ae581d0f175a0439e96d0ff62",
+      "expectedResponseBytes": 131004
+    },
+    {
+      "index": 13,
+      "test": "explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "requestSha256": "3a7615ea14211c1e29ea2120d44d6f337f2e5e69f64d358668ba0f4d51fd3956",
+      "requestBytes": 55378,
+      "expectedResponseSha256": "4a89d8bafe8239dde337cbb208d483c10b040b65c0fe1e5b66ddbcc183e5b734",
+      "expectedResponseBytes": 237
+    },
+    {
+      "index": 14,
+      "test": "distinct_composition_remains_required_string_only",
+      "requestSha256": "27225b875cf7fafc419eb0bc73932259321ecf123d83a0918a4f5d945dc099c1",
+      "requestBytes": 55304,
+      "expectedResponseSha256": "7574daeabb953d8ed86faca3df0bf8658adabf2ec7512874208491447c07c045",
+      "expectedResponseBytes": 247
+    },
+    {
+      "index": 15,
+      "test": "global_count_kind_inventory_and_empty_formula_are_selected",
+      "requestSha256": "55279a36e813e3f70e86a298129ecb28e91ddfaf32330f8328f1fc2d5560c5f7",
+      "requestBytes": 55391,
+      "expectedResponseSha256": "a7bbc1178076e22d900c4666d694467d3a0342103bf31fc111e2fdece4bff6da",
+      "expectedResponseBytes": 89343
+    },
+    {
+      "index": 16,
+      "test": "generated_collection_and_guard_sql_are_lexically_closed",
+      "requestSha256": "ad06a02f9065bee5dd253214edeaeab9a1c83a5fd2bce97cbad1d24706dc50d7",
+      "requestBytes": 55366,
+      "expectedResponseSha256": "6f02b6ec9b7c20ee903dcbd7bd9404b7f6f6f5415f4033495b11b55dde9523aa",
+      "expectedResponseBytes": 88526
+    },
+    {
+      "index": 17,
+      "test": "repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+      "requestSha256": "16b12b2ef2c7cfdb42e6cd068e6c16927b1adbe9fde92b2a8dcc9c7e0764de30",
+      "requestBytes": 55354,
+      "expectedResponseSha256": "b7772e720c2779fccff6658692db18e42ed955c4278291ab842b23bc0b88d522",
+      "expectedResponseBytes": 87648
+    },
+    {
+      "index": 19,
+      "test": "explicit_profile_refuses_invalid_mapping_unmatched_numeric_and_old_routes",
+      "requestSha256": "a045ffb00fc863b995350eb63c809fad5e44cd246bc204deaa856fe82655f4be",
+      "requestBytes": 55400,
+      "expectedResponseSha256": "b6ef9bd3caed3c6a1c0f1335ee1f42ff7983ddabde4d59794ee595c7a61bc91c",
+      "expectedResponseBytes": 252
+    },
+    {
+      "index": 20,
+      "test": "global_count_kind_inventory_and_empty_formula_are_selected",
+      "requestSha256": "4dd0f91e344e9b49eec5ded6f2905aa5965af74f497c366e6478c8005aa13f34",
+      "requestBytes": 55415,
+      "expectedResponseSha256": "eaabdbe813b1748a615e6db925329d0d50dc552c192cf91dadbfeaf007380cfc",
+      "expectedResponseBytes": 94743
+    }
+  ],
+  "mutationRefusals": [
+    {
+      "index": 0,
+      "label": "blocked response leaks SQL",
+      "refused": true
+    },
+    {
+      "index": 13,
+      "label": "binding refusal downgraded to candidate capability",
+      "refused": true
+    },
+    {
+      "index": 14,
+      "label": "numeric DISTINCT permitted",
+      "refused": true
+    },
+    {
+      "index": 19,
+      "label": "unmatched numeric refusal wrong phase",
+      "refused": true
+    },
+    {
+      "index": 5,
+      "label": "path row occurrence deduplicated",
+      "refused": true
+    },
+    {
+      "index": 5,
+      "label": "edge tie order lexicalized",
+      "refused": true
+    },
+    {
+      "index": 5,
+      "label": "collection lookahead removed",
+      "refused": true
+    },
+    {
+      "index": 5,
+      "label": "complete collection proof bounded",
+      "refused": true
+    },
+    {
+      "index": 5,
+      "label": "second hop schema proof removed",
+      "refused": true
+    },
+    {
+      "index": 5,
+      "label": "edge native schema type forged",
+      "refused": true
+    },
+    {
+      "index": 7,
+      "label": "positioned mapping reordered",
+      "refused": true
+    },
+    {
+      "index": 8,
+      "label": "repeated collection role collapsed",
+      "refused": true
+    },
+    {
+      "index": 4,
+      "label": "count row guard missing",
+      "refused": true
+    },
+    {
+      "index": 15,
+      "label": "target identity narrowed to wrong key",
+      "refused": true
+    },
+    {
+      "index": 15,
+      "label": "distinct target capacity not distinct",
+      "refused": true
+    },
+    {
+      "index": 11,
+      "label": "capacity limited to result prefix",
+      "refused": true
+    },
+    {
+      "index": 11,
+      "label": "row count deduplicated",
+      "refused": true
+    },
+    {
+      "index": 9,
+      "label": "named parameter interpolated",
+      "refused": true
+    },
+    {
+      "index": 9,
+      "label": "unbounded source obligation removed",
+      "refused": true
+    },
+    {
+      "index": 17,
+      "label": "plain expansion count guard invented",
+      "refused": true
+    }
+  ],
+  "finiteLogicalWitness": {
+    "pathRows": 7,
+    "L1Paths": 6,
+    "L1PrefixEdgePairs": [
+      [
+        -3,
+        -1
+      ],
+      [
+        -3,
+        5
+      ]
+    ],
+    "L1Truncated": true,
+    "globalDistinctTargets": 1,
+    "L1GroupedCounts": [
+      6,
+      1,
+      1
+    ],
+    "repeatedCounts": [
+      7,
+      7,
+      1
+    ],
+    "globalEmptyCounts": [
+      0,
+      0
+    ],
+    "groupedEmpty": []
+  },
+  "reviewedProperties": [
+    "Exact old capture/canonical pair byte correspondence; no compiler rerun or expectation normalization",
+    "Original model and accepted relationship definitions, complete Record/Field/key identities, same pin/publication full vector",
+    "Exact per-role path inventory, both native BIGINT edge schemas, full source/relationship/path guard inventory",
+    "Join source occurrences and parallel edge-pair bags retained; complete typed key order then signed BIGINT edges",
+    "Full-population DECIMAL38 ordinal+prefix/truncation proof separate from returned bounded prefix",
+    "Count capacity covers complete post-join/post-expansion/WHERE population before HAVING/ORDER/LIMIT; complete terminal identity/key for distinct target",
+    "Repeated outputs retain distinct physical positions; duplicate collection roles remain distinct",
+    "Four exact atomic blocked responses justified by caller optout, changed accepted definition, numeric DISTINCT and unmatched numeric scope",
+    "Named parameter original text is slotted, no interpolation; unbounded Integer source remains original and capacity separate"
+  ],
+  "limits": [
+    "No actual SQL/native execution; source/contract/IR/SQL review and independent finite relational arithmetic only",
+    "Existing original native3 and separate authored native11 receipts corroborate particular lowering mechanics only, not these exact publication/request bindings",
+    "Five inverse/self-loop/LEFT observations delegated separately; this receipt does not approve their bytes",
+    "Original immutable c6 output expectations remain valid only if fresh530 replay matches exact responses; full47 corpus and controls are still required",
+    "Finite mutation assertions are not a general SQL validator or unbounded formal proof"
+  ],
+  "script": {
+    "path": "/private/tmp/astra-paths-original-snapshots-parent-review-20261010-a.py",
+    "sha256": "76be643f94959033b045238943c59c17e13edae8aaf002573795b9a44a425068",
+    "bytes": 26398
+  }
+}

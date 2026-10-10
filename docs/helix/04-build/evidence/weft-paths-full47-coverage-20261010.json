@@ -1,0 +1,481 @@
+{
+  "scope": "Candidate map only; not whole corpus conformance or native evidence",
+  "metadataSha256": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5",
+  "original21Acceptance": "9af288c45cd38f39e7b237860d36efb8cca6b3c4f5ec5df56462d2938b86bd3d",
+  "nineAcceptance": "fad589e435be700a669aa1b3e2150960d1ba6df02b77654079048122d81bf983",
+  "observations": 30,
+  "coverage": {
+    "scan": {
+      "accepted": [
+        "paths:1:authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops",
+        "paths:2:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+        "paths:3:distinct_composition_remains_required_string_only",
+        "paths:4:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+        "paths:6:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:7:repeated_logical_labels_retain_the_exact_positioned_host_map",
+        "paths:8:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+        "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+        "paths:10:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:12:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+        "paths:15:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:16:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:17:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+        "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:20:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:integer-expression",
+        "paths:decimal-expression",
+        "paths:boolean-direct",
+        "paths:optional-projection",
+        "paths:optional-null-predicate",
+        "paths:optional-string-join",
+        "paths:numeric-property-join",
+        "paths:string-lex-in",
+        "paths:optional-count-distinct"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "project": {
+      "accepted": [
+        "paths:1:authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops",
+        "paths:2:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+        "paths:3:distinct_composition_remains_required_string_only",
+        "paths:4:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+        "paths:6:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:7:repeated_logical_labels_retain_the_exact_positioned_host_map",
+        "paths:8:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+        "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+        "paths:10:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:12:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+        "paths:15:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:16:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:17:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+        "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:20:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:integer-expression",
+        "paths:decimal-expression",
+        "paths:boolean-direct",
+        "paths:optional-projection",
+        "paths:optional-null-predicate",
+        "paths:optional-string-join",
+        "paths:numeric-property-join",
+        "paths:string-lex-in",
+        "paths:optional-count-distinct"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "filter": {
+      "accepted": [
+        "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:integer-expression",
+        "paths:optional-null-predicate",
+        "paths:string-lex-in"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "innerJoin": {
+      "accepted": [
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:optional-string-join",
+        "paths:numeric-property-join"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "equal": {
+      "accepted": [
+        "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+        "paths:10:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "and": {
+      "accepted": [
+        "paths:integer-expression",
+        "paths:string-lex-in"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "parameter.named": {
+      "accepted": [
+        "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "compare.lexicographicGreater": {
+      "accepted": [
+        "paths:string-lex-in"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "order.asc": {
+      "accepted": [
+        "paths:3:distinct_composition_remains_required_string_only",
+        "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+        "paths:6:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:10:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:integer-expression",
+        "paths:string-lex-in"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "limit": {
+      "accepted": [
+        "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+        "paths:6:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "type.string": {
+      "accepted": [
+        "paths:3:distinct_composition_remains_required_string_only",
+        "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+        "paths:6:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:7:repeated_logical_labels_retain_the_exact_positioned_host_map",
+        "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+        "paths:10:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:17:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+        "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:integer-expression",
+        "paths:optional-projection",
+        "paths:optional-null-predicate",
+        "paths:optional-string-join",
+        "paths:string-lex-in",
+        "paths:optional-count-distinct"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "type.boolean": {
+      "accepted": [
+        "paths:boolean-direct"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "type.integer": {
+      "accepted": [
+        "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+        "paths:integer-expression",
+        "paths:numeric-property-join"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "type.decimal": {
+      "accepted": [
+        "paths:decimal-expression"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "value.presence": {
+      "accepted": [
+        "paths:optional-projection",
+        "paths:optional-null-predicate",
+        "paths:optional-string-join",
+        "paths:optional-count-distinct"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "value.nativeNull": {
+      "accepted": [
+        "paths:optional-projection",
+        "paths:optional-null-predicate",
+        "paths:optional-string-join",
+        "paths:optional-count-distinct"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "predicate.nativeNull": {
+      "accepted": [
+        "paths:optional-null-predicate"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "compare.nullAwareStringEqual": {
+      "accepted": [
+        "paths:optional-string-join"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "project.positionedOutputs": {
+      "accepted": [
+        "paths:7:repeated_logical_labels_retain_the_exact_positioned_host_map",
+        "paths:optional-string-join"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "project.distinct": {
+      "accepted": [
+        "paths:3:distinct_composition_remains_required_string_only"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "compare.less": {
+      "accepted": [
+        "paths:integer-expression"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "compare.lessEqual": {
+      "accepted": [
+        "paths:integer-expression",
+        "paths:numeric-property-join"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "compare.greaterEqual": {
+      "accepted": [
+        "paths:integer-expression"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "compare.notEqual": {
+      "accepted": [
+        "paths:integer-expression"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "compare.scalarJoin": {
+      "accepted": [
+        "paths:numeric-property-join"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "arithmetic.exact.integer": {
+      "accepted": [
+        "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+        "paths:integer-expression"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "arithmetic.exact.decimal": {
+      "accepted": [
+        "paths:decimal-expression"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "arithmetic.+": {
+      "accepted": [
+        "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "arithmetic.-": {
+      "accepted": [
+        "paths:integer-expression"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "arithmetic.*": {
+      "accepted": [
+        "paths:integer-expression",
+        "paths:decimal-expression"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "arithmetic.negate": {
+      "accepted": [
+        "paths:integer-expression"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "arithmetic.compareExact": {
+      "accepted": [
+        "paths:integer-expression"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "type.integer.unbounded": {
+      "accepted": [
+        "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+        "paths:integer-expression"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "aggregate": {
+      "accepted": [
+        "paths:4:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:15:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:16:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:20:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:optional-count-distinct"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "group": {
+      "accepted": [
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "aggregate.count": {
+      "accepted": [
+        "paths:4:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:16:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:20:global_count_kind_inventory_and_empty_formula_are_selected"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "aggregate.countDistinct": {
+      "accepted": [
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:optional-count-distinct"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "aggregate.countDistinct.optional": {
+      "accepted": [
+        "paths:optional-count-distinct"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "aggregate.havingCountDistinctGreater": {
+      "accepted": [
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "predicate.stringIn": {
+      "accepted": [
+        "paths:string-lex-in"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "join.left": {
+      "accepted": [
+        "paths:10:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "value.outerJoinPresence": {
+      "accepted": [
+        "paths:10:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "relationship.twoHopPaths": {
+      "accepted": [
+        "paths:1:authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops",
+        "paths:2:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+        "paths:4:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+        "paths:6:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:7:repeated_logical_labels_retain_the_exact_positioned_host_map",
+        "paths:8:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+        "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+        "paths:10:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:12:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+        "paths:15:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:16:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:17:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+        "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:20:global_count_kind_inventory_and_empty_formula_are_selected"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "relationship.pathExpansion": {
+      "accepted": [
+        "paths:4:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:15:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:16:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:17:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+        "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:20:global_count_kind_inventory_and_empty_formula_are_selected"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "relationship.inverse": {
+      "accepted": [
+        "paths:2:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+        "paths:12:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "result.pathOccurrences": {
+      "accepted": [
+        "paths:1:authored_self_loop_can_reuse_the_same_edge_occurrence_at_both_hops",
+        "paths:2:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions",
+        "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+        "paths:6:generated_collection_and_guard_sql_are_lexically_closed",
+        "paths:7:repeated_logical_labels_retain_the_exact_positioned_host_map",
+        "paths:8:repeated_collections_keep_separate_roles_and_plain_expansion_has_no_count_guard",
+        "paths:9:scalar_parameters_and_arithmetic_keep_original_tokens_and_separate_guards",
+        "paths:10:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:12:same_authored_edge_twice_uses_distinct_occurrence_aliases_and_both_directions"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    },
+    "aggregate.pathTargetDistinctCount": {
+      "accepted": [
+        "paths:11:path_counts_use_complete_filtered_bag_before_having_order_limit",
+        "paths:15:global_count_kind_inventory_and_empty_formula_are_selected",
+        "paths:18:left_root_distinguishes_absence_and_retains_native_match_inventory",
+        "paths:20:global_count_kind_inventory_and_empty_formula_are_selected"
+      ],
+      "refused": [],
+      "scope": "Exact selected logicalPlan capabilities from independently accepted finite response expectations; full same-binary replay and native qualification separate"
+    }
+  },
+  "missing": []
+}

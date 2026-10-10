@@ -1,0 +1,13 @@
+{
+  "scope": "Independent arithmetic capacity proof for reviewed Decimal28,2 multiplication by2.5000; not compiler or native execution",
+  "inputPrecision": 28,
+  "inputScale": 2,
+  "constantCoefficient": "25000",
+  "constantScale": 4,
+  "maximumAbsoluteProductCoefficient": "249999999999999999999999999975000",
+  "maximumCoefficientDigits": 33,
+  "productScale": 6,
+  "targetPrecision": 38,
+  "validInputProductOverflowPossible": false,
+  "reason": "Absolute input coefficient at most10^28-1; multiply by25000 yields33 digits, below38. Invalid source precision remains a separate input-domain refusal."
+}

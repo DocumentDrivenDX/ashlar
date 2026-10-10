@@ -1,0 +1,55 @@
+{
+  "scope": "Actual schema-only checks of nine unaccepted compiler candidate pairs; no semantic expected acceptance/native/index qualification",
+  "observationSha256": "914cff81e7aeeb1c5631c443e0e496667170bd0f89459a8122b0e298c7924124",
+  "runtimeInventorySha256": "8ad3b47482e604f1bdf713ba46c3e70f5bed59cd91b72f96e7966b2d08b4c776",
+  "selectedRuntimeFiles": 274,
+  "sourceFiles": 1842,
+  "openingClosingCustody": true,
+  "records": [
+    {
+      "id": "integer-expression",
+      "envelopeBytes": 198783,
+      "exit": 0
+    },
+    {
+      "id": "decimal-expression",
+      "envelopeBytes": 44205,
+      "exit": 0
+    },
+    {
+      "id": "boolean-direct",
+      "envelopeBytes": 32205,
+      "exit": 0
+    },
+    {
+      "id": "optional-projection",
+      "envelopeBytes": 32339,
+      "exit": 0
+    },
+    {
+      "id": "optional-null-predicate",
+      "envelopeBytes": 37695,
+      "exit": 0
+    },
+    {
+      "id": "optional-string-join",
+      "envelopeBytes": 49829,
+      "exit": 0
+    },
+    {
+      "id": "numeric-property-join",
+      "envelopeBytes": 49525,
+      "exit": 0
+    },
+    {
+      "id": "string-lex-in",
+      "envelopeBytes": 156179,
+      "exit": 0
+    },
+    {
+      "id": "optional-count-distinct",
+      "envelopeBytes": 42835,
+      "exit": 0
+    }
+  ]
+}
