@@ -1,0 +1,8 @@
+{
+  "canonicalAshlarRevision": "e0e788d29986f54c3d06e7d718ec844a1093055d",
+  "canonicalWeftRevision": "e9d606d3bb0216264b7351388875a0df384dc02c",
+  "canonicalImmutableCompilerSha256": "8015e54b4f35752325ce5f63aba55c7b83d1ba026a876e8d7edd923c2410f758",
+  "canonicalRuntime": "Spark4.0.1/Delta4.0.0; prior native-null runtime/JAR evidence retained under original-pack-weft-null-native-20261009",
+  "historicalKernelARevision": "e0e788d",
+  "qualification": "Original ecology success only; failed/unpublished kernels separate and not yet qualified"
+}

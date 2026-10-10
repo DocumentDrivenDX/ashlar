@@ -1,0 +1,45 @@
+{
+  "format": "weft-distinct-source-candidate/0.1",
+  "base": "1a8a3445302aa44a93167ef340dbcfb306805254",
+  "source": [
+    {
+      "path": "crates/weft-core/src/arithmetic_application_resolve.rs",
+      "sha256": "22d0c56b4d47243a0acf188406cd381fb1cf9771e90bcdf44fb1c84d5e53a265"
+    },
+    {
+      "path": "crates/weft-core/src/arithmetic_plan.rs",
+      "sha256": "11481d665cc2b6b15b7366d2eae5d3edf75e3fc053b3b899ba61ea84523ea2f2"
+    },
+    {
+      "path": "crates/weft-core/src/arithmetic_query.rs",
+      "sha256": "f6a8520f23fdc0b29ade3c96fa805e92e983fecc74666d3a11bd0191350e058e"
+    },
+    {
+      "path": "crates/weft-core/src/backend.rs",
+      "sha256": "07453c0c59fa55df109df9c16f00a20e8783538f93ac159180e5b8d216ea03a6"
+    },
+    {
+      "path": "crates/weft-databricks/src/arithmetic.rs",
+      "sha256": "de4f8539e782b50a506cfdf50be3ad32ec54f9f522fc9e77556fbc94929b2ed0"
+    },
+    {
+      "path": "crates/weft-databricks/src/candidate/arithmetic.rs",
+      "sha256": "6b8a788d88c7dc85682657a26608340f3f5e8296a71c2ea54c498a503da43cbc"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/exact-arithmetic-v0.3.md",
+      "sha256": "55f7ac1e8ab84dbd014d0bc97095a555b321f6d2afda89133b9525514afe1213"
+    },
+    {
+      "path": "docs/helix/02-design/contracts/logical-plan-v0.3.schema.json",
+      "sha256": "6216405748cceadae41f2afd116a6439f23e970f3ee84dd292a3b07f5f518618"
+    },
+    {
+      "path": "tests/ashlar-databricks/compiler.rs",
+      "sha256": "367d87d1f27ddec39436fa1e3206e218e3ce09dbf50c5d6aa67891b0b6687f87"
+    }
+  ],
+  "compilerSha256": "8015e54b4f35752325ce5f63aba55c7b83d1ba026a876e8d7edd923c2410f758",
+  "qualification": "compile-only; native host not yet admitted or executed",
+  "testQualification": "37 backend tests including portable older01/02 DISTINCT parse refusals; one closed true-only IR test"
+}

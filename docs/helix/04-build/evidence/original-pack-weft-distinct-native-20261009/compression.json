@@ -1,0 +1,12 @@
+[
+  {
+    "file": "canonical/report.json.gz",
+    "originalBytes": 8553379,
+    "originalSha256": "010aa98df025979d12c8a7b19237eb345250908322c3c0c5141dda77890e0ffa"
+  },
+  {
+    "file": "original-publication/report.json.gz",
+    "originalBytes": 1704479,
+    "originalSha256": "514958f24739e08885dade12d2a22e51e1f679c27336dccb7a53965b520b0083"
+  }
+]

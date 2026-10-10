@@ -1,0 +1,373 @@
+{
+  "format": "ashlar-original-ecology-distinct-native-evidence/0.1",
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "6a8629cc62bb1d1cb44e85d25c7ce42fd26e6ed5a0924c02e3c34b55ab7391dc"
+    },
+    {
+      "path": "canonical/original-artifact.json",
+      "sha256": "17c5f5f456174409596d23a026a0a48f9068bba55fb47ff495071b5942c99551"
+    },
+    {
+      "path": "canonical/original-request.json",
+      "sha256": "ed190b440393f4ff819fd730956b7f26aafee0ff1f29a6b0cb2c7e2736515655"
+    },
+    {
+      "path": "canonical/report.json.gz",
+      "sha256": "e19e9d69e86001ca64538d08130ee4b301a3b3639792d8184da63c34b6b87fa3"
+    },
+    {
+      "path": "canonical/run-a.log",
+      "sha256": "6e0fe8713110250ef7d8d7ff5dc9f69dadafb4f5351e1b1659c8e11b98253c81"
+    },
+    {
+      "path": "canonical-host-source/tests/test_weft_distinct.py",
+      "sha256": "bab2fa240e30750d7a0ac303fc90a68dbd1b3b70dc2b7397558f9648897a328e"
+    },
+    {
+      "path": "canonical-host-source/tools/check_native_distinct_control_source.ts",
+      "sha256": "da358723aa4a96ce434ac1e3fa8a7a5fa9372d9bc854378931512fb51b430df7"
+    },
+    {
+      "path": "canonical-host-source/tools/prepare_native_distinct_controls.py",
+      "sha256": "7169d03ee8a42d21b3ce46c266cf3c93f5cf2033b15d96691148733c599b77ae"
+    },
+    {
+      "path": "canonical-host-source/tools/run_commerce_arithmetic_weft.py",
+      "sha256": "ffd5f9c57592b09d3ad2720ac81380c6f39d0b6446a0bc0e7920aea0a9049b9f"
+    },
+    {
+      "path": "canonical-host-source/tools/run_native_distinct_controls.py",
+      "sha256": "14b5d0921a7e82d6986abee36cfb9048b50c2eeb6a36d58a4c121c975d28cbb8"
+    },
+    {
+      "path": "canonical-host-source/tools/run_pack_distinct_weft.py",
+      "sha256": "df2da78633803117f81ad30daa5cd2be0ef8a9d17ab5c2677a6c4208c3720fdf"
+    },
+    {
+      "path": "canonical-host-source/tools/weft_field_plan.py",
+      "sha256": "69c62e698703b9d3a1c279a0912af019ab15ac97c97b883fc54cc785505f1ac0"
+    },
+    {
+      "path": "compression.json",
+      "sha256": "64560ad31ec85e022fb2e32e142ff07d4d389d8fb4ad32587c4b5d3b9adcf584"
+    },
+    {
+      "path": "original-publication/native/attempts/.ashlar-local-installation-reservation.json",
+      "sha256": "cf7f2a362fbed031c632a8a41dd60b11c46415d1e745abbbc12337645f2dd9ac"
+    },
+    {
+      "path": "original-publication/native/attempts/.part-00000-0158a2b2-e5c0-4891-8e1b-bdc2e48deb6a-c000.snappy.parquet.crc",
+      "sha256": "f3c30722c80b86c1e94c8768acafece49ebaf8f0b9306f82ee58aa8e65fdc4f1"
+    },
+    {
+      "path": "original-publication/native/attempts/.part-00000-198a1e7f-1cfe-4e06-a281-93a0bf2eab2f-c000.snappy.parquet.crc",
+      "sha256": "99f37d1a0bd4b1b9b40e526dd2431ef934dc2dff5523024442483ceeea4f21e1"
+    },
+    {
+      "path": "original-publication/native/attempts/.part-00000-887496da-8b02-44c6-9153-4cbc17e72c8a-c000.snappy.parquet.crc",
+      "sha256": "14667070e523bd949991446d2b651d4b6319895cf73a83875694fa7c66096c66"
+    },
+    {
+      "path": "original-publication/native/attempts/.part-00000-e895679b-a575-49cb-adc8-ea4d9828b5f3-c000.snappy.parquet.crc",
+      "sha256": "341ed96d940078b38a3e195702690b18a2733e6e38f8f39f2c700b4c0cb760e9"
+    },
+    {
+      "path": "original-publication/native/attempts/.part-00000-f82397aa-2c2f-4fa8-a698-44a4c9a22c87-c000.snappy.parquet.crc",
+      "sha256": "d6c7e8cd92e1ee599bb815df9867b29b87c335ae55a6782eb8fc6748441e80ac"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "beedf9c6c42995294d1fbbcabf47bd8d8b7b5e7d7d85b5adafbff280190c7c2f"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/.00000000000000000001.json.crc",
+      "sha256": "080903df9a7bff62bdcf981a2a812ba96a1e5abc0abfa1ec58e997385e252e8f"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/.00000000000000000002.json.crc",
+      "sha256": "275c06fb2e98633ebfbb8ec25eeb7a04978244e91f42681ff3d76bcbe2020a27"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/.00000000000000000003.json.crc",
+      "sha256": "c4b6e6c455e0eed07c9a6e1dfcffe21f904e18cbfc96bd6523b40a61a916064a"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/.00000000000000000004.json.crc",
+      "sha256": "6edfb26534e2144e20c5a640fb29611095cd147407f70c2d74c4b066d90ac38a"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/.00000000000000000005.json.crc",
+      "sha256": "732917d0a1a73f495beb99ee754c7ae83695eceacff661869d6cae0e18ae70b9"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/.00000000000000000006.json.crc",
+      "sha256": "ebe2b833a84adc6e345b73a8e6e99240f675ca1877c741ce0fc5814dc22f2acf"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/00000000000000000000.json",
+      "sha256": "4eb711629a03f281948e996d4bf923d3bc184948fbc1eaebacb0917fb7c0456c"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/00000000000000000001.json",
+      "sha256": "0c6476c2cd9c8012777d7f9eacc10701847fe7da2a1f6ada99c2366044f281ee"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/00000000000000000002.json",
+      "sha256": "567740a036a0b5d75c89a161560cc508da86b6bdc4659df7eb78236daeaf8075"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/00000000000000000003.json",
+      "sha256": "b9643d85f033db2e291a55c5bdb0b36d20421e2dcb5d646f13fbe74b95df8806"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/00000000000000000004.json",
+      "sha256": "06411859239242c79432178f04f087c4d6be6a12df5174061e870487c52efb06"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/00000000000000000005.json",
+      "sha256": "46b0167692fec6ba690ac6de3ffcd715403b8b899e875c7b3b58449538a1b774"
+    },
+    {
+      "path": "original-publication/native/attempts/_delta_log/00000000000000000006.json",
+      "sha256": "d421d31cd09e43aeeb02a27811b26ab39fbe46d17b45996e136dd9e556472556"
+    },
+    {
+      "path": "original-publication/native/attempts/part-00000-0158a2b2-e5c0-4891-8e1b-bdc2e48deb6a-c000.snappy.parquet",
+      "sha256": "c0c55326fb334bd659b5692e2bf9ce395b54bf537146ea4591dc1cb5643cdbb1"
+    },
+    {
+      "path": "original-publication/native/attempts/part-00000-198a1e7f-1cfe-4e06-a281-93a0bf2eab2f-c000.snappy.parquet",
+      "sha256": "f1fc5ba04823f7a80009a4134d862afb7c4234fc1973c5f3787b2c4c152c2075"
+    },
+    {
+      "path": "original-publication/native/attempts/part-00000-887496da-8b02-44c6-9153-4cbc17e72c8a-c000.snappy.parquet",
+      "sha256": "780eed93d60c9591762f90623b53c6ad33952f4bcc5028b02e54e932b0db04a2"
+    },
+    {
+      "path": "original-publication/native/attempts/part-00000-e895679b-a575-49cb-adc8-ea4d9828b5f3-c000.snappy.parquet",
+      "sha256": "977a7d6eafeb31db10494254053bc8320ee0ef324a00bbaa9254734f6cf5d821"
+    },
+    {
+      "path": "original-publication/native/attempts/part-00000-f82397aa-2c2f-4fa8-a698-44a4c9a22c87-c000.snappy.parquet",
+      "sha256": "5df72db00d7d7fe5b9b33653fa9274a031e7bde3ffe9f5cfc08e6c618c49493e"
+    },
+    {
+      "path": "original-publication/native/edge_current/.ashlar-local-installation-reservation.json",
+      "sha256": "cf7f2a362fbed031c632a8a41dd60b11c46415d1e745abbbc12337645f2dd9ac"
+    },
+    {
+      "path": "original-publication/native/edge_current/.part-00000-d26d7009-877c-4821-9b68-efabb0b293f4-c000.snappy.parquet.crc",
+      "sha256": "124ad09a48f91400d5daebc19759eb70fbc6e46d9dd31b1962105087b038e78b"
+    },
+    {
+      "path": "original-publication/native/edge_current/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "0835188a123d1fcb770806228c31ac09a6881b6fa57b65eb9addd94a5822131c"
+    },
+    {
+      "path": "original-publication/native/edge_current/_delta_log/.00000000000000000001.json.crc",
+      "sha256": "f9a3caf3526f2ce2cf3337890db86ba7db4a10dd5c67ed75cca2a16c7d02ba2a"
+    },
+    {
+      "path": "original-publication/native/edge_current/_delta_log/.00000000000000000002.json.crc",
+      "sha256": "60314c7c6629237cc98298d7444d73ccee5f66330f8da74ae9e5dd6d7bb7d52e"
+    },
+    {
+      "path": "original-publication/native/edge_current/_delta_log/00000000000000000000.json",
+      "sha256": "cd15687288d56cf9350cda281017b14325fe07bf309d3806c6126f8534540d5c"
+    },
+    {
+      "path": "original-publication/native/edge_current/_delta_log/00000000000000000001.json",
+      "sha256": "de672aee20ab053d3fad9c2eb6cf1ffb61a9d0a6482d8837fd59141ef8e84e8b"
+    },
+    {
+      "path": "original-publication/native/edge_current/_delta_log/00000000000000000002.json",
+      "sha256": "bef9055b8bd39bbf5555b1859cfd8d5c603a79436721abb870e949b17801a4b7"
+    },
+    {
+      "path": "original-publication/native/edge_current/part-00000-d26d7009-877c-4821-9b68-efabb0b293f4-c000.snappy.parquet",
+      "sha256": "bde242bbebfe00657fe58793d063b2b860ce102e4d244f5e256a04c12a06c6ba"
+    },
+    {
+      "path": "original-publication/native/manifest/.ashlar-local-installation-reservation.json",
+      "sha256": "cf7f2a362fbed031c632a8a41dd60b11c46415d1e745abbbc12337645f2dd9ac"
+    },
+    {
+      "path": "original-publication/native/manifest/.part-00000-dba59e8f-2ba2-48d0-9d68-972b7094bb49-c000.snappy.parquet.crc",
+      "sha256": "b502c8806d0a7bc4102c0a02016e3e7a26818710b76386349d4c70132a263e24"
+    },
+    {
+      "path": "original-publication/native/manifest/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "857795b71c11d1f314fffcdce9ca6099cffbc88148aee6551120c64c03c7b372"
+    },
+    {
+      "path": "original-publication/native/manifest/_delta_log/.00000000000000000001.json.crc",
+      "sha256": "7050d2653c11ad2328a5602bdb864e278a501420bd2ab544d940da50f1fe774b"
+    },
+    {
+      "path": "original-publication/native/manifest/_delta_log/.00000000000000000002.json.crc",
+      "sha256": "5db6cc091c7e3ce381f5c3991895ff9df6069f4a62968f79b71ac1069029a0a1"
+    },
+    {
+      "path": "original-publication/native/manifest/_delta_log/00000000000000000000.json",
+      "sha256": "95165700b7f669e4daa51f799da627a85a073264ee305436649b6784804241ba"
+    },
+    {
+      "path": "original-publication/native/manifest/_delta_log/00000000000000000001.json",
+      "sha256": "ab0567f60708f1d4a1922dae292354fb98e73dca289f2b45aff3bdfebffadb55"
+    },
+    {
+      "path": "original-publication/native/manifest/_delta_log/00000000000000000002.json",
+      "sha256": "6f90e3ef98efcf68ab1d0368203c37646fd02bfe4b4f4084728660bf24c2e601"
+    },
+    {
+      "path": "original-publication/native/manifest/part-00000-dba59e8f-2ba2-48d0-9d68-972b7094bb49-c000.snappy.parquet",
+      "sha256": "ffe3c989e436a80e15fc190371adc4e14b4216775aed0faa1559298280f658db"
+    },
+    {
+      "path": "original-publication/native/object_current/.ashlar-local-installation-reservation.json",
+      "sha256": "cf7f2a362fbed031c632a8a41dd60b11c46415d1e745abbbc12337645f2dd9ac"
+    },
+    {
+      "path": "original-publication/native/object_current/.part-00000-5efa5df9-d54a-4fe8-854d-89ab69dd6e1e-c000.snappy.parquet.crc",
+      "sha256": "c5f0f4b4b076e51f9b81468bec94eb67f88d7260ca59c813951dd5ab20698ca8"
+    },
+    {
+      "path": "original-publication/native/object_current/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "34d09cfc430e885abde6f656ceda3be4c968a4fbfa69b462af92daf98ae9e32b"
+    },
+    {
+      "path": "original-publication/native/object_current/_delta_log/.00000000000000000001.json.crc",
+      "sha256": "8eebe4e369146ea6479c30b35ae51adfc1a4b351f7f0fa2e192cef0a3a4dd042"
+    },
+    {
+      "path": "original-publication/native/object_current/_delta_log/.00000000000000000002.json.crc",
+      "sha256": "168dd10a36ddc8d05e61589a88e3e4ce4f6e3f0b91cdc2fbf5d19979a02e06c6"
+    },
+    {
+      "path": "original-publication/native/object_current/_delta_log/00000000000000000000.json",
+      "sha256": "d9368b322063b34424a6613cff84bda52ca409174b2e71de2fa14caa413bbe01"
+    },
+    {
+      "path": "original-publication/native/object_current/_delta_log/00000000000000000001.json",
+      "sha256": "cfb0b726a4d6d9e1445c39fd3d0706c33d56f62d70659a3a789ee7b89d57c9dc"
+    },
+    {
+      "path": "original-publication/native/object_current/_delta_log/00000000000000000002.json",
+      "sha256": "d5958d3f917f31d07ebc7eafe144eeabe3cc6fd892c329487ffd00d76f50eaa0"
+    },
+    {
+      "path": "original-publication/native/object_current/part-00000-5efa5df9-d54a-4fe8-854d-89ab69dd6e1e-c000.snappy.parquet",
+      "sha256": "e8b2f0167b783d748fd00e44b06e76fc0e8b151a97870b1f582cadfde42f36f5"
+    },
+    {
+      "path": "original-publication/native/tombstone/.ashlar-local-installation-reservation.json",
+      "sha256": "cf7f2a362fbed031c632a8a41dd60b11c46415d1e745abbbc12337645f2dd9ac"
+    },
+    {
+      "path": "original-publication/native/tombstone/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "11ae53cbfaf18a2fc520312acefff15d9458f349119ce0cbcef5fcbe75bc8844"
+    },
+    {
+      "path": "original-publication/native/tombstone/_delta_log/.00000000000000000001.json.crc",
+      "sha256": "b02fc0f608d76e25199bb206304828a73dedc12f9a69a00f8db726c4182a0ca6"
+    },
+    {
+      "path": "original-publication/native/tombstone/_delta_log/00000000000000000000.json",
+      "sha256": "0ace37f6bb3254e515dd636d3d8163259c22a40a0ca344b0e127e40370e66d20"
+    },
+    {
+      "path": "original-publication/native/tombstone/_delta_log/00000000000000000001.json",
+      "sha256": "0ac1bf05ab7c749bbf995cc93cc3d74c3c80a17f63adc29be9bb4d2d2cc7aeea"
+    },
+    {
+      "path": "original-publication/native/whole_source_history/.ashlar-local-installation-reservation.json",
+      "sha256": "cf7f2a362fbed031c632a8a41dd60b11c46415d1e745abbbc12337645f2dd9ac"
+    },
+    {
+      "path": "original-publication/native/whole_source_history/.part-00000-7fa9528d-9651-42ad-8ec5-484866af48b4-c000.snappy.parquet.crc",
+      "sha256": "99c16c4ded596a8bc11b97bab1c1b18738e45032b43bea497d16ed1615cbf516"
+    },
+    {
+      "path": "original-publication/native/whole_source_history/_delta_log/.00000000000000000000.json.crc",
+      "sha256": "6b43cf24e8f5147ad001ee4d025e039dfbede9e98771572b658b87f0de14cf71"
+    },
+    {
+      "path": "original-publication/native/whole_source_history/_delta_log/.00000000000000000001.json.crc",
+      "sha256": "f1acd6e6ca2e5d62595aee48e794fda03f3edd621cca5ab8f6422622328fa696"
+    },
+    {
+      "path": "original-publication/native/whole_source_history/_delta_log/.00000000000000000002.json.crc",
+      "sha256": "2d6b71272d15646569d1a52883cae98fd02ef4971a2d8063d377b63cba2e8971"
+    },
+    {
+      "path": "original-publication/native/whole_source_history/_delta_log/00000000000000000000.json",
+      "sha256": "b29a5f62ca207b0dbbf7eb5d62e399f894fdd0be4d2590b23ee7e269afc09ace"
+    },
+    {
+      "path": "original-publication/native/whole_source_history/_delta_log/00000000000000000001.json",
+      "sha256": "2947f1326fdd476c1e1833640de96ad5be79a4dd999e230e8ffdf80d84e4fb10"
+    },
+    {
+      "path": "original-publication/native/whole_source_history/_delta_log/00000000000000000002.json",
+      "sha256": "dad101b0b13c4ae5dc3f01b20e48c691a4a562b121a31a6b5f37b20d9ed4d78e"
+    },
+    {
+      "path": "original-publication/native/whole_source_history/part-00000-7fa9528d-9651-42ad-8ec5-484866af48b4-c000.snappy.parquet",
+      "sha256": "b885a1c5834a4b9d508be6f3a3311b69aa92087932beb0ac165d459dbfa547e3"
+    },
+    {
+      "path": "original-publication/report.json.gz",
+      "sha256": "9fad127883a95efa8e061eeef63cfb78d4a0d201d219e8a1b8a0058ad0997a44"
+    },
+    {
+      "path": "original-publication/source.jsonl",
+      "sha256": "56798cf0ffb9ea899219e6ac7f1e130a428ab16c8866c99583384d1ea833e144"
+    },
+    {
+      "path": "source-provenance.json",
+      "sha256": "a0d6b60b55c17fe8f25d56e04f31d530166ace629f827db3b8ddb1cf536bf28a"
+    },
+    {
+      "path": "weft-source/manifest.json",
+      "sha256": "0773f9055da27b2e8fd4e37316121dca45b5aa6663269212ba8141cad95ba7d7"
+    },
+    {
+      "path": "weft-source/source/crates/weft-core/src/arithmetic_application_resolve.rs",
+      "sha256": "22d0c56b4d47243a0acf188406cd381fb1cf9771e90bcdf44fb1c84d5e53a265"
+    },
+    {
+      "path": "weft-source/source/crates/weft-core/src/arithmetic_plan.rs",
+      "sha256": "11481d665cc2b6b15b7366d2eae5d3edf75e3fc053b3b899ba61ea84523ea2f2"
+    },
+    {
+      "path": "weft-source/source/crates/weft-core/src/arithmetic_query.rs",
+      "sha256": "f6a8520f23fdc0b29ade3c96fa805e92e983fecc74666d3a11bd0191350e058e"
+    },
+    {
+      "path": "weft-source/source/crates/weft-core/src/backend.rs",
+      "sha256": "07453c0c59fa55df109df9c16f00a20e8783538f93ac159180e5b8d216ea03a6"
+    },
+    {
+      "path": "weft-source/source/crates/weft-databricks/src/arithmetic.rs",
+      "sha256": "de4f8539e782b50a506cfdf50be3ad32ec54f9f522fc9e77556fbc94929b2ed0"
+    },
+    {
+      "path": "weft-source/source/crates/weft-databricks/src/candidate/arithmetic.rs",
+      "sha256": "6b8a788d88c7dc85682657a26608340f3f5e8296a71c2ea54c498a503da43cbc"
+    },
+    {
+      "path": "weft-source/source/docs/helix/02-design/contracts/exact-arithmetic-v0.3.md",
+      "sha256": "55f7ac1e8ab84dbd014d0bc97095a555b321f6d2afda89133b9525514afe1213"
+    },
+    {
+      "path": "weft-source/source/docs/helix/02-design/contracts/logical-plan-v0.3.schema.json",
+      "sha256": "6216405748cceadae41f2afd116a6439f23e970f3ee84dd292a3b07f5f518618"
+    },
+    {
+      "path": "weft-source/source/tests/ashlar-databricks/compiler.rs",
+      "sha256": "367d87d1f27ddec39436fa1e3206e218e3ce09dbf50c5d6aa67891b0b6687f87"
+    }
+  ]
+}
