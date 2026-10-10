@@ -1,0 +1,108 @@
+{
+  "installedFilesOpeningClosing": [
+    {
+      "bytes": 8273840,
+      "path": "weft-paths",
+      "sha256": "71ba88a07c27661413830d5a42e2ea5c4a8b071df965bb98dbbe8f3615a6c911"
+    },
+    {
+      "bytes": 1407,
+      "path": "ready.json",
+      "sha256": "420dce3f3135bd2584fa93568e76b3ae850c014b23b688a369b4318c89f16afc"
+    },
+    {
+      "bytes": 45893,
+      "path": "provenance.json",
+      "sha256": "bf0e6742cadae1409d841d109e108468eac105ac63293144ad47a1b013977602"
+    },
+    {
+      "bytes": 51125,
+      "path": "backend-manifest.json",
+      "sha256": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5"
+    },
+    {
+      "bytes": 3511,
+      "path": "schemas/compile-request-v0.4.schema.json",
+      "sha256": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932"
+    },
+    {
+      "bytes": 62086,
+      "path": "schemas/compile-response-v0.4.schema.json",
+      "sha256": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140"
+    },
+    {
+      "bytes": 42813,
+      "path": "schemas/logical-plan-v0.4.schema.json",
+      "sha256": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    },
+    {
+      "bytes": 2281,
+      "path": "schemas/application-result-v0.4.schema.json",
+      "sha256": "ee87e4e845d670601a301701dc6109c7a37dadb96ccb1e7f75c8144c5bd8bc2a"
+    },
+    {
+      "bytes": 18066,
+      "path": "schemas/backend-manifest-v0.3.schema.json",
+      "sha256": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a"
+    }
+  ],
+  "openingClosingCustody": true,
+  "phases": [
+    {
+      "exactExpected": true,
+      "exitCode": 0,
+      "id": "install",
+      "stderrBytes": 29,
+      "stderrSha256": "3df814fc92ece8ec5ccbcaea93bc6db90db90b8e8fd990e4743745a48943f91e",
+      "stdoutBytes": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "exactExpected": true,
+      "exitCode": 0,
+      "id": "positive-paths",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 99372,
+      "stdoutSha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8"
+    },
+    {
+      "exactExpected": true,
+      "exitCode": 0,
+      "id": "legacy-namespace",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 244,
+      "stdoutSha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18"
+    },
+    {
+      "exactExpected": true,
+      "exitCode": 0,
+      "id": "fresh-binding-0",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 99864,
+      "stdoutSha256": "0825fd12d6e14fe3b60e416a963f18f0dffe5448381959e3d3123a349a171d92"
+    },
+    {
+      "exactExpected": true,
+      "exitCode": 0,
+      "id": "fresh-binding-1",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 99864,
+      "stdoutSha256": "081f1f8dede25832b67b54beff271029d3c4f92dcf8b9bebd41ca7270e61d14a"
+    },
+    {
+      "exactExpected": true,
+      "exitCode": 0,
+      "id": "fresh-binding-2",
+      "stderrBytes": 0,
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdoutBytes": 100007,
+      "stdoutSha256": "b6cf74ef768f4087048e45cf7743dfe6dfc388751fd344bfd765702c123f17d6"
+    }
+  ],
+  "scope": "Actual installed CLI/indexed compiler transport only; no native engine/source/publication/ACK qualification.",
+  "status": "passed"
+}

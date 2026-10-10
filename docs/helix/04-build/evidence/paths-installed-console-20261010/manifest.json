@@ -1,0 +1,198 @@
+{
+  "scope": "Actual generated installed ashlar console entrypoint, one installation and five exact original compiler responses. Opening/closing hashes assume cooperating writers; opened stdin fd is not immutable. No engine, native publication/source/ACK, new corpus or OTel integration qualification.",
+  "rootExecSession": 67407,
+  "rootExecTerminalCode": 0,
+  "sourceCommit": "58f801fcbaeb3faa9cd2f3e967182794d45d8194",
+  "wheelSha256": "d20121995c17cd819de2648738474072302fd7859b3781f3fed1d12a53a5c146",
+  "indexCommit": "c8d825808a27e15517c1fc93c3fba0faffc2406e",
+  "files": [
+    {
+      "path": "freeze.json",
+      "bytes": 975,
+      "sha256": "15a338b125193b291d27f61d4b346cd4afc1ee8363d14eba55289be4ed70e4de",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/freeze.json"
+    },
+    {
+      "path": "command.json",
+      "bytes": 56744,
+      "sha256": "ac8af724be93eef75bf62ea521fac1a7e3d9c63c24f3122896adcc1b2b35a22b",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/command.json"
+    },
+    {
+      "path": "capture.py",
+      "bytes": 7430,
+      "sha256": "e21cbe46042bd34f78afcf86d0c350543f735e1b53c9b72a1f2d471c35c88467",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/capture.py"
+    },
+    {
+      "path": "cases.json",
+      "bytes": 618,
+      "sha256": "639302347ed55867c6ca7e37094b36596421742475c555d4f0ccf2e0c4d0ebed",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/cases.json"
+    },
+    {
+      "path": "outcome.json",
+      "bytes": 3658,
+      "sha256": "0b775ccf8f4d4c96cbd189748ee20b90fbc63da8d8b891f1fb1dbc25b96638c0",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/outcome.json"
+    },
+    {
+      "path": "inputs/fresh-binding-0.request",
+      "bytes": 55381,
+      "sha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/fresh-binding-0.request"
+    },
+    {
+      "path": "inputs/fresh-binding-0.response",
+      "bytes": 99864,
+      "sha256": "0825fd12d6e14fe3b60e416a963f18f0dffe5448381959e3d3123a349a171d92",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/fresh-binding-0.response"
+    },
+    {
+      "path": "inputs/fresh-binding-1.request",
+      "bytes": 55381,
+      "sha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/fresh-binding-1.request"
+    },
+    {
+      "path": "inputs/fresh-binding-1.response",
+      "bytes": 99864,
+      "sha256": "081f1f8dede25832b67b54beff271029d3c4f92dcf8b9bebd41ca7270e61d14a",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/fresh-binding-1.response"
+    },
+    {
+      "path": "inputs/fresh-binding-2.request",
+      "bytes": 55385,
+      "sha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/fresh-binding-2.request"
+    },
+    {
+      "path": "inputs/fresh-binding-2.response",
+      "bytes": 100007,
+      "sha256": "b6cf74ef768f4087048e45cf7743dfe6dfc388751fd344bfd765702c123f17d6",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/fresh-binding-2.response"
+    },
+    {
+      "path": "inputs/legacy-namespace.request",
+      "bytes": 3203,
+      "sha256": "a505cf6b21ec7ed343cf56bc281bc08a802b490e3deb9c00f9ad21c606c4ae3d",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/legacy-namespace.request"
+    },
+    {
+      "path": "inputs/legacy-namespace.response",
+      "bytes": 244,
+      "sha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/legacy-namespace.response"
+    },
+    {
+      "path": "inputs/positive-paths.request",
+      "bytes": 55374,
+      "sha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/positive-paths.request"
+    },
+    {
+      "path": "inputs/positive-paths.response",
+      "bytes": 99372,
+      "sha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/positive-paths.response"
+    },
+    {
+      "path": "actual/install.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/install.stdout"
+    },
+    {
+      "path": "actual/install.stderr",
+      "bytes": 29,
+      "sha256": "3df814fc92ece8ec5ccbcaea93bc6db90db90b8e8fd990e4743745a48943f91e",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/install.stderr"
+    },
+    {
+      "path": "actual/positive-paths.stdout",
+      "bytes": 99372,
+      "sha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/positive-paths.stdout"
+    },
+    {
+      "path": "actual/positive-paths.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/positive-paths.stderr"
+    },
+    {
+      "path": "actual/legacy-namespace.stdout",
+      "bytes": 244,
+      "sha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/legacy-namespace.stdout"
+    },
+    {
+      "path": "actual/legacy-namespace.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/legacy-namespace.stderr"
+    },
+    {
+      "path": "actual/fresh-binding-0.stdout",
+      "bytes": 99864,
+      "sha256": "0825fd12d6e14fe3b60e416a963f18f0dffe5448381959e3d3123a349a171d92",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/fresh-binding-0.stdout"
+    },
+    {
+      "path": "actual/fresh-binding-0.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/fresh-binding-0.stderr"
+    },
+    {
+      "path": "actual/fresh-binding-1.stdout",
+      "bytes": 99864,
+      "sha256": "081f1f8dede25832b67b54beff271029d3c4f92dcf8b9bebd41ca7270e61d14a",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/fresh-binding-1.stdout"
+    },
+    {
+      "path": "actual/fresh-binding-1.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/fresh-binding-1.stderr"
+    },
+    {
+      "path": "actual/fresh-binding-2.stdout",
+      "bytes": 100007,
+      "sha256": "b6cf74ef768f4087048e45cf7743dfe6dfc388751fd344bfd765702c123f17d6",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/fresh-binding-2.stdout"
+    },
+    {
+      "path": "actual/fresh-binding-2.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/fresh-binding-2.stderr"
+    },
+    {
+      "path": "availability/ready.json",
+      "bytes": 1407,
+      "sha256": "420dce3f3135bd2584fa93568e76b3ae850c014b23b688a369b4318c89f16afc",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/ready.json"
+    },
+    {
+      "path": "availability/provenance.json",
+      "bytes": 45893,
+      "sha256": "bf0e6742cadae1409d841d109e108468eac105ac63293144ad47a1b013977602",
+      "source": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/provenance.json"
+    },
+    {
+      "path": "reviews/astra-paths-installed-cli-command-review-20261010-c.json",
+      "bytes": 4566,
+      "sha256": "8d35bd7f0bd4c4d7de9f408791e1d5e8c616f701276b32c7e6a7e12944de16e3",
+      "source": "/private/tmp/astra-paths-installed-cli-command-review-20261010-c.json"
+    },
+    {
+      "path": "reviews/astra-paths-installed-cli-inputs-review-20261010-a.json",
+      "bytes": 8359,
+      "sha256": "e7ed1ef2bd7ab8204ac4dd1d74380d4982e3152382fa3b0ab5e86d4df9606c99",
+      "source": "/private/tmp/astra-paths-installed-cli-inputs-review-20261010-a.json"
+    }
+  ],
+  "limits": "Six sequential child processes; each60s/stdout16MiB/stderr4KiB;9installedfile and184selectedresource openingclosing hashes;ordinary captures not durable commit evidence.",
+  "retention": "Exact requests/responses, bounded console outputs, originalready/provenance retained; installedruntime/compiler binary inventories referenced, not duplicated."
+}

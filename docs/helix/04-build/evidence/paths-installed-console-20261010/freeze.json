@@ -1,0 +1,27 @@
+{
+  "argv": [
+    "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/capture.py",
+    "ac8af724be93eef75bf62ea521fac1a7e3d9c63c24f3122896adcc1b2b35a22b"
+  ],
+  "command": {
+    "bytes": 56744,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/command.json",
+    "sha256": "ac8af724be93eef75bf62ea521fac1a7e3d9c63c24f3122896adcc1b2b35a22b"
+  },
+  "cwd": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c",
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "executed": false,
+  "resourceFiles": 184,
+  "runner": {
+    "bytes": 7430,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/capture.py",
+    "sha256": "e21cbe46042bd34f78afcf86d0c350543f735e1b53c9b72a1f2d471c35c88467"
+  },
+  "supersedes": "/private/tmp/ashlar-paths-installed-cli-command-20261010-b/freeze.json"
+}

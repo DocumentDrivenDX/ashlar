@@ -1,0 +1,95 @@
+{
+  "capture": {
+    "bytes": 7430,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/capture.py",
+    "sha256": "e21cbe46042bd34f78afcf86d0c350543f735e1b53c9b72a1f2d471c35c88467"
+  },
+  "command": {
+    "bytes": 56744,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/command.json",
+    "sha256": "ac8af724be93eef75bf62ea521fac1a7e3d9c63c24f3122896adcc1b2b35a22b"
+  },
+  "conditions": [
+    "Execute exactly the frozen argv, cwd and environment, with no source overlays or additional wrapper.",
+    "Retain all raw bounded outputs, terminal result and closing custody; any drift, refusal, cancellation or incomplete outcome withholds success."
+  ],
+  "custodyLimits": [
+    "Selected installed wheel, entrypoint/interpreter, index, package and original expected-byte resources only; no full Python standard-library or macOS dynamic-library closure.",
+    "Opened stdin is a no-follow regular descriptor under cooperating-writer opening/closing hash custody, not an immutable byte snapshot.",
+    "Accepted expectations are the already reviewed compiler bytes; this command records installed console transport correspondence.",
+    "Execution remains root-owned; this review ran only controlled Python child tests and read/hash verification."
+  ],
+  "cwd": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c",
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "execution": [
+    "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/python",
+    "-I",
+    "-B",
+    "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/capture.py",
+    "ac8af724be93eef75bf62ea521fac1a7e3d9c63c24f3122896adcc1b2b35a22b"
+  ],
+  "finalInputRecheck": {
+    "allCurrentSha256AndLengthsMatch": true,
+    "bytes": 63397505,
+    "fiveRequestAndExpectedPairsByteEqualToReviewedA": true,
+    "freshOutputsAbsent": 14,
+    "maximumFileBytes": 17277120,
+    "modeCounts": {
+      "0444": 69,
+      "0555": 1,
+      "0644": 112,
+      "0755": 2
+    },
+    "normalizedCommandUnchangedExceptCaptureDescriptor": true,
+    "regularResources": 184
+  },
+  "findingsClosed": [
+    "Original cleanup-only BaseException object is preserved; all owned cleanup is attempted.",
+    "Closing selected-resource verification runs in finally on successful, failing and canceled bodies.",
+    "The cleanup marker is a single Boolean comparison; a failed closing check cannot retain a true openingClosingCustody or passed result."
+  ],
+  "freeze": {
+    "bytes": 975,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/freeze.json",
+    "sha256": "15a338b125193b291d27f61d4b346cd4afc1ee8363d14eba55289be4ed70e4de"
+  },
+  "helixBoundaryAssessment": "Installed public CLI composition and fixed trust remain separate from application source/native authority. Configured finite process/output limits, safe cancellation diagnostics and explicit finite proof scope are preserved.",
+  "independentControls": {
+    "cases": [
+      "original stdin byte forwarding with controlled Python child",
+      "cleanup-only cancellation identity",
+      "body cancellation identity through group cleanup failure with true safe marker",
+      "partial output acquisition closes owned stream",
+      "FIFO stdin refuses before spawn",
+      "finite deadline and bounded stdout refusal",
+      "closing custody runs after body failure without replacing primary",
+      "closing-only failure keeps incomplete and openingClosingCustody false"
+    ],
+    "log": {
+      "bytes": 636,
+      "path": "/private/tmp/astra-paths-console-capture-probe-20261010-c.log",
+      "sha256": "2c04c14bfce66aa681f3c995b006b79aaeedb9c1ff3ba10cebd674fb411ec85b"
+    },
+    "passed": 8,
+    "script": {
+      "bytes": 5796,
+      "path": "/private/tmp/astra-paths-console-capture-probe-20261010-c.py",
+      "sha256": "0ae88c0580d1a970a530fff46bb2d6f588a1516d00e8647d4a45524ad4fedbc4"
+    }
+  },
+  "limits": {
+    "seconds": 60,
+    "stderrBytes": 4096,
+    "stdoutBytes": 16777216
+  },
+  "priorInputReview": {
+    "bytes": 8359,
+    "path": "/private/tmp/astra-paths-installed-cli-inputs-review-20261010-a.json",
+    "sha256": "e7ed1ef2bd7ab8204ac4dd1d74380d4982e3152382fa3b0ab5e86d4df9606c99"
+  },
+  "scope": "Only six fresh installed console processes: one explicit indexed Paths installation and five original accepted compile request/response pairs. No SDK, native engine, publication, source admission, ACK, new full corpus, or native qualification claim.",
+  "verdict": "APPROVED_FOR_ROOT_BOUNDED_EXECUTION"
+}

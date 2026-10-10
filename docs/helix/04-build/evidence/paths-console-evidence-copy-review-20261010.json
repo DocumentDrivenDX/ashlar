@@ -1,0 +1,14 @@
+{
+  "allRelativeRegularPathsAndClosedInventory": true,
+  "everyRetainedFileExactOriginalSourceBytes": true,
+  "manifest": {
+    "bytes": 9123,
+    "path": "/private/tmp/ashlar-paths-console-evidence-20261010-a/manifest.json",
+    "sha256": "1edc2c12b5512aa27c10473519e2eb4e1490644a1c12136347f9ba4ff2f97908"
+  },
+  "retained": "Frozen command/capture, raw original five pairs, six actual stdout/stderr pairs, exact outcome, ready/provenance and two prior review receipts.",
+  "scope": "Copy and retained-claim review only. Manifest correctly limits actual six-process installed console/compile evidence and cooperating-writer custody; no native, OTel, new full corpus or full runtime binary archive claim. Actual-result aggregate review is a separate additive receipt.",
+  "selectedBytes": 1153105,
+  "selectedFiles": 31,
+  "verdict": "PASS_EXACT_SELECTED_COPY"
+}

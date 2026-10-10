@@ -1,0 +1,75 @@
+{
+  "actualOutcome": {
+    "bytes": 3658,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/outcome.json",
+    "sha256": "0b775ccf8f4d4c96cbd189748ee20b90fbc63da8d8b891f1fb1dbc25b96638c0"
+  },
+  "archiveCopyReview": {
+    "bytes": 863,
+    "path": "/private/tmp/astra-paths-console-evidence-copy-review-20261010-a.json",
+    "sha256": "5debc867abc4b26b331812b555e78d000d53419c9a234a7050ebbc86f0041bf3"
+  },
+  "commandGate": {
+    "bytes": 4566,
+    "path": "/private/tmp/astra-paths-installed-cli-command-review-20261010-c.json",
+    "sha256": "8d35bd7f0bd4c4d7de9f408791e1d5e8c616f701276b32c7e6a7e12944de16e3"
+  },
+  "independentCustodyReview": {
+    "bytes": 5693,
+    "path": "/private/tmp/astra-paths-console-result-custody-review-20261010-c.json",
+    "sha256": "d3212af87cd097dc06bafeadcbc057201acde653ae3a6134d858345589aa0039"
+  },
+  "independentPairAndInstallationReview": {
+    "bytes": 16358,
+    "path": "/private/tmp/astra-paths-installed-cli-result-review-20261010-c.json",
+    "sha256": "e99ae64c32f9433685fa56faa1d3b2aaaa743767a570911d07ad079e9b03169f"
+  },
+  "limits": [
+    "This proves the selected installed generated console entrypoint can install the indexed Paths package and preserve five complete previously accepted compiler request/response pairs across separate processes.",
+    "It is not a new full512 corpus replay, native SQL/SDK execution, publication/source/ACK authority proof, OTel integration, or whole operating-system dependency closure.",
+    "Input custody is cooperating-writer opening/closing hashing; regular stdin descriptors are not immutable byte snapshots.",
+    "The independent review performed only pure file reads and hashes. No actual CLI, compiler, installation or native replay was performed."
+  ],
+  "pins": {
+    "compilerSha256": "71ba88a07c27661413830d5a42e2ea5c4a8b071df965bb98dbbe8f3615a6c911",
+    "sourceCommit": "58f801fcbaeb3faa9cd2f3e967182794d45d8194",
+    "trustedIndexCommit": "c8d825808a27e15517c1fc93c3fba0faffc2406e",
+    "trustedIndexSha256": "a7571d2bd141bf182ce171acc16f64f1276cca29a855dbf4b49a92283fc71864",
+    "wheelSha256": "d20121995c17cd819de2648738474072302fd7859b3781f3fed1d12a53a5c146"
+  },
+  "retention": "Exact selected31-file archive with manifest1edc2c12 is approved by the separate copy receipt; this aggregate may be retained additively without changing historical command or outcome bytes.",
+  "rootTerminal": {
+    "allChildExitCodes": 0,
+    "reportedExitCode": 0,
+    "reportedSession": 67407,
+    "retainedChildRecords": 6
+  },
+  "verdict": "APPROVED_ACTUAL_INSTALLED_CONSOLE_RESULT",
+  "verifiedResult": {
+    "completeFreshPublicationVectorVersions": [
+      0,
+      7,
+      57
+    ],
+    "consoleProcesses": 6,
+    "currentSelectedResourceBytes": 63397505,
+    "currentSelectedResources": 184,
+    "fiveCompilerStderrBytes": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "fiveFullOriginalRequestResponsePairsExact": true,
+    "installationStderr": "ashlar-weft-paths: installed\n",
+    "installationStdoutBytes": 0,
+    "installedConsoleEntrypointSha256": "b387d044d7598b9fe44552b515fcdf7ce1dc3d83d150531045e141271daeac3a",
+    "installedFiles": 9,
+    "installedFilesCurrentAndRetainedOpeningClosingExact": true,
+    "legacyRefusal": "WFT-VERSION with no artifact",
+    "openingClosingEvidenceVerifiedAgainstReviewedCapture": true,
+    "positiveCollectionBound": 2,
+    "readyAndProvenanceExactPriorCoreBytes": true
+  }
+}

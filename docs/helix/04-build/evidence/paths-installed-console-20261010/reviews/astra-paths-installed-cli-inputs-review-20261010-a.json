@@ -1,0 +1,211 @@
+{
+  "acceptedPairs": [
+    {
+      "expected": {
+        "bytes": 99372,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/inputs/positive-paths.response",
+        "sha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8"
+      },
+      "id": "positive-paths",
+      "originalCorpusCaseIds": [
+        "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+        "paths:6:generated_collection_and_guard_sql_are_lexically_closed"
+      ],
+      "request": {
+        "bytes": 55374,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/inputs/positive-paths.request",
+        "sha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2"
+      }
+    },
+    {
+      "expected": {
+        "bytes": 244,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/inputs/legacy-namespace.response",
+        "sha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18"
+      },
+      "id": "legacy-namespace",
+      "originalCorpusCaseIds": [
+        "legacy:columns-native:64-empty-column-column"
+      ],
+      "request": {
+        "bytes": 3203,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/inputs/legacy-namespace.request",
+        "sha256": "a505cf6b21ec7ed343cf56bc281bc08a802b490e3deb9c00f9ad21c606c4ae3d"
+      }
+    },
+    {
+      "expected": {
+        "bytes": 99864,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/inputs/fresh-binding-0.response",
+        "sha256": "0825fd12d6e14fe3b60e416a963f18f0dffe5448381959e3d3123a349a171d92"
+      },
+      "id": "fresh-binding-0",
+      "originalCorpusCaseIds": [
+        "controls:fresh-binding-0"
+      ],
+      "request": {
+        "bytes": 55381,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/inputs/fresh-binding-0.request",
+        "sha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face"
+      }
+    },
+    {
+      "expected": {
+        "bytes": 99864,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/inputs/fresh-binding-1.response",
+        "sha256": "081f1f8dede25832b67b54beff271029d3c4f92dcf8b9bebd41ca7270e61d14a"
+      },
+      "id": "fresh-binding-1",
+      "originalCorpusCaseIds": [
+        "controls:fresh-binding-1"
+      ],
+      "request": {
+        "bytes": 55381,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/inputs/fresh-binding-1.request",
+        "sha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987"
+      }
+    },
+    {
+      "expected": {
+        "bytes": 100007,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/inputs/fresh-binding-2.response",
+        "sha256": "b6cf74ef768f4087048e45cf7743dfe6dfc388751fd344bfd765702c123f17d6"
+      },
+      "id": "fresh-binding-2",
+      "originalCorpusCaseIds": [
+        "controls:fresh-binding-2"
+      ],
+      "request": {
+        "bytes": 55385,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/inputs/fresh-binding-2.request",
+        "sha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4"
+      }
+    }
+  ],
+  "capture": {
+    "bytes": 6727,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/capture.py",
+    "sha256": "73872716cf8c30e7986b7d00aadd900a61ec1f064f407479eb3865932fbd5cbb"
+  },
+  "closingAllSelectedBytesAndModesUnchanged": true,
+  "command": {
+    "bytes": 56610,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/command.json",
+    "sha256": "98dbbae317b250dda844216e06fcc95cf021da30eca5e8bee94388c2eec461c0"
+  },
+  "commands": {
+    "allAbsentOpeningAndClosing": true,
+    "count": 6,
+    "environment": {
+      "PATH": "/usr/bin:/bin",
+      "PYTHONDONTWRITEBYTECODE": "1"
+    },
+    "freshOutputs": 14,
+    "installedConsoleEntrypointOnly": true,
+    "noPYTHONPATH": true,
+    "noSourceCheckoutApplicationPath": true
+  },
+  "freeze": {
+    "bytes": 885,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-a/freeze.json",
+    "sha256": "ddb29def6c637ee6728e1df6da400423c3effbea0a60451178e39353b1741623"
+  },
+  "installed": {
+    "allRecordHashesAndLengthsExact": true,
+    "console": {
+      "bytes": 266,
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/ashlar",
+      "sha256": "b387d044d7598b9fe44552b515fcdf7ce1dc3d83d150531045e141271daeac3a"
+    },
+    "exactInstalledSiteTree": true,
+    "interpreter": {
+      "bytes": 17277120,
+      "path": "/Users/erik/.local/share/uv/python/cpython-3.11.17-macos-aarch64-none/bin/python3.11",
+      "sha256": "5ebf120b62e8d02ab22485ca328da471db27fd278069df3de01c957cc02d9cd6"
+    },
+    "launcherLinks": [
+      {
+        "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/python",
+        "target": "python3.11"
+      },
+      {
+        "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/python3.11",
+        "target": "/Users/erik/.local/share/uv/python/cpython-3.11-macos-aarch64-none/bin/python3.11"
+      }
+    ],
+    "packageFiles": 88,
+    "priorReview": {
+      "path": "/private/tmp/astra-paths-wheel-result-review-20261010-a.json",
+      "sha256": "19aa4abee44a57e15b1c52d39493a0a49de4d84842e52352625b318ce8f10f47"
+    },
+    "pythonVersionConfiguration": "3.11.17",
+    "recordRows": 97,
+    "shebang": "#!/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/python",
+    "systemSitePackages": false,
+    "wheel": {
+      "bytes": 215643,
+      "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+      "sha256": "d20121995c17cd819de2648738474072302fd7859b3781f3fed1d12a53a5c146"
+    }
+  },
+  "limits": [
+    "Selected installed files/interpreter/public package closure; no full Python stdlib or external macOS dylib closure claim.",
+    "The exact installed shebang resolves through observed links to the pinned interpreter; resource entries are regular files.",
+    "Capture lifecycle, inherited-environment exclusion implementation and cleanup are parent review scope.",
+    "Accepted expectations are retained prior reviewed compiler response bytes, not new native semantic evidence."
+  ],
+  "package": {
+    "custodyArtifacts": 69,
+    "files": 70,
+    "originalPackageBytesExact": true,
+    "path": "/private/tmp/ashlar-weft-distribution-d2d/distributions/realizations/weft-530ae35-paths-aarch64-apple-darwin-candidate"
+  },
+  "pairAuthority": {
+    "originalCorpus": {
+      "path": "/private/tmp/weft-paths-full-corpus-20261010-c/producer-output/receipt.json",
+      "sha256": "7f80a87ac41d868a32d220fd5a5ec7f8998c264ec0eecc4455029ce3ba7caf68"
+    },
+    "path": "/private/tmp/astra-paths-installed-result-review-20261010-b.json",
+    "sha256": "d729e57266430986b1816f427f23792b7450f50e8f128547e69a79732e8b2484"
+  },
+  "resources": {
+    "allRegularHashAndLengthMatched": true,
+    "bytes": 63396802,
+    "currentModeCounts": {
+      "0444": 81,
+      "0555": 1,
+      "0644": 100,
+      "0755": 2
+    },
+    "exactSelectedUnion": true,
+    "files": 184,
+    "maximumFileBytes": 17277120
+  },
+  "scope": "Pre-execution selected installed-console inputs and byte custody only; no console, installation, compiler, SDK or native execution.",
+  "trustedIndex": {
+    "gitBlobBytesExact": true,
+    "path": "/private/tmp/ashlar-weft-distribution-d2d/distributions/index.json",
+    "revision": "c8d825808a27e15517c1fc93c3fba0faffc2406e",
+    "selectedEntry": {
+      "assemblyCustody": {
+        "bytes": 15284,
+        "path": "assembly-custody.json",
+        "sha256": "1cdbf9690a902c021f8450488e8b11d20903276efeec9c241502e1fe179edc95"
+      },
+      "executable": {
+        "bytes": 8273840,
+        "path": "bin/weft-paths",
+        "sha256": "71ba88a07c27661413830d5a42e2ea5c4a8b071df965bb98dbbe8f3615a6c911"
+      },
+      "manifest": {
+        "bytes": 7044,
+        "path": "manifest.json",
+        "sha256": "fa801113d214078f5bbccf6aee2d9acdf184ccd7be352b7fd55e84b794d5ac4e"
+      },
+      "realizationId": "weft-530ae35-paths-aarch64-apple-darwin-candidate",
+      "target": "aarch64-apple-darwin"
+    },
+    "sha256": "a7571d2bd141bf182ce171acc16f64f1276cca29a855dbf4b49a92283fc71864"
+  },
+  "verdict": "PASS"
+}

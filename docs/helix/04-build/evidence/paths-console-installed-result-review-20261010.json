@@ -1,0 +1,461 @@
+{
+  "backendAndFiveSchemasExactOriginalBytes": true,
+  "closingAllReadBytesModesUnchanged": true,
+  "command": {
+    "bytes": 56744,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/command.json",
+    "sha256": "ac8af724be93eef75bf62ea521fac1a7e3d9c63c24f3122896adcc1b2b35a22b"
+  },
+  "console": {
+    "bytes": 266,
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/ashlar",
+    "sha256": "b387d044d7598b9fe44552b515fcdf7ce1dc3d83d150531045e141271daeac3a"
+  },
+  "consoleShebang": "#!/private/tmp/ashlar-paths-wheel-command-20261010-a/environment/bin/python",
+  "exactNineFileTree": true,
+  "fiveActualPairs": [
+    {
+      "actualStdout": {
+        "bytes": 99372,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/positive-paths.stdout",
+        "sha256": "2d28c90e55ee71b686ef3e0fde57319bae0e829de6ea72def4dde0e35fda7bd8"
+      },
+      "detail": {
+        "bindingSha256": "f02ae340437a71498f4802df920431cadb7b1224a9ec7ecd522de56a624bad61",
+        "bound": 2,
+        "hops": 2,
+        "hostObligationIds": [
+          "ashlar.candidate.publication",
+          "ashlar.candidate.relationshipIntegrity",
+          "ashlar.candidate.scalarIntegrity",
+          "ashlar.path.occurrenceIntegrity"
+        ],
+        "modelPins": [
+          {
+            "documentId": "urn:umf:domain:commerce",
+            "revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+            "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+            "umfVersion": "0.8.0"
+          }
+        ],
+        "publication": {
+          "id": "original-commerce-publication-1",
+          "manifestUuid": "360f670c-33d7-4084-8db6-2e70e360838c",
+          "tables": [
+            {
+              "name": [
+                "spark_catalog",
+                "commerce",
+                "edge_current"
+              ],
+              "uuid": "f9b4c46d-f0a7-4701-ac91-1c2f639b05c2",
+              "version": 2
+            },
+            {
+              "name": [
+                "spark_catalog",
+                "commerce",
+                "object_current"
+              ],
+              "uuid": "1813c883-d7c3-4f19-838f-7f81cf868989",
+              "version": 2
+            },
+            {
+              "name": [
+                "spark_catalog",
+                "commerce",
+                "tombstone"
+              ],
+              "uuid": "8cafe780-f333-4301-bc97-2554c710b5c0",
+              "version": 1
+            },
+            {
+              "name": [
+                "spark_catalog",
+                "commerce",
+                "whole_source_history"
+              ],
+              "uuid": "33dbab1d-c7ff-4dd9-b2ba-cc6a45b34631",
+              "version": 2
+            }
+          ]
+        },
+        "status": "compiled"
+      },
+      "id": "positive-paths",
+      "originalCorpusCaseIds": [
+        "paths:5:original_collection_retains_pins_keys_wide_order_and_closed_inventory",
+        "paths:6:generated_collection_and_guard_sql_are_lexically_closed"
+      ],
+      "request": {
+        "bytes": 55374,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/positive-paths.request",
+        "sha256": "44dfc51bc2a496cb884a224878124410d6c7038cc036bb97b286021a5899d8f2"
+      }
+    },
+    {
+      "actualStdout": {
+        "bytes": 244,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/legacy-namespace.stdout",
+        "sha256": "2fd1bcc193d33173cfc26685793abb1b6b8a19f27d9d2d847fd0f11507f00f18"
+      },
+      "detail": {
+        "diagnostic": "WFT-VERSION",
+        "noArtifact": true,
+        "status": "blocked"
+      },
+      "id": "legacy-namespace",
+      "originalCorpusCaseIds": [
+        "legacy:columns-native:64-empty-column-column"
+      ],
+      "request": {
+        "bytes": 3203,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/legacy-namespace.request",
+        "sha256": "a505cf6b21ec7ed343cf56bc281bc08a802b490e3deb9c00f9ad21c606c4ae3d"
+      }
+    },
+    {
+      "actualStdout": {
+        "bytes": 99864,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/fresh-binding-0.stdout",
+        "sha256": "0825fd12d6e14fe3b60e416a963f18f0dffe5448381959e3d3123a349a171d92"
+      },
+      "detail": {
+        "bindingSha256": "cdd2649fee7bb5eaa5197bdfe1cd65c276d959afb297d082791f5f5e79d53c6b",
+        "bound": 2,
+        "hops": 2,
+        "hostObligationIds": [
+          "ashlar.candidate.publication",
+          "ashlar.candidate.relationshipIntegrity",
+          "ashlar.candidate.scalarIntegrity",
+          "ashlar.path.occurrenceIntegrity"
+        ],
+        "modelPins": [
+          {
+            "documentId": "urn:umf:domain:commerce",
+            "revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+            "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+            "umfVersion": "0.8.0"
+          }
+        ],
+        "publication": {
+          "id": "fresh-paths-publication-0",
+          "manifestUuid": "df76d088-a3c3-5e8f-8b85-fcd9cb115a03",
+          "tables": [
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_0_0"
+              ],
+              "uuid": "ae1fa64e-7026-5a49-bcc4-554715bd74cf",
+              "version": 0
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_0_1"
+              ],
+              "uuid": "86c42e00-1c8a-54eb-9320-dfcc42cdfdb3",
+              "version": 0
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_0_2"
+              ],
+              "uuid": "caac2516-9876-5e86-bd60-cffad4904cab",
+              "version": 0
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_0_3"
+              ],
+              "uuid": "6a3fadb8-d598-5576-8771-e99d782e8885",
+              "version": 0
+            }
+          ]
+        },
+        "status": "compiled"
+      },
+      "id": "fresh-binding-0",
+      "originalCorpusCaseIds": [
+        "controls:fresh-binding-0"
+      ],
+      "request": {
+        "bytes": 55381,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/fresh-binding-0.request",
+        "sha256": "0b22468e6befb6c5b21628c189df13f04028c8465fe0da079ea6598a79a7face"
+      }
+    },
+    {
+      "actualStdout": {
+        "bytes": 99864,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/fresh-binding-1.stdout",
+        "sha256": "081f1f8dede25832b67b54beff271029d3c4f92dcf8b9bebd41ca7270e61d14a"
+      },
+      "detail": {
+        "bindingSha256": "af13375b7d873a9f1240ae58a21d6bae7b34411a8b4e13d0e497ffe7cd8dd217",
+        "bound": 2,
+        "hops": 2,
+        "hostObligationIds": [
+          "ashlar.candidate.publication",
+          "ashlar.candidate.relationshipIntegrity",
+          "ashlar.candidate.scalarIntegrity",
+          "ashlar.path.occurrenceIntegrity"
+        ],
+        "modelPins": [
+          {
+            "documentId": "urn:umf:domain:commerce",
+            "revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+            "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+            "umfVersion": "0.8.0"
+          }
+        ],
+        "publication": {
+          "id": "fresh-paths-publication-1",
+          "manifestUuid": "8cfdb80e-b1d3-58df-b13f-70c20473d810",
+          "tables": [
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_1_0"
+              ],
+              "uuid": "cfd72202-4bfa-5f24-9f32-0afb9496799e",
+              "version": 7
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_1_1"
+              ],
+              "uuid": "8302c300-3d02-579c-9a73-6a9a996297ff",
+              "version": 7
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_1_2"
+              ],
+              "uuid": "18bfa071-d63b-52d4-b760-1f67642dbd9e",
+              "version": 7
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_1_3"
+              ],
+              "uuid": "9d241787-768a-5f3a-b365-98e2dd060480",
+              "version": 7
+            }
+          ]
+        },
+        "status": "compiled"
+      },
+      "id": "fresh-binding-1",
+      "originalCorpusCaseIds": [
+        "controls:fresh-binding-1"
+      ],
+      "request": {
+        "bytes": 55381,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/fresh-binding-1.request",
+        "sha256": "6fb5ee2e7f31ed1bf005eb2fcf3d408cdb040a6a3c7f374db898ca16cd9d3987"
+      }
+    },
+    {
+      "actualStdout": {
+        "bytes": 100007,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/fresh-binding-2.stdout",
+        "sha256": "b6cf74ef768f4087048e45cf7743dfe6dfc388751fd344bfd765702c123f17d6"
+      },
+      "detail": {
+        "bindingSha256": "3d3c12c0ab170593bba93077253e183ec195ce6dcbe18061cc3e0b0f0a2a3dc1",
+        "bound": 2,
+        "hops": 2,
+        "hostObligationIds": [
+          "ashlar.candidate.publication",
+          "ashlar.candidate.relationshipIntegrity",
+          "ashlar.candidate.scalarIntegrity",
+          "ashlar.path.occurrenceIntegrity"
+        ],
+        "modelPins": [
+          {
+            "documentId": "urn:umf:domain:commerce",
+            "revision": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+            "sha256": "51d87c554df36846e41378cfaafc81277fcab61f6c891a6c64f34dba8fd9ac2a",
+            "umfVersion": "0.8.0"
+          }
+        ],
+        "publication": {
+          "id": "fresh-paths-publication-2",
+          "manifestUuid": "7d34f892-31fb-5b0a-92d3-cc5cc62e939f",
+          "tables": [
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_2_0"
+              ],
+              "uuid": "48717840-ffb4-568e-91cb-572568f572ab",
+              "version": 57
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_2_1"
+              ],
+              "uuid": "157c2f11-36cd-5772-8d21-1c9c31cbba87",
+              "version": 57
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_2_2"
+              ],
+              "uuid": "e8d98a95-bad5-5ca1-89e6-163164ef139f",
+              "version": 57
+            },
+            {
+              "name": [
+                "local_fixture",
+                "new_distribution",
+                "table_2_3"
+              ],
+              "uuid": "de282eb0-fa2d-543b-a87c-a4d2597daefe",
+              "version": 57
+            }
+          ]
+        },
+        "status": "compiled"
+      },
+      "id": "fresh-binding-2",
+      "originalCorpusCaseIds": [
+        "controls:fresh-binding-2"
+      ],
+      "request": {
+        "bytes": 55385,
+        "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/inputs/fresh-binding-2.request",
+        "sha256": "6321ceae4804fc0790cadbbe411e6d2a39116a56423791a5c4644af3436f1bb4"
+      }
+    }
+  ],
+  "fixedIndexSha256": "a7571d2bd141bf182ce171acc16f64f1276cca29a855dbf4b49a92283fc71864",
+  "freeze": {
+    "bytes": 975,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/freeze.json",
+    "sha256": "15a338b125193b291d27f61d4b346cd4afc1ee8363d14eba55289be4ed70e4de"
+  },
+  "installedFiles": [
+    {
+      "bytes": 8273840,
+      "mode": "0o555",
+      "path": "weft-paths",
+      "sha256": "71ba88a07c27661413830d5a42e2ea5c4a8b071df965bb98dbbe8f3615a6c911"
+    },
+    {
+      "bytes": 45893,
+      "mode": "0o444",
+      "path": "provenance.json",
+      "sha256": "bf0e6742cadae1409d841d109e108468eac105ac63293144ad47a1b013977602"
+    },
+    {
+      "bytes": 1407,
+      "mode": "0o444",
+      "path": "ready.json",
+      "sha256": "420dce3f3135bd2584fa93568e76b3ae850c014b23b688a369b4318c89f16afc"
+    },
+    {
+      "bytes": 51125,
+      "mode": "0o444",
+      "path": "backend-manifest.json",
+      "sha256": "fc36ddbb6ca41309d25dadf1969bb27efb72debe0c6669b76a8a6a425ca35ec5"
+    },
+    {
+      "bytes": 3511,
+      "mode": "0o444",
+      "path": "schemas/compile-request-v0.4.schema.json",
+      "sha256": "51f9793fb7ca32fdde778e2ff8cacd1018e4142fb04dea610005895aacec3932"
+    },
+    {
+      "bytes": 62086,
+      "mode": "0o444",
+      "path": "schemas/compile-response-v0.4.schema.json",
+      "sha256": "c177b9bbb9fff3d69a833aa5bf05dbe752a1f76e65833cae8ea35fd4b1373140"
+    },
+    {
+      "bytes": 42813,
+      "mode": "0o444",
+      "path": "schemas/logical-plan-v0.4.schema.json",
+      "sha256": "a6f28858646e4795019037233ef0e8d6b0aeb45e7440cbcf4e7a477891a1b3d5"
+    },
+    {
+      "bytes": 2281,
+      "mode": "0o444",
+      "path": "schemas/application-result-v0.4.schema.json",
+      "sha256": "ee87e4e845d670601a301701dc6109c7a37dadb96ccb1e7f75c8144c5bd8bc2a"
+    },
+    {
+      "bytes": 18066,
+      "mode": "0o444",
+      "path": "schemas/backend-manifest-v0.3.schema.json",
+      "sha256": "655f2dea7b459b354af1f66ae1684f1ba2bce907a5c7355d34c9f9c461f9ea7a"
+    }
+  ],
+  "limits": [
+    "The five responses are finite installed-console transport evidence against previously accepted complete corpus pairs, not a new full512 run or native query qualification.",
+    "Parent reviews six process exits, streams, outcome lifecycle and184-resource opening/closing custody; this receipt independently checks output bytes and installed-file vector only.",
+    "Input custody is the declared cooperating-writer opening/closing model; no atomic immutable descriptor snapshot is inferred.",
+    "No transfer of native/source/ACK authority or full host runtime closure from package byte correspondence."
+  ],
+  "manifestCustodyHexExactOriginalBytes": true,
+  "originalCorpus": {
+    "bytes": 47489682,
+    "path": "/private/tmp/weft-paths-full-corpus-20261010-c/producer-output/receipt.json",
+    "sha256": "7f80a87ac41d868a32d220fd5a5ec7f8998c264ec0eecc4455029ce3ba7caf68"
+  },
+  "outcome": {
+    "bytes": 3658,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/outcome.json",
+    "sha256": "0b775ccf8f4d4c96cbd189748ee20b90fbc63da8d8b891f1fb1dbc25b96638c0"
+  },
+  "packageFilesVerified": 70,
+  "priorCoreResultReview": {
+    "bytes": 13688,
+    "path": "/private/tmp/astra-paths-installed-result-review-20261010-b.json",
+    "sha256": "d729e57266430986b1816f427f23792b7450f50e8f128547e69a79732e8b2484"
+  },
+  "priorInputReview": {
+    "bytes": 8359,
+    "path": "/private/tmp/astra-paths-installed-cli-inputs-review-20261010-a.json",
+    "sha256": "e7ed1ef2bd7ab8204ac4dd1d74380d4982e3152382fa3b0ab5e86d4df9606c99"
+  },
+  "provenance": {
+    "bytes": 45893,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/provenance.json",
+    "sha256": "bf0e6742cadae1409d841d109e108468eac105ac63293144ad47a1b013977602"
+  },
+  "ready": {
+    "bytes": 1407,
+    "path": "/private/tmp/ashlar-paths-installed-cli-command-20261010-c/installation/ready.json",
+    "sha256": "420dce3f3135bd2584fa93568e76b3ae850c014b23b688a369b4318c89f16afc"
+  },
+  "readyProvenanceExactPriorCoreBytes": true,
+  "scope": "Read-only actual installed-console response byte correspondence and installed ready/provenance/resources; no CLI, compiler, installation, package import, SDK or native replay.",
+  "scriptSha256": "4f3b2b3cd44523c341d7178cf2c857ada95de1a40be029542ff1287462308179",
+  "verdict": "PASS",
+  "wheel": {
+    "bytes": 215643,
+    "path": "/private/tmp/ashlar-paths-wheel-command-20261010-a/wheels/ashlar_graph_toolkit-0.1.0.dev0-py3-none-any.whl",
+    "sha256": "d20121995c17cd819de2648738474072302fd7859b3781f3fed1d12a53a5c146"
+  }
+}

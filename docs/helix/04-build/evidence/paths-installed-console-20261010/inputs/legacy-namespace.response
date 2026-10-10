@@ -1,0 +1,1 @@
+{"diagnostics":[{"code":"WFT-VERSION","message":"This entrypoint requires the exact 0.4 compile and dialect pair","phase":"input","recoverability":"correct-input","severity":"error"}],"interfaceVersion":"weft-compile/0.4.0","status":"blocked"}

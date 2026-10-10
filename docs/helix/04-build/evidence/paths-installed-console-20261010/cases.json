@@ -1,0 +1,27 @@
+[
+  {
+    "expected": "positive-paths.response",
+    "id": "positive-paths",
+    "request": "positive-paths.request"
+  },
+  {
+    "expected": "legacy-namespace.response",
+    "id": "legacy-namespace",
+    "request": "legacy-namespace.request"
+  },
+  {
+    "expected": "fresh-binding-0.response",
+    "id": "fresh-binding-0",
+    "request": "fresh-binding-0.request"
+  },
+  {
+    "expected": "fresh-binding-1.response",
+    "id": "fresh-binding-1",
+    "request": "fresh-binding-1.request"
+  },
+  {
+    "expected": "fresh-binding-2.response",
+    "id": "fresh-binding-2",
+    "request": "fresh-binding-2.request"
+  }
+]
