@@ -3,6 +3,7 @@ from dataclasses import dataclass
 from pathlib import Path
 from ashlar.weft_path_decode import PathDecodeConfig
 from .evolution_plan import EvolutionAttemptPlan, EvolutionPlanJournal
+from .evolution_run import EvolutionRunRequest, EvolutionRunDefinition, EvolutionRunPolicy, EvolutionRunAttemptJournal
 from .path_capture import PathCaptureConfig
 import ipaddress
 import json
@@ -452,3 +453,54 @@ class ResumeEvolutionTransactionConfig:
                 or type(self.expected_sha256) is not str
                 or not re.fullmatch('[0-9a-f]{64}', self.expected_sha256)):
             raise HostError('evolution-transaction-configuration')
+
+
+class CommerceEvolutionDriver(EvolutionTransactionDriver, Protocol):
+    def writer(self, stream: str, context: object): ...
+    def capture_evolution_run(self, request: EvolutionRunRequest, *, context: object) -> EvolutionRunDefinition: ...
+    def validate_evolution_run(self, original: EvolutionRunDefinition, *, context: object) -> None: ...
+    def verify_evolution_sources(self, sources: object, *, context: object) -> None: ...
+    def plan_evolution_transaction(self, original: EvolutionRunDefinition, ordinal: int,
+                                   previous_progress: Mapping[str, object], *, context: object) -> EvolutionAttemptPlan: ...
+    def publish_evolution_attempt_held(self, journal: EvolutionRunAttemptJournal, *, context: object,
+                                      expected_sha256: str): ...
+
+
+def _evolution_run_ports(driver, path, policy, producer):
+    if (not isinstance(path, Path) or not path.is_absolute() or type(producer) is not EvolutionAdmissionConfig
+            or any(not callable(getattr(policy, name, None)) for name in ('admit_run', 'admit_ledger', 'admit_attempt'))
+            or any(not callable(getattr(driver, name, None)) for name in ('writer', 'capture_evolution_run',
+                'validate_evolution_run', 'verify_evolution_sources', 'plan_evolution_transaction', 'publish_evolution_attempt_held'))):
+        raise HostError('evolution-run-configuration')
+    producer.__post_init__()
+
+
+@dataclass(frozen=True, repr=False)
+class FreshCommerceEvolutionConfig:
+    driver: CommerceEvolutionDriver
+    ledger_path: Path
+    policy: EvolutionRunPolicy
+    producer: EvolutionAdmissionConfig
+    context: object
+    request: EvolutionRunRequest
+
+    def __post_init__(self):
+        _evolution_run_ports(self.driver, self.ledger_path, self.policy, self.producer)
+        if type(self.request) is not EvolutionRunRequest:
+            raise HostError('evolution-run-configuration')
+        self.request.__post_init__()
+
+
+@dataclass(frozen=True, repr=False)
+class ResumeCommerceEvolutionConfig:
+    driver: CommerceEvolutionDriver
+    ledger_path: Path
+    policy: EvolutionRunPolicy
+    producer: EvolutionAdmissionConfig
+    context: object
+    expected_sha256: str
+
+    def __post_init__(self):
+        _evolution_run_ports(self.driver, self.ledger_path, self.policy, self.producer)
+        if type(self.expected_sha256) is not str or not re.fullmatch('[0-9a-f]{64}', self.expected_sha256):
+            raise HostError('evolution-run-configuration')

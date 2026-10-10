@@ -1,0 +1,123 @@
+{
+  "archiveSha256": "1f273fda4b3b9899ff054f3f51e170872be546fe7621bc6ab701895f34ce0597",
+  "archiveBytes": 168708,
+  "decodedBytes": 1839984,
+  "files": [
+    {
+      "name": "actual-review.json",
+      "bytes": 3809,
+      "sha256": "2d70b85aed477947c62c73516493668d40e9377527b3fadd87473465c09d0128"
+    },
+    {
+      "name": "actual/ashlar-scoped-phase-native-20261010-b.log",
+      "bytes": 598,
+      "sha256": "d05001d0700e83cb76bd16fa87dcfba3dfa8bd5d68dae5101835deca22f7eca9"
+    },
+    {
+      "name": "actual/ashlar-scoped-phase-native-recipe-freeze-20261010-f.json",
+      "bytes": 4912,
+      "sha256": "cc60068aad9961a50499dcea6b7b127ef977ce594ff17a0f47673681f07d48b3"
+    },
+    {
+      "name": "actual/ashlar-scoped-phase-native-run-20261010-b.json",
+      "bytes": 1209,
+      "sha256": "1b9f324db5b53d189122abc4e195e4adc258443dfc4c594bf8c45331f662610f"
+    },
+    {
+      "name": "actual/sql-records.json",
+      "bytes": 745303,
+      "sha256": "e1f8d49bf771489514cdc02516aa18d88d47b7d8be2488dfb231ee688004e6e6"
+    },
+    {
+      "name": "actual/summary.json",
+      "bytes": 60003,
+      "sha256": "a2447b34e746633e61272c270d9d531ab99974fa3872462d118a82a20337a8d7"
+    },
+    {
+      "name": "closure.json",
+      "bytes": 973586,
+      "sha256": "63557f3a0f082a457c4d217e3e7514fc330b180795519057089ce1a44fa4de96"
+    },
+    {
+      "name": "command-review.json",
+      "bytes": 2206,
+      "sha256": "9e7d3c16b9a1a775b20143edc11172183e0c156d8c146bce66d4ea32de068b80"
+    },
+    {
+      "name": "delta-log/00000000000000000000.json",
+      "bytes": 1127,
+      "sha256": "b9411da5ce0c9714f877483fe9f8d55022da3810fef693f8f7e38777718c6d02"
+    },
+    {
+      "name": "delta-log/00000000000000000001.json",
+      "bytes": 2730,
+      "sha256": "b49a6cb9a69a2d255b3f61f3a7d0c0c959f6b57674edacbe27f998c79a655d42"
+    },
+    {
+      "name": "delta-log/00000000000000000002.json",
+      "bytes": 2751,
+      "sha256": "ed72ab05017f24e30629ec338789ad3cdd346304c861bc3fb56cea70e172a98a"
+    },
+    {
+      "name": "delta-log/00000000000000000003.json",
+      "bytes": 2747,
+      "sha256": "5dfb8734ba8abfac76bd2ac907ddfaf8d65b3f3fed0a1f8c3e21987e666c71e2"
+    },
+    {
+      "name": "delta-log/00000000000000000004.json",
+      "bytes": 2753,
+      "sha256": "ad194f59ff2b8b1f8f36fa1eecd780bc608a0d973578602a95a8deb34c7d265d"
+    },
+    {
+      "name": "delta-log/00000000000000000005.json",
+      "bytes": 2763,
+      "sha256": "7d06ce82991c921d6a838f3fb8e3a9ce76e5dfaeba21cc318bcb9e62de5ad9d7"
+    },
+    {
+      "name": "delta-log/00000000000000000006.json",
+      "bytes": 2750,
+      "sha256": "6d6411a71faf4140fa5ce4f82ab5839629d320f562336cfdd8916b24e5d83698"
+    },
+    {
+      "name": "delta-log/00000000000000000007.json",
+      "bytes": 2751,
+      "sha256": "8cd9aa27fe9a7aa8cd459c22c0c6361353dd700e27c4ecdec095de4c856c411b"
+    },
+    {
+      "name": "delta-log/00000000000000000008.json",
+      "bytes": 2747,
+      "sha256": "7abf860c5c7d2a45399d0cf6754867f53d8e22d038314681d8a6c9de2ce55c5a"
+    },
+    {
+      "name": "delta-log/00000000000000000009.json",
+      "bytes": 2753,
+      "sha256": "9c3154d8ec4a524bfa91628123df91d4b1b906865eb97b953e489f0881bf7f71"
+    },
+    {
+      "name": "delta-log/00000000000000000010.json",
+      "bytes": 2763,
+      "sha256": "f366dfa126847421a2f21bfd985ec8f59e5cfdd83063b0a6e7bcd63b05b13631"
+    },
+    {
+      "name": "delta-log/00000000000000000011.json",
+      "bytes": 1157,
+      "sha256": "9e9bf18a0c29954ca6c68b58320cf8b8b3512a3af8ad1245a742a7a0fccab24a"
+    },
+    {
+      "name": "probe.py",
+      "bytes": 7639,
+      "sha256": "91bb6e06de1caeb2709e3990645289db64f527eb76b49b369e84928bd90e714b"
+    },
+    {
+      "name": "result-freeze.json",
+      "bytes": 4017,
+      "sha256": "06c5013e67ce0e1b9f2265553d7da7c0d59df6f7aea95c882c2df2f2194160fd"
+    },
+    {
+      "name": "runner.py",
+      "bytes": 6910,
+      "sha256": "dfb8b806d302cdd89520e40a3592107ccc049efdd54302a479e46731246f6af0"
+    }
+  ],
+  "scope": "One local native six-column Delta phase carrier, two qualified sources sharing stream/local batch; ten immutable original phase rows plus one deliberate malformed negative-control row. No actual external source, native graph/publication/ACK, scale or installed eight-step qualification."
+}

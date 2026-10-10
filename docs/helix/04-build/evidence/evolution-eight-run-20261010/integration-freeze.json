@@ -1,0 +1,40 @@
+{
+  "head": "37d1fd9677f93385ddf12dfb2c538fa0ea344030",
+  "files": {
+    "src/ashlar_host/evolution_run.py": "70d10bd077e20d6d738e859a16e7ffa97be100bee3a1eaff2f6869757a001bad",
+    "src/ashlar_host/config.py": "25453f62fc7f181453a5443ef2b3c1fc945beae59d02fbbdb1d3d4b6446ef42c",
+    "src/ashlar_host/commerce_evolution.py": "37bc3d2b580aa06fefe6969d841f53d5677026df8154ece6a4d26685be2d54bb",
+    "src/ashlar_host/driver.py": "412018df908e67dca6c5084da9ba72e44d9dea75d9f963c4507dd9476ed5e6a2",
+    "src/ashlar_host/delta_custody.py": "d90f523e88f7768bcc1faabbff80cf86930f68f08d62b73d28ef2989aa3dd3a5",
+    "tests/test_evolution_run.py": "629c2e90c5f103515ec9e3d6c9e608bd6bbe65893e2fd52a92a29e0d4a068206",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "e7c881d855a77525e993c3c372bc2ef0c6850b33ba45ff7384e8784f35a49a21",
+    ".github/workflows/weft-distribution.yml": "5b3d348ff68207fb5b4f8ecddce3584ed64d7134d155be13f20b34f0b2111cf0"
+  },
+  "evidence": [
+    {
+      "chunk": "2cfd1b",
+      "run": 10,
+      "transaction": 7,
+      "effect": 13,
+      "result": "PASS; boundaries and diff check PASS"
+    },
+    {
+      "chunk": "236c2d",
+      "run": 10,
+      "journal": 10,
+      "result": "PASS after closing filesystem refinement; boundaries and diff check PASS"
+    }
+  ],
+  "qualifications": [
+    "Actual eight-step public orchestration, StoredPublisher lifecycle, original schema/graph plans/oracle and owned SQLite custody exercised with inert producer/native effects/manifest/ACK adapters.",
+    "Actual Spark/Delta source/protected ACK/public producer and installed fresh-process native qualification remains required.",
+    "Never-submitted repair requires positive retained original eight-slot ledger and independent current native run/ledger/attempt policy; missing local/native records alone provide no authority.",
+    "Started missing effect plan refuses; started intact original plan recovers without replacement.",
+    "No credentials, provisioning, capacity, native execution, benchmark or commits."
+  ],
+  "sourceFreeze": {
+    "path": "/private/tmp/ashlar-evolution-eight-run-freeze-20261010.json",
+    "sha256": "92ef0c8aea89d8b290231b76ca6f644c705dd4087822bf13ccf28e89335b5f90"
+  },
+  "qualification": "Eight reviewed source/CI files. Actual native and fresh installed-process evidence remain outstanding."
+}

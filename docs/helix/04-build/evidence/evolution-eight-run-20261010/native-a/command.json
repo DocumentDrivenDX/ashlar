@@ -1,0 +1,59 @@
+{
+  "files": {
+    "/private/tmp/ashlar-scoped-phase-native-probe-20261010.py": "878388239f49ed1fd2b703511687b973088690ecef9f3dbd6bad0d4d20e1f7a8",
+    "/private/tmp/ashlar-scoped-phase-native-runner-20261010.py": "530ab845e48919644a08320fcf801e22d41dcae441fd545ccc3195aaf8a702c5",
+    "/private/tmp/ashlar-spark311/bin/python": "5ebf120b62e8d02ab22485ca328da471db27fd278069df3de01c957cc02d9cd6",
+    "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home/bin/java": "2aee02a39a0817c27501e853728c28b79f48d114dbde7c88cbf698ecf1680f63",
+    "/private/tmp/ashlar-delta4-jars/delta-spark_2.13-4.0.0.jar": "538511702aae0ef6973a6a70af3d4543c9009f8edbed786a00737e2d3cd7f04e",
+    "/private/tmp/ashlar-delta4-jars/delta-storage-4.0.0.jar": "9bdb9fb450f1e119eba53feb427f331b0d09072d26485b8273883ad72c9a2e1d",
+    "/private/tmp/ashlar-spark4-python39-bridge/pyspark/version.py": "493ddac16b88274f13e5dbed708af6b234c092a58728522f9a06c855a0ea6c7f",
+    "/private/tmp/ashlar-indexed-delta4-python-20261010-a/delta_spark-4.0.0.dist-info/METADATA": "4b2dede7719f3e04d5530cb0768d61dd8c25a1773607d6424722a72aeef08b35",
+    "/Users/erik/Projects/ashlar/examples/end-to-end/source.jsonl": "4d5e4b043d260e4ecc77f2ddc6ed051cb85cb75381d308da981ac1e2ea09c3de",
+    "/private/tmp/ashlar-scoped-phase-native-closure-20261010.json": "5377aa779bbb3fe41177a42ee5adb60a379681eaec1b21c8599e954f6e2b5632"
+  },
+  "runtime": {
+    "python": "3.11.17",
+    "pyspark": "4.0.1",
+    "delta-spark": "4.0.0",
+    "JDK": "21.0.12.1"
+  },
+  "resource": {
+    "master": "local[1]",
+    "driver_memory": "512m",
+    "shuffle_partitions": 1,
+    "snapshot_partitions": 1,
+    "timeout_seconds": 180,
+    "process_group_cleanup": "TERM then KILL all paths",
+    "maximum_capture_bytes": 8388608
+  },
+  "source_freeze": "/private/tmp/ashlar-evolution-eight-run-freeze-20261010-d.json",
+  "scope": "One fresh private Delta table six nonnull STRING columns, ten genuine opaque phase contract rows for two original source-qualified requests sharing stream/localbatch, exact replay nativeversion unchanged. One extra malformed native row negativecontrol afterpositiveobservations. Same qualified-source changed-original refusal. No external source/ACK/full8/nativecloud/scale qualification.",
+  "status": "PREPARED_NOT_EXECUTED",
+  "source_freeze_sha256": "8e53b16560677cf5230b707f768d7d70e0b38a47a1f422876b78012ba01dbaca",
+  "command": [
+    "/private/tmp/ashlar-spark311/bin/python",
+    "-B",
+    "-S",
+    "/private/tmp/ashlar-scoped-phase-native-runner-20261010.py",
+    "530ab845e48919644a08320fcf801e22d41dcae441fd545ccc3195aaf8a702c5"
+  ],
+  "launch_environment": {
+    "PYTHONPATH": "/Users/erik/Projects/ashlar/src:/private/tmp/ashlar-indexed-delta4-python-20261010-a:/private/tmp/ashlar-spark4-python39-bridge",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "native_closed_environment": {
+    "PATH": "/opt/homebrew/opt/openjdk@21/bin:/usr/bin:/bin",
+    "JAVA_HOME": "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+    "PYTHONPATH": "/Users/erik/Projects/ashlar/src:/private/tmp/ashlar-indexed-delta4-python-20261010-a:/private/tmp/ashlar-spark4-python39-bridge",
+    "PYSPARK_PYTHON": "/private/tmp/ashlar-spark311/bin/python",
+    "PYSPARK_DRIVER_PYTHON": "/private/tmp/ashlar-spark311/bin/python",
+    "SPARK_LOCAL_IP": "127.0.0.1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "outputs": [
+    "/private/tmp/ashlar-scoped-phase-native-20261010-a",
+    "/private/tmp/ashlar-scoped-phase-native-20261010-a.log",
+    "/private/tmp/ashlar-scoped-phase-native-run-20261010-a.json"
+  ],
+  "custody": "Full selected immutable SDK/JDK/Python closure and readonly imported project modules plus governing D pins opening+closing; runner hash external exact reviewed argument. Fresh exclusive0600log/receipt, retain closed outcome even cancellation, preserve original cancellation after all cleanup/closing attempts. Independent unconditional final SIGKILL and reap callbacks attempted even if TERM cleanup fails/cancels."
+}

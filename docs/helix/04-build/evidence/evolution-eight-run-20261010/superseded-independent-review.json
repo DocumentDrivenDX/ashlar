@@ -1,0 +1,55 @@
+{
+  "decision": "approve exact eight-file slice for landing; no unresolved finding within qualified scope",
+  "sourceFreeze": {
+    "path": "/private/tmp/ashlar-evolution-eight-run-freeze-20261010.json",
+    "sha256": "92ef0c8aea89d8b290231b76ca6f644c705dd4087822bf13ccf28e89335b5f90"
+  },
+  "integrationFreeze": {
+    "path": "/private/tmp/ashlar-evolution-eight-run-integration-freeze-20261010.json",
+    "sha256": "e44a0b37df4290ed4547bf21313df2d14270c302c2588da9d1fa2117b984fde5"
+  },
+  "base": "37d1fd9677f93385ddf12dfb2c538fa0ea344030",
+  "files": {
+    "src/ashlar_host/evolution_run.py": "70d10bd077e20d6d738e859a16e7ffa97be100bee3a1eaff2f6869757a001bad",
+    "src/ashlar_host/config.py": "25453f62fc7f181453a5443ef2b3c1fc945beae59d02fbbdb1d3d4b6446ef42c",
+    "src/ashlar_host/commerce_evolution.py": "37bc3d2b580aa06fefe6969d841f53d5677026df8154ece6a4d26685be2d54bb",
+    "src/ashlar_host/driver.py": "412018df908e67dca6c5084da9ba72e44d9dea75d9f963c4507dd9476ed5e6a2",
+    "src/ashlar_host/delta_custody.py": "d90f523e88f7768bcc1faabbff80cf86930f68f08d62b73d28ef2989aa3dd3a5",
+    "tests/test_evolution_run.py": "629c2e90c5f103515ec9e3d6c9e608bd6bbe65893e2fd52a92a29e0d4a068206",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "e7c881d855a77525e993c3c372bc2ef0c6850b33ba45ff7384e8784f35a49a21",
+    ".github/workflows/weft-distribution.yml": "5b3d348ff68207fb5b4f8ecddce3584ed64d7134d155be13f20b34f0b2111cf0"
+  },
+  "openingAndClosingSourcePins": true,
+  "independentChecks": [
+    {
+      "command": "PYTHONPATH=src:tests /usr/bin/python3 -S -W error::ResourceWarning -m unittest discover -s tests -p test_evolution_run.py",
+      "session": 37658,
+      "terminalChunk": "0018e8",
+      "exit": 0,
+      "tests": 10,
+      "seconds": 34.06
+    },
+    {
+      "command": "/usr/bin/python3 -S tools/check_module_boundaries.py",
+      "chunk": "c605b7",
+      "exit": 0
+    },
+    {
+      "command": "git diff --check",
+      "chunk": "0fbc49",
+      "exit": 0
+    }
+  ],
+  "reviewedSemantics": [
+    "Exact fixed alternating eight-slot original schedule, complete clocks/progress/source and ACK inventories and native UUID/prior anchors; public facade uses public driver ports under held writer.",
+    "Positive immutable retained never-started original reservation plus mandatory independent run/ledger/attempt current policy permits only original effect preparation. Missing local/native records are not authority.",
+    "Publication-started persists before native publisher phases; started missing whole plan refuses; intact started original recovers without replacement or reapplication.",
+    "Completed slots replay and renew actual protected ACK through publisher rather than trusting completed flags; complete original descriptor/progress is compared and producer/source/native/ledger admission renewed before success.",
+    "SQLite complete schema/8 slots, completed prefix/one active ordering, FULL DELETE profile, exclusive fresh creation and no resume initialization or WAL conversion; UID/mode/size/canonical parent/inode custody renewed before and after policies.",
+    "Cancellation/closing failure withholds success; cleanup uses existing priority-preserving lifecycle; exact original plan and native request carriers remain strict.",
+    "CI adds precisely one neighboring focused command to existing Python 3.9/3.12 consumer matrix."
+  ],
+  "priorStaticFindings": "Sequence, resume WAL conversion, opening/closing filesystem identity and mode custody, bounded decode/resume hash and closing callback drift findings resolved in frozen sources. No pre-fix native reproduction claimed.",
+  "qualification": "Actual eight-step public orchestration, core StoredPublisher/schema/graph oracle and owned SQLite exercised with inert producer/native effects/manifest/ACK adapters. Actual Spark/Delta source/protected ACK/public producer and installed fresh-process qualification remain outstanding. This is not installed/native execution proof.",
+  "scope": "Only frozen eight paths reviewed; foreign dirt preserved; no source edits, native/paid operation, credentials, provisioning or commits."
+}

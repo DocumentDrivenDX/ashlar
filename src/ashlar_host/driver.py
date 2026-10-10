@@ -247,6 +247,107 @@ class NativeDriver:
             with transport.db:
                 transport.db.execute('CREATE TABLE local_source_plan (request_digest TEXT PRIMARY KEY,original TEXT NOT NULL)')
 
+    def evolution_run_identity(self, *, context):
+        from .evolution_admission import EvolutionSourceSet
+        self.require(context)
+        if (type(self.source_admission) is not EvolutionSourceSet or len(self.source_admission.admissions) != 2
+                or self.source_sessions is None or self.ack_sessions is None):
+            raise PermissionError('Exactly two independently admitted source/session owners required')
+        self.transport._profile()
+        for target in self.transport.targets.values(): self.transport._detail(target)
+        return {'installation_id': self.transport.installation_id,
+            'registry': {target.table: {'uuid': target.uuid, 'path': str(target.path)}
+                         for target in self.transport.targets.values()},
+            'tables': dict(self.tables), 'source_admission': self.admission_facts(),
+            'source_sessions': self.source_sessions.metadata(), 'ack_sessions': self.ack_sessions.metadata()}
+
+    def verify_evolution_sources(self, sources, *, context):
+        from .evolution_admission import EvolutionSourceSet
+        self.require(context)
+        if type(sources) is not EvolutionSourceSet or not original_native_equal(sources.metadata(), self.admission_facts()):
+            raise PermissionError('Fresh public producer/source correspondence differs')
+
+    def capture_evolution_run(self, request, *, context):
+        from .evolution_run import EvolutionRunRequest, EvolutionRunDefinition, PROFILE as RUN_PROFILE
+        if type(request) is not EvolutionRunRequest:
+            raise PermissionError('Exact developer-owned evolution run request required')
+        identity = self.evolution_run_identity(context=context)
+        if set(request.source_order) != {item.prepared.source_system for item in self.source_admission.admissions}:
+            raise PermissionError('Complete original two-source schedule inventory differs')
+        for target in self.transport.targets.values():
+            version = int(self.transport.original_history(target)[0]['version'])
+            if self.transport._snapshot(target, version)['rows']:
+                raise PermissionError('Explicit new empty authorized installation required')
+        for table in ('local_operation', 'local_plan', 'local_source_plan', 'local_publication_artifact'):
+            if self.transport.db.execute('SELECT 1 FROM ' + table + ' LIMIT 1').fetchone():
+                raise PermissionError('Original installation already contains publication custody')
+        return EvolutionRunDefinition(encoded({'profile': RUN_PROFILE, 'request': request.document(),
+            'schedule': request.schedule(), 'installation': identity}).encode())
+
+    def validate_evolution_run(self, original, *, context):
+        from .evolution_run import EvolutionRunDefinition
+        if type(original) is not EvolutionRunDefinition or not original_native_equal(
+                original.document()['installation'], self.evolution_run_identity(context=context)):
+            raise PermissionError('Complete original run installation/source/session identity differs')
+
+    def plan_evolution_transaction(self, original, ordinal, previous_progress, *, context):
+        """Generate one original plan from admitted schedule and actual current anchors."""
+        from .evolution_plan import EvolutionAttemptPlan, PROFILE as PLAN_PROFILE
+        from .evolution_run import request_from_document
+        from ashlar.outbox import OutboxTransaction
+        self.validate_evolution_run(original, context=context)
+        if type(ordinal) is not int or not 0 <= ordinal < 8:
+            raise PermissionError('Original eight-step ordinal required')
+        definition = original.document(); request_config = request_from_document(definition['request'])
+        step = definition['schedule'][ordinal]
+        previous = {source: sum(item['source'] == source for item in definition['schedule'][:ordinal])
+                    for source in request_config.source_order}
+        following = dict(previous); following[step['source']] += 1
+        clocks = dict(zip(request_config.source_order, request_config.clocks))
+        source = next(item for item in self.source_admission.admissions
+                      if item.prepared.source_system == step['source'])
+        batch = source.prepared.batches[step['prefix'] - 1]
+        raw = batch.begin + b''.join(item.raw for item in batch.records) + batch.commit
+        transaction = OutboxTransaction('ashlar-postgresql-outbox/0.1', batch.feed, batch.epoch,
+            str(previous[step['source']]), str(following[step['source']]), hashlib.sha256(raw).hexdigest(), batch)
+        revisions = {item.prepared.source_system: item.prepared.schema_revisions[
+            following[item.prepared.source_system] - 1] for item in self.source_admission.admissions
+            if following[item.prepared.source_system]}
+        predecessor = request_config.predecessor if ordinal == 0 else definition['schedule'][ordinal - 1]['publication_id']
+        request = request_for(request_config.stream, transaction, predecessor, revisions)
+        prior = self.source_admission.oracle(previous, materialized_at=clocks)
+        expected = self.source_admission.oracle(following, materialized_at=clocks)
+        graph_tables = {role: self.tables[role] for role in self.source_admission.columns}
+        _, generated = self.plan_graph(self.source_admission.state_at(previous), batch,
+                                      graph_tables, materialized_at=step['materialized_at'])
+        selected, elisions = local_effect_plan(generated, prior, graph_tables)
+        anchors = {}
+        for role, table in graph_tables.items():
+            target = self.transport.targets[table]
+            version = int(self.transport.original_history(target)[0]['version'])
+            snapshot = self.transport._snapshot(target, version)
+            if not original_native_equal(snapshot['rows'], sorted(prior[role], key=encoded)):
+                raise PermissionError('Complete previous publication/native prefix differs')
+            anchors[table] = {'uuid': target.uuid, 'version': version, 'snapshot': snapshot}
+        _, _, operations = LocalDeltaEffects(self.transport).original_plan(
+            'effects:' + request['request_digest'], request['request_digest'], selected)
+        plan = EvolutionAttemptPlan(encoded({'profile': PLAN_PROFILE, 'request': request,
+            'generated_steps': generated, 'selected_steps': selected, 'zero_match_elisions': elisions,
+            'observed_native_prior': anchors, 'publication_id': step['publication_id'],
+            'materialized_at': step['materialized_at'], 'recorded_at': step['recorded_at'],
+            'previous_expected': prior, 'expected': expected, 'previous_progress': previous_progress,
+            'progress': progress_union(previous_progress, json.loads(request['source_checkpoint_json'])),
+            'schema_state': {'previous_prefixes': previous, 'prefixes': following, 'clocks': clocks},
+            'resource_registry': definition['installation']['registry'],
+            'source_admission': self.admission_facts(), 'operations': operations}).encode())
+        self.admit_evolution_plan(plan, context=context, fresh=True)
+        return plan
+
+    def publish_evolution_attempt_held(self, journal, *, context, expected_sha256):
+        """Run coordinator entry; keep the actual original exclusive writer held."""
+        self.require(context)
+        return self._publish_evolution_attempt(journal, context=context, expected_sha256=expected_sha256)
+
     def admit_evolution_plan(self, plan, *, context, fresh):
         """Check complete original semantic/native correspondence under held writer.
 
@@ -354,11 +455,12 @@ class NativeDriver:
         The enclosing eight-step run and its schedule custody are separate owners.
         """
         from .evolution_plan import EvolutionPlanJournal, EvolutionAttemptPlan
+        from .evolution_run import EvolutionRunAttemptJournal
         from ashlar.attempt_store import DeltaAttemptStore
         from ashlar.stored_publisher import StoredPublisherBackend
         from ashlar.publisher import publish_batch
         from .lifecycle import owned_context
-        if (type(journal) is not EvolutionPlanJournal or (original_plan is None) == (expected_sha256 is None)
+        if (type(journal) not in (EvolutionPlanJournal, EvolutionRunAttemptJournal) or (original_plan is None) == (expected_sha256 is None)
                 or (original_plan is not None and type(original_plan) is not EvolutionAttemptPlan)):
             raise PermissionError('Distinct original fresh or retained resume required')
         owner = self
@@ -383,9 +485,19 @@ class NativeDriver:
                     if original_plan is not None:
                         effects.prepare('effects:' + value['request']['request_digest'],
                             value['request']['request_digest'], value['selected_steps'], context=supplied)
+                    elif type(journal) is EvolutionRunAttemptJournal and journal.ledger.slot(journal.ordinal)[0] == 'retained':
+                        # Positive original run reservation proves this composition never entered
+                        # any native phase; missing local/native records are not that proof.
+                        journal.not_started(plan, supplied)
+                        owner.admit_evolution_plan(plan, context=supplied, fresh=True)
+                        effects.prepare_unsubmitted('effects:' + value['request']['request_digest'],
+                            value['request']['request_digest'], value['selected_steps'],
+                            reservation=journal, plan=plan, context=supplied)
                     else:
                         effects.observe('effects:' + value['request']['request_digest'],
                             value['request']['request_digest'], value['selected_steps'], context=supplied)
+                    if type(journal) is EvolutionRunAttemptJournal:
+                        journal.start(plan, supplied)
                     yield
                     closing = journal.load(expected_sha256=plan.sha256, context=supplied)
                     if closing.raw != plan.raw:
@@ -408,7 +520,7 @@ class NativeDriver:
             'batch_digest': request['source_batch_digest']})
         target = self.transport.targets[self.tables['attempts']]
         backend = StoredPublisherBackend(DeltaAttemptStore(AttemptExecutor(self), CarrierPolicy(self, 'attempts'),
-            target.table, target.uuid), Driver(), lambda original, supplied: ManifestPort(self, original))
+            target.table, target.uuid, original_request=request if type(journal) is EvolutionRunAttemptJournal else None), Driver(), lambda original, supplied: ManifestPort(self, original))
         return publish_batch(backend, request['stream'], batch, predecessor=request['predecessor'],
             schema_revisions_json=request['schema_revisions_json'], context=context,
             source_checkpoint_json=request['source_checkpoint_json'])

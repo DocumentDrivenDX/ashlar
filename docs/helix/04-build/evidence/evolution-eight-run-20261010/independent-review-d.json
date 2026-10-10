@@ -1,0 +1,23 @@
+{
+  "decision": "Approve static D compatibility amendment; native SQL landing hold retained",
+  "integrationFreeze": {
+    "path": "/private/tmp/ashlar-evolution-eight-run-integration-freeze-20261010-d.json",
+    "sha256": "6e91327d3dc4fc981fc92eeb0a5bee319c5d3538171571af1c15e3df0ab6aa3c"
+  },
+  "files": {
+    "src/ashlar_host/evolution_run.py": "70d10bd077e20d6d738e859a16e7ffa97be100bee3a1eaff2f6869757a001bad",
+    "src/ashlar_host/config.py": "25453f62fc7f181453a5443ef2b3c1fc945beae59d02fbbdb1d3d4b6446ef42c",
+    "src/ashlar_host/commerce_evolution.py": "37bc3d2b580aa06fefe6969d841f53d5677026df8154ece6a4d26685be2d54bb",
+    "src/ashlar_host/driver.py": "9930a7928ad53d47db7e998316b345fda498cfdc0d3e45e245667d1d638751bf",
+    "src/ashlar_host/delta_custody.py": "d90f523e88f7768bcc1faabbff80cf86930f68f08d62b73d28ef2989aa3dd3a5",
+    "tests/test_evolution_run.py": "629c2e90c5f103515ec9e3d6c9e608bd6bbe65893e2fd52a92a29e0d4a068206",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "ad77ae3a7f4e3f8d14323f42e8e1b836b1052f6a8af5d8347091924c92112b6d",
+    "src/ashlar/attempt_store.py": "c2c1850716aba6bff09006ff3dfa12dfe338d452811f4d0242fa2b4af123e4b5",
+    "tests/test_scoped_attempt_store.py": "06ed8219fc9e383005c389e61d3835849f68f09e2578813c85898b064254b2a8",
+    "docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md": "b77ac2991a3d54df8af78be454c526433ca62f418740fa8f6d4bd76d0f26d0db",
+    ".github/workflows/weft-distribution.yml": "f28d27ee74a489d4b84b5bc1a810e2258fd27bd5a31db841bca27c12c7c9f470"
+  },
+  "amendment": "Original EvolutionPlanJournal uses original_request=None, preserving historical unscoped native SQL; scoped exact request selected only for EvolutionRunAttemptJournal. ADR qualifies scopes. Exact unchanged other nine files and old test coverage inherited C receipt; author seven transaction/three scoped actual regression8973f6, no duplicate rerun.",
+  "priorReview": "ee0136c4cab163f9e340354e14bdfabc511fa7e59c174a2271c819c682f450e6",
+  "qualification": "No actual native MERGE qualification; pending reviewed tiny local operation. Foreign browser/composition files excluded."
+}

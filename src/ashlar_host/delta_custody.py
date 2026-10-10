@@ -438,6 +438,49 @@ class LocalDeltaEffects:
         identities = ['local-effect:' + digest + ':' + str(i) for i in range(len(frozen_steps))]
         return original, digest, identities
 
+    def prepare_unsubmitted(self, operation, intent_digest, steps, *, reservation, plan, context):
+        """Prepare exact original bytes only with positive never-started run custody.
+
+        Missing local records or native history alone never establish this right.
+        The original run owner and independent current policy must positively
+        admit its retained reservation; known phase/ordinal/native custody refuses.
+        """
+        from .evolution_run import EvolutionRunAttemptJournal
+        from .evolution_plan import EvolutionAttemptPlan
+        if type(reservation) is not EvolutionRunAttemptJournal or type(plan) is not EvolutionAttemptPlan:
+            raise LocalDeltaError('Owned positive original submission reservation required')
+        reservation.not_started(plan, context)
+        original, digest, identities = self.original_plan(operation, intent_digest, steps)
+        value = plan.document()
+        if (value['request']['request_digest'] != intent_digest or value['selected_steps'] != json.loads(original)['steps']
+                or value['operations'] != identities or operation != 'effects:' + intent_digest):
+            raise LocalDeltaError('Exact retained original effect reservation differs')
+        if self.transport.policy.admit(json.loads(original), context) is not None:
+            raise LocalDeltaError('Current original never-submitted admission incomplete')
+        self.transport._profile()
+        with self.transport._lock():
+            rows = self.transport.db.execute('SELECT intent FROM local_operation LIMIT 1001').fetchall()
+            if len(rows) > 1000:
+                raise LocalDeltaError('Bounded complete original submission inventory required')
+            for row in rows:
+                retained = json.loads(row[0])
+                if retained.get('request_digest') == intent_digest or retained.get('operation') in identities:
+                    raise LocalDeltaError('Known original native submission contradicts never-started reservation')
+            for target in self.transport.targets.values():
+                self.transport._detail(target)
+                for record in self.transport.original_history(target):
+                    try: metadata = json.loads(record.get('userMetadata') or '{}')
+                    except (TypeError, ValueError): metadata = {}
+                    if (type(metadata) is dict and metadata.get('profile') == 'ashlar-local-delta-commit/0.1'
+                            and metadata.get('installation_id') == self.transport.installation_id
+                            and (metadata.get('request_digest') == intent_digest or metadata.get('operation') in identities)):
+                        raise LocalDeltaError('Known original named native commit contradicts never-started reservation')
+        answer = self.prepare(operation, intent_digest, steps, context=context)
+        reservation.not_started(plan, context)
+        if self.transport.policy.admit(json.loads(original), context) is not None:
+            raise LocalDeltaError('Closing original never-submitted admission incomplete')
+        return answer
+
     def prepare(self, operation, intent_digest, steps, *, context):
         """Retain whole original intent before effects; no mutation or initialization.
 

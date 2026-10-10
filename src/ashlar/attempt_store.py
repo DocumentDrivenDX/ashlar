@@ -72,9 +72,24 @@ def _validate_phase_records(stream,batch_id,rows):
     return tuple(result)
 
 class DeltaAttemptStore:
-    def __init__(self,executor,policy,table,uuid):
+    def __init__(self,executor,policy,table,uuid,*,original_request=None):
         self.executor=executor;self.policy=policy;self.table=table;self.sql_table=_quoted(table);self.uuid=uuid
         if not isinstance(uuid,str) or not uuid:raise AttemptStoreError('Trusted attempt table UUID required')
+        self.original_request = None
+        self.source_scope = None
+        if original_request is not None:
+            if (type(original_request) is not dict or len(original_request)!=8
+                    or any(type(k) is not str or type(v) is not str or len(v)>4*1024*1024 for k,v in original_request.items())):
+                raise AttemptStoreError('Exact original scoped request strings required')
+            original_bytes=json.dumps(original_request,sort_keys=True,separators=(',',':')).encode()
+            if len(original_bytes)>4*1024*1024:raise AttemptStoreError('Bounded original scoped request required')
+            _request_digest(original_request)
+            checkpoint = _json(original_request.get('source_checkpoint_json','').encode())
+            if (type(checkpoint) is not dict or checkpoint.get('profile') != 'ashlar-postgresql-outbox/0.1'
+                    or any(type(checkpoint.get(k)) is not str or not checkpoint[k] for k in ('feed','epoch'))):
+                raise AttemptStoreError('Original outbox feed/epoch scope required')
+            self.original_request = json.dumps(original_request,sort_keys=True,separators=(',',':'))
+            self.source_scope = (checkpoint['feed'],checkpoint['epoch'])
     def _identity(self):
         rows=self.executor.query('DESCRIBE DETAIL '+self.sql_table,{}).rows
         if len(rows)!=1 or rows[0].get('id')!=self.uuid:raise AttemptStoreError('Attempt table identity changed')
@@ -97,10 +112,47 @@ class _Session:
         if any(not isinstance(x,str) or not x for x in [stream,batch_id]):raise AttemptStoreError('Explicit original attempt identity required')
         s=self.store
         order='CASE phase '+ ' '.join("WHEN '"+p+"' THEN "+str(i) for i,p in enumerate(PHASES))+' END'
-        rows=s.executor.query('SELECT phase,request_digest,payload_json,payload_digest FROM '+s.sql_table+' WHERE stream=:stream AND batch_id=:batch ORDER BY '+order+' LIMIT 6',{'stream':stream,'batch':batch_id}).rows
-        return _phase_records(stream,batch_id,rows)
+        limit = '6' if s.original_request is None else '161'
+        rows=s.executor.query('SELECT phase,request_digest,payload_json,payload_digest FROM '+s.sql_table+' WHERE stream=:stream AND batch_id=:batch ORDER BY '+order+' LIMIT '+limit,{'stream':stream,'batch':batch_id}).rows
+        if s.original_request is None: return _phase_records(stream,batch_id,rows)
+        original = _json(s.original_request.encode())
+        if (stream,batch_id) != (original['stream'],original['batch_id']):
+            raise AttemptStoreError('Original scoped stream/batch differs')
+        if len(rows)>160: raise AttemptStoreError('Bounded complete source-qualified phase inventory required')
+        groups={}
+        for row in rows:
+            try:
+                if (type(row) is not dict or set(row)!={'phase','request_digest','payload_json','payload_digest'}
+                        or any(type(value) is not str for value in row.values())
+                        or row['phase'] not in PHASES or len(row['payload_json'])>4*1024*1024):
+                    raise AttemptStoreError('Exact bounded original phase carriers required')
+                raw=row['payload_json'].encode()
+                if len(raw)>4*1024*1024 or hashlib.sha256(raw).hexdigest()!=row['payload_digest']:
+                    raise AttemptStoreError('Original phase byte custody differs')
+                payload=_json(raw);request=payload['request']
+                if type(request) is not dict or any(type(k) is not str or type(v) is not str for k,v in request.items()):
+                    raise AttemptStoreError('Exact existing original request strings required')
+                _request_digest(request)
+                checkpoint=_json(request['source_checkpoint_json'].encode())
+                if (checkpoint.get('profile')!='ashlar-postgresql-outbox/0.1'
+                        or any(type(checkpoint.get(k)) is not str or not checkpoint[k] for k in ('feed','epoch'))):
+                    raise AttemptStoreError('Unknown original phase source scope')
+                scope=(checkpoint['feed'],checkpoint['epoch'])
+            except (KeyError,TypeError,AttributeError,ValueError) as exc:
+                raise AttemptStoreError('Malformed or unknown original scoped custody') from exc
+            groups.setdefault(scope,[]).append(row)
+        result=()
+        for scope,group in groups.items():
+            records=_phase_records(stream,batch_id,group)
+            if scope==s.source_scope:
+                if any(record.request_digest!=original['request_digest'] for record in records):
+                    raise AttemptStoreError('Changed original within source-qualified attempt')
+                result=records
+        return result
     def append(self,request,phase,*,result_json=None,descriptor_json=None):
         self._open();request=dict(request);digest=_request_digest(request)
+        if self.store.original_request is not None and json.dumps(request,sort_keys=True,separators=(',',':')) != self.store.original_request:
+            raise AttemptStoreError('Exact bound original scoped request required')
         if phase not in PHASES:raise AttemptStoreError('Unsupported phase')
         text=json.dumps({'request':request,'result_json':result_json,'descriptor_json':descriptor_json},sort_keys=True,separators=(',',':'))
         if len(text.encode())>4*1024*1024:raise AttemptStoreError('Phase byte budget exceeded')
@@ -116,7 +168,11 @@ class _Session:
         _phase_records(row['stream'],row['batch_id'],candidate_rows)
         columns=list(row);definition='STRUCT<'+','.join(k+':STRING' for k in columns)+'>'
         parity=' AND '.join('t.'+k+' IS NOT DISTINCT FROM s.'+k for k in columns)
-        sql='MERGE INTO '+self.store.sql_table+" t USING (SELECT r.* FROM (SELECT from_json(:payload,'"+definition+"') r)) s ON t.stream=s.stream AND t.batch_id=s.batch_id AND t.phase=s.phase WHEN MATCHED AND NOT ("+parity+") THEN UPDATE SET payload_json=cast(raise_error('ATTEMPT_PHASE_CONFLICT') AS STRING) WHEN NOT MATCHED THEN INSERT *"
+        scope_key = ''
+        if self.store.source_scope is not None:
+            for key in ('feed','epoch'):
+                scope_key += " AND get_json_object(get_json_object(t.payload_json,'$.request.source_checkpoint_json'),'$."+key+"')=get_json_object(get_json_object(s.payload_json,'$.request.source_checkpoint_json'),'$."+key+"')"
+        sql='MERGE INTO '+self.store.sql_table+" t USING (SELECT r.* FROM (SELECT from_json(:payload,'"+definition+"') r)) s ON t.stream=s.stream AND t.batch_id=s.batch_id AND t.phase=s.phase"+scope_key+" WHEN MATCHED AND NOT ("+parity+") THEN UPDATE SET payload_json=cast(raise_error('ATTEMPT_PHASE_CONFLICT') AS STRING) WHEN NOT MATCHED THEN INSERT *"
         self.store.executor.query(sql,{'payload':json.dumps(row,separators=(',',':'))})
         actual=self.read(row['stream'],row['batch_id'])
         if len(actual)!=index+1 or actual[-1]!=PhaseRecord(phase,digest,text,row['payload_digest']):raise AttemptStoreError('Native phase readback mismatch')

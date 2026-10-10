@@ -1,0 +1,60 @@
+{
+  "decision": "Approve exact D bounded command for one local Spark/Delta scoped phase probe; no execution by reviewer",
+  "recipe": {
+    "path": "/private/tmp/ashlar-scoped-phase-native-recipe-freeze-20261010-d.json",
+    "sha256": "b7de3e64edbdacb7661babb777e4ca8e4a85c8c9516586371ebac1b2525ec9b0"
+  },
+  "runnerSha256": "530ab845e48919644a08320fcf801e22d41dcae441fd545ccc3195aaf8a702c5",
+  "closureSha256": "5377aa779bbb3fe41177a42ee5adb60a379681eaec1b21c8599e954f6e2b5632",
+  "command": [
+    "/private/tmp/ashlar-spark311/bin/python",
+    "-B",
+    "-S",
+    "/private/tmp/ashlar-scoped-phase-native-runner-20261010.py",
+    "530ab845e48919644a08320fcf801e22d41dcae441fd545ccc3195aaf8a702c5"
+  ],
+  "resources": {
+    "master": "local[1]",
+    "driver_memory": "512m",
+    "shuffle_partitions": 1,
+    "snapshot_partitions": 1,
+    "timeout_seconds": 180,
+    "process_group_cleanup": "TERM then KILL all paths",
+    "maximum_capture_bytes": 8388608
+  },
+  "outputs": [
+    "/private/tmp/ashlar-scoped-phase-native-20261010-a",
+    "/private/tmp/ashlar-scoped-phase-native-20261010-a.log",
+    "/private/tmp/ashlar-scoped-phase-native-run-20261010-a.json"
+  ],
+  "verified": [
+    "Exact recipe/probe/runner/direct resource pins match D",
+    "Independent complete2635file runtime/imported-source inventory resolves and streamed hashes pass readonly chunk8217c9, no process/session",
+    "Original D source freeze pins, exact source fixture and complete selected SDK/JDK/Python/jars checked opening and closing",
+    "External runner hash required; closed explicit native environment, fresh exclusive0600log/receipt,8MiB pipe capture and180s hard native deadline",
+    "TERM then independent unconditional KILL and reap callbacks each attempted even if earlier cleanup throws; cancellation selection retains original body identity and records cleanup outcomes",
+    "Probe creates one fresh private local1/512MiB six-column Delta table: ten actualStore phases twofeeds same stream/localbatch, reread/append exactreplay unchangedversion, same-source changed-original refusal, one corrupt neighbor refusal"
+  ],
+  "authorControls": [
+    {
+      "chunk": "92c10f",
+      "scope": "actual inert TERM-ignoring child, single TERM-wait cancellation, unconditional KILL/reap/groupgone, exact cancellation identity and receipt; root corroborated"
+    },
+    {
+      "chunks": [
+        "d15ce9",
+        "27e65f"
+      ],
+      "scope": "owned local process-group signal preflight with reviewed escalation"
+    },
+    {
+      "chunks": [
+        "2028a7",
+        "5ef673"
+      ],
+      "scope": "prior bounded capture and cancellation/closing priority controls"
+    }
+  ],
+  "priorFindings": "Stale C/source pins, incomplete runtime closure, unbounded log, lost cancellation receipt and interrupted TERM skipping final KILL all resolved in D. Earlier all-sleep overinjected inert control retained separately; not native failure.",
+  "qualification": "Approval to execute exact bounded local operation only. No actual native success yet, no PG/cloud/ACK/graph/full8/installed/scale proof. Expected summary artifacts are opaque phase carriers, not publication descriptors. No duplicate native run authorized by reviewer."
+}

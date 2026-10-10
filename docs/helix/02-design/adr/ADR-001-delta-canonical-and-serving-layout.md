@@ -164,8 +164,9 @@ The installed original-commerce evolution facade adds these owned boundaries:
 | --- | --- | --- | --- | --- |
 | `src/ashlar/commerce_evolution.py` | Immutable finite source preparation and independent complete prefix-union oracle | Named preparation and oracle under CONTRACT-003 | Public core source/value APIs and Python3.9 standard library | Host/tools/SDK imports, runtime discovery, authority or replacement UMF semantics |
 | `src/ashlar_host/evolution_admission.py` | Bounded original/candidate/proof custody and exact public producer admission | EvolutionSourceSet source/transition admission, state_at and complete oracle; owned producer admission ports | Explicit config, public core preparation, packaged resources and configured public UMF producer | Checkout discovery, ambient Bun/Git, private UMF APIs, receipt flags as authority |
-| `src/ashlar_host/commerce_evolution.py` | Fresh/resume lifecycle, source-qualified publication and original recovery | publish_evolution_transaction, resume_evolution_transaction; full publish_commerce_evolution/resume_commerce_evolution under CONTRACT-001 | Explicit config, owned admission/driver/journal/ACK/lifecycle ports and supplied ordinary sessions | Source/role/grant provisioning, credential discovery/escalation, new uncertain intent, tools/private native access |
+| `src/ashlar_host/commerce_evolution.py` | Fresh/resume lifecycle, source-qualified publication and original recovery | publish_evolution_transaction, resume_evolution_transaction; publish_commerce_evolution/resume_commerce_evolution under CONTRACT-001 | Explicit config, owned admission/driver/journal/ACK/lifecycle ports and supplied ordinary sessions | Source/role/grant provisioning, credential discovery/escalation, new uncertain intent, tools/private native access |
 | `src/ashlar_host/evolution_plan.py` | Pure immutable original attempt envelope and journal custody | EvolutionAttemptPlan, EvolutionPlanJournal; compatibility exports through commerce_evolution | Standard library and mandatory independent plan-admission policy | Config/orchestration imports, native clients, source/ACK authority |
+| `src/ashlar_host/evolution_run.py` | Fixed alternating original schedule and durable positive submission reservations | EvolutionRunRequest, EvolutionRunDefinition, EvolutionRunLedger, EvolutionRunAttemptJournal, EvolutionRunLedgerView | Pure plan types, standard-library SQLite/POSIX custody and mandatory independent current run/lineage/attempt policy | Native clients, source provisioning, absent handles as absence proof, mutable caller status as authority |
 | `src/ashlar_host/evolution_producer.py` | Bounded public-UMF subprocess ownership and original receipt custody | Typed producer invocation for evolution_admission under CONTRACT-001 | Explicit immutable configuration/input snapshots, standard-library process and owned lifecycle ports | Ambient environment/PATH discovery, private source capture or UMF APIs, tools, native authority |
 | `src/ashlar_host/source_sessions.py` | Original outbox registrations and ordinary source-session ownership | OutboxSourceRegistration, RegisteredOutboxSources.admit | Explicit factories/current native policy, owned AckScope/Session/lifecycle and public complete outbox/checkpoint APIs | Credential discovery, provisioning, commits, ACK mutation or registration metadata as authority |
 | `src/ashlar_host/ack_sessions.py` | Original protected ACK registrations and ordinary session selection | OutboxAckRegistration, RegisteredOutboxAcks.acknowledge/reconcile | Supplied ordinary factories/current policy, owned protected ACK and source-registration ports | Credential discovery, provisioning, metadata as authority or cancellation converted to success |
@@ -246,8 +247,30 @@ before effect and publisher phase custody; resume loads only the retained bytes
 and original whole effect plan. Missing effect-plan custody after attempt-file
 retention safely refuses and does not authorize restoration. Closing custody,
 source admission and writer cleanup gate result release. These transaction APIs
-are internal components; the installed facade separately owns the fixed eight-step
-schedule, initialization admission, producer verification and restart run custody.
+are internal components of the fixed eight-step facade. Separate immutable
+`FreshCommerceEvolutionConfig` and `ResumeCommerceEvolutionConfig` select supplied
+ordinary source/ACK/native ports, explicit public producer/runtime, current policy
+and original ledger custody. Fresh requires an independently authorized, already
+empty installation; resume has no initialization or replacement option.
+
+The run ledger exclusively retains its original definition and all eight slots
+on the selected private local POSIX filesystem using FULL synchronous SQLite with
+DELETE journaling. The developer-owned schedule alternates the two sources through
+R1→R4; the complete source-qualified prefix/progress vector and ancestry come from
+original attempts and actual descriptor replay. Each complete original plan captures
+actual native prior anchors immediately before retention. A positively retained
+slot precedes `publication-started`, which must be durably stored before any native
+publisher phase or effect. Only the original retained/not-started slot under
+independent complete-ledger and native policy can authorize preparation of its
+exact original missing whole effect plan. Missing slots, altered ledger, known
+original ordinal/native commit or started custody cannot establish that right.
+Started attempts retain ordinary original-operation recovery when complete plan
+custody remains; completed replay renews protected ACK and preserves descriptors.
+Public producer/source correspondence, original ledger/native/source admission and
+all owned cleanup must close before the full run returns. This cooperative writer
+and local-filesystem custody model requires separately qualified actual installed
+native execution and fresh-process recovery; it does not prove physical retention,
+cloud authorization or adversarial administrator resistance.
 
 `config.py` owns separate immutable fresh/resume types and validates the complete
 selected profile before effects. The CLI is the construction root; supplied native
@@ -473,3 +496,18 @@ Historical measurements and implementation observations are retained in
 - [Truss ADR-002](/Users/erik/Projects/truss/docs/helix/02-design/adr/ADR-002-storage-strategy.md)
 - [Databricks clustering](https://docs.databricks.com/aws/en/tables/clustering)
 - [Fabric limitations](https://learn.microsoft.com/en-us/fabric/graph/limitations)
+
+The installed evolution phase store binds an exact verified original request and
+qualifies observation and mutation by its original outbox feed and epoch as well
+as stream, local batch ID and phase. Overlapping local batch IDs across sources
+remain distinct; changed requests within the same qualified source identity
+refuse rather than acquire replacement custody. Bounded complete stream/batch
+rows are validated before source selection, so malformed or unknown source
+custody cannot disappear behind native JSON predicates. The original request,
+checkpoint and batch bytes remain unchanged. Native JSON expressions in the
+scoped MERGE require the selected Spark/Delta profile qualification.
+
+Scoped phase identity is selected for the original eight-step run journal only.
+The existing one-transaction plan-journal path retains its original unscoped
+phase SQL and original native operation identities; it does not adopt or
+regenerate interrupted historical operations into the new run profile.

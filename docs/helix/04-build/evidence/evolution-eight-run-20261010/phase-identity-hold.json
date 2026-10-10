@@ -1,0 +1,16 @@
+{
+  "decision": "HOLD landing; supersedes prior approval for full8 slice",
+  "priorReview": {
+    "path": "/private/tmp/ashlar-evolution-eight-run-independent-review-20261010.json",
+    "sha256": "034d66080ee242ce01cc5d7d58d3910a21d8baf14364edd25f8191f81b956003"
+  },
+  "finding": "Native DeltaAttemptStore observation/read and MERGE identity is (stream, source-local batch_id, phase), while full8 uses one stream for two qualified sources that permit overlapping local batch IDs. Different source attempts collide before digest-specific replay selection.",
+  "evidence": {
+    "chunk": "2850a6",
+    "read": "WHERE stream=:stream AND batch_id=:batch",
+    "merge": "ON t.stream=s.stream AND t.batch_id=s.batch_id AND t.phase=s.phase",
+    "backend": "StoredPublisherBackend.observe(stream,batch_id) calls unscoped read"
+  },
+  "qualification": "Static concrete identity audit. No native reproduction or new passing coverage claimed; previous 10 inert controls use nonoverlapping IDs and do not establish collision safety.",
+  "required": "Scope both early observation and read/append native identity by canonical qualified source identity while retaining original stream/local batch/request bytes; maintain immutable original-request conflict within a qualified source attempt. Add actual core overlap fresh/resume and same-source changed-original refusal controls; independently freeze/review before landing."
+}

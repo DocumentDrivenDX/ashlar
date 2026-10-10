@@ -1,0 +1,29 @@
+{
+  "result": 1,
+  "timed_out": false,
+  "capture_limited": false,
+  "captured_bytes": 1683,
+  "elapsed_seconds": 6.638230875018053,
+  "process_group": 14999,
+  "cleanup_signals": [],
+  "command": [
+    "/private/tmp/ashlar-spark311/bin/python",
+    "-B",
+    "-S",
+    "/private/tmp/ashlar-scoped-phase-native-probe-20261010.py"
+  ],
+  "environment": {
+    "PATH": "/opt/homebrew/opt/openjdk@21/bin:/usr/bin:/bin",
+    "JAVA_HOME": "/opt/homebrew/opt/openjdk@21/libexec/openjdk.jdk/Contents/Home",
+    "PYTHONPATH": "/Users/erik/Projects/ashlar/src:/private/tmp/ashlar-indexed-delta4-python-20261010-a:/private/tmp/ashlar-spark4-python39-bridge",
+    "PYSPARK_PYTHON": "/private/tmp/ashlar-spark311/bin/python",
+    "PYSPARK_DRIVER_PYTHON": "/private/tmp/ashlar-spark311/bin/python",
+    "SPARK_LOCAL_IP": "127.0.0.1",
+    "PYTHONDONTWRITEBYTECODE": "1"
+  },
+  "runner_sha256": "530ab845e48919644a08320fcf801e22d41dcae441fd545ccc3195aaf8a702c5",
+  "closure_sha256": "5377aa779bbb3fe41177a42ee5adb60a379681eaec1b21c8599e954f6e2b5632",
+  "primary_outcome": "RuntimeError",
+  "cleanup_errors": [],
+  "qualification": "One bounded local native phase SQL probe; no cloud/source/ACK/graph/native full-run qualification."
+}

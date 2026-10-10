@@ -193,7 +193,15 @@ mandatory for every supported producer profile.
 
 DeltaAttemptStore MUST implement the serialized original-phase carrier.
 Its six nonnull STRING columns are stream, batch_id, phase, request_digest,
-payload_json and payload_digest; the logical key is (stream,batch_id,phase).
+payload_json and payload_digest. The compatible unscoped profile uses logical
+key (stream,batch_id,phase). The installed outbox evolution profile MUST select
+an exact verified original request and use logical key
+(feed,epoch,stream,batch_id,phase), with feed/epoch derived from its original
+checkpoint. It MUST preserve all six columns and original request/batch bytes,
+permit overlapping source-local IDs across qualified sources, and refuse changed
+original requests within the same qualified identity. Bounded complete original
+stream/batch rows MUST be validated before source selection; malformed or unknown
+source custody MUST NOT be hidden by native JSON scope predicates.
 Native SHA256 checks bind payload_digest to exact payload_json UTF8 bytes.
 The payload has exactly request, result_json and descriptor_json. Request
 retains all original coordinator fields including its verified request digest.

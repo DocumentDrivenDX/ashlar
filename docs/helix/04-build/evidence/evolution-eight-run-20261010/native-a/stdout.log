@@ -1,0 +1,19 @@
+WARNING: Using incubator modules: jdk.incubator.vector
+26/10/10 18:05:31 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Using Spark's default log4j profile: org/apache/spark/log4j2-defaults.properties
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+26/10/10 18:05:34 WARN SparkStringUtils: Truncated the string representation of a plan since it was too large. This behavior can be adjusted by setting 'spark.sql.debug.maxToStringFields'.
+Traceback (most recent call last):
+  File "/private/tmp/ashlar-scoped-phase-native-probe-20261010.py", line 59, in <module>
+    store=DeltaAttemptStore(executor,Policy(),table,uuid,original_request=request)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar/attempt_store.py", line 76, in __init__
+    self.executor=executor;self.policy=policy;self.table=table;self.sql_table=_quoted(table);self.uuid=uuid
+                                                                              ^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar/native.py", line 29, in quote_table_identifier
+    return '.'.join('`' + part + '`' for part in validate_table_identifier(table).split('.'))
+                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/Users/erik/Projects/ashlar/src/ashlar/publication.py", line 20, in validate_table_identifier
+    raise ResolutionError('Invalid qualified table identifier')
+ashlar.publication.ResolutionError: Invalid qualified table identifier

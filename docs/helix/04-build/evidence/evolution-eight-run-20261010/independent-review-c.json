@@ -1,0 +1,74 @@
+{
+  "decision": "Approve exact eleven source/docs/CI paths within qualified core/inert transport scope; root holds landing for separately reviewed actual native SQL qualification",
+  "freeze": {
+    "path": "/private/tmp/ashlar-evolution-eight-run-freeze-20261010-c.json",
+    "sha256": "378954b38039c73d95742cf44991644892afc370a3ab68dfb29eca19d76caca0"
+  },
+  "base": "941e2c795be9cad7e7290ccdd79e21e751c1e830",
+  "files": {
+    "src/ashlar_host/evolution_run.py": "70d10bd077e20d6d738e859a16e7ffa97be100bee3a1eaff2f6869757a001bad",
+    "src/ashlar_host/config.py": "25453f62fc7f181453a5443ef2b3c1fc945beae59d02fbbdb1d3d4b6446ef42c",
+    "src/ashlar_host/commerce_evolution.py": "37bc3d2b580aa06fefe6969d841f53d5677026df8154ece6a4d26685be2d54bb",
+    "src/ashlar_host/driver.py": "936febc5e438911e139568a84ac0ead15ce166a83d68e85efa4d78e8833d4f54",
+    "src/ashlar_host/delta_custody.py": "d90f523e88f7768bcc1faabbff80cf86930f68f08d62b73d28ef2989aa3dd3a5",
+    "tests/test_evolution_run.py": "629c2e90c5f103515ec9e3d6c9e608bd6bbe65893e2fd52a92a29e0d4a068206",
+    "docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md": "013cc33d21041066f28cffe90de3d1b24c0e960adcfafcf5fec39b2156dc5763",
+    "src/ashlar/attempt_store.py": "c2c1850716aba6bff09006ff3dfa12dfe338d452811f4d0242fa2b4af123e4b5",
+    "tests/test_scoped_attempt_store.py": "06ed8219fc9e383005c389e61d3835849f68f09e2578813c85898b064254b2a8",
+    "docs/helix/02-design/contracts/CONTRACT-001-publication-boundary.md": "b77ac2991a3d54df8af78be454c526433ca62f418740fa8f6d4bd76d0f26d0db",
+    ".github/workflows/weft-distribution.yml": "f28d27ee74a489d4b84b5bc1a810e2258fd27bd5a31db841bca27c12c7c9f470"
+  },
+  "closingHashesMatch": true,
+  "supersedes": {
+    "priorApproval": "034d66080ee242ce01cc5d7d58d3910a21d8baf14364edd25f8191f81b956003",
+    "hold": "2081eee79784a356c797374c716d6226698dd190479f310c4b9867b95faf5579",
+    "resolution": "Both early observation and native mutation source-qualified by original verified checkpoint feed+epoch; unchanged original request and all six table columns. Same source/epoch changed original still conflicts."
+  },
+  "independentTests": [
+    {
+      "suite": "test_scoped_attempt_store.py",
+      "tests": 3,
+      "seconds": 0.088,
+      "chunk": "46d234",
+      "exit": 0
+    },
+    {
+      "suite": "test_evolution_run.py",
+      "tests": 10,
+      "seconds": 33.852,
+      "session": 87477,
+      "chunk": "c74e88",
+      "exit": 0
+    },
+    {
+      "suite": "test_attempt_store.py",
+      "tests": 3,
+      "seconds": 0.002,
+      "chunk": "ea78d8",
+      "exit": 0
+    },
+    {
+      "check": "module boundaries and diff",
+      "chunk": "ea78d8",
+      "exit": 0
+    }
+  ],
+  "review": [
+    "Exact original request copied at construction; append must match it. Broad bounded stream/local batch inventory validates exact primitive rows, known phase, byte/hash custody before JSON decode, exact request/checkpoint and complete phase sequences for every source group before selecting bound feed/epoch. Unknown/malformed neighbors cannot disappear via NULL predicate.",
+    "Actual core owned Store+StoredPublisher exercises same stream/local batch two feeds fresh and replay, no second apply or new phase; same-source changed-original, duplicates, unknown payload, decode budget, caller mutation and same-feed new-epoch controls pass.",
+    "Default unscoped reader/key unchanged and legacy controls pass. New MERGE source-key expressions are text-checked with inert append-only executor, not executed on Spark.",
+    "Original full8 positive ledger/started transition/closing producer/current native/source/ACK/cancellation review remains as qualified in prior receipt. Core full8 test sources still use distinct local IDs; overlap integration is separately covered at actual core Store+StoredPublisher transport level.",
+    "CONTRACT001 reconciles original compatible key versus installed outbox qualified key; original source bytes/columns preserved. ADR scopes native SQL qualification honestly.",
+    "Workflow changes precisely two neighboring focused commands selecting run10 and scoped3 on existing Python3.9/3.12 matrix."
+  ],
+  "qualification": "Actual core eight-step orchestration, graph/schema oracle, SQLite custody and scoped Store/StoredPublisher exercised with inert native/source/producer/manifest/ACK and append-only SQL transport. Actual Spark/Delta JSON expressions/MERGE, public producer/protected ACK and installed fresh-process recovery remain outstanding; no native/paid operation performed.",
+  "excluded": [
+    "src/ashlar_host/evolution_composition.py",
+    "tests/test_evolution_composition.py",
+    "all foreign dirt"
+  ],
+  "integrationFreeze": {
+    "path": "/private/tmp/ashlar-evolution-eight-run-integration-freeze-20261010-c.json",
+    "sha256": "30d3606bacadb02015b6ffddd4adf49135df104fb0c2771babf5b4f425f727a7"
+  }
+}

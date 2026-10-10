@@ -1,0 +1,16 @@
+{
+  "format": "ashlar-evolution-eight-run-checks/0.1",
+  "sourceFreezeSha256": "e44a0b37df4290ed4547bf21313df2d14270c302c2588da9d1fa2117b984fde5",
+  "rootCheck": {
+    "chunk": "ab4328",
+    "tests": 10,
+    "elapsedSeconds": 32.684,
+    "result": "PASS"
+  },
+  "sourceCustodyCheck": {
+    "chunk": "cb4c76",
+    "result": "All eight integration hashes unchanged"
+  },
+  "scope": "Actual public alternating eight-step fresh/resume orchestration, core StoredPublisher phases, original plans/oracles and SQLite custody with explicit inert producer/native/source/ACK ports.",
+  "remaining": "Actual installed-native fresh process and resume with real Delta, ordinary PostgreSQL source and protected ACK; public CLI composition and current independent native run authority."
+}

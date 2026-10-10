@@ -1,0 +1,14 @@
+{
+  "decision": "Approve exact native B archive/inventory and retained A failure/review copies for landing alongside frozen D11",
+  "archiveSha256": "1f273fda4b3b9899ff054f3f51e170872be546fe7621bc6ab701895f34ce0597",
+  "archiveBytes": 168708,
+  "decodedBytes": 1839984,
+  "members": 23,
+  "checks": "All unique safe regular members exact inventory hash/size and original resultfreeze17 files+six extras; no SDK/JDK/tool/parquet binary copied. Four failedA artifacts and retained C/D/priorhold/superseded-review copies exact original. D11 source hashes unchanged.",
+  "chunks": [
+    "e13560"
+  ],
+  "inventorySha256": "8edc7621bffcb9b090d1d973432357879c612b600b589c1557b73f3beb3e8f3e",
+  "actualReviewSha256": "2d70b85aed477947c62c73516493668d40e9377527b3fadd87473465c09d0128",
+  "qualification": "Actual native phaseStore only; full8PG/ACK/graph/installed restart remains separately unqualified. No native rerun."
+}
