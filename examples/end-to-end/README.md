@@ -68,38 +68,35 @@ writer custody and durable publication are additional host obligations.
 
 ## Publish and query a bounded local installation
 
-The native host tools take explicit runtime and producer paths. Use separate
-Python environments for Spark3.5.3/Delta3.2.1 publication and experimental
-Spark4.0.1/Delta4.0.0 query execution. Supply a compatible JDK, psycopg3.2.13 and
-the exact Delta/GraphFrames jars selected by the host; no cloud endpoint is needed.
-The PostgreSQL source uses the labelled private local sandbox:
+Follow the [commerce setup and indexed query guide](COMMERCE-INDEXED-WEFT.md)
+for the complete local workflow: explicit runtime and JAR selection, pinned public
+UMF validation, private PostgreSQL readiness, fresh Delta publication, installed
+compiler verification, and publication-bound queries. Run publication to terminal
+cleanup before starting the separate query process. Both processes use one local
+worker and a 512 MiB driver; no shared/default cloud endpoint is selected.
 
-```sh
-python3 tools/start_truss_sandbox.py
-PYTHONPATH=src:tools python3 tools/run_commerce_outbox_publication.py --help
-PYTHONPATH=src:tools python3 tools/run_commerce_publication_weft.py --help
-```
-
-The publication command requires `--output`, `--jars` and `--umf-source`; choose a
-fresh output and the clean UMF producer above. It performs the original finite
-commerce admission, writes local Delta and acknowledges only the durable published
-source batch. The query command requires `--publication` pointing to that output,
-its own fresh `--output`, Delta4 `--jars`, and `--compiler` pointing to the pinned
-Weft runtime. Its admitted compiler source is
-`f05f2df09e9c2494ac8c6d703dfe38413dbc4181`, built with
-`ashlar-databricks-candidate`; newer binaries require explicit profile admission.
-
-Queries resolve the entire immutable publication vector and hold source, ACK and
-native pins through execution and closing checks. Exact count, decimal/string
-projection and product/supplier join queries compare against the original source
-oracle. Preserve compiler SQL and host obligations unchanged. A successful query
-must not fall back to current table heads or promote an unsupported scalar.
+Queries hold the complete resolved publication vector, original source and
+ordinary protected ACK through execution and closing checks. Preserve compiler
+SQL and host obligations unchanged. Success requires the closing checks and
+cleanup; it must not fall back to current table heads or promote an unsupported
+scalar.
 
 The local sandbox is an outbox substrate. Installing it does not install Truss
 or establish catalog acceptance, production fencing or a Truss feed. Databricks
 commands require an explicitly selected dedicated Ashlar endpoint; shared/default
 compute is excluded. Keep predictive optimization configured and let readability
 follow the observed retained snapshot configuration.
+
+## Retained strict-compiler qualification
+
+The earlier `tools/run_commerce_publication_weft.py` host retains its strict
+compiler profile for historical qualification. Its admitted compiler source is
+`f05f2df09e9c2494ac8c6d703dfe38413dbc4181`, built with
+`ashlar-databricks-candidate`; newer binaries require explicit profile admission.
+That profile's original count, decimal/String projection and product/supplier
+join evidence remains separate from the indexed installation workflow above.
+Use its retained source and receipts when reproducing that qualification; this
+pin does not select the compiler for a new indexed query installation.
 
 ## Contracts and evidence
 

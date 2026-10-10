@@ -1,0 +1,21 @@
+{
+  "verdict": "Approved one-file desired-workflow documentation change; indexed guide becomes the normal route, strict f05 historical qualification remains explicitly separate",
+  "freezeSha256": "5f69be97f34e5dc51560faa442b06c1eda78aa963ff03491530bed5162ff3036",
+  "file": {
+    "path": "/Users/erik/Projects/ashlar/examples/end-to-end/README.md",
+    "sha256": "2117f2cd6e224cdf3014a229c9933f1cb099d5c19b1bcadfd3f2ca36e82214fe",
+    "bytes": 5901,
+    "frozenCopy": "/private/tmp/ashlar-end-to-end-indexed-doc-freeze-20261010-a/README.md"
+  },
+  "localLinksChecked": [
+    "/Users/erik/Projects/ashlar/examples/end-to-end/QUERY-GALLERY.md",
+    "/Users/erik/Projects/ashlar/examples/end-to-end/WEFT-INSTALLATION.md",
+    "/Users/erik/Projects/ashlar/examples/end-to-end/COMMERCE-INDEXED-WEFT.md",
+    "/Users/erik/Projects/ashlar/examples/end-to-end/COMMERCE-INDEXED-WEFT.md",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/toolkit-delivery-plan.md",
+    "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts",
+    "/Users/erik/Projects/ashlar/docs/helix/04-build/evidence/documentation-history-20261009/examples/end-to-end/README.original.txt"
+  ],
+  "review": "Read exact Git diff and whole frozen page plus referenced indexed commerce guide commands/runtime scope. Fixed original compiler profiles and actual finite query evidence remain separate. Explicit configuration, closing resource obligations and no cloud/default host selection retained. No runtime/source/code changes or new support claims.",
+  "scope": "Read-only review; no build, compiler, engine or commands from the usage guide executed."
+}
