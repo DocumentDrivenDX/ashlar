@@ -259,39 +259,20 @@ class OtelRun:
             return result
         def constant(token):
             raise DiagnosticsError('diagnostics-configuration')
-        def protocol_require(condition):
-            if not condition and request['op'] == 'init':
-                self._dependency_admitted = False
-            require(condition)
         for _ in range(progress_limit):
             count = struct.unpack('>I', transfer(process.stdout, 4))[0]
-            protocol_require(0 < count <= FRAME_LIMIT)
-            response_raw = transfer(process.stdout, count)
-            try:
-                response = json.loads(response_raw, object_pairs_hook=pairs,
-                                      parse_constant=constant)
-            except Exception:
-                if request['op'] == 'init':
-                    self._dependency_admitted = False
-                raise
-            protocol_require(type(response) is dict and set(response) == {'ok', 'value'}
-                             and type(response['ok']) is bool
-                             and time.monotonic() <= deadline)
-            if (request['op'] == 'init' and response['ok'] is False
-                    and response['value'] == 'diagnostics-configuration'):
-                # A valid worker startup refusal after positive admission may
-                # degrade only once the parent also proves owned cleanup.
-                require(False)
-            protocol_require(response['ok'] is True)
+            require(0 < count <= FRAME_LIMIT)
+            response = json.loads(transfer(process.stdout, count),
+                                  object_pairs_hook=pairs, parse_constant=constant)
+            require(type(response) is dict and set(response) == {'ok', 'value'}
+                    and response['ok'] is True and time.monotonic() <= deadline)
             value = response['value']
             if request['op'] == 'init' and type(value) is dict:
-                protocol_require(set(value) == {'dependency_admitted'}
-                                 and value['dependency_admitted'] is True
-                                 and not self._dependency_admitted)
+                require(set(value) == {'dependency_admitted'}
+                        and value['dependency_admitted'] is True
+                        and not self._dependency_admitted)
                 self._dependency_admitted = True
                 continue
-            if request['op'] == 'init':
-                protocol_require(value == 'ready' and self._dependency_admitted)
             if request['op'] == 'close' and type(value) is dict:
                 if set(value) == {'transport_deadline'}:
                     end = value['transport_deadline']

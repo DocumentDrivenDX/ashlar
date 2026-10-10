@@ -1,0 +1,35 @@
+{
+  "scope": "Synthetic composition ownership/failure controls only; fixture installed distribution metadata and inert facade, actual local DiagnosticRun capture. No SDK startup, receiver, native or real business workflow claim. Tests use selected Python3.11 runtime. Startup fallback is conditional on a synthetic explicit trusted facade closure receipt; actual facade does not yet supply it, so actual unqualified startup exceptions refuse.",
+  "command": "PYTHONPATH=/Users/erik/Projects/ashlar/src:/Users/erik/Projects/ashlar/tests /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -m unittest test_host_diagnostic_composition",
+  "tests": 9,
+  "exitCode": 0,
+  "reportedSeconds": 0.082,
+  "terminalChunkId": "c48364",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostic_composition.py",
+      "bytes": 4315,
+      "sha256": "a1998938a4687076003e36a85f5b21d51091b0bef900c804f89d0a8e264e0fd6"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel_profile.py",
+      "bytes": 417,
+      "sha256": "dedb9bc82c10994aa6aeb92220ad5b8afb7af214dcbe3ee993fa0a0bf8e7e2ac"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_host_diagnostic_composition.py",
+      "bytes": 8129,
+      "sha256": "7ded0bf4abc6a0ecd75ae577ca9ea7e67da986a09ff9b2031bef324e7b7707d3"
+    },
+    {
+      "path": "/private/tmp/ashlar-diagnostic-composition-20261010-c.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-diagnostic-composition-20261010-c.stderr.log",
+      "bytes": 543,
+      "sha256": "1b0de55aa3128ad0cef0c39a55f2445229e05e958273f3de923922789d5c3366"
+    }
+  ]
+}

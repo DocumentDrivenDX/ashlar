@@ -1,0 +1,35 @@
+{
+  "scope": "Synthetic composition ownership/failure controls only; fixture installed distribution metadata and inert facade, actual local DiagnosticRun capture. No SDK startup, receiver, native or real business workflow claim. Tests use selected Python3.11 runtime.",
+  "command": "PYTHONPATH=/Users/erik/Projects/ashlar/src:/Users/erik/Projects/ashlar/tests /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -m unittest test_host_diagnostic_composition",
+  "tests": 8,
+  "exitCode": 0,
+  "reportedSeconds": 0.056,
+  "terminalChunkId": "527636",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostic_composition.py",
+      "bytes": 3935,
+      "sha256": "2f208cf5a338b27cfc931d2d15800a0c6dfe284660f7c295879592c77ab7cffa"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel_profile.py",
+      "bytes": 417,
+      "sha256": "dedb9bc82c10994aa6aeb92220ad5b8afb7af214dcbe3ee993fa0a0bf8e7e2ac"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_host_diagnostic_composition.py",
+      "bytes": 7549,
+      "sha256": "aca5e7c8a8691f6b901b75b63563f7c8798a226e95cfa34ed5ef9ea385c7ba03"
+    },
+    {
+      "path": "/private/tmp/ashlar-diagnostic-composition-20261010-b.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-diagnostic-composition-20261010-b.stderr.log",
+      "bytes": 482,
+      "sha256": "65cbe0b4e47b829884c3b888f3e46c1705c44ea6c49dc5f4860d313c74964202"
+    }
+  ]
+}

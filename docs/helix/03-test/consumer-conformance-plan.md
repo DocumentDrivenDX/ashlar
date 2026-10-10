@@ -292,11 +292,19 @@ retrieval must operate without selected SDK dependency discovery. Missing or
 incompatible selected dependencies and local capture construction failure must
 refuse before native effects; ordinary later worker/transport startup failure must
 preserve local capture, unknown remote accounting and the business result.
+Verify all sixteen dependency pins and actual selected imports precede the sole
+positive initialization admission frame and provider construction. Missing or
+incompatible transitive metadata, import failure, duplicate/late admission and
+negative cleanup must withhold fallback. Test exact typed startup disposition:
+both read-only booleans true admit safely closed operational loss; false values,
+nonbooleans, subclasses and lookalike attributes refuse. Provider construction
+failure after import admission must retain bounded parent-owned cleanup.
 
 Exercise the actual installed retrieval command against immutable closed capture
 and compare its bounded complete JSON output with the public reader. Cover every
 filter conjunction, zero matches, truncation and open/expired/changed snapshots;
-no partial stdout may escape a refused snapshot. Timestamp evidence must not be
+no stdout may escape a refused snapshot. Verify complete bounded serialization
+precedes publication; physical output failure preserves already delivered bytes. Timestamp evidence must not be
 interpreted as causal order or an unsupported timestamp filter.
 
 For workflow composition, map the real Paths host's phase transitions to

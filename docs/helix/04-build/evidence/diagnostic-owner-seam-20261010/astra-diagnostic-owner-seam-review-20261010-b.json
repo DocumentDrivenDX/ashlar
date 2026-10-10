@@ -1,0 +1,216 @@
+{
+  "reviewer": "/root/astra_plan_review",
+  "verdict": "approve-exact-seven-file-source-seam",
+  "scope": "Public startup disposition, selected dependency profile/admission, bounded parent protocol, cleanup receipt, delegating local-capture composition and their source tests. Source-only; Paths native phase hooks, CLI/package wiring and installed/native workflow qualification remain separate.",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel.py",
+      "bytes": 17412,
+      "sha256": "8c47bf952a5a2cc2bb1e3e7edbb6d57f0db270e6095ad30f8762518f4675d8d1"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/_otel_worker.py",
+      "bytes": 34162,
+      "sha256": "08de742c3b7d1029cc78d401c512cc33ed7e566b2fce3e6a7a3dce24a9f86801"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_supervision.py",
+      "bytes": 18617,
+      "sha256": "55ac8a2636e6ad4accf04cff752cd3a81f1ab62de015c9b52731eec4b5643262"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_otel_worker.py",
+      "bytes": 37486,
+      "sha256": "b1410a7a72d54f73556eda12ade96bfe0d248cde8cb43794929ab0496c0a8e27"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostic_composition.py",
+      "bytes": 4347,
+      "sha256": "c13345460755673c9f9a01e1937bd3b49e762ec7746f25ad0a568c7e250fbaee"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel_profile.py",
+      "bytes": 740,
+      "sha256": "4765b81692c781d7953637337ee8a8f066365bd658c2271f966ae54c1e531fc3"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_host_diagnostic_composition.py",
+      "bytes": 8753,
+      "sha256": "5cdbf8e1cd00743eab01876815146e5038f1d384b54df716b3c716cfe473a58c"
+    }
+  ],
+  "snapshots": [
+    {
+      "path": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/otel.py",
+      "bytes": 17412,
+      "sha256": "8c47bf952a5a2cc2bb1e3e7edbb6d57f0db270e6095ad30f8762518f4675d8d1"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/_otel_worker.py",
+      "bytes": 34162,
+      "sha256": "08de742c3b7d1029cc78d401c512cc33ed7e566b2fce3e6a7a3dce24a9f86801"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/test_otel_supervision.py",
+      "bytes": 18617,
+      "sha256": "55ac8a2636e6ad4accf04cff752cd3a81f1ab62de015c9b52731eec4b5643262"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/test_otel_worker.py",
+      "bytes": 37486,
+      "sha256": "b1410a7a72d54f73556eda12ade96bfe0d248cde8cb43794929ab0496c0a8e27"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/diagnostic_composition.py",
+      "bytes": 4347,
+      "sha256": "c13345460755673c9f9a01e1937bd3b49e762ec7746f25ad0a568c7e250fbaee"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/otel_profile.py",
+      "bytes": 740,
+      "sha256": "4765b81692c781d7953637337ee8a8f066365bd658c2271f966ae54c1e531fc3"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/test_host_diagnostic_composition.py",
+      "bytes": 8753,
+      "sha256": "5cdbf8e1cd00743eab01876815146e5038f1d384b54df716b3c716cfe473a58c"
+    }
+  ],
+  "validation": [
+    {
+      "command": "PYTHONPATH=src:tests /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -W error::ResourceWarning -m unittest test_otel_supervision test_host_diagnostic_composition",
+      "tests": 27,
+      "exitCode": 0
+    },
+    {
+      "command": "PYTHONPATH=src:tests /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -W error::ResourceWarning /private/tmp/astra-diagnostic-owner-seam-independent-20261010-b.py",
+      "tests": 23,
+      "composition": "5 new reviewer methods plus18 imported actual-fake-child supervision tests",
+      "exitCode": 0,
+      "terminalChunk": "672d07"
+    },
+    {
+      "childReview": "/private/tmp/astra-worker-admission-review-20261010-a/review.json",
+      "workerSourceTests": 27,
+      "absentOrIncompatibleMetadataControls": 32,
+      "exitCode": 0,
+      "scope": "Selected actual SDK imports/provider mapping with inert HTTP ports; no live worker or receiver"
+    }
+  ],
+  "artifacts": [
+    {
+      "path": "/private/tmp/astra-diagnostic-owner-seam-review-20261010-b.tests.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-owner-seam-review-20261010-b.tests.stderr.log",
+      "bytes": 682,
+      "sha256": "18fd29aa79b9a79d83a982dc37083548aff4deaf011e2fe7c27705d08190428a"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-owner-seam-independent-20261010-b.py",
+      "bytes": 6487,
+      "sha256": "722bca74fb17a3eba84ffb5de5184bfb3f782952068f4abcabac4432281933cb"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-owner-seam-independent-20261010-b.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-owner-seam-independent-20261010-b.stderr.log",
+      "bytes": 3749,
+      "sha256": "5e1e978a60080d9b97d00460b1ae35299a30ab86c08e3b14d09a1a5ea58b9c07"
+    },
+    {
+      "path": "/private/tmp/astra-worker-admission-review-20261010-a/independent-controls.json",
+      "bytes": 5323,
+      "sha256": "f2fbb1a9ed7e5f849e83bca5101482a6b601d265b067939f622fb89cd83d3f37"
+    },
+    {
+      "path": "/private/tmp/astra-worker-admission-review-20261010-a/review.json",
+      "bytes": 1728,
+      "sha256": "4398f37148eb66d3c0664a5b0415c515a1f96e3c7cd741f69ba8f2a5e3d65983"
+    },
+    {
+      "path": "/private/tmp/astra-worker-admission-review-20261010-a/tests.stderr",
+      "bytes": 4673,
+      "sha256": "7060fd17de58313c0d10780a0c11b5d2f7821ab67655bd5a687ec29e1431ce4e"
+    },
+    {
+      "path": "/private/tmp/astra-worker-admission-review-20261010-a/tests.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "resolvedFindings": [
+    {
+      "id": "DC-ADMISSION-001",
+      "resolved": "One immutable16-pin map shared by parent, worker and optional packaging. Actual required SDK, encoder and HTTP exporter imports precede one positive init-only admission. No imports-failed fallback."
+    },
+    {
+      "id": "DC-CLEANUP-002",
+      "resolved": "Exact public OtelStartupError with read-only exact bool disposition; constructor raises outside handler so no private implicit context. Positive cleanup requires owned group action, all acquired streams and wait/reap; failed group action remains uncertain across subsequent calls. First non-Exception precedence preserved."
+    },
+    {
+      "id": "DC-PROTOCOL-003",
+      "resolved": "Invalid/duplicate/malformed init admission clears dependency disposition. Only exact fixed worker refusal after positive admission or ordinary transport failure may retain admission; positive cleanup remains independently required.",
+      "predecessorEvidence": [
+        {
+          "path": "/private/tmp/astra-otel-duplicate-admission-20261010-a/diagnostic_composition.py",
+          "bytes": 4347,
+          "sha256": "c13345460755673c9f9a01e1937bd3b49e762ec7746f25ad0a568c7e250fbaee"
+        },
+        {
+          "path": "/private/tmp/astra-otel-duplicate-admission-20261010-a/otel.py",
+          "bytes": 16428,
+          "sha256": "9b11670a2e9361ba1f6bed1b5f56be7b030be4af25b7601ae6e74a02b10101b5"
+        },
+        {
+          "path": "/private/tmp/astra-otel-duplicate-admission-20261010-a/probe.py",
+          "bytes": 1481,
+          "sha256": "3caf3263349037873c8f68cba092a228b96db75c9019872d30e147a3d108734d"
+        },
+        {
+          "path": "/private/tmp/astra-otel-duplicate-admission-20261010-a/review.json",
+          "bytes": 983,
+          "sha256": "82a9c05c07ea557d28a3d45b63f4f4d553569cacb2b25611f51087a2a8a261b7"
+        },
+        {
+          "path": "/private/tmp/astra-otel-duplicate-admission-20261010-a/stderr.log",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "path": "/private/tmp/astra-otel-duplicate-admission-20261010-a/stdout.log",
+          "bytes": 863,
+          "sha256": "904268330ac836df36462e2891007f4dce3e33fa9de99aec488a86433ab1177d"
+        },
+        {
+          "path": "/private/tmp/astra-otel-duplicate-admission-20261010-a/test_otel_supervision.py",
+          "bytes": 18527,
+          "sha256": "9989a407af03c37c3d8ba0962657d85ec717430d311828ff252c21fd2bdb725a"
+        }
+      ]
+    }
+  ],
+  "independentEvidenceSummary": [
+    "12 real finite fake-child protocol scenarios verify invalid frame/JSON/duplicate/false/unknown admissions withhold fallback and exact fixed refusal preserves actual preceding admission. Children and pipes closed.",
+    "Exact bool constructor and four property immutability combinations verified.",
+    "Five inert actual-constructor outcomes distinguish cleanup success, group failure, each pipe failure and reap timeout; public errors have fixed text and no original context.",
+    "Twelve cleanup precedence combinations plus absent-versus-denied group distinction exercise actual owner helper code.",
+    "Composition uses real local capture and inert facade in nine controls; ordinary remote failure does not mutate business cleanup markers, retained owner still closes, and disabled path does not discover SDK."
+  ],
+  "governance": "Corresponds to current C006/ADR/TP declared first cancellation precedence, positive selected admission and explicit owner cleanup. Precise state/correspondence tests only; no analyzer/mechanical model proof.",
+  "assumptions": [
+    "POSIX/default SIGCHLD and exclusive ownership of the spawned new session; no unrelated reaper.",
+    "Partial SDK constructor resources remain inside the isolated worker; this receipt establishes parent-owned process cleanup boundary, not in-process provider cleanup on partial construction.",
+    "Actual missing-package installation, installed receiver/native query and full C006 delivery are not executed here."
+  ],
+  "excluded": [
+    "Paths cleanup-only fact/category correction pending separate owner and review.",
+    "CLI/package/CI desired-state edits are not included in this seven-file source approval.",
+    "No SDK worker subprocess, network/receiver, Spark, compiler, PostgreSQL or real credential execution by reviewer. Actual subprocesses are finite synthetic Python protocol helpers."
+  ]
+}

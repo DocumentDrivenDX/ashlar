@@ -19,8 +19,8 @@ import json, os, struct, sys, time
 def read():
     count = struct.unpack('>I', sys.stdin.buffer.read(4))[0]
     return json.loads(sys.stdin.buffer.read(count))
-def write(value, ok=True):
-    raw=json.dumps({'ok':ok,'value':value}).encode()
+def write(value):
+    raw=json.dumps({'ok':True,'value':value}).encode()
     sys.stdout.buffer.write(struct.pack('>I',len(raw))+raw)
     sys.stdout.buffer.flush()
 request=read()
@@ -45,7 +45,7 @@ while True:
 class SupervisionTests(unittest.TestCase):
     def test_startup_admission_refusal_and_post_admission_failure_are_distinct(self):
         for admitted in (False, True):
-            child = CHILD.replace("write('ready')", "write('diagnostics-configuration',False); time.sleep(20)")
+            child = CHILD.replace("write('ready')", "write('startup-refused'); time.sleep(20)")
             if not admitted:
                 child = child.replace("write({'dependency_admitted':True})", '')
             with self.assertRaises(OtelStartupError) as caught:
@@ -69,7 +69,6 @@ class SupervisionTests(unittest.TestCase):
             with self.assertRaises(OtelStartupError) as caught:
                 self.create(child)
             self.assertTrue(caught.exception.cleanup_complete)
-            self.assertFalse(caught.exception.dependency_admitted)
             self.assertTrue(all(child.poll() is not None for child in self.children))
 
     def test_failed_group_termination_cannot_become_positive_on_second_disposal(self):

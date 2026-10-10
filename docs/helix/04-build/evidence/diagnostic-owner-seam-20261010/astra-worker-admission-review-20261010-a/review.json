@@ -1,0 +1,51 @@
+{
+  "scope": "Read-only selected SDK source and inert transport unit controls; no worker process, receiver, network or native engine",
+  "command": [
+    "/private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python",
+    "-B",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-p",
+    "test_otel_worker.py",
+    "-v"
+  ],
+  "environment": {
+    "PATH": "/usr/bin:/bin",
+    "PYTHONPATH": "/Users/erik/Projects/ashlar/src"
+  },
+  "exitCode": 0,
+  "elapsedSeconds": 0.2115125420386903,
+  "opening": {
+    "src/ashlar_host/_otel_worker.py": {
+      "bytes": 34162,
+      "sha256": "08de742c3b7d1029cc78d401c512cc33ed7e566b2fce3e6a7a3dce24a9f86801"
+    },
+    "tests/test_otel_worker.py": {
+      "bytes": 37486,
+      "sha256": "b1410a7a72d54f73556eda12ade96bfe0d248cde8cb43794929ab0496c0a8e27"
+    },
+    "src/ashlar_host/otel_profile.py": {
+      "bytes": 740,
+      "sha256": "4765b81692c781d7953637337ee8a8f066365bd658c2271f966ae54c1e531fc3"
+    }
+  },
+  "closing": {
+    "src/ashlar_host/_otel_worker.py": {
+      "bytes": 34162,
+      "sha256": "08de742c3b7d1029cc78d401c512cc33ed7e566b2fce3e6a7a3dce24a9f86801"
+    },
+    "tests/test_otel_worker.py": {
+      "bytes": 37486,
+      "sha256": "b1410a7a72d54f73556eda12ade96bfe0d248cde8cb43794929ab0496c0a8e27"
+    },
+    "src/ashlar_host/otel_profile.py": {
+      "bytes": 740,
+      "sha256": "4765b81692c781d7953637337ee8a8f066365bd658c2271f966ae54c1e531fc3"
+    }
+  },
+  "unchanged": true,
+  "finding": "Six-pin dependency admission gap resolved by sixteen pins and selected SDK+HTTP exporter imports preceding positive dependency_admitted progress and provider construction. Installed byte custody and parent cleanup ownership remain separate evidence."
+}

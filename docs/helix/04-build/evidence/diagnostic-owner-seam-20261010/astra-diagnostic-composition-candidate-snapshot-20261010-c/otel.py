@@ -28,36 +28,6 @@ from .diagnostics import (DiagnosticSignalSink, DiagnosticsError, decode_event,
 FRAME_LIMIT = 65536
 
 
-class OtelStartupError(DiagnosticsError):
-    """Payload-free startup disposition from the owned worker boundary."""
-    def __init__(self, *, cleanup_complete: bool, dependency_admitted: bool):
-        if type(cleanup_complete) is not bool or type(dependency_admitted) is not bool:
-            raise DiagnosticsError('diagnostics-configuration')
-        super().__init__('diagnostics-configuration')
-        object.__setattr__(self, '_cleanup_complete', cleanup_complete)
-        object.__setattr__(self, '_dependency_admitted', dependency_admitted)
-
-    def __setattr__(self, name, value):
-        if name in ('_cleanup_complete', '_dependency_admitted',
-                    'cleanup_complete', 'dependency_admitted'):
-            raise AttributeError('immutable-startup-disposition')
-        super().__setattr__(name, value)
-
-    def __delattr__(self, name):
-        if name in ('_cleanup_complete', '_dependency_admitted',
-                    'cleanup_complete', 'dependency_admitted'):
-            raise AttributeError('immutable-startup-disposition')
-        super().__delattr__(name)
-
-    @property
-    def cleanup_complete(self):
-        return self._cleanup_complete
-
-    @property
-    def dependency_admitted(self):
-        return self._dependency_admitted
-
-
 def require(value: bool) -> None:
     if not value:
         raise DiagnosticsError('diagnostics-configuration')
@@ -77,9 +47,6 @@ class OtelRun:
         self._operation_binding = ContextVar('ashlar_otel_operation', default=(None, None, True))
         self._closed = False
         self._group_termination_attempted = False
-        self._group_termination_complete = False
-        self._dependency_admitted = False
-        refusal = None
         try:
             require(type(config) is DiagnosticsConfig and os.name == 'posix'
                     and signal.getsignal(signal.SIGCHLD) == signal.SIG_DFL
@@ -102,39 +69,25 @@ class OtelRun:
                     'tls': tls, 'ca_file': str(ca_file) if ca_file is not None else None,
                     'environment': config.environment, 'limits': asdict(config.limits),
                     'service_version': version}}, deadline)
-            require(with_diagnostics_transport(config, initialize) == 'ready'
-                    and self._dependency_admitted)
+            require(with_diagnostics_transport(config, initialize) == 'ready')
             self._sink = DiagnosticSignalSink(self.emit, self.trace_context, self.shutdown)
         except BaseException as primary:
-            try:
-                cleanup_complete = self._dispose(primary=primary)
-            except Exception:
-                cleanup_complete = False
-            except BaseException:
-                if not isinstance(primary, Exception):
-                    raise primary
-                raise
+            self._dispose(primary=primary)
             if isinstance(primary, Exception):
-                refusal = OtelStartupError(cleanup_complete=cleanup_complete is True,
-                                           dependency_admitted=self._dependency_admitted)
-            else:
-                raise
-        if refusal is not None:
-            # Raise outside the handler: do not retain private startup arguments
-            # in Python's implicit exception context on the public disposition.
-            raise refusal from None
+                raise DiagnosticsError('diagnostics-configuration') from None
+            raise
 
     @property
     def sink(self) -> DiagnosticSignalSink:
         return self._sink
 
     def _dispose(self, deadline: Optional[float] = None,
-                primary: Optional[BaseException] = None) -> bool:
+                primary: Optional[BaseException] = None) -> None:
         """Terminate and reap only this new session; never wait for remote export."""
         self._closed = True
         process = self._process
         if process is None:
-            return True
+            return
         end = deadline if deadline is not None else time.monotonic() + 2
         try:
             acquired = self._cleanup_lock.acquire(timeout=max(0, end-time.monotonic()))
@@ -144,7 +97,7 @@ class OtelRun:
                     primary.cleanup_failed = True
                 except BaseException:
                     pass
-                return False
+                return
             raise
         if not acquired:
             if primary is not None:
@@ -152,15 +105,15 @@ class OtelRun:
                     primary.cleanup_failed = True
                 except BaseException:
                     pass
-                return False
+                return
             raise DiagnosticsError('diagnostics-configuration')
         try:
-            return self._dispose_owned(process, end, primary)
+            self._dispose_owned(process, end, primary)
         finally:
             self._cleanup_lock.release()
 
     def _dispose_owned(self, process, end: float,
-                       primary: Optional[BaseException]) -> bool:
+                       primary: Optional[BaseException]) -> None:
         """Cleanup lock covers group action through reaping, including failures."""
         failure = None
         def terminate():
@@ -172,8 +125,6 @@ class OtelRun:
                     os.killpg(process.pid, signal.SIGKILL)
                 except ProcessLookupError:
                     pass
-                self._group_termination_complete = True
-            require(self._group_termination_complete)
         actions = [terminate]
         actions.extend(stream.close for stream in (process.stdin, process.stdout)
                        if stream is not None)
@@ -194,12 +145,10 @@ class OtelRun:
                     primary.cleanup_failed = True
                 except BaseException:
                     pass
-                return False
             elif isinstance(failure, Exception):
                 raise DiagnosticsError('diagnostics-configuration') from None
             else:
                 raise failure
-        return True
 
     def _exchange(self, request: dict, deadline: float):
         raw = json.dumps(request, ensure_ascii=True, separators=(',', ':'),
@@ -259,39 +208,14 @@ class OtelRun:
             return result
         def constant(token):
             raise DiagnosticsError('diagnostics-configuration')
-        def protocol_require(condition):
-            if not condition and request['op'] == 'init':
-                self._dependency_admitted = False
-            require(condition)
         for _ in range(progress_limit):
             count = struct.unpack('>I', transfer(process.stdout, 4))[0]
-            protocol_require(0 < count <= FRAME_LIMIT)
-            response_raw = transfer(process.stdout, count)
-            try:
-                response = json.loads(response_raw, object_pairs_hook=pairs,
-                                      parse_constant=constant)
-            except Exception:
-                if request['op'] == 'init':
-                    self._dependency_admitted = False
-                raise
-            protocol_require(type(response) is dict and set(response) == {'ok', 'value'}
-                             and type(response['ok']) is bool
-                             and time.monotonic() <= deadline)
-            if (request['op'] == 'init' and response['ok'] is False
-                    and response['value'] == 'diagnostics-configuration'):
-                # A valid worker startup refusal after positive admission may
-                # degrade only once the parent also proves owned cleanup.
-                require(False)
-            protocol_require(response['ok'] is True)
+            require(0 < count <= FRAME_LIMIT)
+            response = json.loads(transfer(process.stdout, count),
+                                  object_pairs_hook=pairs, parse_constant=constant)
+            require(type(response) is dict and set(response) == {'ok', 'value'}
+                    and response['ok'] is True and time.monotonic() <= deadline)
             value = response['value']
-            if request['op'] == 'init' and type(value) is dict:
-                protocol_require(set(value) == {'dependency_admitted'}
-                                 and value['dependency_admitted'] is True
-                                 and not self._dependency_admitted)
-                self._dependency_admitted = True
-                continue
-            if request['op'] == 'init':
-                protocol_require(value == 'ready' and self._dependency_admitted)
             if request['op'] == 'close' and type(value) is dict:
                 if set(value) == {'transport_deadline'}:
                     end = value['transport_deadline']

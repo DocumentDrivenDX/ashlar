@@ -1,0 +1,41 @@
+{
+  "reviewer": "/root/astra_plan_review",
+  "verdict": "approve-exact-three-file-desired-state-amendment",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/contracts/CONTRACT-006-diagnostics.md",
+      "bytes": 29961,
+      "sha256": "bb3e235f42572ee4d16556d71c84582f715f4e0fd340c93e1adc75fda3b88c77",
+      "frontmatterUnchangedVsHEAD": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/02-design/adr/ADR-001-delta-canonical-and-serving-layout.md",
+      "bytes": 35097,
+      "sha256": "7964776a9d377d47cfec8af646179c6da3bf1b1b31af192dd34232a00c62aba8",
+      "frontmatterUnchangedVsHEAD": true
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/docs/helix/03-test/consumer-conformance-plan.md",
+      "bytes": 23980,
+      "sha256": "a114eb506b988ba7d6e4c36c641760403dce827d2c539b9c52c1fcc47461f8bd",
+      "frontmatterUnchangedVsHEAD": true
+    }
+  ],
+  "scope": "Desired-state startup dependency/cleanup ownership contract and physical stdout failure precision only; no CLI, Paths workflow, installed receiver/native or SDK support qualification.",
+  "assessments": [
+    "One immutable16-package profile is public and shared; actual SDK/encoder/selected HTTP imports precede sole positive initialization admission and provider construction.",
+    "Exact read-only two-boolean OtelStartupError supports fallback only after positive dependency admission and owned cleanup. Protocol-invalid or missing/negative proof withholds fallback.",
+    "ADR explicitly maps the new immutable dependency-profile module and public startup-disposition type; ownership remains in host adapter/composition.",
+    "Snapshot refusal publishes no stdout and complete bounded serialization precedes output. Physical output failure cannot retract bytes already delivered; this avoids an impossible atomic-output assurance.",
+    "TP distinguishes metadata/import/protocol/cleanup negative controls, partial provider construction under parent process ownership, and actual installed/runtime evidence still required.",
+    "Existing DIAG-F1/F2/F3/L1 assumptions and first-cancellation precedence remain intact; precise specification and semantic tests do not claim analyzer proof."
+  ],
+  "validation": {
+    "frontmatterPreserved": true,
+    "selectedGitDiffCheckExit": 0
+  },
+  "exclusions": [
+    "No document/source edits or Git mutation by reviewer.",
+    "Upcoming private init-refusal leader-hold and cleanup fact-port implementation require separate exact source review."
+  ]
+}

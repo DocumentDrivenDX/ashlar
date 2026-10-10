@@ -1,0 +1,113 @@
+{
+  "reviewer": "/root/astra_plan_review",
+  "verdict": "hold-candidate-pending-public-admission-and-cleanup-seam",
+  "scope": "Read-only candidate C source review, nine mocked-facade/real-local-capture controls and three independent inert source controls. No process, SDK provider, receiver, network, native or business workflow executed.",
+  "exactCandidateAndPredecessorSnapshots": [
+    {
+      "path": "/private/tmp/astra-diagnostic-composition-candidate-snapshot-20261010-c/diagnostic_composition.py",
+      "bytes": 4315,
+      "sha256": "a1998938a4687076003e36a85f5b21d51091b0bef900c804f89d0a8e264e0fd6"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-composition-candidate-snapshot-20261010-c/otel_profile.py",
+      "bytes": 417,
+      "sha256": "dedb9bc82c10994aa6aeb92220ad5b8afb7af214dcbe3ee993fa0a0bf8e7e2ac"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-composition-candidate-snapshot-20261010-c/test_host_diagnostic_composition.py",
+      "bytes": 8129,
+      "sha256": "7ded0bf4abc6a0ecd75ae577ca9ea7e67da986a09ff9b2031bef324e7b7707d3"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-composition-candidate-snapshot-20261010-c/otel.py",
+      "bytes": 13883,
+      "sha256": "da0ec86efd8563204722b3e5dc2870706d1757042bbcf137a79d7d1f0694a1cd"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-composition-candidate-snapshot-20261010-c/_otel_worker.py",
+      "bytes": 34171,
+      "sha256": "143e6baf0d47c0886c69269a589883af4b4b100afa16fd161710eaa885a25a57"
+    }
+  ],
+  "authorReceipt": {
+    "path": "/private/tmp/ashlar-diagnostic-composition-20261010-c.json",
+    "bytes": 1744,
+    "sha256": "2f8d5bc61548cfac3883d354fd1122ff64525cbf8b0f8482bdefd5272f5b19ba"
+  },
+  "artifacts": [
+    {
+      "path": "/private/tmp/astra-diagnostic-composition-candidate-review-20261010-c.py",
+      "bytes": 3431,
+      "sha256": "09791a314df1fd3f452a43ff9f215d84ce03d317b715e518ba676106837adaa8"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-composition-candidate-review-20261010-c.author.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-composition-candidate-review-20261010-c.author.stderr.log",
+      "bytes": 543,
+      "sha256": "756b43f8ebc07dd9178e91c14e3b04fbe06eeaad9e56974afbe752fbf53718d2"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-composition-candidate-review-20261010-c.independent.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/astra-diagnostic-composition-candidate-review-20261010-c.independent.stderr.log",
+      "bytes": 655,
+      "sha256": "cf90dc7bcb3d3ba96857b96df0f4c57647437ad7920baea37098d3872f69cad5"
+    }
+  ],
+  "validation": [
+    {
+      "command": "PYTHONPATH=src:tests /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -W error::ResourceWarning -m unittest test_host_diagnostic_composition",
+      "cwd": "/Users/erik/Projects/ashlar",
+      "tests": 9,
+      "exitCode": 0,
+      "terminalChunk": "7bb957",
+      "secondsReported": 0.06
+    },
+    {
+      "command": "PYTHONPATH=src:tests /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -W error::ResourceWarning /private/tmp/astra-diagnostic-composition-candidate-review-20261010-c.py",
+      "cwd": "/Users/erik/Projects/ashlar",
+      "tests": 3,
+      "exitCode": 0,
+      "terminalChunk": "a96512",
+      "secondsReported": 0.001
+    }
+  ],
+  "findings": [
+    {
+      "id": "DC-ADMISSION-001",
+      "priority": "blocker-before-enabling-fallback",
+      "source": "diagnostic_composition.py preflight / otel_profile.py SDK_VERSIONS",
+      "evidence": "Synthetic metadata callback has all six selected pins but raises PackageNotFoundError for protobuf. preflight succeeds and never queries protobuf or typing_extensions. Current worker imports SDK/encoders only after parent starts it. Safe cleanup alone does not establish selected dependencies were available.",
+      "requiredCorrection": "Explicit positive dependency admission after selected version checks and actual required imports, before provider construction. Parent tracks that admission independently of readiness and must never fallback after dependency/import refusal. Choose and state the finite compatible dependency boundary; exact six metadata labels alone are insufficient."
+    },
+    {
+      "id": "DC-CLEANUP-002",
+      "priority": "blocker-before-enabling-fallback",
+      "source": "otel.py OtelRun.__init__, _dispose, _dispose_owned; diagnostic_composition.py startup except",
+      "evidence": "Actual facade definitions with an inert Popen port: startup OSError plus group-termination OSError attempts both pipe closes and wait, sets original primary.cleanup_failed, then emits a new DiagnosticsError without that marker or a positive closure result. No child is spawned in this control.",
+      "requiredCorrection": "Public fixed-message OtelStartupError with immutable cleanup_complete and dependency_admitted exact bool fields; composition gates exact error type and both True. Cleanup result becomes True only after owning lock, successful group action or proven absent group, all acquired pipe closes, wait/reap. Ordinary failure/lock timeout/uncertain prior group action yields False; first non-Exception identity remains preserved."
+    }
+  ],
+  "currentCandidateSafety": "Candidate C refuses unqualified startup exceptions and closes local capture; its positive fallback control injects a provisional mutable startup_cleanup_complete marker which the actual facade does not emit. This is not a demonstrated operational fallback.",
+  "positiveReview": [
+    "Disabled None avoids discovery/construction.",
+    "Local run exists before remote startup.",
+    "Context/emit ordinary failure keeps local capture and retains the transport owner for final cleanup; loss stays unknown.",
+    "Caller closes DiagnosticRun without passing a business primary. Declared cancellation priority preserves winning object and does not set business cleanup_failed.",
+    "Closure fallback covers local close failure before the sink is called; common monotonic deadline is passed to the retained owner."
+  ],
+  "proposedSeamAssessment": "Root successor plan is acceptable in principle: closed init-only dependency_admitted progress, at most once without extending startup deadline, prior to provider constructors; typed public startup failure carries two immutable booleans. Separate source/test review still required.",
+  "assuranceLimits": [
+    "No source approval for complete operational composition yet.",
+    "Inert Popen/kill/FD/exchange ports expose actual source control flow; do not assert real process cleanup or installed missing-dependency behavior.",
+    "No complete C006, OTel transport, native query, publication/ACK or model-proof claim.",
+    "Original candidate/predecessor snapshots and raw controls are retained so subsequent root edits cannot erase these counterexamples."
+  ]
+}

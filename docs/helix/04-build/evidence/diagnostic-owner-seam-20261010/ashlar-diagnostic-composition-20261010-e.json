@@ -1,0 +1,44 @@
+{
+  "scope": "Synthetic composition ownership/failure controls only; fixture installed distribution metadata, inert facade and actual local DiagnosticRun capture. No SDK startup/receiver/native/business qualification. Exact public OtelStartupError fallback requires positive immutable cleanup and dependency admission; metadata preflight checks all16sharedprofilepins. Python3.11 ninecontrols passed; disabledpath alsoPython3.9 sourcecontrol (eightselectedcontrols explicitlyskip).",
+  "command": "PYTHONPATH=/Users/erik/Projects/ashlar/src:/Users/erik/Projects/ashlar/tests /private/tmp/ashlar-otel-sdk-env-20261010-a/bin/python -B -m unittest test_host_diagnostic_composition",
+  "tests": 9,
+  "exitCode": 0,
+  "reportedSeconds": 0.14,
+  "terminalChunkId": "379cfa",
+  "files": [
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/diagnostic_composition.py",
+      "bytes": 4347,
+      "sha256": "c13345460755673c9f9a01e1937bd3b49e762ec7746f25ad0a568c7e250fbaee"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/src/ashlar_host/otel_profile.py",
+      "bytes": 740,
+      "sha256": "4765b81692c781d7953637337ee8a8f066365bd658c2271f966ae54c1e531fc3"
+    },
+    {
+      "path": "/Users/erik/Projects/ashlar/tests/test_host_diagnostic_composition.py",
+      "bytes": 8753,
+      "sha256": "5cdbf8e1cd00743eab01876815146e5038f1d384b54df716b3c716cfe473a58c"
+    },
+    {
+      "path": "/private/tmp/ashlar-diagnostic-composition-20261010-e.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "/private/tmp/ashlar-diagnostic-composition-20261010-e.stderr.log",
+      "bytes": 663,
+      "sha256": "310cfb46b83f6365bb280bb7d80d056428297d5624e84b42572c53a68ec24b3b"
+    }
+  ],
+  "portablePredecessor": {
+    "stdout": "/private/tmp/ashlar-diagnostic-composition-20261010-d-py39.stdout.log",
+    "stderr": "/private/tmp/ashlar-diagnostic-composition-20261010-d-py39.stderr.log",
+    "terminalChunkId": "11e65f",
+    "exitCode": 0,
+    "tests": 9,
+    "skipped": 8,
+    "qualification": "Before adding two startup-spoof cases confined to selected Python3.11 controls; portable disabledcontrol unchanged."
+  }
+}

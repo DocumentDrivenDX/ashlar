@@ -32,7 +32,11 @@ from .diagnostics import CATALOG, OPERATIONS, OUTCOMES, SCOPE, MAX_COUNT
 FRAME_LIMIT = 65536
 REQUEST_LIMIT = 1048576
 RESPONSE_LIMIT = 65536
-from .otel_profile import SDK_VERSIONS
+VERSIONS = {'opentelemetry-api': '1.45.1', 'opentelemetry-sdk': '1.45.1',
+            'opentelemetry-proto': '1.45.1',
+            'opentelemetry-exporter-otlp-proto-common': '1.45.1',
+            'opentelemetry-exporter-otlp-proto-http': '1.45.1',
+            'opentelemetry-semantic-conventions': '0.66b1'}
 
 
 class WorkerError(ValueError):
@@ -379,7 +383,7 @@ class SDKWorker:
                  progress: Optional[Callable] = None):
         require(type(settings) is Settings and sys.version_info[:2] == (3, 11))
         require(metadata.version('ashlar-graph-toolkit') == settings.service_version)
-        require(all(metadata.version(name) == version for name, version in SDK_VERSIONS.items()))
+        require(all(metadata.version(name) == version for name, version in VERSIONS.items()))
         # Root constructs a clean environment. Refuse accidental ambient SDK knobs.
         require(not any(name.startswith('OTEL_') or name.lower() in ('http_proxy', 'https_proxy', 'all_proxy', 'no_proxy', 'ssl_cert_file', 'ssl_cert_dir', 'requests_ca_bundle', 'curl_ca_bundle') for name in os.environ))
         from opentelemetry.sdk.resources import Resource
@@ -393,10 +397,6 @@ class SDKWorker:
         from opentelemetry.exporter.otlp.proto.common._log_encoder import encode_logs
         from opentelemetry.exporter.otlp.proto.common.trace_encoder import encode_spans
         from opentelemetry.exporter.otlp.proto.common.metrics_encoder import encode_metrics
-        # Admit the selected integration's real import closure before providers.
-        from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-        if progress is not None:
-            progress({'dependency_admitted': True})
         self.settings, self.send = settings, send or HTTPTransport(settings, progress)
         self.queues = {name: Queue(settings.limits.max_queue_records, settings.limits.max_queue_bytes)
                        for name in ('logs', 'spans')}

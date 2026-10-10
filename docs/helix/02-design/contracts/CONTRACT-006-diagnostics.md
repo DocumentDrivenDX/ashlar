@@ -110,11 +110,25 @@ trusted transport initialization, never command arguments, console or capture.
 The owner must protect the file with its credential access policy.
 
 Selected dependency admission verifies the supported interpreter/platform and
-installed compatible integration versions before operation effects. Missing or
-incompatible dependencies refuse. After this admission and successful local
-capture construction, an ordinary worker or transport initialization failure
-preserves local capture and records remote delivery as unknown. It must not
-refuse or replay the business operation. A local capture construction failure
+all sixteen versions in the immutable `ashlar_host.otel_profile.SDK_VERSIONS`
+profile before operation effects. Actual SDK, signal encoder and selected HTTP
+exporter imports must succeed before provider construction. The worker emits
+exactly one initialization admission frame `{dependency_admitted: true}` after
+these checks; metadata presence alone cannot admit missing import dependencies.
+Missing, incompatible or unimportable selected dependencies refuse.
+
+`OtelStartupError` is a payload-free `DiagnosticsError` subtype with exactly two
+read-only disposition properties, `cleanup_complete: bool` and
+`dependency_admitted: bool`; constructor inputs require exact booleans. The owned
+adapter supplies positive dependency admission only from that initialization
+handshake and positive cleanup only after owned resources close. Composition
+accepts fallback only for the exact `OtelStartupError` type with both properties
+true. A subtype, lookalike attribute or absent/negative disposition cannot admit
+fallback. These properties are ownership receipts, not publication authority.
+After admitted dependencies, positive cleanup and successful local capture
+construction, an ordinary worker or transport initialization failure preserves
+local capture and records remote delivery as unknown. It must not refuse or
+replay the business operation. A local capture construction failure
 refuses before business effects because no promised local run exists. The first
 non-Exception cancellation during construction propagates after bounded owned
 cleanup. No constructor success alone establishes receiver delivery.
@@ -282,8 +296,10 @@ The installed retrieval command is
 [--min-severity 9|13|17] [--event-name NAME] [--limit 1..100]`.
 Defaults match `read_diagnostics`. Successful output is one UTF-8 JSON result
 followed by a newline on stdout; the 524288-byte bound includes that newline.
-Failure emits one fixed safe stderr refusal, exits nonzero and releases no
-partial stdout. Retrieval performs no SDK discovery or native/publication/ACK
+Snapshot admission failure emits one fixed safe stderr refusal, exits nonzero
+and publishes no stdout. The CLI validates and serializes the complete bounded
+result before writing it; a physical stdout I/O failure cannot retract bytes
+already delivered. Retrieval performs no SDK discovery or native/publication/ACK
 calls. This version supplies run, attempt, severity and event filters; timestamps
 remain checked evidence fields, without a timestamp-filter command or causal
 ordering promise.

@@ -1,0 +1,290 @@
+{
+  "scope": "Public startup disposition, selected dependency profile/admission, bounded parent protocol, cleanup receipt, delegating local-capture composition and their source tests. Source-only; Paths native phase hooks, CLI/package wiring and installed/native workflow qualification remain separate.",
+  "files": [
+    {
+      "path": "ashlar-diagnostic-composition-20261010-a.stderr.log",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-a.stderr.log",
+      "bytes": 413,
+      "sha256": "417e8af5ae208fef66140a27dfcf3a557384cd87cdfbb2ae6be3937c4bf1324c"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-a.stdout.log",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-a.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-b.json",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-b.json",
+      "bytes": 1569,
+      "sha256": "cac101e17e549d41508d52021bab3923079a290071828221ca7f0e5cb9ffa587"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-b.stderr.log",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-b.stderr.log",
+      "bytes": 482,
+      "sha256": "65cbe0b4e47b829884c3b888f3e46c1705c44ea6c49dc5f4860d313c74964202"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-b.stdout.log",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-b.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-c.json",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-c.json",
+      "bytes": 1744,
+      "sha256": "2f8d5bc61548cfac3883d354fd1122ff64525cbf8b0f8482bdefd5272f5b19ba"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-c.stderr.log",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-c.stderr.log",
+      "bytes": 543,
+      "sha256": "1b0de55aa3128ad0cef0c39a55f2445229e05e958273f3de923922789d5c3366"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-c.stdout.log",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-c.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-d-py39.stderr.log",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-d-py39.stderr.log",
+      "bytes": 119,
+      "sha256": "54e9488140754c117d066c7a284065949524124204267e78ba82f77fc43db7d8"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-d-py39.stdout.log",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-d-py39.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-d.stderr.log",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-d.stderr.log",
+      "bytes": 603,
+      "sha256": "09f46bc9bb4b9ad056a481237e28e880144fcc825aa12faead7672f31d22466d"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-d.stdout.log",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-d.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-e.json",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-e.json",
+      "bytes": 2213,
+      "sha256": "4454c51bf2c7141f2f8c11f1ea3e81038428f96db09ef874f2f7dfaa89f37c6a"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-e.stderr.log",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-e.stderr.log",
+      "bytes": 663,
+      "sha256": "310cfb46b83f6365bb280bb7d80d056428297d5624e84b42572c53a68ec24b3b"
+    },
+    {
+      "path": "ashlar-diagnostic-composition-20261010-e.stdout.log",
+      "source": "/private/tmp/ashlar-diagnostic-composition-20261010-e.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "astra-diagnostic-composition-candidate-review-20261010-c.json",
+      "source": "/private/tmp/astra-diagnostic-composition-candidate-review-20261010-c.json",
+      "bytes": 7083,
+      "sha256": "1ff017822669f98f3a4b7d76a332b30b185a50de3d2fccc0eba5f943ce5f81c3"
+    },
+    {
+      "path": "astra-diagnostic-composition-candidate-snapshot-20261010-c/_otel_worker.py",
+      "source": "/private/tmp/astra-diagnostic-composition-candidate-snapshot-20261010-c/_otel_worker.py",
+      "bytes": 34171,
+      "sha256": "143e6baf0d47c0886c69269a589883af4b4b100afa16fd161710eaa885a25a57"
+    },
+    {
+      "path": "astra-diagnostic-composition-candidate-snapshot-20261010-c/diagnostic_composition.py",
+      "source": "/private/tmp/astra-diagnostic-composition-candidate-snapshot-20261010-c/diagnostic_composition.py",
+      "bytes": 4315,
+      "sha256": "a1998938a4687076003e36a85f5b21d51091b0bef900c804f89d0a8e264e0fd6"
+    },
+    {
+      "path": "astra-diagnostic-composition-candidate-snapshot-20261010-c/otel.py",
+      "source": "/private/tmp/astra-diagnostic-composition-candidate-snapshot-20261010-c/otel.py",
+      "bytes": 13883,
+      "sha256": "da0ec86efd8563204722b3e5dc2870706d1757042bbcf137a79d7d1f0694a1cd"
+    },
+    {
+      "path": "astra-diagnostic-composition-candidate-snapshot-20261010-c/otel_profile.py",
+      "source": "/private/tmp/astra-diagnostic-composition-candidate-snapshot-20261010-c/otel_profile.py",
+      "bytes": 417,
+      "sha256": "dedb9bc82c10994aa6aeb92220ad5b8afb7af214dcbe3ee993fa0a0bf8e7e2ac"
+    },
+    {
+      "path": "astra-diagnostic-composition-candidate-snapshot-20261010-c/test_host_diagnostic_composition.py",
+      "source": "/private/tmp/astra-diagnostic-composition-candidate-snapshot-20261010-c/test_host_diagnostic_composition.py",
+      "bytes": 8129,
+      "sha256": "7ded0bf4abc6a0ecd75ae577ca9ea7e67da986a09ff9b2031bef324e7b7707d3"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-independent-20261010-b.py",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-independent-20261010-b.py",
+      "bytes": 6487,
+      "sha256": "722bca74fb17a3eba84ffb5de5184bfb3f782952068f4abcabac4432281933cb"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-independent-20261010-b.stderr.log",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-independent-20261010-b.stderr.log",
+      "bytes": 3749,
+      "sha256": "5e1e978a60080d9b97d00460b1ae35299a30ab86c08e3b14d09a1a5ea58b9c07"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-independent-20261010-b.stdout.log",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-independent-20261010-b.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-review-20261010-b.json",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-review-20261010-b.json",
+      "bytes": 10639,
+      "sha256": "dcec12173194a8b4e4313033cf92f12efa03eff34f97bd890944ad448b1dbac3"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-review-20261010-b.tests.stderr.log",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-review-20261010-b.tests.stderr.log",
+      "bytes": 682,
+      "sha256": "18fd29aa79b9a79d83a982dc37083548aff4deaf011e2fe7c27705d08190428a"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-review-20261010-b.tests.stdout.log",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-review-20261010-b.tests.stdout.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-snapshot-20261010-b/_otel_worker.py",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/_otel_worker.py",
+      "bytes": 34162,
+      "sha256": "08de742c3b7d1029cc78d401c512cc33ed7e566b2fce3e6a7a3dce24a9f86801"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-snapshot-20261010-b/diagnostic_composition.py",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/diagnostic_composition.py",
+      "bytes": 4347,
+      "sha256": "c13345460755673c9f9a01e1937bd3b49e762ec7746f25ad0a568c7e250fbaee"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-snapshot-20261010-b/otel.py",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/otel.py",
+      "bytes": 17412,
+      "sha256": "8c47bf952a5a2cc2bb1e3e7edbb6d57f0db270e6095ad30f8762518f4675d8d1"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-snapshot-20261010-b/otel_profile.py",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/otel_profile.py",
+      "bytes": 740,
+      "sha256": "4765b81692c781d7953637337ee8a8f066365bd658c2271f966ae54c1e531fc3"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-snapshot-20261010-b/test_host_diagnostic_composition.py",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/test_host_diagnostic_composition.py",
+      "bytes": 8753,
+      "sha256": "5cdbf8e1cd00743eab01876815146e5038f1d384b54df716b3c716cfe473a58c"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-snapshot-20261010-b/test_otel_supervision.py",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/test_otel_supervision.py",
+      "bytes": 18617,
+      "sha256": "55ac8a2636e6ad4accf04cff752cd3a81f1ab62de015c9b52731eec4b5643262"
+    },
+    {
+      "path": "astra-diagnostic-owner-seam-snapshot-20261010-b/test_otel_worker.py",
+      "source": "/private/tmp/astra-diagnostic-owner-seam-snapshot-20261010-b/test_otel_worker.py",
+      "bytes": 37486,
+      "sha256": "b1410a7a72d54f73556eda12ade96bfe0d248cde8cb43794929ab0496c0a8e27"
+    },
+    {
+      "path": "astra-otel-duplicate-admission-20261010-a/diagnostic_composition.py",
+      "source": "/private/tmp/astra-otel-duplicate-admission-20261010-a/diagnostic_composition.py",
+      "bytes": 4347,
+      "sha256": "c13345460755673c9f9a01e1937bd3b49e762ec7746f25ad0a568c7e250fbaee"
+    },
+    {
+      "path": "astra-otel-duplicate-admission-20261010-a/otel.py",
+      "source": "/private/tmp/astra-otel-duplicate-admission-20261010-a/otel.py",
+      "bytes": 16428,
+      "sha256": "9b11670a2e9361ba1f6bed1b5f56be7b030be4af25b7601ae6e74a02b10101b5"
+    },
+    {
+      "path": "astra-otel-duplicate-admission-20261010-a/probe.py",
+      "source": "/private/tmp/astra-otel-duplicate-admission-20261010-a/probe.py",
+      "bytes": 1481,
+      "sha256": "3caf3263349037873c8f68cba092a228b96db75c9019872d30e147a3d108734d"
+    },
+    {
+      "path": "astra-otel-duplicate-admission-20261010-a/review.json",
+      "source": "/private/tmp/astra-otel-duplicate-admission-20261010-a/review.json",
+      "bytes": 983,
+      "sha256": "82a9c05c07ea557d28a3d45b63f4f4d553569cacb2b25611f51087a2a8a261b7"
+    },
+    {
+      "path": "astra-otel-duplicate-admission-20261010-a/stderr.log",
+      "source": "/private/tmp/astra-otel-duplicate-admission-20261010-a/stderr.log",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "astra-otel-duplicate-admission-20261010-a/stdout.log",
+      "source": "/private/tmp/astra-otel-duplicate-admission-20261010-a/stdout.log",
+      "bytes": 863,
+      "sha256": "904268330ac836df36462e2891007f4dce3e33fa9de99aec488a86433ab1177d"
+    },
+    {
+      "path": "astra-otel-duplicate-admission-20261010-a/test_otel_supervision.py",
+      "source": "/private/tmp/astra-otel-duplicate-admission-20261010-a/test_otel_supervision.py",
+      "bytes": 18527,
+      "sha256": "9989a407af03c37c3d8ba0962657d85ec717430d311828ff252c21fd2bdb725a"
+    },
+    {
+      "path": "astra-worker-admission-review-20261010-a/independent-controls.json",
+      "source": "/private/tmp/astra-worker-admission-review-20261010-a/independent-controls.json",
+      "bytes": 5323,
+      "sha256": "f2fbb1a9ed7e5f849e83bca5101482a6b601d265b067939f622fb89cd83d3f37"
+    },
+    {
+      "path": "astra-worker-admission-review-20261010-a/review.json",
+      "source": "/private/tmp/astra-worker-admission-review-20261010-a/review.json",
+      "bytes": 1728,
+      "sha256": "4398f37148eb66d3c0664a5b0415c515a1f96e3c7cd741f69ba8f2a5e3d65983"
+    },
+    {
+      "path": "astra-worker-admission-review-20261010-a/tests.stderr",
+      "source": "/private/tmp/astra-worker-admission-review-20261010-a/tests.stderr",
+      "bytes": 4673,
+      "sha256": "7060fd17de58313c0d10780a0c11b5d2f7821ab67655bd5a687ec29e1431ce4e"
+    },
+    {
+      "path": "astra-worker-admission-review-20261010-a/tests.stdout",
+      "source": "/private/tmp/astra-worker-admission-review-20261010-a/tests.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "astra-diagnostic-startup-governance-review-20261010-b.json",
+      "source": "/private/tmp/astra-diagnostic-startup-governance-review-20261010-b.json",
+      "bytes": 2529,
+      "sha256": "18d9665729ec5c611cc6b2bd2fb0b247aa47fa396e0ec176ff143f9b373c693d"
+    }
+  ],
+  "root_validation": {
+    "terminalChunks": [
+      "206b10",
+      "87ed7e",
+      "0cbd98"
+    ],
+    "last": "54 source SDK/facade/composition controls pass; source service version fixture; inert HTTP only. No installed or native workflow qualification.",
+    "earlierTestOracleCorrection": "e55d69 and17d1c7 expected cleanup True for a helper already exited; actual macOS group signal returned PermissionError, so source correctly withheld positive cleanup. 344ba9 tests a still-owned live refusing helper and passes. No raw prior stderr file retained; terminal evidence only."
+  }
+}

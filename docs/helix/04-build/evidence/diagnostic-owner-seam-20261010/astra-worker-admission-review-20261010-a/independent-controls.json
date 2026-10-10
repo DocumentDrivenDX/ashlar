@@ -1,0 +1,197 @@
+{
+  "controls": [
+    {
+      "package": "opentelemetry-api",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-api",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-sdk",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-sdk",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-proto",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-proto",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-exporter-otlp-proto-common",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-exporter-otlp-proto-common",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-exporter-otlp-proto-http",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-exporter-otlp-proto-http",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-semantic-conventions",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-semantic-conventions",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-exporter-http-transport",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-exporter-http-transport",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-exporter-otlp-common",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "opentelemetry-exporter-otlp-common",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "protobuf",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "protobuf",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "requests",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "requests",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "urllib3",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "urllib3",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "idna",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "idna",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "certifi",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "certifi",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "charset-normalizer",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "charset-normalizer",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "googleapis-common-protos",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "googleapis-common-protos",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "typing-extensions",
+      "condition": "absent",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    },
+    {
+      "package": "typing-extensions",
+      "condition": "incompatible",
+      "dependencyAdmitted": false,
+      "traceProviderConstructed": false
+    }
+  ],
+  "scope": "32 inert metadata negative controls; actual selected SDK imports; no worker subprocess, receiver, network or native"
+}
