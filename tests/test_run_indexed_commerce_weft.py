@@ -65,6 +65,28 @@ class LifecycleTests(unittest.TestCase):
                     tool.run(index=root/'index',installation=root/'install',publication=publication,source=root/'source',jars=root,output=output,ack=tool.ACK_PROFILE)
             self.assertTrue(spark.stopped);self.assertFalse((output/'report.json').exists())
 
+    def test_exact_two_jar_preflight_and_tamper_refusal(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory).resolve();publication=root/'publication';publication.mkdir();(publication/'report.json').write_bytes(b'{}')
+            jars=root/'jars';jars.mkdir()
+            hashes={}
+            import hashlib
+            for name in tool.DELTA4_JARS:
+                raw=name.encode();(jars/name).write_bytes(raw);hashes[name]=hashlib.sha256(raw).hexdigest()
+            for control in ('valid','tamper','extra','missing','symlink'):
+                for path in jars.iterdir():path.unlink()
+                for name in hashes:(jars/name).write_bytes(name.encode())
+                selected=jars/next(iter(hashes))
+                if control=='tamper':selected.write_bytes(b'tampered')
+                elif control=='extra':(jars/'unexpected.jar').write_bytes(b'extra')
+                elif control=='missing':selected.unlink()
+                elif control=='symlink':
+                    target=root/'original.jar';target.write_bytes(selected.read_bytes());selected.unlink();selected.symlink_to(target)
+                with patch.object(tool.subprocess,'check_output',side_effect=[tool.UMF_PIN+'\n','']),patch.object(tool.importlib.metadata,'version',side_effect=lambda name:'4.0.1' if name=='pyspark' else '4.0.0'),patch.object(tool,'DELTA4_JARS',hashes):
+                    if control=='valid':self.assertEqual(len(tool.preflight(root,publication,jars,tool.ACK_PROFILE)),2)
+                    else:
+                        with self.assertRaisesRegex(ValueError,'Exact two-JAR'):tool.preflight(root,publication,jars,tool.ACK_PROFILE)
+
     def test_explicit_wrong_operator_profile_refuses_before_public_calls(self):
         with patch.object(tool.subprocess,'check_output',side_effect=AssertionError('public call')):
             with self.assertRaises(ValueError):tool.preflight(Path('source'),Path('publication'),Path('jars'),('other','host',123,'db'))

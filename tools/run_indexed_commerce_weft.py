@@ -19,6 +19,7 @@ from run_commerce_publication_weft import open_commerce_reader
 
 UMF_PIN = 'c7c95e1c4ea5b72541f47fa0350ca467ff02f395'
 ACK_PROFILE = ('ashlar-e2e-truss-pg17', '127.0.0.1', 15432, 'truss_e2e')
+DELTA4_JARS = {'delta-spark_2.13-4.0.0.jar':'538511702aae0ef6973a6a70af3d4543c9009f8edbed786a00737e2d3cd7f04e', 'delta-storage-4.0.0.jar':'9bdb9fb450f1e119eba53feb427f331b0d09072d26485b8273883ad72c9a2e1d'}
 
 
 def preflight(source: Path, publication: Path, jars: Path, ack: tuple):
@@ -27,8 +28,9 @@ def preflight(source: Path, publication: Path, jars: Path, ack: tuple):
     dirty = subprocess.check_output(['git','-C',str(source),'status','--porcelain','--untracked-files=no'],text=True)
     if head != UMF_PIN or dirty: raise ValueError('Exact clean original public UMF producer required')
     if not (publication/'report.json').is_file(): raise ValueError('Complete original publication required')
-    paths = sorted(jars.glob('*.jar'))
-    if len(paths)!=4: raise ValueError('Explicit complete four-JAR Delta4 runtime required')
+    paths = [jars/name for name in sorted(DELTA4_JARS)]
+    if set(p.name for p in jars.glob('*.jar'))!=set(DELTA4_JARS) or any(not p.is_file() or p.is_symlink() or hashlib.sha256(p.read_bytes()).hexdigest()!=DELTA4_JARS[p.name] for p in paths):
+        raise ValueError('Exact two-JAR Delta4 runtime required')
     if importlib.metadata.version('pyspark')!='4.0.1' or importlib.metadata.version('delta-spark')!='4.0.0':
         raise ValueError('Exact Spark4/Delta4 runtime required')
     return paths
